@@ -1,0 +1,21 @@
+th {
+	.q-grid-divider {
+		top: 20%;
+		bottom: 20%;
+		right: 0;
+		height: 60%;
+		width: 4px;
+		z-index: 2;
+		background: transparent;
+		position: absolute;
+		border-right: 1px solid rgba(0, 0, 0, 0.12);
+		cursor: col-resize;
+		visibility: hidden;
+	}
+
+	&:hover, &.q-grid-highlighted-prev {
+		.q-grid-divider {
+			visibility: visible;
+		}
+	}
+}

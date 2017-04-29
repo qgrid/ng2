@@ -1,0 +1,31 @@
+.q-grid-view {
+	&.q-grid-select-range {
+		thead, tfoot, tbody {
+			td, th {
+				@include user-select(none);
+				cursor: default;
+			}
+		}
+	}
+
+	&.q-grid-view-left,
+	&.g-grid-view-right {
+		tbody {
+			overflow-x: hidden;
+		}
+	}
+
+	&.q-grid-view-left {
+		tbody {
+			overflow-y: hidden;
+		}
+	}
+}
+
+.q-grid-with-right-pin {
+	.q-grid-view-center {
+		tbody {
+			overflow-y: hidden;
+		}
+	}
+}

@@ -1,0 +1,133 @@
+@import "mixins";
+
+td, th {
+	vertical-align: middle;
+	text-align: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	position: relative;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+
+	> * {
+		vertical-align: middle;
+	}
+
+	&.q-grid-pivot {
+		text-align: center;
+	}
+}
+
+thead {
+	th {
+		> div {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			outline: none;
+		}
+	}
+}
+
+thead, tfoot, tbody {
+	td, th {
+		width: 150px;
+		min-width: 150px;
+		max-width: 150px;
+
+		&.q-grid-pad {
+			width: 100%;
+			min-width: 100%;
+			max-width: 100%;
+			padding: 0 0 0 1px !important;
+			margin: 0 !important;
+		}
+
+		&.q-grid-group {
+			width: 200px;
+			min-width: 200px;
+			max-width: 200px;
+		}
+
+		&.q-grid-pivot {
+			width: 80px;
+			min-width: 80px;
+			max-width: 80px;
+		}
+
+		&.q-grid-email {
+			width: 200px;
+			min-width: 200px;
+			max-width: 200px;
+		}
+
+		&.q-grid-password {
+			width: 100px;
+			min-width: 100px;
+			max-width: 100px;
+		}
+
+		&.q-grid-bool {
+			width: 80px;
+			min-width: 80px;
+			max-width: 80px;
+		}
+
+		&.q-grid-date {
+			width: 110px;
+			min-width: 110px;
+			max-width: 110px;
+		}
+
+		&.q-grid-number {
+			width: 100px;
+			min-width: 100px;
+			max-width: 100px;
+		}
+
+		&.q-grid-array {
+			width: 250px;
+			min-width: 250px;
+			max-width: 250px;
+		}
+
+		&.q-grid-row-indicator {
+			width: 55px;
+			min-width: 55px;
+			max-width: 55px;
+		}
+
+		&.q-grid-row-number {
+			width: 55px;
+			min-width: 55px;
+			max-width: 55px;
+		}
+
+		&.q-grid-select {
+			width: 55px;
+			min-width: 55px;
+			max-width: 55px;
+		}
+	}
+}
+
+tbody {
+	td {
+		&.q-grid-number {
+			text-align: right;
+		}
+
+		&.q-grid-bool,
+		&.q-grid-password,
+		&.q-grid-select {
+			text-align: center;
+		}
+
+		&.q-grid-dropdown {
+			select {
+				width: 100%;
+			}
+		}
+	}
+}
