@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 export type InternalStateType = {
   [key: string]: any
@@ -6,13 +6,13 @@ export type InternalStateType = {
 
 @Injectable()
 export class AppState {
-
-  public _state: InternalStateType = { };
+  public _state: InternalStateType = {};
 
   // already return a clone of the current state
   public get state() {
     return this._state = this._clone(this._state);
   }
+
   // never allow mutation
   public set state(value) {
     throw new Error('do not mutate the `.state` directly');
@@ -31,6 +31,6 @@ export class AppState {
 
   private _clone(object: InternalStateType) {
     // simple object clone
-    return JSON.parse(JSON.stringify( object ));
+    return JSON.parse(JSON.stringify(object));
   }
 }

@@ -1,11 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'q-grid',
   providers: [],
-  template: 'q-grid2'
+  template: `
+    <ul>
+      <li *ngFor="let row of rows">{{row}}</li>
+    </ul>`
 })
 export class GridComponent implements OnInit {
+  @Input() rows: any[] = [];
+
   constructor() {
   }
 

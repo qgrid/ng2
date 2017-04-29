@@ -1,20 +1,20 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-
-import {AppState} from '../app.service';
+import {Component, OnInit} from '@angular/core';
+import {DataService, Human} from '../../data/data.service';
 
 @Component({
   selector: 'home',
   providers: [],
-  styleUrls: ['./home.component.scss'],
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
-  constructor(public appState: AppState) {
+  public rows: Human[] = [];
+
+  constructor(public dataService: DataService) {
   }
 
   public ngOnInit() {
+    this.dataService
+      .getPeople(100)
+      .subscribe(people => this.rows = people);
   }
 }

@@ -1,19 +1,9 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
-import {
-  NgModule,
-  ApplicationRef
-} from '@angular/core';
-import {
-  removeNgStyles,
-  createNewHosts,
-  createInputTransfer
-} from '@angularclass/hmr';
-import {
-  RouterModule,
-  PreloadAllModules
-} from '@angular/router';
+import {NgModule, ApplicationRef} from '@angular/core';
+import {removeNgStyles, createNewHosts, createInputTransfer} from '@angularclass/hmr';
+import {RouterModule, PreloadAllModules} from '@angular/router';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -27,11 +17,13 @@ import {AppState, InternalStateType} from './app.service';
 import {HomeComponent} from './home';
 import {NoContentComponent} from './no-content';
 import {GridModule} from '../../src/grid.module';
+import {DataService} from '../data/data.service';
 
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
-  AppState
+  AppState,
+  DataService
 ];
 
 type StoreType = {
@@ -63,9 +55,7 @@ type StoreType = {
   ]
 })
 export class AppModule {
-
-  constructor(public appRef: ApplicationRef,
-              public appState: AppState) {
+  constructor(public appRef: ApplicationRef, public appState: AppState) {
   }
 
   public hmrOnInit(store: StoreType) {
