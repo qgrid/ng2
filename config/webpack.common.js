@@ -40,15 +40,6 @@ const METADATA = {
 module.exports = function (options) {
   isProd = options.env === 'production';
   return {
-    resolve: {
-      alias: {
-        src: helpers.root('src'),
-        core: helpers.root('src/core'),
-        ng2: helpers.root('/src/ng2'),
-        themes: helpers.root('/src/themes')
-      }
-    },
-
     /*
      * Cache generated modules and chunks to improve performance for multiple incremental builds.
      * This is enabled by default in watch mode.
@@ -67,8 +58,8 @@ module.exports = function (options) {
     entry: {
 
       'polyfills': './demo/polyfills.browser.ts',
-      'main':      AOT ? './demo/main.browser.aot.ts' :
-                  './demo/main.browser.ts'
+      'main': AOT ? './demo/main.browser.aot.ts' :
+        './demo/main.browser.ts'
 
     },
 
@@ -89,6 +80,12 @@ module.exports = function (options) {
       // An array of directory names to be resolved to the current directory
       modules: [helpers.root('demo'), helpers.root('node_modules')],
 
+      alias: {
+        src: helpers.root('src'),
+        core: helpers.root('src/core'),
+        ng2: helpers.root('src/ng2'),
+        themes: helpers.root('src/themes')
+      }
     },
 
     /*
@@ -196,7 +193,7 @@ module.exports = function (options) {
         },
 
         /* File loader for supporting fonts, for example, in CSS files.
-        */
+         */
         {
           test: /\.(eot|woff2?|svg|ttf)([\?]?.*)$/,
           use: 'file-loader'
@@ -212,6 +209,7 @@ module.exports = function (options) {
      * See: http://webpack.github.io/docs/configuration.html#plugins
      */
     plugins: [
+
       new AssetsPlugin({
         path: helpers.root('dist'),
         filename: 'webpack-assets.json',
@@ -273,8 +271,8 @@ module.exports = function (options) {
        * See: https://www.npmjs.com/package/copy-webpack-plugin
        */
       new CopyWebpackPlugin([
-        { from: 'demo/assets', to: 'assets' },
-        { from: 'demo/meta'}
+        {from: 'demo/assets', to: 'assets'},
+        {from: 'demo/meta'}
       ]),
 
 
