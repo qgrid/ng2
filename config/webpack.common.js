@@ -40,6 +40,14 @@ const METADATA = {
 module.exports = function (options) {
   isProd = options.env === 'production';
   return {
+    resolve: {
+      alias: {
+        src: helpers.root('src'),
+        core: helpers.root('src/core'),
+        ng2: helpers.root('/src/ng2'),
+        themes: helpers.root('/src/themes')
+      }
+    },
 
     /*
      * Cache generated modules and chunks to improve performance for multiple incremental builds.
