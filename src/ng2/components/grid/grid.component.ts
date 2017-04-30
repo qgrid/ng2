@@ -1,5 +1,5 @@
-import {Component, Input, Output} from '@angular/core';
-import RootComponent from '../root.component';
+import {Component, Input, Output, ElementRef} from '@angular/core';
+import {RootComponent} from '../root.component';
 
 @Component({
   selector: 'q-grid',
@@ -7,7 +7,8 @@ import RootComponent from '../root.component';
   templateUrl: './grid.component.html'
 })
 export class GridComponent extends RootComponent {
-  @Input() rows: any[] = [];
+  protected names = ['data', 'selection', 'sort', 'group', 'pivot', 'edit'];
+
   @Input() model;
   @Input('rows') dataRows;
   @Input('columns') dataColumns;
@@ -27,13 +28,16 @@ export class GridComponent extends RootComponent {
   @Input() editCancel;
   @Input() editReset;
 
-  constructor() {
-    super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
-  }
+  // constructor(private element: ElementRef) {
+  //   super();
+  // }
 
   ngOnInit() {
+    super.ngOnInit();
+
     this.compile();
 
+    console.log(this.model);
     this.model.viewChanged.watch(e => {
       if (e.hasChanges('columns')) {
         this.invalidateVisibility();
@@ -42,6 +46,8 @@ export class GridComponent extends RootComponent {
   }
 
   compile() {
+    //const element = this.element.nativeElement;
+
     // let template = null;
     // let templateScope = null;
     //

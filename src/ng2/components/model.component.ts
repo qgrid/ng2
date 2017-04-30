@@ -1,24 +1,21 @@
 import ModelBinder from 'core/infrastructure/model.bind';
 import {noop} from 'core/services/utility';
 import * as guard from 'core/infrastructure/guard';
-import {OnChanges, SimpleChanges} from '@angular/core';
-import Component from './component';
-import RootComponent from './root.component';
+import {OnChanges, SimpleChanges, Inject, forwardRef} from '@angular/core';
+import {Component} from './component';
+import {RootComponent} from './root.component';
 
-export default class ModelComponent extends Component implements OnChanges {
-  private binder = new ModelBinder(this);
-  private commit = noop;
-  private names: string[] = [];
-  root: RootComponent = null;
+export class ModelComponent extends Component implements OnChanges {
+  protected names: string[] = [];
+  binder = new ModelBinder(this);
+  commit = noop;
 
-  constructor(...names: string[]) {
+  constructor(public root: RootComponent) {
     super();
-
-    this.names = names;
   }
 
   setup() {
-    this.binder.bind(this.model, this.names, false);
+    return this.binder.bind(this.model, this.names, false);
   }
 
   ngOnInit() {

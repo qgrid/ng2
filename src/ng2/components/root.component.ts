@@ -3,19 +3,17 @@ import ModelBinder from 'core/infrastructure/model.bind';
 import {noop} from 'core/services/utility';
 import Event from 'core/infrastructure/event';
 import {OnChanges, SimpleChanges} from '@angular/core';
-import Component from './component';
+import {Component} from './component';
 
-export default class RootComponent extends Component implements OnChanges {
-  modelChanged = new Event();
-  model = null;
-  private binder = new ModelBinder(this);
-  private commit = noop;
-  private names: string[] = [];
+export class RootComponent extends Component implements OnChanges {
+  public model = null;
+  public modelChanged = new Event();
+  protected names: string[] = [];
+  binder = new ModelBinder(this);
+  commit = noop;
 
-  constructor(...names: string[]) {
+  constructor() {
     super();
-
-    this.names = names;
   }
 
   setup() {
@@ -28,13 +26,16 @@ export default class RootComponent extends Component implements OnChanges {
     return this.binder.bind(this.model, this.names, run);
   }
 
+  ngOnInit() {
+    this.commit = this.setup();
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.hasOwnProperty('model')) {
       this.commit = this.setup();
       this.commit();
 
       this.modelChanged.emit(this.model);
-      this.ngOnInit();
       return;
     }
 
