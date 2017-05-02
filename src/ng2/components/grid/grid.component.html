@@ -1,41 +1,41 @@
-<ul>
-  <li *ngFor="let row of dataRows">{{row}}</li>
-</ul>
-<!--<q-grid-core:box class="q-grid-box layout-column">-->
-  <!--<q-grid-core:toolbar position="top"-->
-                       <!--class="q-grid-toolbar q-grid-toolbar-top flex-auto"-->
-                       <!--*ngIf="visibility.toolbar.top">-->
-  <!--</q-grid-core:toolbar>-->
-  <!--<div flex="100"-->
-       <!--layout="row"-->
-       <!--[ngClass]="{-->
-		  	<!--'q-grid-with-left-pin': visibility.pin.left,-->
-		  	<!--'q-grid-with-right-pin': visibility.pin.right-->
-		  <!--}">-->
-    <!--<q-grid-core:toolbar position="left"-->
-                         <!--class="q-grid-toolbar q-grid-toolbar-left flex-auto"-->
-                         <!--*ngIf="visibility.toolbar.left">-->
-    <!--</q-grid-core:toolbar>-->
-    <!--<q-grid-core:view *ngIf="visibility.pin.left"-->
-                      <!--class="q-grid-view q-grid-view-left layout-column"-->
-                      <!--pin="left"-->
-                      <!--q-grid:markup="view">-->
-    <!--</q-grid-core:view>-->
-    <!--<q-grid-core:view class="q-grid-view q-grid-view-center layout-column flex"-->
-                      <!--q-grid:markup="view">-->
-    <!--</q-grid-core:view>-->
-    <!--<q-grid-core:view *ngIf="visibility.pin.right"-->
-                      <!--pin="right"-->
-                      <!--class="q-grid-view q-grid-view-right layout-column"-->
-                      <!--q-grid:markup="view">-->
-    <!--</q-grid-core:view>-->
-    <!--<q-grid-core:toolbar position="right"-->
-                         <!--class="q-grid-toolbar q-grid-toolbar-right flex-auto"-->
-                         <!--*ngIf="visibility.toolbar.right">-->
-    <!--</q-grid-core:toolbar>-->
-  <!--</div>-->
-  <!--<q-grid-core:toolbar position="bottom"-->
-                       <!--class="q-grid-toolbar q-grid-toolbar-bottom flex-auto"-->
-                       <!--*ngIf="visibility.toolbar.bottom">-->
-  <!--</q-grid-core:toolbar>-->
-<!--</q-grid-core:box>-->
+<!--<q-grid-content>-->
+<!--<ng-content></ng-content>-->
+<!--</q-grid-content>-->
+<q-grid-core-box class="q-grid-box layout-column">
+  <!--<q-grid-core-toolbar position="top"-->
+  <!--class="q-grid-toolbar q-grid-toolbar-top flex-auto"-->
+  <!--*ngIf="visibility.toolbar.top">-->
+  <!--</q-grid-core-toolbar>-->
+  <div flex="100"
+       layout="row"
+       [ngClass]="{
+		  	'q-grid-with-left-pin': visibility.pin.left,
+		  	'q-grid-with-right-pin': visibility.pin.right
+		  }">
+    <!--<q-grid-core-toolbar position="left"-->
+    <!--class="q-grid-toolbar q-grid-toolbar-left flex-auto"-->
+    <!--*ngIf="visibility.toolbar.left">-->
+    <!--</q-grid-core-toolbar>-->
+    <q-grid-core-view *ngIf="visibility.pin.left"
+                      class="q-grid-view q-grid-view-left layout-column"
+                      pin="left"
+                      q-grid-markup="view">
+    </q-grid-core-view>
+    <q-grid-core-view class="q-grid-view q-grid-view-center layout-column flex"
+                      q-grid-markup="view">
+    </q-grid-core-view>
+    <q-grid-core-view *ngIf="visibility.pin.right"
+                      pin="right"
+                      class="q-grid-view q-grid-view-right layout-column"
+                      q-grid-markup="view">
+    </q-grid-core-view>
+    <!--<q-grid-core-toolbar position="right"-->
+    <!--class="q-grid-toolbar q-grid-toolbar-right flex-auto"-->
+    <!--*ngIf="visibility.toolbar.right">-->
+    <!--</q-grid-core-toolbar>-->
+  </div>
+  <!--<q-grid-core-toolbar position="bottom"-->
+  <!--class="q-grid-toolbar q-grid-toolbar-bottom flex-auto"-->
+  <!--*ngIf="visibility.toolbar.bottom">-->
+  <!--</q-grid-core-toolbar>-->
+</q-grid-core-box>

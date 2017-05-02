@@ -6,7 +6,6 @@ export class Component implements OnInit, OnDestroy {
 
   ngOnInit(): void {
   }
-
   ngOnDestroy(): void {
   }
 }

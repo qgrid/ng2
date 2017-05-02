@@ -28,9 +28,9 @@ export class GridComponent extends RootComponent {
   @Input() editCancel;
   @Input() editReset;
 
-  // constructor(private element: ElementRef) {
-  //   super();
-  // }
+  constructor(private element: ElementRef) {
+    super();
+  }
 
   ngOnInit() {
     super.ngOnInit();

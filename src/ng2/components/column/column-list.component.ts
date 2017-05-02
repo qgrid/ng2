@@ -1,4 +1,4 @@
-import {Component, Input, Output, ElementRef} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ModelComponent} from '../model.component';
 import {GridComponent} from '../grid/grid.component';
 

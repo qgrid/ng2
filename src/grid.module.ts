@@ -1,8 +1,15 @@
 import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+
+import './assets/index.scss';
+
 import {GridComponent} from './ng2/components/grid';
 import {ColumnListComponent} from './ng2/components/column';
-import {BrowserModule} from '@angular/platform-browser';
-import './assets/index.scss';
+import {BoxCoreComponent} from './ng2/components/box'
+import {ViewCoreComponent} from './ng2/components/view'
+
+import {TemplateCacheService} from './ng2/services/template-cache.service';
+import {ThemeProvider} from './ng2/services/theme.provider';
 
 import Model from 'core/infrastructure/model';
 import GridModel from 'core/grid/grid.model';
@@ -65,14 +72,21 @@ Model.register('grid', GridModel)
 @NgModule({
   declarations: [
     GridComponent,
-    ColumnListComponent
+    ColumnListComponent,
+    BoxCoreComponent,
+    ViewCoreComponent
   ],
   exports: [
     GridComponent,
     ColumnListComponent
   ],
-  imports: [BrowserModule],
-  providers: []
+  imports: [
+    BrowserModule
+  ],
+  providers: [
+    TemplateCacheService,
+    ThemeProvider
+  ]
 })
 export class GridModule {
   constructor() {

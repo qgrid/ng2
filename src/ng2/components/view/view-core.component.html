@@ -1,0 +1,22 @@
+<table q-grid-markup="table" tabindex="0">
+	<thead ng-if="$view.visibility.head"
+			 ng-include="$view.templateUrl('head')"
+			 q-grid-core-head
+			 q-grid-markup="head"
+			 q-grid-animate="false">
+	</thead>
+	<tbody ng-include="$view.templateUrl($view.scroll.mode === 'virtual' ? 'body.virtual' - 'body')"
+			 ng-if="$view.visibility.body"
+			 q-grid-core-body
+			 q-grid-markup="body"
+			 q-grid-animate="false"
+			 vscroll
+			 vscroll-port-y="$view.scroll.y">
+	</tbody>
+	<tfoot ng-if="$view.visibility.foot"
+			 ng-include="$view.templateUrl('foot')"
+			 q-grid-core-foot
+			 q-grid-markup="foot"
+			 q-grid-animate="false">
+	</tfoot>
+</table>
