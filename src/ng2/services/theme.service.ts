@@ -1,15 +1,14 @@
+import {Injectable} from '@angular/core';
 import Event from 'core/infrastructure/event';
-import {TemplateCacheService} from './template-cache.service';
-import AppError from 'core/infrastructure/error';
+import {ThemeProvider} from "./theme.provider";
+import {TemplateCacheService} from "./template-cache.service";
 
-const DEFAULT_THEME = 'default';
-
+@Injectable()
 export class ThemeService {
   changed = new Event();
   private themeName = '';
 
-  constructor(private themes: Map<string, (any) => (TemplateCacheService) => void>, private cache: TemplateCacheService) {
-    this.name = DEFAULT_THEME;
+  constructor(private themeProvider: ThemeProvider, private cache: TemplateCacheService) {
   }
 
   get name(): string {
@@ -19,11 +18,7 @@ export class ThemeService {
   set name(value: string) {
     if (value !== this.themeName) {
       const oldName = this.themeName;
-      const apply = this.themes.get(value);
-      if (!apply) {
-        throw new AppError('theme.service', `Can't find constructor for theme '${value}'`);
-      }
-
+      const apply = this.themeProvider.get(value);
       this.themeName = value;
 
       apply(this.cache);

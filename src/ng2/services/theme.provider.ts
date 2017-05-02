@@ -1,15 +1,12 @@
 import {Injectable} from '@angular/core';
 import {TemplateCacheService} from './template-cache.service';
 import AppError from 'core/infrastructure/error';
-import {ThemeService} from './theme.service';
 
 @Injectable()
 export class ThemeProvider {
   private themes: Map<string, () => (string) => void> = new Map();
-  private themeService: ThemeService = null;
 
-  constructor(private cache: TemplateCacheService) {
-    this.themeService = new ThemeService(this.themes, this.cache);
+  constructor() {
   }
 
   register(theme, apply) {
@@ -21,7 +18,11 @@ export class ThemeProvider {
     this.themes.set(theme, apply);
   }
 
-  service() {
-    return this.themeService;
+  get(theme): (TemplateCacheService) => void {
+    if (!this.themes.has(theme)) {
+      throw new AppError('theme.service', `Can't find theme '${theme}'`);
+    }
+
+    return this.themes.get(theme);
   }
 }
