@@ -114,6 +114,7 @@
     "codelyzer": "~2.1.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.0",
+    "css.escape": "^1.5.1",
     "exports-loader": "^0.6.4",
     "expose-loader": "^0.7.3",
     "extract-text-webpack-plugin": "~2.1.0",

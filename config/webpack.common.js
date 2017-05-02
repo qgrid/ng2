@@ -271,7 +271,7 @@ module.exports = function (options) {
        * See: https://www.npmjs.com/package/copy-webpack-plugin
        */
       new CopyWebpackPlugin([
-        {from: 'demo/assets', to: 'assets'},
+        //{from: 'demo/assets', to: 'assets'},
         {from: 'demo/meta'}
       ]),
 
