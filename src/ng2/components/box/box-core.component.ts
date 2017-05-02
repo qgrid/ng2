@@ -7,7 +7,7 @@ import * as guard from 'core/infrastructure/guard';
 
 @Component({
   selector: 'q-grid-core-box',
-  template: ''
+  template: '<ng-content></ng-content>'
 })
 export class BoxCoreComponent extends NgComponent {
   @Input('model') boxModel: any = null;

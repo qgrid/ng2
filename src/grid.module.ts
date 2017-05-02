@@ -8,6 +8,8 @@ import {ColumnListComponent} from './ng2/components/column';
 import {BoxCoreComponent} from './ng2/components/box'
 import {ViewCoreComponent} from './ng2/components/view'
 
+import {MarkupDirective} from "./ng2/directives/markup";
+
 import {TemplateCacheService} from './ng2/services/template-cache.service';
 import {ThemeProvider} from './ng2/services/theme.provider';
 import {ThemeService} from './ng2/services/theme.service';
@@ -75,7 +77,8 @@ Model.register('grid', GridModel)
     GridComponent,
     ColumnListComponent,
     BoxCoreComponent,
-    ViewCoreComponent
+    ViewCoreComponent,
+    MarkupDirective
   ],
   exports: [
     GridComponent,
