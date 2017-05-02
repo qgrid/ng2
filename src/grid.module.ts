@@ -10,6 +10,7 @@ import {ViewCoreComponent} from './ng2/components/view'
 
 import {MarkupDirective} from "./ng2/directives/markup";
 
+import {GridService} from './ng2/services/grid.service';
 import {TemplateCacheService} from './ng2/services/template-cache.service';
 import {ThemeProvider} from './ng2/services/theme.provider';
 import {ThemeService} from './ng2/services/theme.service';
@@ -90,7 +91,8 @@ Model.register('grid', GridModel)
   providers: [
     TemplateCacheService,
     ThemeProvider,
-    ThemeService
+    ThemeService,
+    GridService
   ]
 })
 export class GridModule {

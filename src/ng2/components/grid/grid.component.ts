@@ -1,4 +1,4 @@
-import {Component, Input, Output, ElementRef} from '@angular/core';
+import {Component, Input, Output, ElementRef, EventEmitter} from '@angular/core';
 import {RootComponent} from '../root.component';
 
 @Component({
@@ -27,6 +27,7 @@ export class GridComponent extends RootComponent {
   @Input() editCommit;
   @Input() editCancel;
   @Input() editReset;
+  @Output() selectionChanged = new EventEmitter<any>();
 
   constructor(private element: ElementRef) {
     super();
