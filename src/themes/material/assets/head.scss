@@ -1,0 +1,31 @@
+@import "variables";
+
+.q-grid-view {
+	thead, tfoot {
+		tr {
+			height: 56px;
+			th, td {
+				&.q-grid-select {
+					md-checkbox {
+						margin: 0;
+					}
+				}
+
+				label {
+					display: inline;
+				}
+
+				color: $dark-secondary;
+				font-size: 12px;
+				font-weight: bold;
+				padding: 0 16px;
+
+				&:hover {
+					label {
+						font-weight: bold;
+					}
+				}
+			}
+		}
+	}
+}

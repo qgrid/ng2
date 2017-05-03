@@ -1,0 +1,16 @@
+<md-autocomplete
+	md-autofocus
+	q-grid:raise="focus"
+	ng-blur="$view.edit.cell.commit.execute($cell)"
+	md-selected-item="$view.edit.cell.value"
+	ng-model="$view.edit.cell.value"
+	ng-change="$view.edit.cell.commit.execute($cell)"
+	md-search-text="searchText"
+	md-search-text-change="$view.edit.cell.fetch.run($cell.row, searchText)"
+	md-items="item in $view.edit.cell.fetch.busy"
+	md-item-text="item"
+	placeholder="Select a value">
+	<md-item-template>
+		<span md-highlight-text="searchText">{{item}}</span>
+	</md-item-template>
+</md-autocomplete>

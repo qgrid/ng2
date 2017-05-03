@@ -1,0 +1,18 @@
+&.q-grid-box:not(.q-grid-drag) {
+	tbody {
+		td, tr {
+			&.q-grid-highlighted {
+				background-color: #eee;
+			}
+
+			&.q-grid-focus {
+				background-color: #ddd !important;
+			}
+		}
+	}
+}
+
+.q-grid-highlight-part {
+	background-color: yellow;
+	color: #000;
+}

@@ -1,0 +1,11 @@
+<div class="q-grid-editor q-grid-date">
+	<h2 class="md-title">Edit {{::$cell.column.title}}</h2>
+	<md-datepicker ng-model="$view.edit.cell.value"
+						md-placeholder="Enter date"
+						md-auto-focus>
+	</md-datepicker>
+	<div class="q-grid-actions">
+		<md-button class="md-primary md-confirm-button" ng-click="$view.edit.cell.commit.execute($cell, $event)">Save</md-button>
+		<md-button class="md-primary md-cancel-button" ng-click="$view.edit.cell.cancel.execute($cell, $event)">Cancel</md-button>
+	</div>
+</div>

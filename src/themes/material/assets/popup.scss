@@ -1,0 +1,35 @@
+&.q-grid-popup-panel {
+	md-card {
+		margin: 0;
+
+		md-card-content {
+			max-height: 500px;
+			overflow: hidden;
+		}
+
+		md-card-header {
+			width: 100%;
+			padding: 0;
+			background-color: #fff;
+
+			md-card-title {
+				padding: 0;
+
+				md-card-title-text {
+					margin-left: 10px;
+					.md-subhead {
+						line-height: 30px;
+						vertical-align: middle;
+					}
+				}
+			}
+
+			.md-icon-button {
+				padding: 0;
+				margin: 0;
+				max-height: 30px;
+				min-height: 20px;
+			}
+		}
+	}
+}

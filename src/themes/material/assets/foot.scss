@@ -1,0 +1,14 @@
+@import "body";
+
+tfoot {
+	> tr {
+		height: $row-height;
+
+		td {
+			color: $dark;
+			font-size: 13px;
+			border-top: 1px $dark-divider solid;
+			padding: 0 16px;
+		}
+	}
+}

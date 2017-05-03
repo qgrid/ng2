@@ -3,9 +3,7 @@ import {Directive, ElementRef, OnInit, TemplateRef, ViewContainerRef} from '@ang
 import EventListener from 'core/infrastructure/event.listener';
 //import * as pathFinder from 'ng2/services/path.find';
 import {ViewCoreComponent} from '../view/view-core.component';
-import {TemplateCacheService} from "../../services/template-cache.service";
 import {TemplateService} from "../../services/template.service";
-
 
 export class BodyCoreContext {
   constructor(public $view: ViewCoreComponent) {
@@ -27,19 +25,13 @@ export class BodyCoreDirective implements OnInit {
 
   constructor(element: ElementRef,
               private view: ViewCoreComponent,
-              private templateService: TemplateService,
               private viewContainerRef: ViewContainerRef,
-              private templateRef: TemplateRef<BodyCoreContext>,
-              private templateCache: TemplateCacheService) {
+              private templateRef: TemplateRef<BodyCoreContext>) {
     this.element = element.nativeElement;
     this.listener = new EventListener(this, this.element);
   }
 
   ngOnInit() {
-    const context = new BodyCoreContext(this.view);
-    const template = this.templateCache.get('qgrid.body.tpl.html');
-    const factory = this.templateService.componentFactory(template, context);
-    this.viewContainerRef.createComponent(factory);
 
     this.listener.on('scroll', this.onScroll);
     this.listener.on('click', this.onClick);

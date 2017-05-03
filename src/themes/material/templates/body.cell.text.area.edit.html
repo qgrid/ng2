@@ -1,0 +1,12 @@
+<div class="q-grid-editor q-grid-text-area">
+	<md-input-container>
+		<textarea type="text"
+					 rows="8"
+					 cols="45"
+					 wrap="soft"
+					 q-grid:focus
+					 ng-blur="$view.edit.cell.commit.execute($cell)"
+					 md-maxlength="{{::$cell.column.maxLength}}"
+					 ng-model="$view.edit.cell.value"/>
+	</md-input-container>
+</div>

@@ -1,0 +1,28 @@
+<div layout="row" class="q-grid-selection-bar">
+	<md-input-container>
+		<label>Unit</label>
+		<md-select ng-model="$selectionBar.unit" 
+			  ng-change="$selectionBar.toggleUnit.execute($selectionBar.unit)"
+			  ng-disabled="!$selectionBar.toggleUnit.canExecute()">
+			<md-option ng-value="unit.key" 
+					ng-repeat="unit in $selectionBar.units"
+					ng-bind="unit.title"></md-option>
+		</md-select>
+	</md-input-container>
+
+	<md-input-container>
+		<label>Mode</label>
+		<md-select ng-model="$selectionBar.mode" 
+					ng-change="$selectionBar.toggleMode.execute($selectionBar.mode)"
+					ng-disabled="!$selectionBar.toggleMode.canExecute()">
+			<md-option ng-value="mode.key" 
+					ng-repeat="mode in $selectionBar.modes"
+					ng-bind="mode.title"></md-option>
+		</md-select>
+	</md-input-container>
+
+ 	<md-input-container>
+		<label>Selection Count</label>
+		<input ng-model="$selectionBar.count" disabled>
+	</md-input-container>
+</div>

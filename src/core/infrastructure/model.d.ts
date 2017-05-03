@@ -1,3 +1,3 @@
-export default class Model {
+export abstract class Model {
   static register(name: string, model: Function);
 }

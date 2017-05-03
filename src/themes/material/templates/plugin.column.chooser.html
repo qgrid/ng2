@@ -1,0 +1,69 @@
+<div class="q-grid-column-chooser" layout="column" flex="100">
+	<div flex="none" layout="row">
+		<md-input-container class="q-grid-column-chooser-filter" flex>
+			<label>Search</label>
+			<input type="text"
+					 ng-model="$columnChooser.filter"
+					 q-grid:focus/>
+		</md-input-container>
+	</div>
+	<div flex layout="column">
+		<ul>
+			<li>
+				<md-checkbox ng-click="$columnChooser.toggleAll.execute()"
+								 ng-checked="$columnChooser.stateAll()"
+								 md-indeterminate="$columnChooser.isIndeterminate()">
+					Select All
+				</md-checkbox>
+			</li>
+			<li>
+				<md-checkbox ng-click="$columnChooser.defaults.execute()"
+								 ng-checked="$columnChooser.stateDefault()">
+					Select Defaults
+				</md-checkbox>
+			</li>
+		</ul>
+		<ul class="q-grid-column-chooser-list">
+			<li ng-repeat="column in $columnChooser.columns | filter: $columnChooser.filter"
+				q-grid:drag="$columnChooser.transfer(column)"
+				q-grid:drop="$columnChooser.transfer(column)"
+				q-grid:on-drop="$columnChooser.drop.execute($event)"
+				q-grid:can-drop="$columnChooser.drop.canExecute($event)"
+				q-grid:can-drag="$columnChooser.drag.canExecute($event)">
+
+				<md-checkbox ng-checked="$columnChooser.state(column)"
+								ng-if="$columnChooser.toggle.canExecute(column)"
+								ng-click="$columnChooser.toggle.execute(column)"
+								aria-label="Selection">
+					<span ng-bind-html="column.title | qgridHighlight : $columnChooser.filter"> </span>
+				</md-checkbox>
+
+
+				<md-input-container ng-if="$columnChooser.canAggregate">
+					<md-select aria-label="Aggregation" ng-model="column.aggregation"
+								ng-change="$columnChooser.toggleAggregation.execute(column)">
+						<md-option value=""><em>Aggregation</em></md-option>
+						<md-option ng-repeat="aggregation in $columnChooser.aggregations"
+									ng-value="aggregation">
+							{{::aggregation}}
+						</md-option>
+					</md-select>
+				</md-input-container>
+
+			</li>
+		</ul>
+	</div>
+	<div class="q-grid-column-chooser-actions" flex="none">
+		<md-button ng-click="$columnChooser.cancel.execute()">
+			Cancel
+		</md-button>
+		<md-button ng-click="$columnChooser.reset.execute()">
+			Reset
+		</md-button>
+		<md-button class="md-primary"
+					  ng-click="$columnChooser.submit.execute()"
+					  ng-disabled="!$columnChooser.submit.canExecute()">
+			Apply
+		</md-button>
+	</div>
+</div>

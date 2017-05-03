@@ -1,0 +1,30 @@
+<div class="q-grid-pager" ng-switch="$pager.scroll.mode">
+	<div ng-switch-when="virtual">
+		<label class="q-grid-page" ng-switch="::$pager.mode">
+			<span ng-switch-when="row">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>
+			<span ng-switch-default>{{$pager.current + 1}} of {{$pager.totalPages}}</span>
+		</label>
+	</div>
+	<div ng-switch-default>
+		<label class="q-grid-page-size">Rows per page:</label>
+		<md-select aria-label="Page Size List"
+					  class="q-grid-page-size"
+					  ng-model="$pager.size">
+			<md-option ng-repeat="size in $pager.sizeList" ng-value="size">{{size}}</md-option>
+		</md-select>
+		<label class="q-grid-page" ng-switch="::$pager.mode">
+			<span ng-switch-when="row">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>
+			<span ng-switch-default>{{$pager.current + 1}} of {{$pager.totalPages}}</span>
+		</label>
+		<md-button class="md-icon-button q-grid-prev-page"
+					  ng-disabled="!$pager.prev.canExecute()"
+					  ng-click="$pager.prev.execute();">
+			<md-icon>keyboard_arrow_left</md-icon>
+		</md-button>
+		<md-button class="md-icon-button q-grid-next-page"
+					  ng-disabled="!$pager.next.canExecute()"
+					  ng-click="$pager.next.execute();">
+			<md-icon>keyboard_arrow_right</md-icon>
+		</md-button>
+	</div>
+</div>

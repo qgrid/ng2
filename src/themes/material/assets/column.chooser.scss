@@ -1,0 +1,45 @@
+.q-grid-toolbar{
+	.q-grid-column-chooser {
+		.q-grid-column-chooser-filter{
+			margin-top: 18px;
+		}
+	}
+}
+
+.q-grid-column-chooser {
+	width: 320px;
+
+	ul {
+		list-style-type: none;
+		padding: 0;
+	}
+
+	md-checkbox {
+		margin: 0 0 10px 0;
+	}
+
+	.q-grid-column-chooser-filter {
+		margin-left: 4px;
+		margin-right: 4px;
+		margin-bottom: 0;
+		margin-top: 0;
+		
+		.md-errors-spacer {
+			display: none;
+		}
+	}
+
+	.q-grid-column-chooser-list {
+		margin: 0;
+		overflow-y: auto;
+		height: 340px;
+
+		md-input-container {
+			margin: 0;
+		}
+	}
+
+	.q-grid-column-chooser-actions {
+		padding: 7px 0;
+	}
+}
