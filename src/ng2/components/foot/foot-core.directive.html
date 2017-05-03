@@ -1,7 +1,7 @@
-<tr ng-repeat="$row in $view.foot.rows track by $index">
-	<td ng-repeat="$column in $view.foot.columns track by $column.model.key"
-		 rowspan="{{$column.rowspan}}"
-		 colspan="{{$column.colspan}}"
-		 q-grid-core:tf>
+<tr *ngFor="let $row of $view.foot.rows; trackBy: index">
+	<td *ngFor="let $column of $view.foot.columns; trackBy: $column.model.key"
+		 [attr.rowspan]="$column.rowspan"
+		 [attr.colspan]="$column.colspan"
+		 q-grid-core-tf>
 	</td>
 </tr>

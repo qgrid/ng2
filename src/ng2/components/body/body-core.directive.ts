@@ -1,22 +1,52 @@
-import {Directive, ElementRef} from '@angular/core';
+import {Directive, ElementRef, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
 //import {VIEW_CORE_NAME, BODY_CORE_NAME} from 'ng2/definition';
 import EventListener from 'core/infrastructure/event.listener';
 //import * as pathFinder from 'ng2/services/path.find';
 import {ViewCoreComponent} from '../view/view-core.component';
+import {TemplateCacheService} from "../../services/template-cache.service";
+import {TemplateService} from "../../services/template.service";
+
+
+export class BodyCoreContext {
+  constructor(public $view: ViewCoreComponent) {
+  }
+
+  get selection() {
+    return this.$view.model.selection();
+  }
+}
 
 @Directive({
   selector: '[q-grid-core-body]'
 })
-export class BodyCoreDirective {
+export class BodyCoreDirective implements OnInit {
   private element: HTMLElement = null;
   private documentListener = new EventListener(this, document);
   private listener = null;
   private rangeStartCell = null;
 
-  constructor(element: ElementRef, public $view: ViewCoreComponent) {
-
+  constructor(element: ElementRef,
+              private view: ViewCoreComponent,
+              private templateService: TemplateService,
+              private viewContainerRef: ViewContainerRef,
+              private templateRef: TemplateRef<BodyCoreContext>,
+              private templateCache: TemplateCacheService) {
     this.element = element.nativeElement;
     this.listener = new EventListener(this, this.element);
+  }
+
+  ngOnInit() {
+    const context = new BodyCoreContext(this.view);
+    const template = this.templateCache.get('qgrid.body.tpl.html');
+    const factory = this.templateService.componentFactory(template, context);
+    this.viewContainerRef.createComponent(factory);
+
+    this.listener.on('scroll', this.onScroll);
+    this.listener.on('click', this.onClick);
+    this.listener.on('mousedown', this.onMouseDown);
+    this.listener.on('mouseup', this.onMouseUp);
+
+    this.documentListener.on('mousemove', this.onMouseMove);
   }
 
   onScroll() {
@@ -30,17 +60,8 @@ export class BodyCoreDirective {
       height: element.scrollHeight
     }, {
       source: 'body.core',
-      pin: this.$view.pin
+      pin: this.view.pin
     });
-  }
-
-  onInit() {
-    this.listener.on('scroll', this.onScroll);
-    this.listener.on('click', this.onClick);
-    this.listener.on('mousedown', this.onMouseDown);
-    this.listener.on('mouseup', this.onMouseUp);
-
-    this.documentListener.on('mousemove', this.onMouseMove);
   }
 
   onDestroy() {
@@ -92,7 +113,7 @@ export class BodyCoreDirective {
   }
 
   navigate(cell) {
-    const focus = this.$view.nav.focusCell;
+    const focus = this.view.nav.focusCell;
     if (focus.canExecute(cell)) {
       focus.execute(cell);
     }
@@ -103,6 +124,6 @@ export class BodyCoreDirective {
   }
 
   get model() {
-    return this.$view.model;
+    return this.view.model;
   }
 }

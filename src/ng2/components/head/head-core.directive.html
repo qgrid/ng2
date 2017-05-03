@@ -1,18 +1,18 @@
-<tr ng-repeat="$row in $view.head.rows track by $index">
-	<th ng-repeat="$column in $row track by $column.model.key"
+<tr *ngFor="let $row of $view.head.rows; trackBy: index">
+	<th *ngFor="let $column of $row; trackBy: $column.model.key"
 		 ng-mouseenter="$view.highlight.column.execute($column.model, true)"
 		 ng-mouseleave="$view.highlight.column.execute($column.model, false)"
-		 rowspan="{{$column.rowspan}}"
-		 colspan="{{$column.colspan}}"
-		 q-grid:drag="$view.head.transfer($cell)"
-		 q-grid:drop="$view.head.transfer($cell)"
-		 q-grid:on-drop="$view.head.drop.execute($event)"
-		 q-grid:can-drop="$view.head.drop.canExecute($event)"
-		 q-grid:can-drag="$view.head.drag.canExecute($event)"
-		 q-grid:resizable="$view.head.resize.canExecute($event)"
-		 q-grid:resize="$column.model.key"
-		 q-grid:resize-path="columns"
-		 q-grid:can-resize="$view.head.resize.canExecute($event)"
-		 q-grid-core:th>
+		 [attr.rowspan]="$column.rowspan"
+		 [attr.colspan]="$column.colspan"
+		 q-grid-drag="$view.head.transfer($cell)"
+		 q-grid-drop="$view.head.transfer($cell)"
+		 q-grid-on-drop="$view.head.drop.execute($event)"
+		 q-grid-can-drop="$view.head.drop.canExecute($event)"
+		 q-grid-can-drag="$view.head.drag.canExecute($event)"
+		 q-grid-resizable="$view.head.resize.canExecute($event)"
+		 q-grid-resize="$column.model.key"
+		 q-grid-resize-path="columns"
+		 q-grid-can-resize="$view.head.resize.canExecute($event)"
+		 q-grid-core-th>
 	</th>
 </tr>

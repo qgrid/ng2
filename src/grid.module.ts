@@ -14,10 +14,11 @@ import {FootCoreDirective} from './ng2/components/foot/foot-core.directive';
 import {ThCoreDirective} from './ng2/components/head/th-core.directive';
 import {TdCoreDirective} from './ng2/components/body/td-core.directive';
 import {TfCoreDirective} from './ng2/components/foot/tf-core.directive';
-import {MarkupDirective} from "./ng2/directives/markup";
+import {MarkupDirective} from "./ng2/directives/markup.directive";
 
 import {GridService} from './ng2/services/grid.service';
 import {TemplateCacheService} from './ng2/services/template-cache.service';
+import {TemplateService} from './ng2/services/template.service';
 import {ThemeProvider} from './ng2/services/theme.provider';
 import {ThemeService} from './ng2/services/theme.service';
 
@@ -104,7 +105,8 @@ Model.register('grid', GridModel)
     TemplateCacheService,
     ThemeProvider,
     ThemeService,
-    GridService
+    GridService,
+    TemplateService
   ]
 })
 export class GridModule {
