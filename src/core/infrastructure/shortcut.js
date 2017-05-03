@@ -17,7 +17,7 @@ export default class Shortcut {
 			.set(40, 'down')
 			.set(113, 'f2');
 
-		this.canExecute = table.isFocused;
+		this.canExecute = table.isFocused.bind(table);
 		this.off = table.keyDown(this.onKeyDown.bind(this));
 	}
 

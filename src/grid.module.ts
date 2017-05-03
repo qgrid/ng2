@@ -8,6 +8,12 @@ import {ColumnListComponent} from './ng2/components/column';
 import {BoxCoreComponent} from './ng2/components/box'
 import {ViewCoreComponent} from './ng2/components/view'
 
+import {HeadCoreDirective} from './ng2/components/head/head-core.directive';
+import {BodyCoreDirective} from './ng2/components/body/body-core.directive';
+import {FootCoreDirective} from './ng2/components/foot/foot-core.directive';
+import {ThCoreDirective} from './ng2/components/head/th-core.directive';
+import {TdCoreDirective} from './ng2/components/body/td-core.directive';
+import {TfCoreDirective} from './ng2/components/foot/tf-core.directive';
 import {MarkupDirective} from "./ng2/directives/markup";
 
 import {GridService} from './ng2/services/grid.service';
@@ -79,6 +85,12 @@ Model.register('grid', GridModel)
     ColumnListComponent,
     BoxCoreComponent,
     ViewCoreComponent,
+    HeadCoreDirective,
+    BodyCoreDirective,
+    FootCoreDirective,
+    ThCoreDirective,
+    TdCoreDirective,
+    TfCoreDirective,
     MarkupDirective
   ],
   exports: [
@@ -102,11 +114,11 @@ export class GridModule {
 
       theme.put('qgrid.grid.tpl.html', require('./ng2/components/grid/grid.component.html'));
       theme.put('qgrid.view.tpl.html', require('./ng2/components/view/view-core.component.html'));
-      // theme.put('qgrid.head.tpl.html', require('./components/head/head.html'));
-      // theme.put('qgrid.body.tpl.html', require('./components/body/body.html'));
-      // theme.put('qgrid.body.virtual.tpl.html', require('./components/body/body.virtual.html'));
-      // theme.put('qgrid.foot.tpl.html', require('./components/foot/foot.html'));
-      //
+      theme.put('qgrid.head.tpl.html', require('./ng2/components/head/head-core.directive.html'));
+      theme.put('qgrid.body.tpl.html', require('./ng2/components/body/body-core.directive.html'));
+      theme.put('qgrid.body.virtual.tpl.html', require('./ng2/components/body/body-core-virtual.directive.html'));
+      theme.put('qgrid.foot.tpl.html', require('./ng2/components/foot/foot-core.directive.html'));
+
       // theme.put('qgrid.toolbar.top.tpl.html', require('./components/toolbar/toolbar.top.html'));
       // theme.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
       // theme.put('qgrid.toolbar.right.tpl.html', require('./components/toolbar/toolbar.right.html'));

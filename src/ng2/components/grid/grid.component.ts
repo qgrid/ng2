@@ -36,31 +36,11 @@ export class GridComponent extends RootComponent {
   ngOnInit() {
     super.ngOnInit();
 
-    this.compile();
-
-    console.log(this.model);
     this.model.viewChanged.watch(e => {
       if (e.hasChanges('columns')) {
         this.invalidateVisibility();
       }
     });
-  }
-
-  compile() {
-    //const element = this.element.nativeElement;
-
-    // let template = null;
-    // let templateScope = null;
-    //
-    // this.$transclude((clone, scope) => {
-    //   template = clone;
-    //   templateScope = scope;
-    //
-    //   this.$element.append(clone);
-    // });
-    //
-    // template.remove();
-    // templateScope.$destroy();
   }
 
   invalidateVisibility() {
