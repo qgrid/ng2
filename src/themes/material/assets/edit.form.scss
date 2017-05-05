@@ -17,6 +17,11 @@
 
 	.q-grid-edit-form-panel-actions {
 		margin-bottom: -20px;
+
+		.md-button {
+			margin: 8px 0 8px 8px;
+			float: right;
+		}
 	}
 
 	md-input-container {
@@ -24,14 +29,32 @@
 		width: 100%;
 	}
 
-	.md-button {
-		margin: 8px 0 8px 8px;
-		float: right;
+	.md-datepicker-input-container {
+		width: 100%;
+
+		.md-input {
+			max-width: none;
+		}
+	}
+
+	h4 {
+		&.md-title {
+			margin-top: 0;
+		}
 	}
 }
 
-#q-grid-edit-form-popup {
+.q-grid-edit-form-popup {
 	h2 {
 		margin: 0 0 0 0;
+	}
+
+	md-icon {
+		color: $dark-secondary;
+		font-size: 16px;
+		height: 16px;
+		width: 16px;
+		min-height: 16px;
+		min-width: 16px;
 	}
 }

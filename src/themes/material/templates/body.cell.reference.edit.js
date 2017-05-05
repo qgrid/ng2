@@ -11,8 +11,11 @@ export default function ReferenceEdit($scope, qgrid) {
 	};
 
 	const options = this.cell().options;
+	this.gridModel = (options
+		&& options.modelFactory
+		&& options.modelFactory($scope.$view ? $scope.$view.model.navigation() : {}))
+		|| qgrid.model();
 
-	this.gridModel = (options && options.modelFactory && options.modelFactory()) || qgrid.model();
 	this.commit = ($cell, $event) => {
 		this.cell().value = this.gridModel.selection().items;
 		this.cell().commit.execute($cell, $event);

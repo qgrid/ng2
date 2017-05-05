@@ -6,7 +6,6 @@ class CellEditorCore {
 	constructor() {
 
 		this.value = null;
-		this.label = null;
 		this.fetch = noop;
 		this.resetFetch = noop;
 	}
@@ -34,7 +33,7 @@ export default class CellEditor extends CellEditorCore {
 
 		const parse = parseFactory(cell.column.type);
 		this.value = isUndefined(cell.value) ? null : parse(clone(cell.value));
-		this.label = isUndefined(cell.label) ? null : parse(clone(cell.label));
+		this.label = isUndefined(cell.label) ? null : clone(cell.label);
 	}
 
 	commit() {
@@ -46,9 +45,12 @@ export default class CellEditor extends CellEditorCore {
 
 	reset() {
 		this.value = this.cell.value;
-		this.label = this.cell.label;
 		this.resetFetch();
 		this.resetFetch = noop;
+	}
+
+	get title() {
+		return this.cell.column.title;
 	}
 
 	get options() {

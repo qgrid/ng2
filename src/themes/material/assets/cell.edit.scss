@@ -55,20 +55,14 @@ td.q-grid-edit {
 		}
 
 		&.q-grid-array {
-			height: 120px;
-			width: 300px;
+			min-height: 120px;
+			width: 400px;
+			height: inherit;
+			padding-bottom: 0;
 
-			md-chips {
-				display: inline-flex;
-				overflow-x: auto;
-				overflow-y: hidden;
-				width: 100%;
-
-				md-chips-wrap {
-					width: auto;
-					box-shadow: none;
-					display: flex;
-				}
+			.q-grid-array-view {
+				max-height: 400px;
+				overflow-y: auto;
 			}
 		}
 
@@ -183,6 +177,28 @@ td.q-grid-edit {
 	&.q-grid-autocomplete {
 		md-autocomplete {
 			min-width: 30px;
+			background-color: transparent;
+		}
+
+		md-autocomplete-wrap {
+			box-shadow: none;
+		}
+
+		input {
+			border-color: rgba(0, 0, 0, 0.12);
+			border-width: 0 0 1px 0;
+			border-radius: 0;
+			border-style: solid;
+			line-height: 26px;
+			padding: 2px 2px 1px 2px;
+			height: 30px;
+		}
+
+		&:not(.q-grid-selected) {
+			input {
+				border-color: rgb(63, 81, 181);
+				border-width: 0 0 2px 0;
+			}
 		}
 	}
 
@@ -191,7 +207,7 @@ td.q-grid-edit {
 	}
 }
 
-.q-grid-editor{
+.q-grid-editor {
 	&.q-grid-reference {
 		height: 350px;
 		width: 500px;

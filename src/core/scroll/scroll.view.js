@@ -2,11 +2,12 @@ import View from '../view/view';
 import log from 'core/infrastructure/log';
 
 export default class ScrollView extends View {
-	constructor(model, table, vscroll, service, apply) {
+	constructor(model, table, vscroll, service, applyFactory) {
 		super(model);
 
 		this.table = table;
 		const scroll = model.scroll;
+		const apply = applyFactory('async');
 
 		this.y = vscroll({
 			threshold: model.pagination().size,

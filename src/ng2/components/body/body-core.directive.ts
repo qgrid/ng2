@@ -11,8 +11,7 @@ export class BodyCoreContext {
 }
 
 @Directive({
-  selector: '[q-grid-core-body]',
-  providers: [ViewCoreComponent]
+  selector: '[q-grid-core-body]'
 })
 export class BodyCoreDirective implements OnInit {
   private element: HTMLElement = null;

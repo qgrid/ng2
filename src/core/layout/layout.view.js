@@ -113,12 +113,16 @@ export default class LayoutView extends View {
 			}
 		}
 
-		const sheet = css.sheet(`${model.grid().id}-layout`);
+		const sheet = css.sheet(this.styleId);
 		sheet.set(style);
 	}
 
 	destroy() {
-		const sheet = css.sheet(`${this.model.grid().id}-layout`);
+		const sheet = css.sheet(this.styleId);
 		sheet.remove();
+	}
+
+	get styleId() {
+		return `${this.model.grid().id}-${this.table.pin || 'center'}-layout`;
 	}
 }

@@ -62,7 +62,7 @@ export class ViewCoreComponent extends NgComponent {
     const table = new Table(model, this.markup);
     table.pin = this.pin;
     const service = this.gridService.service(model);
-    const apply = (f, timeout) => {
+    const applyFactory = mode => (f, timeout) => {
       if (isUndefined(timeout)) {
         f();
       }
@@ -77,16 +77,16 @@ export class ViewCoreComponent extends NgComponent {
     this.foot = new FootView(model, table);
     this.columns = new ColumnView(model, service);
     this.layout = new LayoutView(model, table, service);
-    this.selection = new SelectionView(model, table, apply);
+    this.selection = new SelectionView(model, table, applyFactory);
     this.group = new GroupView(model);
     this.pivot = new PivotView(model);
-    this.highlight = new HighlightView(model, table, apply);
+    this.highlight = new HighlightView(model, table, applyFactory);
     this.sort = new SortView(model);
     this.filter = new FilterView(model);
-    this.edit = new EditView(model, table, apply);
-    this.nav = new NavigationView(model, table, apply);
+    this.edit = new EditView(model, table, applyFactory);
+    this.nav = new NavigationView(model, table, applyFactory);
     this.pagination = new PaginationView(model);
-   // this.scroll = new ScrollView(model, table, this.vscroll, service, apply);
+    // this.scroll = new ScrollView(model, table, this.vscroll, service, apply);
 
     // TODO: how we can avoid that?
     // this.$scope.$watch(this.style.invalidate.bind(this.style));
@@ -131,7 +131,7 @@ export class ViewCoreComponent extends NgComponent {
   }
 
   templateUrl(key) {
-  	return `qgrid.${key}.tpl.html`;
+    return `qgrid.${key}.tpl.html`;
   }
 
   get model() {
@@ -146,11 +146,11 @@ export class ViewCoreComponent extends NgComponent {
     return this.model.data().rows;
   }
 
-  getTemplate(path){
+  getTemplate(path) {
 
   }
 
-  getContext(){
+  getContext() {
 
   }
 }

@@ -15,7 +15,8 @@ export default class EditModel {
 			'text': 'enter',
 			'password': 'ctrl+s',
 			'number': 'ctrl+s',
-			'date': 'ctrl+s'
+			'date': 'ctrl+s',
+			'array': 'ctrl+s'
 		};
 	}
 }

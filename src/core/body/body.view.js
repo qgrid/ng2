@@ -93,7 +93,7 @@ export default class BodyView extends View {
 			return;
 		}
 
-		const getValue = valueFactory(column);
+		const getValue = this.valueFactory(column);
 		return getValue(row);
 	}
 

@@ -47,6 +47,7 @@ export default class RowEditor extends RowEditorCore {
 		super();
 
 		this.value = cloneDeep(row);
+		this.row = row;
 
 		this.editors =
 			columns
