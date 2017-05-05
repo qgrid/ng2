@@ -1,16 +1,15 @@
 import ModelBinder from 'core/infrastructure/model.bind';
 import {noop} from 'core/services/utility';
-import * as guard from 'core/infrastructure/guard';
-import {OnChanges, SimpleChanges, Inject, forwardRef} from '@angular/core';
+import {OnChanges, SimpleChanges} from '@angular/core';
 import {Component} from './component';
-import {RootComponent} from './root.component';
+import {RootService} from "./root.service";
 
 export class ModelComponent extends Component implements OnChanges {
   protected names: string[] = [];
   binder = new ModelBinder(this);
   commit = noop;
 
-  constructor(public root: RootComponent) {
+  constructor(public root: RootService) {
     super();
   }
 
@@ -32,7 +31,6 @@ export class ModelComponent extends Component implements OnChanges {
   }
 
   get model() {
-    guard.notNull(this.root, 'root');
     return this.root.model;
   }
 }

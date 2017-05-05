@@ -2,11 +2,12 @@ import {Directive, ElementRef, OnInit, ViewContainerRef} from '@angular/core';
 //import {VIEW_CORE_NAME, BODY_CORE_NAME} from 'ng2/definition';
 import EventListener from 'core/infrastructure/event.listener';
 //import * as pathFinder from 'ng2/services/path.find';
-import {ViewCoreComponent} from '../view/view-core.component';
 import {TemplateCacheService} from "../../services/template-cache.service";
+import {ViewCoreService} from "../view/view-core.service";
+import {RootService} from "../root.service";
 
 export class BodyCoreContext {
-  constructor(public $implicit: ViewCoreComponent) {
+  constructor(public $implicit: ViewCoreService) {
   }
 }
 
@@ -20,7 +21,8 @@ export class BodyCoreDirective implements OnInit {
   private rangeStartCell = null;
 
   constructor(element: ElementRef,
-              private view: ViewCoreComponent,
+              private view: ViewCoreService,
+              private root: RootService,
               private viewContainerRef: ViewContainerRef,
               private templateCache: TemplateCacheService) {
     this.element = element.nativeElement;
@@ -124,6 +126,6 @@ export class BodyCoreDirective implements OnInit {
   }
 
   get model() {
-    return this.view.model;
+    return this.root.model;
   }
 }

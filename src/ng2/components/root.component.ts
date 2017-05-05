@@ -6,11 +6,11 @@ import {OnChanges, SimpleChanges} from '@angular/core';
 import {Component} from './component';
 
 export class RootComponent extends Component implements OnChanges {
-  public model = null;
-  public modelChanged = new Event();
+  model = null;
+  modelChanged = new Event();
   protected names: string[] = [];
-  binder = new ModelBinder(this);
-  commit = noop;
+  private binder = new ModelBinder(this);
+  private commit = noop;
 
   constructor() {
     super();
@@ -20,6 +20,7 @@ export class RootComponent extends Component implements OnChanges {
     let run = true;
     if (!this.model) {
       this.model = new Model();
+      this.modelChanged.emit(this.model);
       run = false;
     }
 
@@ -32,10 +33,9 @@ export class RootComponent extends Component implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.hasOwnProperty('model')) {
+      this.modelChanged.emit(this.model);
       this.commit = this.setup();
       this.commit();
-
-      this.modelChanged.emit(this.model);
       return;
     }
 

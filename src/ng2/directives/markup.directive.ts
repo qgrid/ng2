@@ -1,6 +1,6 @@
 import {Directive, ElementRef, Input, OnDestroy, OnInit} from '@angular/core';
 import {MARKUP_NAME, VIEW_CORE_NAME} from 'ng/definition';
-import {ViewCoreComponent} from "../components/view/view-core.component";
+import {ViewCoreService} from "../components/view/view-core.service";
 
 @Directive({
   selector: '[q-grid-markup]'
@@ -8,7 +8,7 @@ import {ViewCoreComponent} from "../components/view/view-core.component";
 export class MarkupDirective implements OnInit, OnDestroy {
   @Input('q-grid-markup') name = '';
 
-  constructor(private view: ViewCoreComponent, private element: ElementRef) {
+  constructor(private view: ViewCoreService, private element: ElementRef) {
   }
 
   ngOnInit() {

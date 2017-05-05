@@ -1,9 +1,10 @@
 import {Component, Input, Output, ElementRef, EventEmitter} from '@angular/core';
 import {RootComponent} from '../root.component';
+import {RootService} from "../root.service";
 
 @Component({
   selector: 'q-grid',
-  providers: [],
+  providers: [RootService],
   templateUrl: './grid.component.html'
 })
 export class GridComponent extends RootComponent {
@@ -29,8 +30,10 @@ export class GridComponent extends RootComponent {
   @Input() editReset;
   @Output() selectionChanged = new EventEmitter<any>();
 
-  constructor(private element: ElementRef) {
+  constructor(private rootService: RootService) {
     super();
+
+    this.modelChanged.watch(model => this.rootService.model = model);
   }
 
   ngOnInit() {

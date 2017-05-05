@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {ModelComponent} from '../model.component';
-import {GridComponent} from '../grid/grid.component';
+import {RootService} from "../root.service";
 
 @Component({
   selector: 'q-grid-columns',
@@ -10,7 +10,7 @@ export class ColumnListComponent extends ModelComponent {
   protected names = ['columnList'];
   @Input('generation') columnListGeneration: string = null;
 
-  constructor(root: GridComponent) {
+  constructor(root: RootService) {
     super(root);
   }
 }

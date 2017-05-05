@@ -1,9 +1,9 @@
 import {Component, ElementRef, Optional, Input} from '@angular/core';
 import {Component as NgComponent} from '../component';
 import {ThemeService} from '../../services/theme.service';
-import {GridComponent} from '../grid/grid.component';
 import {GRID_PREFIX} from 'core/definition';
 import * as guard from 'core/infrastructure/guard';
+import {RootService} from "../root.service";
 
 @Component({
   selector: 'q-grid-core-box',
@@ -14,7 +14,7 @@ export class BoxCoreComponent extends NgComponent {
 
   private element: HTMLElement = null;
 
-  constructor(@Optional() private root: GridComponent, element: ElementRef, private theme: ThemeService) {
+  constructor(@Optional() private root: RootService, element: ElementRef, private theme: ThemeService) {
     super();
 
     this.element = element.nativeElement;

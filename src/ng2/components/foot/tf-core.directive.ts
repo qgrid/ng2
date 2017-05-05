@@ -1,22 +1,19 @@
-import {Directive, ElementRef} from '@angular/core';
+import {Directive, ElementRef, OnInit} from '@angular/core';
 //import cellBuilder from '../cell/cell.build';
 import {VIEW_CORE_NAME, TF_CORE_NAME} from 'ng/definition';
 import {GRID_PREFIX} from 'core/definition';
-import {ViewCoreComponent} from "../view/view-core.component";
+import {ViewCoreService} from "../view/view-core.service";
 
 @Directive({
   selector: '[q-grid-core-tf]'
 })
-export class TfCoreDirective {
-  private element: HTMLElement = null;
-
-  constructor(private view: ViewCoreComponent, element: ElementRef) {
-    this.element = element.nativeElement;
+export class TfCoreDirective implements OnInit {
+  constructor(private view: ViewCoreService, private element: ElementRef) {
   }
 
-  onInit() {
+  ngOnInit() {
     const column = this.column;
-    const element = this.element;
+    const element = this.element.nativeElement;
 
     element.classList.add(`${GRID_PREFIX}-${column.key}`);
     element.classList.add(`${GRID_PREFIX}-${column.type}`);

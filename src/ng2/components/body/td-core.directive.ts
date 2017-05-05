@@ -1,23 +1,22 @@
-import {Directive, ElementRef} from '@angular/core';
+import {Directive, ElementRef, OnDestroy, OnInit} from '@angular/core';
 //import cellBuilder from '../cell/cell.build';
-import AppError from 'core/infrastructure/error'
 import {VIEW_CORE_NAME, TD_CORE_NAME} from 'ng/definition';
 import {GRID_PREFIX} from 'core/definition';
-import {ViewCoreComponent} from '../view/view-core.component';
+import {ViewCoreService} from "../view/view-core.service";
+import {RootService} from "../root.service";
 
 @Directive({
   selector: '[q-grid-core-td]'
 })
-export class TdCoreDirective {
-  private element: HTMLElement = null;
-
-  constructor(private view: ViewCoreComponent, element: ElementRef) {
-    this.element = element.nativeElement;
+export class TdCoreDirective implements OnInit, OnDestroy {
+  constructor(private view: ViewCoreService,
+              private root: RootService,
+              private element: ElementRef) {
   }
 
-  onInit() {
+  ngOnInit() {
     const column = this.column;
-    const element = this.element;
+    const element = this.element.nativeElement;
 
     this.view.style.monitor.cell.add(this.element);
 
@@ -31,7 +30,7 @@ export class TdCoreDirective {
   }
 
   mode(value) {
-    const model = this.view.model;
+    const model = this.root.model;
     const column = this.column;
     const templateScope = this.setup();
     const cache = model.body().cache;
@@ -124,11 +123,7 @@ export class TdCoreDirective {
     //return this.$scope.$row;
   }
 
-  onDestroy() {
-    // if (this.$templateScope) {
-    //   this.$templateScope.$destroy();
-    // }
-
+  ngOnDestroy() {
     this.view.style.monitor.cell.remove(this.element);
   }
 }
