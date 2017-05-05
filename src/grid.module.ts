@@ -2,17 +2,18 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import './assets/index.scss';
-import {Theme} from './themes/default';
+import {Theme} from './themes/material';
 
 import {GridComponent} from './ng2/components/grid';
-import {ColumnListComponent} from './ng2/components/column';
 import {BoxCoreComponent} from './ng2/components/box'
 import {ViewCoreComponent} from './ng2/components/view'
+import {ColumnListComponent} from './ng2/components/column';
 import {ThemeCoreComponent} from './ng2/components/theme';
 
 import {BodyCoreTemplateComponent, BodyCoreDirective, TdCoreDirective} from './ng2/components/body';
 import {HeadCoreDirective, ThCoreDirective} from './ng2/components/head';
 import {FootCoreDirective, TfCoreDirective} from './ng2/components/foot';
+import {TrCoreDirective} from './ng2/components/row';
 
 import {MarkupDirective, TemplateCacheDirective} from './ng2/directives';
 
@@ -87,6 +88,7 @@ Model.register('grid', GridModel)
     HeadCoreDirective,
     BodyCoreDirective,
     FootCoreDirective,
+    TrCoreDirective,
     ThCoreDirective,
     TdCoreDirective,
     TfCoreDirective,

@@ -1,4 +1,4 @@
-import {Directive, ElementRef, OnDestroy, OnInit} from '@angular/core';
+import {Directive, ElementRef, Input, OnDestroy, OnInit} from '@angular/core';
 //import cellBuilder from '../cell/cell.build';
 import {VIEW_CORE_NAME, TD_CORE_NAME} from 'ng/definition';
 import {GRID_PREFIX} from 'core/definition';
@@ -6,11 +6,16 @@ import {ViewCoreService} from "../view/view-core.service";
 import {RootService} from "../root.service";
 
 @Directive({
-  selector: '[q-grid-core-td]'
+  selector: '[q-grid-core-td]',
 })
 export class TdCoreDirective implements OnInit, OnDestroy {
-  constructor(private view: ViewCoreService,
-              private root: RootService,
+  @Input('q-grid-core-td') private view: ViewCoreService;
+  @Input('q-grid-core-row') row: any;
+  @Input('q-grid-core-row-index') columnIndex: number;
+  @Input('q-grid-core-column') column: any;
+  @Input('q-grid-core-column-index') rowIndex: number;
+
+  constructor(private root: RootService,
               private element: ElementRef) {
   }
 
@@ -18,7 +23,7 @@ export class TdCoreDirective implements OnInit, OnDestroy {
     const column = this.column;
     const element = this.element.nativeElement;
 
-    this.view.style.monitor.cell.add(this.element);
+    this.view.style.monitor.cell.add(element);
 
     element.classList.add(`${GRID_PREFIX}-${column.key}`);
     element.classList.add(`${GRID_PREFIX}-${column.type}`);
@@ -31,10 +36,6 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 
   mode(value) {
     const model = this.root.model;
-    const column = this.column;
-    const templateScope = this.setup();
-    const cache = model.body().cache;
-    const element = this.element;
 
     // switch (value) {
     //   case 'view':
@@ -69,15 +70,6 @@ export class TdCoreDirective implements OnInit, OnDestroy {
     // }
   }
 
-  setup() {
-    // if (this.$templateScope) {
-    //   this.$templateScope.$destroy();
-    // }
-    //
-    // this.$templateScope = this.$scope.$new();
-    // return this.$templateScope;
-  }
-
   get value() {
     const column = this.column;
     const row = this.row;
@@ -102,28 +94,7 @@ export class TdCoreDirective implements OnInit, OnDestroy {
     this.view.body.label(row, column, label);
   }
 
-  get rowIndex() {
-    return 0;
-    //return this.view.scroll.y.container.position + this.$scope.$parent.$index;
-  }
-
-  get columnIndex() {
-    // use vscroll.column + vscroll.position in the future
-    //return this.$scope.$index;
-    return 0;
-  }
-
-  get column() {
-    return null;
-    //return this.$scope.$column.model;
-  }
-
-  get row() {
-    return null;
-    //return this.$scope.$row;
-  }
-
   ngOnDestroy() {
-    this.view.style.monitor.cell.remove(this.element);
+    this.view.style.monitor.cell.remove(this.element.nativeElement);
   }
 }
