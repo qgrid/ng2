@@ -8,17 +8,15 @@ import {GridComponent} from './ng2/components/grid';
 import {ColumnListComponent} from './ng2/components/column';
 import {BoxCoreComponent} from './ng2/components/box'
 import {ViewCoreComponent} from './ng2/components/view'
+import {ThemeCoreComponent} from './ng2/components/theme';
 
-import {HeadCoreDirective} from './ng2/components/head/head-core.directive';
-import {BodyCoreDirective} from './ng2/components/body/body-core.directive';
-import {FootCoreDirective} from './ng2/components/foot/foot-core.directive';
-import {ThCoreDirective} from './ng2/components/head/th-core.directive';
-import {TdCoreDirective} from './ng2/components/body/td-core.directive';
-import {TfCoreDirective} from './ng2/components/foot/tf-core.directive';
-import {MarkupDirective} from "./ng2/directives/markup.directive";
+import {BodyCoreTemplateComponent, BodyCoreDirective, TdCoreDirective} from './ng2/components/body';
+import {HeadCoreDirective, ThCoreDirective} from './ng2/components/head';
+import {FootCoreDirective, TfCoreDirective} from './ng2/components/foot';
 
-import {GridService} from './ng2/services/grid.service';
-import {ThemeService} from './ng2/services/theme.service';
+import {MarkupDirective, TemplateCacheDirective} from './ng2/directives';
+
+import {GridService, ThemeService, TemplateCacheService} from './ng2/services';
 
 import Model from 'core/infrastructure/model';
 import GridModel from 'core/grid/grid.model';
@@ -84,13 +82,16 @@ Model.register('grid', GridModel)
     ColumnListComponent,
     BoxCoreComponent,
     ViewCoreComponent,
+    ThemeCoreComponent,
+    BodyCoreTemplateComponent,
     HeadCoreDirective,
     BodyCoreDirective,
     FootCoreDirective,
     ThCoreDirective,
     TdCoreDirective,
     TfCoreDirective,
-    MarkupDirective
+    MarkupDirective,
+    TemplateCacheDirective
   ],
   exports: [
     GridComponent,
@@ -102,7 +103,8 @@ Model.register('grid', GridModel)
   providers: [
     Theme,
     ThemeService,
-    GridService
+    GridService,
+    TemplateCacheService
   ]
 })
 export class GridModule {

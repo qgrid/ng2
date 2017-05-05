@@ -1,9 +1,0 @@
-<tr vscroll-mark="top" class="vscroll-mark"></tr>
-<tr ng-repeat="$row in $view.body.rows | vscroll: $view.scroll.y track by $index"
-	 vscroll-row="{{::$index}}"
-	 q-grid-core:tr>
-	<td ng-repeat="$column in $view.body.columns track by $column.model.key"
-		 q-grid-core:td>
-	</td>
-</tr>
-<tr vscroll-mark="bottom" class="vscroll-mark"></tr>

@@ -145,4 +145,12 @@ export class ViewCoreComponent extends NgComponent {
   get rows() {
     return this.model.data().rows;
   }
+
+  getTemplate(path){
+
+  }
+
+  getContext(){
+
+  }
 }

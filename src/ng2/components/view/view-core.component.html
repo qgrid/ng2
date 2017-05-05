@@ -8,8 +8,9 @@
          q-grid-markup="body"
          q-grid-animate="false"
          vscroll
-         vscroll-port-y="$view.scroll.y">
-  <template q-grid-core-body></template>
+         vscroll-port-y="$view.scroll.y"
+         q-grid-core-body>
+  <!--<ng-container  *ngTemplateOutlet="getTemplate('body.tpl.html'); context: getContext()"></ng-container>-->
   </tbody>
   <tfoot *ngIf="visibility.foot"
          q-grid-core-foot

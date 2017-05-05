@@ -1,21 +1,18 @@
-import {Directive, ElementRef, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
+import {Directive, ElementRef, OnInit, ViewContainerRef} from '@angular/core';
 //import {VIEW_CORE_NAME, BODY_CORE_NAME} from 'ng2/definition';
 import EventListener from 'core/infrastructure/event.listener';
 //import * as pathFinder from 'ng2/services/path.find';
 import {ViewCoreComponent} from '../view/view-core.component';
-import {TemplateService} from "../../services/template.service";
+import {TemplateCacheService} from "../../services/template-cache.service";
 
 export class BodyCoreContext {
-  constructor(public $view: ViewCoreComponent) {
-  }
-
-  get selection() {
-    return this.$view.model.selection();
+  constructor(public $implicit: ViewCoreComponent) {
   }
 }
 
 @Directive({
-  selector: '[q-grid-core-body]'
+  selector: '[q-grid-core-body]',
+  providers: [ViewCoreComponent]
 })
 export class BodyCoreDirective implements OnInit {
   private element: HTMLElement = null;
@@ -26,12 +23,24 @@ export class BodyCoreDirective implements OnInit {
   constructor(element: ElementRef,
               private view: ViewCoreComponent,
               private viewContainerRef: ViewContainerRef,
-              private templateRef: TemplateRef<BodyCoreContext>) {
+              private templateCache: TemplateCacheService) {
     this.element = element.nativeElement;
     this.listener = new EventListener(this, this.element);
   }
 
+  // get context(){
+  //   return new BodyCoreContext(this.view);
+  // }
+  //
+  // get template(){
+  //   return this.templateCache.get('body.tpl.html');
+  // }
+
   ngOnInit() {
+    const context = new BodyCoreContext(this.view);
+    const template = this.templateCache.get('body.tpl.html');
+    const viewRef = this.viewContainerRef.createEmbeddedView(template, context);
+    viewRef.detectChanges();
 
     this.listener.on('scroll', this.onScroll);
     this.listener.on('click', this.onClick);
