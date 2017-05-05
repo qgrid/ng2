@@ -29,19 +29,10 @@ export class BodyCoreDirective implements OnInit {
     this.listener = new EventListener(this, this.element);
   }
 
-  // get context(){
-  //   return new BodyCoreContext(this.view);
-  // }
-  //
-  // get template(){
-  //   return this.templateCache.get('body.tpl.html');
-  // }
-
   ngOnInit() {
     const context = new BodyCoreContext(this.view);
     const template = this.templateCache.get('body.tpl.html');
     const viewRef = this.viewContainerRef.createEmbeddedView(template, context);
-    viewRef.detectChanges();
 
     this.listener.on('scroll', this.onScroll);
     this.listener.on('click', this.onClick);

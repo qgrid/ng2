@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import './assets/index.scss';
-import {Theme} from './themes/material';
+import {Theme} from './themes/default';
 
 import {GridComponent} from './ng2/components/grid';
 import {BoxCoreComponent} from './ng2/components/box'
@@ -18,6 +18,8 @@ import {TrCoreDirective} from './ng2/components/row';
 import {MarkupDirective, TemplateCacheDirective} from './ng2/directives';
 
 import {GridService, ThemeService, TemplateCacheService} from './ng2/services';
+
+import {BodyCellTextComponent} from './ng2/components/cell/text';
 
 import Model from 'core/infrastructure/model';
 import GridModel from 'core/grid/grid.model';
@@ -93,7 +95,9 @@ Model.register('grid', GridModel)
     TdCoreDirective,
     TfCoreDirective,
     MarkupDirective,
-    TemplateCacheDirective
+    TemplateCacheDirective,
+
+    BodyCellTextComponent
   ],
   exports: [
     GridComponent,

@@ -1,9 +1,15 @@
-import {Directive, ElementRef, Input, OnDestroy, OnInit} from '@angular/core';
+import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 //import cellBuilder from '../cell/cell.build';
 import {VIEW_CORE_NAME, TD_CORE_NAME} from 'ng/definition';
 import {GRID_PREFIX} from 'core/definition';
 import {ViewCoreService} from "../view/view-core.service";
 import {RootService} from "../root.service";
+import {TemplateCacheService} from "../../services/template-cache.service";
+
+export class TdCoreContext {
+  constructor(public $implicit: TdCoreDirective) {
+  }
+}
 
 @Directive({
   selector: '[q-grid-core-td]',
@@ -16,6 +22,8 @@ export class TdCoreDirective implements OnInit, OnDestroy {
   @Input('q-grid-core-column-index') rowIndex: number;
 
   constructor(private root: RootService,
+              private templateCache: TemplateCacheService,
+              private viewContainerRef: ViewContainerRef,
               private element: ElementRef) {
   }
 
@@ -30,6 +38,10 @@ export class TdCoreDirective implements OnInit, OnDestroy {
     if (column.hasOwnProperty('editor')) {
       element.classList.add(`${GRID_PREFIX}-${column.editor}`);
     }
+
+    const context = new TdCoreContext(this);
+    const template = this.templateCache.get('body.cell.text.tpl.html');
+    const viewRef = this.viewContainerRef.createEmbeddedView(template, context);
 
     this.mode('init');
   }
