@@ -1,39 +1,28 @@
-import {Directive, ElementRef, OnInit, ViewContainerRef} from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 //import {VIEW_CORE_NAME, BODY_CORE_NAME} from 'ng2/definition';
 import EventListener from 'core/infrastructure/event.listener';
 //import * as pathFinder from 'ng2/services/path.find';
-import {TemplateCacheService} from "../../services/template-cache.service";
 import {ViewCoreService} from "../view/view-core.service";
 import {RootService} from "../root.service";
 
-export class BodyCoreContext {
-  constructor(public $implicit: ViewCoreService) {
-  }
-}
-
-@Directive({
-  selector: '[q-grid-core-body]'
+@Component({
+  selector: 'tbody[q-grid-core-body]',
+  templateUrl: './body-core.component.html'
 })
-export class BodyCoreDirective implements OnInit {
+export class BodyCoreComponent implements OnInit {
   private element: HTMLElement = null;
   private documentListener = new EventListener(this, document);
   private listener = null;
   private rangeStartCell = null;
 
   constructor(element: ElementRef,
-              private view: ViewCoreService,
-              private root: RootService,
-              private viewContainerRef: ViewContainerRef,
-              private templateCache: TemplateCacheService) {
+              private $view: ViewCoreService,
+              private root: RootService) {
     this.element = element.nativeElement;
     this.listener = new EventListener(this, this.element);
   }
 
   ngOnInit() {
-    const context = new BodyCoreContext(this.view);
-    const template = this.templateCache.get('body.tpl.html');
-    const viewRef = this.viewContainerRef.createEmbeddedView(template, context);
-
     this.listener.on('scroll', this.onScroll);
     this.listener.on('click', this.onClick);
     this.listener.on('mousedown', this.onMouseDown);
@@ -53,7 +42,7 @@ export class BodyCoreDirective implements OnInit {
       height: element.scrollHeight
     }, {
       source: 'body.core',
-      pin: this.view.pin
+      pin: this.$view.pin
     });
   }
 
@@ -106,7 +95,7 @@ export class BodyCoreDirective implements OnInit {
   }
 
   navigate(cell) {
-    const focus = this.view.nav.focusCell;
+    const focus = this.$view.nav.focusCell;
     if (focus.canExecute(cell)) {
       focus.execute(cell);
     }
