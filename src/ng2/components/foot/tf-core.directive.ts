@@ -1,8 +1,8 @@
 import {Directive, ElementRef, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {VIEW_CORE_NAME, TF_CORE_NAME} from 'ng/definition';
 import {GRID_PREFIX} from 'core/definition';
-import {ViewCoreService} from "../view/view-core.service";
-import {TemplateCacheService} from "../../services/template-cache.service";
+import {ViewCoreService} from '../view/view-core.service';
+import {TemplateCacheService} from '../../services/template-cache.service';
 
 export class TfCoreContext {
   constructor(public $implicit: TfCoreDirective) {

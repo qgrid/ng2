@@ -3,8 +3,8 @@ import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from 
 import {VIEW_CORE_NAME, TD_CORE_NAME} from 'ng/definition';
 import {GRID_PREFIX} from 'core/definition';
 import {ViewCoreService} from "../view/view-core.service";
-import {RootService} from "../root.service";
-import {TemplateCacheService} from "../../services/template-cache.service";
+import {RootService} from '../root.service';
+import {TemplateCacheService} from '../../services/template-cache.service';
 
 export class TdCoreContext {
   constructor(public $implicit: TdCoreDirective) {

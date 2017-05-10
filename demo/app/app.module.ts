@@ -16,7 +16,7 @@ import {APP_RESOLVER_PROVIDERS} from './app.resolver';
 import {AppState, InternalStateType} from './app.service';
 import {HomeComponent} from './home';
 import {NoContentComponent} from './no-content';
-import {GridModule} from '../../src/grid.module';
+import {GridModule} from 'src/grid.module';
 import {DataService} from '../data/data.service';
 
 // Application wide providers
