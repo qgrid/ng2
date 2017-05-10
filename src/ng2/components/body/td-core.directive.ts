@@ -15,11 +15,11 @@ export class TdCoreContext {
   selector: '[q-grid-core-td]',
 })
 export class TdCoreDirective implements OnInit, OnDestroy {
-  @Input('q-grid-core-td') private view: ViewCoreService;
   @Input('q-grid-core-row') row: any;
   @Input('q-grid-core-row-index') columnIndex: number;
   @Input('q-grid-core-column') column: any;
   @Input('q-grid-core-column-index') rowIndex: number;
+  @Input('q-grid-core-td') $view: ViewCoreService;
   private element: HTMLElement = null;
 
   constructor(private root: RootService,
@@ -34,7 +34,7 @@ export class TdCoreDirective implements OnInit, OnDestroy {
     const column = this.column;
     const element = this.element;
 
-    this.view.style.monitor.cell.add(element);
+    this.$view.style.monitor.cell.add(element);
 
     element.classList.add(`${GRID_PREFIX}-${column.key}`);
     element.classList.add(`${GRID_PREFIX}-${column.type}`);
@@ -88,28 +88,28 @@ export class TdCoreDirective implements OnInit, OnDestroy {
   get value() {
     const column = this.column;
     const row = this.row;
-    return this.view.body.value(row, column);
+    return this.$view.body.value(row, column);
   }
 
   set value(value) {
     const column = this.column;
     const row = this.row;
-    this.view.body.value(row, column, value);
+    this.$view.body.value(row, column, value);
   }
 
   get label() {
     const column = this.column;
     const row = this.row;
-    return this.view.body.label(row, column);
+    return this.$view.body.label(row, column);
   }
 
   set label(label) {
     const column = this.column;
     const row = this.row;
-    this.view.body.label(row, column, label);
+    this.$view.body.label(row, column, label);
   }
 
   ngOnDestroy() {
-    this.view.style.monitor.cell.remove(this.element);
+    this.$view.style.monitor.cell.remove(this.element);
   }
 }

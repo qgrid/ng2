@@ -18,7 +18,7 @@ import {MarkupDirective, TemplateCacheDirective} from './ng2/directives';
 
 import {TemplateCacheService} from './ng2/services';
 
-import {BodyCellTextComponent} from './ng2/components/cell/text';
+import {BodyCellTextComponent, HeadCellTextComponent} from './ng2/components/cell/text';
 
 import Model from 'core/infrastructure/model';
 import GridModel from 'core/grid/grid.model';
@@ -94,8 +94,8 @@ Model.register('grid', GridModel)
     TfCoreDirective,
     MarkupDirective,
     TemplateCacheDirective,
-
-    BodyCellTextComponent
+    BodyCellTextComponent,
+    HeadCellTextComponent
   ],
   exports: [
     GridComponent,

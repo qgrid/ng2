@@ -1,42 +1,51 @@
-import {Directive, ElementRef} from '@angular/core';
-//import cellBuilder from '../cell/cell.build';
+import {Directive, ElementRef, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {VIEW_CORE_NAME, TH_CORE_NAME,} from 'ng/definition';
 import {GRID_PREFIX} from 'core/definition';
 import {ViewCoreService} from "../view/view-core.service";
+import {RootService} from "../root.service";
+import {TemplateCacheService} from "../../services/template-cache.service";
+
+export class ThCoreContext {
+  constructor(public $implicit: ThCoreDirective) {
+  }
+
+  get $view() {
+    return this.$implicit.$view;
+  }
+}
+
 
 @Directive({
   selector: '[q-grid-core-th]'
 })
-export class ThCoreDirective {
-  constructor(private view: ViewCoreService, private element: ElementRef) {
+export class ThCoreDirective implements OnInit {
+  @Input('q-grid-core-row') row: any;
+  @Input('q-grid-core-row-index') columnIndex: number;
+  @Input('q-grid-core-column') column: any;
+  @Input('q-grid-core-column-index') rowIndex: number;
+  @Input('q-grid-core-th') $view: ViewCoreService;
+  private element: HTMLElement = null;
+
+  constructor(private root: RootService,
+              private templateCache: TemplateCacheService,
+              private viewContainerRef: ViewContainerRef,
+              element: ElementRef) {
+
+    this.element = element.nativeElement.parentElement;
   }
 
-  onInit() {
+  ngOnInit() {
     const column = this.column;
-    const element = this.element.nativeElement;
+    const element = this.element;
 
-    // element.classList.add(`${GRID_PREFIX}-${column.key}`);
-    // element.classList.add(`${GRID_PREFIX}-${column.type}`);
-    // if (column.hasOwnProperty('editor')) {
-    // 	element.classList.add(`${GRID_PREFIX}-${column.editor}`);
-    // }
+    element.classList.add(`${GRID_PREFIX}-${column.key}`);
+    element.classList.add(`${GRID_PREFIX}-${column.type}`);
+    if (column.hasOwnProperty('editor')) {
+      element.classList.add(`${GRID_PREFIX}-${column.editor}`);
+    }
 
-    // if (this.$attrs[TH_CORE_NAME] !== 'body') {
-    // 	const model = this.view.model;
-    // 	const cache = model.head().cache;
-    // 	let link = cache.find(column.key);
-    // 	if (!link) {
-    // 		const build = cellBuilder(this.view.template);
-    // 		link = build('head', model, this.column);
-    // 		cache.set(column.key, link);
-    // 	}
-    //
-    // 	link(this.$element, this.$scope);
-    // }
-  }
-
-  get column() {
-    return null;
-    //return this.$scope.$column.model;
+    const context = new ThCoreContext(this);
+    const template = this.templateCache.get('head.cell.text.tpl.html');
+    this.viewContainerRef.createEmbeddedView(template, context);
   }
 }

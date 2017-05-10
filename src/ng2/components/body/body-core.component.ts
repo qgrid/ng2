@@ -16,7 +16,7 @@ export class BodyCoreComponent implements OnInit {
   private rangeStartCell = null;
 
   constructor(element: ElementRef,
-              private $view: ViewCoreService,
+              public $view: ViewCoreService,
               private root: RootService) {
     this.element = element.nativeElement;
     this.listener = new EventListener(this, this.element);
