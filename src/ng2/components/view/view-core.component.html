@@ -3,17 +3,18 @@
          q-grid-core-head
          q-grid-markup="head"
          q-grid-animate="false">
+  <ng-container q-grid-core-head></ng-container>
   </thead>
   <tbody *ngIf="visibility.body"
          q-grid-markup="body"
          q-grid-animate="false"
          vscroll
-         vscroll-port-y="$view.scroll.y"
-         q-grid-core-body>
+         vscroll-port-y="$view.scroll.y">
+  <ng-container q-grid-core-body></ng-container>
   </tbody>
   <tfoot *ngIf="visibility.foot"
-         q-grid-core-foot
          q-grid-markup="foot"
          q-grid-animate="false">
+  <ng-container q-grid-core-foot></ng-container>
   </tfoot>
 </table>

@@ -1,1 +1,1 @@
-export * from './box-core.component';
+export * from './box.component';

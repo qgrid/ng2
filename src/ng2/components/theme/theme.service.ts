@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import Event from 'core/infrastructure/event';
+import Event from '../../../core/infrastructure/event';
 
 @Injectable()
 export class ThemeService {

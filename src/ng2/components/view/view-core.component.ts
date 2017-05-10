@@ -22,7 +22,7 @@ import {GRID_NAME, TH_CORE_NAME} from 'ng2/definition';
 import {isUndefined} from 'core/services/utility';
 // import TemplateLink from '../template/template.link';
 import PipeUnit from 'core/pipe/units/pipe.unit'
-import {GridService} from "../../services/grid.service";
+import {GridService} from "../grid/grid.service";
 import {RootService} from "../root.service";
 import {ViewCoreService} from "./view-core.service";
 

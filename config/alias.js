@@ -6,5 +6,6 @@ System.config({
   src: helpers.root('src'),
   core: helpers.root('src/core'),
   ng2: helpers.root('src/ng2'),
-  themes: helpers.root('src/themes')
+  theme: helpers.root('src/themes/dist'),
+  assets: helpers.root('src/assets')
 });

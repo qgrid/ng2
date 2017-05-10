@@ -1,12 +1,12 @@
 import {Component, ElementRef, Optional, Input} from '@angular/core';
 import {Component as NgComponent} from '../component';
-import {ThemeService} from '../../services/theme.service';
+import {ThemeService} from '../theme/theme.service';
 import {GRID_PREFIX} from 'core/definition';
 import * as guard from 'core/infrastructure/guard';
 import {RootService} from "../root.service";
 
 @Component({
-  selector: 'q-grid-core-box',
+  selector: 'q-grid-box',
   template: '<ng-content></ng-content>'
 })
 export class BoxCoreComponent extends NgComponent {

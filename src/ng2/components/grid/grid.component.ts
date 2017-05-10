@@ -1,11 +1,13 @@
-import {Component, Input, Output, ElementRef, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
 import {RootComponent} from '../root.component';
 import {RootService} from "../root.service";
 
 @Component({
   selector: 'q-grid',
   providers: [RootService],
-  templateUrl: './grid.component.html'
+  templateUrl: './grid.component.html',
+  styles: [require('assets/index.scss'), require('theme/index.scss')],
+  encapsulation: ViewEncapsulation.None
 })
 export class GridComponent extends RootComponent {
   protected names = ['data', 'selection', 'sort', 'group', 'pivot', 'edit'];
