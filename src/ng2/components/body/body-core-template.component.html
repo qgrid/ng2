@@ -1,12 +1,13 @@
 <ng-template name="body.tpl.html" let-$view>
   <tr *ngFor="let $row of $view.body.rows; let $rowIndex = index"
       [q-grid-core-tr]="$view">
-    <td *ngFor="let $column of $view.body.columns; let $columnIndex = index"
-        [q-grid-core-td]="$view"
-        [q-grid-core-column]="$column.model"
-        [q-grid-core-column-index]="$columnIndex"
-        [q-grid-core-row]="$row"
-        [q-grid-core-row-index]="$rowIndex">
+    <td *ngFor="let $column of $view.body.columns; let $columnIndex = index">
+      <ng-container [q-grid-core-td]="$view"
+                    [q-grid-core-column]="$column.model"
+                    [q-grid-core-column-index]="$columnIndex"
+                    [q-grid-core-row]="$row"
+                    [q-grid-core-row-index]="$rowIndex">
+      </ng-container>
     </td>
   </tr>
 </ng-template>

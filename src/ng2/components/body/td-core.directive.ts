@@ -20,16 +20,19 @@ export class TdCoreDirective implements OnInit, OnDestroy {
   @Input('q-grid-core-row-index') columnIndex: number;
   @Input('q-grid-core-column') column: any;
   @Input('q-grid-core-column-index') rowIndex: number;
+  private element: HTMLElement = null;
 
   constructor(private root: RootService,
               private templateCache: TemplateCacheService,
               private viewContainerRef: ViewContainerRef,
-              private element: ElementRef) {
+              element: ElementRef) {
+
+    this.element = element.nativeElement.parentElement;
   }
 
   ngOnInit() {
     const column = this.column;
-    const element = this.element.nativeElement;
+    const element = this.element;
 
     this.view.style.monitor.cell.add(element);
 
@@ -107,6 +110,6 @@ export class TdCoreDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.view.style.monitor.cell.remove(this.element.nativeElement);
+    this.view.style.monitor.cell.remove(this.element);
   }
 }
