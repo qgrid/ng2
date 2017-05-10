@@ -1,7 +1,0 @@
-<tr *ngFor="let $row of $view.foot.rows; trackBy: index">
-	<td *ngFor="let $column of $view.foot.columns; trackBy: $column.model.key"
-		 [attr.rowspan]="$column.rowspan"
-		 [attr.colspan]="$column.colspan"
-		 q-grid-core-tf>
-	</td>
-</tr>

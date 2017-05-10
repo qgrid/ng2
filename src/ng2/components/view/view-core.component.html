@@ -2,8 +2,8 @@
   <thead *ngIf="visibility.head"
          q-grid-core-head
          q-grid-markup="head"
-         q-grid-animate="false">
-  <ng-container q-grid-core-head></ng-container>
+         q-grid-animate="false"
+         q-grid-core-head>
   </thead>
   <tbody *ngIf="visibility.body"
          q-grid-markup="body"
@@ -14,7 +14,7 @@
   </tbody>
   <tfoot *ngIf="visibility.foot"
          q-grid-markup="foot"
-         q-grid-animate="false">
-  <ng-container q-grid-core-foot></ng-container>
+         q-grid-animate="false"
+         q-grid-core-foot>
   </tfoot>
 </table>

@@ -15,14 +15,12 @@ export class TdCoreContext {
   selector: '[q-grid-core-td]',
 })
 export class TdCoreDirective implements OnInit, OnDestroy {
-  @Input('q-grid-core-row') row: any;
-  @Input('q-grid-core-row-index') columnIndex: number;
-  @Input('q-grid-core-column') column: any;
-  @Input('q-grid-core-column-index') rowIndex: number;
-  @Input('q-grid-core-td') $view: ViewCoreService;
+  @Input('q-grid-core-row-index') rowIndex: number;
+  @Input('q-grid-core-column-index') columnIndex: number;
   private element: HTMLElement = null;
 
-  constructor(private root: RootService,
+  constructor(public $view: ViewCoreService,
+              private root: RootService,
               private templateCache: TemplateCacheService,
               private viewContainerRef: ViewContainerRef,
               element: ElementRef) {
@@ -107,6 +105,14 @@ export class TdCoreDirective implements OnInit, OnDestroy {
     const column = this.column;
     const row = this.row;
     this.$view.body.label(row, column, label);
+  }
+
+  get column() {
+    return this.$view.body.columns[this.columnIndex].model;
+  }
+
+  get row() {
+    return this.$view.body.rows[this.rowIndex];
   }
 
   ngOnDestroy() {

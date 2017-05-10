@@ -10,15 +10,14 @@ import {ColumnListComponent} from './ng2/components/column';
 import {ThemeCoreComponent, ThemeService} from './ng2/components/theme';
 
 import {BodyCoreComponent, TdCoreDirective} from './ng2/components/body';
-import {HeadCoreDirective, ThCoreDirective} from './ng2/components/head';
-import {FootCoreDirective, TfCoreDirective} from './ng2/components/foot';
+import {HeadCoreComponent, ThCoreDirective} from './ng2/components/head';
+import {FootCoreComponent, TfCoreDirective} from './ng2/components/foot';
 import {TrCoreDirective} from './ng2/components/row';
 
 import {MarkupDirective, TemplateCacheDirective} from './ng2/directives';
-
 import {TemplateCacheService} from './ng2/services';
 
-import {BodyCellTextComponent, HeadCellTextComponent} from './ng2/components/cell/text';
+import {BodyCellTextComponent, HeadCellTextComponent, FootCellTextComponent} from './ng2/components/cell/text';
 
 import Model from 'core/infrastructure/model';
 import GridModel from 'core/grid/grid.model';
@@ -85,9 +84,9 @@ Model.register('grid', GridModel)
     BoxCoreComponent,
     ViewCoreComponent,
     ThemeCoreComponent,
-    HeadCoreDirective,
+    HeadCoreComponent,
     BodyCoreComponent,
-    FootCoreDirective,
+    FootCoreComponent,
     TrCoreDirective,
     ThCoreDirective,
     TdCoreDirective,
@@ -95,7 +94,8 @@ Model.register('grid', GridModel)
     MarkupDirective,
     TemplateCacheDirective,
     BodyCellTextComponent,
-    HeadCellTextComponent
+    HeadCellTextComponent,
+    FootCellTextComponent
   ],
   exports: [
     GridComponent,

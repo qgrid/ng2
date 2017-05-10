@@ -14,23 +14,18 @@ export class ThCoreContext {
   }
 }
 
-
 @Directive({
   selector: '[q-grid-core-th]'
 })
 export class ThCoreDirective implements OnInit {
-  @Input('q-grid-core-row') row: any;
-  @Input('q-grid-core-row-index') columnIndex: number;
-  @Input('q-grid-core-column') column: any;
-  @Input('q-grid-core-column-index') rowIndex: number;
-  @Input('q-grid-core-th') $view: ViewCoreService;
+  @Input('q-grid-core-row-index') rowIndex: number;
+  @Input('q-grid-core-column-index') columnIndex: number;
   private element: HTMLElement = null;
 
-  constructor(private root: RootService,
+  constructor(public $view: ViewCoreService,
               private templateCache: TemplateCacheService,
               private viewContainerRef: ViewContainerRef,
               element: ElementRef) {
-
     this.element = element.nativeElement.parentElement;
   }
 
@@ -47,5 +42,13 @@ export class ThCoreDirective implements OnInit {
     const context = new ThCoreContext(this);
     const template = this.templateCache.get('head.cell.text.tpl.html');
     this.viewContainerRef.createEmbeddedView(template, context);
+  }
+
+  get column() {
+    return this.row[this.columnIndex].model;
+  }
+
+  get row() {
+    return this.$view.head.rows[this.rowIndex];
   }
 }

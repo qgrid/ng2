@@ -2,10 +2,10 @@ import {Component} from '@angular/core';
 import {ViewCoreService} from "../view/view-core.service";
 
 @Component({
-  selector: 'thead[q-grid-core-head]',
-  templateUrl: './head-core.component.html'
+  selector: 'tfoot[q-grid-core-foot]',
+  templateUrl: './foot-core.component.html'
 })
-export class HeadCoreComponent {
+export class FootCoreComponent {
   constructor(public $view: ViewCoreService) {
   }
 }
