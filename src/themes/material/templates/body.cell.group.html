@@ -1,8 +1,0 @@
-<div ng-style="{'padding-left': $view.group.offset($cell.row) + 'px'}">
-	<button ng-click="$view.group.toggleStatus.execute($cell.row)"
-			  ng-if="$view.group.toggleStatus.canExecute($cell.row)">
-		<span ng-bind="$view.group.status($cell.row) === 'expand' ? '-' : '+'"></span>
-	</button>
-	<span>{{$view.group.value($cell.row)}}</span>
-	<span ng-if="$view.group.toggleStatus.canExecute($cell.row)">({{$view.group.count($cell.row)}})</span>
-</div>

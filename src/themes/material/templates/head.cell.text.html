@@ -21,6 +21,7 @@
   <!--title="{{$cell.column.title}}"-->
   <!--ng-class="{'q-grid-active': $view.filter.has($cell.column)}">-->
   <!--</q-grid:column-filter>-->
+
   <div (click)="$view.sort.toggle.execute($cell.column)">
     <div class="q-grid-sort"
          ngSwitch="$view.sort.direction($cell.column)">
