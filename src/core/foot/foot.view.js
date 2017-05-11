@@ -1,11 +1,10 @@
-import View from 'core/view/view';
-import * as columnService from 'core/column/column.service';
-import Aggregation from 'core/services/aggregation';
-import AppError from 'core/infrastructure/error';
-import Log from 'core/infrastructure/log';
-import {getFactory as valueFactory} from 'core/services/value';
+import {View} from '../view';
+import * as columnService from '../column/column.service';
+import {Aggregation} from '../services';
+import {Log, AppError} from '../infrastructure';
+import {getFactory as valueFactory} from '../services/value';
 
-export default class FootView extends View {
+export class FootView extends View {
 	constructor(model, table) {
 		super(model);
 

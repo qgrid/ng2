@@ -1,4 +1,4 @@
-import {flatten} from 'core/services/utility';
+import {flatten} from '../services/utility';
 
 function injectData(schema, source, target) {
 	return Object
@@ -66,7 +66,7 @@ function sortSchema(schema, comparator) {
 		}, {});
 }
 
-export default function view(source, comparator) {
+export function pivotForm(source, comparator) {
 	if (source.schema && source.data) {
 		const schema = sortSchema(source.schema, comparator);
 		const rows = source.data.map(row => injectData(schema, row, expandData(schema, row)));

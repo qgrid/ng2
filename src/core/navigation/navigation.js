@@ -1,6 +1,6 @@
-import Command from 'core/infrastructure/command';
+import {Command} from '../infrastructure';
 
-export default class Navigation {
+export class Navigation {
 	constructor(model, table) {
 		this.model = model;
 		this.table = table;

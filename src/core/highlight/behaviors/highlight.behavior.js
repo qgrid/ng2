@@ -1,6 +1,6 @@
-import {GRID_PREFIX} from 'core/definition';
+import {GRID_PREFIX} from '../../definition';
 
-export default class HighlightBehavior {
+export class HighlightBehavior {
 	constructor(model, cellSelector) {
 		this.model = model;
 		this.cellSelector = cellSelector;

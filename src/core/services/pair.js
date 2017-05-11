@@ -1,4 +1,4 @@
-import AppError from 'core/infrastructure/error';
+import {AppError} from '../infrastructure';
 
 export function key(pair) {
 	const key = Object.keys(pair)[0];

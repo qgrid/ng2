@@ -1,7 +1,7 @@
-import {cloneDeep} from 'core/services/utility';
-import CellEditor from './edit.cell.editor';
-import {get as getValue, set as setValue} from 'core/services/value';
-import {get as getLabel, set as setLabel} from 'core/services/label';
+import {cloneDeep} from '../services/utility';
+import {CellEditor} from './edit.cell.editor';
+import {get as getValue, set as setValue} from '../services/value';
+import {get as getLabel, set as setLabel} from '../services/label';
 
 
 class RowEditorCore {
@@ -42,7 +42,7 @@ class CellView {
 }
 
 const empty = new RowEditorCore();
-export default class RowEditor extends RowEditorCore {
+export class RowEditor extends RowEditorCore {
 	constructor(row, columns) {
 		super();
 

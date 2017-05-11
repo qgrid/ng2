@@ -3,9 +3,9 @@
 const helpers = require('./helpers');
 
 System.config({
-  src: helpers.root('src'),
-  core: helpers.root('src/core'),
-  ng2: helpers.root('src/ng2'),
-  theme: helpers.root('src/themes/dist'),
-  assets: helpers.root('src/assets')
+  '@grid/src': helpers.root('src'),
+  '@grid/core': helpers.root('src/core'),
+  '@grid/view': helpers.root('src/view'),
+  '@grid/theme': helpers.root('src/themes/material'),
+  '@grid/assets': helpers.root('src/assets')
 });

@@ -1,4 +1,4 @@
-export default class LayoutModel {
+export class LayoutModel {
 	constructor() {
 		this.columns = {};
 	}

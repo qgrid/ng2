@@ -1,11 +1,9 @@
-import Command from 'core/infrastructure/command';
-import Log from 'core/infrastructure/log';
-import Shortcut from 'core/infrastructure/shortcut';
-import CellEditor from './edit.cell.editor';
-import {getFactory as valueFactory} from 'core/services/value';
-import {getFactory as labelFactory} from 'core/services/label';
+import {Command, Log, Shortcut} from '../infrastructure';
+import {CellEditor} from './edit.cell.editor';
+import {getFactory as valueFactory} from '../services/value';
+import {getFactory as labelFactory} from '../services/label';
 
-export default class EditCellView {
+export class EditCellView {
 	constructor(model, table, applyFactory) {
 		this.model = model;
 		this.table = table;

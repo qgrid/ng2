@@ -1,6 +1,6 @@
 import {yes} from '../services/utility';
 
-export default class Command {
+export class Command {
 
 	constructor(context = {}) {
 		this.execute = context.execute || yes;

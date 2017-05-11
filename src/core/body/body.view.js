@@ -1,13 +1,12 @@
-import View from 'core/view/view';
-import * as columnService from 'core/column/column.service';
-import Aggregation from 'core/services/aggregation';
-import AppError from 'core/infrastructure/error';
-import Log from 'core/infrastructure/log';
-import Node from 'core/node/node';
-import {getFactory as valueFactory, set as setValue} from 'core/services/value';
-import {getFactory as labelFactory, set as setLabel} from 'core/services/label';
+import {View} from '../view';
+import * as columnService from '../column/column.service';
+import {Aggregation} from '../services';
+import {AppError, Log} from '../infrastructure';
+import {Node} from '../node';
+import {getFactory as valueFactory, set as setValue} from '../services/value';
+import {getFactory as labelFactory, set as setLabel} from '../services/label';
 
-export default class BodyView extends View {
+export class BodyView extends View {
 	constructor(model, table) {
 		super(model);
 

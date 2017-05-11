@@ -1,4 +1,4 @@
-export default class TableView {
+export class TableView {
 	constructor(model) {
 		this.model = model;
 	}

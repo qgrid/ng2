@@ -1,12 +1,11 @@
-import View from '../view/view';
-import Command from 'core/infrastructure/command';
-import stateFactory from './state/selection.state.factory';
-import rangeBuilder from './range.build';
-import Shortcut from 'core/infrastructure/shortcut';
-import {GRID_PREFIX} from 'core/definition';
-import {isUndefined} from 'core/services/utility';
+import {View} from '../view';
+import {Command, Shortcut} from '../infrastructure';
+import {selectionStateFactory as stateFactory} from './state';
+import {rangeBuilder} from './range.build';
+import {GRID_PREFIX} from '../definition';
+import {isUndefined} from '../services/utility';
 
-export default class SelectionView extends View {
+export class SelectionView extends View {
 	constructor(model, table, applyFactory) {
 		super(model);
 

@@ -1,4 +1,4 @@
-export default class EventListener {
+export class EventListener {
 	constructor(context, element) {
 		this.element = element;
 		this.context = context;

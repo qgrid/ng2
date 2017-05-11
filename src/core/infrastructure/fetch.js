@@ -1,6 +1,6 @@
-import {isFunction, isUndefined} from 'core/services/utility';
+import {isFunction, isUndefined} from '../services/utility';
 
-export default class Fetch {
+export class Fetch {
 	constructor(select) {
 		this.select = select;
 		this.busy = null;

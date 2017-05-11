@@ -1,4 +1,4 @@
-import sort from './sort.pipe';
+import {sortPipe as sort} from './sort.pipe';
 
 describe('sort pipe', () => {
 	const list = [{

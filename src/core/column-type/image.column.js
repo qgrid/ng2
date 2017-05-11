@@ -1,8 +1,8 @@
-import ColumnView from 'core/column-type/column.model.view';
-import DataColumnModel from './data.column.model';
-import TemplatePath from 'core/template/template.path';
-import {yes} from 'core/services/utility';
-import {isImage} from 'core/services/file';
+import {ColumnView} from './column.model.view';
+import {DataColumnModel} from './data.column.model';
+import {TemplatePath} from '../template';
+import {yes} from '../services/utility';
+import {isImage} from '../services/file';
 
 TemplatePath.register('image-cell', (template, column) => {
 	return {
@@ -18,7 +18,7 @@ TemplatePath.register('image-cell-edit', (template, column) => {
 	};
 });
 
-class ImageColumnModel extends DataColumnModel {
+export class ImageColumnModel extends DataColumnModel {
 	constructor() {
 		super('image');
 
@@ -29,7 +29,7 @@ class ImageColumnModel extends DataColumnModel {
 	}
 }
 
-export default class ImageColumn extends ColumnView {
+export class ImageColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

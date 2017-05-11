@@ -1,13 +1,13 @@
-import View from 'core/view/view';
-import columnFactory from 'core/column/column.factory';
-import AppError from 'core/infrastructure/error';
-import merge from 'core/services/merge';
-import * as columnService from 'core/column/column.service';
-import {assignWith, noop, isUndefined} from 'core/services/utility';
-import {generate} from 'core/column-list/column.list.generate';
-import PipeUnit from 'core/pipe/units/pipe.unit';
+import {View} from '../view';
+import {columnFactory} from './column.factory';
+import {AppError} from '../infrastructure';
+import {merge} from '../services';
+import * as columnService from '../column/column.service';
+import {assignWith, noop, isUndefined} from '../services/utility';
+import {generate} from '../column-list';
+import {PipeUnit} from '../pipe/units';
 
-export default class ColumnView extends View {
+export class ColumnView extends View {
 	constructor(model, service) {
 		super(model);
 

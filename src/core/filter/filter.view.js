@@ -1,6 +1,6 @@
-import View from 'core/view/view';
+import {View} from '../view';
 
-export default class FilterView extends View {
+export class FilterView extends View {
 	constructor(model) {
 		super(model);
 	}

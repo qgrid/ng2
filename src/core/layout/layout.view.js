@@ -1,11 +1,11 @@
-import View from 'core/view/view';
-import * as css from 'core/services/css';
-import * as columnService from 'core/column/column.service';
-import {clone} from 'core/services/utility';
-import PipeUnit from 'core/pipe/units/pipe.unit';
-import log from 'core/infrastructure/log';
+import {View} from '../view';
+import * as css from '../services/css';
+import * as columnService from '../column/column.service';
+import {clone} from '../services/utility';
+import {PipeUnit} from '../pipe/units';
+import {Log} from '../infrastructure';
 
-export default class LayoutView extends View {
+export class LayoutView extends View {
 	constructor(model, table, service) {
 		super(model);
 		this.model = model;
@@ -93,7 +93,7 @@ export default class LayoutView extends View {
 	}
 
 	invalidateColumns(form) {
-		log.info('layout', 'invalidate columns');
+		Log.info('layout', 'invalidate columns');
 
 		const model = this.model;
 		const getWidth = columnService.widthFactory(model, form);

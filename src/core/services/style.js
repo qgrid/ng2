@@ -1,4 +1,4 @@
-import * as css from 'core/services/css';
+import * as css from '../services/css';
 
 class Element {
 	constructor(element, sheets) {

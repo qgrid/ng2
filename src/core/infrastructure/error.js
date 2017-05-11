@@ -1,6 +1,6 @@
 import {isFunction} from '../services/utility';
 
-export default class AppError extends Error {
+export class AppError extends Error {
 	constructor(name, message) {
 		super(message);
 		this.name = this.constructor.name;

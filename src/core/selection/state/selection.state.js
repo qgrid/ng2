@@ -1,6 +1,6 @@
-import AppError from 'core/infrastructure/error';
-import {isArray, isUndefined} from 'core/services/utility';
-import Node from 'core/node/node';
+import {AppError} from '../../infrastructure';
+import {isArray, isUndefined} from '../../services/utility';
+import {Node} from '../../node';
 
 const keySelector = (unit, selector) => {
 	switch (unit) {
@@ -18,7 +18,7 @@ const keySelector = (unit, selector) => {
 	}
 };
 
-export default class SelectionState {
+export class SelectionState {
 	constructor(model) {
 		this.model = model;
 	}

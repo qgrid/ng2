@@ -1,7 +1,7 @@
-import Resource from 'core/resource/resource';
-import {identity} from 'core/services/utility';
+import {Resource} from '../resource';
+import {identity} from '../services/utility';
 
-export default class SelectionModel {
+export class SelectionModel {
 	constructor() {
 		this.resource = new Resource();
 		this.unit = 'cell';//row|cell|column|mix

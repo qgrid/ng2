@@ -1,6 +1,6 @@
-import SelectionState from './selection.state';
+import {SelectionState} from './selection.state';
 
-export default class SingleSelectionState extends SelectionState {
+export class SingleSelectionState extends SelectionState {
 	constructor(model) {
 		super(model);
 

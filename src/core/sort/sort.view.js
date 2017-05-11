@@ -1,10 +1,9 @@
-import View from 'core/view/view';
-import AppError from 'core/infrastructure/error';
-import Command from 'core/infrastructure/command';
-import * as columnService from 'core/column/column.service';
-import * as sortService from 'core/sort/sort.service';
+import {View} from '../view';
+import {AppError, Command} from '../infrastructure';
+import * as columnService from '../column/column.service';
+import * as sortService from '../sort/sort.service';
 
-export default class SortView extends View {
+export class SortView extends View {
 	constructor(model) {
 		super(model);
 		this.hover = false;

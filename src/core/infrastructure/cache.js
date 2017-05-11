@@ -1,6 +1,6 @@
-import AppError from './error';
+import {AppError} from './error';
 
-export default class Cache {
+export class Cache {
 	constructor() {
 		this.items = {};
 	}

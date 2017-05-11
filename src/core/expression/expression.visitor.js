@@ -1,6 +1,6 @@
-import AppError from 'core/infrastructure/error';
+import {AppError} from '../infrastructure';
 
-export default class Visitor {
+export class Visitor {
 	constructor() {
 	}
 

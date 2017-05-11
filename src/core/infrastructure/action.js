@@ -1,4 +1,4 @@
-export default class Action {
+export class Action {
 	constructor(command, title, icon) {
 		this.command = command;
 		this.title = title;

@@ -1,7 +1,7 @@
-import View from '../view/view';
-import log from 'core/infrastructure/log';
+import {View} from '../view';
+import {Log} from '../infrastructure';
 
-export default class ScrollView extends View {
+export class ScrollView extends View {
 	constructor(model, table, vscroll, service, applyFactory) {
 		super(model);
 
@@ -59,7 +59,7 @@ export default class ScrollView extends View {
 	}
 
 	invalidate(pin) {
-		log.info('layout', 'invalidate scroll');
+		Log.info('layout', 'invalidate scroll');
 
 		const table = this.table;
 		const scroll = this.model.scroll();

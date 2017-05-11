@@ -1,8 +1,8 @@
-import View from 'core/view/view';
-import EditCellView from './edit.cell.view';
-import EditRowView from './edit.row.view';
+import {View} from '../view';
+import {EditCellView} from './edit.cell.view';
+import {EditRowView} from './edit.row.view';
 
-export default class EditView extends View {
+export class EditView extends View {
 	constructor(model, table, applyFactory) {
 		super(model);
 

@@ -1,7 +1,7 @@
-import ColumnModel from './column.model';
-import View from 'core/view/view';
-import TemplatePath from 'core/template/template.path';
-import {isObject, isFunction} from 'core/services/utility';
+import {ColumnModel} from './column.model';
+import {View} from '../view';
+import {TemplatePath} from '../template';
+import {isObject, isFunction} from '../services/utility';
 
 TemplatePath.register('custom-cell', (template, column) => {
 	return {
@@ -17,7 +17,7 @@ TemplatePath.register('custom-cell-edit', (template, column) => {
 	};
 });
 
-export default class ColumnView extends View {
+export class ColumnView extends View {
 	constructor(model) {
 		super(model);
 
@@ -26,7 +26,7 @@ export default class ColumnView extends View {
 	}
 
 	static model(model) {
-		if(model) {
+		if (model) {
 			ColumnView.assign(model);
 		}
 		else {

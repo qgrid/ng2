@@ -1,6 +1,6 @@
-import PipeUnit from 'core/pipe/units/pipe.unit';
+import {PipeUnit} from '../pipe/units/pipe.unit';
 
-export default class DataModel {
+export class DataModel {
 	constructor() {
 		this.rows = [];
 		this.columns = [];

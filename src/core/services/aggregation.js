@@ -1,4 +1,4 @@
-export default class Aggregation {
+export class Aggregation {
 	constructor() {
 	}
 

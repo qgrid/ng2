@@ -1,8 +1,8 @@
-import {identity} from 'core/services/utility';
-import pivot from './pivot';
-import pivotForm from './pivot.form';
+import {identity} from '../services/utility';
+import {pivot} from './pivot';
+import {pivotForm} from './pivot.form';
 
-function build(columnMap, valueFactory) {
+function buildFactory(columnMap, valueFactory) {
 	return function run(pivot, pivotBy, level = 0) {
 		const key = pivotBy[0];
 		const column = columnMap[key];
@@ -27,10 +27,10 @@ function build(columnMap, valueFactory) {
 	};
 }
 
-export default function (columnMap, pivotBy, valueFactory) {
+export function build(columnMap, pivotBy, valueFactory) {
 	let doPivot = null;
 	if (pivotBy.length) {
-		const doBuild = build(columnMap, valueFactory);
+		const doBuild = buildFactory(columnMap, valueFactory);
 		doPivot = doBuild(pivot, pivotBy);
 	}
 

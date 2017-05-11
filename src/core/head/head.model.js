@@ -1,7 +1,7 @@
-import Resource from '../resource/resource';
-import Cache from 'core/infrastructure/cache';
+import {Resource} from '../resource';
+import {Cache} from '../infrastructure';
 
-export default class HeadModel {
+export class HeadModel {
 	constructor() {
 		this.resource = new Resource();
 		this.cache = new Cache();

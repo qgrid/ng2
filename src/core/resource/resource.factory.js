@@ -1,7 +1,7 @@
-import Resource from 'core/resource/resource';
-import EnumerableResource from 'core/resource/resource.enumerable';
+import {Resource} from './resource';
+import {EnumerableResource} from './resource.enumerable';
 
-export default function factory(resource, key) {
+export function factory(resource, key) {
 	const data = resource.data;
 	const scope = resource.scope;
 	if (resource instanceof EnumerableResource) {

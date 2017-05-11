@@ -1,6 +1,6 @@
-import ColumnView from 'core/column-type/column.model.view';
-import DataColumnModel from './data.column.model';
-import TemplatePath from 'core/template/template.path';
+import {ColumnView} from './column.model.view';
+import {DataColumnModel} from './data.column.model';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('email-cell', (template, column) => {
 	return {
@@ -16,7 +16,7 @@ TemplatePath.register('email-cell-edit', (template, column) => {
 	};
 });
 
-class EmailColumnModel extends DataColumnModel {
+export class EmailColumnModel extends DataColumnModel {
 	constructor() {
 		super('email');
 
@@ -24,7 +24,7 @@ class EmailColumnModel extends DataColumnModel {
 	}
 }
 
-export default class EmailColumn extends ColumnView {
+export class EmailColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

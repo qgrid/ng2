@@ -1,17 +1,17 @@
-import defaultUnit from './default.pipe.unit';
-import viewUnit from './view.pipe.unit';
-import columnUnit from './column.pipe.unit';
+import {defaultPipeUnit} from './default.pipe.unit';
+import {viewPipeUnit} from './view.pipe.unit';
+import {columnPipeUnit} from './column.pipe.unit';
 
-export default class PipeUnit {
-	static get default(){
-		return defaultUnit;
+export class PipeUnit {
+	static get default() {
+		return defaultPipeUnit;
 	}
 
-	static get view(){
-		return viewUnit;
+	static get view() {
+		return viewPipeUnit;
 	}
 
 	static get column() {
-		return columnUnit;
+		return columnPipeUnit;
 	}
 }

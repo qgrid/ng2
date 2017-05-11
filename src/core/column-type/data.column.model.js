@@ -1,6 +1,6 @@
-import ColumnModel from './column.model';
+import {ColumnModel} from './column.model';
 
-export default class DataColumnModel extends ColumnModel {
+export class DataColumnModel extends ColumnModel {
 	constructor() {
 		super(...arguments);
 

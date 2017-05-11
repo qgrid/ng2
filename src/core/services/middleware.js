@@ -1,4 +1,4 @@
-export default class Middleware {
+export class Middleware {
 	constructor(pipes) {
 		this.pipes = pipes;
 	}

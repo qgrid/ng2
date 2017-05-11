@@ -1,4 +1,4 @@
-export default function pipeFilter(data, context, next) {
+export function filterPipe(data, context, next) {
 	const model = context.model;
 	const filterState = model.filter();
 	const match = filterState.match(context);

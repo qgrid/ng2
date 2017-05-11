@@ -1,9 +1,8 @@
-import View from 'core/view/view';
-import Log from 'core/infrastructure/log';
-import Command from 'core/infrastructure/command';
-import * as columnService from 'core/column/column.service';
+import {View} from '../view';
+import {Log, Command} from '../infrastructure';
+import * as columnService from '../column/column.service';
 
-export default class HeadView extends View {
+export class HeadView extends View {
 	constructor(model, table, tagName) {
 		super(model);
 

@@ -1,9 +1,9 @@
-import View from 'core/view/view';
-import Command from 'core/infrastructure/command';
-import {flatView as nodeFlatView} from 'core/node/node.service';
-import {getFactory as valueFactory} from 'core/services/value';
+import {View} from '../view';
+import {Command} from '../infrastructure';
+import {flatView as nodeFlatView} from '../node';
+import {getFactory as valueFactory} from '../services/value';
 
-export default class GroupView extends View {
+export class GroupView extends View {
 	constructor(model) {
 		super(model);
 

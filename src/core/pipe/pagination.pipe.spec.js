@@ -1,4 +1,4 @@
-import pagination from './pagination.pipe';
+import {paginationPipe as pagination} from './pagination.pipe';
 
 describe('pipe pagination', () => {
 	it('should return a function', () => {

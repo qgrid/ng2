@@ -1,4 +1,4 @@
-export default class ScrollModel {
+export class ScrollModel {
 	constructor() {
 		this.mode = 'default';
 

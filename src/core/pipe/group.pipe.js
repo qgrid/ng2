@@ -1,7 +1,7 @@
-import {map as getColumnMap} from 'core/column/column.service';
-import nodeBuilder from 'core/node/node.builder';
+import {map as getColumnMap} from '../column/column.service';
+import {nodeBuilder} from '../node';
 
-export default function pipeGroup(memo, context, next) {
+export function groupPipe(memo, context, next) {
 	const model = context.model;
 	const dataState = model.data();
 	const groupState = model.group();

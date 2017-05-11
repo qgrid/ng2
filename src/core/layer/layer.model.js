@@ -1,6 +1,6 @@
-import Resource from '../resource/resource';
+import {Resource} from '../resource';
 
-export default class LayerModel {
+export class LayerModel {
 	constructor() {
 		this.resource = new Resource();
 	}

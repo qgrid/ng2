@@ -1,6 +1,6 @@
-import ColumnView from 'core/column-type/column.model.view';
-import DataColumnModel from './data.column.model';
-import TemplatePath from 'core/template/template.path';
+import {ColumnView} from './column.model.view';
+import {DataColumnModel} from './data.column.model';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('text-cell', (template, column) => {
 	return {
@@ -23,7 +23,7 @@ TemplatePath.register('text-area-cell-edit', (template, column) => {
 	};
 });
 
-class TextColumnModel extends DataColumnModel {
+export class TextColumnModel extends DataColumnModel {
 	constructor() {
 		super('text');
 
@@ -31,7 +31,7 @@ class TextColumnModel extends DataColumnModel {
 	}
 }
 
-export default class TextColumn extends ColumnView {
+export class TextColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

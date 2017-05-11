@@ -1,6 +1,6 @@
-import Resource from './resource';
+import {Resource} from './resource';
 
-export default class EnumerableResource extends Resource{
+export class EnumerableResource extends Resource{
 	constructor(data = {}, scope = {}, count = 0) {
 		super(data, scope);
 

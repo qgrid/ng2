@@ -1,4 +1,4 @@
-export default class HighlightModel {
+export class HighlightModel {
 	constructor() {
 		this.columns = [];
 	}

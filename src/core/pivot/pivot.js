@@ -38,7 +38,7 @@ function factory(plan) {
 	};
 }
 
-export default function pivot(settings, plan) {
+export function pivot(settings, plan) {
 	plan = plan || new Plan();
 
 	const pivot = factory(plan);

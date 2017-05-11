@@ -1,4 +1,4 @@
-export default class ColumnModel {
+export class ColumnModel {
 	constructor(type = 'text') {
 		this.type = type;
 		this.key = null;

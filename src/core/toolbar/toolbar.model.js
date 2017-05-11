@@ -1,6 +1,6 @@
-import Resource from '../resource/resource';
+import {Resource} from '../resource';
 
-export default class ToolbarModel {
+export class ToolbarModel {
 	constructor() {
 		this.resource = new Resource();
 	}

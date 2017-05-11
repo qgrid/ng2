@@ -1,4 +1,4 @@
-export default function pipePagination(data, context, next) {
+export function paginationPipe(data, context, next) {
 	const model = context.model;
 	if (model.scroll().mode !== 'virtual') {
 		const paginationState = model.pagination();

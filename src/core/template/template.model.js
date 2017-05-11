@@ -1,4 +1,4 @@
-export default class TemplateModel {
+export class TemplateModel {
 	constructor() {
 		this.resource = {};
 	}

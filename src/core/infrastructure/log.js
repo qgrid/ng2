@@ -1,6 +1,6 @@
 /*eslint-disable  no-console*/
 
-export default class Log {
+export class Log {
 	constructor() {
 	}
 

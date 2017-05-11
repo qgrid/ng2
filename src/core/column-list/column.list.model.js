@@ -1,4 +1,4 @@
-export default class ColumnListModel {
+export class ColumnListModel {
 	constructor() {
 		this.generation = null; // deep | shallow
 		this.index = [];

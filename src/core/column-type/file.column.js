@@ -1,8 +1,8 @@
-import ColumnView from 'core/column-type/column.model.view';
-import DataColumnModel from './data.column.model';
-import TemplatePath from 'core/template/template.path';
-import {yes} from 'core/services/utility';
-import {isImage} from 'core/services/file';
+import {ColumnView} from './column.model.view';
+import {DataColumnModel} from './data.column.model';
+import {TemplatePath} from '../template';
+import {yes} from '../services/utility';
+import {isImage} from '../services/file';
 
 TemplatePath.register('file-cell', (template, column) => {
 	return {
@@ -18,19 +18,18 @@ TemplatePath.register('file-cell-edit', (template, column) => {
 	};
 });
 
-class FileColumnModel extends DataColumnModel {
+export class FileColumnModel extends DataColumnModel {
 	constructor() {
 		super('file');
 
 		this.canUpload = yes;
 		this.editorOptions.trigger = 'custom';
 
-		this.hasPreview =
-			name => isImage(name);
+		this.hasPreview = name => isImage(name);
 	}
 }
 
-export default class FileColumn extends ColumnView {
+export class FileColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

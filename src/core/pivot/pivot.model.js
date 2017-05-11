@@ -1,6 +1,6 @@
-import Resource from '../resource/resource';
+import {Resource} from '../resource';
 
-export default class PivotModel {
+export class PivotModel {
 	constructor() {
 		this.resource = new Resource();
 		this.by = [];

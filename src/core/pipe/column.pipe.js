@@ -1,8 +1,8 @@
-import columnFactory from 'core/column/column.factory';
-import * as columnService from 'core/column/column.service';
-import {noop} from 'core/services/utility';
+import {columnFactory} from '../column/column.factory';
+import * as columnService from '../column/column.service';
+import {noop} from '../services/utility';
 
-export default function columnPipe(memo, context, next) {
+export function columnPipe(memo, context, next) {
 	const model = context.model;
 	const pivot = memo.pivot;
 	const nodes = memo.nodes;

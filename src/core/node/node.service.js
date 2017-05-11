@@ -1,4 +1,4 @@
-import Node from './node';
+import {Node} from './node';
 
 export function flatView(nodes, result = []) {
 	for (let i = 0, nodesLength = nodes.length; i < nodesLength; i++) {

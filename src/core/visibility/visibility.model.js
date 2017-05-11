@@ -1,6 +1,6 @@
-import Resource from '../resource/resource';
+import {Resource} from '../resource';
 
-export default class VisibilityModel {
+export class VisibilityModel {
 	constructor() {
 		this.resource = new Resource();
 		this.head = true;

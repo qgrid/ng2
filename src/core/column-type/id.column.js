@@ -1,6 +1,6 @@
-import ColumnView from 'core/column-type/column.model.view';
-import DataColumnModel from './data.column.model';
-import TemplatePath from 'core/template/template.path';
+import {ColumnView} from './column.model.view';
+import {DataColumnModel} from './data.column.model';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('id-cell', (template, column) => {
 	return {
@@ -16,13 +16,13 @@ TemplatePath.register('id-cell-edit', (template, column) => {
 	};
 });
 
-class IdColumnModel extends DataColumnModel{
-	constructor(){
+export class IdColumnModel extends DataColumnModel {
+	constructor() {
 		super('id');
 	}
 }
 
-export default class IdColumn extends ColumnView {
+export class IdColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

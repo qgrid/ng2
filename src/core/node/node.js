@@ -1,4 +1,4 @@
-export default class Node {
+export class Node {
 	constructor(key, level = 0, type = 'group') {
 		this.key = key;
 		this.level = level;

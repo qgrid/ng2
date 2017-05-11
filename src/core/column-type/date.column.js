@@ -1,6 +1,6 @@
-import ColumnView from 'core/column-type/column.model.view';
-import DataColumnModel from './data.column.model';
-import TemplatePath from 'core/template/template.path';
+import {ColumnView} from './column.model.view';
+import {DataColumnModel} from './data.column.model';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('date-cell', (template, column) => {
 	return {
@@ -16,7 +16,7 @@ TemplatePath.register('date-cell-edit', (template, column) => {
 	};
 });
 
-class DateColumnModel extends DataColumnModel {
+export class DateColumnModel extends DataColumnModel {
 	constructor() {
 		super('date');
 
@@ -24,7 +24,7 @@ class DateColumnModel extends DataColumnModel {
 	}
 }
 
-export default class DateColumn extends ColumnView {
+export class DateColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

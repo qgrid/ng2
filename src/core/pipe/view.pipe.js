@@ -1,6 +1,6 @@
-import {flatView as nodeFlatView} from 'core/node/node.service';
+import {flatView as nodeFlatView} from '../node';
 
-export default function pipeView(memo, context, next) {
+export function viewPipe(memo, context, next) {
 	const model = context.model;
 	const rows = memo.nodes.length ? nodeFlatView(memo.nodes) : memo.rows;
 

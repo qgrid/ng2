@@ -1,6 +1,6 @@
-import Resource from '../resource/resource';
+import {Resource} from '../resource';
 
-export default class ProgressModel {
+export class ProgressModel {
 	constructor() {
 		this.resource = new Resource();
 		this.isBusy = false;

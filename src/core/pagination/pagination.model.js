@@ -1,6 +1,6 @@
-import Resource from '../resource/resource';
+import {Resource} from '../resource';
 
-export default class PaginationModel {
+export class PaginationModel {
 	constructor() {
 		this.resource = new Resource();
 		this.current = 0;

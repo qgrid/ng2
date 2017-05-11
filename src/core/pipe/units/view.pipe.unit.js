@@ -1,6 +1,6 @@
-import Pipe from 'core/pipe/pipe';
+import {Pipe} from '../pipe';
 
-export default [
+export const viewPipeUnit = [
 	Pipe.data,
 	Pipe.memo,
 	Pipe.column,

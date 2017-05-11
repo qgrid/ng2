@@ -1,6 +1,6 @@
-import View from 'core/view/view';
+import {View} from '../view';
 
-export default class PaginationView extends View {
+export class PaginationView extends View {
 	constructor(model) {
 		super(model);
 

@@ -1,9 +1,9 @@
-import AppError from '../infrastructure/error';
+import {AppError} from '../infrastructure';
 import {orderBy} from '../services/utility';
 import {key as getKey, direction as getDirection} from '../sort/sort.service';
 import {find} from '../column/column.service';
 
-export default function pipeSort(data, context, next) {
+export function sortPipe(data, context, next) {
 	const model = context.model;
 	const by = model.sort().by;
 	let result = data;

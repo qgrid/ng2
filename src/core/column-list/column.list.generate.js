@@ -1,6 +1,5 @@
-import {startCase} from 'core/services/utility';
-import {compile} from 'core/services/path';
-import {getType} from 'core/services/convert';
+import {startCase} from '../services/utility';
+import {compile, getType} from '../services';
 
 export function generate(rows, columnFactory, deep = true) {
 	if (!rows || rows.length === 0) {

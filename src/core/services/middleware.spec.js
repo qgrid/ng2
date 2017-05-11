@@ -1,4 +1,4 @@
-import Middleware from './middleware';
+import {Middleware} from './middleware';
 
 describe('Middleware', () => {
 	it('should return promise', () => {

@@ -1,6 +1,6 @@
-import ColumnView from 'core/column-type/column.model.view';
-import TemplatePath from 'core/template/template.path';
-import ColumnModel from './column.model';
+import {ColumnView} from './column.model.view';
+import {ColumnModel} from './column.model';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('pad-cell', (template) => {
 	return {
@@ -9,7 +9,7 @@ TemplatePath.register('pad-cell', (template) => {
 	};
 });
 
-class PadColumnModel extends ColumnModel {
+export class PadColumnModel extends ColumnModel {
 	constructor() {
 		super('pad');
 
@@ -24,7 +24,7 @@ class PadColumnModel extends ColumnModel {
 	}
 }
 
-export default class PadColumn extends ColumnView {
+export class PadColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

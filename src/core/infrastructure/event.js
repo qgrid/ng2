@@ -1,4 +1,4 @@
-export default class Event {
+export class Event {
 	constructor(e = () => null) {
 		this.handlers = [];
 		this.isDirty = false;

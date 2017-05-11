@@ -1,4 +1,4 @@
-export default function pipeGroup(data, ctx, next) {
+export function memoPipe(data, ctx, next) {
 	next({
 		rows: data,
 		pivot: {heads: [], rows: []},

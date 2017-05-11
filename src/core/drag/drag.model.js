@@ -1,4 +1,4 @@
-export default class DragModel {
+export class DragModel {
 	constructor() {
 		this.isActive = false;
 	}

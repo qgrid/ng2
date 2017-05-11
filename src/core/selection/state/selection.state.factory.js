@@ -1,8 +1,8 @@
-import AppError from 'core/infrastructure/error';
-import SingleSelectionState from './single.selection.state';
-import MultipleSelectionState from './multiple.selection.state';
+import {AppError} from '../../infrastructure';
+import {SingleSelectionState} from './single.selection.state';
+import {MultipleSelectionState} from './multiple.selection.state';
 
-export default (model) => {
+export function selectionStateFactory(model) {
 	const mode = model.selection().mode;
 	switch (mode) {
 		case 'single':
@@ -13,4 +13,4 @@ export default (model) => {
 		default:
 			throw new AppError('selection.state.factory', `Invalid selection mode "${mode}"`);
 	}
-};
+}

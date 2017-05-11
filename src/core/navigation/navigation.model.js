@@ -1,4 +1,4 @@
-export default class NavigationModel {
+export class NavigationModel {
 	constructor() {
 		this.cell = null;
 	}

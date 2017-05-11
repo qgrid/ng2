@@ -1,4 +1,4 @@
-import Event from '../infrastructure/event';
+import {Event} from '../infrastructure';
 
 export function children(element) {
 	const event = new Event();

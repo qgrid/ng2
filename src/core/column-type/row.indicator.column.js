@@ -1,6 +1,6 @@
-import ColumnView from 'core/column-type/column.model.view';
-import TemplatePath from 'core/template/template.path';
-import ColumnModel from './column.model';
+import {ColumnView} from './column.model.view';
+import {ColumnModel} from './column.model';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('row-indicator-cell', (template, column) => {
 	return {
@@ -9,7 +9,7 @@ TemplatePath.register('row-indicator-cell', (template, column) => {
 	};
 });
 
-class RowIndicatorColumnModel extends ColumnModel {
+export class RowIndicatorColumnModel extends ColumnModel {
 	constructor() {
 		super('row-indicator');
 
@@ -25,7 +25,7 @@ class RowIndicatorColumnModel extends ColumnModel {
 	}
 }
 
-export default class RowIndicatorColumn extends ColumnView {
+export class RowIndicatorColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}
