@@ -1,22 +1,35 @@
-<div ng-click="$view.sort.toggle.execute($cell.column)"
-	  ng-mouseover="$view.sort.hover = true"
-	  ng-mouseleave="$view.sort.hover = false">
-	<div class="q-grid-sort"
-		  ng-class="{'q-grid-active': $view.sort.order($cell.column) >= 0}"
-		  ng-if="$cell.column.canSort"
-		  ng-switch="$view.sort.direction($cell.column)">
-		<md-icon class="q-grid-asc" ng-switch-when="asc">arrow_downward</md-icon>
-		<md-icon class="q-grid-desc" ng-switch-when="desc">arrow_upward</md-icon>
-		<md-icon ng-switch-default ng-if="$view.sort.hover">arrow_downward</md-icon>
-	</div>
-	<label>
-		<md-tooltip md-delay="1000">{{$cell.column.title}}</md-tooltip>
-		{{$cell.column.title}}
-	</label>
-</div>
-<q-grid:column-filter ng-if="$cell.column.canFilter"
-							 class="q-grid-column-filter"
-							 key="$cell.column.key"
-							 title="{{$cell.column.title}}"
-							 ng-class="{'q-grid-active': $view.filter.has($cell.column)}">
-</q-grid:column-filter>
+<ng-template name="head.cell.text.tpl.html" let-$cell let-$view="$view">
+  <!--<div ng-click="$view.sort.toggle.execute($cell.column)"-->
+  <!--ng-mouseover="$view.sort.hover = true"-->
+  <!--ng-mouseleave="$view.sort.hover = false">-->
+  <!--<div class="q-grid-sort"-->
+  <!--ng-class="{'q-grid-active': $view.sort.order($cell.column) >= 0}"-->
+  <!--ng-if="$cell.column.canSort"-->
+  <!--ng-switch="$view.sort.direction($cell.column)">-->
+  <!--<md-icon class="q-grid-asc" ng-switch-when="asc">arrow_downward</md-icon>-->
+  <!--<md-icon class="q-grid-desc" ng-switch-when="desc">arrow_upward</md-icon>-->
+  <!--<md-icon ng-switch-default ng-if="$view.sort.hover">arrow_downward</md-icon>-->
+  <!--</div>-->
+  <!--<label>-->
+  <!--<md-tooltip md-delay="1000">{{$cell.column.title}}</md-tooltip>-->
+  <!--{{$cell.column.title}}-->
+  <!--</label>-->
+  <!--</div>-->
+  <!--<q-grid:column-filter ng-if="$cell.column.canFilter"-->
+  <!--class="q-grid-column-filter"-->
+  <!--key="$cell.column.key"-->
+  <!--title="{{$cell.column.title}}"-->
+  <!--ng-class="{'q-grid-active': $view.filter.has($cell.column)}">-->
+  <!--</q-grid:column-filter>-->
+  <div (click)="$view.sort.toggle.execute($cell.column)">
+    <div class="q-grid-sort"
+         ngSwitch="$view.sort.direction($cell.column)">
+      <span class="q-grid-asc" *ngSwitchCase="asc">&#8595;</span>
+      <span class="q-grid-desc" *ngSwitchCase="desc">&#8593;</span>
+      <span *ngSwitchDefault>&#8595;</span>
+    </div>
+    <label (click)="$head.sort.toggle.execute($cell.column)">
+      {{$cell.column.title}}
+    </label>
+  </div>
+</ng-template>

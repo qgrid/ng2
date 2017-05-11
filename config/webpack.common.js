@@ -84,7 +84,7 @@ module.exports = function (options) {
         src: helpers.root('src'),
         core: helpers.root('src/core'),
         ng2: helpers.root('src/ng2'),
-        theme: helpers.root('src/themes/dist'),
+        theme: helpers.root('src/themes/material'),
         assets: helpers.root('src/assets')
       }
     },
