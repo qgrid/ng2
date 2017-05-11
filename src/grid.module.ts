@@ -13,6 +13,7 @@ import {BodyCoreComponent, TdCoreDirective} from './view/components/body';
 import {HeadCoreComponent, ThCoreDirective} from './view/components/head';
 import {FootCoreComponent, TfCoreDirective} from './view/components/foot';
 import {TrCoreDirective} from './view/components/row';
+import {VScrollService} from "./view/components/scroll";
 
 import {MarkupDirective, TemplateCacheDirective} from './view/directives';
 import {TemplateCacheService} from './view/services';
@@ -57,7 +58,8 @@ setup(Model);
   providers: [
     ThemeService,
     GridService,
-    TemplateCacheService
+    TemplateCacheService,
+    VScrollService
   ]
 })
 export class GridModule {

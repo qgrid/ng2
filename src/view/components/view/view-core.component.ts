@@ -24,6 +24,7 @@ import {AppError} from '@grid/core/infrastructure';
 import {ViewCoreService} from './view-core.service';
 import {RootService} from "../root.service";
 import {GridService} from "../grid/grid.service";
+import {VScrollService} from "../scroll/vscroll.service";
 
 @Component({
   selector: 'q-grid-core-view',
@@ -35,7 +36,8 @@ export class ViewCoreComponent extends NgComponent {
 
   constructor(private root: RootService,
               private view: ViewCoreService,
-              private gridService: GridService) {
+              private gridService: GridService,
+              private vscroll: VScrollService) {
     super();
   }
 
@@ -72,7 +74,7 @@ export class ViewCoreComponent extends NgComponent {
     this.view.edit = new EditView(model, table, applyFactory);
     this.view.nav = new NavigationView(model, table, applyFactory);
     this.view.pagination = new PaginationView(model);
-    // this.scroll = new ScrollView(model, table, this.vscroll, service, apply);
+    this.view.scroll = new ScrollView(model, table, this.vscroll.factory, gridService, applyFactory);
 
     // TODO: how we can avoid that?
     // this.$scope.$watch(this.style.invalidate.bind(this.style));
