@@ -5,8 +5,9 @@ import {NgModule, ApplicationRef} from '@angular/core';
 import {removeNgStyles, createNewHosts, createInputTransfer} from '@angularclass/hmr';
 import {RouterModule, PreloadAllModules} from '@angular/router';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {MdButtonModule, MdCheckboxModule} from '@angular/material';
+import {MdButtonModule, MdCheckboxModule, MdCardModule} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -54,6 +55,7 @@ type StoreType = {
     NoopAnimationsModule,
     MdButtonModule,
     MdCheckboxModule,
+    MdCardModule,
     FlexLayoutModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

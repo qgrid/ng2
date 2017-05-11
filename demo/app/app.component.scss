@@ -2,8 +2,16 @@ html, body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   font-size: 14px;
   height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
 
+main {
+  height: 100%;
+  .mat-card {
+    height: calc(100% - 74px);
+    margin: 15px;
+  }
+}

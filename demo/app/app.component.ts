@@ -4,11 +4,14 @@ import {AppState} from './app.service';
 @Component({
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./app.component.scss')],
+  styles: [
+    require('@angular/material/prebuilt-themes/indigo-pink.css'),
+    require('./app.component.scss')
+  ],
   template: `
     <header>
     </header>
-    <main fxFlex>
+    <main>
       <router-outlet></router-outlet>
     </main>
     <footer>
