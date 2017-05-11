@@ -2,7 +2,6 @@ import {Box} from './box';
 import {Data} from './data';
 import {Element} from './element';
 import EventListener from 'core/infrastructure/event.listener';
-import {HEAD_CORE_NAME, BODY_CORE_NAME, FOOT_CORE_NAME} from 'ng2/definition';
 
 export class Table {
   private headBox: Box;
@@ -43,7 +42,7 @@ export class Table {
 		const document = this.markup.document;
 		const head = this.markup.head;
 		if (document && head) {
-			return this.headBox = new Box(document, head, HEAD_CORE_NAME);
+			return this.headBox = new Box(document, head, 'q-grid-core-head');
 		}
 
 		return Box.empty;
@@ -57,7 +56,7 @@ export class Table {
 		const document = this.markup.document;
 		const body = this.markup.body;
 		if (document && body) {
-			return this.bodyBox = new Box(document, body, BODY_CORE_NAME);
+			return this.bodyBox = new Box(document, body, 'q-grid-core-body');
 		}
 		return Box.empty;
 	}
@@ -70,7 +69,7 @@ export class Table {
 		const document = this.markup.document;
 		const foot = this.markup.foot;
 		if (document && foot) {
-			return this.footBox = new Box(document, foot, FOOT_CORE_NAME);
+			return this.footBox = new Box(document, foot, 'q-grid-core-foot');
 		}
 		return Box.empty;
 	}

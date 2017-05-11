@@ -1,5 +1,4 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
-//import {VIEW_CORE_NAME, BODY_CORE_NAME} from 'ng2/definition';
 import EventListener from 'core/infrastructure/event.listener';
 //import * as pathFinder from 'ng2/services/path.find';
 import {ViewCoreService} from "../view/view-core.service";

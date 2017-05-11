@@ -19,6 +19,8 @@ import {TemplateCacheService} from './ng2/services';
 
 import {BodyCellTextComponent, HeadCellTextComponent, FootCellTextComponent} from './ng2/components/cell/text';
 
+import {ToolbarCoreComponent} from "./ng2/components/toolbar";
+
 import Model from 'core/infrastructure/model';
 import GridModel from 'core/grid/grid.model';
 import ViewModel from 'core/view/view.model';
@@ -95,7 +97,8 @@ Model.register('grid', GridModel)
     TemplateCacheDirective,
     BodyCellTextComponent,
     HeadCellTextComponent,
-    FootCellTextComponent
+    FootCellTextComponent,
+    ToolbarCoreComponent
   ],
   exports: [
     GridComponent,

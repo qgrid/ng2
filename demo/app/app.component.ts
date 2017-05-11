@@ -8,7 +8,7 @@ import {AppState} from './app.service';
   template: `
     <header>
     </header>
-    <main>
+    <main fxFlex>
       <router-outlet></router-outlet>
     </main>
     <footer>

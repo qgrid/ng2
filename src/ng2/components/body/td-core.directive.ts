@@ -1,6 +1,5 @@
 import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 //import cellBuilder from '../cell/cell.build';
-import {VIEW_CORE_NAME, TD_CORE_NAME} from 'ng/definition';
 import {GRID_PREFIX} from 'core/definition';
 import {ViewCoreService} from "../view/view-core.service";
 import {RootService} from '../root.service';

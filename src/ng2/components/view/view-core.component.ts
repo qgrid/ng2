@@ -18,10 +18,9 @@ import TableView from 'core/table/table.view';
 import StyleView from 'core/style/style.view';
 import ColumnView from 'core/column/column.view';
 //import ScrollView from 'core/scroll/scroll.view';
-import {GRID_NAME, TH_CORE_NAME} from 'ng2/definition';
 import {isUndefined} from 'core/services/utility';
 // import TemplateLink from '../template/template.link';
-import PipeUnit from 'core/pipe/units/pipe.unit'
+// import PipeUnit from 'core/pipe/units/pipe.unit'
 import {GridService} from "../grid/grid.service";
 import {RootService} from "../root.service";
 import {ViewCoreService} from "./view-core.service";
@@ -59,7 +58,7 @@ export class ViewCoreComponent extends NgComponent {
 
     this.view.style = new StyleView(model, table);
     this.view.table = new TableView(model);
-    this.view.head = new HeadView(model, table, TH_CORE_NAME);
+    this.view.head = new HeadView(model, table, 'q-grid-core-th');
     this.view.body = new BodyView(model, table);
     this.view.foot = new FootView(model, table);
     this.view.columns = new ColumnView(model, gridService);

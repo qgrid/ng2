@@ -1,6 +1,5 @@
 import AppError from 'core/infrastructure/error';
 import {Element, ElementCore} from './element';
-import {TD_CORE_NAME} from 'ng/definition'
 
 export class CellCore extends ElementCore {
 	constructor() {

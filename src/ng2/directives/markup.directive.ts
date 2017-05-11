@@ -1,5 +1,4 @@
 import {Directive, ElementRef, Input, OnDestroy, OnInit} from '@angular/core';
-import {MARKUP_NAME, VIEW_CORE_NAME} from 'ng/definition';
 import {ViewCoreService} from "../components/view/view-core.service";
 
 @Directive({

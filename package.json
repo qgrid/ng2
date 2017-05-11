@@ -101,6 +101,7 @@
   },
   "devDependencies": {
     "@angular/compiler-cli": "~4.0.3",
+    "@angular/flex-layout": "^2.0.0-beta.8",
     "@angular/material": "^2.0.0-beta.3",
     "@types/hammerjs": "^2.0.34",
     "@types/jasmine": "2.5.45",
