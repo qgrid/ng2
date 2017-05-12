@@ -5,7 +5,9 @@ import {PagerComponent} from "./pager.component";
   declarations: [
     PagerComponent
   ],
-  exports: [],
+  exports: [
+    PagerComponent
+  ],
   imports: [],
   providers: []
 })

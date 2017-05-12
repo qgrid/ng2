@@ -1,34 +1,35 @@
 <ng-template key="plugin-pager.tpl.html" let-$pager>
-  <div class="q-grid-pager" ngSwitch="$pager.scroll.mode">
-    <div *ngSwitchCase="virtual">
-      <label class="q-grid-page" ngSwitch="$pager.mode">
-        <span *ngSwitchCase="row">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>
-        <span *ngSwitchDefault>{{$pager.current + 1}} of {{$pager.totalPages}}</span>
-      </label>
-    </div>
-    <div *ngSwitchDefault>
-      <label class="q-grid-page-size">Rows per page:</label>
-      <md-select aria-label="Page Size List"
-                 class="q-grid-page-size"
-                 [(ngModel)]="$pager.size">
-        <md-option *ngFor="let size of $pager.sizeList" [value]="size">{{size}}</md-option>
-      </md-select>
-      <label class="q-grid-page" ng-switch="::$pager.mode">
-        <span *ngSwitchCase="row">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>
-        <span *ngSwitchDefault>{{$pager.current + 1}} of {{$pager.totalPages}}</span>
-      </label>
-      <button md-button
-              class="md-icon-button q-grid-prev-page"
-              [disabled]="!$pager.prev.canExecute()"
-              (click)="$pager.prev.execute();">
-        <md-icon>keyboard_arrow_left</md-icon>
-      </button>
-      <button md-button
-              class="md-icon-button q-grid-next-page"
-              [disabled]="!$pager.next.canExecute()"
-              (click)="$pager.next.execute();">
-        <md-icon>keyboard_arrow_right</md-icon>
-      </button>
-    </div>
-  </div>
+  finally pager
+  <!--<div class="q-grid-pager" ngSwitch="$pager.scroll.mode">-->
+    <!--<div *ngSwitchCase="virtual">-->
+      <!--<label class="q-grid-page" ngSwitch="$pager.mode">-->
+        <!--<span *ngSwitchCase="row">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>-->
+        <!--<span *ngSwitchDefault>{{$pager.current + 1}} of {{$pager.totalPages}}</span>-->
+      <!--</label>-->
+    <!--</div>-->
+    <!--<div *ngSwitchDefault>-->
+      <!--<label class="q-grid-page-size">Rows per page:</label>-->
+      <!--<md-select aria-label="Page Size List"-->
+                 <!--class="q-grid-page-size"-->
+                 <!--[(ngModel)]="$pager.size">-->
+        <!--<md-option *ngFor="let size of $pager.sizeList" [value]="size">{{size}}</md-option>-->
+      <!--</md-select>-->
+      <!--<label class="q-grid-page" ng-switch="::$pager.mode">-->
+        <!--<span *ngSwitchCase="row">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>-->
+        <!--<span *ngSwitchDefault>{{$pager.current + 1}} of {{$pager.totalPages}}</span>-->
+      <!--</label>-->
+      <!--<button md-button-->
+              <!--class="md-icon-button q-grid-prev-page"-->
+              <!--[disabled]="!$pager.prev.canExecute()"-->
+              <!--(click)="$pager.prev.execute();">-->
+        <!--<md-icon>keyboard_arrow_left</md-icon>-->
+      <!--</button>-->
+      <!--<button md-button-->
+              <!--class="md-icon-button q-grid-next-page"-->
+              <!--[disabled]="!$pager.next.canExecute()"-->
+              <!--(click)="$pager.next.execute();">-->
+        <!--<md-icon>keyboard_arrow_right</md-icon>-->
+      <!--</button>-->
+    <!--</div>-->
+  <!--</div>-->
 </ng-template>

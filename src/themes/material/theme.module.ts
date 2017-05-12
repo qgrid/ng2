@@ -10,6 +10,7 @@ import {
 import {ThemeService} from './theme.service';
 import {ThemeComponent} from './theme.component';
 import {TemplateLinkDirective} from '@grid/src/template';
+import {PagerModule} from "../../plugins/pagination/pager.module";
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {TemplateLinkDirective} from '@grid/src/template';
   imports: [
     BrowserModule,
     FormsModule,
+    PagerModule,
     MdIconModule,
     MdButtonModule,
     MdCheckboxModule,
