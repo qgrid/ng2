@@ -7,7 +7,8 @@ import {PagerModule} from './pagination';
   exports: [
     PagerModule
   ],
-  imports: [],
+  imports: [
+  ],
   providers: []
 })
 export class PluginModule {

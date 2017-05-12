@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {PagerComponent} from "./pager.component";
+import {TemplateModule} from "../../template/template.module";
 
 @NgModule({
   declarations: [
@@ -8,7 +9,9 @@ import {PagerComponent} from "./pager.component";
   exports: [
     PagerComponent
   ],
-  imports: [],
+  imports: [
+    TemplateModule
+  ],
   providers: []
 })
 export class PagerModule {

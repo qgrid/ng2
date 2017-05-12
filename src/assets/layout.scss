@@ -539,8 +539,3 @@ $layout-gutter-width: ($baseline-grid * 2) !default;
   -ms-flex-basis: auto;
   flex-basis: auto;
 }
-
-/* Apply Mixins to create Layout/Flexbox styles */
-
-@include layouts_for_breakpoint();
-@include layout-padding-margin();
