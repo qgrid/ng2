@@ -1,5 +1,6 @@
 import {NgModule, Injectable} from '@angular/core';
-import {MdIconModule, MdButtonModule, MdCheckboxModule} from "@angular/material";
+import {MdIconModule, MdButtonModule, MdCheckboxModule} from '@angular/material';
+import {TemplateLinkDirective} from '@grid/src/template';
 
 @Injectable()
 export class Theme {
@@ -10,7 +11,9 @@ export class Theme {
 }
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    TemplateLinkDirective
+  ],
   exports: [],
   imports: [
     MdIconModule,

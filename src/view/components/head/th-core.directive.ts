@@ -2,7 +2,7 @@ import {Directive, ElementRef, Input, OnInit, ViewContainerRef} from '@angular/c
 import {GRID_PREFIX} from '@grid/core/definition';
 import {ViewCoreService} from '../view/view-core.service';
 import {RootService} from '../root.service"';
-import {TemplateCacheService} from '../../services/template-cache.service';
+import {TemplateCacheService} from '../../../template/template-cache.service';
 
 export class ThCoreContext {
   constructor(public $implicit: ThCoreDirective) {

@@ -1,1 +1,1 @@
-export * from './template-cache.service';
+export * from '../../template/template-cache.service';

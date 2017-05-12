@@ -1,2 +1,2 @@
 export * from './markup.directive';
-export * from './template-cache.directive';
+export * from '../../template/template-cache.directive';

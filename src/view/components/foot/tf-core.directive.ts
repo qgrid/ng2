@@ -1,7 +1,7 @@
 import {Directive, ElementRef, Input, OnInit, ViewContainerRef} from '@angular/core';
 import {GRID_PREFIX} from '@grid/core/definition';
 import {ViewCoreService} from '../view/view-core.service';
-import {TemplateCacheService} from '../../services/template-cache.service';
+import {TemplateCacheService} from '../../../template/template-cache.service';
 
 export class TfCoreContext {
   constructor(public $implicit: TfCoreDirective) {

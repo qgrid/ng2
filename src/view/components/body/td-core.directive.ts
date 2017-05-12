@@ -3,7 +3,7 @@ import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from 
 import {GRID_PREFIX} from '@grid/core/definition';
 import {ViewCoreService} from "../view/view-core.service";
 import {RootService} from '../root.service';
-import {TemplateCacheService} from '../../services/template-cache.service';
+import {TemplateCacheService} from '../../../template/template-cache.service';
 
 export class TdCoreContext {
   constructor(public $implicit: TdCoreDirective) {

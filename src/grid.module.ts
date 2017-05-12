@@ -4,13 +4,13 @@ import {ViewModule} from './view';
 
 import {Model} from '@grid/core/infrastructure/model';
 import {setup} from '@grid/core';
-import {ThemeService} from "./view/components/theme/theme.service";
+import {ThemeService} from './view/components/theme/theme.service';
+import {TemplateLinkService} from './template';
 
 setup(Model);
 
 @NgModule({
-  declarations: [
-  ],
+  declarations: [],
   exports: [
     ViewModule
   ],
@@ -19,6 +19,7 @@ setup(Model);
     ThemeModule
   ],
   providers: [
+    TemplateLinkService
   ]
 })
 export class GridModule {

@@ -1,10 +1,11 @@
 import {Component, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
+import {TemplateCacheService} from '@grid/src/template';
 import {RootComponent} from '../root.component';
-import {RootService} from "../root.service";
+import {RootService} from '../root.service';
 
 @Component({
   selector: 'q-grid',
-  providers: [RootService],
+  providers: [RootService, TemplateCacheService],
   templateUrl: './grid.component.html',
   styles: [require('@grid/assets/index.scss'), require('@grid/theme/index.scss')],
   encapsulation: ViewEncapsulation.None
