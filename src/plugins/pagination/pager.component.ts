@@ -1,24 +1,31 @@
-import {Component} from "@angular/core/@angular/core";
+import {Component, Input, Optional} from "@angular/core";
 import {Command} from '@grid/core/infrastructure';
-import {TemplatePath} from '@grid/core/template';
+import {PluginComponent} from '../plugin.component';
+import {RootService} from "../../view/root.service";
 
 @Component({
   selector: 'q-grid-pager',
   template: require('./pager.component.html')
 })
-export class Pager implements OnInit {
-  constructor() {
-    this.next = new Command({
-      execute: () => this.current = this.current + 1,
-      canExecute: () => (this.current + 1) * this.size < this.total
-    });
+export class PagerComponent extends PluginComponent {
+  @Input('size') private paginationSize;
+  @Input('sizeList') private paginationSizeList;
 
-    this.prev = new Command({
-      execute: () => this.current = this.current - 1,
-      canExecute: () => this.current > 0
-    });
+  public next = new Command({
+    execute: () => this.current = this.current + 1,
+    canExecute: () => (this.current + 1) * this.size < this.total
+  });
+
+  public prev = new Command({
+    execute: () => this.current = this.current - 1,
+    canExecute: () => this.current > 0
+  });
+
+  constructor(@Optional() root: RootService) {
+    super(root);
+
+    this.models = ['pagination'];
   }
-
 
   get size() {
     return this.model.pagination().size;
@@ -37,7 +44,7 @@ export class Pager implements OnInit {
   }
 
   set current(value) {
-    return this.model.pagination({current: value});
+    this.model.pagination({current: value});
   }
 
   get from() {
@@ -59,9 +66,4 @@ export class Pager implements OnInit {
   get scroll() {
     return this.model.scroll();
   }
-
-  get model(){
-
-  }
-
 }

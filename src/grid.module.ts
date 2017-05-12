@@ -6,6 +6,7 @@ import {Model} from '@grid/core/infrastructure';
 import {setup} from '@grid/core';
 import {GridComponent} from "./view/components/grid";
 import {ColumnListComponent} from "./view/components/column";
+import {PluginModule} from "./plugins/plugin.module";
 
 @NgModule({
   declarations: [],
@@ -14,7 +15,8 @@ import {ColumnListComponent} from "./view/components/column";
     ColumnListComponent
   ],
   imports: [
-    ViewModule
+    ViewModule,
+    PluginModule
   ],
   providers: [
     TemplateLinkService,

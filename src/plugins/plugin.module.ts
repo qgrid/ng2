@@ -1,3 +1,15 @@
-/**
- * Created by Dmitry.Sitnov on 5/12/2017.
- */
+import {NgModule} from '@angular/core';
+import {PagerModule} from './pagination';
+
+@NgModule({
+  declarations: [
+  ],
+  exports: [],
+  imports: [
+    PagerModule
+  ],
+  providers: []
+})
+export class PluginModule {
+}
+
