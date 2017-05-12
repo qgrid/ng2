@@ -1,25 +1,22 @@
-import {NgModule, Injectable} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {MdIconModule, MdButtonModule, MdCheckboxModule} from '@angular/material';
-
-@Injectable()
-export class Theme {
-  name = 'material';
-
-  constructor() {
-  }
-}
+import {ThemeService} from './theme.service';
+import {ThemeComponent} from './theme.component';
 
 @NgModule({
   declarations: [
+    ThemeComponent
   ],
-  exports: [],
+  exports: [
+    ThemeComponent
+  ],
   imports: [
     MdIconModule,
     MdButtonModule,
     MdCheckboxModule
   ],
   providers: [
-    Theme
+    ThemeService
   ]
 })
 export class ThemeModule {

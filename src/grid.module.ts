@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {ThemeModule, Theme} from './themes/material';
+import {ThemeModule, ThemeService as Theme} from './themes/material';
 import {ViewModule} from './view';
 import {GridComponent, GridService} from './view/components/grid';
 import {ColumnListComponent} from './view/components/column';
@@ -9,8 +9,7 @@ import {setup} from '@grid/core';
 import {
   ThemeService,
   TemplateLinkService,
-  TemplateLinkDirective,
-  ThemeCoreComponent
+  TemplateLinkDirective
 } from './template';
 
 setup(Model);
@@ -19,8 +18,7 @@ setup(Model);
   declarations: [
     ColumnListComponent,
     TemplateLinkDirective,
-    GridComponent,
-    ThemeCoreComponent
+    GridComponent
   ],
   exports: [
     GridComponent,
