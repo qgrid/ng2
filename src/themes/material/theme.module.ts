@@ -9,22 +9,21 @@ import {
 } from '@angular/material';
 import {ThemeService} from './theme.service';
 import {ThemeComponent} from './theme.component';
-import {TemplateLinkDirective} from '@grid/src/template';
-import {PagerModule} from "../../plugins/pagination/pager.module";
+import {PluginModule} from "../../plugins";
+import {TemplateModule} from "../../template";
 
 @NgModule({
   declarations: [
-    ThemeComponent,
-    TemplateLinkDirective
+    ThemeComponent
   ],
   exports: [
-    ThemeComponent,
-    TemplateLinkDirective
+    ThemeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    PagerModule,
+    TemplateModule,
+    PluginModule,
     MdIconModule,
     MdButtonModule,
     MdCheckboxModule,

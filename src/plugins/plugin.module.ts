@@ -4,10 +4,10 @@ import {PagerModule} from './pagination';
 @NgModule({
   declarations: [
   ],
-  exports: [],
-  imports: [
+  exports: [
     PagerModule
   ],
+  imports: [],
   providers: []
 })
 export class PluginModule {

@@ -7,9 +7,9 @@ import {HeadCoreComponent, ThCoreDirective} from './components/head';
 import {FootCoreComponent, TfCoreDirective} from './components/foot';
 import {TrCoreDirective} from './components/row';
 import {VScrollService} from './components/scroll';
-import {MarkupDirective, TemplateCacheDirective} from './directives';
+import {MarkupDirective} from './directives';
 import {TemplateCacheService} from '../template';
-import {TemplateDirective} from "../template/template.directive";
+import {TemplateModule} from "../template/template.module";
 
 @NgModule({
   declarations: [
@@ -22,8 +22,6 @@ import {TemplateDirective} from "../template/template.directive";
     ThCoreDirective,
     TdCoreDirective,
     TfCoreDirective,
-    TemplateDirective,
-    TemplateCacheDirective,
     MarkupDirective
   ],
   exports: [
@@ -31,7 +29,8 @@ import {TemplateDirective} from "../template/template.directive";
     ToolbarCoreComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    TemplateModule
   ],
   providers: [
     VScrollService,
