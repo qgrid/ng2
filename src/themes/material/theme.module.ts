@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
-import {MdIconModule, MdButtonModule, MdCheckboxModule} from '@angular/material';
+import {BrowserModule} from '@angular/platform-browser';
+import {MdIconModule, MdButtonModule, MdCheckboxModule,} from '@angular/material';
 import {ThemeService} from './theme.service';
 import {ThemeComponent} from './theme.component';
 
@@ -11,6 +12,7 @@ import {ThemeComponent} from './theme.component';
     ThemeComponent
   ],
   imports: [
+    BrowserModule,
     MdIconModule,
     MdButtonModule,
     MdCheckboxModule

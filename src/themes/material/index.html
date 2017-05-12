@@ -1,12 +1,12 @@
-<ng-template key='body.cell.text.tpl.html' let-$cell>
+<ng-template key='body-cell-text.tpl.html' let-$cell>
   <span>{{$cell.value}}</span>
 </ng-template>
 
-<ng-template key='body.cell.text.tpl.html' let-$cell>
+<ng-template key='body-cell-text.tpl.html' let-$cell>
   <span>{{$cell.value}}</span>
 </ng-template>
 
-<ng-template key="head.cell.text.tpl.html" let-$cell let-$view="$view">
+<ng-template key="head-cell-text.tpl.html" let-$cell let-$view="$view">
   <div (click)="$view.sort.toggle.execute($cell.column)"
        (mouseover)="$view.sort.hover = true"
        (mouseleave)="$view.sort.hover = false">
@@ -21,7 +21,7 @@
       </ng-container>
     </div>
     <label>
-      <md-tooltip md-delay="1000">{{$cell.column.title}}</md-tooltip>
+      <!--<md-tooltip md-delay="1000">{{$cell.column.title}}</md-tooltip>-->
       {{$cell.column.title}}
     </label>
   </div>

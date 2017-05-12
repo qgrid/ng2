@@ -41,8 +41,8 @@ export class TfCoreDirective implements OnInit {
 
     const context = new TfCoreContext(this);
     const template =
-      this.templateCache.get('body.cell.text.tpl.html') ||
-      this.templateLink.get('body.cell.text.tpl.html');
+      this.templateCache.get('foot-cell-text.tpl.html') ||
+      this.templateLink.get('foot-cell-text.tpl.html');
 
     this.viewContainerRef.createEmbeddedView(template, context);
   }

@@ -41,8 +41,8 @@ export class ThCoreDirective implements OnInit {
 
     const context = new ThCoreContext(this);
     const template =
-      this.templateCache.get('body.cell.text.tpl.html') ||
-      this.templateLink.get('body.cell.text.tpl.html');
+      this.templateCache.get('head-cell-text.tpl.html') ||
+      this.templateLink.get('head-cell-text.tpl.html');
 
     this.viewContainerRef.createEmbeddedView(template, context);
   }

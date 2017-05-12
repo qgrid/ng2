@@ -42,8 +42,8 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 
     const context = new TdCoreContext(this);
     const template =
-      this.templateCache.get('body.cell.text.tpl.html') ||
-      this.templateLink.get('body.cell.text.tpl.html');
+      this.templateCache.get('body-cell-text.tpl.html') ||
+      this.templateLink.get('body-cell-text.tpl.html');
 
     this.viewContainerRef.createEmbeddedView(template, context);
 
