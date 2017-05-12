@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {EventListener} from '@grid/core/infrastructure/event.listener';
 //import * as pathFinder from '@grid/view/services/path.find';
 import {ViewCoreService} from "../view/view-core.service";
-import {RootService} from "../root.service";
+import {RootService} from "../../../view/root.service";
 
 @Component({
   selector: 'tbody[q-grid-core-body]',

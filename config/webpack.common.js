@@ -87,6 +87,7 @@ module.exports = function (options) {
         '@grid/src': helpers.root('src'),
         '@grid/core': helpers.root('src/core'),
         '@grid/view': helpers.root('src/view'),
+        '@grid/view-core': helpers.root('src/view-core'),
         '@grid/theme': THEME_PATH,
         '@grid/assets': helpers.root('src/assets')
       }

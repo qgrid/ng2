@@ -1,6 +1,6 @@
-import {Component, Input} from '@angular/core';
-import {Component as NgComponent} from '../component';
-import {Table} from '@grid/view/services/dom/table';
+import {Component, Input, Optional} from '@angular/core';
+import {Component as NgComponent} from '../../../view/component';
+import {Table} from '../../services/dom';
 import {BodyView} from '@grid/core/body';
 import {HeadView} from '@grid/core/head';
 import {FootView} from '@grid/core/foot';
@@ -22,9 +22,9 @@ import {isUndefined} from '@grid/core/services/utility';
 import {PipeUnit} from '@grid/core/pipe/units';
 import {AppError} from '@grid/core/infrastructure';
 import {ViewCoreService} from './view-core.service';
-import {RootService} from "../root.service";
-import {GridService} from "../grid/grid.service";
-import {VScrollService} from "../scroll/vscroll.service";
+import {RootService} from '../../../view/root.service';
+import {GridService} from '../../../view/components/grid';
+import {VScrollService} from '../scroll';
 
 @Component({
   selector: 'q-grid-core-view',
@@ -34,7 +34,7 @@ import {VScrollService} from "../scroll/vscroll.service";
 export class ViewCoreComponent extends NgComponent {
   @Input() pin: string = null;
 
-  constructor(private root: RootService,
+  constructor(@Optional() private root: RootService,
               private view: ViewCoreService,
               private gridService: GridService,
               private vscroll: VScrollService) {

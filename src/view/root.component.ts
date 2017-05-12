@@ -4,25 +4,14 @@ import {OnChanges, SimpleChanges} from '@angular/core';
 import {Component} from './component';
 
 export class RootComponent extends Component implements OnChanges {
-  model = null;
-  modelChanged = new Event();
-  protected names: string[] = [];
+  public model = null;
+  public modelChanged = new Event();
+  protected models: string[] = [];
   private binder = new ModelBinder(this);
   private commit = noop;
 
   constructor() {
     super();
-  }
-
-  setup() {
-    let run = true;
-    if (!this.model) {
-      this.model = new Model();
-      this.modelChanged.emit(this.model);
-      run = false;
-    }
-
-    return this.binder.bind(this.model, this.names, run);
   }
 
   ngOnInit() {
@@ -42,5 +31,16 @@ export class RootComponent extends Component implements OnChanges {
 
   ngOnDestroy() {
     this.binder.bind(null);
+  }
+
+  private setup() {
+    let run = true;
+    if (!this.model) {
+      this.model = new Model();
+      this.modelChanged.emit(this.model);
+      run = false;
+    }
+
+    return this.binder.bind(this.model, this.models, run);
   }
 }

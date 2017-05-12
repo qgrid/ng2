@@ -6,6 +6,7 @@ System.config({
   '@grid/src': helpers.root('src'),
   '@grid/core': helpers.root('src/core'),
   '@grid/view': helpers.root('src/view'),
+  '@grid/view-core': helpers.root('src/view-core'),
   '@grid/theme': helpers.root('src/themes/material'),
   '@grid/assets': helpers.root('src/assets')
 });

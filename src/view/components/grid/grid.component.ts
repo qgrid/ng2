@@ -1,18 +1,22 @@
 import {Component, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
 import {TemplateCacheService} from '@grid/src/template';
-import {RootComponent} from '../root.component';
-import {RootService} from '../root.service';
+import {RootComponent} from '../../root.component';
+import {RootService} from '../../root.service';
 
 @Component({
   selector: 'q-grid',
-  providers: [RootService, TemplateCacheService],
-  templateUrl: './grid.component.html',
-  styles: [require('@grid/assets/index.scss'), require('@grid/theme/index.scss')],
+  providers: [
+    RootService,
+    TemplateCacheService
+  ],
+  styles: [
+    require('@grid/assets/index.scss'),
+    require('@grid/theme/index.scss')
+  ],
+  template: require('./grid.component.html'),
   encapsulation: ViewEncapsulation.None
 })
 export class GridComponent extends RootComponent {
-  protected names = ['data', 'selection', 'sort', 'group', 'pivot', 'edit'];
-
   @Input() model;
   @Input('rows') dataRows;
   @Input('columns') dataColumns;
@@ -36,6 +40,7 @@ export class GridComponent extends RootComponent {
   constructor(private rootService: RootService) {
     super();
 
+    this.models = ['data', 'selection', 'sort', 'group', 'pivot', 'edit'];
     this.modelChanged.watch(model => this.rootService.model = model);
   }
 

@@ -1,49 +1,29 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {BoxCoreComponent} from './components/box';
-import {ViewCoreComponent} from './components/view';
-import {ToolbarCoreComponent} from './components/toolbar';
-import {BodyCoreComponent, TdCoreDirective} from './components/body';
-import {HeadCoreComponent, ThCoreDirective} from './components/head';
-import {FootCoreComponent, TfCoreDirective} from './components/foot';
-import {TrCoreDirective} from './components/row';
-import {VScrollService} from './components/scroll';
-import {MarkupDirective, TemplateCacheDirective} from './directives';
-import {TemplateCacheService} from '../template';
+import {GridComponent, GridService} from './components/grid';
+import {ColumnListComponent} from './components/column';
+import {ThemeModule} from '../themes/material/theme.module';
+import {ViewCoreModule} from '../view-core';
+import {BoxComponent} from './components/box';
 
 @NgModule({
   declarations: [
-    BoxCoreComponent,
-    ViewCoreComponent,
-    HeadCoreComponent,
-    BodyCoreComponent,
-    FootCoreComponent,
-    ToolbarCoreComponent,
-    TrCoreDirective,
-    ThCoreDirective,
-    TdCoreDirective,
-    TfCoreDirective,
-    TemplateCacheDirective,
-    MarkupDirective
+    GridComponent,
+    ColumnListComponent,
+    BoxComponent
   ],
   exports: [
-    BoxCoreComponent,
-    ViewCoreComponent,
-    HeadCoreComponent,
-    BodyCoreComponent,
-    FootCoreComponent,
-    ToolbarCoreComponent,
-    TrCoreDirective,
-    ThCoreDirective,
-    TdCoreDirective,
-    TfCoreDirective
+    GridComponent,
+    ColumnListComponent,
+    BoxComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    ViewCoreModule,
+    ThemeModule
   ],
   providers: [
-    VScrollService,
-    TemplateCacheService
+    GridService
   ]
 })
 export class ViewModule {

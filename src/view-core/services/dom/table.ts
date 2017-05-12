@@ -8,7 +8,7 @@ export class Table {
   private bodyBox: Box;
   private footBox: Box;
   private viewElement: Element;
-  private pin: string = null;
+  public pin: string = null;
 
 	constructor(private model,
               private markup) {

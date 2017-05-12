@@ -1,17 +1,16 @@
 import {Component, ElementRef, Optional, Input} from '@angular/core';
-import {Component as NgComponent} from '../component';
+import {Component as NgComponent} from '../../component';
 import {ThemeService} from '../../../template/theme.service';
 import {GRID_PREFIX} from '@grid/core/definition';
 import {Guard} from '@grid/core/infrastructure';
-import {RootService} from "../root.service";
+import {RootService} from "../../root.service";
 
 @Component({
   selector: 'q-grid-box',
   template: '<ng-content></ng-content>'
 })
-export class BoxCoreComponent extends NgComponent {
-  @Input('model') boxModel: any = null;
-
+export class BoxComponent extends NgComponent {
+  @Input('model') private boxModel: any = null;
   private element: HTMLElement = null;
 
   constructor(@Optional() private root: RootService, element: ElementRef, private theme: ThemeService) {
@@ -38,7 +37,6 @@ export class BoxCoreComponent extends NgComponent {
 
   initTheme() {
     const element = this.element;
-
     element.classList.add(GRID_PREFIX);
     this.theme.changed.watch(e => {
       if (e) {
@@ -52,7 +50,6 @@ export class BoxCoreComponent extends NgComponent {
   get model() {
     const model = this.boxModel || (this.root && this.root.model);
     Guard.notNull('model', model);
-
     return model;
   }
 }

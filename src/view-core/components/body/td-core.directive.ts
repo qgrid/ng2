@@ -2,7 +2,7 @@ import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from 
 //import cellBuilder from '../cell/cell.build';
 import {GRID_PREFIX} from '@grid/core/definition';
 import {ViewCoreService} from '../view/view-core.service';
-import {RootService} from '../root.service';
+import {RootService} from '../../../view/root.service';
 import {TemplateCacheService, TemplateLinkService} from '../../../template';
 
 export class TdCoreContext {
