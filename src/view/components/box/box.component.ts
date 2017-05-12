@@ -1,6 +1,6 @@
 import {Component, ElementRef, Optional, Input} from '@angular/core';
 import {Component as NgComponent} from '../component';
-import {ThemeService} from '../theme/theme.service';
+import {ThemeService} from '../../../template/theme.service';
 import {GRID_PREFIX} from '@grid/core/definition';
 import {Guard} from '@grid/core/infrastructure';
 import {RootService} from "../root.service";

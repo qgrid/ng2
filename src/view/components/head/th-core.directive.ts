@@ -2,7 +2,7 @@ import {Directive, ElementRef, Input, OnInit, ViewContainerRef} from '@angular/c
 import {GRID_PREFIX} from '@grid/core/definition';
 import {ViewCoreService} from '../view/view-core.service';
 import {RootService} from '../root.service"';
-import {TemplateCacheService} from '../../../template/template-cache.service';
+import {TemplateCacheService, TemplateLinkService} from '../../../template';
 
 export class ThCoreContext {
   constructor(public $implicit: ThCoreDirective) {
@@ -23,6 +23,7 @@ export class ThCoreDirective implements OnInit {
 
   constructor(public $view: ViewCoreService,
               private templateCache: TemplateCacheService,
+              private templateLink: TemplateLinkService,
               private viewContainerRef: ViewContainerRef,
               element: ElementRef) {
     this.element = element.nativeElement.parentElement;
@@ -39,7 +40,10 @@ export class ThCoreDirective implements OnInit {
     }
 
     const context = new ThCoreContext(this);
-    const template = this.templateCache.get('head.cell.text.tpl.html');
+    const template =
+      this.templateCache.get('body.cell.text.tpl.html') ||
+      this.templateLink.get('body.cell.text.tpl.html');
+
     this.viewContainerRef.createEmbeddedView(template, context);
   }
 

@@ -1,9 +1,9 @@
 import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 //import cellBuilder from '../cell/cell.build';
 import {GRID_PREFIX} from '@grid/core/definition';
-import {ViewCoreService} from "../view/view-core.service";
+import {ViewCoreService} from '../view/view-core.service';
 import {RootService} from '../root.service';
-import {TemplateCacheService} from '../../../template/template-cache.service';
+import {TemplateCacheService, TemplateLinkService} from '../../../template';
 
 export class TdCoreContext {
   constructor(public $implicit: TdCoreDirective) {
@@ -21,6 +21,7 @@ export class TdCoreDirective implements OnInit, OnDestroy {
   constructor(public $view: ViewCoreService,
               private root: RootService,
               private templateCache: TemplateCacheService,
+              private templateLink: TemplateLinkService,
               private viewContainerRef: ViewContainerRef,
               element: ElementRef) {
 
@@ -40,7 +41,10 @@ export class TdCoreDirective implements OnInit, OnDestroy {
     }
 
     const context = new TdCoreContext(this);
-    const template = this.templateCache.get('body.cell.text.tpl.html');
+    const template =
+      this.templateCache.get('body.cell.text.tpl.html') ||
+      this.templateLink.get('body.cell.text.tpl.html');
+
     this.viewContainerRef.createEmbeddedView(template, context);
 
     this.mode('init');

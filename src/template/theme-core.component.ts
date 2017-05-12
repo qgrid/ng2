@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 
 @Component({
   selector: 'q-grid-core-theme',
-  templateUrl: './theme-core.component.html'
+  template: require('@grid/theme/index.html')
 })
 export class ThemeCoreComponent{
   constructor() {

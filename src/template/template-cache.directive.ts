@@ -1,5 +1,5 @@
 import {Directive, Input, OnInit, TemplateRef} from '@angular/core';
-import {TemplateCacheService} from "./template-cache.service";
+import {TemplateCacheService} from './template-cache.service';
 
 @Directive({
   selector: 'ng-template[for]'

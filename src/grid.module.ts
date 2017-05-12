@@ -1,25 +1,40 @@
 import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 import {ThemeModule, Theme} from './themes/material';
 import {ViewModule} from './view';
-
-import {Model} from '@grid/core/infrastructure/model';
+import {GridComponent, GridService} from './view/components/grid';
+import {ColumnListComponent} from './view/components/column';
+import {Model} from '@grid/core/infrastructure';
 import {setup} from '@grid/core';
-import {ThemeService} from './view/components/theme/theme.service';
-import {TemplateLinkService} from './template';
+import {
+  ThemeService,
+  TemplateLinkService,
+  TemplateLinkDirective,
+  ThemeCoreComponent
+} from './template';
 
 setup(Model);
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ColumnListComponent,
+    TemplateLinkDirective,
+    GridComponent,
+    ThemeCoreComponent
+  ],
   exports: [
-    ViewModule
+    GridComponent,
+    ColumnListComponent
   ],
   imports: [
     ViewModule,
-    ThemeModule
+    ThemeModule,
+    BrowserModule
   ],
   providers: [
-    TemplateLinkService
+    GridService,
+    TemplateLinkService,
+    ThemeService
   ]
 })
 export class GridModule {
