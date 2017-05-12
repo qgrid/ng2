@@ -175,6 +175,7 @@ module.exports = function (options) {
             '@angular/http',
             '@angular/router',
             '@angularclass/hmr',
+            '@angular/material',
             'rxjs',
           ]
         },

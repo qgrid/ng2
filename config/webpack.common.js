@@ -32,6 +32,9 @@ const METADATA = {
   isDevServer: helpers.isWebpackDevServer()
 };
 
+// TODO: make it configurable
+const THEME_PATH = helpers.root('src/themes/material');
+
 /*
  * Webpack configuration
  *
@@ -84,7 +87,7 @@ module.exports = function (options) {
         '@grid/src': helpers.root('src'),
         '@grid/core': helpers.root('src/core'),
         '@grid/view': helpers.root('src/view'),
-        '@grid/theme': helpers.root('src/themes/material'),
+        '@grid/theme': THEME_PATH,
         '@grid/assets': helpers.root('src/assets')
       }
     },
