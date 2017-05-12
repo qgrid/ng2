@@ -9,6 +9,7 @@ import {TrCoreDirective} from './components/row';
 import {VScrollService} from './components/scroll';
 import {MarkupDirective, TemplateCacheDirective} from './directives';
 import {TemplateCacheService} from '../template';
+import {TemplateDirective} from "../template/template.directive";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {TemplateCacheService} from '../template';
     ThCoreDirective,
     TdCoreDirective,
     TfCoreDirective,
+    TemplateDirective,
     TemplateCacheDirective,
     MarkupDirective
   ],

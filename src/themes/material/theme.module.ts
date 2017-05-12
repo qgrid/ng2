@@ -1,6 +1,12 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {MdIconModule, MdButtonModule, MdCheckboxModule} from '@angular/material';
+import {FormsModule} from "@angular/forms";
+import {
+  MdIconModule,
+  MdButtonModule,
+  MdCheckboxModule,
+  MdSelectModule
+} from '@angular/material';
 import {ThemeService} from './theme.service';
 import {ThemeComponent} from './theme.component';
 import {TemplateLinkDirective} from '@grid/src/template';
@@ -16,9 +22,11 @@ import {TemplateLinkDirective} from '@grid/src/template';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     MdIconModule,
     MdButtonModule,
-    MdCheckboxModule
+    MdCheckboxModule,
+    MdSelectModule,
   ],
   providers: [
     ThemeService
