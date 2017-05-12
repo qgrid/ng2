@@ -1,4 +1,5 @@
 import {NgModule, Injectable} from '@angular/core';
+import {MdIconModule, MdButtonModule, MdCheckboxModule} from "@angular/material";
 
 @Injectable()
 export class Theme {
@@ -8,11 +9,14 @@ export class Theme {
   }
 }
 
-
 @NgModule({
   declarations: [],
   exports: [],
-  imports: [],
+  imports: [
+    MdIconModule,
+    MdButtonModule,
+    MdCheckboxModule
+  ],
   providers: [
     Theme
   ]
