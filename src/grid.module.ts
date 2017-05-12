@@ -8,17 +8,15 @@ import {Model} from '@grid/core/infrastructure';
 import {setup} from '@grid/core';
 import {
   ThemeService,
-  TemplateLinkService,
-  TemplateLinkDirective
+  TemplateLinkService
 } from './template';
 
 setup(Model);
 
 @NgModule({
   declarations: [
-    ColumnListComponent,
-    TemplateLinkDirective,
-    GridComponent
+    GridComponent,
+    ColumnListComponent
   ],
   exports: [
     GridComponent,
