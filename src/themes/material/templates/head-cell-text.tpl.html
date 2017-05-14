@@ -3,11 +3,11 @@
        (mouseover)="$view.sort.hover = true"
        (mouseleave)="$view.sort.hover = false">
     <div class="q-grid-sort"
-         ngClass="{'q-grid-active': $view.sort.order($cell.column) >= 0}"
+         [ngClass]="{'q-grid-active': $view.sort.order($cell.column) >= 0}"
          *ngIf="$cell.column.canSort"
-         ngSwitch="$view.sort.direction($cell.column)">
-      <md-icon class="q-grid-asc" *ngSwitchCase="asc">arrow_downward</md-icon>
-      <md-icon class="q-grid-desc" *ngSwitchCase="desc">arrow_upward</md-icon>
+         [ngSwitch]="$view.sort.direction($cell.column)">
+      <md-icon class="q-grid-asc" *ngSwitchCase="'asc'">arrow_downward</md-icon>
+      <md-icon class="q-grid-desc" *ngSwitchCase="'desc'">arrow_upward</md-icon>
       <ng-container *ngSwitchDefault>
         <md-icon *ngIf="$view.sort.hover">arrow_downward</md-icon>
       </ng-container>
