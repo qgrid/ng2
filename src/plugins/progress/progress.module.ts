@@ -1,18 +1,18 @@
 import {NgModule} from '@angular/core';
-import {PagerComponent} from './pager.component';
+import {ProgressComponent} from './progress.component';
 import {TemplateModule} from '../../template/template.module';
 
 @NgModule({
   declarations: [
-    PagerComponent
+    ProgressComponent
   ],
   exports: [
-    PagerComponent
+    ProgressComponent
   ],
   imports: [
     TemplateModule
   ],
   providers: []
 })
-export class PagerModule {
+export class ProgressModule {
 }

@@ -1,17 +1,18 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from "@angular/forms";
+import {ThemeService} from './theme.service';
+import {ThemeComponent} from './theme.component';
+import {PluginModule} from "../../plugins";
+import {TemplateModule} from "../../template";
 import {
   MdIconModule,
   MdButtonModule,
   MdCheckboxModule,
   MdSelectModule,
-  MdTooltipModule
+  MdTooltipModule,
+  MdProgressBarModule
 } from '@angular/material';
-import {ThemeService} from './theme.service';
-import {ThemeComponent} from './theme.component';
-import {PluginModule} from "../../plugins";
-import {TemplateModule} from "../../template";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {TemplateModule} from "../../template";
     MdButtonModule,
     MdCheckboxModule,
     MdSelectModule,
-    MdTooltipModule
+    MdTooltipModule,
+    MdProgressBarModule
   ],
   providers: [
     ThemeService

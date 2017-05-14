@@ -9,6 +9,7 @@ const templates = [
   require('./templates/toolbar-left.tpl.html'),
   require('./templates/toolbar-right.tpl.html'),
   require('./templates/plugin-pager.tpl.html'),
+  require('./templates/plugin-progress.tpl.html'),
 ];
 
 @Component({

@@ -1,7 +1,7 @@
-import {Component, Input, Optional} from "@angular/core";
+import {Component, Input, Optional} from '@angular/core';
 import {Command} from '@grid/core/infrastructure';
 import {PluginComponent} from '../plugin.component';
-import {RootService} from "../../view/root.service";
+import {RootService} from '../../view/root.service';
 
 @Component({
   selector: 'q-grid-pager',

@@ -1,8 +1,8 @@
 <ng-template key="plugin-pager.tpl.html" let-$pager>
-  <div class="q-grid-pager" ngSwitch="$pager.scroll.mode">
-    <div *ngSwitchCase="virtual">
-      <label class="q-grid-page" ngSwitch="$pager.mode">
-        <span *ngSwitchCase="row">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>
+  <div class="q-grid-pager" [ngSwitch]="$pager.scroll.mode">
+    <div *ngSwitchCase="'virtual'">
+      <label class="q-grid-page" [ngSwitch]="$pager.mode">
+        <span *ngSwitchCase="'row'">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>
         <span *ngSwitchDefault>{{$pager.current + 1}} of {{$pager.totalPages}}</span>
       </label>
     </div>
