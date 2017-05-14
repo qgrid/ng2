@@ -5,7 +5,8 @@ import {
   MdIconModule,
   MdButtonModule,
   MdCheckboxModule,
-  MdSelectModule
+  MdSelectModule,
+  MdTooltipModule
 } from '@angular/material';
 import {ThemeService} from './theme.service';
 import {ThemeComponent} from './theme.component';
@@ -28,6 +29,7 @@ import {TemplateModule} from "../../template";
     MdButtonModule,
     MdCheckboxModule,
     MdSelectModule,
+    MdTooltipModule
   ],
   providers: [
     ThemeService

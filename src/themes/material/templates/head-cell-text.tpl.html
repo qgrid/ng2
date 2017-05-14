@@ -12,8 +12,7 @@
         <md-icon *ngIf="$view.sort.hover">arrow_downward</md-icon>
       </ng-container>
     </div>
-    <label>
-      <!--<md-tooltip md-delay="1000">{{$cell.column.title}}</md-tooltip>-->
+    <label [mdTooltip]="$cell.column.title">
       {{$cell.column.title}}
     </label>
   </div>
