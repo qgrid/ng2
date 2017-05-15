@@ -8,6 +8,7 @@ import {Guard} from '@grid/core/infrastructure';
 export class PluginComponent extends Component implements OnChanges {
   @Input('model') public gridModel: any = null;
 
+  public context = {$implicit: this};
   private binder = new ModelBinder(this);
   private commit = noop;
   protected models: string[] = [];

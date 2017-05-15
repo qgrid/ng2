@@ -8,8 +8,6 @@ import {RootService} from '../../view/root.service';
   template: require('./progress.component.html')
 })
 export class ProgressComponent extends PluginComponent {
-  private context = {$implicit: this};
-
   constructor(@Optional() root: RootService) {
     super(root);
 

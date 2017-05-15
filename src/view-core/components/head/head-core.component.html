@@ -1,7 +1,7 @@
 <tr *ngFor="let $row of $view.head.rows; let $rowIndex = index">
 	<th *ngFor="let $column of $row; let $columnIndex = index"
-		 ng-mouseenter="$view.highlight.column.execute($column.model, true)"
-		 ng-mouseleave="$view.highlight.column.execute($column.model, false)"
+		 (mouseenter)="$view.highlight.column.execute($column.model, true)"
+		 (mouseleave)="$view.highlight.column.execute($column.model, false)"
 		 [attr.rowspan]="$column.rowspan"
 		 [attr.colspan]="$column.colspan"
 		 q-grid-drag="$view.head.transfer($cell)"

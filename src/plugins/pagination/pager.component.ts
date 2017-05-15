@@ -10,7 +10,6 @@ import {RootService} from '../../view/root.service';
 export class PagerComponent extends PluginComponent {
   @Input('size') private paginationSize;
   @Input('sizeList') private paginationSizeList;
-  private context = {$implicit: this};
 
   public next = new Command({
     execute: () => this.current = this.current + 1,
