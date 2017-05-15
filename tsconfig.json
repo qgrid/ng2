@@ -7,7 +7,6 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "noEmit": true,
     "noEmitHelpers": true,
     "importHelpers": true,
     "strictNullChecks": false,
@@ -25,18 +24,21 @@
       "source-map",
       "uglify-js",
       "webpack"
-    ]
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "@grid/core/*": ["core/*"],
+      "@grid/theme/*": ["src/themes/material/*"],
+      "@grid/*": ["src/*"]
+    }
   },
   "exclude": [
     "node_modules",
     "dist"
   ],
-  "awesomeTypescriptLoaderOptions": {
-    "forkChecker": true,
-    "useWebpackText": true
-  },
-  "compileOnSave": false,
-  "buildOnSave": false,
+
+  "compileOnSave": true,
+  "buildOnSave": true,
   "atom": {
     "rewriteTsconfig": false
   }

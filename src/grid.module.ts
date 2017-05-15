@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {ViewModule} from './view';
+import {MainModule} from './main';
 import {ThemeService as Theme} from './themes/material/theme.service';
 import {ThemeService, TemplateLinkService} from './template';
 import {Model} from '@grid/core/infrastructure';
 import {setup} from '@grid/core';
-import {GridComponent} from "./view/components/grid";
-import {ColumnListComponent} from "./view/components/column";
+import {GridComponent} from "./main/grid";
+import {ColumnListComponent} from "./main/column";
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import {ColumnListComponent} from "./view/components/column";
     ColumnListComponent
   ],
   imports: [
-    ViewModule
+    MainModule
   ],
   providers: [
     TemplateLinkService,

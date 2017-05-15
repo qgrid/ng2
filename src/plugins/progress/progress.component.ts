@@ -1,7 +1,7 @@
-import {Component, Input, Optional} from '@angular/core';
+import {Component, Optional} from '@angular/core';
 import {Command} from '@grid/core/infrastructure';
 import {PluginComponent} from '../plugin.component';
-import {RootService} from '../../view/root.service';
+import {RootService} from '@grid/infrastructure/component';
 
 @Component({
   selector: 'q-grid-progress',

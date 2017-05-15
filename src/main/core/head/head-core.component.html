@@ -1,0 +1,21 @@
+<tr *ngFor="let $row of $view.head.rows; let $rowIndex = index">
+  <th *ngFor="let $column of $row; let $columnIndex = index"
+      (mouseenter)="$view.highlight.column.execute($column.model, true)"
+      (mouseleave)="$view.highlight.column.execute($column.model, false)"
+      [attr.rowspan]="$column.rowspan"
+      [attr.colspan]="$column.colspan"
+      q-grid-drag="$view.head.transfer($cell)"
+      q-grid-drop="$view.head.transfer($cell)"
+      q-grid-on-drop="$view.head.drop.execute($event)"
+      q-grid-can-drop="$view.head.drop.canExecute($event)"
+      q-grid-can-drag="$view.head.drag.canExecute($event)"
+      q-grid-resizable="$view.head.resize.canExecute($event)"
+      q-grid-resize="$column.model.key"
+      q-grid-resize-path="columns"
+      q-grid-can-resize="$view.head.resize.canExecute($event)">
+    <ng-container q-grid-core-th
+                  [q-grid-core-column-index]="$columnIndex"
+                  [q-grid-core-row-index]="$rowIndex">
+    </ng-container>
+  </th>
+</tr>

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Event} from '@grid/core/infrastructure/event';
+import {Event} from '@grid/core/infrastructure';
 
 @Injectable()
 export class ThemeService {

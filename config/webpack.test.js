@@ -86,25 +86,12 @@ module.exports = function (options) {
         /**
          * Typescript loader support for .ts and Angular 2 async routes via .async.ts
          *
-         * See: https://github.com/s-panferov/awesome-typescript-loader
          */
         {
           test: /\.ts$/,
           use: [
             {
-              loader: 'awesome-typescript-loader',
-              query: {
-                // use inline sourcemaps for "karma-remap-coverage" reporter
-                sourceMap: false,
-                inlineSourceMap: true,
-                compilerOptions: {
-
-                  // Remove TypeScript helpers to be injected
-                  // below by DefinePlugin
-                  removeComments: true
-
-                }
-              },
+              loader: 'ts-loader'
             },
             'angular2-template-loader'
           ],

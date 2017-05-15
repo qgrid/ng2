@@ -14,12 +14,12 @@ const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplaceme
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 const HtmlElementsPlugin = require('./html-elements-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const ngcWebpack = require('ngc-webpack');
+
 
 /*
  * Webpack Constants
@@ -61,8 +61,7 @@ module.exports = function (options) {
     entry: {
 
       'polyfills': './demo/polyfills.browser.ts',
-      'main': AOT ? './demo/main.browser.aot.ts' :
-        './demo/main.browser.ts'
+      'main': AOT ? './demo/main.browser.aot.ts' : './demo/main.browser.ts'
 
     },
 
@@ -81,15 +80,12 @@ module.exports = function (options) {
       extensions: ['.ts', '.js', '.json'],
 
       // An array of directory names to be resolved to the current directory
-      modules: [helpers.root('demo'), helpers.root('node_modules')],
+      modules: [helpers.root('node_modules')],
 
       alias: {
-        '@grid/src': helpers.root('src'),
-        '@grid/core': helpers.root('src/core'),
-        '@grid/view': helpers.root('src/view'),
-        '@grid/view-core': helpers.root('src/view-core'),
-        '@grid/theme': THEME_PATH,
-        '@grid/assets': helpers.root('src/assets')
+        '@grid/core': helpers.root('core'),
+        '@grid/theme': helpers.root('src/themes/material'),
+        '@grid': helpers.root('src')
       }
     },
 
@@ -111,7 +107,6 @@ module.exports = function (options) {
          * `ng-router-loader` expects vanilla JavaScript code, not TypeScript code. This is why the
          * order of the loader matter.
          *
-         * See: https://github.com/s-panferov/awesome-typescript-loader
          * See: https://github.com/TheLarkInn/angular2-template-loader
          * See: https://github.com/shlomiassaf/ng-router-loader
          */
@@ -134,10 +129,7 @@ module.exports = function (options) {
               }
             },
             {
-              loader: 'awesome-typescript-loader',
-              options: {
-                configFileName: 'tsconfig.webpack.json'
-              }
+              loader: 'ts-loader'
             },
             {
               loader: 'angular2-template-loader'
@@ -221,13 +213,6 @@ module.exports = function (options) {
         prettyPrint: true
       }),
 
-      /*
-       * Plugin: ForkCheckerPlugin
-       * Description: Do type checking in a separate process, so webpack don't need to wait.
-       *
-       * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
-       */
-      new CheckerPlugin(),
       /*
        * Plugin: CommonsChunkPlugin
        * Description: Shares common code between the pages.
@@ -368,7 +353,6 @@ module.exports = function (options) {
         tsConfig: helpers.root('tsconfig.webpack.json'),
         resourceOverride: helpers.root('config/resource-override.js')
       })
-
     ],
 
     /*

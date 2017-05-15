@@ -4,7 +4,7 @@ import {FormsModule} from "@angular/forms";
 import {ThemeService} from './theme.service';
 import {ThemeComponent} from './theme.component';
 import {PluginModule} from "../../plugins";
-import {TemplateModule} from "../../template";
+import {TemplateModule} from "@grid/template";
 import {
   MdIconModule,
   MdButtonModule,
