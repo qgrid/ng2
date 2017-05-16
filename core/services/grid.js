@@ -1,8 +1,8 @@
 import {build as buildPipe} from '../pipe';
 import {Log} from '../infrastructure';
-import {noop} from './utility';
+import {noop} from '../services/utility';
 import {guid} from '../services';
-import {getFactory as valueFactory} from './value';
+import {getFactory as valueFactory} from '../services/value';
 
 export class GridService {
 	constructor(model, apply = noop) {

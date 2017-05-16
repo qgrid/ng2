@@ -1,6 +1,6 @@
-import {isFunction} from './utility';
-import {compile} from './path';
-import {get as getValue} from './value';
+import {isFunction} from '../services/utility';
+import {compile} from '../services/path';
+import {get as getValue} from '../services/value';
 
 export function get(row, column) {
 	return column.$label

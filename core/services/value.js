@@ -1,4 +1,4 @@
-import {isFunction} from './utility';
+import {isFunction} from '../services/utility';
 import {compile} from '../services';
 import {AppError} from '../infrastructure';
 

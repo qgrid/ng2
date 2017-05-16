@@ -1,7 +1,7 @@
 import {View} from '../view';
 import {AppError, Command} from '../infrastructure';
 import * as columnService from '../column/column.service';
-import * as sortService from './sort.service';
+import * as sortService from '../sort/sort.service';
 
 export class SortView extends View {
 	constructor(model) {

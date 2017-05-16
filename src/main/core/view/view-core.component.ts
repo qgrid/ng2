@@ -24,6 +24,7 @@ import {AppError} from '@grid/core/infrastructure';
 import {ViewCoreService} from './view-core.service';
 import {GridService} from '@grid/main/grid';
 import {VScrollService} from '../scroll';
+import {CommandManager} from '@grid/infrastructure/command'
 
 @Component({
   selector: 'q-grid-core-view',
@@ -49,13 +50,7 @@ export class ViewCoreComponent extends NgComponent {
     this.view.pin = this.pin;
 
     const gridService = this.gridService.service(model);
-    const applyFactory = mode => (f, timeout) => {
-      if (isUndefined(timeout)) {
-        f();
-      }
-
-      return setTimeout(() => f(), timeout);
-    };
+    const commandManager = new CommandManager();
 
     this.view.style = new StyleView(model, table);
     this.view.table = new TableView(model);
@@ -64,16 +59,16 @@ export class ViewCoreComponent extends NgComponent {
     this.view.foot = new FootView(model, table);
     this.view.columns = new ColumnView(model, gridService);
     this.view.layout = new LayoutView(model, table, gridService);
-    this.view.selection = new SelectionView(model, table, applyFactory);
+    this.view.selection = new SelectionView(model, table, commandManager);
     this.view.group = new GroupView(model);
     this.view.pivot = new PivotView(model);
-    this.view.highlight = new HighlightView(model, table, applyFactory);
+    this.view.highlight = new HighlightView(model, table, setTimeout);
     this.view.sort = new SortView(model);
     this.view.filter = new FilterView(model);
-    this.view.edit = new EditView(model, table, applyFactory);
-    this.view.nav = new NavigationView(model, table, applyFactory);
+    this.view.edit = new EditView(model, table, commandManager);
+    this.view.nav = new NavigationView(model, table, commandManager);
     this.view.pagination = new PaginationView(model);
-    this.view.scroll = new ScrollView(model, table, this.vscroll.factory, gridService, applyFactory);
+    this.view.scroll = new ScrollView(model, table, this.vscroll, gridService);
 
     // TODO: how we can avoid that?
     // this.$scope.$watch(this.style.invalidate.bind(this.style));

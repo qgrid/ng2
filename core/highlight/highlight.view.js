@@ -8,10 +8,10 @@ import {noop} from '../services/utility';
 import {GRID_PREFIX} from '../definition';
 
 export class HighlightView extends View {
-	constructor(model, table, applyFactory) {
+	constructor(model, table, timeout) {
 		super(model);
 
-		this.apply = applyFactory('async');
+		this.timeout = timeout;
 		this.behavior = new HighlightBehavior(model, cellSelector(model, table));
 		this.table = table;
 
@@ -53,15 +53,16 @@ export class HighlightView extends View {
 		});
 
 		model.selectionChanged.watch(e => {
-			this.apply(() => this.behavior.update(e.state.entries), 0);
+			this.timeout(() => this.behavior.update(e.state.entries), 0);
 		});
 
 		model.viewChanged.watch(() => {
 			waitForLayout = true;
-			this.apply(() => {
+			this.timeout(() => {
 				hoverBlurs = this.invalidateHover(hoverBlurs);
 				sortBlurs = this.invalidateSortBy(sortBlurs);
 				waitForLayout = false;
+				this.behavior.update(this.model.selection().entries);
 			}, 100);
 		});
 

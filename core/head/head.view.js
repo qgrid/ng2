@@ -65,17 +65,19 @@ export class HeadView extends View {
 		model.viewChanged.watch(() => this.invalidate(model));
 	}
 
-	transfer(cell) {
+	transfer(column) {
 		return {
 			key: this.tagName,
-			value: cell.column.key
+			value: column.key
 		};
 	}
 
 	invalidate(model) {
 		Log.info('view.head', 'invalidate');
 
-		const columns = model.view().columns.map(row => row.filter(c => c.model.pin === this.table.pin));
-		this.rows = columns;
+		this.rows = model.view()
+			.columns
+			.map(row =>
+				row.filter(c => c.model.pin === this.table.pin));
 	}
 }

@@ -4,11 +4,11 @@ import {Navigation} from './navigation';
 import {GRID_PREFIX} from '../definition';
 
 export class NavigationView extends View {
-	constructor(model, table, applyFactory) {
+	constructor(model, table, commandManager) {
 		super(model);
 
 		this.table = table;
-		const shortcut = new Shortcut(table, applyFactory('async'));
+		const shortcut = new Shortcut(table, commandManager);
 		const navigation = new Navigation(model, table);
 
 		this.shortcutOff = shortcut.register('navigation', navigation.commands);

@@ -2,18 +2,18 @@ import {View} from '../view';
 import {Log} from '../infrastructure';
 
 export class ScrollView extends View {
-	constructor(model, table, vscroll, service, applyFactory) {
+	constructor(model, table, vscroll, gridService) {
 		super(model);
 
 		this.table = table;
-		const scroll = model.scroll;
-		const apply = applyFactory('async');
 
-		this.y = vscroll({
+		const scroll = model.scroll;
+		this.y = vscroll.factory({
 			threshold: model.pagination().size,
 			rowHeight: model.row().height
 		});
 
+		const apply = this.y.container.apply;
 		this.y.container.apply = f => {
 			apply(() => {
 				f();
@@ -38,7 +38,8 @@ export class ScrollView extends View {
 						behavior: 'core'
 					});
 
-					service.invalidate('scroll.view')
+					gridService
+						.invalidate('scroll.view')
 						.then(d.resolve(model.view().rows.length));
 				};
 
@@ -49,7 +50,6 @@ export class ScrollView extends View {
 					this.y.container.reset();
 				});
 		}
-
 
 		model.scrollChanged.watch(e => {
 			if (e.hasChanges('left') || e.hasChanges('top')) {
