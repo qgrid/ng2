@@ -2,6 +2,7 @@
  * @author: @AngularClass
  */
 const fs = require('fs');
+const fse = require('fs-extra');
 const path = require('path');
 const helpers = require('./helpers');
 const ghDeploy = require('./github-deploy');
@@ -60,6 +61,11 @@ module.exports = function (options) {
          // This means vendor.bundle.js or vendor.[chunk].bundle.js will return 404.
          // this is the fix for now.
          fs.writeFileSync(path.join(webpackConfig.output.path, '.nojekyll'), '');
+
+
+        fse.copySync(
+          helpers.root('demo/data/people'),
+          path.join(webpackConfig.output.path, 'data/people'));
 
          const ghpages = require('gh-pages');
          ghpages.publish(webpackConfig.output.path, options, function(err) {
