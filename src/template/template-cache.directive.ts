@@ -7,7 +7,8 @@ import {TemplateCacheService} from './template-cache.service';
 export class TemplateCacheDirective implements OnInit {
   @Input() key = '';
 
-  constructor(private templateCache: TemplateCacheService, private templateRef: TemplateRef<any>) {
+  constructor(private templateCache: TemplateCacheService,
+              private templateRef: TemplateRef<any>) {
   }
 
   ngOnInit() {

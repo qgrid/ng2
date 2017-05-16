@@ -7,7 +7,8 @@ import {TemplateLinkService} from "./template-link.service";
 export class TemplateLinkDirective implements OnInit {
   @Input() key = '';
 
-  constructor(private templateLink: TemplateLinkService, private templateRef: TemplateRef<any>) {
+  constructor(private templateLink: TemplateLinkService,
+              private templateRef: TemplateRef<any>) {
   }
 
   ngOnInit() {

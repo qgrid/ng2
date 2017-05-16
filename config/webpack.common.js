@@ -138,6 +138,13 @@ module.exports = function (options) {
           exclude: [/\.(spec|e2e)\.ts$/]
         },
 
+        //TODO: get rid of babel when core will be compiled
+        {
+          test: /\.js$/,
+          loader: 'babel-loader',
+          exclude: /node_modules/
+        },
+
         /*
          * Json loader support for *.json files.
          *

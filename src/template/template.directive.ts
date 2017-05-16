@@ -17,10 +17,6 @@ export class TemplateDirective implements DoCheck {
               private viewContainerRef: ViewContainerRef) {
   }
 
-  ngOnInit(){
-    console.log(this.key);
-  }
-
   ngDoCheck() {
     const template =
       this.templateCache.get(this.key) ||

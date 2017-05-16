@@ -5,10 +5,6 @@ import {ViewCoreService} from '../view/view-core.service';
 import {RootService} from '@grid/infrastructure/component';
 import {TemplateCacheService, TemplateLinkService} from '@grid/template';
 
-export class TdCoreContext {
-  constructor(public $implicit: TdCoreDirective) {
-  }
-}
 
 @Directive({
   selector: '[q-grid-core-td]',
@@ -17,6 +13,7 @@ export class TdCoreDirective implements OnInit, OnDestroy {
   @Input('q-grid-core-row-index') rowIndex: number;
   @Input('q-grid-core-column-index') columnIndex: number;
   private element: HTMLElement = null;
+  private $implicit = this;
 
   constructor(public $view: ViewCoreService,
               private root: RootService,
@@ -25,7 +22,7 @@ export class TdCoreDirective implements OnInit, OnDestroy {
               private viewContainerRef: ViewContainerRef,
               element: ElementRef) {
 
-    this.element = element.nativeElement.parentElement;
+    this.element = element.nativeElement.parentNode;
   }
 
   ngOnInit() {
@@ -40,12 +37,11 @@ export class TdCoreDirective implements OnInit, OnDestroy {
       element.classList.add(`${GRID_PREFIX}-${column.editor}`);
     }
 
-    const context = new TdCoreContext(this);
     const template =
       this.templateCache.get('body-cell-text.tpl.html') ||
       this.templateLink.get('body-cell-text.tpl.html');
 
-    this.viewContainerRef.createEmbeddedView(template, context);
+    this.viewContainerRef.createEmbeddedView(template, this);
 
     this.mode('init');
   }
