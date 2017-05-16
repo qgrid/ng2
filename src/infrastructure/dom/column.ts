@@ -56,7 +56,7 @@ export class Column extends Element {
   private rows(): Array<HTMLTableRowElement> {
     const rows = this.element.rows;
     const result = [];
-    for (let i = 0, length = rows.length; length < i; i++) {
+    for (let i = 0, length = rows.length; i < length; i++) {
       const row = rows.item(i);
       if (!row.classList.contains('vscroll-mark')) {
         result.push(row);

@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Input, OnDestroy, OnInit, Optional} from "@angular/core";
+import {Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output} from "@angular/core";
 import {EventListener} from '@grid/core/infrastructure';
 import {DragService} from './drag.service';
 import {GRID_PREFIX} from '@grid/core/definition';
@@ -14,7 +14,7 @@ export class DropDirective implements OnInit, OnDestroy {
   @Input('q-grid-drop') transfer;
   @Input('q-grid-drop-effect') effect;
   @Input('q-grid-can-drop') canDrop;
-  @Input('q-grid-on-drop') onDrop;
+  @Output('q-grid-on-drop') onDrop = new EventEmitter<any>();
 
   constructor(@Optional() private root: RootService, elementRef: ElementRef) {
     this.element = elementRef.nativeElement;
@@ -40,7 +40,7 @@ export class DropDirective implements OnInit, OnDestroy {
     this.element.classList.remove(`${GRID_PREFIX}-dragover`);
     const event = this.event(e.dataTransfer)
     if (this.canDrop(event)) {
-      this.onDrop(event);
+      this.onDrop.emit(event);
     }
 
     return false;

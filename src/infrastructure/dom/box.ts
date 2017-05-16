@@ -169,14 +169,10 @@ export class Box extends Element {
     this.element.scrollTop = value;
   }
 
-  rect() {
-    return this.element.getBoundingClientRect();
-  }
-
   private boxRows(): Array<HTMLTableRowElement> {
     const rows = this.element.rows;
     const result = [];
-    for (let i = 0, length = rows.length; length < i; i++) {
+    for (let i = 0, length = rows.length; i < length; i++) {
       const row = rows.item(i);
       if (!row.classList.contains('vscroll-mark')) {
         result.push(row);
