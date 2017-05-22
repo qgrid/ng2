@@ -1,8 +1,8 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {EventListener} from '@grid/core/infrastructure/event.listener';
-//import * as pathFinder from '@grid/view/services/path.find';
-import {ViewCoreService} from "../view/view-core.service";
+import {ViewCoreService} from '../view/view-core.service';
 import {RootService} from "@grid/infrastructure/component";
+import {PathService} from "@grid/infrastructure/path";
 
 @Component({
   selector: 'tbody[q-grid-core-body]',
@@ -45,41 +45,44 @@ export class BodyCoreComponent implements OnInit {
   }
 
   onClick(e) {
-    // const cell = pathFinder.cell(e.path);
-    // if (cell) {
-    //   this.navigate(cell);
-    //
-    //   if (cell.column.editorOptions.trigger === 'click'
-    //     && this.$view.edit.cell.enter.canExecute(cell)) {
-    //       this.$view.edit.cell.enter.execute(cell);
-    //   }
-    //
-    //   if (cell.column.type !== 'select') {
-    //     this.$view.selection.selectRange(cell);
-    //   }
-    // }
+    const pathFinder = new PathService(this.$view.bag);
+    const cell = pathFinder.cell(e.path);
+    if (cell) {
+      this.navigate(cell);
+
+      if (cell.column.editorOptions.trigger === 'click'
+        && this.$view.edit.cell.enter.canExecute(cell)) {
+        this.$view.edit.cell.enter.execute(cell);
+      }
+
+      if (cell.column.type !== 'select') {
+        this.$view.selection.selectRange(cell);
+      }
+    }
   }
 
   onMouseDown(e) {
-    // if (this.selection.mode === 'range') {
-    //   this.rangeStartCell = pathFinder.cell(e.path);
-    //
-    //   if (this.rangeStartCell) {
-    //     this.$view.selection.selectRange(this.rangeStartCell);
-    //   }
-    // }
+    if (this.selection.mode === 'range') {
+      const pathFinder = new PathService(this.$view.bag);
+      this.rangeStartCell = pathFinder.cell(e.path);
+
+      if (this.rangeStartCell) {
+        this.$view.selection.selectRange(this.rangeStartCell);
+      }
+    }
   }
 
   onMouseMove(e) {
-    // if (this.selection.mode === 'range') {
-    //   const startCell = this.rangeStartCell;
-    //   const endCell = pathFinder.cell(e.path);
-    //
-    //   if (startCell && endCell) {
-    //     this.$view.selection.selectRange(startCell, endCell);
-    //     this.navigate(endCell);
-    //   }
-    // }
+    if (this.selection.mode === 'range') {
+      const pathFinder = new PathService(this.$view.bag);
+      const startCell = this.rangeStartCell;
+      const endCell = pathFinder.cell(e.path);
+
+      if (startCell && endCell) {
+        this.$view.selection.selectRange(startCell, endCell);
+        this.navigate(endCell);
+      }
+    }
   }
 
   onMouseUp() {
