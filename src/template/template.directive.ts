@@ -25,7 +25,7 @@ export class TemplateDirective implements DoCheck {
     if (template !== this.template) {
       this.template = template;
       if (this.viewRef) {
-        this.viewRef.destroy();
+        this.viewContainerRef.clear();
       }
 
       this.viewRef = this.viewContainerRef.createEmbeddedView(template, this.context);

@@ -11,7 +11,8 @@ import {
   MdCheckboxModule,
   MdSelectModule,
   MdTooltipModule,
-  MdProgressBarModule
+  MdProgressBarModule,
+  MdInputModule
 } from '@angular/material';
 
 @NgModule({
@@ -31,7 +32,8 @@ import {
     MdCheckboxModule,
     MdSelectModule,
     MdTooltipModule,
-    MdProgressBarModule
+    MdProgressBarModule,
+    MdInputModule
   ],
   providers: [
     ThemeService

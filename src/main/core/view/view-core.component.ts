@@ -26,11 +26,15 @@ import {GridService} from '@grid/main/grid';
 import {VScrollService} from '../scroll';
 import {CommandManager} from '@grid/infrastructure/command'
 import {LayerService} from '../layer';
+import {CellService} from '../cell';
 
 @Component({
   selector: 'q-grid-core-view',
   templateUrl: './view-core.component.html',
-  providers: [ViewCoreService]
+  providers: [
+    ViewCoreService,
+    CellService
+  ]
 })
 export class ViewCoreComponent extends NgComponent {
   constructor(@Optional() private root: RootService,
