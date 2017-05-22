@@ -1,5 +1,5 @@
 import {View} from '../view';
-import {Monitor} from '../services/style';
+import {Monitor} from './style.monitor';
 import * as columnService from '../column/column.service';
 import {getFactory as valueFactory} from '../services/value';
 
@@ -46,7 +46,6 @@ export class StyleView extends View {
 		const valueFactory = this.valueFactory;
 		const model = this.model;
 		const styleState = model.style();
-		const dataRows = model.view().rows;
 		const bodyRows = table.body.rows();
 		const rowMonitor = this.monitor.row;
 		const cellMonitor = this.monitor.cell;
@@ -56,13 +55,16 @@ export class StyleView extends View {
 		const value = (row, column) => {
 			return valueFactory(column)(row);
 		};
+
 		const domCell = cellMonitor.enter();
 		const domRow = rowMonitor.enter();
 		try {
-			for (let i = 0, rowsLength = Math.min(bodyRows.length, dataRows.length); i < rowsLength; i++) {
-				const dataRow = dataRows[i];
-				// TODO: get rid of '.element'
-				const bodyRow = bodyRows[i].element;
+			for (let i = 0, rowsLength = bodyRows.length; i < rowsLength; i++) {
+				const bodyRow = bodyRows[i];
+				const dataRow = bodyRow.model();
+				if (!dataRow) {
+					continue;
+				}
 
 				if (active.row) {
 					const rowContext = {
@@ -79,7 +81,7 @@ export class StyleView extends View {
 				}
 
 				if (active.cell) {
-					const cells = bodyRow.cells;
+					const cells = bodyRow.cells();
 					for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
 						const cell = cells[j];
 						const column = columns[j];

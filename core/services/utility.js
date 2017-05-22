@@ -12,8 +12,13 @@ import orderBy from 'lodash/orderBy';
 import startCase from 'lodash/startCase';
 import assignWith from 'lodash/assignWith';
 import uniq from 'lodash/uniq';
+import sumBy from 'lodash/sumBy';
+import max from 'lodash/maxBy';
+import min from 'lodash/minBy';
+import zip from 'lodash/zip';
 
-const noop = () => {};
+const noop = () => {
+};
 const yes = () => true;
 const no = () => false;
 const identity = arg => arg;
@@ -60,5 +65,9 @@ export {
 	no,
 	toCamelCase,
 	noop,
-	orderBy
+	orderBy,
+	max,
+	min,
+	sumBy,
+	zip
 };

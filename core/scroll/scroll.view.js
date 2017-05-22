@@ -13,20 +13,18 @@ export class ScrollView extends View {
 			rowHeight: model.row().height
 		});
 
-		const apply = this.y.container.apply;
-		this.y.container.apply = f => {
-			apply(() => {
-				f();
-				const container = this.y.container;
-				this.model.pagination({
-					current: Math.floor(container.position / model.pagination().size),
-					count: container.total
-				}, {
-					source: 'scroll.view',
-					behavior: 'core'
-				});
+		this.y.container.drawEvent.on(e => {
+			const container = this.y.container;
+			const currentPage = Math.floor(e.position / model.pagination().size);
+			const totalCount = container.total;
+			this.model.pagination({
+				current: currentPage,
+				count: totalCount
+			}, {
+				source: 'scroll.view',
+				behavior: 'core'
 			});
-		};
+		});
 
 		switch (scroll().mode) {
 			case 'virtual': {
@@ -53,22 +51,19 @@ export class ScrollView extends View {
 
 		model.scrollChanged.watch(e => {
 			if (e.hasChanges('left') || e.hasChanges('top')) {
-				this.invalidate(e.tag.pin);
+				this.invalidate();
 			}
 		});
 	}
 
-	invalidate(pin) {
+	invalidate() {
 		Log.info('layout', 'invalidate scroll');
 
 		const table = this.table;
 		const scroll = this.model.scroll();
-		if(pin === this.table.pin) {
-			table.head.scrollLeft(scroll.left);
-			table.foot.scrollLeft(scroll.left);
-		}
 
-		table.body.scrollTop(scroll.top);
+		table.view.scrollLeft(scroll.left);
+		table.view.scrollTop(scroll.top);
 	}
 
 	get mode() {

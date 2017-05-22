@@ -21,7 +21,7 @@ export class FootView extends View {
 		Log.info('view.foot', 'invalidate');
 
 		const columns = model.view().columns;
-		this.columns = columnService.lineView(columns).filter(c => c.model.pin === this.table.pin);
+		this.columns = columnService.lineView(columns);
 		this.rows = new Array(this.count);
 	}
 

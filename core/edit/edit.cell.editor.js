@@ -61,7 +61,7 @@ export class CellEditor extends CellEditorCore {
 		if (options && options.fetch) {
 			return new Fetch(options.fetch);
 		}
-		return new Fetch(() => this.cell.value);
+		return new Fetch(this.cell.value);
 	}
 
 	static get empty() {

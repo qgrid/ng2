@@ -36,12 +36,7 @@ export class BodyCoreComponent implements OnInit {
 
     scroll({
       top: element.scrollTop,
-      left: element.scrollLeft,
-      width: element.scrollWidth,
-      height: element.scrollHeight
-    }, {
-      source: 'body.core',
-      pin: this.$view.pin
+      left: element.scrollLeft
     });
   }
 

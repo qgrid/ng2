@@ -10,3 +10,5 @@ export * from './log';
 export * from './model.bind';
 export * from './model';
 export * from './shortcut';
+export * from './bucket';
+export * from './bucket2d';

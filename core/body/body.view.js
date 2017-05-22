@@ -25,20 +25,20 @@ export class BodyView extends View {
 	}
 
 	invalidateRows(model) {
-		this.table.body.removeLayer('blank');
+		this.table.view.removeLayer('blank');
 		this.rows = model.view().rows;
 		if (!this.rows.length) {
-			const laterState = model.layer();
-			if (laterState.resource.data.hasOwnProperty('blank')) {
-				const layer = this.table.body.addLayer('blank');
-				layer.resource('blank', laterState.resource);
+			const layerState = model.layer();
+			if (layerState.resource.data.hasOwnProperty('blank')) {
+				const layer = this.table.view.addLayer('blank');
+				layer.resource('blank', layerState.resource);
 			}
 		}
 	}
 
 	invalidateColumns(model) {
 		const columns = model.view().columns;
-		this.columns = columnService.lineView(columns).filter(c => c.model.pin === this.table.pin);
+		this.columns = columnService.lineView(columns);
 	}
 
 	valueFactory(column) {

@@ -1,6 +1,6 @@
 import {Component, Input, Optional} from '@angular/core';
 import {NgComponent, RootService} from '@grid/infrastructure/component';
-import {Table} from '@grid/infrastructure/dom';
+import {Table} from '@grid/core/dom';
 import {BodyView} from '@grid/core/body';
 import {HeadView} from '@grid/core/head';
 import {FootView} from '@grid/core/foot';
@@ -25,6 +25,7 @@ import {ViewCoreService} from './view-core.service';
 import {GridService} from '@grid/main/grid';
 import {VScrollService} from '../scroll';
 import {CommandManager} from '@grid/infrastructure/command'
+import {LayerService} from '../layer';
 
 @Component({
   selector: 'q-grid-core-view',
@@ -32,8 +33,6 @@ import {CommandManager} from '@grid/infrastructure/command'
   providers: [ViewCoreService]
 })
 export class ViewCoreComponent extends NgComponent {
-  @Input() pin: string = null;
-
   constructor(@Optional() private root: RootService,
               private view: ViewCoreService,
               private gridService: GridService,
@@ -45,15 +44,19 @@ export class ViewCoreComponent extends NgComponent {
     super.ngOnInit();
 
     const model = this.model;
-    const table = new Table(model, this.view.markup);
-    table.pin = this.pin;
-    this.view.pin = this.pin;
+    const markup = this.view.markup;
+    const layerService = new LayerService(markup);
+    const tableContext = {
+      layer: name => layerService.create(name),
+      model: element => this.view.bag.get(element) || null
+    };
+
+    const table = new Table(model, markup, tableContext);
 
     const gridService = this.gridService.service(model);
     const commandManager = new CommandManager();
 
     this.view.style = new StyleView(model, table);
-    this.view.table = new TableView(model);
     this.view.head = new HeadView(model, table, 'q-grid-core-th');
     this.view.body = new BodyView(model, table);
     this.view.foot = new FootView(model, table);

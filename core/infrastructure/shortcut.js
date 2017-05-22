@@ -20,8 +20,8 @@ export class Shortcut {
 			.set(40, 'down')
 			.set(113, 'f2');
 
-		this.canExecute = table.isFocused.bind(table);
-		this.off = table.keyDown(this.onKeyDown.bind(this));
+		this.canExecute = () => table.view.isFocused();
+		this.off = table.view.keyDown(this.onKeyDown.bind(this));
 	}
 
 	translate(e) {

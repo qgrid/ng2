@@ -1,17 +1,16 @@
-function factory(settings) {
-  return {
-    settings: {},
-    container: {
-      reset: () => {
-      },
-      apply: () => {
-      }
-    }
-  }
-}
+import {Event} from '@grid/core/infrastructure';
 
 export class VScrollService {
-  get factory() {
-    return factory;
+  factory() {
+    return {
+      settings: {},
+      container: {
+        reset: () => {
+        },
+        apply: () => {
+        },
+        drawEvent: new Event()
+      }
+    }
   }
 }

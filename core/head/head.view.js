@@ -75,9 +75,6 @@ export class HeadView extends View {
 	invalidate(model) {
 		Log.info('view.head', 'invalidate');
 
-		this.rows = model.view()
-			.columns
-			.map(row =>
-				row.filter(c => c.model.pin === this.table.pin));
+		this.rows = model.view().columns;
 	}
 }

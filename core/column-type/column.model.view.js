@@ -21,8 +21,8 @@ export class ColumnView extends View {
 	constructor(model) {
 		super(model);
 
-		this.colspan = 0;
-		this.rowspan = 0;
+		this.colspan = 1;
+		this.rowspan = 1;
 	}
 
 	static model(model) {

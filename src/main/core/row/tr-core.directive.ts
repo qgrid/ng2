@@ -5,16 +5,23 @@ import {ViewCoreService} from "../view/view-core.service";
   selector: '[q-grid-core-tr]'
 })
 export class TrCoreDirective implements OnInit, OnDestroy {
-  @Input('q-grid-core-tr') private view: ViewCoreService;
+  @Input('q-grid-core-tr') public index: number;
+  private element: HTMLElement;
 
-  constructor(private element: ElementRef) {
+  constructor(public $view: ViewCoreService,
+              private elementRef: ElementRef) {
+    this.element = elementRef.nativeElement;
   }
 
   ngOnInit() {
-    this.view.style.monitor.row.add(this.element.nativeElement);
+    const element = this.element;
+    this.$view.bag.set(element, this);
+    this.$view.style.monitor.row.add(element);
   }
 
   ngOnDestroy() {
-    this.view.style.monitor.row.remove(this.element.nativeElement);
+    const element = this.element;
+    this.$view.bag.delete(element);
+    this.$view.style.monitor.row.remove(this.element);
   }
 }

@@ -44,7 +44,7 @@ export class HighlightView extends View {
 					if (hasChanges) {
 						model.highlight({
 							columns: columns
-						},{
+						}, {
 							source: 'highlight.view',
 						});
 					}
@@ -125,16 +125,11 @@ export class HighlightView extends View {
 		}
 
 		const head = table.head;
-		const headCells = head.column(index).cells();
-		headCells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
-		const cellsPrev = head.column(index - 1).cells();
-		cellsPrev.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-prev`));
-		const cellsNext = head.column(index + 1).cells();
-		cellsNext.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-next`));
-		const bodyCells = table.body.column(index).cells();
-		bodyCells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
-		const footCells = table.foot.column(index).cells();
-		footCells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
+		head.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+		head.column(index - 1).addClass(`${GRID_PREFIX}-${cls}-prev`);
+		head.column(index + 1).addClass(`${GRID_PREFIX}-${cls}-next`);
+		table.body.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+		table.foot.column(index).addClass(`${GRID_PREFIX}-${cls}`);
 
 		return this.blur(key, cls);
 	}
@@ -148,16 +143,11 @@ export class HighlightView extends View {
 
 		return () => {
 			const head = table.head;
-			const headCells = head.column(index).cells();
-			headCells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
-			const cellsPrev = head.column(index - 1).cells();
-			cellsPrev.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-prev`));
-			const cellsNext = head.column(index + 1).cells();
-			cellsNext.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-next`));
-			const bodyCells = table.body.column(index).cells();
-			bodyCells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
-			const footCells = table.foot.column(index).cells();
-			footCells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
+			head.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+			head.column(index - 1).removeClass(`${GRID_PREFIX}-${cls}-prev`);
+			head.column(index + 1).removeClass(`${GRID_PREFIX}-${cls}-next`);
+			table.body.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+			table.foot.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
 		};
 	}
 }

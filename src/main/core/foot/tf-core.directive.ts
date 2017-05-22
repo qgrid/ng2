@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Input, OnInit, ViewContainerRef} from '@angular/core';
+import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 import {GRID_PREFIX} from '@grid/core/definition';
 import {ViewCoreService} from '../view/view-core.service';
 import {TemplateCacheService, TemplateLinkService} from '@grid/template';
@@ -6,7 +6,7 @@ import {TemplateCacheService, TemplateLinkService} from '@grid/template';
 @Directive({
   selector: '[q-grid-core-tf]'
 })
-export class TfCoreDirective implements OnInit {
+export class TfCoreDirective implements OnInit, OnDestroy {
   @Input('q-grid-core-row-index') rowIndex: number;
   @Input('q-grid-core-column-index') columnIndex: number;
   private element: HTMLElement = null;
@@ -25,6 +25,7 @@ export class TfCoreDirective implements OnInit {
     const column = this.column;
     const element = this.element;
 
+    this.$view.bag.set(element, this);
     element.classList.add(`${GRID_PREFIX}-${column.key}`);
     element.classList.add(`${GRID_PREFIX}-${column.type}`);
     if (column.hasOwnProperty('editor')) {
@@ -49,5 +50,10 @@ export class TfCoreDirective implements OnInit {
 
   get row() {
     return this.$view.foot.rows[this.rowIndex];
+  }
+
+  ngOnDestroy(){
+    const element = this.element;
+    this.$view.bag.set(element, this);
   }
 }

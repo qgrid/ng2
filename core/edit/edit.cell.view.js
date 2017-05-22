@@ -77,13 +77,13 @@ export class EditCellView {
 					}
 
 					cell = cell || model.navigation().cell;
-					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
+					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
 						this.editor.commit();
 						this.editor = CellEditor.empty;
 
 						model.edit({state: 'view'});
 						cell.mode('view');
-						table.focus();
+						table.view.focus();
 						return true;
 					}
 
@@ -113,7 +113,7 @@ export class EditCellView {
 
 						model.edit({state: 'view'});
 						cell.mode('view');
-						table.focus();
+						table.view.focus();
 						return true;
 					}
 
@@ -150,17 +150,18 @@ export class EditCellView {
 		);
 	}
 
-	contextFactory(cell, value, label) {
+	contextFactory(cell, value, label, tag) {
 		return {
 			column: cell.column,
 			row: cell.row,
 			columnIndex: cell.columnIndex,
 			rowIndex: cell.rowIndex,
 			oldValue: cell.value,
-			newValue: arguments.length === 2 ? value : cell.value,
+			newValue: arguments.length >= 2 ? value : cell.value,
 			oldLabel: cell.label,
-			newLabel: arguments.length === 3 ? label : cell.label,
+			newLabel: arguments.length >= 3 ? label : cell.label,
 			unit: 'cell',
+			tag: tag,
 			valueFactory: valueFactory,
 			labelFactory: labelFactory
 		};

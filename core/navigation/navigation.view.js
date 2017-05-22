@@ -42,7 +42,7 @@ export class NavigationView extends View {
 		});
 
 		this.scrollTo = new Command({
-			execute: (row, column) => this.scroll(table.body, table.body.cell(row, column)),
+			execute: (row, column) => this.scroll(table.view, table.body.cell(row, column)),
 			canExecute: (row, column) => table.body.cell(row, column).model !== null
 		});
 
@@ -88,9 +88,9 @@ export class NavigationView extends View {
 		model.viewChanged.watch(() => model.navigation({cell: null}));
 	}
 
-	scroll(body, target) {
+	scroll(view, target) {
 		const tr = target.rect();
-		const cr = body.rect();
+		const cr = view.rect();
 		const scrollState = this.model.scroll();
 
 		if (cr.left > tr.left
@@ -99,10 +99,10 @@ export class NavigationView extends View {
 			|| cr.right < tr.right) {
 			if (cr.left < tr.left
 				|| cr.right < tr.right) {
-				body.scrollLeft(tr.right - cr.right + scrollState.left);
+				view.scrollLeft(tr.right - cr.right + scrollState.left);
 			} else if (cr.left > tr.left
 				|| cr.left > tr.right) {
-				body.scrollLeft(tr.left - cr.left + scrollState.left);
+				view.scrollLeft(tr.left - cr.left + scrollState.left);
 			}
 		}
 
@@ -112,10 +112,10 @@ export class NavigationView extends View {
 			|| cr.bottom < tr.bottom) {
 			if (cr.top < tr.top
 				|| cr.bottom < tr.bottom) {
-				body.scrollTop(tr.bottom - cr.bottom + scrollState.top);
+				view.scrollTop(tr.bottom - cr.bottom + scrollState.top);
 			} else if (cr.top > tr.top
 				|| cr.top > tr.bottom) {
-				body.scrollTop(tr.top - cr.top + scrollState.top);
+				view.scrollTop(tr.top - cr.top + scrollState.top);
 			}
 		}
 	}

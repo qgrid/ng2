@@ -52,13 +52,21 @@ export function dataView(columns, model) {
 export function lineView(columnRows) {
 	const height = columnRows.length;
 	if (height === 1) {
-		return columnRows[0];
+		const columnRow = columnRows[0];
+		return columnRow
+			.filter(c => c.model.pin === 'left')
+			.concat(columnRow.filter(c => !c.model.pin))
+			.concat(columnRow.filter(c => c.model.pin === 'right'));
 	}
 
 	if (height > 1) {
 		const viewColumns = columnRows[0].filter(c => c.model.type !== 'pivot' && c.model.type !== 'pad');
 		const pivotColumns = columnRows[columnRows.length - 1].filter(c => c.model.type === 'pivot' || c.model.type === 'pad');
-		return viewColumns.concat(pivotColumns);
+		return viewColumns
+			.filter(c => c.model.pin === 'left')
+			.concat(viewColumns.filter(c => !c.model.pin))
+			.concat(pivotColumns)
+			.concat(viewColumns.filter(c => c.model.pin === 'right'));
 	}
 
 	return [];

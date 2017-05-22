@@ -82,7 +82,8 @@ export class LayoutView extends View {
 				const column = columns[length];
 				if (!state.hasOwnProperty(column.key)) {
 					if (column.canResize) {
-						state[column.key] = {width: headRow.cell(column.index).width};
+						const index = columns.findIndex(c => c === column);
+						state[column.key] = {width: headRow.cell(index).width};
 					}
 				}
 			}
@@ -123,6 +124,6 @@ export class LayoutView extends View {
 	}
 
 	get styleId() {
-		return `${this.model.grid().id}-${this.table.pin || 'center'}-layout`;
+		return `${this.model.grid().id}-layout`;
 	}
 }
