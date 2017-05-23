@@ -60,14 +60,14 @@ export class View extends Unit {
 		return false;
 	}
 
-	addClass(name){
-		if(this.markup.view){
+	addClass(name) {
+		if (this.markup.view) {
 			this.markup.view.classList.add(name);
 		}
 	}
 
-	removeClass(name){
-		if(this.markup.view) {
+	removeClass(name) {
+		if (this.markup.view) {
 			this.markup.view.classList.remove(name);
 		}
 	}

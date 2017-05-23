@@ -19,7 +19,8 @@ export class HighlightView extends View {
 		let waitForLayout = false;
 
 		let sortBlurs = [];
-		let hoverBlurs = [];
+		let columnHoverBlurs = [];
+		let rowHoverBlurs = [];
 
 		this.column = new Command({
 			canExecute: () => !model.drag().isActive,
@@ -52,6 +53,37 @@ export class HighlightView extends View {
 			}
 		});
 
+		this.row = new Command({
+			canExecute: () => !model.drag().isActive,
+			execute: (row, state) => {
+				if (!waitForLayout) {
+					const rows = Array.from(model.highlight().rows);
+					const index = rows.indexOf(row);
+					let hasChanges = false;
+					if (state) {
+						if (index < 0) {
+							rows.push(row);
+							hasChanges = true;
+						}
+					}
+					else {
+						if (index >= 0) {
+							rows.splice(index, 1);
+							hasChanges = true;
+						}
+					}
+
+					if (hasChanges) {
+						model.highlight({
+							rows: rows
+						}, {
+							source: 'highlight.view',
+						});
+					}
+				}
+			}
+		});
+
 		model.selectionChanged.watch(e => {
 			this.timeout(() => this.behavior.update(e.state.entries), 0);
 		});
@@ -59,7 +91,8 @@ export class HighlightView extends View {
 		model.viewChanged.watch(() => {
 			waitForLayout = true;
 			this.timeout(() => {
-				hoverBlurs = this.invalidateHover(hoverBlurs);
+				columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
+				rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
 				sortBlurs = this.invalidateSortBy(sortBlurs);
 				waitForLayout = false;
 				this.behavior.update(this.model.selection().entries);
@@ -74,17 +107,34 @@ export class HighlightView extends View {
 
 		model.highlightChanged.watch(e => {
 			if (!waitForLayout && e.tag.source !== 'highlight') {
-				hoverBlurs = this.invalidateHover(hoverBlurs);
+				if (e.hasChanges('columns')) {
+					columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
+				}
+
+				if (e.hasChanges('rows')) {
+					rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
+				}
 			}
 		});
 	}
 
-	invalidateHover(dispose) {
+	invalidateColumnHover(dispose) {
 		dispose.forEach(f => f());
 		dispose = [];
 		const highlightColumns = this.model.highlight().columns;
 		for (let columnKey of highlightColumns) {
-			dispose.push(this.highlight(columnKey, 'highlighted'));
+			dispose.push(this.highlightColumn(columnKey, 'highlighted'));
+		}
+
+		return dispose;
+	}
+
+	invalidateRowHover(dispose) {
+		dispose.forEach(f => f());
+		dispose = [];
+		const highlightRows = this.model.highlight().rows;
+		for (let rowIndex of highlightRows) {
+			dispose.push(this.highlightRow(rowIndex, 'highlighted'));
 		}
 
 		return dispose;
@@ -97,7 +147,7 @@ export class HighlightView extends View {
 		const sortBy = this.model.sort().by;
 		for (let entry of sortBy) {
 			const key = sortService.key(entry);
-			dispose.push(this.highlight(key, 'sorted'));
+			dispose.push(this.highlightColumn(key, 'sorted'));
 		}
 
 		return dispose;
@@ -117,7 +167,7 @@ export class HighlightView extends View {
 		return index;
 	}
 
-	highlight(key, cls) {
+	highlightColumn(key, cls) {
 		const table = this.table;
 		const index = this.columnIndex(key);
 		if (index < 0) {
@@ -131,10 +181,10 @@ export class HighlightView extends View {
 		table.body.column(index).addClass(`${GRID_PREFIX}-${cls}`);
 		table.foot.column(index).addClass(`${GRID_PREFIX}-${cls}`);
 
-		return this.blur(key, cls);
+		return this.blurColumn(key, cls);
 	}
 
-	blur(key, cls) {
+	blurColumn(key, cls) {
 		const table = this.table;
 		const index = this.columnIndex(key);
 		if (index < 0) {
@@ -149,5 +199,24 @@ export class HighlightView extends View {
 			table.body.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
 			table.foot.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
 		};
+	}
+
+	highlightRow(index, cls) {
+		const table = this.table;
+		if (index < 0) {
+			return noop;
+		}
+
+		table.body.row(index).addClass(`${GRID_PREFIX}-${cls}`);
+		return this.blurRow(index, cls);
+	}
+
+	blurRow(index, cls) {
+		const table = this.table;
+		if (index < 0) {
+			return noop;
+		}
+
+		return () => table.body.row(index).removeClass(`${GRID_PREFIX}-${cls}`);
 	}
 }

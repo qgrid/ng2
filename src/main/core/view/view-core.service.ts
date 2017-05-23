@@ -5,6 +5,7 @@ import {Injectable} from '@angular/core';
 export class ViewCoreService {
   public markup: any = {};
   public bag = new Map<HTMLElement, any>();
+  public table: any = null;
 
   public group: any = null;
   public filter: any = null;

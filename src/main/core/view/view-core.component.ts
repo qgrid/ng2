@@ -60,6 +60,7 @@ export class ViewCoreComponent extends NgComponent {
     const gridService = this.gridService.service(model);
     const commandManager = new CommandManager();
 
+    this.view.table = table;
     this.view.style = new StyleView(model, table);
     this.view.head = new HeadView(model, table, 'q-grid-core-th');
     this.view.body = new BodyView(model, table);
@@ -81,19 +82,19 @@ export class ViewCoreComponent extends NgComponent {
     // this.$scope.$watch(this.style.invalidate.bind(this.style));
     //
 
-    // TODO: add event
-    // model.selectionChanged.watch(e => {
-    //   if (e.hasChanges('entries')) {
-    //     this.root.selectionChanged.emit({
-    //       state: model.selection(),
-    //       changes: e.changes
-    //     });
-    //   }
-    //
-    //   if (e.hasChanges('unit') || e.hasChanges('mode')) {
-    //     service.invalidate('selection', e.changes, PipeUnit.column);
-    //   }
-    // });
+    model.selectionChanged.watch(e => {
+      // TODO: add event
+      // if (e.hasChanges('entries')) {
+      //   this.root.selectionChanged.emit({
+      //     state: model.selection(),
+      //     changes: e.changes
+      //   });
+      // }
+
+      if (e.hasChanges('unit') || e.hasChanges('mode')) {
+        gridService.invalidate('selection', e.changes, PipeUnit.column);
+      }
+    });
 
     const triggers = model.data().triggers;
     // TODO: think about invalidation queue
