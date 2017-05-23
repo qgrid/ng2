@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {DataService, Human} from '../../data/data.service';
+import { Component, OnInit } from '@angular/core';
+import { DataService, Human } from '../../data/data.service';
 
 @Component({
   selector: 'home',
@@ -15,6 +15,18 @@ export class HomeComponent implements OnInit {
   public ngOnInit() {
     this.dataService
       .getPeople(100)
-      .subscribe(people => this.rows = people);
+      .map(humans => this.madeIsFeemaleField(humans))
+      .subscribe((people) => this.rows = people);
+  }
+
+  private madeIsFeemaleField(humans: Human[]): Human[] {
+    humans.forEach((human: any) => {
+      if (human.gender === 'female') {
+        human['isFemail'] = true;
+      } else {
+        human['isFemail'] = false;
+      }
+    });
+    return humans;
   }
 }
