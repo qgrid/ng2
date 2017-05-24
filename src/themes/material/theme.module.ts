@@ -5,6 +5,8 @@ import {ThemeService} from './theme.service';
 import {ThemeComponent} from './theme.component';
 import {PluginModule} from '@grid/plugins';
 import {TemplateModule} from '@grid/template';
+import {CommonModule} from '@grid/common';
+
 import {
   MdIconModule,
   MdButtonModule,
@@ -26,6 +28,7 @@ import {
     ThemeComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
     TemplateModule,
