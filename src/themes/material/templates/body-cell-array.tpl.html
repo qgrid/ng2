@@ -1,0 +1,8 @@
+<ng-template key='body-cell-array.tpl.html' let-$cell let-$view="$view">
+	<ul>
+		<ng-template ngFor let-item [ngForOf]="$cell.value">
+			<li>{{item}}</li>
+		</ng-template>
+	</ul>
+</ng-template>
+

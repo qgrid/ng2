@@ -1,0 +1,16 @@
+<ng-template key='body-cell-array-edit.tpl.html' let-$cell let-$view="$view">
+	<div class="q-grid-editor q-grid-array">
+		<h2 class="md-title">Edit {{$cell.column.title}}</h2>
+		<div class="q-grid-array-view">
+			<md-chip-list>
+					<ng-template ngFor let-item [ngForOf]="$cell.value">
+						<md-chip selected="true">{{item}}</md-chip>
+					</ng-template>
+			</md-chip-list>
+		</div>
+		<div class="q-grid-actions">
+			<button md-button ng-click="$view.edit.cell.commit.execute($cell, $event)">Save</button>
+			<button md-button ng-click="$view.edit.cell.cancel.execute($cell, $event)">Cancel</button>
+		</div>
+	</div>
+</ng-template>
