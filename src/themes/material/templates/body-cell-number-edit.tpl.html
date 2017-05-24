@@ -1,0 +1,13 @@
+<ng-template key='body-cell-number-edit.tpl.html' let-$cell let-$view="$view">
+  <div class="q-grid-editor q-grid-number">
+    <md-input-container>
+      <input mdInput
+             type="number"
+             #input
+             q-grid-focus
+             placeholder="{{$cell.column.title}}"
+             [(ngModel)]="$view.edit.cell.value"
+             (blur)="$view.edit.cell.commit.execute($cell)">
+    </md-input-container>
+  </div>
+</ng-template>
