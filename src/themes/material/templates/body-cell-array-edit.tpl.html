@@ -8,17 +8,9 @@
 					</ng-template>
 			</md-chip-list>
 		</div>
-		<md-input-container>
-            <input 
-                mdInput
-                q-grid-focus 
-				placeholder="Enter a {{$cell.column.title}}..."
-                [(ngModel)]="$view.edit.cell.value"
-                (blur)="$view.edit.cell.commit.execute($cell)">
-        </md-input-container>
 		<div class="q-grid-actions">
-			<button md-button ng-click="$view.edit.cell.commit.execute($cell, $event)">Save</button>
-			<button md-button ng-click="$view.edit.cell.cancel.execute($cell, $event)">Cancel</button>
+			<button md-button (click)="$view.edit.cell.commit.execute($cell, $event)">Save</button>
+			<button md-button (click)="$view.edit.cell.cancel.execute($cell, $event)">Cancel</button>
 		</div>
 	</div>
 </ng-template>
