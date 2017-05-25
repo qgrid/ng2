@@ -4,10 +4,12 @@ import {ColumnListService} from "@grid/main/column/column-list.service";
 import * as columnService from '@grid/core/column/column.service';
 import {columnFactory} from '@grid/core/column/column.factory';
 import {RootService} from "@grid/infrastructure/component";
+import {TemplateHostService} from "@grid/template/template-host.service";
 
 @Component({
   selector: 'q-grid-column',
-  template: '<ng-content></ng-content>'
+  template: '<ng-content></ng-content>',
+  providers: [TemplateHostService]
 })
 export class ColumnComponent implements OnInit {
   @Input() public type: string;
@@ -36,7 +38,8 @@ export class ColumnComponent implements OnInit {
   @Input() public label: any;
 
   constructor(private root: RootService,
-              private columnList: ColumnListService) {
+              private columnList: ColumnListService,
+              private templateHost: TemplateHostService) {
   }
 
   ngOnInit() {
@@ -67,6 +70,8 @@ export class ColumnComponent implements OnInit {
       columns.push(column);
     }
 
+    this.templateHost.key = `cell-${column.type}-${column.key}.tpl.html`;
+
     this.columnList.copy(column, this);
     // HACK: to understand if need to pass {$row: row} instead of just row in cell.core.js
     if (!isUndefined(this.value)) {
@@ -90,5 +95,6 @@ export class ColumnComponent implements OnInit {
 
       this.columnList.register(settings);
     }
+
   }
 }
