@@ -5,6 +5,8 @@ import {ThemeService} from './theme.service';
 import {ThemeComponent} from './theme.component';
 import {PluginModule} from '@grid/plugins';
 import {TemplateModule} from '@grid/template';
+import {CommonModule} from '@grid/common';
+
 import {
   MdIconModule,
   MdButtonModule,
@@ -14,7 +16,8 @@ import {
   MdProgressBarModule,
   MdInputModule,
   MdDatepickerModule,
-  MdNativeDateModule
+  MdNativeDateModule,
+  MdChipsModule
 } from '@angular/material';
 
 @NgModule({
@@ -25,6 +28,7 @@ import {
     ThemeComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
     TemplateModule,
@@ -37,7 +41,8 @@ import {
     MdProgressBarModule,
     MdInputModule,
     MdDatepickerModule,
-    MdNativeDateModule
+    MdNativeDateModule,
+    MdChipsModule
   ],
   providers: [
     ThemeService
