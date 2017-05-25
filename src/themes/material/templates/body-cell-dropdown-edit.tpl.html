@@ -1,0 +1,11 @@
+<ng-template key='body-cell-dropdown-edit.tpl.html' let-$cell let-$view="$view">
+    <div q-grid-editor q-grid-array>
+        <md-select q-grid-focus [(ngModel)]="$view.edit.cell.value" placeholder="Select a value" 
+            (onOpen)="$view.edit.cell.fetch.busy" 
+            (onClose)="$view.edit.cell.cancel.execute($cell)">
+            <md-option  *ngFor="let option of $view.edit.cell.fetch.result" [value]="option">
+                {{ option }}
+            </md-option>
+        </md-select>
+    </div>
+</ng-template>
