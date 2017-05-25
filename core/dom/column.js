@@ -8,8 +8,8 @@ export class Column {
 		return this.box.columnCellsCore(this.index);
 	}
 
-	cell(row) {
-		return this.box.cell(row, this.index);
+	cell(rowIndex) {
+		return this.box.cell(rowIndex, this.index);
 	}
 
 	addClass(name) {

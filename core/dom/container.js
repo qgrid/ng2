@@ -8,7 +8,7 @@ export class Container extends Unit {
 		this.elements = elements;
 	}
 
-	rect() {
+	getBoundingClientRect() {
 		const rects = this.elements.map(element => element.getBoundingClientRect());
 		const top = min(rects.map(r => r.top));
 		const left = min(rects.map(r => r.left));
@@ -28,11 +28,18 @@ export class Container extends Unit {
 		this.elements.forEach(element => element.classList.remove(name));
 	}
 
-	width() {
-		return this.elements.max(element => element.clientWidth);
+	get clientWidth() {
+		return max(this.elements.map(element => element.clientWidth));
 	}
 
-	height() {
-		return this.elements.max(element => element.clientHeight);
+	get clientHeight() {
+		return max(this.elements.map(element => element.clientHeight));
+	}
+
+	get classList() {
+		return {
+			add: name => this.addClass(name),
+			remove: name => this.removeClass(name)
+		};
 	}
 }

@@ -5,14 +5,15 @@ import {ThemeService, TemplateLinkService} from './template';
 import {Model} from '@grid/core/infrastructure';
 import {setup} from '@grid/core';
 import {GridComponent} from "./main/grid";
-import {ColumnListComponent} from "./main/column";
+import {ColumnListComponent, ColumnComponent} from "./main/column";
 
 @NgModule({
   declarations: [
   ],
   exports: [
     GridComponent,
-    ColumnListComponent
+    ColumnListComponent,
+    ColumnComponent
   ],
   imports: [
     MainModule

@@ -93,29 +93,33 @@ export class NavigationView extends View {
 		const cr = view.rect();
 		const scrollState = this.model.scroll();
 
-		if (cr.left > tr.left
-			|| cr.left > tr.right
-			|| cr.right < tr.left
-			|| cr.right < tr.right) {
-			if (cr.left < tr.left
+		if (view.canScrollTo(target, 'left')) {
+			if (cr.left > tr.left
+				|| cr.left > tr.right
+				|| cr.right < tr.left
 				|| cr.right < tr.right) {
-				view.scrollLeft(tr.right - cr.right + scrollState.left);
-			} else if (cr.left > tr.left
-				|| cr.left > tr.right) {
-				view.scrollLeft(tr.left - cr.left + scrollState.left);
+				if (cr.left < tr.left
+					|| cr.right < tr.right) {
+					view.scrollLeft(tr.right - cr.right + scrollState.left);
+				} else if (cr.left > tr.left
+					|| cr.left > tr.right) {
+					view.scrollLeft(tr.left - cr.left + scrollState.left);
+				}
 			}
 		}
 
-		if (cr.top > tr.top
-			|| cr.top > tr.bottom
-			|| cr.bottom < tr.top
-			|| cr.bottom < tr.bottom) {
-			if (cr.top < tr.top
+		if (view.canScrollTo(target, 'top')) {
+			if (cr.top > tr.top
+				|| cr.top > tr.bottom
+				|| cr.bottom < tr.top
 				|| cr.bottom < tr.bottom) {
-				view.scrollTop(tr.bottom - cr.bottom + scrollState.top);
-			} else if (cr.top > tr.top
-				|| cr.top > tr.bottom) {
-				view.scrollTop(tr.top - cr.top + scrollState.top);
+				if (cr.top < tr.top
+					|| cr.bottom < tr.bottom) {
+					view.scrollTop(tr.bottom - cr.bottom + scrollState.top);
+				} else if (cr.top > tr.top
+					|| cr.top > tr.bottom) {
+					view.scrollTop(tr.top - cr.top + scrollState.top);
+				}
 			}
 		}
 	}

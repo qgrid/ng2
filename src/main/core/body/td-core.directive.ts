@@ -35,7 +35,7 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 
     element.classList.add(`${GRID_PREFIX}-${column.key}`);
     element.classList.add(`${GRID_PREFIX}-${column.type}`);
-    if (column.hasOwnProperty('editor')) {
+    if (column.editor) {
       element.classList.add(`${GRID_PREFIX}-${column.editor}`);
     }
 

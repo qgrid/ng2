@@ -10,7 +10,7 @@ export function viewPipe(memo, context, next) {
 		pivot: memo.pivot,
 		columns: memo.columns
 	}, {
-		source: 'view.pipe',
+		source: context.source || 'view.pipe',
 		behavior: 'core'
 	});
 
