@@ -3,17 +3,17 @@ import { Component } from '@angular/core';
 const templates = [
   require('./templates/head-cell-text.tpl.html'),
   require('./templates/body-cell-text.tpl.html'),
-  require('./templates/body-cell-text-edit.tpl.html'),
-  
-  require('./templates/body-cell-number-edit.tpl.html'),
-  require('./templates/body-cell-bool-edit.tpl.html'),
+  require('./templates/edit-cell-text.tpl.html'),
+
+  require('./templates/edit-cell-number.tpl.html'),
+  require('./templates/edit-cell-bool.tpl.html'),
   require('./templates/body-cell-bool.tpl.html'),
 
-  require('./templates/body-cell-date-edit.tpl.html'),
-  require('./templates/body-cell-array-edit.tpl.html'),
+  require('./templates/edit-cell-date.tpl.html'),
+  require('./templates/edit-cell-array.tpl.html'),
   require('./templates/body-cell-array.tpl.html'),
-  require('./templates/body-cell-dropdown-edit.tpl.html'),
-  
+  require('./templates/edit-cell-dropdown.tpl.html'),
+
   require('./templates/foot-cell-text.tpl.html'),
 
   require('./templates/toolbar-top.tpl.html'),

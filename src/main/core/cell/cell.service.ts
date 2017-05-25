@@ -22,9 +22,9 @@ function buildKeys(source: string, column: any, mode = 'view') {
     case 'edit': {
       const type = column.editor || column.type;
       return [
-        `${source}-cell-${type}-${mode}-${key}.tpl.html`,
-        `${source}-cell-${type}-${mode}.tpl.html`,
-        `${source}-cell-text-${mode}.tpl.html`
+        `${mode}-cell-${type}-${key}.tpl.html`,
+        `${mode}-cell-${type}.tpl.html`,
+        `${mode}-cell-text.tpl.html`
       ];
     }
     default:

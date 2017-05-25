@@ -6,6 +6,9 @@
         <ng-template for="body" let-$cell>
           <span style="color: red">{{$cell.value}}</span>
         </ng-template>
+        <ng-template for="edit" let-$cell let-$view="$view">
+          <button (click)="$view.edit.cell.cancel.execute($cell, $event)">custom template</button>
+        </ng-template>
       </q-grid-column>
     </q-grid-columns>
   </q-grid>
