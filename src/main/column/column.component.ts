@@ -7,7 +7,7 @@ import {RootService} from "@grid/infrastructure/component";
 
 @Component({
   selector: 'q-grid-column',
-  template: ''
+  template: '<ng-content></ng-content>'
 })
 export class ColumnComponent implements OnInit {
   @Input() public type: string;

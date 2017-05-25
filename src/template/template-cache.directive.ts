@@ -5,7 +5,7 @@ import {TemplateCacheService} from './template-cache.service';
   selector: 'ng-template[for]'
 })
 export class TemplateCacheDirective implements OnInit {
-  @Input() key = '';
+  @Input('for') key = '';
 
   constructor(private templateCache: TemplateCacheService,
               private templateRef: TemplateRef<any>) {
