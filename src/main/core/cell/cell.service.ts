@@ -9,14 +9,23 @@ function canBuild(column) {
 }
 
 function buildKeys(source: string, column: any, mode = 'view') {
+  const key = column.key;
   switch (mode) {
     case 'view': {
       const type = column.type;
-      return [`${source}-cell-${type}.tpl.html`, `${source}-cell-text.tpl.html`];
+      return [
+        `${source}-cell-${type}-${key}.tpl.html`,
+        `${source}-cell-${type}.tpl.html`,
+        `${source}-cell-text.tpl.html`
+      ];
     }
     case 'edit': {
       const type = column.editor || column.type;
-      return [`${source}-cell-${type}-${mode}.tpl.html`, `${source}-cell-text-${mode}.tpl.html`];
+      return [
+        `${mode}-cell-${type}-${key}.tpl.html`,
+        `${mode}-cell-${type}.tpl.html`,
+        `${mode}-cell-text.tpl.html`
+      ];
     }
     default:
       throw new AppError('cell.service', `Invalid mode "${mode}"`);

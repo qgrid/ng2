@@ -24,15 +24,25 @@ export class Row extends Element {
 		return this.box.rowCellsCore(this.index);
 	}
 
-	cell(column) {
-		return this.box.cell(this.index, column);
+	cell(columnIndex) {
+		return this.box.cell(this.index, columnIndex);
 	}
 
 	addClass(name) {
-		this.cells().forEach(cell => cell.addClass(name));
+		const model = this.model;
+		if (model) {
+			this.context.styleStorage.addRowClass(name, model.index);
+		}
+
+		super.addClass(name);
 	}
 
 	removeClass(name) {
-		this.cells().forEach(cell => cell.removeClass(name));
+		const model = this.model;
+		if (model) {
+			this.context.styleStorage.removeRowClass(name, model.index);
+		}
+
+		super.removeClass(name);
 	}
 }

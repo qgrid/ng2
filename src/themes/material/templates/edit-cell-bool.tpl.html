@@ -1,7 +1,7 @@
-<ng-template key='body-cell-bool-edit.tpl.html' let-$cell let-$view="$view">
+<ng-template key='edit-cell-bool.tpl.html' let-$cell let-$view="$view">
   <div class="q-grid-bool">
-    <md-checkbox 
-                q-grid-focus 
+    <md-checkbox
+                q-grid-focus
                 [(ngModel)]="$view.edit.cell.value"
                 (blur)="$view.edit.cell.commit.execute($cell)">
     </md-checkbox>

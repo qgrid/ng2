@@ -37,9 +37,7 @@ export function cellSelector(model, table) {
 		for (let item of items) {
 			const rowIndex = rows.indexOf(item.row);
 			const columnIndex = columns.findIndex((c) => c === item.column);
-
-			const row = table.body.row(rowIndex);
-			result.push(row.cell(columnIndex));
+			result.push(table.body.cell(rowIndex, columnIndex));
 		}
 
 		return result;

@@ -1,20 +1,26 @@
 import {View} from './view';
 import {Data} from './data';
-import {cellMapFactory} from './cell.map';
 import {assignWith} from  '../services/utility';
 import {FakeLayer} from './fake';
 import {Head} from './head';
 import {Body} from './body';
 import {Foot} from './foot';
+import {identity} from '../services/utility';
+import {StyleStorage} from './style';
 
 export class Table {
 	constructor(model, markup, context = {}) {
 		this.model = model;
 		this.markup = markup;
 		this.context = assignWith({
-			mapper: cellMapFactory(model),
+			mapper: {
+				row: identity,
+				column: identity
+			},
 			layer: () => new FakeLayer(),
-			model: () => null
+			model: () => null,
+			isDataRow: row => !row.classList.contains('vscroll-mark'),
+			styleStorage: new StyleStorage()
 		}, context);
 
 		this._head = null;

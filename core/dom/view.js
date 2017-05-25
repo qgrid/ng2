@@ -1,6 +1,18 @@
 import {Unit} from './unit';
 import {EventListener} from '../infrastructure';
 
+function isParentOf(parent, element) {
+	while (element) {
+		if (element === parent) {
+			return true;
+		}
+
+		element = element.parentNode;
+	}
+
+	return false;
+}
+
 export class View extends Unit {
 	constructor(markup, context) {
 		super();
@@ -11,26 +23,23 @@ export class View extends Unit {
 	}
 
 	focus() {
-		this.markup.table.focus();
-	}
-
-	blur() {
-		this.markup.table.blur();
-	}
-
-	isFocused() {
-		const markup = this.markup;
-		const target = markup.table;
-		let current = markup.document.activeElement;
-		while (current) {
-			if (current === target) {
-				return true;
-			}
-
-			current = current.parentNode;
+		const elements = this.getElementsCore('table');
+		if (elements.length) {
+			elements[0].focus();
+			return true;
 		}
 
 		return false;
+	}
+
+	blur() {
+		this.getElementsCore('table')
+			.forEach(element => element.blur());
+	}
+
+	isFocused() {
+		return this.getElementsCore('table')
+			.some(element => this.isFocusedCore(element));
 	}
 
 	keyDown(f) {
@@ -92,25 +101,33 @@ export class View extends Unit {
 	}
 
 	scrollTop(value) {
-		const markup = this.markup;
-		const body = markup.body;
 		if (arguments.length) {
-			const bodyLeft = markup['body-left'];
-			const bodyRight = markup['body-right'];
-			if (bodyLeft) {
-				bodyLeft.scrollTop = value;
-			}
-
-			if (body) {
-				body.scrollTop = value;
-			}
-
-			if (bodyRight) {
-				bodyRight.scrollTop = value;
-			}
+			this.getElementsCore('body')
+				.forEach(element => element.scrollTop = value);
 		}
 
 		return this.getElement().scrollTop;
+	}
+
+	canScrollTo(element, direction) {
+		if (element) {
+			switch (direction) {
+				case 'left': {
+					element = element.element;
+					if (element) {
+						const markup = this.markup;
+						if (markup.table) {
+							return isParentOf(markup.table, element);
+						}
+					}
+					break;
+				}
+				case 'top':
+					return true;
+			}
+		}
+
+		return false;
 	}
 
 	rect() {
@@ -124,5 +141,18 @@ export class View extends Unit {
 
 	getElementCore() {
 		return this.markup.body;
+	}
+
+	isFocusedCore(target) {
+		const markup = this.markup;
+		let current = markup.document.activeElement;
+		return isParentOf(target, current);
+	}
+
+	getElementsCore(key) {
+		const markup = this.markup;
+		return [`${key}-left`, key, `${key}-right`]
+			.filter(key => markup.hasOwnProperty(key))
+			.map(key => markup[key]);
 	}
 }

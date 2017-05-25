@@ -217,6 +217,8 @@ export class HighlightView extends View {
 			return noop;
 		}
 
-		return () => table.body.row(index).removeClass(`${GRID_PREFIX}-${cls}`);
+		// We need to catch it here, because virtual mode can affect indicies
+		const row = table.body.row(index);
+		return () => row.removeClass(`${GRID_PREFIX}-${cls}`);
 	}
 }
