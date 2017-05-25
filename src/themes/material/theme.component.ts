@@ -13,6 +13,7 @@ const templates = [
   require('./templates/body-cell-array-edit.tpl.html'),
   require('./templates/body-cell-array.tpl.html'),
   require('./templates/body-cell-dropdown-edit.tpl.html'),
+  require('./templates/body-cell-email-edit.tpl.html'),
   
   require('./templates/foot-cell-text.tpl.html'),
 
