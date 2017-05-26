@@ -1,6 +1,15 @@
 <md-card>
   <q-grid [rows]="rows"
           [editMode]="'cell'">
-    <q-grid-columns [generation]="'deep'"></q-grid-columns>
+    <q-grid-columns [generation]="'deep'">
+      <q-grid-column key="gender">
+        <ng-template for="body" let-$cell>
+          <span style="color: red">{{$cell.value}}</span>
+        </ng-template>
+        <ng-template for="edit" let-$cell let-$view="$view">
+          <button (click)="$view.edit.cell.cancel.execute($cell, $event)">custom template</button>
+        </ng-template>
+      </q-grid-column>
+    </q-grid-columns>
   </q-grid>
 </md-card>

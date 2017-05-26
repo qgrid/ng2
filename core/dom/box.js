@@ -3,7 +3,7 @@ import {Column} from './column';
 import {Cell} from './cell';
 import {FakeTable, FakeElement} from './fake';
 import {Container} from './container';
-import {flatten, sumBy, max, zip} from '../services/utility';
+import {flatten, zip, sumBy, max} from '../services/utility';
 
 export class Box {
 	constructor(context, model) {
@@ -11,12 +11,15 @@ export class Box {
 		this.gridModel = model;
 	}
 
-	cell(row, column) {
-		if (row >= 0 && row < this.rowCount()) {
-			if (column >= 0 && column < this.columnCount()) {
+	cell(rowIndex, columnIndex) {
+		rowIndex = this.context.mapper.row(rowIndex);
+		columnIndex = this.context.mapper.column(columnIndex);
+
+		if (rowIndex >= 0 && rowIndex < this.rowCount()) {
+			if (columnIndex >= 0 && columnIndex < this.columnCount()) {
 				const elements = this.getElements();
-				const cells = flatten(elements.map(element => Array.from(element.rows[row].cells)));
-				return new Cell(this.context, cells[column]);
+				const cells = flatten(elements.map(element => Array.from(this.rowsCore(element)[rowIndex].cells)));
+				return new Cell(this.context, cells[columnIndex]);
 			}
 		}
 
@@ -24,6 +27,7 @@ export class Box {
 	}
 
 	column(index) {
+		index = this.context.mapper.column(index);
 		if (index >= 0 && index < this.columnCount()) {
 			return new Column(this, index);
 		}
@@ -32,9 +36,10 @@ export class Box {
 	}
 
 	row(index) {
+		index = this.context.mapper.row(index);
 		if (index >= 0 && index < this.rowCount()) {
 			const elements = this.getElements();
-			const box = elements.map(element => element.rows[index]);
+			const box = elements.map(element => this.rowsCore(element)[index]);
 			return new Row(this, index, new Container(box));
 		}
 
@@ -45,23 +50,29 @@ export class Box {
 		const elements = this.getElements();
 		if (elements.length > 0) {
 			if (elements.length > 1) {
-				const rows = zip(...elements.map(element => Array.from(element.rows)));
+				const rows = zip(...elements.map(element => this.rowsCore(element)));
 				return rows.map((entry, index) => new Row(this, index, new Container(entry)));
 			}
-			return Array.from(elements[0].rows).map((row, index) => new Row(this, index, row));
+
+			return this.rowsCore(elements[0]).map((row, index) => new Row(this, index, row));
 		}
 
 		return [];
 	}
 
 	rowCount() {
+		// TODO: improve performance
 		const elements = this.getElements();
-		return max(elements.map(element => element.rows.length));
+		return max(elements.map(element => this.rowsCore(element).length));
 	}
 
 	columnCount() {
+		// TODO: improve performance
 		const elements = this.getElements();
-		return sumBy(elements, element => element.rows.length > 0 ? element.rows[0].cells.length : 0);
+		return sumBy(elements, element => {
+			const rows = this.rowsCore(element);
+			return rows.length ? rows[0].cells.length : 0;
+		});
 	}
 
 	getElements() {
@@ -72,11 +83,27 @@ export class Box {
 		return null;
 	}
 
+	rowsCore(element) {
+		const rows = element.rows;
+		const isDataRow = this.context.isDataRow;
+		const result = [];
+		for (let i = 0, length = rows.length; i < length; i++) {
+			const row = rows[i];
+			if (!isDataRow(row)) {
+				continue;
+			}
+
+			result.push(row);
+		}
+
+		return result;
+	}
+
 	rowCellsCore(index) {
 		if (index >= 0 && index < this.rowCount()) {
 			const elements = this.getElements();
 			const context = this.context;
-			const cells = flatten(elements.map(element => Array.from(element.rows[index].cells)));
+			const cells = flatten(elements.map(element => Array.from(this.rowsCore(element)[index].cells)));
 			return cells.map(cell => new Cell(context, cell));
 		}
 
@@ -87,7 +114,7 @@ export class Box {
 		const context = this.context;
 		const column = this.findColumnCore(index);
 		if (column) {
-			return Array.from(column.rows).map(row => new Cell(context, row.cells[column.index]));
+			return column.rows.map(row => new Cell(context, row.cells[column.index]));
 		}
 
 		return [];
@@ -99,11 +126,12 @@ export class Box {
 			let startIndex = 0;
 			for (let i = 0, length = elements.length; i < length; i++) {
 				const element = elements[i];
-				const cells = element.rows[0].cells;
+				const rows = this.rowsCore(element);
+				const cells = rows[0].cells;
 				const endIndex = startIndex + cells.length;
 				if (index < endIndex) {
 					return {
-						rows: element.rows,
+						rows: rows,
 						index: index - startIndex
 					};
 				}

@@ -29,7 +29,7 @@ export class ThCoreDirective implements OnInit, OnDestroy {
     this.$view.bag.set(element, this);
     element.classList.add(`${GRID_PREFIX}-${column.key}`);
     element.classList.add(`${GRID_PREFIX}-${column.type}`);
-    if (column.hasOwnProperty('editor')) {
+    if (column.editor) {
       element.classList.add(`${GRID_PREFIX}-${column.editor}`);
     }
 
