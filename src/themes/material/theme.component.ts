@@ -8,6 +8,7 @@ const templates = [
   require('./templates/body-cell-bool.tpl.html'),
   require('./templates/body-cell-email.tpl.html'),
   require('./templates/body-cell-image.tpl.html'),
+  require('./templates/body-cell-select.tpl.html'),
 
   require('./templates/edit-cell-date.tpl.html'),
   require('./templates/edit-cell-array.tpl.html'),
@@ -17,8 +18,8 @@ const templates = [
   require('./templates/edit-cell-number.tpl.html'),
   require('./templates/edit-cell-bool.tpl.html'),
   require('./templates/edit-cell-password.tpl.html'),
-  require('./templates/body-cell-select.tpl.html'),
-
+  require('./templates/edit-cell-textarea.tpl.html'),
+  
   require('./templates/foot-cell-text.tpl.html'),
 
   require('./templates/toolbar-top.tpl.html'),
