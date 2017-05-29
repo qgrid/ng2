@@ -17,6 +17,7 @@ const templates = [
   require('./templates/edit-cell-number.tpl.html'),
   require('./templates/edit-cell-bool.tpl.html'),
   require('./templates/edit-cell-password.tpl.html'),
+  require('./templates/body-cell-select.tpl.html'),
 
   require('./templates/foot-cell-text.tpl.html'),
 
