@@ -116,6 +116,17 @@ export class HighlightView extends View {
 				}
 			}
 		});
+
+		model.scrollChanged.watch(() => {
+			const highlight = model.highlight;
+			if (highlight().rows.length) {
+				highlight({
+					rows: []
+				}, {
+					source: 'highlight.view',
+				});
+			}
+		});
 	}
 
 	invalidateColumnHover(dispose) {
@@ -217,8 +228,6 @@ export class HighlightView extends View {
 			return noop;
 		}
 
-		// We need to catch it here, because virtual mode can affect indicies
-		const row = table.body.row(index);
-		return () => row.removeClass(`${GRID_PREFIX}-${cls}`);
+		return () => table.body.row(index).removeClass(`${GRID_PREFIX}-${cls}`);
 	}
 }

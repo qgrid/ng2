@@ -2,6 +2,7 @@ import {View} from '../view';
 import {Command, Shortcut} from '../infrastructure';
 import {Navigation} from './navigation';
 import {GRID_PREFIX} from '../definition';
+import {Cell} from '../cell';
 
 export class NavigationView extends View {
 	constructor(model, table, commandManager) {
@@ -32,12 +33,12 @@ export class NavigationView extends View {
 		});
 
 		this.focusCell = new Command({
-			execute: cell => model.navigation({cell: cell}),
+			execute: cell => model.navigation({cell: new Cell(cell)}),
 			canExecute: cell => {
 				return cell
 					&& cell.column.canFocus
 					&& table.data.columns().indexOf(cell.column) >= 0
-					&& cell !== model.navigation().cell;
+					&& !Cell.equals(cell, model.navigation().cell);
 			}
 		});
 
@@ -85,7 +86,11 @@ export class NavigationView extends View {
 			}
 		});
 
-		model.viewChanged.watch(() => model.navigation({cell: null}));
+		model.viewChanged.watch(e => {
+			if (e.tag.behavior !== 'core') {
+				model.navigation({cell: null});
+			}
+		});
 	}
 
 	scroll(view, target) {

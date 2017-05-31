@@ -3,7 +3,7 @@ import {AppError} from '../infrastructure';
 export function cellSelector(model, table) {
 	function getRows(items) {
 		const result = [];
-		const rows = model.view().rows;
+		const rows = table.data.rows();
 
 		for (let item of items) {
 			const index = rows.indexOf(item);
@@ -31,7 +31,7 @@ export function cellSelector(model, table) {
 
 	function getCells(items) {
 		const result = [];
-		const rows = model.view().rows;
+		const rows = table.data.rows();
 		const columns = table.data.columns();
 
 		for (let item of items) {
@@ -44,10 +44,9 @@ export function cellSelector(model, table) {
 	}
 
 	function getMix(items) {
-		const itemsArray = Array.from(items);
-
-		const rows = itemsArray.filter(item => item.unit === 'row').map(item => item.item);
-		const cells = itemsArray.filter(item => item.unit === 'row').map(item => item.item);
+		const entries = Array.from(items);
+		const rows = entries.filter(item => item.unit === 'row').map(item => item.item);
+		const cells = entries.filter(item => item.unit === 'row').map(item => item.item);
 
 		return [
 			...getRows(rows),

@@ -10,11 +10,11 @@ export class Unit {
 	}
 
 	addClass(name) {
-		this.getElement().classList.add(name);
+		this.addClassCore(name);
 	}
 
 	removeClass(name) {
-		this.getElement().classList.remove(name);
+		this.removeClassCore(name);
 	}
 
 	width() {
@@ -27,6 +27,14 @@ export class Unit {
 
 	getElement() {
 		return this.getElementCore() || fakeElement;
+	}
+
+	addClassCore(name) {
+		this.getElement().classList.add(name);
+	}
+
+	removeClassCore(name) {
+		this.getElement().classList.remove(name);
 	}
 
 	getElementCore() {

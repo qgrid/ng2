@@ -1,10 +1,7 @@
-import {Unit} from './unit';
 import {min, max} from '../services/utility';
 
-export class Container extends Unit {
+export class Container {
 	constructor(elements) {
-		super();
-
 		this.elements = elements;
 	}
 
