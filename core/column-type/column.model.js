@@ -4,6 +4,7 @@ export class ColumnModel {
 		this.key = null;
 		this.title = null;
 		this.value = null;
+		this.path = null;
 		this.pin = null;
 		this.origin = 'specific';
 		this.source = 'user';

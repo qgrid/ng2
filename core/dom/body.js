@@ -1,5 +1,23 @@
+import {VirtualBox} from './virtual';
 import {Box} from './box';
 import * as columnService from '../column/column.service';
+
+function getElements(markup) {
+	const result = [];
+	if (markup.hasOwnProperty('body-left')) {
+		result.push(markup['body-left']);
+	}
+
+	if (markup.hasOwnProperty('body')) {
+		result.push(markup['body']);
+	}
+
+	if (markup.hasOwnProperty('body-right')) {
+		result.push(markup['body-right']);
+	}
+
+	return result;
+}
 
 export class Body extends Box {
 	constructor(context, model, markup) {
@@ -13,30 +31,34 @@ export class Body extends Box {
 		return columnService.lineView(columns).length;
 	}
 
-	// rowCount() {
-	// 	const model = this.gridModel;
-	// 	if (model.scroll().mode === 'virtual') {
-	// 		return Math.min(model.view().rows.length, model.pagination().size);
-	// 	}
-   //
-	// 	return model.view().rows.length;
-	// }
+	rowCount() {
+		const elements = this.getElements();
+		if (elements.length) {
+			return elements[0].rows.length;
+		}
+
+		return 0;
+	}
 
 	getElementsCore() {
-		const markup = this.markup;
-		const result = [];
-		if (markup.hasOwnProperty('body-left')) {
-			result.push(markup['body-left']);
-		}
+		return getElements(this.markup);
+	}
+}
 
-		if (markup.hasOwnProperty('body')) {
-			result.push(markup['body']);
-		}
+export class VirtualBody extends VirtualBox {
+	constructor(context, model, markup) {
+		super(context, model);
 
-		if (markup.hasOwnProperty('body-right')) {
-			result.push(markup['body-right']);
-		}
+		this.markup = markup;
+	}
 
-		return result;
+	columnCount() {
+		const columns = this.gridModel.view().columns;
+		return columnService.lineView(columns).length;
+	}
+
+	getElementsCore() {
+		return getElements(this.markup);
+
 	}
 }

@@ -35,7 +35,7 @@ export class SelectionView extends View {
 		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell') && e.tag.source !== 'selection') {
 				const selectionState = model.selection();
-				if (selectionState.unit === 'cell' && selectionState.mode === 'single') {
+				if (selectionState.unit === 'cell') {
 					if (e.state.cell) {
 						this.select(e.state.cell, true);
 					}
@@ -108,7 +108,7 @@ export class SelectionView extends View {
 					} else {
 						row = this.rows[rowIndex + 1];
 						model.navigation({
-							cell: table.body.cell(rowIndex + 1, navState.columnIndex)
+							cell: table.body.cell(rowIndex + 1, navState.columnIndex).model
 						}, {
 							source: 'selection'
 						});

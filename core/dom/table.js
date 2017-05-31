@@ -3,10 +3,9 @@ import {Data} from './data';
 import {assignWith} from  '../services/utility';
 import {FakeLayer} from './fake';
 import {Head} from './head';
-import {Body} from './body';
+import {Body, VirtualBody} from './body';
 import {Foot} from './foot';
 import {identity} from '../services/utility';
-import {StyleStorage} from './style';
 
 export class Table {
 	constructor(model, markup, context = {}) {
@@ -19,8 +18,7 @@ export class Table {
 			},
 			layer: () => new FakeLayer(),
 			model: () => null,
-			isDataRow: row => !row.classList.contains('vscroll-mark'),
-			styleStorage: new StyleStorage()
+			isDataRow: row => !row.classList.contains('vscroll-mark')
 		}, context);
 
 		this._head = null;
@@ -70,6 +68,10 @@ export class Table {
 	}
 
 	bodyCore() {
+		if (this.model.scroll().mode === 'virtual') {
+			return new VirtualBody(this.context, this.model, this.markup);
+		}
+
 		return new Body(this.context, this.model, this.markup);
 	}
 

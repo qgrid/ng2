@@ -2,6 +2,7 @@ import {Command, Log, Shortcut} from '../infrastructure';
 import {CellEditor} from './edit.cell.editor';
 import {getFactory as valueFactory} from '../services/value';
 import {getFactory as labelFactory} from '../services/label';
+import {Cell} from '../cell';
 
 export class EditCellView {
 	constructor(model, table, commandManager) {
@@ -41,8 +42,8 @@ export class EditCellView {
 					}
 
 					if (cell) {
-						if (model.navigation().cell !== cell) {
-							model.navigation({cell: cell});
+						if (!Cell.equals(model.navigation().cell, cell)) {
+							model.navigation({cell: new Cell(cell)});
 						}
 					}
 					else {

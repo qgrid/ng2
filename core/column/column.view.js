@@ -2,7 +2,6 @@ import {View} from '../view';
 import {columnFactory} from './column.factory';
 import {AppError} from '../infrastructure';
 import {merge} from '../services';
-import * as columnService from '../column/column.service';
 import {assignWith, noop, isUndefined} from '../services/utility';
 import {generate} from '../column-list';
 import {PipeUnit} from '../pipe/units';
@@ -27,14 +26,12 @@ export class ColumnView extends View {
 			const generation = model.columnList().generation;
 			if (generation) {
 				if (e.hasChanges('rows')) {
-					this.updateOn(generation);
-					needInvalidate = true;
+					needInvalidate = this.updateOn(generation);
 				}
 			}
 			else {
 				if (e.hasChanges('columns')) {
-					this.update();
-					needInvalidate = true;
+					needInvalidate = this.update();
 				}
 			}
 
@@ -72,39 +69,46 @@ export class ColumnView extends View {
 				);
 		}
 
-		this.update(columns);
+		return this.update(columns);
 	}
 
 	update(generatedColumns) {
 		const model = this.model;
 		const data = model.data;
-		let columns = Array.from(data().columns);
+		const dataColumns = Array.from(data().columns);
 		const statistics = [];
 		const templateColumns = model.columnList().columns;
 
 		if (arguments.length) {
-			const generatedColumnMap = columnService.map(generatedColumns);
-			const templateColumnMap = columnService.map(templateColumns);
-			const dataColumns = columns.filter(c => !generatedColumnMap.hasOwnProperty(c.key) && !templateColumnMap.hasOwnProperty(c.key));
-			columns = generatedColumns;
-			statistics.push(this.merge(columns, dataColumns));
+			statistics.push(this.merge(dataColumns, generatedColumns, false));
 		}
 
-		statistics.push(this.merge(columns, templateColumns));
+		statistics.push(this.merge(dataColumns, templateColumns, true));
 		if (this.hasChanges(statistics)) {
 			const tag = {
 				source: 'column.list',
 				behavior: 'core'
 			};
 
-			data({columns: columns}, tag);
+			data({columns: dataColumns}, tag);
+			return true;
 		}
+
+		return false;
 	}
 
-	merge(left, right) {
+	merge(left, right, force = false) {
+		let canAssign;
+		if (force) {
+			canAssign = (source, target) => !isUndefined(target) && target !== null ? target : source;
+		}
+		else {
+			canAssign = (source, target) => !isUndefined(target) && target !== null && source === null ? target : source;
+		}
+
 		const doMerge = merge({
 			equals: (l, r) => l.key === r.key,
-			update: (l, r) => assignWith(l, r, (source, target) => !isUndefined(target) && target !== null ? target : source),
+			update: (l, r) => assignWith(l, r, canAssign),
 			insert: (r, left) => left.push(r),
 			remove: noop
 		});
@@ -113,6 +117,6 @@ export class ColumnView extends View {
 	}
 
 	hasChanges(statistics) {
-		return statistics.some(st => st.inserted || st.update || st.removed);
+		return statistics.some(st => st.inserted || st.update);
 	}
 }

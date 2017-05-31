@@ -12,11 +12,12 @@ export class EditModel {
 		this.reset = new Command();
 		this.commitShortcuts = {
 			'$default': 'tab|shift+tab|enter',
-			'text': 'enter',
-			'password': 'ctrl+s',
-			'number': 'ctrl+s',
 			'date': 'ctrl+s',
-			'array': 'ctrl+s'
+			'array': 'ctrl+s',
+			'reference': 'ctrl+s',
+			'email': 'ctrl+s',
+			'file': 'ctrl+s',
+			'image': 'ctrl+s'
 		};
 	}
 }
