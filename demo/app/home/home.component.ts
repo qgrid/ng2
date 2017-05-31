@@ -6,6 +6,7 @@ import { DataService, Human } from '../../data/data.service';
   providers: [],
   templateUrl: './home.component.html'
 })
+
 export class HomeComponent implements OnInit {
   public rows: Human[] = [];
 
@@ -16,7 +17,10 @@ export class HomeComponent implements OnInit {
     this.dataService
       .getPeople(100)
       .map(humans => this.madeIsFeemaleField(humans))
-      .subscribe((people) => this.rows = people);
+      .map(humans => this.madeEmailSingleField(humans))
+      .subscribe((people) => {
+        this.rows = people;
+      });
   }
 
   private madeIsFeemaleField(humans: Human[]): Human[] {
@@ -25,6 +29,16 @@ export class HomeComponent implements OnInit {
         human['isFemail'] = true;
       } else {
         human['isFemail'] = false;
+      }
+    });
+    return humans;
+  }
+
+  private madeEmailSingleField(humans: Human[]): Human[] {
+    humans.forEach((human: any) => {
+      var emails: any[] = human.contact.email as any[];
+      if (emails) {
+         human.contact.singleEmail = emails.join(',');
       }
     });
     return humans;

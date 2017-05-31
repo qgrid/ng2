@@ -1,0 +1,8 @@
+<ng-template key='body-cell-select.tpl.html' let-$cell let-$view="$view">
+    <md-checkbox    indeterminate="$view.selection.isIndeterminate($row)"
+                    (checked)="$view.selection.state($row)"
+                    (click)="$view.selection.toggleRow.execute($row)"
+                    (disabled)="!$view.selection.toggleRow.canExecute($row)"
+                    ariaLabel="Selection">
+    </md-checkbox>
+</ng-template>

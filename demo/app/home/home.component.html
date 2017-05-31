@@ -2,13 +2,15 @@
   <q-grid [rows]="rows"
           [editMode]="'cell'">
     <q-grid-columns [generation]="'deep'">
-      <q-grid-column key="gender">
+      <q-grid-column key="gender" title="Gender">
         <ng-template for="body" let-$cell>
           <span style="color: red">{{$cell.value}}</span>
         </ng-template>
         <ng-template for="edit" let-$cell let-$view="$view">
           <button (click)="$view.edit.cell.cancel.execute($cell, $event)">custom template</button>
         </ng-template>
+      </q-grid-column>
+      <q-grid-column key="contact.singleEmail" title="Experimental" editor="password">
       </q-grid-column>
     </q-grid-columns>
   </q-grid>
