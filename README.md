@@ -8,7 +8,7 @@ https://qgrid.github.io/ng2/
 * `$ npm install ng2-qgrid`
 * `$ bower install ng2-qgrid`
 
-## Run project
+## run project
 * `git clone https://github.com/qgrid/ng2.git`
 * `npm install`
 * `npm run start`
