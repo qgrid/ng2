@@ -13,7 +13,11 @@ export class Container {
 		const right = max(rects.map(r => r.right));
 		return {
 			height: bottom - top,
-			width: right - left
+			width: right - left,
+			top: top,
+			left: left,
+			right: right,
+			bottom: bottom
 		};
 	}
 

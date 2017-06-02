@@ -47,7 +47,7 @@ export function rangeBuilder(model) {
 		const items = [];
 		rowsSelected.forEach(row => {
 			columnsSelected
-				.filter(column => column.model.type !== 'row-indicator')
+				.filter(column => column.model.type !== 'row-indicator' && column.model.type !== 'row-options')
 				.forEach(column => {
 					items.push({
 						column: column.model,

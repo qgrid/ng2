@@ -66,12 +66,14 @@ export class Monitor {
 			const oldList = entry.oldList;
 			for (let cls of Object.keys(oldList)) {
 				if (!newList.hasOwnProperty(cls)) {
-					element.addClass(cls);
+					element.removeClass(cls);
 				}
 			}
 
 			for (let cls of Object.keys(newList)) {
-				element.addClass(cls);
+				if (!oldList.hasOwnProperty(cls)) {
+					element.addClass(cls);
+				}
 			}
 		}
 
