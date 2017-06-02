@@ -27,8 +27,4 @@ export class SingleSelectionState extends SelectionState {
 	clearCore() {
 		this.item = null;
 	}
-
-	lookup(item, unit) {
-		return super.lookup([item], unit);
-	}
 }

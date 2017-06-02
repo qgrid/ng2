@@ -24,8 +24,6 @@ import {AppError} from '@grid/core/infrastructure';
 import {ViewCoreService} from './view-core.service';
 import {GridService} from '@grid/main/grid';
 import {VScrollService} from '../scroll';
-import {CommandManager} from '@grid/infrastructure/command'
-import {LayerService} from '../layer';
 import {CellService} from '../cell';
 
 @Component({
@@ -48,19 +46,10 @@ export class ViewCoreComponent extends NgComponent {
     super.ngOnInit();
 
     const model = this.model;
-    const markup = this.view.markup;
-    const layerService = new LayerService(markup);
-    const tableContext = {
-      layer: name => layerService.create(name),
-      model: element => this.view.bag.get(element) || null
-    };
-
-    const table = new Table(model, markup, tableContext);
-
+    const table = this.root.table;
+    const commandManager = this.root.commandManager;
     const gridService = this.gridService.service(model);
-    const commandManager = new CommandManager();
 
-    this.view.table = table;
     this.view.style = new StyleView(model, table);
     this.view.head = new HeadView(model, table, 'q-grid-core-th');
     this.view.body = new BodyView(model, table);

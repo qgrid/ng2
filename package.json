@@ -78,15 +78,19 @@
     "webpack": "webpack"
   },
   "dependencies": {
-    "@angular/animations": "~4.0.3",
     "@angular/common": "~4.0.3",
     "@angular/compiler": "~4.0.3",
     "@angular/core": "~4.0.3",
     "@angular/forms": "~4.0.3",
-    "@angular/http": "~4.0.3",
     "@angular/platform-browser": "~4.0.3",
     "@angular/platform-browser-dynamic": "~4.0.3",
     "@angular/platform-server": "~4.0.3",
+    "zone.js": "~0.8.5",
+    "rxjs": "5.0.2"
+  },
+  "devDependencies": {
+    "@angular/animations": "~4.0.3",
+    "@angular/http": "~4.0.3",
     "@angular/router": "~4.0.3",
     "@angularclass/conventions-loader": "^1.0.13",
     "@angularclass/hmr": "~1.2.2",
@@ -96,10 +100,6 @@
     "ie-shim": "^0.1.0",
     "jasmine-core": "^2.5.2",
     "reflect-metadata": "^0.1.10",
-    "rxjs": "5.0.2",
-    "zone.js": "~0.8.5"
-  },
-  "devDependencies": {
     "@angular/compiler-cli": "~4.0.3",
     "@angular/flex-layout": "^2.0.0-beta.8",
     "@angular/material": "^2.0.0-beta.5",

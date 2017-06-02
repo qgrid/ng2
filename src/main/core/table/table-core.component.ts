@@ -9,8 +9,7 @@ import {RootService} from "@grid/infrastructure/component";
 export class TableCoreComponent implements OnInit {
   @Input() public pin = null;
 
-  constructor(private root: RootService,
-              private view: ViewCoreService) {
+  constructor(private root: RootService) {
   }
 
   ngOnInit() {
@@ -20,7 +19,7 @@ export class TableCoreComponent implements OnInit {
   }
 
   get columnStartIndex() {
-    const columns = this.view.table.data.columns();
+    const columns = this.root.table.data.columns();
     switch (this.pin) {
       case 'left':
         return 0;

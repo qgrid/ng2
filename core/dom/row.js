@@ -10,7 +10,7 @@ export class Row extends Element {
 	}
 
 	get model() {
-		const model = this.box.context.model(this.getElement());
+		const model = this.box.context.model(this.getKeyElementCore());
 		return model ? new RowModel(model) : null;
 	}
 
@@ -23,5 +23,14 @@ export class Row extends Element {
 			this.index,
 			this.box.context.mapper.column(columnIndex)
 		);
+	}
+
+	getKeyElementCore() {
+		const element = super.getElement();
+		if (element.elements) {
+			return element.elements[0];
+		}
+
+		return element;
 	}
 }

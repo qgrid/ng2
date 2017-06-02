@@ -1,6 +1,8 @@
 import {Component, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
 import {TemplateCacheService} from '@grid/template';
 import {RootComponent, RootService} from "@grid/infrastructure/component";
+import {LayerService} from '../layer'
+import {Table} from '@grid/core/dom';
 
 @Component({
   selector: 'q-grid',
@@ -34,17 +36,33 @@ export class GridComponent extends RootComponent {
   @Input() editCommit;
   @Input() editCancel;
   @Input() editReset;
+  @Input() styleRow;
+  @Input() styleCell;
+  @Input('actions') actionItems;
+
   @Output() selectionChanged = new EventEmitter<any>();
 
   constructor(private rootService: RootService) {
     super();
 
-    this.models = ['data', 'selection', 'sort', 'group', 'pivot', 'edit'];
+    this.models = ['data', 'selection', 'sort', 'group', 'pivot', 'edit', 'style', 'action'];
     this.modelChanged.watch(model => this.rootService.model = model);
   }
 
   ngOnInit() {
     super.ngOnInit();
+
+    const markup = this.rootService.markup;
+    const layerService = new LayerService(markup);
+    const bag = this.rootService.bag;
+    const model = this.rootService.model;
+
+    const tableContext = {
+      layer: name => layerService.create(name),
+      model: element => bag.get(element) || null
+    };
+
+    this.rootService.table = new Table(model, markup, tableContext);
 
     this.model.viewChanged.watch(e => {
       if (e.hasChanges('columns')) {

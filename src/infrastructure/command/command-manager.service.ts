@@ -8,5 +8,6 @@ export class CommandManager {
     // TODO: refactor command pipeline
     const executableCommands = commands.filter(cmd => cmd.canExecute());
     executableCommands.forEach(cmd => cmd.execute());
+    return executableCommands.length > 0;
   }
 }

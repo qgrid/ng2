@@ -18,7 +18,8 @@ export class Shortcut {
 			.set(38, 'up')
 			.set(39, 'right')
 			.set(40, 'down')
-			.set(113, 'f2');
+			.set(113, 'f2')
+			.set(118, 'f7');
 
 		this.canExecute = () => table.view.isFocused();
 		this.off = table.view.keyDown(this.onKeyDown.bind(this));
@@ -44,14 +45,16 @@ export class Shortcut {
 			const code = this.translate(e);
 			const commands = this.find(code);
 			if (commands.length) {
-				e.preventDefault();
-				this.manager.execute(commands);
+				if (this.manager.execute(commands)) {
+					e.preventDefault();
+				}
 			}
 		}
 	}
 
 	register(id, commands) {
-		for (let cmd of commands.values()) {
+		const cmds = commands.values ? commands.values() : commands;
+		for (let cmd of cmds) {
 			if (cmd.shortcut) {
 				if (isFunction(cmd.shortcut)) {
 					this.commands.push(cmd);

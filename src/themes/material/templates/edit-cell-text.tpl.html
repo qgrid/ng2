@@ -4,7 +4,6 @@
       <input mdInput
              #input
              q-grid-focus
-             placeholder="{{$cell.column.title}}"
              maxlength="{{$cell.column.maxLength}}"
              [(ngModel)]="$view.edit.cell.value"
              (blur)="$view.edit.cell.commit.execute($cell)">
