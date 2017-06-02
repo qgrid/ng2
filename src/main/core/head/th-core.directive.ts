@@ -1,8 +1,8 @@
 import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 import {GRID_PREFIX} from '@grid/core/definition';
 import {ViewCoreService} from '../view/view-core.service';
-import {RootService} from '../root.service"';
 import {TemplateCacheService, TemplateLinkService} from '@grid/template';
+import {RootService} from "@grid/infrastructure/component";
 
 @Directive({
   selector: '[q-grid-core-th]'
@@ -14,6 +14,7 @@ export class ThCoreDirective implements OnInit, OnDestroy {
   private $implicit = this;
 
   constructor(public $view: ViewCoreService,
+              private root: RootService,
               private templateCache: TemplateCacheService,
               private templateLink: TemplateLinkService,
               private viewContainerRef: ViewContainerRef,
@@ -26,7 +27,7 @@ export class ThCoreDirective implements OnInit, OnDestroy {
     const column = this.column;
     const element = this.element;
 
-    this.$view.bag.set(element, this);
+    this.root.bag.set(element, this);
     element.classList.add(`${GRID_PREFIX}-${column.key}`);
     element.classList.add(`${GRID_PREFIX}-${column.type}`);
     if (column.editor) {
@@ -50,6 +51,6 @@ export class ThCoreDirective implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     const element = this.element;
-    this.$view.bag.delete(element);
+    this.root.bag.delete(element);
   }
 }

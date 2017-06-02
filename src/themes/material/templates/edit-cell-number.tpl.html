@@ -5,7 +5,6 @@
              type="number"
              #input
              q-grid-focus
-             placeholder="{{$cell.column.title}}"
              [(ngModel)]="$view.edit.cell.value"
              (blur)="$view.edit.cell.commit.execute($cell)">
     </md-input-container>

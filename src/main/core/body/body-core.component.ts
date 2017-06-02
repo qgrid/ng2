@@ -45,7 +45,7 @@ export class BodyCoreComponent implements OnInit {
   }
 
   onClick(e) {
-    const pathFinder = new PathService(this.$view.bag);
+    const pathFinder = new PathService(this.root.bag);
     const cell = pathFinder.cell(e.path);
     if (cell) {
       this.navigate(cell);
@@ -63,7 +63,7 @@ export class BodyCoreComponent implements OnInit {
 
   onMouseDown(e) {
     if (this.selection.mode === 'range') {
-      const pathFinder = new PathService(this.$view.bag);
+      const pathFinder = new PathService(this.root.bag);
       this.rangeStartCell = pathFinder.cell(e.path);
 
       if (this.rangeStartCell) {
@@ -74,7 +74,7 @@ export class BodyCoreComponent implements OnInit {
 
   onMouseMove(e) {
     if (this.selection.mode === 'range') {
-      const pathFinder = new PathService(this.$view.bag);
+      const pathFinder = new PathService(this.root.bag);
       const startCell = this.rangeStartCell;
       const endCell = pathFinder.cell(e.path);
 

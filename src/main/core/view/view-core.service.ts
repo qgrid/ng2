@@ -3,10 +3,6 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ViewCoreService {
-  public markup: any = {};
-  public bag = new Map<HTMLElement, any>();
-  public table: any = null;
-
   public group: any = null;
   public filter: any = null;
   public pivot: any = null;
@@ -25,6 +21,5 @@ export class ViewCoreService {
   public style: any = null;
 
   constructor() {
-    this.markup.document = document;
   }
 }

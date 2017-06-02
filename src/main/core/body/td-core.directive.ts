@@ -30,7 +30,7 @@ export class TdCoreDirective implements OnInit, OnDestroy {
     const column = this.column;
     const element = this.element;
 
-    this.$view.bag.set(element, this);
+    this.root.bag.set(element, this);
     this.$view.style.monitor.cell.add(element);
 
     element.classList.add(`${GRID_PREFIX}-${column.key}`);
@@ -98,7 +98,7 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     const element = this.element;
-    this.$view.bag.delete(element);
+    this.root.bag.delete(element);
     this.$view.style.monitor.cell.remove(element);
   }
 }
