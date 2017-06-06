@@ -1,5 +1,5 @@
 import {AppError} from './error';
-import {identity} from '../services/utility';
+import {identity} from '../utility';
 
 const identityIndexMapper = {
 	row: identity,

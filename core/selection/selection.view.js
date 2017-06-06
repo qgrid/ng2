@@ -3,7 +3,7 @@ import {Command, Shortcut} from '../infrastructure';
 import {selectionStateFactory as stateFactory} from './state';
 import {rangeBuilder} from './range.build';
 import {GRID_PREFIX} from '../definition';
-import {isUndefined} from '../services/utility';
+import {isUndefined} from '../utility';
 
 export class SelectionView extends View {
 	constructor(model, table, commandManager) {

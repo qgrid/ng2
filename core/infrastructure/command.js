@@ -1,4 +1,4 @@
-import {yes} from '../services/utility';
+import {yes} from '../utility';
 
 export class Command {
 	constructor(context = {}) {

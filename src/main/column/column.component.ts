@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {isUndefined, clone} from '@grid/core/services/utility';
+import {isUndefined, clone} from '@grid/core/utility';
 import {ColumnListService} from "@grid/main/column/column-list.service";
 import * as columnService from '@grid/core/column/column.service';
 import {columnFactory} from '@grid/core/column/column.factory';

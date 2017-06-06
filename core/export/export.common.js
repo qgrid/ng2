@@ -1,4 +1,4 @@
-import {isObject, isArray} from '@grid/core/services/utility';
+import {isObject, isArray} from '@grid/core/utility';
 
 function flattenObject(obj, separator = ', ') {
 	const result = {};

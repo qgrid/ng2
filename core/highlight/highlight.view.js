@@ -4,7 +4,7 @@ import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
 import {HighlightBehavior} from './behaviors';
 import {cellSelector} from './cell.selector';
-import {noop} from '../services/utility';
+import {noop} from '../utility';
 import {GRID_PREFIX} from '../definition';
 
 export class HighlightView extends View {
