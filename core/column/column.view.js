@@ -2,7 +2,7 @@ import {View} from '../view';
 import {columnFactory} from './column.factory';
 import {AppError} from '../infrastructure';
 import {merge} from '../services';
-import {assignWith, noop, isUndefined} from '../services/utility';
+import {assignWith, noop, isUndefined} from '../utility';
 import {generate} from '../column-list';
 import {PipeUnit} from '../pipe/units';
 

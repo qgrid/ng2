@@ -1,7 +1,7 @@
 import {ColumnModel} from './column.model';
 import {View} from '../view';
 import {TemplatePath} from '../template';
-import {isObject, isFunction} from '../services/utility';
+import {isObject, isFunction} from '../utility';
 
 TemplatePath.register('custom-cell', (template, column) => {
 	return {

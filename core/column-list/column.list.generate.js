@@ -1,4 +1,4 @@
-import {startCase} from '../services/utility';
+import {startCase} from '../utility';
 import {compile, getType} from '../services';
 
 export function generate(rows, columnFactory, deep = true) {

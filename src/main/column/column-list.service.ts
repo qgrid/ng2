@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {compile} from '@grid/core/services'
-import {isUndefined, clone, isObject, identity} from '@grid/core/services/utility';
+import {isUndefined, clone, isObject, identity} from '@grid/core/utility';
 import {parseFactory, getType} from '@grid/core/services';
 import {RootService} from "@grid/infrastructure/component";
 

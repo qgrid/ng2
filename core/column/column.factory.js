@@ -1,5 +1,5 @@
 import {Guard} from '../infrastructure';
-import {assignWith, clone, isUndefined} from '../services/utility';
+import {assignWith, clone, isUndefined} from '../utility';
 import {ColumnView as CustomColumn} from '../column-type/column.model.view';
 import {
 	TextColumn,

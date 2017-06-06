@@ -1,6 +1,6 @@
 import {Fetch} from '../infrastructure';
 import {parseFactory} from '../services';
-import {clone, isUndefined, noop} from '../services/utility';
+import {clone, isUndefined, noop} from '../utility';
 
 class CellEditorCore {
 	constructor() {

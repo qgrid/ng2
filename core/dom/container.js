@@ -1,4 +1,4 @@
-import {min, max} from '../services/utility';
+import {min, max} from '../utility';
 
 export class Container {
 	constructor(elements) {

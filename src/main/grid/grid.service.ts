@@ -2,7 +2,7 @@ import {Model, Command} from '@grid/core/infrastructure';
 import {GridService as Grid} from '@grid/core/services';
 import {Pipe} from '@grid/core/pipe';
 import {PipeUnit} from '@grid/core/pipe/units';
-import {noop} from '@grid/core/services/utility';
+import {noop} from '@grid/core/utility';
 import {getFactory as valueFactory} from '@grid/core/services/value';
 import {getFactory as labelFactory} from '@grid/core/services/label';
 import {Injectable} from "@angular/core";
