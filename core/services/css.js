@@ -28,3 +28,7 @@ export function sheet(id) {
 		}
 	};
 }
+
+export function escapeClass(name) {
+	return cssEscape(name.replace(/ /g, '_'));
+}
