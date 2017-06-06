@@ -17,6 +17,10 @@ export class Unit {
 		this.removeClassCore(name);
 	}
 
+	hasClass(name) {
+		return this.hasClassCore(name);
+	}
+
 	width() {
 		return this.getElement().clientWidth;
 	}
@@ -35,6 +39,10 @@ export class Unit {
 
 	removeClassCore(name) {
 		this.getElement().classList.remove(name);
+	}
+
+	hasClassCore(name) {
+		return this.getElement().classList.contains(name);
 	}
 
 	getElementCore() {

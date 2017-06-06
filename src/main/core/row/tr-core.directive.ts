@@ -18,12 +18,10 @@ export class TrCoreDirective implements OnInit, OnDestroy {
   ngOnInit() {
     const element = this.element;
     this.root.bag.set(element, this);
-    this.$view.style.monitor.row.add(element);
   }
 
   ngOnDestroy() {
     const element = this.element;
     this.root.bag.delete(element);
-    this.$view.style.monitor.row.remove(this.element);
   }
 }

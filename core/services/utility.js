@@ -1,6 +1,7 @@
 import isObject from 'lodash/isObject';
 import isFunction from 'lodash/isFunction';
 import isArray from 'lodash/isArray';
+import isString from 'lodash/isString';
 import isBoolean from 'lodash/isBoolean';
 import clone from 'lodash/clone';
 import cloneDeep from 'lodash/cloneDeep';
@@ -49,6 +50,7 @@ export {
 	isObject,
 	isFunction,
 	isArray,
+	isString,
 	isUndefined,
 	isBoolean,
 	isEmail,

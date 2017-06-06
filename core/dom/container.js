@@ -29,6 +29,10 @@ export class Container {
 		this.elements.forEach(element => element.classList.remove(name));
 	}
 
+	hasClass(name) {
+		return this.elements.some(element => element.classList.contains(name));
+	}
+
 	get clientWidth() {
 		return max(this.elements.map(element => element.clientWidth));
 	}
@@ -40,7 +44,8 @@ export class Container {
 	get classList() {
 		return {
 			add: name => this.addClass(name),
-			remove: name => this.removeClass(name)
+			remove: name => this.removeClass(name),
+			contains: name => this.hasClass(name)
 		};
 	}
 }

@@ -61,7 +61,7 @@ export class StyleView extends View {
 		try {
 			for (let i = 0, rowsLength = bodyRows.length; i < rowsLength; i++) {
 				const bodyRow = bodyRows[i];
-				const dataRow =  (bodyRow.model || {}).model;
+				const dataRow = (bodyRow.model || {}).model;
 				if (!dataRow) {
 					continue;
 				}
