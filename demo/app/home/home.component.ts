@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService, Human } from '../../data/data.service';
+import {Component, OnInit} from '@angular/core';
+import {DataService, Human} from '../../data/data.service';
+import {GridService} from "@grid/index.ts";
 
 @Component({
   selector: 'home',
@@ -9,8 +10,15 @@ import { DataService, Human } from '../../data/data.service';
 
 export class HomeComponent implements OnInit {
   public rows: Human[] = [];
+  public gridModel = null;
 
-  constructor(public dataService: DataService) {
+  constructor(public dataService: DataService,
+              public gridService: GridService) {
+    this.gridModel = gridService.model();
+    this.gridModel
+      .pagination({
+        size: 40
+      });
   }
 
   public ngOnInit() {
@@ -18,7 +26,7 @@ export class HomeComponent implements OnInit {
       .getPeople(100)
       .map(humans => this.madeIsFeemaleField(humans))
       .map(humans => this.madeEmailSingleField(humans))
-      .subscribe((people) => {
+      .subscribe(people => {
         this.rows = people;
       });
   }
@@ -38,7 +46,7 @@ export class HomeComponent implements OnInit {
     humans.forEach((human: any) => {
       var emails: any[] = human.contact.email as any[];
       if (emails) {
-         human.contact.singleEmail = emails.join(',');
+        human.contact.singleEmail = emails.join(',');
       }
     });
     return humans;
