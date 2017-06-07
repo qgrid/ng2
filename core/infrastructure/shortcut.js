@@ -1,4 +1,4 @@
-import {isFunction} from '../services/utility';
+import {isFunction} from '../utility';
 
 export class Shortcut {
 	constructor(table, manager) {

@@ -1,6 +1,6 @@
 import {build as buildPipe} from '../pipe';
 import {Log} from '../infrastructure';
-import {noop} from '../services/utility';
+import {noop} from '../utility';
 import {guid} from '../services';
 import {getFactory as valueFactory} from '../services/value';
 

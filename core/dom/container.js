@@ -1,4 +1,5 @@
-import {min, max} from '../services/utility';
+import {escapeClass} from '../services/css';
+import {min, max} from '../utility';
 
 export class Container {
 	constructor(elements) {
@@ -22,11 +23,11 @@ export class Container {
 	}
 
 	addClass(name) {
-		this.elements.forEach(element => element.classList.add(name));
+		this.elements.forEach(element => element.classList.add(escapeClass(name)));
 	}
 
 	removeClass(name) {
-		this.elements.forEach(element => element.classList.remove(name));
+		this.elements.forEach(element => element.classList.remove(escapeClass(name)));
 	}
 
 	hasClass(name) {

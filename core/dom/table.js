@@ -1,11 +1,10 @@
 import {View} from './view';
 import {Data} from './data';
-import {assignWith} from  '../services/utility';
+import {assignWith, identity} from  '../utility';
 import {FakeLayer} from './fake';
 import {Head} from './head';
 import {Body, VirtualBody} from './body';
 import {Foot} from './foot';
-import {identity} from '../services/utility';
 
 export class Table {
 	constructor(model, markup, context = {}) {

@@ -14,12 +14,9 @@ export class ScrollView extends View {
 		});
 
 		this.y.container.drawEvent.on(e => {
-			const container = this.y.container;
 			const currentPage = Math.floor(e.position / model.pagination().size);
-			const totalCount = container.total;
-			this.model.pagination({
-				current: currentPage,
-				count: totalCount
+			model.pagination({
+				current: currentPage
 			}, {
 				source: 'scroll.view',
 				behavior: 'core'
@@ -29,8 +26,8 @@ export class ScrollView extends View {
 		switch (scroll().mode) {
 			case 'virtual': {
 				this.y.settings.fetch = (skip, take, d) => {
-					this.model.pagination({
-						current: Math.floor(skip / take)
+					model.fetch({
+						skip: skip
 					}, {
 						source: 'scroll.view',
 						behavior: 'core'
@@ -38,7 +35,17 @@ export class ScrollView extends View {
 
 					gridService
 						.invalidate('scroll.view')
-						.then(d.resolve(model.view().rows.length));
+						.then(() => {
+							const total = model.data().rows.length;
+							model.pagination({
+								count: total
+							}, {
+								source: 'scroll.view',
+								behavior: 'core'
+							});
+
+							d.resolve(total);
+						});
 				};
 
 				break;

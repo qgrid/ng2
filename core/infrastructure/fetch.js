@@ -1,4 +1,4 @@
-import {isFunction, isUndefined} from '../services/utility';
+import {isFunction, isUndefined} from '../utility';
 
 export class Fetch {
 	constructor(select) {

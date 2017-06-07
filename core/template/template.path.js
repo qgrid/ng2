@@ -1,5 +1,5 @@
 import {AppError} from '../infrastructure';
-import {isUndefined} from '../services/utility';
+import {isUndefined} from '../utility';
 
 const resolvers = {};
 export class TemplatePath {

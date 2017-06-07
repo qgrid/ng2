@@ -1,6 +1,6 @@
 import {PredicateVisitor, build as buildExpression} from '../expression';
 import * as columnService from '../column/column.service';
-import {yes} from '../services/utility';
+import {yes} from '../utility';
 
 export function match(context) {
 	const model = context.model;

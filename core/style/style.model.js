@@ -1,4 +1,4 @@
-import {noop} from '../services/utility';
+import {noop} from '../utility';
 
 export class StyleModel {
 	constructor() {

@@ -1,4 +1,4 @@
-import {isFunction} from '../services/utility';
+import {isFunction} from '../utility';
 
 export function map(columns) {
 	return columns.reduce((memo, column) => {

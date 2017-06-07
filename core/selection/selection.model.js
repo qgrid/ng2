@@ -1,5 +1,5 @@
 import {Resource} from '../resource';
-import {identity} from '../services/utility';
+import {identity} from '../utility';
 
 export class SelectionModel {
 	constructor() {
