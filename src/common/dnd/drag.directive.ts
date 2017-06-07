@@ -33,13 +33,13 @@ export class DragDirective implements OnInit, OnDestroy {
 
   start(e) {
     const transfer = e.dataTransfer;
-    if (this.canDrag(this.event()) === false) {
+    if (this.canDrag === false) {
       e.preventDefault();
       transfer.effectAllowed = 'none';
       return false;
     }
 
-    const source = this.transfer();
+    const source = this.transfer;
     this.element.classList.add(`${GRID_PREFIX}-drag`);
     transfer.setData(DragService.mimeType, DragService.encode(source));
     transfer.effectAllowed = this.effect || 'move';
@@ -62,7 +62,7 @@ export class DragDirective implements OnInit, OnDestroy {
   }
 
   event() {
-    const source = this.transfer()
+    const source = this.transfer;
     return {
       $event: {
         source: source,
