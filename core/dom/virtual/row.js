@@ -5,11 +5,11 @@ export class VirtualRow extends Row {
 		super(box, index, element);
 	}
 
-	addClass(name) {
-		this.box.addRowClass(this, name);
+	addClass(name, force = false) {
+		this.box.addRowClass(this, name, force);
 	}
 
-	removeClass(name) {
-		this.box.removeRowClass(this, name);
+	removeClass(name, force = false) {
+		this.box.removeRowClass(this, name, force);
 	}
 }

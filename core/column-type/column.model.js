@@ -11,7 +11,8 @@ export class ColumnModel {
 		this.class = 'data';
 		this.editor = null;
 		this.editorOptions = {
-			trigger: 'click'
+			trigger: 'click',
+			label: null
 		};
 
 		this.width = null;
