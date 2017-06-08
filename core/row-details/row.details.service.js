@@ -41,7 +41,7 @@ export function toggleStatus(rows, status, mode = 'single') {
 			status = new Map(status.entries());
 			break;
 		default:
-			throw AppError('row.details.service', `Invalid mode ${mode}`);
+			throw new AppError('row.details.service', `Invalid mode ${mode}`);
 	}
 
 	rows.forEach(row => {

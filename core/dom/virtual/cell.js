@@ -7,12 +7,12 @@ export class VirtualCell extends Cell {
 		this.box = box;
 	}
 
-	addClass(name) {
-		this.box.addCellClass(this, name);
+	addClass(name, force = false) {
+		this.box.addCellClass(this, name, force);
 	}
 
-	removeClass(name) {
-		this.box.removeCellClass(this, name);
+	removeClass(name, force = false) {
+		this.box.removeCellClass(this, name, force);
 
 	}
 }

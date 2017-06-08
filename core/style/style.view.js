@@ -2,6 +2,8 @@ import {View} from '../view';
 import {Monitor} from './style.monitor';
 import * as columnService from '../column/column.service';
 import {getFactory as valueFactory} from '../services/value';
+import {noop} from '../utility';
+import {VirtualRowStyle, VirtualCellStyle} from './style.virtual';
 
 export class StyleView extends View {
 	constructor(model, table) {
@@ -25,11 +27,11 @@ export class StyleView extends View {
 
 		model.styleChanged.watch(e => {
 			if (e.hasChanges('row')) {
-				this.active.row = true;
+				this.active.row = e.state.row !== noop;
 			}
 
 			if (e.hasChanges('cell')) {
-				this.active.cell = true;
+				this.active.cell = e.state.row !== noop;
 			}
 
 			this.invalidate();
@@ -38,13 +40,15 @@ export class StyleView extends View {
 
 	invalidate() {
 		const active = this.active;
-		if (!(active.row || active.cell)) {
+		const model = this.model;
+		const isVirtual = model.scroll().mode === 'virtual';
+		const isActive = isVirtual || active.row || active.cell;
+		if (!isActive) {
 			return;
 		}
 
 		const table = this.table;
 		const valueFactory = this.valueFactory;
-		const model = this.model;
 		const styleState = model.style();
 		const bodyRows = table.body.rows();
 		const rowMonitor = this.monitor.row;
@@ -52,24 +56,43 @@ export class StyleView extends View {
 		const columns = table.data.columns();
 		const columnMap = columnService.map(columns);
 		// TODO: improve perfomance
+		const valueCache = new Map();
 		const value = (row, column) => {
-			return valueFactory(column)(row);
+			let getValue = valueCache.get(column);
+			if (!getValue) {
+				getValue = valueFactory(column);
+				valueCache.set(column, getValue);
+			}
+
+			return getValue(row);
 		};
+
+		let isRowActive = active.row;
+		let isCellActive = active.cell;
+		let styleRow = styleState.row;
+		let styleCell = styleState.cell;
+		if (isVirtual) {
+			isRowActive = true;
+			isCellActive = true;
+			styleRow = new VirtualRowStyle(table).applyFactory();
+			styleCell = new VirtualCellStyle(table).applyFactory();
+		}
 
 		const domCell = cellMonitor.enter();
 		const domRow = rowMonitor.enter();
 		try {
 			for (let i = 0, rowsLength = bodyRows.length; i < rowsLength; i++) {
 				const bodyRow = bodyRows[i];
+				const rowIndex = bodyRow.index;
 				const dataRow = (bodyRow.model || {}).model;
 				if (!dataRow) {
 					continue;
 				}
 
-				if (active.row) {
+				if (isRowActive) {
 					const rowContext = {
 						class: domRow(bodyRow),
-						row: i,
+						row: rowIndex,
 						value: value,
 						columns: {
 							map: columnMap,
@@ -77,17 +100,17 @@ export class StyleView extends View {
 						}
 					};
 
-					styleState.row(dataRow, rowContext);
+					styleRow(dataRow, rowContext);
 				}
 
-				if (active.cell) {
+				if (isCellActive) {
 					const cells = bodyRow.cells();
 					for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
 						const cell = cells[j];
 						const column = columns[j];
 						const cellContext = {
 							class: domCell(cell),
-							row: i,
+							row: rowIndex,
 							column: j,
 							value: value,
 							columns: {
@@ -96,7 +119,7 @@ export class StyleView extends View {
 							}
 						};
 
-						styleState.cell(dataRow, column, cellContext);
+						styleCell(dataRow, column, cellContext);
 					}
 				}
 			}

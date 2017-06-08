@@ -12,8 +12,14 @@ export class Table {
 		this.markup = markup;
 		this.context = assignWith({
 			mapper: {
-				row: identity,
-				column: identity
+				row: model.scroll().mode === 'virtual'
+					? index => index - model.scroll().cursor
+					: identity,
+				column: identity,
+				rowBack: model.scroll().mode === 'virtual'
+					? index => index + model.scroll().cursor
+					: identity,
+				columnBack: identity
 			},
 			layer: () => new FakeLayer(),
 			model: () => null,

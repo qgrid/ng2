@@ -14,6 +14,13 @@ export class ScrollView extends View {
 		});
 
 		this.y.container.drawEvent.on(e => {
+			scroll({
+				cursor: e.position
+			}, {
+				source: 'scroll.view',
+				behavior: 'core'
+			});
+
 			const currentPage = Math.floor(e.position / model.pagination().size);
 			model.pagination({
 				current: currentPage
