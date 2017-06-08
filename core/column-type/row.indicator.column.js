@@ -21,6 +21,7 @@ export class RowIndicatorColumnModel extends ColumnModel {
 		this.canMove = false;
 		this.canFocus = false;
 		this.canHighlight = false;
+		this.class = 'control';
 		this.pin = 'left';
 	}
 }

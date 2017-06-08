@@ -84,7 +84,7 @@ export class TdCoreDirective implements OnInit, OnDestroy {
   }
 
   get column() {
-    return this.$view.body.columns[this.columnIndex].model;
+    return this.$view.body.columns(this.row, null)[this.columnIndex].model;
   }
 
   get row() {
