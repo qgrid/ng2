@@ -10,6 +10,7 @@ export function columnPipe(memo, context, next) {
 	const columns = [];
 	const addSelectColumn = selectColumnFactory(model);
 	const addGroupColumn = groupColumnFactory(model, nodes);
+	const addExpandColumn = expandColumnFactory(model);
 	const addDataColumns = dataColumnsFactory(model);
 	const addPivotColumns = pivotColumnsFactory(model);
 	const addPadColumn = padColumnFactory(model);
@@ -26,6 +27,11 @@ export function columnPipe(memo, context, next) {
 	 *
 	 */
 	addGroupColumn(columns, {rowspan: heads.length, row: 0});
+
+	/*
+	 * Add row expand column
+	 */
+	addExpandColumn(columns, {rowspan: heads.length, row: 0});
 
 	columns.forEach((c, i) => c.index = i);
 
@@ -130,6 +136,24 @@ function groupColumnFactory(model, nodes) {
 
 	return noop;
 }
+
+function expandColumnFactory(model) {
+	const dataColumns = model.data().columns;
+	const expandColumn = dataColumns.find(item => item.type === 'row-expand');
+	if (model.row().unit === 'details' && !expandColumn) {
+		const createColumn = columnFactory(model);
+		return (columns, context) => {
+			const expandColumn = createColumn('row-expand');
+			expandColumn.model.source = 'generation';
+			expandColumn.rowspan = context.rowspan;
+			columns.push(expandColumn);
+			return expandColumn;
+		};
+	}
+
+	return noop;
+}
+
 
 function dataColumnsFactory(model) {
 	const createColumn = columnFactory(model);
