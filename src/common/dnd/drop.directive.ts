@@ -10,10 +10,12 @@ import {RootService} from "@grid/infrastructure/component";
 export class DropDirective implements OnInit, OnDestroy {
   private element: HTMLElement;
   private listener;
+  private canDrop;
 
   @Input('q-grid-drop') transfer;
   @Input('q-grid-drop-effect') effect;
-  @Input('q-grid-can-drop') canDrop;
+  @Input('model') model;
+  @Input('q-grid-can-drop') canDropFunction;
   @Output('q-grid-on-drop') onDrop = new EventEmitter<any>();
 
   constructor(@Optional() private root: RootService, elementRef: ElementRef) {
@@ -27,6 +29,7 @@ export class DropDirective implements OnInit, OnDestroy {
     this.listener.on('dragover', this.over);
     this.listener.on('dragleave', this.leave);
     this.listener.on('drop', this.drop);
+    this.canDrop = this.canDropFunction(this.model);
   }
 
   ngOnDestroy() {

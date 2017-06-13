@@ -10,10 +10,12 @@ import {RootService} from "@grid/infrastructure/component";
 export class DragDirective implements OnInit, OnDestroy {
   private element: HTMLElement;
   private listener;
+  private canDrag;
 
   @Input('q-grid-drag') transfer;
   @Input('q-grid-drag-effect') effect;
-  @Input('q-grid-can-drag') canDrag;
+  @Input('model') model;
+  @Input('q-grid-can-drag') canDragFunction;
 
   constructor(@Optional() private root: RootService, elementRef: ElementRef) {
     this.element = elementRef.nativeElement;
@@ -24,6 +26,7 @@ export class DragDirective implements OnInit, OnDestroy {
     this.element.classList.add(`${GRID_PREFIX}-can-drag`);
     this.listener.on('dragstart', this.start);
     this.listener.on('dragend', this.end);
+    this.canDrag = this.canDragFunction(this.model);
   }
 
   ngOnDestroy() {
