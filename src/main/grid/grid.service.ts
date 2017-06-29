@@ -5,7 +5,7 @@ import {PipeUnit} from '@grid/core/pipe/units';
 import {noop} from '@grid/core/utility';
 import {getFactory as valueFactory} from '@grid/core/services/value';
 import {getFactory as labelFactory} from '@grid/core/services/label';
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
 
 @Injectable()
 export class GridService {

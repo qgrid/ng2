@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService, Human} from '../../data/data.service';
-import {GridService} from "@grid/index.ts";
+import {GridService} from '@grid/index.ts';
 
 @Component({
   selector: 'home',

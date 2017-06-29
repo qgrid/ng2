@@ -5,8 +5,8 @@ import {ThemeService, TemplateLinkService, TemplateModule} from './template';
 import {TemplateCacheDirective} from './template/template-cache.directive';
 import {Model} from '@grid/core/infrastructure';
 import {setup} from '@grid/core';
-import {GridComponent} from "./main/grid";
-import {ColumnListComponent, ColumnComponent} from "./main/column";
+import {GridComponent} from './main/grid';
+import {ColumnListComponent, ColumnComponent} from './main/column';
 
 @NgModule({
   declarations: [

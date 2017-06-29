@@ -6,6 +6,7 @@
     "node_modules/codelyzer"
   ],
   "rules": {
+    "arrow-parens": true,
     // Custom
     "trailing-comma": [false, {"multiline": "always", "singleline": "never"}],
     "interface-name": [false, "always-prefix"],
@@ -34,10 +35,13 @@
       "timeEnd",
       "trace"
     ],
+    "no-empty": false,
     "max-line-length": [
       true,
-      100
+      120
     ],
+    "max-classes-per-file": [false, 0],
+    "member-access": false,
     "no-string-literal": false,
     "no-use-before-declare": true,
     "object-literal-sort-keys": false,
