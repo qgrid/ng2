@@ -8,9 +8,11 @@ export class ColumnModel {
 		this.pin = null;
 		this.origin = 'specific';
 		this.source = 'user';
+		this.class = 'data';
 		this.editor = null;
 		this.editorOptions = {
-			trigger: 'click'
+			trigger: 'click',
+			label: null
 		};
 
 		this.width = null;

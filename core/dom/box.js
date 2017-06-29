@@ -3,7 +3,7 @@ import {Column} from './column';
 import {Cell} from './cell';
 import {FakeTable, FakeElement} from './fake';
 import {Container} from './container';
-import {flatten, zip, sumBy, max} from '../services/utility';
+import {flatten, zip, sumBy, max} from '../utility';
 
 export class Box {
 	constructor(context, model) {

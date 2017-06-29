@@ -18,6 +18,7 @@ export class GroupColumnModel extends ColumnModel {
 		this.offset = 20;
 		this.canEdit = false;
 		this.canSort = false;
+		this.class = 'control';
 	}
 }
 

@@ -18,7 +18,7 @@ import {TableView} from '@grid/core/table';
 import {StyleView} from '@grid/core/style';
 import {ColumnView} from '@grid/core/column';
 import {ScrollView} from '@grid/core/scroll';
-import {isUndefined} from '@grid/core/services/utility';
+import {isUndefined} from '@grid/core/utility';
 import {PipeUnit} from '@grid/core/pipe/units';
 import {AppError} from '@grid/core/infrastructure';
 import {ViewCoreService} from './view-core.service';

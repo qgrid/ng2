@@ -64,7 +64,7 @@ export class EditCellView {
 				shortcut: this.commitShortcut.bind(this),
 				// TODO: add validation support
 				canExecute: cell => {
-					cell = cell || model.navigation().cell;
+					cell = cell || this.editor.cell || model.navigation().cell;
 					return cell
 						&& cell.column.canEdit
 						&& model.edit().mode === 'cell'
@@ -77,7 +77,7 @@ export class EditCellView {
 						e.stopImmediatePropagation();
 					}
 
-					cell = cell || model.navigation().cell;
+					cell = cell || this.editor.cell || model.navigation().cell;
 					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
 						this.editor.commit();
 						this.editor = CellEditor.empty;
@@ -94,7 +94,7 @@ export class EditCellView {
 			cancel: new Command({
 				shortcut: 'Escape',
 				canExecute: cell => {
-					cell = cell || model.navigation().cell;
+					cell = cell || this.editor.cell || model.navigation().cell;
 					return cell
 						&& cell.column.canEdit
 						&& model.edit().mode === 'cell'
@@ -107,7 +107,7 @@ export class EditCellView {
 						e.stopImmediatePropagation();
 					}
 
-					cell = cell || model.navigation().cell;
+					cell = cell || this.editor.cell || model.navigation().cell;
 					if (cell && model.edit().cancel.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						this.editor.reset();
 						this.editor = CellEditor.empty;
@@ -123,7 +123,7 @@ export class EditCellView {
 			}),
 			reset: new Command({
 				canExecute: cell => {
-					cell = cell || model.navigation().cell;
+					cell = cell || this.editor.cell || model.navigation().cell;
 					return cell
 						&& cell.column.canEdit
 						&& model.edit().mode === 'cell'
@@ -136,7 +136,7 @@ export class EditCellView {
 						e.stopImmediatePropagation();
 					}
 
-					cell = cell || model.navigation().cell;
+					cell = cell || this.editor.cell || model.navigation().cell;
 					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						this.editor.reset();
 						return true;
@@ -191,7 +191,7 @@ export class EditCellView {
 	commitShortcut() {
 		const model = this.model;
 		const commitShortcuts = model.edit().commitShortcuts;
-		const cell = model.navigation().cell;
+		const cell = this.editor.cell || model.navigation().cell;
 		if (cell && commitShortcuts.hasOwnProperty(cell.column.type)) {
 			return commitShortcuts[cell.column.type];
 		}

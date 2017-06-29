@@ -1,7 +1,7 @@
 import {View} from '../view';
 import * as css from '../services/css';
 import * as columnService from '../column/column.service';
-import {clone} from '../services/utility';
+import {clone} from '../utility';
 import {PipeUnit} from '../pipe/units';
 import {Log} from '../infrastructure';
 

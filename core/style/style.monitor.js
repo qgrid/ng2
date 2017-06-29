@@ -3,14 +3,13 @@ import * as css from '../services/css';
 class Entry {
 	constructor(element, sheets) {
 		this.element = element;
-		this.oldList = {};
-		this.newList = {};
+		this.list = new Set();
 		this.sheets = sheets;
 	}
 
 	class(key, style) {
 		key = css.escape(key);
-		this.newList[key] = true;
+		this.list.add(key);
 		if (style) {
 			const sheets = this.sheets;
 			if (!sheets.has(key)) {
@@ -23,35 +22,26 @@ class Entry {
 export class Monitor {
 	constructor(model) {
 		this.model = model;
-		this.map = new Map();
 		this.entries = [];
 		this.newSheets = new Map();
 		this.oldSheets = new Map();
 	}
 
-	add(element) {
-		this.map.set(element, null);
-	}
-
-	remove(element) {
-		this.map.delete(element);
-	}
-
 	enter() {
 		const newSheets = this.newSheets;
-		return element => {
-			let entry = this.map.get(element);
-			if (entry) {
-				entry.oldList = entry.newList;
-				entry.newList = {};
+		let entries = this.entries;
+		let length = entries.length;
+		while (length-- > 0) {
+			const entry = entries[length];
+			for (let cls of entry.list) {
+				entry.element.removeClass(cls, true);
 			}
-			else {
-				entry = new Entry(element);
-				this.map.set(element, entry);
-			}
+		}
 
-			entry.sheets = newSheets;
-			this.entries.push(entry);
+		entries = this.entries = [];
+		return element => {
+			const entry = new Entry(element, newSheets);
+			entries.push(entry);
 			return entry.class.bind(entry);
 		};
 	}
@@ -61,19 +51,8 @@ export class Monitor {
 		let length = entries.length;
 		while (length-- > 0) {
 			const entry = entries[length];
-			const element = entry.element;
-			const newList = entry.newList;
-			const oldList = entry.oldList;
-			for (let cls of Object.keys(oldList)) {
-				if (!newList.hasOwnProperty(cls)) {
-					element.removeClass(cls);
-				}
-			}
-
-			for (let cls of Object.keys(newList)) {
-				if (!oldList.hasOwnProperty(cls)) {
-					element.addClass(cls);
-				}
+			for (let cls of entry.list) {
+				entry.element.addClass(cls, true);
 			}
 		}
 
@@ -94,7 +73,6 @@ export class Monitor {
 			}
 		}
 
-		this.entries = [];
 		this.oldSheets = newSheets;
 		this.newSheets = new Map();
 	}

@@ -1,5 +1,5 @@
 import {AppError} from '../../infrastructure';
-import {isArray, isUndefined} from '../../services/utility';
+import {isArray, isUndefined} from '../../utility';
 import {Node} from '../../node';
 
 const keySelector = (unit, selector) => {

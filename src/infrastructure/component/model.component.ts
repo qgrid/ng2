@@ -1,5 +1,5 @@
 import {ModelBinder} from '@grid/core/infrastructure';
-import {noop} from '@grid/core/services/utility';
+import {noop} from '@grid/core/utility';
 import {OnChanges, SimpleChanges} from '@angular/core';
 import {NgComponent} from './ng.component';
 import {RootService} from './root.service';
