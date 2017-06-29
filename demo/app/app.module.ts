@@ -8,7 +8,6 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MdButtonModule, MdCheckboxModule, MdCardModule} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-
 /*
  * Platform and Environment providers/directives/pipes
  */

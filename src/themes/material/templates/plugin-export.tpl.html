@@ -1,10 +1,12 @@
 <ng-template key="plugin-export.tpl.html" let-$export>
 	<div class="q-grid-export" layout="row" layout-align="end center">
 		<button md-button
-		        *ngIf="$export[$export.type].canExecute()"
-		        (click)="$export[$export.type].execute()">
+		        (click)="$export.type = 'Mary'">
 			<md-icon>file_download</md-icon>
 			Export to {{$export.type}}
 		</button>
 	</div>
 </ng-template>
+
+
+<!--*ngIf="$export[$export.type].canExecute()"-->
