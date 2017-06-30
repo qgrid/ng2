@@ -1,5 +1,5 @@
 import {Directive, Input, OnInit, TemplateRef} from '@angular/core';
-import {TemplateLinkService} from "./template-link.service";
+import {TemplateLinkService} from './template-link.service';
 
 @Directive({
   selector: 'ng-template[key]'

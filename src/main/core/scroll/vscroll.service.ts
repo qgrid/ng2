@@ -11,6 +11,6 @@ export class VScrollService {
         },
         drawEvent: new Event()
       }
-    }
+    };
   }
 }

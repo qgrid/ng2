@@ -1,6 +1,6 @@
 import {Directive, Input, OnInit, TemplateRef, Optional} from '@angular/core';
 import {TemplateCacheService} from './template-cache.service';
-import {TemplateHostService} from "@grid/template/template-host.service";
+import {TemplateHostService} from '@grid/template/template-host.service';
 
 @Directive({
   selector: 'ng-template[for]'
@@ -16,8 +16,7 @@ export class TemplateCacheDirective implements OnInit {
   ngOnInit() {
     if (this.templateHost) {
       this.templateCache.put(`${this.key}-${this.templateHost.key}`, this.templateRef);
-    }
-    else {
+    } else {
       this.templateCache.put(this.key, this.templateRef);
     }
   }

@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
 import {TemplateCacheService} from '@grid/template';
-import {RootComponent, RootService} from "@grid/infrastructure/component";
-import {LayerService} from '../layer'
+import {RootComponent, RootService} from '@grid/infrastructure/component';
+import {LayerService} from '../layer';
 import {Table} from '@grid/core/dom';
 
 @Component({
