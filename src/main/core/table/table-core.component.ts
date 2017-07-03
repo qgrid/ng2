@@ -1,6 +1,6 @@
-import {OnInit, Component, Input} from "@angular/core";
-import {ViewCoreService} from "@grid/main/core/view";
-import {RootService} from "@grid/infrastructure/component";
+import {OnInit, Component, Input} from '@angular/core';
+// import {ViewCoreService} from '@grid/main/core/view';
+import {RootService} from '@grid/infrastructure/component';
 
 @Component({
   selector: 'q-grid-core-table',

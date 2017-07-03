@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ViewCoreService} from "../view/view-core.service";
+import {ViewCoreService} from '../view/view-core.service';
 
 @Component({
   selector: 'tfoot[q-grid-core-foot]',
