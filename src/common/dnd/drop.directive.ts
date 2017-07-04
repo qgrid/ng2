@@ -11,11 +11,10 @@ export class DropDirective implements OnInit, OnDestroy {
     private element: HTMLElement;
     private listener;
 
-  @Input('q-grid-drop') transfer;
-  @Input('q-grid-drop-effect') effect;
-  @Input('model') model;
-  @Input('q-grid-can-drop') canDrop;
-  @Output('q-grid-on-drop') onDrop = new EventEmitter<any>();
+    @Input('q-grid-drop') transfer;
+    @Input('q-grid-drop-effect') effect;
+    @Input('q-grid-can-drop') canDrop;
+    @Output('q-grid-on-drop') onDrop = new EventEmitter<any>();
 
     constructor(@Optional() private root: RootService, elementRef: ElementRef) {
         this.element = elementRef.nativeElement;
@@ -40,8 +39,8 @@ export class DropDirective implements OnInit, OnDestroy {
 
         this.element.classList.remove(`${GRID_PREFIX}-dragover`);
         const event = this.event(e.dataTransfer);
-        if (this.canDrop(this.model)) {
-            this.onDrop.emit(event.$event);
+        if (this.canDrop(event)) {
+            this.onDrop.emit(event);
         }
 
         return false;
@@ -59,8 +58,9 @@ export class DropDirective implements OnInit, OnDestroy {
         e.preventDefault();
 
         let effect = this.effect || 'move';
+        const event = this.event(e.dataTransfer);
         if (this.element.classList.contains(`${GRID_PREFIX}-drag`) ||
-            this.canDrop(this.model) === false) {
+            this.canDrop(event) === false) {
             effect = 'none';
         }
 
@@ -74,12 +74,14 @@ export class DropDirective implements OnInit, OnDestroy {
 
   event(e?) {
     const target = this.transfer;
-    const source = arguments.length
-      ? DragService.decode(e.getData(DragService.mimeType))
+    const data = e.getData(DragService.mimeType);
+    const source = arguments.length && data.length > 0
+      ? DragService.decode(data)
       : DragService.transfer;
 
         return {
-            $event: {source, target}
+          source,
+          target
         };
     }
 }

@@ -13,7 +13,6 @@ export class DragDirective implements OnInit, OnDestroy {
 
     @Input('q-grid-drag') transfer;
     @Input('q-grid-drag-effect') effect;
-    @Input('model') model;
     @Input('q-grid-can-drag') canDrag;
 
     constructor(@Optional() private root: RootService, elementRef: ElementRef) {
@@ -34,17 +33,17 @@ export class DragDirective implements OnInit, OnDestroy {
 
     start(e) {
         const transfer = e.dataTransfer;
-        if (this.canDrag(this.model) === false) {
+        if (this.canDrag(this.event()) === false) {
             e.preventDefault();
             transfer.effectAllowed = 'none';
             return false;
         }
 
-    const source = this.transfer;
-    this.element.classList.add(`${GRID_PREFIX}-drag`);
-    transfer.setData(DragService.mimeType, DragService.encode(source));
-    transfer.effectAllowed = this.effect || 'move';
-    DragService.transfer = source;
+        const source = this.transfer;
+        this.element.classList.add(`${GRID_PREFIX}-drag`);
+        transfer.setData(DragService.mimeType, DragService.encode(source));
+        transfer.effectAllowed = this.effect || 'move';
+        DragService.transfer = source;
 
         if (this.root) {
             const model = this.root.model;
@@ -63,12 +62,10 @@ export class DragDirective implements OnInit, OnDestroy {
     }
 
     event() {
-        const source = this.transfer();
+        const source = this.transfer;
         return {
-            $event: {
-                source,
-                target: null
-            }
+            source,
+            target: null
         };
     }
 }

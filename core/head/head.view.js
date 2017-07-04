@@ -14,9 +14,13 @@ export class HeadView extends View {
 
 		this.drop = new Command({
 			canExecute: e => {
-                const key = e.key;
-                const map = columnService.map(model.data().columns);
-                return map.hasOwnProperty(key) && map[key].canMove;
+				if (e.source && e.source.key === tagName) {
+					const key = e.target.value;
+					const map = columnService.map(model.data().columns);
+					return map.hasOwnProperty(key) && map[key].canMove;
+				}
+
+				return false;
 			},
 			execute: e => {
 				const view = model.view;
@@ -39,9 +43,13 @@ export class HeadView extends View {
 		});
 
 		this.drag = new Command({
-            canExecute: e => {
-                const map = columnService.map(model.data().columns);
-                return map.hasOwnProperty(e.key) && map[e.key].canMove !== false;
+			canExecute: e => {
+				if (e.source.key === tagName) {
+					const map = columnService.map(model.data().columns);
+					return map.hasOwnProperty(e.source.value) && map[e.source.value].canMove !== false;
+				}
+
+				return false;
 			}
 		});
 
@@ -55,7 +63,7 @@ export class HeadView extends View {
 				return false;
 			}
 		});
-		
+
 		this.filter = new Command({
 			canExecute: () => true,
 			execute: e => {

@@ -2,7 +2,6 @@
   <th *ngFor="let $column of $row; let $columnIndex = index"
       (mouseenter)="$view.highlight.column.execute($column.model, true)"
       (mouseleave)="$view.highlight.column.execute($column.model, false)"
-      [model]="$column.model"
       [attr.rowspan]="$column.rowspan"
       [attr.colspan]="$column.colspan"
       [q-grid-drag]="$view.head.transfer($column.model)"
