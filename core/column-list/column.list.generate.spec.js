@@ -1,11 +1,13 @@
-import {generate as doGenerate} from './column.list.generate';
+import {generate as doGenerate} from '../column-list';
 import {columnFactory} from '../column/column.factory';
 
 const createColumn = columnFactory({columnList: () => ({columns: [], reference: {}})});
-const generate = (rows, deep = true) => doGenerate(rows, createColumn, deep);
+const generate = (rows) => {
+	return rows ? doGenerate({rows: rows, columnFactory: createColumn}) : doGenerate({columnFactory: createColumn});
+};
 
 describe('column generate', () => {
-	it('should return empty array without parameters', () => {
+	it('should return empty array when input is not defined', () => {
 		expect(generate()).to.eql([]);
 	});
 

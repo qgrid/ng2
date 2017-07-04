@@ -6,9 +6,6 @@ export class CellBox extends StyleBox {
 	}
 
 	key(cell) {
-		const mapper = this.context.mapper;
-		const dataRow = mapper.rowBack(cell.rowIndex);
-		const dataColumn = mapper.columnBack(cell.columnIndex);
-		return `${dataRow}x${dataColumn}`;
+		return `${cell.dataRowIndex}x${cell.dataColumnIndex}`;
 	}
 }

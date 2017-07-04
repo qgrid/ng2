@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
-import {EventListener} from '@grid/core/infrastructure/event.listener';
+import {EventListener, EventManager} from '@grid/core/infrastructure';
 import {ViewCoreService} from '../view/view-core.service';
 import {RootService} from '@grid/infrastructure/component';
 import {PathService} from '@grid/core/path';
@@ -10,7 +10,7 @@ import {PathService} from '@grid/core/path';
 })
 export class BodyCoreComponent implements OnInit {
   private element: HTMLElement = null;
-  private documentListener = new EventListener(this, document);
+  private documentListener = new EventListener(document, new EventManager(this));
   private listener = null;
   private rangeStartCell = null;
 
@@ -18,7 +18,7 @@ export class BodyCoreComponent implements OnInit {
               public $view: ViewCoreService,
               private root: RootService) {
     this.element = element.nativeElement;
-    this.listener = new EventListener(this, this.element);
+    this.listener = new EventListener(this.element, new EventManager(this));
   }
 
   ngOnInit() {
