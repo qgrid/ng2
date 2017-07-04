@@ -1,15 +1,17 @@
 import * as css from '../services/css';
 
 class Entry {
-	constructor(element, sheets) {
+	constructor(element, sheets, markDirty) {
 		this.element = element;
 		this.list = new Set();
 		this.sheets = sheets;
+		this.markDirty = markDirty;
 	}
 
 	class(key, style) {
 		key = css.escape(key);
 		this.list.add(key);
+		this.markDirty(this);
 		if (style) {
 			const sheets = this.sheets;
 			if (!sheets.has(key)) {
@@ -22,7 +24,7 @@ class Entry {
 export class Monitor {
 	constructor(model) {
 		this.model = model;
-		this.entries = [];
+		this.entries = new Set();
 		this.newSheets = new Map();
 		this.oldSheets = new Map();
 	}
@@ -30,27 +32,24 @@ export class Monitor {
 	enter() {
 		const newSheets = this.newSheets;
 		let entries = this.entries;
-		let length = entries.length;
-		while (length-- > 0) {
-			const entry = entries[length];
+		for (let entry of entries) {
 			for (let cls of entry.list) {
 				entry.element.removeClass(cls, true);
 			}
 		}
 
-		entries = this.entries = [];
+		entries = this.entries = new Set();
+		const markDirty = entry => entries.add(entry);
+
 		return element => {
-			const entry = new Entry(element, newSheets);
-			entries.push(entry);
+			const entry = new Entry(element, newSheets, markDirty);
 			return entry.class.bind(entry);
 		};
 	}
 
 	exit() {
 		const entries = this.entries;
-		let length = entries.length;
-		while (length-- > 0) {
-			const entry = entries[length];
+		for (let entry of entries) {
 			for (let cls of entry.list) {
 				entry.element.addClass(cls, true);
 			}

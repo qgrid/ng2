@@ -3,5 +3,6 @@ export class Action {
 		this.command = command;
 		this.title = title;
 		this.icon = icon;
+		this.id = null;
 	}
 }

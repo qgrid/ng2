@@ -8,5 +8,6 @@ export class FilterModel {
 		this.by = {};
 		this.match = match;
 		this.fetch = noop;
+		this.unit = 'default';	// default|row
 	}
 }

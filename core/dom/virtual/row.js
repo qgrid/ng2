@@ -1,8 +1,34 @@
 import {Row} from '../row';
+import {Row as RowModel} from '../../row';
 
 export class VirtualRow extends Row {
 	constructor(box, index, element = null) {
 		super(box, index, element);
+
+		const mapper = box.context.mapper;
+		this.dataIndex = mapper.viewToRow(index);
+	}
+
+	get model() {
+		const index = this.dataIndex;
+		if (index >= 0) {
+			const gridModel = this.box.model;
+			const rows = gridModel.data().rows;
+			if (rows.length > index) {
+				const model = {index: index, model: rows[index]};
+				return new RowModel(model);
+			}
+		}
+
+		return null;
+	}
+
+	cells() {
+		return this.box.rowCellsCore(this.dataIndex);
+	}
+
+	cell(columnIndex) {
+		return this.box.cellCore(this.dataIndex, columnIndex);
 	}
 
 	addClass(name, force = false) {
