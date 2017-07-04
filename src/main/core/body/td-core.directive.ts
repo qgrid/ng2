@@ -2,7 +2,6 @@ import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from 
 import {GRID_PREFIX} from '@grid/core/definition';
 import {ViewCoreService} from '../view/view-core.service';
 import {RootService} from '@grid/infrastructure/component';
-import {TemplateCacheService, TemplateLinkService} from '@grid/template';
 import {CellService} from '@grid/main/core/cell';
 import {AppError} from '@grid/core/infrastructure/';
 
@@ -17,8 +16,6 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 
   constructor(public $view: ViewCoreService,
               private root: RootService,
-              private templateCache: TemplateCacheService,
-              private templateLink: TemplateLinkService,
               private viewContainerRef: ViewContainerRef,
               private cellService: CellService,
               element: ElementRef) {
@@ -87,7 +84,7 @@ export class TdCoreDirective implements OnInit, OnDestroy {
   }
 
   get column() {
-    return this.$view.body.columns[this.columnIndex].model;
+    return this.$view.body.columns(this.row, null)[this.columnIndex].model;
   }
 
   get row() {

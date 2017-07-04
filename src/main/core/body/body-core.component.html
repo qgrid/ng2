@@ -1,6 +1,6 @@
 <tr *ngFor="let $row of $view.body.rows; let $rowIndex = index"
     [q-grid-core-tr]="$rowIndex">
-  <td *ngFor="let $column of $view.body.columns; let $columnIndex = index">
+  <td *ngFor="let $column of $view.body.columns($row, null); let $columnIndex = index">
     <ng-container q-grid-core-td
                   [q-grid-core-column-index]="$columnIndex"
                   [q-grid-core-row-index]="$rowIndex">

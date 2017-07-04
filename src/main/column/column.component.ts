@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from "@angular/core";
-import {isUndefined, clone} from '@grid/core/services/utility';
-import {ColumnListService} from "@grid/main/column/column-list.service";
+import {Component, Input, OnInit} from '@angular/core';
+import {isUndefined, clone} from '@grid/core/utility';
+import {ColumnListService} from '@grid/main/column/column-list.service';
 import * as columnService from '@grid/core/column/column.service';
 import {columnFactory} from '@grid/core/column/column.factory';
-import {RootService} from "@grid/infrastructure/component";
-import {TemplateHostService} from "@grid/template/template-host.service";
+import {RootService} from '@grid/infrastructure/component';
+import {TemplateHostService} from '@grid/template/template-host.service';
 
 @Component({
   selector: 'q-grid-column',
@@ -62,8 +62,7 @@ export class ColumnComponent implements OnInit {
     let column = columnService.find(columns, this.key);
     if (column) {
       createColumn(this.type || 'text', column);
-    }
-    else {
+    } else {
       column = createColumn(this.type || 'text').model;
       column.key = this.key;
       columns.source = 'template';
@@ -84,8 +83,7 @@ export class ColumnComponent implements OnInit {
 
     if (withKey) {
       this.columnList.add(column);
-    }
-    else {
+    } else {
       const settings = Object.keys(this)
         .filter(key => !isUndefined(this[key]) && column.hasOwnProperty(key))
         .reduce((memo, key) => {

@@ -13,11 +13,6 @@ describe('label service', () => {
 		labelPath: 'nested.fieldLabel'
 	};
 
-	const titleDefinedColumn = {
-		key: 'field',
-		title: 'Awesome field'
-	};
-
 	const keyDefinedColumn = {
 		key: 'field'
 	};
@@ -43,12 +38,6 @@ describe('label service', () => {
 			const label = labelService.get(row, pathDefinedColumn);
 
 			expect(label).to.equal('label');
-		});
-
-		it('should return title for column when labels are not defined', () => {
-			const label = labelService.get(row, titleDefinedColumn);
-
-			expect(label).to.equal('Awesome field');
 		});
 
 		it('should return value when label wasn\'t defined', () => {

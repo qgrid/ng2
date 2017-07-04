@@ -1,78 +1,76 @@
-import {Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output} from "@angular/core";
-import {EventListener} from '@grid/core/infrastructure';
+import {Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output} from '@angular/core';
+import {EventListener, EventManager} from '@grid/core/infrastructure';
 import {DragService} from './drag.service';
 import {GRID_PREFIX} from '@grid/core/definition';
-import {RootService} from "@grid/infrastructure/component";
+import {RootService} from '@grid/infrastructure/component';
 
 @Directive({
-  selector: '[q-grid-drop]'
+    selector: '[q-grid-drop]'
 })
 export class DropDirective implements OnInit, OnDestroy {
-  private element: HTMLElement;
-  private listener;
-  private canDrop;
+    private element: HTMLElement;
+    private listener;
 
   @Input('q-grid-drop') transfer;
   @Input('q-grid-drop-effect') effect;
   @Input('model') model;
-  @Input('q-grid-can-drop') canDropFunction;
+  @Input('q-grid-can-drop') canDrop;
   @Output('q-grid-on-drop') onDrop = new EventEmitter<any>();
 
-  constructor(@Optional() private root: RootService, elementRef: ElementRef) {
-    this.element = elementRef.nativeElement;
-    this.listener = new EventListener(this, this.element);
-  }
-
-  ngOnInit() {
-    this.element.classList.add(`${GRID_PREFIX}-can-drop`);
-    this.listener.on('dragenter', this.enter);
-    this.listener.on('dragover', this.over);
-    this.listener.on('dragleave', this.leave);
-    this.listener.on('drop', this.drop);
-    this.canDrop = this.canDropFunction(this.model);
-  }
-
-  ngOnDestroy() {
-    this.element.classList.remove(`${GRID_PREFIX}-can-drop`);
-    this.listener.off();
-  }
-
-  drop(e) {
-    e.stopPropagation();
-
-    this.element.classList.remove(`${GRID_PREFIX}-dragover`);
-    const event = this.event(e.dataTransfer);
-    if (this.canDrop) {
-      this.onDrop.emit(event.$event);
+    constructor(@Optional() private root: RootService, elementRef: ElementRef) {
+        this.element = elementRef.nativeElement;
+        this.listener = new EventListener(this.element, new EventManager(this));
     }
 
-    return false;
-  }
-
-  enter(e) {
-    e.preventDefault();
-
-    this.element.classList.add(`${GRID_PREFIX}-dragover`);
-    e.dataTransfer.dropEffect = this.effect || 'move';
-    return false;
-  }
-
-  over(e) {
-    e.preventDefault();
-
-    let effect = this.effect || 'move';
-    if (this.element.classList.contains(`${GRID_PREFIX}-drag`) ||
-      this.canDrop === false) {
-      effect = 'none';
+    ngOnInit() {
+        this.element.classList.add(`${GRID_PREFIX}-can-drop`);
+        this.listener.on('dragenter', this.enter);
+        this.listener.on('dragover', this.over);
+        this.listener.on('dragleave', this.leave);
+        this.listener.on('drop', this.drop);
     }
 
-    e.dataTransfer.dropEffect = effect;
-    return false;
-  }
+    ngOnDestroy() {
+        this.element.classList.remove(`${GRID_PREFIX}-can-drop`);
+        this.listener.off();
+    }
 
-  leave() {
-    this.element.classList.remove(`${GRID_PREFIX}-dragover`);
-  }
+    drop(e) {
+        e.stopPropagation();
+
+        this.element.classList.remove(`${GRID_PREFIX}-dragover`);
+        const event = this.event(e.dataTransfer);
+        if (this.canDrop(this.model)) {
+            this.onDrop.emit(event);
+        }
+
+        return false;
+    }
+
+    enter(e) {
+        e.preventDefault();
+
+        this.element.classList.add(`${GRID_PREFIX}-dragover`);
+        e.dataTransfer.dropEffect = this.effect || 'move';
+        return false;
+    }
+
+    over(e) {
+        e.preventDefault();
+
+        let effect = this.effect || 'move';
+        if (this.element.classList.contains(`${GRID_PREFIX}-drag`) ||
+            this.canDrop(this.model) === false) {
+            effect = 'none';
+        }
+
+        e.dataTransfer.dropEffect = effect;
+        return false;
+    }
+
+    leave() {
+        this.element.classList.remove(`${GRID_PREFIX}-dragover`);
+    }
 
   event(e?) {
     const target = this.transfer;
@@ -80,11 +78,8 @@ export class DropDirective implements OnInit, OnDestroy {
       ? DragService.decode(e.getData(DragService.mimeType))
       : DragService.transfer;
 
-    return {
-      $event: {
-        source: source,
-        target: target
-      }
-    };
-  }
+        return {
+            $event: {source, target}
+        };
+    }
 }

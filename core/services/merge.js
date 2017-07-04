@@ -1,4 +1,4 @@
-﻿import {assignWith} from './utility';
+﻿import {assignWith} from '../utility';
 
 export function merge(settings) {
 	const context = assignWith({

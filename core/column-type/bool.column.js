@@ -19,6 +19,18 @@ TemplatePath.register('bool-cell-edit', (template, column) => {
 export class BoolColumnModel extends DataColumnModel {
 	constructor() {
 		super('bool');
+
+		this.trueValue = true;
+		this.falseValue = false;
+
+		// as we use 'this' pointer inside, we can't use lambda in 2 here
+		this.isIndeterminate = function (value) {
+			return !(value === this.trueValue || value === this.falseValue);
+		};
+
+		this.isChecked = function (value) {
+			return value === this.trueValue;
+		};
 	}
 }
 

@@ -3,32 +3,24 @@ import {Column} from './column';
 import {Cell} from './cell';
 import {FakeTable, FakeElement} from './fake';
 import {Container} from './container';
-import {flatten, zip, sumBy, max} from '../services/utility';
+import {flatten, zip, sumBy, max} from '../utility';
 
 export class Box {
 	constructor(context, model) {
 		this.context = context;
-		this.gridModel = model;
+		this.model = model;
 	}
 
 	cell(rowIndex, columnIndex) {
-		rowIndex = this.context.mapper.row(rowIndex);
-		columnIndex = this.context.mapper.column(columnIndex);
 		return this.cellCore(rowIndex, columnIndex);
 	}
 
 	column(index) {
 		const columnFactory = this.createColumnCore.bind(this);
-		index = this.context.mapper.column(index);
-		if (index >= 0 && index < this.columnCount()) {
-			return columnFactory(index);
-		}
-
-		return columnFactory(-1);
+		return columnFactory(index);
 	}
 
 	row(index) {
-		index = this.context.mapper.row(index);
 		return this.rowCore(index);
 	}
 
@@ -84,7 +76,7 @@ export class Box {
 			}
 		}
 
-		return rowFactory(-1, new FakeElement());
+		return rowFactory(index, new FakeElement());
 	}
 
 	cellCore(rowIndex, columnIndex) {

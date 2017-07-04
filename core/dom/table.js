@@ -1,20 +1,22 @@
 import {View} from './view';
 import {Data} from './data';
-import {assignWith} from  '../services/utility';
+import {assignWith, identity} from  '../utility';
 import {FakeLayer} from './fake';
 import {Head} from './head';
 import {Body, VirtualBody} from './body';
 import {Foot} from './foot';
-import {identity} from '../services/utility';
 
 export class Table {
 	constructor(model, markup, context = {}) {
 		this.model = model;
 		this.markup = markup;
+
 		this.context = assignWith({
 			mapper: {
-				row: identity,
-				column: identity
+				rowToView: model.scroll().mode === 'virtual' ? index => index - model.scroll().cursor : identity,
+				viewToRow: model.scroll().mode === 'virtual' ? index => index + model.scroll().cursor : identity,
+				columnToView: identity,
+				viewToColumn: identity
 			},
 			layer: () => new FakeLayer(),
 			model: () => null,
