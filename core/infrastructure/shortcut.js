@@ -1,11 +1,12 @@
 import {isFunction} from '../utility';
 
 export class Shortcut {
-	constructor(table, manager) {
+	constructor(manager) {
 		this.manager = manager;
 		this.commands = [];
 		this.shortcuts = new Map();
 		this.codeMap = new Map()
+			.set(8, 'backspace')
 			.set(9, 'tab')
 			.set(13, 'enter')
 			.set(27, 'escape')
@@ -21,8 +22,7 @@ export class Shortcut {
 			.set(113, 'f2')
 			.set(118, 'f7');
 
-		this.canExecute = () => table.view.isFocused();
-		this.off = table.view.keyDown(this.onKeyDown.bind(this));
+		this.off = manager.keyDown(this.onKeyDown.bind(this));
 	}
 
 	translate(e) {
@@ -41,7 +41,7 @@ export class Shortcut {
 	}
 
 	onKeyDown(e) {
-		if (this.canExecute()) {
+		if (this.manager.canExecute()) {
 			const code = this.translate(e);
 			const commands = this.find(code);
 			if (commands.length) {

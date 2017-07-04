@@ -1,11 +1,13 @@
-/*eslint-disable  no-console*/
+/*eslint-disable  no-console, no-unused-vars, no-undef*/
 
 export class Log {
 	constructor() {
 	}
 
 	static info(source, message) {
-		console.info(`qgrid.${source}: ${message}`);
+		if (!ENV.PRODUCTION) {
+			console.info(`qgrid.${source}: ${message}`);
+		}
 	}
 
 	static warn(source, message) {

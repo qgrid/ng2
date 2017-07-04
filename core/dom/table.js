@@ -10,16 +10,13 @@ export class Table {
 	constructor(model, markup, context = {}) {
 		this.model = model;
 		this.markup = markup;
+
 		this.context = assignWith({
 			mapper: {
-				row: model.scroll().mode === 'virtual'
-					? index => index - model.scroll().cursor
-					: identity,
-				column: identity,
-				rowBack: model.scroll().mode === 'virtual'
-					? index => index + model.scroll().cursor
-					: identity,
-				columnBack: identity
+				rowToView: model.scroll().mode === 'virtual' ? index => index - model.scroll().cursor : identity,
+				viewToRow: model.scroll().mode === 'virtual' ? index => index + model.scroll().cursor : identity,
+				columnToView: identity,
+				viewToColumn: identity
 			},
 			layer: () => new FakeLayer(),
 			model: () => null,

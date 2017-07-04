@@ -110,13 +110,13 @@ export class PredicateVisitor extends Visitor {
 				return l => {
 					const v = getValue(l),
 						r = castAs(v);
-					return v && ('' + v).toLowerCase().contains(('' + r).toLowerCase());
+					return v && ('' + v).toLowerCase().includes(('' + r).toLowerCase());
 				};
 			case 'notLike':
 				return l => {
 					const v = getValue(l),
 						r = castAs(v);
-					return v && !('' + v).toLowerCase().contains(('' + r).toLowerCase());
+					return v && !('' + v).toLowerCase().includes(('' + r).toLowerCase());
 				};
 			case 'startsWith':
 				return l => {

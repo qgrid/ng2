@@ -11,6 +11,6 @@ export function build(model, valueFactory) {
 			changes: changes
 		};
 
-		return middleware.run(context);
+		return middleware.run(context, model.data().rows);
 	};
 }

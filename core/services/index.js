@@ -5,3 +5,4 @@ export * from './guid';
 export * from './merge';
 export * from './middleware';
 export * from './path';
+export * from './job.line';

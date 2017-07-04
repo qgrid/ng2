@@ -1,6 +1,8 @@
 import {View} from '../view';
 import {Log, Command} from '../infrastructure';
 import * as columnService from '../column/column.service';
+import {FilterRowColumn} from '../column-type';
+import {clone} from '../utility';
 
 export class HeadView extends View {
 	constructor(model, table, tagName) {
@@ -61,8 +63,44 @@ export class HeadView extends View {
 				return false;
 			}
 		});
+		
+		this.filter = new Command({
+			canExecute: () => true,
+			execute: e => {
+				const key = e.source.sourceKey;
+				const filter = this.model.filter;
+				const by = clone(filter().by);
+				const search = e.search;
+				if (search.length) {
+					by[key] = {
+						expression: {
+							kind: 'group',
+							op: 'and',
+							left: {
+								kind: 'condition',
+								left: key,
+								op: 'like',
+								right: search
+							},
+							right: null
+						}
+					};
+				}
+				else {
+					delete by[key];
+				}
+
+				filter({by: by});
+			}
+		});
 
 		model.viewChanged.watch(() => this.invalidate(model));
+
+		model.filterChanged.watch(e => {
+			if (e.hasChanges('unit')) {
+				this.invalidate(model);
+			}
+		});
 	}
 
 	transfer(column) {
@@ -75,6 +113,12 @@ export class HeadView extends View {
 	invalidate(model) {
 		Log.info('view.head', 'invalidate');
 
-		this.rows = model.view().columns;
+		this.rows = Array.from(model.view().columns);
+
+		if (model.filter().unit === 'row') {
+			const filterRow = this.table.data.columns()
+				.map(c => new FilterRowColumn(c));
+			this.rows.push(filterRow);
+		}
 	}
 }

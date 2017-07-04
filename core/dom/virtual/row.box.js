@@ -6,8 +6,6 @@ export class RowBox extends StyleBox {
 	}
 
 	key(row) {
-		const mapper = this.context.mapper;
-		const dataRow = mapper.rowBack(row.index);
-		return dataRow;
+		return row.dataIndex;
 	}
 }

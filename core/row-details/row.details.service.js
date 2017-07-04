@@ -7,7 +7,6 @@ export function flatView(table) {
 	const result = [];
 	const model = table.model;
 	const createColumn = columnFactory(model);
-	const colspan = table.data.columns().length;
 	const rows = model.view().rows;
 	const status = model.row().status;
 
@@ -19,7 +18,6 @@ export function flatView(table) {
 				if (state.expand) {
 					const column = createColumn('row-details');
 					result.push(new RowDetails(row, column));
-					column.colspan = colspan;
 				}
 			}
 		}

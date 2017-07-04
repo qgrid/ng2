@@ -8,7 +8,7 @@ export class RootService {
     public markup: any = {};
     public bag = new Map<HTMLElement, any>();
     public table: any = null;
-    public commandManager = new CommandManager();
+    public commandManager;
 
     constructor() {
         this.markup.document = document;

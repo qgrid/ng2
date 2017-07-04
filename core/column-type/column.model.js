@@ -1,3 +1,5 @@
+import {identity} from '../utility';
+
 export class ColumnModel {
 	constructor(type = 'text') {
 		this.type = type;
@@ -12,7 +14,8 @@ export class ColumnModel {
 		this.editor = null;
 		this.editorOptions = {
 			trigger: 'click',
-			label: null
+			label: null,
+			value: identity
 		};
 
 		this.width = null;
