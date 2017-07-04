@@ -41,7 +41,7 @@ export class DropDirective implements OnInit, OnDestroy {
         this.element.classList.remove(`${GRID_PREFIX}-dragover`);
         const event = this.event(e.dataTransfer);
         if (this.canDrop(this.model)) {
-            this.onDrop.emit(event);
+            this.onDrop.emit(event.$event);
         }
 
         return false;
