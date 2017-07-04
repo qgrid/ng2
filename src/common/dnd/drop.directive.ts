@@ -58,9 +58,8 @@ export class DropDirective implements OnInit, OnDestroy {
         e.preventDefault();
 
         let effect = this.effect || 'move';
-        const event = this.event(e.dataTransfer);
         if (this.element.classList.contains(`${GRID_PREFIX}-drag`) ||
-            this.canDrop(event) === false) {
+            this.canDrop(this.event()) === false) {
             effect = 'none';
         }
 
@@ -74,9 +73,8 @@ export class DropDirective implements OnInit, OnDestroy {
 
   event(e?) {
     const target = this.transfer;
-    const data = e.getData(DragService.mimeType);
-    const source = arguments.length && data.length > 0
-      ? DragService.decode(data)
+    const source = arguments.length
+      ? DragService.decode(e.getData(DragService.mimeType))
       : DragService.transfer;
 
         return {
