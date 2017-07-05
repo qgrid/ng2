@@ -72,13 +72,14 @@ export class DropDirective implements OnInit, OnDestroy {
     }
 
     event(e?) {
-        const target = this.transfer();
+        const target = this.transfer;
         const source = arguments.length
             ? DragService.decode(e.getData(DragService.mimeType))
             : DragService.transfer;
 
         return {
-            $event: {source, target}
+            source,
+            target
         };
     }
 }

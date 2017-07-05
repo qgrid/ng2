@@ -63,7 +63,7 @@ export class HeadView extends View {
 				return false;
 			}
 		});
-		
+
 		this.filter = new Command({
 			canExecute: () => true,
 			execute: e => {
