@@ -10,7 +10,7 @@ export class TableCommandManager extends CommandManager {
 	keyDown(f) {
 		return this.table.view.keyDown(f);
 	}
-	
+
 	canExecute() {
 		return this.table.view.isFocused();
 	}

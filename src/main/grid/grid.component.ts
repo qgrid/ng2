@@ -64,9 +64,9 @@ export class GridComponent extends RootComponent {
       model: element => bag.get(element) || null
     };
 
-    const table = new Table(model, markup, tableContext);
-    this.rootService.table = table;
-    this.rootService.commandManager = new TableCommandManager(this.applyFactory(), table);
+      const table = new Table(model, markup, tableContext);
+      this.rootService.table = table;
+      this.rootService.commandManager = new TableCommandManager(this.applyFactory(), table);
 
     this.model.viewChanged.watch(e => {
       if (e.hasChanges('columns')) {
@@ -86,36 +86,36 @@ export class GridComponent extends RootComponent {
     });
   }
 
-  applyFactory(gf = null, mode = 'async') {
-    return (lf, timeout) => {
-      if (isUndefined(timeout)) {
-        switch (mode) {
-          case 'async': {
-            timeout = 0;
-            break;
-          }
-          case 'sync': {
-            const result = lf();
-            if (gf) {
-              gf();
+    applyFactory(gf = null, mode = 'async') {
+        return (lf, timeout) => {
+            if (isUndefined(timeout)) {
+                switch (mode) {
+                    case 'async': {
+                        timeout = 0;
+                        break;
+                    }
+                    case 'sync': {
+                        const result = lf();
+                        if (gf) {
+                            gf();
+                        }
+
+                        return result;
+                    }
+                    default:
+                        throw new AppError('grid', `Invalid mode ${mode}`);
+                }
             }
 
-            return result;
-          }
-          default:
-            throw new AppError('grid', `Invalid mode ${mode}`);
-        }
-      }
+            return setTimeout(() => {
+                lf();
 
-      return setTimeout(() => {
-        lf();
-
-        if (gf) {
-          gf();
-        }
-      }, timeout);
-    };
-  }
+                if (gf) {
+                    gf();
+                }
+            }, timeout);
+        };
+    }
 
   get visibility() {
     // TODO: get rid of that
