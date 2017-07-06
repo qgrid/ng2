@@ -3,6 +3,7 @@ export * from './bool.column';
 export * from './date.column';
 export * from './email.column';
 export * from './file.column';
+export * from './filter.row.column';
 export * from './group.column';
 export * from './id.column';
 export * from './image.column';

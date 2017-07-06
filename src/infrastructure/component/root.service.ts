@@ -1,26 +1,26 @@
 import {Guard} from '@grid/core/infrastructure';
 import {Injectable} from '@angular/core';
-import {CommandManager} from "@grid/infrastructure/command";
+import {CommandManager} from '@grid/infrastructure/command';
 
 @Injectable()
 export class RootService {
-  private gridModel: any = null;
-  public markup: any = {};
-  public bag = new Map<HTMLElement, any>();
-  public table: any = null;
-  public commandManager = new CommandManager();
+    private gridModel: any = null;
+    public markup: any = {};
+    public bag = new Map<HTMLElement, any>();
+    public table: any = null;
+    public commandManager;
 
-  constructor() {
-    this.markup.document = document;
-  }
+    constructor() {
+        this.markup.document = document;
+    }
 
-  get model() {
-    Guard.notNull(this.gridModel, 'model');
+    get model() {
+        Guard.notNull(this.gridModel, 'model');
 
-    return this.gridModel;
-  }
+        return this.gridModel;
+    }
 
-  set model(value) {
-    this.gridModel = value
-  }
+    set model(value) {
+        this.gridModel = value;
+    }
 }

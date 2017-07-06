@@ -31,7 +31,7 @@ export class StyleView extends View {
 			}
 
 			if (e.hasChanges('cell')) {
-				this.active.cell = e.state.row !== noop;
+				this.active.cell = e.state.cell !== noop;
 			}
 
 			this.invalidate();

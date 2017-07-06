@@ -1,8 +1,10 @@
 import {Component, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
 import {TemplateCacheService} from '@grid/template';
-import {RootComponent, RootService} from "@grid/infrastructure/component";
-import {LayerService} from '../layer'
+import {RootComponent, RootService} from '@grid/infrastructure/component';
+import {LayerService} from '../layer';
 import {Table} from '@grid/core/dom';
+import {TableCommandManager, AppError} from '@grid/core/infrastructure';
+import {isUndefined} from '@grid/core/utility';
 
 @Component({
   selector: 'q-grid',
@@ -62,7 +64,9 @@ export class GridComponent extends RootComponent {
       model: element => bag.get(element) || null
     };
 
-    this.rootService.table = new Table(model, markup, tableContext);
+    const table = new Table(model, markup, tableContext);
+    this.rootService.table = table;
+    this.rootService.commandManager = new TableCommandManager(this.applyFactory(), table);
 
     this.model.viewChanged.watch(e => {
       if (e.hasChanges('columns')) {
@@ -80,6 +84,37 @@ export class GridComponent extends RootComponent {
         right: columns.some(c => c.pin === 'right')
       }
     });
+  }
+
+  applyFactory(gf = null, mode = 'async') {
+    return (lf, timeout) => {
+      if (isUndefined(timeout)) {
+        switch (mode) {
+          case 'async': {
+            timeout = 0;
+            break;
+          }
+          case 'sync': {
+            const result = lf();
+            if (gf) {
+              gf();
+            }
+
+            return result;
+          }
+          default:
+            throw new AppError('grid', `Invalid mode ${mode}`);
+        }
+      }
+
+      return setTimeout(() => {
+        lf();
+
+        if (gf) {
+          gf();
+        }
+      }, timeout);
+    };
   }
 
   get visibility() {

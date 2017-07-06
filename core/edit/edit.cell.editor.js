@@ -31,8 +31,15 @@ export class CellEditor extends CellEditorCore {
 		this.fetch = this.fetchFactory();
 		this.resetFetch = this.fetch.run(cell.row);
 
-		const parse = parseFactory(cell.column.type);
-		this.value = isUndefined(cell.value) ? null : parse(clone(cell.value));
+		if (isUndefined(cell.value)) {
+			this.value = null;
+		}
+		else {
+			const parse = parseFactory(cell.column.type);
+			const typedValue = parse(clone(cell.value));
+			this.value = typedValue === null ? cell.value : typedValue;
+		}
+
 		this.label = isUndefined(cell.label) ? null : clone(cell.label);
 	}
 
@@ -53,8 +60,16 @@ export class CellEditor extends CellEditorCore {
 		return this.cell.column.title;
 	}
 
+	get column() {
+		return this.cell.column;
+	}
+
 	get options() {
 		return this.cell.column.editorOptions;
+	}
+
+	get commandManager() {
+		return this.cell.commandManager;
 	}
 
 	getLabel(item) {

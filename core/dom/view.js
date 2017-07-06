@@ -1,5 +1,5 @@
 import {Unit} from './unit';
-import {EventListener} from '../infrastructure';
+import {EventListener, EventManager} from '../infrastructure';
 import {escapeClass} from '../services/css';
 
 function isParentOf(parent, element) {
@@ -44,7 +44,7 @@ export class View extends Unit {
 	}
 
 	keyDown(f) {
-		return new EventListener(this, this.markup.document).on('keydown', f);
+		return new EventListener(this.markup.document, new EventManager(this)).on('keydown', f);
 	}
 
 	addLayer(name) {

@@ -10,8 +10,9 @@ export class EditCellView {
 		this.table = table;
 
 		this.editor = CellEditor.empty;
+		this.commandManager = commandManager;
 
-		const shortcut = new Shortcut(table, commandManager);
+		const shortcut = new Shortcut(commandManager);
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('editCellNavigation', commands);
 
@@ -186,6 +187,18 @@ export class EditCellView {
 
 	set label(label) {
 		this.editor.label = label;
+	}
+
+	get column() {
+		return this.editor.column;
+	}
+
+	canEdit(cell) {
+		if (cell) {
+			return cell.column.canEdit && this.model.edit().mode === 'cell';
+		}
+
+		return false;
 	}
 
 	commitShortcut() {

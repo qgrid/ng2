@@ -9,35 +9,35 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class GridService {
-  constructor() {
-  }
+    constructor() {
+    }
 
-  model() {
-    return new Model();
-  }
+    model() {
+        return new Model();
+    }
 
-  service(model) {
-    const apply = noop;
-    return new Grid(model, apply);
-  }
+    service(model) {
+        const apply = noop;
+        return new Grid(model, apply);
+    }
 
-  get pipe() {
-    return Pipe;
-  }
+    get pipe() {
+        return Pipe;
+    }
 
-  get pipeUnit() {
-    return PipeUnit;
-  }
+    get pipeUnit() {
+        return PipeUnit;
+    }
 
-  get Command() {
-    return Command;
-  }
+    get Command() {
+        return Command;
+    }
 
-  get valueFactory() {
-    return valueFactory;
-  }
+    get valueFactory() {
+        return valueFactory;
+    }
 
-  get labelFactory() {
-    return labelFactory;
-  }
+    get labelFactory() {
+        return labelFactory;
+    }
 }

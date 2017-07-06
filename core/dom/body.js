@@ -27,7 +27,7 @@ export class Body extends Box {
 	}
 
 	columnCount() {
-		const columns = this.gridModel.view().columns;
+		const columns = this.model.view().columns;
 		return columnService.lineView(columns).length;
 	}
 
@@ -53,7 +53,7 @@ export class VirtualBody extends VirtualBox {
 	}
 
 	columnCount() {
-		const columns = this.gridModel.view().columns;
+		const columns = this.model.view().columns;
 		return columnService.lineView(columns).length;
 	}
 

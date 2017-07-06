@@ -9,9 +9,9 @@ import {TrCoreDirective} from './row';
 import {VScrollService} from './scroll';
 import {MarkupDirective} from './markup';
 import {TemplateCacheService} from '@grid/template';
-import {TemplateModule} from "@grid/template/template.module";
-import {CommonModule} from "@grid/common";
-import {TableCoreComponent} from "@grid/main/core/table";
+import {TemplateModule} from '@grid/template/template.module';
+import {CommonModule} from '@grid/common';
+import {TableCoreComponent} from '@grid/main/core/table';
 
 @NgModule({
   declarations: [
