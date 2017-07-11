@@ -1,5 +1,5 @@
 import {View} from '../view';
-import {Command} from '../infrastructure';
+import {Command} from '../command';
 import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
 import {CellSelector} from '../cell';
