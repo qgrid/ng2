@@ -1,5 +1,6 @@
 import {View} from '../view';
-import {Command, Shortcut, AppError} from '../infrastructure';
+import {AppError} from '../infrastructure';
+import {Command} from '../command';
 import {selectionStateFactory as stateFactory} from './state';
 import {SelectionRange} from './selection.range';
 import {SelectionService} from './selection.service';
@@ -18,9 +19,9 @@ export class SelectionView extends View {
 		this.selectionRange = new SelectionRange(model);
 
 		const selectionCommandManager = new SelectionCommandManager(model, commandManager);
-		const shortcut = new Shortcut(selectionCommandManager);
+		const shortcut = model.action().shortcut;
 		const commands = this.commands;
-		this.shortcutOff = shortcut.register('selectionNavigation', commands);
+		this.shortcutOff = shortcut.register(selectionCommandManager, commands);
 		this.toggleRow = commands.get('toggleRow');
 		this.toggleColumn = commands.get('toggleColumn');
 		this.toggleCell = commands.get('toggleCell');

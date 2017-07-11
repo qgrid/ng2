@@ -3,7 +3,8 @@ import {TemplateCacheService} from '@grid/template';
 import {RootComponent, RootService} from '@grid/infrastructure/component';
 import {LayerService} from '../layer';
 import {Table} from '@grid/core/dom';
-import {TableCommandManager, AppError} from '@grid/core/infrastructure';
+import {AppError} from '@grid/core/infrastructure';
+import {TableCommandManager} from '@grid/core/command';
 import {isUndefined} from '@grid/core/utility';
 
 @Component({
@@ -64,9 +65,9 @@ export class GridComponent extends RootComponent {
       model: element => bag.get(element) || null
     };
 
-      const table = new Table(model, markup, tableContext);
-      this.rootService.table = table;
-      this.rootService.commandManager = new TableCommandManager(this.applyFactory(), table);
+    const table = new Table(model, markup, tableContext);
+    this.rootService.table = table;
+    this.rootService.commandManager = new TableCommandManager(this.applyFactory(), table);
 
     this.model.viewChanged.watch(e => {
       if (e.hasChanges('columns')) {
@@ -86,36 +87,36 @@ export class GridComponent extends RootComponent {
     });
   }
 
-    applyFactory(gf = null, mode = 'async') {
-        return (lf, timeout) => {
-            if (isUndefined(timeout)) {
-                switch (mode) {
-                    case 'async': {
-                        timeout = 0;
-                        break;
-                    }
-                    case 'sync': {
-                        const result = lf();
-                        if (gf) {
-                            gf();
-                        }
-
-                        return result;
-                    }
-                    default:
-                        throw new AppError('grid', `Invalid mode ${mode}`);
-                }
+  applyFactory(gf = null, mode = 'async') {
+    return (lf, timeout) => {
+      if (isUndefined(timeout)) {
+        switch (mode) {
+          case 'async': {
+            timeout = 0;
+            break;
+          }
+          case 'sync': {
+            const result = lf();
+            if (gf) {
+              gf();
             }
 
-            return setTimeout(() => {
-                lf();
+            return result;
+          }
+          default:
+            throw new AppError('grid', `Invalid mode ${mode}`);
+        }
+      }
 
-                if (gf) {
-                    gf();
-                }
-            }, timeout);
-        };
-    }
+      return setTimeout(() => {
+        lf();
+
+        if (gf) {
+          gf();
+        }
+      }, timeout);
+    };
+  }
 
   get visibility() {
     // TODO: get rid of that

@@ -1,5 +1,5 @@
 import {View} from '../view';
-import {Command} from '../infrastructure';
+import {Command} from '../command';
 import {flatView, toggleStatus} from './row.details.service';
 import {RowDetails} from './row.details';
 

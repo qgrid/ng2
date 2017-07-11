@@ -1,4 +1,5 @@
-import {Log, Shortcut, Command} from '../infrastructure';
+import {Log} from '../infrastructure';
+import {Command} from '../command';
 import {RowEditor} from './edit.row.editor';
 
 export class EditRowView {
@@ -7,9 +8,9 @@ export class EditRowView {
 		this.table = table;
 		this.editor = RowEditor.empty;
 
-		const shortcut = new Shortcut(commandManager);
+		const shortcut = model.action().shortcut;
 		const commands = this.commands;
-		this.shortcutOff = shortcut.register('editRowNavigation', commands);
+		this.shortcutOff = shortcut.register(commandManager, commands);
 
 		this.enter = commands.get('enter');
 		this.commit = commands.get('commit');
