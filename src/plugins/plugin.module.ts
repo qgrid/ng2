@@ -1,12 +1,14 @@
 import {NgModule} from '@angular/core';
 import {PagerModule} from './pagination';
 import {ProgressModule} from './progress';
+import {ExportModule} from './export';
 
 @NgModule({
     declarations: [],
     exports: [
         PagerModule,
-        ProgressModule
+        ProgressModule,
+        ExportModule
     ],
     imports: [],
     providers: []

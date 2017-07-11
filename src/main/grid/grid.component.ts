@@ -45,8 +45,6 @@ export class GridComponent extends RootComponent {
 
   @Output() selectionChanged = new EventEmitter<any>();
 
-  keyDownOff: () => void = null;
-
   constructor(private rootService: RootService) {
     super();
 
@@ -70,19 +68,12 @@ export class GridComponent extends RootComponent {
     const table = new Table(model, markup, tableContext);
     this.rootService.table = table;
     this.rootService.commandManager = new TableCommandManager(this.applyFactory(), table);
-    this.keyDownOff = table.view.keyDown(e => model.action().shortcut.keyDown(e));
 
     this.model.viewChanged.watch(e => {
       if (e.hasChanges('columns')) {
         this.invalidateVisibility();
       }
     });
-  }
-
-  ngOnDestroy() {
-    if (this.keyDownOff) {
-      this.keyDownOff();
-    }
   }
 
   invalidateVisibility() {

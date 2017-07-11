@@ -29,6 +29,7 @@ const templates = [
 
     require('./templates/plugin-pager.tpl.html'),
     require('./templates/plugin-progress.tpl.html'),
+    require('./templates/plugin-export.tpl.html')
 ];
 
 @Component({

@@ -81,6 +81,10 @@
             "allow-pascal-case",
             "ban-keywords",
             "check-format"
+        ],
+        "no-namespace": [
+            true,
+            "allow-declarations"
         ]
     }
 }

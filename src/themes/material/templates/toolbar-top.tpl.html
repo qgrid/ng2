@@ -1,7 +1,15 @@
 <ng-template key="toolbar-top.tpl.html">
-  <h3 class="mat-card-title"
-      style="margin: 0; height: 56px; line-height: 56px;">
-    ANGULAR 2 QGRID SANDBOX
-  </h3>
-  <q-grid-progress></q-grid-progress>
+	<h3 class="mat-card-title"
+	    style="margin: 0; height: 56px; line-height: 56px;">
+		ANGULAR 2 QGRID SANDBOX
+	</h3>
+	<div class="flex-container" fxLayout>
+		<q-grid-export type="pdf"></q-grid-export>
+		<q-grid-export type="xml"></q-grid-export>
+		<q-grid-export type="csv"></q-grid-export>
+		<q-grid-export type="json"></q-grid-export>
+		<q-grid-export type="xlsx"></q-grid-export>
+	</div>
+
+	<q-grid-progress></q-grid-progress>
 </ng-template>
