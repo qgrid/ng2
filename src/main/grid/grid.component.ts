@@ -3,7 +3,8 @@ import {TemplateCacheService} from '@grid/template';
 import {RootComponent, RootService} from '@grid/infrastructure/component';
 import {LayerService} from '../layer';
 import {Table} from '@grid/core/dom';
-import {TableCommandManager, AppError} from '@grid/core/infrastructure';
+import {AppError} from '@grid/core/infrastructure';
+import {TableCommandManager} from '@grid/core/command';
 import {isUndefined} from '@grid/core/utility';
 
 @Component({
