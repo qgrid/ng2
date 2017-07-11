@@ -3,7 +3,8 @@ import {TemplateCacheService} from '@grid/template';
 import {RootComponent, RootService} from '@grid/infrastructure/component';
 import {LayerService} from '../layer';
 import {Table} from '@grid/core/dom';
-import {TableCommandManager, AppError} from '@grid/core/infrastructure';
+import {AppError} from '@grid/core/infrastructure';
+import {TableCommandManager} from '@grid/core/command';
 import {isUndefined} from '@grid/core/utility';
 
 @Component({
@@ -44,6 +45,8 @@ export class GridComponent extends RootComponent {
 
   @Output() selectionChanged = new EventEmitter<any>();
 
+  keyDownOff: () => void = null;
+
   constructor(private rootService: RootService) {
     super();
 
@@ -67,12 +70,19 @@ export class GridComponent extends RootComponent {
     const table = new Table(model, markup, tableContext);
     this.rootService.table = table;
     this.rootService.commandManager = new TableCommandManager(this.applyFactory(), table);
+    this.keyDownOff = table.view.keyDown(e => model.action().shortcut.keyDown(e));
 
     this.model.viewChanged.watch(e => {
       if (e.hasChanges('columns')) {
         this.invalidateVisibility();
       }
     });
+  }
+
+  ngOnDestroy() {
+    if (this.keyDownOff) {
+      this.keyDownOff();
+    }
   }
 
   invalidateVisibility() {
