@@ -2,6 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {DataService, Human} from '../../data/data.service';
 import {GridService} from '@grid/index.ts';
 
+import * as fileSaver from 'file-saver';
+import * as xlsx from 'xlsx';
+import * as pdf from 'jspdf';
+import 'jspdf-autotable';
+
 @Component({
     selector: 'home',
     providers: [],
@@ -15,9 +20,17 @@ export class HomeComponent implements OnInit {
     constructor(public dataService: DataService,
                 public gridService: GridService) {
         this.gridModel = gridService.model();
+        const imports = {
+            fileSaver,
+            xlsx,
+            pdf
+        };
         this.gridModel
             .pagination({
                 size: 40
+            })
+            .plugin({
+                imports
             });
     }
 
@@ -33,11 +46,7 @@ export class HomeComponent implements OnInit {
 
     private madeIsFeemaleField(humans: Human[]): Human[] {
         humans.forEach((human: any) => {
-            if (human.gender === 'female') {
-                human['isFemail'] = true;
-            } else {
-                human['isFemail'] = false;
-            }
+            human['isFemail'] = human.gender === 'female';
         });
         return humans;
     }
