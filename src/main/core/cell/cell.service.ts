@@ -5,7 +5,7 @@ import {noop} from '@grid/core/utility';
 // import {templateJitUrl} from '@angular/compiler';
 
 function canBuild(column) {
-  return column.type !== 'pad';
+    return column.type !== 'pad';
 }
 
 function buildKeys(source: string, column: any, mode = 'view') {
@@ -38,10 +38,10 @@ export class CellService {
                 private templateLink: TemplateLinkService) {
     }
 
-  build(source: string, column: any, mode = 'view') {
-    if (!canBuild(column)) {
-      return noop;
-    }
+    build(source: string, column: any, mode = 'view') {
+        if (!canBuild(column)) {
+            return noop;
+        }
 
         const keys = buildKeys(source, column, mode);
         const template = this.findTemplate(keys);
