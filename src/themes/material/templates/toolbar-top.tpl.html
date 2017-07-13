@@ -4,7 +4,11 @@
 		ANGULAR 2 QGRID SANDBOX
 	</h3>
 	<div class="flex-container" fxLayout>
-		<q-grid-export type="pdf"></q-grid-export>
+		<q-grid-export type="pdf">
+			<ng-template for="content">
+				Kate
+			</ng-template>
+		</q-grid-export>
 		<q-grid-export type="xml"></q-grid-export>
 		<q-grid-export type="csv"></q-grid-export>
 		<q-grid-export type="json"></q-grid-export>

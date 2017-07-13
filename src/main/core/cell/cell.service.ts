@@ -32,7 +32,6 @@ function buildKeys(source: string, column: any, mode = 'view') {
   }
 }
 
-
 @Injectable()
 export class CellService {
   constructor(private templateCache: TemplateCacheService,
@@ -55,7 +54,6 @@ export class CellService {
       viewContainerRef.createEmbeddedView(template, context);
     };
   }
-
 
   findTemplate(keys: Array<string>) {
     const templateCache = this.templateCache;

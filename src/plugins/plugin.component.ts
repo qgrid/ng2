@@ -1,10 +1,10 @@
 import {ModelBinder} from '@grid/core/infrastructure';
 import {noop} from '@grid/core/utility';
-import {Input, OnChanges, Optional, SimpleChanges} from '@angular/core';
+import {Input, OnChanges, OnDestroy, OnInit, Optional, SimpleChanges} from '@angular/core';
 import {NgComponent, RootService} from '../infrastructure/component';
 import {Guard} from '@grid/core/infrastructure';
 
-export class PluginComponent extends NgComponent implements OnChanges {
+export class PluginComponent extends NgComponent implements OnChanges, OnInit, OnDestroy {
   @Input('model') public gridModel: any = null;
 
   public context = {$implicit: this};
