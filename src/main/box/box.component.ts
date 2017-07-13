@@ -1,4 +1,4 @@
-import {Component, ElementRef, Optional, Input} from '@angular/core';
+import {Component, ElementRef, Optional, Input, OnInit} from '@angular/core';
 import {NgComponent} from '@grid/infrastructure/component/ng.component';
 import {ThemeService} from '@grid/template/theme.service';
 import {GRID_PREFIX} from '@grid/core/definition';
@@ -9,7 +9,7 @@ import {RootService} from '@grid/infrastructure/component/root.service';
     selector: 'q-grid-box',
     template: '<ng-content></ng-content>'
 })
-export class BoxComponent extends NgComponent {
+export class BoxComponent extends NgComponent implements OnInit {
     @Input('model') private boxModel: any = null;
     private element: HTMLElement = null;
 
