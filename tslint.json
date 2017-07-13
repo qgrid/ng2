@@ -29,8 +29,8 @@
         "no-access-missing-member": true,
         "no-attribute-parameter-decorator": true,
         "no-forward-ref": true,
-        "no-input-rename": true,
-        "no-output-rename": true,
+        "no-input-rename": false,
+        "no-output-rename": false,
         "pipe-naming": [
             true,
             "camelCase",

@@ -1,9 +1,9 @@
 import {Model, ModelBinder, Event} from '@grid/core/infrastructure';
 import {noop} from '@grid/core/utility';
-import {OnChanges, SimpleChanges} from '@angular/core';
+import {OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {NgComponent} from './ng.component';
 
-export class RootComponent extends NgComponent implements OnChanges {
+export class RootComponent extends NgComponent implements OnInit, OnChanges, OnDestroy {
   public model = null;
   public modelChanged = new Event();
   protected models: string[] = [];
