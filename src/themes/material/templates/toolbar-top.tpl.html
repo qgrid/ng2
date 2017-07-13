@@ -5,8 +5,11 @@
 	</h3>
 	<div class="flex-container" fxLayout>
 		<q-grid-export type="pdf">
-			<ng-template for="content">
-				Kate
+			<ng-template for="content" let-$export>
+				<button md-icon-button *ngIf="$export[$export.type] && $export[$export.type].canExecute()"
+				        (click)="$export[$export.type].execute()">
+					<md-icon>picture_as_pdf</md-icon>
+				</button>
 			</ng-template>
 		</q-grid-export>
 		<q-grid-export type="xml"></q-grid-export>
