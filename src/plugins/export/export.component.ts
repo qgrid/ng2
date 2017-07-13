@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit, Optional} from '@angular/core';
 import {PluginService} from '@grid/core/plugin';
 import {PluginComponent} from '../plugin.component';
 import {Command} from '@grid/core/command';
@@ -8,14 +8,26 @@ import {Csv} from '@grid/core/export/csv';
 import {Xlsx} from './xlsx';
 import {Pdf} from './pdf';
 import {downloadFactory} from './download';
+import {TemplateHostService} from '@grid/template';
+import {RootService} from '@grid/infrastructure/component';
 
 @Component({
     selector: 'q-grid-export',
     template: require('./export.component.html'),
+    providers: [TemplateHostService]
 })
 
-export class ExportComponent extends PluginComponent {
+export class ExportComponent extends PluginComponent implements OnInit {
     @Input() type: string;
+
+    constructor(@Optional() public root: RootService, private templateHost: TemplateHostService) {
+        super(root);
+    }
+
+    ngOnInit() {
+        super.ngOnInit();
+        this.templateHost.key = this.templateHostKey;
+    }
 
     get rows() {
         return this.root.model.data().rows;
@@ -27,6 +39,14 @@ export class ExportComponent extends PluginComponent {
 
     get id() {
         return this.root.model.grid().id;
+    }
+
+    get templateContentKey() {
+        return [`content-${this.templateHostKey}`, 'plugin-export.tpl.html'];
+    }
+
+    get templateHostKey() {
+        return `plugin-export-${this.type}.tpl.html`;
     }
 
     csv = new Command({
