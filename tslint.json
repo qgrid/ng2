@@ -39,7 +39,7 @@
         "templates-use-public": true,
         "use-host-property-decorator": true,
         "use-input-property-decorator": true,
-        "use-life-cycle-interface": false,
+        "use-life-cycle-interface": true,
         "use-output-property-decorator": true,
         "use-pipe-transform-interface": true,
         // General
