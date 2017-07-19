@@ -1,7 +1,16 @@
-export abstract class Event {
-  on(handler: (any) => void);
+import {IFunc} from '../dom/view';
 
-  watch(handler: (any) => void);
+export interface IEventShape{
+	(): void;
+}
 
-  emit(name: string, e: any);
+export interface IReturn{
+	(): void;
+}
+
+export declare class Event {
+	constructor(e: IEventShape);
+	on(f: IFunc): IReturn;
+	watch(f: IFunc): void;
+	emit(e: IEventShape): void;
 }
