@@ -89,6 +89,9 @@ export class BodyView extends View {
 						const rowIndex = node.rows[0];
 						return getValue(rows[rowIndex], column);
 					}
+					case 'value': {
+						return getValue(node, column);
+					}
 					default:
 						throw new AppError(
 							'view.body',

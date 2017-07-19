@@ -11,8 +11,14 @@ export class EditModel {
 		this.cancel = new Command();
 		this.reset = new Command();
 
+		this.cancelShortcuts = {
+			'$default': 'escape'
+		};
+
 		this.enterShortcuts = {
-			'$default': '*'
+			'$default': '*',
+			'row': 'F2|Enter',
+			'form': 'F2|Enter'
 		};
 
 		this.commitShortcuts = {
@@ -22,7 +28,9 @@ export class EditModel {
 			'reference': 'ctrl+s',
 			'email': 'ctrl+s',
 			'file': 'ctrl+s',
-			'image': 'ctrl+s'
+			'image': 'ctrl+s',
+			'row': 'ctrl+s',
+			'form': 'ctrl+s'
 		};
 	}
 }

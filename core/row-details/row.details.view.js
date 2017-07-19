@@ -4,13 +4,17 @@ import {flatView, toggleStatus} from './row.details.service';
 import {RowDetails} from './row.details';
 
 export class RowDetailsView extends View {
-	constructor(model, table) {
+	constructor(model, table, commandManager) {
 		super(model);
 
 		this.toggleStatus = new Command({
 			execute: row => {
-				const status = toggleStatus([row], model.row().status, model.row().mode);
+				if (!row) {
+					const cell = model.navigation().cell;
+					row = cell.row;
+				}
 
+				const status = toggleStatus([row], model.row().status, model.row().mode);
 				model.row({
 					status: status
 				}, {
@@ -24,7 +28,18 @@ export class RowDetailsView extends View {
 					source: 'row.details.view',
 					behavior: 'core'
 				});
-			}
+			},
+			canExecute: row => {
+				if (!row) {
+					const cell = model.navigation().cell;
+					if (cell && cell.column.type === 'row-expand') {
+						row = cell.row;
+					}
+				}
+
+				return !!row;
+			},
+			shortcut: model.row().shortcut.toggle
 		});
 
 		model.viewChanged.watch(e => {
@@ -37,6 +52,9 @@ export class RowDetailsView extends View {
 				});
 			}
 		});
+
+		const shortcut = model.action().shortcut;
+		shortcut.register(commandManager, [this.toggleStatus]);
 	}
 
 	status(row) {

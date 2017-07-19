@@ -28,10 +28,10 @@ const columns = [{
 }];
 
 describe('multiple selection state', () => {
-	before('init model', () => {
+	before('init model', () => {0
 		// Model.register('data', DataModel)
 		// 	.register('selection', SelectionModel);
-		//
+      //
 
 		model = new Model();
 
