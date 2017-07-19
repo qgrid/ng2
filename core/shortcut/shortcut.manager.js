@@ -18,10 +18,17 @@ export class ShortcutManager {
 			this.managerMap.set(manager, context);
 		}
 
+		const disposes = [];
 		for (let cmd of cmds) {
 			if (cmd.shortcut) {
 				if (isFunction(cmd.shortcut)) {
 					context.commands.push(cmd);
+					disposes.push(() => {
+						const index = context.commands.indexOf(cmd);
+						if (index >= 0) {
+							context.commands.splice(index, 1);
+						}
+					});
 				}
 				else {
 					cmd.shortcut
@@ -34,24 +41,25 @@ export class ShortcutManager {
 							}
 							temp.push(cmd);
 							context.shortcuts.set(shortcut, temp);
+							disposes.push(() => {
+								const shortcutCommands = context.shortcuts.get(shortcut);
+								if (shortcutCommands) {
+									const index = shortcutCommands.indexOf(cmd);
+									if (index >= 0) {
+										shortcutCommands.splice(index, 1);
+										if (!shortcutCommands.length) {
+											context.shortcuts.delete(shortcut);
+										}
+									}
+								}
+							});
 						});
 				}
 			}
 		}
 
 		return () => {
-			for (let command of commands) {
-				if (isFunction(command.shortcut)) {
-					const index = context.commands.indexOf(command);
-					if (index >= 0) {
-						context.commands.splice(index, 1);
-					}
-				}
-				else {
-					delete context.shortcuts[command.shortcut];
-				}
-			}
-
+			disposes.forEach(dispose => dispose());
 			if (context.commands.length === 0 && Object.keys(context.shortcuts).length === 0) {
 				this.managerMap.delete(manager);
 			}

@@ -9,6 +9,13 @@ TemplatePath.register('group-cell', (template, column) => {
 	};
 });
 
+TemplatePath.register('group-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
 export class GroupColumnModel extends ColumnModel {
 	constructor() {
 		super('group');

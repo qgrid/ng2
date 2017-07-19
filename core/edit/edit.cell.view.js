@@ -29,7 +29,7 @@ export class EditCellView {
 		const table = this.table;
 		const commands = {
 			enter: new Command({
-				shortcut: this.enterShortcut.bind(this),
+				shortcut: this.shortcutFactory('enter'),
 				canExecute: cell => {
 					// TODO: source should be set up from outside
 					const source = cell ? 'mouse' : 'keyboard';
@@ -73,7 +73,7 @@ export class EditCellView {
 				}
 			}),
 			commit: new Command({
-				shortcut: this.commitShortcut.bind(this),
+				shortcut: this.shortcutFactory('commit'),
 				// TODO: add validation support
 				canExecute: cell => {
 					cell = cell || this.editor.cell || model.navigation().cell;
@@ -103,7 +103,7 @@ export class EditCellView {
 				}
 			}),
 			cancel: new Command({
-				shortcut: 'Escape',
+				shortcut: this.shortcutFactory('cancel'),
 				canExecute: cell => {
 					cell = cell || this.editor.cell || model.navigation().cell;
 					return cell
@@ -160,6 +160,7 @@ export class EditCellView {
 				}
 			})
 		};
+
 		return new Map(
 			Object.entries(commands)
 		);
@@ -218,32 +219,21 @@ export class EditCellView {
 		return this.editor.options;
 	}
 
-	commitShortcut() {
+	shortcutFactory(type) {
 		const model = this.model;
-		const shortcuts = model.edit().commitShortcuts;
-		const cell = this.editor.cell || model.navigation().cell;
-		if (cell) {
-			const type = cell.column && cell.column.editor ? cell.column.editor : cell.column.type;
-			if (shortcuts.hasOwnProperty(type)) {
-				return shortcuts[type];
+		const edit = model.edit;
+		return () => {
+			const shortcuts = edit()[type + 'Shortcuts'];
+			const cell = this.editor.cell || model.navigation().cell;
+			if (cell) {
+				const type = cell.column && cell.column.editor ? cell.column.editor : cell.column.type;
+				if (shortcuts.hasOwnProperty(type)) {
+					return shortcuts[type];
+				}
 			}
-		}
 
-		return shortcuts['$default'];
-	}
-
-	enterShortcut() {
-		const model = this.model;
-		const shortcuts = model.edit().enterShortcuts;
-		const cell = this.editor.cell || model.navigation().cell;
-		if (cell) {
-			const type = cell.column && cell.column.editor ? cell.column.editor : cell.column.type;
-			if (shortcuts.hasOwnProperty(type)) {
-				return shortcuts[type];
-			}
-		}
-
-		return shortcuts['$default'];
+			return shortcuts['$default'];
+		};
 	}
 
 	destroy() {
