@@ -1,5 +1,4 @@
-// import TemplateLink from '@grid/view/components/template/template.link';
-// import PopupEntry from './popup.entry';
+import {Injectable} from '@angular/core';
 import {AppError} from '@grid/core/infrastructure';
 import {Model} from '@grid/core/infrastructure/model';
 import {Popup} from '@grid/plugins/popup/popup';
@@ -15,10 +14,21 @@ export interface ITarget {
   width: () => number;
 }
 
-export default class PopupService {
-  constructor(private popups: Popup[]){}
+export interface IPopupSettings {
+  height: string;
+  width: string;
+  offsetTop: string;
+  offsetLeft: string;
+  target: any;
+}
 
-  private close(id: string): void {
+@Injectable()
+export default class PopupService {
+
+  constructor(private popups: Popup[]) {
+  }
+
+  public close(id: string): void {
     if (!this.isOpened(id)) {
       throw new AppError('popup.service', `Can't close popup '${id}', it's not opened`);
     }
@@ -28,7 +38,7 @@ export default class PopupService {
     item.close();
   }
 
-  private isOpened(id: string): boolean {
+  public isOpened(id: string): boolean {
     return this.popups.hasOwnProperty(id);
   }
 
@@ -39,7 +49,8 @@ export default class PopupService {
   }
 
   private createPopup(): HTMLElement {
-    // const popup = angular.element('<q-grid:popup-panel id="id" model="model"></q-grid:popup-panel>'); // eslint-disable-line no-undef
+    // const popup = angular.element('<q-grid:popup-panel id="id" model="model"></q-grid:popup-panel>');
+    // eslint-disable-line no-undef
     // this.popups[settings.id] = new PopupEntry(popup, settings, this.$document[0].body);
     //
     // this.$document[0].body.appendChild(popup[0]);
@@ -48,27 +59,27 @@ export default class PopupService {
   }
 
   private createScope(): object {
-    //this.$rootScope.$new(false, scope);
+    // this.$rootScope.$new(false, scope);
     return null;
   }
 
   private getWindowWidth(): number {
-    //this.$window.innerWidth;
+    // this.$window.innerWidth;
     return null;
   }
 
   private getWindowHeight(): number {
-    //this.$window.innerHeight;
+    // this.$window.innerHeight;
     return null;
   }
 
   private getWindowInnerWidth(): number {
-    //this.$window.innerWidth
+    // this.$window.innerWidth
     return null;
   }
 
   private getWindowInnerHeight(): number {
-    //this.$window.innerHeight
+    // this.$window.innerHeight
     return null;
   }
 
@@ -110,7 +121,7 @@ export default class PopupService {
   }
 
   public collapse(id: string): void {
-    const item: any = self.popups[id];
+    const item = self.popups[id];
     item.collapse();
   }
 
@@ -123,12 +134,12 @@ export default class PopupService {
     popup.focus();
   }
 
-  public resize(id: string, settings: any): void {
+  public resize(id: string, settings: IPopupSettings): void {
     const item = this.popups[id];
     item.resize(settings);
   }
 
-  private targetize(settings: any): ITarget {
+  public targetize(settings: IPopupSettings): ITarget {
     const target = settings.target;
     if (!target) {
       return {
@@ -158,7 +169,7 @@ export default class PopupService {
     };
   }
 
-  private position(target: ITarget, settings: any): IOffset {
+  public position(target: ITarget, settings: IPopupSettings): IOffset {
     const dy = parseInt(settings.offsetTop) || 0;
     const dx = parseInt(settings.offsetLeft) || 0;
     const w = this.getWindowWidth();
