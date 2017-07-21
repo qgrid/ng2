@@ -7,7 +7,6 @@ import {TemplateHostService} from '@grid/template';
 @Component({
   selector: 'q-grid-popup',
   templateUrl: './popup.component.html',
-  styleUrls: ['./popup.scss'],
   providers: [TemplateHostService, PopupService]
 })
 
