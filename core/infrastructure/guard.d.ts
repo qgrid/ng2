@@ -1,6 +1,6 @@
 export declare class Guard {
-	static notUndefined(value: any, name: string): void;
-	static notNull(value: any, name: string): void;
-	static notNullOrEmpty(value: any, name: string): void;
-	static invokable(value: any, name: string): void;
+	static notUndefined(value: any, name: any): void;
+	static notNull(value: any, name: any): void;
+	static notNullOrEmpty(value: any, name: any): void;
+	static invokable(value: any, name: any): void;
 }

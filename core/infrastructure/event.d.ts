@@ -9,8 +9,8 @@ export interface IReturn{
 }
 
 export declare class Event {
-	constructor(e: IEventShape);
+	constructor();
 	on(f: IFunc): IReturn;
 	watch(f: IFunc): void;
-	emit(e: IEventShape): void;
+	emit(e: string): void;
 }
