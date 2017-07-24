@@ -1,4 +1,4 @@
-import {Component, OnInit, Optional, Input, OnDestroy} from '@angular/core';
+import {Component, Optional, Input, OnDestroy, OnInit} from '@angular/core';
 import PopupService, {IPopupSettings} from '@grid/plugins/popup/popup.service';
 import {PluginComponent} from '@grid/plugins';
 import {RootService} from '@grid/infrastructure/component';
@@ -6,8 +6,7 @@ import {TemplateHostService} from '@grid/template';
 
 @Component({
   selector: 'q-grid-popup',
-  templateUrl: './popup.component.html',
-  styleUrls: ['./popup.scss'],
+  template: require('./popup.component.html'),
   providers: [TemplateHostService, PopupService]
 })
 
@@ -16,6 +15,8 @@ export class PopupComponent extends PluginComponent implements OnInit, OnDestroy
 
   constructor(@Optional() root: RootService, private qGridPopupService: PopupService, private templateHost: TemplateHostService) {
     super(root);
+
+    this.models = ['popup'];
   }
 
   ngOnInit() {

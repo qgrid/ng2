@@ -16,7 +16,7 @@ export default class Popup {
   private layout: any;
   private onClose: any;
 
-  constructor(private element: HTMLElement, private settings: any, private body: any) {
+  constructor(private element: HTMLElement, private settings: IPopupSettings, private body: HTMLElement) {
     this.event = new Event();
     this.state = {
       expanded: false,

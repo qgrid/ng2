@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
+import {ElementRef, Injectable} from '@angular/core';
 import {AppError} from '@grid/core/infrastructure';
 import {Model} from '@grid/core/infrastructure/model';
-import {Popup} from '@grid/plugins/popup/popup';
+import Popup from '@grid/plugins/popup/popup.entry';
 
 export interface IOffset {
   left: number;
@@ -21,12 +21,31 @@ export interface IPopupSettings {
   offsetLeft: any;
   target: any;
   id: string;
+  close: any;
+  resizable: boolean;
+  collapsible: boolean;
+  cls: boolean;
 }
+
+export let PopupSettings: IPopupSettings = {
+  height: null,
+  width: null,
+  offsetTop: null,
+  offsetLeft: null,
+  target: null,
+  id: null,
+  close: null,
+  resizable: null,
+  collapsible: null,
+  cls: null
+};
 
 @Injectable()
 export default class PopupService {
 
-  constructor(private popups: Popup[]) {
+  private settings: IPopupSettings;
+
+  constructor(private popups: Popup[], private element: ElementRef) {
   }
 
   public close(id: string): void {
@@ -49,38 +68,8 @@ export default class PopupService {
     }
   }
 
-  private createPopup(): HTMLElement {
-    // const popup = angular.element('<q-grid:popup-panel id="id" model="model"></q-grid:popup-panel>');
-    // eslint-disable-line no-undef
-    // this.popups[settings.id] = new PopupEntry(popup, settings, this.$document[0].body);
-    //
-    // this.$document[0].body.appendChild(popup[0]);
-    // this.$compile(popup)(popupScope);
-    return null;
-  }
-
   private createScope(): object {
     // this.$rootScope.$new(false, scope);
-    return null;
-  }
-
-  private getWindowWidth(): number {
-    // this.$window.innerWidth;
-    return null;
-  }
-
-  private getWindowHeight(): number {
-    // this.$window.innerHeight;
-    return null;
-  }
-
-  private getWindowInnerWidth(): number {
-    // this.$window.innerWidth
-    return null;
-  }
-
-  private getWindowInnerHeight(): number {
-    // this.$window.innerHeight
     return null;
   }
 
@@ -96,24 +85,30 @@ export default class PopupService {
     // popupScope.model = model;
     // popupScope.id = settings.id;
 
-    const popup = this.createPopup();
+    const popup = this.element.nativeElement.document.body.getElementsByTagName('<q-grid:popup-panel id="id" model="model">')[0]; // eslint-disable-line no-undef
+    this.popups[this.settings.id] = new Popup(popup, this.settings, this.element.nativeElement.document[0].body);
 
-    // popup.attr('id', settings.id);
-    // popup.css({left: pos.left + 'px', top: pos.top + 'px', zIndex: 79});
+    this.element.nativeElement.document[0].body.appendChild(popup[0]);
+    // this.$compile(popup)(popupScope);
 
-    // if (settings.resizable) {
-    //   popup.addClass('resizable');
-    // }
-    //
-    // if (settings.collapsible) {
-    //   popup.addClass('collapsible');
-    // }
-    //
-    // if (settings.cls) {
-    //   popup.addClass(settings.cls);
-    // }
-    //
-    // this.popups[settings.id].focus();
+    popup.setAttribute('id', settings.id);
+    popup.style.cssText = `left: pos.left + 'px';
+                            top: pos.top + 'px';
+                            zIndex: 79`;
+
+    if (settings.resizable) {
+      popup.addClass('resizable');
+    }
+
+    if (settings.collapsible) {
+      popup.addClass('collapsible');
+    }
+
+    if (settings.cls) {
+      popup.addClass(settings.cls);
+    }
+
+    this.popups[settings.id].focus();
   }
 
   public expand(id: string): void {
@@ -122,7 +117,7 @@ export default class PopupService {
   }
 
   public collapse(id: string): void {
-    const item = self.popups[id];
+    const item = this.element.nativeElement.self.popups[id];
     item.collapse();
   }
 
@@ -146,8 +141,8 @@ export default class PopupService {
       return {
         offset: () => {
           return {
-            left: (this.getWindowInnerWidth()) / 2,
-            top: (this.getWindowInnerHeight() - (parseInt(settings.height) || 0)) / 2
+            left: (this.element.nativeElement.window.innerWidth()) / 2,
+            top: (this.element.nativeElement.window.innerHeight() - (parseInt(settings.height) || 0)) / 2
           };
         },
         height: () => {
@@ -173,8 +168,8 @@ export default class PopupService {
   public position(target: ITarget, settings: IPopupSettings): IOffset {
     const dy = parseInt(settings.offsetTop) || 0;
     const dx = parseInt(settings.offsetLeft) || 0;
-    const w = this.getWindowWidth();
-    const h = this.getWindowHeight();
+    const w = this.element.nativeElement.window.innerWidth();
+    const h = this.element.nativeElement.window.innerHeight();
     const p = target.offset();
     const x = p.left;
     const y = p.top;
