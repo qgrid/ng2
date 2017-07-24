@@ -10,10 +10,15 @@ export interface IState {
   active: boolean;
 }
 
+export interface ILayout {
+  position: any;
+  size: any;
+}
+
 export default class Popup {
   private event: Event;
   private state: IState;
-  private layout: any;
+  private layout: ILayout;
   private onClose: any;
 
   constructor(private element: HTMLElement, private settings: IPopupSettings, private body: HTMLElement) {
@@ -35,12 +40,11 @@ export default class Popup {
   }
 
   expand(): void {
-    const
-      position = {
+    const position = {
         top: this.element.style.top,
         left: this.element.style.left
-      },
-      size = {
+      };
+    const size = {
         width: this.element.offsetWidth,
         height: this.element.offsetHeight
       };
@@ -71,7 +75,7 @@ export default class Popup {
   focus(): void {
     this.state.active = true;
     this.element.classList.add('active');
-    this.element.setAttribute('tabindex', "0");
+    this.element.setAttribute('tabindex', '0');
     this.element.focus();
 
     this.event.emit('focus');
@@ -92,8 +96,8 @@ export default class Popup {
   }
 
   resize(settings: IPopupSettings): void {
-    this.element.setAttribute("width", Math.min(settings.width, this.body.clientWidth - this.element.offsetLeft) + 'px');
-    this.element.setAttribute("height", Math.min(settings.height, this.body.clientHeight - this.element.offsetTop) + 'px');
+    this.element.setAttribute('width', Math.min(settings.width, this.body.clientWidth - this.element.offsetLeft) + 'px');
+    this.element.setAttribute('height', Math.min(settings.height, this.body.clientHeight - this.element.offsetTop) + 'px');
     this.event.emit('resize');
   }
 }

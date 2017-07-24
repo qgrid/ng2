@@ -8,7 +8,7 @@ import {TemplateCacheService, TemplateLinkService} from '@grid/template';
   template: require('qgrid.plugin.popup-panel.tpl.html')
 })
 
-export class PopupPanel implements OnInit, OnDestroy {
+export class PopupPanelComponent implements OnInit, OnDestroy {
   @Input('<') model;
   @Input('<') id;
 

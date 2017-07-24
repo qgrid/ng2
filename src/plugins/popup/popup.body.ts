@@ -13,7 +13,7 @@ import {TemplateCacheService, TemplateLinkService} from '@grid/template';
   template: require('qgrid.plugin.popup-body.tpl.html')
 })
 
-class PopupBody implements OnInit, OnDestroy {
+class PopupBodyComponent implements OnInit, OnDestroy {
   @Input('<') model;
   @Input('<') id;
   @Input() popup;
@@ -23,19 +23,18 @@ class PopupBody implements OnInit, OnDestroy {
   private shortcutService;
   private shortcut;
 
-	constructor(private qGridPopupService: PopupService,
+  constructor(private qGridPopupService: PopupService,
               private element: ElementRef,
               private viewContainerRef: ViewContainerRef,
               private templateLink: TemplateLinkService,
               private templateCache: TemplateCacheService) {
+    this.template = new TemplateLink();
+    this.listener = new EventListener(this.element.nativeElement[0], new EventManager(this));
+    this.shortcutService = new Shortcut(new ShortcutManager());
+    this.listener.on('keydown', e => this.shortcutService.keyDown(e));
+  }
 
-		this.template = new TemplateLink();
-		this.listener = new EventListener(this.element.nativeElement[0], new EventManager(this));
-		this.shortcutService = new Shortcut(new ShortcutManager());
-		this.listener.on('keydown', e => this.shortcutService.keyDown(e));
-	}
-
-	ngOnInit(): void {
+  ngOnInit(): void {
     const commandManager = new PopupCommandManager(f => f(), this.qGridPopupService.get(this.id));
     this.shortcut = this.shortcutService.factory(commandManager);
 
@@ -57,11 +56,12 @@ class PopupBody implements OnInit, OnDestroy {
     // 	this.$templateScope = templateScope;
     // }
   }
-    ngOnDestroy(): void{
-		this.listener.off();
-	}
 
-	close(): void {
-		this.popup.close();
-	}
+  ngOnDestroy(): void {
+    this.listener.off();
+  }
+
+  close(): void {
+    this.popup.close();
+  }
 }

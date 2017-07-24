@@ -10,7 +10,7 @@ import {TemplateCacheService, TemplateLinkService} from '@grid/template';
   template: require('qgrid.plugin.popup-head.tpl.html')
 })
 
-export class PopupHead implements OnInit, OnDestroy {
+export class PopupHeadComponent implements OnInit, OnDestroy {
   @Input('<') model;
   @Input('<') id;
   @Input() popup;
