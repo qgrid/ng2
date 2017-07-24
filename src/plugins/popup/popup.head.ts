@@ -3,7 +3,7 @@ import TemplateLink from '@grid/view/components/template/template.link';
 import {EventListener} from '@grid/core/infrastructure/event.listener';
 import {EventManager} from '@grid/core/infrastructure/event.manager';
 import PopupService from '@grid/plugins/popup/popup.service';
-import {TemplateCacheService, TemplateLinkService} from "@grid/template";
+import {TemplateCacheService, TemplateLinkService} from '@grid/template';
 
 @Component({
   selector: 'q-grid-popup-head',

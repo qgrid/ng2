@@ -87,7 +87,7 @@ export default class Popup {
     return this.state.active;
   }
 
-  keyDown(f: IFunc): IOnResult  {
+  keyDown(f: IFunc): IOnResult {
     return new EventListener(this.element[0], new EventManager(this)).on('keydown', f);
   }
 

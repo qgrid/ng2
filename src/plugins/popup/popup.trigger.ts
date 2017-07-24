@@ -1,7 +1,5 @@
-import {Component, Optional, Input, ElementRef, OnInit, OnDestroy, ViewContainerRef} from '@angular/core';
-import TemplateLink from '@grid/view/components/template/template.link';
+import {Component, Input, ElementRef, OnInit, OnDestroy, ViewContainerRef} from '@angular/core';
 import {POPUP_NAME} from '../definition';
-import {RootService} from '@grid/infrastructure/component';
 import PopupService, {IPopupSettings, PopupSettings} from '@grid/plugins/popup/popup.service';
 import {TemplateCacheService, TemplateLinkService} from '@grid/template';
 

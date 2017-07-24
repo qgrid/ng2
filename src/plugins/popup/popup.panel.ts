@@ -13,6 +13,7 @@ export class PopupPanel implements OnInit, OnDestroy {
   @Input('<') id;
 
   private template;
+
   constructor(private qGridPopupService: PopupService,
               private element: ElementRef,
               private viewContainerRef: ViewContainerRef,
@@ -21,7 +22,7 @@ export class PopupPanel implements OnInit, OnDestroy {
     this.template = new TemplateLink();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const model = this.model;
     const templateUrl = 'qgrid.plugin.popup-panel.tpl.html';
     const template =

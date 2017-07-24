@@ -1,6 +1,5 @@
 import Component from '@grid/view/components/component';
 import TemplateLink from '@grid/view/components/template/template.link';
-import * as def from '../definition';
 import {Shortcut, ShortcutManager} from '@grid/core/shortcut';
 import {PopupCommandManager} from './popup.command.manager';
 import {EventListener} from '@grid/core/infrastructure/event.listener';
@@ -36,7 +35,7 @@ class PopupBody implements OnInit, OnDestroy {
 		this.listener.on('keydown', e => this.shortcutService.keyDown(e));
 	}
 
-	ngOnInit() {
+	ngOnInit(): void {
     const commandManager = new PopupCommandManager(f => f(), this.qGridPopupService.get(this.id));
     this.shortcut = this.shortcutService.factory(commandManager);
 

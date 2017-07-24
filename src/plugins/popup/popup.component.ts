@@ -69,7 +69,7 @@ export class PopupComponent extends PluginComponent implements OnInit, OnDestroy
     return this.model.popup().resource;
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.onDestroy();
   }
 
