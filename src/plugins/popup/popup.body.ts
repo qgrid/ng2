@@ -65,4 +65,3 @@ class PopupBody implements OnInit, OnDestroy {
 		this.popup.close();
 	}
 }
-

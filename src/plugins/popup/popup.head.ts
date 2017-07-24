@@ -100,4 +100,3 @@ export class PopupHead implements OnInit, OnDestroy {
     this.element.nativeElement.document.body.unbind('dragover', this.onDragOver);
   }
 }
-

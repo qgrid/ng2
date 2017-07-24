@@ -51,4 +51,3 @@ export class PopupTrigger implements OnInit, OnDestroy {
     this.popup.open(settings);
   }
 }
-
