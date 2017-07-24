@@ -5,5 +5,5 @@ export interface IOptions{
 }
 
 export declare class Json {
-	write(rows: any[], columns: ColumnModel, options: IOptions): string;
+	write(rows: any[], columns: ColumnModel, options?: IOptions): string;
 }
