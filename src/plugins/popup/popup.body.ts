@@ -2,7 +2,7 @@ import Component from '@grid/view/components/component';
 import TemplateLink from '@grid/view/components/template/template.link';
 import {Shortcut, ShortcutManager} from '@grid/core/shortcut';
 import {PopupCommandManager} from './popup.command.manager';
-import {ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
+import {Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 import PopupService from '@grid/plugins/popup/popup.service';
 import {TemplateCacheService, TemplateLinkService} from '@grid/template';
 

@@ -9,8 +9,8 @@ import {TemplateCacheService, TemplateLinkService} from '@grid/template';
 })
 
 export class PopupPanelComponent implements OnInit, OnDestroy {
-  @Input('<') model;
-  @Input('<') id;
+  @Input() model;
+  @Input() id;
 
   private template;
 

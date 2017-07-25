@@ -11,8 +11,8 @@ import {TemplateCacheService, TemplateLinkService} from '@grid/template';
 })
 
 export class PopupHeadComponent implements OnInit, OnDestroy {
-  @Input('<') model;
-  @Input('<') id;
+  @Input() model;
+  @Input() id;
   @Input() popup;
 
   private eventListener: EventListener;
