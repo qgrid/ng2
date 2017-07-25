@@ -5,8 +5,7 @@ export interface IBindResult{
 }
 
 export declare class EventManager {
-	constructor(context: object, apply: IFunc);
+	constructor(context: object);
 	context: object;
-	apply: IFunc;
 	bind(f: IFunc): IBindResult;
 }
