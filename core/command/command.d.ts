@@ -1,9 +1,6 @@
-import {Shortcut} from '../infrastructure/shortcut';
-
-export interface IContext{
-  execute(param: object): any;
-  canExecute(param: object): boolean;
-  shortcut: Shortcut;
+export interface IContext {
+  execute: () => void;
+  canExecute: () => boolean;
 }
 
 export declare class Command {
