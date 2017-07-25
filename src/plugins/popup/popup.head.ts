@@ -91,7 +91,6 @@ export class PopupHeadComponent implements OnInit, OnDestroy {
     this.element.nativeElement.body.bind('dragover', this.onDragOver);
   }
 
-
   private onDragOver(e: Event): void {
     e.preventDefault();
   }

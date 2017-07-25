@@ -2,8 +2,6 @@ import Component from '@grid/view/components/component';
 import TemplateLink from '@grid/view/components/template/template.link';
 import {Shortcut, ShortcutManager} from '@grid/core/shortcut';
 import {PopupCommandManager} from './popup.command.manager';
-import {EventListener} from '@grid/core/infrastructure/event.listener';
-import {EventManager} from '@grid/core/infrastructure/event.manager';
 import {ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 import PopupService from '@grid/plugins/popup/popup.service';
 import {TemplateCacheService, TemplateLinkService} from '@grid/template';
@@ -18,20 +16,16 @@ class PopupBodyComponent implements OnInit, OnDestroy {
   @Input('<') id;
   @Input() popup;
 
-  private listener: EventListener;
   private template: TemplateLinkService;
   private shortcutService;
   private shortcut;
 
   constructor(private qGridPopupService: PopupService,
-              private element: ElementRef,
               private viewContainerRef: ViewContainerRef,
               private templateLink: TemplateLinkService,
               private templateCache: TemplateCacheService) {
     this.template = new TemplateLink();
-    this.listener = new EventListener(this.element.nativeElement[0], new EventManager(this));
     this.shortcutService = new Shortcut(new ShortcutManager());
-    this.listener.on('keydown', e => this.shortcutService.keyDown(e));
   }
 
   ngOnInit(): void {
@@ -58,7 +52,6 @@ class PopupBodyComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.listener.off();
   }
 
   close(): void {
