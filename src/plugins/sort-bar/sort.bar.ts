@@ -91,6 +91,7 @@ export class SortBarComponent extends PluginComponent implements OnInit {
   });
 
   ngOnInit() {
+    super.ngOnInit()
     const sortBy = this.model.sort().by;
     sortBy.forEach(key => this.add.execute(key));
   }
