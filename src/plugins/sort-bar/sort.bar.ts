@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import {Component, Input, OnInit, Optional} from '@angular/core';
 
 import {PluginComponent} from '../plugin.component';
@@ -8,7 +7,6 @@ import {SORT_BAR_NAME} from '../definition';
 import {TH_CORE_NAME} from '@grid/view/definition';
 import {TemplatePath} from '@grid/core/template';
 import {RootService} from '@grid/infrastructure/component';
-import {TemplateHostService} from '@grid/template';
 
 @Component({
   selector: 'q-grid-sort-bar',
@@ -91,7 +89,7 @@ export class SortBarComponent extends PluginComponent implements OnInit {
   });
 
   ngOnInit() {
-    super.ngOnInit()
+    super.ngOnInit();
     const sortBy = this.model.sort().by;
     sortBy.forEach(key => this.add.execute(key));
   }
