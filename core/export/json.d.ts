@@ -1,6 +1,6 @@
 import {ColumnModel} from '../column-type/column.model';
 
-export interface IOptions{
+export interface IOptions {
 	structure: string;
 }
 
