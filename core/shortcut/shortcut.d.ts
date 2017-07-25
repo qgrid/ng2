@@ -8,13 +8,13 @@ export interface IKeyCode {
 }
 
 export declare class Shortcut {
-	constructor(manager: ShortcutManager);
+  constructor(manager: ShortcutManager);
   manager: ShortcutManager;
-	static isControl(keyCode: IKeyCode): boolean;
-	static isPrintable(keyCode: IKeyCode): boolean;
-	static stringify(keyCode: IKeyCode): string;
-	static translate(e: Event): string;
-	factory(commandManager: CommandManager): object;
-	keyDown(e: Event): boolean;
-	register(commandManager: CommandManager, commands: any[]);
+  static isControl(keyCode: IKeyCode): boolean;
+  static isPrintable(keyCode: IKeyCode): boolean;
+  static stringify(keyCode: IKeyCode): string;
+  static translate(e: Event): string;
+  factory(commandManager: CommandManager): object;
+  keyDown(e: Event): boolean;
+  register(commandManager: CommandManager, commands: any[]);
 }
