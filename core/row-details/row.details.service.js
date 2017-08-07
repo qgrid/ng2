@@ -26,14 +26,20 @@ export function flatView(table) {
 	return result;
 }
 
+export function invalidateStatus(rows, status) {
+	return new Map(Array
+		.from(status.entries())
+		.filter(entry => {
+			const row = entry[0];
+			const status = entry[1];
+			return rows.indexOf(row) >= 0 || !(status instanceof RowDetailsStatus);
+		}));
+}
+
 export function toggleStatus(rows, status, mode = 'single') {
 	switch (mode) {
 		case 'single':
-			status = new Map(Array.from(status.entries()).filter(entry => {
-				const row = entry[0];
-				const status = entry[1];
-				return rows.indexOf(row) >= 0 || !(status instanceof RowDetailsStatus);
-			}));
+			status = invalidateStatus(rows, status);
 			break;
 		case 'multiple':
 			status = new Map(status.entries());

@@ -1,4 +1,6 @@
-import {ColumnModel} from '../column-type/column.model';
+import {Table} from "../dom/table";
+import {Model} from "../infrastructure/model";
+import {ColumnModel} from "../column-type/column.model";
 
 export interface IRowApplyFactoryResult{
 	(row: any, context: object): void;
@@ -9,11 +11,19 @@ export interface ICellApplyFactoryResult{
 }
 
 export declare class VirtualRowStyle {
-	constructor();
+	constructor(public table: Table);
+
+	 model: Model;
+
+
 	applyFactory(): IRowApplyFactoryResult;
 }
 
 export declare class VirtualCellStyle {
-	constructor();
+	constructor(public table: Table);
+
+	model: Model;
+
 	applyFactory(): ICellApplyFactoryResult;
+
 }

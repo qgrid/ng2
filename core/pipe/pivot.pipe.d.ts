@@ -1,4 +1,4 @@
-import {IContext, IMemo, INext} from './column.pipe';
+import {IContext, IMemo, INext} from "./column.pipe";
 
 export interface IPivotPipe{
 	(memo: IMemo, context: IContext, next: INext): void;

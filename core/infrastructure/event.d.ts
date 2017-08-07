@@ -1,4 +1,4 @@
-import {IFunc} from '../dom/view';
+import {IFunc} from "../dom/view";
 
 export interface IEventShape{
 	(): void;
@@ -9,8 +9,12 @@ export interface IReturn{
 }
 
 export declare class Event {
-	constructor();
+
+	constructor(e: IEventShape);
+
 	on(f: IFunc): IReturn;
+
 	watch(f: IFunc): void;
-	emit(e: string): void;
+
+	emit(e: IEventShape): void;
 }

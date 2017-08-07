@@ -81,8 +81,12 @@ function parseText(value) {
 }
 
 function parseDate(value) {
-	if (value === null) {
+	if (value === null || value === false || value === true) {
 		return null;
+	}
+
+	if(typeof value === 'number') {
+		value = value.toString();
 	}
 
 	const date = new Date(value);

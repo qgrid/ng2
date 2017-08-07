@@ -22,8 +22,13 @@ export interface IIsEmailResult{
 }
 
 export declare const noop: INoopResult;
+
 export declare const yes: IYesResult;
+
 export declare const no: INoResult;
+
 export declare const identity: IIdentityResult;
+
 export declare const toCamelCase: IToCamelCaseResult;
+
 export declare const isEmail: IIsEmailResult;

@@ -7,6 +7,6 @@ export declare class RowOptionsColumnModel extends DataColumnModel {
 }
 
 export declare class RowOptionsColumn extends ColumnView {
-	constructor(model: Model);
+	constructor();
 	static model(model: Model): Model;
 }

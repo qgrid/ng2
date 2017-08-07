@@ -7,6 +7,6 @@ declare class RowExpandColumnModel extends ColumnModel {
 }
 
 export declare class RowExpandColumn extends ColumnView {
-	constructor(model: Model);
+	constructor();
 	static model(model: Model): Model;
 }

@@ -7,6 +7,6 @@ export declare class UrlColumnModel extends DataColumnModel {
 }
 
 export class UrlColumn extends ColumnView {
-	constructor(model: Model);
+	constructor();
 	static model(model: Model): Model;
 }

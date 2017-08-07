@@ -1,9 +1,9 @@
-import {ColumnModel} from '../column-type/column.model';
+import {ColumnModel} from "../column-type/column.model";
 
-export interface IOptions {
+export interface IOptions{
 	structure: string;
 }
 
 export declare class Json {
-	write(rows: any[], columns: ColumnModel, options?: IOptions): string;
+	write(rows: any[], columns: ColumnModel, options: IOptions): string;
 }

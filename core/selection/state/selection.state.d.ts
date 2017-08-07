@@ -8,12 +8,15 @@ export interface IToggleResult{
 }
 
 export declare class SelectionState {
-	constructor(model: Model, service: SelectionService);
-	model: Model;
-	service: SelectionService;
+	constructor(public model: Model, public service: SelectionService);
+
 	select(item: NodeOrArrayOfNode, state: boolean, key: string): void;
+
 	toggle(item: NodeOrArrayOfNode): IToggleResult;
+
 	state(item: NodeOrArrayOfNode, key: string): boolean;
+
 	keyFactory(): IHashFactoryResult;
+
 	clear(): void;
 }

@@ -7,6 +7,6 @@ export declare class RowNumberColumnModel extends ColumnModel {
 }
 
 export declare class RowNumberColumn extends ColumnView {
-	constructor(model: Model);
+	constructor();
 	static model(model: Model): Model;
 }

@@ -1,13 +1,16 @@
 import {Resource} from '../resource/resource';
 
-export declare type SingleOrMultipleMode = 'single' | 'multiple';
+export declare type SingleOrMulipleMode = 'single' | 'multiple';
+
 export declare type  DataOrDetailsUnit = 'data' | 'details';
 
 export declare class RowModel {
 	constructor();
+
 	resource: Resource;
-	mode: SingleOrMultipleMode;
-	unit: DataOrDetailsUnit;
+
+	mode: SingleOrMulipleMode; //single|multiple
+	unit: DataOrDetailsUnit; //data|details
 	height: number;
-	status: Map<any, any>;
+	status: Map;
 }

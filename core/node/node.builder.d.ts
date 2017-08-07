@@ -1,6 +1,6 @@
 import {Node} from './node';
-import {IMapResult} from '../column/column.service';
-import {IValueFactory} from '../services/value';
+import {IMapResult} from "../column/column.service";
+import {IValueFactory} from "../services/value";
 
 export interface ILodashGroupBy{
 	(collection: any[], iteratee: any): object;

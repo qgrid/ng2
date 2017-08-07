@@ -1,6 +1,7 @@
 export declare class PathService {
-	constructor(bag: Map<any, any>);
-	bag: Map<any, any>;
+	constructor(public bag: Map);
+
 	cell(path: Node[]): string;
+
 	row(path: Node[]): string;
 }
