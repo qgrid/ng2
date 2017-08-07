@@ -1,4 +1,8 @@
 export function build(style) {
+	return buildLines(style).join('\n');
+}
+
+export function buildLines(style) {
 	return Object
 		.keys(style)
 		.reduce((memo, key) => {
@@ -6,12 +10,11 @@ export function build(style) {
 			const body = Object
 				.keys(entry)
 				.reduce((memo, key) => {
-					memo.push(`${key}:${entry[key]} !important;`);
+					memo.push(`\t${key}:${entry[key]} !important;`);
 					return memo;
 				}, []);
 
-			memo.push(`${key}{${body.join('')}}`);
+			memo.push(`${key}{\n${body.join('\n')}\n}`);
 			return memo;
-		}, [])
-		.join('');
+		}, []);
 }

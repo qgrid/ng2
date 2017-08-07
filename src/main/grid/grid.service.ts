@@ -1,4 +1,5 @@
-import {Model, Command} from '@grid/core/infrastructure';
+import {Model} from '@grid/core/infrastructure';
+import {Command} from '@grid/core/command';
 import {GridService as Grid} from '@grid/core/services';
 import {Pipe} from '@grid/core/pipe';
 import {PipeUnit} from '@grid/core/pipe/units';

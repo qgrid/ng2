@@ -98,11 +98,13 @@ function selectColumnFactory(model) {
 	if (!indicatorColumn && selection.unit === 'mix') {
 		const createColumn = columnFactory(model);
 		return (columns, context) => {
-			const selectColumn = createColumn('row-indicator');
-			selectColumn.model.source = 'generation';
-			selectColumn.rowspan = context.rowspan;
-			columns.push(selectColumn);
-			return selectColumn;
+			const indicatorColumn = createColumn('row-indicator');
+			indicatorColumn.model.source = 'generation';
+			indicatorColumn.rowspan = context.rowspan;
+			if (indicatorColumn.model.isVisible) {
+				columns.push(indicatorColumn);
+				return indicatorColumn;
+			}
 		};
 	}
 
@@ -112,8 +114,10 @@ function selectColumnFactory(model) {
 			const selectColumn = createColumn('select');
 			selectColumn.model.source = 'generation';
 			selectColumn.rowspan = context.rowspan;
-			columns.push(selectColumn);
-			return selectColumn;
+			if (selectColumn.model.isVisible) {
+				columns.push(selectColumn);
+				return selectColumn;
+			}
 		};
 	}
 
@@ -129,8 +133,10 @@ function groupColumnFactory(model, nodes) {
 			const groupColumn = createColumn('group');
 			groupColumn.model.source = 'generation';
 			groupColumn.rowspan = context.rowspan;
-			columns.push(groupColumn);
-			return groupColumn;
+			if (groupColumn.model.isVisible) {
+				columns.push(groupColumn);
+				return groupColumn;
+			}
 		};
 	}
 
@@ -146,8 +152,10 @@ function expandColumnFactory(model) {
 			const expandColumn = createColumn('row-expand');
 			expandColumn.model.source = 'generation';
 			expandColumn.rowspan = context.rowspan;
-			columns.push(expandColumn);
-			return expandColumn;
+			if (expandColumn.model.isVisible) {
+				columns.push(expandColumn);
+				return expandColumn;
+			}
 		};
 	}
 

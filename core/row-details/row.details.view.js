@@ -1,6 +1,6 @@
 import {View} from '../view';
 import {Command} from '../command';
-import {flatView, toggleStatus} from './row.details.service';
+import {flatView, toggleStatus, invalidateStatus} from './row.details.service';
 import {RowDetails} from './row.details';
 
 export class RowDetailsView extends View {
@@ -21,13 +21,6 @@ export class RowDetailsView extends View {
 					source: 'row.details.view',
 					behavior: 'core'
 				});
-
-				model.view({
-					rows: flatView(table),
-				}, {
-					source: 'row.details.view',
-					behavior: 'core'
-				});
 			},
 			canExecute: row => {
 				if (!row) {
@@ -42,13 +35,21 @@ export class RowDetailsView extends View {
 			shortcut: model.row().shortcut.toggle
 		});
 
-		model.viewChanged.watch(e => {
-			if (e.tag.source !== 'row.details.view') {
-				model.row({
-					status: toggleStatus([], model.row().status)
+		model.rowChanged.watch(e => {
+			if (e.hasChanges('status')) {
+				model.view({
+					rows: flatView(table),
 				}, {
 					source: 'row.details.view',
 					behavior: 'core'
+				});
+			}
+		});
+
+		model.viewChanged.watch(e => {
+			if (e.tag.source !== 'row.details.view') {
+				model.row({
+					status: invalidateStatus(e.state.rows, model.row().status)
 				});
 			}
 		});

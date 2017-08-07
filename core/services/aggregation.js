@@ -91,7 +91,7 @@ export class Aggregation {
 			return Aggregation.sum(rows, getValue, options, uniqueSet) / uniqueSet.size;
 		}
 
-		return Aggregation.sum(rows, getValue) / rows.length;
+		return Aggregation.sum(rows, getValue, options) / rows.length;
 	}
 
 	static sum(rows, getValue, options, container) {

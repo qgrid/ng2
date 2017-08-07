@@ -23,6 +23,7 @@ export declare class ColumnModel {
 	key: string;
 	title: string;
 	value: IValue;
+	$value: IValue;
 	path: string;
 	pin: IPin;
 	origin: string;
@@ -43,5 +44,6 @@ export declare class ColumnModel {
 	isVisible: boolean;
 	index: number;
 	label: ILabel;
+	$label: ILabel;
 	toString(): string;
 }

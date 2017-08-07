@@ -4,5 +4,5 @@ import {Cache} from '../infrastructure/cache';
 export declare class BodyModel {
   constructor();
   resource: Resource;
-  cache: Cache;
+  cache: Cache<string, any>;
 }

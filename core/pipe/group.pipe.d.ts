@@ -1,6 +1,6 @@
 import {IContext, IMemo, INext} from './column.pipe';
 
-export interface IGroupPipe{
+export interface IGroupPipe {
 	(memo: IMemo, context: IContext, next: INext): void;
 }
 

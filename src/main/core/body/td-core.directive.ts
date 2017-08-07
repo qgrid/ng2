@@ -1,6 +1,7 @@
 import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 import {GRID_PREFIX} from '@grid/core/definition';
 import {ViewCoreService} from '../view/view-core.service';
+import {TableCoreService} from '../table/table-core.service';
 import {RootService} from '@grid/infrastructure/component';
 import {CellService} from '@grid/main/core/cell';
 import {AppError} from '@grid/core/infrastructure/';
@@ -18,6 +19,7 @@ export class TdCoreDirective implements OnInit, OnDestroy {
               private root: RootService,
               private viewContainerRef: ViewContainerRef,
               private cellService: CellService,
+              private table: TableCoreService,
               element: ElementRef) {
 
     this.element = element.nativeElement.parentNode;
@@ -84,7 +86,9 @@ export class TdCoreDirective implements OnInit, OnDestroy {
   }
 
   get column() {
-    return this.$view.body.columns(this.row, null)[this.columnIndex].model;
+    const columns = this.$view.body.columns(this.row, this.table.pin);
+    const columnView = columns[this.columnIndex];
+    return columnView.model;
   }
 
   get row() {

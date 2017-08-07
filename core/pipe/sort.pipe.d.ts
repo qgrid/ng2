@@ -1,6 +1,6 @@
 import {IContext, INext} from './column.pipe';
 
-export interface ISortPipe{
+export interface ISortPipe {
 	(data: any[], context: IContext, next: INext): void;
 }
 

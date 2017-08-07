@@ -1,3 +1,5 @@
 export declare class View {
-	constructor();
+	constructor(model: any);
+
+	model: any;
 }

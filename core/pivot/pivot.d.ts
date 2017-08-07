@@ -1,11 +1,11 @@
-export interface ISettings{
+export interface ISettings {
 	factory: () => object;
 	selector: (param: any) => any;
 	name: string;
 	value: any;
 }
 
-export interface IPivotResult{
+export interface IPivotResult {
 	(settings: ISettings , plan: Plan): object;
 }
 

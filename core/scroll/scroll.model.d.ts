@@ -1,7 +1,7 @@
 export declare class ScrollModel {
 	constructor();
 	mode: string;
-  top: number;
-  left: number;
-  cursor: number;
+	top: number;
+	left: number;
+	cursor: number;
 }

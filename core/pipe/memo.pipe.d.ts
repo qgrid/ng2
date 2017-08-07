@@ -1,6 +1,6 @@
 import {IContext, INext} from './column.pipe';
 
-export interface IMemoPipe{
+export interface IMemoPipe {
 	(data: any[], next: INext, ctx: IContext): void;
 }
 

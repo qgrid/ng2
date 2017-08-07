@@ -8,10 +8,14 @@ export class TableCommandManager extends CommandManager {
 	}
 
 	filter(commands) {
-		if (this.table.view.isFocused()) {
+		if (this.isViewActive()) {
 			return super.filter(commands);
 		}
 
 		return [];
+	}
+
+	isViewActive() {
+		return this.table.view.isFocused();
 	}
 }

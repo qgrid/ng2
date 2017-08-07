@@ -72,12 +72,7 @@ export class Shortcut {
 			code: code
 		};
 
-		if (this.manager.execute(code)) {
-			e.preventDefault();
-			return true;
-		}
-
-		return false;
+		return this.manager.execute(code);
 	}
 
 	register(commandManager, commands) {

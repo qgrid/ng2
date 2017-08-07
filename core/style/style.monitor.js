@@ -60,14 +60,14 @@ export class Monitor {
 		const id = this.model.grid().id;
 		for (let cls of oldSheets.keys()) {
 			if (!newSheets.has(cls)) {
-				const sheet = css.sheet(`${id}-${cls}`);
+				const sheet = css.sheet(id, cls);
 				sheet.remove();
 			}
 		}
 
 		for (let [cls, style] of newSheets.entries()) {
 			if (!oldSheets.has(cls)) {
-				const sheet = css.sheet(`${id}-${cls}`);
+				const sheet = css.sheet(id, cls);
 				sheet.set({[`.${cls}`]: style});
 			}
 		}

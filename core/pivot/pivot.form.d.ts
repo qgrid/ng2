@@ -1,6 +1,6 @@
 import {IPivot} from '../pipe/column.pipe';
 
-export interface IComparator{
+export interface IComparator {
 	(): any;
 }
 

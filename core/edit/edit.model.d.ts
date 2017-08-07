@@ -1,5 +1,5 @@
 import {Resource} from '../resource/resource';
-import {Command} from '../infrastructure/command';
+import {Command} from '../command/command';
 
 export declare type ModeType = 'cell' | 'row';
 export declare type StateType = 'view' | 'edit';

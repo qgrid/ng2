@@ -4,5 +4,5 @@ import {Cache} from '../infrastructure/cache';
 export declare class FootModel {
 	constructor();
 	resource: EnumerableResource;
-	cache: Cache;
+	cache: Cache<string, any>;
 }

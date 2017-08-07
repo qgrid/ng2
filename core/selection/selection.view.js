@@ -65,9 +65,13 @@ export class SelectionView extends View {
 			}
 
 			if (e.hasChanges('items') && e.tag.source !== 'selection.view') {
-				const entries = this.selectionService.lookup(e.state.items);
 				// Don't use commit it came outside already
-				this.select(entries, true);
+
+				const oldEntries = this.selectionService.lookup(e.changes.items.oldValue);
+				this.select(oldEntries, false);
+
+				const newEntries = this.selectionService.lookup(e.state.items);
+				this.select(newEntries, true);
 			}
 		});
 	}
@@ -321,6 +325,14 @@ export class SelectionView extends View {
 
 	get selection() {
 		return this.model.selection();
+	}
+
+	get mode() {
+		return this.selection.mode;
+	}
+
+	get items() {
+		return this.selection.items;
 	}
 
 	get rows() {

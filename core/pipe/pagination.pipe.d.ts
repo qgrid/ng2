@@ -1,6 +1,6 @@
 import {IContext, INext} from './column.pipe';
 
-export interface IPaginationPipe{
+export interface IPaginationPipe {
 	(data: any[], context: IContext, next: INext): void;
 }
 
