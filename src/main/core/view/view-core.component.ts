@@ -1,4 +1,4 @@
-import {Component, Input, Optional} from '@angular/core';
+import {Component, Optional} from '@angular/core';
 import {NgComponent, RootService} from '@grid/infrastructure/component';
 import {Table} from '@grid/core/dom';
 import {BodyView} from '@grid/core/body';

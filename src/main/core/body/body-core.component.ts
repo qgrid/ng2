@@ -5,6 +5,7 @@ import {ViewCoreService} from '../view/view-core.service';
 import {RootService} from '@grid/infrastructure/component';
 import {PathService} from '@grid/core/path';
 import {DOCUMENT} from '@angular/platform-browser';
+import {TableCoreService} from '../table/table-core.service';
 
 @Component({
   selector: 'tbody[q-grid-core-body]',
@@ -19,6 +20,7 @@ export class BodyCoreComponent implements OnInit {
   constructor(element: ElementRef,
               public $view: ViewCoreService,
               private root: RootService,
+              private $table: TableCoreService,
               @Inject(DOCUMENT) document: any) {
     this.element = element.nativeElement;
     this.listener = new EventListener(this.element, new EventManager(this));
