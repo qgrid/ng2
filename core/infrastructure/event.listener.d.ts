@@ -7,6 +7,7 @@ export interface IOnResult {
 
 export declare class EventListener {
 	constructor(element: HTMLElement, manager: EventManager);
+
 	on(name: string, f: IFunc): IOnResult;
 	off(): void;
 }

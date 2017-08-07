@@ -1,5 +1,5 @@
 import {Component, Input, Optional} from '@angular/core';
-import {Command} from '@grid/core/infrastructure';
+import {Command} from '@grid/core/command';
 import {PluginComponent} from '../plugin.component';
 import {RootService} from '@grid/infrastructure/component/root.service';
 

@@ -1,5 +1,5 @@
 import {Directive, ElementRef, Input, OnDestroy, OnInit, Optional} from "@angular/core";
-import {EventListener} from '@grid/core/infrastructure';
+import {EventListener, EventManager} from '@grid/core/infrastructure';
 import {DragService} from './drag.service';
 import {GRID_PREFIX} from '@grid/core/definition';
 import {RootService} from "@grid/infrastructure/component";
@@ -17,7 +17,7 @@ export class DragDirective implements OnInit, OnDestroy {
 
   constructor(@Optional() private root: RootService, elementRef: ElementRef) {
     this.element = elementRef.nativeElement;
-    this.listener = new EventListener(this, this.element);
+    this.listener = new EventListener(this.element, new EventManager(this));
   }
 
   ngOnInit() {

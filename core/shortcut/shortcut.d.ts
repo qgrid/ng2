@@ -1,6 +1,6 @@
 import {Keyboard} from '../io';
-import {CommandManager} from '@grid/core/infrastructure/command.manager';
-import {ShortcutManager} from '@grid/core/shortcut/shortcut.manager';
+import {CommandManager} from '../command/command.manager';
+import {ShortcutManager} from './shortcut.manager';
 
 export interface IKeyCode {
   code: string;
@@ -9,7 +9,7 @@ export interface IKeyCode {
 
 export declare class Shortcut {
   constructor(manager: ShortcutManager);
-  manager: ShortcutManager;
+
   static isControl(keyCode: IKeyCode): boolean;
   static isPrintable(keyCode: IKeyCode): boolean;
   static stringify(keyCode: IKeyCode): string;

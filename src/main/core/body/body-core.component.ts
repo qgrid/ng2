@@ -1,8 +1,10 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit} from '@angular/core';
 import {EventListener} from '@grid/core/infrastructure/event.listener';
+import {EventManager} from '@grid/core/infrastructure/event.manager';
 import {ViewCoreService} from '../view/view-core.service';
-import {RootService} from "@grid/infrastructure/component";
-import {PathService} from "@grid/core/path";
+import {RootService} from '@grid/infrastructure/component';
+import {PathService} from '@grid/core/path';
+import {DOCUMENT} from '@angular/platform-browser';
 
 @Component({
   selector: 'tbody[q-grid-core-body]',
@@ -10,15 +12,17 @@ import {PathService} from "@grid/core/path";
 })
 export class BodyCoreComponent implements OnInit {
   private element: HTMLElement = null;
-  private documentListener = new EventListener(this, document);
-  private listener = null;
+  private documentListener: EventListener;
+  private listener: EventListener;
   private rangeStartCell = null;
 
   constructor(element: ElementRef,
               public $view: ViewCoreService,
-              private root: RootService) {
+              private root: RootService,
+              @Inject(DOCUMENT) document: any) {
     this.element = element.nativeElement;
-    this.listener = new EventListener(this, this.element);
+    this.listener = new EventListener(this.element, new EventManager(this));
+    this.documentListener = new EventListener(document, new EventManager(this));
   }
 
   ngOnInit() {

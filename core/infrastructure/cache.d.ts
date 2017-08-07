@@ -1,4 +1,4 @@
-export declare class Cache <K = any, V = any> {
+export declare class Cache <K, V> {
 	constructor();
 	set(key: K, value: V);
 	get(key: K): V ;
