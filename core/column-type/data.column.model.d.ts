@@ -1,5 +1,4 @@
 import {ColumnModel} from './column.model';
-import {Aggregation} from '../services/aggregation';
 
 export interface IAggregationOptions{
 	distinct: boolean;
@@ -9,6 +8,6 @@ export interface IAggregationOptions{
 export class DataColumnModel extends ColumnModel {
 	constructor();
 	isDefault: boolean;
-	aggregation: Aggregation;
+	aggregation: string;
 	aggregationOptions: IAggregationOptions;
 }

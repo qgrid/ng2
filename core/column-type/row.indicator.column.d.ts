@@ -7,6 +7,6 @@ export declare class RowIndicatorColumnModel extends ColumnModel {
 }
 
 export declare class RowIndicatorColumn extends ColumnView {
-	constructor(model: Model);
+	constructor();
 	static model(model: Model): Model;
 }

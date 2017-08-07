@@ -14,10 +14,13 @@ export class GroupView extends View {
 					node = model.navigation().cell.row;
 				}
 
-				node.state.expand = !node.state.expand;
-				const view = model.view;
-				const nodes = view().nodes;
-				view({rows: nodeFlatView(nodes)}, {behavior: 'core', source: 'group.view'});
+				const toggle = model.group().toggle;
+				if (toggle.execute(node) !== false) {
+					node.state.expand = !node.state.expand;
+					const view = model.view;
+					const nodes = view().nodes;
+					view({rows: nodeFlatView(nodes)}, {behavior: 'core', source: 'group.view'});
+				}
 			},
 			canExecute: node => {
 				if (!node) {
@@ -27,7 +30,8 @@ export class GroupView extends View {
 					}
 				}
 
-				return node && node.type === 'group';
+				const toggle = model.group().toggle;
+				return node && node.type === 'group' && toggle.canExecute(node);
 			},
 			shortcut: model.group().shortcut.toggle
 		});

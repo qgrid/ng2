@@ -1,4 +1,4 @@
-import {IContext, INext} from './column.pipe';
+import {IContext, INext} from "./column.pipe";
 
 export interface IFilterPipe{
 	(data: any[], context: IContext, next: INext): void;

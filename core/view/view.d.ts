@@ -1,3 +1,5 @@
+import {Model} from "../infrastructure/model";
+
 export declare class View {
-	constructor();
+	constructor(public model: Model);
 }

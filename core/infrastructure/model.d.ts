@@ -31,7 +31,9 @@ import {FetchModel} from '../fetch/fetch.model';
 
 export declare class Model {
 	constructor();
+
 	static register(name: string, model: Model): Model;
+
 	grid() : GridModel;
 	edit(): EditModel;
 	view(): ViewModel;

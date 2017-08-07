@@ -1,7 +1,7 @@
-import {ColumnModel} from '../column-type/column.model';
-import {Model} from '../infrastructure/model';
-import {Cell} from './cell';
-import {Column} from './column';
+import {ColumnModel} from "../column-type/column.model";
+import {Model} from "../infrastructure/model";
+import {Cell} from "./cell";
+import {Column} from "./column";
 
 export interface IsDataRow{
 	(row: any): boolean;
@@ -26,13 +26,20 @@ export interface IColumn{
 }
 
 export declare class Box {
-	constructor(context: IContext);
-	context: IContext;
+	constructor(public context: IContext , public model: Model);
+
 	cell(rowIndex: number, columnIndex: number): Cell;
+
 	column(index: number): Column;
+
 	row(index: number): any;
+
 	rows(): any[];
+
 	rowCount(): number;
+
 	columnCount(): number;
+
 	getElements(): any[];
+
 }

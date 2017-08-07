@@ -1,16 +1,16 @@
-export interface IMapResult {
+export interface IMapResult{
 	(pairs: object[]): object;
 }
 
-export  interface IIndexResult {
+export  interface IIndexResult{
 	(pairs: object[], pairKey: string): number;
 }
 
-export interface IValueResult {
+export interface IValueResult{
 	(pair: object): string;
 }
 
-export interface IKeyResult {
+export interface IKeyResult{
 	(pair: object): string;
 }
 

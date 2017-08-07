@@ -1,4 +1,5 @@
 import {identity} from '../utility';
+import {Command} from '../command';
 
 export class ColumnModel {
 	constructor(type = 'text') {
@@ -15,7 +16,10 @@ export class ColumnModel {
 		this.editorOptions = {
 			trigger: 'click',
 			label: null,
-			value: identity
+			value: identity,
+			commit: new Command(),
+			cancel: new Command(),
+			actions: []
 		};
 
 		this.width = null;

@@ -7,6 +7,6 @@ export declare class SelectColumnModel extends ColumnModel {
 }
 
 export declare class SelectColumn extends ColumnView {
-	constructor(model: Model);
+	constructor();
 	static model(model: Model): Model;
 }

@@ -1,7 +1,10 @@
+import {SingleOrMulipleMode} from "../row/row.model";
+
 export declare class ScrollModel {
 	constructor();
-	mode: string;
-  top: number;
-  left: number;
-  cursor: number;
+
+	mode: SingleOrMulipleMode;
+	top: number;
+	left: number;
+	cursor: number
 }

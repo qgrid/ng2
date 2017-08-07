@@ -1,8 +1,9 @@
 import {Resource} from '../resource/resource';
 import {Cache} from '../infrastructure/cache';
 
-export declare class HeadModel {
+export class HeadModel {
 	constructor();
+
 	resource: Resource;
 	cache: Cache;
 }

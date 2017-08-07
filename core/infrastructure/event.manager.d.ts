@@ -1,10 +1,11 @@
-import {IFunc} from '../dom/view';
+import {IFunc} from "../dom/view";
 
-export interface IBindResult {
+export interface IBindResult{
 	(...args: any[]): any;
 }
 
 export declare class EventManager {
-	constructor(context: object);
+	constructor(public context: object, public apply: IFunc);
+
 	bind(f: IFunc): IBindResult;
 }

@@ -1,3 +1,3 @@
-import {Model} from '../infrastructure/model';
+import {Model} from "../infrastructure/model";
 
 export declare function groupBuilder(model: Model): any[];

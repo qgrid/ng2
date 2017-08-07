@@ -1,11 +1,10 @@
 import {Element} from './element';
 import {Cell as CellModel} from '../cell/cell';
-import {IContext} from './box';
+import {IContext} from "./box";
+
 
 export declare class Cell extends Element {
-	constructor(context: IContext, rowIndex: number, columnIndex: number, element: HTMLElement);
-	context: IContext;
-	rowIndex: number;
-	columnIndex: number;
+	constructor(public context: IContext, public rowIndex: number, public columnIndex: number, element: HTMLElement);
+
 	readonly model: CellModel;
 }

@@ -7,6 +7,6 @@ export declare class EmailColumnModel extends DataColumnModel {
 }
 
 export declare class EmailColumn extends ColumnView {
-	constructor(model: Model);
+	constructor();
 	static model(model: Model): Model;
 }

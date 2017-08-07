@@ -1,12 +1,14 @@
-import {EventManager} from '@grid/core/infrastructure/event.manager';
-import {IFunc} from '@grid/core/dom/view';
+import {IFunc} from "../dom/view";
 
-export interface IOnResult {
-  (): void;
+export interface IOnResult{
+	(): void;
 }
 
 export declare class EventListener {
-	constructor(element: HTMLElement, manager: EventManager);
+
+	constructor(context: object, element: HTMLElement);
+
 	on(name: string, f: IFunc): IOnResult;
+
 	off(): void;
 }
