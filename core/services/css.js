@@ -1,15 +1,14 @@
 import * as markup from './markup';
 import cssEscape from 'css.escape';
 
-export const escape = cssEscape;
-
-export function sheet(id) {
-	let sheet = document.getElementById(id);
+export function sheet(id, source) {
+	const sheetId = `${id}-${source}`;
+	let sheet = document.getElementById(sheetId);
 	const getSheet = () => {
 		if (!sheet) {
 			sheet = document.createElement('style');
 			sheet.type = 'text/css';
-			sheet.id = id;
+			sheet.id = escapeAttr(sheetId);
 			document.getElementsByTagName('head')[0].appendChild(sheet);
 		}
 
@@ -19,7 +18,9 @@ export function sheet(id) {
 	return {
 		set: css => {
 			const sheet = getSheet();
-			sheet.innerHTML = markup.build(css);
+			const lines = markup.buildLines(css);
+			const styleId = `#${escape(id)}`;
+			sheet.innerHTML = lines.map(line => `${styleId} ${line}`).join('\n');
 		},
 		remove: () => {
 			if (sheet) {
@@ -27,4 +28,12 @@ export function sheet(id) {
 			}
 		}
 	};
+}
+
+export function escapeAttr(name) {
+	return name.replace(/\s|\t|\n|"|'/g, '_');
+}
+
+export function escape(name) {
+	return cssEscape(escapeAttr(name));
 }

@@ -1,4 +1,5 @@
 import {FakeElement} from './fake';
+import * as css from '../services/css';
 
 const fakeElement = new FakeElement();
 export class Unit {
@@ -34,11 +35,11 @@ export class Unit {
 	}
 
 	addClassCore(name) {
-		this.getElement().classList.add(name);
+		this.getElement().classList.add(css.escapeAttr(name));
 	}
 
 	removeClassCore(name) {
-		this.getElement().classList.remove(name);
+		this.getElement().classList.remove(css.escapeAttr(name));
 	}
 
 	hasClassCore(name) {

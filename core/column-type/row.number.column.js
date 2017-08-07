@@ -19,6 +19,7 @@ export class RowNumberColumnModel extends ColumnModel {
 		this.canResize = false;
 		this.canMove = false;
 		this.canHighlight = false;
+		this.class = 'control';
 	}
 }
 

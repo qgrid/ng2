@@ -1,5 +1,6 @@
 import {View} from '../view';
-import {AppError, Command} from '../infrastructure';
+import {AppError} from '../infrastructure';
+import {Command} from '../command';
 import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
 
@@ -49,7 +50,7 @@ export class SortView extends View {
 					by.push(entry);
 				}
 
-				sort({by: by});
+				sort({by: by}, {source: 'sort.view'});
 			}
 		});
 
@@ -75,7 +76,7 @@ export class SortView extends View {
 					sortBy.sort((x, y) => indexMap[sortService.key(x)] - indexMap[sortService.key(y)]);
 
 					if (!this.equals(sortBy, sortState.by)) {
-						sort({by: sortBy});
+						sort({by: sortBy}, {source: 'sort.view'});
 					}
 				}
 			}
@@ -87,7 +88,7 @@ export class SortView extends View {
 				const columnMap = columnService.map(e.state.columns);
 				const sortBy = sortState.by.filter(entry => columnMap.hasOwnProperty(sortService.key(entry)));
 				if (!this.equals(sortBy, sortState.by)) {
-					sort({by: sortBy});
+					sort({by: sortBy}, {source: 'sort.view'});
 				}
 			}
 		});

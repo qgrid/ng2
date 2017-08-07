@@ -1,3 +1,4 @@
+import * as css from '../services/css';
 import {min, max} from '../utility';
 
 export class Container {
@@ -22,11 +23,11 @@ export class Container {
 	}
 
 	addClass(name) {
-		this.elements.forEach(element => element.classList.add(name));
+		this.elements.forEach(element => element.classList.add(css.escapeAttr(name)));
 	}
 
 	removeClass(name) {
-		this.elements.forEach(element => element.classList.remove(name));
+		this.elements.forEach(element => element.classList.remove(css.escapeAttr(name)));
 	}
 
 	hasClass(name) {

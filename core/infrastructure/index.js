@@ -1,6 +1,4 @@
-export * from './action';
 export * from './cache';
-export * from './command';
 export * from './error';
 export * from './event';
 export * from './event.listener';
@@ -9,6 +7,4 @@ export * from './guard';
 export * from './log';
 export * from './model.bind';
 export * from './model';
-export * from './shortcut';
-export * from './bucket';
-export * from './bucket2d';
+export * from './event.manager';

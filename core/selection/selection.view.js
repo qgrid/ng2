@@ -1,9 +1,12 @@
 import {View} from '../view';
-import {Command, Shortcut} from '../infrastructure';
+import {AppError} from '../infrastructure';
+import {Command} from '../command';
 import {selectionStateFactory as stateFactory} from './state';
-import {rangeBuilder} from './range.build';
+import {SelectionRange} from './selection.range';
+import {SelectionService} from './selection.service';
 import {GRID_PREFIX} from '../definition';
-import {isUndefined} from '../utility';
+import {noop, isUndefined} from '../utility';
+import {SelectionCommandManager} from './selection.command.manager';
 
 export class SelectionView extends View {
 	constructor(model, table, commandManager) {
@@ -11,41 +14,34 @@ export class SelectionView extends View {
 
 		this.table = table;
 
-		this.selectionState = stateFactory(model);
-		this.buildRange = rangeBuilder(model);
+		this.selectionService = new SelectionService(model);
+		this.selectionState = stateFactory(model, this.selectionService);
+		this.selectionRange = new SelectionRange(model);
 
-		const shortcut = new Shortcut(table, commandManager);
+		const selectionCommandManager = new SelectionCommandManager(model, commandManager);
+		const shortcut = model.action().shortcut;
 		const commands = this.commands;
-		this.shortcutOff = shortcut.register('selectionNavigation', commands);
+		this.shortcutOff = shortcut.register(selectionCommandManager, commands);
 		this.toggleRow = commands.get('toggleRow');
 		this.toggleColumn = commands.get('toggleColumn');
 		this.toggleCell = commands.get('toggleCell');
-
 		this.reset = commands.get('reset');
 
-		model.dataChanged.watch(() => {
-			this.selectionState = stateFactory(model);
-
-			const items = model.selection().items;
-			const entries = this.selectionState.lookup(items);
-
-			this.select(entries);
-		});
-
 		model.navigationChanged.watch(e => {
-			if (e.hasChanges('cell') && e.tag.source !== 'selection') {
-				const selectionState = model.selection();
-				if (selectionState.unit === 'cell') {
-					if (e.state.cell) {
-						this.select(e.state.cell, true);
-					}
+			if (e.tag.source === 'selection.view') {
+				return;
+			}
+
+			if (e.hasChanges('cell')) {
+				if (this.toggleCell.canExecute(e.state.cell)) {
+					this.toggleCell.execute(e.state.cell);
 				}
 			}
 		});
 
 		model.selectionChanged.watch(e => {
 			if (e.hasChanges('mode')) {
-				const newClassName = `${GRID_PREFIX}-select-${model.selection().mode}`;
+				const newClassName = `${GRID_PREFIX}-select-${e.state.mode}`;
 				const view = table.view;
 				view.addClass(newClassName);
 
@@ -56,48 +52,76 @@ export class SelectionView extends View {
 			}
 
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
-				if (!e.hasChanges('items') && !e.hasChanges('entries')) {
+				if (!e.hasChanges('items')) {
+					this.selectionState.clear();
 					model.selection({
-						items: [],
-						entries: []
+						items: []
+					}, {
+						source: 'selection.view'
 					});
-					this.selectionState = stateFactory(model);
-				}
 
-				model.navigation({cell: null}, {source: 'selection'});
+					this.selectionState = stateFactory(model, this.selectionService);
+				}
 			}
 
-			if (e.hasChanges('entries') && !e.hasChanges('items')) {
-				const entries = model.selection().entries;
-				model.selection({
-					items: this.selectionState.view(entries),
-					entries: entries
-				});
+			if (e.hasChanges('items') && e.tag.source !== 'selection.view') {
+				// Don't use commit it came outside already
+
+				const oldEntries = this.selectionService.lookup(e.changes.items.oldValue);
+				this.select(oldEntries, false);
+
+				const newEntries = this.selectionService.lookup(e.state.items);
+				this.select(newEntries, true);
 			}
 		});
 	}
 
 	get commands() {
 		const model = this.model;
-		const table = this.table;
+		const shortcut = model.selection().shortcut;
 		const commands = {
+			toggleCell: new Command({
+				canExecute: item => {
+					const selectionState = model.selection();
+					return item && selectionState.mode !== 'range' && (selectionState.unit === 'cell' || selectionState.unit === 'mix');
+				},
+				execute: (item, source) => {
+					const selectionState = model.selection();
+					switch (selectionState.unit) {
+						case 'cell': {
+							const commit = this.toggle(item, source);
+							commit();
+							break;
+						}
+						case 'mix': {
+							if (item.column.type === 'row-indicator') {
+								const commit = this.toggle({item: item.row, unit: 'row'}, source);
+								commit();
+								break;
+							}
+							else {
+								const commit = this.toggle({item: item, unit: 'cell'}, source);
+								commit();
+								break;
+							}
+						}
+					}
+				}
+			}),
 			toggleRow: new Command({
-				execute: (item, state) => {
-					this.select(item, state);
+				execute: (item, source) => {
+					const commit = this.toggle(item, source);
+					commit();
 				}
 			}),
 			toggleColumn: new Command({
-				execute: (item, state) => {
-					this.select(item, state);
-				}
-			}),
-			toggleCell: new Command({
-				execute: (item, state) => {
-					this.select(item, state);
+				execute: (item, source) => {
+					const commit = this.toggle(item, source);
+					commit();
 				}
 			}),
 			toggleActiveRow: new Command({
-				shortcut: 'shift+space',
+				canExecute: () => model.selection().unit === 'row' && this.rows.length > 0,
 				execute: () => {
 					const navState = model.navigation();
 					const rowIndex = navState.rowIndex;
@@ -107,80 +131,105 @@ export class SelectionView extends View {
 						row = this.rows[rowIndex];
 					} else {
 						row = this.rows[rowIndex + 1];
-						model.navigation({
-							cell: table.body.cell(rowIndex + 1, navState.columnIndex).model
-						}, {
-							source: 'selection'
-						});
 					}
 
-					this.select(row);
+					const commit = this.toggle(row);
+					commit();
 				},
-				canExecute: () => model.selection().unit === 'row' && this.rows.length > 0
+				shortcut: shortcut.toggleRow
 			}),
 			togglePrevRow: new Command({
-				shortcut: 'shift+up',
+				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex > 0,
 				execute: () => {
 					const navState = model.navigation();
-					const rowIndex = navState.rowIndex - 1;
+					const rowIndex = navState.rowIndex;
 					const row = this.rows[rowIndex];
-					this.select(row);
-					model.navigation({cell: table.body.cell(rowIndex, navState.columnIndex).model}, {source: 'selection'});
+					const commit = this.toggle(row);
+					commit();
+
+					this.navigateTo(rowIndex - 1, navState.columnIndex);
 				},
-				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex > 0
+				shortcut: shortcut.togglePreviousRow
 			}),
 			toggleNextRow: new Command({
-				shortcut: 'shift+down',
+				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex < this.rows.length - 1,
 				execute: () => {
 					const navState = model.navigation();
-					const rowIndex = navState.rowIndex + 1;
+					const rowIndex = navState.rowIndex;
 					const row = this.rows[rowIndex];
-					this.select(row);
-					model.navigation({cell: table.body.cell(rowIndex, navState.columnIndex).model}, {source: 'selection'});
+					const commit = this.toggle(row);
+					commit();
+
+					this.navigateTo(rowIndex + 1, navState.columnIndex);
 				},
-				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex < this.rows.length - 1
+				shortcut: shortcut.toggleNextRow
 			}),
 			toggleActiveColumn: new Command({
-				shortcut: 'ctrl+space',
+				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex >= 0,
 				execute: () => {
 					const columnIndex = model.navigation().columnIndex;
-					const entries = Array.from(model.selection().entries);
-					const column = this.columns[columnIndex].key;
-					this.select([...entries, column]);
+					const column = this.columns[columnIndex];
+					const commit = this.toggle(column);
+					commit();
 				},
-				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex >= 0
+				shortcut: shortcut.toggleColumn
 			}),
 			toggleNextColumn: new Command({
-				shortcut: 'shift+right',
+				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex < this.columns.length - 1,
 				execute: () => {
 					const navState = model.navigation();
-					const columnIndex = navState.columnIndex + 1;
-					const column = this.columns[columnIndex].key;
-					this.select(column);
-					model.navigation({cell: table.body.cell(navState.rowIndex, columnIndex).model}, {source: 'selection'});
+					const columnIndex = navState.columnIndex;
+					const column = this.columns[columnIndex];
+					const commit = this.toggle(column);
+					commit();
+
+					this.navigateTo(navState.rowIndex, columnIndex + 1);
 				},
-				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex < this.columns().length - 1
+				shortcut: shortcut.toggleNextColumn
 			}),
 			togglePrevColumn: new Command({
-				shortcut: 'shift+left',
+				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex > 0,
 				execute: () => {
 					const navState = model.navigation();
-					const columnIndex = navState.columnIndex - 1;
-					const column = this.columns[columnIndex].key;
-					this.select(column);
-					model.navigation({cell: table.body.cell(navState.rowIndex, columnIndex).model}, {source: 'selection'});
+					const columnIndex = navState.columnIndex;
+					const column = this.columns[columnIndex];
+					const commit = this.toggle(column);
+					commit();
+
+					this.navigateTo(navState.rowIndex, columnIndex - 1);
 				},
-				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex > 0
+				shortcut: shortcut.togglePreviousColumn
 			}),
 			selectAll: new Command({
-				shortcut: 'ctrl+a',
-				execute: () => this.select(),
-				canExecute: () => model.selection().mode === 'multiple'
-			}),
-			reset: new Command({
+				canExecute: () => model.selection().mode === 'multiple',
 				execute: () => {
-					this.reset();
-				}
+					let entries = [];
+					switch (model.selection().unit) {
+						case 'row': {
+							entries = model.data().rows;
+							break;
+						}
+						case 'column': {
+							entries = model.data().columns;
+							break;
+						}
+						case 'cell':
+						case 'mix': {
+							const buildRange = this.selectionRange.build();
+							const body = this.table.body;
+							const startCell = body.cell(0, 0);
+							const endCell = body.cell(body.rowCount() - 1, body.columnCount() - 1);
+							entries = buildRange(startCell, endCell);
+							break;
+						}
+						default:
+							throw new AppError('selection.view', `Invalid unit ${model.selection().unit}`);
+					}
+
+					const commit = this.select(entries, true);
+					commit();
+				},
+				shortcut: shortcut.selectAll
 			})
 		};
 
@@ -189,38 +238,74 @@ export class SelectionView extends View {
 		);
 	}
 
-	selectRange(startCell, endCell) {
-		const range = this.buildRange(startCell, endCell);
-		this.select(range);
+	selectRange(startCell, endCell, source) {
+		const buildRange = this.selectionRange.build();
+		const range = buildRange(startCell, endCell);
+		const commit = this.select(range, true, source);
+		commit();
 	}
 
-	select(items) {
-		if (arguments.length && !isUndefined(items)) {
-			if (this.selection.mode === 'range') {
-				this.selectionState.clear();
-				this.selectionState.toggle(items, true);
-			} else {
-				this.selectionState.toggle(items);
-			}
-		}
-		else {
-			if (this.state() || this.model.selection().mode === 'single') {
-				this.selectionState.clear();
-			}
-			else {
-				this.selectionState.select(this.model.view().rows, true);
-			}
-		}
+	toggle(items, source = 'custom') {
+		const toggle = this.model.selection().toggle;
+		const e = {
+			items,
+			source,
+			kind: 'toggle'
+		};
 
-		const entries = this.selectionState.entries();
-		this.model.selection({
-			entries: entries,
-		}, {source: 'toggle'});
+		if (toggle.canExecute(e)) {
+			toggle.execute(e);
+
+			const selectionState = this.selectionState;
+			if (!arguments.length || isUndefined(items)) {
+				items = this.model.view().rows;
+			}
+
+			selectionState.toggle(items);
+
+			return () => {
+				const items = this.selectionService.map(selectionState.entries());
+				this.model.selection({
+					items: items
+				}, {
+					source: 'selection.view'
+				});
+			};
+		} else {
+			return noop;
+		}
+	}
+
+	select(items, state, source = 'custom') {
+		const toggle = this.model.selection().toggle;
+		const e = {
+			items,
+			state,
+			source,
+			kind: 'select'
+		};
+
+		if (toggle.canExecute(e)) {
+			toggle.execute(e);
+			const selectionState = this.selectionState;
+			selectionState.select(items, state);
+
+			return () => {
+				const items = this.selectionService.map(selectionState.entries());
+				this.model.selection({
+					items: items
+				}, {
+					source: 'selection.view'
+				});
+			};
+		} else {
+			return noop;
+		}
 	}
 
 	state(item) {
 		if (!arguments.length) {
-			item = this.model.view().rows;
+			item = this.rows;
 		}
 
 		return this.selectionState.state(item) === true;
@@ -228,7 +313,7 @@ export class SelectionView extends View {
 
 	isIndeterminate(item) {
 		if (!arguments.length) {
-			item = this.model.view().rows;
+			item = this.rows;
 		}
 
 		return this.selectionState.state(item) === null;
@@ -242,11 +327,24 @@ export class SelectionView extends View {
 		return this.model.selection();
 	}
 
+	get mode() {
+		return this.selection.mode;
+	}
+
+	get items() {
+		return this.selection.items;
+	}
+
 	get rows() {
 		return this.table.data.rows();
 	}
 
 	get columns() {
 		return this.table.data.columns();
+	}
+
+	navigateTo(rowIndex, columnIndex) {
+		const cellModel = this.table.body.cell(rowIndex, columnIndex).model;
+		this.model.navigation({cell: cellModel}, {source: 'selection.view'});
 	}
 }

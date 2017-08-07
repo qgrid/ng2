@@ -1,9 +1,9 @@
 import {View} from '../view';
-import {Command} from '../infrastructure';
+import {Command} from '../command';
 import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
-import {HighlightBehavior} from './behaviors';
-import {cellSelector} from './cell.selector';
+import {CellSelector} from '../cell';
+import {SelectionService} from '../selection';
 import {noop} from '../utility';
 import {GRID_PREFIX} from '../definition';
 
@@ -12,8 +12,10 @@ export class HighlightView extends View {
 		super(model);
 
 		this.timeout = timeout;
-		this.behavior = new HighlightBehavior(model, cellSelector(model, table));
 		this.table = table;
+
+		this.cellSelector = new CellSelector(model, table);
+		this.selectionService = new SelectionService(model);
 
 		// TODO: get rid of this variable, maybe using table class?
 		let waitForLayout = false;
@@ -21,6 +23,7 @@ export class HighlightView extends View {
 		let sortBlurs = [];
 		let columnHoverBlurs = [];
 		let rowHoverBlurs = [];
+		let selectionBlurs = [];
 
 		this.column = new Command({
 			canExecute: () => !model.drag().isActive,
@@ -85,7 +88,9 @@ export class HighlightView extends View {
 		});
 
 		model.selectionChanged.watch(e => {
-			this.timeout(() => this.behavior.update(e.state.entries), 0);
+			if (e.hasChanges('items')) {
+				selectionBlurs = this.invalidateSelection(selectionBlurs);
+			}
 		});
 
 		model.viewChanged.watch(() => {
@@ -94,8 +99,8 @@ export class HighlightView extends View {
 				columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
 				rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
 				sortBlurs = this.invalidateSortBy(sortBlurs);
+				selectionBlurs = this.invalidateSelection(selectionBlurs);
 				waitForLayout = false;
-				this.behavior.update(this.model.selection().entries);
 			}, 100);
 		});
 
@@ -164,6 +169,16 @@ export class HighlightView extends View {
 		return dispose;
 	}
 
+	invalidateSelection(dispose) {
+		dispose.forEach(f => f());
+
+		const selectionItems = this.model.selection().items;
+		const entries = this.selectionService.lookup(selectionItems);
+		const cells = this.cellSelector.map(entries);
+		dispose = cells.map(cell => this.highlightCell(cell, 'selected'));
+		return dispose;
+	}
+
 	columnIndex(key) {
 		const columns = this.table.data.columns();
 		const index = columnService.findIndex(columns, key);
@@ -229,5 +244,14 @@ export class HighlightView extends View {
 		}
 
 		return () => table.body.row(index).removeClass(`${GRID_PREFIX}-${cls}`);
+	}
+
+	highlightCell(cell, cls) {
+		cell.addClass(`${GRID_PREFIX}-${cls}`);
+		return this.blurCell(cell, cls);
+	}
+
+	blurCell(cell, cls) {
+		return () => cell.removeClass(`${GRID_PREFIX}-${cls}`);
 	}
 }

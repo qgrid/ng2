@@ -32,7 +32,7 @@ export function getType(value) {
 		return 'number';
 	}
 
-	if(isBoolean(value)){
+	if (parseBool(value) !== null) {
 		return 'bool';
 	}
 
@@ -44,7 +44,7 @@ export function getType(value) {
 		return 'object';
 	}
 
-	if(isEmail(value)){
+	if (isEmail(value)) {
 		return 'email';
 	}
 
@@ -65,20 +65,28 @@ export function isPrimitive(type) {
 }
 
 function parseBool(value) {
-	return value === 'true' 
-      ? true 
-      : value === 'false' 
-         ? false 
-         : null;
+	return isBoolean(value)
+		? value
+		: value === 'true'
+			? true
+			: value === 'false'
+				? false
+				: null;
 }
 
 function parseText(value) {
-	return '' + value;
+	return value !== null
+		? '' + value
+		: null;
 }
 
 function parseDate(value) {
-	if (value === null) {
+	if (value === null || value === false || value === true) {
 		return null;
+	}
+
+	if(typeof value === 'number') {
+		value = value.toString();
 	}
 
 	const date = new Date(value);

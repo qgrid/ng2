@@ -1,13 +1,13 @@
 export class EventListener {
-	constructor(context, element) {
+	constructor(element, manager) {
 		this.element = element;
-		this.context = context;
+		this.manager = manager;
 		this.handlers = {};
 	}
 
 	on(name, f) {
-		const context = this.context;
-		const handler = f.bind(context);
+		const manager = this.manager;
+		const handler = manager.bind(f);
 		const handlerSet = this.handlers[name] || (this.handlers[name] = []);
 		handlerSet.push(handler);
 		this.element.addEventListener(name, handler, false);

@@ -1,4 +1,4 @@
-import {Command} from '../infrastructure';
+import {Command} from '../command';
 
 export class Navigation {
 	constructor(model, table) {
@@ -10,10 +10,10 @@ export class Navigation {
 		const body = this.table.body;
 		let index = 0;
 		let offset = 0;
-		const count = body.rowCount();
+		const lastRow = this.lastRow;
 
 		// TODO: improve performance
-		while (index < count && offset <= y) {
+		while (index <= lastRow && offset <= y) {
 			offset += body.row(index).height();
 			index++;
 		}
@@ -22,14 +22,21 @@ export class Navigation {
 			offset -= body.row(index).height();
 			index--;
 		}
+
 		return {
-			row: Math.max(this.firstRow, Math.min(this.lastRow, index)),
+			row: Math.max(this.firstRow, Math.min(lastRow, index)),
 			offset: offset
 		};
 	}
 
 	goTo(row, column, source = 'navigation') {
-		const cell = this.cell(row, column);
+		let cell = this.cell(row, column);
+		if (!cell) {
+			// TODO: make it better, right it just a huck for row-details,
+			// need to support rowspan and colspan
+			cell = this.cell(row, this.firstColumn);
+		}
+
 		this.model.navigation({cell: cell}, {source: source});
 	}
 
@@ -43,10 +50,6 @@ export class Navigation {
 			}
 		}
 		return indicies;
-	}
-
-	get rows() {
-		return this.table.data.rows().map((r, i) => i);
 	}
 
 	get currentColumn() {
@@ -101,51 +104,25 @@ export class Navigation {
 	}
 
 	get currentRow() {
-		const rows = this.rows;
-		if (!rows.length) {
-			return -1;
-		}
-
-		const row = this.model.navigation().rowIndex;
-		return rows[Math.max(0, row)];
+		return this.model.navigation().rowIndex;
 	}
 
 	get nextRow() {
-		const rows = this.rows;
-		if (!rows.length) {
-			return -1;
-		}
-
-		const row = this.model.navigation().rowIndex;
-		return row < rows.length - 1 ? rows[row + 1] : -1;
+		const row = this.model.navigation().rowIndex + 1;
+		return row <= this.lastRow ? row : -1;
 	}
 
 	get prevRow() {
-		const rows = this.rows;
-		if (!rows.length) {
-			return -1;
-		}
-
-		const row = this.model.navigation().rowIndex;
-		return row > 0 ? rows[row - 1] : -1;
+		const row = this.model.navigation().rowIndex - 1;
+		return row >= 0 ? row : -1;
 	}
 
 	get firstRow() {
-		const rows = this.rows;
-		if (!rows.length) {
-			return -1;
-		}
-
-		return rows[0];
+		return 0;
 	}
 
 	get lastRow() {
-		const rows = this.rows;
-		if (!rows.length) {
-			return -1;
-		}
-
-		return rows[rows.length - 1];
+		return this.table.body.rowCount() - 1;
 	}
 
 	cell(row, column) {
@@ -155,34 +132,39 @@ export class Navigation {
 	get commands() {
 		const model = this.model;
 		const table = this.table;
-		const canExecute = () => model.edit().state === 'view';
+		const shortcut = model.navigation().shortcut;
+		const inViewState = () => model.edit().state === 'view';
 
 		const commands = {
 			goDown: new Command({
-				shortcut: 'down',
-				canExecute: () => canExecute() && this.nextRow >= 0,
+				shortcut: shortcut.down,
+				canExecute: () => inViewState() && this.nextRow >= 0,
 				execute: () => this.goTo(this.nextRow, this.currentColumn)
 			}),
 			goUp: new Command({
-				shortcut: 'up',
-				canExecute: () => canExecute() && this.prevRow >= 0,
+				shortcut: shortcut.up,
+				canExecute: () => inViewState() && this.prevRow >= 0,
 				execute: () => this.goTo(this.prevRow, this.currentColumn)
 			}),
 			goRight: new Command({
-				shortcut: 'right',
-				canExecute: () => canExecute() && this.nextColumn >= 0,
+				shortcut: shortcut.right,
+				canExecute: () => inViewState() && this.nextColumn >= 0,
 				execute: () => this.goTo(this.currentRow, this.nextColumn)
 			}),
-			tab: new Command({
-				shortcut: 'tab',
-				execute: () => {
+			goLeft: new Command({
+				shortcut: shortcut.left,
+				canExecute: () => inViewState() && this.prevColumn >= 0,
+				execute: () => this.goTo(this.currentRow, this.prevColumn)
+			}),
+			goNext: new Command({
+				shortcut: shortcut.next,
+				canExecute: () => {
 					const hasNextColumn = this.nextColumn >= 0;
 					const hasNextRow = this.nextRow >= 0;
-					if (!hasNextColumn && !hasNextRow) {
-						table.view.blur();
-						return;
-					}
-
+					return hasNextColumn || hasNextRow;
+				},
+				execute: () => {
+					const hasNextColumn = this.nextColumn >= 0;
 					if (!hasNextColumn) {
 						this.goTo(this.nextRow, this.firstColumn);
 						return;
@@ -191,16 +173,15 @@ export class Navigation {
 					this.goTo(this.currentRow, this.nextColumn);
 				}
 			}),
-			shiftTab: new Command({
-				shortcut: 'Shift+tab',
-				execute: () => {
+			goPrevious: new Command({
+				shortcut: shortcut.previous,
+				canExecute: () => {
 					const hasPrevColumn = this.prevColumn >= 0;
 					const hasPrevRow = this.prevRow >= 0;
-					if (!hasPrevColumn && !hasPrevRow) {
-						table.view.blur();
-						return;
-					}
-
+					return hasPrevColumn || hasPrevRow;
+				},
+				execute: () => {
+					const hasPrevColumn = this.prevColumn >= 0;
 					if (!hasPrevColumn) {
 						this.goTo(this.prevRow, this.lastColumn);
 						return;
@@ -209,24 +190,19 @@ export class Navigation {
 					this.goTo(this.currentRow, this.prevColumn);
 				}
 			}),
-			goLeft: new Command({
-				shortcut: 'left',
-				canExecute: () => canExecute() && this.prevColumn >= 0,
-				execute: () => this.goTo(this.currentRow, this.prevColumn)
-			}),
 			home: new Command({
-				shortcut: 'home',
-				canExecute: () => canExecute() && this.prevRow >= 0,
+				shortcut: shortcut.home,
+				canExecute: () => inViewState() && this.prevRow >= 0,
 				execute: () => this.goTo(this.firstRow, this.currentColumn)
 			}),
 			end: new Command({
-				shortcut: 'end',
-				canExecute: () => canExecute() && this.nextRow >= 0,
+				shortcut: shortcut.end,
+				canExecute: () => inViewState() && this.nextRow >= 0,
 				execute: () => this.goTo(this.lastRow, this.currentColumn)
 			}),
 			pageUp: new Command({
-				shortcut: 'pageUp',
-				canExecute: () => canExecute() && this.prevRow >= 0,
+				shortcut: shortcut.pageUp,
+				canExecute: () => inViewState() && this.prevRow >= 0,
 				execute: () => {
 					const view = table.view;
 					const position = this.positon(view.scrollTop() - view.height(), 'up');
@@ -235,8 +211,8 @@ export class Navigation {
 				}
 			}),
 			pageDown: new Command({
-				shortcut: 'pageDown',
-				canExecute: () => canExecute() && this.nextRow >= 0,
+				shortcut: shortcut.pageDown,
+				canExecute: () => inViewState() && this.nextRow >= 0,
 				execute: () => {
 					const view = table.view;
 					let position = this.positon(view.scrollTop() + view.height(), 'down');

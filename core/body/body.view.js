@@ -3,6 +3,7 @@ import * as columnService from '../column/column.service';
 import {Aggregation} from '../services';
 import {AppError, Log} from '../infrastructure';
 import {Node} from '../node';
+import {RowDetails} from '../row-details';
 import {getFactory as valueFactory, set as setValue} from '../services/value';
 import {getFactory as labelFactory, set as setLabel} from '../services/label';
 
@@ -12,8 +13,7 @@ export class BodyView extends View {
 
 		this.table = table;
 		this.rows = [];
-		this.columns = [];
-
+		this.columnList = [];
 		model.viewChanged.watch(() => this.invalidate(model));
 	}
 
@@ -38,12 +38,32 @@ export class BodyView extends View {
 
 	invalidateColumns(model) {
 		const columns = model.view().columns;
-		this.columns = columnService.lineView(columns);
+		this.columnList = columnService.lineView(columns);
 	}
 
-	valueFactory(column) {
+	colspan(column, row) {
+		if (row instanceof RowDetails && column.type === 'row-details') {
+			return this.table.data.columns().length;
+		}
+
+		return 1;
+	}
+
+	rowspan() {
+		return 1;
+	}
+
+	columns(row, pin) {
+		if (row instanceof RowDetails) {
+			return [row.column];
+		}
+
+		return this.columnList.filter(c => c.model.pin === pin);
+	}
+
+	valueFactory(column, getValueFactory = null) {
 		const model = this.model;
-		const getValue = valueFactory(column);
+		const getValue = (getValueFactory || valueFactory)(column);
 
 		return row => {
 			if (row instanceof Node) {
@@ -69,6 +89,9 @@ export class BodyView extends View {
 						const rowIndex = node.rows[0];
 						return getValue(rows[rowIndex], column);
 					}
+					case 'value': {
+						return getValue(node, column);
+					}
 					default:
 						throw new AppError(
 							'view.body',
@@ -77,13 +100,16 @@ export class BodyView extends View {
 				}
 			}
 
+			if (row instanceof RowDetails) {
+				return null;
+			}
+
 			return getValue(row);
 		};
 	}
 
 	labelFactory(column) {
-		const getLabel = labelFactory(column);
-		return row => getLabel(row);
+		return this.valueFactory(column, labelFactory);
 	}
 
 	value(row, column, value) {
@@ -102,7 +128,7 @@ export class BodyView extends View {
 			return;
 		}
 
-		const getLabel = labelFactory(column);
+		const getLabel = this.labelFactory(column);
 		return getLabel(row);
 	}
 }

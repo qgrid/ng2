@@ -26,7 +26,9 @@ import {DragModel} from './drag';
 import {StyleModel} from './style';
 import {ScrollModel} from './scroll';
 import {ExportModel} from './export';
+import {ImportModel} from './import';
 import {ActionModel} from './action';
+import {FetchModel} from './fetch';
 
 export function setup(model) {
 	model.register('grid', GridModel)
@@ -57,5 +59,7 @@ export function setup(model) {
 		.register('style', StyleModel)
 		.register('scroll', ScrollModel)
 		.register('export', ExportModel)
-		.register('action', ActionModel);
+		.register('import', ImportModel)
+		.register('action', ActionModel)
+		.register('fetch', FetchModel);
 }

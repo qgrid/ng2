@@ -1,5 +1,6 @@
 import {MultipleSelectionState} from './multiple.selection.state';
 import {Model} from '../../infrastructure/model';
+import {SelectionService} from '../selection.service';
 import {DataModel} from '../../data/data.model';
 import {SelectionModel} from '../../selection/selection.model';
 
@@ -27,9 +28,10 @@ const columns = [{
 }];
 
 describe('multiple selection state', () => {
-	before('init model', () => {
-		Model.register('data', DataModel)
-			.register('selection', SelectionModel);
+	before('init model', () => {0
+		// Model.register('data', DataModel)
+		// 	.register('selection', SelectionModel);
+      //
 
 		model = new Model();
 
@@ -55,14 +57,13 @@ describe('multiple selection state', () => {
 
 		beforeEach('reset selection', () => {
 			model.selection({
-				items: [],
-				entries: []
+				items: []
 			});
 		});
 
 		describe('select function', () => {
 			it('should be able to select multiple rows', () => {
-				const selectionState = new MultipleSelectionState(model);
+				const selectionState = new MultipleSelectionState(model, new SelectionService(model));
 
 				selectionState.select([rows[0], rows[2]]);
 
@@ -77,7 +78,7 @@ describe('multiple selection state', () => {
 
 		describe('state function', () => {
 			it('should return state of row', () => {
-				const selectionState = new MultipleSelectionState(model);
+				const selectionState = new MultipleSelectionState(model, new SelectionService(model));
 				selectionState.select([rows[0], rows[1]]);
 
 				const states = rows.map(row => selectionState.state(row));
@@ -101,14 +102,13 @@ describe('multiple selection state', () => {
 
 		beforeEach('reset selection', () => {
 			model.selection({
-				items: [],
-				entries: []
+				items: []
 			});
 		});
 
 		describe('select function', () => {
 			it('should be able to select multiple columns', () => {
-				const selectionState = new MultipleSelectionState(model);
+				const selectionState = new MultipleSelectionState(model, new SelectionService(model));
 
 				selectionState.select([columns[0], columns[2]]);
 
@@ -121,7 +121,7 @@ describe('multiple selection state', () => {
 
 		describe('state function', () => {
 			it('should return state of column', () => {
-				const selectionState = new MultipleSelectionState(model);
+				const selectionState = new MultipleSelectionState(model, new SelectionService(model));
 				selectionState.select([columns[0], columns[1]]);
 
 				const states = columns.map(col => selectionState.state(col));
@@ -159,14 +159,13 @@ describe('multiple selection state', () => {
 
 		beforeEach('reset selection', () => {
 			model.selection({
-				items: [],
-				entries: []
+				items: []
 			});
 		});
 
 		describe('select function', () => {
 			it('should be able to select multiple columns', () => {
-				const selectionState = new MultipleSelectionState(model);
+				const selectionState = new MultipleSelectionState(model, new SelectionService(model));
 				selectionState.select([
 					cells[0],
 					cells[cells.length-1]
@@ -188,7 +187,7 @@ describe('multiple selection state', () => {
 
 		describe('state function', () => {
 			it('should return state of cell', () => {
-				const selectionState = new MultipleSelectionState(model);
+				const selectionState = new MultipleSelectionState(model, new SelectionService(model));
 				const last = cells.length-1;
 				selectionState.select([
 					cells[0],

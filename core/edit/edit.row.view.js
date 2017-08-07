@@ -1,4 +1,5 @@
-import {Log, Shortcut, Command} from '../infrastructure';
+import {Log} from '../infrastructure';
+import {Command} from '../command';
 import {RowEditor} from './edit.row.editor';
 
 export class EditRowView {
@@ -7,9 +8,9 @@ export class EditRowView {
 		this.table = table;
 		this.editor = RowEditor.empty;
 
-		const shortcut = new Shortcut(table, commandManager);
+		const shortcut = model.action().shortcut;
 		const commands = this.commands;
-		this.shortcutOff = shortcut.register('editRowNavigation', commands);
+		this.shortcutOff = shortcut.register(commandManager, commands);
 
 		this.enter = commands.get('enter');
 		this.commit = commands.get('commit');
@@ -21,7 +22,7 @@ export class EditRowView {
 		const model = this.model;
 		const commands = {
 			enter: new Command({
-				shortcut: 'F2|Enter',
+				shortcut: this.shortcutFactory('enter'),
 				canExecute: row => {
 					row = row || model.navigation().row;
 					return row
@@ -41,7 +42,7 @@ export class EditRowView {
 				}
 			}),
 			commit: new Command({
-				shortcut: this.commitShortcut.bind(this),
+				shortcut: this.shortcutFactory('commit'),
 				// TODO: add validation support
 				canExecute: row => {
 					row = row || model.navigation().row;
@@ -62,7 +63,7 @@ export class EditRowView {
 				}
 			}),
 			cancel: new Command({
-				shortcut: 'Escape',
+				shortcut: this.shortcutFactory('cancel'),
 				canExecute: row => {
 					row = row || model.navigation().row;
 					return row
@@ -115,15 +116,12 @@ export class EditRowView {
 		};
 	}
 
-	commitShortcut() {
-		const model = this.model;
-		const commitShortcuts = model.edit().commitShortcuts;
-		const cell = model.navigation().cell;
-		if (cell && commitShortcuts.hasOwnProperty(cell.column.type)) {
-			return commitShortcuts[cell.column.type];
-		}
-
-		return commitShortcuts['$default'];
+	shortcutFactory(type) {
+		const edit = this.model.edit;
+		return () => {
+			const shortcuts = edit()[type + 'Shortcuts'];
+			return shortcuts['row'] || shortcuts['$default'];
+		};
 	}
 
 	destroy() {

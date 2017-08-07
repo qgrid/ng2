@@ -1,5 +1,5 @@
 import {Unit} from './unit';
-import {EventListener} from '../infrastructure';
+import * as css from '../services/css';
 
 function isParentOf(parent, element) {
 	while (element) {
@@ -23,7 +23,7 @@ export class View extends Unit {
 	}
 
 	focus() {
-		const elements = this.getElementsCore('table');
+		const elements = this.getElementsCore('body');
 		if (elements.length) {
 			elements[0].focus();
 			return true;
@@ -33,17 +33,13 @@ export class View extends Unit {
 	}
 
 	blur() {
-		this.getElementsCore('table')
+		this.getElementsCore('body')
 			.forEach(element => element.blur());
 	}
 
 	isFocused() {
-		return this.getElementsCore('table')
+		return this.getElementsCore('body')
 			.some(element => this.isFocusedCore(element));
-	}
-
-	keyDown(f) {
-		return new EventListener(this, this.markup.document).on('keydown', f);
 	}
 
 	addLayer(name) {
@@ -71,13 +67,13 @@ export class View extends Unit {
 
 	addClass(name) {
 		if (this.markup.view) {
-			this.markup.view.classList.add(name);
+			this.markup.view.classList.add(css.escapeAttr(name));
 		}
 	}
 
 	removeClass(name) {
 		if (this.markup.view) {
-			this.markup.view.classList.remove(name);
+			this.markup.view.classList.remove(css.escapeAttr(name));
 		}
 	}
 
