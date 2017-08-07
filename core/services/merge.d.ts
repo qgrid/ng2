@@ -1,4 +1,4 @@
-﻿export interface IMergeResult {
+﻿﻿export interface IMergeResult {
 	(left: any[], right: any[], result: any[]): IMergeResultObject;
 }
 

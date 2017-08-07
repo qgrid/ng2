@@ -2,7 +2,7 @@ import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from 
 import {GRID_PREFIX} from '@grid/core/definition';
 import {ViewCoreService} from '../view/view-core.service';
 import {TemplateCacheService, TemplateLinkService} from '@grid/template';
-import {RootService} from "@grid/infrastructure/component";
+import {RootService} from '@grid/infrastructure/component';
 
 @Directive({
   selector: '[q-grid-core-th]'
