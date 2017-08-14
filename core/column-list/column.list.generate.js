@@ -1,6 +1,74 @@
-import {startCase, assignWith} from '../utility';
-import {compile, getType} from '../services';
+import {compile, getType, merge as mergeFactory} from '../services';
 import {TextColumnModel} from '../column-type';
+import {startCase, assignWith, noop, isUndefined} from '../utility';
+import {columnFactory} from '../column/column.factory';
+import {AppError} from '../infrastructure';
+
+function merge(left, right, force = false) {
+	let canAssign;
+	if (force) {
+		canAssign = (source, target) => !isUndefined(target) && target !== null ? target : source;
+	}
+	else {
+		canAssign = (source, target) => !isUndefined(target) && target !== null && source === null ? target : source;
+	}
+
+	const doMerge = mergeFactory({
+		equals: (l, r) => l.key === r.key,
+		update: (l, r) => assignWith(l, r, canAssign),
+		insert: (r, left) => left.push(r),
+		remove: noop
+	});
+
+	return doMerge(left, right);
+}
+
+function hasChanges(statistics) {
+	return statistics.some(st => st.inserted || st.update);
+}
+
+export function generateFactory(model) {
+	const data = model.data;
+	const createColumn = columnFactory(model);
+	return () => {
+		const rows = data().rows;
+		const templateColumns = model.columnList().columns;
+		const generatedColumns = [];
+		const generation = model.columnList().generation;
+		if (generation) {
+			switch (generation) {
+				case 'deep': {
+					generatedColumns.push(...generate({rows: rows, columnFactory: createColumn, deep: true}));
+					break;
+				}
+				case
+				'shallow': {
+					generatedColumns.push(...generate({rows: rows, columnFactory: createColumn, deep: false}));
+					break;
+				}
+				default:
+					throw new AppError('column.list.generate', `Invalid generation mode "${generation}"`);
+			}
+		}
+
+		const dataColumns = Array.from(data().columns);
+		const statistics = [];
+
+		if (generatedColumns.length) {
+			statistics.push(merge(dataColumns, generatedColumns, false));
+		}
+
+		if (templateColumns.length) {
+			statistics.push(merge(dataColumns, templateColumns, true));
+		}
+
+		return {
+			columns: dataColumns,
+			statistics: statistics,
+			hasChanges: hasChanges(statistics)
+		};
+	};
+}
 
 export function generate(settings) {
 	const context = assignWith({

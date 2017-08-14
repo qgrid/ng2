@@ -7,9 +7,10 @@ import {SelectionService} from './selection.service';
 import {GRID_PREFIX} from '../definition';
 import {noop, isUndefined} from '../utility';
 import {SelectionCommandManager} from './selection.command.manager';
+import {PipeUnit} from '@grid/core/pipe/units';
 
 export class SelectionView extends View {
-	constructor(model, table, commandManager) {
+	constructor(model, table, commandManager, gridService) {
 		super(model);
 
 		this.table = table;
@@ -21,13 +22,14 @@ export class SelectionView extends View {
 		const selectionCommandManager = new SelectionCommandManager(model, commandManager);
 		const shortcut = model.action().shortcut;
 		const commands = this.commands;
-		this.shortcutOff = shortcut.register(selectionCommandManager, commands);
+
+		this.using(shortcut.register(selectionCommandManager, commands));
 		this.toggleRow = commands.get('toggleRow');
 		this.toggleColumn = commands.get('toggleColumn');
 		this.toggleCell = commands.get('toggleCell');
 		this.reset = commands.get('reset');
 
-		model.navigationChanged.watch(e => {
+		this.using(model.navigationChanged.watch(e => {
 			if (e.tag.source === 'selection.view') {
 				return;
 			}
@@ -37,9 +39,9 @@ export class SelectionView extends View {
 					this.toggleCell.execute(e.state.cell);
 				}
 			}
-		});
+		}));
 
-		model.selectionChanged.watch(e => {
+		this.using(model.selectionChanged.watch(e => {
 			if (e.hasChanges('mode')) {
 				const newClassName = `${GRID_PREFIX}-select-${e.state.mode}`;
 				const view = table.view;
@@ -52,6 +54,8 @@ export class SelectionView extends View {
 			}
 
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
+				gridService.invalidate('selection', e.changes, PipeUnit.column);
+
 				if (!e.hasChanges('items')) {
 					this.selectionState.clear();
 					model.selection({
@@ -73,7 +77,7 @@ export class SelectionView extends View {
 				const newEntries = this.selectionService.lookup(e.state.items);
 				this.select(newEntries, true);
 			}
-		});
+		}));
 	}
 
 	get commands() {
@@ -317,10 +321,6 @@ export class SelectionView extends View {
 		}
 
 		return this.selectionState.state(item) === null;
-	}
-
-	destroy() {
-		this.shortcutOff();
 	}
 
 	get selection() {

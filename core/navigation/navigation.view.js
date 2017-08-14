@@ -12,7 +12,7 @@ export class NavigationView extends View {
 		const shortcut = model.action().shortcut;
 		const navigation = new Navigation(model, table);
 
-		this.shortcutOff = shortcut.register(commandManager, navigation.commands);
+		this.using(shortcut.register(commandManager, navigation.commands));
 
 		this.blur = new Command({
 			execute: (row, column) => table.body.cell(row, column).removeClass(`${GRID_PREFIX}-focus`),
@@ -43,7 +43,7 @@ export class NavigationView extends View {
 			canExecute: (row, column) => table.body.cell(row, column).model !== null
 		});
 
-		model.navigationChanged.watch(e => {
+		this.using(model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
 				// We need this one to toggle focus from details to main grid
 				// or when user change navigation cell through the model
@@ -78,21 +78,21 @@ export class NavigationView extends View {
 					source: 'navigation.view'
 				});
 			}
-		});
+		}));
 
-		model.focusChanged.watch(e => {
+		this.using(model.focusChanged.watch(e => {
 			if (e.tag.source !== 'navigation.view') {
 				model.navigation({
 					cell: table.body.cell(e.state.rowIndex, e.state.columnIndex).model
 				});
 			}
-		});
+		}));
 
-		model.viewChanged.watch(e => {
+		this.using(model.viewChanged.watch(e => {
 			if (e.tag.behavior !== 'core') {
 				model.navigation({cell: null});
 			}
-		});
+		}));
 	}
 
 	scroll(view, target) {
@@ -131,9 +131,5 @@ export class NavigationView extends View {
 
 			}
 		}
-	}
-
-	destroy() {
-		this.shortcutOff();
 	}
 }

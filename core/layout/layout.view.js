@@ -31,39 +31,6 @@ export class LayoutView extends View {
 			}
 		});
 
-		model.dataChanged.watch(e => {
-			if (e.hasChanges('columns')) {
-				const columns = model.data().columns;
-				const columnMap = columnService.map(columns);
-				const index =
-					model.columnList()
-						.index
-						.filter(key => columnMap.hasOwnProperty(key));
-
-				const indexSet = new Set(index);
-				const appendIndex = columns.filter(c => !indexSet.has(c.key));
-				const orderIndex = Array.from(appendIndex);
-				orderIndex.sort((x, y) => {
-					if (x.index === y.index) {
-						return appendIndex.indexOf(x) - appendIndex.indexOf(y);
-					}
-
-					if (x.index < 0) {
-						return 1;
-					}
-
-					if (y.index < 0) {
-						return -1;
-					}
-
-					return x.index - y.index;
-				});
-
-				index.push(...orderIndex.map(c => c.key));
-				model.columnList({index: index}, {behavior: 'core'});
-			}
-		});
-
 		model.columnListChanged.watch(e => {
 			if (e.hasChanges('index') && e.tag.behavior !== 'core') {
 				this.service.invalidate('column.list', e.tag, PipeUnit.column);
@@ -122,7 +89,9 @@ export class LayoutView extends View {
 		sheet.set(style);
 	}
 
-	destroy() {
+	dispose() {
+		super.dispose();
+
 		const sheet = css.sheet(this.gridId, 'layout');
 		sheet.remove();
 	}

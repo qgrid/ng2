@@ -14,7 +14,7 @@ export class BodyView extends View {
 		this.table = table;
 		this.rows = [];
 		this.columnList = [];
-		model.viewChanged.watch(() => this.invalidate(model));
+		this.using(model.viewChanged.watch(() => this.invalidate(model)));
 	}
 
 	invalidate(model) {
