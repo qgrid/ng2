@@ -1,9 +1,9 @@
 <ng-template key='edit-cell-textarea.tpl.html' let-$cell let-$view="$view">
 	<div class="q-grid-editor">
 		<md-input-container>
-            <textarea mdInput mdTextareaAutosize
-							 [minRows]="1"
-							 [maxRows]="10"
+            <textarea mdInput
+							 mdTextareaAutosize
+							 rows="10"
 							 q-grid-focus
 							 (blur)="$view.edit.cell.commit.execute($cell)"
 							 [(ngModel)]="$view.edit.cell.value">

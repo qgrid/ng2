@@ -3,20 +3,5 @@
 		 style="margin: 0; height: 56px; line-height: 56px;">
 		ANGULAR 2 QGRID SANDBOX
 	</h3>
-	<div class="flex-container" fxLayout>
-		<q-grid-export type="pdf">
-			<ng-template for="content" let-$export>
-				<button md-icon-button *ngIf="$export[$export.type] && $export[$export.type].canExecute()"
-						  (click)="$export[$export.type].execute()">
-					<md-icon>picture_as_pdf</md-icon>
-				</button>
-			</ng-template>
-		</q-grid-export>
-		<q-grid-export type="xml"></q-grid-export>
-		<q-grid-export type="csv"></q-grid-export>
-		<q-grid-export type="json"></q-grid-export>
-		<q-grid-export type="xlsx"></q-grid-export>
-	</div>
-
 	<q-grid-progress></q-grid-progress>
 </ng-template>
