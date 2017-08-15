@@ -26,40 +26,8 @@ export class LayoutView extends View {
 
 		model.layoutChanged.watch(e => {
 			if (e.hasChanges('columns')) {
-				this.invalidateColumns(this.form);
-			}
-		});
-
-		model.dataChanged.watch(e => {
-			if (e.hasChanges('columns')) {
-				const columns = model.data().columns;
-				const columnMap = columnService.map(columns);
-				const index =
-					model.columnList()
-						.index
-						.filter(key => columnMap.hasOwnProperty(key));
-
-				const indexSet = new Set(index);
-				const appendIndex = columns.filter(c => !indexSet.has(c.key));
-				const orderIndex = Array.from(appendIndex);
-				orderIndex.sort((x, y) => {
-					if (x.index === y.index) {
-						return appendIndex.indexOf(x) - appendIndex.indexOf(y);
-					}
-
-					if (x.index < 0) {
-						return 1;
-					}
-
-					if (y.index < 0) {
-						return -1;
-					}
-
-					return x.index - y.index;
-				});
-
-				index.push(...orderIndex.map(c => c.key));
-				model.columnList({index: index}, {behavior: 'core'});
+				const form = this.getForm();
+				this.invalidateColumns(form);
 			}
 		});
 
@@ -70,7 +38,7 @@ export class LayoutView extends View {
 		});
 	}
 
-	get form() {
+	getForm() {
 		const model = this.model;
 		const layout = model.layout;
 		const state = clone(layout().columns);
@@ -83,7 +51,7 @@ export class LayoutView extends View {
 				if (!state.hasOwnProperty(column.key)) {
 					if (column.canResize) {
 						const index = columns.findIndex(c => c === column);
-						state[column.key] = {width: headRow.cell(index).width};
+						state[column.key] = {width: headRow.cell(index).width()};
 					}
 				}
 			}
@@ -106,24 +74,29 @@ export class LayoutView extends View {
 			const width = getWidth(column);
 			if (null !== width) {
 				const key = css.escape(column.key);
-				style[`td.q-grid-${key}, th.q-grid-${key}`] = {
+				const sizeStyle = {
 					'width': width,
 					'min-width': width,
 					'max-width': width
 				};
+
+				style[`td.q-grid-${key}`] = sizeStyle;
+				style[`th.q-grid-${key}`] = sizeStyle;
 			}
 		}
 
-		const sheet = css.sheet(this.styleId);
+		const sheet = css.sheet(this.gridId, 'layout');
 		sheet.set(style);
 	}
 
-	destroy() {
-		const sheet = css.sheet(this.styleId);
+	dispose() {
+		super.dispose();
+
+		const sheet = css.sheet(this.gridId, 'layout');
 		sheet.remove();
 	}
 
-	get styleId() {
-		return `${this.model.grid().id}-layout`;
+	get gridId() {
+		return this.model.grid().id;
 	}
 }

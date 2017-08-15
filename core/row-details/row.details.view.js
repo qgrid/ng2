@@ -1,42 +1,61 @@
 import {View} from '../view';
-import {Command} from '../infrastructure';
-import {flatView, toggleStatus} from './row.details.service';
+import {Command} from '../command';
+import {flatView, toggleStatus, invalidateStatus} from './row.details.service';
 import {RowDetails} from './row.details';
 
 export class RowDetailsView extends View {
-	constructor(model, table) {
+	constructor(model, table, commandManager) {
 		super(model);
 
 		this.toggleStatus = new Command({
 			execute: row => {
-				const status = toggleStatus([row], model.row().status, model.row().mode);
+				if (!row) {
+					const cell = model.navigation().cell;
+					row = cell.row;
+				}
 
+				const status = toggleStatus([row], model.row().status, model.row().mode);
 				model.row({
 					status: status
 				}, {
 					source: 'row.details.view',
 					behavior: 'core'
 				});
+			},
+			canExecute: row => {
+				if (!row) {
+					const cell = model.navigation().cell;
+					if (cell && cell.column.type === 'row-expand') {
+						row = cell.row;
+					}
+				}
 
+				return !!row;
+			},
+			shortcut: model.row().shortcut.toggle
+		});
+
+		this.using(model.rowChanged.watch(e => {
+			if (e.hasChanges('status')) {
 				model.view({
-					rows: flatView(table),
+					rows: flatView(table, e.state.mode),
 				}, {
 					source: 'row.details.view',
 					behavior: 'core'
 				});
 			}
-		});
+		}));
 
-		model.viewChanged.watch(e => {
+		this.using(model.viewChanged.watch(e => {
 			if (e.tag.source !== 'row.details.view') {
 				model.row({
-					status: toggleStatus([], model.row().status)
-				}, {
-					source: 'row.details.view',
-					behavior: 'core'
+					status: invalidateStatus(e.state.rows, model.row().status)
 				});
 			}
-		});
+		}));
+
+		const shortcut = model.action().shortcut;
+		shortcut.register(commandManager, [this.toggleStatus]);
 	}
 
 	status(row) {

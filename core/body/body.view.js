@@ -14,7 +14,7 @@ export class BodyView extends View {
 		this.table = table;
 		this.rows = [];
 		this.columnList = [];
-		model.viewChanged.watch(() => this.invalidate(model));
+		this.using(model.viewChanged.watch(() => this.invalidate(model)));
 	}
 
 	invalidate(model) {
@@ -41,7 +41,7 @@ export class BodyView extends View {
 		this.columnList = columnService.lineView(columns);
 	}
 
-	colspan(column, row) {
+	colspan(row, column) {
 		if (row instanceof RowDetails && column.type === 'row-details') {
 			return this.table.data.columns().length;
 		}
@@ -88,6 +88,9 @@ export class BodyView extends View {
 					case 'row': {
 						const rowIndex = node.rows[0];
 						return getValue(rows[rowIndex], column);
+					}
+					case 'value': {
+						return getValue(node, column);
 					}
 					default:
 						throw new AppError(

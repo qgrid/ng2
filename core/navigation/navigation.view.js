@@ -1,5 +1,5 @@
 import {View} from '../view';
-import {Command, Shortcut} from '../infrastructure';
+import {Command} from '../command';
 import {Navigation} from './navigation';
 import {GRID_PREFIX} from '../definition';
 import {Cell} from '../cell';
@@ -9,16 +9,15 @@ export class NavigationView extends View {
 		super(model);
 
 		this.table = table;
-		const shortcut = new Shortcut(commandManager);
+		const shortcut = model.action().shortcut;
 		const navigation = new Navigation(model, table);
 
-		this.shortcutOff = shortcut.register('navigation', navigation.commands);
+		this.using(shortcut.register(commandManager, navigation.commands));
 
 		this.blur = new Command({
 			execute: (row, column) => table.body.cell(row, column).removeClass(`${GRID_PREFIX}-focus`),
 			canExecute: (row, column, cell) => {
-				return (cell && table.data.columns().indexOf(cell.column) >= 0)
-					|| (!cell && table.body.cell(row, column).model !== null);
+				return cell || table.body.cell(row, column).model !== null;
 			}
 		});
 
@@ -26,9 +25,7 @@ export class NavigationView extends View {
 			execute: (row, column) => table.body.cell(row, column).addClass(`${GRID_PREFIX}-focus`),
 			canExecute: (row, column, cell) => {
 				cell = cell || table.body.cell(row, column).model;
-				return cell
-					&& cell.column.canFocus
-					&& table.data.columns().indexOf(cell.column) >= 0;
+				return cell && cell.column.canFocus;
 			}
 		});
 
@@ -37,7 +34,6 @@ export class NavigationView extends View {
 			canExecute: cell => {
 				return cell
 					&& cell.column.canFocus
-					&& table.data.columns().indexOf(cell.column) >= 0
 					&& !Cell.equals(cell, model.navigation().cell);
 			}
 		});
@@ -47,8 +43,14 @@ export class NavigationView extends View {
 			canExecute: (row, column) => table.body.cell(row, column).model !== null
 		});
 
-		model.navigationChanged.watch(e => {
+		this.using(model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
+				// We need this one to toggle focus from details to main grid
+				// or when user change navigation cell through the model
+				if (this.table.view.isFocused()) {
+					this.table.view.focus();
+				}
+
 				const navState = e.state;
 				const newTarget = e.changes.cell.newValue;
 				const oldTarget = e.changes.cell.oldValue;
@@ -76,62 +78,58 @@ export class NavigationView extends View {
 					source: 'navigation.view'
 				});
 			}
-		});
+		}));
 
-		model.focusChanged.watch(e => {
+		this.using(model.focusChanged.watch(e => {
 			if (e.tag.source !== 'navigation.view') {
 				model.navigation({
 					cell: table.body.cell(e.state.rowIndex, e.state.columnIndex).model
 				});
 			}
-		});
+		}));
 
-		model.viewChanged.watch(e => {
+		this.using(model.viewChanged.watch(e => {
 			if (e.tag.behavior !== 'core') {
 				model.navigation({cell: null});
 			}
-		});
+		}));
 	}
 
 	scroll(view, target) {
 		const tr = target.rect();
-		const cr = view.rect();
+		const vr = view.rect();
 		const scrollState = this.model.scroll();
 
 		if (view.canScrollTo(target, 'left')) {
-			if (cr.left > tr.left
-				|| cr.left > tr.right
-				|| cr.right < tr.left
-				|| cr.right < tr.right) {
+			if (vr.left > tr.left
+				|| vr.left > tr.right
+				|| vr.right < tr.left
+				|| vr.right < tr.right) {
 
-				if (cr.left < tr.left || cr.right < tr.right) {
-					view.scrollLeft(tr.right - cr.right + scrollState.left);
+				if (vr.width < tr.width || vr.left > tr.left || vr.left > tr.right) {
+					view.scrollLeft(tr.left - vr.left + scrollState.left);
 				}
-				else if (cr.left > tr.left || cr.left > tr.right) {
-					view.scrollLeft(tr.left - cr.left + scrollState.left);
+				else if (vr.left < tr.left || vr.right < tr.right) {
+					view.scrollLeft(tr.right - vr.right + scrollState.left);
 				}
 
 			}
 		}
 
 		if (view.canScrollTo(target, 'top')) {
-			if (cr.top > tr.top
-				|| cr.top > tr.bottom
-				|| cr.bottom < tr.top
-				|| cr.bottom < tr.bottom) {
+			if (vr.top > tr.top
+				|| vr.top > tr.bottom
+				|| vr.bottom < tr.top
+				|| vr.bottom < tr.bottom) {
 
-				if (cr.top < tr.top || cr.bottom < tr.bottom) {
-					view.scrollTop(tr.bottom - cr.bottom + scrollState.top);
+				if (vr.height < tr.height || vr.top > tr.top || vr.top > tr.bottom) {
+					view.scrollTop(tr.top - vr.top + scrollState.top);
 				}
-				else if (cr.top > tr.top || cr.top > tr.bottom) {
-					view.scrollTop(tr.top - cr.top + scrollState.top);
+				else if (vr.top < tr.top || vr.bottom < tr.bottom) {
+					view.scrollTop(tr.bottom - vr.bottom + scrollState.top);
 				}
 
 			}
 		}
-	}
-
-	destroy() {
-		this.shortcutOff();
 	}
 }

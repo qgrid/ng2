@@ -13,18 +13,22 @@ export class Model {
 		for (let name of Object.keys(models)) {
 			const model = new models[name]();
 			const changeSet = new Set();
-			const watchArg = () => ({
-				state: model,
-				hasChanges: changeSet.has.bind(changeSet),
-				changes: Array.from(changeSet.values())
+			const watchArg = () => {
+				const changes = Array.from(changeSet.values())
 					.reduce((memo, key) => {
 						const value = model[key];
 						memo[key] = {newValue: value, oldValue: value};
 						return memo;
-					}, {}),
-				tag: {},
-				source: 'watch',
-			});
+					}, {});
+
+				return {
+					state: model,
+					hasChanges: changes.hasOwnProperty.bind(changes),
+					changes: changes,
+					tag: {},
+					source: 'watch',
+				};
+			};
 
 			const event = new Event(watchArg);
 			this[name + 'Changed'] = event;
@@ -64,7 +68,7 @@ export class Model {
 
 							changeSet.add(key);
 						}
-						else{
+						else {
 							Log.warn('model', `value was not changed - "${name}.${key}"`);
 						}
 					}
@@ -83,6 +87,15 @@ export class Model {
 
 				return model;
 			};
+		}
+	}
+
+	static dispose(model, lifecycle = null) {
+		for (let name of Object.keys(model)) {
+			const entry = model[name];
+			if (entry instanceof Event) {
+				entry.dispose(lifecycle);
+			}
 		}
 	}
 

@@ -1,19 +1,28 @@
 import {columnFactory} from '../column/column.factory';
 import * as columnService from '../column/column.service';
 import {noop} from '../utility';
+import {generateFactory, sortIndexFactory} from '../column-list';
 
 export function columnPipe(memo, context, next) {
 	const model = context.model;
 	const pivot = memo.pivot;
 	const nodes = memo.nodes;
 	const heads = pivot.heads;
-	const columns = [];
+	const dataColumns = [];
+	const addDataColumns = dataColumnsFactory(model);
+
+	/*
+	 * We need to invoke addDataColumns earlier that others because it setups data.columns model property
+	 *
+	 */
+	addDataColumns(dataColumns, {rowspan: heads.length, row: 0});
+
 	const addSelectColumn = selectColumnFactory(model);
 	const addGroupColumn = groupColumnFactory(model, nodes);
 	const addExpandColumn = expandColumnFactory(model);
-	const addDataColumns = dataColumnsFactory(model);
 	const addPivotColumns = pivotColumnsFactory(model);
 	const addPadColumn = padColumnFactory(model);
+	const columns = [];
 
 	/*
 	 * Add column with select boxes
@@ -36,12 +45,11 @@ export function columnPipe(memo, context, next) {
 	columns.forEach((c, i) => c.index = i);
 
 	/*
-	 * Add columns defined by user
+	 *Add columns defined by user
 	 * that are visible
 	 *
 	 */
-	addDataColumns(columns, {rowspan: heads.length, row: 0});
-
+	columns.push(...dataColumns);
 
 	/*
 	 * Persist order of draggable columns
@@ -49,7 +57,8 @@ export function columnPipe(memo, context, next) {
 	 */
 	let index = 0;
 	const columnMap = columnService.map(columns.map(c => c.model));
-	const indexMap = model.columnList()
+	const indexMap = model
+		.columnList()
 		.index
 		.filter(key => columnMap.hasOwnProperty(key))
 		.reduce((memo, key) => {
@@ -57,11 +66,11 @@ export function columnPipe(memo, context, next) {
 			return memo;
 		}, {});
 
-	const hangoutColumns = columns.filter(c => !indexMap.hasOwnProperty(c.model.key));
+	const notIndexedColumns = columns.filter(c => !indexMap.hasOwnProperty(c.model.key));
 	const indexedColumns = columns.filter(c => indexMap.hasOwnProperty(c.model.key));
-	const startIndex = hangoutColumns.length;
+	const startIndex = notIndexedColumns.length;
 
-	hangoutColumns.forEach((c, i) => c.model.index = i);
+	notIndexedColumns.forEach((c, i) => c.model.index = i);
 	indexedColumns.forEach(c => c.model.index = startIndex + indexMap[c.model.key]);
 
 	columns.sort((x, y) => x.model.index - y.model.index);
@@ -98,11 +107,13 @@ function selectColumnFactory(model) {
 	if (!indicatorColumn && selection.unit === 'mix') {
 		const createColumn = columnFactory(model);
 		return (columns, context) => {
-			const selectColumn = createColumn('row-indicator');
-			selectColumn.model.source = 'generation';
-			selectColumn.rowspan = context.rowspan;
-			columns.push(selectColumn);
-			return selectColumn;
+			const indicatorColumn = createColumn('row-indicator');
+			indicatorColumn.model.source = 'generation';
+			indicatorColumn.rowspan = context.rowspan;
+			if (indicatorColumn.model.isVisible) {
+				columns.push(indicatorColumn);
+				return indicatorColumn;
+			}
 		};
 	}
 
@@ -112,8 +123,10 @@ function selectColumnFactory(model) {
 			const selectColumn = createColumn('select');
 			selectColumn.model.source = 'generation';
 			selectColumn.rowspan = context.rowspan;
-			columns.push(selectColumn);
-			return selectColumn;
+			if (selectColumn.model.isVisible) {
+				columns.push(selectColumn);
+				return selectColumn;
+			}
 		};
 	}
 
@@ -129,8 +142,10 @@ function groupColumnFactory(model, nodes) {
 			const groupColumn = createColumn('group');
 			groupColumn.model.source = 'generation';
 			groupColumn.rowspan = context.rowspan;
-			columns.push(groupColumn);
-			return groupColumn;
+			if (groupColumn.model.isVisible) {
+				columns.push(groupColumn);
+				return groupColumn;
+			}
 		};
 	}
 
@@ -146,30 +161,53 @@ function expandColumnFactory(model) {
 			const expandColumn = createColumn('row-expand');
 			expandColumn.model.source = 'generation';
 			expandColumn.rowspan = context.rowspan;
-			columns.push(expandColumn);
-			return expandColumn;
+			if (expandColumn.model.isVisible) {
+				columns.push(expandColumn);
+				return expandColumn;
+			}
 		};
 	}
 
 	return noop;
 }
 
-
 function dataColumnsFactory(model) {
+	const getColumns = generateFactory(model);
+	const getIndex = sortIndexFactory(model);
 	const createColumn = columnFactory(model);
 	return (columns, context) => {
-		const dataColumns = model.data().columns;
+		const result = getColumns();
+		if (result.hasChanges) {
+			model.data({
+				columns: result.columns
+			}, {
+				source: 'column.pipe',
+				behavior: 'core'
+			});
+		}
+
 		columns.push(...
 			columnService.dataView(
-				dataColumns
-					.map(c => {
-						const dataColumn = createColumn(c.type || 'text', c);
+				result.columns
+					.map(columnBody => {
+						const dataColumn = createColumn(columnBody.type || 'text', columnBody);
 						dataColumn.rowspan = context.rowspan;
 						return dataColumn;
 					}),
 				model));
 
-		return dataColumns;
+
+		const indexResult = getIndex(columns.map(column => column.model));
+		if (indexResult.hasChanges) {
+			model.columnList({
+				index: indexResult.index
+			}, {
+				source: 'column.pipe',
+				behavior: 'core'
+			});
+		}
+
+		return result.columns;
 	};
 }
 

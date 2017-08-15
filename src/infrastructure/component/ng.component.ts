@@ -1,12 +1,15 @@
 import {OnInit, OnDestroy} from '@angular/core';
+import {DisposableView} from '@grid/core/view/disposable.view';
 
-export abstract class NgComponent implements OnInit, OnDestroy {
-  constructor() {
-  }
+export abstract class NgComponent extends DisposableView implements OnInit, OnDestroy {
+	constructor() {
+		super();
+	}
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+	}
 
-  ngOnDestroy(): void {
-  }
+	ngOnDestroy(): void {
+		this.dispose();
+	}
 }

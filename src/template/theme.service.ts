@@ -3,23 +3,23 @@ import {Event} from '@grid/core/infrastructure';
 
 @Injectable()
 export class ThemeService {
-  changed = new Event();
-  private themeName = '';
+	changed = new Event();
+	private themeName = '';
 
-  constructor() {
-  }
+	constructor() {
+	}
 
-  get name(): string {
-    return this.themeName;
-  }
+	get name(): string {
+		return this.themeName;
+	}
 
-  set name(value: string) {
-    if (value !== this.themeName) {
-      this.themeName = value;
-      this.changed.emit({
-        newValue: value,
-        oldValue: value
-      });
-    }
-  }
+	set name(value: string) {
+		if (value !== this.themeName) {
+			this.themeName = value;
+			this.changed.emit({
+				newValue: value,
+				oldValue: value
+			});
+		}
+	}
 }

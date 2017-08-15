@@ -1,5 +1,4 @@
 import {ColumnModel} from './column.model';
-import {View} from '../view';
 import {TemplatePath} from '../template';
 import {isObject, isFunction} from '../utility';
 
@@ -17,10 +16,9 @@ TemplatePath.register('custom-cell-edit', (template, column) => {
 	};
 });
 
-export class ColumnView extends View {
+export class ColumnView {
 	constructor(model) {
-		super(model);
-
+		this.model = model;
 		this.colspan = 1;
 		this.rowspan = 1;
 	}

@@ -1,4 +1,4 @@
-import {identity, isObject, isArray, isBoolean, isEmail} from '../utility';
+import {identity, isObject, isArray, isBoolean, isEmail, isString} from '../utility';
 
 export function parseFactory(type) {
 	switch (type) {
@@ -40,12 +40,16 @@ export function getType(value) {
 		return 'date';
 	}
 
-	if (isObject(value)) {
-		return 'object';
-	}
-
 	if (isEmail(value)) {
 		return 'email';
+	}
+
+	if (isString(value)) {
+		return 'text';
+	}
+
+	if (isObject(value)) {
+		return 'object';
 	}
 
 	return 'text';
@@ -85,8 +89,31 @@ function parseDate(value) {
 		return null;
 	}
 
-	const date = new Date(value);
-	if (date !== 'Invalid Date' && !isNaN(date)) {
+	if (value instanceof Date) {
+		return value;
+	}
+
+	value = '' + value;
+	const m = value.match(/^(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2}))?))?)?)?)?$/);
+	if (m) {
+		const utc = Date.UTC(
+			m[1],
+			m[3] ? m[3] - 1 : 0,
+			m[5] || 1,
+			m[7] || 0,
+			m[8] || 0,
+			m[10] || 0,
+			m[12] ? Number('0.' + m[12]) * 1000 : 0
+		);
+		const date = new Date(utc);
+		if (m[13]) { // has gmt offset or Z
+			if (m[14]) { // has gmt offset
+				date.setUTCMinutes(
+					date.getUTCMinutes() +
+					(m[15] == '-' ? 1 : -1) * (Number(m[16]) * 60 + (m[18] ? Number(m[18]) : 0))
+				);
+			}
+		}
 		return date;
 	}
 
@@ -101,12 +128,3 @@ function parseNumber(value) {
 
 	return null;
 }
-
-// function parseInteger(value) {
-// 	const number = parseInt(value);
-// 	if (!isNaN(number) && isFinite(number)) {
-// 		return number;
-// 	}
-//
-// 	return null;
-// }

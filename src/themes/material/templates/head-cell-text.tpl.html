@@ -1,25 +1,25 @@
 <ng-template key="head-cell-text.tpl.html" let-$cell let-$view="$view">
-  <div (click)="$view.sort.toggle.execute($cell.column)"
-       (mouseover)="$view.sort.hover = true"
-       (mouseleave)="$view.sort.hover = false">
-    <div class="q-grid-sort"
-         [ngClass]="{'q-grid-active': $view.sort.order($cell.column) >= 0}"
-         *ngIf="$cell.column.canSort"
-         [ngSwitch]="$view.sort.direction($cell.column)">
-      <md-icon class="q-grid-asc" *ngSwitchCase="'asc'">arrow_downward</md-icon>
-      <md-icon class="q-grid-desc" *ngSwitchCase="'desc'">arrow_upward</md-icon>
-      <ng-container *ngSwitchDefault>
-        <md-icon *ngIf="$view.sort.hover">arrow_downward</md-icon>
-      </ng-container>
-    </div>
-    <label [mdTooltip]="$cell.column.title">
-      {{$cell.column.title}}
-    </label>
-  </div>
-  <!--<q-grid:column-filter ng-if="$cell.column.canFilter"-->
-  <!--class="q-grid-column-filter"-->
-  <!--key="$cell.column.key"-->
-  <!--title="{{$cell.column.title}}"-->
-  <!--ng-class="{'q-grid-active': $view.filter.has($cell.column)}">-->
-  <!--</q-grid:column-filter>-->
+	<div (click)="$view.sort.toggle.execute($cell.column)"
+		  (mouseover)="$view.sort.hover = true"
+		  (mouseleave)="$view.sort.hover = false">
+		<div class="q-grid-sort"
+			  [ngClass]="{'q-grid-active': $view.sort.order($cell.column) >= 0}"
+			  *ngIf="$cell.column.canSort"
+			  [ngSwitch]="$view.sort.direction($cell.column)">
+			<md-icon class="q-grid-asc" *ngSwitchCase="'asc'">arrow_downward</md-icon>
+			<md-icon class="q-grid-desc" *ngSwitchCase="'desc'">arrow_upward</md-icon>
+			<ng-container *ngSwitchDefault>
+				<md-icon *ngIf="$view.sort.hover">arrow_downward</md-icon>
+			</ng-container>
+		</div>
+		<label [mdTooltip]="$cell.column.title">
+			{{$cell.column.title}}
+		</label>
+	</div>
+	<!--<q-grid:column-filter ng-if="$cell.column.canFilter"-->
+	<!--class="q-grid-column-filter"-->
+	<!--key="$cell.column.key"-->
+	<!--title="{{$cell.column.title}}"-->
+	<!--ng-class="{'q-grid-active': $view.filter.has($cell.column)}">-->
+	<!--</q-grid:column-filter>-->
 </ng-template>

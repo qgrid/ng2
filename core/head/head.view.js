@@ -1,5 +1,6 @@
 import {View} from '../view';
-import {Log, Command} from '../infrastructure';
+import {Log} from '../infrastructure';
+import {Command} from '../command';
 import * as columnService from '../column/column.service';
 import {FilterRowColumn} from '../column-type';
 import {clone} from '../utility';
@@ -63,7 +64,7 @@ export class HeadView extends View {
 				return false;
 			}
 		});
-
+		
 		this.filter = new Command({
 			canExecute: () => true,
 			execute: e => {
@@ -94,13 +95,15 @@ export class HeadView extends View {
 			}
 		});
 
-		model.viewChanged.watch(() => this.invalidate(model));
+		this.using(model.viewChanged.watch(() =>
+			this.invalidate(model)
+		));
 
-		model.filterChanged.watch(e => {
+		this.using(model.filterChanged.watch(e => {
 			if (e.hasChanges('unit')) {
 				this.invalidate(model);
 			}
-		});
+		}));
 	}
 
 	transfer(column) {

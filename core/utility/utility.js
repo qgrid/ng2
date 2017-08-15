@@ -3,8 +3,10 @@ import isFunction from 'lodash/isFunction';
 import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
 import isBoolean from 'lodash/isBoolean';
+import isNumber from 'lodash/isNumber';
+import isDate from 'lodash/isDate';
 import clone from 'lodash/clone';
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeep from 'lodash/cloneDeepWith';
 import isUndefined from 'lodash/isUndefined';
 import debounce from 'lodash/debounce';
 import merge from 'lodash/merge';
@@ -53,6 +55,8 @@ export {
 	isString,
 	isUndefined,
 	isBoolean,
+	isDate,
+	isNumber,
 	isEmail,
 	clone,
 	cloneDeep,

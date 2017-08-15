@@ -1,5 +1,5 @@
 import {View} from '../view';
-import {Command} from '../infrastructure';
+import {Command} from '../command';
 import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
 import {CellSelector} from '../cell';
@@ -87,13 +87,13 @@ export class HighlightView extends View {
 			}
 		});
 
-		model.selectionChanged.watch(e => {
+		this.using(model.selectionChanged.watch(e => {
 			if (e.hasChanges('items')) {
 				selectionBlurs = this.invalidateSelection(selectionBlurs);
 			}
-		});
+		}));
 
-		model.viewChanged.watch(() => {
+		this.using(model.viewChanged.watch(() => {
 			waitForLayout = true;
 			this.timeout(() => {
 				columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
@@ -102,15 +102,15 @@ export class HighlightView extends View {
 				selectionBlurs = this.invalidateSelection(selectionBlurs);
 				waitForLayout = false;
 			}, 100);
-		});
+		}));
 
-		model.sortChanged.watch(e => {
+		this.using(model.sortChanged.watch(e => {
 			if (!waitForLayout && e.hasChanges('by')) {
 				sortBlurs = this.invalidateSortBy(sortBlurs);
 			}
-		});
+		}));
 
-		model.highlightChanged.watch(e => {
+		this.using(model.highlightChanged.watch(e => {
 			if (!waitForLayout && e.tag.source !== 'highlight') {
 				if (e.hasChanges('columns')) {
 					columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
@@ -120,9 +120,9 @@ export class HighlightView extends View {
 					rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
 				}
 			}
-		});
+		}));
 
-		model.scrollChanged.watch(() => {
+		this.using(model.scrollChanged.watch(() => {
 			const highlight = model.highlight;
 			if (highlight().rows.length) {
 				highlight({
@@ -131,7 +131,7 @@ export class HighlightView extends View {
 					source: 'highlight.view',
 				});
 			}
-		});
+		}));
 	}
 
 	invalidateColumnHover(dispose) {

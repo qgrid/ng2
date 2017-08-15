@@ -1,5 +1,5 @@
 import {Resource} from '../resource';
-import {Command} from '../infrastructure';
+import {Command} from '../command';
 
 export class EditModel {
 	constructor() {
@@ -10,6 +10,17 @@ export class EditModel {
 		this.commit = new Command();
 		this.cancel = new Command();
 		this.reset = new Command();
+
+		this.cancelShortcuts = {
+			'$default': 'escape'
+		};
+
+		this.enterShortcuts = {
+			'$default': '*',
+			'row': 'F2|Enter',
+			'form': 'F2|Enter'
+		};
+
 		this.commitShortcuts = {
 			'$default': 'tab|shift+tab|enter',
 			'date': 'ctrl+s',
@@ -17,7 +28,9 @@ export class EditModel {
 			'reference': 'ctrl+s',
 			'email': 'ctrl+s',
 			'file': 'ctrl+s',
-			'image': 'ctrl+s'
+			'image': 'ctrl+s',
+			'row': 'ctrl+s',
+			'form': 'ctrl+s'
 		};
 	}
 }
