@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class TableCoreService {
-  constructor() {
-  }
+	constructor() {
+	}
 
-  public pin: string;
+	public pin: string;
 }

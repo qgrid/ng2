@@ -8,47 +8,47 @@ import {TemplateModule} from '@grid/template';
 import {CommonModule} from '@grid/common';
 
 import {
-  MdIconModule,
-  MdButtonModule,
-  MdCheckboxModule,
-  MdSelectModule,
-  MdTooltipModule,
-  MdProgressBarModule,
-  MdInputModule,
-  MdDatepickerModule,
-  MdNativeDateModule,
-  MdChipsModule
+	MdIconModule,
+	MdButtonModule,
+	MdCheckboxModule,
+	MdSelectModule,
+	MdTooltipModule,
+	MdProgressBarModule,
+	MdInputModule,
+	MdDatepickerModule,
+	MdNativeDateModule,
+	MdChipsModule
 } from '@angular/material';
 
 @NgModule({
-  declarations: [
-    ThemeComponent
-  ],
-  exports: [
-    ThemeComponent
-  ],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    FormsModule,
-    TemplateModule,
-    PluginModule,
-    MdIconModule,
-    MdButtonModule,
-    MdCheckboxModule,
-    MdSelectModule,
-    MdTooltipModule,
-    MdProgressBarModule,
-    MdInputModule,
-    MdDatepickerModule,
-    MdNativeDateModule,
-    MdChipsModule
-  ],
-  providers: [
-    ThemeService
-  ]
+	declarations: [
+		ThemeComponent
+	],
+	exports: [
+		ThemeComponent
+	],
+	imports: [
+		CommonModule,
+		BrowserModule,
+		FormsModule,
+		TemplateModule,
+		PluginModule,
+		MdIconModule,
+		MdButtonModule,
+		MdCheckboxModule,
+		MdSelectModule,
+		MdTooltipModule,
+		MdProgressBarModule,
+		MdInputModule,
+		MdDatepickerModule,
+		MdNativeDateModule,
+		MdChipsModule
+	],
+	providers: [
+		ThemeService
+	]
 })
 export class ThemeModule {
-  constructor() {
-  }
+	constructor() {
+	}
 }

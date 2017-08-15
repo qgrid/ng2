@@ -15,7 +15,8 @@ export interface IMonitor{
 }
 
 export declare class StyleView extends View {
-	constructor();
+	constructor(model: Model, table: Table);
+
 	valueFactory: IValueFactory;
 	active: IActive;
 	monitor: IMonitor;

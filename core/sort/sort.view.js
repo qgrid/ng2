@@ -61,7 +61,7 @@ export class SortView extends View {
 		const model = this.model;
 		const sort = model.sort;
 
-		model.columnListChanged.watch(e => {
+		this.using(model.columnListChanged.watch(e => {
 			if (e.hasChanges('index')) {
 				const sortState = sort();
 				if (sortState.trigger.indexOf('reorder') >= 0) {
@@ -80,9 +80,9 @@ export class SortView extends View {
 					}
 				}
 			}
-		});
+		}));
 
-		model.dataChanged.watch(e => {
+		this.using(model.dataChanged.watch(e => {
 			if (e.hasChanges('columns')) {
 				const sortState = sort();
 				const columnMap = columnService.map(e.state.columns);
@@ -91,7 +91,7 @@ export class SortView extends View {
 					sort({by: sortBy}, {source: 'sort.view'});
 				}
 			}
-		});
+		}));
 	}
 
 	equals(x, y) {

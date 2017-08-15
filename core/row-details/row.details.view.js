@@ -35,24 +35,24 @@ export class RowDetailsView extends View {
 			shortcut: model.row().shortcut.toggle
 		});
 
-		model.rowChanged.watch(e => {
+		this.using(model.rowChanged.watch(e => {
 			if (e.hasChanges('status')) {
 				model.view({
-					rows: flatView(table),
+					rows: flatView(table, e.state.mode),
 				}, {
 					source: 'row.details.view',
 					behavior: 'core'
 				});
 			}
-		});
+		}));
 
-		model.viewChanged.watch(e => {
+		this.using(model.viewChanged.watch(e => {
 			if (e.tag.source !== 'row.details.view') {
 				model.row({
 					status: invalidateStatus(e.state.rows, model.row().status)
 				});
 			}
-		});
+		}));
 
 		const shortcut = model.action().shortcut;
 		shortcut.register(commandManager, [this.toggleStatus]);

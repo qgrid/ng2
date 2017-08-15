@@ -4,16 +4,16 @@ import {RootService} from '@grid/infrastructure/component/root.service';
 import {ColumnListService} from './column-list.service';
 
 @Component({
-  selector: 'q-grid-columns',
-  template: '<ng-content></ng-content>',
-  providers: [ColumnListService]
+	selector: 'q-grid-columns',
+	template: '<ng-content></ng-content>',
+	providers: [ColumnListService]
 })
 export class ColumnListComponent extends ModelComponent {
-  @Input('generation') public columnListGeneration: string = null;
+	@Input('generation') public columnListGeneration: string = null;
 
-  constructor(root: RootService) {
-    super(root);
+	constructor(root: RootService) {
+		super(root);
 
-    this.models = ['columnList'];
-  }
+		this.models = ['columnList'];
+	}
 }

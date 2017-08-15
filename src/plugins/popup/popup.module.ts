@@ -4,9 +4,10 @@ import {TemplateModule} from '@grid/template';
 import {PopupComponent} from '@grid/plugins/popup/popup.component';
 
 @NgModule({
-    imports: [TemplateModule],
-    exports: [PopupComponent],
-    declarations: [PopupComponent],
-    providers: [],
+	imports: [TemplateModule],
+	exports: [PopupComponent],
+	declarations: [PopupComponent],
+	providers: [],
 })
-export class PopupModule { }
+export class PopupModule {
+}

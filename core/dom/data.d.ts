@@ -1,11 +1,15 @@
 import {Model} from '../infrastructure/model';
 import {IMapResult} from '../column/column.service';
-import {Column} from './column';
+import {ColumnModel} from '../column-type/column.model';
 
 export declare class Data {
-	constructor(model: Model);
-	model: Model;
-	columns(): Column[];
-	columnMap(): IMapResult;
-	rows(): any[];
+  constructor(model: Model);
+
+  model: Model;
+
+  columns(): ColumnModel[];
+
+  columnMap(): IMapResult;
+
+  rows(): any[];
 }

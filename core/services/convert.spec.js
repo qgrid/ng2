@@ -1,6 +1,24 @@
 import * as Convert from './convert';
 
 describe('Convert', () => {
+	describe('getType', () => {
+		it('should return correct type', () => {
+			expect(Convert.getType(123)).to.equal('number');
+			expect(Convert.getType('123')).to.equal('number');
+			expect(Convert.getType('foo')).to.equal('text');
+			expect(Convert.getType('123$')).to.equal('text');
+			expect(Convert.getType(new String('bar'))).to.equal('text');
+			expect(Convert.getType('2017-01-01')).to.equal('date');
+			expect(Convert.getType(new Date())).to.equal('date');
+			expect(Convert.getType(true)).to.equal('bool');
+			expect(Convert.getType('false')).to.equal('bool');
+			expect(Convert.getType({})).to.equal('object');
+			expect(Convert.getType('qgrid@gmail.com')).to.equal('email');
+			expect(Convert.getType([1, 2, 3])).to.equal('array');
+			expect(Convert.getType([{}, {}])).to.equal('collection');
+		});
+	});
+
 	describe('parseText', () => {
 		const parseText = Convert.parseFactory('text');
 
@@ -75,19 +93,25 @@ describe('Convert', () => {
 		it('should return null if argument is undefined', () => {
 			expect(parseNumber(undefined)).to.equal(null);
 		});
-	});	
+	});
 
 	describe('parseDate', () => {
 		const parseDate = Convert.parseFactory('date');
 
 		it('should convert String of date to Date', () => {
-			expect(+(parseDate('2017.05.05'))).to.be.equal(+(new Date('2017.05.05')));
+			expect(+parseDate('2017-05-05')).to.be.equal(+(new Date('2017-05-05')));
+		});
+		it('should convert String of ISO date', () => {
+			expect(+parseDate('2017-08-10T15:20:23.738Z')).to.be.equal(+(Date.parse('2017-08-10T15:20:23.738Z')));
 		});
 		it('should return null if passed invalid date', () => {
 			expect(parseDate('2017.05.05.09.90.80')).to.be.equal(null);
 		});
 		it('should return null if passed Number', () => {
-			expect(+(parseDate(2017.05))).to.be.equal(+(new Date('2017.05')));
+			expect(parseDate(2017.05)).to.be.equal(null);
+		});
+		it('should return null if passed invalid date text', () => {
+			expect(parseDate('PO BOX 27401')).to.be.equal(null);
 		});
 		it('should return null if passed incorrect number', () => {
 			expect(parseDate(Number.MAX_VALUE)).to.equal(null);

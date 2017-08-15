@@ -1,13 +1,13 @@
 <ng-template key='edit-cell-text.tpl.html' let-$cell let-$view="$view">
-  <div class="q-grid-editor q-grid-text">
-    <md-input-container>
-      <input mdInput
-             #input
-             q-grid-focus
-             maxlength="{{$cell.column.maxLength}}"
-             [(ngModel)]="$view.edit.cell.value"
-             (blur)="$view.edit.cell.commit.execute($cell)">
-      <md-hint align="end">{{input.value.length}} / {{$cell.column.maxLength}}</md-hint>
-    </md-input-container>
-  </div>
+	<div class="q-grid-editor q-grid-text">
+		<md-input-container>
+			<input mdInput
+					 #input
+					 q-grid-focus
+					 maxlength="{{$cell.column.maxLength}}"
+					 [(ngModel)]="$view.edit.cell.value"
+					 (blur)="$view.edit.cell.commit.execute($cell)">
+			<md-hint align="end">{{input.value.length}} / {{$cell.column.maxLength}}</md-hint>
+		</md-input-container>
+	</div>
 </ng-template>

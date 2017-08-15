@@ -51,9 +51,6 @@ class PopupBodyComponent implements OnInit, OnDestroy {
     // }
   }
 
-  ngOnDestroy(): void {
-  }
-
   close(): void {
     this.popup.close();
   }

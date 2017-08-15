@@ -21,11 +21,11 @@ export class StyleView extends View {
 			cell: new Monitor(model)
 		};
 
-		model.viewChanged.watch(() => {
+		this.using(model.viewChanged.watch(() => {
 			this.invalidate();
-		});
+		}));
 
-		model.styleChanged.watch(e => {
+		this.using(model.styleChanged.watch(e => {
 			if (e.hasChanges('row')) {
 				this.active.row = e.state.row !== noop;
 			}
@@ -35,7 +35,7 @@ export class StyleView extends View {
 			}
 
 			this.invalidate();
-		});
+		}));
 	}
 
 	invalidate() {

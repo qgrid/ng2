@@ -1,10 +1,10 @@
 <tr *ngFor="let $row of $view.foot.rows; let $rowIndex = index">
-  <td *ngFor="let $column of $view.foot.columns; let $columnIndex = index"
-      [attr.rowspan]="$column.rowspan"
-      [attr.colspan]="$column.colspan">
-    <ng-container q-grid-core-tf
-                  [q-grid-core-column-index]="$columnIndex"
-                  [q-grid-core-row-index]="$rowIndex">
-    </ng-container>
-  </td>
+	<td *ngFor="let $column of $view.foot.columns; let $columnIndex = index"
+		 [attr.rowspan]="$column.rowspan"
+		 [attr.colspan]="$column.colspan">
+		<ng-container q-grid-core-tf
+						  [q-grid-core-column-index]="$columnIndex"
+						  [q-grid-core-row-index]="$rowIndex">
+		</ng-container>
+	</td>
 </tr>

@@ -23,7 +23,7 @@ export class BoxComponent extends NgComponent implements OnInit {
         this.initTheme();
 
         const model = this.model;
-        model.dragChanged.watch(e => {
+        this.using(model.dragChanged.watch(e => {
             if (e.hasChanges('isActive')) {
                 if (model.drag().isActive) {
                     this.element.classList.add(`${GRID_PREFIX}-drag`);
@@ -31,19 +31,19 @@ export class BoxComponent extends NgComponent implements OnInit {
                     this.element.classList.remove(`${GRID_PREFIX}-drag`);
                 }
             }
-        });
+        }));
     }
 
     initTheme() {
         const element = this.element;
         element.classList.add(GRID_PREFIX);
-        this.theme.changed.watch(e => {
+        this.using(this.theme.changed.watch(e => {
             if (e) {
                 element.classList.remove(`${GRID_PREFIX}-theme-${e.oldValue}`);
             }
 
             element.classList.add(`${GRID_PREFIX}-theme-${this.theme.name}`);
-        });
+        }));
     }
 
     get model() {
