@@ -1,6 +1,5 @@
 import {Directive, ElementRef, Inject, Input, Optional} from '@angular/core';
-import {EventManager} from '@grid/core/infrastructure';
-import {EventListener} from '@grid/core/infrastructure/event.listener';
+import * as Infrastructure from '@grid/core/infrastructure';
 import {GRID_PREFIX} from '@grid/core/definition';
 import {NgComponent, RootService} from '@grid/infrastructure/component';
 import {clone, noop} from '@grid/core/utility';
@@ -13,8 +12,8 @@ export class ResizeDirective extends NgComponent {
 	private element: HTMLElement;
 	private divider: HTMLElement;
 	private listener = {
-		divider: EventListener,
-		document: EventListener
+		divider: Infrastructure.EventListener,
+		document: Infrastructure.EventListener
 	};
 	private context = {
 		x: 0,
@@ -32,8 +31,8 @@ export class ResizeDirective extends NgComponent {
 		this.element = elementRef.nativeElement;
 		this.divider = document.createElement('div');
 
-		this.listener.divider = new EventListener(this.divider, new EventManager(this));
-		this.listener.document = new EventListener(document, new EventManager(this));
+		this.listener.divider = new Infrastructure.EventListener(this.divider, new Infrastructure.EventManager(this));
+		this.listener.document = new Infrastructure.EventListener(document, new Infrastructure.EventManager(this));
 	}
 
 	ngOnInit() {

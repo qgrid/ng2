@@ -1,4 +1,4 @@
-<table q-grid-markup="table" tabindex="0">
+<table q-grid-markup="table">
 	<thead *ngIf="visibility.head"
 			 q-grid-core-head
 			 q-grid-markup="head"
@@ -10,7 +10,8 @@
 			 q-grid-animate="false"
 			 vscroll
 			 vscroll-port-y="$view.scroll.y"
-			 q-grid-core-body>
+			 q-grid-core-body
+			 tabindex="0">
 	</tbody>
 	<tfoot *ngIf="visibility.foot"
 			 q-grid-markup="foot"

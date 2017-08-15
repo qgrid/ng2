@@ -1,15 +1,15 @@
 <md-card>
-	<q-grid [rows]="rows"
-			  [model]="gridModel"
-			  editMode="cell">
+	<q-grid q-grid-autofocus="200"
+			  [rows]="rows"
+			  [model]="gridModel">
 		<q-grid-columns generation="deep">
 			<!--<q-grid-column key="name.last">-->
-				<!--<ng-template for="body" let-$cell>-->
-					<!--<span style="color: blue">{{$cell.value}}</span>-->
-				<!--</ng-template>-->
-				<!--&lt;!&ndash;<ng-template for="edit" let-$cell let-$view="$view">&ndash;&gt;-->
-				<!--&lt;!&ndash;<button (click)="$view.edit.cell.cancel.execute($cell, $event)">custom template</button>&ndash;&gt;-->
-				<!--&lt;!&ndash;</ng-template>&ndash;&gt;-->
+			<!--<ng-template for="body" let-$cell>-->
+			<!--<span style="color: blue">{{$cell.value}}</span>-->
+			<!--</ng-template>-->
+			<!--&lt;!&ndash;<ng-template for="edit" let-$cell let-$view="$view">&ndash;&gt;-->
+			<!--&lt;!&ndash;<button (click)="$view.edit.cell.cancel.execute($cell, $event)">custom template</button>&ndash;&gt;-->
+			<!--&lt;!&ndash;</ng-template>&ndash;&gt;-->
 			<!--</q-grid-column>-->
 			<!--<q-grid-column key="contact.singleEmail" title="Experimental" editor="password">-->
 			<!--</q-grid-column>-->

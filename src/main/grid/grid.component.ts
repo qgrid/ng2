@@ -1,4 +1,13 @@
-import {Component, Input, Output, EventEmitter, ViewEncapsulation, OnInit, ElementRef} from '@angular/core';
+import {
+	Component,
+	Input,
+	Output,
+	EventEmitter,
+	ViewEncapsulation,
+	OnInit,
+	ElementRef,
+	ChangeDetectorRef
+} from '@angular/core';
 import {TemplateCacheService} from '@grid/template';
 import {RootComponent, RootService} from '@grid/infrastructure/component';
 import {LayerService} from '../layer';
@@ -6,6 +15,8 @@ import {Table} from '@grid/core/dom';
 import {AppError} from '@grid/core/infrastructure';
 import {TableCommandManager} from '@grid/core/command';
 import {isUndefined} from '@grid/core/utility';
+import {EventManager} from '@grid/core/infrastructure/event.manager';
+import {EventListener} from '@grid/core/infrastructure/event.listener';
 
 @Component({
 	selector: 'q-grid',
@@ -42,14 +53,16 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input() styleCell;
 	@Input('id') gridId;
 	@Input('actions') actionItems;
-
 	@Output() selectionChanged = new EventEmitter<any>();
 
-	constructor(private rootService: RootService, private element: ElementRef) {
+	listener: EventListener;
+
+	constructor(private rootService: RootService, private element: ElementRef, private changeDetector: ChangeDetectorRef) {
 		super();
 
 		this.models = ['data', 'selection', 'sort', 'group', 'pivot', 'edit', 'style', 'action'];
 		this.using(this.modelChanged.watch(model => this.rootService.model = model));
+		this.listener = new EventListener(element.nativeElement, new EventManager(this, rootService.applyFactory(null, 'sync')));
 	}
 
 	ngOnInit() {
@@ -71,7 +84,6 @@ export class GridComponent extends RootComponent implements OnInit {
 		const markup = this.rootService.markup;
 		const layerService = new LayerService(markup);
 		const bag = this.rootService.bag;
-		const model = this.rootService.model;
 
 		const tableContext = {
 			layer: name => layerService.create(name),
@@ -80,7 +92,14 @@ export class GridComponent extends RootComponent implements OnInit {
 
 		const table = new Table(model, markup, tableContext);
 		this.rootService.table = table;
-		this.rootService.commandManager = new TableCommandManager(this.applyFactory(), table);
+		this.rootService.commandManager = new TableCommandManager(this.rootService.applyFactory(), table);
+
+		this.using(this.listener.on('keydown', e => {
+			if (model.action().shortcut.keyDown(e)) {
+				e.preventDefault();
+				e.stopPropagation();
+			}
+		}));
 
 		this.using(this.model.viewChanged.watch(e => {
 			if (e.hasChanges('columns')) {
@@ -100,35 +119,8 @@ export class GridComponent extends RootComponent implements OnInit {
 		});
 	}
 
-	applyFactory(gf = null, mode = 'async') {
-		return (lf, timeout) => {
-			if (isUndefined(timeout)) {
-				switch (mode) {
-					case 'async': {
-						timeout = 0;
-						break;
-					}
-					case 'sync': {
-						const result = lf();
-						if (gf) {
-							gf();
-						}
-
-						return result;
-					}
-					default:
-						throw new AppError('grid', `Invalid mode ${mode}`);
-				}
-			}
-
-			return setTimeout(() => {
-				lf();
-
-				if (gf) {
-					gf();
-				}
-			}, timeout);
-		};
+	get isActive() {
+		return this.rootService.table.view.isFocused();
 	}
 
 	get visibility() {

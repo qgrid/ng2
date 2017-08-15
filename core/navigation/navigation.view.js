@@ -47,7 +47,7 @@ export class NavigationView extends View {
 			if (e.hasChanges('cell')) {
 				// We need this one to toggle focus from details to main grid
 				// or when user change navigation cell through the model
-				if (this.table.view.isFocused()) {
+				if (!this.table.view.isFocused()) {
 					this.table.view.focus();
 				}
 

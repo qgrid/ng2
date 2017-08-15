@@ -55,7 +55,7 @@ export default class PopupService {
 		}
 
 		const item = this.popups.get(id);
-		delete this.popups.delete(id);
+		this.popups.delete(id);
 		item.close();
 	}
 
