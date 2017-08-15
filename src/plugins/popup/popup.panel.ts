@@ -39,12 +39,6 @@ export class PopupPanelComponent implements OnInit, OnDestroy {
     this.element.nativeElement.classList.add('q-grid-popup');
   }
 
-  ngOnDestroy(): void {
-    // if (this.$templateScope) {
-    //   this.$templateScope.$destroy();
-    // }
-  }
-
   close(): void {
     this.qGridPopupService.close(this.id);
   }

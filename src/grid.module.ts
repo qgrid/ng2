@@ -9,25 +9,25 @@ import {GridComponent} from './main/grid';
 import {ColumnListComponent, ColumnComponent} from './main/column';
 
 @NgModule({
-    declarations: [],
-    exports: [
-        GridComponent,
-        ColumnListComponent,
-        ColumnComponent,
-        TemplateCacheDirective
-    ],
-    imports: [
-        MainModule,
-        TemplateModule
-    ],
-    providers: [
-        TemplateLinkService,
-        ThemeService
-    ]
+	declarations: [],
+	exports: [
+		GridComponent,
+		ColumnListComponent,
+		ColumnComponent,
+		TemplateCacheDirective
+	],
+	imports: [
+		MainModule,
+		TemplateModule
+	],
+	providers: [
+		TemplateLinkService,
+		ThemeService
+	]
 })
 export class GridModule {
-    constructor(themeService: ThemeService, theme: Theme) {
-        setup(Model);
-        themeService.name = theme.name;
-    }
+	constructor(themeService: ThemeService, theme: Theme) {
+		setup(Model);
+		themeService.name = theme.name;
+	}
 }

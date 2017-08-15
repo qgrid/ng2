@@ -14,32 +14,32 @@ import {CommonModule} from '@grid/common';
 import {TableCoreComponent} from '@grid/main/core/table';
 
 @NgModule({
-  declarations: [
-    ViewCoreComponent,
-    TableCoreComponent,
-    HeadCoreComponent,
-    BodyCoreComponent,
-    FootCoreComponent,
-    ToolbarCoreComponent,
-    TrCoreDirective,
-    ThCoreDirective,
-    TdCoreDirective,
-    TfCoreDirective,
-    MarkupDirective
-  ],
-  exports: [
-    ViewCoreComponent,
-    ToolbarCoreComponent
-  ],
-  imports: [
-    BrowserModule,
-    TemplateModule,
-    CommonModule
-  ],
-  providers: [
-    VScrollService,
-    TemplateCacheService
-  ]
+	declarations: [
+		ViewCoreComponent,
+		TableCoreComponent,
+		HeadCoreComponent,
+		BodyCoreComponent,
+		FootCoreComponent,
+		ToolbarCoreComponent,
+		TrCoreDirective,
+		ThCoreDirective,
+		TdCoreDirective,
+		TfCoreDirective,
+		MarkupDirective
+	],
+	exports: [
+		ViewCoreComponent,
+		ToolbarCoreComponent
+	],
+	imports: [
+		BrowserModule,
+		TemplateModule,
+		CommonModule
+	],
+	providers: [
+		VScrollService,
+		TemplateCacheService
+	]
 })
 export class CoreModule {
 }

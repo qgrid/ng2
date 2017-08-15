@@ -1,10 +1,10 @@
 export class Layer {
-  constructor() {
-  }
+	constructor() {
+	}
 
-  resource(id, state) {
-  }
+	resource(id, state) {
+	}
 
-  destroy() {
-  }
+	destroy() {
+	}
 }

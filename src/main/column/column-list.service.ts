@@ -6,33 +6,33 @@ import {RootService} from '@grid/infrastructure/component';
 
 @Injectable()
 export class ColumnListService {
-    constructor(private root: RootService) {
-    }
+	constructor(private root: RootService) {
+	}
 
-    copy(target, source) {
-        Object.keys(source)
-            .filter(key => !isUndefined(source[key]) && key !== 'value')
-            .forEach(key => {
-                const value = source[key];
-                const accessor = compile(key);
-                const targetValue = accessor(target);
-                const parse = parseFactory(getType(targetValue));
-                const sourceValue = parse(value);
-                accessor(target, sourceValue);
-            });
-    }
+	copy(target, source) {
+		Object.keys(source)
+			.filter(key => !isUndefined(source[key]) && key !== 'value')
+			.forEach(key => {
+				const value = source[key];
+				const accessor = compile(key);
+				const targetValue = accessor(target);
+				const parse = parseFactory(getType(targetValue));
+				const sourceValue = parse(value);
+				accessor(target, sourceValue);
+			});
+	}
 
-    add(column) {
-        const columnList = this.root.model.columnList;
-        columnList({
-            columns: columnList().columns.concat([column])
-        });
-    }
+	add(column) {
+		const columnList = this.root.model.columnList;
+		columnList({
+			columns: columnList().columns.concat([column])
+		});
+	}
 
-    register(column) {
-        const columnList = this.root.model.columnList;
-        const reference = clone(columnList().columns);
-        reference[column.type] = column;
-        columnList({reference});
-    }
+	register(column) {
+		const columnList = this.root.model.columnList;
+		const reference = clone(columnList().columns);
+		reference[column.type] = column;
+		columnList({reference});
+	}
 }

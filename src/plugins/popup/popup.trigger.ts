@@ -36,12 +36,6 @@ export class PopupTriggerComponent implements OnInit, OnDestroy {
     // this.$templateScope = templateScope;
   }
 
-  ngOnDestroy(): void {
-    // if (this.$templateScope) {
-    // 	this.$templateScope.$destroy();
-    // }
-  }
-
   open(settings: IPopupSettings = PopupSettings): void {
     if (!settings.target) {
       settings.target = this.element.nativeElement[0];

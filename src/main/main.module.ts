@@ -7,26 +7,26 @@ import {CoreModule} from './core';
 import {ThemeModule} from '@grid/theme/theme.module';
 
 @NgModule({
-  declarations: [
-    GridComponent,
-    BoxComponent,
-    ColumnListComponent,
-    ColumnComponent
-  ],
-  exports: [
-    GridComponent,
-    ColumnListComponent,
-    ColumnComponent,
-    BoxComponent
-  ],
-  imports: [
-    BrowserModule,
-    CoreModule,
-    ThemeModule
-  ],
-  providers: [
-    GridService
-  ]
+	declarations: [
+		GridComponent,
+		BoxComponent,
+		ColumnListComponent,
+		ColumnComponent
+	],
+	exports: [
+		GridComponent,
+		ColumnListComponent,
+		ColumnComponent,
+		BoxComponent
+	],
+	imports: [
+		BrowserModule,
+		CoreModule,
+		ThemeModule
+	],
+	providers: [
+		GridService
+	]
 })
 export class MainModule {
 }

@@ -6,23 +6,23 @@ import {Table} from '@grid/core/dom/table';
 
 @Injectable()
 export class RootService {
-  private gridModel: Model = null;
-  public markup: any = {};
-  public bag = new Map<HTMLElement, any>();
-  public table: Table = null;
-  public commandManager;
+	private gridModel: Model = null;
+	public markup: any = {};
+	public bag = new Map<HTMLElement, any>();
+	public table: Table = null;
+	public commandManager;
 
-  constructor() {
-    this.markup.document = document;
-  }
+	constructor() {
+		this.markup.document = document;
+	}
 
-  get model() {
-    Guard.notNull(this.gridModel, 'model');
+	get model() {
+		Guard.notNull(this.gridModel, 'model');
 
-    return this.gridModel;
-  }
+		return this.gridModel;
+	}
 
-  set model(value) {
-    this.gridModel = value;
-  }
+	set model(value) {
+		this.gridModel = value;
+	}
 }

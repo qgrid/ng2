@@ -5,37 +5,38 @@ import {NgComponent, RootService} from '../infrastructure/component';
 import {Guard} from '@grid/core/infrastructure';
 
 export class PluginComponent extends NgComponent implements OnInit, OnChanges, OnDestroy {
-    @Input('model') public gridModel: any = null;
+	@Input('model') public gridModel: any = null;
 
-    public context = {$implicit: this};
-    private binder = new ModelBinder(this);
-    private commit = noop;
-    protected models: string[] = [];
+	public context = {$implicit: this};
+	private binder = new ModelBinder(this);
+	private commit = noop;
+	protected models: string[] = [];
 
-    constructor(@Optional() public root: RootService) {
-        super();
-    }
+	constructor(@Optional() public root: RootService) {
+		super();
+	}
 
-    setup() {
-        return this.binder.bind(this.model, this.models, false);
-    }
+	setup() {
+		return this.binder.bind(this.model, this.models, false);
+	}
 
-    ngOnInit() {
-        this.commit = this.setup();
-        this.commit();
-    }
+	ngOnInit() {
+		this.commit = this.setup();
+		this.commit();
+	}
 
-    ngOnChanges(changes: SimpleChanges): void {
-        this.commit();
-    }
+	ngOnChanges(changes: SimpleChanges): void {
+		this.commit();
+	}
 
-    ngOnDestroy() {
-        this.binder.bind(null);
-    }
+	ngOnDestroy() {
+		super.ngOnDestroy();
+		this.binder.bind(null);
+	}
 
-    get model() {
-        const model = this.gridModel || (this.root && this.root.model);
-        Guard.notNull('model', model);
-        return model;
-    }
+	get model() {
+		const model = this.gridModel || (this.root && this.root.model);
+		Guard.notNull('model', model);
+		return model;
+	}
 }

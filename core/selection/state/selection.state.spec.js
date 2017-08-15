@@ -175,7 +175,7 @@ describe('selection state', () => {
 					row: rows[1],
 					column: columns[1]
 				};
-				
+
 				const key = selectionState.key(cell);
 
 				expect(key).to.equal('name[102]');

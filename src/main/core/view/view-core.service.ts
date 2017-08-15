@@ -23,52 +23,52 @@ import {VScrollService} from '@grid/main/core/scroll';
 
 @Injectable()
 export class ViewCoreService {
-  public group: GroupView = null;
-  public filter: FilterView = null;
-  public pivot: PivotView = null;
-  public sort: SortView = null;
-  public pagination: PaginationView = null;
-  public columns: ColumnView = null;
-  public head: HeadView = null;
-  public body: BodyView = null;
-  public foot: FootView = null;
-  public layout: LayoutView = null;
-  public selection: SelectionView = null;
-  public highlight: HighlightView = null;
-  public edit: EditView = null;
-  public nav: NavigationView = null;
-  public scroll: ScrollView = null;
-  public style: StyleView = null;
-  public rowDetails: RowDetailsView = null;
+	public group: GroupView = null;
+	public filter: FilterView = null;
+	public pivot: PivotView = null;
+	public sort: SortView = null;
+	public pagination: PaginationView = null;
+	public columns: ColumnView = null;
+	public head: HeadView = null;
+	public body: BodyView = null;
+	public foot: FootView = null;
+	public layout: LayoutView = null;
+	public selection: SelectionView = null;
+	public highlight: HighlightView = null;
+	public edit: EditView = null;
+	public nav: NavigationView = null;
+	public scroll: ScrollView = null;
+	public style: StyleView = null;
+	public rowDetails: RowDetailsView = null;
 
-  constructor(private root: RootService,
-              private gridServiceFactory: GridService,
-              private vscroll: VScrollService) {
-  }
+	constructor(private root: RootService,
+					private gridServiceFactory: GridService,
+					private vscroll: VScrollService) {
+	}
 
-  init() {
-    const root = this.root;
-    const model = root.model;
-    const table = root.table;
-    const commandManager = root.commandManager;
-    const gridService = this.gridServiceFactory.service(model);
+	init() {
+		const root = this.root;
+		const model = root.model;
+		const table = root.table;
+		const commandManager = root.commandManager;
+		const gridService = this.gridServiceFactory.service(model);
 
-    this.style = new StyleView(model, table);
-    this.head = new HeadView(model, table, 'q-grid-core-th');
-    this.body = new BodyView(model, table);
-    this.foot = new FootView(model, table);
-    this.columns = new ColumnView(model, gridService);
-    this.layout = new LayoutView(model, table, gridService);
-    this.selection = new SelectionView(model, table, commandManager, gridService);
-    this.group = new GroupView(model, commandManager);
-    this.pivot = new PivotView(model);
-    this.highlight = new HighlightView(model, table, setTimeout);
-    this.sort = new SortView(model);
-    this.filter = new FilterView(model);
-    this.edit = new EditView(model, table, commandManager);
-    this.nav = new NavigationView(model, table, commandManager);
-    this.pagination = new PaginationView(model);
-    this.scroll = new ScrollView(model, table, this.vscroll, gridService);
-    this.rowDetails = new RowDetailsView(model, table, commandManager);
-  }
+		this.style = new StyleView(model, table);
+		this.head = new HeadView(model, table, 'q-grid-core-th');
+		this.body = new BodyView(model, table);
+		this.foot = new FootView(model, table);
+		this.columns = new ColumnView(model, gridService);
+		this.layout = new LayoutView(model, table, gridService);
+		this.selection = new SelectionView(model, table, commandManager, gridService);
+		this.group = new GroupView(model, commandManager);
+		this.pivot = new PivotView(model);
+		this.highlight = new HighlightView(model, table, setTimeout);
+		this.sort = new SortView(model);
+		this.filter = new FilterView(model);
+		this.edit = new EditView(model, table, commandManager);
+		this.nav = new NavigationView(model, table, commandManager);
+		this.pagination = new PaginationView(model);
+		this.scroll = new ScrollView(model, table, this.vscroll, gridService);
+		this.rowDetails = new RowDetailsView(model, table, commandManager);
+	}
 }

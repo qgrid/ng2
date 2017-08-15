@@ -28,86 +28,86 @@ import {VScrollService} from '../scroll';
 import {CellService} from '../cell';
 
 @Component({
-  selector: 'q-grid-core-view',
-  templateUrl: './view-core.component.html',
-  providers: [
-    ViewCoreService,
-    CellService
-  ]
+	selector: 'q-grid-core-view',
+	templateUrl: './view-core.component.html',
+	providers: [
+		ViewCoreService,
+		CellService
+	]
 })
 export class ViewCoreComponent extends NgComponent {
-  constructor(@Optional() private root: RootService,
-              private view: ViewCoreService,
-              private gridService: GridService) {
-    super();
-  }
+	constructor(@Optional() private root: RootService,
+					private view: ViewCoreService,
+					private gridService: GridService) {
+		super();
+	}
 
-  ngOnInit() {
-    super.ngOnInit();
+	ngOnInit() {
+		super.ngOnInit();
 
-    this.view.init();
-    
-    const model = this.model;
-    const gridService = this.gridService.service(model);
+		this.view.init();
 
-    // model.selectionChanged.watch(e => {
-    //   // TODO: add event
-    //   // if (e.hasChanges('entries')) {
-    //   //   this.root.selectionChanged.emit({
-    //   //     state: model.selection(),
-    //   //     changes: e.changes
-    //   //   });
-    //   // }
-    //
-    // });
+		const model = this.model;
+		const gridService = this.gridService.service(model);
 
-    const triggers = model.data().triggers;
-    // TODO: think about invalidation queue
-    let needInvalidate = true;
-    Object.keys(triggers)
-      .forEach(name =>
-        model[name + 'Changed']
-          .watch(e => {
-            const changes = Object.keys(e.changes);
-            if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
-              needInvalidate = false;
-              gridService.invalidate(name, e.changes);
-            }
-          }));
+		// model.selectionChanged.watch(e => {
+		//   // TODO: add event
+		//   // if (e.hasChanges('entries')) {
+		//   //   this.root.selectionChanged.emit({
+		//   //     state: model.selection(),
+		//   //     changes: e.changes
+		//   //   });
+		//   // }
+		//
+		// });
 
-    if (needInvalidate) {
-      gridService.invalidate('grid');
-    }
-  }
+		const triggers = model.data().triggers;
+		// TODO: think about invalidation queue
+		let needInvalidate = true;
+		Object.keys(triggers)
+			.forEach(name =>
+				this.using(model[name + 'Changed']
+					.watch(e => {
+						const changes = Object.keys(e.changes);
+						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
+							needInvalidate = false;
+							gridService.invalidate(name, e.changes);
+						}
+					})));
 
-  ngOnDestroy() {
-    super.ngOnDestroy();
+		if (needInvalidate) {
+			gridService.invalidate('grid');
+		}
+	}
 
-    const view = this.view;
-    view.style.dispose();
-    view.head.dispose();
-    view.body.dispose();
-    view.foot.dispose();
-    view.columns.dispose();
-    view.layout.dispose();
-    view.selection.dispose();
-    view.group.dispose();
-    view.pivot.dispose();
-    view.highlight.dispose();
-    view.sort.dispose();
-    view.filter.dispose();
-    view.edit.dispose();
-    view.nav.dispose();
-    view.pagination.dispose();
-    view.scroll.dispose();
-    view.rowDetails.dispose();
-  }
+	ngOnDestroy() {
+		super.ngOnDestroy();
 
-  get model() {
-    return this.root.model;
-  }
+		const view = this.view;
+		view.style.dispose();
+		view.head.dispose();
+		view.body.dispose();
+		view.foot.dispose();
+		view.columns.dispose();
+		view.layout.dispose();
+		view.selection.dispose();
+		view.group.dispose();
+		view.pivot.dispose();
+		view.highlight.dispose();
+		view.sort.dispose();
+		view.filter.dispose();
+		view.edit.dispose();
+		view.nav.dispose();
+		view.pagination.dispose();
+		view.scroll.dispose();
+		view.rowDetails.dispose();
+	}
 
-  get visibility() {
-    return this.model.visibility();
-  }
+	get model() {
+		return this.root.model;
+	}
+
+	get visibility() {
+		return this.model.visibility();
+	}
 }
