@@ -1,0 +1,23 @@
+.q-grid-embed {
+	margin: 16px 0;
+
+	.q-grid.q-grid-theme-material {
+		.q-grid-view {
+			tr {
+				height: 32px;
+			}
+
+			thead tr th {
+				color: rgba(0, 127, 163, 0.77);
+				background-color: rgba(0, 0, 0, 0.04);
+				.q-grid-sort.q-grid-active {
+					& + label {
+						color: rgb(0, 127, 163);
+					}
+				}
+			}
+		}
+	}
+}
+
+

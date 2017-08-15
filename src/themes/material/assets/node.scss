@@ -1,6 +1,12 @@
-td.q-grid-group {
+td.q-grid-group, td.q-grid-row-expand {
 	button {
 		background: transparent;
 		border: none;
+		margin: 0;
+		padding: 0;
 	}
+}
+
+.q-grid-arrow-right {
+	transform: rotate(90deg);
 }

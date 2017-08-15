@@ -16,11 +16,15 @@
 				padding: 0;
 
 				md-card-title-text {
-					margin-left: 10px;
+					margin-left: 16px;
 					.md-subhead {
 						line-height: 30px;
 						vertical-align: middle;
 					}
+				}
+
+				md-card-title-actions {
+					margin-right: 16px;
 				}
 			}
 
