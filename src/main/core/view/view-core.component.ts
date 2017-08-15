@@ -18,6 +18,7 @@ import {TableView} from '@grid/core/table';
 import {StyleView} from '@grid/core/style';
 import {ColumnView} from '@grid/core/column';
 import {ScrollView} from '@grid/core/scroll';
+import {RowDetailsView} from '@grid/core/row-details';
 import {isUndefined} from '@grid/core/utility';
 import {PipeUnit} from '@grid/core/pipe/units';
 import {AppError} from '@grid/core/infrastructure';
@@ -37,53 +38,28 @@ import {CellService} from '../cell';
 export class ViewCoreComponent extends NgComponent {
   constructor(@Optional() private root: RootService,
               private view: ViewCoreService,
-              private gridService: GridService,
-              private vscroll: VScrollService) {
+              private gridService: GridService) {
     super();
   }
 
   ngOnInit() {
     super.ngOnInit();
 
+    this.view.init();
+    
     const model = this.model;
-    const table = this.root.table;
-    const commandManager = this.root.commandManager;
     const gridService = this.gridService.service(model);
 
-    this.view.style = new StyleView(model, table);
-    this.view.head = new HeadView(model, table, 'q-grid-core-th');
-    this.view.body = new BodyView(model, table);
-    this.view.foot = new FootView(model, table);
-    this.view.columns = new ColumnView(model, gridService);
-    this.view.layout = new LayoutView(model, table, gridService);
-    this.view.selection = new SelectionView(model, table, commandManager);
-    this.view.group = new GroupView(model);
-    this.view.pivot = new PivotView(model);
-    this.view.highlight = new HighlightView(model, table, setTimeout);
-    this.view.sort = new SortView(model);
-    this.view.filter = new FilterView(model);
-    this.view.edit = new EditView(model, table, commandManager);
-    this.view.nav = new NavigationView(model, table, commandManager);
-    this.view.pagination = new PaginationView(model);
-    this.view.scroll = new ScrollView(model, table, this.vscroll, gridService);
-
-    // TODO: how we can avoid that?
-    // this.$scope.$watch(this.style.invalidate.bind(this.style));
+    // model.selectionChanged.watch(e => {
+    //   // TODO: add event
+    //   // if (e.hasChanges('entries')) {
+    //   //   this.root.selectionChanged.emit({
+    //   //     state: model.selection(),
+    //   //     changes: e.changes
+    //   //   });
+    //   // }
     //
-
-    model.selectionChanged.watch(e => {
-      // TODO: add event
-      // if (e.hasChanges('entries')) {
-      //   this.root.selectionChanged.emit({
-      //     state: model.selection(),
-      //     changes: e.changes
-      //   });
-      // }
-
-      if (e.hasChanges('unit') || e.hasChanges('mode')) {
-        gridService.invalidate('selection', e.changes, PipeUnit.column);
-      }
-    });
+    // });
 
     const triggers = model.data().triggers;
     // TODO: think about invalidation queue
@@ -105,9 +81,26 @@ export class ViewCoreComponent extends NgComponent {
   }
 
   ngOnDestroy() {
-    this.view.layout.destroy();
-    this.view.nav.destroy();
-    this.view.selection.destroy();
+    super.ngOnDestroy();
+
+    const view = this.view;
+    view.style.dispose();
+    view.head.dispose();
+    view.body.dispose();
+    view.foot.dispose();
+    view.columns.dispose();
+    view.layout.dispose();
+    view.selection.dispose();
+    view.group.dispose();
+    view.pivot.dispose();
+    view.highlight.dispose();
+    view.sort.dispose();
+    view.filter.dispose();
+    view.edit.dispose();
+    view.nav.dispose();
+    view.pagination.dispose();
+    view.scroll.dispose();
+    view.rowDetails.dispose();
   }
 
   get model() {

@@ -41,7 +41,7 @@ export class BodyView extends View {
 		this.columnList = columnService.lineView(columns);
 	}
 
-	colspan(column, row) {
+	colspan(row, column) {
 		if (row instanceof RowDetails && column.type === 'row-details') {
 			return this.table.data.columns().length;
 		}

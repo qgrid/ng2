@@ -2,10 +2,14 @@ import {View} from '../view/view';
 import {EditCellView} from './edit.cell.view';
 import {EditRowView} from './edit.row.view';
 import {CommandManager} from '../command/command.manager';
+import {Model} from '../infrastructure/model';
+import {Table} from '../dom/table';
 
 export declare class EditView extends View {
-	constructor(commandManager: CommandManager);
-	cell: EditCellView;
-	row: EditRowView;
-	onDestroy(): void;
+  constructor(model: Model, table: Table, commandManager: CommandManager);
+
+  cell: EditCellView;
+  row: EditRowView;
+
+  onDestroy(): void;
 }

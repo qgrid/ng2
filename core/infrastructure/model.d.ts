@@ -30,36 +30,67 @@ import {ActionModel} from '../action/action.model';
 import {FetchModel} from '../fetch/fetch.model';
 
 export declare class Model {
-	constructor();
-	static register(name: string, model: Model): Model;
-	grid() : GridModel;
-	edit(): EditModel;
-	view(): ViewModel;
-	data(): DataModel;
-	head(): HeadModel;
-	body(): BodyModel;
-	layout(): LayoutModel;
-	navigation(): NavigationModel;
-	focus(): FocusModel;
-	columnList(): ColumnListModel;
-	row(): RowModel;
-	selection(): SelectionModel;
-	foot(): FootModel;
-	sort(): SortModel;
-	group(): GroupModel;
-	pivot(): PivotModel;
-	plugin(): PluginModel;
-	toolbar(): ToolbarModel;
-	layer(): LayerModel;
-	pagination(): PaginationModel;
-	progress(): ProgressModel;
-	highlight(): HighlightModel;
-	visibility(): VisibilityModel;
-	filter(): FilterModel;
-	drag(): DragModel;
-	style(): StyleModel;
-	scroll(): ScrollModel;
-	export(): ExportModel;
-	action(): ActionModel;
-	fetch(): FetchModel;
+  constructor();
+
+  static register(name: string, model: Model): Model;
+
+  grid(value?: object, tag?: object): GridModel;
+
+  edit(value?: object, tag?: object): EditModel;
+
+  view(value?: object, tag?: object): ViewModel;
+
+  data(value?: object, tag?: object): DataModel;
+
+  head(value?: object, tag?: object): HeadModel;
+
+  body(value?: object, tag?: object): BodyModel;
+
+  layout(value?: object, tag?: object): LayoutModel;
+
+  navigation(value?: object, tag?: object): NavigationModel;
+
+  focus(value?: object, tag?: object): FocusModel;
+
+  columnList(value?: object, tag?: object): ColumnListModel;
+
+  row(value?: object, tag?: object): RowModel;
+
+  selection(value?: object, tag?: object): SelectionModel;
+
+  foot(value?: object, tag?: object): FootModel;
+
+  sort(value?: object, tag?: object): SortModel;
+
+  group(value?: object, tag?: object): GroupModel;
+
+  pivot(value?: object, tag?: object): PivotModel;
+
+  plugin(value?: object, tag?: object): PluginModel;
+
+  toolbar(value?: object, tag?: object): ToolbarModel;
+
+  layer(value?: object, tag?: object): LayerModel;
+
+  pagination(value?: object, tag?: object): PaginationModel;
+
+  progress(value?: object, tag?: object): ProgressModel;
+
+  highlight(value?: object, tag?: object): HighlightModel;
+
+  visibility(value?: object, tag?: object): VisibilityModel;
+
+  filter(value?: object, tag?: object): FilterModel;
+
+  drag(value?: object, tag?: object): DragModel;
+
+  style(value?: object, tag?: object): StyleModel;
+
+  scroll(value?: object, tag?: object): ScrollModel;
+
+  export(value?: object, tag?: object): ExportModel;
+
+  action(value?: object, tag?: object): ActionModel;
+
+  fetch(value?: object, tag?: object): FetchModel;
 }

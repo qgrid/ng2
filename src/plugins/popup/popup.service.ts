@@ -44,17 +44,18 @@ export let PopupSettings: IPopupSettings = {
 export default class PopupService {
 
   private settings: IPopupSettings;
+  private popups: Map<string, Popup> = new Map();
 
-  constructor(private popups: Popup[], private element: ElementRef) {
+  constructor(private element: ElementRef) {
   }
 
   public close(id: string): void {
     if (!this.isOpened(id)) {
       throw new AppError('popup.service', `Can't close popup '${id}', it's not opened`);
     }
-    const item = this.popups[id];
+    const item = this.popups.get(id);
 
-    delete this.popups[id];
+    delete this.popups.delete(id);
     item.close();
   }
 
@@ -92,9 +93,9 @@ export default class PopupService {
     // this.$compile(popup)(popupScope);
 
     popup.setAttribute('id', settings.id);
-    popup.style.cssText = `left: pos.left + 'px';
-                            top: pos.top + 'px';
-                            zIndex: 79`;
+    popup.style.left = pos.left + 'px';
+    popup.style.top = pos.top + 'px';
+    popup.style.zIndex = 79;
 
     if (settings.resizable) {
       popup.addClass('resizable');
@@ -122,16 +123,16 @@ export default class PopupService {
   }
 
   public focus(id: string): void {
-    for (let [, popup] of this.popups) {
+    for (let popup of this.popups.values()) {
       popup.unfocus();
     }
 
-    const popup = this.popups[id];
+    const popup = this.popups.get(id);
     popup.focus();
   }
 
   public resize(id: string, settings: IPopupSettings): void {
-    const item = this.popups[id];
+    const item = this.popups.get(id);
     item.resize(settings);
   }
 
@@ -203,6 +204,6 @@ export default class PopupService {
   }
 
   public get(id: string): any {
-    return this.popups[id];
+    return this.popups.get(id);
   }
 }

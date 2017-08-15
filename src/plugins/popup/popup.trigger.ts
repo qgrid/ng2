@@ -7,7 +7,6 @@ import {TemplateCacheService, TemplateLinkService} from '@grid/template';
   selector: 'q-grid-popup-trigger',
   template: require('qgrid.plugin.popup-trigger.tpl.html')
 })
-
 export class PopupTriggerComponent implements OnInit, OnDestroy {
   @Input() popup;
 
