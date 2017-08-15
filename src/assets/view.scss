@@ -1,4 +1,6 @@
 .q-grid-view {
+	position: relative;
+
 	&.q-grid-select-range {
 		thead, tfoot, tbody {
 			td, th {
@@ -8,8 +10,8 @@
 		}
 	}
 
-	&.q-grid-view-left,
-	&.g-grid-view-right {
+	.q-grid-table-left,
+	.q-grid-table-right {
 		tbody {
 			overflow-x: hidden;
 		}
@@ -18,7 +20,7 @@
 		margin-bottom: 8px;
 	}
 
-	&.q-grid-view-left {
+	> .q-grid-table-left {
 		tbody {
 			overflow-y: hidden;
 		}
@@ -26,7 +28,7 @@
 }
 
 .q-grid-with-right-pin {
-	.q-grid-view-center {
+	.q-grid-table-center {
 		tbody {
 			overflow-y: hidden;
 		}
