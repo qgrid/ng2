@@ -1,14 +1,14 @@
 import {Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output} from "@angular/core";
-import {EventListener, EventManager} from '@grid/core/infrastructure'
+import {EventManager} from '@grid/core/infrastructure';
+import {EventListener} from '@grid/core/infrastructure/event.listener';
 import {DragService} from './drag.service';
 import {GRID_PREFIX} from '@grid/core/definition';
-import {RootService} from "@grid/infrastructure/component";
 
 @Directive({
 	selector: '[q-grid-drop]'
 })
 export class DropDirective implements OnInit, OnDestroy {
-	private element: HTMLElement;
+	private element: Element;
 	private listener;
 
 	@Input('q-grid-drop') transfer;
@@ -16,7 +16,7 @@ export class DropDirective implements OnInit, OnDestroy {
 	@Input('q-grid-can-drop') canDrop;
 	@Output('q-grid-on-drop') onDrop = new EventEmitter<any>();
 
-	constructor(@Optional() private root: RootService, elementRef: ElementRef) {
+	constructor(elementRef: ElementRef) {
 		this.element = elementRef.nativeElement;
 		this.listener = new EventListener(this.element, new EventManager(this));
 	}
@@ -72,16 +72,14 @@ export class DropDirective implements OnInit, OnDestroy {
 	}
 
 	event(e?) {
-		const target = this.transfer();
+		const target = this.transfer;
 		const source = arguments.length
 			? DragService.decode(e.getData(DragService.mimeType))
 			: DragService.transfer;
 
 		return {
-			$event: {
-				source: source,
-				target: target
-			}
+			source: source,
+			target: target
 		};
 	}
 }
