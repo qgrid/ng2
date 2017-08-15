@@ -4,7 +4,6 @@ import {EventManager} from '@grid/core/infrastructure/event.manager';
 import {ViewCoreService} from '../view/view-core.service';
 import {NgComponent, RootService} from '@grid/infrastructure/component';
 import {PathService} from '@grid/core/path';
-import {DOCUMENT} from '@angular/platform-browser';
 import {TableCoreService} from '../table/table-core.service';
 
 @Component({
@@ -13,8 +12,6 @@ import {TableCoreService} from '../table/table-core.service';
 })
 export class BodyCoreComponent extends NgComponent {
 	private element: Element = null;
-	private documentListener: EventListener;
-	private listener: EventListener;
 	private rangeStartCell = null;
 	private scrollContext = {
 		top: 0,

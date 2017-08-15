@@ -53,15 +53,15 @@ export class PopupHeadComponent extends NgComponent {
 		//   [`${this.id}:head`]
 		// );
 
-		this.eventListener.on('dragstart', e => {
+		this.using(this.eventListener.on('dragstart', e => {
 			this.position.x = e.offsetX;
 			this.position.y = e.offsetY;
 
 			popupElement.addClass('drag');
 			e.dataTransfer.setDragImage(this.element.nativeElement.document.getElementsByTagName('<div>')[0], 0, 0); // eslint-disable-line no-undef
-		});
+		}));
 
-		this.eventListener.on('drag', event => {
+		this.using(this.eventListener.on('drag', event => {
 			const cx = event.clientX;
 			const cy = event.clientY;
 			const x = this.position.x;
@@ -83,11 +83,11 @@ export class PopupHeadComponent extends NgComponent {
 				popupElement.css('left', l + 'px');
 				popupElement.css('top', t + 'px');
 			}
-		});
+		}));
 
-		this.eventListener.on('dragend', () => {
+		this.using(this.eventListener.on('dragend', () => {
 			this.element.nativeElement.removeClass('drag');
-		});
+		}));
 
 		this.element.nativeElement.body.bind('dragover', this.onDragOver);
 	}
