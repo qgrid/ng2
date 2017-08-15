@@ -4,14 +4,14 @@ import {FocusModule} from './focus';
 import {ResizeModule} from './resize';
 
 @NgModule({
-  declarations: [],
-  exports: [
-    DndModule,
-    FocusModule,
-    ResizeModule
-  ],
-  imports: [],
-  providers: []
+	declarations: [],
+	exports: [
+		DndModule,
+		FocusModule,
+		ResizeModule
+	],
+	imports: [],
+	providers: []
 })
 export class CommonModule {
 }

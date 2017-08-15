@@ -1,5 +1,6 @@
 import {Directive, ElementRef, Input, OnDestroy, OnInit, Optional} from "@angular/core";
-import {EventListener, EventManager} from '@grid/core/infrastructure';
+import {EventManager} from '@grid/core/infrastructure';
+import {EventListener} from '@grid/core/infrastructure/event.listener';
 import {DragService} from './drag.service';
 import {GRID_PREFIX} from '@grid/core/definition';
 import {RootService} from "@grid/infrastructure/component";
@@ -62,7 +63,7 @@ export class DragDirective implements OnInit, OnDestroy {
 	}
 
 	event() {
-		const source = this.transfer()
+		const source = this.transfer;
 		return {
 			$event: {
 				source: source,

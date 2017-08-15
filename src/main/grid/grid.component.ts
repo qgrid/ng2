@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, ViewEncapsulation, OnInit} from '@angular/core';
+import {Component, Input, Output, EventEmitter, ViewEncapsulation, OnInit, ElementRef} from '@angular/core';
 import {TemplateCacheService} from '@grid/template';
 import {RootComponent, RootService} from '@grid/infrastructure/component';
 import {LayerService} from '../layer';
@@ -40,11 +40,12 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input() editReset;
 	@Input() styleRow;
 	@Input() styleCell;
+	@Input('id') gridId;
 	@Input('actions') actionItems;
 
 	@Output() selectionChanged = new EventEmitter<any>();
 
-	constructor(private rootService: RootService) {
+	constructor(private rootService: RootService, private element: ElementRef) {
 		super();
 
 		this.models = ['data', 'selection', 'sort', 'group', 'pivot', 'edit', 'style', 'action'];
@@ -53,6 +54,19 @@ export class GridComponent extends RootComponent implements OnInit {
 
 	ngOnInit() {
 		super.ngOnInit();
+
+		const model = this.model;
+		if (model.grid().status === 'bound') {
+			throw new AppError('grid', `Model is already used by grid "${model.grid().id}"`);
+		}
+
+		model.grid({
+			status: 'bound'
+		});
+
+		if (!this.gridId) {
+			this.element.nativeElement.id = model.grid().id;
+		}
 
 		const markup = this.rootService.markup;
 		const layerService = new LayerService(markup);
