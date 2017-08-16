@@ -1,7 +1,3 @@
-import {IContext, IMemo, INext} from './column.pipe';
+import {IPipe} from './pipe.item';
 
-export interface IGroupPipe {
-	(memo: IMemo, context: IContext, next: INext): void;
-}
-
-export declare function groupPipe(memo: IMemo, context: IContext, next: INext): void;
+export declare const groupPipe: IPipe<any>;

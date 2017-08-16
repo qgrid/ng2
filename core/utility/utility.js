@@ -28,12 +28,12 @@ const identity = arg => arg;
 
 const toCamelCase = (...names) => {
 	const length = names.length;
+	const nameList = names.map(name => '' + name);
 	if (length > 0) {
-		return names[0] +
-			names.slice(1)
-				.map(name =>
-				name[0].toUpperCase() +
-				name.substring(1, name.length));
+		return (nameList[0] +
+		nameList.slice(1)
+			.map(name => name[0].toUpperCase() + name.substring(1, name.length))
+			.join(''));
 	}
 
 	return '';

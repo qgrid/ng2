@@ -1,7 +1,3 @@
-import {IContext, INext} from './column.pipe';
+import {IPipe} from './pipe.item';
 
-export interface IFilterPipe{
-	(data: any[], context: IContext, next: INext): void;
-}
-
-export declare function filterPipe(data: any[], context: IContext, next: INext): void;
+export declare const filterPipe: IPipe<any>;

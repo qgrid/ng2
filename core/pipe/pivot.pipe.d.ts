@@ -1,7 +1,3 @@
-import {IContext, IMemo, INext} from './column.pipe';
+import {IPipe} from './pipe.item';
 
-export interface IPivotPipe {
-	(memo: IMemo, context: IContext, next: INext): void;
-}
-
-export declare function pivotPipe(memo: IMemo, context: IContext, next: INext): void;
+export declare const pivotPipe: IPipe<any>;
