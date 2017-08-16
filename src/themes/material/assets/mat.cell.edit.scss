@@ -1,0 +1,13 @@
+td.q-grid-edit {
+	.q-grid-editor {
+		md-input-container {
+			padding: 0;
+			margin: 0;
+			width: 100%;
+
+			.mat-input-infix {
+				border-top: 0;
+			}
+		}
+	}
+}
