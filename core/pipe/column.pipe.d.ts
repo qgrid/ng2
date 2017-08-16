@@ -1,26 +1,3 @@
-import {Model} from '../infrastructure/model';
+import {IPipe} from './pipe.item';
 
-export interface IColumnPipe {
-	(memo: IMemo, context: IContext, next: INext): void;
-}
-
-export interface IPivot {
-	heads: any[];
-	rows: any[];
-}
-
-export interface IMemo {
-	rows: any[];
-	pivot: IPivot;
-	nodes: any[];
-}
-
-export interface IContext {
-	model: Model;
-}
-
-export interface INext {
-	(param: IMemo): void;
-}
-
-export declare function columnPipe(memo: IMemo, context: IContext, next: INext): void;
+export declare const columnPipe: IPipe<any>;

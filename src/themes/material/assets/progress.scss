@@ -1,4 +1,6 @@
 .q-grid-progress {
-  position: absolute;
-  width: 100%;
+	position: relative;
+	md-progress-linear {
+		position: absolute;
+	}
 }

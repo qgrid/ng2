@@ -1,1 +1,3 @@
-export declare const columnPipeUnit: object[];
+import {IPipe} from '../pipe.item';
+
+export declare const columnPipeUnit: [IPipe<any>];

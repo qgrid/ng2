@@ -9,7 +9,6 @@
 		flex-flow: column;
 		height: 100%;
 		width: 100%;
-		outline: none;
 
 		thead, tfoot {
 			/* head takes the height it requires,
@@ -24,6 +23,8 @@
 			flex: 1 1 auto;
 			display: block;
 			overflow-y: scroll;
+			outline: none;
+			overflow-anchor: none;
 		}
 
 		tbody tr {

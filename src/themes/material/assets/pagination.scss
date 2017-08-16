@@ -1,63 +1,63 @@
 @import "variables";
 
 .q-grid-pager {
-  font-family: $font-family;
-  height: 24px;
-  color: $dark-secondary;
-  float: right;
-  padding: 16px 0;
-  font-size: 12px;
+	font-family: $font-family;
+	height: 24px;
+	color: $dark-secondary;
+	float: right;
+	padding: 16px 0;
+	font-size: 12px;
 
-  > div {
+	> div {
 
-    md-select {
-      width: 50px;
-      max-width: 50px;
-      background: transparent;
-      border: 0;
-      margin: 0 0 0 12px;
-      display: inline-flex;
-      vertical-align: middle;;
+		md-select {
+			width: 50px;
+			max-width: 50px;
+			background: transparent;
+			border: 0;
+			margin: 0 0 0 12px;
+			display: inline-flex;
+			vertical-align: middle;;
 
-      .mat-select-trigger {
-        min-width: 50px;
-        width: 50px;
-        .mat-select-value {
-          font-size: 12px;
-        }
-      }
-    }
+			.mat-select-trigger {
+				min-width: 50px;
+				width: 50px;
+				.mat-select-value {
+					font-size: 12px;
+				}
+			}
+		}
 
-    .q-grid-page {
-      margin-left: 32px;
-      margin-right: 14px;
-    }
+		.q-grid-page {
+			margin-left: 32px;
+			margin-right: 14px;
+		}
 
-    button {
-      background: transparent;
-      border: none;
-      font-size: 20px;
-      width: 24px;
-      height: 24px;
-      min-width: 24px;
-      min-height: 24px;
-      padding: 0;
-      display: inline-flex;
-      vertical-align: middle;
+		button {
+			background: transparent;
+			border: none;
+			font-size: 20px;
+			width: 24px;
+			height: 24px;
+			min-width: 24px;
+			min-height: 24px;
+			padding: 0;
+			display: inline-flex;
+			vertical-align: middle;
 
-      .mat-button-wrapper {
-        line-height: 24px;
-      }
+			.mat-button-wrapper {
+				line-height: 24px;
+			}
 
-      &.q-grid-prev-page {
-        margin-left: 18px;
-        margin-right: 0;
-      }
+			&.q-grid-prev-page {
+				margin-left: 18px;
+				margin-right: 0;
+			}
 
-      &.q-grid-next-page {
-        margin-left: 24px;
-        margin-right: 14px;
-      }
-    }
-  }
+			&.q-grid-next-page {
+				margin-left: 24px;
+				margin-right: 14px;
+			}
+		}
+	}
 }

@@ -1,15 +1,15 @@
 import {IFunc} from '../dom/view';
 
 export interface IReturn {
-  (): void;
+	(): void;
 }
 
 export declare class Event {
-  constructor(e?: () => any);
+	constructor(e?: () => any);
 
-  on(f: IFunc): IReturn;
+	on(handler: IFunc): IReturn;
 
-  watch(f: IFunc): void;
+	watch(handler: (e: any, off?: () => void) => void): () => void;
 
-  emit(e: string): void;
+	emit(e: any): void;
 }

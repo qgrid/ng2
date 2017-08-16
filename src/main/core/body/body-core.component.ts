@@ -34,7 +34,7 @@ export class BodyCoreComponent extends NgComponent {
 	ngOnInit() {
 		super.ngOnInit();
 
-		const listener = new EventListener(this.element, new EventManager(this));
+		const listener = new EventListener(this.element, new EventManager(this, this.root.applyFactory(null, 'sync')));
 
 		this.using(listener.on('scroll', this.onScroll));
 		this.using(listener.on('click', this.onClick));

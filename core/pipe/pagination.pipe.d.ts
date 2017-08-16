@@ -1,7 +1,3 @@
-import {IContext, INext} from './column.pipe';
+import {IPipe} from './pipe.item';
 
-export interface IPaginationPipe {
-	(data: any[], context: IContext, next: INext): void;
-}
-
-export declare function paginationPipe(data: any[], context: IContext, next: INext): void;
+export declare const paginationPipe: IPipe<any>;

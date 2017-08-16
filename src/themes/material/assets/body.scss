@@ -9,9 +9,12 @@ tbody {
 	> tr {
 		height: $row-height;
 
+		&.q-grid-highlighted {
+			background-color: #eee;
+		}
+
 		&:hover {
 			td {
-				background-color: #eee !important;
 				&.q-grid-text-area {
 					> span {
 						@include multiLine($lineCount: 3, $bgColor: #eee);
@@ -69,7 +72,7 @@ tbody {
 				}
 			}
 
-			&.q-grid-selected,
+			&.q-grid-selected:not(.q-grid-focus),
 			&.q-grid-sorted {
 				background-color: $selected;
 			}
@@ -152,6 +155,10 @@ tbody {
 					max-height: 24px;
 					max-width: 24px;
 				}
+			}
+
+			&.q-grid-row-details {
+				background: #fff;
 			}
 		}
 	}

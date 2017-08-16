@@ -1,7 +1,7 @@
-import {IDefaultPipe} from '@grid/core/data/data.model';
+import {IPipe} from '../pipe.item';
 
 export declare class PipeUnit {
-  static readonly default: IDefaultPipe[];
-	static readonly view: object[];
-	static readonly column: object[];
+	static readonly default: [IPipe<any>];
+	static readonly view: [IPipe<any>];
+	static readonly column: [IPipe<any>];
 }
