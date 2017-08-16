@@ -3,7 +3,8 @@
 		<button (mouseup)="$view.group.toggleStatus.execute($cell.row)"
 				  *ngIf="$view.group.toggleStatus.canExecute($cell.row)"
 				  [ngSwitch]="$view.group.status($cell.row)"
-				  tabindex="-1">
+				  tabindex="-1"
+				  md-icon-button>
 			<md-icon *ngSwitchCase="'expand'">arrow_drop_down</md-icon>
 			<md-icon class="q-grid-arrow-right" *ngSwitchCase="'collapse'">arrow_drop_up</md-icon>
 		</button>

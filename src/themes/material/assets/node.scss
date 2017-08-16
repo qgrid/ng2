@@ -1,13 +1,18 @@
 td.q-grid-group, td.q-grid-row-expand {
 	button {
-		background: transparent;
-		border: none;
+		width: 24px;
+		height: 24px;
+		line-height: 24px;
 		margin: 0;
 		padding: 0;
-		outline: none;
+		min-height: 24px;
 
 		md-icon {
 			opacity: 0.54;
+		}
+
+		+ span {
+			vertical-align: middle;;
 		}
 	}
 }
