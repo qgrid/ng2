@@ -7,12 +7,12 @@
 				q-grid-focus
 				[mdDatepicker]="myDatepicker"
 				[(ngModel)]="$view.edit.cell.value"
-				(blur)="$view.edit.cell.commit.execute($cell)">
+				>
 			<button mdSuffix [mdDatepickerToggle]="myDatepicker"></button>
 		</md-input-container>
 		<div class="q-grid-actions">
-			<button md-button (click)="$view.edit.cell.commit.execute($cell, $event)">Save</button>
 			<button md-button (click)="$view.edit.cell.cancel.execute($cell, $event)">Cancel</button>
+			<button md-button (click)="$view.edit.cell.commit.execute($cell, $event)">Save</button>
 		</div>
 		<md-datepicker #myDatepicker></md-datepicker>
 	</div>
