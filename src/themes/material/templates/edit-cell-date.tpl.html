@@ -11,8 +11,8 @@
 			<button mdSuffix [mdDatepickerToggle]="myDatepicker"></button>
 		</md-input-container>
 		<div class="q-grid-actions">
-			<button md-button (click)="$view.edit.cell.cancel.execute($cell, $event)">Cancel</button>
 			<button md-button (click)="$view.edit.cell.commit.execute($cell, $event)">Save</button>
+			<button md-button (click)="$view.edit.cell.cancel.execute($cell, $event)">Cancel</button>
 		</div>
 		<md-datepicker #myDatepicker></md-datepicker>
 	</div>

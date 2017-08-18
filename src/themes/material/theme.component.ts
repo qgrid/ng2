@@ -3,8 +3,7 @@ import {template} from './templates';
 
 @Component({
 	selector: 'q-grid-theme',
-	template: template,
-	styleUrls: ['./assets/cell.edit.scss']
+	template: template
 })
 export class ThemeComponent {
 	constructor() {
