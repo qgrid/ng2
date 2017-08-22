@@ -1,7 +1,7 @@
-import TemplateLink from '@grid/view/components/template/template.link';
-import PopupService from '@grid/plugins/popup/popup.service';
+import TemplateLink from 'ng2-qgrid/view/components/template/template.link';
+import PopupService from 'ng2-qgrid/plugins/popup/popup.service';
 import {Component, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
-import {TemplateCacheService, TemplateLinkService} from '@grid/template';
+import {TemplateCacheService, TemplateLinkService} from 'ng2-qgrid/template';
 
 @Component({
 	selector: 'q-grid-popup-panel',

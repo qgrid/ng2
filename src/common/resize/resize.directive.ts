@@ -1,8 +1,8 @@
 import {Directive, ElementRef, Inject, Input, Optional} from '@angular/core';
-import * as Infrastructure from '@grid/core/infrastructure';
-import {GRID_PREFIX} from '@grid/core/definition';
-import {NgComponent, RootService} from '@grid/infrastructure/component';
-import {clone, noop} from '@grid/core/utility';
+import * as Infrastructure from 'ng2-qgrid/core/infrastructure';
+import {GRID_PREFIX} from 'ng2-qgrid/core/definition';
+import {NgComponent, RootService} from 'ng2-qgrid/infrastructure/component';
+import {clone, noop} from 'ng2-qgrid/core/utility';
 import {DOCUMENT} from '@angular/platform-browser';
 
 @Directive({

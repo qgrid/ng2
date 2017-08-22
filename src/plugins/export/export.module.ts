@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {ExportComponent} from './export.component';
-import {TemplateModule} from '@grid/template/template.module';
+import {TemplateModule} from 'ng2-qgrid/template/template.module';
 
 @NgModule({
 	declarations: [

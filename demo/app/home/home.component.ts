@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService, Human} from '../../data/data.service';
-import {GridService} from '@grid/index.ts';
+import {GridService} from 'ng2-qgrid/index.ts';
 
 import * as fileSaver from 'file-saver';
 import * as xlsx from 'xlsx';

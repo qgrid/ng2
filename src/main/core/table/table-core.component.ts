@@ -1,5 +1,5 @@
 import {OnInit, Component, Input} from '@angular/core';
-import {RootService} from '@grid/infrastructure/component';
+import {RootService} from 'ng2-qgrid/infrastructure/component';
 import {TableCoreService} from './table-core.service';
 
 @Component({

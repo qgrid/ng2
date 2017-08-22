@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {PagerComponent} from './pager.component';
-import {TemplateModule} from '@grid/template/template.module';
-import {SortBarComponent} from '@grid/plugins/sort-bar/sort.bar';
+import {TemplateModule} from 'ng2-qgrid/template/template.module';
+import {SortBarComponent} from 'ng2-qgrid/plugins/sort-bar/sort.bar';
 
 @NgModule({
 	declarations: [

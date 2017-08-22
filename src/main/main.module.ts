@@ -4,7 +4,7 @@ import {GridComponent, GridService} from './grid';
 import {ColumnComponent, ColumnListComponent} from './column';
 import {BoxComponent} from './box';
 import {CoreModule} from './core';
-import {ThemeModule} from '@grid/theme/theme.module';
+import {ThemeModule} from 'ng2-qgrid/theme/theme.module';
 
 @NgModule({
 	declarations: [

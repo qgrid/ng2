@@ -1,10 +1,10 @@
 import {Component, Input, ElementRef, OnInit, OnDestroy, ViewContainerRef} from '@angular/core';
-import TemplateLink from '@grid/view/components/template/template.link';
-import {EventListener} from '@grid/core/infrastructure/event.listener';
-import {EventManager} from '@grid/core/infrastructure/event.manager';
-import PopupService from '@grid/plugins/popup/popup.service';
-import {TemplateCacheService, TemplateLinkService} from '@grid/template';
-import {NgComponent} from '@grid/infrastructure/component';
+import TemplateLink from 'ng2-qgrid/view/components/template/template.link';
+import {EventListener} from 'ng2-qgrid/core/infrastructure/event.listener';
+import {EventManager} from 'ng2-qgrid/core/infrastructure/event.manager';
+import PopupService from 'ng2-qgrid/plugins/popup/popup.service';
+import {TemplateCacheService, TemplateLinkService} from 'ng2-qgrid/template';
+import {NgComponent} from 'ng2-qgrid/infrastructure/component';
 
 @Component({
 	selector: 'q-grid-popup-head',

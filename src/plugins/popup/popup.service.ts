@@ -1,7 +1,7 @@
 import {ElementRef, Injectable} from '@angular/core';
-import {AppError} from '@grid/core/infrastructure';
-import {Model} from '@grid/core/infrastructure/model';
-import Popup from '@grid/plugins/popup/popup.entry';
+import {AppError} from 'ng2-qgrid/core/infrastructure';
+import {Model} from 'ng2-qgrid/core/infrastructure/model';
+import Popup from 'ng2-qgrid/plugins/popup/popup.entry';
 
 export interface IOffset {
 	left: number;

@@ -7,7 +7,7 @@ import {SelectionService} from './selection.service';
 import {GRID_PREFIX} from '../definition';
 import {noop, isUndefined} from '../utility';
 import {SelectionCommandManager} from './selection.command.manager';
-import {PipeUnit} from '@grid/core/pipe/units';
+import {PipeUnit} from 'ng2-qgrid/core/pipe/units';
 
 export class SelectionView extends View {
 	constructor(model, table, commandManager, gridService) {

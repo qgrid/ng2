@@ -8,15 +8,15 @@ import {
 	ElementRef,
 	ChangeDetectorRef
 } from '@angular/core';
-import {TemplateCacheService} from '@grid/template';
-import {RootComponent, RootService} from '@grid/infrastructure/component';
+import {TemplateCacheService} from 'ng2-qgrid/template';
+import {RootComponent, RootService} from 'ng2-qgrid/infrastructure/component';
 import {LayerService} from '../layer';
-import {Table} from '@grid/core/dom';
-import {AppError} from '@grid/core/infrastructure';
-import {TableCommandManager} from '@grid/core/command';
-import {isUndefined} from '@grid/core/utility';
-import {EventManager} from '@grid/core/infrastructure/event.manager';
-import {EventListener} from '@grid/core/infrastructure/event.listener';
+import {Table} from 'ng2-qgrid/core/dom';
+import {AppError} from 'ng2-qgrid/core/infrastructure';
+import {TableCommandManager} from 'ng2-qgrid/core/command';
+import {isUndefined} from 'ng2-qgrid/core/utility';
+import {EventManager} from 'ng2-qgrid/core/infrastructure/event.manager';
+import {EventListener} from 'ng2-qgrid/core/infrastructure/event.listener';
 
 @Component({
 	selector: 'q-grid',
@@ -25,8 +25,8 @@ import {EventListener} from '@grid/core/infrastructure/event.listener';
 		TemplateCacheService
 	],
 	styles: [
-		require('@grid/assets/index.scss'),
-		require('@grid/theme/index.scss')
+		require('ng2-qgrid/assets/index.scss'),
+		require('ng2-qgrid/theme/index.scss')
 	],
 	template: require('./grid.component.html'),
 	encapsulation: ViewEncapsulation.None

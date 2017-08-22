@@ -28,9 +28,9 @@
     ],
     "baseUrl": "./",
     "paths": {
-      "@grid/core/*": ["core/*"],
-      "@grid/theme/*": ["src/themes/material/*"],
-      "@grid/*": ["src/*"]
+      "ng2-qgrid/core/*": ["core/*"],
+      "ng2-qgrid/theme/*": ["src/themes/material/*"],
+      "ng2-qgrid/*": ["src/*"]
     }
   },
   "exclude": [

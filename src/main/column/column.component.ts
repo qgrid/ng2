@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {isUndefined, clone} from '@grid/core/utility';
-import {ColumnListService} from '@grid/main/column/column-list.service';
-import * as columnService from '@grid/core/column/column.service';
-import {columnFactory} from '@grid/core/column/column.factory';
-import {RootService} from '@grid/infrastructure/component';
-import {TemplateHostService} from '@grid/template/template-host.service';
+import {isUndefined, clone} from 'ng2-qgrid/core/utility';
+import {ColumnListService} from 'ng2-qgrid/main/column/column-list.service';
+import * as columnService from 'ng2-qgrid/core/column/column.service';
+import {columnFactory} from 'ng2-qgrid/core/column/column.factory';
+import {RootService} from 'ng2-qgrid/infrastructure/component';
+import {TemplateHostService} from 'ng2-qgrid/template/template-host.service';
 
 @Component({
 	selector: 'q-grid-column',

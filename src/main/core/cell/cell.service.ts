@@ -1,7 +1,7 @@
 import {Injectable, ViewContainerRef} from '@angular/core';
-import {TemplateCacheService, TemplateLinkService} from '@grid/template';
-import {AppError} from '@grid/core/infrastructure';
-import {noop} from '@grid/core/utility';
+import {TemplateCacheService, TemplateLinkService} from 'ng2-qgrid/template';
+import {AppError} from 'ng2-qgrid/core/infrastructure';
+import {noop} from 'ng2-qgrid/core/utility';
 // import {templateJitUrl} from '@angular/compiler';
 
 function canBuild(column) {

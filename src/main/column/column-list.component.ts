@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {ModelComponent} from '@grid/infrastructure/component/model.component';
-import {RootService} from '@grid/infrastructure/component/root.service';
+import {ModelComponent} from 'ng2-qgrid/infrastructure/component/model.component';
+import {RootService} from 'ng2-qgrid/infrastructure/component/root.service';
 import {ColumnListService} from './column-list.service';
 
 @Component({

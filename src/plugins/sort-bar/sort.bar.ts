@@ -1,12 +1,12 @@
 import {Component, Input, OnInit, Optional} from '@angular/core';
 
 import {PluginComponent} from '../plugin.component';
-import {Command} from '@grid/core/infrastructure';
-import * as SortSevice from '@grid/core/sort/sort.service';
+import {Command} from 'ng2-qgrid/core/infrastructure';
+import * as SortSevice from 'ng2-qgrid/core/sort/sort.service';
 import {SORT_BAR_NAME} from '../definition';
-import {TH_CORE_NAME} from '@grid/view/definition';
-import {TemplatePath} from '@grid/core/template';
-import {RootService} from '@grid/infrastructure/component';
+import {TH_CORE_NAME} from 'ng2-qgrid/view/definition';
+import {TemplatePath} from 'ng2-qgrid/core/template';
+import {RootService} from 'ng2-qgrid/infrastructure/component';
 
 @Component({
 	selector: 'q-grid-sort-bar',

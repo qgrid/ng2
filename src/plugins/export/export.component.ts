@@ -1,15 +1,15 @@
 import {Component, Input, OnInit, Optional} from '@angular/core';
-import {PluginService} from '@grid/core/plugin';
+import {PluginService} from 'ng2-qgrid/core/plugin';
 import {PluginComponent} from '../plugin.component';
-import {Command} from '@grid/core/command';
-import {Json} from '@grid/core/export/json';
-import {Xml} from '@grid/core/export/xml';
-import {Csv} from '@grid/core/export/csv';
+import {Command} from 'ng2-qgrid/core/command';
+import {Json} from 'ng2-qgrid/core/export/json';
+import {Xml} from 'ng2-qgrid/core/export/xml';
+import {Csv} from 'ng2-qgrid/core/export/csv';
 import {Xlsx} from './xlsx';
 import {Pdf} from './pdf';
 import {downloadFactory} from './download';
-import {TemplateHostService} from '@grid/template';
-import {RootService} from '@grid/infrastructure/component';
+import {TemplateHostService} from 'ng2-qgrid/template';
+import {RootService} from 'ng2-qgrid/infrastructure/component';
 
 @Component({
 	selector: 'q-grid-export',

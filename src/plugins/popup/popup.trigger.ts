@@ -1,7 +1,7 @@
 import {Component, Input, ElementRef, OnInit, OnDestroy, ViewContainerRef} from '@angular/core';
 import {POPUP_NAME} from '../definition';
-import PopupService, {IPopupSettings, PopupSettings} from '@grid/plugins/popup/popup.service';
-import {TemplateCacheService, TemplateLinkService} from '@grid/template';
+import PopupService, {IPopupSettings, PopupSettings} from 'ng2-qgrid/plugins/popup/popup.service';
+import {TemplateCacheService, TemplateLinkService} from 'ng2-qgrid/template';
 
 @Component({
 	selector: 'q-grid-popup-trigger',

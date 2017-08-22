@@ -1,6 +1,6 @@
 import {Directive, Input, OnInit, TemplateRef, Optional} from '@angular/core';
 import {TemplateCacheService} from './template-cache.service';
-import {TemplateHostService} from '@grid/template/template-host.service';
+import {TemplateHostService} from 'ng2-qgrid/template/template-host.service';
 
 @Directive({
 	selector: 'ng-template[for]'

@@ -1,9 +1,9 @@
 import {Component, ElementRef, Optional, Input, OnInit} from '@angular/core';
-import {NgComponent} from '@grid/infrastructure/component/ng.component';
-import {ThemeService} from '@grid/template/theme.service';
-import {GRID_PREFIX} from '@grid/core/definition';
-import {Guard} from '@grid/core/infrastructure';
-import {RootService} from '@grid/infrastructure/component/root.service';
+import {NgComponent} from 'ng2-qgrid/infrastructure/component/ng.component';
+import {ThemeService} from 'ng2-qgrid/template/theme.service';
+import {GRID_PREFIX} from 'ng2-qgrid/core/definition';
+import {Guard} from 'ng2-qgrid/core/infrastructure';
+import {RootService} from 'ng2-qgrid/infrastructure/component/root.service';
 
 @Component({
 	selector: 'q-grid-box',

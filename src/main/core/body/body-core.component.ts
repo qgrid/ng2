@@ -1,9 +1,9 @@
 import {Component, ElementRef, Inject, OnInit} from '@angular/core';
-import {EventListener} from '@grid/core/infrastructure/event.listener';
-import {EventManager} from '@grid/core/infrastructure/event.manager';
+import {EventListener} from 'ng2-qgrid/core/infrastructure/event.listener';
+import {EventManager} from 'ng2-qgrid/core/infrastructure/event.manager';
 import {ViewCoreService} from '../view/view-core.service';
-import {NgComponent, RootService} from '@grid/infrastructure/component';
-import {PathService} from '@grid/core/path';
+import {NgComponent, RootService} from 'ng2-qgrid/infrastructure/component';
+import {PathService} from 'ng2-qgrid/core/path';
 import {TableCoreService} from '../table/table-core.service';
 
 @Component({

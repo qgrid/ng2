@@ -1,5 +1,5 @@
-import {EventManager} from '@grid/core/infrastructure/event.manager';
-import {IFunc} from '@grid/core/dom/view';
+import {EventManager} from 'ng2-qgrid/core/infrastructure/event.manager';
+import {IFunc} from 'ng2-qgrid/core/dom/view';
 
 export interface IOnResult {
   (): void;
