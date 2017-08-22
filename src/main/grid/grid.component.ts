@@ -28,7 +28,7 @@ import {EventListener} from 'ng2-qgrid/core/infrastructure/event.listener';
 		require('ng2-qgrid/assets/index.scss'),
 		require('ng2-qgrid/theme/index.scss')
 	],
-	template: require('./grid.component.html'),
+	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None
 })
 export class GridComponent extends RootComponent implements OnInit {
@@ -62,7 +62,9 @@ export class GridComponent extends RootComponent implements OnInit {
 
 		this.models = ['data', 'selection', 'sort', 'group', 'pivot', 'edit', 'style', 'action'];
 		this.using(this.modelChanged.watch(model => this.rootService.model = model));
-		this.listener = new EventListener(element.nativeElement, new EventManager(this, rootService.applyFactory(null, 'sync')));
+		this.listener = new EventListener(
+			element.nativeElement,
+			new EventManager(this, rootService.applyFactory(null, 'sync')));
 	}
 
 	ngOnInit() {

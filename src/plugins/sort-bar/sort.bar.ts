@@ -10,7 +10,7 @@ import {RootService} from 'ng2-qgrid/infrastructure/component';
 
 @Component({
 	selector: 'q-grid-sort-bar',
-	template: require('./sort-bar.component.html'),
+	templateUrl: './sort.bar.html',
 	providers: []
 })
 

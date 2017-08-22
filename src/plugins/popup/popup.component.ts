@@ -1,12 +1,12 @@
 import {Component, Optional, Input, OnDestroy, OnInit} from '@angular/core';
-import PopupService, {IPopupSettings} from 'ng2-qgrid/plugins/popup/popup.service';
+import {PopupService, IPopupSettings} from 'ng2-qgrid/plugins/popup/popup.service';
 import {PluginComponent} from 'ng2-qgrid/plugins';
 import {RootService} from 'ng2-qgrid/infrastructure/component';
 import {TemplateHostService} from 'ng2-qgrid/template';
 
 @Component({
 	selector: 'q-grid-popup',
-	template: require('./popup.component.html'),
+	templateUrl: './popup.component.html',
 	providers: [TemplateHostService, PopupService]
 })
 

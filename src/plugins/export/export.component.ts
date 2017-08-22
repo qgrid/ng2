@@ -13,7 +13,7 @@ import {RootService} from 'ng2-qgrid/infrastructure/component';
 
 @Component({
 	selector: 'q-grid-export',
-	template: require('./export.component.html'),
+	templateUrl: './export.component.html',
 	providers: [TemplateHostService]
 })
 

@@ -1,11 +1,11 @@
 import TemplateLink from 'ng2-qgrid/view/components/template/template.link';
-import PopupService from 'ng2-qgrid/plugins/popup/popup.service';
+import {PopupService} from 'ng2-qgrid/plugins/popup/popup.service';
 import {Component, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 import {TemplateCacheService, TemplateLinkService} from 'ng2-qgrid/template';
 
 @Component({
 	selector: 'q-grid-popup-panel',
-	template: require('qgrid.plugin.popup-panel.tpl.html')
+	template: '<div></div>'
 })
 
 export class PopupPanelComponent implements OnInit, OnDestroy {

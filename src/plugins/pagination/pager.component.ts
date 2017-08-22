@@ -5,7 +5,7 @@ import {RootService} from 'ng2-qgrid/infrastructure/component/root.service';
 
 @Component({
 	selector: 'q-grid-pager',
-	template: require('./pager.component.html')
+	templateUrl: './pager.component.html'
 })
 export class PagerComponent extends PluginComponent {
 	@Input('size') private paginationSize;

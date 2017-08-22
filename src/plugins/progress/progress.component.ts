@@ -5,7 +5,7 @@ import {RootService} from 'ng2-qgrid/infrastructure/component';
 
 @Component({
 	selector: 'q-grid-progress',
-	template: require('./progress.component.html')
+	templateUrl: './progress.component.html'
 })
 export class ProgressComponent extends PluginComponent {
 	constructor(@Optional() root: RootService) {

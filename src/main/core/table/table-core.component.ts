@@ -4,7 +4,7 @@ import {TableCoreService} from './table-core.service';
 
 @Component({
 	selector: 'q-grid-core-table',
-	template: require('./table-core.component.html'),
+	templateUrl: './table-core.component.html',
 	providers: [
 		TableCoreService
 	]

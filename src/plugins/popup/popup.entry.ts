@@ -15,7 +15,7 @@ export interface ILayout {
 	size: any;
 }
 
-export default class Popup {
+export class Popup {
 	private event: Event;
 	private state: IState;
 	private layout: ILayout;

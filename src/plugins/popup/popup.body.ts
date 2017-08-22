@@ -1,18 +1,16 @@
-import Component from 'ng2-qgrid/view/components/component';
 import TemplateLink from 'ng2-qgrid/view/components/template/template.link';
 import {Shortcut, ShortcutManager} from 'ng2-qgrid/core/shortcut';
 import {PopupCommandManager} from './popup.command.manager';
-import {Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
-import PopupService from 'ng2-qgrid/plugins/popup/popup.service';
+import {Component, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
+import {PopupService} from 'ng2-qgrid/plugins/popup/popup.service';
 import {TemplateCacheService, TemplateLinkService} from 'ng2-qgrid/template';
 import {NgComponent} from 'ng2-qgrid/infrastructure/component';
 
 @Component({
 	selector: 'q-grid-popup-body',
-	template: require('qgrid.plugin.popup-body.tpl.html')
+	template: '<div></div>'
 })
-
-class PopupBodyComponent extends NgComponent {
+export class PopupBodyComponent extends NgComponent {
 	@Input() model;
 	@Input() id;
 	@Input() popup;
