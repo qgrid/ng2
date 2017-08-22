@@ -25,6 +25,7 @@
         "directive-class-suffix": true,
         // "directive-selector": [true, "attribute", "my", "camelCase"],
         "import-destructuring-spacing": false,
+		 "indent": ["error", "tab"],
         "invoke-injectable": true,
         "no-access-missing-member": true,
         "no-attribute-parameter-decorator": true,
