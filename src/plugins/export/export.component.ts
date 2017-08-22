@@ -10,6 +10,7 @@ import {Pdf} from './pdf';
 import {downloadFactory} from './download';
 import {TemplateHostService} from 'ng2-qgrid/template';
 import {RootService} from 'ng2-qgrid/infrastructure/component';
+import {ColumnModel} from 'ng2-qgrid/core/column-type/column.model'
 
 @Component({
 	selector: 'q-grid-export',

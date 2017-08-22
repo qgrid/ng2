@@ -1,5 +1,7 @@
 import {Directive, ElementRef, Input, OnInit} from '@angular/core';
 import {RootService} from 'ng2-qgrid/infrastructure/component';
+import {Model} from 'ng2-qgrid/core/infrastructure/model';
+import {Table} from 'ng2-qgrid/core/dom/table';
 
 @Directive({
 	selector: '[q-grid-autofocus]'

@@ -1,6 +1,8 @@
 import {OnInit, Component, Input} from '@angular/core';
 import {RootService} from 'ng2-qgrid/infrastructure/component';
 import {TableCoreService} from './table-core.service';
+import {Model} from 'ng2-qgrid/core/infrastructure/model';
+import {VisibilityModel} from 'ng2-qgrid/core/visibility/visibility.model'
 
 @Component({
 	selector: 'q-grid-core-table',

@@ -5,6 +5,8 @@ import {ViewCoreService} from '../view/view-core.service';
 import {NgComponent, RootService} from 'ng2-qgrid/infrastructure/component';
 import {PathService} from 'ng2-qgrid/core/path';
 import {TableCoreService} from '../table/table-core.service';
+import {Model} from 'ng2-qgrid/core/infrastructure/model';
+import {SelectionModel} from 'ng2-qgrid/core/selection/selection.model';
 
 @Component({
 	selector: 'tbody[q-grid-core-body]',

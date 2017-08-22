@@ -1,4 +1,4 @@
-import {Injectable, ViewContainerRef} from '@angular/core';
+import {Injectable, ViewContainerRef, TemplateRef} from '@angular/core';
 import {TemplateCacheService, TemplateLinkService} from 'ng2-qgrid/template';
 import {AppError} from 'ng2-qgrid/core/infrastructure';
 import {noop} from 'ng2-qgrid/core/utility';

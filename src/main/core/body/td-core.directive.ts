@@ -5,6 +5,7 @@ import {TableCoreService} from '../table/table-core.service';
 import {RootService} from 'ng2-qgrid/infrastructure/component';
 import {CellService} from 'ng2-qgrid/main/core/cell';
 import {AppError} from 'ng2-qgrid/core/infrastructure/';
+import {ColumnModel} from 'ng2-qgrid/core/column-type/column.model';
 
 @Directive({
 	selector: '[q-grid-core-td]',

@@ -26,6 +26,8 @@ import {ViewCoreService} from './view-core.service';
 import {GridService} from 'ng2-qgrid/main/grid';
 import {VScrollService} from '../scroll';
 import {CellService} from '../cell';
+import {Model} from 'ng2-qgrid/core/infrastructure/model';
+import {VisibilityModel} from 'ng2-qgrid/core/visibility/visibility.model'
 
 @Component({
 	selector: 'q-grid-core-view',

@@ -4,6 +4,7 @@ import {GRID_PREFIX} from 'ng2-qgrid/core/definition';
 import {NgComponent, RootService} from 'ng2-qgrid/infrastructure/component';
 import {clone, noop} from 'ng2-qgrid/core/utility';
 import {DOCUMENT} from '@angular/platform-browser';
+import {Model} from 'ng2-qgrid/core/infrastructure/model';
 
 @Directive({
 	selector: '[q-grid-resize]'

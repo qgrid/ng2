@@ -3,6 +3,7 @@ import {noop} from 'ng2-qgrid/core/utility';
 import {OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {NgComponent} from './ng.component';
 import {RootService} from './root.service';
+import {Model} from 'ng2-qgrid/core/infrastructure/model';
 
 export class ModelComponent extends NgComponent implements OnChanges, OnInit, OnDestroy {
 	public binder = new ModelBinder(this);

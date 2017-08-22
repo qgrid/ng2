@@ -3,6 +3,7 @@ import {GRID_PREFIX} from 'ng2-qgrid/core/definition';
 import {ViewCoreService} from '../view/view-core.service';
 import {TemplateCacheService, TemplateLinkService} from 'ng2-qgrid/template';
 import {RootService} from 'ng2-qgrid/infrastructure/component';
+import {IGetValue} from 'ng2-qgrid/core/services/aggregation';
 
 @Directive({
 	selector: '[q-grid-core-tf]'
