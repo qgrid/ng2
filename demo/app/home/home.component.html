@@ -5,11 +5,15 @@
 			  editMode="cell">
 		<q-grid-columns generation="deep">
 			<q-grid-column key="name.last">
-			<ng-template for="body" let-$cell>
-			<span style="color: blue">{{$cell.value}}</span>
-			</ng-template>
+				<ng-template for="body" let-$cell>
+					<span style="color: blue">{{$cell.value}}</span>
+				</ng-template>
 				<ng-template for="edit" let-$cell let-$view="$view">
-					<button (click)="$view.edit.cell.cancel.execute($cell, $event)">custom template</button>
+					<input type="text"
+							 q-grid-focus="input"
+							 style="border: 1px solid #f00; width: 100%;"
+							 [(ngModel)]="$view.edit.cell.value"
+							 (blur)="$view.edit.cell.commit.execute($cell)">
 				</ng-template>
 			</q-grid-column>
 			<q-grid-column key="contact.singleEmail" title="Experimental" editor="password">
