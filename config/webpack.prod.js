@@ -33,10 +33,33 @@ const METADATA = webpackMerge(commonConfig({
 	HMR: false
 });
 
+const packageConfig = require(helpers.root('package.json'));
+
+const externals = Object.keys(packageConfig.dependencies);
+externals.push('@angular/material');
+externals.push('css.escape');
+
 module.exports = function (env) {
 	return webpackMerge(commonConfig({
 		env: ENV
 	}), {
+		entry: {
+			'polyfills': './demo/polyfills.browser.ts',
+			'index': helpers.root('src', 'grid.module.ts'),
+			'vendor': [
+				'@angular/platform-browser',
+				'@angular/platform-browser-dynamic',
+				'@angular/core',
+				'@angular/common',
+				'@angular/forms',
+				'@angular/http',
+				'@angular/router',
+				'@angularclass/hmr',
+				'@angular/material',
+				'rxjs',
+				'zone.js'
+			]
+		},
 
 		/**
 		 * Developer tool to enhance debugging
@@ -88,11 +111,7 @@ module.exports = function (env) {
 			library: 'ng2-qgrid'
 		},
 
-		externals: [
-			'@angular/core',
-			'@angular/material',
-			'css.escape'
-		],
+		externals: externals,
 
 		module: {
 
