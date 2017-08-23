@@ -16,7 +16,7 @@ export class FocusDirective implements OnInit {
 		} else {
 			let element = this.renderer.selectRootElement(this.selector);
 			if (!element) {
-				throw AppError('focus.directive', `Element ${this.selector} is not found`);
+				throw new AppError('focus.directive', `Element ${this.selector} is not found`);
 			}
 
 			element.focus();
