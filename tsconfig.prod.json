@@ -11,7 +11,7 @@
 		"importHelpers": true,
 		"strictNullChecks": false,
 		"skipLibCheck": true,
-		"declaration": true,
+		"outDir": "dist",
 		"lib": [
 			"dom",
 			"es6"
@@ -38,8 +38,7 @@
 			"ng2-qgrid/*": [
 				"src/*"
 			]
-		},
-		"outDir": "./dist"
+		}
 	},
 	"exclude": [
 		"node_modules",
@@ -47,12 +46,9 @@
 	],
 	"compileOnSave": true,
 	"buildOnSave": true,
-	"atom": {
-		"rewriteTsconfig": false
-	},
 	"angularCompilerOptions": {
 		"skipMetadataEmit": false,
 		"skipTemplateCodegen": true,
-		"genDir": "dist"
+		"genDir": "./dist"
 	}
 }
