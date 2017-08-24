@@ -1,0 +1,24 @@
+<md-chip-list>
+	<div *ngFor="let chip of _values">
+		<div *ngIf="editMode(chip.index); else nonEditView">
+			<md-input-container>
+				<input mdInput
+						 q-grid-focus
+						 [(ngModel)]="editValue"
+						 (blur)="endEdit()">
+			</md-input-container>
+		</div>
+		<ng-template #nonEditView>
+			<md-chip selected="true">
+				<span (click)="edit(chip.index)" >{{chip.value}}</span>
+				<i class="material-icons md-9" (click)="removeItem(chip.index)">clear</i>
+			</md-chip>
+		</ng-template>
+	</div>
+</md-chip-list>
+<md-input-container class="edit-array-new-item">
+	<input mdInput
+			 placeholder="New item"
+			 [(ngModel)]="newValue">
+	<i class="material-icons md-18" (click)="addItem()">add circle</i>
+</md-input-container>

@@ -123,9 +123,17 @@ td.q-grid-edit {
 		width: 100%;
 	}
 
+
+	md-input-container.edit-array-new-item {
+		width: 60% !important;
+	}
+
 	md-checkbox {
 		margin: 0;
 	}
+
+	.material-icons.md-18 { font-size: 18px; }
+	.material-icons.md-9 { font-size: 9px; }
 }
 
 .q-grid-editor {
