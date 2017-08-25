@@ -73,3 +73,5 @@ dll/
 *.css.shim.ts
 *.ngsummary.json
 *.shim.ngstyle.ts
+src/themes/material/index.css.map
+src/themes/material/index.css
