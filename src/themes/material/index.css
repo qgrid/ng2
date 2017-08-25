@@ -682,10 +682,24 @@
     width: 60% !important; }
   .q-grid.q-grid-theme-material td.q-grid-edit md-checkbox {
     margin: 0; }
+  .q-grid.q-grid-theme-material td.q-grid-edit .material-icons.md-48 {
+    font-size: 48px; }
+  .q-grid.q-grid-theme-material td.q-grid-edit .material-icons.md-36 {
+    font-size: 36px; }
+  .q-grid.q-grid-theme-material td.q-grid-edit .material-icons.md-24 {
+    font-size: 24px; }
   .q-grid.q-grid-theme-material td.q-grid-edit .material-icons.md-18 {
     font-size: 18px; }
   .q-grid.q-grid-theme-material td.q-grid-edit .material-icons.md-9 {
     font-size: 9px; }
+  .q-grid.q-grid-theme-material td.q-grid-edit .material-icons.md-9.resize-on-hover:hover {
+    font-size: 10px; }
+  .q-grid.q-grid-theme-material td.q-grid-edit .material-icons.selected {
+    color: #3f51b5; }
+  .q-grid.q-grid-theme-material td.q-grid-edit .material-icons.selected:hover {
+    color: #8491da; }
+  .q-grid.q-grid-theme-material td.q-grid-edit .material-icons.mouse-pointer {
+    cursor: pointer; }
 .q-grid.q-grid-theme-material .q-grid-editor.q-grid-reference {
   height: 350px;
   width: 500px; }

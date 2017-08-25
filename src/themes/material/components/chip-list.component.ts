@@ -1,17 +1,18 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectorRef} from '@angular/core';
 import {AppError} from '@grid/core/infrastructure';
 
 interface IChipValue {
 	value: any;
 	index: number;
 }
+const enterKey = 13;
 
 @Component({
 	selector: 'q-grid-chips',
 	templateUrl: './chip-list.tpl.html'
 })
-export class ChipListComponent implements OnInit {
-	constructor() {
+export class ChipListComponent implements OnInit  {
+	constructor(private cdRef: ChangeDetectorRef) {
 		this._editMode = false;
 	}
 
@@ -50,6 +51,8 @@ export class ChipListComponent implements OnInit {
 				index: itemIndex
 			};
 		});
+
+		this.cdRef.detectChanges();
 	}
 	private edit(index: number) {
 		if (index < 0) {
@@ -71,6 +74,8 @@ export class ChipListComponent implements OnInit {
 		this._values[this.editIndex].value = this.editValue;
 		this.editIndex = -1;
 		this._editMode = false;
+
+		this.cdRef.detectChanges();
 	}
 
 	private addItem() {
@@ -95,6 +100,20 @@ export class ChipListComponent implements OnInit {
 			}
 		});
 		return found;
+	}
+
+	private checkAddNewInputKey(e: any) {
+		if (e.keyCode === enterKey) {
+			console.log('Add New Input: Enter Key have been pressed (key code: ' + enterKey + ')');
+			this.addItem();
+		}
+	}
+
+	private checkEditInputKey(e: any) {
+		if (e.keyCode === enterKey) {
+			console.log('Edit Input:Enter Key have been pressed (key code: ' + enterKey + ')');
+			this.endEdit();
+		}
 	}
 
 	ngOnInit() {

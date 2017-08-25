@@ -4,6 +4,7 @@
 			<md-input-container>
 				<input mdInput
 						 q-grid-focus
+						 (keyup)="checkEditInputKey($event)"
 						 [(ngModel)]="editValue"
 						 (blur)="endEdit()">
 			</md-input-container>
@@ -11,7 +12,7 @@
 		<ng-template #nonEditView>
 			<md-chip selected="true">
 				<span (click)="edit(chip.index)" >{{chip.value}}</span>
-				<i class="material-icons md-9" (click)="removeItem(chip.index)">clear</i>
+				<i class="material-icons md-9 resize-on-hover mouse-pointer" (click)="removeItem(chip.index)">clear</i>
 			</md-chip>
 		</ng-template>
 	</div>
@@ -19,6 +20,7 @@
 <md-input-container class="edit-array-new-item">
 	<input mdInput
 			 placeholder="New item"
+			 (keyup)="checkAddNewInputKey($event)"
 			 [(ngModel)]="newValue">
-	<i class="material-icons md-18" (click)="addItem()">add circle</i>
+	<i class="material-icons md-24 selected mouse-pointer" (click)="addItem()">add_box</i>
 </md-input-container>
