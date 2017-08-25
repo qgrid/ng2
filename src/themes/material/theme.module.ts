@@ -3,6 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {ThemeService} from './theme.service';
 import {ThemeComponent} from './theme.component';
+import {ChipListComponent} from './components/chip-list.component';
 import {PluginModule} from '@grid/plugins';
 import {TemplateModule} from '@grid/template';
 import {CommonModule} from '@grid/common';
@@ -22,10 +23,12 @@ import {
 
 @NgModule({
 	declarations: [
-		ThemeComponent
+		ThemeComponent,
+		ChipListComponent
 	],
 	exports: [
-		ThemeComponent
+		ThemeComponent,
+		ChipListComponent
 	],
 	imports: [
 		CommonModule,

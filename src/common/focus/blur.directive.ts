@@ -1,4 +1,5 @@
 import {Directive, Renderer2, ElementRef, OnInit, Input} from '@angular/core';
+import {AppError} from '@grid/core/infrastructure';
 import {ViewCoreService} from '@grid/main/core/view';
 
 @Directive({
@@ -17,7 +18,7 @@ export class BlurDirective implements OnInit {
 	ngOnInit() {
 		this.inputElement = this.renderer.selectRootElement('input');
 		if (!this.inputElement) {
-			throw Error('Required Input elemement is not found');
+			throw new AppError('blur.directive', 'Required Input elemement is not found');
 		}
 
 		this.renderer.listen(this.inputElement, 'blur', () => {
