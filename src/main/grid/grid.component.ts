@@ -85,11 +85,9 @@ export class GridComponent extends RootComponent implements OnInit {
 
 		const markup = this.rootService.markup;
 		const layerService = new LayerService(markup);
-		const bag = this.rootService.bag;
-
 		const tableContext = {
 			layer: name => layerService.create(name),
-			model: element => bag.get(element) || null
+			bag: this.rootService.bag
 		};
 
 		const table = new Table(model, markup, tableContext);

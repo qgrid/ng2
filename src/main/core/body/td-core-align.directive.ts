@@ -19,7 +19,6 @@ export class TdCoreAlignDirective implements OnInit {
 		const column = this.column;
 		const element = this.element;
 
-		this.root.bag.set(element, this);
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
 		element.classList.add(`${GRID_PREFIX}-${column.type}`);
 		if (column.editor) {

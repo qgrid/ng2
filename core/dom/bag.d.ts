@@ -1,3 +1,18 @@
+import {ColumnModel} from '../column-type/column.model';
+
+export declare class IBagCell {
+	element: HTMLElement;
+	rowIndex: Number;
+	columnIndex: Number;
+	row: any;
+	column: ColumnModel;
+}
+
+export declare class IBagRow {
+	element: HTMLElement;
+	index: Number;
+}
+
 export declare class Bag {
 	constructor();
 
@@ -5,11 +20,11 @@ export declare class Bag {
 
 	hasModel(element: HTMLElement): boolean;
 
-	addRow(row: any) ;
+	addRow(row: IBagRow) ;
 
-	addCell(cell: any);
+	addCell(cell: IBagCell);
 
-	deleteRow(row: any);
+	deleteRow(row: IBagRow);
 
-	deleteCell(cell: any);
+	deleteCell(cell: IBagCell);
 }

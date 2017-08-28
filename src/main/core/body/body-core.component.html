@@ -1,15 +1,7 @@
-<tr class="q-grid-align">
-	<td
-		*ngFor="let $column of $view.body.render.defaultStrategy.columnList($table.pin); trackBy: columnKey; let $columnIndex = index"
-		q-grid-core-td-align
-		[q-grid-core-column-index]="$columnIndex">
-	</td>
-</tr>
 <tr *ngFor="let $row of $view.body.rows; trackBy: rowIndex; let $rowIndex = index"
 	 [q-grid-core-tr]="$rowIndex">
-	<td *ngFor="let $column of $view.body.render.columns($row, $table.pin); trackBy: columnKey; let $columnIndex = index"
-		 [attr.rowspan]="$view.body.render.rowspan($row, $column)"
-		 [attr.colspan]="$view.body.render.colspan($row, $column)">
+	<td
+		*ngFor="let $column of $view.body.render.columns($row, $table.pin); trackBy: columnKey; let $columnIndex = index">
 		<ng-container q-grid-core-td
 						  [q-grid-core-column-index]="$columnIndex"
 						  [q-grid-core-row-index]="$rowIndex">

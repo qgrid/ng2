@@ -22,8 +22,8 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 
 	constructor(element: ElementRef,
 					public $view: ViewCoreService,
-					private root: RootService,
-					private $table: TableCoreService) {
+					public $table: TableCoreService,
+					private root: RootService) {
 		super();
 
 		this.element = element.nativeElement;
@@ -67,7 +67,7 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 	}
 
 	onClick(e) {
-		const pathFinder = new PathService(this.root.bag);
+		const pathFinder = new PathService(this.root.bag.body);
 		const cell = pathFinder.cell(e.path);
 		if (cell) {
 			this.navigate(cell);
@@ -80,12 +80,12 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 
 	onMouseDown(e) {
 		const selectionState = this.selection;
+		const pathFinder = new PathService(this.root.bag.body);
 		if (selectionState.area !== 'body') {
 			return;
 		}
 
 		if (selectionState.mode === 'range') {
-			const pathFinder = new PathService(this.root.bag);
 			this.rangeStartCell = pathFinder.cell(e.path);
 
 			if (this.rangeStartCell) {
@@ -97,7 +97,6 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 
 		switch (selectionState.unit) {
 			case 'row': {
-				const pathFinder = new PathService(this.root.bag);
 				const cell = pathFinder.cell(e.path);
 				if (cell && cell.column.type !== 'select') {
 					this.$view.selection.toggleRow.execute(cell.row, 'body');
@@ -106,7 +105,6 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 			}
 
 			case 'column': {
-				const pathFinder = new PathService(this.root.bag);
 				const cell = pathFinder.cell(e.path);
 				if (cell) {
 					this.$view.selection.toggleColumn.execute(cell.column, 'body');
@@ -115,7 +113,6 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 			}
 
 			case 'mix': {
-				const pathFinder = new PathService(this.root.bag);
 				const cell = pathFinder.cell(e.path);
 				if (cell && cell.column.type === 'row-indicator') {
 					this.$view.selection.toggleCell.execute(cell, 'body');
@@ -123,12 +120,12 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 			}
 
 			default:
-				throw new AppError('body-core.component', `Invalid selection unit ${selectionState.unit}`);
+				break;
 		}
 	}
 
 	onMouseMove(e) {
-		const pathFinder = new PathService(this.root.bag);
+		const pathFinder = new PathService(this.root.bag.body);
 		const row = pathFinder.row(e.path);
 		if (row) {
 			const index = row.index;
