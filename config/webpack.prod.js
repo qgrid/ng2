@@ -44,7 +44,7 @@ module.exports = function (env) {
 		env: ENV
 	}), {
 		entry: {
-			'polyfills': './demo/polyfills.browser.ts',
+			// 'polyfills': './demo/polyfills.browser.ts',
 			'index': helpers.root('src', 'grid.module.ts'),
 			'vendor': [
 				'@angular/platform-browser',
