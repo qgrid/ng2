@@ -19,7 +19,7 @@ import {ColumnView} from 'ng2-qgrid/core/column';
 import {ScrollView} from 'ng2-qgrid/core/scroll';
 import {RowDetailsView} from 'ng2-qgrid/core/row-details';
 import {isUndefined} from 'ng2-qgrid/core/utility';
-import {PipeUnit} from 'ng2-qgrid/core/pipe/units';
+import {PipeUnit} from 'ng2-qgrid/core/pipe/pipe.unit';
 import {AppError} from 'ng2-qgrid/core/infrastructure';
 import {ViewCoreService} from './view-core.service';
 import {GridService} from 'ng2-qgrid/main/grid';

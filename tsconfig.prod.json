@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"target": "es5",
+		"target": "es2015",
 		"module": "commonjs",
 		"moduleResolution": "node",
 		"emitDecoratorMetadata": true,
@@ -11,7 +11,7 @@
 		"importHelpers": true,
 		"strictNullChecks": false,
 		"skipLibCheck": true,
-		"outDir": "dist",
+		"outDir": "prod",
 		"declaration": true,
 		"lib": [
 			"dom",
@@ -28,13 +28,13 @@
 			"uglify-js",
 			"webpack"
 		],
-		"baseUrl": "./src",
+		"baseUrl": "./dist",
 		"paths": {
 			"ng2-qgrid/core/*": [
 				"../core/*"
 			],
 			"ng2-qgrid/theme/*": [
-				"./themes/material/*"
+				"./theme/*"
 			],
 			"ng2-qgrid/*": [
 				"./*"
@@ -42,7 +42,7 @@
 		}
 	},
 	"files": [
-		"src/public_api.ts"
+		"dist/index.ts"
 	],
 	"exclude": [
 		"node_modules",
@@ -53,8 +53,6 @@
 	"angularCompilerOptions": {
 		"skipMetadataEmit": false,
 		"skipTemplateCodegen": true,
-		"genDir": "./dist",
-		"flatModuleOutFile": "index.js",
-		"flatModuleId": "ng2-qgrid"
+		"genDir": "./prod"
 	}
 }

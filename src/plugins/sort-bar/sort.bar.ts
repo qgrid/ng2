@@ -3,8 +3,7 @@ import {Component, Input, OnInit, Optional} from '@angular/core';
 import {PluginComponent} from '../plugin.component';
 import {Command} from 'ng2-qgrid/core/infrastructure';
 import * as SortSevice from 'ng2-qgrid/core/sort/sort.service';
-import {SORT_BAR_NAME} from '../definition';
-import {TH_CORE_NAME} from 'ng2-qgrid/view/definition';
+import {SORT_BAR_NAME, TH_CORE_NAME} from 'ng2-qgrid/core/definition';
 import {TemplatePath} from 'ng2-qgrid/core/template';
 import {RootService} from 'ng2-qgrid/infrastructure/component';
 

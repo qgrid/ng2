@@ -1,5 +1,5 @@
 import {Component, Input, ElementRef, OnInit, OnDestroy, ViewContainerRef} from '@angular/core';
-import TemplateLink from 'ng2-qgrid/view/components/template/template.link';
+import {TemplateLink} from '';
 import {EventListener} from 'ng2-qgrid/core/infrastructure/event.listener';
 import {EventManager} from 'ng2-qgrid/core/infrastructure/event.manager';
 import {PopupService} from 'ng2-qgrid/plugins/popup/popup.service';

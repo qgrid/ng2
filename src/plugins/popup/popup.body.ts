@@ -1,4 +1,3 @@
-import TemplateLink from 'ng2-qgrid/view/components/template/template.link';
 import {Shortcut, ShortcutManager} from 'ng2-qgrid/core/shortcut';
 import {PopupCommandManager} from './popup.command.manager';
 import {Component, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';

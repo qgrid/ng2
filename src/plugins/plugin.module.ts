@@ -1,16 +1,25 @@
 import {NgModule} from '@angular/core';
 import {PagerModule} from './pagination';
 import {ProgressModule} from './progress';
-import {ExportModule} from './export';
+// import {PopupModule} from 'ng2-qgrid/plugins/popup/popup.module';
+// import {SortBarModule} from 'ng2-qgrid/plugins/sort-bar';
+// import {ExportModule} from './export';
 
 @NgModule({
 	declarations: [],
 	exports: [
 		PagerModule,
 		ProgressModule,
-		ExportModule
+		// PopupModule,
+		// SortBarModule
+		// ExportModule
 	],
-	imports: [],
+	imports: [
+		PagerModule,
+		ProgressModule,
+		// PopupModule,
+		// SortBarModule
+	],
 	providers: []
 })
 export class PluginModule {

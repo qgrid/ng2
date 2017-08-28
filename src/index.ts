@@ -1,2 +1,5 @@
 export * from './grid.module';
-export * from './main/grid/grid.service';
+
+export * from './main';
+export * from './common';
+export * from './plugins';

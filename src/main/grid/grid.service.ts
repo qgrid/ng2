@@ -1,12 +1,12 @@
-import {Model} from 'ng2-qgrid/core/infrastructure';
-import {Command} from 'ng2-qgrid/core/command';
-import {GridService as Grid} from 'ng2-qgrid/core/services';
+import {Injectable} from '@angular/core';
+import {Model} from 'ng2-qgrid/core/infrastructure/model';
+import {Command} from 'ng2-qgrid/core/command/command';
+import {GridService as Grid} from 'ng2-qgrid/core/services/grid';
 import {Pipe} from 'ng2-qgrid/core/pipe/pipe';
 import {PipeUnit} from 'ng2-qgrid/core/pipe/pipe.unit';
 import {noop} from 'ng2-qgrid/core/utility';
 import {getFactory as valueFactory} from 'ng2-qgrid/core/services/value';
 import {getFactory as labelFactory} from 'ng2-qgrid/core/services/label';
-import {Injectable} from '@angular/core';
 
 @Injectable()
 export class GridService {
