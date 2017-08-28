@@ -1,5 +1,4 @@
 import {ColumnModel} from '../column-type/column.model';
-import {Cell} from '../scene/cell';
 
 export interface IPositionResult {
 	row: number;
@@ -11,23 +10,23 @@ export declare type ReturnColumnOrNumber = ColumnModel | number;
 export declare class Navigation {
 	constructor();
 
-	get currentColumn(): Number;
+	currentColumn(): Number;
 
-	get nextColumn(): Number;
+	nextColumn(): Number;
 
-	get prevColumn(): Number;
+	prevColumn(): Number;
 
-	get lastColumn(): Number;
+	lastColumn(): Number;
 
-	get firstColumn(): Number;
+	firstColumn(): Number;
 
-	get currentRow(): Number;
+	currentRow(): Number;
 
-	get nextRow(): Number;
+	nextRow(): Number;
 
-	get prevRow(): Number;
+	prevRow(): Number;
 
-	get firstRow(): Number;
+	firstRow(): Number;
 
-	get lastRow(): Number;
+	lastRow(): Number;
 }

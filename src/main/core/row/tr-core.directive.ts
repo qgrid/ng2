@@ -9,9 +9,7 @@ export class TrCoreDirective implements OnInit, OnDestroy {
 	@Input('q-grid-core-tr') public index: number;
 	private element: HTMLElement;
 
-	constructor(public $view: ViewCoreService,
-					private root: RootService,
-					private elementRef: ElementRef) {
+	constructor(public $view: ViewCoreService, private root: RootService, private elementRef: ElementRef) {
 		this.element = elementRef.nativeElement;
 	}
 

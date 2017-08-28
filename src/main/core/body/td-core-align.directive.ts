@@ -12,7 +12,7 @@ export class TdCoreAlignDirective implements OnInit {
 	constructor(private root: RootService,
 					element: ElementRef) {
 
-		this.element = element.nativeElement.parentNode;
+		this.element = element.nativeElement;
 	}
 
 	ngOnInit() {

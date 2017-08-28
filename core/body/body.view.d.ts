@@ -4,6 +4,7 @@ import {IGetResult} from '../services/value';
 import {Model} from '../infrastructure/model';
 import {Table} from '../dom/table';
 import {ColumnView} from '../scene/view/column.view';
+import {Renderer} from '../scene/render/render';
 
 export interface IGetValueFactory {
 	(column: ColumnModel): IGetResult;
@@ -27,4 +28,6 @@ export declare class BodyView extends View {
 	valueFactory(column: ColumnModel, getValueFactory: IGetValueFactory): IGetResult;
 
 	labelFactory(column: ColumnModel): IGetResult;
+
+	render: Renderer;
 }

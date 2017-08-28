@@ -62,7 +62,9 @@ export class GridComponent extends RootComponent implements OnInit {
 
 		this.models = ['data', 'selection', 'sort', 'group', 'pivot', 'edit', 'style', 'action'];
 		this.using(this.modelChanged.watch(model => this.rootService.model = model));
-		this.listener = new EventListener(element.nativeElement, new EventManager(this, rootService.applyFactory(null, 'sync')));
+
+		const apply = rootService.applyFactory(null, 'sync');
+		this.listener = new EventListener(element.nativeElement, new EventManager(this, apply));
 	}
 
 	ngOnInit() {

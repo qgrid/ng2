@@ -17,7 +17,7 @@ export interface ILabel {
 }
 
 export declare class ColumnModel {
-	constructor(type: string = 'text');
+	constructor(type?: string);
 
 	type: string;
 	key: string;

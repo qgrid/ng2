@@ -1,4 +1,4 @@
-import {Component, ElementRef} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
 import {EventListener} from '@grid/core/infrastructure/event.listener';
 import {EventManager} from '@grid/core/infrastructure/event.manager';
 import {ViewCoreService} from '../view/view-core.service';
@@ -6,12 +6,13 @@ import {NgComponent, RootService} from '@grid/infrastructure/component';
 import {PathService} from '@grid/core/path';
 import {TableCoreService} from '../table/table-core.service';
 import {ColumnView} from '@grid/core/scene/view/column.view';
+import {AppError} from '@grid/core/infrastructure/error';
 
 @Component({
 	selector: 'tbody[q-grid-core-body]',
 	templateUrl: './body-core.component.html'
 })
-export class BodyCoreComponent extends NgComponent {
+export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy {
 	private element: Element = null;
 	private rangeStartCell = null;
 	private scrollContext = {
@@ -43,7 +44,7 @@ export class BodyCoreComponent extends NgComponent {
 		this.using(listener.on('mouseup', this.onMouseUp));
 
 		this.using(listener.on('mousemove', this.onMouseMove));
-		this.using(listener.on('mouseleave', this.onMouseLeave))
+		this.using(listener.on('mouseleave', this.onMouseLeave));
 	}
 
 	onScroll() {
@@ -64,7 +65,6 @@ export class BodyCoreComponent extends NgComponent {
 			scroll(newValue, {source: 'body.core'});
 		}
 	}
-
 
 	onClick(e) {
 		const pathFinder = new PathService(this.root.bag);
@@ -121,6 +121,9 @@ export class BodyCoreComponent extends NgComponent {
 					this.$view.selection.toggleCell.execute(cell, 'body');
 				}
 			}
+
+			default:
+				throw new AppError('body-core.component', `Invalid selection unit ${selectionState.unit}`);
 		}
 	}
 
