@@ -535,10 +535,10 @@ $layout-gutter-width: ($baseline-grid * 2) !default;
 }
 
 /* IE10-IE11 column-flex bug fix (set proper default value) */
-.layout-column > .flex {
-	-ms-flex-basis: auto;
-	flex-basis: auto;
-}
+//.layout-column > .flex {
+//	-ms-flex-basis: auto;
+//	flex-basis: auto;
+//}
 
 /* Apply Mixins to create Layout/Flexbox styles */
 

@@ -9,6 +9,7 @@
 		flex-flow: column;
 		height: 100%;
 		width: 100%;
+		outline: none;
 
 		thead, tfoot {
 			/* head takes the height it requires,
@@ -31,6 +32,9 @@
 			width: 100%;
 			display: table-row;
 			table-layout: fixed;
+			&.q-grid-align {
+				height: 0 !important;
+			}
 		}
 	}
 
