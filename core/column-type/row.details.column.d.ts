@@ -1,6 +1,5 @@
 import {ColumnView} from '../scene/view/column.view';
 import {ColumnModel} from './column.model';
-import {ColumnModel} from './column.model';
 
 declare class RowDetailsColumnModel extends ColumnModel {
 	constructor();

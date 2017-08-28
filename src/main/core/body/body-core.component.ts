@@ -1,10 +1,11 @@
-import {Component, ElementRef, Inject, OnInit} from '@angular/core';
+import {Component, ElementRef} from '@angular/core';
 import {EventListener} from '@grid/core/infrastructure/event.listener';
 import {EventManager} from '@grid/core/infrastructure/event.manager';
 import {ViewCoreService} from '../view/view-core.service';
 import {NgComponent, RootService} from '@grid/infrastructure/component';
 import {PathService} from '@grid/core/path';
 import {TableCoreService} from '../table/table-core.service';
+import {ColumnView} from '@grid/core/scene/view/column.view';
 
 @Component({
 	selector: 'tbody[q-grid-core-body]',
@@ -178,5 +179,13 @@ export class BodyCoreComponent extends NgComponent {
 
 	get model() {
 		return this.root.model;
+	}
+
+	columnKey(index: number, item: ColumnView) {
+		return item.model.key;
+	}
+
+	rowIndex(index: number) {
+		return index;
 	}
 }
