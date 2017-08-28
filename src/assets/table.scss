@@ -24,6 +24,8 @@
 			flex: 1 1 auto;
 			display: block;
 			overflow-y: scroll;
+			outline: none;
+			overflow-anchor: none;
 		}
 
 		tbody tr {
