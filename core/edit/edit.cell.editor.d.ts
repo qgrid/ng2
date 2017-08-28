@@ -1,6 +1,6 @@
 import {Fetch} from '../infrastructure/fetch';
 import {INoopResult} from '../utility/utility';
-import {ICell} from '../cell/cell';
+import {CellView} from '../scene/view/cell.view';
 import {ColumnModel, IEditorOptions} from '../column-type/column.model';
 
 export declare class CellEditorCore {
@@ -18,9 +18,9 @@ export declare class CellEditorCore {
 }
 
 export declare class CellEditor extends CellEditorCore {
-	constructor(cell: ICell);
+	constructor(cell: CellView);
 
-	cell: ICell;
+	cell: CellView;
 	value: any;
 	label: any;
 	readonly title: string;
