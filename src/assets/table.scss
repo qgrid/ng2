@@ -9,6 +9,7 @@
 		flex-flow: column;
 		height: 100%;
 		width: 100%;
+		outline: none;
 
 		thead, tfoot {
 			/* head takes the height it requires,
@@ -23,14 +24,15 @@
 			flex: 1 1 auto;
 			display: block;
 			overflow-y: scroll;
-			outline: none;
-			overflow-anchor: none;
 		}
 
 		tbody tr {
 			width: 100%;
 			display: table-row;
 			table-layout: fixed;
+			&.q-grid-align {
+				height: 0 !important;
+			}
 		}
 	}
 
