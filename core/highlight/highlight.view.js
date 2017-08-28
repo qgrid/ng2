@@ -93,7 +93,7 @@ export class HighlightView extends View {
 			}
 		}));
 
-		this.using(model.viewChanged.watch(() => {
+		this.using(model.sceneChanged.watch(() => {
 			waitForLayout = true;
 			this.timeout(() => {
 				columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);

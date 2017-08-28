@@ -4,6 +4,12 @@ export class Column {
 		this.index = index;
 	}
 
+	model() {
+		const columns = this.box.model.view().columns;
+		const column = columns[this.index];
+		return column || null;
+	}
+
 	cells() {
 		return this.box.columnCellsCore(this.index);
 	}
@@ -13,10 +19,22 @@ export class Column {
 	}
 
 	addClass(name) {
-		this.cells().forEach(cell => cell.addClass(name));
+		const cells = this.cells();
+		const length = cells.length;
+		let i = 0;
+		while (i < length) {
+			const cell = cells[i++];
+			cell.addClass(name);
+		}
 	}
 
 	removeClass(name) {
-		this.cells().forEach(cell => cell.removeClass(name));
+		const cells = this.cells();
+		const length = cells.length;
+		let i = 0;
+		while (i < length) {
+			const cell = cells[i++];
+			cell.removeClass(name);
+		}
 	}
 }

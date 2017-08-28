@@ -1,4 +1,4 @@
-import {Component, Optional} from '@angular/core';
+import {Component, OnDestroy, OnInit, Optional} from '@angular/core';
 import {NgComponent, RootService} from '@grid/infrastructure/component';
 import {Table} from '@grid/core/dom';
 import {BodyView} from '@grid/core/body';
@@ -24,7 +24,6 @@ import {PipeUnit} from '@grid/core/pipe/units';
 import {AppError} from '@grid/core/infrastructure';
 import {ViewCoreService} from './view-core.service';
 import {GridService} from '@grid/main/grid';
-import {VScrollService} from '../scroll';
 import {CellService} from '../cell';
 
 @Component({
@@ -35,7 +34,7 @@ import {CellService} from '../cell';
 		CellService
 	]
 })
-export class ViewCoreComponent extends NgComponent {
+export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy {
 	constructor(@Optional() private root: RootService,
 					private view: ViewCoreService,
 					private gridService: GridService) {
@@ -82,25 +81,7 @@ export class ViewCoreComponent extends NgComponent {
 
 	ngOnDestroy() {
 		super.ngOnDestroy();
-
-		const view = this.view;
-		view.style.dispose();
-		view.head.dispose();
-		view.body.dispose();
-		view.foot.dispose();
-		view.columns.dispose();
-		view.layout.dispose();
-		view.selection.dispose();
-		view.group.dispose();
-		view.pivot.dispose();
-		view.highlight.dispose();
-		view.sort.dispose();
-		view.filter.dispose();
-		view.edit.dispose();
-		view.nav.dispose();
-		view.pagination.dispose();
-		view.scroll.dispose();
-		view.rowDetails.dispose();
+		this.view.destroy();
 	}
 
 	get model() {

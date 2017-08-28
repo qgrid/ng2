@@ -62,7 +62,9 @@ export class GridComponent extends RootComponent implements OnInit {
 
 		this.models = ['data', 'selection', 'sort', 'group', 'pivot', 'edit', 'style', 'action'];
 		this.using(this.modelChanged.watch(model => this.rootService.model = model));
-		this.listener = new EventListener(element.nativeElement, new EventManager(this, rootService.applyFactory(null, 'sync')));
+
+		const apply = rootService.applyFactory(null, 'sync');
+		this.listener = new EventListener(element.nativeElement, new EventManager(this, apply));
 	}
 
 	ngOnInit() {
@@ -83,11 +85,9 @@ export class GridComponent extends RootComponent implements OnInit {
 
 		const markup = this.rootService.markup;
 		const layerService = new LayerService(markup);
-		const bag = this.rootService.bag;
-
 		const tableContext = {
 			layer: name => layerService.create(name),
-			model: element => bag.get(element) || null
+			bag: this.rootService.bag
 		};
 
 		const table = new Table(model, markup, tableContext);

@@ -4,7 +4,7 @@ import {ChipListComponent} from './components/chip-list.component';
 
 @Component({
 	selector: 'q-grid-theme',
-	template: template
+	template
 })
 export class ThemeComponent {
 	constructor() {

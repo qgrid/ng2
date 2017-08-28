@@ -8,9 +8,9 @@ export class Navigation {
 
 	positon(y, direction) {
 		const body = this.table.body;
+		const lastRow = this.lastRow;
 		let index = 0;
 		let offset = 0;
-		const lastRow = this.lastRow;
 
 		// TODO: improve performance
 		while (index <= lastRow && offset <= y) {
@@ -40,89 +40,73 @@ export class Navigation {
 		this.model.navigation({cell: cell}, {source: source});
 	}
 
-	get columns() {
-		const columns = this.table.data.columns();
-		const indicies = [];
+	columns(rowIndex) {
+		const columns = this.table.body.columns(rowIndex);
+		const index = [];
 		for (let i = 0, length = columns.length; i < length; i++) {
 			const column = columns[i];
-			if (column.canFocus) {
-				indicies.push(i);
+			if (column.model().canFocus) {
+				index.push(column.index);
 			}
 		}
-		return indicies;
+		return index;
 	}
 
 	get currentColumn() {
-		const columns = this.columns;
-		if (!columns.length) {
-			return -1;
-		}
-
-		const column = this.model.navigation().columnIndex;
-		const index = columns.indexOf(column);
-		return columns[Math.max(0, index)];
+		const columns = this.columns(this.currentRow);
+		const columnIndex = this.model.navigation().columnIndex;
+		const index = columns.indexOf(columnIndex);
+		return columns.length ? columns[Math.max(index, 0)] : -1;
 	}
 
 	get nextColumn() {
-		const columns = this.columns;
-		if (!columns.length) {
-			return -1;
-		}
-
-		const column = this.model.navigation().columnIndex;
-		const index = columns.indexOf(column);
-		return index < columns.length - 1 ? columns[index + 1] : -1;
+		const columns = this.columns(this.currentRow);
+		const index = columns.indexOf(this.currentColumn);
+		return index >= 0 && index < columns.length - 1 ? columns[index + 1] : -1;
 	}
 
 	get prevColumn() {
-		const columns = this.columns;
-		if (!columns.length) {
-			return -1;
-		}
-
-		const column = this.model.navigation().columnIndex;
-		const index = columns.indexOf(column);
-		return index > 0 ? columns[index - 1] : -1;
+		const columns = this.columns(this.currentRow);
+		const index = columns.indexOf(this.currentColumn);
+		return index > 0 && index < columns.length ? columns[index - 1] : -1;
 	}
 
 	get lastColumn() {
-		const columns = this.columns;
-		if (!columns.length) {
-			return -1;
-		}
-
-		return columns[columns.length - 1];
+		const columns = this.columns(this.currentRow);
+		const index = columns.length - 1;
+		return index >= 0 ? columns[index] : -1;
 	}
 
 	get firstColumn() {
-		const columns = this.columns;
-		if (!columns.length) {
-			return -1;
-		}
-
-		return columns[0];
+		const columns = this.columns(this.currentRow);
+		return columns.length ? columns[0] : -1;
 	}
 
 	get currentRow() {
-		return this.model.navigation().rowIndex;
+		const index = this.model.navigation().rowIndex;
+		if(index < 0){
+			return this.model.scene().rows.length ? 0 : -1;
+		}
+
+		return index;
 	}
 
 	get nextRow() {
-		const row = this.model.navigation().rowIndex + 1;
+		const row = this.currentRow + 1;
 		return row <= this.lastRow ? row : -1;
 	}
 
 	get prevRow() {
-		const row = this.model.navigation().rowIndex - 1;
+		const row = this.currentRow - 1;
 		return row >= 0 ? row : -1;
 	}
 
 	get firstRow() {
-		return 0;
+		return Math.min(0, this.lastRow);
 	}
 
 	get lastRow() {
-		return this.table.body.rowCount() - 1;
+		return this.table.body.rowCount(this.currentColumn) - 1;
 	}
 
 	cell(row, column) {

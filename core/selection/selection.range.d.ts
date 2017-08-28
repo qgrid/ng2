@@ -1,4 +1,4 @@
-import {Cell} from '../cell/cell';
+import {CellView} from '../scene/view/cell.view';
 import {ColumnModel} from '../column-type/column.model';
 import {Model} from '../infrastructure/model';
 
@@ -8,19 +8,19 @@ export interface ICell{
 }
 
 export interface IBuildRows{
-	(startCell: Cell, endCell: Cell): any[];
+	(startCell: CellView, endCell: CellView): any[];
 }
 
 export interface IBuildColumns{
-	(startCell: Cell, endCell: Cell): ColumnModel[];
+	(startCell: CellView, endCell: CellView): ColumnModel[];
 }
 
 export interface IBuildCells{
-	(startCell: Cell, endCell: Cell): ICell;
+	(startCell: CellView, endCell: CellView): ICell;
 }
 
 export interface IBuildMix{
-	(startCell: Cell, endCell: Cell): any[];
+	(startCell: CellView, endCell: CellView): any[];
 }
 
 export interface IBuildResult{
@@ -31,8 +31,8 @@ export declare class SelectionRange {
 	constructor(model: Model);
   model: Model;
 	build(): IBuildResult;
-	buildRows(startCell: Cell, endCell: Cell): any[];
-	buildColumns(startCell: Cell, endCell: Cell): ColumnModel[];
-	buildCells(startCell: Cell, endCell: Cell): ICell[];
-	buildMix(startCell: Cell, endCell: Cell): any[];
+	buildRows(startCell: CellView, endCell: CellView): any[];
+	buildColumns(startCell: CellView, endCell: CellView): ColumnModel[];
+	buildCells(startCell: CellView, endCell: CellView): ICell[];
+	buildMix(startCell: CellView, endCell: CellView): any[];
 }

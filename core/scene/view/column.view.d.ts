@@ -1,5 +1,5 @@
-import {Model} from '../infrastructure/model';
-import {ColumnModel} from './column.model';
+import {Model} from '../../infrastructure/model';
+import {ColumnModel} from '../../column-type/column.model';
 
 export declare class ColumnView {
   constructor(model: ColumnModel);
