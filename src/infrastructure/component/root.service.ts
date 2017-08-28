@@ -1,6 +1,6 @@
 import {Guard} from 'ng2-qgrid/core/infrastructure';
 import {ChangeDetectorRef, Injectable} from '@angular/core';
-import {CommandManager} from 'ng2-qgrid/infrastructure/command';
+import {CommandManager} from 'ng2-qgrid/core/command/command.manager';
 import {Model} from 'ng2-qgrid/core/infrastructure/model';
 import {Table} from 'ng2-qgrid/core/dom/table';
 import {AppError} from 'ng2-qgrid/core/infrastructure';

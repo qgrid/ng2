@@ -14,7 +14,6 @@ import {FilterView} from 'ng2-qgrid/core/filter';
 import {EditView} from 'ng2-qgrid/core/edit';
 import {SelectionView} from 'ng2-qgrid/core/selection';
 import {PaginationView} from 'ng2-qgrid/core/pagination';
-import {TableView} from 'ng2-qgrid/core/table';
 import {StyleView} from 'ng2-qgrid/core/style';
 import {ColumnView} from 'ng2-qgrid/core/column';
 import {ScrollView} from 'ng2-qgrid/core/scroll';

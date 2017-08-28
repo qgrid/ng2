@@ -1,5 +1,5 @@
 import {Directive, Renderer2, ElementRef, OnInit, Input} from '@angular/core';
-import {ViewCoreService} from '@grid/main/core/view';
+import {ViewCoreService} from 'ng2-qgrid/main/core/view';
 
 @Directive({
 	selector: '[q-grid-blur]'
