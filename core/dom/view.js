@@ -14,12 +14,18 @@ function isParentOf(parent, element) {
 }
 
 export class View extends Unit {
-	constructor(markup, context) {
+	constructor(context, model, markup) {
 		super();
 
-		this.markup = markup;
 		this.context = context;
+		this.model = model;
+		this.markup = markup;
 		this.layers = new Map();
+	}
+
+	columns() {
+		const column = this.model.scene().column;
+		return column.line;
 	}
 
 	focus() {

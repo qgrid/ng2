@@ -1,4 +1,4 @@
-import {ColumnView} from './column.model.view';
+import {ColumnView} from '../scene/view';
 import {ColumnModel} from './column.model';
 import {TemplatePath} from '../template';
 
@@ -13,10 +13,12 @@ export class RowNumberColumnModel extends ColumnModel {
 	constructor() {
 		super('row-number');
 
+		this.pin = 'left';
 		this.key = '$row.number';
 		this.title = '#';
 		this.canEdit = false;
 		this.canResize = false;
+		this.canFocus = false;
 		this.canMove = false;
 		this.canHighlight = false;
 		this.class = 'control';

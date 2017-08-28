@@ -1,12 +1,15 @@
 import {View} from '../view';
 import {Command} from '../command';
-import {flatView as nodeFlatView} from '../node';
 import {getFactory as valueFactory} from '../services/value';
+import {getFactory as labelFactory} from '../services/label';
+import {columnFactory} from '../column/column.factory';
+import {PipeUnit} from '../pipe/pipe.unit';
 
 export class GroupView extends View {
-	constructor(model, commandManager) {
+	constructor(model, table, commandManager, service) {
 		super(model);
 
+		this.table = table;
 		this.valueFactory = valueFactory;
 		this.toggleStatus = new Command({
 			execute: node => {
@@ -17,9 +20,7 @@ export class GroupView extends View {
 				const toggle = model.group().toggle;
 				if (toggle.execute(node) !== false) {
 					node.state.expand = !node.state.expand;
-					const view = model.view;
-					const nodes = view().nodes;
-					view({rows: nodeFlatView(nodes)}, {behavior: 'core', source: 'group.view'});
+					service.invalidate('group.view', {}, PipeUnit.group);
 				}
 			},
 			canExecute: node => {
@@ -38,6 +39,11 @@ export class GroupView extends View {
 
 		const shortcut = model.action().shortcut;
 		shortcut.register(commandManager, [this.toggleStatus]);
+
+		const createColumn = columnFactory(model);
+		this.reference = {
+			group: createColumn('group')
+		};
 	}
 
 	count(node) {
@@ -49,15 +55,16 @@ export class GroupView extends View {
 	}
 
 	offset(node) {
-		const groupColumn = (this.model.view().columns[0] || []).find(c => c.model.type === 'group');
-		if (groupColumn) {
-			return groupColumn.model.offset * node.level;
-		}
-
-		return 0;
+		const groupColumn = this.column;
+		return groupColumn.offset * node.level;
 	}
 
 	value(node) {
-		return node.key;
+		const groupColumn = this.column;
+		return labelFactory(groupColumn)(node);
+	}
+
+	get column() {
+		return this.table.data.columns().find(c => c.type === 'group') || this.reference.group.model;
 	}
 }

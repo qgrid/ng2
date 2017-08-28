@@ -1,24 +1,33 @@
 import {IRect} from './fake/element';
 import {Unit} from './unit';
 import {IContext} from './box';
+import {ColumnView} from '../scene/view/column.view';
+import {Model} from '../infrastructure/model';
 
-export declare interface IFunc{
+export declare interface IFunc {
 	(e: any): void;
 }
 
 export declare class View extends Unit {
-	constructor(markup: object, context: IContext);
-	markup: object;
-	context: IContext;
-	layers: Map<any, any>;
+	constructor(context: IContext, model: Model, markup: object);
+
+	columns(): ColumnView[];
+
 	focus(): boolean;
+
 	blur(): void;
+
 	isFocused(): boolean;
-	keyDown(f: IFunc ): EventListener;
+
 	addLayer(name: string): any;
+
 	removeLayer(name: string): boolean;
+
 	scrollLeft(value: number): number;
+
 	scrollTop(value: number): number;
+
 	canScrollTo(element: Element, direction: string): boolean;
+
 	rect(): IRect;
 }

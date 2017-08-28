@@ -21,3 +21,4 @@ export * from './select.column';
 export * from './text.column';
 export * from './time.column';
 export * from './url.column';
+export * from './currency.column';

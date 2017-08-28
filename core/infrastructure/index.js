@@ -8,3 +8,4 @@ export * from './log';
 export * from './model.bind';
 export * from './model';
 export * from './event.manager';
+export * from './range';

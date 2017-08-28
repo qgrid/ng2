@@ -10,12 +10,13 @@ export function columnPipe(memo, context, next) {
 	const heads = pivot.heads;
 	const dataColumns = [];
 	const addDataColumns = dataColumnsFactory(model);
+	const rowspan = Math.max(1, heads.length);
 
 	/*
 	 * We need to invoke addDataColumns earlier that others because it setups data.columns model property
 	 *
 	 */
-	addDataColumns(dataColumns, {rowspan: heads.length, row: 0});
+	addDataColumns(dataColumns, {rowspan: rowspan, row: 0});
 
 	const addSelectColumn = selectColumnFactory(model);
 	const addGroupColumn = groupColumnFactory(model, nodes);
@@ -29,20 +30,18 @@ export function columnPipe(memo, context, next) {
 	 * if selection unit is row
 	 *
 	 */
-	addSelectColumn(columns, {rowspan: heads.length, row: 0});
+	addSelectColumn(columns, {rowspan: rowspan, row: 0});
 
 	/*
 	 * Add group column with nodes
 	 *
 	 */
-	addGroupColumn(columns, {rowspan: heads.length, row: 0});
+	addGroupColumn(columns, {rowspan: rowspan, row: 0});
 
 	/*
 	 * Add row expand column
 	 */
-	addExpandColumn(columns, {rowspan: heads.length, row: 0});
-
-	columns.forEach((c, i) => c.index = i);
+	addExpandColumn(columns, {rowspan: rowspan, row: 0});
 
 	/*
 	 *Add columns defined by user
@@ -50,30 +49,6 @@ export function columnPipe(memo, context, next) {
 	 *
 	 */
 	columns.push(...dataColumns);
-
-	/*
-	 * Persist order of draggable columns
-	 *
-	 */
-	let index = 0;
-	const columnMap = columnService.map(columns.map(c => c.model));
-	const indexMap = model
-		.columnList()
-		.index
-		.filter(key => columnMap.hasOwnProperty(key))
-		.reduce((memo, key) => {
-			memo[key] = index++;
-			return memo;
-		}, {});
-
-	const notIndexedColumns = columns.filter(c => !indexMap.hasOwnProperty(c.model.key));
-	const indexedColumns = columns.filter(c => indexMap.hasOwnProperty(c.model.key));
-	const startIndex = notIndexedColumns.length;
-
-	notIndexedColumns.forEach((c, i) => c.model.index = i);
-	indexedColumns.forEach(c => c.model.index = startIndex + indexMap[c.model.key]);
-
-	columns.sort((x, y) => x.model.index - y.model.index);
 
 	if (heads.length) {
 		/*
@@ -90,10 +65,11 @@ export function columnPipe(memo, context, next) {
 		 * that fills remaining place (width = 100%)
 		 *
 		 */
-		addPadColumn(columns, {rowspan: heads.length, row: 0});
+		addPadColumn(columns, {rowspan: rowspan, row: 0});
 		memo.columns = [columns];
 	}
 
+	memo.columns = index(sort(model, memo.columns));
 	next(memo);
 }
 
@@ -136,7 +112,8 @@ function selectColumnFactory(model) {
 function groupColumnFactory(model, nodes) {
 	const dataColumns = model.data().columns;
 	const groupColumn = dataColumns.find(item => item.type === 'group');
-	if (nodes.length && !groupColumn) {
+	const groupState = model.group();
+	if (!groupColumn && groupState.mode != 'subhead' && (nodes.length || groupState.by.length)) {
 		const createColumn = columnFactory(model);
 		return (columns, context) => {
 			const groupColumn = createColumn('group');
@@ -173,7 +150,6 @@ function expandColumnFactory(model) {
 
 function dataColumnsFactory(model) {
 	const getColumns = generateFactory(model);
-	const getIndex = sortIndexFactory(model);
 	const createColumn = columnFactory(model);
 	return (columns, context) => {
 		const result = getColumns();
@@ -196,17 +172,6 @@ function dataColumnsFactory(model) {
 					}),
 				model));
 
-
-		const indexResult = getIndex(columns.map(column => column.model));
-		if (indexResult.hasChanges) {
-			model.columnList({
-				index: indexResult.index
-			}, {
-				source: 'column.pipe',
-				behavior: 'core'
-			});
-		}
-
 		return result.columns;
 	};
 }
@@ -216,6 +181,7 @@ function padColumnFactory(model) {
 	return (columns, context) => {
 		const padColumn = createColumn('pad');
 		padColumn.rowspan = context.rowspan;
+		padColumn.model.key = `$pad-${columns.length}`;
 		columns.push(padColumn);
 		return padColumn;
 	};
@@ -234,7 +200,6 @@ function pivotColumnsFactory(model) {
 		const head = heads[0];
 		const headLength = head.length;
 		const row = new Array(headLength);
-		const startIndex = columns.length;
 		for (let j = 0; j < headLength; j++) {
 			const headColumn = head[j];
 			const pivotColumn = createColumn('pivot');
@@ -244,7 +209,6 @@ function pivotColumnsFactory(model) {
 			pivotColumnModel.key = pivotColumnModel.key + `[0][${j}]`;
 
 			pivotColumnModel.rowIndex = 0;
-			pivotColumnModel.index = startIndex + j;
 			row[j] = pivotColumn;
 		}
 
@@ -275,7 +239,6 @@ function pivotColumnsFactory(model) {
 				pivotColumnModel.key = pivotColumnModel.key + `[${i}][${j}]`;
 
 				pivotColumnModel.rowIndex = i;
-				pivotColumnModel.index = j;
 				row[j] = pivotColumn;
 			}
 
@@ -284,11 +247,59 @@ function pivotColumnsFactory(model) {
 			 * that fills remaining place (width = 100%)
 			 *
 			 */
-			addPadColumn(row, {rowspan: 1, row: i});
-
+			addPadColumn(row, {rowspan: 1, row: 0});
 			rows.push(row);
 		}
 
 		return rows;
 	};
+}
+
+function index(columnRows) {
+	const view = columnService.expand(columnRows);
+	const height = view.length;
+	for (let i = 0; i < height; i++) {
+		const row = view[i];
+		const width = row.length;
+		for (let j = 0; j < width; j++) {
+			const column = row[j];
+			if (column.index < 0) {
+				column.index = j;
+			}
+		}
+	}
+
+	return columnRows;
+}
+
+function sort(model, columnRows) {
+	const columnRow = columnRows[0];
+	if (columnRow) {
+		const columnList = model.columnList;
+		const buildIndex = sortIndexFactory(model);
+		const columns = columnRow.map(column => column.model);
+		const indexResult = buildIndex(columns);
+		if (indexResult.hasChanges) {
+			columnList({
+				index: indexResult.index
+			}, {
+				source: 'column.pipe',
+				behavior: 'core'
+			});
+		}
+
+		let index = 0;
+		const indexMap =
+			columnList()
+				.index
+				.reduce((memo, key) => {
+					memo[key] = index++;
+					return memo;
+				}, {});
+
+
+		columnRow.sort((x, y) => indexMap[x.model.key] - indexMap[y.model.key]);
+	}
+
+	return columnRows;
 }

@@ -1,5 +1,5 @@
 import {INoopResult} from '../utility/utility';
-import {Model} from '@grid/core/infrastructure/model';
+import {Model} from './model';
 
 export interface IBindResult {
 	(): void;

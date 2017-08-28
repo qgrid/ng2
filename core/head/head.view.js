@@ -24,8 +24,7 @@ export class HeadView extends View {
 				return false;
 			},
 			execute: e => {
-				const view = model.view;
-				const columnRows = view().columns;
+				const columnRows = model.scene().column.rows;
 				for (let columns of columnRows) {
 					const targetIndex = columns.findIndex(c => c.model.key === e.target.value);
 					const sourceIndex = columns.findIndex(c => c.model.key === e.source.value);
@@ -64,7 +63,7 @@ export class HeadView extends View {
 				return false;
 			}
 		});
-		
+
 		this.filter = new Command({
 			canExecute: () => true,
 			execute: e => {
@@ -95,13 +94,11 @@ export class HeadView extends View {
 			}
 		});
 
-		this.using(model.viewChanged.watch(() =>
-			this.invalidate(model)
-		));
+		this.using(model.sceneChanged.watch(this.invalidate.bind(this)));
 
 		this.using(model.filterChanged.watch(e => {
 			if (e.hasChanges('unit')) {
-				this.invalidate(model);
+				this.invalidate();
 			}
 		}));
 	}
@@ -113,14 +110,18 @@ export class HeadView extends View {
 		};
 	}
 
-	invalidate(model) {
+	columns(row, pin) {
+		return row.filter(c => c.model.pin === pin);
+	}
+
+	invalidate() {
 		Log.info('view.head', 'invalidate');
 
-		this.rows = Array.from(model.view().columns);
+		const model = this.model;
+		this.rows = Array.from(model.scene().column.rows);
 
 		if (model.filter().unit === 'row') {
-			const filterRow = this.table.data.columns()
-				.map(c => new FilterRowColumn(c));
+			const filterRow = this.table.data.columns().map(c => new FilterRowColumn(c));
 			this.rows.push(filterRow);
 		}
 	}

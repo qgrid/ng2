@@ -12,7 +12,7 @@ export class AutoFocusDirective implements OnInit {
 
 	ngOnInit() {
 		this.model.viewChanged.watch((e, off) => {
-			if (this.table.body.rowCount()) {
+			if (this.table.body.rowCount(0)) {
 				const key = Object.keys(this.markup).find(p => p.startsWith('body'));
 				const element = this.markup[key];
 				if (element) {

@@ -37,7 +37,7 @@ describe('Middleware', () => {
 	it('should be stopped if stage has exception', (done) => {
 		let middleware = new Middleware([
 			(data, ctx, next) => {
-				throw new Exception('');
+				throw new Error('');
 			},
 			(data, ctx, next) => {
 				expect(true).to.be.equal(false);

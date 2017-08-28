@@ -1,4 +1,5 @@
 import {GridModel} from './grid';
+import {SceneModel} from './scene';
 import {ViewModel} from './view';
 import {DataModel} from './data';
 import {HeadModel} from './head';
@@ -32,6 +33,7 @@ import {FetchModel} from './fetch';
 
 export function setup(model) {
 	model.register('grid', GridModel)
+		.register('scene', SceneModel)
 		.register('view', ViewModel)
 		.register('data', DataModel)
 		.register('selection', SelectionModel)
