@@ -1,4 +1,4 @@
-import {ColumnView} from './column.model.view';
+import {ColumnView} from '../scene/view';
 import {ColumnModel} from './column.model';
 import {TemplatePath} from '../template';
 
@@ -15,11 +15,11 @@ class RowDetailsColumnModel extends ColumnModel {
 
 		this.key = '$row.details';
 		this.title = 'Row Details';
+		this.class = 'control';
 
 		this.canEdit = false;
 		this.canResize = false;
 		this.canHighlight = false;
-		this.class = 'control';
 	}
 }
 

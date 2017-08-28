@@ -1,4 +1,5 @@
 import {GridModel} from '../grid/grid.model';
+import {SceneModel} from '../scene/scene.model';
 import {ViewModel} from '../view/view.model';
 import {DataModel} from '../data/data.model';
 import {HeadModel} from '../head/head.model';
@@ -38,6 +39,10 @@ export declare class Model {
 	grid(value?: object, tag?: object): GridModel;
 
 	gridChanged: Event;
+
+	scene(value?: object, tag?: object): SceneModel;
+
+	sceneChanged: Event;
 
 	edit(value?: object, tag?: object): EditModel;
 

@@ -123,9 +123,7 @@ export default class PopupService {
 	}
 
 	public focus(id: string): void {
-		for (let popup of this.popups.values()) {
-			popup.unfocus();
-		}
+		this.popups.forEach(popup => popup.unfocus());
 
 		const popup = this.popups.get(id);
 		popup.focus();

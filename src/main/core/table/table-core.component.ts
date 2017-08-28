@@ -12,8 +12,7 @@ import {TableCoreService} from './table-core.service';
 export class TableCoreComponent implements OnInit {
 	@Input() public pin = null;
 
-	constructor(private root: RootService,
-					private table: TableCoreService) {
+	constructor(private root: RootService, private table: TableCoreService) {
 	}
 
 	ngOnInit() {

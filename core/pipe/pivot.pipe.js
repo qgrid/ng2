@@ -1,5 +1,5 @@
 import {map as getColumnMap} from '../column/column.service';
-import {build as pivotBuilder} from '../pivot';
+import {build as pivotBuilder} from '../pivot/pivot.build';
 
 export function pivotPipe(memo, context, next) {
 	const model = context.model;

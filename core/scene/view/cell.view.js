@@ -1,54 +1,54 @@
-import {AppError} from '../infrastructure';
+import {AppError} from '../../infrastructure/index';
 
-export class Cell {
-	constructor(cell) {
-		this.entry = cell;
+export class CellView {
+	constructor(model) {
+		this.model = model;
 
 		// We need to cache it due to possible virtual mode;
-		this.rowIndex = cell.rowIndex;
-		this.columnIndex = cell.columnIndex;
-		this.column = cell.column;
-		this.row = cell.row;
+		this.rowIndex = model.rowIndex;
+		this.columnIndex = model.columnIndex;
+		this.column = model.column;
+		this.row = model.row;
 	}
 
 	get value() {
-		if (!Cell.equals(this, this.entry)) {
+		if (!CellView.equals(this, this.model)) {
 			throw new AppError('cell', 'Internal model doesn\'t match container');
 		}
 
-		return this.entry.value;
+		return this.model.value;
 	}
 
 	set value(value) {
-		if (!Cell.equals(this, this.entry)) {
+		if (!CellView.equals(this, this.model)) {
 			throw new AppError('cell', 'Internal model doesn\'t match container');
 		}
 
-		this.entry.value = value;
+		this.model.value = value;
 	}
 
 	get label() {
-		if (!Cell.equals(this, this.entry)) {
+		if (!CellView.equals(this, this.model)) {
 			throw new AppError('cell', 'Internal model doesn\'t match container');
 		}
 
-		return this.entry.label;
+		return this.model.label;
 	}
 
 	set label(label) {
-		if (!Cell.equals(this, this.entry)) {
+		if (!CellView.equals(this, this.model)) {
 			throw new AppError('cell', 'Internal model doesn\'t match container');
 		}
 
-		this.entry.label = label;
+		this.model.label = label;
 	}
 
 	mode(value) {
-		if (!this.entry.mode) {
+		if (!this.model.mode) {
 			throw new AppError('cell', 'Internal model doesn\'t support mode');
 		}
 
-		this.entry.mode(value);
+		this.model.mode(value);
 	}
 
 	static equals(x, y) {

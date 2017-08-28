@@ -10,14 +10,13 @@ export class PivotView extends View {
 		this.rows = [];
 		this.valueFactory = valueFactory;
 
-		this.using(model.viewChanged.watch(() =>
-			this.invalidate(model)
-		));
+		this.using(model.sceneChanged.watch(this.invalidate.bind(this)));
 	}
 
-	invalidate(model) {
+	invalidate() {
 		Log.info('view.pivot', 'invalidate');
 
+		const model = this.model;
 		const pivot = model.view().pivot;
 		const pivotRows = pivot.rows;
 		if (pivotRows.length && model.group().by.length) {
@@ -31,6 +30,10 @@ export class PivotView extends View {
 
 	value(row, column) {
 		const rowIndex = this.model.view().rows.indexOf(row);
-		return this.rows[rowIndex][column.index];
+		if(rowIndex >= 0) {
+			return this.rows[rowIndex][column.index];
+		}
+
+		return null;
 	}
 }

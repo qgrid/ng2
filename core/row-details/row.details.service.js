@@ -3,13 +3,15 @@ import {RowDetailsStatus} from './row.details.status';
 import {AppError} from '../infrastructure';
 import {columnFactory} from '../column/column.factory';
 
-export function flatView(table, mode) {
+export function flatView(model, mode) {
 	const result = [];
-	const model = table.model;
 	const createColumn = columnFactory(model);
 	const rows = model.view().rows;
 	const status = model.row().status;
 	const showAll = mode === 'all';
+	const columns = model.scene().column.line;
+	const expandColumn = columns.find(c => c.model.type === 'row-expand');
+	const columnIndex = expandColumn ? expandColumn.index : 0;
 	rows.forEach(row => {
 		if (!(row instanceof RowDetails)) {
 			result.push(row);
@@ -17,6 +19,7 @@ export function flatView(table, mode) {
 			if (state && state instanceof RowDetailsStatus) {
 				if (state.expand) {
 					const column = createColumn('row-details');
+					column.index = columnIndex;
 					result.push(new RowDetails(row, column));
 				}
 			}

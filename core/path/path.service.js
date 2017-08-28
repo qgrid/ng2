@@ -8,11 +8,12 @@ export class PathService {
 	cell(path) {
 		for (let node of path) {
 			if (node.nodeName === 'TD' || node.nodeName === 'TH') {
-				if (!this.bag.has(node)) {
+				const model = this.bag.findModel(node);
+				if (!model) {
 					new AppError('path.find', `Can't find model for ${node.nodeName}`);
 				}
 
-				return this.bag.get(node);
+				return model;
 			}
 		}
 
@@ -22,11 +23,12 @@ export class PathService {
 	row(path) {
 		for (let node of path) {
 			if (node.nodeName === 'TR') {
-				if (!this.bag.has(node)) {
+				const model = this.bag.findModel(node);
+				if (!model) {
 					new AppError('path.find', `Can't find model for ${node.nodeName}`);
 				}
 
-				return this.bag.get(node);
+				return model;
 			}
 		}
 

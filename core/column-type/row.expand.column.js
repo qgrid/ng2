@@ -1,4 +1,4 @@
-import {ColumnView} from './column.model.view';
+import {ColumnView} from '../scene/view';
 import {ColumnModel} from './column.model';
 import {TemplatePath} from '../template';
 
@@ -15,10 +15,10 @@ class RowExpandColumnModel extends ColumnModel {
 
 		this.key = '$row.expand';
 		this.title = 'Expand';
+		this.class = 'control';
 
 		this.canEdit = false;
 		this.canResize = false;
-		this.class = 'control';
 	}
 }
 

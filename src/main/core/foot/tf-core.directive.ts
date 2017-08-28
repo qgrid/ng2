@@ -10,7 +10,7 @@ import {RootService} from '@grid/infrastructure/component';
 export class TfCoreDirective implements OnInit, OnDestroy {
 	@Input('q-grid-core-row-index') rowIndex: number;
 	@Input('q-grid-core-column-index') columnIndex: number;
-	private element: HTMLElement = null;
+	public element: HTMLElement = null;
 	private $implicit = this;
 
 	constructor(public $view: ViewCoreService,
@@ -27,7 +27,7 @@ export class TfCoreDirective implements OnInit, OnDestroy {
 		const column = this.column;
 		const element = this.element;
 
-		this.root.bag.set(element, this);
+		this.root.bag.foot.addCell(this);
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
 		element.classList.add(`${GRID_PREFIX}-${column.type}`);
 		if (column.editor) {
@@ -55,7 +55,6 @@ export class TfCoreDirective implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		const element = this.element;
-		this.root.bag.set(element, this);
+		this.root.bag.foot.deleteCell(this);
 	}
 }

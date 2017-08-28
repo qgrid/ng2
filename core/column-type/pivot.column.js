@@ -1,4 +1,4 @@
-import {ColumnView} from './column.model.view';
+import {ColumnView} from '../scene/view';
 import {ColumnModel} from './column.model';
 import {TemplatePath} from '../template';
 
@@ -15,11 +15,11 @@ export class PivotColumnModel extends ColumnModel {
 
 		this.key = '$pivot';
 		this.title = 'Pivot';
+
 		this.source = 'generation';
 		this.canEdit = false;
 		this.canSort = false;
 		this.canResize = false;
-		this.canHighlight = false;
 		this.width = 60;
 		this.rowIndex = 0;
 	}

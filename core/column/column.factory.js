@@ -1,6 +1,6 @@
 import {Guard} from '../infrastructure';
 import {assignWith, clone, isUndefined} from '../utility';
-import {ColumnView as CustomColumn} from '../column-type/column.model.view';
+import {ColumnView as CustomColumn} from '../scene/view/column.view';
 import {
 	TextColumn,
 	NumberColumn,
@@ -23,6 +23,7 @@ import {
 	FileColumn,
 	ImageColumn,
 	ReferenceColumn,
+	CurrencyColumn,
 	IdColumn
 } from '../column-type';
 
@@ -59,13 +60,17 @@ export function columnFactory(model) {
 		'image': ImageColumn,
 		'reference': ReferenceColumn,
 		'id': IdColumn,
+		'currency': CurrencyColumn,
 		'custom': CustomColumn
 	};
 
 	const create = (entityType, columnType, body) => {
 		const Type = columnMap[entityType];
-		const settings = columnList().reference[columnType];
-		body = merge(body, settings);
+		const reference =  columnList().reference;
+		const defaultSettings = reference['$default'];
+		body = merge(body, defaultSettings);
+		const typeSettings = reference[columnType];
+		body = merge(body, typeSettings);
 
 		const model = Type.model(body);
 		return new Type(model);

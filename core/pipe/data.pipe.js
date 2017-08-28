@@ -16,8 +16,7 @@ function addDataColumns(model) {
 	const getColumns = generateFactory(model);
 	const createColumn = columnFactory(model);
 	const result = getColumns();
-	const dataColumns = result.columns
-		.map(columnBody => createColumn(columnBody.type || 'text', columnBody).model);
+	const dataColumns = result.columns.map(columnBody => createColumn(columnBody.type || 'text', columnBody).model);
 
 	if (result.hasChanges) {
 		model.data({

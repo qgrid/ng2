@@ -1,4 +1,4 @@
-import {ColumnView} from './column.model.view';
+import {ColumnView} from '../scene/view';
 import {ColumnModel} from './column.model';
 import {TemplatePath} from '../template';
 
@@ -15,13 +15,14 @@ export class RowIndicatorColumnModel extends ColumnModel {
 
 		this.key = '$row.indicator';
 		this.title = 'Row Indicator';
+		this.class = 'control';
+
 		this.canEdit = false;
 		this.canSort = false;
 		this.canResize = false;
 		this.canMove = false;
 		this.canFocus = false;
 		this.canHighlight = false;
-		this.class = 'control';
 		this.pin = 'left';
 	}
 }

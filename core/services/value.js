@@ -1,5 +1,5 @@
 import {isFunction} from '../utility';
-import {compile} from '../services';
+import {compile} from './path';
 import {AppError} from '../infrastructure';
 
 export function get(row, column) {

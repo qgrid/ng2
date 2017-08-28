@@ -1,5 +1,20 @@
 import {identity} from '../utility';
 import {Command} from '../command';
+import {TemplatePath} from '../template';
+
+TemplatePath.register('custom-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('custom-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
 
 export class ColumnModel {
 	constructor(type = 'text') {
@@ -7,6 +22,7 @@ export class ColumnModel {
 		this.key = null;
 		this.title = null;
 		this.value = null;
+		this.label = null;
 		this.path = null;
 		this.pin = null;
 		this.origin = 'specific';
@@ -37,7 +53,8 @@ export class ColumnModel {
 		this.isVisible = true;
 		this.index = -1;
 
-		this.label = null;
+		this.$label = null;
+		this.$value = null;
 	}
 
 	toString() {
