@@ -1,4 +1,4 @@
-import {PipeUnit} from '../pipe/units/pipe.unit';
+import {PipeUnit} from '../pipe/pipe.unit';
 
 export class DataModel {
 	constructor() {

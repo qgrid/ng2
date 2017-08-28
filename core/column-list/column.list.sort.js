@@ -1,36 +1,88 @@
-import * as columnService from '../column/column.service';
-
 export function sortIndexFactory(model) {
 	return columns => {
-		const columnMap = columnService.map(columns);
-		const index =
-			model.columnList()
-				.index
-				.filter(key => columnMap.hasOwnProperty(key));
+		const columnListState = model.columnList();
 
-		const indexSet = new Set(index);
-		const appendIndex = columns.filter(c => !indexSet.has(c.key));
-		const orderIndex = Array.from(appendIndex);
-		orderIndex.sort((x, y) => {
-			if (x.index === y.index) {
-				return appendIndex.indexOf(x) - appendIndex.indexOf(y);
-			}
+		const listIndex = columnListState.index;
+		const templateIndex = columnListState.columns.map(c => c.key);
+		const viewIndex = columns.map(c => c.key);
 
-			if (x.index < 0) {
-				return 1;
-			}
+		const sort = sortFactory(listIndex, templateIndex, viewIndex);
+		const left = sort(columns.filter(c => c.pin === 'left'));
+		const center = sort(columns.filter(c => !c.pin));
+		const right = sort(columns.filter(c => c.pin === 'right'));
 
-			if (y.index < 0) {
-				return -1;
-			}
-
-			return x.index - y.index;
-		});
-
-		index.push(...orderIndex.map(c => c.key));
+		const index = left.concat(center).concat(right);
 		return {
 			index: index,
-			hasChanges: orderIndex.length > 0
+			hasChanges: !equals(listIndex, index)
 		};
 	};
+}
+
+function sortFactory(listIndex, templateIndex, viewIndex) {
+	const compare = compareFactory(listIndex, templateIndex, viewIndex);
+	return columns => {
+		const columnIndex = Array.from(columns);
+		columnIndex.sort(compare);
+
+		return columnIndex.map(c => c.key);
+	};
+}
+
+function compareFactory(listIndex, templateIndex, viewIndex) {
+	const listFind = findFactory(listIndex);
+	const templateFind = findFactory(templateIndex);
+	const viewFind = findFactory(viewIndex);
+
+	const weightCache = {};
+	const getWeight = column => {
+		const key = column.key;
+		if (weightCache.hasOwnProperty(key)) {
+			return weightCache[key];
+		}
+
+		const candidates = [
+			listFind(key) + (column.class === 'data' ? 0.1 : 0.3),
+			column.index + 0.2,
+			viewFind(key) + (column.class !== 'data' ? 0.1 : 0.3),
+			templateFind(key) + 0.4
+		];
+
+		const weights = candidates.filter(w => w >= 0);
+		const weight = weights.length ? weights[0] : -1;
+		weightCache[key] = weight;
+
+		return weight;
+	};
+
+	return (x, y) => {
+		const xi = getWeight(x);
+		const yi = getWeight(y);
+
+		return yi === -1 ? -1 : xi === -1 ? 1 : xi - yi;
+	};
+}
+
+function findFactory(index) {
+	const map =
+		index.reduce((memo, key, i) => {
+			memo.set(key, i);
+			return memo;
+		}, new Map());
+
+	return key => map.has(key) ? map.get(key) : -1;
+}
+
+function equals(xs, ys) {
+	const length = xs.length;
+	if (length !== ys.length) {
+		return false;
+	}
+
+	for (let i = 0; i < length; i++) {
+		if (xs[i] !== ys[i]) {
+			return false;
+		}
+	}
+	return true;
 }

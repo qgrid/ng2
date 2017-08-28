@@ -1,4 +1,4 @@
-import {ICell} from '../cell/cell';
+import {ICell} from '../scene/cell';
 
 export declare class StyleModel {
 	constructor();

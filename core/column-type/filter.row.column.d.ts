@@ -1,13 +1,14 @@
-import {ColumnView} from './column.model.view';
+import {ColumnView} from '../scene/view/column.view';
 import {ColumnModel} from './column.model';
-import {Model} from '../infrastructure/model';
+import {ColumnModel} from './column.model';
 
 export declare class FilterRowColumnModel extends ColumnModel {
-	constructor(model: Model);
+	constructor();
+
 	sourceKey: string;
 	sourceType: string;
 }
 
 export declare class FilterRowColumn extends ColumnView {
-	constructor(model: Model);
+	constructor(model: ColumnModel);
 }

@@ -1,4 +1,4 @@
-import {ColumnView} from './column.model.view';
+import {ColumnView} from '../scene/view';
 import {DataColumnModel} from './data.column.model';
 import {TemplatePath} from '../template';
 import {identity} from '../utility';

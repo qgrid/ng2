@@ -1,30 +1,33 @@
 import {ColumnModel} from '../column-type/column.model';
-import {Cell} from '../cell/cell';
+import {Cell} from '../scene/cell';
 
 export interface IPositionResult {
-  row: number;
-  offset: number;
+	row: number;
+	offset: number;
 }
 
 export declare type ReturnColumnOrNumber = ColumnModel | number;
 
 export declare class Navigation {
-  constructor();
+	constructor();
 
-  readonly currentColumn: ReturnColumnOrNumber;
-  readonly nextColumn: ReturnColumnOrNumber;
-  readonly prevColumn: ReturnColumnOrNumber;
-  readonly lastColumn: ReturnColumnOrNumber;
-  readonly firstColumn: ReturnColumnOrNumber;
-  readonly currentRow: any;
-  readonly nextRow: any;
-  readonly prevRow: any;
-  readonly firstRow: any;
-  readonly lastRow: any;
+	get currentColumn(): Number;
 
-  position(y: number, direction: string): IPositionResult;
+	get nextColumn(): Number;
 
-  goTo(row: any, column: ColumnModel, source: string): void;
+	get prevColumn(): Number;
 
-  cell(row: any, column: ColumnModel): Cell;
+	get lastColumn(): Number;
+
+	get firstColumn(): Number;
+
+	get currentRow(): Number;
+
+	get nextRow(): Number;
+
+	get prevRow(): Number;
+
+	get firstRow(): Number;
+
+	get lastRow(): Number;
 }

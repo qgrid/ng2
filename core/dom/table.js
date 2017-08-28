@@ -5,6 +5,7 @@ import {FakeLayer} from './fake';
 import {Head} from './head';
 import {Body, VirtualBody} from './body';
 import {Foot} from './foot';
+import {Bag} from './bag';
 
 export class Table {
 	constructor(model, markup, context = {}) {
@@ -19,8 +20,11 @@ export class Table {
 				viewToColumn: identity
 			},
 			layer: () => new FakeLayer(),
-			model: () => null,
-			isDataRow: row => !row.classList.contains('vscroll-mark')
+			bag: {
+				head: new Bag(),
+				body: new Bag(),
+				foot: new Bag()
+			}
 		}, context);
 
 		this._head = null;
@@ -66,22 +70,34 @@ export class Table {
 	}
 
 	headCore() {
-		return new Head(this.context, this.model, this.markup);
+		const context = this.contextFactory('head');
+		return new Head(context, this.model, this.markup);
 	}
 
 	bodyCore() {
+		const context = this.contextFactory('body');
 		if (this.model.scroll().mode === 'virtual') {
-			return new VirtualBody(this.context, this.model, this.markup);
+			return new VirtualBody(context, this.model, this.markup);
 		}
 
-		return new Body(this.context, this.model, this.markup);
+		return new Body(context, this.model, this.markup);
 	}
 
 	footCore() {
-		return new Foot(this.context, this.model, this.markup);
+		const context = this.contextFactory('foot');
+		return new Foot(context, this.model, this.markup);
 	}
 
 	viewCore() {
-		return new View(this.markup, this.context);
+		return new View(this.context, this.model, this.markup);
+	}
+
+	contextFactory(source) {
+		const ctx = this.context;
+		return {
+			mapper: ctx.mapper,
+			layer: ctx.layer,
+			bag: ctx.bag[source]
+		};
 	}
 }

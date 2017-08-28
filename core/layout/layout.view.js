@@ -2,7 +2,6 @@ import {View} from '../view';
 import * as css from '../services/css';
 import * as columnService from '../column/column.service';
 import {clone} from '../utility';
-import {PipeUnit} from '../pipe/units';
 import {Log} from '../infrastructure';
 
 export class LayoutView extends View {
@@ -18,8 +17,8 @@ export class LayoutView extends View {
 	onInit() {
 		const model = this.model;
 
-		model.viewChanged.watch(e => {
-			if (e.hasChanges('columns')) {
+		model.sceneChanged.watch(e => {
+			if (e.hasChanges('column')) {
 				this.invalidateColumns();
 			}
 		});
@@ -28,12 +27,6 @@ export class LayoutView extends View {
 			if (e.hasChanges('columns')) {
 				const form = this.getForm();
 				this.invalidateColumns(form);
-			}
-		});
-
-		model.columnListChanged.watch(e => {
-			if (e.hasChanges('index') && e.tag.behavior !== 'core') {
-				this.service.invalidate('column.list', e.tag, PipeUnit.column);
 			}
 		});
 	}

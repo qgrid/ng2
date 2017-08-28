@@ -1,13 +1,13 @@
-import {ColumnView} from './column.model.view';
+import {ColumnView} from '../scene/view/column.view';
 import {ColumnModel} from './column.model';
-import {Model} from '../infrastructure/model';
+import {ColumnModel} from './column.model';
 
 export declare class PivotColumnModel extends ColumnModel {
 	constructor();
+
 	rowIndex: number;
 }
 
 export declare class PivotColumn extends ColumnView {
-	constructor(model: Model);
-	static model(model: Model): Model;
+	constructor(model: ColumnModel);
 }

@@ -1,4 +1,4 @@
-import {AppError} from '@grid/core/infrastructure';
+import {AppError} from '../infrastructure';
 
 export class PluginService {
 	constructor(model) {

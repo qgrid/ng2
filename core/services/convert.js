@@ -3,9 +3,9 @@ import {identity, isObject, isArray, isBoolean, isEmail, isString} from '../util
 export function parseFactory(type) {
 	switch (type) {
 		case 'text':
-		case 'currency':
 			return parseText;
 		case 'number':
+		case 'currency':
 			return parseNumber;
 		case 'date':
 			return parseDate;

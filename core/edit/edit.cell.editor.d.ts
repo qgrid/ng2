@@ -1,6 +1,6 @@
 import {Fetch} from '../infrastructure/fetch';
 import {INoopResult} from '../utility/utility';
-import {ICell} from '../cell/cell';
+import {ICell} from '../scene/cell';
 import {ColumnModel, IEditorOptions} from '../column-type/column.model';
 
 export declare class CellEditorCore {
