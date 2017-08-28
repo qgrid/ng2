@@ -6,22 +6,22 @@ import {ViewCoreService} from '@grid/main/core/view';
 	selector: '[q-grid-blur]'
 })
 export class BlurDirective implements OnInit {
-	private nativeElement: Node;
-	private inputElement: any;
 
 	@Input('q-grid-blur') onBlur: Function;
 
 	constructor(private renderer: Renderer2, private elementRef: ElementRef) {
-		this.nativeElement = elementRef.nativeElement;
 	}
 
 	ngOnInit() {
-		this.inputElement = this.renderer.selectRootElement('input');
-		if (!this.inputElement) {
-			throw new AppError('blur.directive', 'Required Input elemement is not found');
+		let nativeElement = this.elementRef.nativeElement;
+		let inputElement = this.renderer.selectRootElement('input');
+
+		if (!inputElement) {
+			throw new AppError(`blur.directive', 'Required Input elemement is not found ` +
+				`among the "${nativeElement.nodeName}" descendants.`);
 		}
 
-		this.renderer.listen(this.inputElement, 'blur', () => {
+		this.renderer.listen(inputElement, 'blur', () => {
 			setTimeout(this.onBlur, 200);
 		});
 	}
