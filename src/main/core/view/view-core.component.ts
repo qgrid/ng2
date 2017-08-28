@@ -1,4 +1,4 @@
-import {Component, Optional} from '@angular/core';
+import {Component, OnDestroy, OnInit, Optional} from '@angular/core';
 import {NgComponent, RootService} from 'ng2-qgrid/infrastructure/component';
 import {Table} from 'ng2-qgrid/core/dom';
 import {BodyView} from 'ng2-qgrid/core/body';
@@ -24,7 +24,6 @@ import {PipeUnit} from 'ng2-qgrid/core/pipe/units';
 import {AppError} from 'ng2-qgrid/core/infrastructure';
 import {ViewCoreService} from './view-core.service';
 import {GridService} from 'ng2-qgrid/main/grid';
-import {VScrollService} from '../scroll';
 import {CellService} from '../cell';
 import {Model} from 'ng2-qgrid/core/infrastructure/model';
 import {VisibilityModel} from 'ng2-qgrid/core/visibility/visibility.model'
@@ -37,7 +36,7 @@ import {VisibilityModel} from 'ng2-qgrid/core/visibility/visibility.model'
 		CellService
 	]
 })
-export class ViewCoreComponent extends NgComponent {
+export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy {
 	constructor(@Optional() private root: RootService,
 					private view: ViewCoreService,
 					private gridService: GridService) {
@@ -84,25 +83,7 @@ export class ViewCoreComponent extends NgComponent {
 
 	ngOnDestroy() {
 		super.ngOnDestroy();
-
-		const view = this.view;
-		view.style.dispose();
-		view.head.dispose();
-		view.body.dispose();
-		view.foot.dispose();
-		view.columns.dispose();
-		view.layout.dispose();
-		view.selection.dispose();
-		view.group.dispose();
-		view.pivot.dispose();
-		view.highlight.dispose();
-		view.sort.dispose();
-		view.filter.dispose();
-		view.edit.dispose();
-		view.nav.dispose();
-		view.pagination.dispose();
-		view.scroll.dispose();
-		view.rowDetails.dispose();
+		this.view.destroy();
 	}
 
 	get model() {

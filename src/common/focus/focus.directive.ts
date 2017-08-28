@@ -1,13 +1,25 @@
-import {Directive, ElementRef, OnInit} from '@angular/core';
+import {Directive, Renderer2, ElementRef, OnInit, Input} from '@angular/core';
+import {AppError} from '@grid/core/infrastructure';
 
 @Directive({
 	selector: '[q-grid-focus]'
 })
 export class FocusDirective implements OnInit {
-	constructor(private elementRef: ElementRef) {
+	@Input('q-grid-focus') selector;
+
+	constructor(private renderer: Renderer2, private elementRef: ElementRef) {
 	}
 
 	ngOnInit() {
-		this.elementRef.nativeElement.focus();
+		if (!this.selector) {
+			this.elementRef.nativeElement.focus();
+		} else {
+			let element = this.renderer.selectRootElement(this.selector);
+			if (!element) {
+				throw AppError('focus.directive', `Element ${this.selector} is not found`);
+			}
+
+			element.focus();
+		}
 	}
 }

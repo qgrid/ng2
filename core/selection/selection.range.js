@@ -1,4 +1,3 @@
-import * as columnService from '../column/column.service';
 import {AppError} from '../infrastructure';
 
 export class SelectionRange {
@@ -40,14 +39,14 @@ export class SelectionRange {
 
 	buildColumns(startCell, endCell) {
 		const model = this.model;
-		const columns = columnService.lineView(model.view().columns);
+		const columns = model.view().columns;
 		if (!endCell) {
-			return [columns.find(c => c.model === startCell.column).model];
+			return [columns.find(column => column === startCell.column).model];
 		}
 
 		const startIndex = Math.min(startCell.columnIndex, endCell.columnIndex);
 		const endIndex = Math.max(startCell.columnIndex, endCell.columnIndex);
-		return columns.slice(startIndex, endIndex + 1).map(column => column.model);
+		return columns.slice(startIndex, endIndex + 1);
 	}
 
 	buildCells(startCell, endCell) {
@@ -60,7 +59,7 @@ export class SelectionRange {
 
 		const model = this.model;
 		const rows = model.view().rows;
-		const columns = columnService.lineView(model.view().columns);
+		const columns = model.view().columns;
 
 		const startRowIndex = Math.min(startCell.rowIndex, endCell.rowIndex);
 		const endRowIndex = Math.max(startCell.rowIndex, endCell.rowIndex);
@@ -74,10 +73,10 @@ export class SelectionRange {
 		const items = [];
 		selectedRows.forEach(row => {
 			selectedColumns
-				.filter(column => column.model.type !== 'row-indicator' && column.model.type !== 'row-options')
+				.filter(column => column.class === 'data')
 				.forEach(column => {
 					items.push({
-						column: column.model,
+						column: column,
 						row: row
 					});
 				});

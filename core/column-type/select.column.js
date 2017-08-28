@@ -1,4 +1,4 @@
-import {ColumnView} from './column.model.view';
+import {ColumnView} from '../scene/view';
 import {ColumnModel} from './column.model';
 import {TemplatePath} from '../template';
 
@@ -15,6 +15,8 @@ export class SelectColumnModel extends ColumnModel {
 
 		this.key = '$select';
 		this.title = 'Select';
+		this.class = 'control';
+
 		this.canEdit = false;
 		this.canResize = false;
 	}

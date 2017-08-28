@@ -1,12 +1,10 @@
-import {ColumnView} from './column.model.view';
+import {ColumnView} from '../scene/view/column.view';
 import {ColumnModel} from './column.model';
-import {Model} from '../infrastructure/model';
 
 declare class RowExpandColumnModel extends ColumnModel {
 	constructor();
 }
 
 export declare class RowExpandColumn extends ColumnView {
-	constructor(model: Model);
-	static model(model: Model): Model;
+	constructor(model: ColumnModel);
 }

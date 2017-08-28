@@ -1,4 +1,4 @@
-import {AppError} from 'ng2-qgrid/core/infrastructure';
+import {AppError} from '../infrastructure';
 
 export class PluginService {
 	constructor(model) {

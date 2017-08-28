@@ -10,7 +10,7 @@ import {RootService} from 'ng2-qgrid/infrastructure/component';
 export class ThCoreDirective implements OnInit, OnDestroy {
 	@Input('q-grid-core-row-index') rowIndex: number;
 	@Input('q-grid-core-column-index') columnIndex: number;
-	private element: HTMLElement = null;
+	public element: HTMLElement = null;
 	private $implicit = this;
 
 	constructor(public $view: ViewCoreService,
@@ -27,7 +27,7 @@ export class ThCoreDirective implements OnInit, OnDestroy {
 		const column = this.column;
 		const element = this.element;
 
-		this.root.bag.set(element, this);
+		this.root.bag.head.addCell(this);
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
 		element.classList.add(`${GRID_PREFIX}-${column.type}`);
 		if (column.editor) {
@@ -50,7 +50,6 @@ export class ThCoreDirective implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		const element = this.element;
-		this.root.bag.delete(element);
+		this.root.bag.head.deleteCell(this);
 	}
 }

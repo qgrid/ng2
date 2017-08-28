@@ -20,9 +20,13 @@ import {RowDetailsView} from 'ng2-qgrid/core/row-details/row.details.view';
 import {RootService} from 'ng2-qgrid/infrastructure/component';
 import {GridService} from 'ng2-qgrid/main/grid';
 import {VScrollService} from 'ng2-qgrid/main/core/scroll';
+import {viewFactory} from 'ng2-qgrid/core/view/view.factory';
+import {noop} from 'ng2-qgrid/core/utility';
 
 @Injectable()
 export class ViewCoreService {
+	public destroy = noop;
+
 	public group: GroupView = null;
 	public filter: FilterView = null;
 	public pivot: PivotView = null;
@@ -52,23 +56,18 @@ export class ViewCoreService {
 		const table = root.table;
 		const commandManager = root.commandManager;
 		const gridService = this.gridServiceFactory.service(model);
+		const selectors = {
+			th: 'q-grid-core-th'
+		};
 
-		this.style = new StyleView(model, table);
-		this.head = new HeadView(model, table, 'q-grid-core-th');
-		this.body = new BodyView(model, table);
-		this.foot = new FootView(model, table);
-		this.columns = new ColumnView(model, gridService);
-		this.layout = new LayoutView(model, table, gridService);
-		this.selection = new SelectionView(model, table, commandManager, gridService);
-		this.group = new GroupView(model, commandManager);
-		this.pivot = new PivotView(model);
-		this.highlight = new HighlightView(model, table, setTimeout);
-		this.sort = new SortView(model);
-		this.filter = new FilterView(model);
-		this.edit = new EditView(model, table, commandManager);
-		this.nav = new NavigationView(model, table, commandManager);
-		this.pagination = new PaginationView(model);
-		this.scroll = new ScrollView(model, table, this.vscroll, gridService);
-		this.rowDetails = new RowDetailsView(model, table, commandManager);
+		const injectViewServicesTo = viewFactory(
+			model,
+			table,
+			commandManager,
+			gridService,
+			this.vscroll,
+			selectors);
+
+		this.destroy = injectViewServicesTo(this);
 	}
 }

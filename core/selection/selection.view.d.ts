@@ -1,6 +1,5 @@
 import {View} from '../view/view';
-import {Cell} from '../cell/cell';
-import {SelectionState} from './state/selection.state';
+import {CellView} from '../scene/view/cell.view';
 import {SelectionModel} from './selection.model';
 import {ColumnModel} from '../column-type/column.model';
 import {CommandManager} from '../command/command.manager';
@@ -10,29 +9,29 @@ import {Table} from '../dom/table';
 import {GridService} from '../services/grid';
 
 export interface IToggleResult {
-  (): void;
+	(): void;
 }
 
 export interface ISelectResult {
-  (): void;
+	(): void;
 }
 
 export declare class SelectionView extends View {
-  constructor(model: Model, table: Table, commandManager: CommandManager, gridService: GridService);
+	constructor(model: Model, table: Table, commandManager: CommandManager, gridService: GridService);
 
-  readonly selection: SelectionModel;
-  readonly rows: any[];
-  readonly columns: ColumnModel[];
+	readonly selection: SelectionModel;
+	readonly rows: any[];
+	readonly columns: ColumnModel[];
 
-  toggleRow: Command;
-  toggleCell: Command;
-  toggleColumn: Command
+	toggleRow: Command;
+	toggleCell: Command;
+	toggleColumn: Command
 
-  selectRange(startCell: Cell, endCell: Cell, source?: string): void;
+	selectRange(startCell: CellView, endCell: CellView, source?: string): void;
 
-  state(item: any): boolean;
+	state(item: any): boolean;
 
-  isIndeterminate(item: any): boolean;
+	isIndeterminate(item: any): boolean;
 
-  destroy(): void;
+	destroy(): void;
 }

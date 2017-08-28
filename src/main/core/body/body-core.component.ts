@@ -1,10 +1,12 @@
-import {Component, ElementRef, Inject, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
 import {EventListener} from 'ng2-qgrid/core/infrastructure/event.listener';
 import {EventManager} from 'ng2-qgrid/core/infrastructure/event.manager';
 import {ViewCoreService} from '../view/view-core.service';
 import {NgComponent, RootService} from 'ng2-qgrid/infrastructure/component';
 import {PathService} from 'ng2-qgrid/core/path';
 import {TableCoreService} from '../table/table-core.service';
+import {ColumnView} from 'ng2-qgrid/core/scene/view/column.view';
+import {AppError} from 'ng2-qgrid/core/infrastructure/error';
 import {Model} from 'ng2-qgrid/core/infrastructure/model';
 import {SelectionModel} from 'ng2-qgrid/core/selection/selection.model';
 
@@ -12,7 +14,7 @@ import {SelectionModel} from 'ng2-qgrid/core/selection/selection.model';
 	selector: 'tbody[q-grid-core-body]',
 	templateUrl: './body-core.component.html'
 })
-export class BodyCoreComponent extends NgComponent {
+export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy {
 	private element: Element = null;
 	private rangeStartCell = null;
 	private scrollContext = {
@@ -22,8 +24,8 @@ export class BodyCoreComponent extends NgComponent {
 
 	constructor(element: ElementRef,
 					public $view: ViewCoreService,
-					private root: RootService,
-					private $table: TableCoreService) {
+					public $table: TableCoreService,
+					private root: RootService) {
 		super();
 
 		this.element = element.nativeElement;
@@ -44,7 +46,7 @@ export class BodyCoreComponent extends NgComponent {
 		this.using(listener.on('mouseup', this.onMouseUp));
 
 		this.using(listener.on('mousemove', this.onMouseMove));
-		this.using(listener.on('mouseleave', this.onMouseLeave))
+		this.using(listener.on('mouseleave', this.onMouseLeave));
 	}
 
 	onScroll() {
@@ -68,7 +70,7 @@ export class BodyCoreComponent extends NgComponent {
 
 
 	onClick(e) {
-		const pathFinder = new PathService(this.root.bag);
+		const pathFinder = new PathService(this.root.bag.body);
 		const cell = pathFinder.cell(e.path);
 		if (cell) {
 			this.navigate(cell);
@@ -81,12 +83,12 @@ export class BodyCoreComponent extends NgComponent {
 
 	onMouseDown(e) {
 		const selectionState = this.selection;
+		const pathFinder = new PathService(this.root.bag.body);
 		if (selectionState.area !== 'body') {
 			return;
 		}
 
 		if (selectionState.mode === 'range') {
-			const pathFinder = new PathService(this.root.bag);
 			this.rangeStartCell = pathFinder.cell(e.path);
 
 			if (this.rangeStartCell) {
@@ -98,7 +100,6 @@ export class BodyCoreComponent extends NgComponent {
 
 		switch (selectionState.unit) {
 			case 'row': {
-				const pathFinder = new PathService(this.root.bag);
 				const cell = pathFinder.cell(e.path);
 				if (cell && cell.column.type !== 'select') {
 					this.$view.selection.toggleRow.execute(cell.row, 'body');
@@ -107,7 +108,6 @@ export class BodyCoreComponent extends NgComponent {
 			}
 
 			case 'column': {
-				const pathFinder = new PathService(this.root.bag);
 				const cell = pathFinder.cell(e.path);
 				if (cell) {
 					this.$view.selection.toggleColumn.execute(cell.column, 'body');
@@ -116,17 +116,19 @@ export class BodyCoreComponent extends NgComponent {
 			}
 
 			case 'mix': {
-				const pathFinder = new PathService(this.root.bag);
 				const cell = pathFinder.cell(e.path);
 				if (cell && cell.column.type === 'row-indicator') {
 					this.$view.selection.toggleCell.execute(cell, 'body');
 				}
 			}
+
+			default:
+				break;
 		}
 	}
 
 	onMouseMove(e) {
-		const pathFinder = new PathService(this.root.bag);
+		const pathFinder = new PathService(this.root.bag.body);
 		const row = pathFinder.row(e.path);
 		if (row) {
 			const index = row.index;
@@ -180,5 +182,13 @@ export class BodyCoreComponent extends NgComponent {
 
 	get model() {
 		return this.root.model;
+	}
+
+	columnKey(index: number, item: ColumnView) {
+		return item.model.key;
+	}
+
+	rowIndex(index: number) {
+		return index;
 	}
 }

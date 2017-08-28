@@ -10,7 +10,7 @@ export function flatView(nodes, result = []) {
 			if (children.length) {
 				flatView(children, result);
 			}
-			else{
+			else {
 				const rows = node.rows;
 				for (let j = 0, rowsLength = rows.length; j < rowsLength; j++) {
 					const row = rows[j];
@@ -24,4 +24,18 @@ export function flatView(nodes, result = []) {
 	}
 
 	return result;
+}
+
+export function some(nodes, test) {
+	for (let node of nodes) {
+		if (test(node)) {
+			return true;
+		}
+
+		if (some(node.children, test)) {
+			return true;
+		}
+	}
+
+	return false;
 }

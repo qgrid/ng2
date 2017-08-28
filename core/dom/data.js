@@ -6,10 +6,7 @@ export class Data {
 	}
 
 	columns() {
-		const columns = this.model.view().columns;
-		return columnService
-			.lineView(columns)
-			.map(v => v.model);
+		return this.model.view().columns;
 	}
 
 	columnMap() {

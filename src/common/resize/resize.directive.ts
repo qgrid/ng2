@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Inject, Input, Optional} from '@angular/core';
+import {Directive, ElementRef, Inject, Input, OnDestroy, OnInit, Optional} from '@angular/core';
 import * as Infrastructure from 'ng2-qgrid/core/infrastructure';
 import {GRID_PREFIX} from 'ng2-qgrid/core/definition';
 import {NgComponent, RootService} from 'ng2-qgrid/infrastructure/component';
@@ -9,7 +9,7 @@ import {Model} from 'ng2-qgrid/core/infrastructure/model';
 @Directive({
 	selector: '[q-grid-resize]'
 })
-export class ResizeDirective extends NgComponent {
+export class ResizeDirective extends NgComponent  implements OnInit, OnDestroy {
 	private element: HTMLElement;
 	private divider: HTMLElement;
 	private listener = {
@@ -84,10 +84,7 @@ export class ResizeDirective extends NgComponent {
 
 	event() {
 		const source = this.transfer;
-		return {
-			source: source,
-			target: null
-		};
+		return {source, target: null};
 	}
 
 	get model() {

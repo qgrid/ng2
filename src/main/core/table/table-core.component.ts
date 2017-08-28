@@ -14,8 +14,7 @@ import {VisibilityModel} from 'ng2-qgrid/core/visibility/visibility.model'
 export class TableCoreComponent implements OnInit {
 	@Input() public pin = null;
 
-	constructor(private root: RootService,
-					private table: TableCoreService) {
+	constructor(private root: RootService, private table: TableCoreService) {
 	}
 
 	ngOnInit() {

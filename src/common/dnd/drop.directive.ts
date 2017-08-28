@@ -38,7 +38,7 @@ export class DropDirective implements OnInit, OnDestroy {
 		e.stopPropagation();
 
 		this.element.classList.remove(`${GRID_PREFIX}-dragover`);
-		const event = this.event(e.dataTransfer)
+		const event = this.event(e.dataTransfer);
 		if (this.canDrop(event)) {
 			this.onDrop.emit(event);
 		}
@@ -77,9 +77,6 @@ export class DropDirective implements OnInit, OnDestroy {
 			? DragService.decode(e.getData(DragService.mimeType))
 			: DragService.transfer;
 
-		return {
-			source: source,
-			target: target
-		};
+		return {source, target};
 	}
 }

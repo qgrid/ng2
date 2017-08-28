@@ -1,4 +1,4 @@
-import {isObject, isArray} from 'ng2-qgrid/core/utility';
+import {isObject, isArray} from '../utility';
 
 function flattenObject(obj, separator = ', ') {
 	const result = {};

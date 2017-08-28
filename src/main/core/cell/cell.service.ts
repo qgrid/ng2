@@ -34,8 +34,7 @@ function buildKeys(source: string, column: any, mode = 'view') {
 
 @Injectable()
 export class CellService {
-	constructor(private templateCache: TemplateCacheService,
-					private templateLink: TemplateLinkService) {
+	constructor(private templateCache: TemplateCacheService, private templateLink: TemplateLinkService) {
 	}
 
 	build(source: string, column: any, mode = 'view') {

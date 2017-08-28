@@ -4,7 +4,7 @@ import {ViewCoreService} from '../view/view-core.service';
 import {TableCoreService} from '../table/table-core.service';
 import {RootService} from 'ng2-qgrid/infrastructure/component';
 import {CellService} from 'ng2-qgrid/main/core/cell';
-import {AppError} from 'ng2-qgrid/core/infrastructure/';
+import {AppError} from 'ng2-qgrid/core/infrastructure';
 import {ColumnModel} from 'ng2-qgrid/core/column-type/column.model';
 
 @Directive({
@@ -13,7 +13,7 @@ import {ColumnModel} from 'ng2-qgrid/core/column-type/column.model';
 export class TdCoreDirective implements OnInit, OnDestroy {
 	@Input('q-grid-core-row-index') rowIndex: number;
 	@Input('q-grid-core-column-index') columnIndex: number;
-	private element: HTMLElement = null;
+	public element: HTMLElement = null;
 	private $implicit = this;
 
 	constructor(public $view: ViewCoreService,
@@ -30,7 +30,7 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 		const column = this.column;
 		const element = this.element;
 
-		this.root.bag.set(element, this);
+		this.root.bag.body.addCell(this);
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
 		element.classList.add(`${GRID_PREFIX}-${column.type}`);
 		if (column.editor) {
@@ -87,9 +87,8 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 	}
 
 	get column() {
-		const columns = this.$view.body.columns(this.row, this.table.pin);
-		const columnView = columns[this.columnIndex];
-		return columnView.model;
+		const columns = this.root.table.data.columns();
+		return columns[this.columnIndex];
 	}
 
 	get row() {
@@ -97,7 +96,6 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		const element = this.element;
-		this.root.bag.delete(element);
+		this.root.bag.body.deleteCell(this);
 	}
 }

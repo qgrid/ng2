@@ -1,9 +1,9 @@
-import {Directive, ElementRef, Input, OnDestroy, OnInit, Optional} from "@angular/core";
+import {Directive, ElementRef, Input, OnDestroy, OnInit, Optional} from '@angular/core';
 import {EventManager} from 'ng2-qgrid/core/infrastructure';
 import {EventListener} from 'ng2-qgrid/core/infrastructure/event.listener';
 import {DragService} from './drag.service';
 import {GRID_PREFIX} from 'ng2-qgrid/core/definition';
-import {RootService} from "ng2-qgrid/infrastructure/component";
+import {RootService} from 'ng2-qgrid/infrastructure/component';
 
 @Directive({
 	selector: '[q-grid-drag]'
@@ -29,7 +29,7 @@ export class DragDirective implements OnInit, OnDestroy {
 
 	ngOnDestroy() {
 		this.element.classList.remove(`${GRID_PREFIX}-can-drag`);
-		this.listener.off()
+		this.listener.off();
 	}
 
 	start(e) {
@@ -64,9 +64,6 @@ export class DragDirective implements OnInit, OnDestroy {
 
 	event() {
 		const source = this.transfer;
-		return {
-			source: source,
-			target: null
-		};
+		return {source, target: null};
 	}
 }

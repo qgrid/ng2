@@ -5,12 +5,18 @@ import {Model} from 'ng2-qgrid/core/infrastructure/model';
 import {Table} from 'ng2-qgrid/core/dom/table';
 import {AppError} from 'ng2-qgrid/core/infrastructure';
 import {isUndefined} from 'ng2-qgrid/core/utility';
+import {Bag} from 'ng2-qgrid/core/dom/bag';
 
 @Injectable()
 export class RootService {
 	private gridModel: Model = null;
 	public markup: any = {};
-	public bag = new Map<HTMLElement, any>();
+	public bag = {
+		head: new Bag(),
+		body: new Bag(),
+		foot: new Bag()
+	};
+
 	public table: Table = null;
 	public commandManager;
 
@@ -42,7 +48,7 @@ export class RootService {
 							gf();
 						}
 
-						//this.changeDetector.detectChanges();
+						// this.changeDetector.detectChanges();
 						return result;
 					}
 					default:
@@ -57,7 +63,7 @@ export class RootService {
 					gf();
 				}
 
-				//this.changeDetector.detectChanges();
+				// this.changeDetector.detectChanges();
 			}, timeout);
 		};
 	}

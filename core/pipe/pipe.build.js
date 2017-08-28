@@ -1,4 +1,4 @@
-import {Middleware} from '../services';
+import {Middleware} from '../services/middleware';
 
 export function build(model, valueFactory) {
 	return function run(source, changes, pipe) {

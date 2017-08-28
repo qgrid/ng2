@@ -21,9 +21,7 @@ export class StyleView extends View {
 			cell: new Monitor(model)
 		};
 
-		this.using(model.viewChanged.watch(() => {
-			this.invalidate();
-		}));
+		this.using(model.sceneChanged.watch(this.invalidate.bind(this)));
 
 		this.using(model.styleChanged.watch(e => {
 			if (e.hasChanges('row')) {
@@ -50,12 +48,9 @@ export class StyleView extends View {
 		const table = this.table;
 		const valueFactory = this.valueFactory;
 		const styleState = model.style();
-		const bodyRows = table.body.rows();
 		const rowMonitor = this.monitor.row;
 		const cellMonitor = this.monitor.cell;
-		const columns = table.data.columns();
-		const columnMap = columnService.map(columns);
-		// TODO: improve perfomance
+		// TODO: improve performance
 		const valueCache = new Map();
 		const value = (row, column) => {
 			let getValue = valueCache.get(column);
@@ -78,8 +73,12 @@ export class StyleView extends View {
 			styleCell = new VirtualCellStyle(table).applyFactory();
 		}
 
+		const columns = table.data.columns();
+		const columnMap = columnService.map(columns);
+		const bodyRows = table.body.rows();
 		const domCell = cellMonitor.enter();
 		const domRow = rowMonitor.enter();
+
 		try {
 			for (let i = 0, rowsLength = bodyRows.length; i < rowsLength; i++) {
 				const bodyRow = bodyRows[i];
