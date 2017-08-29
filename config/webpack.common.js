@@ -15,6 +15,7 @@ const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin')
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlElementsPlugin = require('./html-elements-plugin');
+const ThemePlugin = require('./theme');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
@@ -85,7 +86,7 @@ module.exports = function (options) {
 
 			alias: {
 				'ng2-qgrid/core': helpers.root('core'),
-				'ng2-qgrid/theme': helpers.root('src/themes/material'),
+				'ng2-qgrid/theme': helpers.root('src/theme'),
 				'ng2-qgrid': helpers.root('src')
 			}
 		},
@@ -214,6 +215,11 @@ module.exports = function (options) {
 		 * See: http://webpack.github.io/docs/configuration.html#plugins
 		 */
 		plugins: [
+			new ThemePlugin({
+				path: helpers.root('src/theme/templates'),
+				outputPath: helpers.root('src/theme/theme.component.html'),
+				pattern: /.*\.tpl\.html/
+			}),
 			new CircularDependencyPlugin({
 				// exclude detection of files based on a RegExp
 				exclude: /node_modules/,

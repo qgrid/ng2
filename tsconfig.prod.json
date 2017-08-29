@@ -11,7 +11,7 @@
 		"importHelpers": true,
 		"strictNullChecks": false,
 		"skipLibCheck": true,
-		"outDir": "prod",
+		"outDir": "dist",
 		"declaration": true,
 		"lib": [
 			"dom",
@@ -28,7 +28,7 @@
 			"uglify-js",
 			"webpack"
 		],
-		"baseUrl": "./dist",
+		"baseUrl": "./src",
 		"paths": {
 			"ng2-qgrid/core/*": [
 				"../core/*"
@@ -42,7 +42,7 @@
 		}
 	},
 	"files": [
-		"dist/index.ts"
+		"src/index.ts"
 	],
 	"exclude": [
 		"node_modules",
@@ -53,6 +53,6 @@
 	"angularCompilerOptions": {
 		"skipMetadataEmit": false,
 		"skipTemplateCodegen": true,
-		"genDir": "./prod"
+		"genDir": "./dist"
 	}
 }
