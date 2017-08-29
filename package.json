@@ -85,9 +85,7 @@
     "@angular/platform-browser": "4.3.4",
     "@angular/platform-browser-dynamic": "4.3.4",
     "@angular/platform-server": "4.3.4",
-    "angular2-fontawesome": "^0.9.3",
-    "font-awesome": "^4.7.0",
-    "material-design-icons": "^3.0.1",
+
     "rxjs": "5.4.3",
     "zone.js": "0.8.16"
   },
@@ -97,7 +95,10 @@
     "@angular/flex-layout": "^2.0.0-beta.8",
     "@angular/http": "4.3.4",
     "@angular/material": "2.0.0-beta.7",
-    "@angular/router": "4.3.4",
+	 "material-design-icons": "^3.0.1",
+	 "angular2-fontawesome": "^0.9.3",
+	 "font-awesome": "^4.7.0",
+	 "@angular/router": "4.3.4",
     "@angularclass/conventions-loader": "^1.0.13",
     "@angularclass/hmr": "~1.2.2",
     "@angularclass/hmr-loader": "~3.0.2",

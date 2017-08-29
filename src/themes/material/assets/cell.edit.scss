@@ -127,16 +127,8 @@ td.q-grid-edit {
 		width: 60% !important;
 	}
 
-	.mat-focused .mat-input-placeholder.mat-float, .mat-input-placeholder.mat-float:not(.mat-empty){
-		display: none;
-	}
-
 	md-checkbox {
 		margin: 0;
-	}
-
-	.mat-chip {
-		margin: 0px 2px 2px 0px;
 	}
 
 	.material-icons.md-48 { font-size: 48px; }
@@ -231,12 +223,5 @@ td.q-grid-edit {
 
 	.q-grid-file-upload-message {
 		visibility: visible;
-	}
-}
-
-.q-grid-actions {
-	.mat-button {
-		margin: 8px 0 8px 8px;
-		float: right;
 	}
 }

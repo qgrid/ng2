@@ -1,18 +1,18 @@
 <md-chip-list>
-	<div *ngFor="let chip of _values">
-		<div *ngIf="editMode(chip.index); else nonEditView">
+	<div *ngFor="let chip of chipValueMap">
+		<div *ngIf="selectedItem.item.index === chip.index; else nonEditView">
 			<md-input-container>
 				<input mdInput
 						 q-grid-focus
-						 (keyup)="checkEditInputKey($event)"
-						 [(ngModel)]="editValue"
+						 (keyup)="checkEndEdit($event)"
+						 [(ngModel)]="selectedItem.item.value"
 						 (blur)="endEdit()">
 			</md-input-container>
 		</div>
 		<ng-template #nonEditView>
 			<md-chip selected="true">
-				<span (click)="edit(chip.index)" >{{chip.value}}</span>
-				<i class="material-icons md-9 resize-on-hover mouse-pointer" (click)="removeItem(chip.index)">clear</i>
+				<span (click)="beginEdit(chip.index)" >{{chip.value}}</span>
+				<i class="material-icons md-9 resize-on-hover mouse-pointer" (click)="delete(chip.index)">clear</i>
 			</md-chip>
 		</ng-template>
 	</div>
@@ -20,7 +20,7 @@
 <md-input-container class="edit-array-new-item">
 	<input mdInput
 			 placeholder="New item"
-			 (keyup)="checkAddNewInputKey($event)"
-			 [(ngModel)]="newValue">
+			 (keyup)="checkAdd($event)"
+			 [(ngModel)]="newItem.item.value">
 </md-input-container>
-<i class="material-icons md-24 selected mouse-pointer" (click)="addItem()">add</i>
+<i class="material-icons md-24 selected mouse-pointer" (click)="add()">add</i>

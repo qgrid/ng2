@@ -10,4 +10,20 @@ td.q-grid-edit {
 			}
 		}
 	}
+
+	.mat-focused .mat-input-placeholder.mat-float, .mat-input-placeholder.mat-float:not(.mat-empty){
+		display: none;
+	}
+
+	.mat-chip {
+		margin: 0px 2px 2px 0px;
+	}
 }
+
+.q-grid-actions {
+	.mat-button{
+		margin: 8px 0 8px 8px;
+		float: right;
+	}
+}
+
