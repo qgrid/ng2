@@ -217,7 +217,7 @@ module.exports = function (options) {
 		plugins: [
 			new ThemePlugin({
 				path: helpers.root('src/theme/templates'),
-				outputPath: helpers.root('src/theme/theme.component.html'),
+				outputPath: helpers.root('src/theme/theme.component.gen.html'),
 				pattern: /.*\.tpl\.html/
 			}),
 			new CircularDependencyPlugin({
