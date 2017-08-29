@@ -1,4 +1,6 @@
-<tr *ngFor="let $row of $view.head.rows; trackBy: rowIndex; let $rowIndex = index">
+<tr *ngFor="let $row of $view.head.rows; trackBy: rowIndex; let $rowIndex = index"
+	 [q-grid-core-tr]="$rowIndex"
+	 q-grid-core-source="head">
 	<th *ngFor="let $column of $row; trackBy: columnKey; let $columnIndex = index"
 		 (mouseenter)="$view.highlight.column.execute($column.model, true)"
 		 (mouseleave)="$view.highlight.column.execute($column.model, false)"

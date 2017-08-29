@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
 		};
 		this.gridModel
 			.pagination({
-				size: 40
+				size: 10
 			})
 			.plugin({
 				imports
