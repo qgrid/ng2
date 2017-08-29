@@ -11,7 +11,7 @@ export class TdCoreAlignDirective implements OnInit {
 	element: HTMLElement;
 
 	constructor(private root: RootService,
-					element:1 ElementRef) {
+					element: ElementRef) {
 
 		this.element = element.nativeElement;
 	}

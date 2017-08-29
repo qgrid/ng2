@@ -1,6 +1,5 @@
 export {GridModule} from './grid.module';
 
-export {MainModule} from './main';
-export {GridService} from './main/grid/grid.service';
-export {CommonModule} from './common';
-export {PluginModule} from './plugins';
+export * from './pub';
+export * from './pub/column';
+export * from './pub/infrastructure';
