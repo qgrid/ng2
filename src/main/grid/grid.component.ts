@@ -24,14 +24,10 @@ import {EventListener} from 'ng2-qgrid/core/infrastructure/event.listener';
 		RootService,
 		TemplateCacheService
 	],
-	// '../../assets/index.scss',
-	// '../../themes/material/index.scss'
 	styleUrls: [
+		'../../assets/index.scss',
+		'../../theme/index.scss'
 	],
-	// styles: [
-	// 	require('ng2-qgrid/assets/index.scss'),
-	// 	require('ng2-qgrid/theme/index.scss')
-	// ],
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None
 })
