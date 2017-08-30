@@ -49,8 +49,8 @@ export class Popup {
 			height: this.element.offsetHeight
 		};
 		this.layout = {
-			position: position,
-			size: size
+			position,
+			size
 		};
 		this.element.classList.add('expanded');
 		this.state.expanded = true;
@@ -96,8 +96,10 @@ export class Popup {
 	}
 
 	resize(settings: IPopupSettings): void {
-		this.element.setAttribute('width', Math.min(settings.width, this.body.clientWidth - this.element.offsetLeft) + 'px');
-		this.element.setAttribute('height', Math.min(settings.height, this.body.clientHeight - this.element.offsetTop) + 'px');
+		this.element.setAttribute('width',
+			Math.min(settings.width, this.body.clientWidth - this.element.offsetLeft) + 'px');
+		this.element.setAttribute('height',
+			Math.min(settings.height, this.body.clientHeight - this.element.offsetTop) + 'px');
 		this.event.emit('resize');
 	}
 }

@@ -68,7 +68,6 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 		}
 	}
 
-
 	onClick(e) {
 		const pathFinder = new PathService(this.root.bag.body);
 		const cell = pathFinder.cell(e.path);

@@ -1,4 +1,4 @@
-import {Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output} from "@angular/core";
+import {Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output} from '@angular/core';
 import {EventManager} from 'ng2-qgrid/core/infrastructure';
 import {EventListener} from 'ng2-qgrid/core/infrastructure/event.listener';
 import {DragService} from './drag.service';

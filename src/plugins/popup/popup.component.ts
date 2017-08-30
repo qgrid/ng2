@@ -13,7 +13,9 @@ import {TemplateHostService} from 'ng2-qgrid/template';
 export class PopupComponent extends PluginComponent implements OnInit, OnDestroy {
 	@Input() id;
 
-	constructor(@Optional() root: RootService, private qGridPopupService: PopupService, private templateHost: TemplateHostService) {
+	constructor(@Optional() root: RootService,
+					private qGridPopupService: PopupService,
+					private templateHost: TemplateHostService) {
 		super(root);
 
 		this.models = ['popup'];

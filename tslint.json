@@ -31,7 +31,7 @@
 		// "directive-selector": [true, "attribute", "my", "camelCase"],
 		"import-destructuring-spacing": false,
 		"invoke-injectable": true,
-		"no-access-missing-member": true,
+		"no-access-missing-member": false,
 		"no-attribute-parameter-decorator": true,
 		"no-forward-ref": true,
 		"no-input-rename": false,
@@ -41,10 +41,10 @@
 			"camelCase",
 			"my"
 		],
-		"templates-use-public": true,
+		"templates-use-public": false,
 		"use-host-property-decorator": true,
 		"use-input-property-decorator": true,
-		"use-life-cycle-interface": true,
+		"use-life-cycle-interface": false,
 		"use-output-property-decorator": true,
 		"use-pipe-transform-interface": true,
 		// General

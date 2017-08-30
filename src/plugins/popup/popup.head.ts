@@ -58,7 +58,8 @@ export class PopupHeadComponent extends NgComponent {
 			this.position.y = e.offsetY;
 
 			popupElement.addClass('drag');
-			e.dataTransfer.setDragImage(this.element.nativeElement.document.getElementsByTagName('<div>')[0], 0, 0); // eslint-disable-line no-undef
+			e.dataTransfer.setDragImage(
+				this.element.nativeElement.document.getElementsByTagName('<div>')[0], 0, 0); // eslint-disable-line no-undef
 		}));
 
 		this.using(this.eventListener.on('drag', event => {
