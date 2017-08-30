@@ -55,6 +55,7 @@
 		"protractor": "protractor",
 		"protractor:delay": "sleep 3 && npm run protractor",
 		"protractor:live": "protractor --elementExplorer",
+		"release": "npm run build:aot:prod && gulp dist && cd dist && npm publish",
 		"rimraf": "rimraf",
 		"server:dev:hmr": "npm run server:dev -- --inline --hot",
 		"server:dev": "webpack-dev-server --config config/webpack.dev.js --open --progress --profile --watch --content-base demo/",
