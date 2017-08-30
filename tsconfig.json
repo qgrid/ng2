@@ -1,44 +1,48 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "noEmitHelpers": true,
-    "importHelpers": true,
-    "strictNullChecks": false,
-	  "skipLibCheck": true,
-    "lib": [
-      "dom",
-      "es6"
-    ],
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "types": [
-      "hammerjs",
-      "jasmine",
-      "node",
-      "source-map",
-      "uglify-js",
-      "webpack"
-    ],
-    "baseUrl": "./",
-    "paths": {
-      "ng2-qgrid/*": ["src/*"]
-    }
-  },
-  "exclude": [
-    "node_modules",
-    "dist"
-  ],
-
-  "compileOnSave": true,
-  "buildOnSave": true,
-  "atom": {
-    "rewriteTsconfig": false
-  }
+	"compilerOptions": {
+		"target": "es5",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": true,
+		"noEmitHelpers": true,
+		"importHelpers": true,
+		"strictNullChecks": false,
+		"skipLibCheck": true,
+		"lib": [
+			"dom",
+			"es6"
+		],
+		"typeRoots": [
+			"node_modules/@types"
+		],
+		"types": [
+			"hammerjs",
+			"jasmine",
+			"node",
+			"source-map",
+			"uglify-js",
+			"webpack"
+		],
+		"baseUrl": "./",
+		"paths": {
+			"ng2-qgrid/core/*": [
+				"core/*"
+			],
+			"ng2-qgrid/*": [
+				"src/*"
+			]
+		}
+	},
+	"exclude": [
+		"node_modules",
+		"dist"
+	],
+	"compileOnSave": true,
+	"buildOnSave": true,
+	"atom": {
+		"rewriteTsconfig": false
+	}
 }

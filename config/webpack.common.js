@@ -85,6 +85,7 @@ module.exports = function (options) {
 			modules: [helpers.root('node_modules')],
 
 			alias: {
+				'ng2-qgrid/core': helpers.root('core'),
 				'ng2-qgrid': helpers.root('src')
 			}
 		},

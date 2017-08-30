@@ -30,6 +30,9 @@
 		],
 		"baseUrl": "./src",
 		"paths": {
+			"ng2-qgrid/core/*": [
+				"../core/*"
+			],
 			"ng2-qgrid/*": [
 				"./*"
 			]
