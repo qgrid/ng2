@@ -1,4 +1,4 @@
-import {Action} from '../action/action';
+import {Action} from './action';
 
 export declare class ActionModel {
   constructor();

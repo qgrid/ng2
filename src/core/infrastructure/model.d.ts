@@ -29,7 +29,7 @@ import {ScrollModel} from '../scroll/scroll.model';
 import {ExportModel} from '../export/export.model';
 import {ActionModel} from '../action/action.model';
 import {FetchModel} from '../fetch/fetch.model';
-import {Event} from '../infrastructure/event';
+import {Event} from './event';
 
 export declare class Model {
 	constructor();

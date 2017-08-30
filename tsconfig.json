@@ -28,8 +28,6 @@
     ],
     "baseUrl": "./",
     "paths": {
-      "ng2-qgrid/core/*": ["core/*"],
-      "ng2-qgrid/theme/*": ["src/theme*"],
       "ng2-qgrid/*": ["src/*"]
     }
   },
