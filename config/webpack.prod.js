@@ -17,6 +17,8 @@ const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplaceme
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const OptimizeJsPlugin = require('optimize-js-plugin');
+const angularExternals = require('webpack-angular-externals');
+const rxjsExternals = require('webpack-rxjs-externals');
 
 /**
  * Webpack Constants
@@ -37,7 +39,6 @@ const packageConfig = require(helpers.root('package.json'));
 
 const externals = Object.keys(packageConfig.dependencies);
 externals.push('@angular/material');
-externals.push('css.escape');
 
 module.exports = function (env) {
 	return webpackMerge(commonConfig({
@@ -111,7 +112,10 @@ module.exports = function (env) {
 			library: 'ng2-qgrid'
 		},
 
-		externals: externals,
+		externals: [
+			angularExternals(),
+			rxjsExternals()
+		],
 
 		module: {
 
