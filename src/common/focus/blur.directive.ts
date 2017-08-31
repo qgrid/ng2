@@ -17,7 +17,7 @@ export class BlurDirective implements OnInit {
 		let inputElement = this.renderer.selectRootElement('input');
 
 		if (!inputElement) {
-			throw new AppError(`blur.directive', 'Required Input elemement is not found ` +
+			throw new AppError('blur.directive', `Required Input elemement is not found ` +
 				`among the "${nativeElement.nodeName}" descendants.`);
 		}
 

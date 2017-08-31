@@ -1,150 +1,117 @@
-import {Component, Input, OnInit, ChangeDetectorRef} from '@angular/core';
+import {Component, Input, OnInit, OnDestroy, ChangeDetectorRef, ViewChild} from '@angular/core';
 import {AppError} from '@grid/core/infrastructure';
 import {Command, CommandManager} from '@grid/core/command';
 import {Shortcut, ShortcutManager} from '@grid/core/shortcut';
 
-interface IChipValue {
-	index?: number;
-	value?: any;
-}
-
-interface ISelectedItem {
-	item: IChipValue;
+interface ISelected {
+	previousIndex?: number;
+	currentIndex?: number;
+	value?: string;
 	action: Actions;
 }
 
-interface ICommandSet {
-	beginEdit: any;
-	endEdit: any;
-	addItem: any;
-	deleteItem: any;
-}
-
 enum Actions {
-	inactive,
 	add,
 	beginEdit,
 	endEdit,
-	delete
+	delete,
+	focusNext,
+	focusPrevious,
+	inactive,
 }
 
 @Component({
 	selector: 'q-grid-chips',
-	templateUrl: './chip-list.tpl.html'
+	templateUrl: './chip-list.tpl.html',
+	styleUrls: ['./chip-list.scss']
 })
-export class ChipListComponent implements OnInit {
+export class ChipListComponent implements OnInit, OnDestroy {
 	@Input('values') chipValues: any[];
+	@ViewChild('addNewInput') addNewInput;
+
 	private shortcut = new Shortcut(new ShortcutManager());
 
-	private chipValueMap: IChipValue[];
-
-	private selectedItem: ISelectedItem = {
-		item: {},
+	private selectedItem: ISelected = {
 		action: Actions.inactive
 	};
 
-	private newItem: ISelectedItem = {
-		item: {},
-		action: Actions.inactive
-	};
+	private newValue: string;
 
-	get chipList(): any[] {
-		return this.chipValueMap.map((item) => item.value);
-	}
-	set chipList(values: any[]) {
-		this.chipValueMap = values.map((itemValue, itemIndex) => {
-			return <IChipValue> {
-				value: itemValue,
-				index: itemIndex
-			};
-		});
-	};
-
-	private commandSet: ICommandSet = {
-		beginEdit: new Command({
-			canExecute: () => this.selectedItem.action === Actions.beginEdit,
-			execute: () => {
-				this.selectedItem.item.value = this.chipValues[this.selectedItem.item.index];
+	private beginEditCommand = new Command({
+		canExecute: () => {
+			let canExec = this.selectedItem.previousIndex === this.selectedItem.currentIndex;
+			return canExec;
 			},
-			shortcut: 'enter'
-		}),
+		execute: () => {
+			this.selectedItem.action = Actions.beginEdit;
+			this.selectedItem.value = this.chipValues[this.selectedItem.currentIndex];
+			// this.cdRef.detectChanges();
+		},
+		shortcut: 'enter'
+	});
 
-		endEdit: new Command({
-			canExecute: () => this.selectedItem.action === Actions.endEdit &&
-				this.selectedItem.item.value,
-			execute: () => {
-				this.chipValues[this.selectedItem.item.index] = this.selectedItem.item.value;
+	private endEditCommand = new Command({
+		canExecute: () => this.selectedItem.action === Actions.endEdit &&
+			this.selectedItem.value,
+		execute: () => {
+			this.chipValues[this.selectedItem.currentIndex] = this.selectedItem.value;
+			this.resetCurrentAction();
+			this.cdRef.detectChanges();
+		},
+		shortcut: 'enter'
+	});
 
-				this.chipValueMap[this.selectedItem.item.index].value = this.selectedItem.item.value;
-				this.resetSelectedAction();
-				this.cdRef.detectChanges();
-			},
-			shortcut: 'enter'
-		}),
+	private addItemCommand = new Command({
+		canExecute: () => this.newValue,
+		execute: () => {
+			this.chipValues[this.chipValues.length - 1] = this.newValue;
+			this.chipValues.push('');
+			this.newValue = '';
+			this.cdRef.detectChanges();
+		},
+		shortcut: 'enter'
+	});
 
-		addItem: new Command({
-			canExecute: () => this.newItem.action === Actions.add &&
-				this.newItem.item.value && !this.findExistingItem(this.selectedItem.item.value),
-			execute: () => {
-				this.chipValues.push(this.newItem.item.value);
+	private deleteItemCommand = new Command({
+		canExecute: () => this.selectedItem.action === Actions.delete,
+		execute: () => {
+			this.chipValues.splice(this.selectedItem.currentIndex, 1);
+			this.resetCurrentAction();
+			this.cdRef.detectChanges();
+		},
+		shortcut: 'backspace'
+	});
 
-				this.chipValueMap.push({
-					value: this.newItem.item.value,
-					index: this.chipValueMap.length
-				});
+	private focusNextCommand = new Command({
+		canExecute: () => false,
+		execute: () => {
+		},
+		shortcut: 'right'
+	});
 
-				this.resetAddNewAction();
-			},
-			shortcut: 'enter'
-		}),
-
-		deleteItem: new Command({
-			canExecute: () => this.selectedItem.action === Actions.delete,
-			execute: () => {
-				this.chipValues.splice(this.selectedItem.item.index, 1);
-
-				this.chipValueMap = this.chipValues.map((itemValue, itemIndex) => {
-					return <IChipValue> {
-						value: itemValue,
-						index: itemIndex
-					};
-				});
-				this.resetSelectedAction();
-				this.cdRef.detectChanges();
-			}
-		})
-	};
+	private focusPreviousCommand = new Command({
+		canExecute: () => false,
+		execute: () => {
+		},
+		shortcut: 'left'
+	});
 
 	constructor(private cdRef: ChangeDetectorRef) {
 		const manager = new CommandManager();
 
-		const shortcutCommands = [this.commandSet.endEdit, this.commandSet.addItem];
-		const otherCommands = [this.commandSet.endEdit, this.commandSet.addItem, this.commandSet.deleteItem];
-
+		const shortcutCommands = [
+			this.addItemCommand,
+			this.beginEditCommand,
+			this.endEditCommand,
+			this.deleteItemCommand,
+			this.focusNextCommand,
+			this.focusPreviousCommand
+		];
 		this.shortcut.register(manager, shortcutCommands);
 	}
 
-	private setSelectedAction(action: Actions, itemIndex?: number) {
-		if (itemIndex >= 0) {
-			this.selectedItem.item.index = itemIndex;
-		}
-		this.selectedItem.action = action;
-	}
-
-	private resetSelectedAction() {
-		this.setSelectedAction(Actions.inactive);
-		this.selectedItem.item.value = null;
-		this.selectedItem.item.index = null;
-	}
-
-	private setAddNewAction() {
-		this.newItem.action = Actions.add;
-	}
-
-	private resetAddNewAction() {
-		this.newItem.action = Actions.inactive;
-		this.newItem.item.value = null;
-		this.newItem.item.index = null;
+	private resetCurrentAction() {
+		this.selectedItem = {action: Actions.inactive};
 	}
 
 	private findExistingItem(item: any) {
@@ -158,46 +125,107 @@ export class ChipListComponent implements OnInit {
 		return found;
 	}
 
-	private beginEdit(itemIndex: number) {
-		this.setSelectedAction(Actions.beginEdit, itemIndex);
-		if (this.commandSet.beginEdit.canExecute()) {
-			this.commandSet.beginEdit.execute();
-		}
-	}
-
 	private checkEndEdit(e: any) {
-		this.setSelectedAction(Actions.endEdit);
+		this.setEndEdit();
 		this.shortcut.keyDown(e);
 	}
 
 	private endEdit() {
-		this.setSelectedAction(Actions.endEdit);
-		if (this.commandSet.endEdit.canExecute()) {
-			this.commandSet.endEdit.execute();
+		this.setEndEdit();
+		if (this.endEditCommand.canExecute()) {
+			this.endEditCommand.execute();
 		}
 	}
 
 	private checkAdd(e: any) {
-		this.setAddNewAction();
 		this.shortcut.keyDown(e);
 	}
 
-	private add() {
-		this.setAddNewAction();
-		if (this.commandSet.addItem.canExecute()) {
-			this.commandSet.addItem.execute();
+	private delete(itemIndex: number) {
+		this.selectedItem = {
+			currentIndex: itemIndex,
+			action: Actions.delete
+		};
+
+		if (this.deleteItemCommand.canExecute()) {
+			this.deleteItemCommand.execute();
 		}
 	}
 
-	private delete(itemIndex: number) {
-		this.setSelectedAction(Actions.delete, itemIndex);
-
-		if (this.commandSet.deleteItem.canExecute()) {
-			this.commandSet.deleteItem.execute();
+	private setEndEdit() {
+		if (this.selectedItem.action === Actions.beginEdit) {
+			this.selectedItem.action = Actions.endEdit;
 		}
+	}
+
+	private setAddNew() {
+		this.selectedItem = {
+			action: Actions.add,
+			value: this.newValue
+		};
+	}
+
+	private isGetFocus: boolean = false;
+
+	private onChipClick(index: number) {
+		if (!this.isGetFocus) {
+			this.selectChip(index);
+		} else {
+			this.isGetFocus = false;
+		}
+		if (this.beginEditCommand.canExecute()) {
+			this.beginEditCommand.execute();
+		}
+	}
+
+	private onChipBlur() {
+		this.deselectChip();
+		this.isGetFocus = false;
+	}
+
+	private isEdited(index: number) {
+		return this.selectedItem.currentIndex === index &&
+			(this.selectedItem.action === Actions.beginEdit ||
+				this.selectedItem.action === Actions.endEdit);
+	}
+
+	private isNew(index: number) {
+		return index === this.chipValues.length - 1;
+	}
+
+	private onChipKeyUp(e, index) {
+		this.shortcut.keyDown(e);
+	}
+
+	private onChipFocus(index) {
+		if (this.selectedItem.currentIndex !== index) {
+			this.selectChip(index);
+			this.isGetFocus = true;
+		}
+	}
+
+	private selectChip(index) {
+		setTimeout(() => {
+			this.selectedItem.previousIndex = this.selectedItem.currentIndex;
+			this.selectedItem.currentIndex = index;
+			this.cdRef.detectChanges();
+		}, 300);
+	}
+
+	private deselectChip() {
+		this.selectedItem.previousIndex = this.selectedItem.currentIndex;
+		this.selectedItem.currentIndex = -1;
+		// this.cdRef.detectChanges();
+	}
+	private isChipSelected(index) {
+		return this.selectedItem.currentIndex === index;
 	}
 
 	ngOnInit() {
-		this.chipList = this.chipValues;
+		this.chipValues.push('');
+	}
+
+	ngOnDestroy() {
+		// this.cdRef.detach();
 	}
 }

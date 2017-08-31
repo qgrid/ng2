@@ -174,7 +174,7 @@ module.exports = function (options) {
         {
           test: /\.scss$/,
           use: ['to-string-loader', 'css-loader', 'sass-loader'],
-          exclude: [helpers.root('demo', 'styles')]
+          exclude: [helpers.root('demo', 'styles'), /node_modules/]
         },
 
         /* Raw loader support for *.html

@@ -1,26 +1,35 @@
 <md-chip-list>
-	<div *ngFor="let chip of chipValueMap">
-		<div *ngIf="selectedItem.item.index === chip.index; else nonEditView">
+	<div *ngFor="let chipValue of chipValues; let chipIndex = index">
+		<div *ngIf="isEdited(chipIndex); else chipsView">
 			<md-input-container>
 				<input mdInput
 						 q-grid-focus
 						 (keyup)="checkEndEdit($event)"
-						 [(ngModel)]="selectedItem.item.value"
+						 [(ngModel)]="selectedItem.value"
 						 (blur)="endEdit()">
 			</md-input-container>
 		</div>
-		<ng-template #nonEditView>
-			<md-chip selected="true">
-				<span (click)="beginEdit(chip.index)" >{{chip.value}}</span>
-				<i class="material-icons md-9 resize-on-hover mouse-pointer" (click)="delete(chip.index)">clear</i>
-			</md-chip>
+		<ng-template #chipsView>
+			<div *ngIf="!isNew(chipIndex); else addNewInput">
+				<md-chip
+					[selected]="chipIndex === selectedItem.currentIndex"
+					(keyup) = "onChipKeyUp($event, chipIndex)"
+					(focus) = "onChipFocus(chipIndex)"
+					(blur) = "onChipBlur()">
+
+					<span (click)="onChipClick(chipIndex)">{{chipValue}}</span>
+					<i class="material-icons md-9 resize-on-hover mouse-pointer" (click)="delete(chipIndex)">clear</i>
+				</md-chip>
+			</div>
+			<ng-template #addNewInput>
+				<md-input-container class="edit-array-new-item">
+					<input mdInput
+							 #addNewInput
+							 placeholder="New item"
+							 (keyup)="checkAdd($event)"
+							 [(ngModel)]="newValue">
+				</md-input-container>
+			</ng-template>
 		</ng-template>
 	</div>
 </md-chip-list>
-<md-input-container class="edit-array-new-item">
-	<input mdInput
-			 placeholder="New item"
-			 (keyup)="checkAdd($event)"
-			 [(ngModel)]="newItem.item.value">
-</md-input-container>
-<i class="material-icons md-24 selected mouse-pointer" (click)="add()">add</i>

@@ -1,10 +1,32 @@
-td.q-grid-edit {
+:host {
 	.mat-chip {
-		margin: 0px 2px 2px 0px;
+		margin: 0px 4px 4px 0px;
 	}
-	
-	.mat-focused .mat-input-placeholder.mat-float, .mat-input-placeholder.mat-float:not(.mat-empty){
-		display: none;
+
+	.edit-array-new-item{
+		display: inline-block;
+	}
+
+	.mat-input-container {
+		color: red;
+		label.mat-input-placeholder.mat-empty.mat-float {
+			color: green;
+		}
+
+		label {
+			display: none;
+		}
+		.mat-input-placeholder {
+			display: none;
+		}
+
+		.mat-focused {
+			.mat-input-placeholder {
+				display: none;
+			}
+		}
+	}
+
+	.mat-float:not(.mat-empty) {
 	}
 }
-
