@@ -1,8 +1,8 @@
 import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
-import {GRID_PREFIX} from '@grid/core/definition';
+import {GRID_PREFIX} from 'ng2-qgrid/core/definition';
 import {ViewCoreService} from '../view/view-core.service';
-import {TemplateCacheService, TemplateLinkService} from '@grid/template';
-import {RootService} from '@grid/infrastructure/component';
+import {TemplateCacheService, TemplateLinkService} from 'ng2-qgrid/template';
+import {RootService} from 'ng2-qgrid/infrastructure/component';
 
 @Directive({
 	selector: '[q-grid-core-th]'

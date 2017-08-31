@@ -1,10 +1,12 @@
 import {OnInit, Component, Input} from '@angular/core';
-import {RootService} from '@grid/infrastructure/component';
+import {RootService} from 'ng2-qgrid/infrastructure/component';
 import {TableCoreService} from './table-core.service';
+import {Model} from 'ng2-qgrid/core/infrastructure/model';
+import {VisibilityModel} from 'ng2-qgrid/core/visibility/visibility.model';
 
 @Component({
 	selector: 'q-grid-core-table',
-	template: require('./table-core.component.html'),
+	templateUrl: './table-core.component.html',
 	providers: [
 		TableCoreService
 	]

@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {compile} from '@grid/core/services';
-import {isUndefined, clone, isObject, identity} from '@grid/core/utility';
-import {parseFactory, getType} from '@grid/core/services';
-import {RootService} from '@grid/infrastructure/component';
+import {compile} from 'ng2-qgrid/core/services';
+import {isUndefined, clone, isObject, identity} from 'ng2-qgrid/core/utility';
+import {parseFactory, getType} from 'ng2-qgrid/core/services';
+import {RootService} from 'ng2-qgrid/infrastructure/component';
 
 @Injectable()
 export class ColumnListService {

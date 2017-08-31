@@ -8,10 +8,10 @@ import {FootCoreComponent, TfCoreDirective} from './foot';
 import {TrCoreDirective} from './row';
 import {VScrollService} from './scroll';
 import {MarkupDirective} from './markup';
-import {TemplateCacheService} from '@grid/template';
-import {TemplateModule} from '@grid/template/template.module';
-import {CommonModule} from '@grid/common';
-import {TableCoreComponent} from '@grid/main/core/table';
+import {TemplateCacheService} from 'ng2-qgrid/template';
+import {TemplateModule} from 'ng2-qgrid/template/template.module';
+import {CommonModule} from 'ng2-qgrid/common';
+import {TableCoreComponent} from 'ng2-qgrid/main/core/table';
 
 @NgModule({
 	declarations: [

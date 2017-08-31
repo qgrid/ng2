@@ -1,11 +1,11 @@
-import {Guard} from '@grid/core/infrastructure';
+import {Guard} from 'ng2-qgrid/core/infrastructure';
 import {ChangeDetectorRef, Injectable} from '@angular/core';
-import {CommandManager} from '@grid/infrastructure/command';
-import {Model} from '@grid/core/infrastructure/model';
-import {Table} from '@grid/core/dom/table';
-import {AppError} from '@grid/core/infrastructure';
-import {isUndefined} from '@grid/core/utility';
-import {Bag} from '@grid/core/dom/bag';
+import {CommandManager} from 'ng2-qgrid/core/command/command.manager';
+import {Model} from 'ng2-qgrid/core/infrastructure/model';
+import {Table} from 'ng2-qgrid/core/dom/table';
+import {AppError} from 'ng2-qgrid/core/infrastructure';
+import {isUndefined} from 'ng2-qgrid/core/utility';
+import {Bag} from 'ng2-qgrid/core/dom/bag';
 
 @Injectable()
 export class RootService {
