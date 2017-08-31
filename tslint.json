@@ -6,7 +6,7 @@
 		"node_modules/codelyzer"
 	],
 	"rules": {
-		"no-debugger": false,
+		"no-debugger": true,
 		"indent": [
 			true,
 			"tabs",
