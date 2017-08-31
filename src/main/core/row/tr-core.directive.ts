@@ -7,6 +7,8 @@ import {RootService} from '@grid/infrastructure/component';
 })
 export class TrCoreDirective implements OnInit, OnDestroy {
 	@Input('q-grid-core-tr') public index: number;
+	@Input('q-grid-core-source') private source;
+
 	public element: HTMLElement;
 
 	constructor(public $view: ViewCoreService, private root: RootService, private elementRef: ElementRef) {
@@ -14,10 +16,10 @@ export class TrCoreDirective implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		this.root.bag.body.addRow(this);
+		this.root.bag[this.source].addRow(this);
 	}
 
 	ngOnDestroy() {
-		this.root.bag.body.deleteRow(this);
+		this.root.bag[this.source].deleteRow(this);
 	}
 }

@@ -1,0 +1,10 @@
+td.q-grid-edit {
+	.mat-chip {
+		margin: 0px 2px 2px 0px;
+	}
+	
+	.mat-focused .mat-input-placeholder.mat-float, .mat-input-placeholder.mat-float:not(.mat-empty){
+		display: none;
+	}
+}
+

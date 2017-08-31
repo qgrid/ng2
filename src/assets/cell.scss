@@ -80,7 +80,8 @@ thead, tfoot, tbody {
 			max-width: 110px;
 		}
 
-		&.q-grid-number {
+		&.q-grid-number,
+		&.q-grid-currency {
 			width: 100px;
 			min-width: 100px;
 			max-width: 100px;
@@ -104,7 +105,6 @@ thead, tfoot, tbody {
 			max-width: 55px;
 		}
 
-
 		&.q-grid-row-number {
 			width: 55px;
 			min-width: 55px;
@@ -119,9 +119,10 @@ thead, tfoot, tbody {
 	}
 }
 
-tbody {
+tbody, tfoot {
 	td {
-		&.q-grid-number {
+		&.q-grid-number,
+		&.q-grid-currency {
 			text-align: right;
 		}
 
