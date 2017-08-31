@@ -26,7 +26,7 @@ import {EventListener} from 'ng2-qgrid/core/infrastructure/event.listener';
 	],
 	styleUrls: [
 		'../../assets/index.scss',
-		'../../theme/index.scss'
+		'../../themes/material/index.scss'
 	],
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None

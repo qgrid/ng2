@@ -1,5 +1,5 @@
 import {INoopResult} from '../utility/utility';
-import {Model} from 'ng2-qgrid/..//infrastructure/model';
+import {Model} from '../infrastructure/model';
 
 export interface IBusyResult {
 	(): void;
