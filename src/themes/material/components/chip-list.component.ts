@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, OnDestroy, ChangeDetectorRef, ViewChild} from '@angular/core';
-import {AppError} from '@grid/core/infrastructure';
-import {Command, CommandManager} from '@grid/core/command';
-import {Shortcut, ShortcutManager} from '@grid/core/shortcut';
+import {AppError} from 'ng2-qgrid/core/infrastructure';
+import {Command, CommandManager} from 'ng2-qgrid/core/command';
+import {Shortcut, ShortcutManager} from 'ng2-qgrid/core/shortcut';
 
 interface ISelected {
 	previousIndex?: number;

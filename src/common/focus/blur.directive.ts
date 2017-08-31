@@ -1,5 +1,5 @@
 import {Directive, Renderer2, ElementRef, OnInit, Input} from '@angular/core';
-import {AppError} from '@grid/core/infrastructure';
+import {AppError} from 'ng2-qgrid/core/infrastructure';
 import {ViewCoreService} from 'ng2-qgrid/main/core/view';
 
 @Directive({
