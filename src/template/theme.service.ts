@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Event} from '@grid/core/infrastructure';
+import {Event} from 'ng2-qgrid/core/infrastructure';
 
 @Injectable()
 export class ThemeService {

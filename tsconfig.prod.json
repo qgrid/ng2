@@ -1,0 +1,55 @@
+{
+	"compilerOptions": {
+		"target": "es2015",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": true,
+		"noEmitHelpers": true,
+		"importHelpers": true,
+		"strictNullChecks": false,
+		"skipLibCheck": true,
+		"outDir": "dist",
+		"declaration": true,
+		"lib": [
+			"dom",
+			"es6"
+		],
+		"typeRoots": [
+			"node_modules/@types"
+		],
+		"types": [
+			"hammerjs",
+			"jasmine",
+			"node",
+			"source-map",
+			"uglify-js",
+			"webpack"
+		],
+		"baseUrl": "./src",
+		"paths": {
+			"ng2-qgrid/core/*": [
+				"../core/*"
+			],
+			"ng2-qgrid/*": [
+				"./*"
+			]
+		}
+	},
+	"files": [
+		"src/index.ts"
+	],
+	"exclude": [
+		"node_modules",
+		"dist"
+	],
+	"compileOnSave": true,
+	"buildOnSave": true,
+	"angularCompilerOptions": {
+		"skipMetadataEmit": false,
+		"skipTemplateCodegen": true,
+		"genDir": "./dist"
+	}
+}

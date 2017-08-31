@@ -1,6 +1,7 @@
 import {Directive, ElementRef, Input, OnInit} from '@angular/core';
-import {GRID_PREFIX} from '@grid/core/definition';
-import {RootService} from '@grid/infrastructure/component';
+import {GRID_PREFIX} from 'ng2-qgrid/core/definition';
+import {RootService} from 'ng2-qgrid/infrastructure/component';
+import {ColumnModel} from 'ng2-qgrid/core/column-type/column.model';
 
 @Directive({
 	selector: '[q-grid-core-align-td]',

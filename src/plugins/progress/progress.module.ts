@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {ProgressComponent} from './progress.component';
-import {TemplateModule} from '@grid/template';
+import {TemplateModule} from 'ng2-qgrid/template';
 
 @NgModule({
 	declarations: [

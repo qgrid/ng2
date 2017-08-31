@@ -1,5 +1,5 @@
-import {Model, ModelBinder, Event} from '@grid/core/infrastructure';
-import {noop} from '@grid/core/utility';
+import {Model, ModelBinder, Event} from 'ng2-qgrid/core/infrastructure';
+import {noop} from 'ng2-qgrid/core/utility';
 import {OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {NgComponent} from './ng.component';
 

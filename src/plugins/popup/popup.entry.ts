@@ -1,9 +1,9 @@
-import {EventManager} from '@grid/core/infrastructure';
-import {isFunction, noop} from '@grid/core/utility';
-import {IFunc} from '@grid/core/dom/view';
-import {EventListener, IOnResult} from '@grid/core/infrastructure/event.listener';
-import {IPopupSettings} from '@grid/plugins/popup/popup.service';
-import {Event} from '@grid/core/infrastructure/event';
+import {EventManager} from 'ng2-qgrid/core/infrastructure';
+import {isFunction, noop} from 'ng2-qgrid/core/utility';
+import {IFunc} from 'ng2-qgrid/core/dom/view';
+import {EventListener, IOnResult} from 'ng2-qgrid/core/infrastructure/event.listener';
+import {IPopupSettings} from 'ng2-qgrid/plugins/popup/popup.service';
+import {Event} from 'ng2-qgrid/core/infrastructure/event';
 
 export interface IState {
 	expanded: boolean;
@@ -15,7 +15,7 @@ export interface ILayout {
 	size: any;
 }
 
-export default class Popup {
+export class Popup {
 	private event: Event;
 	private state: IState;
 	private layout: ILayout;
@@ -49,8 +49,8 @@ export default class Popup {
 			height: this.element.offsetHeight
 		};
 		this.layout = {
-			position: position,
-			size: size
+			position,
+			size
 		};
 		this.element.classList.add('expanded');
 		this.state.expanded = true;
@@ -96,8 +96,10 @@ export default class Popup {
 	}
 
 	resize(settings: IPopupSettings): void {
-		this.element.setAttribute('width', Math.min(settings.width, this.body.clientWidth - this.element.offsetLeft) + 'px');
-		this.element.setAttribute('height', Math.min(settings.height, this.body.clientHeight - this.element.offsetTop) + 'px');
+		this.element.setAttribute('width',
+			Math.min(settings.width, this.body.clientWidth - this.element.offsetLeft) + 'px');
+		this.element.setAttribute('height',
+			Math.min(settings.height, this.body.clientHeight - this.element.offsetTop) + 'px');
 		this.event.emit('resize');
 	}
 }

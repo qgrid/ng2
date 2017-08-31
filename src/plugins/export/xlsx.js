@@ -1,4 +1,4 @@
-import {flatView} from '@grid/core/export/export.service';
+import {flatView} from 'ng2-qgrid/core/export/export.service';
 
 function sheet_to_workbook(sheet) {
 	const sheets = {};

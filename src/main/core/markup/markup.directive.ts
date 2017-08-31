@@ -1,5 +1,5 @@
 import {Directive, ElementRef, Input, OnDestroy, OnInit} from '@angular/core';
-import {RootService} from '@grid/infrastructure/component';
+import {RootService} from 'ng2-qgrid/infrastructure/component';
 
 @Directive({
 	selector: '[q-grid-markup]'

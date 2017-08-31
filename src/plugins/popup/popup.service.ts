@@ -1,7 +1,7 @@
 import {ElementRef, Injectable} from '@angular/core';
-import {AppError} from '@grid/core/infrastructure';
-import {Model} from '@grid/core/infrastructure/model';
-import Popup from '@grid/plugins/popup/popup.entry';
+import {AppError} from 'ng2-qgrid/core/infrastructure';
+import {Model} from 'ng2-qgrid/core/infrastructure/model';
+import {Popup} from 'ng2-qgrid/plugins/popup/popup.entry';
 
 export interface IOffset {
 	left: number;
@@ -41,7 +41,7 @@ export let PopupSettings: IPopupSettings = {
 };
 
 @Injectable()
-export default class PopupService {
+export class PopupService {
 
 	private settings: IPopupSettings;
 	private popups: Map<string, Popup> = new Map();
@@ -86,7 +86,8 @@ export default class PopupService {
 		// popupScope.model = model;
 		// popupScope.id = settings.id;
 
-		const popup = this.element.nativeElement.document.body.getElementsByTagName('<q-grid:popup-panel id="id" model="model">')[0]; // eslint-disable-line no-undef
+		const popup = this.element.nativeElement.document.body
+			.getElementsByTagName('<q-grid:popup-panel id="id" model="model">')[0]; // eslint-disable-line no-undef
 		this.popups[this.settings.id] = new Popup(popup, this.settings, this.element.nativeElement.document[0].body);
 
 		this.element.nativeElement.document[0].body.appendChild(popup[0]);
@@ -141,7 +142,7 @@ export default class PopupService {
 				offset: () => {
 					return {
 						left: (this.element.nativeElement.window.innerWidth()) / 2,
-						top: (this.element.nativeElement.window.innerHeight() - (parseInt(settings.height) || 0)) / 2
+						top: (this.element.nativeElement.window.innerHeight() - (parseInt(settings.height, 10) || 0)) / 2
 					};
 				},
 				height: () => {
@@ -165,15 +166,15 @@ export default class PopupService {
 	}
 
 	public position(target: ITarget, settings: IPopupSettings): IOffset {
-		const dy = parseInt(settings.offsetTop) || 0;
-		const dx = parseInt(settings.offsetLeft) || 0;
+		const dy = parseInt(settings.offsetTop, 10) || 0;
+		const dx = parseInt(settings.offsetLeft, 10) || 0;
 		const w = this.element.nativeElement.window.innerWidth();
 		const h = this.element.nativeElement.window.innerHeight();
 		const p = target.offset();
 		const x = p.left;
 		const y = p.top;
-		const eh = parseInt(settings.height) || target.height();
-		const ew = parseInt(settings.width) || target.width();
+		const eh = parseInt(settings.height, 10) || target.height();
+		const ew = parseInt(settings.width, 10) || target.width();
 		const eh2 = eh / 2;
 		const ew2 = ew / 2;
 		const gtx1 = x + ew2 > w;
