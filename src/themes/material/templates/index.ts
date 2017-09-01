@@ -22,6 +22,7 @@ const templates = [
 	require('./edit-cell-textarea.tpl.html'),
 
 	require('./foot-cell-text.tpl.html'),
+	require('./foot-cell-currency.tpl.html'),
 
 	require('./toolbar-top.tpl.html'),
 	require('./toolbar-bottom.tpl.html'),
