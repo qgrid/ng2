@@ -1,0 +1,14 @@
+<md-chip-list>
+	<div *ngFor="let chipValue of chipValues; let chipIndex = index">
+		<edit-chip [index]="chipIndex" [value]="chipValue"></edit-chip>
+	</div>
+	<ng-template #addNewInput>
+		<md-input-container class="edit-array-new-item">
+			<input mdInput
+					 #addNewInput
+					 placeholder="New item"
+					 (keyup)="checkAdd($event)"
+					 [(ngModel)]="newValue">
+		</md-input-container>
+	</ng-template>
+</md-chip-list>

@@ -1,7 +1,8 @@
-import {Component, Input, OnInit, OnDestroy, ChangeDetectorRef, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ViewChildren} from '@angular/core';
 import {AppError} from 'ng2-qgrid/core/infrastructure';
 import {Command, CommandManager} from 'ng2-qgrid/core/command';
 import {Shortcut, ShortcutManager} from 'ng2-qgrid/core/shortcut';
+import {EditChipComponent} from './edit-chip/edit-chip.component';
 
 interface ISelected {
 	previousIndex?: number;
@@ -21,13 +22,14 @@ enum Actions {
 }
 
 @Component({
-	selector: 'q-grid-chips',
-	templateUrl: './chip-list.tpl.html',
-	styleUrls: ['./chip-list.scss']
+	selector: 'q-grid-chip-list',
+	templateUrl: './edit-chip-list.tpl.html',
+	styleUrls: ['./edit-chip-list.scss']
 })
-export class ChipListComponent implements OnInit, OnDestroy {
+export class EditChipListComponent implements OnInit, OnDestroy {
 	@Input('values') chipValues: any[];
-	@ViewChild('addNewInput') addNewInput;
+	@ViewChildren(EditChipComponent)
+	private chips: EditChipComponent[];
 
 	private shortcut = new Shortcut(new ShortcutManager());
 

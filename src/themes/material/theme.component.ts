@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {template} from './templates';
-import {ChipListComponent} from './components/chip-list.component';
+import {ChipListComponent} from './components/edit-chip-list/chip-list.component';
 
 @Component({
 	selector: 'q-grid-theme',
