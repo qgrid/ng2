@@ -23,6 +23,7 @@ export class CurrencyColumnModel extends DataColumnModel {
 
 		this.maxLength = 20;
 		this.symbol = '$';
+		this.code = 'USD';
 	}
 }
 
