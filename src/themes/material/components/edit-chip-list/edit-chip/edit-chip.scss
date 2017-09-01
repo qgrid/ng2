@@ -1,0 +1,32 @@
+:host {
+	.mat-chip {
+		margin: 0px 4px 4px 0px;
+	}
+
+	.edit-array-new-item{
+		display: inline-block;
+	}
+
+	.mat-input-container {
+		color: red;
+		label.mat-input-placeholder.mat-empty.mat-float {
+			color: green;
+		}
+
+		label {
+			display: none;
+		}
+		.mat-input-placeholder {
+			display: none;
+		}
+
+		.mat-focused {
+			.mat-input-placeholder {
+				display: none;
+			}
+		}
+	}
+
+	.mat-float:not(.mat-empty) {
+	}
+}

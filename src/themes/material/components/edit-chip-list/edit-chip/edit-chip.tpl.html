@@ -1,22 +1,22 @@
-<div *ngIf="isEdited(chipIndex); else chipsView">
+<div *ngIf="isEdited; else chipsView">
 	<md-input-container>
 		<input mdInput
 				 q-grid-focus
 				 (keyup)="checkEndEdit($event)"
-				 [(ngModel)]="selectedItem.value"
+				 [(ngModel)]="value"
 				 (blur)="endEdit()">
 	</md-input-container>
 </div>
 <ng-template #chipsView>
-	<div *ngIf="!isNew(chipIndex); else addNewInput">
+	<div *ngIf="!isNew; else addNewInput">
 		<md-chip
-			[selected]="chipIndex === selectedItem.currentIndex"
-			(keyup) = "onChipKeyUp($event, chipIndex)"
-			(focus) = "onChipFocus(chipIndex)"
+			[selected]="isSelected"
+			(keyup) = "onChipKeyUp($event)"
+			(focus) = "onChipFocus()"
 			(blur) = "onChipBlur()">
 
-			<span (click)="onChipClick(chipIndex)">{{chipValue}}</span>
-			<i class="material-icons md-9 resize-on-hover mouse-pointer" (click)="delete(chipIndex)">clear</i>
+			<span (click)="onChipClick(chipIndex)">{{value}}</span>
+			<i class="material-icons md-9 resize-on-hover mouse-pointer" (click)="deleteThis(chipIndex)">clear</i>
 		</md-chip>
 	</div>
 	<ng-template #addNewInput>

@@ -3,7 +3,7 @@
 		<md-checkbox
 			q-grid-focus="input"
 			[(ngModel)]="$view.edit.cell.value"
-			[q-grid-blur]="$view.edit.cell.commit.execute">
+			[input-on-blur]="$view.edit.cell.commit.execute">
 		</md-checkbox>
 	</div>
 </ng-template>

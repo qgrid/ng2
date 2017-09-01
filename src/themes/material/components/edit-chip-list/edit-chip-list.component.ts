@@ -1,8 +1,19 @@
-import {Component, Input, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ViewChildren} from '@angular/core';
+import {
+	Component,
+	Input,
+	AfterViewInit,
+	OnInit,
+	OnDestroy,
+	ChangeDetectorRef,
+	ViewChildren,
+	QueryList
+} from '@angular/core';
+
 import {AppError} from 'ng2-qgrid/core/infrastructure';
 import {Command, CommandManager} from 'ng2-qgrid/core/command';
 import {Shortcut, ShortcutManager} from 'ng2-qgrid/core/shortcut';
 import {EditChipComponent} from './edit-chip/edit-chip.component';
+import {ChipState} from './edit-chip/edit-chip.component';
 
 interface ISelected {
 	previousIndex?: number;
@@ -11,10 +22,13 @@ interface ISelected {
 	action: Actions;
 }
 
+interface IChipItem {
+	value?: string | any;
+	state?: string;
+}
+
 enum Actions {
 	add,
-	beginEdit,
-	endEdit,
 	delete,
 	focusNext,
 	focusPrevious,
@@ -26,10 +40,13 @@ enum Actions {
 	templateUrl: './edit-chip-list.tpl.html',
 	styleUrls: ['./edit-chip-list.scss']
 })
-export class EditChipListComponent implements OnInit, OnDestroy {
+export class EditChipListComponent implements AfterViewInit, OnInit, OnDestroy {
 	@Input('values') chipValues: any[];
+
 	@ViewChildren(EditChipComponent)
-	private chips: EditChipComponent[];
+	private chipList: QueryList<EditChipComponent>;
+
+	private items: IChipItem[];
 
 	private shortcut = new Shortcut(new ShortcutManager());
 
@@ -37,47 +54,11 @@ export class EditChipListComponent implements OnInit, OnDestroy {
 		action: Actions.inactive
 	};
 
-	private newValue: string;
-
-	private beginEditCommand = new Command({
-		canExecute: () => {
-			let canExec = this.selectedItem.previousIndex === this.selectedItem.currentIndex;
-			return canExec;
-			},
-		execute: () => {
-			this.selectedItem.action = Actions.beginEdit;
-			this.selectedItem.value = this.chipValues[this.selectedItem.currentIndex];
-			// this.cdRef.detectChanges();
-		},
-		shortcut: 'enter'
-	});
-
-	private endEditCommand = new Command({
-		canExecute: () => this.selectedItem.action === Actions.endEdit &&
-			this.selectedItem.value,
-		execute: () => {
-			this.chipValues[this.selectedItem.currentIndex] = this.selectedItem.value;
-			this.resetCurrentAction();
-			this.cdRef.detectChanges();
-		},
-		shortcut: 'enter'
-	});
-
-	private addItemCommand = new Command({
-		canExecute: () => this.newValue,
-		execute: () => {
-			this.chipValues[this.chipValues.length - 1] = this.newValue;
-			this.chipValues.push('');
-			this.newValue = '';
-			this.cdRef.detectChanges();
-		},
-		shortcut: 'enter'
-	});
-
 	private deleteItemCommand = new Command({
 		canExecute: () => this.selectedItem.action === Actions.delete,
 		execute: () => {
 			this.chipValues.splice(this.selectedItem.currentIndex, 1);
+			this.initItems();
 			this.resetCurrentAction();
 			this.cdRef.detectChanges();
 		},
@@ -102,14 +83,19 @@ export class EditChipListComponent implements OnInit, OnDestroy {
 		const manager = new CommandManager();
 
 		const shortcutCommands = [
-			this.addItemCommand,
-			this.beginEditCommand,
-			this.endEditCommand,
 			this.deleteItemCommand,
 			this.focusNextCommand,
 			this.focusPreviousCommand
 		];
 		this.shortcut.register(manager, shortcutCommands);
+	}
+
+	private chipState(index: number) {
+		return index === this.chipValues.length - 1 ? ChipState.new : ChipState.readOnly;
+	}
+
+	private findChip(itemIndex: number): EditChipComponent {
+		return this.chipList.find((item, index) => itemIndex === index );
 	}
 
 	private resetCurrentAction() {
@@ -127,23 +113,7 @@ export class EditChipListComponent implements OnInit, OnDestroy {
 		return found;
 	}
 
-	private checkEndEdit(e: any) {
-		this.setEndEdit();
-		this.shortcut.keyDown(e);
-	}
-
-	private endEdit() {
-		this.setEndEdit();
-		if (this.endEditCommand.canExecute()) {
-			this.endEditCommand.execute();
-		}
-	}
-
-	private checkAdd(e: any) {
-		this.shortcut.keyDown(e);
-	}
-
-	private delete(itemIndex: number) {
+	private deleteChip(itemIndex: number) {
 		this.selectedItem = {
 			currentIndex: itemIndex,
 			action: Actions.delete
@@ -154,77 +124,21 @@ export class EditChipListComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	private setEndEdit() {
-		if (this.selectedItem.action === Actions.beginEdit) {
-			this.selectedItem.action = Actions.endEdit;
-		}
+	private addNew() {
+		this.chipValues.push('');
+		this.cdRef.detectChanges();
 	}
 
-	private setAddNew() {
-		this.selectedItem = {
-			action: Actions.add,
-			value: this.newValue
-		};
+	private initItems() {
+		this.items = this.chipValues.map<IChipItem>((item) => { return  {value:  item}; } );
+		this.items.push({ state: ChipState.new });
 	}
 
-	private isGetFocus: boolean = false;
-
-	private onChipClick(index: number) {
-		if (!this.isGetFocus) {
-			this.selectChip(index);
-		} else {
-			this.isGetFocus = false;
-		}
-		if (this.beginEditCommand.canExecute()) {
-			this.beginEditCommand.execute();
-		}
-	}
-
-	private onChipBlur() {
-		this.deselectChip();
-		this.isGetFocus = false;
-	}
-
-	private isEdited(index: number) {
-		return this.selectedItem.currentIndex === index &&
-			(this.selectedItem.action === Actions.beginEdit ||
-				this.selectedItem.action === Actions.endEdit);
-	}
-
-	private isNew(index: number) {
-		return index === this.chipValues.length - 1;
-	}
-
-	private onChipKeyUp(e, index) {
-		this.shortcut.keyDown(e);
-	}
-
-	private onChipFocus(index) {
-		if (this.selectedItem.currentIndex !== index) {
-			this.selectChip(index);
-			this.isGetFocus = true;
-		}
-	}
-
-	private selectChip(index) {
-		setTimeout(() => {
-			this.selectedItem.previousIndex = this.selectedItem.currentIndex;
-			this.selectedItem.currentIndex = index;
-			this.cdRef.detectChanges();
-		}, 300);
-	}
-
-	private deselectChip() {
-		this.selectedItem.previousIndex = this.selectedItem.currentIndex;
-		this.selectedItem.currentIndex = -1;
-		// this.cdRef.detectChanges();
-	}
-	private isChipSelected(index) {
-		return this.selectedItem.currentIndex === index;
+	ngAfterViewInit(): void {
 	}
 
 	ngOnInit() {
-		this.chipValues.push('');
+		this.initItems();
 	}
 
 	ngOnDestroy() {
