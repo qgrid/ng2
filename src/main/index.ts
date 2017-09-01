@@ -6,6 +6,7 @@ import {ColumnComponent, ColumnListComponent} from './column';
 import {BoxComponent} from './box';
 import {CoreModule} from './core';
 import {ThemeModule} from 'ng2-qgrid/themes/material/theme.module';
+import {ToolbarComponent} from './toolbar/toolbar.component';
 
 export * from './box/index';
 export * from './column/index';
@@ -18,13 +19,15 @@ export * from './layer/index';
 		GridComponent,
 		BoxComponent,
 		ColumnListComponent,
-		ColumnComponent
+		ColumnComponent,
+		ToolbarComponent
 	],
 	exports: [
 		GridComponent,
 		ColumnListComponent,
 		ColumnComponent,
-		BoxComponent
+		BoxComponent,
+		ToolbarComponent
 	],
 	imports: [
 		BrowserModule,
