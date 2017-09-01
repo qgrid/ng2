@@ -1,9 +1,11 @@
 <md-card>
 	<q-grid q-grid-autofocus="200"
+			  class="q-grid-embed"
 			  [rows]="rows"
 			  [model]="gridModel"
 			  editMode="cell">
 		<q-grid-columns generation="deep">
+			<q-grid-column type="number" aggregation="sum"></q-grid-column>
 			<q-grid-column key="name.last">
 			<ng-template for="body" let-$cell>
 			<span style="color: blue">{{$cell.value}}</span>

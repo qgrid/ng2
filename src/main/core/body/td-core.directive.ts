@@ -54,6 +54,7 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 			case 'edit': {
 				const link = this.cellService.build('body', this.column, 'edit');
 				link(this.viewContainerRef, this);
+
 				this.element.classList.add(`${GRID_PREFIX}-edit`);
 			}
 				break;
