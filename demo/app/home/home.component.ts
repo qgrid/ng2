@@ -25,9 +25,6 @@ export class HomeComponent implements OnInit {
 			pdf
 		};
 		this.gridModel
-			.pagination({
-				size: 10
-			})
 			.plugin({
 				imports
 			});
