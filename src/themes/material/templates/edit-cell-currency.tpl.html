@@ -1,0 +1,12 @@
+<ng-template key='edit-cell-currency.tpl.html' let-$cell let-$view="$view">
+	<div class="q-grid-editor q-grid-currency">
+		<md-input-container>
+			<input mdInput
+					 type="number"
+					 #input
+					 q-grid-focus
+					 [(ngModel)]="$view.edit.cell.value"
+					 (blur)="$view.edit.cell.commit.execute($cell)">
+		</md-input-container>
+	</div>
+</ng-template>

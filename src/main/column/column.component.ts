@@ -25,6 +25,7 @@ export class ColumnComponent implements OnInit {
 	@Input() public editorOptions: any;
 	@Input() public format: string;
 	@Input() public symbol: string;
+	@Input() public code: string;
 
 	@Input() public width: number;
 	@Input() public minWidth: number;
