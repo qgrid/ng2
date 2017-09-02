@@ -6,6 +6,7 @@ export declare class CurrencyColumnModel extends DataColumnModel {
 	constructor();
 
 	symbol: string;
+	code: string;
 	maxLength: number;
 }
 

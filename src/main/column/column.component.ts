@@ -14,11 +14,18 @@ import {TemplateHostService} from 'ng2-qgrid/template/template-host.service';
 export class ColumnComponent implements OnInit {
 	@Input() public type: string;
 	@Input() public key: string;
+	@Input() public path: string;
+	@Input() public class: string;
 	@Input() public title: string;
 	@Input() public value: any;
 	@Input() public pin: string;
+	@Input() public aggregation: string;
+	@Input() public aggregationOptions: any;
 	@Input() public editor: string;
 	@Input() public editorOptions: any;
+	@Input() public format: string;
+	@Input() public symbol: string;
+	@Input() public code: string;
 
 	@Input() public width: number;
 	@Input() public minWidth: number;

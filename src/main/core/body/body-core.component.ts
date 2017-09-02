@@ -6,7 +6,6 @@ import {NgComponent, RootService} from 'ng2-qgrid/infrastructure/component';
 import {PathService} from 'ng2-qgrid/core/path';
 import {TableCoreService} from '../table/table-core.service';
 import {ColumnView} from 'ng2-qgrid/core/scene/view/column.view';
-import {AppError} from 'ng2-qgrid/core/infrastructure/error';
 import {Model} from 'ng2-qgrid/core/infrastructure/model';
 import {SelectionModel} from 'ng2-qgrid/core/selection/selection.model';
 

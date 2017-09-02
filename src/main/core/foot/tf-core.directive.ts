@@ -1,8 +1,8 @@
 import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 import {GRID_PREFIX} from 'ng2-qgrid/core/definition';
 import {ViewCoreService} from '../view/view-core.service';
-import {TemplateCacheService, TemplateLinkService} from 'ng2-qgrid/template';
 import {RootService} from 'ng2-qgrid/infrastructure/component';
+import {CellService} from '../cell/cell.service';
 import {IGetValue} from 'ng2-qgrid/core/services/aggregation';
 
 @Directive({
@@ -16,8 +16,7 @@ export class TfCoreDirective implements OnInit, OnDestroy {
 
 	constructor(public $view: ViewCoreService,
 					private root: RootService,
-					private templateCache: TemplateCacheService,
-					private templateLink: TemplateLinkService,
+					private cellService: CellService,
 					private viewContainerRef: ViewContainerRef,
 					element: ElementRef) {
 
@@ -35,11 +34,8 @@ export class TfCoreDirective implements OnInit, OnDestroy {
 			element.classList.add(`${GRID_PREFIX}-${column.editor}`);
 		}
 
-		const template =
-			this.templateCache.get('foot-cell-text.tpl.html') ||
-			this.templateLink.get('foot-cell-text.tpl.html');
-
-		this.viewContainerRef.createEmbeddedView(template, this);
+		const link = this.cellService.build('foot', this.column);
+		link(this.viewContainerRef, this);
 	}
 
 	get value() {
@@ -48,7 +44,8 @@ export class TfCoreDirective implements OnInit, OnDestroy {
 	}
 
 	get column() {
-		return this.row[this.columnIndex].model;
+		const columns = this.root.table.foot.columns(this.rowIndex);
+		return columns[this.columnIndex].model();
 	}
 
 	get row() {
