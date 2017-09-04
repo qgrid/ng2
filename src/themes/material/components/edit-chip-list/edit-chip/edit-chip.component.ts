@@ -1,30 +1,28 @@
-import {Component,
+import {
+	Component,
 	Input,
 	Output,
-	OnInit,
-	OnDestroy,
 	ViewChild,
 	EventEmitter,
 	Renderer2,
-	ElementRef,
-	ChangeDetectorRef} from '@angular/core';
+	ElementRef
+} from '@angular/core';
 
 import {AppError} from 'ng2-qgrid/core/infrastructure';
 import {Command, CommandManager} from 'ng2-qgrid/core/command';
 import {Shortcut, ShortcutManager} from 'ng2-qgrid/core/shortcut';
-import {DomEventsBase} from 'ng2-qgrid/common/dom-events/dom-events-base';
+import {DomBase} from 'ng2-qgrid/common/dom-helpers/dom-base';
 
 export const ChipState = {
-	readOnly: 'read-only',
 	edited: 'edited',
 	new: 'new'
 };
 
-enum Actions {
+enum NextAction {
 	add,
 	beginEdit,
 	endEdit,
-	inactive,
+	nothing
 }
 
 @Component({
@@ -32,59 +30,113 @@ enum Actions {
 	templateUrl: './edit-chip.tpl.html',
 	styleUrls: ['./edit-chip.scss']
 })
-export class EditChipComponent extends DomEventsBase implements OnInit, OnDestroy {
+export class EditChipComponent extends DomBase {
 	@Input() index: number;
-	@Input() value: any;
+	@Input() value: string | any;
 	@Input() state: string;
-	@Input('state') chipState: string = ChipState.readOnly;
+	@Input('state') chipState: string;
+
+	@Input('q-grid-focus-disabled')
+	qGridFocusDisabled: boolean = true;
 
 	@Output() delete = new EventEmitter<number>();
-	@Output() add = new EventEmitter();
+	@Output() add = new EventEmitter<string|any>();
+	@Output() save = new EventEmitter<string|any>();
 
+	@Output('focus-previous') focusPrevious = new EventEmitter<number>();
+	@Output('focus-next') focusNext = new EventEmitter<number>();
+
+	@ViewChild('readOnlyView') readOnlyView;
 	@ViewChild('addNewInput') addNewInput;
 
 	private shortcut = new Shortcut(new ShortcutManager());
-	private action: Actions;
-	private isSelected: boolean = false;
+	private nextAction = NextAction.beginEdit;
 
 	private newValue: string;
 	private editValue: string;
 
-	get isEdited(){
+	isSelected: boolean = false;
+
+	get isEdited() {
 		return this.chipState === ChipState.edited;
 	}
 
-	private get isNew(){
+	private get isNew() {
 		return this.chipState === ChipState.new;
 	}
 
+	private get isReadOnly() {
+		return !(this.isEdited || this.isNew);
+	}
+
+	private get canMoveFocus() {
+		return this.isReadOnly && this.isSelected || this.isNew && !this.newValue;
+	}
+
+	private resetChipState() {
+		this.chipState = '';
+	}
+
 	private beginEditCommand = new Command({
-		canExecute: () => {
-			return this.action === Actions.beginEdit;
-		},
+		canExecute: () => this.nextAction === NextAction.beginEdit && this.isSelected,
 		execute: () => {
 			this.editValue = this.value;
-			// this.cdRef.detectChanges();
+			this.chipState = ChipState.edited;
+			this.nextAction = NextAction.endEdit;
 		},
 		shortcut: 'enter'
 	});
 
 	private endEditCommand = new Command({
-		canExecute: () => this.action === Actions.endEdit && this.editValue,
+		canExecute: () => this.nextAction === NextAction.endEdit && this.editValue,
 		execute: () => {
-			this.value = this.editValue;
-			this.chipState = ChipState.readOnly;
-			// this.cdRef.detectChanges();
+			this.save.emit(this.editValue);
+			this.endEdit();
+			this.editValue = '';
 		},
 		shortcut: 'enter'
 	});
 
 	private addItemCommand = new Command({
-		canExecute: () => this.newValue,
+		canExecute: () => this.nextAction === NextAction.add && this.newValue,
 		execute: () => {
-			this.value = this.newValue;
+			this.add.emit(this.newValue);
+			this.endEdit();
+			this.newValue = '';
 		},
 		shortcut: 'enter'
+	});
+
+	private deleteItemCommand = new Command({
+		canExecute: () => this.isReadOnly && this.isSelected,
+		execute: () => {
+			this.delete.emit(this.index);
+		},
+		shortcut: 'backspace'
+	});
+
+	private focusNextCommand = new Command({
+		canExecute: () => this.canMoveFocus,
+		execute: () => {
+			this.focusNext.emit(this.index);
+		},
+		shortcut: 'right'
+	});
+
+	private focusPreviousCommand = new Command({
+		canExecute: () => this.canMoveFocus,
+		execute: () => {
+			this.focusPrevious.emit(this.index);
+		},
+		shortcut: 'left'
+	});
+
+	private focusPreviousFromAddNewInputCommand = new Command({
+		canExecute: () => this.canMoveFocus,
+		execute: () => {
+			this.focusPrevious.emit(this.index);
+		},
+		shortcut: 'backspace'
 	});
 
 	constructor(renderer: Renderer2, elementRef: ElementRef) {
@@ -93,40 +145,36 @@ export class EditChipComponent extends DomEventsBase implements OnInit, OnDestro
 		const manager = new CommandManager();
 		const shortcutCommands = [
 			this.addItemCommand,
+			this.deleteItemCommand,
 			this.beginEditCommand,
 			this.endEditCommand,
+			this.focusNextCommand,
+			this.focusPreviousCommand,
+			this.focusPreviousFromAddNewInputCommand
 		];
 
 		this.shortcut.register(manager, shortcutCommands);
 	}
 
 	private deleteThis() {
-		this.delete.emit(this.index);
-	}
-
-	private setEndEdit() {
-		if (this.action === Actions.beginEdit) {
-			this.action = Actions.endEdit;
+		this.isSelected = true;
+		if (this.deleteItemCommand.canExecute()) {
+			this.deleteItemCommand.execute();
 		}
 	}
 
+	private onAddNewKeyUp(e: any) {
+		this.shortcut.keyDown(e);
+	}
+
 	private checkEndEdit(e: any) {
-		this.setEndEdit();
 		this.shortcut.keyDown(e);
 	}
 
 	private endEdit() {
-		this.setEndEdit();
-		if (this.endEditCommand.canExecute()) {
-			this.endEditCommand.execute();
-		}
-	}
-
-	private checkAdd(e: any) {
-		this.shortcut.keyDown(e);
-	}
-
-	private setAddNew() {
+		this.resetChipState();
+		this.nextAction = NextAction.nothing;
+		this.isSelected = false;
 	}
 
 	private onChipClick() {
@@ -134,22 +182,37 @@ export class EditChipComponent extends DomEventsBase implements OnInit, OnDestro
 			this.beginEditCommand.execute();
 		}
 	}
+	private onEditBlur() {
+		if (this.endEditCommand.canExecute()) {
+			this.endEditCommand.execute();
+		}
+		this.isSelected = false;
+		this.nextAction = NextAction.nothing;
+	}
 
 	private onChipBlur() {
 		this.isSelected = false;
+		this.nextAction = NextAction.nothing;
 	}
 
 	private onChipKeyUp(e) {
 		this.shortcut.keyDown(e);
 	}
 
-	private onChipFocus() {
-		this.isSelected = true;
+	private onChipFocus(event: any) {
+		setTimeout(() => {
+			this.isSelected = true;
+			this.nextAction = NextAction.beginEdit;
+		}, 200);
 	}
 
-	ngOnInit(): void {
+	private onAddNewFocus() {
+		this.nextAction = NextAction.add;
 	}
 
-	ngOnDestroy(): void {
+	private onAddNewBlur() {
+		setTimeout(() => {
+			this.nextAction = NextAction.nothing;
+		}, 100);
 	}
 }

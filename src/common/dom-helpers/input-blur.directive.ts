@@ -1,12 +1,12 @@
 import {Directive, OnInit, Input, Renderer2, ElementRef} from '@angular/core';
 import {AppError} from 'ng2-qgrid/core/infrastructure';
 
-import {DomEventsBase} from './dom-events-base';
+import {DomBase} from './dom-base';
 
 @Directive({
 	selector: '[input-on-blur]'
 })
-export class InputBlurDirective  extends DomEventsBase implements OnInit {
+export class InputBlurDirective  extends DomBase implements OnInit {
 
 	@Input('input-on-blur') onBlur: Function;
 

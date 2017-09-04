@@ -1,9 +1,7 @@
 import {
 	Component,
 	Input,
-	AfterViewInit,
 	OnInit,
-	OnDestroy,
 	ChangeDetectorRef,
 	ViewChildren,
 	QueryList
@@ -16,8 +14,7 @@ import {EditChipComponent} from './edit-chip/edit-chip.component';
 import {ChipState} from './edit-chip/edit-chip.component';
 
 interface ISelected {
-	previousIndex?: number;
-	currentIndex?: number;
+	index?: number;
 	value?: string;
 	action: Actions;
 }
@@ -25,6 +22,7 @@ interface ISelected {
 interface IChipItem {
 	value?: string | any;
 	state?: string;
+	qGridFocusEnabled?: boolean;
 }
 
 enum Actions {
@@ -40,7 +38,7 @@ enum Actions {
 	templateUrl: './edit-chip-list.tpl.html',
 	styleUrls: ['./edit-chip-list.scss']
 })
-export class EditChipListComponent implements AfterViewInit, OnInit, OnDestroy {
+export class EditChipListComponent implements OnInit {
 	@Input('values') chipValues: any[];
 
 	@ViewChildren(EditChipComponent)
@@ -54,68 +52,114 @@ export class EditChipListComponent implements AfterViewInit, OnInit, OnDestroy {
 		action: Actions.inactive
 	};
 
+	private incrementSelectedIndex() {
+		if (this.selectedItem.index === this.chipValues.length) {
+			this.selectedItem.index = 0;
+		} else {
+			this.selectedItem.index++;
+		}
+	}
+	private decrementSelectedIndex() {
+		if (this.selectedItem.index === 0) {
+			this.selectedItem.index = this.chipValues.length;
+		} else {
+			this.selectedItem.index--;
+		}
+	}
+
+	private indexOutOfRange(index?: number) {
+		return index === undefined || index < 0 || index > this.items.length - 1;
+	}
+
 	private deleteItemCommand = new Command({
 		canExecute: () => this.selectedItem.action === Actions.delete,
 		execute: () => {
-			this.chipValues.splice(this.selectedItem.currentIndex, 1);
+			this.chipValues.splice(this.selectedItem.index, 1);
+			this.decrementSelectedIndex();
 			this.initItems();
 			this.resetCurrentAction();
 			this.cdRef.detectChanges();
 		},
-		shortcut: 'backspace'
 	});
 
-	private focusNextCommand = new Command({
-		canExecute: () => false,
-		execute: () => {
+	private addItemCommand = new Command({
+		canExecute: (value) => value,
+		execute: (value) => {
+			this.chipValues.push(value);
+			this.selectedItem.index = this.chipValues.length;
+			this.initItems();
+			this.cdRef.detectChanges();
 		},
-		shortcut: 'right'
+	});
+
+	private saveItemValueCommand = new Command({
+		canExecute: (value, index) => value && index < this.chipValues.length,
+		execute: (value, index) => {
+			this.chipValues[index] = value;
+			this.initItems();
+			this.cdRef.detectChanges();
+		},
 	});
 
 	private focusPreviousCommand = new Command({
-		canExecute: () => false,
+		canExecute: () => this.selectedItem.action === Actions.focusPrevious &&
+			!this.indexOutOfRange(this.selectedItem.index),
 		execute: () => {
+			this.decrementSelectedIndex();
+			this.initItems();
 		},
-		shortcut: 'left'
+	});
+
+	private focusNextCommand = new Command({
+		canExecute: () => this.selectedItem.action === Actions.focusNext &&
+			!this.indexOutOfRange(this.selectedItem.index),
+		execute: () => {
+			this.incrementSelectedIndex();
+			this.initItems();
+		},
 	});
 
 	constructor(private cdRef: ChangeDetectorRef) {
-		const manager = new CommandManager();
-
-		const shortcutCommands = [
-			this.deleteItemCommand,
-			this.focusNextCommand,
-			this.focusPreviousCommand
-		];
-		this.shortcut.register(manager, shortcutCommands);
 	}
 
 	private chipState(index: number) {
-		return index === this.chipValues.length - 1 ? ChipState.new : ChipState.readOnly;
+		return index === this.chipValues.length ? ChipState.new : '';
 	}
 
-	private findChip(itemIndex: number): EditChipComponent {
-		return this.chipList.find((item, index) => itemIndex === index );
+	private focusToPreviousItem(currentIndex: number) {
+		this.selectedItem = {
+			index: currentIndex,
+			action: Actions.focusPrevious
+		};
+
+		if (this.focusPreviousCommand.canExecute()) {
+			this.focusPreviousCommand.execute();
+		}
+	}
+
+	private focusToNextItem(currentIndex: number) {
+		this.selectedItem = {
+			index: currentIndex,
+			action: Actions.focusNext
+		};
+		if (this.focusNextCommand.canExecute()) {
+			this.focusNextCommand.execute();
+		}
 	}
 
 	private resetCurrentAction() {
-		this.selectedItem = {action: Actions.inactive};
+		this.selectedItem.action = Actions.inactive;
 	}
 
-	private findExistingItem(item: any) {
-		let found = false;
-
-		this.chipValues.forEach((value) => {
-			if (value === item) {
-				found = true;
-			}
-		});
-		return found;
+	private saveItem(value: string | any, index: number) {
+		if (this.saveItemValueCommand.canExecute(value, index)) {
+			this.saveItemValueCommand.execute(value, index);
+		}
 	}
 
 	private deleteChip(itemIndex: number) {
 		this.selectedItem = {
-			currentIndex: itemIndex,
+			index: itemIndex,
 			action: Actions.delete
 		};
 
@@ -124,24 +168,30 @@ export class EditChipListComponent implements AfterViewInit, OnInit, OnDestroy {
 		}
 	}
 
-	private addNew() {
-		this.chipValues.push('');
-		this.cdRef.detectChanges();
+	private addNew(value: string | any) {
+		if (this.addItemCommand.canExecute(value)) {
+			this.addItemCommand.execute(value);
+		}
 	}
 
 	private initItems() {
-		this.items = this.chipValues.map<IChipItem>((item) => { return  {value:  item}; } );
-		this.items.push({ state: ChipState.new });
+		this.items = this.chipValues.map<IChipItem>((chipValue, index) => {
+			return {
+				value: chipValue,
+				qGridFocusEnabled: this.isFocusEnabled(index)
+			};
+		});
+		this.items.push({
+			state: ChipState.new,
+			qGridFocusEnabled: this.isFocusEnabled(this.chipValues.length)
+		});
 	}
 
-	ngAfterViewInit(): void {
+	isFocusEnabled(index: number) {
+		return this.selectedItem && this.selectedItem.index === index ? true : false;
 	}
 
 	ngOnInit() {
 		this.initItems();
-	}
-
-	ngOnDestroy() {
-		// this.cdRef.detach();
 	}
 }

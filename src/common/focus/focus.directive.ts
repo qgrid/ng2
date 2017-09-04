@@ -6,11 +6,14 @@ import {AppError} from 'ng2-qgrid/core/infrastructure';
 })
 export class FocusDirective implements OnInit {
 	@Input('q-grid-focus') selector;
+	@Input('q-grid-focus-disabled') disabled: boolean = false;
 
 	constructor(private renderer: Renderer2, private elementRef: ElementRef) {
 	}
 
 	ngOnInit() {
+		if (this.disabled) { return; }
+
 		if (!this.selector) {
 			this.elementRef.nativeElement.focus();
 		} else {

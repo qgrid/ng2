@@ -1,30 +1,39 @@
-<div *ngIf="isEdited; else chipsView">
+<div *ngIf="isEdited; else chipView">
 	<md-input-container>
 		<input mdInput
 				 q-grid-focus
 				 (keyup)="checkEndEdit($event)"
-				 [(ngModel)]="value"
-				 (blur)="endEdit()">
+				 [(ngModel)]="editValue"
+				 (blur)="onEditBlur()">
 	</md-input-container>
 </div>
-<ng-template #chipsView>
+<ng-template #chipView>
 	<div *ngIf="!isNew; else addNewInput">
 		<md-chip
+			#readOnlyView
+			class="readOnly"
+			q-grid-focus
+			[q-grid-focus-disabled]="qGridFocusDisabled"
 			[selected]="isSelected"
 			(keyup) = "onChipKeyUp($event)"
-			(focus) = "onChipFocus()"
+			(focus) = "onChipFocus($event)"
 			(blur) = "onChipBlur()">
 
-			<span (click)="onChipClick(chipIndex)">{{value}}</span>
+			<span (click)="onChipClick()">{{value}}</span>
 			<i class="material-icons md-9 resize-on-hover mouse-pointer" (click)="deleteThis(chipIndex)">clear</i>
 		</md-chip>
 	</div>
 	<ng-template #addNewInput>
-		<md-input-container class="edit-array-new-item">
+		<md-input-container floatPlaceholder="never" class="new-item">
 			<input mdInput
-					 #addNewInput
-					 placeholder="New item"
-					 (keyup)="checkAdd($event)"
+					 #addInput
+					 q-grid-focus
+					 [q-grid-focus-disabled]="qGridFocusDisabled"
+					 minlength="25"
+					 placeholder="Enter new item value..."
+					 (keyup)="onAddNewKeyUp($event)"
+					 (focus) = "onAddNewFocus()"
+					 (blur) = "onAddNewBlur()"
 					 [(ngModel)]="newValue">
 		</md-input-container>
 	</ng-template>

@@ -3,7 +3,11 @@
 		<edit-chip [index]="itemIndex"
 					  [value]="item.value"
 					  [state]="item.state"
-					  (add)="addNew()"
+					  [q-grid-focus-disabled]="!item.qGridFocusEnabled"
+					  (focus-previous)="focusToPreviousItem($event)"
+					  (focus-next)="focusToNextItem($event)"
+					  (add)="addNew($event)"
+					  (save)="saveItem($event, itemIndex)"
 					  (delete)="deleteChip($event)">
 		</edit-chip>
 	</div>
