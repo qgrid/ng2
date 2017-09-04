@@ -1,6 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Angular2 data grid",
   "main": "./main.js",
   "typings": "./index.d.ts",
@@ -91,7 +91,7 @@
     "@angular/platform-browser-dynamic": "~4.3.4",
     "@angular/platform-server": "~4.3.4",
     "rxjs": "~5.4.3",
-    "zone.js":"~0.8.16"
+    "zone.js": "~0.8.16"
   },
   "devDependencies": {
     "@angular/animations": "~4.3.4",
