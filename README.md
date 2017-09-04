@@ -7,6 +7,8 @@ https://qgrid.github.io/ng2/
 ## installation
 * `$ npm install ng2-qgrid`
 
+* <b>please use ng material of `2.0.0-beta7` version</b>
+
 * add grid module to your app module
 ```javascript
 import {GridModule} from 'ng2-qgrid';
