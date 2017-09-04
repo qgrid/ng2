@@ -46,9 +46,6 @@ export class EditChipComponent extends DomBase {
 	@Output('focus-previous') focusPrevious = new EventEmitter<number>();
 	@Output('focus-next') focusNext = new EventEmitter<number>();
 
-	@ViewChild('readOnlyView') readOnlyView;
-	@ViewChild('addNewInput') addNewInput;
-
 	private shortcut = new Shortcut(new ShortcutManager());
 	private nextAction = NextAction.beginEdit;
 

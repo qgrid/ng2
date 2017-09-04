@@ -96,6 +96,7 @@ export class EditChipListComponent implements OnInit {
 		canExecute: (value, index) => value && index < this.chipValues.length,
 		execute: (value, index) => {
 			this.chipValues[index] = value;
+			this.selectedItem.index = index;
 			this.initItems();
 			this.cdRef.detectChanges();
 		},
