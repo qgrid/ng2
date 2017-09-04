@@ -24,7 +24,7 @@ export class AppModule {
 
 * add grid model and grid service to your component if it's required
 ```javascript
-import {GridModel, GridService} from 'ng2-qgrid/pub';
+import {GridModel, GridService} from 'ng2-qgrid';
 
 @Component({
    selector: 'my-component',
