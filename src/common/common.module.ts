@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {DndModule} from './dnd';
 import {FocusModule} from './focus';
 import {ResizeModule} from './resize';
-import {DomEventsModule} from './dom-helpers/dom-helpers.module';
+import {DomEventsModule} from './dom/dom.module';
 
 @NgModule({
 	declarations: [],

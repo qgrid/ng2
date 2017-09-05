@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {InputBlurDirective} from './input-blur.directive';
+import {InputBlurDirective} from '../focus/blur.directive';
 
 @NgModule({
 	declarations: [
