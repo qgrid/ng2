@@ -11,7 +11,7 @@ import {
 import {AppError} from 'ng2-qgrid/core/infrastructure';
 import {Command, CommandManager} from 'ng2-qgrid/core/command';
 import {Shortcut, ShortcutManager} from 'ng2-qgrid/core/shortcut';
-import {DomBase} from 'ng2-qgrid/common/dom-helpers/dom-base';
+import {Dom} from 'ng2-qgrid/common/dom/dom';
 
 export const ChipState = {
 	edited: 'edited',
@@ -30,7 +30,7 @@ enum NextAction {
 	templateUrl: './edit-chip.tpl.html',
 	styleUrls: ['./edit-chip.scss']
 })
-export class EditChipComponent extends DomBase {
+export class EditChipComponent extends Dom {
 	@Input() index: number;
 	@Input() value: string | any;
 	@Input() state: string;
