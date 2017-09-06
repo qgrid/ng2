@@ -13,7 +13,7 @@
 			#readOnlyView
 			class="readOnly"
 			q-grid-focus
-			[q-grid-focus-disabled]="qGridFocusDisabled"
+			[q-grid-focus-disabled]="focusDirectiveDisabled"
 			[selected]="isSelected"
 			(keyup) = "onChipKeyUp($event)"
 			(focus) = "onChipFocus($event)"
@@ -28,7 +28,7 @@
 			<input mdInput
 					 #addInput
 					 q-grid-focus
-					 [q-grid-focus-disabled]="qGridFocusDisabled"
+					 [q-grid-focus-disabled]="focusDirectiveDisabled"
 					 minlength="25"
 					 placeholder="Enter new item value..."
 					 (keyup)="onAddNewKeyUp($event)"
