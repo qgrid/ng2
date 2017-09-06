@@ -22,7 +22,7 @@ interface ISelected {
 interface IChipItem {
 	value?: string | any;
 	state?: string;
-	qGridFocusEnabled?: boolean;
+	focusDirectiveEnabled?: boolean;
 }
 
 enum Actions {
@@ -184,7 +184,7 @@ export class EditChipListComponent implements OnInit {
 		});
 		this.items.push({
 			state: ChipState.new,
-			qGridFocusEnabled: this.isFocusEnabled(this.chipValues.length)
+			focusDirectiveEnabled: this.isFocusEnabled(this.chipValues.length)
 		});
 	}
 

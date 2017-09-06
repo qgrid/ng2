@@ -3,7 +3,7 @@
 		<edit-chip [index]="itemIndex"
 					  [value]="item.value"
 					  [state]="item.state"
-					  [q-grid-focus-disabled]="!item.qGridFocusEnabled"
+					  [focus-directive-disabled]="!item.focusDirectiveEnabled"
 					  (focus-previous)="focusToPreviousItem($event)"
 					  (focus-next)="focusToNextItem($event)"
 					  (add)="addNew($event)"

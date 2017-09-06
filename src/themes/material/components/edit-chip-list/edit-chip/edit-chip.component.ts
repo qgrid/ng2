@@ -36,8 +36,8 @@ export class EditChipComponent extends Dom {
 	@Input() state: string;
 	@Input('state') chipState: string;
 
-	@Input('q-grid-focus-disabled')
-	qGridFocusDisabled: boolean = true;
+	@Input('focus-directive-disabled')
+	focusDirectiveDisabled: boolean = true;
 
 	@Output() delete = new EventEmitter<number>();
 	@Output() add = new EventEmitter<string|any>();
