@@ -2,9 +2,7 @@
 	<div class="q-grid-editor q-grid-array">
 		<h2 class="md-title">Edit {{$cell.column.title}}</h2>
 		<div class="q-grid-array-view">
-			<md-chip-list>
-				<md-chip *ngFor="let item of $cell.value" selected="true">{{item}}</md-chip>
-			</md-chip-list>
+			<q-grid-chip-list [values]="$view.edit.cell.value"></q-grid-chip-list>
 		</div>
 		<div class="q-grid-actions">
 			<button md-button (click)="$view.edit.cell.commit.execute($cell, $event)">Save</button>

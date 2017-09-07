@@ -1,0 +1,38 @@
+<div *ngIf="isEdited; else chipView">
+	<md-input-container>
+		<input mdInput
+				 q-grid-focus
+				 (keyup)="execShortcut($event)"
+				 [(ngModel)]="editValue"
+				 (blur)="endEdit(update.canExecute())">
+	</md-input-container>
+</div>
+<ng-template #chipView>
+	<div *ngIf="!isNew; else newChip">
+		<md-chip
+			#readOnlyView
+			class="readOnly"
+			q-grid-focus
+			[q-grid-focus-disabled]="isFocusDisabled"
+			[selected]="isSelected"
+			(keyup) = "execShortcut($event)"
+			(focus) = "select($event)"
+			(blur) = "deselect()">
+
+			<span (click)="beginEdit(edit.canExecute())">{{value}}</span>
+			<i class="material-icons md-9 resize-on-hover mouse-pointer" (click)="remove.execute()">clear</i>
+		</md-chip>
+	</div>
+	<ng-template #newChip>
+		<md-input-container floatPlaceholder="never" class="new-item">
+			<input mdInput
+					 #addInput
+					 q-grid-focus
+					 [q-grid-focus-disabled]="isFocusDisabled"
+					 minlength="25"
+					 placeholder="Enter new item value..."
+					 (keyup)="execShortcut($event)"
+					 [(ngModel)]="newValue">
+		</md-input-container>
+	</ng-template>
+</ng-template>
