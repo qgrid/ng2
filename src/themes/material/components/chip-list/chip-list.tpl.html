@@ -1,0 +1,21 @@
+<md-chip-list>
+	<div *ngFor="let item of items; let itemIndex = index">
+		<edit-chip [index]="itemIndex"
+					  [value]="item.value"
+					  [state]="item.state"
+					  [focus-directive-disabled]="!item.focusDirectiveEnabled"
+					  [can-focus-previous]="focusPreviousCommand.canExecute(itemIndex)"
+					  [can-focus-next]="focusNextCommand.canExecute(itemIndex)"
+					  [can-edit]="editItem.canExecute(itemIndex)"
+					  [can-add]="addItem.canExecute(itemIndex)"
+					  [can-update]="updateItem.canExecute(itemIndex)"
+					  [can-delete]="deleteItem.canExecute(itemIndex)"
+					  (focus-previous)="focusPreviousCommand.execute($event)"
+					  (focus-next)="focusNextCommand.execute($event)"
+					  (edit)="editItem.execute(itemIndex)"
+					  (add)="addItem.execute($event)"
+					  (update)="updateItem.execute($event, itemIndex)"
+					  (delete)="deleteItem.execute($event)">
+		</edit-chip>
+	</div>
+</md-chip-list>
