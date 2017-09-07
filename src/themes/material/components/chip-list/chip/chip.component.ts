@@ -3,14 +3,11 @@ import {
 	Input,
 	Output,
 	EventEmitter,
-	Renderer2,
-	ElementRef
 } from '@angular/core';
 
 import {AppError} from 'ng2-qgrid/core/infrastructure';
 import {Command, CommandManager} from 'ng2-qgrid/core/command';
 import {Shortcut, ShortcutManager} from 'ng2-qgrid/core/shortcut';
-import {Dom} from 'ng2-qgrid/common/dom/dom';
 
 export const ChipState = {
 	edited: 'edited',
@@ -22,7 +19,7 @@ export const ChipState = {
 	templateUrl: './chip.tpl.html',
 	styleUrls: ['./chip.scss']
 })
-export class ChipComponent extends Dom {
+export class ChipComponent {
 	@Input() index: number;
 	@Input() value: string | any;
 
@@ -45,8 +42,7 @@ export class ChipComponent extends Dom {
 	@Output('focus-previous') onFocusPrevious = new EventEmitter<number>();
 	@Output('focus-next') onFocusNext = new EventEmitter<number>();
 
-	private shortcut = new Shortcut(new ShortcutManager());
-
+	/// Public members
 	newValue: string;
 	editValue: string;
 
@@ -56,18 +52,26 @@ export class ChipComponent extends Dom {
 		return this.chipState === ChipState.edited;
 	}
 
-	private get isNew() {
-		return this.chipState === ChipState.new;
+	constructor() {
+
+		const manager = new CommandManager();
+		const shortcutCommands = [
+			this.create,
+			this.remove,
+			this.edit,
+			this.update,
+			this.focusNext,
+			this.focusPrevious,
+			this.focusPreviousFromPlaceholder
+		];
+
+		this.shortcut.register(manager, shortcutCommands);
 	}
 
-	private get isReadOnly() {
-		return !(this.isEdited || this.isNew);
-	}
+	/// Private members
+	private shortcut = new Shortcut(new ShortcutManager());
 
-	private get canMoveFocus() {
-		return this.isReadOnly && this.isSelected || this.isNew && !this.newValue;
-	}
-
+	/// Command set block
 	private edit = new Command({
 		canExecute: () => {
 			return this.canEdit && this.isReadOnly && this.isSelected;
@@ -138,22 +142,18 @@ export class ChipComponent extends Dom {
 		},
 		shortcut: 'backspace'
 	});
+	/// End Command Set block ---------------------------
 
-	constructor(renderer: Renderer2, elementRef: ElementRef) {
-		super(renderer, elementRef);
+	private get isNew() {
+		return this.chipState === ChipState.new;
+	}
 
-		const manager = new CommandManager();
-		const shortcutCommands = [
-			this.create,
-			this.remove,
-			this.edit,
-			this.update,
-			this.focusNext,
-			this.focusPrevious,
-			this.focusPreviousFromPlaceholder
-		];
+	private get isReadOnly() {
+		return !(this.isEdited || this.isNew);
+	}
 
-		this.shortcut.register(manager, shortcutCommands);
+	private get canMoveFocus() {
+		return this.isReadOnly && this.isSelected || this.isNew && !this.newValue;
 	}
 
 	private resetChipState() {
