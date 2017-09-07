@@ -6,7 +6,7 @@ import {Dom} from '../dom/dom';
 @Directive({
 	selector: '[q-grid-on-blur]'
 })
-export class InputBlurDirective  extends Dom implements OnInit {
+export class BlurDirective  extends Dom implements OnInit {
 
 	@Input('q-grid-on-blur') onBlur: Function;
 	@Input('q-grid-on-blur-selector') selector: string | any = 'input';
