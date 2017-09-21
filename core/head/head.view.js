@@ -94,7 +94,11 @@ export class HeadView extends View {
 			}
 		});
 
-		this.using(model.sceneChanged.watch(this.invalidate.bind(this)));
+		this.using(model.sceneChanged.watch(e => {
+			if (e.hasChanges('column')) {
+				this.invalidate();
+			}
+		}));
 
 		this.using(model.filterChanged.watch(e => {
 			if (e.hasChanges('unit')) {

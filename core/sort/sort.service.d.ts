@@ -1,3 +1,5 @@
+import {Model} from '../infrastructure/model';
+
 export interface IMapResult {
 	(pairs: object[]): object;
 }
@@ -18,3 +20,4 @@ export declare const key: IKeyResult;
 export declare const index: IIndexResult;
 export declare const direction: IValueResult;
 export declare const map: IMapResult;
+export declare function orderFactory(model: Model);

@@ -5,25 +5,60 @@ import {guid} from './guid';
 import {getFactory as valueFactory} from '../services/value';
 
 export class GridService {
-	constructor(model, apply = noop) {
+	constructor(model, start = () => noop) {
 		this.model = model;
-		this.apply = apply;
+		this.start = start;
+		this.tasks = [];
 	}
 
 	invalidate(source = 'invalidate', changes = {}, pipe = null) {
-		Log.info('invalidate', source);
+		const queue = this.tasks;
+		const nextTask = () => {
+			queue.shift();
+			const job = queue[0];
+			if (job) {
+				job();
+			}
+		};
 
-		const model = this.model;
-		model.head().cache.clear();
-		model.body().cache.clear();
-		model.foot().cache.clear();
+		return new Promise((resolve, reject) => {
+			const task = () => {
+				Log.info('grid', `run job ${source}`);
+				const model = this.model;
+				model.head().cache.clear();
+				model.body().cache.clear();
+				model.foot().cache.clear();
 
-		const cancelBusy = this.busy();
-		const run = buildPipe(model, valueFactory);
-		return run(source, changes, pipe)
-			.then(this.apply)
-			.then(cancelBusy)
-			.catch(cancelBusy);
+				const stop = this.start();
+				const cancelBusy = this.busy();
+				const run = buildPipe(model, valueFactory);
+				const runNext = () => {
+					stop()
+						.then(() => {
+							cancelBusy();
+							nextTask();
+						});
+				};
+
+				return run(source, changes, pipe)
+					.then(() => {
+						resolve();
+						runNext();
+					})
+					.catch(ex => {
+						Log.error('grid', ex);
+
+						reject();
+						runNext();
+					});
+			};
+
+			Log.info('grid', `add job ${source}`);
+			queue.push(task);
+			if (queue.length === 1) {
+				task();
+			}
+		});
 	}
 
 	busy() {

@@ -1,13 +1,11 @@
 export interface IContext {
-	execute?: () => void;
-	canExecute?: () => boolean;
-	shortcut?: string;
+	execute: () => void;
+	canExecute: () => boolean;
 }
 
 export declare class Command {
-	constructor(context: IContext);
+	constructor(context?: IContext);
 
 	canExecute: (...args: any[]) => boolean;
 	execute: (...args: any[]) => void;
-	shortcut: string;
 }

@@ -10,7 +10,11 @@ export class PivotView extends View {
 		this.rows = [];
 		this.valueFactory = valueFactory;
 
-		this.using(model.sceneChanged.watch(this.invalidate.bind(this)));
+		this.using(model.sceneChanged.watch(e => {
+			if (e.hasChanges('column') || e.hasChanges('rows')) {
+				this.invalidate();
+			}
+		}));
 	}
 
 	invalidate() {
@@ -28,10 +32,9 @@ export class PivotView extends View {
 		}
 	}
 
-	value(row, column) {
-		const rowIndex = this.model.view().rows.indexOf(row);
-		if(rowIndex >= 0) {
-			return this.rows[rowIndex][column.index];
+	value(rowIndex, columnIndex) {
+		if (rowIndex >= 0 && rowIndex < this.rows.length) {
+			return this.rows[rowIndex][columnIndex];
 		}
 
 		return null;

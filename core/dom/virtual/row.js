@@ -9,7 +9,7 @@ export class VirtualRow extends Row {
 		this.dataIndex = mapper.viewToRow(index);
 	}
 
-	get model() {
+	model() {
 		const index = this.dataIndex;
 		if (index >= 0) {
 			const gridModel = this.box.model;

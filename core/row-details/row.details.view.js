@@ -43,7 +43,7 @@ export class RowDetailsView extends View {
 		}));
 
 		this.using(model.sceneChanged.watch(e => {
-			if (e.tag.source !== 'row.details.view') {
+			if (e.tag.source !== 'row.details.view' && e.hasChanges('rows')) {
 				model.row({
 					status: invalidateStatus(e.state.rows, model.row().status)
 				});

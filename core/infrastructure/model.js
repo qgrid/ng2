@@ -97,8 +97,20 @@ export class Model {
 			return true;
 		}
 
-		if (isArray(x) && isArray(y)) {
+		if (isArray(x)) {
 			if (x.length === 0 && y.length === 0) {
+				return true;
+			}
+		}
+
+		if (x instanceof Map) {
+			if (x.size === 0 && y.size === 0) {
+				return true;
+			}
+		}
+
+		if (x instanceof Set) {
+			if (x.size === 0 && y.size === 0) {
 				return true;
 			}
 		}
