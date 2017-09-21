@@ -123,22 +123,12 @@ td.q-grid-edit {
 		width: 100%;
 	}
 
-	md-input-container.edit-array-new-item {
-		width: 60% !important;
-	}
-
 	md-checkbox {
 		margin: 0;
+		width: 20px;
+		height: 20px;
+		display: inline-block;
 	}
-
-	.material-icons.md-48 { font-size: 48px; }
-	.material-icons.md-36 { font-size: 36px; }
-	.material-icons.md-24 { font-size: 24px; }
-	.material-icons.md-18 { font-size: 18px; }
-	.material-icons.md-9 { font-size: 9px; }
-	.material-icons.md-9.resize-on-hover:hover { font-size: 10px; }
-	.material-icons.selected { color: #3f51b5; }
-	.material-icons.mouse-pointer { cursor:pointer }
 }
 
 .q-grid-editor {
@@ -223,5 +213,12 @@ td.q-grid-edit {
 
 	.q-grid-file-upload-message {
 		visibility: visible;
+	}
+}
+
+.q-grid-actions {
+	.md-button {
+		margin: 8px 0 8px 8px;
+		float: right;
 	}
 }
