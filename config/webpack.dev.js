@@ -6,7 +6,6 @@ const helpers = require('./helpers');
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
 const webpackMergeDll = webpackMerge.strategy({plugins: 'replace'});
 const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
-const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 /**
  * Webpack Plugins
@@ -133,20 +132,6 @@ module.exports = function (options) {
     },
 
     plugins: [
-
-		 new CircularDependencyPlugin({
-			 // exclude detection of files based on a RegExp
-			 exclude: /node_modules/,
-			 // add errors to webpack instead of warnings
-			 failOnError: false,
-			 // override `exclude` and `failOnError` behavior
-			 // `onDetected` is called for each module that is cyclical
-			 onDetected({ paths, compilation }) {
-				 // `paths` will be an Array of the relative module paths that make up the cycle
-				 compilation.errors.push(new Error(paths.join(' -> ')))
-			 }
-		 }),
-
 		 /**
        * Plugin: DefinePlugin
        * Description: Define free variables.

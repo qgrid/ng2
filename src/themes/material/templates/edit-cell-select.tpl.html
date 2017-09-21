@@ -1,0 +1,10 @@
+<ng-template key='edit-cell-select.tpl.html' let-$cell let-$view="$view">
+	{{$view.selection.state($row)}}
+	<md-checkbox q-grid-focus
+					 [indeterminate]="$view.selection.isIndeterminate($cell.row)"
+					 [checked]="$view.selection.state($row)"
+					 [disabled]="!$view.selection.toggleRow.canExecute($cell.row)"
+					 (click)="$view.selection.toggleRow.execute($cell.row)"
+					 ariaLabel="Selection">
+	</md-checkbox>
+</ng-template>

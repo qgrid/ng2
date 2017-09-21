@@ -1,5 +1,6 @@
 const templates = [
 	require('./head-cell-text.tpl.html'),
+	require('./head-cell-select.tpl.html'),
 
 	require('./body-cell-text.tpl.html'),
 	require('./body-cell-array.tpl.html'),
@@ -20,6 +21,7 @@ const templates = [
 	require('./edit-cell-bool.tpl.html'),
 	require('./edit-cell-password.tpl.html'),
 	require('./edit-cell-textarea.tpl.html'),
+	require('./edit-cell-select.tpl.html'),
 
 	require('./foot-cell-text.tpl.html'),
 	require('./foot-cell-currency.tpl.html'),

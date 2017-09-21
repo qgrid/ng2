@@ -22,7 +22,7 @@ export class SelectColumnModel extends ColumnModel {
 		super('select');
 
 		this.key = '$select';
-		this.title = 'Select';
+		this.title = '';
 		this.class = 'control';
 
 		this.editorOptions.trigger = 'focus';
