@@ -10,6 +10,12 @@ td.q-grid-edit {
 			}
 		}
 	}
+
+	md-input-container {
+		&.edit-array-new-item {
+			width: 60% !important;
+		}
+	}
 }
 
 .q-grid-actions {

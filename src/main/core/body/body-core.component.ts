@@ -1,13 +1,10 @@
 import {Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
 import {EventListener} from 'ng2-qgrid/core/infrastructure/event.listener';
 import {EventManager} from 'ng2-qgrid/core/infrastructure/event.manager';
-import {ViewCoreService} from '../view/view-core.service';
 import {NgComponent, RootService} from 'ng2-qgrid/infrastructure/component';
 import {PathService} from 'ng2-qgrid/core/path';
+import {ViewCoreService} from '../view/view-core.service';
 import {TableCoreService} from '../table/table-core.service';
-import {ColumnView} from 'ng2-qgrid/core/scene/view/column.view';
-import {Model} from 'ng2-qgrid/core/infrastructure/model';
-import {SelectionModel} from 'ng2-qgrid/core/selection/selection.model';
 
 @Component({
 	selector: 'tbody[q-grid-core-body]',
@@ -71,6 +68,7 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 		const pathFinder = new PathService(this.root.bag.body);
 		const cell = pathFinder.cell(e.path);
 		if (cell) {
+			this.select(cell);
 			this.navigate(cell);
 
 			if (cell.column.editorOptions.trigger === 'click' && this.$view.edit.cell.enter.canExecute(cell)) {
@@ -81,47 +79,21 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 
 	onMouseDown(e) {
 		const selectionState = this.selection;
-		const pathFinder = new PathService(this.root.bag.body);
 		if (selectionState.area !== 'body') {
 			return;
 		}
 
+		const pathFinder = new PathService(this.root.bag.body);
+		const cell = pathFinder.cell(e.path);
+
+		const editMode = this.model.edit().mode;
 		if (selectionState.mode === 'range') {
-			this.rangeStartCell = pathFinder.cell(e.path);
-
-			if (this.rangeStartCell) {
-				this.$view.selection.selectRange(this.rangeStartCell, null, 'body');
-			}
-
-			return;
-		}
-
-		switch (selectionState.unit) {
-			case 'row': {
-				const cell = pathFinder.cell(e.path);
-				if (cell && cell.column.type !== 'select') {
-					this.$view.selection.toggleRow.execute(cell.row, 'body');
-				}
-				break;
-			}
-
-			case 'column': {
-				const cell = pathFinder.cell(e.path);
-				if (cell) {
-					this.$view.selection.toggleColumn.execute(cell.column, 'body');
-				}
-				break;
-			}
-
-			case 'mix': {
-				const cell = pathFinder.cell(e.path);
-				if (cell && cell.column.type === 'row-indicator') {
-					this.$view.selection.toggleCell.execute(cell, 'body');
+			if (!editMode) {
+				this.rangeStartCell = cell;
+				if (this.rangeStartCell) {
+					this.$view.selection.selectRange(this.rangeStartCell, null, 'body');
 				}
 			}
-
-			default:
-				break;
 		}
 	}
 
@@ -167,8 +139,45 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 		}
 	}
 
+	select(cell) {
+		const selectionState = this.selection;
+		if (cell.column.type !== 'select' &&
+			(selectionState.area !== 'body' || selectionState.mode === 'range')) {
+			return;
+		}
+
+		const editMode = this.model.edit().mode;
+		switch (selectionState.unit) {
+			case 'row': {
+				if (cell.column.type === 'select' && cell.column.editorOptions.trigger === 'focus') {
+					const focusState = this.model.focus();
+					if (focusState.rowIndex !== cell.rowIndex || focusState.columnIndex !== cell.columnIndex) {
+						this.$view.selection.toggleRow.execute(cell.row, 'body');
+					}
+				}
+				else if (!editMode && cell.column.canEdit) {
+					this.$view.selection.toggleRow.execute(cell.row, 'body');
+				}
+				break;
+			}
+
+			case 'column': {
+				if (!editMode) {
+					this.$view.selection.toggleColumn.execute(cell.column, 'body');
+				}
+				break;
+			}
+
+			case 'mix': {
+				if (cell.column.type === 'row-indicator') {
+					this.$view.selection.toggleCell.execute(cell, 'body');
+				}
+			}
+		}
+	}
+
 	navigate(cell) {
-		const focus = this.$view.nav.focusCell;
+		const focus = this.$view.nav.focus;
 		if (focus.canExecute(cell)) {
 			focus.execute(cell);
 		}
@@ -180,13 +189,5 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 
 	get model() {
 		return this.root.model;
-	}
-
-	columnKey(index: number, item: ColumnView) {
-		return item.model.key;
-	}
-
-	rowIndex(index: number) {
-		return index;
 	}
 }
