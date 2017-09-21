@@ -30,25 +30,6 @@ export function findIndex(columns, key) {
 	return -1;
 }
 
-export function findView(columns, key) {
-	let length = columns.length;
-
-	while (length--) {
-		const column = columns[length];
-		if (column.model.key == key) {
-			return column;
-		}
-	}
-
-	return null;
-}
-
-export function dataView(columns, model) {
-	const groupBy = new Set(model.group().by);
-	const pivotBy = new Set(model.pivot().by);
-	return columns.filter(c => !groupBy.has(c.model.key) && !pivotBy.has(c.model.key) && c.model.isVisible !== false);
-}
-
 export function lineView(columnRows) {
 	const height = columnRows.length;
 	if (height === 1) {

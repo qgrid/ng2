@@ -3,14 +3,20 @@ import {identity, isObject, isArray, isBoolean, isEmail, isString} from '../util
 export function parseFactory(type) {
 	switch (type) {
 		case 'text':
+		case 'email':
+		case 'url':
+		case 'password':
 			return parseText;
 		case 'number':
 		case 'currency':
 			return parseNumber;
+		case 'time':
 		case 'date':
 			return parseDate;
 		case 'bool':
 			return parseBool;
+		case 'array':
+			return parseArray;
 		default:
 			return identity;
 	}
@@ -62,6 +68,7 @@ export function isPrimitive(type) {
 		case 'text':
 		case 'number':
 		case 'email':
+		case 'url':
 			return true;
 		default:
 			return false;
@@ -124,6 +131,14 @@ function parseNumber(value) {
 	const number = parseFloat(value);
 	if (!isNaN(number) && isFinite(number)) {
 		return number;
+	}
+
+	return null;
+}
+
+function parseArray(value) {
+	if (isArray(value)) {
+		return value;
 	}
 
 	return null;

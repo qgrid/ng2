@@ -1,12 +1,18 @@
 export function sortIndexFactory(model) {
-	return columns => {
+	return (columns, scores) => {
 		const columnListState = model.columnList();
+		scores = Object.assign({
+			list: column => column.class === 'data' ? 0.1 : 0.3,
+			index: () => 0.2,
+			view: column => column.class !== 'data' ? 0.1 : 0.3,
+			template: () => 0.4
+		}, scores);
 
 		const listIndex = columnListState.index;
 		const templateIndex = columnListState.columns.map(c => c.key);
 		const viewIndex = columns.map(c => c.key);
 
-		const sort = sortFactory(listIndex, templateIndex, viewIndex);
+		const sort = sortFactory(scores)(listIndex, templateIndex, viewIndex);
 		const left = sort(columns.filter(c => c.pin === 'left'));
 		const center = sort(columns.filter(c => !c.pin));
 		const right = sort(columns.filter(c => c.pin === 'right'));
@@ -19,17 +25,19 @@ export function sortIndexFactory(model) {
 	};
 }
 
-function sortFactory(listIndex, templateIndex, viewIndex) {
-	const compare = compareFactory(listIndex, templateIndex, viewIndex);
-	return columns => {
-		const columnIndex = Array.from(columns);
-		columnIndex.sort(compare);
+function sortFactory(scores) {
+	return (listIndex, templateIndex, viewIndex) => {
+		const compare = compareFactory(scores, listIndex, templateIndex, viewIndex);
+		return columns => {
+			const columnIndex = Array.from(columns);
+			columnIndex.sort(compare);
 
-		return columnIndex.map(c => c.key);
+			return columnIndex.map(c => c.key);
+		};
 	};
 }
 
-function compareFactory(listIndex, templateIndex, viewIndex) {
+function compareFactory(scores, listIndex, templateIndex, viewIndex) {
 	const listFind = findFactory(listIndex);
 	const templateFind = findFactory(templateIndex);
 	const viewFind = findFactory(viewIndex);
@@ -42,10 +50,10 @@ function compareFactory(listIndex, templateIndex, viewIndex) {
 		}
 
 		const candidates = [
-			listFind(key) + (column.class === 'data' ? 0.1 : 0.3),
-			column.index + 0.2,
-			viewFind(key) + (column.class !== 'data' ? 0.1 : 0.3),
-			templateFind(key) + 0.4
+			listFind(key) + scores.list(column),
+			column.index + scores.index(column),
+			viewFind(key) + scores.view(column),
+			templateFind(key) + scores.template(column)
 		];
 
 		const weights = candidates.filter(w => w >= 0);
