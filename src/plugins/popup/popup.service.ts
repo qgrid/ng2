@@ -14,36 +14,21 @@ export interface ITarget {
 	width: () => number;
 }
 
-export interface IPopupSettings {
-	height: any;
-	width: any;
-	offsetTop: any;
-	offsetLeft: any;
-	target: any;
-	id: string;
-	close: any;
-	resizable: boolean;
-	collapsible: boolean;
-	cls: boolean;
+export class PopupSettings {
+	id: null;
+	height: 400;
+	width: 300;
+	offsetTop: 0;
+	offsetLeft: 0;
+	target: null;
+	close: null;
+	resizable: false;
+	collapsible: false;
+	class: null;
 }
-
-export let PopupSettings: IPopupSettings = {
-	height: null,
-	width: null,
-	offsetTop: null,
-	offsetLeft: null,
-	target: null,
-	id: null,
-	close: null,
-	resizable: null,
-	collapsible: null,
-	cls: null
-};
 
 @Injectable()
 export class PopupService {
-
-	private settings: IPopupSettings;
 	private popups: Map<string, Popup> = new Map();
 
 	constructor(private element: ElementRef) {
@@ -69,14 +54,9 @@ export class PopupService {
 		}
 	}
 
-	private createScope(): object {
-		// this.$rootScope.$new(false, scope);
-		return null;
-	}
-
-	public open(settings: IPopupSettings, model: Model, scope: object): void {
+	public open(settings: PopupSettings, model: Model): boolean {
 		if (this.popups.hasOwnProperty(settings.id)) {
-			return;
+			return false;
 		}
 
 		const target = this.targetize(settings);

@@ -100,6 +100,5 @@ export class ColumnComponent implements OnInit {
 
 			this.columnList.register(settings);
 		}
-
 	}
 }

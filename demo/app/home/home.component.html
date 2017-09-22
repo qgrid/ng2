@@ -28,6 +28,26 @@
 				<h3 class="mat-card-title" style="margin: 0; height: 56px; line-height: 56px;">
 					NG2 QGRID
 				</h3>
+
+				<q-grid-popup id="q-grid-column-chooser-popup">
+					<ng-template for="trigger">
+						<button md-button
+								  (click)="$popup.open({width: 352, height: 652})"
+								  class="md-icon-button"
+								  tabindex="-1">
+							<md-icon>more_vert</md-icon>
+						</button>
+					</ng-template>
+					<ng-template for="body">
+						hello world
+						<!--<q-grid:column-chooser on:submit="$popupBody.close()"-->
+													  <!--on:cancel="$popupBody.close()">-->
+						<!--</q-grid:column-chooser>-->
+					</ng-template>
+					<ng-template for="head">
+						<span class="md-subhead">Column Chooser</span>
+					</ng-template>
+				</q-grid-popup>
 			</ng-template>
 		</q-grid-toolbar>
 	</q-grid>
