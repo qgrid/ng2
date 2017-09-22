@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { EventManager } from 'ng2-qgrid/core/infrastructure';
 import { isFunction, noop } from 'ng2-qgrid/core/utility';
@@ -17,6 +18,7 @@ class PopupArea {
 	public height = 0;
 }
 
+@Injectable()
 export class Popup {
 	private state = new PopupState();
 	private area = new PopupArea();

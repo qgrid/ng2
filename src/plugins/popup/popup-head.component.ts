@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { NgComponent } from 'ng2-qgrid/infrastructure/component';
@@ -6,10 +6,12 @@ import { Popup } from './popup';
 
 @Component({
 	selector: 'q-grid-popup-head',
-	template: '<ng-container key="head-popup-{{id}}.tpl.html"></ng-container>'
+	templateUrl: './popup-head.component.html'
 })
 
 export class PopupHeadComponent extends NgComponent {
+	@Input() public popup: Popup;
+
 	private eventListener: EventListener;
 	private element: HTMLElement;
 	private position = {
@@ -17,7 +19,7 @@ export class PopupHeadComponent extends NgComponent {
 		y: 0
 	};
 
-	constructor(element: ElementRef, private popup: Popup) {
+	constructor(element: ElementRef) {
 		super();
 
 		this.element = element.nativeElement;

@@ -1,10 +1,5 @@
 <md-card>
-	<q-grid q-grid-autofocus="200"
-			  class="q-grid-embed"
-			  [rows]="rows"
-			  [model]="gridModel"
-			  selectionUnit="row"
-			  editMode="cell">
+	<q-grid q-grid-autofocus="200" class="q-grid-embed" [rows]="rows" [model]="gridModel" selectionUnit="row" editMode="cell">
 		<q-grid-columns generation="deep">
 			<q-grid-column type="number" aggregation="sum"></q-grid-column>
 			<q-grid-column key="name.last">
@@ -12,11 +7,8 @@
 					<span style="color: blue">{{$cell.value}}</span>
 				</ng-template>
 				<ng-template for="edit" let-$cell let-$view="$view">
-					<input type="text"
-							 q-grid-focus="input"
-							 style="border: 1px solid #f00; width: 100%;"
-							 [(ngModel)]="$view.edit.cell.value"
-							 (blur)="$view.edit.cell.commit.execute($cell)">
+					<input type="text" q-grid-focus="input" style="border: 1px solid #f00; width: 100%;" [(ngModel)]="$view.edit.cell.value"
+					 (blur)="$view.edit.cell.commit.execute($cell)">
 				</ng-template>
 			</q-grid-column>
 			<q-grid-column key="contact.singleEmail" title="Experimental" editor="password">
@@ -30,18 +22,15 @@
 				</h3>
 
 				<q-grid-popup id="q-grid-column-chooser-popup">
-					<ng-template for="trigger">
-						<button md-button
-								  (click)="$popup.open({width: 352, height: 652})"
-								  class="md-icon-button"
-								  tabindex="-1">
+					<ng-template for="trigger" let-$popup>
+						<button md-icon-button (click)="$popup.open({width: 352, height: 652})" tabindex="-1">
 							<md-icon>more_vert</md-icon>
 						</button>
 					</ng-template>
 					<ng-template for="body">
 						hello world
 						<!--<q-grid:column-chooser on:submit="$popupBody.close()"-->
-													  <!--on:cancel="$popupBody.close()">-->
+						<!--on:cancel="$popupBody.close()">-->
 						<!--</q-grid:column-chooser>-->
 					</ng-template>
 					<ng-template for="head">

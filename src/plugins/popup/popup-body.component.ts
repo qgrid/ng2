@@ -4,10 +4,12 @@ import { Popup } from './popup';
 
 @Component({
 	selector: 'q-grid-popup-body',
-	template: '<ng-container key="body-popup-{{$popup.settings.id}}.tpl.html"></ng-container>'
+	templateUrl: './popup-body.component.html'
 })
 export class PopupBodyComponent extends NgComponent {
-	constructor(public $popup: Popup) {
+	@Input() public popup: Popup;
+
+	constructor() {
 		super();
 	}
 

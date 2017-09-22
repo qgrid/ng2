@@ -3,9 +3,9 @@ import {
 	Optional,
 	Input,
 	OnDestroy,
-	OnInit, 
+	OnInit,
 	ViewContainerRef,
-	ComponentFactory, 
+	ComponentFactory,
 	ComponentFactoryResolver
 } from '@angular/core';
 import { RootService } from 'ng2-qgrid/infrastructure/component';
@@ -18,12 +18,13 @@ import { PopupPanelComponent } from './popup-panel.component';
 
 @Component({
 	selector: 'q-grid-popup',
-	template: '<ng-container key="trigger-popup-{{id}}.tpl.html"></ng-container>',
+	templateUrl: './popup.component.html',
 	providers: [TemplateHostService, Popup]
 })
 export class PopupComponent extends PluginComponent implements OnInit, OnDestroy {
 	private factory: ComponentFactory<PopupPanelComponent>;
-	
+	private $implicit = this;
+
 	@Input() public id: string;
 
 	constructor(
@@ -36,7 +37,7 @@ export class PopupComponent extends PluginComponent implements OnInit, OnDestroy
 
 		super(root);
 
-		this.factory = resolver.resolveComponentFactory(PopupPanelComponent);		
+		this.factory = resolver.resolveComponentFactory(PopupPanelComponent);
 	}
 
 	ngOnInit() {
@@ -58,10 +59,12 @@ export class PopupComponent extends PluginComponent implements OnInit, OnDestroy
 	public open(settings: PopupSettings): void {
 		settings = Object.assign(new PopupSettings(), settings);
 
-		const component = this.viewContainerRef.createComponent(this.factory);
-		this.popup.element = component.instance.element.nativeElement;
-		this.popup.settings = settings;
+		const component = this.viewContainerRef.createComponent(this.factory).instance;
 		
+		component.popup = this.popup;
+		this.popup.element = component.element.nativeElement;
+		this.popup.settings = settings;
+
 		this.popupService.open(this.popup);
 	}
 }
