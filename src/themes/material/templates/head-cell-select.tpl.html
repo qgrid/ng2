@@ -6,11 +6,11 @@
 		</div>
 		<div *ngSwitchDefault>
 			<md-checkbox [indeterminate]="$view.selection.isIndeterminate()"
-							 [checked]="$view.selection.state()"
-							 [disabled]="!$view.selection.toggleRow.canExecute()"
-							 (click)="$view.selection.toggleRow.execute()"
-							 tabindex="-1"
-							 aria-label="Selection">
+						 [checked]="$view.selection.state()"
+						 [disabled]="!$view.selection.toggleRow.canExecute()"
+						 (change)="$view.selection.toggleRow.execute()"
+						 tabindex="-1"
+						 aria-label="Selection">
 			</md-checkbox>
 		</div>
 	</div>
