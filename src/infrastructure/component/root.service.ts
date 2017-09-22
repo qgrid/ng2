@@ -48,7 +48,7 @@ export class RootService {
 							gf();
 						}
 
-						// this.changeDetector.detectChanges();
+						this.changeDetector.detectChanges();
 						return result;
 					}
 					default:
@@ -63,7 +63,7 @@ export class RootService {
 					gf();
 				}
 
-				// this.changeDetector.detectChanges();
+				this.changeDetector.detectChanges();
 			}, timeout);
 		};
 	}
