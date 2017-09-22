@@ -1,5 +1,5 @@
 <ng-template key='edit-cell-email.tpl.html' let-$cell let-$view="$view">
-	<div class="q-grid-editor q-grid-email">
+	<div class="q-grid-editor q-grid-email" q-grid-position="td">
 		<h2>Edit {{$cell.column.title}}</h2>
 		<div layout="column" class="q-grid-email-fields" flex>
 			<md-input-container *ngIf="$cell.column.label !== null">
