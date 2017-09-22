@@ -1,4 +1,4 @@
-import {Renderer2, ElementRef} from '@angular/core';
+import { Renderer2, ElementRef } from '@angular/core';
 
 export class DomService {
 

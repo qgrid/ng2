@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {isUndefined, clone} from 'ng2-qgrid/core/utility';
-import {ColumnListService} from 'ng2-qgrid/main/column/column-list.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { isUndefined, clone } from 'ng2-qgrid/core/utility';
+import { ColumnListService } from 'ng2-qgrid/main/column/column-list.service';
 import * as columnService from 'ng2-qgrid/core/column/column.service';
-import {columnFactory} from 'ng2-qgrid/core/column/column.factory';
-import {RootService} from 'ng2-qgrid/infrastructure/component';
-import {TemplateHostService} from 'ng2-qgrid/template/template-host.service';
+import { columnFactory } from 'ng2-qgrid/core/column/column.factory';
+import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { TemplateHostService } from 'ng2-qgrid/template/template-host.service';
 
 @Component({
 	selector: 'q-grid-column',
@@ -45,8 +45,8 @@ export class ColumnComponent implements OnInit {
 	@Input() public label: any;
 
 	constructor(private root: RootService,
-					private columnList: ColumnListService,
-					private templateHost: TemplateHostService) {
+		private columnList: ColumnListService,
+		private templateHost: TemplateHostService) {
 	}
 
 	ngOnInit() {

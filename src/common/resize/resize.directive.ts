@@ -1,15 +1,15 @@
-import {Directive, ElementRef, Inject, Input, OnDestroy, OnInit, Optional} from '@angular/core';
+import { Directive, ElementRef, Inject, Input, OnDestroy, OnInit, Optional } from '@angular/core';
 import * as Infrastructure from 'ng2-qgrid/core/infrastructure';
-import {GRID_PREFIX} from 'ng2-qgrid/core/definition';
-import {NgComponent, RootService} from 'ng2-qgrid/infrastructure/component';
-import {clone, noop} from 'ng2-qgrid/core/utility';
-import {DOCUMENT} from '@angular/platform-browser';
-import {Model} from 'ng2-qgrid/core/infrastructure/model';
+import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
+import { NgComponent, RootService } from 'ng2-qgrid/infrastructure/component';
+import { clone, noop } from 'ng2-qgrid/core/utility';
+import { DOCUMENT } from '@angular/platform-browser';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 @Directive({
 	selector: '[q-grid-resize]'
 })
-export class ResizeDirective extends NgComponent  implements OnInit, OnDestroy {
+export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 	private element: HTMLElement;
 	private divider: HTMLElement;
 	private listener = {
@@ -26,7 +26,7 @@ export class ResizeDirective extends NgComponent  implements OnInit, OnDestroy {
 	@Input('q-grid-can-resize') canResize;
 	@Input('q-grid-drag') transfer;
 
-	constructor(@Optional() private root: RootService, elementRef: ElementRef, @Inject(DOCUMENT) private document: any) {
+	constructor( @Optional() private root: RootService, elementRef: ElementRef, @Inject(DOCUMENT) private document: any) {
 		super();
 
 		this.element = elementRef.nativeElement;
@@ -62,7 +62,7 @@ export class ResizeDirective extends NgComponent  implements OnInit, OnDestroy {
 		this.listener.document.on('mouseup', this.dragEnd);
 
 		const model = this.model;
-		model.drag({isActive: true});
+		model.drag({ isActive: true });
 	}
 
 	drag(e) {
@@ -71,20 +71,20 @@ export class ResizeDirective extends NgComponent  implements OnInit, OnDestroy {
 		const layout = model.layout;
 		const state = clone(layout()[this.path]);
 
-		state[this.key] = {width: context.width + e.screenX - context.x};
-		layout({[this.path]: state});
+		state[this.key] = { width: context.width + e.screenX - context.x };
+		layout({ [this.path]: state });
 	}
 
 	dragEnd() {
 		this.listener.document.off();
 
 		const model = this.model;
-		model.drag({isActive: false});
+		model.drag({ isActive: false });
 	}
 
 	event() {
 		const source = this.transfer;
-		return {source, target: null};
+		return { source, target: null };
 	}
 
 	get model() {

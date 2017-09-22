@@ -1,8 +1,8 @@
-import {Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output} from '@angular/core';
-import {EventManager} from 'ng2-qgrid/core/infrastructure';
-import {EventListener} from 'ng2-qgrid/core/infrastructure/event.listener';
-import {DragService} from './drag.service';
-import {GRID_PREFIX} from 'ng2-qgrid/core/definition';
+import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output } from '@angular/core';
+import { EventManager } from 'ng2-qgrid/core/infrastructure';
+import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
+import { DragService } from './drag.service';
+import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 
 @Directive({
 	selector: '[q-grid-drop]'
@@ -77,6 +77,6 @@ export class DropDirective implements OnInit, OnDestroy {
 			? DragService.decode(e.getData(DragService.mimeType))
 			: DragService.transfer;
 
-		return {source, target};
+		return { source, target };
 	}
 }

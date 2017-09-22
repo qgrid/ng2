@@ -1,5 +1,5 @@
-import {Directive, Renderer2, ElementRef, OnInit, Input} from '@angular/core';
-import {AppError} from 'ng2-qgrid/core/infrastructure';
+import { Directive, Renderer2, ElementRef, OnInit, Input } from '@angular/core';
+import { AppError } from 'ng2-qgrid/core/infrastructure';
 
 @Directive({
 	selector: '[q-grid-focus]'

@@ -1,7 +1,7 @@
-import {Component, Input, Optional} from '@angular/core';
-import {Command} from 'ng2-qgrid/core/command';
-import {PluginComponent} from '../plugin.component';
-import {RootService} from 'ng2-qgrid/infrastructure/component/root.service';
+import { Component, Input, Optional } from '@angular/core';
+import { Command } from 'ng2-qgrid/core/command';
+import { PluginComponent } from '../plugin.component';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 
 @Component({
 	selector: 'q-grid-pager',
@@ -21,7 +21,7 @@ export class PagerComponent extends PluginComponent {
 		canExecute: () => this.current > 0
 	});
 
-	constructor(@Optional() root: RootService) {
+	constructor( @Optional() root: RootService) {
 		super(root);
 
 		this.models = ['pagination'];
@@ -32,7 +32,7 @@ export class PagerComponent extends PluginComponent {
 	}
 
 	set size(value) {
-		this.model.pagination({size: value, current: 0});
+		this.model.pagination({ size: value, current: 0 });
 	}
 
 	get sizeList() {
@@ -44,7 +44,7 @@ export class PagerComponent extends PluginComponent {
 	}
 
 	set current(value) {
-		this.model.pagination({current: value});
+		this.model.pagination({ current: value });
 	}
 
 	get from() {

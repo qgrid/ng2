@@ -8,15 +8,15 @@ import {
 	ElementRef,
 	ChangeDetectorRef
 } from '@angular/core';
-import {TemplateCacheService} from 'ng2-qgrid/template';
-import {RootComponent, RootService} from 'ng2-qgrid/infrastructure/component';
-import {LayerService} from '../layer';
-import {Table} from 'ng2-qgrid/core/dom';
-import {AppError} from 'ng2-qgrid/core/infrastructure';
-import {TableCommandManager} from 'ng2-qgrid/core/command';
-import {isUndefined} from 'ng2-qgrid/core/utility';
-import {EventManager} from 'ng2-qgrid/core/infrastructure/event.manager';
-import {EventListener} from 'ng2-qgrid/core/infrastructure/event.listener';
+import { TemplateCacheService } from 'ng2-qgrid/template';
+import { RootComponent, RootService } from 'ng2-qgrid/infrastructure/component';
+import { LayerService } from '../layer';
+import { Table } from 'ng2-qgrid/core/dom';
+import { AppError } from 'ng2-qgrid/core/infrastructure';
+import { TableCommandManager } from 'ng2-qgrid/core/command';
+import { isUndefined } from 'ng2-qgrid/core/utility';
+import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
+import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 
 @Component({
 	selector: 'q-grid',
