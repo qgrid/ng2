@@ -3,10 +3,11 @@
 		<h2 class="md-title">Edit {{$cell.column.title}}</h2>
 		<md-input-container>
 			<md-form-field>
-				<input q-grid-focus mdInput 
+				<input q-grid-focus 
+				       mdInput 
 					   [mdDatepicker]="picker" 
 					   [(ngModel)]="$view.edit.cell.value" 
-					   placeholder="Choose a date" />
+					   placeholder="Choose a {{$cell.column.title}}" />
 				<md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
 				<md-datepicker #picker></md-datepicker>
 			</md-form-field>
@@ -15,6 +16,5 @@
 			<button md-button color="primary" (click)="$view.edit.cell.commit.execute($cell, $event)">Save</button>
 			<button md-button (click)="$view.edit.cell.cancel.execute($cell, $event)">Cancel</button>
 		</div>
-		<md-datepicker #myDatepicker></md-datepicker>
 	</div>
 </ng-template>
