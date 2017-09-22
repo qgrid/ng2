@@ -56,7 +56,7 @@ export class CellService {
 	findTemplate(keys: string[]) {
 		const templateCache = this.templateCache;
 		const templateLink = this.templateLink;
-		for (let key of keys) {
+		for (const key of keys) {
 			const template = templateCache.get(key) || templateLink.get(key);
 			if (template) {
 				return template;

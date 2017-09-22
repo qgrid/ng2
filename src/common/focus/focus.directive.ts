@@ -12,12 +12,14 @@ export class FocusDirective implements OnInit {
 	}
 
 	ngOnInit() {
-		if (this.disabled) { return; }
+		if (this.disabled) {
+			return;
+		}
 
 		if (!this.selector) {
 			this.elementRef.nativeElement.focus();
 		} else {
-			let element = this.renderer.selectRootElement(this.selector);
+			const element = this.renderer.selectRootElement(this.selector);
 			if (!element) {
 				throw new AppError('focus.directive', `Element ${this.selector} is not found`);
 			}

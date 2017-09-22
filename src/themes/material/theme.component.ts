@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { template } from './templates';
-import { ChipListComponent } from './components/chip-list/chip-list.component';
 
 // Do not delete this code
 // its required for template recompilation on changes

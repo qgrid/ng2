@@ -36,7 +36,6 @@ export class PopupService {
 		element.setAttribute('id', popup.id);
 		element.style.left = pos.left + 'px';
 		element.style.top = pos.top + 'px';
-		element.style.zIndex = '79';
 
 		if (settings.resizable) {
 			element.classList.add('resizable');
@@ -64,7 +63,7 @@ export class PopupService {
 	}
 
 	public closeAll(): void {
-		for (let key of Object.keys(this.popups)) {
+		for (const key of Object.keys(this.popups)) {
 			this.close(key);
 		}
 	}
@@ -84,7 +83,7 @@ export class PopupService {
 	}
 
 	public focus(id: string): void {
-		this.popups.forEach(popup => popup.unfocus());
+		this.popups.forEach(p => p.unfocus());
 
 		const popup = this.popups.get(id);
 		popup.focus();

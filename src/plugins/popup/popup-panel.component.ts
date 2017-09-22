@@ -4,7 +4,8 @@ import { Popup } from './popup';
 
 @Component({
 	selector: 'q-grid-popup-panel',
-	templateUrl: './popup-panel.component.html'
+	templateUrl: './popup-panel.component.html',
+	styleUrls: ['./popup-panel.component.scss']
 })
 export class PopupPanelComponent implements OnInit, OnDestroy {
 	@Input() public popup: Popup;

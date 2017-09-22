@@ -2,11 +2,12 @@
 	<a [href]="'mailto:$cell.value'" (bind)="$cell.label || $cell.value">
 		{{$cell.value}}</a>
 	<button class="q-grid-email-edit"
-			  mdTooltip='Edit Email'
-			  [mdTooltipPosition]="'before'"
-			  aria-label="'email'"
-			  (disabled)="!$view.edit.cell.enter.canExecute($cell)"
-			  (click)="$view.edit.cell.enter.execute($cell)">
+	        color="primary"
+			mdTooltip='Edit Email'
+			[mdTooltipPosition]="'before'"
+			aria-label="'email'"
+			(disabled)="!$view.edit.cell.enter.canExecute($cell)"
+			(click)="$view.edit.cell.enter.execute($cell)">
 		<md-icon>edit</md-icon>
 	</button>
 </ng-template>

@@ -64,7 +64,7 @@ module.exports = function (options) {
 
 			'polyfills': './demo/polyfills.browser.ts',
 			'main': AOT ? './src/grid.module.ts' : './demo/main.browser.ts'
-
+			
 		},
 
 		/*
@@ -246,20 +246,20 @@ module.exports = function (options) {
 			 * See: https://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
 			 * See: https://github.com/webpack/docs/wiki/optimization#multi-page-app
 			 */
-			// new CommonsChunkPlugin({
-			//   name: 'polyfills',
-			//   chunks: ['polyfills']
-			// }),
+			new CommonsChunkPlugin({
+			  name: 'polyfills',
+			  chunks: ['polyfills']
+			}),
 			// // This enables tree shaking of the vendor modules
-			// new CommonsChunkPlugin({
-			//   name: 'vendor',
-			//   chunks: ['main'],
-			//   minChunks: module => /node_modules/.test(module.resource)
-			// }),
+			new CommonsChunkPlugin({
+			  name: 'vendor',
+			  chunks: ['main'],
+			  minChunks: module => /node_modules/.test(module.resource)
+			}),
 			// // Specify the correct order the scripts will be injected in
-			// new CommonsChunkPlugin({
-			//   name: ['polyfills', 'vendor'].reverse()
-			// }),
+			new CommonsChunkPlugin({
+			  name: ['polyfills', 'vendor'].reverse()
+			}),
 
 			/**
 			 * Plugin: ContextReplacementPlugin

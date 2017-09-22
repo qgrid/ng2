@@ -38,7 +38,7 @@ export class TemplateDirective implements DoCheck {
 		}
 
 		if (isArray(keys)) {
-			for (let key of keys) {
+			for (const key of keys) {
 				const template = this.find(key);
 				if (template) {
 					return template;

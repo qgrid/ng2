@@ -1,0 +1,33 @@
+<md-card>
+	<md-card-header>
+		<md-card-title>
+			<md-card-title-text>
+				<q-grid:popup-head model="$popup.model" id="$popup.id"></q-grid:popup-head>
+			</md-card-title-text>
+			<md-card-title-actions layout="row" layout-align="end center">
+				<md-button ng-if="popup.collapsible && !popup.expanded()" class="md-icon-button" aria-label="Expand">
+					<md-icon aria-hidden="true">&#xE5D0;</md-icon>
+					<md-tooltip md-direction="bottom">
+						Expand
+					</md-tooltip>
+				</md-button>
+				<md-button ng-if="popup.collapsible && popup.expanded()" class="md-icon-button" aria-label="Collapse">
+					<md-icon aria-hidden="true">&#xE5D1;</md-icon>
+					<md-tooltip md-direction="bottom">
+						Collapse
+					</md-tooltip>
+				</md-button>
+				<md-button class="md-icon-button md-action-close" aria-label="Close" ng-click="$popup.close()">
+					<md-icon aria-hidden="true">&#xE5CD;</md-icon>
+					<md-tooltip md-direction="bottom">
+						Close
+					</md-tooltip>
+				</md-button>
+			</md-card-title-actions>
+		</md-card-title>
+	</md-card-header>
+	<md-card-content>
+		<q-grid:popup-body model="$popup.model" id="$popup.id"></q-grid:popup-body>
+	</md-card-content>
+	<div class="q-grid-popup-resizer" ng-if="popup.resizable"></div>
+</md-card>

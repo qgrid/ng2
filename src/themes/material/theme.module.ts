@@ -3,8 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ThemeService } from './theme.service';
 import { ThemeComponent } from './theme.component';
-import { ChipComponent } from './components/chip-list/chip/chip.component';
-import { ChipListComponent } from './components/chip-list/chip-list.component';
 import { PluginModule } from 'ng2-qgrid/plugins';
 import { TemplateModule } from 'ng2-qgrid/template';
 import { CommonModule } from 'ng2-qgrid/common';
@@ -24,14 +22,10 @@ import {
 
 @NgModule({
 	declarations: [
-		ThemeComponent,
-		ChipComponent,
-		ChipListComponent
+		ThemeComponent
 	],
 	exports: [
 		ThemeComponent,
-		ChipComponent,
-		ChipListComponent,
 		PluginModule
 	],
 	imports: [
@@ -49,7 +43,7 @@ import {
 		MdInputModule,
 		MdDatepickerModule,
 		MdNativeDateModule,
-		MdChipsModule
+		MdChipsModule		
 	],
 	providers: [
 		ThemeService
