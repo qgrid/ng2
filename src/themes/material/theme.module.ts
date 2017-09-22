@@ -31,7 +31,8 @@ import {
 	exports: [
 		ThemeComponent,
 		ChipComponent,
-		ChipListComponent
+		ChipListComponent,
+		PluginModule
 	],
 	imports: [
 		CommonModule,

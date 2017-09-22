@@ -1,16 +1,15 @@
-import {Injectable} from '@angular/core';
-import {Model} from 'ng2-qgrid/core/infrastructure/model';
-import {Action} from "ng2-qgrid/core/action/action";
-import {Command} from 'ng2-qgrid/core/command/command';
-import {GridService as GridCoreService} from 'ng2-qgrid/core/services/grid';
-import {Pipe} from 'ng2-qgrid/core/pipe/pipe';
-import {PipeUnit} from 'ng2-qgrid/core/pipe/pipe.unit';
-import {getFactory as valueFactory} from 'ng2-qgrid/core/services/value';
-import {getFactory as labelFactory} from 'ng2-qgrid/core/services/label';
-import {RowDetailsStatus} from "ng2-qgrid/core/row-details/row.details.status";
-import {Log} from "ng2-qgrid/core/infrastructure/log";
-import {identity} from "ng2-qgrid/core/utility/utility";
-import {noop} from 'ng2-qgrid/core/utility';
+import { Injectable } from '@angular/core';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
+import { Action } from 'ng2-qgrid/core/action/action';
+import { Command } from 'ng2-qgrid/core/command/command';
+import { GridService as GridCoreService } from 'ng2-qgrid/core/services/grid';
+import { Pipe } from 'ng2-qgrid/core/pipe/pipe';
+import { PipeUnit } from 'ng2-qgrid/core/pipe/pipe.unit';
+import { getFactory as valueFactory } from 'ng2-qgrid/core/services/value';
+import { getFactory as labelFactory } from 'ng2-qgrid/core/services/label';
+import { RowDetailsStatus } from 'ng2-qgrid/core/row-details/row.details.status';
+import { Log } from 'ng2-qgrid/core/infrastructure/log';
+import { identity, noop } from 'ng2-qgrid/core/utility';
 
 @Injectable()
 export class GridService {
@@ -27,9 +26,9 @@ export class GridService {
 			model.scene({
 				status: 'start'
 			}, {
-				source: 'grid',
-				behavior: 'core'
-			});
+					source: 'grid',
+					behavior: 'core'
+				});
 
 			return () => {
 				return new Promise(resolve => {
@@ -37,14 +36,14 @@ export class GridService {
 						model.scene({
 							status: 'stop'
 						}, {
-							source: 'grid',
-							behavior: 'core'
-						});
+								source: 'grid',
+								behavior: 'core'
+							});
 
 						resolve();
 					}, 10);
 				});
-			}
+			};
 		};
 
 		return new GridCoreService(model, start);

@@ -1,41 +1,17 @@
-import TemplateLink from 'ng2-qgrid/view/components/template/template.link';
-import {PopupService} from 'ng2-qgrid/plugins/popup/popup.service';
-import {Component, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
-import {TemplateCacheService, TemplateLinkService} from 'ng2-qgrid/template';
+import { Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { PopupService } from 'ng2-qgrid/plugins/popup/popup.service';
+import { Popup } from './popup';
 
 @Component({
 	selector: 'q-grid-popup-panel',
-	template: '<div></div>'
+	templateUrl: './popup-panel.component.html'
 })
-
 export class PopupPanelComponent implements OnInit, OnDestroy {
-	@Input() model;
-	@Input() id;
 
-	private template;
-
-	constructor(private qGridPopupService: PopupService,
-					private element: ElementRef,
-					private viewContainerRef: ViewContainerRef,
-					private templateLink: TemplateLinkService,
-					private templateCache: TemplateCacheService) {
-		this.template = new TemplateLink();
+	constructor(private popupService: PopupService, private popup: Popup, public element: ElementRef) {
 	}
 
-	ngOnInit(): void {
-		const model = this.model;
-		const templateUrl = 'qgrid.plugin.popup-panel.tpl.html';
-		const template =
-			this.templateCache.get(templateUrl) ||
-			this.templateLink.get(templateUrl);
-
-		this.viewContainerRef.createEmbeddedView(template, this);
-		// const templateScope = this.$scope.$new();
-		// const link = this.template.link(
-		//   templateUrl,
-		//   model.popup().resource
-		// );
-
+	ngOnInit() {
 		this.element.nativeElement.classList.add('q-grid-popup');
 	}
 
@@ -43,7 +19,7 @@ export class PopupPanelComponent implements OnInit, OnDestroy {
 		this.close();
 	}
 
-	close(): void {
-		this.qGridPopupService.close(this.id);
+	close() {
+		this.popupService.close(this.popup.id);
 	}
 }

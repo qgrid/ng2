@@ -1,10 +1,10 @@
-import {Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
-import {EventListener} from 'ng2-qgrid/core/infrastructure/event.listener';
-import {EventManager} from 'ng2-qgrid/core/infrastructure/event.manager';
-import {NgComponent, RootService} from 'ng2-qgrid/infrastructure/component';
-import {PathService} from 'ng2-qgrid/core/path';
-import {ViewCoreService} from '../view/view-core.service';
-import {TableCoreService} from '../table/table-core.service';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
+import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
+import { NgComponent, RootService } from 'ng2-qgrid/infrastructure/component';
+import { PathService } from 'ng2-qgrid/core/path';
+import { ViewCoreService } from '../view/view-core.service';
+import { TableCoreService } from '../table/table-core.service';
 
 @Component({
 	selector: 'tbody[q-grid-core-body]',
@@ -19,9 +19,9 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 	};
 
 	constructor(element: ElementRef,
-					public $view: ViewCoreService,
-					public $table: TableCoreService,
-					private root: RootService) {
+		public $view: ViewCoreService,
+		public $table: TableCoreService,
+		private root: RootService) {
 		super();
 
 		this.element = element.nativeElement;
@@ -60,7 +60,7 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 		}
 
 		if (Object.keys(newValue)) {
-			scroll(newValue, {source: 'body.core'});
+			scroll(newValue, { source: 'body.core' });
 		}
 	}
 
@@ -154,8 +154,7 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 					if (focusState.rowIndex !== cell.rowIndex || focusState.columnIndex !== cell.columnIndex) {
 						this.$view.selection.toggleRow.execute(cell.row, 'body');
 					}
-				}
-				else if (!editMode && cell.column.canEdit) {
+				} else if (!editMode && cell.column.canEdit) {
 					this.$view.selection.toggleRow.execute(cell.row, 'body');
 				}
 				break;
@@ -173,6 +172,9 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 					this.$view.selection.toggleCell.execute(cell, 'body');
 				}
 			}
+
+			default:
+				break;
 		}
 	}
 

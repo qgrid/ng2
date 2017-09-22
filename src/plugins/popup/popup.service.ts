@@ -1,37 +1,56 @@
-import {ElementRef, Injectable} from '@angular/core';
-import {AppError} from 'ng2-qgrid/core/infrastructure';
-import {Model} from 'ng2-qgrid/core/infrastructure/model';
-import {Popup} from 'ng2-qgrid/plugins/popup/popup.entry';
+import { ComponentFactory, ComponentFactoryResolver, Injectable, ViewContainerRef } from '@angular/core';
+import { AppError } from 'ng2-qgrid/core/infrastructure';
+import { Popup } from './popup';
+import { PopupSettings } from './popup.settings';
+import { PopupPanelComponent } from './popup-panel.component';
 
-export interface IOffset {
+interface IOffset {
 	left: number;
 	top: number;
 }
 
-export interface ITarget {
+interface ITarget {
 	offset: () => IOffset;
 	height: () => number;
 	width: () => number;
-}
-
-export class PopupSettings {
-	id: null;
-	height: 400;
-	width: 300;
-	offsetTop: 0;
-	offsetLeft: 0;
-	target: null;
-	close: null;
-	resizable: false;
-	collapsible: false;
-	class: null;
 }
 
 @Injectable()
 export class PopupService {
 	private popups: Map<string, Popup> = new Map();
 
-	constructor(private element: ElementRef) {
+	constructor() {
+	}
+	public open(popup: Popup) {
+		if (this.popups.hasOwnProperty(popup.id)) {
+			throw new AppError('popup.service', `Can't open popup '${popup.id}', it's already opened`);
+		}
+
+		const element = popup.element;
+		const settings = popup.settings;
+		const target = this.targetize(null, settings);
+		const pos = this.position(target, settings);
+
+		this.popups[popup.id] = popup;
+
+		element.setAttribute('id', popup.id);
+		element.style.left = pos.left + 'px';
+		element.style.top = pos.top + 'px';
+		element.style.zIndex = '79';
+
+		if (settings.resizable) {
+			element.classList.add('resizable');
+		}
+
+		if (settings.collapsible) {
+			element.classList.add('collapsible');
+		}
+
+		if (settings.class) {
+			element.classList.add(settings.class);
+		}
+
+		popup.focus();
 	}
 
 	public close(id: string): void {
@@ -39,13 +58,9 @@ export class PopupService {
 			throw new AppError('popup.service', `Can't close popup '${id}', it's not opened`);
 		}
 
-		const item = this.popups.get(id);
+		const popup = this.popups.get(id);
 		this.popups.delete(id);
-		item.close();
-	}
-
-	public isOpened(id: string): boolean {
-		return this.popups.hasOwnProperty(id);
+		popup.close();
 	}
 
 	public closeAll(): void {
@@ -54,53 +69,18 @@ export class PopupService {
 		}
 	}
 
-	public open(settings: PopupSettings, model: Model): boolean {
-		if (this.popups.hasOwnProperty(settings.id)) {
-			return false;
-		}
-
-		const target = this.targetize(settings);
-		const pos = this.position(target, settings);
-		const popupScope = this.createScope();
-
-		// popupScope.model = model;
-		// popupScope.id = settings.id;
-
-		const popup = this.element.nativeElement.document.body
-			.getElementsByTagName('<q-grid:popup-panel id="id" model="model">')[0]; // eslint-disable-line no-undef
-		this.popups[this.settings.id] = new Popup(popup, this.settings, this.element.nativeElement.document[0].body);
-
-		this.element.nativeElement.document[0].body.appendChild(popup[0]);
-		// this.$compile(popup)(popupScope);
-
-		popup.setAttribute('id', settings.id);
-		popup.style.left = pos.left + 'px';
-		popup.style.top = pos.top + 'px';
-		popup.style.zIndex = 79;
-
-		if (settings.resizable) {
-			popup.addClass('resizable');
-		}
-
-		if (settings.collapsible) {
-			popup.addClass('collapsible');
-		}
-
-		if (settings.cls) {
-			popup.addClass(settings.cls);
-		}
-
-		this.popups[settings.id].focus();
+	public isOpened(id: string): boolean {
+		return this.popups.hasOwnProperty(id);
 	}
 
 	public expand(id: string): void {
-		const item = this.popups[id];
-		item.expand();
+		const popup = this.popups[id];
+		popup.expand();
 	}
 
 	public collapse(id: string): void {
-		const item = this.element.nativeElement.self.popups[id];
-		item.collapse();
+		const popup = this.popups[id];
+		popup.collapse();
 	}
 
 	public focus(id: string): void {
@@ -110,19 +90,18 @@ export class PopupService {
 		popup.focus();
 	}
 
-	public resize(id: string, settings: IPopupSettings): void {
-		const item = this.popups.get(id);
-		item.resize(settings);
+	public resize(id: string, settings: PopupSettings): void {
+		const popup = this.popups.get(id);
+		popup.resize(settings);
 	}
 
-	public targetize(settings: IPopupSettings): ITarget {
-		const target = settings.target;
+	private targetize(target: HTMLElement, settings: PopupSettings): ITarget {
 		if (!target) {
 			return {
 				offset: () => {
 					return {
-						left: (this.element.nativeElement.window.innerWidth()) / 2,
-						top: (this.element.nativeElement.window.innerHeight() - (parseInt(settings.height, 10) || 0)) / 2
+						left: (window.innerWidth) / 2,
+						top: (window.innerHeight - settings.height) / 2
 					};
 				},
 				height: () => {
@@ -145,16 +124,16 @@ export class PopupService {
 		};
 	}
 
-	public position(target: ITarget, settings: IPopupSettings): IOffset {
-		const dy = parseInt(settings.offsetTop, 10) || 0;
-		const dx = parseInt(settings.offsetLeft, 10) || 0;
-		const w = this.element.nativeElement.window.innerWidth();
-		const h = this.element.nativeElement.window.innerHeight();
+	public position(target: ITarget, settings: PopupSettings): IOffset {
+		const dy = settings.offsetTop || 0;
+		const dx = settings.offsetLeft || 0;
+		const w = window.innerWidth;
+		const h = window.innerHeight;
 		const p = target.offset();
 		const x = p.left;
 		const y = p.top;
-		const eh = parseInt(settings.height, 10) || target.height();
-		const ew = parseInt(settings.width, 10) || target.width();
+		const eh = settings.height || target.height();
+		const ew = settings.width || target.width();
 		const eh2 = eh / 2;
 		const ew2 = ew / 2;
 		const gtx1 = x + ew2 > w;

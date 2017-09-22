@@ -5,7 +5,7 @@ import {NgComponent, RootService} from '../infrastructure/component';
 import {Guard} from 'ng2-qgrid/core/infrastructure';
 
 export class PluginComponent extends NgComponent implements OnInit, OnChanges, OnDestroy {
-	@Input('model') public gridModel: any = null;
+	@Input('model') private gridModel: any = null;
 
 	public context: any = {$implicit: this};
 	private binder = new ModelBinder(this);
