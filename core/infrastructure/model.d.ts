@@ -34,7 +34,7 @@ import {Event} from './event';
 export declare class Model {
 	constructor();
 
-	static register(name: string, model: Model): Model;
+	static register(name: string, model: {new(): {}}): Model;
 
 	grid(value?: object, tag?: object): GridModel;
 
