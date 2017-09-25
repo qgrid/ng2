@@ -16,47 +16,48 @@ export class ActionCoreComponent extends PluginComponent {
 	}
 
 	execute() {
-		const model = this.action;
-		if (!model) {
-			throw new AppError('action-core.component', 'Model shoud be setup');
+		const action = this.action;
+		if (!action) {
+			throw new AppError('action-core.component', 'Action shoud be setup');
 		}
 
-		return model.command.execute();
+		return action.command.execute();
 	}
 
 	canExecute() {
-		const model = this.action;
-		if (!model) {
-			throw new AppError('action-core.component', 'Model shoud be setup');
+		const action = this.action;
+		if (!action) {
+			throw new AppError('action-core.component', 'Action shoud be setup');
 		}
 
-		return model.command.canExecute();
+		return action.command.canExecute();
 	}
 
 	get shortcut() {
-		const model = this.action;
-		if (!model) {
-			throw new AppError('action-core.component', 'Model shoud be setup');
+		const action = this.action;
+		if (!action) {
+			throw new AppError('action-core.component', 'Action shoud be setup');
 		}
 
-		return model.command.shortcut;
+		return action.command.shortcut;
 	}
 
 	get title() {
-		const model = this.action;
-		if (!model) {
-			throw new AppError('action-core.component', 'Model shoud be setup');
+		const action = this.action;
+		if (!action) {
+			throw new AppError('action-core.component', 'Action shoud be setup');
 		}
 
-		return model.title;
+		const shortcut = this.shortcut;
+		return action.title + (shortcut ? ` (${shortcut})` : '');
 	}
 
 	get icon() {
-		const model = this.action;
-		if (!model) {
-			throw new AppError('action-core.component', 'Model shoud be setup');
+		const action = this.action;
+		if (!action) {
+			throw new AppError('action-core.component', 'Action shoud be setup');
 		}
 
-		return model.icon;
+		return action.icon;
 	}
 }

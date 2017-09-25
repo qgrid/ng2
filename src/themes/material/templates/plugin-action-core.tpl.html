@@ -2,13 +2,10 @@
     <div class="q-grid-action">
         <button md-icon-button 
                 (click)="$action.execute()" 
-                [disabled]="!$action.canExecute()" 
+                [disabled]="!$action.canExecute()"
+                [mdTooltip]="$action.title" 
                 tabindex="-1">
             <md-icon>{{$action.icon}}</md-icon>
-            <!-- <mat-tooltip>
-                <span>{{$action.title}}</span>
-                <span *ngIf="$action.shortcut">({{$action.shortcut | uppercase}})</span>
-            </mat-tooltip> -->
         </button>
     </div>
 </ng-template>

@@ -46,7 +46,7 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input() styleRow;
 	@Input() styleCell;
 	@Input('id') gridId;
-	@Input('title') gridTitle;
+	@Input('header') gridTitle;
 	@Input('actions') actionItems;
 	@Output() selectionChanged = new EventEmitter<any>();
 

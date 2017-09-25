@@ -21,7 +21,6 @@ export class RowOptionsColumnModel extends DataColumnModel {
 		super('row-options');
 
 		this.key = '$row.options';
-		this.title = '';
 		this.class = 'control';
 
 		this.canEdit = true;
