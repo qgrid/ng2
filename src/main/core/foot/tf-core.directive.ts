@@ -44,8 +44,8 @@ export class TfCoreDirective implements OnInit, OnDestroy {
 	}
 
 	get column() {
-		const columns = this.root.table.foot.columns(this.rowIndex);
-		return columns[this.columnIndex].model();
+		const columns = this.root.table.data.columns();
+		return columns[this.columnIndex];
 	}
 
 	get row() {
