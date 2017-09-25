@@ -31,11 +31,12 @@ const templates = [
 	require('./toolbar-left.tpl.html'),
 	require('./toolbar-right.tpl.html'),
 
+	require('./plugin-title.tpl.html'),
 	require('./plugin-pager.tpl.html'),
 	require('./plugin-progress.tpl.html'),
 	require('./plugin-export.tpl.html'),
-	require('./plugin-action-bar.tpl.html'),
-	require('./plugin-action-bar-core.tpl.html')
+	require('./plugin-action-bar-core.tpl.html'),
+	require('./plugin-action-core.tpl.html')
 ];
 
 export const template = templates.join('\n\n');

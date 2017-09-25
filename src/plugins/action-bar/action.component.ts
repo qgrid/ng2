@@ -4,8 +4,8 @@ import { Action as ActionItem } from 'ng2-qgrid/core/action';
 import { Command } from 'ng2-qgrid/core/command/command';
 
 @Component({
-	selector: 'q-grid-action-core',
-	templateUrl: './action-core.component.html'
+	selector: 'q-grid-action',
+	template: ''
 })
 export class ActionComponent {
 	public id: string = null;

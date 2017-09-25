@@ -1,3 +1,4 @@
+import { TemplateModule } from '../../template/index';
 import { NgModule } from '@angular/core';
 import { ActionBarCoreComponent } from './action-bar-core.component';
 import { ActionBarComponent } from './action-bar.component';
@@ -17,7 +18,7 @@ import { ActionComponent } from './action.component';
 		ActionComponent,
 		ActionCoreComponent
 	],
-	imports: [],
+	imports: [TemplateModule],
 	providers: []
 })
 export class ActionBarModule {}

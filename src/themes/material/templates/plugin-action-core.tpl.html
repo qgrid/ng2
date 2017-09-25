@@ -1,11 +1,14 @@
-<ng-template key="plugin-action-core.tpl.html" let-$actionBar>
+<ng-template key="plugin-action-core.tpl.html" let-$action>
     <div class="q-grid-action">
-        <button mat-icon-button (click)="$action.execute()" [disabled]="!$action.canExecute()" tabindex="-1">
+        <button md-icon-button 
+                (click)="$action.execute()" 
+                [disabled]="!$action.canExecute()" 
+                tabindex="-1">
             <md-icon>{{$action.icon}}</md-icon>
-            <md-tooltip>
+            <!-- <mat-tooltip>
                 <span>{{$action.title}}</span>
                 <span *ngIf="$action.shortcut">({{$action.shortcut | uppercase}})</span>
-            </md-tooltip>
+            </mat-tooltip> -->
         </button>
     </div>
 </ng-template>
