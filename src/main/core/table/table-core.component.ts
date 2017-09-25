@@ -3,6 +3,7 @@ import {RootService} from 'ng2-qgrid/infrastructure/component';
 import {TableCoreService} from './table-core.service';
 import {Model} from 'ng2-qgrid/core/infrastructure/model';
 import {VisibilityModel} from 'ng2-qgrid/core/visibility/visibility.model';
+import {PerfectScrollbarConfigInterface} from 'ngx-perfect-scrollbar';
 
 @Component({
 	selector: 'q-grid-core-table',
@@ -12,6 +13,8 @@ import {VisibilityModel} from 'ng2-qgrid/core/visibility/visibility.model';
 	]
 })
 export class TableCoreComponent implements OnInit {
+	public config: PerfectScrollbarConfigInterface = {};
+
 	@Input() public pin = null;
 
 	constructor(private root: RootService, private table: TableCoreService) {
