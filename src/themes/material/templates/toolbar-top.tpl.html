@@ -1,3 +1,24 @@
 <ng-template key="top-toolbar.tpl.html">
+	<q-grid-title></q-grid-title>
+
+	<q-grid-action-bar-core></q-grid-action-bar-core>
+	
+	<q-grid-popup id="q-grid-column-chooser-popup">
+		<ng-template for="trigger" let-$popup>
+			<button md-icon-button (click)="$popup.open({width: 352, height: 652})" tabindex="-1">
+				<md-icon>more_vert</md-icon>
+			</button>
+		</ng-template>
+		<ng-template for="body">
+			hello world
+			<!--<q-grid:column-chooser on:submit="$popupBody.close()"-->
+			<!--on:cancel="$popupBody.close()">-->
+			<!--</q-grid:column-chooser>-->
+		</ng-template>
+		<ng-template for="head">
+			<span class="md-subhead">Column Chooser</span>
+		</ng-template>
+	</q-grid-popup>
+
 	<q-grid-progress></q-grid-progress>
 </ng-template>
