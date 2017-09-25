@@ -9,7 +9,7 @@
              layout-sm="column">
         </div>
         <div class="q-grid-actions" flex="none" layout="row" layout-align="end center">
-            <!-- <q-grid-action-core *ngFor="let action of $actionBar.actions" [model]="action"></q-grid-action-core> -->
+            <q-grid-action-core *ngFor="let action of $actionBar.actions" [action]="action"></q-grid-action-core>
         </div>
     </div>
 </ng-template>
