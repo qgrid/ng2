@@ -5,6 +5,7 @@ import {Model} from 'ng2-qgrid/core/infrastructure/model';
 import {VisibilityModel} from 'ng2-qgrid/core/visibility/visibility.model';
 
 import { PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
+import {noop} from 'rxjs/util/noop';
 
 @Component({
 	selector: 'q-grid-core-table',
@@ -20,7 +21,7 @@ export class TableCoreComponent implements OnInit {
 
 	@HostListener('mouseenter') onMouseEnter() {
 		this.directiveScroll.scrollToY(0.01, 0.01);
-		this.onMouseEnter = null;
+		this.onMouseEnter = noop;
 	}
 
 	constructor(private root: RootService, private table: TableCoreService) {
