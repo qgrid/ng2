@@ -90,6 +90,7 @@
     "@angular/platform-browser": "~4.3.4",
     "@angular/platform-browser-dynamic": "~4.3.4",
     "@angular/platform-server": "~4.3.4",
+    "ngx-perfect-scrollbar": "^4.6.5",
     "rxjs": "~5.4.3",
     "zone.js": "~0.8.16"
   },
