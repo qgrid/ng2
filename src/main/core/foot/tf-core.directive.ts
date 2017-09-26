@@ -1,9 +1,16 @@
-import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
-import {GRID_PREFIX} from 'ng2-qgrid/core/definition';
-import {ViewCoreService} from '../view/view-core.service';
-import {RootService} from 'ng2-qgrid/infrastructure/component';
-import {CellService} from '../cell/cell.service';
-import {IGetValue} from 'ng2-qgrid/core/services/aggregation';
+import {
+	Directive,
+	ElementRef,
+	Input,
+	OnDestroy,
+	OnInit,
+	ViewContainerRef
+} from '@angular/core';
+import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
+import { ViewCoreService } from '../view/view-core.service';
+import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { CellService } from '../cell/cell.service';
+import { TableCoreService } from '../table/table-core.service';
 
 @Directive({
 	selector: '[q-grid-core-tf]'
@@ -14,12 +21,14 @@ export class TfCoreDirective implements OnInit, OnDestroy {
 	public element: HTMLElement = null;
 	private $implicit = this;
 
-	constructor(public $view: ViewCoreService,
-					private root: RootService,
-					private cellService: CellService,
-					private viewContainerRef: ViewContainerRef,
-					element: ElementRef) {
-
+	constructor(
+		public $view: ViewCoreService,
+		private root: RootService,
+		private cellService: CellService,
+		private viewContainerRef: ViewContainerRef,
+		private table: TableCoreService,
+		element: ElementRef
+	) {
 		this.element = element.nativeElement.parentNode;
 	}
 
@@ -44,8 +53,9 @@ export class TfCoreDirective implements OnInit, OnDestroy {
 	}
 
 	get column() {
-		const columns = this.root.table.data.columns();
-		return columns[this.columnIndex];
+		const model = this.root.model;
+		const columns = model.scene().column.area;
+		return columns[this.table.pin][this.columnIndex].model;
 	}
 
 	get row() {
