@@ -41,7 +41,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		BrowserModule,
 		TemplateModule,
 		CommonModule,
-		PerfectScrollbarModule.forChild(PERFECT_SCROLLBAR_CONFIG)
+		PerfectScrollbarModule.forChild()
 	],
 	providers: [
 		VScrollService,
