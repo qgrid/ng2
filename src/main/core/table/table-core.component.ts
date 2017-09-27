@@ -1,10 +1,8 @@
-import {OnInit, Component, Input, HostListener, ViewChild} from '@angular/core';
+import {OnInit, Component, Input, HostListener, ViewChild, Renderer2} from '@angular/core';
 import {RootService} from 'ng2-qgrid/infrastructure/component';
 import {TableCoreService} from './table-core.service';
 import {Model} from 'ng2-qgrid/core/infrastructure/model';
 import {VisibilityModel} from 'ng2-qgrid/core/visibility/visibility.model';
-
-import { PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 
 @Component({
 	selector: 'q-grid-core-table',
@@ -16,15 +14,7 @@ import { PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 export class TableCoreComponent implements OnInit {
 	@Input() public pin = null;
 
-	@ViewChild(PerfectScrollbarDirective) directiveScroll: PerfectScrollbarDirective;
-
-	@HostListener('mouseenter') onMouseEnter() {
-		this.directiveScroll.scrollToY(0.01, 0.01);
-		this.onMouseEnter = null;
-	}
-
-	constructor(private root: RootService, private table: TableCoreService) {
-	}
+	constructor(private root: RootService, private table: TableCoreService) {}
 
 	ngOnInit() {
 		if (!this.pin) {

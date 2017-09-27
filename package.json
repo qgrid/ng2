@@ -90,7 +90,6 @@
     "@angular/platform-browser": "~4.3.4",
     "@angular/platform-browser-dynamic": "~4.3.4",
     "@angular/platform-server": "~4.3.4",
-    "ngx-perfect-scrollbar": "^4.6.5",
     "rxjs": "~5.4.3",
     "zone.js": "~0.8.16"
   },
@@ -114,6 +113,7 @@
     "@types/source-map": "^0.5.0",
     "@types/uglify-js": "^2.6.28",
     "@types/webpack": "^2.2.15",
+	 "ngx-perfect-scrollbar": "^4.6.5",
     "add-asset-html-webpack-plugin": "^1.0.2",
     "angular2-template-loader": "^0.6.2",
     "assets-webpack-plugin": "^3.5.1",
