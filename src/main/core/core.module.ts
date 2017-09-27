@@ -12,6 +12,8 @@ import {TemplateCacheService} from 'ng2-qgrid/template';
 import {TemplateModule} from 'ng2-qgrid/template/template.module';
 import {CommonModule} from 'ng2-qgrid/common';
 import {TableCoreComponent} from 'ng2-qgrid/main/core/table';
+import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
+import {ScrollbarDirective} from 'ng2-qgrid/main/core/scrollbar';
 
 @NgModule({
 	declarations: [
@@ -25,7 +27,8 @@ import {TableCoreComponent} from 'ng2-qgrid/main/core/table';
 		ThCoreDirective,
 		TdCoreDirective,
 		TfCoreDirective,
-		MarkupDirective
+		MarkupDirective,
+		ScrollbarDirective
 	],
 	exports: [
 		ViewCoreComponent,
@@ -34,7 +37,8 @@ import {TableCoreComponent} from 'ng2-qgrid/main/core/table';
 	imports: [
 		BrowserModule,
 		TemplateModule,
-		CommonModule
+		CommonModule,
+		PerfectScrollbarModule.forChild()
 	],
 	providers: [
 		VScrollService,
