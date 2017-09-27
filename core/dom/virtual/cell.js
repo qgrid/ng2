@@ -12,7 +12,7 @@ export class VirtualCell extends Cell {
 		this.dataColumnIndex = mapper.viewToColumn(columnIndex);
 	}
 
-	get model() {
+	model() {
 		const rowIndex = this.dataRowIndex;
 		const columnIndex = this.dataColumnIndex;
 		if (rowIndex >= 0 && columnIndex >= 0) {

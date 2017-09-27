@@ -1,8 +1,8 @@
-import {Directive, DoCheck, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef} from '@angular/core';
-import {TemplateLinkService} from './template-link.service';
-import {TemplateCacheService} from './template-cache.service';
-import {Guard, AppError} from 'ng2-qgrid/core/infrastructure';
-import {isString, isArray} from 'ng2-qgrid/core/utility';
+import { Directive, DoCheck, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { TemplateLinkService } from './template-link.service';
+import { TemplateCacheService } from './template-cache.service';
+import { Guard, AppError } from 'ng2-qgrid/core/infrastructure';
+import { isString, isArray } from 'ng2-qgrid/core/utility';
 
 @Directive({
 	selector: 'ng-container[key]'
@@ -14,8 +14,8 @@ export class TemplateDirective implements DoCheck {
 	private viewRef: EmbeddedViewRef<any>;
 
 	constructor(private templateLink: TemplateLinkService,
-					private templateCache: TemplateCacheService,
-					private viewContainerRef: ViewContainerRef) {
+		private templateCache: TemplateCacheService,
+		private viewContainerRef: ViewContainerRef) {
 	}
 
 	ngDoCheck() {
@@ -38,7 +38,7 @@ export class TemplateDirective implements DoCheck {
 		}
 
 		if (isArray(keys)) {
-			for (let key of keys) {
+			for (const key of keys) {
 				const template = this.find(key);
 				if (template) {
 					return template;

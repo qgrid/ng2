@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {compile} from 'ng2-qgrid/core/services';
-import {isUndefined, clone, isObject, identity} from 'ng2-qgrid/core/utility';
-import {parseFactory, getType} from 'ng2-qgrid/core/services';
-import {RootService} from 'ng2-qgrid/infrastructure/component';
+import { Injectable } from '@angular/core';
+import { compile } from 'ng2-qgrid/core/services';
+import { isUndefined, clone, isObject, identity } from 'ng2-qgrid/core/utility';
+import { parseFactory, getType } from 'ng2-qgrid/core/services';
+import { RootService } from 'ng2-qgrid/infrastructure/component';
 
 @Injectable()
 export class ColumnListService {
@@ -33,6 +33,6 @@ export class ColumnListService {
 		const columnList = this.root.model.columnList;
 		const reference = clone(columnList().columns);
 		reference[column.type] = column;
-		columnList({reference});
+		columnList({ reference });
 	}
 }

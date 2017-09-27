@@ -1,7 +1,7 @@
-import {Model, ModelBinder, Event} from 'ng2-qgrid/core/infrastructure';
-import {noop} from 'ng2-qgrid/core/utility';
-import {OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {NgComponent} from './ng.component';
+import { Model, ModelBinder, Event } from 'ng2-qgrid/core/infrastructure';
+import { noop } from 'ng2-qgrid/core/utility';
+import { OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { NgComponent } from './ng.component';
 
 export class RootComponent extends NgComponent implements OnInit, OnChanges, OnDestroy {
 	public model = null;

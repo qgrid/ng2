@@ -1,3 +1,45 @@
 <ng-template key="top-toolbar.tpl.html">
+	<div class="layout-row">
+		<div class="flex-100">
+			<q-grid-title></q-grid-title>
+		</div>
+		<div class="flex-auto layout-row">
+			<div class="flex-100">
+				<q-grid-action-bar-core></q-grid-action-bar-core>
+			</div>
+			<div class="flex-auto">
+				<q-grid-popup id="q-grid-column-chooser-popup">
+					<ng-template for="trigger" let-$popup>
+						<button md-icon-button 
+								(click)="$popup.open({width: 352, height: 652})" 
+								tabindex="-1"
+								[disabled]="$popup.isOpened()">
+							<md-icon>more_vert</md-icon>
+						</button>
+					</ng-template>
+					<ng-template for="body">
+						<div md-dialog-content>
+							<p>Select All</p>
+							<p>Item 1</p>
+							<p>Item 2</p>
+						</div>
+
+						<!--<q-grid:column-chooser on:submit="$popupBody.close()"-->
+						<!--on:cancel="$popupBody.close()">-->
+						<!--</q-grid:column-chooser>-->
+
+						<div md-dialog-actions>
+							<button md-button (click)="$popup.close()">Cancel</button>
+							<button md-button (click)="$popup.close()">Reset</button>
+							<button md-button (click)="$popup.close()">Apply</button>
+						</div>
+					</ng-template>
+					<ng-template for="head">
+						Column Filter
+					</ng-template>
+				</q-grid-popup>
+			</div>
+		</div>
+	</div>
 	<q-grid-progress></q-grid-progress>
 </ng-template>

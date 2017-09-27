@@ -1,7 +1,5 @@
 import {SelectionService} from './selection.service';
-import {Model} from '../infrastructure/model';
-import {DataModel} from '../data/data.model';
-import {SelectionModel} from '../selection/selection.model';
+import {modelFactory} from '../test/model.factory';
 
 let model;
 const rows = [{
@@ -28,11 +26,8 @@ const columns = [{
 
 describe('selection service', () => {
 	before('init model', () => {
-		Model
-			.register('data', DataModel)
-			.register('selection', SelectionModel);
 
-		model = new Model();
+		model = modelFactory();
 
 		model
 			.data({
@@ -74,7 +69,7 @@ describe('selection service', () => {
 		describe('key function', () => {
 			it('should return key of corresponding row', () => {
 				const service = new SelectionService(model);
-				const key = service.keyFactory('row')
+				const key = service.keyFactory('row');
 
 				const keys = rows.map(row => key(row));
 

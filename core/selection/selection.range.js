@@ -38,12 +38,11 @@ export class SelectionRange {
 	}
 
 	buildColumns(startCell, endCell) {
-		const model = this.model;
-		const columns = model.view().columns;
 		if (!endCell) {
-			return [columns.find(column => column === startCell.column).model];
+			return [startCell.column];
 		}
 
+		const columns = this.model.data().columns;
 		const startIndex = Math.min(startCell.columnIndex, endCell.columnIndex);
 		const endIndex = Math.max(startCell.columnIndex, endCell.columnIndex);
 		return columns.slice(startIndex, endIndex + 1);

@@ -12,7 +12,11 @@ export class BodyView extends View {
 		this.rows = [];
 		this.render = new Renderer(model);
 
-		this.using(model.sceneChanged.watch(this.invalidate.bind(this)));
+		this.using(model.sceneChanged.watch(e => {
+			if (e.hasChanges('rows')) {
+				this.invalidate();
+			}
+		}));
 	}
 
 	invalidate() {
@@ -48,7 +52,7 @@ export class BodyView extends View {
 	}
 
 	value(row, column, value) {
-		if (arguments.length == 3) {
+		if (arguments.length === 3) {
 			this.render.setValue(row, column, value);
 			return;
 		}

@@ -1,20 +1,24 @@
 td.q-grid-edit {
-	.q-grid-editor {
-		md-input-container {
-			padding: 0;
-			margin: 0;
-			width: 100%;
-
-			.mat-input-infix {
-				border-top: 0;
-			}
-		}
-	}
+    .q-grid-editor {
+        md-input-container {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            .mat-input-infix {
+                border-top: 0;
+            }
+        }
+        &.q-grid-array {
+            .mat-input-underline {
+                display: none;
+            }
+        }
+    }
 }
 
 .q-grid-actions {
-	.mat-button {
-		margin: 8px 0 8px 8px;
-		float: right;
-	}
+    .mat-button {
+        margin: 8px 0 8px 8px;
+        float: right;
+    }
 }

@@ -1,23 +1,20 @@
-import {Directive, OnInit, Input, Renderer2, ElementRef} from '@angular/core';
-import {AppError} from 'ng2-qgrid/core/infrastructure';
+import { Directive, OnInit, Input, Renderer2, ElementRef } from '@angular/core';
+import { AppError } from 'ng2-qgrid/core/infrastructure';
 
-import {DomService} from 'ng2-qgrid/common/dom/dom.service';
+import { noop } from 'ng2-qgrid/core/utility';
 
 @Directive({
 	selector: '[q-grid-on-blur]'
 })
-export class BlurDirective  implements OnInit {
+export class BlurDirective implements OnInit {
+	@Input('q-grid-on-blur') onBlur = noop;
+	@Input('q-grid-on-blur-selector') selector = 'input';
 
-	@Input('q-grid-on-blur') onBlur: Function;
-	@Input('q-grid-on-blur-selector') selector: string | any = 'input';
-
-	private domService: DomService;
-
-	constructor(renderer: Renderer2, elementRef: ElementRef) {
-		this.domService = new DomService(renderer, elementRef);
+	constructor(private renderer: Renderer2, private elementRef: ElementRef) {
 	}
 
 	ngOnInit() {
-		this.domService.listen(this.selector, 'blur', this.onBlur);
+		const element = this.renderer.selectRootElement(this.selector);
+		this.renderer.listen(element, 'blur', this.onBlur);
 	}
 }

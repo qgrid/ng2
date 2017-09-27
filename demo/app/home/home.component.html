@@ -1,33 +1,30 @@
 <md-card>
-	<q-grid q-grid-autofocus="200"
-			  class="q-grid-embed"
-			  [rows]="rows"
-			  [model]="gridModel"
-			  editMode="cell">
+	<q-grid q-grid-autofocus 
+			class="q-grid-embed" 
+			[rows]="rows" 
+			[model]="gridModel" 
+			selectionUnit="row" 
+			editMode="cell" 
+			header="NG2 QGRID SANDBOX">
 		<q-grid-columns generation="deep">
+			<q-grid-column type="row-indicator" key="rowIndicator"></q-grid-column>
 			<q-grid-column type="number" aggregation="sum"></q-grid-column>
 			<q-grid-column key="name.last">
 				<ng-template for="body" let-$cell>
 					<span style="color: blue">{{$cell.value}}</span>
 				</ng-template>
 				<ng-template for="edit" let-$cell let-$view="$view">
-					<input type="text"
-							 q-grid-focus="input"
-							 style="border: 1px solid #f00; width: 100%;"
-							 [(ngModel)]="$view.edit.cell.value"
-							 (blur)="$view.edit.cell.commit.execute($cell)">
+					<input type="text" 
+						   q-grid-focus="input" 
+						   style="border: none; width: 100%;"
+						   [(ngModel)]="$view.edit.cell.value"
+					       (blur)="$view.edit.cell.commit.execute($cell)" />
 				</ng-template>
 			</q-grid-column>
-			<q-grid-column key="contact.singleEmail" title="Experimental" editor="password">
-			</q-grid-column>
+			<q-grid-column type="row-options" key="rowOptions"></q-grid-column>
 		</q-grid-columns>
 
-		<q-grid-toolbar>
-			<ng-template for="top">
-				<h3 class="mat-card-title" style="margin: 0; height: 56px; line-height: 56px;">
-					NG2 QGRID
-				</h3>
-			</ng-template>
-		</q-grid-toolbar>
+		<q-grid-data-manipulation>
+		</q-grid-data-manipulation>
 	</q-grid>
 </md-card>

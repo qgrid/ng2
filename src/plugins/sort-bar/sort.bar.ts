@@ -1,11 +1,11 @@
-import {Component, Input, OnInit, Optional} from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 
-import {PluginComponent} from '../plugin.component';
-import {Command} from 'ng2-qgrid/core/infrastructure';
+import { PluginComponent } from '../plugin.component';
+import { Command } from 'ng2-qgrid/core/infrastructure';
 import * as SortSevice from 'ng2-qgrid/core/sort/sort.service';
-import {SORT_BAR_NAME, TH_CORE_NAME} from 'ng2-qgrid/core/definition';
-import {TemplatePath} from 'ng2-qgrid/core/template';
-import {RootService} from 'ng2-qgrid/infrastructure/component';
+import { SORT_BAR_NAME, TH_CORE_NAME } from 'ng2-qgrid/core/definition';
+import { TemplatePath } from 'ng2-qgrid/core/template';
+import { RootService } from 'ng2-qgrid/infrastructure/component';
 
 @Component({
 	selector: 'q-grid-sort-bar',
@@ -19,7 +19,7 @@ export class SortBarComponent extends PluginComponent implements OnInit {
 	private newSort;
 	private selectedItems;
 
-	constructor(@Optional() public root: RootService) {
+	constructor( @Optional() public root: RootService) {
 		super(root);
 
 		this.newSort = null;
@@ -28,38 +28,38 @@ export class SortBarComponent extends PluginComponent implements OnInit {
 	}
 
 	public replace = new Command({
-			execute: key => {
-				const sort = this.model.sort;
+		execute: key => {
+			const sort = this.model.sort;
 
-				sort({
-					by: key.map(item => ({[item]: 'asc'}))
-				}, {
+			sort({
+				by: key.map(item => ({ [item]: 'asc' }))
+			}, {
 					source: 'sort.bar'
 				});
-			},
-			canExecute: () => this.columns.length > 0
-		}
+		},
+		canExecute: () => this.columns.length > 0
+	}
 	);
 
 	public add = new Command({
-			execute: key => {
-				const sort = this.model.sort;
-				const state = sort();
-				const entry = {[key]: 'asc'};
-				const temp = state.by.concat(entry);
+		execute: key => {
+			const sort = this.model.sort;
+			const state = sort();
+			const entry = { [key]: 'asc' };
+			const temp = state.by.concat(entry);
 
-				this.selectedItems = temp.slice();
+			this.selectedItems = temp.slice();
 
-				sort({
-					by: temp
-				}, {
+			sort({
+				by: temp
+			}, {
 					source: 'sort.bar'
 				});
 
-				this.newSort = null;
-			},
-			canExecute: () => this.columns.length > 0
-		}
+			this.newSort = null;
+		},
+		canExecute: () => this.columns.length > 0
+	}
 	);
 
 	public remove = new Command({
@@ -77,8 +77,8 @@ export class SortBarComponent extends PluginComponent implements OnInit {
 			sort({
 				by: temp
 			}, {
-				source: 'sort.bar'
-			});
+					source: 'sort.bar'
+				});
 		}
 	});
 

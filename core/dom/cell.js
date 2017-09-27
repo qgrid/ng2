@@ -10,7 +10,7 @@ export class Cell extends Element {
 		this.columnIndex = columnIndex;
 	}
 
-	get model() {
+	model() {
 		const model = this.context.bag.findModel(this.getElement());
 		return model ? new CellView(model) : null;
 	}

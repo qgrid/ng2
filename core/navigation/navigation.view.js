@@ -9,27 +9,14 @@ export class NavigationView extends View {
 		super(model);
 
 		this.table = table;
+
 		const shortcut = model.action().shortcut;
 		const navigation = new Navigation(model, table);
+		let focusBlurs = [];
 
 		this.using(shortcut.register(commandManager, navigation.commands));
 
-		this.blur = new Command({
-			execute: (row, column) => table.body.cell(row, column).removeClass(`${GRID_PREFIX}-focus`),
-			canExecute: (row, column, cell) => {
-				return cell || table.body.cell(row, column).model !== null;
-			}
-		});
-
 		this.focus = new Command({
-			execute: (row, column) => table.body.cell(row, column).addClass(`${GRID_PREFIX}-focus`),
-			canExecute: (row, column, cell) => {
-				cell = cell || table.body.cell(row, column).model;
-				return cell && cell.column.canFocus;
-			}
-		});
-
-		this.focusCell = new Command({
 			execute: cell => model.navigation({cell: new CellView(cell)}),
 			canExecute: cell => {
 				return cell
@@ -40,7 +27,7 @@ export class NavigationView extends View {
 
 		this.scrollTo = new Command({
 			execute: (row, column) => this.scroll(table.view, table.body.cell(row, column)),
-			canExecute: (row, column) => table.body.cell(row, column).model !== null
+			canExecute: (row, column) => table.body.cell(row, column).model() !== null
 		});
 
 		this.using(model.navigationChanged.watch(e => {
@@ -52,21 +39,10 @@ export class NavigationView extends View {
 				}
 
 				const navState = e.state;
-				const newTarget = e.changes.cell.newValue;
-				const oldTarget = e.changes.cell.oldValue;
 				const newRow = navState.rowIndex;
 				const newColumn = navState.columnIndex;
-				const oldRow = e.changes.cell.oldValue ? e.changes.cell.oldValue.rowIndex : -1;
-				const oldColumn = e.changes.cell.oldValue ? e.changes.cell.oldValue.columnIndex : -1;
 
-				if (this.blur.canExecute(oldRow, oldColumn, oldTarget)) {
-					this.blur.execute(oldRow, oldColumn);
-				}
-
-				if (this.focus.canExecute(newRow, newColumn, newTarget)) {
-					this.focus.execute(newRow, newColumn);
-				}
-
+				focusBlurs = this.invalidateFocus(focusBlurs);
 				if (e.tag.source !== 'navigation.scroll' && this.scrollTo.canExecute(newRow, newColumn)) {
 					this.scrollTo.execute(newRow, newColumn);
 				}
@@ -83,17 +59,39 @@ export class NavigationView extends View {
 		this.using(model.focusChanged.watch(e => {
 			if (e.tag.source !== 'navigation.view') {
 				model.navigation({
-					cell: table.body.cell(e.state.rowIndex, e.state.columnIndex).model
+					cell: table.body.cell(e.state.rowIndex, e.state.columnIndex).model()
 				});
 			}
 		}));
 
 		this.using(model.sceneChanged.watch(e => {
-			if (e.tag.behavior !== 'core') {
-				model.navigation({cell: null});
+			if (e.hasChanges('status')) {
+				const status = e.state.status;
+				switch (status) {
+					case 'stop':
+						focusBlurs = this.invalidateFocus(focusBlurs);
+						break;
+				}
 			}
 		}));
 	}
+
+	invalidateFocus(dispose) {
+		dispose.forEach(f => f());
+		dispose = [];
+
+		const navState = this.model.navigation();
+		const row = navState.rowIndex;
+		const column = navState.columnIndex;
+		const cell = this.table.body.cell(row, column);
+		if (cell.model()) {
+			cell.addClass(`${GRID_PREFIX}-focus`);
+			dispose.push(() => cell.removeClass(`${GRID_PREFIX}-focus`));
+		}
+
+		return dispose;
+	}
+
 
 	scroll(view, target) {
 		const tr = target.rect();

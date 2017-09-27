@@ -1,8 +1,6 @@
 import {MultipleSelectionState} from './multiple.selection.state';
-import {Model} from '../../infrastructure/model';
 import {SelectionService} from '../selection.service';
-import {DataModel} from '../../data/data.model';
-import {SelectionModel} from '../../selection/selection.model';
+import {modelFactory} from '../../test/model.factory';
 
 let model;
 const rows = [{
@@ -29,11 +27,8 @@ const columns = [{
 
 describe('multiple selection state', () => {
 	before('init model', () => {0
-		// Model.register('data', DataModel)
-		// 	.register('selection', SelectionModel);
-      //
 
-		model = new Model();
+		model = modelFactory();
 
 		model
 			.data({

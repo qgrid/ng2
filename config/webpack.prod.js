@@ -45,7 +45,6 @@ module.exports = function (env) {
 		env: ENV
 	}), {
 		entry: {
-			// 'polyfills': './demo/polyfills.browser.ts',
 			'main': helpers.root('src', 'index.ts'),
 			'main.min': helpers.root('src', 'index.ts'),
 			'vendor': [

@@ -8,17 +8,13 @@ import {noop} from '../utility';
 import {GRID_PREFIX} from '../definition';
 
 export class HighlightView extends View {
-	constructor(model, table, timeout) {
+	constructor(model, table) {
 		super(model);
 
-		this.timeout = timeout;
 		this.table = table;
 
 		this.cellSelector = new CellSelector(model, table);
 		this.selectionService = new SelectionService(model);
-
-		// TODO: get rid of this variable, maybe using table class?
-		let waitForLayout = false;
 
 		let sortBlurs = [];
 		let columnHoverBlurs = [];
@@ -28,7 +24,7 @@ export class HighlightView extends View {
 		this.column = new Command({
 			canExecute: () => !model.drag().isActive,
 			execute: (column, state) => {
-				if (!waitForLayout) {
+				if (!this.isRendering) {
 					const columns = Array.from(model.highlight().columns);
 					const index = columns.indexOf(column.key);
 					let hasChanges = false;
@@ -59,7 +55,7 @@ export class HighlightView extends View {
 		this.row = new Command({
 			canExecute: () => !model.drag().isActive,
 			execute: (row, state) => {
-				if (!waitForLayout) {
+				if (!this.isRendering) {
 					const rows = Array.from(model.highlight().rows);
 					const index = rows.indexOf(row);
 					let hasChanges = false;
@@ -93,25 +89,28 @@ export class HighlightView extends View {
 			}
 		}));
 
-		this.using(model.sceneChanged.watch(() => {
-			waitForLayout = true;
-			this.timeout(() => {
-				columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
-				rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
-				sortBlurs = this.invalidateSortBy(sortBlurs);
-				selectionBlurs = this.invalidateSelection(selectionBlurs);
-				waitForLayout = false;
-			}, 100);
+		this.using(model.sceneChanged.watch(e => {
+			if (e.hasChanges('status')) {
+				const status = e.state.status;
+				switch (status) {
+					case 'stop':
+						columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
+						rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
+						sortBlurs = this.invalidateSortBy(sortBlurs);
+						selectionBlurs = this.invalidateSelection(selectionBlurs);
+						break;
+				}
+			}
 		}));
 
 		this.using(model.sortChanged.watch(e => {
-			if (!waitForLayout && e.hasChanges('by')) {
+			if (!this.isRendering && e.hasChanges('by')) {
 				sortBlurs = this.invalidateSortBy(sortBlurs);
 			}
 		}));
 
 		this.using(model.highlightChanged.watch(e => {
-			if (!waitForLayout && e.tag.source !== 'highlight') {
+			if (!this.isRendering && e.tag.source !== 'highlight') {
 				if (e.hasChanges('columns')) {
 					columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
 				}
@@ -132,6 +131,10 @@ export class HighlightView extends View {
 				});
 			}
 		}));
+	}
+
+	get isRendering() {
+		return this.model.scene().status === 'start';
 	}
 
 	invalidateColumnHover(dispose) {

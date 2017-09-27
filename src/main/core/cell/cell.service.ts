@@ -1,8 +1,7 @@
-import {Injectable, ViewContainerRef, TemplateRef} from '@angular/core';
-import {TemplateCacheService, TemplateLinkService} from 'ng2-qgrid/template';
-import {AppError} from 'ng2-qgrid/core/infrastructure';
-import {noop} from 'ng2-qgrid/core/utility';
-// import {templateJitUrl} from '@angular/compiler';
+import { Injectable, ViewContainerRef } from '@angular/core';
+import { TemplateCacheService, TemplateLinkService } from 'ng2-qgrid/template';
+import { AppError } from 'ng2-qgrid/core/infrastructure';
+import { noop } from 'ng2-qgrid/core/utility';
 
 function canBuild(column) {
 	return column.type !== 'pad';
@@ -57,7 +56,7 @@ export class CellService {
 	findTemplate(keys: string[]) {
 		const templateCache = this.templateCache;
 		const templateLink = this.templateLink;
-		for (let key of keys) {
+		for (const key of keys) {
 			const template = templateCache.get(key) || templateLink.get(key);
 			if (template) {
 				return template;

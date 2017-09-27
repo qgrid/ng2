@@ -1,5 +1,4 @@
 import {Element} from './element';
-import {Row as RowModel} from '../row/row';
 import {Box} from './box';
 import {Cell} from './cell';
 
@@ -9,4 +8,6 @@ export declare class Row extends Element {
 	cells(): Cell[]
 
 	cell(columnIndex: number): Cell;
+
+	model(): any;
 }

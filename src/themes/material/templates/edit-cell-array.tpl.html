@@ -2,10 +2,27 @@
 	<div class="q-grid-editor q-grid-array">
 		<h2 class="md-title">Edit {{$cell.column.title}}</h2>
 		<div class="q-grid-array-view">
-			<q-grid-chip-list [values]="$view.edit.cell.value"></q-grid-chip-list>
+			<md-form-field class="demo-chip-list">
+				<md-chip-list mdPrefix #chipList>
+					<md-chip *ngFor="let value of $view.edit.cell.value;let $index = index" 
+							selectable="true" 
+							removable="true" 
+							(remove)="$view.edit.cell.value.splice($index, 1)">
+						{{value}}
+						<md-icon mdChipRemove>cancel</md-icon>
+					</md-chip>
+				</md-chip-list>
+				<input mdInput
+				       q-grid-focus
+					   [mdChipInputFor]="chipList" 					
+					   placeholder="New {{$cell.column.title}}..." 
+					   mdChipInputSeparatorKeyCodes="[13]"
+					   mdChipInputAddOnBlur="true" 
+					   (mdChipInputTokenEnd)="$view.edit.cell.value.push($event.value.trim())" />
+			</md-form-field>
 		</div>
 		<div class="q-grid-actions">
-			<button md-button (click)="$view.edit.cell.commit.execute($cell, $event)">Save</button>
+			<button md-button color="primary" (click)="$view.edit.cell.commit.execute($cell, $event)">Save</button>
 			<button md-button (click)="$view.edit.cell.cancel.execute($cell, $event)">Cancel</button>
 		</div>
 	</div>

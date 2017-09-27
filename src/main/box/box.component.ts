@@ -1,9 +1,9 @@
-import {Component, ElementRef, Optional, Input, OnInit} from '@angular/core';
-import {NgComponent} from 'ng2-qgrid/infrastructure/component/ng.component';
-import {ThemeService} from 'ng2-qgrid/template/theme.service';
-import {GRID_PREFIX} from 'ng2-qgrid/core/definition';
-import {Guard} from 'ng2-qgrid/core/infrastructure';
-import {RootService} from 'ng2-qgrid/infrastructure/component/root.service';
+import { Component, ElementRef, Optional, Input, OnInit } from '@angular/core';
+import { NgComponent } from 'ng2-qgrid/infrastructure/component/ng.component';
+import { ThemeService } from 'ng2-qgrid/template/theme.service';
+import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
+import { Guard } from 'ng2-qgrid/core/infrastructure';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 
 @Component({
 	selector: 'q-grid-box',
@@ -13,7 +13,7 @@ export class BoxComponent extends NgComponent implements OnInit {
 	@Input('model') private boxModel: any = null;
 	private element: HTMLElement = null;
 
-	constructor(@Optional() private root: RootService, element: ElementRef, private theme: ThemeService) {
+	constructor( @Optional() private root: RootService, element: ElementRef, private theme: ThemeService) {
 		super();
 
 		this.element = element.nativeElement;

@@ -1,0 +1,17 @@
+<ng-template key="head-cell-select.tpl.html" let-$view="$view">
+	<div ngSwitch="$view.selection.mode">
+		<div *ngSwitchCase="'single'" ngSwitch="!!$view.selection.items.length">
+			<md-icon *ngSwitchCase="true">check</md-icon>
+			<md-icon *ngSwitchDefault>remove</md-icon>
+		</div>
+		<div *ngSwitchDefault>
+			<md-checkbox [indeterminate]="$view.selection.isIndeterminate()"
+							 [checked]="$view.selection.state()"
+							 [disabled]="!$view.selection.toggleRow.canExecute()"
+							 (click)="$view.selection.toggleRow.execute()"
+							 tabindex="-1"
+							 aria-label="Selection">
+			</md-checkbox>
+		</div>
+	</div>
+</ng-template>

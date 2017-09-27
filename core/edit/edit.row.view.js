@@ -1,9 +1,12 @@
 import {Log} from '../infrastructure';
 import {Command} from '../command';
 import {RowEditor} from './edit.row.editor';
+import {View} from '../view';
 
-export class EditRowView {
+export class EditRowView extends View {
 	constructor(model, table, commandManager) {
+		super();
+
 		this.model = model;
 		this.table = table;
 		this.editor = RowEditor.empty;
@@ -124,7 +127,9 @@ export class EditRowView {
 		};
 	}
 
-	destroy() {
+	dispose() {
+		super.dispose();
+
 		this.shortcutOff();
 	}
 }

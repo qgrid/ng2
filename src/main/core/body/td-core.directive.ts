@@ -1,11 +1,11 @@
-import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
-import {GRID_PREFIX} from 'ng2-qgrid/core/definition';
-import {ViewCoreService} from '../view/view-core.service';
-import {TableCoreService} from '../table/table-core.service';
-import {RootService} from 'ng2-qgrid/infrastructure/component';
-import {CellService} from 'ng2-qgrid/main/core/cell';
-import {AppError} from 'ng2-qgrid/core/infrastructure';
-import {ColumnModel} from 'ng2-qgrid/core/column-type/column.model';
+import { Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
+import { ViewCoreService } from '../view/view-core.service';
+import { TableCoreService } from '../table/table-core.service';
+import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { CellService } from 'ng2-qgrid/main/core/cell';
+import { AppError } from 'ng2-qgrid/core/infrastructure';
+import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 
 @Directive({
 	selector: '[q-grid-core-td]',
@@ -17,11 +17,11 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 	private $implicit = this;
 
 	constructor(public $view: ViewCoreService,
-					private root: RootService,
-					private viewContainerRef: ViewContainerRef,
-					private cellService: CellService,
-					private table: TableCoreService,
-					element: ElementRef) {
+		private root: RootService,
+		private viewContainerRef: ViewContainerRef,
+		private cellService: CellService,
+		private table: TableCoreService,
+		element: ElementRef) {
 
 		this.element = element.nativeElement.parentNode;
 	}
@@ -88,8 +88,9 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 	}
 
 	get column() {
-		const columns = this.root.table.data.columns();
-		return columns[this.columnIndex];
+		const model = this.root.model;
+		const columns = model.scene().column.area;
+		return columns[this.table.pin][this.columnIndex].model;
 	}
 
 	get row() {

@@ -14,7 +14,6 @@ export class RowIndicatorColumnModel extends ColumnModel {
 		super('row-indicator');
 
 		this.key = '$row.indicator';
-		this.title = 'Row Indicator';
 		this.class = 'control';
 
 		this.canEdit = false;
