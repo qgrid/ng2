@@ -27,7 +27,6 @@ export class RowOptionsColumnModel extends DataColumnModel {
 		this.canResize = false;
 		this.canMove = false;
 		this.canHighlight = false;
-		this.width = 60;
 		this.pin = 'right';
 	}
 }

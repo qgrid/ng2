@@ -24,6 +24,7 @@ const templates = [
 	require('./edit-cell-password.tpl.html'),
 	require('./edit-cell-textarea.tpl.html'),
 	require('./edit-cell-select.tpl.html'),
+	require('./edit-cell-row-options.tpl.html'),
 
 	require('./foot-cell-text.tpl.html'),
 	require('./foot-cell-currency.tpl.html'),

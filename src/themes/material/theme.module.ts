@@ -17,7 +17,8 @@ import {
 	MdInputModule,
 	MdDatepickerModule,
 	MdNativeDateModule,
-	MdChipsModule
+	MdChipsModule,
+	MdMenuModule
 } from '@angular/material';
 
 @NgModule({
@@ -43,7 +44,8 @@ import {
 		MdInputModule,
 		MdDatepickerModule,
 		MdNativeDateModule,
-		MdChipsModule		
+		MdChipsModule,
+		MdMenuModule		
 	],
 	providers: [
 		ThemeService
