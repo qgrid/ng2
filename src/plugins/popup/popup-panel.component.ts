@@ -10,18 +10,16 @@ import { Popup } from './popup';
 export class PopupPanelComponent implements OnInit, OnDestroy {
 	@Input() public popup: Popup;
 
-	constructor(private popupService: PopupService, public element: ElementRef) {
-	}
+	constructor(
+		private popupService: PopupService,
+		public element: ElementRef
+	) {}
 
 	ngOnInit() {
 		this.element.nativeElement.classList.add('q-grid-popup');
 	}
 
 	ngOnDestroy() {
-		this.close();
-	}
-
-	close() {
-		this.popupService.close(this.popup.id);
+		this.popup.close();
 	}
 }

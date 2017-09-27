@@ -2,11 +2,11 @@
 	<button aria-label="Open row menu"
 				md-icon-button 
 				[mdMenuTriggerFor]="menu"
+				(onMenuClose)="$view.edit.cell.cancel.execute()"
 				q-grid-raise="click">
 		<md-icon>more_vert</md-icon>
 	</button>
-	<md-menu #menu="mdMenu"
-			 (onMenuClose)="$view.edit.cell.cancel.execute()">
+	<md-menu #menu="mdMenu">
 		<button md-menu-item 
 				*ngFor="let $action of $cell.column.editorOptions.actions"
 				(click)="$action.command.execute($cell)" 

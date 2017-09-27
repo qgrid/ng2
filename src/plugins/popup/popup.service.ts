@@ -1,4 +1,9 @@
-import { ComponentFactory, ComponentFactoryResolver, Injectable, ViewContainerRef } from '@angular/core';
+import {
+	ComponentFactory,
+	ComponentFactoryResolver,
+	Injectable,
+	ViewContainerRef
+} from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure';
 import { Popup } from './popup';
 import { PopupSettings } from './popup.settings';
@@ -19,11 +24,13 @@ interface ITarget {
 export class PopupService {
 	private popups: Map<string, Popup> = new Map();
 
-	constructor() {
-	}
+	constructor() {}
 	public open(popup: Popup) {
 		if (this.popups.hasOwnProperty(popup.id)) {
-			throw new AppError('popup.service', `Can't open popup '${popup.id}', it's already opened`);
+			throw new AppError(
+				'popup.service',
+				`Can't open popup '${popup.id}', it's already opened`
+			);
 		}
 
 		const element = popup.element;
@@ -36,7 +43,9 @@ export class PopupService {
 		element.setAttribute('id', popup.id);
 		element.style.left = pos.left + 'px';
 		element.style.top = pos.top + 'px';
-
+		element.style.width = popup.settings.width + 'px';
+		element.style.height = popup.settings.height + 'px';
+		
 		if (settings.resizable) {
 			element.classList.add('resizable');
 		}
@@ -54,7 +63,10 @@ export class PopupService {
 
 	public close(id: string): void {
 		if (!this.isOpened(id)) {
-			throw new AppError('popup.service', `Can't close popup '${id}', it's not opened`);
+			throw new AppError(
+				'popup.service',
+				`Can't close popup '${id}', it's not opened`
+			);
 		}
 
 		const popup = this.popups.get(id);
@@ -99,7 +111,7 @@ export class PopupService {
 			return {
 				offset: () => {
 					return {
-						left: (window.innerWidth) / 2,
+						left: window.innerWidth / 2,
 						top: (window.innerHeight - settings.height) / 2
 					};
 				},
@@ -139,20 +151,14 @@ export class PopupService {
 		const ltx0 = x - ew2 < 0;
 		const gty1 = y + eh > h;
 		const lty0 = y - eh < 0;
-		const l = ltx0 && gtx1
-			? w / 2 - ew2
-			: gtx1
-				? x - ew - dx
-				: ltx0
-					? x + dx
-					: x - ew2 + dx;
-		const t = lty0 && gty1
-			? h / 2 - eh2
-			: gty1
-				? y - eh - dy
-				: lty0
-					? y + dy
-					: y + dy;
+		const l =
+			ltx0 && gtx1
+				? w / 2 - ew2
+				: gtx1 ? x - ew - dx : ltx0 ? x + dx : x - ew2 + dx;
+		const t =
+			lty0 && gty1
+				? h / 2 - eh2
+				: gty1 ? y - eh - dy : lty0 ? y + dy : y + dy;
 
 		return {
 			left: l,
