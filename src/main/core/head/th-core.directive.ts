@@ -1,8 +1,16 @@
-import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
-import {GRID_PREFIX} from 'ng2-qgrid/core/definition';
-import {RootService} from 'ng2-qgrid/infrastructure/component';
-import {CellService} from '../cell/cell.service';
-import {ViewCoreService} from '../view/view-core.service';
+import {
+	Directive,
+	ElementRef,
+	Input,
+	OnDestroy,
+	OnInit,
+	ViewContainerRef
+} from '@angular/core';
+import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
+import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { TableCoreService } from '../table/table-core.service';
+import { CellService } from '../cell/cell.service';
+import { ViewCoreService } from '../view/view-core.service';
 
 @Directive({
 	selector: '[q-grid-core-th]'
@@ -13,12 +21,14 @@ export class ThCoreDirective implements OnInit, OnDestroy {
 	public element: HTMLElement = null;
 	private $implicit = this;
 
-	constructor(public $view: ViewCoreService,
-					private root: RootService,
-					private viewContainerRef: ViewContainerRef,
-					private cellService: CellService,
-					element: ElementRef) {
-
+	constructor(
+		public $view: ViewCoreService,
+		private root: RootService,
+		private viewContainerRef: ViewContainerRef,
+		private cellService: CellService,
+		private table: TableCoreService,
+		element: ElementRef
+	) {
 		this.element = element.nativeElement.parentNode;
 	}
 
@@ -42,7 +52,9 @@ export class ThCoreDirective implements OnInit, OnDestroy {
 	}
 
 	get row() {
-		return this.$view.head.rows[this.rowIndex];
+		const model = this.root.model;
+		const rows = model.scene().column.rows;
+		return rows[this.rowIndex].filter(c => c.model.pin === this.table.pin);
 	}
 
 	ngOnDestroy() {

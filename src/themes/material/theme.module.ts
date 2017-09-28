@@ -6,8 +6,8 @@ import { ThemeComponent } from './theme.component';
 import { PluginModule } from 'ng2-qgrid/plugins';
 import { TemplateModule } from 'ng2-qgrid/template';
 import { CommonModule } from 'ng2-qgrid/common';
-
 import {
+	MdCardModule, 
 	MdIconModule,
 	MdButtonModule,
 	MdCheckboxModule,
@@ -17,7 +17,8 @@ import {
 	MdInputModule,
 	MdDatepickerModule,
 	MdNativeDateModule,
-	MdChipsModule
+	MdChipsModule,
+	MdMenuModule
 } from '@angular/material';
 
 @NgModule({
@@ -43,7 +44,9 @@ import {
 		MdInputModule,
 		MdDatepickerModule,
 		MdNativeDateModule,
-		MdChipsModule		
+		MdChipsModule,
+		MdMenuModule,
+		MdCardModule		
 	],
 	providers: [
 		ThemeService

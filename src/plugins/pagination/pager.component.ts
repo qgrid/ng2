@@ -12,16 +12,16 @@ export class PagerComponent extends PluginComponent {
 	@Input('sizeList') private paginationSizeList;
 
 	public next = new Command({
-		execute: () => this.current = this.current + 1,
+		execute: () => (this.current = this.current + 1),
 		canExecute: () => (this.current + 1) * this.size < this.total
 	});
 
 	public prev = new Command({
-		execute: () => this.current = this.current - 1,
+		execute: () => (this.current = this.current - 1),
 		canExecute: () => this.current > 0
 	});
 
-	constructor( @Optional() root: RootService) {
+	constructor(@Optional() root: RootService) {
 		super(root);
 
 		this.models = ['pagination'];

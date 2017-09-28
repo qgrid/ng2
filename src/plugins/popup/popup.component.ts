@@ -21,7 +21,8 @@ import { PopupPanelComponent } from './popup-panel.component';
 	templateUrl: './popup.component.html',
 	providers: [TemplateHostService, Popup]
 })
-export class PopupComponent extends PluginComponent implements OnInit, OnDestroy {
+export class PopupComponent extends PluginComponent
+	implements OnInit, OnDestroy {
 	private factory: ComponentFactory<PopupPanelComponent>;
 	private $implicit = this;
 
@@ -33,8 +34,8 @@ export class PopupComponent extends PluginComponent implements OnInit, OnDestroy
 		private templateHost: TemplateHostService,
 		private resolver: ComponentFactoryResolver,
 		private viewContainerRef: ViewContainerRef,
-		private popup: Popup) {
-
+		private popup: Popup
+	) {
 		super(root);
 
 		this.factory = resolver.resolveComponentFactory(PopupPanelComponent);
@@ -59,12 +60,21 @@ export class PopupComponent extends PluginComponent implements OnInit, OnDestroy
 	public open(settings: PopupSettings): void {
 		settings = Object.assign(new PopupSettings(), settings);
 
-		const component = this.viewContainerRef.createComponent(this.factory).instance;
-		
+		const component = this.viewContainerRef.createComponent(this.factory)
+			.instance;
+
 		component.popup = this.popup;
 		this.popup.element = component.element.nativeElement;
 		this.popup.settings = settings;
 
 		this.popupService.open(this.popup);
+	}
+
+	public close() {
+		this.popupService.close(this.id);
+	}
+
+	public isOpened() {
+		return this.popupService.isOpened(this.id);
 	}
 }

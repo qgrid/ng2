@@ -11,6 +11,8 @@ const templates = [
 	require('./body-cell-group.tpl.html'),
 	require('./body-cell-currency.tpl.html'),
 	require('./body-cell-date.tpl.html'),
+	require('./body-cell-row-indicator.tpl.html'),
+	require('./body-cell-row-options.tpl.html'),
 
 	require('./edit-cell-date.tpl.html'),
 	require('./edit-cell-array.tpl.html'),
@@ -23,6 +25,7 @@ const templates = [
 	require('./edit-cell-password.tpl.html'),
 	require('./edit-cell-textarea.tpl.html'),
 	require('./edit-cell-select.tpl.html'),
+	require('./edit-cell-row-options.tpl.html'),
 
 	require('./foot-cell-text.tpl.html'),
 	require('./foot-cell-currency.tpl.html'),
@@ -32,9 +35,13 @@ const templates = [
 	require('./toolbar-left.tpl.html'),
 	require('./toolbar-right.tpl.html'),
 
+	require('./plugin-title.tpl.html'),
 	require('./plugin-pager.tpl.html'),
 	require('./plugin-progress.tpl.html'),
-	require('./plugin-export.tpl.html')
+	require('./plugin-export.tpl.html'),
+	require('./plugin-action-bar-core.tpl.html'),
+	require('./plugin-action-core.tpl.html'),
+	require('./plugin-popup-panel.tpl.html')
 ];
 
 export const template = templates.join('\n\n');

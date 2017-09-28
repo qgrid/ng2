@@ -1,9 +1,9 @@
-&.q-grid-popup-panel {
+.q-grid-popup-panel {
+	height: 100%;
 	md-card {
 		margin: 0;
 
 		md-card-content {
-			max-height: 500px;
 			overflow: hidden;
 		}
 

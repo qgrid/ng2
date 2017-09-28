@@ -25,18 +25,6 @@ export class TableCoreComponent implements OnInit {
 		this.table.pin = this.pin;
 	}
 
-	get columnStartIndex() {
-		const columns = this.root.table.data.columns();
-		switch (this.pin) {
-			case 'left':
-				return 0;
-			case 'right':
-				return columns.filter(c => c.pin !== 'right').length;
-			default:
-				return columns.filter(c => c.pin === 'left').length;
-		}
-	}
-
 	get visibility() {
 		return this.model.visibility();
 	}

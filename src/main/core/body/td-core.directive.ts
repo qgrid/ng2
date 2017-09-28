@@ -88,8 +88,9 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 	}
 
 	get column() {
-		const columns = this.root.table.data.columns();
-		return columns[this.columnIndex];
+		const model = this.root.model;
+		const columns = model.scene().column.area;
+		return columns[this.table.pin][this.columnIndex].model;
 	}
 
 	get row() {
