@@ -1,28 +1,34 @@
 <ng-template key="plugin-popup-panel.tpl.html" let-$popup>
-	<md-card class="q-grid-popup-panel mat-card">
-		<md-card-header class="mat-card-header">
-			<md-card-title class="layout-row mat-card-title">
-				<h4 md-dialog-title class="flex-100">
-					<ng-container key="head-popup-{{$popup.id}}.tpl.html" [context]="{$implicit: $popup}">
-					</ng-container>
-				</h4>
-				<div class="q-grid-title-actions flex-auto" layout="row" layout-align="end center">
-					<button md-icon-button *ngIf="$popup.settings.collapsible && !$popup.state.expanded" aria-label="Expand" md-tooltip="Expand">
+	<div class="q-grid-popup-panel">
+		<md-card>
+			<md-card-header class="mat-card-header">
+				<md-card-title class="layout-row">
+					<h4 md-dialog-title class="flex-100">
+						<ng-container key="head-popup-{{$popup.id}}.tpl.html" [context]="{$implicit: $popup}">
+						</ng-container>
+					</h4>
+					<div class="q-grid-title-actions flex-auto" layout="row" layout-align="end center">
+						<button md-icon-button *ngIf="$popup.settings.collapsible && !$popup.state.expanded" aria-label="Expand" md-tooltip="Expand">
 						<md-icon aria-hidden="true">&#xE5D0;</md-icon>
 					</button>
-					<button md-icon-button *ngIf="$popup.settings.collapsible && $popup.state.expanded" aria-label="Collapse" md-tooltip="Collapse">
+						<button md-icon-button *ngIf="$popup.settings.collapsible && $popup.state.expanded" aria-label="Collapse" md-tooltip="Collapse">
 						<md-icon aria-hidden="true">&#xE5D1;</md-icon>
 					</button>
-					<button md-button class="md-action-close" aria-label="Close" (click)="$popup.close()" md-tooltip="Close">
+						<button md-button class="md-action-close" aria-label="Close" (click)="$popup.close()" md-tooltip="Close">
 						<md-icon aria-hidden="true">&#xE5CD;</md-icon>
 					</button>
-				</div>
-			</md-card-title>
-		</md-card-header>
-		<md-card-content class="mat-card-content">
-			<ng-container key="body-popup-{{$popup.id}}.tpl.html" [context]="{$implicit: $popup}">
-			</ng-container>
-		</md-card-content>
-		<div class="q-grid-popup-resizer" *ngIf="$popup.settings.resizable"></div>
-	</md-card>
+					</div>
+				</md-card-title>
+			</md-card-header>
+			<md-card-content>
+				<ng-container key="body-popup-{{$popup.id}}.tpl.html" [context]="{$implicit: $popup}">
+				</ng-container>
+			</md-card-content>
+			<md-card-actions>
+				<ng-container key="foot-popup-{{$popup.id}}.tpl.html" [context]="{$implicit: $popup}">
+				</ng-container>
+			</md-card-actions>
+			<div class="q-grid-popup-resizer" *ngIf="$popup.settings.resizable"></div>
+		</md-card>
+	</div>
 </ng-template>
