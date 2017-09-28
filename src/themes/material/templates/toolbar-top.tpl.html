@@ -10,29 +10,29 @@
 			<div class="flex-auto">
 				<q-grid-popup id="q-grid-column-chooser-popup">
 					<ng-template for="trigger" let-$popup>
-						<button md-icon-button 
-								(click)="$popup.open({width: 352, height: 652})" 
-								tabindex="-1"
-								[disabled]="$popup.isOpened()">
+						<button md-icon-button (click)="$popup.open({width: 352, height: 652})" tabindex="-1" [disabled]="$popup.isOpened()">
 							<md-icon>more_vert</md-icon>
 						</button>
 					</ng-template>
 					<ng-template for="body">
-						<div md-dialog-content>
-							<p>Select All</p>
-							<p>Item 1</p>
-							<p>Item 2</p>
-						</div>
-
-						<!--<q-grid:column-chooser on:submit="$popupBody.close()"-->
-						<!--on:cancel="$popupBody.close()">-->
-						<!--</q-grid:column-chooser>-->
-
-						<div md-dialog-actions>
-							<button md-button (click)="$popup.close()">Cancel</button>
-							<button md-button (click)="$popup.close()">Reset</button>
-							<button md-button (click)="$popup.close()">Apply</button>
-						</div>
+						<!--TODO: insert here column chooser component-->
+						<!-- <q-grid-column-chooser></q-grid-column-chooser> -->
+						<p>Select All</p>
+						<p>Item 1</p>
+						<p>Item 2</p>
+					</ng-template>
+					<ng-template for="foot" let-$popup>
+						<button md-button (click)="$popup.close()">Cancel</button>
+						<button md-button (click)="$popup.close()">Reset</button>
+						<button md-button (click)="$popup.close()">Apply</button>
+						<!--TODO: implement beloow component-->
+						<!-- <q-grid-column-chooser-actions [popup]="$popup">
+							<ng-template for="actions" let-$columnChooser>
+								<button md-button (click)="$columnChooser.cancel()">Cancel</button>
+								<button md-button (click)="$columnChooser.reset()">Reset</button>
+								<button md-button (click)="$columnChooser.submit()">Apply</button>
+							</ng-template>
+						</q-grid-column-chooser-actions> -->
 					</ng-template>
 					<ng-template for="head">
 						Column Filter
