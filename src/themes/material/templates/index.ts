@@ -10,6 +10,7 @@ const templates = [
 	require('./body-cell-select.tpl.html'),
 	require('./body-cell-group.tpl.html'),
 	require('./body-cell-currency.tpl.html'),
+	require('./body-cell-date.tpl.html'),
 	require('./body-cell-row-indicator.tpl.html'),
 	require('./body-cell-row-options.tpl.html'),
 

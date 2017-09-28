@@ -1,5 +1,5 @@
 <ng-template key='edit-cell-array.tpl.html' let-$cell let-$view="$view">
-	<div class="q-grid-editor q-grid-array">
+	<div class="q-grid-editor q-grid-array" q-grid-position="td">
 		<h2 class="md-title">Edit {{$cell.column.title}}</h2>
 		<div class="q-grid-array-view">
 			<md-form-field class="demo-chip-list">
@@ -13,12 +13,11 @@
 					</md-chip>
 				</md-chip-list>
 				<input mdInput
-				       q-grid-focus
 					   [mdChipInputFor]="chipList" 					
 					   placeholder="New {{$cell.column.title}}..." 
 					   mdChipInputSeparatorKeyCodes="[13]"
 					   mdChipInputAddOnBlur="true" 
-					   (mdChipInputTokenEnd)="$view.edit.cell.value.push($event.value.trim())" />
+					   (mdChipInputTokenEnd)="$event.value.trim() && (($view.edit.cell.value.push($event.value.trim()) || true) && $event.input.value = '')" />
 			</md-form-field>
 		</div>
 		<div class="q-grid-actions">

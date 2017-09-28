@@ -9,6 +9,7 @@ import { GridService } from './main/grid/grid.service';
 import { GridComponent } from './main/grid/grid.component';
 import { ColumnListComponent, ColumnComponent } from './main/column';
 import { PluginModule } from './plugins';
+import { FocusModule } from './common';
 
 @NgModule({
 	declarations: [],
@@ -19,7 +20,8 @@ import { PluginModule } from './plugins';
 		TemplateCacheDirective,
 		PluginModule,
 		MainModule,
-		TemplateModule
+		TemplateModule,
+		FocusModule
 	],
 	imports: [
 		MainModule,

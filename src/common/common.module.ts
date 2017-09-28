@@ -3,6 +3,7 @@ import { RaiseModule } from './raise';
 import { DndModule } from './dnd';
 import { FocusModule } from './focus';
 import { ResizeModule } from './resize';
+import { LayoutModule } from './layout';
 
 @NgModule({
 	declarations: [],
@@ -10,6 +11,7 @@ import { ResizeModule } from './resize';
 		DndModule,
 		FocusModule,
 		ResizeModule,
+		LayoutModule,
 		RaiseModule
 	],
 	imports: [],

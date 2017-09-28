@@ -1,34 +1,28 @@
 @import "variables";
-
 .q-grid-pager {
-	> div {
-		height: 100%;
-		line-height: 24px;
-		margin-top: -3px;
-
-		label {
-			vertical-align: sub;
-		}
-
-		md-select {
-			vertical-align: middle;;
-
-			.mat-select-trigger {
-				min-width: 50px;
-				width: 50px;
-				.mat-select-value {
-					font-size: 12px;
-				}
-			}
-		}
-
-		button {
-			display: inline-flex;
-			vertical-align: middle;
-
-			.mat-button-wrapper {
-				line-height: 24px;
-			}
-		}
-	}
+    >div {
+        height: 100%;
+        line-height: 24px;
+        margin-top: -3px;
+        label {
+            vertical-align: sub;
+        }
+        md-select {
+            padding: 0;
+            .mat-select-trigger {
+                min-width: 50px;
+                width: 50px;
+                .mat-select-value {
+                    font-size: 12px;
+                }
+            }
+        }
+        button {
+            display: inline-flex;
+            vertical-align: middle;
+            .mat-button-wrapper {
+                line-height: 24px;
+            }
+        }
+    }
 }
