@@ -11,13 +11,14 @@ import { RootService } from 'ng2-qgrid/infrastructure/component';
 import { TableCoreService } from '../table/table-core.service';
 import { CellService } from '../cell/cell.service';
 import { ViewCoreService } from '../view/view-core.service';
+import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 
 @Directive({
 	selector: '[q-grid-core-th]'
 })
 export class ThCoreDirective implements OnInit, OnDestroy {
 	@Input('q-grid-core-row-index') rowIndex: number;
-	@Input('q-grid-core-column-index') columnIndex: number;
+	@Input('q-grid-core-column') columnView: ColumnView;
 	public element: HTMLElement = null;
 	private $implicit = this;
 
@@ -48,13 +49,17 @@ export class ThCoreDirective implements OnInit, OnDestroy {
 	}
 
 	get column() {
-		return this.row[this.columnIndex].model;
+		return this.columnView.model;
+	}
+
+	get columnIndex() {
+		return this.columnView.index;
 	}
 
 	get row() {
 		const model = this.root.model;
 		const rows = model.scene().column.rows;
-		return rows[this.rowIndex].filter(c => c.model.pin === this.table.pin);
+		return rows[this.rowIndex];
 	}
 
 	ngOnDestroy() {

@@ -15,8 +15,8 @@
 		 q-grid-resize-path="columns"
 		 [q-grid-can-resize]="$view.head.resize.canExecute">
 		<ng-container q-grid-core-th
-						  [q-grid-core-column-index]="$columnIndex"
-						  [q-grid-core-row-index]="$rowIndex">
+					  [q-grid-core-column]="$column"
+					  [q-grid-core-row-index]="$rowIndex">
 		</ng-container>
 	</th>
 </tr>

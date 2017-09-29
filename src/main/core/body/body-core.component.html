@@ -3,7 +3,7 @@
 	 q-grid-core-source="body">
 	<td *ngFor="let $column of $view.body.render.columns($row, $table.pin); trackBy: columnKey; let $columnIndex = index">
 		<ng-container q-grid-core-td
-					  [q-grid-core-column-index]="$columnIndex"
+					  [q-grid-core-column]="$column"
 					  [q-grid-core-row-index]="$rowIndex">
 		</ng-container>
 	</td>

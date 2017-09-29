@@ -6,13 +6,14 @@ import { RootService } from 'ng2-qgrid/infrastructure/component';
 import { CellService } from 'ng2-qgrid/main/core/cell';
 import { AppError } from 'ng2-qgrid/core/infrastructure';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
+import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 
 @Directive({
 	selector: '[q-grid-core-td]',
 })
 export class TdCoreDirective implements OnInit, OnDestroy {
-	@Input('q-grid-core-row-index') rowIndex: number;
-	@Input('q-grid-core-column-index') columnIndex: number;
+	@Input('q-grid-core-row-index') public rowIndex: number;
+	@Input('q-grid-core-column') public columnView: ColumnView;
 	public element: HTMLElement = null;
 	private $implicit = this;
 
@@ -88,9 +89,11 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 	}
 
 	get column() {
-		const model = this.root.model;
-		const columns = model.scene().column.area;
-		return columns[this.table.pin][this.columnIndex].model;
+		return this.columnView.model;
+	}
+
+	get columnIndex() {
+		return this.columnView.index;
 	}
 
 	get row() {
