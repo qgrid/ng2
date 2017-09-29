@@ -50,6 +50,7 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 				if (value !== 'init') {
 					this.element.classList.remove(`${GRID_PREFIX}-edit`);
 				}
+				
 				break;
 			}
 			case 'edit': {
