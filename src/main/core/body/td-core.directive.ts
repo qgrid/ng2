@@ -6,13 +6,14 @@ import { RootService } from 'ng2-qgrid/infrastructure/component';
 import { CellService } from 'ng2-qgrid/main/core/cell';
 import { AppError } from 'ng2-qgrid/core/infrastructure';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
+import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
+import { TrCoreDirective } from '../row/tr-core.directive';
 
 @Directive({
 	selector: '[q-grid-core-td]',
 })
 export class TdCoreDirective implements OnInit, OnDestroy {
-	@Input('q-grid-core-row-index') rowIndex: number;
-	@Input('q-grid-core-column-index') columnIndex: number;
+	@Input('q-grid-core-td') public columnView: ColumnView;
 	public element: HTMLElement = null;
 	private $implicit = this;
 
@@ -21,6 +22,7 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 		private viewContainerRef: ViewContainerRef,
 		private cellService: CellService,
 		private table: TableCoreService,
+		private tr: TrCoreDirective,
 		element: ElementRef) {
 
 		this.element = element.nativeElement.parentNode;
@@ -49,6 +51,7 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 				if (value !== 'init') {
 					this.element.classList.remove(`${GRID_PREFIX}-edit`);
 				}
+
 				break;
 			}
 			case 'edit': {
@@ -88,13 +91,19 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 	}
 
 	get column() {
-		const model = this.root.model;
-		const columns = model.scene().column.area;
-		return columns[this.table.pin][this.columnIndex].model;
+		return this.columnView.model;
+	}
+
+	get columnIndex() {
+		return this.columnView.index;
 	}
 
 	get row() {
-		return this.$view.body.rows[this.rowIndex];
+		return this.tr.model;
+	}
+
+	get rowIndex() {
+		return this.tr.index;
 	}
 
 	ngOnDestroy() {
