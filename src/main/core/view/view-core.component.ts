@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Optional, AfterViewChecked } from '@angular/core';
+import { Component, OnDestroy, OnInit, Optional, DoCheck } from '@angular/core';
 import { NgComponent, RootService } from 'ng2-qgrid/infrastructure/component';
 import { Table } from 'ng2-qgrid/core/dom';
 import { BodyView } from 'ng2-qgrid/core/body';
@@ -35,7 +35,7 @@ import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 		CellService
 	]
 })
-export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy, DoCheck {
 	constructor( @Optional() private root: RootService,
 		private view: ViewCoreService,
 		private gridService: GridService) {
@@ -93,7 +93,7 @@ export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy,
 		return this.model.visibility();
 	}
 
-	ngAfterViewChecked() {
+	ngDoCheck() {
 		this.view.style.invalidate();
 	}
 }
