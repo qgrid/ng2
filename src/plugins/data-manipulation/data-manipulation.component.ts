@@ -13,12 +13,16 @@ import { isUndefined } from 'ng2-qgrid/core/utility';
 })
 export class DataManipulationComponent extends PluginComponent
 	implements OnInit {
-		
+
 	private rowId: (x: any) => string;
 	private rowFactory: (x: any) => any;
 
 	private commitCommand = new Command({
 		execute: e => {
+			if (e.column.class !== 'data') {
+				return;
+			}
+
 			const rowId = this.rowId(e.row);
 			const edited = this.changes.edited;
 
@@ -134,7 +138,7 @@ export class DataManipulationComponent extends PluginComponent
 		// )
 	];
 
-	constructor(@Optional() root: RootService) {
+	constructor( @Optional() root: RootService) {
 		super(root);
 	}
 
@@ -161,6 +165,7 @@ export class DataManipulationComponent extends PluginComponent
 				const rowOptionsColumn = model
 					.data()
 					.columns.find(column => column.type === 'row-options');
+
 				if (rowOptionsColumn) {
 					rowOptionsColumn.editorOptions.actions.push(
 						...this.rowActions
