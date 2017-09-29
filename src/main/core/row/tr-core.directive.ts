@@ -6,7 +6,8 @@ import { RootService } from 'ng2-qgrid/infrastructure/component';
 	selector: '[q-grid-core-tr]'
 })
 export class TrCoreDirective implements OnInit, OnDestroy {
-	@Input('q-grid-core-tr') public index: number;
+	@Input('q-grid-core-row-index') public index: number;
+	@Input('q-grid-core-tr') public model: any;
 	@Input('q-grid-core-source') private source;
 
 	public element: HTMLElement;

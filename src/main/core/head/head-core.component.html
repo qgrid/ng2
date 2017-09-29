@@ -1,5 +1,6 @@
 <tr *ngFor="let $row of $view.head.rows; trackBy: rowIndex; let $rowIndex = index"
-	 [q-grid-core-tr]="$rowIndex"
+	 [q-grid-core-tr]="$row"
+	 [q-grid-core-row-index]="$rowIndex"	 
 	 q-grid-core-source="head">
 	<th *ngFor="let $column of $view.head.columns($row, $table.pin); trackBy: columnKey; let $columnIndex = index"
 		 (mouseenter)="$view.highlight.column.execute($column.model, true)"
@@ -14,9 +15,7 @@
 		 [q-grid-resize]="$column.model.key"
 		 q-grid-resize-path="columns"
 		 [q-grid-can-resize]="$view.head.resize.canExecute">
-		<ng-container q-grid-core-th
-					  [q-grid-core-column]="$column"
-					  [q-grid-core-row-index]="$rowIndex">
+		<ng-container [q-grid-core-th]="$column">
 		</ng-container>
 	</th>
 </tr>

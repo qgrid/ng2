@@ -1,10 +1,9 @@
 <tr *ngFor="let $row of $view.body.rows; trackBy: rowIndex; let $rowIndex = index"
-	 [q-grid-core-tr]="$rowIndex"
+	 [q-grid-core-tr]="$row"
+	 [q-grid-core-row-index]="$rowIndex"
 	 q-grid-core-source="body">
 	<td *ngFor="let $column of $view.body.render.columns($row, $table.pin); trackBy: columnKey; let $columnIndex = index">
-		<ng-container q-grid-core-td
-					  [q-grid-core-column]="$column"
-					  [q-grid-core-row-index]="$rowIndex">
+		<ng-container [q-grid-core-td]="$column">
 		</ng-container>
 	</td>
 </tr>
