@@ -2,6 +2,7 @@ import {AppError} from '../infrastructure';
 import {orderBy} from '../utility';
 import {key as getKey, direction as getDirection} from '../sort/sort.service';
 import {find} from '../column/column.service';
+import {parseFactory} from '../services';
 
 export function sortPipe(data, context, next) {
 	const model = context.model;
@@ -22,7 +23,10 @@ export function sortPipe(data, context, next) {
 				throw new AppError('sort.pipe', `Column "${sortKey}" is not found`);
 			}
 
-			mappings.push(context.valueFactory(sortColumn));
+			const getValue = context.valueFactory(sortColumn);
+			const parseValue = parseFactory(sortColumn.type);
+
+			mappings.push(row => parseValue(getValue(row)));
 			directions.push(sortDir);
 		}
 
