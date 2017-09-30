@@ -22,10 +22,12 @@
     @import "assets/column.filter";
     @import "assets/edit.form";
     @import "assets/export";
-    @import "assets/menu";
+	@import "assets/menu";
+	@import "assets/title";
     @import "assets/mat.cell.edit";
     @import "assets/mat.pagination";
-    @import "assets/mat.progress";
+	@import "assets/mat.progress";
+	@import "assets/mat.popup";
 }
 
 .q-grid-excel .q-grid.q-grid-theme-material {
