@@ -33,7 +33,6 @@
 
 					<md-checkbox [ngModel]="column.isVisible"
 									 (ngModelChange)="$chooser.setColumnState(column, $event)"
-									 (click)="$chooser.toggle.execute(column)"
 									 [aria-label]="Selection">
 						<span>{{column.title || $chooser.filter}}</span>
 					</md-checkbox>
