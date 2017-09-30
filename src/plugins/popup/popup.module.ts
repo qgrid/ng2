@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 import { TemplateModule } from 'ng2-qgrid/template';
-import { PopupComponent } from 'ng2-qgrid/plugins/popup/popup.component';
-import { PopupPanelComponent } from 'ng2-qgrid/plugins/popup/popup-panel.component';
+import { PopupComponent } from './popup.component';
+import { PopupPanelComponent } from './popup-panel.component';
 import { PopupService } from './popup.service';
+import { PopupHeadDirective } from './popup-head.directive';
 
 @NgModule({
 	imports: [TemplateModule],
 	exports: [
 		PopupComponent,
+		PopupHeadDirective
 	],
 	declarations: [
 		PopupComponent,
-		PopupPanelComponent
+		PopupPanelComponent,
+		PopupHeadDirective
 	],
 	providers: [
 		PopupService

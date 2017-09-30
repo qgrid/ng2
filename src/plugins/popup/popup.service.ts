@@ -24,7 +24,8 @@ interface ITarget {
 export class PopupService {
 	private popups: Map<string, Popup> = new Map();
 
-	constructor() {}
+	constructor() { }
+
 	public open(popup: Popup) {
 		if (this.popups.hasOwnProperty(popup.id)) {
 			throw new AppError(
@@ -45,7 +46,7 @@ export class PopupService {
 		element.style.top = pos.top + 'px';
 		element.style.width = popup.settings.width + 'px';
 		element.style.height = popup.settings.height + 'px';
-		
+
 		if (settings.resizable) {
 			element.classList.add('resizable');
 		}
