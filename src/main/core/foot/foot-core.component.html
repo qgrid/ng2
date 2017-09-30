@@ -1,8 +1,8 @@
-<tr *ngFor="let $row of $view.foot.rows; trackBy: rowIndex; let $rowIndex = index"
+<tr *ngFor="let $row of $view.foot.rows; trackBy: rowId; let $rowIndex = index"
 	 [q-grid-core-tr]="$row"
 	 [q-grid-core-row-index]="$rowIndex"
 	 q-grid-core-source="foot">
-	<td *ngFor="let $column of $view.foot.columns($row, $table.pin); trackBy: columnKey; let $columnIndex = index"
+	<td *ngFor="let $column of $view.foot.columns($row, $table.pin); trackBy: columnId; let $columnIndex = index"
 		 [attr.rowspan]="$column.rowspan"
 		 [attr.colspan]="$column.colspan">
 		<ng-container [q-grid-core-tf]="$column">
