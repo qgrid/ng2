@@ -14,11 +14,11 @@ import { AppError } from 'ng2-qgrid/core/infrastructure';
 export class FocusDirective implements AfterViewInit {
 	@Input('q-grid-focus') selector;
 
-	constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
+	constructor(private elementRef: ElementRef) {}
 
 	ngAfterViewInit() {
 		const element = this.selector
-			? this.renderer.selectRootElement(this.selector)
+			? this.elementRef.nativeElement.querySelector(this.selector)
 			: this.elementRef.nativeElement;
 
 		if (!element) {

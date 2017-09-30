@@ -11,11 +11,11 @@ export class FootCoreComponent {
 	constructor(public $view: ViewCoreService, public $table: TableCoreService) {
 	}
 
-	columnKey(index: number, item: ColumnView) {
+	columnId(index: number, item: ColumnView) {
 		return item.model.key;
 	}
 
-	rowIndex(index: number) {
+	rowId(index: number) {
 		return index;
 	}
 }

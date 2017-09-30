@@ -1,7 +1,14 @@
-td, th {
-	md-checkbox {
-		.md-label {
-			display: none;
-		}
-	}
+tr {
+    >td,
+    >th,
+    >tf {
+        md-checkbox {
+            .md-label {
+                display: none;
+            }
+        }
+        &.q-grid-row-indicator {
+            padding: 0 !important;
+        }
+    }
 }
