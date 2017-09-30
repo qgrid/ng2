@@ -1,6 +1,6 @@
 import {Component, Optional, OnInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import {Command} from 'ng2-qgrid/core/command';
-import {PipeUnit} from 'ng2-qgrid/core/pipe';
+import {PipeUnit} from 'ng2-qgrid/core/pipe/pipe.unit2';
 import {GridService} from 'ng2-qgrid/main/grid';
 import * as columnService from 'ng2-qgrid/core/column/column.service';
 import {isFunction, noop} from 'ng2-qgrid/core/utility';
@@ -28,16 +28,52 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 	private service: any;
 	private aggregations: any;
 	private origin: any;
-	private checked: boolean;
+
+	private columns: any[];
+
+	private defaultSelected: boolean;
+
+	private get allSelected(): boolean {
+		return this.stateAll();
+	}
+	private set allSelected(value: boolean) {
+		for (const column of this.columns) {
+			column.isVisible = value;
+		}
+		this.service.invalidate('column.chooser', {}, PipeUnit.column);
+		this.setDefaultStatus();
+	}
+
+	private get allSelectedIndeterminate(): boolean {
+		return this.columns.some(this.columnState.bind(this));
+	}
 
 	constructor(@Optional() root: RootService, private gridService: GridService, private cdRef: ChangeDetectorRef) {
 		super(root);
 
 		this.models = ['columnChooser'];
 		this.initColumns();
+		this.setDefaultStatus();
 	}
 
-	private columns: any[];
+	stateAll() {
+		const allSet = this.columns.every(this.columnState.bind(this));
+		return allSet;
+	}
+
+	setDefaultStatus() {
+		this.defaultSelected = this.columns.every(c => (c.isDefault !== false && c.isVisible !== false) ||
+			(c.isDefault === false && c.isVisible === false));
+	}
+
+	columnState(column, value) {
+		return column.isVisible;
+	}
+
+	setColumnState(column, value) {
+		column.isVisible = value;
+		this.service.invalidate('column.chooser', {}, PipeUnit.column);
+	}
 
 	private onSubmit() {
 		this.submitEvent.emit();
@@ -49,29 +85,29 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 
 	private toggle = new Command({
 		execute: column => {
-			column.isVisible = !this.state(column);
+/*
+			column.isVisible = !column.isVisible;
 			this.service.invalidate('column.chooser', {}, PipeUnit.column);
+
+			this.allSelected = this.stateAll();
+*/
 		}
 	});
 
 	private toggleAll = new Command({
 		execute: () => {
-			const state = !this.stateAll();
-			for (const column of this.columns) {
-				column.isVisible = state;
-			}
 
-			this.service.invalidate('column.chooser', {}, PipeUnit.column);
 		}
 	});
 
 	private defaults = new Command({
 		execute: () => {
+
 			for (const column of this.columns) {
 				column.isVisible = column.isDefault !== false;
 			}
-
 			this.service.invalidate('column.chooser', {}, PipeUnit.column);
+			this.setDefaultStatus();
 		}
 	});
 
@@ -186,38 +222,21 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 		}));
 	}
 
-	state(column) {
-		return column.isVisible !== false;
-	}
-
-	stateAll() {
-		// this.cdRef.detectChanges();
-		const result = this.columns.every(this.state.bind(this));
+	get canAggregate() {
+		const result = this.columnChooserCanAggregate;
 		return result;
 	}
 
-	stateDefault() {
-		// this.cdRef.detectChanges();
-		return this.columns.every(c => (c.isDefault !== false && c.isVisible !== false) ||
-			(c.isDefault === false && c.isVisible === false));
-	}
-
-	isIndeterminate() {
-		return !this.stateAll() && this.columns.some(this.state.bind(this));
-	}
-
-	get canAggregate() {
-		return this.columnChooserCanAggregate;
-	}
-
 	get resource() {
-		return this.model.visibility().resource;
+		const result = this.model.visibility().resource;
+		return result;
 	}
 
 	transfer(column) {
-		return {
+		const result = {
 			key: COLUMN_CHOOSER_NAME,
 			value: column.key
 		};
+		return result;
 	}
 }

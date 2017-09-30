@@ -1,53 +1,53 @@
-<ng-template key="column-chooser.tpl" let-$columnChooser>
+<ng-template key="column-chooser.tpl" let-$chooser>
 	<div class="q-grid-column-chooser" layout="column" flex="100">
 		<div flex="none" layout="row">
-			<h3>Hello Column Chooser!</h3>
 			<md-input-container class="q-grid-column-chooser-filter" flex>
 				<label>Search</label>
 				<input type="text"
 						 mdInput
-						 [(ngModel)]="$columnChooser.filter"
+						 [(ngModel)]="$chooser.filter"
 						 q-grid-focus/>
 			</md-input-container>
 		</div>
 		<div flex layout="column">
 			<ul>
 				<li>
-					<md-checkbox (click)="$columnChooser.toggleAll.execute()"
-									 [checked]="$columnChooser.stateAll()"
-									 indeterminate="$columnChooser.isIndeterminate()">
+					<md-checkbox (click)="$chooser.toggleAll.execute()"
+									 [(ngModel)]="$chooser.allSelected"
+									 [(indeterminate)]="$chooser.allSelectedIndeterminate">
 						Select All
 					</md-checkbox>
 				</li>
 				<li>
-					<md-checkbox (click)="$columnChooser.defaults.execute()"
-									 [checked]="$columnChooser.stateDefault()">
+					<md-checkbox (click)="$chooser.toggleDefaults.execute()"
+									 [checked]="$chooser.defaultSelected">
 						Select Defaults
 					</md-checkbox>
 				</li>
 			</ul>
 			<ul class="q-grid-column-chooser-list">
-				<li *ngFor="let column of $columnChooser.columns || $columnChooser.filter"
-					 q-grid-drag="$columnChooser.transfer(column)"
-					 q-grid-drop="$columnChooser.transfer(column)"
-					 q-grid-on-drop="$columnChooser.drop.execute($event)"
-					 q-grid-can-drop="$columnChooser.drop.canExecute($event)"
-					 q-grid-can-drag="$columnChooser.drag.canExecute($event)">
+				<li *ngFor="let column of $chooser.columns || $chooser.filter"
+					 q-grid-drag="$chooser.transfer(column)"
+					 q-grid-drop="$chooser.transfer(column)"
+					 q-grid-on-drop="$chooser.drop.execute($event)"
+					 q-grid-can-drop="$chooser.drop.canExecute($event)"
+					 q-grid-can-drag="$chooser.drag.canExecute($event)">
 
-					<md-checkbox [checked]="$columnChooser.state(column)"
-									 *ngIf="$columnChooser.toggle.canExecute(column)"
-									 (click)="$columnChooser.toggle.execute(column)"
-									 aria-label="Selection">
-						<span>{{column.title || $columnChooser.filter}}</span>
+					<md-checkbox *ngIf="$chooser.toggle.canExecute(column)"
+									 [ngModel]="column.isVisible"
+									 (ngModelChange)="$chooser.setColumnState(column, $event)"
+									 (click)="$chooser.toggle.execute(column)"
+									 [aria-label]="Selection">
+						<span>{{column.title || $chooser.filter}}</span>
 					</md-checkbox>
 
 
-					<md-input-container *ngIf="$columnChooser.canAggregate">
+					<md-input-container *ngIf="$chooser.canAggregate">
 						<md-select aria-label="Aggregation"
 									  [(ngModel)]="column.aggregation"
-									  (change)="$columnChooser.toggleAggregation.execute(column)">
+									  (change)="$chooser.toggleAggregation.execute(column)">
 							<md-option><em>Aggregation</em></md-option>
-							<md-option *ngFor="let aggregation of $columnChooser.aggregations"
+							<md-option *ngFor="let aggregation of $chooser.aggregations"
 										  [value]="aggregation">
 								{{aggregation}}
 							</md-option>
@@ -57,15 +57,15 @@
 			</ul>
 		</div>
 		<div class="q-grid-column-chooser-actions" flex="none">
-			<button md-button (click)="$columnChooser.cancel.execute()">
+			<button md-button (click)="$chooser.cancel.execute()">
 				Cancel
 			</button>
-			<button md-button (click)="$columnChooser.reset.execute()">
+			<button md-button (click)="$chooser.reset.execute()">
 				Reset
 			</button>
 			<button md-button class="md-primary"
-						  (click)="$columnChooser.submit.execute()"
-						  disabled="!$columnChooser.submit.canExecute()">
+						  (click)="$chooser.submit.execute()"
+						  disabled="!$chooser.submit.canExecute()">
 				Apply
 			</button>
 		</div>
