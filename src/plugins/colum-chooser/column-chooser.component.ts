@@ -1,4 +1,4 @@
-import {Component, Optional, OnInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import {Component, Optional, OnInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
 import {Command} from 'ng2-qgrid/core/command';
 import {PipeUnit} from 'ng2-qgrid/core/pipe/pipe.unit2';
 import {GridService} from 'ng2-qgrid/main/grid';
@@ -8,7 +8,7 @@ import {Aggregation} from 'ng2-qgrid/core/services';
 
 import {RootService} from 'ng2-qgrid/infrastructure/component';
 import {PluginComponent} from '../plugin.component';
-import { TemplatePath } from 'ng2-qgrid/core/template';
+import {TemplatePath} from 'ng2-qgrid/core/template';
 
 const GRID = 'qGrid';
 const COLUMN_CHOOSER_NAME = `${GRID}ColumnChooser`;
@@ -21,7 +21,7 @@ const COLUMN_CHOOSER_NAME = `${GRID}ColumnChooser`;
 	// templateUrl: './column-chooser.tpl.html'
 })
 export class ColumnChooserComponent extends PluginComponent implements OnInit, OnDestroy {
-	@Input('canAggregate') 	columnChooserCanAggregate: boolean;
+	@Input('canAggregate') columnChooserCanAggregate: boolean;
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
@@ -31,48 +31,64 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 
 	private columns: any[];
 
-	private defaultSelected: boolean;
-
-	private get allSelected(): boolean {
-		return this.stateAll();
-	}
-	private set allSelected(value: boolean) {
-		for (const column of this.columns) {
-			column.isVisible = value;
-		}
-		this.service.invalidate('column.chooser', {}, PipeUnit.column);
-		this.setDefaultStatus();
-	}
-
-	private get allSelectedIndeterminate(): boolean {
-		return this.columns.some(this.columnState.bind(this));
-	}
-
 	constructor(@Optional() root: RootService, private gridService: GridService, private cdRef: ChangeDetectorRef) {
 		super(root);
 
 		this.models = ['columnChooser'];
 		this.initColumns();
-		this.setDefaultStatus();
+		this.defaultSelected = true;
 	}
 
-	stateAll() {
-		const allSet = this.columns.every(this.columnState.bind(this));
+	private get columSelectors(): any[] {
+		return this.columns.filter(column => {
+			return !this.isRowOptions(column);
+		});
+	}
+
+	private get allSelected(): boolean {
+		return this.stateAll();
+	}
+	private set allSelected(value: boolean) {
+		for (const column of this.columSelectors) {
+			column.isVisible = value;
+		}
+		this.service.invalidate('column.chooser', {}, PipeUnit.column);
+	}
+
+	private get defaultSelected(): boolean {
+		return this.columSelectors.every(c => (c.isDefault !== false && c.isVisible !== false) ||
+			(c.isDefault === false && c.isVisible === false));
+	}
+	private set defaultSelected(value: boolean) {
+		if (value) {
+			for (const column of this.columSelectors) {
+				column.isVisible = column.isDefault !== false;
+			}
+			this.service.invalidate('column.chooser', {}, PipeUnit.column);
+		}
+	}
+
+	private get allSelectedIndeterminate(): boolean {
+		return !this.allSelected &&
+			this.columSelectors.some(this.columnState.bind(this));
+	}
+
+	private stateAll() {
+		const allSet = this.columSelectors.every(this.columnState.bind(this));
 		return allSet;
 	}
 
-	setDefaultStatus() {
-		this.defaultSelected = this.columns.every(c => (c.isDefault !== false && c.isVisible !== false) ||
-			(c.isDefault === false && c.isVisible === false));
-	}
-
-	columnState(column, value) {
+	private columnState(column, value) {
 		return column.isVisible;
 	}
 
-	setColumnState(column, value) {
+	private setColumnState(column, value) {
 		column.isVisible = value;
 		this.service.invalidate('column.chooser', {}, PipeUnit.column);
+	}
+
+	private isRowOptions(column) {
+		return column.key === 'rowOptions';
 	}
 
 	private onSubmit() {
@@ -82,34 +98,6 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 	private onCancel() {
 		this.cancelEvent.emit();
 	}
-
-	private toggle = new Command({
-		execute: column => {
-/*
-			column.isVisible = !column.isVisible;
-			this.service.invalidate('column.chooser', {}, PipeUnit.column);
-
-			this.allSelected = this.stateAll();
-*/
-		}
-	});
-
-	private toggleAll = new Command({
-		execute: () => {
-
-		}
-	});
-
-	private defaults = new Command({
-		execute: () => {
-
-			for (const column of this.columns) {
-				column.isVisible = column.isDefault !== false;
-			}
-			this.service.invalidate('column.chooser', {}, PipeUnit.column);
-			this.setDefaultStatus();
-		}
-	});
 
 	private toggleAggregation = new Command({
 		execute: () => {
