@@ -28,6 +28,7 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 	private service: any;
 	private aggregations: any;
 	private origin: any;
+	private filter: string = '';
 
 	private columns: any[];
 
@@ -41,7 +42,7 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 
 	private get columSelectors(): any[] {
 		return this.columns.filter(column => {
-			return !this.isRowOptions(column);
+			return column.title && column.key.includes(this.filter);
 		});
 	}
 

@@ -12,6 +12,7 @@ export interface ICellModel {
 export declare class CellView {
 	constructor(model: ICellModel);
 
+	columnKey: any;
 	value: any;
 	label: any;
 

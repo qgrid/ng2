@@ -8,6 +8,7 @@ export class CellView {
 		this.rowIndex = model.rowIndex;
 		this.columnIndex = model.columnIndex;
 		this.column = model.column;
+		this.columnKey = this.column.key;
 		this.row = model.row;
 	}
 

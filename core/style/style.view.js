@@ -110,11 +110,20 @@ export class StyleView extends View {
 					const cells = bodyRow.cells();
 					for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
 						const cell = cells[j];
-						const column = columns[j];
+						let columnIdex = -1;
+						const column = columns.find((item, index) => {
+							columnIdex = index;
+							return item.key === cell.columnKey;
+						});
+
+						if(!column){
+							continue;
+						}
+
 						const cellContext = {
 							class: domCell(cell),
 							row: rowIndex,
-							column: j,
+							column: columnIdex,
 							value: value,
 							columns: {
 								map: columnMap,
