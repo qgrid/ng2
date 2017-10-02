@@ -8,8 +8,6 @@ export class Cell extends Element {
 		this.context = context;
 		this.rowIndex = rowIndex;
 		this.columnIndex = columnIndex;
-		const model = this.model();
-		this.columnKey = model ? model.columnKey : null;
 	}
 
 	model() {

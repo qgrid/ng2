@@ -7,23 +7,10 @@ import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 import {ColumnChooserModel} from './column-chooser.model';
 
-import {
-	MdIconModule,
-	MdButtonModule,
-	MdCheckboxModule,
-	MdSelectModule,
-	MdTooltipModule,
-	MdProgressBarModule,
-	MdInputModule,
-	MdDatepickerModule,
-	MdNativeDateModule,
-	MdChipsModule
-} from '@angular/material';
-
 Model.register('columnChooser', ColumnChooserModel);
 
 @NgModule({
-	imports: [BrowserModule, FormsModule, TemplateModule, MdCheckboxModule, MdSelectModule],
+	imports: [BrowserModule, FormsModule, TemplateModule],
 	exports: [ColumnChooserComponent],
 	declarations: [ColumnChooserComponent],
 	providers: [],

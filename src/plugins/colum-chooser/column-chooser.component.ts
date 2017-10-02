@@ -1,6 +1,6 @@
-import {Component, Optional, OnInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
+import {Component, Optional, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
 import {Command} from 'ng2-qgrid/core/command';
-import {PipeUnit} from 'ng2-qgrid/core/pipe/pipe.unit2';
+import {PipeUnit} from 'ng2-qgrid/core/pipe/pipe.unit';
 import {GridService} from 'ng2-qgrid/main/grid';
 import * as columnService from 'ng2-qgrid/core/column/column.service';
 import {isFunction, noop} from 'ng2-qgrid/core/utility';
@@ -10,8 +10,8 @@ import {RootService} from 'ng2-qgrid/infrastructure/component';
 import {PluginComponent} from '../plugin.component';
 import {TemplatePath} from 'ng2-qgrid/core/template';
 
-const GRID = 'qGrid';
-const COLUMN_CHOOSER_NAME = `${GRID}ColumnChooser`;
+// const GRID = 'qGridColumnChooser';
+const ColumnChooserName = 'qGridColumnChooser';
 
 @Component({
 	selector: 'q-grid-column-chooser',
@@ -32,7 +32,7 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 
 	private columns: any[];
 
-	constructor(@Optional() root: RootService, private gridService: GridService, private cdRef: ChangeDetectorRef) {
+	constructor(@Optional() root: RootService, private gridService: GridService) {
 		super(root);
 
 		this.models = ['columnChooser'];
@@ -88,10 +88,6 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 		this.service.invalidate('column.chooser', {}, PipeUnit.column);
 	}
 
-	private isRowOptions(column) {
-		return column.key === 'rowOptions';
-	}
-
 	private onSubmit() {
 		this.submitEvent.emit();
 	}
@@ -108,7 +104,7 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 
 	private drop = new Command({
 		canExecute: e => {
-			if (e.source && e.source.key === COLUMN_CHOOSER_NAME) {
+			if (e.source && e.source.key === ColumnChooserName) {
 				const map = columnService.map(this.model.data().columns);
 				return map.hasOwnProperty(e.target.value);
 			}
@@ -138,7 +134,7 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 
 	private drag = new Command({
 		canExecute: e => {
-			if (e.source.key === COLUMN_CHOOSER_NAME) {
+			if (e.source.key === ColumnChooserName) {
 				const map = columnService.map(this.model.data().columns);
 				return map.hasOwnProperty(e.source.value) && map[e.source.value].canMove !== false;
 			}
@@ -223,7 +219,7 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 
 	transfer(column) {
 		const result = {
-			key: COLUMN_CHOOSER_NAME,
+			key: ColumnChooserName,
 			value: column.key
 		};
 		return result;

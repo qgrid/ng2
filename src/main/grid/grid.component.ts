@@ -131,7 +131,6 @@ export class GridComponent extends RootComponent implements OnInit {
 				}
 			})
 		);
-		// this.visibility.toolbar.right = true;
 	}
 
 	invalidateVisibility() {
