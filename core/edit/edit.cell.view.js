@@ -1,11 +1,11 @@
-import { Log } from '../infrastructure';
-import { Command } from '../command';
-import { Shortcut } from '../shortcut';
-import { CellEditor } from './edit.cell.editor';
-import { getFactory as valueFactory } from '../services/value';
-import { getFactory as labelFactory } from '../services/label';
-import { parseFactory } from '../services';
-import { View } from '../view';
+import {Log} from '../infrastructure';
+import {Command} from '../command';
+import {Shortcut} from '../shortcut';
+import {CellEditor} from './edit.cell.editor';
+import {getFactory as valueFactory} from '../services/value';
+import {getFactory as labelFactory} from '../services/label';
+import {parseFactory} from '../services';
+import {View} from '../view';
 
 export class EditCellView extends View {
 	constructor(model, table, commandManager) {
