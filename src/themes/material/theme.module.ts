@@ -19,7 +19,7 @@ import {
 	MdNativeDateModule,
 	MdChipsModule,
 	MdMenuModule,
-    MdDialogModule
+	MdDialogModule
 } from '@angular/material';
 
 @NgModule({

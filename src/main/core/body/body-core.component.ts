@@ -4,6 +4,8 @@ import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { NgComponent, RootService } from 'ng2-qgrid/infrastructure/component';
 import { PathService } from 'ng2-qgrid/core/path';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
+import { SelectionModel } from 'ng2-qgrid/core/selection/selection.model';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { ViewCoreService } from '../view/view-core.service';
 import { TableCoreService } from '../table/table-core.service';
 
@@ -186,11 +188,11 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 		}
 	}
 
-	get selection() {
+	get selection() : SelectionModel {
 		return this.model.selection();
 	}
 
-	get model() {
+	get model() : Model {
 		return this.root.model;
 	}
 
