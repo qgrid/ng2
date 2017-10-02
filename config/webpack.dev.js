@@ -14,6 +14,7 @@ const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
+const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
 /**
  * Webpack Constants
@@ -205,6 +206,21 @@ module.exports = function (options) {
        * See: https://github.com/webpack/webpack/commit/a04ffb928365b19feb75087c63f13cadfc08e1eb
        */
       // new NamedModulesPlugin(),
+
+		 new CommonsChunkPlugin({
+		   name: 'polyfills',
+		   chunks: ['polyfills']
+		 }),
+		 // // This enables tree shaking of the vendor modules
+		 new CommonsChunkPlugin({
+		   name: 'vendor',
+		   chunks: ['main'],
+		   minChunks: module => /node_modules/.test(module.resource)
+		 }),
+		 // // Specify the correct order the scripts will be injected in
+		 new CommonsChunkPlugin({
+		   name: ['polyfills', 'vendor'].reverse()
+		 }),
 
       /**
        * Plugin LoaderOptionsPlugin (experimental)
