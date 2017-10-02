@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActionBarService } from './action-bar.service';
 import { Action as ActionItem } from 'ng2-qgrid/core/action';
 import { Command } from 'ng2-qgrid/core/command/command';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 @Component({
 	selector: 'q-grid-action',
@@ -13,7 +14,7 @@ export class ActionComponent {
 	public icon: string = null;
 	public command: Command = null;
 
-	constructor(private actionService: ActionBarService) {}
+	constructor(private actionService: ActionBarService) { }
 
 	execute() {
 		return this.command && this.command.execute();
@@ -36,7 +37,7 @@ export class ActionComponent {
 		});
 	}
 
-	get model() {
+	get model(): Model {
 		return this.actionService.model;
 	}
 }

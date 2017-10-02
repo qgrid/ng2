@@ -13,6 +13,7 @@ import { CellService } from '../cell/cell.service';
 import { TableCoreService } from '../table/table-core.service';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { TrCoreDirective } from '../row/tr-core.directive';
+import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 
 @Directive({
 	selector: '[q-grid-core-tf]'
@@ -54,7 +55,7 @@ export class TfCoreDirective implements OnInit, OnDestroy {
 		return this.$view.foot.value(column);
 	}
 
-	get column() {
+	get column() : ColumnModel {
 		return this.columnView.model;
 	}
 
