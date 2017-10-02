@@ -141,10 +141,7 @@ export class EditCellView extends View {
 					}
 
 					cell = cell || this.editor.cell;
-					let label = this.label;
-					let value = cell.value;
-
-					if (cell && model.edit().cancel.execute(this.contextFactory(cell, value, label)) !== false) {
+					if (cell && model.edit().cancel.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
 						this.editor.reset();
 						this.editor = CellEditor.empty;
 
