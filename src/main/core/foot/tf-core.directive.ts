@@ -55,7 +55,7 @@ export class TfCoreDirective implements OnInit, OnDestroy {
 		return this.$view.foot.value(column);
 	}
 
-	get column() : ColumnModel {
+	get column(): ColumnModel {
 		return this.columnView.model;
 	}
 
