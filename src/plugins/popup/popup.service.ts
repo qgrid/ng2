@@ -136,7 +136,7 @@ export class PopupService {
 		};
 	}
 
-	public position(target: ITarget, settings: PopupSettings): IOffset {
+	private position(target: ITarget, settings: PopupSettings): IOffset {
 		const dy = settings.offsetTop || 0;
 		const dx = settings.offsetLeft || 0;
 		const w = window.innerWidth;
