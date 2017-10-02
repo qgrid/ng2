@@ -1,80 +1,80 @@
-import {Component, Optional, Input, OnDestroy, OnInit} from '@angular/core';
-import {PopupService, IPopupSettings} from 'ng2-qgrid/plugins/popup/popup.service';
-import {PluginComponent} from '../plugin.component';
-import {RootService} from 'ng2-qgrid/infrastructure/component';
-import {TemplateHostService} from 'ng2-qgrid/template';
+import {
+	Component,
+	Optional,
+	Input,
+	OnDestroy,
+	OnInit,
+	ViewContainerRef,
+	ComponentFactory,
+	ComponentFactoryResolver
+} from '@angular/core';
+import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { TemplateHostService } from 'ng2-qgrid/template';
+import { PopupService } from './popup.service';
+import { PluginComponent } from '../plugin.component';
+import { PopupSettings } from './popup.settings';
+import { Popup } from './popup';
+import { PopupPanelComponent } from './popup-panel.component';
 
 @Component({
 	selector: 'q-grid-popup',
 	templateUrl: './popup.component.html',
-	providers: [TemplateHostService, PopupService]
+	providers: [TemplateHostService, Popup]
 })
+export class PopupComponent extends PluginComponent
+	implements OnInit, OnDestroy {
+	private factory: ComponentFactory<PopupPanelComponent>;
+	private $implicit = this;
 
-export class PopupComponent extends PluginComponent implements OnInit, OnDestroy {
-	@Input() id;
+	@Input() public id: string;
 
-	constructor(@Optional() root: RootService,
-					private qGridPopupService: PopupService,
-					private templateHost: TemplateHostService) {
+	constructor(
+		@Optional() root: RootService,
+		private popupService: PopupService,
+		private templateHost: TemplateHostService,
+		private resolver: ComponentFactoryResolver,
+		private viewContainerRef: ViewContainerRef,
+		private popup: Popup
+	) {
 		super(root);
 
-		this.models = ['popup'];
+		this.factory = resolver.resolveComponentFactory(PopupPanelComponent);
 	}
 
 	ngOnInit() {
 		super.ngOnInit();
-	}
 
-	private doSmthInShowFunc() {
-		// this.$transclude((clone, scope) => {
-		//   template = clone;
-		//   templateScope = scope;
-		//
-		//   this.$element.append(clone);
-		// });
-		//
-		// template.remove();
-		// templateScope.$destroy();
-		//
-		// super.show();
-		return null;
-	}
-
-	public show(): void {
-		let template = null;
-		let templateScope = null;
-
-		this.doSmthInShowFunc();
-	}
-
-	private scope() {
-		// this.$scope
-		return null;
-	}
-
-	private onCloseFunc() {
-		// this.onClose
-		return null;
-	}
-
-	public open(settings: IPopupSettings): void {
-		settings.id = this.id;
-		settings.close = this.onCloseFunc();
-		this.qGridPopupService.open(
-			settings,
-			this.model,
-			this.scope
-		);
-	}
-
-	get resource(): any {
-		return this.model.popup().resource;
+		this.popup.id = this.id;
+		this.popup.model = this.model;
+		this.templateHost.key = `popup-${this.id}.tpl.html`;
 	}
 
 	ngOnDestroy(): void {
 		super.ngOnDestroy();
-		if (this.qGridPopupService.isOpened(this.id)) {
-			this.qGridPopupService.close(this.id);
+
+		if (this.popupService.isOpened(this.id)) {
+			this.popupService.close(this.id);
 		}
+	}
+
+	public open(settings: PopupSettings): void {
+		settings = Object.assign(new PopupSettings(), settings);
+
+		const component = this.viewContainerRef.createComponent(this.factory)
+			.instance;
+
+		component.popup = this.popup;
+		this.popup.element = component.element.nativeElement;
+		this.popup.settings = settings;
+
+		this.popupService.open(this.popup);
+	}
+
+	public close() {
+		this.popupService.close(this.id);
+	}
+
+	public isOpened() {
+		return this.popupService.isOpened(this.id);
 	}
 }

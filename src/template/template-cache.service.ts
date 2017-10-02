@@ -1,4 +1,4 @@
-import {Injectable, TemplateRef} from '@angular/core';
+import { Injectable, TemplateRef } from '@angular/core';
 
 @Injectable()
 export class TemplateCacheService {

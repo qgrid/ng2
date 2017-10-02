@@ -1,23 +1,31 @@
 .q-grid-embed {
-	margin: 16px 0;
-
-	.q-grid.q-grid-theme-material {
-		.q-grid-view {
-			tr {
-				height: 32px;
-			}
-
-			thead tr th {
-				color: rgba(0, 127, 163, 0.77);
-				background-color: rgba(0, 0, 0, 0.04);
-				.q-grid-sort.q-grid-active {
-					& + label {
-						color: rgb(0, 127, 163);
-					}
-				}
-			}
-		}
-	}
+    margin: 16px 0;
+    .q-grid-progress {
+        bottom: 10px;
+    }
+    .q-grid.q-grid-theme-material {
+        .q-grid-view {
+            tr {
+                height: 32px;
+            }
+            thead tr th {
+                color: rgba(0, 127, 163, 0.77);
+                background-color: rgba(0, 0, 0, 0.04);
+                .q-grid-sort.q-grid-active {
+                    &+label {
+                        color: rgb(0, 127, 163);
+                    }
+                }
+            }
+            .q-grid-edit {
+                &.q-grid-row-options {
+                    button {
+                        width: 24px;
+                        height: 24px;
+                        line-height: 24px;
+                    }
+                }
+            }
+        }
+    }
 }
-
-

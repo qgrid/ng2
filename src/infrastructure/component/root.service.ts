@@ -1,11 +1,11 @@
-import {Guard} from 'ng2-qgrid/core/infrastructure';
-import {ChangeDetectorRef, Injectable} from '@angular/core';
-import {CommandManager} from 'ng2-qgrid/core/command/command.manager';
-import {Model} from 'ng2-qgrid/core/infrastructure/model';
-import {Table} from 'ng2-qgrid/core/dom/table';
-import {AppError} from 'ng2-qgrid/core/infrastructure';
-import {isUndefined} from 'ng2-qgrid/core/utility';
-import {Bag} from 'ng2-qgrid/core/dom/bag';
+import { Guard } from 'ng2-qgrid/core/infrastructure';
+import { ChangeDetectorRef, Injectable } from '@angular/core';
+import { CommandManager } from 'ng2-qgrid/core/command/command.manager';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
+import { Table } from 'ng2-qgrid/core/dom/table';
+import { AppError } from 'ng2-qgrid/core/infrastructure';
+import { isUndefined } from 'ng2-qgrid/core/utility';
+import { Bag } from 'ng2-qgrid/core/dom/bag';
 
 @Injectable()
 export class RootService {
@@ -48,7 +48,7 @@ export class RootService {
 							gf();
 						}
 
-						// this.changeDetector.detectChanges();
+						this.changeDetector.detectChanges();
 						return result;
 					}
 					default:
@@ -63,7 +63,7 @@ export class RootService {
 					gf();
 				}
 
-				// this.changeDetector.detectChanges();
+				this.changeDetector.detectChanges();
 			}, timeout);
 		};
 	}

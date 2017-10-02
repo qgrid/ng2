@@ -1,31 +1,31 @@
-import {Component, OnDestroy, OnInit, Optional} from '@angular/core';
-import {NgComponent, RootService} from 'ng2-qgrid/infrastructure/component';
-import {Table} from 'ng2-qgrid/core/dom';
-import {BodyView} from 'ng2-qgrid/core/body';
-import {HeadView} from 'ng2-qgrid/core/head';
-import {FootView} from 'ng2-qgrid/core/foot';
-import {LayoutView} from 'ng2-qgrid/core/layout';
-import {GroupView} from 'ng2-qgrid/core/group';
-import {PivotView} from 'ng2-qgrid/core/pivot';
-import {NavigationView} from 'ng2-qgrid/core/navigation';
-import {HighlightView} from 'ng2-qgrid/core/highlight';
-import {SortView} from 'ng2-qgrid/core/sort';
-import {FilterView} from 'ng2-qgrid/core/filter';
-import {EditView} from 'ng2-qgrid/core/edit';
-import {SelectionView} from 'ng2-qgrid/core/selection';
-import {PaginationView} from 'ng2-qgrid/core/pagination';
-import {StyleView} from 'ng2-qgrid/core/style';
-import {ColumnView} from 'ng2-qgrid/core/column';
-import {ScrollView} from 'ng2-qgrid/core/scroll';
-import {RowDetailsView} from 'ng2-qgrid/core/row-details';
-import {isUndefined} from 'ng2-qgrid/core/utility';
-import {PipeUnit} from 'ng2-qgrid/core/pipe/pipe.unit';
-import {AppError} from 'ng2-qgrid/core/infrastructure';
-import {ViewCoreService} from './view-core.service';
-import {GridService} from 'ng2-qgrid/main/grid';
-import {CellService} from '../cell';
-import {Model} from 'ng2-qgrid/core/infrastructure/model';
-import {VisibilityModel} from 'ng2-qgrid/core/visibility/visibility.model';
+import { Component, OnDestroy, OnInit, Optional, DoCheck } from '@angular/core';
+import { NgComponent, RootService } from 'ng2-qgrid/infrastructure/component';
+import { Table } from 'ng2-qgrid/core/dom';
+import { BodyView } from 'ng2-qgrid/core/body';
+import { HeadView } from 'ng2-qgrid/core/head';
+import { FootView } from 'ng2-qgrid/core/foot';
+import { LayoutView } from 'ng2-qgrid/core/layout';
+import { GroupView } from 'ng2-qgrid/core/group';
+import { PivotView } from 'ng2-qgrid/core/pivot';
+import { NavigationView } from 'ng2-qgrid/core/navigation';
+import { HighlightView } from 'ng2-qgrid/core/highlight';
+import { SortView } from 'ng2-qgrid/core/sort';
+import { FilterView } from 'ng2-qgrid/core/filter';
+import { EditView } from 'ng2-qgrid/core/edit';
+import { SelectionView } from 'ng2-qgrid/core/selection';
+import { PaginationView } from 'ng2-qgrid/core/pagination';
+import { StyleView } from 'ng2-qgrid/core/style';
+import { ColumnView } from 'ng2-qgrid/core/column';
+import { ScrollView } from 'ng2-qgrid/core/scroll';
+import { RowDetailsView } from 'ng2-qgrid/core/row-details';
+import { isUndefined } from 'ng2-qgrid/core/utility';
+import { PipeUnit } from 'ng2-qgrid/core/pipe/pipe.unit';
+import { AppError } from 'ng2-qgrid/core/infrastructure';
+import { ViewCoreService } from './view-core.service';
+import { GridService } from 'ng2-qgrid/main/grid';
+import { CellService } from '../cell';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
+import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 
 @Component({
 	selector: 'q-grid-core-view',
@@ -35,10 +35,10 @@ import {VisibilityModel} from 'ng2-qgrid/core/visibility/visibility.model';
 		CellService
 	]
 })
-export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy {
-	constructor(@Optional() private root: RootService,
-					private view: ViewCoreService,
-					private gridService: GridService) {
+export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy, DoCheck {
+	constructor( @Optional() private root: RootService,
+		private view: ViewCoreService,
+		private gridService: GridService) {
 		super();
 	}
 
@@ -91,5 +91,9 @@ export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy 
 
 	get visibility() {
 		return this.model.visibility();
+	}
+
+	ngDoCheck() {
+		this.view.style.invalidate();
 	}
 }

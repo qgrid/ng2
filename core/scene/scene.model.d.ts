@@ -4,6 +4,7 @@ import {RowView} from './view/row.view';
 export declare class SceneModel {
 	constructor();
 
+	status: 'string';
 	rows: RowView[];
 	column: {
 		rows: ColumnView[][],

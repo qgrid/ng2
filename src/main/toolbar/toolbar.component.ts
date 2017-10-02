@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {TemplateHostService} from 'ng2-qgrid/template';
+import { Component, OnInit } from '@angular/core';
+import { TemplateHostService } from 'ng2-qgrid/template';
 
 @Component({
 	selector: 'q-grid-toolbar',

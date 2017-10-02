@@ -1,24 +1,22 @@
-import {NgModule} from '@angular/core';
-import {PagerModule} from './pagination';
-import {ProgressModule} from './progress';
-// import {PopupModule} from 'ng2-qgrid/plugins/popup/popup.module';
-// import {SortBarModule} from 'ng2-qgrid/plugins/sort-bar';
-// import {ExportModule} from './export';
+import { NgModule } from '@angular/core';
+import { PagerModule } from './pagination';
+import { ProgressModule } from './progress';
+import { PopupModule } from './popup';
+import { DataManipulationModule } from './data-manipulation';
+import { ActionBarModule } from './action-bar';
+import { TitleModule } from './title';
 
 @NgModule({
 	declarations: [],
 	exports: [
+		ActionBarModule,
+		DataManipulationModule,
 		PagerModule,
+		PopupModule,
 		ProgressModule,
-		// PopupModule,
-		// SortBarModule
-		// ExportModule
+		TitleModule
 	],
 	imports: [
-		PagerModule,
-		ProgressModule,
-		// PopupModule,
-		// SortBarModule
 	],
 	providers: []
 })

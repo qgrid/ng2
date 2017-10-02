@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {DragDirective} from './drag.directive';
-import {DropDirective} from './drop.directive';
+import { NgModule } from '@angular/core';
+import { DragDirective } from './drag.directive';
+import { DropDirective } from './drop.directive';
 
 @NgModule({
 	declarations: [

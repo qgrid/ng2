@@ -21,14 +21,12 @@ export class RowOptionsColumnModel extends DataColumnModel {
 		super('row-options');
 
 		this.key = '$row.options';
-		this.title = '';
 		this.class = 'control';
 
 		this.canEdit = true;
 		this.canResize = false;
 		this.canMove = false;
 		this.canHighlight = false;
-		this.width = 60;
 		this.pin = 'right';
 	}
 }

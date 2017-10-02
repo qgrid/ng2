@@ -1,7 +1,7 @@
-import {Directive, ElementRef, Input, OnInit} from '@angular/core';
-import {GRID_PREFIX} from 'ng2-qgrid/core/definition';
-import {RootService} from 'ng2-qgrid/infrastructure/component';
-import {ColumnModel} from 'ng2-qgrid/core/column-type/column.model';
+import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
+import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 
 @Directive({
 	selector: '[q-grid-core-align-td]',
@@ -11,7 +11,7 @@ export class TdCoreAlignDirective implements OnInit {
 	element: HTMLElement;
 
 	constructor(private root: RootService,
-					element: ElementRef) {
+		element: ElementRef) {
 
 		this.element = element.nativeElement;
 	}

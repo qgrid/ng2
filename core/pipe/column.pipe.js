@@ -69,7 +69,7 @@ export function columnPipe(memo, context, next) {
 		memo.columns = [columns];
 	}
 
-	memo.columns = index(sort(model, memo.columns));
+	memo.columns = index(filter(model, sort(model, memo.columns)));
 	next(memo);
 }
 
@@ -163,14 +163,12 @@ function dataColumnsFactory(model) {
 		}
 
 		columns.push(...
-			columnService.dataView(
-				result.columns
-					.map(columnBody => {
-						const dataColumn = createColumn(columnBody.type || 'text', columnBody);
-						dataColumn.rowspan = context.rowspan;
-						return dataColumn;
-					}),
-				model));
+			result.columns
+				.map(columnBody => {
+					const dataColumn = createColumn(columnBody.type || 'text', columnBody);
+					dataColumn.rowspan = context.rowspan;
+					return dataColumn;
+				}));
 
 		return result.columns;
 	};
@@ -272,6 +270,32 @@ function index(columnRows) {
 	return columnRows;
 }
 
+function filter(model, columnRows) {
+	const rows = [];
+	const height = columnRows.length;
+	const groupBy = new Set(model.group().by);
+	const pivotBy = new Set(model.pivot().by);
+
+	for (let i = 0; i < height; i++) {
+		const columnRow = columnRows[i];
+		const width = columnRow.length;
+		const row = [];
+		for (let j = 0; j < width; j++) {
+			const columnView = columnRow[j];
+			const column = columnView.model;
+			if (column.isVisible && !groupBy.has(column.key) && !pivotBy.has(column.key)) {
+				row.push(columnView);
+			}
+		}
+
+		if (row.length) {
+			rows.push(row);
+		}
+	}
+
+	return rows;
+}
+
 function sort(model, columnRows) {
 	const columnRow = columnRows[0];
 	if (columnRow) {
@@ -297,8 +321,11 @@ function sort(model, columnRows) {
 					return memo;
 				}, {});
 
-
-		columnRow.sort((x, y) => indexMap[x.model.key] - indexMap[y.model.key]);
+		const row = Array.from(columnRow);
+		row.sort((x, y) => indexMap[x.model.key] - indexMap[y.model.key]);
+		const temp = Array.from(columnRows);
+		temp[0] = row;
+		return temp;
 	}
 
 	return columnRows;

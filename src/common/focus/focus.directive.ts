@@ -1,25 +1,35 @@
-import {Directive, Renderer2, ElementRef, OnInit, Input} from '@angular/core';
-import {AppError} from 'ng2-qgrid/core/infrastructure';
+import {
+	Directive,
+	Renderer2,
+	ElementRef,
+	OnInit,
+	Input,
+	AfterViewInit
+} from '@angular/core';
+import { AppError } from 'ng2-qgrid/core/infrastructure';
 
 @Directive({
 	selector: '[q-grid-focus]'
 })
-export class FocusDirective implements OnInit {
+export class FocusDirective implements AfterViewInit {
 	@Input('q-grid-focus') selector;
 
-	constructor(private renderer: Renderer2, private elementRef: ElementRef) {
-	}
+	constructor(private elementRef: ElementRef) {}
 
-	ngOnInit() {
-		if (!this.selector) {
-			this.elementRef.nativeElement.focus();
-		} else {
-			let element = this.renderer.selectRootElement(this.selector);
-			if (!element) {
-				throw AppError('focus.directive', `Element ${this.selector} is not found`);
-			}
+	ngAfterViewInit() {
+		const element = this.selector
+			? this.elementRef.nativeElement.querySelector(this.selector)
+			: this.elementRef.nativeElement;
 
-			element.focus();
+		if (!element) {
+			throw new AppError(
+				'focus.directive',
+				`Element ${this.selector} is not found`
+			);
 		}
+
+		// we need a small timeout to wait, for example, position directive
+		// in other case it will scroll to element before layout
+		setTimeout(() => element.focus(), 10);
 	}
 }

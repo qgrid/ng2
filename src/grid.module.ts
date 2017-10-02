@@ -1,13 +1,15 @@
-import {NgModule} from '@angular/core';
-import {MainModule} from './main';
-import {ThemeService as Theme} from './themes/material/theme.service';
-import {ThemeService, TemplateLinkService, TemplateModule} from './template';
-import {TemplateCacheDirective} from './template/template-cache.directive';
-import {Model} from 'ng2-qgrid/core/infrastructure';
-import {setup} from 'ng2-qgrid/core/index';
-import {GridService} from './main/grid/grid.service';
-import {GridComponent} from './main/grid/grid.component';
-import {ColumnListComponent, ColumnComponent} from './main/column';
+import { NgModule } from '@angular/core';
+import { MainModule } from './main';
+import { ThemeService as Theme } from './themes/material/theme.service';
+import { ThemeService, TemplateLinkService, TemplateModule } from './template';
+import { TemplateCacheDirective } from './template/template-cache.directive';
+import { Model } from 'ng2-qgrid/core/infrastructure';
+import { setup } from 'ng2-qgrid/core/index';
+import { GridService } from './main/grid/grid.service';
+import { GridComponent } from './main/grid/grid.component';
+import { ColumnListComponent, ColumnComponent } from './main/column';
+import { PluginModule } from './plugins';
+import { FocusModule } from './common';
 
 @NgModule({
 	declarations: [],
@@ -16,8 +18,10 @@ import {ColumnListComponent, ColumnComponent} from './main/column';
 		ColumnListComponent,
 		ColumnComponent,
 		TemplateCacheDirective,
+		PluginModule,
 		MainModule,
-		TemplateModule
+		TemplateModule,
+		FocusModule
 	],
 	imports: [
 		MainModule,

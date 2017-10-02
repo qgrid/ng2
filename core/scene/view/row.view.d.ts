@@ -1,5 +1,5 @@
 export declare class RowView {
-	constructor(model: any);
+	constructor();
 
-	model: any;
+	index: number;
 }

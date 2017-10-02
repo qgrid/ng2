@@ -7,6 +7,7 @@ import * as sortService from '../sort/sort.service';
 export class SortView extends View {
 	constructor(model) {
 		super(model);
+
 		this.hover = false;
 		this.toggle = new Command({
 			canExecute: column => {
@@ -30,8 +31,7 @@ export class SortView extends View {
 						}
 						case 'asc': {
 							const entry = {[key]: 'desc'};
-							by.splice(index, 1);
-							by.splice(index, 0, entry);
+							by[index] = entry;
 							this.hover = false;
 							break;
 						}
@@ -48,6 +48,9 @@ export class SortView extends View {
 
 					const entry = {[key]: 'asc'};
 					by.push(entry);
+
+					const order = sortService.orderFactory(model);
+					order(by);
 				}
 
 				sort({by: by}, {source: 'sort.view'});
@@ -64,20 +67,10 @@ export class SortView extends View {
 		this.using(model.columnListChanged.watch(e => {
 			if (e.hasChanges('index')) {
 				const sortState = sort();
-				if (sortState.trigger.indexOf('reorder') >= 0) {
-					let index = 0;
-					const indexMap = model.columnList().index
-						.reduce((memo, key) => {
-							memo[key] = index++;
-							return memo;
-						}, {});
-
-					const sortBy = Array.from(sortState.by);
-					sortBy.sort((x, y) => indexMap[sortService.key(x)] - indexMap[sortService.key(y)]);
-
-					if (!this.equals(sortBy, sortState.by)) {
-						sort({by: sortBy}, {source: 'sort.view'});
-					}
+				const order = sortService.orderFactory(model);
+				const sortBy = order(Array.from(sortState.by));
+				if (!this.equals(sortBy, sortState.by)) {
+					sort({by: sortBy}, {source: 'sort.view'});
 				}
 			}
 		}));

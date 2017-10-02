@@ -1,25 +1,36 @@
-import {Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
-import {GRID_PREFIX} from 'ng2-qgrid/core/definition';
-import {ViewCoreService} from '../view/view-core.service';
-import {TemplateCacheService, TemplateLinkService} from 'ng2-qgrid/template';
-import {RootService} from 'ng2-qgrid/infrastructure/component';
+import {
+	Directive,
+	ElementRef,
+	Input,
+	OnDestroy,
+	OnInit,
+	ViewContainerRef
+} from '@angular/core';
+import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
+import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { TableCoreService } from '../table/table-core.service';
+import { CellService } from '../cell/cell.service';
+import { ViewCoreService } from '../view/view-core.service';
+import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
+import { TrCoreDirective } from '../row/tr-core.directive';
 
 @Directive({
 	selector: '[q-grid-core-th]'
 })
 export class ThCoreDirective implements OnInit, OnDestroy {
-	@Input('q-grid-core-row-index') rowIndex: number;
-	@Input('q-grid-core-column-index') columnIndex: number;
+	@Input('q-grid-core-th') columnView: ColumnView;
 	public element: HTMLElement = null;
 	private $implicit = this;
 
-	constructor(public $view: ViewCoreService,
-					private root: RootService,
-					private templateCache: TemplateCacheService,
-					private templateLink: TemplateLinkService,
-					private viewContainerRef: ViewContainerRef,
-					element: ElementRef) {
-
+	constructor(
+		public $view: ViewCoreService,
+		private root: RootService,
+		private viewContainerRef: ViewContainerRef,
+		private cellService: CellService,
+		private table: TableCoreService,
+		private tr: TrCoreDirective,
+		element: ElementRef
+	) {
 		this.element = element.nativeElement.parentNode;
 	}
 
@@ -34,19 +45,24 @@ export class ThCoreDirective implements OnInit, OnDestroy {
 			element.classList.add(`${GRID_PREFIX}-${column.editor}`);
 		}
 
-		const template =
-			this.templateCache.get('head-cell-text.tpl.html') ||
-			this.templateLink.get('head-cell-text.tpl.html');
-
-		this.viewContainerRef.createEmbeddedView(template, this);
+		const link = this.cellService.build('head', this.column, 'view');
+		link(this.viewContainerRef, this);
 	}
 
 	get column() {
-		return this.row[this.columnIndex].model;
+		return this.columnView.model;
+	}
+
+	get columnIndex() {
+		return this.columnView.index;
 	}
 
 	get row() {
-		return this.$view.head.rows[this.rowIndex];
+		return this.tr.model;
+	}
+
+	get rowIndex() {
+		return this.tr.index;
 	}
 
 	ngOnDestroy() {

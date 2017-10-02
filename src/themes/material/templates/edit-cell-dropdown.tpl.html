@@ -1,5 +1,5 @@
 <ng-template key='edit-cell-dropdown.tpl.html' let-$cell let-$view="$view">
-	<div q-grid-editor q-grid-array>
+	<div class="q-grid-editor q-grid-dropdown">
 		<md-select q-grid-focus [(ngModel)]="$view.edit.cell.value" placeholder="Select a value"
 					  (onOpen)="$view.edit.cell.fetch.busy"
 					  (onClose)="$view.edit.cell.cancel.execute($cell)">

@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {template} from './templates';
+import { Component } from '@angular/core';
+import { template } from './templates';
 
 // Do not delete this code
 // its required for template recompilation on changes

@@ -1,9 +1,9 @@
-import {Directive, ElementRef, Input, OnDestroy, OnInit, Optional} from '@angular/core';
-import {EventManager} from 'ng2-qgrid/core/infrastructure';
-import {EventListener} from 'ng2-qgrid/core/infrastructure/event.listener';
-import {DragService} from './drag.service';
-import {GRID_PREFIX} from 'ng2-qgrid/core/definition';
-import {RootService} from 'ng2-qgrid/infrastructure/component';
+import { Directive, ElementRef, Input, OnDestroy, OnInit, Optional } from '@angular/core';
+import { EventManager } from 'ng2-qgrid/core/infrastructure';
+import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
+import { DragService } from './drag.service';
+import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
+import { RootService } from 'ng2-qgrid/infrastructure/component';
 
 @Directive({
 	selector: '[q-grid-drag]'
@@ -16,7 +16,7 @@ export class DragDirective implements OnInit, OnDestroy {
 	@Input('q-grid-drag-effect') effect;
 	@Input('q-grid-can-drag') canDrag;
 
-	constructor(@Optional() private root: RootService, elementRef: ElementRef) {
+	constructor( @Optional() private root: RootService, elementRef: ElementRef) {
 		this.element = elementRef.nativeElement;
 		this.listener = new EventListener(this.element, new EventManager(this));
 	}
@@ -48,7 +48,7 @@ export class DragDirective implements OnInit, OnDestroy {
 
 		if (this.root) {
 			const model = this.root.model;
-			model.drag({isActive: true});
+			model.drag({ isActive: true });
 		}
 	}
 
@@ -58,12 +58,12 @@ export class DragDirective implements OnInit, OnDestroy {
 
 		if (this.root) {
 			const model = this.root.model;
-			model.drag({isActive: false});
+			model.drag({ isActive: false });
 		}
 	}
 
 	event() {
 		const source = this.transfer;
-		return {source, target: null};
+		return { source, target: null };
 	}
 }

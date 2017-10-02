@@ -10,8 +10,10 @@ export class EditView extends View {
 		this.row = new EditRowView(model, table, commandManager);
 	}
 
-	onDestroy() {
-		this.cell.destroy();
-		this.row.destroy();
+	dispose() {
+		super.dispose();
+
+		this.cell.dispose();
+		this.row.dispose();
 	}
 }

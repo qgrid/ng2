@@ -74,5 +74,10 @@ dll/
 *.ngsummary.json
 *.shim.ngstyle.ts
 
+.map
+*.map
+package-lock.json
+*.css
+
 # Generated HTML #
 *.gen.html

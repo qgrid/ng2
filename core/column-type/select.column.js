@@ -1,10 +1,18 @@
 import {ColumnView} from '../scene/view';
 import {ColumnModel} from './column.model';
 import {TemplatePath} from '../template';
+import {noop} from '../utility';
 
 TemplatePath.register('select-cell', (template, column) => {
 	return {
 		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('select-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
 		resource: column.key
 	};
 });
@@ -14,10 +22,12 @@ export class SelectColumnModel extends ColumnModel {
 		super('select');
 
 		this.key = '$select';
-		this.title = 'Select';
+		this.title = '';
 		this.class = 'control';
 
-		this.canEdit = false;
+		this.editorOptions.trigger = 'focus';
+		this.value = noop;
+
 		this.canResize = false;
 	}
 }

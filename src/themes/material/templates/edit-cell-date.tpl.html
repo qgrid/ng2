@@ -1,18 +1,18 @@
 <ng-template key='edit-cell-date.tpl.html' let-$cell let-$view="$view">
-	<div class="q-grid-editor q-grid-date">
+	<div class="q-grid-editor q-grid-date" q-grid-position="td">
 		<h2 class="md-title">Edit {{$cell.column.title}}</h2>
-		<md-input-container>
-			<input
-				mdInput
-				q-grid-focus
-				[mdDatepicker]="myDatepicker"
-				[(ngModel)]="$view.edit.cell.value">
-			<button mdSuffix [mdDatepickerToggle]="myDatepicker"></button>
-		</md-input-container>
+		<md-form-field>
+			<input q-grid-focus
+			 		mdInput [mdDatepicker]="picker"
+			  		[(ngModel)]="$view.edit.cell.value" 
+			  		placeholder="Choose a {{$cell.column.title}}"
+			/>
+			<md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+			<md-datepicker #picker></md-datepicker>
+		</md-form-field>
 		<div class="q-grid-actions">
-			<button md-button (click)="$view.edit.cell.commit.execute($cell, $event)">Save</button>
+			<button md-button color="primary" (click)="$view.edit.cell.commit.execute($cell, $event)">Save</button>
 			<button md-button (click)="$view.edit.cell.cancel.execute($cell, $event)">Cancel</button>
 		</div>
-		<md-datepicker #myDatepicker></md-datepicker>
 	</div>
 </ng-template>
