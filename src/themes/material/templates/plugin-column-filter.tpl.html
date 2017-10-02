@@ -1,0 +1,21 @@
+<ng-template key="plugin-column-filter.tpl.html" let-$columnFilter>
+	<q-grid-popup id="q-grid-column-filter-popup-{{$columnFilter.key}}">
+		<ng-template for="trigger" let-$popup>
+			<button md-icon-button (click)="$popup.open({width: 352, height: 652})" tabindex="-1">
+				<md-icon>filter_list</md-icon>
+			</button>
+		</ng-template>
+		<ng-template for="body">
+			<q-grid-column-filter-panel>
+			</q-grid-column-filter-panel>
+		</ng-template>
+		<ng-template for="head">
+			{{$columnFilter.title}} Filter
+		</ng-template>
+		<ng-template for="foot">
+			<button md-button (click)="$columnFilter.cancel()">Cancel</button>
+			<button md-button (click)="$columnFilter.reset()">Reset</button>
+			<button md-button color="primary" (click)="$columnFilter.submit()">Apply</button>
+		</ng-template>
+	</q-grid-popup>
+</ng-template>

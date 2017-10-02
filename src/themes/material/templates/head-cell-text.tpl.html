@@ -16,10 +16,10 @@
 			{{$cell.column.title}}
 		</label>
 	</div>
-	<!--<q-grid:column-filter ng-if="$cell.column.canFilter"-->
-	<!--class="q-grid-column-filter"-->
-	<!--key="$cell.column.key"-->
-	<!--title="{{$cell.column.title}}"-->
-	<!--ng-class="{'q-grid-active': $view.filter.has($cell.column)}">-->
-	<!--</q-grid:column-filter>-->
+	<q-grid-column-filter *ngIf="$cell.column.canFilter"
+						  class="q-grid-column-filter"
+						  [key]="$cell.column.key"
+						  [header]="$cell.column.title"
+	                      [ngClass]="{'q-grid-active': $view.filter.has($cell.column)}">
+	</q-grid-column-filter>
 </ng-template>
