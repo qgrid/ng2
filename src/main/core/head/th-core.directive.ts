@@ -50,7 +50,7 @@ export class ThCoreDirective implements OnInit, OnDestroy {
 		link(this.viewContainerRef, this);
 	}
 
-	get column() : ColumnModel {
+	get column(): ColumnModel {
 		return this.columnView.model;
 	}
 

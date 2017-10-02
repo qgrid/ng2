@@ -188,11 +188,11 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 		}
 	}
 
-	get selection() : SelectionModel {
+	get selection(): SelectionModel {
 		return this.model.selection();
 	}
 
-	get model() : Model {
+	get model(): Model {
 		return this.root.model;
 	}
 
