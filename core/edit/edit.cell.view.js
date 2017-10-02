@@ -1,11 +1,11 @@
-import {Log} from '../infrastructure';
-import {Command} from '../command';
-import {Shortcut} from '../shortcut';
-import {CellEditor} from './edit.cell.editor';
-import {getFactory as valueFactory} from '../services/value';
-import {getFactory as labelFactory} from '../services/label';
-import {parseFactory} from '../services';
-import {View} from '../view';
+import { Log } from '../infrastructure';
+import { Command } from '../command';
+import { Shortcut } from '../shortcut';
+import { CellEditor } from './edit.cell.editor';
+import { getFactory as valueFactory } from '../services/value';
+import { getFactory as labelFactory } from '../services/label';
+import { parseFactory } from '../services';
+import { View } from '../view';
 
 export class EditCellView extends View {
 	constructor(model, table, commandManager) {
@@ -85,7 +85,7 @@ export class EditCellView extends View {
 							}
 						}
 
-						model.edit({state: 'edit'});
+						model.edit({ state: 'edit' });
 						cell.mode('edit');
 						return true;
 					}
@@ -105,7 +105,7 @@ export class EditCellView extends View {
 						&& model.edit().state === 'edit'
 						&& model.edit().commit.canExecute(this.contextFactory(cell));
 				},
-				execute: (cell, e) => {
+				execute: (cell, e, timeout) => {
 					Log.info('cell.edit', 'commit');
 					if (e) {
 						e.stopImmediatePropagation();
@@ -115,9 +115,19 @@ export class EditCellView extends View {
 					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
 						this.editor.commit();
 						this.editor = CellEditor.empty;
-						model.edit({state: 'view'});
-						cell.mode('view');
-						table.view.focus();
+						model.edit({ state: 'view' });
+
+						const toggleMode = () => {
+							cell.mode('view');
+							table.view.focus();
+						};
+
+						if (timeout) {
+							setTimeout(toggleMode, timeout);
+						}
+						else {
+							toggleMode();
+						}
 						return true;
 					}
 
@@ -134,7 +144,7 @@ export class EditCellView extends View {
 						&& model.edit().state === 'edit'
 						&& model.edit().cancel.canExecute(this.contextFactory(cell, this.value, this.label));
 				},
-				execute: (cell, e) => {
+				execute: (cell, e, timeout) => {
 					Log.info('cell.edit', 'cancel');
 					if (e) {
 						e.stopImmediatePropagation();
@@ -145,9 +155,19 @@ export class EditCellView extends View {
 						this.editor.reset();
 						this.editor = CellEditor.empty;
 
-						model.edit({state: 'view'});
-						cell.mode('view');
-						table.view.focus();
+						model.edit({ state: 'view' });
+						const toggleMode = () => {
+							cell.mode('view');
+							table.view.focus();
+						};
+
+						if (timeout) {
+							setTimeout(toggleMode, timeout);
+						}
+						else {
+							toggleMode();
+						}
+
 						return true;
 					}
 
