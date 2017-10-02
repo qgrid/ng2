@@ -53,7 +53,7 @@ export class CellService {
 		};
 	}
 
-	findTemplate(keys: string[]) : TemplateRef<any> {
+	findTemplate(keys: string[]): TemplateRef<any> {
 		const templateCache = this.templateCache;
 		const templateLink = this.templateLink;
 		for (const key of keys) {
