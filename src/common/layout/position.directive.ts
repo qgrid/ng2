@@ -1,36 +1,36 @@
-import { Directive, ElementRef, OnInit, Input } from '@angular/core';
+import { Directive, ElementRef, Input, AfterViewInit } from '@angular/core';
 import { max } from 'ng2-qgrid/core/utility';
 import { RootService } from '../../infrastructure/component';
 
 @Directive({
 	selector: '[q-grid-position]'
 })
-export class PositionDirective implements OnInit {
+export class PositionDirective implements AfterViewInit {
 	@Input('q-grid-position') public target = '';
 	private element: HTMLElement;
+	private opacity: string;
 
 	constructor(element: ElementRef, private root: RootService) {
 		this.element = element.nativeElement;
+		this.opacity = this.element.style.opacity;
+		this.element.style.opacity = '0';
 	}
 
-	ngOnInit() {
-		const opacity = this.element.style.opacity;
-		this.element.style.opacity = '0';
+	ngAfterViewInit() {
 		const targetName = this.target.toLowerCase();
 		let node = this.element.parentNode;
 		while (node) {
 			if (node.nodeName.toLowerCase() === targetName) {
-				setTimeout(() => {
-					this.layout(node, this.element);
-					this.element.style.opacity = opacity;
-				}, 50);
-				return;
+				this.layout(node, this.element);
+				break;
 			}
 			node = node.parentNode;
 		}
+
+		this.element.style.opacity = this.opacity;
 	}
 
-	layout(target, source) {
+	private layout(target, source) {
 		const tr = target.getBoundingClientRect();
 		const sr = source.getBoundingClientRect();
 		const vr = this.root.table.view.rect();
@@ -79,7 +79,7 @@ export class PositionDirective implements OnInit {
 		source.style.top = (rect.top - tr.top) + 'px';
 	}
 
-	intersection(a, b) {
+	private intersection(a, b) {
 		const xo = Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left));
 		const yo = Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
 		const area = xo * yo;

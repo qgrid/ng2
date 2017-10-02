@@ -28,6 +28,8 @@ export class FocusDirective implements AfterViewInit {
 			);
 		}
 
-		element.focus();
+		// we need a small timeout to wait, for example, position directive
+		// in other case it will scroll to element before layout
+		setTimeout(() => element.focus(), 10);
 	}
 }
