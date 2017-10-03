@@ -13,6 +13,10 @@
 	> .q-grid-table-left {
 		tbody {
 			overflow-y: hidden;
+
+			.ps__scrollbar-y-rail {
+				display: none;
+			}
 		}
 	}
 }
@@ -21,6 +25,10 @@
 	.q-grid-table-center {
 		tbody {
 			overflow-y: hidden;
+
+			.ps__scrollbar-y-rail {
+				display: none;
+			}
 		}
 	}
 }
