@@ -12,13 +12,15 @@
 		<div flex layout="column">
 			<ul>
 				<li>
-					<md-checkbox [(ngModel)]="$chooser.allSelected"
-									 [(indeterminate)]="$chooser.allSelectedIndeterminate">
+					<md-checkbox [checked]="$chooser.stateAll()"
+								(change)="$chooser.toggleAll.execute()"
+								[indeterminate]="$chooser.isIndeterminate()">
 						Select All
 					</md-checkbox>
 				</li>
 				<li>
-					<md-checkbox [(ngModel)]="$chooser.defaultSelected">
+					<md-checkbox [checked]="$chooser.stateDefault()"
+								(change)="$chooser.defaults.execute()">
 						Select Defaults
 					</md-checkbox>
 				</li>
@@ -31,9 +33,10 @@
 					 q-grid-can-drop="$chooser.drop.canExecute($event)"
 					 q-grid-can-drag="$chooser.drag.canExecute($event)">
 
-					<md-checkbox [ngModel]="column.isVisible"
-									 (ngModelChange)="$chooser.setColumnState(column, $event)"
-									 [aria-label]="Selection">
+					<md-checkbox	*ngIf="$chooser.toggle.canExecute(column)"
+									[checked]="$chooser.state(column)"
+									(change)="$chooser.toggle.execute(column)"
+									[aria-label]="Selection">
 						<span>{{column.title || $chooser.filter}}</span>
 					</md-checkbox>
 

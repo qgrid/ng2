@@ -1,16 +1,15 @@
-import {Component, Optional, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
-import {Command} from 'ng2-qgrid/core/command';
-import {PipeUnit} from 'ng2-qgrid/core/pipe/pipe.unit';
-import {GridService} from 'ng2-qgrid/main/grid';
+import { Component, Optional, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Command } from 'ng2-qgrid/core/command';
+import { PipeUnit } from 'ng2-qgrid/core/pipe/pipe.unit';
+import { GridService } from 'ng2-qgrid/main/grid';
 import * as columnService from 'ng2-qgrid/core/column/column.service';
-import {isFunction, noop} from 'ng2-qgrid/core/utility';
-import {Aggregation} from 'ng2-qgrid/core/services';
+import { isFunction, noop } from 'ng2-qgrid/core/utility';
+import { Aggregation } from 'ng2-qgrid/core/services';
 
-import {RootService} from 'ng2-qgrid/infrastructure/component';
-import {PluginComponent} from '../plugin.component';
-import {TemplatePath} from 'ng2-qgrid/core/template';
+import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { PluginComponent } from '../plugin.component';
+import { TemplatePath } from 'ng2-qgrid/core/template';
 
-// const GRID = 'qGridColumnChooser';
 const ColumnChooserName = 'qGridColumnChooser';
 
 @Component({
@@ -18,7 +17,6 @@ const ColumnChooserName = 'qGridColumnChooser';
 	template: `
 		<ng-container key="column-chooser.tpl" [context]="context"></ng-container>
 	`
-	// templateUrl: './column-chooser.tpl.html'
 })
 export class ColumnChooserComponent extends PluginComponent implements OnInit, OnDestroy {
 	@Input('canAggregate') columnChooserCanAggregate: boolean;
@@ -32,12 +30,11 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 
 	private columns: any[];
 
-	constructor(@Optional() root: RootService, private gridService: GridService) {
+	constructor( @Optional() root: RootService, private gridService: GridService) {
 		super(root);
 
 		this.models = ['columnChooser'];
 		this.initColumns();
-		this.defaultSelected = true;
 	}
 
 	private get columSelectors(): any[] {
@@ -46,46 +43,13 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 		});
 	}
 
-	private get allSelected(): boolean {
-		return this.stateAll();
-	}
-	private set allSelected(value: boolean) {
-		for (const column of this.columSelectors) {
-			column.isVisible = value;
-		}
-		this.service.invalidate('column.chooser', {}, PipeUnit.column);
-	}
-
-	private get defaultSelected(): boolean {
-		return this.columSelectors.every(c => (c.isDefault !== false && c.isVisible !== false) ||
-			(c.isDefault === false && c.isVisible === false));
-	}
-	private set defaultSelected(value: boolean) {
-		if (value) {
-			for (const column of this.columSelectors) {
-				column.isVisible = column.isDefault !== false;
-			}
-			this.service.invalidate('column.chooser', {}, PipeUnit.column);
-		}
-	}
-
-	private get allSelectedIndeterminate(): boolean {
-		return !this.allSelected &&
-			this.columSelectors.some(this.columnState.bind(this));
-	}
-
 	private stateAll() {
-		const allSet = this.columSelectors.every(this.columnState.bind(this));
+		const allSet = this.columSelectors.every(this.state.bind(this));
 		return allSet;
 	}
 
-	private columnState(column, value) {
+	state(column) {
 		return column.isVisible;
-	}
-
-	private setColumnState(column, value) {
-		column.isVisible = value;
-		this.service.invalidate('column.chooser', {}, PipeUnit.column);
 	}
 
 	private onSubmit() {
@@ -95,6 +59,34 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 	private onCancel() {
 		this.cancelEvent.emit();
 	}
+
+	private toggle = new Command({
+		execute: column => {
+			column.isVisible = !this.state(column);
+			this.service.invalidate('column.chooser', {}, PipeUnit.column);
+		}
+	});
+
+	private toggleAll = new Command({
+		execute: () => {
+			const state = !this.stateAll();
+			for (const column of this.columns) {
+				column.isVisible = state;
+			}
+
+			this.service.invalidate('column.chooser', {}, PipeUnit.column);
+		}
+	});
+
+	private defaults = new Command({
+		execute: () => {
+			for (const column of this.columns) {
+				column.isVisible = column.isDefault;
+			}
+
+			this.service.invalidate('column.chooser', {}, PipeUnit.column);
+		}
+	});
 
 	private toggleAggregation = new Command({
 		execute: () => {
@@ -126,7 +118,7 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 					const targetColumnIndex = indexMap.indexOf(targetColumn.key);
 					indexMap.splice(sourceColumnIndex, 1);
 					indexMap.splice(targetColumnIndex, 0, sourceColumn.key);
-					model.columnList({index: indexMap}, {source: 'column.chooser'});
+					model.columnList({ index: indexMap }, { source: 'column.chooser' });
 				}
 			}
 		}
@@ -136,7 +128,7 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 		canExecute: e => {
 			if (e.source.key === ColumnChooserName) {
 				const map = columnService.map(this.model.data().columns);
-				return map.hasOwnProperty(e.source.value) && map[e.source.value].canMove !== false;
+				return map.hasOwnProperty(e.source.value) && map[e.source.value].canMove;
 			}
 
 			return false;
@@ -205,6 +197,15 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 				this.columns.sort((x, y) => x.index - y.index);
 			}
 		}));
+	}
+
+	stateDefault() {
+		return this.columns.every(c => (c.isDefault !== false && c.isVisible !== false) ||
+			(c.isDefault === false && c.isVisible === false));
+	}
+
+	isIndeterminate() {
+		return !this.stateAll() && this.columns.some(this.state.bind(this));
 	}
 
 	get canAggregate() {
