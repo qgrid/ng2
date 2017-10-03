@@ -1,4 +1,4 @@
-import { Component, Optional, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Optional, Input, Output, EventEmitter } from '@angular/core';
 import { Command } from 'ng2-qgrid/core/command';
 import { PipeUnit } from 'ng2-qgrid/core/pipe/pipe.unit';
 import { GridService } from 'ng2-qgrid/main/grid';
@@ -18,7 +18,7 @@ const ColumnChooserName = 'qGridColumnChooser';
 		<ng-container key="column-chooser.tpl" [context]="context"></ng-container>
 	`
 })
-export class ColumnChooserComponent extends PluginComponent implements OnInit, OnDestroy {
+export class ColumnChooserComponent extends PluginComponent {
 	@Input('canAggregate') columnChooserCanAggregate: boolean;
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
@@ -163,9 +163,6 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 			this.service.invalidate('column.chooser', {}, PipeUnit.column);
 		}
 	});
-
-	onInit() {
-	}
 
 	private initColumns() {
 		const model = this.model;
