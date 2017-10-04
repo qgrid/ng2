@@ -7,7 +7,7 @@ describe('Pipe: HighlightPipe', () => {
 		pipe = new HighlightPipe();
 	});
 
-	it('', () => {
+	it('should wrap specified string with `q-grid-highlight-part` class', () => {
 		expect(pipe.transform('addhighlightclass', 'highlight'))
 			.toBe('add<span class="q-grid-highlight-part">highlight</span>class');
 	});
