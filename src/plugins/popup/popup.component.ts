@@ -59,8 +59,12 @@ export class PopupComponent extends PluginComponent
 		if (!this.isOpened()) {
 			settings = Object.assign(new PopupSettings(), settings);
 
-			const popup = new Popup(this.id, settings);
-			this.popupService.open(popup, this.viewContainerRef);
+			const port = this.popupService.port(PopupPanelComponent, this.viewContainerRef);
+			port(component => {
+				const popup = new Popup(this.id, settings, component.element.nativeElement);
+				component.popup = popup;
+				return popup;
+			});
 		}
 	}
 

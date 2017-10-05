@@ -18,7 +18,6 @@
     @import "assets/column.chooser";
     @import "assets/progress";
     @import "assets/highlight";
-    @import "assets/popup";
     @import "assets/column.filter";
     @import "assets/edit.form";
     @import "assets/export";
@@ -27,7 +26,6 @@
     @import "assets/mat.cell.edit";
     @import "assets/mat.pagination";
 	@import "assets/mat.progress";
-	@import "assets/mat.popup";
 }
 
 .q-grid-excel .q-grid.q-grid-theme-material {
@@ -35,3 +33,5 @@
 }
 
 @import "assets/embed";
+@import "assets/popup";
+@import "assets/mat.popup";

@@ -21,11 +21,10 @@ export class Popup {
 	private state = new PopupState();
 	private area = new PopupArea();
 
-	public element: HTMLElement;
 	public body: HTMLElement;
 	public portal: Portal<any>;
 
-	constructor(public id: string, public settings: PopupSettings) {
+	constructor(public id: string, public settings: PopupSettings, public element: HTMLElement) {
 	}
 
 	public expand(): void {
