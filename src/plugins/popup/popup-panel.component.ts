@@ -1,5 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
-import { PopupService } from 'ng2-qgrid/plugins/popup/popup.service';
+import { Component, ElementRef, Input } from '@angular/core';
 import { Popup } from './popup';
 
 @Component({
@@ -7,19 +6,10 @@ import { Popup } from './popup';
 	templateUrl: './popup-panel.component.html',
 	styleUrls: ['./popup-panel.component.scss']
 })
-export class PopupPanelComponent implements OnInit, OnDestroy {
+export class PopupPanelComponent {
 	@Input() public popup: Popup;
 
-	constructor(
-		private popupService: PopupService,
-		public element: ElementRef
-	) {}
-
-	ngOnInit() {
-		this.element.nativeElement.classList.add('q-grid-popup');
-	}
-
-	ngOnDestroy() {
-		this.popup.close();
+	constructor(public element: ElementRef) {
+		element.nativeElement.classList.add('q-grid-popup');
 	}
 }

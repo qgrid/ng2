@@ -2,12 +2,16 @@ import {
 	ComponentFactory,
 	ComponentFactoryResolver,
 	Injectable,
-	ViewContainerRef
+	ViewContainerRef,
+	ApplicationRef,
+	Injector
 } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure';
 import { Popup } from './popup';
 import { PopupSettings } from './popup.settings';
 import { PopupPanelComponent } from './popup-panel.component';
+import { DomPortalHost } from '@angular/cdk/portal';
+import { ComponentPortal } from '@angular/cdk/portal';
 
 interface IOffset {
 	left: number;
@@ -22,17 +26,28 @@ interface ITarget {
 
 @Injectable()
 export class PopupService {
+
+	private host: DomPortalHost;
 	private popups: Map<string, Popup> = new Map();
 
-	constructor() { }
+	constructor(resolver: ComponentFactoryResolver, injector: Injector, app: ApplicationRef) {
+		this.host = new DomPortalHost(document.body, resolver, app, injector);
+	}
 
-	public open(popup: Popup) {
+	public open(popup: Popup, viewContainerRef?: ViewContainerRef) {
 		if (this.popups.hasOwnProperty(popup.id)) {
 			throw new AppError(
 				'popup.service',
 				`Can't open popup '${popup.id}', it's already opened`
 			);
 		}
+
+		const portal = new ComponentPortal(PopupPanelComponent, viewContainerRef);
+		const component = portal.attach(this.host).instance;
+
+		component.popup = popup;
+		popup.element = component.element.nativeElement;
+		popup.portal = portal;
 
 		const element = popup.element;
 		const settings = popup.settings;
@@ -72,7 +87,7 @@ export class PopupService {
 
 		const popup = this.popups.get(id);
 		this.popups.delete(id);
-		popup.close();
+		popup.portal.detach();
 	}
 
 	public closeAll(): void {
@@ -167,7 +182,7 @@ export class PopupService {
 		};
 	}
 
-	public get(id: string): any {
+	public get(id) {
 		return this.popups.get(id);
 	}
 }

@@ -16,10 +16,28 @@
 			{{$cell.column.title}}
 		</label>
 	</div>
-	<q-grid-column-filter *ngIf="$cell.column.canFilter"
-						  class="q-grid-column-filter"
-						  [key]="$cell.column.key"
-						  [header]="$cell.column.title"
-	                      [ngClass]="{'q-grid-active': $view.filter.has($cell.column)}">
-	</q-grid-column-filter>
+	<q-grid-popup *ngIf="$cell.column.canFilter"
+				  [q-grid-column-filter]="$cell.column.key" 
+				  id="q-grid-column-filter-popup-{{$cell.column.key}}">
+		<ng-template for="trigger" let-$popup>
+			<button md-icon-button
+       		    	[ngClass]="{'q-grid-active': $view.filter.has($cell.column)}" 
+					(click)="$popup.open({width: 352, height: 652})" 
+					tabindex="-1">
+				<md-icon>filter_list</md-icon>
+			</button>
+		</ng-template>
+		<ng-template for="body">
+			<q-grid-column-filter>
+			</q-grid-column-filter>
+		</ng-template>
+		<ng-template for="head">
+			{{$cell.column.title}} Filter
+		</ng-template>
+		<ng-template for="foot" let-$columnFilter="$columnFilter">
+			<button md-button (click)="$columnFilter.cancel()">Cancel</button>
+			<button md-button (click)="$columnFilter.reset()">Reset</button>
+			<button md-button color="primary" (click)="$columnFilter.submit()">Apply</button>
+		</ng-template>
+	</q-grid-popup>
 </ng-template>

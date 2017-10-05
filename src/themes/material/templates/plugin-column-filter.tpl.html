@@ -1,21 +1,37 @@
-<ng-template key="plugin-column-filter.tpl.html" let-$columnFilter>
-	<q-grid-popup id="q-grid-column-filter-popup-{{$columnFilter.key}}">
-		<ng-template for="trigger" let-$popup>
-			<button md-icon-button (click)="$popup.open({width: 352, height: 652})" tabindex="-1">
-				<md-icon>filter_list</md-icon>
-			</button>
-		</ng-template>
-		<ng-template for="body">
-			<q-grid-column-filter-panel>
-			</q-grid-column-filter-panel>
-		</ng-template>
-		<ng-template for="head">
-			{{$columnFilter.title}} Filter
-		</ng-template>
-		<ng-template for="foot">
-			<button md-button (click)="$columnFilter.cancel()">Cancel</button>
-			<button md-button (click)="$columnFilter.reset()">Reset</button>
-			<button md-button color="primary" (click)="$columnFilter.submit()">Apply</button>
-		</ng-template>
-	</q-grid-popup>
+<ng-template key="plugin-column-filter.tpl.html" let-$columnFiltePanel>
+	<div class="q-grid-column-filter-panel layout-column flex-100">
+		<div class="flex-none layout-row">
+			<md-form-field class="q-grid-column-filter-filter">
+				<label>Search</label>
+				<input type="text"
+					   mdInput
+					   [value]="$columnFilterPanel.filter"
+					   q-grid-focus/>
+			</md-form-field>
+		</div>
+		<div class="flex-100">
+			<ul>
+				<li>
+					<md-checkbox (click)="$columnFilterPanel.toggleAll.execute()"
+								 [checked]="$columnFilterPanel.stateAll()"
+								 aria-label="Select all filter values"
+								 [indeterminate]="$columnFilterPanel.isIndeterminate()">
+						Select All
+					</md-checkbox>
+				</li>
+			</ul>
+			<div class="q-grid-column-filter-list">
+				<ul>
+					<li *ngFor="let item of $columnFilterPanel.items">
+						<md-checkbox [checked]="$columnFilterPanel.state(item)"
+									 *ngIf="$columnFilterPanel.toggle.canExecute(item)"
+								     aria-label="Select filter value"
+								     (click)="$columnFilterPanel.toggle.execute(item)">
+									{{item}}
+						</md-checkbox>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </ng-template>
