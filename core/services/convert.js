@@ -11,6 +11,7 @@ export function parseFactory(type) {
 		case 'currency':
 			return parseNumber;
 		case 'time':
+			return parseTime;
 		case 'date':
 			return parseDate;
 		case 'bool':
@@ -46,6 +47,10 @@ export function getType(value) {
 		return 'date';
 	}
 
+	if (parseTime(value) !== null) {
+		return 'time';
+	}
+
 	if (isEmail(value)) {
 		return 'email';
 	}
@@ -64,6 +69,7 @@ export function getType(value) {
 export function isPrimitive(type) {
 	switch (type) {
 		case 'date':
+		case 'time':
 		case 'bool':
 		case 'text':
 		case 'number':
@@ -126,6 +132,15 @@ function parseDate(value) {
 
 	return null;
 }
+
+function parseTime(value) {
+	const str = '1970-01-01T' + value;
+	const result = Date.parse(str);
+	if(isNaN(result)){
+		return null;
+	}
+	return result;
+}	
 
 function parseNumber(value) {
 	const number = parseFloat(value);
