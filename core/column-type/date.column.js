@@ -20,7 +20,7 @@ export class DateColumnModel extends DataColumnModel {
 	constructor() {
 		super('date');
 
-		this.format = 'MM/DD/YYYY';
+		this.format = 'MM/dd/yyyy';
 	}
 }
 

@@ -114,7 +114,6 @@ export class EditRowView extends View {
 	contextFactory(row) {
 		return {
 			row: row,
-			current: this.editor.current,
 			unit: 'row'
 		};
 	}
