@@ -33,6 +33,7 @@ export class PopupComponent extends PluginComponent
 	private $implicit = this;
 
 	@Input() public id: string;
+	@Input() public context: any;
 
 	constructor(
 		@Optional() root: RootService,

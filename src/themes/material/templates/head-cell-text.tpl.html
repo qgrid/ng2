@@ -17,8 +17,7 @@
 		</label>
 	</div>
 	<q-grid-popup *ngIf="$cell.column.canFilter"
-				  [q-grid-column-filter]="$cell.column.key" 
-				  id="q-grid-column-filter-popup-{{$cell.column.key}}">
+				  [q-grid-column-filter]="$cell.column.key">
 		<ng-template for="trigger" let-$popup>
 			<button md-icon-button
        		    	[ngClass]="{'q-grid-active': $view.filter.has($cell.column)}" 
@@ -34,7 +33,7 @@
 		<ng-template for="head">
 			{{$cell.column.title}} Filter
 		</ng-template>
-		<ng-template for="foot" let-$columnFilter="$columnFilter">
+		<ng-template for="foot" [context]="{$columnFilter: $columnFilter}" let-$columnFilter>
 			<button md-button (click)="$columnFilter.cancel()">Cancel</button>
 			<button md-button (click)="$columnFilter.reset()">Reset</button>
 			<button md-button color="primary" (click)="$columnFilter.submit()">Apply</button>

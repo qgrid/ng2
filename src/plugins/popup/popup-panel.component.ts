@@ -27,7 +27,6 @@ export class PopupPanelComponent {
 		this.popupService.expand(this.popup.id);
 	}
 
-
 	public collapse() {
 		this.popupService.collapse(this.popup.id);
 	}
