@@ -8,7 +8,7 @@ import { TemplateLink } from './template-link';
 })
 export class TemplateCacheDirective implements OnInit {
 	@Input('for') key = '';
-	@Input() context;
+	@Input() context = {};
 
 	constructor(private templateCache: TemplateCacheService,
 		private templateRef: TemplateRef<any>,

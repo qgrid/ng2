@@ -17,6 +17,7 @@
 		</label>
 	</div>
 	<q-grid-popup *ngIf="$cell.column.canFilter"
+				  [id]="$cell.column.key"
 				  [q-grid-column-filter]="$cell.column.key">
 		<ng-template for="trigger" let-$popup>
 			<button md-icon-button
