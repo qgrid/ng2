@@ -4,6 +4,7 @@ import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { DisposableView } from 'ng2-qgrid/core/view/disposable.view';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
+import { RootService } from 'ng2-qgrid/infrastructure/component';
 
 @Directive({
 	selector: '[q-grid-file-upload]'
@@ -58,7 +59,7 @@ export class FileUploadDirective implements OnInit, OnDestroy {
 	}
 
 	setDataUrl(e) {
-		if (e.target.readyState === FileReader.DONE) {
+		if (e.target.readyState === 2) {
 			this.root.applyFactory(() => this.file = e.target.result);
 		}
 	}
