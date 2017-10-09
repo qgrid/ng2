@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit {
 			.map(humans => this.madeEmailSingleField(humans))
 			.map(humans => this.madeTimeNowField(humans))
 			.map(humans => this.madeWebPageField(humans))
+			// .map(humans => this.madeAvatarField(humans))
 			.subscribe(people => {
 				this.rows = people;
 			});
@@ -52,6 +53,13 @@ export class HomeComponent implements OnInit {
 	private madeWebPageField(humans: Human[]): Human[] {
 		humans.forEach((human: any) => {
 			human['webPage'] = `https://corp.portal.com/${human.name.last}.${human.name.first}`;
+		});
+		return humans;
+	}
+
+	private madeAvatarField(humans: Human[]): Human[] {
+		humans.forEach((human: any) => {
+			human['avatar'] = human['webPage'] + `/avatar.png`;
 		});
 		return humans;
 	}
