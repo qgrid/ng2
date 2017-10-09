@@ -11,6 +11,7 @@
 			<q-grid-column type="row-number" key="rowNumber" title="Row No"></q-grid-column>
 			<q-grid-column type="row-indicator" key="rowIndicator"></q-grid-column>
 			<q-grid-column type="number" aggregation="sum"></q-grid-column>
+			<q-grid-column type="url" key="webPage" title="Web Page"></q-grid-column>
 			<q-grid-column key="name.last">
 				<ng-template for="body" let-$cell>
 					<span style="color: blue">{{$cell.value}}</span>
