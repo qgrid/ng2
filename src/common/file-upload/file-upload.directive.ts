@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, Output, OnDestroy, OnInit, Optional, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output } from '@angular/core';
 
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
@@ -10,19 +10,19 @@ import { RootService } from 'ng2-qgrid/infrastructure/component';
 	selector: '[q-grid-file-upload]'
 })
 export class FileUploadDirective implements OnInit, OnDestroy {
-	private element: HTMLElement;
-	private listener: EventListener;
-	private reader: FileReader;
 	private disposableView: DisposableView;
+	private element: HTMLElement;
+	private listener;
+	private reader: FileReader;
 
 	@Input('q-grid-file-upload') file;
 	@Input('q-grid-file-upload-label') label;
 	@Output('q-grid-can-upload') canUpload: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-	constructor( @Optional() private root: RootService, elementRef: ElementRef ) {
-		this.listener = new EventListener(this.element, new EventManager(this));
+	constructor( @Optional() private root: RootService, private elementRef: ElementRef ) {
 		this.disposableView = new DisposableView();
 		this.element = elementRef.nativeElement;
+		this.listener = new EventListener(this.element, new EventManager(this));
 		this.reader = new FileReader();
 		this.reader.onloadend = e => this.setDataUrl(e);
 	}
