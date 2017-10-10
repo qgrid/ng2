@@ -17,7 +17,7 @@ export class FileUploadDirective implements OnInit, OnDestroy {
 
 	@Input('q-grid-file-upload') file;
 	@Input('q-grid-file-upload-label') label;
-	@Output('q-grid-can-upload') canUpload: EventEmitter<any> = new EventEmitter<any>();
+	@Output('q-grid-can-upload') canUpload: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 	constructor( @Optional() private root: RootService, elementRef: ElementRef ) {
 		this.listener = new EventListener(this.element, new EventManager(this));
