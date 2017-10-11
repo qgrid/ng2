@@ -12,7 +12,7 @@ import { RootService } from 'ng2-qgrid/infrastructure/component';
 export class FileUploadDirective implements OnInit, OnDestroy {
 	private disposableView: DisposableView;
 	private element: HTMLElement;
-	private listener;
+	private listener: EventListener;
 	private reader: FileReader;
 
 	@Input('q-grid-file-upload') file;
