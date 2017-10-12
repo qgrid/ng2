@@ -8,10 +8,11 @@ import {
 } from '@angular/core';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
+import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { TableCoreService } from '../table/table-core.service';
 import { CellService } from '../cell/cell.service';
 import { ViewCoreService } from '../view/view-core.service';
-import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { TrCoreDirective } from '../row/tr-core.directive';
 
 @Directive({
@@ -49,7 +50,7 @@ export class ThCoreDirective implements OnInit, OnDestroy {
 		link(this.viewContainerRef, this);
 	}
 
-	get column() {
+	get column(): ColumnModel {
 		return this.columnView.model;
 	}
 

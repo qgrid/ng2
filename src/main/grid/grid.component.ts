@@ -94,7 +94,7 @@ export class GridComponent extends RootComponent implements OnInit {
 
 		grid({
 			status: 'bound',
-			title: this.gridTitle
+			title: this.gridTitle || ''
 		});
 
 		if (!this.gridId) {
