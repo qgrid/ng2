@@ -92,6 +92,7 @@
     "@angular/platform-browser": "~4.4.3",
     "@angular/platform-browser-dynamic": "~4.4.3",
     "core-js": "~2.5.1",
+    "moment": "^2.19.0",
     "npm": "~5.4.2",
     "rxjs": "~5.4.3",
     "zone.js": "~0.8.17"

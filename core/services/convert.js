@@ -1,4 +1,11 @@
 import {identity, isObject, isArray, isBoolean, isEmail, isString} from '../utility';
+import * as momentjs from 'moment';
+
+const moment = momentjs.default;
+
+export function getMoment() {
+	return moment;
+}
 
 export function parseFactory(type) {
 	switch (type) {
@@ -133,14 +140,71 @@ function parseDate(value) {
 	return null;
 }
 
-function parseTime(value) {
-	const str = '1970-01-01T' + value;
-	const result = Date.parse(str);
-	if(isNaN(result)){
+function parseTime(testStr) {
+
+	var mdate = moment(testStr, 'HH:mm:ss', true);
+	
+	if(!mdate.isValid()){
 		return null;
 	}
-	return result;
-}	
+	return mdate.toDate();
+}
+	
+function parseTime000(testStr, regex) { 
+    if (!testStr || typeof(testStr) !== 'string') {
+		return null;
+	}
+
+	const regexHhMmTest =  /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/;
+	const regexHhMm =  /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/i;
+
+	const regAmPmTest = /^([0]\d|[1][0-2]):([0-5]\d)\s?(?:AM|PM)$/;
+	const regexAmPm =  /^([0]\d|[1][0-2]):([0-5]\d)\s?(?:AM|PM)$/i;
+
+	if (!regex){
+		return parseTime(testStr, regexHhMm)
+	}
+
+	if (regex === regexHhMm && !regexHhMmTest.test(testStr)){
+		return parseTime(testStr, regexAmPm)
+	} else if (regex === regexAmPm && !regexAmPmTest.test(testStr)) {
+			return null;
+	}
+
+    var time = testStr.match(regex); 
+	
+	if (time == null) {
+		if(regex === regexHhMm) {
+			return parseTime(testStr, regAmPm)
+		}
+		return null;
+	}
+
+    var hours = parseInt(time[1],10);    
+    if (hours == 12 && !time[4]) {
+          hours = 0;
+    }
+    else {
+        hours += (hours < 12 && time[4])? 12 : 0;
+    }   
+    var d = new Date();             
+    d.setHours(hours);
+    d.setMinutes(parseInt(time[3],10) || 0);
+    d.setSeconds(0, 0);  
+    return d;
+}
+
+function validateHhMm(inputField) {
+	var isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(inputField.value);
+
+	if (isValid) {
+		inputField.style.backgroundColor = '#bfa';
+	} else {
+		inputField.style.backgroundColor = '#fba';
+	}
+
+	return isValid;
+}
 
 function parseNumber(value) {
 	const number = parseFloat(value);
