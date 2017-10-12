@@ -85,7 +85,7 @@ export class EditCellView extends View {
 							}
 						}
 
-						model.edit({state: 'edit'});
+						model.edit({ state: 'edit' });
 						cell.mode('edit');
 						return true;
 					}
@@ -105,7 +105,7 @@ export class EditCellView extends View {
 						&& model.edit().state === 'edit'
 						&& model.edit().commit.canExecute(this.contextFactory(cell));
 				},
-				execute: (cell, e) => {
+				execute: (cell, e, timeout) => {
 					Log.info('cell.edit', 'commit');
 					if (e) {
 						e.stopImmediatePropagation();
@@ -115,9 +115,19 @@ export class EditCellView extends View {
 					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
 						this.editor.commit();
 						this.editor = CellEditor.empty;
-						model.edit({state: 'view'});
-						cell.mode('view');
-						table.view.focus();
+						model.edit({ state: 'view' });
+
+						const toggleMode = () => {
+							cell.mode('view');
+							table.view.focus();
+						};
+
+						if (timeout) {
+							setTimeout(toggleMode, timeout);
+						}
+						else {
+							toggleMode();
+						}
 						return true;
 					}
 
@@ -134,23 +144,30 @@ export class EditCellView extends View {
 						&& model.edit().state === 'edit'
 						&& model.edit().cancel.canExecute(this.contextFactory(cell, this.value, this.label));
 				},
-				execute: (cell, e) => {
+				execute: (cell, e, timeout) => {
 					Log.info('cell.edit', 'cancel');
 					if (e) {
 						e.stopImmediatePropagation();
 					}
 
 					cell = cell || this.editor.cell;
-					let label = this.label;
-					let value = cell.value;
-
-					if (cell && model.edit().cancel.execute(this.contextFactory(cell, value, label)) !== false) {
+					if (cell && model.edit().cancel.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
 						this.editor.reset();
 						this.editor = CellEditor.empty;
 
-						model.edit({state: 'view'});
-						cell.mode('view');
-						table.view.focus();
+						model.edit({ state: 'view' });
+						const toggleMode = () => {
+							cell.mode('view');
+							table.view.focus();
+						};
+
+						if (timeout) {
+							setTimeout(toggleMode, timeout);
+						}
+						else {
+							toggleMode();
+						}
+
 						return true;
 					}
 

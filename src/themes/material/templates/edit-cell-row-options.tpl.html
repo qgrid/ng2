@@ -2,7 +2,7 @@
 	<button aria-label="Open row menu"
 				md-icon-button 
 				[mdMenuTriggerFor]="menu"
-				(onMenuClose)="$view.edit.cell.cancel.execute()"
+				(onMenuClose)="$view.edit.cell.cancel.execute($cell, $event, 10)"
 				q-grid-raise="click">
 		<md-icon>more_vert</md-icon>
 	</button>
