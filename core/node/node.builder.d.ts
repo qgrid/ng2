@@ -6,4 +6,4 @@ export interface ILodashGroupBy{
 	(collection: any[], iteratee: any): object;
 }
 
-export declare function nodeBuilder(columnMap: IMapResult, groupBy: ILodashGroupBy, valueFactory: IValueFactory, level: number): Node[];
+export declare function nodeBuilder(columnMap: IMapResult, groupBy: ILodashGroupBy, valueFactory: IValueFactory, level: number = 0): Node[];
