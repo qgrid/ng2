@@ -3,15 +3,18 @@ import {nodeBuilder} from '../node';
 
 export function groupPipe(memo, context, next) {
 	const model = context.model;
-	const dataState = model.data();
-	const groupState = model.group();
 
-	const build = nodeBuilder(
-		getColumnMap(dataState.columns),
-		groupState.by,
-		context.valueFactory
-	);
+	if (memo.rows.length) {
+		const dataState = model.data();
+		const groupState = model.group();
 
-	memo.nodes = build(memo.rows);
+		const build = nodeBuilder(
+			getColumnMap(dataState.columns),
+			groupState.by,
+			context.valueFactory
+		);
+
+		memo.nodes = build(memo.rows);
+	}
 	next(memo);
 }

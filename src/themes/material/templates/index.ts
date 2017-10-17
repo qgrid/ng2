@@ -41,7 +41,8 @@ const templates = [
 	require('./plugin-export.tpl.html'),
 	require('./plugin-action-bar-core.tpl.html'),
 	require('./plugin-action-core.tpl.html'),
-	require('./plugin-popup-panel.tpl.html')
+	require('./plugin-popup-panel.tpl.html'),
+	require('./plugin-column-filter.tpl.html')
 ];
 
 export const template = templates.join('\n\n');
