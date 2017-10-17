@@ -4,17 +4,19 @@
 			<input mdInput
 					 #input
 					 type="time"
+					 step="1"
 					 q-grid-focus
 					 [ngModel] = "$view.edit.cell.value | time: 'HH:mm:ss'"
-					 (ngModelChange) = "onTimeInput($view.edit.cell, model, $event)"
-					 #model = "ngModel"
-					 (blur)="commitTime($view.edit.cell, $cell, model, $event)">
+					 (ngModelChange) = "$view.edit.cell.value = timePipe.transform($event)"
+					 #model="ngModel"
+					 (blur)="$view.edit.cell.commit.execute($cell, $event)">
 			<md-hint align="end">{{input.value.length}} / {{$cell.column.maxLength}}</md-hint>
 		</md-form-field>
 		<br/>
-		<span style="color:blue">{{$view.edit.cell.value}}</span>
-		<br/>
-		<span style="color:red">{{validationNote}}</span>
-		<br/>
+		<span style="color:red">{{model.valid ? '': 'Value is not valid!'}}</span>
+		<!--
+			<br/> 
+			<span style="color:blue">{{$view.edit.cell.value | time: 'HH:mm:ss'}}</span>
+		-->
 	</div>
 </ng-template>

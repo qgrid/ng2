@@ -142,7 +142,7 @@ function parseDate(value) {
 
 function parseTime(testStr) {
 
-	var mdate = moment(testStr, 'HH:mm:ss', true);
+	var mdate = moment(testStr, 'HH:mm:ss', false);
 	
 	if(!mdate.isValid()){
 		return null;
@@ -150,18 +150,6 @@ function parseTime(testStr) {
 	return mdate.toDate();
 }
 	
-function validateHhMm(inputField) {
-	var isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(inputField.value);
-
-	if (isValid) {
-		inputField.style.backgroundColor = '#bfa';
-	} else {
-		inputField.style.backgroundColor = '#fba';
-	}
-
-	return isValid;
-}
-
 function parseNumber(value) {
 	const number = parseFloat(value);
 	if (!isNaN(number) && isFinite(number)) {

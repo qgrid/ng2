@@ -16,7 +16,7 @@ import { AppError } from 'ng2-qgrid/core/infrastructure';
 export class TimePipe implements PipeTransform {
     private moment = getMoment();
 
-    transform(value: any, formatString: string): string {
+    transform(value: string | Date, formatString?: string): string | Date {
         let date: Date = null;
 
         if (typeof value !== "string") {
@@ -30,7 +30,7 @@ export class TimePipe implements PipeTransform {
             throw new AppError(`Time Parser ERROR for value: '${value}'`);
         }
         if (!formatString) {
-            formatString = 'H:mm A';
+            return date;
         }
         return this.moment(date).format(formatString);
     }
