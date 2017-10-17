@@ -1,0 +1,14 @@
+<ng-template key='body-cell-file.tpl.html' let-$cell let-$view="$view">
+	<a [href]="$cell.value" (bind)="$cell.label || $cell.value">{{$cell.value}}</a>
+	<button *ngIf="$view.edit.cell.canEdit($cell)"
+			  color="primary"
+			  class="md-icon-button q-grid-file-edit"
+			  aria-label="file-edit"
+			  (disabled)="!$view.edit.cell.enter.canExecute($cell)"
+			  (click)="$view.edit.cell.enter.execute($cell)"
+			  mdTooltip='upload'
+			  [mdTooltipPosition]="'before'"
+	>
+		<md-icon>file_upload</md-icon>
+	</button>
+</ng-template>
