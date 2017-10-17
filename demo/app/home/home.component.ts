@@ -63,11 +63,17 @@ export class HomeComponent implements OnInit {
 
 	private madeAvatarField(humans: Human[]): Human[] {
 		humans.forEach((human: any) => {
-			human['avatar'] = human['webPage'] + `/avatar.png`;
+			human['avatar'] = human['webPage'] + `/images/avatar.png`;
 		});
 		return humans;
 	}
 
+	private madeAttachementField(humans: Human[]): Human[] {
+		humans.forEach((human: any) => {
+			human['attachment'] = human['webPage'] + `/files/`;
+		});
+		return humans;
+	}
 	private madeIsFeemaleField(humans: Human[]): Human[] {
 		humans.forEach((human: any) => {
 			human['isFemail'] = human.gender === 'female';
