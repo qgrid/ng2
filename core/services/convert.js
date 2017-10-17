@@ -150,50 +150,6 @@ function parseTime(testStr) {
 	return mdate.toDate();
 }
 	
-function parseTime000(testStr, regex) { 
-    if (!testStr || typeof(testStr) !== 'string') {
-		return null;
-	}
-
-	const regexHhMmTest =  /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/;
-	const regexHhMm =  /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/i;
-
-	const regAmPmTest = /^([0]\d|[1][0-2]):([0-5]\d)\s?(?:AM|PM)$/;
-	const regexAmPm =  /^([0]\d|[1][0-2]):([0-5]\d)\s?(?:AM|PM)$/i;
-
-	if (!regex){
-		return parseTime(testStr, regexHhMm)
-	}
-
-	if (regex === regexHhMm && !regexHhMmTest.test(testStr)){
-		return parseTime(testStr, regexAmPm)
-	} else if (regex === regexAmPm && !regexAmPmTest.test(testStr)) {
-			return null;
-	}
-
-    var time = testStr.match(regex); 
-	
-	if (time == null) {
-		if(regex === regexHhMm) {
-			return parseTime(testStr, regAmPm)
-		}
-		return null;
-	}
-
-    var hours = parseInt(time[1],10);    
-    if (hours == 12 && !time[4]) {
-          hours = 0;
-    }
-    else {
-        hours += (hours < 12 && time[4])? 12 : 0;
-    }   
-    var d = new Date();             
-    d.setHours(hours);
-    d.setMinutes(parseInt(time[3],10) || 0);
-    d.setSeconds(0, 0);  
-    return d;
-}
-
 function validateHhMm(inputField) {
 	var isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(inputField.value);
 

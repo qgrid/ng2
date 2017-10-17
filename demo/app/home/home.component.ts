@@ -84,9 +84,4 @@ export class HomeComponent implements OnInit {
 		});
 		return humans;
 	}
-
-	private get now() {
-		return new Date(new Date().getTime()).toLocaleTimeString('en-US', 
-		{hour12: false, hour: '2-digit', minute: '2-digit', second: 'numeric'});
-	}
 }

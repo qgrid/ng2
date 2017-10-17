@@ -6,6 +6,8 @@ import { ThemeComponent } from './theme.component';
 import { PluginModule } from 'ng2-qgrid/plugins';
 import { TemplateModule } from 'ng2-qgrid/template';
 import { CommonModule } from 'ng2-qgrid/common';
+import { TimePipe } from 'ng2-qgrid/common/pipes/time.pipe'
+
 import {
 	MdCardModule,
 	MdIconModule,
@@ -24,11 +26,11 @@ import {
 
 @NgModule({
 	declarations: [
-		ThemeComponent
+		ThemeComponent,
 	],
 	exports: [
 		ThemeComponent,
-		PluginModule
+		PluginModule,
 	],
 	imports: [
 		CommonModule,

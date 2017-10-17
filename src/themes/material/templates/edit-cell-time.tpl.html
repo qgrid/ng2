@@ -5,10 +5,16 @@
 					 #input
 					 type="time"
 					 q-grid-focus
-					 [value] = "$view.edit.cell.label"
-					 (input) = "onTimeInput(view.edit.cell, $event)"
-					 (blur)="$view.edit.cell.commit.execute($cell, $event)">
+					 [ngModel] = "$view.edit.cell.value | time: 'HH:mm:ss'"
+					 (ngModelChange) = "onTimeInput($view.edit.cell, model, $event)"
+					 #model = "ngModel"
+					 (blur)="commitTime($view.edit.cell, $cell, model, $event)">
 			<md-hint align="end">{{input.value.length}} / {{$cell.column.maxLength}}</md-hint>
 		</md-form-field>
+		<br/>
+		<span style="color:blue">{{$view.edit.cell.value}}</span>
+		<br/>
+		<span style="color:red">{{validationNote}}</span>
+		<br/>
 	</div>
 </ng-template>

@@ -3,6 +3,7 @@ import { template } from './templates';
 import { parseFactory } from 'ng2-qgrid/core/services';
 import { getMoment } from 'ng2-qgrid/core/services';
 
+
 // Do not delete this code
 // its required for template recompilation on changes
 const debug = false;
@@ -21,19 +22,33 @@ export class ThemeComponent {
 		return cell.label;
 	}
 
-	editTimeCommit(execute, editCell, cell) {
-		execute(editCell);
+	validationNote: string = '';
+
+	commitTime($editCell, $cell, model, $event) {
+		if (model.valid){
+			this.validationNote = '';
+			//$editCell.label = $time.value;
+			//$editCell.value = this.parseTime($time.value);
+			$editCell.commit.execute($cell, $event);
+
+		} else {
+			this.validationNote = 'Value is not valid!';
+		}
 	}
 
-	onTimeInput(editCell, $event){
+	onTimeInput(editCell, model, $value){
 		/*$view.edit.cell.value*/
-		editCell.value = $event.target.valueAsDate;
+		editCell.value = this.parseTime($value);
+	}
+
+	parseTime(time: string){
+		const parse = parseFactory('time');
+		return parse(time)
 	}
 
 	formatTime(time: string): string {
-		const parse = parseFactory('time');
 
-		const date = parse(time);
+		const date: Date = this.parseTime(time);
 
 		if (date === null) {
 			return 'Parse time ERROR!!!';
