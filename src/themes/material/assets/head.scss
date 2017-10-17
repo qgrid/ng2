@@ -4,6 +4,14 @@
 	thead, tfoot {
 		tr {
 			height: 56px;
+			th {
+				&.q-grid-can-sort {
+					label {
+						cursor: pointer;
+					}
+				}
+			}
+
 			th, td {
 				&.q-grid-select {
 					md-checkbox {

@@ -1,10 +1,19 @@
-.q-grid-popup-panel {
+&.q-grid-popup-panel {
 	height: 100%;
 	md-card {
 		margin: 0;
 
 		md-card-content {
 			overflow: hidden;
+		}
+
+		.q-grid-popup-actions {
+			text-align: right;
+			margin-bottom: -5px;
+			button {
+				margin-bottom: 0;
+				display: inline-block;
+			}
 		}
 
 		md-card-header {
