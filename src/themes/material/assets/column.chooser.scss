@@ -14,7 +14,7 @@
 		padding: 0;
 	}
 
-	md-checkbox {
+	mat-checkbox {
 		margin: 0 0 10px 0;
 	}
 
@@ -24,7 +24,7 @@
 		margin-bottom: 0;
 		margin-top: 0;
 		
-		.md-errors-spacer {
+		.mat-errors-spacer {
 			display: none;
 		}
 	}
@@ -34,7 +34,7 @@
 		overflow-y: auto;
 		height: 340px;
 
-		md-input-container {
+		mat-input-container {
 			margin: 0;
 		}
 	}

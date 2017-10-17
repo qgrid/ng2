@@ -1,8 +1,8 @@
 .q-grid-popup-panel {
-    md-card {
+    mat-card {
         height: 100%;
 
-        md-card-header {
+        mat-card-header {
             .mat-card-header-text {
                 width: 100%;
                 margin: 0;
@@ -15,7 +15,7 @@
                 margin-right: -10px;
             }
         }
-        md-card-actions {
+        mat-card-actions {
             margin-bottom: 0;
             margin-top: 0;
             padding-bottom: 8px;

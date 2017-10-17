@@ -1,11 +1,11 @@
 <ng-template key="plugin-action-core.tpl.html" let-$action>
     <div class="q-grid-action">
-        <button md-icon-button 
+        <button mat-icon-button 
                 (click)="$action.execute()" 
                 [disabled]="!$action.canExecute()"
-                [mdTooltip]="$action.title" 
+                [matTooltip]="$action.title" 
                 tabindex="-1">
-            <md-icon>{{$action.icon}}</md-icon>
+            <mat-icon>{{$action.icon}}</mat-icon>
         </button>
     </div>
 </ng-template>

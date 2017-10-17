@@ -56,7 +56,7 @@ tbody {
 			}
 
 			&.q-grid-row-indicator {
-				md-icon {
+				mat-icon {
 					//color: rgb(224, 224, 224);
 					font-size: 13px;
 					width: 13px;
@@ -77,7 +77,7 @@ tbody {
 						height: 20px;
 						box-sizing: border-box;
 
-						md-icon {
+						mat-icon {
 							font-size: 18px;
 							font-weight: 500;
 							width: 18px;
@@ -89,7 +89,7 @@ tbody {
 
 						&.q-grid-checked {
 							background: rgba(255, 64, 129, 0.87);
-							md-icon {
+							mat-icon {
 								color: #fff;
 							}
 						}
@@ -104,14 +104,14 @@ tbody {
 							min-height: 20px;
 							box-sizing: border-box;
 
-							md-icon {
+							mat-icon {
 								color: rgba(0, 0, 0, 0.54);
 							}
 						}
 					}
 				}
 
-				md-checkbox {
+				mat-checkbox {
 					margin: 0;
 				}
 			}
@@ -166,7 +166,7 @@ tbody {
 					padding: 0;
 					margin: 0 2px;
 
-					md-icon {
+					mat-icon {
 						color: $dark-secondary;
 						font-size: 16px;
 						height: 16px;
@@ -206,7 +206,7 @@ tbody {
 			}
 
 			&.q-grid-time {
-				md-input-container {
+				mat-input-container {
 					width: 100%;
 				}
 			}

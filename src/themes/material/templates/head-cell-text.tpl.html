@@ -6,13 +6,13 @@
 			  [ngClass]="{'q-grid-active': $view.sort.order($cell.column) >= 0}"
 			  *ngIf="$cell.column.canSort"
 			  [ngSwitch]="$view.sort.direction($cell.column)">
-			<md-icon class="q-grid-asc" *ngSwitchCase="'asc'">arrow_downward</md-icon>
-			<md-icon class="q-grid-desc" *ngSwitchCase="'desc'">arrow_upward</md-icon>
+			<mat-icon class="q-grid-asc" *ngSwitchCase="'asc'">arrow_downward</mat-icon>
+			<mat-icon class="q-grid-desc" *ngSwitchCase="'desc'">arrow_upward</mat-icon>
 			<ng-container *ngSwitchDefault>
-				<md-icon *ngIf="$view.sort.hover">arrow_downward</md-icon>
+				<mat-icon *ngIf="$view.sort.hover">arrow_downward</mat-icon>
 			</ng-container>
 		</div>
-		<label [mdTooltip]="$cell.column.title">
+		<label [matTooltip]="$cell.column.title">
 			{{$cell.column.title}}
 		</label>
 	</div>
@@ -20,11 +20,11 @@
 				  [id]="$cell.column.key"
 				  [q-grid-column-filter]="$cell.column.key">
 		<ng-template for="trigger" let-$popup>
-			<button md-icon-button
+			<button mat-icon-button
        		    	[ngClass]="{'q-grid-active': $view.filter.has($cell.column)}" 
 					(click)="$popup.open({width: 350, height: 600})" 
 					tabindex="-1">
-				<md-icon>filter_list</md-icon>
+				<mat-icon>filter_list</mat-icon>
 			</button>
 		</ng-template>
 		<ng-template for="body">
@@ -35,9 +35,9 @@
 			{{$cell.column.title}} Filter
 		</ng-template>
 		<ng-template for="foot" [context]="{$columnFilter: $columnFilter}" let-$columnFilter>
-			<button md-button (click)="$columnFilter.cancel()">Cancel</button>
-			<button md-button (click)="$columnFilter.reset()">Reset</button>
-			<button md-button color="primary" (click)="$columnFilter.submit()">Apply</button>
+			<button mat-button (click)="$columnFilter.cancel()">Cancel</button>
+			<button mat-button (click)="$columnFilter.reset()">Reset</button>
+			<button mat-button color="primary" (click)="$columnFilter.submit()">Apply</button>
 		</ng-template>
 	</q-grid-popup> -->
 </ng-template>

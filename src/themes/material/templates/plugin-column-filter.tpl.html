@@ -1,34 +1,34 @@
 <ng-template key="plugin-column-filter.tpl.html" let-$columnFiltePanel>
 	<div class="q-grid-column-filter-panel layout-column flex-100">
 		<div class="flex-none layout-row">
-			<md-form-field class="q-grid-column-filter-filter">
+			<mat-form-field class="q-grid-column-filter-filter">
 				<label>Search</label>
 				<input type="text"
-					   mdInput
+					   matInput
 					   [value]="$columnFilterPanel.filter"
 					   q-grid-focus/>
-			</md-form-field>
+			</mat-form-field>
 		</div>
 		<div class="flex-100">
 			<ul>
 				<li>
-					<md-checkbox (click)="$columnFilterPanel.toggleAll.execute()"
+					<mat-checkbox (click)="$columnFilterPanel.toggleAll.execute()"
 								 [checked]="$columnFilterPanel.stateAll()"
 								 aria-label="Select all filter values"
 								 [indeterminate]="$columnFilterPanel.isIndeterminate()">
 						Select All
-					</md-checkbox>
+					</mat-checkbox>
 				</li>
 			</ul>
 			<div class="q-grid-column-filter-list">
 				<ul>
 					<li *ngFor="let item of $columnFilterPanel.items">
-						<md-checkbox [checked]="$columnFilterPanel.state(item)"
+						<mat-checkbox [checked]="$columnFilterPanel.state(item)"
 									 *ngIf="$columnFilterPanel.toggle.canExecute(item)"
 								     aria-label="Select filter value"
 								     (click)="$columnFilterPanel.toggle.execute(item)">
 									{{item}}
-						</md-checkbox>
+						</mat-checkbox>
 					</li>
 				</ul>
 			</div>
