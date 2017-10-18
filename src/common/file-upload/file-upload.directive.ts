@@ -1,16 +1,14 @@
-import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output } from '@angular/core';
+import {Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output} from '@angular/core';
 
-import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
-import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
-import { DisposableView } from 'ng2-qgrid/core/view/disposable.view';
-import { AppError } from 'ng2-qgrid/core/infrastructure/error';
-import { RootService } from 'ng2-qgrid/infrastructure/component';
+import {EventListener} from 'ng2-qgrid/core/infrastructure/event.listener';
+import {EventManager} from 'ng2-qgrid/core/infrastructure/event.manager';
+import {AppError} from 'ng2-qgrid/core/infrastructure/error';
+import {NgComponent, RootService} from 'ng2-qgrid/infrastructure/component';
 
 @Directive({
 	selector: '[q-grid-file-upload]'
 })
-export class FileUploadDirective implements OnInit, OnDestroy {
-	private disposableView: DisposableView;
+export class FileUploadDirective extends NgComponent implements OnInit, OnDestroy {
 	private element: HTMLElement;
 	private listener: EventListener;
 	private reader: FileReader;
@@ -19,22 +17,26 @@ export class FileUploadDirective implements OnInit, OnDestroy {
 	@Input('q-grid-file-upload-label') label;
 	@Output('q-grid-can-upload') canUpload: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-	constructor( @Optional() private root: RootService, private elementRef: ElementRef ) {
-		this.disposableView = new DisposableView();
+	constructor(@Optional() private root: RootService, private elementRef: ElementRef) {
 		this.element = elementRef.nativeElement;
 		this.listener = new EventListener(this.element, new EventManager(this));
 		this.reader = new FileReader();
 		this.reader.onloadend = e => this.setDataUrl(e);
+		super();
 	}
 
 	ngOnInit() {
-		this.disposableView.using(this.listener.on('change', this.upload));
-		this.disposableView.using(this.listener.on('click', this.onClick));
-		this.disposableView.using(this.listener.on('drop', this.upload));
+		super.ngOnInit();
+
+		this.using(this.listener.on('change', this.upload));
+		this.using(this.listener.on('click', this.onClick));
+		this.using(this.listener.on('drop', this.upload));
 	}
 
 	ngOnDestroy() {
-		this.disposableView.dispose();
+		super.ngOnDestroy();
+
+		this.dispose();
 	}
 
 	onClick() {
