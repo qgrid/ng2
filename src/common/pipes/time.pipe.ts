@@ -12,26 +12,26 @@ import { AppError } from 'ng2-qgrid/core/infrastructure';
  *   {{ '16:05:25' | time:'h:mm:ss A' }}
  * result: '4:05:25 PM'
 */
-@Pipe({ name: 'time' })
+@Pipe({ name: 'myTime' })
 export class TimePipe implements PipeTransform {
-    private moment = getMoment();
+	private moment = getMoment();
 
-    transform(value: string | Date, formatString?: string): string | Date {
-        let date: Date = null;
+	transform(value: string | Date, formatString?: string): string | Date {
+		let date: Date = null;
 
-        if (typeof value !== "string") {
-            date = value;
-        } else {
-            const parse = parseFactory('time');
-            date = parse(value, false);
-        }
+		if (typeof value !== 'string') {
+			date = value;
+		} else {
+			const parse = parseFactory('time');
+			date = parse(value, false);
+		}
 
-        if (date === null) {
-            throw new AppError(`Time Parser ERROR for value: '${value}'`);
-        }
-        if (!formatString) {
-            return date;
-        }
-        return this.moment(date).format(formatString);
-    }
+		if (date === null) {
+			throw new AppError(`Time Parser ERROR for value: '${value}'`);
+		}
+		if (!formatString) {
+			return date;
+		}
+		return this.moment(date).format(formatString);
+	}
 }

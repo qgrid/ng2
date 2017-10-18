@@ -6,7 +6,7 @@
 					 type="time"
 					 step="1"
 					 q-grid-focus
-					 [ngModel] = "$view.edit.cell.value | time: 'HH:mm:ss'"
+					 [ngModel] = "$view.edit.cell.value | myTime: 'HH:mm:ss'"
 					 (ngModelChange) = "$view.edit.cell.value = timePipe.transform($event)"
 					 #model="ngModel"
 					 (blur)="$view.edit.cell.commit.execute($cell, $event)">
