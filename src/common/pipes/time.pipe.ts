@@ -23,7 +23,7 @@ export class TimePipe implements PipeTransform {
             date = value;
         } else {
             const parse = parseFactory('time');
-            date = parse(value);
+            date = parse(value, false);
         }
 
         if (date === null) {

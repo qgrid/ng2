@@ -1,9 +1,8 @@
 import {identity, isObject, isArray, isBoolean, isEmail, isString} from '../utility';
 import * as momentjs from 'moment';
 
-const moment = momentjs.default;
-
 export function getMoment() {
+	const moment = require('moment');
 	return moment;
 }
 
@@ -140,9 +139,10 @@ function parseDate(value) {
 	return null;
 }
 
-function parseTime(testStr) {
+function parseTime(testStr, strict = true) {
+	const moment = getMoment();
 
-	var mdate = moment(testStr, 'HH:mm:ss', false);
+	var mdate = moment(testStr, 'HH:mm:ss', strict);
 	
 	if(!mdate.isValid()){
 		return null;

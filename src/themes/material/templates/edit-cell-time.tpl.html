@@ -1,7 +1,7 @@
 <ng-template key='edit-cell-time.tpl.html' let-$cell let-$view="$view">
 	<div class="q-grid-editor q-grid-time" q-grid-position="td">
-		<md-form-field>
-			<input mdInput
+		<mat-form-field>
+			<input matInput
 					 #input
 					 type="time"
 					 step="1"
@@ -10,8 +10,8 @@
 					 (ngModelChange) = "$view.edit.cell.value = timePipe.transform($event)"
 					 #model="ngModel"
 					 (blur)="$view.edit.cell.commit.execute($cell, $event)">
-			<md-hint align="end">{{input.value.length}} / {{$cell.column.maxLength}}</md-hint>
-		</md-form-field>
+			<mat-hint align="end">{{input.value.length}} / {{$cell.column.maxLength}}</mat-hint>
+		</mat-form-field>
 		<br/>
 		<span style="color:red">{{model.valid ? '': 'Value is not valid!'}}</span>
 		<!--
