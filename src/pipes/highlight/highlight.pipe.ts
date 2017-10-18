@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { GRID_PREFIX } from '@grid/view/definition';
+import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 
 @Pipe({
 	name: 'highlight'
