@@ -1,11 +1,7 @@
 <ng-template key="head-cell-text.tpl.html" let-$cell let-$view="$view">
-	<div (click)="$view.sort.toggle.execute($cell.column)"
-		  (mouseover)="$view.sort.hover = true"
-		  (mouseleave)="$view.sort.hover = false">
-		<div class="q-grid-sort"
-			  [ngClass]="{'q-grid-active': $view.sort.order($cell.column) >= 0}"
-			  *ngIf="$cell.column.canSort"
-			  [ngSwitch]="$view.sort.direction($cell.column)">
+	<div (click)="$view.sort.toggle.execute($cell.column)" (mouseover)="$view.sort.hover = true" (mouseleave)="$view.sort.hover = false">
+		<div class="q-grid-sort" [ngClass]="{'q-grid-active': $view.sort.order($cell.column) >= 0}" *ngIf="$cell.column.canSort"
+		 [ngSwitch]="$view.sort.direction($cell.column)">
 			<mat-icon class="q-grid-asc" *ngSwitchCase="'asc'">arrow_downward</mat-icon>
 			<mat-icon class="q-grid-desc" *ngSwitchCase="'desc'">arrow_upward</mat-icon>
 			<ng-container *ngSwitchDefault>
@@ -16,6 +12,15 @@
 			{{$cell.column.title}}
 		</label>
 	</div>
+	<button mat-icon-button [matMenuTriggerFor]="filterMenu">
+		<mat-icon>filter_list</mat-icon>
+	</button>
+	<mat-menu #filterMenu="matMenu">
+		<div q-grid-stop-propagate="click">
+			<q-grid-column-filter [key]="$cell.column.key">
+			</q-grid-column-filter>
+		</div>
+	</mat-menu>
 	<!-- <q-grid-popup *ngIf="$cell.column.canFilter"
 				  [id]="$cell.column.key"
 				  [q-grid-column-filter]="$cell.column.key">
