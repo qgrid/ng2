@@ -18,11 +18,12 @@ export class FileUploadDirective extends NgComponent implements OnInit, OnDestro
 	@Output('q-grid-can-upload') canUpload: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 	constructor(@Optional() private root: RootService, private elementRef: ElementRef) {
+		super();
+		
 		this.element = elementRef.nativeElement;
 		this.listener = new EventListener(this.element, new EventManager(this));
 		this.reader = new FileReader();
 		this.reader.onloadend = e => this.setDataUrl(e);
-		super();
 	}
 
 	ngOnInit() {
