@@ -1,8 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
+import { htmlEncode, escapeRegexp } from 'ng2-qgrid/core/utility';
 
 @Pipe({
-	name: 'highlight'
+	name: 'qGridHighlight'
 })
 export class HighlightPipe implements PipeTransform {
 	transform(text: string | number, search: string | number): string {
@@ -25,20 +27,4 @@ export class HighlightPipe implements PipeTransform {
 
 		return htmlEncode(text);
 	}
-}
-
-function htmlEncode(s: string): string {
-	return String(s)
-		.replace(/&/g, '&amp;')
-		.replace(/"/g, '&quot;')
-		.replace(/'/g, '&#39;')
-		.replace(/</g, '&lt;')
-		.replace(/>/g, '&gt;');
-}
-
-function escapeRegexp(text: string): string {
-	if (!text) {
-		return text;
-	}
-	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
