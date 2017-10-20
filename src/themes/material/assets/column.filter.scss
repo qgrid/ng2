@@ -16,7 +16,7 @@
 
 	&.q-grid-active {
 		visibility: visible;
-		md-icon {
+		mat-icon {
 			color: $dark;
 		}
 
@@ -38,7 +38,7 @@
 		left: 0;
 		margin: 0 2px;
 
-		md-icon {
+		mat-icon {
 			color: $dark-secondary;
 			font-size: 16px;
 			height: 16px;
@@ -57,12 +57,12 @@
 		padding: 0;
 	}
 
-	md-input-container {
+	mat-input-container {
 		margin: 0;
 		width: 100%;
 	}
 
-	md-checkbox {
+	mat-checkbox {
 		margin: 0 0 10px 0;
 	}
 
@@ -72,7 +72,7 @@
 		margin-bottom: 0;
 		margin-top: 0;
 
-		.md-errors-spacer {
+		.mat-errors-spacer {
 			display: none;
 		}
 	}

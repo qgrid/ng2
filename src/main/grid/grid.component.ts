@@ -8,7 +8,8 @@ import {
 	ElementRef,
 	ChangeDetectorRef
 } from '@angular/core';
-import { TemplateCacheService } from 'ng2-qgrid/template';
+import { TemplateCacheService } from 'ng2-qgrid/template/template-cache.service';
+import { TemplateService } from 'ng2-qgrid/template/template.service';
 import { RootComponent, RootService } from 'ng2-qgrid/infrastructure/component';
 import { LayerService } from '../layer';
 import { Table } from 'ng2-qgrid/core/dom';
@@ -20,7 +21,7 @@ import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 
 @Component({
 	selector: 'q-grid',
-	providers: [RootService, TemplateCacheService],
+	providers: [RootService, TemplateCacheService, TemplateService],
 	styleUrls: ['../../assets/index.scss', '../../themes/material/index.scss'],
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None
@@ -94,7 +95,7 @@ export class GridComponent extends RootComponent implements OnInit {
 
 		grid({
 			status: 'bound',
-			title: this.gridTitle
+			title: this.gridTitle || ''
 		});
 
 		if (!this.gridId) {
