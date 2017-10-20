@@ -5,7 +5,7 @@ import { NgModule, ApplicationRef } from '@angular/core';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MdButtonModule, MdCheckboxModule, MdCardModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatCardModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ROUTES } from './app.routes';
 // App is our top level component
@@ -32,9 +32,9 @@ import { DataService } from '../data/data.service';
 		RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
 		GridModule,
 		NoopAnimationsModule,
-		MdButtonModule,
-		MdCheckboxModule,
-		MdCardModule,
+		MatButtonModule,
+		MatCheckboxModule,
+		MatCardModule,
 		FlexLayoutModule
 	],
 	providers: [
