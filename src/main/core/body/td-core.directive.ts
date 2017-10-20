@@ -67,9 +67,6 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 	}
 
 	get value() {
-		if (this.column.key === 'rowNumber') {
-			return this.rowIndex + 1;
-		} 
 		const column = this.column;
 		const row = this.row;
 		const value = this.$view.body.value(row, column);
