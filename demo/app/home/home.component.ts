@@ -35,9 +35,25 @@ export class HomeComponent implements OnInit {
 			.getPeople(100)
 			.map(humans => this.madeIsFeemaleField(humans))
 			.map(humans => this.madeEmailSingleField(humans))
+			.map(humans => this.madeTimeNowField(humans))
+			.map(humans => this.madeWebPageField(humans))
 			.subscribe(people => {
 				this.rows = people;
 			});
+	}
+
+	private madeTimeNowField(humans: Human[]): Human[] {
+		humans.forEach((human: any) => {
+			human['timeNow'] = this.now;
+		});
+		return humans;
+	}
+
+	private madeWebPageField(humans: Human[]): Human[] {
+		humans.forEach((human: any) => {
+			human['webPage'] = `https://corp.portal.com/${human.name.last}.${human.name.first}`;
+		});
+		return humans;
 	}
 
 	private madeIsFeemaleField(humans: Human[]): Human[] {
@@ -55,5 +71,10 @@ export class HomeComponent implements OnInit {
 			}
 		});
 		return humans;
+	}
+
+	private get now() {
+		return new Date(new Date().getTime()).toLocaleTimeString('en-US', 
+		{hour12: false, hour: '2-digit', minute: '2-digit', second: 'numeric'});
 	}
 }
