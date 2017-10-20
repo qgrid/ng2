@@ -25,7 +25,7 @@ export class ThemeComponent {
 		execute(editCell);
 	}
 
-	onTimeInput(editCell, $event){
+	onTimeInput(editCell, $event) {
 		/*$view.edit.cell.value*/
 		editCell.value = $event.target.valueAsDate;
 	}
