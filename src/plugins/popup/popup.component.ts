@@ -6,7 +6,9 @@ import {
 	OnInit,
 	ViewContainerRef,
 	ComponentFactory,
-	ComponentFactoryResolver
+	ComponentFactoryResolver,
+	ApplicationRef,
+	Injector
 } from '@angular/core';
 import { RootService } from 'ng2-qgrid/infrastructure/component';
 import { TemplateHostService } from 'ng2-qgrid/template';
@@ -15,63 +17,62 @@ import { PluginComponent } from '../plugin.component';
 import { PopupSettings } from './popup.settings';
 import { Popup } from './popup';
 import { PopupPanelComponent } from './popup-panel.component';
+import { DomPortalHost } from '@angular/cdk/portal';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { Portal } from '@angular/cdk/portal';
 
 @Component({
 	selector: 'q-grid-popup',
 	templateUrl: './popup.component.html',
-	providers: [TemplateHostService, Popup]
+	providers: [TemplateHostService]
 })
 export class PopupComponent extends PluginComponent
 	implements OnInit, OnDestroy {
-	private factory: ComponentFactory<PopupPanelComponent>;
+
+	private portal: Portal<PopupPanelComponent>;
 	private $implicit = this;
 
 	@Input() public id: string;
+	@Input() public context: any;
 
 	constructor(
 		@Optional() root: RootService,
 		private popupService: PopupService,
 		private templateHost: TemplateHostService,
-		private resolver: ComponentFactoryResolver,
-		private viewContainerRef: ViewContainerRef,
-		private popup: Popup
+		private viewContainerRef: ViewContainerRef
 	) {
 		super(root);
-
-		this.factory = resolver.resolveComponentFactory(PopupPanelComponent);
 	}
 
 	ngOnInit() {
 		super.ngOnInit();
 
-		this.popup.id = this.id;
-		this.popup.model = this.model;
 		this.templateHost.key = `popup-${this.id}.tpl.html`;
 	}
 
-	ngOnDestroy(): void {
+	ngOnDestroy() {
 		super.ngOnDestroy();
 
-		if (this.popupService.isOpened(this.id)) {
-			this.popupService.close(this.id);
+		this.close();
+	}
+
+	public open(settings: PopupSettings) {
+		if (!this.isOpened()) {
+			settings = Object.assign(new PopupSettings(), settings);
+
+			const port = this.popupService.port(PopupPanelComponent, this.viewContainerRef);
+			port(component => {
+				const popup = new Popup(this.id, settings, component.element.nativeElement);
+				component.popup = popup;
+				return popup;
+			});
 		}
 	}
 
-	public open(settings: PopupSettings): void {
-		settings = Object.assign(new PopupSettings(), settings);
-
-		const component = this.viewContainerRef.createComponent(this.factory)
-			.instance;
-
-		component.popup = this.popup;
-		this.popup.element = component.element.nativeElement;
-		this.popup.settings = settings;
-
-		this.popupService.open(this.popup);
-	}
-
 	public close() {
-		this.popupService.close(this.id);
+		if (this.isOpened()) {
+			this.popupService.close(this.id);
+		}
 	}
 
 	public isOpened() {

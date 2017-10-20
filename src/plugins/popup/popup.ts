@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { EventManager } from 'ng2-qgrid/core/infrastructure';
 import { isFunction, noop } from 'ng2-qgrid/core/utility';
 import { EventListener, IOnResult } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { Event } from 'ng2-qgrid/core/infrastructure/event';
 import { PopupSettings } from './popup.settings';
+import { Portal } from '@angular/cdk/portal';
 
 class PopupState {
 	public expanded = false;
@@ -18,23 +17,14 @@ class PopupArea {
 	public height = 0;
 }
 
-@Injectable()
 export class Popup {
 	private state = new PopupState();
 	private area = new PopupArea();
 
-	public model: Model;
-	public element: HTMLElement;
 	public body: HTMLElement;
-	public id: string;
-	public settings: PopupSettings;
+	public portal: Portal<any>;
 
-	constructor() {
-	}
-
-	public close(): void {
-		const settings = this.settings;
-		this.element.remove();
+	constructor(public id: string, public settings: PopupSettings, public element: HTMLElement) {
 	}
 
 	public expand(): void {
