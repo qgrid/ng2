@@ -1,28 +1,28 @@
 <ng-template key="column-chooser.tpl" let-$chooser>
 	<div class="q-grid-column-chooser" layout="column" flex="100">
 		<div flex="none" layout="row">
-			<md-input-container class="q-grid-column-chooser-filter" flex>
+			<div class ="mat-input-container" class="q-grid-column-chooser-filter" flex>
 				<label>Search</label>
 				<input type="text"
 						 mdInput
 						 [(ngModel)]="$chooser.filter"
 						 q-grid-focus/>
-			</md-input-container>
+			</div>
 		</div>
 		<div flex layout="column">
 			<ul>
 				<li>
-					<md-checkbox [checked]="$chooser.stateAll()"
+					<mat-checkbox [checked]="$chooser.stateAll()"
 								(change)="$chooser.toggleAll.execute()"
 								[indeterminate]="$chooser.isIndeterminate()">
 						Select All
-					</md-checkbox>
+					</mat-checkbox>
 				</li>
 				<li>
-					<md-checkbox [checked]="$chooser.stateDefault()"
+					<mat-checkbox [checked]="$chooser.stateDefault()"
 								(change)="$chooser.defaults.execute()">
 						Select Defaults
-					</md-checkbox>
+					</mat-checkbox>
 				</li>
 			</ul>
 			<ul class="q-grid-column-chooser-list">
@@ -33,36 +33,36 @@
 					 q-grid-can-drop="$chooser.drop.canExecute($event)"
 					 q-grid-can-drag="$chooser.drag.canExecute($event)">
 
-					<md-checkbox	*ngIf="$chooser.toggle.canExecute(column)"
+					<mat-checkbox	*ngIf="$chooser.toggle.canExecute(column)"
 									[checked]="$chooser.state(column)"
 									(change)="$chooser.toggle.execute(column)"
 									[aria-label]="Selection">
 						<span>{{column.title || $chooser.filter}}</span>
-					</md-checkbox>
+					</mat-checkbox>
 
 
-					<md-input-container *ngIf="$chooser.canAggregate">
-						<md-select aria-label="Aggregation"
+					<div class="mat-input-container" *ngIf="$chooser.canAggregate">
+						<mat-select aria-label="Aggregation"
 									  [(ngModel)]="column.aggregation"
 									  (change)="$chooser.toggleAggregation.execute(column)">
-							<md-option><em>Aggregation</em></md-option>
-							<md-option *ngFor="let aggregation of $chooser.aggregations"
+							<mat-option><em>Aggregation</em></mat-option>
+							<mat-option *ngFor="let aggregation of $chooser.aggregations"
 										  [value]="aggregation">
 								{{aggregation}}
-							</md-option>
-						</md-select>
-					</md-input-container>
+							</mat-option>
+						</mat-select>
+					</div>
 				</li>
 			</ul>
 		</div>
 		<div class="q-grid-column-chooser-actions" flex="none">
-			<button md-button (click)="$chooser.cancel.execute()">
+			<button mat-button (click)="$chooser.cancel.execute()">
 				Cancel
 			</button>
-			<button md-button (click)="$chooser.reset.execute()">
+			<button mat-button (click)="$chooser.reset.execute()">
 				Reset
 			</button>
-			<button md-button class="md-primary"
+			<button mat-button class="mat-primary"
 						  (click)="$chooser.submit.execute()"
 						  disabled="!$chooser.submit.canExecute()">
 				Apply
