@@ -3,8 +3,10 @@ const templates = [
 	require('./head-cell-select.tpl.html'),
 
 	require('./body-cell-text.tpl.html'),
+	require('./body-cell-time.tpl.html'),
 	require('./body-cell-array.tpl.html'),
 	require('./body-cell-bool.tpl.html'),
+	require('./body-cell-url.tpl.html'),
 	require('./body-cell-email.tpl.html'),
 	require('./body-cell-image.tpl.html'),
 	require('./body-cell-select.tpl.html'),
@@ -18,6 +20,7 @@ const templates = [
 	require('./edit-cell-date.tpl.html'),
 	require('./edit-cell-array.tpl.html'),
 	require('./edit-cell-text.tpl.html'),
+	require('./edit-cell-time.tpl.html'),
 	require('./edit-cell-dropdown.tpl.html'),
 	require('./edit-cell-email.tpl.html'),
 	require('./edit-cell-number.tpl.html'),

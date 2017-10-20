@@ -1,4 +1,10 @@
 import {identity, isObject, isArray, isBoolean, isEmail, isString} from '../utility';
+import * as momentjs from 'moment';
+
+export function getMoment() {
+	const moment = require('moment');
+	return moment;
+}
 
 export function parseFactory(type) {
 	switch (type) {
@@ -11,6 +17,7 @@ export function parseFactory(type) {
 		case 'currency':
 			return parseNumber;
 		case 'time':
+			return parseTime;
 		case 'date':
 			return parseDate;
 		case 'bool':
@@ -46,6 +53,10 @@ export function getType(value) {
 		return 'date';
 	}
 
+	if (parseTime(value) !== null) {
+		return 'time';
+	}
+
 	if (isEmail(value)) {
 		return 'email';
 	}
@@ -57,13 +68,14 @@ export function getType(value) {
 	if (isObject(value)) {
 		return 'object';
 	}
-
+	
 	return 'text';
 }
 
 export function isPrimitive(type) {
 	switch (type) {
 		case 'date':
+		case 'time':
 		case 'bool':
 		case 'text':
 		case 'number':
@@ -123,16 +135,25 @@ function parseDate(value) {
 		}
 		return date;
 	}
-
 	return null;
 }
 
+function parseTime(testStr, strict = true) {
+	const moment = getMoment();
+
+	var mdate = moment(testStr, 'HH:mm:ss', strict);
+	
+	if(!mdate.isValid()){
+		return null;
+	}
+	return mdate.toDate();
+}
+	
 function parseNumber(value) {
 	const number = parseFloat(value);
 	if (!isNaN(number) && isFinite(number)) {
 		return number;
 	}
-
 	return null;
 }
 
@@ -140,6 +161,5 @@ function parseArray(value) {
 	if (isArray(value)) {
 		return value;
 	}
-
 	return null;
 }

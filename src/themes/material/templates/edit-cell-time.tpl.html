@@ -1,0 +1,14 @@
+<ng-template key='edit-cell-time.tpl.html' let-$cell let-$view="$view">
+	<div class="q-grid-editor q-grid-time" q-grid-position="td">
+		<md-form-field>
+			<input mdInput
+					 #input
+					 type="time"
+					 q-grid-focus
+					 [value] = "$view.edit.cell.label"
+					 (input) = "onTimeInput(view.edit.cell, $event)"
+					 (blur)="$view.edit.cell.commit.execute($cell, $event)">
+			<md-hint align="end">{{input.value.length}} / {{$cell.column.maxLength}}</md-hint>
+		</md-form-field>
+	</div>
+</ng-template>
