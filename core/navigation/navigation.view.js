@@ -58,8 +58,9 @@ export class NavigationView extends View {
 
 		this.using(model.focusChanged.watch(e => {
 			if (e.tag.source !== 'navigation.view') {
+				const cell = table.body.cell(e.state.rowIndex, e.state.columnIndex);
 				model.navigation({
-					cell: table.body.cell(e.state.rowIndex, e.state.columnIndex).model()
+					cell: cell.model()
 				});
 			}
 		}));

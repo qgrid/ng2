@@ -12,7 +12,6 @@ const helpers = require('./helpers');
 const AssetsPlugin = require('assets-webpack-plugin');
 const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin');
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
-const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlElementsPlugin = require('./html-elements-plugin');
 const ThemePlugin = require('./theme');
@@ -64,7 +63,7 @@ module.exports = function (options) {
 
 			'polyfills': './demo/polyfills.browser.ts',
 			'main': AOT ? './src/grid.module.ts' : './demo/main.browser.ts'
-			
+
 		},
 
 		/*
@@ -219,46 +218,23 @@ module.exports = function (options) {
 				outputPath: helpers.root('src/themes/material/theme.component.gen.html'),
 				pattern: /.*\.tpl\.html/
 			}),
-			// new CircularDependencyPlugin({
-			// 	// exclude detection of files based on a RegExp
-			// 	exclude: /node_modules/,
-			// 	// add errors to webpack instead of warnings
-			// 	failOnError: true,
-			// 	// override `exclude` and `failOnError` behavior
-			// 	// `onDetected` is called for each module that is cyclical
-			// 	onDetected({paths, compilation}) {
-			// 		// `paths` will be an Array of the relative module paths that make up the cycle
-			// 		compilation.errors.push(new Error(paths.join(' -> ')))
-			// 	}
-			// }),
+			new CircularDependencyPlugin({
+				// exclude detection of files based on a RegExp
+				exclude: /node_modules/,
+				// add errors to webpack instead of warnings
+				failOnError: true,
+				// override `exclude` and `failOnError` behavior
+				// `onDetected` is called for each module that is cyclical
+				onDetected({paths, compilation}) {
+					// `paths` will be an Array of the relative module paths that make up the cycle
+					compilation.errors.push(new Error(paths.join(' -> ')))
+				}
+			}),
 
 			new AssetsPlugin({
 				path: helpers.root('dist'),
 				filename: 'webpack-assets.json',
 				prettyPrint: true
-			}),
-
-			/*
-			 * Plugin: CommonsChunkPlugin
-			 * Description: Shares common code between the pages.
-			 * It identifies common modules and put them into a commons chunk.
-			 *
-			 * See: https://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
-			 * See: https://github.com/webpack/docs/wiki/optimization#multi-page-app
-			 */
-			new CommonsChunkPlugin({
-			  name: 'polyfills',
-			  chunks: ['polyfills']
-			}),
-			// // This enables tree shaking of the vendor modules
-			new CommonsChunkPlugin({
-			  name: 'vendor',
-			  chunks: ['main'],
-			  minChunks: module => /node_modules/.test(module.resource)
-			}),
-			// // Specify the correct order the scripts will be injected in
-			new CommonsChunkPlugin({
-			  name: ['polyfills', 'vendor'].reverse()
 			}),
 
 			/**

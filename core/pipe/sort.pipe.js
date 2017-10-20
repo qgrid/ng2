@@ -9,7 +9,7 @@ export function sortPipe(data, context, next) {
 	const by = model.sort().by;
 	let result = data;
 
-	if (by.length) {
+	if (data.length && by.length) {
 		const columns = model.data().columns;
 		const mappings = [];
 		const directions = [];

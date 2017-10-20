@@ -1,6 +1,5 @@
-<md-card>
+<mat-card>
 	<q-grid q-grid-autofocus
-			class="q-grid-embed"
 			[rows]="rows"
 			[model]="gridModel"
 			selectionUnit="row"
@@ -10,6 +9,7 @@
 		<q-grid-columns generation="deep">
 			<q-grid-column type="row-indicator" key="rowIndicator"></q-grid-column>
 			<q-grid-column type="number" aggregation="sum"></q-grid-column>
+			<q-grid-column type="date" format="yMd"></q-grid-column>
 			<q-grid-column key="name.last">
 				<ng-template for="body" let-$cell>
 					<span style="color: blue">{{$cell.value}}</span>
@@ -17,9 +17,8 @@
 			</q-grid-column>
 			<q-grid-column type="row-options" key="rowOptions"></q-grid-column>
 		</q-grid-columns>
-<!--
+
 		<q-grid-data-manipulation>
 		</q-grid-data-manipulation>
--->
 	</q-grid>
-</md-card>
+</mat-card>

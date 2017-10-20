@@ -1,25 +1,37 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
-import { PopupService } from 'ng2-qgrid/plugins/popup/popup.service';
+import { Component, ElementRef, Input } from '@angular/core';
 import { Popup } from './popup';
+import { PopupService } from './popup.service';
 
 @Component({
 	selector: 'q-grid-popup-panel',
 	templateUrl: './popup-panel.component.html',
 	styleUrls: ['./popup-panel.component.scss']
 })
-export class PopupPanelComponent implements OnInit, OnDestroy {
+export class PopupPanelComponent {
 	@Input() public popup: Popup;
+	public context = { $implicit: this };
 
-	constructor(
-		private popupService: PopupService,
-		public element: ElementRef
-	) {}
-
-	ngOnInit() {
-		this.element.nativeElement.classList.add('q-grid-popup');
+	constructor(public element: ElementRef, public popupService: PopupService) {
+		element.nativeElement.classList.add('q-grid-popup');
 	}
 
-	ngOnDestroy() {
-		this.popup.close();
+	public get id() {
+		return this.popup.id;
+	}
+
+	public close() {
+		this.popupService.close(this.popup.id);
+	}
+
+	public expand() {
+		this.popupService.expand(this.popup.id);
+	}
+
+	public collapse() {
+		this.popupService.collapse(this.popup.id);
+	}
+
+	public get settings() {
+		return this.popup.settings;
 	}
 }
