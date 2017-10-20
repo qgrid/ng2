@@ -10,23 +10,23 @@
 			<div class="flex-auto">
 				<q-grid-popup id="q-grid-column-chooser-popup">
 					<ng-template for="trigger" let-$popup>
-						<button md-icon-button (click)="$popup.open({width: 352, height: 652})" tabindex="-1" [disabled]="$popup.isOpened()">
-							<md-icon>more_vert</md-icon>
+						<button mat-icon-button (click)="$popup.open({width: 352, height: 652})" tabindex="-1" [disabled]="$popup.isOpened()">
+							<mat-icon>more_vert</mat-icon>
 						</button>
 					</ng-template>
 					<ng-template for="body">
 						<q-grid-column-chooser></q-grid-column-chooser>
 					</ng-template>
 					<ng-template for="foot" let-$popup>
-						<button md-button (click)="$popup.close()">Cancel</button>
-						<button md-button (click)="$popup.close()">Reset</button>
-						<button md-button (click)="$popup.close()">Apply</button>
+						<button mat-button (click)="$popup.close()">Cancel</button>
+						<button mat-button (click)="$popup.close()">Reset</button>
+						<button mat-button (click)="$popup.close()">Apply</button>
 						<!--TODO: implement beloow component-->
 						<!-- <q-grid-column-chooser-actions [popup]="$popup">
 							<ng-template for="actions" let-$columnChooser>
-								<button md-button (click)="$columnChooser.cancel()">Cancel</button>
-								<button md-button (click)="$columnChooser.reset()">Reset</button>
-								<button md-button (click)="$columnChooser.submit()">Apply</button>
+								<button mat-button (click)="$columnChooser.cancel()">Cancel</button>
+								<button mat-button (click)="$columnChooser.reset()">Reset</button>
+								<button mat-button (click)="$columnChooser.submit()">Apply</button>
 							</ng-template>
 						</q-grid-column-chooser-actions> -->
 					</ng-template>

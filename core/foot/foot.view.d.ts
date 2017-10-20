@@ -1,5 +1,4 @@
 import {View} from '../view/view';
-import {IGetValue} from '../services/aggregation';
 import {IValueFactory} from '../services/value';
 import {Table} from '../dom/table';
 import {ColumnModel} from '../column-type/column.model';
@@ -16,5 +15,5 @@ export declare class FootView extends View {
 
   readonly count: number;
 
-  value(column: ColumnModel): IGetValue;
+  value(column: ColumnModel): any;
 }

@@ -2,12 +2,14 @@ import {
 	ComponentFactory,
 	ComponentFactoryResolver,
 	Injectable,
-	ViewContainerRef
+	ViewContainerRef,
+	ApplicationRef,
+	Injector
 } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure';
 import { Popup } from './popup';
 import { PopupSettings } from './popup.settings';
-import { PopupPanelComponent } from './popup-panel.component';
+import { DomPortalHost, ComponentType, ComponentPortal } from '@angular/cdk/portal';
 
 interface IOffset {
 	left: number;
@@ -22,44 +24,57 @@ interface ITarget {
 
 @Injectable()
 export class PopupService {
+
+	private host: DomPortalHost;
 	private popups: Map<string, Popup> = new Map();
 
-	constructor() { }
+	constructor(resolver: ComponentFactoryResolver, injector: Injector, app: ApplicationRef) {
+		this.host = new DomPortalHost(document.body, resolver, app, injector);
+	}
 
-	public open(popup: Popup) {
-		if (this.popups.hasOwnProperty(popup.id)) {
-			throw new AppError(
-				'popup.service',
-				`Can't open popup '${popup.id}', it's already opened`
-			);
-		}
+	public port<T>(type: ComponentType<T>, viewContainerRef?: ViewContainerRef) {
+		const portal = new ComponentPortal(type, viewContainerRef);
+		const component = portal.attach(this.host).instance;
 
-		const element = popup.element;
-		const settings = popup.settings;
-		const target = this.targetize(null, settings);
-		const pos = this.position(target, settings);
+		return (popupFactory: (T) => Popup) => {
+			const popup = popupFactory(component);
 
-		this.popups[popup.id] = popup;
+			if (this.popups.hasOwnProperty(popup.id)) {
+				throw new AppError(
+					'popup.service',
+					`Can't open popup '${popup.id}', it's already opened`
+				);
+			}
 
-		element.setAttribute('id', popup.id);
-		element.style.left = pos.left + 'px';
-		element.style.top = pos.top + 'px';
-		element.style.width = popup.settings.width + 'px';
-		element.style.height = popup.settings.height + 'px';
+			popup.portal = portal;
 
-		if (settings.resizable) {
-			element.classList.add('resizable');
-		}
+			const element = popup.element;
+			const settings = popup.settings;
+			const target = this.targetize(null, settings);
+			const pos = this.position(target, settings);
 
-		if (settings.collapsible) {
-			element.classList.add('collapsible');
-		}
+			this.popups.set(popup.id, popup);
 
-		if (settings.class) {
-			element.classList.add(settings.class);
-		}
+			element.setAttribute('id', popup.id);
+			element.style.left = pos.left + 'px';
+			element.style.top = pos.top + 'px';
+			element.style.width = settings.width + 'px';
+			element.style.height = settings.height + 'px';
 
-		popup.focus();
+			if (settings.resizable) {
+				element.classList.add('resizable');
+			}
+
+			if (settings.collapsible) {
+				element.classList.add('collapsible');
+			}
+
+			if (settings.class) {
+				element.classList.add(settings.class);
+			}
+
+			popup.focus();
+		};
 	}
 
 	public close(id: string): void {
@@ -72,26 +87,27 @@ export class PopupService {
 
 		const popup = this.popups.get(id);
 		this.popups.delete(id);
-		popup.close();
+		popup.portal.detach();
 	}
 
 	public closeAll(): void {
-		for (const key of Object.keys(this.popups)) {
-			this.close(key);
+		const keys = Object.keys(this.popups);
+		for (const id of keys) {
+			this.close(id);
 		}
 	}
 
 	public isOpened(id: string): boolean {
-		return this.popups.hasOwnProperty(id);
+		return this.popups.has(id);
 	}
 
 	public expand(id: string): void {
-		const popup = this.popups[id];
+		const popup = this.get(id);
 		popup.expand();
 	}
 
 	public collapse(id: string): void {
-		const popup = this.popups[id];
+		const popup = this.get(id);
 		popup.collapse();
 	}
 
@@ -105,6 +121,10 @@ export class PopupService {
 	public resize(id: string, settings: PopupSettings): void {
 		const popup = this.popups.get(id);
 		popup.resize(settings);
+	}
+
+	public get(id) {
+		return this.popups.get(id);
 	}
 
 	private targetize(target: HTMLElement, settings: PopupSettings): ITarget {
@@ -136,7 +156,7 @@ export class PopupService {
 		};
 	}
 
-	public position(target: ITarget, settings: PopupSettings): IOffset {
+	private position(target: ITarget, settings: PopupSettings): IOffset {
 		const dy = settings.offsetTop || 0;
 		const dx = settings.offsetLeft || 0;
 		const w = window.innerWidth;
@@ -165,9 +185,5 @@ export class PopupService {
 			left: l,
 			top: t
 		};
-	}
-
-	public get(id: string): any {
-		return this.popups.get(id);
 	}
 }

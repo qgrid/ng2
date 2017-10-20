@@ -21,12 +21,6 @@ export class StyleView extends View {
 			cell: new Monitor(model)
 		};
 
-		this.using(model.sceneChanged.watch(e => {
-			if (e.hasChanges('status') && e.state.status === 'stop') {
-				this.invalidate();
-			}
-		}));
-
 		this.using(model.styleChanged.watch(e => {
 			if (e.hasChanges('row')) {
 				this.active.row = e.state.row !== noop;
@@ -110,7 +104,12 @@ export class StyleView extends View {
 					const cells = bodyRow.cells();
 					for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
 						const cell = cells[j];
-						const column = columns[j];
+						const dataCell = cell.model();
+						if (!dataCell) {
+							continue;
+						}
+
+						const column = cell.model().column;
 						const cellContext = {
 							class: domCell(cell),
 							row: rowIndex,

@@ -1,18 +1,18 @@
 <ng-template key='edit-cell-row-options.tpl.html' let-$cell let-$view="$view">
 	<button aria-label="Open row menu"
-				md-icon-button 
-				[mdMenuTriggerFor]="menu"
-				(onMenuClose)="$view.edit.cell.cancel.execute()"
+				mat-icon-button 
+				[matMenuTriggerFor]="menu"
+				(onMenuClose)="$view.edit.cell.cancel.execute($cell, $event, 10)"
 				q-grid-raise="click">
-		<md-icon>more_vert</md-icon>
+		<mat-icon>more_vert</mat-icon>
 	</button>
-	<md-menu #menu="mdMenu">
-		<button md-menu-item 
+	<mat-menu #menu="matMenu">
+		<button mat-menu-item 
 				*ngFor="let $action of $cell.column.editorOptions.actions"
 				(click)="$action.command.execute($cell)" 
 				[disabled]="!$action.command.canExecute($cell)">
-				<md-icon>{{$action.icon}}</md-icon>
+				<mat-icon>{{$action.icon}}</mat-icon>
 				<span>{{$action.title}}</span>
 		</button>
-	</md-menu>
+	</mat-menu>
 </ng-template>
