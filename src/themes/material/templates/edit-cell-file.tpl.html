@@ -1,6 +1,6 @@
 <ng-template key='edit-cell-file.tpl.html' let-$cell let-$view="$view">
 	<div class="q-grid-editor q-grid-file" q-grid-position="td">
-		<h2 class="md-title">Edit {{$cell.column.title}}</h2>
+		<h2 class="mat-title">Edit {{$cell.column.title}}</h2>
 		<div layout="column" flex>
 			<div class="q-grid-file-upload-area"
 				  [ngClass]="{'q-grid-file-has-preview': $cell.column.hasPreview($view.edit.cell.label)}">
@@ -9,25 +9,27 @@
 					<span class="q-grid-file-upload-filename"
 							 *ngSwitchCase="true">{{$view.edit.cell.label}}</span>
 					<div layout="row" layout-align="center center">
-						<md-icon>file_upload</md-icon>
+						<mat-icon>file_upload</mat-icon>
 						<span  *ngSwitchCase="false">Drag and drop a file here or click</span>
 						<span  *ngSwitchCase="true">Drag and drop or click to replace </span>
 					</div>
 				</div>
 				<input q-grid-file-upload="$view.edit.cell.value"
 						 q-grid-file-upload-label="$view.edit.cell.label"
-						 q-grid-can-upload="cell.column.canUpload($event)"
+						 q-grid-can-upload="cell.column.canUpload"
 						 type="file"/>
 				<div class="q-grid-file-preview"
 					  *ngIf="$cell.column.hasPreview($view.edit.cell.label)">
-					<img ng-src="{{$view.edit.cell.value}}"/>
+					<img [src]="$view.edit.cell.value"/>
 				</div>
 			</div>
 		</div>
 		<div class="q-grid-actions">
-			<md-button class="md-primary md-confirm-button" (click)="$view.edit.cell.commit.execute($cell, $event)">Save
-			</md-button>
-			<md-button class="md-primary md-cancel-button" (click)="$view.edit.cell.cancel.execute($cell, $event)">Cancel
-			</md-button>
+			<button mat-button 
+					class="mat-primary" 
+					(click)="$view.edit.cell.commit.execute($cell, $event)">Save</button>
+			<button mat-button 
+					class="mat-primary" 
+					(click)="$view.edit.cell.cancel.execute($cell, $event)">Cancel</button>
 		</div>
 	</div></ng-template>
