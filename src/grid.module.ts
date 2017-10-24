@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { MainModule } from './main';
 import { ThemeService as Theme } from './themes/material/theme.service';
-import { ThemeService, TemplateLinkService, TemplateModule } from './template';
+import { ThemeService, TemplateModule } from './template';
+import { TemplateLinkService } from './template/template-link.service';
 import { TemplateCacheDirective } from './template/template-cache.directive';
 import { Model } from 'ng2-qgrid/core/infrastructure';
 import { setup } from 'ng2-qgrid/core/index';

@@ -99,14 +99,26 @@ export function collapse(view) {
 	return line;
 }
 
-export function widthFactory(model, form) {
-	const layout = model.layout;
+export function widthFactory(table, form) {
+	const layout = table.model.layout;
 	form = form || layout().columns;
 
+	let area;
+	function getRect() {
+		if (area) {
+			return area;
+		}
+
+		area = table.view.rect('head');
+		return area;
+	}
+
 	function materialize(column) {
-		const width = column.width;
+		let width = column.width;
 		if (('' + width).indexOf('%') >= 0) {
-			return width;
+			const percent = parseFloat(width);
+			const rect = getRect();
+			width = rect.width * percent / 100;
 		}
 
 		return Math.max(parseInt(width), parseInt(column.minWidth || 20)) + 'px';

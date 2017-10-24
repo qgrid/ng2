@@ -4,9 +4,9 @@
 				  *ngIf="$view.group.toggleStatus.canExecute($cell.row)"
 				  [ngSwitch]="$view.group.status($cell.row)"
 				  tabindex="-1"
-				  md-icon-button>
-			<md-icon *ngSwitchCase="'expand'">arrow_drop_down</md-icon>
-			<md-icon class="q-grid-arrow-right" *ngSwitchCase="'collapse'">arrow_drop_up</md-icon>
+				  mat-icon-button>
+			<mat-icon *ngSwitchCase="'expand'">arrow_drop_down</mat-icon>
+			<mat-icon class="q-grid-arrow-right" *ngSwitchCase="'collapse'">arrow_drop_up</mat-icon>
 		</button>
 		<span>{{$view.group.value($cell.row)}}</span>
 		<span *ngIf="$view.group.toggleStatus.canExecute($cell.row)">({{$view.group.count($cell.row)}})</span>
