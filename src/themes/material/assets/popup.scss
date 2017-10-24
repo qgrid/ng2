@@ -1,34 +1,43 @@
-.q-grid-popup-panel {
+&.q-grid-popup-panel {
 	height: 100%;
-	md-card {
+	mat-card {
 		margin: 0;
 
-		md-card-content {
+		mat-card-content {
 			overflow: hidden;
 		}
 
-		md-card-header {
+		.q-grid-popup-actions {
+			text-align: right;
+			margin-bottom: -5px;
+			button {
+				margin-bottom: 0;
+				display: inline-block;
+			}
+		}
+
+		mat-card-header {
 			width: 100%;
 			padding: 0;
 			background-color: #fff;
 
-			md-card-title {
+			mat-card-title {
 				padding: 0;
 
-				md-card-title-text {
+				mat-card-title-text {
 					margin-left: 16px;
-					.md-subhead {
+					.mat-subhead {
 						line-height: 30px;
 						vertical-align: middle;
 					}
 				}
 
-				md-card-title-actions {
+				mat-card-title-actions {
 					margin-right: 16px;
 				}
 			}
 
-			.md-icon-button {
+			.mat-icon-button {
 				padding: 0;
 				margin: 0;
 				max-height: 30px;

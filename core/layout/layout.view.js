@@ -57,9 +57,9 @@ export class LayoutView extends View {
 	invalidateColumns(form) {
 		Log.info('layout', 'invalidate columns');
 
-		const model = this.model;
-		const getWidth = columnService.widthFactory(model, form);
-		const columns = this.table.data.columns();
+		const table = this.table;
+		const getWidth = columnService.widthFactory(table, form);
+		const columns = table.data.columns();
 		const style = {};
 		let length = columns.length;
 		while (length--) {

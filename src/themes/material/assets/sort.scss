@@ -24,7 +24,7 @@
 
 	&.q-grid-active {
 		visibility: visible;
-		md-icon {
+		mat-icon {
 			color: $dark;
 		}
 
@@ -33,7 +33,7 @@
 		}
 	}
 
-	md-icon {
+	mat-icon {
 		color: $dark-secondary;
 		font-size: 16px;
 		height: 16px;

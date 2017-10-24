@@ -4,9 +4,17 @@
 	thead, tfoot {
 		tr {
 			height: 56px;
+			th {
+				&.q-grid-can-sort {
+					label {
+						cursor: pointer;
+					}
+				}
+			}
+
 			th, td {
 				&.q-grid-select {
-					md-checkbox {
+					mat-checkbox {
 						margin: 0 0 0 2px; //TODO: investigate why we have offset in 2px
 					}
 
@@ -14,11 +22,11 @@
 				}
 
 				&.q-grid-filter-row {
-					md-input-container {
+					mat-input-container {
 						margin: 0;
 						padding: 0;
 
-						.md-errors-spacer {
+						.mat-errors-spacer {
 							min-height: 0 !important;
 						}
 					}
