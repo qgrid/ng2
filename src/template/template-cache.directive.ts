@@ -15,7 +15,7 @@ export class TemplateCacheDirective implements OnInit {
 
 	ngOnInit() {
 		if (this.templateHost) {
-			this.templateCache.put(`${this.key}-${this.templateHost.key}`, this.templateRef);
+			this.templateCache.put(this.templateHost.key(this.key), this.templateRef);
 		} else {
 			this.templateCache.put(this.key, this.templateRef);
 		}

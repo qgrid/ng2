@@ -8,7 +8,7 @@ import { TemplateHostService } from 'ng2-qgrid/template';
 })
 export class ToolbarComponent implements OnInit {
 	constructor(private templateHost: TemplateHostService) {
-		templateHost.key = 'toolbar.tpl.html';
+		templateHost.key = source => `${source}-toolbar.tpl.html`;
 	}
 
 	ngOnInit() {

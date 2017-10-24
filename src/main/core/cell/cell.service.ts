@@ -2,12 +2,13 @@ import { Injectable, ViewContainerRef, TemplateRef } from '@angular/core';
 import { TemplateCacheService, TemplateLinkService } from 'ng2-qgrid/template';
 import { AppError } from 'ng2-qgrid/core/infrastructure';
 import { noop } from 'ng2-qgrid/core/utility';
+import {ColumnModel} from 'ng2-qgrid/core/column-type/column.model';
 
 function canBuild(column) {
 	return column.type !== 'pad';
 }
 
-function buildKeys(source: string, column: any, mode = 'view') {
+function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 	const key = column.key;
 	switch (mode) {
 		case 'view': {
