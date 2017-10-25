@@ -30,7 +30,7 @@ import { TableCoreComponent } from 'ng2-qgrid/main/core/table';
 	],
 	exports: [
 		ViewCoreComponent,
-		ToolbarCoreComponent,
+		ToolbarCoreComponent
 	],
 	imports: [
 		BrowserModule,
