@@ -15,6 +15,7 @@
 					<span style="color: blue">{{$cell.value}}</span>
 				</ng-template>
 			</q-grid-column>
+			<q-grid-column key="gender" editor="dropdown" [editorOptions]="genderOptions"></q-grid-column>
 			<q-grid-column type="row-options" key="rowOptions"></q-grid-column>
 		</q-grid-columns>
 

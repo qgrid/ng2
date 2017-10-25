@@ -16,14 +16,19 @@ import 'jspdf-autotable';
 export class HomeComponent implements OnInit {
 	public rows: Human[] = [];
 	public gridModel = null;
+	public genderOptions = {
+		fetch: ['male', 'female']
+	};
 
 	constructor(public dataService: DataService, public gridService: GridService) {
 		this.gridModel = gridService.model();
+
 		const imports = {
 			fileSaver,
 			xlsx,
 			pdf
 		};
+		
 		this.gridModel
 			.plugin({
 				imports
