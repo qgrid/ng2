@@ -1,26 +1,23 @@
-import { Directive, Input, OnInit, TemplateRef, Optional } from '@angular/core';
-import { TemplateCacheService } from './template-cache.service';
-import { TemplateHostService } from './template-host.service';
-import { TemplateLink } from './template-link';
+import {Directive, Input, OnInit, TemplateRef, Optional} from '@angular/core';
+import {TemplateCacheService} from './template-cache.service';
+import {TemplateHostService} from 'ng2-qgrid/template/template-host.service';
 
 @Directive({
 	selector: 'ng-template[for]'
 })
 export class TemplateCacheDirective implements OnInit {
 	@Input('for') key = '';
-	@Input() context = {};
 
 	constructor(private templateCache: TemplateCacheService,
-		private templateRef: TemplateRef<any>,
-		@Optional() private templateHost: TemplateHostService) {
+					private templateRef: TemplateRef<any>,
+					@Optional() private templateHost: TemplateHostService) {
 	}
 
 	ngOnInit() {
-		const link = new TemplateLink(this.templateRef, this.context);
 		if (this.templateHost) {
-			this.templateCache.put(`${this.key}-${this.templateHost.key}`, link);
+			this.templateCache.put(this.templateHost.key(this.key), this.templateRef);
 		} else {
-			this.templateCache.put(this.key, link);
+			this.templateCache.put(this.key, this.templateRef);
 		}
 	}
 }
