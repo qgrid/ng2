@@ -5,6 +5,7 @@ import { FocusModule } from './focus';
 import { ResizeModule } from './resize';
 import { LayoutModule } from './layout';
 import { PipesModule } from './pipes';
+import { FileModule } from './file';
 
 @NgModule({
 	declarations: [],
@@ -14,7 +15,8 @@ import { PipesModule } from './pipes';
 		ResizeModule,
 		LayoutModule,
 		RaiseModule,
-		PipesModule
+		PipesModule,
+		FileModule
 	],
 	imports: [],
 	providers: []

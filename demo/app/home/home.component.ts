@@ -3,6 +3,7 @@ import { DataService, Human } from '../../data/data.service';
 import { GridService } from 'ng2-qgrid/index';
 
 import { getMoment } from 'ng2-qgrid/core/services';
+import { Command } from 'ng2-qgrid/core/command';
 
 import * as fileSaver from 'file-saver';
 import * as xlsx from 'xlsx';
@@ -20,6 +21,23 @@ export class HomeComponent implements OnInit {
 	public gridModel = null;
 
 	private moment = getMoment();
+
+	private commitCommand = new Command({
+		execute: e => {
+			if (e.column.key === 'attachment' || e.column.key === 'avatar') {
+				setTimeout(() => {
+					const filename = e.newLabel;
+					// $mdToast.show(
+					// 	$mdToast.simple()
+					// 		.textContent(`File ${filename} loaded`)
+					// 		.position('top right')
+					// 		.hideDelay(2000)
+					// );
+					e.column.value(e.row, `https://fake.data.server.com/attachment/${encodeURI(filename)}`);
+				}, 1000);
+			}
+		}
+	});
 
 	constructor(public dataService: DataService, public gridService: GridService) {
 		this.gridModel = gridService.model();
@@ -41,7 +59,8 @@ export class HomeComponent implements OnInit {
 			.map(humans => this.madeEmailSingleField(humans))
 			.map(humans => this.madeTimeNowField(humans))
 			.map(humans => this.madeWebPageField(humans))
-			// .map(humans => this.madeAvatarField(humans))
+			.map(humans => this.madeAvatarField(humans))
+			.map(humans => this.madeAttachementField(humans))
 			.subscribe(people => {
 				this.rows = people;
 			});
@@ -63,14 +82,14 @@ export class HomeComponent implements OnInit {
 
 	private madeAvatarField(humans: Human[]): Human[] {
 		humans.forEach((human: any) => {
-			human['avatar'] = human['webPage'] + `/images/avatar.png`;
+			human['avatar'] = null; // human['webPage'] + `/images/avatar.png`;
 		});
 		return humans;
 	}
 
 	private madeAttachementField(humans: Human[]): Human[] {
 		humans.forEach((human: any) => {
-			human['attachment'] = human['webPage'] + `/files/`;
+			human['attachment'] = null; // human['webPage'] + `/attachment/`;
 		});
 		return humans;
 	}

@@ -35,7 +35,7 @@ export class RootService {
 	}
 
 	applyFactory(gf: () => void = null, mode = 'async') {
-		return (lf, timeout) => {
+		return (lf, timeout?) => {
 			if (isUndefined(timeout)) {
 				switch (mode) {
 					case 'async': {

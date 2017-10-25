@@ -9,56 +9,62 @@ import {
 	Optional
 } from '@angular/core';
 
-import { AppError } from 'ng2-qgrid/core/infrastructure';
+import { AppError, EventManager } from 'ng2-qgrid/core/infrastructure';
+import { EventListener as CoreListener } from 'ng2-qgrid/core/infrastructure';
 import { NgComponent, RootService } from 'ng2-qgrid/infrastructure/component';
-import { noop } from 'ng2-qgrid/core/utility';
-
 
 @Directive({
 	selector: '[q-grid-file-upload]'
 })
-export class FileUpload implements AfterViewInit {
-	@Input('q-grid-can-upload') canUpload: Function = noop;
-	@Input('q-grid-file-upload') selector;
-	@Input('q-grid-file-upload-label') label: string;
-
-	private file: File;
+export class FileUploadDirective extends NgComponent implements AfterViewInit {
+	@Input('q-grid-file-upload') uploder: any;
+	// @Input('q-grid-can-upload') canUpload: () => boolean;
+	// @Input('q-grid-file-upload-label') label: string;
 
 	private reader: FileReader;
+	private listener: any;
 
-	constructor(@Optional()
-		private root: RootService,
+	private get file(): any {
+		return this.uploder.cell.value;
+	}
+	private set file(value: any) {
+		this.uploder.cell.value = value;
+	}
+
+	constructor( @Optional()
+	private root: RootService,
 		private renderer: Renderer2,
 		private elementRef: ElementRef) {
+		super();
 		this.reader = new FileReader();
 	}
 
 	ngAfterViewInit(): void {
-		const element = this.selector
-			? this.elementRef.nativeElement.querySelector(this.selector)
-			: this.elementRef.nativeElement;
+		const element = this.elementRef.nativeElement;
 
 		if (!element) {
 			throw new AppError(
 				'file-upload.directive',
-				`Element ${this.selector} is not found`
+				`this.elementRef property does not contains a native element`
 			);
 		}
 
-		this.reader.onloadend = e => this.setDataUrl(e);
+		this.listener = new CoreListener(element, new EventManager(this));
 
-		this.renderer.listen(element, 'change', this.upload);
-		this.renderer.listen(element, 'click', this.onClick);
-		this.renderer.listen(element, 'drop', this.upload);
+		this.using(this.listener.on('change', this.upload));
+		this.using(this.listener.on('click', this.onClick));
+		this.using(this.listener.on('drop', this.upload));
+
+		this.reader.onloadend = e => this.setDataUrl(e);
 	}
 
 	onClick() {
 		this.file = null;
-		this.label = null;
+		this.uploder.cell.label = null;
 	}
 
 	upload(e) {
-		if (!this.canUpload()) {
+		if (!this.uploder.canUpload()) {
 			return;
 		}
 		const files = e.target.files;
@@ -69,13 +75,17 @@ export class FileUpload implements AfterViewInit {
 		const file = files[0] || null;
 		if (file) {
 			this.reader.readAsDataURL(file);
-			this.label = file.name;
+			this.uploder.cell.label = file.name;
 		}
 	}
 
 	setDataUrl(e) {
-		if (e.target.readyState == this.reader.DONE) {
-			this.root.applyFactory(() => this.file = e.target.result);
+		if (e.target.readyState === this.reader.DONE) {
+			const applyAsync = this.root.applyFactory(() => {
+				this.file = e.target.result;
+			});
+
+			applyAsync(() => true);
 		}
 	}
 }

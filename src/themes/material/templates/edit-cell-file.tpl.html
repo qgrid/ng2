@@ -14,9 +14,7 @@
 						<span  *ngSwitchCase="true">Drag and drop or click to replace </span>
 					</div>
 				</div>
-				<input q-grid-file-upload="$view.edit.cell.value"
-						 q-grid-file-upload-label="$view.edit.cell.label"
-						 q-grid-can-upload="cell.column.canUpload"
+						 <input [q-grid-file-upload]="{ canUpload: $cell.column.canUpload, cell: $view.edit.cell }"
 						 type="file"/>
 				<div class="q-grid-file-preview"
 					  *ngIf="$cell.column.hasPreview($view.edit.cell.label)">
