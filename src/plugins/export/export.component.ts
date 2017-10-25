@@ -28,7 +28,7 @@ export class ExportComponent extends PluginComponent implements OnInit {
 	ngOnInit() {
 		super.ngOnInit();
 
-		this.templateHost.key = source => `${source}-${this.templateHostKey}`;
+		this.templateHost.key = (source: string) => `${source}-${this.templateHostKey}`;
 	}
 
 	get rows() {
