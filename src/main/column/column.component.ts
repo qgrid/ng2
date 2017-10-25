@@ -76,7 +76,7 @@ export class ColumnComponent implements OnInit {
 			columns.push(column);
 		}
 
-		this.templateHost.key = `cell-${column.type}-${column.key}.tpl.html`;
+		this.templateHost.key = source => `${source}-cell-${column.type}-${column.key}.tpl.html`;
 
 		this.columnList.copy(column, this);
 		// HACK: to understand if need to pass {$row: row} instead of just row in cell.core.js

@@ -51,6 +51,22 @@ const isEmail = value => {
 	return false;
 };
 
+const htmlEncode = value => {
+	return String(value)
+		.replace(/&/g, '&amp;')
+		.replace(/"/g, '&quot;')
+		.replace(/'/g, '&#39;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;');
+};
+
+const escapeRegexp = value => {
+	if (!value) {
+		return value;
+	}
+	return value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+};
+
 export {
 	isObject,
 	isFunction,
@@ -81,5 +97,7 @@ export {
 	zip,
 	takeWhile,
 	dropWhile,
-	groupBy
+	groupBy,
+	htmlEncode,
+	escapeRegexp
 };

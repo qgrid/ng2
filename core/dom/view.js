@@ -132,13 +132,10 @@ export class View extends Unit {
 		return false;
 	}
 
-	rect() {
+	rect(area = 'body') {
 		const markup = this.markup;
-		if (markup.body) {
-			return markup.body.getBoundingClientRect();
-		}
-
-		return super.rect();
+		const element = markup[area];
+		return element ? element.getBoundingClientRect() : super.rect();
 	}
 
 	getElementCore() {
