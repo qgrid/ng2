@@ -12,7 +12,8 @@ const templates = [
 	require('./body-cell-currency.tpl.html'),
 	require('./body-cell-date.tpl.html'),
 	require('./body-cell-row-indicator.tpl.html'),
-	require('./body-cell-row-options.tpl.html'),
+	require('./body-cell-url.tpl.html'),
+	require('./body-cell-row-expand.tpl.html'),
 
 	require('./edit-cell-date.tpl.html'),
 	require('./edit-cell-array.tpl.html'),
@@ -26,6 +27,7 @@ const templates = [
 	require('./edit-cell-textarea.tpl.html'),
 	require('./edit-cell-select.tpl.html'),
 	require('./edit-cell-row-options.tpl.html'),
+	require('./edit-cell-url.tpl.html'),
 
 	require('./foot-cell-text.tpl.html'),
 	require('./foot-cell-currency.tpl.html'),
