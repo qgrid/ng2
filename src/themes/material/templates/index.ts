@@ -12,8 +12,10 @@ const templates = [
 	require('./body-cell-currency.tpl.html'),
 	require('./body-cell-date.tpl.html'),
 	require('./body-cell-row-indicator.tpl.html'),
-	require('./body-cell-url.tpl.html'),
+	require('./body-cell-row-options.tpl.html'),
 	require('./body-cell-row-expand.tpl.html'),
+	require('./body-cell-row-number.tpl.html'),
+  require('./body-cell-url.tpl.html'),
 
 	require('./edit-cell-date.tpl.html'),
 	require('./edit-cell-array.tpl.html'),
@@ -43,7 +45,8 @@ const templates = [
 	require('./plugin-export.tpl.html'),
 	require('./plugin-action-bar-core.tpl.html'),
 	require('./plugin-action-core.tpl.html'),
-	require('./plugin-popup-panel.tpl.html')
+	require('./plugin-popup-panel.tpl.html'),
+	require('./plugin-column-filter.tpl.html')
 ];
 
 export const template = templates.join('\n\n');

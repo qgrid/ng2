@@ -5,6 +5,7 @@ import { PopupModule } from './popup';
 import { DataManipulationModule } from './data-manipulation';
 import { ActionBarModule } from './action-bar';
 import { TitleModule } from './title';
+import { ColumnFilterModule } from './column-filter';
 
 @NgModule({
 	declarations: [],
@@ -14,7 +15,8 @@ import { TitleModule } from './title';
 		PagerModule,
 		PopupModule,
 		ProgressModule,
-		TitleModule
+		TitleModule,
+		ColumnFilterModule
 	],
 	imports: [
 	],

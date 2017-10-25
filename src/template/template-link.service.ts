@@ -1,17 +1,18 @@
 import { Injectable, TemplateRef } from '@angular/core';
+import { TemplateLink } from './template-link';
 
 @Injectable()
 export class TemplateLinkService {
-	private cache: Map<string, TemplateRef<any>> = new Map();
+	private cache: Map<string, TemplateLink> = new Map();
 
 	constructor() {
 	}
 
-	get(key) {
+	get(key: string): TemplateLink {
 		return this.cache.get(key);
 	}
 
-	put(key, value) {
+	put(key: string, value: TemplateLink) {
 		this.cache.set(key, value);
 	}
 }
