@@ -6,6 +6,7 @@
 			selectionMode="multiple"
 			editMode="cell"
 			header="NG2 QGRID SANDBOX">
+			
 		<q-grid-columns generation="deep">
 			<q-grid-column type="row-indicator" key="rowIndicator"></q-grid-column>
 			<q-grid-column type="number" aggregation="sum"></q-grid-column>
@@ -21,5 +22,22 @@
 
 		<q-grid-data-manipulation>
 		</q-grid-data-manipulation>
+
+		<q-grid-row unit="details" mode="single">
+			<ng-template for="details" let-$cell let-$view="$view">
+				<div>
+					<ul style="list-style-type: none; padding-left: 0; ">
+						<li *ngFor="let column of $view.body.render.columns($cell.row.item, null)"
+							 style="list-style-type: none; padding-left: 0;">
+							<ng-container *ngIf="column.model.class === 'data'">
+								<span style="font-weight: bold;">{{column.model.title}}</span>:
+								<span style="font-style: italic;">{{$view.body.value($cell.row.item, column.model)}}</span>
+							</ng-container>
+						<li>
+					</ul>
+				</div>
+			</ng-template>
+		</q-grid-row>
+
 	</q-grid>
 </mat-card>
