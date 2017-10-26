@@ -73,6 +73,8 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit {
 
 	public ngOnInit() {
 		const column = columnService.find(this.model.data().columns, this.key);
+		this.header = column.title;
+
 		const getValue = valueFactory(column);
 
 		const filterBy = this.model.filter().by[this.key];

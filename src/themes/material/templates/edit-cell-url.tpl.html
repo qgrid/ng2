@@ -1,26 +1,17 @@
 <ng-template key='edit-cell-url.tpl.html' let-$cell let-$view="$view">
 	<div class="q-grid-editor q-grid-url" q-grid-position="td">
-		<h2 class="md-title">Edit {{$cell.column.title}}</h2>
+		<h2 class="mat-title">Edit {{$cell.column.title}}</h2>
 		<div layout="column" class="q-grid-url-fields" flex>
-				<md-form-field *ngIf="$cell.column.label !== null">
-					<input mdInput
-							 type="text"
-							 [(ngModel)]="$view.edit.cell.label"
-							 placeholder="Label"
-					/>
-				</md-form-field>
-				<md-form-field>
-					<input mdInput
-							 type="url"
-							 q-grid-focus
-							 [(ngModel)]="$view.edit.cell.value"
-							 placeholder="Url"
-					/>
-				</md-form-field>
+			<mat-form-field *ngIf="$cell.column.label !== null">
+				<input mdInput type="text" [(ngModel)]="$view.edit.cell.label" placeholder="Label" />
+			</mat-form-field>
+			<mat-form-field>
+				<input mdInput type="url" q-grid-focus [(ngModel)]="$view.edit.cell.value" placeholder="Url" />
+			</mat-form-field>
 		</div>
 		<div class="q-grid-actions">
-			<button md-button color="primary" (click)="$view.edit.cell.commit.execute($cell, $event)">Save</button>
-			<button md-button color="primary" (click)="$view.edit.cell.cancel.execute($cell, $event)">Cancel</button>
+			<button mat-button color="primary" (click)="$view.edit.cell.commit.execute($cell, $event)">Save</button>
+			<button mat-button color="primary" (click)="$view.edit.cell.cancel.execute($cell, $event)">Cancel</button>
 		</div>
 	</div>
 </ng-template>
