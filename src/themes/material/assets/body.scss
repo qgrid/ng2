@@ -149,6 +149,7 @@ tbody {
 
 				.q-grid-file-download,
 				.q-grid-file-edit,
+				.q-grid-file-edit mat-icon,
 				.q-grid-url-edit,
 				.q-grid-email-edit,
 				.q-grid-reference-edit {
@@ -177,6 +178,7 @@ tbody {
 				}
 
 				.q-grid-file-edit,
+				.q-grid-file-edit mat-icon,
 				.q-grid-url-edit,
 				.q-grid-email-edit,
 				.q-grid-reference-edit {
@@ -185,6 +187,9 @@ tbody {
 
 				.q-grid-file-download {
 					right: 16px;
+				}
+				.q-grid-file-icon-upload {
+					margin-bottom: 50px;
 				}
 			}
 

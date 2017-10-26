@@ -11,8 +11,8 @@
 			<mat-datepicker #picker></mat-datepicker>
 		</mat-form-field>
 		<div class="q-grid-actions">
-			<button mat-button color="primary" (click)="$view.edit.cell.commit.execute($cell, $event)">Save</button>
-			<button mat-button (click)="$view.edit.cell.cancel.execute($cell, $event)">Cancel</button>
+			<button mat-button color="primary" (click)="$view.edit.cell.commit.execute($cell, $even, 60)">Save</button>
+			<button mat-button (click)="$view.edit.cell.cancel.execute($cell, $event, 60)">Cancel</button>
 		</div>
 	</div>
 </ng-template>

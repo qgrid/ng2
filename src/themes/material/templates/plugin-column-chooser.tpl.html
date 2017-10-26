@@ -1,0 +1,72 @@
+<ng-template key="column-chooser.tpl" let-$chooser>
+	<div class="q-grid-column-chooser" layout="column" flex="100">
+		<div flex="none" layout="row">
+			<div class ="mat-input-container" class="q-grid-column-chooser-filter" flex>
+				<label>Search</label>
+				<input type="text"
+						 mdInput
+						 [(ngModel)]="$chooser.filter"
+						 q-grid-focus/>
+			</div>
+		</div>
+		<div flex layout="column">
+			<ul>
+				<li>
+					<mat-checkbox [checked]="$chooser.stateAll()"
+								(change)="$chooser.toggleAll.execute()"
+								[indeterminate]="$chooser.isIndeterminate()">
+						Select All
+					</mat-checkbox>
+				</li>
+				<li>
+					<mat-checkbox [checked]="$chooser.stateDefault()"
+								(change)="$chooser.defaults.execute()">
+						Select Defaults
+					</mat-checkbox>
+				</li>
+			</ul>
+			<ul class="q-grid-column-chooser-list">
+				<li *ngFor="let column of $chooser.columSelectors || $chooser.filter"
+					 q-grid-drag="$chooser.transfer(column)"
+					 q-grid-drop="$chooser.transfer(column)"
+					 q-grid-on-drop="$chooser.drop.execute($event)"
+					 q-grid-can-drop="$chooser.drop.canExecute($event)"
+					 q-grid-can-drag="$chooser.drag.canExecute($event)">
+
+					<mat-checkbox	*ngIf="$chooser.toggle.canExecute(column)"
+									[checked]="$chooser.state(column)"
+									(change)="$chooser.toggle.execute(column)"
+									[aria-label]="Selection">
+						<span>{{column.title || $chooser.filter}}</span>
+					</mat-checkbox>
+
+
+					<div class="mat-input-container" *ngIf="$chooser.canAggregate">
+						<mat-select aria-label="Aggregation"
+									  [(ngModel)]="column.aggregation"
+									  (change)="$chooser.toggleAggregation.execute(column)">
+							<mat-option><em>Aggregation</em></mat-option>
+							<mat-option *ngFor="let aggregation of $chooser.aggregations"
+										  [value]="aggregation">
+								{{aggregation}}
+							</mat-option>
+						</mat-select>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="q-grid-column-chooser-actions" flex="none">
+			<button mat-button (click)="$chooser.cancel.execute()">
+				Cancel
+			</button>
+			<button mat-button (click)="$chooser.reset.execute()">
+				Reset
+			</button>
+			<button mat-button class="mat-primary"
+						  (click)="$chooser.submit.execute()"
+						  disabled="!$chooser.submit.canExecute()">
+				Apply
+			</button>
+		</div>
+	</div>
+</ng-template>
