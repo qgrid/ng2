@@ -14,6 +14,9 @@ import * as columnService from 'ng2-qgrid/core/column/column.service';
 export class ColumnFilterComponent implements OnInit {
 	@Input() public filter = '';
 
+	public by = new Set<string>();
+	public items = [];
+
 	public context = { $implicit: this };
 
 	public toggle = new Command({
@@ -44,6 +47,8 @@ export class ColumnFilterComponent implements OnInit {
 
 	ngOnInit() {
 		const column = columnService.find(this.model.data().columns, this.key);
+		this.header = column.title;
+
 		const getValue = valueFactory(column);
 
 		const filterBy = this.columnFilter.model.filter().by[this.key];
