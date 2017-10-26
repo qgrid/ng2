@@ -12,7 +12,7 @@
 			{{$cell.column.title}}
 		</label>
 	</div>
-	<button mat-icon-button [matMenuTriggerFor]="filterMenu">
+	<!-- <button mat-icon-button [matMenuTriggerFor]="filterMenu">
 		<mat-icon>filter_list</mat-icon>
 	</button>
 	<mat-menu #filterMenu="matMenu">
@@ -20,29 +20,5 @@
 			<q-grid-column-filter [key]="$cell.column.key">
 			</q-grid-column-filter>
 		</div>
-	</mat-menu>
-	<!-- <q-grid-popup *ngIf="$cell.column.canFilter"
-				  [id]="$cell.column.key"
-				  [q-grid-column-filter]="$cell.column.key">
-		<ng-template for="trigger" let-$popup>
-			<button mat-icon-button
-       		    	[ngClass]="{'q-grid-active': $view.filter.has($cell.column)}" 
-					(click)="$popup.open({width: 350, height: 600})" 
-					tabindex="-1">
-				<mat-icon>filter_list</mat-icon>
-			</button>
-		</ng-template>
-		<ng-template for="body">
-			<q-grid-column-filter>
-			</q-grid-column-filter>
-		</ng-template>
-		<ng-template for="head">
-			{{$cell.column.title}} Filter
-		</ng-template>
-		<ng-template for="foot" [context]="{$columnFilter: $columnFilter}" let-$columnFilter>
-			<button mat-button (click)="$columnFilter.cancel()">Cancel</button>
-			<button mat-button (click)="$columnFilter.reset()">Reset</button>
-			<button mat-button color="primary" (click)="$columnFilter.submit()">Apply</button>
-		</ng-template>
-	</q-grid-popup> -->
+	</mat-menu> -->
 </ng-template>
