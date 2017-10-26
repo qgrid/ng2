@@ -3,11 +3,11 @@
 		{{$cell.value}}</a>
 	<button class="q-grid-email-edit"
 	        color="primary"
-			mdTooltip='Edit Email'
-			[mdTooltipPosition]="'before'"
+			matTooltip='Edit Email'
+			[matTooltipPosition]="'before'"
 			aria-label="'email'"
 			(disabled)="!$view.edit.cell.enter.canExecute($cell)"
 			(click)="$view.edit.cell.enter.execute($cell)">
-		<md-icon>edit</md-icon>
+		<mat-icon>edit</mat-icon>
 	</button>
 </ng-template>

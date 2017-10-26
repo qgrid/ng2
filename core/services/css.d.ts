@@ -4,5 +4,5 @@ export declare interface IEscapeResult{
 
 export declare const escape: IEscapeResult;
 
-export declare function sheet(id: string): HTMLElement;
+export declare function sheet(id: string, source: string): HTMLElement;
 export declare function escapeClass(name: string): IEscapeResult;

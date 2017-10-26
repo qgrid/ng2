@@ -29,5 +29,5 @@ export declare class View extends Unit {
 
 	canScrollTo(element: Element, direction: string): boolean;
 
-	rect(): IRect;
+	rect(area = 'body'): IRect;
 }

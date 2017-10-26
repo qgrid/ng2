@@ -27,6 +27,7 @@ export class GroupColumnModel extends ColumnModel {
 		this.offset = 24;
 		this.canEdit = false;
 		this.canSort = false;
+		this.canFilter = false;
 		this.class = 'control';
 	}
 }
