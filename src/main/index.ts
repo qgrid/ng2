@@ -43,6 +43,5 @@ export * from './layer/index';
 })
 export class MainModule {
 	constructor() {
-		console.log('Main module bootstrapped');
 	}
 }

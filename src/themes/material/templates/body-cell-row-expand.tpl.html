@@ -2,12 +2,11 @@
 	<div class="q-grid-actions">
 		<button (mouseup)="$view.rowDetails.toggleStatus.execute($cell.row)"
 				  *ngIf="$view.rowDetails.toggleStatus.canExecute($cell.row)"
-				  tabindex="-1"
-				  class="md-icon-button"
-				  md-icon-button>
+				  tabindex="-1"				  
+				  mat-icon-button>
 			<span [ngSwitch]="$view.rowDetails.status($cell.row)">
-				<md-icon *ngSwitchCase="'expand'">arrow_drop_down</md-icon>
-				<md-icon *ngSwitchCase="'collapse'" class="q-grid-arrow-right" >arrow_drop_up</md-icon>
+				<mat-icon *ngSwitchCase="'expand'">arrow_drop_down</mat-icon>
+				<mat-icon *ngSwitchCase="'collapse'" class="q-grid-arrow-right" >arrow_drop_up</mat-icon>
 			</span>
 		</button>
 	</div>
