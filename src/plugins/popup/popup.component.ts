@@ -44,9 +44,7 @@ export class PopupComponent extends PluginComponent
 	ngOnInit() {
 		super.ngOnInit();
 
-		this.popup.id = this.id;
-		this.popup.model = this.model;
-		this.templateHost.key = `popup-${this.id}.tpl.html`;
+		this.templateHost.key = source => `${source}-popup-${this.id}.tpl.html`;
 	}
 
 	ngOnDestroy(): void {
