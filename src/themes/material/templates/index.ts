@@ -15,7 +15,7 @@ const templates = [
 	require('./body-cell-row-options.tpl.html'),
 	require('./body-cell-row-expand.tpl.html'),
 	require('./body-cell-row-number.tpl.html'),
-  require('./body-cell-url.tpl.html'),
+	require('./body-cell-url.tpl.html'),
 
 	require('./edit-cell-date.tpl.html'),
 	require('./edit-cell-array.tpl.html'),

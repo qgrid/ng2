@@ -1,32 +1,34 @@
 <ng-template key="plugin-column-filter.tpl.html" let-$columnFilter>
-	<div class="q-grid-column-filter-panel layout-column flex-100">
-		<div class="flex-none layout-row">
-			<mat-form-field class="q-grid-column-filter-filter">
-				<label>Search</label>
-				<input type="text"
-					   matInput
-					   [value]="$columnFilter.filter"
-					   q-grid-focus/>
-			</mat-form-field>
-		</div>
-		<div class="flex-100">
-			<ul>
-				<li>
-					<mat-checkbox (click)="$columnFilter.toggleAll.execute()"
-								 [checked]="$columnFilter.stateAll()"
-								 aria-label="Select all filter values"
-								 [indeterminate]="$columnFilter.isIndeterminate()">
-						Select All
-					</mat-checkbox>
-				</li>
-			</ul>
-			<div class="q-grid-column-filter-list">
-				<ul>
-					<li *ngFor="let item of $columnFilter.items">
-						<mat-checkbox [checked]="$columnFilter.state(item)"
-									 *ngIf="$columnFilter.toggle.canExecute(item)"
-								     aria-label="Select filter value"
-								     (click)="$columnFilter.toggle.execute(item)">
+	<mat-card class="layout-column">
+		<mat-card-header class="flex-auto mat-card-header">
+			<mat-card-title class="flex-100 layout-row">
+				<h1 mat-dialog-title class="flex-100">
+					{{$columnFilter.key}} Filter
+				</h1>
+			</mat-card-title>
+		</mat-card-header>
+		<mat-card-content class="flex-100">
+			<div class="q-grid-column-filter-panel layout-column flex-100">
+				<div class="flex-none layout-row">
+					<mat-form-field class="q-grid-column-filter-filter">
+						<label>Search</label>
+						<input type="text" matInput [value]="$columnFilter.filter" q-grid-focus/>
+					</mat-form-field>
+				</div>
+				<div class="flex-100">
+					<ul>
+						<li>
+							<mat-checkbox (click)="$columnFilter.toggleAll.execute()" [checked]="$columnFilter.stateAll()" aria-label="Select all filter values"
+							 [indeterminate]="$columnFilter.isIndeterminate()">
+								Select All
+							</mat-checkbox>
+						</li>
+					</ul>
+					<div class="q-grid-column-filter-list">
+						<ul>
+							<li *ngFor="let item of $columnFilter.items">
+								<mat-checkbox [checked]="$columnFilter.state(item)" *ngIf="$columnFilter.toggle.canExecute(item)" aria-label="Select filter value"
+								 (click)="$columnFilter.toggle.execute(item)">
 									{{item}}
 								</mat-checkbox>
 							</li>
