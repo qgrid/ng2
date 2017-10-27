@@ -117,7 +117,7 @@ export class EditCellView extends View {
 						this.editor = CellEditor.empty;
 
 						const toggleMode = () => {
-							model.edit({ state: 'view' });
+							model.edit({ state: 'view' }); // model state should be changed inside this function call 
 							cell.mode('view');
 							table.view.focus();
 						};
@@ -156,7 +156,7 @@ export class EditCellView extends View {
 						this.editor = CellEditor.empty;
 
 						const toggleMode = () => {
-							model.edit({ state: 'view' });
+							model.edit({ state: 'view' }); // model state should be changed inside this function call
 							cell.mode('view');
 							table.view.focus();
 						};

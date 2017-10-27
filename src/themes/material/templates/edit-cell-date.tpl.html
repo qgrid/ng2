@@ -11,6 +11,7 @@
 			<mat-datepicker #picker></mat-datepicker>
 		</mat-form-field>
 		<div class="q-grid-actions">
+			<!-- we need to slightly delay following actions to avoid timing issue -->
 			<button mat-button color="primary" (click)="$view.edit.cell.commit.execute($cell, $event, 60)">Save</button>
 			<button mat-button (click)="$view.edit.cell.cancel.execute($cell, $event, 60)">Cancel</button>
 		</div>
