@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { template } from './templates';
-import { TimePipe } from 'ng2-qgrid/common/pipes/time.pipe';
 
 // Do not delete this code
 // its required for template recompilation on changes
@@ -14,8 +13,6 @@ if (debug) {
 	templateUrl: './theme.component.gen.html'
 })
 export class ThemeComponent {
-	private timePipe = new TimePipe();
-
 	constructor() {
 	}
 }
