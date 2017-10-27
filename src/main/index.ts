@@ -7,6 +7,7 @@ import {BoxComponent} from './box';
 import {CoreModule} from './core';
 import {ThemeModule} from 'ng2-qgrid/themes/material/theme.module';
 import {ToolbarComponent} from './toolbar/toolbar.component';
+import {RowComponent} from 'ng2-qgrid/main';
 
 export * from './box/index';
 export * from './column/index';
@@ -20,14 +21,16 @@ export * from './layer/index';
 		BoxComponent,
 		ColumnListComponent,
 		ColumnComponent,
-		ToolbarComponent
+		ToolbarComponent,
+		RowComponent
 	],
 	exports: [
 		GridComponent,
 		ColumnListComponent,
 		ColumnComponent,
 		BoxComponent,
-		ToolbarComponent
+		ToolbarComponent,
+		RowComponent
 	],
 	imports: [
 		BrowserModule,
@@ -40,6 +43,5 @@ export * from './layer/index';
 })
 export class MainModule {
 	constructor() {
-		console.log('Main module bootstrapped');
 	}
 }

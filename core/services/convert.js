@@ -1,5 +1,4 @@
 import {identity, isObject, isArray, isBoolean, isEmail, isString} from '../utility';
-import * as momentjs from 'moment';
 
 export function getMoment() {
 	const moment = require('moment');

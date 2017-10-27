@@ -1,3 +1,14 @@
-<ng-template key='body-cell-url.tpl.html' let-$cell>
-	<a [href]="$cell.value" target="_blank">{{$cell.value}}</a>
+<ng-template key='body-cell-url.tpl.html' let-$cell let-$view="$view">
+	<a [attr.href]='$cell.value' (bind)="$cell.label || $cell.value"></a>
+	<button *ngIf="$view.edit.cell.canEdit($cell)" 
+			class="q-grid-url-edit"
+			mat-icon-button
+			aria-label="url" 
+			[disabled]="!$view.edit.cell.enter.canExecute($cell)"
+			(click)="$view.edit.cell.enter.execute($cell)" 
+			tabindex="-1" 
+			matTooltip="Edit Url" 
+			[matTooltipPosition]="'below'">
+		<mat-icon>edit</mat-icon>
+	</button>
 </ng-template>

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { template } from './templates';
-import { parseFactory } from 'ng2-qgrid/core/services';
 import { TimePipe } from 'ng2-qgrid/common/pipes/time.pipe';
 
 // Do not delete this code

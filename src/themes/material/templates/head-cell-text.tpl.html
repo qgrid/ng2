@@ -1,11 +1,7 @@
 <ng-template key="head-cell-text.tpl.html" let-$cell let-$view="$view">
-	<div (click)="$view.sort.toggle.execute($cell.column)"
-		  (mouseover)="$view.sort.hover = true"
-		  (mouseleave)="$view.sort.hover = false">
-		<div class="q-grid-sort"
-			  [ngClass]="{'q-grid-active': $view.sort.order($cell.column) >= 0}"
-			  *ngIf="$cell.column.canSort"
-			  [ngSwitch]="$view.sort.direction($cell.column)">
+	<div (click)="$view.sort.toggle.execute($cell.column)" (mouseover)="$view.sort.hover = true" (mouseleave)="$view.sort.hover = false">
+		<div class="q-grid-sort" [ngClass]="{'q-grid-active': $view.sort.order($cell.column) >= 0}" *ngIf="$cell.column.canSort"
+		 [ngSwitch]="$view.sort.direction($cell.column)">
 			<mat-icon class="q-grid-asc" *ngSwitchCase="'asc'">arrow_downward</mat-icon>
 			<mat-icon class="q-grid-desc" *ngSwitchCase="'desc'">arrow_upward</mat-icon>
 			<ng-container *ngSwitchDefault>
@@ -16,28 +12,13 @@
 			{{$cell.column.title}}
 		</label>
 	</div>
-	<!-- <q-grid-popup *ngIf="$cell.column.canFilter"
-				  [id]="$cell.column.key"
-				  [q-grid-column-filter]="$cell.column.key">
-		<ng-template for="trigger" let-$popup>
-			<button mat-icon-button
-       		    	[ngClass]="{'q-grid-active': $view.filter.has($cell.column)}" 
-					(click)="$popup.open({width: 350, height: 600})" 
-					tabindex="-1">
-				<mat-icon>filter_list</mat-icon>
-			</button>
-		</ng-template>
-		<ng-template for="body">
-			<q-grid-column-filter>
+	<!-- <button mat-icon-button [matMenuTriggerFor]="filterMenu">
+		<mat-icon>filter_list</mat-icon>
+	</button>
+	<mat-menu #filterMenu="matMenu">
+		<div q-grid-stop-propagate="click">
+			<q-grid-column-filter [key]="$cell.column.key">
 			</q-grid-column-filter>
-		</ng-template>
-		<ng-template for="head">
-			{{$cell.column.title}} Filter
-		</ng-template>
-		<ng-template for="foot" [context]="{$columnFilter: $columnFilter}" let-$columnFilter>
-			<button mat-button (click)="$columnFilter.cancel()">Cancel</button>
-			<button mat-button (click)="$columnFilter.reset()">Reset</button>
-			<button mat-button color="primary" (click)="$columnFilter.submit()">Apply</button>
-		</ng-template>
-	</q-grid-popup> -->
+		</div>
+	</mat-menu> -->
 </ng-template>

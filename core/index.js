@@ -30,7 +30,6 @@ import {ExportModel} from './export';
 import {ImportModel} from './import';
 import {ActionModel} from './action';
 import {FetchModel} from './fetch';
-import * as moment from 'moment';
 
 export function setup(model) {
 	model.register('grid', GridModel)
