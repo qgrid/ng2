@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DataService, Human } from '../../data/data.service';
 import { GridService } from 'ng2-qgrid/index';
 
+import { getMoment } from 'ng2-qgrid/core/services';
+
 import * as fileSaver from 'file-saver';
 import * as xlsx from 'xlsx';
 import * as pdf from 'jspdf';
@@ -12,10 +14,11 @@ import 'jspdf-autotable';
 	providers: [],
 	templateUrl: './home.component.html'
 })
-
 export class HomeComponent implements OnInit {
 	public rows: Human[] = [];
 	public gridModel = null;
+
+	private moment = getMoment();
 
 	constructor(public dataService: DataService, public gridService: GridService) {
 		this.gridModel = gridService.model();
@@ -35,9 +38,17 @@ export class HomeComponent implements OnInit {
 			.getPeople(100)
 			.map(humans => this.madeIsFeemaleField(humans))
 			.map(humans => this.madeEmailSingleField(humans))
+			.map(humans => this.madeTimeNowField(humans))
 			.subscribe(people => {
 				this.rows = people;
 			});
+	}
+
+	private madeTimeNowField(humans: Human[]): Human[] {
+		humans.forEach((human: any) => {
+			human['timeNow'] = this.moment().format('HH:mm:ss');
+		});
+		return humans;
 	}
 
 	private madeIsFeemaleField(humans: Human[]): Human[] {

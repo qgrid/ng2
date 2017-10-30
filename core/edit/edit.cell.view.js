@@ -115,9 +115,9 @@ export class EditCellView extends View {
 					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
 						this.editor.commit();
 						this.editor = CellEditor.empty;
-						model.edit({ state: 'view' });
 
 						const toggleMode = () => {
+							model.edit({ state: 'view' }); // model state should be changed inside this function call 
 							cell.mode('view');
 							table.view.focus();
 						};
@@ -155,8 +155,8 @@ export class EditCellView extends View {
 						this.editor.reset();
 						this.editor = CellEditor.empty;
 
-						model.edit({ state: 'view' });
 						const toggleMode = () => {
+							model.edit({ state: 'view' }); // model state should be changed inside this function call
 							cell.mode('view');
 							table.view.focus();
 						};

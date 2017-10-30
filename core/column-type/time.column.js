@@ -20,7 +20,7 @@ export class TimeColumnModel extends DataColumnModel {
 	constructor() {
 		super('time');
 
-		this.format = 'h:mm a';
+		this.format = 'h:mm A';
 	}
 }
 
