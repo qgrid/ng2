@@ -54,6 +54,7 @@ export class HomeComponent implements OnInit {
 			.map(humans => this.madeIsFeemaleField(humans))
 			.map(humans => this.madeEmailSingleField(humans))
 			.map(humans => this.madeAttachementField(humans))
+			.map(humans => this.madeAvatarField(humans))
 			.subscribe(people => {
 				this.rows = people;
 			});
@@ -65,6 +66,14 @@ export class HomeComponent implements OnInit {
 		});
 		return humans;
 	}
+
+	private madeAvatarField(humans: Human[]): Human[] {
+		humans.forEach((human: any) => {
+			human['avatar'] = null; // human['webPage'] + `/images/avatar.png`;
+		});
+		return humans;
+	}
+	
 	private madeIsFeemaleField(humans: Human[]): Human[] {
 		humans.forEach((human: any) => {
 			human['isFemail'] = human.gender === 'female';
