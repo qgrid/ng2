@@ -18,8 +18,6 @@ import { NgComponent, RootService } from 'ng2-qgrid/infrastructure/component';
 })
 export class FileUploadDirective extends NgComponent implements AfterViewInit {
 	@Input('q-grid-file-upload') uploder: any;
-	// @Input('q-grid-can-upload') canUpload: () => boolean;
-	// @Input('q-grid-file-upload-label') label: string;
 
 	private reader: FileReader;
 	private listener: any;

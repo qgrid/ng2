@@ -13,8 +13,6 @@
 			<q-grid-column type="row-indicator" key="rowIndicator"></q-grid-column>
 			<q-grid-column type="number" aggregation="sum"></q-grid-column>
 			<q-grid-column type="date" format="yMd"></q-grid-column>
-			<q-grid-column type="image" key="avatar" title="Avatar"></q-grid-column>
-			<q-grid-column type="url" key="webPage" title="Web Page"></q-grid-column>
 			<q-grid-column type="file" key="attachment" title="Attachment"></q-grid-column>
 			<q-grid-column key="name.last">
 				<ng-template for="body" let-$cell>
@@ -24,8 +22,8 @@
 			<q-grid-column type="row-options" key="rowOptions"></q-grid-column>
 		</q-grid-columns>
 
-		<q-grid-data-manipulation>
-		</q-grid-data-manipulation>
+		<!-- <q-grid-data-manipulation>
+		</q-grid-data-manipulation> -->
 
 		<q-grid-row unit="details" mode="single">
 			<ng-template for="details" let-$cell let-$view="$view">

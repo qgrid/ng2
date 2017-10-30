@@ -4,7 +4,6 @@ import { DndModule } from './dnd';
 import { FocusModule } from './focus';
 import { ResizeModule } from './resize';
 import { LayoutModule } from './layout';
-import { PipesModule } from './pipes';
 import { FileModule } from './file';
 
 @NgModule({
@@ -15,7 +14,6 @@ import { FileModule } from './file';
 		ResizeModule,
 		LayoutModule,
 		RaiseModule,
-		PipesModule,
 		FileModule
 	],
 	imports: [],
