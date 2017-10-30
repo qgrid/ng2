@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { PositionDirective } from './position.directive';
+import { StopPropagateDirective } from './stop-propagate.directive';
 
 @NgModule({
 	declarations: [
-		PositionDirective
+		PositionDirective,
+		StopPropagateDirective
 	],
 	exports: [
-		PositionDirective
+		PositionDirective,
+		StopPropagateDirective
 	],
 	imports: [],
 	providers: []

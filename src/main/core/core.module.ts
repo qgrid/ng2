@@ -26,7 +26,7 @@ import { TableCoreComponent } from 'ng2-qgrid/main/core/table';
 		ThCoreDirective,
 		TdCoreDirective,
 		TfCoreDirective,
-		MarkupDirective,
+		MarkupDirective
 	],
 	exports: [
 		ViewCoreComponent,

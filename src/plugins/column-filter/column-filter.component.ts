@@ -1,20 +1,48 @@
-import { OnInit, Input, Component } from '@angular/core';
+import { OnInit, Input, Component, Optional } from '@angular/core';
 import { Command } from 'ng2-qgrid/core/command';
 import { uniq, clone, noop } from 'ng2-qgrid/core/utility';
 import { getFactory as valueFactory } from 'ng2-qgrid/core/services/value';
-import { ColumnFilterDirective } from './column-filter.directive';
 import { GridService } from 'ng2-qgrid/main/grid';
 import * as columnService from 'ng2-qgrid/core/column/column.service';
+import { ColumnFilterDirective } from './column-filter.directive';
+import { PluginComponent } from '../plugin.component';
+import { RootService } from 'ng2-qgrid/infrastructure/component';
 
 @Component({
 	selector: 'q-grid-column-filter',
 	templateUrl: './column-filter.component.html',
 	providers: []
 })
-export class ColumnFilterComponent implements OnInit {
+export class ColumnFilterComponent extends PluginComponent implements OnInit {
 	@Input() public filter = '';
+	@Input() public header: string;
+	@Input() public key: string;
 
+	public by = new Set<string>();
+	public items = [];
+			
 	public context = { $implicit: this };
+
+	public submit = new Command({
+		execute: () => {
+			const filter = this.model.filter;
+			const by = clone(filter().by);
+			const items = Array.from(this.by);
+			if (items.length) {
+				by[this.key] = { items };
+			} else {
+				delete by[this.key];
+			}
+
+			filter({ by });
+		}
+	});
+
+	public reset = new Command({
+		execute: () => {
+			this.by = new Set([]);
+		}
+	});
 
 	public toggle = new Command({
 		execute: (item) => {
@@ -39,14 +67,17 @@ export class ColumnFilterComponent implements OnInit {
 		}
 	});
 
-	constructor(private columnFilter: ColumnFilterDirective, private grid: GridService) {
+	constructor( @Optional() root: RootService, private grid: GridService) {
+		super(root);
 	}
 
-	ngOnInit() {
+	public ngOnInit() {
 		const column = columnService.find(this.model.data().columns, this.key);
+		this.header = column.title;
+
 		const getValue = valueFactory(column);
 
-		const filterBy = this.columnFilter.model.filter().by[this.key];
+		const filterBy = this.model.filter().by[this.key];
 		this.by = new Set((filterBy && filterBy.items) || []);
 
 		const model = this.model;
@@ -93,29 +124,5 @@ export class ColumnFilterComponent implements OnInit {
 
 	public isIndeterminate() {
 		return !this.stateAll() && this.items.some(this.state.bind(this));
-	}
-
-	public get items() {
-		return this.columnFilter.items;
-	}
-
-	public set items(value) {
-		this.columnFilter.items = value;
-	}
-
-	public get by() {
-		return this.columnFilter.by;
-	}
-
-	public set by(value) {
-		this.columnFilter.by = value;
-	}
-
-	private get key() {
-		return this.columnFilter.key;
-	}
-
-	private get model() {
-		return this.columnFilter.model;
 	}
 }

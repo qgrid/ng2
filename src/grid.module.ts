@@ -11,6 +11,7 @@ import { GridComponent } from './main/grid/grid.component';
 import { ColumnListComponent, ColumnComponent } from './main/column';
 import { PluginModule } from './plugins';
 import { FocusModule } from './common';
+import { RowComponent } from './main/core/row/row.component';
 
 @NgModule({
 	declarations: [],
@@ -22,7 +23,8 @@ import { FocusModule } from './common';
 		PluginModule,
 		MainModule,
 		TemplateModule,
-		FocusModule
+		FocusModule,
+		RowComponent
 	],
 	imports: [
 		MainModule,

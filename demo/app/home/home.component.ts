@@ -14,7 +14,6 @@ import 'jspdf-autotable';
 	providers: [],
 	templateUrl: './home.component.html'
 })
-
 export class HomeComponent implements OnInit {
 	public rows: Human[] = [];
 	public gridModel = null;
@@ -40,8 +39,6 @@ export class HomeComponent implements OnInit {
 			.map(humans => this.madeIsFeemaleField(humans))
 			.map(humans => this.madeEmailSingleField(humans))
 			.map(humans => this.madeTimeNowField(humans))
-			.map(humans => this.madeWebPageField(humans))
-			// .map(humans => this.madeAvatarField(humans))
 			.subscribe(people => {
 				this.rows = people;
 			});
@@ -54,26 +51,6 @@ export class HomeComponent implements OnInit {
 		return humans;
 	}
 
-	private madeWebPageField(humans: Human[]): Human[] {
-		humans.forEach((human: any) => {
-			human['webPage'] = `https://corp.portal.com/${human.name.last}.${human.name.first}`;
-		});
-		return humans;
-	}
-
-	private madeAvatarField(humans: Human[]): Human[] {
-		humans.forEach((human: any) => {
-			human['avatar'] = human['webPage'] + `/images/avatar.png`;
-		});
-		return humans;
-	}
-
-	private madeAttachementField(humans: Human[]): Human[] {
-		humans.forEach((human: any) => {
-			human['attachment'] = human['webPage'] + `/files/`;
-		});
-		return humans;
-	}
 	private madeIsFeemaleField(humans: Human[]): Human[] {
 		humans.forEach((human: any) => {
 			human['isFemail'] = human.gender === 'female';
