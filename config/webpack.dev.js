@@ -97,7 +97,6 @@ module.exports = function (options) {
     },
 
     module: {
-
       rules: [
        {
          test: /\.ts$/,
