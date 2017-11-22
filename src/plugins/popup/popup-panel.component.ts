@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input } from '@angular/core';
 import { Popup } from './popup';
 import { PopupService } from './popup.service';
+import { PopupSettings } from './popup.settings';
 
 @Component({
 	selector: 'q-grid-popup-panel',
@@ -9,7 +10,7 @@ import { PopupService } from './popup.service';
 })
 export class PopupPanelComponent {
 	@Input() public popup: Popup;
-	public context = { $implicit: this };
+	public context: any = { $implicit: this };
 
 	constructor(public element: ElementRef, public popupService: PopupService) {
 		element.nativeElement.classList.add('q-grid-popup');

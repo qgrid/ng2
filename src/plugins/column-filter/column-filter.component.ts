@@ -4,7 +4,7 @@ import { uniq, clone, noop } from 'ng2-qgrid/core/utility';
 import { getFactory as valueFactory } from 'ng2-qgrid/core/services/value';
 import { GridService } from 'ng2-qgrid/main/grid';
 import * as columnService from 'ng2-qgrid/core/column/column.service';
-import { ColumnFilterDirective } from './column-filter.directive';
+/*import { ColumnFilterDirective } from './column-filter.directive';*/
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component';
 
@@ -20,8 +20,8 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit {
 
 	public by = new Set<string>();
 	public items = [];
-			
-	public context = { $implicit: this };
+
+	public context: any = { $implicit: this };
 
 	public submit = new Command({
 		execute: () => {
