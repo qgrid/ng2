@@ -5,7 +5,8 @@
 			 q-grid-animate="false"
 			 q-grid-core-head>
 	</thead>
-	<tbody *ngIf="visibility.body"
+	<tbody *ngIf="visibility.body" style="position: relative"
+			 [perfectScrollbar]="config"
 			 q-grid-markup="body"
 			 q-grid-animate="false"
 			 vscroll

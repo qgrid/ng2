@@ -1,8 +1,12 @@
-import { OnInit, Component, Input } from '@angular/core';
+import {
+	OnInit, Component, Input, HostListener, AfterViewInit, ApplicationRef, ChangeDetectorRef,
+	EventEmitter, Output
+} from '@angular/core';
 import { RootService } from 'ng2-qgrid/infrastructure/component';
 import { TableCoreService } from './table-core.service';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 @Component({
 	selector: 'q-grid-core-table',
@@ -13,8 +17,22 @@ import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 })
 export class TableCoreComponent implements OnInit {
 	@Input() public pin = null;
+	@Output() toggleScrollbarOpacity: EventEmitter<string> = new EventEmitter();
 
-	constructor(private root: RootService, private table: TableCoreService) {
+	config: PerfectScrollbarConfigInterface = {
+		suppressScrollY: false,
+		suppressScrollX: false
+	};
+
+	@HostListener('mouseenter') onMouseEnter() {
+		this.toggleScrollbarOpacity.emit('reveal');
+	}
+
+	@HostListener('mouseleave') onMouseLeave() {
+		this.toggleScrollbarOpacity.emit('hide');
+	}
+
+	constructor(private root: RootService, private table: TableCoreService, private cdRef: ChangeDetectorRef) {
 	}
 
 	ngOnInit() {

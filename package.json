@@ -113,6 +113,7 @@
     "@types/source-map": "^0.5.2",
     "@types/uglify-js": "^2.6.29",
     "@types/webpack": "^3.8.1",
+	 "ngx-perfect-scrollbar": "5.0.2",
     "add-asset-html-webpack-plugin": "^2.1.2",
     "angular2-fontawesome": "^0.9.3",
     "angular2-template-loader": "^0.6.2",

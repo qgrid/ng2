@@ -1,4 +1,7 @@
-import { Component, OnDestroy, OnInit, Optional, DoCheck } from '@angular/core';
+import {
+	Component, OnDestroy, OnInit, Optional, DoCheck, ElementRef, ViewChild, Renderer2,
+	AfterViewInit, HostBinding, HostListener, QueryList, ViewChildren
+} from '@angular/core';
 import { NgComponent, RootService } from 'ng2-qgrid/infrastructure/component';
 import { Table } from 'ng2-qgrid/core/dom';
 import { BodyView } from 'ng2-qgrid/core/body';
@@ -27,6 +30,9 @@ import { CellService } from '../cell';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 
+import {  PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
+import {TableCoreComponent} from 'ng2-qgrid/main';
+
 @Component({
 	selector: 'q-grid-core-view',
 	templateUrl: './view-core.component.html',
@@ -38,8 +44,14 @@ import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy, DoCheck {
 	constructor( @Optional() private root: RootService,
 		private view: ViewCoreService,
-		private gridService: GridService) {
+		private gridService: GridService,
+		private renderer: Renderer2) {
 		super();
+	}
+
+	handleScrollbarVisibility(status: string) {
+		const element = document.getElementsByClassName('ps__rail-y')[2] as HTMLElement;
+		element.style.opacity = status === 'reveal' ? '0.6' : '0';
 	}
 
 	ngOnInit() {
