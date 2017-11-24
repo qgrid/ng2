@@ -14,6 +14,14 @@ import { TemplateModule } from 'ng2-qgrid/template/template.module';
 import { CommonModule } from 'ng2-qgrid/common';
 import { TableCoreComponent } from 'ng2-qgrid/main/core/table';
 
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+	suppressScrollX: true
+};
+
 @NgModule({
 	declarations: [
 		ViewCoreComponent,
@@ -35,12 +43,17 @@ import { TableCoreComponent } from 'ng2-qgrid/main/core/table';
 	imports: [
 		BrowserModule,
 		TemplateModule,
-		CommonModule
+		CommonModule,
+		PerfectScrollbarModule
 	],
 	providers: [
 		VScrollService,
 		TemplateCacheService,
-		TemplateService
+		TemplateService,
+		{
+			provide: PERFECT_SCROLLBAR_CONFIG,
+			useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+		}
 	]
 })
 export class CoreModule {

@@ -13,6 +13,13 @@
 	> .q-grid-table-left {
 		tbody {
 			overflow-y: hidden;
+
+			.ps__thumb-y {
+				display: none;
+			}
+			.ps__rail-y {
+				display: none;
+			}
 		}
 	}
 }
@@ -21,6 +28,25 @@
 	.q-grid-table-center {
 		tbody {
 			overflow-y: hidden;
+
+			.ps__thumb-y {
+				display: none;
+			}
+			.ps__rail-y {
+				display: none;
+			}
 		}
 	}
 }
+
+//.q-grid-with-right-pin {
+//	.q-grid-table-right {
+//		tbody {
+//			overflow-y: hidden;
+//
+//			.ps__rail-y {
+//				opacity: 1;
+//			}
+//		}
+//	}
+//}
