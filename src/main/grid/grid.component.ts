@@ -5,6 +5,7 @@ import {
 	EventEmitter,
 	ViewEncapsulation,
 	OnInit,
+	AfterViewInit,
 	ElementRef,
 	ChangeDetectorRef
 } from '@angular/core';
@@ -26,7 +27,7 @@ import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None
 })
-export class GridComponent extends RootComponent implements OnInit {
+export class GridComponent extends RootComponent implements OnInit, AfterViewInit {
 	@Input() model;
 	@Input('rows') dataRows;
 	@Input('columns') dataColumns;
@@ -50,6 +51,8 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input('header') gridTitle;
 	@Input('actions') actionItems;
 	@Output() selectionChanged = new EventEmitter<any>();
+
+	private isActive: boolean;
 
 	listener: EventListener;
 
@@ -134,6 +137,11 @@ export class GridComponent extends RootComponent implements OnInit {
 		);
 	}
 
+	ngAfterViewInit(): void {
+		this.isActive = this.rootService.table.view.isFocused();
+		this.changeDetector.detectChanges();
+	}
+
 	invalidateVisibility() {
 		const columns = this.model.data().columns;
 		const visibility = this.model.visibility;
@@ -143,10 +151,6 @@ export class GridComponent extends RootComponent implements OnInit {
 				right: columns.some(c => c.pin === 'right')
 			}
 		});
-	}
-
-	get isActive() {
-		return this.rootService.table.view.isFocused();
 	}
 
 	get visibility() {

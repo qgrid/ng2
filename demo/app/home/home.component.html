@@ -1,23 +1,26 @@
 <mat-card>
 	<q-grid q-grid-autofocus
-			  [rows]="rows"
-			  [model]="gridModel"
-			  selectionUnit="row"
-			  selectionMode="multiple"
-			  editMode="cell"
-			  header="NG2 QGRID SANDBOX">
-
-			<q-grid-columns generation="deep">
-				<q-grid-column type="row-indicator" key="rowIndicator"></q-grid-column>
-				<q-grid-column type="number" aggregation="sum"></q-grid-column>
-				<q-grid-column type="date" format="yMd"></q-grid-column>
-				<q-grid-column key="name.last">
-					<ng-template for="body" let-$cell>
-						<span style="color: blue">{{$cell.value}}</span>
-					</ng-template>
-				</q-grid-column>
-				<q-grid-column type="row-options" key="rowOptions"></q-grid-column>
-			</q-grid-columns>
+			class="q-grid-embed"
+			[rows]="rows"
+			[model]="gridModel"
+			selectionUnit="row"
+			selectionMode="multiple"
+			editMode="cell"
+			[editCommit]="commitCommand"
+			header="NG2 QGRID SANDBOX">
+		<q-grid-columns generation="deep">
+			<q-grid-column type="row-number" key="rowNumber" title="Row No"></q-grid-column>
+			<q-grid-column type="row-indicator" key="rowIndicator"></q-grid-column>
+			<q-grid-column type="number" aggregation="sum"></q-grid-column>
+			<q-grid-column type="date" format="yMd"></q-grid-column>
+			<q-grid-column type="file" key="attachment" title="Attachment"></q-grid-column>
+			<q-grid-column key="name.last">
+				<ng-template for="body" let-$cell>
+					<span style="color: blue">{{$cell.value}}</span>
+				</ng-template>
+			</q-grid-column>
+			<q-grid-column type="row-options" key="rowOptions"></q-grid-column>
+		</q-grid-columns>
 
 		<q-grid-data-manipulation>
 		</q-grid-data-manipulation>
@@ -27,7 +30,7 @@
 				<div>
 					<ul style="list-style-type: none; padding-left: 0; ">
 						<li *ngFor="let column of $view.body.render.columns($cell.row.item, null)"
-							 style="list-style-type: none; padding-left: 0;">
+							style="list-style-type: none; padding-left: 0;">
 							<ng-container *ngIf="column.model.class === 'data'">
 								<span style="font-weight: bold;">{{column.model.title}}</span>:
 								<span style="font-style: italic;">{{$view.body.value($cell.row.item, column.model)}}</span>
@@ -37,6 +40,5 @@
 				</div>
 			</ng-template>
 		</q-grid-row>
-
 	</q-grid>
 </mat-card>
