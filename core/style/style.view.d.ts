@@ -4,12 +4,12 @@ import {IValueFactory} from '../services/value';
 import {Model} from '../infrastructure/model';
 import {Table} from '../dom/table';
 
-export interface IActive{
+export interface IActive {
 	row: boolean;
 	cell: boolean;
 }
 
-export interface IMonitor{
+export interface IMonitor {
 	row: Monitor;
 	cell: Monitor;
 }
@@ -20,5 +20,6 @@ export declare class StyleView extends View {
 	valueFactory: IValueFactory;
 	active: IActive;
 	monitor: IMonitor;
-	invalidate(): void;
+	invalidate(any, any): void;
+	needInvalidate(): boolean;
 }

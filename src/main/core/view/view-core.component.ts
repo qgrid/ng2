@@ -94,6 +94,19 @@ export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy,
 	}
 
 	ngDoCheck() {
-		this.view.style.invalidate();
+		const style = this.view.style;
+		if (style.needInvalidate()) {
+			const rowMonitor = style.monitor.row;
+			const cellMonitor = style.monitor.cell;
+
+			const domCell = cellMonitor.enter();
+			const domRow = rowMonitor.enter();
+			try {
+				style.invalidate(domCell, domRow);
+			} finally {
+				rowMonitor.exit();
+				cellMonitor.exit();
+			}
+		}
 	}
 }

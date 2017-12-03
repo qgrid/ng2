@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, NgZone } from '@angular/core';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { NgComponent, RootService } from 'ng2-qgrid/infrastructure/component';
@@ -24,7 +24,8 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 	constructor(element: ElementRef,
 		public $view: ViewCoreService,
 		public $table: TableCoreService,
-		private root: RootService) {
+		private root: RootService,
+		private zone: NgZone) {
 		super();
 
 		this.element = element.nativeElement;
@@ -37,10 +38,13 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 	ngOnInit() {
 		super.ngOnInit();
 
-		const listener = new EventListener(this.element, new EventManager(this, this.root.applyFactory(null, 'sync')));
+		const listener = new EventListener(this.element, new EventManager(this));
 
-		this.using(listener.on('scroll', this.onScroll));
-		this.using(listener.on('click', this.onClick));
+		this.zone.runOutsideAngular(() => {
+			this.using(listener.on('scroll', this.onScroll));
+			this.using(listener.on('click', this.onClick));
+		});
+
 		this.using(listener.on('mousedown', this.onMouseDown));
 		this.using(listener.on('mouseup', this.onMouseUp));
 
