@@ -22,7 +22,6 @@ import zip from 'lodash/zip';
 import takeWhile from 'lodash/takeWhile';
 import dropWhile from 'lodash/dropWhile';
 import groupBy from 'lodash/groupBy';
-import {AppError} from '../infrastructure';
 
 const noop = () => {
 };
@@ -66,10 +65,6 @@ function compare(x, y) {
 
 function orderBy(data, selectors, compares) {
 	const length = selectors.length;
-	if (selectors.length !== compares.length) {
-		throw new AppError('utility', `Number of compares should match number of selectors, expected ${length} got ${compares.length}`);
-	}
-
 	const result = [];
 	const count = data.length;
 
