@@ -1,6 +1,7 @@
 export class SceneModel {
 	constructor() {
 		this.status = 'stop'; // start | stop
+		this.round = 0;
 		this.rows = [];
 		this.column = {
 			rows: [],

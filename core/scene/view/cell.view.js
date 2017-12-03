@@ -60,7 +60,6 @@ export class CellView {
 			return false;
 		}
 
-		return x.rowIndex === y.rowIndex
-			&& x.columnIndex === y.columnIndex;
+		return x.rowIndex === y.rowIndex && x.columnIndex === y.columnIndex;
 	}
 }

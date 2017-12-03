@@ -42,6 +42,14 @@ export class Container {
 		return max(this.elements.map(element => element.clientHeight));
 	}
 
+	get offsetWidth() {
+		return max(this.elements.map(element => element.offsetWidth));
+	}
+
+	get offsetHeight() {
+		return max(this.elements.map(element => element.offsetHeight));
+	}
+
 	get classList() {
 		return {
 			add: name => this.addClass(name),

@@ -5,12 +5,12 @@ export class EventListener {
 		this.handlers = {};
 	}
 
-	on(name, f) {
+	on(name, f, settings = false) {
 		const manager = this.manager;
 		const handler = manager.bind(f);
 		const handlerSet = this.handlers[name] || (this.handlers[name] = []);
 		handlerSet.push(handler);
-		this.element.addEventListener(name, handler, false);
+		this.element.addEventListener(name, handler, settings);
 		return () => {
 			this.element.removeEventListener(name, handler);
 			const index = handlerSet.indexOf(handler);

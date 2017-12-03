@@ -2,7 +2,7 @@ import {ColumnView} from '../scene/view';
 import {DataColumnModel} from './data.column.model';
 import {TemplatePath} from '../template';
 import {get as getValue} from '../services/value';
-import {isArray} from '../utility';
+import {isArray, identity} from '../utility';
 
 TemplatePath.register('array-cell', (template, column) => {
 	return {
@@ -22,9 +22,11 @@ export class ArrayColumnModel extends DataColumnModel {
 	constructor() {
 		super('array');
 
+		this.itemLabel = identity;
 		this.label = function (row) {
 			const value = getValue(row, this);
-			return isArray(value) ? value.join(', ') : value;
+			const itemLabel = this.itemLabel.bind(this);
+			return isArray(value) ? value.map(itemLabel).join(', ') : value;
 		};
 	}
 }

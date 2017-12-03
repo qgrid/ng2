@@ -9,6 +9,7 @@ export class RowDetailsView extends View {
 		super(model);
 
 		this.toggleStatus = new Command({
+			source: 'row.details.view',
 			execute: row => {
 				if (!row) {
 					const cell = model.navigation().cell;

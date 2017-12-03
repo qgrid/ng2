@@ -1,11 +1,11 @@
 import {Shortcut} from './shortcut';
-import {ShortcutManager} from './shortcut.manager';
+import {ShortcutDispatcher} from './shortcut.dispatcher';
 import {CommandManager} from './../command/command.manager';
 import {Command} from '../command/command';
 
 describe('Shortcut', () => {
-	let shortcutManager = new ShortcutManager();
-	let shortcut = new Shortcut(shortcutManager);
+	let shortcutDispatcher = new ShortcutDispatcher();
+	let shortcut = new Shortcut(shortcutDispatcher);
 	let manager = new CommandManager();
 	let command1 = new Command();
 	command1.shortcut = 'ctrl|shift';
@@ -105,10 +105,10 @@ describe('Shortcut', () => {
 	});
 
 	describe('factory/register/keyDown', () => {
-		it('should return 1 if shortcut was registered and executed', () => {
+		it('should return true if shortcut was registered and executed', () => {
 			shortcut.register(manager,cmds);
 			let executeResult = shortcut.keyDown(shiftCtrl);
-			expect(executeResult).to.equal(1);
+			expect(executeResult).to.equal(true);
 		});
 	});
 });

@@ -25,7 +25,7 @@ declare function cellMatchFactory(): boolean;
 declare function keySelector(unit: string, selector: object): any;
 
 export declare class SelectionService {
-	constructor();
+	constructor(model: Model);
 	lookup(items: object[], unit: string): any[];
 	map(entries: any[]): any[];
 	keyFactory<K>(unit: string): (any) => K;

@@ -2,13 +2,14 @@ import {build as buildPipe} from '../pipe/pipe.build';
 import {Log} from '../infrastructure';
 import {noop} from '../utility';
 import {guid} from './guid';
-import {getFactory as valueFactory} from '../services/value';
+import {PersistenceService} from '../persistence/persistence.service';
 
 export class GridService {
 	constructor(model, start = () => noop) {
 		this.model = model;
 		this.start = start;
 		this.tasks = [];
+		this.state = new PersistenceService(model);
 	}
 
 	invalidate(source = 'invalidate', changes = {}, pipe = null) {
@@ -30,15 +31,9 @@ export class GridService {
 				model.foot().cache.clear();
 
 				const stop = this.start();
-				const cancelBusy = this.busy();
-				const run = buildPipe(model, valueFactory);
-				const runNext = () => {
-					stop()
-						.then(() => {
-							cancelBusy();
-							nextTask();
-						});
-				};
+				const busy = this.busy();
+				const run = buildPipe(model);
+				const runNext = () => stop(busy).then(nextTask);
 
 				return run(source, changes, pipe)
 					.then(() => {

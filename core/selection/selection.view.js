@@ -84,8 +84,30 @@ export class SelectionView extends View {
 	get commands() {
 		const model = this.model;
 		const shortcut = model.selection().shortcut;
+
+		const toggleActiveRow = new Command({
+			source: 'selection.view',
+			canExecute: () => model.selection().unit === 'row' && this.rows.length > 0,
+			execute: () => {
+				const navState = model.navigation();
+				const rowIndex = navState.rowIndex;
+
+				let row;
+				if (rowIndex >= 0) {
+					row = this.rows[rowIndex];
+				} else {
+					row = this.rows[rowIndex + 1];
+				}
+
+				const commit = this.toggle(row);
+				commit();
+			},
+			shortcut: shortcut.toggleRow
+		});
+
 		const commands = {
 			toggleCell: new Command({
+				source: 'selection.view',
 				canExecute: item => {
 					const selectionState = model.selection();
 					return item && selectionState.mode !== 'range' && (selectionState.unit === 'cell' || selectionState.unit === 'mix');
@@ -114,36 +136,35 @@ export class SelectionView extends View {
 				}
 			}),
 			toggleRow: new Command({
+				source: 'selection.view',
 				execute: (item, source) => {
 					const commit = this.toggle(item, source);
 					commit();
 				}
 			}),
 			toggleColumn: new Command({
+				source: 'selection.view',
 				execute: (item, source) => {
 					const commit = this.toggle(item, source);
 					commit();
 				}
 			}),
-			toggleActiveRow: new Command({
-				canExecute: () => model.selection().unit === 'row' && this.rows.length > 0,
-				execute: () => {
-					const navState = model.navigation();
-					const rowIndex = navState.rowIndex;
-
-					let row;
-					if (rowIndex >= 0) {
-						row = this.rows[rowIndex];
-					} else {
-						row = this.rows[rowIndex + 1];
-					}
-
-					const commit = this.toggle(row);
-					commit();
+			commitRow: new Command({
+				source: 'selection.view',
+				canExecute: () => {
+					const column = model.navigation().column;
+					return column && column.type === 'select';
 				},
-				shortcut: shortcut.toggleRow
+				execute: () => {
+					if (toggleActiveRow.canExecute()) {
+						toggleActiveRow.execute();
+					}
+				},
+				shortcut: model.edit().commitShortcuts['select'] || ''
 			}),
+			toggleActiveRow: toggleActiveRow,
 			togglePrevRow: new Command({
+				source: 'selection.view',
 				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex > 0,
 				execute: () => {
 					const navState = model.navigation();
@@ -157,6 +178,7 @@ export class SelectionView extends View {
 				shortcut: shortcut.togglePreviousRow
 			}),
 			toggleNextRow: new Command({
+				source: 'selection.view',
 				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex < this.rows.length - 1,
 				execute: () => {
 					const navState = model.navigation();
@@ -170,6 +192,7 @@ export class SelectionView extends View {
 				shortcut: shortcut.toggleNextRow
 			}),
 			toggleActiveColumn: new Command({
+				source: 'selection.view',
 				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex >= 0,
 				execute: () => {
 					const columnIndex = model.navigation().columnIndex;
@@ -180,6 +203,7 @@ export class SelectionView extends View {
 				shortcut: shortcut.toggleColumn
 			}),
 			toggleNextColumn: new Command({
+				source: 'selection.view',
 				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex < this.columns.length - 1,
 				execute: () => {
 					const navState = model.navigation();
@@ -193,6 +217,7 @@ export class SelectionView extends View {
 				shortcut: shortcut.toggleNextColumn
 			}),
 			togglePrevColumn: new Command({
+				source: 'selection.view',
 				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex > 0,
 				execute: () => {
 					const navState = model.navigation();
@@ -206,6 +231,7 @@ export class SelectionView extends View {
 				shortcut: shortcut.togglePreviousColumn
 			}),
 			selectAll: new Command({
+				source: 'selection.view',
 				canExecute: () => model.selection().mode === 'multiple',
 				execute: () => {
 					let entries = [];

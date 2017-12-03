@@ -1,4 +1,5 @@
 import {Unit} from './unit';
+import {FakeElement} from './fake/element';
 import * as css from '../services/css';
 
 function isParentOf(parent, element) {
@@ -111,15 +112,15 @@ export class View extends Unit {
 		return this.getElement().scrollTop;
 	}
 
-	canScrollTo(element, direction) {
-		if (element) {
+	canScrollTo(target, direction) {
+		if (target && !(target.element instanceof FakeElement)) {
 			switch (direction) {
 				case 'left': {
-					element = element.element;
-					if (element) {
+					target = target.element;
+					if (target) {
 						const markup = this.markup;
 						if (markup.table) {
-							return isParentOf(markup.table, element);
+							return isParentOf(markup.table, target);
 						}
 					}
 					break;
