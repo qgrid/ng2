@@ -17,7 +17,6 @@ export class ColumnComponent implements OnInit {
 	@Input() public path: string;
 	@Input() public class: string;
 	@Input() public title: string;
-	@Input() public value: any;
 	@Input() public pin: string;
 	@Input() public aggregation: string;
 	@Input() public aggregationOptions: any;
@@ -43,6 +42,8 @@ export class ColumnComponent implements OnInit {
 	@Input() public index: number;
 
 	@Input() public label: any;
+	@Input() public value: any;
+	@Input() public compare: any;
 
 	constructor(private root: RootService,
 		private columnList: ColumnListService,
