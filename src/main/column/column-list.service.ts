@@ -11,12 +11,20 @@ export class ColumnListService {
 	constructor(private root: RootService) {
 	}
 
-	copy(target, source) {
-		return this.ctrl.copy(target, source);
-	}
-
 	add(column) {
 		this.ctrl.add(column);
+	}
+
+	copy(target, source) {
+		this.ctrl.copy(target, source);
+	}
+
+	generateKey(source) {
+		return this.ctrl.generateKey(source);
+	}
+
+	extract(key, type) {
+		return this.ctrl.extract(key, type);
 	}
 
 	register(column) {
@@ -25,7 +33,9 @@ export class ColumnListService {
 
 	@Singleton()
 	get ctrl() {
-		const canCopy = (key: string, source) => !isUndefined(source[key]);
+		const canCopy = (key: string, source, target) =>
+			target.hasOwnProperty(key) && !isUndefined(source[key]);
+
 		return new ColumnListCtrl(this.root.model, canCopy, parseFactory);
 	}
 }

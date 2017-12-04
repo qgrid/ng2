@@ -1,6 +1,8 @@
 import { View } from '../view/view';
-import { clone } from '../utility';
+import { clone, isUndefined } from '../utility';
 import { compile, getType } from '../services';
+import * as columnService from 'ng2-qgrid/core/column/column.service';
+import { columnFactory } from 'ng2-qgrid/core/column/column.factory';
 
 export class ColumnListCtrl extends View {
 	constructor(model, canCopy, parseFactory) {
@@ -8,6 +10,18 @@ export class ColumnListCtrl extends View {
 
 		this.canCopy = canCopy;
 		this.parseFactory = parseFactory;
+	}
+
+	generateKey(source) {
+		if (!isUndefined(source.editor)) {
+			return `$default.${source.editor}`;
+		} 
+		
+		if (!isUndefined(source.type)) {
+			return `$default.${source.type}`;
+		} 
+		
+		return '$default';
 	}
 
 	copy(target, source) {
@@ -29,7 +43,7 @@ export class ColumnListCtrl extends View {
 
 	add(column) {
 		const columnList = this.model.columnList;
-		const columns = columnList().columns.concat([column]); 
+		const columns = columnList().columns.concat([column]);
 		columnList({ columns }, {
 			source: 'column.list.ctrl',
 			behavior: 'core'
@@ -44,5 +58,22 @@ export class ColumnListCtrl extends View {
 			source: 'column.list.ctrl',
 			behavior: 'core'
 		});
+	}
+
+	extract(key, type) {
+		const model = this.model;
+		const createColumn = columnFactory(model);
+		const data = model.data;
+		const dataState = data();
+		let column = columnService.find(model.data().columns, key);
+		if (column) {
+			createColumn(type || 'text', column);
+		} else {
+			column = createColumn(type || 'text').model;
+			column.key = key;
+			column.source = 'template';
+		}
+
+		return column;
 	}
 }
