@@ -26,7 +26,8 @@ import { GridService } from 'ng2-qgrid/main/grid';
 import { CellService } from '../cell';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
-import { jobLine, Log } from 'ng2-qgrid/core/infrastructure';
+import { Log } from 'ng2-qgrid/core/infrastructure';
+import { jobLine } from 'ng2-qgrid/core/services';
 
 @Component({
 	selector: 'q-grid-core-view',
@@ -78,7 +79,8 @@ export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy,
 						}, {
 								source: 'view.core',
 								behavior: 'core'
-							}));
+							});
+					});
 				}
 			}
 		});

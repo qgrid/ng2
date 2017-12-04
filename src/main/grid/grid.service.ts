@@ -23,32 +23,32 @@ export class GridService {
 	service(model) {
 		const start = () => {
 			Log.info('service', 'invalidate start');
-			
+
 			model.scene({
 				status: 'start'
 			}, {
-				source: 'grid',
-				behavior: 'core'
-			});
+					source: 'grid',
+					behavior: 'core'
+				});
 
 			return job => {
 				const scene = model.scene;
 				scene({
 					round: scene().round + 1
 				}, {
-					source: 'grid',
-					behavior: 'core'
-				});
+						source: 'grid',
+						behavior: 'core'
+					});
 
-				return setTimeout(() => {
-					if (job) {
-						job();
-					}
-				}, 0);
+				if (job) {
+					job();
+				}
+
+				return Promise.resolve();
 			};
 		};
 
-		return new GridService(model, start);
+		return new GridCoreService(model, start);
 	}
 
 	get noop() {
