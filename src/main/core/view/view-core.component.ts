@@ -26,6 +26,8 @@ import { GridService } from 'ng2-qgrid/main/grid';
 import { CellService } from '../cell';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
+import { Log } from 'ng2-qgrid/core/infrastructure';
+import { jobLine } from 'ng2-qgrid/core/services';
 
 @Component({
 	selector: 'q-grid-core-view',
@@ -49,6 +51,8 @@ export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy,
 
 		const model = this.model;
 		const gridService = this.gridService.service(model);
+		const sceneJob = jobLine(10);
+		const invalidateJob = jobLine(10);
 
 		// model.selectionChanged.watch(e => {
 		//   // TODO: add event
@@ -61,23 +65,38 @@ export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy,
 		//
 		// });
 
+		model.sceneChanged.watch(e => {
+			if (e.hasChanges('round')) {
+				Log.info(e.tag.source, `scene ${e.state.round}`);
+
+				if (e.state.status === 'start') {
+					sceneJob(() => {
+						Log.info(e.tag.source, 'scene stop');
+
+						model.scene({
+							round: 0,
+							status: 'stop'
+						}, {
+								source: 'view.core',
+								behavior: 'core'
+							});
+					});
+				}
+			}
+		});
+
 		const triggers = model.data().triggers;
-		// TODO: think about invalidation queue
-		let needInvalidate = true;
+
+		gridService.invalidate('grid');
 		Object.keys(triggers)
 			.forEach(name =>
 				this.using(model[name + 'Changed']
 					.watch(e => {
 						const changes = Object.keys(e.changes);
 						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
-							needInvalidate = false;
-							gridService.invalidate(name, e.changes);
+							invalidateJob(() => gridService.invalidate(name, e.changes));
 						}
 					})));
-
-		if (needInvalidate) {
-			gridService.invalidate('grid');
-		}
 	}
 
 	ngOnDestroy() {
@@ -94,6 +113,19 @@ export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy,
 	}
 
 	ngDoCheck() {
-		this.view.style.invalidate();
+		const style = this.view.style;
+		if (style.needInvalidate()) {
+			const rowMonitor = style.monitor.row;
+			const cellMonitor = style.monitor.cell;
+
+			const domCell = cellMonitor.enter();
+			const domRow = rowMonitor.enter();
+			try {
+				style.invalidate(domCell, domRow);
+			} finally {
+				rowMonitor.exit();
+				cellMonitor.exit();
+			}
+		}
 	}
 }

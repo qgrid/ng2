@@ -1,4 +1,4 @@
-import {identity} from '../utility';
+import {identity, compare} from '../utility';
 import {Command} from '../command';
 import {TemplatePath} from '../template';
 
@@ -21,8 +21,6 @@ export class ColumnModel {
 		this.type = type;
 		this.key = null;
 		this.title = null;
-		this.value = null;
-		this.label = null;
 		this.path = null;
 		this.pin = null;
 		this.origin = 'specific';
@@ -30,17 +28,20 @@ export class ColumnModel {
 		this.class = 'data';
 		this.editor = null;
 		this.editorOptions = {
-			trigger: 'click',
+			trigger: 'click', // click | custom | focus
+			cruise: 'control', // control | transparent
 			label: null,
 			value: identity,
-			commit: new Command(),
-			cancel: new Command(),
+			commit: new Command({source: 'column.model'}),
+			cancel: new Command({source: 'column.model'}),
 			actions: []
 		};
 
 		this.width = null;
 		this.minWidth = 20;
 		this.maxWidth = null;
+
+		this.widthMode = 'relative'; // relative | absolute
 
 		this.canEdit = true;
 		this.canResize = true;
@@ -52,6 +53,10 @@ export class ColumnModel {
 
 		this.isVisible = true;
 		this.index = -1;
+
+		this.value = null;
+		this.label = null;
+		this.compare = compare;
 
 		this.$label = null;
 		this.$value = null;

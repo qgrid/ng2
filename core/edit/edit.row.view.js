@@ -25,6 +25,7 @@ export class EditRowView extends View {
 		const model = this.model;
 		const commands = {
 			enter: new Command({
+				source: 'edit.row.view',
 				shortcut: this.shortcutFactory('enter'),
 				canExecute: row => {
 					row = row || model.navigation().row;
@@ -45,6 +46,7 @@ export class EditRowView extends View {
 				}
 			}),
 			commit: new Command({
+				source: 'edit.row.view',
 				shortcut: this.shortcutFactory('commit'),
 				// TODO: add validation support
 				canExecute: row => {
@@ -66,6 +68,7 @@ export class EditRowView extends View {
 				}
 			}),
 			cancel: new Command({
+				source: 'edit.row.view',
 				shortcut: this.shortcutFactory('cancel'),
 				canExecute: row => {
 					row = row || model.navigation().row;
@@ -86,6 +89,7 @@ export class EditRowView extends View {
 				}
 			}),
 			reset: new Command({
+				source: 'edit.row.view',
 				canExecute: row => {
 					row = row || model.navigation().row;
 					return row

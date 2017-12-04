@@ -1,5 +1,7 @@
 /*eslint-disable  no-console, no-unused-vars, no-undef*/
 
+const ENV = window.ENV || {};
+
 export class Log {
 	constructor() {
 	}

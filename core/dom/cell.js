@@ -11,6 +11,10 @@ export class Cell extends Element {
 	}
 
 	model() {
+		return this.modelCore();
+	}
+
+	modelCore() {
 		const model = this.context.bag.findModel(this.getElement());
 		return model ? new CellView(model) : null;
 	}

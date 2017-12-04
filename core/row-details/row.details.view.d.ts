@@ -7,5 +7,5 @@ import {GridService} from '../services/grid';
 export declare class RowDetailsView extends View {
 	constructor(model: Model, table: Table, commandManager: CommandManager, service: GridService);
 
-	status(row: any): string;
+	status(row: any): boolean;
 }

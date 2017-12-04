@@ -17,7 +17,7 @@ import {ScrollView} from '../scroll';
 import {RowDetailsView} from '../row-details';
 
 export function viewFactory(model, table, commandManager, gridService, vscroll, selectors){
-	return (target) => {
+	return target => {
 		target.style = new StyleView(model, table);
 		target.head = new HeadView(model, table, selectors.th);
 		target.body = new BodyView(model, table);

@@ -1,2 +1,2 @@
 export * from './shortcut';
-export * from './shortcut.manager';
+export * from './shortcut.dispatcher';

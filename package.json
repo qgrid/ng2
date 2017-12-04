@@ -153,6 +153,7 @@
     "karma-remap-coverage": "^0.1.4",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "~2.0.6",
+    "livr": "^2.0.0",
     "lodash": "^4.17.4",
     "material-design-icons": "^3.0.1",
     "ng-router-loader": "^2.1.0",

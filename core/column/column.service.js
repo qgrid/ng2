@@ -1,4 +1,5 @@
 import {isFunction} from '../utility';
+import {AppError} from '../infrastructure/error';
 
 export function map(columns) {
 	return columns.reduce((memo, column) => {
@@ -101,9 +102,24 @@ export function collapse(view) {
 
 export function widthFactory(table, form) {
 	const layout = table.model.layout;
+	const columns = table.data.columns();
+	const columnMap = map(columns);
 	form = form || layout().columns;
 
+	const occupied = columns
+		.filter(c => form.hasOwnProperty(c.key) || ('' + c.width).indexOf('%') < 0)
+		.reduce((memo, c) => {
+			const width = getWidth(c);
+			if (width !== null) {
+				memo += width;
+			}
+
+			return memo;
+		}, 0);
+
+
 	let area;
+
 	function getRect() {
 		if (area) {
 			return area;
@@ -113,22 +129,33 @@ export function widthFactory(table, form) {
 		return area;
 	}
 
-	function materialize(column) {
-		let width = column.width;
-		if (('' + width).indexOf('%') >= 0) {
-			const percent = parseFloat(width);
-			const rect = getRect();
-			width = rect.width * percent / 100;
+	function getWidth(column) {
+		let size = column;
+		if (form.hasOwnProperty(column.key)) {
+			size = form[column.key];
 		}
 
-		return Math.max(parseInt(width), parseInt(column.minWidth || 20)) + 'px';
+		let width = size.width;
+		if (width || width === 0) {
+			if (('' + width).indexOf('%') >= 0) {
+				const percent = parseFloat(width);
+				const rect = getRect();
+				const skip = column.widthMode === 'relative' ? occupied : 0;
+				width = (rect.width - skip) * percent / 100;
+			}
+
+			return Math.max(parseInt(width), parseInt(column.minWidth));
+		}
+
+		return null;
 	}
 
-	return column => {
-		if (form.hasOwnProperty(column.key)) {
-			column = form[column.key];
+	return key => {
+		let column = columnMap[key];
+		if (!column) {
+			throw new AppError('column.service', `Column ${key} is not found`);
 		}
 
-		return column.width || column.width === 0 ? materialize(column) : null;
+		return getWidth(column);
 	};
 }

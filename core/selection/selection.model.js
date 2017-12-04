@@ -9,7 +9,7 @@ export class SelectionModel {
 		this.mode = 'single';//single|multiple|range
 		this.items = [];
 		this.area = 'body'; //body, custom
-		this.toggle = new Command();
+		this.toggle = new Command({source: 'selection.model'});
 		this.key = {
 			row: identity,
 			column: identity

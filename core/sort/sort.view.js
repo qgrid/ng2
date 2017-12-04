@@ -10,6 +10,7 @@ export class SortView extends View {
 
 		this.hover = false;
 		this.toggle = new Command({
+			source: 'sort.view',
 			canExecute: column => {
 				const key = column.key;
 				const map = columnService.map(model.data().columns);

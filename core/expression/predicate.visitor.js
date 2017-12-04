@@ -4,10 +4,11 @@ import {Visitor} from './expression.visitor';
 import {isArray, identity} from '../utility';
 
 export class PredicateVisitor extends Visitor {
-	constructor(valueFactory) {
+	constructor(valueFactory, assertFactory) {
 		super();
 
 		this.valueFactory = valueFactory;
+		this.assertFactory = assertFactory;
 	}
 
 	visitGroup(group) {
@@ -22,21 +23,21 @@ export class PredicateVisitor extends Visitor {
 					return value => lp(value) || rp(value);
 
 				default:
-					throw  AppError(
+					throw AppError(
 						'predicate.visitor',
 						`Invalid operation ${group.op}`
 					);
 			}
 		}
-		else {
-			return this.visit(group.left);
-		}
+
+		return this.visit(group.left);
 	}
 
 	visitCondition(condition) {
 		const r = condition.right;
 		const name = condition.left;
 		const getValue = this.valueFactory(name);
+		const assert = this.assertFactory(name);
 		const map = new Set();
 
 		let rCastAs;
@@ -44,43 +45,48 @@ export class PredicateVisitor extends Visitor {
 			if (r.length) {
 				rCastAs = castAsFactory(r[0]);
 				r.forEach(x => map.add(x));
-			}
-			else {
+			} else {
 				rCastAs = identity;
 			}
-		}
-		else {
+		} else {
 			rCastAs = castAsFactory(r);
 		}
+
+		const equals = assert.equals;
+		const isNull = assert.isNull;
+		const lessThan = assert.lessThan;
+		const lessThanOrEquals = (x, y) => equals(x, y) || lessThan(x, y);
+		const greaterThan = (x, y) => !lessThanOrEquals(x, y);
+		const greaterThanOrEquals = (x, y) => !lessThan(x, y);
 
 		let predicate;
 		switch (condition.op) {
 			case 'isNotNull':
-				predicate = l => l || l === 0;
+				predicate = l => !isNull(l);
 				break;
 			case 'isNull':
-				predicate = l => !l && l !== 0;
+				predicate = l => isNull(l);
 				break;
 			case 'equals':
-				predicate = l => rCastAs(l) === l;
+				predicate = l => equals(rCastAs(l), l);
 				break;
 			case 'notEquals':
-				predicate = l => rCastAs(l) !== l;
+				predicate = l => !equals(rCastAs(l), l);
 				break;
 			case 'greaterThanOrEquals':
-				predicate = l => l >= rCastAs(l);
+				predicate = l => greaterThanOrEquals(l, rCastAs(l));
 				break;
 			case 'greaterThan':
-				predicate = l => l > rCastAs(l);
+				predicate = l => greaterThan(l, rCastAs(l));
 				break;
 			case 'lessThanOrEquals':
-				predicate = l => l <= rCastAs(l);
+				predicate = l => lessThanOrEquals(l, rCastAs(l));
 				break;
 			case 'lessThan':
-				predicate = l => l < rCastAs(l);
+				predicate = l => lessThan(l, rCastAs(l));
 				break;
 			case 'between':
-				predicate = l => castAsFactory(r[0])(l) <= l && l <= castAsFactory(r[1])(l);
+				predicate = l => lessThanOrEquals(castAsFactory(r[0])(l), l) && greaterThanOrEquals(castAsFactory(r[1])(l), l);
 				break;
 			case 'in':
 				predicate = l => {

@@ -22,6 +22,7 @@ export class HighlightView extends View {
 		let selectionBlurs = [];
 
 		this.column = new Command({
+			source: 'highlight.view',			
 			canExecute: () => !model.drag().isActive,
 			execute: (column, state) => {
 				if (!this.isRendering) {
@@ -53,6 +54,7 @@ export class HighlightView extends View {
 		});
 
 		this.row = new Command({
+			source: 'highlight.view',			
 			canExecute: () => !model.drag().isActive,
 			execute: (row, state) => {
 				if (!this.isRendering) {

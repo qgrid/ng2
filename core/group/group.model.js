@@ -9,6 +9,6 @@ export class GroupModel {
 		this.shortcut = {
 			toggle: 'space'
 		};
-		this.toggle = new Command();
+		this.toggle = new Command({source: 'group.model'});
 	}
 }

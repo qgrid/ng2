@@ -53,10 +53,6 @@ export function merge(settings) {
 			left.sort(context.sort(left, right));
 		}
 
-		return {
-			updated: updated,
-			removed: removed,
-			inserted: inserted
-		};
+		return {updated, removed, inserted};
 	};
 }

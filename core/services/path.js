@@ -1,13 +1,9 @@
 export function compile(path) {
 	const parts = path.split('.');
 	const last = parts.length - 1;
-	const accessor =
-		parts.filter((part, index) => index !== last)
-			.reduce((accessor, part) =>
-					accessor
-						? entry => accessor(entry)[part]
-						: entry => entry[part],
-				null);
+	const accessor = parts
+		.filter((part, index) => index !== last)
+		.reduce((accessor, part) => accessor ? entry => accessor(entry)[part] : entry => entry[part], null);
 
 	const key = parts[last];
 	if (accessor) {

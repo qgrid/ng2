@@ -23,6 +23,7 @@ export class GridService {
 	service(model) {
 		const start = () => {
 			Log.info('service', 'invalidate start');
+
 			model.scene({
 				status: 'start'
 			}, {
@@ -30,19 +31,20 @@ export class GridService {
 					behavior: 'core'
 				});
 
-			return () => {
-				return new Promise(resolve => {
-					setTimeout(() => {
-						model.scene({
-							status: 'stop'
-						}, {
-								source: 'grid',
-								behavior: 'core'
-							});
+			return job => {
+				const scene = model.scene;
+				scene({
+					round: scene().round + 1
+				}, {
+						source: 'grid',
+						behavior: 'core'
+					});
 
-						resolve();
-					}, 10);
-				});
+				if (job) {
+					job();
+				}
+
+				return Promise.resolve();
 			};
 		};
 

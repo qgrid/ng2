@@ -23,5 +23,6 @@ export declare class EditModel {
 	commit: Command;
 	cancel: Command;
 	reset: Command;
+	clear: Command;
 	commitShortcuts: ICommitShortcuts;
 }
