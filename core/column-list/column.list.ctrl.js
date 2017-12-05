@@ -52,8 +52,8 @@ export class ColumnListCtrl extends View {
 
 	register(column) {
 		const columnList = this.model.columnList;
-		const reference = clone(columnList().columns);
-		reference[column.type] = column;
+		const reference = clone(columnList().reference);
+		reference[column.type || '$default'] = column;
 		columnList({ reference }, {
 			source: 'column.list.ctrl',
 			behavior: 'core'
