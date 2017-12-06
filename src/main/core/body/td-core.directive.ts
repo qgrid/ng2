@@ -8,6 +8,9 @@ import { AppError } from 'ng2-qgrid/core/infrastructure';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { TrCoreDirective } from '../row/tr-core.directive';
+import { TdCtrl } from 'ng2-qgrid/core/cell/td.ctrl';
+
+const classify = TdCtrl.classify;
 
 @Directive({
 	selector: '[q-grid-core-td]',
@@ -29,15 +32,8 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		const column = this.column;
-		const element = this.element;
-
 		this.root.bag.body.addCell(this);
-		element.classList.add(`${GRID_PREFIX}-${column.key}`);
-		element.classList.add(`${GRID_PREFIX}-${column.type}`);
-		if (column.editor) {
-			element.classList.add(`${GRID_PREFIX}-${column.editor}`);
-		}
+		classify(this.element, this.column);
 
 		this.mode('init');
 	}
