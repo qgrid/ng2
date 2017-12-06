@@ -139,7 +139,7 @@ export class VirtualBox extends Box {
 		// and as virtual element rect function is used mostly for end/home navigation we make rect lazy
 		return index => () => {
 			if (!rect) {
-				rect = this.context.view.getRect();
+				rect = this.context.view.rect();
 			}
 
 			// TODO: add correct left, right, width

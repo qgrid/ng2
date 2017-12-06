@@ -11,5 +11,4 @@ export declare class DataModel {
 	rows: any[];
 	columns: ColumnModel[];
 	pipe: IDefaultPipe[];
-	triggers: object;
 }

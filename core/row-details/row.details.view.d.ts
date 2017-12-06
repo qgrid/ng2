@@ -5,7 +5,7 @@ import {Table} from '../dom/table';
 import {GridService} from '../services/grid';
 
 export declare class RowDetailsView extends View {
-	constructor(model: Model, table: Table, commandManager: CommandManager, service: GridService);
+	constructor(model: Model, table: Table, commandManager: CommandManager);
 
 	status(row: any): boolean;
 }

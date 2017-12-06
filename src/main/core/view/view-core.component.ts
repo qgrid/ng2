@@ -87,7 +87,7 @@ export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy,
 
 		const triggers = model.data().triggers;
 
-		gridService.invalidate('grid');
+		invalidateJob(() => gridService.invalidate('grid'));
 		Object.keys(triggers)
 			.forEach(name =>
 				this.using(model[name + 'Changed']

@@ -2,10 +2,9 @@ import {View} from '../view';
 import {Command} from '../command';
 import {toggleStatus, invalidateStatus} from './row.details.service';
 import {RowDetails} from './row.details';
-import {PipeUnit} from '../pipe/pipe.unit';
 
 export class RowDetailsView extends View {
-	constructor(model, table, commandManager, service) {
+	constructor(model, table, commandManager) {
 		super(model);
 
 		this.toggleStatus = new Command({
@@ -17,11 +16,8 @@ export class RowDetailsView extends View {
 				}
 
 				const status = toggleStatus([row], model.row().status, model.row().mode);
-				model.row({
-					status: status
-				}, {
-					source: 'row.details.view',
-					behavior: 'core'
+				model.row({status}, {
+					source: 'row.details.view'
 				});
 			},
 			canExecute: row => {
@@ -36,17 +32,13 @@ export class RowDetailsView extends View {
 			},
 			shortcut: model.row().shortcut.toggle
 		});
-
-		this.using(model.rowChanged.watch(e => {
-			if (e.hasChanges('status')) {
-				service.invalidate('row.details.view', {}, PipeUnit.rowDetails);
-			}
-		}));
-
+  
 		this.using(model.sceneChanged.watch(e => {
 			if (e.tag.source !== 'row.details.view' && e.hasChanges('rows')) {
 				model.row({
 					status: invalidateStatus(e.state.rows, model.row().status)
+				}, {
+					source: 'row.details.view'
 				});
 			}
 		}));

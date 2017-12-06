@@ -24,3 +24,4 @@ export function Singleton() {
 		descriptor.get = decorate(descriptor.get);
 		return descriptor;
 	}
+}

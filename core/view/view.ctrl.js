@@ -28,20 +28,51 @@ export class ViewCtrl extends View {
 		}
 	}
 
-	watch(service) {
-		const invalidateJob = jobLine(10);
-		const sceneJob = jobLine(10);
+	triggerLine(service, timeout) {
+		const job = jobLine(timeout);
 		const model = this.model;
-		const triggers = model.data().triggers;
+		const reduce = model.pipe().reduce;
+		let sessionUnits = [];
 
-		invalidateJob(() => service.invalidate('grid'));
+		return (name, changes, units) => {
+			sessionUnits.push(...units);
+			job(() => {
+				const jobUnits = reduce(sessionUnits, model);
+				sessionUnits = [];
+
+				jobUnits.forEach(unit => service.invalidate(name, changes, unit));
+			});
+		};
+	}
+
+	watch(service) {
+		const sceneJob = jobLine(10);
+		const triggerJob = this.triggerLine(service, 10);
+
+		const model = this.model;
+		const triggers = model.pipe().triggers;
+
+		triggerJob('grid', {}, [model.data().pipe]);
+
 		Object.keys(triggers)
 			.forEach(name =>
 				this.using(model[name + 'Changed']
 					.watch(e => {
-						const changes = Object.keys(e.changes);
-						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
-							invalidateJob(() => service.invalidate(name, e.changes));
+						if (e.tag.behavior === 'core') {
+							return;
+						}
+
+						const units = [];
+						const trigger = triggers[name];
+						for (const key in e.changes) {
+							const unit = trigger[key];
+							if (unit) {
+								units.push(unit);
+							}
+						}
+
+						if (units.length > 0) {
+							triggerJob(e.tag.source || name, e.changes, units);
 						}
 					})));
 

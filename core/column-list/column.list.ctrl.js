@@ -1,8 +1,8 @@
 import { View } from '../view/view';
 import { clone, isUndefined } from '../utility';
 import { compile, getType } from '../services';
-import * as columnService from 'ng2-qgrid/core/column/column.service';
-import { columnFactory } from 'ng2-qgrid/core/column/column.factory';
+import * as columnService from '../column/column.service';
+import { columnFactory } from '../column/column.factory';
 
 export class ColumnListCtrl extends View {
 	constructor(model, canCopy, parseFactory) {
@@ -63,8 +63,6 @@ export class ColumnListCtrl extends View {
 	extract(key, type) {
 		const model = this.model;
 		const createColumn = columnFactory(model);
-		const data = model.data;
-		const dataState = data();
 		let column = columnService.find(model.data().columns, key);
 		if (column) {
 			createColumn(type || 'text', column);
