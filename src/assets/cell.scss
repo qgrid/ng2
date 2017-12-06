@@ -85,7 +85,8 @@ tbody {
 		}
 
 		&.q-grid-number,
-		&.q-grid-currency {
+		&.q-grid-currency,
+		&.q-grid-id {
 			width: 100px;
 			min-width: 100px;
 			max-width: 100px;
@@ -137,6 +138,10 @@ tfoot {
 		&.q-grid-number,
 		&.q-grid-currency {
 			text-align: right;
+		}
+
+		&.q-grid-id {
+			text-align: left;
 		}
 
 		&.q-grid-bool,

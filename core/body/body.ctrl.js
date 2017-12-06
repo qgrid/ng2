@@ -2,8 +2,8 @@ import { PathService } from '../path';
 import { View } from '../view/view';
 
 export class BodyCtrl extends View {
-	constructor(view, bag) {
-		super(view.model);
+	constructor(model, view, bag) {
+		super(model);
 
 		this.view = view;
 		this.bag = bag;
@@ -35,7 +35,7 @@ export class BodyCtrl extends View {
 	}
 
 	onWheel(e) {
-		const model = this.view.model;
+		const model = this.model;
 		if (model.edit().state === 'view') {
 			const scroll = model.scroll;
 			const upper = 0;

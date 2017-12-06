@@ -18,9 +18,13 @@
 }
 
 .q-grid-with-right-pin {
-	.q-grid-table-center {
-		tbody {
-			overflow-y: hidden;
+	> .q-grid-view {
+		> .q-grid-table-center {
+			> table {
+				> tbody {
+					overflow-y: hidden;
+				}
+			}
 		}
 	}
 }

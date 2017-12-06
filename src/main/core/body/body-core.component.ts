@@ -38,8 +38,8 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 		const view = this.$view;
 		const element = this.element as HTMLElement;
 
-		const ctrl = new BodyCtrl(view, this.root.bag);
-		const listener = new EventListener(this.element, new EventManager(this, view.invoke));
+		const ctrl = new BodyCtrl(this.model, view, this.root.bag);
+		const listener = new EventListener(this.element, new EventManager(this ));
 
 		this.zone.runOutsideAngular(() => {
 			this.using(listener.on('scroll', () => ctrl.onScroll({
@@ -47,7 +47,7 @@ export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy 
 				scrollLeft: element.scrollLeft
 			}), { passive: true }));
 
-			this.using(listener.on('wheel', e => ctrl.onWheel({
+		this.using(listener.on('wheel', e => ctrl.onWheel({
 				deltaY: e.deltaY,
 				scrollHeight: element.scrollHeight,
 				offsetHeight: element.offsetHeight

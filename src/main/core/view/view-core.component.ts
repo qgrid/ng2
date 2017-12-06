@@ -56,12 +56,7 @@ export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy,
 		this.view.init();
 
 		const gridService = this.gridService.service(model);
-		const context = {
-			model,
-			style: this.view.style
-		};
-
-		this.ctrl = new ViewCtrl(context, gridService);
+		this.ctrl = new ViewCtrl(model, this.view, gridService);
 	}
 
 	ngOnDestroy() {
