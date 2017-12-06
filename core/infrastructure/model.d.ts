@@ -32,6 +32,7 @@ import {FetchModel} from '../fetch/fetch.model';
 import {ValidationModel} from '../validation/validation.model';
 import {Event} from './event';
 import {PersistenceModel} from '../persistence/persistence.model';
+import {PipeModel} from '../pipe/pipe.model'; 
 
 export declare class Model {
 	constructor();
@@ -41,6 +42,10 @@ export declare class Model {
 	grid(value?: object, tag?: object): GridModel;
 
 	gridChanged: Event;
+
+	pipe(value?: object, tag?: object): PipeModel;
+	
+	pipeChanged: Event;	
 
 	scene(value?: object, tag?: object): SceneModel;
 

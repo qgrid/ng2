@@ -7,10 +7,9 @@ import {SelectionService} from './selection.service';
 import {GRID_PREFIX} from '../definition';
 import {noop, isUndefined} from '../utility';
 import {SelectionCommandManager} from './selection.command.manager';
-import {PipeUnit} from '../pipe/pipe.unit';
 
 export class SelectionView extends View {
-	constructor(model, table, commandManager, gridService) {
+	constructor(model, table, commandManager) {
 		super(model);
 
 		this.table = table;
@@ -42,10 +41,13 @@ export class SelectionView extends View {
 			}
 		}));
 
+		const newClassName = `${GRID_PREFIX}-select-${model.selection().mode}`;
+		const view = table.view;
+		view.addClass(newClassName);
+
 		this.using(model.selectionChanged.watch(e => {
 			if (e.hasChanges('mode')) {
 				const newClassName = `${GRID_PREFIX}-select-${e.state.mode}`;
-				const view = table.view;
 				view.addClass(newClassName);
 
 				if (e.changes.mode.oldValue != e.changes.mode.newValue) {
@@ -54,9 +56,7 @@ export class SelectionView extends View {
 				}
 			}
 
-			if (e.hasChanges('unit') || e.hasChanges('mode')) {
-				gridService.invalidate('selection', e.changes, PipeUnit.column);
-
+			if (e.hasChanges('unit') || e.hasChanges('mode')) { 
 				if (!e.hasChanges('items')) {
 					this.selectionState.clear();
 					model.selection({

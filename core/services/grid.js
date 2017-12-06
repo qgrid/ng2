@@ -30,7 +30,7 @@ export class GridService {
 				model.body().cache.clear();
 				model.foot().cache.clear();
 
-				const stop = this.start();
+				const stop = this.start(source, changes);
 				const busy = this.busy();
 				const run = buildPipe(model);
 				const runNext = () => stop(busy).then(nextTask);
@@ -65,7 +65,7 @@ export class GridService {
 			const index = queue.indexOf(id);
 			if (index >= 0) {
 				queue.splice(index, 1);
-				progress({queue: queue});
+				progress({queue});
 			}
 		};
 	}

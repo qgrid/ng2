@@ -1,4 +1,4 @@
-import { GRID_PREFIX } from '@grid/core/definition';
+import { GRID_PREFIX } from '../definition';
 import { View } from '../view/view';
 
 export class BoxCtrl extends View {

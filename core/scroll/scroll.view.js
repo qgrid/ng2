@@ -3,7 +3,7 @@ import {Log} from '../infrastructure';
 import {isFunction} from '../utility';
 
 export class ScrollView extends View {
-	constructor(model, table, vscroll, gridService) {
+	constructor(model, table, vscroll) {
 		super(model);
 
 		this.table = table;
@@ -22,18 +22,14 @@ export class ScrollView extends View {
 		this.y = vscroll.factory(settings);
 
 		this.y.container.drawEvent.on(e => {
-			scroll({
-				cursor: e.position
-			}, {
+			scroll({ cursor: e.position }, {
 				source: 'scroll.view',
 				behavior: 'core'
 			});
 
-			const currentPage = Math.floor(e.position / pagination().size);
-			if (currentPage !== pagination().current) {
-				pagination({
-					current: currentPage
-				}, {
+			const current = Math.floor(e.position / pagination().size);
+			if (current !== pagination().current) {
+				pagination({ current }, {
 					source: 'scroll.view',
 					behavior: 'core'
 				});
@@ -42,45 +38,42 @@ export class ScrollView extends View {
 
 		switch (scroll().mode) {
 			case 'virtual': {
-
-				const triggers = model.data().triggers;
-				Object.keys(triggers).forEach(name =>
-					this.using(model[name + 'Changed']
-						.watch(e => {
-							if (e.tag.behavior !== 'core' && e.tag.source !== 'scroll.view') {
-								const changes = Object.keys(e.changes);
-								if (triggers[name].find(key => changes.indexOf(key) >= 0)) {
-									this.y.container.reset();
-								}
-							}
-						})));
-
 				this.y.settings.fetch = (skip, take, d) => {
-					model.fetch({
-						skip: skip
-					}, {
-						source: 'scroll.view',
-						behavior: 'core'
+					model.fetch({ skip }, {
+						source: 'scroll.view'
 					});
 
-					if (skip + take >= model.data().rows.length) {
-						gridService
-							.invalidate('scroll.view')
-							.then(() => {
-								const total = model.data().rows.length;
-								if (pagination().count !== total) {
-									pagination({
-										count: total
-									}, {
-										source: 'scroll.view',
-										behavior: 'core'
-									});
-								}
+					model.dataChanged.on((e, off) => {
+						if (e.hasChanges('rows')) {
+							const count = e.state.rows.length;
+							if (pagination().count !== count) {
+								pagination({ count }, {
+									source: 'scroll.view',
+									behavior: 'core'
+								});
+							}
 
-								d.resolve(total);
-							});
-					}
+							d.resolve(count);
+							off();
+						}
+					});
 				};
+
+				this.using(model.sceneChanged.watch(e => {
+					if (e.tag.source === 'scroll.view') {
+						return;
+					}
+
+					if (e.hasChanges('status')) {
+						const status = e.state.status;
+						switch (status) {
+							case 'start': {
+								this.y.container.reset();
+								break;
+							}
+						}
+					}
+				}));
 
 				break;
 			}

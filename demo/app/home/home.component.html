@@ -11,7 +11,7 @@
 				<q-grid-column type="row-indicator" key="rowIndicator"></q-grid-column>
 				<q-grid-column type="number" aggregation="sum"></q-grid-column>
 				<q-grid-column type="date" format="yMd"></q-grid-column>
-				<q-grid-column key="name.last">
+				<q-grid-column key="name.last" index="10">
 					<ng-template for="body" let-$cell>
 						<span style="color: blue">{{$cell.value}}</span>
 					</ng-template>
