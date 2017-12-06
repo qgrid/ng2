@@ -28,6 +28,8 @@ import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { Log } from 'ng2-qgrid/core/infrastructure';
 import { jobLine } from 'ng2-qgrid/core/services';
+import { ViewCtrl } from 'ng2-qgrid/core/view/view.ctrl';
+import { ViewChild } from '@angular/core/src/metadata/di';
 
 @Component({
 	selector: 'q-grid-core-view',
@@ -38,6 +40,8 @@ import { jobLine } from 'ng2-qgrid/core/services';
 	]
 })
 export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy, DoCheck {
+	private ctrl: ViewCtrl;
+
 	constructor( @Optional() private root: RootService,
 		private view: ViewCoreService,
 		private gridService: GridService) {
@@ -47,61 +51,24 @@ export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy,
 	ngOnInit() {
 		super.ngOnInit();
 
+		const model = this.root.model;
+
 		this.view.init();
 
-		const model = this.model;
 		const gridService = this.gridService.service(model);
-		const sceneJob = jobLine(10);
-		const invalidateJob = jobLine(10);
+		const context = {
+			model,
+			style: this.view.style
+		};
 
-		// model.selectionChanged.watch(e => {
-		//   // TODO: add event
-		//   // if (e.hasChanges('entries')) {
-		//   //   this.root.selectionChanged.emit({
-		//   //     state: model.selection(),
-		//   //     changes: e.changes
-		//   //   });
-		//   // }
-		//
-		// });
-
-		model.sceneChanged.watch(e => {
-			if (e.hasChanges('round')) {
-				Log.info(e.tag.source, `scene ${e.state.round}`);
-
-				if (e.state.status === 'start') {
-					sceneJob(() => {
-						Log.info(e.tag.source, 'scene stop');
-
-						model.scene({
-							round: 0,
-							status: 'stop'
-						}, {
-								source: 'view.core',
-								behavior: 'core'
-							});
-					});
-				}
-			}
-		});
-
-		const triggers = model.data().triggers;
-
-		invalidateJob(() => gridService.invalidate('grid'));
-		Object.keys(triggers)
-			.forEach(name =>
-				this.using(model[name + 'Changed']
-					.watch(e => {
-						const changes = Object.keys(e.changes);
-						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
-							invalidateJob(() => gridService.invalidate(name, e.changes));
-						}
-					})));
+		this.ctrl = new ViewCtrl(context, gridService);
 	}
 
 	ngOnDestroy() {
 		super.ngOnDestroy();
+
 		this.view.destroy();
+		this.ctrl.dispose();
 	}
 
 	get model() {

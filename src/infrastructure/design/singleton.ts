@@ -3,7 +3,7 @@ import { AppError } from 'ng2-qgrid/core/infrastructure';
 function decorate(method) {
 	let instance;
 	let hasInstance = false;
-	return function () {
+	return function value() {
 		if (hasInstance) {
 			return instance;
 		}
@@ -14,7 +14,6 @@ function decorate(method) {
 	};
 }
 
-
 export function Singleton() {
 	return (target: any, key: string, descriptor: PropertyDescriptor) => {
 		if (!descriptor.get) {
@@ -23,5 +22,5 @@ export function Singleton() {
 
 		descriptor.get = decorate(descriptor.get);
 		return descriptor;
-	}
+	};
 }

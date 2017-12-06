@@ -1,6 +1,6 @@
-import { jobLine } from '@grid/core/services';
-import { Log } from '@grid/core/infrastructure';
-import { View } from '@grid/core/view/view';
+import { jobLine } from '../services';
+import { Log } from '../infrastructure';
+import { View } from '../view/view';
 
 export class ViewCtrl extends View {
 	constructor(view, gridService) {
