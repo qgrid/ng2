@@ -5,6 +5,7 @@ import { parseFactory } from 'ng2-qgrid/core/services';
 import { RootService } from 'ng2-qgrid/infrastructure/component';
 import { ColumnListCtrl } from 'ng2-qgrid/core/column-list/column.list.ctrl';
 import { Singleton } from 'ng2-qgrid/infrastructure/design';
+import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 
 @Injectable()
 export class ColumnListService {
@@ -23,7 +24,7 @@ export class ColumnListService {
 		return this.ctrl.generateKey(source);
 	}
 
-	extract(key, type) {
+	extract(key, type): ColumnModel {
 		return this.ctrl.extract(key, type);
 	}
 
