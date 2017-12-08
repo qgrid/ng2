@@ -20,8 +20,7 @@ export class RootService {
 	public table: Table = null;
 	public commandManager;
 
-	constructor(private changeDetector: ChangeDetectorRef) {
-		this.markup.document = document;
+	constructor(private changeDetector: ChangeDetectorRef) {  
 	}
 
 	get model() {

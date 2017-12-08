@@ -91,6 +91,7 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 
 		this.rootService.table = ctrl.table;
 		this.rootService.bag = ctrl.bag;
+		this.rootService.markup = ctrl.markup;
 		this.rootService.commandManager = new TableCommandManager(
 			this.rootService.applyFactory(),
 			ctrl.table
