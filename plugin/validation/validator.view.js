@@ -38,4 +38,12 @@ export class ValidatorView extends PluginView {
 	get rules() {
 		return this.model.validation().rules;
 	}
+
+	get type() {
+		return this.context.type;
+	}
+
+	get value() {
+		return this.context.value;
+	}
 }

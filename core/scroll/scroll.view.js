@@ -13,6 +13,7 @@ export class ScrollView extends View {
 		const pagination = model.pagination;
 		const settings = {
 			threshold: model.pagination().size,
+			resetTriggers: []
 		};
 
 		if (rowHeight > 0 || isFunction(rowHeight)) {
