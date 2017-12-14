@@ -17,4 +17,5 @@ export declare class GridCtrl extends View {
 
 	table: Table;
 	bag: GridBag;
+	markup: any;
 }
