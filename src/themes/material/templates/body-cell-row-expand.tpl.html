@@ -5,8 +5,8 @@
 				  tabindex="-1"				  
 				  mat-icon-button>
 			<span [ngSwitch]="$view.rowDetails.status($cell.row)">
-				<mat-icon *ngSwitchCase="'expand'">arrow_drop_down</mat-icon>
-				<mat-icon *ngSwitchCase="'collapse'" class="q-grid-arrow-right" >arrow_drop_up</mat-icon>
+				<mat-icon class="q-grid-icon" *ngSwitchCase="'expand'">arrow_drop_down</mat-icon>
+				<mat-icon class="q-grid-icon" *ngSwitchCase="'collapse'" class="q-grid-arrow-right" >arrow_drop_up</mat-icon>
 			</span>
 		</button>
 	</div>
