@@ -1,5 +1,5 @@
 .q-grid-pager {
-	md-select {
+	mat-select {
 		width: 50px;
 		max-width: 50px;
 		background: transparent;
@@ -8,10 +8,5 @@
 		display: inline-flex;
 		height: 24px;
 		padding: 0;
-
-		md-select-value {
-			min-width: 50px;
-			width: 50px;
-		}
 	}
 }
