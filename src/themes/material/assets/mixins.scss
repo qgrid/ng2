@@ -1,4 +1,4 @@
-@mixin multiLine($lineHeight: 1.2em, $lineCount: 1, $bgColor: #fff){
+@mixin multiLine($lineHeight: 1.2em, $lineCount: 1, $bgColor: #fff) {
 	overflow: hidden;
 	position: relative;
 	line-height: $lineHeight;

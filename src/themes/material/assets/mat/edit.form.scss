@@ -1,4 +1,4 @@
-@import "variables";
+@import "../variables";
 
 .q-grid-edit-form-panel {
 	width: 550px;
@@ -30,27 +30,27 @@
 	.q-grid-edit-form-panel-actions {
 		margin-bottom: -20px;
 
-		.mat-button {
+		.md-button {
 			margin: 8px 0 8px 8px;
 			float: right;
 		}
 	}
 
-	mat-input-container {
+	md-input-container {
 		margin: 0;
 		width: 100%;
 	}
 
-	.mat-datepicker-input-container {
+	.md-datepicker-input-container {
 		width: 100%;
 
-		.mat-input {
+		.md-input {
 			max-width: none;
 		}
 	}
 
 	h4 {
-		&.mat-title {
+		&.md-title {
 			margin-top: 0;
 		}
 	}
@@ -61,7 +61,7 @@
 		margin: 0 0 0 0;
 	}
 
-	mat-icon {
+	md-icon {
 		color: $dark-secondary;
 		font-size: 16px;
 		height: 16px;

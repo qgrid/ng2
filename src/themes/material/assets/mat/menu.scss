@@ -1,0 +1,49 @@
+@import "../../assets/scroll.scss";
+
+md-menu-item .md-button {
+	text-align: left;
+	display: inline-block;
+	border-radius: 0;
+	margin: auto 0;
+	font-size: 15px;
+	text-transform: none;
+	font-weight: 400;
+	height: 100%;
+	padding-left: 16px;
+	padding-right: 16px;
+	width: 100%;
+}
+
+@at-root .q-grid-menu {
+	@include scroll();
+
+	z-index: 99;
+	max-height: none;
+	overflow: hidden;
+	padding: 0;
+	> md-card {
+		margin: 0;
+
+		.q-grid-popup-actions {
+			text-align: right;
+			margin-bottom: -5px;
+			button {
+				margin-bottom: 0;
+				display: inline-block;
+			}
+		}
+
+		md-card-header {
+			md-card-title {
+				padding: 0;
+				.md-subhead:only-child {
+					padding-top: 0
+				}
+			}
+
+			.md-icon-button {
+				margin: 8px -8px 0 0;
+			}
+		}
+	}
+}

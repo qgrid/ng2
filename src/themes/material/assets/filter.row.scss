@@ -1,0 +1,16 @@
+th {
+	&.q-grid-filter-row {
+		input[placeholder] {
+			text-overflow: ellipsis;
+		}
+		input::-moz-placeholder {
+			text-overflow: ellipsis;
+		}
+		input:-moz-placeholder {
+			text-overflow: ellipsis;
+		}
+		input:-ms-input-placeholder {
+			text-overflow: ellipsis;
+		}
+	}
+}

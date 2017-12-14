@@ -6,15 +6,15 @@
 	}
 }
 
-.q-grid-column-chooser {
-	width: 320px;
+@at-root .q-grid-column-chooser {
+	width: 100%;
 
 	ul {
 		list-style-type: none;
 		padding: 0;
 	}
 
-	mat-checkbox {
+	md-checkbox {
 		margin: 0 0 10px 0;
 	}
 
@@ -24,7 +24,7 @@
 		margin-bottom: 0;
 		margin-top: 0;
 		
-		.mat-errors-spacer {
+		.md-errors-spacer {
 			display: none;
 		}
 	}
@@ -32,9 +32,9 @@
 	.q-grid-column-chooser-list {
 		margin: 0;
 		overflow-y: auto;
-		height: 340px;
+		height: 280px;
 
-		mat-input-container {
+		md-input-container {
 			margin: 0;
 		}
 	}

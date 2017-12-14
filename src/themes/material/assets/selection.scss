@@ -1,0 +1,9 @@
+@import "variables";
+
+tr.q-grid-selected {
+	background-color: $selected;
+}
+
+td.q-grid-selected:not(.q-grid-focus) {
+	background-color: $selected;
+}

@@ -1,9 +1,9 @@
-&.q-grid-popup-panel {
+@at-root .q-grid-popup-panel {
 	height: 100%;
-	mat-card {
+	md-card {
 		margin: 0;
 
-		mat-card-content {
+		md-card-content {
 			overflow: hidden;
 		}
 
@@ -16,28 +16,28 @@
 			}
 		}
 
-		mat-card-header {
+		md-card-header {
 			width: 100%;
 			padding: 0;
 			background-color: #fff;
 
-			mat-card-title {
+			md-card-title {
 				padding: 0;
 
-				mat-card-title-text {
+				md-card-title-text {
 					margin-left: 16px;
-					.mat-subhead {
+					.md-subhead {
 						line-height: 30px;
 						vertical-align: middle;
 					}
 				}
 
-				mat-card-title-actions {
+				md-card-title-actions {
 					margin-right: 16px;
 				}
 			}
 
-			.mat-icon-button {
+			.md-icon-button {
 				padding: 0;
 				margin: 0;
 				max-height: 30px;
