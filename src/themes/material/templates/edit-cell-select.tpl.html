@@ -1,9 +1,0 @@
-<ng-template key='edit-cell-select.tpl.html' let-$cell let-$view="$view">
-	<mat-checkbox q-grid-focus="input"
-				 [indeterminate]="$view.selection.isIndeterminate($cell.row)"
-				 [checked]="$view.selection.state($cell.row)"
-				 [disabled]="!$view.selection.toggleRow.canExecute($cell.row)"
-				 (change)="$view.selection.toggleRow.execute($cell.row)"
-				 aria-label="Selection">
-	</mat-checkbox>
-</ng-template>

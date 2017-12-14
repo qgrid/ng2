@@ -1,12 +1,10 @@
 <ng-template key='body-cell-select.tpl.html' let-$cell let-$view="$view">
-	<div [ngSwitch]="$view.selection.state($cell.row)">
-		<div class="q-grid-checked" *ngSwitchCase="true">
-			<mat-icon class="q-grid-icon">check</mat-icon>
-		</div>
-		<div class="q-grid-unchecked" *ngSwitchCase="false">
-		</div>
-		<div class="q-grid-indeterminate" *ngIf="$view.selection.isIndeterminate($row)">
-			<mat-icon class="q-grid-icon">remove</mat-icon>
-		</div>
-	</div>
+	<mat-checkbox [indeterminate]="$view.selection.isIndeterminate($cell.row)"
+					[checked]="$view.selection.state($cell.row)"
+					[disabled]="!$view.selection.toggleRow.canExecute($cell.row)"
+					(change)="$view.selection.toggleRow.execute($cell.row)"
+					tabindex="-1"
+					aria-label="Selection"
+					class="q-grid-checkbox">
+	</mat-checkbox>
 </ng-template>

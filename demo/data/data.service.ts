@@ -5,6 +5,10 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 export class Human {
+	id: number;
+	contact: { email: string[] };
+	password: string;
+	comment: string;
 }
 
 @Injectable()
