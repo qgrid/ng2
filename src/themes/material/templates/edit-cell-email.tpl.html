@@ -1,26 +1,25 @@
 <ng-template key='edit-cell-email.tpl.html' let-$cell let-$view="$view">
-	<div class="q-grid-editor q-grid-email" q-grid-position="td">
-		<h2>Edit {{$cell.column.title}}</h2>
-		<div layout="column" class="q-grid-email-fields" flex>
-			<mat-form-field *ngIf="$cell.column.label !== null">
-				<input matInput
-						 type="text"
-						 [(ngModel)]="$view.edit.cell.label"
-						 (blur)="$view.edit.cell.commit.execute($cell)"
-						 placeholder="Label">
-			</mat-form-field>
-			<mat-form-field>
-				<input q-grid-focus
-						 matInput
-						 type="email"
-						 [(ngModel)]="$view.edit.cell.value"
-						 (blur)="$view.edit.cell.commit.execute($cell)"
-						 placeholder="Email">
-			</mat-form-field>
-		</div>
-		<div class="q-grid-actions">
-			<button mat-button color="primary" (click)="$view.edit.cell.commit.execute($cell, $event)">Save</button>
-			<button mat-button (click)="$view.edit.cell.cancel.execute($cell, $event)">Cancel</button>
-		</div>
-	</div>
+	<q-grid-cell-editor class="q-grid-email q-grid-editor q-grid-position"
+						(close)="$view.edit.cell.exit.execute($cell)"
+						q-grid-position="td">
+		<q-grid-tab-trap>
+			<div layout="column" class="q-grid-email-fields" flex>
+				<mat-form-field *ngIf="$cell.column.label !== null">
+					<input matInput
+							type="text"
+							[(ngModel)]="$view.edit.cell.label"
+							(blur)="$view.edit.cell.commit.execute($cell)"
+							placeholder="Label">
+				</mat-form-field>
+				<mat-form-field>
+					<input q-grid-focus
+							matInput
+							type="email"
+							[(ngModel)]="$view.edit.cell.value"
+							(blur)="$view.edit.cell.commit.execute($cell)"
+							placeholder="Email">
+				</mat-form-field>
+			</div>
+		</q-grid-tab-trap>
+	</q-grid-cell-editor>
 </ng-template>

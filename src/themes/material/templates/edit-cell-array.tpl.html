@@ -1,6 +1,7 @@
 <ng-template key='edit-cell-array.tpl.html' let-$cell let-$view="$view">
-	<div class="q-grid-editor q-grid-array" q-grid-position="td">
-		<h2 class="mat-title">Edit {{$cell.column.title}}</h2>
+	<q-grid-cell-editor class="q-grid-array q-grid-editor q-grid-position"
+						(close)="$view.edit.cell.exit.execute($cell)"
+						q-grid-position="td">
 		<div class="q-grid-array-view">
 			<mat-form-field class="demo-chip-list">
 				<mat-chip-list matPrefix #chipList>
@@ -15,15 +16,11 @@
 				<input matInput
 					   q-grid-focus
 					   [matChipInputFor]="chipList" 					
-					   placeholder="New {{$cell.column.title}}..." 
+					   placeholder="Enter {{$cell.column.title}}..." 
 					   matChipInputSeparatorKeyCodes="[13]"
 					   matChipInputAddOnBlur="true" 
 					   (matChipInputTokenEnd)="$event.value.trim() && (($view.edit.cell.value.push($event.value.trim()) || true) && $event.input.value = '')" />
 			</mat-form-field>
-		</div>
-		<div class="q-grid-actions">
-			<button mat-button color="primary" (click)="$view.edit.cell.commit.execute($cell, $event)">Save</button>
-			<button mat-button (click)="$view.edit.cell.cancel.execute($cell, $event)">Cancel</button>
 		</div>
 	</div>
 </ng-template>
