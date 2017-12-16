@@ -1,20 +1,15 @@
-import { Directive, ViewChild, Input } from '@angular/core';
+import { Directive, Input, ElementRef, NgZone } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material';
 
 @Directive({
-	selector: 'q-grid-menu'
+	selector: '[q-grid-menu]'
 })
 export class MenuDirective {
-	@Input('q-grid-menu') public trigger: MatMenuTrigger;
+	// @Input('q-grid-menu') public trigger: MatMenuTrigger;
 
-	constructor() {
-	}
-
-	ngOnInit() {
-
-	}
-
-	ngAfterViewInit() {
-		debugger;
+	constructor(element: ElementRef, zone: NgZone) {
+		zone.runOutsideAngular(() =>
+			element.nativeElement.addEventListener('click', e => e.stopPropagation())
+		);
 	}
 }

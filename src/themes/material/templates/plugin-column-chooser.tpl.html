@@ -1,5 +1,5 @@
 <ng-template key="column-chooser.tpl" let-$columnChooser>
-	<div class="q-grid-column-chooser" layout="column" flex="100" (click)="$event.stopPropagation()">
+	<div class="q-grid-column-chooser" layout="column" flex="100">
 		<div flex="none" layout="row">
 			<mat-form-field class="q-grid-column-chooser-filter" flex>
 				<input type="search"
@@ -26,7 +26,7 @@
 				</li>
 			</ul>
 			<ul class="q-grid-column-chooser-list">
-				<li *ngFor="let column of $columnChooser.columSelectors || $columnChooser.filter"
+				<li *ngFor="let column of $columnChooser.columns || $columnChooser.filter"
 					 q-grid-drag="$columnChooser.transfer(column)"
 					 q-grid-drop="$columnChooser.transfer(column)"
 					 q-grid-on-drop="$columnChooser.drop.execute($event)"
@@ -59,9 +59,7 @@
 			<button mat-button (click)="$columnChooser.cancel.execute()">
 				Cancel
 			</button>
-			<button mat-button class="mat-primary"
-						  (click)="$columnChooser.submit.execute()"
-						  disabled="!$columnChooser.submit.canExecute()">
+			<button mat-button color="primary" (click)="$columnChooser.submit.execute()">
 				Apply
 			</button>
 		</div>

@@ -38,3 +38,4 @@ export class ColumnChooserComponent extends PluginComponent {
 		this.columnChooser.dispose();
 	}
 }
+ 
