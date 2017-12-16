@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, NgZone } from '@angular/core';
+import { Component, ElementRef, OnInit, NgZone } from '@angular/core';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { NgComponent, RootService } from 'ng2-qgrid/infrastructure/component';
@@ -14,7 +14,7 @@ import { BodyCtrl } from 'ng2-qgrid/core/body/body.ctrl';
 	selector: 'tbody[q-grid-core-body]',
 	templateUrl: './body-core.component.html'
 })
-export class BodyCoreComponent extends NgComponent implements OnInit, OnDestroy {
+export class BodyCoreComponent extends NgComponent implements OnInit {
 	private element: Element = null;
 	private rangeStartCell = null;
 	private scrollContext = {
