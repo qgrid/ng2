@@ -24,7 +24,7 @@ export function sortPipe(data, context, next) {
 			}
 
 			const getValue = context.valueFactory(sortColumn);
-			const parseValue = parseFactory(sortColumn.type);
+			const parseValue = parseFactory(sortColumn.type, sortColumn.editor);
 
 			mappings.push(row => parseValue(getValue(row)));
 			const compare = sortColumn.compare;
