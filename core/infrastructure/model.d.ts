@@ -37,7 +37,7 @@ import {PipeModel} from '../pipe/pipe.model';
 export declare class Model {
 	constructor();
 
-	static register(name: string, model: {new(): {}}): Model;
+	static register(name: string, model: {new(): {}}): typeof Model;
 
 	grid(value: object, tag?: object): Model;
 	grid(): GridModel;

@@ -6,4 +6,5 @@ export declare class ColumnFilterView extends PluginView {
     constructor(model: Model, context: any);
     cancelEvent: Event;
     submitEvent: Event;
+    getValue: (row: any) => any;
 }

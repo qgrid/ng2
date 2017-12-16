@@ -10,6 +10,13 @@ import { TitleModule } from './title';
 import { ColumnFilterModule } from './column-filter';
 import { MenuModule } from './menu';
 
+import { ColumnChooserModel } from 'ng2-qgrid/plugin/column-chooser/column.chooser.model';
+import { ColumnFilterModel } from 'ng2-qgrid/plugin/column-filter/column.filter.model';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
+
+Model.register('columnChooser', ColumnChooserModel)
+	.register('columnFilter', ColumnFilterModel);
+
 @NgModule({
 	declarations: [],
 	exports: [
