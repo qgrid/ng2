@@ -6,14 +6,6 @@
 			</label>
 		</ng-template>
 	</q-grid-column-sort>
-
-	<!-- <button mat-icon-button [matMenuTriggerFor]="filterMenu">
-		<mat-icon class="q-grid-icon">filter_list</mat-icon>
-	</button>
-	<mat-menu #filterMenu="matMenu">
-		<div q-grid-stop-propagate="click">
-			<q-grid-column-filter [key]="$cell.column.key">
-			</q-grid-column-filter>
-		</div>
-	</mat-menu> -->
+	<q-grid-column-filter-trigger *ngIf="$cell.column.canFilter" [column]="$cell.column">
+	</q-grid-column-filter-trigger>
 </ng-template>
