@@ -8,6 +8,7 @@ import { DataManipulationModule } from './data-manipulation';
 import { ActionBarModule } from './action-bar';
 import { TitleModule } from './title';
 import { ColumnFilterModule } from './column-filter';
+import { MenuModule } from './menu';
 
 @NgModule({
 	declarations: [],
@@ -20,7 +21,8 @@ import { ColumnFilterModule } from './column-filter';
 		ColumnFilterModule,
 		PopupModule,
 		ProgressModule,
-		TitleModule
+		TitleModule,
+		MenuModule
 	],
 	imports: [
 	],

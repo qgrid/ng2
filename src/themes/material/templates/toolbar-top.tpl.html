@@ -7,33 +7,16 @@
 			<div class="flex-100">
 				<q-grid-action-bar-core></q-grid-action-bar-core>
 			</div>
-			<div class="flex-auto">
-				<q-grid-popup id="q-grid-column-chooser-popup">
-					<ng-template for="trigger" let-$popup>
-						<button mat-icon-button (click)="$popup.open({width: 352, height: 652})" tabindex="-1" [disabled]="$popup.isOpened()">
-							<mat-icon class="q-grid-icon">more_vert</mat-icon>
-						</button>
-					</ng-template>
-					<ng-template for="body">
-						<q-grid-column-chooser></q-grid-column-chooser>
-					</ng-template>
-					<ng-template for="foot" let-$popup>
-						<button mat-button (click)="$popup.close()">Cancel</button>
-						<button mat-button (click)="$popup.close()">Reset</button>
-						<button mat-button (click)="$popup.close()">Apply</button>
-						<!--TODO: implement beloow component-->
-						<!-- <q-grid-column-chooser-actions [popup]="$popup">
-							<ng-template for="actions" let-$columnChooser>
-								<button mat-button (click)="$columnChooser.cancel()">Cancel</button>
-								<button mat-button (click)="$columnChooser.reset()">Reset</button>
-								<button mat-button (click)="$columnChooser.submit()">Apply</button>
-							</ng-template>
-						</q-grid-column-chooser-actions> -->
-					</ng-template>
-					<ng-template for="head">
-						Column Filter
-					</ng-template>
-				</q-grid-popup>
+			<div class="flex-auto"  q-grid-menu="columnChooserTrigger">
+				<button mat-icon-button tabindex="-1" #columnChooserTrigger [matMenuTriggerFor]="menu" aria-label="Column chooser">
+					<mat-icon class="q-grid-icon">more_vert</mat-icon>
+				</button>
+				<mat-menu #menu="matMenu">
+					<q-grid-column-chooser (cancel)="columnChooserTrigger.closeMenu()" 
+										   (submit)="columnChooserTrigger.closeMenu()"
+											>
+					</q-grid-column-chooser>
+				</mat-menu>
 			</div>
 		</div>
 	</div>

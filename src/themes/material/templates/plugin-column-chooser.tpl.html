@@ -1,52 +1,52 @@
-<ng-template key="column-chooser.tpl" let-$chooser>
-	<div class="q-grid-column-chooser" layout="column" flex="100">
+<ng-template key="column-chooser.tpl" let-$columnChooser>
+	<div class="q-grid-column-chooser" layout="column" flex="100" (click)="$event.stopPropagation()">
 		<div flex="none" layout="row">
-			<div class ="mat-input-container" class="q-grid-column-chooser-filter" flex>
-				<label>Search</label>
-				<input type="text"
-						 mdInput
-						 [(ngModel)]="$chooser.filter"
-						 q-grid-focus/>
-			</div>
+			<mat-form-field class="q-grid-column-chooser-filter" flex>
+				<input type="search"
+						placeholder="Search"
+						 matInput
+						 [(ngModel)]="$columnChooser.filter"
+						 q-grid-focus />
+			</mat-form-field>
 		</div>
 		<div flex layout="column">
 			<ul>
 				<li>
-					<mat-checkbox [checked]="$chooser.stateAll()"
-								(change)="$chooser.toggleAll.execute()"
-								[indeterminate]="$chooser.isIndeterminate()">
+					<mat-checkbox [checked]="$columnChooser.stateAll()"
+								(change)="$columnChooser.toggleAll.execute()"
+								[indeterminate]="$columnChooser.isIndeterminate()">
 						Select All
 					</mat-checkbox>
 				</li>
 				<li>
-					<mat-checkbox [checked]="$chooser.stateDefault()"
-								(change)="$chooser.defaults.execute()">
+					<mat-checkbox [checked]="$columnChooser.stateDefault()"
+								(change)="$columnChooser.defaults.execute()">
 						Select Defaults
 					</mat-checkbox>
 				</li>
 			</ul>
 			<ul class="q-grid-column-chooser-list">
-				<li *ngFor="let column of $chooser.columSelectors || $chooser.filter"
-					 q-grid-drag="$chooser.transfer(column)"
-					 q-grid-drop="$chooser.transfer(column)"
-					 q-grid-on-drop="$chooser.drop.execute($event)"
-					 q-grid-can-drop="$chooser.drop.canExecute($event)"
-					 q-grid-can-drag="$chooser.drag.canExecute($event)">
+				<li *ngFor="let column of $columnChooser.columSelectors || $columnChooser.filter"
+					 q-grid-drag="$columnChooser.transfer(column)"
+					 q-grid-drop="$columnChooser.transfer(column)"
+					 q-grid-on-drop="$columnChooser.drop.execute($event)"
+					 q-grid-can-drop="$columnChooser.drop.canExecute($event)"
+					 q-grid-can-drag="$columnChooser.drag.canExecute($event)">
 
-					<mat-checkbox	*ngIf="$chooser.toggle.canExecute(column)"
-									[checked]="$chooser.state(column)"
-									(change)="$chooser.toggle.execute(column)"
+					<mat-checkbox	*ngIf="$columnChooser.toggle.canExecute(column)"
+									[checked]="$columnChooser.state(column)"
+									(change)="$columnChooser.toggle.execute(column)"
 									[aria-label]="Selection">
-						<span>{{column.title || $chooser.filter}}</span>
+						<span>{{column.title || $columnChooser.filter}}</span>
 					</mat-checkbox>
 
 
-					<div class="mat-input-container" *ngIf="$chooser.canAggregate">
+					<div class="mat-input-container" *ngIf="$columnChooser.canAggregate">
 						<mat-select aria-label="Aggregation"
 									  [(ngModel)]="column.aggregation"
-									  (change)="$chooser.toggleAggregation.execute(column)">
+									  (change)="$columnChooser.toggleAggregation.execute(column)">
 							<mat-option><em>Aggregation</em></mat-option>
-							<mat-option *ngFor="let aggregation of $chooser.aggregations"
+							<mat-option *ngFor="let aggregation of $columnChooser.aggregations"
 										  [value]="aggregation">
 								{{aggregation}}
 							</mat-option>
@@ -55,16 +55,13 @@
 				</li>
 			</ul>
 		</div>
-		<div class="q-grid-column-chooser-actions" flex="none">
-			<button mat-button (click)="$chooser.cancel.execute()">
+		<div class="q-grid-popup-actions" flex="none">
+			<button mat-button (click)="$columnChooser.cancel.execute()">
 				Cancel
 			</button>
-			<button mat-button (click)="$chooser.reset.execute()">
-				Reset
-			</button>
 			<button mat-button class="mat-primary"
-						  (click)="$chooser.submit.execute()"
-						  disabled="!$chooser.submit.canExecute()">
+						  (click)="$columnChooser.submit.execute()"
+						  disabled="!$columnChooser.submit.canExecute()">
 				Apply
 			</button>
 		</div>
