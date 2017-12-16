@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, NgZone } from '@angular/core';
 import { ViewCoreService } from '../view/view-core.service';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { TableCoreService } from '../table/table-core.service';
@@ -17,7 +17,8 @@ export class HeadCoreComponent extends NgComponent implements OnInit {
 		public $view: ViewCoreService,
 		public $table: TableCoreService,
 		private root: RootService,
-		private element: ElementRef
+		private element: ElementRef,
+		private zone: NgZone
 	) {
 		super();
 	}
@@ -26,8 +27,10 @@ export class HeadCoreComponent extends NgComponent implements OnInit {
 		const element = this.element.nativeElement;
 		const ctrl = new HeadCtrl(this.root.view, this.root.bag);
 		const listener = new EventListener(element, new EventManager(this));
-		this.using(listener.on('mousemove', e => ctrl.onMouseMove(e)));
-		this.using(listener.on('mouseleave', e => ctrl.onMouseLeave(e)));
+		this.zone.runOutsideAngular(() => {
+			this.using(listener.on('mousemove', e => ctrl.onMouseMove(e)));
+			this.using(listener.on('mouseleave', e => ctrl.onMouseLeave(e)));
+		});
 	}
 
 	columnId(index: number, item: ColumnView) {
