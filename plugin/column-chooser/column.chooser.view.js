@@ -1,9 +1,9 @@
-import * as columnService from '@grid/core/column/column.service';
-import {Command} from '@grid/core/command';
-import {Aggregation} from '@grid/core/services';
-import {isFunction, noop} from '@grid/core/utility';
+import * as columnService from '../../core/column/column.service';
+import {Command} from '../../core/command';
+import {Aggregation} from '../../core/services';
+import {isFunction, noop} from '../../core/utility';
 import {PluginView} from '../plugin.view';
-import {Event} from '@grid/core/infrastructure';
+import {Event} from '../../core/infrastructure';
 
 export class ColumnChooserView extends PluginView {
 	constructor(model, context) {
