@@ -10,14 +10,6 @@ th.q-grid-can-sort {
 	}
 }
 
-&.q-grid-box:not(.q-grid-drag) {
-	th:hover {
-		.q-grid-sort {
-			visibility: visible;
-		}
-	}
-}
-
 th {
 	.q-grid-sort {
 		overflow: hidden;

@@ -1,8 +1,10 @@
 <ng-template key="head-cell-text.tpl.html" let-$cell let-$view="$view">
 	<q-grid-column-sort *ngIf="$cell.column.canSort" [column]="$cell.column" class="q-grid-sort">
-		<label [matTooltip]="$cell.column.title">
-			{{$cell.column.title}}
-		</label>
+		<ng-template>
+			<label [matTooltip]="$cell.column.title">
+				{{$cell.column.title}}
+			</label>
+		</ng-template>
 	</q-grid-column-sort>
 
 	<!-- <button mat-icon-button [matMenuTriggerFor]="filterMenu">

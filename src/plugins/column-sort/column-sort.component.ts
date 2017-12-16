@@ -1,4 +1,4 @@
-import { Component, Input, Optional, ElementRef, OnDestroy, AfterViewInit, NgZone } from '@angular/core';
+import { Component, Input, Optional, ElementRef, OnDestroy, AfterViewInit, NgZone, TemplateRef, ContentChild } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { ColumnSortView } from 'ng2-qgrid/plugin/column-sort/column.sort.view';
@@ -9,6 +9,7 @@ import { ColumnSortView } from 'ng2-qgrid/plugin/column-sort/column.sort.view';
 })
 export class ColumnSortComponent extends PluginComponent implements AfterViewInit, OnDestroy {
 	@Input() public column;
+	@ContentChild(TemplateRef) public template: TemplateRef<any>;
 
 	constructor(root: RootService, private element: ElementRef, private zone: NgZone) {
 		super(root);
@@ -24,7 +25,7 @@ export class ColumnSortComponent extends PluginComponent implements AfterViewIni
 				element: nativeElement,
 				view: this.root.view,
 				column: this.column,
-				iconAsc,
+				iconAsc, 
 				iconDesc
 			});
 
