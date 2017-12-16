@@ -6,6 +6,7 @@ import { Table } from 'ng2-qgrid/core/dom/table';
 import { AppError } from 'ng2-qgrid/core/infrastructure';
 import { isUndefined } from 'ng2-qgrid/core/utility';
 import { Bag } from 'ng2-qgrid/core/dom/bag';
+import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 
 @Injectable()
 export class RootService {
@@ -19,6 +20,7 @@ export class RootService {
 
 	public table: Table = null;
 	public commandManager;
+	public view: ViewCoreService;
 
 	constructor(private changeDetector: ChangeDetectorRef) {  
 	}

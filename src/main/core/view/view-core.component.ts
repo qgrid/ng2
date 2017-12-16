@@ -19,7 +19,7 @@ import { ViewCtrl } from 'ng2-qgrid/core/view/view.ctrl';
 export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy, DoCheck {
 	private ctrl: ViewCtrl;
 
-	constructor( @Optional() private root: RootService,
+	constructor(private root: RootService,
 		private view: ViewCoreService,
 		private gridService: GridService) {
 		super();
@@ -29,6 +29,7 @@ export class ViewCoreComponent extends NgComponent implements OnInit, OnDestroy,
 		super.ngOnInit();
 
 		const model = this.root.model;
+		this.root.view = this.view;
 
 		this.view.init();
 

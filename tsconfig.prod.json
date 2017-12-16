@@ -35,6 +35,9 @@
 			],
 			"ng2-qgrid/*": [
 				"./*"
+			],
+			"ng2-qgrid/plugin/*": [
+				"../plugin/*"
 			]
 		}
 	},

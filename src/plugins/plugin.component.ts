@@ -12,7 +12,7 @@ export class PluginComponent extends NgComponent implements OnInit, OnChanges, O
 	private commit = noop;
 	protected models: string[] = [];
 
-	constructor( @Optional() public root: RootService) {
+	constructor( @Optional() protected root: RootService) {
 		super();
 	}
 

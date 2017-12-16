@@ -2,7 +2,6 @@ import { Component, Input, Optional, ElementRef, OnInit, OnDestroy } from '@angu
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { ColumnSortView } from 'ng2-qgrid/plugin/column-sort/column.sort.view';
-import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 
 @Component({
 	selector: 'q-grid-column-sort',
@@ -11,7 +10,7 @@ import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 export class ColumnSortComponent extends PluginComponent implements OnInit, OnDestroy {
 	@Input() public column;
 
-	constructor( @Optional() root: RootService, @Optional() private view: ViewCoreService, private element: ElementRef) {
+	constructor(root: RootService, private element: ElementRef) {
 		super(root);
 	}
 
@@ -23,7 +22,7 @@ export class ColumnSortComponent extends PluginComponent implements OnInit, OnDe
 		this.context = {
 			$implicit: new ColumnSortView(this.model, {
 				element: nativeElement,
-				view: this.view,
+				view: this.root.view,
 				column: this.column,
 				iconAsc,
 				iconDesc

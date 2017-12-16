@@ -23,7 +23,11 @@ import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
 
 @Component({
 	selector: 'q-grid',
-	providers: [RootService, TemplateCacheService, TemplateService],
+	providers: [
+		RootService, 
+		TemplateCacheService, 
+		TemplateService
+	],
 	styleUrls: ['../../assets/index.scss', '../../themes/material/index.scss'],
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None
