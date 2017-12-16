@@ -1,4 +1,4 @@
-import {DisposableView} from '@grid/core/view';
+import {DisposableView} from '../core/view';
 
 export class PluginView extends DisposableView {
 	constructor(model) {

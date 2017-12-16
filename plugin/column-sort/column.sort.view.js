@@ -1,7 +1,7 @@
 import {PluginView} from '../plugin.view';
-import {EventListener, EventManager} from '@grid/core/infrastructure';
-import {GRID_PREFIX} from '@grid/core/definition';
-import {Command} from '@grid/core/command/command';
+import {EventListener, EventManager} from '../../core/infrastructure';
+import {GRID_PREFIX} from '../../core/definition';
+import {Command} from '../../core/command/command';
 
 export class ColumnSortView extends PluginView {
 	constructor(model, context) {

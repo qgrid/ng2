@@ -1,17 +1,10 @@
 <ng-template key="head-cell-text.tpl.html" let-$cell let-$view="$view">
-	<div (click)="$view.sort.toggle.execute($cell.column)" (mouseover)="$view.sort.hover = true" (mouseleave)="$view.sort.hover = false">
-		<div class="q-grid-sort" [ngClass]="{'q-grid-active': $view.sort.order($cell.column) >= 0}" *ngIf="$cell.column.canSort"
-		 [ngSwitch]="$view.sort.direction($cell.column)">
-			<mat-icon class="q-grid-icon q-grid-asc" *ngSwitchCase="'asc'">arrow_downward</mat-icon>
-			<mat-icon class="q-grid-icon q-grid-desc" *ngSwitchCase="'desc'">arrow_upward</mat-icon>
-			<ng-container *ngSwitchDefault>
-				<mat-icon class="q-grid-icon" *ngIf="$view.sort.hover">arrow_downward</mat-icon>
-			</ng-container>
-		</div>
+	<q-grid-column-sort *ngIf="$cell.column.canSort" [column]="$cell.column" class="q-grid-sort">
 		<label [matTooltip]="$cell.column.title">
 			{{$cell.column.title}}
 		</label>
-	</div>
+	</q-grid-column-sort>
+
 	<!-- <button mat-icon-button [matMenuTriggerFor]="filterMenu">
 		<mat-icon class="q-grid-icon">filter_list</mat-icon>
 	</button>

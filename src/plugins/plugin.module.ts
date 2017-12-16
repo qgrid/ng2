@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { ColumnSortModule } from './column-sort';
 import { PagerModule } from './pagination';
 import { ProgressModule } from './progress';
 import { ColumnChooserModule } from './colum-chooser';
@@ -15,10 +16,11 @@ import { ColumnFilterModule } from './column-filter';
 		DataManipulationModule,
 		PagerModule,
 		ColumnChooserModule,
+		ColumnSortModule,
+		ColumnFilterModule,
 		PopupModule,
 		ProgressModule,
-		TitleModule,
-		ColumnFilterModule
+		TitleModule
 	],
 	imports: [
 	],

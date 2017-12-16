@@ -38,6 +38,7 @@ const templates = [
 	require('./toolbar-left.tpl.html'),
 	require('./toolbar-right.tpl.html'),
 
+	require('./plugin-column-sort.tpl.html'),
 	require('./plugin-title.tpl.html'),
 	require('./plugin-pager.tpl.html'),
 	require('./plugin-progress.tpl.html'),
