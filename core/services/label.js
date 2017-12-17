@@ -21,7 +21,7 @@ export function getFactory(column) {
 				? compile(column.labelPath)
 				: row => getValue(row, column);
 
-	return row => get(row);
+	return get;
 }
 
 export function set(row, column, label) {

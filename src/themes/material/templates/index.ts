@@ -27,7 +27,6 @@ const templates = [
 	require('./edit-cell-bool.tpl.html'),
 	require('./edit-cell-password.tpl.html'),
 	require('./edit-cell-textarea.tpl.html'),
-	require('./edit-cell-select.tpl.html'),
 	require('./edit-cell-row-options.tpl.html'),
 	require('./edit-cell-url.tpl.html'),
 
@@ -39,6 +38,7 @@ const templates = [
 	require('./toolbar-left.tpl.html'),
 	require('./toolbar-right.tpl.html'),
 
+	require('./plugin-column-sort.tpl.html'),
 	require('./plugin-title.tpl.html'),
 	require('./plugin-pager.tpl.html'),
 	require('./plugin-progress.tpl.html'),
@@ -46,7 +46,8 @@ const templates = [
 	require('./plugin-action-bar-core.tpl.html'),
 	require('./plugin-action-core.tpl.html'),
 	require('./plugin-popup-panel.tpl.html'),
-	require('./plugin-column-filter.tpl.html')
+	require('./plugin-column-filter.tpl.html'),
+	require('./plugin-column-chooser.tpl.html')
 ];
 
 export const template = templates.join('\n\n');

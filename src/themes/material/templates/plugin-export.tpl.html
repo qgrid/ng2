@@ -2,7 +2,7 @@
 	<div class="q-grid-export">
 		<button mat-button *ngIf="$export[$export.type] && $export[$export.type].canExecute()"
 				  (click)="$export[$export.type].execute()">
-			<mat-icon>file_download</mat-icon>
+			<mat-icon class="q-grid-icon">file_download</mat-icon>
 			Export to {{$export.type}}
 		</button>
 	</div>

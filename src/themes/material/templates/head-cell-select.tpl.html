@@ -1,8 +1,8 @@
 <ng-template key="head-cell-select.tpl.html" let-$view="$view">
 	<div ngSwitch="$view.selection.mode">
 		<div *ngSwitchCase="'single'" ngSwitch="!!$view.selection.items.length">
-			<mat-icon *ngSwitchCase="true">check</mat-icon>
-			<mat-icon *ngSwitchDefault>remove</mat-icon>
+			<mat-icon class="q-grid-icon" *ngSwitchCase="true">check</mat-icon>
+			<mat-icon class="q-grid-icon" *ngSwitchDefault>remove</mat-icon>
 		</div>
 		<div *ngSwitchDefault>
 			<mat-checkbox [indeterminate]="$view.selection.isIndeterminate()"
@@ -10,7 +10,8 @@
 						 [disabled]="!$view.selection.toggleRow.canExecute()"
 						 (change)="$view.selection.toggleRow.execute()"
 						 tabindex="-1"
-						 aria-label="Selection">
+						 aria-label="Select all"
+						 class="q-grid-checkbox">
 			</mat-checkbox>
 		</div>
 	</div>

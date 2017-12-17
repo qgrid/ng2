@@ -1,5 +1,5 @@
 import {PluginView} from '../plugin.view';
-import {Event} from '@grid/core/infrastructure';
+import {Event} from '../../core/infrastructure';
 
 export class CellEditorView extends PluginView {
 	constructor(model) {

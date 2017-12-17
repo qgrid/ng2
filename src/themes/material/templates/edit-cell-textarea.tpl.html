@@ -1,13 +1,17 @@
 <ng-template key='edit-cell-textarea.tpl.html' let-$cell let-$view="$view">
-	<div class="q-grid-editor" q-grid-position="td">
-		<mat-form-field>
-			<textarea matInput
-					matTextareaAutosize
-					rows="10"
-					q-grid-focus
-					(blur)="$view.edit.cell.commit.execute($cell)"
-					[(ngModel)]="$view.edit.cell.value">
-			</textarea>
-		</mat-form-field>
-	</div>
+	<q-grid-cell-editor class="q-grid-text-area q-grid-editor q-grid-position" 
+						(close)="$view.edit.cell.exit.execute($cell)" 
+						q-grid-position="td">
+		<ng-template>
+			<mat-form-field>
+				<textarea matInput
+						matTextareaAutosize
+						rows="10"
+						q-grid-focus
+						(blur)="$view.edit.cell.commit.execute($cell)"
+						[(ngModel)]="$view.edit.cell.value">
+				</textarea>
+			</mat-form-field>
+		</ng-template>
+	</q-grid-cell-editor>
 </ng-template>

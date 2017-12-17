@@ -1,0 +1,11 @@
+.q-grid-editor {
+	&.q-grid-autocomplete {
+		md-autocomplete {
+			min-width: 30px;
+			background-color: transparent;
+		}
+		md-autocomplete-wrap {
+			box-shadow: none;
+		}
+	}
+}

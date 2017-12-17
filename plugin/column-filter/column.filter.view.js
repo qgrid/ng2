@@ -1,9 +1,9 @@
 import {PluginView} from '../plugin.view';
-import {Command} from '@grid/core/command';
-import * as columnService from '@grid/core/column/column.service';
-import {getFactory as labelFactory} from '@grid/core/services/label';
-import {clone} from '@grid/core/utility';
-import {Event} from '@grid/core/infrastructure';
+import {Command} from '../../core/command';
+import * as columnService from '../../core/column/column.service';
+import {getFactory as labelFactory} from '../../core/services/label';
+import {clone} from '../../core/utility';
+import {Event} from '../../core/infrastructure';
 
 export class ColumnFilterView extends PluginView {
 	constructor(model, context) {

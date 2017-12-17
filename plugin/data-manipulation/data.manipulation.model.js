@@ -1,5 +1,5 @@
-import {Resource} from '@grid/core/resource';
-import {identity, cloneDeep, isArray, isObject, isDate, isBoolean, isNumber, isFunction} from '@grid/core/utility';
+import {Resource} from '../../core/resource';
+import {identity, cloneDeep, isArray, isObject, isDate, isBoolean, isNumber, isFunction} from '../../core/utility';
 
 export class DataManipulationModel {
 	constructor() {

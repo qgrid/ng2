@@ -1,7 +1,7 @@
 @import "variables";
 
 &.q-grid-box:not(.q-grid-drag) {
-	th:hover {
+	th.q-grid-highlighted {
 		.q-grid-column-filter {
 			visibility: visible;
 		}
@@ -13,18 +13,15 @@
 	position: absolute;
 	right: 0;
 	top: calc(50% - 8px);
-
 	&.q-grid-active {
 		visibility: visible;
-		mat-icon {
+		.q-grid-icon {
 			color: $dark;
 		}
-
 		& + label {
 			color: $dark;
 		}
 	}
-
 	button {
 		font-size: 12px;
 		width: 16px;
@@ -37,8 +34,7 @@
 		padding: 0;
 		left: 0;
 		margin: 0 2px;
-
-		mat-icon {
+		.q-grid-icon {
 			color: $dark-secondary;
 			font-size: 16px;
 			height: 16px;
@@ -47,23 +43,12 @@
 			min-width: 16px;
 		}
 	}
-
 }
 
-.q-grid-column-filter-panel {
-	width: 320px;
+@at-root .q-grid-column-filter-panel {
 	ul {
 		list-style-type: none;
 		padding: 0;
-	}
-
-	mat-input-container {
-		margin: 0;
-		width: 100%;
-	}
-
-	mat-checkbox {
-		margin: 0 0 10px 0;
 	}
 
 	.q-grid-column-filter-filter {
@@ -71,15 +56,14 @@
 		margin-right: 4px;
 		margin-bottom: 0;
 		margin-top: 0;
-
-		.mat-errors-spacer {
+		.md-errors-spacer {
 			display: none;
 		}
 	}
 
 	.q-grid-column-filter-list {
 		overflow-y: auto;
-		height: 376px;
+		height: 280px;
 		ul {
 			margin: 0;
 		}

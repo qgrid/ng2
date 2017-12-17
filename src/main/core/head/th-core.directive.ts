@@ -14,6 +14,9 @@ import { TableCoreService } from '../table/table-core.service';
 import { CellService } from '../cell/cell.service';
 import { ViewCoreService } from '../view/view-core.service';
 import { TrCoreDirective } from '../row/tr-core.directive';
+import { TdCtrl } from 'ng2-qgrid/core/cell/td.ctrl';
+
+const classify = TdCtrl.classify;
 
 @Directive({
 	selector: '[q-grid-core-th]'
@@ -40,11 +43,7 @@ export class ThCoreDirective implements OnInit, OnDestroy {
 		const element = this.element;
 
 		this.root.bag.head.addCell(this);
-		element.classList.add(`${GRID_PREFIX}-${column.key}`);
-		element.classList.add(`${GRID_PREFIX}-${column.type}`);
-		if (column.editor) {
-			element.classList.add(`${GRID_PREFIX}-${column.editor}`);
-		}
+		classify(element, column);
 
 		const link = this.cellService.build('head', this.column, 'view');
 		link(this.viewContainerRef, this);

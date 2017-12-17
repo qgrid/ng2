@@ -15,11 +15,11 @@ export declare class Shortcut {
 
 	static stringify(keyCode: IKeyCode): string;
 
-	static translate(e: Event): string;
+	static translate(e: any): string;
 
 	factory(commandManager: CommandManager): object;
 
-	keyDown(e: Event): boolean;
+	keyDown(e: any, source?: string): boolean;
 
 	register(commandManager: CommandManager, commands: any[]);
 }

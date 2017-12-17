@@ -1,4 +1,5 @@
-td.q-grid-group, td.q-grid-row-expand {
+td.q-grid-group,
+td.q-grid-row-expand {
 	button {
 		width: 24px;
 		height: 24px;
@@ -7,16 +8,14 @@ td.q-grid-group, td.q-grid-row-expand {
 		margin: -1px 0 0 -6px;
 		padding: 0;
 
-		mat-icon {
+		.q-grid-icon {
 			opacity: 0.54;
 		}
 	}
-
 	.q-grid-group-label {
 		margin-left: -6px;
 		vertical-align: middle;
 	}
-
 	.q-grid-group-count {
 		vertical-align: middle;
 		color: rgba(0, 0, 0, 0.54);
@@ -26,3 +25,4 @@ td.q-grid-group, td.q-grid-row-expand {
 .q-grid-arrow-right {
 	transform: rotate(90deg);
 }
+

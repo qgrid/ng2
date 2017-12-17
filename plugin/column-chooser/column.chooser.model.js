@@ -1,4 +1,4 @@
-import {Resource} from '@grid/core/resource';
+import {Resource} from '../../core/resource';
 
 export class ColumnChooserModel {
 	constructor() {

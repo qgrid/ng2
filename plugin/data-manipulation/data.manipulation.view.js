@@ -1,10 +1,10 @@
-import {Command} from '@grid/core/command';
-import {Action} from '@grid/core/action';
-import {AppError, Composite} from '@grid/core/infrastructure';
-import {isUndefined} from '@grid/core/utility';
-import * as columnService from '@grid/core/column/column.service';
-import {set as setValue} from '@grid/core/services/value';
-import {set as setLabel} from '@grid/core/services/label';
+import {Command} from '../../core/command';
+import {Action} from '../../core/action';
+import {AppError, Composite} from '../../core/infrastructure';
+import {isUndefined} from '../../core/utility';
+import * as columnService from '../../core/column/column.service';
+import {set as setValue} from '../../core/services/value';
+import {set as setLabel} from '../../core/services/label';
 import {PluginView} from '../plugin.view';
 
 export class DataManipulationView extends PluginView {

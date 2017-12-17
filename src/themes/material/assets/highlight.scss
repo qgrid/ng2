@@ -1,33 +1,8 @@
 &.q-grid-box:not(.q-grid-drag) {
-	tbody {
-		td, tr {
-			&.q-grid-highlighted {
-				background-color: #eee;
-			}
-		}
-
-		td {
-			&.q-grid-focus {
-				outline: 2px solid rgba(63, 81, 181, 0.25);
-				outline-offset: -2px;
-			}
-
-			&.q-grid-edit {
-				outline: 2px solid rgba(63, 81, 181, 0.5) !important;
-				outline-offset: -2px;
-			}
-		}
-	}
-}
-
-&.q-grid-box:not(.q-grid-active) {
-	tbody {
-		td {
-			border-top-color: rgba(0, 0, 0, 0.06);
-
-			&.q-grid-focus {
-				outline-color: rgba(63, 81, 181, 0.05);
-			}
+	td,
+	tr {
+		&.q-grid-highlighted {
+			background-color: #eee;
 		}
 	}
 }

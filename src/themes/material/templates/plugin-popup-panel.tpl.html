@@ -10,13 +10,13 @@
 				</mat-card-title>
 				<div class="q-grid-title-actions flex-auto" layout="row" layout-align="end center">
 					<button mat-icon-button *ngIf="$popup.settings.collapsible && !$popup.state.expanded" aria-label="Expand" mat-tooltip="Expand">
-						<mat-icon aria-hidden="true">&#xE5D0;</mat-icon>
+						<mat-icon class="q-grid-icon" aria-hidden="true">&#xE5D0;</mat-icon>
 					</button>
 					<button mat-icon-button *ngIf="$popup.settings.collapsible && $popup.state.expanded" aria-label="Collapse" mat-tooltip="Collapse">
-						<mat-icon aria-hidden="true">&#xE5D1;</mat-icon>
+						<mat-icon class="q-grid-icon" aria-hidden="true">&#xE5D1;</mat-icon>
 					</button>
 					<button mat-icon-button class="mat-action-close" aria-label="Close" (click)="$popup.close()" mat-tooltip="Close">
-						<mat-icon aria-hidden="true">&#xE5CD;</mat-icon>
+						<mat-icon class="q-grid-icon" aria-hidden="true">&#xE5CD;</mat-icon>
 					</button>
 				</div>
 			</mat-card-header>

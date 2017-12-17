@@ -1,42 +1,21 @@
 <mat-card>
 	<q-grid q-grid-autofocus
 			  [rows]="rows"
+			  [columns]="columns"
 			  [model]="gridModel"
 			  selectionUnit="row"
 			  selectionMode="multiple"
 			  editMode="cell"
 			  header="NG2 QGRID SANDBOX">
 
-			<q-grid-columns generation="deep">
+			<q-grid-columns>
 				<q-grid-column type="row-indicator" key="rowIndicator"></q-grid-column>
-				<q-grid-column type="number" aggregation="sum"></q-grid-column>
-				<q-grid-column type="date" format="yMd"></q-grid-column>
-				<q-grid-column key="name.last" index="10">
-					<ng-template for="body" let-$cell>
-						<span style="color: blue">{{$cell.value}}</span>
-					</ng-template>
-				</q-grid-column>
+				<q-grid-column type="row-number" key="rowNumber"></q-grid-column>
 				<q-grid-column type="row-options" key="rowOptions"></q-grid-column>
 			</q-grid-columns>
 
 		<q-grid-data-manipulation>
 		</q-grid-data-manipulation>
-
-		<q-grid-row unit="details" mode="single">
-			<ng-template for="details" let-$cell let-$view="$view">
-				<div>
-					<ul style="list-style-type: none; padding-left: 0; ">
-						<li *ngFor="let column of $view.body.render.columns($cell.row.item, null)"
-							 style="list-style-type: none; padding-left: 0;">
-							<ng-container *ngIf="column.model.class === 'data'">
-								<span style="font-weight: bold;">{{column.model.title}}</span>:
-								<span style="font-style: italic;">{{$view.body.value($cell.row.item, column.model)}}</span>
-							</ng-container>
-						<li>
-					</ul>
-				</div>
-			</ng-template>
-		</q-grid-row>
 
 	</q-grid>
 </mat-card>

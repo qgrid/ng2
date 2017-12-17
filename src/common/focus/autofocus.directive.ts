@@ -1,42 +1,23 @@
-import { Directive, ElementRef, Input, DoCheck } from '@angular/core';
+import { Directive, OnInit, OnDestroy } from '@angular/core';
 import { RootService } from 'ng2-qgrid/infrastructure/component';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Table } from 'ng2-qgrid/core/dom/table';
+import { AutofocusView } from 'ng2-qgrid/plugin/autofocus/autofocus.view';
 
 @Directive({
 	selector: '[q-grid-autofocus]'
 })
-export class AutoFocusDirective implements DoCheck {
-	@Input('q-grid-autofocus') delay: number = 100;
-	private isHandled = false;
+export class AutoFocusDirective implements OnInit, OnDestroy {
+	private autofocus: AutofocusView;
+	
+	constructor(private root: RootService) { }
 
-	constructor(private root: RootService, private element: ElementRef) { }
+	ngOnInit() {
+		this.autofocus = new AutofocusView(this.model, this.table, this.markup);
+	}
 
-	ngDoCheck() {
-		if (this.isHandled) {
-			return;
-		}
-
-		if (this.table.body.rowCount(0)) {
-			const key = Object.keys(this.markup).find(p =>
-				p.startsWith('body')
-			);
-			const element = this.markup[key];
-			if (element) {
-				this.element.nativeElement.focus();
-			}
-
-			const focusIndex = this.table.data
-				.columns()
-				.findIndex(c => c.canFocus);
-
-			this.model.focus({
-				rowIndex: 0,
-				columnIndex: focusIndex
-			});
-
-			this.isHandled = true;
-		}
+	ngOnDestroy() {
+		this.autofocus.dispose();
 	}
 
 	get markup() {

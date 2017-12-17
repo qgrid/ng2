@@ -1,18 +1,17 @@
 import {PluginView} from '../plugin.view';
-import {GRID_PREFIX} from '@grid/core/definition';
-import {max} from '@grid/core/utility';
-import {EventListener, EventManager} from '@grid/core/infrastructure';
-import {jobLine} from '@grid/core/services';
+import {GRID_PREFIX} from '../../core/definition';
+import {max} from '../../core/utility';
+import {EventListener, EventManager} from '../../core/infrastructure';
+import {jobLine} from '../../core/services';
 
 export class PositionView extends PluginView {
 	constructor(context) {
 		super();
 
-		this.window = context.window;
 		this.element = context.element;
 		this.targetName = context.targetName;
 
-		const listener = new EventListener(this.window, new EventManager(this));
+		const listener = new EventListener(window, new EventManager(this));
 		const job = jobLine(400);
 
 		this.using(listener.on('resize', () => {
@@ -126,7 +125,7 @@ export class PositionView extends PluginView {
 	}
 
 	windowRect() {
-		const {innerHeight: h, innerWidth: w} = this.window;
+		const {innerHeight: h, innerWidth: w} = window;
 		return {
 			top: 0,
 			left: 0,

@@ -3,8 +3,8 @@ import { Log } from '../infrastructure';
 import { View } from '../view/view';
 
 export class ViewCtrl extends View {
-	constructor(view, gridService) {
-		super(view.model);
+	constructor(model, view, gridService) {
+		super(model);
 
 		this.view = view;
 		this.watch(gridService);
