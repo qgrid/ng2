@@ -3,7 +3,7 @@ import {Event, EventListener, EventManager} from '../../core/infrastructure';
 
 export class BackdropView extends PluginView {
 	constructor(context) {
-		super(...arguments);
+		super(context);
 		
 		this.closeEvent = new Event();
 
