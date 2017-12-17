@@ -2,15 +2,17 @@
 	<q-grid-cell-editor class="q-grid-url q-grid-editor q-grid-position"
 						(close)="$view.edit.cell.exit.execute($cell)"
 						q-grid-position="td">
-		<q-grid-tab-trap>
-			<div layout="column" class="q-grid-url-fields" flex>
-				<mat-form-field *ngIf="$cell.column.label !== null">
-					<input mdInput type="text" [(ngModel)]="$view.edit.cell.label" placeholder="Label" />
-				</mat-form-field>
-				<mat-form-field>
-					<input mdInput type="url" q-grid-focus [(ngModel)]="$view.edit.cell.value" placeholder="Url" />
-				</mat-form-field>
-			</div>
-		</q-grid-tab-trap>
+		<ng-template>
+			<q-grid-tab-trap>
+				<div layout="column" class="q-grid-url-fields" flex>
+					<mat-form-field *ngIf="$cell.column.label !== null">
+						<input mdInput type="text" [(ngModel)]="$view.edit.cell.label" placeholder="Label" />
+					</mat-form-field>
+					<mat-form-field>
+						<input mdInput type="url" q-grid-focus [(ngModel)]="$view.edit.cell.value" placeholder="Url" />
+					</mat-form-field>
+				</div>
+			</q-grid-tab-trap>
+		</ng-template>
 	</q-grid-cell-editor>
 </ng-template>

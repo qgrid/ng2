@@ -2,13 +2,15 @@
 	<q-grid-cell-editor class="q-grid-number q-grid-editor q-grid-position q-grid-text"
 						(close)="$view.edit.cell.exit.execute($cell)"
 						q-grid-position="td">
-		<mat-form-field>
-			<input matInput
-					 type="number"
-					 #input
-					 q-grid-focus
-					 [(ngModel)]="$view.edit.cell.value"
-					 (blur)="$view.edit.cell.commit.execute($cell)">
-		</mat-form-field>
+		<ng-template>
+			<mat-form-field>
+				<input matInput
+						type="number"
+						#input
+						q-grid-focus
+						[(ngModel)]="$view.edit.cell.value"
+						(blur)="$view.edit.cell.commit.execute($cell)">
+			</mat-form-field>
+		</ng-template>
 	</q-grid-cell-editor>
 </ng-template>
