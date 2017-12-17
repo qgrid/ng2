@@ -6,6 +6,7 @@ import {
 	Output,
 	EventEmitter,
 	OnDestroy,
+	ElementRef,
 } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
@@ -20,11 +21,16 @@ export class BackdropComponent extends PluginComponent implements OnDestroy {
 	@Output('close') closeEvent = new EventEmitter<any>();
 	private backdrop: BackdropView;
 
-	constructor(root: RootService) {
+	constructor(root: RootService, element: ElementRef) {
 		super(root);
 
-		const backdrop = new BackdropView(this);
-		this.using(backdrop.closeEvent.on(() => this.closeEvent.emit());
+		const context = {
+			element: element.nativeElement,
+			onKeyDown: () => {}
+		};
+
+		this.backdrop = new BackdropView(context);
+		this.using(this.backdrop.closeEvent.on(() => this.closeEvent.emit()));
 	}
 
 	ngOnDestroy() {

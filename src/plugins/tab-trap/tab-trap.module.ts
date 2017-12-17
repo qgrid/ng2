@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
-import { TabTrapComponent } from './cell-editor.component';
+import { TabTrapComponent } from './tab-trap.component';
 import { TemplateModule } from 'ng2-qgrid/template/template.module';
+import { TabtrapInDirective } from './tab-trap-in.directive';
 
 @NgModule({
 	declarations: [
-		TabTrapComponent
+		TabTrapComponent,
+		TabtrapInDirective
 	],
 	exports: [
-		TabTrapComponent
+		TabTrapComponent,
+		TabtrapInDirective
 	],
 	imports: [
 		TemplateModule

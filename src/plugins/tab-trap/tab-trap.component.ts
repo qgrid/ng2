@@ -46,9 +46,7 @@ export class TabTrapComponent extends PluginComponent {
 			} else {
 				this.exit(target);
 			}
-
-		}
-		finally {
+		} finally {
 			this.isActivating = false;
 		}
 	}

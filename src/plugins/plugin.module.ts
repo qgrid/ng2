@@ -11,6 +11,7 @@ import { ColumnFilterModule } from './column-filter';
 import { MenuModule } from './menu';
 import { CellEditorModule } from './cell-editor';
 import { TabTrapModule } from './tab-trap';
+import { BackdropModule } from './backdrop';
 
 import { ColumnChooserModel } from 'ng2-qgrid/plugin/column-chooser/column.chooser.model';
 import { ColumnFilterModel } from 'ng2-qgrid/plugin/column-filter/column.filter.model';
@@ -33,7 +34,8 @@ Model.register('columnChooser', ColumnChooserModel)
 		TitleModule,
 		MenuModule,
 		CellEditorModule,
-		TabTrapModule
+		TabTrapModule,
+		BackdropModule
 	],
 	imports: [
 	],

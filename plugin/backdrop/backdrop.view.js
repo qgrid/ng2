@@ -1,5 +1,5 @@
 import {PluginView} from '../plugin.view';
-import {Event, EventListener, EventManager} from '../../infrastructure';
+import {Event, EventListener, EventManager} from '../../core/infrastructure';
 
 export class BackdropView extends PluginView {
 	constructor(context) {
