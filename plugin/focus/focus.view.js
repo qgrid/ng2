@@ -1,6 +1,6 @@
 import {PluginView} from '../plugin.view';
-import {jobLine} from '@grid/core/services';
-import {AppError} from '@grid/core/infrastructure';
+import {jobLine} from '../../core/services';
+import {AppError} from '../../core/infrastructure';
 
 export class FocusView extends PluginView {
 	constructor(context) {

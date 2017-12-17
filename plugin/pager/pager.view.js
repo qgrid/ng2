@@ -1,4 +1,4 @@
-import {Command} from '@grid/core/command';
+import {Command} from '../../core/command';
 import {PluginView} from '../plugin.view';
 
 export class PagerView extends PluginView {
