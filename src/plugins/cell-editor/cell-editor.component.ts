@@ -1,6 +1,10 @@
 import {
-	Component, 
-	Optional, 
+	Component,
+	Optional,
+	TemplateRef,
+	ContentChild,
+	EventEmitter,
+	Output,
 } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
@@ -10,9 +14,14 @@ import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 	templateUrl: './cell-editor.component.html'
 })
 export class CellEditorComponent extends PluginComponent {
+	@ContentChild(TemplateRef) public template: TemplateRef<any>;
+	@Output('close') closeEvent = new EventEmitter<any>();
 
 	constructor(root: RootService) {
 		super(root);
 	}
 
+	close() {
+		this.closeEvent.emit();
+	}
 }
