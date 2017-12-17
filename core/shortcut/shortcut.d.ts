@@ -19,7 +19,7 @@ export declare class Shortcut {
 
 	factory(commandManager: CommandManager): object;
 
-	keyDown(e: Event): boolean;
+	keyDown(e: KeyboardEvent, source?: string): boolean;
 
 	register(commandManager: CommandManager, commands: any[]);
 }
