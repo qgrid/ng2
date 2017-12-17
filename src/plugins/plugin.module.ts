@@ -9,6 +9,8 @@ import { ActionBarModule } from './action-bar';
 import { TitleModule } from './title';
 import { ColumnFilterModule } from './column-filter';
 import { MenuModule } from './menu';
+import { CellEditorModule } from './cell-editor';
+import { TabTrapModule } from './tab-trap';
 
 import { ColumnChooserModel } from 'ng2-qgrid/plugin/column-chooser/column.chooser.model';
 import { ColumnFilterModel } from 'ng2-qgrid/plugin/column-filter/column.filter.model';
@@ -29,7 +31,9 @@ Model.register('columnChooser', ColumnChooserModel)
 		PopupModule,
 		ProgressModule,
 		TitleModule,
-		MenuModule
+		MenuModule,
+		CellEditorModule,
+		TabTrapModule
 	],
 	imports: [
 	],
