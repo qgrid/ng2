@@ -7,7 +7,7 @@ import { PluginModule } from 'ng2-qgrid/plugins';
 import { TemplateModule } from 'ng2-qgrid/template';
 import { CommonModule } from 'ng2-qgrid/common';
 import {
-	MatCardModule, 
+	MatCardModule,
 	MatIconModule,
 	MatButtonModule,
 	MatCheckboxModule,
@@ -21,6 +21,7 @@ import {
 	MatMenuModule,
 	MatDialogModule
 } from '@angular/material';
+import { PipeModule } from 'ng2-qgrid/pipes';
 
 @NgModule({
 	declarations: [
@@ -48,7 +49,8 @@ import {
 		MatChipsModule,
 		MatDialogModule,
 		MatMenuModule,
-		MatCardModule		
+		MatCardModule,
+		PipeModule
 	],
 	providers: [
 		ThemeService

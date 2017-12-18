@@ -110,6 +110,22 @@ function orderBy(data, selectors, compares) {
 	return result;
 }
 
+function htmlEncode(s) {
+	return String(s)
+		.replace(/&/g, '&amp;')
+		.replace(/"/g, '&quot;')
+		.replace(/'/g, '&#39;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;');
+}
+
+function escapeRegexp(text) {
+	if (!text)
+		return text;
+
+	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
+
 export {
 	isObject,
 	isFunction,
@@ -142,5 +158,7 @@ export {
 	zip,
 	takeWhile,
 	dropWhile,
-	groupBy
+	groupBy,
+	htmlEncode,
+	escapeRegexp
 };
