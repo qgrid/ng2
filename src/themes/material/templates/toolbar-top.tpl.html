@@ -11,8 +11,8 @@
 				<button mat-icon-button tabindex="-1" #trigger="matMenuTrigger" [matMenuTriggerFor]="menu" aria-label="Column chooser">
 					<mat-icon class="q-grid-icon">more_vert</mat-icon>
 				</button>
-				<mat-menu #menu="matMenu">
-					<q-grid-column-chooser q-grid-menu
+				<mat-menu #menu="matMenu" class="q-grid-column-chooser q-grid-menu">
+					<q-grid-column-chooser q-grid-menu										
 											*ngIf="trigger.menuOpen"
 					 					   (cancel)="trigger.closeMenu()" 
 										   (submit)="trigger.closeMenu()">
