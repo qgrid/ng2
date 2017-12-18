@@ -1,17 +1,18 @@
 import {
-	Component, 
-	Input, 
-	Optional, 
+	Component,
+	Input,
+	Optional,
 	ElementRef,
-	OnDestroy, 
-	AfterViewInit, 
-	NgZone, 
-	TemplateRef, 
+	OnDestroy,
+	AfterViewInit,
+	NgZone,
+	TemplateRef,
 	ContentChild
 } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { ColumnSortView } from 'ng2-qgrid/plugin/column-sort/column.sort.view';
+import { EventListener, EventManager } from 'ng2-qgrid/core/infrastructure';
 
 @Component({
 	selector: 'q-grid-column-sort',
@@ -30,19 +31,25 @@ export class ColumnSortComponent extends PluginComponent implements AfterViewIni
 		const iconAsc = nativeElement.querySelector('.q-grid-asc');
 		const iconDesc = nativeElement.querySelector('.q-grid-desc');
 
-		this.zone.runOutsideAngular(() => {
-			const ctrl = new ColumnSortView(this.model, {
-				element: nativeElement,
-				view: this.root.view,
-				column: this.column,
-				iconAsc,
-				iconDesc
-			});
-
-			this.context = {
-				$implicit: ctrl
-			};
+		const ctrl = new ColumnSortView(this.model, {
+			element: nativeElement,
+			view: this.root.view,
+			column: this.column,
+			iconAsc,
+			iconDesc
 		});
+
+		const listener = new EventListener(nativeElement, new EventManager(this));
+		this.using(listener.on('click', () => ctrl.onClick()));
+
+		this.zone.runOutsideAngular(() => {
+			this.using(listener.on('mouseover', () => ctrl.onMouseOver()));
+			this.using(listener.on('mouseleave', () => ctrl.onMouseLeave()));
+		});
+
+		this.context = {
+			$implicit: ctrl
+		};
 	}
 
 	ngOnDestroy() {

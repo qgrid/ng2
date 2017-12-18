@@ -1,7 +1,16 @@
-import {PluginView} from '../plugin.view';
-import {EventListener, EventManager} from '../../core/infrastructure';
-import {GRID_PREFIX} from '../../core/definition';
-import {Command} from '../../core/command/command';
+import {
+	PluginView
+} from '../plugin.view';
+import {
+	EventListener,
+	EventManager
+} from '../../core/infrastructure';
+import {
+	GRID_PREFIX
+} from '../../core/definition';
+import {
+	Command
+} from '../../core/command/command';
 
 export class ColumnSortView extends PluginView {
 	constructor(model, context) {
@@ -12,20 +21,21 @@ export class ColumnSortView extends PluginView {
 		this.asc = context.iconAsc.style;
 
 		const element = context.element;
-		const view = context.view;
+		this.view = context.view;
 
-		const display = this.desc.display;
+		this.display = this.desc.display;
 		this.clear();
 
 		this.using(model.sortChanged.watch(e => {
 			if (e.hasChanges('by')) {
 				this.clear();
 
+				const view = this.view;
+				const display = this.display;
 				if (view.sort.order(this.column) >= 0) {
 					this[view.sort.direction(this.column)].display = display;
 					element.classList.add(`${GRID_PREFIX}-active`);
-				}
-				else {
+				} else {
 					element.classList.remove(`${GRID_PREFIX}-active`);
 				}
 			}
@@ -33,31 +43,35 @@ export class ColumnSortView extends PluginView {
 
 		this.toggle = new Command({
 			canExecute: () => this.column.canSort,
-			execute: () => view.sort.toggle.execute(this.column)
+			execute: () => this.view.sort.toggle.execute(this.column)
 		});
+	}
 
-		const listener = new EventListener(element, new EventManager(this));
-		this.using(listener.on('click', () => {
-			if (this.toggle.canExecute()) {
-				this.toggle.execute();
-			}
-		}));
+	onMouseOver() {
+		const model = this.model;
+		const view = this.view;
 
-		this.using(listener.on('mouseover', () => {
-			if (model.drag().isActive) {
-				return;
-			}
+		if (model.drag().isActive) {
+			return;
+		}
 
-			if (view.sort.order(this.column) < 0) {
-				this.desc.display = display;
-			}
-		}));
+		if (view.sort.order(this.column) < 0) {
+			this.desc.display = this.display;
+		}
+	}
 
-		this.using(listener.on('mouseleave', () => {
-			if (view.sort.order(this.column) < 0) {
-				this.clear();
-			}
-		}));
+	onMouseLeave() {
+		const view = this.view;
+
+		if (view.sort.order(this.column) < 0) {
+			this.clear();
+		}
+	}
+
+	onClick() {
+		if (this.toggle.canExecute()) {
+			this.toggle.execute();
+		}
 	}
 
 	clear() {

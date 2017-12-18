@@ -2,13 +2,13 @@
 
 &.q-grid-box:not(.q-grid-drag) {
 	th.q-grid-highlighted {
-		.q-grid-column-filter {
+		.q-grid-column-filter-trigger {
 			visibility: visible;
 		}
 	}
 }
 
-.q-grid-column-filter {
+.q-grid-column-filter-trigger {
 	visibility: hidden;
 	position: absolute;
 	right: 0;
