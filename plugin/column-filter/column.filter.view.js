@@ -10,7 +10,7 @@ export class ColumnFilterView extends PluginView {
 		super(...arguments);
 
 		this.key = context.key;
-		
+
 		this.cancelEvent = new Event();
 		this.submitEvent = new Event();
 		this.resetEvent = new Event();
