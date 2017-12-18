@@ -1,73 +1,73 @@
 @import "variables";
 &.q-grid-box:not(.q-grid-drag) {
-    th.q-grid-highlighted {
-        .q-grid-column-filter-trigger {
-            visibility: visible;
-        }
-    }
+	th.q-grid-highlighted {
+		.q-grid-column-filter-trigger {
+			visibility: visible;
+		}
+	}
 }
 
 .q-grid-column-filter-trigger {
-    visibility: hidden;
-    position: absolute;
-    right: 0;
-    top: calc(50% - 8px);
-    &.q-grid-active {
-        visibility: visible;
-        .q-grid-icon {
-            color: $dark;
-        }
-        &+label {
-            color: $dark;
-        }
-    }
-    button {
-        font-size: 12px;
-        width: 16px;
-        min-width: 16px;
-        min-height: 16px;
-        height: 16px;
-        outline: none;
-        border: none;
-        background: transparent;
-        padding: 0;
-        left: 0;
-        margin: 0 2px;
-        .q-grid-icon {
-            color: $dark-secondary;
-            font-size: 16px;
-            height: 16px;
-            width: 16px;
-            min-height: 16px;
+	visibility: hidden;
+	position: absolute;
+	right: 0;
+	top: calc(50% - 8px);
+	&.q-grid-active {
+		visibility: visible;
+		.q-grid-icon {
+			color: $dark;
+		}
+		&+label {
+			color: $dark;
+		}
+	}
+	button {
+		font-size: 12px;
+		width: 16px;
+		min-width: 16px;
+		min-height: 16px;
+		height: 16px;
+		outline: none;
+		border: none;
+		background: transparent;
+		padding: 0;
+		left: 0;
+		margin: 0 2px;
+		.q-grid-icon {
+			color: $dark-secondary;
+			font-size: 16px;
+			height: 16px;
+			width: 16px;
+			min-height: 16px;
 			min-width: 16px;
 			line-height: 16px;
 			display: block;			
-        }
-    }
+		}
+	}
 }
 
 @at-root .q-grid-column-filter-panel {
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
-    .q-grid-column-filter-filter {
-        margin-left: 4px;
-        margin-right: 4px;
-        margin-bottom: 0;
-        margin-top: 0;
-        .md-errors-spacer {
-            display: none;
-        }
-    }
-    .q-grid-column-filter-list {
-        overflow-y: auto;
-        height: 280px;
-        ul {
-            margin: 0;
-        }
-    }
-    .q-grid-column-filter-actions {
-        padding: 7px 0;
-    }
+	ul {
+		list-style-type: none;
+		padding: 0;
+	}
+	.q-grid-column-filter-filter {
+		margin-left: 4px;
+		margin-right: 4px;
+		margin-bottom: 0;
+		margin-top: 0;
+		.md-errors-spacer {
+			display: none;
+		}
+	}
+	.q-grid-column-filter-list {
+		overflow-y: auto;
+		height: 280px;
+		ul {
+			margin: 0;
+		}
+	}
+	.q-grid-column-filter-actions {
+		padding: 7px 0;
+	}
 }
