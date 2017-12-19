@@ -19,9 +19,9 @@
                         </mat-chip>
                     </mat-chip-list>
                     <input matInput
+                           aria-label="New value"
                            q-grid-focus
                            [matChipInputFor]="chipList"
-                           placeholder="Enter {{$cell.column.title}}..."
                            matChipInputSeparatorKeyCodes="[13]"
                            matChipInputAddOnBlur="true"
                            (matChipInputTokenEnd)="$event.value.trim() && (($view.edit.cell.value.push($event.value.trim()) || true) && $event.input.value = '')"
