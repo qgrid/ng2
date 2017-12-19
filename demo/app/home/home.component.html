@@ -1,21 +1,32 @@
 <mat-card>
-	<q-grid q-grid-autofocus
-			  [rows]="rows"
-			  [columns]="columns"
-			  [model]="gridModel"
-			  selectionUnit="row"
-			  selectionMode="multiple"
-			  editMode="cell"
-			  header="NG2 QGRID SANDBOX">
+    <q-grid q-grid-autofocus
+            [rows]="rows"
+            [columns]="columns"
+            [model]="gridModel"
+            selectionUnit="row"
+            selectionMode="multiple"
+            editMode="cell"
+            header="NG2 QGRID SANDBOX">
 
-			<q-grid-columns>
-				<q-grid-column type="row-indicator" key="rowIndicator"></q-grid-column>
-				<q-grid-column type="row-number" key="rowNumber"></q-grid-column>
-				<q-grid-column type="row-options" key="rowOptions"></q-grid-column>
-			</q-grid-columns>
+        <q-grid-columns>
+            <q-grid-column type="row-indicator"
+                           key="rowIndicator">
+            </q-grid-column>
+            <q-grid-column type="row-number"
+                           key="rowNumber">
+            </q-grid-column>
+            <q-grid-column type="row-options"
+                           key="rowOptions">
+            </q-grid-column>
+            <q-grid-column type="file">
+                <ng-template for="body">
+                    In progress..
+                </ng-template>
+            </q-grid-column>
+        </q-grid-columns>
 
-		<q-grid-data-manipulation>
-		</q-grid-data-manipulation>
+        <q-grid-data-manipulation>
+        </q-grid-data-manipulation>
 
-	</q-grid>
+    </q-grid>
 </mat-card>

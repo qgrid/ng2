@@ -43,27 +43,44 @@ export class ColumnComponent implements OnInit {
 	@Input() public value: any;
 	@Input() public compare: any;
 
-	constructor(private root: RootService,
+	constructor(
+		private root: RootService,
 		private columnList: ColumnListService,
-		private templateHost: TemplateHostService) {
-	}
+		private templateHost: TemplateHostService
+	) {}
 
 	ngOnInit() {
 		const withKey = !isUndefined(this.key);
+		const withType = !isUndefined(this.type);
 		if (!withKey) {
 			this.key = this.columnList.generateKey(this);
 		}
 
 		const column = this.columnList.extract(this.key, this.type);
 
-		this.templateHost.key = source => `${source}-cell-${column.type}-${column.key}.tpl.html`;
+		this.templateHost.key = source => {
+			const parts = [source, 'cell'];
+
+			if (withType) {
+				parts.push(column.type);
+			}
+
+			if (withKey) {
+				parts.push(column.key);
+			}
+
+			return parts.join('-') + '.tpl.html';
+		};
+
 		this.columnList.copy(column, this);
 
 		if (withKey) {
 			this.columnList.add(column);
 		} else {
 			const settings = Object.keys(this)
-				.filter(key => !isUndefined(this[key]) && column.hasOwnProperty(key))
+				.filter(
+					key => !isUndefined(this[key]) && column.hasOwnProperty(key)
+				)
 				.reduce((memo, key) => {
 					memo[key] = column[key];
 					return memo;

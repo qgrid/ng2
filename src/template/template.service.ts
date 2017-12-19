@@ -1,4 +1,9 @@
-import { Injectable, TemplateRef, ViewContainerRef, EmbeddedViewRef } from '@angular/core';
+import {
+	Injectable,
+	TemplateRef,
+	ViewContainerRef,
+	EmbeddedViewRef
+} from '@angular/core';
 import { TemplateLink } from './template-link';
 import { Guard, AppError } from 'ng2-qgrid/core/infrastructure';
 import { isString, isArray } from 'ng2-qgrid/core/utility';
@@ -7,8 +12,10 @@ import { TemplateCacheService } from './template-cache.service';
 
 @Injectable()
 export class TemplateService {
-	constructor(private templateLink: TemplateLinkService, private templateCache: TemplateCacheService) {
-	}
+	constructor(
+		private templateLink: TemplateLinkService,
+		private templateCache: TemplateCacheService
+	) {}
 
 	public viewFactory(context: object) {
 		return (link: TemplateLink, viewContainerRef: ViewContainerRef) => {
@@ -26,14 +33,29 @@ export class TemplateService {
 		}
 
 		if (isArray(keys)) {
-			for (const key of keys) {
-				const link = this.find(key);
-				if (link) {
-					return link;
-				}
-			}
-
-			return null;
+			return this.lookInCache(keys) || this.lookInLink(keys);
 		}
+	}
+
+	private lookInCache(keys) {
+		for (const key of keys) {
+			const link = this.templateCache.get(key);
+			if (link) {
+				return link;
+			}
+		}
+
+		return null;
+	}
+
+	private lookInLink(keys) {
+		for (const key of keys) {
+			const link = this.templateLink.get(key);
+			if (link) {
+				return link;
+			}
+		}
+
+		return null;
 	}
 }

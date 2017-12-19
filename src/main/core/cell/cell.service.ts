@@ -2,7 +2,7 @@ import { Injectable, ViewContainerRef, TemplateRef } from '@angular/core';
 import { TemplateService } from 'ng2-qgrid/template/template.service';
 import { AppError } from 'ng2-qgrid/core/infrastructure';
 import { noop } from 'ng2-qgrid/core/utility';
-import {ColumnModel} from 'ng2-qgrid/core/column-type/column.model';
+import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 
 function canBuild(column) {
 	return column.type !== 'pad';
@@ -15,7 +15,9 @@ function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 			const type = column.type;
 			return [
 				`${source}-cell-${type}-${key}.tpl.html`,
+				`${source}-cell-${key}.tpl.html`,
 				`${source}-cell-${type}.tpl.html`,
+				`${source}-cell.tpl.html`,
 				`${source}-cell-text.tpl.html`
 			];
 		}
@@ -23,7 +25,9 @@ function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 			const type = column.editor || column.type;
 			return [
 				`${mode}-cell-${type}-${key}.tpl.html`,
+				`${mode}-cell-${key}.tpl.html`,
 				`${mode}-cell-${type}.tpl.html`,
+				`${mode}-cell.tpl.html`,
 				`${mode}-cell-text.tpl.html`
 			];
 		}
@@ -34,8 +38,7 @@ function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 
 @Injectable()
 export class CellService {
-	constructor(private templateService: TemplateService) {
-	}
+	constructor(private templateService: TemplateService) {}
 
 	public build(source: string, column: any, mode = 'view') {
 		if (!canBuild(column)) {
@@ -45,7 +48,10 @@ export class CellService {
 		const keys = buildKeys(source, column, mode);
 		const link = this.templateService.find(keys);
 		if (!link) {
-			throw new AppError('cell.service', `Can't find template for ${keys[0]}`);
+			throw new AppError(
+				'cell.service',
+				`Can't find template for ${keys[0]}`
+			);
 		}
 
 		return (viewContainerRef: ViewContainerRef, context: any) => {
