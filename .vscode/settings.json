@@ -3,4 +3,7 @@
     "prettier.useTabs": true,
     "prettier.tabWidth": 4,
     "prettier.singleQuote": true,
+    "html.format.wrapAttributes": "force-aligned",
+    "html.suggest.angular1": false,
+    "editor.detectIndentation": false
 }

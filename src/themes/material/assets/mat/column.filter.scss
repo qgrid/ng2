@@ -1,20 +1,20 @@
-@import "../variables";
-
-@at-root .q-grid-column-filter-panel {
-
-	md-input-container {
+@at-root .q-grid-column-filter {
+	width: 300px;
+	max-width: 300px;
+	ul {
+		list-style-type: none;
+		padding: 0;
 		margin: 0;
+	}
+	.q-grid-column-filter-filter {
 		width: 100%;
 	}
-
-	md-checkbox {
-		margin: 0 0 10px 0;
-	}
-
-	.q-grid-column-filter-filter {
-		.md-errors-spacer {
-			display: none;
+	.q-grid-column-filter-list {
+		margin: 0;
+		overflow-y: auto;
+		height: 320px;
+		md-input-container {
+			margin: 0;
 		}
 	}
-
 }
