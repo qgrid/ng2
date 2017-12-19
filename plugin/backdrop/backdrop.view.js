@@ -15,7 +15,7 @@ export class BackdropView extends PluginView {
 			element.remove();
 
 			if (context.propagate !== false) {
-				const target = context.document.elementFromPoint(e.clientX, e.clientY);
+				const target = document.elementFromPoint(e.clientX, e.clientY);
 				target.click();
 			}
 
