@@ -22,8 +22,7 @@ export class RootService {
 	public commandManager;
 	public view: ViewCoreService;
 
-	constructor(private changeDetector: ChangeDetectorRef) {  
-	}
+	constructor(private changeDetector: ChangeDetectorRef) {}
 
 	get model() {
 		Guard.notNull(this.gridModel, 'model');
@@ -63,8 +62,6 @@ export class RootService {
 				if (gf) {
 					gf();
 				}
-
-				this.changeDetector.detectChanges();
 			}, timeout);
 		};
 	}
