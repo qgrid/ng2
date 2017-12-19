@@ -14,9 +14,12 @@ th {
 	.q-grid-sort {
 		overflow: hidden;
 		text-overflow: ellipsis;
-		cursor: pointer;
 		margin-left: -16px;
 		padding-left: 16px;
+
+		> * {
+			cursor: pointer;
+		}
 
 		&.q-grid-active {
 			label {

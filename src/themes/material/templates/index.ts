@@ -7,6 +7,7 @@ const templates = [
 	require('./body-cell-bool.tpl.html'),
 	require('./body-cell-email.tpl.html'),
 	require('./body-cell-image.tpl.html'),
+	require('./body-cell-password.tpl.html'),
 	require('./body-cell-select.tpl.html'),
 	require('./body-cell-group.tpl.html'),
 	require('./body-cell-currency.tpl.html'),

@@ -1,11 +1,21 @@
-<ng-template key="head-cell-text.tpl.html" let-$cell let-$view="$view">
-	<q-grid-column-sort *ngIf="$cell.column.canSort" [column]="$cell.column" class="q-grid-sort">
-		<ng-template>
-			<label [matTooltip]="$cell.column.title">
-				{{$cell.column.title}}
-			</label>
-		</ng-template>
-	</q-grid-column-sort>
-	<q-grid-column-filter-trigger class="q-grid-column-filter-trigger" *ngIf="$cell.column.canFilter" [column]="$cell.column">
-	</q-grid-column-filter-trigger>
+<ng-template key="head-cell-text.tpl.html"
+             let-$cell
+             let-$view="$view">
+    <q-grid-column-sort *ngIf="$cell.column.canSort"
+                        [column]="$cell.column"
+                        class="q-grid-sort">
+        <ng-template>
+            <label [matTooltip]="$cell.column.title">
+                {{$cell.column.title}}
+            </label>
+        </ng-template>
+    </q-grid-column-sort>
+    <label *ngIf="!$cell.column.canSort"
+           [matTooltip]="$cell.column.title">
+        {{$cell.column.title}}
+    </label>
+    <q-grid-column-filter-trigger class="q-grid-column-filter-trigger"
+                                  *ngIf="$cell.column.canFilter"
+                                  [column]="$cell.column">
+    </q-grid-column-filter-trigger>
 </ng-template>
