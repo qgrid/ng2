@@ -2,6 +2,10 @@ td {
     &.q-grid-edit {
         .mat-form-field {
             width: 100%;
+            .mat-input-infix {
+                border-top: none;
+                padding-top: 0;
+            }
         }
     }
 }

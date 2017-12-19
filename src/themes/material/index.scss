@@ -37,13 +37,14 @@
     @import "assets/title";
 	@import "assets/validator";
     
-    @import "assets/mat/cell";
     @import "assets/mat/cell.array";
     @import "assets/mat/cell.autocomplete";
     @import "assets/mat/cell.checkbox";
     @import "assets/mat/cell.date";
     @import "assets/mat/cell.dropdown";
     @import "assets/mat/cell.filter.row";
+    @import "assets/mat/cell";
+    @import "assets/mat/cell.textarea";
     @import "assets/mat/column.chooser";
     @import "assets/mat/column.filter";
     @import "assets/mat/edit.form";
