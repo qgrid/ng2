@@ -72,8 +72,8 @@ export class HeadView extends View {
 			canExecute: () => true,
 			execute: (column, search) => {
 				const filter = this.model.filter;
-                const by = clone(filter().by);
-                const key = column.key;
+				const by = clone(filter().by);
+				const key = column.key;
 				if (!isUndefined(search) && search !== '') {
 					by[key] = {
 						expression: {

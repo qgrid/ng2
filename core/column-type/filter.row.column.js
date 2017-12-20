@@ -20,7 +20,7 @@ export class FilterRowColumnModel extends ColumnModel {
 		this.class = 'control';
 
 		this.canFilter = model.canFilter && model.class === 'data';
-		this.model = model;;
+		this.model = model;
 	}
 }
 
