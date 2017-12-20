@@ -46,11 +46,17 @@ export class ThCoreDirective implements OnInit, OnDestroy {
 		this.root.bag.head.addCell(this);
 		classify(element, column);
 
+		let target: any = column;
+		let source = 'head';
 		if (column.type === 'filter-row') {
-			classify(element, (column as FilterRowColumnModel).model);
+			const columnModel = (column as FilterRowColumnModel).model;
+			classify(element, columnModel);
+
+			source = 'filter';
+			target = columnModel;
 		}
 
-		const link = this.cellService.build('head', this.column, 'view');
+		const link = this.cellService.build(source, target, 'view');
 		link(this.viewContainerRef, this);
 	}
 

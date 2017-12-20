@@ -1,8 +1,8 @@
-<ng-template key='head-cell-filter-row.tpl.html'
+<ng-template key='filter-cell-currency.tpl.html'
              let-$cell
              let-$view="$view">
     <mat-form-field *ngIf="$cell.column.canFilter">
-        <input type="search"
+        <input type="number"
                matInput
                #input
                (change)="$view.head.filter.execute($cell.column.model, input.value)"
