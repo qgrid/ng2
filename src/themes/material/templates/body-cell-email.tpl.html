@@ -5,8 +5,9 @@
        (bind)="$cell.label || $cell.value">
         {{$cell.value}}
     </a>
-    <button class="q-grid-email-edit"
+    <button class="q-grid-url-edit q-grid-edit-trigger"
             color="primary"
+            mat-icon-button
             matTooltip='Edit Email'
             [matTooltipPosition]="'before'"
             aria-label="'email'"

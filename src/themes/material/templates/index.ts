@@ -2,6 +2,12 @@ const templates = [
 	require('./head-cell-text.tpl.html'),
 	require('./head-cell-select.tpl.html'),
 
+	require('./filter-cell-text.tpl.html'),
+	require('./filter-cell-number.tpl.html'),
+	require('./filter-cell-date.tpl.html'),
+	require('./filter-cell-currency.tpl.html'),
+	require('./filter-cell-bool.tpl.html'),
+
 	require('./body-cell-text.tpl.html'),
 	require('./body-cell-array.tpl.html'),
 	require('./body-cell-bool.tpl.html'),

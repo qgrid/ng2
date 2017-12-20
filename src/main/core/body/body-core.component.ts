@@ -31,7 +31,9 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 		const view = this.$view;
 		const element = this.element.nativeElement as HTMLElement;
 
-		const ctrl = new BodyCtrl(this.model, view, this.root.bag);
+		const table = this.$table;
+		const model = this.root.model;
+		const ctrl = new BodyCtrl(model, view, this.root.bag);
 		const listener = new EventListener(element, new EventManager(this));
 
 		this.zone.runOutsideAngular(() => {
@@ -40,8 +42,10 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 					'scroll',
 					() =>
 						ctrl.onScroll({
-							scrollTop: element.scrollTop,
-							scrollLeft: element.scrollLeft
+							scrollLeft: table.pin
+								? model.scroll().left
+								: element.scrollLeft,
+							scrollTop: element.scrollTop
 						}),
 					{ passive: true }
 				)

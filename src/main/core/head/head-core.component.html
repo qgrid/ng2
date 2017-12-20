@@ -2,7 +2,7 @@
 	 [q-grid-core-tr]="$row"
 	 [q-grid-core-index]="$rowIndex"	 
 	 q-grid-core-source="head">
-	<th *ngFor="let $column of $view.head.columns($row, $table.pin); trackBy: columnId; let $columnIndex = index"
+	<th *ngFor="let $column of $view.head.columns($row, $table.pin); trackBy: columnId; index as $columnIndex"
 		 [attr.rowspan]="$column.rowspan"
 		 [attr.colspan]="$column.colspan"
 		 [q-grid-drag]="$view.head.transfer($column.model)"

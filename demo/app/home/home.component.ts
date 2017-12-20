@@ -230,7 +230,7 @@ export class HomeComponent {
 					? isUndef(item.isOnline) ? null : item.isOnline
 					: (item.isOnline = value)
 		}
-	];
+	]; 
 
 	private gridModel: Model;
 	constructor(private dataService: DataService, public qgrid: GridService) {
