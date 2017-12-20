@@ -1,9 +1,11 @@
 <ng-template key='head-cell-filter-row.tpl.html'
-             let-$cell>
+             let-$cell
+             let-$view="$view">
     <mat-form-field *ngIf="$cell.column.canFilter">
         <input type="search"
                matInput
-               ng-change="$view.head.filter.execute({source: $cell.column, search: search})"               
-               placeholder="Filter {{$cell.column.title}}" />
+               #input
+               (change)="$view.head.filter.execute($cell.column.model, input.value)"
+               placeholder="Filter by {{$cell.column.title}}" />
     </mat-form-field>
 </ng-template>

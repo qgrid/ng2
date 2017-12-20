@@ -1,10 +1,11 @@
 th.q-grid-filter-row {
-	md-input-container {
-		margin: 0;
-		padding: 0;
-
-		.md-errors-spacer {
-			min-height: 0 !important;
-		}
-	}
+    &:hover {
+        label {
+            font-weight: normal;
+        }
+    }
+    
+    .mat-form-field {
+        width: 100%;
+    }
 }

@@ -3,7 +3,7 @@ import {Log} from '../infrastructure';
 import {Command} from '../command';
 import * as columnService from '../column/column.service';
 import {FilterRowColumn} from '../column-type';
-import {clone} from '../utility';
+import {clone, isUndefined} from '../utility';
 
 export class HeadView extends View {
 	constructor(model, table, tagName) {
@@ -70,12 +70,11 @@ export class HeadView extends View {
 		this.filter = new Command({
 			source: 'head.view',			
 			canExecute: () => true,
-			execute: e => {
-				const key = e.source.sourceKey;
+			execute: (column, search) => {
 				const filter = this.model.filter;
-				const by = clone(filter().by);
-				const search = e.search;
-				if (search.length) {
+                const by = clone(filter().by);
+                const key = column.key;
+				if (!isUndefined(search) && search !== '') {
 					by[key] = {
 						expression: {
 							kind: 'group',
@@ -94,7 +93,7 @@ export class HeadView extends View {
 					delete by[key];
 				}
 
-				filter({by: by});
+				filter({by});
 			}
 		});
 
