@@ -1,5 +1,9 @@
 tbody,
 thead,
 tfoot {
-	border-collapse: separate;
+    border-collapse: separate;
+}
+
+thead {
+    box-shadow: 0 2px 0px #ddd;
 }
