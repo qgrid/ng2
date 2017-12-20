@@ -48,7 +48,7 @@ export declare class Model {
 	pipeChanged: Event;	
 
 	scene(value: object, tag?: object): Model;
-	grid(): SceneModel;
+	scene(): SceneModel;
 	sceneChanged: Event;
 
 	edit(value: object, tag?: object): Model;

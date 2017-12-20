@@ -1,5 +1,5 @@
 import {isFunction} from '../utility';
-import {compile} from './path';
+import {compileSet, compileGet} from './path';
 import {AppError} from '../infrastructure';
 
 export function get(row, column) {
@@ -8,7 +8,7 @@ export function get(row, column) {
 		: column.value
 			? column.value(row)
 			: column.path
-				? compile(column.path)(row)
+				? compileGet(column.path)(row)
 				: row[column.key];
 }
 
@@ -18,7 +18,7 @@ export function getFactory(column) {
 		: column.value
 			? row => column.value(row)
 			: column.path
-				? compile(column.path)
+				? compileGet(column.path)
 				: row => row[column.key];
 
 	return get;
@@ -34,7 +34,7 @@ export function set(row, column, value) {
 	}
 
 	if (column.path) {
-		return compile(column.path)(row, value);
+		return compileSet(column.path)(row, value);
 	}
 
 	if (row.hasOwnProperty(column.key)) {
