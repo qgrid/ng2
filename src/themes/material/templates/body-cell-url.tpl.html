@@ -5,7 +5,7 @@
        (bind)="$cell.label || $cell.value">
     </a>
     <button *ngIf="$view.edit.cell.canEdit($cell)"
-            class="q-grid-url-edit"
+            class="q-grid-url-edit q-grid-edit-trigger"
             mat-icon-button
             aria-label="url"
             [disabled]="!$view.edit.cell.enter.canExecute($cell)"
