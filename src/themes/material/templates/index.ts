@@ -1,6 +1,7 @@
 const templates = [
 	require('./head-cell-text.tpl.html'),
 	require('./head-cell-select.tpl.html'),
+	require('./head-cell-filter-row.tpl.html'),
 
 	require('./body-cell-text.tpl.html'),
 	require('./body-cell-array.tpl.html'),

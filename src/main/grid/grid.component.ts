@@ -23,11 +23,7 @@ import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
 
 @Component({
 	selector: 'q-grid',
-	providers: [
-		RootService, 
-		TemplateCacheService, 
-		TemplateService
-	],
+	providers: [RootService, TemplateCacheService, TemplateService],
 	styleUrls: ['../../assets/index.scss', '../../themes/material/index.scss'],
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None
@@ -47,6 +43,7 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 	@Input() pivotBy;
 	@Input() sortBy;
 	@Input() sortMode;
+	@Input() filterUnit;
 	@Input() editMode;
 	@Input() editEnter;
 	@Input() editCommit;
@@ -73,13 +70,16 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 			'selection',
 			'sort',
 			'group',
+			'filter',
 			'pivot',
 			'edit',
 			'style',
 			'action'
 		];
 
-		this.using(this.modelChanged.watch(model => (this.rootService.model = model)));
+		this.using(
+			this.modelChanged.watch(model => (this.rootService.model = model))
+		);
 	}
 
 	ngOnInit() {
@@ -88,10 +88,10 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 		const model = this.model;
 		const element = this.element.nativeElement;
 
-		const ctrl = this.ctrl = new GridCtrl(model, {
+		const ctrl = (this.ctrl = new GridCtrl(model, {
 			layerFactory: markup => new LayerService(markup),
 			element
-		});
+		}));
 
 		this.rootService.table = ctrl.table;
 		this.rootService.bag = ctrl.bag;
@@ -103,8 +103,8 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 
 		const listener = new EventListener(element, new EventManager(this));
 		const windowListener = new EventListener(element, new EventManager(this));
-		this.using(windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl)));		
-		this.using(listener.on('keydown', ctrl.keyDown.bind(ctrl)));		
+		this.using(windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl)));
+		this.using(listener.on('keydown', ctrl.keyDown.bind(ctrl)));
 	}
 
 	get visibility() {

@@ -15,6 +15,7 @@ import { CellService } from '../cell/cell.service';
 import { ViewCoreService } from '../view/view-core.service';
 import { TrCoreDirective } from '../row/tr-core.directive';
 import { TdCtrl } from 'ng2-qgrid/core/cell/td.ctrl';
+import { FilterRowColumnModel } from 'ng2-qgrid/core/column-type/filter.row.column';
 
 const classify = TdCtrl.classify;
 
@@ -44,6 +45,10 @@ export class ThCoreDirective implements OnInit, OnDestroy {
 
 		this.root.bag.head.addCell(this);
 		classify(element, column);
+
+		if (column.type === 'filter-row') {
+			classify(element, (column as FilterRowColumnModel).model);
+		}
 
 		const link = this.cellService.build('head', this.column, 'view');
 		link(this.viewContainerRef, this);
