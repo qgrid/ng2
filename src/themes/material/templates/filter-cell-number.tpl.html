@@ -1,11 +1,14 @@
 <ng-template key='filter-cell-number.tpl.html'
              let-$cell
              let-$view="$view">
-    <mat-form-field *ngIf="$cell.column.canFilter">
+    <mat-form-field *ngIf="$cell.column.canFilter"
+                    floatLabel="never">
+        <mat-placeholder>
+            <mat-icon>filter_list</mat-icon>
+        </mat-placeholder>
         <input type="number"
                matInput
                #input
-               (change)="$view.head.filter.execute($cell.column.model, input.value)"
-               placeholder="Filter by {{$cell.column.title}}" />
+               (change)="$view.head.filter.execute($cell.column.model, input.value)" />
     </mat-form-field>
 </ng-template>

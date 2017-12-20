@@ -1,9 +1,12 @@
 <ng-template key='filter-cell-date.tpl.html'
              let-$cell
              let-$view="$view">
-    <mat-form-field *ngIf="$cell.column.canFilter">
-        <input q-grid-focus
-               matInput
+    <mat-form-field *ngIf="$cell.column.canFilter"
+                    floatLabel="never">
+        <mat-placeholder>
+            <mat-icon>filter_list</mat-icon>
+        </mat-placeholder>
+        <input matInput
                #input
                [matDatepicker]="picker"
                [(ngModel)]="$view.edit.cell.value"
