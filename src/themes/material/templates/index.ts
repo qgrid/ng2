@@ -30,6 +30,7 @@ const templates = [
 	require('./edit-cell-text.tpl.html'),
 	require('./edit-cell-dropdown.tpl.html'),
 	require('./edit-cell-file.tpl.html'),
+	require('./edit-cell-image.tpl.html'),
 	require('./edit-cell-email.tpl.html'),
 	require('./edit-cell-number.tpl.html'),
 	require('./edit-cell-currency.tpl.html'),
