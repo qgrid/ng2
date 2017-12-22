@@ -25,7 +25,8 @@ const templates = [
 	require('./body-cell-row-expand.tpl.html'),
 	require('./body-cell-row-number.tpl.html'),
 	require('./body-cell-url.tpl.html'),
-
+    require('./body-cell-reference.tpl.html'),
+    
 	require('./edit-cell-date.tpl.html'),
 	require('./edit-cell-array.tpl.html'),
 	require('./edit-cell-text.tpl.html'),
@@ -41,6 +42,7 @@ const templates = [
 	require('./edit-cell-time.tpl.html'),
 	require('./edit-cell-row-options.tpl.html'),
 	require('./edit-cell-url.tpl.html'),
+    require('./edit-cell-reference.tpl.html'),
 
 	require('./foot-cell-text.tpl.html'),
 	require('./foot-cell-currency.tpl.html'),
