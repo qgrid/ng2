@@ -5,7 +5,6 @@ import { FilterView } from 'ng2-qgrid/core/filter/filter.view';
 import { PivotView } from 'ng2-qgrid/core/pivot/pivot.view';
 import { SortView } from 'ng2-qgrid/core/sort/sort.view';
 import { PaginationView } from 'ng2-qgrid/core/pagination/pagination.view';
-import { ColumnView } from 'ng2-qgrid/core/column/column.view';
 import { HeadView } from 'ng2-qgrid/core/head/head.view';
 import { BodyView } from 'ng2-qgrid/core/body/body.view';
 import { FootView } from 'ng2-qgrid/core/foot/foot.view';
@@ -32,7 +31,6 @@ export class ViewCoreService {
 	public pivot: PivotView = null;
 	public sort: SortView = null;
 	public pagination: PaginationView = null;
-	public columns: ColumnView = null;
 	public head: HeadView = null;
 	public body: BodyView = null;
 	public foot: FootView = null;
