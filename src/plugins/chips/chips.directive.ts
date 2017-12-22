@@ -27,7 +27,7 @@ export class ChipsDirective implements AfterViewInit {
 		input.addEventListener('keydown', e => {
 			const code = Shortcut.translate(e);
 			if (code === 'enter') {
-				const value = input.value.trim();
+				const value = (input.value || '').trim();
 				if (value) {
 					this.view.edit.cell.value.push(value);
 					input.value = '';

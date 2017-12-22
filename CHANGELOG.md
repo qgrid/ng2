@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 
 * Auto-complete cell editor.
-* Array cell editor.
+* Array cell editor improvements.
 * Reference cell editor.
 * Auto generation of row edit form.
 * Initial implementation of virtual scrolling.
