@@ -1,0 +1,46 @@
+@import "variables";
+
+td.q-grid-sorted {
+	background-color: $selected;
+}
+
+th.q-grid-can-sort {
+	label {
+		cursor: pointer;
+	}
+}
+
+th {
+	.q-grid-sort {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		margin-left: -16px;
+		padding-left: 16px;
+
+		> * {
+			cursor: pointer;
+		}
+
+		&.q-grid-active {
+			label {
+				color: $dark;
+			}
+
+			.q-grid-icon {
+				color: $dark;
+			}
+		}
+
+		.q-grid-icon {
+			position: absolute;
+			margin-left: -16px;
+			color: $dark-secondary;
+			font-size: 16px;
+			height: 16px;
+			width: 16px;
+			min-height: 16px;
+			min-width: 16px;
+			vertical-align: middle
+		}
+	}
+}

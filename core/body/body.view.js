@@ -12,11 +12,19 @@ export class BodyView extends View {
 		this.rows = [];
 		this.render = new Renderer(model);
 
+		this.invalidate();
+
+		let wasInvalidated = false;
 		this.using(model.sceneChanged.watch(e => {
 			if (e.hasChanges('rows')) {
 				this.invalidate();
+				wasInvalidated = true;
 			}
 		}));
+
+		if (!wasInvalidated) {
+			this.invalidate();
+		}
 	}
 
 	invalidate() {

@@ -1,18 +1,21 @@
-<ng-template key='edit-cell-date.tpl.html' let-$cell let-$view="$view">
-	<div class="q-grid-editor q-grid-date" q-grid-position="td">
-		<h2 class="md-title">Edit {{$cell.column.title}}</h2>
-		<md-form-field>
-			<input q-grid-focus
-			 		mdInput [mdDatepicker]="picker"
-			  		[(ngModel)]="$view.edit.cell.value" 
-			  		placeholder="Choose a {{$cell.column.title}}"
-			/>
-			<md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
-			<md-datepicker #picker></md-datepicker>
-		</md-form-field>
-		<div class="q-grid-actions">
-			<button md-button color="primary" (click)="$view.edit.cell.commit.execute($cell, $event)">Save</button>
-			<button md-button (click)="$view.edit.cell.cancel.execute($cell, $event)">Cancel</button>
-		</div>
-	</div>
+<ng-template key='edit-cell-date.tpl.html'
+             let-$cell
+             let-$view="$view">
+    <q-grid-cell-editor class="q-grid-date q-grid-editor q-grid-position q-grid-text"
+                        (close)="$view.edit.cell.exit.execute($cell)"
+                        q-grid-position="td">
+        <ng-template>
+            <mat-form-field>
+                <input q-grid-focus
+                       matInput
+                       [matDatepicker]="picker"
+                       [(ngModel)]="$view.edit.cell.value" />
+                <mat-datepicker-toggle matSuffix
+                                       [for]="picker">
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker>
+                </mat-datepicker>
+            </mat-form-field>
+        </ng-template>
+    </q-grid-cell-editor>
 </ng-template>

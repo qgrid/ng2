@@ -20,9 +20,7 @@ export class RootService {
 	public table: Table = null;
 	public commandManager;
 
-	constructor(private changeDetector: ChangeDetectorRef) {
-		this.markup.document = document;
-	}
+	constructor(private changeDetector: ChangeDetectorRef) {}
 
 	get model() {
 		Guard.notNull(this.gridModel, 'model');
@@ -32,39 +30,5 @@ export class RootService {
 
 	set model(value) {
 		this.gridModel = value;
-	}
-
-	applyFactory(gf: () => void = null, mode = 'async') {
-		return (lf, timeout) => {
-			if (isUndefined(timeout)) {
-				switch (mode) {
-					case 'async': {
-						timeout = 0;
-						break;
-					}
-					case 'sync': {
-						const result = lf();
-						if (gf) {
-							gf();
-						}
-
-						this.changeDetector.detectChanges();
-						return result;
-					}
-					default:
-						throw new AppError('grid', `Invalid mode ${mode}`);
-				}
-			}
-
-			return setTimeout(() => {
-				lf();
-
-				if (gf) {
-					gf();
-				}
-
-				this.changeDetector.detectChanges();
-			}, timeout);
-		};
 	}
 }

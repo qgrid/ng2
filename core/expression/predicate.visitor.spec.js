@@ -3,6 +3,13 @@ import {PredicateVisitor} from './predicate.visitor';
 function valueFactory() {
 	return (value) => value;
 }
+
+const assertFactory = () => ({
+	equals: (x, y) => x === y,
+	lessThan: (x, y) => x < y,
+	isNull: x => x === '' || x === null || x === undefined || isNaN(x) ||  isFinite(x)				
+});
+
 describe('PredicateVisitor', () => {
 
 	describe('visitGroup', () => {
@@ -23,7 +30,7 @@ describe('PredicateVisitor', () => {
 					left: 'value'
 				}
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
 			let foo = predicateVisitor.visit(group);
 			let res = foo(123);
 			expect(res).to.equal(true);
@@ -46,7 +53,7 @@ describe('PredicateVisitor', () => {
 					left: 'value'
 				}
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
 			let foo = predicateVisitor.visit(group);
 			let res = foo(123);
 			expect(res).to.equal(true);
@@ -62,9 +69,9 @@ describe('PredicateVisitor', () => {
 				right: 123,
 				left: 'value'
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
-			let foo = predicateVisitor.visit(condition);
-			let res = foo(999);
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
+			let match = predicateVisitor.visit(condition);
+			let res = match(999);
 			expect(res).to.equal(true);
 		});
 
@@ -75,9 +82,9 @@ describe('PredicateVisitor', () => {
 				right: 123,
 				left: 'value'
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
-			let foo = predicateVisitor.visit(condition);
-			let res = foo(999);
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
+			let match = predicateVisitor.visit(condition);
+			let res = match(999);
 			expect(res).to.equal(true);
 		});
 
@@ -88,9 +95,9 @@ describe('PredicateVisitor', () => {
 				right: 123,
 				left: 'value'
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
-			let foo = predicateVisitor.visit(condition);
-			let res = foo(1);
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
+			let match = predicateVisitor.visit(condition);
+			let res = match(1);
 			expect(res).to.equal(true);
 		});
 
@@ -101,9 +108,9 @@ describe('PredicateVisitor', () => {
 				right: [10, 20],
 				left: 'value'
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
-			let foo = predicateVisitor.visit(condition);
-			let res = foo(15);
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
+			let match = predicateVisitor.visit(condition);
+			let res = match(15);
 			expect(res).to.equal(true);
 		});
 
@@ -114,9 +121,9 @@ describe('PredicateVisitor', () => {
 				right: [10, 20],
 				left: 'value'
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
-			let foo = predicateVisitor.visit(condition);
-			let res3 = foo(5);
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
+			let match = predicateVisitor.visit(condition);
+			let res3 = match(5);
 			expect(res3).to.equal(false);
 		});
 
@@ -127,9 +134,9 @@ describe('PredicateVisitor', () => {
 				right: [10, 20],
 				left: 'value'
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
-			let foo = predicateVisitor.visit(condition);
-			let res4 = foo(21);
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
+			let match = predicateVisitor.visit(condition);
+			let res4 = match(21);
 			expect(res4).to.equal(false);
 		});
 
@@ -140,9 +147,9 @@ describe('PredicateVisitor', () => {
 				right: [10, 20],
 				left: 'value'
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
-			let foo = predicateVisitor.visit(condition);
-			let res4 = foo(10);
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
+			let match = predicateVisitor.visit(condition);
+			let res4 = match(10);
 			expect(res4).to.equal(true);
 		});
 
@@ -153,9 +160,9 @@ describe('PredicateVisitor', () => {
 				right: [10, 20],
 				left: 'value'
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
-			let foo = predicateVisitor.visit(condition);
-			let res4 = foo(20);
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
+			let match = predicateVisitor.visit(condition);
+			let res4 = match(20);
 			expect(res4).to.equal(true);
 		});
 
@@ -166,9 +173,9 @@ describe('PredicateVisitor', () => {
 				right: [10, 20],
 				left: 'value'
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
-			let foo = predicateVisitor.visit(condition);
-			let res = foo(10);
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
+			let match = predicateVisitor.visit(condition);
+			let res = match(10);
 			expect(res).to.equal(true);
 		});
 
@@ -179,9 +186,9 @@ describe('PredicateVisitor', () => {
 				right: 'SOME',
 				left: 'value'
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
-			let foo = predicateVisitor.visit(condition);
-			let res = foo('findSomeString');
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
+			let match = predicateVisitor.visit(condition);
+			let res = match('findSomeString');
 			expect(res).to.equal(true);
 		});
 
@@ -192,9 +199,9 @@ describe('PredicateVisitor', () => {
 				right: 'text',
 				left: 'value'
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
-			let foo = predicateVisitor.visit(condition);
-			let res = foo('findSomeString');
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
+			let match = predicateVisitor.visit(condition);
+			let res = match('findSomeString');
 			expect(res).to.equal(true);
 		});
 
@@ -205,9 +212,9 @@ describe('PredicateVisitor', () => {
 				right: 'find',
 				left: 'value'
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
-			let foo = predicateVisitor.visit(condition);
-			let res = foo('findSomeString');
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
+			let match = predicateVisitor.visit(condition);
+			let res = match('findSomeString');
 			expect(res).to.equal(true);
 		});
 
@@ -218,9 +225,9 @@ describe('PredicateVisitor', () => {
 				right: 'String',
 				left: 'value'
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
-			let foo = predicateVisitor.visit(condition);
-			let res = foo('findSomeString');
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
+			let match = predicateVisitor.visit(condition);
+			let res = match('findSomeString');
 			expect(res).to.equal(true);
 		});
 	});
@@ -233,9 +240,9 @@ describe('PredicateVisitor', () => {
 				right: 100,
 				left: 'value'
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
-			let foo = predicateVisitor.visit(condition);
-			let res = foo(101);
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
+			let match = predicateVisitor.visit(condition);
+			let res = match(101);
 			expect(res).to.equal(true);
 		});
 
@@ -246,9 +253,9 @@ describe('PredicateVisitor', () => {
 				right: 100,
 				left: 'value'
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
-			let foo = predicateVisitor.visit(condition);
-			let res = foo(99);
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
+			let match = predicateVisitor.visit(condition);
+			let res = match(99);
 			expect(res).to.equal(true);
 		});
 
@@ -259,10 +266,10 @@ describe('PredicateVisitor', () => {
 				right: '',
 				left: 'value'
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
-			let foo = predicateVisitor.visit(condition);
-			let res = foo('NotNull');
-			expect(res).to.equal('NotNull');
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
+			let match = predicateVisitor.visit(condition);
+			let res = match('NotNull');
+			expect(res).to.equal(false);
 		});
 
 		it('should return true if null', () => {
@@ -272,9 +279,9 @@ describe('PredicateVisitor', () => {
 				right: '',
 				left: 'value'
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory);
-			let foo = predicateVisitor.visit(condition);
-			let res = foo(null);
+			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory);
+			let match = predicateVisitor.visit(condition);
+			let res = match(null);
 			expect(res).to.equal(true);
 		});
 	});

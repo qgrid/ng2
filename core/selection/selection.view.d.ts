@@ -17,7 +17,7 @@ export interface ISelectResult {
 }
 
 export declare class SelectionView extends View {
-	constructor(model: Model, table: Table, commandManager: CommandManager, gridService: GridService);
+	constructor(model: Model, table: Table, commandManager: CommandManager);
 
 	readonly selection: SelectionModel;
 	readonly rows: any[];

@@ -12,6 +12,7 @@ export class GroupView extends View {
 		this.table = table;
 		this.valueFactory = valueFactory;
 		this.toggleStatus = new Command({
+			source: 'group.view',
 			execute: node => {
 				if (!node) {
 					node = model.navigation().cell.row;

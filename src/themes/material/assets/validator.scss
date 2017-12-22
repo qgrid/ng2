@@ -1,0 +1,29 @@
+.q-grid-validator {
+	display: block;
+	width: calc(100% - 48px);
+	position: absolute;
+	bottom: 25px;
+	text-align: left;
+	color: #dd2c00;
+	font-size: 11px;
+
+	ul {
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+
+		li {
+			display: inline;
+			list-style: none;
+			margin-right: 4px;
+		}
+	}
+}
+
+.q-grid-array {
+	.q-grid-validator {
+
+	}
+}

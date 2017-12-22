@@ -3,7 +3,7 @@ import {Log} from '../infrastructure';
 import {Command} from '../command';
 import * as columnService from '../column/column.service';
 import {FilterRowColumn} from '../column-type';
-import {clone} from '../utility';
+import {clone, isUndefined} from '../utility';
 
 export class HeadView extends View {
 	constructor(model, table, tagName) {
@@ -14,6 +14,7 @@ export class HeadView extends View {
 		this.rows = [];
 
 		this.drop = new Command({
+			source: 'head.view',
 			canExecute: e => {
 				if (e.source && e.source.key === tagName) {
 					const key = e.target.value;
@@ -43,6 +44,7 @@ export class HeadView extends View {
 		});
 
 		this.drag = new Command({
+			source: 'head.view',			
 			canExecute: e => {
 				if (e.source.key === tagName) {
 					const map = columnService.map(model.data().columns);
@@ -54,6 +56,7 @@ export class HeadView extends View {
 		});
 
 		this.resize = new Command({
+			source: 'head.view',			
 			canExecute: e => {
 				if (e.source.key === tagName) {
 					const map = table.data.columnMap();
@@ -65,13 +68,13 @@ export class HeadView extends View {
 		});
 
 		this.filter = new Command({
+			source: 'head.view',			
 			canExecute: () => true,
-			execute: e => {
-				const key = e.source.sourceKey;
+			execute: (column, search) => {
 				const filter = this.model.filter;
 				const by = clone(filter().by);
-				const search = e.search;
-				if (search.length) {
+				const key = column.key;
+				if (!isUndefined(search) && search !== '') {
 					by[key] = {
 						expression: {
 							kind: 'group',
@@ -90,7 +93,7 @@ export class HeadView extends View {
 					delete by[key];
 				}
 
-				filter({by: by});
+				filter({by});
 			}
 		});
 

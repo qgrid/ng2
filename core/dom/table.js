@@ -70,12 +70,12 @@ export class Table {
 	}
 
 	headCore() {
-		const context = this.contextFactory('head');
+		const context = this.box('head');
 		return new Head(context, this.model, this.markup);
 	}
 
 	bodyCore() {
-		const context = this.contextFactory('body');
+		const context = this.box('body');
 		if (this.model.scroll().mode === 'virtual') {
 			return new VirtualBody(context, this.model, this.markup);
 		}
@@ -84,7 +84,7 @@ export class Table {
 	}
 
 	footCore() {
-		const context = this.contextFactory('foot');
+		const context = this.box('foot');
 		return new Foot(context, this.model, this.markup);
 	}
 
@@ -92,12 +92,14 @@ export class Table {
 		return new View(this.context, this.model, this.markup);
 	}
 
-	contextFactory(source) {
+	box(source) {
 		const ctx = this.context;
 		return {
 			mapper: ctx.mapper,
 			layer: ctx.layer,
-			bag: ctx.bag[source]
+			bag: ctx.bag[source],
+			view: this.view,
+			data: this.data
 		};
 	}
 }

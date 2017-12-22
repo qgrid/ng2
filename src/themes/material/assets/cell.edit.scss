@@ -1,220 +1,84 @@
+.q-grid-edit-trigger {
+	position: absolute;
+	right: 2px;
+	font-size: 12px;
+	min-width: 16px;
+	width: 16px;
+	min-height: 16px;
+	height: 16px;
+	outline: none;
+	border: none;
+	background: transparent;
+	padding: 0;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+
+	.q-grid-icon {
+		color: $dark-secondary;
+		font-size: 16px;
+		height: 16px;
+		width: 16px;
+		min-height: 16px;
+        min-width: 16px;
+        display: block;
+	}
+}
+
 td.q-grid-edit {
 	overflow: visible !important;
+	outline: 2px solid rgba(63, 81, 181, 0.5) !important;
+	outline-offset: -2px;
 
 	.q-grid-editor {
-		position: absolute;
-		width: 160px;
-		height: 40px;
+		display: block;
+		position: fixed;
 		border-radius: 4px;
 		background-color: #fcfcfc;
 		color: rgba(0, 0, 0, 0.87);
-		padding: 24px;
-		left: 4px;
+		left: 0;
 		top: 0;
-		box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2),
-			0 13px 19px 2px rgba(0, 0, 0, 0.14),
-			0 5px 24px 4px rgba(0, 0, 0, 0.12);
+		box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
 		-webkit-box-orient: vertical;
 		-webkit-box-direction: normal;
 		-webkit-flex-direction: column;
 		flex-direction: column;
-		z-index: 1;
 		box-sizing: content-box;
+		z-index: 1;
+		padding: 24px;
+	}
 
-		md-input-container {
-			padding: 0;
-			margin: 0;
+	.q-grid-actions {
+		button {
+			margin: 8px 0 0 8px;
+            float: right;
+            text-transform: uppercase;
 		}
-
-		&.q-grid-text-area {
-			height: 160px;
-			width: 300px;
-			textarea {
-				height: 150px !important;
-			}
-		}
-
-		&.q-grid-date {
-			.md-datepicker-button {
-				margin-left: 0;
-				padding: 0;
-				width: 24px;
-				height: 24px;
-			}
-			.md-datepicker-triangle-button {
-				margin-right: 0;
-				padding: 0;
-				width: 24px;
-				height: 24px;
-			}
-
-			width: 200px !important;
-			height: 110px !important;
-		}
-
+	}
+	.q-grid-position {
+		opacity: 0;
+	}
+	.q-grid-editor-content {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
 		h2 {
 			margin-top: 0;
 		}
-
-		&.q-grid-array {
-			min-height: 120px;
-			width: 400px;
-			height: inherit;
-			padding-bottom: 0;
-
-			.q-grid-array-view {
-				max-height: 400px;
-				overflow-y: auto;
+		.q-grid-input-container {
+			padding: 0;
+			margin: 0;
+			width: 100%;
+		}
+		.q-grid-editor-actions {
+			text-align: right;
+			button {
+				margin-bottom: 0;
+				display: inline-block;
+				&:last-child {
+					margin-right: 0;
+				}
 			}
 		}
-
-		&.q-grid-url,
-		&.q-grid-email {
-			height: auto;
-			width: 270px;
-			padding-bottom: 0;
-
-			.q-grid-url-fields,
-			.q-grid-email-fields {
-				padding-top: 8px;
-			}
-		}
-
-		&.q-grid-file {
-			height: auto;
-			width: 270px;
-			padding-bottom: 0;
-
-			h2 {
-				text-align: left;
-			}
-		}
-	}
-
-	&.q-grid-dropdown {
-		md-select {
-			margin: 5px 0;
-			max-height: 30px;
-		}
-	}
-
-	&.q-grid-autocomplete {
-		md-autocomplete {
-			min-width: 30px;
-			background-color: transparent;
-		}
-
-		md-autocomplete-wrap {
-			box-shadow: none;
-		}
-
-		input {
-			border-color: rgb(63, 81, 181);
-			border-width: 0 0 2px 0;
-			border-radius: 0;
-			border-style: solid;
-			line-height: 26px;
-			padding: 2px 2px 1px 2px;
-			height: 30px;
-		}
-	}
-
-	md-checkbox {
-		margin: 0;
-		width: 20px;
-		height: 20px;
-		display: inline-block;
-	}
-}
-
-.q-grid-editor {
-	&.q-grid-reference {
-		height: 350px;
-		width: 500px;
-	}
-}
-
-.q-grid-file-upload-area {
-	position: relative;
-	border: 1px dashed $dark-divider;
-	text-align: center;
-	height: 120px;
-
-	.q-grid-file-upload-message {
-		position: relative;
-		top: 40%;
-
-		span {
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-
-		md-icon {
-			margin: 0 5px;
-		}
-	}
-
-	&.q-grid-file-has-preview {
-		.q-grid-file-upload-message {
-			visibility: hidden;
-		}
-	}
-
-	.q-grid-file-upload-filename {
-		padding: 10px;
-		font-weight: bold;
-		color: $dark-secondary;
-	}
-
-	input {
-		opacity: 0;
-		position: absolute;
-		height: 100%;
-		width: 100%;
-		left: 0;
-		top: 0;
-		z-index: 2;
-	}
-
-	.q-grid-file-preview {
-		opacity: 1;
-		position: absolute;
-		left: 0;
-		top: 0;
-		height: 100%;
-		width: 100%;
-		vertical-align: middle;
-		text-align: center;
-
-		img {
-			position: relative;
-			max-height: 100%;
-			max-width: 100%;
-			z-index: 3;
-		}
-	}
-}
-
-.q-grid-file-upload-area:hover {
-	background-color: $selected;
-
-	.q-grid-file-preview {
-		opacity: 0;
-		transition: opacity 0.2s ease-in-out;
-
-		img {
-			z-index: 1;
-		}
-	}
-
-	.q-grid-file-upload-message {
-		visibility: visible;
-	}
-}
-
-.q-grid-actions {
-	.md-button {
-		margin: 8px 0 8px 8px;
-		float: right;
 	}
 }

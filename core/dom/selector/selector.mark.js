@@ -21,7 +21,7 @@ export class SelectorMark {
 	addFactory(result) {
 		const model = this.model;
 		const rows = model.view().rows;
-		const columns = model.view().columns;
+		const columns = model.scene().column.area;
 
 		return pin => {
 			const name = pin ? `${this.name}-${pin}` : this.name;
@@ -29,14 +29,14 @@ export class SelectorMark {
 			if (element) {
 				const prev = result[result.length - 1];
 				const columnStart = prev ? prev.columnRange.end : 0;
-				const columnSize = columns.filter(c => c.pin === pin).length;
+				const columnCount = columns[pin].length;
 				const rowStart = 0;
-				const rowSize = rows.length;
+				const rowCount = rows.length;
 
 				result.push({
 					element: element,
-					columnRange: new Range(columnStart, columnStart + columnSize),
-					rowRange: new Range(rowStart, rowStart + rowSize)
+					columnRange: new Range(columnStart, columnStart + columnCount),
+					rowRange: new Range(rowStart, rowStart + rowCount)
 				});
 			}
 

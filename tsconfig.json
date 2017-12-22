@@ -33,6 +33,9 @@
 			],
 			"ng2-qgrid/*": [
 				"src/*"
+			],
+			"ng2-qgrid/plugin/*": [
+				"plugin/*"
 			]
 		}
 	},

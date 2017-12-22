@@ -1,0 +1,19 @@
+@at-root .q-grid-column-chooser {
+    width: 300px;
+    max-width: 300px;
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    .q-grid-column-chooser-filter {
+        width: 100%;
+    }
+    .q-grid-column-chooser-list {
+        margin: 0;
+        overflow-y: auto;
+        height: 280px;
+        md-input-container {
+            margin: 0;
+        }
+    }
+}

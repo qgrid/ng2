@@ -24,8 +24,9 @@ export class ImageColumnModel extends DataColumnModel {
 
 		this.canUpload = yes;
 
-		this.hasPreview =
-			name => isImage(name);
+		this.hasPreview = name => isImage(name);
+		this.canSort = false;
+		this.canFilter = false;
 	}
 }
 

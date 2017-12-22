@@ -1,13 +1,5 @@
-md-menu-item .md-button {
-	text-align: left;
-	display: inline-block;
-	border-radius: 0;
-	margin: auto 0;
-	font-size: 15px;
-	text-transform: none;
-	font-weight: 400;
-	height: 100%;
-	padding-left: 16px;
-	padding-right: 16px;
-	width: 100%;
+@import "../../../assets/scroll.scss";
+
+@at-root .q-grid-menu {
+	@include scroll();
 }

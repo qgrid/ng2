@@ -1,0 +1,32 @@
+@import "mixins";
+
+td.q-grid-text-area {
+	> span {
+		display: block;
+		white-space: normal;
+		@include multiLine($lineCount: 3);
+	}
+	&.q-grid-highlighted {
+		> span {
+			@include multiLine($lineCount: 3, $bgColor: #eee);
+		}
+	}
+}
+
+tr:hover {
+	.q-grid-text-area {
+		td {
+			> span {
+				@include multiLine($lineCount: 3, $bgColor: #eee);
+			}
+		}
+	}
+}
+
+.q-grid-editor.q-grid-text-area {
+	height: 170px;
+	width: 300px;
+	textarea {
+		height: 150px !important;
+	}
+}

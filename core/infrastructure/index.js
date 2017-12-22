@@ -9,3 +9,4 @@ export * from './model.bind';
 export * from './model';
 export * from './event.manager';
 export * from './range';
+export * from './composite';

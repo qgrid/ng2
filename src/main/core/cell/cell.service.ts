@@ -1,20 +1,23 @@
 import { Injectable, ViewContainerRef, TemplateRef } from '@angular/core';
-import { TemplateCacheService, TemplateLinkService } from 'ng2-qgrid/template';
+import { TemplateService } from 'ng2-qgrid/template/template.service';
 import { AppError } from 'ng2-qgrid/core/infrastructure';
 import { noop } from 'ng2-qgrid/core/utility';
+import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 
 function canBuild(column) {
 	return column.type !== 'pad';
 }
 
-function buildKeys(source: string, column: any, mode = 'view') {
+function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 	const key = column.key;
 	switch (mode) {
 		case 'view': {
 			const type = column.type;
 			return [
 				`${source}-cell-${type}-${key}.tpl.html`,
+				`${source}-cell-${key}.tpl.html`,
 				`${source}-cell-${type}.tpl.html`,
+				`${source}-cell.tpl.html`,
 				`${source}-cell-text.tpl.html`
 			];
 		}
@@ -22,7 +25,9 @@ function buildKeys(source: string, column: any, mode = 'view') {
 			const type = column.editor || column.type;
 			return [
 				`${mode}-cell-${type}-${key}.tpl.html`,
+				`${mode}-cell-${key}.tpl.html`,
 				`${mode}-cell-${type}.tpl.html`,
+				`${mode}-cell.tpl.html`,
 				`${mode}-cell-text.tpl.html`
 			];
 		}
@@ -33,36 +38,26 @@ function buildKeys(source: string, column: any, mode = 'view') {
 
 @Injectable()
 export class CellService {
-	constructor(private templateCache: TemplateCacheService, private templateLink: TemplateLinkService) {
-	}
+	constructor(private templateService: TemplateService) {}
 
-	build(source: string, column: any, mode = 'view') {
+	public build(source: string, column: any, mode = 'view') {
 		if (!canBuild(column)) {
 			return noop;
 		}
 
 		const keys = buildKeys(source, column, mode);
-		const template = this.findTemplate(keys);
-		if (!template) {
-			throw new AppError('cell.service', `Can't find template for ${keys[0]}`);
+		const link = this.templateService.find(keys);
+		if (!link) {
+			throw new AppError(
+				'cell.service',
+				`Can't find template for ${keys[0]}`
+			);
 		}
 
 		return (viewContainerRef: ViewContainerRef, context: any) => {
 			viewContainerRef.clear();
-			viewContainerRef.createEmbeddedView(template, context);
+			const createView = this.templateService.viewFactory(context);
+			createView(link, viewContainerRef);
 		};
-	}
-
-	findTemplate(keys: string[]): TemplateRef<any> {
-		const templateCache = this.templateCache;
-		const templateLink = this.templateLink;
-		for (const key of keys) {
-			const template = templateCache.get(key) || templateLink.get(key);
-			if (template) {
-				return template;
-			}
-		}
-
-		return null;
 	}
 }

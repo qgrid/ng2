@@ -57,20 +57,22 @@ export class LayoutView extends View {
 	invalidateColumns(form) {
 		Log.info('layout', 'invalidate columns');
 
-		const model = this.model;
-		const getWidth = columnService.widthFactory(model, form);
-		const columns = this.table.data.columns();
+		const table = this.table;
+		const getWidth = columnService.widthFactory(table, form);
+		const columns = table.data.columns();
 		const style = {};
+
 		let length = columns.length;
 		while (length--) {
 			const column = columns[length];
-			const width = getWidth(column);
+			const width = getWidth(column.key);
 			if (null !== width) {
 				const key = css.escape(column.key);
+				const size = width + 'px';
 				const sizeStyle = {
-					'width': width,
-					'min-width': width,
-					'max-width': width
+					'width': size,
+					'min-width': size,
+					'max-width': size
 				};
 
 				style[`td.q-grid-${key}`] = sizeStyle;

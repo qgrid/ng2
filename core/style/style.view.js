@@ -21,12 +21,6 @@ export class StyleView extends View {
 			cell: new Monitor(model)
 		};
 
-		this.using(model.sceneChanged.watch(e => {
-			if (e.hasChanges('status') && e.state.status === 'stop') {
-				this.invalidate();
-			}
-		}));
-
 		this.using(model.styleChanged.watch(e => {
 			if (e.hasChanges('row')) {
 				this.active.row = e.state.row !== noop;
@@ -40,20 +34,29 @@ export class StyleView extends View {
 		}));
 	}
 
-	invalidate() {
+	needInvalidate() {
 		const active = this.active;
 		const model = this.model;
 		const isVirtual = model.scroll().mode === 'virtual';
 		const isActive = isVirtual || active.row || active.cell;
+
 		if (!isActive) {
-			return;
+			return false;
 		}
+
+		const styleState = model.style();
+		const context = {model};
+		return styleState.invalidate.canExecute(context) && styleState.invalidate.execute(context) !== false;
+	}
+
+	invalidate(domCell, domRow) {
+		const active = this.active;
+		const model = this.model;
+		const styleState = model.style();
+		const isVirtual = model.scroll().mode === 'virtual';
 
 		const table = this.table;
 		const valueFactory = this.valueFactory;
-		const styleState = model.style();
-		const rowMonitor = this.monitor.row;
-		const cellMonitor = this.monitor.cell;
 		// TODO: improve performance
 		const valueCache = new Map();
 		const value = (row, column) => {
@@ -80,56 +83,59 @@ export class StyleView extends View {
 		const columns = table.data.columns();
 		const columnMap = columnService.map(columns);
 		const bodyRows = table.body.rows();
-		const domCell = cellMonitor.enter();
-		const domRow = rowMonitor.enter();
 
-		try {
-			for (let i = 0, rowsLength = bodyRows.length; i < rowsLength; i++) {
-				const bodyRow = bodyRows[i];
-				const rowIndex = bodyRow.index;
-				const dataRow = bodyRow.model();
-				if (!dataRow) {
-					continue;
-				}
+		// for performance reason we make rowContext and cellContext the same reference for the all style calls
+		const rowContext = {
+			class: noop,
+			row: -1,
+			value: null,
+			columns: {
+				map: columnMap,
+				list: columns
+			}
+		};
 
-				if (isRowActive) {
-					const rowContext = {
-						class: domRow(bodyRow),
-						row: rowIndex,
-						value: value,
-						columns: {
-							map: columnMap,
-							list: columns
-						}
-					};
+		const cellContext = {
+			class: noop,
+			row: -1,
+			column: -1,
+			value: null,
+			columns: rowContext.columns
+		};
 
-					styleRow(dataRow, rowContext);
-				}
+		for (let i = 0, rowsLength = bodyRows.length; i < rowsLength; i++) {
+			const bodyRow = bodyRows[i];
+			const rowIndex = bodyRow.index;
+			const dataRow = bodyRow.model();
+			if (!dataRow) {
+				continue;
+			}
 
-				if (isCellActive) {
-					const cells = bodyRow.cells();
-					for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
-						const cell = cells[j];
-						const column = columns[j];
-						const cellContext = {
-							class: domCell(cell),
-							row: rowIndex,
-							column: j,
-							value: value,
-							columns: {
-								map: columnMap,
-								list: columns
-							}
-						};
+			if (isRowActive) {
+				rowContext.class = domRow(bodyRow);
+				rowContext.row = rowIndex;
+				rowContext.value = value;
 
-						styleCell(dataRow, column, cellContext);
+				styleRow(dataRow, rowContext);
+			}
+
+			if (isCellActive) {
+				const cells = bodyRow.cells();
+				for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
+					const cell = cells[j];
+					const dataCell = cell.model();
+					if (!dataCell) {
+						continue;
 					}
+
+					cellContext.class = domCell(cell);
+					cellContext.row = rowIndex;
+					cellContext.column = j;
+					cellContext.value = value;
+
+					styleCell(dataRow, dataCell.column, cellContext);
 				}
 			}
-		}
-		finally {
-			rowMonitor.exit(domRow);
-			cellMonitor.exit(domCell);
 		}
 	}
 }

@@ -1,6 +1,13 @@
 import {identity, isObject, isArray, isBoolean, isEmail, isString} from '../utility';
 
-export function parseFactory(type) {
+export function parseFactory(type, editor) {
+	switch (type) {
+		case 'id': {
+			type = editor ? editor : 'text';
+			break;
+		}
+	}
+
 	switch (type) {
 		case 'text':
 		case 'email':

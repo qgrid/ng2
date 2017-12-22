@@ -7,20 +7,21 @@ import { PluginModule } from 'ng2-qgrid/plugins';
 import { TemplateModule } from 'ng2-qgrid/template';
 import { CommonModule } from 'ng2-qgrid/common';
 import {
-	MdCardModule, 
-	MdIconModule,
-	MdButtonModule,
-	MdCheckboxModule,
-	MdSelectModule,
-	MdTooltipModule,
-	MdProgressBarModule,
-	MdInputModule,
-	MdDatepickerModule,
-	MdNativeDateModule,
-	MdChipsModule,
-	MdMenuModule,
-	MdDialogModule
+	MatCardModule,
+	MatIconModule,
+	MatButtonModule,
+	MatCheckboxModule,
+	MatSelectModule,
+	MatTooltipModule,
+	MatProgressBarModule,
+	MatInputModule,
+	MatDatepickerModule,
+	MatNativeDateModule,
+	MatChipsModule,
+	MatMenuModule,
+	MatDialogModule
 } from '@angular/material';
+import { PipeModule } from 'ng2-qgrid/pipes';
 
 @NgModule({
 	declarations: [
@@ -36,19 +37,20 @@ import {
 		FormsModule,
 		TemplateModule,
 		PluginModule,
-		MdIconModule,
-		MdButtonModule,
-		MdCheckboxModule,
-		MdSelectModule,
-		MdTooltipModule,
-		MdProgressBarModule,
-		MdInputModule,
-		MdDatepickerModule,
-		MdNativeDateModule,
-		MdChipsModule,
-		MdDialogModule,
-		MdMenuModule,
-		MdCardModule		
+		MatIconModule,
+		MatButtonModule,
+		MatCheckboxModule,
+		MatSelectModule,
+		MatTooltipModule,
+		MatProgressBarModule,
+		MatInputModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
+		MatChipsModule,
+		MatDialogModule,
+		MatMenuModule,
+		MatCardModule,
+		PipeModule
 	],
 	providers: [
 		ThemeService

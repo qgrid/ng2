@@ -1,0 +1,14 @@
+@at-root .q-grid-menu {
+    .mat-menu-content {
+        padding: 0;
+    }
+    .mat-card-header-text {
+        margin: 0;
+    }
+    .mat-card-actions {
+        text-align: right;
+        >button {
+            text-transform: uppercase;
+        }
+    }
+}

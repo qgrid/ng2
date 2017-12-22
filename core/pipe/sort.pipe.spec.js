@@ -1,4 +1,5 @@
 import {sortPipe as sort} from './sort.pipe';
+import {compare} from '../utility';
 
 describe('sort pipe', () => {
 	const list = [{
@@ -18,9 +19,11 @@ describe('sort pipe', () => {
 	const data = () => {
 		return {
 			columns: [{
-				key: 'name'
+				key: 'name',
+				compare
 			}, {
-				key: 'age'
+				key: 'age',
+				compare
 			}]
 		}
 	};
@@ -80,7 +83,7 @@ describe('sort pipe', () => {
 			}
 		};
 
-		sort(list, ctx, (data) => {
+		sort(list, ctx, data => {
 			expect(data[0]).to.be.eql({name: 'Alan', age: 30});
 			expect(data[1]).to.be.eql({name: 'Bob', age: 45});
 			expect(data[2]).to.be.eql({name: 'Bob', age: 40});

@@ -1,5 +1,5 @@
 import {isFunction} from '../utility';
-import {compile} from '../services/path';
+import {compileGet, compileSet} from '../services/path';
 import {get as getValue} from '../services/value';
 
 export function get(row, column) {
@@ -8,7 +8,7 @@ export function get(row, column) {
 		: column.label
 			? column.label(row)
 			: column.labelPath
-				? compile(column.labelPath)(row)
+				? compileGet(column.labelPath)(row)
 				: getValue(row, column);
 }
 
@@ -18,10 +18,10 @@ export function getFactory(column) {
 		: column.label
 			? row => column.label(row)
 			: column.labelPath
-				? compile(column.labelPath)
+				? compileGet(column.labelPath)
 				: row => getValue(row, column);
 
-	return row => get(row);
+	return get;
 }
 
 export function set(row, column, label) {
@@ -34,6 +34,6 @@ export function set(row, column, label) {
 	}
 
 	if (column.labelPath) {
-		return compile(column.labelPath)(row, label);
+		return compileSet(column.labelPath)(row, label);
 	}
 }

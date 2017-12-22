@@ -1,24 +1,28 @@
-<md-card>
-	<q-grid q-grid-autofocus
-			[rows]="rows"
-			[model]="gridModel"
-			selectionUnit="row"
-			selectionMode="multiple"
-			editMode="cell"
-			header="NG2 QGRID SANDBOX">
-		<q-grid-columns generation="deep">
-			<q-grid-column type="row-indicator" key="rowIndicator"></q-grid-column>
-			<q-grid-column type="number" aggregation="sum"></q-grid-column>
-			<q-grid-column type="date" format="yMd"></q-grid-column>
-			<q-grid-column key="name.last">
-				<ng-template for="body" let-$cell>
-					<span style="color: blue">{{$cell.value}}</span>
-				</ng-template>
-			</q-grid-column>
-			<q-grid-column type="row-options" key="rowOptions"></q-grid-column>
-		</q-grid-columns>
+<mat-card>
+    <q-grid q-grid-autofocus
+            [columns]="columns"
+            [model]="gridModel"
+            selectionUnit="row"
+            selectionMode="multiple"
+            editMode="cell"
+            header="NG2 QGRID SANDBOX"
+            filterUnit="row"
+            class="q-grid-embed">
 
-		<q-grid-data-manipulation>
-		</q-grid-data-manipulation>
-	</q-grid>
-</md-card>
+        <q-grid-columns>
+            <q-grid-column type="row-indicator"
+                           key="rowIndicator">
+            </q-grid-column>
+            <q-grid-column type="row-number"
+                           key="rowNumber">
+            </q-grid-column>
+            <q-grid-column type="row-options"
+                           key="rowOptions">
+            </q-grid-column>
+        </q-grid-columns>
+
+        <q-grid-data-manipulation>
+        </q-grid-data-manipulation>
+
+    </q-grid>
+</mat-card>

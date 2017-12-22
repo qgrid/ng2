@@ -85,6 +85,7 @@ module.exports = function (options) {
 
 			alias: {
 				'ng2-qgrid/core': helpers.root('core'),
+				'ng2-qgrid/plugin': helpers.root('plugin'),
 				'ng2-qgrid': helpers.root('src')
 			}
 		},
@@ -218,18 +219,18 @@ module.exports = function (options) {
 				outputPath: helpers.root('src/themes/material/theme.component.gen.html'),
 				pattern: /.*\.tpl\.html/
 			}),
-			// new CircularDependencyPlugin({
-			// 	// exclude detection of files based on a RegExp
-			// 	exclude: /node_modules/,
-			// 	// add errors to webpack instead of warnings
-			// 	failOnError: true,
-			// 	// override `exclude` and `failOnError` behavior
-			// 	// `onDetected` is called for each module that is cyclical
-			// 	onDetected({paths, compilation}) {
-			// 		// `paths` will be an Array of the relative module paths that make up the cycle
-			// 		compilation.errors.push(new Error(paths.join(' -> ')))
-			// 	}
-			// }),
+			new CircularDependencyPlugin({
+				// exclude detection of files based on a RegExp
+				exclude: /node_modules/,
+				// add errors to webpack instead of warnings
+				failOnError: true,
+				// override `exclude` and `failOnError` behavior
+				// `onDetected` is called for each module that is cyclical
+				onDetected({paths, compilation}) {
+					// `paths` will be an Array of the relative module paths that make up the cycle
+					compilation.errors.push(new Error(paths.join(' -> ')))
+				}
+			}),
 
 			new AssetsPlugin({
 				path: helpers.root('dist'),
@@ -351,7 +352,7 @@ module.exports = function (options) {
 
 			new ngcWebpack.NgcWebpackPlugin({
 				disabled: !AOT,
-				tsConfig: helpers.root('tsconfig.prod.json'),
+				tsConfigPath: helpers.root('tsconfig.prod.json'),
 				resourceOverride: helpers.root('config/resource-override.js')
 			})
 		],

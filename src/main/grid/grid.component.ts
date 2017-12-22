@@ -5,10 +5,12 @@ import {
 	EventEmitter,
 	ViewEncapsulation,
 	OnInit,
+	OnDestroy,
 	ElementRef,
 	ChangeDetectorRef
 } from '@angular/core';
-import { TemplateCacheService } from 'ng2-qgrid/template';
+import { TemplateCacheService } from 'ng2-qgrid/template/template-cache.service';
+import { TemplateService } from 'ng2-qgrid/template/template.service';
 import { RootComponent, RootService } from 'ng2-qgrid/infrastructure/component';
 import { LayerService } from '../layer';
 import { Table } from 'ng2-qgrid/core/dom';
@@ -17,15 +19,24 @@ import { TableCommandManager } from 'ng2-qgrid/core/command';
 import { isUndefined } from 'ng2-qgrid/core/utility';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
+import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
+import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 
 @Component({
 	selector: 'q-grid',
-	providers: [RootService, TemplateCacheService],
+	providers: [
+		RootService,
+		TemplateCacheService,
+		TemplateService,
+		ViewCoreService
+	],
 	styleUrls: ['../../assets/index.scss', '../../themes/material/index.scss'],
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None
 })
-export class GridComponent extends RootComponent implements OnInit {
+export class GridComponent extends RootComponent implements OnInit, OnDestroy {
+	private ctrl: GridCtrl;
+
 	@Input() model;
 	@Input('rows') dataRows;
 	@Input('columns') dataColumns;
@@ -38,6 +49,7 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input() pivotBy;
 	@Input() sortBy;
 	@Input() sortMode;
+	@Input() filterUnit;
 	@Input() editMode;
 	@Input() editEnter;
 	@Input() editCommit;
@@ -64,19 +76,15 @@ export class GridComponent extends RootComponent implements OnInit {
 			'selection',
 			'sort',
 			'group',
+			'filter',
 			'pivot',
 			'edit',
 			'style',
 			'action'
 		];
+
 		this.using(
 			this.modelChanged.watch(model => (this.rootService.model = model))
-		);
-
-		const apply = rootService.applyFactory(null, 'sync');
-		this.listener = new EventListener(
-			element.nativeElement,
-			new EventManager(this, apply)
 		);
 	}
 
@@ -84,68 +92,27 @@ export class GridComponent extends RootComponent implements OnInit {
 		super.ngOnInit();
 
 		const model = this.model;
-		const grid = model.grid;
-		if (grid().status === 'bound') {
-			throw new AppError(
-				'grid',
-				`Model is already used by grid "${model.grid().id}"`
-			);
-		}
+		const element = this.element.nativeElement;
 
-		grid({
-			status: 'bound',
-			title: this.gridTitle || ''
-		});
+		const ctrl = (this.ctrl = new GridCtrl(model, {
+			layerFactory: markup => new LayerService(markup),
+			element
+		}));
 
-		if (!this.gridId) {
-			this.element.nativeElement.id = model.grid().id;
-		}
-
-		const markup = this.rootService.markup;
-		const layerService = new LayerService(markup);
-		const tableContext = {
-			layer: name => layerService.create(name),
-			bag: this.rootService.bag
-		};
-
-		const table = new Table(model, markup, tableContext);
-		this.rootService.table = table;
+		this.rootService.table = ctrl.table;
+		this.rootService.bag = ctrl.bag;
+		this.rootService.markup = ctrl.markup;
 		this.rootService.commandManager = new TableCommandManager(
-			this.rootService.applyFactory(),
-			table
+			f => f(),
+			ctrl.table
 		);
 
+		const listener = new EventListener(element, new EventManager(this));
+		const windowListener = new EventListener(element, new EventManager(this));
 		this.using(
-			this.listener.on('keydown', e => {
-				if (model.action().shortcut.keyDown(e)) {
-					e.preventDefault();
-					e.stopPropagation();
-				}
-			})
+			windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl))
 		);
-
-		this.using(
-			this.model.viewChanged.watch(e => {
-				if (e.hasChanges('columns')) {
-					this.invalidateVisibility();
-				}
-			})
-		);
-	}
-
-	invalidateVisibility() {
-		const columns = this.model.data().columns;
-		const visibility = this.model.visibility;
-		visibility({
-			pin: {
-				left: columns.some(c => c.pin === 'left'),
-				right: columns.some(c => c.pin === 'right')
-			}
-		});
-	}
-
-	get isActive() {
-		return this.rootService.table.view.isFocused();
+		this.using(listener.on('keydown', ctrl.keyDown.bind(ctrl)));
 	}
 
 	get visibility() {

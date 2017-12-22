@@ -21,16 +21,26 @@ describe('Match', () => {
 
 	let model = {
 		filter: () => {
-			return {by: test}
+			return {
+				by: test,
+				assertFactory: () => ({
+					equals: (x, y) => x === y,
+					lessThan: (x, y) => x < y,
+					isNull: x => x === '' || x === null || x === undefined || isNaN(x) || isFinite(x)
+				})
+			};
 		},
 		data: () => {
-			return {columns: columns}
+			return {
+				columns: columns
+			}
 		}
 	};
 
 	let context = {
 		model: model,
-		valueFactory: value => value => value
+		valueFactory: value => value => value,
+		labelFactory: value => value => value,
 	};
 
 	describe('match', () => {

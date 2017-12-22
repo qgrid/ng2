@@ -1,8 +1,8 @@
 <ng-template key="plugin-export.tpl.html" let-$export>
 	<div class="q-grid-export">
-		<button md-button *ngIf="$export[$export.type] && $export[$export.type].canExecute()"
+		<button mat-button *ngIf="$export[$export.type] && $export[$export.type].canExecute()"
 				  (click)="$export[$export.type].execute()">
-			<md-icon>file_download</md-icon>
+			<mat-icon class="q-grid-icon">file_download</mat-icon>
 			Export to {{$export.type}}
 		</button>
 	</div>

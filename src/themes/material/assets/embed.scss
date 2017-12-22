@@ -17,6 +17,18 @@
                     }
                 }
             }
+            td {
+                &.q-grid-text-area {
+                    >span {
+                        max-height: 30px;
+                    }
+                }
+                &.q-grid-image {
+                    > img {
+                        height: 32px;
+                    }
+                }
+            }
             .q-grid-edit {
                 &.q-grid-row-options {
                     button {
@@ -24,6 +36,12 @@
                         height: 24px;
                         line-height: 24px;
                     }
+                }
+            }
+            .q-grid-title {
+                h3 {
+                    margin: 0;
+                    padding: 0;
                 }
             }
         }

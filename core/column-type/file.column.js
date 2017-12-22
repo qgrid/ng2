@@ -26,6 +26,8 @@ export class FileColumnModel extends DataColumnModel {
 		this.editorOptions.trigger = 'custom';
 
 		this.hasPreview = name => isImage(name);
+		this.canSort = false;
+		this.canFilter = false;
 	}
 }
 

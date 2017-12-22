@@ -1,26 +1,31 @@
-<ng-template key='edit-cell-email.tpl.html' let-$cell let-$view="$view">
-	<div class="q-grid-editor q-grid-email" q-grid-position="td">
-		<h2>Edit {{$cell.column.title}}</h2>
-		<div layout="column" class="q-grid-email-fields" flex>
-			<md-form-field *ngIf="$cell.column.label !== null">
-				<input mdInput
-						 type="text"
-						 [(ngModel)]="$view.edit.cell.label"
-						 (blur)="$view.edit.cell.commit.execute($cell)"
-						 placeholder="Label">
-			</md-form-field>
-			<md-form-field>
-				<input q-grid-focus
-						 mdInput
-						 type="email"
-						 [(ngModel)]="$view.edit.cell.value"
-						 (blur)="$view.edit.cell.commit.execute($cell)"
-						 placeholder="Email">
-			</md-form-field>
-		</div>
-		<div class="q-grid-actions">
-			<button md-button color="primary" (click)="$view.edit.cell.commit.execute($cell, $event)">Save</button>
-			<button md-button (click)="$view.edit.cell.cancel.execute($cell, $event)">Cancel</button>
-		</div>
-	</div>
+<ng-template key='edit-cell-email.tpl.html'
+             let-$cell
+             let-$view="$view">
+    <q-grid-cell-editor class="q-grid-email q-grid-editor q-grid-position"
+                        (close)="$view.edit.cell.exit.execute($cell)"
+                        q-grid-position="td">
+        <ng-template>
+            <q-grid-tab-trap>
+                <ng-template>
+                    <div layout="column"
+                         class="q-grid-email-fields"
+                         flex>
+                        <mat-form-field *ngIf="$cell.column.label !== null">
+                            <input matInput
+                                   type="text"
+                                   [(ngModel)]="$view.edit.cell.label"
+                                   placeholder="Label" />
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input q-grid-focus
+                                   matInput
+                                   type="email"
+                                   [(ngModel)]="$view.edit.cell.value"
+                                   placeholder="Email" />
+                        </mat-form-field>
+                    </div>
+                </ng-template>
+            </q-grid-tab-trap>
+        </ng-template>
+    </q-grid-cell-editor>
 </ng-template>

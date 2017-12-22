@@ -5,7 +5,7 @@ import {Table} from '../dom/table';
 import {GridService} from '../services/grid';
 
 export declare class ScrollView extends View {
-  constructor(model: Model, table: Table, vscroll: any, gridService: GridService);
+  constructor(model: Model, table: Table, vscroll: any);
 
   invalidate(): void;
 

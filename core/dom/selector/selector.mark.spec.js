@@ -18,13 +18,24 @@ describe('SelectorFactory', () => {
 	column4.pin = 'right';
 	const column5 = new ColumnModel();
 	column5.pin = null;
-	const columns = [column1, column2, column3, column4, column5];
 
 	const model = modelFactory();
-	model.view({
-		rows: ['row1','row2','row3'],
-		columns: columns
-	});
+	model
+		.view({
+			rows: ['row1', 'row2', 'row3'],
+		})
+		.scene({
+			column: {
+				rows: [],
+				line: [],
+				area: {
+					left: [column2],
+					null: [column5],
+					right: [column4],
+					grid: [column1, column3]
+				}
+			}
+		});
 	const name = 'q';
 	const markup = {
 		'q': 'q',
@@ -34,7 +45,7 @@ describe('SelectorFactory', () => {
 	};
 	const cell = {
 		element: 'cell',
-		columnRange: new Range(1,4),
+		columnRange: new Range(1, 4),
 		rowRange: new Range(0, 3)
 	};
 

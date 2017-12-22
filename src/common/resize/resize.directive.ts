@@ -1,4 +1,13 @@
-import { Directive, ElementRef, Inject, Input, OnDestroy, OnInit, Optional } from '@angular/core';
+import {
+	Directive,
+	ElementRef,
+	Inject,
+	Input,
+	OnDestroy,
+	OnInit,
+	Optional,
+	NgZone
+} from '@angular/core';
 import * as Infrastructure from 'ng2-qgrid/core/infrastructure';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { NgComponent, RootService } from 'ng2-qgrid/infrastructure/component';
@@ -26,19 +35,33 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 	@Input('q-grid-can-resize') canResize;
 	@Input('q-grid-drag') transfer;
 
-	constructor( @Optional() private root: RootService, elementRef: ElementRef, @Inject(DOCUMENT) private document: any) {
+	constructor(
+		@Optional() private root: RootService,
+		elementRef: ElementRef,
+		@Inject(DOCUMENT) private document: any,
+		private zone: NgZone
+	) {
 		super();
 
 		this.element = elementRef.nativeElement;
 		this.divider = document.createElement('div');
 
-		this.listener.divider = new Infrastructure.EventListener(this.divider, new Infrastructure.EventManager(this));
-		this.listener.document = new Infrastructure.EventListener(document, new Infrastructure.EventManager(this));
+		this.listener.divider = new Infrastructure.EventListener(
+			this.divider,
+			new Infrastructure.EventManager(this)
+		);
+		this.listener.document = new Infrastructure.EventListener(
+			document,
+			new Infrastructure.EventManager(this)
+		);
 	}
 
 	ngOnInit() {
 		if (this.canResize(this.event())) {
-			this.listener.divider.on('mousedown', this.dragStart);
+			this.zone.runOutsideAngular(() => {
+				this.listener.divider.on('mousedown', this.dragStart);
+			});
+
 			this.divider.classList.add(`${GRID_PREFIX}-divider`);
 			this.element.appendChild(this.divider);
 		}
@@ -58,8 +81,10 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 		context.width = this.element.clientWidth;
 		context.x = e.screenX;
 
-		this.listener.document.on('mousemove', this.drag);
-		this.listener.document.on('mouseup', this.dragEnd);
+		this.zone.runOutsideAngular(() => {
+			this.listener.document.on('mousemove', this.drag);
+			this.listener.document.on('mouseup', this.dragEnd);
+		});
 
 		const model = this.model;
 		model.drag({ isActive: true });

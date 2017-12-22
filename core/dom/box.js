@@ -63,14 +63,14 @@ export class Box {
 		const cellFactory = this.createCellCore.bind(this);
 		return this.selector
 			.rowCells(rowIndex)
-			.map(cell => cellFactory(cell.columnIndex, cell.rowIndex, cell.element));
+			.map(cell => cellFactory(cell.rowIndex, cell.columnIndex, cell.element));
 	}
 
 	columnCellsCore(columnIndex) {
 		const cellFactory = this.createCellCore.bind(this);
 		return this.selector
 			.columnCells(columnIndex)
-			.map(cell => cellFactory(cell.columnIndex, cell.rowIndex, cell.element));
+			.map(cell => cellFactory(cell.rowIndex, cell.columnIndex, cell.element));
 	}
 
 	createRowCore(index, element) {

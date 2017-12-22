@@ -9,9 +9,9 @@ export class Row extends Element {
 	}
 
 	model() {
-		const rowView = this.box.context.bag.findModel(this.getKeyElementCore());
-		if(rowView){
-			return rowView.model;
+		const view = this.box.context.bag.findModel(this.getKeyElementCore());
+		if(view){
+			return view.model;
 		}
 
 		return null;

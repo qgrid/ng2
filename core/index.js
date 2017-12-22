@@ -1,4 +1,5 @@
 import {GridModel} from './grid';
+import {PipeModel} from './pipe';
 import {SceneModel} from './scene';
 import {ViewModel} from './view';
 import {DataModel} from './data';
@@ -30,9 +31,12 @@ import {ExportModel} from './export';
 import {ImportModel} from './import';
 import {ActionModel} from './action';
 import {FetchModel} from './fetch';
+import {PersistenceModel} from './persistence';
+import {ValidationModel} from './validation';
 
 export function setup(model) {
 	model.register('grid', GridModel)
+		.register('pipe', PipeModel)
 		.register('scene', SceneModel)
 		.register('view', ViewModel)
 		.register('data', DataModel)
@@ -63,5 +67,7 @@ export function setup(model) {
 		.register('export', ExportModel)
 		.register('import', ImportModel)
 		.register('action', ActionModel)
-		.register('fetch', FetchModel);
+		.register('fetch', FetchModel)
+		.register('persistence', PersistenceModel)
+		.register('validation', ValidationModel);
 }

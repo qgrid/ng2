@@ -1,6 +1,7 @@
 import isObject from 'lodash/isObject';
 import isFunction from 'lodash/isFunction';
 import isArray from 'lodash/isArray';
+import isEqual from 'lodash/isEqual';
 import isString from 'lodash/isString';
 import isBoolean from 'lodash/isBoolean';
 import isNumber from 'lodash/isNumber';
@@ -11,7 +12,6 @@ import isUndefined from 'lodash/isUndefined';
 import debounce from 'lodash/debounce';
 import merge from 'lodash/merge';
 import flatten from 'lodash/flatten';
-import orderBy from 'lodash/orderBy';
 import startCase from 'lodash/startCase';
 import assignWith from 'lodash/assignWith';
 import uniq from 'lodash/uniq';
@@ -44,17 +44,93 @@ const toCamelCase = (...names) => {
 
 const isEmail = value => {
 	if (value) {
-		const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+		const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i; // eslint-disable-line no-useless-escape
 		return re.test(value);
 	}
 
 	return false;
 };
 
+function compare(x, y) {
+	if (x === y) {
+		return 0;
+	}
+
+	if (x > y) {
+		return 1;
+	}
+
+	return -1;
+}
+
+function orderBy(data, selectors, compares) {
+	const length = selectors.length;
+	const result = [];
+	const count = data.length;
+
+	// iterate through data to create array with applied selectors
+	let index = count;
+	while (index--) {
+		const row = data[index];
+		const criteria = [];
+		for (let i = 0; i < length; i++) {
+			const select = selectors[i];
+			criteria.push(select(row));
+		}
+
+		result.push({row, criteria, index});
+	}
+
+	// multi selector comparator
+	const compare = (x, y) => {
+		let result = 0;
+		for (let i = 0; i < length; i++) {
+			const compare = compares[i];
+			const xv = x.criteria[i];
+			const yv = y.criteria[i];
+
+			result = compare(xv, yv, x.row, y.row);
+			if (result !== 0) {
+				return result;
+			}
+		}
+
+		// ensures a stable sort
+		return x.index - y.index;
+	};
+
+	result.sort(compare);
+
+	// copy origin values to result array
+	index = count;
+	while (index--) {
+		result[index] = result[index].row;
+	}
+
+	return result;
+}
+
+function htmlEncode(s) {
+	return String(s)
+		.replace(/&/g, '&amp;')
+		.replace(/"/g, '&quot;')
+		.replace(/'/g, '&#39;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;');
+}
+
+function escapeRegexp(text) {
+	if (!text)
+		return text;
+
+	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
+
 export {
 	isObject,
 	isFunction,
 	isArray,
+	isEqual,
 	isString,
 	isUndefined,
 	isBoolean,
@@ -74,6 +150,7 @@ export {
 	no,
 	toCamelCase,
 	noop,
+	compare,
 	orderBy,
 	max,
 	min,
@@ -81,5 +158,7 @@ export {
 	zip,
 	takeWhile,
 	dropWhile,
-	groupBy
+	groupBy,
+	htmlEncode,
+	escapeRegexp
 };

@@ -1,7 +1,8 @@
 import {ColumnView} from '../scene/view';
 import {DataColumnModel} from './data.column.model';
 import {TemplatePath} from '../template';
-import {identity} from '../utility';
+import {get as getValue} from '../services/value';
+import {isArray, identity} from '../utility';
 
 TemplatePath.register('array-cell', (template, column) => {
 	return {
@@ -21,7 +22,12 @@ export class ArrayColumnModel extends DataColumnModel {
 	constructor() {
 		super('array');
 
-		this.label = identity;
+		this.itemLabel = identity;
+		this.label = function (row) {
+			const value = getValue(row, this);
+			const itemLabel = this.itemLabel.bind(this);
+			return isArray(value) ? value.map(itemLabel).join(', ') : value;
+		};
 	}
 }
 

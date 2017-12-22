@@ -21,5 +21,5 @@ export interface INext {
 
 
 export interface IPipe<T> {
-	(memo: T, context: IContext, next: INext): void;
+	(memo: T, context: IContext, next: INext): any;
 }

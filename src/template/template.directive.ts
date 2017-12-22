@@ -3,6 +3,8 @@ import { TemplateLinkService } from './template-link.service';
 import { TemplateCacheService } from './template-cache.service';
 import { Guard, AppError } from 'ng2-qgrid/core/infrastructure';
 import { isString, isArray } from 'ng2-qgrid/core/utility';
+import { TemplateLink } from './template-link';
+import { TemplateService } from './template.service';
 
 @Directive({
 	selector: 'ng-container[key]'
@@ -10,43 +12,22 @@ import { isString, isArray } from 'ng2-qgrid/core/utility';
 export class TemplateDirective implements DoCheck {
 	@Input() key: any = '';
 	@Input() context = null;
-	private template: TemplateRef<any> = null;
+	private link: TemplateLink = null;
 	private viewRef: EmbeddedViewRef<any>;
 
-	constructor(private templateLink: TemplateLinkService,
-		private templateCache: TemplateCacheService,
-		private viewContainerRef: ViewContainerRef) {
+	constructor(private templateService: TemplateService, private viewContainerRef: ViewContainerRef) {
 	}
 
 	ngDoCheck() {
-		const template = this.find(this.key);
-		if (template !== this.template) {
-			this.template = template;
+		const link = this.templateService.find(this.key);
+		if (link !== this.link) {
+			this.link = link;
 			if (this.viewRef) {
 				this.viewContainerRef.clear();
 			}
 
-			this.viewRef = this.viewContainerRef.createEmbeddedView(template, this.context);
+			const createView = this.templateService.viewFactory(this.context);
+			this.viewRef = createView(link, this.viewContainerRef);
 		}
-	}
-
-	private find(keys): TemplateRef<any> {
-		if (isString(keys)) {
-			const template = this.templateCache.get(keys) || this.templateLink.get(keys);
-			return template || null;
-
-		}
-
-		if (isArray(keys)) {
-			for (const key of keys) {
-				const template = this.find(key);
-				if (template) {
-					return template;
-				}
-			}
-			return null;
-		}
-
-		throw new AppError('template.directive', 'Invalid key type');
 	}
 }

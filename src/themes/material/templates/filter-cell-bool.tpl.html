@@ -1,0 +1,10 @@
+<ng-template key='filter-cell-bool.tpl.html'
+             let-$cell
+             let-$view="$view">
+    <mat-checkbox *ngIf="$cell.column.canFilter"
+                  aria-label="Bool cell filter"
+                  class="q-grid-checkbox"
+                  #input
+                  (change)="$view.head.filter.execute($cell.column.model, input.checked)">
+    </mat-checkbox>
+</ng-template>

@@ -1,11 +1,11 @@
-﻿﻿export interface IMergeResult {
-	(left: any[], right: any[], result: any[]): IMergeResultObject;
-}
-
-export interface IMergeResultObject {
+﻿export interface IMergeResultObject {
 	updated: number;
 	removed: number;
 	inserted: number;
+}
+
+export interface IMergeResult {
+	(left: any[], right: any[], result: any[]): IMergeResultObject;
 }
 
 export interface ISettings {

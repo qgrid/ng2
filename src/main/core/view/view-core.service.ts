@@ -1,11 +1,10 @@
-import { Guard } from 'ng2-qgrid/core/infrastructure';
 import { Injectable } from '@angular/core';
+import { Guard } from 'ng2-qgrid/core/infrastructure';
 import { GroupView } from 'ng2-qgrid/core/group/group.view';
 import { FilterView } from 'ng2-qgrid/core/filter/filter.view';
 import { PivotView } from 'ng2-qgrid/core/pivot/pivot.view';
 import { SortView } from 'ng2-qgrid/core/sort/sort.view';
 import { PaginationView } from 'ng2-qgrid/core/pagination/pagination.view';
-import { ColumnView } from 'ng2-qgrid/core/column/column.view';
 import { HeadView } from 'ng2-qgrid/core/head/head.view';
 import { BodyView } from 'ng2-qgrid/core/body/body.view';
 import { FootView } from 'ng2-qgrid/core/foot/foot.view';
@@ -18,7 +17,7 @@ import { ScrollView } from 'ng2-qgrid/core/scroll/scroll.view';
 import { StyleView } from 'ng2-qgrid/core/style/style.view';
 import { RowDetailsView } from 'ng2-qgrid/core/row-details/row.details.view';
 import { RootService } from 'ng2-qgrid/infrastructure/component';
-import { GridService } from 'ng2-qgrid/main/grid';
+import { GridService } from 'ng2-qgrid/main/grid/grid.service';
 import { VScrollService } from 'ng2-qgrid/main/core/scroll';
 import { viewFactory } from 'ng2-qgrid/core/view/view.factory';
 import { noop } from 'ng2-qgrid/core/utility';
@@ -32,7 +31,6 @@ export class ViewCoreService {
 	public pivot: PivotView = null;
 	public sort: SortView = null;
 	public pagination: PaginationView = null;
-	public columns: ColumnView = null;
 	public head: HeadView = null;
 	public body: BodyView = null;
 	public foot: FootView = null;
@@ -45,10 +43,11 @@ export class ViewCoreService {
 	public style: StyleView = null;
 	public rowDetails: RowDetailsView = null;
 
-	constructor(private root: RootService,
+	constructor(
+		private root: RootService,
 		private gridServiceFactory: GridService,
-		private vscroll: VScrollService) {
-	}
+		private vscroll: VScrollService
+	) {}
 
 	init() {
 		const root = this.root;
@@ -66,7 +65,8 @@ export class ViewCoreService {
 			commandManager,
 			gridService,
 			this.vscroll,
-			selectors);
+			selectors
+		);
 
 		this.destroy = injectViewServicesTo(this);
 	}

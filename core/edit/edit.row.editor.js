@@ -23,7 +23,6 @@ class CellView {
 		this.column = column;
 	}
 
-
 	get value() {
 		return getValue(this.row, this.column);
 	}

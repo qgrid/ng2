@@ -155,12 +155,13 @@ export class Selector {
 	}
 
 	rowsCore() {
-		const isDataRow = this.bag.hasModel.bind(this.bag);
+		// to increase performance we use private property bag.models
+		const dataRows = this.bag.models;
 		const rows = this.element.rows;
 		const result = [];
 		for (let i = 0, length = rows.length; i < length; i++) {
 			const row = rows[i];
-			if (isDataRow(row)) {
+			if (dataRows.has(row)) {
 				result.push(row);
 			}
 		}

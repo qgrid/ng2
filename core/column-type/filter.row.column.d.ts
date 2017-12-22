@@ -4,8 +4,7 @@ import {ColumnModel} from './column.model';
 export declare class FilterRowColumnModel extends ColumnModel {
 	constructor();
 
-	sourceKey: string;
-	sourceType: string;
+	model: ColumnModel;
 }
 
 export declare class FilterRowColumn extends ColumnView {

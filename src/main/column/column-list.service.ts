@@ -1,38 +1,42 @@
 import { Injectable } from '@angular/core';
 import { compile } from 'ng2-qgrid/core/services';
 import { isUndefined, clone, isObject, identity } from 'ng2-qgrid/core/utility';
-import { parseFactory, getType } from 'ng2-qgrid/core/services';
+import { parseFactory } from 'ng2-qgrid/core/services';
 import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { ColumnListCtrl } from 'ng2-qgrid/core/column-list/column.list.ctrl';
+import { Singleton } from 'ng2-qgrid/infrastructure/design';
+import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 
 @Injectable()
 export class ColumnListService {
 	constructor(private root: RootService) {
 	}
 
-	copy(target, source) {
-		Object.keys(source)
-			.filter(key => !isUndefined(source[key]) && key !== 'value')
-			.forEach(key => {
-				const value = source[key];
-				const accessor = compile(key);
-				const targetValue = accessor(target);
-				const parse = parseFactory(getType(targetValue));
-				const sourceValue = parse(value);
-				accessor(target, sourceValue);
-			});
+	add(column) {
+		this.ctrl.add(column);
 	}
 
-	add(column) {
-		const columnList = this.root.model.columnList;
-		columnList({
-			columns: columnList().columns.concat([column])
-		});
+	copy(target, source) {
+		this.ctrl.copy(target, source);
+	}
+
+	generateKey(source) {
+		return this.ctrl.generateKey(source);
+	}
+
+	extract(key, type): ColumnModel {
+		return this.ctrl.extract(key, type);
 	}
 
 	register(column) {
-		const columnList = this.root.model.columnList;
-		const reference = clone(columnList().columns);
-		reference[column.type] = column;
-		columnList({ reference });
+		this.ctrl.register(column);
+	}
+
+	@Singleton()
+	get ctrl() {
+		const canCopy = (key: string, source, target) =>
+			target.hasOwnProperty(key) && !isUndefined(source[key]);
+
+		return new ColumnListCtrl(this.root.model, canCopy, parseFactory);
 	}
 }

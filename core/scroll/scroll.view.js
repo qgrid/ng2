@@ -1,59 +1,80 @@
 import {View} from '../view';
 import {Log} from '../infrastructure';
+import {isFunction} from '../utility';
 
 export class ScrollView extends View {
-	constructor(model, table, vscroll, gridService) {
+	constructor(model, table, vscroll) {
 		super(model);
 
 		this.table = table;
 
 		const scroll = model.scroll;
-		this.y = vscroll.factory({
+		const rowHeight = model.row().height;
+		const pagination = model.pagination;
+		const settings = {
 			threshold: model.pagination().size,
-			rowHeight: model.row().height
-		});
+			resetTriggers: []
+		};
+
+		if (rowHeight > 0 || isFunction(rowHeight)) {
+			settings.rowHeight = rowHeight;
+		}
+
+		this.y = vscroll.factory(settings);
 
 		this.y.container.drawEvent.on(e => {
-			scroll({
-				cursor: e.position
-			}, {
+			scroll({ cursor: e.position }, {
 				source: 'scroll.view',
 				behavior: 'core'
 			});
 
-			const currentPage = Math.floor(e.position / model.pagination().size);
-			model.pagination({
-				current: currentPage
-			}, {
-				source: 'scroll.view',
-				behavior: 'core'
-			});
+			const current = Math.floor(e.position / pagination().size);
+			if (current !== pagination().current) {
+				pagination({ current }, {
+					source: 'scroll.view',
+					behavior: 'core'
+				});
+			}
 		});
 
 		switch (scroll().mode) {
 			case 'virtual': {
 				this.y.settings.fetch = (skip, take, d) => {
-					model.fetch({
-						skip: skip
-					}, {
-						source: 'scroll.view',
-						behavior: 'core'
+					model.fetch({ skip }, {
+						source: 'scroll.view'
 					});
 
-					gridService
-						.invalidate('scroll.view')
-						.then(() => {
-							const total = model.data().rows.length;
-							model.pagination({
-								count: total
-							}, {
-								source: 'scroll.view',
-								behavior: 'core'
-							});
+					model.dataChanged.on((e, off) => {
+						if (e.hasChanges('rows')) {
+							const count = e.state.rows.length;
+							if (pagination().count !== count) {
+								pagination({ count }, {
+									source: 'scroll.view',
+									behavior: 'core'
+								});
+							}
 
-							d.resolve(total);
-						});
+							d.resolve(count);
+							off();
+						}
+					});
 				};
+
+				this.using(model.sceneChanged.watch(e => {
+					if (e.tag.source === 'scroll.view') {
+						return;
+					}
+
+					if (e.hasChanges('status')) {
+						const status = e.state.status;
+						switch (status) {
+							case 'start': {
+								this.y.container.reset();
+								break;
+							}
+						}
+					}
+				}));
 
 				break;
 			}

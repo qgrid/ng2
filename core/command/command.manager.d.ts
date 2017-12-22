@@ -1,7 +1,9 @@
 import {Command} from './command';
 
 export declare class CommandManager {
-  constructor();
-  invoke(commands: Command[]): boolean;
-  filter(commands: Command[]): Command[];
+	constructor();
+
+	invoke(commands: Command[], source?: string): boolean;
+
+	filter(commands: Command[], source?: string): Command[];
 }
