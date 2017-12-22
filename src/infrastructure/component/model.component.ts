@@ -34,7 +34,7 @@ export class ModelComponent extends NgComponent implements OnChanges, OnInit, On
 		this.binder.bind(null);
 	}
 
-	get model() {
+	get model(): Model {
 		return this.root.model;
 	}
 }
