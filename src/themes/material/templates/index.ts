@@ -8,7 +8,6 @@ const templates = [
 	require('./filter-cell-currency.tpl.html'),
 	require('./filter-cell-bool.tpl.html'),
 
-	require('./body-cell-text.tpl.html'),
 	require('./body-cell-array.tpl.html'),
 	require('./body-cell-bool.tpl.html'),
 	require('./body-cell-email.tpl.html'),
@@ -16,6 +15,8 @@ const templates = [
 	require('./body-cell-image.tpl.html'),
 	require('./body-cell-password.tpl.html'),
 	require('./body-cell-select.tpl.html'),
+	require('./body-cell-text.tpl.html'),
+	require('./body-cell-time.tpl.html'),
 	require('./body-cell-group.tpl.html'),
 	require('./body-cell-currency.tpl.html'),
 	require('./body-cell-date.tpl.html'),
@@ -37,6 +38,7 @@ const templates = [
 	require('./edit-cell-bool.tpl.html'),
 	require('./edit-cell-password.tpl.html'),
 	require('./edit-cell-textarea.tpl.html'),
+	require('./edit-cell-time.tpl.html'),
 	require('./edit-cell-row-options.tpl.html'),
 	require('./edit-cell-url.tpl.html'),
 
