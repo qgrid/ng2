@@ -13,6 +13,7 @@ import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { ColumnSortView } from 'ng2-qgrid/plugin/column-sort/column.sort.view';
 import { EventListener, EventManager } from 'ng2-qgrid/core/infrastructure';
+import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 
 @Component({
 	selector: 'q-grid-column-sort',
@@ -22,7 +23,7 @@ export class ColumnSortComponent extends PluginComponent implements AfterViewIni
 	@Input() public column;
 	@ContentChild(TemplateRef) public template: TemplateRef<any>;
 
-	constructor(root: RootService, private element: ElementRef, private zone: NgZone) {
+	constructor(root: RootService, private view: ViewCoreService, private element: ElementRef, private zone: NgZone) {
 		super(root);
 	}
 
@@ -33,7 +34,7 @@ export class ColumnSortComponent extends PluginComponent implements AfterViewIni
 
 		const ctrl = new ColumnSortView(this.model, {
 			element: nativeElement,
-			view: this.root.view,
+			view: this.view,
 			column: this.column,
 			iconAsc,
 			iconDesc
