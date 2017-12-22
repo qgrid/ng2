@@ -20,10 +20,16 @@ import { isUndefined } from 'ng2-qgrid/core/utility';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
+import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 
 @Component({
 	selector: 'q-grid',
-	providers: [RootService, TemplateCacheService, TemplateService],
+	providers: [
+		RootService,
+		TemplateCacheService,
+		TemplateService,
+		ViewCoreService
+	],
 	styleUrls: ['../../assets/index.scss', '../../themes/material/index.scss'],
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None
@@ -103,7 +109,9 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 
 		const listener = new EventListener(element, new EventManager(this));
 		const windowListener = new EventListener(element, new EventManager(this));
-		this.using(windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl)));
+		this.using(
+			windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl))
+		);
 		this.using(listener.on('keydown', ctrl.keyDown.bind(ctrl)));
 	}
 

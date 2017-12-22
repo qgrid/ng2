@@ -1,5 +1,5 @@
-import { Guard } from 'ng2-qgrid/core/infrastructure';
 import { Injectable } from '@angular/core';
+import { Guard } from 'ng2-qgrid/core/infrastructure';
 import { GroupView } from 'ng2-qgrid/core/group/group.view';
 import { FilterView } from 'ng2-qgrid/core/filter/filter.view';
 import { PivotView } from 'ng2-qgrid/core/pivot/pivot.view';
@@ -18,7 +18,7 @@ import { ScrollView } from 'ng2-qgrid/core/scroll/scroll.view';
 import { StyleView } from 'ng2-qgrid/core/style/style.view';
 import { RowDetailsView } from 'ng2-qgrid/core/row-details/row.details.view';
 import { RootService } from 'ng2-qgrid/infrastructure/component';
-import { GridService } from 'ng2-qgrid/main/grid';
+import { GridService } from 'ng2-qgrid/main/grid/grid.service';
 import { VScrollService } from 'ng2-qgrid/main/core/scroll';
 import { viewFactory } from 'ng2-qgrid/core/view/view.factory';
 import { noop } from 'ng2-qgrid/core/utility';
@@ -45,10 +45,11 @@ export class ViewCoreService {
 	public style: StyleView = null;
 	public rowDetails: RowDetailsView = null;
 
-	constructor(private root: RootService,
+	constructor(
+		private root: RootService,
 		private gridServiceFactory: GridService,
-		private vscroll: VScrollService) {
-	}
+		private vscroll: VScrollService
+	) {}
 
 	init() {
 		const root = this.root;
@@ -66,7 +67,8 @@ export class ViewCoreService {
 			commandManager,
 			gridService,
 			this.vscroll,
-			selectors);
+			selectors
+		);
 
 		this.destroy = injectViewServicesTo(this);
 	}
