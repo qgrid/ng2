@@ -16,7 +16,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Data manipulation plugin.
 * Bool cell editor.
 
-## [5.0.0] - 2017-12-22
+## [5.0.2] - 2017-12-22
 
 ### Added
 
@@ -89,8 +89,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng/compare/v5.0.0...HEAD
-[5.0.0]: https://github.com/qgrid/ng/compare/v5.0.0...v1.0.7
+[unreleased]: https://github.com/qgrid/ng/compare/v5.0.2...HEAD
+[5.0.0]: https://github.com/qgrid/ng/compare/v5.0.2...v1.0.7
 [1.0.7]: https://github.com/qgrid/ng/compare/v1.0.7...v1.0.6
 [1.0.6]: https://github.com/qgrid/ng/compare/v1.0.6...v1.0.5
 [1.0.5]: https://github.com/qgrid/ng/compare/v1.0.5...v1.0.4
