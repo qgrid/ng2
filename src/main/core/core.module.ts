@@ -13,6 +13,7 @@ import { TemplateService } from 'ng2-qgrid/template/template.service';
 import { TemplateModule } from 'ng2-qgrid/template/template.module';
 import { CommonModule } from 'ng2-qgrid/common';
 import { TableCoreComponent } from 'ng2-qgrid/main/core/table';
+import {TdCoreAlignDirective} from 'ng2-qgrid/main/core/body/td-core-align.directive';
 
 @NgModule({
 	declarations: [
@@ -26,7 +27,8 @@ import { TableCoreComponent } from 'ng2-qgrid/main/core/table';
 		ThCoreDirective,
 		TdCoreDirective,
 		TfCoreDirective,
-		MarkupDirective
+		MarkupDirective,
+		TdCoreAlignDirective
 	],
 	exports: [
 		ViewCoreComponent,
