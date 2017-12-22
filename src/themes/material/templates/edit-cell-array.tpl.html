@@ -6,26 +6,25 @@
                         q-grid-position="td">
         <ng-template>
             <div class="q-grid-array-view">
-                <mat-form-field class="demo-chip-list">
-                    <mat-chip-list matPrefix
-                                   #chipList>
-                        <mat-chip *ngFor="let value of $view.edit.cell.value;let $index = index"
+                <mat-form-field class="demo-chip-list"
+                                q-grid-chips>
+                    <mat-chip-list #chipList>
+                        <mat-chip *ngFor="let value of $view.edit.cell.value; $index as index"
                                   selectable="true"
                                   removable="true"
                                   (remove)="$view.edit.cell.value.splice($index, 1)">
                             {{value}}
                             <mat-icon class="q-grid-icon"
-                                      matChipRemove>cancel</mat-icon>
+                                      matChipRemove>
+                                cancel
+                            </mat-icon>
                         </mat-chip>
                     </mat-chip-list>
                     <input matInput
+                           #chipInput
                            aria-label="New value"
                            q-grid-focus
-                           [matChipInputFor]="chipList"
-                           matChipInputSeparatorKeyCodes="[13]"
-                           matChipInputAddOnBlur="true"
-                           (matChipInputTokenEnd)="$event.value.trim() && (($view.edit.cell.value.push($event.value.trim()) || true) && $event.input.value = '')"
-                    />
+                           [matChipInputFor]="chipList" />
                 </mat-form-field>
             </div>
         </ng-template>

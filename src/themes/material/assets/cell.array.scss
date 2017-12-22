@@ -27,7 +27,8 @@ td.q-grid-array {
 	height: auto;
 	.q-grid-array-view {
 		max-height: 400px;
-		overflow-y: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
 		padding-bottom: 20px;
 	}
 }

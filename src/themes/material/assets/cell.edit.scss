@@ -49,9 +49,10 @@ td.q-grid-edit {
 	}
 
 	.q-grid-actions {
-		.md-button {
+		button {
 			margin: 8px 0 0 8px;
-			float: right;
+            float: right;
+            text-transform: uppercase;
 		}
 	}
 	.q-grid-position {
