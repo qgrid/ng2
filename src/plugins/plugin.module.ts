@@ -14,6 +14,7 @@ import { TabTrapModule } from './tab-trap';
 import { BackdropModule } from './backdrop';
 import { SelectModule } from './select';
 import { LegendModule } from './legend';
+import { ChipsModule } from './chips';
 
 import { ColumnChooserModel } from 'ng2-qgrid/plugin/column-chooser/column.chooser.model';
 import { ColumnFilterModel } from 'ng2-qgrid/plugin/column-filter/column.filter.model';
@@ -41,7 +42,8 @@ Model.register('columnChooser', ColumnChooserModel)
 		TabTrapModule,
 		BackdropModule,
 		SelectModule,
-		LegendModule
+		LegendModule,
+		ChipsModule
 	],
 	imports: [],
 	providers: []

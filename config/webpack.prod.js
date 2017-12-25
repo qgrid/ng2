@@ -40,13 +40,13 @@ const packageConfig = require(helpers.root('package.json'));
 const externals = Object.keys(packageConfig.dependencies);
 externals.push('@angular/material');
 
+const min = helpers.hasNpmFlag('min');
+
 module.exports = function (env) {
-	return webpackMerge(commonConfig({
-		env: ENV
-	}), {
+	return webpackMerge({}, {
 		entry: {
-			'main': helpers.root('src', 'index.ts'),
-			'main.min': helpers.root('src', 'index.ts'),
+			[`main${min ? '.min' : ''}`]: helpers.root('dist', 'index.js'),
+			[`material${min ? '.min' : ''}`]: helpers.root('dist', 'themes', 'material', 'theme.module'),
 			'vendor': [
 				'@angular/platform-browser',
 				'@angular/platform-browser-dynamic',
@@ -112,6 +112,18 @@ module.exports = function (env) {
 			library: 'ng2-qgrid'
 		},
 
+		resolve: {
+			extensions: ['.js', '.json'],
+
+			modules: [helpers.root('node_modules')],
+
+			alias: {
+				'ng2-qgrid/core': helpers.root('core'),
+				'ng2-qgrid/plugin': helpers.root('plugin'),
+				'ng2-qgrid': helpers.root('dist')
+			}
+		},
+
 		externals: [
 			angularExternals(),
 			rxjsExternals()
@@ -120,7 +132,18 @@ module.exports = function (env) {
 		module: {
 
 			rules: [
-
+				{
+					test: /\.js$/,
+					use: [
+						{
+							loader: 'angular2-template-loader'
+						},
+						{
+							loader: 'babel-loader'
+						}
+					],
+					exclude: /node_modules/
+				},
 				/*
              * Extract CSS files from .src/styles directory to external CSS file
              */
@@ -145,6 +168,58 @@ module.exports = function (env) {
 					include: [helpers.root('src', 'styles')]
 				},
 
+				{
+					test: /\.json$/,
+					use: 'json-loader'
+				},
+
+				/*
+				 * to string and css loader support for *.css files (from Angular components)
+				 * Returns file content as string
+				 *
+				 */
+				{
+					test: /\.css$/,
+					use: ['to-string-loader', 'css-loader'],
+					exclude: [helpers.root('demo', 'styles')]
+				},
+
+				/*
+				 * to string and sass loader support for *.scss files (from Angular components)
+				 * Returns compiled css content as string
+				 *
+				 */
+				{
+					test: /\.scss$/,
+					use: ['to-string-loader', 'css-loader', 'sass-loader'],
+					exclude: [helpers.root('demo', 'styles')]
+				},
+
+				/* Raw loader support for *.html
+				 * Returns file content as string
+				 *
+				 * See: https://github.com/webpack/raw-loader
+				 */
+				{
+					test: /\.html$/,
+					use: 'raw-loader',
+					exclude: [helpers.root('demo/index.html')]
+				},
+
+				/*
+				 * File loader for supporting images, for example, in CSS files.
+				 */
+				{
+					test: /\.(jpg|png|gif)$/,
+					use: 'file-loader'
+				},
+
+				/* File loader for supporting fonts, for example, in CSS files.
+				 */
+				{
+					test: /\.(eot|woff2?|svg|ttf)([\?]?.*)$/,
+					use: 'file-loader'
+				}
 			]
 
 		},
