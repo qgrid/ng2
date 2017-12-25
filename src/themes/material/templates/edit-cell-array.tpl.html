@@ -15,15 +15,14 @@
                         {{value}}
                         <mat-icon class="q-grid-icon"
                                   matChipRemove>cancel</mat-icon>
-                                cancel
-                            </mat-icon>
                     </mat-chip>
                 </mat-chip-list>
                 <mat-form-field>
                     <input matInput
                            placeholder="New value"
                            q-grid-focus
-                           [matChipInputFor]="chipList" />
+                           [matChipInputFor]="chipList" 
+                           (matChipInputTokenEnd)="$event.value.trim() && (($view.edit.cell.value.push($event.value.trim()) || true) && $event.input.value = '')"/>
                 </mat-form-field>
             </div>
         </ng-template>
