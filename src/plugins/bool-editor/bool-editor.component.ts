@@ -2,7 +2,8 @@ import {
 	Component,
 	Optional,
 	TemplateRef,
-	OnInit
+	OnInit,
+	ElementRef
 } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
@@ -15,13 +16,18 @@ import { BoolColumnModel } from 'ng2-qgrid/core/column-type/bool.column';
 	templateUrl: './bool-editor.component.html'
 })
 export class BoolEditorComponent extends PluginComponent implements OnInit {
-	constructor(@Optional() root: RootService, private view: ViewCoreService) {
+	constructor(
+		@Optional() root: RootService,
+		private view: ViewCoreService,
+		private element: ElementRef
+	) {
 		super(root);
 	}
 
 	ngOnInit() {
 		// entering edit mode means toggling boolean value
-		this.value = !this.value;
+		this.value =
+			this.value === this.trueValue ? this.falseValue : this.trueValue;
 	}
 
 	isChecked() {
