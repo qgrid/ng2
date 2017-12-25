@@ -1,4 +1,9 @@
 .q-grid-toolbar {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+
 	&-left, &-right {
 		max-width: 250px;
 		overflow: auto;

@@ -13,15 +13,18 @@ import { CellEditorModule } from './cell-editor';
 import { TabTrapModule } from './tab-trap';
 import { BackdropModule } from './backdrop';
 import { SelectModule } from './select';
+import { LegendModule } from './legend';
 
 import { ColumnChooserModel } from 'ng2-qgrid/plugin/column-chooser/column.chooser.model';
 import { ColumnFilterModel } from 'ng2-qgrid/plugin/column-filter/column.filter.model';
 import { DataManipulationModel } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.model';
+import { LegendModel } from 'ng2-qgrid/plugin/legend/legend.model';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 Model.register('columnChooser', ColumnChooserModel)
 	.register('columnFilter', ColumnFilterModel)
-	.register('dataManipulation', DataManipulationModel);
+	.register('dataManipulation', DataManipulationModel)
+	.register('legend', LegendModel);
 
 @NgModule({
 	declarations: [],
@@ -39,7 +42,8 @@ Model.register('columnChooser', ColumnChooserModel)
 		CellEditorModule,
 		TabTrapModule,
 		BackdropModule,
-		SelectModule
+		SelectModule,
+		LegendModule
 	],
 	imports: [],
 	providers: []
