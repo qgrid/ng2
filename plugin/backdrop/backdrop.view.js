@@ -1,8 +1,8 @@
 import {PluginView} from '../plugin.view';
 import {Event, EventListener, EventManager} from '../../core/infrastructure';
 
-const mouse_left_button = 1;
-const mouse_wheel_button = 2;
+const MOUSE_LEFT_BUTTON = 1;
+const MOUSE_WHEEL_BUTTON = 2;
 
 export class BackdropView extends PluginView {
 	constructor(context) {
@@ -15,7 +15,7 @@ export class BackdropView extends PluginView {
 
 		this.using(listener.on('mouseup', e => {
 
-			if (e.which === mouse_left_button || e.which === mouse_wheel_button) {
+			if (e.which === MOUSE_LEFT_BUTTON || e.which === MOUSE_WHEEL_BUTTON) {
 
 				e.stopPropagation();
 				element.remove();
