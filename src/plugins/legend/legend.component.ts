@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Optional } from '@angular/core';
+import { Component, Optional } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 
@@ -6,19 +6,11 @@ import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 	selector: 'q-grid-legend-core',
 	templateUrl: './legend.component.html'
 })
-export class LegendComponent extends PluginComponent implements OnInit, OnDestroy {
+export class LegendComponent extends PluginComponent {
 
 	constructor(@Optional() root: RootService) {
 		super(root);
 
 		this.models = ['legend'];
-	}
-
-	ngOnInit() {
-		this.context = {$implicit: this};
-	}
-
-	ngOnDestroy() {
-		super.ngOnDestroy();
 	}
 }
