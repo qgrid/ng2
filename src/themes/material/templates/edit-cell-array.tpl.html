@@ -17,11 +17,10 @@
                                   matChipRemove>cancel</mat-icon>
                     </mat-chip>
                 </mat-chip-list>
-                <mat-form-field q-grid-chips>
+                <mat-form-field q-grid-chips [floatLabel]="'never'">
                     <input matInput
                            #chipInput
-                           aria-label="New value"
-                           
+                           placeholder="New value"
                            q-grid-focus
                            [matChipInputFor]="chipList" />
                 </mat-form-field>
