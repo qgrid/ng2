@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { MainModule } from './main';
-import { ThemeService as Theme } from './themes/material/theme.service';
 import { ThemeService, TemplateModule } from './template';
 import { TemplateLinkService } from './template/template-link.service';
 import { TemplateCacheDirective } from './template/template-cache.directive';
@@ -26,19 +25,11 @@ import { RowComponent } from './main/core/row/row.component';
 		FocusModule,
 		RowComponent
 	],
-	imports: [
-		MainModule,
-		TemplateModule
-	],
-	providers: [
-		GridService,
-		TemplateLinkService,
-		ThemeService
-	]
+	imports: [MainModule, TemplateModule],
+	providers: [GridService, TemplateLinkService, ThemeService]
 })
 export class GridModule {
-	constructor(themeService: ThemeService, theme: Theme) {
+	constructor() {
 		setup(Model);
-		themeService.name = theme.name;
 	}
 }

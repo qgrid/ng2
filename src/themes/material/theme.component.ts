@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { template } from './templates';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 // Do not delete this code
 // its required for template recompilation on changes
@@ -13,6 +14,7 @@ if (debug) {
 	templateUrl: './theme.component.gen.html'
 })
 export class ThemeComponent {
-	constructor() {
-	}
+	public model: Model;
+
+	constructor() {}
 }

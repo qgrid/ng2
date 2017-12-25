@@ -1,10 +1,9 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ComponentFactoryResolver } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { ThemeService } from './theme.service';
 import { ThemeComponent } from './theme.component';
 import { PluginModule } from 'ng2-qgrid/plugins';
-import { TemplateModule } from 'ng2-qgrid/template';
+import { TemplateModule, ThemeService } from 'ng2-qgrid/template';
 import { CommonModule } from 'ng2-qgrid/common';
 import {
 	MatCardModule,
@@ -24,13 +23,8 @@ import {
 import { PipeModule } from 'ng2-qgrid/pipes';
 
 @NgModule({
-	declarations: [
-		ThemeComponent
-	],
-	exports: [
-		ThemeComponent,
-		PluginModule
-	],
+	declarations: [ThemeComponent],
+	exports: [],
 	imports: [
 		CommonModule,
 		BrowserModule,
@@ -52,11 +46,16 @@ import { PipeModule } from 'ng2-qgrid/pipes';
 		MatCardModule,
 		PipeModule
 	],
-	providers: [
-		ThemeService
-	]
+	providers: [ThemeService],
+	entryComponents: [ThemeComponent]
 })
 export class ThemeModule {
-	constructor() {
+	constructor(
+		theme: ThemeService,
+		componentResolver: ComponentFactoryResolver
+	) {
+		theme.name = 'material';
+		const factory = componentResolver.resolveComponentFactory(ThemeComponent);
+		theme.componentFactory = injector => factory.create(injector);
 	}
 }
