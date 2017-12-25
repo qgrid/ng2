@@ -1,8 +1,13 @@
+@import "variables";
+
 td.q-grid-image {
-	cursor: pointer;
-	text-align: center;
-	img {
-		max-height: 100%;
-		max-width: 100%;
-	}
+    cursor: pointer;
+    text-align: center;
+    img {
+        max-height: 100%;
+        max-width: 100%;
+    }
+    .q-grid-icon {
+        color: $dark-secondary;
+    }
 }
