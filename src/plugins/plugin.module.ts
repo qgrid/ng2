@@ -13,6 +13,7 @@ import { CellEditorModule } from './cell-editor';
 import { TabTrapModule } from './tab-trap';
 import { BackdropModule } from './backdrop';
 import { SelectModule } from './select';
+import { LegendModule } from './legend';
 import { ChipsModule } from './chips';
 
 import { ColumnChooserModel } from 'ng2-qgrid/plugin/column-chooser/column.chooser.model';
@@ -41,6 +42,7 @@ Model.register('columnChooser', ColumnChooserModel)
 		TabTrapModule,
 		BackdropModule,
 		SelectModule,
+		LegendModule,
 		ChipsModule
 	],
 	imports: [],
