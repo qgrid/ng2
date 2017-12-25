@@ -14,7 +14,5 @@ if (debug) {
 	templateUrl: './theme.component.gen.html'
 })
 export class ThemeComponent {
-	public model: Model;
-
 	constructor() {}
 }
