@@ -18,13 +18,11 @@ import { LegendModule } from './legend';
 import { ColumnChooserModel } from 'ng2-qgrid/plugin/column-chooser/column.chooser.model';
 import { ColumnFilterModel } from 'ng2-qgrid/plugin/column-filter/column.filter.model';
 import { DataManipulationModel } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.model';
-import { LegendModel } from 'ng2-qgrid/plugin/legend/legend.model';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 Model.register('columnChooser', ColumnChooserModel)
 	.register('columnFilter', ColumnFilterModel)
-	.register('dataManipulation', DataManipulationModel)
-	.register('legend', LegendModel);
+	.register('dataManipulation', DataManipulationModel);
 
 @NgModule({
 	declarations: [],

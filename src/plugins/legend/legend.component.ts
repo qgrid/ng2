@@ -1,16 +1,12 @@
-import { Component, Input, OnDestroy, OnInit, Optional } from '@angular/core';
-import { LegendView } from 'ng2-qgrid/plugin/legend/legend.view';
+import { Component, OnDestroy, OnInit, Optional } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
-import { TemplateHostService } from 'ng2-qgrid/template/template-host.service';
 
 @Component({
-	selector: 'q-grid-legend',
+	selector: 'q-grid-legend-core',
 	templateUrl: './legend.component.html'
 })
 export class LegendComponent extends PluginComponent implements OnInit, OnDestroy {
-
-	private legend: LegendView;
 
 	constructor(@Optional() root: RootService) {
 		super(root);
@@ -19,11 +15,10 @@ export class LegendComponent extends PluginComponent implements OnInit, OnDestro
 	}
 
 	ngOnInit() {
-		this.context = {$implicit: this.legend};
-		this.legend = new LegendView(this.model);
+		this.context = {$implicit: this};
 	}
 
 	ngOnDestroy() {
-		this.legend.dispose();
+		super.ngOnDestroy();
 	}
 }
