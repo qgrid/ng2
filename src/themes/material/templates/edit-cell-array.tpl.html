@@ -17,14 +17,16 @@
                                   matChipRemove>cancel</mat-icon>
                     </mat-chip>
                 </mat-chip-list>
-                <mat-form-field q-grid-chips [floatLabel]="'never'">
-                    <input matInput
-                           #chipInput
-                           placeholder="New value"
-                           q-grid-focus
-                           [matChipInputFor]="chipList" />
-                </mat-form-field>
             </div>
+            <mat-form-field q-grid-chips
+                            [floatLabel]="'never'">
+                <input class="q-grid-array-chip-input"
+                        matInput
+                       #chipInput
+                       placeholder="New value"
+                       q-grid-focus
+                       [matChipInputFor]="chipList" />
+            </mat-form-field>
         </ng-template>
     </q-grid-cell-editor>
 </ng-template>
