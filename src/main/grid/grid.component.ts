@@ -73,9 +73,9 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 		private rootService: RootService,
 		private element: ElementRef,
 		private changeDetector: ChangeDetectorRef,
-		private appRef: ApplicationRef,
-		private theme: ThemeService,
-		private injector: Injector
+		appRef: ApplicationRef,
+		theme: ThemeService,
+		injector: Injector
 	) {
 		super();
 
@@ -96,7 +96,7 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 		);
 
 		const componentRef = theme.componentFactory(injector);
-		this.appRef.attachView(componentRef.hostView);
+		appRef.attachView(componentRef.hostView);
 
 		const themeElement = (componentRef.hostView as EmbeddedViewRef<any>)
 			.rootNodes[0] as HTMLElement;
