@@ -1,6 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "description": "Angular2 data grid",
   "main": "./main.js",
   "typings": "./index.d.ts",
