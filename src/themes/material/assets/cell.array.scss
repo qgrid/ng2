@@ -30,5 +30,8 @@ td.q-grid-array {
         overflow-y: auto;
         overflow-x: hidden;
 		padding-bottom: 20px;
-	}
+        .q-grid-array-item {
+            margin: 3px 1px 3px 1px;
+        }
+    }
 }
