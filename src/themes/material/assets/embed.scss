@@ -23,6 +23,11 @@
                         max-height: 30px;
                     }
                 }
+                &.q-grid-image {
+                    > img {
+                        height: 32px;
+                    }
+                }
             }
             .q-grid-edit {
                 &.q-grid-row-options {

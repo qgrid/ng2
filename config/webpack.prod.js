@@ -40,13 +40,13 @@ const packageConfig = require(helpers.root('package.json'));
 const externals = Object.keys(packageConfig.dependencies);
 externals.push('@angular/material');
 
+const min = helpers.hasNpmFlag('min');
+
 module.exports = function (env) {
 	return webpackMerge({}, {
 		entry: {
-			'main': helpers.root('dist', 'index.js'),
-			'main.min': helpers.root('dist', 'index.js'),
-			'material': helpers.root('dist', 'themes', 'material', 'theme.module'),
-			'material.min': helpers.root('dist', 'themes', 'material', 'theme.module'),
+			[`main${min ? '.min' : ''}`]: helpers.root('dist', 'index.js'),
+			[`material${min ? '.min' : ''}`]: helpers.root('dist', 'themes', 'material', 'theme.module'),
 			'vendor': [
 				'@angular/platform-browser',
 				'@angular/platform-browser-dynamic',
