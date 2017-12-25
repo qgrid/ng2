@@ -29,9 +29,12 @@ td.q-grid-array {
 		max-height: 400px;
         overflow-y: auto;
         overflow-x: hidden;
-		padding-bottom: 20px;
         .q-grid-array-item {
             margin: 3px 1px 3px 1px;
         }
     }
+}
+
+input.q-grid-array-chip-input{
+    margin: 0px 3px 3px 0px;
 }
