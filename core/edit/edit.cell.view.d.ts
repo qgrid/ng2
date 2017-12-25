@@ -14,7 +14,8 @@ export declare class EditCellView extends View {
 	enter: Command;
 	commit: Command;
 	cancel: Command;
-	reset: Command;
+    reset: Command;
+    exit: Command;
 	value: any;
     label: any;
     column: ColumnModel;

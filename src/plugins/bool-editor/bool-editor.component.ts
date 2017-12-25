@@ -28,6 +28,8 @@ export class BoolEditorComponent extends PluginComponent implements OnInit {
 		// entering edit mode means toggling boolean value
 		this.value =
 			this.value === this.trueValue ? this.falseValue : this.trueValue;
+
+		this.using(this.model.focusChanged.on(e => this.cell.exit.execute()));
 	}
 
 	isChecked() {
@@ -38,22 +40,12 @@ export class BoolEditorComponent extends PluginComponent implements OnInit {
 		return this.column.isIndeterminate(this.value);
 	}
 
-	trueValue() {
-		const value = this.column.trueValue;
-		if (isString(value)) {
-			return `'${value}'`;
-		}
-
-		return value;
+	get trueValue() {
+		return this.column.trueValue;
 	}
 
-	falseValue() {
-		const value = this.column.falseValue;
-		if (isString(value)) {
-			return `'${value}'`;
-		}
-
-		return value;
+	get falseValue() {
+		return this.column.falseValue;
 	}
 
 	get value() {
