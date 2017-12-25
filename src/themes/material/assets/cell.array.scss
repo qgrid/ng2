@@ -29,5 +29,8 @@ td.q-grid-array {
 		max-height: 400px;
 		overflow-y: auto;
 		padding-bottom: 20px;
-	}
+        .q-grid-array-view__chiplist_chip {
+            margin: 3px 1px 3px 1px;
+        }
+    }
 }
