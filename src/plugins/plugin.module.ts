@@ -10,6 +10,7 @@ import { TitleModule } from './title';
 import { ColumnFilterModule } from './column-filter';
 import { MenuModule } from './menu';
 import { CellEditorModule } from './cell-editor';
+import { BoolEditorModule } from './bool-editor';
 import { TabTrapModule } from './tab-trap';
 import { BackdropModule } from './backdrop';
 import { SelectModule } from './select';
@@ -39,6 +40,7 @@ Model.register('columnChooser', ColumnChooserModel)
 		TitleModule,
 		MenuModule,
 		CellEditorModule,
+		BoolEditorModule,
 		TabTrapModule,
 		BackdropModule,
 		SelectModule,

@@ -1,10 +1,5 @@
 <ng-template key='edit-cell-bool.tpl.html'
              let-$cell
              let-$view="$view">
-    <mat-checkbox aria-label="Bool cell edit"
-                  class="q-grid-checkbox"
-                  q-grid-focus="input"
-                  (blur)="$view.edit.cell.commit.execute($cell)"
-                  [(ngModel)]="$view.edit.cell.value">
-    </mat-checkbox>
+    <q-grid-bool-editor></q-grid-bool-editor>
 </ng-template>

@@ -1,21 +1,27 @@
-import {Injectable} from '@angular/core';
-import {Event} from 'ng2-qgrid/core/infrastructure';
+import {
+	Injectable,
+	ComponentFactory,
+	ComponentRef,
+	Injector
+} from '@angular/core';
+import { Event } from 'ng2-qgrid/core/infrastructure';
+
+let themeName = '';
 
 @Injectable()
 export class ThemeService {
-	changed = new Event();
-	private themeName = '';
+	public changed = new Event();
+	public componentFactory: (injector: Injector) => ComponentRef<any>;
 
-	constructor() {
-	}
+	constructor() {}
 
 	get name(): string {
-		return this.themeName;
+		return themeName;
 	}
 
 	set name(value: string) {
-		if (value !== this.themeName) {
-			this.themeName = value;
+		if (value !== themeName) {
+			themeName = value;
 			this.changed.emit({
 				newValue: value,
 				oldValue: value
