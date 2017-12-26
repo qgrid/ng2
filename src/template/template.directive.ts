@@ -20,7 +20,7 @@ export class TemplateDirective implements DoCheck {
 
 	ngDoCheck() {
 		const link = this.templateService.find(this.key);
-		if (link !== this.link) {
+		if (!this.link && link) {
 			this.link = link;
 			if (this.viewRef) {
 				this.viewContainerRef.clear();

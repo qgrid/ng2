@@ -4,7 +4,8 @@
         style="margin: 0">{{$editor.title}}</h4>
     <div class="q-grid-embed">
         <q-grid class="q-grid-edit-form-reference"
-                [model]="$editor.column.editorOptions.modelFactory()">
+                id="q-grid-reference-editor-{{$editor.column.key}}"
+                [model]="$editor.referenceModel">
             <q-grid-columns>
             </q-grid-columns> 
         </q-grid>

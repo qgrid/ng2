@@ -17,7 +17,9 @@ import { Model } from 'ng2-qgrid/core/infrastructure/model';
 	templateUrl: './reference-editor.component.html'
 })
 export class ReferenceEditorComponent extends PluginComponent implements OnInit {
-    
+
+    public referenceModel: Model; 
+
     constructor(
 		@Optional() root: RootService,
 		private view: ViewCoreService,
@@ -27,18 +29,17 @@ export class ReferenceEditorComponent extends PluginComponent implements OnInit 
 	}
 
 	ngOnInit() {
-        debugger;
-		this.using(this.model.focusChanged.on(e => this.cell.exit.execute()));
+        this.referenceModel = this.column.editorOptions.modelFactory();
 	}
-    
+
     get title(): string {
         return this.view.edit.cell.editor.title;
     }
 
-	private get column() {
+	get column() {
 		return this.cell.editor.column;
 	}
-
+    
 	private get cell() {
 		return this.view.edit.cell;
 	}
