@@ -7,7 +7,11 @@ import {
 	OnInit,
 	OnDestroy,
 	ElementRef,
-	ChangeDetectorRef
+	ChangeDetectorRef,
+	EmbeddedViewRef,
+	ComponentRef,
+	ApplicationRef,
+	Injector
 } from '@angular/core';
 import { TemplateCacheService } from 'ng2-qgrid/template/template-cache.service';
 import { TemplateService } from 'ng2-qgrid/template/template.service';
@@ -21,6 +25,7 @@ import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
 import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
+import { ThemeService } from 'ng2-qgrid/template';
 
 @Component({
 	selector: 'q-grid',
@@ -67,7 +72,10 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 	constructor(
 		private rootService: RootService,
 		private element: ElementRef,
-		private changeDetector: ChangeDetectorRef
+		private changeDetector: ChangeDetectorRef,
+		appRef: ApplicationRef,
+		theme: ThemeService,
+		injector: Injector
 	) {
 		super();
 
@@ -86,14 +94,29 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 		this.using(
 			this.modelChanged.watch(model => (this.rootService.model = model))
 		);
+
+		if (!theme.componentFactory) {
+			throw new AppError(
+				'grid.component',
+				'Ensure that grid theme module was included'
+			);
+		}
+
+		const componentRef = theme.componentFactory(injector);
+		appRef.attachView(componentRef.hostView);
+
+		const themeElement = (componentRef.hostView as EmbeddedViewRef<any>)
+			.rootNodes[0] as HTMLElement;
+
+		element.nativeElement.appendChild(themeElement);
 	}
 
 	ngOnInit() {
 		super.ngOnInit();
 
 		const model = this.model;
-		const element = this.element.nativeElement;
 
+		const element = this.element.nativeElement;
 		const ctrl = (this.ctrl = new GridCtrl(model, {
 			layerFactory: markup => new LayerService(markup),
 			element

@@ -1,26 +1,38 @@
 # Changelog
-
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
-
 * Auto-complete cell editor.
-* Array cell editor improvements.
 * Reference cell editor.
 * Auto generation of row edit form.
 * Initial implementation of virtual scrolling.
 * Infinite scrolling.
 * Popup plugin.
-* Data manipulation plugin.
-* Bool cell editor.
+* Validation framework.
+* Persistence plugin.
+* Email, url cell editor.
+
+## [5.1.0] - 2017-12-26
+### Added
 * Legend plugin.
+* Bool cell editor.
+* File cell editor.
+* Image cell editor.
+
+### Changed
+* Theme module should be explicitly added to the user application.
+* Backdrop triggers close event on mouse wheel click.
+* Change dependencies to peer in prod package.json.
+
+### Fixed
+* Array cell editor improvements.
+* Fix minification in release script.
 
 ## [5.0.2] - 2017-12-22
 
 ### Added
-
 * Theme support.
 * Material theme that is used angular material inside.
 * Grid service that allows to create grid model and get more control on the grid itself.
@@ -90,7 +102,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng/compare/v5.0.2...HEAD
+[unreleased]: https://github.com/qgrid/ng/compare/v5.1.0...HEAD
+[5.1.0]: https://github.com/qgrid/ng/compare/v5.1.0...v5.0.2
 [5.0.0]: https://github.com/qgrid/ng/compare/v5.0.2...v1.0.7
 [1.0.7]: https://github.com/qgrid/ng/compare/v1.0.7...v1.0.6
 [1.0.6]: https://github.com/qgrid/ng/compare/v1.0.6...v1.0.5
