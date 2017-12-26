@@ -95,6 +95,13 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 			this.modelChanged.watch(model => (this.rootService.model = model))
 		);
 
+		if (!theme.componentFactory) {
+			throw new AppError(
+				'grid.component',
+				'Ensure that grid theme module was included'
+			);
+		}
+
 		const componentRef = theme.componentFactory(injector);
 		appRef.attachView(componentRef.hostView);
 
