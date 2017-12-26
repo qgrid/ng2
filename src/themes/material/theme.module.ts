@@ -21,6 +21,7 @@ import {
 	MatDialogModule
 } from '@angular/material';
 import { PipeModule } from 'ng2-qgrid/pipes';
+import { GridModule } from 'ng2-qgrid/grid.module';
 
 @NgModule({
 	declarations: [ThemeComponent],
@@ -28,8 +29,9 @@ import { PipeModule } from 'ng2-qgrid/pipes';
 	imports: [
 		CommonModule,
 		BrowserModule,
-		FormsModule,
-		TemplateModule,
+        FormsModule,
+        TemplateModule,
+        GridModule,
 		PluginModule,
 		MatIconModule,
 		MatButtonModule,

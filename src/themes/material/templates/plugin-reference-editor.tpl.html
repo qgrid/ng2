@@ -1,0 +1,12 @@
+<ng-template key="plugin-reference-editor.tpl.html"
+             let-$editor>
+    <h4 class="md-title"
+        style="margin: 0">{{$editor.title}}</h4>
+    <div class="q-grid-embed">
+        <q-grid class="q-grid-edit-form-reference"
+                [model]="$editor.column.editorOptions.modelFactory()">
+            <q-grid-columns>
+            </q-grid-columns> 
+        </q-grid>
+    </div>
+</ng-template>
