@@ -59,13 +59,14 @@
             <q-grid-data-manipulation>
             </q-grid-data-manipulation>
 
-            <!-- <q-grid-row unit="details">
-            <ng-template for="details">
-                <q-grid [rows]="rows">
-                    <q-grid-columns generation="deep"></q-grid-columns>
-                </q-grid>
-            </ng-template>
-        </q-grid-row> -->
+            <q-grid-row unit="details"
+                        mode="all">
+                <ng-template for="details">
+                    <q-grid [rows]="rows">
+                        <q-grid-columns generation="deep"></q-grid-columns>
+                    </q-grid>
+                </ng-template>
+            </q-grid-row>
 
         </q-grid>
     </div>
