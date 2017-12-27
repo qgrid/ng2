@@ -7,9 +7,7 @@ import { ResizeDirective } from './resize.directive';
 	],
 	exports: [
 		ResizeDirective
-	],
-	imports: [],
-	providers: []
+	]
 })
 export class ResizeModule {
 }

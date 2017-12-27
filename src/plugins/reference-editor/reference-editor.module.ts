@@ -5,7 +5,6 @@ import { TemplateModule } from 'ng2-qgrid/template/template.module';
 @NgModule({
 	declarations: [ReferenceEditorComponent],
 	exports: [ReferenceEditorComponent],
-	imports: [TemplateModule],
-	providers: []
+	imports: [TemplateModule]
 })
 export class ReferenceEditorModule {}

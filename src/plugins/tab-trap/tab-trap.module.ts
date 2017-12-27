@@ -14,8 +14,7 @@ import { TabtrapInDirective } from './tab-trap-in.directive';
 	],
 	imports: [
 		TemplateModule
-	],
-	providers: []
+	]
 })
 export class TabTrapModule {
 }

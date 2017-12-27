@@ -48,8 +48,6 @@ Model.register('columnChooser', ColumnChooserModel)
 		SelectModule,
 		LegendModule,
 		ChipsModule
-	],
-	imports: [],
-	providers: []
+	]
 })
 export class PluginModule {}

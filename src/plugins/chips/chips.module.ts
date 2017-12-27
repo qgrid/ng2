@@ -7,10 +7,7 @@ import { ChipsDirective } from './chips.directive';
 	],
 	exports: [
 		ChipsDirective
-	],
-	imports: [
-	],
-	providers: []
+	]
 })
 export class ChipsModule {
 }

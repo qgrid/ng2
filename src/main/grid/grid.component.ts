@@ -26,6 +26,8 @@ import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
 import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 import { ThemeService } from 'ng2-qgrid/template';
+import { GridService } from './grid.service';
+import { TemplateLinkService } from '../../template/template-link.service';
 
 @Component({
 	selector: 'q-grid',
@@ -33,7 +35,9 @@ import { ThemeService } from 'ng2-qgrid/template';
 		RootService,
 		TemplateCacheService,
 		TemplateService,
-		ViewCoreService
+		ViewCoreService,
+		GridService,
+		TemplateLinkService
 	],
 	styleUrls: ['../../assets/index.scss', '../../themes/material/index.scss'],
 	templateUrl: './grid.component.html',

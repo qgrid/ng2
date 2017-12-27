@@ -3,8 +3,6 @@ import { DataManipulationComponent } from './data-manipulation.component';
 
 @NgModule({
 	declarations: [DataManipulationComponent],
-	exports: [DataManipulationComponent],
-	imports: [],
-	providers: []
+	exports: [DataManipulationComponent]
 })
 export class DataManipulationModule {}

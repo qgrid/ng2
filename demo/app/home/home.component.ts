@@ -12,7 +12,6 @@ const isUndef = v => v === undefined;
 
 @Component({
 	selector: 'home',
-	providers: [],
 	templateUrl: './home.component.html'
 })
 export class HomeComponent {
