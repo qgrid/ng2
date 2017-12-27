@@ -12,69 +12,63 @@
     }
 </style>
 
-<mat-card class="layout-column">
-    <div class="flex-50">
-        <q-grid id="q-grid-demo"
-                q-grid-autofocus
-                [columns]="columns"
-                [model]="gridModel"
-                selectionUnit="row"
-                selectionMode="multiple"
-                editMode="cell"
-                header="NG2 QGRID SANDBOX"
-                filterUnit="row"
-                class="q-grid-embed">
+<mat-card>
+    <q-grid id="q-grid-demo"
+            q-grid-autofocus
+            [columns]="columns"
+            [model]="gridModel"
+            selectionUnit="row"
+            selectionMode="multiple"
+            editMode="cell"
+            header="NG2 QGRID SANDBOX"
+            filterUnit="row"
+            class="q-grid-embed">
 
-            <q-grid-columns>
-                <q-grid-column type="row-indicator"
-                               key="rowIndicator">
-                </q-grid-column>
-                <q-grid-column type="row-number"
-                               key="rowNumber">
-                </q-grid-column>
-                <q-grid-column type="row-options"
-                               key="rowOptions">
-                </q-grid-column>
-            </q-grid-columns>
+        <q-grid-columns>
+            <q-grid-column type="row-indicator"
+                           key="rowIndicator">
+            </q-grid-column>
+            <q-grid-column type="row-number"
+                           key="rowNumber">
+            </q-grid-column>
+            <q-grid-column type="row-options"
+                           key="rowOptions">
+            </q-grid-column>
+        </q-grid-columns>
 
-            <q-grid-legend-core>
-                <ng-template for="plugin-legend-core.tpl.html">
-                    <ul class="q-grid-legend-list">
-                        <li>
-                            <div class="q-grid-legend-item male"></div>
-                            Male
-                        </li>
-                        <li>
-                            <div class="q-grid-legend-item female"></div>
-                            Female
-                        </li>
-                        <li>
-                            <div class="q-grid-legend-item undefined"></div>
-                            Undefined
-                        </li>
-                    </ul>
-                </ng-template>
-            </q-grid-legend-core>
+        <q-grid-legend-core>
+            <ng-template for="plugin-legend-core.tpl.html">
+                <ul class="q-grid-legend-list">
+                    <li>
+                        <div class="q-grid-legend-item male"></div>
+                        Male
+                    </li>
+                    <li>
+                        <div class="q-grid-legend-item female"></div>
+                        Female
+                    </li>
+                    <li>
+                        <div class="q-grid-legend-item undefined"></div>
+                        Undefined
+                    </li>
+                </ul>
+            </ng-template>
+        </q-grid-legend-core>
 
-            <q-grid-data-manipulation>
-            </q-grid-data-manipulation>
+        <q-grid-data-manipulation>
+        </q-grid-data-manipulation>
 
-            <q-grid-row unit="details"
-                        mode="all">
+        <!-- <q-grid-row unit="details">
                 <ng-template for="details">
-                    <q-grid [rows]="rows">
-                        <q-grid-columns generation="deep"></q-grid-columns>
+                    <q-grid>
+                        <q-grid-columns>
+                            <q-grid-column type="row-number"
+                                           key="rowNumber">
+                            </q-grid-column>
+                        </q-grid-columns>
                     </q-grid>
                 </ng-template>
-            </q-grid-row>
+            </q-grid-row> -->
 
-        </q-grid>
-    </div>
-    <div class="flex-50">
-        <!-- <q-grid id="q-grid-demo2"
-                [columns]="columns"
-                [rows]="rows">
-            <q-grid-columns generation="deep"></q-grid-columns>
-        </q-grid> -->
-    </div>
+    </q-grid>
 </mat-card>

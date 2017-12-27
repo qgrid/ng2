@@ -60,15 +60,9 @@ import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 export class ThemeModule {
 	constructor(
 		theme: ThemeService,
-		componentResolver: ComponentFactoryResolver,
-		mInjector: Injector,
-		appRef: ApplicationRef
+		componentResolver: ComponentFactoryResolver
 	) {
 		theme.name = 'material';
-		const factory = componentResolver.resolveComponentFactory(ThemeComponent);
-		theme.componentFactory = injector => factory.create(injector);
-
-		// const componentRef = theme.componentFactory(mInjector);
-		// appRef.attachView(componentRef.hostView);
+		theme.component = ThemeComponent;
 	}
 }
