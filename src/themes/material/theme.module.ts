@@ -29,9 +29,9 @@ import { GridModule } from 'ng2-qgrid/grid.module';
 	imports: [
 		CommonModule,
 		BrowserModule,
-        FormsModule,
-        TemplateModule,
-        GridModule,
+		FormsModule,
+		TemplateModule,
+		GridModule,
 		PluginModule,
 		MatIconModule,
 		MatButtonModule,
