@@ -81,6 +81,7 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 		super();
 
 		this.models = [
+			'grid',
 			'data',
 			'selection',
 			'sort',
