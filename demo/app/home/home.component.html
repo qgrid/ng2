@@ -1,16 +1,16 @@
 <style>
-	div.male {
-		background: #22DB7E;
-	}
+    div.male {
+        background: #22DB7E;
+    }
 
-	div.female {
-		background: #267ED5;
-	}
+    div.female {
+        background: #267ED5;
+    }
 
-	div.undef {
-		background: #999;
-	}
-</style> 
+    div.undef {
+        background: #999;
+    }
+</style>
 
 <mat-card>
     <q-grid id="q-grid-demo"
@@ -36,18 +36,35 @@
             </q-grid-column>
         </q-grid-columns>
 
-		 <q-grid-legend-core>
-			 <ng-template for="plugin-legend-core.tpl.html">
-				 <ul class="q-grid-legend-list">
-					 <li><div class="q-grid-legend-item male"></div> Male</li>
-					 <li><div class="q-grid-legend-item female"></div> Female</li>
-					 <li><div class="q-grid-legend-item undefined"></div> Undefined</li>
-				 </ul>
-			 </ng-template>
-		 </q-grid-legend-core>
+        <q-grid-legend-core>
+            <ng-template for="plugin-legend-core.tpl.html">
+                <ul class="q-grid-legend-list">
+                    <li>
+                        <div class="q-grid-legend-item male"></div>
+                        Male
+                    </li>
+                    <li>
+                        <div class="q-grid-legend-item female"></div>
+                        Female
+                    </li>
+                    <li>
+                        <div class="q-grid-legend-item undefined"></div>
+                        Undefined
+                    </li>
+                </ul>
+            </ng-template>
+        </q-grid-legend-core>
 
         <q-grid-data-manipulation>
         </q-grid-data-manipulation>
+
+        <q-grid-row unit="details">
+            <ng-template for="details">
+                <q-grid [rows]="rows">
+                    <q-grid-columns generation="deep"></q-grid-columns>
+                </q-grid>
+            </ng-template>
+        </q-grid-row>
 
     </q-grid>
 </mat-card>
