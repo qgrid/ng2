@@ -29,6 +29,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Fixed
 * Array cell editor improvements.
 * Fix minification in release script.
+* Grid in grid support.
 
 ## [5.0.2] - 2017-12-22
 
