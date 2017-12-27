@@ -13,9 +13,7 @@ import { BlurDirective } from './blur.directive';
 		FocusDirective,
 		AutoFocusDirective,
 		BlurDirective
-	],
-	imports: [],
-	providers: []
+	]
 })
 export class FocusModule {
 }

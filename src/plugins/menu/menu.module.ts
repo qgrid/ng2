@@ -7,10 +7,7 @@ import { MenuDirective } from './menu.directive';
 	],
 	exports: [
 		MenuDirective
-	],
-	imports: [
-	],
-	providers: []
+	]
 })
 export class MenuModule {
 }

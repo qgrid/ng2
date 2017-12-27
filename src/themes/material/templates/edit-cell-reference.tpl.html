@@ -2,20 +2,11 @@
              let-$cell
              let-$editor
              let-$view="$view">
-    <h4 class="md-title"
-        style="margin: 0">{{$editor.title}}</h4>
-    <div class="q-grid-embed">
-        <!--<q-grid class="q-grid-edit-form-reference"
-                [model]="$view.body.model">
-            <q-grid-columns>
-            </q-grid-columns>
-            <q-grid-toolbar>
-                <q-grid-template for="top">
-                    <div class="q-grid-progress">
-                        <q-grid-progress></q-grid-progress>
-                    </div>
-                </q-grid-template>
-            </q-grid-toolbar>
-        </q-grid>-->
-    </div>
+    <q-grid-cell-editor class="q-grid-reference q-grid-editor q-grid-position"
+                        (close)="$view.edit.cell.exit.execute($cell)"
+                        q-grid-position="td">
+        <ng-template>
+                <q-grid-reference-editor></q-grid-reference-editor>
+        </ng-template>
+    </q-grid-cell-editor>
 </ng-template>

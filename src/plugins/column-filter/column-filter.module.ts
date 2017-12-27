@@ -14,7 +14,6 @@ import { ColumnFilterTriggerComponent } from './column-filter-trigger.component'
 	],
 	imports: [
 		TemplateModule
-	],
-	providers: []
+	]
 })
 export class ColumnFilterModule { }

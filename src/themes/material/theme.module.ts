@@ -1,4 +1,9 @@
-import { NgModule, ComponentFactoryResolver } from '@angular/core';
+import {
+	NgModule,
+	ComponentFactoryResolver,
+	ApplicationRef,
+	Injector
+} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ThemeComponent } from './theme.component';
@@ -21,6 +26,8 @@ import {
 	MatDialogModule
 } from '@angular/material';
 import { PipeModule } from 'ng2-qgrid/pipes';
+import { GridModule } from 'ng2-qgrid/grid.module';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 
 @NgModule({
 	declarations: [ThemeComponent],
@@ -30,6 +37,7 @@ import { PipeModule } from 'ng2-qgrid/pipes';
 		BrowserModule,
 		FormsModule,
 		TemplateModule,
+		GridModule,
 		PluginModule,
 		MatIconModule,
 		MatButtonModule,
@@ -55,7 +63,6 @@ export class ThemeModule {
 		componentResolver: ComponentFactoryResolver
 	) {
 		theme.name = 'material';
-		const factory = componentResolver.resolveComponentFactory(ThemeComponent);
-		theme.componentFactory = injector => factory.create(injector);
+		theme.component = ThemeComponent;
 	}
 }

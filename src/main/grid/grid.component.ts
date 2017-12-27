@@ -9,9 +9,7 @@ import {
 	ElementRef,
 	ChangeDetectorRef,
 	EmbeddedViewRef,
-	ComponentRef,
-	ApplicationRef,
-	Injector
+	ComponentRef
 } from '@angular/core';
 import { TemplateCacheService } from 'ng2-qgrid/template/template-cache.service';
 import { TemplateService } from 'ng2-qgrid/template/template.service';
@@ -26,6 +24,8 @@ import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
 import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 import { ThemeService } from 'ng2-qgrid/template';
+import { GridService } from './grid.service';
+import { TemplateLinkService } from '../../template/template-link.service';
 
 @Component({
 	selector: 'q-grid',
@@ -33,7 +33,9 @@ import { ThemeService } from 'ng2-qgrid/template';
 		RootService,
 		TemplateCacheService,
 		TemplateService,
-		ViewCoreService
+		ViewCoreService,
+		GridService,
+		TemplateLinkService
 	],
 	styleUrls: ['../../assets/index.scss', '../../themes/material/index.scss'],
 	templateUrl: './grid.component.html',
@@ -41,6 +43,7 @@ import { ThemeService } from 'ng2-qgrid/template';
 })
 export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 	private ctrl: GridCtrl;
+	private listener: EventListener;
 
 	@Input() model;
 	@Input('rows') dataRows;
@@ -67,15 +70,13 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 	@Input('actions') actionItems;
 	@Output() selectionChanged = new EventEmitter<any>();
 
-	listener: EventListener;
+	public themeComponent: any;
 
 	constructor(
 		private rootService: RootService,
 		private element: ElementRef,
 		private changeDetector: ChangeDetectorRef,
-		appRef: ApplicationRef,
-		theme: ThemeService,
-		injector: Injector
+		private theme: ThemeService
 	) {
 		super();
 
@@ -95,20 +96,14 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 			this.modelChanged.watch(model => (this.rootService.model = model))
 		);
 
-		if (!theme.componentFactory) {
+		if (!theme.component) {
 			throw new AppError(
 				'grid.component',
 				'Ensure that grid theme module was included'
 			);
 		}
 
-		const componentRef = theme.componentFactory(injector);
-		appRef.attachView(componentRef.hostView);
-
-		const themeElement = (componentRef.hostView as EmbeddedViewRef<any>)
-			.rootNodes[0] as HTMLElement;
-
-		element.nativeElement.appendChild(themeElement);
+		this.themeComponent = theme.component;
 	}
 
 	ngOnInit() {

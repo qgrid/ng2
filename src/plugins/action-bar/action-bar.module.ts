@@ -18,7 +18,6 @@ import { ActionComponent } from './action.component';
 		ActionComponent,
 		ActionCoreComponent
 	],
-	imports: [TemplateModule],
-	providers: []
+	imports: [TemplateModule]
 })
 export class ActionBarModule {}

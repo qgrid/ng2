@@ -10,8 +10,8 @@ export const rowDetailsPipeUnit = [
 		const model = context.model;
 		const mode = model.row().mode;
 		const rows = flatView(model, mode);
-		model.view({rows: rows}, tag);
-		model.scene({rows: rows}, tag);
+		model.view({rows}, tag);
+		model.scene({rows}, tag);
 
 		next(memo);
 	}

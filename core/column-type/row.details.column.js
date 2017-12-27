@@ -14,12 +14,13 @@ class RowDetailsColumnModel extends ColumnModel {
 		super('row-details');
 
 		this.key = '$row.details';
-		this.title = 'Row Details';
 		this.class = 'control';
 
 		this.canEdit = false;
 		this.canResize = false;
-		this.canHighlight = false;
+        this.canHighlight = false;
+        this.canFilter = false;
+        this.canSort = false;
 	}
 }
 

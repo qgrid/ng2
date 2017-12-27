@@ -11,8 +11,7 @@ import { TemplateModule } from 'ng2-qgrid/template/template.module';
 	],
 	imports: [
 		TemplateModule
-	],
-	providers: []
+	]
 })
 export class LegendModule {
 }

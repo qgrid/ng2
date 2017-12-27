@@ -54,6 +54,7 @@ const templates = [
 
 	require('./plugin-cell-editor.tpl.html'),
 	require('./plugin-bool-editor.tpl.html'),
+	require('./plugin-reference-editor.tpl.html'),
 	require('./plugin-column-sort.tpl.html'),
 	require('./plugin-title.tpl.html'),
 	require('./plugin-pager.tpl.html'),

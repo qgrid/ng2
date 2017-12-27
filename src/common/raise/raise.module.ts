@@ -7,9 +7,7 @@ import { RaiseDirective } from './raise.directive';
 	],
 	exports: [
 		RaiseDirective
-	],
-	imports: [],
-	providers: []
+	]
 })
 export class RaiseModule {
 }
