@@ -10,6 +10,7 @@ import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { isString } from 'ng2-qgrid/core/utility';
 import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 import { BoolColumnModel } from 'ng2-qgrid/core/column-type/bool.column';
+import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 @Component({
