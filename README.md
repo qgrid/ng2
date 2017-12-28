@@ -10,7 +10,7 @@ https://qgrid.github.io/ng2/
 * add grid and theme modules to your app module
 ```javascript
 import {GridModule} from 'ng2-qgrid';
-import {ThemeModule} from 'ng2-qgrid/themes/material';
+import {ThemeModule} from 'ng2-qgrid/theme/material';
 
 @NgModule({
    imports: [

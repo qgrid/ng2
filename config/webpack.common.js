@@ -34,7 +34,7 @@ const METADATA = {
 };
 
 // TODO: make it configurable
-const THEME_PATH = helpers.root('src/themes/material');
+const THEME_PATH = helpers.root('src/theme/material');
 
 /*
  * Webpack configuration
@@ -215,8 +215,8 @@ module.exports = function (options) {
 		 */
 		plugins: [
 			new ThemePlugin({
-				path: helpers.root('src/themes/material/templates'),
-				outputPath: helpers.root('src/themes/material/theme.component.gen.html'),
+				path: helpers.root('src/theme/material/templates'),
+				outputPath: helpers.root('src/theme/material/theme.component.gen.html'),
 				pattern: /.*\.tpl\.html/
 			}),
 			new CircularDependencyPlugin({

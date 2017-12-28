@@ -5,7 +5,7 @@ import {
 	Output,
 	Input
 } from '@angular/core';
-import { ViewChild } from '@angular/core/src/metadata/di';
+import { ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material';
 
 @Directive({

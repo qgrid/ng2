@@ -24,7 +24,7 @@ import { NoContentComponent } from './no-content';
 import { DataService } from '../data/data.service';
 
 import { GridModule } from 'ng2-qgrid';
-import { ThemeModule } from 'ng2-qgrid/themes/material';
+import { ThemeModule } from 'ng2-qgrid/theme/material';
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
