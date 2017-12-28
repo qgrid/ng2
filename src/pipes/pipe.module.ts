@@ -10,10 +10,6 @@ import { FilterPipe } from './filter/filter.pipe';
 	exports: [
 		HighlightPipe,
 		FilterPipe
-	],
-	imports: [
-	],
-	providers: [
 	]
 })
 export class PipeModule {

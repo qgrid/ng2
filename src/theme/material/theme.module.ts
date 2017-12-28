@@ -1,10 +1,14 @@
-import { NgModule } from '@angular/core';
+import {
+	NgModule,
+	ComponentFactoryResolver,
+	ApplicationRef,
+	Injector
+} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { ThemeService } from './theme.service';
 import { ThemeComponent } from './theme.component';
 import { PluginModule } from 'ng2-qgrid/plugins';
-import { TemplateModule } from 'ng2-qgrid/template';
+import { TemplateModule, ThemeService } from 'ng2-qgrid/template';
 import { CommonModule } from 'ng2-qgrid/common';
 import {
 	MatCardModule,
@@ -22,20 +26,18 @@ import {
 	MatDialogModule
 } from '@angular/material';
 import { PipeModule } from 'ng2-qgrid/pipes';
+import { GridModule } from 'ng2-qgrid/grid.module';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 
 @NgModule({
-	declarations: [
-		ThemeComponent
-	],
-	exports: [
-		ThemeComponent,
-		PluginModule
-	],
+	declarations: [ThemeComponent],
+	exports: [],
 	imports: [
 		CommonModule,
 		BrowserModule,
 		FormsModule,
 		TemplateModule,
+		GridModule,
 		PluginModule,
 		MatIconModule,
 		MatButtonModule,
@@ -52,11 +54,15 @@ import { PipeModule } from 'ng2-qgrid/pipes';
 		MatCardModule,
 		PipeModule
 	],
-	providers: [
-		ThemeService
-	]
+	providers: [ThemeService],
+	entryComponents: [ThemeComponent]
 })
 export class ThemeModule {
-	constructor() {
+	constructor(
+		theme: ThemeService,
+		componentResolver: ComponentFactoryResolver
+	) {
+		theme.name = 'material';
+		theme.component = ThemeComponent;
 	}
 }

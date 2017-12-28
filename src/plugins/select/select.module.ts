@@ -4,8 +4,6 @@ import { MatSelectModule } from '@angular/material';
 
 @NgModule({
 	declarations: [SelectDirective],
-	exports: [SelectDirective],
-	imports: [],
-	providers: []
+	exports: [SelectDirective]
 })
 export class SelectModule {}

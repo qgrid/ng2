@@ -3,9 +3,8 @@
              let-$view="$view">
     <button aria-label="Open row menu"
             mat-icon-button
-            [matMenuTriggerFor]="menu"
-            (onMenuClose)="$view.edit.cell.cancel.execute($cell, $event, 10)"
-            q-grid-raise="click">
+            [matMenuTriggerFor]="menu"            
+            (q-grid-menu-trigger)="$view.edit.cell.cancel.execute($cell)">
         <mat-icon class="q-grid-icon">more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">

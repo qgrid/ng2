@@ -7,7 +7,6 @@ import { BoxComponent } from './box';
 import { CoreModule } from './core';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { RowComponent } from './core/row/row.component';
-import { ThemeModule } from 'ng2-qgrid/themes/material/theme.module';
 import { MarkupDirective } from './markup/markup.directive';
 
 @NgModule({
@@ -30,8 +29,7 @@ import { MarkupDirective } from './markup/markup.directive';
 	],
 	imports: [
 		BrowserModule,
-		CoreModule,
-		ThemeModule
+		CoreModule	
 	],
 	providers: [
 		GridService

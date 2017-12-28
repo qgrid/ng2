@@ -52,6 +52,9 @@ const templates = [
 	require('./toolbar-left.tpl.html'),
 	require('./toolbar-right.tpl.html'),
 
+	require('./plugin-cell-editor.tpl.html'),
+	require('./plugin-bool-editor.tpl.html'),
+	require('./plugin-reference-editor.tpl.html'),
 	require('./plugin-column-sort.tpl.html'),
 	require('./plugin-title.tpl.html'),
 	require('./plugin-pager.tpl.html'),
@@ -61,7 +64,8 @@ const templates = [
 	require('./plugin-action-core.tpl.html'),
 	require('./plugin-popup-panel.tpl.html'),
 	require('./plugin-column-filter.tpl.html'),
-	require('./plugin-column-chooser.tpl.html')
+	require('./plugin-column-chooser.tpl.html'),
+	require('./plugin-legend-core.tpl.html')
 ];
 
 export const template = templates.join('\n\n');

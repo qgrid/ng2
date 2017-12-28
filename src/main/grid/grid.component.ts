@@ -7,7 +7,9 @@ import {
 	OnInit,
 	OnDestroy,
 	ElementRef,
-	ChangeDetectorRef
+	ChangeDetectorRef,
+	EmbeddedViewRef,
+	ComponentRef
 } from '@angular/core';
 import { TemplateCacheService } from 'ng2-qgrid/template/template-cache.service';
 import { TemplateService } from 'ng2-qgrid/template/template.service';
@@ -21,6 +23,9 @@ import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
 import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
+import { ThemeService } from 'ng2-qgrid/template';
+import { GridService } from './grid.service';
+import { TemplateLinkService } from '../../template/template-link.service';
 
 @Component({
 	selector: 'q-grid',
@@ -28,14 +33,17 @@ import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 		RootService,
 		TemplateCacheService,
 		TemplateService,
-		ViewCoreService
+		ViewCoreService,
+		GridService,
+		TemplateLinkService
 	],
-	styleUrls: ['../../assets/index.scss', '../../themes/material/index.scss'],
+	styleUrls: ['../../assets/index.scss', '../../theme/material/index.scss'],
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None
 })
 export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 	private ctrl: GridCtrl;
+	private listener: EventListener;
 
 	@Input() model;
 	@Input('rows') dataRows;
@@ -62,16 +70,18 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 	@Input('actions') actionItems;
 	@Output() selectionChanged = new EventEmitter<any>();
 
-	listener: EventListener;
+	public themeComponent: any;
 
 	constructor(
 		private rootService: RootService,
 		private element: ElementRef,
-		private changeDetector: ChangeDetectorRef
+		private changeDetector: ChangeDetectorRef,
+		private theme: ThemeService
 	) {
 		super();
 
 		this.models = [
+			'grid',
 			'data',
 			'selection',
 			'sort',
@@ -86,14 +96,23 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 		this.using(
 			this.modelChanged.watch(model => (this.rootService.model = model))
 		);
+
+		if (!theme.component) {
+			throw new AppError(
+				'grid.component',
+				'Ensure that grid theme module was included'
+			);
+		}
+
+		this.themeComponent = theme.component;
 	}
 
 	ngOnInit() {
 		super.ngOnInit();
 
 		const model = this.model;
-		const element = this.element.nativeElement;
 
+		const element = this.element.nativeElement;
 		const ctrl = (this.ctrl = new GridCtrl(model, {
 			layerFactory: markup => new LayerService(markup),
 			element

@@ -19,6 +19,7 @@ const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const OptimizeJsPlugin = require('optimize-js-plugin');
 const angularExternals = require('webpack-angular-externals');
 const rxjsExternals = require('webpack-rxjs-externals');
+const ThemePlugin = require('./theme');
 
 /**
  * Webpack Constants
@@ -40,13 +41,13 @@ const packageConfig = require(helpers.root('package.json'));
 const externals = Object.keys(packageConfig.dependencies);
 externals.push('@angular/material');
 
+const min = helpers.hasNpmFlag('min');
+
 module.exports = function (env) {
 	return webpackMerge({}, {
 		entry: {
-			'main': helpers.root('dist', 'index.js'),
-			'main.min': helpers.root('dist', 'index.js'),
-			'material': helpers.root('dist', 'themes', 'material', 'theme.module'),
-			'material.min': helpers.root('dist', 'themes', 'material', 'theme.module'),
+			[`main${min ? '.min' : ''}`]: helpers.root('dist', 'index.js'),
+			// [`material${min ? '.min' : ''}`]: helpers.root('dist', 'themes', 'material', 'theme.module'),
 			'vendor': [
 				'@angular/platform-browser',
 				'@angular/platform-browser-dynamic',
@@ -230,6 +231,12 @@ module.exports = function (env) {
 		 * See: http://webpack.github.io/docs/configuration.html#plugins
 		 */
 		plugins: [
+
+			new ThemePlugin({
+				path: helpers.root('dist/theme/material/templates'),
+				outputPath: helpers.root('dist/theme/material/theme.component.gen.html'),
+				pattern: /.*\.tpl\.html/
+			}),
 
 			/**
 			 * Webpack plugin to optimize a JavaScript file for faster initial load

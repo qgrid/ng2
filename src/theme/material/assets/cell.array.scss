@@ -1,5 +1,5 @@
 td.q-grid-array {
-	> ul {
+	>ul {
 		list-style: none;
 		margin: 0;
 		padding: 0;
@@ -27,8 +27,13 @@ td.q-grid-array {
 	height: auto;
 	.q-grid-array-view {
 		max-height: 400px;
-        overflow-y: auto;
-        overflow-x: hidden;
-		padding-bottom: 20px;
+		overflow-y: auto;
+		overflow-x: hidden;
+		.q-grid-array-item {
+			margin: 3px 1px 3px 1px;
+		}
+	}
+	.q-grid-array-input {
+		margin: 0px 3px 3px 0px;
 	}
 }

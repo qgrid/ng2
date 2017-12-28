@@ -14,11 +14,12 @@ class RowExpandColumnModel extends ColumnModel {
 		super('row-expand');
 
 		this.key = '$row.expand';
-		this.title = 'Expand';
 		this.class = 'control';
 
 		this.canEdit = false;
 		this.canResize = false;
+		this.canFilter = false;
+		this.canSort = false;
 	}
 }
 

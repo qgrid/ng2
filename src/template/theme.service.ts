@@ -1,13 +1,14 @@
-import {Injectable} from '@angular/core';
-import {Event} from 'ng2-qgrid/core/infrastructure';
+import { Injectable } from '@angular/core';
+import { Event } from 'ng2-qgrid/core/infrastructure';
 
 @Injectable()
 export class ThemeService {
-	changed = new Event();
 	private themeName = '';
 
-	constructor() {
-	}
+	public changed = new Event();
+	public component: any;
+
+	constructor() {}
 
 	get name(): string {
 		return this.themeName;

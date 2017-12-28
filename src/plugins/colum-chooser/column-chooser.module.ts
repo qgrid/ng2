@@ -7,8 +7,7 @@ import {ColumnChooserComponent} from './column-chooser.component';
 @NgModule({
 	imports: [BrowserModule, FormsModule, TemplateModule],
 	exports: [ColumnChooserComponent],
-	declarations: [ColumnChooserComponent],
-	providers: [],
+	declarations: [ColumnChooserComponent]
 })
 export class ColumnChooserModule {
 }

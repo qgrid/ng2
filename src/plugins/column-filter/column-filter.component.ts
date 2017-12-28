@@ -14,8 +14,7 @@ import {uniq, flatten} from 'ng2-qgrid/core/utility';
 
 @Component({
 	selector: 'q-grid-column-filter',
-	templateUrl: './column-filter.component.html',
-	providers: []
+	templateUrl: './column-filter.component.html'
 })
 export class ColumnFilterComponent extends PluginComponent implements OnInit, OnDestroy {
 	@Input() public key: string;
