@@ -7,7 +7,7 @@ import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 	templateUrl: './title.component.html'
 })
 export class TitleComponent extends PluginComponent {
-	constructor(@Optional() root: RootService) {
+	constructor(root: RootService) {
 		super(root);
 	}
 

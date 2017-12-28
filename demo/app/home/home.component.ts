@@ -12,7 +12,6 @@ const isUndef = v => v === undefined;
 
 @Component({
 	selector: 'home',
-	providers: [],
 	templateUrl: './home.component.html'
 })
 export class HomeComponent {
@@ -230,23 +229,36 @@ export class HomeComponent {
 					? isUndef(item.isOnline) ? null : item.isOnline
 					: (item.isOnline = value)
 		}
-	]; 
+	];
 
 	private gridModel: Model;
 	constructor(private dataService: DataService, public qgrid: GridService) {
 		this.gridModel = qgrid.model();
-		this.gridModel.data({
-			pipe: [
-				(memo, context, next) =>
-					dataService.getPeople(100).subscribe(people => {
-						people.forEach((row, i) => (row.id = i));
 
-						people[0].password = 'foo';
-						people[3].password = 'bar';
-						people[4].comment = 'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
-						next(people);
-					})
-			].concat(qgrid.pipeUnit.default)
+		dataService.getPeople(100).subscribe(people => {
+			this.rows = people;
+
+			people.forEach((row, i) => (row.id = i));
+			people[0].password = 'foo';
+			people[3].password = 'bar';
+			people[4].comment =
+				'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
 		});
+
+		// this.gridModel.data({
+		// 	pipe: [
+		// 		(memo, context, next) =>
+		// 			dataService.getPeople(100).subscribe(people => {
+		// 				this.rows = people;
+
+		// 				people.forEach((row, i) => (row.id = i));
+		// 				people[0].password = 'foo';
+		// 				people[3].password = 'bar';
+		// 				people[4].comment =
+		// 					'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
+		// 				next(people);
+		// 			})
+		// 	].concat(qgrid.pipeUnit.default)
+		// });
 	}
 }

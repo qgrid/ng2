@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
-import { LegendComponent } from './legend.component';
+import { BoolEditorComponent } from './bool-editor.component';
 import { TemplateModule } from 'ng2-qgrid/template/template.module';
 
 @NgModule({
 	declarations: [
-		LegendComponent
+		BoolEditorComponent
 	],
 	exports: [
-		LegendComponent
+		BoolEditorComponent
 	],
 	imports: [
 		TemplateModule
 	]
 })
-export class LegendModule {
+export class BoolEditorModule {
 }

@@ -10,9 +10,7 @@ import { StopPropagateDirective } from './stop-propagate.directive';
 	exports: [
 		PositionDirective,
 		StopPropagateDirective
-	],
-	imports: [],
-	providers: []
+	]
 })
 export class LayoutModule {
 }

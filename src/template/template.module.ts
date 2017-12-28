@@ -13,9 +13,7 @@ import { TemplateCacheDirective } from './template-cache.directive';
 		TemplateDirective,
 		TemplateLinkDirective,
 		TemplateCacheDirective
-	],
-	imports: [],
-	providers: []
+	]
 })
 export class TemplateModule {
 }

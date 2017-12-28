@@ -1,16 +1,9 @@
 import { NgModule } from '@angular/core';
 import { MenuDirective } from './menu.directive';
+import { MenuTriggerDirective } from './menu-trigger.directive';
 
 @NgModule({
-	declarations: [
-		MenuDirective
-	],
-	exports: [
-		MenuDirective
-	],
-	imports: [
-	],
-	providers: []
+	declarations: [MenuDirective, MenuTriggerDirective],
+	exports: [MenuDirective, MenuTriggerDirective]
 })
-export class MenuModule {
-}
+export class MenuModule {}

@@ -10,9 +10,7 @@ import { DropDirective } from './drop.directive';
 	exports: [
 		DragDirective,
 		DropDirective
-	],
-	imports: [],
-	providers: []
+	]
 })
 export class DndModule {
 }

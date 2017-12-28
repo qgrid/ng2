@@ -15,8 +15,6 @@ import { FileModule } from './file';
 		LayoutModule,
 		RaiseModule,
 		FileModule
-	],
-	imports: [],
-	providers: []
+	]
 })
 export class CommonModule {}
