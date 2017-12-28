@@ -233,8 +233,8 @@ module.exports = function (env) {
 		plugins: [
 
 			new ThemePlugin({
-				path: helpers.root('dist/themes/material/templates'),
-				outputPath: helpers.root('dist/themes/material/theme.component.gen.html'),
+				path: helpers.root('dist/theme/material/templates'),
+				outputPath: helpers.root('dist/theme/material/theme.component.gen.html'),
 				pattern: /.*\.tpl\.html/
 			}),
 
