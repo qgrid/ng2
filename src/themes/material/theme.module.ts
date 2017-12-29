@@ -23,7 +23,8 @@ import {
 	MatNativeDateModule,
 	MatChipsModule,
 	MatMenuModule,
-	MatDialogModule
+	MatDialogModule,
+	MatFormFieldModule
 } from '@angular/material';
 import { PipeModule } from 'ng2-qgrid/pipes';
 import { GridModule } from 'ng2-qgrid/grid.module';
