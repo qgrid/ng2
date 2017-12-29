@@ -37,7 +37,7 @@ import { TemplateLinkService } from '../../template/template-link.service';
 		GridService,
 		TemplateLinkService
 	],
-	styleUrls: ['../../assets/index.scss', '../../themes/material/index.scss'],
+	styleUrls: ['../../assets/index.scss', '../../theme/material/index.scss'],
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None
 })
