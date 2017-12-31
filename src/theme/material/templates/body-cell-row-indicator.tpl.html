@@ -1,2 +1,12 @@
-<ng-template key="body-cell-row-indicator.tpl.html">
+<ng-template key="body-cell-row-indicator.tpl.html"
+             let-$cell
+             let-$view="$view">
+    <ng-container>
+        <div [q-grid-drag]="$view.row.transfer($cell.rowIndex)"
+             [q-grid-drop]="$view.row.transfer($cell.rowIndex)"
+             (q-grid-on-drop)="$view.row.drop.execute($event)"
+             [q-grid-can-drop]="$view.row.drop.canExecute"
+             [q-grid-can-drag]="$view.row.drag.canExecute">
+        </div>
+    </ng-container>
 </ng-template>
