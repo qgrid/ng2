@@ -4,8 +4,9 @@ import {Model} from '../infrastructure/model';
 import {Table} from '../dom/table';
 
 export declare class RowView extends View {
-  constructor(model: Model, table: Table, tagName: string);
+  constructor(model: Model, tagName: string);
 
   drop: Command;
   drag: Command;
+  canDrag: boolean;
 }

@@ -34,7 +34,7 @@ export function viewFactory(model, table, commandManager, gridService, vscroll, 
 		target.pagination = new PaginationView(model);
 		target.scroll = new ScrollView(model, table, vscroll);
         target.rowDetails = new RowDetailsView(model, table, commandManager);
-        target.row = new RowView(model, table, selectors.tr);
+        target.row = new RowView(model, selectors.tr);
 
 		return () => {
 			target.style.dispose();
