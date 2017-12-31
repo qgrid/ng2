@@ -33,7 +33,7 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 	@Input('q-grid-resize') key;
 	@Input('q-grid-resize-path') path;
 	@Input('q-grid-can-resize') canResize;
-    @Input('q-grid-drag') transfer;
+	@Input('q-grid-drag') transfer;
 
 	constructor(
 		@Optional() private root: RootService,
@@ -96,7 +96,7 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 		const layout = model.layout;
 		const state = clone(layout()[this.path]);
 
-		state[this.key] = { width: context.width + e.screenX - context.x };
+		state.set(this.key, { width: context.width + e.screenX - context.x });
 		layout({ [this.path]: state });
 	}
 

@@ -53,8 +53,8 @@ export class RowView extends View {
             canExecute: e => {
                 if (e.source && e.source.key === tagName) {
                     const rows = model.data().rows;
-                    const index = e.source.value;
-                    return index >= 0 && rows.length > index;
+                    const index = rows.indexOf(e.source.value);
+                    return index >= 0;
                 }
 
                 return false;
