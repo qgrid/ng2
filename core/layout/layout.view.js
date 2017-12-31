@@ -41,14 +41,13 @@ export class LayoutView extends View {
 			let length = columns.length;
 			while (length--) {
 				const column = columns[length];
-				if (!state.hasOwnProperty(column.key)) {
+				if (!state.has(column.key)) {
 					if (column.canResize) {
 						const index = columns.findIndex(c => c === column);
-						state[column.key] = {width: headRow.cell(index).width()};
+						state.set(column.key, {width: headRow.cell(index).width()});
 					}
 				}
 			}
-
 		}
 
 		return state;

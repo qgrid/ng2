@@ -38,7 +38,20 @@ export class RowView extends View {
         this.drag = new Command({
             source: 'row.view',
             canExecute: e => {
-                if (e.source.key === tagName) {
+                if (e.source && e.source.key === tagName) {
+                    const rows = model.data().rows;
+                    const index = e.source.value;
+                    return index >= 0 && rows.length > index;
+                }
+
+                return false;
+            }
+        });
+
+        this.resize = new Command({
+            source: 'row.view',
+            canExecute: e => {
+                if (e.source && e.source.key === tagName) {
                     const rows = model.data().rows;
                     const index = e.source.value;
                     return index >= 0 && rows.length > index;
@@ -49,14 +62,18 @@ export class RowView extends View {
         });
     }
 
-    get canDrag() {
-        return this.model.row().canDrag;
-    }
-
     transfer(row) {
         return {
             key: this.tagName,
             value: row
         };
+    }
+
+    get canDrag() {
+        return this.model.row().canDrag;
+    }
+
+    get canResize() {
+        return this.model.row().canResize;
     }
 }
