@@ -10,7 +10,8 @@ import { TemplateHostService } from 'ng2-qgrid/template/template-host.service';
 export class RowComponent extends ModelComponent {
 	@Input('mode') public rowMode: string;
 	@Input('unit') public rowUnit: string;
-	@Input('canDrag') public rowCanDrag: boolean;
+    @Input('canDrag') public rowCanDrag: boolean;
+    @Input('canResize') public rowCanResize: boolean;
 
 	constructor(root: RootService, templateHost: TemplateHostService) {
 		super(root);
