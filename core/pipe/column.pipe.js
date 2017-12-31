@@ -20,11 +20,19 @@ export function columnPipe(memo, context, next) {
 
 	const addSelectColumn = selectColumnFactory(model);
 	const addGroupColumn = groupColumnFactory(model, nodes);
-	const addExpandColumn = expandColumnFactory(model);
+    const addRowExpandColumn = rowExpandColumnFactory(model);
+    const addRowIndicatorColumn = rowIndicatorColumnFactory(model);
 	const addPivotColumns = pivotColumnsFactory(model);
 	const addPadColumn = padColumnFactory(model);
 	const columns = [];
 
+	/*
+	 * Add row indicator column
+	 * if rows are draggable
+	 *
+	 */
+	addRowIndicatorColumn(columns, {rowspan: rowspan, row: 0});
+    
 	/*
 	 * Add column with select boxes
 	 * if selection unit is row
@@ -41,7 +49,7 @@ export function columnPipe(memo, context, next) {
 	/*
 	 * Add row expand column
 	 */
-	addExpandColumn(columns, {rowspan: rowspan, row: 0});
+	addRowExpandColumn(columns, {rowspan: rowspan, row: 0});
 
 	/*
 	 *Add columns defined by user
@@ -129,13 +137,32 @@ function groupColumnFactory(model, nodes) {
 	return noop;
 }
 
-function expandColumnFactory(model) {
+function rowExpandColumnFactory(model) {
 	const dataColumns = model.data().columns;
 	const expandColumn = dataColumns.find(item => item.type === 'row-expand');
 	if (model.row().unit === 'details' && !expandColumn) {
 		const createColumn = columnFactory(model);
 		return (columns, context) => {
 			const expandColumn = createColumn('row-expand');
+			expandColumn.model.source = 'generation';
+			expandColumn.rowspan = context.rowspan;
+			if (expandColumn.model.isVisible) {
+				columns.push(expandColumn);
+				return expandColumn;
+			}
+		};
+	}
+
+	return noop;
+}
+
+function rowIndicatorColumnFactory(model) {
+	const dataColumns = model.data().columns;
+	const rowIndicatorColumn = dataColumns.find(item => item.type === 'row-indicator');
+	if (model.row().canDrag && !rowIndicatorColumn) {
+		const createColumn = columnFactory(model);
+		return (columns, context) => {
+			const expandColumn = createColumn('row-indicator');
 			expandColumn.model.source = 'generation';
 			expandColumn.rowspan = context.rowspan;
 			if (expandColumn.model.isVisible) {
