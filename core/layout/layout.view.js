@@ -2,7 +2,7 @@ import { View } from '../view';
 import * as css from '../services/css';
 import * as columnService from '../column/column.service';
 import { clone } from '../utility';
-import { Log } from '../infrastructure';
+import { Log, Composite } from '../infrastructure';
 
 export class LayoutView extends View {
     constructor(model, table, service) {
@@ -29,11 +29,16 @@ export class LayoutView extends View {
                 this.invalidateColumns(form);
             }
 
-            if (e.hasChanges('rows')) {
-                const form = this.getRowForm();
-                this.invalidateRows(form);
-            }
+            // if (e.hasChanges('rows')) {
+            //     const form = this.getRowForm();
+            //     this.invalidateRows(form);
+            // }
         });
+
+        model
+            .style({
+                row: Composite.func([model.style().row, this.styleRow.bind(this)])
+            });
     }
 
     getRowForm() {
@@ -64,34 +69,6 @@ export class LayoutView extends View {
         return state;
     }
 
-    invalidateRows(form) {
-        Log.info('layout', 'invalidate rows');
-
-        const table = this.table;
-        const rows = table.data.rows();
-        const style = {};
-
-        let length = rows.length;
-        while (length--) {
-            const row = rows[length];
-            const height = form.get(row);
-            if (height) {
-                const key = css.escape('');
-                const size = height + 'px';
-                const sizeStyle = {
-                    'height': size,
-                    'min-height': size,
-                    'max-height': size
-                };
-
-                style[`tr.q-grid-${key}`] = sizeStyle;
-            }
-        }
-
-        const sheet = css.sheet(this.gridId, 'layout-row');
-        sheet.set(style);
-    }
-
     invalidateColumns(form) {
         Log.info('layout', 'invalidate columns');
 
@@ -120,6 +97,14 @@ export class LayoutView extends View {
 
         const sheet = css.sheet(this.gridId, 'layout-column');
         sheet.set(style);
+    }
+
+    styleRow(row, context) {
+        const form = this.getRowForm();
+        const style = form.get(row);
+        if (style) {
+            context.class('resized', { height: style.height + 'px' });
+        }
     }
 
     dispose() {
