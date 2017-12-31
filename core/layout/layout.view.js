@@ -23,22 +23,27 @@ export class LayoutView extends View {
             }
         });
 
+        const styleRow = this.styleRow.bind(this);
         model.layoutChanged.watch(e => {
             if (e.hasChanges('columns')) {
                 const form = this.getColumnForm();
                 this.invalidateColumns(form);
             }
-
-            // if (e.hasChanges('rows')) {
-            //     const form = this.getRowForm();
-            //     this.invalidateRows(form);
-            // }
         });
 
-        model
-            .style({
-                row: Composite.func([model.style().row, this.styleRow.bind(this)])
-            });
+        model.rowChanged.watch(e => {
+            if (e.hasChanges('canResize')) {
+                const rows = Array.from(model.style().rows);
+                if (e.state.canResize) {
+                    rows.push(styleRow);
+                }
+                else {
+                    const index = model.style.rows.indexOf(styleRow);
+                    rows.splice(index, 1);
+                }
+                model.style({ rows });
+            }
+        });
     }
 
     getRowForm() {
@@ -103,7 +108,7 @@ export class LayoutView extends View {
         const form = this.getRowForm();
         const style = form.get(row);
         if (style) {
-            context.class('resized', { height: style.height + 'px' });
+            context.class(`resized-${style.height}px`, { height: style.height + 'px' });
         }
     }
 

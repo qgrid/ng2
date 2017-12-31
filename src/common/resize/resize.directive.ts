@@ -27,9 +27,9 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 	};
 	private context = {
 		x: 0,
-        y: 0,
-        height: 0,
-        width: 0
+		y: 0,
+		height: 0,
+		width: 0
 	};
 
 	@Input('q-grid-resize') key;
@@ -81,9 +81,9 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 
 		const context = this.context;
 		context.width = this.element.clientWidth;
-        context.height = this.element.clientHeight;
-        context.x = e.screenX;
-        context.y = e.screenY;
+		context.height = this.element.clientHeight;
+		context.x = e.screenX;
+		context.y = e.screenY;
 
 		this.zone.runOutsideAngular(() => {
 			this.listener.document.on('mousemove', this.drag);
@@ -100,10 +100,10 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 		const layout = model.layout;
 		const state = clone(layout()[this.path]);
 
-		state.set(this.key, { 
-            width: context.width + e.screenX - context.x,
-            height: context.height + e.screenY - context.y
-        });
+		state.set(this.key, {
+			width: context.width + e.screenX - context.x,
+			height: context.height + e.screenY - context.y
+		});
 		layout({ [this.path]: state });
 	}
 
