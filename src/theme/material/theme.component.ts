@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { template } from './templates';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
@@ -11,7 +11,8 @@ if (debug) {
 
 @Component({
 	selector: 'q-grid-theme',
-	templateUrl: './theme.component.gen.html'
+    templateUrl: './theme.component.gen.html',
+    changeDetection: ChangeDetectionStrategy.OnPush    
 })
 export class ThemeComponent {
 	constructor() {}

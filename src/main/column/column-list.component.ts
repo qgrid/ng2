@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ModelComponent } from 'ng2-qgrid/infrastructure/component/model.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { ColumnListService } from './column-list.service';
@@ -6,7 +6,8 @@ import { ColumnListService } from './column-list.service';
 @Component({
 	selector: 'q-grid-columns',
 	template: '<ng-content></ng-content>',
-	providers: [ColumnListService]
+    providers: [ColumnListService],
+    changeDetection: ChangeDetectionStrategy.OnPush    
 })
 export class ColumnListComponent extends ModelComponent {
 	@Input('generation') public columnListGeneration: string = null;

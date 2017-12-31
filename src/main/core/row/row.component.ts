@@ -1,11 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ModelComponent, RootService } from 'ng2-qgrid/infrastructure/component';
 import { TemplateHostService } from 'ng2-qgrid/template/template-host.service';
 
 @Component({
 	selector: 'q-grid-row',
 	template: '<ng-content></ng-content>',
-	providers: [TemplateHostService]
+    providers: [TemplateHostService],
+    changeDetection: ChangeDetectionStrategy.OnPush    
 })
 export class RowComponent extends ModelComponent {
 	@Input('mode') public rowMode: string;
