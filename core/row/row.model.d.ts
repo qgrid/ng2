@@ -13,4 +13,5 @@ export declare class RowModel {
     status: Map<any, any>;
     canDrag: boolean;
     canResize: boolean;
+    frozen: any[];
 }
