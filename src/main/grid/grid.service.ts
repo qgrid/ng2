@@ -13,75 +13,75 @@ import { identity, noop } from 'ng2-qgrid/core/utility';
 
 @Injectable()
 export class GridService {
-    constructor() { }
+	constructor() { }
 
-    model() {
-        return new Model();
-    }
+	model() {
+		return new Model();
+	}
 
-    service(model) {
-        const start = () => {
-            Log.info('service', 'invalidate start');
+	service(model) {
+		const start = () => {
+			Log.info('service', 'invalidate start');
 
-            model.scene(
-                {
-                    status: 'start'
-                },
-                {
-                    source: 'grid',
-                    behavior: 'core'
-                }
-            );
+			model.scene(
+				{
+					status: 'start'
+				},
+				{
+					source: 'grid',
+					behavior: 'core'
+				}
+			);
 
-            return job => new Promise(resolve => {
-                if (job) {
-                    job();
-                }
+			return job => new Promise(resolve => {
+				if (job) {
+					job();
+				}
 
-                resolve();
-            });
-        };
+				resolve();
+			});
+		};
 
-        return new GridCoreService(model, start);
-    }
+		return new GridCoreService(model, start);
+	}
 
-    get noop() {
-        return noop;
-    }
+	get noop() {
+		return noop;
+	}
 
-    get identity() {
-        return identity;
-    }
+	get identity() {
+		return identity;
+	}
 
-    get pipe() {
-        return Pipe;
-    }
+	get pipe() {
+		return Pipe;
+	}
 
-    get pipeUnit() {
-        return PipeUnit;
-    }
+	get pipeUnit() {
+		return PipeUnit;
+	}
 
-    get Command() {
-        return Command;
-    }
+	get Command() {
+		return Command;
+	}
 
-    get Action() {
-        return Action;
-    }
+	get Action() {
+		return Action;
+	}
 
-    get Node() {
-        return Node;
-    }
+	get Node() {
+		return Node;
+	}
 
-    get RowDetailsStatus() {
-        return RowDetailsStatus;
-    }
+	get RowDetailsStatus() {
+		return RowDetailsStatus;
+	}
 
-    get valueFactory() {
-        return valueFactory;
-    }
+	get valueFactory() {
+		return valueFactory;
+	}
 
-    get labelFactory() {
-        return labelFactory;
-    }
+	get labelFactory() {
+		return labelFactory;
+	}
 }

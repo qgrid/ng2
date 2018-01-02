@@ -28,7 +28,7 @@ export function columnPipe(memo, context, next) {
 
 	/*
 	 * Add row indicator column
-	 * if rows are draggable
+	 * if rows are draggable or resizable
 	 *
 	 */
 	addRowIndicatorColumn(columns, {rowspan: rowspan, row: 0});
