@@ -4,8 +4,8 @@ import { TemplateHostService } from 'ng2-qgrid/template';
 @Component({
 	selector: 'q-grid-toolbar',
 	template: '<ng-content></ng-content>',
-    providers: [TemplateHostService],
-    changeDetection: ChangeDetectionStrategy.OnPush    
+	providers: [TemplateHostService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToolbarComponent {
 	constructor(private templateHost: TemplateHostService) {

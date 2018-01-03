@@ -7,8 +7,8 @@ import { TemplateHostService } from 'ng2-qgrid/template/template-host.service';
 @Component({
 	selector: 'q-grid-column',
 	template: '<ng-content></ng-content>',
-    providers: [TemplateHostService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+	providers: [TemplateHostService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnComponent implements OnInit {
 	@Input() public type: string;
@@ -48,7 +48,7 @@ export class ColumnComponent implements OnInit {
 		private root: RootService,
 		private columnList: ColumnListService,
 		private templateHost: TemplateHostService
-	) {}
+	) { }
 
 	ngOnInit() {
 		const withKey = !isUndefined(this.key);
@@ -80,7 +80,7 @@ export class ColumnComponent implements OnInit {
 		} else {
 			const settings = Object.keys(this)
 				.filter(
-					key => !isUndefined(this[key]) && column.hasOwnProperty(key)
+				key => !isUndefined(this[key]) && column.hasOwnProperty(key)
 				)
 				.reduce((memo, key) => {
 					memo[key] = column[key];

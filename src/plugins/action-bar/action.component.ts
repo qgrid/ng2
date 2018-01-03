@@ -6,8 +6,8 @@ import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 @Component({
 	selector: 'q-grid-action',
-    template: '',
-    changeDetection: ChangeDetectionStrategy.OnPush    
+	template: '',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActionComponent {
 	public id: string = null;

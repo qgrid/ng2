@@ -6,8 +6,8 @@ import { ColumnListService } from './column-list.service';
 @Component({
 	selector: 'q-grid-columns',
 	template: '<ng-content></ng-content>',
-    providers: [ColumnListService],
-    changeDetection: ChangeDetectionStrategy.OnPush    
+	providers: [ColumnListService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnListComponent extends ModelComponent {
 	@Input('generation') public columnListGeneration: string = null;
