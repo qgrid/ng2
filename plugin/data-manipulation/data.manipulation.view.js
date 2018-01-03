@@ -1,11 +1,11 @@
-import {Command} from '../../core/command';
-import {Action} from '../../core/action';
-import {AppError, Composite} from '../../core/infrastructure';
-import {isUndefined} from '../../core/utility';
+import { Command } from '../../core/command';
+import { Action } from '../../core/action';
+import { AppError, Composite } from '../../core/infrastructure';
+import { isUndefined } from '../../core/utility';
 import * as columnService from '../../core/column/column.service';
-import {set as setValue} from '../../core/services/value';
-import {set as setLabel} from '../../core/services/label';
-import {PluginView} from '../plugin.view';
+import { set as setValue } from '../../core/services/value';
+import { set as setLabel } from '../../core/services/label';
+import { PluginView } from '../plugin.view';
 
 export class DataManipulationView extends PluginView {
 	constructor(model) {
@@ -93,7 +93,7 @@ export class DataManipulationView extends PluginView {
 							changes.added.delete(rowId);
 							const data = this.model.data;
 							const rows = data().rows.filter(row => this.rowId(row) !== rowId);
-							data({rows});
+							data({ rows });
 						}
 						else {
 							changes.deleted.add(rowId);
@@ -115,19 +115,19 @@ export class DataManipulationView extends PluginView {
 						if (this.changes.edited.has(rowId)) {
 							try {
 								const edits = this.changes.edited.get(rowId);
-								const columnMap = columnService.map(this.model.data().columns);								
-								for(const edit of edits) {
+								const columnMap = columnService.map(this.model.data().columns);
+								for (const edit of edits) {
 									const column = columnMap[edit.column];
-									if (!column){
+									if (!column) {
 										throw new AppError('data.manipulation', `Column ${edit.column} is not found`);
 									}
-	
+
 									setValue(e.row, column, edit.oldValue);
 									setLabel(e.row, column, edit.oldLabel);
 								}
 							}
 							finally {
-								this.changes.edited.delete(rowId);	
+								this.changes.edited.delete(rowId);
 							}
 						}
 					},
@@ -155,8 +155,10 @@ export class DataManipulationView extends PluginView {
 		this.rowFactory = model.dataManipulation().rowFactory;
 
 		const styleState = model.style();
-		const styleRow = styleState.row;
-		const styleCell = styleState.cell;
+		const rows = Array.from(styleState.rows);
+		const cells = Array.from(styleState.cells);
+		rows.push(this.styleRow.bind(this));
+		cells.push(this.styleCell.bind(this));
 
 		model
 			.edit({
@@ -164,8 +166,7 @@ export class DataManipulationView extends PluginView {
 				commit: Composite.command([this.commitCommand, model.edit().commit])
 			})
 			.style({
-				row: Composite.func([styleRow,  this.styleRow.bind(this)]),
-				cell: Composite.func([styleCell, this.styleCell.bind(this)])
+				rows, cells
 			})
 			.action({
 				items: Composite.list([this.actions, model.action().items])
@@ -177,7 +178,7 @@ export class DataManipulationView extends PluginView {
 					.data()
 					.columns
 					.find(column => column.type === 'row-options');
-				
+
 				if (rowOptionsColumn) {
 					rowOptionsColumn.editorOptions.actions.push(...this.rowActions);
 					off();
@@ -194,7 +195,7 @@ export class DataManipulationView extends PluginView {
 	styleRow(row, context) {
 		const rowId = this.rowId(row);
 		if (this.changes.deleted.has(rowId)) {
-			context.class('deleted', {opacity: 0.3});
+			context.class('deleted', { opacity: 0.3 });
 		}
 	}
 
@@ -203,13 +204,13 @@ export class DataManipulationView extends PluginView {
 		const changes = this.changes;
 		if (column.type === 'row-indicator') {
 			if (changes.deleted.has(rowId)) {
-				context.class('delete-indicator', {background: '#EF5350'});
+				context.class('delete-indicator', { background: '#EF5350' });
 			}
 			else if (changes.added.has(rowId)) {
-				context.class('add-indicator', {background: '#C8E6C9'});
+				context.class('add-indicator', { background: '#C8E6C9' });
 			}
 			else if (changes.edited.has(rowId)) {
-				context.class('edit-indicator', {background: '#E3F2FD'});
+				context.class('edit-indicator', { background: '#E3F2FD' });
 			}
 
 			return;
@@ -218,7 +219,7 @@ export class DataManipulationView extends PluginView {
 		if (changes.edited.has(rowId)) {
 			const entries = changes.edited.get(rowId);
 			if (entries.findIndex(entry => entry.column === column.key) >= 0) {
-				context.class('edited', {background: '#E3F2FD'});
+				context.class('edited', { background: '#E3F2FD' });
 			}
 		}
 	}

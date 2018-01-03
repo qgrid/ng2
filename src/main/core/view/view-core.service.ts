@@ -47,7 +47,7 @@ export class ViewCoreService {
 		private root: RootService,
 		private gridServiceFactory: GridService,
 		private vscroll: VScrollService
-	) {}
+	) { }
 
 	init() {
 		const root = this.root;
@@ -56,7 +56,8 @@ export class ViewCoreService {
 		const commandManager = root.commandManager;
 		const gridService = this.gridServiceFactory.service(model);
 		const selectors = {
-			th: 'q-grid-core-th'
+			th: 'q-grid-core-th',
+			tr: 'q-grid-core-tr'
 		};
 
 		const injectViewServicesTo = viewFactory(

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActionBarService } from './action-bar.service';
 import { Action as ActionItem } from 'ng2-qgrid/core/action';
 import { Command } from 'ng2-qgrid/core/command/command';
@@ -6,7 +6,8 @@ import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 @Component({
 	selector: 'q-grid-action',
-	template: ''
+	template: '',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActionComponent {
 	public id: string = null;

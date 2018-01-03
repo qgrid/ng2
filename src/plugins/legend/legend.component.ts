@@ -1,18 +1,19 @@
-import { Component, OnInit, Optional } from '@angular/core';
+import { Component, OnInit, Optional, ChangeDetectionStrategy } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 
 @Component({
 	selector: 'q-grid-legend-core',
-	templateUrl: './legend.component.html'
+	templateUrl: './legend.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LegendComponent extends PluginComponent implements OnInit {
 
-	constructor(@Optional() root: RootService) {
+	constructor( @Optional() root: RootService) {
 		super(root);
 
 		this.models = ['legend'];
 	}
 
-	ngOnInit() {}
+	ngOnInit() { }
 }

@@ -1,7 +1,6 @@
-<tr *ngFor="let $row of $view.body.rows; index as $rowIndex; last as $last"
+<tr *ngFor="let $row of $view.body.rows; index as $rowIndex; trackBy: rowId"
 	 [q-grid-core-tr]="$row"
      [q-grid-core-index]="$rowIndex"
-     [q-grid-core-last]="$last"
 	 q-grid-core-source="body">
 	<td *ngFor="let $column of $view.body.render.columns($row, $table.pin); trackBy: columnId"
 		 [attr.rowspan]="$view.body.render.rowspan($row, $column)"

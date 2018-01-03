@@ -10,5 +10,8 @@ export declare class RowModel {
 	mode: SingleOrMultipleMode;
 	unit: DataOrDetailsUnit;
 	height: (element: HTMLElement, index: number) => number | number;
-	status: Map<any, any>;
+    status: Map<any, any>;
+    canDrag: boolean;
+    canResize: boolean;
+    frozen: any[];
 }

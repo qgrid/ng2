@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService, Human } from '../../data/data.service';
-import { GridService } from 'ng2-qgrid/index';
+import { Grid } from 'ng2-qgrid/index';
 
 import * as fileSaver from 'file-saver';
 import * as xlsx from 'xlsx';
@@ -232,7 +232,7 @@ export class HomeComponent {
 	];
 
 	private gridModel: Model;
-	constructor(private dataService: DataService, public qgrid: GridService) {
+	constructor(private dataService: DataService, public qgrid: Grid) {
 		this.gridModel = qgrid.model();
 
 		dataService.getPeople(100).subscribe(people => {

@@ -1,13 +1,11 @@
 /*eslint-disable  no-console, no-unused-vars, no-undef*/
 
-const ENV = window.ENV || {};
-
 export class Log {
 	constructor() {
 	}
 
 	static info(source, message) {
-		if (!ENV.PRODUCTION) {
+		if (ENV.indexOf('prod') < 0) {
 			console.info(`qgrid.${source}: ${message}`);
 		}
 	}

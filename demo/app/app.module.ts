@@ -1,5 +1,4 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgModule, ApplicationRef } from '@angular/core';
 import { RouterModule, PreloadAllModules } from '@angular/router';
@@ -35,7 +34,6 @@ import { ThemeModule } from 'ng2-qgrid/theme/material';
 	imports: [
 		// import Angular's modules
 		BrowserModule,
-		FormsModule,
 		HttpModule,
 		RouterModule.forRoot(ROUTES, {
 			useHash: true,
@@ -44,8 +42,6 @@ import { ThemeModule } from 'ng2-qgrid/theme/material';
 		GridModule,
 		ThemeModule,
 		NoopAnimationsModule,
-		MatButtonModule,
-		MatCheckboxModule,
 		MatCardModule,
 		FlexLayoutModule
 	],
