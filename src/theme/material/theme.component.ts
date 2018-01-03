@@ -11,9 +11,9 @@ if (debug) {
 
 @Component({
 	selector: 'q-grid-theme',
-    templateUrl: './theme.component.gen.html',
-    changeDetection: ChangeDetectionStrategy.OnPush    
+	templateUrl: './theme.component.gen.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThemeComponent {
-	constructor() {}
+	constructor() { }
 }

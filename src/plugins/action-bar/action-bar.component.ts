@@ -6,8 +6,8 @@ import { ActionBarService } from './action-bar.service';
 @Component({
 	selector: 'q-grid-action-bar',
 	template: '',
-    providers: [ActionBarService],
-    changeDetection: ChangeDetectionStrategy.OnPush    
+	providers: [ActionBarService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActionBarComponent extends PluginComponent {
 	constructor(
