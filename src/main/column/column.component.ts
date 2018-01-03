@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { isUndefined, clone } from 'ng2-qgrid/core/utility';
 import { ColumnListService } from 'ng2-qgrid/main/column/column-list.service';
 import { RootService } from 'ng2-qgrid/infrastructure/component';
@@ -7,7 +7,8 @@ import { TemplateHostService } from 'ng2-qgrid/template/template-host.service';
 @Component({
 	selector: 'q-grid-column',
 	template: '<ng-content></ng-content>',
-	providers: [TemplateHostService]
+    providers: [TemplateHostService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnComponent implements OnInit {
 	@Input() public type: string;

@@ -1,15 +1,18 @@
-import {Component, Input} from '@angular/core';
-import {ModelComponent, RootService} from 'ng2-qgrid/infrastructure/component';
-import {TemplateHostService} from 'ng2-qgrid/template/template-host.service';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ModelComponent, RootService } from 'ng2-qgrid/infrastructure/component';
+import { TemplateHostService } from 'ng2-qgrid/template/template-host.service';
 
 @Component({
 	selector: 'q-grid-row',
 	template: '<ng-content></ng-content>',
-	providers: [TemplateHostService]
+    providers: [TemplateHostService],
+    changeDetection: ChangeDetectionStrategy.OnPush    
 })
 export class RowComponent extends ModelComponent {
-	@Input('mode') private rowMode: string;
-	@Input('unit') private rowUnit: string;
+	@Input('mode') public rowMode: string;
+	@Input('unit') public rowUnit: string;
+	@Input('canDrag') public rowCanDrag: boolean;
+	@Input('canResize') public rowCanResize: boolean;
 
 	constructor(root: RootService, templateHost: TemplateHostService) {
 		super(root);

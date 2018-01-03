@@ -14,6 +14,7 @@ import {PaginationView} from '../pagination';
 import {StyleView} from '../style';
 import {ScrollView} from '../scroll';
 import {RowDetailsView} from '../row-details';
+import {RowView} from '../row';
 
 export function viewFactory(model, table, commandManager, gridService, vscroll, selectors){
 	return target => {
@@ -32,7 +33,8 @@ export function viewFactory(model, table, commandManager, gridService, vscroll, 
 		target.nav = new NavigationView(model, table, commandManager);
 		target.pagination = new PaginationView(model);
 		target.scroll = new ScrollView(model, table, vscroll);
-		target.rowDetails = new RowDetailsView(model, table, commandManager);
+        target.rowDetails = new RowDetailsView(model, table, commandManager);
+        target.row = new RowView(model, selectors.tr);
 
 		return () => {
 			target.style.dispose();

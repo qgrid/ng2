@@ -66,4 +66,19 @@ export class ViewCoreComponent extends NgComponent
 			}
 		}
 	}
+
+	ngAfterViewChecked() {
+		const scene = this.model.scene;
+		if (scene().status === 'start') {
+			scene(
+				{
+					status: 'stop'
+				},
+				{
+					source: 'view-core.component',
+					behavior: 'core'
+				}
+			);
+		}
+	}
 }

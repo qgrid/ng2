@@ -1,9 +1,10 @@
-import {View} from '../view';
-import {Monitor} from './style.monitor';
+import { View } from '../view';
+import { Monitor } from './style.monitor';
 import * as columnService from '../column/column.service';
-import {getFactory as valueFactory} from '../services/value';
-import {noop} from '../utility';
-import {VirtualRowStyle, VirtualCellStyle} from './style.virtual';
+import { getFactory as valueFactory } from '../services/value';
+import { noop } from '../utility';
+import { VirtualRowStyle, VirtualCellStyle } from './style.virtual';
+import { Composite } from '../infrastructure';
 
 export class StyleView extends View {
 	constructor(model, table) {
@@ -22,12 +23,12 @@ export class StyleView extends View {
 		};
 
 		this.using(model.styleChanged.watch(e => {
-			if (e.hasChanges('row')) {
-				this.active.row = e.state.row !== noop;
+			if (e.hasChanges('row') || e.hasChanges('rows')) {
+				this.active.row = e.state.row !== noop || e.state.rows.length > 0;
 			}
 
-			if (e.hasChanges('cell')) {
-				this.active.cell = e.state.cell !== noop;
+			if (e.hasChanges('cell') || e.hasChanges('cells')) {
+				this.active.cell = e.state.cell !== noop || e.state.cells.length > 0;
 			}
 
 			this.invalidate();
@@ -45,7 +46,7 @@ export class StyleView extends View {
 		}
 
 		const styleState = model.style();
-		const context = {model};
+		const context = { model };
 		return styleState.invalidate.canExecute(context) && styleState.invalidate.execute(context) !== false;
 	}
 
@@ -71,8 +72,8 @@ export class StyleView extends View {
 
 		let isRowActive = active.row;
 		let isCellActive = active.cell;
-		let styleRow = styleState.row;
-		let styleCell = styleState.cell;
+		let styleRow = Composite.func(styleState.rows.concat([styleState.row]));
+		let styleCell = Composite.func(styleState.cells.concat([styleState.cell]));
 		if (isVirtual) {
 			isRowActive = true;
 			isCellActive = true;

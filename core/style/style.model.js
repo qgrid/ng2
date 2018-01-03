@@ -8,6 +8,9 @@ export class StyleModel {
 		this.invalidate = new Command({
 			source: 'style.model',
 			canExecute: context => context.model.edit().state === 'view'
-		});
+        });
+        
+        this.rows = [];
+        this.cells = [];
 	}
 }

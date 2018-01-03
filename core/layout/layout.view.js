@@ -1,8 +1,8 @@
-import {View} from '../view';
+import { View } from '../view';
 import * as css from '../services/css';
 import * as columnService from '../column/column.service';
-import {clone} from '../utility';
-import {Log} from '../infrastructure';
+import { clone } from '../utility';
+import { Log, Composite } from '../infrastructure';
 
 export class LayoutView extends View {
 	constructor(model, table, service) {
@@ -23,15 +23,36 @@ export class LayoutView extends View {
 			}
 		});
 
+		const styleRow = this.styleRow.bind(this);
 		model.layoutChanged.watch(e => {
 			if (e.hasChanges('columns')) {
-				const form = this.getForm();
+				const form = this.getColumnForm();
 				this.invalidateColumns(form);
+			}
+		});
+
+		model.rowChanged.watch(e => {
+			if (e.hasChanges('canResize')) {
+				const rows = Array.from(model.style().rows);
+				if (e.state.canResize) {
+					rows.push(styleRow);
+				}
+				else {
+					const index = model.style.rows.indexOf(styleRow);
+					rows.splice(index, 1);
+				}
+				model.style({ rows });
 			}
 		});
 	}
 
-	getForm() {
+	getRowForm() {
+		const model = this.model;
+		const layout = model.layout;
+		return clone(layout().rows);
+	}
+
+	getColumnForm() {
 		const model = this.model;
 		const layout = model.layout;
 		const state = clone(layout().columns);
@@ -41,14 +62,13 @@ export class LayoutView extends View {
 			let length = columns.length;
 			while (length--) {
 				const column = columns[length];
-				if (!state.hasOwnProperty(column.key)) {
+				if (!state.has(column.key)) {
 					if (column.canResize) {
 						const index = columns.findIndex(c => c === column);
-						state[column.key] = {width: headRow.cell(index).width()};
+						state.set(column.key, { width: headRow.cell(index).width() });
 					}
 				}
 			}
-
 		}
 
 		return state;
@@ -80,15 +100,23 @@ export class LayoutView extends View {
 			}
 		}
 
-		const sheet = css.sheet(this.gridId, 'layout');
+		const sheet = css.sheet(this.gridId, 'layout-column');
 		sheet.set(style);
+	}
+
+	styleRow(row, context) {
+		const form = this.getRowForm();
+		const style = form.get(row);
+		if (style) {
+			context.class(`resized-${style.height}px`, { height: style.height + 'px' });
+		}
 	}
 
 	dispose() {
 		super.dispose();
 
-		const sheet = css.sheet(this.gridId, 'layout');
-		sheet.remove();
+		const columnSheet = css.sheet(this.gridId, 'layout-column');
+		columnSheet.remove();
 	}
 
 	get gridId() {
