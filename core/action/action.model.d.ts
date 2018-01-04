@@ -1,14 +1,17 @@
 import { Action } from './action';
 import { Shortcut } from '../shortcut/shortcut';
 import { CommandManager } from '../command/command.manager';
+import { Resource } from '../resource/resource';
 
 /**
- * A class representing a set of properties to handle custom user behaviors(like add or delete row).
+ * A class to handle and visualize custom user behaviors(like add or delete row).
  * 
  * Action bar plugin uses this model to draw buttons to execute commands.
  */
 export declare class ActionModel {
   constructor();
+
+  resource: Resource;
 
   /**
    * List of actions that will be added to the command manager.
