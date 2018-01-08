@@ -16,6 +16,7 @@ import { BackdropModule } from './backdrop';
 import { SelectModule } from './select';
 import { LegendModule } from './legend';
 import { ChipsModule } from './chips';
+import { PersistenceModule } from './persistence';
 
 import { ColumnChooserModel } from 'ng2-qgrid/plugin/column-chooser/column.chooser.model';
 import { ColumnFilterModel } from 'ng2-qgrid/plugin/column-filter/column.filter.model';
@@ -47,7 +48,8 @@ Model.register('columnChooser', ColumnChooserModel)
 		BackdropModule,
 		SelectModule,
 		LegendModule,
-		ChipsModule
+        ChipsModule,
+        PersistenceModule
 	]
 })
 export class PluginModule {}
