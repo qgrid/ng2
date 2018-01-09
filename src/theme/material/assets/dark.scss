@@ -1,0 +1,34 @@
+
+@import "dark-colors";
+
+.q-grid-dark {
+    .q-grid.q-grid-theme-material {
+        .q-grid-view {
+            tr td {
+				color: #fff;
+            }
+            
+            tr {
+                &.q-grid-highlighted {
+                    background-color: red;
+                }
+            }
+
+            td {
+                &.q-grid-highlighted {
+                    background-color: red;
+                }
+            }
+
+            thead tr th {
+                color: #fff;
+            }
+
+            table {
+                background-color:$dark;
+            }
+        }
+    }
+}
+
+
