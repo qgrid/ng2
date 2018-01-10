@@ -5,27 +5,42 @@
     .q-grid.q-grid-theme-material {
         .q-grid-view {
             tr td {
-				color: #fff;
+				color: $dark-contrast;
             }
             
             tr {
                 &.q-grid-highlighted {
-                    background-color: red;
+                    background-color: $dark-accent;
                 }
             }
 
             td {
                 &.q-grid-highlighted {
-                    background-color: red;
+                    background-color: $dark-accent;
+                }
+
+                &.q-grid-focus {
+                    outline: 2px solid $dark-focused;
                 }
             }
 
             thead tr th {
-                color: #fff;
+                color: $dark-contrast;
+                &.q-grid-focus {
+                    outline: 2px solid $dark-focused;
+                }
             }
 
             table {
                 background-color:$dark;
+            }
+
+            .mat-checkbox-frame {
+                border-color: $dark-contrast;
+            }
+
+            .q-grid-icon {
+                color: $dark-contrast;
             }
         }
     }
