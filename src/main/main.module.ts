@@ -29,7 +29,7 @@ import { MarkupDirective } from './markup/markup.directive';
 	],
 	imports: [
 		BrowserModule,
-		CoreModule	
+		CoreModule
 	],
 	providers: [
 		GridService

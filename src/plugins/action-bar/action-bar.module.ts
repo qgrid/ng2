@@ -20,4 +20,4 @@ import { ActionComponent } from './action.component';
 	],
 	imports: [TemplateModule]
 })
-export class ActionBarModule {}
+export class ActionBarModule { }

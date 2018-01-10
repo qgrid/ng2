@@ -107,7 +107,7 @@ export function widthFactory(table, form) {
 	form = form || layout().columns;
 
 	const occupied = columns
-		.filter(c => form.hasOwnProperty(c.key) || ('' + c.width).indexOf('%') < 0)
+		.filter(c => form.has(c.key) || ('' + c.width).indexOf('%') < 0)
 		.reduce((memo, c) => {
 			const width = getWidth(c);
 			if (width !== null) {
@@ -131,8 +131,8 @@ export function widthFactory(table, form) {
 
 	function getWidth(column) {
 		let size = column;
-		if (form.hasOwnProperty(column.key)) {
-			size = form[column.key];
+		if (form.has(column.key)) {
+			size = form.get(column.key);
 		}
 
 		let width = size.width;

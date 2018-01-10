@@ -4,3 +4,9 @@
 	@include user-select(none);
 	@include user-drag(element);
 }
+
+&.q-grid-box:not(.q-grid-drag){
+    .q-grid-draggable {
+        cursor: move;
+    }
+}

@@ -4,5 +4,7 @@ export declare class StyleModel {
 
 	row: any;
 	cell: any;
-	invalidate: Command;
+    invalidate: Command;
+    rows: any[];
+    cells: any[];
 }

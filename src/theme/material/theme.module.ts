@@ -19,6 +19,7 @@ import {
 	MatTooltipModule,
 	MatProgressBarModule,
 	MatInputModule,
+	MatFormFieldModule,
 	MatDatepickerModule,
 	MatNativeDateModule,
 	MatChipsModule,

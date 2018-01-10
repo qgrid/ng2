@@ -7,6 +7,7 @@ import {
 	EventEmitter,
 	OnDestroy,
 	ElementRef,
+	ChangeDetectionStrategy,
 } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
@@ -14,7 +15,8 @@ import { BackdropView } from 'ng2-qgrid/plugin/backdrop/backdrop.view';
 
 @Component({
 	selector: 'q-grid-backdrop',
-	templateUrl: './backdrop.component.html'
+	templateUrl: './backdrop.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BackdropComponent extends PluginComponent implements OnDestroy {
 	@ContentChild(TemplateRef) public template: TemplateRef<any>;
@@ -26,7 +28,7 @@ export class BackdropComponent extends PluginComponent implements OnDestroy {
 
 		const context = {
 			element: element.nativeElement,
-			onKeyDown: () => {}
+			onKeyDown: () => { }
 		};
 
 		this.backdrop = new BackdropView(context);

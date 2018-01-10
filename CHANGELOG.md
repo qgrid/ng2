@@ -14,7 +14,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Persistence plugin.
 * Email, url cell editor.
 
-## [5.1.0] - 2017-12-26
+## [5.1.2] - 2018-01-03
+### Added
+* Possibility to change row size `<q-grid-row canResize="true"`.
+* Possibility to drag and drop rows `<q-grid-row canDrag="true"`.
+* Style queue to the style Api, accessable through style model cells/rows props.
+* Rows property to the layout property.
+
+### Changed
+* Improve perfomance through change detection strategy.
+* Improve perfomance through reducing number of change detections.
+* Improve perfomance through adding track by index.
+* Improve perfomance through invoking drang and drop out of ng zone.
+* Layout columns property changed type form object to map.
+
+## [5.1.1] - 2017-12-28
 ### Added
 * Legend plugin.
 * Bool cell editor.
@@ -103,8 +117,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng/compare/v5.1.0...HEAD
-[5.1.0]: https://github.com/qgrid/ng/compare/v5.1.0...v5.0.2
+[unreleased]: https://github.com/qgrid/ng/compare/v5.1.2...HEAD
+[5.1.2]: https://github.com/qgrid/ng/compare/v5.1.2...v5.1.1
+[5.1.1]: https://github.com/qgrid/ng/compare/v5.1.1...v5.0.2
 [5.0.0]: https://github.com/qgrid/ng/compare/v5.0.2...v1.0.7
 [1.0.7]: https://github.com/qgrid/ng/compare/v1.0.7...v1.0.6
 [1.0.6]: https://github.com/qgrid/ng/compare/v1.0.6...v1.0.5

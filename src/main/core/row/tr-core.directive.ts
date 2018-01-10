@@ -9,7 +9,6 @@ export class TrCoreDirective implements OnInit, OnDestroy {
 	@Input('q-grid-core-index') public index: number;
 	@Input('q-grid-core-tr') public model: any;
 	@Input('q-grid-core-source') public source;
-	@Input('q-grid-core-last') public isLast;
 
 	public element: HTMLElement;
 
@@ -23,19 +22,6 @@ export class TrCoreDirective implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this.root.bag[this.source].addRow(this);
-
-		if (this.isLast) {
-			const scene = this.root.model.scene;
-			scene(
-				{
-					round: scene().round + 1
-				},
-				{
-					source: 'tr.core',
-					behavior: 'core'
-				}
-			);
-		}
 	}
 
 	ngOnDestroy() {

@@ -7,7 +7,8 @@ export class VirtualRowStyle {
 
 	applyFactory() {
 		const model = this.model;
-		const style = model.style().row;
+		const styleState = model.style();
+		const style = Composite.func(styleState.rows.concat([styleState.row]));
 		const mapper = this.table.context.mapper;
 		const box = this.table.body.rowBox;
 		const entries = box.entries;
@@ -41,7 +42,8 @@ export class VirtualCellStyle {
 
 	applyFactory() {
 		const model = this.model;
-		const style = model.style().cell;
+		const styleState = model.style();
+		const style = Composite.func(styleState.cells.concat([styleState.cell]));
 		const mapper = this.table.context.mapper;
 		const cellBox = this.table.body.cellBox;
 		const cellEntries = cellBox.entries;

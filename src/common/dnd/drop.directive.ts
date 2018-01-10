@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, NgZone } from '@angular/core';
 import { EventManager } from 'ng2-qgrid/core/infrastructure';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { DragService } from './drag.service';
@@ -16,16 +16,19 @@ export class DropDirective implements OnInit, OnDestroy {
 	@Input('q-grid-can-drop') canDrop;
 	@Output('q-grid-on-drop') onDrop = new EventEmitter<any>();
 
-	constructor(elementRef: ElementRef) {
+	constructor(elementRef: ElementRef, private zone: NgZone) {
 		this.element = elementRef.nativeElement;
 		this.listener = new EventListener(this.element, new EventManager(this));
 	}
 
 	ngOnInit() {
 		this.element.classList.add(`${GRID_PREFIX}-can-drop`);
-		this.listener.on('dragenter', this.enter);
-		this.listener.on('dragover', this.over);
-		this.listener.on('dragleave', this.leave);
+		this.zone.runOutsideAngular(() => {
+			this.listener.on('dragenter', this.enter);
+			this.listener.on('dragover', this.over);
+			this.listener.on('dragleave', this.leave);
+		});
+
 		this.listener.on('drop', this.drop);
 	}
 
