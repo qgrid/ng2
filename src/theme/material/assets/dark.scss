@@ -4,8 +4,31 @@
 .q-grid-dark {
     .q-grid.q-grid-theme-material {
         .q-grid-view {
+            table {
+                background-color:$dark;
+            }
+            
+            thead tr th {
+                color: $dark-header;
+                &.q-grid-focus {
+                    outline: 2px solid $dark-focused;
+                }
+                
+                &.q-grid-sorted {
+                    .q-grid-sort.q-grid-active {
+                        label {
+                            color: $dark-text;
+                        }
+
+                        .q-grid-icon {
+                            color: $dark-text;
+                        }
+                    }
+                }
+            }
+            
             tr td {
-				color: $dark-contrast;
+				color: $dark-text;
             }
             
             tr {
@@ -22,25 +45,18 @@
                 &.q-grid-focus {
                     outline: 2px solid $dark-focused;
                 }
-            }
 
-            thead tr th {
-                color: $dark-contrast;
-                &.q-grid-focus {
-                    outline: 2px solid $dark-focused;
+                &.q-grid-sorted {
+                    background-color: $color-less;
                 }
             }
 
-            table {
-                background-color:$dark;
-            }
-
             .mat-checkbox-frame {
-                border-color: $dark-contrast;
+                border-color: $dark-text;
             }
 
             .q-grid-icon {
-                color: $dark-contrast;
+                color: $dark-text;
             }
         }
     }
