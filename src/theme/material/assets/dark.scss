@@ -25,6 +25,9 @@
                         }
                     }
                 }
+                .q-grid-divider {
+                    border-right: 1px solid $dark-text;
+                }
             }
             
             tr td {
