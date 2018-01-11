@@ -1,10 +1,10 @@
 import {PluginView} from '../plugin.view';
-import {PersistenceService} from '@grid/core/persistence/persistence.service';
-import {Command, CommandManager} from '@grid/core/command';
-import {stringifyFactory} from '@grid/core/services/';
-import {Shortcut, ShortcutDispatcher} from '@grid/core/shortcut';
-import {clone} from '@grid/core/utility';
-import {Event} from '@grid/core/infrastructure';
+import {PersistenceService} from '../../core/persistence/persistence.service';
+import {Command, CommandManager} from '../../core/command';
+import {stringifyFactory} from '../../core/services/';
+import {Shortcut, ShortcutDispatcher} from '../../core/shortcut';
+import {clone} from '../../core/utility';
+import {Event} from '../../core/infrastructure';
 
 export class PersistenceView extends PluginView {
 	constructor(model) {
