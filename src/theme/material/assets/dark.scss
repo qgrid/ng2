@@ -52,6 +52,22 @@
                 &.q-grid-sorted {
                     background-color: $color-less;
                 }
+
+                &.q-grid-selected {
+                    background-color: $dark-accent;
+                }
+
+                &.q-grid-email {
+                    a {
+                        color: $dark-text;
+                    }
+                }
+
+                &.q-grid-array {
+                    ul li {
+                        color: $dark;
+                    }
+                }
             }
 
             .mat-checkbox-frame {
