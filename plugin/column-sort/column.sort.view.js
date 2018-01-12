@@ -22,12 +22,30 @@ export class ColumnSortView extends PluginView {
 				this.clear();
 
 				const view = this.view;
-				const display = this.display;
-				if (view.sort.order(this.column) >= 0) {
+                const display = this.display;
+                const iconDesc = context.iconDesc;
+                const iconAsc = context.iconAsc;
+                const styleName = `icon-visible`;
+                
+                if (view.sort.order(this.column) >= 0) {
+                    
+                    let icon = iconDesc;
+                    let direction = view.sort.direction(this.column);
+                    if (direction === 'asc') {
+                        iconAsc.classList.add(styleName);
+                        iconDesc.classList.remove(styleName);
+                    } else {
+                        iconAsc.classList.remove(styleName);
+                        iconDesc.classList.add(styleName);
+                    } 
+                    
 					this[view.sort.direction(this.column)].display = display;
 					element.classList.add(`${GRID_PREFIX}-active`);
 				} else {
-					element.classList.remove(`${GRID_PREFIX}-active`);
+                    element.classList.remove(`${GRID_PREFIX}-active`);
+                    
+                    iconAsc.classList.remove(styleName);
+                    iconDesc.classList.remove(styleName);
 				}
 			}
 		}));
