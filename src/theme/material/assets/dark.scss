@@ -68,14 +68,35 @@
                         color: $dark;
                     }
                 }
+
+                .q-grid-editor {
+                    color: $dark-text;
+                    background-color: $dark;
+                }
+            }
+
+            .q-grid-icon {
+                color: $dark-text;
+            }
+
+            .mat-hint {
+                color: $dark-text;
+            }
+
+            .mat-form-field-underline {
+                background-color:$dark-text;
             }
 
             .mat-checkbox-frame {
                 border-color: $dark-text;
             }
 
-            .q-grid-icon {
+            .mat-icon {
                 color: $dark-text;
+            }
+
+            .mat-form-field-ripple {
+                background-color: $dark-accent;
             }
         }
     }
