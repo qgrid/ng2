@@ -3,11 +3,6 @@ import { IIdentityResult } from '../utility/utility';
 import { SelectionUnit } from './selection.unit';
 import { SelectionMode } from './selection.mode';
 
-export interface IKey {
-  row: IIdentityResult;
-  column: IIdentityResult;
-}
-
 /**
  * A class that allows to control selection function of the q-grid.
  */
@@ -54,5 +49,8 @@ export declare class SelectionModel {
    * * `'column'` custom column key will be stored in the items property.
    * * `'row'` custom row id will be stored in the items property.
    */
-  key: IKey;
+  key: {
+    row: () => void,
+    column: () => void
+  };
 }

@@ -1,17 +1,5 @@
 import {Resource} from '../resource/resource';
 
-export interface IToolbar {
-	top: boolean;
-	bottom: boolean;
-	right: boolean;
-	left: boolean;
-}
-
-export interface IPin {
-	left: boolean;
-	right: boolean;
-}
-
 /**
  * A class to control visibility q-grid areas visibility .
  */
@@ -36,15 +24,30 @@ export declare class VisibilityModel {
 	body: boolean;
 
 	/**
-	 * Controls the q-grid toolbar panels are visible. 
+	 * Controls if the q-grid toolbar panels are visible. 
 	 * 
 	 * * `'top'` show/hide top toolbar.
 	 * * `'right'` show/hide right toolbar.
 	 * * `'bottom'` show/hide bottom toolbar.
 	 * * `'left'` show/hide left toolbar.
 	 */
-	toolbar: IToolbar;
+	toolbar: {
+		top: boolean,
+		right: boolean,
+		bottom: boolean,
+		left: boolean,
+	};
 	
-	pin: IPin;
+	/**
+	 * Controls the q-grid frozen panels visibility.
+     *
+	 * * `'right'` show/hide right pin panel.
+	 * * `'left'` show/hide left pin panel.
+	 */
+	pin: {
+		left: boolean,
+		right: boolean
+	};
+
 	plugin: object;
 }
