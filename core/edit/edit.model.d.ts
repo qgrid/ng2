@@ -38,7 +38,6 @@ export declare class EditModel {
 	 */
 	cancel: Command;
 
-
 	/**
 	 * Allows to the grid user to control if cell can exit edit mode.
 	 */
