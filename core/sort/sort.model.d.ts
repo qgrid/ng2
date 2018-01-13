@@ -1,5 +1,4 @@
 import {Resource} from '../resource/resource';
-import {ModeType} from '../selection/selection.model';
 
 /**
  * A class that allows to control sorting.
