@@ -1,7 +1,7 @@
-import {Resource} from '../resource/resource';
+import { Resource } from '../resource/resource';
 
 export declare type SingleOrMultipleMode = 'single' | 'multiple';
-export declare type  DataOrDetailsUnit = 'data' | 'details';
+export declare type DataOrDetailsUnit = 'data' | 'details';
 
 export declare class RowModel {
 	constructor();
@@ -10,8 +10,8 @@ export declare class RowModel {
 	mode: SingleOrMultipleMode;
 	unit: DataOrDetailsUnit;
 	height: (element: HTMLElement, index: number) => number | number;
-    status: Map<any, any>;
-    canDrag: boolean;
-    canResize: boolean;
-    frozen: any[];
+	status: Map<any, any>;
+	canDrag: boolean;
+	canResize: boolean;
+	frozen: any[];
 }
