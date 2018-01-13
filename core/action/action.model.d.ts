@@ -5,8 +5,8 @@ import { Resource } from '../resource/resource';
 
 /**
  * A class to handle and visualize custom user behaviors(like add or delete row).
- * 
- * Action bar plugin uses this model to draw buttons to execute commands.
+ * For instance, `action bar` plugin uses this model to draw buttons on top of the q-grid
+ * to execute user commands.
  */
 export declare class ActionModel {
   constructor();
@@ -14,12 +14,13 @@ export declare class ActionModel {
   resource: Resource;
 
   /**
-   * List of actions that will be added to the command manager.
+   * List of actions that will be added to the command manager,
+   * and binded to the keydown events.
    */
   items: Action[];
 
   /**
-   * This service connects keydown events with commands.
+   * The service that connects keydown events and commands.
    */
   shortcut: Shortcut;
 
