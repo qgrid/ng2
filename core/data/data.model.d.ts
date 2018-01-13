@@ -35,21 +35,23 @@ import { IPipe } from '../pipe/pipe.item';
 export declare class DataModel {
 
 	/**
-	 * List of rows to display.
-	 * Rows property can be filled from the grid rows html or grid model data rows
-     * property.
+	 * List of data rows to display.
+	 * Usually data rows can be setup from different places:
+	 * 
+	 * * Rows `binding` property, `<q-grid [rows]="userRows">`
+	 * * Through q-grid mode data rows property.
 	 */
     rows: any[];
 
 	/**
 	 * Set of columns to display.
-	 * Usually data columns can be setup from 3 places:
+	 * Usually data columns can be setup from different places for the same grid:
      *
-     * 1. Columns binding property.
-     * 2. Columns component.
-     * 3. Grid model data columns property.
+     * * Columns `binding` property, `<q-grid [columns]="userColumns">`.
+     * * Columns component, `<q-grid-columns>`.
+     * * Through q-grid model data columns property.
      *
-	 * We can have 3 sources of columns because each column has `key` property,
+	 * We can have different sources of columns because each column has `key` property,
      * that allows to make a merge. If you have defined columns in javascript and in template
      * with the same key, algorithm will try persist settings from both sources but
      * javascript will have top priority.
@@ -57,7 +59,7 @@ export declare class DataModel {
     columns: ColumnModel[];
 
 	/**
-	 * Chaing of methods that grid invokes asyncroniuosly anytime refresh is required,
+	 * Chain of methods that grid invokes asyncroniuosly anytime refresh is required,
 	 * see `PipeModel` that contains information when grid demands refreshing.
 	 */
     pipe: IPipe[];
