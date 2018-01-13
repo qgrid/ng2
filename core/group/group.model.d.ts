@@ -11,9 +11,9 @@ export declare class GroupModel {
 
 	/**
 	 * How grid will render nodes:
-	 * 1. `column` - all hierarchy levels inside one group type column. 
-	 * 2. `subhead` - group column try to use all available space to display hierarchy.
-	 * 3. `rowspan` - 
+	 * * `column` - all hierarchy levels inside one group type column. 
+	 * * `subhead` - group column try to use all available space to display hierarchy.
+	 * * `rowspan` - under construction
 	 */
 	mode: string;
 	/**

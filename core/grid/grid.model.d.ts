@@ -11,8 +11,8 @@ export declare class GridModel {
 
 	/**
 	 * Indicates a state of the model:
-	 * 1. `unbound` - model is not connected to a grid element.
-	 * 2. `bound` - model connected to a grid element. 
+	 * * `unbound` model is not connected to a grid element.
+	 * * `bound` model connected to a grid element. 
 	 * 
 	 * Current version of the grid doesn't allow to use one model on several grids,
 	 * so if user will try to do that exception will be thrown.
