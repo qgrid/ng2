@@ -2,7 +2,7 @@ import { ColumnModel } from '../column-type/column.model';
 import { IPivot } from '../pipe/pipe.item';
 
 /**
- * A class 
+ * A class that represent raw data to render.
  */
 export declare class ViewModel {
 	constructor();
