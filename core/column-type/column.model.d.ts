@@ -1,4 +1,4 @@
-import { IEditorOptions } from './editor.options';
+import { EditorOptions } from './editor.options';
 
 /**
  * A class that represents any column in the q-grid.
@@ -238,7 +238,7 @@ export declare class ColumnModel {
     /**
      * Options for cell edit mode.
      */
-    editorOptions: IEditorOptions;
+    editorOptions: EditorOptions;
 
     /**
      * Width of the q-grid column.

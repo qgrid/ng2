@@ -3,7 +3,7 @@
  * 
  * ## Suggested Links
  * 
- * * [Scroll view](/doc/api/scroll-view.html)
+ * * [Scroll View](/doc/api/scroll-view.html)
  */
 export declare class ScrollModel {
 	constructor();

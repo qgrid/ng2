@@ -18,6 +18,7 @@ import { GenerationMode } from './generation.mode';
  * ```
  * 
  * * Example of how user usually can define some options for the all columns of appropriate type.
+ * 
  * ```html
  * <q-grid>
  *    <q-grid-columns>

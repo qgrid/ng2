@@ -3,7 +3,7 @@ import { Model } from '../infrastructure/model';
 /**
  * Specific options for the cell edit mode. 
  */
-export interface IEditorOptions {
+export class EditorOptions {
 
     /**
      * Says when cell should go to the edit mode.
