@@ -30,6 +30,9 @@ import { GenerationMode } from './generation.mode';
  * 
  * * [Column Model](/doc/api/column-model.html)
  * * [Column Sort](/doc/feature/sort.html)
+ * * [column.list.generate.js](https://github.com/qgrid/ng2/blob/master/core/column-list/column.list.generate.js)
+ * * [column.list.sort.js](https://github.com/qgrid/ng2/blob/master/core/column-list/column.list.sort.js)
+
  */
 export declare class ColumnListModel {
 	constructor();
