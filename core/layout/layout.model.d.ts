@@ -2,6 +2,9 @@ import { ColumnModel } from '../column-type/column.model';
 
 /**
  * A class contains rewritten widthes and heights of rows and columns
+ * 
+ * ## Suggested Links
+ * * [Layout View](/doc/api/layout-view.html)
  */
 export declare class LayoutModel {
     /**

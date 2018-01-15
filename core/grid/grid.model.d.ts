@@ -1,5 +1,9 @@
 /**
  * A class contains basic grid options like id and title.
+ * 
+ * ### Suggested Links
+ * 
+ * * [grid.ctrl.js](https://github.com/qgrid/ng2/blob/master/core/grid/grid.ctrl.js)
  */
 export declare class GridModel {
 	/**

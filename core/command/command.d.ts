@@ -1,7 +1,31 @@
 import { IContext } from './context';
 
 /**
- * A class 
+ * A class that implements command pattern in the q-grid.
+ * Any q-grid actions are implemented through this pattern.
+ * 
+ * ## Instanciate a Command
+ * 
+ * ```javascript
+ *	const addRowCommand = new qgrid.Command({
+ *	   execute: () => {
+ *	      const newRow = {
+ *			 id: 1,
+ *			 text: 'foo'
+ *	      };
+ *
+ *        gridModel.data({
+ *          rows: gridModel.data().rows.concat(newRow)
+ *        });
+ *	   },
+ *	   shortcut: 'F7'
+ *	});
+ * ```
+ * 
+ * ## Suggested Links
+ * 
+ * * [Action Model](/doc/api/action-model.html)
+ * * [Action](/doc/api/action.html)
  */
 export declare class Command {
 	constructor(context?: IContext);
@@ -21,9 +45,9 @@ export declare class Command {
 	 * 
 	 * Some examples:
 	 * 
-	 * * `shift+a`
-	 * * `ctrl+s`
-	 * * `f2`
+	 * * `'shift+a'`
+	 * * `'ctrl+s'`
+	 * * `'f2'`
 	 * 
 	 */
 	shortcut?: string;

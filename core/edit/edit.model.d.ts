@@ -5,6 +5,11 @@ import { State } from './state';
 
 /**
  * A class represent options to control q-grid edit mode.
+ * 
+ * ## Suggested Links
+ * 
+ * * [Edit Cell View](/doc/api/edit-cell-view.html)
+ * * [Edit Row View](/doc/api/edit-row-view.html)
  */
 export declare class EditModel {
 	constructor();
@@ -16,12 +21,12 @@ export declare class EditModel {
 	 * * `'cell'` data is editable through the grid cells.
 	 * * `'row'` data is editable through the grid rows.
 	 */
-	mode: Mode;
+	mode: string;
 
 	/**
-	 * Indicates if q-grid is in `edit` or in `view` mode.
+	 * Indicates if q-grid is in `'edit'` or in a `'view'` mode.
 	 */
-	state: State;
+	state: string;
 
 	/**
 	 * Allows to the grid user to control if cell or row can be edited or not.

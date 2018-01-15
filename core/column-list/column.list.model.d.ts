@@ -2,7 +2,8 @@ import { ColumnModel } from '../column-type/column.model';
 import { GenerationMode } from './generation.mode';
 
 /**
- * A class that responsible for the generation and order of columns.
+ * A class that responsible for the columns order and generation. Usually user does not interact directly
+ * with this model as the q-grid uses this in internal pipelines.
  * 
  * ## Usage
  * 
@@ -17,6 +18,7 @@ import { GenerationMode } from './generation.mode';
  * ```
  * 
  * * Example of how user usually can define some options for the all columns of appropriate type.
+ * 
  * ```html
  * <q-grid>
  *    <q-grid-columns>
@@ -24,26 +26,36 @@ import { GenerationMode } from './generation.mode';
  *    </q-grid-columns>
  * </q-grid>
  * ``` 
+ * 
+ * ## Suggested Links
+ * 
+ * * [Column Model](/doc/api/column-model.html)
+ * * [Column Sort](/doc/feature/sort.html)
+ * * [column.list.generate.js](https://github.com/qgrid/ng2/blob/master/core/column-list/column.list.generate.js)
+ * * [column.list.sort.js](https://github.com/qgrid/ng2/blob/master/core/column-list/column.list.sort.js)
+
  */
 export declare class ColumnListModel {
 	constructor();
 
 	/**
 	 * When setup columns will be generated automatically based on passed data source.
-	 * - `None` means auto generation is off.
-	 * - `Deep` means that algorithm traverses all levels keys of the passed data source item.
-	 * - `Shallow` means algoithm traverses only first level keys of the passed data source item.
+	 * - `null` means auto generation is off.
+	 * - `'deep'` means that algorithm traverses all level keys of the passed data source item.
+	 * - `'shallow'` means algoithm traverses only first level keys of the passed data source item.
 	 */
-	generation: GenerationMode;
+	generation: null | 'deep' | 'shallow';
 
 	/**
-	 * Contains array of column keys, the q-grid will order columns depending on this list.
-	 * It is filled automatically by internal service.
+	 * Contains array of column keys which q-grid uses for column ordering.
+	 * This is filled automatically by internal service, but can be modified, for instance,
+     * by [column sort](/doc/feature/sort.html) plugin.
 	 */
 	index: string[];
 
 	/**
-	 * List of columns from html template. Usually that kind of column is defined as `<q-grid-column>` in html.
+	 * List of columns from html template. Usually that kind of column can be defined with `<q-grid-column>` componet in html,
+     * and has `column.source === 'tempate'`.
 	 */
 	columns: ColumnModel[];
 
