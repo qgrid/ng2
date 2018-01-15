@@ -206,7 +206,7 @@ export declare class ColumnModel {
      * - `'right'` - freeze a column to the grids'right.
      * - `null` - do not freeze  a column.
      */
-    pin: string;
+    pin: null | 'left' | 'right';
 
     origin: string;
 
@@ -227,7 +227,7 @@ export declare class ColumnModel {
      *  * `'markup'` used for the internal markup needs (e.g. `pad` type column).
      *  * `'pivot'`multi head pivot.
      */
-    class: string;
+    class: 'data' | 'control' | 'markup' | 'pivot';
 
     /**
      * Editor type, will be shown in cell edit mode instead of default column type editor. 

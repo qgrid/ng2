@@ -7,18 +7,22 @@ import { Table } from '../dom/table';
 import { Model } from '../infrastructure/model';
 import { View } from '../view/view';
 
-export declare class EditCellView extends View {
-	constructor(model: Model, table: Table, commandManager: CommandManager);
 
-	editor: CellEditor;
-	enter: Command;
-	commit: Command;
-	cancel: Command;
-	reset: Command;
-	exit: Command;
-	value: any;
-	label: any;
-	column: ColumnModel;
-	readonly fetch: INoopResult;
-	readonly options: IEditorOptions;
+/**
+ * > Under Construction.
+ */
+export declare class EditCellView extends View {
+    constructor(model: Model, table: Table, commandManager: CommandManager);
+
+    editor: CellEditor;
+    enter: Command;
+    commit: Command;
+    cancel: Command;
+    reset: Command;
+    exit: Command;
+    value: any;
+    label: any;
+    column: ColumnModel;
+    readonly fetch: INoopResult;
+    readonly options: IEditorOptions;
 }

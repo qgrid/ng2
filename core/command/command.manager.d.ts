@@ -2,6 +2,11 @@
 /**
  * Command resolution manager that controls what commands and in which order columns should be executed.
  * Usually other q-grid internal services use this class after some keyboard events.
+ * 
+ * ## Suggested Links
+ * 
+ * * [Command](/doc/api/command.html)
+ * * [Shortcut](/doc/api/shortcut.html)
  */
 export declare class CommandManager {
 	constructor();

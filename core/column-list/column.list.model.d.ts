@@ -43,7 +43,7 @@ export declare class ColumnListModel {
 	 * - `'deep'` means that algorithm traverses all level keys of the passed data source item.
 	 * - `'shallow'` means algoithm traverses only first level keys of the passed data source item.
 	 */
-	generation: string;
+	generation: null | 'deep' | 'shallow';
 
 	/**
 	 * Contains array of column keys which q-grid uses for column ordering.
