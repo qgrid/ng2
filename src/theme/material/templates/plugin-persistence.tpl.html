@@ -1,7 +1,24 @@
 <ng-template key="plugin-persistence.tpl.html"
 				 let-$persistence>
-	<h2 mat-dialog-title>Save/Load</h2>
+	<span>Save/Load</span>
 	<mat-dialog-content>
-		{{$persistence.title}}
-	</mat-dialog-content>
+        <div class="flex-none layout-row">
+            <div class="flex-100 q-grid-persistence-title">
+                <mat-form-field>
+                    <input matInput
+                           #input
+                           q-grid-focus
+                           [(ngModel)]="$persistence.title" />
+                </mat-form-field>
+            </div>
+            <div class="flex-none q-grid-persistence-save">
+                <button mat-button
+                        color="primary"
+                        [disabled]="!$persistence.save.canExecute()"
+                        (click)="$persistence.save.execute()">
+                    Save
+                </button>
+            </div>
+        </div>
+    </mat-dialog-content>
 </ng-template>

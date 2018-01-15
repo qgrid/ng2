@@ -35,18 +35,11 @@ export class PersistenceComponent extends PluginComponent {
 					execute: () => {
 						const templateLink = this.templateService.find('plugin-persistence.tpl.html');
 						const dialogRef = this.dialog.open(templateLink.template, {
-							data: this
+							data: this.persistence
 						});
-
-						// dialogRef.afterClosed().subscribe(result => {
-						//     console.log('The dialog was closed');
-						//     this.animal = result;
-						// });
-
-						// this.context = { $implicit: this.persistence };
 					}
 				}),
-				'Load/Save',
+				'Save/Load',
 				'history'
 			)
 		];
@@ -55,10 +48,6 @@ export class PersistenceComponent extends PluginComponent {
 			items: Composite.list([actions, this.model.action().items])
 		});
 	}
-
-get title() {
-	return 'Title';
-}
 
 	ngOnDestroy() {
 		this.persistence.dispose();
