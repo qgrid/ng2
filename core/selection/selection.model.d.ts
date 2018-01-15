@@ -1,10 +1,13 @@
 import { Resource } from '../resource/resource';
 import { IIdentityResult } from '../utility/utility';
-import { SelectionUnit } from './selection.unit';
-import { SelectionMode } from './selection.mode';
 
 /**
  * A class that allows to control selection function of the q-grid.
+ * 
+ * ## Suggested Links
+ * 
+ * * [Scroll View](/doc/api/scroll-view.html)
+ * * [selection.service.js](https://github.com/qgrid/ng2/blob/master/core/selection/selection.service.js)
  */
 export declare class SelectionModel {
   constructor();
@@ -27,7 +30,7 @@ export declare class SelectionModel {
    * * `'column'` user can select columns by clicking on the q-grid body area. 
    * * `'mix'` user can select both rows and cells, rows are selectable by clicking on row-indicator column.
    */
-  unit: SelectionUnit;
+  unit: 'row' | 'cell' | 'column' | 'mix';
 
   /**
    * Selection mode.
@@ -36,7 +39,7 @@ export declare class SelectionModel {
    * * `'multiple'`
    * * `'range'`
    */
-  mode: SelectionMode;
+  mode: 'single' | 'mutiple' | 'range';
 
   /**
    * List of selected items.

@@ -1,25 +1,29 @@
-import {CommandManager} from '../command/command.manager';
-import {ShortcutDispatcher} from './shortcut.dispatcher';
+import { CommandManager } from '../command/command.manager';
+import { ShortcutDispatcher } from './shortcut.dispatcher';
+import { KeyCode } from './key.code';
 
-export interface IKeyCode {
-	code: string;
-	key: string;
-}
-
+/**
+ * > Under construction.
+ * 
+ * ## Suggested Links
+ * 
+ * * [shortcut.manager.js](https://github.com/qgrid/ng2/blob/master/core/shortcut/shortuct.manager.js)
+ * * [shortcut.dispatcher.js](https://github.com/qgrid/ng2/blob/master/core/shortcut/shortcut.dispatcher.js)
+ */
 export declare class Shortcut {
-	constructor(manager: ShortcutDispatcher);
+    constructor(manager: ShortcutDispatcher);
 
-	static isControl(keyCode: IKeyCode): boolean;
+    static isControl(keyCode: KeyCode): boolean;
 
-	static isPrintable(keyCode: IKeyCode): boolean;
+    static isPrintable(keyCode: KeyCode): boolean;
 
-	static stringify(keyCode: IKeyCode): string;
+    static stringify(keyCode: KeyCode): string;
 
-	static translate(e: any): string;
+    static translate(e: any): string;
 
-	factory(commandManager: CommandManager): object;
+    factory(commandManager: CommandManager): object;
 
-	keyDown(e: any, source?: string): boolean;
+    keyDown(e: any, source?: string): boolean;
 
-	register(commandManager: CommandManager, commands: any[]);
+    register(commandManager: CommandManager, commands: any[]);
 }

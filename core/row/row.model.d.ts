@@ -1,17 +1,21 @@
 import { Resource } from '../resource/resource';
 
-export declare type SingleOrMultipleMode = 'single' | 'multiple';
-export declare type DataOrDetailsUnit = 'data' | 'details';
-
+/**
+ * > Under construction.
+ * 
+ * ## Suggested Links
+ * 
+ * * [Row View](/doc/api/row-view.html)
+ */
 export declare class RowModel {
-	constructor();
+    constructor();
 
-	resource: Resource;
-	mode: SingleOrMultipleMode;
-	unit: DataOrDetailsUnit;
-	height: (element: HTMLElement, index: number) => number | number;
-	status: Map<any, any>;
-	canDrag: boolean;
-	canResize: boolean;
-	frozen: any[];
+    resource: Resource;
+    mode: 'single' | 'multiple';
+    unit: 'data' | 'details';
+    height: (element: HTMLElement, index: number) => number | number;
+    status: Map<any, any>;
+    canDrag: boolean;
+    canResize: boolean;
+    frozen: any[];
 }

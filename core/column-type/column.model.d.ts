@@ -142,6 +142,7 @@ import { IEditorOptions } from './editor.options';
  * 
  * * [value.js](https://github.com/qgrid/ng2/blob/master/core/services/value.js)
  * * [label.js](https://github.com/qgrid/ng2/blob/master/core/services/label.js)
+ * * [column.pipe.js](https://github.com/qgrid/ng2/blob/master/core/pipe/column.pipe.js)
  */
 export declare class ColumnModel {
     constructor(type?: string);

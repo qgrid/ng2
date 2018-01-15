@@ -1,5 +1,9 @@
 /**
  * A class that contains properties about scroll status.
+ * 
+ * ## Suggested Links
+ * 
+ * * [Scroll view](/doc/api/scroll-view.html)
  */
 export declare class ScrollModel {
 	constructor();

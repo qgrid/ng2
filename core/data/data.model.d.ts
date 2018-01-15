@@ -31,6 +31,10 @@ import { IPipe } from '../pipe/pipe.item';
  *  columns: userColumns
  * })
  * ```
+ * 
+ * ## Suggested Links
+ * 
+ * * [data.pipe.js](https://github.com/qgrid/ng2/blob/master/core/pipe/data.pipe.js)
  */
 export declare class DataModel {
 

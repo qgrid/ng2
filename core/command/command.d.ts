@@ -24,8 +24,8 @@ import { IContext } from './context';
  * 
  * ## Suggested Links
  * 
- * * [Action Model](/doc/action-model.html)
- * * [Action](/doc/action.html)
+ * * [Action Model](/doc/api/action-model.html)
+ * * [Action](/doc/api/action.html)
  */
 export declare class Command {
 	constructor(context?: IContext);

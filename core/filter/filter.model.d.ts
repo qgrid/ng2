@@ -25,6 +25,10 @@ import { IAssert } from './assert';
  *    }
  * });
  * ```
+ * 
+ * ## Suggested Links
+ * 
+ * * [filter.pipe.js](https://github.com/qgrid/ng2/blob/master/core/pipe/filter.pipe.js)
  */
 export declare class FilterModel {
 	resource: Resource;
