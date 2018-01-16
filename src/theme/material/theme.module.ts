@@ -24,7 +24,8 @@ import {
 	MatNativeDateModule,
 	MatChipsModule,
 	MatMenuModule,
-	MatDialogModule
+    MatDialogModule,
+    MatListModule
 } from '@angular/material';
 import { PipeModule } from 'ng2-qgrid/pipes';
 import { GridModule } from 'ng2-qgrid/grid.module';
@@ -52,7 +53,8 @@ import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 		MatChipsModule,
 		MatDialogModule,
 		MatMenuModule,
-		MatCardModule,
+        MatCardModule,
+        MatListModule,
 		PipeModule
 	],
 	providers: [ThemeService],
