@@ -11,27 +11,27 @@ export class BodyCtrl extends View {
 	}
 
 	onScroll(e) {
-		// const scroll = this.model.scroll;
+		const scroll = this.model.scroll;
 
-		// const oldValue = scroll();
-		// const newValue = {};
-		// let hasChanges = false;
-		// if (oldValue.top !== e.scrollTop) {
-		// 	newValue.top = e.scrollTop;
-		// 	hasChanges = true;
-		// }
+		const oldValue = scroll();
+		const newValue = {};
+		let hasChanges = false;
+		if (oldValue.top !== e.scrollTop) {
+			newValue.top = e.scrollTop;
+			hasChanges = true;
+		}
 
-		// if (oldValue.left !== e.scrollLeft) {
-		// 	newValue.left = e.scrollLeft;
-		// 	hasChanges = true;
-		// }
+		if (oldValue.left !== e.scrollLeft) {
+			newValue.left = e.scrollLeft;
+			hasChanges = true;
+		}
 
-		// if (hasChanges) {
-		// 	scroll(newValue, {
-		// 		source: 'body.core',
-		// 		behavior: 'core'
-		// 	});
-		// }
+		if (hasChanges) {
+			scroll(newValue, {
+				source: 'body.core',
+				behavior: 'core'
+			});
+		}
 	}
 
 	onWheel(e) {
