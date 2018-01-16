@@ -18,7 +18,7 @@ export class PluginComponent extends NgComponent
 
 	public context: any = { $implicit: this };
 	private binder = new ModelBinder(this);
-	private submit = noop;
+	private commit = noop;
 	protected models: string[] = [];
 
 	constructor(@Optional() protected root: RootService) {
@@ -30,12 +30,12 @@ export class PluginComponent extends NgComponent
 	}
 
 	ngOnInit() {
-		this.submit = this.setup();
-		this.submit();
+		this.commit = this.setup();
+		this.commit();
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		this.submit();
+		this.commit();
 	}
 
 	ngOnDestroy() {

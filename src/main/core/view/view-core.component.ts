@@ -9,136 +9,152 @@ import { ViewCoreService } from './view-core.service';
 import { ViewCtrl } from 'ng2-qgrid/core/view/view.ctrl';
 
 @Component({
-	selector: 'q-grid-core-view',
-	templateUrl: './view-core.component.html',
-	providers: [CellService]
+    selector: 'q-grid-core-view',
+    templateUrl: './view-core.component.html',
+    providers: [CellService]
 })
 export class ViewCoreComponent extends NgComponent
-	implements OnInit, OnDestroy, DoCheck {
-	private ctrl: ViewCtrl;
+    implements OnInit, OnDestroy, DoCheck {
+    private ctrl: ViewCtrl;
 
-	@ViewChild('scrollX') scrollX: ElementRef;
-	@ViewChild('scrollY') scrollY: ElementRef;
+    @ViewChild('scrollX') scrollX: ElementRef;
+    @ViewChild('scrollY') scrollY: ElementRef;
 
-	constructor(
-		private root: RootService,
-		private view: ViewCoreService,
-		private gridService: GridService,
-		private zone: NgZone
-	) {
-		super();
-	}
+    constructor(
+        private root: RootService,
+        private view: ViewCoreService,
+        private gridService: GridService,
+        private zone: NgZone
+    ) {
+        super();
+    }
 
-	ngOnInit() {
-		super.ngOnInit();
+    ngOnInit() {
+        super.ngOnInit();
 
-		const model = this.root.model;
-		this.view.init();
+        const model = this.root.model;
+        this.view.init();
 
-		const gridService = this.gridService.service(model);
-		this.ctrl = new ViewCtrl(model, this.view, gridService);
-	}
+        const gridService = this.gridService.service(model);
+        this.ctrl = new ViewCtrl(model, this.view, gridService);
+    }
 
-	ngOnDestroy() {
-		super.ngOnDestroy();
+    ngOnDestroy() {
+        super.ngOnDestroy();
 
-		this.view.destroy();
-		this.ctrl.dispose();
-	}
+        this.view.destroy();
+        this.ctrl.dispose();
+    }
 
-	get model() {
-		return this.root.model;
-	}
+    get model() {
+        return this.root.model;
+    }
 
-	get visibility() {
-		return this.model.visibility();
-	}
+    get visibility() {
+        return this.model.visibility();
+    }
 
-	ngAfterViewInit() {
-		this.zone.runOutsideAngular(() => {
-			const containerX = this.containerX;
-			containerX.addEventListener('scroll', e => {
-				const scroll = this.model.scroll;
-				const left = containerX.scrollLeft;
-				if (scroll().left !== left) {
-					scroll({ left }, {
-						source: 'view-core.component',
-						behavior: 'core'
-					});
-				}
-			});
+    ngAfterViewInit() {
+        this.zone.runOutsideAngular(() => {
+            const containerX = this.containerX;
+            const EPS = 0.01;
 
-			const containerY = this.containerY;
-			containerY.addEventListener('scroll', e => {
-				const scroll = this.model.scroll;
-				const top = containerY.scrollTop;
-				if (scroll().top !== top) {
-					scroll({ top }, {
-						source: 'view-core.component',
-						behavior: 'core'
-					});
-				}
-			});
-		});
-	}
+            containerX.addEventListener('scroll', e => {
+                const scroll = this.model.scroll;
+                const left = containerX.scrollLeft;
+                if (Math.abs(scroll().left - left) > EPS) {
+                    scroll({ left }, {
+                        source: 'view-core.component',
+                        behavior: 'core'
+                    });
+                }
+            }, { passive: true });
 
-	ngDoCheck() {
-		const style = this.view.style;
-		if (style.needInvalidate()) {
-			const rowMonitor = style.monitor.row;
-			const cellMonitor = style.monitor.cell;
+            const containerY = this.containerY;
+            containerY.addEventListener('scroll', e => {
+                const scroll = this.model.scroll;
+                const top = containerY.scrollTop;
+                if (Math.abs(scroll().top - top) > EPS) {
+                    scroll({ top }, {
+                        source: 'view-core.component',
+                        behavior: 'core'
+                    });
+                }
+            }, { passive: true });
 
-			const domCell = cellMonitor.enter();
-			const domRow = rowMonitor.enter();
-			try {
-				style.invalidate(domCell, domRow);
-			} finally {
-				rowMonitor.exit();
-				cellMonitor.exit();
-			}
-		}
-	}
+            this.model.scrollChanged.on(e => {
+                if (e.source === 'view-core.component') {
+                    return;
+                }
 
-	ngAfterViewChecked() {
-		const markup = this.root.markup;
-		const body = markup['body'];
-		if (body) {
-			const offsetWidth = this.containerX.clientWidth - body.clientWidth;
-			const offsetHeight = this.containerY.clientHeight - body.clientHeight;
+                if (e.hasChanges('left')) {
+                    containerX.scrollLeft = e.state.left;
+                }
 
-			this.scrollX.nativeElement.style.width = (offsetWidth + body.scrollWidth) + 'px';
-			this.scrollY.nativeElement.style.height = (offsetHeight + body.scrollHeight) + 'px';
-		}
+                if (e.hasChanges('top')) {
+                    containerY.scrollTop = e.state.top;
+                }
+            });
+        });
+    }
 
-		const head = markup['head'];
-		if (head) {
-			this.containerY.style.top = head.clientHeight + 'px';
-		}
+    ngDoCheck() {
+        const style = this.view.style;
+        if (style.needInvalidate()) {
+            const rowMonitor = style.monitor.row;
+            const cellMonitor = style.monitor.cell;
 
-		const foot = markup['foot'];
-		if (foot) {
-			this.containerY.style.bottom = foot.clientHeight + 'px';
-		}
+            const domCell = cellMonitor.enter();
+            const domRow = rowMonitor.enter();
+            try {
+                style.invalidate(domCell, domRow);
+            } finally {
+                rowMonitor.exit();
+                cellMonitor.exit();
+            }
+        }
+    }
 
-		const scene = this.model.scene;
-		if (scene().status === 'start') {
-			scene(
-				{
-					status: 'stop'
-				},
-				{
-					source: 'view-core.component',
-					behavior: 'core'
-				}
-			);
-		}
-	}
+    ngAfterViewChecked() {
+        const markup = this.root.markup;
+        const body = markup['body'];
+        if (body) {
+            const offsetWidth = this.containerX.clientWidth - body.clientWidth;
+            const offsetHeight = this.containerY.clientHeight - body.clientHeight;
 
-	get containerX() {
-		return this.scrollX.nativeElement.parentElement;
-	}
+            this.scrollX.nativeElement.style.width = (offsetWidth + body.scrollWidth) + 'px';
+            this.scrollY.nativeElement.style.height = (offsetHeight + body.scrollHeight) + 'px';
+        }
 
-	get containerY() {
-		return this.scrollY.nativeElement.parentElement;
-	}
+        const head = markup['head'];
+        if (head) {
+            this.containerY.style.top = head.clientHeight + 'px';
+        }
+
+        const foot = markup['foot'];
+        if (foot) {
+            this.containerY.style.bottom = foot.clientHeight + 'px';
+        }
+
+        const scene = this.model.scene;
+        if (scene().status === 'start') {
+            scene(
+                {
+                    status: 'stop'
+                },
+                {
+                    source: 'view-core.component',
+                    behavior: 'core'
+                }
+            );
+        }
+    }
+
+    get containerX() {
+        return this.scrollX.nativeElement.parentElement;
+    }
+
+    get containerY() {
+        return this.scrollY.nativeElement.parentElement;
+    }
 }
