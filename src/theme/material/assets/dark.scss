@@ -1,0 +1,105 @@
+
+@import "dark-colors";
+
+.q-grid-dark {
+    .q-grid.q-grid-theme-material {
+        .q-grid-view {
+            table {
+                background-color:$dark;
+            }
+            
+            thead tr th {
+                color: $dark-header;
+                &.q-grid-focus {
+                    outline: 2px solid $dark-focused;
+                }
+                
+                &.q-grid-sorted {
+                    .q-grid-sort.q-grid-active {
+                        label {
+                            color: $dark-text;
+                        }
+
+                        .q-grid-icon {
+                            color: $dark-text;
+                        }
+                    }
+                }
+                .q-grid-divider {
+                    border-right: 1px solid $dark-text;
+                }
+            }
+            
+            tr td {
+				color: $dark-text;
+            }
+            
+            tr {
+                &.q-grid-highlighted {
+                    background-color: $dark-accent;
+                }
+            }
+
+            td {
+                &.q-grid-highlighted {
+                    background-color: $dark-accent;
+                }
+
+                &.q-grid-focus {
+                    outline: 2px solid $dark-focused;
+                }
+
+                &.q-grid-sorted {
+                    background-color: $color-less;
+                }
+
+                &.q-grid-selected {
+                    background-color: $dark-accent;
+                }
+
+                &.q-grid-email {
+                    a {
+                        color: $dark-text;
+                    }
+                }
+
+                &.q-grid-array {
+                    ul li {
+                        color: $dark;
+                    }
+                }
+
+                .q-grid-editor {
+                    color: $dark-text;
+                    background-color: $dark;
+                }
+            }
+
+            .q-grid-icon {
+                color: $dark-text;
+            }
+
+            .mat-hint {
+                color: $dark-text;
+            }
+
+            .mat-form-field-underline {
+                background-color:$dark-text;
+            }
+
+            .mat-checkbox-frame {
+                border-color: $dark-text;
+            }
+
+            .mat-icon {
+                color: $dark-text;
+            }
+
+            .mat-form-field-ripple {
+                background-color: $dark-accent;
+            }
+        }
+    }
+}
+
+
