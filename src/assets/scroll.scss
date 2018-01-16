@@ -1,60 +1,69 @@
-$scrollSize: 8px;
+$expandSize: 12px;
+$collapseSize: 6px;
 .q-grid-scroll-x {
-    height: $scrollSize;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: $scrollSize;
-    overflow-x: auto;
-    .q-grid-scroll {
-        height: $scrollSize;
-    }
+	height: $collapseSize;
+	width: 100%;
+	position: absolute;
+	bottom: $expandSize - $collapseSize;
+	left: 0;
+	right: $expandSize;
+	overflow-x: auto;
+	.q-grid-scroll {
+		height: $expandSize;
+	}
+	&:hover {
+		bottom: 0;
+		height: $expandSize;
+	}
 }
 
 .q-grid-scroll-y {
-    width: $scrollSize;
-    position: absolute;
-    right: 0;
-    overflow-y: auto;
-    .q-grid-scroll {
-        width: $scrollSize;
-    }
+	width: $collapseSize;
+	position: absolute;
+	right: $expandSize - $collapseSize;
+	overflow-y: auto;
+	.q-grid-scroll {
+		width: $expandSize;
+	}
+	&:hover {
+		right: 0;
+		width: $expandSize;
+	}
 }
 
 .q-grid-view {
-    padding-right: $scrollSize;
-    padding-bottom: $scrollSize;
+	padding-right: $expandSize;
+	padding-bottom: $expandSize;
 }
 
 tbody {
-    tr {
-        &.q-grid-scroll-mark {
-            height: 0;
-        }
-    }
+	tr {
+		&.q-grid-scroll-mark {
+			height: 0;
+		}
+	}
 }
 
 @mixin scroll {
-     ::-webkit-scrollbar {
-        width: $scrollSize;
-        height: $scrollSize;
-    }
-     ::-webkit-scrollbar-thumb {
-        height: 15px;
-        background-color: #c8c8c8;
-        -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.07);
-    }
-     ::-webkit-scrollbar-button {
-        width: 0;
-        height: 0;
-        display: none;
-    }
-     ::-webkit-scrollbar-corner {
-        background-color: transparent;
-    }
-     ::-webkit-scrollbar-track,
-     ::-webkit-scrollbar-track-piece {
-        background-color: #f8f8f8;
-    }
+	 ::-webkit-scrollbar {
+		width: $expandSize;
+		height: $expandSize;
+	}
+	 ::-webkit-scrollbar-thumb {
+		height: 15px;
+		background-color: #c8c8c8;
+		-webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.07);
+	}
+	 ::-webkit-scrollbar-button {
+		width: 0;
+		height: 0;
+		display: none;
+	}
+	 ::-webkit-scrollbar-corner {
+		background-color: transparent;
+	}
+	 ::-webkit-scrollbar-track,
+	 ::-webkit-scrollbar-track-piece {
+		background-color: #f8f8f8;
+	}
 }

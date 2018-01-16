@@ -56,7 +56,7 @@ export class ViewCoreComponent extends NgComponent
 
 	ngAfterViewInit() {
 		this.zone.runOutsideAngular(() => {
-			const containerX = this.scrollX.nativeElement.parentElement;
+			const containerX = this.containerX;
 			containerX.addEventListener('scroll', e => {
 				const scroll = this.model.scroll;
 				const left = containerX.scrollLeft;
@@ -68,7 +68,7 @@ export class ViewCoreComponent extends NgComponent
 				}
 			});
 
-			const containerY = this.scrollY.nativeElement.parentElement;
+			const containerY = this.containerY;
 			containerY.addEventListener('scroll', e => {
 				const scroll = this.model.scroll;
 				const top = containerY.scrollTop;
@@ -103,8 +103,8 @@ export class ViewCoreComponent extends NgComponent
 		const markup = this.root.markup;
 		const body = markup['body'];
 		if (body) {
-			const offsetWidth = this.scrollX.nativeElement.parentElement.clientWidth - body.clientWidth;
-			const offsetHeight = this.scrollY.nativeElement.parentElement.clientHeight - body.clientHeight;
+			const offsetWidth = this.containerX.clientWidth - body.clientWidth;
+			const offsetHeight = this.containerY.clientHeight - body.clientHeight;
 
 			this.scrollX.nativeElement.style.width = (offsetWidth + body.scrollWidth) + 'px';
 			this.scrollY.nativeElement.style.height = (offsetHeight + body.scrollHeight) + 'px';
@@ -112,12 +112,12 @@ export class ViewCoreComponent extends NgComponent
 
 		const head = markup['head'];
 		if (head) {
-			this.scrollY.nativeElement.parentElement.style.top = head.clientHeight + 'px';
+			this.containerY.style.top = head.clientHeight + 'px';
 		}
 
 		const foot = markup['foot'];
 		if (foot) {
-			this.scrollY.nativeElement.parentElement.style.bottom = foot.clientHeight + 'px';
+			this.containerY.style.bottom = foot.clientHeight + 'px';
 		}
 
 		const scene = this.model.scene;
@@ -132,5 +132,13 @@ export class ViewCoreComponent extends NgComponent
 				}
 			);
 		}
+	}
+
+	get containerX() {
+		return this.scrollX.nativeElement.parentElement;
+	}
+
+	get containerY() {
+		return this.scrollY.nativeElement.parentElement;
 	}
 }
