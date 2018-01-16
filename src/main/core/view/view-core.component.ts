@@ -83,12 +83,6 @@ export class ViewCoreComponent extends NgComponent
 	}
 
 	ngDoCheck() {
-		const body = this.root.markup['body'];
-		if (body) {
-			this.scrollX.nativeElement.style.width = body.scrollWidth + 'px';
-			this.scrollY.nativeElement.style.height = body.scrollHeight + 'px';
-		}
-
 		const style = this.view.style;
 		if (style.needInvalidate()) {
 			const rowMonitor = style.monitor.row;
@@ -106,6 +100,26 @@ export class ViewCoreComponent extends NgComponent
 	}
 
 	ngAfterViewChecked() {
+		const markup = this.root.markup;
+		const body = markup['body'];
+		if (body) {
+			const offsetWidth = this.scrollX.nativeElement.parentElement.clientWidth - body.clientWidth;
+			const offsetHeight = this.scrollY.nativeElement.parentElement.clientHeight - body.clientHeight;
+
+			this.scrollX.nativeElement.style.width = (offsetWidth + body.scrollWidth) + 'px';
+			this.scrollY.nativeElement.style.height = (offsetHeight + body.scrollHeight) + 'px';
+		}
+
+		const head = markup['head'];
+		if (head) {
+			this.scrollY.nativeElement.parentElement.style.top = head.clientHeight + 'px';
+		}
+
+		const foot = markup['foot'];
+		if (foot) {
+			this.scrollY.nativeElement.parentElement.style.bottom = foot.clientHeight + 'px';
+		}
+
 		const scene = this.model.scene;
 		if (scene().status === 'start') {
 			scene(

@@ -1,10 +1,11 @@
 $scrollSize: 8px;
-
 .q-grid-scroll-x {
     height: $scrollSize;
     width: 100%;
     position: absolute;
     bottom: 0;
+    left: 0;
+    right: $scrollSize;
     overflow-x: auto;
     .q-grid-scroll {
         height: $scrollSize;
@@ -13,13 +14,17 @@ $scrollSize: 8px;
 
 .q-grid-scroll-y {
     width: $scrollSize;
-    height: 100%;
     position: absolute;
     right: 0;
     overflow-y: auto;
     .q-grid-scroll {
         width: $scrollSize;
     }
+}
+
+.q-grid-view {
+    padding-right: $scrollSize;
+    padding-bottom: $scrollSize;
 }
 
 tbody {
