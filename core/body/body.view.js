@@ -1,81 +1,88 @@
-import {View} from '../view';
-import {getFactory as valueFactory} from '../services/value';
-import {getFactory as labelFactory, set as setLabel} from '../services/label';
-import {Log} from '../infrastructure';
-import {Renderer} from '../scene/render';
+import { View } from '../view';
+import { getFactory as valueFactory } from '../services/value';
+import { getFactory as labelFactory, set as setLabel } from '../services/label';
+import { Log } from '../infrastructure';
+import { Renderer } from '../scene/render';
 
 export class BodyView extends View {
-	constructor(model, table) {
-		super(model);
+    constructor(model, table) {
+        super(model);
 
-		this.table = table;
-		this.rows = [];
-		this.render = new Renderer(model);
+        this.table = table;
+        this.rows = [];
+        this.render = new Renderer(model);
+        this.valueCache = new Map();
+        this.labelCache = new Map();
 
-		this.invalidate();
+        this.invalidate();
 
-		let wasInvalidated = false;
-		this.using(model.sceneChanged.watch(e => {
-			if (e.hasChanges('rows')) {
-				this.invalidate();
-				wasInvalidated = true;
-			}
-		}));
+        let wasInvalidated = false;
+        this.using(model.sceneChanged.watch(e => {
+            if (e.hasChanges('rows')) {
+                this.invalidate();
+                wasInvalidated = true;
+            }
+        }));
 
-		if (!wasInvalidated) {
-			this.invalidate();
-		}
-	}
+        if (!wasInvalidated) {
+            this.invalidate();
+        }
+    }
 
-	invalidate() {
-		Log.info('view.body', 'invalidate');
+    invalidate() {
+        Log.info('view.body', 'invalidate');
 
-		const model = this.model;
-		const table = this.table;
-		const sceneState = model.scene();
+        const model = this.model;
+        const table = this.table;
+        const sceneState = model.scene();
 
-		this.rows = sceneState.rows;
+        this.rows = sceneState.rows;
+        this.valueCache = new Map();
+        this.labelCache = new Map();
 
-		table.view.removeLayer('blank');
-		if (!this.rows.length) {
-			const layerState = model.layer();
-			if (layerState.resource.data.hasOwnProperty('blank')) {
-				const layer = table.view.addLayer('blank');
-				layer.resource('blank', layerState.resource);
-			}
-		}
-	}
+        table.view.removeLayer('blank');
+        if (!this.rows.length) {
+            const layerState = model.layer();
+            if (layerState.resource.data.hasOwnProperty('blank')) {
+                const layer = table.view.addLayer('blank');
+                layer.resource('blank', layerState.resource);
+            }
+        }
+    }
 
-	columns(row, pin) {
-		return this.render.columns(row, pin);
-	}
+    columns(row, pin) {
+        return this.render.columns(row, pin);
+    }
 
-	valueFactory(column, getValueFactory = null) {
-		const getValue = (getValueFactory || valueFactory)(column);
-		return row => this.render.getValue(row, column, getValue);
-	}
+    value(row, column, value) {
+        if (arguments.length === 3) {
+            this.render.setValue(row, column, value);
+            return;
+        }
 
-	labelFactory(column) {
-		return this.valueFactory(column, labelFactory);
-	}
+        const key = column.key;
+        let getValue = this.valueCache.get(key);
+        if (!getValue) {
+            getValue = valueFactory(column);
+            this.valueCache.set(key, getValue);
+        }
 
-	value(row, column, value) {
-		if (arguments.length === 3) {
-			this.render.setValue(row, column, value);
-			return;
-		}
+        return this.render.getValue(row, column, getValue);
+    }
 
-		const getValue = this.valueFactory(column);
-		return getValue(row);
-	}
+    label(row, column, value) {
+        if (arguments.length === 3) {
+            setLabel(row, column, value);
+            return;
+        }
 
-	label(row, column, value) {
-		if (arguments.length === 3) {
-			setLabel(row, column, value);
-			return;
-		}
+        const key = column.key;
+        let getLabel = this.labelCache.get(key);
+        if (!getLabel) {
+            getLabel = labelFactory(column);
+            this.labelCache.set(key, getLabel);
+        }
 
-		const getLabel = this.labelFactory(column);
-		return getLabel(row);
-	}
+        return this.render.getValue(row, column, getLabel);
+    }
 }

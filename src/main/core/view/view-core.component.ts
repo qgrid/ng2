@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Optional, DoCheck } from '@angular/core';
+import { Component, OnDestroy, OnInit, Optional, DoCheck, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { NgComponent, RootService } from 'ng2-qgrid/infrastructure/component';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
@@ -17,10 +17,14 @@ export class ViewCoreComponent extends NgComponent
 	implements OnInit, OnDestroy, DoCheck {
 	private ctrl: ViewCtrl;
 
+	@ViewChild('scrollX') scrollX: ElementRef;
+	@ViewChild('scrollY') scrollY: ElementRef;
+
 	constructor(
 		private root: RootService,
 		private view: ViewCoreService,
-		private gridService: GridService
+		private gridService: GridService,
+		private zone: NgZone
 	) {
 		super();
 	}
@@ -50,7 +54,41 @@ export class ViewCoreComponent extends NgComponent
 		return this.model.visibility();
 	}
 
+	ngAfterViewInit() {
+		this.zone.runOutsideAngular(() => {
+			const containerX = this.scrollX.nativeElement.parentElement;
+			containerX.addEventListener('scroll', e => {
+				const scroll = this.model.scroll;
+				const left = containerX.scrollLeft;
+				if (scroll().left !== left) {
+					scroll({ left }, {
+						source: 'view-core.component',
+						behavior: 'core'
+					});
+				}
+			});
+
+			const containerY = this.scrollY.nativeElement.parentElement;
+			containerY.addEventListener('scroll', e => {
+				const scroll = this.model.scroll;
+				const top = containerY.scrollTop;
+				if (scroll().top !== top) {
+					scroll({ top }, {
+						source: 'view-core.component',
+						behavior: 'core'
+					});
+				}
+			});
+		});
+	}
+
 	ngDoCheck() {
+		const body = this.root.markup['body'];
+		if (body) {
+			this.scrollX.nativeElement.style.width = body.scrollWidth + 'px';
+			this.scrollY.nativeElement.style.height = body.scrollHeight + 'px';
+		}
+
 		const style = this.view.style;
 		if (style.needInvalidate()) {
 			const rowMonitor = style.monitor.row;

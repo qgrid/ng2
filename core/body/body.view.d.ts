@@ -24,9 +24,5 @@ export declare class BodyView extends View {
 
     label(row: any, column: ColumnModel, value?: any): string;
 
-    valueFactory(column: ColumnModel, getValueFactory: (column: ColumnModel) => IGetResult): IGetResult;
-
-    labelFactory(column: ColumnModel): IGetResult;
-
     render: Renderer;
 }
