@@ -190,4 +190,25 @@ export class PersistenceView extends PluginView {
 				&& item.title.toLowerCase() === title.toLowerCase();
 		});
 	}
+
+	get blank() {
+		const gridModel = this.model;
+		const settings = gridModel.persistence().settings;
+
+		const model = {};
+		for (const key in settings) {
+			const target = {};
+			model[key] = target;
+			for (const p of settings[key]) {
+				target[p] = key === 'filter' ? {} : [];
+			}
+		}
+
+		return {
+			title: 'Blank',
+			modified: Date.now(),
+			model: model,
+			isDefault: false
+		};
+	}
 }
