@@ -29,7 +29,7 @@
                     border-right: 1px solid $dark-text;
                 }
             }
-            
+
             tr td {
 				color: $dark-text;
             }
@@ -101,5 +101,13 @@
         }
     }
 }
+
+.q-grid ::-webkit-scrollbar-track, .q-grid ::-webkit-scrollbar-track-piece {
+    background-color: $dark;
+}
+.q-grid ::-webkit-scrollbar-track, .q-grid ::-webkit-scrollbar-track-piece {
+    background-color: $dark;
+}
+
 
 
