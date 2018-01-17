@@ -1,11 +1,16 @@
 @import "variables";
-
 td {
 	color: $dark;
 	font-size: 13px;
 	border-top: 1px solid $dark-divider;
 	padding: 0 16px;
 	font-size: 13px;
+}
+
+tr:first-child {
+	td {
+		border-top: none;
+	}
 }
 
 tfoot {
@@ -17,7 +22,7 @@ tfoot {
 }
 
 thead {
-	th {		
+	th {
 		color: $dark-secondary;
 		font-size: 12px;
 		font-weight: bold;
@@ -29,4 +34,3 @@ thead {
 		}
 	}
 }
-

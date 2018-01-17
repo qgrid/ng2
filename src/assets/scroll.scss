@@ -1,5 +1,6 @@
-$expandSize: 12px;
-$collapseSize: 6px;
+$expandSize: 8px;
+$collapseSize: 8px;
+
 .q-grid-scroll-x {
 	height: $collapseSize;
 	width: 100%;
@@ -11,10 +12,10 @@ $collapseSize: 6px;
 	.q-grid-scroll {
 		height: $expandSize;
 	}
-	&:hover {
-		bottom: 0;
-		height: $expandSize;
-	}
+	// &:hover {
+	// 	bottom: 0;
+	// 	height: $expandSize;
+	// }
 }
 
 .q-grid-scroll-y {
@@ -25,10 +26,10 @@ $collapseSize: 6px;
 	.q-grid-scroll {
 		width: $expandSize;
 	}
-	&:hover {
-		right: 0;
-		width: $expandSize;
-	}
+	// &:hover {
+	// 	right: 0;
+	// 	width: $expandSize;
+	// }
 }
 
 .q-grid-view {

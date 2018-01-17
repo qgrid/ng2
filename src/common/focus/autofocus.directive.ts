@@ -12,9 +12,9 @@ export class AutoFocusDirective implements AfterViewInit, OnDestroy {
 	
 	constructor(private root: RootService) { }
 
-    ngAfterViewInit() {
+	ngAfterViewInit() {
 		this.autofocus = new AutofocusView(this.model, this.table, this.markup);
-    }
+	}
 
 	ngOnDestroy() {
 		this.autofocus.dispose(); 
