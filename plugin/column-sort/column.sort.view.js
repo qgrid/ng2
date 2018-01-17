@@ -25,18 +25,18 @@ export class ColumnSortView extends PluginView {
                 const display = this.display;
                 const iconDesc = context.iconDesc;
                 const iconAsc = context.iconAsc;
-                const styleName = `icon-visible`;
+                const activeClass = `${GRID_PREFIX}-active`;
                 
                 if (view.sort.order(this.column) >= 0) {
                     
                     let icon = iconDesc;
                     let direction = view.sort.direction(this.column);
                     if (direction === 'asc') {
-                        iconAsc.classList.add(styleName);
-                        iconDesc.classList.remove(styleName);
+                        iconAsc.classList.add(activeClass);
+                        iconDesc.classList.remove(activeClass);
                     } else {
-                        iconAsc.classList.remove(styleName);
-                        iconDesc.classList.add(styleName);
+                        iconAsc.classList.remove(activeClass);
+                        iconDesc.classList.add(activeClass);
                     } 
                     
 					this[view.sort.direction(this.column)].display = display;
@@ -44,8 +44,8 @@ export class ColumnSortView extends PluginView {
 				} else {
                     element.classList.remove(`${GRID_PREFIX}-active`);
                     
-                    iconAsc.classList.remove(styleName);
-                    iconDesc.classList.remove(styleName);
+                    iconAsc.classList.remove(activeClass);
+                    iconDesc.classList.remove(activeClass);
 				}
 			}
 		}));

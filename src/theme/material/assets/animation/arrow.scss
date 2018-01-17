@@ -18,13 +18,13 @@
     .q-grid-view {
 thead tr th {
     
-    .q-grid-icon.q-grid-asc.icon-visible {
+    .q-grid-icon.q-grid-asc.q-grid-active {
         animation-name: arrow-animation-up;
         animation-duration: .2s;
         animation-iteration-count: 1;
     }
 
-    .q-grid-icon.q-grid-desc.icon-visible {
+    .q-grid-icon.q-grid-desc.q-grid-active {
         animation-name: arrow-animation-down;
         animation-duration: .2s;
         animation-iteration-count: 1;
