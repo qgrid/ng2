@@ -22,30 +22,30 @@ export class ColumnSortView extends PluginView {
 				this.clear();
 
 				const view = this.view;
-                const display = this.display;
-                const iconDesc = context.iconDesc;
-                const iconAsc = context.iconAsc;
-                const activeClass = `${GRID_PREFIX}-active`;
-                
-                if (view.sort.order(this.column) >= 0) {
-                    
-                    let icon = iconDesc;
-                    let direction = view.sort.direction(this.column);
-                    if (direction === 'asc') {
-                        iconAsc.classList.add(activeClass);
-                        iconDesc.classList.remove(activeClass);
-                    } else {
-                        iconAsc.classList.remove(activeClass);
-                        iconDesc.classList.add(activeClass);
-                    } 
-                    
+				const display = this.display;
+				const iconDesc = context.iconDesc;
+				const iconAsc = context.iconAsc;
+				const activeClass = `${GRID_PREFIX}-active`;
+				
+				if (view.sort.order(this.column) >= 0) {
+					
+					let icon = iconDesc;
+					let direction = view.sort.direction(this.column);
+					if (direction === 'asc') {
+						iconAsc.classList.add(activeClass);
+						iconDesc.classList.remove(activeClass);
+					} else {
+						iconAsc.classList.remove(activeClass);
+						iconDesc.classList.add(activeClass);
+					} 
+					
 					this[view.sort.direction(this.column)].display = display;
 					element.classList.add(`${GRID_PREFIX}-active`);
 				} else {
-                    element.classList.remove(`${GRID_PREFIX}-active`);
-                    
-                    iconAsc.classList.remove(activeClass);
-                    iconDesc.classList.remove(activeClass);
+					element.classList.remove(`${GRID_PREFIX}-active`);
+					
+					iconAsc.classList.remove(activeClass);
+					iconDesc.classList.remove(activeClass);
 				}
 			}
 		}));
