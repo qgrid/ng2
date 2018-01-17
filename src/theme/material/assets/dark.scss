@@ -164,6 +164,26 @@ q-grid-column-chooser {
     .mat-card {
         background-color: $dark;
         color: $dark-text;
+
+        .mat-button{
+            color: $dark-text;
+        }
+
+        .mat-button:hover {
+            background-color: $dark-accent;
+        }
+
+        .mat-button.mat-primary {
+            background-color: $dark-accent;
+        }
+
+        .mat-form-field-label {
+            color: $dark-text;
+        }
+
+        .mat-input-underline {
+            color: #fff;
+        }
     }
 
     label {
