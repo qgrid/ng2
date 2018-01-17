@@ -3,7 +3,7 @@ import { EditorOptions } from './editor.options';
 /**
  * A class that represents any column in the q-grid.
  * 
- * ## Usage
+ * ### Usage
  * 
  * ``` javascript
  * gridModel.data({
@@ -138,7 +138,7 @@ import { EditorOptions } from './editor.options';
  * });
  * ```
  * 
- * ## Suggested Links
+ * ### Suggested Links
  * 
  * * [value.js](https://github.com/qgrid/ng2/blob/master/core/services/value.js)
  * * [label.js](https://github.com/qgrid/ng2/blob/master/core/services/label.js)

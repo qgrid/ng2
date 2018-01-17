@@ -3,7 +3,7 @@ import {Resource} from '../resource/resource';
 /**
  * A class to setup validation rules settings.
  * 
- * ## Suggested Links
+ * ### Suggested Links
  * 
  * * [LIVR](https://github.com/koorchik/LIVR)
  */

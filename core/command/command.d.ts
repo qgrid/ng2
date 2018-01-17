@@ -4,7 +4,7 @@ import { IContext } from './context';
  * A class that implements command pattern in the q-grid.
  * Any q-grid actions are implemented through this pattern.
  * 
- * ## Instanciate a Command
+ * ### Instanciate a Command
  * 
  * ```javascript
  *	const addRowCommand = new qgrid.Command({
@@ -22,7 +22,7 @@ import { IContext } from './context';
  *	});
  * ```
  * 
- * ## Suggested Links
+ * ### Suggested Links
  * 
  * * [Action Model](/doc/api/action-model.html)
  * * [Action](/doc/api/action.html)

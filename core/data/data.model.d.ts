@@ -4,7 +4,7 @@ import { IPipe } from '../pipe/pipe.item';
 /**
  * A class that gives access to the high level grid data structures.
  *
- * ## Usage
+ * ### Usage
  * Usually grid user can define this properties in different places.
  * Inside html through attribute bindings:
  * ```html
@@ -32,7 +32,7 @@ import { IPipe } from '../pipe/pipe.item';
  * })
  * ```
  * 
- * ## Suggested Links
+ * ### Suggested Links
  * 
  * * [data.pipe.js](https://github.com/qgrid/ng2/blob/master/core/pipe/data.pipe.js)
  */
