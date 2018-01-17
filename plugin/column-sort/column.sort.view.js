@@ -1,72 +1,52 @@
-import {PluginView} from '../plugin.view';
-import {EventListener, EventManager} from '../../core/infrastructure';
-import {GRID_PREFIX} from '../../core/definition';
-import {Command} from '../../core/command/command';
+import { PluginView } from '../plugin.view';
+import { EventListener, EventManager } from '../../core/infrastructure';
+import { GRID_PREFIX } from '../../core/definition';
+import { Command } from '../../core/command/command';
 
 export class ColumnSortView extends PluginView {
 	constructor(model, context) {
 		super(model);
 
-		this.column = context.column;
-		this.desc = context.iconDesc.style;
-		this.asc = context.iconAsc.style;
-
+		const column = context.column;
+		const view = context.view;
 		const element = context.element;
-		this.view = context.view;
+		const iconDesc = context.iconDesc;
+		const iconAsc = context.iconAsc;
 
-		this.display = this.desc.display;
-		this.clear();
+		const activeClass = `${GRID_PREFIX}-active`;
+		const hideClass = `${GRID_PREFIX}-hide`;
 
 		this.using(model.sortChanged.watch(e => {
 			if (e.hasChanges('by')) {
-				this.clear();
+				if (view.sort.order(column) < 0) {
+					element.classList.remove(activeClass);
+					element.classList.add(hideClass);
 
-				const view = this.view;
-				const display = this.display;
-				if (view.sort.order(this.column) >= 0) {
-					this[view.sort.direction(this.column)].display = display;
-					element.classList.add(`${GRID_PREFIX}-active`);
+					iconAsc.classList.remove(activeClass);
+					iconDesc.classList.remove(activeClass);
 				} else {
-					element.classList.remove(`${GRID_PREFIX}-active`);
+					const direction = view.sort.direction(column);
+					const oldIcon = direction === 'asc' ? iconDesc : iconAsc;
+					const newIcon = direction === 'asc' ? iconAsc : iconDesc;
+
+					element.classList.add(activeClass);
+					element.classList.remove(hideClass);
+
+					oldIcon.classList.remove(activeClass);
+					newIcon.classList.add(activeClass);
 				}
 			}
 		}));
 
 		this.toggle = new Command({
-			canExecute: () => this.column.canSort,
-			execute: () => this.view.sort.toggle.execute(this.column)
+			canExecute: () => column.canSort,
+			execute: () => view.sort.toggle.execute(column)
 		});
-	}
-
-	onMouseOver() {
-		const model = this.model;
-		const view = this.view;
-
-		if (model.drag().isActive) {
-			return;
-		}
-
-		if (view.sort.order(this.column) < 0) {
-			this.desc.display = this.display;
-		}
-	}
-
-	onMouseLeave() {
-		const view = this.view;
-
-		if (view.sort.order(this.column) < 0) {
-			this.clear();
-		}
 	}
 
 	onClick() {
 		if (this.toggle.canExecute()) {
 			this.toggle.execute();
 		}
-	}
-
-	clear() {
-		this.desc.display = 'none';
-		this.asc.display = 'none';
 	}
 }
