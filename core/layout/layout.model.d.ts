@@ -1,8 +1,19 @@
-import {ColumnModel} from '../column-type/column.model';
+import { ColumnModel } from '../column-type/column.model';
 
+/**
+ * A class contains rewritten widthes and heights of rows and columns
+ * 
+ * ## Suggested Links
+ * * [Layout View](/doc/api/layout-view.html)
+ */
 export declare class LayoutModel {
-    constructor();
+    /**
+     * Set of column sizes.
+     */
+    columns: Map<string, any>;
     
-    columns: Map<string, number>;
-    rows: Map<any, number>;
+    /**
+     * Set of row sizes.
+     */
+    rows: Map<any, any>;
 }
