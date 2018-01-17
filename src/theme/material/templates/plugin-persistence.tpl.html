@@ -22,42 +22,54 @@
 					</button>
 				</div>
 			</div>
-			<div>
-				<div>
-					<mat-grid-list cols="12"
-					               rowHeight="14px">
+			<div class="q-grid-persistence-list">
+				<div [ngClass]="{'q-grid-persistence-selected': $persistence.isActive($persistence.blank)}">
+					<mat-grid-list cols="24"
+					               rowHeight="20px">
 						<mat-grid-tile colspan="1"></mat-grid-tile>
-						<mat-grid-tile colspan="9">
+						<mat-grid-tile colspan="21"
+						               rowspan="2"
+						               class="q-grid-persistence-list-item">
 							<button mat-button
+							        class="flex-100"
 							        color="primary"
 							        matTooltip="No settings"
 							        (click)="$persistence.load.execute($persistence.blank)">
-								<span>{{$persistence.blank.title}}</span>
+								<div class="flex-100 layout-column">
+									<div class="flex-50">{{$persistence.blank.title}}</div>
+								</div>
 							</button>
 						</mat-grid-tile>
 						<mat-grid-tile colspan="2"
 						               rowspan="2"></mat-grid-tile>
-						<mat-grid-tile colspan="1"></mat-grid-tile>
-						<mat-grid-tile colspan="9">
-							<span>{{$persistence.blank.modified | date: 'yyyy/MM/dd h:mm a'}}</span>
-						</mat-grid-tile>
 					</mat-grid-list>
 				</div>
-				<div *ngFor="let item of $persistence.items">
-					<mat-grid-list cols="12"
-					               rowHeight="14px">
-						<mat-grid-tile colspan="1">
-							<div class="q-grid-persistence-default-icon">
+				<div *ngFor="let item of $persistence.items"
+				     [ngClass]="{'q-grid-persistence-selected': $persistence.isActive(item)}">
+					<mat-grid-list cols="24"
+					               rowHeight="20px">
+						<mat-grid-tile colspan="1"
+						               class="q-grid-persistence-default-icon">
+							<div>
 								<mat-icon class="q-grid-icon"
 								          *ngIf="item.isDefault">star</mat-icon>
 							</div>
 						</mat-grid-tile>
-						<mat-grid-tile colspan="9">
+						<mat-grid-tile colspan="21"
+						               rowspan="2"
+						               class="q-grid-persistence-list-item">
 							<button mat-button
+							        class="flex-100"
 							        color="primary"
+							        matTooltip="{{$persistence.stringify(item)}}"
 							        (click)="$persistence.load.execute(item)"
 							        *ngIf="$persistence.state.editItem !== item">
-								<span>{{item.title}}</span>
+								<div class="flex layout-column">
+									<div class="flex-50">{{item.title}}</div>
+									<ul class="flex-50">
+										<li>{{item.modified | date: 'yyyy/MM/dd h:mm a'}}</li>
+									</ul>
+								</div>
 							</button>
 							<mat-form-field *ngIf="$persistence.state.editItem === item">
 								<input matInput
@@ -70,7 +82,8 @@
 						<mat-grid-tile colspan="2"
 						               rowspan="2">
 							<button mat-button
-							        [matMenuTriggerFor]="menu">
+									  [matMenuTriggerFor]="menu"
+									  class="q-grid-more">
 								<mat-icon>more_vert</mat-icon>
 							</button>
 							<mat-menu #menu="matMenu">
@@ -95,9 +108,6 @@
 							</mat-menu>
 						</mat-grid-tile>
 						<mat-grid-tile colspan="1"></mat-grid-tile>
-						<mat-grid-tile colspan="9">
-							<span>{{$persistence.blank.modified | date: 'yyyy/MM/dd h:mm a'}}</span>
-						</mat-grid-tile>
 					</mat-grid-list>
 				</div>
 			</div>
