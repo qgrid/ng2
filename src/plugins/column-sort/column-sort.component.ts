@@ -43,6 +43,10 @@ export class ColumnSortComponent extends PluginComponent implements AfterViewIni
 		const listener = new EventListener(nativeElement, new EventManager(this));
 		this.using(listener.on('click', () => ctrl.onClick()));
 
+		this.zone.runOutsideAngular(() =>
+			this.using(listener.on('mouseleave', () => ctrl.onMouseLeave()))
+		);
+
 		this.context = {
 			$implicit: ctrl
 		};
