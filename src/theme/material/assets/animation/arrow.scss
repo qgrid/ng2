@@ -1,0 +1,34 @@
+@keyframes arrow-animation-up {
+    0%   { transform: rotate(180deg) }
+    25%  { transform: rotate(220deg) }
+    50%  { transform: rotate(270deg) }
+    75%  { transform: rotate(300deg) }
+    100%  { transform: rotate(360deg) }
+}
+
+@keyframes arrow-animation-down {
+    0%   { transform: rotate(-180deg) }
+    25%  { transform: rotate(-220deg) }
+    50%  { transform: rotate(-270deg) }
+    75%  { transform: rotate(-300deg) }
+    100%  { transform: rotate(-360deg) }
+}
+
+.q-grid.q-grid-theme-material {
+    .q-grid-view {
+thead tr th {
+    
+    .q-grid-icon.q-grid-asc.q-grid-active {
+        animation-name: arrow-animation-up;
+        animation-duration: .2s;
+        animation-iteration-count: 1;
+    }
+
+    .q-grid-icon.q-grid-desc.q-grid-active {
+        animation-name: arrow-animation-down;
+        animation-duration: .2s;
+        animation-iteration-count: 1;
+    }
+}
+    }
+}

@@ -8,7 +8,7 @@ export function nodeBuilder(columnMap, groupBy, valueFactory, level = 0) {
 
 	const groupKey = groupBy[0];
 	if (!columnMap.hasOwnProperty(groupKey)) {
-		throw new AppError('node.builder', `can't find column "${groupKey}"`);
+		throw new AppError('node.build', `can't find column "${groupKey}"`);
 	}
 
 	const column = columnMap[groupKey];

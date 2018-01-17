@@ -11,5 +11,5 @@ export declare class PersistenceStorage {
 
 	getItem(key: string): Promise<object>;
 
-	setItem(key: string, value: string): Promise<object>;
+	setItem(key: string, value: any): Promise<object>;
 }

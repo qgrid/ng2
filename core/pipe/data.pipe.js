@@ -19,6 +19,6 @@ function addDataColumns(model) {
 	const columns = result.columns.map(columnBody => createColumn(columnBody.type || 'text', columnBody).model);
 
 	if (result.hasChanges) {
-		model.data({columns}, {source: 'data.pipe',behavior: 'core'});
+		model.data({columns}, {source: 'data.pipe', behavior: 'core'});
 	}
 }

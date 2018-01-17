@@ -38,12 +38,12 @@ export function generateFactory(model) {
 		if (generation) {
 			switch (generation) {
 				case 'deep': {
-					generatedColumns.push(...generate({rows: rows, columnFactory: createColumn, deep: true}));
+					generatedColumns.push(...generate({rows, columnFactory: createColumn, deep: true}));
 					break;
 				}
 				case
 				'shallow': {
-					generatedColumns.push(...generate({rows: rows, columnFactory: createColumn, deep: false}));
+					generatedColumns.push(...generate({rows, columnFactory: createColumn, deep: false}));
 					break;
 				}
 				default:
