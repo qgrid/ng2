@@ -18,9 +18,9 @@ class RowDetailsColumnModel extends ColumnModel {
 
 		this.canEdit = false;
 		this.canResize = false;
-        this.canHighlight = false;
-        this.canFilter = false;
-        this.canSort = false;
+		this.canHighlight = false;
+		this.canFilter = false;
+		this.canSort = false;
 	}
 }
 

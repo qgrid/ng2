@@ -8,9 +8,7 @@ describe('CellSelector', function () {
 		model = modelFactory();
 	});
 
-	window.ENV = {
-		PRODUCTION: false
-	};
+	window.ENV = 'dev';
 
 	let tableForRow = {
 		data: {

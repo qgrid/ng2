@@ -1,6 +1,6 @@
 export class LayoutModel {
 	constructor() {
-        this.columns = new Map();
-        this.rows = new Map();
+		this.columns = new Map();
+		this.rows = new Map();
 	}
 }

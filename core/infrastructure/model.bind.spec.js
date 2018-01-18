@@ -2,7 +2,7 @@ import {ModelBinder} from './model.bind';
 import {Event} from './event';
 
 describe('ModelBinder', () => {
-	window.ENV = {PRODUCTION: false};
+	window.ENV = 'dev';
 
 	let model = {
 		test: function (value) {

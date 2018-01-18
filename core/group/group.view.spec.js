@@ -7,9 +7,7 @@ import {GroupColumnModel} from '../column-type/group.column';
 
 describe('Group View', () => {
 
-	window.ENV = {
-		PRODUCTION: false
-	};
+	window.ENV = 'dev';
 
 	let node;
 	let table = {
