@@ -3,7 +3,7 @@ import { Resource } from '../resource/resource';
 /**
  * A class that allows to split data to pages, also virtual scroll use some options from here.
  * 
- * ## Suggested Links
+ * ### Suggested Links
  * 
  * * [Pagination View](/doc/api/pagination-view.html)
  * * [pagination.pipe.js](https://github.com/qgrid/ng2/blob/master/core/pipe/pagination.pipe.js)
@@ -30,6 +30,11 @@ export declare class PaginationModel {
 	/**
 	 * Count of total rows.
 	 */
-	count: number;
+    count: number;
+    
+    /**
+     * List of `model name: [model properties]` pairs to reset pagination current property to 0.
+     */
+    resetTriggers: object[];
 }
 

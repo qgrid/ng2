@@ -5,7 +5,7 @@ import { GenerationMode } from './generation.mode';
  * A class that responsible for the columns order and generation. Usually user does not interact directly
  * with this model as the q-grid uses this in internal pipelines.
  * 
- * ## Usage
+ * ### Usage
  * 
  * * Example of how user usually can define column generation type and list of columns in template.
  * 
@@ -27,7 +27,7 @@ import { GenerationMode } from './generation.mode';
  * </q-grid>
  * ``` 
  * 
- * ## Suggested Links
+ * ### Suggested Links
  * 
  * * [Column Model](/doc/api/column-model.html)
  * * [Column Sort](/doc/feature/sort.html)

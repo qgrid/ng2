@@ -9,7 +9,8 @@ import {
 	ElementRef,
 	ChangeDetectorRef,
 	EmbeddedViewRef,
-	ComponentRef
+	ComponentRef,
+	NgZone
 } from '@angular/core';
 import { TemplateCacheService } from 'ng2-qgrid/template/template-cache.service';
 import { TemplateService } from 'ng2-qgrid/template/template.service';
@@ -76,7 +77,8 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 		private rootService: RootService,
 		private element: ElementRef,
 		private changeDetector: ChangeDetectorRef,
-		private theme: ThemeService
+		private theme: ThemeService,
+		private zone: NgZone
 	) {
 		super();
 
@@ -128,9 +130,12 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 
 		const listener = new EventListener(element, new EventManager(this));
 		const windowListener = new EventListener(element, new EventManager(this));
-		this.using(
-			windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl))
-		);
+		this.zone.runOutsideAngular(() => {
+			this.using(
+				windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl))
+			);
+		});
+		
 		this.using(listener.on('keydown', ctrl.keyDown.bind(ctrl)));
 	}
 

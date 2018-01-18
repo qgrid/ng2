@@ -8,7 +8,7 @@ import { Resource } from '../resource/resource';
  * For instance, [action bar](/doc/feature/action.html) plugin uses this model to draw buttons on top of the q-grid
  * to execute user commands.
  * 
- * ## Usage
+ * ### Usage
  * 
  * ```javascript
  *	const addRowCommand = new qgrid.Command({
@@ -36,7 +36,7 @@ import { Resource } from '../resource/resource';
  *  });
  * ```
  * 
- * ## Suggested Links
+ * ### Suggested Links
  * 
  * * [Action](/doc/api/action.html)
  * * [Command](/doc/api/command.html)

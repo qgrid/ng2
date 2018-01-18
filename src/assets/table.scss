@@ -15,7 +15,7 @@
 			/* head takes the height it requires,
            and it's not scaled when table is resized */
 			flex: 0 0 auto;
-			width: calc(100% - 8px);
+			width: 100%;
 			overflow: hidden;
 		}
 
@@ -23,8 +23,7 @@
 			/* body takes all the remaining available space */
 			flex: 1 1 auto;
 			display: block;
-			overflow-y: scroll;
-			overflow-x: scroll;
+			overflow: hidden;
 			outline: none;
 			overflow-anchor: none;
 		}

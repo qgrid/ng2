@@ -136,7 +136,7 @@ export class BodyCtrl extends View {
 					if (focusState.rowIndex !== cell.rowIndex || focusState.columnIndex !== cell.columnIndex) {
 						this.view.selection.toggleRow.execute(cell.row, 'body');
 					}
-				} else if (!editMode && cell.column.canEdit) {
+				} else if (!editMode && cell.column.class !== 'control') {
 					this.view.selection.toggleRow.execute(cell.row, 'body');
 				}
 				break;

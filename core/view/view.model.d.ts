@@ -2,7 +2,7 @@ import { ColumnModel } from '../column-type/column.model';
 import { IPivot } from '../pipe/pipe.item';
 
 /**
- * A class that represent raw data to render.
+ * A class that represent a raw data to render.
  */
 export declare class ViewModel {
 	constructor();
@@ -23,7 +23,7 @@ export declare class ViewModel {
 	nodes: Node[];
 
 	/**
-	 * Pivot data to render.
+	 * Pivoted data structure to render.
 	 */
 	pivot: IPivot;
 }

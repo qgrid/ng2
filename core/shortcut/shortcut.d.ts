@@ -5,7 +5,7 @@ import { KeyCode } from './key.code';
 /**
  * > Under construction.
  * 
- * ## Suggested Links
+ * ### Suggested Links
  * 
  * * [shortcut.manager.js](https://github.com/qgrid/ng2/blob/master/core/shortcut/shortuct.manager.js)
  * * [shortcut.dispatcher.js](https://github.com/qgrid/ng2/blob/master/core/shortcut/shortcut.dispatcher.js)

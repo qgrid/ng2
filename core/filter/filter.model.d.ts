@@ -5,7 +5,7 @@ import { IAssert } from './assert';
 /**
  * A class to setup data filters and expressions.
  * 
- * ## Usage
+ * ### Usage
  * 
  * ```javascript
  * gridModel.filter({
@@ -26,7 +26,7 @@ import { IAssert } from './assert';
  * });
  * ```
  * 
- * ## Suggested Links
+ * ### Suggested Links
  * 
  * * [filter.pipe.js](https://github.com/qgrid/ng2/blob/master/core/pipe/filter.pipe.js)
  */

@@ -1,7 +1,7 @@
 /**
  * A class that contains properties about scroll status.
  * 
- * ## Suggested Links
+ * ### Suggested Links
  * 
  * * [Scroll View](/doc/api/scroll-view.html)
  */

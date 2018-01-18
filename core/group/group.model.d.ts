@@ -6,7 +6,7 @@ import { Command } from '../command/command';
  * However user is allowed to write any kind of custom hierarchies just by overriding default pipe and 
  * working with `Node` object from the grid service.
  * 
- * ## Suggested Links
+ * ### Suggested Links
  * 
  * * [Group View](/doc/api/group-view.html)
  * * [group.pipe.js](https://github.com/qgrid/ng2/blob/master/core/pipe/group.pipe.js)

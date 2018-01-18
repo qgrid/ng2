@@ -5,7 +5,7 @@ import {Command} from '../command/command';
  * Usually action represents button in UI. If user action doesn't populate UI attributes like `title` or `icon`, 
  * command can be still available through keyboard shortcut.
  *
- * ## Suggested Links
+ * ### Suggested Links
  * 
  * * [Action Model](/doc/api/action-model.html)
  * * [Command](/doc/api/command.html)

@@ -3,7 +3,7 @@ import {Resource} from '../resource/resource';
 /**
  * A class to control q-grid pivoting functions.
  * 
- * ## Suggested Links
+ * ### Suggested Links
  * 
  * * [Pivot View](/doc/api/pivot-view.html)
  * * [pivot.pipe.js](https://github.com/qgrid/ng2/blob/master/core/pipe/pivot.pipe.js)

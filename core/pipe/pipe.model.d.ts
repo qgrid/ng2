@@ -4,7 +4,7 @@ import { Model } from '../infrastructure/model';
 /**
  * A class that contains setting to control when and how q-grid should be updated.
  * 
- * ## Default Triggers
+ * ### Default Triggers
  * ```javascript
  *  {
  *	   'data': {

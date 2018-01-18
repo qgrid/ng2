@@ -3,7 +3,7 @@ import { Resource } from '../resource/resource';
 /**
  * > Under construction.
  * 
- * ## Suggested Links
+ * ### Suggested Links
  * 
  * * [Row View](/doc/api/row-view.html)
  */
