@@ -21,9 +21,7 @@
             selectionUnit="row"
             selectionMode="multiple"
             editMode="cell"
-            header="NG2 QGRID SANDBOX"
-            filterUnit="row"
-            class="q-grid-embed">
+            header="NG2 QGRID SANDBOX">
 
         <q-grid-columns>
             <q-grid-column type="row-indicator"
@@ -34,6 +32,8 @@
             </q-grid-column>
             <q-grid-column type="row-options"
                            key="rowOptions">
+            </q-grid-column>
+            <q-grid-column type="number" aggregation="max">
             </q-grid-column>
         </q-grid-columns>
 

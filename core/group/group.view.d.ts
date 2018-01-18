@@ -1,22 +1,23 @@
-import {View} from '../view/view';
-import {Command} from '../command/command';
-import {CommandManager} from '../command/command.manager';
-import {Model} from '../infrastructure/model';
-import {Table} from '../dom/table';
-import {GridService} from '../services/grid';
+import { View } from '../view/view';
+import { Command } from '../command/command';
+import { CommandManager } from '../command/command.manager';
+import { Model } from '../infrastructure/model';
+import { Table } from '../dom/table';
+import { GridService } from '../services/grid';
 
-export declare type ExpandOrCollapse = 'expand' | 'collapse';
-
+/**
+ * > Under Construction.
+ */
 export class GroupView extends View {
-  constructor(model: Model, table: Table, commandManager: CommandManager, service: GridService);
+    constructor(model: Model, table: Table, commandManager: CommandManager, service: GridService);
 
-  toggleStatus: Command;
+    toggleStatus: Command;
 
-  count(node: Node): number;
+    count(node: Node): number;
 
-  status(node: Node): ExpandOrCollapse;
+    status(node: Node): 'expand' | 'collapse';
 
-  offset(node: Node): number;
+    offset(node: Node): number;
 
-  value(node: Node): string;
+    value(node: Node): string;
 }

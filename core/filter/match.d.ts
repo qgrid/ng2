@@ -1,5 +1,3 @@
-export declare interface IMatchResult {
-	(context: object): boolean;
+export declare interface IMatch {
+	(x: any, value: any): boolean;
 }
-
-export declare function match(context: object): boolean;
