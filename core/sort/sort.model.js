@@ -9,7 +9,7 @@ export class SortModel {
 		this.trigger = ['reorder'];
 	}
 
-	tryToTransformSortFormat() {
+	tryToResolveSortFormat() {
 		let self = this;
 		let delimitersSet = [{'desc':'-'}, {'asc':'+'}];
 		let delimeters = delimitersSet.map(delimeter => {

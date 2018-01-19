@@ -46,5 +46,5 @@ export declare class SortModel {
 	/**
 	 * Trying to resolve ['+columns.name', '-column.name'] sorting format
 	 */
-	tryToTransformSortFormat();
+	tryToResolveSortFormat();
 }
