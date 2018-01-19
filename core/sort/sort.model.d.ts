@@ -42,4 +42,9 @@ export declare class SortModel {
 	 * Default is `['reorder']`.
 	 */
 	trigger: string[];
+
+	/**
+	 * Trying to resolve ['+columns.name', '-column.name'] sorting format
+	 */
+	tryToTransformSortFormat();
 }
