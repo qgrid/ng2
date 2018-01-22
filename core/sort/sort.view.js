@@ -80,7 +80,7 @@ export class SortView extends View {
 			if (e.hasChanges('columns')) {
 				const sortState = sort();
 				const columnMap = columnService.map(e.state.columns);
-				const sortBy = sortState.tryToResolveSortFormat().by.filter(entry => columnMap.hasOwnProperty(sortService.key(entry)));
+				const sortBy = sortState.by.filter(entry => columnMap.hasOwnProperty(sortService.key(entry)));
 				if (!this.equals(sortBy, sortState.by)) {
 					sort({by: sortBy}, {source: 'sort.view'});
 				}

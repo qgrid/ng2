@@ -1,4 +1,4 @@
-import * as pair from '../services/pair';
+import * as pair from '../services/pair2';
 
 export const key = pair.key;
 export const index = pair.index;
