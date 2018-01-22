@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AppState } from './app.service';
-import * as moment from 'moment';
 
 @Component({
 	selector: 'app',
