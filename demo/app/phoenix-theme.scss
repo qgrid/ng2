@@ -6,29 +6,29 @@ $custom-accent: mat-palette($mat-pink);
 
 $custom-theme: mat-light-theme($custom-primary, $custom-accent);
 
-.q-grid thead th {
-	font-family: Roboto;
-	color: #006f8f !important;
-}
-
-.mat-card-title {
-	font-family: Roboto;
-	color: #006f8f !important;
-}
-
-div.male {
-	background: #a3003d !important;
-}
-
-div.female {
-	background: #0e85a7 !important;
-}
-
-div.undef {
-	background: #f59100 !important;
-}
-
 .phoenix {
+	.q-grid thead th {
+		font-family: Roboto;
+		color: #006f8f !important;
+	}
+
+	.mat-card-title {
+		font-family: Roboto;
+		color: #006f8f !important;
+	}
+
+	div.male {
+		background: #a3003d !important;
+	}
+
+	div.female {
+		background: #0e85a7 !important;
+	}
+
+	div.undef {
+		background: #f59100 !important;
+	}
+
 	@include angular-material-theme($custom-theme);
 }
 
