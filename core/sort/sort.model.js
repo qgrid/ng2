@@ -1,5 +1,4 @@
 import {Resource} from '../resource';
-import { isString, isObject } from '../utility';
 
 export class SortModel {
 	constructor() {
