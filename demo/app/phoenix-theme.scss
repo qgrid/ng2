@@ -48,6 +48,10 @@ $custom-theme: mat-light-theme($custom-primary, $custom-accent);
 				td {
 					font-size: 16px;
 					font-weight: normal;
+
+					button {
+						height: 30px;
+					}
 				}
 
 				tr {
