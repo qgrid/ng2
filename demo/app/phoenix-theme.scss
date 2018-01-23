@@ -7,26 +7,81 @@ $custom-accent: mat-palette($mat-pink);
 $custom-theme: mat-light-theme($custom-primary, $custom-accent);
 
 .phoenix {
-	.q-grid thead th {
-		font-family: Roboto;
-		color: #006f8f !important;
-	}
+	font-family: Roboto;
 
-	.mat-card-title {
-		font-family: Roboto;
-		color: #006f8f !important;
-	}
+	.q-grid {
 
-	div.male {
-		background: #a3003d !important;
-	}
+		&-title {
+			h3 {
+				font-size: 24px;
+				font-weight: normal;
+				font-style: normal;
+				text-align: left;
+				color: #006f8f;
+			}
+		}
 
-	div.female {
-		background: #0e85a7 !important;
-	}
+		&-toolbar {
+			height: 55px;
+		}
 
-	div.undef {
-		background: #f59100 !important;
+		&-sort {
+			margin-left: 0px;
+		}
+
+		&-table {
+			thead {
+				th {
+					font-size: 12px !important;
+					color: #006f8f !important;
+					text-align: left;
+					font-weight: normal !important;
+				}
+
+				tr {
+					height: 30px !important;
+				}
+
+			}
+
+			tbody {
+				td {
+					font-size: 16px;
+					font-weight: normal;
+				}
+
+				tr {
+					height: 30px !important;
+				}
+			}
+		}
+
+		&-legend {
+			&-list {
+				font-size: 16px !important;
+				text-align: left !important;
+				color: #000000 !important;
+			}
+
+			&-item {
+				width: 8px !important;
+				height: 8px !important;
+				margin-right: 18px !important;
+				margin-bottom: 2px !important;
+			}
+		}
+
+		.male {
+			background: #a3003d !important;
+		}
+
+		.female {
+			background: #0e85a7 !important;
+		}
+
+		.undef {
+			background: #f59100 !important;
+		}
 	}
 
 	@include angular-material-theme($custom-theme);
