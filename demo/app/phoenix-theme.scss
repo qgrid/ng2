@@ -36,6 +36,9 @@ $custom-theme: mat-light-theme($custom-primary, $custom-accent);
 					color: #006f8f !important;
 					text-align: left;
 					font-weight: normal !important;
+					&:hover label {
+						font-weight: normal !important;
+					}
 				}
 
 				tr {
@@ -50,7 +53,7 @@ $custom-theme: mat-light-theme($custom-primary, $custom-accent);
 					font-weight: normal;
 
 					button {
-						height: 30px;
+						height: 29px;
 					}
 				}
 
