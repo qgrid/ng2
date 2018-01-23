@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@import '../../../../node_modules/@angular/material/_theming';
 @include mat-core();
 
 $custom-primary: mat-palette($mat-indigo);
@@ -27,6 +27,10 @@ $custom-theme: mat-light-theme($custom-primary, $custom-accent);
 
 		&-sort {
 			margin-left: 0px;
+		}
+
+		&-text {
+			font-size: 13px;
 		}
 
 		&-table {
