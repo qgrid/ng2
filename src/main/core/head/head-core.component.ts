@@ -23,10 +23,6 @@ export class HeadCoreComponent extends NgComponent implements OnInit {
 		super();
 	}
     
-    // private get headLastRow(){
-    //     return this.$view.head.lastRow;
-    // }
-
 	ngOnInit() {
 		const element = this.element.nativeElement;
 		const ctrl = new HeadCtrl(this.$view, this.root.bag);

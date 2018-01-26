@@ -1,6 +1,6 @@
 <colgroup *ngIf="$view.body.lastRow">
     <col *ngFor="let $col of $view.body.render.columns($view.body.lastRow, $table.pin); trackBy: columnId; index as $columnIndex" 
-            style="background-color:rgb(255, 238, 0);width:450px">
+            style="display: table-cell">
 </colgroup>
 
 <tr *ngFor="let $row of $view.body.rows; index as $rowIndex; trackBy: rowId"
