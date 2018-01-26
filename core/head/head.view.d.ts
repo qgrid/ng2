@@ -13,4 +13,6 @@ export declare class HeadView extends View {
   drop: Command;
   drag: Command;
   resize: Command;
+  
+  get lastRow(): any;
 }
