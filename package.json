@@ -111,7 +111,7 @@
     "@angularclass/hmr-loader": "~3.0.4",
     "@ngtools/webpack": "^1.9.2",
     "@types/hammerjs": "^2.0.35",
-    "@types/jasmine": "2.8.2",
+    "@types/jasmine": "2.8.3",
     "@types/node": "^8.5.2",
     "@types/source-map": "^0.5.2",
     "@types/uglify-js": "^2.6.29",
