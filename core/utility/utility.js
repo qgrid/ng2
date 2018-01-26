@@ -126,6 +126,10 @@ function escapeRegexp(text) {
 	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
 
+function getType(type) {
+	return {}.toString.call(type).slice('[object]'.length, -1);
+}
+
 export {
 	isObject,
 	isFunction,
@@ -160,5 +164,6 @@ export {
 	dropWhile,
 	groupBy,
 	htmlEncode,
-	escapeRegexp
+	escapeRegexp,
+	getType
 };

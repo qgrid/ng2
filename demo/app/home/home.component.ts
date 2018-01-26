@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { DataService, Human } from '../../data/data.service';
 import { Grid } from 'ng2-qgrid/index';
 
@@ -7,6 +7,7 @@ import * as xlsx from 'xlsx';
 import * as pdf from 'jspdf';
 import 'jspdf-autotable';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
+import {DataManipulationComponent} from 'ng2-qgrid/plugins/data-manipulation/data-manipulation.component';
 
 const isUndef = v => v === undefined;
 
@@ -14,7 +15,10 @@ const isUndef = v => v === undefined;
 	selector: 'home',
 	templateUrl: './home.component.html'
 })
-export class HomeComponent {
+export class HomeComponent implements AfterViewInit {
+
+	@ViewChild(DataManipulationComponent) DataManipulationComponent;
+
 	public rows: Human[] = [];
 
 	public columns = [
@@ -260,5 +264,17 @@ export class HomeComponent {
 		// 			})
 		// 	].concat(qgrid.pipeUnit.default)
 		// });
+	}
+
+	ngAfterViewInit() {
+		this.selectionTrigger();
+	}
+
+	selectionTrigger() {
+		if (this.DataManipulationComponent === undefined) {
+
+			const view = document.querySelector('.q-grid-view');
+			view.setAttribute('onselectstart', 'return false');
+		}
 	}
 }
