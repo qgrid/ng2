@@ -4,9 +4,11 @@ import { PluginComponent } from '../plugin.component';
 
 @Component({
 	selector: 'q-grid-edit-form',
-	template: '<span>x</span>'
+	templateUrl: './edit-form.component.html'
 })
 export class EditFormComponent extends PluginComponent implements OnInit, OnDestroy {
+
+    @Input() title: string;
 
 	constructor( @Optional() root: RootService) {
 		super(root);

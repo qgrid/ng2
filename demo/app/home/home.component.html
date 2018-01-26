@@ -28,9 +28,9 @@
 
             <q-grid-column type="row-indicator"
                            key="rowIndicator">
-                           <ng-template for="body" let-$cell let-$view="$view">
-                                <q-grid-edit-from></q-grid-edit-from>                             
-                           </ng-template>
+                <ng-template for="body">
+                    <q-grid-edit-form title='Edit Form'></q-grid-edit-form>
+                </ng-template>
             </q-grid-column>
             <q-grid-column type="row-number"
                            key="rowNumber">
