@@ -21,13 +21,16 @@
             selectionUnit="row"
             selectionMode="multiple"
             [sortBy]="['+name.last', '-name.first']"
-            
             editMode="cell"
             header="NG2 QGRID SANDBOX">
 
         <q-grid-columns>
+
             <q-grid-column type="row-indicator"
                            key="rowIndicator">
+                           <ng-template for="body" let-$cell let-$view="$view">
+                                <q-grid-edit-from></q-grid-edit-from>                             
+                           </ng-template>
             </q-grid-column>
             <q-grid-column type="row-number"
                            key="rowNumber">
@@ -35,7 +38,8 @@
             <q-grid-column type="row-options"
                            key="rowOptions">
             </q-grid-column>
-            <q-grid-column type="number" aggregation="max">
+            <q-grid-column type="number"
+                           aggregation="max">
             </q-grid-column>
         </q-grid-columns>
 
@@ -61,7 +65,8 @@
         <q-grid-data-manipulation>
         </q-grid-data-manipulation>
 
-        <q-grid-row canDrag="true" canResize="true"></q-grid-row>
+        <q-grid-row canDrag="true"
+                    canResize="true"></q-grid-row>
         <!-- <q-grid-row unit="details">
                 <ng-template for="details">
                     <q-grid>

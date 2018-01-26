@@ -22,6 +22,7 @@ import { ColumnFilterModel } from 'ng2-qgrid/plugin/column-filter/column.filter.
 import { DataManipulationModel } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.model';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { ReferenceEditorModule } from 'ng2-qgrid/plugins/reference-editor';
+import { EditFormModule } from 'ng2-qgrid/plugins/edit-form';
 
 Model.register('columnChooser', ColumnChooserModel)
 	.register('columnFilter', ColumnFilterModel)
@@ -47,7 +48,8 @@ Model.register('columnChooser', ColumnChooserModel)
 		BackdropModule,
 		SelectModule,
 		LegendModule,
-		ChipsModule
+        ChipsModule,
+        EditFormModule
 	]
 })
 export class PluginModule {}
