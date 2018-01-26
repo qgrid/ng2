@@ -14,6 +14,8 @@ export declare class BodyView extends View {
 
     rows: any[];
 
+    get lastRow(): any;
+
     columns(row: any, pin: string): ColumnView[];
 
     rowspan(row: any, column: ColumnView): number;

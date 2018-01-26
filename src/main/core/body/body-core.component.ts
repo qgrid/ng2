@@ -24,7 +24,7 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 	) {
 		super();
 	}
-
+    
 	ngOnInit() {
 		super.ngOnInit();
 
