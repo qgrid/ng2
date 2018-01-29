@@ -37,9 +37,15 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 		const listener = new EventListener(element, new EventManager(this));
 
 		this.zone.runOutsideAngular(() => {
-			this.using(
-				listener.on('wheel', e => ctrl.onWheel(e))
-			);
+			this.using(listener.on('wheel', e => ctrl.onWheel(e)));
+
+			this.using(listener.on('scroll', () =>
+				ctrl.onScroll({
+					scrollLeft: table.pin ? model.scroll().left : element.scrollLeft,
+					scrollTop: element.scrollTop
+				}),
+				{ passive: true }
+			));
 
 			this.using(listener.on('mousemove', ctrl.onMouseMove.bind(ctrl)));
 			this.using(listener.on('mouseleave', ctrl.onMouseLeave.bind(ctrl)));
