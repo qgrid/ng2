@@ -1,12 +1,30 @@
 @import "mixins";
-
 .q-grid-can-drag {
-	@include user-select(none);
-	@include user-drag(element);
+    @include user-select(none);
+    @include user-drag(element);
 }
 
-&.q-grid-box:not(.q-grid-drag){
-    .q-grid-draggable {
-        cursor: move;
+&.q-grid-box {
+    .q-grid-row-indicator {
+        .q-grid-draggable {
+            cursor: move;
+            opacity: 0;
+            transition: 0.30s;
+            .q-grid-icon {
+                width: 24px;
+                min-width: 24px;
+                min-height: 24px;
+                height: 24px;
+                font-size: 24px;
+                margin-left: 4px;
+            }
+        }
+    }
+    tr.q-grid-highlighted {
+        .q-grid-row-indicator {
+            .q-grid-draggable {
+                opacity: 1;
+            }
+        }
     }
 }

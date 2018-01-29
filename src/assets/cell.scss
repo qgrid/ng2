@@ -99,9 +99,9 @@ tbody {
 		}
 
 		&.q-grid-row-indicator {
-			width: 10px;
-			min-width: 10px;
-			max-width: 10px;
+			width: 16px;
+			min-width: 16px;
+			max-width: 16px;
 			text-overflow: initial;
 		}
 
@@ -128,6 +128,7 @@ tbody {
 			width: 56px;
 			min-width: 56px;
 			max-width: 56px;
+			text-overflow: initial;
 		}
 	}
 }
