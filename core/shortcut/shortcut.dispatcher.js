@@ -1,4 +1,4 @@
-import {flatten, isFunction, yes} from '../utility';
+import { flatten, isFunction, yes } from '../utility';
 
 export class ShortcutDispatcher {
 	constructor() {
@@ -68,12 +68,15 @@ export class ShortcutDispatcher {
 	execute(code, source) {
 		const activities = this.fetchActivities(code, source);
 
-		return activities.reduce((result, activity) => {
+		return activities.reduce((memo, activity) => {
 			const commands = activity.commands;
 			const manager = activity.manager;
-			result = manager.invoke(commands, source) || result;
-			return result;
-		}, false);
+			const result = manager.invoke(commands, source) || result;
+			if (result) {
+				memo.push(...commands.map(cmd => cmd.source));
+			};
+			return memo;
+		}, []);
 	}
 
 	canExecute(code, source) {
@@ -121,7 +124,7 @@ export class ShortcutDispatcher {
 			}
 
 			result = result.concat(context.commands
-				.map(cmd => cmd.clone({shortcut: cmd.shortcut()}))
+				.map(cmd => cmd.clone({ shortcut: cmd.shortcut() }))
 				.filter(cmd => this.test(cmd.shortcut, code)));
 
 			return result;
