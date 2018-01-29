@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NgZone } from '@angular/core';
 import { MainModule } from './main';
 import { ThemeService, TemplateModule } from './template';
 import { TemplateCacheDirective } from './template/template-cache.directive';
@@ -9,6 +9,7 @@ import { ColumnListComponent, ColumnComponent } from './main/column';
 import { PluginModule } from './plugins';
 import { FocusModule } from './common';
 import { RowComponent } from './main/core/row/row.component';
+import { jobLine } from 'ng2-qgrid/core/services/job.line';
 
 @NgModule({
 	declarations: [],
@@ -26,7 +27,13 @@ import { RowComponent } from './main/core/row/row.component';
 	imports: [MainModule, TemplateModule]
 })
 export class GridModule {
-	constructor() {
+	constructor(zone: NgZone) {
 		setup(Model);
+
+		jobLine.run = (job, delay) =>
+			zone.runOutsideAngular(() => setTimeout(job, delay));
+
+		jobLine.clear = cancellationToken =>
+			zone.runOutsideAngular(() => clearTimeout(cancellationToken));
 	}
 }

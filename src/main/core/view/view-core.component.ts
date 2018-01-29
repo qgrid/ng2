@@ -1,8 +1,17 @@
-import { Component, OnDestroy, OnInit, Optional, DoCheck, ViewChild, ElementRef, NgZone } from '@angular/core';
+import {
+	Component,
+	OnDestroy,
+	OnInit,
+	Optional,
+	DoCheck,
+	ViewChild,
+	ElementRef,
+	NgZone,
+	ChangeDetectorRef
+} from '@angular/core';
 import { NgComponent, RootService } from 'ng2-qgrid/infrastructure/component';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
-import { jobLine } from 'ng2-qgrid/core/services';
 import { GridService } from 'ng2-qgrid/main/grid';
 import { CellService } from '../cell';
 import { ViewCoreService } from './view-core.service';
@@ -21,7 +30,8 @@ export class ViewCoreComponent extends NgComponent
 		private root: RootService,
 		private view: ViewCoreService,
 		private gridService: GridService,
-		private zone: NgZone
+		private zone: NgZone,
+		private changeDetector: ChangeDetectorRef
 	) {
 		super();
 	}
@@ -30,10 +40,33 @@ export class ViewCoreComponent extends NgComponent
 		super.ngOnInit();
 
 		const model = this.root.model;
+
+		model.sceneChanged.watch(e => {
+			if (e.hasChanges('status')) {
+				switch (e.state.status) {
+					case 'start': {
+						model.progress({ isBusy: true });
+						break;
+					}
+					case 'stop': {
+						model.progress({ isBusy: false });
+						break;
+					}
+				}
+
+				// Run digest on the start of invalidate(e.g. for busy indicator)
+				// and on the ned of invalidate(e.g. to build the DOM)
+				this.changeDetector.detectChanges();
+			}
+		});
+
+		// Views should be inited after `sceneChanged.watch` declaration
+		// to persiste the right order of event sourcing.
 		this.view.init();
 
 		const gridService = this.gridService.service(model);
 		this.ctrl = new ViewCtrl(model, this.view, gridService);
+
 	}
 
 	ngOnDestroy() {
@@ -65,21 +98,6 @@ export class ViewCoreComponent extends NgComponent
 				rowMonitor.exit();
 				cellMonitor.exit();
 			}
-		}
-	}
-
-	ngAfterViewChecked() {
-		const scene = this.model.scene;
-		if (scene().status === 'start') {
-			scene(
-				{
-					status: 'stop'
-				},
-				{
-					source: 'view-core.component',
-					behavior: 'core'
-				}
-			);
 		}
 	}
 }
