@@ -26,10 +26,6 @@ th.q-grid-can-sort {
 }
 
 th {
-    .q-grid-desc,
-    .q-grid-asc {
-        display: none;
-    }
     .q-grid-sort {
         overflow: hidden;
         text-overflow: ellipsis;
