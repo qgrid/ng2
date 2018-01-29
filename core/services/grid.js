@@ -1,71 +1,82 @@
-import {build as buildPipe} from '../pipe/pipe.build';
-import {Log} from '../infrastructure';
-import {noop} from '../utility';
-import {guid} from './guid';
-import {PersistenceService} from '../persistence/persistence.service';
+import { build as buildPipe } from '../pipe/pipe.build';
+import { Log } from '../infrastructure';
+import { guid } from './guid';
+import { PersistenceService } from '../persistence/persistence.service';
+import { Scheduler } from './scheduler';
+import { Defer } from '../infrastructure/defer';
 
 export class GridService {
-	constructor(model, start = () => noop) {
+	constructor(model) {
 		this.model = model;
-		this.start = start;
-		this.tasks = [];
+		this.scheduler = new Scheduler();
 		this.state = new PersistenceService(model);
 	}
 
 	invalidate(source = 'invalidate', changes = {}, pipe = null) {
-		const queue = this.tasks;
+		const cancelBusy = this.busy();
+		const scheduler = this.scheduler;
+		const model = this.model;
+		const scene = model.scene;
+		const runPipe = buildPipe(model);
+
 		const nextTask = () => {
-			queue.shift();
-			const job = queue[0];
-			if (job) {
-				job();
+			cancelBusy();
+
+			if (!scheduler.next()) {
+				const round = scene().round;
+				scene({ round: round + 1 }, {
+					source,
+					behavior: 'core'
+				});
 			}
 		};
 
-		return new Promise((resolve, reject) => {
-			const task = () => {
-				Log.info('grid', `run job ${source}`);
-				const model = this.model;
-				model.head().cache.clear();
-				model.body().cache.clear();
-				model.foot().cache.clear();
+		const defer = new Defer();
+		const task = () => {
+			Log.info('grid', `start task ${source}`);
 
-				const stop = this.start(source, changes);
-				const busy = this.busy();
-				const run = buildPipe(model);
-				const runNext = () => stop(busy).then(nextTask);
+			scene({ status: 'start', round: 0 }, {
+				source,
+				behavior: 'core'
+			});
 
-				return run(source, changes, pipe)
-					.then(() => {
-						resolve();
-						runNext();
-					})
-					.catch(ex => {
-						Log.error('grid', ex);
+			model.head().cache.clear();
+			model.body().cache.clear();
+			model.foot().cache.clear();
 
-						reject();
-						runNext();
-					});
-			};
+			return runPipe(source, changes, pipe)
+				.then(() => {
+					Log.info('grid', `finish task ${source}`);
 
-			Log.info('grid', `add job ${source}`);
-			queue.push(task);
-			if (queue.length === 1) {
-				task();
-			}
-		});
+					nextTask();
+					defer.resolve();
+				})
+				.catch(ex => {
+					Log.error('grid', ex);
+
+					nextTask();
+					defer.reject();
+				});
+		};
+
+		Log.info('grid', `add task ${source}`);
+		scheduler.add(task);
+
+		return defer.promise;
 	}
 
 	busy() {
 		const id = guid();
 		const progress = this.model.progress;
-		progress({queue: progress().queue.concat([id])});
+		const queue = progress().queue.concat([id]);
+		progress({ queue });
+
 		return () => {
 			const queue = Array.from(progress().queue);
 			const index = queue.indexOf(id);
 			if (index >= 0) {
 				queue.splice(index, 1);
-				progress({queue});
+				progress({ queue });
 			}
 		};
 	}

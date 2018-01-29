@@ -20,6 +20,7 @@ class RowExpandColumnModel extends ColumnModel {
 		this.canResize = false;
 		this.canFilter = false;
 		this.canSort = false;
+		this.canHighlight = false;
 	}
 }
 

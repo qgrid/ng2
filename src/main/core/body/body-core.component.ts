@@ -33,18 +33,12 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 
 		const table = this.$table;
 		const model = this.root.model;
-		const ctrl = new BodyCtrl(model, view, this.root.bag);
+		const ctrl = new BodyCtrl(model, view, this.root.table, this.root.bag);
 		const listener = new EventListener(element, new EventManager(this));
 
 		this.zone.runOutsideAngular(() => {
 			this.using(
-				listener.on('wheel', e =>
-					ctrl.onWheel({
-						deltaY: e.deltaY,
-						scrollHeight: element.scrollHeight,
-						offsetHeight: element.offsetHeight
-					})
-				)
+				listener.on('wheel', e => ctrl.onWheel(e))
 			);
 
 			this.using(listener.on('mousemove', ctrl.onMouseMove.bind(ctrl)));
@@ -53,7 +47,6 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 
 		this.using(listener.on('mousedown', ctrl.onMouseDown.bind(ctrl)));
 		this.using(listener.on('mouseup', ctrl.onMouseUp.bind(ctrl)));
-		this.using(listener.on('click', ctrl.onClick.bind(ctrl)));
 	}
 
 	get selection(): SelectionModel {

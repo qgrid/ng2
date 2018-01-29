@@ -1,12 +1,18 @@
-﻿import {AppError} from '../infrastructure';
-import {isFunction} from '../utility';
+﻿import { AppError, Defer } from '../infrastructure';
+import { isFunction } from '../utility';
 
 export function jobLine(delay) {
 	let timeout = null;
+	let defer = null;
 	const cancel = () => {
 		if (timeout) {
 			clearTimeout(timeout);
 			timeout = null;
+		}
+
+		if (defer) {
+			defer.reject();
+			defer = null;
 		}
 	};
 
@@ -18,9 +24,16 @@ export function jobLine(delay) {
 
 		const doJob = () => {
 			job();
+
+			defer.resolve();
+			clearTimeout(timeout);
+			
+			defer = null;
 			timeout = null;
 		};
 
 		timeout = setTimeout(doJob, delay);
+		defer = new Defer();
+		return defer.promise;
 	};
 }

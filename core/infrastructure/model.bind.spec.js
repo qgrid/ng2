@@ -2,8 +2,6 @@ import {ModelBinder} from './model.bind';
 import {Event} from './event';
 
 describe('ModelBinder', () => {
-	window.ENV = 'dev';
-
 	let model = {
 		test: function (value) {
 			if (value) {

@@ -1,5 +1,5 @@
-import {isArray} from '../../utility';
-import {Node} from '../../node';
+import { isArray } from '../../utility';
+import { Node } from '../../node';
 
 export class SelectionState {
 	constructor(model, service) {
@@ -48,12 +48,25 @@ export class SelectionState {
 		return this.stateCore(item, key);
 	}
 
+	stateAll(items) {
+		const entries = this.entries();
+		if (items.length === entries.length) {
+			return true;
+		}
+
+		return entries.length > 0 ? null : false;
+	}
+
 	keyFactory() {
 		return this.service.hashFactory();
 	}
 
 	clear() {
 		this.clearCore();
+	}
+
+	entries() {
+		return [];
 	}
 
 	selectCore() {

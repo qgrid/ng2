@@ -28,13 +28,13 @@ function readFile(e, file, model, options = {}) {
 			const rows = xlsx.read(data, options);
 			const createColumn = columnFactory(model);
 			const columns = generate({
-				rows: rows,
+				rows,
 				columnFactory: (type, body) => createColumn('text', body),
 				deep: false
 			});
 			model.data({
-				columns: columns,
-				rows: rows
+				columns,
+				rows
 			});
 			break;
 		}
@@ -46,13 +46,13 @@ function readFile(e, file, model, options = {}) {
 			if (rows.length) {
 				const createColumn = columnFactory(model);
 				const columns = generate({
-					rows: rows,
+					rows,
 					columnFactory: (type, body) => createColumn('text', body),
 					deep: true
 				});
 				model.data({
-					columns: columns,
-					rows: rows
+					columns,
+					rows
 				});
 			} else {
 				throw new AppError('import', 'JSON for input should be an array of objects');
@@ -65,13 +65,13 @@ function readFile(e, file, model, options = {}) {
 			const xml = new Xml();
 			const rows = xml.read(data);
 			const columns = generate({
-				rows: rows,
+				rows,
 				columnFactory: columnFactory(model),
 				deep: true
 			});
 			model.data({
-				columns: columns,
-				rows: rows
+				columns,
+				rows
 			});
 			break;
 		}
@@ -90,18 +90,18 @@ function readFile(e, file, model, options = {}) {
 			}
 
 			const columns = generate({
-				rows: rows,
+				rows,
 				columnFactory: columnFactory(model),
 				deep: false,
-				title: title
+				title
 			});
 
 			if (title === firstRowTitle) {
 				rows.shift(0);
 			}
 			model.data({
-				columns: columns,
-				rows: rows
+				columns,
+				rows
 			});
 			break;
 		}

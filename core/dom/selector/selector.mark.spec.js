@@ -4,8 +4,6 @@ import {modelFactory} from '../../test/model.factory';
 import {ColumnModel} from '../../column-type/column.model';
 
 describe('SelectorFactory', () => {
-	window.ENV = 'dev';
-
 	const column1 = new ColumnModel();
 	column1.pin = 'grid';
 	const column2 = new ColumnModel();

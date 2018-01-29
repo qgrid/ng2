@@ -5,7 +5,7 @@ declare const fakeElement: FakeElement;
 export declare class Unit {
 	constructor();
 
-	rect(): object;
+	rect(): ClientRect;
 
 	addClass(name: string): void;
 

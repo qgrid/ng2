@@ -8,7 +8,7 @@ export class PaginationView extends View {
 		Object.keys(triggers)
 			.forEach(name =>
 				this.using(model[name + 'Changed']
-					.watch(e => {
+					.on(e => {
 						if (e.tag.behavior === 'core') {
 							return;
 						}

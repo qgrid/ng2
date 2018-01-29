@@ -22,7 +22,27 @@ export class NavigationView extends View {
 				const cellModel = table.body.cell(cell.rowIndex, cell.columnIndex).model();
 				model.navigation({ cell: cellModel });
 			},
-			canExecute: cell => cell && cell.column.canFocus && !CellView.equals(cell, model.navigation().cell)
+			canExecute: cell => {
+				const currentCell = model.navigation().cell;
+				if (cell && cell.column.canFocus && !CellView.equals(cell, currentCell)) {
+					if (this.model.edit().mode !== 'cell') {
+						switch (this.model.selection().unit) {
+							case 'row':
+							case 'column': {
+								// Focus cell only if it was focused previously by keyboard
+								if (!currentCell) {
+									return false;
+								}
+								break;
+							}
+						}
+					}
+
+					return true;
+				}
+
+				return false;
+			}
 		});
 
 		this.scrollTo = new Command({
@@ -89,8 +109,8 @@ export class NavigationView extends View {
 		const column = navState.columnIndex;
 		const cell = this.table.body.cell(row, column);
 		if (cell.model()) {
-			cell.addClass(`${GRID_PREFIX}-focus`);
-			dispose.push(() => cell.removeClass(`${GRID_PREFIX}-focus`));
+			cell.addClass(`${GRID_PREFIX}-focused`);
+			dispose.push(() => cell.removeClass(`${GRID_PREFIX}-focused`));
 		}
 
 		return dispose;
@@ -114,7 +134,6 @@ export class NavigationView extends View {
 				else if (vr.left < tr.left || vr.right < tr.right) {
 					newScrollState.left = tr.right - vr.right + oldScrollState.left;
 				}
-
 			}
 		}
 
@@ -130,7 +149,6 @@ export class NavigationView extends View {
 				else if (vr.top < tr.top || vr.bottom < tr.bottom) {
 					newScrollState.top = tr.bottom - vr.bottom + oldScrollState.top;
 				}
-
 			}
 		}
 

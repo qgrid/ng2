@@ -35,6 +35,10 @@ export class ViewCtrl extends View {
 		let sessionUnits = [];
 
 		return (name, changes, units) => {
+			model.scene({ status: 'start', round: 0 }, {
+				source: name
+			});
+
 			sessionUnits.push(...units);
 			job(() => {
 				const jobUnits = reduce(sessionUnits, model);
@@ -80,7 +84,7 @@ export class ViewCtrl extends View {
 			if (e.hasChanges('round')) {
 				Log.info(e.tag.source, `scene ${e.state.round}`);
 
-				if (e.state.status === 'start') {
+				if (e.state.round > 0 && e.state.status === 'start') {
 					sceneJob(() => {
 						Log.info(e.tag.source, 'scene stop');
 

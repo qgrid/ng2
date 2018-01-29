@@ -6,9 +6,7 @@ import { IPipe } from '../pipe/pipe.item';
  * > Under Construction.
  */
 export declare class GridService {
-    constructor(model: Model, apply: INoopResult);
-
-    apply: INoopResult;
+    constructor(model: Model);
 
     invalidate(source?: string, changes?: object, pipe?: IPipe[]): Promise<any>;
 
