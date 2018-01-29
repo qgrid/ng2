@@ -1,3 +1,4 @@
+@import "variables";
 ul.q-grid-legend-list {
 	list-style-type: none;
 	padding: 0;
@@ -5,7 +6,7 @@ ul.q-grid-legend-list {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	color: rgba(0, 0, 0, 0.87);
+	color: $dark;
 	font-size: 13px;
 
 	li {

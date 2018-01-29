@@ -7,9 +7,29 @@ th.q-grid-can-sort {
     label {
         cursor: pointer;
     }
+    .q-grid-desc,
+    .q-grid-asc {
+        display: block;
+    }
+}
+
+&.q-grid-box:not(.q-grid-drag) {
+    th {
+        .q-grid-sort {
+            &:not(.q-grid-active):hover {
+                .q-grid-desc {
+                    opacity: 1;
+                }
+            }
+        }
+    }
 }
 
 th {
+    .q-grid-desc,
+    .q-grid-asc {
+        display: none;
+    }
     .q-grid-sort {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -27,7 +47,8 @@ th {
             }
         }
         .q-grid-icon {
-            display: none;
+            transition: opacity 0.30s;
+            opacity: 0;
             position: absolute;
             margin-left: -16px;
             color: $dark-secondary;
@@ -38,17 +59,12 @@ th {
             min-width: 16px;
             vertical-align: middle;
             &.q-grid-active {
-                display: block;
-            }
-        }
-        &:not(.q-grid-active):hover {
-            .q-grid-desc {
-                display: block;
+                opacity: 1;
             }
         }
         &.q-grid-hide {
             .q-grid-icon {
-                display: none !important;
+                opacity: 0 !important;
             }
         }
     }

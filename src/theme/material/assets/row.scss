@@ -1,12 +1,23 @@
+@import "variables";
 tbody {
-	tr {
-		height: 48px;
-	}
+    tr {
+        height: 48px;
+    }
+}
+
+tfoot,
+tbody {
+    tr {
+        border-top: 1px solid $dark-divider;
+    }
+    tr:nth-child(2) {
+        border-top: 0;
+    }
 }
 
 thead,
 tfoot {
-	tr {
-		height: 56px;
-	}
+    tr {
+        height: 56px;
+    }
 }

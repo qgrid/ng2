@@ -1,6 +1,13 @@
 td,
 th {
-	&.q-grid-row-indicator {
-		padding: 0 !important;
-	}
+    &.q-grid-row-indicator {
+        padding: 0 !important;
+        .q-grid-icon {
+            font-size: 16px;
+            width: 16px;
+            min-width: 16px;
+            height: 16px;
+            min-height: 16px;
+        }
+    }
 }
