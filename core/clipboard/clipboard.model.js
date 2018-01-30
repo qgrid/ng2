@@ -1,6 +1,4 @@
 import {Resource} from '../resource';
-import {identity} from '../utility';
-import {Command} from '../command';
 
 export class ClipboardModel {
 	constructor() {

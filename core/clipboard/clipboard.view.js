@@ -58,102 +58,102 @@ export class ClipboardView extends View {
 	}
 
 	handleColumn(columns) {
-	let dataModel = model.data();
-	let rows = dataModel.rows;
-	let accumulator = [];
+		let dataModel = model.data();
+		let rows = dataModel.rows;
+		let accumulator = [];
 
-	for(let i = 0; i < columns.length; i++) {
-		let column = columns[i];
-		let factory = getFactory(column);
-		let cells = rows.map(row => factory(row));
+		for (let i = 0; i < columns.length; i++) {
+			let column = columns[i];
+			let factory = getFactory(column);
+			let cells = rows.map(row => factory(row));
 
-		if(accumulator.length === 0) {
-			cells.forEach(() => accumulator.push([]));
+			if (accumulator.length === 0) {
+				cells.forEach(() => accumulator.push([]));
+			}
+			for (let j = 0; j < cells.length; j++) {
+				accumulator[j][i] = cells[j];
+			}
+			debugger;
 		}
-		for(let j = 0; j < cells.length; j++) {
-			accumulator[j][i] = cells[j];
-		}
-		debugger;
+		return accumulator;
 	}
-	return accumulator;
-}
 
 	handleCell(items) {
-	let accumulator = [];
-	let collection = [];
-	let cells = [];
+		let accumulator = [];
+		let collection = [];
+		let cells = [];
 
-	for(let i = 0; i < items.length; i++) {
-		const item = items[i];
-		const column = item.column;
-		const row = item.row;
-		const key = column.key;
+		for (let i = 0; i < items.length; i++) {
+			const item = items[i];
+			const column = item.column;
+			const row = item.row;
+			const key = column.key;
 
-		if (collection.indexOf(key) === -1) {
-			const value = get(row, column);
-			cells.push(value);
-			collection.push(key);
-		} else {
-			accumulator.push(cells);
-			cells = [];
-			collection = [];
-			const value = get(row, column);
-			cells.push(value);
-			collection.push(key);
+			if (collection.indexOf(key) === -1) {
+				const value = get(row, column);
+				cells.push(value);
+				collection.push(key);
+			} else {
+				accumulator.push(cells);
+				cells = [];
+				collection = [];
+				const value = get(row, column);
+				cells.push(value);
+				collection.push(key);
+			}
 		}
+
+		accumulator.push(cells);
+
+		return accumulator;
 	}
 
-	accumulator.push(cells);
-
-	return accumulator;
-}
-
 	handleRow(items) {
-	const accumulator = [];
+		const accumulator = [];
 
-	for (let i = 0; i < items.length; i++) {
-		let item = items[i];
-		let values = Object.values(item);
+		for (let i = 0; i < items.length; i++) {
+			let item = items[i];
+			let values = Object.values(item);
 
-		let collection = [];
+			let collection = [];
 
-		for (let t = 0; t < values.length; t++) {
-			let item = values[t];
-			extractData(item);
+			for (let t = 0; t < values.length; t++) {
+				let item = values[t];
+				extractData(item);
 
-			function extractData(item) {
-				let type = getType(item);
+				function extractData(item) {
+					let type = getType(item);
 
-				switch (type) {
-					case 'Object': {
-						let entity = item;
-						let values = Object.values(entity);
+					switch (type) {
+						case 'Object': {
+							let entity = item;
+							let values = Object.values(entity);
 
-						for (let j = 0; j < values.length; j++) {
-							let val = values[j];
-							getType(val) === 'Object'? extractData(val) : getType(val) === 'Array'? extractData(val) : collection.push(val);
+							for (let j = 0; j < values.length; j++) {
+								let val = values[j];
+								getType(val) === 'Object' ? extractData(val) : getType(val) === 'Array' ? extractData(val) : collection.push(val);
+							}
+							break;
 						}
-						break;
-					}
-					case 'String': {
-						collection.push(item);
-						break;
-					}
-					case 'Array': {
-						let str = item.join(', ');
-						collection.push(str);
-						break;
+						case 'String': {
+							collection.push(item);
+							break;
+						}
+						case 'Array': {
+							let str = item.join(', ');
+							collection.push(str);
+							break;
+						}
+
 					}
 
 				}
-
 			}
+			accumulator.push(collection);
 		}
-		accumulator.push(collection);
-	}
 
-	return accumulator;
-}
+		return accumulator;
+	}
 
 	buildTable(data) {
 		const table = document.createElement('table');
