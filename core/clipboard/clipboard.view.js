@@ -58,7 +58,7 @@ export class ClipboardView extends View {
 	}
 
 	handleColumn(columns) {
-		const dataModel = model.data();
+		const dataModel = this.model.data();
 		const rows = dataModel.rows;
 		const accumulator = [];
 
@@ -70,6 +70,7 @@ export class ClipboardView extends View {
 			if (accumulator.length === 0) {
 				cells.forEach(() => accumulator.push([]));
 			}
+
 			for (let j = 0; j < cells.length; j++) {
 				accumulator[j][i] = cells[j];
 			}
