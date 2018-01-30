@@ -17,14 +17,14 @@ export class ClipboardView extends View {
 
 	get commands() {
 		const model = this.model;
+		const selection = model.selection();
 		const shortcut = model.clipboard().shortcut;
 
 		const commands = {
 			copy: new Command({
 				source: 'clipboard.view',
-				canExecute: () => model.selection().items.length > 0,
+				canExecute: () => selection.items.length > 0,
 				execute: () => {
-					const selection = model.selection();
 					const unit = selection.unit;
 					let items = selection.items;
 
@@ -58,14 +58,14 @@ export class ClipboardView extends View {
 	}
 
 	handleColumn(columns) {
-		let dataModel = model.data();
-		let rows = dataModel.rows;
-		let accumulator = [];
+		const dataModel = model.data();
+		const rows = dataModel.rows;
+		const accumulator = [];
 
 		for (let i = 0; i < columns.length; i++) {
-			let column = columns[i];
-			let factory = getFactory(column);
-			let cells = rows.map(row => factory(row));
+			const column = columns[i];
+			const factory = getFactory(column);
+			const cells = rows.map(row => factory(row));
 
 			if (accumulator.length === 0) {
 				cells.forEach(() => accumulator.push([]));
@@ -73,13 +73,12 @@ export class ClipboardView extends View {
 			for (let j = 0; j < cells.length; j++) {
 				accumulator[j][i] = cells[j];
 			}
-			debugger;
 		}
 		return accumulator;
 	}
 
 	handleCell(items) {
-		let accumulator = [];
+		const accumulator = [];
 		let collection = [];
 		let cells = [];
 
@@ -112,25 +111,24 @@ export class ClipboardView extends View {
 		const accumulator = [];
 
 		for (let i = 0; i < items.length; i++) {
-			let item = items[i];
-			let values = Object.values(item);
-
-			let collection = [];
+			const item = items[i];
+			const values = Object.values(item);
+			const collection = [];
 
 			for (let t = 0; t < values.length; t++) {
-				let item = values[t];
+				const item = values[t];
 				extractData(item);
 
 				function extractData(item) {
-					let type = getType(item);
+					const type = getType(item);
 
 					switch (type) {
 						case 'Object': {
-							let entity = item;
-							let values = Object.values(entity);
+							const entity = item;
+							const values = Object.values(entity);
 
 							for (let j = 0; j < values.length; j++) {
-								let val = values[j];
+								const val = values[j];
 								getType(val) === 'Object' ? extractData(val) : getType(val) === 'Array' ? extractData(val) : collection.push(val);
 							}
 							break;
@@ -140,7 +138,7 @@ export class ClipboardView extends View {
 							break;
 						}
 						case 'Array': {
-							let str = item.join(', ');
+							const str = item.join(', ');
 							collection.push(str);
 							break;
 						}
@@ -197,6 +195,7 @@ export class ClipboardView extends View {
 			range.execCommand('copy');
 		}
 		const table = document.querySelector('.generatedTable');
+
 		table.remove();
 	}
 }
