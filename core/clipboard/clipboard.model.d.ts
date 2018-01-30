@@ -1,11 +1,7 @@
 import { Resource } from '../resource/resource';
 
-export declare class SelectionModel {
+export declare class ClipboardModel {
 	constructor();
-
 	resource: Resource;
-
-	area: string;
-
-	items: any[];
+	shortcut: any;
 }
