@@ -1,4 +1,4 @@
-import {View} from '../view';
+import { View } from '../view';
 
 export class PaginationView extends View {
 	constructor(model) {
@@ -8,7 +8,7 @@ export class PaginationView extends View {
 		Object.keys(triggers)
 			.forEach(name =>
 				this.using(model[name + 'Changed']
-					.watch(e => {
+					.on(e => {
 						if (e.tag.behavior === 'core') {
 							return;
 						}
@@ -16,11 +16,7 @@ export class PaginationView extends View {
 						const trigger = triggers[name];
 						for (const key of trigger) {
 							if (e.hasChanges(key)) {
-								model.pagination({
-									current: 0
-								}, {
-										source: 'pagination.view'
-									});
+								model.pagination({ current: 0 }, { source: 'pagination.view' });
 							}
 						}
 					})));

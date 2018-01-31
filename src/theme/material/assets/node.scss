@@ -1,3 +1,4 @@
+@import "variables";
 td.q-grid-group,
 td.q-grid-row-expand {
 	button {
@@ -18,7 +19,7 @@ td.q-grid-row-expand {
 	}
 	.q-grid-group-count {
 		vertical-align: middle;
-		color: rgba(0, 0, 0, 0.54);
+		color: $dark-secondary;
 	}
 }
 

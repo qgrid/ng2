@@ -4,13 +4,7 @@ import {modelFactory} from '../test/model.factory';
 import {GridService} from '../services/grid';
 import {GroupColumnModel} from '../column-type/group.column';
 
-
 describe('Group View', () => {
-
-	window.ENV = {
-		PRODUCTION: false
-	};
-
 	let node;
 	let table = {
 		data: {

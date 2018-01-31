@@ -1,19 +1,10 @@
-import {ColumnModel} from '../../column-type/column.model';
-
-export interface ICellModel {
-	rowIndex: number;
-	columnIndex: number;
-	column: ColumnModel;
-	row: any;
-	value: any;
-	label: any;
-}
+import { ColumnModel } from '../../column-type/column.model';
 
 export declare class CellView {
-	constructor(model: ICellModel);
-
 	value: any;
 	label: any;
+	column: ColumnModel;
+	row: any;
 
 	mode(value: string): void;
 }

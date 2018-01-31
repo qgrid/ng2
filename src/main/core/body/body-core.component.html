@@ -3,6 +3,11 @@
             style="display: table-cell">
 </colgroup>
 
+<tr class="q-grid-align">
+	<td *ngFor="let $column of $view.body.render.defaultStrategy.columnList($table.pin); trackBy: columnId"
+		 [q-grid-core-td-align]="$column">
+	</td>
+</tr> 
 <tr *ngFor="let $row of $view.body.rows; index as $rowIndex; trackBy: rowId"
 	 [q-grid-core-tr]="$row"
      [q-grid-core-index]="$rowIndex"

@@ -12,7 +12,7 @@ export function viewPipe(memo, context, next) {
 	};
 
 	model.view({
-		rows: rows,
+		rows,
 		columns: columnLine.map(c => c.model),
 		nodes: memo.nodes,
 		pivot: memo.pivot

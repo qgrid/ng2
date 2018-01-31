@@ -22,7 +22,7 @@ export class ColumnModel {
 		this.path = null;
 		this.labelPath = null;
 
-        this.type = type;
+		this.type = type;
 		this.title = null;
 		this.pin = null;
 		this.origin = 'specific';
@@ -57,8 +57,8 @@ export class ColumnModel {
 		this.index = -1;
 
 		this.value = null;
-        this.label = null;
-        
+		this.label = null;
+		
 		this.compare = compare;
 
 		this.$label = null;

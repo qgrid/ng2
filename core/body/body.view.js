@@ -13,6 +13,8 @@ export class BodyView extends View {
 		this.render = new Renderer(model);
 		this.valueCache = new Map();
 		this.labelCache = new Map();
+		this.valueFactory = valueFactory;
+		this.labelFactory = labelFactory;
 
 		this.invalidate();
 

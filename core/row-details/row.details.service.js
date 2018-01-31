@@ -1,7 +1,7 @@
-import {RowDetails} from './row.details';
-import {RowDetailsStatus} from './row.details.status';
-import {AppError} from '../infrastructure';
-import {columnFactory} from '../column/column.factory';
+import { RowDetails } from './row.details';
+import { RowDetailsStatus } from './row.details.status';
+import { AppError } from '../infrastructure';
+import { columnFactory } from '../column/column.factory';
 
 export function flatView(model, mode) {
 	const result = [];
@@ -29,17 +29,7 @@ export function flatView(model, mode) {
 	return result;
 }
 
-export function invalidateStatus(rows, status) {
-	return new Map(Array
-		.from(status.entries())
-		.filter(entry => {
-			const row = entry[0];
-			const status = entry[1];
-			return rows.indexOf(row) >= 0 || !(status instanceof RowDetailsStatus);
-		}));
-}
-
-export function toggleStatus(rows, status, mode = 'single') {
+export function invalidateStatus(rows, status, mode) {
 	switch (mode) {
 		case 'all':
 			status = new Map(status.entries());
@@ -50,7 +40,13 @@ export function toggleStatus(rows, status, mode = 'single') {
 			});
 			break;
 		case 'single':
-			status = invalidateStatus(rows, status);
+			status = new Map(Array
+				.from(status.entries())
+				.filter(entry => {
+					const row = entry[0];
+					const status = entry[1];
+					return rows.indexOf(row) >= 0 || !(status instanceof RowDetailsStatus);
+				}));
 			break;
 		case 'multiple':
 			status = new Map(status.entries());
@@ -59,14 +55,21 @@ export function toggleStatus(rows, status, mode = 'single') {
 			throw new AppError('row.details.service', `Invalid mode ${mode}`);
 	}
 
-	rows.forEach(row => {
-		const state = status.get(row);
-		if (!state) {
-			status.set(row, new RowDetailsStatus(true));
-		} else {
-			state.expand = !state.expand;
-		}
-	});
+	return status;
+}
+
+export function toggleStatus(rows, status, mode = 'single') {
+	status = invalidateStatus(rows, status, mode);
+	if (mode !== 'all') {
+		rows.forEach(row => {
+			const state = status.get(row);
+			if (!state) {
+				status.set(row, new RowDetailsStatus(true));
+			} else {
+				state.expand = !state.expand;
+			}
+		});
+	}
 
 	return status;
 }
