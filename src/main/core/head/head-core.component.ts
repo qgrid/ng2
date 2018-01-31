@@ -22,6 +22,18 @@ export class HeadCoreComponent extends NgComponent implements OnInit {
 	) {
 		super();
 	}
+
+	private getColStyle(){
+		let colStyle = {
+			'background-color':'rgb(243, 243, 243)'
+		}
+
+		// if (false) {
+		// 	colStyle['width'] = '??px';
+		// }
+
+		return colStyle;
+	}
     
 	ngOnInit() {
 		const element = this.element.nativeElement;

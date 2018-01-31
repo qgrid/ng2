@@ -24,6 +24,16 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 	) {
 		super();
 	}
+
+	private getColStyle(){
+		let colStyle = {};
+
+		// if (false) {
+		// 	colStyle['width'] = '??px';
+		// }
+
+		return colStyle;
+	}
     
 	ngOnInit() {
 		super.ngOnInit();
