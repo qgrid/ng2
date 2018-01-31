@@ -1,30 +1,20 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
-import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
-import { RootService } from 'ng2-qgrid/infrastructure/component';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { TdCtrl } from 'ng2-qgrid/core/cell/td.ctrl';
+import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 
 const classify = TdCtrl.classify;
 
 @Directive({
-	selector: '[q-grid-core-align-td]',
+	selector: '[q-grid-core-td-align]',
 })
 export class TdCoreAlignDirective implements OnInit {
-	@Input('q-grid-core-column-index') columnIndex: number;
-	element: HTMLElement;
+	@Input('q-grid-core-td-align') public columnView: ColumnView;
 
-	constructor(private root: RootService,
-		element: ElementRef) {
-
-		this.element = element.nativeElement;
+	constructor(private element: ElementRef) {
 	}
 
 	ngOnInit() {
-		classify(this.element, this.column);
-	}
-
-	get column() {
-		const columns = this.root.table.data.columns();
-		return columns[this.columnIndex];
+		classify(this.element.nativeElement, this.columnView.model);
 	}
 }
