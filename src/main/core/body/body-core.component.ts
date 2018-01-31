@@ -25,12 +25,11 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 		super();
 	}
 
-	private getColStyle(){
-		let colStyle = {};
-
-		// if (false) {
-		// 	colStyle['width'] = '??px';
-		// }
+	private getColStyle(columnView){
+		let colStyle = {
+			'background-color':'rgb(243, 243, 243)',
+			'width': columnView.model.width
+		}
 
 		return colStyle;
 	}

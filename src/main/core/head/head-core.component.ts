@@ -23,14 +23,11 @@ export class HeadCoreComponent extends NgComponent implements OnInit {
 		super();
 	}
 
-	private getColStyle(){
+	private getColStyle(columnView){
 		let colStyle = {
-			'background-color':'rgb(243, 243, 243)'
+			'background-color':'rgb(243, 243, 243)',
+			'width': columnView.model.width
 		}
-
-		// if (false) {
-		// 	colStyle['width'] = '??px';
-		// }
 
 		return colStyle;
 	}
