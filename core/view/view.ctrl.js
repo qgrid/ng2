@@ -50,7 +50,6 @@ export class ViewCtrl extends View {
 	}
 
 	watch(service) {
-		const sceneJob = jobLine(10);
 		const triggerJob = this.triggerLine(service, 10);
 
 		const model = this.model;
@@ -79,25 +78,5 @@ export class ViewCtrl extends View {
 							triggerJob(e.tag.source || name, e.changes, units);
 						}
 					})));
-
-		model.sceneChanged.watch(e => {
-			if (e.hasChanges('round')) {
-				Log.info(e.tag.source, `scene ${e.state.round}`);
-
-				if (e.state.round > 0 && e.state.status === 'start') {
-					sceneJob(() => {
-						Log.info(e.tag.source, 'scene stop');
-
-						model.scene({
-							round: 0,
-							status: 'stop'
-						}, {
-							source: 'view.ctrl',
-							behavior: 'core'
-						});
-					});
-				}
-			}
-		});
 	}
 }
