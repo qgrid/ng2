@@ -17,8 +17,8 @@
 	opacity: 0;
 	transition: opacity 0.3s;
 	&.q-grid-active {
+		opacity: 1;
 		.q-grid-icon {
-			opacity: 1;
 			color: $dark;
 		}
 		&+label {
@@ -50,7 +50,7 @@
 	}
 }
 
-@at-root .q-grid-column-filter {
+@at-root .q-grid-column-filter.q-grid-menu {
 	width: 360px;
 	min-width: 360px;
 	max-width: 360px;

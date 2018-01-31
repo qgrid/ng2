@@ -1,6 +1,7 @@
-@at-root .q-grid-column-chooser {
-    width: 300px;
-    max-width: 300px;
+@at-root .q-grid-column-chooser.q-grid-menu {
+    width: 360px;
+    max-width: 360px;
+    min-width: 360px;
     ul {
         list-style-type: none;
         padding: 0;
@@ -12,8 +13,5 @@
         margin: 0;
         overflow-y: auto;
         height: 280px;
-        md-input-container {
-            margin: 0;
-        }
     }
 }
