@@ -29,25 +29,19 @@ $custom-theme: mat-light-theme($custom-primary, $custom-accent);
                 tr {
                     height: 30px !important;
                 }
-                thead {
-                    th {
-                        font-size: 12px !important;
-                        color: #006f8f !important;
-                        text-align: left;
+                th {
+                    font-size: 12px !important;
+                    color: #006f8f !important;
+                    font-weight: normal !important;
+                    line-height: 12px;
+                    &:hover label {
                         font-weight: normal !important;
-                        &:hover label {
-                            font-weight: normal !important;
-                        }
                     }
                 }
-                tbody {
-                    td {
-                        font-size: 16px;
-                        font-weight: normal;
-                        button {
-                            height: 29px;
-                        }
-                    }
+                td {
+                    font-size: 16px;
+                    line-height: 16px;
+                    font-weight: normal;
                 }
             }
             &-legend {

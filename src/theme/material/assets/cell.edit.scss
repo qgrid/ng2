@@ -10,7 +10,7 @@
 	border: none;
 	background: transparent;
 	padding: 0;
-	margin: auto;
+	margin: auto 0;
 	top: 0;
 	bottom: 0;
 
@@ -21,6 +21,7 @@
 		width: 16px;
 		min-height: 16px;
 		min-width: 16px;
+		line-height: 16px;
 		display: block;
 	}
 }
