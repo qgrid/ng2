@@ -3,7 +3,7 @@ import {columnFactory} from '../column/column.factory';
 
 const createColumn = columnFactory({columnList: () => ({columns: [], reference: {}})});
 const generate = (rows) => {
-	return rows ? doGenerate({rows: rows, columnFactory: createColumn}) : doGenerate({columnFactory: createColumn});
+	return rows ? doGenerate({rows, columnFactory: createColumn}) : doGenerate({columnFactory: createColumn});
 };
 
 describe('column generate', () => {

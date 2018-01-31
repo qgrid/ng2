@@ -2,22 +2,14 @@
 td {
     color: $dark;
     font-size: 13px;
-    border-top: 1px solid $dark-divider;
     padding: 0 16px;
     font-size: 13px;
-}
-
-tr:first-child {
-    td {
-        border-top: none;
-    }
 }
 
 tfoot {
     td {
         color: rgb(0, 127, 163) !important;
         background-color: rgba(0, 0, 0, 0.04) !important;
-        border-top: 1px $dark-divider solid;
     }
 }
 

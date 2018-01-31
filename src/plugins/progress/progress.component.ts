@@ -1,17 +1,24 @@
-import { Component, Optional } from '@angular/core';
+import { Component, Optional, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Command } from 'ng2-qgrid/core/command';
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component';
 
 @Component({
 	selector: 'q-grid-progress',
-	templateUrl: './progress.component.html'
+	templateUrl: './progress.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProgressComponent extends PluginComponent {
-	constructor( @Optional() root: RootService) {
+	constructor( @Optional() root: RootService, private changeDetector: ChangeDetectorRef) {
 		super(root);
 
 		this.models = ['progress'];
+	}
+
+	ngOnInit() {
+		this.model.progressChanged.watch(() => { 
+			this.changeDetector.detectChanges(); 
+		});
 	}
 
 	get isBusy() {

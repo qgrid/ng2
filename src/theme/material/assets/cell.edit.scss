@@ -10,7 +10,7 @@
 	border: none;
 	background: transparent;
 	padding: 0;
-	margin: auto;
+	margin: auto 0;
 	top: 0;
 	bottom: 0;
 
@@ -20,15 +20,14 @@
 		height: 16px;
 		width: 16px;
 		min-height: 16px;
-        min-width: 16px;
-        display: block;
+		min-width: 16px;
+		line-height: 16px;
+		display: block;
 	}
 }
 
 td.q-grid-edit {
 	overflow: visible !important;
-	outline: 2px solid rgba(63, 81, 181, 0.5) !important;
-	outline-offset: -2px;
 
 	.q-grid-editor {
 		display: block;
@@ -44,15 +43,15 @@ td.q-grid-edit {
 		-webkit-flex-direction: column;
 		flex-direction: column;
 		box-sizing: content-box;
-		z-index: 1;
+		z-index: 2;
 		padding: 24px;
 	}
 
 	.q-grid-actions {
 		button {
 			margin: 8px 0 0 8px;
-            float: right;
-            text-transform: uppercase;
+			float: right;
+			text-transform: uppercase;
 		}
 	}
 	.q-grid-position {

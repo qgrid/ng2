@@ -1,12 +1,7 @@
 @import "variables";
 
 $border: 1px solid $dark-divider;
-thead {
-	tr:last-child {
-		th.q-grid-pivot {
-			border-bottom: $border;
-		}
-	}
+thead {	
 	th.q-grid-pivot {
 		border-top: $border;
 		border-left: $border;

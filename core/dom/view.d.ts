@@ -1,8 +1,8 @@
-import {IRect} from './fake/element';
-import {Unit} from './unit';
-import {IContext} from './box';
-import {ColumnView} from '../scene/view/column.view';
-import {Model} from '../infrastructure/model';
+import { IRect } from './fake/element';
+import { Unit } from './unit';
+import { IContext } from './box';
+import { ColumnView } from '../scene/view/column.view';
+import { Model } from '../infrastructure/model';
 
 export declare interface IFunc {
 	(e: any): void;
@@ -30,4 +30,8 @@ export declare class View extends Unit {
 	canScrollTo(element: Element, direction: string): boolean;
 
 	rect(area?: string): IRect;
+
+	width(area?: string): number;
+	
+	height(area?: string): number;
 }

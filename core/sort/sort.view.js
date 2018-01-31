@@ -54,7 +54,7 @@ export class SortView extends View {
 					order(by);
 				}
 
-				sort({by: by}, {source: 'sort.view'});
+				sort({by}, {source: 'sort.view'});
 			}
 		});
 

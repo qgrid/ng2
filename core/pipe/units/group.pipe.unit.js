@@ -10,8 +10,8 @@ export const groupPipeUnit = [
 		const model = context.model;
 		const nodes = model.view().nodes;
 		const rows = flatView(nodes);
-		model.view({rows: rows}, tag);
-		model.scene({rows: rows}, tag);
+		model.view({rows}, tag);
+		model.scene({rows}, tag);
 
 		next(memo);
 	}

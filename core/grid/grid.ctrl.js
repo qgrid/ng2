@@ -43,22 +43,25 @@ export class GridCtrl extends View {
 		}));
 	}
 
-
 	keyDown(e, source = 'grid') {
 		const shortcut = this.model.action().shortcut;
-		if (shortcut.keyDown(e, source)) {
+		const result = shortcut.keyDown(e, source);
+		if (result.length > 0) {
 			e.preventDefault();
 			e.stopPropagation();
-			return;
+			return result;
 		}
 
 		if (e.target.tagName === 'TBODY') {
 			const code = Shortcut.translate(e);
-			if (code === 'space' || code === 'shift+space') {
+			const prevent = this.model.navigation().prevent;
+			if (prevent.has(code)) {
 				e.preventDefault();
+				e.stopPropagation();
 			}
-			return;
 		}
+
+		return result;
 	}
 
 	invalidateVisibility() {

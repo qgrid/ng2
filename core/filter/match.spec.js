@@ -32,13 +32,13 @@ describe('Match', () => {
 		},
 		data: () => {
 			return {
-				columns: columns
-			}
+				columns
+			};
 		}
 	};
 
 	let context = {
-		model: model,
+		model,
 		valueFactory: value => value => value,
 		labelFactory: value => value => value,
 	};
