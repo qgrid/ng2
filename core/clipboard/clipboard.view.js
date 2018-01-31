@@ -62,7 +62,7 @@ export class ClipboardView extends View {
 		const rows = dataModel.rows;
 		const accumulator = [];
 
-		for (let i = 0; i < columns.length; i++) {
+		for (let i = 0, max = columns.length; i < max; i++) {
 			const column = columns[i];
 			const factory = getFactory(column);
 			const cells = rows.map(row => factory(row));
@@ -71,7 +71,7 @@ export class ClipboardView extends View {
 				cells.forEach(() => accumulator.push([]));
 			}
 
-			for (let j = 0; j < cells.length; j++) {
+			for (let j = 0, max = cells.length; j < max; j++) {
 				accumulator[j][i] = cells[j];
 			}
 		}
@@ -83,7 +83,7 @@ export class ClipboardView extends View {
 		let collection = [];
 		let cells = [];
 
-		for (let i = 0; i < items.length; i++) {
+		for (let i = 0, max = items.length; i < max; i++) {
 			const item = items[i];
 			const column = item.column;
 			const row = item.row;
@@ -111,12 +111,12 @@ export class ClipboardView extends View {
 	handleRow(items) {
 		const accumulator = [];
 
-		for (let i = 0; i < items.length; i++) {
+		for (let i = 0, max = items.length; i < max; i++) {
 			const item = items[i];
 			const values = Object.values(item);
 			const collection = [];
 
-			for (let t = 0; t < values.length; t++) {
+			for (let t = 0, max = values.length; t < max; t++) {
 				const item = values[t];
 				extractData(item);
 
@@ -128,7 +128,7 @@ export class ClipboardView extends View {
 							const entity = item;
 							const values = Object.values(entity);
 
-							for (let j = 0; j < values.length; j++) {
+							for (let j = 0, max = values.length; j < max; j++) {
 								const val = values[j];
 								getType(val) === 'Object' ? extractData(val) : getType(val) === 'Array' ? extractData(val) : collection.push(val);
 							}
