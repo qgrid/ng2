@@ -107,7 +107,7 @@ describe('Shortcut', () => {
 	describe('factory/register/keyDown', () => {
 		it('should return true if shortcut was registered and executed', () => {
 			shortcut.register(manager,cmds);
-			let executeResult = shortcut.keyDown(shiftCtrl);
+			let executeResult = shortcut.keyDown(shiftCtrl).length > 0;
 			expect(executeResult).to.equal(true);
 		});
 	});

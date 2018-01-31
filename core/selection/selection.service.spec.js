@@ -31,8 +31,8 @@ describe('selection service', () => {
 
 		model
 			.data({
-				rows: rows,
-				columns: columns
+				rows,
+				columns
 			});
 	});
 

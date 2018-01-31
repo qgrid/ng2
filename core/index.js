@@ -33,6 +33,7 @@ import {ActionModel} from './action';
 import {FetchModel} from './fetch';
 import {PersistenceModel} from './persistence';
 import {ValidationModel} from './validation';
+import {TemplateModel} from './template';
 
 export function setup(model) {
 	model.register('grid', GridModel)
@@ -69,5 +70,6 @@ export function setup(model) {
 		.register('action', ActionModel)
 		.register('fetch', FetchModel)
 		.register('persistence', PersistenceModel)
-		.register('validation', ValidationModel);
+		.register('validation', ValidationModel)
+		.register('template', TemplateModel);
 }

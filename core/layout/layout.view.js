@@ -2,7 +2,7 @@ import { View } from '../view';
 import * as css from '../services/css';
 import * as columnService from '../column/column.service';
 import { clone } from '../utility';
-import { Log, Composite } from '../infrastructure';
+import { Log } from '../infrastructure';
 
 export class LayoutView extends View {
 	constructor(model, table, service) {

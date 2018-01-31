@@ -1,11 +1,11 @@
-import {View} from '../view';
-import {Command} from '../command';
+import { View } from '../view';
+import { Command } from '../command';
 import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
-import {CellSelector} from '../cell';
-import {SelectionService} from '../selection';
-import {noop} from '../utility';
-import {GRID_PREFIX} from '../definition';
+import { CellSelector } from '../cell';
+import { SelectionService } from '../selection';
+import { noop } from '../utility';
+import { GRID_PREFIX } from '../definition';
 
 export class HighlightView extends View {
 	constructor(model, table) {
@@ -22,65 +22,57 @@ export class HighlightView extends View {
 		let selectionBlurs = [];
 
 		this.column = new Command({
-			source: 'highlight.view',			
-			canExecute: () => !model.drag().isActive,
+			source: 'highlight.view',
+			canExecute: () => !this.isRendering,
 			execute: (column, state) => {
-				if (!this.isRendering) {
-					const columns = Array.from(model.highlight().columns);
-					const index = columns.indexOf(column.key);
-					let hasChanges = false;
-					if (state) {
-						if (index < 0) {
-							columns.push(column.key);
-							hasChanges = true;
-						}
+				const columns = Array.from(model.highlight().columns);
+				const index = columns.indexOf(column.key);
+				let hasChanges = false;
+				if (state) {
+					if (index < 0) {
+						columns.push(column.key);
+						hasChanges = true;
 					}
-					else {
-						if (index >= 0) {
-							columns.splice(index, 1);
-							hasChanges = true;
-						}
+				}
+				else {
+					if (index >= 0) {
+						columns.splice(index, 1);
+						hasChanges = true;
 					}
+				}
 
-					if (hasChanges) {
-						model.highlight({
-							columns: columns
-						}, {
-							source: 'highlight.view',
-						});
-					}
+				if (hasChanges) {
+					model.highlight({ columns }, {
+						source: 'highlight.view',
+					});
 				}
 			}
 		});
 
 		this.row = new Command({
-			source: 'highlight.view',			
-			canExecute: () => !model.drag().isActive,
+			source: 'highlight.view',
+			canExecute: () => !this.isRendering,
 			execute: (row, state) => {
-				if (!this.isRendering) {
-					const rows = Array.from(model.highlight().rows);
-					const index = rows.indexOf(row);
-					let hasChanges = false;
-					if (state) {
-						if (index < 0) {
-							rows.push(row);
-							hasChanges = true;
-						}
+				const rows = Array.from(model.highlight().rows);
+				const index = rows.indexOf(row);
+				let hasChanges = false;
+				if (state) {
+					if (index < 0) {
+						rows.push(row);
+						hasChanges = true;
 					}
-					else {
-						if (index >= 0) {
-							rows.splice(index, 1);
-							hasChanges = true;
-						}
+				}
+				else {
+					if (index >= 0) {
+						rows.splice(index, 1);
+						hasChanges = true;
 					}
+				}
 
-					if (hasChanges) {
-						model.highlight({
-							rows: rows
-						}, {
-							source: 'highlight.view',
-						});
-					}
+				if (hasChanges) {
+					model.highlight({ rows }, {
+						source: 'highlight.view'
+					});
 				}
 			}
 		});
@@ -126,9 +118,7 @@ export class HighlightView extends View {
 		this.using(model.scrollChanged.watch(() => {
 			const highlight = model.highlight;
 			if (highlight().rows.length) {
-				highlight({
-					rows: []
-				}, {
+				highlight({ rows: [] }, {
 					source: 'highlight.view',
 				});
 			}

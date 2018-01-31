@@ -11,8 +11,8 @@ export const rowPipeUnit = [
 		const scene = new Scene(model);
 
 		const rows = scene.rows(memo);
-		model.view({rows: rows}, tag);
-		model.scene({rows: rows}, tag);
+		model.view({rows}, tag);
+		model.scene({rows}, tag);
 
 		next(memo);
 	}

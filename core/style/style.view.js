@@ -36,8 +36,12 @@ export class StyleView extends View {
 	}
 
 	needInvalidate() {
-		const active = this.active;
 		const model = this.model;
+		if (model.scene().state === 'start') {
+			return false;
+		}
+
+		const active = this.active;
 		const isVirtual = model.scroll().mode === 'virtual';
 		const isActive = isVirtual || active.row || active.cell;
 

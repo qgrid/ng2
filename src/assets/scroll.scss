@@ -1,41 +1,4 @@
-$expandSize: 8px;
-$collapseSize: 8px;
-
-.q-grid-scroll-x {
-	height: $collapseSize;
-	width: 100%;
-	position: absolute;
-	bottom: $expandSize - $collapseSize;
-	left: 0;
-	right: $expandSize;
-	overflow-x: auto;
-	.q-grid-scroll {
-		height: $expandSize;
-	}
-	// &:hover {
-	// 	bottom: 0;
-	// 	height: $expandSize;
-	// }
-}
-
-.q-grid-scroll-y {
-	width: $collapseSize;
-	position: absolute;
-	right: $expandSize - $collapseSize;
-	overflow-y: auto;
-	.q-grid-scroll {
-		width: $expandSize;
-	}
-	// &:hover {
-	// 	right: 0;
-	// 	width: $expandSize;
-	// }
-}
-
-.q-grid-view {
-	padding-right: $expandSize;
-	padding-bottom: $expandSize;
-}
+$scrollSize: 8px;
 
 tbody {
 	tr {
@@ -46,25 +9,29 @@ tbody {
 }
 
 @mixin scroll {
-	 ::-webkit-scrollbar {
-		width: $expandSize;
-		height: $expandSize;
+	::-webkit-scrollbar {
+		width: $scrollSize;
+		height: $scrollSize;
 	}
-	 ::-webkit-scrollbar-thumb {
+
+	::-webkit-scrollbar-thumb {
 		height: 15px;
 		background-color: #c8c8c8;
 		-webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.07);
 	}
-	 ::-webkit-scrollbar-button {
+
+	::-webkit-scrollbar-button {
 		width: 0;
 		height: 0;
 		display: none;
 	}
-	 ::-webkit-scrollbar-corner {
+
+	::-webkit-scrollbar-corner {
 		background-color: transparent;
 	}
-	 ::-webkit-scrollbar-track,
-	 ::-webkit-scrollbar-track-piece {
+
+	::-webkit-scrollbar-track,
+	::-webkit-scrollbar-track-piece {
 		background-color: #f8f8f8;
 	}
 }

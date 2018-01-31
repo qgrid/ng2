@@ -75,13 +75,13 @@ export class ColumnFilterView extends PluginView {
 					const by = clone(filter().by);
 					const items = Array.from(this.by);
 					if (items.length) {
-						by[this.key] = {items: items};
+						by[this.key] = {items};
 					}
 					else {
 						delete by[this.key];
 					}
 
-					filter({by: by});
+					filter({by});
 
 					this.submitEvent.emit();
 				}
@@ -95,7 +95,7 @@ export class ColumnFilterView extends PluginView {
 			reset: new Command({
 				source: 'column.filter.view',
 				execute: () => {
-					this.by = new Set([]);
+					this.by = new Set();
 					this.resetEvent.emit();
 				}
 			}),

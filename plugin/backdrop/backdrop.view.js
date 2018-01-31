@@ -22,7 +22,9 @@ export class BackdropView extends PluginView {
 
 				if (context.propagate !== false) {
 					const target = document.elementFromPoint(e.clientX, e.clientY);
-					target.click();
+					const event = document.createEvent('MouseEvents');
+					event.initEvent('mouseup', true, true);
+					target.dispatchEvent(event);
 				}
 
 				this.closeEvent.emit(e);
