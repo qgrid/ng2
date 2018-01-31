@@ -6,68 +6,73 @@ $custom-theme: mat-light-theme($custom-primary, $custom-accent);
 .lcc {
     font-family: Roboto;
     .q-grid {
-        &-title {
-            h3 {
-                font-size: 24px;
-                font-weight: normal;
-                font-style: normal;
-                text-align: left;
-                color: #006f8f;
-            }
-        }
-        &-toolbar {
-            height: 55px;
-        }
-        &-sort {
-            margin-left: 0px;
-        }
-        &-text {
-            font-size: 13px;
-        }
-        &-table {
-            thead {
-                th {
-                    font-size: 12px !important;
-                    color: #006f8f !important;
-                    text-align: left;
-                    font-weight: normal !important;
-                    &:hover label {
-                        font-weight: normal !important;
-                    }
-                }
-                tr {
-                    height: 30px !important;
-                }
-            }
-            tbody {
-                td {
-                    font-size: 16px;
+        .q-grid {
+            &-title {
+                h3 {
+                    font-size: 24px;
                     font-weight: normal;
-                    button {
-                        height: 29px;
-                    }
+                    font-style: normal;
+                    text-align: left;
+                    color: #006f8f;
                 }
+            }
+            &-toolbar {
+                height: 46px;
+            }
+            &-sort {
+                margin-left: 0px;
+            }
+            &-text {
+                font-size: 13px;
+            }
+            &-table {
                 tr {
                     height: 30px !important;
                 }
+                thead {
+                    th {
+                        font-size: 12px !important;
+                        color: #006f8f !important;
+                        text-align: left;
+                        font-weight: normal !important;
+                        &:hover label {
+                            font-weight: normal !important;
+                        }
+                    }
+                }
+                tbody {
+                    td {
+                        font-size: 16px;
+                        font-weight: normal;
+                        button {
+                            height: 29px;
+                        }
+                    }
+                }
             }
-        }
-        &-legend {
-            &-list {
-                font-size: 16px !important;
-                text-align: left !important;
-                color: #000000 !important;
+            &-legend {
+                &-list {
+                    font-size: 16px !important;
+                    text-align: left !important;
+                    color: #000000 !important;
+                }
+                &-item {
+                    width: 8px !important;
+                    height: 8px !important;
+                    margin-right: 18px !important;
+                    margin-bottom: 2px !important;
+                }
             }
-            &-item {
-                width: 8px !important;
-                height: 8px !important;
-                margin-right: 18px !important;
-                margin-bottom: 2px !important;
+            &-progress {
+                &-linear {
+                    top: -15px;
+                }
             }
-        }
-        &-progress {
-            &-linear {
-                top: -15px;
+            &-pager {
+                padding: 11px 0;
+            }
+            &-legend-list {
+                margin-top: 15px;
             }
         }
     }
