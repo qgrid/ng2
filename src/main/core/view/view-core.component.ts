@@ -48,6 +48,19 @@ export class ViewCoreComponent extends NgComponent
 		this.ctrl = new ViewCtrl(model, this.view, gridService);
 
 		model.sceneChanged.watch(e => {
+			if (e.hasChanges('status')) {
+				switch (e.state.status) {
+					case 'start': {
+						model.progress({ isBusy: true });
+						break;
+					}
+					case 'stop': {
+						model.progress({ isBusy: false });
+						break;
+					}
+				}
+			} 
+
 			if (e.hasChanges('round') && e.state.round > 0) {
 				if (!NgZone.isInAngularZone()) {
 					// Run digest on the start of invalidate(e.g. for busy indicator)
