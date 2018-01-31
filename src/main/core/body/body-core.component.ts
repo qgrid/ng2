@@ -27,7 +27,6 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 
 	private getColStyle(columnView){
 		let colStyle = {
-			'background-color':'rgb(243, 243, 243)',
 			'width': columnView.model.width
 		}
 
