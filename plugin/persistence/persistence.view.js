@@ -200,7 +200,7 @@ export class PersistenceView extends PluginView {
 			const target = {};
 			model[key] = target;
 			for (const p of settings[key]) {
-				target[p] = key === 'filter' ? {} : [];
+			    target[p] = key === 'filter' ? {} : [];
 			}
 		}
 
