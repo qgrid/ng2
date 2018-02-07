@@ -57,13 +57,12 @@ export class ClipboardView extends View {
 		);
 	}
 
-	handleColumn(columns) {
+	handleColumn(items) {
 		const dataModel = this.model.data();
 		const rows = dataModel.rows;
 		const accumulator = [];
 
-		for (let i = 0, max = columns.length; i < max; i++) {
-			const column = columns[i];
+		items.forEach((column, colIndex) => {
 			const factory = getFactory(column);
 			const cells = rows.map(row => factory(row));
 
@@ -71,10 +70,12 @@ export class ClipboardView extends View {
 				cells.forEach(() => accumulator.push([]));
 			}
 
-			for (let j = 0, max = cells.length; j < max; j++) {
-				accumulator[j][i] = cells[j];
-			}
-		}
+			cells.forEach((cell, celIndex) => {
+				accumulator[celIndex][colIndex] = cells[celIndex];
+			})
+
+		});
+
 		return accumulator;
 	}
 
@@ -83,8 +84,7 @@ export class ClipboardView extends View {
 		let collection = [];
 		let cells = [];
 
-		for (let i = 0, max = items.length; i < max; i++) {
-			const item = items[i];
+		items.forEach(item => {
 			const column = item.column;
 			const row = item.row;
 			const key = column.key;
@@ -101,7 +101,7 @@ export class ClipboardView extends View {
 				cells.push(value);
 				collection.push(key);
 			}
-		}
+		});
 
 		accumulator.push(cells);
 
@@ -110,46 +110,44 @@ export class ClipboardView extends View {
 
 	handleRow(items) {
 		const accumulator = [];
+		debugger;
 
-		for (let i = 0, max = items.length; i < max; i++) {
-			const item = items[i];
+		items.forEach(item => {
 			const values = Object.values(item);
 			const collection = [];
 
-			for (let t = 0, max = values.length; t < max; t++) {
-				const item = values[t];
-				extractData(item);
+			values.forEach(value => {
+				extractData(value);
 
-				function extractData(item) {
-					const type = getType(item);
+				function extractData(value) {
+					const type = getType(value);
 
 					switch (type) {
 						case 'Object': {
-							const entity = item;
+							const entity = value;
 							const values = Object.values(entity);
 
-							for (let j = 0, max = values.length; j < max; j++) {
-								const val = values[j];
-								getType(val) === 'Object' ? extractData(val) : getType(val) === 'Array' ? extractData(val) : collection.push(val);
-							}
+							values.forEach( value => {
+								getType(value) === 'Object' ? extractData(value) : getType(value) === 'Array' ? extractData(value) : collection.push(value);
+							});
 							break;
 						}
 						case 'String': {
-							collection.push(item);
+							collection.push(value);
 							break;
 						}
 						case 'Array': {
-							const str = item.join(', ');
+							const str = value.join(', ');
 							collection.push(str);
 							break;
 						}
 
 					}
-
 				}
-			}
+			});
+
 			accumulator.push(collection);
-		}
+		});
 
 		return accumulator;
 	}
