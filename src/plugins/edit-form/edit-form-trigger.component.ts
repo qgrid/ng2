@@ -3,10 +3,10 @@ import { RootService } from '../../infrastructure/component/index';
 import { PluginComponent } from '../plugin.component';
 
 @Component({
-	selector: 'q-grid-edit-form',
-	templateUrl: './edit-form.component.html'
+	selector: 'q-grid-edit-form-trigger',
+	templateUrl: './edit-form-trigger.component.html'
 })
-export class EditFormComponent extends PluginComponent implements OnInit, OnDestroy {
+export class EditFormTriggerComponent extends PluginComponent implements OnInit, OnDestroy {
 
     @Input() title: string;
 
@@ -15,8 +15,7 @@ export class EditFormComponent extends PluginComponent implements OnInit, OnDest
 	}
 
 	ngOnInit() {
-        const model = this.model;
-        debugger;
+		
 	}
 
 	ngOnDestroy() {

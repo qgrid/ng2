@@ -26,15 +26,15 @@
 
         <q-grid-columns>
 
-            <q-grid-column type="row-indicator"
-                           key="rowIndicator">
-                <ng-template for="body">
-                    <q-grid-edit-form title='Edit Form'></q-grid-edit-form>
-                </ng-template>
-            </q-grid-column>
             <q-grid-column type="row-number"
                            key="rowNumber">
+                <ng-template for="body">
+                    <q-grid-edit-form-trigger title='Edit Form'></q-grid-edit-form-trigger>
+                </ng-template>
             </q-grid-column>
+            <!-- <q-grid-column type="row-number"
+                           key="rowNumber">
+            </q-grid-column> -->
             <q-grid-column type="row-options"
                            key="rowOptions">
             </q-grid-column>
