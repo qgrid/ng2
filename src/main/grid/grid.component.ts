@@ -15,7 +15,7 @@ import {
 import { TemplateCacheService } from 'ng2-qgrid/template/template-cache.service';
 import { TemplateService } from 'ng2-qgrid/template/template.service';
 import { RootComponent, RootService } from 'ng2-qgrid/infrastructure/component';
-import { LayerService } from '../layer';
+import { LayerService } from '../core/layer/layer.service';
 import { Table } from 'ng2-qgrid/core/dom';
 import { AppError } from 'ng2-qgrid/core/infrastructure';
 import { TableCommandManager } from 'ng2-qgrid/core/command';
@@ -115,8 +115,9 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 		const model = this.model;
 
 		const element = this.element.nativeElement;
+		const layerService = new LayerService();
 		const ctrl = (this.ctrl = new GridCtrl(model, {
-			layerFactory: markup => new LayerService(markup),
+			layerFactory: () => layerService,
 			element
 		}));
 

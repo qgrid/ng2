@@ -15,6 +15,8 @@ import { TemplateModule } from 'ng2-qgrid/template/template.module';
 import { CommonModule } from 'ng2-qgrid/common';
 import { TableCoreComponent } from 'ng2-qgrid/main/core/table';
 import { TdCoreAlignDirective } from 'ng2-qgrid/main/core/body/td-core-align.directive';
+import { LayerCoreDirective } from './layer/layer-core.directive';
+import { LayerService } from './layer/layer.service';
 
 @NgModule({
 	declarations: [
@@ -30,7 +32,8 @@ import { TdCoreAlignDirective } from 'ng2-qgrid/main/core/body/td-core-align.dir
 		TfCoreDirective,
 		MarkupDirective,
 		TdCoreAlignDirective,
-		CellHandlerComponent
+		CellHandlerComponent,
+		LayerCoreDirective
 	],
 	exports: [
 		ViewCoreComponent,
@@ -44,7 +47,8 @@ import { TdCoreAlignDirective } from 'ng2-qgrid/main/core/body/td-core-align.dir
 	providers: [
 		VScrollService,
 		TemplateCacheService,
-		TemplateService
+		TemplateService,
+		LayerService
 	]
 })
 export class CoreModule {
