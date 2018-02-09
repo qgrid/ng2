@@ -21,7 +21,8 @@ import { IAssert } from './assert';
  *			   right: ['foo', 'bar']
  *		   },
  *		   right: null
- * 	     }}
+ * 	     }},
+ * 	     myBoolColumn: {blanks: true}
  *    }
  * });
  * ```
@@ -34,9 +35,10 @@ export declare class FilterModel {
 	resource: Resource;
 
 	/**
-	 * Object that contains filter values, `{columnKey: items | expression}`
+	 * Object that contains filter values, `{columnKey: items | blanks | expression}`
 	 * 
 	 * * `items` list of values so when setup works like `in` operator.
+	 * * `blanks` boolean value that indicates should we filter blanks values or not.
 	 * * `expression` and\or expression
 	 */
 	by: object;

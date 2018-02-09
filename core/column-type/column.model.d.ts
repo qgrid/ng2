@@ -261,6 +261,11 @@ export declare class ColumnModel {
     maxWidth: number;
 
     /**
+     * If set, column width will be expanded to this value on focus.
+     */
+    viewWidth: number;
+
+    /**
      * Indicates if cells in the column are editable.
      */
     canEdit: boolean;

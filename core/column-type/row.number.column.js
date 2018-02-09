@@ -22,7 +22,7 @@ export class RowNumberColumnModel extends ColumnModel {
 		this.canMove = false;
 		this.canHighlight = false;
 		this.canSort = false;
-		this.canFitler = false;
+		this.canFilter = false;
 		this.class = 'control';
 	}
 }

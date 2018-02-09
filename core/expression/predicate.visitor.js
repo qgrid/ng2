@@ -62,9 +62,11 @@ export class PredicateVisitor extends Visitor {
 		let predicate;
 		switch (condition.op) {
 			case 'isNotNull':
+			case 'isNotEmpty':
 				predicate = l => !isNull(l);
 				break;
 			case 'isNull':
+			case 'isEmpty':
 				predicate = l => isNull(l);
 				break;
 			case 'equals':

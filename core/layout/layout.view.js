@@ -1,15 +1,27 @@
 import { View } from '../view';
 import * as css from '../services/css';
 import * as columnService from '../column/column.service';
-import { clone } from '../utility';
 import { Log } from '../infrastructure';
 
 export class LayoutView extends View {
 	constructor(model, table, service) {
 		super(model);
+
 		this.model = model;
 		this.table = table;
 		this.service = service;
+
+		model.navigationChanged.watch(e => {
+			if (e.hasChanges('cell')) {
+				const oldColumn = e.changes.cell.oldValue ? e.changes.cell.oldValue.column : {};
+				const newColumn = e.changes.cell.newValue ? e.changes.cell.newValue.column : {};
+
+				if (oldColumn.key !== newColumn.key && (oldColumn.viewWidth || newColumn.viewWidth)) {
+					const form = this.updateColumnForm();
+					this.invalidateColumns(form);
+				}
+			}
+		});
 
 		this.onInit();
 	}
@@ -25,8 +37,12 @@ export class LayoutView extends View {
 
 		const styleRow = this.styleRow.bind(this);
 		model.layoutChanged.watch(e => {
+			if (e.tag.source === 'layout.view') {
+				return;
+			}
+
 			if (e.hasChanges('columns')) {
-				const form = this.getColumnForm();
+				const form = this.updateColumnForm();
 				this.invalidateColumns(form);
 			}
 		});
@@ -46,32 +62,38 @@ export class LayoutView extends View {
 		});
 	}
 
-	getRowForm() {
+	updateColumnForm() {
 		const model = this.model;
-		const layout = model.layout;
-		return clone(layout().rows);
-	}
-
-	getColumnForm() {
-		const model = this.model;
-		const layout = model.layout;
-		const state = clone(layout().columns);
+		const layout = model.layout().columns;
+		const form = new Map();
 		const headRow = this.table.head.row(0);
 		if (headRow) {
 			const columns = this.table.data.columns();
 			let length = columns.length;
 			while (length--) {
 				const column = columns[length];
-				if (!state.has(column.key)) {
+				if (!layout.has(column.key)) {
 					if (column.canResize) {
 						const index = columns.findIndex(c => c === column);
-						state.set(column.key, { width: headRow.cell(index).width() });
+						form.set(column.key, { width: headRow.cell(index).width() });
 					}
+				}
+				else {
+					form.set(column.key, { width: layout.get(column.key).width });
 				}
 			}
 		}
 
-		return state;
+		model.layout({ columns: form }, { source: 'layout.view', behavior: 'core' });
+
+		const column = this.model.navigation().column;
+		if (column && column.viewWidth) {
+			const viewForm = new Map(form);
+			viewForm.set(column.key, { width: column.viewWidth });
+			return viewForm;
+		}
+
+		return form;
 	}
 
 	invalidateColumns(form) {
@@ -105,7 +127,9 @@ export class LayoutView extends View {
 	}
 
 	styleRow(row, context) {
-		const form = this.getRowForm();
+		const model = this.model;
+		const layout = model.layout;
+		const form = layout().rows;
 		const style = form.get(row);
 		if (style) {
 			context.class(`resized-${style.height}px`, { height: style.height + 'px' });

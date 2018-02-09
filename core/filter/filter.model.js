@@ -1,6 +1,6 @@
-import {Resource} from '../resource';
-import {match} from './match';
-import {noop} from '../utility';
+import { Resource } from '../resource';
+import { match } from './match';
+import { noop } from '../utility';
 
 export class FilterModel {
 	constructor() {
@@ -13,7 +13,7 @@ export class FilterModel {
 		this.assertFactory = () => ({
 			equals: (x, y) => x === y,
 			lessThan: (x, y) => x < y,
-			isNull: x => x === '' || x === null || x === undefined || isNaN(x) ||  isFinite(x)				
+			isNull: x => x === '' || x === null || x === undefined
 		});
 	}
 }

@@ -1,9 +1,9 @@
-import {PluginView} from '../plugin.view';
-import {Command} from '../../core/command';
+import { PluginView } from '../plugin.view';
+import { Command } from '../../core/command';
 import * as columnService from '../../core/column/column.service';
-import {getFactory as labelFactory} from '../../core/services/label';
-import {clone} from '../../core/utility';
-import {Event} from '../../core/infrastructure';
+import { getFactory as labelFactory } from '../../core/services/label';
+import { clone } from '../../core/utility';
+import { Event } from '../../core/infrastructure';
 
 export class ColumnFilterView extends PluginView {
 	constructor(model, context) {
@@ -17,6 +17,7 @@ export class ColumnFilterView extends PluginView {
 
 		const filterBy = this.model.filter().by[this.key];
 		this.by = new Set((filterBy && filterBy.items) || []);
+		this.byBlanks = !!(filterBy && filterBy.blanks);
 
 		this.items = [];
 
@@ -32,11 +33,11 @@ export class ColumnFilterView extends PluginView {
 	}
 
 	stateAll() {
-		return this.items.every(this.state.bind(this));
+		return this.items.every(this.state.bind(this)) && (!this.hasBlanks || this.byBlanks);
 	}
 
 	isIndeterminate() {
-		return !this.stateAll() && this.items.some(this.state.bind(this));
+		return !this.stateAll() && (this.items.some(this.state.bind(this)) || this.byBlanks);
 	}
 
 	get commands() {
@@ -65,23 +66,29 @@ export class ColumnFilterView extends PluginView {
 					else {
 						this.by.clear();
 					}
+
+					this.byBlanks = this.hasBlanks && state;
 				}
 			}),
 
 			submit: new Command({
 				source: 'column.filter.view',
 				execute: () => {
-					const filter = this.model.filter;
-					const by = clone(filter().by);
-					const items = Array.from(this.by);
-					if (items.length) {
-						by[this.key] = {items};
+					const model = this.model;
+					const by = clone(model.filter().by);
+
+					const filter = by[this.key] || {};
+					filter.items = Array.from(this.by);
+					filter.blanks = this.byBlanks;
+
+					if (filter.items.length || filter.blanks || filter.expression) {
+						by[this.key] = filter;
 					}
 					else {
 						delete by[this.key];
 					}
 
-					filter({by});
+					model.filter({ by });
 
 					this.submitEvent.emit();
 				}
