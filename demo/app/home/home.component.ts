@@ -265,4 +265,8 @@ export class HomeComponent {
 		// });
 
 	}
+
+	clearData() {
+		this.rows = [];
+	}
 }

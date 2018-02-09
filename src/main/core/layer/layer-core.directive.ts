@@ -12,6 +12,6 @@ export class LayerCoreDirective {
 		layerService: LayerService,
 		viewContainerRef: ViewContainerRef
 	) {
-		layerService.viewContainerRef = viewContainerRef;
+		layerService.init(viewContainerRef);
 	}
 }

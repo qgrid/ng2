@@ -43,7 +43,7 @@ export class BodyView extends View {
 		this.labelCache = new Map();
 
 		table.view.removeLayer('blank');
-		if (!this.rows.length) {
+		if (!this.rows.length && !model.data().rows.length) {
 			table.view.addLayer('blank');
 		}
 	}

@@ -1,23 +1,49 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { Layer } from './layer';
 import { TemplateService } from 'ng2-qgrid/template/template.service';
-import { noop } from 'ng2-qgrid/core/utility/index';
 
 @Injectable()
 export class LayerService {
-	public viewContainerRef: ViewContainerRef;
+	private container: ViewContainerRef;
+	private layers = new Map<string, Layer>();
 
 	constructor(private templateService: TemplateService) {
 	}
 
+	init(container: ViewContainerRef) {
+		this.container = container;
+
+		const layers = this.layers;
+		this.layers = new Map();
+		for (const key of Array.from(layers.keys())) {
+			this.create(key);
+		}
+	}
+
 	create(name) {
-		const link = this.templateService.find(`${name}-layer.tpl.html`);
-		if (link) {
-			const createView = this.templateService.viewFactory({});
-			createView(link, this.viewContainerRef);
-			return new Layer(() => this.viewContainerRef.clear());
+		if (this.layers.has(name)) {
+			return this.layers.get(name);
 		}
 
-		return new Layer(noop);
+		const container = this.container;
+		const link = this.templateService.find(`${name}-layer.tpl.html`);
+		if (link && container) {
+			const createView = this.templateService.viewFactory({});
+			createView(link, container);
+		}
+
+		const layer = new Layer(() => {
+			this.layers.delete(name);
+			if (this.container) {
+				this.container.clear();
+			}
+		});
+
+		this.layers.set(name, layer);
+		return layer;
+	}
+
+	get count() {
+		return this.layers.size;
 	}
 }

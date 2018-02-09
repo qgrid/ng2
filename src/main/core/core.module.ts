@@ -15,6 +15,7 @@ import { TemplateModule } from 'ng2-qgrid/template/template.module';
 import { CommonModule } from 'ng2-qgrid/common';
 import { TableCoreComponent } from 'ng2-qgrid/main/core/table';
 import { TdCoreAlignDirective } from 'ng2-qgrid/main/core/body/td-core-align.directive';
+import { LayerCoreComponent } from './layer/layer-core.component';
 import { LayerCoreDirective } from './layer/layer-core.directive';
 
 @NgModule({
@@ -32,6 +33,7 @@ import { LayerCoreDirective } from './layer/layer-core.directive';
 		MarkupDirective,
 		TdCoreAlignDirective,
 		CellHandlerComponent,
+		LayerCoreComponent,
 		LayerCoreDirective
 	],
 	exports: [

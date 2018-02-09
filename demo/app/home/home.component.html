@@ -73,6 +73,12 @@
             </ng-template>
         </q-grid-layer>
 
+        <q-grid-toolbar>
+            <ng-template for="top">
+                <button (click)="clearData()">Clear Rows</button>                
+            </ng-template>
+        </q-grid-toolbar>
+
 
         <!-- <q-grid-row unit="details">
                 <ng-template for="details">
