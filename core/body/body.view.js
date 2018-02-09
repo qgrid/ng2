@@ -44,11 +44,7 @@ export class BodyView extends View {
 
 		table.view.removeLayer('blank');
 		if (!this.rows.length) {
-			const layerState = model.layer();
-			if (layerState.resource.data.hasOwnProperty('blank')) {
-				const layer = table.view.addLayer('blank');
-				layer.resource('blank', layerState.resource);
-			}
+			table.view.addLayer('blank');
 		}
 	}
 

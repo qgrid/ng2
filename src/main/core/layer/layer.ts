@@ -1,10 +1,8 @@
 export class Layer {
-	constructor() {
-	}
-
-	resource(id, state) {
+	constructor(private onDestroy: () => void) {
 	}
 
 	destroy() {
+		this.onDestroy();
 	}
 }
