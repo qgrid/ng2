@@ -10,9 +10,9 @@ export class RowModel {
 		this.status = new Map();
 		this.shortcut = {
 			toggle: 'space|enter'
-        };
-        this.canDrag = false;
-        this.canResize = false;
-        this.frozen = [];
+		};
+		this.canDrag = false;
+		this.canResize = false;
+		this.frozen = [];
 	}
 }

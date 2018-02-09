@@ -1,8 +1,8 @@
-import {View} from '../view';
-import {getFactory as valueFactory} from '../services/value';
-import {getFactory as labelFactory, set as setLabel} from '../services/label';
-import {Log} from '../infrastructure';
-import {Renderer} from '../scene/render';
+import { View } from '../view';
+import { getFactory as valueFactory } from '../services/value';
+import { getFactory as labelFactory, set as setLabel } from '../services/label';
+import { Log } from '../infrastructure';
+import { Renderer } from '../scene/render';
 
 export class BodyView extends View {
 	constructor(model, table) {
@@ -11,6 +11,10 @@ export class BodyView extends View {
 		this.table = table;
 		this.rows = [];
 		this.render = new Renderer(model);
+		this.valueCache = new Map();
+		this.labelCache = new Map();
+		this.valueFactory = valueFactory;
+		this.labelFactory = labelFactory;
 
 		this.invalidate();
 
@@ -35,28 +39,17 @@ export class BodyView extends View {
 		const sceneState = model.scene();
 
 		this.rows = sceneState.rows;
+		this.valueCache = new Map();
+		this.labelCache = new Map();
 
 		table.view.removeLayer('blank');
-		if (!this.rows.length) {
-			const layerState = model.layer();
-			if (layerState.resource.data.hasOwnProperty('blank')) {
-				const layer = table.view.addLayer('blank');
-				layer.resource('blank', layerState.resource);
-			}
+		if (!this.rows.length && !model.data().rows.length) {
+			table.view.addLayer('blank');
 		}
 	}
 
 	columns(row, pin) {
 		return this.render.columns(row, pin);
-	}
-
-	valueFactory(column, getValueFactory = null) {
-		const getValue = (getValueFactory || valueFactory)(column);
-		return row => this.render.getValue(row, column, getValue);
-	}
-
-	labelFactory(column) {
-		return this.valueFactory(column, labelFactory);
 	}
 
 	value(row, column, value) {
@@ -65,8 +58,14 @@ export class BodyView extends View {
 			return;
 		}
 
-		const getValue = this.valueFactory(column);
-		return getValue(row);
+		const key = column.key;
+		let getValue = this.valueCache.get(key);
+		if (!getValue) {
+			getValue = valueFactory(column);
+			this.valueCache.set(key, getValue);
+		}
+
+		return this.render.getValue(row, column, getValue);
 	}
 
 	label(row, column, value) {
@@ -75,7 +74,13 @@ export class BodyView extends View {
 			return;
 		}
 
-		const getLabel = this.labelFactory(column);
-		return getLabel(row);
+		const key = column.key;
+		let getLabel = this.labelCache.get(key);
+		if (!getLabel) {
+			getLabel = labelFactory(column);
+			this.labelCache.set(key, getLabel);
+		}
+
+		return this.render.getValue(row, column, getLabel);
 	}
 }

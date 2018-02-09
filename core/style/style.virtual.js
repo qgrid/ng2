@@ -1,3 +1,5 @@
+import {Composite} from '../infrastructure/composite';
+
 export class VirtualRowStyle {
 	constructor(table) {
 		const model = table.model;

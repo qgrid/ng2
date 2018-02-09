@@ -1,8 +1,17 @@
-import { Component, OnDestroy, OnInit, Optional, DoCheck } from '@angular/core';
+import {
+	Component,
+	OnDestroy,
+	OnInit,
+	Optional,
+	ElementRef,
+	NgZone,
+	DoCheck,
+	AfterViewChecked
+} from '@angular/core';
 import { NgComponent, RootService } from 'ng2-qgrid/infrastructure/component';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
-import { jobLine } from 'ng2-qgrid/core/services';
+import { Log } from 'ng2-qgrid/core/infrastructure/log';
 import { GridService } from 'ng2-qgrid/main/grid';
 import { CellService } from '../cell';
 import { ViewCoreService } from './view-core.service';
@@ -14,25 +23,53 @@ import { ViewCtrl } from 'ng2-qgrid/core/view/view.ctrl';
 	providers: [CellService]
 })
 export class ViewCoreComponent extends NgComponent
-	implements OnInit, OnDestroy, DoCheck {
+	implements OnInit, OnDestroy, DoCheck, AfterViewChecked {
+
 	private ctrl: ViewCtrl;
 
 	constructor(
 		private root: RootService,
 		private view: ViewCoreService,
-		private gridService: GridService
-	) {
+		private grid: GridService,
+		private zone: NgZone) {
 		super();
 	}
 
 	ngOnInit() {
 		super.ngOnInit();
 
-		const model = this.root.model;
+		// Views should be inited after `sceneChanged.watch` declaration
+		// to persiste the right order of event sourcing.
 		this.view.init();
 
-		const gridService = this.gridService.service(model);
+		const model = this.model;
+
+		const gridService = this.grid.service(model);
 		this.ctrl = new ViewCtrl(model, this.view, gridService);
+
+		model.sceneChanged.watch(e => {
+			if (e.hasChanges('status')) {
+				switch (e.state.status) {
+					case 'start': {
+						model.progress({ isBusy: true });
+						break;
+					}
+					case 'stop': {
+						model.progress({ isBusy: false });
+						break;
+					}
+				}
+			}
+
+			if (e.hasChanges('round') && e.state.round > 0) {
+				if (!NgZone.isInAngularZone()) {
+					// Run digest on the start of invalidate(e.g. for busy indicator)
+					// and on the ned of invalidate(e.g. to build the DOM)
+					this.zone.run(() => Log.info('grid.component', 'digest'));
+				}
+			}
+		});
+
 	}
 
 	ngOnDestroy() {
@@ -51,34 +88,20 @@ export class ViewCoreComponent extends NgComponent
 	}
 
 	ngDoCheck() {
-		const style = this.view.style;
-		if (style.needInvalidate()) {
-			const rowMonitor = style.monitor.row;
-			const cellMonitor = style.monitor.cell;
-
-			const domCell = cellMonitor.enter();
-			const domRow = rowMonitor.enter();
-			try {
-				style.invalidate(domCell, domRow);
-			} finally {
-				rowMonitor.exit();
-				cellMonitor.exit();
-			}
-		}
+		this.ctrl.invalidate();
 	}
 
 	ngAfterViewChecked() {
-		const scene = this.model.scene;
-		if (scene().status === 'start') {
-			scene(
-				{
-					status: 'stop'
-				},
-				{
-					source: 'view-core.component',
+		const model = this.model;
+		const scene = model.scene();
+		if (scene.round > 0 && scene.status === 'start') {
+			model.scene({
+				round: 0,
+				status: 'stop'
+			}, {
+					source: 'grid.component',
 					behavior: 'core'
-				}
-			);
+				});
 		}
 	}
 }

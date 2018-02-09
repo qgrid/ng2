@@ -7,6 +7,7 @@ import { BoxComponent } from './box';
 import { CoreModule } from './core';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { RowComponent } from './core/row/row.component';
+import { LayerComponent } from './core/layer/layer.component';
 import { MarkupDirective } from './markup/markup.directive';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { MarkupDirective } from './markup/markup.directive';
 		ColumnComponent,
 		ToolbarComponent,
 		RowComponent,
+		LayerComponent,
 		MarkupDirective
 	],
 	exports: [
@@ -25,7 +27,8 @@ import { MarkupDirective } from './markup/markup.directive';
 		ColumnComponent,
 		BoxComponent,
 		ToolbarComponent,
-		RowComponent
+		RowComponent,
+		LayerComponent
 	],
 	imports: [
 		BrowserModule,
