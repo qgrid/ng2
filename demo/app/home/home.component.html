@@ -14,16 +14,17 @@
 
 <mat-card>
     <q-grid id="q-grid-demo"
+            class="lcc"
             q-grid-autofocus
             [columns]="columns"
             [rows]="rows"
             [model]="gridModel"
             selectionUnit="row"
             selectionMode="multiple"
+            [sortBy]="['+name.last', '-name.first']"
+            
             editMode="cell"
-            header="NG2 QGRID SANDBOX"
-            filterUnit="row"
-            class="q-grid-embed">
+            header="NG2 QGRID SANDBOX">
 
         <q-grid-columns>
             <q-grid-column type="row-indicator"
@@ -35,9 +36,11 @@
             <q-grid-column type="row-options"
                            key="rowOptions">
             </q-grid-column>
+            <q-grid-column type="number" aggregation="max">
+            </q-grid-column>
         </q-grid-columns>
 
-        <q-grid-legend-core>
+        <q-grid-legend>
             <ng-template for="plugin-legend-core.tpl.html">
                 <ul class="q-grid-legend-list">
                     <li>
@@ -49,12 +52,12 @@
                         Female
                     </li>
                     <li>
-                        <div class="q-grid-legend-item undefined"></div>
+                        <div class="q-grid-legend-item undef"></div>
                         Undefined
                     </li>
                 </ul>
             </ng-template>
-        </q-grid-legend-core>
+        </q-grid-legend>
 
         <q-grid-data-manipulation>
 		  </q-grid-data-manipulation>

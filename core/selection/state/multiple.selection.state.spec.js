@@ -32,8 +32,8 @@ describe('multiple selection state', () => {
 
 		model
 			.data({
-				rows: rows,
-				columns: columns
+				rows,
+				columns
 			})
 			.selection({
 				mode: 'multiple'
@@ -145,8 +145,8 @@ describe('multiple selection state', () => {
 			rows.forEach(row => {
 				columns.forEach(column => {
 					cells.push({
-						row: row,
-						column: column
+						row,
+						column
 					});
 				});
 			});

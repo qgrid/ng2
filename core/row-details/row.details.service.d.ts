@@ -4,4 +4,4 @@ import {GridModel} from '../grid/grid.model';
 
 export declare function flatView(model: GridModel, mode: string): any[];
 export declare function toggleStatus(rows: any[], status: Map<any, RowDetailsStatus>, mode: SingleOrMultipleMode): Map<any, RowDetailsStatus>;
-export declare function invalidateStatus(rows: any[], status: Map<any, RowDetailsStatus>): Map<any, RowDetailsStatus>;
+export declare function invalidateStatus(rows: any[], status: Map<any, RowDetailsStatus>, mode: string): Map<any, RowDetailsStatus>;

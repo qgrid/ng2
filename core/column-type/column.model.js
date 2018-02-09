@@ -18,10 +18,12 @@ TemplatePath.register('custom-cell-edit', (template, column) => {
 
 export class ColumnModel {
 	constructor(type = 'text') {
-		this.type = type;
 		this.key = null;
-		this.title = null;
 		this.path = null;
+		this.labelPath = null;
+
+		this.type = type;
+		this.title = null;
 		this.pin = null;
 		this.origin = 'specific';
 		this.source = 'user';
@@ -56,6 +58,7 @@ export class ColumnModel {
 
 		this.value = null;
 		this.label = null;
+		
 		this.compare = compare;
 
 		this.$label = null;

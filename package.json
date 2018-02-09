@@ -29,8 +29,8 @@
     "build:docker": "npm run build:prod && docker build -t angular2-webpack-start:latest .",
     "build:prod": "npm run clean:dist && webpack --config config/webpack.prod.js  --progress --profile --bail",
     "build": "npm run build:dev",
-	 "bundle": "webpack --config config/webpack.prod.js --progress --profile --bail",
-	 "bundle:min": "webpack --config config/webpack.prod.js --progress --profile --bail",
+    "bundle": "webpack --config config/webpack.prod.js --progress --profile --bail",
+    "bundle:min": "webpack --config config/webpack.prod.js --progress --profile --bail",
     "ci:aot": "npm run lint && npm run test && npm run build:aot && npm run e2e",
     "ci:jit": "npm run lint && npm run test && npm run build:prod && npm run e2e",
     "ci:nobuild": "npm run lint && npm test && npm run e2e",
@@ -94,6 +94,7 @@
     "@angular/material": "~5.0.2",
     "core-js": "^2.5.3",
     "rxjs": "^5.5.6",
+    "source-map": "^0.6.1",
     "zone.js": "^0.8.18"
   },
   "devDependencies": {
@@ -111,7 +112,7 @@
     "@angularclass/hmr-loader": "~3.0.4",
     "@ngtools/webpack": "^1.9.2",
     "@types/hammerjs": "^2.0.35",
-    "@types/jasmine": "2.8.2",
+    "@types/jasmine": "2.8.3",
     "@types/node": "^8.5.2",
     "@types/source-map": "^0.5.2",
     "@types/uglify-js": "^2.6.29",

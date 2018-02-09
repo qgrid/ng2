@@ -12,6 +12,7 @@ import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 import { BoolColumnModel } from 'ng2-qgrid/core/column-type/bool.column';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
+import { Command } from 'ng2-qgrid/core/command/command';
 
 @Component({
 	selector: 'q-grid-reference-editor',
@@ -19,7 +20,11 @@ import { Model } from 'ng2-qgrid/core/infrastructure/model';
 })
 export class ReferenceEditorComponent extends PluginComponent
 	implements OnInit {
+
 	public referenceModel: Model;
+
+	public submit: Command;
+	public cancel: Command;
 
 	constructor(
 		@Optional() root: RootService,
@@ -31,6 +36,15 @@ export class ReferenceEditorComponent extends PluginComponent
 
 	ngOnInit() {
 		this.referenceModel = this.column.editorOptions.modelFactory();
+
+		this.submit = new Command({
+			canExecute: () => this.cell.commit.canExecute(),
+			execute: () => {
+				this.cell.commit.execute();
+			}
+		});
+
+		this.cancel = this.cell.cancel;
 	}
 
 	get title(): string {

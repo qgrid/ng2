@@ -1,8 +1,8 @@
-import {View} from '../view';
-import {Command} from '../command';
-import {Navigation} from './navigation';
-import {GRID_PREFIX} from '../definition';
-import {CellView} from '../scene/view';
+import { View } from '../view';
+import { Command } from '../command';
+import { Navigation } from './navigation';
+import { GRID_PREFIX } from '../definition';
+import { CellView } from '../scene/view';
 
 export class NavigationView extends View {
 	constructor(model, table, commandManager) {
@@ -20,9 +20,29 @@ export class NavigationView extends View {
 			source: 'navigation.view',
 			execute: cell => {
 				const cellModel = table.body.cell(cell.rowIndex, cell.columnIndex).model();
-				model.navigation({cell: cellModel});
+				model.navigation({ cell: cellModel });
 			},
-			canExecute: cell => cell && cell.column.canFocus && !CellView.equals(cell, model.navigation().cell)
+			canExecute: cell => {
+				const currentCell = model.navigation().cell;
+				if (cell && cell.column.canFocus && !CellView.equals(cell, currentCell)) {
+					if (this.model.edit().mode !== 'cell') {
+						switch (this.model.selection().unit) {
+							case 'row':
+							case 'column': {
+								// Focus cell only if it was focused previously by keyboard
+								if (!currentCell) {
+									return false;
+								}
+								break;
+							}
+						}
+					}
+
+					return true;
+				}
+
+				return false;
+			}
 		});
 
 		this.scrollTo = new Command({
@@ -64,7 +84,7 @@ export class NavigationView extends View {
 
 			if (e.hasChanges('rowIndex') || e.hasChanges('columnIndex')) {
 				const cell = table.body.cell(e.state.rowIndex, e.state.columnIndex).model();
-				model.navigation({cell});
+				model.navigation({ cell });
 			}
 		}));
 
@@ -89,8 +109,8 @@ export class NavigationView extends View {
 		const column = navState.columnIndex;
 		const cell = this.table.body.cell(row, column);
 		if (cell.model()) {
-			cell.addClass(`${GRID_PREFIX}-focus`);
-			dispose.push(() => cell.removeClass(`${GRID_PREFIX}-focus`));
+			cell.addClass(`${GRID_PREFIX}-focused`);
+			dispose.push(() => cell.removeClass(`${GRID_PREFIX}-focused`));
 		}
 
 		return dispose;
@@ -99,7 +119,8 @@ export class NavigationView extends View {
 	scroll(view, target) {
 		const tr = target.rect();
 		const vr = view.rect();
-		const scrollState = this.model.scroll();
+		const oldScrollState = this.model.scroll();
+		const newScrollState = {};
 
 		if (view.canScrollTo(target, 'left')) {
 			if (vr.left > tr.left
@@ -108,12 +129,11 @@ export class NavigationView extends View {
 				|| vr.right < tr.right) {
 
 				if (vr.width < tr.width || vr.left > tr.left || vr.left > tr.right) {
-					view.scrollLeft(tr.left - vr.left + scrollState.left);
+					newScrollState.left = tr.left - vr.left + oldScrollState.left;
 				}
 				else if (vr.left < tr.left || vr.right < tr.right) {
-					view.scrollLeft(tr.right - vr.right + scrollState.left);
+					newScrollState.left = tr.right - vr.right + oldScrollState.left;
 				}
-
 			}
 		}
 
@@ -124,13 +144,16 @@ export class NavigationView extends View {
 				|| vr.bottom < tr.bottom) {
 
 				if (vr.height < tr.height || vr.top > tr.top || vr.top > tr.bottom) {
-					view.scrollTop(tr.top - vr.top + scrollState.top);
+					newScrollState.top = tr.top - vr.top + oldScrollState.top;
 				}
 				else if (vr.top < tr.top || vr.bottom < tr.bottom) {
-					view.scrollTop(tr.bottom - vr.bottom + scrollState.top);
+					newScrollState.top = tr.bottom - vr.bottom + oldScrollState.top;
 				}
-
 			}
+		}
+
+		if (Object.keys(newScrollState).length) {
+			this.model.scroll(newScrollState, { bevavior: 'core', source: 'navigation.view' });
 		}
 	}
 }

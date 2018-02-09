@@ -1,7 +1,7 @@
-import {View} from '../view';
-import {Command} from '../command';
-import {toggleStatus, invalidateStatus} from './row.details.service';
-import {RowDetails} from './row.details';
+import { View } from '../view';
+import { Command } from '../command';
+import { toggleStatus, invalidateStatus } from './row.details.service';
+import { RowDetails } from './row.details';
 
 export class RowDetailsView extends View {
 	constructor(model, table, commandManager) {
@@ -16,7 +16,7 @@ export class RowDetailsView extends View {
 				}
 
 				const status = toggleStatus([row], model.row().status, model.row().mode);
-				model.row({status}, {
+				model.row({ status }, {
 					source: 'row.details.view'
 				});
 			},
@@ -32,14 +32,16 @@ export class RowDetailsView extends View {
 			},
 			shortcut: model.row().shortcut.toggle
 		});
-  
+
 		this.using(model.sceneChanged.watch(e => {
-			if (e.tag.source !== 'row.details.view' && e.hasChanges('rows')) {
-				model.row({
-					status: invalidateStatus(e.state.rows, model.row().status)
-				}, {
-					source: 'row.details.view'
-				});
+			if (e.tag.source === 'row.details.view') {
+				return;
+			}
+
+			if (e.hasChanges('rows')) {
+				const rowState = model.row();
+				const status = invalidateStatus(model.data().rows, rowState.status, rowState.mode);
+				model.row({ status }, { source: 'row.details.view' });
 			}
 		}));
 

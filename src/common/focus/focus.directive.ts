@@ -4,7 +4,8 @@ import {
 	ElementRef,
 	OnInit,
 	Input,
-	AfterViewInit
+	AfterViewInit,
+	NgZone
 } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure';
 
@@ -14,7 +15,7 @@ import { AppError } from 'ng2-qgrid/core/infrastructure';
 export class FocusDirective implements AfterViewInit {
 	@Input('q-grid-focus') selector;
 
-	constructor(private elementRef: ElementRef) {}
+	constructor(private elementRef: ElementRef, private zone: NgZone) { }
 
 	ngAfterViewInit() {
 		const element = this.selector
@@ -30,6 +31,6 @@ export class FocusDirective implements AfterViewInit {
 
 		// we need a small timeout to wait, for example, position directive
 		// in other case it will scroll to element before layout
-		setTimeout(() => element.focus(), 10);
+		this.zone.runOutsideAngular(() => setTimeout(() => element.focus(), 10));
 	}
 }

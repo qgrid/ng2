@@ -8,10 +8,6 @@ describe('CellSelector', function () {
 		model = modelFactory();
 	});
 
-	window.ENV = {
-		PRODUCTION: false
-	};
-
 	let tableForRow = {
 		data: {
 			rows: () => ['Item1', 'Item2', 'Item3']
