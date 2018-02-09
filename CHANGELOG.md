@@ -5,11 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 * Auto-complete cell editor.
-* Reference cell editor.
 * Auto generation of row edit form.
 * Initial implementation of virtual scrolling.
 * Infinite scrolling.
-* Popup plugin.
 * Validation framework.
 * Persistence plugin.
 * Email, url cell editor.

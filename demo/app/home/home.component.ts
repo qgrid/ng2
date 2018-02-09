@@ -235,6 +235,7 @@ export class HomeComponent {
 	private gridModel: Model;
 	constructor(private dataService: DataService, public qgrid: Grid) {
 		this.gridModel = qgrid.model();
+		this.loadData();
 	}
 
 	loadData() {
@@ -251,7 +252,7 @@ export class HomeComponent {
 		// this.gridModel.data({
 		// 	pipe: [
 		// 		(memo, context, next) =>
-		// 			dataService.getPeople(100).subscribe(people => {
+		// 			this.dataService.getPeople(100).subscribe(people => {
 		// 				this.rows = people;
 
 		// 				people.forEach((row, i) => (row.id = i));
@@ -261,9 +262,8 @@ export class HomeComponent {
 		// 					'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
 		// 				next(people);
 		// 			})
-		// 	].concat(qgrid.pipeUnit.default)
+		// 	].concat(this.qgrid.pipeUnit.default)
 		// });
-
 	}
 
 	clearData() {
