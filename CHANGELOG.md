@@ -128,14 +128,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng/compare/v5.2.0...HEAD
-[5.2.0]: https://github.com/qgrid/ng/compare/v5.2.0...v5.1.2
-[5.1.2]: https://github.com/qgrid/ng/compare/v5.1.2...v5.1.1
-[5.1.1]: https://github.com/qgrid/ng/compare/v5.1.1...v5.0.2
-[5.0.0]: https://github.com/qgrid/ng/compare/v5.0.2...v1.0.7
-[1.0.7]: https://github.com/qgrid/ng/compare/v1.0.7...v1.0.6
-[1.0.6]: https://github.com/qgrid/ng/compare/v1.0.6...v1.0.5
-[1.0.5]: https://github.com/qgrid/ng/compare/v1.0.5...v1.0.4
-[1.0.4]: https://github.com/qgrid/ng/compare/v1.0.4...v1.0.3
-[1.0.3]: https://github.com/qgrid/ng/compare/v1.0.3...v1.0.2
-[1.0.2]: https://github.com/qgrid/ng/compare/v1.0.2...v1.0.1
+[unreleased]: https://github.com/qgrid/ng2/compare/v5.2.0...HEAD
+[5.2.0]: https://github.com/qgrid/ng2/compare/v5.2.0...v5.1.2
+[5.1.2]: https://github.com/qgrid/ng2/compare/v5.1.2...v5.1.1
+[5.1.1]: https://github.com/qgrid/ng2/compare/v5.1.1...v5.0.2
+[5.0.0]: https://github.com/qgrid/ng2/compare/v5.0.2...v1.0.7
+[1.0.7]: https://github.com/qgrid/ng2/compare/v1.0.7...v1.0.6
+[1.0.6]: https://github.com/qgrid/ng2/compare/v1.0.6...v1.0.5
+[1.0.5]: https://github.com/qgrid/ng2/compare/v1.0.5...v1.0.4
+[1.0.4]: https://github.com/qgrid/ng2/compare/v1.0.4...v1.0.3
+[1.0.3]: https://github.com/qgrid/ng2/compare/v1.0.3...v1.0.2
+[1.0.2]: https://github.com/qgrid/ng2/compare/v1.0.2...v1.0.1
