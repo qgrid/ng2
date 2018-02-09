@@ -202,7 +202,7 @@ export class HomeComponent {
 			value: (item, value) =>
 				isUndef(value)
 					? item.webPage ||
-						`https://corp.portal.com/${item.name.last}.${item.name.first}`
+					`https://corp.portal.com/${item.name.last}.${item.name.first}`
 					: (item.webPage = value),
 			label: (item, label) =>
 				isUndef(label)
@@ -235,8 +235,10 @@ export class HomeComponent {
 	private gridModel: Model;
 	constructor(private dataService: DataService, public qgrid: Grid) {
 		this.gridModel = qgrid.model();
+	}
 
-		dataService.getPeople(100).subscribe(people => {
+	loadData() {
+		this.dataService.getPeople(100).subscribe(people => {
 			this.rows = people;
 
 			people.forEach((row, i) => (row.id = i));
@@ -261,5 +263,6 @@ export class HomeComponent {
 		// 			})
 		// 	].concat(qgrid.pipeUnit.default)
 		// });
+
 	}
 }
