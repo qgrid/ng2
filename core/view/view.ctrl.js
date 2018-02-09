@@ -1,5 +1,4 @@
 import { jobLine } from '../services';
-import { Log } from '../infrastructure';
 import { View } from '../view/view';
 
 export class ViewCtrl extends View {

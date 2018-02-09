@@ -74,7 +74,7 @@ export class ShortcutDispatcher {
 			const result = manager.invoke(commands, source) || result;
 			if (result) {
 				memo.push(...commands.map(cmd => cmd.source));
-			};
+			}
 			return memo;
 		}, []);
 	}

@@ -59,7 +59,7 @@ export class ViewCoreComponent extends NgComponent
 						break;
 					}
 				}
-			} 
+			}
 
 			if (e.hasChanges('round') && e.state.round > 0) {
 				if (!NgZone.isInAngularZone()) {

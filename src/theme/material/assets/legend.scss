@@ -1,28 +1,28 @@
 @import "variables";
 .q-grid-legend-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 24px 20px 0 20px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: $dark;
-    font-size: 13px;
-    li {
-        margin-right: 20px;
-        display: inline;
-        &:last-child {
-            margin-right: 0;
-        }
-        .q-grid-legend-item {
-            display: inline-block;
-        }
-    }
+	list-style-type: none;
+	padding: 0;
+	margin: 24px 20px 0 20px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: $dark;
+	font-size: 13px;
+	li {
+		margin-right: 20px;
+		display: inline;
+		&:last-child {
+			margin-right: 0;
+		}
+		.q-grid-legend-item {
+			display: inline-block;
+		}
+	}
 }
 
 .q-grid-legend-item {
-    width: 10px;
-    height: 10px;
-    border-radius: 10px;
-    margin: auto;
+	width: 10px;
+	height: 10px;
+	border-radius: 10px;
+	margin: auto;
 }
