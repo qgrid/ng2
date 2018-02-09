@@ -12,6 +12,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Persistence plugin.
 * Email, url cell editor.
 
+## [5.2.0] - 2018-02-09
+### Added
+- Column [viewWidth](https://qgrid.github.io/ng/#!/column-view-size) property.
+- Filter `by` property `blanks` option support.
+
+### Changed
+- Show (Blanks) checkbox in column filter if there is empty string, null or undefined in the list.
+- Explicitly set `display: inline` for label in column sort plugin.
+- Change q-grid-embed styles.
+
+### Fixed
+- Better layout of column filter and column sort icons.
+
 ## [5.1.2] - 2018-01-03
 ### Added
 * Possibility to change row size `<q-grid-row canResize="true"`.
@@ -115,7 +128,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng/compare/v5.1.2...HEAD
+[unreleased]: https://github.com/qgrid/ng/compare/v5.2.0...HEAD
+[5.2.0]: https://github.com/qgrid/ng/compare/v5.2.0...v5.1.2
 [5.1.2]: https://github.com/qgrid/ng/compare/v5.1.2...v5.1.1
 [5.1.1]: https://github.com/qgrid/ng/compare/v5.1.1...v5.0.2
 [5.0.0]: https://github.com/qgrid/ng/compare/v5.0.2...v1.0.7
