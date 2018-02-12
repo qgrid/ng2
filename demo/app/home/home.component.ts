@@ -69,8 +69,7 @@ export class HomeComponent {
 				isUndef(value) ? item.comment || '' : (item.comment = value),
 			editor: 'text-area',
 			width: 200,
-			maxLength: 8000,
-			viewWidth: 400
+			maxLength: 8000
 		},
 		{
 			key: 'password',
@@ -202,7 +201,7 @@ export class HomeComponent {
 			value: (item, value) =>
 				isUndef(value)
 					? item.webPage ||
-					`https://corp.portal.com/${item.name.last}.${item.name.first}`
+						`https://corp.portal.com/${item.name.last}.${item.name.first}`
 					: (item.webPage = value),
 			label: (item, label) =>
 				isUndef(label)
@@ -235,11 +234,8 @@ export class HomeComponent {
 	private gridModel: Model;
 	constructor(private dataService: DataService, public qgrid: Grid) {
 		this.gridModel = qgrid.model();
-		this.loadData();
-	}
 
-	loadData() {
-		this.dataService.getPeople(100).subscribe(people => {
+		dataService.getPeople(100).subscribe(people => {
 			this.rows = people;
 
 			people.forEach((row, i) => (row.id = i));
@@ -252,7 +248,7 @@ export class HomeComponent {
 		// this.gridModel.data({
 		// 	pipe: [
 		// 		(memo, context, next) =>
-		// 			this.dataService.getPeople(100).subscribe(people => {
+		// 			dataService.getPeople(100).subscribe(people => {
 		// 				this.rows = people;
 
 		// 				people.forEach((row, i) => (row.id = i));
@@ -262,11 +258,7 @@ export class HomeComponent {
 		// 					'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
 		// 				next(people);
 		// 			})
-		// 	].concat(this.qgrid.pipeUnit.default)
+		// 	].concat(qgrid.pipeUnit.default)
 		// });
-	}
-
-	clearData() {
-		this.rows = [];
 	}
 }
