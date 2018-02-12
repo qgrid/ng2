@@ -1,3 +1,10 @@
-<ng-template key="plugin-edit-form.tpl.html">
-    HELLO
+<ng-template key="plugin-edit-form.tpl.html"
+             let-$editForm>
+    <ul>
+        <li *ngFor="let column of $editForm.columns">
+            <q-grid-edit-form-control [column]="column">
+                
+            </q-grid-edit-form-control>            
+        </li>
+    </ul>
 </ng-template>

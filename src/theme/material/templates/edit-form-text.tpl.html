@@ -1,0 +1,11 @@
+<ng-template key='edit-form-text.tpl.html'
+             let-$control>
+    <mat-form-field>
+        <input matInput
+               #input
+               q-grid-focus
+               maxlength="{{$control.column.maxLength}}"
+               [(ngModel)]="$control.value" />
+        <mat-hint align="end">{{input.value.length}} / {{$control.column.maxLength}}</mat-hint>
+    </mat-form-field>
+</ng-template>

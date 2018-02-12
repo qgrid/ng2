@@ -26,8 +26,10 @@
 
         <q-grid-columns>
 
-            <q-grid-column type="row-number"
-                           key="rowNumber">
+            <q-grid-column type="edit-form"
+                           key="editForm"
+                           pin="left"
+                           canEdit="false">
                 <ng-template for="body">
                     <q-grid-edit-form-trigger title='Edit Form'></q-grid-edit-form-trigger>
                 </ng-template>

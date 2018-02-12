@@ -1,8 +1,8 @@
 import {PluginView} from '../plugin.view';
-import {isUndefined} from '@grid/core/utility';
-import {Command} from '@grid/core/command';
-import {RowEditor} from '@grid/core/edit/edit.row.editor';
-import {Event} from '@grid/core/infrastructure';
+import {isUndefined} from '../../core/utility';
+import {Command} from '../../core/command';
+import {RowEditor} from '../../core/edit/edit.row.editor';
+import {Event} from '../../core/infrastructure';
 
 export class EditFormPanelView extends PluginView {
 	constructor(model, context) {

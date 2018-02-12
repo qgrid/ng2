@@ -9,9 +9,9 @@
     <mat-menu #menu="matMenu"
               class="q-grid-form-edit q-grid-menu">
         <q-grid-edit-form q-grid-menu
-                          *ngIf="trigger.menuOpen"
-                          (cancel)="trigger.closeMenu()"
-                          (submit)="trigger.closeMenu()">
+                        *ngIf="trigger.menuOpen"
+                        (cancel)="trigger.closeMenu()"
+                        (submit)="trigger.closeMenu()">
         </q-grid-edit-form>
     </mat-menu>
 </ng-template>
