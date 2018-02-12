@@ -1,6 +1,8 @@
 export { ArrayColumnModel as ArrayColumn } from 'ng2-qgrid/core/column-type/array.column';
 export { BoolColumnModel as BoolColumn } from 'ng2-qgrid/core/column-type/bool.column';
 export { CurrencyColumnModel as CurrencyColumn } from 'ng2-qgrid/core/column-type/currency.column';
+export { ColumnModel as Column } from 'ng2-qgrid/core/column-type/column.model';
+export { DataColumnModel as DataColumn } from 'ng2-qgrid/core/column-type/data.column.model';
 export { DateColumnModel as DateColumn } from 'ng2-qgrid/core/column-type/date.column';
 export { EmailColumnModel as EmailColumn } from 'ng2-qgrid/core/column-type/email.column';
 export { FileColumnModel as FileColumn } from 'ng2-qgrid/core/column-type/file.column';
