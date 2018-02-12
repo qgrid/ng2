@@ -8,7 +8,7 @@ import { IPipe } from '../pipe/pipe.item';
 export declare class GridService {
     constructor(model: Model);
 
-    invalidate(source?: string, changes?: object, pipe?: IPipe[]): Promise<any>;
+    invalidate(source?: string, changes?: object, pipe?: IPipe<any>[]): Promise<any>;
 
     busy(): () => void;
 }
