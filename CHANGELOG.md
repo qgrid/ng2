@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Persistence plugin.
 * Email, url cell editor.
 
+## [5.2.2] - 2018-02-12
+### Fixed
+- Remove `BrowserModule` from componentns to allow lazy loading.
+- Fix column filter and column chooser styles.
+
 ## [5.2.0] - 2018-02-09
 ### Added
 - Column [viewWidth](https://qgrid.github.io/ng/#!/column-view-size) property.

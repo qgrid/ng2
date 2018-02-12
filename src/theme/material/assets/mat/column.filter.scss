@@ -1,20 +1,13 @@
 @at-root .q-grid-column-filter {
-	width: 300px;
-	max-width: 300px;
-	ul {
-		list-style-type: none;
-		padding: 0;
-		margin: 0;
-	}
-	.q-grid-column-filter-filter {
-		width: 100%;
-	}
-	.q-grid-column-filter-list {
-		margin: 0;
-		overflow-y: auto;
-		height: 280px;
-		md-input-container {
-			margin: 0;
-		}
-	}
+    .mat-card {
+        box-shadow: none;
+        padding: 4px 16px;
+        .q-grid-column-filter-toolbar {
+            margin-top: 0;
+        }
+        .mat-card-actions {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
 }
