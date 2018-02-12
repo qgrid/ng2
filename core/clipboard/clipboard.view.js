@@ -31,22 +31,22 @@ export class ClipboardView extends View {
 
 					switch (unit) {
 						case 'cell': {
-							items = this.makeArrayFromCells(items);
+							items = this.buildFromCells(items);
 							break;
 						}
 						case 'row': {
-							items = this.makeArrayFromRows(items);
+							items = this.buildFromRows(items);
 							break;
 						}
 						case 'column': {
-							items = this.makeArrayFromColumns(items);
+							items = this.buildFromColumns(items);
 							break;
 						}
 
 					}
 
 					ClipboardService.buildTable(items);
-					ClipboardService.selectTable(document.querySelector('.generatedTable'));
+					ClipboardService.selectTable(document.querySelector('.q-grid-generated-table'));
 
 				},
 				shortcut: shortcut.copy
@@ -58,63 +58,63 @@ export class ClipboardView extends View {
 		);
 	}
 
-	makeArrayFromColumns(items) {
+	buildFromColumns(items) {
 		const dataState = this.model.data();
-		const rows = dataState.rows;
-		const accumulator = [];
+		const dataRows = dataState.rows;
+		const rows = [];
 
 		items.forEach((column, colIndex) => {
 			const factory = getFactory(column);
-			const cells = rows.map(row => factory(row));
+			const cells = dataRows.map(row => factory(row));
 
-			if (accumulator.length === 0) {
-				cells.forEach(() => accumulator.push([]));
+			if (rows.length === 0) {
+				cells.forEach(() => rows.push([]));
 			}
 
 			cells.forEach((cell, celIndex) => {
-				accumulator[celIndex][colIndex] = cells[celIndex];
+				rows[celIndex][colIndex] = cells[celIndex];
 			})
 
 		});
 
-		return accumulator;
+		return rows;
 	}
 
-	makeArrayFromCells(items) {
-		const accumulator = [];
-		let collection = [];
-		let cells = [];
+	buildFromCells(items) {
+		const rows = [];
+		let row = [];
+		let keys = [];
 
 		items.forEach(item => {
-			const column = item.column;
-			const row = item.row;
-			const key = column.key;
+			const columnItem = item.column;
+			const rowItem = item.row;
+			const key = columnItem.key;
 
-			if (collection.indexOf(key) === -1) {
-				const value = get(row, column);
-				cells.push(value);
-				collection.push(key);
+			if (keys.indexOf(key) === -1) {
+				const value = get(rowItem, columnItem);
+				row.push(value);
+				keys.push(key);
 			} else {
-				accumulator.push(cells);
-				cells = [];
-				collection = [];
-				const value = get(row, column);
-				cells.push(value);
-				collection.push(key);
+				rows.push(row);
+				row = [];
+				keys = [];
+				const value = get(rowItem, columnItem);
+				row.push(value);
+				keys.push(key);
 			}
 		});
 
-		accumulator.push(cells);
+		rows.push(row);
 
-		return accumulator;
+		return rows;
 	}
 
-	makeArrayFromRows(items) {
-		const accumulator = [];
+	buildFromRows(items) {
+		const rows = [];
 
 		items.forEach(item => {
 			const values = Object.values(item);
-			const collection = [];
+			const row = [];
 
 			values.forEach(value => {
 				extractData(value);
@@ -127,18 +127,18 @@ export class ClipboardView extends View {
 							const entity = value;
 							const values = Object.values(entity);
 
-							values.forEach( value => {
-								getType(value) === 'Object' ? extractData(value) : getType(value) === 'Array' ? extractData(value) : collection.push(value);
+							values.forEach(value => {
+								getType(value) === 'Object' ? extractData(value) : getType(value) === 'Array' ? extractData(value) : row.push(value);
 							});
 							break;
 						}
 						case 'String': {
-							collection.push(value);
+							row.push(value);
 							break;
 						}
 						case 'Array': {
 							const str = value.join(', ');
-							collection.push(str);
+							row.push(str);
 							break;
 						}
 
@@ -146,9 +146,9 @@ export class ClipboardView extends View {
 				}
 			});
 
-			accumulator.push(collection);
+			rows.push(row);
 		});
 
-		return accumulator;
+		return rows;
 	}
 }

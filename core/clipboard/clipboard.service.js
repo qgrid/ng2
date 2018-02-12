@@ -2,7 +2,7 @@ export class ClipboardService {
 
 	static buildTable(data) {
 		const table = document.createElement('table');
-		table.className = 'generatedTable';
+		table.classList.add('q-grid-generated-table');
 
 		data.forEach((el) => {
 			const tr = document.createElement('tr');
@@ -19,29 +19,19 @@ export class ClipboardService {
 		return table;
 	}
 
-	static selectTable(el) {
-		let body = document.body, range, sel;
+	static selectTable(element) {
+		let range, selection;
 
-		if (document.createRange && window.getSelection) {
-			range = document.createRange();
-			sel = window.getSelection();
-			sel.removeAllRanges();
-			try {
-				range.selectNodeContents(el);
-				sel.addRange(range);
-			} catch (e) {
-				range.selectNode(el);
-				sel.addRange(range);
-			}
-			document.execCommand('copy');
+		range = document.createRange();
+		selection = window.getSelection();
 
-		} else if (body.createTextRange) {
-			range = body.createTextRange();
-			range.moveToElementText(el);
-			range.select();
-			range.execCommand('copy');
-		}
-		const table = document.querySelector('.generatedTable');
+		selection.removeAllRanges();
+		range.selectNodeContents(element);
+		selection.addRange(range);
+
+		document.execCommand('copy');
+
+		const table = document.querySelector('.q-grid-generated-table');
 
 		table.remove();
 	}
