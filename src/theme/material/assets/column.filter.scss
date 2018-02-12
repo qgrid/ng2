@@ -55,9 +55,7 @@
 	min-width: 360px;
 	max-width: 360px;
 	height: 500px;
-}
-
-@at-root .q-grid-column-filter-panel {
+	overflow: hidden;
 	ul {
 		list-style-type: none;
 		padding: 0;
@@ -65,9 +63,7 @@
 	.q-grid-column-filter-filter {
 		margin: 0;
 		padding: 0;
-		.md-errors-spacer {
-			display: none;
-		}
+		width: 100%;
 	}
 	.q-grid-column-filter-list {
 		overflow-y: auto;
