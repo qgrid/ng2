@@ -31,9 +31,9 @@ import { IPipe } from '../pipe/pipe.item';
  *  columns: userColumns
  * })
  * ```
- * 
+ *
  * ### Suggested Links
- * 
+ *
  * * [data.pipe.js](https://github.com/qgrid/ng2/blob/master/core/pipe/data.pipe.js)
  */
 export declare class DataModel {
@@ -41,7 +41,7 @@ export declare class DataModel {
 	/**
 	 * List of data rows to display.
 	 * Usually data rows can be setup from different places:
-	 * 
+	 *
 	 * * Rows `binding` property, `<q-grid [rows]="userRows">`
 	 * * Through q-grid mode data rows property.
 	 */
@@ -66,5 +66,5 @@ export declare class DataModel {
 	 * Chain of methods that grid invokes asyncroniuosly anytime refresh is required,
 	 * see `PipeModel` that contains information when grid demands refreshing.
 	 */
-    pipe: IPipe[];
+    pipe: IPipe<any>[];
 }
