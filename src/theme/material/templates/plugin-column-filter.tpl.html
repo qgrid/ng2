@@ -14,7 +14,7 @@
 				       [(ngModel)]="$columnFilter.filter"
 				       q-grid-focus/>
 			</mat-form-field>
-			<ul>
+			<ul class="q-grid-column-filter-toolbar">
 				<li>
 					<mat-checkbox [checked]="$columnFilter.stateAll()"
 					              (change)="$columnFilter.toggleAll.execute()"
@@ -32,6 +32,8 @@
 						              (change)="$columnFilter.toggle.execute(item)">
 							<span [innerHTML]="item | qGridHighlight: $columnFilter.filter"></span>
 						</mat-checkbox>
+					</li>
+					<li>
 						<mat-checkbox *ngIf="$columnFilter.hasBlanks"
 						              [(ngModel)]="$columnFilter.byBlanks"
 						              aria-label="Select blanks">

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { ViewCoreComponent } from './view';
 import { ToolbarCoreComponent } from './toolbar';
 import { BodyCoreComponent, TdCoreDirective } from './body';
@@ -12,7 +12,7 @@ import { MarkupDirective } from './markup';
 import { TemplateCacheService } from 'ng2-qgrid/template/template-cache.service';
 import { TemplateService } from 'ng2-qgrid/template/template.service';
 import { TemplateModule } from 'ng2-qgrid/template/template.module';
-import { CommonModule } from 'ng2-qgrid/common';
+import { CommonModule as GridCommonModule } from 'ng2-qgrid/common';
 import { TableCoreComponent } from 'ng2-qgrid/main/core/table';
 import { TdCoreAlignDirective } from 'ng2-qgrid/main/core/body/td-core-align.directive';
 import { LayerCoreComponent } from './layer/layer-core.component';
@@ -40,10 +40,10 @@ import { LayerCoreDirective } from './layer/layer-core.directive';
 		ViewCoreComponent,
 		ToolbarCoreComponent
 	],
-	imports: [
-		BrowserModule,
+	imports: [		
 		TemplateModule,
-		CommonModule
+		CommonModule,
+		GridCommonModule
 	],
 	providers: [
 		VScrollService,

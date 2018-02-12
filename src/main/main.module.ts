@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { GridComponent } from './grid/grid.component';
 import { GridService } from './grid/grid.service';
 import { ColumnComponent, ColumnListComponent } from './column';
@@ -31,8 +31,8 @@ import { MarkupDirective } from './markup/markup.directive';
 		LayerComponent
 	],
 	imports: [
-		BrowserModule,
-		CoreModule
+		CoreModule,
+		CommonModule
 	],
 	providers: [
 		GridService
