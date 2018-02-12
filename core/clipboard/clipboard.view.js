@@ -12,6 +12,9 @@ export class ClipboardView extends View {
 		const shortcut = model.action().shortcut;
 		const commands = this.commands;
 
+		const view = document.querySelector('.q-grid-view');
+		view.setAttribute('onselectstart', 'return false');
+
 		this.using(shortcut.register(selectionCommandManager, commands));
 	}
 

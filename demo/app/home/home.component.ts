@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService, Human } from '../../data/data.service';
 import { Grid } from 'ng2-qgrid/index';
 
@@ -7,7 +7,6 @@ import * as xlsx from 'xlsx';
 import * as pdf from 'jspdf';
 import 'jspdf-autotable';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
-import {DataManipulationComponent} from 'ng2-qgrid/plugins/data-manipulation/data-manipulation.component';
 
 const isUndef = v => v === undefined;
 
@@ -15,10 +14,7 @@ const isUndef = v => v === undefined;
 	selector: 'home',
 	templateUrl: './home.component.html'
 })
-export class HomeComponent implements AfterViewInit {
-
-	@ViewChild(DataManipulationComponent) DataManipulationComponent;
-
+export class HomeComponent {
 	public rows: Human[] = [];
 
 	public columns = [
@@ -73,7 +69,8 @@ export class HomeComponent implements AfterViewInit {
 				isUndef(value) ? item.comment || '' : (item.comment = value),
 			editor: 'text-area',
 			width: 200,
-			maxLength: 8000
+			maxLength: 8000,
+			viewWidth: 400
 		},
 		{
 			key: 'password',
@@ -205,7 +202,7 @@ export class HomeComponent implements AfterViewInit {
 			value: (item, value) =>
 				isUndef(value)
 					? item.webPage ||
-						`https://corp.portal.com/${item.name.last}.${item.name.first}`
+					`https://corp.portal.com/${item.name.last}.${item.name.first}`
 					: (item.webPage = value),
 			label: (item, label) =>
 				isUndef(label)
@@ -238,8 +235,11 @@ export class HomeComponent implements AfterViewInit {
 	private gridModel: Model;
 	constructor(private dataService: DataService, public qgrid: Grid) {
 		this.gridModel = qgrid.model();
+		this.loadData();
+	}
 
-		dataService.getPeople(100).subscribe(people => {
+	loadData() {
+		this.dataService.getPeople(100).subscribe(people => {
 			this.rows = people;
 
 			people.forEach((row, i) => (row.id = i));
@@ -252,7 +252,7 @@ export class HomeComponent implements AfterViewInit {
 		// this.gridModel.data({
 		// 	pipe: [
 		// 		(memo, context, next) =>
-		// 			dataService.getPeople(100).subscribe(people => {
+		// 			this.dataService.getPeople(100).subscribe(people => {
 		// 				this.rows = people;
 
 		// 				people.forEach((row, i) => (row.id = i));
@@ -262,19 +262,11 @@ export class HomeComponent implements AfterViewInit {
 		// 					'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
 		// 				next(people);
 		// 			})
-		// 	].concat(qgrid.pipeUnit.default)
+		// 	].concat(this.qgrid.pipeUnit.default)
 		// });
 	}
 
-	ngAfterViewInit() {
-		this.selectionTrigger();
-	}
-
-	selectionTrigger() {
-		if (this.DataManipulationComponent === undefined) {
-
-			const view = document.querySelector('.q-grid-view');
-			view.setAttribute('onselectstart', 'return false');
-		}
+	clearData() {
+		this.rows = [];
 	}
 }
