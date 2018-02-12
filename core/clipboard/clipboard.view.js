@@ -3,6 +3,7 @@ import {Command} from '../command';
 import {getType, isUndefined} from '../utility';
 import {SelectionCommandManager} from './../selection/selection.command.manager';
 import {get, getFactory} from '../services/value';
+import {ClipboardService} from './clipboard.service';
 
 export class ClipboardView extends View {
 	constructor(model, commandManager) {
@@ -11,9 +12,6 @@ export class ClipboardView extends View {
 		const selectionCommandManager = new SelectionCommandManager(model, commandManager);
 		const shortcut = model.action().shortcut;
 		const commands = this.commands;
-
-		const view = document.querySelector('.q-grid-view');
-		view.setAttribute('onselectstart', 'return false');
 
 		this.using(shortcut.register(selectionCommandManager, commands));
 	}
@@ -33,22 +31,22 @@ export class ClipboardView extends View {
 
 					switch (unit) {
 						case 'cell': {
-							items = this.handleCell(items);
+							items = this.makeArrayFromCells(items);
 							break;
 						}
 						case 'row': {
-							items = this.handleRow(items);
+							items = this.makeArrayFromRows(items);
 							break;
 						}
 						case 'column': {
-							items = this.handleColumn(items);
+							items = this.makeArrayFromColumns(items);
 							break;
 						}
 
 					}
 
-					this.buildTable(items);
-					this.selectTable(document.querySelector('.generatedTable'));
+					ClipboardService.buildTable(items);
+					ClipboardService.selectTable(document.querySelector('.generatedTable'));
 
 				},
 				shortcut: shortcut.copy
@@ -60,9 +58,9 @@ export class ClipboardView extends View {
 		);
 	}
 
-	handleColumn(items) {
-		const dataModel = this.model.data();
-		const rows = dataModel.rows;
+	makeArrayFromColumns(items) {
+		const dataState = this.model.data();
+		const rows = dataState.rows;
 		const accumulator = [];
 
 		items.forEach((column, colIndex) => {
@@ -82,7 +80,7 @@ export class ClipboardView extends View {
 		return accumulator;
 	}
 
-	handleCell(items) {
+	makeArrayFromCells(items) {
 		const accumulator = [];
 		let collection = [];
 		let cells = [];
@@ -111,9 +109,8 @@ export class ClipboardView extends View {
 		return accumulator;
 	}
 
-	handleRow(items) {
+	makeArrayFromRows(items) {
 		const accumulator = [];
-		debugger;
 
 		items.forEach(item => {
 			const values = Object.values(item);
@@ -154,55 +151,4 @@ export class ClipboardView extends View {
 
 		return accumulator;
 	}
-
-	buildTable(data) {
-		const table = document.createElement('table');
-		table.className = 'generatedTable';
-
-		data.forEach((el) => {
-			const tr = document.createElement('tr');
-			for (let o in el) {
-				const td = document.createElement('td');
-				td.appendChild(document.createTextNode(el[o]));
-				tr.appendChild(td);
-			}
-			table.appendChild(tr);
-		});
-
-		document.body.appendChild(table);
-
-		return table;
-	}
-
-	selectTable(el) {
-		let body = document.body, range, sel;
-
-		if (document.createRange && window.getSelection) {
-			range = document.createRange();
-			sel = window.getSelection();
-			sel.removeAllRanges();
-			try {
-				range.selectNodeContents(el);
-				sel.addRange(range);
-			} catch (e) {
-				range.selectNode(el);
-				sel.addRange(range);
-			}
-			document.execCommand('copy');
-
-		} else if (body.createTextRange) {
-			range = body.createTextRange();
-			range.moveToElementText(el);
-			range.select();
-			range.execCommand('copy');
-		}
-		const table = document.querySelector('.generatedTable');
-
-		table.remove();
-	}
 }
-
-
-
-
-
