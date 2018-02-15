@@ -14,7 +14,7 @@ export class RowSelector {
 			case 'column':
 				return this.mapFromColumns(items);
 			case 'cell':
-				return this.mapFromCells2(items);
+				return this.mapFromCells(items);
 			case 'mix':
 				return this.mapFromMix(items);
 			default:
