@@ -57,7 +57,7 @@ export class RowSelector {
 			const cells = rows.map(row => label(row));
 
 			if (!result.length) {
-				cells.forEach(cell => result.push(['empty']));
+				cells.forEach(cell => result.push([]));
 			}
 
 			cells.forEach((cell, cellIndex) => {
@@ -80,6 +80,7 @@ export class RowSelector {
 			const column = item.column;
 
 			const columnKey = column.key;
+			debugger;
 
 			if (!keysForComparison.includes(columnKey)) {
 				const label = get(row, column);
