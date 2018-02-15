@@ -19,7 +19,6 @@ export class ClipboardView extends View {
 		this.using(shortcut.register(selectionCommandManager, commands));
 	}
 
-
 	get commands() {
 		const model = this.model;
 		const selectionService = new SelectionService(model);

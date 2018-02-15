@@ -3,6 +3,7 @@ export class ClipboardService {
 		const table = buildTable(rows);
 
 		selectTable(table);
+		removeTable();
 	}
 }
 
@@ -37,8 +38,9 @@ function selectTable(element) {
 	selection.addRange(range);
 
 	document.execCommand('copy');
+}
 
+function removeTable() {
 	const table = document.querySelector('.q-grid-clipboard');
-
 	table.remove();
 }

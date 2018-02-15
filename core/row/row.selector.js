@@ -1,5 +1,6 @@
 import {AppError} from '../infrastructure';
 import {getFactory, get} from '../services/label';
+import {isUndefined} from '../utility/utility';
 
 export class RowSelector {
 	constructor(model) {
@@ -27,18 +28,14 @@ export class RowSelector {
 		const columns = this.model.view().columns;
 		const cache = new Map(columns.map(column => [column.key]));
 
-		for(const row of rows) {
+		for (const row of rows) {
 			const line = [];
 
 			for (const column of columns) {
-				if(cache.has(column.key)) {
-					const label = getFactory(column);
-					const value = label(row);
+				const label = getFactory(column);
+				const value = label(row);
 
-					if(value && typeof value === 'string') {
-						line.push(value);
-					}
-				}
+				line.push(value === null || isUndefined(value) ? '' : '' + value)
 
 			}
 
@@ -52,19 +49,21 @@ export class RowSelector {
 		const result = [];
 		const rows = this.model.view().rows;
 
-		columns.forEach((column, columnIndex) => {
+		for(let i = 0, max = columns.length; i < max; i++) {
+			const column = columns[i];
 			const label = getFactory(column);
 			const cells = rows.map(row => label(row));
 
 			if (!result.length) {
-				cells.forEach(cell => result.push([]));
+				for(let j = 0, max = cells.length; j < max; j++) {
+					result.push([]);
+				}
 			}
 
-			cells.forEach((cell, cellIndex) => {
-				result[cellIndex][columnIndex] = cells[cellIndex];
-			})
-
-		});
+			for(let k = 0, max = cells.length; k < max; k++) {
+				result[k][i] = cells[k]
+			}
+		}
 
 		return result;
 	}
@@ -111,7 +110,7 @@ export class RowSelector {
 						const row = item.item.row;
 						const column = item.item.column;
 
-						cells.push({row: row, column: column})
+						cells.push({row, column})
 					});
 
 					return this.mapFromCells(cells);
