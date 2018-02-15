@@ -78,20 +78,17 @@ export class RowSelector {
 		items.forEach(item => {
 			const row = item.row;
 			const column = item.column;
-
+			const label = get(row, column);
 			const columnKey = column.key;
-			debugger;
 
 			if (!keysForComparison.includes(columnKey)) {
-				const label = get(row, column);
 				line.push(label);
 				keysForComparison.push(columnKey);
 			} else {
 				result.push(line);
 				line = [];
 				keysForComparison = [];
-				const value = get(row, column);
-				line.push(value);
+				line.push(label);
 				keysForComparison.push(columnKey);
 			}
 		});
