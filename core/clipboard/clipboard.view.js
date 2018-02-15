@@ -4,50 +4,39 @@ import {getType, isUndefined} from '../utility';
 import {SelectionCommandManager} from './../selection/selection.command.manager';
 import {get, getFactory} from '../services/value';
 import {ClipboardService} from './clipboard.service';
+import {SelectionService} from '../selection/selection.service';
+import {RowSelector} from '../row/row.selector';
 
 export class ClipboardView extends View {
 	constructor(model, commandManager) {
 		super(model);
 
 		const selectionCommandManager = new SelectionCommandManager(model, commandManager);
+
 		const shortcut = model.action().shortcut;
 		const commands = this.commands;
 
 		this.using(shortcut.register(selectionCommandManager, commands));
 	}
 
+
 	get commands() {
 		const model = this.model;
-		const selection = model.selection();
+		const selectionService = new SelectionService(model);
+		const rowSelector = new RowSelector(model);
+		const selectionState = model.selection();
 		const shortcut = model.clipboard().shortcut;
 
 		const commands = {
 			copy: new Command({
 				source: 'clipboard.view',
-				canExecute: () => selection.items.length > 0,
+				canExecute: () => selectionState.items.length > 0,
 				execute: () => {
-					const unit = selection.unit;
-					let items = selection.items;
+					const selectionItems = selectionState.items;
+					const entries = selectionService.lookup(selectionItems);
+					const rows = rowSelector.map(entries);
 
-					switch (unit) {
-						case 'cell': {
-							items = this.buildFromCells(items);
-							break;
-						}
-						case 'row': {
-							items = this.buildFromRows(items);
-							break;
-						}
-						case 'column': {
-							items = this.buildFromColumns(items);
-							break;
-						}
-
-					}
-
-					ClipboardService.buildTable(items);
-					ClipboardService.selectTable(document.querySelector('.q-grid-generated-table'));
-
+					ClipboardService.copy(rows);
 				},
 				shortcut: shortcut.copy
 			})
@@ -58,7 +47,7 @@ export class ClipboardView extends View {
 		);
 	}
 
-	buildFromColumns(items) {
+	preshapeColumns(items) {
 		const dataState = this.model.data();
 		const dataRows = dataState.rows;
 		const rows = [];
@@ -80,7 +69,7 @@ export class ClipboardView extends View {
 		return rows;
 	}
 
-	buildFromCells(items) {
+	preshapeCells(items) {
 		const rows = [];
 		let row = [];
 		let keys = [];
@@ -109,7 +98,7 @@ export class ClipboardView extends View {
 		return rows;
 	}
 
-	buildFromRows(items) {
+	preshapeRows(items) {
 		const rows = [];
 
 		items.forEach(item => {
@@ -148,6 +137,7 @@ export class ClipboardView extends View {
 
 			rows.push(row);
 		});
+		debugger;
 
 		return rows;
 	}
