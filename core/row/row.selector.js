@@ -72,35 +72,6 @@ export class RowSelector {
 	mapFromCells(items) {
 		const result = [];
 		let line = [];
-
-		let keysForComparison = [];
-
-		items.forEach(item => {
-			const row = item.row;
-			const column = item.column;
-			const label = get(row, column);
-			const columnKey = column.key;
-
-			if (!keysForComparison.includes(columnKey)) {
-				line.push(label);
-				keysForComparison.push(columnKey);
-			} else {
-				result.push(line);
-				line = [];
-				keysForComparison = [];
-				line.push(label);
-				keysForComparison.push(columnKey);
-			}
-		});
-
-		result.push(line);
-
-		return result;
-	}
-
-	mapFromCells2(items) {
-		const result = [];
-		let line = [];
 		const namesOfColumns = new Set();
 
 		items.forEach(item => {
