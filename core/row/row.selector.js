@@ -26,7 +26,6 @@ export class RowSelector {
 	mapFromRows(rows) {
 		const result = [];
 		const columns = this.model.view().columns;
-		const cache = new Map(columns.map(column => [column.key]));
 
 		for (const row of rows) {
 			const line = [];
