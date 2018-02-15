@@ -25,16 +25,21 @@ export class RowSelector {
 	mapFromRows(rows) {
 		const result = [];
 		const columns = this.model.view().columns;
+		const cache = new Map(columns.map(column => [column.key]));
 
 		for(const row of rows) {
 			const line = [];
 
 			for (const column of columns) {
-				const label = getFactory(column);
-				const value = label(row);
-				if(value && typeof value === 'string') {
-					line.push(value);
+				if(cache.has(column.key)) {
+					const label = getFactory(column);
+					const value = label(row);
+
+					if(value && typeof value === 'string') {
+						line.push(value);
+					}
 				}
+
 			}
 
 			result.push(line);
@@ -52,7 +57,7 @@ export class RowSelector {
 			const cells = rows.map(row => label(row));
 
 			if (!result.length) {
-				cells.forEach((cell) => result.push(['empty']));
+				cells.forEach(cell => result.push(['empty']));
 			}
 
 			cells.forEach((cell, cellIndex) => {
@@ -96,22 +101,24 @@ export class RowSelector {
 	}
 
 	mapFromMix(items) {
-		for(const item of items) {
+		for (const item of items) {
 
-			switch(item.unit) {
-				case 'row':
+			switch (item.unit) {
+				case 'row': {
 					const row = item.item;
 					return this.mapFromRows([row]);
-				case 'cell':
+				}
+				case 'cell': {
 					const cells = [];
 					items.forEach(item => {
-						const itemRow = item.item.row;
-						const itemColumn = item.item.column;
+						const row = item.item.row;
+						const column = item.item.column;
 
-						cells.push({row:itemRow, column:itemColumn})
+						cells.push({row: row, column: column})
 					});
 
 					return this.mapFromCells(cells);
+				}
 			}
 
 		}

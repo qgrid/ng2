@@ -10,15 +10,18 @@ function buildTable(columns) {
 	const table = document.createElement('table');
 	table.classList.add('q-grid-clipboard');
 
-	columns.forEach((column) => {
+	for(let i = 0, max = columns.length; i < max; i++) {
 		const tr = document.createElement('tr');
-		for (let index in column) {
+		const column = columns[i];
+
+		for(let j = 0, max = column.length; j < max; j++) {
 			const td = document.createElement('td');
-			td.appendChild(document.createTextNode(column[index]));
+			td.appendChild(document.createTextNode(column[j]));
 			tr.appendChild(td);
 		}
+
 		table.appendChild(tr);
-	});
+	}
 
 	document.body.appendChild(table);
 
@@ -26,10 +29,8 @@ function buildTable(columns) {
 }
 
 function selectTable(element) {
-	let range, selection;
-
-	range = document.createRange();
-	selection = window.getSelection();
+	const range = document.createRange();
+	const selection = window.getSelection();
 
 	selection.removeAllRanges();
 	range.selectNodeContents(element);
