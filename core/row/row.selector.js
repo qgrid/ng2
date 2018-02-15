@@ -14,7 +14,7 @@ export class RowSelector {
 			case 'column':
 				return this.mapFromColumns(items);
 			case 'cell':
-				return this.mapFromCells(items);
+				return this.mapFromCells2(items);
 			case 'mix':
 				return this.mapFromMix(items);
 			default:
@@ -90,6 +90,34 @@ export class RowSelector {
 				keysForComparison = [];
 				line.push(label);
 				keysForComparison.push(columnKey);
+			}
+		});
+
+		result.push(line);
+
+		return result;
+	}
+
+	mapFromCells2(items) {
+		const result = [];
+		let line = [];
+		const namesOfColumns = new Set();
+
+		items.forEach(item => {
+			const row = item.row;
+			const column = item.column;
+			const label = get(row, column);
+			const nameOfColumn = column.key;
+
+			if (!namesOfColumns.has(nameOfColumn)) {
+				line.push(label);
+				namesOfColumns.add(nameOfColumn);
+			} else {
+				result.push(line);
+				line = [];
+				namesOfColumns.clear();
+				line.push(label);
+				namesOfColumns.add(nameOfColumn);
 			}
 		});
 
