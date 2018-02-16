@@ -24,18 +24,35 @@ export class RowSelector {
 	}
 
 	mapFromRows(rows) {
+		debugger;
 		const result = [];
-		const columns = this.model.view().columns;
+		const columns = this.model
+			.view()
+			.columns
+			.filter(column => column.class === 'data');
+
+		const cache = new Map();
+		let value;
 
 		for (const row of rows) {
 			const line = [];
 
 			for (const column of columns) {
-				const label = getFactory(column);
-				const value = label(row);
+				let label;
+				if(cache.has(column)) {
+					label = cache.get(column)
+				} else {
+					label = getFactory(column);
+					cache.set(column, label);
+				}
 
-				line.push(value === null || isUndefined(value) ? '' : '' + value)
+				value = label(row);
 
+				if(typeof value === 'number' ) {
+					value.toString();
+				}
+
+				line.push(value === null || isUndefined(value) ? '' : '' + value);
 			}
 
 			result.push(line);
