@@ -45,11 +45,6 @@ export class RowSelector {
 				}
 
 				value = label(row);
-
-				if(typeof value === 'number' ) {
-					value.toString();
-				}
-
 				line.push(value === null || isUndefined(value) ? '' : '' + value);
 			}
 
@@ -91,13 +86,7 @@ export class RowSelector {
 			const row = item.row;
 			const column = item.column;
 			let label = get(row, column);
-
-			if(typeof label === 'number') {
-				label.toString();
-			} else if(typeof label === 'undefined') {
-				label = '';
-			}
-
+			label = label === null || isUndefined(label) ? '' : '' + label;
 			const nameOfColumn = column.key;
 
 			if (!namesOfColumns.has(nameOfColumn)) {

@@ -2,7 +2,6 @@ import {View} from '../view';
 import {Command} from '../command';
 import {getType, isUndefined} from '../utility';
 import {SelectionCommandManager} from './../selection/selection.command.manager';
-import {get, getFactory} from '../services/value';
 import {ClipboardService} from './clipboard.service';
 import {SelectionService} from '../selection/selection.service';
 import {RowSelector} from '../row/row.selector';
