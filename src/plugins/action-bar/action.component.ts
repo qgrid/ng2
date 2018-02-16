@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ActionBarService } from './action-bar.service';
+import { ActionService } from './action.service';
 import { Action as ActionItem } from 'ng2-qgrid/core/action';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
@@ -15,7 +15,7 @@ export class ActionComponent {
 	public icon: string = null;
 	public command: Command = null;
 
-	constructor(private actionService: ActionBarService) { }
+	constructor(private actionService: ActionService) { }
 
 	execute() {
 		return this.command && this.command.execute();

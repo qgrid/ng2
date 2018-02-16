@@ -13,6 +13,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Email, url cell editor.
 * Supporting of fetch in column filter.
 
+## [5.2.4] - 2018-02-16
+### Changed
+- Renamed `action-bar-core` to `action-bar`.
+- 
+
 ## [5.2.3] - 2018-02-12
 ### Fixed
 - Embed style for `row-options` column type.
