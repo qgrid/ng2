@@ -7,11 +7,11 @@ import { PersistenceService } from '../persistence/persistence.service';
  * > Under Construction.
  */
 export declare class GridService {
-	 constructor(model: Model);
+	constructor(model: Model);
 
-	 state: PersistenceService;
+	state: PersistenceService;
 
-    invalidate(source?: string, changes?: object, pipe?: IPipe<any>[]): Promise<any>;
+	invalidate(source?: string, changes?: object, pipe?: IPipe<any>[]): Promise<any>;
 
-    busy(): () => void;
+	busy(): () => void;
 }
