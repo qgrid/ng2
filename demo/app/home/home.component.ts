@@ -7,6 +7,7 @@ import * as xlsx from 'xlsx';
 import * as pdf from 'jspdf';
 import 'jspdf-autotable';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
+import { Command } from 'ng2-qgrid/pub/infrastructure';
 
 const isUndef = v => v === undefined;
 
@@ -269,4 +270,6 @@ export class HomeComponent {
 	clearData() {
 		this.rows = [];
 	}
+
+	searchCommand: Command = new Command();
 }

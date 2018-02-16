@@ -1,6 +1,6 @@
+import { Component, Optional, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { RootService } from '../../infrastructure/component/index';
 import { PluginComponent } from '../plugin.component';
-import { Component, Optional, ChangeDetectionStrategy } from '@angular/core';
 import { ActionService } from './action.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { ActionService } from './action.service';
 	providers: [ActionService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ActionListComponent extends PluginComponent {
+export class ActionListComponent extends PluginComponent implements OnInit {
 	constructor(
 		@Optional() root: RootService,
 		private actionService: ActionService
