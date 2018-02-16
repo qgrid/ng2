@@ -25,27 +25,28 @@ export class RowSelector {
 	}
 
 	mapFromRows(rows) {
-		let value;
 		const result = [];
 		const cache = new Map();
 		const columns = this.model
 			.view()
 			.columns
-			.filter(column => column.class === 'data');
+			.filter(column => column.class === 'data' || column.class === 'pivot');
 
 		for (const row of rows) {
 			const line = [];
 
 			for (const column of columns) {
 				let label;
-				if(cache.has(column)) {
-					label = cache.get(column)
+				const key = column.key;
+
+				if(cache.has(key)) {
+					label = cache.get(key)
 				} else {
 					label = getFactory(column);
-					cache.set(column, label);
+					cache.set(key, label);
 				}
 
-				value = label(row);
+				const value = label(row);
 				line.push(value === null || isUndefined(value) ? '' : '' + value);
 			}
 
@@ -58,19 +59,29 @@ export class RowSelector {
 	mapFromColumns(columns) {
 		const result = [];
 		const rows = this.model.view().rows;
+		const cache = new Map();
 
-		for(let i = 0, max = columns.length; i < max; i++) {
+		for(let i = 0, columnLength = columns.length; i < columnLength; i++) {
+			let label;
 			const column = columns[i];
-			const label = getFactory(column);
+			const key = column.key;
+
+			if(cache.has(key)) {
+				label = cache.get(key)
+			} else {
+				label = getFactory(column);
+				cache.set(key, label);
+			}
+
 			const cells = rows.map(row => label(row));
 
 			if (!result.length) {
-				for(let j = 0, max = cells.length; j < max; j++) {
+				for(let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
 					result.push([]);
 				}
 			}
 
-			for(let k = 0, max = cells.length; k < max; k++) {
+			for(let k = 0, cellsLength = cells.length; k < cellsLength; k++) {
 				result[k][i] = cells[k]
 			}
 		}
