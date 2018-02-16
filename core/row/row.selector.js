@@ -9,6 +9,7 @@ export class RowSelector {
 
 	map(items) {
 		const selectionState = this.model.selection();
+
 		switch (selectionState.unit) {
 			case 'row':
 				return this.mapFromRows(items);
