@@ -7,7 +7,6 @@ import {
 	OnInit,
 	OnDestroy,
 	ElementRef,
-	ChangeDetectorRef,
 	EmbeddedViewRef,
 	ComponentRef,
 	NgZone
@@ -77,7 +76,6 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 	constructor(
 		private rootService: RootService,
 		private element: ElementRef,
-		private changeDetector: ChangeDetectorRef,
 		private theme: ThemeService,
 		private zone: NgZone,
 		private layerService: LayerService
@@ -132,19 +130,10 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 
 		const listener = new EventListener(element, new EventManager(this));
 		const windowListener = new EventListener(element, new EventManager(this));
-		this.zone.runOutsideAngular(() => {
-			this.using(
-				windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl))
-			);
 
-			this.using(listener.on('keydown', e => {
-				const result = ctrl.keyDown(e);
-				if (result.some(src => src !== 'navigation')) {
-					this.changeDetector.detectChanges();
-				}
-			}));
-		});
-	}
+		this.using(windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl)));
+		this.using(listener.on('keydown', e => ctrl.keyDown(e)));
+	};
 
 	get visibility() {
 		// TODO: get rid of that

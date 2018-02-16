@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CommonModule as GridCommonModule } from 'ng2-qgrid/common';
 import { GridComponent } from './grid/grid.component';
 import { GridService } from './grid/grid.service';
 import { ColumnComponent, ColumnListComponent } from './column';
@@ -28,7 +29,8 @@ import { MarkupDirective } from './markup/markup.directive';
 		BoxComponent,
 		ToolbarComponent,
 		RowComponent,
-		LayerComponent
+		LayerComponent,		
+		GridCommonModule
 	],
 	imports: [
 		CoreModule,

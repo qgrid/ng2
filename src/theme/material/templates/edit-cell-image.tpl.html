@@ -5,16 +5,14 @@
                         (close)="$view.edit.cell.cancel.execute($cell)"
                         q-grid-position="td">
         <ng-template>
-            <div layout="column"
-                 flex>
+            <div class="layout-column flex">
                 <div class="q-grid-file-upload-area"
                      [ngClass]="{'q-grid-file-has-preview': $cell.column.hasPreview($view.edit.cell.label)}">
-                    <div class="q-grid-file-upload-message"
-                         layout="column"
+                    <div class="layout-column q-grid-file-upload-message"                         
                          [ngSwitch]="!!$view.edit.cell.value">
                         <span class="q-grid-file-upload-filename"
                               *ngSwitchCase="true">{{$view.edit.cell.label}}</span>
-                        <div layout="row"
+                        <div class="layout-row"
                              layout-align="center center">
                             <mat-icon>file_upload</mat-icon>
                             <span *ngSwitchCase="false">Drag and drop an image here or click</span>

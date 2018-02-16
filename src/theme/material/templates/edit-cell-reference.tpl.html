@@ -1,12 +1,11 @@
 <ng-template key='edit-cell-reference.tpl.html'
              let-$cell
-             let-$editor
              let-$view="$view">
-    <q-grid-cell-editor class="q-grid-reference q-grid-editor q-grid-position"
-                        (close)="$view.edit.cell.exit.execute($cell)"
-                        q-grid-position="td">
-        <ng-template>
-                <q-grid-reference-editor></q-grid-reference-editor>
-        </ng-template>
-    </q-grid-cell-editor>
+	<q-grid-cell-editor class="q-grid-reference q-grid-editor q-grid-position"
+	                    (close)="$view.edit.cell.exit.execute($cell)"
+	                    q-grid-position="td">
+		<ng-template>
+			<q-grid-reference-editor></q-grid-reference-editor>
+		</ng-template>
+	</q-grid-cell-editor>
 </ng-template>
