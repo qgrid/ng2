@@ -24,15 +24,13 @@ export class RowSelector {
 	}
 
 	mapFromRows(rows) {
-		debugger;
+		let value;
 		const result = [];
+		const cache = new Map();
 		const columns = this.model
 			.view()
 			.columns
 			.filter(column => column.class === 'data');
-
-		const cache = new Map();
-		let value;
 
 		for (const row of rows) {
 			const line = [];
