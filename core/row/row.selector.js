@@ -90,7 +90,14 @@ export class RowSelector {
 		items.forEach(item => {
 			const row = item.row;
 			const column = item.column;
-			const label = get(row, column);
+			let label = get(row, column);
+
+			if(typeof label === 'number') {
+				label.toString();
+			} else if(typeof label === 'undefined') {
+				label = '';
+			}
+
 			const nameOfColumn = column.key;
 
 			if (!namesOfColumns.has(nameOfColumn)) {
