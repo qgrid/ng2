@@ -12,7 +12,6 @@ export class ClipboardView extends View {
 		super(model);
 
 		const selectionCommandManager = new SelectionCommandManager(model, commandManager);
-
 		const shortcut = model.action().shortcut;
 		const commands = this.commands;
 
