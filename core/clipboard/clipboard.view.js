@@ -11,24 +11,23 @@ export class ClipboardView extends View {
 		super(model);
 
 		const selectionCommandManager = new SelectionCommandManager(model, commandManager);
-		const shortcut = model.action().shortcut;
+		const action = model.action().shortcut;
 		const commands = this.commands;
 
-		this.using(shortcut.register(selectionCommandManager, commands));
+		this.using(action.register(selectionCommandManager, commands));
 	}
 
 	get commands() {
-		const model = this.model;
-		const selectionService = new SelectionService(model);
-		const rowSelector = new RowSelector(model);
-		const selectionState = model.selection();
-		const shortcut = model.clipboard().shortcut;
+		const selectionState = this.model.selection();
+		const shortcut = this.model.clipboard().shortcut;
 
 		const commands = {
 			copy: new Command({
 				source: 'clipboard.view',
 				canExecute: () => selectionState.items.length > 0,
 				execute: () => {
+					const selectionService = new SelectionService(this.model);
+					const rowSelector = new RowSelector(this.model);
 					const selectionItems = selectionState.items;
 					const entries = selectionService.lookup(selectionItems);
 					const rows = rowSelector.map(entries);
