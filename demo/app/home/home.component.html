@@ -65,19 +65,25 @@
                     canResize="true">
         </q-grid-row>
 
+
+
         <!-- <q-grid-layer>
             <ng-template for="blank">
                 <div style="margin: 0 auto; top: 50%; width: 80px; position: relative;">
                     <button (click)="loadData()">Load Rows</button>
                 </div>
             </ng-template>
-        </q-grid-layer>
+        </q-grid-layer> -->
 
-        <q-grid-toolbar>
+        <!-- <q-grid-toolbar>
             <ng-template for="top">
-                <button (click)="clearData()">Clear Rows</button>                
+                <q-grid-action-bar></q-grid-action-bar>
             </ng-template>
-        </q-grid-toolbar> -->
+        </q-grid-toolbar>
+
+        <q-grid-action-list>
+            <q-grid-action icon="search" [command]="searchCommand"></q-grid-action>
+        </q-grid-action-list> -->
 
 
         <!-- <q-grid-row unit="details">

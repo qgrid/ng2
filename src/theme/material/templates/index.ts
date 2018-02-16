@@ -60,7 +60,7 @@ const templates = [
 	require('./plugin-pager.tpl.html'),
 	require('./plugin-progress.tpl.html'),
 	require('./plugin-export.tpl.html'),
-	require('./plugin-action-bar-core.tpl.html'),
+	require('./plugin-action-bar.tpl.html'),
 	require('./plugin-action-core.tpl.html'),
 	require('./plugin-popup-panel.tpl.html'),
 	require('./plugin-column-filter.tpl.html'),
