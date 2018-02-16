@@ -17,7 +17,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## [5.2.4] - 2018-02-16
 ### Changed
 - Renamed `action-bar-core` to `action-bar`.
-- `layout="row"` refactored to `class="layout-row"`
+- `layout="row"` refactored to `class="layout-row"`.
+- Export q-grid `common module` to make `q-grid-position` directive available for the end user.
 
 ### Fixed
 - Url editor.
