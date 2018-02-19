@@ -1,3 +1,3 @@
 export declare class ClipboardService {
-	static copy(rows: any[]): void;
+	static copy(rows: any[], head?: string[], foot?: string[]): void;
 }

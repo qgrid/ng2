@@ -1,10 +1,13 @@
 import {AppError} from '../infrastructure';
 import {getFactory, get} from '../services/label';
 import {isUndefined} from '../utility/utility';
+import {Aggregation} from '../services';
+import {getFactory as valueFactory} from '../services/value';
 
 export class RowSelector {
 	constructor(model) {
 		this.model = model;
+		this.source = this.model.clipboard().source;
 	}
 
 	map(items) {
@@ -31,6 +34,8 @@ export class RowSelector {
 			.view()
 			.columns
 			.filter(column => column.class === 'data' || column.class === 'pivot');
+		const head = columns.map(column => column.title);
+		const foot = columns.map(column => this.value(column) === null ? '' : this.value(column));
 
 		for (const row of rows) {
 			const line = [];
@@ -39,7 +44,7 @@ export class RowSelector {
 				let label;
 				const key = column.key;
 
-				if(cache.has(key)) {
+				if (cache.has(key)) {
 					label = cache.get(key)
 				} else {
 					label = getFactory(column);
@@ -53,6 +58,9 @@ export class RowSelector {
 			result.push(line);
 		}
 
+		result.unshift(head);
+		result.push(foot);
+
 		return result;
 	}
 
@@ -60,13 +68,15 @@ export class RowSelector {
 		const result = [];
 		const rows = this.model.view().rows;
 		const cache = new Map();
+		const head = columns.map(column => column.title);
+		const foot = columns.map(column => this.value(column) === null ? '' : this.value(column));
 
-		for(let i = 0, columnLength = columns.length; i < columnLength; i++) {
+		for (let i = 0, columnLength = columns.length; i < columnLength; i++) {
 			let label;
 			const column = columns[i];
 			const key = column.key;
 
-			if(cache.has(key)) {
+			if (cache.has(key)) {
 				label = cache.get(key)
 			} else {
 				label = getFactory(column);
@@ -76,15 +86,18 @@ export class RowSelector {
 			const cells = rows.map(row => label(row));
 
 			if (!result.length) {
-				for(let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
+				for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
 					result.push([]);
 				}
 			}
 
-			for(let k = 0, cellsLength = cells.length; k < cellsLength; k++) {
+			for (let k = 0, cellsLength = cells.length; k < cellsLength; k++) {
 				result[k][i] = cells[k]
 			}
 		}
+
+		result.unshift(head);
+		result.push(foot);
 
 		return result;
 	}
@@ -93,6 +106,8 @@ export class RowSelector {
 		const result = [];
 		let line = [];
 		const namesOfColumns = new Set();
+		const titles = items.map(item => item.column.title);
+		const aggregations = items.map(item => this.value(item.column) === null ? '' : this.value(item.column));
 
 		items.forEach(item => {
 			const row = item.row;
@@ -113,7 +128,12 @@ export class RowSelector {
 			}
 		});
 
+		const head = titles.slice(0, line.length);
+		const foot = aggregations.slice(0, line.length);
+
+		result.unshift(head);
 		result.push(line);
+		result.push(foot);
 
 		return result;
 	}
@@ -138,8 +158,26 @@ export class RowSelector {
 					return this.mapFromCells(cells);
 				}
 			}
-
 		}
 
+	}
+
+	value(column) {
+		if (column.aggregation) {
+			const aggregation = column.aggregation;
+			const aggregationOptions = column.aggregationOptions;
+
+			if (!Aggregation.hasOwnProperty(aggregation)) {
+				throw new AppError(
+					'foot',
+					`Aggregation ${aggregation} is not registered`);
+			}
+
+			const rows = this.model.data().rows;
+			const getValue = valueFactory(column);
+
+			return Aggregation[aggregation](rows, getValue, aggregationOptions);
+		}
+		return null;
 	}
 }
