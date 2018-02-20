@@ -1,4 +1,4 @@
-import {Command} from '../command/command';
+import { Command } from '../command/command';
 
 /**
  * A class that allows to apply styles to rows and cells.
@@ -46,31 +46,30 @@ import {Command} from '../command/command';
  */
 
 export declare class StyleModel {
-    constructor();
+	constructor();
 
-    /**
-     * Style row.
-     */
-    row: any;
-    
-    /**
-     * Style cell.
-     */
-    cell: any;
-    
-    /**
-     * On invalidate.
-     */
-    invalidate: Command;
+	/**
+	 * Style row.
+	 */
+	row: any;
 
-    /**
-     * Queue of row styles that can be used internally or in plugins. 
-     */
-    rows: any[];
-    
-    
-    /**
-     * Queue of cell styles that can be used internally or in plugins. 
-     */
-    cells: any[];
+	/**
+	 * Style cell.
+	 */
+	cell: any;
+
+	/**
+	 * On invalidate.
+	 */
+	invalidate: Command;
+
+	/**
+	 * Queue of row styles that can be used internally or in plugins. 
+	 */
+	rows: any[];
+
+	/**
+	 * Queue of cell styles that can be used internally or in plugins. 
+	 */
+	cells: any[];
 }

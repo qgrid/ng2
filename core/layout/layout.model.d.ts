@@ -7,13 +7,13 @@ import { ColumnModel } from '../column-type/column.model';
  * * [Layout View](/doc/api/layout-view.html)
  */
 export declare class LayoutModel {
-    /**
-     * Set of column sizes.
-     */
-    columns: Map<string, any>;
-    
-    /**
-     * Set of row sizes.
-     */
-    rows: Map<any, any>;
+	/**
+	 * Set of column sizes.
+	 */
+	columns: Map<string, any>;
+	
+	/**
+	 * Set of row sizes.
+	 */
+	rows: Map<any, any>;
 }

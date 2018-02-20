@@ -1,7 +1,5 @@
-import {Visitor} from './expression.visitor';
-import {IValueFactory} from '../services/value';
+import { Visitor } from './expression.visitor';
 
 export declare class PredicateVisitor extends Visitor {
-	constructor(valueFactory: IValueFactory);
-
+	constructor(valueFactory: (name: string) => (row: any) => any);
 }

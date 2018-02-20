@@ -1,5 +1,5 @@
 export interface ICastFactoryResult<K> {
-  (param: any): (any) => K;
+  (param: any): (x: any) => K;
 }
 
 export declare function castFactory(r: any): ICastFactoryResult<any>;

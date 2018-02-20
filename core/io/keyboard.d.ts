@@ -7,4 +7,3 @@ export declare class Keyboard {
 
 	static translate(code: string, key: string): boolean;
 }
-

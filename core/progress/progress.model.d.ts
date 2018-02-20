@@ -1,4 +1,4 @@
-import {Resource} from '../resource/resource';
+import { Resource } from '../resource/resource';
 
 /**
  * A class representing the q-grid job state.

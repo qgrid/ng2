@@ -1,21 +1,15 @@
-import {IGetFactoryResult} from '../services/value';
-import {Model} from '../infrastructure/model';
-import {ColumnModel} from '../column-type/column.model';
-import {IIdentityResult} from '../utility/utility';
+import { Model } from '../infrastructure/model';
+import { ColumnModel } from '../column-type/column.model';
 
-declare type ReturnIdentityOrColumnKey = IIdentityResult | IColumnKeyResult;
-declare type ReturnIdentityOrIRowKeyResultOrIGetFactoryResult = IIdentityResult | IRowKeyResult | IGetFactoryResult;
+declare type ReturnIdentityOrColumnKey = (x: any) => any | IColumnKeyResult;
+declare type ReturnIdentityOrIRowKeyResultOrIGetFactoryResult = (x: any) => any | IRowKeyResult;
 
-declare interface IColumnKeyResult{
+declare interface IColumnKeyResult {
 	(column: ColumnModel): string;
 }
 
-declare interface IRowKeyResult{
+declare interface IRowKeyResult {
 	(row: any): number;
-}
-
-export declare interface IHashFactoryResult{
-	(entry: string): any;
 }
 
 declare function hashColumnKeyFactory(model: Model): ReturnIdentityOrColumnKey;
@@ -29,5 +23,5 @@ export declare class SelectionService {
 	lookup(items: object[], unit: string): any[];
 	map(entries: any[]): any[];
 	keyFactory<K>(unit: string): (any) => K;
-	hashFactory(): IHashFactoryResult;
+	hashFactory(): (key: string) => any;;
 }

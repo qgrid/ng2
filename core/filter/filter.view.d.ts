@@ -6,7 +6,7 @@ import { Model } from '../infrastructure/model';
  * > Under Construction.
  */
 export class FilterView extends View {
-    constructor(model: Model);
+	constructor(model: Model);
 
-    has(column: ColumnModel): boolean;
+	has(column: ColumnModel): boolean;
 }

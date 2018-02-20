@@ -7,10 +7,10 @@ import {Table} from '../dom/table';
  * > Under Construction.
  */
 export declare class HeadView extends View {
-  constructor(model: Model, table: Table, tagName: string);
+	constructor(model: Model, table: Table, tagName: string);
 
-  rows: any[];
-  drop: Command;
-  drag: Command;
-  resize: Command;
+	rows: any[];
+	drop: Command;
+	drag: Command;
+	resize: Command;
 }
