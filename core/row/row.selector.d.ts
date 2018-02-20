@@ -5,7 +5,7 @@ export declare class RowSelector {
 	constructor(model: Model);
 
 	model: Model;
-	source: 'body' | 'head' | 'foot';
+	source: string[];
 
 	map(items: any[]): void;
 	mapFromRows(rows: any[]): (rows: any[], columns: any[]) => any;
