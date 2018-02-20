@@ -1,4 +1,3 @@
-import { INoopResult } from '../utility/utility';
 import { Model } from '../infrastructure/model';
 import { IPipe } from '../pipe/pipe.item';
 import { PersistenceService } from '../persistence/persistence.service';

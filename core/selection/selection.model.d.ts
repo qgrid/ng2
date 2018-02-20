@@ -1,5 +1,4 @@
 import { Resource } from '../resource/resource';
-import { IIdentityResult } from '../utility/utility';
 
 /**
  * A class that allows to control selection function of the q-grid.

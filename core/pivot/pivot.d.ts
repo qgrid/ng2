@@ -14,5 +14,5 @@ export declare interface IPlan {
 	compile(data: object): object;
 }
 
-export declare function factory(plan: IPlan): (settings: IPivotSettings, plan: IPlan) => object;;
+export declare function factory(plan: IPlan): (settings: IPivotSettings, plan: IPlan) => object;
 export declare function pivot(settings: IPivotSettings, plan: IPlan): object;

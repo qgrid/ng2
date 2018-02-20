@@ -1,10 +1,8 @@
-import { IGetFactoryResult } from '../services/value';
 import { Model } from '../infrastructure/model';
 import { ColumnModel } from '../column-type/column.model';
-import { IIdentityResult } from '../utility/utility';
 
-declare type ReturnIdentityOrColumnKey = IIdentityResult | IColumnKeyResult;
-declare type ReturnIdentityOrIRowKeyResultOrIGetFactoryResult = IIdentityResult | IRowKeyResult | IGetFactoryResult;
+declare type ReturnIdentityOrColumnKey = (x: any) => any | IColumnKeyResult;
+declare type ReturnIdentityOrIRowKeyResultOrIGetFactoryResult = (x: any) => any | IRowKeyResult;
 
 declare interface IColumnKeyResult {
 	(column: ColumnModel): string;

@@ -1,4 +1,4 @@
-import {ColumnModel} from '../column-type/column.model';
+import { ColumnModel } from '../column-type/column.model';
 
 export declare class IBagCell {
 	element: HTMLElement;
@@ -20,7 +20,7 @@ export declare class Bag {
 
 	hasModel(element: HTMLElement): boolean;
 
-	addRow(row: IBagRow) ;
+	addRow(row: IBagRow);
 
 	addCell(cell: IBagCell);
 

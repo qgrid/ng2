@@ -1,6 +1,7 @@
 import { Fetch } from '../infrastructure/fetch';
 import { CellView } from '../scene/view/cell.view';
-import { ColumnModel, IEditorOptions } from '../column-type/column.model';
+import { ColumnModel } from '../column-type/column.model';
+import { EditorOptions } from '../column-type/editor.options';
 
 export declare class CellEditor {
 	constructor(cell: CellView);
@@ -10,7 +11,7 @@ export declare class CellEditor {
 	commit(): void;
 	reset(): void;
 
-	readonly options: IEditorOptions;
+	readonly options: EditorOptions;
 	
 	cell: CellView;
 	value: any;
@@ -22,5 +23,5 @@ export declare class CellEditor {
 
 	fetchFactory(): Fetch;
 
-	static readonly empty: CellEditorCore;
+	static readonly empty: CellEditor;
 }

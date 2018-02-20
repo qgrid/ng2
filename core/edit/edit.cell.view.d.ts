@@ -1,10 +1,11 @@
 import { CellEditor } from './edit.cell.editor';
 import { CommandManager } from '../command/command.manager';
 import { Command } from '../command/command';
-import { ColumnModel, IEditorOptions } from '../column-type/column.model';
+import { ColumnModel } from '../column-type/column.model';
 import { Table } from '../dom/table';
 import { Model } from '../infrastructure/model';
 import { View } from '../view/view';
+import { EditorOptions } from '../column-type/editor.options';
 
 /**
  * > Under Construction.
@@ -22,5 +23,5 @@ export declare class EditCellView extends View {
 	label: any;
 	column: ColumnModel;
 	readonly fetch: () => void;
-	readonly options: IEditorOptions;
+	readonly options: EditorOptions;
 }
