@@ -68,5 +68,5 @@ export declare class FilterModel {
 	 * * `lessThan` should return true if the first value is less than the second.
 	 * * `isNull` should return true if value means null.
 	 */
-	assertFactory: () => IAssert;;
+	assertFactory: () => IAssert;
 }

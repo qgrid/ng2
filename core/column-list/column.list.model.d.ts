@@ -32,7 +32,7 @@ import { ColumnModel } from '../column-type/column.model';
  * * [Column Sort](/doc/feature/sort.html)
  * * [column.list.generate.js](https://github.com/qgrid/ng2/blob/master/core/column-list/column.list.generate.js)
  * * [column.list.sort.js](https://github.com/qgrid/ng2/blob/master/core/column-list/column.list.sort.js)
-
+ *
  */
 export declare class ColumnListModel {
 	constructor();
@@ -53,7 +53,8 @@ export declare class ColumnListModel {
 	index: string[];
 
 	/**
-	 * List of columns from html template. Usually that kind of column can be defined with `<q-grid-column>` componet in html,
+	 * List of columns from html template. Usually that kind of column can be 
+	 * defined with `<q-grid-column>` componet in html,
      * and has `column.source === 'tempate'`.
 	 */
 	columns: ColumnModel[];

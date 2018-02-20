@@ -1,34 +1,30 @@
-import {ColumnModel} from '../column-type/column.model';
-import {Cell} from './cell';
-import {Column} from './column';
-import {Row} from './row';
-import {Bag} from './bag';
+import { ColumnModel } from '../column-type/column.model';
+import { Cell } from './cell';
+import { Column } from './column';
+import { Row } from './row';
+import { Bag } from './bag';
 
-export interface IColumn {
-	(columnIndex: number): ColumnModel;
-}
-
-export interface IMapper {
+export interface IBoxMapper {
 	row(): any;
-	column(): IColumn;
+	column(): (columnIndex: number) => ColumnModel;
 	rowBack(): any;
 	columnBack(): any;
 }
 
-export interface IContext {
-	mapper: IMapper;
+export interface IBoxContext {
+	mapper: IBoxMapper;
 	layer: any;
 	bag: {
 		body: Bag,
 		head: Bag,
 		foot: Bag
-	}
+	};
 }
 
 export declare class Box {
-	constructor(context: IContext);
+	constructor(context: IBoxContext);
 
-	context: IContext;
+	context: IBoxContext;
 
 	cell(rowIndex: number, columnIndex: number): Cell;
 

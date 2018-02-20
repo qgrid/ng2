@@ -45,26 +45,26 @@ export declare class DataModel {
 	 * * Rows `binding` property, `<q-grid [rows]="userRows">`
 	 * * Through q-grid mode data rows property.
 	 */
-    rows: any[];
+	rows: any[];
 
 	/**
 	 * Set of columns to display.
 	 * Usually data columns can be setup from different places for the same grid:
-     *
-     * * Columns `binding` property, `<q-grid [columns]="userColumns">`.
-     * * Columns component, `<q-grid-columns>`.
-     * * Through q-grid model data columns property.
-     *
+	 *
+	 * * Columns `binding` property, `<q-grid [columns]="userColumns">`.
+	 * * Columns component, `<q-grid-columns>`.
+	 * * Through q-grid model data columns property.
+	 *
 	 * We can have different sources of columns because each column has `key` property,
-     * that allows to make a merge. If you have defined columns in javascript and in template
-     * with the same key, algorithm will try persist settings from both sources but
-     * javascript will have top priority.
+	 * that allows to make a merge. If you have defined columns in javascript and in template
+	 * with the same key, algorithm will try persist settings from both sources but
+	 * javascript will have top priority.
 	 */
-    columns: ColumnModel[];
+	columns: ColumnModel[];
 
 	/**
 	 * Chain of methods that grid invokes asyncroniuosly anytime refresh is required,
 	 * see `PipeModel` that contains information when grid demands refreshing.
 	 */
-    pipe: IPipe<any>[];
+	pipe: IPipe<any>[];
 }

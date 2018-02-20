@@ -30,11 +30,10 @@ export declare class PaginationModel {
 	/**
 	 * Count of total rows.
 	 */
-    count: number;
-    
-    /**
-     * List of `model name: [model properties]` pairs to reset pagination current property to 0.
-     */
-    resetTriggers: object[];
+	count: number;
+	
+	/**
+	 * List of `model name: [model properties]` pairs to reset pagination current property to 0.
+	 */
+	resetTriggers: object[];
 }
-

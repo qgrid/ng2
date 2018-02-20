@@ -1,4 +1,4 @@
-import {Command} from '../command/command';
+import { Command } from '../command/command';
 
 /**
  * A class to connect the q-grid [command](/doc/api/command.html) with user interface.
@@ -24,7 +24,8 @@ export declare class Action {
 
 	/**
 	 * Text that will be shown as a tooltip for the action button, if icon property
-	 * is not set this text can be shown as a label(depends on [action bar](/doc/feature/action.html) plugin implementation).
+	 * is not set this text can be shown as a label(depends on [action bar](/doc/feature/action.html) 
+	 * plugin implementation).
 	 */
 	title: string;
 

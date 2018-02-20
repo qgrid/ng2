@@ -72,7 +72,7 @@
     "sync:release": "git stash && git checkout 1.0.x && git pull origin master",
     "test": "npm run lint",
     "tslint": "tslint core/**/*.ts",
-    "typedoc": "typedoc",
+    "typedoc": "typedoc --mode modules --out doc core",
     "version": "npm run build:aot:prod && npm run bundle && npm run bundle:min",
     "watch:dev:hmr": "npm run watch:dev -- --hot",
     "watch:dev": "npm run build:dev -- --watch",

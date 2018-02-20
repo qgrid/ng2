@@ -1,4 +1,4 @@
-export interface IContext {
+export interface ICommandContext {
 	execute?: (...args: any[]) => any;
 	canExecute?: (...args: any[]) => boolean;
 	shortcut?: string;

@@ -5,7 +5,7 @@ export declare class Composite {
 
 	static command(list: Command[]): Command;
 
-	static list(list: Array[]): Array;
+	static list(list: any[]): any[];
 
 	static object(list: object[], memo: object): object;
 }

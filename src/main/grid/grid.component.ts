@@ -133,7 +133,7 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 
 		this.using(windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl)));
 		this.using(listener.on('keydown', e => ctrl.keyDown(e)));
-	};
+	}
 
 	get visibility() {
 		// TODO: get rid of that
