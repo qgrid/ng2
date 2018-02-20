@@ -13,9 +13,8 @@ function buildTable(rows, head, foot) {
 	table.classList.add('q-grid-clipboard');
 	let headFlag = true;
 	let footFlag = false;
-	let rowLength = rows.length;
 
-	for (let i = 0; i < rowLength; i++) {
+	for (let i = 0, rowLength = rows.length; i < rowLength; i++) {
 		const tr = document.createElement('tr');
 		const row = rows[i];
 
@@ -26,7 +25,7 @@ function buildTable(rows, head, foot) {
 		if (head && headFlag) {
 			const tr = document.createElement('tr');
 
-			for (let h = 0, max = head.length; h < max; h++) {
+			for (let h = 0, headLength = head.length; h < headLength; h++) {
 				const th = document.createElement('th');
 
 				th.appendChild(document.createTextNode(head[h]));
@@ -38,11 +37,10 @@ function buildTable(rows, head, foot) {
 		}
 
 		for (let k = 0, max = row.length; k < max; k++) {
-
 			const td = document.createElement('td');
+
 			td.appendChild(document.createTextNode(row[k]));
 			tr.appendChild(td);
-
 		}
 
 		table.appendChild(tr);
@@ -50,7 +48,7 @@ function buildTable(rows, head, foot) {
 		if (foot && footFlag) {
 			const tr = document.createElement('tr');
 
-			for (let f = 0, max = foot.length; f < max; f++) {
+			for (let f = 0, footLength = foot.length; f < footLength; f++) {
 				const td = document.createElement('td');
 
 				td.appendChild(document.createTextNode(foot[f]));
