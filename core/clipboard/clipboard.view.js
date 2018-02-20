@@ -50,7 +50,7 @@ export class ClipboardView extends View {
 							break;
 
 						default:
-							throw new AppError('clipboard.view', `Invalid unit ${source}, should be from [body, head, foot] range and should contain ['body']`);
+							throw new AppError('clipboard.view', `Invalid unit ${source}, should be from ['body', 'head', 'foot'] range and should contain ['body']`);
 					}
 
 				},
