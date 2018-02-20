@@ -144,7 +144,7 @@ export class RowSelector {
 
 			if (!Aggregation.hasOwnProperty(aggregation)) {
 				throw new AppError(
-					'foot',
+					'row.selector',
 					`Aggregation ${aggregation} is not registered`);
 			}
 
