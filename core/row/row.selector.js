@@ -28,78 +28,19 @@ export class RowSelector {
 	}
 
 	mapFromRows(rows) {
-		const result = [];
-		const cache = new Map();
 		const columns = this.model
 			.view()
 			.columns
 			.filter(column => column.class === 'data' || column.class === 'pivot');
-		const head = columns.map(column => column.title);
-		const foot = columns.map(column => this.value(column) === null ? '' : this.value(column));
 
-		for (const row of rows) {
-			const line = [];
-
-			for (const column of columns) {
-				let label;
-				const key = column.key;
-
-				if (cache.has(key)) {
-					label = cache.get(key)
-				} else {
-					label = getFactory(column);
-					cache.set(key, label);
-				}
-
-				const value = label(row);
-				line.push(value === null || isUndefined(value) ? '' : '' + value);
-			}
-
-			result.push(line);
-		}
-
-		result.unshift(head);
-		result.push(foot);
-
-		return result;
+		return this.mapFromRowColumns(rows, columns);
 	}
 
+
 	mapFromColumns(columns) {
-		const result = [];
 		const rows = this.model.view().rows;
-		const cache = new Map();
-		const head = columns.map(column => column.title);
-		const foot = columns.map(column => this.value(column) === null ? '' : this.value(column));
 
-		for (let i = 0, columnLength = columns.length; i < columnLength; i++) {
-			let label;
-			const column = columns[i];
-			const key = column.key;
-
-			if (cache.has(key)) {
-				label = cache.get(key)
-			} else {
-				label = getFactory(column);
-				cache.set(key, label);
-			}
-
-			const cells = rows.map(row => label(row));
-
-			if (!result.length) {
-				for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
-					result.push([]);
-				}
-			}
-
-			for (let k = 0, cellsLength = cells.length; k < cellsLength; k++) {
-				result[k][i] = cells[k]
-			}
-		}
-
-		result.unshift(head);
-		result.push(foot);
-
-		return result;
+		return this.mapFromRowColumns(rows, columns);
 	}
 
 	mapFromCells(items) {
@@ -160,6 +101,40 @@ export class RowSelector {
 			}
 		}
 
+	}
+
+	mapFromRowColumns(rows, columns) {
+		const result = [];
+		const cache = new Map();
+
+		const head = columns.map(column => column.title);
+		const foot = columns.map(column => this.value(column) === null ? '' : this.value(column));
+
+		for (const row of rows) {
+			const line = [];
+
+			for (const column of columns) {
+				let label;
+				const key = column.key;
+
+				if (cache.has(key)) {
+					label = cache.get(key)
+				} else {
+					label = getFactory(column);
+					cache.set(key, label);
+				}
+
+				const value = label(row);
+				line.push(value === null || isUndefined(value) ? '' : '' + value);
+			}
+
+			result.push(line);
+		}
+
+		result.unshift(head);
+		result.push(foot);
+
+		return result;
 	}
 
 	value(column) {
