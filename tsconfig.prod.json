@@ -46,7 +46,9 @@
 	],
 	"exclude": [
 		"node_modules",
-		"dist"
+		"dist",
+		"dll",
+		"scripts"
 	],
 	"compileOnSave": true,
 	"buildOnSave": true,

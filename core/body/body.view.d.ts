@@ -10,19 +10,19 @@ import { Renderer } from '../scene/render/render';
  * > Under Construction.
  */
 export declare class BodyView extends View {
-    constructor(model: Model, table: Table);
+	constructor(model: Model, table: Table);
 
-    rows: any[];
+	rows: any[];
 
-    columns(row: any, pin: string): ColumnView[];
+	columns(row: any, pin: string): ColumnView[];
 
-    rowspan(row: any, column: ColumnView): number;
+	rowspan(row: any, column: ColumnView): number;
 
-    colspan(row: any, column: ColumnView): number;
+	colspan(row: any, column: ColumnView): number;
 
-    value(row: any, column: ColumnModel, value?: any): string;
+	value(row: any, column: ColumnModel, value?: any): string;
 
-    label(row: any, column: ColumnModel, value?: any): string;
+	label(row: any, column: ColumnModel, value?: any): string;
 
-    render: Renderer;
+	render: Renderer;
 }

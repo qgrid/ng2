@@ -1,15 +1,11 @@
 import { IRect } from './fake/element';
 import { Unit } from './unit';
-import { IContext } from './box';
+import { IBoxContext } from './box';
 import { ColumnView } from '../scene/view/column.view';
 import { Model } from '../infrastructure/model';
 
-export declare interface IFunc {
-	(e: any): void;
-}
-
 export declare class View extends Unit {
-	constructor(context: IContext, model: Model, markup: object);
+	constructor(context: IBoxContext, model: Model, markup: object);
 
 	columns(): ColumnView[];
 

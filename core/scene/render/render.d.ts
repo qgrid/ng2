@@ -1,6 +1,6 @@
-import {ColumnModel} from '../../column-type/column.model';
-import {Model} from '../../infrastructure/model';
-import {ColumnView} from '../view/column.view';
+import { ColumnModel } from '../../column-type/column.model';
+import { Model } from '../../infrastructure/model';
+import { ColumnView } from '../view/column.view';
 
 export declare class Renderer {
 	constructor(model: Model);

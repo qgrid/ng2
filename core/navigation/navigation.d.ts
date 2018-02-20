@@ -10,23 +10,23 @@ export declare type ReturnColumnOrNumber = ColumnModel | number;
 export declare class Navigation {
 	constructor();
 
-	currentColumn(): Number;
+	currentColumn(): number;
 
-	nextColumn(): Number;
+	nextColumn(): number;
 
-	prevColumn(): Number;
+	prevColumn(): number;
 
-	lastColumn(): Number;
+	lastColumn(): number;
 
-	firstColumn(): Number;
+	firstColumn(): number;
 
-	currentRow(): Number;
+	currentRow(): number;
 
-	nextRow(): Number;
+	nextRow(): number;
 
-	prevRow(): Number;
+	prevRow(): number;
 
-	firstRow(): Number;
+	firstRow(): number;
 
-	lastRow(): Number;
+	lastRow(): number;
 }

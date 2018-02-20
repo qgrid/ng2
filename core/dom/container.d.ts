@@ -23,5 +23,5 @@ export declare class Container {
 	readonly clientHeight: number;
 	readonly offsetWidth: number;
 	readonly offsetHeight: number;
-	readonly classList: IClassListResult;
+	readonly classList: ClassLi;
 }

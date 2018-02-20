@@ -1,13 +1,9 @@
-import {ColumnModel} from '../column-type/column.model';
-import {ColumnView} from '../scene/view/column.view';
-import {Model} from '../infrastructure/model';
-import {Table} from '../dom/table';
+import { ColumnModel } from '../column-type/column.model';
+import { ColumnView } from '../scene/view/column.view';
+import { Model } from '../infrastructure/model';
+import { Table } from '../dom/table';
 
-export declare class IMapResult {
-  [key: string]: ColumnModel;
-}
-
-export declare function map(columns: ColumnModel[]): IMapResult;
+export declare function map(columns: ColumnModel[]): { [key: string]: ColumnModel };
 export declare function getValue(column: ColumnModel): string;
 export declare function find(columns: ColumnModel[], key: string): ColumnModel;
 export declare function findIndex(columns: ColumnModel[], key: string): number;

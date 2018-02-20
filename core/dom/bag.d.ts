@@ -2,15 +2,15 @@ import {ColumnModel} from '../column-type/column.model';
 
 export declare class IBagCell {
 	element: HTMLElement;
-	rowIndex: Number;
-	columnIndex: Number;
+	rowIndex: number;
+	columnIndex: number;
 	row: any;
 	column: ColumnModel;
 }
 
 export declare class IBagRow {
 	element: HTMLElement;
-	index: Number;
+	index: number;
 }
 
 export declare class Bag {
