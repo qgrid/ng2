@@ -1,6 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "5.2.5",
+  "version": "5.2.6",
   "description": "Angular2 data grid",
   "main": "./main.js",
   "typings": "./index.d.ts",
@@ -59,7 +59,7 @@
     "protractor": "protractor",
     "protractor:delay": "sleep 3 && npm run protractor",
     "protractor:live": "protractor --elementExplorer",
-    "release": "npm run clean:dist && npm run sync:release && npm run copy:dist && npm run release:dist",
+    "release": "npm run sync:release && npm run copy:dist && npm run release:dist",
     "release:dist": "cd dist && npm publish && cd ..",
     "rimraf": "rimraf",
     "server:dev:hmr": "npm run server:dev -- --inline --hot",
