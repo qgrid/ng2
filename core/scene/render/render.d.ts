@@ -1,6 +1,7 @@
 import { ColumnModel } from '../../column-type/column.model';
 import { Model } from '../../infrastructure/model';
 import { ColumnView } from '../view/column.view';
+import { IRenderStrategy } from './render.strategy';
 
 export declare class Renderer {
 	constructor(model: Model);
@@ -15,5 +16,5 @@ export declare class Renderer {
 
 	setValue(row: any, column: ColumnModel, value: any);
 
-	defaultRenderer: Renderer;
+	defaultStrategy: Renderer;
 }
