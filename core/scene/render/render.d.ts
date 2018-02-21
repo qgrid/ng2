@@ -14,4 +14,6 @@ export declare class Renderer {
 	getValue(row: any, column: ColumnModel);
 
 	setValue(row: any, column: ColumnModel, value: any);
+
+	defaultRenderer: Renderer;
 }
