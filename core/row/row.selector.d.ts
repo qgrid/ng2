@@ -8,8 +8,8 @@ export declare class RowSelector {
 	source: string[];
 
 	map(items: any[]): void;
-	mapFromRows(rows: any[]): (rows: any[], columns: any[]) => any;
-	mapFromColumns(columns: any[]): (rows: any[], columns: any[]) => any;
+	mapFromRows(rows: any[]): (rows: any[], columns: ColumnModel[]) => any;
+	mapFromColumns(columns: ColumnModel[]): (rows: any[], columns: ColumnModel[]) => any;
 	mapFromCells(items: any[]): any[];
 	mapFromMix(items: any[]): (items: any[]) => any[];
 	value(column: ColumnModel): any;
