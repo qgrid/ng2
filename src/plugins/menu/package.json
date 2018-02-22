@@ -1,0 +1,6 @@
+{
+  "name": "ng2-qgrid/plugins/menu",
+  "version": "5.2.6",
+  "main": "../../bundles/main.js",
+  "typings": "./menu.module.d.ts"
+}

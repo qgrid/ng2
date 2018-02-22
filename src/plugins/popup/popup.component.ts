@@ -5,10 +5,7 @@ import {
 	OnDestroy,
 	OnInit,
 	ViewContainerRef,
-	ComponentFactory,
-	ComponentFactoryResolver,
-	ApplicationRef,
-	Injector
+	ComponentFactory
 } from '@angular/core';
 import { RootService } from 'ng2-qgrid/infrastructure/component';
 import { TemplateHostService } from 'ng2-qgrid/template';
