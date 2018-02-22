@@ -16,5 +16,5 @@ export declare class Renderer {
 
 	setValue(row: any, column: ColumnModel, value: any);
 
-	defaultStrategy: Renderer;
+	defaultStrategy: IRenderStrategy;
 }
