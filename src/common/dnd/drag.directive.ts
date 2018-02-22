@@ -3,7 +3,7 @@ import { EventManager } from 'ng2-qgrid/core/infrastructure';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { DragService } from './drag.service';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
-import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 
 @Directive({
 	selector: '[q-grid-drag]'

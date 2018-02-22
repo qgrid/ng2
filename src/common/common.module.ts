@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { RaiseModule } from './raise';
-import { DndModule } from './dnd';
-import { FocusModule } from './focus';
-import { ResizeModule } from './resize';
-import { LayoutModule } from './layout';
-import { FileModule } from './file';
+import { RaiseModule } from './raise/raise.module';
+import { DndModule } from './dnd/dnd.module';
+import { FocusModule } from './focus/focus.module';
+import { ResizeModule } from './resize/resize.module';
+import { LayoutModule } from './layout/layout.module';
+import { FileModule } from './file/file.module';
 
 @NgModule({
 	declarations: [],

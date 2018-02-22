@@ -1,4 +1,4 @@
-import { TemplateModule } from '../../template/index';
+import { TemplateModule } from '../../template/template.module';
 import { NgModule } from '@angular/core';
 import { ActionBarComponent } from './action-bar.component';
 import { ActionListComponent } from './action-list.component';

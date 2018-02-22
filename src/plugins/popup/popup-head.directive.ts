@@ -1,7 +1,7 @@
 import { ElementRef, Input, Directive } from '@angular/core';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
-import { NgComponent } from 'ng2-qgrid/infrastructure/component';
+import { NgComponent } from 'ng2-qgrid/infrastructure/component/ng.component';
 import { Popup } from './popup';
 
 @Directive({

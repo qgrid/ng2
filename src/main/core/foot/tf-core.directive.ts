@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { ViewCoreService } from '../view/view-core.service';
-import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { CellService } from '../cell/cell.service';
 import { TableCoreService } from '../table/table-core.service';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';

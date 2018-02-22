@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { max } from 'ng2-qgrid/core/utility';
-import { RootService } from '../../infrastructure/component';
+import { RootService } from '../../infrastructure/component/root.service';
 
 @Directive({
 	selector: '[q-grid-stop-propagate]'
