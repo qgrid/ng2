@@ -1,5 +1,6 @@
 export declare class Cache <K, V> {
 	constructor();
+
 	set(key: K, value: V);
 	get(key: K): V ;
 	has(key: K): boolean;

@@ -6,22 +6,20 @@ import { EditorOptions } from '../column-type/editor.options';
 export declare class CellEditor {
 	constructor(cell: CellView);
 
+	static readonly empty: CellEditor;
+
 	fetch: () => void;
 	resetFetch: () => void;
-	commit(): void;
-	reset(): void;
-
-	readonly options: EditorOptions;
-	
 	cell: CellView;
 	value: any;
 	label: any;
+
+	readonly options: EditorOptions;
 	readonly title: string;
 	readonly column: ColumnModel;
 
 	getLabel(item: any): any;
-
 	fetchFactory(): Fetch;
-
-	static readonly empty: CellEditor;
+	commit(): void;
+	reset(): void;
 }

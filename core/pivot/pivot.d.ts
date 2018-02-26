@@ -5,10 +5,12 @@ export interface IPivotSettings {
 	value: any;
 }
 
-export declare interface IPlan {
+export declare class IPlan {
 	constructor(schema: object);
+
 	isRoot: boolean;
 	current: any;
+
 	branch(): IPlan;
 	cursor(name: string): void;
 	compile(data: object): object;

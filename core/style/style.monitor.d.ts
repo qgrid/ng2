@@ -10,9 +10,11 @@ export declare class Entry {
 
 export declare class Monitor {
 	constructor(model: Model);
+
 	entries: Entry[];
 	newSheets: Map<any, any>;
 	oldSheets: Map<any, any>;
+
 	enter(): (key: string, style: string) => void;
 	exit(): void;
 }
