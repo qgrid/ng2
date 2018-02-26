@@ -22,11 +22,12 @@ export class EditFormComponent extends PluginComponent implements OnInit, OnDest
     ngOnInit() {
         const model = this.model;
         this.columns = model.data().columns;
+        this.context.$implicit["getKey"] = (column: ColumnModel) => {
+            return column.type ? `edit-form-${column.type}.tpl.html` : 'edit-form-default.tpl.html';
+        } 
     }
 
     ngOnDestroy() {
 
     }
-
-
 }

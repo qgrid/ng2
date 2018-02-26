@@ -4,6 +4,7 @@ import { PluginComponent } from '../plugin.component';
 import { EditFormView } from 'ng2-qgrid/plugin/edit-form/edit.form.view';
 import { FormGroup } from '@angular/forms';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
+import { ViewCoreService } from 'ng2-qgrid/main';
 
 @Component({
 	selector: 'q-grid-edit-form-control',
@@ -11,7 +12,8 @@ import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 })
 export class EditFormControlComponent extends PluginComponent implements OnInit, OnDestroy {
     @Input() column: ColumnModel;
-    
+	@Input() key: string;
+
 	constructor( @Optional() root: RootService) {
 		super(root);
 	}
@@ -22,5 +24,5 @@ export class EditFormControlComponent extends PluginComponent implements OnInit,
 
 	ngOnDestroy() {
 		
-    }
+	}
 }

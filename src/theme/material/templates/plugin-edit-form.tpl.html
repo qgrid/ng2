@@ -2,9 +2,7 @@
              let-$editForm>
     <ul>
         <li *ngFor="let column of $editForm.columns">
-            <q-grid-edit-form-control [column]="column">
-                
-            </q-grid-edit-form-control>            
+            <q-grid-edit-form-control [column]="column" [key]="$editForm.getKey(column)"></q-grid-edit-form-control>            
         </li>
     </ul>
 </ng-template>

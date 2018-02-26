@@ -44,6 +44,7 @@ const templates = [
 	require('./edit-cell-url.tpl.html'),
 	require('./edit-cell-reference.tpl.html'),
 
+
 	require('./foot-cell-text.tpl.html'),
 	require('./foot-cell-currency.tpl.html'),
 
@@ -67,8 +68,26 @@ const templates = [
 	require('./plugin-column-chooser.tpl.html'),
     require('./plugin-legend-core.tpl.html'),
     require('./plugin-edit-form-trigger.tpl.html'),
-    require('./plugin-edit-form.tpl.html')
+	require('./plugin-edit-form.tpl.html'),
+	
+	require('./edit-form-default.tpl.html'),
+	require('./edit-form-text.tpl.html'),
+	require('./edit-form-number.tpl.html'),
+	require('./edit-form-email.tpl.html'),
 
+	require('./edit-form-date.tpl.html'),
+	require('./edit-form-array.tpl.html'),
+	require('./edit-form-dropdown.tpl.html'),
+	require('./edit-form-file.tpl.html'),
+	require('./edit-form-image.tpl.html'),
+	require('./edit-form-currency.tpl.html'),
+	require('./edit-form-bool.tpl.html'),
+	require('./edit-form-password.tpl.html'),
+	require('./edit-form-textarea.tpl.html'),
+	require('./edit-form-time.tpl.html'),
+	require('./edit-form-row-options.tpl.html'),
+	require('./edit-form-url.tpl.html'),
+	require('./edit-form-reference.tpl.html'),
 ];
 
 export const template = templates.join('\n\n');
