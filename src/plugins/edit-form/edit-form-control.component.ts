@@ -10,8 +10,8 @@ import { ViewCoreService } from 'ng2-qgrid/main';
 	selector: 'q-grid-edit-form-control',
 	templateUrl: './edit-form-control.component.html'
 })
-export class EditFormControlComponent extends PluginComponent implements OnInit, OnDestroy {
-    @Input() column: ColumnModel;
+export class EditFormControlComponent extends PluginComponent implements OnInit {
+	@Input() column: ColumnModel;
 	@Input() key: string;
 
 	constructor( @Optional() root: RootService) {
@@ -19,10 +19,6 @@ export class EditFormControlComponent extends PluginComponent implements OnInit,
 	}
 
 	ngOnInit() {
-        console.log(this.context);
-    }
-
-	ngOnDestroy() {
-		
+		console.log(this.context);
 	}
 }
