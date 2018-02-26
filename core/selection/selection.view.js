@@ -1,12 +1,12 @@
-import {View} from '../view';
-import {AppError} from '../infrastructure';
-import {Command} from '../command';
-import {selectionStateFactory as stateFactory} from './state';
-import {SelectionRange} from './selection.range';
-import {SelectionService} from './selection.service';
-import {GRID_PREFIX} from '../definition';
-import {noop, isUndefined} from '../utility';
-import {SelectionCommandManager} from './selection.command.manager';
+import { View } from '../view';
+import { AppError } from '../infrastructure';
+import { Command } from '../command';
+import { selectionStateFactory as stateFactory } from './state';
+import { SelectionRange } from './selection.range';
+import { SelectionService } from './selection.service';
+import { GRID_PREFIX } from '../definition';
+import { noop, isUndefined } from '../utility';
+import { SelectionCommandManager } from './selection.command.manager';
 
 export class SelectionView extends View {
 	constructor(model, table, commandManager) {
@@ -41,27 +41,33 @@ export class SelectionView extends View {
 			}
 		}));
 
-		const newClassName = `${GRID_PREFIX}-select-${model.selection().mode}`;
+		const modeClass = `${GRID_PREFIX}-select-${model.selection().mode}`;
+		const unitClass = `${GRID_PREFIX}-select-${model.selection().unit}`;
 		const view = table.view;
-		view.addClass(newClassName);
+		view.addClass(modeClass);
+		view.addClass(unitClass);
 
 		this.using(model.selectionChanged.watch(e => {
 			if (e.hasChanges('mode')) {
-				const newClassName = `${GRID_PREFIX}-select-${e.state.mode}`;
-				view.addClass(newClassName);
+				const newModeClass = `${GRID_PREFIX}-select-${e.state.mode}`;
+				const oldModeClass = `${GRID_PREFIX}-select-${e.changes.mode.oldValue}`;
 
-				if (e.changes.mode.oldValue != e.changes.mode.newValue) {
-					const oldClassName = `${GRID_PREFIX}-select-${e.changes.mode.oldValue}`;
-					view.removeClass(oldClassName);
-				}
+				view.removeClass(oldModeClass);
+				view.addClass(newModeClass);
 			}
 
-			if (e.hasChanges('unit') || e.hasChanges('mode')) { 
+			if (e.hasChanges('unit')) {
+				const newUnitClass = `${GRID_PREFIX}-select-${e.state.unit}`;
+				const oldUnitClass = `${GRID_PREFIX}-select-${e.changes.unit.oldValue}`;
+
+				view.removeClass(oldUnitClass);
+				view.addClass(newUnitClass);
+			}
+
+			if (e.hasChanges('unit') || e.hasChanges('mode')) {
 				if (!e.hasChanges('items')) {
 					this.selectionState.clear();
-					model.selection({
-						items: []
-					}, {
+					model.selection({ items: [] }, {
 						source: 'selection.view'
 					});
 
@@ -92,13 +98,7 @@ export class SelectionView extends View {
 				const navState = model.navigation();
 				const rowIndex = navState.rowIndex;
 
-				let row;
-				if (rowIndex >= 0) {
-					row = this.rows[rowIndex];
-				} else {
-					row = this.rows[rowIndex + 1];
-				}
-
+				const row = this.rows[rowIndex >= 0 ? rowIndex : rowIndex + 1];
 				const commit = this.toggle(row);
 				commit();
 			},
@@ -122,12 +122,12 @@ export class SelectionView extends View {
 						}
 						case 'mix': {
 							if (item.column.type === 'row-indicator') {
-								const commit = this.toggle({item: item.row, unit: 'row'}, source);
+								const commit = this.toggle({ item: item.row, unit: 'row' }, source);
 								commit();
 								break;
 							}
 							else {
-								const commit = this.toggle({item: item, unit: 'cell'}, source);
+								const commit = this.toggle({ item: item, unit: 'cell' }, source);
 								commit();
 								break;
 							}
@@ -296,9 +296,7 @@ export class SelectionView extends View {
 
 			return () => {
 				const items = this.selectionService.map(selectionState.entries());
-				this.model.selection({
-					items: items
-				}, {
+				this.model.selection({ items }, {
 					source: 'selection.view'
 				});
 			};
@@ -323,9 +321,7 @@ export class SelectionView extends View {
 
 			return () => {
 				const items = this.selectionService.map(selectionState.entries());
-				this.model.selection({
-					items: items
-				}, {
+				this.model.selection({ items }, {
 					source: 'selection.view'
 				});
 			};
@@ -336,7 +332,7 @@ export class SelectionView extends View {
 
 	state(item) {
 		if (!arguments.length) {
-			item = this.rows;
+			return !!this.selectionState.stateAll(this.rows);
 		}
 
 		return this.selectionState.state(item) === true;
@@ -344,7 +340,7 @@ export class SelectionView extends View {
 
 	isIndeterminate(item) {
 		if (!arguments.length) {
-			item = this.rows;
+			return this.selectionState.stateAll(this.rows) === null;
 		}
 
 		return this.selectionState.state(item) === null;
@@ -372,6 +368,6 @@ export class SelectionView extends View {
 
 	navigateTo(rowIndex, columnIndex) {
 		const cell = this.table.body.cell(rowIndex, columnIndex);
-		this.model.navigation({cell: cell.model()}, {source: 'selection.view'});
+		this.model.navigation({ cell: cell.model() }, { source: 'selection.view' });
 	}
 }

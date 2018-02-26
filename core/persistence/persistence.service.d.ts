@@ -1,4 +1,4 @@
 export declare class PersistenceService {
-	save(settings?: obejct): object;
+	save(settings?: object): object;
 	load(model: object, settings?: object): void;
 }

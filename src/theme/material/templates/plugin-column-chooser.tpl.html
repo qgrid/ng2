@@ -1,12 +1,11 @@
 <ng-template key="column-chooser.tpl"
              let-$columnChooser>
-	<mat-card>
+	<mat-card class="mat-elevation-z">
 		<mat-card-header>
-			<mat-card-title>Column Filter</mat-card-title>
+			<mat-card-title>Columns Filter</mat-card-title>
 		</mat-card-header>
 		<mat-card-content>
-			<div flex="none"
-			     layout="row">
+			<div class="flex-none layout-row">
 				<mat-form-field class="q-grid-column-chooser-filter">
 					<input type="search"
 					       placeholder="Find in the list"
@@ -15,9 +14,8 @@
 					       q-grid-focus />
 				</mat-form-field>
 			</div>
-			<div flex
-			     layout="column">
-				<ul>
+			<div class="flex layout-column">
+				<ul class="q-grid-column-chooser-toolbar">
 					<li>
 						<mat-checkbox [checked]="$columnChooser.stateAll()"
 						              (change)="$columnChooser.toggleAll.execute()"

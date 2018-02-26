@@ -3,4 +3,3 @@ export declare class FakeLayer {
 	resource(): void;
 	destroy(): void;
 }
-

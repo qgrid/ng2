@@ -1,21 +1,47 @@
-import { RootService } from '../../infrastructure/component/index';
+import { OnDestroy, OnInit, Optional, Component } from '@angular/core';
+import { RootService } from '../../infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
-import { Component, Optional, ChangeDetectionStrategy } from '@angular/core';
-import { ActionBarService } from './action-bar.service';
 
 @Component({
 	selector: 'q-grid-action-bar',
-	template: '',
-	providers: [ActionBarService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	templateUrl: './action-bar.component.html'
 })
-export class ActionBarComponent extends PluginComponent {
-	constructor(
-		@Optional() root: RootService,
-		actionService: ActionBarService
-	) {
-		super(root);
+export class ActionBarComponent extends PluginComponent
+	implements OnInit, OnDestroy {
+		
+	private shortcutOff: () => void = null;
 
-		actionService.model = this.model;
+	constructor(@Optional() root: RootService) {
+		super(root);
+	}
+
+	ngOnInit() {
+		const shortcut = this.model.action().shortcut;
+		this.using(
+			this.model.actionChanged.watch(e => {
+				if (e.hasChanges('items')) {
+					if (this.shortcutOff) {
+						this.shortcutOff();
+						this.shortcutOff = null;
+					}
+
+					this.shortcutOff = shortcut.register(
+						this.root.commandManager,
+						e.state.items.map(act => act.command)
+					);
+				}
+			})
+		);
+	}
+
+	get actions() {
+		return this.model.action().items;
+	}
+
+	ngOnDestroy() {
+		if (this.shortcutOff) {
+			this.shortcutOff();
+			this.shortcutOff = null;
+		}
 	}
 }

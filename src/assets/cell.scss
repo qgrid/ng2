@@ -21,6 +21,12 @@ th {
 	}
 }
 
+&.q-grid-box:not(.q-grid-drag) {
+	td, th {
+		transition: min-width 0.3s, width 0.3s, max-width 0.3s;
+	}
+}
+
 thead {
 	th {
 		> div {
@@ -99,9 +105,9 @@ tbody {
 		}
 
 		&.q-grid-row-indicator {
-			width: 10px;
-			min-width: 10px;
-			max-width: 10px;
+			width: 16px;
+			min-width: 16px;
+			max-width: 16px;
 			text-overflow: initial;
 		}
 
@@ -128,6 +134,7 @@ tbody {
 			width: 56px;
 			min-width: 56px;
 			max-width: 56px;
+			text-overflow: initial;
 		}
 	}
 }

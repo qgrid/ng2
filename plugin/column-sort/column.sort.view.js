@@ -1,5 +1,4 @@
 import { PluginView } from '../plugin.view';
-import { EventListener, EventManager } from '../../core/infrastructure';
 import { GRID_PREFIX } from '../../core/definition';
 import { Command } from '../../core/command/command';
 
@@ -15,7 +14,6 @@ export class ColumnSortView extends PluginView {
 		const element = this.element = context.element;
 		const iconDesc = context.iconDesc;
 		const iconAsc = context.iconAsc;
-
 
 		this.using(model.sortChanged.watch(e => {
 			if (e.hasChanges('by')) {

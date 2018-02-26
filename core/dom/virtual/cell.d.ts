@@ -1,5 +1,5 @@
-import {Cell} from '../cell';
+import { Cell } from '../cell';
 
 export declare class VirtualCell extends Cell {
-  constructor();
+	constructor();
 }

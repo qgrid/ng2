@@ -1,4 +1,4 @@
-import {Resource} from '../resource/resource';
+import { Resource } from '../resource/resource';
 
 /**
  * A class to control visibility of the q-grid areas.
@@ -37,10 +37,10 @@ export declare class VisibilityModel {
 		bottom: boolean,
 		left: boolean,
 	};
-	
+
 	/**
 	 * Object that controls if the q-grid `frozen` panels are visible.
-     *
+	 *
 	 * * `'right'` show/hide right pin panel.
 	 * * `'left'` show/hide left pin panel.
 	 */

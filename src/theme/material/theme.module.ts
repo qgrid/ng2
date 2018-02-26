@@ -4,12 +4,12 @@ import {
 	ApplicationRef,
 	Injector
 } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThemeComponent } from './theme.component';
 import { PluginModule } from 'ng2-qgrid/plugins';
 import { TemplateModule, ThemeService } from 'ng2-qgrid/template';
-import { CommonModule } from 'ng2-qgrid/common';
+import { CommonModule as GridCommonModule } from 'ng2-qgrid/common';
 import {
 	MatCardModule,
 	MatIconModule,
@@ -35,7 +35,7 @@ import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 	exports: [],
 	imports: [
 		CommonModule,
-		BrowserModule,
+		GridCommonModule,
 		FormsModule,
 		TemplateModule,
 		GridModule,

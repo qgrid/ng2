@@ -20,8 +20,8 @@ export function columnPipe(memo, context, next) {
 
 	const addSelectColumn = selectColumnFactory(model);
 	const addGroupColumn = groupColumnFactory(model, nodes);
-    const addRowExpandColumn = rowExpandColumnFactory(model);
-    const addRowIndicatorColumn = rowIndicatorColumnFactory(model);
+	const addRowExpandColumn = rowExpandColumnFactory(model);
+	const addRowIndicatorColumn = rowIndicatorColumnFactory(model);
 	const addPivotColumns = pivotColumnsFactory(model);
 	const addPadColumn = padColumnFactory(model);
 	const columns = [];
@@ -32,7 +32,7 @@ export function columnPipe(memo, context, next) {
 	 *
 	 */
 	addRowIndicatorColumn(columns, {rowspan: rowspan, row: 0});
-    
+	
 	/*
 	 * Add column with select boxes
 	 * if selection unit is row
@@ -158,8 +158,8 @@ function rowExpandColumnFactory(model) {
 
 function rowIndicatorColumnFactory(model) {
 	const dataColumns = model.data().columns;
-    const rowIndicatorColumn = dataColumns.find(item => item.type === 'row-indicator');
-    const rowState = model.row().canResize;
+	const rowIndicatorColumn = dataColumns.find(item => item.type === 'row-indicator');
+	const rowState = model.row();
 	if ((rowState.canDrag || rowState.canResize) && !rowIndicatorColumn) {
 		const createColumn = columnFactory(model);
 		return (columns, context) => {

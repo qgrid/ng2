@@ -16,12 +16,12 @@ describe('ShortcutDispatcher', () => {
 	describe('execute', () => {
 		it('should return true if shortcut was registered and executed', () => {
 			shortcutDispatcher.register(manager, cmds);
-			let result = shortcutDispatcher.execute('ctrl');
+			let result = shortcutDispatcher.execute('ctrl').length > 0;
 			expect(result).to.equal(true);
 		});
 
 		it('should return false if shortcut was not found', () => {
-			let result = shortcutDispatcher.execute('deleeete');
+			let result = shortcutDispatcher.execute('deleeete').length > 0;
 			expect(result).to.equal(false);
 		});
 	});

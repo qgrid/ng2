@@ -1,13 +1,12 @@
 import { Resource } from '../resource/resource';
 import { Command } from '../command/command';
-import { Mode } from './mode';
-import { State } from './state';
+import { ICommitShortcuts } from './commit.shortcuts';
 
 /**
  * A class represent options to control q-grid edit mode.
- * 
+ *
  * ### Suggested Links
- * 
+ *
  * * [Edit Cell View](/doc/api/edit-cell-view.html)
  * * [Edit Row View](/doc/api/edit-row-view.html)
  */
@@ -16,17 +15,17 @@ export declare class EditModel {
 	resource: Resource;
 
 	/**
-	 * Property that controls grid edit unit. 
-	 * 
+	 * Property that controls grid edit unit.
+	 *
 	 * * `'cell'` data is editable through the grid cells.
 	 * * `'row'` data is editable through the grid rows.
 	 */
-	mode: string;
+	mode: 'cell' | 'row';
 
 	/**
 	 * Indicates if q-grid is in `'edit'` or in a `'view'` mode.
 	 */
-	state: string;
+	state: 'edit' | 'view';
 
 	/**
 	 * Allows to the grid user to control if cell or row can be edited or not.

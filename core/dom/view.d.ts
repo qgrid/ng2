@@ -1,15 +1,11 @@
-import {IRect} from './fake/element';
-import {Unit} from './unit';
-import {IContext} from './box';
-import {ColumnView} from '../scene/view/column.view';
-import {Model} from '../infrastructure/model';
-
-export declare interface IFunc {
-	(e: any): void;
-}
+import { IRect } from './fake/element';
+import { Unit } from './unit';
+import { IBoxContext } from './box';
+import { ColumnView } from '../scene/view/column.view';
+import { Model } from '../infrastructure/model';
 
 export declare class View extends Unit {
-	constructor(context: IContext, model: Model, markup: object);
+	constructor(context: IBoxContext, model: Model, markup: object);
 
 	columns(): ColumnView[];
 
@@ -30,4 +26,8 @@ export declare class View extends Unit {
 	canScrollTo(element: Element, direction: string): boolean;
 
 	rect(area?: string): IRect;
+
+	width(area?: string): number;
+	
+	height(area?: string): number;
 }

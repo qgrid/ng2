@@ -19,7 +19,6 @@ export interface INext {
 	(param: IMemo): void;
 }
 
-
 export interface IPipe<T> {
 	(memo: T, context: IContext, next: INext): any;
 }

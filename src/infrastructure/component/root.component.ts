@@ -8,14 +8,10 @@ export class RootComponent extends NgComponent implements OnInit, OnChanges, OnD
 	public modelChanged = new Event();
 	protected models: string[] = [];
 	private binder = new ModelBinder(this);
-	private commit = noop;
+	private commit;
 
 	constructor() {
 		super();
-	}
-
-	ngOnInit() {
-		this.commit = this.setup();
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
@@ -24,6 +20,10 @@ export class RootComponent extends NgComponent implements OnInit, OnChanges, OnD
 			this.commit = this.setup();
 			this.commit();
 			return;
+		}
+
+		if (!this.commit) {
+			this.commit = this.setup();
 		}
 
 		this.commit();

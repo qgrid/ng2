@@ -1,4 +1,4 @@
-import {Command} from '../command';
+import { Command } from '../command';
 
 export class Navigation {
 	constructor(model, table) {
@@ -7,8 +7,11 @@ export class Navigation {
 	}
 
 	positon(y, direction) {
-		const body = this.table.body;
+		const table = this.table;
+		const body = table.body;
 		const lastRow = this.lastRow;
+		const lower = table.view.scrollHeight() - table.view.height(); 
+
 		let index = 0;
 		let offset = 0;
 
@@ -23,10 +26,9 @@ export class Navigation {
 			index--;
 		}
 
-		return {
-			row: Math.max(this.firstRow, Math.min(lastRow, index)),
-			offset: offset
-		};
+		const row = Math.max(this.firstRow, Math.min(lastRow, index));
+		offset = Math.min(offset, lower);
+		return { row, offset };
 	}
 
 	goTo(row, column, source = 'navigation') {
@@ -37,7 +39,7 @@ export class Navigation {
 			cell = this.cell(row, this.firstColumn);
 		}
 
-		this.model.navigation({cell}, {source});
+		this.model.navigation({ cell }, { source });
 		return true;
 	}
 
@@ -149,12 +151,12 @@ export class Navigation {
 
 		const commands = {
 			goDown: new Command({
-				source: 'navigation',							
+				source: 'navigation',
 				shortcut: shortcut.down,
 				canExecute: () => {
 					if (canNavigate()) {
 						const newRow = this.nextRow;
-						return newRow >= 0 && go.canExecute(this.context('down', {newRow}));
+						return newRow >= 0 && go.canExecute(this.context('down', { newRow }));
 					}
 
 					return false;
@@ -162,16 +164,16 @@ export class Navigation {
 				execute: () => {
 					const newRow = this.nextRow;
 					const newColumn = this.currentColumn;
-					return go.execute(this.context('down', {newRow, newColumn})) && this.goTo(newRow, newColumn);
+					return go.execute(this.context('down', { newRow, newColumn })) && this.goTo(newRow, newColumn);
 				}
 			}),
 			goUp: new Command({
-				source: 'navigation',							
+				source: 'navigation',
 				shortcut: shortcut.up,
 				canExecute: () => {
 					if (canNavigate()) {
 						const newRow = this.prevRow;
-						return newRow >= 0 && go.canExecute(this.context('up', {newRow}));
+						return newRow >= 0 && go.canExecute(this.context('up', { newRow }));
 					}
 
 					return false;
@@ -179,16 +181,16 @@ export class Navigation {
 				execute: () => {
 					const newRow = this.prevRow;
 					const newColumn = this.currentColumn;
-					return go.execute(this.context('up', {newRow, newColumn})) && this.goTo(newRow, newColumn);
+					return go.execute(this.context('up', { newRow, newColumn })) && this.goTo(newRow, newColumn);
 				}
 			}),
 			goRight: new Command({
-				source: 'navigation',							
+				source: 'navigation',
 				shortcut: shortcut.right,
 				canExecute: () => {
 					if (canNavigate()) {
 						const newColumn = this.nextColumn;
-						return newColumn >= 0 && go.canExecute(this.context('right', {newColumn}));
+						return newColumn >= 0 && go.canExecute(this.context('right', { newColumn }));
 					}
 
 					return false;
@@ -196,16 +198,16 @@ export class Navigation {
 				execute: () => {
 					const newRow = this.currentRow;
 					const newColumn = this.nextColumn;
-					return go.execute(this.context('right', {newRow, newColumn})) && this.goTo(newRow, newColumn);
+					return go.execute(this.context('right', { newRow, newColumn })) && this.goTo(newRow, newColumn);
 				}
 			}),
 			goLeft: new Command({
-				source: 'navigation',											
+				source: 'navigation',
 				shortcut: shortcut.left,
 				canExecute: () => {
 					if (canNavigate()) {
 						const newColumn = this.prevColumn;
-						return newColumn >= 0 && go.canExecute(this.context('left', {newColumn}));
+						return newColumn >= 0 && go.canExecute(this.context('left', { newColumn }));
 					}
 
 					return false;
@@ -213,18 +215,18 @@ export class Navigation {
 				execute: () => {
 					const newRow = this.currentRow;
 					const newColumn = this.prevColumn;
-					return go.execute(this.context('left', {newRow, newColumn})) && this.goTo(newRow, newColumn);
+					return go.execute(this.context('left', { newRow, newColumn })) && this.goTo(newRow, newColumn);
 				}
 			}),
 			goNext: new Command({
-				source: 'navigation',											
+				source: 'navigation',
 				shortcut: shortcut.next,
 				canExecute: () => {
 					const newRow = this.nextRow;
 					const newColumn = this.nextColumn;
 					const hasNextColumn = newColumn >= 0;
 					const hasNextRow = newRow >= 0;
-					return (hasNextColumn || hasNextRow) && go.canExecute(this.context('next', {newRow, newColumn}));
+					return (hasNextColumn || hasNextRow) && go.canExecute(this.context('next', { newRow, newColumn }));
 				},
 				execute: () => {
 					const nextColumn = this.nextColumn;
@@ -232,34 +234,68 @@ export class Navigation {
 					const newRow = hasNextColumn ? this.currentRow : this.nextRow;
 					const newColumn = hasNextColumn ? nextColumn : this.firstColumn;
 
-					return go.execute(this.context('next', {newRow, newColumn})) && this.goTo(newRow, newColumn);
+					return go.execute(this.context('next', { newRow, newColumn })) && this.goTo(newRow, newColumn);
 				}
 			}),
 			goPrevious: new Command({
-				source: 'navigation',											
+				source: 'navigation',
 				shortcut: shortcut.previous,
 				canExecute: () => {
 					const newColumn = this.prevColumn;
 					const newRow = this.prevRow;
 					const hasPrevColumn = newColumn >= 0;
 					const hasPrevRow = newRow >= 0;
-					return (hasPrevColumn || hasPrevRow) && go.canExecute(this.context('previous', {newRow, newColumn}));
+					return (hasPrevColumn || hasPrevRow) && go.canExecute(this.context('previous', { newRow, newColumn }));
 				},
 				execute: () => {
 					const prevColumn = this.prevColumn;
 					const hasPrevColumn = prevColumn >= 0;
 					const newColumn = hasPrevColumn ? prevColumn : this.lastColumn;
 					const newRow = hasPrevColumn ? this.currentRow : this.prevRow;
-					return go.execute(this.context('previous', {newRow, newColumn})) && this.goTo(newRow, newColumn);
+					return go.execute(this.context('previous', { newRow, newColumn })) && this.goTo(newRow, newColumn);
 				}
 			}),
 			home: new Command({
-				source: 'navigation',											
+				source: 'navigation',
 				shortcut: shortcut.home,
 				canExecute: () => {
 					if (canNavigate()) {
+						const newColumn = this.prevColumn;
+						return newColumn >= 0 && go.canExecute(this.context('end', { newColumn }));
+					}
+
+					return false;
+				},
+				execute: () => {
+					const newRow = this.currentRow;
+					const newColumn = this.firstColumn;
+					return go.execute(this.context('home', { newRow, newColumn })) && this.goTo(newRow, newColumn);
+				}
+			}),
+			end: new Command({
+				source: 'navigation',
+				shortcut: shortcut.end,
+				canExecute: () => {
+					if (canNavigate()) {
+						const newColumn = this.nextColumn;
+						return newColumn >= 0 && go.canExecute(this.context('home', { newColumn }));
+					}
+
+					return false;
+				},
+				execute: () => {
+					const newRow = this.currentRow;
+					const newColumn = this.lastColumn;
+					return go.execute(this.context('end', { newRow, newColumn })) && this.goTo(newRow, newColumn);
+				}
+			}),
+			upward: new Command({
+				source: 'navigation',
+				shortcut: shortcut.upward,
+				canExecute: () => {
+					if (canNavigate()) {
 						const newRow = this.prevRow;
-						return newRow >= 0 && go.canExecute(this.context('home', {newRow}));
+						return newRow >= 0 && go.canExecute(this.context('upward', { newRow }));
 					}
 
 					return false;
@@ -267,16 +303,16 @@ export class Navigation {
 				execute: () => {
 					const newRow = this.firstRow;
 					const newColumn = this.currentColumn;
-					return go.execute(this.context('home', {newRow, newColumn})) && this.goTo(newRow, newColumn);
+					return go.execute(this.context('upward', { newRow, newColumn })) && this.goTo(newRow, newColumn);
 				}
 			}),
-			end: new Command({
-				source: 'navigation',											
-				shortcut: shortcut.end,
+			downward: new Command({
+				source: 'navigation',
+				shortcut: shortcut.downward,
 				canExecute: () => {
 					if (canNavigate()) {
 						const newRow = this.nextRow;
-						return newRow >= 0 && go.canExecute(this.context('end', {newRow}));
+						return newRow >= 0 && go.canExecute(this.context('downward', { newRow }));
 					}
 
 					return false;
@@ -284,16 +320,16 @@ export class Navigation {
 				execute: () => {
 					const newRow = this.lastRow;
 					const newColumn = this.currentColumn;
-					return go.execute(this.context('end', {newRow, newColumn})) && this.goTo(newRow, newColumn);
+					return go.execute(this.context('downward', { newRow, newColumn })) && this.goTo(newRow, newColumn);
 				}
 			}),
 			pageUp: new Command({
-				source: 'navigation',											
+				source: 'navigation',
 				shortcut: shortcut.pageUp,
 				canExecute: () => {
 					if (canNavigate()) {
 						const newRow = this.prevRow;
-						return newRow >= 0 && go.canExecute(this.context('pageUp', {newRow}));
+						return newRow >= 0 && go.canExecute(this.context('pageUp', { newRow }));
 					}
 
 					return false;
@@ -303,8 +339,8 @@ export class Navigation {
 					const position = this.positon(view.scrollTop() - view.height(), 'up');
 					const newRow = position.row;
 					const newColumn = this.currentColumn;
-					if (go.execute(this.context('pageUp', {newRow, newColumn}))) {
-						view.scrollTop(position.offset);
+					if (go.execute(this.context('pageUp', { newRow, newColumn }))) {
+						this.model.scroll({ top: position.offset });
 						return this.goTo(newRow, newColumn, 'navigation.scroll');
 					}
 
@@ -312,23 +348,23 @@ export class Navigation {
 				}
 			}),
 			pageDown: new Command({
-				source: 'navigation',											
+				source: 'navigation',
 				shortcut: shortcut.pageDown,
 				canExecute: () => {
 					if (canNavigate()) {
 						const newRow = this.nextRow;
-						return newRow >= 0 && go.canExecute(this.context('pageDown', {newRow}));
+						return newRow >= 0 && go.canExecute(this.context('pageDown', { newRow }));
 					}
 
 					return false;
 				},
 				execute: () => {
 					const view = table.view;
-					let position = this.positon(view.scrollTop() + view.height(), 'down');
+					const position = this.positon(view.scrollTop() + view.height(), 'down');
 					const newRow = position.row;
 					const newColumn = this.currentColumn;
-					if (go.execute(this.context('pageDown', {newRow, newColumn}))) {
-						view.scrollTop(position.offset);
+					if (go.execute(this.context('pageDown', { newRow, newColumn }))) {
+						this.model.scroll({ top: position.offset });
 						return this.goTo(position.row, this.currentColumn, 'navigation.scroll');
 					}
 

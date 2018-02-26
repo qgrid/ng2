@@ -13,6 +13,8 @@ export class BodyView extends View {
 		this.render = new Renderer(model);
 		this.valueCache = new Map();
 		this.labelCache = new Map();
+		this.valueFactory = valueFactory;
+		this.labelFactory = labelFactory;
 
 		this.invalidate();
 
@@ -41,12 +43,8 @@ export class BodyView extends View {
 		this.labelCache = new Map();
 
 		table.view.removeLayer('blank');
-		if (!this.rows.length) {
-			const layerState = model.layer();
-			if (layerState.resource.data.hasOwnProperty('blank')) {
-				const layer = table.view.addLayer('blank');
-				layer.resource('blank', layerState.resource);
-			}
+		if (!this.rows.length && !model.data().rows.length) {
+			table.view.addLayer('blank');
 		}
 	}
 

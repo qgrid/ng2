@@ -8,7 +8,7 @@ import { GridService } from '../services/grid';
  * > Under Construction.
  */
 export declare class RowDetailsView extends View {
-    constructor(model: Model, table: Table, commandManager: CommandManager);
+	constructor(model: Model, table: Table, commandManager: CommandManager);
 
-    status(row: any): boolean;
+	status(row: any): boolean;
 }

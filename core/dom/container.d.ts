@@ -1,6 +1,6 @@
 import {IRect} from './fake/element';
 
-export interface IClassListResult {
+export interface IClassList {
 	add: (name: string) => void;
 	remove: (name: string) => void;
 	contains: (name: string) => boolean;
@@ -23,5 +23,5 @@ export declare class Container {
 	readonly clientHeight: number;
 	readonly offsetWidth: number;
 	readonly offsetHeight: number;
-	readonly classList: IClassListResult;
+	readonly classList: IClassList;
 }

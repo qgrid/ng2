@@ -1,6 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "5.1.0",
+  "version": "5.2.3",
   "description": "Angular2 data grid",
   "main": "./main.js",
   "typings": "./index.d.ts",
@@ -59,7 +59,7 @@
     "protractor": "protractor",
     "protractor:delay": "sleep 3 && npm run protractor",
     "protractor:live": "protractor --elementExplorer",
-    "release": "npm run clean:dist && npm run sync:release && npm version patch && npm run copy:dist && npm run release:dist",
+    "release": "npm run clean:dist && npm run sync:release && npm run copy:dist && npm run release:dist",
     "release:dist": "cd dist && npm publish && cd ..",
     "rimraf": "rimraf",
     "server:dev:hmr": "npm run server:dev -- --inline --hot",
@@ -71,8 +71,8 @@
     "start": "npm run server:dev",
     "sync:release": "git stash && git checkout 1.0.x && git pull origin master",
     "test": "npm run lint",
-    "tslint": "tslint -e \"src/core/**/*\"",
-    "typedoc": "typedoc",
+    "tslint": "tslint core/**/*.ts",
+    "typedoc": "typedoc --mode modules --out doc core",
     "version": "npm run build:aot:prod && npm run bundle && npm run bundle:min",
     "watch:dev:hmr": "npm run watch:dev -- --hot",
     "watch:dev": "npm run build:dev -- --watch",
@@ -94,6 +94,7 @@
     "@angular/material": "~5.0.2",
     "core-js": "^2.5.3",
     "rxjs": "^5.5.6",
+    "source-map": "^0.6.1",
     "zone.js": "^0.8.18"
   },
   "devDependencies": {
