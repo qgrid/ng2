@@ -1,5 +1,5 @@
 import { Component, Optional, Input, OnInit, OnDestroy } from '@angular/core';
-import { RootService } from '../../infrastructure/component/index';
+import { RootService } from '../../infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 import { DataManipulationView } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.view';
 

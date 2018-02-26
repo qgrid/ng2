@@ -1,5 +1,5 @@
 import { Component, Optional, Input, Output, EventEmitter } from '@angular/core';
-import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 import { ColumnChooserView } from 'ng2-qgrid/plugin/column-chooser/column.chooser.view';
 

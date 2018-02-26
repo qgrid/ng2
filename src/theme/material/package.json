@@ -1,7 +1,6 @@
 {
-  "name": "ng2-qgrid-material-theme",
+  "name": "ng2-qgrid/material/theme",
   "version": "5.1.0",
-  "description": "ng2 qgrid material theme",
-  "main": "../../main.js",
-  "typings": "./index.d.ts"
+  "main": "../../bundles/main.js",
+  "typings": "./theme.module.d.ts"
 }

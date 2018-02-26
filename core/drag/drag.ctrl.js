@@ -1,4 +1,4 @@
-import { DragService } from './drag.service';
+import { DragService } from 'ng2-qgrid/core/drag/drag.service';
 import { GRID_PREFIX } from '../definition';
 import { View } from '../view/view';
 

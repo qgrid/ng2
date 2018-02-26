@@ -7,7 +7,7 @@ import { Resource } from '../resource/resource';
  * A class to handle and visualize in UI custom user behaviors(like add or delete row).
  * For instance, [action bar](/doc/feature/action.html) plugin uses this model to draw buttons on top of the q-grid
  * to execute user commands.
- * 
+ *
  * ### Usage
  * 
  * ```javascript
@@ -35,7 +35,7 @@ import { Resource } from '../resource/resource';
  *    items: [addRowAction]
  * });
  * ```
- * 
+ *
  * ### Suggested Links
  * 
  * * [Action](/doc/api/action.html)

@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnInit, NgZone } from '@angular/core';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
-import { NgComponent, RootService } from 'ng2-qgrid/infrastructure/component';
+import { NgComponent } from 'ng2-qgrid/infrastructure/component/ng.component';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { PathService } from 'ng2-qgrid/core/path';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { SelectionModel } from 'ng2-qgrid/core/selection/selection.model';
