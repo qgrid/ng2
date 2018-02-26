@@ -6,19 +6,11 @@ import { PluginComponent } from '../plugin.component';
 	selector: 'q-grid-edit-form-trigger',
 	templateUrl: './edit-form-trigger.component.html'
 })
-export class EditFormTriggerComponent extends PluginComponent implements OnInit, OnDestroy {
+export class EditFormTriggerComponent extends PluginComponent {
 
     @Input() title: string;
 
 	constructor( @Optional() root: RootService) {
 		super(root);
-	}
-
-	ngOnInit() {
-		
-	}
-
-	ngOnDestroy() {
-		
 	}
 }
