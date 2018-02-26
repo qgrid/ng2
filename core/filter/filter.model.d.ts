@@ -31,6 +31,9 @@ import { IAssert } from './assert';
  *
  * * [filter.pipe.js](https://github.com/qgrid/ng2/blob/master/core/pipe/filter.pipe.js)
  */
+
+export declare function match(context: any): (x: any, value: any) => boolean;
+
 export declare class FilterModel {
 	resource: Resource;
 
