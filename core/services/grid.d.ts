@@ -11,6 +11,5 @@ export declare class GridService {
 	state: PersistenceService;
 
 	invalidate(source?: string, changes?: object, pipe?: IPipe<any>[]): Promise<any>;
-
 	busy(): () => void;
 }

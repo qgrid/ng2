@@ -6,15 +6,11 @@ import { IRenderStrategy } from './render.strategy';
 export declare class Renderer {
 	constructor(model: Model);
 
-	columns(row: any, pin: string): ColumnView[];
-
-	rowspan(row: any, column: ColumnView): number;
-
-	colspan(row: any, column: ColumnView): number;
-
-	getValue(row: any, column: ColumnModel);
-
-	setValue(row: any, column: ColumnModel, value: any);
-
 	defaultStrategy: IRenderStrategy;
+
+	columns(row: any, pin: string): ColumnView[];
+	rowspan(row: any, column: ColumnView): number;
+	colspan(row: any, column: ColumnView): number;
+	getValue(row: any, column: ColumnModel);
+	setValue(row: any, column: ColumnModel, value: any);
 }

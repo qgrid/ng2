@@ -1,6 +1,4 @@
-export interface IBindResult {
-	(...args: any[]): any;
-}
+type IBindResult = (...args: any[]) => any;
 
 export declare class EventManager {
 	constructor(context: any, apply?: Function);

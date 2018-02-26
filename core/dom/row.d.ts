@@ -6,8 +6,6 @@ export declare class Row extends Element {
 	constructor(box: Box, index: number, element: HTMLElement);
 
 	cells(): Cell[];
-
 	cell(columnIndex: number): Cell;
-
 	model(): any;
 }

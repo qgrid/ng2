@@ -9,7 +9,7 @@ import { GridService } from '../services/grid';
 export declare class ScrollView extends View {
 	constructor(model: Model, table: Table, vscroll: any);
 
-	invalidate(): void;
-
 	readonly mode: 'virtual' | 'default';
+
+	invalidate(): void;
 }

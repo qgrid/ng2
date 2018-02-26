@@ -17,14 +17,9 @@ export declare class Bag {
 	constructor();
 
 	findModel(element: HTMLElement): any;
-
 	hasModel(element: HTMLElement): boolean;
-
 	addRow(row: IBagRow);
-
 	addCell(cell: IBagCell);
-
 	deleteRow(row: IBagRow);
-
 	deleteCell(cell: IBagCell);
 }

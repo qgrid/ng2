@@ -23,10 +23,7 @@ export declare class SelectionView extends View {
 	toggleColumn: Command;
 
 	selectRange(startCell: CellView, endCell: CellView, source?: string): void;
-
 	state(item: any): boolean;
-
 	isIndeterminate(item: any): boolean;
-
 	destroy(): void;
 }

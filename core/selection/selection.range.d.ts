@@ -14,7 +14,9 @@ export type IBuildMix = (startCell: CellView, endCell: CellView) => any[];
 
 export declare class SelectionRange {
 	constructor(model: Model);
+
 	model: Model;
+
 	build(): (args: any[]) => IBuildColumns | IBuildCells | IBuildMix | IBuildRows;
 	buildRows(startCell: CellView, endCell: CellView): any[];
 	buildColumns(startCell: CellView, endCell: CellView): ColumnModel[];

@@ -9,7 +9,7 @@ import { Resource } from '../resource/resource';
  * to execute user commands.
  *
  * ### Usage
- * 
+ *
  * ```javascript
  * const addRowCommand = new qgrid.Command({
  *   execute: () => {
@@ -30,14 +30,14 @@ import { Resource } from '../resource/resource';
  *    title: 'Add new row',
  *    icon: 'add'
  * });
- * 
+ *
  * gridModel.action({
  *    items: [addRowAction]
  * });
  * ```
  *
  * ### Suggested Links
- * 
+ *
  * * [Action](/doc/api/action.html)
  * * [Command](/doc/api/command.html)
  * * [Action Bar](/doc/feature/action.html)

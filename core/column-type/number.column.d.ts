@@ -4,6 +4,7 @@ import {ColumnModel} from './column.model';
 
 export declare class NumberColumnModel extends DataColumnModel {
 	constructor();
+
 	format: string;
 }
 

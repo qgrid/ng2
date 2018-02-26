@@ -10,6 +10,5 @@ export declare class ColumnView {
 	index: number;
 
 	static model(model: Model): Model;
-
 	static assign(body: Model): Model;
 }
