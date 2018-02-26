@@ -1,4 +1,4 @@
-import {GRID_PREFIX} from '../definition';
+import { GRID_PREFIX } from '../definition';
 
 let transfer = null;
 
@@ -15,7 +15,7 @@ export class DragService {
 	}
 
 	static set transfer(value) {
-		transfer = value;
+		transfer = value; D
 	}
 
 	static decode(source) {
