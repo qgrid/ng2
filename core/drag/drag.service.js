@@ -15,7 +15,7 @@ export class DragService {
 	}
 
 	static set transfer(value) {
-		transfer = value; D
+		transfer = value;
 	}
 
 	static decode(source) {
