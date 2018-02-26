@@ -6,7 +6,6 @@ import { CommandManager } from '../command/command.manager';
 import { Command } from '../command/command';
 import { Model } from '../infrastructure/model';
 import { Table } from '../dom/table';
-import { GridService } from '../services/grid';
 
 /**
  * > Under Construction.
