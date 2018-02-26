@@ -48,8 +48,8 @@ Model.register('columnChooser', ColumnChooserModel)
 		BackdropModule,
 		SelectModule,
 		LegendModule,
-        ChipsModule,
-        EditFormModule
+		ChipsModule,
+		EditFormModule
 	]
 })
 export class PluginModule {}
