@@ -24,7 +24,7 @@ export class ColumnFilterView extends PluginView {
 		Object.assign(this, this.commands);
 
 		this.column = columnService.find(this.model.data().columns, this.key);
-        this.title = this.column.title;
+		this.title = this.column.title;
 		this.getValue = labelFactory(this.column);
 	}
 
