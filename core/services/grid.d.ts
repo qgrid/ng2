@@ -1,5 +1,5 @@
 import { Model } from '../infrastructure/model';
-import { IPipe } from '../pipe/pipe.item';
+import {IContext, IMemo} from '../pipe/pipe.item';
 import { PersistenceService } from '../persistence/persistence.service';
 
 /**
@@ -10,6 +10,6 @@ export declare class GridService {
 
 	state: PersistenceService;
 
-	invalidate(source?: string, changes?: object, pipe?: IPipe<any>[]): Promise<any>;
+	invalidate(source?: string, changes?: object, pipe?: ((memo: any, context: IContext, next: (param: IMemo) => void) => any)[]): Promise<any>;
 	busy(): () => void;
 }

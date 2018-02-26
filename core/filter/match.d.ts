@@ -1,2 +1,1 @@
-export declare type IMatch = (x: any, value: any) => boolean;
-
+export declare function match(context: any): (x: any, value: any) => boolean;

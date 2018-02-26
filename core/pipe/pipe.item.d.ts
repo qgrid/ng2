@@ -14,7 +14,3 @@ export interface IMemo {
 export interface IContext {
 	model: Model;
 }
-
-type INext = (param: IMemo) => void;
-
-type IPipe<T> = (memo: T, context: IContext, next: INext) => any;
