@@ -1,3 +1,1 @@
-type ICastFactoryResult<K> = (param: any) => (x: any) => K;
-
-export declare function castFactory(r: any): ICastFactoryResult<any>;
+export declare function castFactory(r: any): (param: any) => (x: any) => any;

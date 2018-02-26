@@ -1,12 +1,3 @@
-import {ColumnModel} from '../column-type/column.model';
-
-export interface IPositionResult {
-	row: number;
-	offset: number;
-}
-
-export declare type ReturnColumnOrNumber = ColumnModel | number;
-
 export declare class Navigation {
 	constructor();
 
