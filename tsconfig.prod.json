@@ -33,16 +33,16 @@
 			"ng2-qgrid/core/*": [
 				"../core/*"
 			],
-			"ng2-qgrid/*": [
-				"./*"
-			],
 			"ng2-qgrid/plugin/*": [
 				"../plugin/*"
+			],
+			"ng2-qgrid/*": [
+				"./*"
 			]
 		}
 	},
 	"files": [
-		"src/index.ts"
+		"./src/index.ts"
 	],
 	"exclude": [
 		"node_modules",
@@ -50,13 +50,11 @@
 		"dll",
 		"scripts"
 	],
-	"compileOnSave": true,
-	"buildOnSave": true,
 	"angularCompilerOptions": {
 		"skipMetadataEmit": false,
 		"skipTemplateCodegen": true,
 		"strictMetadataEmit": true,
 		"genDir": "./dist",
-		"flatModuleId": "ng2-qgrid"
+		"fullTemplateTypeCheck": true
 	}
 }
