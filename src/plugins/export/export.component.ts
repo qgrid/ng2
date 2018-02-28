@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Optional } from '@angular/core';
 import { PluginService } from 'ng2-qgrid/core/plugin';
 import { PluginComponent } from '../plugin.component';
-import { Command } from 'ng2-qgrid/core/command';
+import { Command } from 'ng2-qgrid/core/command/command';
 import { Json } from 'ng2-qgrid/core/export/json';
 import { Xml } from 'ng2-qgrid/core/export/xml';
 import { Csv } from 'ng2-qgrid/core/export/csv';

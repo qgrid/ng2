@@ -6,7 +6,7 @@ import {
 	ApplicationRef,
 	Injector
 } from '@angular/core';
-import { AppError } from 'ng2-qgrid/core/infrastructure';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { Popup } from './popup';
 import { PopupSettings } from './popup.settings';
 import { DomPortalHost, ComponentType, ComponentPortal } from '@angular/cdk/portal';

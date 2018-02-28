@@ -9,7 +9,7 @@ TemplatePath.register('row-expand-cell', (template, column) => {
 	};
 });
 
-class RowExpandColumnModel extends ColumnModel {
+export class RowExpandColumnModel extends ColumnModel {
 	constructor() {
 		super('row-expand');
 

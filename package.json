@@ -28,7 +28,7 @@
     "bundle:min": "webpack --config config/webpack.prod.js --progress --profile --bail",
     "clean:dist": "npm run rimraf -- dist && npm run rimraf -- dll",
     "copy:dist": "node scripts/package package.json dist && node scripts/copy core dist && node scripts/copy plugin dist",
-    "docs": "npm run typedoc -- --options typedoc.json --exclude '**/*.spec.ts' ./src/",
+    "docs": "typedoc --options typedoc.json",
     "github-deploy": "webpack --config config/webpack.github-deploy.js --progress --profile --env.githubProd",
     "lint": "tslint core/**/*.d.ts",
     "release": "git stash && git checkout 1.0.x && git pull origin master && npm run test && npm run build && cd dist && npm publish && cd ..",

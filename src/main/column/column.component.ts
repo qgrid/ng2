@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { isUndefined, clone } from 'ng2-qgrid/core/utility';
+import { isUndefined, clone } from 'ng2-qgrid/core/utility/index';
 import { ColumnListService } from 'ng2-qgrid/main/column/column-list.service';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { TemplateHostService } from 'ng2-qgrid/template/template-host.service';

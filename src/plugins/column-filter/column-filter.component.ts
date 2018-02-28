@@ -10,7 +10,7 @@ import {
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 import { ColumnFilterView } from 'ng2-qgrid/plugin/column-filter/column.filter.view';
-import { uniq, flatten } from 'ng2-qgrid/core/utility';
+import { uniq, flatten } from 'ng2-qgrid/core/utility/index';
 
 @Component({
 	selector: 'q-grid-column-filter',

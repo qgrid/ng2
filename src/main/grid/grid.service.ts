@@ -9,7 +9,7 @@ import { getFactory as valueFactory } from 'ng2-qgrid/core/services/value';
 import { getFactory as labelFactory } from 'ng2-qgrid/core/services/label';
 import { RowDetailsStatus } from 'ng2-qgrid/core/row-details/row.details.status';
 import { Log } from 'ng2-qgrid/core/infrastructure/log';
-import { identity, noop } from 'ng2-qgrid/core/utility';
+import { identity, noop } from 'ng2-qgrid/core/utility/index';
 
 @Injectable()
 export class GridService {
