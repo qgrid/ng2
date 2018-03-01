@@ -43,7 +43,9 @@ function inlineResources(projectPath) {
     return readFile(fullFilePath, 'utf-8')
       .then(content => inlineResourcesFromString(content, url => {
         // Resolve the template url.
-        return path.join(path.dirname(fullFilePath), url);
+        let p = path.join(path.dirname(fullFilePath), url);
+        p = p.replace('.scss', '.css');
+        return p;
       }))
       .then(content => writeFile(fullFilePath, content))
       .catch(err => {

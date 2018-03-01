@@ -23,11 +23,11 @@
   "homepage": "https://github.com/qgrid/ng2#readme",
   "license": "MIT",
   "scripts": {
-    "build": "npm run clean:dist && gulp sass && gulp inline && ngc -p tsconfig.prod.json && gulp copy:assets && npm run copy:dist && npm run bundle && npm run bundle:min",
+    "build": "npm run clean:dist && gulp sass && gulp inline && ngc -p tsconfig.prod.json && npm run copy:dist && npm run bundle && npm run bundle:min",
     "bundle": "webpack --config config/webpack.prod.js --progress --profile --bail",
     "bundle:min": "webpack --config config/webpack.prod.js --progress --profile --bail",
     "clean:dist": "npm run rimraf -- dist && npm run rimraf -- dll",
-    "copy:dist": "node scripts/package package.json dist && node scripts/copy core dist && node scripts/copy plugin dist",
+    "copy:dist": "gulp copy && node scripts/package package.json dist",
     "docs": "typedoc --options typedoc.json",
     "github-deploy": "webpack --config config/webpack.github-deploy.js --progress --profile --env.githubProd",
     "lint": "tslint core/**/*.d.ts",

@@ -4,7 +4,7 @@
 
 const helpers = require('./helpers');
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
-const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
+//const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
 
 /**
  * Webpack Plugins
@@ -27,14 +27,14 @@ const ThemePlugin = require('./theme');
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 8080;
-const METADATA = webpackMerge(commonConfig({
-	env: ENV
-}).metadata, {
-	host: HOST,
-	port: PORT,
-	ENV: ENV,
-	HMR: false
-});
+// const METADATA = webpackMerge(commonConfig({
+// 	env: ENV
+// }).metadata, {
+// 	host: HOST,
+// 	port: PORT,
+// 	ENV: ENV,
+// 	HMR: false
+// });
 
 const packageConfig = require(helpers.root('package.json'));
 
@@ -133,79 +133,79 @@ module.exports = function (env) {
 		module: {
 
 			rules: [
-				{
-					test: /\.js$/,
-					use: [
-						{
-							loader: 'angular2-template-loader'
-						},
-						{
-							loader: 'babel-loader'
-						}
-					],
-					exclude: /node_modules/
-				},
+				// {
+				// 	test: /\.js$/,
+				// 	use: [
+				// 		{
+				// 			loader: 'angular2-template-loader'
+				// 		},
+				// 		{
+				// 			loader: 'babel-loader'
+				// 		}
+				// 	],
+				// 	exclude: /node_modules/
+				// },
 				/*
              * Extract CSS files from .src/styles directory to external CSS file
              */
-				{
-					test: /\.css$/,
-					loader: ExtractTextPlugin.extract({
-						fallback: 'style-loader',
-						use: 'css-loader'
-					}),
-					include: [helpers.root('src', 'styles')]
-				},
+				// {
+				// 	test: /\.css$/,
+				// 	loader: ExtractTextPlugin.extract({
+				// 		fallback: 'style-loader',
+				// 		use: 'css-loader'
+				// 	}),
+				// 	include: [helpers.root('src', 'styles')]
+				// },
 
 				/*
              * Extract and compile SCSS files from .src/styles directory to external CSS file
              */
-				{
-					test: /\.scss$/,
-					loader: ExtractTextPlugin.extract({
-						fallback: 'style-loader',
-						use: 'css-loader!sass-loader'
-					}),
-					include: [helpers.root('src', 'styles')]
-				},
+				// {
+				// 	test: /\.scss$/,
+				// 	loader: ExtractTextPlugin.extract({
+				// 		fallback: 'style-loader',
+				// 		use: 'css-loader!sass-loader'
+				// 	}),
+				// 	include: [helpers.root('src', 'styles')]
+				// },
 
-				{
-					test: /\.json$/,
-					use: 'json-loader'
-				},
+				// {
+				// 	test: /\.json$/,
+				// 	use: 'json-loader'
+				// },
 
 				/*
 				 * to string and css loader support for *.css files (from Angular components)
 				 * Returns file content as string
 				 *
 				 */
-				{
-					test: /\.css$/,
-					use: ['to-string-loader', 'css-loader'],
-					exclude: [helpers.root('demo', 'styles')]
-				},
+				// {
+				// 	test: /\.css$/,
+				// 	use: ['to-string-loader', 'css-loader'],
+				// 	exclude: [helpers.root('demo', 'styles')]
+				// },
 
 				/*
 				 * to string and sass loader support for *.scss files (from Angular components)
 				 * Returns compiled css content as string
 				 *
 				 */
-				{
-					test: /\.scss$/,
-					use: ['to-string-loader', 'css-loader', 'sass-loader'],
-					exclude: [helpers.root('demo', 'styles')]
-				},
+				// {
+				// 	test: /\.scss$/,
+				// 	use: ['to-string-loader', 'css-loader', 'sass-loader'],
+				// 	exclude: [helpers.root('demo', 'styles')]
+				// },
 
 				/* Raw loader support for *.html
 				 * Returns file content as string
 				 *
 				 * See: https://github.com/webpack/raw-loader
 				 */
-				{
-					test: /\.html$/,
-					use: 'raw-loader',
-					exclude: [helpers.root('demo/index.html')]
-				},
+				// {
+				// 	test: /\.html$/,
+				// 	use: 'raw-loader',
+				// 	exclude: [helpers.root('demo/index.html')]
+				// },
 
 				/*
 				 * File loader for supporting images, for example, in CSS files.
@@ -232,11 +232,11 @@ module.exports = function (env) {
 		 */
 		plugins: [
 
-			new ThemePlugin({
-				path: helpers.root('dist/theme/material/templates'),
-				outputPath: helpers.root('dist/theme/material/theme.component.gen.html'),
-				pattern: /.*\.tpl\.html/
-			}),
+			// new ThemePlugin({
+			// 	path: helpers.root('dist/theme/material/templates'),
+			// 	outputPath: helpers.root('dist/theme/material/theme.component.gen.html'),
+			// 	pattern: /.*\.tpl\.html/
+			// }),
 
 			/**
 			 * Webpack plugin to optimize a JavaScript file for faster initial load
@@ -255,7 +255,7 @@ module.exports = function (env) {
 			 *
 			 * See: https://github.com/webpack/extract-text-webpack-plugin
 			 */
-			new ExtractTextPlugin('[name].[contenthash].css'),
+			// new ExtractTextPlugin('[name].[contenthash].css'),
 
 			/**
 			 * Plugin: DefinePlugin
@@ -267,15 +267,15 @@ module.exports = function (env) {
 			 * See: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
 			 */
 			// NOTE: when adding more properties make sure you include them in custom-typings.d.ts
-			new DefinePlugin({
-				'ENV': JSON.stringify(METADATA.ENV),
-				'HMR': METADATA.HMR,
-				'process.env': {
-					'ENV': JSON.stringify(METADATA.ENV),
-					'NODE_ENV': JSON.stringify(METADATA.ENV),
-					'HMR': METADATA.HMR,
-				}
-			}),
+			// new DefinePlugin({
+			// 	'ENV': JSON.stringify(METADATA.ENV),
+			// 	'HMR': METADATA.HMR,
+			// 	'process.env': {
+			// 		'ENV': JSON.stringify(METADATA.ENV),
+			// 		'NODE_ENV': JSON.stringify(METADATA.ENV),
+			// 		'HMR': METADATA.HMR,
+			// 	}
+			// }),
 
 			/**
 			 * Plugin: UglifyJsPlugin

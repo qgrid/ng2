@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
-		"target": "es2015",
-		"module": "commonjs",
+		"target": "es5",
+		"module": "es2015",
 		"moduleResolution": "node",
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
@@ -15,7 +15,8 @@
 		"declaration": true,
 		"lib": [
 			"dom",
-			"es6"
+			"es5",
+			"es2015"
 		],
 		"typeRoots": [
 			"node_modules/@types"
@@ -28,16 +29,16 @@
 			"uglify-js",
 			"webpack"
 		],
-		"baseUrl": "./src",
+		"baseUrl": ".",
 		"paths": {
 			"ng2-qgrid/core/*": [
-				"../core/*"
+				"./core/*"
 			],
 			"ng2-qgrid/plugin/*": [
-				"../plugin/*"
+				"./plugin/*"
 			],
 			"ng2-qgrid/*": [
-				"./*"
+				"./src/*"
 			]
 		}
 	},
@@ -54,7 +55,10 @@
 		"skipMetadataEmit": false,
 		"skipTemplateCodegen": true,
 		"strictMetadataEmit": true,
-		"genDir": "./dist",
-		"fullTemplateTypeCheck": true
+		"genDir": "dist",
+		"fullTemplateTypeCheck": true,
+		"flatModuleOutFile": "main.js",
+		"flatModuleId": "main",
+		"annotationsAs": "decorators" 
 	}
 }

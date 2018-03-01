@@ -9,12 +9,11 @@ import { Model } from '../infrastructure/model';
 export declare class FootView extends View {
 	constructor(model: Model, table: Table);
 
-	rows: any[];
-	columns: ColumnModel[];
-	valueFactory: (column: ColumnModel) => (row: any, value?: any) => any;
-
 	readonly count: number;
+	rows: any[];
 
+	columns(row: any, pin: string);
 	invalidate(model: Model): void;
 	value(column: ColumnModel): any;
+	valueFactory: (column: ColumnModel) => (row: any, value?: any) => any;
 }
