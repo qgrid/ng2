@@ -125,8 +125,8 @@ export class RowSelector {
 		const result = [];
 		const cache = new Map();
 
-		const head = columns.map(column => column.title);
-		const foot = columns.map(column => this.value(column) === null ? '' : this.value(column));
+		const headers = columns.map(column => column.title);
+		const aggregations = columns.map(column => this.value(column) === null ? '' : this.value(column));
 
 		for (const row of rows) {
 			const line = [];
@@ -149,8 +149,8 @@ export class RowSelector {
 			result.push(line);
 		}
 
-		result.unshift(head);
-		result.push(foot);
+		result.unshift(headers);
+		result.push(aggregations);
 
 		return result;
 	}
