@@ -1,28 +1,38 @@
 import {isUndefined} from '../utility';
 
 export class ClipboardService {
-	static copy(rows, head, foot) {
-		const table = buildTable(rows, head, foot);
+	static copy(selector) {
+		const table = buildTable(selector);
 		select(table);
 		table.remove();
 	}
 }
 
-function buildTable(rows, head, foot) {
+function buildTable(selector) {
+	const rows = selector.rows.body;
+	const head = selector.rows.head;
+	const foot = selector.rows.foot;
+	const source = selector.source;
 	const table = document.createElement('table');
+
+	const sourceContainsHead = source.indexOf('head') >= 0;
+	const sourceContainsFoot = source.indexOf('foot') >= 0;
+
+	let allowTableHeader = true;
+	let allowTableFooter = false;
+
 	table.classList.add('q-grid-clipboard');
-	let headFlag = true;
-	let footFlag = false;
 
 	for (let i = 0, rowLength = rows.length; i < rowLength; i++) {
 		const tr = document.createElement('tr');
 		const row = rows[i];
+		const rowLast = i === rowLength - 1;
 
-		if (i === rowLength - 1) {
-			footFlag = true;
+		if (rowLast) {
+			allowTableFooter = true;
 		}
 
-		if (head && headFlag) {
+		if (sourceContainsHead && allowTableHeader) {
 			const tr = document.createElement('tr');
 
 			for (let h = 0, headLength = head.length; h < headLength; h++) {
@@ -33,7 +43,7 @@ function buildTable(rows, head, foot) {
 				table.appendChild(tr);
 			}
 
-			headFlag = false;
+			allowTableHeader = false;
 		}
 
 		for (let k = 0, max = row.length; k < max; k++) {
@@ -45,7 +55,7 @@ function buildTable(rows, head, foot) {
 
 		table.appendChild(tr);
 
-		if (foot && footFlag) {
+		if (sourceContainsFoot && allowTableFooter) {
 			const tr = document.createElement('tr');
 
 			for (let f = 0, footLength = foot.length; f < footLength; f++) {
@@ -56,7 +66,7 @@ function buildTable(rows, head, foot) {
 				table.appendChild(tr);
 			}
 
-			footFlag = false;
+			allowTableFooter = false;
 		}
 	}
 

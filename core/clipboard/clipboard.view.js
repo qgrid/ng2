@@ -6,6 +6,8 @@ import {ClipboardService} from './clipboard.service';
 import {SelectionService} from '../selection/selection.service';
 import {RowSelector} from '../row/row.selector';
 import {AppError} from '../infrastructure';
+import {Aggregation} from '../services';
+import {getFactory as valueFactory} from '../services/value';
 
 export class ClipboardView extends View {
 	constructor(model, commandManager) {
@@ -30,29 +32,25 @@ export class ClipboardView extends View {
 					const selectionService = new SelectionService(this.model);
 					const rowSelector = new RowSelector(this.model);
 					const selectionItems = selectionState.items;
-					const source = this.model.clipboard().source.join(', ').toLowerCase();
+
+					const columns = this.model
+						.view()
+						.columns
+						.filter(column => column.class === 'data' || column.class === 'pivot');
+
+					const source = this.model.clipboard().source;
 					const entries = selectionService.lookup(selectionItems);
-					const rows = rowSelector.map(entries);
-					const head = rows.shift();
-					const foot = rows.pop();
+					const body = rowSelector.map(entries);
 
-					switch (source) {
-						case 'body':
-							ClipboardService.copy(rows);
-							break;
+					const head = body.shift();
+					const foot = body.pop();
 
-						case body_head(source):
-							ClipboardService.copy(rows, head);
-							break;
+					const selector = {
+						rows: {head, body, foot},
+						source: source
+					};
 
-						case body_head_foot(source):
-							ClipboardService.copy(rows, head, foot);
-							break;
-
-						default:
-							throw new AppError('clipboard.view', `Invalid unit ${source}, should be from ['body', 'head', 'foot'] range and should contain ['body']`);
-					}
-
+					ClipboardService.copy(selector);
 				},
 				shortcut: shortcut.copy
 			})
@@ -61,6 +59,25 @@ export class ClipboardView extends View {
 		return new Map(
 			Object.entries(commands)
 		);
+	}
+
+	value(column) {
+		if (column.aggregation) {
+			const aggregation = column.aggregation;
+			const aggregationOptions = column.aggregationOptions;
+
+			if (!Aggregation.hasOwnProperty(aggregation)) {
+				throw new AppError(
+					'row.selector',
+					`Aggregation ${aggregation} is not registered`);
+			}
+
+			const rows = this.model.data().rows;
+			const getValue = valueFactory(column);
+
+			return Aggregation[aggregation](rows, getValue, aggregationOptions);
+		}
+		return null;
 	}
 }
 

@@ -8,6 +8,8 @@ export class RowSelector {
 	constructor(model) {
 		this.model = model;
 		this.source = this.model.clipboard().source;
+		this.mode = this.model.selection().mode;
+		this.view = this.model.view();
 	}
 
 	map(items) {
@@ -44,39 +46,57 @@ export class RowSelector {
 	}
 
 	mapFromCells(items) {
-		const result = [];
-		let line = [];
-		const namesOfColumns = new Set();
-		const titles = items.map(item => item.column.title);
-		const aggregations = items.map(item => this.value(item.column) === null ? '' : this.value(item.column));
+		const columns = this.model
+			.view()
+			.columns
+			.filter(column => column.class === 'data' || column.class === 'pivot');
 
-		items.forEach(item => {
-			const row = item.row;
-			const column = item.column;
-			let label = get(row, column);
-			label = label === null || isUndefined(label) ? '' : '' + label;
-			const nameOfColumn = column.key;
+		const titles = [];
+		const ids = [];
 
-			if (!namesOfColumns.has(nameOfColumn)) {
-				line.push(label);
-				namesOfColumns.add(nameOfColumn);
-			} else {
-				result.push(line);
-				line = [];
-				namesOfColumns.clear();
-				line.push(label);
-				namesOfColumns.add(nameOfColumn);
+		items.forEach(item => titles.indexOf(item.column.title) >= 0 ? null : titles.push(item.column.title));
+		items.forEach(cell => ids.indexOf(cell.row.id) >= 0 ? null : ids.push(cell.row.id));
+
+		const width = titles.length;
+		const height = ids.length;
+
+		const selectedColumns = columns.filter(column => titles.indexOf(column.title) >= 0);
+		const headers = selectedColumns.map(column => column.title);
+		const aggregations = selectedColumns.map(column => this.value(column) === null ? '' : this.value(column));
+
+		const rows = [];
+
+		for (let h = 0; h < height; h++) {
+			rows[h] = [];
+
+			for (let w = 0; w < width; w++) {
+				rows[h][w] = "";
 			}
-		});
 
-		const head = titles.slice(0, line.length);
-		const foot = aggregations.slice(0, line.length);
+		}
 
-		result.unshift(head);
-		result.push(line);
-		result.push(foot);
+		const sortedIds = ids.sort();
 
-		return result;
+		for (let i = 0; i < sortedIds.length; i++) {
+			const cellsWithCurrentID = items.filter(cell => cell.row.id === sortedIds[i]);
+
+			for (let k = 0; k < cellsWithCurrentID.length; k++) {
+				const cell = cellsWithCurrentID[k];
+				const row = cell.row;
+				const column = cell.column;
+				const label = get(row, column);
+				const specificTitles = this.getSpecificTitlesOfRow(row, selectedColumns);
+				const index = specificTitles.indexOf(label);
+
+				rows[i][index] = label;
+			}
+
+		}
+
+		rows.unshift(headers);
+		rows.push(aggregations);
+
+		return rows;
 	}
 
 	mapFromMix(items) {
@@ -155,4 +175,51 @@ export class RowSelector {
 		}
 		return null;
 	}
+
+	arrangeCells(cells) {
+		const columns = this.model
+			.view()
+			.columns
+			.filter(column => column.class === 'data' || column.class === 'pivot');
+
+		const titles = columns.map(column => column.title);
+		const set = new Set();
+		cells.forEach(cell => set.add(cell.row.id));
+		const countOfRows = Array.from(set);
+
+		let result = [];
+
+		for (let i = 0; i < countOfRows.length; i++) {
+
+
+			let cells2 = cells.filter(cell => cell.row.id === countOfRows[i]);
+
+			const line = [];
+
+			for (let k = 0; k < cells2.length; k++) {
+				const cell = cells2[k];
+				const row = cell.row;
+				const column = cell.column;
+				const label = get(row, column);
+
+				line.push(label);
+			}
+
+			result.push(line);
+		}
+
+		return result;
+	}
+
+	getSpecificTitlesOfRow(row, columns) {
+		let titles = [];
+
+		for (let i = 0; i < columns.length; i++) {
+			let label = get(row, columns[i]);
+			titles.push(label);
+		}
+
+		return titles.filter(title => typeof title === 'string' || typeof  title === 'number');
+	}
 }
+
