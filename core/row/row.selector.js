@@ -176,41 +176,6 @@ export class RowSelector {
 		return null;
 	}
 
-	arrangeCells(cells) {
-		const columns = this.model
-			.view()
-			.columns
-			.filter(column => column.class === 'data' || column.class === 'pivot');
-
-		const titles = columns.map(column => column.title);
-		const set = new Set();
-		cells.forEach(cell => set.add(cell.row.id));
-		const countOfRows = Array.from(set);
-
-		let result = [];
-
-		for (let i = 0; i < countOfRows.length; i++) {
-
-
-			let cells2 = cells.filter(cell => cell.row.id === countOfRows[i]);
-
-			const line = [];
-
-			for (let k = 0; k < cells2.length; k++) {
-				const cell = cells2[k];
-				const row = cell.row;
-				const column = cell.column;
-				const label = get(row, column);
-
-				line.push(label);
-			}
-
-			result.push(line);
-		}
-
-		return result;
-	}
-
 	getSpecificTitlesOfRow(row, columns) {
 		let titles = [];
 
