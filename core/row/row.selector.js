@@ -38,7 +38,6 @@ export class RowSelector {
 		return this.mapFromRowColumns(rows, columns);
 	}
 
-
 	mapFromColumns(columns) {
 		const rows = this.model.view().rows;
 
@@ -90,7 +89,6 @@ export class RowSelector {
 
 				rows[i][index] = label;
 			}
-
 		}
 
 		rows.unshift(headers);
