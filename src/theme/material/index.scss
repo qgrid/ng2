@@ -36,7 +36,6 @@
     @import "assets/table";
     @import "assets/title";
 	@import "assets/validator";
-
     @import "assets/mat/cell.array";
     @import "assets/mat/cell.autocomplete";
     @import "assets/mat/cell.checkbox";
@@ -54,6 +53,8 @@
     @import "assets/mat/popup";
     @import "assets/mat/cell.reference";
 }
+
+@import "assets/pager.target";
 
 .q-grid-excel .q-grid.q-grid-theme-material {
     @import "assets/mat/excel";
