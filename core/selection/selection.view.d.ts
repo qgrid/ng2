@@ -6,7 +6,6 @@ import { CommandManager } from '../command/command.manager';
 import { Command } from '../command/command';
 import { Model } from '../infrastructure/model';
 import { Table } from '../dom/table';
-import { GridService } from '../services/grid';
 
 /**
  * > Under Construction.
@@ -23,10 +22,7 @@ export declare class SelectionView extends View {
 	toggleColumn: Command;
 
 	selectRange(startCell: CellView, endCell: CellView, source?: string): void;
-
 	state(item: any): boolean;
-
 	isIndeterminate(item: any): boolean;
-
 	destroy(): void;
 }

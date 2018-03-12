@@ -5,13 +5,10 @@ import {
 	OnDestroy,
 	OnInit,
 	ViewContainerRef,
-	ComponentFactory,
-	ComponentFactoryResolver,
-	ApplicationRef,
-	Injector
+	ComponentFactory
 } from '@angular/core';
-import { RootService } from 'ng2-qgrid/infrastructure/component';
-import { TemplateHostService } from 'ng2-qgrid/template';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
+import { TemplateHostService } from 'ng2-qgrid/template/template-host.service';
 import { PopupService } from './popup.service';
 import { PluginComponent } from '../plugin.component';
 import { PopupSettings } from './popup.settings';

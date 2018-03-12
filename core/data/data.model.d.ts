@@ -1,5 +1,5 @@
-import { ColumnModel } from '../column-type/column.model';
-import { IPipe } from '../pipe/pipe.item';
+import {ColumnModel} from '../column-type/column.model';
+import {IMemo} from '../pipe/pipe.item';
 
 /**
  * A class that gives access to the high level grid data structures.
@@ -66,5 +66,5 @@ export declare class DataModel {
 	 * Chain of methods that grid invokes asyncroniuosly anytime refresh is required,
 	 * see `PipeModel` that contains information when grid demands refreshing.
 	 */
-	pipe: IPipe<any>[];
+	pipe: ((memo: any, context: IContext, next: (param: IMemo) => void) => any)[];
 }

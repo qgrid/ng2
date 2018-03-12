@@ -4,5 +4,6 @@ import { SelectionService } from '../selection.service';
 
 export declare class RangeSelectionState extends MultipleSelectionState {
 	constructor(model: Model, service: SelectionService);
+
 	select(item: object, state: boolean): void;
 }

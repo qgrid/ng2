@@ -1,0 +1,6 @@
+{
+  "name": "ng2-qgrid/plugins/backdrop",
+  "version": "5.2.6",
+  "main": "../../bundles/main.js",
+  "typings": "./backdrop.module.d.ts"
+}

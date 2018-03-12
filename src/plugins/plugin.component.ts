@@ -6,11 +6,12 @@ import {
 	Optional,
 	SimpleChanges
 } from '@angular/core';
-import { ModelBinder } from 'ng2-qgrid/core/infrastructure';
+import { ModelBinder } from 'ng2-qgrid/core/infrastructure/model.bind';
 import { noop } from 'ng2-qgrid/core/utility';
 import { Guard } from 'ng2-qgrid/core/infrastructure';
-import { NgComponent, RootService } from '../infrastructure/component';
-import { GridComponent } from 'ng2-qgrid/main';
+import { NgComponent } from '../infrastructure/component/ng.component';
+import { RootService } from '../infrastructure/component/root.service';
+import { GridComponent } from 'ng2-qgrid/main/grid/grid.component';
 
 export class PluginComponent extends NgComponent
 	implements OnInit, OnChanges, OnDestroy {

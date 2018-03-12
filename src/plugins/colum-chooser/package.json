@@ -1,0 +1,6 @@
+{
+  "name": "ng2-qgrid/plugins/column-chooser",
+  "version": "5.2.6",
+  "main": "../../bundles/main.js",
+  "typings": "./column-chooser.module.d.ts"
+}

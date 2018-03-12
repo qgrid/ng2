@@ -14,10 +14,7 @@ export class GroupView extends View {
 	toggleStatus: Command;
 
 	count(node: Node): number;
-
 	status(node: Node): 'expand' | 'collapse';
-
 	offset(node: Node): number;
-
 	value(node: Node): string;
 }

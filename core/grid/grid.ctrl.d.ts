@@ -12,10 +12,10 @@ export declare class GridBag {
 export declare class GridCtrl extends View {
 	constructor(model: Model, context: any);
 
-	keyDown(e: any, source?: string);
-	invalidateActive(): void;
-
 	table: Table;
 	bag: GridBag;
 	markup: any;
+
+	keyDown(e: any, source?: string);
+	invalidateActive(): void;
 }

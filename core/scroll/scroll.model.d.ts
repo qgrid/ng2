@@ -1,8 +1,8 @@
 /**
  * A class that contains properties about scroll status.
- * 
+ *
  * ### Suggested Links
- * 
+ *
  * * [Scroll View](/doc/api/scroll-view.html)
  */
 export declare class ScrollModel {
@@ -10,7 +10,7 @@ export declare class ScrollModel {
 
 	/**
 	 * Scroll mode.
-	 * 
+	 *
 	 * * `'default'` mode without virtualization.
 	 * * `'virtual'` turn on virtual mode.
 	 */

@@ -14,10 +14,10 @@ export declare class FakeElement {
 
 	classList: FakeClassList;
 
-	getBoundingClientRect(): IRect;
-
 	readonly clientWidth: number;
 	readonly clientHeight: number;
 	readonly offsetWidth: number;
 	readonly offsetHeight: number;
+
+	getBoundingClientRect(): IRect;
 }

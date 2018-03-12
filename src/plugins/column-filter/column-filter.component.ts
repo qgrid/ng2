@@ -7,7 +7,7 @@ import {
 	Output,
 	OnDestroy
 } from '@angular/core';
-import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 import { ColumnFilterView } from 'ng2-qgrid/plugin/column-filter/column.filter.view';
 import { uniq, flatten } from 'ng2-qgrid/core/utility';

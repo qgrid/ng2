@@ -7,8 +7,10 @@ import {IBoxContext} from './box';
 
 export declare class Table {
 	constructor(markup: object, context: IBoxContext);
+
 	markup: object;
 	context: IBoxContext;
+
 	readonly head: Head;
 	readonly body: Body;
 	readonly foot: Foot;

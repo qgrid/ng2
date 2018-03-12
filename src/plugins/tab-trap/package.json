@@ -1,0 +1,6 @@
+{
+  "name": "ng2-qgrid/plugins/tab-trap",
+  "version": "5.2.6",
+  "main": "../../bundles/main.js",
+  "typings": "./tab-trap.module.d.ts"
+}

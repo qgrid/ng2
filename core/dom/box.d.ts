@@ -27,16 +27,10 @@ export declare class Box {
 	context: IBoxContext;
 
 	cell(rowIndex: number, columnIndex: number): Cell;
-
 	column(columnIndex: number): Column;
-
 	columns(rowIndex: number): Column[];
-
 	row(rowIndex: number): Row;
-
 	rows(columnIndex: number): Row[];
-
 	rowCount(columnIndex: number): number;
-
 	columnCount(rowIndex: number): number;
 }

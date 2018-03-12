@@ -1,6 +1,6 @@
 import { EventManager } from 'ng2-qgrid/core/infrastructure';
 import { isFunction, noop } from 'ng2-qgrid/core/utility';
-import { EventListener, IOnResult } from 'ng2-qgrid/core/infrastructure/event.listener';
+import { EventListener} from 'ng2-qgrid/core/infrastructure/event.listener';
 import { Event } from 'ng2-qgrid/core/infrastructure/event';
 import { PopupSettings } from './popup.settings';
 import { Portal } from '@angular/cdk/portal';

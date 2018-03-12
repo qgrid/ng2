@@ -7,8 +7,10 @@ import { ColumnModel } from '../column-type/column.model';
  */
 export declare class SortView extends View {
 	constructor(model: any);
+
 	hover: boolean;
 	toggle: Command;
+
 	direction(column: ColumnModel): { [key: string]: ColumnModel };
 	order(column: ColumnModel): number;
 }

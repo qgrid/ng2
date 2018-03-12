@@ -1,8 +1,8 @@
 /**
  * A class contains basic grid options like id and title.
- * 
+ *
  * ## Suggested Links
- * 
+ *
  * * [grid.ctrl.js](https://github.com/qgrid/ng2/blob/master/core/grid/grid.ctrl.js)
  */
 export declare class GridModel {
@@ -16,8 +16,8 @@ export declare class GridModel {
 	/**
 	 * Indicates a state of the model:
 	 * * `unbound` model is not connected to a grid element.
-	 * * `bound` model connected to a grid element. 
-	 * 
+	 * * `bound` model connected to a grid element.
+	 *
 	 * Current version of the grid doesn't allow to use one model on several grids,
 	 * so if user will try to do that exception will be thrown.
 	 */

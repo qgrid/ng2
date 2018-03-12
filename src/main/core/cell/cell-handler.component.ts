@@ -1,6 +1,6 @@
 import { Component, ElementRef } from '@angular/core';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
-import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 
 @Component({
 	selector: 'q-grid-cell-handler',
