@@ -11,7 +11,7 @@ export class PagerTargetComponent extends PluginComponent implements OnInit {
 		super(root);
 	}
 
-	private value: string;
+	private value: number;
 	private target: any;
 
 	ngOnInit() {
@@ -19,14 +19,13 @@ export class PagerTargetComponent extends PluginComponent implements OnInit {
 		this.context = {$implicit: this.target};
 	}
 
-	setPage(page: string) {
-		const pageNumber = Number.parseInt(page);
+	setPage(page: number) {
 		const maxAllowed = this.total();
 
-		if (pageNumber > 0 && pageNumber <= maxAllowed) {
-			this.model.pagination({current: pageNumber - 1});
+		if (page > 0 && page <= maxAllowed) {
+			this.model.pagination({current: page - 1});
 		} else {
-			this.value = '1';
+			this.value = 1;
 		}
 	}
 
