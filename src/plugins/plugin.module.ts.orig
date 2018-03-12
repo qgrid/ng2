@@ -16,12 +16,12 @@ import { BackdropModule } from './backdrop/backdrop.module';
 import { SelectModule } from './select/select.module';
 import { LegendModule } from './legend/legend.module';
 import { ChipsModule } from './chips/chips.module';
+import { ReferenceEditorModule } from './reference-editor/reference-editor.module';
 import { ColumnChooserModel } from 'ng2-qgrid/plugin/column-chooser/column.chooser.model';
 import { ColumnFilterModel } from 'ng2-qgrid/plugin/column-filter/column.filter.model';
 import { DataManipulationModel } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.model';
-import { EditFormModule } from 'ng2-qgrid/plugins/edit-form';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
-import { ReferenceEditorModule } from 'ng2-qgrid/plugins/reference-editor/reference-editor.module';
+import { EditFormModule } from 'ng2-qgrid/plugins/edit-form';
 
 Model.register('columnChooser', ColumnChooserModel)
 	.register('columnFilter', ColumnFilterModel)
@@ -42,12 +42,12 @@ Model.register('columnChooser', ColumnChooserModel)
 		MenuModule,
 		CellEditorModule,
 		BoolEditorModule,
+		ReferenceEditorModule,
 		TabTrapModule,
 		BackdropModule,
 		SelectModule,
 		LegendModule,
 		ChipsModule,
-		ReferenceEditorModule,
 		EditFormModule
 	]
 })

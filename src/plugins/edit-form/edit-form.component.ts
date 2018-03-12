@@ -1,10 +1,10 @@
 import { Component, Optional, Input, OnInit, OnDestroy } from '@angular/core';
-import { RootService } from '../../infrastructure/component/index';
 import { PluginComponent } from '../plugin.component';
 import { EditFormView } from 'ng2-qgrid/plugin/edit-form/edit.form.view';
 import { FormGroup } from '@angular/forms';
 import { ViewCoreService } from 'ng2-qgrid/main';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 
 @Component({
     selector: 'q-grid-edit-form',
