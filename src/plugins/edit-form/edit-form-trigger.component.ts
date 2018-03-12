@@ -6,11 +6,15 @@ import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 	selector: 'q-grid-edit-form-trigger',
 	templateUrl: './edit-form-trigger.component.html'
 })
-export class EditFormTriggerComponent extends PluginComponent {
+export class EditFormTriggerComponent extends PluginComponent implements OnInit {
 
-    @Input() title: string;
-
+	@Input() title: string;
+	@Input() data: any;
+	
 	constructor( @Optional() root: RootService) {
 		super(root);
+	}
+
+	ngOnInit() {
 	}
 }

@@ -25,13 +25,12 @@
             header="NG2 QGRID SANDBOX">
 
         <q-grid-columns>
-
             <q-grid-column type="edit-form"
                            key="editForm"
                            pin="left"
                            canEdit="false">
-                <ng-template for="body">
-                    <q-grid-edit-form-trigger title='Edit Form'></q-grid-edit-form-trigger>
+                <ng-template for="body" let-$cell>
+                    <q-grid-edit-form-trigger title='Edit Form' [data]="$cell.row"></q-grid-edit-form-trigger>
                 </ng-template>
             </q-grid-column>
             <!-- <q-grid-column type="row-number"
