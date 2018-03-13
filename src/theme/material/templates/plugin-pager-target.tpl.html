@@ -10,6 +10,7 @@
 								 [(ngModel)]="$target.value"
 								 [max]="$target.total()"
 								 [min]="1"
+								 (keydown)="$target.handleKeyDown($event)"
 								 placeholder="Go to page:"/>
 					</span>
 			</mat-input-container>
@@ -18,7 +19,7 @@
 
 	<button #trigger="matMenuTrigger"
 			  [matMenuTriggerFor]="menu"
-			  (click)="input.focus(); $target.attachEventListener()"
+			  (click)="input.focus()"
 			  tabindex="-1"
 			  mat-button
 			  class="mat-icon-button q-grid-pager-target-button">
