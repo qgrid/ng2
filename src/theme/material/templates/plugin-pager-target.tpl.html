@@ -2,23 +2,23 @@
 
 	<mat-menu #menu="matMenu" class="q-grid-mat-menu">
 		<mat-card>
-				<mat-input-container>
+			<mat-input-container>
 					<span (keyup.enter)="trigger.closeMenu()">
-						<input matInput type="number" #input
+						<input id="q-grid-menu-input"
+								 matInput type="number" #input
 								 (click)="$event.stopPropagation()"
 								 [(ngModel)]="$target.value"
 								 [max]="$target.total()"
 								 [min]="1"
-								 (keyup.enter)="$target.setPage($target.value)"
 								 placeholder="Go to page:"/>
 					</span>
-				</mat-input-container>
+			</mat-input-container>
 		</mat-card>
 	</mat-menu>
 
 	<button #trigger="matMenuTrigger"
 			  [matMenuTriggerFor]="menu"
-			  (click)="input.focus()"
+			  (click)="input.focus(); $target.attachEventListener()"
 			  tabindex="-1"
 			  mat-button
 			  class="mat-icon-button q-grid-pager-target-button">
