@@ -14,7 +14,6 @@ export class PagerTargetComponent extends PluginComponent implements OnInit {
 
 	private value: any;
 	private target: any;
-	private input: HTMLInputElement;
 
 	ngOnInit() {
 		this.target = this;
