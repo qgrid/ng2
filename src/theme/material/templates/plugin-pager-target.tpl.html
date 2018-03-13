@@ -10,7 +10,7 @@
 								 [(ngModel)]="$target.value"
 								 [max]="$target.total()"
 								 [min]="1"
-								 (keydown)="$target.handleKeyDown($event)"
+								 (keydown)="$target.keyDown($event)"
 								 placeholder="Go to page:"/>
 					</span>
 			</mat-input-container>
@@ -22,8 +22,8 @@
 			  (click)="input.focus()"
 			  tabindex="-1"
 			  mat-button
-			  class="mat-icon-button q-grid-pager-target-button">
-		<mat-icon>location_searching</mat-icon>
+			  class="mat-icon-button">
+		<mat-icon class="q-grid-icon-class">location_searching</mat-icon>
 	</button>
 
 </ng-template>

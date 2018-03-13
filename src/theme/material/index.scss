@@ -30,6 +30,7 @@
     @import "assets/mixins";
     @import "assets/node";
     @import "assets/pager";
+	@import "assets/pager.target";
     @import "assets/progress";
     @import "assets/row";
     @import "assets/selection";
@@ -52,9 +53,8 @@
     @import "assets/mat/persistence";
     @import "assets/mat/popup";
     @import "assets/mat/cell.reference";
+	@import "assets/mat/pager.target";
 }
-
-@import "assets/pager.target";
 
 .q-grid-excel .q-grid.q-grid-theme-material {
     @import "assets/mat/excel";
