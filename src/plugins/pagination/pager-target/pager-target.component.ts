@@ -36,7 +36,7 @@ export class PagerTargetComponent extends PluginComponent implements OnInit {
 		} else if (key <= total && key >= 1) {
 			setTimeout(() => this.value = key);
 		} else {
-			setTimeout(() => this.value = '');
+			setTimeout(() => this.value = 1);
 		}
 	}
 
