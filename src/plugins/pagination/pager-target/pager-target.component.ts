@@ -13,21 +13,40 @@ export class PagerTargetComponent extends PluginComponent {
 		super(root);
 	}
 
-	private value: any;
+	private value: any[] = [];
+	private input: any;
 
 	keyDown(e: KeyboardEvent) {
 		e.preventDefault();
 
-		const keyString = Shortcut.translate(e);
-		const keyNumber = Number.parseInt(keyString) || 0;
+		const code = Shortcut.translate(e);
+		const digit = Number.parseInt(code) || 0;
 		const total = this.total();
+		const firstTimeInput = this.value.length === 0;
 
-		if (keyString === 'enter') {
-			this.model.pagination({current: this.value - 1});
-		} else if (keyNumber <= total && keyNumber >= 1) {
-			this.value = keyNumber;
+		const copy = this.value.slice();
+		copy.push(digit);
+		const candidate = Number.parseInt(copy.join(''));
+
+		const allowed =
+			candidate >= 1 &&
+			digit <= total &&
+			(!firstTimeInput ? candidate <= total : true);
+
+		if (code === 'enter') {
+			this.model.pagination({current: this.input - 1});
+			this.input = '';
+			this.value = [];
+		} else if (code === 'backspace') {
+			if (this.value.length !== 0) {
+				this.value.pop();
+				this.input = Number.parseInt(this.value.join(''));
+			}
 		} else {
-			this.value = 1;
+			if (allowed) {
+				this.value.push(digit);
+				this.input = Number.parseInt(this.value.join(''));
+			}
 		}
 	}
 
