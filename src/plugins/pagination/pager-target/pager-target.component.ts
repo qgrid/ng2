@@ -13,39 +13,33 @@ export class PagerTargetComponent extends PluginComponent {
 		super(root);
 	}
 
-	private value: any[] = [];
+	private value = '';
 	private input: any;
 
 	keyDown(e: KeyboardEvent) {
 		e.preventDefault();
 
 		const code = Shortcut.translate(e);
-		const digit = Number.parseInt(code) || 0;
+		const digit = Number.parseInt(code);
 		const total = this.total();
-		const firstTimeInput = this.value.length === 0;
-
-		const copy = this.value.slice();
-		copy.push(digit);
-		const candidate = Number.parseInt(copy.join(''));
-
+		const firstTimeInput = this.value === '';
+		const candidate = Number.parseInt(this.value + digit);
 		const allowed =
 			candidate >= 1 &&
-			digit <= total &&
+			candidate <= total &&
 			(!firstTimeInput ? candidate <= total : true);
 
-		if (code === 'enter') {
-			this.model.pagination({current: this.input - 1});
+		if (code === 'enter' && this.input) {
+			this.model.pagination({current: Number.parseInt(this.input) - 1});
 			this.input = '';
-			this.value = [];
-		} else if (code === 'backspace') {
-			if (this.value.length !== 0) {
-				this.value.pop();
-				this.input = Number.parseInt(this.value.join(''));
-			}
+			this.value = '';
+		} else if (code === 'backspace' && this.value !== '') {
+			this.value = this.value.slice(0, this.value.length - 1);
+			this.input = this.value;
 		} else {
 			if (allowed) {
-				this.value.push(digit);
-				this.input = Number.parseInt(this.value.join(''));
+				this.value += digit;
+				this.input = this.value;
 			}
 		}
 	}
