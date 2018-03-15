@@ -14,7 +14,6 @@ export class PagerTargetComponent extends PluginComponent {
 	}
 
 	private value = '';
-	private input: any;
 
 	keyDown(e: KeyboardEvent) {
 		e.preventDefault();
@@ -22,25 +21,29 @@ export class PagerTargetComponent extends PluginComponent {
 		const code = Shortcut.translate(e);
 		const digit = Number.parseInt(code);
 		const total = this.total();
-		const firstTimeInput = this.value === '';
-		const candidate = Number.parseInt(this.value + digit);
-		const allowed =
-			candidate >= 1 &&
-			candidate <= total &&
-			(!firstTimeInput ? candidate <= total : true);
+		const page = Number.parseInt(this.value + digit);
+		const allowed = page >= 1 && page <= total;
 
-		if (code === 'enter' && this.input) {
-			this.model.pagination({current: Number.parseInt(this.input) - 1});
-			this.input = '';
-			this.value = '';
-		} else if (code === 'backspace' && this.value !== '') {
-			this.value = this.value.slice(0, this.value.length - 1);
-			this.input = this.value;
-		} else {
-			if (allowed) {
-				this.value += digit;
-				this.input = this.value;
+		if (isNaN(digit)) {
+			switch (code) {
+				case 'enter': {
+					if (this.value) {
+						this.model.pagination({current: Number.parseInt(this.value) - 1});
+						this.value = '';
+					}
+					break;
+				}
+				case 'backspace': {
+					if (this.value !== '') {
+						this.value = this.value.slice(0, this.value.length - 1);
+					}
+					break;
+				}
 			}
+		}
+
+		if (allowed && !isNaN(digit)) {
+			this.value += digit;
 		}
 	}
 
