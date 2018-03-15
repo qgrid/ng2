@@ -22,7 +22,7 @@ export class PagerTargetComponent extends PluginComponent {
 		const digit = Number.parseInt(code);
 		const total = this.total();
 		const page = Number.parseInt(this.value + digit);
-		const allowed = page >= 1 && page <= total;
+		const allowed = page >= 1 && page <= total && !isNaN(digit);
 
 		if (isNaN(digit)) {
 			switch (code) {
@@ -42,7 +42,7 @@ export class PagerTargetComponent extends PluginComponent {
 			}
 		}
 
-		if (allowed && !isNaN(digit)) {
+		if (allowed) {
 			this.value += digit;
 		}
 	}
