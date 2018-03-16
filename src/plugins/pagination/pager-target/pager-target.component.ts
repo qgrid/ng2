@@ -60,6 +60,6 @@ export class PagerTargetComponent extends PluginComponent {
 		const count = pagination.count;
 		const size = pagination.size;
 
-		return 20;
+		return count / size;
 	}
 }
