@@ -17,7 +17,7 @@ export class PagerTargetComponent extends PluginComponent {
 
 	keyDown(e: KeyboardEvent) {
 		const code = Shortcut.translate(e);
-		const digit = Number.parseInt(code);
+
 		this.value += '';
 
 		switch (code) {
@@ -29,12 +29,21 @@ export class PagerTargetComponent extends PluginComponent {
 				break;
 			}
 			case 'backspace': {
+				e.preventDefault();
+
 				if (this.value !== '') {
 					this.value = this.value.slice(0, this.value.length - 1);
 				}
 				break;
 			}
+			case 'left': {
+				break;
+			}
+			case 'right': {
+				break;
+			}
 			default: {
+				const digit = Number.parseInt(code);
 				const total = this.total();
 				const page = Number.parseInt(this.value + digit);
 				const allowed = page >= 1 && page <= total && !isNaN(digit);
@@ -44,7 +53,6 @@ export class PagerTargetComponent extends PluginComponent {
 				}
 			}
 		}
-
 	}
 
 	total() {
@@ -52,6 +60,6 @@ export class PagerTargetComponent extends PluginComponent {
 		const count = pagination.count;
 		const size = pagination.size;
 
-		return count / size;
+		return 20;
 	}
 }
