@@ -36,9 +36,7 @@ export class PagerTargetComponent extends PluginComponent {
 				}
 				break;
 			}
-			case 'left': {
-				break;
-			}
+			case 'left':
 			case 'right': {
 				break;
 			}
