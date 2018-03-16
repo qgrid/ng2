@@ -16,35 +16,35 @@ export class PagerTargetComponent extends PluginComponent {
 	private value = '';
 
 	keyDown(e: KeyboardEvent) {
-		e.preventDefault();
-
 		const code = Shortcut.translate(e);
 		const digit = Number.parseInt(code);
-		const total = this.total();
-		const page = Number.parseInt(this.value + digit);
-		const allowed = page >= 1 && page <= total && !isNaN(digit);
+		this.value += '';
 
-		if (isNaN(digit)) {
-			switch (code) {
-				case 'enter': {
-					if (this.value) {
-						this.model.pagination({current: Number.parseInt(this.value) - 1});
-						this.value = '';
-					}
-					break;
+		switch (code) {
+			case 'enter': {
+				if (this.value) {
+					this.model.pagination({current: Number.parseInt(this.value) - 1});
+					this.value = '';
 				}
-				case 'backspace': {
-					if (this.value !== '') {
-						this.value = this.value.slice(0, this.value.length - 1);
-					}
-					break;
+				break;
+			}
+			case 'backspace': {
+				if (this.value !== '') {
+					this.value = this.value.slice(0, this.value.length - 1);
+				}
+				break;
+			}
+			default: {
+				const total = this.total();
+				const page = Number.parseInt(this.value + digit);
+				const allowed = page >= 1 && page <= total && !isNaN(digit);
+
+				if (!allowed) {
+					e.preventDefault();
 				}
 			}
 		}
 
-		if (allowed) {
-			this.value += digit;
-		}
 	}
 
 	total() {
