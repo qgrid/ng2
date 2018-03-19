@@ -1,14 +1,8 @@
- import {EventManager} from './event.manager';
-import {IFunc} from '../dom/view';
-
-export interface IOnResult {
-	(): void;
-}
+import { EventManager } from './event.manager';
 
 export declare class EventListener {
 	constructor(element: Element, manager: EventManager);
 
-	on(name: string, f: IFunc, settings?: any): IOnResult;
-
+	on(name: string, f: (arg: any) => void, settings?: any): () => void;
 	off(): void;
 }

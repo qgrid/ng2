@@ -3,12 +3,14 @@ import {Data} from './data';
 import {Head} from './head';
 import {Body} from './body';
 import {Foot} from './foot';
-import {IContext} from './box';
+import {IBoxContext} from './box';
 
 export declare class Table {
-	constructor(markup: object, context: IContext);
+	constructor(markup: object, context: IBoxContext);
+
 	markup: object;
-	context: IContext;
+	context: IBoxContext;
+
 	readonly head: Head;
 	readonly body: Body;
 	readonly foot: Foot;

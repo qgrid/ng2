@@ -46,13 +46,17 @@
 	],
 	"exclude": [
 		"node_modules",
-		"dist"
+		"dist",
+		"dll",
+		"scripts"
 	],
 	"compileOnSave": true,
 	"buildOnSave": true,
 	"angularCompilerOptions": {
 		"skipMetadataEmit": false,
 		"skipTemplateCodegen": true,
-		"genDir": "./dist"
+		"strictMetadataEmit": true,
+		"genDir": "./dist",
+		"flatModuleId": "ng2-qgrid"
 	}
 }

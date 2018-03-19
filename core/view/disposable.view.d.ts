@@ -1,7 +1,6 @@
 export declare class DisposableView {
-  constructor();
+	constructor();
 
-  using(dispose: () => void): () => void;
-
-  dispose(): void;
+	using(dispose: () => void): () => void;
+	dispose(): void;
 }

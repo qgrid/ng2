@@ -1,34 +1,25 @@
-import {Fetch} from '../infrastructure/fetch';
-import {INoopResult} from '../utility/utility';
-import {CellView} from '../scene/view/cell.view';
-import {ColumnModel, IEditorOptions} from '../column-type/column.model';
+import { Fetch } from '../infrastructure/fetch';
+import { CellView } from '../scene/view/cell.view';
+import { ColumnModel } from '../column-type/column.model';
+import { EditorOptions } from '../column-type/editor.options';
 
-export declare class CellEditorCore {
-	constructor();
-
-	value: any;
-	fetch: INoopResult;
-	resetFetch: INoopResult;
-
-	commit(): void;
-
-	reset(): void;
-
-	readonly options: IEditorOptions;
-}
-
-export declare class CellEditor extends CellEditorCore {
+export declare class CellEditor {
 	constructor(cell: CellView);
 
+	static readonly empty: CellEditor;
+
+	fetch: () => void;
+	resetFetch: () => void;
 	cell: CellView;
 	value: any;
 	label: any;
+
+	readonly options: EditorOptions;
 	readonly title: string;
 	readonly column: ColumnModel;
 
 	getLabel(item: any): any;
-
 	fetchFactory(): Fetch;
-
-	static readonly empty: CellEditorCore;
+	commit(): void;
+	reset(): void;
 }

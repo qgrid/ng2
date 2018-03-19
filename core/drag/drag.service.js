@@ -1,4 +1,4 @@
-import {GRID_PREFIX} from '../definition';
+import { GRID_PREFIX } from '../definition';
 
 let transfer = null;
 

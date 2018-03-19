@@ -1,15 +1,16 @@
-import {IRoot} from './expression.build';
+import {IExpression} from './expression.build';
 
 export declare class Visitor {
 	constructor();
-	visit(item: IRoot, depth: number): void;
-	visitGroup(group: IRoot, depth: number): void;
-	visitCondition(condition: IRoot, depth: number): void;
-	visitUnary(condition: IRoot): void;
-	visitBinary(condition: IRoot, depth: number): void;
-	visitLeft(left: IRoot): void;
-	visitBetween(condition: IRoot, depth: number): void;
-	visitIn(condition: IRoot, depth: number): void;
-	visitFunction(item: IRoot, depth: number): void;
+
+	visit(item: IExpression, depth: number): void;
+	visitGroup(group: IExpression, depth: number): void;
+	visitCondition(condition: IExpression, depth: number): void;
+	visitUnary(condition: IExpression): void;
+	visitBinary(condition: IExpression, depth: number): void;
+	visitLeft(left: IExpression): void;
+	visitBetween(condition: IExpression, depth: number): void;
+	visitIn(condition: IExpression, depth: number): void;
+	visitFunction(item: IExpression, depth: number): void;
 	visitArguments(args: any[]): void;
 }

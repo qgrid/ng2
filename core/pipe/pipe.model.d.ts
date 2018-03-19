@@ -3,7 +3,7 @@ import { Model } from '../infrastructure/model';
 
 /**
  * A class that contains setting to control when and how q-grid should be updated.
- * 
+ *
  * ### Default Triggers
  * ```javascript
  *  {
@@ -47,17 +47,17 @@ import { Model } from '../infrastructure/model';
  * ```
  */
 export declare class PipeModel {
-    constructor();
+	constructor();
 
-    /**
-     * A function that allows to shrink a number of pipe units that should be invoked on referch request.
-     */
-    reduce: (xs: PipeUnit[], Model) => PipeUnit[]
+	/**
+	 * A function that allows to shrink a number of pipe units that should be invoked on referch request.
+	 */
+	reduce: (xs: PipeUnit[], Model) => PipeUnit[];
 
-    /**
-     * A schema that shows how and when q-grid should be updated.
-     * 
-     * `{col}`
-     */
-    triggers: object;
+	/**
+	 * A schema that shows how and when q-grid should be updated.
+	 *
+	 * `{col}`
+	 */
+	triggers: object;
 }

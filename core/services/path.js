@@ -1,7 +1,7 @@
 export function compile(path) {
 	const parts = path.split('.');
-    const last = parts.length - 1;
-    const accessor = getAccessor(parts, last);
+	const last = parts.length - 1;
+	const accessor = getAccessor(parts, last);
 	const key = parts[last];
 	if (accessor) {
 		return function(entry, value) {
@@ -24,8 +24,8 @@ export function compile(path) {
 
 export function compileGet(path) {
 	const parts = path.split('.');
-    const last = parts.length - 1;
-    const accessor = getAccessor(parts, last);
+	const last = parts.length - 1;
+	const accessor = getAccessor(parts, last);
 	const key = parts[last];
 	if (accessor) {
 		return function(entry) {
@@ -33,15 +33,15 @@ export function compileGet(path) {
 		};
 	}
 
-	return function(entry, value) {
+	return function(entry) {
 		return entry[key];
 	};
 }
 
 export function compileSet(path) {
 	const parts = path.split('.');
-    const last = parts.length - 1;
-    const accessor = getAccessor(parts, last);
+	const last = parts.length - 1;
+	const accessor = getAccessor(parts, last);
 	const key = parts[last];
 	if (accessor) {
 		return function(entry, value) {

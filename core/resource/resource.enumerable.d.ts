@@ -5,4 +5,3 @@ export declare class EnumerableResource extends Resource {
 
 	count: number;
 }
-

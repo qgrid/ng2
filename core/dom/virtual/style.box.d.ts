@@ -1,10 +1,12 @@
-import {IContext} from '../box';
+import {IBoxContext} from '../box';
 
 export declare class StyleBox {
-  constructor(context: IContext);
-  context: IContext;
-  entries: Map<any, any>;
-  addClass(item: string, name: string): void;
-  removeClass(item: string, name: string): boolean;
-  key(item: string): string;
+	constructor(context: IBoxContext);
+
+	context: IBoxContext;
+	entries: Map<any, any>;
+
+	addClass(item: string, name: string): void;
+	removeClass(item: string, name: string): boolean;
+	key(item: string): string;
 }

@@ -1,3 +1,3 @@
 export interface IState {
-	expand: boolean
+	expand: boolean;
 }

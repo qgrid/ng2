@@ -21,6 +21,8 @@ export class RowNumberColumnModel extends ColumnModel {
 		this.canFocus = false;
 		this.canMove = false;
 		this.canHighlight = false;
+		this.canSort = false;
+		this.canFilter = false;
 		this.class = 'control';
 	}
 }

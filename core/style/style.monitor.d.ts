@@ -1,8 +1,4 @@
-import {Model} from '../infrastructure/model';
-
-export interface IClassResult{
-	(key: string, style: string): void;
-}
+import { Model } from '../infrastructure/model';
 
 export declare class Entry {
 	constructor(element: HTMLElement, sheets: Map<any, any>);
@@ -14,9 +10,11 @@ export declare class Entry {
 
 export declare class Monitor {
 	constructor(model: Model);
+
 	entries: Entry[];
 	newSheets: Map<any, any>;
 	oldSheets: Map<any, any>;
-	enter(): IClassResult;
+
+	enter(): (key: string, style: string) => void;
 	exit(): void;
 }

@@ -5,7 +5,7 @@ import { TableCoreService } from '../table/table-core.service';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
-import { NgComponent } from 'ng2-qgrid/infrastructure/component';
+import { NgComponent } from 'ng2-qgrid/infrastructure/component/ng.component';
 import { HeadCtrl } from 'ng2-qgrid/core/head/head.ctrl';
 
 @Component({
@@ -25,7 +25,7 @@ export class HeadCoreComponent extends NgComponent implements OnInit {
     
 	ngOnInit() {
 		const element = this.element.nativeElement;
-		const ctrl = new HeadCtrl(this.$view, this.root.bag);
+		const ctrl = new HeadCtrl(this.root.model, this.$view, this.root.bag);
 		const listener = new EventListener(element, new EventManager(this));
 		this.zone.runOutsideAngular(() => {
 			this.using(listener.on('mousemove', e => ctrl.onMouseMove(e)));

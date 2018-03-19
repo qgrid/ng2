@@ -1,4 +1,4 @@
-import { Model } from '../infrastructure';
+import { Model } from '../infrastructure/model';
 import { View } from '../view/view';
 import { Table } from '../dom/table';
 import { Bag } from '../dom/bag';
@@ -6,16 +6,16 @@ import { Bag } from '../dom/bag';
 export declare class GridBag {
 	head: Bag;
 	body: Bag;
-	foot: bag;
+	foot: Bag;
 }
 
 export declare class GridCtrl extends View {
-	constructor(model: Model, context: any)
-
-	keyDown(e: any, source = 'grid');
-	invalidateActive(): void;
+	constructor(model: Model, context: any);
 
 	table: Table;
 	bag: GridBag;
 	markup: any;
+
+	keyDown(e: any, source?: string);
+	invalidateActive(): void;
 }

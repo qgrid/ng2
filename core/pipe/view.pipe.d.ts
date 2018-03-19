@@ -1,6 +1,6 @@
-import {IPipe} from './pipe.item';
+import {IContext, IMemo} from './pipe.item';
 
 /**
  * > Under Construction.
  */
-export declare const viewPipe: IPipe<any>;
+export declare const viewPipe: (memo: any, context: IContext, next: (param: IMemo) => void) => any;

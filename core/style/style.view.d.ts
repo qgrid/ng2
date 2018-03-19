@@ -7,13 +7,13 @@ import { Table } from '../dom/table';
  * > Under Construction.
  */
 export declare class StyleView extends View {
-    constructor(model: Model, table: Table);
+	constructor(model: Model, table: Table);
 
-    monitor: {
-        row: Monitor;
-        cell: Monitor;
-    };
+	monitor: {
+		row: Monitor;
+		cell: Monitor;
+	};
 
-    invalidate(domRow: any, domCell: any): void;
-    needInvalidate(): boolean;
+	invalidate(domRow: any, domCell: any): void;
+	needInvalidate(): boolean;
 }

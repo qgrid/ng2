@@ -1,0 +1,6 @@
+{
+  "name": "ng2-qgrid/main",
+  "version": "5.2.6",
+  "main": "../bundles/main.js",
+  "typings": "./main.module.d.ts"
+}

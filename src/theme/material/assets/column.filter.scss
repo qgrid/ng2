@@ -2,18 +2,22 @@
 &.q-grid-box:not(.q-grid-drag) {
 	th.q-grid-highlighted {
 		.q-grid-column-filter-trigger {
-			visibility: visible;
+			opacity: 1;
 		}
 	}
 }
 
 .q-grid-column-filter-trigger {
-	visibility: hidden;
 	position: absolute;
-	right: 0;
-	top: calc(50% - 8px);
+	right: 2px;
+	transition: opacity 0.3s;
+	margin: 0 auto;
+	height: 16px;
+	line-height: 16px;
+	opacity: 0;
+	transition: opacity 0.3s;
 	&.q-grid-active {
-		visibility: visible;
+		opacity: 1;
 		.q-grid-icon {
 			color: $dark;
 		}
@@ -32,7 +36,7 @@
 		background: transparent;
 		padding: 0;
 		left: 0;
-		margin: 0 2px;
+		margin: 0 2px 2px 2px;
 		.q-grid-icon {
 			color: $dark-secondary;
 			font-size: 16px;
@@ -46,28 +50,35 @@
 	}
 }
 
-@at-root .q-grid-column-filter-panel {
+@at-root .q-grid-column-filter.q-grid-menu {
+	width: 360px;
+	min-width: 360px;
+	max-width: 360px;
+	height: 500px;
+	overflow: hidden;
 	ul {
 		list-style-type: none;
 		padding: 0;
 	}
 	.q-grid-column-filter-filter {
-		margin-left: 4px;
-		margin-right: 4px;
-		margin-bottom: 0;
-		margin-top: 0;
-		.md-errors-spacer {
-			display: none;
-		}
+		margin: 0;
+		padding: 0;
+		width: 100%;
 	}
 	.q-grid-column-filter-list {
 		overflow-y: auto;
-		height: 280px;
+		height: 300px;
+		margin-bottom: 14px;
 		ul {
 			margin: 0;
 		}
 	}
 	.q-grid-column-filter-actions {
 		padding: 7px 0;
+	}
+	.q-grid-checkbox {
+		width: 100%;
+		overflow: hidden;
+		margin: 0 0 5px 0;
 	}
 }

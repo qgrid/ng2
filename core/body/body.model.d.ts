@@ -1,8 +1,9 @@
-import {Resource} from '../resource/resource';
-import {Cache} from '../infrastructure/cache';
+import { Resource } from '../resource/resource';
+import { Cache } from '../infrastructure/cache';
 
 export declare class BodyModel {
-  constructor();
-  resource: Resource;
-  cache: Cache<string, any>;
+	constructor();
+
+	resource: Resource;
+	cache: Cache<string, any>;
 }

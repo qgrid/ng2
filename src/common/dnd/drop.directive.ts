@@ -1,7 +1,7 @@
 import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, NgZone } from '@angular/core';
 import { EventManager } from 'ng2-qgrid/core/infrastructure';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
-import { DragService } from './drag.service';
+import { DragService } from 'ng2-qgrid/core/drag/drag.service';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 
 @Directive({

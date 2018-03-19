@@ -1,0 +1,6 @@
+{
+  "name": "ng2-qgrid/common/focus",
+  "version": "5.2.6",
+  "main": "../../bundles/main.js",
+  "typings": "./focus.module.d.ts"
+}

@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { CommonModule as GridCommonModule } from 'ng2-qgrid/common/common.module';
 import { GridComponent } from './grid/grid.component';
 import { GridService } from './grid/grid.service';
-import { ColumnComponent, ColumnListComponent } from './column';
-import { BoxComponent } from './box';
-import { CoreModule } from './core';
+import { ColumnComponent } from './column/column.component';
+import { ColumnListComponent } from './column/column-list.component';
+import { BoxComponent } from './box/box.component';
+import { CoreModule } from './core/core.module';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { RowComponent } from './core/row/row.component';
+import { LayerComponent } from './core/layer/layer.component';
 import { MarkupDirective } from './markup/markup.directive';
 
 @NgModule({
@@ -17,6 +20,7 @@ import { MarkupDirective } from './markup/markup.directive';
 		ColumnComponent,
 		ToolbarComponent,
 		RowComponent,
+		LayerComponent,
 		MarkupDirective
 	],
 	exports: [
@@ -25,11 +29,13 @@ import { MarkupDirective } from './markup/markup.directive';
 		ColumnComponent,
 		BoxComponent,
 		ToolbarComponent,
-		RowComponent
+		RowComponent,
+		LayerComponent,		
+		GridCommonModule
 	],
 	imports: [
-		BrowserModule,
-		CoreModule
+		CoreModule,
+		CommonModule
 	],
 	providers: [
 		GridService

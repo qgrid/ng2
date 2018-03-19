@@ -32,8 +32,17 @@
             margin-right: 0;
         }
         &.q-grid-next-page {
-            margin-left: 24px;
             margin-right: 14px;
+            margin-left: 0;
+        }
+        &.q-grid-target-page {
+            .q-grid-icon {
+                font-size: 16px;
+                width: 16px;
+                height: 16px;
+                min-width: 16px;
+                min-height: 16px;
+            }
         }
     }
 }

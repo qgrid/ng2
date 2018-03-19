@@ -1,14 +1,13 @@
 import { ColumnModel } from '../column-type/column.model';
-import { GenerationMode } from './generation.mode';
 
 /**
  * A class that responsible for the columns order and generation. Usually user does not interact directly
  * with this model as the q-grid uses this in internal pipelines.
- * 
+ *
  * ### Usage
- * 
+ *
  * * Example of how user usually can define column generation type and list of columns in template.
- * 
+ *
  * ```html
  * <q-grid>
  *    <q-grid-columns generation="deep">
@@ -16,24 +15,24 @@ import { GenerationMode } from './generation.mode';
  *    </q-grid-columns>
  * </q-grid>
  * ```
- * 
+ *
  * * Example of how user usually can define some options for the all columns of appropriate type.
- * 
+ *
  * ```html
  * <q-grid>
  *    <q-grid-columns>
  *       <q-grid-column type="number" canSort="false" canFilter="false"></q-grid-column>
  *    </q-grid-columns>
  * </q-grid>
- * ``` 
- * 
+ * ```
+ *
  * ### Suggested Links
- * 
+ *
  * * [Column Model](/doc/api/column-model.html)
  * * [Column Sort](/doc/feature/sort.html)
  * * [column.list.generate.js](https://github.com/qgrid/ng2/blob/master/core/column-list/column.list.generate.js)
  * * [column.list.sort.js](https://github.com/qgrid/ng2/blob/master/core/column-list/column.list.sort.js)
-
+ *
  */
 export declare class ColumnListModel {
 	constructor();
@@ -54,7 +53,8 @@ export declare class ColumnListModel {
 	index: string[];
 
 	/**
-	 * List of columns from html template. Usually that kind of column can be defined with `<q-grid-column>` componet in html,
+	 * List of columns from html template. Usually that kind of column can be
+	 * defined with `<q-grid-column>` componet in html,
      * and has `column.source === 'tempate'`.
 	 */
 	columns: ColumnModel[];
@@ -62,7 +62,7 @@ export declare class ColumnListModel {
 	/**
 	 * If user omits key property while defining a column, this column goes to the reference
 	 * object as `{columnType: myColumn}`. The reference settings will be applied for all
-	 * column of appropriate type as defaults. 
+	 * column of appropriate type as defaults.
 	 */
 	reference: object;
 }

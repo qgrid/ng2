@@ -1,5 +1,1 @@
-export interface ICastFactoryResult<K> {
-  (param: any): (any) => K;
-}
-
-export declare function castFactory(r: any): ICastFactoryResult<any>;
+export declare function castFactory(r: any): (param: any) => (x: any) => any;

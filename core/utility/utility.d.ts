@@ -1,29 +1,6 @@
-export interface INoopResult{
-	(): void;
-}
-export interface IYesResult{
-	(): boolean;
-}
-
-export interface INoResult{
-	(): boolean;
-}
-
-export interface IIdentityResult{
-	(any): any;
-}
-
-export interface IToCamelCaseResult{
-	(...names: string[]): string;
-}
-
-export interface IIsEmailResult{
-	(value: string): boolean;
-}
-
-export declare const noop: INoopResult;
-export declare const yes: IYesResult;
-export declare const no: INoResult;
-export declare const identity: IIdentityResult;
-export declare const toCamelCase: IToCamelCaseResult;
-export declare const isEmail: IIsEmailResult;
+export declare const noop: () => void;
+export declare const yes: () => boolean;
+export declare const no: () => boolean;
+export declare const identity: (any) => any;
+export declare const toCamelCase: (...names: string[]) => string;
+export declare const isEmail: (value: string) => boolean;

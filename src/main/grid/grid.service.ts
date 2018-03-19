@@ -20,29 +20,7 @@ export class GridService {
 	}
 
 	service(model) {
-		const start = () => {
-			Log.info('service', 'invalidate start');
-
-			model.scene(
-				{
-					status: 'start'
-				},
-				{
-					source: 'grid',
-					behavior: 'core'
-				}
-			);
-
-			return job => new Promise(resolve => {
-				if (job) {
-					job();
-				}
-
-				resolve();
-			});
-		};
-
-		return new GridCoreService(model, start);
+		return new GridCoreService(model);
 	}
 
 	get noop() {

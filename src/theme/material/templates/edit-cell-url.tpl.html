@@ -1,29 +1,29 @@
 <ng-template key='edit-cell-url.tpl.html'
              let-$cell
              let-$view="$view">
-    <q-grid-cell-editor class="q-grid-url q-grid-editor q-grid-position"
-                        (close)="$view.edit.cell.exit.execute($cell)"
-                        q-grid-position="td">
-        <ng-template>
-            <q-grid-tab-trap>
-                <div layout="column"
-                     class="q-grid-url-fields"
-                     flex>
-                    <mat-form-field *ngIf="$cell.column.label !== null">
-                        <input mdInput
-                               type="text"
-                               [(ngModel)]="$view.edit.cell.label"
-                               placeholder="Label" />
-                    </mat-form-field>
-                    <mat-form-field>
-                        <input mdInput
-                               type="url"
-                               q-grid-focus
-                               [(ngModel)]="$view.edit.cell.value"
-                               placeholder="Url" />
-                    </mat-form-field>
-                </div>
-            </q-grid-tab-trap>
-        </ng-template>
-    </q-grid-cell-editor>
+	<q-grid-cell-editor class="q-grid-url q-grid-editor q-grid-position"
+	                    (close)="$view.edit.cell.exit.execute($cell)"
+	                    q-grid-position="td">
+		<ng-template>
+			<q-grid-tab-trap>
+				<ng-template>
+					<div class="flex layout-column q-grid-url-fields">
+						<mat-form-field *ngIf="$cell.column.label !== null">
+							<input matInput
+							       type="text"
+							       [(ngModel)]="$view.edit.cell.label"
+							       placeholder="Label" />
+						</mat-form-field>
+						<mat-form-field>
+							<input matInput
+							       type="url"
+							       q-grid-focus
+							       [(ngModel)]="$view.edit.cell.value"
+							       placeholder="Url" />
+						</mat-form-field>
+					</div>
+				</ng-template>
+			</q-grid-tab-trap>
+		</ng-template>
+	</q-grid-cell-editor>
 </ng-template>

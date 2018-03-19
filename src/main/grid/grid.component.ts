@@ -7,15 +7,14 @@ import {
 	OnInit,
 	OnDestroy,
 	ElementRef,
-	ChangeDetectorRef,
 	EmbeddedViewRef,
 	ComponentRef,
 	NgZone
 } from '@angular/core';
 import { TemplateCacheService } from 'ng2-qgrid/template/template-cache.service';
 import { TemplateService } from 'ng2-qgrid/template/template.service';
-import { RootComponent, RootService } from 'ng2-qgrid/infrastructure/component';
-import { LayerService } from '../layer';
+import { RootComponent } from 'ng2-qgrid/infrastructure/component/root.component';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { Table } from 'ng2-qgrid/core/dom';
 import { AppError } from 'ng2-qgrid/core/infrastructure';
 import { TableCommandManager } from 'ng2-qgrid/core/command';
@@ -24,9 +23,10 @@ import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
 import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
-import { ThemeService } from 'ng2-qgrid/template';
+import { ThemeService } from 'ng2-qgrid/template/theme.service';
 import { GridService } from './grid.service';
 import { TemplateLinkService } from '../../template/template-link.service';
+import { LayerService } from '../core/layer/layer.service';
 
 @Component({
 	selector: 'q-grid',
@@ -36,7 +36,8 @@ import { TemplateLinkService } from '../../template/template-link.service';
 		TemplateService,
 		ViewCoreService,
 		GridService,
-		TemplateLinkService
+		TemplateLinkService,
+		LayerService
 	],
 	styleUrls: ['../../assets/index.scss', '../../theme/material/index.scss'],
 	templateUrl: './grid.component.html',
@@ -76,9 +77,9 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 	constructor(
 		private rootService: RootService,
 		private element: ElementRef,
-		private changeDetector: ChangeDetectorRef,
 		private theme: ThemeService,
-		private zone: NgZone
+		private zone: NgZone,
+		private layerService: LayerService
 	) {
 		super();
 
@@ -116,7 +117,7 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 
 		const element = this.element.nativeElement;
 		const ctrl = (this.ctrl = new GridCtrl(model, {
-			layerFactory: markup => new LayerService(markup),
+			layerFactory: () => this.layerService,
 			element
 		}));
 
@@ -130,13 +131,9 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 
 		const listener = new EventListener(element, new EventManager(this));
 		const windowListener = new EventListener(element, new EventManager(this));
-		this.zone.runOutsideAngular(() => {
-			this.using(
-				windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl))
-			);
-		});
-		
-		this.using(listener.on('keydown', ctrl.keyDown.bind(ctrl)));
+
+		this.using(windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl)));
+		this.using(listener.on('keydown', e => ctrl.keyDown(e)));
 	}
 
 	get visibility() {

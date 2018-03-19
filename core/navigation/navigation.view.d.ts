@@ -8,8 +8,8 @@ import { Table } from '../dom/table';
  * > Under Construction.
  */
 export declare class NavigationView extends View {
-    constructor(model: Model, table: Table, commandManager: CommandManager);
+	constructor(model: Model, table: Table, commandManager: CommandManager);
 
-    focus: Command;
-    scrollTo: Command;
+	focus: Command;
+	scrollTo: Command;
 }

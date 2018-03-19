@@ -14,14 +14,13 @@
 
 <mat-card>
     <q-grid id="q-grid-demo"
+            class="q-grid-embed"
             q-grid-autofocus
             [columns]="columns"
             [rows]="rows"
-            [model]="gridModel"
             selectionUnit="row"
             selectionMode="multiple"
             [sortBy]="['+name.last', '-name.first']"
-            
             editMode="cell"
             header="NG2 QGRID SANDBOX">
 
@@ -35,7 +34,8 @@
             <q-grid-column type="row-options"
                            key="rowOptions">
             </q-grid-column>
-            <q-grid-column type="number" aggregation="max">
+            <q-grid-column type="number"
+                           aggregation="max">
             </q-grid-column>
         </q-grid-columns>
 
@@ -61,7 +61,31 @@
         <q-grid-data-manipulation>
         </q-grid-data-manipulation>
 
-        <q-grid-row canDrag="true" canResize="true"></q-grid-row>
+        <q-grid-row canDrag="true"
+                    canResize="true">
+        </q-grid-row>
+
+
+
+        <!-- <q-grid-layer>
+            <ng-template for="blank">
+                <div style="margin: 0 auto; top: 50%; width: 80px; position: relative;">
+                    <button (click)="loadData()">Load Rows</button>
+                </div>
+            </ng-template>
+        </q-grid-layer> -->
+
+        <!-- <q-grid-toolbar>
+            <ng-template for="top">
+                <q-grid-action-bar></q-grid-action-bar>
+            </ng-template>
+        </q-grid-toolbar>
+
+        <q-grid-action-list>
+            <q-grid-action icon="search" [command]="searchCommand"></q-grid-action>
+        </q-grid-action-list> -->
+
+
         <!-- <q-grid-row unit="details">
                 <ng-template for="details">
                     <q-grid>

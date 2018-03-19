@@ -1,16 +1,16 @@
-import { IPipe } from './pipe.item';
+import {IContext, IMemo} from './pipe.item';
 
 /**
  * > Under Construction.
  */
 export declare class Pipe {
-    static readonly data: IPipe<any>;
-    static readonly filter: IPipe<any>;
-    static readonly pagination: IPipe<any>;
-    static readonly sort: IPipe<any>;
-    static readonly memo: IPipe<any>;
-    static readonly group: IPipe<any>;
-    static readonly pivot: IPipe<any>;
-    static readonly column: IPipe<any>;
-    static readonly view: IPipe<any>;
+	static readonly data: (memo: any, context: IContext, next: (param: IMemo) => void) => any;
+	static readonly filter: (memo: any, context: IContext, next: (param: IMemo) => void) => any;
+	static readonly pagination: (memo: any, context: IContext, next: (param: IMemo) => void) => any;
+	static readonly sort: (memo: any, context: IContext, next: (param: IMemo) => void) => any;
+	static readonly memo: (memo: any, context: IContext, next: (param: IMemo) => void) => any;
+	static readonly group: (memo: any, context: IContext, next: (param: IMemo) => void) => any;
+	static readonly pivot: (memo: any, context: IContext, next: (param: IMemo) => void) => any;
+	static readonly column: (memo: any, context: IContext, next: (param: IMemo) => void) => any;
+	static readonly view: (memo: any, context: IContext, next: (param: IMemo) => void) => any;
 }

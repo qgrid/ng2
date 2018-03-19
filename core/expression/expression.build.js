@@ -1,19 +1,47 @@
 export function build(filterBy, op = 'and') {
-	const expressions = [];
+	const result = [];
 	for (let [key, filter] of Object.entries(filterBy)) {
 		if (filter.expression) {
-			expressions.push(filter.expression);
+			result.push(filter.expression);
 		}
 
+		const expressions = [];
 		if (filter.items && filter.items.length) {
-			expressions.push(toExpression(key, filter.items));
+			expressions.push(toInExpression(key, filter.items));
+		}
+
+		if (filter.blanks) {
+			expressions.push(toIsEmptyExpression(key));
+		}
+
+		if (expressions.length) {
+			if (expressions.length === 1) {
+				result.push(expressions[0]);
+			}
+			else {
+				result.push(compile(expressions, 'or'));
+			}
 		}
 	}
 
-	return compile(expressions, op);
+	return compile(result, op);
 }
 
-function toExpression(key, items) {
+function toIsEmptyExpression(key) {
+	return {
+		kind: 'group',
+		op: 'and',
+		left: {
+			kind: 'condition',
+			left: key,
+			op: 'isEmpty',
+			right: null
+		},
+		right: null
+	};
+}
+
+function toInExpression(key, items) {
 	return {
 		kind: 'group',
 		op: 'and',
@@ -31,7 +59,7 @@ function toExpression(key, items) {
 function compile(expressions, op) {
 	const root = {
 		kind: 'group',
-		op: op,
+		op,
 		left: null,
 		right: null
 	};
@@ -45,7 +73,7 @@ function compile(expressions, op) {
 		else {
 			const next = {
 				kind: 'group',
-				op: op,
+				op,
 				left: expr,
 				right: null
 			};

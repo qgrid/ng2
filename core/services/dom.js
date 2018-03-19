@@ -1,4 +1,4 @@
-import {isUndefined} from '../utility';
+import { isUndefined } from '../utility';
 
 export function css(element, property, value) {
 	const normalizedProperty = normalize(property);
@@ -16,4 +16,14 @@ function normalize(property) {
 
 function upperFirst(match, letter) {
 	return letter.toUpperCase();
+}
+
+export function parents(element) {
+	const path = [];
+	while (element) {
+		path.unshift(element);
+		element = element.parentNode;
+	}
+
+	return path;
 }
