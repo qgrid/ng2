@@ -10,7 +10,7 @@
 	<mat-menu #menu="matMenu"
 	          class="q-grid-form-edit q-grid-menu">
 		<q-grid-edit-form q-grid-menu
-		                  [data]="$editFormTrigger.data"
+		                  [cell]="$editFormTrigger.cell"
 		                  *ngIf="trigger.menuOpen"
 		                  (cancel)="trigger.closeMenu()"
 		                  (submit)="trigger.closeMenu()">

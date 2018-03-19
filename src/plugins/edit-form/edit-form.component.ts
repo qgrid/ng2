@@ -4,8 +4,9 @@ import { EditFormView } from 'ng2-qgrid/plugin/edit-form/edit.form.view';
 import { FormGroup } from '@angular/forms';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
-import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 import { TdCoreDirective } from 'ng2-qgrid/main/core/body/td-core.directive';
+import { RowEditor } from 'ng2-qgrid/core/edit/edit.row.editor';
+import { CellEditor } from 'ng2-qgrid/core/edit/edit.cell.editor';
 
 @Component({
 	selector: 'q-grid-edit-form',
@@ -13,19 +14,18 @@ import { TdCoreDirective } from 'ng2-qgrid/main/core/body/td-core.directive';
 })
 export class EditFormComponent extends PluginComponent implements OnInit, OnDestroy {
 	@Input() title: string;
-	@Input() data: any;
+	@Input() cell: any;
 	
-	private columns: ColumnModel[];
-
-	constructor( @Optional() root: RootService
-		, public $view: ViewCoreService) {
+	private editors: CellEditor[];
+	
+	constructor(@Optional() root: RootService) {
 		super(root);
 	}
 
 	ngOnInit() {
-		console.log(this.data);
-		const model = this.model;
-		this.columns = model.data().columns;
+		const columns = this.model.data().columns;
+		const editor = new RowEditor(this.cell.row, columns);
+		this.editors = editor.editors;
 	}
 
 	ngOnDestroy() {

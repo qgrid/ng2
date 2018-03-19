@@ -9,7 +9,7 @@ import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 export class EditFormTriggerComponent extends PluginComponent implements OnInit {
 
 	@Input() title: string;
-	@Input() data: any;
+	@Input() cell: any;
 	
 	constructor( @Optional() root: RootService) {
 		super(root);

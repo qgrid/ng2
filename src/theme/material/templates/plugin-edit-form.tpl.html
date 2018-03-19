@@ -7,10 +7,11 @@
 		</mat-card-header>
 		<mat-card-content>
 			<ul>
-				<li *ngFor="let column of $editForm.columns">
-					<q-grid-edit-form-control [column]="column"
+				<li *ngFor="let cellEditor of $editForm.editors">
+					<q-grid-edit-form-control 
+								  [cellEditor]="cellEditor"
 								  [control]="$editForm"
-								  [key]="$editForm.getKey(column)">
+								  [key]="$editForm.getKey(cellEditor.cell.column)">
 					</q-grid-edit-form-control>
 				</li>
 			</ul>

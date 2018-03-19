@@ -30,7 +30,7 @@
                            pin="left"
                            canEdit="false">
                 <ng-template for="body" let-$cell>
-                    <q-grid-edit-form-trigger title='Edit Form' [data]="$cell.row"></q-grid-edit-form-trigger>
+                    <q-grid-edit-form-trigger title='Edit Form' [cell]="$cell"></q-grid-edit-form-trigger>
                 </ng-template>
             </q-grid-column>
             <!-- <q-grid-column type="row-number"

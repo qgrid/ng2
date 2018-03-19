@@ -1,10 +1,10 @@
-import { Component, Optional, Input, OnInit, OnDestroy, ViewContainerRef } from '@angular/core';
+import { Component, Optional, Input, OnInit } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
 import { EditFormView } from 'ng2-qgrid/plugin/edit-form/edit.form.view';
 import { FormGroup } from '@angular/forms';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
-import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
+import { CellEditor } from 'ng2-qgrid/core/edit/edit.cell.editor';
 
 @Component({
 	selector: 'q-grid-edit-form-control',
@@ -12,20 +12,16 @@ import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 })
 
 export class EditFormControlComponent extends PluginComponent implements OnInit {
-	@Input() column: ColumnModel;
+	@Input() cellEditor: CellEditor;
 	@Input() control: any;
 	@Input() key: string;
-
-	public $view: ViewCoreService;
 	
-	constructor( @Optional() root: RootService) {
+	constructor(@Optional() root: RootService) {
 		super(root);
 	}
 
 	ngOnInit() {
-		this.$view = this.control.$view;
-
-		//const link = this.cellService.build('form', this.column, 'edit');
-		//link(this.viewContainerRef, this);
+		console.log(this.key);
+		//console.log(this.cellEditor);
 	}
 }

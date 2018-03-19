@@ -4,8 +4,8 @@
         <input matInput
                #input
                q-grid-focus
-               maxlength="{{$control.column.maxLength}}"
-               [(ngModel)]="$control.$view.edit.cell.value" />
-        <mat-hint align="end">{{input.value.length}} / {{$control.column.maxLength}}</mat-hint>
+               maxlength="{{$control.cellEditor.cell.column.maxLength}}"
+               [(ngModel)]="$control.cellEditor.value" />
+        <mat-hint align="end">{{input.value.length}} / {{$control.cellEditor.cell.column.maxLength}}</mat-hint>
     </mat-form-field>
 </ng-template>
