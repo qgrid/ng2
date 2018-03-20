@@ -64,6 +64,7 @@ export class RowSelector {
 		const aggregations = selectedColumns.map(column => this.value(column) === null ? '' : this.value(column));
 
 		const rows = [];
+		const sortedIds = ids.sort();
 
 		for (let h = 0; h < height; h++) {
 			rows[h] = [];
@@ -74,20 +75,18 @@ export class RowSelector {
 
 		}
 
-		const sortedIds = ids.sort();
+		for (let y = 0; y < sortedIds.length; y++) {
+			const cellsWithCurrentId = items.filter(cell => cell.row.id === sortedIds[y]);
 
-		for (let i = 0; i < sortedIds.length; i++) {
-			const cellsWithCurrentID = items.filter(cell => cell.row.id === sortedIds[i]);
-
-			for (let k = 0; k < cellsWithCurrentID.length; k++) {
-				const cell = cellsWithCurrentID[k];
+			for (let k = 0; k < cellsWithCurrentId.length; k++) {
+				const cell = cellsWithCurrentId[k];
 				const row = cell.row;
 				const column = cell.column;
 				const label = get(row, column);
 				const specificTitles = this.getSpecificTitlesOfRow(row, selectedColumns);
-				const index = specificTitles.indexOf(label);
+				const x = specificTitles.indexOf(label);
 
-				rows[i][index] = label;
+				rows[y][x] = label;
 			}
 		}
 
