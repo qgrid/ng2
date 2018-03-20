@@ -33,11 +33,6 @@ export class ClipboardView extends View {
 					const rowSelector = new RowSelector(this.model);
 					const selectionItems = selectionState.items;
 
-					const columns = this.model
-						.view()
-						.columns
-						.filter(column => column.class === 'data' || column.class === 'pivot');
-
 					const source = this.model.clipboard().source;
 					const entries = selectionService.lookup(selectionItems);
 					const body = rowSelector.map(entries);
@@ -79,18 +74,4 @@ export class ClipboardView extends View {
 		}
 		return null;
 	}
-}
-
-function body_head(source) {
-	if(source.includes('head') && source.includes('body') && source.split(', ').length === 2) {
-		return source;
-	}
-}
-
-function body_head_foot(source) {
-
-	if(source.includes('head') && source.includes('body') && source.includes('foot') && source.split(', ').length === 3) {
-		return source;
-	}
-
 }
