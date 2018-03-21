@@ -1,7 +1,8 @@
 <ng-template key="plugin-pager-target.tpl.html" let-$target>
 
 	<mat-menu #menu="matMenu" class="q-grid-mat-menu">
-		<mat-card (keyup.enter)="trigger.closeMenu()">
+		<mat-card (keyup.enter)="trigger.closeMenu()"
+					 *ngIf="trigger.menuOpen">
 			<mat-input-container>
 						<input id="q-grid-menu-input"
 								 matInput type="number" #input
@@ -9,6 +10,7 @@
 								 [(ngModel)]="$target.value"
 								 [max]="$target.total"
 								 [min]="1"
+								 q-grid-focus
 								 (keydown)="$target.keyDown($event)"
 								 placeholder="Go to page:"/>
 			</mat-input-container>
@@ -17,9 +19,9 @@
 
 	<button #trigger="matMenuTrigger"
 			  [matMenuTriggerFor]="menu"
-			  (click)="input.focus()"
 			  tabindex="-1"
 			  mat-button
+			  (click)="$target.value = $target.current"
 			  class="mat-icon-button">
 		<mat-icon class="q-grid-icon-class">location_searching</mat-icon>
 	</button>

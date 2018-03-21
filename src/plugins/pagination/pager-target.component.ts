@@ -21,16 +21,28 @@ export class PagerTargetComponent extends PluginComponent implements  OnInit {
 
 	keyDown(e: KeyboardEvent) {
 		let code = Shortcut.translate(e);
-		const value = this.value || 0;
-
 		if (code.startsWith('numpad')) {
 			code = code.slice(6);
 		}
 
+		const value = this.value || 0;
+
 		switch (code) {
 			case 'enter': {
-				if (this.value) {
-					this.model.pagination({current: this.value - 1});
+				if (value) {
+					this.model.pagination({current: value - 1});
+				}
+				break;
+			}
+			case 'up': {
+				if (this.value < this.total) {
+					this.value += 1;
+				}
+				break;
+			}
+			case 'down': {
+				if (this.value > 1) {
+					this.value -= 1;
 				}
 				break;
 			}
@@ -41,11 +53,13 @@ export class PagerTargetComponent extends PluginComponent implements  OnInit {
 			}
 			default: {
 				const digit = Number.parseInt(code);
-				const total = this.total;
-				const page: any = '' + value + digit;
-				const allowed = page >= 1 && page <= total && !isNaN(digit);
+				const page = Number.parseInt('' + value + digit);
+				const min = 1;
+				const max = this.total;
+				const isValid = page >= min && page <= max && !isNaN(digit);
 
-				if (!allowed) {
+				if (!isValid) {
+					page > this.total ? this.value = this.total : this.value = 1;
 					e.preventDefault();
 				}
 			}
