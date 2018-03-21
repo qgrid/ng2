@@ -1,4 +1,4 @@
-import { Component, Optional } from '@angular/core';
+import {Component, OnInit, Optional} from '@angular/core';
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { Shortcut } from 'ng2-qgrid/core/shortcut/shortcut';
@@ -8,12 +8,16 @@ import { Shortcut } from 'ng2-qgrid/core/shortcut/shortcut';
 	templateUrl: './pager-target.component.html'
 })
 
-export class PagerTargetComponent extends PluginComponent {
+export class PagerTargetComponent extends PluginComponent implements  OnInit {
 	constructor(@Optional() root: RootService) {
 		super(root);
 	}
 
-	private value: number = this.current;
+	private value: number;
+
+	ngOnInit() {
+		this.value = this.current;
+	}
 
 	keyDown(e: KeyboardEvent) {
 		let code = Shortcut.translate(e);
@@ -38,7 +42,7 @@ export class PagerTargetComponent extends PluginComponent {
 			default: {
 				const digit = Number.parseInt(code);
 				const total = this.total;
-				const page = value + '' + digit || 0;
+				const page: any = '' + value + digit;
 				const allowed = page >= 1 && page <= total && !isNaN(digit);
 
 				if (!allowed) {
@@ -57,6 +61,6 @@ export class PagerTargetComponent extends PluginComponent {
 		const count = pagination.count;
 		const size = pagination.size;
 
-		return count / size;
+		return 20;
 	}
 }
