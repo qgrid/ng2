@@ -61,6 +61,6 @@ export class PagerTargetComponent extends PluginComponent implements  OnInit {
 		const count = pagination.count;
 		const size = pagination.size;
 
-		return 20;
+		return count / size;
 	}
 }
