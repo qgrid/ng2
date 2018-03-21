@@ -1,18 +1,16 @@
 <ng-template key="plugin-pager-target.tpl.html" let-$target>
 
 	<mat-menu #menu="matMenu" class="q-grid-mat-menu">
-		<mat-card>
+		<mat-card (keyup.enter)="trigger.closeMenu()">
 			<mat-input-container>
-					<span (keyup.enter)="trigger.closeMenu()">
 						<input id="q-grid-menu-input"
 								 matInput type="number" #input
 								 (click)="$event.stopPropagation()"
 								 [(ngModel)]="$target.value"
-								 [max]="$target.total()"
+								 [max]="$target.total"
 								 [min]="1"
 								 (keydown)="$target.keyDown($event)"
 								 placeholder="Go to page:"/>
-					</span>
 			</mat-input-container>
 		</mat-card>
 	</mat-menu>

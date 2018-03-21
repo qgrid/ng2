@@ -1,5 +1,5 @@
 import { Component, Optional } from '@angular/core';
-import { PluginComponent } from '../../plugin.component';
+import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { Shortcut } from 'ng2-qgrid/core/shortcut/shortcut';
 
@@ -13,37 +13,32 @@ export class PagerTargetComponent extends PluginComponent {
 		super(root);
 	}
 
-	private value = '';
+	private value: number = this.current;
 
 	keyDown(e: KeyboardEvent) {
-		const code = Shortcut.translate(e);
+		let code = Shortcut.translate(e);
+		const value = this.value || 0;
 
-		this.value += '';
+		if (code.startsWith('numpad')) {
+			code = code.slice(6);
+		}
 
 		switch (code) {
 			case 'enter': {
 				if (this.value) {
-					this.model.pagination({current: Number.parseInt(this.value) - 1});
-					this.value = '';
-				}
-				break;
-			}
-			case 'backspace': {
-				e.preventDefault();
-
-				if (this.value !== '') {
-					this.value = this.value.slice(0, this.value.length - 1);
+					this.model.pagination({current: this.value - 1});
 				}
 				break;
 			}
 			case 'left':
-			case 'right': {
+			case 'right':
+			case 'backspace': {
 				break;
 			}
 			default: {
 				const digit = Number.parseInt(code);
-				const total = this.total();
-				const page = Number.parseInt(this.value + digit);
+				const total = this.total;
+				const page = value + '' + digit || 0;
 				const allowed = page >= 1 && page <= total && !isNaN(digit);
 
 				if (!allowed) {
@@ -53,7 +48,11 @@ export class PagerTargetComponent extends PluginComponent {
 		}
 	}
 
-	total() {
+	get current() {
+		return this.model.pagination().current + 1;
+	}
+
+	get total() {
 		const pagination = this.model.pagination();
 		const count = pagination.count;
 		const size = pagination.size;
