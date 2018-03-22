@@ -1,3 +1,14 @@
+import { Pipe, PipeTransform } from '@angular/core';
+import { VscrollContext } from './vscroll.context';
+
+@Pipe({
+    name: 'qGridFilter'
+})
+export class FilterPipe implements PipeTransform {
+    transform(data: any, context: VscrollContext): any {
+    }
+}
+
 function vscrollFilter() {
     var empty = [];
 
