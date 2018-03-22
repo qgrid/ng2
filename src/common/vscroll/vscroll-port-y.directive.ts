@@ -1,10 +1,10 @@
-import { Directive } from '@angular/core';
+import { Directive, ElementRef } from '@angular/core';
 import { VscrollPort } from './vscroll.port';
 import { VscrollContext } from './vscroll.context';
 import { capitalize } from './vscroll.utility';
 import { VscrollBox } from './vscroll.box';
 import { VscrollLayout } from './vscroll.layout';
-import { findPosition, recycleFactory } from './vscroll.position';
+import { findPosition, recycleFactory, IVscrollPosition } from './vscroll.position';
 import { isNumber } from 'ng2-qgrid/core/utility';
 
 
@@ -13,11 +13,11 @@ import { isNumber } from 'ng2-qgrid/core/utility';
 	providers: [VscrollLayout]
 })
 export class VscrollPortYDirective extends VscrollPort {
-	constructor(context: VscrollContext, element: HTMLElement, layout: VscrollLayout) {
-		super(context, element, layout);
+	constructor(context: VscrollContext, elementRef: ElementRef, layout: VscrollLayout) {
+		super(context, elementRef.nativeElement, layout);
 	}
 
-	protected getPosition(offsets: Array<number>, box: VscrollBox, arm: number) {
+	protected getPosition(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition {
 		const value = Math.max(0, box.scrollTop - arm);
 		const size = this.getItemSize();
 		return findPosition(offsets, value, size);
@@ -50,7 +50,7 @@ export class VscrollPortYDirective extends VscrollPort {
 			}
 
 			return recycle(index, count);
-		}
+		};
 	}
 
 	canApply(newBox: VscrollBox, oldBox: VscrollBox) {
@@ -60,8 +60,8 @@ export class VscrollPortYDirective extends VscrollPort {
 	private pad(pos: string, value: number) {
 		const container = this.context.container;
 		container.write(function () {
-			if (this.markup.hasOwnProperty(pos)) {
-				const mark = this.markup[pos];
+			if (this.layout.markup.hasOwnProperty(pos)) {
+				const mark = this.layout.markup[pos];
 				mark.style.height = value + 'px';
 			} else {
 				this.element.style['padding' + capitalize(pos)] = value + 'px';

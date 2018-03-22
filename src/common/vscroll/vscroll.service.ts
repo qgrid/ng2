@@ -5,12 +5,12 @@ import { VscrollContext } from './vscroll.context';
 
 @Injectable()
 export class VscrollService {
-	factory(settings: IVscrollSettings) {
+	context(settings: IVscrollSettings) {
 		const container = new VscrollContainer(settings);
 		Object.assign(settings, new VscrollSettings(container));
 
 		container.update(0, true);
 
 		return new VscrollContext(container, settings);
-	};
+	}
 }

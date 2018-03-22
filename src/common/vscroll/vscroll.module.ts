@@ -5,16 +5,22 @@ import { VscrollRowDirective } from './vscroll-row.directive';
 import { VscrollSettings } from './vscroll.settings';
 import { VscrollContainer } from './vscroll.container';
 import { VscrollPipe } from './vscroll.pipe';
+import { VscrollMarkDirective } from './vscroll-mark.directive';
+import { VscrollPortXDirective } from './vscroll-port-x.directive';
+import { VscrollPortYDirective } from './vscroll-port-y.directive';
+import { VscrollDirective } from './vscroll.directive';
 
 @NgModule({
-	declarations: [		
+	declarations: [
 	],
 	exports: [
-		VscrollSettings,
-		VscrollContainer,
 		VscrollService,
+		VscrollDirective,
 		VscrollColumnDirective,
 		VscrollRowDirective,
+		VscrollMarkDirective,
+		VscrollPortXDirective,
+		VscrollPortYDirective,
 		VscrollPipe
 	],
 	providers: [

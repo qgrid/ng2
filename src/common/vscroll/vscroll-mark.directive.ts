@@ -1,26 +1,23 @@
 import { Directive, OnInit, OnDestroy, ElementRef, Input } from '@angular/core';
+import { VscrollLayout } from './vscroll.layout';
 
 @Directive({
 	selector: '[q-grid-vscroll-mark]'
 })
 export class VscrollMarkDirective implements OnInit, OnDestroy {
-	@Input('q-grid-vscroll-mark') mark: string;
+	@Input('q-grid-vscroll-mark') key: string;
 
-	constructor(private elementRef: ElementRef) {
+	constructor(private elementRef: ElementRef, private layout: VscrollLayout) {
 	}
 
 	ngOnInit() {
 		const element = this.elementRef.nativeElement;
-		const mark = this.mark;
+		const key = this.key;
 
-		this.ports.forEach(port => port.markup[mark] = element);
+		this.layout.markup[key] = element;
 	}
 
 	ngOnDestroy() {
-		this.ports.forEach(port => {
-			if (port.markup) {
-				port.markup[this.mark] = null;
-			}
-		});
+		delete this.layout.markup[this.key];
 	}
 }

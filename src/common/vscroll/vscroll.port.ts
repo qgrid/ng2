@@ -8,8 +8,6 @@ const UNSET_ARM = Number.MAX_SAFE_INTEGER;
 const UNSET_OFFSET = 0;
 
 export abstract class VscrollPort {
-	markup = {};
-
 	private maxOffset = UNSET_OFFSET;
 	private minArm = UNSET_ARM;
 	private position = findPosition([], 0, 0);
@@ -87,8 +85,6 @@ export abstract class VscrollPort {
 		this.position = findPosition([], 0, 0);
 		return this.invalidate(count, box, this.position);
 	}
-
-
 
 	protected abstract move(pad1: number, pad2: number);
 	protected abstract recycleFactory(items: Array<(() => number)>): (index: number, count: number) => Array<number>;

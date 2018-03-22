@@ -7,6 +7,7 @@ function empty() {
 
 @Injectable()
 export class VscrollLayout {
+	markup = {};
 	context: VscrollContext;
 	updateEvent = new EventEmitter<any>();
 	items = [];

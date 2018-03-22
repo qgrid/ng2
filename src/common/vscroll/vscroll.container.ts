@@ -92,18 +92,19 @@ export class VscrollContainer {
 	}
 }
 
+export type GetSize = (element: HTMLElement, index: number) => number;
 
 export function sizeFactory(
-	size: number | ((el: HTMLElement, i: number) => number),
+	size: number | GetSize,
 	container: VscrollContainer,
 	element: HTMLElement,
-	index: number) {
+	index: number): () => number {
 	if (isFunction(size)) {
-		return () => size(element, container.position + index);
+		return () => (size as GetSize)(element, container.position + index);
 	}
 
 	if (isNumber(size)) {
-		return () => size;
+		return () => size as number;
 	}
 
 	throw new AppError('vscroll.utility', `Invalid size ${size}`);

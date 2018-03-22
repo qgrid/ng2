@@ -19,7 +19,7 @@ export class VscrollSettings implements IVscrollSettings {
 	constructor(private container: VscrollContainer) {
 	}
 
-	fetch(skip: number, take: number, d) {
+	fetch(skip: number, take: number, d: { resolve: (count: number) => void, reject: () => void }) {
 		d.resolve(this.container.total);
 	}
 
