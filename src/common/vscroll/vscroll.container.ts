@@ -60,20 +60,18 @@ export class VscrollContainer {
 				const deferred = { resolve, reject };
 				if (newPage === 0) {
 					settings.fetch(0, threshold, deferred);
-				}
-				else {
+				} else {
 					const skip = (oldPage + 1) * threshold;
 					if (this.total < skip) {
 						deferred.resolve(this.total);
-					}
-					else {
+					} else {
 						const take = (newPage - oldPage) * threshold;
 						settings.fetch(skip, take, deferred);
 					}
 				}
-			}).then(count => {
+			}).then(nextCount => {
 				this.force = true;
-				this.update(count)
+				this.update(nextCount);
 			});
 		}
 	}
@@ -95,7 +93,11 @@ export class VscrollContainer {
 }
 
 
-export function sizeFactory(size: number | ((el: HTMLElement, i: number) => number), container: VscrollContainer, element: HTMLElement, index: number) {
+export function sizeFactory(
+	size: number | ((el: HTMLElement, i: number) => number),
+	container: VscrollContainer,
+	element: HTMLElement,
+	index: number) {
 	if (isFunction(size)) {
 		return () => size(element, container.position + index);
 	}

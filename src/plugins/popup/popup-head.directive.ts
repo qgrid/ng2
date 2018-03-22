@@ -34,7 +34,7 @@ export class PopupHeadDirective extends NgComponent {
 			this.position.y = e.offsetY;
 
 			popupElement.classList.add('drag');
-			e.dataTransfer.setDragImage(document.createElement('div'), 0, 0); // eslint-disable-line no-undef			
+			e.dataTransfer.setDragImage(document.createElement('div'), 0, 0); // eslint-disable-line no-undef
 		}));
 
 		this.using(this.eventListener.on('drag', event => {

@@ -7,8 +7,7 @@ import { VscrollContainer } from './vscroll.container';
 import { VscrollPipe } from './vscroll.pipe';
 
 @NgModule({
-	declarations: [
-		
+	declarations: [		
 	],
 	exports: [
 		VscrollSettings,

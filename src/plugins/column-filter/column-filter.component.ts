@@ -65,7 +65,7 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 	rowId(index: number) {
 		return index;
 	}
-	
+
 	ngOnDestroy() {
 		this.columnFilter.dispose();
 	}
