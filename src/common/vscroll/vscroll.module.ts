@@ -11,16 +11,16 @@ import { VscrollPipe } from './vscroll.pipe';
 		
 	],
 	exports: [
-        VscrollSettings,
-        VscrollContainer,
-        VscrollService,
-        VscrollColumnDirective,
-        VscrollRowDirective,
-        VscrollPipe
-    ],
-    providers: [
-        VscrollService
-    ]
+		VscrollSettings,
+		VscrollContainer,
+		VscrollService,
+		VscrollColumnDirective,
+		VscrollRowDirective,
+		VscrollPipe
+	],
+	providers: [
+		VscrollService
+	]
 })
 export class VscrollModule {
 }

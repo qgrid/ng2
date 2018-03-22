@@ -1,23 +1,25 @@
+import { Directive, Input, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { sizeFactory } from './vscroll.container';
+import { VscrollLayout } from 'ng2-qgrid/common/vscroll/vscroll.layout';
 
+@Directive({
+	selector: '[q-grid-vscroll-row]'
+})
+export class VscrollRowDirective implements OnInit, OnDestroy {
+	@Input('q-grid-vscroll-row') index: number;
 
-function vscrollRowDirective() {
-    return {
-        restrict: 'A',
-        require: '^vscrollPortY',
-        link: function ($scope, $element, $attrs, port) {
-            var index = parseInt($attrs.vscrollRow);
-            if (isNaN(index)) {
-                throw new Error('vscroll incorrect index "' + $attrs.vscrollRow + '" for row');
-            }
+	constructor(private elementRef: ElementRef, private layout: VscrollLayout) {
+	}
 
-            var row = $element[0];
-            var context = port.context;
-            var size = sizeFactory(context.settings.rowHeight, context.container, row, index);
+	ngOnInit() {
+		const layout = this.layout;
+		const column = this.elementRef.nativeElement;
+		const context = layout.context;
+		const size = sizeFactory(context.settings.rowHeight, context.container, column, this.index);
+		layout.setItem(this.index, size);
+	}
 
-            port.setItem(index, size);
-            $scope.$on('$destroy', function () {
-                port.removeItem(index);
-            });
-        }
-    };
+	ngOnDestroy() {
+		this.layout.removeItem(this.index);
+	}
 }

@@ -3,45 +3,45 @@ import { Directive, OnInit, OnDestroy, ElementRef, Input, EventEmitter } from '@
 import { placeholderBitmap } from './vscroll.utility';
 
 @Directive({
-    selector: '[q-grid-vscroll]'
+	selector: '[q-grid-vscroll]'
 })
 export class VscrollDirective implements OnDestroy {
-    scrollEvent = new EventEmitter<any>();
-    resetEvent = new EventEmitter<any>();
+	scrollEvent = new EventEmitter<any>();
+	resetEvent = new EventEmitter<any>();
 
-    constructor(private elementRef: ElementRef) {
-        elementRef.nativeElement.addEventListener('scroll', this.onScroll, { passive: true });
-        window.addEventListener('resize', this.onResize);
-    }
+	constructor(private elementRef: ElementRef) {
+		elementRef.nativeElement.addEventListener('scroll', this.onScroll, { passive: true });
+		window.addEventListener('resize', this.onResize);
+	}
 
-    ngOnDestroy() {
-        this.elementRef.nativeElement.removeEventListener('scroll', this.onScroll);
-        window.removeEventListener('resize', this.onResize);
-    }
+	ngOnDestroy() {
+		this.elementRef.nativeElement.removeEventListener('scroll', this.onScroll);
+		window.removeEventListener('resize', this.onResize);
+	}
 
-    drawPlaceholder(width: number, height: number) {
-        const box = this.elementRef.nativeElement;
-        const style = box.style;
-        const placeholder = placeholderBitmap(width || box.clientWidth, height || box.clientHeight);
+	drawPlaceholder(width: number, height: number) {
+		const box = this.elementRef.nativeElement;
+		const style = box.style;
+		const placeholder = placeholderBitmap(width || box.clientWidth, height || box.clientHeight);
 
-        style.backgroundImage = 'url(' + placeholder + ')';
-        style.backgroundRepeat = 'repeat';
-    }
+		style.backgroundImage = 'url(' + placeholder + ')';
+		style.backgroundRepeat = 'repeat';
+	}
 
-    resetX() {
-        this.elementRef.nativeElement.scrollLeft = 0;
-    }
+	resetX() {
+		this.elementRef.nativeElement.scrollLeft = 0;
+	}
 
-    resetY() {
-        this.elementRef.nativeElement.scrollTop = 0;
-    }
+	resetY() {
+		this.elementRef.nativeElement.scrollTop = 0;
+	}
 
-    private onScroll() {
-        this.scrollEvent.emit();
-    }
+	private onScroll() {
+		this.scrollEvent.emit();
+	}
 
-    private onResize() {
-        const e = { handled: false, source: 'resize' };
-        this.resetEvent.emit(e);
-    }
+	private onResize() {
+		const e = { handled: false, source: 'resize' };
+		this.resetEvent.emit(e);
+	}
 }

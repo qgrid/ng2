@@ -19,7 +19,7 @@ export class VscrollColumnDirective implements OnInit, OnDestroy {
         layout.setItem(this.index, size);
     }
 
-    ngOnDesroy() {
+    ngOnDestroy() {
         this.layout.removeItem(this.index);
     }
 }
