@@ -1,24 +1,20 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { VscrollContext } from './vscroll.context';
+import { AppError } from 'ng2-qgrid/core/infrastructure';
+
+const empty = [];
 
 @Pipe({
-    name: 'qGridFilter'
+    name: 'qGridVscroll'
 })
-export class FilterPipe implements PipeTransform {
+export class VscrollPipe implements PipeTransform {
     transform(data: any, context: VscrollContext): any {
-    }
-}
-
-function vscrollFilter() {
-    var empty = [];
-
-    return function (data, context) {
         if (!data) {
             return empty;
         }
 
         if (!context) {
-            throw new Error('vscroll filter context is not set');
+            throw new AppError('vscroll.pipe', 'filter context is not set');
         }
 
         var count = data.length;
@@ -26,11 +22,11 @@ function vscrollFilter() {
 
         container.update(count);
         if (count) {
-            var view = container.items;
-            var cursor = container.cursor;
-            var settings = context.settings;
-            var threshold = settings.threshold;
-            var first = cursor; // Math.min(Math.max(0, count - threshold), cursor);
+            const view = container.items;
+            const cursor = container.cursor;
+            const settings = context.settings;
+            const threshold = settings.threshold;
+            const first = cursor;
             if (container.force || first !== container.position) {
                 var last = Math.min(cursor + threshold, count);
                 container.position = first;
@@ -52,5 +48,5 @@ function vscrollFilter() {
         }
 
         return empty;
-    };
+    }
 }
