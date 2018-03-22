@@ -31,6 +31,6 @@ export class FocusDirective implements AfterViewInit {
 
 		// we need a small timeout to wait, for example, position directive
 		// in other case it will scroll to element before layout
-		this.zone.runOutsideAngular(() => setTimeout(() => element.focus(), 100));
+		this.zone.runOutsideAngular(() => setTimeout(() => element.focus(), 10));
 	}
 }
