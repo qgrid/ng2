@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ColumnSortModule } from './column-sort/column-sort.module';
 import { PagerModule } from './pagination/pager.module';
-import { PagerTargetModule } from './pagination/pager-target/pager-target.module';
 import { ProgressModule } from './progress/progress.module';
 import { ColumnChooserModule } from './colum-chooser/column-chooser.module';
 import { PopupModule } from './popup/popup.module';
@@ -33,7 +32,6 @@ Model.register('columnChooser', ColumnChooserModel)
 		ActionBarModule,
 		DataManipulationModule,
 		PagerModule,
-		PagerTargetModule,
 		ColumnChooserModule,
 		ColumnSortModule,
 		ColumnFilterModule,
