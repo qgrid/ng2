@@ -23,9 +23,11 @@
 					</mat-checkbox>
 				</li>
 			</ul>
-			<div class="q-grid-column-filter-list">
-				<ul>
-					<li *ngFor="let item of $columnFilter.items | qGridFilter: $columnFilter.filter">
+			<div class="q-grid-column-filter-list"
+			     q-grid-vscroll>
+				<ul [q-grid-vscroll-port-y]="$columnFilter.vscrollContext">
+					<li *ngFor="let item of $columnFilter.items | qGridVscrollFilter: $columnFilter.vscrollContext; let $index = index; trackBy: rowId"
+					    [q-grid-vscroll-row]="$index">
 						<mat-checkbox [checked]="$columnFilter.state(item)"
 						              *ngIf="$columnFilter.toggle.canExecute(item)"
 						              aria-label="Select filter value"
