@@ -181,7 +181,7 @@ export class RowSelector {
 			titles.push(label);
 		}
 
-		return titles.filter(title => typeof title === 'string' || typeof  title === 'number');
+		return titles;
 	}
 }
 
