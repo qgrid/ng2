@@ -1,25 +1,26 @@
-function vscrollMarkDirective() {
-    return {
-        restrict: 'A',
-        require: ['^?vscrollPortX', '^?vscrollPortY'],
-        link: function ($scope, $element, $attrs, ctrls) {
-            var element = $element[0];
-            var mark = $attrs.vscrollMark;
-            var ports = ctrls.filter(function (ctrl) {
-                return !!ctrl;
-            });
+import { Directive, OnInit, OnDestroy, ElementRef, Input } from '@angular/core';
 
-            ports.forEach(function (port) {
-                port.markup[mark] = element;
-            });
+@Directive({
+    selector: '[q-grid-vscroll-mark]'
+})
+export class VscrollMarkDirective implements OnInit, OnDestroy {
+    @Input('q-grid-vscroll-mark') mark: string;
 
-            $scope.$on('$destroy', function () {
-                ports.forEach(function (port) {
-                    if (port.markup) {
-                        port.markup[mark] = null;
-                    }
-                });
-            });
-        }
-    };
+    constructor(private elementRef: ElementRef) {
+    }
+
+    ngOnInit() {
+        const element = this.elementRef.nativeElement;
+        const mark = this.mark;
+
+        this.ports.forEach(port => port.markup[mark] = element);
+    }
+
+    ngOnDestroy() {
+        this.ports.forEach(port => {
+            if (port.markup) {
+                port.markup[this.mark] = null;
+            }
+        });
+    }
 }

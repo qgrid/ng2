@@ -1,20 +1,25 @@
-function vscrollColumnDirective() {
-    return {
-        restrict: 'A',
-        require: '^vscrollPortX',
-        link: function ($scope, $element, $attrs, port) {
-            var index = parseInt($attrs.vscrollColumn);
-            if (isNaN(index)) {
-                throw new Error('vscroll incorrect index "' + $attrs.vscrollColumn + '" for column')
-            }
+import { Directive, Input, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { sizeFactory } from './vscroll.container';
+import { VscrollLayout } from 'ng2-qgrid/common/vscroll/vscroll.layout';
 
-            var column = $element[0];
-            var context = port.context;
-            var size = sizeFactory(context.settings.columnWidth, context.container, column, index);
-            port.setItem(index, size);
-            $scope.$on('$destroy', function () {
-                port.removeItem(index);
-            });
-        }
-    };
+@Directive({
+    selector: '[q-grid-vscroll-column]'
+})
+export class VscrollColumnDirective implements OnInit, OnDestroy {
+    @Input('q-grid-vscroll-column') index: number;
+
+    constructor(private elementRef: ElementRef, private layout: VscrollLayout) {
+    }
+
+    ngOnInit() {
+        const layout = this.layout;
+        const column = this.elementRef.nativeElement;
+        const context = layout.context;
+        const size = sizeFactory(context.settings.columnWidth, context.container, column, this.index);
+        layout.setItem(this.index, size);
+    }
+
+    ngOnDesroy() {
+        this.layout.removeItem(this.index);
+    }
 }

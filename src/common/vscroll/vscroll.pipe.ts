@@ -17,8 +17,8 @@ export class VscrollPipe implements PipeTransform {
             throw new AppError('vscroll.pipe', 'filter context is not set');
         }
 
-        var count = data.length;
-        var container = context.container;
+        const count = data.length;
+        const container = context.container;
 
         container.update(count);
         if (count) {
@@ -28,16 +28,16 @@ export class VscrollPipe implements PipeTransform {
             const threshold = settings.threshold;
             const first = cursor;
             if (container.force || first !== container.position) {
-                var last = Math.min(cursor + threshold, count);
+                const last = Math.min(cursor + threshold, count);
                 container.position = first;
                 container.drawEvent.emit({
-                    first: first,
-                    last: last,
+                    first,
+                    last,
                     position: cursor
                 });
 
                 view.length = last - first;
-                for (var i = first, j = 0; i < last; i++ , j++) {
+                for (let i = first, j = 0; i < last; i++ , j++) {
                     view[j] = data[i];
                 }
 

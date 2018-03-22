@@ -32,8 +32,8 @@ export class VscrollSettings implements IVscrollSettings {
     }
 
     columnWidth(element: HTMLElement) {
-        var width = element.offsetWidth;
-        var style = getComputedStyle(element);
+        let width = element.offsetWidth;
+        const style = getComputedStyle(element);
 
         width += parseInt(style.marginLeft) + parseInt(style.marginRight);
         return width;

@@ -1,11 +1,12 @@
 import { EventEmitter } from '@angular/core';
-import { rAF } from './vscroll.utility';
-import { isUndefined, isNumber } from 'ng2-qgrid/core/utility';
+import { isUndefined, isNumber, isFunction } from 'ng2-qgrid/core/utility';
 import { IVscrollSettings } from './vscroll.settings';
+import { AppError } from 'ng2-qgrid/core/infrastructure';
+
+export const rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
 
 export class VscrollContainer {
     constructor(private settings: IVscrollSettings) {
-
     }
 
     count = 0;
@@ -61,7 +62,7 @@ export class VscrollContainer {
                     settings.fetch(0, threshold, deferred);
                 }
                 else {
-                    var skip = (oldPage + 1) * threshold;
+                    const skip = (oldPage + 1) * threshold;
                     if (this.total < skip) {
                         deferred.resolve(this.total);
                     }
@@ -91,4 +92,17 @@ export class VscrollContainer {
 
         this.update(this.count, true);
     }
+}
+
+
+export function sizeFactory(size: number | ((el: HTMLElement, i: number) => number), container: VscrollContainer, element: HTMLElement, index: number) {
+    if (isFunction(size)) {
+        return () => size(element, container.position + index);
+    }
+
+    if (isNumber(size)) {
+        return () => size;
+    }
+
+    throw new AppError('vscroll.utility', `Invalid size ${size}`);
 }

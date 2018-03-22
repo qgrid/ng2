@@ -1,51 +1,47 @@
 
-	function vscrollCtrl($scope, $element, $window) {
-		var box = $element[0];
-		var window = $window;
-		var scrollEvent = new Event();
-		var resetEvent = new Event();
+import { Directive, OnInit, OnDestroy, ElementRef, Input, EventEmitter } from '@angular/core';
+import { placeholderBitmap } from './vscroll.utility';
 
-		this.scrollEvent = scrollEvent;
-		this.resetEvent = resetEvent;
-		this.element = box;
+@Directive({
+    selector: '[q-grid-vscroll]'
+})
+export class VscrollDirective implements OnDestroy {
+    scrollEvent = new EventEmitter<any>();
+    resetEvent = new EventEmitter<any>();
 
-		this.drawPlaceholder = function (width, height) {
-			var style = box.style;
-			var placeholder = placeholderBitmap(width || box.clientWidth, height || box.clientHeight);
+    constructor(private elementRef: ElementRef) {
+        elementRef.nativeElement.addEventListener('scroll', this.onScroll, { passive: true });
+        window.addEventListener('resize', this.onResize);
+    }
 
-			style.backgroundImage = 'url(' + placeholder + ')';
-			style.backgroundRepeat = 'repeat';
-		};
+    ngOnDestroy() {
+        this.elementRef.nativeElement.removeEventListener('scroll', this.onScroll);
+        window.removeEventListener('resize', this.onResize);
+    }
 
-		this.resetX = function () {
-			box.scrollLeft = 0;
-		};
+    drawPlaceholder(width: number, height: number) {
+        const box = this.elementRef.nativeElement;
+        const style = box.style;
+        const placeholder = placeholderBitmap(width || box.clientWidth, height || box.clientHeight);
 
-		this.resetY = function () {
-			box.scrollTop = 0;
-		};
+        style.backgroundImage = 'url(' + placeholder + ')';
+        style.backgroundRepeat = 'repeat';
+    }
 
-		var onScroll = function () {
-			scrollEvent.emit();
-		};
+    resetX() {
+        this.elementRef.nativeElement.scrollLeft = 0;
+    }
 
-		var onResize = function () {
-			var e = { handled: false, source: 'resize' };
-			resetEvent.emit(e);
-		};
+    resetY() {
+        this.elementRef.nativeElement.scrollTop = 0;
+    }
 
-		box.addEventListener('scroll', onScroll, { passive: true });
-		window.addEventListener('resize', onResize);
+    private onScroll() {
+        this.scrollEvent.emit();
+    }
 
-		$scope.$on('$destroy', function () {
-			box.removeEventListener('scroll', onScroll);
-			window.removeEventListener('resize', onResize);
-		});
-	}
-
-	function vscrollDirective() {
-		return {
-			restrict: 'A',
-			controller: vscrollCtrl
-		};
-	}
+    private onResize() {
+        const e = { handled: false, source: 'resize' };
+        this.resetEvent.emit(e);
+    }
+}
