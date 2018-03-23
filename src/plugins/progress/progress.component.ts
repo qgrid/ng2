@@ -17,7 +17,7 @@ export class ProgressComponent extends PluginComponent implements OnInit {
 
 	ngOnInit() {
 		super.ngOnInit();
-		
+
 		this.model.progressChanged.watch(() => {
 			this.changeDetector.detectChanges();
 		});

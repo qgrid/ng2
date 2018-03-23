@@ -6,13 +6,25 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 * Auto-complete cell editor.
 * Auto generation of row edit form.
-* Initial implementation of virtual scrolling.
 * Infinite scrolling.
 * Perfomance improvements.
 * Validation framework.
 * Persistence plugin.
 * Email, url cell editor.
-* Supporting of fetch in column filter.
+* Copy/paste selection to excel.
+
+## [5.3.0] - 2018-03-23
+### Added
+- Supporting of custom fetch in the column filter.
+- Virtual scroll module.
+- Pager target menu.
+
+### Changed
+- Added grid core pipes under ther `ng2-qgrid` namespace.
+
+### Fixed
+- Pager custom size and sizeList not being honored/rendered correctly.
+- Rename `action-bar-core` to `action-bar`.
 
 ## [5.2.4] - 2018-02-16
 ### Changed
