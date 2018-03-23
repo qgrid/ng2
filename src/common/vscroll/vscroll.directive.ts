@@ -36,6 +36,10 @@ export class VscrollDirective implements OnDestroy {
 		this.elementRef.nativeElement.scrollTop = 0;
 	}
 
+	get element() {
+		return this.elementRef.nativeElement;
+	}
+
 	private onScroll() {
 		this.scrollEvent.emit();
 	}

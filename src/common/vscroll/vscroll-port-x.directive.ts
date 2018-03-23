@@ -5,7 +5,9 @@ import { capitalize } from './vscroll.utility';
 import { VscrollBox } from './vscroll.box';
 import { VscrollLayout } from './vscroll.layout';
 import { findPosition, recycleFactory, IVscrollPosition } from './vscroll.position';
+import { VscrollDirective } from './vscroll.directive';
 import { isNumber } from 'ng2-qgrid/core/utility';
+import { VscrollLink } from './vscroll.link';
 
 
 @Directive({
@@ -13,8 +15,20 @@ import { isNumber } from 'ng2-qgrid/core/utility';
 	providers: [VscrollLayout]
 })
 export class VscrollPortXDirective extends VscrollPort {
-	constructor(context: VscrollContext, elementRef: ElementRef, layout: VscrollLayout) {
+	private link: VscrollLink;
+
+	constructor(
+		context: VscrollContext,
+		elementRef: ElementRef,
+		layout: VscrollLayout,
+		view: VscrollDirective) {
 		super(context, elementRef.nativeElement, layout);
+
+		this.link = new VscrollLink(this, view);
+	}
+
+	reset(view: VscrollDirective) {
+		view.resetX();
 	}
 
 	protected getPosition(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition {
@@ -53,7 +67,7 @@ export class VscrollPortXDirective extends VscrollPort {
 		};
 	}
 
-	canApply(newBox: VscrollBox, oldBox: VscrollBox) {
+	hasChanges(newBox: VscrollBox, oldBox: VscrollBox) {
 		return !oldBox.portWidth || newBox.scrollWidth !== oldBox.scrollWidth;
 	}
 

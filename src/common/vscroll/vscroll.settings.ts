@@ -16,11 +16,11 @@ export class VscrollSettings implements IVscrollSettings {
 	placeholderWidth = 0;
 	resetTriggers = ['resize'];
 
-	constructor(private container: VscrollContainer) {
+	constructor(private getCount: () => number) {
 	}
 
 	fetch(skip: number, take: number, d: { resolve: (count: number) => void, reject: () => void }) {
-		d.resolve(this.container.total);
+		d.resolve(this.getCount());
 	}
 
 	rowHeight(element: HTMLElement) {

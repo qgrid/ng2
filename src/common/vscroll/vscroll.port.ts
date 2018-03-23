@@ -3,6 +3,7 @@ import { findPosition, IVscrollPosition, recycleFactory } from './vscroll.positi
 import { VscrollContext } from './vscroll.context';
 import { VscrollBox } from './vscroll.box';
 import { VscrollLayout } from './vscroll.layout';
+import { VscrollDirective } from './vscroll.directive';
 
 const UNSET_ARM = Number.MAX_SAFE_INTEGER;
 const UNSET_OFFSET = 0;
@@ -13,7 +14,11 @@ export abstract class VscrollPort {
 	private position = findPosition([], 0, 0);
 	private getOffsets: (index: number, count: number) => Array<number>;
 
-	constructor(protected context: VscrollContext, protected element: HTMLElement, private layout: VscrollLayout) {
+	constructor(
+		public context: VscrollContext, 
+		public element: HTMLElement, 
+		public layout: VscrollLayout) {
+			
 		layout.context = context;
 		this.getOffsets = recycleFactory(layout.items);
 	}
@@ -78,7 +83,7 @@ export abstract class VscrollPort {
 		return this.invalidate(count, box, this.position);
 	}
 
-	reset(count: number, box: VscrollBox) {
+	drop(count: number, box: VscrollBox) {
 		this.maxOffset = UNSET_OFFSET;
 		this.minArm = UNSET_ARM;
 		this.getOffsets = this.recycleFactory(this.layout.items);
@@ -86,6 +91,8 @@ export abstract class VscrollPort {
 		return this.invalidate(count, box, this.position);
 	}
 
+	abstract reset(view: VscrollDirective);
+	abstract hasChanges(newBox: VscrollBox, oldBox: VscrollBox);
 	protected abstract move(pad1: number, pad2: number);
 	protected abstract recycleFactory(items: Array<(() => number)>): (index: number, count: number) => Array<number>;
 	protected abstract getPosition(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition;
