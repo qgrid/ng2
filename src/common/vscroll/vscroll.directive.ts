@@ -1,5 +1,5 @@
 
-import { Directive, OnInit, OnDestroy, ElementRef, Input, EventEmitter } from '@angular/core';
+import { Directive, OnInit, OnDestroy, ElementRef, Input, EventEmitter, NgZone } from '@angular/core';
 import { placeholderBitmap } from './vscroll.utility';
 
 @Directive({
@@ -9,9 +9,11 @@ export class VscrollDirective implements OnDestroy {
 	scrollEvent = new EventEmitter<any>();
 	resetEvent = new EventEmitter<any>();
 
-	constructor(private elementRef: ElementRef) {
-		elementRef.nativeElement.addEventListener('scroll', this.onScroll, { passive: true });
-		window.addEventListener('resize', this.onResize);
+	constructor(private elementRef: ElementRef, zone: NgZone) {
+		zone.runOutsideAngular(() => {
+			elementRef.nativeElement.addEventListener('scroll', this.onScroll, { passive: true });
+			window.addEventListener('resize', this.onResize);
+		});
 	}
 
 	ngOnDestroy() {

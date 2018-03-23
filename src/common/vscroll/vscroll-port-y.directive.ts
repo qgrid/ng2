@@ -1,4 +1,4 @@
-import { Directive, ElementRef } from '@angular/core';
+import { Directive, ElementRef, NgZone } from '@angular/core';
 import { VscrollPort } from './vscroll.port';
 import { VscrollContext } from './vscroll.context';
 import { capitalize } from './vscroll.utility';
@@ -17,6 +17,7 @@ export class VscrollPortYDirective extends VscrollPort {
 	private link: VscrollLink;
 
 	constructor(
+		private zone: NgZone,
 		context: VscrollContext,
 		elementRef: ElementRef,
 		layout: VscrollLayout,
@@ -28,6 +29,10 @@ export class VscrollPortYDirective extends VscrollPort {
 
 	public reset(view: VscrollDirective) {
 		view.resetY();
+	}
+
+	emit(f: () => void) {
+		this.zone.run(f);
 	}
 
 	protected getPosition(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition {

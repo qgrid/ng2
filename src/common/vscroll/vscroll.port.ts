@@ -18,7 +18,7 @@ export abstract class VscrollPort {
 		public context: VscrollContext, 
 		public element: HTMLElement, 
 		public layout: VscrollLayout) {
-			
+
 		layout.context = context;
 		this.getOffsets = recycleFactory(layout.items);
 	}
@@ -93,6 +93,7 @@ export abstract class VscrollPort {
 
 	abstract reset(view: VscrollDirective);
 	abstract hasChanges(newBox: VscrollBox, oldBox: VscrollBox);
+	abstract emit(f: () => void);
 	protected abstract move(pad1: number, pad2: number);
 	protected abstract recycleFactory(items: Array<(() => number)>): (index: number, count: number) => Array<number>;
 	protected abstract getPosition(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition;
