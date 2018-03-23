@@ -23,6 +23,8 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 	}
 
 	ngOnInit() {
+		super.ngOnInit();
+
 		const context = {
 			name: ColumnChooserName
 		};
@@ -35,6 +37,8 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 	}
 
 	ngOnDestroy() {
+		super.ngOnDestroy();
+		
 		this.columnChooser.dispose();
 	}
 }

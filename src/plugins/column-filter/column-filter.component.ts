@@ -124,6 +124,8 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 	}
 
 	ngOnDestroy() {
+		super.ngOnDestroy();
+		
 		this.columnFilter.dispose();
 	}
 }
