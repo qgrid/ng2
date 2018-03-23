@@ -27,16 +27,16 @@
 			"uglify-js",
 			"webpack"
 		],
-		"baseUrl": "./",
+		"baseUrl": ".",
 		"paths": {
 			"ng2-qgrid/core/*": [
-				"core/*"
+				"./core/*"
 			],
 			"ng2-qgrid/plugin/*": [
-				"plugin/*"
+				"./plugin/*"
 			],
 			"ng2-qgrid/*": [
-				"src/*"
+				"./src/*"
 			]
 		}
 	},
@@ -54,15 +54,5 @@
 	"buildOnSave": true,
 	"atom": {
 		"rewriteTsconfig": false
-	},
-	"angularCompilerOptions": {
-		"skipMetadataEmit": false,
-		"skipTemplateCodegen": true,
-		"strictMetadataEmit": true,
-		"genDir": "./dist/",
-		"fullTemplateTypeCheck": true,
-		"flatModuleOutFile": "main.js",
-		"flatModuleId": "main",
-		"annotationsAs": "decorators" 
 	}
 }
