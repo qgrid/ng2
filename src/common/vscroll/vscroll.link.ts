@@ -39,7 +39,7 @@ export class VscrollLink {
 			}
 
 			container.cursor = layout.reset(this.container.count, this.box);
-			port.reset()
+			port.reset();
 		});
 
 		container.updateEvent.subscribe(e => {
