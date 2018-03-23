@@ -9,6 +9,10 @@ gulp.task('copy:src', () => {
 	return [copySrc, copyCore, copyPlugin];
 });
 
+gulp.task('copy:out', () => {
+	return gulp.src('dist/out-tsc/src/**/*').pipe(gulp.dest('dist'));
+});
+
 gulp.task('inline', () => {
 	return inline('out-tsc/src/');
 });
@@ -28,8 +32,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('copy', () => {
-	const copyCore = gulp.src('core/**/*').pipe(gulp.dest('dist/core'));
-	const copySrc = gulp.src('dist/src/**/*').pipe(gulp.dest('dist'));
-	const copyPlugin = gulp.src('plugin/**/*').pipe(gulp.dest('dist/plugin'));
-	return [copySrc, copyCore, copyPlugin];
+	const copyCore = gulp.src('core/**/*.d.ts').pipe(gulp.dest('dist/core'));
+	const copyPlugin = gulp.src('plugin/**/*.d.ts').pipe(gulp.dest('dist/plugin'));
+	return [copyCore, copyPlugin];
 });
