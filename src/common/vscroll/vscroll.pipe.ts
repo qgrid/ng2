@@ -6,7 +6,8 @@ import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 const empty = [];
 
 @Pipe({
-	name: 'qGridVscroll'
+	name: 'qGridVscroll',
+	pure: false
 })
 export class VscrollPipe implements PipeTransform {
 	transform(data: any, context: VscrollContext): any {

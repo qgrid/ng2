@@ -25,32 +25,38 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
 	private columnFilter: ColumnFilterView;
-	private vscrollContext: VscrollContext;
 
 	constructor(
 		@Optional() root: RootService,
-		vscroll: VscrollService,
-		qgrid: GridService) {
+		private vscroll: VscrollService,
+		private qgrid: GridService) {
 		super(root);
+	}
 
-		this.vscrollContext = vscroll.context({
+	public ngOnInit() {
+		const model = this.model;
+		const context = {
+			key: this.key
+		};
+
+		const columnFilter = new ColumnFilterView(model, context);
+		this.columnFilter = columnFilter;
+
+		this.using(columnFilter.submitEvent.on(() => this.submitEvent.emit()));
+		this.using(columnFilter.cancelEvent.on(() => this.cancelEvent.emit()));
+
+		const vscrollContext = this.vscroll.context({
+			threshold: model.columnFilter().threshold,
 			fetch: (skip, take, d) => {
-				if (!this.isReady()) {
-					d.resolve(0);
-					return;
-				}
-
-				const columnFilter = this.columnFilter;
-				const model = this.model;
 				const filterState = model.filter();
-				const service = qgrid.service(model);
-				if (filterState.fetch !== qgrid.noop) {
+				const service = this.qgrid.service(model);
+				if (filterState.fetch !== this.qgrid.noop) {
 					const cancelBusy = service.busy();
 					filterState
 						.fetch(this.key, {
+							skip,
+							take,
 							value: columnFilter.getValue,
-							skip: skip,
-							take: take,
 							filter: columnFilter.filter
 						})
 						.then(items => {
@@ -88,32 +94,12 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 					}
 				}
 			},
-
 		});
 
-	}
-
-	public ngOnInit() {
-		const model = this.model;
-		const context = {
-			key: this.key
-		};
-
-		this.columnFilter = new ColumnFilterView(model, context);
-
-		this.using(this.columnFilter.submitEvent.on(() => this.submitEvent.emit()));
-		this.using(this.columnFilter.cancelEvent.on(() => this.cancelEvent.emit()));
-
 		this.context = {
-			$implicit: this.columnFilter,
-			vscroll: this.vscrollContext
+			$implicit: columnFilter,
+			vscroll: vscrollContext
 		};
-
-		this.vscrollContext.container.reset();
-	}
-
-	isReady() {
-		return super.isReady() && !!this.columnFilter;
 	}
 
 	rowId(index: number) {

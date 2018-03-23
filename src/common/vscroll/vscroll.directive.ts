@@ -1,24 +1,19 @@
 
-import { Directive, OnInit, OnDestroy, ElementRef, Input, EventEmitter, NgZone } from '@angular/core';
+import { Directive, OnInit, OnDestroy, ElementRef, Input, EventEmitter, NgZone, Renderer2 } from '@angular/core';
 import { placeholderBitmap } from './vscroll.utility';
 
 @Directive({
 	selector: '[q-grid-vscroll]'
 })
-export class VscrollDirective implements OnDestroy {
+export class VscrollDirective {
 	scrollEvent = new EventEmitter<any>();
 	resetEvent = new EventEmitter<any>();
 
-	constructor(private elementRef: ElementRef, zone: NgZone) {
+	constructor(private elementRef: ElementRef, zone: NgZone, renderer: Renderer2) {
 		zone.runOutsideAngular(() => {
-			elementRef.nativeElement.addEventListener('scroll', this.onScroll, { passive: true });
-			window.addEventListener('resize', this.onResize);
+			elementRef.nativeElement.addEventListener('scroll', () => this.onScroll(), { passive: true });
+			renderer.listen(window, 'resize', () => this.onResize());
 		});
-	}
-
-	ngOnDestroy() {
-		this.elementRef.nativeElement.removeEventListener('scroll', this.onScroll);
-		window.removeEventListener('resize', this.onResize);
 	}
 
 	drawPlaceholder(width: number, height: number) {
