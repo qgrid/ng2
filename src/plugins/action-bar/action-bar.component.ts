@@ -39,6 +39,8 @@ export class ActionBarComponent extends PluginComponent
 	}
 
 	ngOnDestroy() {
+		super.ngOnDestroy();
+
 		if (this.shortcutOff) {
 			this.shortcutOff();
 			this.shortcutOff = null;

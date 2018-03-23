@@ -8,6 +8,7 @@ import * as pdf from 'jspdf';
 import 'jspdf-autotable';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Command } from 'ng2-qgrid/pub/infrastructure';
+import { uniq } from 'ng2-qgrid/core/utility';
 
 const isUndef = v => v === undefined;
 
@@ -235,7 +236,9 @@ export class HomeComponent {
 		}
 	];
 
-	private gridModel: Model;
+	gridModel: Model;
+	filterFetch = this.fetch.bind(this);
+
 	constructor(private dataService: DataService, public qgrid: Grid) {
 		this.gridModel = qgrid.model();
 		this.loadData();
@@ -266,7 +269,22 @@ export class HomeComponent {
 		// 				next(people);
 		// 			})
 		// 	].concat(this.qgrid.pipeUnit.default)
-		// });
+		// });	
+	}
+
+	private fetch(key: string, context) {
+		return this.dataService.getPeople(100).map(people => {
+			const data = people.map(context.value);
+			const uniqData = uniq(data);
+			const search = context.filter.toLowerCase();
+			const filteredData = search
+				? uniqData.filter(x => ('' + x).toLowerCase().indexOf(search) >= 0)
+				: uniqData;
+
+			filteredData.sort();
+			const page = filteredData.slice(context.skip, context.skip + context.take);
+			return page;
+		});
 	}
 
 	clearData() {

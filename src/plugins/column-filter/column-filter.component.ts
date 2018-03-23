@@ -14,6 +14,7 @@ import { uniq, flatten } from 'ng2-qgrid/core/utility';
 import { VscrollService } from 'ng2-qgrid/common/vscroll/vscroll.service';
 import { VscrollContext } from 'ng2-qgrid/common/vscroll/vscroll.context';
 import { GridService } from 'ng2-qgrid/main/grid/grid.service';
+import { Fetch } from 'ng2-qgrid/core/infrastructure/fetch';
 
 @Component({
 	selector: 'q-grid-column-filter',
@@ -55,19 +56,24 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 				const service = this.qgrid.service(model);
 				if (filterState.fetch !== this.qgrid.noop) {
 					const cancelBusy = service.busy();
-					filterState
+					const select = filterState
 						.fetch(this.key, {
 							skip,
 							take,
 							value: columnFilter.getValue,
 							filter: '' + this.search
-						})
+						});
+
+					const fetch = new Fetch(select);
+					fetch.run();
+					fetch.busy
 						.then(items => {
 							columnFilter.items.push(...items);
 							d.resolve(columnFilter.items.length + take);
 							cancelBusy();
 						})
 						.catch(cancelBusy);
+						
 				} else {
 					const cancelBusy = service.busy();
 					const isBlank = model.filter().assertFactory().isNull;
@@ -124,6 +130,8 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 	}
 
 	ngOnDestroy() {
+		super.ngOnDestroy();
+
 		this.columnFilter.dispose();
 	}
 }

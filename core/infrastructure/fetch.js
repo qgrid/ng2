@@ -1,4 +1,4 @@
-import {isFunction, isUndefined} from '../utility';
+import { isFunction, isUndefined } from '../utility';
 
 export class Fetch {
 	constructor(select) {
@@ -29,22 +29,12 @@ export class Fetch {
 				const args = Array.from(arguments).slice(1) || [];
 				const result = select(item, deferred, ...args);
 				if (!isUndefined(result)) {
-					if (isFunction(result.then)) {
-						// when options.fetch returns promise
-						result.then(resolve);
-						if (isFunction(result.catch)) {
-							result.catch(rejectBusy);
-						}
-					} else {
-						// when options.fetch return result
-						resolve(result);
-					}
+					this.invoke(result, resolve, rejectBusy);
 				}
 				// when user should invoke d.resolve or d.reject
 			}
 			else {
-				// when options.fetch is result itself
-				resolve(select);
+				this.invoke(select, resolve, rejectBusy);
 			}
 		});
 
@@ -52,5 +42,30 @@ export class Fetch {
 			this.busy = null;
 			alive = false;
 		};
+	}
+
+	invoke(instance, resolve, reject) {
+		if (isFunction(instance.then)) {
+			// when options.fetch returns promise
+			instance.then(resolve);
+			if (isFunction(instance.catch)) {
+				instance.catch(reject);
+			}
+		} else if (isFunction(instance.subscribe)) {
+			// when options.fetch returns observable
+			let subscription = instance.subscribe(
+				(...args) => {
+					resolve(...args);
+					if (subscription && isFunction(subscription.unsubscribe)) {
+						subscription.unsubscribe()
+						subscription = null;
+					}
+				},
+				reject);
+
+		} else {
+			// when options.fetch return result
+			resolve(instance);
+		}
 	}
 }
