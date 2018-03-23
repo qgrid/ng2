@@ -47,6 +47,7 @@ npm-debug.log
 
 # Dist #
 /dist
+/out-tsc
 /public/__build__/
 /demo/*/__build__/
 /src/*/__build__/

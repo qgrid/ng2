@@ -5,8 +5,9 @@ import {
 	EmbeddedViewRef
 } from '@angular/core';
 import { TemplateLink } from './template-link';
-import { Guard, AppError } from 'ng2-qgrid/core/infrastructure';
-import { isString, isArray } from 'ng2-qgrid/core/utility';
+import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
+import { isString, isArray } from 'ng2-qgrid/core/utility/index';
 import { TemplateLinkService } from './template-link.service';
 import { TemplateCacheService } from './template-cache.service';
 

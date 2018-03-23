@@ -1,4 +1,4 @@
-import { Event } from 'ng2-qgrid/core/infrastructure';
+import { Event } from 'ng2-qgrid/core/infrastructure/event';
 
 export class VScrollService {
 	factory() {

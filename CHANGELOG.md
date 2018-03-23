@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 * Auto-complete cell editor.
-* Auto generation of row edit form.
+* Row edit form.
 * Infinite scrolling.
 * Perfomance improvements.
 * Validation framework.
@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Changed
 - Added grid core pipes under ther `ng2-qgrid` namespace.
+- Remove `popup` module.
 
 ### Fixed
 - Pager custom size and sizeList not being honored/rendered correctly.

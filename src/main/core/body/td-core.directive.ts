@@ -4,7 +4,7 @@ import { ViewCoreService } from '../view/view-core.service';
 import { TableCoreService } from '../table/table-core.service';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { CellService } from 'ng2-qgrid/main/core/cell/cell.service';
-import { AppError } from 'ng2-qgrid/core/infrastructure';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { TrCoreDirective } from '../row/tr-core.directive';

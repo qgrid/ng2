@@ -1,4 +1,4 @@
-import {Component, OnInit, Optional} from '@angular/core';
+import { Component, OnInit, Optional } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { Shortcut } from 'ng2-qgrid/core/shortcut/shortcut';
@@ -8,7 +8,7 @@ import { Shortcut } from 'ng2-qgrid/core/shortcut/shortcut';
 	templateUrl: './pager-target.component.html'
 })
 
-export class PagerTargetComponent extends PluginComponent implements  OnInit {
+export class PagerTargetComponent extends PluginComponent implements OnInit {
 	constructor(@Optional() root: RootService) {
 		super(root);
 	}
@@ -30,7 +30,7 @@ export class PagerTargetComponent extends PluginComponent implements  OnInit {
 		switch (code) {
 			case 'enter': {
 				if (value) {
-					this.model.pagination({current: value - 1});
+					this.model.pagination({ current: value - 1 });
 				}
 				break;
 			}

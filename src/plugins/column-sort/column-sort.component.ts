@@ -12,7 +12,8 @@ import {
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { ColumnSortView } from 'ng2-qgrid/plugin/column-sort/column.sort.view';
-import { EventListener, EventManager } from 'ng2-qgrid/core/infrastructure';
+import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
+import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 
 @Component({

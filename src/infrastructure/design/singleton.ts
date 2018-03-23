@@ -1,4 +1,4 @@
-import { AppError } from 'ng2-qgrid/core/infrastructure';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 
 function decorate(method) {
 	let instance;
