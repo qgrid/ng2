@@ -21,10 +21,14 @@ import { GridService } from 'ng2-qgrid/main/grid/grid.service';
 })
 export class ColumnFilterComponent extends PluginComponent implements OnInit, OnDestroy {
 	@Input() public key: string;
+	@Input() public search = '';
+
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
+
 	private columnFilter: ColumnFilterView;
+	private vscrollContext: VscrollContext;
 
 	constructor(
 		@Optional() root: RootService,
@@ -40,7 +44,6 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 		};
 
 		const columnFilter = new ColumnFilterView(model, context);
-		this.columnFilter = columnFilter;
 
 		this.using(columnFilter.submitEvent.on(() => this.submitEvent.emit()));
 		this.using(columnFilter.cancelEvent.on(() => this.cancelEvent.emit()));
@@ -57,7 +60,7 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 							skip,
 							take,
 							value: columnFilter.getValue,
-							filter: columnFilter.filter
+							filter: '' + this.search
 						})
 						.then(items => {
 							columnFilter.items.push(...items);
@@ -78,13 +81,18 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 
 							const uniqItems = uniq(items);
 							const notBlankItems = uniqItems.filter(x => !isBlank(x));
-							const filteredItems = notBlankItems;
+
+							// TODO: improve search algo
+							const search = ('' + this.search).toLowerCase();
+							const filteredItems = search
+								? notBlankItems.filter(x => ('' + x).toLowerCase().indexOf(search) >= 0)
+								: notBlankItems;
 
 							filteredItems.sort(columnFilter.column.compare);
 							columnFilter.items = filteredItems;
 							columnFilter.hasBlanks =
 								notBlankItems.length !== uniqItems.length &&
-								(!columnFilter.filter || 'blanks'.indexOf(columnFilter.filter.toLowerCase()) >= 0);
+								(!search || 'blanks'.indexOf(search.toLowerCase()) >= 0);
 						}
 
 						d.resolve(columnFilter.items.length);
@@ -96,10 +104,19 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 			},
 		});
 
+		this.columnFilter = columnFilter;
+		this.vscrollContext = vscrollContext;
+
 		this.context = {
 			$implicit: columnFilter,
+			plugin: this,
 			vscroll: vscrollContext
 		};
+	}
+
+	reset() {
+		this.columnFilter.items = [];
+		this.vscrollContext.container.reset();
 	}
 
 	rowId(index: number) {
