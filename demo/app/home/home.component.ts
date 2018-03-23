@@ -18,6 +18,8 @@ const isUndef = v => v === undefined;
 export class HomeComponent {
 	public rows: Human[] = [];
 
+	searchCommand: Command = new Command();
+
 	public columns = [
 		{
 			key: 'id',
@@ -270,6 +272,4 @@ export class HomeComponent {
 	clearData() {
 		this.rows = [];
 	}
-
-	searchCommand: Command = new Command();
 }

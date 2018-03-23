@@ -8,7 +8,7 @@ import { PluginComponent } from '../plugin.component';
 })
 export class ActionBarComponent extends PluginComponent
 	implements OnInit, OnDestroy {
-		
+
 	private shortcutOff: () => void = null;
 
 	constructor(@Optional() root: RootService) {

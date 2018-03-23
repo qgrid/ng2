@@ -5,6 +5,7 @@ import { FocusModule } from './focus/focus.module';
 import { ResizeModule } from './resize/resize.module';
 import { LayoutModule } from './layout/layout.module';
 import { FileModule } from './file/file.module';
+import { VscrollModule } from './vscroll/vscroll.module';
 
 @NgModule({
 	declarations: [],
@@ -14,7 +15,8 @@ import { FileModule } from './file/file.module';
 		ResizeModule,
 		LayoutModule,
 		RaiseModule,
-		FileModule
+		FileModule,
+		VscrollModule
 	]
 })
 export class CommonModule {}

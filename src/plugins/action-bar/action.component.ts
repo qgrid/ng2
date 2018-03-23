@@ -28,7 +28,7 @@ export class ActionComponent implements OnInit {
 
 	ngOnInit() {
 		Guard.notNull(this.command, 'command');
-		
+
 		const model = this.model;
 		const action = new ActionItem(this.command, this.title, this.icon);
 		action.id = this.id;
