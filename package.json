@@ -23,10 +23,9 @@
   "homepage": "https://github.com/qgrid/ng2#readme",
   "license": "MIT",
   "scripts": {
-    "build": "npm run clean:dist && ngc -p tsconfig.prod.json && gulp copy:assets && npm run copy:dist && npm run bundle && npm run bundle:min",
+    "build": "npm run clean:dist && gulp copy:src && npm run theme && gulp sass && gulp inline && ngc -p tsconfig.prod.json && npm run copy:dist && npm run bundle",
     "bundle": "webpack --config config/webpack.prod.js --progress --profile --bail",
-    "bundle:min": "webpack --config config/webpack.prod.js --progress --profile --bail",
-    "clean:dist": "npm run rimraf -- dist && npm run rimraf -- dll",
+    "clean:dist": "npm run rimraf -- dist && npm run rimraf -- dll && npm run rimraf out-tsc",
     "copy:dist": "gulp copy && node scripts/package package.json dist",
     "docs": "typedoc --options typedoc.json",
     "github-deploy": "webpack --config config/webpack.github-deploy.js --progress --profile --env.githubProd",
@@ -35,7 +34,8 @@
     "rimraf": "rimraf",
     "start": "webpack-dev-server --config config/webpack.dev.js --open --progress --profile --watch --content-base demo/",
     "test": "npm run lint",
-    "test:watch": "npm run test -- --auto-watch --no-single-run"
+    "test:watch": "npm run test -- --auto-watch --no-single-run",
+    "theme": "webpack --config config/webpack.theme --progress --profile --bail"
   },
   "dependencies": {
     "@angular/animations": "~5.3.0",

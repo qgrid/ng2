@@ -32,18 +32,18 @@
 		"baseUrl": ".",
 		"paths": {
 			"ng2-qgrid/core/*": [
-				"./core/*"
+				"./out-tsc/core/*"
 			],
 			"ng2-qgrid/plugin/*": [
-				"./plugin/*"
+				"./out-tsc/plugin/*"
 			],
 			"ng2-qgrid/*": [
-				"./src/*"
+				"./out-tsc/src/*"
 			]
 		}
 	},
 	"files": [
-		"./src/index.ts"
+		"./out-tsc/src/index.ts"
 	],
 	"exclude": [
 		"node_modules",

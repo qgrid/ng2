@@ -4,25 +4,25 @@ const sass = require('gulp-sass');
 
 gulp.task('copy:src', () => {
 	const copySrc = gulp.src('src/**/*').pipe(gulp.dest('out-tsc/src'));
-	const copyCore = gulp.src('src/**/*').pipe(gulp.dest('out-tsc/core'));
-	const copyPlugin = gulp.src('src/**/*').pipe(gulp.dest('out-tsc/plugin'));
+	const copyCore = gulp.src('core/**/*').pipe(gulp.dest('out-tsc/core'));
+	const copyPlugin = gulp.src('plugin/**/*').pipe(gulp.dest('out-tsc/plugin'));
 	return [copySrc, copyCore, copyPlugin];
 });
 
 gulp.task('inline', () => {
-	return inline('src/');
+	return inline('out-tsc/src/');
 });
 
 gulp.task('sass', function () {
 	const convertAssets = gulp
-		.src('src/assets/index.scss')
+		.src('out-tsc/src/assets/index.scss')
 		.pipe(sass().on('error', sass.logError))
-		.pipe(gulp.dest(''));
+		.pipe(gulp.dest('out-tsc/src/assets/'));
 
 	const convertTheme = gulp
-		.src('src/theme/material/index.scss')
+		.src('out-tsc/src/theme/material/index.scss')
 		.pipe(sass().on('error', sass.logError))
-		.pipe(gulp.dest(''));
+		.pipe(gulp.dest('out-tsc/src/theme/material/'));
 
 	return [convertAssets, convertTheme];
 });

@@ -29,7 +29,7 @@
 			<div class="q-grid-column-filter-list"
 			     q-grid-vscroll>
 				<ul [q-grid-vscroll-port-y]="$vscroll">
-					<li *ngFor="let item of $columnFilter.items | qGridVscroll: $vscroll; let $index = index; trackBy: rowId"
+					<li *ngFor="let item of $columnFilter.items | qGridVscroll: $vscroll; let $index = index; trackBy: $plugin.rowId"
 					    [q-grid-vscroll-row]="$index">
 						<mat-checkbox [checked]="$columnFilter.state(item)"
 						              *ngIf="$columnFilter.toggle.canExecute(item)"

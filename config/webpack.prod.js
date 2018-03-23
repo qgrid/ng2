@@ -47,7 +47,6 @@ module.exports = function (env) {
 	return webpackMerge({}, {
 		entry: {
 			[`main${min ? '.min' : ''}`]: helpers.root('dist', 'index.js'),
-			// [`material${min ? '.min' : ''}`]: helpers.root('dist', 'themes', 'material', 'theme.module'),
 			'vendor': [
 				'@angular/platform-browser',
 				'@angular/platform-browser-dynamic',
