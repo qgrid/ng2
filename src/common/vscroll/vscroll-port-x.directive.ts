@@ -17,7 +17,7 @@ export class VscrollPortXDirective extends VscrollPort {
 		super(context, elementRef.nativeElement, layout);
 	}
 
-	protected getPosition(offsets: Array<number>, box: VscrollBox, arm: number) : IVscrollPosition {
+	protected getPosition(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition {
 		const value = Math.max(0, box.scrollLeft - arm);
 		const size = this.getItemSize();
 		return findPosition(offsets, value, size);

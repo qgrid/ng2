@@ -25,7 +25,7 @@
 		"indent": [
 			true,
 			"tabs",
-			3
+			4
 		],
 		"interface-over-type-literal": true,
 		"label-position": true,
@@ -46,7 +46,6 @@
 			}
 		],
 		"no-arg": true,
-		"no-bitwise": true,
 		"no-console": [
 			true,
 			"debug",
@@ -67,7 +66,6 @@
 		],
 		"no-misused-new": true,
 		"no-non-null-assertion": true,
-		"no-shadowed-variable": true,
 		"no-string-literal": false,
 		"no-string-throw": true,
 		"no-switch-case-fall-through": true,
@@ -118,7 +116,6 @@
 			"check-separator",
 			"check-type"
 		],
-		"no-output-on-prefix": true,
 		"use-input-property-decorator": true,
 		"use-output-property-decorator": true,
 		"use-host-property-decorator": true,

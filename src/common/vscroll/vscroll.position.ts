@@ -9,11 +9,9 @@ function findIndexAt(items: Array<number>, value: number) {
 		const k = items[mid];
 		if (k === value) {
 			return mid;
-		}
-		else if (k < value) {
+		} else if (k < value) {
 			min = mid + 1;
-		}
-		else {
+		} else {
 			max = mid - 1;
 		}
 	}
@@ -69,8 +67,7 @@ export function recycleFactory(items: Array<() => number>) {
 			const value = items[i]();
 			if (cursor === 0) {
 				offsets[cursor] = value;
-			}
-			else {
+			} else {
 				offsets[cursor] = offsets[cursor - 1] + value;
 			}
 
