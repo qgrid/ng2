@@ -1,9 +1,9 @@
 export class PopupSettings {
-	height?: any = 400;
-	width?: any = 300;
-	offsetTop?: any = 10;
-	offsetLeft?: any = 10;
-	resizable?: any = false;
-	collapsible?: any = false;
-	class?: any = '';
+	height? = 400;
+	width? = 300;
+	offsetTop? = 10;
+	offsetLeft? = 10;
+	resizable? = false;
+	collapsible? = false;
+	class? = '';
 }
