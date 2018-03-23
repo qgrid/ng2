@@ -35,14 +35,14 @@ export class PagerTargetComponent extends PluginComponent implements OnInit {
 				break;
 			}
 			case 'up': {
-				if (this.value < this.total) {
-					this.value += 1;
+				if (value < this.total) {
+					this.value = value + 1;
 				}
 				break;
 			}
 			case 'down': {
-				if (this.value > 1) {
-					this.value -= 1;
+				if (value > 1) {
+					this.value = value - 1;
 				}
 				break;
 			}
@@ -59,7 +59,7 @@ export class PagerTargetComponent extends PluginComponent implements OnInit {
 				const isValid = page >= min && page <= max && !isNaN(digit);
 
 				if (!isValid) {
-					page > this.total ? this.value = this.total : this.value = 1;
+					page > this.total ? this.value = max : this.value = min;
 					e.preventDefault();
 				}
 			}
@@ -75,6 +75,8 @@ export class PagerTargetComponent extends PluginComponent implements OnInit {
 		const count = pagination.count;
 		const size = pagination.size;
 
-		return count / size;
+		return size === 0
+			? 0
+			: Math.max(1, Math.ceil(count / size));
 	}
 }
