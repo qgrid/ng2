@@ -104,7 +104,16 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 		this.using(this.columnFilter.submitEvent.on(() => this.submitEvent.emit()));
 		this.using(this.columnFilter.cancelEvent.on(() => this.cancelEvent.emit()));
 
-		this.context = { $implicit: this.columnFilter };
+		this.context = {
+			$implicit: this.columnFilter,
+			vscroll: this.vscrollContext
+		};
+
+		this.vscrollContext.container.reset();
+	}
+
+	isReady() {
+		return super.isReady() && !!this.columnFilter;
 	}
 
 	rowId(index: number) {

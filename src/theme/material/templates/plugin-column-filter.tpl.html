@@ -1,5 +1,6 @@
 <ng-template key="plugin-column-filter.tpl.html"
-             let-$columnFilter>
+			 let-$columnFilter
+			 let-vscroll="vscroll">
 	<mat-card class="mat-elevation-z">
 		<mat-card-header>
 			<mat-card-title>
@@ -25,8 +26,8 @@
 			</ul>
 			<div class="q-grid-column-filter-list"
 			     q-grid-vscroll>
-				<ul [q-grid-vscroll-port-y]="$columnFilter.vscrollContext">
-					<li *ngFor="let item of $columnFilter.items | qGridVscrollFilter: $columnFilter.vscrollContext; let $index = index; trackBy: rowId"
+				<ul [q-grid-vscroll-port-y]="vscroll">
+					<li *ngFor="let item of $columnFilter.items | qGridVscroll: vscroll; let $index = index; trackBy: rowId"
 					    [q-grid-vscroll-row]="$index">
 						<mat-checkbox [checked]="$columnFilter.state(item)"
 						              *ngIf="$columnFilter.toggle.canExecute(item)"

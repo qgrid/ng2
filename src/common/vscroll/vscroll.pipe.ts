@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { VscrollContext } from './vscroll.context';
 import { AppError } from 'ng2-qgrid/core/infrastructure';
+import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 
 const empty = [];
 
@@ -9,12 +10,10 @@ const empty = [];
 })
 export class VscrollPipe implements PipeTransform {
 	transform(data: any, context: VscrollContext): any {
+		Guard.notNull(context, 'context');
+		
 		if (!data) {
 			return empty;
-		}
-
-		if (!context) {
-			throw new AppError('vscroll.pipe', 'filter context is not set');
 		}
 
 		const count = data.length;

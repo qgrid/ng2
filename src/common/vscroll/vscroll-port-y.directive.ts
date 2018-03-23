@@ -8,10 +8,10 @@ import { findPosition, recycleFactory, IVscrollPosition } from './vscroll.positi
 import { VscrollDirective } from './vscroll.directive';
 import { VscrollLink } from './vscroll.link';
 import { isNumber } from 'ng2-qgrid/core/utility';
+import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 
 @Directive({
-	selector: '[q-grid-vscroll-port-y]',
-	providers: [VscrollLayout]
+	selector: '[q-grid-vscroll-port-y]'
 })
 export class VscrollPortYDirective extends VscrollPort {
 	@Input('q-grid-vscroll-port-y') context: VscrollContext;
@@ -26,6 +26,8 @@ export class VscrollPortYDirective extends VscrollPort {
 	}
 
 	ngOnInit() {
+		Guard.notNull(this.context, 'context');
+		
 		this.layout = new VscrollLayout(this);
 		new VscrollLink(this)
 	}
