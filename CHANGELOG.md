@@ -163,9 +163,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v5.2.3...HEAD
-[5.2.3]: https://github.com/qgrid/ng2/compare/v5.2.2...v5.2.0
-[5.2.2]: https://github.com/qgrid/ng2/compare/v5.2.2...v5.2.0
+[unreleased]: https://github.com/qgrid/ng2/compare/v5.3.0...HEAD
+[5.3.0]: https://github.com/qgrid/ng2/compare/v5.3.0...v5.2.3
+[5.2.3]: https://github.com/qgrid/ng2/compare/v5.2.3...v5.2.2
+[5.2.2]: https://github.com/qgrid/ng2/compare/v5.2.2...v5.2.1
 [5.2.0]: https://github.com/qgrid/ng2/compare/v5.2.0...v5.1.2
 [5.1.2]: https://github.com/qgrid/ng2/compare/v5.1.2...v5.1.1
 [5.1.1]: https://github.com/qgrid/ng2/compare/v5.1.1...v5.0.2
