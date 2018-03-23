@@ -29,7 +29,7 @@ export class VscrollPortYDirective extends VscrollPort implements OnInit {
 		Guard.notNull(this.context, 'context');
 
 		this.layout = new VscrollLayout(this);
-		// new VscrollLink(this);
+		new VscrollLink(this);
 	}
 
 	public reset() {
