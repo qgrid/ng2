@@ -32,12 +32,16 @@ export class ViewCoreComponent extends NgComponent
 		private root: RootService,
 		private view: ViewCoreService,
 		private grid: GridService,
-		private zone: NgZone) {
+		private zone: NgZone,
+		private elementRef: ElementRef) {
 		super();
+
 	}
 
 	ngOnInit() {
 		super.ngOnInit();
+
+		this.root.markup['view'] = this.elementRef.nativeElement;
 
 		// Views should be inited after `sceneChanged.watch` declaration
 		// to persiste the right order of event sourcing.

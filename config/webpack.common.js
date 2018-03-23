@@ -349,12 +349,6 @@ module.exports = function (options) {
 				/facade(\\|\/)math/,
 				helpers.root('node_modules/@angular/core/src/facade/math.js')
 			),
-
-			new ngcWebpack.NgcWebpackPlugin({
-				disabled: !AOT,
-				tsConfigPath: helpers.root('tsconfig.prod.json'),
-				resourceOverride: helpers.root('config/resource-override.js')
-			})
 		],
 
 		/*
