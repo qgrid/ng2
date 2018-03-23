@@ -1,4 +1,4 @@
-import { Directive, ElementRef, NgZone, Input } from '@angular/core';
+import { Directive, ElementRef, NgZone, Input, OnInit } from '@angular/core';
 import { VscrollPort } from './vscroll.port';
 import { VscrollContext } from './vscroll.context';
 import { capitalize } from './vscroll.utility';
@@ -13,7 +13,7 @@ import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 @Directive({
 	selector: '[q-grid-vscroll-port-y]'
 })
-export class VscrollPortYDirective extends VscrollPort {
+export class VscrollPortYDirective extends VscrollPort implements OnInit {
 	@Input('q-grid-vscroll-port-y') context: VscrollContext;
 	markup = {};
 	layout: VscrollLayout;
@@ -27,9 +27,9 @@ export class VscrollPortYDirective extends VscrollPort {
 
 	ngOnInit() {
 		Guard.notNull(this.context, 'context');
-		
+
 		this.layout = new VscrollLayout(this);
-		new VscrollLink(this)
+		// new VscrollLink(this);
 	}
 
 	public reset() {

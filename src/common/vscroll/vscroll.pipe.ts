@@ -12,7 +12,7 @@ const empty = [];
 export class VscrollPipe implements PipeTransform {
 	transform(data: any, context: VscrollContext): any {
 		Guard.notNull(context, 'context');
-		
+
 		if (!data) {
 			return empty;
 		}
