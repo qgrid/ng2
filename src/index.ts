@@ -6,3 +6,4 @@ export { ThemeModule } from 'ng2-qgrid/theme/material/theme.module';
 
 export * from './pub/column';
 export * from './pub/infrastructure';
+export * from './pub/pipe';

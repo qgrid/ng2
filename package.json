@@ -1,6 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "5.2.6",
+  "version": "5.3.0",
   "description": "Angular2 data grid",
   "main": "./bundles/main.js",
   "typings": "./index.d.ts",
@@ -50,6 +50,10 @@
     "zone.js": "^0.8.20"
   },
   "devDependencies": {
+    "@angular/platform-browser": "~5.2.6",
+    "@angular/platform-browser-dynamic": "~5.2.6",
+    "@angular/forms": "~5.2.6",
+    "@angular/flex-layout": "^5.0.0-beta.13",
     "@angular/cli": "^1.7.1",
     "@angular/compiler-cli": "^5.2.6",
     "@angular/flex-layout": "^2.0.0-beta.12",
@@ -66,7 +70,6 @@
     "@types/hammerjs": "^2.0.35",
     "@types/jasmine": "2.8.6",
     "@types/node": "^9.4.6",
-    "@types/source-map": "^0.5.7",
     "@types/uglify-js": "^2.6.30",
     "@types/webpack": "^3.8.8",
     "add-asset-html-webpack-plugin": "^2.1.2",

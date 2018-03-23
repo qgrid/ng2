@@ -8,12 +8,7 @@ import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LegendComponent extends PluginComponent implements OnInit {
-
-	constructor( @Optional() root: RootService) {
+	constructor(@Optional() root: RootService) {
 		super(root);
-
-		this.models = ['legend'];
 	}
-
-	ngOnInit() { }
 }

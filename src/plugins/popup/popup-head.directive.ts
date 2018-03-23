@@ -1,4 +1,4 @@
-import { ElementRef, Input, Directive } from '@angular/core';
+import { ElementRef, Input, Directive, OnInit, OnDestroy } from '@angular/core';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { NgComponent } from 'ng2-qgrid/infrastructure/component/ng.component';
@@ -7,7 +7,7 @@ import { Popup } from './popup';
 @Directive({
 	selector: '[q-grid-popup-head]'
 })
-export class PopupHeadDirective extends NgComponent {
+export class PopupHeadDirective extends NgComponent implements OnInit, OnDestroy {
 	@Input('q-grid-popup-head') public popup: Popup;
 
 	private eventListener: EventListener;
@@ -34,7 +34,7 @@ export class PopupHeadDirective extends NgComponent {
 			this.position.y = e.offsetY;
 
 			popupElement.classList.add('drag');
-			e.dataTransfer.setDragImage(document.createElement('div'), 0, 0); // eslint-disable-line no-undef			
+			e.dataTransfer.setDragImage(document.createElement('div'), 0, 0); // eslint-disable-line no-undef
 		}));
 
 		this.using(this.eventListener.on('drag', event => {

@@ -31,6 +31,7 @@ import { PipeModule } from 'ng2-qgrid/pipes/pipe.module';
 import { GridModule } from 'ng2-qgrid/grid.module';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { ThemeService } from 'ng2-qgrid/template/theme.service';
+import { VscrollModule } from 'ng2-qgrid/common/vscroll/vscroll.module';
 
 @NgModule({
 	declarations: [ThemeComponent],
@@ -55,7 +56,8 @@ import { ThemeService } from 'ng2-qgrid/template/theme.service';
 		MatDialogModule,
 		MatMenuModule,
 		MatCardModule,
-		PipeModule
+		PipeModule,
+		VscrollModule
 	],
 	providers: [ThemeService],
 	entryComponents: [ThemeComponent]

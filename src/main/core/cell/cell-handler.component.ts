@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 
@@ -6,7 +6,7 @@ import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 	selector: 'q-grid-cell-handler',
 	templateUrl: './cell-handler.component.html'
 })
-export class CellHandlerComponent {
+export class CellHandlerComponent implements OnInit {
 
 	private job = jobLine(150);
 	constructor(private element: ElementRef, private root: RootService) {

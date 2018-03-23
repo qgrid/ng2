@@ -60,6 +60,7 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 	@Input() sortBy;
 	@Input() sortMode;
 	@Input() filterUnit;
+	@Input() filterFetch;
 	@Input() editMode;
 	@Input() editEnter;
 	@Input() editCommit;

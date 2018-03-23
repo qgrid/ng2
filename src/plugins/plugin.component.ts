@@ -44,6 +44,10 @@ export class PluginComponent extends NgComponent
 		this.binder.bind(null);
 	}
 
+	isReady() {
+		return !!(this.gridModel || (this.root && this.root.model));
+	}
+
 	get model() {
 		const model = this.gridModel || (this.root && this.root.model);
 		Guard.notNull('model', model);

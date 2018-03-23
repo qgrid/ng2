@@ -15,7 +15,6 @@ export class ActionListComponent extends PluginComponent implements OnInit {
 		private actionService: ActionService
 	) {
 		super(root);
-
 	}
 
 	ngOnInit() {

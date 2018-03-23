@@ -30,7 +30,7 @@ import { MarkupDirective } from './markup/markup.directive';
 		BoxComponent,
 		ToolbarComponent,
 		RowComponent,
-		LayerComponent,		
+		LayerComponent,
 		GridCommonModule
 	],
 	imports: [

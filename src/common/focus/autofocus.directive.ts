@@ -9,7 +9,7 @@ import { AutofocusView } from 'ng2-qgrid/plugin/autofocus/autofocus.view';
 })
 export class AutoFocusDirective implements AfterViewInit, OnDestroy {
 	private autofocus: AutofocusView;
-	
+
 	constructor(private root: RootService) { }
 
 	ngAfterViewInit() {
@@ -17,7 +17,7 @@ export class AutoFocusDirective implements AfterViewInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		this.autofocus.dispose(); 
+		this.autofocus.dispose();
 	}
 
 	get markup() {

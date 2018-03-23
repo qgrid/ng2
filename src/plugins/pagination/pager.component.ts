@@ -21,11 +21,15 @@ export class PagerComponent extends PluginComponent implements OnInit, OnDestroy
 	}
 
 	ngOnInit() {
+		super.ngOnInit();
+
 		this.pager = new PagerView(this.model);
 		this.context = { $implicit: this.pager };
 	}
 
 	ngOnDestroy() {
+		super.ngOnDestroy();
+		
 		this.pager.dispose();
 	}
 }
