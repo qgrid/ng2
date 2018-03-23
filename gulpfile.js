@@ -32,7 +32,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('copy', () => {
-	const copyCore = gulp.src('core/**/*.d.ts').pipe(gulp.dest('dist/core'));
-	const copyPlugin = gulp.src('plugin/**/*.d.ts').pipe(gulp.dest('dist/plugin'));
+	const copyCore = gulp.src('core/**/*').pipe(gulp.dest('dist/core'));
+	const copyPlugin = gulp.src('plugin/**/*').pipe(gulp.dest('dist/plugin'));
 	return [copyCore, copyPlugin];
 });
