@@ -13,9 +13,8 @@ export declare class FootView extends View {
 	columns: ColumnModel[];
 	valueFactory: (column: ColumnModel) => (row: any, value?: any) => any;
 
-	invalidate(model: Model): void;
-
 	readonly count: number;
 
+	invalidate(model: Model): void;
 	value(column: ColumnModel): any;
 }

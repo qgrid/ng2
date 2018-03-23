@@ -10,13 +10,10 @@ import { GridService } from '../services/grid';
 export declare class LayoutView extends View {
 	constructor(model: Model, table: Table, gridService: GridService);
 
-	onInit(): void;
-
+	readonly styleId: string;
 	readonly form: ColumnModel;
 
+	onInit(): void;
 	invalidateColumns(form: object): void;
-
 	destroy(): void;
-
-	readonly styleId: string;
 }

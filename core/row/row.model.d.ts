@@ -2,9 +2,9 @@ import { Resource } from '../resource/resource';
 
 /**
  * > Under construction.
- * 
+ *
  * ### Suggested Links
- * 
+ *
  * * [Row View](/doc/api/row-view.html)
  */
 export declare class RowModel {

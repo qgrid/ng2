@@ -53,7 +53,7 @@ export declare class ColumnListModel {
 	index: string[];
 
 	/**
-	 * List of columns from html template. Usually that kind of column can be 
+	 * List of columns from html template. Usually that kind of column can be
 	 * defined with `<q-grid-column>` componet in html,
      * and has `column.source === 'tempate'`.
 	 */

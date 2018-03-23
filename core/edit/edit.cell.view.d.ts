@@ -22,6 +22,7 @@ export declare class EditCellView extends View {
 	value: any;
 	label: any;
 	column: ColumnModel;
+
 	readonly fetch: () => void;
 	readonly options: EditorOptions;
 }

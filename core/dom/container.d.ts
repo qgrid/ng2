@@ -11,17 +11,14 @@ export declare class Container {
 
 	elements: Element[];
 
-	getBoundingClientRect(): IRect;
-
-	addClass(name: string): void;
-
-	removeClass(name: string): void;
-
-	hasClass(name: string): boolean;
-
 	readonly clientWidth: number;
 	readonly clientHeight: number;
 	readonly offsetWidth: number;
 	readonly offsetHeight: number;
 	readonly classList: IClassList;
+
+	getBoundingClientRect(): IRect;
+	addClass(name: string): void;
+	removeClass(name: string): void;
+	hasClass(name: string): boolean;
 }

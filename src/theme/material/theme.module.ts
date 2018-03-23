@@ -7,9 +7,10 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThemeComponent } from './theme.component';
-import { PluginModule } from 'ng2-qgrid/plugins';
-import { TemplateModule, ThemeService } from 'ng2-qgrid/template';
-import { CommonModule as GridCommonModule } from 'ng2-qgrid/common';
+import { PluginModule } from 'ng2-qgrid/plugins/plugin.module';
+import { TemplateModule } from 'ng2-qgrid/template/template.module';
+import { TemplateService } from 'ng2-qgrid/template/template.service';
+import { CommonModule as GridCommonModule } from 'ng2-qgrid/common/common.module';
 import {
 	MatCardModule,
 	MatIconModule,
@@ -26,9 +27,11 @@ import {
 	MatMenuModule,
 	MatDialogModule
 } from '@angular/material';
-import { PipeModule } from 'ng2-qgrid/pipes';
+import { PipeModule } from 'ng2-qgrid/pipes/pipe.module';
 import { GridModule } from 'ng2-qgrid/grid.module';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
+import { ThemeService } from 'ng2-qgrid/template/theme.service';
+import { VscrollModule } from 'ng2-qgrid/common/vscroll/vscroll.module';
 
 @NgModule({
 	declarations: [ThemeComponent],
@@ -53,7 +56,8 @@ import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 		MatDialogModule,
 		MatMenuModule,
 		MatCardModule,
-		PipeModule
+		PipeModule,
+		VscrollModule
 	],
 	providers: [ThemeService],
 	entryComponents: [ThemeComponent]

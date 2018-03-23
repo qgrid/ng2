@@ -1,5 +1,5 @@
 import { Component, Optional, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { RootService } from '../../infrastructure/component/index';
+import { RootService } from '../../infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 import { ActionService } from './action.service';
 
@@ -15,7 +15,6 @@ export class ActionListComponent extends PluginComponent implements OnInit {
 		private actionService: ActionService
 	) {
 		super(root);
-
 	}
 
 	ngOnInit() {

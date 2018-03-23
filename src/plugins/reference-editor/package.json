@@ -1,0 +1,6 @@
+{
+  "name": "ng2-qgrid/plugins/reference-editor",
+  "version": "5.2.6",
+  "main": "../../bundles/main.js",
+  "typings": "./reference-editor.module.d.ts"
+}

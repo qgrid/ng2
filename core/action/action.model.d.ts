@@ -7,9 +7,9 @@ import { Resource } from '../resource/resource';
  * A class to handle and visualize in UI custom user behaviors(like add or delete row).
  * For instance, [action bar](/doc/feature/action.html) plugin uses this model to draw buttons on top of the q-grid
  * to execute user commands.
- * 
+ *
  * ### Usage
- * 
+ *
  * ```javascript
  * const addRowCommand = new qgrid.Command({
  *   execute: () => {
@@ -30,14 +30,14 @@ import { Resource } from '../resource/resource';
  *    title: 'Add new row',
  *    icon: 'add'
  * });
- * 
+ *
  * gridModel.action({
  *    items: [addRowAction]
  * });
  * ```
- * 
+ *
  * ### Suggested Links
- * 
+ *
  * * [Action](/doc/api/action.html)
  * * [Command](/doc/api/command.html)
  * * [Action Bar](/doc/feature/action.html)

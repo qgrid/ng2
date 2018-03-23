@@ -2,6 +2,7 @@ import {IExpression} from './expression.build';
 
 export declare class Visitor {
 	constructor();
+
 	visit(item: IExpression, depth: number): void;
 	visitGroup(group: IExpression, depth: number): void;
 	visitCondition(condition: IExpression, depth: number): void;

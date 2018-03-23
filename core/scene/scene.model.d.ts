@@ -3,7 +3,7 @@ import { RowView } from './view/row.view';
 
 /**
  * A class that contains results of q-grid invalidate.
- * 
+ *
  * ### Suggested Links
  * [table.js](https://github.com/qgrid/ng2/blob/master/core/dom/table.js)
  */
@@ -17,7 +17,7 @@ export declare class SceneModel {
 
 	/**
 	 * Status of invalidation.
-	 * 
+	 *
 	 * * `'start'` refresh was began.
 	 * * `'stop'` refresh was finished.
 	 */

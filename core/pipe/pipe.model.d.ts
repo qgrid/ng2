@@ -3,7 +3,7 @@ import { Model } from '../infrastructure/model';
 
 /**
  * A class that contains setting to control when and how q-grid should be updated.
- * 
+ *
  * ### Default Triggers
  * ```javascript
  *  {
@@ -56,7 +56,7 @@ export declare class PipeModel {
 
 	/**
 	 * A schema that shows how and when q-grid should be updated.
-	 * 
+	 *
 	 * `{col}`
 	 */
 	triggers: object;

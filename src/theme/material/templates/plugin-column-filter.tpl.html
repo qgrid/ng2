@@ -1,5 +1,7 @@
 <ng-template key="plugin-column-filter.tpl.html"
-             let-$columnFilter>
+			 let-$columnFilter
+			 let-$plugin="plugin"
+			 let-$vscroll="vscroll">
 	<mat-card class="mat-elevation-z">
 		<mat-card-header>
 			<mat-card-title>
@@ -11,7 +13,8 @@
 				<input type="search"
 				       matInput
 				       placeholder="Find in the list"
-				       [(ngModel)]="$columnFilter.filter"
+					   [(ngModel)]="$plugin.search"
+					   (input)="$plugin.reset()"
 				       q-grid-focus/>
 			</mat-form-field>
 			<ul class="q-grid-column-filter-toolbar">
@@ -23,21 +26,23 @@
 					</mat-checkbox>
 				</li>
 			</ul>
-			<div class="q-grid-column-filter-list">
-				<ul>
-					<li *ngFor="let item of $columnFilter.items | qGridFilter: $columnFilter.filter">
+			<div class="q-grid-column-filter-list"
+			     q-grid-vscroll>
+				<ul [q-grid-vscroll-port-y]="$vscroll">
+					<li *ngFor="let item of $columnFilter.items | qGridVscroll: $vscroll; let $index = index; trackBy: rowId"
+					    [q-grid-vscroll-row]="$index">
 						<mat-checkbox [checked]="$columnFilter.state(item)"
 						              *ngIf="$columnFilter.toggle.canExecute(item)"
 						              aria-label="Select filter value"
 						              (change)="$columnFilter.toggle.execute(item)">
-							<span [innerHTML]="item | qGridHighlight: $columnFilter.filter"></span>
+							<span [innerHTML]="item | qGridHighlight: $plugin.search"></span>
 						</mat-checkbox>
 					</li>
 					<li>
 						<mat-checkbox *ngIf="$columnFilter.hasBlanks"
 						              [(ngModel)]="$columnFilter.byBlanks"
 						              aria-label="Select blanks">
-							<span [innerHTML]="'(Blanks)' | qGridHighlight: $columnFilter.filter"></span>
+							<span [innerHTML]="'(Blanks)' | qGridHighlight: $columnFilter.search"></span>
 						</mat-checkbox>
 					</li>
 				</ul>

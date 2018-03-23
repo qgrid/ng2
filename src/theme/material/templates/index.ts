@@ -58,6 +58,7 @@ const templates = [
 	require('./plugin-column-sort.tpl.html'),
 	require('./plugin-title.tpl.html'),
 	require('./plugin-pager.tpl.html'),
+	require('./plugin-pager-target.tpl.html'),
 	require('./plugin-progress.tpl.html'),
 	require('./plugin-export.tpl.html'),
 	require('./plugin-action-bar.tpl.html'),

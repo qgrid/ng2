@@ -1,6 +1,6 @@
 import { Component, Input, Optional, OnInit, ElementRef } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
-import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 

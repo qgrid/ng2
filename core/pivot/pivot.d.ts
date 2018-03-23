@@ -5,14 +5,16 @@ export interface IPivotSettings {
 	value: any;
 }
 
-export declare interface IPlan {
+export declare class Plan {
 	constructor(schema: object);
+
 	isRoot: boolean;
 	current: any;
-	branch(): IPlan;
+
+	branch(): Plan;
 	cursor(name: string): void;
 	compile(data: object): object;
 }
 
-export declare function factory(plan: IPlan): (settings: IPivotSettings, plan: IPlan) => object;
-export declare function pivot(settings: IPivotSettings, plan: IPlan): object;
+export declare function factory(plan: Plan): (settings: IPivotSettings, plan: Plan) => object;
+export declare function pivot(settings: IPivotSettings, plan: Plan): object;

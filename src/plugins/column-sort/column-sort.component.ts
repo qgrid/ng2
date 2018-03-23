@@ -53,6 +53,8 @@ export class ColumnSortComponent extends PluginComponent implements AfterViewIni
 	}
 
 	ngOnDestroy() {
+		super.ngOnDestroy();
+		
 		this.context.$implicit.dispose();
 	}
 }

@@ -1,0 +1,6 @@
+{
+  "name": "ng2-qgrid/pipes",
+  "version": "5.2.6",
+  "main": "../bundles/main.js",
+  "typings": "./pipe.module.d.ts"
+}

@@ -7,8 +7,6 @@ export declare class Data {
 	model: Model;
 
 	columns(): ColumnModel[];
-
 	columnMap(): { [key: string]: ColumnModel };
-
 	rows(): any[];
 }
