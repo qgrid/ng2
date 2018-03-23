@@ -1,4 +1,4 @@
-import { Directive, ElementRef, NgZone } from '@angular/core';
+import { Directive, ElementRef, NgZone, Input } from '@angular/core';
 import { VscrollPort } from './vscroll.port';
 import { VscrollContext } from './vscroll.context';
 import { capitalize } from './vscroll.utility';
@@ -14,52 +14,55 @@ import { isNumber } from 'ng2-qgrid/core/utility';
 	providers: [VscrollLayout]
 })
 export class VscrollPortYDirective extends VscrollPort {
-	private link: VscrollLink;
+	@Input('q-grid-vscroll-port-y') context: VscrollContext;
+	markup = {};
+	layout: VscrollLayout;
 
 	constructor(
 		private zone: NgZone,
-		context: VscrollContext,
-		elementRef: ElementRef,
-		layout: VscrollLayout,
+		private elementRef: ElementRef,
 		view: VscrollDirective) {
-		super(context, elementRef.nativeElement, layout);
-
-		this.link = new VscrollLink(this, view);
+		super(view, elementRef.nativeElement);
 	}
 
-	public reset(view: VscrollDirective) {
-		view.resetY();
+	ngOnInit() {
+		this.layout = new VscrollLayout(this);
+		new VscrollLink(this)
+	}
+
+	public reset() {
+		this.view.resetY();
 	}
 
 	emit(f: () => void) {
 		this.zone.run(f);
 	}
 
-	protected getPosition(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition {
+	getPosition(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition {
 		const value = Math.max(0, box.scrollTop - arm);
 		const size = this.getItemSize();
 		return findPosition(offsets, value, size);
 	}
 
-	protected move(top: number, bottom: number) {
+	move(top: number, bottom: number) {
 		this.pad('top', top);
 		this.pad('bottom', bottom);
 	}
 
-	protected getItemSize(): number {
+	getItemSize(): number {
 		const rowHeight = this.context.settings.rowHeight as number;
 		return isNumber(rowHeight) ? rowHeight : 0;
 	}
 
-	protected getScrollSize(box: VscrollBox) {
+	getScrollSize(box: VscrollBox) {
 		return box.scrollHeight;
 	}
 
-	protected getPortSize(box: VscrollBox) {
+	getSize(box: VscrollBox) {
 		return box.portHeight;
 	}
 
-	protected recycleFactory(items: Array<any>) {
+	recycleFactory(items: Array<any>) {
 		const recycle = recycleFactory(items);
 		return (index: number, count: number) => {
 			const size = this.getItemSize();
@@ -77,12 +80,12 @@ export class VscrollPortYDirective extends VscrollPort {
 
 	private pad(pos: string, value: number) {
 		const container = this.context.container;
-		container.write(function () {
-			if (this.layout.markup.hasOwnProperty(pos)) {
-				const mark = this.layout.markup[pos];
+		container.write(() => {
+			if (this.markup.hasOwnProperty(pos)) {
+				const mark = this.markup[pos];
 				mark.style.height = value + 'px';
 			} else {
-				this.element.style['padding' + capitalize(pos)] = value + 'px';
+				this.elementRef.nativeElement.style['padding' + capitalize(pos)] = value + 'px';
 			}
 		});
 	}

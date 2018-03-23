@@ -12,9 +12,15 @@ import { VscrollDirective } from './vscroll.directive';
 
 @NgModule({
 	declarations: [
+		VscrollDirective,
+		VscrollColumnDirective,
+		VscrollRowDirective,
+		VscrollMarkDirective,
+		VscrollPortXDirective,
+		VscrollPortYDirective,
+		VscrollPipe
 	],
 	exports: [
-		VscrollService,
 		VscrollDirective,
 		VscrollColumnDirective,
 		VscrollRowDirective,

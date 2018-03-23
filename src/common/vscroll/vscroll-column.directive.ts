@@ -1,6 +1,6 @@
 import { Directive, Input, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { sizeFactory } from './vscroll.container';
-import { VscrollLayout } from 'ng2-qgrid/common/vscroll/vscroll.layout';
+import { VscrollPortXDirective } from './vscroll-port-x.directive';
 
 @Directive({
 	selector: '[q-grid-vscroll-column]'
@@ -8,18 +8,18 @@ import { VscrollLayout } from 'ng2-qgrid/common/vscroll/vscroll.layout';
 export class VscrollColumnDirective implements OnInit, OnDestroy {
 	@Input('q-grid-vscroll-column') index: number;
 
-	constructor(private elementRef: ElementRef, private layout: VscrollLayout) {
+	constructor(private elementRef: ElementRef, private port: VscrollPortXDirective) {
 	}
 
 	ngOnInit() {
-		const layout = this.layout;
+		const layout = this.port.layout;
 		const column = this.elementRef.nativeElement;
-		const context = layout.context;
+		const context = this.port.context;
 		const size = sizeFactory(context.settings.columnWidth, context.container, column, this.index);
 		layout.setItem(this.index, size);
 	}
 
 	ngOnDestroy() {
-		this.layout.removeItem(this.index);
+		this.port.layout.removeItem(this.index);
 	}
 }
