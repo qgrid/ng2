@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
-import { htmlEncode, escapeRegexp } from 'ng2-qgrid/core/utility';
+import { htmlEncode, escapeRegexp } from 'ng2-qgrid/core/utility/index';
 
 @Pipe({
 	name: 'qGridHighlight'

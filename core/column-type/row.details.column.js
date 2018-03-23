@@ -9,7 +9,7 @@ TemplatePath.register('row-details-cell', (template, column) => {
 	};
 });
 
-class RowDetailsColumnModel extends ColumnModel {
+export class RowDetailsColumnModel extends ColumnModel {
 	constructor() {
 		super('row-details');
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { compile } from 'ng2-qgrid/core/services';
-import { isUndefined, clone, isObject, identity } from 'ng2-qgrid/core/utility';
-import { parseFactory } from 'ng2-qgrid/core/services';
+import { compile } from 'ng2-qgrid/core/services/path';
+import { isUndefined, clone, isObject, identity } from 'ng2-qgrid/core/utility/index';
+import { parseFactory } from 'ng2-qgrid/core/services/convert';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { ColumnListCtrl } from 'ng2-qgrid/core/column-list/column.list.ctrl';
 import { Singleton } from 'ng2-qgrid/infrastructure/design/singleton';

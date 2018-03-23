@@ -1,5 +1,5 @@
-import {ColumnModel} from '../column-type/column.model';
-import {IMemo} from '../pipe/pipe.item';
+import { ColumnModel } from '../column-type/column.model';
+import { IMemo, IContext } from '../pipe/pipe.item';
 
 /**
  * A class that gives access to the high level grid data structures.

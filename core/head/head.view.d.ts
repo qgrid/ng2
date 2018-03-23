@@ -1,7 +1,8 @@
-import {View} from '../view/view';
-import {Command} from '../command/command';
-import {Model} from '../infrastructure/model';
-import {Table} from '../dom/table';
+import { View } from '../view/view';
+import { Command } from '../command/command';
+import { Model } from '../infrastructure/model';
+import { Table } from '../dom/table';
+import { ColumnModel } from '../column-type/column.model';
 
 /**
  * > Under Construction.
@@ -13,4 +14,7 @@ export declare class HeadView extends View {
 	drop: Command;
 	drag: Command;
 	resize: Command;
+	
+	transfer(column: ColumnModel);
+	columns(row: any, pin: string);
 }
