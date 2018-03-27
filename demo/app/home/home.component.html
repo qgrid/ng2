@@ -65,7 +65,13 @@
                     canResize="true">
         </q-grid-row>
 
-
+		 <q-grid-status-bar>
+			 <ng-template for="plugin-status-bar.tpl.html" let-$statusTab>
+				 <div class="q-grid-status-bar">
+					 {{$statusTab.columnIndex}}:{{$statusTab.rowIndex}}
+				 </div>
+			 </ng-template>
+		 </q-grid-status-bar>
 
         <!-- <q-grid-layer>
             <ng-template for="blank">
@@ -75,15 +81,15 @@
             </ng-template>
         </q-grid-layer> -->
 
-        <!-- <q-grid-toolbar>
-            <ng-template for="top">
-                <q-grid-action-bar></q-grid-action-bar>
-            </ng-template>
-        </q-grid-toolbar>
+        <!--<q-grid-toolbar>-->
+            <!--<ng-template for="top">-->
+                <!--<q-grid-action-bar></q-grid-action-bar>-->
+            <!--</ng-template>-->
+        <!--</q-grid-toolbar>-->
 
-        <q-grid-action-list>
-            <q-grid-action icon="search" [command]="searchCommand"></q-grid-action>
-        </q-grid-action-list> -->
+        <!--<q-grid-action-list>-->
+            <!--<q-grid-action icon="search" [command]="searchCommand"></q-grid-action>-->
+        <!--</q-grid-action-list>-->
 
 
         <!-- <q-grid-row unit="details">
