@@ -16,10 +16,10 @@ export class StatusBarComponent extends PluginComponent implements OnInit {
 
 	ngOnInit() {
 		this.using(this.model.navigationChanged.on(e => {
-			const newValue = e.changes.cell.newValue;
+			const cell = e.state.cell;
 
-			this.rowIndex = newValue.rowIndex;
-			this.columnIndex = newValue.columnIndex;
+			this.rowIndex = cell.rowIndex;
+			this.columnIndex = cell.columnIndex;
 		}));
 	}
 }
