@@ -1,25 +1,29 @@
-import {Component, OnInit, Optional} from '@angular/core';
-import {RootService} from 'ng2-qgrid/infrastructure/component/root.service';
-import {PluginComponent} from '../plugin.component';
+import { Component, OnInit, Optional } from '@angular/core';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
+import { PluginComponent } from '../plugin.component';
+import { TemplateHostService } from 'ng2-qgrid/template/template-host.service';
 
 @Component({
 	selector: 'q-grid-status-bar',
-	templateUrl: './status-bar.component.html'
+	templateUrl: './status-bar.component.html',
+	providers: [TemplateHostService]
 })
 export class StatusBarComponent extends PluginComponent implements OnInit {
-	constructor(@Optional() root: RootService) {
+	constructor(@Optional() root: RootService, templateHost: TemplateHostService) {
 		super(root);
+
+		templateHost.key = () => `plugin-status-bar.tpl.html`;
 	}
 
-	private rowIndex;
-	private columnIndex;
+	private rowIndex = 0;
+	private columnIndex = 0;
 
 	ngOnInit() {
-		this.using(this.model.navigationChanged.on(e => {
-			const cell = e.state.cell;
+		const focus = this.model.focus();
 
-			this.rowIndex = cell.rowIndex;
-			this.columnIndex = cell.columnIndex;
+		this.using(this.model.focusChanged.on(() => {
+			this.rowIndex = focus.rowIndex;
+			this.columnIndex = focus.columnIndex;
 		}));
 	}
 }
