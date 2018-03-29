@@ -38,7 +38,7 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 
 	ngOnDestroy() {
 		super.ngOnDestroy();
-		
+
 		this.columnChooser.dispose();
 	}
 }

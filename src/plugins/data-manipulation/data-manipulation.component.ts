@@ -29,7 +29,7 @@ export class DataManipulationComponent extends PluginComponent implements OnInit
 
 	ngOnDestroy() {
 		super.ngOnDestroy();
-		
+
 		this.dataManipulation.dispose();
 	}
 }

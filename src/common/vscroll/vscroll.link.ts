@@ -38,17 +38,15 @@ export class VscrollLink {
 				return;
 			}
 
-			container.cursor = layout.reset(this.container.count, this.box);
+			container.cursor = layout.reset();
 			port.reset();
 		});
 
 		container.updateEvent.subscribe(e => {
 			if (e.force) {
-				container.cursor = layout.refresh(container.count, this.box);
+				this.update(true);
 			}
 		});
-
-		layout.updateEvent.subscribe(() => this.update(true));
 	}
 
 	tick(force) {
@@ -59,7 +57,7 @@ export class VscrollLink {
 		const position = port.layout.recycle(count, this.box, force);
 		if (position) {
 			this.container.apply(
-				() => this.container.cursor = port.layout.invalidate(count, this.box, position),
+				() => this.container.cursor = port.layout.invalidate(position),
 				f => port.emit(f));
 		}
 	}
@@ -77,7 +75,7 @@ export class VscrollLink {
 				portHeight: element.clientHeight
 			};
 
-			if (this.port.hasChanges(newBox, this.box)) {
+			if (force || this.port.hasChanges(newBox, this.box)) {
 				this.box = newBox;
 				if (this.container.count && !this.ticking) {
 					this.ticking = true;

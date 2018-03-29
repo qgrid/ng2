@@ -5,17 +5,13 @@ import { VscrollPort } from './vscroll.port';
 import { IVscrollSettings } from './vscroll.settings';
 
 const UNSET_ARM = Number.MAX_SAFE_INTEGER;
-const UNSET_OFFSET = 0;
 
 function empty() {
 	return 0;
 }
 
 export class VscrollLayout {
-	updateEvent = new EventEmitter<any>();
-
 	private items = [];
-	private maxOffset = UNSET_OFFSET;
 	private minArm = UNSET_ARM;
 	private position = findPosition([], 0, 0);
 	private getOffsets = recycleFactory(this.items);
@@ -25,54 +21,51 @@ export class VscrollLayout {
 
 	recycle(count: number, box: VscrollBox, force: boolean): IVscrollPosition | null {
 		const position = this.position;
-		const offsets = this.getOffsets(position.index, count);
 		const threshold = this.settings.threshold;
-
+		const offsets = this.getOffsets(position.index, count);
 		const arm = this.getArm(offsets, box, position.index);
+		const port = this.port;
+
 		this.minArm = Math.min(this.minArm, arm);
 
-		const newPosition = this.port.getPosition(offsets, box, this.minArm);
+		const newPosition = port.getPosition(offsets, box, this.minArm);
 		if (force || position.index !== newPosition.index) {
-			this.position = newPosition;
-			return newPosition;
+			const itemSize = port.getItemSize();
+			if (itemSize) {
+				newPosition.pad = Math.max(0, itemSize * (count - threshold));
+			} else {
+				const last = Math.min(offsets.length - 1, newPosition.index + threshold - 1);
+				const first = newPosition.index - 1;
+				const viewSize = (offsets[last] || 0) - (offsets[first] || 0);
+				const scrollSize = offsets[offsets.length - 1] || 0;
+				const padSize = scrollSize - viewSize;
+				newPosition.pad = padSize;
+			}
+
+			return this.position = newPosition;
 		}
 
 		return null;
 	}
 
-	invalidate(count: number, box: VscrollBox, position): number {
+	invalidate(position: IVscrollPosition): number {
 		const offset = position.offset;
-		const threshold = this.settings.threshold;
-		const scrollSize = this.port.getScrollSize(box);
-		const itemSize = this.port.getItemSize();
-		this.maxOffset = itemSize
-			? Math.max(0, itemSize * (count - threshold))
-			: scrollSize <= position.lastOffset ? Math.max(this.maxOffset, offset) : this.maxOffset;
-
 		const pad1 = Math.max(0, offset);
-		const pad2 = Math.max(0, this.maxOffset - pad1);
+		const pad2 = Math.max(0, position.pad - pad1);
 
 		this.port.move(pad1, pad2);
 		return position.index;
 	}
 
-	refresh(count: number, box: VscrollBox) {
-		this.maxOffset = UNSET_OFFSET;
-		this.minArm = UNSET_ARM;
-		return this.invalidate(count, box, this.position);
-	}
-
-	reset(count: number, box: VscrollBox) {
-		this.maxOffset = UNSET_OFFSET;
+	reset() {
 		this.minArm = UNSET_ARM;
 		this.getOffsets = this.port.recycleFactory(this.items);
 		this.position = findPosition([], 0, 0);
-		return this.invalidate(count, box, this.position);
+		return this.invalidate(this.position);
 	}
 
 	setItem(index: number, item: () => number) {
 		this.items[index] = item;
-		this.updateEvent.emit({ action: 'set', index });
 	}
 
 	removeItem(index: number) {
@@ -89,8 +82,6 @@ export class VscrollLayout {
 			// TODO: think how to avoid this
 			items[index] = empty;
 		}
-
-		this.updateEvent.emit({ action: 'remove', index });
 	}
 
 	private getArm(offsets: Array<number>, box: VscrollBox, index: number) {
