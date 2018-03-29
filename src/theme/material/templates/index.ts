@@ -65,7 +65,8 @@ const templates = [
 	require('./plugin-action-core.tpl.html'),
 	require('./plugin-column-filter.tpl.html'),
 	require('./plugin-column-chooser.tpl.html'),
-	require('./plugin-legend-core.tpl.html')
+	require('./plugin-legend-core.tpl.html'),
+	require('./plugin-status-bar.tpl.html')
 ];
 
 export const template = templates.join('\n\n');
