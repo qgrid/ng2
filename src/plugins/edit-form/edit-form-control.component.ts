@@ -21,7 +21,7 @@ export class EditFormControlComponent extends PluginComponent implements OnInit 
 	}
 
 	ngOnInit() {
-		console.log(this.key);
+		//console.log(this.key);
 		//console.log(this.cellEditor);
 	}
 }

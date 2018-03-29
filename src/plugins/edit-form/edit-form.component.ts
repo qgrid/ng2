@@ -33,6 +33,7 @@ export class EditFormComponent extends PluginComponent implements OnInit, OnDest
 	}
 
 	getKey(column: ColumnModel): string {
-		return column.type ? `edit-form-${column.type}.tpl.html` : 'edit-form-default.tpl.html';
+		console.log(`edit-form-${column.editor?column.editor:column.type}.tpl.html`);
+		return column.type ? `edit-form-${column.editor?column.editor:column.type}.tpl.html` : 'edit-form-default.tpl.html';
 	}
 }

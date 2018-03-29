@@ -83,7 +83,7 @@ const templates = [
 	require('./edit-form-currency.tpl.html'),
 	require('./edit-form-bool.tpl.html'),
 	require('./edit-form-password.tpl.html'),
-	require('./edit-form-textarea.tpl.html'),
+	require('./edit-form-text-area.tpl.html'),
 	require('./edit-form-time.tpl.html'),
 	require('./edit-form-row-options.tpl.html'),
 	require('./edit-form-url.tpl.html'),
