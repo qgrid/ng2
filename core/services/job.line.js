@@ -1,6 +1,5 @@
 ﻿import { AppError, Defer } from '../infrastructure';
 import { isFunction } from '../utility';
-import { setTimeout, clearTimeout } from 'timers';
 
 export function jobLine(delay) {
 	let defer = null;

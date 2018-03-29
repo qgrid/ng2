@@ -1,8 +1,8 @@
-import {PluginView} from '../plugin.view';
-import {GRID_PREFIX} from '../../core/definition';
-import {max} from '../../core/utility';
-import {EventListener, EventManager} from '../../core/infrastructure';
-import {jobLine} from '../../core/services';
+import { PluginView } from '../plugin.view';
+import { GRID_PREFIX } from '../../core/definition';
+import { max } from '../../core/utility';
+import { EventListener, EventManager } from '../../core/infrastructure';
+import { jobLine } from '../../core/services/job.line';
 
 export class PositionView extends PluginView {
 	constructor(context) {
@@ -35,8 +35,8 @@ export class PositionView extends PluginView {
 	}
 
 	layout(target, source) {
-		const {top, right, left, bottom} = target.getBoundingClientRect();
-		const {width, height} = source.getBoundingClientRect();
+		const { top, right, left, bottom } = target.getBoundingClientRect();
+		const { width, height } = source.getBoundingClientRect();
 		const br = this.boxRect();
 		const intersections = [];
 
@@ -73,8 +73,8 @@ export class PositionView extends PluginView {
 			}));
 
 		const intersection = max(intersections, i => i.area);
-		const {left: l, top: t} = intersection.b;
-		const pos = this.fix({left: l - br.left, top: t - br.top, width, height});
+		const { left: l, top: t } = intersection.b;
+		const pos = this.fix({ left: l - br.left, top: t - br.top, width, height });
 
 		source.style.left = pos.left + 'px';
 		source.style.top = pos.top + 'px';
@@ -84,16 +84,16 @@ export class PositionView extends PluginView {
 		const xo = Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left));
 		const yo = Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
 		const area = xo * yo;
-		return {area, a, b};
+		return { area, a, b };
 	}
 
 	fix(rect) {
 		const wr = this.windowRect();
 		const br = this.boxRect();
-		const {width: vw, height: vh} = wr;
+		const { width: vw, height: vh } = wr;
 		const vx = br.left - wr.left;
 		const vy = br.top - wr.top;
-		const {height: rh, width: rw} = rect;
+		const { height: rh, width: rw } = rect;
 		const rx = rect.left + vx;
 		const ry = rect.top + vy;
 		const gtx1 = rx + rw > vw;
@@ -107,7 +107,7 @@ export class PositionView extends PluginView {
 			? (vh - rh) / 2 - vy
 			: rect.top;
 
-		return {left, top};
+		return { left, top };
 	}
 
 	boxRect() {
@@ -125,7 +125,7 @@ export class PositionView extends PluginView {
 	}
 
 	windowRect() {
-		const {innerHeight: h, innerWidth: w} = window;
+		const { innerHeight: h, innerWidth: w } = window;
 		return {
 			top: 0,
 			left: 0,

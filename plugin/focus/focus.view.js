@@ -1,6 +1,6 @@
-import {PluginView} from '../plugin.view';
-import {jobLine} from '../../core/services';
-import {AppError} from '../../core/infrastructure';
+import { PluginView } from '../plugin.view';
+import { jobLine } from '../../core/services/job.line';
+import { AppError } from '../../core/infrastructure/error';
 
 export class FocusView extends PluginView {
 	constructor(context) {
@@ -13,7 +13,7 @@ export class FocusView extends PluginView {
 
 	set() {
 		if (this.element.getAttribute('tabindex') === null
-		|| this.element.getAttribute('tabindex') !== '') {
+			|| this.element.getAttribute('tabindex') !== '') {
 			this.element.setAttribute('tabindex', -1);
 		}
 

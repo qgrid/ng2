@@ -30,13 +30,13 @@
     @import "assets/mixins";
     @import "assets/node";
     @import "assets/pager";
+	@import "assets/pager.target";
     @import "assets/progress";
     @import "assets/row";
     @import "assets/selection";
     @import "assets/table";
     @import "assets/title";
 	@import "assets/validator";
-
     @import "assets/mat/cell.array";
     @import "assets/mat/cell.autocomplete";
     @import "assets/mat/cell.checkbox";
@@ -51,9 +51,8 @@
     @import "assets/mat/menu";
     @import "assets/mat/pager";
     @import "assets/mat/persistence";
-    @import "assets/mat/popup";
     @import "assets/mat/cell.reference";
-    
+	@import "assets/mat/pager.target";
     @import "assets/form.edit";
 }
 

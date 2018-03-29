@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnInit, Input } from '@angular/core';
 import { ActionService } from './action.service';
-import { Action as ActionItem } from 'ng2-qgrid/core/action';
+import { Action as ActionItem } from 'ng2-qgrid/core/action/action';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
@@ -28,7 +28,7 @@ export class ActionComponent implements OnInit {
 
 	ngOnInit() {
 		Guard.notNull(this.command, 'command');
-		
+
 		const model = this.model;
 		const action = new ActionItem(this.command, this.title, this.icon);
 		action.id = this.id;

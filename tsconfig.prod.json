@@ -1,21 +1,22 @@
 {
 	"compilerOptions": {
-		"target": "es2015",
-		"module": "commonjs",
+		"target": "es5",
+		"module": "es2015",
 		"moduleResolution": "node",
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"allowSyntheticDefaultImports": true,
-		"sourceMap": true,
+		"sourceMap": false,
 		"noEmitHelpers": true,
 		"importHelpers": true,
 		"strictNullChecks": false,
 		"skipLibCheck": true,
-		"outDir": "dist",
+		"outDir": "./dist/",
 		"declaration": true,
 		"lib": [
 			"dom",
-			"es6"
+			"es5",
+			"es2015"
 		],
 		"typeRoots": [
 			"node_modules/@types"
@@ -28,35 +29,37 @@
 			"uglify-js",
 			"webpack"
 		],
-		"baseUrl": "./src",
+		"baseUrl": ".",
 		"paths": {
 			"ng2-qgrid/core/*": [
-				"../core/*"
-			],
-			"ng2-qgrid/*": [
-				"./*"
+				"./out-tsc/core/*"
 			],
 			"ng2-qgrid/plugin/*": [
-				"../plugin/*"
+				"./out-tsc/plugin/*"
+			],
+			"ng2-qgrid/*": [
+				"./out-tsc/src/*"
 			]
 		}
 	},
 	"files": [
-		"src/index.ts"
+		"./out-tsc/src/index.ts"
 	],
 	"exclude": [
 		"node_modules",
 		"dist",
 		"dll",
-		"scripts"
+		"scripts",
+		"out-tsc"
 	],
-	"compileOnSave": true,
-	"buildOnSave": true,
 	"angularCompilerOptions": {
 		"skipMetadataEmit": false,
 		"skipTemplateCodegen": true,
 		"strictMetadataEmit": true,
-		"genDir": "./dist",
-		"flatModuleId": "ng2-qgrid"
+		"genDir": "./dist/",
+		"fullTemplateTypeCheck": true,
+		"flatModuleOutFile": "main.js",
+		"flatModuleId": "main",
+		"annotationsAs": "decorators" 
 	}
 }

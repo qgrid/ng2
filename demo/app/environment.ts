@@ -8,29 +8,18 @@ let _decorateModuleRef = <T>(value: T): T => {
 	return value;
 };
 
-if ('production' === ENV) {
-	enableProdMode();
 
-	// Production
-	_decorateModuleRef = (modRef: any) => {
-		disableDebugTools();
+_decorateModuleRef = (modRef: any) => {
+	const appRef = modRef.injector.get(ApplicationRef);
+	const cmpRef = appRef.components[0];
 
-		return modRef;
-	};
+	const _ng = (window as any).ng;
+	enableDebugTools(cmpRef);
+	(window as any).ng.probe = _ng.probe;
+	(window as any).ng.coreTokens = _ng.coreTokens;
+	return modRef;
+};
 
-} else {
 
-	_decorateModuleRef = (modRef: any) => {
-		const appRef = modRef.injector.get(ApplicationRef);
-		const cmpRef = appRef.components[0];
-
-		const _ng = (window as any).ng;
-		enableDebugTools(cmpRef);
-		(window as any).ng.probe = _ng.probe;
-		(window as any).ng.coreTokens = _ng.coreTokens;
-		return modRef;
-	};
-
-}
 
 export const decorateModuleRef = _decorateModuleRef;

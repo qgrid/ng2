@@ -15,10 +15,10 @@ import { TemplateCacheService } from 'ng2-qgrid/template/template-cache.service'
 import { TemplateService } from 'ng2-qgrid/template/template.service';
 import { RootComponent } from 'ng2-qgrid/infrastructure/component/root.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
-import { Table } from 'ng2-qgrid/core/dom';
-import { AppError } from 'ng2-qgrid/core/infrastructure';
-import { TableCommandManager } from 'ng2-qgrid/core/command';
-import { isUndefined } from 'ng2-qgrid/core/utility';
+import { Table } from 'ng2-qgrid/core/dom/table';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
+import { TableCommandManager } from 'ng2-qgrid/core/command/table.command.manager';
+import { isUndefined } from 'ng2-qgrid/core/utility/index';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
@@ -60,6 +60,7 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 	@Input() sortBy;
 	@Input() sortMode;
 	@Input() filterUnit;
+	@Input() filterFetch;
 	@Input() editMode;
 	@Input() editEnter;
 	@Input() editCommit;

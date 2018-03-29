@@ -11,6 +11,10 @@ import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 import { ColumnFilterView } from 'ng2-qgrid/plugin/column-filter/column.filter.view';
 import { uniq, flatten } from 'ng2-qgrid/core/utility';
+import { VscrollService } from 'ng2-qgrid/common/vscroll/vscroll.service';
+import { VscrollContext } from 'ng2-qgrid/common/vscroll/vscroll.context';
+import { GridService } from 'ng2-qgrid/main/grid/grid.service';
+import { Fetch } from 'ng2-qgrid/core/infrastructure/fetch';
 
 @Component({
 	selector: 'q-grid-column-filter',
@@ -18,12 +22,19 @@ import { uniq, flatten } from 'ng2-qgrid/core/utility';
 })
 export class ColumnFilterComponent extends PluginComponent implements OnInit, OnDestroy {
 	@Input() public key: string;
+	@Input() public search = '';
+
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
-	private columnFilter: ColumnFilterView;
 
-	constructor( @Optional() root: RootService) {
+	private columnFilter: ColumnFilterView;
+	private vscrollContext: VscrollContext;
+
+	constructor(
+		@Optional() root: RootService,
+		private vscroll: VscrollService,
+		private qgrid: GridService) {
 		super(root);
 	}
 
@@ -33,36 +44,94 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 			key: this.key
 		};
 
-		const columnFilter =
-			this.columnFilter =
-			new ColumnFilterView(model, context);
+		const columnFilter = new ColumnFilterView(model, context);
 
-		this.using(this.columnFilter.submitEvent.on(() => this.submitEvent.emit()));
-		this.using(this.columnFilter.cancelEvent.on(() => this.cancelEvent.emit()));
+		this.using(columnFilter.submitEvent.on(() => this.submitEvent.emit()));
+		this.using(columnFilter.cancelEvent.on(() => this.cancelEvent.emit()));
 
-		this.context = { $implicit: this.columnFilter };
+		const vscrollContext = this.vscroll.context({
+			threshold: model.columnFilter().threshold,
+			fetch: (skip, take, d) => {
+				const filterState = model.filter();
+				const service = this.qgrid.service(model);
+				if (filterState.fetch !== this.qgrid.noop) {
+					const cancelBusy = service.busy();
+					const select = filterState
+						.fetch(this.key, {
+							skip,
+							take,
+							value: columnFilter.getValue,
+							filter: '' + this.search
+						});
 
-		const isBlank = model.filter().assertFactory().isNull;
-		if (!columnFilter.items.length) {
-			const source = model[model.columnFilter().source];
-			let items = source().rows.map(columnFilter.getValue);
-			if (columnFilter.column.type === 'array') {
-				items = flatten(items);
-			}
+					const fetch = new Fetch(select);
+					fetch.run();
+					fetch.busy
+						.then(items => {
+							columnFilter.items.push(...items);
+							d.resolve(columnFilter.items.length + take);
+							cancelBusy();
+						})
+						.catch(cancelBusy);
+						
+				} else {
+					const cancelBusy = service.busy();
+					const isBlank = model.filter().assertFactory().isNull;
+					try {
+						if (!columnFilter.items.length) {
+							const source = model[model.columnFilter().source];
+							let items = source().rows.map(columnFilter.getValue);
+							if (columnFilter.column.type === 'array') {
+								items = flatten(items);
+							}
 
-			const uniqItems = uniq(items);
-			const notBlankItems = uniqItems.filter(x => !isBlank(x));
-			const filteredItems = notBlankItems;
+							const uniqItems = uniq(items);
+							const notBlankItems = uniqItems.filter(x => !isBlank(x));
 
-			filteredItems.sort(columnFilter.column.compare);
-			columnFilter.items = filteredItems;
-			columnFilter.hasBlanks =
-				notBlankItems.length !== uniqItems.length &&
-				(!columnFilter.filter || 'blanks'.indexOf(columnFilter.filter.toLowerCase()) >= 0);
-		}
+							// TODO: improve search algo
+							const search = ('' + this.search).toLowerCase();
+							const filteredItems = search
+								? notBlankItems.filter(x => ('' + x).toLowerCase().indexOf(search) >= 0)
+								: notBlankItems;
+
+							filteredItems.sort(columnFilter.column.compare);
+							columnFilter.items = filteredItems;
+							columnFilter.hasBlanks =
+								notBlankItems.length !== uniqItems.length &&
+								(!search || 'blanks'.indexOf(search.toLowerCase()) >= 0);
+						}
+
+						d.resolve(columnFilter.items.length);
+					}
+					finally {
+						cancelBusy();
+					}
+				}
+			},
+		});
+
+		this.columnFilter = columnFilter;
+		this.vscrollContext = vscrollContext;
+
+		this.context = {
+			$implicit: columnFilter,
+			plugin: this,
+			vscroll: vscrollContext
+		};
+	}
+
+	reset() {
+		this.columnFilter.items = [];
+		this.vscrollContext.container.reset();
+	}
+
+	rowId(index: number) {
+		return index;
 	}
 
 	ngOnDestroy() {
+		super.ngOnDestroy();
+
 		this.columnFilter.dispose();
 	}
 }

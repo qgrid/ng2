@@ -3,7 +3,6 @@ import { ColumnSortModule } from './column-sort/column-sort.module';
 import { PagerModule } from './pagination/pager.module';
 import { ProgressModule } from './progress/progress.module';
 import { ColumnChooserModule } from './colum-chooser/column-chooser.module';
-import { PopupModule } from './popup/popup.module';
 import { DataManipulationModule } from './data-manipulation/data-manipulation.module';
 import { ActionBarModule } from './action-bar/action-bar.module';
 import { TitleModule } from './title/title.module';
@@ -36,7 +35,6 @@ Model.register('columnChooser', ColumnChooserModel)
 		ColumnChooserModule,
 		ColumnSortModule,
 		ColumnFilterModule,
-		PopupModule,
 		ProgressModule,
 		TitleModule,
 		MenuModule,
