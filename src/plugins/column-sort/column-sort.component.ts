@@ -25,6 +25,10 @@ export class ColumnSortComponent extends PluginComponent implements AfterViewIni
 
 	constructor(root: RootService, private view: ViewCoreService, private element: ElementRef, private zone: NgZone) {
 		super(root);
+
+		this.using(this.model.sortChanged.on(() => {
+			root.table.view.focus();
+		}));
 	}
 
 	ngAfterViewInit() {

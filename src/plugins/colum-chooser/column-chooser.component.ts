@@ -20,6 +20,12 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 		super(root);
 
 		this.models = ['columnChooser'];
+
+		this.using(this.model.columnListChanged.watch(e => {
+			if (e.tag.source === 'column.chooser') {
+				this.using(this.columnChooser.submitEvent.on(() => root.table.view.focus()));
+			}
+		}));
 	}
 
 	ngOnInit() {
