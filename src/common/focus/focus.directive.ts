@@ -7,7 +7,7 @@ import {
 	AfterViewInit,
 	NgZone
 } from '@angular/core';
-import { AppError } from 'ng2-qgrid/core/infrastructure';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 
 @Directive({
 	selector: '[q-grid-focus]'

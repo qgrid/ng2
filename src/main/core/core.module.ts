@@ -1,20 +1,25 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { ViewCoreComponent } from './view';
-import { ToolbarCoreComponent } from './toolbar';
-import { BodyCoreComponent, TdCoreDirective } from './body';
-import { HeadCoreComponent, ThCoreDirective } from './head';
-import { FootCoreComponent, TfCoreDirective } from './foot';
-import { CellHandlerComponent } from './cell';
-import { TrCoreDirective } from './row';
-import { VScrollService } from './scroll';
-import { MarkupDirective } from './markup';
+import { CommonModule } from '@angular/common';
+import { ViewCoreComponent } from './view/view-core.component';
+import { ToolbarCoreComponent } from './toolbar/toolbar-core.component';
+import { BodyCoreComponent } from './body/body-core.component';
+import { TdCoreDirective } from './body/td-core.directive';
+import { HeadCoreComponent } from './head/head-core.component';
+import { ThCoreDirective } from './head/th-core.directive';
+import { FootCoreComponent } from './foot/foot-core.component';
+import { TfCoreDirective } from './foot/tf-core.directive';
+import { CellHandlerComponent } from './cell/cell-handler.component';
+import { TrCoreDirective } from './row/tr-core.directive';
+import { VScrollService } from './scroll/vscroll.service';
+import { MarkupDirective } from './markup/markup.directive';
 import { TemplateCacheService } from 'ng2-qgrid/template/template-cache.service';
 import { TemplateService } from 'ng2-qgrid/template/template.service';
 import { TemplateModule } from 'ng2-qgrid/template/template.module';
-import { CommonModule } from 'ng2-qgrid/common';
-import { TableCoreComponent } from 'ng2-qgrid/main/core/table';
+import { CommonModule as GridCommonModule } from 'ng2-qgrid/common/common.module';
+import { TableCoreComponent } from 'ng2-qgrid/main/core/table/table-core.component';
 import { TdCoreAlignDirective } from 'ng2-qgrid/main/core/body/td-core-align.directive';
+import { LayerCoreComponent } from './layer/layer-core.component';
+import { LayerCoreDirective } from './layer/layer-core.directive';
 
 @NgModule({
 	declarations: [
@@ -30,16 +35,18 @@ import { TdCoreAlignDirective } from 'ng2-qgrid/main/core/body/td-core-align.dir
 		TfCoreDirective,
 		MarkupDirective,
 		TdCoreAlignDirective,
-		CellHandlerComponent
+		CellHandlerComponent,
+		LayerCoreComponent,
+		LayerCoreDirective
 	],
 	exports: [
 		ViewCoreComponent,
 		ToolbarCoreComponent
 	],
 	imports: [
-		BrowserModule,
 		TemplateModule,
-		CommonModule
+		CommonModule,
+		GridCommonModule
 	],
 	providers: [
 		VScrollService,

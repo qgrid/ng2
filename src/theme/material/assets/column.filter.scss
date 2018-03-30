@@ -9,7 +9,7 @@
 
 .q-grid-column-filter-trigger {
 	position: absolute;
-	right: 8px;
+	right: 2px;
 	transition: opacity 0.3s;
 	margin: 0 auto;
 	height: 16px;
@@ -54,9 +54,8 @@
 	width: 360px;
 	min-width: 360px;
 	max-width: 360px;
-}
-
-@at-root .q-grid-column-filter-panel {
+	height: 500px;
+	overflow: hidden;
 	ul {
 		list-style-type: none;
 		padding: 0;
@@ -64,13 +63,11 @@
 	.q-grid-column-filter-filter {
 		margin: 0;
 		padding: 0;
-		.md-errors-spacer {
-			display: none;
-		}
+		width: 100%;
 	}
 	.q-grid-column-filter-list {
 		overflow-y: auto;
-		height: 280px;
+		height: 300px;
 		margin-bottom: 14px;
 		ul {
 			margin: 0;

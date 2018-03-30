@@ -8,10 +8,11 @@ import {
 	AfterViewInit,
 	Optional
 } from '@angular/core';
-
-import { AppError, EventManager } from 'ng2-qgrid/core/infrastructure';
-import { EventListener as CoreListener } from 'ng2-qgrid/core/infrastructure';
-import { NgComponent, RootService } from 'ng2-qgrid/infrastructure/component';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
+import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
+import { EventListener as CoreListener } from 'ng2-qgrid/core/infrastructure/event.listener';
+import { NgComponent } from 'ng2-qgrid/infrastructure/component/ng.component';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 
 @Directive({
 	selector: '[q-grid-file-upload]'

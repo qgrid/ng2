@@ -1,6 +1,1 @@
-export interface ICompileResult{
-	(entry: object, value: any): string;
-}
-
-export declare function compile(path: string): ICompileResult;
-
+export declare function compile(path: string): (entry: object, value: any) => string;

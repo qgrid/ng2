@@ -1,4 +1,5 @@
-export declare class AppError extends Error{
+export declare class AppError extends Error {
 	constructor(name: string, message: string);
+
 	name: string;
 }

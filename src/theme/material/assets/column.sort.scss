@@ -1,115 +1,121 @@
 @import "variables";
 td.q-grid-sorted {
-    background-color: $selected;
-}
-
-th.q-grid-can-sort {
-    label {
-        cursor: pointer;
-    }
-    .q-grid-desc,
-    .q-grid-asc {
-        display: block;
-    }
-}
-
-&.q-grid-box:not(.q-grid-drag) {
-    th {
-        .q-grid-sort {
-            &:not(.q-grid-active):hover {
-                .q-grid-desc {
-                    opacity: 1;
-                }
-            }
-        }
-    }
+	background-color: $selected;
 }
 
 th {
-    .q-grid-sort {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin-left: -16px;
-        padding-left: 16px;
-        >* {
-            cursor: pointer;
-        }
-        &.q-grid-active {
-            label {
-                color: $dark;
-            }
-            .q-grid-icon {
-                color: $dark;
-            }
-        }
-        .q-grid-icon {
-            transition: opacity 0.30s;
-            opacity: 0;
-            position: absolute;
-            margin-left: -16px;
-            color: $dark-secondary;
-            font-size: 16px;
-            height: 16px;
-            width: 16px;
-            min-height: 16px;
-            min-width: 16px;
-            vertical-align: middle;
-            &.q-grid-active {
-                opacity: 1;
-            }
-        }
-        &.q-grid-hide {
-            .q-grid-icon {
-                opacity: 0 !important;
-            }
-        }
-    }
+	.q-grid-desc,
+	.q-grid-asc {
+		display: none;
+	}
+	&.q-grid-can-sort {
+		.q-grid-sort {
+			cursor: pointer;
+		}
+		.q-grid-desc,
+		.q-grid-asc {
+			display: block;
+		}
+	}
+}
+
+&.q-grid-box:not(.q-grid-drag) {
+	th {
+		.q-grid-sort {
+			&:not(.q-grid-active):hover {
+				.q-grid-desc {
+					opacity: 1;
+				}
+			}
+		}
+	}
+}
+
+th {
+	.q-grid-sort {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		margin-left: -16px;
+		padding-left: 16px;
+		label {
+			display: inline;
+		}
+		&.q-grid-active {
+			label {
+				color: $dark;
+			}
+			.q-grid-icon {
+				color: $dark;
+			}
+		}
+		.q-grid-icon {
+			transition: opacity 0.3s;
+			opacity: 0;
+			position: absolute;
+			margin-left: -16px;
+			color: $dark-secondary;
+			font-size: 16px;
+			height: 16px;
+			width: 16px;
+			min-height: 16px;
+			min-width: 16px;
+			vertical-align: middle;
+			&.q-grid-active {
+				opacity: 1;
+			}
+		}
+		&.q-grid-hide {
+			.q-grid-icon {
+				opacity: 0 !important;
+			}
+		}
+	}
 }
 
 @keyframes arrow-animation-up {
-    0% {
-        transform: rotate(180deg)
-    }
-    25% {
-        transform: rotate(220deg)
-    }
-    50% {
-        transform: rotate(270deg)
-    }
-    75% {
-        transform: rotate(300deg)
-    }
-    100% {
-        transform: rotate(360deg)
-    }
+	0% {
+		transform: rotate(180deg)
+	}
+	25% {
+		transform: rotate(220deg)
+	}
+	50% {
+		transform: rotate(270deg)
+	}
+	75% {
+		transform: rotate(300deg)
+	}
+	100% {
+		transform: rotate(360deg)
+	}
 }
 
 @keyframes arrow-animation-down {
-    0% {
-        transform: rotate(-180deg)
-    }
-    25% {
-        transform: rotate(-220deg)
-    }
-    50% {
-        transform: rotate(-270deg)
-    }
-    75% {
-        transform: rotate(-300deg)
-    }
-    100% {
-        transform: rotate(-360deg)
-    }
+	0% {
+		transform: rotate(-180deg)
+	}
+	25% {
+		transform: rotate(-220deg)
+	}
+	50% {
+		transform: rotate(-270deg)
+	}
+	75% {
+		transform: rotate(-300deg)
+	}
+	100% {
+		transform: rotate(-360deg)
+	}
 }
 
 .q-grid-icon.q-grid-asc.q-grid-active {
-    animation-name: arrow-animation-up;
-    animation-duration: .2s;
-    animation-iteration-count: 1;
+	animation-name: arrow-animation-up;
+	animation-duration: .2s;
+	animation-iteration-count: 1;
 }
 
 .q-grid-icon.q-grid-desc.q-grid-active {
-    animation-name: arrow-animation-down;
-    animation-duration: .2s;
-    animation-iteration-count: 1;
+	animation-name: arrow-animation-down;
+	animation-duration: .2s;
+	animation-iteration-count: 1;
 }

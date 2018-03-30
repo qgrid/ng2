@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Guard } from 'ng2-qgrid/core/infrastructure';
+import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 import { GroupView } from 'ng2-qgrid/core/group/group.view';
 import { FilterView } from 'ng2-qgrid/core/filter/filter.view';
 import { PivotView } from 'ng2-qgrid/core/pivot/pivot.view';
@@ -16,11 +16,11 @@ import { NavigationView } from 'ng2-qgrid/core/navigation/navigation.view';
 import { ScrollView } from 'ng2-qgrid/core/scroll/scroll.view';
 import { StyleView } from 'ng2-qgrid/core/style/style.view';
 import { RowDetailsView } from 'ng2-qgrid/core/row-details/row.details.view';
-import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { GridService } from 'ng2-qgrid/main/grid/grid.service';
-import { VScrollService } from 'ng2-qgrid/main/core/scroll';
+import { VScrollService } from 'ng2-qgrid/main/core/scroll/vscroll.service';
 import { viewFactory } from 'ng2-qgrid/core/view/view.factory';
-import { noop } from 'ng2-qgrid/core/utility';
+import { noop } from 'ng2-qgrid/core/utility/index';
 
 @Injectable()
 export class ViewCoreService {

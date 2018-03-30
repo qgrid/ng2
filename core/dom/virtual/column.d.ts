@@ -1,5 +1,5 @@
-import {Column} from '../column';
+import { Column } from '../column';
 
 export declare class VirtualColumn extends Column {
-  constructor();
+	constructor();
 }

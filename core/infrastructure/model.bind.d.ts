@@ -1,13 +1,10 @@
-import {INoopResult} from '../utility/utility';
-import {Model} from './model';
-
-export interface IBindResult {
-	(): void;
-}
+import { Model } from './model';
 
 export declare class ModelBinder {
 	constructor(source: object);
+
 	source: object;
-	off: INoopResult;
-	bind(model: Model, names?: string[], run?: boolean): IBindResult;
+	off: () => void;
+
+	bind(model: Model, names?: string[], run?: boolean): () => void;
 }

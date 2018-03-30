@@ -1,0 +1,6 @@
+{
+  "name": "ng2-qgrid/plugins/cell-editor",
+  "version": "5.3.0",
+  "main": "../../bundles/main.js",
+  "typings": "./cell-editor.module.d.ts"
+}

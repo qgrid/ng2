@@ -47,7 +47,6 @@ module.exports = function (env) {
 	return webpackMerge({}, {
 		entry: {
 			[`main${min ? '.min' : ''}`]: helpers.root('dist', 'index.js'),
-			// [`material${min ? '.min' : ''}`]: helpers.root('dist', 'themes', 'material', 'theme.module'),
 			'vendor': [
 				'@angular/platform-browser',
 				'@angular/platform-browser-dynamic',
@@ -83,7 +82,7 @@ module.exports = function (env) {
 			 *
 			 * See: http://webpack.github.io/docs/configuration.html#output-path
 			 */
-			path: helpers.root('dist'),
+			path: helpers.root('dist/bundles'),
 
 			/**
 			 * Specifies the name of each output file on disk.

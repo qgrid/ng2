@@ -1,8 +1,8 @@
 <ng-template key='body-cell-url.tpl.html'
              let-$cell
              let-$view="$view">
-    <a [attr.href]='$cell.value'
-       (bind)="$cell.label || $cell.value">
+    <a [attr.href]='$cell.value'>
+       {{$cell.label || $cell.value}}
     </a>
     <button *ngIf="$view.edit.cell.canEdit($cell)"
             class="q-grid-url-edit q-grid-edit-trigger"

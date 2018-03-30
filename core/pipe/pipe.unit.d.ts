@@ -1,13 +1,13 @@
-import { IPipe } from './pipe.item';
+import {IContext, IMemo} from './pipe.item';
 
 /**
  * > Under Construction.
  */
 export declare class PipeUnit {
-    static readonly default: [IPipe<any>];
-    static readonly view: [IPipe<any>];
-    static readonly column: [IPipe<any>];
-    static readonly row: [IPipe<any>];
-    static readonly rowDetails: [IPipe<any>];
-    static readonly group: [IPipe<any>];
+	static readonly default: [(memo: any, context: IContext, next: (param: IMemo) => void) => any];
+	static readonly view: [(memo: any, context: IContext, next: (param: IMemo) => void) => any];
+	static readonly column: [(memo: any, context: IContext, next: (param: IMemo) => void) => any];
+	static readonly row: [(memo: any, context: IContext, next: (param: IMemo) => void) => any];
+	static readonly rowDetails: [(memo: any, context: IContext, next: (param: IMemo) => void) => any];
+	static readonly group: [(memo: any, context: IContext, next: (param: IMemo) => void) => any];
 }

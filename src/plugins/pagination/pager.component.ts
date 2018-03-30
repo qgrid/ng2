@@ -1,5 +1,5 @@
 import { Component, Input, Optional, OnDestroy, OnInit } from '@angular/core';
-import { Command } from 'ng2-qgrid/core/command';
+import { Command } from 'ng2-qgrid/core/command/command';
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { PagerView } from 'ng2-qgrid/plugin/pager/pager.view';
@@ -21,11 +21,15 @@ export class PagerComponent extends PluginComponent implements OnInit, OnDestroy
 	}
 
 	ngOnInit() {
+		super.ngOnInit();
+
 		this.pager = new PagerView(this.model);
 		this.context = { $implicit: this.pager };
 	}
 
 	ngOnDestroy() {
+		super.ngOnDestroy();
+		
 		this.pager.dispose();
 	}
 }

@@ -1,11 +1,11 @@
-import {Command} from '../command/command';
+import { Command } from '../command/command';
 
 /**
  * A class that allows to apply styles to rows and cells.
- * 
+ *
  * ### Usage
- * 
- * ```javascript	
+ *
+ * ```javascript
  *    gridModel.style({
  *        row: (row, context) => {
  *            if (row.gender === 'female') {
@@ -38,39 +38,38 @@ import {Command} from '../command/command';
  *        }
  *    });
  * ```
- * 
+ *
  * ### Suggested Links
- * 
+ *
  * * [Style View](/doc/api/style-view.html)
  * * [style.monitor.js](https://github.com/qgrid/ng2/blob/master/core/style/style.monitor.js)
  */
 
 export declare class StyleModel {
-    constructor();
+	constructor();
 
-    /**
-     * Style row.
-     */
-    row: any;
-    
-    /**
-     * Style cell.
-     */
-    cell: any;
-    
-    /**
-     * On invalidate.
-     */
-    invalidate: Command;
+	/**
+	 * Style row.
+	 */
+	row: any;
 
-    /**
-     * Queue of row styles that can be used internally or in plugins. 
-     */
-    rows: any[];
-    
-    
-    /**
-     * Queue of cell styles that can be used internally or in plugins. 
-     */
-    cells: any[];
+	/**
+	 * Style cell.
+	 */
+	cell: any;
+
+	/**
+	 * On invalidate.
+	 */
+	invalidate: Command;
+
+	/**
+	 * Queue of row styles that can be used internally or in plugins.
+	 */
+	rows: any[];
+
+	/**
+	 * Queue of cell styles that can be used internally or in plugins.
+	 */
+	cells: any[];
 }

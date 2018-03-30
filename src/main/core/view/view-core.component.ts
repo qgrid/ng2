@@ -8,12 +8,13 @@ import {
 	DoCheck,
 	AfterViewChecked
 } from '@angular/core';
-import { NgComponent, RootService } from 'ng2-qgrid/infrastructure/component';
+import { NgComponent } from 'ng2-qgrid/infrastructure/component/ng.component';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Log } from 'ng2-qgrid/core/infrastructure/log';
-import { GridService } from 'ng2-qgrid/main/grid';
-import { CellService } from '../cell';
+import { GridService } from 'ng2-qgrid/main/grid/grid.service';
+import { CellService } from '../cell/cell.service';
 import { ViewCoreService } from './view-core.service';
 import { ViewCtrl } from 'ng2-qgrid/core/view/view.ctrl';
 
@@ -31,12 +32,16 @@ export class ViewCoreComponent extends NgComponent
 		private root: RootService,
 		private view: ViewCoreService,
 		private grid: GridService,
-		private zone: NgZone) {
+		private zone: NgZone,
+		private elementRef: ElementRef) {
 		super();
+
 	}
 
 	ngOnInit() {
 		super.ngOnInit();
+
+		this.root.markup['view'] = this.elementRef.nativeElement;
 
 		// Views should be inited after `sceneChanged.watch` declaration
 		// to persiste the right order of event sourcing.
@@ -59,7 +64,7 @@ export class ViewCoreComponent extends NgComponent
 						break;
 					}
 				}
-			} 
+			}
 
 			if (e.hasChanges('round') && e.state.round > 0) {
 				if (!NgZone.isInAngularZone()) {

@@ -22,7 +22,7 @@ import { NoContentComponent } from './no-content';
 
 import { DataService } from '../data/data.service';
 
-import { GridModule } from 'ng2-qgrid';
+import { GridModule } from 'ng2-qgrid/grid.module';
 import { ThemeModule } from 'ng2-qgrid/theme/material';
 
 /**

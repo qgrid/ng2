@@ -7,8 +7,8 @@ import { Table } from '../dom/table';
  * > Under Construction.
  */
 export declare class HighlightView extends View {
-    constructor(model: Model, table: Table);
+	constructor(model: Model, table: Table);
 
-    column: Command;
-    row: Command;
+	column: Command;
+	row: Command;
 }

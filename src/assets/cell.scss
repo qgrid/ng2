@@ -21,6 +21,12 @@ th {
 	}
 }
 
+&.q-grid-box:not(.q-grid-drag) {
+	td, th {
+		transition: min-width 0.3s, width 0.3s, max-width 0.3s;
+	}
+}
+
 thead {
 	th {
 		> div {

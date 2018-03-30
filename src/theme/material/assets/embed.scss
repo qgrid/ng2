@@ -1,51 +1,100 @@
-//@import "animationa/arrows";
-
-.q-grid-embed {
-	margin: 16px 0;
-	.q-grid-progress {
-		bottom: 10px;
-	}
-	.q-grid.q-grid-theme-material {
-		.q-grid-view {
-			tr {
-				height: 32px;
-			}
-			thead tr th {
-				color: rgba(0, 127, 163, 0.77);
-				background-color: rgba(0, 0, 0, 0.04);
-				.q-grid-sort.q-grid-active {
-					&+label {
-						color: rgb(0, 127, 163);
-					}
-				}
-			}
-			td {
-				&.q-grid-text-area {
-					>span {
-						max-height: 30px;
-					}
-				}
-				&.q-grid-image {
-					> img {
-						height: 32px;
-					}
-				}
-			}
-			.q-grid-edit {
-				&.q-grid-row-options {
-					button {
-						width: 24px;
-						height: 24px;
-						line-height: 24px;
-					}
-				}
-			}
-			.q-grid-title {
-				h3 {
-					margin: 0;
-					padding: 0;
-				}
-			}
-		}
-	}
+.q-grid-embed,
+.q-grid-lcc {
+    font-family: Roboto;
+    .q-grid {
+        .q-grid {
+            &-title {
+                h2 {
+                    font-size: 24px;
+                    font-weight: normal;
+                    font-style: normal;
+                    text-align: left;
+                    color: #006f8f;
+                }
+            }
+            &-sort {
+                margin-left: 0px;
+            }
+            &-text {
+                font-size: 13px;
+            }
+            &-table {
+                tr {
+                    height: 30px;
+                }
+                th {
+                    font-size: 12px !important;
+                    color: #006f8f !important;
+                    font-weight: normal !important;
+                    line-height: 14px;
+                    &:hover label {
+                        font-weight: normal !important;
+                    }
+                    .q-grid-icon {
+                        line-height: 14px;
+                        font-size: 14px;
+                    }
+                    .q-grid-column-filter-trigger {
+                        line-height: 14px;
+                        height: 14px;
+                    }
+                    .q-grid-sort {
+                        &.q-grid-active {
+                            label {
+                                color: inherit;
+                            }
+                        }
+                    }
+                }
+                td {
+                    font-size: 16px;
+                    line-height: 16px;
+                    font-weight: normal;
+                    &.q-grid-text-area {
+                        >span {
+                            white-space: nowrap;
+                        }
+                    }
+                    &.q-grid-array {
+                        li {
+                            padding: 2px 8px;
+                        }
+                    }
+                    &.q-grid-edit {
+                        &.q-grid-row-options {
+                            button {
+                                width: 24px;
+                                height: 24px;
+                                line-height: 24px;
+                            }
+                        }
+                    }
+                }
+            }
+            &-legend {
+                &-list {
+                    font-size: 16px !important;
+                    text-align: left !important;
+                    color: #000000 !important;
+                }
+                &-item {
+                    width: 8px !important;
+                    height: 8px !important;
+                    margin-right: 18px !important;
+                    margin-bottom: 2px !important;
+                }
+            }
+            &-progress {
+                &-linear {
+                    top: -15px;
+                }
+            }
+            &-pager {
+                padding: 11px 0;
+            }
+            &-legend-list {
+                margin-top: 15px;
+            }
+        }
+    }
 }

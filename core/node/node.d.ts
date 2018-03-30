@@ -15,14 +15,14 @@ export declare class Node {
 
 	/**
 	 * Type of the node.
-	 * 
+	 *
 	 * * `'group'`
 	 * * `'row'`
 	 * * `'value'`
-	 * 
+	 *
 	 */
 	type: string;
-	
+
 	/**
 	 * List of row indicies that belongs to the node.
 	 */

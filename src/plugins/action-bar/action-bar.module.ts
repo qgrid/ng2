@@ -1,20 +1,20 @@
-import { TemplateModule } from '../../template/index';
+import { TemplateModule } from '../../template/template.module';
 import { NgModule } from '@angular/core';
-import { ActionBarCoreComponent } from './action-bar-core.component';
 import { ActionBarComponent } from './action-bar.component';
+import { ActionListComponent } from './action-list.component';
 import { ActionCoreComponent } from './action-core.component';
 import { ActionComponent } from './action.component';
 
 @NgModule({
 	declarations: [
 		ActionBarComponent,
-		ActionBarCoreComponent,
+		ActionListComponent,
 		ActionComponent,
 		ActionCoreComponent
 	],
 	exports: [
 		ActionBarComponent,
-		ActionBarCoreComponent,
+		ActionListComponent,
 		ActionComponent,
 		ActionCoreComponent
 	],

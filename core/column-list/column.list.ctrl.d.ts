@@ -8,12 +8,8 @@ export declare class ColumnListCtrl extends View {
 		parseFactory: (type: string, source: any) => (v: any) => any)
 
 	copy(target: any, source: any): void;
-
 	add(column: ColumnModel): void;
-
 	register(column: ColumnModel): void;
-
 	generateKey(source: any): string;
-
 	extract(key: string, type: string): ColumnModel;
 }

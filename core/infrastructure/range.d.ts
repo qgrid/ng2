@@ -1,6 +1,6 @@
 export declare class Range {
-	constructor(start: Number, end: Number);
+	constructor(start: number, end: number);
 
-	start: Number;
-	end: Number;
+	start: number;
+	end: number;
 }

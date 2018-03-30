@@ -7,6 +7,8 @@ import * as xlsx from 'xlsx';
 import * as pdf from 'jspdf';
 import 'jspdf-autotable';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
+import { Command } from 'ng2-qgrid/pub/infrastructure';
+import { uniq } from 'ng2-qgrid/core/utility';
 
 const isUndef = v => v === undefined;
 
@@ -16,6 +18,8 @@ const isUndef = v => v === undefined;
 })
 export class HomeComponent {
 	public rows: Human[] = [];
+
+	searchCommand: Command = new Command();
 
 	public columns = [
 		{
@@ -69,7 +73,8 @@ export class HomeComponent {
 				isUndef(value) ? item.comment || '' : (item.comment = value),
 			editor: 'text-area',
 			width: 200,
-			maxLength: 8000
+			maxLength: 8000,
+			viewWidth: 400
 		},
 		{
 			key: 'password',
@@ -201,7 +206,7 @@ export class HomeComponent {
 			value: (item, value) =>
 				isUndef(value)
 					? item.webPage ||
-						`https://corp.portal.com/${item.name.last}.${item.name.first}`
+					`https://corp.portal.com/${item.name.last}.${item.name.first}`
 					: (item.webPage = value),
 			label: (item, label) =>
 				isUndef(label)
@@ -231,11 +236,16 @@ export class HomeComponent {
 		}
 	];
 
-	private gridModel: Model;
+	gridModel: Model;
+	filterFetch = this.fetch.bind(this);
+
 	constructor(private dataService: DataService, public qgrid: Grid) {
 		this.gridModel = qgrid.model();
+		this.loadData();
+	}
 
-		dataService.getPeople(100).subscribe(people => {
+	loadData() {
+		this.dataService.getPeople(100).subscribe(people => {
 			this.rows = people;
 
 			people.forEach((row, i) => (row.id = i));
@@ -248,7 +258,7 @@ export class HomeComponent {
 		// this.gridModel.data({
 		// 	pipe: [
 		// 		(memo, context, next) =>
-		// 			dataService.getPeople(100).subscribe(people => {
+		// 			this.dataService.getPeople(100).subscribe(people => {
 		// 				this.rows = people;
 
 		// 				people.forEach((row, i) => (row.id = i));
@@ -258,7 +268,26 @@ export class HomeComponent {
 		// 					'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
 		// 				next(people);
 		// 			})
-		// 	].concat(qgrid.pipeUnit.default)
+		// 	].concat(this.qgrid.pipeUnit.default)
 		// });
+	}
+
+	private fetch(key: string, context) {
+		return this.dataService.getPeople(100).map(people => {
+			const data = people.map(context.value);
+			const uniqData = uniq(data);
+			const search = context.filter.toLowerCase();
+			const filteredData = search
+				? uniqData.filter(x => ('' + x).toLowerCase().indexOf(search) >= 0)
+				: uniqData;
+
+			filteredData.sort();
+			const page = filteredData.slice(context.skip, context.skip + context.take);
+			return page;
+		});
+	}
+
+	clearData() {
+		this.rows = [];
 	}
 }

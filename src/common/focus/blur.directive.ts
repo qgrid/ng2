@@ -1,7 +1,6 @@
 import { Directive, OnInit, Input, Renderer2, ElementRef } from '@angular/core';
-import { AppError } from 'ng2-qgrid/core/infrastructure';
-
-import { noop } from 'ng2-qgrid/core/utility';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
+import { noop } from 'ng2-qgrid/core/utility/index';
 
 @Directive({
 	selector: '[q-grid-on-blur]'

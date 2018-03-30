@@ -11,9 +11,11 @@
 		"importHelpers": true,
 		"strictNullChecks": false,
 		"skipLibCheck": true,
+		"outDir": "./dist/",
+		"declaration": true,
 		"lib": [
 			"dom",
-			"es6"
+			"es6",
 		],
 		"typeRoots": [
 			"node_modules/@types"
@@ -22,26 +24,31 @@
 			"hammerjs",
 			"jasmine",
 			"node",
-			"source-map",
 			"uglify-js",
 			"webpack"
 		],
-		"baseUrl": "./",
+		"baseUrl": ".",
 		"paths": {
 			"ng2-qgrid/core/*": [
-				"core/*"
-			],
-			"ng2-qgrid/*": [
-				"src/*"
+				"./core/*"
 			],
 			"ng2-qgrid/plugin/*": [
-				"plugin/*"
+				"./plugin/*"
+			],
+			"ng2-qgrid/*": [
+				"./src/*"
 			]
 		}
 	},
+	"files": [
+		"./src/index.ts"
+	],
 	"exclude": [
 		"node_modules",
-		"dist"
+		"dist",
+		"dll",
+		"scripts",
+		"out-tsc"
 	],
 	"compileOnSave": true,
 	"buildOnSave": true,

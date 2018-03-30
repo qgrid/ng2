@@ -1,5 +1,4 @@
 import { View } from '../view/view';
-import { SingleOrMultipleMode } from '../row/row.model';
 import { Model } from '../infrastructure/model';
 import { Table } from '../dom/table';
 import { GridService } from '../services/grid';
@@ -8,9 +7,9 @@ import { GridService } from '../services/grid';
  * > Under Construction.
  */
 export declare class ScrollView extends View {
-    constructor(model: Model, table: Table, vscroll: any);
+	constructor(model: Model, table: Table, vscroll: any);
 
-    invalidate(): void;
+	readonly mode: 'virtual' | 'default';
 
-    readonly mode: SingleOrMultipleMode;
+	invalidate(): void;
 }

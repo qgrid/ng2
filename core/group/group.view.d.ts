@@ -9,15 +9,12 @@ import { GridService } from '../services/grid';
  * > Under Construction.
  */
 export class GroupView extends View {
-    constructor(model: Model, table: Table, commandManager: CommandManager, service: GridService);
+	constructor(model: Model, table: Table, commandManager: CommandManager, service: GridService);
 
-    toggleStatus: Command;
+	toggleStatus: Command;
 
-    count(node: Node): number;
-
-    status(node: Node): 'expand' | 'collapse';
-
-    offset(node: Node): number;
-
-    value(node: Node): string;
+	count(node: Node): number;
+	status(node: Node): 'expand' | 'collapse';
+	offset(node: Node): number;
+	value(node: Node): string;
 }

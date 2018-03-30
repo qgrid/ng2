@@ -6,27 +6,23 @@ import { CommandManager } from '../command/command.manager';
 import { Command } from '../command/command';
 import { Model } from '../infrastructure/model';
 import { Table } from '../dom/table';
-import { GridService } from '../services/grid';
 
 /**
  * > Under Construction.
  */
 export declare class SelectionView extends View {
-    constructor(model: Model, table: Table, commandManager: CommandManager);
+	constructor(model: Model, table: Table, commandManager: CommandManager);
 
-    readonly selection: SelectionModel;
-    readonly rows: any[];
-    readonly columns: ColumnModel[];
+	readonly selection: SelectionModel;
+	readonly rows: any[];
+	readonly columns: ColumnModel[];
 
-    toggleRow: Command;
-    toggleCell: Command;
-    toggleColumn: Command
+	toggleRow: Command;
+	toggleCell: Command;
+	toggleColumn: Command;
 
-    selectRange(startCell: CellView, endCell: CellView, source?: string): void;
-
-    state(item: any): boolean;
-
-    isIndeterminate(item: any): boolean;
-
-    destroy(): void;
+	selectRange(startCell: CellView, endCell: CellView, source?: string): void;
+	state(item: any): boolean;
+	isIndeterminate(item: any): boolean;
+	destroy(): void;
 }

@@ -9,5 +9,6 @@ export interface ICell {
 
 export declare class SelectorMark {
 	constructor(model: Model, markup: object, name: string);
+
 	select(): ICell[];
 }
