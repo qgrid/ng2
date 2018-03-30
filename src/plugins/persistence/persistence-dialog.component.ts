@@ -1,7 +1,7 @@
 import { Component, Inject, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
-import { PluginComponent } from 'ng2-qgrid/plugins';
-import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { PluginComponent } from 'ng2-qgrid/plugins/plugin.component';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 
 @Component({
 	selector: 'q-grid-persistence-dialog',

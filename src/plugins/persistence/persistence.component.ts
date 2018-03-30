@@ -1,5 +1,5 @@
 import { Component, Optional, Input, Output, EventEmitter } from '@angular/core';
-import { RootService } from 'ng2-qgrid/infrastructure/component';
+import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 import { PersistenceView } from 'ng2-qgrid/plugin/persistence/persistence.view';
 import { Command } from 'ng2-qgrid/core/command/command';
@@ -7,7 +7,7 @@ import { Action } from 'ng2-qgrid/core/action/action';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PersistenceDialogComponent } from 'ng2-qgrid/plugins/persistence/persistence-dialog.component';
 import { Composite } from 'ng2-qgrid/core/infrastructure/composite';
-import { TemplateService } from 'ng2-qgrid/template';
+import { TemplateService } from 'ng2-qgrid/template/template.service';
 
 const PersistenceName = 'qGridPersistence';
 
