@@ -8,6 +8,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PersistenceDialogComponent } from 'ng2-qgrid/plugins/persistence/persistence-dialog.component';
 import { Composite } from 'ng2-qgrid/core/infrastructure/composite';
 import { TemplateService } from 'ng2-qgrid/template/template.service';
+import { PersistenceService } from 'ng2-qgrid/core/persistence/persistence.service';
 
 const PersistenceName = 'qGridPersistence';
 
@@ -16,10 +17,11 @@ const PersistenceName = 'qGridPersistence';
 	template: ''
 })
 export class PersistenceComponent extends PluginComponent {
-
 	private persistence: PersistenceView;
 
-	constructor( @Optional() root: RootService, private dialog: MatDialog, private templateService: TemplateService) {
+	constructor(@Optional() root: RootService,
+		private dialog: MatDialog,
+		private templateService: TemplateService) {
 		super(root);
 
 		this.models = ['persistence'];
@@ -33,6 +35,7 @@ export class PersistenceComponent extends PluginComponent {
 				new Command({
 					source: 'persistence',
 					execute: () => {
+						this.persistence.title = this.persistence.stringify();
 						const templateLink = this.templateService.find('plugin-persistence.tpl.html');
 						const dialogRef = this.dialog.open(templateLink.template, {
 							data: this.persistence

@@ -59,7 +59,6 @@ import { VscrollModule } from 'ng2-qgrid/common/vscroll/vscroll.module';
 		MatMenuModule,
 		MatCardModule,
 		MatListModule,
-		MatGridListModule,
 		PipeModule,
 		VscrollModule
 	],

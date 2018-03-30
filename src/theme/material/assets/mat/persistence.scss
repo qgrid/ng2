@@ -1,7 +1,18 @@
 @import "../../../../assets/scroll.scss";
+@import "../variables.scss";
 @at-root .q-grid-persistence-panel {
+	$default-icon-size: 14px;
+
 	@include scroll();
 	width: 400px;
+	.mat-dialog-content {
+		display: flex;
+		flex-direction: column;
+		max-height: 480px;
+		> div {
+			flex: 0 0;
+		}
+	}
 	.q-grid-persistence-header {
 		margin: 0 0 8px 0;
 		color: rgba(0, 0, 0, .54);
@@ -19,74 +30,73 @@
 		}
 	}
 	.q-grid-persistence-default-icon {
-		max-width: 14px;
+		max-width: $default-icon-size;
+		min-width: $default-icon-size;
+		max-height: $default-icon-size;
+		min-height: $default-icon-size;
+		margin-bottom: $default-icon-size;
 		.q-grid-icon {
-			vertical-align: middle;
-			color: rgba(0, 0, 0, .54);
-			font-size: 14px;
-			height: 14px;
-			width: 14px;
+			color: $dark-secondary;
+			font-size: $default-icon-size;
+			height: $default-icon-size;
+			width: $default-icon-size;
 		}
 	}
 	.q-grid-persistence-list {
-		height: 390px;
-		overflow-y: auto;
-		.q-grid-persistence-selected {
-			background-color: #f5f5f5;
+		padding: 0;
+		overflow: auto;
+		> .q-grid-persistence-list-item {
+			height: 40px;
 		}
 	}
 	.q-grid-persistence-list-item {
+		font-size: 13px;
+		&.q-grid-persistence-selected {
+			background-color: #f5f5f5;
+		}
+		&.mat-list-item {
+			.mat-list-item-content {
+				padding: 0 6px;
+			}
+		}
 		.mat-button {
-			text-align: left;
+			line-height: 13px;
+			flex: 1 1;
 			padding: 0 6px;
-			height: 28px;
 		}
-		div {
-			color: rgba(0, 0, 0, 0.87);
-			width: 100%;
-			height: 100%;
-			line-height: 14px;
-			font-size: 14px;
-			> div {
-				text-transform: uppercase;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
+		.mat-list[dense] {
+			padding: 0;
+			.mat-list-item {
+				height: 40px;
+			}
+			.mat-list-item-content {
+				padding: 0;
+				text-align: left;
 			}
 		}
-		ul {
-			margin: 0;
-			padding: 0;
-			line-height: 12px;
-			margin-top: 2px;
-			li {
-				display: inline-block;
-				min-width: 16px;
-				text-align: center;
-				white-space: nowrap;
-				vertical-align: middle;
-				font-size: 12px;
-				line-height: 12px;
-				color: rgba(0, 0, 0, 0.54);
-				margin-right: 4px;
-				&.q-grid-tag {
-					background-color: #e0e0e0;
-					border-radius: 12px;
-					padding: 2px 4px;
-					text-transform: lowercase;
-				}
-			}
+		h3 {
+			text-transform: uppercase;
 		}
-		.mat-input-container {
-			height: 40px;
-			min-height: 40px;
+		.q-grid-selected-item-modified {
+			color: $dark-secondary;
+		}
+	}
+	.q-grid-persistence-item-edit {
+		flex: 1;
+		padding: 0 6px;
+		.mat-form-field-infix {
 			width: 100%;
-			margin: 0;
-			padding: 0;
 		}
 	}
 	.q-grid-more {
-		mat-icon {
+		.mat-button {
+			min-width: 24px;
+			.mat-button-focus-overlay {
+				background-color:transparent;
+			}
+		}
+		.mat-icon {
+			color: $dark-secondary;
 			line-height: 20px;
 			font-size: 20px;
 		}
