@@ -16,6 +16,7 @@ import { SelectModule } from './select/select.module';
 import { LegendModule } from './legend/legend.module';
 import { ChipsModule } from './chips/chips.module';
 import { ReferenceEditorModule } from './reference-editor/reference-editor.module';
+import { PersistenceModule } from './persistence/persistence.module';
 import { ColumnChooserModel } from 'ng2-qgrid/plugin/column-chooser/column.chooser.model';
 import { ColumnFilterModel } from 'ng2-qgrid/plugin/column-filter/column.filter.model';
 import { DataManipulationModel } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.model';
@@ -46,7 +47,8 @@ Model.register('columnChooser', ColumnChooserModel)
 		SelectModule,
 		StatusBarModule,
 		LegendModule,
-		ChipsModule
+		ChipsModule,
+		PersistenceModule
 	]
 })
 export class PluginModule {}
