@@ -73,7 +73,6 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 							cancelBusy();
 						})
 						.catch(cancelBusy);
-						
 				} else {
 					const cancelBusy = service.busy();
 					const isBlank = model.filter().assertFactory().isNull;

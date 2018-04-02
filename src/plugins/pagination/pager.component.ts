@@ -29,7 +29,7 @@ export class PagerComponent extends PluginComponent implements OnInit, OnDestroy
 
 	ngOnDestroy() {
 		super.ngOnDestroy();
-		
+
 		this.pager.dispose();
 	}
 }
