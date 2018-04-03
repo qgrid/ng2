@@ -16,21 +16,21 @@ export class FocusService extends DisposableView {
 		this.root.table.view.focus();
 	}
 
-	activateAfterRender(state: string, ...conditions) {
+	activateAfterRender(state: string, ...args) {
 		this.using(this.model[`${state}Changed`].on(e => {
-			switch (conditions.length) {
+			switch (args.length) {
 				case 0: {
 					this.focus();
 					break;
 				}
 				case 1: {
-					if (e.tag.source === conditions[0]) {
+					if (e.tag.source === args[0]) {
 						this.focus();
 					}
 					break;
 				}
 				case 2: {
-					if (e.tag.source === conditions[0] && e.state.status === conditions[1]) {
+					if (e.tag.source === args[0] && e.state.status === args[1]) {
 						this.focus();
 					}
 					break;
