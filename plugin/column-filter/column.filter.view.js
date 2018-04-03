@@ -56,7 +56,7 @@ export class ColumnFilterView extends PluginView {
 
 			toggleAll: new Command({
 				source: 'column.filter.view',
-				execute: () => {
+				execute: search => {
 					const state = !this.stateAll();
 					if (state) {
 						for (let item of this.items) {
@@ -64,7 +64,16 @@ export class ColumnFilterView extends PluginView {
 						}
 					}
 					else {
-						this.by.clear();
+						if (search) {
+							for (let item of this.by) {
+								if (this.items.indexOf(item) >= 0) {
+									this.by.delete(item);
+								}
+							}
+						}
+						else {
+							this.by.clear();
+						}
 					}
 
 					this.byBlanks = this.hasBlanks && state;

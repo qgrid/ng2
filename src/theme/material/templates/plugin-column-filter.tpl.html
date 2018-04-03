@@ -20,7 +20,7 @@
 			<ul class="q-grid-column-filter-toolbar">
 				<li>
 					<mat-checkbox [checked]="$columnFilter.stateAll()"
-					              (change)="$columnFilter.toggleAll.execute()"
+					              (change)="$columnFilter.toggleAll.execute($plugin.search)"
 					              [indeterminate]="$columnFilter.isIndeterminate()">
 						Select All
 					</mat-checkbox>
