@@ -4,7 +4,7 @@ import { Model } from '../infrastructure';
 import { GRID_PREFIX } from '../definition';
 import { View } from '../view/view';
 import { Shortcut } from '../shortcut/shortcut';
-import { fastdom } from '../services/fastdom';
+import { Fastdom } from '../services/fastdom';
 
 export class GridCtrl extends View {
 	constructor(model, context) {
@@ -81,13 +81,13 @@ export class GridCtrl extends View {
 		const view = this.table.view;
 		const model = this.model;
 		if (view.isFocused()) {
-			fastdom.mutate(() => {
+			Fastdom.mutate(() => {
 				view.addClass(activeClassName);
 			});
 			model.focus({ isActive: true });
 		}
 		else {
-			fastdom.mutate(() => {
+			Fastdom.mutate(() => {
 				view.removeClass(activeClassName);
 			});
 			model.focus({ isActive: false });

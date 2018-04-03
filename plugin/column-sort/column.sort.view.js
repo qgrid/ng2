@@ -1,7 +1,7 @@
 import { PluginView } from '../plugin.view';
 import { GRID_PREFIX } from '../../core/definition';
 import { Command } from '../../core/command/command';
-import { fastdom } from '../../core/services/fastdom';
+import { Fastdom } from '../../core/services/fastdom';
 
 const GRID_ACTIVE_CLASS = `${GRID_PREFIX}-active`;
 const GRID_HIDE_CLASS = `${GRID_PREFIX}-hide`;
@@ -19,7 +19,7 @@ export class ColumnSortView extends PluginView {
 		this.using(model.sortChanged.watch(e => {
 			if (e.hasChanges('by')) {
 				if (view.sort.order(column) < 0) {
-					fastdom.mutate(() => {
+					Fastdom.mutate(() => {
 						element.classList.add(GRID_HIDE_CLASS);
 						element.classList.remove(GRID_ACTIVE_CLASS);
 
@@ -31,7 +31,7 @@ export class ColumnSortView extends PluginView {
 					const oldIcon = direction === 'asc' ? iconDesc : iconAsc;
 					const newIcon = direction === 'asc' ? iconAsc : iconDesc;
 
-					fastdom.mutate(() => {
+					Fastdom.mutate(() => {
 						element.classList.add(GRID_ACTIVE_CLASS);
 						element.classList.remove(GRID_HIDE_CLASS);
 
@@ -55,7 +55,7 @@ export class ColumnSortView extends PluginView {
 	}
 
 	onMouseLeave() {
-		fastdom.mutate(() => {
+		Fastdom.mutate(() => {
 			this.element.classList.remove(GRID_HIDE_CLASS);
 		});
 	}

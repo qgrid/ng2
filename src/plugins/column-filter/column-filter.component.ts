@@ -71,7 +71,7 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 					fetch.busy
 						.then(page => {
 							items.push(...page);
-							d.resolve(items.length + (page.length === take ? take: 0));
+							d.resolve(items.length + (page.length === take ? take : 0));
 							cancelBusy();
 						})
 						.catch(cancelBusy);

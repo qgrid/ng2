@@ -13,6 +13,7 @@ import { PluginModule } from './plugins/plugin.module';
 import { FocusModule } from './common/focus/focus.module';
 import { RowComponent } from './main/core/row/row.component';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
+import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 
 @NgModule({
 	declarations: [],
@@ -42,5 +43,7 @@ export class GridModule {
 
 			return defer;
 		};
+
+		Fastdom.invoke = task => zone.runOutsideAngular(task);
 	}
 }

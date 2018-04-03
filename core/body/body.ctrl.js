@@ -1,6 +1,6 @@
 import { PathService } from '../path';
 import { View } from '../view/view';
-import { fastdom } from '../services/fastdom';
+import { Fastdom } from '../services/fastdom';
 
 const MOUSE_LEFT_BUTTON = 1;
 
@@ -45,7 +45,7 @@ export class BodyCtrl extends View {
 			const table = this.table;
 			const upper = 0;
 
-			fastdom.measure(() => {
+			Fastdom.measure(() => {
 				const lower = table.view.scrollHeight() - table.view.height();
 				const top = Math.min(lower, Math.max(upper, scroll().top + e.deltaY));
 

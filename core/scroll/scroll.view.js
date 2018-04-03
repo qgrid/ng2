@@ -1,7 +1,7 @@
 import { View } from '../view';
 import { Log } from '../infrastructure';
 import { isFunction } from '../utility';
-import { fastdom } from '../services/fastdom';
+import { Fastdom } from '../services/fastdom';
 
 export class ScrollView extends View {
 	constructor(model, table, vscroll) {
@@ -98,7 +98,7 @@ export class ScrollView extends View {
 		const table = this.table;
 		const scroll = this.model.scroll();
 
-		fastdom.mutate(() => {
+		Fastdom.mutate(() => {
 			table.view.scrollLeft(scroll.left);
 			table.view.scrollTop(scroll.top);
 		});

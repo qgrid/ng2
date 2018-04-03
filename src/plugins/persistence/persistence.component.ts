@@ -1,4 +1,4 @@
-import { Component, Optional, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Optional, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 import { PersistenceView } from 'ng2-qgrid/plugin/persistence/persistence.view';
@@ -16,7 +16,7 @@ const PersistenceName = 'qGridPersistence';
 	selector: 'q-grid-persistence',
 	template: ''
 })
-export class PersistenceComponent extends PluginComponent {
+export class PersistenceComponent extends PluginComponent implements OnInit, OnDestroy {
 	private persistence: PersistenceView;
 
 	constructor(@Optional() root: RootService,

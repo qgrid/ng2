@@ -6,7 +6,7 @@ import { CellSelector } from '../cell';
 import { SelectionService } from '../selection';
 import { noop } from '../utility';
 import { GRID_PREFIX } from '../definition';
-import { fastdom } from '../services/fastdom';
+import { Fastdom } from '../services/fastdom';
 
 export class HighlightView extends View {
 	constructor(model, table) {
@@ -196,7 +196,7 @@ export class HighlightView extends View {
 			return noop;
 		}
 
-		fastdom.mutate(() => {
+		Fastdom.mutate(() => {
 			const head = table.head;
 			head.column(index).addClass(`${GRID_PREFIX}-${cls}`);
 			head.column(index - 1).addClass(`${GRID_PREFIX}-${cls}-prev`);
@@ -216,7 +216,7 @@ export class HighlightView extends View {
 		}
 
 		return () => {
-			fastdom.mutate(() => {
+			Fastdom.mutate(() => {
 				const head = table.head;
 				head.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
 				head.column(index - 1).removeClass(`${GRID_PREFIX}-${cls}-prev`);
@@ -233,7 +233,7 @@ export class HighlightView extends View {
 			return noop;
 		}
 
-		fastdom.mutate(() => {
+		Fastdom.mutate(() => {
 			table.body.row(index).addClass(`${GRID_PREFIX}-${cls}`);
 		});
 
@@ -247,13 +247,13 @@ export class HighlightView extends View {
 		}
 
 		return () =>
-			fastdom.mutate(() => {
+			Fastdom.mutate(() => {
 				table.body.row(index).removeClass(`${GRID_PREFIX}-${cls}`);
 			});
 	}
 
 	highlightCell(cell, cls) {
-		fastdom.mutate(() => {
+		Fastdom.mutate(() => {
 			cell.addClass(`${GRID_PREFIX}-${cls}`);
 		});
 
@@ -262,7 +262,7 @@ export class HighlightView extends View {
 
 	blurCell(cell, cls) {
 		return () =>
-			fastdom.mutate(() => {
+			Fastdom.mutate(() => {
 				cell.removeClass(`${GRID_PREFIX}-${cls}`);
 			});
 	}

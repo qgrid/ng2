@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
-import { fastdom } from 'ng2-qgrid/core/services/fastdom';
+import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 
 @Component({
 	selector: 'q-grid-cell-handler',
@@ -47,7 +47,7 @@ export class CellHandlerComponent implements OnInit {
 						});
 					}
 
-					fastdom.measure(() => {
+					Fastdom.measure(() => {
 						const target = domCell.element;
 						const scrollState = model.scroll();
 						const top = (target.offsetTop - scrollState.top) + 'px';
@@ -55,7 +55,7 @@ export class CellHandlerComponent implements OnInit {
 						const width = target.offsetWidth + 'px';
 						const height = target.offsetHeight + 'px';
 
-						fastdom.mutate(() => {
+						Fastdom.mutate(() => {
 							element.style.top = top;
 							element.style.left = left;
 							element.style.width = width;

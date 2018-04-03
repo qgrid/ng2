@@ -3,7 +3,7 @@ import { Command } from '../command';
 import { Navigation } from './navigation';
 import { GRID_PREFIX } from '../definition';
 import { CellView } from '../scene/view';
-import { fastdom } from '../services/fastdom';
+import { Fastdom } from '../services/fastdom';
 
 export class NavigationView extends View {
 	constructor(model, table, commandManager) {
@@ -113,12 +113,12 @@ export class NavigationView extends View {
 		const column = navState.columnIndex;
 		const cell = this.table.body.cell(row, column);
 		if (cell.model()) {
-			fastdom.mutate(() => {
+			Fastdom.mutate(() => {
 				cell.addClass(`${GRID_PREFIX}-focused`);
 			});
 
 			dispose.push(() =>
-				fastdom.mutate(() => {
+				Fastdom.mutate(() => {
 					cell.removeClass(`${GRID_PREFIX}-focused`);
 				}));
 		}
@@ -127,7 +127,7 @@ export class NavigationView extends View {
 	}
 
 	scroll(view, target) {
-		fastdom.measure(() => {
+		Fastdom.measure(() => {
 			const tr = target.rect();
 			const vr = view.rect();
 			const oldScrollState = this.model.scroll();
