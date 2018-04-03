@@ -4,19 +4,15 @@ import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 
 @Injectable()
 export class FocusService extends DisposableView {
+	private model;
+
 	constructor(@Optional() private root: RootService) {
 		super();
 
 		this.model = root.model;
 	}
 
-	private model;
-
-	private focus() {
-		this.root.table.view.focus();
-	}
-
-	activateAfterRender(state: string, ...args) {
+	activateAfterRender(state: string, ...args): void {
 		this.using(this.model[`${state}Changed`].on(e => {
 			switch (args.length) {
 				case 0: {
@@ -37,5 +33,9 @@ export class FocusService extends DisposableView {
 				}
 			}
 		}));
+	}
+
+	private focus(): void {
+		this.root.table.view.focus();
 	}
 }
