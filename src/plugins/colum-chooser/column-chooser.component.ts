@@ -23,7 +23,10 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 
 		this.models = ['columnChooser'];
 
-		focus.activateAfterRender('scene', 'column.chooser', 'stop');
+		focus.activateAfterRender('scene', {
+			source: 'column.chooser',
+			status: 'stop'
+		});
 	}
 
 	ngOnInit() {

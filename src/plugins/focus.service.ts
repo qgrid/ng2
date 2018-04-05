@@ -1,6 +1,12 @@
-import {Injectable, Optional} from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { DisposableView } from 'ng2-qgrid/core/view/disposable.view';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
+import { isUndefined } from 'ng2-qgrid/core/utility';
+
+export interface IEventArgs {
+	source?: string;
+	status?: string;
+}
 
 @Injectable()
 export class FocusService extends DisposableView {
@@ -12,21 +18,23 @@ export class FocusService extends DisposableView {
 		this.model = root.model;
 	}
 
-	activateAfterRender(state: string, ...args): void {
+	activateAfterRender(state: string, args?: IEventArgs): void {
 		this.using(this.model[`${state}Changed`].on(e => {
-			switch (args.length) {
-				case 0: {
+			const params = isUndefined(args) ? 'empty' : Object.keys(args).join('&');
+
+			switch (params) {
+				case 'empty': {
 					this.focus();
 					break;
 				}
-				case 1: {
-					if (e.tag.source === args[0]) {
+				case 'source': {
+					if (e.tag.source === args.source) {
 						this.focus();
 					}
 					break;
 				}
-				case 2: {
-					if (e.tag.source === args[0] && e.state.status === args[1]) {
+				case 'source&status': {
+					if (e.tag.source === args.source && e.state.status === args.status) {
 						this.focus();
 					}
 					break;
