@@ -1,8 +1,8 @@
 import { Injectable, Optional } from '@angular/core';
 import { DisposableView } from 'ng2-qgrid/core/view/disposable.view';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { isUndefined } from 'ng2-qgrid/core/utility';
-import {AppError} from "ng2-qgrid/core/infrastructure/error";
 
 export interface IEventArgs {
 	source?: string;
