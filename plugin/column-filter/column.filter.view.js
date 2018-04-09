@@ -40,6 +40,12 @@ export class ColumnFilterView extends PluginView {
 		return !this.stateAll() && (this.items.some(this.state.bind(this)) || this.byBlanks);
 	}
 
+	isEmpty() {
+		const by = Array.from(this.by);
+
+		return by.length;
+	}
+
 	get commands() {
 		return {
 			toggle: new Command({

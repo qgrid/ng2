@@ -73,6 +73,17 @@
 			margin: 0;
 		}
 	}
+
+	.q-grid-column-filter-chips {
+		height: 65px;
+		overflow-y: scroll;
+		margin-bottom: 6px;
+
+		li {
+			display: inline;
+		}
+	}
+
 	.q-grid-column-filter-actions {
 		padding: 7px 0;
 	}

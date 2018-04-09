@@ -26,6 +26,16 @@
 					</mat-checkbox>
 				</li>
 			</ul>
+			<div *ngIf="$columnFilter.isEmpty()" class="q-grid-column-filter-chips">
+				<ul>
+					<li *ngFor="let item of $columnFilter.by">
+						<q-grid-chip
+							[item]="item"
+							[columnFilter]="$columnFilter">
+						</q-grid-chip>
+					</li>
+				</ul>
+			</div>
 			<div class="q-grid-column-filter-list"
 			     q-grid-vscroll>
 				<ul [q-grid-vscroll-port-y]="$vscroll">

@@ -1,0 +1,10 @@
+<ng-template key="plugin-chip.tpl.html" let-$chip>
+	<div *ngIf="$chip.visibility" class="q-grid-chip">
+		<div class="q-grid-chip-item">
+			{{$chip.item}}
+		</div>
+		<div class="q-grid-chip-close" (click)="$chip.close()">
+			<mat-icon class="q-grid-chip-close-icon">clear</mat-icon>
+		</div>
+	</div>
+</ng-template>
