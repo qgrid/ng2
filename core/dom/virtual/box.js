@@ -1,12 +1,13 @@
-import {VirtualCell} from './cell';
-import {VirtualRow} from './row';
-import {VirtualColumn} from './column';
-import {Box} from '../box';
-import {CellBox} from './cell.box';
-import {RowBox} from './row.box';
-import {ColumnBox} from './column.box';
-import {VirtualElement} from './element';
-import {isFunction} from '../../utility';
+import { VirtualCell } from './cell';
+import { VirtualRow } from './row';
+import { VirtualColumn } from './column';
+import { Box } from '../box';
+import { CellBox } from './cell.box';
+import { RowBox } from './row.box';
+import { ColumnBox } from './column.box';
+import { VirtualElement } from './element';
+import { isFunction } from '../../utility';
+import { Event } from '../../infrastructure/event';
 
 export class VirtualBox extends Box {
 	constructor(context, model, selectorMark) {
@@ -15,6 +16,7 @@ export class VirtualBox extends Box {
 		this.cellBox = new CellBox(context);
 		this.rowBox = new RowBox(context);
 		this.columnBox = new ColumnBox(context);
+		this.changed = new Event();
 	}
 
 	addCellClass(cell, name, force = false) {
@@ -23,6 +25,7 @@ export class VirtualBox extends Box {
 		}
 		else {
 			this.cellBox.addClass(cell, name);
+			this.changed.emit({ source: 'addCellClass' });
 		}
 	}
 
@@ -32,6 +35,7 @@ export class VirtualBox extends Box {
 		}
 		else {
 			this.cellBox.removeClass(cell, name);
+			this.changed.emit({ source: 'removeCellClass' });
 		}
 	}
 
@@ -41,6 +45,7 @@ export class VirtualBox extends Box {
 		}
 		else {
 			this.rowBox.addClass(row, name);
+			this.changed.emit({ source: 'addRowClass' });
 		}
 	}
 
@@ -50,6 +55,7 @@ export class VirtualBox extends Box {
 		}
 		else {
 			this.rowBox.removeClass(row, name);
+			this.changed.emit({ source: 'removeRowClass' });
 		}
 	}
 
@@ -59,6 +65,7 @@ export class VirtualBox extends Box {
 		}
 		else {
 			this.columnBox.addClass(column, name);
+			this.changed.emit({ source: 'addColumnClass' });
 		}
 	}
 
@@ -68,6 +75,7 @@ export class VirtualBox extends Box {
 		}
 		else {
 			this.columnBox.removeClass(column, name);
+			this.changed.emit({ source: 'removeColumnClass' });
 		}
 	}
 

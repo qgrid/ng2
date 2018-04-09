@@ -45,19 +45,19 @@ export class Fetch {
 	}
 
 	invoke(instance, resolve, reject) {
-		if (isFunction(instance.then)) {
+		if (instance && isFunction(instance.then)) {
 			// when options.fetch returns promise
 			instance.then(resolve);
 			if (isFunction(instance.catch)) {
 				instance.catch(reject);
 			}
-		} else if (isFunction(instance.subscribe)) {
+		} else if (instance && isFunction(instance.subscribe)) {
 			// when options.fetch returns observable
 			let subscription = instance.subscribe(
 				(...args) => {
 					resolve(...args);
 					if (subscription && isFunction(subscription.unsubscribe)) {
-						subscription.unsubscribe()
+						subscription.unsubscribe();
 						subscription = null;
 					}
 				},

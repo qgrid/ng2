@@ -98,6 +98,8 @@ export class View extends Unit {
 			if (markup.body) {
 				markup.body.scrollLeft = value;
 			}
+
+			return;
 		}
 
 		return this.getElement().scrollLeft;
@@ -107,6 +109,8 @@ export class View extends Unit {
 		if (arguments.length) {
 			this.getElementsCore('body')
 				.forEach(element => element.scrollTop = value);
+
+			return;
 		}
 
 		return this.getElement().scrollTop;
@@ -116,6 +120,7 @@ export class View extends Unit {
 		if (arguments.length) {
 			this.getElementsCore('body')
 				.forEach(element => element.scrollTop = value);
+			return;
 		}
 
 		return this.getElement().scrollHeight;

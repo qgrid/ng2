@@ -19,6 +19,7 @@ export class VscrollContainer {
 	resetEvent = new EventEmitter<any>();
 	updateEvent = new EventEmitter<any>();
 	drawEvent = new EventEmitter<any>();
+	deferred = null;
 
 	tick(f: () => void) {
 		rAF(f);
@@ -62,7 +63,7 @@ export class VscrollContainer {
 			this.page = currentPage;
 
 			new Promise<number>((resolve, reject) => {
-				const deferred = { resolve, reject };
+				const deferred = this.deferred = { resolve, reject };
 				if (currentPage === 0) {
 					settings.fetch(0, threshold, deferred);
 				} else {
@@ -77,11 +78,15 @@ export class VscrollContainer {
 			}).then(nextCount => {
 				this.force = true;
 				this.update(nextCount);
-			});
+			}).catch(() => this.deferred = null);
 		}
 	}
 
 	reset() {
+		if (this.deferred) {
+			this.deferred = null;
+		}
+
 		this.count = 0;
 		this.total = 0;
 		this.position = 0;
