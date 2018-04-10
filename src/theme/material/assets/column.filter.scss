@@ -73,7 +73,7 @@
 		}
 	}
 
-	.q-grid-column-filter-chips {
+	.q-grid-column-filter-by {
 		height: 57px;
 		overflow-y: scroll;
 		overflow-x: hidden;
@@ -99,7 +99,7 @@
 	}
 }
 
-@at-root .q-grid-chip {
+@at-root .q-grid-filter-by {
 	display: inline-flex;
 	background-color: #EBEBEB;
 	margin-right: 2px;

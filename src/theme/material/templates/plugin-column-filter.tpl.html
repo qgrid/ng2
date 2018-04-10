@@ -26,15 +26,10 @@
 					</mat-checkbox>
 				</li>
 			</ul>
-			<div *ngIf="$columnFilter.isEmpty()" class="q-grid-column-filter-chips">
-				<ul>
-					<li *ngFor="let item of $columnFilter.by">
-						<q-grid-column-filter-by
-							[item]="item"
-							[by]="$columnFilter.by">
-						</q-grid-column-filter-by>
-					</li>
-				</ul>
+			<div *ngIf="$columnFilter.isEmpty()" class="q-grid-column-filter-by">
+				<q-grid-column-filter-by
+					[by]="$columnFilter.by">
+				</q-grid-column-filter-by>
 			</div>
 			<div class="q-grid-column-filter-list" [style.height.px]="$columnFilter.isEmpty() ? '255' : '317'"
 			     q-grid-vscroll>

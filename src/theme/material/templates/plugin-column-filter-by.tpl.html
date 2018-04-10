@@ -1,10 +1,14 @@
-<ng-template key="plugin-column-filter-by.tpl.html" let-$chip>
-	<div *ngIf="$chip.visibility" class="q-grid-chip">
-		<div class="q-grid-chip-item">
-			{{$chip.item}}
-		</div>
-		<div class="q-grid-chip-close" (click)="$chip.close()">
-			<mat-icon class="q-grid-chip-close-icon">clear</mat-icon>
-		</div>
-	</div>
+<ng-template key="plugin-column-filter-by.tpl.html" let-$filterBy>
+	<ul>
+		<li *ngFor="let item of $filterBy.by; let i = index">
+			<div *ngIf="$filterBy.isVisible(i)" class="q-grid-filter-by">
+				<div class="q-grid-filter-by-item">
+					{{item}}
+				</div>
+				<div class="q-grid-filter-by-close" (click)="$filterBy.close(i)">
+					<mat-icon class="q-grid-filter-by-close-icon">clear</mat-icon>
+				</div>
+			</div>
+		</li>
+	</ul>
 </ng-template>
