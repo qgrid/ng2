@@ -1,10 +1,15 @@
 @at-root .q-grid-chip {
 	display: inline-flex;
-	background-color: #d3d3d3;
+	background-color: #EBEBEB;
 	margin-right: 2px;
-	border-radius: 3px;
-	padding: 0 3px;
+	border-radius: 100px;
+	padding: 0 14px;
 	margin-bottom: 3px;
+
+	&-item {
+		font-size: 12px;
+		margin: 2px 7px 1px -4px;
+	}
 
 	&-close {
 		width: 5px;
@@ -13,10 +18,12 @@
 		cursor: pointer;
 
 		&-icon {
-			font-size: 8px;
+			top: 2px;
+			font-size: 14px;
 			width: 5px;
 			height: 5px;
 			position: absolute;
+			color: #C8C8C8;
 		}
 	}
 
