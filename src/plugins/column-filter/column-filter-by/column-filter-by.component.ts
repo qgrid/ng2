@@ -3,10 +3,10 @@ import { PluginComponent } from 'ng2-qgrid/plugins/plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 
 @Component({
-	selector: 'q-grid-chip',
-	templateUrl: './chip.component.html'
+	selector: 'q-grid-column-filter-by',
+	templateUrl: './column-filter-by.component.html'
 })
-export class ChipComponent extends PluginComponent implements OnInit {
+export class ColumnFilterByComponent extends PluginComponent implements OnInit {
 	@Input() public by: Set<string>;
 	@Input() public item: string;
 
