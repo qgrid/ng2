@@ -5,8 +5,7 @@ import { ColumnFilterView } from 'ng2-qgrid/plugin/column-filter/column.filter.v
 
 @Component({
 	selector: 'q-grid-chip',
-	templateUrl: './chip.component.html',
-	styleUrls: ['./chip.component.scss']
+	templateUrl: './chip.component.html'
 })
 export class ChipComponent extends PluginComponent implements OnInit {
 	@Input() public columnFilter: ColumnFilterView;
