@@ -23,6 +23,9 @@ export class ScrollView extends View {
 
 		this.y = vscroll.factory(settings);
 
+		this.y.container.read = Fastdom.measure;
+		this.y.container.write = Fastdom.mutate;
+
 		this.y.container.drawEvent.on(e => {
 			scroll({ cursor: e.position }, {
 				source: 'scroll.view',
