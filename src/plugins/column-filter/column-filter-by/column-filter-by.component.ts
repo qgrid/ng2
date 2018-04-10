@@ -18,8 +18,8 @@ export class ColumnFilterByComponent extends PluginComponent {
 	}
 
 	close(index: number): void {
-		const arr = Array.from(this.by);
+		const items = Array.from(this.by);
 
-		this.by.delete(arr[index]);
+		this.by.delete(items[index]);
 	}
 }
