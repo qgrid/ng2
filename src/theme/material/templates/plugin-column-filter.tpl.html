@@ -31,7 +31,7 @@
 					<li *ngFor="let item of $columnFilter.by">
 						<q-grid-chip
 							[item]="item"
-							[columnFilter]="$columnFilter">
+							[by]="$columnFilter.by">
 						</q-grid-chip>
 					</li>
 				</ul>

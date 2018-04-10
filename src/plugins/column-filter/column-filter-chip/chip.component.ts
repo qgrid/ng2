@@ -8,18 +8,16 @@ import { ColumnFilterView } from 'ng2-qgrid/plugin/column-filter/column.filter.v
 	templateUrl: './chip.component.html'
 })
 export class ChipComponent extends PluginComponent implements OnInit {
-	@Input() public columnFilter: ColumnFilterView;
+	@Input() public by: Set<string>;
 	@Input() public item: string;
 
 	private visibility;
-	private by;
 
 	constructor(@Optional() root: RootService) {
 		super(root);
 	}
 
 	ngOnInit() {
-		this.by = this.columnFilter.by;
 		this.visibility = this.by.has(this.item);
 	}
 
