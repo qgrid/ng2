@@ -9,7 +9,8 @@ import {
 	ElementRef,
 	EmbeddedViewRef,
 	ComponentRef,
-	NgZone
+	NgZone,
+	ApplicationRef
 } from '@angular/core';
 import { TemplateCacheService } from 'ng2-qgrid/template/template-cache.service';
 import { TemplateService } from 'ng2-qgrid/template/template.service';
@@ -27,6 +28,8 @@ import { ThemeService } from 'ng2-qgrid/template/theme.service';
 import { GridService } from './grid.service';
 import { TemplateLinkService } from '../../template/template-link.service';
 import { LayerService } from '../core/layer/layer.service';
+import { jobLine } from 'ng2-qgrid/core/services/job.line';
+import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 
 @Component({
 	selector: 'q-grid',
@@ -80,7 +83,8 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 		private element: ElementRef,
 		private theme: ThemeService,
 		private zone: NgZone,
-		private layerService: LayerService
+		private layerService: LayerService,
+		private app: ApplicationRef
 	) {
 		super();
 
@@ -134,7 +138,21 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 		const windowListener = new EventListener(element, new EventManager(this));
 
 		this.using(windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl)));
-		this.using(listener.on('keydown', e => ctrl.keyDown(e)));
+
+		const navDebounce = model.navigation().debounce;
+		if (navDebounce) {
+			const navJob = new jobLine(navDebounce);
+			this.zone.runOutsideAngular(() => {
+				this.using(listener.on('keydown', e => {
+					const result = ctrl.keyDown(e);
+					if (result.indexOf('navigation') >= 0) {
+						navJob(() => this.app.tick());
+					}
+				}));
+			});
+		} else {
+			this.using(listener.on('keydown', e => ctrl.keyDown(e)));
+		}
 	}
 
 	get visibility() {

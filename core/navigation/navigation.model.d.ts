@@ -30,4 +30,11 @@ export declare class NavigationModel {
 	 * Focused cell column.
 	 */
 	readonly column: ColumnModel;
+
+	/**
+	 * Appropriate framework tick timeout while navigation by keyboard is occured.
+	 * * For angularjs - digest is called.
+	 * * For angular - ApplicationRef.tick is called.
+	 */
+	debounce: number;
 }
