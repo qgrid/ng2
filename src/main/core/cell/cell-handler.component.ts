@@ -44,6 +44,10 @@ export class CellHandlerComponent implements OnInit {
 						this.job(() => {
 							element.classList.remove('q-grid-active');
 							domCell.removeClass('q-grid-animate');
+						}).catch(() => {
+							Fastdom.mutate(() => {
+								domCell.removeClass('q-grid-animate');
+							});
 						});
 					}
 
