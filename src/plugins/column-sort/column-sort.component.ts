@@ -14,12 +14,12 @@ import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { ColumnSortView } from 'ng2-qgrid/plugin/column-sort/column.sort.view';
 import { EventListener, EventManager } from 'ng2-qgrid/core/infrastructure';
 import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
-import { FocusService } from 'ng2-qgrid/plugins/focus.service';
+import { FocusAfterRender } from 'ng2-qgrid/plugins/focus.service';
 
 @Component({
 	selector: 'q-grid-column-sort',
 	templateUrl: './column-sort.component.html',
-	providers: [FocusService]
+	providers: [FocusAfterRender]
 })
 export class ColumnSortComponent extends PluginComponent implements AfterViewInit, OnDestroy {
 	@Input() public column;
@@ -29,10 +29,8 @@ export class ColumnSortComponent extends PluginComponent implements AfterViewIni
 					private view: ViewCoreService,
 					private element: ElementRef,
 					private zone: NgZone,
-					private focus: FocusService) {
+					private focus: FocusAfterRender) {
 		super(root);
-
-		focus.activateAfterRender('sort');
 	}
 
 	ngAfterViewInit() {
