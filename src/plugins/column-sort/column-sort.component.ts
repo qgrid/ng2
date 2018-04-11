@@ -29,7 +29,7 @@ export class ColumnSortComponent extends PluginComponent implements AfterViewIni
 					private view: ViewCoreService,
 					private element: ElementRef,
 					private zone: NgZone,
-					private focus: FocusAfterRender) {
+					focus: FocusAfterRender) {
 		super(root);
 	}
 

@@ -19,7 +19,7 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 	private columnChooser: ColumnChooserView;
 
 	constructor(
-		@Optional() root: RootService, private focus: FocusAfterRender) {
+		@Optional() root: RootService, focus: FocusAfterRender) {
 		super(root);
 
 		this.models = ['columnChooser'];
