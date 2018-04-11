@@ -75,10 +75,15 @@
 
 	.q-grid-column-filter-by {
 		height: 57px;
-		overflow-y: scroll;
+		overflow-y: auto;
 		overflow-x: hidden;
 		margin-bottom: 10px;
 		margin-top: -5px;
+
+		&-no-selection {
+			text-align: center;
+			color: #C8C8C8;
+		}
 
 		ul {
 			margin-top: 0;
@@ -112,19 +117,21 @@
 		margin: 2px 7px 1px -4px;
 	}
 
-	&-close {
+	&-remove {
 		width: 5px;
 		height: 5px;
 		position: relative;
 		cursor: pointer;
+	}
 
-		&-icon {
-			top: 2px;
-			font-size: 14px;
-			width: 5px;
-			height: 5px;
-			position: absolute;
-			color: #C8C8C8;
-		}
+	.q-grid-icon {
+		top: 2px;
+		font-size: 14px;
+		width: 5px;
+		height: 5px;
+		position: absolute;
+		color: #C8C8C8;
 	}
 }
+
+

@@ -1,12 +1,12 @@
-<ng-template key="plugin-column-filter-by.tpl.html" let-$filterBy>
+<ng-template key="plugin-column-filter-by.tpl.html" let-$columnFilterBy>
 	<ul>
-		<li *ngFor="let item of $filterBy.by; let i = index">
-			<div *ngIf="$filterBy.isVisible(i)" class="q-grid-filter-by">
+		<li *ngFor="let item of $columnFilterBy.by">
+			<div class="q-grid-filter-by">
 				<div class="q-grid-filter-by-item">
 					{{item}}
 				</div>
-				<div class="q-grid-filter-by-close" (click)="$filterBy.close(i)">
-					<mat-icon class="q-grid-filter-by-close-icon">clear</mat-icon>
+				<div class="q-grid-filter-by-remove" (click)="$columnFilterBy.remove(item)">
+					<mat-icon class="q-grid-icon">clear</mat-icon>
 				</div>
 			</div>
 		</li>

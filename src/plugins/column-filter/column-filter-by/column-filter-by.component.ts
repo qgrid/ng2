@@ -13,13 +13,7 @@ export class ColumnFilterByComponent extends PluginComponent {
 		super(root);
 	}
 
-	isVisible(index: number): boolean {
-		return !this.by[index];
-	}
-
-	close(index: number): void {
-		const items = Array.from(this.by);
-
-		this.by.delete(items[index]);
+	remove(item: string): void {
+		this.by.delete(item);
 	}
 }

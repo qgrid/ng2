@@ -21,7 +21,6 @@ import { ColumnChooserModel } from 'ng2-qgrid/plugin/column-chooser/column.choos
 import { ColumnFilterModel } from 'ng2-qgrid/plugin/column-filter/column.filter.model';
 import { DataManipulationModel } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.model';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
-import { ColumnFilterByModule } from 'ng2-qgrid/plugins/column-filter/column-filter-by/column-filter-by.module';
 
 Model.register('columnChooser', ColumnChooserModel)
 	.register('columnFilter', ColumnFilterModel)
@@ -47,8 +46,7 @@ Model.register('columnChooser', ColumnChooserModel)
 		BackdropModule,
 		SelectModule,
 		LegendModule,
-		ChipsModule,
-		ColumnFilterByModule
+		ChipsModule
 	]
 })
 export class PluginModule {}

@@ -43,7 +43,7 @@ export class ColumnFilterView extends PluginView {
 	isEmpty() {
 		const by = Array.from(this.by);
 
-		return by.length;
+		return !by.length;
 	}
 
 	get commands() {
