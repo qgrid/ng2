@@ -25,4 +25,14 @@ $duration: 0.15s;
     &.q-grid-active {
         display: block;
     }
+
+	.q-grid-marker{
+		position: absolute;
+		width: 10px;
+		height: 10px;
+		bottom: 0;
+		right: 0;
+		background-color: red;
+	}
 }
+

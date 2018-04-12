@@ -1,6 +1,7 @@
 import { PathService } from '../path';
 import { View } from '../view/view';
 import { Fastdom } from '../services/fastdom';
+import { CellEditor } from '../edit/edit.cell.editor';
 
 const MOUSE_LEFT_BUTTON = 1;
 
@@ -12,6 +13,7 @@ export class BodyCtrl extends View {
 		this.bag = bag;
 		this.table = table;
 		this.rangeStartCell = null;
+		this.allowBatch = false;
 	}
 
 	onScroll(e) {
@@ -66,6 +68,17 @@ export class BodyCtrl extends View {
 
 			const editMode = this.model.edit().mode;
 			if (selectionState.mode === 'range') {
+				const tr = cell.element;
+				const clientRect = tr.getBoundingClientRect();
+
+				const rectX = clientRect.right;
+				const rectY = clientRect.bottom;
+
+				const clickX = e.clientX;
+				const clickY = e.clientY;
+
+				this.allowBatch = this.isAllowBatch(clickX, clickY, rectX, rectY);
+
 				if (!editMode) {
 					this.rangeStartCell = cell;
 					if (this.rangeStartCell) {
@@ -79,6 +92,7 @@ export class BodyCtrl extends View {
 	onMouseMove(e) {
 		const pathFinder = new PathService(this.bag.body);
 		const row = pathFinder.row(e.path);
+
 		if (row) {
 			const index = row.index;
 			const highlightRow = this.view.highlight.row;
@@ -98,10 +112,27 @@ export class BodyCtrl extends View {
 			const endCell = pathFinder.cell(e.path);
 
 			if (startCell && endCell) {
+				const edit = this.model.edit();
+
+				endCell.label = startCell.label;
+
+				const cellEditor = new CellEditor(endCell);
+				cellEditor.commit();
+
 				this.navigate(endCell);
 				this.view.selection.selectRange(startCell, endCell, 'body');
 			}
 		}
+
+		// if (this.selection.mode === 'range') {
+		// 	const startCell = this.rangeStartCell;
+		// 	const endCell = pathFinder.cell(e.path);
+            //
+		// 	if (startCell && endCell) {
+		// 		this.navigate(endCell);
+		// 		this.view.selection.selectRange(startCell, endCell, 'body');
+		// 	}
+		// }
 	}
 
 	onMouseLeave() {
@@ -176,5 +207,9 @@ export class BodyCtrl extends View {
 
 	get selection() {
 		return this.model.selection();
+	}
+
+	isAllowBatch(clickX, clickY, rectX, rectY) {
+		return (rectX - clickX < 15) && (rectY - clickY < 15);
 	}
 }

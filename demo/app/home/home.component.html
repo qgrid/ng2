@@ -13,13 +13,14 @@
 </style>
 
 <mat-card>
-    <q-grid id="q-grid-demo"            
+    <q-grid id="q-grid-demo"
             q-grid-autofocus
             [columns]="columns"
             [rows]="rows"
             [filterFetch]="filterFetch"
             [sortBy]="['+name.last', '-name.first']"
-            editMode="cell"
+            [selectionMode]="'range'"
+
             header="NG2 QGRID SANDBOX">
 
         <q-grid-columns>
@@ -56,8 +57,8 @@
             </ng-template>
         </q-grid-legend>
 
-        <q-grid-data-manipulation>
-		  </q-grid-data-manipulation>
+        <!--<q-grid-data-manipulation>-->
+		  <!--</q-grid-data-manipulation>-->
 
 		  <q-grid-persistence>
 		  </q-grid-persistence>
