@@ -1,83 +1,84 @@
-import {AppError} from 'ng2-qgrid/core/infrastructure';
-import {cloneDeep} from 'ng2-qgrid/core/services/utility';
-import {Expression, ExpressionGroup} from './expression';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
+import { cloneDeep } from 'ng2-qgrid/core/utility/index';
+import { Expression, GroupExpression } from './expression';
+import { GroupSchema } from './group.schema';
+import { Node } from './node'
 
 export class Line {
-	public immutable: boolean;
-	public expressions: Expression[];
+	public immutable = true;
+	public readonly expressions: Expression[] = [];
 
-	constructor(private GroupSchema) {
+	constructor(private GroupSchemaT: typeof GroupSchema) {
 	}
 
-	private getIndex(id) {
+	private getIndex(id: string) {
 		const index = this.expressions.findIndex(item => item.id === id);
-
 		if (index < 0) {
-			throw new AppError('expression-builder.line', `Expression ${id} not found`);
+			throw new AppError('line', `Expression ${id} not found`);
 		}
 
 		return index;
 	}
 
-	private findById(expressions: Expression[], id, parent) {
-		for (let i = 0, length = expressions.length; i < length; i++) {
-			if (expressions[i].id === id) {
-				return {
-					index: i,
-					expression: expressions[i],
-					parent: parent
-				};
+	private findById(expressions: Expression[], id: string, parent: GroupExpression = null): { index: number, expression: Expression, parent: GroupExpression } {
+		for (let index = 0, length = expressions.length; index < length; index++) {
+			const expression = expressions[index];
+			if (expression.id === id) {
+				return { index, expression, parent };
 			}
-			if (expressions[i] instanceof ExpressionGroup) {
-				const child = findById(expressions[i].expressions, id, expressions[i]);
-				if (child) {
-					return child;
+			if (expression instanceof GroupExpression) {
+				const group = expression as GroupExpression;
+				const groupChild = this.findById(group.expressions, id, group);
+				if (groupChild) {
+					return groupChild;
 				}
 			}
 		}
+
+		return null;
 	}
 
-	add(expression) {
+	add(expression: Expression) {
 		this.expressions.push(expression);
 	}
 
-	clone(id) {
+	clone(id: string) {
+		return cloneDeep(this.get(id)) as Expression;
 	}
 
-	get(id) {
+	get(id: string) {
 		const expression = this.findById(this.expressions, id);
-
 		if (!expression) {
-			throw Error(`Expression ${id} not found`);
+			throw new AppError('line', `Expression ${id} not found`);
 		}
 
 		return expression.expression;
 	}
 
-	put(id, node, build) {
-		const index = getIndex(id);
-		const schema = new GroupSchema(node, this);
-		const group = new ExpressionGroup();
+	put(id: string, node: Node, build) {
+		const index = this.getIndex(id);
+		const schema = new this.GroupSchemaT(node, this);
+		const group = new GroupExpression();
 
 		const item = this.findById(this.expressions, id);
-		if (item.expression instanceof ExpressionGroup) {
+		if (item.expression instanceof GroupExpression) {
 			build(schema);
 			schema.apply(group);
 			group.id = id;
 			this.expressions.splice(index, 1, group)
 			this.immutable = false;
 		} else {
-			throw new Error('Unsupported operation: put to expression, that is not a group');
+			throw new AppError('line', 'Unsupported operation: put to expression, that is not a group');
 		}
 	}
 
 	remove(id) {
-		const item = findById(this.expressions, id);
-		const expressions = item.parent ? parent.expressions : this.expressions;
-		if (item.expression instanceof ExpressionGroup) {
+		const item = this.findById(this.expressions, id);
+		const expressions = item.parent ? item.parent.expressions : this.expressions;
+		if (item.expression instanceof GroupExpression) {
 			item.expression.expressions = [];
 		} else {
-			throw new Error('Unsupported operation: remove expression, that is not a group');
+			throw new AppError('line', 'Unsupported operation: remove expression, that is not a group');
 		}
 	}
 }

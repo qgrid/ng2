@@ -1,9 +1,9 @@
-import {Component, Input} from '@angular/core';
-import {Line} from '../../model/line';
-import {Node} from '../../model/node';
+import { Component, Input } from '@angular/core';
+import { Line } from './line';
+import { Node } from './node';
 
 @Component({
-	selector: '[expression-builder-expression]',
+	selector: '[q-grid-eb-expression]',
 	template: '<div></div>'
 })
 export class EbExpressionComponent {

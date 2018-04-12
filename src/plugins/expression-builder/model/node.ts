@@ -1,16 +1,18 @@
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
+import { Line } from './line';
+
 export class Node {
-	public attributes: any;
-	public children: any[];
+	public readonly attributes: { [key: string]: any } = {};
+	public children: Node[] = [];
 	public level: number;
+	public line: Line;
 
 	constructor(public id: string, public schema, public parent?: Node) {
-		this.attributes = {};
-		this.children = [];
 		this.level = parent ? parent.level + 1 : 0;
 	}
 
-	attr(key, value?) {
-		if (typeof value !== 'undefined') {
+	attr(key: string, value?) {
+		if (arguments.length === 2) {
 			this.attributes[key] = value;
 		} else {
 			return this.attributes[key];
@@ -20,7 +22,7 @@ export class Node {
 	classes() {
 	}
 
-	addChildAfter(child: Node, after: Node) {
+	addChildAfter(child: Node, after?: Node) {
 		const index = after ? this.children.indexOf(after) : this.children.length - 1;
 
 		this.children.splice(index + 1, 0, child);
@@ -38,14 +40,14 @@ export class Node {
 
 	addAfter(child: Node) {
 		if (!this.parent) {
-			throw Error('Can\'t add after root');
+			throw new AppError('node', 'Can\'t add after root');
 		}
 		this.parent.addChildAfter(child, this);
 	}
 
 	addBefore(child: Node) {
 		if (!this.parent) {
-			throw Error('Can\'t add after root');
+			throw new AppError('node', 'Can\'t add after root');
 		}
 		this.parent.addChildBefore(child, this);
 	}
@@ -56,7 +58,7 @@ export class Node {
 
 	remove() {
 		if (!this.parent) {
-			throw Error('Root element can\'t be removed');
+			throw new AppError('node', 'Root element can\'t be removed');
 		}
 
 		const index = this.parent.children.indexOf(this);
@@ -72,9 +74,9 @@ export class Node {
 	}
 
 	toString(indent = 0) {
-		return Array(indent).join('-') + this.expression.id + ' ' + this.level + '\n' +
+		return Array(indent).join('-') + ' ' + this.level + '\n' +
 			this.children
-				.map(function (child) {
+				.map(child => {
 					return child.toString(indent + 1);
 				})
 				.join('\n');
@@ -82,7 +84,7 @@ export class Node {
 
 	toTraceString() {
 		if (null != this.parent) {
-			const parent = this.parent;
+			let parent = this.parent;
 			while (null !== parent.parent) {
 				parent = parent.parent;
 			}

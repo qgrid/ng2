@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Node} from '../model/node';
+import { Injectable } from '@angular/core';
+import { Node } from './model/node';
 
 @Injectable()
-export class Traverse {
+export class TraverseService {
 	depth(root: Node) {
 		return (reduce, memo) => {
 			memo = this.visitLine(reduce, memo, root, root.line);

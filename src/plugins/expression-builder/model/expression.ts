@@ -1,19 +1,24 @@
-export interface Expression {
+export abstract class Expression {
+	id: string;
 	type: string;
-	template: string;
+	templateUrl = '';
+	method: string[] = [];
 }
 
-export class ExpressionGroup implements Expression {
-	public readonly type = 'group';
-	public readonly template = 'expression-builder.group';
-	public expressions: any[];
+export class GroupExpression extends Expression {
+	public expressions: Expression[] = [];
 
 	constructor() {
-		this.expressions = [];
+		super();
+
+		this.type = 'group';
 	}
 }
 
-export class EmptyExpression implements Expression {
-	public readonly type = 'empty';
-	public readonly template = '';
+export class EmptyExpression extends Expression {
+	constructor() {
+		super();
+
+		this.type = 'empty';
+	}
 }
