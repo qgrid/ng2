@@ -1,0 +1,20 @@
+<ul class="expression-builder-node" [ngClass]="node.attr('class')">
+	<li class="expression-builder-line">
+		<ul>
+			<li *ngFor="let expression of node.line.expressions"
+				 expression-builder-expression
+				 [expression]="expression"
+				 [node]="node"
+				 [line]="node.line"
+				 class="expression-builder-expression">
+			</li>
+		</ul>
+	</li>
+
+
+	<li class="expression-builder-children">
+		<ul>
+			<li *ngFor="let child of node.children" expression-builder-node [node]="child" class="expression-builder-child"></li>
+		</ul>
+	</li>
+</ul>
