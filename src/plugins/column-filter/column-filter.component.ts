@@ -29,7 +29,6 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
-
 	private columnFilter: ColumnFilterView;
 	private vscrollContext: VscrollContext;
 
