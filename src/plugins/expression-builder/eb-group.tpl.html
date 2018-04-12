@@ -1,0 +1,12 @@
+<ng-teplate key="eb-group.tpl.html"
+            let-$expr>
+    <ul class="q-grid-eb-group">
+        <li *ngFor="let expr of $expr.expressions"
+            class="q-grid-eb-expression">
+            <q-grid-eb-expression [model]="expr"
+                                  [node]="$expr.node"
+                                  [line]="$expr.line">
+            </q-grid-eb-expression>
+        </li>
+    </ul>
+</ng-teplate>

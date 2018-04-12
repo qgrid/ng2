@@ -20,8 +20,10 @@ import { PersistenceModule } from './persistence/persistence.module';
 import { ColumnChooserModel } from 'ng2-qgrid/plugin/column-chooser/column.chooser.model';
 import { ColumnFilterModel } from 'ng2-qgrid/plugin/column-filter/column.filter.model';
 import { DataManipulationModel } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.model';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { StatusBarModule } from 'ng2-qgrid/plugins/status-bar/status-bar.module';
+import { EbModule } from 'ng2-qgrid/plugins/expression-builder/eb.module';
+import { QueryBuilderModule } from 'ng2-qgrid/plugins/query-builder/query-builder.module';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 Model.register('columnChooser', ColumnChooserModel)
 	.register('columnFilter', ColumnFilterModel)
@@ -48,7 +50,8 @@ Model.register('columnChooser', ColumnChooserModel)
 		StatusBarModule,
 		LegendModule,
 		ChipsModule,
-		PersistenceModule
+		PersistenceModule,
+		EbModule
 	]
 })
-export class PluginModule {}
+export class PluginModule { }
