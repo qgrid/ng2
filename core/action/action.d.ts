@@ -35,4 +35,6 @@ export declare class Action {
 	icon: string;
 
 	id: string;
+
+	templateUrl: string;
 }
