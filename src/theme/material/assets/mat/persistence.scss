@@ -2,8 +2,14 @@
 @import "../variables.scss";
 @at-root .q-grid-persistence-panel {
 	$default-icon-size: 14px;
-
 	@include scroll();
+
+	&.q-grid-menu {
+		width: 400px;
+		min-width: 400px;
+		max-width: 400px;
+	}
+
 	.mat-card-content {
 		display: flex;
 		flex-direction: column;
@@ -14,12 +20,12 @@
 	}
 	.q-grid-persistence-title {
 		margin: 0;
+		.mat-form-field {
+			width: 100%;
+		}
 	}
 	.q-grid-persistence-save {
-		margin: auto 8px;
-		.mat-button {
-			min-width: 0;
-		}
+		margin: auto 0 auto 8px;
 		.mat-button-wrapper {
 			text-transform: uppercase;
 		}
