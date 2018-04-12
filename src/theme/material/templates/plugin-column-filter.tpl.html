@@ -26,7 +26,19 @@
 					</mat-checkbox>
 				</li>
 			</ul>
-			<div class="q-grid-column-filter-list"
+			<div [ngSwitch]="$columnFilter.isEmpty()" class="q-grid-column-filter-by">
+				<ng-container *ngSwitchCase="true">
+					<div class="q-grid-column-filter-by-blank">
+						NO SELECTED FILTERS
+					</div>
+				</ng-container>
+				<ng-container *ngSwitchCase="false">
+					<q-grid-column-filter-by
+						[by]="$columnFilter.by">
+					</q-grid-column-filter-by>
+				</ng-container>
+			</div>
+			<div class="q-grid-column-filter-list" [style.height.px]="$columnFilter.isEmpty() ? '255' : '255'"
 			     q-grid-vscroll>
 				<ul [q-grid-vscroll-port-y]="$vscroll">
 					<li *ngFor="let item of $columnFilter.items | qGridVscroll: $vscroll; let $index = index; trackBy: $plugin.rowId"
