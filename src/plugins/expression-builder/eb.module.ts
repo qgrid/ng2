@@ -15,5 +15,5 @@ import { EbExpressionComponent } from './eb-expression.component';
 		TraverseService
 	]
 })
-export class EBModule {
+export class EbModule {
 }

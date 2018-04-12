@@ -21,7 +21,8 @@ import { ColumnChooserModel } from 'ng2-qgrid/plugin/column-chooser/column.choos
 import { ColumnFilterModel } from 'ng2-qgrid/plugin/column-filter/column.filter.model';
 import { DataManipulationModel } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.model';
 import { StatusBarModule } from 'ng2-qgrid/plugins/status-bar/status-bar.module';
-import { EBModule } from 'ng2-qgrid/plugins/expression-builder/eb.module';
+import { EbModule } from 'ng2-qgrid/plugins/expression-builder/eb.module';
+import { QueryBuilderModule } from 'ng2-qgrid/plugins/query-builder/query-builder.module';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 Model.register('columnChooser', ColumnChooserModel)
@@ -50,7 +51,7 @@ Model.register('columnChooser', ColumnChooserModel)
 		LegendModule,
 		ChipsModule,
 		PersistenceModule,
-		EBModule
+		EbModule
 	]
 })
 export class PluginModule { }
