@@ -1,5 +1,4 @@
 import { Resource } from '../resource/resource';
-import { match } from './match';
 import { IAssert } from './assert';
 
 /**
@@ -57,7 +56,7 @@ export declare class FilterModel {
 	/**
 	 * Factory for the match function.
 	 */
-	match: () => match;
+	match: () => (x: any, value: any) => boolean;
 
 	/**
 	 * If setup `column filter` plugin can use this property to populate list of column items.

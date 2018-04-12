@@ -1,4 +1,4 @@
-import {Component, OnInit, Optional} from '@angular/core';
+import { Component, OnInit, Optional } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { Shortcut } from 'ng2-qgrid/core/shortcut/shortcut';
@@ -8,7 +8,7 @@ import { Shortcut } from 'ng2-qgrid/core/shortcut/shortcut';
 	templateUrl: './pager-target.component.html'
 })
 
-export class PagerTargetComponent extends PluginComponent implements  OnInit {
+export class PagerTargetComponent extends PluginComponent implements OnInit {
 	constructor(@Optional() root: RootService) {
 		super(root);
 	}
@@ -30,19 +30,19 @@ export class PagerTargetComponent extends PluginComponent implements  OnInit {
 		switch (code) {
 			case 'enter': {
 				if (value) {
-					this.model.pagination({current: value - 1});
+					this.model.pagination({ current: value - 1 });
 				}
 				break;
 			}
 			case 'up': {
-				if (this.value < this.total) {
-					this.value += 1;
+				if (value < this.total) {
+					this.value = value + 1;
 				}
 				break;
 			}
 			case 'down': {
-				if (this.value > 1) {
-					this.value -= 1;
+				if (value > 1) {
+					this.value = value - 1;
 				}
 				break;
 			}
@@ -59,7 +59,7 @@ export class PagerTargetComponent extends PluginComponent implements  OnInit {
 				const isValid = page >= min && page <= max && !isNaN(digit);
 
 				if (!isValid) {
-					page > this.total ? this.value = this.total : this.value = 1;
+					page > this.total ? this.value = max : this.value = min;
 					e.preventDefault();
 				}
 			}
@@ -75,6 +75,8 @@ export class PagerTargetComponent extends PluginComponent implements  OnInit {
 		const count = pagination.count;
 		const size = pagination.size;
 
-		return count / size;
+		return size === 0
+			? 0
+			: Math.max(1, Math.ceil(count / size));
 	}
 }

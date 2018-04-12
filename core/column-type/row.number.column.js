@@ -17,7 +17,7 @@ export class RowNumberColumnModel extends ColumnModel {
 		this.key = '$row.number';
 		this.title = 'No.';
 		this.canEdit = false;
-		this.canResize = false;
+		this.canResize = true;
 		this.canFocus = false;
 		this.canMove = false;
 		this.canHighlight = false;

@@ -14,10 +14,13 @@ import { uniq, flatten } from 'ng2-qgrid/core/utility';
 import { VscrollService } from 'ng2-qgrid/common/vscroll/vscroll.service';
 import { VscrollContext } from 'ng2-qgrid/common/vscroll/vscroll.context';
 import { GridService } from 'ng2-qgrid/main/grid/grid.service';
+import { Fetch } from 'ng2-qgrid/core/infrastructure/fetch';
+import { FocusAfterRender } from 'ng2-qgrid/plugins/focus.service';
 
 @Component({
 	selector: 'q-grid-column-filter',
-	templateUrl: './column-filter.component.html'
+	templateUrl: './column-filter.component.html',
+	providers: [FocusAfterRender]
 })
 export class ColumnFilterComponent extends PluginComponent implements OnInit, OnDestroy {
 	@Input() public key: string;
@@ -32,7 +35,8 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 	constructor(
 		@Optional() root: RootService,
 		private vscroll: VscrollService,
-		private qgrid: GridService) {
+		private qgrid: GridService,
+		focus: FocusAfterRender) {
 		super(root);
 	}
 
@@ -52,18 +56,24 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 			fetch: (skip, take, d) => {
 				const filterState = model.filter();
 				const service = this.qgrid.service(model);
+				// We need to close items property for correct reset behavior
+				const items = columnFilter.items;
 				if (filterState.fetch !== this.qgrid.noop) {
 					const cancelBusy = service.busy();
-					filterState
+					const select = filterState
 						.fetch(this.key, {
 							skip,
 							take,
 							value: columnFilter.getValue,
 							filter: '' + this.search
-						})
-						.then(items => {
-							columnFilter.items.push(...items);
-							d.resolve(columnFilter.items.length + take);
+						});
+
+					const fetch = new Fetch(select);
+					fetch.run();
+					fetch.busy
+						.then(page => {
+							items.push(...page);
+							d.resolve(items.length + (page.length === take ? take : 0));
 							cancelBusy();
 						})
 						.catch(cancelBusy);
@@ -71,7 +81,7 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 					const cancelBusy = service.busy();
 					const isBlank = model.filter().assertFactory().isNull;
 					try {
-						if (!columnFilter.items.length) {
+						if (!items.length) {
 							const source = model[model.columnFilter().source];
 							let items = source().rows.map(columnFilter.getValue);
 							if (columnFilter.column.type === 'array') {
@@ -123,6 +133,8 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 	}
 
 	ngOnDestroy() {
+		super.ngOnDestroy();
+
 		this.columnFilter.dispose();
 	}
 }

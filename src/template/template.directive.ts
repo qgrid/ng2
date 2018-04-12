@@ -18,13 +18,15 @@ export class TemplateDirective implements DoCheck {
 	constructor(
 		private templateService: TemplateService,
 		private viewContainerRef: ViewContainerRef
-	) {}
+	) { }
 
 	ngDoCheck() {
-		const link = this.templateService.find(this.key);
-		if (!this.viewRef && link) {
-			const createView = this.templateService.viewFactory(this.context);
-			this.viewRef = createView(link, this.viewContainerRef);
+		if (!this.viewRef) {
+			const link = this.templateService.find(this.key);
+			if (link) {
+				const createView = this.templateService.viewFactory(this.context);
+				this.viewRef = createView(link, this.viewContainerRef);
+			}
 		}
 	}
 }

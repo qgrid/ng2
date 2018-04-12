@@ -24,6 +24,7 @@ export interface IVscrollPosition {
 	offset: number;
 	lastOffset: number;
 	value: number;
+	pad: number;
 }
 
 export function findPosition(offsets: Array<number>, value: number, itemSize: number): IVscrollPosition {
@@ -33,7 +34,8 @@ export function findPosition(offsets: Array<number>, value: number, itemSize: nu
 			index,
 			offset: itemSize * index,
 			lastOffset: 0,
-			value
+			value,
+			pad: 0
 		};
 	}
 
@@ -44,7 +46,8 @@ export function findPosition(offsets: Array<number>, value: number, itemSize: nu
 			index,
 			offset: offsets[index - 1],
 			lastOffset: offsets[length - 1],
-			value
+			value,
+			pad: 0
 		};
 	}
 
@@ -52,7 +55,8 @@ export function findPosition(offsets: Array<number>, value: number, itemSize: nu
 		index: 0,
 		offset: 0,
 		lastOffset: length ? offsets[length - 1] : 0,
-		value
+		value,
+		pad: 0
 	};
 }
 

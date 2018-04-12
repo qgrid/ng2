@@ -1,5 +1,5 @@
-import { ModelBinder } from 'ng2-qgrid/core/infrastructure';
-import { noop } from 'ng2-qgrid/core/utility';
+import { ModelBinder } from 'ng2-qgrid/core/infrastructure/model.bind';
+import { noop } from 'ng2-qgrid/core/utility/index';
 import { OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { NgComponent } from './ng.component';
 import { RootService } from './root.service';

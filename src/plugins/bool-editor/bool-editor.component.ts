@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
-import { isString } from 'ng2-qgrid/core/utility';
+import { isString } from 'ng2-qgrid/core/utility/index';
 import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 import { BoolColumnModel } from 'ng2-qgrid/core/column-type/bool.column';
 
@@ -27,7 +27,8 @@ export class BoolEditorComponent extends PluginComponent implements OnInit {
 	ngOnInit() {
 		// entering edit mode means toggling boolean value
 		this.value =
-			this.value === this.trueValue ? this.falseValue : this.trueValue;
+			this.value === this.trueValue
+				? this.falseValue : this.trueValue;
 
 		this.using(this.model.focusChanged.on(e => this.cell.exit.execute()));
 	}

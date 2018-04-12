@@ -25,7 +25,8 @@ import {
 	MatNativeDateModule,
 	MatChipsModule,
 	MatMenuModule,
-	MatDialogModule
+	MatDialogModule,
+	MatListModule
 } from '@angular/material';
 import { PipeModule } from 'ng2-qgrid/pipes/pipe.module';
 import { GridModule } from 'ng2-qgrid/grid.module';
@@ -56,6 +57,7 @@ import { VscrollModule } from 'ng2-qgrid/common/vscroll/vscroll.module';
 		MatDialogModule,
 		MatMenuModule,
 		MatCardModule,
+		MatListModule,
 		PipeModule,
 		VscrollModule
 	],

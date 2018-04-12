@@ -36,6 +36,8 @@ export class BackdropComponent extends PluginComponent implements OnDestroy {
 	}
 
 	ngOnDestroy() {
+		super.ngOnDestroy();
+
 		this.backdrop.dispose();
 	}
 }

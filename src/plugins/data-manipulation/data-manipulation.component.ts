@@ -21,11 +21,15 @@ export class DataManipulationComponent extends PluginComponent implements OnInit
 	}
 
 	ngOnInit() {
+		super.ngOnInit();
+
 		this.dataManipulation = new DataManipulationView(this.model);
 		this.context = { $implicit: this.dataManipulation };
 	}
 
 	ngOnDestroy() {
+		super.ngOnDestroy();
+
 		this.dataManipulation.dispose();
 	}
 }

@@ -20,7 +20,7 @@
 			<ul class="q-grid-column-filter-toolbar">
 				<li>
 					<mat-checkbox [checked]="$columnFilter.stateAll()"
-					              (change)="$columnFilter.toggleAll.execute()"
+					              (change)="$columnFilter.toggleAll.execute($plugin.search)"
 					              [indeterminate]="$columnFilter.isIndeterminate()">
 						Select All
 					</mat-checkbox>
@@ -41,7 +41,7 @@
 			<div class="q-grid-column-filter-list" [style.height.px]="$columnFilter.isEmpty() ? '255' : '255'"
 			     q-grid-vscroll>
 				<ul [q-grid-vscroll-port-y]="$vscroll">
-					<li *ngFor="let item of $columnFilter.items | qGridVscroll: $vscroll; let $index = index; trackBy: rowId"
+					<li *ngFor="let item of $columnFilter.items | qGridVscroll: $vscroll; let $index = index; trackBy: $plugin.rowId"
 					    [q-grid-vscroll-row]="$index">
 						<mat-checkbox [checked]="$columnFilter.state(item)"
 						              *ngIf="$columnFilter.toggle.canExecute(item)"

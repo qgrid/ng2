@@ -2,7 +2,7 @@ import { Component, ElementRef, Optional, Input, OnInit, OnDestroy } from '@angu
 import { NgComponent } from 'ng2-qgrid/infrastructure/component/ng.component';
 import { ThemeService } from 'ng2-qgrid/template/theme.service';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
-import { Guard } from 'ng2-qgrid/core/infrastructure';
+import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { BoxCtrl } from 'ng2-qgrid/core/box/box.ctrl';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';

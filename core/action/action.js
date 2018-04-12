@@ -4,5 +4,6 @@ export class Action {
 		this.title = title;
 		this.icon = icon;
 		this.id = null;
+		this.templateUrl = null;
 	}
 }

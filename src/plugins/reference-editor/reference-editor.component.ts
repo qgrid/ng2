@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
-import { isString } from 'ng2-qgrid/core/utility';
+import { isString } from 'ng2-qgrid/core/utility/index';
 import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 import { BoolColumnModel } from 'ng2-qgrid/core/column-type/bool.column';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';

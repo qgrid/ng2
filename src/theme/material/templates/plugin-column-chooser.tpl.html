@@ -41,7 +41,7 @@
 						<mat-checkbox *ngIf="$columnChooser.toggle.canExecute(column)"
 						              [checked]="$columnChooser.state(column)"
 						              (change)="$columnChooser.toggle.execute(column)"
-						              [aria-label]="Selection">
+						              aria-label="Selection">
 							<span [innerHTML]="column.title | qGridHighlight: $columnChooser.filter"></span>
 						</mat-checkbox>
 					</li>

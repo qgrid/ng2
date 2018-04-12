@@ -33,4 +33,8 @@ export declare class Action {
 	 * Icon key that will be rendered as a button image.
 	 */
 	icon: string;
+
+	id: string;
+
+	templateUrl: string;
 }
