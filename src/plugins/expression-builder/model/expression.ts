@@ -12,7 +12,7 @@ export class GroupExpression extends Expression {
 		super();
 
 		this.type = 'group';
-		this.templateUrl = 'eb-group.tpl.html'
+		this.templateUrl = 'eb-group.tpl.html';
 	}
 }
 

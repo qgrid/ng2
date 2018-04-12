@@ -8,7 +8,7 @@ import { Composite } from 'ng2-qgrid/core/infrastructure/composite';
 
 @Component({
 	selector: 'q-grid-query-builder',
-	template: ''
+	templateUrl: './query-builder.component.html'
 })
 export class QueryBuilderComponent extends PluginComponent implements OnInit {
 	constructor(@Optional() root: RootService) {
@@ -18,16 +18,17 @@ export class QueryBuilderComponent extends PluginComponent implements OnInit {
 	ngOnInit() {
 		super.ngOnInit();
 
-		const actions = [
+		const action =
 			new Action(
 				new Command(),
 				'Query Builder',
 				'filter'
-			)
-		];
+			);
+
+		action.templateUrl = 'plugin-query-builder.tpl.html';
 
 		this.model.action({
-			items: Composite.list([actions, this.model.action().items])
+			items: Composite.list([[action], this.model.action().items])
 		});
 	}
 }
