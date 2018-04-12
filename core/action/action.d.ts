@@ -12,7 +12,7 @@ import { Command } from '../command/command';
  * * [Action Bar](/doc/feature/action.html)
  */
 export declare class Action {
-	constructor(command: Command, title?: string, icon?: string);
+	constructor(command: Command, title?: string, icon?: string, templateUrl?: string);
 
 	/**
 	 * User command that will be executed when:
@@ -35,4 +35,6 @@ export declare class Action {
 	icon: string;
 
 	id: string;
+
+	templateUrl: string;
 }

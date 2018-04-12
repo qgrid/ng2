@@ -11,7 +11,6 @@ export class PersistenceView extends PluginView {
 		super();
 
 		this.items = [];
-		this.title = '';
 		this.state = {
 			editItem: null,
 			oldValue: null
@@ -19,6 +18,7 @@ export class PersistenceView extends PluginView {
 		this.model = model;
 		this.storageKey = `q-grid:${model.grid().id}:${model.persistence().id}:persistence-list`;
 		this.persistenceService = new PersistenceService(model);
+		this.title = this.stringify();
 		this.closeEvent = new Event();
 
 		this.model.persistence()
