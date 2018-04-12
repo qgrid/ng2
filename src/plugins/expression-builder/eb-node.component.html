@@ -1,24 +1,23 @@
 <ul class="q-grid-eb-node"
-    [ngClass]="node.attr('class')">
+    [ngClass]="model.attr('class')">
 	<li class="q-grid-eb-line">
 		<ul>
-			<li *ngFor="let expression of node.line.expressions"
-			    expression-builder-expression
-			    [expression]="expression"
-			    [node]="node"
-			    [line]="node.line"
+			<li *ngFor="let expr of model.line.expressions"
 			    class="q-grid-eb-expression">
+				<q-grid-eb-expression [model]="expr"
+				                      [node]="model"
+				                      [line]="model.line">
+				</q-grid-eb-expression>
 			</li>
 		</ul>
 	</li>
 
-
 	<li class="q-grid-eb-children">
 		<ul>
-			<li *ngFor="let child of node.children"
-			    expression-builder-node
-			    [node]="child"
+			<li *ngFor="let child of model.children"
 			    class="q-grid-eb-child">
+				<q-grid-eb-node [model]="child">
+				</q-grid-eb-node>
 			</li>
 		</ul>
 	</li>

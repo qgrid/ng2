@@ -12,6 +12,7 @@ export class GroupExpression extends Expression {
 		super();
 
 		this.type = 'group';
+		this.templateUrl = 'eb-group.tpl.html'
 	}
 }
 
@@ -20,5 +21,6 @@ export class EmptyExpression extends Expression {
 		super();
 
 		this.type = 'empty';
+		this.templateUrl = 'eb-empty.tpl.html';
 	}
 }

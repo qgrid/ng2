@@ -2,7 +2,9 @@ import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { cloneDeep } from 'ng2-qgrid/core/utility/index';
 import { Expression, GroupExpression } from './expression';
 import { GroupSchema } from './group.schema';
-import { Node } from './node'
+import { Node } from './node';
+
+declare type ExpressionEntry = { index: number, expression: Expression, parent: GroupExpression };
 
 export class Line {
 	public immutable = true;
@@ -20,7 +22,7 @@ export class Line {
 		return index;
 	}
 
-	private findById(expressions: Expression[], id: string, parent: GroupExpression = null): { index: number, expression: Expression, parent: GroupExpression } {
+	private findById(expressions: Expression[], id: string, parent: GroupExpression = null): ExpressionEntry {
 		for (let index = 0, length = expressions.length; index < length; index++) {
 			const expression = expressions[index];
 			if (expression.id === id) {
@@ -65,7 +67,7 @@ export class Line {
 			build(schema);
 			schema.apply(group);
 			group.id = id;
-			this.expressions.splice(index, 1, group)
+			this.expressions.splice(index, 1, group);
 			this.immutable = false;
 		} else {
 			throw new AppError('line', 'Unsupported operation: put to expression, that is not a group');
