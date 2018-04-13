@@ -38,7 +38,7 @@
 					</q-grid-column-filter-by>
 				</ng-container>
 			</div>
-			<div class="q-grid-column-filter-list" [style.height.px]="$columnFilter.isEmpty() ? '255' : '255'"
+			<div class="q-grid-column-filter-list"
 			     q-grid-vscroll>
 				<ul [q-grid-vscroll-port-y]="$vscroll">
 					<li *ngFor="let item of $columnFilter.items | qGridVscroll: $vscroll; let $index = index; trackBy: $plugin.rowId"
