@@ -2,7 +2,7 @@ import { Component, Optional, Input, Output, EventEmitter, OnInit, OnDestroy } f
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 import { ColumnChooserView } from 'ng2-qgrid/plugin/column-chooser/column.chooser.view';
-import { FocusAfterRender } from 'ng2-qgrid/plugins/focus.service';
+import { FocusAfterRender } from 'ng2-qgrid/common/focus/focus.service';
 
 const ColumnChooserName = 'qGridColumnChooser';
 
@@ -19,7 +19,7 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 	private columnChooser: ColumnChooserView;
 
 	constructor(
-		@Optional() root: RootService, focus: FocusAfterRender) {
+		@Optional() root: RootService, focusAfterRender: FocusAfterRender) {
 		super(root);
 
 		this.models = ['columnChooser'];
