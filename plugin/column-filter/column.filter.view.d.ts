@@ -16,4 +16,5 @@ export declare class ColumnFilterView extends PluginView {
 	commit: Command;
 	cancel: Command;
 	hasBlanks: boolean;
+	isEmpty(): boolean;
 }
