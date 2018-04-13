@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { typeMapping as operations } from './operator';
 import { suggestFactory, suggestsFactory } from './suggest.service';
-import { QueryBuilderService } from '../query-builder.service';
-import { isArray } from 'ng2-qgrid/core/utility/index';
+import { QueryBuilderService, IQueryBuilderSchema } from '../query-builder.service';
+import { isArray, noop } from 'ng2-qgrid/core/utility/index';
 import { ValidatorService } from '../validation/validator.service';
 
 @Injectable()
@@ -11,9 +11,10 @@ export class WhereSchema {
 		private validator: ValidatorService) {
 	}
 
-	factory() {
-		const suggest = suggestFactory(this.service, '#field');
-		const suggests = suggestsFactory(this.service, '#field');
+	factory(): IQueryBuilderSchema {
+		const service = this.service;
+		const suggest = suggestFactory(service, '#field');
+		const suggests = suggestsFactory(service, '#field');
 
 		const getValue = (line, id, props) => {
 			const group = line.get(id);
@@ -24,7 +25,7 @@ export class WhereSchema {
 					if (prop) {
 						const value = expr[prop];
 						if (isArray(value) && value.length) {
-							return value[0]
+							return value[0];
 						}
 
 						return value;
@@ -82,23 +83,15 @@ export class WhereSchema {
 							})
 							.select('#field', {
 								classes: ['cb-operation', 'field'],
-								options: context.fields.map(function (f) {
-									return f.name;
-								}),
-								value: context.fields.length ? context.fields[0].name : '',
-								getLabel: function (node, line, name) {
-									var field = context.fields.filter(function (f) {
-										return f.name === name;
-									})[0];
-
-									return (field && field.label) || null
+								options: service.columns().map(c => c.key),
+								value: service.columns().length ? service.columns()[0].key : '',
+								getLabel: function (node, line, key) {
+									const column = service.columns().filter(c => c.key === key)[0];
+									return (column && column.title) || null;
 								},
-								getType: function (node, line, name) {
-									var field = context.fields.filter(function (f) {
-										return f.name === name;
-									})[0];
-
-									return (field && field.type) || 'TEXT';
+								getType: function (node, line, key) {
+									const column = service.columns().filter(c => c.key === key)[0];
+									return (column && column.type) || 'TEXT';
 								},
 								change: function (node, line) {
 									if (node.attr('placeholder')) {
@@ -106,7 +99,7 @@ export class WhereSchema {
 										node.attr('placeholder', false);
 									}
 
-									var field = this.value,
+									const field = this.value,
 										type = this.getType(field),
 										ops = operations[type] || [],
 										op = line.get('#operator').expressions[0];
@@ -114,9 +107,8 @@ export class WhereSchema {
 									if (ops.indexOf(op.value) < 0) {
 										op.value = ops.length ? ops[0] : null;
 										op.change();
-									}
-									else {
-										var operand = line.get('#operand').expressions[0];
+									} else {
+										const operand = line.get('#operand').expressions[0];
 										operand.state = validator(field)(operand.value);
 										if (operand.state.length) {
 											operand.value = null;
@@ -128,7 +120,7 @@ export class WhereSchema {
 							.select('#operator', {
 								classes: ['cb-operation'],
 								getOptions: function (node, line) {
-									var field = line.get('#field').expressions[0],
+									const field = line.get('#field').expressions[0],
 										name = field.value,
 										type = field.getType(name);
 
@@ -152,13 +144,13 @@ export class WhereSchema {
 										case 'not like':
 										case 'starts with':
 										case 'ends with':
-											var value = getValue(line, '#operand', ['value', 'values']);
+											const value = getValue(line, '#operand', ['value', 'values']);
 
 											line.put('#operand', node, function (schema) {
 												schema.autocomplete('#value', {
 													$watch: {
 														'value': function () {
-															var field = line.get('#field').expressions[0].value;
+															const field = line.get('#field').expressions[0].value;
 															this.state = validator(field)(this.value);
 														}
 													},
@@ -184,7 +176,7 @@ export class WhereSchema {
 													.autocomplete('#from', {
 														$watch: {
 															'value': function () {
-																var field = line.get('#field').expressions[0].value;
+																const field = line.get('#field').expressions[0].value;
 																this.state = validator(field)(this.value);
 															}
 														},
@@ -209,7 +201,7 @@ export class WhereSchema {
 													.autocomplete('#to', {
 														$watch: {
 															'value': function () {
-																var field = line.get('#field').expressions[0].value;
+																const field = line.get('#field').expressions[0].value;
 																this.state = validator(field)(this.value);
 															}
 														},
@@ -238,7 +230,7 @@ export class WhereSchema {
 													.multiselect('#in-operand', {
 														$watch: {
 															'values': function () {
-																var field = line.get('#field').expressions[0].value;
+																const field = line.get('#field').expressions[0].value;
 																this.state = validator(field)(this.values);
 															}
 														},
@@ -263,7 +255,7 @@ export class WhereSchema {
 											break;
 										case 'is empty':
 										case 'is not empty':
-											line.put('#operand', node, angular.noop);
+											line.put('#operand', node, noop);
 											break;
 									}
 								}
@@ -272,7 +264,7 @@ export class WhereSchema {
 								schema.autocomplete('#value', {
 									$watch: {
 										'value': function (newValue, oldValue, node, line) {
-											var field = line.get('#field').expressions[0].value;
+											const field = line.get('#field').expressions[0].value;
 											this.state = validator(field)(this.value);
 										}
 									},
@@ -298,7 +290,7 @@ export class WhereSchema {
 											}
 										}
 									}
-								})
+								});
 							})
 							.iconButton('#remove', {
 								icon: 'close',
@@ -308,9 +300,8 @@ export class WhereSchema {
 								click: function (node) {
 									node.remove();
 								}
-							})
-					})
+							});
+					});
 			});
 	}
 }
-};

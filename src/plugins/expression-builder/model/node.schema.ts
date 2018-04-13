@@ -7,10 +7,10 @@ import { GroupSchema } from './group.schema';
 export interface INodeSchema {
 	schemaMap: { [key: string]: INodeSchema };
 
-	apply(node?: Node);
-	attr(key: string, value: any);
-	node(id: string, build: (schema: INodeSchema) => void);
-	group(id: string, build: (schema: GroupSchema) => void);
+	apply(node?: Node): Node;
+	attr(key: string, value: any): INodeSchema;
+	node(id: string, build: (schema: INodeSchema) => void): INodeSchema;
+	group(id: string, build: (schema: GroupSchema) => void): INodeSchema;
 	get(id: string): INodeSchema;
 	materialize(id: string): Node;
 }

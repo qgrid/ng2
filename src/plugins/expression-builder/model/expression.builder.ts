@@ -14,7 +14,7 @@ export class ExpressionBuilder {
 	constructor(private settings) {
 	}
 
-	build(statements: Array<IStatement>): INodeSchema {
+	build<T>(statements: Array<IStatement>): T {
 		const NodeSchemaT = nodeSchema(GroupSchema);
 
 		statements
@@ -112,6 +112,7 @@ export class ExpressionBuilder {
 				GroupSchema.prototype[statement.type] = groupFactory;
 			});
 
-		return new NodeSchemaT();
+		// TODO: think how to avoid this
+		return new NodeSchemaT() as any as T;
 	}
 }

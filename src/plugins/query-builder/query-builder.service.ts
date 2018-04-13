@@ -3,22 +3,44 @@ import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { isUndefined, yes } from 'ng2-qgrid/core/utility/index';
 import { ExpressionBuilder } from '../expression-builder/model/expression.builder';
 import { INodeSchema } from '../expression-builder/model/node.schema';
+import { Node } from '../expression-builder/model/node';
 
-export declare type ColumnMap = { [key: string]: { title: string, type: string } };
+export declare type Column = { key: string, title: string, type: string };
+export declare type ColumnMap = { [key: string]: Column };
+
+export interface IQueryBuilderSchema {
+	apply(node?: Node): Node;
+	attr(key: string, value: any): IQueryBuilderSchema;
+	node(id: string, build: (schema: IQueryBuilderSchema) => void): IQueryBuilderSchema;
+	group(id: string, build: (schema: IQueryBuilderSchema) => void): IQueryBuilderSchema;
+	get(id: string): IQueryBuilderSchema;
+	materialize(id: string): Node;
+
+	autocomplete(id: string, settings?: any): IQueryBuilderSchema;
+	button(id: string, settings?: any): IQueryBuilderSchema;
+	input(id: string, settings?: any): IQueryBuilderSchema;
+	iconButton(id: string, settings?: any): IQueryBuilderSchema;
+	label(id: string, settings?: any): IQueryBuilderSchema;
+	multiselect(id: string, settings?: any): IQueryBuilderSchema;
+	select(id: string, settings?: any): IQueryBuilderSchema;
+}
 
 @Injectable()
 export class QueryBuilderService {
 	constructor(private root: RootService) {
 	}
 
+	columns(): Array<Column> {
+		const model = this.root.model;
+		return model
+			.data()
+			.columns;
+	}
+
 	columnMap(): ColumnMap {
 		const model = this.root.model;
-		return model.data().columns.reduce((memo, column) => {
-			memo[column.key] = {
-				title: column.title,
-				type: column.type
-			};
-
+		return this.columns().reduce((memo, column) => {
+			memo[column.key] = column;
 			return memo;
 		}, {});
 	}
@@ -56,7 +78,7 @@ export class QueryBuilderService {
 		});
 	}
 
-	build(): INodeSchema {
+	build(): IQueryBuilderSchema {
 		const statements = [
 			{
 				type: 'label',
@@ -98,6 +120,7 @@ export class QueryBuilderService {
 			}
 		};
 
-		return new ExpressionBuilder(settings).build(statements);
+		return new ExpressionBuilder(settings)
+			.build<IQueryBuilderSchema>(statements);
 	}
 }

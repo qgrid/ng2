@@ -4,10 +4,9 @@ export function suggestFactory(service: QueryBuilderService, name: string) {
 	return function (node, line) {
 		const search = this.value == null ? '' : ('' + this.value).toLowerCase();
 		const field = line.get(name).expressions[0].value;
-
-		return service.suggest(field, 0, 10, search)
-	}
-};
+		return service.suggest(field, 0, 10, search);
+	};
+}
 
 export function suggestsFactory(service: QueryBuilderService, name: string) {
 	return function (node, line) {

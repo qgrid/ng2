@@ -4,11 +4,12 @@ import { Command } from 'ng2-qgrid/core/command/command';
 import { PluginComponent } from '../plugin.component';
 import { Node } from '../expression-builder/model/node';
 import { QueryBuilderService } from './query-builder.service';
+import { WhereSchema } from './schema/where.schema';
 
 @Component({
 	selector: 'q-grid-query-builder-panel',
 	templateUrl: './query-builder-panel.component.html',
-	providers: [QueryBuilderService]
+	providers: [QueryBuilderService, WhereSchema]
 })
 export class QueryBuilderPanelComponent extends PluginComponent implements OnInit {
 	public node: Node;
@@ -35,11 +36,18 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 		}
 	});
 
-	constructor(@Optional() root: RootService, private service: QueryBuilderService) {
+	constructor(
+		@Optional() root: RootService,
+		private service: QueryBuilderService,
+		private whereSchema: WhereSchema) {
+
 		super(root);
 	}
 
 	ngOnInit() {
 		super.ngOnInit();
+
+		const schema = this.whereSchema.factory();
+		this.node = schema.apply();
 	}
 }

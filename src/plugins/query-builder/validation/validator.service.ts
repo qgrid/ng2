@@ -33,10 +33,9 @@ export class ValidatorService {
 					const state = traverse(value, test);
 					return state.length === 0;
 				}
-				else {
-					const number = parseFloat(value);
-					return !isNaN(number) && isFinite(number);
-				}
+
+				const number = parseFloat(value);
+				return !isNaN(number) && isFinite(number);
 			});
 
 		const integerValidator = commonValidator
@@ -46,10 +45,9 @@ export class ValidatorService {
 					const state = traverse(value, test);
 					return state.length === 0;
 				}
-				else {
-					const number = parseInt(value);
-					return !isNaN(number) && isFinite(number);
-				}
+
+				const number = Number.parseInt(value);
+				return !isNaN(number) && isFinite(number);
 			});
 
 		const datetimeValidator = commonValidator
@@ -59,10 +57,9 @@ export class ValidatorService {
 					const state = traverse(value, test);
 					return state.length === 0;
 				}
-				else {
-					const date = new Date(value) as any;
-					return date !== 'Invalid Date' && !isNaN(date);
-				}
+
+				const date = new Date(value) as any;
+				return date !== 'Invalid Date' && !isNaN(date);
 			});
 
 		const currencyValidator = commonValidator
@@ -106,3 +103,4 @@ export class ValidatorService {
 			return validators[type];
 		};
 	}
+}
