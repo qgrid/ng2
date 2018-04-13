@@ -1,5 +1,5 @@
 import {Resource} from '../../core/resource';
-import {identity, cloneDeep, isArray, isObject, isDate, isBoolean, isNumber, isFunction} from '../../core/utility';
+import {serialize} from './get.serialize';
 
 export class RestModel {
 	constructor() {
@@ -7,7 +7,6 @@ export class RestModel {
 
 		this.url = '';
 		this.method = 'get';
-		this.serialize = null;
-		this.fetch = null;
+		this.serialize = serialize;
 	}
 }
