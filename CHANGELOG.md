@@ -12,10 +12,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Email, url cell editor.
 * Copy/paste selection to excel.
 
-## [5.3.3] - 2018-04-03
+## [5.3.4] - 2018-04-13
+### Added
+- `Query builder` plugin.
+- Cell batch update.
+
+## [5.3.3] - 2018-04-13
 ### Added
 - `Persistnece` plugin.
 - `Status bar` plugin.
+- Selected chips in `column filter` plugin.
 
 ### Fixed
 - Vscroll reset.
@@ -171,7 +177,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v5.3.3...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v5.3.4...HEAD
+[5.3.4]: https://github.com/qgrid/ng2/compare/v5.3.4...v5.4.2
 [5.3.3]: https://github.com/qgrid/ng2/compare/v5.3.2...v5.2.4
 [5.3.2]: https://github.com/qgrid/ng2/compare/v5.3.2...v5.2.4
 [5.2.4]: https://github.com/qgrid/ng2/compare/v5.2.4...v5.2.3
