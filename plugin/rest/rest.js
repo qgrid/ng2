@@ -1,6 +1,6 @@
-import {merge, isFunction} from '@grid/core/utility';
-import {AppError} from '@grid/core/infrastructure';
-import {PipeUnit} from '@grid/core/pipe/pipe.unit';
+import {merge, isFunction} from 'ng2-qgrid/core/utility';
+import {AppError} from 'ng2-qgrid/core/infrastructure';
+import {PipeUnit} from 'ng2-qgrid/core/pipe/pipe.unit';
 import {PluginView} from '../plugin.view';
 import {serialize as serializeGet} from './get.serialize';
 import {serialize as serializePost} from './post.serialize';
@@ -24,7 +24,7 @@ export class Rest extends PluginView {
 			pipe: [
 				(data, context, next) => {
 					fetch(settings.url, serialize(model))
-						.then(data => next(data.data));
+						.then(data => next(data));
 				},
 				...PipeUnit.view
 			]
