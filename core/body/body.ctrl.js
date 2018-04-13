@@ -2,6 +2,7 @@ import { PathService } from '../path';
 import { View } from '../view/view';
 import { Fastdom } from '../services/fastdom';
 import { CellEditor } from '../edit/edit.cell.editor';
+import {get} from '../services/value';
 
 const MOUSE_LEFT_BUTTON = 1;
 
@@ -112,15 +113,27 @@ export class BodyCtrl extends View {
 			const endCell = pathFinder.cell(e.path);
 
 			if (startCell && endCell) {
-				const edit = this.model.edit();
-
-				endCell.label = startCell.label;
-
-				const cellEditor = new CellEditor(endCell);
-				cellEditor.commit();
-
 				this.navigate(endCell);
 				this.view.selection.selectRange(startCell, endCell, 'body');
+
+				const label = startCell.label;
+				const value = startCell.value;
+				const selection = this.selection;
+				const cells =[];
+
+				selection.items.forEach(item => {
+					const {row, column} = item;
+					const label = get(row, column);
+					const cell = this.table.body.cell(row, column);
+					cells.push(cell);
+				});
+
+				cells.forEach(cell => {
+					const cellEditor = new CellEditor(cell);
+					cellEditor.label = label;
+					cellEditor.value = value;
+					cellEditor.commit();
+				});
 			}
 		}
 
