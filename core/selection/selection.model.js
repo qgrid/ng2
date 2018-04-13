@@ -6,7 +6,7 @@ export class SelectionModel {
 	constructor() {
 		this.resource = new Resource();
 		this.unit = 'cell';//row|cell|column|mix
-		this.mode = 'single';//single|multiple|range
+		this.mode = 'single';//single|multiple|range|batch
 		this.items = [];
 		this.area = 'body'; //body, custom
 		this.toggle = new Command({source: 'selection.model'});

@@ -38,7 +38,7 @@ export declare class SelectionModel {
 	 * * `'multiple'`
 	 * * `'range'`
 	 */
-	mode: 'single' | 'mutiple' | 'range';
+	mode: 'single' | 'mutiple' | 'range' | 'batch';
 
 	/**
 	 * List of selected items.

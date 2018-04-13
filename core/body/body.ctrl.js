@@ -93,6 +93,7 @@ export class BodyCtrl extends View {
 	onMouseMove(e) {
 		const pathFinder = new PathService(this.bag.body);
 		const row = pathFinder.row(e.path);
+		const mode = this.selection.mode;
 
 		if (row) {
 			const index = row.index;
@@ -108,7 +109,7 @@ export class BodyCtrl extends View {
 			}
 		}
 
-		if (this.selection.mode === 'range') {
+		if (mode === 'range' || mode === 'batch') {
 			const startCell = this.rangeStartCell;
 			const endCell = pathFinder.cell(e.path);
 
@@ -118,21 +119,32 @@ export class BodyCtrl extends View {
 
 				const label = startCell.label;
 				const value = startCell.value;
-				const selection = this.selection;
-				const cells =[];
+				const initialType = startCell.column.type;
 
-				selection.items.forEach(item => {
+				const columnIndices = this.model.columnList().index;
+
+				const cells =[];
+				this.selection.items.forEach(item => {
 					const {row, column} = item;
-					const label = get(row, column);
-					const cell = this.table.body.cell(row, column);
-					cells.push(cell);
+					const key = column.key;
+
+					const columnIndex = columnIndices.indexOf(key);
+					const rowIndex = row.id;
+
+					const cellView = this.table.body.cell(rowIndex, columnIndex).model();
+
+					cells.push(cellView.model);
 				});
 
 				cells.forEach(cell => {
-					const cellEditor = new CellEditor(cell);
-					cellEditor.label = label;
-					cellEditor.value = value;
-					cellEditor.commit();
+					const type = cell.column.type;
+
+					if(initialType === type) {
+						const cellEditor = new CellEditor(cell);
+						cellEditor.label = label;
+						cellEditor.value = value;
+						cellEditor.commit();
+					}
 				});
 			}
 		}
