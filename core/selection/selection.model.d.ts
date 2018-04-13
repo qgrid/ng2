@@ -37,6 +37,7 @@ export declare class SelectionModel {
 	 * * `'single'`
 	 * * `'multiple'`
 	 * * `'range'`
+	 * * `'batch'`
 	 */
 	mode: 'single' | 'mutiple' | 'range' | 'batch';
 

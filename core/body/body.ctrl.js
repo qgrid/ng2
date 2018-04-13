@@ -68,7 +68,7 @@ export class BodyCtrl extends View {
 			const cell = pathFinder.cell(e.path);
 
 			const editMode = this.model.edit().mode;
-			if (selectionState.mode === 'range') {
+			if (selectionState.mode === 'range' || selectionState.mode === 'batch') {
 				const tr = cell.element;
 				const clientRect = tr.getBoundingClientRect();
 
@@ -117,47 +117,39 @@ export class BodyCtrl extends View {
 				this.navigate(endCell);
 				this.view.selection.selectRange(startCell, endCell, 'body');
 
-				const label = startCell.label;
-				const value = startCell.value;
-				const initialType = startCell.column.type;
+				if (mode === 'batch' && this.allowBatch) {
+					const label = startCell.label;
+					const value = startCell.value;
+					const initialType = startCell.column.type;
 
-				const columnIndices = this.model.columnList().index;
+					const columnIndices = this.model.columnList().index;
 
-				const cells =[];
-				this.selection.items.forEach(item => {
-					const {row, column} = item;
-					const key = column.key;
+					const cells = [];
+					this.selection.items.forEach(item => {
+						const {row, column} = item;
+						const key = column.key;
 
-					const columnIndex = columnIndices.indexOf(key);
-					const rowIndex = row.id;
+						const columnIndex = columnIndices.indexOf(key);
+						const rowIndex = row.id;
 
-					const cellView = this.table.body.cell(rowIndex, columnIndex).model();
+						const cellView = this.table.body.cell(rowIndex, columnIndex).model();
 
-					cells.push(cellView.model);
-				});
+						cells.push(cellView.model);
+					});
 
-				cells.forEach(cell => {
-					const type = cell.column.type;
+					cells.forEach(cell => {
+						const type = cell.column.type;
 
-					if(initialType === type) {
-						const cellEditor = new CellEditor(cell);
-						cellEditor.label = label;
-						cellEditor.value = value;
-						cellEditor.commit();
-					}
-				});
+						if (initialType === type) {
+							const cellEditor = new CellEditor(cell);
+							cellEditor.label = label;
+							cellEditor.value = value;
+							cellEditor.commit();
+						}
+					});
+				}
 			}
 		}
-
-		// if (this.selection.mode === 'range') {
-		// 	const startCell = this.rangeStartCell;
-		// 	const endCell = pathFinder.cell(e.path);
-            //
-		// 	if (startCell && endCell) {
-		// 		this.navigate(endCell);
-		// 		this.view.selection.selectRange(startCell, endCell, 'body');
-		// 	}
-		// }
 	}
 
 	onMouseLeave() {
@@ -169,8 +161,10 @@ export class BodyCtrl extends View {
 	}
 
 	onMouseUp(e) {
+		const mode = this.selection.mode;
+
 		if (e.which === MOUSE_LEFT_BUTTON) {
-			if (this.selection.mode === 'range') {
+			if (mode === 'range' || mode === 'batch') {
 				this.rangeStartCell = null;
 			}
 
@@ -188,8 +182,11 @@ export class BodyCtrl extends View {
 
 	select(cell) {
 		const selectionState = this.selection;
+		const mode = selectionState.mode;
+		const area = selectionState.area;
+
 		if (cell.column.type !== 'select' &&
-			(selectionState.area !== 'body' || selectionState.mode === 'range')) {
+			(area !== 'body' || mode === 'range' || mode === 'batch')) {
 			return;
 		}
 

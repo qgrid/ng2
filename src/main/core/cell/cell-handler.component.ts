@@ -72,4 +72,8 @@ export class CellHandlerComponent implements OnInit {
 			}
 		});
 	}
+
+	get isMarkerVisible(): boolean {
+		return this.root.model.selection().mode === 'batch';
+	}
 }
