@@ -15,7 +15,7 @@
 		"declaration": true,
 		"lib": [
 			"dom",
-			"es6",
+			"es6"
 		],
 		"typeRoots": [
 			"node_modules/@types"
