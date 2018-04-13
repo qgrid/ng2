@@ -9,7 +9,7 @@ import { WhereSchema } from './schema/where.schema';
 @Component({
 	selector: 'q-grid-query-builder-panel',
 	templateUrl: './query-builder-panel.component.html',
-	providers: [WhereSchema]
+	providers: [QueryBuilderService]
 })
 export class QueryBuilderPanelComponent extends PluginComponent implements OnInit {
 	public node: Node;
@@ -38,8 +38,7 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 
 	constructor(
 		@Optional() root: RootService,
-		private service: QueryBuilderService,
-		private whereSchema: WhereSchema) {
+		private service: QueryBuilderService) {
 
 		super(root);
 	}
@@ -47,7 +46,8 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 	ngOnInit() {
 		super.ngOnInit();
 
-		const schema = this.whereSchema.factory();
-		this.node = schema.apply();
+		const schema = new WhereSchema(this.service);
+		const plan = schema.factory();
+		this.node = plan.apply();
 	}
 }

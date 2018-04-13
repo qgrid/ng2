@@ -9,8 +9,7 @@ import { QueryBuilderService } from './query-builder.service';
 
 @Component({
 	selector: 'q-grid-query-builder',
-	templateUrl: './query-builder.component.html',
-	providers: [QueryBuilderService]
+	templateUrl: './query-builder.component.html'
 })
 export class QueryBuilderComponent extends PluginComponent implements OnInit {
 	constructor(@Optional() root: RootService) {

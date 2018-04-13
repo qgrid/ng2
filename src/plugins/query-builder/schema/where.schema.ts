@@ -3,12 +3,10 @@ import { typeMapping as operations } from './operator';
 import { suggestFactory, suggestsFactory } from './suggest.service';
 import { QueryBuilderService, IQueryBuilderSchema } from '../query-builder.service';
 import { isArray, noop } from 'ng2-qgrid/core/utility/index';
-import { ValidatorService } from '../validation/validator.service';
+import { Validator } from './validator';
 
-@Injectable()
 export class WhereSchema {
-	constructor(private service: QueryBuilderService,
-		private validator: ValidatorService) {
+	constructor(private service: QueryBuilderService) {
 	}
 
 	factory(): IQueryBuilderSchema {
@@ -36,7 +34,7 @@ export class WhereSchema {
 			return null;
 		};
 
-		const validator = this.validator.factory({});
+		const validator = new Validator();
 
 		return this.service.build()
 			.node('#logical', function (schema) {
@@ -109,10 +107,10 @@ export class WhereSchema {
 										op.change();
 									} else {
 										const operand = line.get('#operand').expressions[0];
-										operand.state = validator(field)(operand.value);
+										operand.state = validator.for(field)(operand.value);
 										if (operand.state.length) {
 											operand.value = null;
-											operand.state = validator(field)(operand.value);
+											operand.state = validator.for(field)(operand.value);
 										}
 									}
 								}
@@ -151,7 +149,7 @@ export class WhereSchema {
 													$watch: {
 														'value': function () {
 															const field = line.get('#field').expressions[0].value;
-															this.state = validator(field)(this.value);
+															this.state = validator.for(field)(this.value);
 														}
 													},
 													state: [],
@@ -177,7 +175,7 @@ export class WhereSchema {
 														$watch: {
 															'value': function () {
 																const field = line.get('#field').expressions[0].value;
-																this.state = validator(field)(this.value);
+																this.state = validator.for(field)(this.value);
 															}
 														},
 														classes: {
@@ -202,7 +200,7 @@ export class WhereSchema {
 														$watch: {
 															'value': function () {
 																const field = line.get('#field').expressions[0].value;
-																this.state = validator(field)(this.value);
+																this.state = validator.for(field)(this.value);
 															}
 														},
 														classes: {
@@ -231,7 +229,7 @@ export class WhereSchema {
 														$watch: {
 															'values': function () {
 																const field = line.get('#field').expressions[0].value;
-																this.state = validator(field)(this.values);
+																this.state = validator.for(field)(this.values);
 															}
 														},
 														classes: {
@@ -265,7 +263,7 @@ export class WhereSchema {
 									$watch: {
 										'value': function (newValue, oldValue, node, line) {
 											const field = line.get('#field').expressions[0].value;
-											this.state = validator(field)(this.value);
+											this.state = validator.for(field)(this.value);
 										}
 									},
 									classes: {
