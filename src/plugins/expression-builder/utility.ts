@@ -9,7 +9,7 @@ export function indexOf(array, predicate) {
 	return -1;
 }
 
-export function defaults<T>(...args: T[]): T {
+export function defaults<T>(...args: any[]): T {
 	const dst = args[0];
 	const result = clone(dst) as T;
 

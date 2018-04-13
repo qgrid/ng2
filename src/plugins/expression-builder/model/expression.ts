@@ -16,11 +16,3 @@ export class GroupExpression extends Expression {
 	}
 }
 
-export class EmptyExpression extends Expression {
-	constructor() {
-		super();
-
-		this.type = 'empty';
-		this.templateUrl = 'eb-empty.tpl.html';
-	}
-}
