@@ -6,6 +6,7 @@ import { Command } from '../../core/command/command';
 
 export declare class ColumnFilterView extends PluginView {
 	constructor(model: Model, context: any);
+	by: Set;
 	cancelEvent: Event;
 	submitEvent: Event;
 	getValue: (row: any) => any;
@@ -14,5 +15,6 @@ export declare class ColumnFilterView extends PluginView {
 	reset: Command;
 	commit: Command;
 	cancel: Command;
-	hasBlanks: bool;
+	hasBlanks: boolean;
+	isEmpty(): boolean;
 }

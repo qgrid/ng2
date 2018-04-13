@@ -1,6 +1,7 @@
-import {View} from '../view';
-import {Log} from '../infrastructure';
-import {isFunction} from '../utility';
+import { View } from '../view';
+import { Log } from '../infrastructure';
+import { isFunction } from '../utility';
+import { Fastdom } from '../services/fastdom';
 
 export class ScrollView extends View {
 	constructor(model, table, vscroll) {
@@ -21,6 +22,9 @@ export class ScrollView extends View {
 		}
 
 		this.y = vscroll.factory(settings);
+
+		this.y.container.read = Fastdom.measure;
+		this.y.container.write = Fastdom.mutate;
 
 		this.y.container.drawEvent.on(e => {
 			scroll({ cursor: e.position }, {
@@ -68,7 +72,7 @@ export class ScrollView extends View {
 					if (e.hasChanges('status')) {
 						const status = e.state.status;
 						switch (status) {
-							case 'start': {
+							case 'stop': {
 								this.y.container.reset();
 								break;
 							}
@@ -97,8 +101,10 @@ export class ScrollView extends View {
 		const table = this.table;
 		const scroll = this.model.scroll();
 
-		table.view.scrollLeft(scroll.left);
-		table.view.scrollTop(scroll.top);
+		Fastdom.mutate(() => {
+			table.view.scrollLeft(scroll.left);
+			table.view.scrollTop(scroll.top);
+		});
 	}
 
 	get mode() {

@@ -15,10 +15,12 @@ import { VscrollService } from 'ng2-qgrid/common/vscroll/vscroll.service';
 import { VscrollContext } from 'ng2-qgrid/common/vscroll/vscroll.context';
 import { GridService } from 'ng2-qgrid/main/grid/grid.service';
 import { Fetch } from 'ng2-qgrid/core/infrastructure/fetch';
+import { FocusAfterRender } from 'ng2-qgrid/common/focus/focus.service';
 
 @Component({
 	selector: 'q-grid-column-filter',
-	templateUrl: './column-filter.component.html'
+	templateUrl: './column-filter.component.html',
+	providers: [FocusAfterRender]
 })
 export class ColumnFilterComponent extends PluginComponent implements OnInit, OnDestroy {
 	@Input() public key: string;
@@ -27,14 +29,14 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
-
 	private columnFilter: ColumnFilterView;
 	private vscrollContext: VscrollContext;
 
 	constructor(
 		@Optional() root: RootService,
 		private vscroll: VscrollService,
-		private qgrid: GridService) {
+		private qgrid: GridService,
+		focusAfterRender: FocusAfterRender) {
 		super(root);
 	}
 
@@ -54,6 +56,8 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 			fetch: (skip, take, d) => {
 				const filterState = model.filter();
 				const service = this.qgrid.service(model);
+				// We need to close items property for correct reset behavior
+				const items = columnFilter.items;
 				if (filterState.fetch !== this.qgrid.noop) {
 					const cancelBusy = service.busy();
 					const select = filterState
@@ -67,18 +71,17 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 					const fetch = new Fetch(select);
 					fetch.run();
 					fetch.busy
-						.then(items => {
-							columnFilter.items.push(...items);
-							d.resolve(columnFilter.items.length + take);
+						.then(page => {
+							items.push(...page);
+							d.resolve(items.length + (page.length === take ? take : 0));
 							cancelBusy();
 						})
 						.catch(cancelBusy);
-						
 				} else {
 					const cancelBusy = service.busy();
 					const isBlank = model.filter().assertFactory().isNull;
 					try {
-						if (!columnFilter.items.length) {
+						if (!items.length) {
 							const source = model[model.columnFilter().source];
 							let items = source().rows.map(columnFilter.getValue);
 							if (columnFilter.column.type === 'array') {

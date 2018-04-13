@@ -2,12 +2,14 @@ import { Component, Optional, Input, Output, EventEmitter, OnInit, OnDestroy } f
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 import { ColumnChooserView } from 'ng2-qgrid/plugin/column-chooser/column.chooser.view';
+import { FocusAfterRender } from 'ng2-qgrid/common/focus/focus.service';
 
 const ColumnChooserName = 'qGridColumnChooser';
 
 @Component({
 	selector: 'q-grid-column-chooser',
-	templateUrl: './column-chooser.component.html'
+	templateUrl: './column-chooser.component.html',
+	providers: [FocusAfterRender]
 })
 export class ColumnChooserComponent extends PluginComponent implements OnInit, OnDestroy {
 	@Input('canAggregate') columnChooserCanAggregate: boolean;
@@ -16,7 +18,8 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 
 	private columnChooser: ColumnChooserView;
 
-	constructor( @Optional() root: RootService) {
+	constructor(
+		@Optional() root: RootService, focusAfterRender: FocusAfterRender) {
 		super(root);
 
 		this.models = ['columnChooser'];
@@ -38,7 +41,7 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 
 	ngOnDestroy() {
 		super.ngOnDestroy();
-		
+
 		this.columnChooser.dispose();
 	}
 }

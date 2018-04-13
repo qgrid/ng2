@@ -19,6 +19,7 @@ export class VscrollContainer {
 	resetEvent = new EventEmitter<any>();
 	updateEvent = new EventEmitter<any>();
 	drawEvent = new EventEmitter<any>();
+	deferred = null;
 
 	tick(f: () => void) {
 		rAF(f);
@@ -36,12 +37,17 @@ export class VscrollContainer {
 		emit(f);
 	}
 
+	place() {
+		const threshold = this.settings.threshold;
+		const cursor = this.cursor;
+		return Math.ceil((cursor + threshold) / threshold) - 1;
+	}
+
 	update(count: number, force?: boolean) {
 		const settings = this.settings;
 		const threshold = settings.threshold;
-		const cursor = this.cursor;
-		const oldPage = this.page;
-		const newPage = Math.ceil((cursor + threshold) / threshold) - 1;
+		const largestPage = this.page;
+		const currentPage = this.place();
 
 		if (this.count !== count) {
 			this.count = count;
@@ -53,30 +59,34 @@ export class VscrollContainer {
 			});
 		}
 
-		if (force || newPage > oldPage) {
-			this.page = newPage;
+		if (force || currentPage > largestPage) {
+			this.page = currentPage;
 
 			new Promise<number>((resolve, reject) => {
-				const deferred = { resolve, reject };
-				if (newPage === 0) {
+				const deferred = this.deferred = { resolve, reject };
+				if (currentPage === 0) {
 					settings.fetch(0, threshold, deferred);
 				} else {
-					const skip = (oldPage + 1) * threshold;
+					const skip = (largestPage + 1) * threshold;
 					if (this.total < skip) {
 						deferred.resolve(this.total);
 					} else {
-						const take = (newPage - oldPage) * threshold;
+						const take = (currentPage - largestPage) * threshold;
 						settings.fetch(skip, take, deferred);
 					}
 				}
 			}).then(nextCount => {
 				this.force = true;
 				this.update(nextCount);
-			});
+			}).catch(() => this.deferred = null);
 		}
 	}
 
 	reset() {
+		if (this.deferred) {
+			this.deferred = null;
+		}
+
 		this.count = 0;
 		this.total = 0;
 		this.position = 0;

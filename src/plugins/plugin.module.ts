@@ -16,9 +16,13 @@ import { SelectModule } from './select/select.module';
 import { LegendModule } from './legend/legend.module';
 import { ChipsModule } from './chips/chips.module';
 import { ReferenceEditorModule } from './reference-editor/reference-editor.module';
+import { PersistenceModule } from './persistence/persistence.module';
 import { ColumnChooserModel } from 'ng2-qgrid/plugin/column-chooser/column.chooser.model';
 import { ColumnFilterModel } from 'ng2-qgrid/plugin/column-filter/column.filter.model';
 import { DataManipulationModel } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.model';
+import { StatusBarModule } from 'ng2-qgrid/plugins/status-bar/status-bar.module';
+import { QueryBuilderModule } from 'ng2-qgrid/plugins/query-builder/query-builder.module';
+import { EbModule } from 'ng2-qgrid/plugins/expression-builder/eb.module';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 Model.register('columnChooser', ColumnChooserModel)
@@ -43,8 +47,12 @@ Model.register('columnChooser', ColumnChooserModel)
 		TabTrapModule,
 		BackdropModule,
 		SelectModule,
+		StatusBarModule,
 		LegendModule,
-		ChipsModule
+		ChipsModule,
+		PersistenceModule,
+		QueryBuilderModule,
+		EbModule
 	]
 })
-export class PluginModule {}
+export class PluginModule { }
