@@ -33,6 +33,8 @@ import { ValidationModel } from '../validation/validation.model';
 import { Event } from './event';
 import { PersistenceModel } from '../persistence/persistence.model';
 import { PipeModel } from '../pipe/pipe.model';
+import { DataManipulationModel } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.model';
+import { RestModel } from 'ng2-qgrid/plugin/rest/rest.model';
 
 export declare class Model {
 	constructor();
@@ -141,4 +143,8 @@ export declare class Model {
 	persistence(): PersistenceModel;
 	validation(value: object, tag?: object): Model;
 	validation(): ValidationModel;
+	dataManipulation(value: object, tag?: object): Model;
+	dataManipulation(): DataManipulationModel;
+	rest(value: object, tag?: object): Model;
+	rest(): RestModel;
 }
