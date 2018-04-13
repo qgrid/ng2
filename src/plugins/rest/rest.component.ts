@@ -24,11 +24,7 @@ export class RestComponent extends PluginComponent implements OnInit, OnDestroy 
 	ngOnInit() {
 		super.ngOnInit();
 
-		const {method, url, serialize} = this.model.rest();
 		this.rest = new RestView(this.model, {
-			url,
-			method,
-			serialize,
 			get: (url, params) => this.http.get(url, {params}).toPromise(),
 			post: (url, data) => this.http.post(url, {data}).toPromise()
 		});

@@ -9,9 +9,9 @@ export class Rest extends PluginView {
 	constructor(model, {get, post}) {
 		super(model);
 
-		const {method, url} = this.model.rest();
+		const {method, url, serialize} = this.model.rest();
 		const fetch = this.fetchFactory(method, get, post);
-		const serialize = this.serializeFactory(method, model.rest().serialize);
+		const doSerialize = this.serializeFactory(method, serialize);
 
 		if (!url) {
 			throw new AppError('rest', 'REST endpoint URL is required');
@@ -20,7 +20,7 @@ export class Rest extends PluginView {
 		model.data({
 			pipe: [
 				(data, context, next) => {
-					fetch(url, serialize(model))
+					fetch(url, doSerialize(model))
 						.then(data => next(data));
 				},
 				...PipeUnit.view
@@ -29,12 +29,13 @@ export class Rest extends PluginView {
 	}
 
 	fetchFactory(method, get, post) {
-		if (method.toLowerCase() === 'get') {
-			return get;
-		} else if (method.toLowerCase() === 'post') {
-			return post;
-		} else {
-			throw new AppError('rest', `"${method}" is incorrect REST method`);
+		switch (method.toLowerCase()) {
+			case 'get':
+				return get;
+			case 'post':
+				return post;
+			default:
+				throw new AppError('rest', `"${method}" is incorrect REST method`);
 		}
 	}
 
