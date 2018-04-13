@@ -68,7 +68,9 @@ const templates = [
 	require('./plugin-legend-core.tpl.html'),
 	require('./plugin-status-bar.tpl.html'),
 	require('./plugin-persistence.tpl.html'),
-	require('./plugin-persistence-panel.tpl.html')
+	require('./plugin-persistence-panel.tpl.html'),
+	require('./plugin-query-builder.tpl.html'),
+	require('./plugin-query-builder-panel.tpl.html')
 ];
 
 export const template = templates.join('\n\n');

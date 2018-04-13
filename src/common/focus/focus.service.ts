@@ -1,4 +1,4 @@
-import {Injectable, OnDestroy, Optional} from '@angular/core';
+import { Injectable, OnDestroy, Optional } from '@angular/core';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 
 @Injectable()
