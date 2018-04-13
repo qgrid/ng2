@@ -9,7 +9,7 @@ import { WhereSchema } from './schema/where.schema';
 @Component({
 	selector: 'q-grid-query-builder-panel',
 	templateUrl: './query-builder-panel.component.html',
-	providers: [QueryBuilderService, WhereSchema]
+	providers: [WhereSchema]
 })
 export class QueryBuilderPanelComponent extends PluginComponent implements OnInit {
 	public node: Node;
