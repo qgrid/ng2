@@ -1,9 +1,9 @@
 <ng-template key="plugin-action-core.tpl.html"
-				 let-$action>
+             let-$action>
 	<div class="q-grid-action"
 	     [ngSwitch]="!!$action.templateUrl">
 		<ng-container *ngSwitchCase="true"
-		              [key]="$action.templateUrl">
+			      [key]="$action.templateUrl">
 		</ng-container>
 		<button *ngSwitchDefault
 		        mat-icon-button

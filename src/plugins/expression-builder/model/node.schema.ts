@@ -5,8 +5,14 @@ import { Node } from './node';
 import { GroupSchema } from './group.schema';
 
 export interface INodeSchema {
-	apply(node?: Node);
 	schemaMap: { [key: string]: INodeSchema };
+
+	apply(node?: Node): Node;
+	attr(key: string, value: any): INodeSchema;
+	node(id: string, build: (schema: INodeSchema) => void): INodeSchema;
+	group(id: string, build: (schema: GroupSchema) => void): INodeSchema;
+	get(id: string): INodeSchema;
+	materialize(id: string): Node;
 }
 
 export function nodeSchema(GroupSchemaT: typeof GroupSchema) {
@@ -17,19 +23,19 @@ export function nodeSchema(GroupSchemaT: typeof GroupSchema) {
 		constructor(public schemaMap = {}) {
 		}
 
-		clone() {
+		clone(): INodeSchema {
 			const schema = new NodeSchema({ ...this.schemaMap });
 			schema.plan = [...this.plan];
 			schema.planMap = { ...this.planMap };
 			return schema;
 		}
 
-		attr(key, value) {
+		attr(key: string, value: any) {
 			this.plan.push(node => node.attr(key, value));
 			return this;
 		}
 
-		apply(node?: Node) {
+		apply(node?: Node): Node {
 			node = node || new Node('#root', this);
 
 			const line = new Line(GroupSchemaT);
@@ -40,7 +46,7 @@ export function nodeSchema(GroupSchemaT: typeof GroupSchema) {
 			return node;
 		}
 
-		node(id, build) {
+		node(id: string, build: (schema: INodeSchema) => void) {
 			if (!build) {
 				throw new AppError('node.schema', 'Build function is not defined');
 			}
@@ -92,7 +98,7 @@ export function nodeSchema(GroupSchemaT: typeof GroupSchema) {
 			return schema;
 		}
 
-		materialize(id: string) {
+		materialize(id: string): Node {
 			const schema = this.get(id);
 			return schema.apply(new Node(id, schema));
 		}
