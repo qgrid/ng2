@@ -27,6 +27,9 @@ export class PersistenceComponent extends PluginComponent implements OnInit {
 		model.persistence().storage
 			.getItem(id)
 			.then((items: PersistenceItem[]) => {
+				if (!items || items.length === 0) {
+					return;
+				}
 				const defaultItem = items.find(item => item.isDefault);
 				if (defaultItem) {
 					const persistenceService = new PersistenceService(model);
