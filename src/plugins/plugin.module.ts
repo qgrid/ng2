@@ -22,12 +22,15 @@ import { ColumnFilterModel } from 'ng2-qgrid/plugin/column-filter/column.filter.
 import { DataManipulationModel } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.model';
 import { StatusBarModule } from 'ng2-qgrid/plugins/status-bar/status-bar.module';
 import { EbModule } from 'ng2-qgrid/plugins/expression-builder/eb.module';
+import { RestModel } from 'ng2-qgrid/plugin/rest/rest.model';
 import { QueryBuilderModule } from 'ng2-qgrid/plugins/query-builder/query-builder.module';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
+import {RestModule} from 'ng2-qgrid/plugins/rest/rest.module';
 
 Model.register('columnChooser', ColumnChooserModel)
 	.register('columnFilter', ColumnFilterModel)
-	.register('dataManipulation', DataManipulationModel);
+	.register('dataManipulation', DataManipulationModel)
+	.register('rest', RestModel);
 
 @NgModule({
 	declarations: [],
@@ -51,7 +54,8 @@ Model.register('columnChooser', ColumnChooserModel)
 		LegendModule,
 		ChipsModule,
 		PersistenceModule,
-		EbModule
+		EbModule,
+		RestModule
 	]
 })
 export class PluginModule { }
