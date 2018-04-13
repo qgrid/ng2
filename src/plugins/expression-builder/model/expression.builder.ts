@@ -17,6 +17,7 @@ export class ExpressionBuilder {
 	build<T>(statements: Array<IStatement>): T {
 		const NodeSchemaT = nodeSchema(GroupSchema);
 
+		const settings = this.settings;
 		statements
 			.concat([new EmptyStatement()])
 			.forEach(statement => {
@@ -35,7 +36,7 @@ export class ExpressionBuilder {
 							utility.defaults<Expression>(
 								expression,
 								statement.defaults,
-								this.settings.defaults
+								settings.defaults
 							);
 
 						expression.id = id;
@@ -92,7 +93,13 @@ export class ExpressionBuilder {
 					}
 
 					const build = function (node, line, expressionGroup) {
-						expression = utility.defaults<Expression>(expression, statement.defaults, this.settings.defaults);
+						expression =
+							utility.defaults<Expression>(
+								expression,
+								statement.defaults,
+								settings.defaults
+							);
+
 						expression.id = id;
 						expression.type = statement.type;
 						expression.templateUrl = statement.templateKey;

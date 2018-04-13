@@ -70,7 +70,12 @@ const templates = [
 	require('./plugin-persistence.tpl.html'),
 	require('./plugin-persistence-panel.tpl.html'),
 	require('./plugin-query-builder.tpl.html'),
-	require('./plugin-query-builder-panel.tpl.html')
+	require('./plugin-query-builder-panel.tpl.html'),
+
+	require('./plugin-eb-label.tpl.html'),
+	require('./plugin-eb-button.tpl.html'),
+	require('./plugin-eb-select.tpl.html'),
+	require('./plugin-eb-text.tpl.html')
 ];
 
 export const template = templates.join('\n\n');
