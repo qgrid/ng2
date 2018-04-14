@@ -1,17 +1,20 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
+import {element} from "protractor";
 
 @Component({
 	selector: 'q-grid-cell-handler',
 	templateUrl: './cell-handler.component.html'
 })
-export class CellHandlerComponent implements OnInit {
+export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private job = jobLine(150);
 
 	constructor(private element: ElementRef, private root: RootService) {
 	}
+
+	@ViewChild('icon') marker: ElementRef;
 
 	ngOnInit() {
 		const model = this.root.model;
@@ -21,9 +24,11 @@ export class CellHandlerComponent implements OnInit {
 		// When navigate first or when animation wasn't applied we need to omit
 		// next navigation event to make handler to correct position.
 		let isValid = false;
+
 		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
 				const cell = e.state.cell;
+
 				if (cell) {
 					const oldColumn = e.changes.cell.oldValue ? e.changes.cell.oldValue.column : {};
 					const newColumn = e.changes.cell.newValue ? e.changes.cell.newValue.column : {};
@@ -73,7 +78,25 @@ export class CellHandlerComponent implements OnInit {
 		});
 	}
 
-	get isMarkerVisible(): boolean {
-		return this.root.model.selection().mode === 'batch';
+	ngAfterViewInit() {
+		const model = this.root.model;
+		let previousCell = null;
+
+		model.navigationChanged.watch(e => {
+			if (e.hasChanges('cell')) {
+				const currentCell = e.state.cell;
+
+				if (model.selection().mode === 'batch') {
+					if (previousCell) {
+						previousCell.removeChild(this.marker.nativeElement);
+					}
+
+					const element = currentCell.model.element;
+
+					element.appendChild(this.marker.nativeElement);
+					previousCell = element;
+				}
+			}
+		});
 	}
 }

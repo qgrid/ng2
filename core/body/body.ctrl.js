@@ -69,16 +69,10 @@ export class BodyCtrl extends View {
 
 			const editMode = this.model.edit().mode;
 			if (selectionState.mode === 'range' || selectionState.mode === 'batch') {
-				const tr = cell.element;
-				const clientRect = tr.getBoundingClientRect();
 
-				const rectX = clientRect.right;
-				const rectY = clientRect.bottom;
-
-				const clickX = e.clientX;
-				const clickY = e.clientY;
-
-				this.allowBatch = this.isAllowBatch(clickX, clickY, rectX, rectY);
+				if (selectionState.mode === 'batch') {
+					this.allowBatch = this.isAllowBatch(e, cell);
+				}
 
 				if (!editMode) {
 					this.rangeStartCell = cell;
@@ -121,17 +115,14 @@ export class BodyCtrl extends View {
 					const label = startCell.label;
 					const value = startCell.value;
 					const initialType = startCell.column.type;
-
 					const columnIndices = this.model.columnList().index;
-
 					const cells = [];
+
 					this.selection.items.forEach(item => {
 						const {row, column} = item;
 						const key = column.key;
-
 						const columnIndex = columnIndices.indexOf(key);
 						const rowIndex = row.id;
-
 						const cellView = this.table.body.cell(rowIndex, columnIndex).model();
 
 						cells.push(cellView.model);
@@ -231,7 +222,16 @@ export class BodyCtrl extends View {
 		return this.model.selection();
 	}
 
-	isAllowBatch(clickX, clickY, rectX, rectY) {
+	isAllowBatch(e, cell) {
+		const tr = cell.element;
+		const clientRect = tr.getBoundingClientRect();
+
+		const rectX = clientRect.right;
+		const rectY = clientRect.bottom;
+
+		const clickX = e.clientX;
+		const clickY = e.clientY;
+
 		return (rectX - clickX < 15) && (rectY - clickY < 15);
 	}
 }
