@@ -10,4 +10,6 @@ export class EbExpressionComponent {
 	@Input() public node: Node;
 	@Input() public line: Line;
 	@Input() public model: any;
+
+	context: any = { $implicit: this };
 }
