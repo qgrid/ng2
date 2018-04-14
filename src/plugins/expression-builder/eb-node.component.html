@@ -3,7 +3,8 @@
 	<li class="q-grid-eb-line">
 		<ul>
 			<li *ngFor="let expr of model.line.expressions"
-			    class="q-grid-eb-expression">
+				class="q-grid-eb-expression">
+				{{expr.templateUrl}}
 				<q-grid-eb-expression [model]="expr"
 				                      [node]="model"
 				                      [line]="model.line">

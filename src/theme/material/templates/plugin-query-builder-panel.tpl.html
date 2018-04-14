@@ -7,9 +7,11 @@
 			</mat-card-title>
 		</mat-card-header>
 		<mat-card-content>
-			<div class="q-grid-query-builder-content">
-				<q-grid-eb-node [model]="$builder.node">
-				</q-grid-eb-node>
+			<div class="q-grid-query-builder-content layout-column">
+				<div class="flex-100 q-grid-query-builder-expression">
+					<q-grid-eb-node [model]="$builder.node">
+					</q-grid-eb-node>
+				</div>
 			</div>
 		</mat-card-content>
 		<mat-card-actions>
