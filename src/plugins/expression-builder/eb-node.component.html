@@ -24,13 +24,15 @@
 </ul>
 
 <ng-template key="eb-group.tpl.html"
-             let-$group>
+			 let-$group
+			 let-$node="node"
+			 let-$line="line">
 	<ul class="q-grid-eb-group">
-		<li *ngFor="let expr of $group.model.expressions"
+		<li *ngFor="let expr of $group.expressions"
 		    class="q-grid-eb-expression">
 			<q-grid-eb-expression [model]="expr"
-			                      [node]="$group.node"
-			                      [line]="$group.node.line">
+			                      [node]="$node"
+			                      [line]="$line">
 			</q-grid-eb-expression>
 		</li>
 	</ul>
