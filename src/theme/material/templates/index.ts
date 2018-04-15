@@ -75,7 +75,7 @@ const templates = [
 	require('./plugin-eb-label.tpl.html'),
 	require('./plugin-eb-button.tpl.html'),
 	require('./plugin-eb-select.tpl.html'),
-	require('./plugin-eb-text.tpl.html'),
+	require('./plugin-eb-input.tpl.html'),
 	require('./plugin-eb-icon-button.tpl.html'),
 	require('./plugin-eb-autocomplete.tpl.html'),
 	require('./plugin-eb-multiselect.tpl.html'),
