@@ -1,0 +1,7 @@
+<ng-template key="plugin-eb-input.tpl.html"
+             let-$expr>
+    <input [(ngModel)]="$expr.value"
+           type="text"
+           placeholder="{{$expr.placeholderText}}"
+           (change)="$expr.change()" />
+</ng-template>
