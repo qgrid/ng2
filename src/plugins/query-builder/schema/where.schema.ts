@@ -1,9 +1,28 @@
-import { Injectable } from '@angular/core';
 import { typeMapping as operations } from './operator';
 import { suggestFactory, suggestsFactory } from './suggest.service';
 import { QueryBuilderService, IQueryBuilderSchema } from '../query-builder.service';
 import { isArray, noop } from 'ng2-qgrid/core/utility/index';
 import { Validator } from './validator';
+
+export const getValue = (line, id, props) => {
+	const group = line.get(id);
+	if (group) {
+		if (group.expressions.length === 1) {
+			const expr = group.expressions[0];
+			const prop = props.filter(p => expr.hasOwnProperty(p))[0];
+			if (prop) {
+				const value = expr[prop];
+				if (isArray(value) && value.length) {
+					return value[0];
+				}
+
+				return value;
+			}
+		}
+	}
+
+	return null;
+};
 
 export class WhereSchema {
 	constructor(private service: QueryBuilderService) {
@@ -14,25 +33,6 @@ export class WhereSchema {
 		const suggest = suggestFactory(service, '#field');
 		const suggests = suggestsFactory(service, '#field');
 
-		const getValue = (line, id, props) => {
-			const group = line.get(id);
-			if (group) {
-				if (group.expressions.length === 1) {
-					const expr = group.expressions[0];
-					const prop = props.filter(p => expr.hasOwnProperty(p))[0];
-					if (prop) {
-						const value = expr[prop];
-						if (isArray(value) && value.length) {
-							return value[0];
-						}
-
-						return value;
-					}
-				}
-			}
-
-			return null;
-		};
 
 		const validator = new Validator();
 
