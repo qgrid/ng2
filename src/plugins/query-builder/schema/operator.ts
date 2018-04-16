@@ -62,19 +62,29 @@ export const camelCaseMapping = {
 };
 
 export const typeMapping = {
-	STRING: commonOperators.concat(textOperators),
-	INTEGER: commonOperators.concat(numberOperators),
-	NUMBER: commonOperators.concat(numberOperators),
-	DATETIME: commonOperators.concat(numberOperators),
-	CURRENCY: commonOperators.concat(numberOperators)
+	bool: oneToOneCommonOperators,
+	id: commonOperators.concat(textOperators),
+	text: commonOperators.concat(textOperators),
+	email: commonOperators.concat(textOperators),
+	url: commonOperators.concat(textOperators),
+	password: commonOperators.concat(textOperators),
+	number: commonOperators.concat(numberOperators),
+	date: commonOperators.concat(numberOperators),
+	time: commonOperators.concat(numberOperators),
+	currency: commonOperators.concat(numberOperators)
 };
 
 export const oneToOneMapping = {
-	STRING: oneToOneCommonOperators.concat(textOperators),
-	INTEGER: oneToOneCommonOperators.concat(oneToOneNumberOperators),
-	NUMBER: oneToOneCommonOperators.concat(oneToOneNumberOperators),
-	DATETIME: oneToOneCommonOperators.concat(oneToOneNumberOperators),
-	CURRENCY: oneToOneCommonOperators.concat(oneToOneNumberOperators)
+	bool: oneToOneCommonOperators,
+	id: oneToOneCommonOperators.concat(textOperators),
+	text: oneToOneCommonOperators.concat(textOperators),
+	email: oneToOneCommonOperators.concat(textOperators),
+	url: oneToOneCommonOperators.concat(textOperators),
+	password: oneToOneCommonOperators.concat(textOperators),
+	number: oneToOneCommonOperators.concat(oneToOneNumberOperators),
+	date: oneToOneCommonOperators.concat(oneToOneNumberOperators),
+	time: oneToOneCommonOperators.concat(oneToOneNumberOperators),
+	currency: oneToOneCommonOperators.concat(oneToOneNumberOperators)
 };
 
 export const labelMapping = swap(camelCaseMapping);
