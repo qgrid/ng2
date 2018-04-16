@@ -4,33 +4,70 @@
     max-width: 400px;
     height: 500px;
     overflow: hidden;
-    .q-grid-query-builder-content {
-        height: 376px;
-    }
-    .q-grid-query-builder-expression {
-        overflow: auto;
-
-        ul {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-            &.q-grid-eb {
-                &-node {
-                    padding-left: 5px;
-                    white-space: nowrap;
-                    &.placeholder {
-                        opacity: .5;
-                        &:hover {
-                            opacity: .8;
+    .q-grid-query-builder {
+        &-content {
+            height: 376px;
+        }
+        &-expression {
+            overflow: auto;
+            ul {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+                &.q-grid-eb {
+                    &-node {
+                        padding-left: 5px;
+                        white-space: nowrap;
+                        &.qb-placeholder {
+                            opacity: .5;
+                            &:hover {
+                                opacity: .8;
+                            }
+                        }
+                        &.qb-logical {
+                            padding-left: 0;
+                            position: relative;
+                            >.q-grid-eb-line {
+                                position: absolute;
+                                display: inline-block;
+                                transform: rotate(-90deg);
+                                transform-origin: top left;
+                                top: 50%;
+                                margin-top: 26px;
+                                left: 12px;
+                                >ul {
+                                    transform: rotate(90deg);
+                                }
+                            }
+                            >.q-grid-eb-children {
+                                display: flex;
+                                min-height: 66px;
+                                >ul {
+                                    border-left: 1px solid #999;
+                                    border-radius: 5px;
+                                    margin-left: 30px;
+                                }
+                            }
                         }
                     }
+                    &-group {
+                        display: inline;
+                    }
                 }
-                &-group {
+                li {
                     display: inline;
                 }
             }
-            li {
-                display: inline;
+        }
+        &-icon-button {
+            height: 16px;
+            width: 16px;
+            line-height: 16px;
+            .q-grid-icon {
+                line-height: 16px;
+                height: 16px;
+                width: 16px;
+                font-size: 16px;
             }
         }
     }

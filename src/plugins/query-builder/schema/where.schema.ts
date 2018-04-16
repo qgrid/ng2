@@ -40,6 +40,9 @@ export class WhereSchema {
 					.attr('serialize', {
 						'#logical-op': ['value']
 					})
+					.attr('class', {
+						'qb-logical': true
+					})
 					.select('#logical-op', {
 						classes: ['qb-operation'],
 						options: ['AND', 'OR'],
@@ -64,7 +67,7 @@ export class WhereSchema {
 						schema
 							.attr('placeholder', true)
 							.attr('class', {
-								placeholder: function (node) {
+								'qb-placeholder': function (node) {
 									return node.attr('placeholder');
 								}
 							})
@@ -153,10 +156,10 @@ export class WhereSchema {
 													state: [],
 													classes: {
 														'qb-operand': true,
-														'has-value': function () {
+														'qb-has-value': function () {
 															return !!this.value;
 														},
-														'invalid': function (node) {
+														'qb-invalid': function (node) {
 															return !this.isValid(node);
 														}
 													},
@@ -178,10 +181,10 @@ export class WhereSchema {
 														},
 														classes: {
 															'qb-operand': true,
-															'has-value': function () {
+															'qb-has-value': function () {
 																return !!this.value;
 															},
-															'invalid': function (node) {
+															'qb-invalid': function (node) {
 																return !this.isValid(node);
 															}
 														},
@@ -203,10 +206,10 @@ export class WhereSchema {
 														},
 														classes: {
 															'qb-operand': true,
-															'has-value': function () {
+															'qb-has-value': function () {
 																return !!this.value;
 															},
-															'invalid': function (node) {
+															'qb-invalid': function (node) {
 																return !this.isValid(node);
 															}
 														},
@@ -232,10 +235,10 @@ export class WhereSchema {
 														},
 														classes: {
 															'qb-operand': true,
-															'has-value': function () {
+															'qb-has-value': function () {
 																return !!this.values.length;
 															},
-															'invalid': function (node) {
+															'qb-invalid': function (node) {
 																return !this.isValid(node);
 															}
 														},
@@ -266,10 +269,10 @@ export class WhereSchema {
 									},
 									classes: {
 										'qb-operand': true,
-										'has-value': function () {
+										'qb-has-value': function () {
 											return !!this.value;
 										},
-										'invalid': function (node) {
+										'qb-invalid': function (node) {
 											return !this.isValid(node);
 										}
 									},
