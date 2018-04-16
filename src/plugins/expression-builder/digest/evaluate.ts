@@ -4,12 +4,12 @@ export function evaluateFactory(expression, args) {
 	return visit;
 
 	function visit(value) {
-		if (isObject(value)) {
-			return visitObject(value);
-		} else if (isArray(value)) {
+		if (isArray(value)) {
 			return visitArray(value);
 		} else if (isFunction(value)) {
 			return visitFunction(value);
+		} else if (isObject(value)) {
+			return visitObject(value);
 		}
 
 		return value;

@@ -41,7 +41,7 @@ export class WhereSchema {
 						'#logical-op': ['value']
 					})
 					.select('#logical-op', {
-						classes: ['cb-operation'],
+						classes: ['qb-operation'],
 						options: ['AND', 'OR'],
 						value: 'AND'
 					})
@@ -78,7 +78,7 @@ export class WhereSchema {
 								'@attr': ['placeholder']
 							})
 							.select('#field', {
-								classes: ['cb-operation', 'field'],
+								classes: ['qb-field'],
 								options: service.columns().map(c => c.key),
 								value: service.columns().length ? service.columns()[0].key : '',
 								getLabel: function (node, line, key) {
@@ -114,7 +114,7 @@ export class WhereSchema {
 								}
 							})
 							.select('#operator', {
-								classes: ['cb-operation'],
+								classes: ['qb-operator'],
 								getOptions: function (node, line) {
 									const field = line.get('#field').expressions[0];
 									const name = field.value;
@@ -152,7 +152,7 @@ export class WhereSchema {
 													},
 													state: [],
 													classes: {
-														'cb-operand': true,
+														'qb-operand': true,
 														'has-value': function () {
 															return !!this.value;
 														},
@@ -177,7 +177,7 @@ export class WhereSchema {
 															}
 														},
 														classes: {
-															'cb-operand': true,
+															'qb-operand': true,
 															'has-value': function () {
 																return !!this.value;
 															},
@@ -191,7 +191,7 @@ export class WhereSchema {
 														placeholderText: 'Select value'
 													})
 													.label('#and', {
-														classes: ['cb-operand', 'cb-operand-and-label'],
+														classes: ['qb-operand', 'qb-operand-and-label'],
 														text: 'AND'
 													})
 													.autocomplete('#to', {
@@ -202,7 +202,7 @@ export class WhereSchema {
 															}
 														},
 														classes: {
-															'cb-operand': true,
+															'qb-operand': true,
 															'has-value': function () {
 																return !!this.value;
 															},
@@ -231,7 +231,7 @@ export class WhereSchema {
 															}
 														},
 														classes: {
-															'cb-operand': true,
+															'qb-operand': true,
 															'has-value': function () {
 																return !!this.values.length;
 															},
@@ -265,7 +265,7 @@ export class WhereSchema {
 										}
 									},
 									classes: {
-										'cb-operand': true,
+										'qb-operand': true,
 										'has-value': function () {
 											return !!this.value;
 										},

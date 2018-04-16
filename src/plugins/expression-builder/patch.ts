@@ -35,19 +35,15 @@ export function methodsOf(inst: any) {
 }
 
 export function withFactory(inst, key, sourceFn) {
-	const withFn = (...withArgs) => {
-		inst[key] = (...keyArgs) => {
-			return sourceFn.apply(inst, withArgs.concat(keyArgs));
-		};
-	};
+	const withFn = (...withArgs) =>
+		inst[key] = (...keyArgs) =>
+			sourceFn.apply(inst, withArgs.concat(keyArgs));
 
 	(withFn as any).decorator = (...args) => {
 		const decorate = args[0];
 		args = args.slice(1);
 
-		inst[key] = () => {
-			return decorate.apply(inst, [sourceFn, inst, key].concat(args));
-		};
+		inst[key] = () => decorate.apply(inst, [sourceFn, inst, key].concat(args));
 	};
 
 	return withFn;

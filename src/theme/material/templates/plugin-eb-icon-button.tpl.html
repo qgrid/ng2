@@ -1,9 +1,11 @@
-<ng-template key="plugin-eb-icon-button.tpl.html" let-$expr>
+<ng-template key="plugin-eb-icon-button.tpl.html"
+             let-$expr>
 	<button *ngIf="$expr.isVisible()"
-			  (click)="$expr.click($event)"
-			  mat-icon-button
-			  class="condition-builder-button md-icon-button">
-		<mat-icon>
+	        class="q-grid-query-builder-icon-button"
+	        (click)="$expr.click && $expr.click($event)"
+	        [ngClass]="$expr.classes"
+	        mat-icon-button>
+		<mat-icon class="q-grid-icon">
 			{{ $expr.icon }}
 		</mat-icon>
 	</button>
