@@ -1,7 +1,8 @@
-<ng-template key="plugin-eb-input.tpl.html"
-             let-$expr>
-    <input [(ngModel)]="$expr.value"
-           type="text"
-           placeholder="{{$expr.placeholderText}}"
-           (change)="$expr.change()" />
+<ng-template key="plugin-eb-input.tpl.html" let-$expr>
+	<input class="condition-builder-input"
+			 [ngClass]="$expr.classes"
+			 [(ngModel)]="$expr.value"
+			 [placeholder]="$expr.placeholderText"
+			 (input)="$expr.change && $expr.change()"
+			 *ngIf="$expr.isVisible()" />
 </ng-template>
