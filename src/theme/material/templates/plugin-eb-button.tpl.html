@@ -1,3 +1,7 @@
-<ng-template key="plugin-eb-button.tpl.html">
-    button
+<ng-template key="plugin-eb-button.tpl.html"
+             let-$expr>
+    <button mat-button
+            (click)="$expr.click()">
+        {{$expr.text}}
+    </button>
 </ng-template>

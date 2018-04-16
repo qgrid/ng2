@@ -19,14 +19,14 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 	submit = new Command({
 		source: 'query-builder.component',
 		execute: () => {
-
+			this.close.emit();
 		}
 	});
 
 	cancel = new Command({
 		source: 'query-builder.component',
 		execute: () => {
-
+			this.close.emit();
 		}
 	});
 

@@ -1,0 +1,23 @@
+<ng-template key="plugin-eb-multiselect.tpl.html"
+             let-$expr>
+
+    <mat-chip-list #chipList>
+        <mat-chip *ngFor="let value of $expr.values;let $index = index"
+                  selectable="true"
+                  removable="true"
+                  (remove)="$expr.values.splice($index, 1)">
+            {{value}}
+            <mat-icon class="q-grid-icon"
+                      matChipRemove>
+                cancel
+            </mat-icon>
+        </mat-chip>
+    </mat-chip-list>
+    <mat-form-field q-grid-chips
+                    [floatLabel]="'never'">
+        <input matInput
+               #chipInput
+               placeholder="New value"
+               [matChipInputFor]="chipList" />
+    </mat-form-field>
+</ng-template>

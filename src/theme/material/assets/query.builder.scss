@@ -4,12 +4,34 @@
     max-width: 360px;
     height: 500px;
     overflow: hidden;
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
     .q-grid-query-builder-content {
         height: 376px;
+    }
+    .q-grid-query-builder-expression {
+        overflow: auto;
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            &.q-grid-eb {
+                &-node {
+                    padding-left: 5px;
+                    white-space: nowrap;
+                    &.placeholder {
+                        opacity: .5;
+                        &:hover {
+                            opacity: .8;
+                        }
+                    }
+                }
+                &-group {
+                    display: inline;
+                }
+            }
+            li {
+                display: inline;
+            }
+        }
     }
 }

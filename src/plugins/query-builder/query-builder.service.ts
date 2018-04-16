@@ -38,7 +38,6 @@ export class QueryBuilderService {
 	}
 
 	columnMap(): ColumnMap {
-		const model = this.root.model;
 		return this.columns().reduce((memo, column) => {
 			memo[column.key] = column;
 			return memo;

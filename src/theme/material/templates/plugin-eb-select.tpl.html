@@ -1,3 +1,10 @@
-<ng-template key="plugin-eb-select.tpl.html">
-    select
+<ng-template key="plugin-eb-select.tpl.html"
+             let-$expr>
+    <mat-select [(ngModel)]="$expr.value"
+                (change)="$expr.change($event)">
+        <mat-option *ngFor="let option of ($expr.options || $expr.getOptions())"
+                    [value]="option">
+            {{($expr.getLabel && $expr.getLabel(option)) || option}}
+        </mat-option>
+    </mat-select>
 </ng-template>

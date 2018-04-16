@@ -9,6 +9,7 @@
 	<mat-menu #menu="matMenu"
 	          class="q-grid-menu q-grid-query-builder-panel">
 		<q-grid-query-builder-panel q-grid-menu
+		                            (close)="trigger.closeMenu()"
 		                            *ngIf="trigger.menuOpen">
 		</q-grid-query-builder-panel>
 	</mat-menu>
