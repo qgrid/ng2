@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { Node } from './model/node';
 import { Line } from './model/line';
 import { GroupExpression } from './model/expression';
@@ -23,7 +22,6 @@ export declare interface ISerializationExpression {
 	method: Array<string>;
 }
 
-@Injectable()
 export class SerializationService {
 	serialize(node: Node): ISerializationNode {
 		return new Serializer(node).serialize();
