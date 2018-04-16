@@ -319,7 +319,11 @@ export class WhereSchema {
 									value: null,
 									state: [],
 									placeholderText: 'Select value',
-									options: suggest,
+									suggest: suggest,
+									options: null,
+									refresh: function (node, line) {
+										this.options = this.suggest(node, line);
+									},
 									change: function (node, line) {
 										// if (this.value) {
 										// 	if (node.attr('placeholder')) {

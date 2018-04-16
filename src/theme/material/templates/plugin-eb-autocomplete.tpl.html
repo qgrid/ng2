@@ -1,4 +1,21 @@
 <ng-template key="plugin-eb-autocomplete.tpl.html"
-             let-$expr>
-    {{$expr.placeholderText}}
+				 let-$expr>
+    <span>
+		 <mat-form-field>
+			 <input matInput
+					  #input
+					  [(ngModel)]="$expr.value"
+					  (input)="$expr.change();$expr.refresh()"
+					  (optionSelected)="$expr.change()"
+					  [placeholder]="$expr.placeholderText"
+					  [matAutocomplete]="auto">
+		 </mat-form-field>
+
+		 <mat-autocomplete #auto="matAutocomplete">
+			 <mat-option *ngFor="let option of $expr.options | async" [value]="option">
+				 {{option}}
+			 </mat-option>
+		 </mat-autocomplete>
+</span>
+
 </ng-template>
