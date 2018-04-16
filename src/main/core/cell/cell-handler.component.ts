@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild }
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
+import { EditService } from 'ng2-qgrid/core/edit/edit.service';
 
 @Component({
 	selector: 'q-grid-cell-handler',
@@ -97,5 +98,11 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 				}
 			}
 		});
+	}
+
+	startBatchEdit() {
+		const editService = new EditService(this.root.model, this.root.table);
+
+		editService.startBatchEdit();
 	}
 }

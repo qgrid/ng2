@@ -1,7 +1,7 @@
 import { PathService } from '../path';
 import { View } from '../view/view';
 import { Fastdom } from '../services/fastdom';
-import { CellEditor } from '../edit/edit.cell.editor';
+import { EditService } from '../edit/edit.service';
 
 const MOUSE_LEFT_BUTTON = 1;
 
@@ -13,7 +13,6 @@ export class BodyCtrl extends View {
 		this.bag = bag;
 		this.table = table;
 		this.rangeStartCell = null;
-		this.editState = this.model.edit().state;
 	}
 
 	onScroll(e) {
@@ -124,7 +123,9 @@ export class BodyCtrl extends View {
 			const cell = pathFinder.cell(e.path);
 
 			if (this.model.edit().mode === 'batch' && this.model.edit().state === 'batch') {
-				this.doBatch(this.rangeStartCell);
+				const editService = new EditService(this.model, this.table);
+				editService.doBatch(this.rangeStartCell);
+				editService.endBatchEdit();
 			}
 
 			if (mode === 'range') {
@@ -183,41 +184,6 @@ export class BodyCtrl extends View {
 		if (focus.canExecute(cell)) {
 			focus.execute(cell);
 		}
-	}
-
-	doBatch(startCell) {
-			const label = startCell.label;
-			const value = startCell.value;
-			const initialType = startCell.column.type;
-			const columnIndices = this.model.columnList().index;
-			const cells = [];
-
-			this.selection.items.forEach(item => {
-				const {row, column} = item;
-				const key = column.key;
-				const columnIndex = columnIndices.indexOf(key);
-				const rowIndex = row.id;
-				const cellView = this.table.body.cell(rowIndex, columnIndex).model();
-
-				cells.push(cellView.model);
-			});
-
-			cells.forEach(cell => {
-				const type = cell.column.type;
-
-				if (initialType === type && initialType !== 'id') {
-					const cellEditor = new CellEditor(cell);
-					cellEditor.label = label;
-					cellEditor.value = value;
-					cellEditor.commit();
-				}
-			});
-
-		this.setInitialEditState();
-	}
-
-	setInitialEditState() {
-		this.model.edit({state: this.editState});
 	}
 
 	get selection() {
