@@ -22,12 +22,14 @@ import { ColumnFilterModel } from 'ng2-qgrid/plugin/column-filter/column.filter.
 import { DataManipulationModel } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.model';
 import { StatusBarModule } from 'ng2-qgrid/plugins/status-bar/status-bar.module';
 import { QueryBuilderModule } from 'ng2-qgrid/plugins/query-builder/query-builder.module';
+import { QueryBuilderModel } from 'ng2-qgrid/plugins/query-builder/query-builder.model';
 import { EbModule } from 'ng2-qgrid/plugins/expression-builder/eb.module';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 Model.register('columnChooser', ColumnChooserModel)
 	.register('columnFilter', ColumnFilterModel)
-	.register('dataManipulation', DataManipulationModel);
+	.register('dataManipulation', DataManipulationModel)
+	.register('queryBuilder', QueryBuilderModel);
 
 @NgModule({
 	declarations: [],
