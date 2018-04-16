@@ -27,7 +27,8 @@ import {
 	MatMenuModule,
 	MatDialogModule,
 	MatListModule,
-	MatAutocompleteModule
+	MatAutocompleteModule,
+	MatOptionModule
 } from '@angular/material';
 import { PipeModule } from 'ng2-qgrid/pipes/pipe.module';
 import { GridModule } from 'ng2-qgrid/grid.module';
