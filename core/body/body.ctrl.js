@@ -124,7 +124,7 @@ export class BodyCtrl extends View {
 			const cell = pathFinder.cell(e.path);
 
 			if (this.model.edit().mode === 'batch' && this.model.edit().state === 'batch') {
-				this.doBatch(cell);
+				this.doBatch(this.rangeStartCell);
 			}
 
 			if (mode === 'range') {
@@ -196,7 +196,6 @@ export class BodyCtrl extends View {
 				const {row, column} = item;
 				const key = column.key;
 				const columnIndex = columnIndices.indexOf(key);
-				const rows = this.table.data.rows();
 				const rowIndex = row.id;
 				const cellView = this.table.body.cell(rowIndex, columnIndex).model();
 
