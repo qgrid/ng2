@@ -144,4 +144,8 @@ export declare class Model {
 	validation(): ValidationModel;
 	queryBuilder(value: object, tag?: object): Model;
 	queryBuilder(): any;
+	dataManipulation(value: object, tag?: object): Model;
+	dataManipulation(): any;
+	rest(value: object, tag?: object): Model;
+	rest(): any;
 }

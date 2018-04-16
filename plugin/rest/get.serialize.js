@@ -12,7 +12,7 @@ export function serialize(model) {
 			})
 			.join(','),
 		filter: Object.keys(filter.by).map(field => {
-			return `${field}=in:${filter.by[field].join(',')}`;
+			return `${field}=in:${filter.by[field].items.join(',')}`;
 		}).join(';'),
 		skip: pagination.current * pagination.size,
 		take: pagination.size
