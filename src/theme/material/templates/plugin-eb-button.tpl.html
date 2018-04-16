@@ -1,7 +1,10 @@
 <ng-template key="plugin-eb-button.tpl.html"
              let-$expr>
-    <button mat-button
-            (click)="$expr.click()">
-        {{$expr.text}}
-    </button>
+	<button mat-button
+	        class="q-grid-condition-builder-button"
+	        *ngIf="$expr.isVisible()"
+	        (click)="$expr.click && $expr.click($event)"
+	        [ngClass]="$expr.classes">
+		{{$expr.text}}
+	</button>
 </ng-template>

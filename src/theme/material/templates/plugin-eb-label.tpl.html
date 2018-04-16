@@ -1,4 +1,7 @@
 <ng-template key="plugin-eb-label.tpl.html"
              let-$expr>
-    {{$expr.text}}
+	<label class="q-grid-condition-builder-label"
+	       *ngIf="$expr.isVisible()">
+		{{$expr.text}}
+	</label>
 </ng-template>
