@@ -1,7 +1,7 @@
 <ng-template key="plugin-eb-multiselect.tpl.html"
              let-$expr>
     <mat-chip-list #chipList
-                   class="q-grid-condition-builder-multiselect"
+                   class="q-grid-query-builder-multiselect"
                    [ngClass]="$expr.classes"
                    *ngIf="$expr.isVisible">
         <mat-chip *ngFor="let value of $expr.values;let $index = index"
