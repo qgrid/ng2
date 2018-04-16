@@ -1,4 +1,4 @@
-import { typeMapping as operations } from './operator';
+import { typeMapping as operators } from './operator';
 import { suggestFactory, suggestsFactory } from './suggest.service';
 import { QueryBuilderService, IQueryBuilderSchema } from '../query-builder.service';
 import { isArray, noop } from 'ng2-qgrid/core/utility/index';
@@ -32,8 +32,6 @@ export class WhereSchema {
 		const service = this.service;
 		const suggest = suggestFactory(service, '#field');
 		const suggests = suggestsFactory(service, '#field');
-
-
 		const validator = new Validator();
 
 		return this.service.build()
@@ -89,7 +87,7 @@ export class WhereSchema {
 								},
 								getType: function (node, line, key) {
 									const column = service.columns().filter(c => c.key === key)[0];
-									return (column && column.type) || 'TEXT';
+									return (column && column.type) || null;
 								},
 								change: function (node, line) {
 									if (node.attr('placeholder')) {
@@ -97,10 +95,10 @@ export class WhereSchema {
 										node.attr('placeholder', false);
 									}
 
-									const field = this.value,
-										type = this.getType(field),
-										ops = operations[type] || [],
-										op = line.get('#operator').expressions[0];
+									const field = this.value;
+									const type = this.getType(field);
+									const ops = operators[type] || [];
+									const op = line.get('#operator').expressions[0];
 
 									if (ops.indexOf(op.value) < 0) {
 										op.value = ops.length ? ops[0] : null;
@@ -118,11 +116,11 @@ export class WhereSchema {
 							.select('#operator', {
 								classes: ['cb-operation'],
 								getOptions: function (node, line) {
-									const field = line.get('#field').expressions[0],
-										name = field.value,
-										type = field.getType(name);
+									const field = line.get('#field').expressions[0];
+									const name = field.value;
+									const type = field.getType(name);
 
-									return type ? operations[type] : [];
+									return type ? operators[type] : [];
 								},
 								value: 'EQUALS',
 								change: function (node, line) {
