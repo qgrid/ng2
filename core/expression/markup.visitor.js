@@ -3,13 +3,11 @@ import { AppError } from '../infrastructure/error';
 
 function stringify(value, type) {
     switch (type) {
-        case 'TEXT':
+        case 'text':
             return stringifyText(value);
-        case 'INTEGER':
-            return stringifyInteger(value);
-        case 'NUMBER':
+        case 'number':
             return stringifyNumber(value);
-        case 'DATETIME':
+        case 'date':
             return stringifyDate(value);
         default:
             return '' + value;
