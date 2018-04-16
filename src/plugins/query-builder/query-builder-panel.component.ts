@@ -69,7 +69,7 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 		const serializer = new SerializationService();
 		const { node } = this.model.queryBuilder();
 		if (node) {
-			this.node = serializer.deserialize(schema as any as INodeSchema, node);
+			this.node = serializer.deserialize(plan as any as INodeSchema, node);
 		}
 	}
 }
