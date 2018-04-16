@@ -20,12 +20,12 @@ export declare class EditModel {
 	 * * `'cell'` data is editable through the grid cells.
 	 * * `'row'` data is editable through the grid rows.
 	 */
-	mode: 'cell' | 'row';
+	mode: 'cell' | 'row' | 'batch';
 
 	/**
 	 * Indicates if q-grid is in `'edit'` or in a `'view'` mode.
 	 */
-	state: 'edit' | 'view';
+	state: 'edit' | 'view' | 'batch';
 
 	/**
 	 * Allows to the grid user to control if cell or row can be edited or not.

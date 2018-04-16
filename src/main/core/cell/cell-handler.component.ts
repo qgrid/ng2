@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
@@ -86,7 +86,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 			if (e.hasChanges('cell')) {
 				const currentCell = e.state.cell;
 
-				if (model.selection().mode === 'batch') {
+				if (model.edit().mode === 'batch') {
 					if (previousCell) {
 						previousCell.removeChild(this.marker.nativeElement);
 					}

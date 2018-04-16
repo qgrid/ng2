@@ -12,8 +12,6 @@ export function selectionStateFactory(model, service) {
 			return new MultipleSelectionState(model, service);
 		case 'range':
 			return new RangeSelectionState(model, service);
-		case 'batch':
-			return new RangeSelectionState(model, service);
 		default:
 			throw new AppError('selection.state.factory', `Invalid selection mode "${mode}"`);
 	}
