@@ -14,7 +14,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	constructor(private element: ElementRef, private root: RootService) {
 	}
 
-	@ViewChild('icon') marker: ElementRef;
+	@ViewChild('marker') marker: ElementRef;
 
 	ngOnInit() {
 		const model = this.root.model;

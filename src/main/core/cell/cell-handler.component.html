@@ -1,3 +1,4 @@
-<div *ngIf="isMarkerVisible"
-	class="q-grid-marker">
-</div>
+<i *ngIf="root.model.selection().mode === 'batch'"
+	#marker class="material-icons q-grid-marker">
+	signal_cellular_4_bar
+</i>

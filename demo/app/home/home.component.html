@@ -12,14 +12,14 @@
     }
 </style>
 
-<mat-card>
+<mat-card onselectstart="return false">
     <q-grid id="q-grid-demo"
             q-grid-autofocus
             [columns]="columns"
             [rows]="rows"
             [filterFetch]="filterFetch"
             [sortBy]="['+name.last', '-name.first']"
-            [selectionMode]="'range'"
+            [selectionMode]="'batch'"
 
             header="NG2 QGRID SANDBOX">
 

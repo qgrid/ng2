@@ -2,7 +2,6 @@ import { PathService } from '../path';
 import { View } from '../view/view';
 import { Fastdom } from '../services/fastdom';
 import { CellEditor } from '../edit/edit.cell.editor';
-import {get} from '../services/value';
 
 const MOUSE_LEFT_BUTTON = 1;
 
