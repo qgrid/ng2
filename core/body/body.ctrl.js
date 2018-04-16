@@ -109,35 +109,6 @@ export class BodyCtrl extends View {
 			if (startCell && endCell) {
 				this.navigate(endCell);
 				this.view.selection.selectRange(startCell, endCell, 'body');
-
-				if (mode === 'batch' && this.allowBatch) {
-					const label = startCell.label;
-					const value = startCell.value;
-					const initialType = startCell.column.type;
-					const columnIndices = this.model.columnList().index;
-					const cells = [];
-
-					this.selection.items.forEach(item => {
-						const {row, column} = item;
-						const key = column.key;
-						const columnIndex = columnIndices.indexOf(key);
-						const rowIndex = row.id;
-						const cellView = this.table.body.cell(rowIndex, columnIndex).model();
-
-						cells.push(cellView.model);
-					});
-
-					cells.forEach(cell => {
-						const type = cell.column.type;
-
-						if (initialType === type) {
-							const cellEditor = new CellEditor(cell);
-							cellEditor.label = label;
-							cellEditor.value = value;
-							cellEditor.commit();
-						}
-					});
-				}
 			}
 		}
 	}
@@ -152,6 +123,36 @@ export class BodyCtrl extends View {
 
 	onMouseUp(e) {
 		const mode = this.selection.mode;
+		const startCell = this.rangeStartCell;
+
+		if (mode === 'batch' && this.allowBatch) {
+			const label = startCell.label;
+			const value = startCell.value;
+			const initialType = startCell.column.type;
+			const columnIndices = this.model.columnList().index;
+			const cells = [];
+
+			this.selection.items.forEach(item => {
+				const {row, column} = item;
+				const key = column.key;
+				const columnIndex = columnIndices.indexOf(key);
+				const rowIndex = row.id;
+				const cellView = this.table.body.cell(rowIndex, columnIndex).model();
+
+				cells.push(cellView.model);
+			});
+
+			cells.forEach(cell => {
+				const type = cell.column.type;
+
+				if (initialType === type) {
+					const cellEditor = new CellEditor(cell);
+					cellEditor.label = label;
+					cellEditor.value = value;
+					cellEditor.commit();
+				}
+			});
+		}
 
 		if (e.which === MOUSE_LEFT_BUTTON) {
 			if (mode === 'range' || mode === 'batch') {
