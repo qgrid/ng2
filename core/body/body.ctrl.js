@@ -119,17 +119,18 @@ export class BodyCtrl extends View {
 	onMouseUp(e) {
 		const mode = this.selection.mode;
 
-		if (this.model.edit().mode === 'batch' && this.model.edit().state === 'batch') {
-			this.doBatch();
-		}
-
 		if (e.which === MOUSE_LEFT_BUTTON) {
+			const pathFinder = new PathService(this.bag.body);
+			const cell = pathFinder.cell(e.path);
+
+			if (this.model.edit().mode === 'batch' && this.model.edit().state === 'batch') {
+				this.doBatch(cell);
+			}
+
 			if (mode === 'range') {
 				this.rangeStartCell = null;
 			}
 
-			const pathFinder = new PathService(this.bag.body);
-			const cell = pathFinder.cell(e.path);
 			if (cell) {
 				this.select(cell);
 				this.navigate(cell);
@@ -184,10 +185,10 @@ export class BodyCtrl extends View {
 		}
 	}
 
-	doBatch() {
-			const label = this.rangeStartCell.label;
-			const value = this.rangeStartCell.value;
-			const initialType = this.rangeStartCell.column.type;
+	doBatch(startCell) {
+			const label = startCell.label;
+			const value = startCell.value;
+			const initialType = startCell.column.type;
 			const columnIndices = this.model.columnList().index;
 			const cells = [];
 
@@ -195,6 +196,7 @@ export class BodyCtrl extends View {
 				const {row, column} = item;
 				const key = column.key;
 				const columnIndex = columnIndices.indexOf(key);
+				const rows = this.table.data.rows();
 				const rowIndex = row.id;
 				const cellView = this.table.body.cell(rowIndex, columnIndex).model();
 
@@ -204,7 +206,7 @@ export class BodyCtrl extends View {
 			cells.forEach(cell => {
 				const type = cell.column.type;
 
-				if (initialType === type) {
+				if (initialType === type && initialType !== 'id') {
 					const cellEditor = new CellEditor(cell);
 					cellEditor.label = label;
 					cellEditor.value = value;
