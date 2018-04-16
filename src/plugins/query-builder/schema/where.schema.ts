@@ -45,32 +45,71 @@ export class WhereSchema {
 					})
 					.select('#logical-op', {
 						classes: ['qb-operation'],
-						options: ['AND', 'OR'],
-						value: 'AND'
-					})
-					.iconButton('#add-logical', {
-						icon: 'add',
-						click: function (node, line) {
-							node.addChildAfter(node.clone());
-						}
-					})
-					.iconButton('#remove-logical', {
-						icon: 'close',
-						isVisible: function (node) {
-							return node.level > 1;
+						options: ['AND', 'OR', 'ACTIONS', 'Add Expression', 'Add Group', 'Remove Group'],
+						value: 'AND',
+						oldValue: null,
+						disabled: function (node, line, value) {
+							switch (value) {
+								case 'ACTIONS': return true;
+								case 'Remove Group': return node.level <= 1;
+								default: return false;
+							}
 						},
-						click: function (node) {
-							node.remove();
+						icon: function (node, line, value) {
+							switch (value) {
+								case 'Add Expression':
+									return 'playlist_add_check';
+								case 'Add Group':
+									return 'playlist_add';
+								case 'Remove Group':
+									return 'clear';
+							}
+						},
+						open: function (node, line, isOpened) {
+							if (isOpened) {
+								this.oldValue = this.value;
+							}
+						},
+						change: function (node, line, e) {
+							const value = this.value;
+							switch (value) {
+								case 'Add Expression':
+									e.source.value = this.oldValue;
+									break;
+								case 'Add Group':
+									e.source.value = this.oldValue;
+									node.addChildAfter(node.clone());
+									break;
+								case 'Remove Group':
+									e.source.value = this.oldValue;
+									node.remove();
+									break;
+							}
 						}
 					})
+					// .iconButton('#add-logical', {
+					// 	icon: 'add',
+					// 	click: function (node, line) {
+					// 		node.addChildAfter(node.clone());
+					// 	}
+					// })
+					// .iconButton('#remove-logical', {
+					// 	icon: 'close',
+					// 	isVisible: function (node) {
+					// 		return node.level > 1;
+					// 	},
+					// 	click: function (node) {
+					// 		node.remove();
+					// 	}
+					// })
 					.node('#condition', function (schema) {
 						schema
-							.attr('placeholder', true)
-							.attr('class', {
-								'qb-placeholder': function (node) {
-									return node.attr('placeholder');
-								}
-							})
+							// .attr('placeholder', true)
+							// .attr('class', {
+							// 	'qb-placeholder': function (node) {
+							// 		return node.attr('placeholder');
+							// 	}
+							// })
 							.attr('serialize', {
 								'#field': ['value'],
 								'#operator': ['value'],
@@ -78,7 +117,7 @@ export class WhereSchema {
 								'#from': ['value'],
 								'#to': ['value'],
 								'#in-operand': ['values'],
-								'@attr': ['placeholder']
+								//'@attr': ['placeholder']
 							})
 							.select('#field', {
 								classes: ['qb-field'],
@@ -93,10 +132,10 @@ export class WhereSchema {
 									return (column && column.type) || null;
 								},
 								change: function (node, line) {
-									if (node.attr('placeholder')) {
-										node.addAfter(node.clone());
-										node.attr('placeholder', false);
-									}
+									// if (node.attr('placeholder')) {
+									// 	node.addAfter(node.clone());
+									// 	node.attr('placeholder', false);
+									// }
 
 									const field = this.value;
 									const type = this.getType(field);
@@ -127,10 +166,10 @@ export class WhereSchema {
 								},
 								value: 'EQUALS',
 								change: function (node, line) {
-									if (node.attr('placeholder')) {
-										node.addAfter(node.clone());
-										node.attr('placeholder', false);
-									}
+									// if (node.attr('placeholder')) {
+									// 	node.addAfter(node.clone());
+									// 	node.attr('placeholder', false);
+									// }
 
 									switch (this.value.toLowerCase()) {
 										case 'equals':
@@ -282,20 +321,20 @@ export class WhereSchema {
 									placeholderText: 'Select value',
 									options: suggest,
 									change: function (node, line) {
-										if (this.value) {
-											if (node.attr('placeholder')) {
-												node.addAfter(node.clone());
-												node.attr('placeholder', false);
-											}
-										}
+										// if (this.value) {
+										// 	if (node.attr('placeholder')) {
+										// 		node.addAfter(node.clone());
+										// 		node.attr('placeholder', false);
+										// 	}
+										// }
 									}
 								});
 							})
 							.iconButton('#remove', {
 								icon: 'close',
-								isVisible: function (node, line) {
-									return !node.attr('placeholder');
-								},
+								// isVisible: function (node, line) {
+								// 	return !node.attr('placeholder');
+								// },
 								click: function (node) {
 									node.remove();
 								}
