@@ -2,7 +2,8 @@
              let-$expr>
     <mat-select [(ngModel)]="$expr.value"
                 (selectionChange)="$expr.change && $expr.change($event)"
-                [ngClass]="$expr.classes"
+                [q-grid-eb-class]="$expr.classes"
+                [q-grid-eb-class-model]="$expr"
                 *ngIf="$expr.isVisible()">
         <mat-option *ngFor="let option of ($expr.options || $expr.getOptions())"
                     [value]="option">
