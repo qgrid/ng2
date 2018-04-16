@@ -1,7 +1,9 @@
-<ng-template key="plugin-eb-button.tpl.html"
-             let-$expr>
-    <button mat-button
-            (click)="$expr.click()">
-        {{$expr.text}}
-    </button>
+<ng-template key="plugin-eb-button.tpl.html" let-$expr>
+	<button mat-button
+			  *ngIf="$expr.isVisible()"
+			  (click)="$expr.click($event)"
+			  class="condition-builder-button"
+			  [ngClass]="$expr.classes">
+		{{$expr.text}}
+	</button>
 </ng-template>
