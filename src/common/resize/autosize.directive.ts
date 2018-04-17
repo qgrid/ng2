@@ -1,19 +1,21 @@
-import { Directive, ElementRef, OnInit, Input } from '@angular/core';
+import { Directive, ElementRef, OnInit, Input, HostBinding, HostListener } from '@angular/core';
 
 @Directive({
 	selector: '[q-grid-autosize]'
 })
 export class AutosizeDirective {
 	@Input('q-grid-autosize') selector;
-	private actualWidth = 0;
+	@HostBinding('style.width') private actualWidth = '0px';
 	private actualText = '';
 
 	constructor(private element: ElementRef) {
 	}
 
-	autoWidth(text: string) {
-		const owner = this.element.nativeElement as HTMLElement;
-		const element = this.selector ? owner.querySelector(this.selector) as HTMLElement : owner;
+	@HostListener('input')
+	autoWidth() {
+		const owner = this.element.nativeElement as any;
+		const element = this.selector ? owner.querySelector(this.selector) as any : owner;
+		const text = element.value;
 		if (!element) {
 			return this.actualWidth;
 		}
@@ -23,7 +25,7 @@ export class AutosizeDirective {
 		}
 
 		this.actualText = text;
-		this.actualWidth = this.calculateWidth(element, text);
+		this.actualWidth = `${this.calculateWidth(element, text)}px`;
 		return this.actualWidth;
 	}
 
