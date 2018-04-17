@@ -7,7 +7,7 @@
     .q-grid-query-builder {
         &-expression {
             margin-top: 15px;
-            height: 336px;
+            height: 270px;
             overflow: auto;
             padding: 2px;
             ul {
@@ -74,6 +74,64 @@
                 height: 16px;
                 width: 16px;
                 font-size: 16px;
+            }
+        }
+        &-expression-line {
+            margin-top: 15px;
+            font-size: 12px;
+            background-color: #f5f5f5;
+            padding: 10px;
+            overflow-y: auto;
+            height: 27px;
+            span {
+                word-break: break-word;
+            }
+            .q-grid {
+                &-markup-node,
+                &-markup-node-left,
+                &-markup-node-right {
+                    display: inline;
+                }
+                &-markup-group-op {
+                    color: #3eb1c8;
+                    text-transform: uppercase;
+                    &:before,
+                    &:after {
+                        content: '\00a0 ';
+                    }
+                }
+                &-markup-condition-unary {
+                    &:before {
+                        content: '\00a0 ';
+                    }
+                }
+                &-markup-group-open,
+                &-markup-group-close,
+                &-markup-condition-open,
+                &-markup-condition-close {
+                    color: #888;
+                }
+                &-markup-condition-left {
+                    color: #888;
+                }
+                &-markup-condition-quote {
+                    color: #a11;
+                }
+                &-markup-condition-op {
+                    color: #666;
+                    text-transform: uppercase;
+                }
+                &-markup-condition-value-text {
+                    color: #a11 !important;
+                }
+                &-markup-condition-value,
+                &-markup-condition-value {
+                    color: #000;
+                }
+                &-markup-condition-error {
+                    background-color: rgba(255, 0, 0, .6);
+                    color: #fff !important;
+                }
             }
         }
     }

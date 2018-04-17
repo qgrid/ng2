@@ -94,7 +94,7 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 
 	constructor(
 		@Optional() root: RootService,
-		private queryService: QueryBuilderService,
+		public queryService: QueryBuilderService,
 		private nodeService: EbNodeService) {
 
 		super(root);

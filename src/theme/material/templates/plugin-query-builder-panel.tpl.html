@@ -30,6 +30,9 @@
 				<q-grid-eb-node [model]="$builder.node">
 				</q-grid-eb-node>
 			</div>
+			<div class="q-grid-query-builder-expression-line"
+			     [innerHTML]="$builder.node | qGridQueryBuilderMarkup: $builder.queryService">
+			</div>
 		</mat-card-content>
 		<mat-card-actions>
 			<button mat-button
