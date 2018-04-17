@@ -1,36 +1,73 @@
 @at-root .q-grid-query-builder-panel.q-grid-menu {
-    width: 400px;
-    min-width: 400px;
-    max-width: 400px;
-    height: 500px;
+    width: 550px;
+    min-width: 550px;
+    max-width: 550px;
+    height: 540px;
     overflow: hidden;
-    .q-grid-query-builder-content {
-        height: 376px;
-    }
-    .q-grid-query-builder-expression {
-        overflow: auto;
-
-        ul {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-            &.q-grid-eb {
-                &-node {
-                    padding-left: 5px;
-                    white-space: nowrap;
-                    &.placeholder {
-                        opacity: .5;
-                        &:hover {
-                            opacity: .8;
-                        }
-                    }
-                }
-                &-group {
+    .q-grid-query-builder {
+        &-expression {
+            margin-top: 15px;
+            height: 336px;
+			overflow: auto;
+			padding: 1px;
+            ul {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+                li {
                     display: inline;
                 }
+                &.q-grid-eb {
+                    &-node {
+                        padding-left: 5px;
+                        white-space: nowrap;
+                        &.qb-logical {
+                            padding-left: 0;
+                            position: relative;
+                            >.q-grid-eb-line {
+                                position: absolute;
+                                transform: rotate(-90deg);
+                                transform-origin: top left;
+                                top: 50%;
+                                margin-top: 15px;
+                                left: 5px;
+                                >ul {
+                                    transform: rotate(90deg);
+                                }
+                            }
+                            >.q-grid-eb-children {
+                                display: flex;
+                                min-height: 66px;
+                                >ul {
+                                    border-left: 1px solid #999;
+                                    border-radius: 5px;
+									margin-left: 30px;
+									padding-left: 15px;
+                                }
+                            }
+                        }
+                    }
+                    &-group {
+                        display: inline;
+                    }
+                }
             }
-            li {
-                display: inline;
+            .q-grid-eb-active {
+                >.q-grid-eb-node {
+                    outline: 1px solid rgba(63, 81, 181, 0.25);
+                    background: #f5f5f5;
+                }
+            }
+        }
+        &-icon-button {
+            height: 16px;
+            width: 16px;
+            line-height: 16px;
+            .q-grid-icon {
+                line-height: 16px;
+                height: 16px;
+                width: 16px;
+                font-size: 16px;
             }
         }
     }

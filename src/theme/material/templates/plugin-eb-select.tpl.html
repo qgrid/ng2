@@ -2,11 +2,14 @@
              let-$expr>
     <mat-select [(ngModel)]="$expr.value"
                 (selectionChange)="$expr.change && $expr.change($event)"
+                (openedChange)="$expr.open && $expr.open($event)"
                 [q-grid-eb-class]="$expr.classes"
-                [q-grid-eb-class-model]="$expr"
+                [q-grid-eb-class-model]="$expr"                
                 *ngIf="$expr.isVisible()">
         <mat-option *ngFor="let option of ($expr.options || $expr.getOptions())"
-                    [value]="option">
+                    [value]="option"
+                    [disabled]="$expr.disabled && $expr.disabled(option)">
+            <mat-icon *ngIf="$expr.icon">{{$expr.icon(option)}}</mat-icon>
             {{($expr.getLabel && $expr.getLabel(option)) || option}}
         </mat-option>
     </mat-select>

@@ -40,42 +40,23 @@ export class WhereSchema {
 					.attr('serialize', {
 						'#logical-op': ['value']
 					})
+					.attr('class', {
+						'qb-logical': true
+					})
 					.select('#logical-op', {
 						classes: ['qb-operation'],
 						options: ['AND', 'OR'],
 						value: 'AND'
 					})
-					.iconButton('#add-logical', {
-						icon: 'add',
-						click: function (node, line) {
-							node.addChildAfter(node.clone());
-						}
-					})
-					.iconButton('#remove-logical', {
-						icon: 'close',
-						isVisible: function (node) {
-							return node.level > 1;
-						},
-						click: function (node) {
-							node.remove();
-						}
-					})
 					.node('#condition', function (schema) {
 						schema
-							.attr('placeholder', true)
-							.attr('class', {
-								placeholder: function (node) {
-									return node.attr('placeholder');
-								}
-							})
 							.attr('serialize', {
 								'#field': ['value'],
 								'#operator': ['value'],
 								'#value': ['value'],
 								'#from': ['value'],
 								'#to': ['value'],
-								'#in-operand': ['values'],
-								'@attr': ['placeholder']
+								'#in-operand': ['values']
 							})
 							.select('#field', {
 								classes: ['qb-field'],
@@ -90,11 +71,6 @@ export class WhereSchema {
 									return (column && column.type) || null;
 								},
 								change: function (node, line) {
-									if (node.attr('placeholder')) {
-										node.addAfter(node.clone());
-										node.attr('placeholder', false);
-									}
-
 									const field = this.value;
 									const type = this.getType(field);
 									const ops = operators[type] || [];
@@ -124,11 +100,6 @@ export class WhereSchema {
 								},
 								value: 'EQUALS',
 								change: function (node, line) {
-									if (node.attr('placeholder')) {
-										node.addAfter(node.clone());
-										node.attr('placeholder', false);
-									}
-
 									switch (this.value.toLowerCase()) {
 										case 'equals':
 										case 'not equals':
@@ -153,10 +124,10 @@ export class WhereSchema {
 													state: [],
 													classes: {
 														'qb-operand': true,
-														'has-value': function () {
+														'qb-has-value': function () {
 															return !!this.value;
 														},
-														'invalid': function (node) {
+														'qb-invalid': function (node) {
 															return !this.isValid(node);
 														}
 													},
@@ -178,10 +149,10 @@ export class WhereSchema {
 														},
 														classes: {
 															'qb-operand': true,
-															'has-value': function () {
+															'qb-has-value': function () {
 																return !!this.value;
 															},
-															'invalid': function (node) {
+															'qb-invalid': function (node) {
 																return !this.isValid(node);
 															}
 														},
@@ -203,10 +174,10 @@ export class WhereSchema {
 														},
 														classes: {
 															'qb-operand': true,
-															'has-value': function () {
+															'qb-has-value': function () {
 																return !!this.value;
 															},
-															'invalid': function (node) {
+															'qb-invalid': function (node) {
 																return !this.isValid(node);
 															}
 														},
@@ -232,10 +203,10 @@ export class WhereSchema {
 														},
 														classes: {
 															'qb-operand': true,
-															'has-value': function () {
+															'qb-has-value': function () {
 																return !!this.values.length;
 															},
-															'invalid': function (node) {
+															'qb-invalid': function (node) {
 																return !this.isValid(node);
 															}
 														},
@@ -266,10 +237,10 @@ export class WhereSchema {
 									},
 									classes: {
 										'qb-operand': true,
-										'has-value': function () {
+										'qb-has-value': function () {
 											return !!this.value;
 										},
-										'invalid': function (node) {
+										'qb-invalid': function (node) {
 											return !this.isValid(node);
 										}
 									},
@@ -281,25 +252,8 @@ export class WhereSchema {
 									options: null,
 									refresh: function (node, line) {
 										this.options = this.suggest(node, line);
-									},
-									change: function (node, line) {
-										if (this.value) {
-											if (node.attr('placeholder')) {
-												node.addAfter(node.clone());
-												node.attr('placeholder', false);
-											}
-										}
 									}
 								});
-							})
-							.iconButton('#remove', {
-								icon: 'close',
-								isVisible: function (node, line) {
-									return !node.attr('placeholder');
-								},
-								click: function (node) {
-									node.remove();
-								}
 							});
 					});
 			});

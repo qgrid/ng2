@@ -1,5 +1,6 @@
 <ul class="q-grid-eb-node"
-    [q-grid-eb-class]="model.attr('class')">
+	[q-grid-eb-class]="model.attr('class')"
+	(click)="select($event)">
 	<li class="q-grid-eb-line">
 		<ul>
 			<li *ngFor="let expr of model.line.expressions"
@@ -16,7 +17,7 @@
 		<ul>
 			<li *ngFor="let child of model.children"
 			    class="q-grid-eb-child">
-				<q-grid-eb-node [model]="child">
+				<q-grid-eb-node [model]="child" [parent]="self">
 				</q-grid-eb-node>
 			</li>
 		</ul>

@@ -28,7 +28,8 @@ import {
 	MatDialogModule,
 	MatListModule,
 	MatAutocompleteModule,
-	MatOptionModule
+	MatOptionModule,
+	MatToolbarModule
 } from '@angular/material';
 import { PipeModule } from 'ng2-qgrid/pipes/pipe.module';
 import { GridModule } from 'ng2-qgrid/grid.module';
@@ -61,6 +62,7 @@ import { VscrollModule } from 'ng2-qgrid/common/vscroll/vscroll.module';
 		MatCardModule,
 		MatAutocompleteModule,
 		MatListModule,
+		MatToolbarModule,
 		PipeModule,
 		VscrollModule
 	],

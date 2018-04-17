@@ -4,6 +4,7 @@ import { isUndefined, yes } from 'ng2-qgrid/core/utility/index';
 import { ExpressionBuilder } from '../expression-builder/model/expression.builder';
 import { INodeSchema } from '../expression-builder/model/node.schema';
 import { Node } from '../expression-builder/model/node';
+import { typeMapping } from './schema/operator';
 
 export declare type Column = { key: string, title: string, type: string };
 export declare type ColumnMap = { [key: string]: Column };
@@ -34,7 +35,8 @@ export class QueryBuilderService {
 		const model = this.root.model;
 		return model
 			.data()
-			.columns;
+			.columns
+			.filter(column => typeMapping.hasOwnProperty(column.type));
 	}
 
 	columnMap(): ColumnMap {
