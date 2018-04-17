@@ -8,8 +8,8 @@
         &-expression {
             margin-top: 15px;
             height: 336px;
-			overflow: auto;
-			padding: 2px;
+            overflow: auto;
+            padding: 2px;
             ul {
                 margin: 0;
                 padding: 0;
@@ -24,13 +24,14 @@
                         &.qb-logical {
                             padding-left: 0;
                             position: relative;
+                            min-height: 21px;
                             >.q-grid-eb-line {
                                 position: absolute;
                                 transform: rotate(-90deg);
-                                transform-origin: top left;
+                                transform-origin: top;
                                 top: 50%;
-                                margin-top: 15px;
-                                left: 5px;
+                                left: -5px;
+                                margin-top: -1px;
                                 >ul {
                                     transform: rotate(90deg);
                                 }
@@ -40,8 +41,14 @@
                                 >ul {
                                     border-left: 1px solid #999;
                                     border-radius: 5px;
-									margin-left: 30px;
-									padding-left: 10px;
+                                    margin-left: 35px;
+                                    padding-left: 10px;
+                                    width: 100%;
+                                }
+                            }
+                            &.qb-or {
+                                >.q-grid-eb-line {
+                                    left: 5px;
                                 }
                             }
                         }
