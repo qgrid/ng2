@@ -13,7 +13,7 @@ import { EbNodeService } from '../expression-builder/eb-node.service';
 import { EbNodeComponent } from '../expression-builder/eb-node.component';
 
 function findLogicalNode(node: EbNodeComponent) {
-	return EbNodeService.findUp(node, n => n.id === '#logical')
+	return EbNodeService.findUp(node, n => n.id === '#logical');
 }
 
 @Component({

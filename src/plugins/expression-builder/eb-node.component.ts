@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, OnInit, ElementRef } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnInit, ElementRef, OnDestroy } from '@angular/core';
 import { Node } from './model/node';
 import { EbNodeService } from './eb-node.service';
 
@@ -6,7 +6,7 @@ import { EbNodeService } from './eb-node.service';
 	selector: 'q-grid-eb-node',
 	templateUrl: './eb-node.component.html'
 })
-export class EbNodeComponent implements OnInit {
+export class EbNodeComponent implements OnInit, OnDestroy {
 	@Input() model: Node;
 	@Input() parent: EbNodeComponent;
 
@@ -39,6 +39,9 @@ export class EbNodeComponent implements OnInit {
 					this.service.currentNode = this.parent;
 				}
 			}
+		}
+		else {
+			this.service.currentNode = null;
 		}
 	}
 
