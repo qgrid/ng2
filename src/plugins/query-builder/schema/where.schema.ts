@@ -139,7 +139,11 @@ export class WhereSchema {
 															return !this.isValid(node);
 														}
 													},
-													options: suggest,
+													suggest: suggest,
+													options: null,
+													refresh: function (node, line) {
+														this.options = this.suggest(node, line);
+													},
 													value: value,
 													placeholderText: 'Select value'
 												});
@@ -165,7 +169,11 @@ export class WhereSchema {
 															}
 														},
 														state: [],
-														options: suggest,
+														suggest: suggest,
+														options: null,
+														refresh: function (node, line) {
+															this.options = this.suggest(node, line);
+														},
 														value: null,
 														placeholderText: 'Select value'
 													})
@@ -190,7 +198,11 @@ export class WhereSchema {
 															}
 														},
 														state: [],
-														options: suggest,
+														suggest: suggest,
+														options: null,
+														refresh: function (node, line) {
+															this.options = this.suggest(node, line);
+														},
 														value: null,
 														placeholderText: 'Select value'
 													});
@@ -220,7 +232,11 @@ export class WhereSchema {
 														},
 														state: [],
 														values: [],
-														options: suggests,
+														suggest: suggest,
+														options: null,
+														refresh: function (node, line) {
+															this.options = this.suggest(node, line);
+														},
 														placeholderText: 'Select value'
 													})
 													.label('#in-close', {
