@@ -5,7 +5,8 @@ export class EditModel {
 	constructor() {
 		this.resource = new Resource();
 		this.mode = null; // cell | row | batch
-		this.state = 'view'; // view | edit | batch
+		this.state = 'view'; // view | edit | startBatch | endBatch
+		this.startCell = null;
 		this.enter = new Command({source: 'edit.model'});
 		this.commit = new Command({source: 'edit.model'});
 		this.cancel = new Command({source: 'edit.model'});

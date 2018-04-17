@@ -3,6 +3,7 @@ import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 import { EditService } from 'ng2-qgrid/core/edit/edit.service';
+import { PathService } from 'ng2-qgrid/core/path/path.service';
 
 @Component({
 	selector: 'q-grid-cell-handler',
@@ -80,7 +81,17 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 	ngAfterViewInit() {
 		const model = this.root.model;
+		const editService = new EditService(model, this.root.table);
 		let previousCell = null;
+
+		model.editChanged.on(e => {
+			if (e.hasChanges('state')) {
+				if (e.state.state === 'endBatch') {
+					editService.doBatch(e.state.startCell);
+					model.edit({startCell: null});
+				}
+			}
+		});
 
 		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
@@ -100,9 +111,17 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		});
 	}
 
-	startBatchEdit() {
-		const editService = new EditService(this.root.model, this.root.table);
+	startBatchEdit(e) {
+		const pathFinder = new PathService(this.root.bag.body);
+		const cell = pathFinder.cell(e.path);
+		const edit = this.root.model.edit;
 
-		editService.startBatchEdit();
+		edit({state: 'startBatch', startCell: cell});
+	}
+
+	get markerVisibility() {
+		const model = this.root.model;
+
+		return model.selection().mode === 'range' && model.edit().mode === 'batch';
 	}
 }

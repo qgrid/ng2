@@ -1,7 +1,6 @@
-import { PathService } from '../path';
-import { View } from '../view/view';
-import { Fastdom } from '../services/fastdom';
-import { EditService } from '../edit/edit.service';
+import {PathService} from '../path';
+import {View} from '../view/view';
+import {Fastdom} from '../services/fastdom';
 
 const MOUSE_LEFT_BUTTON = 1;
 
@@ -50,7 +49,7 @@ export class BodyCtrl extends View {
 				const lower = table.view.scrollHeight() - table.view.height();
 				const top = Math.min(lower, Math.max(upper, scroll().top + e.deltaY));
 
-				scroll({ top }, { source: 'body.core' });
+				scroll({top}, {source: 'body.core'});
 			});
 		}
 	}
@@ -117,15 +116,14 @@ export class BodyCtrl extends View {
 
 	onMouseUp(e) {
 		const mode = this.selection.mode;
+		const edit = this.model.edit();
 
 		if (e.which === MOUSE_LEFT_BUTTON) {
 			const pathFinder = new PathService(this.bag.body);
 			const cell = pathFinder.cell(e.path);
 
-			if (this.model.edit().mode === 'batch' && this.model.edit().state === 'batch') {
-				const editService = new EditService(this.model, this.table);
-				editService.doBatch(this.rangeStartCell);
-				editService.endBatchEdit();
+			if (edit.mode === 'batch' && edit.state === 'startBatch') {
+				this.model.edit({state: 'endBatch'});
 			}
 
 			if (mode === 'range') {

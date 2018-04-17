@@ -1,5 +1,5 @@
-<div *ngIf="root.model.edit().mode === 'batch'"
+<div *ngIf="markerVisibility"
 	  #marker
 	  class="q-grid-marker"
-	  (mousedown)="startBatchEdit()">
+	  (mousedown)="startBatchEdit($event)">
 </div>

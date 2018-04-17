@@ -4,15 +4,6 @@ export class EditService {
 	constructor(model, table) {
 		this.model = model;
 		this.table = table;
-		this.editState = this.model.edit().state;
-	}
-
-	startBatchEdit() {
-		this.model.edit({state: 'batch'})
-	}
-
-	endBatchEdit() {
-		this.model.edit({state: this.editState})
 	}
 
 	doBatch(startCell) {
