@@ -1,48 +1,48 @@
 @at-root .q-grid-query-builder-panel.q-grid-menu {
-    .q-grid-query-builder {
-        &-expression {
-            .mat-select {
-                width: auto;
-                &-value {
-                    max-width: none;
-                }
-                &-arrow-wrapper {
-                    display: none;
-                }
-            }
-            .mat-form-field {
-                .mat-input-wrapper {
-                    padding-bottom: 0;
-                    .mat-input-infix {
-                        border: none;
-                        padding: 0;
-                    }
-                }
-                .mat-form-field-label-wrapper {
-                    top: 0;
-                    padding-top: 0;
-                    >.mat-form-field-label {
-                        top: 0;
-                    }
-                }
-                .mat-form-field-underline {
-                    bottom: 0;
-                    display: none;
-                }
-                &.mat-focused {
-                    .mat-form-field-underline {
-                        display: block;
-                    }
-                }
-            }
-            .qb {
-                &-operation,
-                &-operator {
-                    .mat-select-value {
-                        color: #3eb1c8;
-                    }
-                }
-            }
-        }
-    }
+	.q-grid-query-builder {
+		&-expression {
+			.mat-select {
+				width: auto;
+				&-value {
+					max-width: none;
+				}
+				&-arrow-wrapper {
+					display: none;
+				}
+			}
+			.mat-form-field {
+				.mat-input-wrapper {
+					padding-bottom: 0;
+					.mat-input-infix {
+						border: none;
+						padding: 0;
+					}
+				}
+				.mat-form-field-label-wrapper {
+					top: 0;
+					padding-top: 0;
+					>.mat-form-field-label {
+						top: 0;
+					}
+				}
+				.mat-form-field-underline {
+					bottom: 0;
+					display: none;
+				}
+				&.mat-focused {
+					.mat-form-field-underline {
+						display: block;
+					}
+				}
+			}
+			.qb {
+				&-operation,
+				&-operator {
+					.mat-select-value {
+						color: #3eb1c8;
+					}
+				}
+			}
+		}
+	}
 }
