@@ -15,19 +15,14 @@
 						<mat-icon>playlist_add</mat-icon>Add Group
 					</button>
 					<button mat-button
-					        (click)="$builder.removeGroup.execute()"
-					        [disabled]="!$builder.removeGroup.canExecute()">
-						<mat-icon>delete_forever</mat-icon>Del Group
-					</button>
-					<button mat-button
 					        (click)="$builder.addExpression.execute()"
 					        [disabled]="!$builder.addExpression.canExecute()">
-						<mat-icon>playlist_add_check</mat-icon>Add Expr.
+						<mat-icon>playlist_add_check</mat-icon>Add Expression
 					</button>
 					<button mat-button
-					        (click)="$builder.removeExpression.execute()"
-					        [disabled]="!$builder.removeExpression.canExecute()">
-						<mat-icon>delete_forever</mat-icon>Del Expr.
+					        (click)="$builder.remove.execute()"
+					        [disabled]="!$builder.remove.canExecute()">
+						<mat-icon>delete_forever</mat-icon>Remove
 					</button>
 				</mat-toolbar>
 			</div>

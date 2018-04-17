@@ -33,17 +33,6 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 		canExecute: () => !!findLogicalNode(this.nodeService.currentNode)
 	});
 
-	removeGroup = new Command({
-		execute: () => {
-			const node = findLogicalNode(this.nodeService.currentNode).model;
-			node.remove();
-		},
-		canExecute: () => {
-			const node = findLogicalNode(this.nodeService.currentNode);
-			return node && node.model.level > 1;
-		}
-	});
-
 	addExpression = new Command({
 		execute: () => {
 			const node = this.plan.materialize('#condition');
@@ -53,12 +42,20 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 		canExecute: () => !!findLogicalNode(this.nodeService.currentNode)
 	});
 
-	removeExpression = new Command({
+	remove = new Command({
 		execute: () => {
 			const node = this.nodeService.currentNode.model;
-			node.remove();
+			if (node.id === '#logical' && node.level === 1) {
+				const children = Array.from(node.children);
+				children.forEach(child => child.remove());
+			} else {
+				node.remove();
+			}
 		},
-		canExecute: () => this.nodeService.currentNode && this.nodeService.currentNode.model.id === '#condition'
+		canExecute: () => {
+			const node = this.nodeService.currentNode && this.nodeService.currentNode.model;
+			return node && (node.id === '#condition' || (node.level > 1 || node.children.length > 0));
+		}
 	});
 
 	submit = new Command({
@@ -108,18 +105,10 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 
 			if (oldNode) {
 				oldNode.element.classList.remove('q-grid-eb-active');
-				const logicalNode = findLogicalNode(oldNode);
-				if (logicalNode) {
-					logicalNode.element.classList.remove('q-grid-eb-active');
-				}
 			}
 
 			if (newNode) {
 				newNode.element.classList.add('q-grid-eb-active');
-				const logicalNode = findLogicalNode(newNode);
-				if (logicalNode) {
-					logicalNode.element.classList.add('q-grid-eb-active');
-				}
 			}
 		});
 	}

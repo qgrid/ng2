@@ -39,8 +39,7 @@ export class EbNodeComponent implements OnInit, OnDestroy {
 					this.service.currentNode = this.parent;
 				}
 			}
-		}
-		else {
+		} else {
 			this.service.currentNode = null;
 		}
 	}
