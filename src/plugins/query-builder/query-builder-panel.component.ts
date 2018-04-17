@@ -1,14 +1,16 @@
 import { Component, Optional, Output, EventEmitter, OnInit } from '@angular/core';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { Command } from 'ng2-qgrid/core/command/command';
-import { PluginComponent } from '../plugin.component';
-import { Node } from '../expression-builder/model/node';
+import { clone } from 'ng2-qgrid/core/utility/index';
 import { QueryBuilderService } from './query-builder.service';
 import { WhereSchema } from './schema/where.schema';
-import { SerializationService } from '../expression-builder/serialization.service';
-import { INodeSchema } from 'ng2-qgrid/plugins/expression-builder/model/node.schema';
 import { convert } from './schema/converter';
-import { clone } from 'ng2-qgrid/core/utility/index';
+import { PluginComponent } from '../plugin.component';
+import { SerializationService } from '../expression-builder/serialization.service';
+import { INodeSchema } from '../expression-builder/model/node.schema';
+import { Node } from '../expression-builder/model/node';
+import { EbNodeService } from '../expression-builder/eb-node.service';
+import { EbNodeComponent } from '../expression-builder/eb-node.component';
 
 @Component({
 	selector: 'q-grid-query-builder-panel',
@@ -19,6 +21,34 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 	public node: Node;
 
 	@Output() close = new EventEmitter<any>();
+
+	addGroup = new Command({
+		execute: () => {
+
+		},
+		canExecute: () => !!this.nodeService.currentNode
+	});
+
+	removeGroup = new Command({
+		execute: () => {
+
+		},
+		canExecute: () => !!this.nodeService.currentNode
+	});
+
+	addExpression = new Command({
+		execute: () => {
+
+		},
+		canExecute: () => !!this.nodeService.currentNode
+	});
+
+	removeExpression = new Command({
+		execute: () => {
+
+		},
+		canExecute: () => true
+	});
 
 	submit = new Command({
 		source: 'query-builder.component',
@@ -46,7 +76,7 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 	reset = new Command({
 		source: 'query-builder.component',
 		execute: () => {
-			const schema = new WhereSchema(this.service);
+			const schema = new WhereSchema(this.queryService);
 			const plan = schema.factory();
 			this.node = plan.apply();
 		}
@@ -54,15 +84,29 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 
 	constructor(
 		@Optional() root: RootService,
-		private service: QueryBuilderService) {
+		private queryService: QueryBuilderService,
+		private nodeService: EbNodeService) {
 
 		super(root);
+
+		nodeService.currentNodeChange.subscribe(e => {
+			const newNode = e.newValue as EbNodeComponent;
+			const oldNode = e.oldValue as EbNodeComponent;
+
+			if (newNode) {
+				newNode.element.classList.add('q-grid-eb-active');
+			}
+
+			if (oldNode) {
+				oldNode.element.classList.remove('q-grid-eb-active');
+			}
+		});
 	}
 
 	ngOnInit() {
 		super.ngOnInit();
 
-		const schema = new WhereSchema(this.service);
+		const schema = new WhereSchema(this.queryService);
 		const plan = schema.factory();
 		this.node = plan.apply();
 

@@ -1,14 +1,12 @@
 @at-root .q-grid-query-builder-panel.q-grid-menu {
-    width: 400px;
-    min-width: 400px;
-    max-width: 400px;
-    height: 500px;
+    width: 550px;
+    min-width: 550px;
+    max-width: 550px;
+    height: 540px;
     overflow: hidden;
     .q-grid-query-builder {
-        &-content {
-            height: 376px;
-        }
         &-expression {
+            height: 351px;
             overflow: auto;
             ul {
                 margin: 0;
@@ -18,23 +16,16 @@
                     &-node {
                         padding-left: 5px;
                         white-space: nowrap;
-                        &.qb-placeholder {
-                            opacity: .5;
-                            &:hover {
-                                opacity: .8;
-                            }
-                        }
                         &.qb-logical {
                             padding-left: 0;
                             position: relative;
                             >.q-grid-eb-line {
                                 position: absolute;
-                                display: inline-block;
                                 transform: rotate(-90deg);
                                 transform-origin: top left;
                                 top: 50%;
-                                margin-top: 26px;
-                                left: 12px;
+                                margin-top: 15px;
+                                left: 5px;
                                 >ul {
                                     transform: rotate(90deg);
                                 }
@@ -49,6 +40,9 @@
                                 }
                             }
                         }
+                    }
+                    &-active {
+                        background: red;
                     }
                     &-group {
                         display: inline;
