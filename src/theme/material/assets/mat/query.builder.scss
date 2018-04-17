@@ -16,6 +16,10 @@
 					.mat-input-infix {
 						border: none;
 						padding: 0;
+
+						input {
+							margin: 0;
+						}
 					}
 				}
 				.mat-form-field-label-wrapper {

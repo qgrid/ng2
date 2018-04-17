@@ -16,6 +16,11 @@
                 list-style-type: none;
                 li {
                     display: inline;
+
+						 &.q-grid-eb-expression {
+							 margin-right: 3px;
+							 display: inline-block;
+						 }
                 }
                 &.q-grid-eb {
                     &-node {
