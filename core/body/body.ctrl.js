@@ -122,7 +122,7 @@ export class BodyCtrl extends View {
 			const pathFinder = new PathService(this.bag.body);
 			const cell = pathFinder.cell(e.path);
 
-			if (edit.mode === 'batch' && edit.state === 'startBatch') {
+			if (edit.method === 'batch' && edit.state === 'startBatch') {
 				this.model.edit({state: 'endBatch'});
 			}
 

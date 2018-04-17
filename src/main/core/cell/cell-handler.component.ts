@@ -97,7 +97,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 			if (e.hasChanges('cell')) {
 				const currentCell = e.state.cell;
 
-				if (model.edit().mode === 'batch') {
+				if (model.edit().method === 'batch') {
 					if (previousCell) {
 						previousCell.removeChild(this.marker.nativeElement);
 					}
@@ -122,6 +122,6 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	get markerVisibility() {
 		const model = this.root.model;
 
-		return model.selection().mode === 'range' && model.edit().mode === 'batch';
+		return model.selection().mode === 'range' && model.edit().method === 'batch';
 	}
 }

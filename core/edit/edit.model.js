@@ -4,8 +4,9 @@ import {Command} from '../command';
 export class EditModel {
 	constructor() {
 		this.resource = new Resource();
-		this.mode = null; // cell | row | batch
+		this.mode = null; // cell | row
 		this.state = 'view'; // view | edit | startBatch | endBatch
+		this.method = null; // batch
 		this.startCell = null;
 		this.enter = new Command({source: 'edit.model'});
 		this.commit = new Command({source: 'edit.model'});
