@@ -65,10 +65,10 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 			const node = serializer.serialize(this.node);
 
 			const by = clone(this.model.filter().by);
-			by.expression = convert(node);
+			by.$expression = convert(node);
 
 			this.model.filter({ by });
-			this.model.queryBuilder({ node: by.expression ? node : null });
+			this.model.queryBuilder({ node: by.$expression ? node : null });
 
 			this.close.emit();
 		}
