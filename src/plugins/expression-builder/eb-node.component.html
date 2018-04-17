@@ -17,7 +17,7 @@
 		<ul>
 			<li *ngFor="let child of model.children"
 			    class="q-grid-eb-child">
-				<q-grid-eb-node [model]="child">
+				<q-grid-eb-node [model]="child" [parent]="self">
 				</q-grid-eb-node>
 			</li>
 		</ul>

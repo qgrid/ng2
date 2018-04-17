@@ -93,12 +93,20 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 			const newNode = e.newValue as EbNodeComponent;
 			const oldNode = e.oldValue as EbNodeComponent;
 
-			if (newNode) {
-				newNode.element.classList.add('q-grid-eb-active');
-			}
-
 			if (oldNode) {
 				oldNode.element.classList.remove('q-grid-eb-active');
+				const logicalNode = EbNodeService.findUp(newNode, n => n.id === '#logical');
+				if (logicalNode) {
+					logicalNode.element.classList.remove('q-grid-eb-active');
+				}
+			}
+
+			if (newNode) {
+				newNode.element.classList.add('q-grid-eb-active');
+				const logicalNode = EbNodeService.findUp(newNode, n => n.id === '#logical');
+				if (logicalNode) {
+					logicalNode.element.classList.add('q-grid-eb-active');
+				}
 			}
 		});
 	}

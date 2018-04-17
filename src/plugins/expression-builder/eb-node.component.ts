@@ -8,9 +8,14 @@ import { EbNodeService } from './eb-node.service';
 })
 export class EbNodeComponent implements OnInit {
 	@Input() model: Node;
+	@Input() parent: EbNodeComponent;
+
+	self = this;
 	element: HTMLElement;
 
-	constructor(private service: EbNodeService, element: ElementRef) {
+	constructor(
+		private service: EbNodeService,
+		element: ElementRef) {
 		this.element = element.nativeElement;
 	}
 

@@ -254,12 +254,6 @@ export class WhereSchema {
 										this.options = this.suggest(node, line);
 									}
 								});
-							})
-							.iconButton('#remove', {
-								icon: 'close',
-								click: function (node) {
-									node.remove();
-								}
 							});
 					});
 			});

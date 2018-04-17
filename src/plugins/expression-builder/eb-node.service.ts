@@ -1,5 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { EbNodeComponent } from './eb-node.component';
+import { Node } from './model/node';
 
 export interface EbNodeServiceEventArg<T> {
 	newValue: T;
@@ -25,5 +26,17 @@ export class EbNodeService {
 				newValue: value
 			});
 		}
+	}
+
+	static findUp(node: EbNodeComponent, test: (node: Node) => boolean) {
+		while (node) {
+			if (test(node.model)) {
+				return node;
+			}
+
+			node = node.parent;
+		}
+
+		return null;
 	}
 }
