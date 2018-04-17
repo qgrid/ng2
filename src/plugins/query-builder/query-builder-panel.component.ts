@@ -12,6 +12,10 @@ import { Node } from '../expression-builder/model/node';
 import { EbNodeService } from '../expression-builder/eb-node.service';
 import { EbNodeComponent } from '../expression-builder/eb-node.component';
 
+function findLogicalNode(node: EbNodeComponent) {
+	return EbNodeService.findUp(node, n => n.id === '#logical')
+}
+
 @Component({
 	selector: 'q-grid-query-builder-panel',
 	templateUrl: './query-builder-panel.component.html',
@@ -19,35 +23,42 @@ import { EbNodeComponent } from '../expression-builder/eb-node.component';
 })
 export class QueryBuilderPanelComponent extends PluginComponent implements OnInit {
 	public node: Node;
-
 	@Output() close = new EventEmitter<any>();
 
 	addGroup = new Command({
 		execute: () => {
-
+			const node = findLogicalNode(this.nodeService.currentNode).model;
+			node.addChildAfter(node.clone());
 		},
-		canExecute: () => !!this.nodeService.currentNode
+		canExecute: () => !!findLogicalNode(this.nodeService.currentNode)
 	});
 
 	removeGroup = new Command({
 		execute: () => {
-
+			const node = findLogicalNode(this.nodeService.currentNode).model;
+			node.remove();
 		},
-		canExecute: () => !!this.nodeService.currentNode
+		canExecute: () => {
+			const node = findLogicalNode(this.nodeService.currentNode);
+			return node && node.model.level > 1;
+		}
 	});
 
 	addExpression = new Command({
 		execute: () => {
-
+			const node = this.plan.materialize('#condition');
+			const logicalNode = findLogicalNode(this.nodeService.currentNode).model;
+			logicalNode.addChildAfter(node);
 		},
-		canExecute: () => !!this.nodeService.currentNode
+		canExecute: () => !!findLogicalNode(this.nodeService.currentNode)
 	});
 
 	removeExpression = new Command({
 		execute: () => {
-
+			const node = this.nodeService.currentNode.model;
+			node.remove();
 		},
-		canExecute: () => true
+		canExecute: () => this.nodeService.currentNode && this.nodeService.currentNode.model.id === '#condition'
 	});
 
 	submit = new Command({
@@ -82,6 +93,8 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 		}
 	});
 
+	private plan: INodeSchema;
+
 	constructor(
 		@Optional() root: RootService,
 		private queryService: QueryBuilderService,
@@ -95,7 +108,7 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 
 			if (oldNode) {
 				oldNode.element.classList.remove('q-grid-eb-active');
-				const logicalNode = EbNodeService.findUp(newNode, n => n.id === '#logical');
+				const logicalNode = findLogicalNode(oldNode);
 				if (logicalNode) {
 					logicalNode.element.classList.remove('q-grid-eb-active');
 				}
@@ -103,7 +116,7 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 
 			if (newNode) {
 				newNode.element.classList.add('q-grid-eb-active');
-				const logicalNode = EbNodeService.findUp(newNode, n => n.id === '#logical');
+				const logicalNode = findLogicalNode(newNode);
 				if (logicalNode) {
 					logicalNode.element.classList.add('q-grid-eb-active');
 				}
@@ -115,13 +128,13 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 		super.ngOnInit();
 
 		const schema = new WhereSchema(this.queryService);
-		const plan = schema.factory();
-		this.node = plan.apply();
+		this.plan = schema.factory() as any;
+		this.node = this.plan.apply();
 
 		const serializer = new SerializationService();
 		const { node } = this.model.queryBuilder();
 		if (node) {
-			this.node = serializer.deserialize(plan as any as INodeSchema, node);
+			this.node = serializer.deserialize(this.plan, node);
 		}
 	}
 }
