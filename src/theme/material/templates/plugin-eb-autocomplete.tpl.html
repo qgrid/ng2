@@ -1,17 +1,20 @@
 <ng-template key="plugin-eb-autocomplete.tpl.html"
-				 let-$expr>
-	<mat-form-field floatLabel="never" style="min-width: 50px;" q-grid-autosize="input">
+             let-$expr>
+	<mat-form-field floatLabel="never"
+	                style="min-width: 50px;"
+	                q-grid-autosize="input">
 		<input matInput
-				 #input
-				 [(ngModel)]="$expr.value"
-				 (input)="$expr.change();$expr.refresh()"
-				 (optionSelected)="$expr.change()"
-				 [placeholder]="$expr.placeholderText"
-				 [matAutocomplete]="auto">
+		       #input
+		       [(ngModel)]="$expr.value"
+		       (input)="$expr.change && $expr.change();$expr.refresh && $expr.refresh()"
+		       (optionSelected)="$expr.change && $expr.change()"
+		       [placeholder]="$expr.placeholderText"
+		       [matAutocomplete]="auto">
 	</mat-form-field>
 
 	<mat-autocomplete #auto="matAutocomplete">
-		<mat-option *ngFor="let option of $expr.options | async" [value]="option">
+		<mat-option *ngFor="let option of $expr.options | async"
+		            [value]="option">
 			{{option}}
 		</mat-option>
 	</mat-autocomplete>
