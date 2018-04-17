@@ -41,7 +41,15 @@ export class WhereSchema {
 						'#logical-op': ['value']
 					})
 					.attr('class', {
-						'qb-logical': true
+						'qb-logical': true,
+						'qb-and': function (node) {
+							const op = node.line.get('#logical-op');
+							return op.expressions[0].value === 'AND';
+						},
+						'qb-or': function (node) {
+							const op = node.line.get('#logical-op');
+							return op.expressions[0].value === 'OR';
+						}
 					})
 					.select('#logical-op', {
 						classes: ['qb-operation'],

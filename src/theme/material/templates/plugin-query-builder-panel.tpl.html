@@ -6,8 +6,8 @@
 				Query Builder
 			</mat-card-title>
 		</mat-card-header>
-		<mat-card-content class="layout-column">
-			<div class="flex-node q-grid-query-builder-toolbar">
+		<mat-card-content>
+			<div class="q-grid-query-builder-toolbar">
 				<mat-toolbar>
 					<button mat-button
 					        (click)="$builder.addGroup.execute()"
@@ -15,9 +15,9 @@
 						<mat-icon>playlist_add</mat-icon>Add Group
 					</button>
 					<button mat-button
-					        (click)="$builder.addExpression.execute()"
-					        [disabled]="!$builder.addExpression.canExecute()">
-						<mat-icon>playlist_add_check</mat-icon>Add Expression
+					        (click)="$builder.addRule.execute()"
+					        [disabled]="!$builder.addRule.canExecute()">
+						<mat-icon>add</mat-icon>Add Rule
 					</button>
 					<button mat-button
 					        (click)="$builder.remove.execute()"
@@ -26,7 +26,7 @@
 					</button>
 				</mat-toolbar>
 			</div>
-			<div class="flex-100 q-grid-query-builder-expression">
+			<div class="q-grid-query-builder-expression">
 				<q-grid-eb-node [model]="$builder.node">
 				</q-grid-eb-node>
 			</div>

@@ -33,7 +33,7 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 		canExecute: () => !!findLogicalNode(this.nodeService.currentNode)
 	});
 
-	addExpression = new Command({
+	addRule = new Command({
 		execute: () => {
 			const node = this.plan.materialize('#condition');
 			const logicalNode = findLogicalNode(this.nodeService.currentNode).model;
