@@ -1,8 +1,9 @@
 export function build(filterBy, op = 'and') {
 	const result = [];
 	for (let [key, filter] of Object.entries(filterBy)) {
-		if (filter.expression) {
-			result.push(filter.expression);
+		if (key === 'expression') {
+			result.push(filter);
+			continue;
 		}
 
 		const expressions = [];

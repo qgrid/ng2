@@ -5,8 +5,8 @@
 			<input matInput
 			       #input
 			       [(ngModel)]="$expr.value"
-			       (input)="$expr.change();$expr.refresh()"
-			       (optionSelected)="$expr.change()"
+			       (input)="$expr.change && $expr.change();$expr.refresh && $expr.refresh()"
+			       (optionSelected)="$expr.change && $expr.change()"
 			       [placeholder]="$expr.placeholderText"
 			       [matAutocomplete]="auto">
 		</mat-form-field>
