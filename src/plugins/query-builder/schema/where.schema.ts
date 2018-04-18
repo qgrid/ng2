@@ -121,7 +121,7 @@ export class WhereSchema {
 											const value = getValue(line, '#operand', ['value', 'values']);
 
 											line.put('#operand', node, function (schema) {
-												schema.autocomplete('#value', {
+												schema.input('#value', {
 													classes: {
 														'qb-operand': true,
 														'qb-has-value': function () {
@@ -148,7 +148,7 @@ export class WhereSchema {
 										case 'between':
 											line.put('#operand', node, function (schema) {
 												schema
-													.autocomplete('#from', {
+													.input('#from', {
 														classes: {
 															'qb-operand': true,
 															'qb-has-value': function () {
@@ -170,7 +170,7 @@ export class WhereSchema {
 														classes: ['qb-operand', 'qb-operand-and-label'],
 														text: 'AND'
 													})
-													.autocomplete('#to', {
+													.input('#to', {
 														classes: {
 															'qb-operand': true,
 															'qb-has-value': function () {
@@ -231,7 +231,7 @@ export class WhereSchema {
 								}
 							})
 							.group('#operand', function (schema) {
-								schema.autocomplete('#value', {
+								schema.input('#value', {
 									classes: {
 										'qb-operand': true,
 										'qb-has-value': function () {

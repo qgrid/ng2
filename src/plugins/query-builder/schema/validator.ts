@@ -49,10 +49,7 @@ export class Validator {
 				if (isArray(value)) {
 					const result = [];
 					for (const item of value) {
-						const effect = !test(item) as any;
-						if (effect !== true) {
-							result.push(...effect);
-						}
+						result.push(...test(item));
 					}
 
 					return result;
