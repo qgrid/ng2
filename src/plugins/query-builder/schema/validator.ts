@@ -5,6 +5,7 @@ import { Column, QueryBuilderService, ColumnMap } from '../query-builder.service
 import { createValidator } from 'ng2-qgrid/core/validation/validation.service';
 
 export class Validator {
+	private trueResult = [];
 	private columnMap: ColumnMap;
 	private rules = {
 		'bool': ['required'],
@@ -33,7 +34,7 @@ export class Validator {
 		}
 
 		const rules = this.rules;
-		return function test(value): boolean | Array<string> {
+		return function test(value): Array<string> {
 			if (isArray(value)) {
 				const result = [];
 				for (const item of value) {
@@ -43,17 +44,17 @@ export class Validator {
 					}
 				}
 
-				return result.length ? result : true;
+				return result;
 			}
 
-			const key = column.type
+			const key = column.type;
 			const rule = { [key]: rules[key] };
 			const target = { [key]: value };
 
 			const validator = createValidator(rule);
 			const isValid = validator.validate(target);
 			if (isValid) {
-				return true;
+				return this.trueResult;
 			}
 
 			const error =  validator.getErrors()[key];
