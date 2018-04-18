@@ -12,6 +12,7 @@ import { Node } from '../expression-builder/model/node';
 import { EbNodeService } from '../expression-builder/eb-node.service';
 import { EbNodeComponent } from '../expression-builder/eb-node.component';
 import { TraverseService } from '../expression-builder/traverse.service';
+import { FocusAfterRender } from 'ng2-qgrid/common/focus/focus.service';
 
 function findLogicalNode(node: Node) {
 	return TraverseService.findUp(node, n => n.id === '#logical');
@@ -20,7 +21,7 @@ function findLogicalNode(node: Node) {
 @Component({
 	selector: 'q-grid-query-builder-panel',
 	templateUrl: './query-builder-panel.component.html',
-	providers: [QueryBuilderService]
+	providers: [QueryBuilderService, FocusAfterRender]
 })
 export class QueryBuilderPanelComponent extends PluginComponent implements OnInit {
 	public node: Node;
@@ -120,7 +121,8 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 	constructor(
 		@Optional() root: RootService,
 		public queryService: QueryBuilderService,
-		private nodeService: EbNodeService) {
+		private nodeService: EbNodeService,
+		focusAfterRender: FocusAfterRender) {
 		super(root);
 	}
 
