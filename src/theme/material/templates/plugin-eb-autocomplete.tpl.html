@@ -3,7 +3,11 @@
 	<mat-form-field floatLabel="never"
 	                q-grid-autosize="input"
 	                [q-grid-eb-class]="$expr.classes"
-	                [q-grid-eb-class-model]="$expr">
+					[q-grid-eb-class-model]="$expr"
+					matTooltip="{{$expr.state.join(', ')}}"
+					matTooltipPosition="after"
+					matTooltipShowDelay="500"
+					matTooltipClass="q-grid-query-builder-error-tooltip">
 		<input matInput
 		       #input
 		       [(ngModel)]="$expr.value"

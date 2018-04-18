@@ -5,19 +5,19 @@ import { Column, QueryBuilderService, ColumnMap } from '../query-builder.service
 import { createValidator } from 'ng2-qgrid/core/validation/validation.service';
 
 export class Validator {
-	private trueResult = [];
+	private trueResult: Array<string> = [];
 	private columnMap: ColumnMap;
 	private rules = {
 		'bool': ['required'],
 		'currency': ['required', 'decimal'],
 		'date': ['required', 'iso_date'],
-		'email': ['required', 'email'],
+		'email': ['required' /*, 'email'*/],
 		'file': ['required'],
 		'id': ['required'],
 		'image': ['required'],
 		'number': ['required', 'decimal'],
 		'password': ['required'],
-		'url': ['required', 'url'],
+		'url': ['required'/*, 'url'*/],
 		'reference': ['required'],
 		'text': ['required', 'string'],
 		'time': ['required']
@@ -33,33 +33,36 @@ export class Validator {
 			throw new AppError('validator', `Can't find column ${key}`);
 		}
 
-		const rules = this.rules;
 		const trueResult = this.trueResult;
-		return function test(value): Array<string> {
-			if (isArray(value)) {
-				const result = [];
-				for (const item of value) {
-					const effect = !test(item) as any;
-					if (effect !== true) {
-						result.push(...effect);
+		const id = column.type;
+		const rule = this.rules[id];
+		if (rule) {
+			const schema = { [id]: rule };
+			return function test(value): Array<string> {
+				if (isArray(value)) {
+					const result = [];
+					for (const item of value) {
+						const effect = !test(item) as any;
+						if (effect !== true) {
+							result.push(...effect);
+						}
 					}
+
+					return result;
 				}
 
-				return result;
-			}
+				const target = { [id]: value };
+				const validator = createValidator(schema);
+				const isValid = validator.validate(target);
+				if (isValid) {
+					return trueResult;
+				}
 
-			const key = column.type;
-			const rule = { [key]: rules[key] };
-			const target = { [key]: value };
+				const error = validator.getErrors()[id];
+				return isArray(error) ? error : [error];
+			};
+		}
 
-			const validator = createValidator(rule);
-			const isValid = validator.validate(target);
-			if (isValid) {
-				return trueResult;
-			}
-
-			const error =  validator.getErrors()[key];
-			return isArray(error) ? error : [error];
-		};
+		return () => trueResult;
 	}
 }
