@@ -2,7 +2,6 @@
              let-$expr>
 	<button mat-button
 	        class="q-grid-query-builder-button"
-	        *ngIf="$expr.isVisible()"
 	        (click)="$expr.click && $expr.click($event)"
 	        [ngClass]="$expr.classes">
 		{{$expr.text}}

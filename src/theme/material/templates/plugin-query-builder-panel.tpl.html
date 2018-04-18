@@ -45,7 +45,8 @@
 			</button>
 			<button mat-button
 			        color="primary"
-			        (click)="$builder.submit.execute()">
+				(click)="$builder.submit.execute()"
+				[disabled]="!$builder.submit.canExecute()">
 				Apply
 			</button>
 		</mat-card-actions>
