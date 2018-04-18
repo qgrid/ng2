@@ -64,10 +64,16 @@ export class BodyCtrl extends View {
 			const pathFinder = new PathService(this.bag.body);
 			const cell = pathFinder.cell(e.path);
 
-			const editMode = this.model.edit().mode;
+			const edit = this.model.edit();
+			const editMode = edit.mode;
+			const editMethod = edit.method;
 			if (selectionState.mode === 'range') {
 
-				if (!editMode || editMode === 'batch') {
+				if(editMethod === 'batch' && edit.state !== 'startBatch') {
+					return;
+				}
+
+				if (editMode || editMethod === 'batch') {
 					this.rangeStartCell = cell;
 					if (this.rangeStartCell) {
 						this.view.selection.selectRange(this.rangeStartCell, null, 'body');
@@ -134,6 +140,16 @@ export class BodyCtrl extends View {
 				this.select(cell);
 				this.navigate(cell);
 				if (cell.column.editorOptions.trigger === 'click' && this.view.edit.cell.enter.canExecute(cell)) {
+
+					if (this.model.edit().method === 'batch' && this.selection.items.length > 1) {
+						this.model.selection({items: []});
+						return;
+					}
+
+					if(this.selection.items.length > 1) {
+						return;
+					}
+
 					this.view.edit.cell.enter.execute(cell);
 				}
 			}

@@ -82,13 +82,14 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	ngAfterViewInit() {
 		const model = this.root.model;
 		const editService = new EditService(model, this.root.table);
+		const initialEditState = model.edit().state;
 		let previousCell = null;
 
 		model.editChanged.on(e => {
 			if (e.hasChanges('state')) {
 				if (e.state.state === 'endBatch') {
 					editService.doBatch(e.state.startCell);
-					model.edit({startCell: null});
+					model.edit({state: initialEditState, startCell: null});
 				}
 			}
 		});
