@@ -34,6 +34,7 @@ export class Validator {
 		}
 
 		const rules = this.rules;
+		const trueResult = this.trueResult;
 		return function test(value): Array<string> {
 			if (isArray(value)) {
 				const result = [];
@@ -54,7 +55,7 @@ export class Validator {
 			const validator = createValidator(rule);
 			const isValid = validator.validate(target);
 			if (isValid) {
-				return this.trueResult;
+				return trueResult;
 			}
 
 			const error =  validator.getErrors()[key];

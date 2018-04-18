@@ -32,6 +32,6 @@ export class QueryBuilderPipe implements PipeTransform {
 			}
 		}
 
-		return '';
+		return 'Please, select a query';
 	}
 }
