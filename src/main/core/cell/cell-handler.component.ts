@@ -1,17 +1,21 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
+import { EditService } from 'ng2-qgrid/core/edit/edit.service';
+import { PathService } from 'ng2-qgrid/core/path/path.service';
 
 @Component({
 	selector: 'q-grid-cell-handler',
 	templateUrl: './cell-handler.component.html'
 })
-export class CellHandlerComponent implements OnInit {
+export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private job = jobLine(150);
 
 	constructor(private element: ElementRef, private root: RootService) {
 	}
+
+	@ViewChild('marker') marker: ElementRef;
 
 	ngOnInit() {
 		const model = this.root.model;
@@ -21,9 +25,11 @@ export class CellHandlerComponent implements OnInit {
 		// When navigate first or when animation wasn't applied we need to omit
 		// next navigation event to make handler to correct position.
 		let isValid = false;
+
 		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
 				const cell = e.state.cell;
+
 				if (cell) {
 					const oldColumn = e.changes.cell.oldValue ? e.changes.cell.oldValue.column : {};
 					const newColumn = e.changes.cell.newValue ? e.changes.cell.newValue.column : {};
@@ -71,5 +77,57 @@ export class CellHandlerComponent implements OnInit {
 				}
 			}
 		});
+	}
+
+	ngAfterViewInit() {
+		const model = this.root.model;
+		const editService = new EditService(model, this.root.table);
+		const initialEditState = model.edit().state;
+		let previousCell = null;
+
+		model.editChanged.on(e => {
+			if (e.hasChanges('state')) {
+				if (e.state.state === 'endBatch') {
+					editService.doBatch(e.state.startCell);
+					model.edit({state: initialEditState, startCell: null});
+				}
+			}
+		});
+
+		model.navigationChanged.watch(e => {
+			if (e.hasChanges('cell')) {
+				const currentCell = e.state.cell;
+
+				if (model.edit().method === 'batch') {
+					if (previousCell) {
+						Fastdom.mutate(() => {
+							previousCell.removeChild(this.marker.nativeElement);
+						});
+					}
+
+					const element = currentCell.model.element;
+
+					Fastdom.mutate(() => {
+						element.appendChild(this.marker.nativeElement);
+					});
+
+					previousCell = element;
+				}
+			}
+		});
+	}
+
+	startBatchEdit(e) {
+		const pathFinder = new PathService(this.root.bag.body);
+		const cell = pathFinder.cell(e.path);
+		const edit = this.root.model.edit;
+
+		edit({state: 'startBatch', startCell: cell});
+	}
+
+	get isMarkerVisible() {
+		const model = this.root.model;
+
+		return model.edit().method === 'batch';
 	}
 }

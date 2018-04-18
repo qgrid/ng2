@@ -64,13 +64,15 @@ export class BodyCtrl extends View {
 			const pathFinder = new PathService(this.bag.body);
 			const cell = pathFinder.cell(e.path);
 
-			const editMode = this.model.edit().mode;
-			if (selectionState.mode === 'range') {
-				if (!editMode) {
-					this.rangeStartCell = cell;
-					if (this.rangeStartCell) {
-						this.view.selection.selectRange(this.rangeStartCell, null, 'body');
-					}
+			const edit = this.model.edit();
+			const editMode = edit.mode;
+			const editMethod = edit.method;
+
+			if (selectionState.mode === 'range' || (editMethod === 'batch' && edit.state === 'startBatch')) {
+				this.rangeStartCell = cell;
+
+				if (this.rangeStartCell) {
+					this.view.selection.selectRange(this.rangeStartCell, null, 'body');
 				}
 			}
 		}
@@ -79,6 +81,7 @@ export class BodyCtrl extends View {
 	onMouseMove(e) {
 		const pathFinder = new PathService(this.bag.body);
 		const row = pathFinder.row(e.path);
+
 		if (row) {
 			const index = row.index;
 			const highlightRow = this.view.highlight.row;
@@ -93,7 +96,7 @@ export class BodyCtrl extends View {
 			}
 		}
 
-		if (this.selection.mode === 'range') {
+		if (this.selection.mode === 'range' || this.model.edit().state === 'startBatch') {
 			const startCell = this.rangeStartCell;
 			const endCell = pathFinder.cell(e.path);
 
@@ -113,17 +116,35 @@ export class BodyCtrl extends View {
 	}
 
 	onMouseUp(e) {
+		const mode = this.selection.mode;
+		const edit = this.model.edit();
+
 		if (e.which === MOUSE_LEFT_BUTTON) {
-			if (this.selection.mode === 'range') {
+			const pathFinder = new PathService(this.bag.body);
+			const cell = pathFinder.cell(e.path);
+
+			if (edit.method === 'batch' && edit.state === 'startBatch') {
+				this.model.edit({state: 'endBatch'});
+			}
+
+			if (mode === 'range') {
 				this.rangeStartCell = null;
 			}
 
-			const pathFinder = new PathService(this.bag.body);
-			const cell = pathFinder.cell(e.path);
 			if (cell) {
 				this.select(cell);
 				this.navigate(cell);
 				if (cell.column.editorOptions.trigger === 'click' && this.view.edit.cell.enter.canExecute(cell)) {
+
+					if (this.model.edit().method === 'batch' && this.selection.items.length > 1) {
+						this.model.selection({items: []});
+						return;
+					}
+
+					if(this.selection.items.length > 1) {
+						return;
+					}
+
 					this.view.edit.cell.enter.execute(cell);
 				}
 			}
