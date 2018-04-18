@@ -1,6 +1,6 @@
-import {PathService} from '../path';
-import {View} from '../view/view';
-import {Fastdom} from '../services/fastdom';
+import { PathService } from '../path';
+import { View } from '../view/view';
+import { Fastdom } from '../services/fastdom';
 
 const MOUSE_LEFT_BUTTON = 1;
 
@@ -49,7 +49,7 @@ export class BodyCtrl extends View {
 				const lower = table.view.scrollHeight() - table.view.height();
 				const top = Math.min(lower, Math.max(upper, scroll().top + e.deltaY));
 
-				scroll({top}, {source: 'body.core'});
+				scroll({ top }, { source: 'body.core' });
 			});
 		}
 	}
@@ -67,17 +67,12 @@ export class BodyCtrl extends View {
 			const edit = this.model.edit();
 			const editMode = edit.mode;
 			const editMethod = edit.method;
-			if (selectionState.mode === 'range') {
 
-				if(editMethod === 'batch' && edit.state !== 'startBatch') {
-					return;
-				}
+			if (selectionState.mode === 'range' || (editMethod === 'batch' && edit.state === 'startBatch')) {
+				this.rangeStartCell = cell;
 
-				if (editMode || editMethod === 'batch') {
-					this.rangeStartCell = cell;
-					if (this.rangeStartCell) {
-						this.view.selection.selectRange(this.rangeStartCell, null, 'body');
-					}
+				if (this.rangeStartCell) {
+					this.view.selection.selectRange(this.rangeStartCell, null, 'body');
 				}
 			}
 		}
@@ -101,7 +96,7 @@ export class BodyCtrl extends View {
 			}
 		}
 
-		if (this.selection.mode === 'range') {
+		if (this.selection.mode === 'range' || this.model.edit().state === 'startBatch') {
 			const startCell = this.rangeStartCell;
 			const endCell = pathFinder.cell(e.path);
 

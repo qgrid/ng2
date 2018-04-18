@@ -100,12 +100,17 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 				if (model.edit().method === 'batch') {
 					if (previousCell) {
-						previousCell.removeChild(this.marker.nativeElement);
+						Fastdom.mutate(() => {
+							previousCell.removeChild(this.marker.nativeElement);
+						});
 					}
 
 					const element = currentCell.model.element;
 
-					element.appendChild(this.marker.nativeElement);
+					Fastdom.mutate(() => {
+						element.appendChild(this.marker.nativeElement);
+					});
+
 					previousCell = element;
 				}
 			}
@@ -120,9 +125,9 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		edit({state: 'startBatch', startCell: cell});
 	}
 
-	get markerVisibility() {
+	get isMarkerVisible() {
 		const model = this.root.model;
 
-		return model.selection().mode === 'range' && model.edit().method === 'batch';
+		return model.edit().method === 'batch';
 	}
 }
