@@ -132,7 +132,7 @@ export class WhereSchema {
 														}
 													},
 													value: value,
-													validate: function (node, line) {
+													validate: function () {
 														const field = line.get('#field').expressions[0].value;
 														return validator.for(field)(this.value);
 													},
@@ -181,7 +181,7 @@ export class WhereSchema {
 															}
 														},
 														value: null,
-														validate: function (node, line) {
+														validate: function () {
 															const field = line.get('#field').expressions[0].value;
 															return validator.for(field)(this.value);
 														},

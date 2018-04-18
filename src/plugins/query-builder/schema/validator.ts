@@ -5,8 +5,9 @@ import { Column, QueryBuilderService, ColumnMap } from '../query-builder.service
 import { createValidator } from 'ng2-qgrid/core/validation/validation.service';
 
 export class Validator {
-	private trueResult: Array<string> = [];
 	private columnMap: ColumnMap;
+	private trueResult: Array<string> = [];
+	private validators: { [key: string]: (value: any) => Array<string> } = {};
 	private rules = {
 		'bool': ['required'],
 		'currency': ['required', 'decimal'],
@@ -28,6 +29,11 @@ export class Validator {
 	}
 
 	for(key: string) {
+		const validators = this.validators;
+		if (validators.hasOwnProperty('key')) {
+			return validators[key];
+		}
+
 		const column = this.columnMap[key];
 		if (!column) {
 			throw new AppError('validator', `Can't find column ${key}`);
@@ -36,9 +42,10 @@ export class Validator {
 		const trueResult = this.trueResult;
 		const id = column.type;
 		const rule = this.rules[id];
+		let validate = (value: any) => trueResult;
 		if (rule) {
 			const schema = { [id]: rule };
-			return function test(value): Array<string> {
+			validate = function test(value): Array<string> {
 				if (isArray(value)) {
 					const result = [];
 					for (const item of value) {
@@ -63,6 +70,7 @@ export class Validator {
 			};
 		}
 
-		return () => trueResult;
+		validators[key] = validate;
+		return validate;
 	}
 }
