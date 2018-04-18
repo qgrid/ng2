@@ -1,0 +1,54 @@
+<ng-template key="plugin-query-builder-panel.tpl.html"
+             let-$builder>
+	<mat-card class="mat-elevation-z">
+		<mat-card-header>
+			<mat-card-title>
+				Query Builder
+			</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<div class="q-grid-query-builder-toolbar">
+				<mat-toolbar>
+					<button mat-button
+					        (click)="$builder.addGroup.execute()"
+					        [disabled]="!$builder.addGroup.canExecute()">
+						<mat-icon>playlist_add</mat-icon>Add Group
+					</button>
+					<button mat-button
+					        (click)="$builder.addRule.execute()"
+					        [disabled]="!$builder.addRule.canExecute()">
+						<mat-icon>add</mat-icon>Add Rule
+					</button>
+					<button mat-button
+					        (click)="$builder.remove.execute()"
+					        [disabled]="!$builder.remove.canExecute()">
+						<mat-icon>delete_forever</mat-icon>Remove
+					</button>
+				</mat-toolbar>
+			</div>
+			<div class="q-grid-query-builder-expression">
+				<q-grid-eb-node [model]="$builder.node">
+				</q-grid-eb-node>
+			</div>
+			<div class="q-grid-query-builder-expression-line"
+			     [innerHTML]="$builder.node | qGridQueryBuilderMarkup: $builder.queryService">
+			</div>
+		</mat-card-content>
+		<mat-card-actions>
+			<button mat-button
+			        (click)="$builder.cancel.execute()">
+				Cancel
+			</button>
+			<button mat-button
+			        (click)="$builder.reset.execute()">
+				Clear
+			</button>
+			<button mat-button
+			        color="primary"
+				(click)="$builder.submit.execute()"
+				[disabled]="!$builder.submit.canExecute()">
+				Apply
+			</button>
+		</mat-card-actions>
+	</mat-card>
+</ng-template>

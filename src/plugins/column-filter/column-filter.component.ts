@@ -15,10 +15,12 @@ import { VscrollService } from 'ng2-qgrid/common/vscroll/vscroll.service';
 import { VscrollContext } from 'ng2-qgrid/common/vscroll/vscroll.context';
 import { GridService } from 'ng2-qgrid/main/grid/grid.service';
 import { Fetch } from 'ng2-qgrid/core/infrastructure/fetch';
+import { FocusAfterRender } from 'ng2-qgrid/common/focus/focus.service';
 
 @Component({
 	selector: 'q-grid-column-filter',
-	templateUrl: './column-filter.component.html'
+	templateUrl: './column-filter.component.html',
+	providers: [FocusAfterRender]
 })
 export class ColumnFilterComponent extends PluginComponent implements OnInit, OnDestroy {
 	@Input() public key: string;
@@ -27,14 +29,14 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
-
 	private columnFilter: ColumnFilterView;
 	private vscrollContext: VscrollContext;
 
 	constructor(
 		@Optional() root: RootService,
 		private vscroll: VscrollService,
-		private qgrid: GridService) {
+		private qgrid: GridService,
+		focusAfterRender: FocusAfterRender) {
 		super(root);
 	}
 

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { TemplateModule } from 'ng2-qgrid/template/template.module';
 import { PersistenceComponent } from './persistence.component';
-import { PersistenceDialogComponent } from './persistence-dialog.component';
+import { PersistencePanelComponent } from './persistence-panel.component';
 import { MatDialogModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
@@ -14,14 +14,15 @@ import { FormsModule } from '@angular/forms';
 		MatDialogModule
 	],
 	exports: [
-		PersistenceComponent
+		PersistenceComponent,
+		PersistencePanelComponent
 	],
 	declarations: [
 		PersistenceComponent,
-		PersistenceDialogComponent
+		PersistencePanelComponent
 	],
 	entryComponents: [
-		PersistenceDialogComponent
+		PersistencePanelComponent
 	]
 })
 export class PersistenceModule {

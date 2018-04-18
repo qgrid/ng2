@@ -71,6 +71,7 @@ export declare class Model {
 	fetchChanged: Event;
 	persistenceChanged: Event;
 	validationChanged: Event;
+	queryBuilderChanged: Event;
 
 	static register(name: string, model: { new(): {} }): typeof Model;
 
@@ -141,4 +142,10 @@ export declare class Model {
 	persistence(): PersistenceModel;
 	validation(value: object, tag?: object): Model;
 	validation(): ValidationModel;
+	queryBuilder(value: object, tag?: object): Model;
+	queryBuilder(): any;
+	dataManipulation(value: object, tag?: object): Model;
+	dataManipulation(): any;
+	rest(value: object, tag?: object): Model;
+	rest(): any;
 }

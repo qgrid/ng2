@@ -60,4 +60,13 @@ export class ActionCoreComponent extends PluginComponent {
 
 		return action.icon;
 	}
+
+	get templateUrl() {
+		const action = this.action;
+		if (!action) {
+			throw new AppError('action-core.component', 'Action shoud be setup');
+		}
+
+		return action.templateUrl;
+	}
 }

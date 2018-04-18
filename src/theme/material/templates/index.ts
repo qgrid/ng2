@@ -67,7 +67,18 @@ const templates = [
 	require('./plugin-column-chooser.tpl.html'),
 	require('./plugin-legend-core.tpl.html'),
 	require('./plugin-status-bar.tpl.html'),
-	require('./plugin-persistence.tpl.html')
+	require('./plugin-persistence.tpl.html'),
+	require('./plugin-persistence-panel.tpl.html'),
+	require('./plugin-query-builder.tpl.html'),
+	require('./plugin-query-builder-panel.tpl.html'),
+
+	require('./plugin-eb-label.tpl.html'),
+	require('./plugin-eb-button.tpl.html'),
+	require('./plugin-eb-select.tpl.html'),
+	require('./plugin-eb-input.tpl.html'),
+	require('./plugin-eb-icon-button.tpl.html'),
+	require('./plugin-eb-autocomplete.tpl.html'),
+	require('./plugin-eb-multiselect.tpl.html'),
 ];
 
 export const template = templates.join('\n\n');

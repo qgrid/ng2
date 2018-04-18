@@ -11,25 +11,20 @@ export class PersistenceView extends PluginView {
 		super();
 
 		this.items = [];
-		this.title = '';
 		this.state = {
 			editItem: null,
 			oldValue: null
 		};
 		this.model = model;
-		this.storageKey = `q-grid:${model.grid().id}:${model.persistence().id}:persistence-list`;
-		this.persistenceService = new PersistenceService(model);
+		this.id = model.persistence().id;
+		this.service = new PersistenceService(model);
+		this.title = this.stringify();
 		this.closeEvent = new Event();
 
-		this.model.persistence()
-			.storage
-			.getItem(this.storageKey)
+		model.persistence().storage
+			.getItem(this.id)
 			.then(items => {
 				this.items = items || [];
-				const defaultItem = this.items.find(item => item.isDefault);
-				if (defaultItem) {
-					this.persistenceService.load(defaultItem.model);
-				}
 			});
 
 		this.using(this.model.gridChanged.watch(e => {
@@ -44,13 +39,13 @@ export class PersistenceView extends PluginView {
 				this.items.push({
 					title: this.title,
 					modified: Date.now(),
-					model: this.persistenceService.save(),
+					model: this.service.save(),
 					isDefault: false
 				});
 
 				model.persistence()
 					.storage
-					.setItem(this.storageKey, this.items);
+					.setItem(this.id, this.items);
 
 				this.title = '';
 
@@ -88,7 +83,7 @@ export class PersistenceView extends PluginView {
 					item.modified = Date.now();
 					model.persistence()
 						.storage
-						.setItem(this.storageKey, this.items);
+						.setItem(this.id, this.items);
 					this.state.editItem = null;
 					return true;
 				},
@@ -113,7 +108,7 @@ export class PersistenceView extends PluginView {
 
 		this.load = new Command({
 			source: 'persistence.view',
-			execute: item => this.persistenceService.load(item.model)
+			execute: item => this.service.load(item.model)
 		});
 
 		this.remove = new Command({
@@ -125,7 +120,7 @@ export class PersistenceView extends PluginView {
 
 					this.model.persistence()
 						.storage
-						.setItem(this.storageKey, this.items);
+						.setItem(this.id, this.items);
 					return true;
 				}
 				return false;
@@ -150,7 +145,7 @@ export class PersistenceView extends PluginView {
 
 				this.model.persistence()
 					.storage
-					.setItem(this.storageKey, this.items);
+					.setItem(this.id, this.items);
 				return true;
 			}
 		});
@@ -193,11 +188,11 @@ export class PersistenceView extends PluginView {
 	}
 
 	isActive(item) {
-		return JSON.stringify(item.model) === JSON.stringify(this.persistenceService.save()); // eslint-disable-line angular/json-functions
+		return JSON.stringify(item.model) === JSON.stringify(this.service.save()); // eslint-disable-line angular/json-functions
 	}
 
 	stringify(item) {
-		const model = item ? item.model : this.persistenceService.save();
+		const model = item ? item.model : this.service.save();
 		const targets = [];
 		const settings = this.model.persistence().settings;
 
@@ -215,7 +210,7 @@ export class PersistenceView extends PluginView {
 	isUniqueTitle(title) {
 		return !this.items.some(item => {
 			return item !== this.state.editItem
-				&& item.title.toLowerCase() === title.toLowerCase();
+				&& item.title.toLowerCase() === title.trim().toLowerCase();
 		});
 	}
 }

@@ -7,15 +7,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Auto-complete cell editor.
 * Row edit form.
 * Infinite scrolling.
-* Perfomance improvements.
+* Performance improvements.
 * Validation framework.
 * Email, url cell editor.
 * Copy/paste selection to excel.
+* Auto-complete for Query builder.
+* Query builder input performance improvements.
 
-## [5.3.3] - 2018-04-03
+## [5.3.4] - 2018-04-18
 ### Added
-- `Persistnece` plugin.
+- `Query builder` plugin.
+- Cell batch update.
+
+## [5.3.3] - 2018-04-13
+### Added
+- `Persistence` plugin.
 - `Status bar` plugin.
+- Selected chips in `column filter` plugin.
+- Focus cell when after sort or filter column.
 
 ### Fixed
 - Vscroll reset.
@@ -42,13 +51,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Fixed
 - Url editor.
-- Text alingment in the file editor.
+- Text alignment in the file editor.
 - Navigation should trigger detect changes.
 
 ## [5.2.3] - 2018-02-12
 ### Fixed
 - Embed style for `row-options` column type.
-- TypeScript declrations.
+- TypeScript declarations.
 
 ## [5.2.2] - 2018-02-12
 ### Fixed
@@ -72,14 +81,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Added
 * Possibility to change row size `<q-grid-row canResize="true"`.
 * Possibility to drag and drop rows `<q-grid-row canDrag="true"`.
-* Style queue to the style Api, accessable through style model cells/rows props.
+* Style queue to the style Api, accessible through style model cells/rows props.
 * Rows property to the layout property.
 
 ### Changed
-* Improve perfomance through change detection strategy.
-* Improve perfomance through reducing number of change detections.
-* Improve perfomance through adding track by index.
-* Improve perfomance through invoking drang and drop out of ng zone.
+* Improve performance through change detection strategy.
+* Improve performance through reducing number of change detections.
+* Improve performance through adding track by index.
+* Improve performance through invoking drang and drop out of ng zone.
 * Layout columns property changed type form object to map.
 
 ## [5.1.1] - 2017-12-28
@@ -171,7 +180,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v5.3.3...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v5.3.4...HEAD
+[5.3.4]: https://github.com/qgrid/ng2/compare/v5.3.4...v5.4.2
 [5.3.3]: https://github.com/qgrid/ng2/compare/v5.3.2...v5.2.4
 [5.3.2]: https://github.com/qgrid/ng2/compare/v5.3.2...v5.2.4
 [5.2.4]: https://github.com/qgrid/ng2/compare/v5.2.4...v5.2.3

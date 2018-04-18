@@ -20,12 +20,19 @@ import { PersistenceModule } from './persistence/persistence.module';
 import { ColumnChooserModel } from 'ng2-qgrid/plugin/column-chooser/column.chooser.model';
 import { ColumnFilterModel } from 'ng2-qgrid/plugin/column-filter/column.filter.model';
 import { DataManipulationModel } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.model';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { StatusBarModule } from 'ng2-qgrid/plugins/status-bar/status-bar.module';
+import { QueryBuilderModule } from 'ng2-qgrid/plugins/query-builder/query-builder.module';
+import { QueryBuilderModel } from 'ng2-qgrid/plugins/query-builder/query-builder.model';
+import { EbModule } from 'ng2-qgrid/plugins/expression-builder/eb.module';
+import { RestModel } from 'ng2-qgrid/plugin/rest/rest.model';
+import { RestModule } from 'ng2-qgrid/plugins/rest/rest.module';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 Model.register('columnChooser', ColumnChooserModel)
 	.register('columnFilter', ColumnFilterModel)
-	.register('dataManipulation', DataManipulationModel);
+	.register('dataManipulation', DataManipulationModel)
+	.register('queryBuilder', QueryBuilderModel)
+	.register('rest', RestModel);
 
 @NgModule({
 	declarations: [],
@@ -48,7 +55,10 @@ Model.register('columnChooser', ColumnChooserModel)
 		StatusBarModule,
 		LegendModule,
 		ChipsModule,
-		PersistenceModule
+		PersistenceModule,
+		QueryBuilderModule,
+		EbModule,
+		RestModule
 	]
 })
-export class PluginModule {}
+export class PluginModule { }
