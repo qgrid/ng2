@@ -3,14 +3,14 @@ import {IExpression} from './expression.build';
 export declare class Visitor {
 	constructor();
 
-	visit(item: IExpression, depth: number): void;
-	visitGroup(group: IExpression, depth: number): void;
-	visitCondition(condition: IExpression, depth: number): void;
-	visitUnary(condition: IExpression): void;
-	visitBinary(condition: IExpression, depth: number): void;
-	visitLeft(left: IExpression): void;
-	visitBetween(condition: IExpression, depth: number): void;
-	visitIn(condition: IExpression, depth: number): void;
-	visitFunction(item: IExpression, depth: number): void;
-	visitArguments(args: any[]): void;
+	visit(item: IExpression, depth?: number): any;
+	visitGroup(group: IExpression, depth: number): any;
+	visitCondition(condition: IExpression, depth: number): any;
+	visitUnary(condition: IExpression): any;
+	visitBinary(condition: IExpression, depth: number): any;
+	visitLeft(left: IExpression): any;
+	visitBetween(condition: IExpression, depth: number): any;
+	visitIn(condition: IExpression, depth: number): any;
+	visitFunction(item: IExpression, depth: number): any;
+	visitArguments(args: any[]): any;
 }
