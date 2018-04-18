@@ -32,7 +32,7 @@ export class WhereSchema {
 		const service = this.service;
 		const suggest = suggestFactory(service, '#field');
 		const suggests = suggestsFactory(service, '#field');
-		const validator = new Validator();
+		const validator = new Validator(service);
 
 		return this.service.build()
 			.node('#logical', function (schema) {
@@ -129,7 +129,6 @@ export class WhereSchema {
 															this.state = validator.for(field)(this.value);
 														}
 													},
-													state: [],
 													classes: {
 														'qb-operand': true,
 														'qb-has-value': function () {
@@ -139,13 +138,14 @@ export class WhereSchema {
 															return !this.isValid(node);
 														}
 													},
+													value: value,
+													state: [],
+													placeholderText: 'Select value',
 													suggest: suggest,
 													options: null,
 													refresh: function (node, line) {
 														this.options = this.suggest(node, line);
-													},
-													value: value,
-													placeholderText: 'Select value'
+													}
 												});
 											});
 											break;
@@ -197,14 +197,14 @@ export class WhereSchema {
 																return !this.isValid(node);
 															}
 														},
+														value: null,
 														state: [],
+														placeholderText: 'Select value',
 														suggest: suggest,
 														options: null,
 														refresh: function (node, line) {
 															this.options = this.suggest(node, line);
-														},
-														value: null,
-														placeholderText: 'Select value'
+														}
 													});
 											});
 											break;
@@ -268,7 +268,6 @@ export class WhereSchema {
 											return !this.isValid(node);
 										}
 									},
-									values: [],
 									value: null,
 									state: [],
 									placeholderText: 'Select value',

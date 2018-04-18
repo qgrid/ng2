@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { TemplateModule } from 'ng2-qgrid/template/template.module';
 import { QueryBuilderComponent } from './query-builder.component';
 import { QueryBuilderPanelComponent } from './query-builder-panel.component';
+import { QueryBuilderPipe } from './query-builder.pipe';
 
 @NgModule({
 	imports: [
@@ -10,10 +11,12 @@ import { QueryBuilderPanelComponent } from './query-builder-panel.component';
 	exports: [
 		QueryBuilderComponent,
 		QueryBuilderPanelComponent,
+		QueryBuilderPipe
 	],
 	declarations: [
 		QueryBuilderComponent,
-		QueryBuilderPanelComponent
+		QueryBuilderPanelComponent,
+		QueryBuilderPipe
 	]
 })
 export class QueryBuilderModule {

@@ -1,5 +1,6 @@
 <ul class="q-grid-eb-node"
 	[q-grid-eb-class]="model.attr('class')"
+	[ngClass]="{'q-grid-eb-active': service.current === model}"
 	(click)="select($event)">
 	<li class="q-grid-eb-line">
 		<ul>
@@ -17,7 +18,7 @@
 		<ul>
 			<li *ngFor="let child of model.children"
 			    class="q-grid-eb-child">
-				<q-grid-eb-node [model]="child" [parent]="self">
+				<q-grid-eb-node [model]="child">
 				</q-grid-eb-node>
 			</li>
 		</ul>
