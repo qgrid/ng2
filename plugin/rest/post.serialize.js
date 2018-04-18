@@ -4,7 +4,7 @@ export function serialize(model) {
 	const filter = model.filter();
 
 	return {
-		filter: filter.by,
+		filter: filter.by.items,
 		order: sort.by.map(s => {
 			const key = Object.keys(s)[0];
 			const value = s[key];

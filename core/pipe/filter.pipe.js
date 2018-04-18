@@ -3,11 +3,11 @@ export function filterPipe(data, context, next) {
 	if (data.length) {
 		const model = context.model;
 		const filterState = model.filter();
-		const match = filterState.match(context);
+		const test = filterState.match(context);
 
 		for (let i = 0, length = data.length; i < length; i++) {
 			const item = data[i];
-			if (match(item)) {
+			if (test(item)) {
 				result.push(item);
 			}
 		}

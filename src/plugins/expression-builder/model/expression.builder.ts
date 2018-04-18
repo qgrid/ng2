@@ -17,36 +17,37 @@ export class ExpressionBuilder {
 	build<T>(statements: Array<IStatement>): T {
 		const NodeSchemaT = nodeSchema(GroupSchema);
 
+		const settings = this.settings;
 		statements
 			.concat([new EmptyStatement()])
 			.forEach(statement => {
 				const factory = function (...args) {
 					let id = guid();
-					let expression: Expression;
+					let sampleExpression: Expression;
 					if (args.length > 1) {
 						id = args[0];
-						expression = args[1];
+						sampleExpression = args[1];
 					} else if (args.length === 1) {
-						expression = args[0];
+						sampleExpression = args[0];
 					}
 
 					const build = function (node: Node, line: Line) {
-						expression =
+						const expression =
 							utility.defaults<Expression>(
-								expression,
+								sampleExpression,
 								statement.defaults,
-								this.settings.defaults
+								settings.defaults
 							);
 
 						expression.id = id;
 						expression.type = statement.type;
+						expression.templateUrl = statement.templateKey;
 
 						const group = new GroupExpression();
 						group.id = id;
 						group.expressions.push(expression);
-						expression.templateUrl = statement.templateKey;
-						line.add(group);
 
+						line.add(group);
 						patch.methodsOf(expression).with(node, line);
 
 						const keys = Object.keys(expression);
@@ -83,16 +84,22 @@ export class ExpressionBuilder {
 
 				const groupFactory = function (...args) {
 					let id = guid();
-					let expression: Expression;
+					let sampleExpression: Expression;
 					if (args.length > 1) {
 						id = args[0];
-						expression = args[1];
+						sampleExpression = args[1];
 					} else if (args.length === 1) {
-						expression = args[0];
+						sampleExpression = args[0];
 					}
 
 					const build = function (node, line, expressionGroup) {
-						expression = utility.defaults<Expression>(expression, statement.defaults, this.settings.defaults);
+						const expression =
+							utility.defaults<Expression>(
+								sampleExpression,
+								statement.defaults,
+								settings.defaults
+							);
+
 						expression.id = id;
 						expression.type = statement.type;
 						expression.templateUrl = statement.templateKey;

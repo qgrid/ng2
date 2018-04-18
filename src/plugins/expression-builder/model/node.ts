@@ -66,10 +66,7 @@ export class Node {
 	}
 
 	clear() {
-		this.children.forEach(function (child) {
-			child.parent = null;
-		});
-
+		this.children.forEach(child => child.parent = null);
 		this.children = [];
 	}
 

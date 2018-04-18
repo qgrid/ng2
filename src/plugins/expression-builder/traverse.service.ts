@@ -1,8 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Node } from './model/node';
 
-@Injectable()
 export class TraverseService {
+	static findUp(node: Node, test: (node: Node) => boolean) {
+		while (node) {
+			if (test(node)) {
+				return node;
+			}
+
+			node = node.parent;
+		}
+
+		return null;
+	}
+
+	static findUpSibling(node: Node) {
+		if (node.parent) {
+			const children = node.parent.children;
+			const index = children.indexOf(node);
+			if (index >= 0) {
+				if (index > 0) {
+					return children[index - 1];
+				}
+
+				return node.parent;
+			}
+		}
+
+		return null;
+	}
+
 	static depth(root: Node) {
 		return (reduce, memo) => {
 			memo = TraverseService.visitLine(reduce, memo, root, root.line);

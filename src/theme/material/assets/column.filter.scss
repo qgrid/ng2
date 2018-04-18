@@ -67,6 +67,7 @@
 	}
 	.q-grid-column-filter-list {
 		overflow-y: auto;
+		height: 255px;
 		margin-bottom: 14px;
 		ul {
 			margin: 0;
@@ -83,6 +84,8 @@
 		&-blank {
 			text-align: center;
 			color: #C8C8C8;
+			position: relative;
+			top: 20px;
 		}
 
 		ul {
