@@ -28,6 +28,13 @@ export declare class EditModel {
 	state: 'edit' | 'view' | 'startBatch' | 'endBatch';
 
 	/**
+	 * Property that controls grid edit behavior.
+	 *
+	 * * `'batch'` bath update.
+	 */
+	method: null | 'batch';
+
+	/**
 	 *
 	 */
 	method: 'batch';

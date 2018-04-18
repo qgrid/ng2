@@ -64,11 +64,7 @@ export class BodyCtrl extends View {
 			const pathFinder = new PathService(this.bag.body);
 			const cell = pathFinder.cell(e.path);
 
-			const edit = this.model.edit();
-			const editMode = edit.mode;
-			const editMethod = edit.method;
-
-			if (selectionState.mode === 'range' || (editMethod === 'batch' && edit.state === 'startBatch')) {
+			if (selectionState.mode === 'range' || this.model.edit().state === 'startBatch') {
 				this.rangeStartCell = cell;
 
 				if (this.rangeStartCell) {
@@ -117,14 +113,14 @@ export class BodyCtrl extends View {
 
 	onMouseUp(e) {
 		const mode = this.selection.mode;
-		const edit = this.model.edit();
+		const edit = this.model.edit;
 
 		if (e.which === MOUSE_LEFT_BUTTON) {
 			const pathFinder = new PathService(this.bag.body);
 			const cell = pathFinder.cell(e.path);
 
-			if (edit.method === 'batch' && edit.state === 'startBatch') {
-				this.model.edit({state: 'endBatch'});
+			if (edit().state === 'startBatch') {
+				edit({state: 'endBatch'});
 			}
 
 			if (mode === 'range') {
@@ -136,7 +132,7 @@ export class BodyCtrl extends View {
 				this.navigate(cell);
 				if (cell.column.editorOptions.trigger === 'click' && this.view.edit.cell.enter.canExecute(cell)) {
 
-					if (this.model.edit().method === 'batch' && this.selection.items.length > 1) {
+					if (edit().method === 'batch' && this.selection.items.length > 1) {
 						this.model.selection({items: []});
 						return;
 					}

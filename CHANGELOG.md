@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Copy/paste selection to excel.
 * Auto-complete for Query builder.
 * Query builder input performance improvements.
+* Batch edit improvements.
 
 ## [5.3.4] - 2018-04-18
 ### Added
