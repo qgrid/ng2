@@ -54,8 +54,8 @@ export class QueryBuilderService {
 		model.filter({
 			by: expression
 		}, {
-			source: 'query-builder.service'
-		});
+				source: 'query-builder.service'
+			});
 	}
 
 	suggest(key, skip, take, search, selection?: Array<string>): Promise<string[]> {
@@ -126,10 +126,8 @@ export class QueryBuilderService {
 
 		const settings = {
 			defaults: {
-				isVisible: yes,
-				isValid: function (node) {
-					return node.attr('placeholder') ||
-						(!this.state || !this.state.length);
+				isValid: function () {
+					return !this.validate || !(this.state = this.validate()).length;
 				}
 			}
 		};

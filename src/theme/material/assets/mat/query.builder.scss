@@ -38,6 +38,12 @@
                         display: block;
                     }
                 }
+                &.qb-invalid {
+                    .mat-form-field-underline {
+                        display: block;
+                        background: #dd2c00;
+                    }
+                }
             }
             .qb {
                 &-operation,
@@ -49,4 +55,8 @@
             }
         }
     }
+}
+
+@at-root .q-grid-query-builder-error-tooltip {
+    text-transform: lowercase;
 }

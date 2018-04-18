@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Email, url cell editor.
 * Copy/paste selection to excel.
 
-## [5.3.4] - 2018-04-13
+## [5.3.4] - 2018-04-18
 ### Added
 - `Query builder` plugin.
 - Cell batch update.
@@ -22,6 +22,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - `Persistnece` plugin.
 - `Status bar` plugin.
 - Selected chips in `column filter` plugin.
+- Focus cell when after sort or filter column.
 
 ### Fixed
 - Vscroll reset.

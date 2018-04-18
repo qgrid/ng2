@@ -1,7 +1,11 @@
 import { Visitor } from './expression.visitor';
 import { AppError } from '../infrastructure/error';
 
-function stringify(value, type) {
+function stringify(value, type, isValid) {
+    if (!isValid) {
+        return '<span class="q-grid-markup-condition-value-invalid"></span>';
+    }
+
     switch (type) {
         case 'text':
             return stringifyText(value);
@@ -52,11 +56,12 @@ function stringifyInteger(value) {
 }
 
 export class MarkupVisitor extends Visitor {
-    constructor(label, type) {
+    constructor(label, type, isValid) {
         super();
 
         this.label = label;
         this.type = type;
+        this.isValid = isValid;
     }
 
     visitGroup(group, depth) {
@@ -120,24 +125,27 @@ export class MarkupVisitor extends Visitor {
                 throw new AppError('markup.visitor', `Invalid operation ${condition.op}`);
         }
 
+        const isValid = this.isValid(condition.left, condition.right);
         return `<span class="q-grid-markup-condition-left">${this.label(condition.left)}</span>
                 <span class="q-grid-markup-condition-op">${op}</span>
-                <span class="q-grid-markup-condition-right">${stringify(condition.right, this.type(condition.left))}</span>`;
+                <span class="q-grid-markup-condition-right">${stringify(condition.right, this.type(condition.left), isValid)}</span>`;
     }
 
     visitBetween(condition) {
+        const isValid = this.isValid(condition.left, condition.right);
         return `<span class="q-grid-markup-condition-left">${this.label(condition.left)}</span>
                 <span class="q-grid-markup-condition-op">between</span>
-                <span class="q-grid-markup-condition-right">${stringify(condition.right[0], this.type(condition.left))}</span>
+                <span class="q-grid-markup-condition-right">${stringify(condition.right[0], this.type(condition.left), isValid)}</span>
                 <span class="q-grid-markup-condition-op">and</span>
-                <span class="q-grid-markup-condition-right">${stringify(condition.right[1], this.type(condition.left))}</span>`;
+                <span class="q-grid-markup-condition-right">${stringify(condition.right[1], this.type(condition.left), isValid)}</span>`;
     }
 
     visitIn(condition) {
+        const isValid = this.isValid(condition.left, condition.right);
         return `<span class="q-grid-markup-condition-left">${this.label(condition.left)}</span>
                 <span class="q-grid-markup-condition-op">in</span>
                 <span class="q-grid-markup-condition-open">(</span>
-                <span class="q-grid-markup-condition-right">${condition.right.map(item => stringify(item, this.type(condition.left))).join(', ')}</span>
+                <span class="q-grid-markup-condition-right">${condition.right.map(item => stringify(item, this.type(condition.left), isValid)).join(', ')}</span>
                 <span class="q-grid-markup-condition-close">)</span>`;
     }
 }

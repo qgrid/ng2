@@ -131,9 +131,9 @@
                 &-markup-condition-value {
                     color: #000;
                 }
-                &-markup-condition-error {
-                    background-color: rgba(255, 0, 0, .6);
-                    color: #fff !important;
+                &-markup-condition-value-invalid:before {
+                    color: #dd2c00;
+                    content: '\FE4F';
                 }
             }
         }
