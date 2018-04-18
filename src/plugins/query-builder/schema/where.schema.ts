@@ -32,7 +32,7 @@ export class WhereSchema {
 		const service = this.service;
 		const suggest = suggestFactory(service, '#field');
 		const suggests = suggestsFactory(service, '#field');
-		const validator = new Validator();
+		const validator = new Validator(service);
 
 		return this.service.build()
 			.node('#logical', function (schema) {
