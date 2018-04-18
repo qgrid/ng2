@@ -4,6 +4,5 @@
 	       [ngClass]="$expr.classes"
 	       [(ngModel)]="$expr.value"
 	       [placeholder]="$expr.placeholderText"
-	       (input)="$expr.change && $expr.change()"
-	       *ngIf="$expr.isVisible()" />
+	       (input)="$expr.change && $expr.change()" />
 </ng-template>

@@ -4,7 +4,7 @@
 	                q-grid-autosize="input"
 	                [q-grid-eb-class]="$expr.classes"
 					[q-grid-eb-class-model]="$expr"
-					matTooltip="{{$expr.state.join(', ')}}"
+					matTooltip="{{$expr.state && $expr.state.join(', ')}}"
 					matTooltipPosition="after"
 					matTooltipShowDelay="500"
 					matTooltipClass="q-grid-query-builder-error-tooltip">

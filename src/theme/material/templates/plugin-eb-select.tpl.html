@@ -4,8 +4,7 @@
                 (selectionChange)="$expr.change && $expr.change($event)"
                 (openedChange)="$expr.open && $expr.open($event)"
                 [q-grid-eb-class]="$expr.classes"
-                [q-grid-eb-class-model]="$expr"                
-                *ngIf="$expr.isVisible()">
+                [q-grid-eb-class-model]="$expr">
         <mat-option *ngFor="let option of ($expr.options || $expr.getOptions())"
                     [value]="option"
                     [disabled]="$expr.disabled && $expr.disabled(option)">

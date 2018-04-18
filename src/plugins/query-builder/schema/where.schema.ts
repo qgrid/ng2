@@ -89,10 +89,9 @@ export class WhereSchema {
 										op.change();
 									} else {
 										const operand = line.get('#operand').expressions[0];
-										operand.state = validator.for(field)(operand.value);
-										if (operand.state.length) {
+										const result = operand.validate();
+										if (result.length) {
 											operand.value = null;
-											operand.state = validator.for(field)(operand.value);
 										}
 									}
 								}
@@ -123,12 +122,6 @@ export class WhereSchema {
 
 											line.put('#operand', node, function (schema) {
 												schema.autocomplete('#value', {
-													$watch: {
-														'value': function () {
-															const field = line.get('#field').expressions[0].value;
-															this.state = validator.for(field)(this.value);
-														}
-													},
 													classes: {
 														'qb-operand': true,
 														'qb-has-value': function () {
@@ -139,7 +132,10 @@ export class WhereSchema {
 														}
 													},
 													value: value,
-													state: [],
+													validate: function (node, line) {
+														const field = line.get('#field').expressions[0].value;
+														return validator.for(field)(this.value);
+													},
 													placeholderText: 'Select value',
 													suggest: suggest,
 													options: null,
@@ -153,12 +149,6 @@ export class WhereSchema {
 											line.put('#operand', node, function (schema) {
 												schema
 													.autocomplete('#from', {
-														$watch: {
-															'value': function () {
-																const field = line.get('#field').expressions[0].value;
-																this.state = validator.for(field)(this.value);
-															}
-														},
 														classes: {
 															'qb-operand': true,
 															'qb-has-value': function () {
@@ -168,7 +158,10 @@ export class WhereSchema {
 																return !this.isValid(node);
 															}
 														},
-														state: [],
+														validate: function () {
+															const field = line.get('#field').expressions[0].value;
+															return validator.for(field)(this.value);
+														},
 														options: suggest,
 														value: null,
 														placeholderText: 'Select value'
@@ -178,12 +171,6 @@ export class WhereSchema {
 														text: 'AND'
 													})
 													.autocomplete('#to', {
-														$watch: {
-															'value': function () {
-																const field = line.get('#field').expressions[0].value;
-																this.state = validator.for(field)(this.value);
-															}
-														},
 														classes: {
 															'qb-operand': true,
 															'qb-has-value': function () {
@@ -194,7 +181,10 @@ export class WhereSchema {
 															}
 														},
 														value: null,
-														state: [],
+														validate: function (node, line) {
+															const field = line.get('#field').expressions[0].value;
+															return validator.for(field)(this.value);
+														},
 														placeholderText: 'Select value',
 														suggest: suggest,
 														options: null,
@@ -211,12 +201,6 @@ export class WhereSchema {
 														text: '('
 													})
 													.multiselect('#in-operand', {
-														$watch: {
-															'values': function () {
-																const field = line.get('#field').expressions[0].value;
-																this.state = validator.for(field)(this.values);
-															}
-														},
 														classes: {
 															'qb-operand': true,
 															'qb-has-value': function () {
@@ -226,7 +210,10 @@ export class WhereSchema {
 																return !this.isValid(node);
 															}
 														},
-														state: [],
+														validate: function () {
+															const field = line.get('#field').expressions[0].value;
+															return validator.for(field)(this.values);
+														},
 														values: [],
 														options: suggests,
 														placeholderText: 'Select value'
@@ -245,12 +232,6 @@ export class WhereSchema {
 							})
 							.group('#operand', function (schema) {
 								schema.autocomplete('#value', {
-									$watch: {
-										'value': function (newValue, oldValue, node, line) {
-											const field = line.get('#field').expressions[0].value;
-											this.state = validator.for(field)(this.value);
-										}
-									},
 									classes: {
 										'qb-operand': true,
 										'qb-has-value': function () {
@@ -261,7 +242,10 @@ export class WhereSchema {
 										}
 									},
 									value: null,
-									state: [],
+									validate: function (node, line) {
+										const field = line.get('#field').expressions[0].value;
+										return validator.for(field)(this.value);
+									},
 									placeholderText: 'Select value',
 									suggest: suggest,
 									options: null,

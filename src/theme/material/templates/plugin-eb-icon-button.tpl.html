@@ -1,7 +1,6 @@
 <ng-template key="plugin-eb-icon-button.tpl.html"
              let-$expr>
-	<button *ngIf="$expr.isVisible()"
-	        class="q-grid-query-builder-icon-button"
+	<button class="q-grid-query-builder-icon-button"
 	        (click)="$expr.click && $expr.click($event)"
 	        [ngClass]="$expr.classes"
 	        mat-icon-button>

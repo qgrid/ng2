@@ -2,8 +2,7 @@
              let-$expr>
     <mat-chip-list #chipList
                    class="q-grid-query-builder-multiselect"
-                   [ngClass]="$expr.classes"
-                   *ngIf="$expr.isVisible">
+                   [ngClass]="$expr.classes">
         <mat-chip *ngFor="let value of $expr.values;let $index = index"
                   selectable="true"
                   removable="true"
