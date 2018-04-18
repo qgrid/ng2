@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { Node } from './model/node';
 
 export class TraverseService {
