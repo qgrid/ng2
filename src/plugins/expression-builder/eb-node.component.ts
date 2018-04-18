@@ -6,27 +6,17 @@ import { EbNodeService } from './eb-node.service';
 	selector: 'q-grid-eb-node',
 	templateUrl: './eb-node.component.html'
 })
-export class EbNodeComponent implements OnInit, OnDestroy {
+export class EbNodeComponent {
 	@Input() model: Node;
-	element: HTMLElement;
 
-	constructor(
-		private service: EbNodeService,
-		element: ElementRef) {
-		this.element = element.nativeElement;
-	}
-
-	ngOnInit() {
-		this.service.bag.set(this.model, this);
-	}
-
-	ngOnDestroy() {
-		this.service.bag.delete(this.model);
+	constructor(public service: EbNodeService) {
 	}
 
 	select(e) {
 		e.stopPropagation();
 
-		this.service.current = this.model;
+		if (this.model.parent) {
+			this.service.current = this.model;
+		}
 	}
 }

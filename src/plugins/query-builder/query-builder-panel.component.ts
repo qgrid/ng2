@@ -29,8 +29,12 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 	addGroup = new Command({
 		execute: () => {
 			const current = this.nodeService.current;
-			const node = findLogicalNode(current);
-			node.addChildAfter(node.clone(), current.id === '#condition' && current);
+			const parent = findLogicalNode(current);
+			const group = parent.clone();
+			parent.addChildAfter(group, current.id === '#condition' && current);
+			if (current.id === '#condition') {
+				this.nodeService.current = group;
+			}
 		},
 		canExecute: () => !!findLogicalNode(this.nodeService.current)
 	});
@@ -38,9 +42,12 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 	addRule = new Command({
 		execute: () => {
 			const current = this.nodeService.current;
-			const node = this.plan.materialize('#condition');
-			const logicalNode = findLogicalNode(current);
-			logicalNode.addChildAfter(node, current.id === '#condition' && current);
+			const parent = findLogicalNode(current);
+			const rule = this.plan.materialize('#condition');
+			parent.addChildAfter(rule, current.id === '#condition' && current);
+			if (current.id === '#condition') {
+				this.nodeService.current = rule;
+			}
 		},
 		canExecute: () => !!findLogicalNode(this.nodeService.current)
 	});
@@ -92,6 +99,7 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 			const schema = new WhereSchema(this.queryService);
 			const plan = schema.factory();
 			this.node = plan.apply();
+			this.nodeService.current = this.node.children[0];
 		}
 	});
 
@@ -101,21 +109,7 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 		@Optional() root: RootService,
 		public queryService: QueryBuilderService,
 		private nodeService: EbNodeService) {
-
 		super(root);
-
-		nodeService.currentChange.subscribe(e => {
-			const newNode = nodeService.bag.get(e.newValue as Node);
-			const oldNode = nodeService.bag.get(e.oldValue as Node);
-
-			if (oldNode) {
-				oldNode.element.classList.remove('q-grid-eb-active');
-			}
-
-			if (newNode) {
-				newNode.element.classList.add('q-grid-eb-active');
-			}
-		});
 	}
 
 	ngOnInit() {
@@ -131,7 +125,6 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 			this.node = serializer.deserialize(this.plan, node);
 		}
 
-		const root = this.node.children[0];
-		this.nodeService.current = root;
+		this.nodeService.current = this.node.children[0];
 	}
 }

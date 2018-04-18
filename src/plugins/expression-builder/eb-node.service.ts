@@ -11,7 +11,6 @@ export interface EbNodeServiceEventArg<T> {
 export class EbNodeService {
 	private node: Node = null;
 
-	bag = new Map<Node, EbNodeComponent>();
 	currentChange = new EventEmitter<EbNodeServiceEventArg<Node>>();
 
 	get current() {
