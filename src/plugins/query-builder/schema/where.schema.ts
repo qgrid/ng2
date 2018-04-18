@@ -216,7 +216,12 @@ export class WhereSchema {
 														},
 														values: [],
 														options: suggests,
-														placeholderText: 'Select value'
+														placeholderText: 'Select value',
+														add: function (node, line, value) {
+															if (value && this.values.indexOf(value) < 0) {
+																this.values.push(value);
+															}
+														}
 													})
 													.label('#in-close', {
 														text: ')'

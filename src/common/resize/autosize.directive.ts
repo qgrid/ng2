@@ -1,32 +1,52 @@
-import { Directive, ElementRef, OnInit, Input, HostBinding, HostListener } from '@angular/core';
+import {Directive, ElementRef, OnInit, Input, Renderer2, NgZone} from '@angular/core';
+import {Fastdom} from 'ng2-qgrid/core/services/fastdom';
 
 @Directive({
 	selector: '[q-grid-autosize]'
 })
-export class AutosizeDirective {
+export class AutosizeDirective implements OnInit {
 	@Input('q-grid-autosize') selector;
-	@HostBinding('style.width') private actualWidth = '0px';
+	@Input('q-grid-autosize-empty-width') emptyWidth = 75;
 	private actualText = '';
 
-	constructor(private element: ElementRef) {
+	constructor(private element: ElementRef, private renderer: Renderer2, private zone: NgZone) {
 	}
 
-	@HostListener('input')
+	ngOnInit() {
+		this.zone.runOutsideAngular(() => {
+			const owner = this.element.nativeElement as HTMLInputElement;
+			const element = this.selector ? owner.querySelector(this.selector) as HTMLInputElement : owner;
+
+			this.renderer.listen(element, 'input', () => this.autoWidth());
+		});
+	}
+
 	autoWidth() {
-		const owner = this.element.nativeElement as any;
-		const element = this.selector ? owner.querySelector(this.selector) as any : owner;
+		const owner = this.element.nativeElement as HTMLInputElement;
+		const element = this.selector ? owner.querySelector(this.selector) as HTMLInputElement : owner;
 		const text = element.value;
+
+		if (!text) {
+			this.actualText = text;
+			Fastdom.mutate(() => {
+				owner.style.width = `${this.emptyWidth}px`;
+			});
+			return;
+		}
+
 		if (!element) {
-			return this.actualWidth;
+			return;
 		}
 
 		if (this.actualText === text) {
-			return this.actualWidth;
+			return;
 		}
 
 		this.actualText = text;
-		this.actualWidth = `${this.calculateWidth(element, text)}px`;
-		return this.actualWidth;
+		Fastdom.measure(() => {
+			const width = `${this.calculateWidth(element, text)}px`;
+			Fastdom.mutate(() => owner.style.width = width);
+		});
 	}
 
 	private calculateWidth(element: HTMLElement, text: string) {
