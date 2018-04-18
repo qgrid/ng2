@@ -27,8 +27,9 @@ export class QueryBuilderPipe implements PipeTransform {
 			const serializer = new SerializationService();
 			const filter = serializer.serialize(node);
 			const expression = convert(filter);
-
-			return this.visitor.visit(expression);
+			if (expression) {
+				return this.visitor.visit(expression);
+			}
 		}
 
 		return '';

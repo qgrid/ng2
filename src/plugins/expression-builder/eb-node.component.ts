@@ -8,11 +8,7 @@ import { EbNodeService } from './eb-node.service';
 })
 export class EbNodeComponent implements OnInit, OnDestroy {
 	@Input() model: Node;
-	@Input() parent: EbNodeComponent;
-
-	self = this;
 	element: HTMLElement;
-	children = new Array<EbNodeComponent>();
 
 	constructor(
 		private service: EbNodeService,
@@ -21,32 +17,16 @@ export class EbNodeComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		this.service.currentNode = this;
-		if (this.parent) {
-			this.parent.children.push(this);
-		}
+		this.service.bag.set(this.model, this);
 	}
 
 	ngOnDestroy() {
-		if (this.parent) {
-			const children = this.parent.children;
-			const index = children.indexOf(this);
-			if (index >= 0) {
-				children.splice(index, 1);
-				if (index > 0) {
-					this.service.currentNode = children[index - 1];
-				} else {
-					this.service.currentNode = this.parent;
-				}
-			}
-		} else {
-			this.service.currentNode = null;
-		}
+		this.service.bag.delete(this.model);
 	}
 
 	select(e) {
 		e.stopPropagation();
 
-		this.service.currentNode = this;
+		this.service.current = this.model;
 	}
 }

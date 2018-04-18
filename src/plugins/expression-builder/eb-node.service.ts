@@ -9,34 +9,23 @@ export interface EbNodeServiceEventArg<T> {
 
 @Injectable()
 export class EbNodeService {
-	private node: EbNodeComponent = null;
+	private node: Node = null;
 
-	currentNodeChange = new EventEmitter<EbNodeServiceEventArg<EbNodeComponent>>();
+	bag = new Map<Node, EbNodeComponent>();
+	currentChange = new EventEmitter<EbNodeServiceEventArg<Node>>();
 
-	get currentNode() {
+	get current() {
 		return this.node;
 	}
 
-	set currentNode(value) {
+	set current(value) {
 		const oldNode = this.node;
 		if (value !== oldNode) {
 			this.node = value;
-			this.currentNodeChange.emit({
+			this.currentChange.emit({
 				oldValue: oldNode,
 				newValue: value
 			});
 		}
-	}
-
-	static findUp(node: EbNodeComponent, test: (node: Node) => boolean) {
-		while (node) {
-			if (test(node.model)) {
-				return node;
-			}
-
-			node = node.parent;
-		}
-
-		return null;
 	}
 }

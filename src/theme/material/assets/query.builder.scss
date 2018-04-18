@@ -19,12 +19,12 @@
                 }
                 &.q-grid-eb {
                     &-node {
-                        padding: 2px;
+                        padding: 5px;
                         white-space: nowrap;
                         &.qb-logical {
                             padding-left: 0;
                             position: relative;
-                            min-height: 21px;
+                            min-height: 27px;
                             >.q-grid-eb-line {
                                 position: absolute;
                                 transform: rotate(-90deg);

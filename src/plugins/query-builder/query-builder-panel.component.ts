@@ -11,9 +11,10 @@ import { INodeSchema } from '../expression-builder/model/node.schema';
 import { Node } from '../expression-builder/model/node';
 import { EbNodeService } from '../expression-builder/eb-node.service';
 import { EbNodeComponent } from '../expression-builder/eb-node.component';
+import { TraverseService } from '../expression-builder/traverse.service';
 
-function findLogicalNode(node: EbNodeComponent) {
-	return EbNodeService.findUp(node, n => n.id === '#logical');
+function findLogicalNode(node: Node) {
+	return TraverseService.findUp(node, n => n.id === '#logical');
 }
 
 @Component({
@@ -27,34 +28,38 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 
 	addGroup = new Command({
 		execute: () => {
-			const node = findLogicalNode(this.nodeService.currentNode).model;
-			node.addChildAfter(node.clone());
+			const current = this.nodeService.current;
+			const node = findLogicalNode(current);
+			node.addChildAfter(node.clone(), current.id === '#condition' && current);
 		},
-		canExecute: () => !!findLogicalNode(this.nodeService.currentNode)
+		canExecute: () => !!findLogicalNode(this.nodeService.current)
 	});
 
 	addRule = new Command({
 		execute: () => {
+			const current = this.nodeService.current;
 			const node = this.plan.materialize('#condition');
-			const logicalNode = findLogicalNode(this.nodeService.currentNode).model;
-			logicalNode.addChildAfter(node);
+			const logicalNode = findLogicalNode(current);
+			logicalNode.addChildAfter(node, current.id === '#condition' && current);
 		},
-		canExecute: () => !!findLogicalNode(this.nodeService.currentNode)
+		canExecute: () => !!findLogicalNode(this.nodeService.current)
 	});
 
 	remove = new Command({
 		execute: () => {
-			const node = this.nodeService.currentNode.model;
-			if (node.id === '#logical' && node.level === 1) {
-				const children = Array.from(node.children);
+			const current = this.nodeService.current;
+			if (current.id === '#logical' && current.level === 1) {
+				const children = Array.from(current.children);
 				children.forEach(child => child.remove());
 			} else {
-				node.remove();
+				const previous = TraverseService.findUpSibling(current);
+				this.nodeService.current = previous;
+				current.remove();
 			}
 		},
 		canExecute: () => {
-			const node = this.nodeService.currentNode && this.nodeService.currentNode.model;
-			return node && (node.id === '#condition' || (node.level > 1 || node.children.length > 0));
+			const current = this.nodeService.current;
+			return current && (current.id === '#condition' || (current.level > 1 || current.children.length > 0));
 		}
 	});
 
@@ -99,9 +104,9 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 
 		super(root);
 
-		nodeService.currentNodeChange.subscribe(e => {
-			const newNode = e.newValue as EbNodeComponent;
-			const oldNode = e.oldValue as EbNodeComponent;
+		nodeService.currentChange.subscribe(e => {
+			const newNode = nodeService.bag.get(e.newValue as Node);
+			const oldNode = nodeService.bag.get(e.oldValue as Node);
 
 			if (oldNode) {
 				oldNode.element.classList.remove('q-grid-eb-active');
@@ -125,5 +130,8 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 		if (node) {
 			this.node = serializer.deserialize(this.plan, node);
 		}
+
+		const root = this.node.children[0];
+		this.nodeService.current = root;
 	}
 }
