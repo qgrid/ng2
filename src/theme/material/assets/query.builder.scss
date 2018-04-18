@@ -16,6 +16,11 @@
                 list-style-type: none;
                 li {
                     display: inline;
+
+						 &.q-grid-eb-expression {
+							 margin-right: 3px;
+							 display: inline-block;
+						 }
                 }
                 &.q-grid-eb {
                     &-node {
@@ -43,7 +48,6 @@
                                     border-radius: 5px;
                                     margin-left: 35px;
                                     padding-left: 10px;
-                                    width: 100%;
                                 }
                             }
                             &.qb-or {

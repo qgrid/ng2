@@ -1,32 +1,60 @@
-import { Directive, ElementRef, OnInit, Input, HostBinding, HostListener } from '@angular/core';
+import {Directive, ElementRef, OnInit, Input, Renderer2, NgZone, DoCheck} from '@angular/core';
+import {Fastdom} from 'ng2-qgrid/core/services/fastdom';
+import {isUndefined} from 'ng2-qgrid/core/utility/index';
 
 @Directive({
 	selector: '[q-grid-autosize]'
 })
-export class AutosizeDirective {
+export class AutosizeDirective implements OnInit, DoCheck {
 	@Input('q-grid-autosize') selector;
-	@HostBinding('style.width') private actualWidth = '0px';
-	private actualText = '';
+	@Input('q-grid-autosize-empty-width') emptyWidth = 75;
+	private actualText: string;
+	private host: HTMLElement;
+	private element: HTMLInputElement;
 
-	constructor(private element: ElementRef) {
+	constructor(element: ElementRef, private renderer: Renderer2, private zone: NgZone) {
+		this.host = element.nativeElement as HTMLInputElement;
 	}
 
-	@HostListener('input')
+	ngOnInit() {
+		this.element = this.selector ? this.host.querySelector(this.selector) as HTMLInputElement : this.host as HTMLInputElement;
+		this.zone.runOutsideAngular(() => {
+			this.renderer.listen(this.element, 'input', () => this.autoWidth());
+		});
+	}
+
+	ngDoCheck() {
+		if (isUndefined(this.actualText)) {
+			if (this.element.value) {
+				this.autoWidth();
+			}
+		}
+	}
+
 	autoWidth() {
-		const owner = this.element.nativeElement as any;
-		const element = this.selector ? owner.querySelector(this.selector) as any : owner;
-		const text = element.value;
-		if (!element) {
-			return this.actualWidth;
+		const text = this.element.value;
+
+		if (!text) {
+			this.actualText = text;
+			Fastdom.mutate(() => {
+				this.host.style.width = `${this.emptyWidth}px`;
+			});
+			return;
+		}
+
+		if (!this.element) {
+			return;
 		}
 
 		if (this.actualText === text) {
-			return this.actualWidth;
+			return;
 		}
 
 		this.actualText = text;
-		this.actualWidth = `${this.calculateWidth(element, text)}px`;
-		return this.actualWidth;
+		Fastdom.measure(() => {
+			const width = `${this.calculateWidth(this.element, text)}px`;
+			Fastdom.mutate(() => this.host.style.width = width);
+		});
 	}
 
 	private calculateWidth(element: HTMLElement, text: string) {
@@ -45,7 +73,7 @@ export class AutosizeDirective {
 			test.style.border = element.style.border;
 			// borderBox ?
 
-			document.body.appendChild(test);
+			body.appendChild(test);
 			width = test.offsetWidth;
 			test.remove();
 		}

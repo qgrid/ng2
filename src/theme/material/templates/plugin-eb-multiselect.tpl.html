@@ -3,14 +3,15 @@
     <mat-chip-list #chipList
                    class="q-grid-query-builder-multiselect"
                    [ngClass]="$expr.classes">
-        <mat-chip *ngFor="let value of $expr.values;let $index = index"
-                  selectable="true"
+        <mat-chip *ngFor="let value of $expr.values;"
+						class="mat-basic-chip"
+						selectable="false"
                   removable="true"
                   (remove)="$expr.values.splice($index, 1)">
             {{value}}
             <mat-icon class="q-grid-icon"
                       matChipRemove>
-                cancel
+                close
             </mat-icon>
         </mat-chip>
     </mat-chip-list>
@@ -18,7 +19,9 @@
                     [floatLabel]="'never'">
         <input matInput
                #chipInput
-               placeholder="New value"
-               [matChipInputFor]="chipList" />
+               [placeholder]="$expr.placeholderText"
+               [matChipInputFor]="chipList"
+					matChipInputAddOnBlur="true"
+					(matChipInputTokenEnd)="$expr.add($event.value);$event.input.value = '';"/>
     </mat-form-field>
 </ng-template>
