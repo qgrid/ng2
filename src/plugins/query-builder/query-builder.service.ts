@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
-import { isUndefined, yes } from 'ng2-qgrid/core/utility/index';
+import { isUndefined, yes, uniq } from 'ng2-qgrid/core/utility/index';
 import { ExpressionBuilder } from '../expression-builder/model/expression.builder';
 import { INodeSchema } from '../expression-builder/model/node.schema';
 import { Node } from '../expression-builder/model/node';
 import { typeMapping } from './schema/operator';
+import { getFactory } from 'ng2-qgrid/core/services/value';
+import * as columnService from 'ng2-qgrid/core/column/column.service';
 
 export declare type Column = { key: string, title: string, type: string };
 export declare type ColumnMap = { [key: string]: Column };
@@ -51,17 +54,24 @@ export class QueryBuilderService {
 		model.filter({
 			by: expression
 		}, {
-				source: 'query-builder.service'
-			});
+			source: 'query-builder.service'
+		});
 	}
 
 	suggest(key, skip, take, search, selection?: Array<string>): Promise<string[]> {
 		selection = (selection || []).map(item => ('' + item).toLowerCase());
 
 		const model = this.root.model;
+		const columnMap = columnService.map(model.data().columns);
+		const column = columnMap[key];
+		if (!column) {
+			throw new AppError('query-builder.service', `Column ${key} is not found`);
+		}
+
+		const getValue = getFactory(column);
 		return new Promise(resolve => {
 			const view = model.data().rows
-				.map(item => item[key])
+				.map(getValue)
 				.filter(item =>
 					!isUndefined(item) &&
 					item !== '' &&
@@ -69,13 +79,16 @@ export class QueryBuilderService {
 					selection.indexOf(('' + item).toLowerCase()) < 0
 				);
 
-			// const uniqueView = unique(view);
-			// const sortedView = sort(uniqueView);
-			// const filterView = filter(sortedView, search);
-			// const toggleView = filterView.length ? filterView : sortedView;
-			// const pageView = limitTo(limitTo(toggleView, Math.min(toggleView.length, skip) - toggleView.length), take);
+			const uniqueView = uniq(view);
+			const sortedView = uniqueView.sort();
+			const searchText = ('' + search).toLowerCase();
+			const filterView = searchText
+				? sortedView.filter(x => ('' + x).toLowerCase().indexOf(searchText) >= 0)
+				: sortedView;
 
-			resolve(view);
+			const toggleView = filterView.length ? filterView : sortedView;
+			const pageView = toggleView.slice(skip, take);
+			resolve(pageView);
 		});
 	}
 
