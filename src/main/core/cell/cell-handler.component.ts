@@ -88,6 +88,8 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		model.editChanged.on(e => {
 			if (e.hasChanges('state')) {
 				if (e.state.state === 'endBatch') {
+					this.root.table.view.removeClass('q-grid-noselect');
+
 					editService.doBatch(e.state.startCell);
 					model.edit({state: initialEditState, startCell: null});
 				}
@@ -118,6 +120,8 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	}
 
 	startBatchEdit(e) {
+		this.root.table.view.addClass('q-grid-noselect');
+
 		const pathFinder = new PathService(this.root.bag.body);
 		const cell = pathFinder.cell(e.path);
 		const edit = this.root.model.edit;

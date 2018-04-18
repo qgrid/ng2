@@ -1,5 +1,4 @@
 @import "variables";
-
 td.q-grid-selected {
     background-color: $selected;
     &.q-grid-sorted {
@@ -14,4 +13,20 @@ td.q-grid-selected {
     td.q-grid-selected:not(.q-grid-sorted):not(.q-grid-highlighted) {
         background-color: inherit;
     }
+}
+
+.q-grid-noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                    supported by Chrome and Opera */
 }
