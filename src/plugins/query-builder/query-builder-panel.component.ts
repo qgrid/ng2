@@ -1,4 +1,4 @@
-import { Component, Optional, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Optional, Output, EventEmitter, OnInit, ViewEncapsulation } from '@angular/core';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { clone } from 'ng2-qgrid/core/utility/index';
@@ -18,11 +18,15 @@ import { FocusAfterRender } from 'ng2-qgrid/common/focus/focus.service';
 @Component({
 	selector: 'q-grid-query-builder-panel',
 	templateUrl: './query-builder-panel.component.html',
-	providers: [QueryBuilderService, FocusAfterRender]
+	providers: [FocusAfterRender],
+	styleUrls: ['../../theme/material/assets/query.builder.scss', '../../theme/material/assets/mat/query.builder.scss'],
+	encapsulation: ViewEncapsulation.None
 })
 export class QueryBuilderPanelComponent extends PluginComponent implements OnInit {
-	public node: Node;
+	node: Node;
 	@Output() close = new EventEmitter<any>();
+	queryService: QueryBuilderService;
+
 
 	private traverse = new TraverseService();
 
@@ -119,7 +123,6 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 
 	constructor(
 		@Optional() root: RootService,
-		public queryService: QueryBuilderService,
 		private nodeService: EbNodeService,
 		focusAfterRender: FocusAfterRender) {
 		super(root);
@@ -127,6 +130,8 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 
 	ngOnInit() {
 		super.ngOnInit();
+
+		this.queryService = new QueryBuilderService(this.model);
 
 		const schema = new WhereSchema(this.queryService);
 		this.plan = schema.factory() as any;

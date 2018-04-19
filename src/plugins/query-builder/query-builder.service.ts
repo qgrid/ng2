@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { isUndefined, yes, uniq } from 'ng2-qgrid/core/utility/index';
 import { ExpressionBuilder } from '../expression-builder/model/expression.builder';
 import { INodeSchema } from '../expression-builder/model/node.schema';
@@ -8,6 +7,7 @@ import { Node } from '../expression-builder/model/node';
 import { typeMapping } from './schema/operator';
 import { getFactory } from 'ng2-qgrid/core/services/value';
 import * as columnService from 'ng2-qgrid/core/column/column.service';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 export declare type Column = { key: string, title: string, type: string };
 export declare type ColumnMap = { [key: string]: Column };
@@ -29,13 +29,12 @@ export interface IQueryBuilderSchema {
 	select(id: string, settings?: any): IQueryBuilderSchema;
 }
 
-@Injectable()
 export class QueryBuilderService {
-	constructor(private root: RootService) {
+	constructor(private model: Model) {
 	}
 
 	columns(): Array<Column> {
-		const model = this.root.model;
+		const model = this.model;
 		return model
 			.data()
 			.columns
@@ -50,7 +49,7 @@ export class QueryBuilderService {
 	}
 
 	submit(expression) {
-		const model = this.root.model;
+		const model = this.model;
 		model.filter({
 			by: expression
 		}, {
@@ -61,7 +60,7 @@ export class QueryBuilderService {
 	suggest(key, skip, take, search, selection?: Array<string>): Promise<string[]> {
 		selection = (selection || []).map(item => ('' + item).toLowerCase());
 
-		const model = this.root.model;
+		const model = this.model;
 		const columnMap = columnService.map(model.data().columns);
 		const column = columnMap[key];
 		if (!column) {
