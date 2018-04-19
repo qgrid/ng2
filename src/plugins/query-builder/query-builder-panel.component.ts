@@ -14,9 +14,6 @@ import { EbNodeComponent } from '../expression-builder/eb-node.component';
 import { TraverseService } from '../expression-builder/traverse.service';
 import { FocusAfterRender } from 'ng2-qgrid/common/focus/focus.service';
 
-function findLogicalNode(node: Node) {
-	return TraverseService.findUp(node, n => n.id === '#logical');
-}
 
 @Component({
 	selector: 'q-grid-query-builder-panel',
@@ -27,30 +24,32 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 	public node: Node;
 	@Output() close = new EventEmitter<any>();
 
+	private traverse = new TraverseService();
+
 	addGroup = new Command({
 		execute: () => {
 			const current = this.nodeService.current;
-			const parent = findLogicalNode(current);
+			const parent = this.findLogicalNode(current);
 			const group = parent.clone();
 			parent.addChildAfter(group, current.id === '#condition' && current);
 			if (current.id === '#condition') {
 				this.nodeService.current = group;
 			}
 		},
-		canExecute: () => !!findLogicalNode(this.nodeService.current)
+		canExecute: () => !!this.findLogicalNode(this.nodeService.current)
 	});
 
 	addRule = new Command({
 		execute: () => {
 			const current = this.nodeService.current;
-			const parent = findLogicalNode(current);
+			const parent = this.findLogicalNode(current);
 			const rule = this.plan.materialize('#condition');
 			parent.addChildAfter(rule, current.id === '#condition' && current);
 			if (current.id === '#condition') {
 				this.nodeService.current = rule;
 			}
 		},
-		canExecute: () => !!findLogicalNode(this.nodeService.current)
+		canExecute: () => !!this.findLogicalNode(this.nodeService.current)
 	});
 
 	remove = new Command({
@@ -59,7 +58,7 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 			if (current.id === '#logical' && current.level === 1) {
 				current.clear();
 			} else {
-				const previous = TraverseService.findUpSibling(current);
+				const previous = this.traverse.findUpSibling(current);
 				this.nodeService.current = previous;
 				current.remove();
 			}
@@ -85,8 +84,8 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 			this.close.emit();
 		},
 		canExecute: () => {
-			const traverse = TraverseService.depth(this.node);
-			return traverse((memo, expression, line, node) =>
+			const depth = this.traverse.depth(this.node);
+			return depth((memo, expression, line, node) =>
 				node.attr('placeholder')
 					? memo
 					: memo && expression.isValid()
@@ -140,5 +139,9 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 		}
 
 		this.nodeService.current = this.node.children[0];
+	}
+
+	private findLogicalNode(node: Node) {
+		return this.traverse.findUp(node, n => n.id === '#logical');
 	}
 }

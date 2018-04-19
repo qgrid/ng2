@@ -99,12 +99,12 @@
                     text-transform: uppercase;
                     &:before,
                     &:after {
-                        content: '\00a0 ';
+                        content: ' ';
                     }
                 }
                 &-markup-condition-unary {
                     &:before {
-                        content: '\00a0 ';
+                        content: ' ';
                     }
                 }
                 &-markup-group-open,
@@ -132,7 +132,7 @@
                 }
                 &-markup-condition-value-invalid:before {
                     color: #dd2c00;
-                    content: '\FE4F';
+                    content: '﹏';
                 }
             }
         }
