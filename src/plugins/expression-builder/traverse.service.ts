@@ -1,7 +1,7 @@
 import { Node } from './model/node';
 
 export class TraverseService {
-	static findUp(node: Node, test: (node: Node) => boolean) {
+	findUp(node: Node, test: (node: Node) => boolean) {
 		while (node) {
 			if (test(node)) {
 				return node;
@@ -13,7 +13,7 @@ export class TraverseService {
 		return null;
 	}
 
-	static findUpSibling(node: Node) {
+	findUpSibling(node: Node) {
 		if (node.parent) {
 			const children = node.parent.children;
 			const index = children.indexOf(node);
@@ -29,33 +29,33 @@ export class TraverseService {
 		return null;
 	}
 
-	static depth(root: Node) {
+	depth(root: Node): (reduce: any, memo: any) => any {
 		return (reduce, memo) => {
-			memo = TraverseService.visitLine(reduce, memo, root, root.line);
+			memo = this.visitLine(reduce, memo, root, root.line);
 
 			const children = root.children;
 			const length = children.length;
 
 			for (let i = 0; i < length; i++) {
-				memo = TraverseService.depth(children[i])(reduce, memo);
+				memo = this.depth(children[i])(reduce, memo);
 			}
 
 			return memo;
 		};
 	}
 
-	private static visitLine(reduce, memo, node, line) {
+	private visitLine(reduce, memo, node, line) {
 		const groups = line.expressions;
 		const length = groups.length;
 
 		for (let i = 0; i < length; i++) {
-			memo = TraverseService.visitGroup(reduce, memo, node, line, groups[i]);
+			memo = this.visitGroup(reduce, memo, node, line, groups[i]);
 		}
 
 		return memo;
 	}
 
-	private static visitGroup(reduce, memo, node, line, group) {
+	private visitGroup(reduce, memo, node, line, group) {
 		const expressions = group.expressions;
 		const length = expressions.length;
 
