@@ -15,6 +15,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Query builder input performance improvements.
 * Batch edit improvements.
 
+## [5.3.5] - 2018-04-19
+### Added
+- `Query builder panel` component can be run standalone.
+
 ## [5.3.4] - 2018-04-18
 ### Added
 - `Query builder` plugin.
@@ -181,8 +185,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v5.3.4...HEAD
-[5.3.4]: https://github.com/qgrid/ng2/compare/v5.3.4...v5.4.2
+[unreleased]: https://github.com/qgrid/ng2/compare/v5.3.5...HEAD
+[5.3.4]: https://github.com/qgrid/ng2/compare/v5.3.5...v5.3.4
+[5.3.4]: https://github.com/qgrid/ng2/compare/v5.3.4...v5.3.2
 [5.3.3]: https://github.com/qgrid/ng2/compare/v5.3.2...v5.2.4
 [5.3.2]: https://github.com/qgrid/ng2/compare/v5.3.2...v5.2.4
 [5.2.4]: https://github.com/qgrid/ng2/compare/v5.2.4...v5.2.3

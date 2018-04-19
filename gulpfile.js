@@ -28,7 +28,16 @@ gulp.task('sass', function () {
 		.pipe(sass().on('error', sass.logError))
 		.pipe(gulp.dest('out-tsc/src/theme/material/'));
 
-	return [convertAssets, convertTheme];
+	const convertQb = gulp
+		.src(['out-tsc/src/theme/material/assets/query.builder.scss'])
+		.pipe(sass().on('error', sass.logError))
+		.pipe(gulp.dest('out-tsc/src/theme/material/assets/'));
+
+	return [
+		convertAssets,
+		convertTheme,
+		convertQb
+	];
 });
 
 gulp.task('copy', () => {

@@ -1,4 +1,5 @@
-@at-root .q-grid-query-builder-panel.q-grid-menu {
+@import "./mat/query.builder";
+@at-root .q-grid-query-builder-panel {
     width: 480px;
     min-width: 480px;
     max-width: 480px;
@@ -16,11 +17,10 @@
                 list-style-type: none;
                 li {
                     display: inline;
-
-						 &.q-grid-eb-expression {
-							 margin-right: 3px;
-							 display: inline-block;
-						 }
+                    &.q-grid-eb-expression {
+                        margin-right: 3px;
+                        display: inline-block;
+                    }
                 }
                 &.q-grid-eb {
                     &-node {
@@ -99,12 +99,12 @@
                     text-transform: uppercase;
                     &:before,
                     &:after {
-                        content: '\00a0 ';
+                        content: ' ';
                     }
                 }
                 &-markup-condition-unary {
                     &:before {
-                        content: '\00a0 ';
+                        content: ' ';
                     }
                 }
                 &-markup-group-open,
@@ -132,7 +132,7 @@
                 }
                 &-markup-condition-value-invalid:before {
                     color: #dd2c00;
-                    content: '\FE4F';
+                    content: '﹏';
                 }
             }
         }
