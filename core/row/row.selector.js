@@ -50,50 +50,21 @@ export class RowSelector {
 			.columns
 			.filter(column => column.class === 'data' || column.class === 'pivot');
 
-		const titles = [];
-		const ids = [];
-
-		items.forEach(item => titles.indexOf(item.column.title) >= 0 ? null : titles.push(item.column.title));
-		items.forEach(cell => ids.indexOf(cell.row.id) >= 0 ? null : ids.push(cell.row.id));
+		const titles = this.titles(items);
+		const ids = this.ids(items);
 
 		const width = titles.length;
 		const height = ids.length;
 
 		const selectedColumns = columns.filter(column => titles.indexOf(column.title) >= 0);
-		const headers = selectedColumns.map(column => column.title);
-		const aggregations = selectedColumns.map(column => this.value(column) === null ? '' : this.value(column));
+		const head = selectedColumns.map(column => column.title);
+		const foot = selectedColumns.map(column => this.value(column) === null ? '' : this.value(column));
 
-		const rows = [];
+		const emptyBody = this.createEmptyBody(height, width);
 		const sortedIds = ids.sort();
+		const body = this.fillBodyWithLabels(emptyBody, items, selectedColumns, sortedIds);
 
-		for (let h = 0; h < height; h++) {
-			rows[h] = [];
-
-			for (let w = 0; w < width; w++) {
-				rows[h][w] = "";
-			}
-
-		}
-
-		for (let y = 0; y < sortedIds.length; y++) {
-			const cellsWithCurrentId = items.filter(cell => cell.row.id === sortedIds[y]);
-
-			for (let k = 0; k < cellsWithCurrentId.length; k++) {
-				const cell = cellsWithCurrentId[k];
-				const row = cell.row;
-				const column = cell.column;
-				const label = get(row, column);
-				const specificTitles = this.getSpecificTitlesOfRow(row, selectedColumns);
-				const x = specificTitles.indexOf(label);
-
-				rows[y][x] = label;
-			}
-		}
-
-		rows.unshift(headers);
-		rows.push(aggregations);
-
-		return rows;
+		return this.addHeadAndFootToBody(body, head, foot);
 	}
 
 	mapFromMix(items) {
@@ -121,11 +92,11 @@ export class RowSelector {
 	}
 
 	mapFromRowColumns(rows, columns) {
-		const result = [];
+		const body = [];
 		const cache = new Map();
 
-		const headers = columns.map(column => column.title);
-		const aggregations = columns.map(column => this.value(column) === null ? '' : this.value(column));
+		const head = columns.map(column => column.title);
+		const foot = columns.map(column => this.value(column) === null ? '' : this.value(column));
 
 		for (const row of rows) {
 			const line = [];
@@ -145,13 +116,10 @@ export class RowSelector {
 				line.push(value === null || isUndefined(value) ? '' : '' + value);
 			}
 
-			result.push(line);
+			body.push(line);
 		}
 
-		result.unshift(headers);
-		result.push(aggregations);
-
-		return result;
+		return this.addHeadAndFootToBody(body, head, foot);
 	}
 
 	value(column) {
@@ -171,6 +139,61 @@ export class RowSelector {
 			return Aggregation[aggregation](rows, getValue, aggregationOptions);
 		}
 		return null;
+	}
+
+	fillBodyWithLabels(body, items, columns, ids) {
+		for (let y = 0; y < ids.length; y++) {
+			const cellsWithCurrentId = items.filter(cell => cell.row.id === ids[y]);
+
+			for (let k = 0; k < cellsWithCurrentId.length; k++) {
+				const cell = cellsWithCurrentId[k];
+				const row = cell.row;
+				const column = cell.column;
+				const label = get(row, column);
+				const specificTitles = this.getSpecificTitlesOfRow(row, columns);
+				const x = specificTitles.indexOf(label);
+
+				body[y][x] = label;
+			}
+		}
+
+		return body;
+	}
+
+	titles(items) {
+		const titles = [];
+		items.forEach(item => titles.indexOf(item.column.title) >= 0 ? null : titles.push(item.column.title));
+
+		return titles;
+	}
+
+	ids(items) {
+		const ids = [];
+		items.forEach(cell => ids.indexOf(cell.row.id) >= 0 ? null : ids.push(cell.row.id));
+
+		return ids;
+	}
+
+	createEmptyBody(height, width) {
+		const body = [];
+
+		for (let h = 0; h < height; h++) {
+			body[h] = [];
+
+			for (let w = 0; w < width; w++) {
+				body[h][w] = "";
+			}
+
+		}
+
+		return body;
+	}
+
+	addHeadAndFootToBody(body, head, foot) {
+		body.unshift(head);
+		body.push(foot);
+
+		return body;
 	}
 
 	getSpecificTitlesOfRow(row, columns) {

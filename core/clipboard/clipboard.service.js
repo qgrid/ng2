@@ -32,7 +32,7 @@ function buildTable(selector) {
 			allowTableFooter = true;
 		}
 
-		if (sourceContainsHead && allowTableHeader) {
+		if (sourceContainsHead && allowTableHeader) {									//[head]
 			const tr = document.createElement('tr');
 
 			for (let h = 0, headLength = head.length; h < headLength; h++) {
@@ -46,7 +46,7 @@ function buildTable(selector) {
 			allowTableHeader = false;
 		}
 
-		for (let k = 0, max = row.length; k < max; k++) {
+		for (let k = 0, max = row.length; k < max; k++) {								//[body]
 			const td = document.createElement('td');
 
 			td.appendChild(document.createTextNode(row[k]));
@@ -55,7 +55,7 @@ function buildTable(selector) {
 
 		table.appendChild(tr);
 
-		if (sourceContainsFoot && allowTableFooter) {
+		if (sourceContainsFoot && allowTableFooter) {									//[foot]
 			const tr = document.createElement('tr');
 
 			for (let f = 0, footLength = foot.length; f < footLength; f++) {
