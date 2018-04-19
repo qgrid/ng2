@@ -53,23 +53,19 @@ export class RowSelector {
 		const titles = this.titles(items);
 		const ids = this.ids(items);
 
-		const width = titles.length;
-		const height = ids.length;
-
 		const selectedColumns = columns.filter(column => titles.indexOf(column.title) >= 0);
+
 		const head = selectedColumns.map(column => column.title);
 		const foot = selectedColumns.map(column => this.value(column) === null ? '' : this.value(column));
 
-		const emptyBody = this.createEmptyBody(height, width);
-		const sortedIds = ids.sort();
-		const body = this.fillBodyWithLabels(emptyBody, items, selectedColumns, sortedIds);
+		const emptyBody = this.createEmptyBody(ids, titles);
+		const body = this.fillBodyWithLabels(emptyBody, items, selectedColumns, ids);
 
 		return this.addHeadAndFootToBody(body, head, foot);
 	}
 
 	mapFromMix(items) {
 		for (const item of items) {
-
 			switch (item.unit) {
 				case 'row': {
 					const row = item.item;
@@ -88,7 +84,6 @@ export class RowSelector {
 				}
 			}
 		}
-
 	}
 
 	mapFromRowColumns(rows, columns) {
@@ -170,11 +165,14 @@ export class RowSelector {
 	ids(items) {
 		const ids = [];
 		items.forEach(cell => ids.indexOf(cell.row.id) >= 0 ? null : ids.push(cell.row.id));
+		ids.sort();
 
 		return ids;
 	}
 
-	createEmptyBody(height, width) {
+	createEmptyBody(ids, titles) {
+		const height = ids.length;
+		const width = titles.length;
 		const body = [];
 
 		for (let h = 0; h < height; h++) {
@@ -183,7 +181,6 @@ export class RowSelector {
 			for (let w = 0; w < width; w++) {
 				body[h][w] = "";
 			}
-
 		}
 
 		return body;

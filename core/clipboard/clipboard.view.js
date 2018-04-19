@@ -5,9 +5,6 @@ import {SelectionCommandManager} from './../selection/selection.command.manager'
 import {ClipboardService} from './clipboard.service';
 import {SelectionService} from '../selection/selection.service';
 import {RowSelector} from '../row/row.selector';
-import {AppError} from '../infrastructure';
-import {Aggregation} from '../services';
-import {getFactory as valueFactory} from '../services/value';
 
 export class ClipboardView extends View {
 	constructor(model, commandManager) {
@@ -54,24 +51,5 @@ export class ClipboardView extends View {
 		return new Map(
 			Object.entries(commands)
 		);
-	}
-
-	value(column) {
-		if (column.aggregation) {
-			const aggregation = column.aggregation;
-			const aggregationOptions = column.aggregationOptions;
-
-			if (!Aggregation.hasOwnProperty(aggregation)) {
-				throw new AppError(
-					'row.selector',
-					`Aggregation ${aggregation} is not registered`);
-			}
-
-			const rows = this.model.data().rows;
-			const getValue = valueFactory(column);
-
-			return Aggregation[aggregation](rows, getValue, aggregationOptions);
-		}
-		return null;
 	}
 }

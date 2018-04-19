@@ -13,15 +13,14 @@ function buildTable(selector) {
 	const head = selector.rows.head;
 	const foot = selector.rows.foot;
 	const source = selector.source;
-	const table = document.createElement('table');
+	let table = document.createElement('table');
+	table.classList.add('q-grid-clipboard');
 
 	const sourceContainsHead = source.indexOf('head') >= 0;
 	const sourceContainsFoot = source.indexOf('foot') >= 0;
 
 	let allowTableHeader = true;
 	let allowTableFooter = false;
-
-	table.classList.add('q-grid-clipboard');
 
 	for (let i = 0, rowLength = rows.length; i < rowLength; i++) {
 		const tr = document.createElement('tr');
@@ -32,45 +31,55 @@ function buildTable(selector) {
 			allowTableFooter = true;
 		}
 
-		if (sourceContainsHead && allowTableHeader) {									//[head]
-			const tr = document.createElement('tr');
-
-			for (let h = 0, headLength = head.length; h < headLength; h++) {
-				const th = document.createElement('th');
-
-				th.appendChild(document.createTextNode(head[h]));
-				tr.appendChild(th);
-				table.appendChild(tr);
-			}
-
+		if (sourceContainsHead && allowTableHeader) {
+			table = addPartToTable(table, head, 'head');
 			allowTableHeader = false;
 		}
 
-		for (let k = 0, max = row.length; k < max; k++) {								//[body]
+		for (let k = 0, max = row.length; k < max; k++) {
 			const td = document.createElement('td');
-
 			td.appendChild(document.createTextNode(row[k]));
 			tr.appendChild(td);
 		}
 
 		table.appendChild(tr);
 
-		if (sourceContainsFoot && allowTableFooter) {									//[foot]
-			const tr = document.createElement('tr');
-
-			for (let f = 0, footLength = foot.length; f < footLength; f++) {
-				const td = document.createElement('td');
-
-				td.appendChild(document.createTextNode(foot[f]));
-				tr.appendChild(td);
-				table.appendChild(tr);
-			}
-
+		if (sourceContainsFoot && allowTableFooter) {
+			table = addPartToTable(table, body, 'body');
 			allowTableFooter = false;
 		}
 	}
 
 	document.body.appendChild(table);
+
+	return table;
+}
+
+function addPartToTable(table, part, type) {
+	const tr = document.createElement('tr');
+
+	switch (type) {
+		case 'head': {
+			for (let h = 0, headLength = part.length; h < headLength; h++) {
+				const th = document.createElement('th');
+
+				th.appendChild(document.createTextNode(part[h]));
+				tr.appendChild(th);
+				table.appendChild(tr);
+			}
+			break;
+		}
+		case 'body': {
+			for (let f = 0, footLength = part.length; f < footLength; f++) {
+				const td = document.createElement('td');
+
+				td.appendChild(document.createTextNode(part[f]));
+				tr.appendChild(td);
+				table.appendChild(tr);
+			}
+			break;
+		}
+	}
 
 	return table;
 }

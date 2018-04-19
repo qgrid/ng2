@@ -3,6 +3,6 @@ export class ClipboardModel {
 		this.shortcut = {
 			copy: 'ctrl+c'
 		};
-		this.source = ['head', 'body'] // ['head', 'body', 'foot']
+		this.source = ['body'] // ['head', 'body', 'foot']
 	}
 }
