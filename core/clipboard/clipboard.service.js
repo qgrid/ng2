@@ -45,7 +45,7 @@ function buildTable(selector) {
 		table.appendChild(tr);
 
 		if (sourceContainsFoot && allowTableFooter) {
-			table = addPartToTable(table, body, 'body');
+			table = addPartToTable(table, foot, 'foot');
 			allowTableFooter = false;
 		}
 	}
@@ -69,7 +69,7 @@ function addPartToTable(table, part, type) {
 			}
 			break;
 		}
-		case 'body': {
+		case 'foot': {
 			for (let f = 0, footLength = part.length; f < footLength; f++) {
 				const td = document.createElement('td');
 
