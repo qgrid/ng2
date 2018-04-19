@@ -1,3 +1,4 @@
+@import "./mat/query.builder";
 @at-root .q-grid-query-builder-panel {
     width: 480px;
     min-width: 480px;
@@ -16,11 +17,10 @@
                 list-style-type: none;
                 li {
                     display: inline;
-
-						 &.q-grid-eb-expression {
-							 margin-right: 3px;
-							 display: inline-block;
-						 }
+                    &.q-grid-eb-expression {
+                        margin-right: 3px;
+                        display: inline-block;
+                    }
                 }
                 &.q-grid-eb {
                     &-node {

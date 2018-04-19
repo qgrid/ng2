@@ -29,11 +29,15 @@ gulp.task('sass', function () {
 		.pipe(gulp.dest('out-tsc/src/theme/material/'));
 
 	const convertQb = gulp
-		.src(['out-tsc/src/theme/material/query.builder.scss', 'out-tsc/src/theme/material/mat/query.builder.scss'])
+		.src(['out-tsc/src/theme/material/assets/query.builder.scss'])
 		.pipe(sass().on('error', sass.logError))
-		.pipe(gulp.dest('out-tsc/src/theme/material/'));
+		.pipe(gulp.dest('out-tsc/src/theme/material/assets/'));
 
-	return [convertAssets, convertTheme, convertQb];
+	return [
+		convertAssets,
+		convertTheme,
+		convertQb
+	];
 });
 
 gulp.task('copy', () => {
