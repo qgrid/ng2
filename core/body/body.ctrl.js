@@ -64,7 +64,7 @@ export class BodyCtrl extends View {
 			const pathFinder = new PathService(this.bag.body);
 			const cell = pathFinder.cell(e.path);
 
-			if (selectionState.mode === 'range' || this.model.edit().state === 'startBatch') {
+			if (selectionState.mode === 'range') {
 				this.rangeStartCell = cell;
 
 				if (this.rangeStartCell) {
@@ -92,7 +92,7 @@ export class BodyCtrl extends View {
 			}
 		}
 
-		if (this.selection.mode === 'range' || this.model.edit().state === 'startBatch') {
+		if (this.selection.mode === 'range') {
 			const startCell = this.rangeStartCell;
 			const endCell = pathFinder.cell(e.path);
 

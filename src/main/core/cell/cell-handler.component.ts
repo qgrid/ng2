@@ -81,17 +81,19 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 	ngAfterViewInit() {
 		const model = this.root.model;
+		const selectionState = model.selection;
 		const editService = new EditService(model, this.root.table);
+		const initialSelectionMode = selectionState().mode;
 		const initialEditState = model.edit().state;
 		let previousCell = null;
 
 		model.editChanged.on(e => {
 			if (e.hasChanges('state')) {
 				if (e.state.state === 'endBatch') {
-					this.root.table.view.removeClass('q-grid-noselect');
 
 					editService.doBatch(e.state.startCell);
 					model.edit({state: initialEditState, startCell: null});
+					selectionState({mode: initialSelectionMode});
 				}
 			}
 		});
@@ -120,7 +122,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	}
 
 	startBatchEdit(e) {
-		this.root.table.view.addClass('q-grid-noselect');
+		this.root.model.selection({mode: 'range'});
 
 		const pathFinder = new PathService(this.root.bag.body);
 		const cell = pathFinder.cell(e.path);
