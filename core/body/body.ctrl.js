@@ -132,12 +132,12 @@ export class BodyCtrl extends View {
 				this.navigate(cell);
 				if (cell.column.editorOptions.trigger === 'click' && this.view.edit.cell.enter.canExecute(cell)) {
 
-					if (edit().method === 'batch' && this.selection.items.length > 1) {
-						this.model.selection({items: []});
-						return;
+					if (edit().startCell) {
+						edit({startCell: null});
+						return false;
 					}
 
-					if(this.selection.items.length > 1) {
+					if (this.selection.items.length > 1) {
 						return;
 					}
 

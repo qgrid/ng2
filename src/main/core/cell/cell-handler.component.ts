@@ -92,7 +92,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 				if (e.state.state === 'endBatch') {
 
 					editService.doBatch(e.state.startCell);
-					model.edit({state: initialEditState, startCell: null});
+					model.edit({state: initialEditState});
 					selectionState({mode: initialSelectionMode});
 				}
 			}
