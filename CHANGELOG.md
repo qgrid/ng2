@@ -15,9 +15,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Query builder input performance improvements.
 * Batch edit improvements.
 
+## [5.3.6] - 2018-04-20
+### Added
+- `Persistence` plugin - added groups.
+
 ## [5.3.5] - 2018-04-19
 ### Added
-- `Query builder panel` component can be run standalone.
+- `Query builder panel` component styles are standalone.
 
 ## [5.3.4] - 2018-04-18
 ### Added
