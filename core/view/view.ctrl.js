@@ -34,6 +34,10 @@ export class ViewCtrl extends View {
 		let sessionUnits = [];
 
 		return (name, changes, units) => {
+			if (name === 'selection') {
+				return;
+			}
+
 			model.scene({ status: 'start', round: 0 }, {
 				source: name
 			});
