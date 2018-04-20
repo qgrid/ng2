@@ -241,6 +241,26 @@ export class HomeComponent {
 
 	constructor(private dataService: DataService, public qgrid: Grid) {
 		this.gridModel = qgrid.model();
+
+		const persistence = this.gridModel.persistence;
+		const storage = persistence().storage;
+		persistence({
+			storage: {
+				getItem: id => {
+					return new Promise(resolve => {
+						storage.getItem(id).then(myPresets => {
+							this.dataService.getPresets().subscribe(presets => {
+								const persistenceState = this.gridModel.persistence();
+								const allPresets = presets.concat(myPresets || []);
+								resolve(allPresets);
+							});
+						});
+					});
+				},
+				setItem: storage.setItem.bind(storage)
+			}
+		});
+
 		this.loadData();
 	}
 
@@ -254,6 +274,7 @@ export class HomeComponent {
 			people[4].comment =
 				'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
 		});
+
 
 		// this.gridModel.data({
 		// 	pipe: [
