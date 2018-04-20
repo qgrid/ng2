@@ -11,6 +11,8 @@ import { PathService } from 'ng2-qgrid/core/path/path.service';
 })
 export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private job = jobLine(150);
+	private selectionState;
+	private editState;
 
 	constructor(private element: ElementRef, private root: RootService) {
 	}
@@ -21,6 +23,9 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		const model = this.root.model;
 		const table = this.root.table;
 		const element = this.element.nativeElement;
+
+		this.selectionState = model.selection;
+		this.editState = model.edit;
 
 		// When navigate first or when animation wasn't applied we need to omit
 		// next navigation event to make handler to correct position.
@@ -82,16 +87,16 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	ngAfterViewInit() {
 		const model = this.root.model;
 		const editService = new EditService(model, this.root.table);
-		const initialEditState = model.edit().state;
+		const initialSelectionMode = this.selectionState().mode;
+		const initialEditState = this.editState().state;
 		let previousCell = null;
 
 		model.editChanged.on(e => {
 			if (e.hasChanges('state')) {
 				if (e.state.state === 'endBatch') {
-					this.root.table.view.removeClass('q-grid-noselect');
-
 					editService.doBatch(e.state.startCell);
-					model.edit({state: initialEditState, startCell: null});
+					this.editState({state: initialEditState, startCell: null});
+					this.selectionState({mode: initialSelectionMode});
 				}
 			}
 		});
@@ -100,7 +105,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 			if (e.hasChanges('cell')) {
 				const currentCell = e.state.cell;
 
-				if (model.edit().method === 'batch') {
+				if (this.editState().method === 'batch') {
 					if (previousCell) {
 						Fastdom.mutate(() => {
 							previousCell.removeChild(this.marker.nativeElement);
@@ -120,18 +125,15 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	}
 
 	startBatchEdit(e) {
-		this.root.table.view.addClass('q-grid-noselect');
+		this.selectionState({mode: 'range'});
 
 		const pathFinder = new PathService(this.root.bag.body);
 		const cell = pathFinder.cell(e.path);
-		const edit = this.root.model.edit;
 
-		edit({state: 'startBatch', startCell: cell});
+		this.editState({state: 'startBatch', startCell: cell});
 	}
 
 	get isMarkerVisible() {
-		const model = this.root.model;
-
-		return model.edit().method === 'batch';
+		return this.editState().method === 'batch';
 	}
 }
