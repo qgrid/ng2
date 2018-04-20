@@ -5,6 +5,7 @@ import {stringifyFactory} from '../../core/services/';
 import {Shortcut, ShortcutDispatcher} from '../../core/shortcut';
 import {clone} from '../../core/utility';
 import {Event} from '../../core/infrastructure';
+import {groupBy} from '../../core/utility/utility';
 
 export class PersistenceView extends PluginView {
 	constructor(model) {
@@ -16,15 +17,17 @@ export class PersistenceView extends PluginView {
 			oldValue: null
 		};
 		this.model = model;
-		this.id = model.persistence().id;
+		const persistence = model.persistence();
+		this.id = persistence.id;
 		this.service = new PersistenceService(model);
 		this.title = this.stringify();
 		this.closeEvent = new Event();
 
-		model.persistence().storage
+		persistence.storage
 			.getItem(this.id)
 			.then(items => {
 				this.items = items || [];
+				this.groups = this.buildGroups(this.items);
 			});
 
 		this.using(this.model.gridChanged.watch(e => {
@@ -40,12 +43,12 @@ export class PersistenceView extends PluginView {
 					title: this.title,
 					modified: Date.now(),
 					model: this.service.save(),
-					isDefault: false
+					isDefault: false,
+					group: 'My Presets',
+					canEdit: true
 				});
 
-				model.persistence()
-					.storage
-					.setItem(this.id, this.items);
+				this.persist();
 
 				this.title = '';
 
@@ -68,7 +71,7 @@ export class PersistenceView extends PluginView {
 					};
 					return true;
 				},
-				canExecute: () => this.state.editItem === null
+				canExecute: item => this.state.editItem === null && item.canEdit
 			}),
 			commit: new Command({
 				source: 'persistence.view',
@@ -81,9 +84,7 @@ export class PersistenceView extends PluginView {
 						return false;
 					}
 					item.modified = Date.now();
-					model.persistence()
-						.storage
-						.setItem(this.id, this.items);
+					this.persist();
 					this.state.editItem = null;
 					return true;
 				},
@@ -118,13 +119,12 @@ export class PersistenceView extends PluginView {
 				if (index >= 0) {
 					this.items.splice(index, 1);
 
-					this.model.persistence()
-						.storage
-						.setItem(this.id, this.items);
+					this.persist();
 					return true;
 				}
 				return false;
-			}
+			},
+			canExecute: item => item.canEdit
 		});
 
 		this.setDefault = new Command({
@@ -143,9 +143,7 @@ export class PersistenceView extends PluginView {
 				}
 				this.items.splice(index, 1, item);
 
-				this.model.persistence()
-					.storage
-					.setItem(this.id, this.items);
+				this.persist();
 				return true;
 			}
 		});
@@ -171,7 +169,16 @@ export class PersistenceView extends PluginView {
 			const target = {};
 			model[key] = target;
 			for (const p of settings[key]) {
-				target[p] = key === 'filter' ? {} : [];
+				switch (key) {
+					case 'filter':
+						target[p] = {};
+						break;
+					case 'queryBuilder':
+						target[p] = null;
+						break;
+					default:
+						target[p] = [];
+				}
 			}
 		}
 
@@ -179,7 +186,9 @@ export class PersistenceView extends PluginView {
 			title: 'Blank',
 			modified: Date.now(),
 			model: model,
-			isDefault: false
+			isDefault: false,
+			group: 'blank',
+			canEdit: false
 		};
 	}
 
@@ -187,8 +196,31 @@ export class PersistenceView extends PluginView {
 		return this.items.sort((a, b) => b.modified - a.modified);
 	}
 
+	buildGroups(items) {
+		return items.reduce((memo, item) => {
+			const group = memo.find(m => m.key === item.group);
+			if (group) {
+				group.items.push(item);
+			} else {
+				memo.push({
+					key: item.group,
+					items: [item]
+				});
+			}
+			return memo;
+		}, []);
+	}
+
 	isActive(item) {
 		return JSON.stringify(item.model) === JSON.stringify(this.service.save()); // eslint-disable-line angular/json-functions
+	}
+
+	persist() {
+		this.model.persistence()
+			.storage
+			.setItem(this.id, this.items.filter(item => item.canEdit));
+
+		this.groups = this.buildGroups(this.items);
 	}
 
 	stringify(item) {
@@ -197,6 +229,9 @@ export class PersistenceView extends PluginView {
 		const settings = this.model.persistence().settings;
 
 		for (let key in settings) {
+			if (!model[key]) {
+				continue;
+			}
 			const stringify = stringifyFactory(key);
 			const target = stringify(model[key]);
 			if (target !== '') {
