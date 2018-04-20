@@ -27,16 +27,10 @@ gulp.task('sass', function () {
 		.src('out-tsc/src/theme/material/index.scss')
 		.pipe(sass().on('error', sass.logError))
 		.pipe(gulp.dest('out-tsc/src/theme/material/'));
-
-	const convertQb = gulp
-		.src(['out-tsc/src/theme/material/assets/query.builder.scss'])
-		.pipe(sass().on('error', sass.logError))
-		.pipe(gulp.dest('out-tsc/src/theme/material/assets/'));
-
+	
 	return [
 		convertAssets,
-		convertTheme,
-		convertQb
+		convertTheme		
 	];
 });
 
