@@ -1,4 +1,4 @@
-import { jobLine } from '../services/job.line';
+import { jobLine } from '../services';
 import { View } from '../view/view';
 
 export class ViewCtrl extends View {
@@ -34,10 +34,6 @@ export class ViewCtrl extends View {
 		let sessionUnits = [];
 
 		return (name, changes, units) => {
-			if (name === 'selection') {
-				return;
-			}
-
 			model.scene({ status: 'start', round: 0 }, {
 				source: name
 			});
