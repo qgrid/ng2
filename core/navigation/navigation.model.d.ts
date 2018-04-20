@@ -1,4 +1,5 @@
 import { ColumnModel } from '../column-type/column.model';
+import { Cell } from '../dom/cell';
 
 /**
  * A class that gives access to the current cell position inside the q-grid.
@@ -37,4 +38,6 @@ export declare class NavigationModel {
 	 * * For angular - ApplicationRef.tick is called.
 	 */
 	debounce: number;
+
+	readonly cell: Cell;
 }

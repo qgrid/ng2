@@ -6,10 +6,6 @@ import {RangeSelectionState} from './range.selection.state';
 export function selectionStateFactory(model, service) {
 	const mode = model.selection().mode;
 
-	if (model.edit().method === 'batch') {
-		return new RangeSelectionState(model, service);
-	}
-
 	switch (mode) {
 		case 'single':
 			return new SingleSelectionState(model, service);

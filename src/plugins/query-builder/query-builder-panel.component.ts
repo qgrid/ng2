@@ -25,7 +25,6 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 	@Output() close = new EventEmitter<any>();
 	queryService: QueryBuilderService;
 
-
 	private traverse = new TraverseService();
 
 	addGroup = new Command({
