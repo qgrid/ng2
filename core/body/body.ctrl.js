@@ -121,6 +121,7 @@ export class BodyCtrl extends View {
 
 			if (edit().state === 'startBatch') {
 				edit({state: 'endBatch'});
+				return;
 			}
 
 			if (mode === 'range') {
@@ -131,11 +132,6 @@ export class BodyCtrl extends View {
 				this.select(cell);
 				this.navigate(cell);
 				if (cell.column.editorOptions.trigger === 'click' && this.view.edit.cell.enter.canExecute(cell)) {
-
-					if (edit().startCell) {
-						edit({startCell: null});
-						return;
-					}
 
 					if (this.selection.items.length > 1) {
 						return;
