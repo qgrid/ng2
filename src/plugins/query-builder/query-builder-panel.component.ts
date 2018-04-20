@@ -18,9 +18,7 @@ import { FocusAfterRender } from 'ng2-qgrid/common/focus/focus.service';
 @Component({
 	selector: 'q-grid-query-builder-panel',
 	templateUrl: './query-builder-panel.component.html',
-	providers: [FocusAfterRender],
-	styleUrls: ['../../theme/material/assets/query.builder.scss'],
-	encapsulation: ViewEncapsulation.None
+	providers: [FocusAfterRender]
 })
 export class QueryBuilderPanelComponent extends PluginComponent implements OnInit {
 	node: Node;
