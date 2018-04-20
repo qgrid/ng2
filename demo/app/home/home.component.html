@@ -13,15 +13,16 @@
 </style>
 
 <mat-card>
-    <q-grid id="q-grid-demo"
-            q-grid-autofocus
-            [columns]="columns"
-            [rows]="rows"
-            [filterFetch]="filterFetch"
-            [sortBy]="['+name.last', '-name.first']"
-            editMethod="batch"
-            header="NG2 QGRID SANDBOX">
-      
+	<q-grid id="q-grid-demo"
+	        [model]="gridModel"
+	        q-grid-autofocus
+	        [columns]="columns"
+	        [rows]="rows"
+	        [filterFetch]="filterFetch"
+	        [sortBy]="['+name.last', '-name.first']"
+	        editMethod="batch"
+	        header="NG2 QGRID SANDBOX">
+
 		<q-grid-columns>
 			<q-grid-column type="row-indicator"
 			               key="rowIndicator">

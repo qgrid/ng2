@@ -10,10 +10,18 @@ export interface PersistenceItem {
 		[key: string]: any
 	};
 	isDefault?: boolean;
+	group: string;
+	canEdit: boolean;
+}
+
+export interface PersistenceGroup {
+	key: string;
+	items: PersistenceItem[];
 }
 
 export class PersistenceView extends PluginView {
 	constructor(model: Model);
+	groups: PersistenceGroup[];
 	items: PersistenceItem[];
 	closeEvent: Event;
 

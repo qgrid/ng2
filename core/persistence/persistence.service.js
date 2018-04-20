@@ -29,8 +29,10 @@ export class PersistenceService {
 
 		for (let key in settings) {
 			const source = model[key];
-			const target = gridModel[key];
-			target(source);
+			if (source) {
+				const target = gridModel[key];
+				target(source);
+			}
 		}
 
 		return model;

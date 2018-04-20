@@ -10,4 +10,5 @@ export declare class PersistenceModel {
 	load: Command;
 	remove: Command;
 	settings: object;
+	compare: Function;
 }
