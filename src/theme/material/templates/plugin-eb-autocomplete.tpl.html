@@ -9,18 +9,19 @@
 					matTooltipShowDelay="500"
 					matTooltipClass="q-grid-query-builder-error-tooltip">
 		<input matInput
-		       #input
+		       #input="matAutocompleteTrigger"
 		       [(ngModel)]="$expr.value"
+				 (click)="input.openPanel()"
 		       (input)="$expr.change && $expr.change();$expr.refresh && $expr.refresh()"
 		       (optionSelected)="$expr.change && $expr.change()"
 		       [placeholder]="$expr.placeholderText"
 		       [matAutocomplete]="auto">
-	</mat-form-field>
 
-	<mat-autocomplete #auto="matAutocomplete">
-		<mat-option *ngFor="let option of $expr.options | async"
-		            [value]="option">
-			{{option}}
-		</mat-option>
-	</mat-autocomplete>
+		<mat-autocomplete #auto="matAutocomplete" (q-grid-backdrop)="input.closePanel()" [q-grid-backdrop-element]="auto" [q-grid-backdrop-is-active]="auto.isOpen">
+			<mat-option *ngFor="let option of $expr.options | async"
+							[value]="option">
+				{{option}}
+			</mat-option>
+		</mat-autocomplete>
+	</mat-form-field>
 </ng-template>
