@@ -6,7 +6,7 @@ export class PipeModel {
 	constructor() {
 		this.reduce = (units, model) => {
 			const dataPipe = model.data().pipe;
-			
+
 			// Change one of default pipes to data pipes - cause default literaly means data
 			// we can change only one because all other will be moved out during reduce
 			const index = units.indexOf(PU.default);
@@ -83,10 +83,6 @@ export class PipeModel {
 				'unit': PU.rowDetails,
 				'canDrag': PU.column,
 				'canResize': PU.column
-			},
-			'selection': {
-				'mode': PU.column,
-				'unit': PU.column
 			}
 		};
 	}
