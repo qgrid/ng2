@@ -105,7 +105,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 			if (e.hasChanges('cell')) {
 				const currentCell = e.state.cell;
 
-				if (model.edit().method === 'batch') {
+				if (this.editState().method === 'batch') {
 					if (previousCell) {
 						Fastdom.mutate(() => {
 							previousCell.removeChild(this.marker.nativeElement);
@@ -134,8 +134,6 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	}
 
 	get isMarkerVisible() {
-		const model = this.root.model;
-
-		return model.edit().method === 'batch';
+		return this.editState().method === 'batch';
 	}
 }
