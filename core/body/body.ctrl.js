@@ -134,7 +134,7 @@ export class BodyCtrl extends View {
 
 					if (edit().startCell) {
 						edit({startCell: null});
-						return false;
+						return;
 					}
 
 					if (this.selection.items.length > 1) {
