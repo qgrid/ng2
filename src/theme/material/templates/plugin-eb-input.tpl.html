@@ -2,6 +2,7 @@
              let-$expr>
 	<mat-form-field floatLabel="never"
 	                q-grid-autosize="input"
+						 [q-grid-autisize-value]="$expr.value"
 	                [q-grid-eb-class]="$expr.classes"
 	                [q-grid-eb-class-model]="$expr"
 	                matTooltip="{{$expr.state && $expr.state.join(', ')}}"
@@ -9,7 +10,7 @@
 	                matTooltipShowDelay="500"
 	                matTooltipClass="q-grid-query-builder-error-tooltip">
 		<input matInput
-				 [value]="$expr.value"
+				 [(ngModel)]="$expr.value"
 				 (q-grid-input)="$expr.value = $event.value;$expr.change && $expr.change($event);$expr.refresh && $expr.refresh()"
 		       [placeholder]="$expr.placeholderText" />
 	</mat-form-field>
