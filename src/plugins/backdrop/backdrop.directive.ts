@@ -7,20 +7,17 @@ import {Fastdom} from 'ng2-qgrid/core/services/fastdom';
 	selector: '[q-grid-backdrop]'
 })
 export class BackdropDirective {
-	@Input('q-grid-backdrop-element') element: any;
+	@Input('q-grid-backdrop-host') element: any;
 	@Output('q-grid-backdrop') close = new EventEmitter<any>();
 	private backdrop: HTMLElement;
-	private currentlyActive = false;
 
 	constructor() {
 	}
 
 	@Input('q-grid-backdrop-is-active')
 	set isActive(value: boolean) {
-		if (this.currentlyActive === value) {
+		if (value && this.backdrop) {
 			return;
-		} else {
-			this.currentlyActive = value;
 		}
 
 		if (!value) {
@@ -43,8 +40,8 @@ export class BackdropDirective {
 				});
 
 			Fastdom.mutate(() => {
-				this.element.panel.nativeElement.style.zIndex = '1001';
-				this.element.panel.nativeElement.parentElement.appendChild(this.backdrop);
+				this.element.nativeElement.style.zIndex = '1001';
+				this.element.nativeElement.parentElement.appendChild(this.backdrop);
 			});
 		});
 	}

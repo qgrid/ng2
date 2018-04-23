@@ -236,7 +236,7 @@ export class WhereSchema {
 								}
 							})
 							.group('#operand', function (schema) {
-								schema.input('#value', {
+								schema.autocomplete('#value', {
 									classes: {
 										'qb-operand': true,
 										'qb-has-value': function () {

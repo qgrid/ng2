@@ -15,9 +15,12 @@
 		       (input)="$expr.change && $expr.change();$expr.refresh && $expr.refresh()"
 		       (optionSelected)="$expr.change && $expr.change()"
 		       [placeholder]="$expr.placeholderText"
-		       [matAutocomplete]="auto">
+		       [matAutocomplete]="autocomplete">
 
-		<mat-autocomplete #auto="matAutocomplete" (q-grid-backdrop)="input.closePanel()" [q-grid-backdrop-element]="auto" [q-grid-backdrop-is-active]="auto.isOpen">
+		<mat-autocomplete #autocomplete="matAutocomplete"
+								(q-grid-backdrop)="input.closePanel()"
+								[q-grid-backdrop-host]="autocomplete.panel"
+								[q-grid-backdrop-is-active]="autocomplete.isOpen">
 			<mat-option *ngFor="let option of $expr.options | async"
 							[value]="option">
 				{{option}}

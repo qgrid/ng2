@@ -6,6 +6,7 @@ import { ResizeModule } from './resize/resize.module';
 import { LayoutModule } from './layout/layout.module';
 import { FileModule } from './file/file.module';
 import { VscrollModule } from './vscroll/vscroll.module';
+import { InputModule } from './input/input.module';
 
 @NgModule({
 	declarations: [],
@@ -14,6 +15,7 @@ import { VscrollModule } from './vscroll/vscroll.module';
 		FocusModule,
 		ResizeModule,
 		LayoutModule,
+		InputModule,
 		RaiseModule,
 		FileModule,
 		VscrollModule
