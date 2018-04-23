@@ -2,6 +2,7 @@
 				 let-$expr>
 	<mat-form-field floatLabel="never"
 						 q-grid-autosize="input"
+						 [q-grid-autisize-value]="$expr.value"
 						 [q-grid-eb-class]="$expr.classes"
 						 [q-grid-eb-class-model]="$expr"
 						 matTooltip="{{$expr.state && $expr.state.join(', ')}}"
@@ -11,7 +12,7 @@
 		<input matInput
 				 #input="matAutocompleteTrigger"
 				 [(ngModel)]="$expr.value"
-				 (click)="input.openPanel()"
+				 (click)="$expr.refresh && $expr.refresh() && input.openPanel()"
 				 (input)="$expr.change && $expr.change();$expr.refresh && $expr.refresh()"
 				 (optionSelected)="$expr.change && $expr.change()"
 				 [placeholder]="$expr.placeholderText"

@@ -11,19 +11,20 @@ export class BackdropDirective {
 	@Output('q-grid-backdrop') close = new EventEmitter<any>();
 	private backdrop: HTMLElement;
 
-	constructor(private zone: NgZone, @Inject(DOCUMENT) document: any) {
+	constructor(private zone: NgZone, @Inject(DOCUMENT) private document: any) {
 	}
 
 	@Input('q-grid-backdrop-active')
 	set backdropHost(value: any) {
-		if (value && this.backdrop) {
-			return;
-		}
-
 		if (!value) {
+			if (this.backdrop) {
+				this.backdrop.remove();
+				this.backdrop = null;
+			}
+
 			return;
 		}
-		this.backdrop = document.createElement('div');
+		this.backdrop = this.document.createElement('div');
 		this.backdrop.classList.add('q-grid-backdrop');
 		this.backdrop.style.zIndex = '1000';
 
