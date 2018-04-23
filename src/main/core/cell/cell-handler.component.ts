@@ -1,9 +1,8 @@
-import {AfterViewInit, Component, DoCheck, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 import { EditService } from 'ng2-qgrid/core/edit/edit.service';
-import { PathService } from 'ng2-qgrid/core/path/path.service';
 import { Cell } from 'ng2-qgrid/core/dom/cell';
 
 @Component({
@@ -111,7 +110,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 				if (model.edit().method === 'batch') {
 					if (prevCell) {
-						Fastdom.mutate(() => this.marker.nativeElement.parentNode.removeChild(this.marker.nativeElement));
+						Fastdom.mutate(() => this.marker.nativeElement.remove());
 					}
 
 					const element = cell.model.element;
