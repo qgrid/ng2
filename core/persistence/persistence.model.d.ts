@@ -6,9 +6,9 @@ import {PersistenceStorage} from './persistence.storage';
  */
 export declare class PersistenceModel {
 	id: string;
+	defaultGroup: string;
 	storage: PersistenceStorage;
 	load: Command;
 	remove: Command;
 	settings: object;
-	compare: Function;
 }

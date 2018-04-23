@@ -44,7 +44,7 @@ export class PersistenceView extends PluginView {
 					modified: Date.now(),
 					model: this.service.save(),
 					isDefault: false,
-					group: 'My Presets',
+					group: persistence.defaultGroup,
 					canEdit: true
 				});
 
