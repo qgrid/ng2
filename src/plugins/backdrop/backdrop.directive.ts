@@ -1,21 +1,21 @@
-import {Output, EventEmitter, Directive, Input} from '@angular/core';
+import {Output, EventEmitter, Directive, Input, NgZone, Inject} from '@angular/core';
 import {fromEvent} from 'rxjs/observable/fromEvent';
 import {take} from 'rxjs/operators';
-import {Fastdom} from 'ng2-qgrid/core/services/fastdom';
+import {DOCUMENT} from '@angular/common';
 
 @Directive({
 	selector: '[q-grid-backdrop]'
 })
 export class BackdropDirective {
-	@Input('q-grid-backdrop-host') element: any;
+	@Input('q-grid-backdrop-selector') selector = '';
 	@Output('q-grid-backdrop') close = new EventEmitter<any>();
 	private backdrop: HTMLElement;
 
-	constructor() {
+	constructor(private zone: NgZone, @Inject(DOCUMENT) document: any) {
 	}
 
-	@Input('q-grid-backdrop-is-active')
-	set isActive(value: boolean) {
+	@Input('q-grid-backdrop-active')
+	set backdropHost(value: any) {
 		if (value && this.backdrop) {
 			return;
 		}
@@ -23,26 +23,25 @@ export class BackdropDirective {
 		if (!value) {
 			return;
 		}
+		this.backdrop = document.createElement('div');
+		this.backdrop.classList.add('q-grid-backdrop');
+		this.backdrop.style.zIndex = '1000';
 
-		Fastdom.measure(() => {
-			this.backdrop = document.createElement('div');
-			this.backdrop.classList.add('q-grid-backdrop');
-			this.backdrop.style.zIndex = '1000';
-
-			fromEvent(this.backdrop, 'click')
-				.pipe(take(1))
-				.subscribe(() => {
-					Fastdom.mutate(() => {
-						this.close.emit();
-						this.backdrop.remove();
-						this.backdrop = null;
-					});
+		fromEvent(this.backdrop, 'click')
+			.pipe(take(1))
+			.subscribe(() => {
+				this.zone.runOutsideAngular(() => {
+					this.close.emit();
+					this.backdrop.remove();
+					this.backdrop = null;
 				});
-
-			Fastdom.mutate(() => {
-				this.element.nativeElement.style.zIndex = '1001';
-				this.element.nativeElement.parentElement.appendChild(this.backdrop);
 			});
+
+		this.zone.runOutsideAngular(() => {
+			const element = <HTMLElement>document.querySelector(this.selector);
+
+			element.style.zIndex = '1001';
+			element.parentElement.appendChild(this.backdrop);
 		});
 	}
 }
