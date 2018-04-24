@@ -1,5 +1,5 @@
 import { ColumnModel } from '../column-type/column.model';
-import { Cell } from '../dom/cell';
+import { CellView } from '../scene/view/cell.view';
 
 /**
  * A class that gives access to the current cell position inside the q-grid.
@@ -39,5 +39,5 @@ export declare class NavigationModel {
 	 */
 	debounce: number;
 
-	readonly cell: Cell;
+	readonly cell: CellView;
 }

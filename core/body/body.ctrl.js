@@ -119,13 +119,13 @@ export class BodyCtrl extends View {
 			const pathFinder = new PathService(this.bag.body);
 			const cell = pathFinder.cell(e.path);
 
+			if (mode === 'range') {
+				this.rangeStartCell = null;
+			}
+
 			if (edit().state === 'startBatch') {
 				edit({state: 'endBatch'});
 				return;
-			}
-
-			if (mode === 'range') {
-				this.rangeStartCell = null;
 			}
 
 			if (cell) {
