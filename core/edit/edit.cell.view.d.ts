@@ -16,6 +16,7 @@ export declare class EditCellView extends View {
 	editor: CellEditor;
 	enter: Command;
 	commit: Command;
+	batchCommit: Command;
 	cancel: Command;
 	reset: Command;
 	exit: Command;

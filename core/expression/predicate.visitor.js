@@ -1,7 +1,7 @@
-import {AppError} from '../infrastructure';
-import {castFactory as castAsFactory} from './cast.factory';
-import {Visitor} from './expression.visitor';
-import {isArray, identity} from '../utility';
+import { AppError } from '../infrastructure';
+import { castFactory as castAsFactory } from './cast.factory';
+import { Visitor } from './expression.visitor';
+import { isArray, identity } from '../utility';
 
 export class PredicateVisitor extends Visitor {
 	constructor(valueFactory, assertFactory) {
@@ -44,7 +44,7 @@ export class PredicateVisitor extends Visitor {
 		if (isArray(r)) {
 			if (r.length) {
 				rCastAs = castAsFactory(r[0]);
-				r.forEach(x => map.add(x));
+				r.forEach(x => map.add('' + x));
 			} else {
 				rCastAs = identity;
 			}
@@ -92,7 +92,7 @@ export class PredicateVisitor extends Visitor {
 				break;
 			case 'in':
 				predicate = l => {
-					const v = !l && l !== 0 ? 'null' : l;
+					const v = !l && l !== 0 ? 'null' : '' + l;
 					return map.has(v);
 				};
 				break;

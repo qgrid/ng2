@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService, Human } from '../../data/data.service';
 import { Grid } from 'ng2-qgrid/index';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
+import { Command } from 'ng2-qgrid/pub/infrastructure';
+import { uniq } from 'ng2-qgrid/core/utility';
 
 import * as fileSaver from 'file-saver';
 import * as xlsx from 'xlsx';
 import * as pdf from 'jspdf';
 import 'jspdf-autotable';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
-import { Command } from 'ng2-qgrid/pub/infrastructure';
-import { uniq } from 'ng2-qgrid/core/utility';
 
 const isUndef = v => v === undefined;
 
@@ -19,7 +19,10 @@ const isUndef = v => v === undefined;
 export class HomeComponent {
 	public rows: Human[] = [];
 
-	searchCommand: Command = new Command();
+	searchCommand = new Command();
+	commitCommand = new Command({
+		canExecute: e => e.column.type !== 'id'
+	});
 
 	public columns = [
 		{
@@ -241,6 +244,26 @@ export class HomeComponent {
 
 	constructor(private dataService: DataService, public qgrid: Grid) {
 		this.gridModel = qgrid.model();
+
+		const persistence = this.gridModel.persistence;
+		const storage = persistence().storage;
+		persistence({
+			storage: {
+				getItem: id => {
+					return new Promise(resolve => {
+						storage.getItem(id).then(myPresets => {
+							this.dataService.getPresets().subscribe(presets => {
+								const persistenceState = this.gridModel.persistence();
+								const allPresets = presets.concat(myPresets || []);
+								resolve(allPresets);
+							});
+						});
+					});
+				},
+				setItem: storage.setItem.bind(storage)
+			}
+		});
+
 		this.loadData();
 	}
 
@@ -254,6 +277,7 @@ export class HomeComponent {
 			people[4].comment =
 				'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
 		});
+
 
 		// this.gridModel.data({
 		// 	pipe: [

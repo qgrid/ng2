@@ -26,3 +26,18 @@ $duration: 0.15s;
         display: block;
     }
 }
+
+.q-grid-marker {
+    display: none;
+    &.q-grid-active {
+        display: block;
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        bottom: 5px;
+        right: 5px;
+        font-size: 14px;
+        color: #C8C8C8;
+        cursor: move;
+    }
+}

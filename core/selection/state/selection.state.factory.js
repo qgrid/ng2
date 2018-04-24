@@ -5,6 +5,7 @@ import {RangeSelectionState} from './range.selection.state';
 
 export function selectionStateFactory(model, service) {
 	const mode = model.selection().mode;
+
 	switch (mode) {
 		case 'single':
 			return new SingleSelectionState(model, service);
@@ -16,3 +17,4 @@ export function selectionStateFactory(model, service) {
 			throw new AppError('selection.state.factory', `Invalid selection mode "${mode}"`);
 	}
 }
+

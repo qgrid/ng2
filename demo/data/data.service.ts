@@ -22,8 +22,14 @@ export class DataService {
 			.catch(this.handleError);
 	}
 
-	private extractData(responce: Response) {
-		return responce.json();
+	getPresets(): Observable<any> {
+		return this.http.get(`./data/presets.json`)
+			.map(this.extractData)
+			.catch(this.handleError);
+	}
+
+	private extractData(response: Response) {
+		return response.json();
 	}
 
 	private handleError(error: Response | any) {

@@ -38,8 +38,12 @@ import { ThemeService } from 'ng2-qgrid/template/theme.service';
 import { VscrollModule } from 'ng2-qgrid/common/vscroll/vscroll.module';
 
 @NgModule({
-	declarations: [ThemeComponent],
-	exports: [],
+	declarations: [
+		ThemeComponent
+	],
+	exports: [
+		ThemeComponent
+	],
 	imports: [
 		CommonModule,
 		GridCommonModule,
@@ -66,8 +70,12 @@ import { VscrollModule } from 'ng2-qgrid/common/vscroll/vscroll.module';
 		PipeModule,
 		VscrollModule
 	],
-	providers: [ThemeService],
-	entryComponents: [ThemeComponent]
+	providers: [
+		ThemeService
+	],
+	entryComponents: [
+		ThemeComponent
+	]
 })
 export class ThemeModule {
 	constructor(

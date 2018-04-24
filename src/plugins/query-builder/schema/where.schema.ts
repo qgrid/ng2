@@ -89,8 +89,12 @@ export class WhereSchema {
 										op.change();
 									} else {
 										const operand = line.get('#operand').expressions[0];
-										const result = operand.validate();
-										if (result.length) {
+										if (operand.validate) {
+											const result = operand.validate();
+											if (result.length) {
+												operand.value = null;
+											}
+										} else {
 											operand.value = null;
 										}
 									}

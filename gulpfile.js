@@ -27,8 +27,11 @@ gulp.task('sass', function () {
 		.src('out-tsc/src/theme/material/index.scss')
 		.pipe(sass().on('error', sass.logError))
 		.pipe(gulp.dest('out-tsc/src/theme/material/'));
-
-	return [convertAssets, convertTheme];
+	
+	return [
+		convertAssets,
+		convertTheme		
+	];
 });
 
 gulp.task('copy', () => {

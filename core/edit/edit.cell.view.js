@@ -24,6 +24,7 @@ export class EditCellView extends View {
 
 		this.enter = commands.get('enter');
 		this.commit = commands.get('commit');
+		this.batchCommit = commands.get('batchCommit');
 		this.cancel = commands.get('cancel');
 		this.reset = commands.get('reset');
 		this.exit = commands.get('exit');
@@ -135,6 +136,39 @@ export class EditCellView extends View {
 						this.mode(cell, 'view');
 						table.view.focus();
 
+						return true;
+					}
+
+					return false;
+				}
+			}),
+			batchCommit: new Command({
+				priority: 1,
+				source: 'edit.cell.view',
+
+				canExecute: cell => {
+					cell = cell || this.editor.cell;
+					const canEdit = cell && cell.column.canEdit;
+					if (canEdit) {
+						const context = this.contextFactory(cell);
+						const key = context.column.key;
+						const validator = validationService.createValidator(model.validation().rules, key);
+						return model.edit().commit.canExecute(context)
+							&& validator.validate({[key]: this.value})
+							&& cell.column.type !== 'id';
+					}
+					return false;
+				},
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'batch commit');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
+
+					cell = cell || this.editor.cell;
+					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
+						this.editor.commit();
+						this.editor = CellEditor.empty;
 						return true;
 					}
 
