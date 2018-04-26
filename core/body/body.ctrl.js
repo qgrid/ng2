@@ -1,6 +1,7 @@
 import { PathService } from '../path';
 import { View } from '../view/view';
 import { Fastdom } from '../services/fastdom';
+import { ScrollService } from '../scroll/scroll.service';
 
 const MOUSE_LEFT_BUTTON = 1;
 
@@ -12,6 +13,7 @@ export class BodyCtrl extends View {
 		this.bag = bag;
 		this.table = table;
 		this.rangeStartCell = null;
+		this.scrollService = new ScrollService(model, table);
 	}
 
 	onScroll(e) {
@@ -65,6 +67,10 @@ export class BodyCtrl extends View {
 			const cell = pathFinder.cell(e.path);
 
 			if (selectionState.mode === 'range') {
+				if(!this.scrollService.tBody) {
+					this.scrollService.getTBody();
+				}
+
 				this.rangeStartCell = cell;
 
 				if (this.rangeStartCell) {
@@ -99,6 +105,14 @@ export class BodyCtrl extends View {
 			if (startCell && endCell) {
 				this.navigate(endCell);
 				this.view.selection.selectRange(startCell, endCell, 'body');
+
+				if (this.scrollService.interval) {
+					this.scrollService.checkScroll(e);
+				}
+
+				if (!this.scrollService.interval) {
+					this.scrollService.triggerScroll(e);
+				}
 			}
 		}
 	}
