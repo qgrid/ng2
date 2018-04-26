@@ -14,7 +14,7 @@ export class BodyCtrl extends View {
 		this.bag = bag;
 		this.table = table;
 		this.rangeStartCell = null;
-		this.scrollService = new ScrollService(model, table);
+		this.scrollService = new ScrollService(model);
 		this.job = jobLine(0);
 	}
 
