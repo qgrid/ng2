@@ -35,40 +35,32 @@ export class ScrollService {
 
 		if (this.inBottomArea(e)) {
 			if (!this.interval) {
-				job(() => {
 					const downInterval = this.scrollDownInterval();
 					this.interval = downInterval();
-				})
 			}
 			return;
 		}
 
 		if (this.inTopArea(e)) {
 			if (!this.interval) {
-				job(() => {
 					const upInterval = this.scrollUpInterval();
 					this.interval = upInterval();
-				})
 			}
 			return;
 		}
 
 		if (this.inRightArea(e)) {
 			if (!this.interval) {
-				job(() => {
 					const rightInterval = this.scrollRightInterval();
 					this.interval = rightInterval();
-				})
 			}
 			return;
 		}
 
 		if (this.inLeftArea(e)) {
 			if (!this.interval) {
-				job(() => {
 					const leftInterval = this.scrollLeftInterval();
 					this.interval = leftInterval();
-				})
 			}
 			return;
 		}
