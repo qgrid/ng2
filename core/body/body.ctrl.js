@@ -2,6 +2,7 @@ import { PathService } from '../path';
 import { View } from '../view/view';
 import { Fastdom } from '../services/fastdom';
 import { ScrollService } from '../scroll/scroll.service';
+import {jobLine} from '../services/job.line';
 
 const MOUSE_LEFT_BUTTON = 1;
 
@@ -14,6 +15,7 @@ export class BodyCtrl extends View {
 		this.table = table;
 		this.rangeStartCell = null;
 		this.scrollService = new ScrollService(model, table);
+		this.job = jobLine(0);
 	}
 
 	onScroll(e) {
@@ -111,7 +113,7 @@ export class BodyCtrl extends View {
 				}
 
 				if (!this.scrollService.interval) {
-					this.scrollService.triggerScroll(e);
+					this.job(() => this.scrollService.triggerScroll(e));
 				}
 			}
 		}

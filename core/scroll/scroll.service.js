@@ -1,4 +1,3 @@
-import {jobLine} from "../services/job.line";
 const offset = 100;
 const velocity = 5;
 
@@ -31,8 +30,6 @@ export class ScrollService {
 	}
 
 	triggerScroll(e) {
-		const job = jobLine(0);
-
 		if (this.inBottomArea(e)) {
 			if (!this.interval) {
 					const downInterval = this.scrollDownInterval();
