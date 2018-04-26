@@ -21,14 +21,6 @@ export class ScrollService {
 		}
 	}
 
-	addMouseUpListener() {
-		document.addEventListener('mouseup', () => {
-			if(this.interval) {
-				this.stop();
-			}
-		})
-	}
-
 	triggerScroll(e) {
 		if (this.inBottomArea(e)) {
 			if (!this.interval) {
@@ -124,21 +116,6 @@ export class ScrollService {
 				e.clientY < (this.tableCenterRect.bottom - offset)
 	}
 
-	stop() {
-		clearInterval(this.interval);
-		this.interval = null;
-	}
-
-	getTBody() {
-		const tbody = this.tableCenter.children;
-
-		for (let item of tbody) {
-			if (item.tagName === 'TABLE') {
-				this.tBody = item.tBodies[0];
-			}
-		}
-	}
-
 	isScrolledToEndOfBottom() {
 		return this.tBody.scrollHeight - this.tBody.scrollTop === this.tBody.clientHeight
 	}
@@ -153,6 +130,29 @@ export class ScrollService {
 
 	isScrolledToEndOfRight() {
 		return this.tBody.scrollLeft === this.tBody.scrollWidth - this.tBody.clientWidth;
+	}
+
+	addMouseUpListener() {
+		document.addEventListener('mouseup', () => {
+			if(this.interval) {
+				this.stop();
+			}
+		})
+	}
+
+	stop() {
+		clearInterval(this.interval);
+		this.interval = null;
+	}
+
+	getTBody() {
+		const tbody = this.tableCenter.children;
+
+		for (let item of tbody) {
+			if (item.tagName === 'TABLE') {
+				this.tBody = item.tBodies[0];
+			}
+		}
 	}
 
 }
