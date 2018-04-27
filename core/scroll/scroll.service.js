@@ -11,7 +11,7 @@ export class ScrollService {
 		this.addMouseUpListener();
 	}
 
-	checkScroll(e) {
+	canScroll(e) {
 		if (e.clientY < (this.tableCenterRect.bottom - offset) &&
 			e.clientY > (this.tableCenterRect.top + offset) &&
 			e.clientX > (this.tableCenterRect.left + offset) &&
@@ -20,10 +20,10 @@ export class ScrollService {
 		}
 	}
 
-	triggerScroll(e) {
+	scroll(e) {
 		if (this.inBottomArea(e)) {
 			if (!this.interval) {
-					const downInterval = this.scrollDownInterval();
+					const downInterval = this.doScroll('bottom', '+');
 					this.interval = downInterval();
 			}
 			return;
@@ -31,7 +31,7 @@ export class ScrollService {
 
 		if (this.inTopArea(e)) {
 			if (!this.interval) {
-					const upInterval = this.scrollUpInterval();
+					const upInterval = this.doScroll('top', '-');
 					this.interval = upInterval();
 			}
 			return;
@@ -39,7 +39,7 @@ export class ScrollService {
 
 		if (this.inRightArea(e)) {
 			if (!this.interval) {
-					const rightInterval = this.scrollRightInterval();
+					const rightInterval = this.doScroll('right', '+');
 					this.interval = rightInterval();
 			}
 			return;
@@ -47,7 +47,7 @@ export class ScrollService {
 
 		if (this.inLeftArea(e)) {
 			if (!this.interval) {
-					const leftInterval = this.scrollLeftInterval();
+					const leftInterval = this.doScroll('left', '-');
 					this.interval = leftInterval();
 			}
 			return;
@@ -55,38 +55,38 @@ export class ScrollService {
 
 	}
 
-	scrollDownInterval() {
-		return () => setInterval(() => {
-			if(!this.isScrolledToEndOfBottom()) {
-				const originY = this.model.scroll().top;
-				this.model.scroll({top: originY + velocity});
-			}
-		}, 50);
-	}
+	doScroll(direction, modifier) {
+		const scrollVelocity = modifier === '+' ? velocity : velocity * -1;
+		const scrollState = this.model.scroll;
+		let scrolledToEnd;
 
-	scrollUpInterval() {
-		return () => setInterval(() => {
-			if(!this.isScrolledToEndOfTop()) {
-				const originY = this.model.scroll().top;
-				this.model.scroll({top: originY - velocity});
+		switch (direction) {
+			case 'top': {
+				scrolledToEnd = this.isScrolledToEndOfTop();
+				direction = 'top';
+				break;
 			}
-		}, 50);
-	}
-
-	scrollLeftInterval() {
-		return () => setInterval(() => {
-			if(!this.isScrolledToEndOfLeft()) {
-				const originX = this.model.scroll().left;
-				this.model.scroll({left: originX - velocity});
+			case 'bottom': {
+				scrolledToEnd = this.isScrolledToEndOfBottom();
+				direction = 'top';
+				break;
 			}
-		}, 50);
-	}
+			case 'left': {
+				scrolledToEnd = this.isScrolledToEndOfLeft();
+				direction = 'left';
+				break;
+			}
+			case 'right': {
+				scrolledToEnd = this.isScrolledToEndOfRight();
+				direction = 'left';
+				break;
+			}
+		}
 
-	scrollRightInterval() {
 		return () => setInterval(() => {
-			if(!this.isScrolledToEndOfRight()) {
-				const originX = this.model.scroll().left;
-				this.model.scroll({left: originX + velocity});
+			if(!scrolledToEnd()) {
+				const origin = scrollState()[direction];
+				scrollState({[direction]: origin + scrollVelocity});
 			}
 		}, 50);
 	}
@@ -116,19 +116,19 @@ export class ScrollService {
 	}
 
 	isScrolledToEndOfBottom() {
-		return this.tBody.scrollHeight - this.tBody.scrollTop === this.tBody.clientHeight
+		return () => this.tBody.scrollHeight - this.tBody.scrollTop === this.tBody.clientHeight
 	}
 
 	isScrolledToEndOfTop() {
-		return this.tBody.scrollTop === 0;
+		return () => this.tBody.scrollTop === 0;
 	}
 
 	isScrolledToEndOfLeft() {
-		return this.tBody.scrollLeft === 0;
+		return () => this.tBody.scrollLeft === 0;
 	}
 
 	isScrolledToEndOfRight() {
-		return this.tBody.scrollLeft === this.tBody.scrollWidth - this.tBody.clientWidth;
+		return () => this.tBody.scrollLeft === this.tBody.scrollWidth - this.tBody.clientWidth;
 	}
 
 	addMouseUpListener() {
