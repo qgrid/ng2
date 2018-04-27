@@ -4,6 +4,11 @@ const velocity = 5;
 export class ScrollService {
 	constructor(model) {
 		this.model = model;
+
+		this.onInit();
+	}
+
+	onInit() {
 		this.tableCenter = document.querySelector('.q-grid-table-center');
 		this.tableCenterRect = this.tableCenter.getBoundingClientRect();
 		this.interval = null;
