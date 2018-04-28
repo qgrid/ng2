@@ -5,6 +5,7 @@ import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 import { EditService } from 'ng2-qgrid/core/edit/edit.service';
 import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 import { CellView } from 'ng2-qgrid/core/scene/view/cell.view';
+import { ScrollService } from 'ng2-qgrid/core/scroll/scroll.service';
 
 @Component({
 	selector: 'q-grid-cell-handler',
@@ -87,7 +88,22 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	ngAfterViewInit() {
 		const model = this.root.model;
 		const editService = new EditService(model, this.root.table);
+		const scrollService = new ScrollService(model);
+		const scrollState = model.scroll;
+		const root = this.root;
 		let prevCell = null;
+
+		model.sceneChanged.watch(e => {
+			if (e.hasChanges('status')) {
+				const status = e.state.status;
+				if (status === 'stop') {
+					if (!scrollState().scrollService) {
+						scrollState({scrollService: scrollService});
+						scrollState().scrollService.getInitiate(root.markup.body, root.markup.table);
+					}
+				}
+			}
+		});
 
 		model.editChanged.on(e => {
 			if (e.hasChanges('state')) {

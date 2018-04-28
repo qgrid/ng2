@@ -4,23 +4,20 @@ const velocity = 5;
 export class ScrollService {
 	constructor(model) {
 		this.model = model;
-
-		this.onInit();
 	}
 
-	onInit() {
-		this.tableCenter = document.querySelector('.q-grid-table-center');
-		this.tableCenterRect = this.tableCenter.getBoundingClientRect();
+	getInitiate(body, table) {
+		this.table = table.getBoundingClientRect();
+		this.body = body;
 		this.interval = null;
-		this.tBody = null;
 		this.addMouseUpListener();
 	}
 
 	canScroll(e) {
-		if (e.clientY < (this.tableCenterRect.bottom - offset) &&
-			e.clientY > (this.tableCenterRect.top + offset) &&
-			e.clientX > (this.tableCenterRect.left + offset) &&
-			e.clientX < (this.tableCenterRect.right - offset)) {
+		if (e.clientY < (this.table.bottom - offset) &&
+			e.clientY > (this.table.top + offset) &&
+			e.clientX > (this.table.left + offset) &&
+			e.clientX < (this.table.right - offset)) {
 			this.stop();
 		}
 	}
@@ -55,7 +52,6 @@ export class ScrollService {
 					const leftInterval = this.doScroll('left', '-');
 					this.interval = leftInterval();
 			}
-			return;
 		}
 
 	}
@@ -97,43 +93,43 @@ export class ScrollService {
 	}
 
 	inTopArea(e) {
-		return e.clientY < (this.tableCenterRect.top + offset) &&
-			e.clientX > (this.tableCenterRect.left + offset) &&
-			e.clientX < (this.tableCenterRect.right - offset);
+		return e.clientY < (this.table.top + offset) &&
+			e.clientX > (this.table.left + offset) &&
+			e.clientX < (this.table.right - offset);
 	}
 
 	inBottomArea(e) {
-		return e.clientY > (this.tableCenterRect.bottom - offset) &&
-				e.clientX > (this.tableCenterRect.left + offset) &&
-				e.clientX < (this.tableCenterRect.right - offset)
+		return e.clientY > (this.table.bottom - offset) &&
+				e.clientX > (this.table.left + offset) &&
+				e.clientX < (this.table.right - offset)
 	}
 
 	inLeftArea(e) {
-		return e.clientX < (this.tableCenterRect.left + offset) &&
-				e.clientY > (this.tableCenterRect.top + offset) &&
-				e.clientY < (this.tableCenterRect.bottom - offset)
+		return e.clientX < (this.table.left + offset) &&
+				e.clientY > (this.table.top + offset) &&
+				e.clientY < (this.table.bottom - offset)
 	}
 
 	inRightArea(e) {
-		return e.clientX > (this.tableCenterRect.right - offset) &&
-				e.clientY > (this.tableCenterRect.top + offset) &&
-				e.clientY < (this.tableCenterRect.bottom - offset)
+		return e.clientX > (this.table.right - offset) &&
+				e.clientY > (this.table.top + offset) &&
+				e.clientY < (this.table.bottom - offset)
 	}
 
 	isScrolledToEndOfBottom() {
-		return () => this.tBody.scrollHeight - this.tBody.scrollTop === this.tBody.clientHeight
-	}
-
-	isScrolledToEndOfTop() {
-		return () => this.tBody.scrollTop === 0;
-	}
-
-	isScrolledToEndOfLeft() {
-		return () => this.tBody.scrollLeft === 0;
+		return () => this.body.scrollHeight - this.body.scrollTop === this.body.clientHeight
 	}
 
 	isScrolledToEndOfRight() {
-		return () => this.tBody.scrollLeft === this.tBody.scrollWidth - this.tBody.clientWidth;
+		return () => this.body.scrollLeft === this.body.scrollWidth - this.body.clientWidth;
+	}
+
+	isScrolledToEndOfTop() {
+		return () => this.body.scrollTop === 0;
+	}
+
+	isScrolledToEndOfLeft() {
+		return () => this.body.scrollLeft === 0;
 	}
 
 	addMouseUpListener() {
@@ -149,14 +145,14 @@ export class ScrollService {
 		this.interval = null;
 	}
 
-	getTBody() {
-		const tbody = this.tableCenter.children;
-
-		for (let item of tbody) {
-			if (item.tagName === 'TABLE') {
-				this.tBody = item.tBodies[0];
-			}
-		}
-	}
+	// getTBody() {
+	// 	const tbody = this.tableCenter.children;
+    //
+	// 	for (let item of tbody) {
+	// 		if (item.tagName === 'TABLE') {
+	// 			this.body = item.tBodies[0];
+	// 		}
+	// 	}
+	// }
 
 }

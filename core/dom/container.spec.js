@@ -13,7 +13,7 @@ describe('Container', () => {
 	});
 
 	describe('addClass', () => {
-		it('should check whether all elements contains class ', () => {
+		it('should check whether all elements contain class ', () => {
 			container.addClass('someClass');
 			expect(elements.every(div => div.classList.contains('someClass'))).to.equal(true);
 		});
