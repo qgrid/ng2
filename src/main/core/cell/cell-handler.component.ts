@@ -88,9 +88,8 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	ngAfterViewInit() {
 		const model = this.root.model;
 		const editService = new EditService(model, this.root.table);
-		const scrollService = new ScrollService(model);
+		const scrollService = new ScrollService(model, this.root.markup.body, this.root.markup.table);
 		const scrollState = model.scroll;
-		const root = this.root;
 		let prevCell = null;
 
 		model.sceneChanged.watch(e => {
@@ -99,7 +98,6 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 				if (status === 'stop') {
 					if (!scrollState().scrollService) {
 						scrollState({scrollService: scrollService});
-						scrollState().scrollService.initialize(root.markup.body, root.markup.table);
 					}
 				}
 			}

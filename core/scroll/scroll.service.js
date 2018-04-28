@@ -2,11 +2,8 @@ const offset = 100;
 const velocity = 5;
 
 export class ScrollService {
-	constructor(model) {
+	constructor(model, body, table) {
 		this.model = model;
-	}
-
-	initialize(body, table) {
 		this.table = table.getBoundingClientRect();
 		this.body = body;
 		this.interval = null;
