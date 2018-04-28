@@ -1,12 +1,11 @@
-import {Command} from '@grid/core/command';
-import {Composite} from './composite';
-import {identity, yes, no} from '../utility';
+import { Command } from '../command';
+import { Composite } from './composite';
+import { identity, yes, no } from '../utility';
 
 describe('Composite', () => {
 	describe('composite function', () => {
 		it('should return function', () => {
-			const func = Composite.func(() => {
-			});
+			const func = Composite.func(() => {});
 			expect(func).to.be.a('function');
 		});
 
@@ -23,11 +22,10 @@ describe('Composite', () => {
 		});
 
 		it('should reduce values', () => {
-			const func = Composite.func([
-				() => 1,
-				() => 2,
-				() => 3
-			], (memo, item) => memo + item);
+			const func = Composite.func(
+				[() => 1, () => 2, () => 3],
+				(memo, item) => memo + item
+			);
 			expect(func()).to.be.equal(6);
 		});
 

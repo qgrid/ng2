@@ -10,5 +10,8 @@ export declare class PersistenceModel {
 	storage: PersistenceStorage;
 	load: Command;
 	remove: Command;
+	create: Command;
+	modify: Command;
+	setDefault: Command;
 	settings: object;
 }

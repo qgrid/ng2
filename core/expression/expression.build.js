@@ -6,6 +6,10 @@ export function build(filterBy, op = 'and') {
 			continue;
 		}
 
+		if (filter.expression) {
+			result.push(filter.expression);
+		}
+
 		const expressions = [];
 		if (filter.items && filter.items.length) {
 			expressions.push(toInExpression(key, filter.items));
