@@ -24,15 +24,13 @@ import { StatusBarModule } from 'ng2-qgrid/plugins/status-bar/status-bar.module'
 import { QueryBuilderModule } from 'ng2-qgrid/plugins/query-builder/query-builder.module';
 import { QueryBuilderModel } from 'ng2-qgrid/plugins/query-builder/query-builder.model';
 import { EbModule } from 'ng2-qgrid/plugins/expression-builder/eb.module';
-import { RestModel } from 'ng2-qgrid/plugin/rest/rest.model';
 import { RestModule } from 'ng2-qgrid/plugins/rest/rest.module';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 Model.register('columnChooser', ColumnChooserModel)
 	.register('columnFilter', ColumnFilterModel)
 	.register('dataManipulation', DataManipulationModel)
-	.register('queryBuilder', QueryBuilderModel)
-	.register('rest', RestModel);
+	.register('queryBuilder', QueryBuilderModel);
 
 @NgModule({
 	declarations: [],

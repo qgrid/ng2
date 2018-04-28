@@ -1,4 +1,4 @@
-import {Model} from '@grid/core/infrastructure';
+import {Model} from '../../core/infrastructure';
 import {serialize} from './post.serialize';
 
 describe('Model serialization to post parameters', () => {

@@ -6,9 +6,13 @@ export class PersistenceModel {
 	constructor() {
 		this.id = 'default';
 		this.defaultGroup = 'My Presets';
-		this.storage = new PersistenceStorage(localStorage);
 		this.load = new Command({ source: 'persistence.model' });
 		this.remove = new Command({ source: 'persistence.model' });
+		this.create = new Command({ source: 'persistence.model' });
+		this.modify = new Command({ source: 'persistence.model' });
+		this.setDefault = new Command({ source: 'persistence.model' });
+
+		this.storage = new PersistenceStorage(localStorage);
 		this.settings = {
 			group: ['by'],
 			sort: ['by'],
