@@ -144,15 +144,4 @@ export class ScrollService {
 		clearInterval(this.interval);
 		this.interval = null;
 	}
-
-	// getTBody() {
-	// 	const tbody = this.tableCenter.children;
-    //
-	// 	for (let item of tbody) {
-	// 		if (item.tagName === 'TABLE') {
-	// 			this.body = item.tBodies[0];
-	// 		}
-	// 	}
-	// }
-
 }
