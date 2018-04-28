@@ -99,7 +99,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 				if (status === 'stop') {
 					if (!scrollState().scrollService) {
 						scrollState({scrollService: scrollService});
-						scrollState().scrollService.getInitiate(root.markup.body, root.markup.table);
+						scrollState().scrollService.initialize(root.markup.body, root.markup.table);
 					}
 				}
 			}

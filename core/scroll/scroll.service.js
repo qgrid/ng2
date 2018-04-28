@@ -6,7 +6,7 @@ export class ScrollService {
 		this.model = model;
 	}
 
-	getInitiate(body, table) {
+	initialize(body, table) {
 		this.table = table.getBoundingClientRect();
 		this.body = body;
 		this.interval = null;
