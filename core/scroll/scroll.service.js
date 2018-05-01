@@ -2,12 +2,13 @@ const offset = 100;
 const velocity = 5;
 
 export class ScrollService {
-	constructor(model, body, table) {
+	constructor(model, markup) {
 		this.model = model;
-		this.table = table.getBoundingClientRect();
-		this.body = body;
+		this.markup = markup;
 		this.interval = null;
+		this.setElementsState(markup);
 		this.addMouseUpListener();
+		this.addWindowResizeListener();
 	}
 
 	canScroll(e) {
@@ -135,6 +136,17 @@ export class ScrollService {
 				this.stop();
 			}
 		})
+	}
+
+	addWindowResizeListener() {
+		window.addEventListener('resize', () => {
+			this.setElementsState(this.markup);
+		})
+	}
+
+	setElementsState(markup) {
+		this.table = markup.table.getBoundingClientRect();
+		this.body = markup.body;
 	}
 
 	stop() {
