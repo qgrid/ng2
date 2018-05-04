@@ -5,6 +5,5 @@ export class ScrollModel {
 		this.top = 0;
 		this.left = 0;
 		this.cursor = 0;
-		this.scrollService = null;
 	}
 }

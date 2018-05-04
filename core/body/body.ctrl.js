@@ -10,6 +10,7 @@ export class BodyCtrl extends View {
 	constructor(model, view, table, bag) {
 		super(model);
 
+		this.scrollService = null;
 		this.view = view;
 		this.bag = bag;
 		this.table = table;
@@ -70,6 +71,10 @@ export class BodyCtrl extends View {
 			if (selectionState.mode === 'range') {
 				this.rangeStartCell = cell;
 
+				if (!this.scrollService) {
+					this.scrollService = new ScrollService(this.model, this.table);
+				}
+
 				if (this.rangeStartCell) {
 					this.view.selection.selectRange(this.rangeStartCell, null, 'body');
 				}
@@ -98,18 +103,17 @@ export class BodyCtrl extends View {
 		if (this.selection.mode === 'range') {
 			const startCell = this.rangeStartCell;
 			const endCell = pathFinder.cell(e.path);
-			const scrollService = this.model.scroll().scrollService;
 
 			if (startCell && endCell) {
 				this.navigate(endCell);
 				this.view.selection.selectRange(startCell, endCell, 'body');
 
-				if (scrollService.interval) {
-					scrollService.canScroll(e);
+				if (this.scrollService.interval) {
+					this.scrollService.canScroll(e);
 				}
 
-				if (!scrollService.interval) {
-					this.job(() => scrollService.scroll(e));
+				if (!this.scrollService.interval) {
+					this.job(() => this.scrollService.scroll(e));
 				}
 			}
 		}

@@ -1,16 +1,16 @@
 import { View } from '../view';
 import { EventListener, EventManager } from '../../core/infrastructure';
 
-const offset = 100;
+const offset = 50;
 const velocity = 5;
 
 export class ScrollService extends View {
-	constructor(model, markup) {
+	constructor(model, table) {
 		super(model);
 
-		this.markup = markup;
+		this.table = table;
 		this.interval = null;
-		this.setElementsState(markup);
+		this.setElementsState(table.view);
 
 		const documentListener = new EventListener(document, new EventManager(this));
 		const windowListener = new EventListener(window, new EventManager(this));
@@ -22,8 +22,12 @@ export class ScrollService extends View {
 		}));
 
 		this.using(windowListener.on('resize', () => {
-			this.setElementsState(this.markup);
+			this.setElementsState(this.getMarkup());
 		}));
+	}
+
+	getMarkup() {
+		return this.table.view.markup;
 	}
 
 	canScroll(e) {
@@ -101,18 +105,20 @@ export class ScrollService extends View {
 	}
 
 	isScrolledToEnd(direction) {
+		const body = this.body;
+
 		switch (direction) {
 			case 'top': {
-				return this.body.scrollTop === 0;
+				return body.scrollTop === 0;
 			}
 			case 'bottom': {
-				return this.body.clientHeight === this.body.scrollHeight - this.body.scrollTop;
+				return body.clientHeight === body.scrollHeight - body.scrollTop;
 			}
 			case 'left': {
-				return this.body.scrollLeft === 0;
+				return body.scrollLeft === 0;
 			}
 			case 'right': {
-				return this.body.scrollLeft === this.body.scrollWidth - this.body.clientWidth;
+				return body.scrollLeft === body.scrollWidth - body.clientWidth;
 			}
 		}
 	}
@@ -145,9 +151,9 @@ export class ScrollService extends View {
 		}
 	}
 
-	setElementsState(markup) {
-		this.table = markup.table.getBoundingClientRect();
-		this.body = markup.body;
+	setElementsState(view) {
+		this.body = view.markup.body;
+		this.table = view.rect(this.body);
 	}
 
 	stop() {

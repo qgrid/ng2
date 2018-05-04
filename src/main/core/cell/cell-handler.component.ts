@@ -88,20 +88,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	ngAfterViewInit() {
 		const model = this.root.model;
 		const editService = new EditService(model, this.root.table);
-		const scrollService = new ScrollService(model, this.root.markup);
-		const scrollState = model.scroll;
 		let prevCell = null;
-
-		model.sceneChanged.watch(e => {
-			if (e.hasChanges('status')) {
-				const status = e.state.status;
-				if (status === 'stop') {
-					if (!scrollState().scrollService) {
-						scrollState({scrollService: scrollService});
-					}
-				}
-			}
-		});
 
 		model.editChanged.on(e => {
 			if (e.hasChanges('state')) {
