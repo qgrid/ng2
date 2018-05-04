@@ -5,7 +5,6 @@ import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 import { EditService } from 'ng2-qgrid/core/edit/edit.service';
 import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 import { CellView } from 'ng2-qgrid/core/scene/view/cell.view';
-import { ScrollService } from 'ng2-qgrid/core/scroll/scroll.service';
 
 @Component({
 	selector: 'q-grid-cell-handler',
