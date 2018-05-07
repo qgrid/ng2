@@ -10,6 +10,7 @@ import {SortView} from '../sort';
 import {FilterView} from '../filter';
 import {EditView} from '../edit';
 import {SelectionView} from '../selection';
+import {ClipboardView} from '../clipboard';
 import {PaginationView} from '../pagination';
 import {StyleView} from '../style';
 import {ScrollView} from '../scroll';
@@ -24,6 +25,7 @@ export function viewFactory(model, table, commandManager, gridService, vscroll, 
 		target.foot = new FootView(model, table);
 		target.layout = new LayoutView(model, table, gridService);
 		target.selection = new SelectionView(model, table, commandManager);
+		target.clipboard = new ClipboardView(model, table, commandManager);
 		target.group = new GroupView(model, table, commandManager, gridService);
 		target.pivot = new PivotView(model);
 		target.highlight = new HighlightView(model, table);
@@ -43,6 +45,7 @@ export function viewFactory(model, table, commandManager, gridService, vscroll, 
 			target.foot.dispose();
 			target.layout.dispose();
 			target.selection.dispose();
+			target.clipboard.dispose();
 			target.group.dispose();
 			target.pivot.dispose();
 			target.highlight.dispose();

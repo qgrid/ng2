@@ -10,6 +10,7 @@ import { BodyView } from 'ng2-qgrid/core/body/body.view';
 import { FootView } from 'ng2-qgrid/core/foot/foot.view';
 import { LayoutView } from 'ng2-qgrid/core/layout/layout.view';
 import { SelectionView } from 'ng2-qgrid/core/selection/selection.view';
+import { ClipboardView } from 'ng2-qgrid/core/clipboard/clipboard.view';
 import { HighlightView } from 'ng2-qgrid/core/highlight/highlight.view';
 import { EditView } from 'ng2-qgrid/core/edit/edit.view';
 import { NavigationView } from 'ng2-qgrid/core/navigation/navigation.view';
@@ -36,6 +37,7 @@ export class ViewCoreService {
 	public foot: FootView = null;
 	public layout: LayoutView = null;
 	public selection: SelectionView = null;
+	public clipboard: ClipboardView = null;
 	public highlight: HighlightView = null;
 	public edit: EditView = null;
 	public nav: NavigationView = null;

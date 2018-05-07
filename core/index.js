@@ -1,40 +1,39 @@
-import { GridModel } from './grid';
-import { PipeModel } from './pipe';
-import { SceneModel } from './scene';
-import { ViewModel } from './view';
-import { DataModel } from './data';
-import { HeadModel } from './head';
-import { BodyModel } from './body';
-import { LayoutModel } from './layout';
-import { NavigationModel } from './navigation';
-import { FocusModel } from './focus';
-import { ColumnListModel } from './column-list';
-import { RowModel } from './row';
-import { SelectionModel } from './selection';
-import { FootModel } from './foot';
-import { SortModel } from './sort';
-import { GroupModel } from './group';
-import { PivotModel } from './pivot';
-import { PluginModel } from './plugin';
-import { EditModel } from './edit';
-import { ToolbarModel } from './toolbar';
-import { LayerModel } from './layer';
-import { PaginationModel } from './pagination';
-import { ProgressModel } from './progress';
-import { HighlightModel } from './highlight';
-import { VisibilityModel } from './visibility';
-import { FilterModel } from './filter';
-import { DragModel } from './drag';
-import { StyleModel } from './style';
-import { ScrollModel } from './scroll';
-import { ExportModel } from './export';
-import { ImportModel } from './import';
-import { ActionModel } from './action';
-import { FetchModel } from './fetch';
-import { PersistenceModel } from './persistence';
-import { ValidationModel } from './validation';
-import { TemplateModel } from './template';
-import { RestModel } from './rest';
+import {GridModel} from './grid';
+import {PipeModel} from './pipe';
+import {SceneModel} from './scene';
+import {ViewModel} from './view';
+import {DataModel} from './data';
+import {HeadModel} from './head';
+import {BodyModel} from './body';
+import {LayoutModel} from './layout';
+import {NavigationModel} from './navigation';
+import {FocusModel} from './focus';
+import {ColumnListModel} from './column-list';
+import {RowModel} from './row';
+import {SelectionModel} from './selection';
+import {ClipboardModel} from '../core/clipboard/clipboard.model';
+import {FootModel} from './foot';
+import {SortModel} from './sort';
+import {GroupModel} from './group';
+import {PivotModel} from './pivot';
+import {PluginModel} from './plugin';
+import {EditModel} from './edit';
+import {ToolbarModel} from './toolbar';
+import {LayerModel} from './layer';
+import {PaginationModel} from './pagination';
+import {ProgressModel} from './progress';
+import {HighlightModel} from './highlight';
+import {VisibilityModel} from './visibility';
+import {FilterModel} from './filter';
+import {DragModel} from './drag';
+import {StyleModel} from './style';
+import {ScrollModel} from './scroll';
+import {ExportModel} from './export';
+import {ImportModel} from './import';
+import {ActionModel} from './action';
+import {FetchModel} from './fetch';
+import {PersistenceModel} from './persistence';
+import {ValidationModel} from './validation';
 
 export function setup(model) {
 	model.register('grid', GridModel)
@@ -43,6 +42,7 @@ export function setup(model) {
 		.register('view', ViewModel)
 		.register('data', DataModel)
 		.register('selection', SelectionModel)
+		.register('clipboard', ClipboardModel)
 		.register('head', HeadModel)
 		.register('body', BodyModel)
 		.register('navigation', NavigationModel)
@@ -71,7 +71,5 @@ export function setup(model) {
 		.register('action', ActionModel)
 		.register('fetch', FetchModel)
 		.register('persistence', PersistenceModel)
-		.register('validation', ValidationModel)
-		.register('template', TemplateModel)
-		.register('rest', RestModel);
+		.register('validation', ValidationModel);
 }
