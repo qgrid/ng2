@@ -25,7 +25,7 @@ export function viewFactory(model, table, commandManager, gridService, vscroll, 
 		target.foot = new FootView(model, table);
 		target.layout = new LayoutView(model, table, gridService);
 		target.selection = new SelectionView(model, table, commandManager);
-		target.clipboard = new ClipboardView(model, commandManager);
+		target.clipboard = new ClipboardView(model, table, commandManager);
 		target.group = new GroupView(model, table, commandManager, gridService);
 		target.pivot = new PivotView(model);
 		target.highlight = new HighlightView(model, table);
