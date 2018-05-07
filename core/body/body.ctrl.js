@@ -10,12 +10,12 @@ export class BodyCtrl extends View {
 	constructor(model, view, table, bag) {
 		super(model);
 
-		this.scrollService = null;
 		this.view = view;
 		this.bag = bag;
 		this.table = table;
 		this.rangeStartCell = null;
 		this.job = jobLine(0);
+		this.scrollService = null;
 	}
 
 	onScroll(e) {
