@@ -1,43 +1,32 @@
-import {Directive, ElementRef, OnInit, Input, Renderer2, NgZone, DoCheck} from '@angular/core';
-import {Fastdom} from 'ng2-qgrid/core/services/fastdom';
-import {isUndefined} from 'ng2-qgrid/core/utility/index';
+import { Directive, ElementRef, OnInit, Input, } from '@angular/core';
+import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
+import { isUndefined } from 'ng2-qgrid/core/utility/index';
 
 @Directive({
 	selector: '[q-grid-autosize]'
 })
-export class AutosizeDirective implements OnInit, DoCheck {
+export class AutosizeDirective implements OnInit {
 	@Input('q-grid-autosize') selector;
 	@Input('q-grid-autosize-empty-width') emptyWidth = 75;
 	private actualText: string;
 	private host: HTMLElement;
 	private element: HTMLInputElement;
 
-	constructor(element: ElementRef, private renderer: Renderer2, private zone: NgZone) {
+	constructor(element: ElementRef) {
 		this.host = element.nativeElement as HTMLInputElement;
 	}
 
 	ngOnInit() {
 		this.element = this.selector ? this.host.querySelector(this.selector) as HTMLInputElement : this.host as HTMLInputElement;
-		this.zone.runOutsideAngular(() => {
-			this.renderer.listen(this.element, 'input', () => this.autoWidth());
-		});
 	}
 
-	ngDoCheck() {
-		if (isUndefined(this.actualText)) {
-			if (this.element.value) {
-				this.autoWidth();
-			}
-		}
-	}
-
-	autoWidth() {
-		const text = this.element.value;
-
+	autoWidth(text) {
 		if (!text) {
 			this.actualText = text;
-			Fastdom.mutate(() => {
-				this.host.style.width = `${this.emptyWidth}px`;
+			Fastdom.measure(() => {
+				Fastdom.mutate(() => {
+					this.host.style.width = `${this.emptyWidth}px`;
+				});
 			});
 			return;
 		}
@@ -55,6 +44,11 @@ export class AutosizeDirective implements OnInit, DoCheck {
 			const width = `${this.calculateWidth(this.element, text)}px`;
 			Fastdom.mutate(() => this.host.style.width = width);
 		});
+	}
+
+	@Input('q-grid-autisize-value')
+	set value(value: string) {
+		this.autoWidth(value);
 	}
 
 	private calculateWidth(element: HTMLElement, text: string) {

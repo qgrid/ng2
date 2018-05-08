@@ -35,10 +35,6 @@ export declare class EditModel {
 	method: null | 'batch';
 
 	/**
-	 *
-	 */
-	method: 'batch';
-	/**
 	 * Allows to the grid user to control if cell or row can be edited or not.
 	 */
 	enter: Command;

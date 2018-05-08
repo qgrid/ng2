@@ -46,7 +46,3 @@ export class EditService {
 		}
 	}
 }
-
-function tempFunct(element, index, array) {
-
-}

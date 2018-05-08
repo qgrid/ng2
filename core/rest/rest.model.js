@@ -1,5 +1,5 @@
-import {Resource} from '../../core/resource';
-import {serialize} from './get.serialize';
+import { Resource } from '../../core/resource';
+import { serialize } from './get.serialize';
 
 export class RestModel {
 	constructor() {

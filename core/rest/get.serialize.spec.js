@@ -1,5 +1,5 @@
-import {Model} from '@grid/core/infrastructure';
-import {serialize} from './get.serialize';
+import { Model } from '../infrastructure';
+import { serialize } from './get.serialize';
 
 describe('Model serialization to post parameters', () => {
 	describe('pagination', () => {
@@ -17,7 +17,7 @@ describe('Model serialization to post parameters', () => {
 	describe('sorting', () => {
 		it('should map ascending order to "+"', () => {
 			const model = new Model().sort({
-				by: [{lastName: 'asc'}]
+				by: [{ lastName: 'asc' }]
 			});
 			const params = serialize(model);
 			expect(params.order).to.be.equal('+lastName');
@@ -25,7 +25,7 @@ describe('Model serialization to post parameters', () => {
 
 		it('should map descending order to "-"', () => {
 			const model = new Model().sort({
-				by: [{lastName: 'desc'}]
+				by: [{ lastName: 'desc' }]
 			});
 			const params = serialize(model);
 			expect(params.order).to.be.equal('-lastName');
@@ -33,7 +33,7 @@ describe('Model serialization to post parameters', () => {
 
 		it('should map sorting to comma-separated string', () => {
 			const model = new Model().sort({
-				by: [{firstName: 'asc'}, {lastName: 'desc'}]
+				by: [{ firstName: 'asc' }, { lastName: 'desc' }]
 			});
 			const params = serialize(model);
 			expect(params.order).to.be.equal('+firstName,-lastName');
@@ -52,7 +52,7 @@ describe('Model serialization to post parameters', () => {
 		it('should map filter to in operation', () => {
 			const model = new Model().filter({
 				by: {
-					lastName: ['Doe']
+					lastName: { items: ['Doe'] }
 				}
 			});
 			const params = serialize(model);
@@ -62,7 +62,9 @@ describe('Model serialization to post parameters', () => {
 		it('should join parameters with comma', () => {
 			const model = new Model().filter({
 				by: {
-					lastName: ['Doe', 'Jones']
+					lastName: {
+						items: ['Doe', 'Jones']
+					}
 				}
 			});
 			const params = serialize(model);
@@ -72,12 +74,14 @@ describe('Model serialization to post parameters', () => {
 		it('should join fields with ;', () => {
 			const model = new Model().filter({
 				by: {
-					lastName: ['Doe', 'Jones'],
-					firstName: ['John', 'Harry']
+					lastName: { items: ['Doe', 'Jones'] },
+					firstName: { items: ['John', 'Harry'] }
 				}
 			});
 			const params = serialize(model);
-			expect(params.filter).to.be.equal('lastName=in:Doe,Jones;firstName=in:John,Harry');
+			expect(params.filter).to.be.equal(
+				'lastName=in:Doe,Jones;firstName=in:John,Harry'
+			);
 		});
 	});
 });

@@ -1,4 +1,4 @@
-import {clone} from '../utility';
+import { clone } from '../utility';
 
 export class PersistenceService {
 	constructor(model) {
@@ -29,8 +29,10 @@ export class PersistenceService {
 
 		for (let key in settings) {
 			const source = model[key];
-			const target = gridModel[key];
-			target(source);
+			if (source) {
+				const target = gridModel[key];
+				target(source, { source: 'persistence.service' });
+			}
 		}
 
 		return model;

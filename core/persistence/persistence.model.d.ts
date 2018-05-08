@@ -6,8 +6,12 @@ import {PersistenceStorage} from './persistence.storage';
  */
 export declare class PersistenceModel {
 	id: string;
+	defaultGroup: string;
 	storage: PersistenceStorage;
 	load: Command;
 	remove: Command;
+	create: Command;
+	modify: Command;
+	setDefault: Command;
 	settings: object;
 }

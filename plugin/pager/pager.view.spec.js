@@ -1,5 +1,5 @@
 import {PagerView} from './pager.view';
-import {Model} from '@grid/core/infrastructure/model';
+import {Model} from '../../core/infrastructure/model';
 
 describe('Pager view', () => {
 	describe('next command', () => {

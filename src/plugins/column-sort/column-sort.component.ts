@@ -19,8 +19,7 @@ import { FocusAfterRender } from 'ng2-qgrid/common/focus/focus.service';
 
 @Component({
 	selector: 'q-grid-column-sort',
-	templateUrl: './column-sort.component.html',
-	providers: [FocusAfterRender]
+	templateUrl: './column-sort.component.html'
 })
 export class ColumnSortComponent extends PluginComponent implements AfterViewInit, OnDestroy {
 	@Input() public column;
@@ -29,8 +28,7 @@ export class ColumnSortComponent extends PluginComponent implements AfterViewIni
 	constructor(root: RootService,
 		private view: ViewCoreService,
 		private element: ElementRef,
-		private zone: NgZone,
-		focusAfterRender: FocusAfterRender) {
+		private zone: NgZone) {
 		super(root);
 	}
 
@@ -48,7 +46,11 @@ export class ColumnSortComponent extends PluginComponent implements AfterViewIni
 		});
 
 		const listener = new EventListener(nativeElement, new EventManager(this));
-		this.using(listener.on('click', () => ctrl.onClick()));
+		this.using(listener.on('click', () => {
+			if (ctrl.onClick()) {
+				const focus = new FocusAfterRender(this.root);
+			}
+		}));
 
 		this.zone.runOutsideAngular(() =>
 			this.using(listener.on('mouseleave', () => ctrl.onMouseLeave()))
