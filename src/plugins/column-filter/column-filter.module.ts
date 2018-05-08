@@ -2,18 +2,24 @@ import { NgModule } from '@angular/core';
 import { TemplateModule } from 'ng2-qgrid/template/template.module';
 import { ColumnFilterComponent } from './column-filter.component';
 import { ColumnFilterTriggerComponent } from './column-filter-trigger.component';
-import { ColumnFilterByComponent } from 'ng2-qgrid/plugins/column-filter/column-filter-by.component';
+import { ColumnFilterByComponent } from './column-filter-by.component';
+import { ColumnFilterItemListDirective } from './column-filter-item-list.directive';
+import { ColumnFilterItemDirective } from './column-filter-item.directive';
 
 @NgModule({
 	declarations: [
 		ColumnFilterComponent,
 		ColumnFilterTriggerComponent,
-		ColumnFilterByComponent
+		ColumnFilterByComponent,
+		ColumnFilterItemListDirective,
+		ColumnFilterItemDirective
 	],
 	exports: [
 		ColumnFilterComponent,
 		ColumnFilterTriggerComponent,
-		ColumnFilterByComponent
+		ColumnFilterByComponent,
+		ColumnFilterItemListDirective,
+		ColumnFilterItemDirective
 	],
 	imports: [
 		TemplateModule

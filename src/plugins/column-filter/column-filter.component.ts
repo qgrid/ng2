@@ -16,6 +16,7 @@ import { VscrollContext } from 'ng2-qgrid/common/vscroll/vscroll.context';
 import { GridService } from 'ng2-qgrid/main/grid/grid.service';
 import { Fetch } from 'ng2-qgrid/core/infrastructure/fetch';
 import { FocusAfterRender } from 'ng2-qgrid/common/focus/focus.service';
+import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 
 @Component({
 	selector: 'q-grid-column-filter',
@@ -23,7 +24,7 @@ import { FocusAfterRender } from 'ng2-qgrid/common/focus/focus.service';
 	providers: [FocusAfterRender]
 })
 export class ColumnFilterComponent extends PluginComponent implements OnInit, OnDestroy {
-	@Input() public key: string;
+	@Input() public column: ColumnModel;
 	@Input() public search = '';
 
 	@Output('submit') submitEvent = new EventEmitter<any>();
@@ -40,11 +41,10 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 		super(root);
 	}
 
-	public ngOnInit() {
+	ngOnInit() {
 		const model = this.model;
-		const context = {
-			key: this.key
-		};
+		const key = this.column.key;
+		const context = { key };
 
 		const columnFilter = new ColumnFilterView(model, context);
 
@@ -61,7 +61,7 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 				if (filterState.fetch !== this.qgrid.noop) {
 					const cancelBusy = service.busy();
 					const select = filterState
-						.fetch(this.key, {
+						.fetch(key, {
 							skip,
 							take,
 							value: columnFilter.getValue,

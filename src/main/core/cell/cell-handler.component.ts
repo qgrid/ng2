@@ -16,7 +16,6 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private initialSelectionMode: string = null;
 	private initialEditState: string = null;
 
-
 	constructor(private element: ElementRef, private root: RootService, private view: ViewCoreService) {
 	}
 
@@ -149,5 +148,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 			const type = cell.column.type;
 			return model.edit().method === 'batch' && type !== 'id';
 		}
+
+		return false;
 	}
 }
