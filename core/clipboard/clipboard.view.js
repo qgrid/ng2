@@ -25,38 +25,43 @@ export class ClipboardView extends View {
 			e.preventDefault();
 
 			const navigation = model.navigation();
-			const cell = navigation.cell;
 			const editView = new EditCellView(this.model, this.table, new CommandManager());
 
 			const clipboardData = e.clipboardData;
 			const pastedData = clipboardData.getData('Text');
 			const splited = pastedData.split("\n");
+			const result = splited.slice(0, splited.length - 1);
+			let navigatedCell = navigation.cell;
+			let rowIndex = navigatedCell.rowIndex;
+			let columnIndex = navigatedCell.columnIndex;
 
-			const table = document.createElement('table');
+			for (let i = 0; i < result.length; i++) {
+				let cells = result[i].split("\t");
 
-			for(let y in splited) {
-				let cells = splited[y].split("\t");
+				for(let j = 0; j < cells.length; j++) {
+					const label = cells[j];
+					const last = j === cells.length - 1;
+					if (navigatedCell) {
+						const cellView = this.table.body.cell(rowIndex, columnIndex).model();
+						changeLabel(cellView, editView, label);
+						navigatedCell = null;
+					} else {
+						columnIndex += 1;
+						const cellView = this.table.body.cell(rowIndex, columnIndex).model();
+						changeLabel(cellView, editView, label);
+					}
 
-				const editor = new CellEditor(cell);
-				const label = cells[0];
-				editor.label = label;
-				editor.value = label;
-				editView.editor = editor;
-				editView.batchCommit.execute();
+					if (last) {
+						navigatedCell = model.navigation().cell;
+						rowIndex = navigatedCell.rowIndex + 1;
+						columnIndex = navigatedCell.columnIndex;
+					}
 
-				// let row = document.createElement('tr');
-				// for(let x in cells) {
-				// 	row.append('<td>'+cells[x]+'</td>');
-				// }
-				// table.append(row);
+				}
 			}
-
-			const temp = 123;
 		});
 
 		this.using(action.register(selectionCommandManager, commands));
-
-
 	}
 
 	get commands() {
@@ -108,6 +113,10 @@ export class ClipboardView extends View {
 	}
 }
 
-function paste(e) {
-	const temp = 123;
+function changeLabel(cell, edit, label) {
+	const editor = new CellEditor(cell);
+	editor.label = label;
+	editor.value = label;
+	edit.editor = editor;
+	edit.batchCommit.execute();
 }
