@@ -7,6 +7,8 @@ import { ColumnFilterItemListDirective } from './column-filter-item-list.directi
 export class ColumnFilterItemDirective implements OnInit {
 	@Input('q-grid-column-filter-item') value: any;
 
+	$implicit = this;
+
 	constructor(
 		private viewContainerRef: ViewContainerRef,
 		private itemList: ColumnFilterItemListDirective

@@ -9,6 +9,8 @@ const templates = [
 	require('./filter-cell-bool.tpl.html'),
 
 	require('./column-filter-cell-text.tpl.html'),
+	require('./column-filter-cell-currency.tpl.html'),
+	require('./column-filter-cell-date.tpl.html'),
 
 	require('./body-cell-array.tpl.html'),
 	require('./body-cell-bool.tpl.html'),
