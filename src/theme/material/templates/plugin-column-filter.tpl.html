@@ -34,7 +34,7 @@
 					</div>
 				</ng-container>
 				<ng-container *ngSwitchCase="false">
-					<q-grid-column-filter-by [by]="$columnFilter.by">
+					<q-grid-column-filter-by [by]="$columnFilter.by" [column]="$plugin.column">
 					</q-grid-column-filter-by>
 				</ng-container>
 			</div>

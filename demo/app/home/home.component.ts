@@ -67,7 +67,7 @@ export class HomeComponent {
 			key: 'birthday',
 			title: 'Birthday',
 			type: 'date',
-			format: 'dd/MM/yyyy'
+			format: 'dd/MM/yyyy mm:ss'
 		},
 		{
 			key: 'comment',
