@@ -9,7 +9,7 @@
 	<mat-menu #menu="matMenu" class="q-grid-column-filter q-grid-menu">
 		<q-grid-column-filter q-grid-menu
 							  *ngIf="trigger.menuOpen"
-							  [key]="$columnFilterTrigger.column.key"
+							  [column]="$columnFilterTrigger.column"
 							  (cancel)="trigger.closeMenu()"
 							  (submit)="trigger.closeMenu()">
 		</q-grid-column-filter>

@@ -1,11 +1,11 @@
-<ng-template key="plugin-column-filter-by.tpl.html" let-$columnFilterBy>
-	<ul>
-		<li *ngFor="let item of $columnFilterBy.by">
+<ng-template key="plugin-column-filter-by.tpl.html" let-$by>
+	<ul [q-grid-column-filter-item-list]="$by.column">
+		<li *ngFor="let item of $by.by">
 			<div class="q-grid-filter-by">
 				<div class="q-grid-filter-by-item">
-					{{item}}
+					<ng-container [q-grid-column-filter-item]="item"></ng-container>
 				</div>
-				<div class="q-grid-filter-by-remove" (click)="$columnFilterBy.remove(item)">
+				<div class="q-grid-filter-by-remove" (click)="$by.remove(item)">
 					<mat-icon class="q-grid-icon">clear</mat-icon>
 				</div>
 			</div>
