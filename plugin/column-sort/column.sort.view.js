@@ -51,7 +51,10 @@ export class ColumnSortView extends PluginView {
 	onClick() {
 		if (this.toggle.canExecute()) {
 			this.toggle.execute();
+			return true;
 		}
+
+		return false;
 	}
 
 	onMouseLeave() {
