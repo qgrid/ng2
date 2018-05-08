@@ -1,7 +1,6 @@
 import { PluginView } from '../plugin.view';
 import { Model } from '../../core/infrastructure/model';
 import { Event } from '../../core/infrastructure/event';
-import { PersistenceService } from 'ng2-qgrid/core/persistence/persistence.service';
 
 export interface PersistenceItem {
 	title?: string;

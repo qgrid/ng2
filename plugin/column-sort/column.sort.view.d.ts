@@ -5,5 +5,5 @@ export declare class ColumnSortView extends PluginView {
     constructor(model: GridModel, context: any);
     onMouseOver();
     onMouseLeave();
-    onClick();
+    onClick(): boolean;
 }
