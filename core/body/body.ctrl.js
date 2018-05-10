@@ -7,15 +7,15 @@ import { jobLine } from '../services/job.line';
 const MOUSE_LEFT_BUTTON = 1;
 
 export class BodyCtrl extends View {
-	constructor(model, view, table, bag) {
+	constructor(model, view, table, bag, scrollService) {
 		super(model);
 
 		this.view = view;
 		this.bag = bag;
 		this.table = table;
+		this.scrollService = scrollService;
 		this.rangeStartCell = null;
 		this.job = jobLine(0);
-		this.scrollService = null;
 	}
 
 	onScroll(e) {
@@ -71,8 +71,8 @@ export class BodyCtrl extends View {
 			if (selectionState.mode === 'range') {
 				this.rangeStartCell = cell;
 
-				if (!this.scrollService) {
-					this.scrollService = new ScrollService(this.model, this.table);
+				if (!this.scrollService.body) {
+					this.scrollService.setElementsState();
 				}
 
 				if (this.rangeStartCell) {
@@ -108,13 +108,7 @@ export class BodyCtrl extends View {
 				this.navigate(endCell);
 				this.view.selection.selectRange(startCell, endCell, 'body');
 
-				if (this.scrollService.interval) {
-					this.scrollService.canScroll(e);
-				}
-
-				if (!this.scrollService.interval) {
-					this.job(() => this.scrollService.scroll(e));
-				}
+				this.job(() => this.scrollService.scroll(e));
 			}
 		}
 	}

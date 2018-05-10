@@ -1,5 +1,6 @@
 import { View } from '../view';
 import { EventListener, EventManager } from '../../core/infrastructure';
+import { AppError } from '../infrastructure/error';
 
 const offset = 50;
 const velocity = 5;
@@ -10,7 +11,7 @@ export class ScrollService extends View {
 
 		this.table = table;
 		this.interval = null;
-		this.setElementsState(table.view);
+		this.body = null;
 
 		const documentListener = new EventListener(document, new EventManager(this));
 		const windowListener = new EventListener(window, new EventManager(this));
@@ -22,12 +23,8 @@ export class ScrollService extends View {
 		}));
 
 		this.using(windowListener.on('resize', () => {
-			this.setElementsState(this.getMarkup());
+			this.setElementsState();
 		}));
-	}
-
-	getMarkup() {
-		return this.table.view.markup;
 	}
 
 	canScroll(e) {
@@ -42,64 +39,43 @@ export class ScrollService extends View {
 	}
 
 	scroll(e) {
-		if (!this.interval) {
-			const area = this.detectArea(e);
+		if (this.interval) {
+			this.canScroll(e);
+			return;
+		}
 
-			switch (area) {
-				case 'top': {
-					const interval = this.doScroll('top', '-');
-					this.interval = interval();
-					break;
-				}
-				case 'bottom': {
-					const interval = this.doScroll('bottom', '+');
-					this.interval = interval();
-					break;
-				}
-				case 'left': {
-					const interval = this.doScroll('left', '-');
-					this.interval = interval();
-					break;
-				}
-				case 'right': {
-					const interval = this.doScroll('right', '+');
-					this.interval = interval();
-				}
-			}
+		const direction = this.onEdgeOf(e);
+		if (direction) {
+			const interval = this.doScroll(direction);
+			this.interval = interval();
 		}
 	}
 
-	doScroll(direction, modifier) {
-		const scrollVelocity = modifier === '+' ? velocity : velocity * -1;
+	doScroll(direction) {
 		const scrollState = this.model.scroll;
-		let scrolledToEnd;
-
-		switch (direction) {
-			case 'top': {
-				scrolledToEnd = () => this.isScrolledToEnd('top');
-				direction = 'top';
-				break;
-			}
-			case 'bottom': {
-				scrolledToEnd = () => this.isScrolledToEnd('bottom');
-				direction = 'top';
-				break;
-			}
-			case 'left': {
-				scrolledToEnd = () => this.isScrolledToEnd('left');
-				direction = 'left';
-				break;
-			}
-			case 'right': {
-				scrolledToEnd = () => this.isScrolledToEnd('right');
-				direction = 'left';
-			}
-		}
+		const scrolledToEnd = () => this.isScrolledToEnd(direction);
 
 		return () => setInterval(() => {
 			if(!scrolledToEnd()) {
-				const origin = scrollState()[direction];
-				scrollState({[direction]: origin + scrollVelocity});
+				switch(direction) {
+					case 'right':
+					case 'bottom': {
+						const course = direction === 'bottom' ? 'top' : 'left';
+						const origin = scrollState()[course];
+						scrollState({[course]: origin + velocity});
+						break;
+					}
+					case 'left':
+					case 'top': {
+						const course = direction === 'top' ? 'top' : 'left';
+						const origin = scrollState()[course];
+						scrollState({[course]: origin - velocity});
+						break;
+					}
+					default: {
+						throw new AppError('scroll.service', `doScroll: Wrong direction`);
+					}
+				}
 			}
 		}, 50);
 	}
@@ -123,7 +99,7 @@ export class ScrollService extends View {
 		}
 	}
 
-	detectArea(e) {
+	onEdgeOf(e) {
 		const table = this.table;
 
 		if (e.clientY < (table.top + offset) &&
@@ -149,9 +125,13 @@ export class ScrollService extends View {
 			e.clientY < (table.bottom - offset)) {
 			return 'right';
 		}
+
+		return false;
 	}
 
-	setElementsState(view) {
+	setElementsState() {
+		const view = this.table.view;
+
 		this.body = view.markup.body;
 		this.table = view.rect(this.body);
 	}
