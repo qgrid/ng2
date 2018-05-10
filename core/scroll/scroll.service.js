@@ -96,6 +96,9 @@ export class ScrollService extends View {
 			case 'right': {
 				return body.scrollLeft === body.scrollWidth - body.clientWidth;
 			}
+			default: {
+				throw new AppError('scroll.service', `isScrolledToEnd: Wrong direction`);
+			}
 		}
 	}
 
