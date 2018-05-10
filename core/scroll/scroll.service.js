@@ -1,6 +1,7 @@
 import { View } from '../view';
 import { EventListener, EventManager } from '../../core/infrastructure';
 import { AppError } from '../infrastructure/error';
+import { jobLine } from '../services/job.line';
 
 const offset = 50;
 const velocity = 5;
@@ -11,7 +12,9 @@ export class ScrollService extends View {
 
 		this.table = table;
 		this.interval = null;
+		this.rect = null;
 		this.body = null;
+		this.job = jobLine(0);
 
 		const documentListener = new EventListener(document, new EventManager(this));
 		const windowListener = new EventListener(window, new EventManager(this));
@@ -28,27 +31,30 @@ export class ScrollService extends View {
 	}
 
 	canScroll(e) {
-		const table = this.table;
+		const table = this.rect;
 
-		if (e.clientY < (table.bottom - offset) &&
-			e.clientY > (table.top + offset) &&
-			e.clientX > (table.left + offset) &&
-			e.clientX < (table.right - offset)) {
-			this.stop();
-		}
+		return !(e.clientY < (table.bottom - offset) &&
+		e.clientY > (table.top + offset) &&
+		e.clientX > (table.left + offset) &&
+		e.clientX < (table.right - offset))
 	}
 
 	scroll(e) {
-		if (this.interval) {
-			this.canScroll(e);
-			return;
+		if(this.interval) {
+			if (!this.canScroll(e)) {
+				this.stop();
+				return;
+			}
 		}
 
 		const direction = this.onEdgeOf(e);
-		if (direction) {
-			const interval = this.doScroll(direction);
-			this.interval = interval();
+		if (direction && !this.interval) {
+			this.job(() => {
+				const interval = this.doScroll(direction);
+				this.interval = interval();
+			})
 		}
+
 	}
 
 	doScroll(direction) {
@@ -103,7 +109,7 @@ export class ScrollService extends View {
 	}
 
 	onEdgeOf(e) {
-		const table = this.table;
+		const table = this.rect;
 
 		if (e.clientY < (table.top + offset) &&
 			e.clientX > (table.left + offset) &&
@@ -136,7 +142,7 @@ export class ScrollService extends View {
 		const view = this.table.view;
 
 		this.body = view.markup.body;
-		this.table = view.rect(this.body);
+		this.rect = view.rect(this.body);
 	}
 
 	stop() {
