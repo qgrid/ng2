@@ -42,7 +42,7 @@ export class ColumnFilterView extends PluginView {
 
 	isEmpty() {
 		return !this.by.size;
-	}
+	};
 
 	get commands() {
 		return {
@@ -57,7 +57,12 @@ export class ColumnFilterView extends PluginView {
 					}
 				}
 			}),
-
+			toggleBlanks: new Command({
+				source: 'column.filter.view',
+				execute: () => {
+					// this.byBlanks = !this.byBlanks;
+				}
+			}),
 			toggleAll: new Command({
 				source: 'column.filter.view',
 				execute: search => {

@@ -34,7 +34,12 @@
 					</div>
 				</ng-container>
 				<ng-container *ngSwitchCase="false">
-					<q-grid-column-filter-by [by]="$columnFilter.by" [column]="$plugin.column">
+					<q-grid-column-filter-by
+						[by]="$columnFilter.by"
+						[byBlanks]="$columnFilter.byBlanks"
+						[column]="$plugin.column"
+						(removeBlanks)="$columnFilter.toggleBlanks.execute()"
+					>
 					</q-grid-column-filter-by>
 				</ng-container>
 			</div>
@@ -54,7 +59,8 @@
 					</li>
 					<li>
 						<mat-checkbox *ngIf="$columnFilter.hasBlanks"
-						              [(ngModel)]="$columnFilter.byBlanks"
+										  [checked]="$columnFilter.byBlanks"
+										  (click)="$columnFilter.toggleBlanks.execute()"
 						              aria-label="Select blanks">
 							<span [innerHTML]="'(Blanks)' | qGridHighlight: $plugin.search"></span>
 						</mat-checkbox>
