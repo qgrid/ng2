@@ -1,48 +1,29 @@
-import {Component, DoCheck, EventEmitter, Input, OnChanges, Optional, Output, SimpleChanges} from '@angular/core';
-import { PluginComponent } from 'ng2-qgrid/plugins/plugin.component';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
-import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
-
-const Blanks = '(Blanks)';
+import {Component, Input, Optional} from '@angular/core';
+import {PluginComponent} from 'ng2-qgrid/plugins/plugin.component';
+import {RootService} from 'ng2-qgrid/infrastructure/component/root.service';
+import {ColumnModel} from 'ng2-qgrid/core/column-type/column.model';
 
 @Component({
 	selector: 'q-grid-column-filter-by',
 	templateUrl: './column-filter-by.component.html'
 })
-export class ColumnFilterByComponent extends PluginComponent implements OnChanges, DoCheck {
-	@Input() by: Set<string>;
-	@Input() byBlanks: boolean;
+export class ColumnFilterByComponent extends PluginComponent {
 	@Input() column: ColumnModel;
-
-	@Output() removeBlanks = new EventEmitter<any>();
+	@Input() columnFilter: any;
 
 	constructor(@Optional() root: RootService) {
 		super(root);
 	}
 
-	ngOnChanges(changes: SimpleChanges) {
-		const temp = 123;
-		switch (changes.byBlanks.currentValue) {
-			case (true): {
-				this.by.add(Blanks);
-				break;
-			}
-			case (false): {
-				if (this.by.has(Blanks)) {
-					this.by.delete(Blanks);
-				}
-			}
-		}
-	}
-
-	ngDoCheck() {
-		const temp = 123;
+	get isBlanks() {
+		return this.columnFilter.byBlanks;
 	}
 
 	remove(item: string): void {
-		if (item === Blanks) {
-			this.removeBlanks.emit();
+		if (item) {
+			this.columnFilter.by.delete(item);
+		} else {
+			this.columnFilter.byBlanks = false;
 		}
-		this.by.delete(item);
 	}
 }
