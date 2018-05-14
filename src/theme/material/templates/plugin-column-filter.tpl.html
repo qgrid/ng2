@@ -35,7 +35,8 @@
 				</ng-container>
 				<ng-container *ngSwitchCase="true">
 					<q-grid-column-filter-by
-						[columnFilter]="$columnFilter"
+						[by]="$columnFilter.by"
+						[(byBlanks)]="$columnFilter.byBlanks"
 						[column]="$plugin.column">
 					</q-grid-column-filter-by>
 				</ng-container>
