@@ -16,7 +16,6 @@ import { ThemeModule } from '../lib/theme/material/theme.module';
     ThemeModule,
     BrowserAnimationsModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
