@@ -11,26 +11,35 @@ const babel = require('rollup-plugin-babel');
 const sass = require('npm-sass');
 const inlineStyles = require('./build.inline');
 const rollupConfig = require('./build.rollup');
+const buildTheme = require('./build.theme');
 
 const rootFolder = path.join(__dirname);
 const tscFolder = path.join(rootFolder, 'out-tsc');
 const srcFolder = path.join(rootFolder, 'src');
-const distFolder = path.join(rootFolder, 'dist');
-const themeFolder = tscFolder;
+const themeFolder = path.join(tscFolder, 'lib/theme/material');
 const es2015Folder = path.join(tscFolder, 'es2015');
 const es2015Entry = path.join(es2015Folder, 'index.js');
+const distFolder = path.join(rootFolder, 'dist');
 
 return Promise.resolve()
   // Copy library to temporary folder and inline html/css.
   .then(() => console.log(`copy: ${srcFolder}`))
   .then(() => relativeCopy(`**/*`, srcFolder, tscFolder))
   .then(() => console.log(`copy: succeeded`))
-  .then(() => console.log(`scss: ${themeFolder}`))
+  .then(() => console.log(`theme: build`))
+  .then(() =>
+    buildTheme({
+      path: path.join(themeFolder, 'templates'),
+      outputPath: path.join(themeFolder, 'theme.component.gen.html'),
+    })
+  )
+  .then(() => console.log(`theme: succeeded`))
+  .then(() => console.log(`scss: ${tscFolder}`))
   .then(() => {
-    const files = glob.sync('**/index.scss', { cwd: themeFolder });
+    const files = glob.sync('**/index.scss', { cwd: tscFolder });
     return Promise.all(files.map(name =>
       new Promise((resolve, reject) => {
-        const filePath = path.join(themeFolder, name);
+        const filePath = path.join(tscFolder, name);
         console.log(`scss: ${filePath}`)
         sass(filePath, (err, result) => {
           if (err) {
