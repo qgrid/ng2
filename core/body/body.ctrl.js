@@ -68,10 +68,6 @@ export class BodyCtrl extends View {
 			if (selectionState.mode === 'range') {
 				this.rangeStartCell = cell;
 
-				if (!this.scrollService.body) {
-					this.scrollService.setElementsState();
-				}
-
 				if (this.rangeStartCell) {
 					this.view.selection.selectRange(this.rangeStartCell, null, 'body');
 				}

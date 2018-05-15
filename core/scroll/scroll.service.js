@@ -40,6 +40,10 @@ export class ScrollService extends View {
 	}
 
 	scroll(e) {
+		if (!this.body) {
+			this.setElementsState();
+		}
+
 		if(this.interval) {
 			if (!this.canScroll(e)) {
 				this.stop();
