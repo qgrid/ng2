@@ -1,4 +1,4 @@
-import { Component, Input, Optional } from '@angular/core';
+import { Component, EventEmitter, Input, Optional, Output } from '@angular/core';
 import { PluginComponent } from 'ng2-qgrid/plugins/plugin.component';
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
@@ -10,12 +10,23 @@ import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 export class ColumnFilterByComponent extends PluginComponent {
 	@Input() by: Set<string>;
 	@Input() column: ColumnModel;
+	@Input() byBlanks: boolean;
+
+	@Output() byBlanksChange = new EventEmitter();
 
 	constructor(@Optional() root: RootService) {
 		super(root);
 	}
 
+	get isBlanks() {
+		return this.byBlanks;
+	}
+
 	remove(item: string): void {
 		this.by.delete(item);
+	}
+
+	removeByBlanks() {
+		this.byBlanksChange.emit(false);
 	}
 }
