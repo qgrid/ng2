@@ -11,17 +11,15 @@
                 }
             }
             .mat-form-field {
-                //min-width: 75px;
-					 width: 75px;
-
-					.mat-input-wrapper {
+                width: 75px;
+                .mat-form-field-wrapper {
                     padding-bottom: 0;
-                    .mat-input-infix {
+                    .mat-form-field-infix {
                         border: none;
                         padding: 0;
-							input {
-								margin: 0;
-							}
+                        input {
+                            margin: 0;
+                        }
                     }
                 }
                 .mat-form-field-label-wrapper {
@@ -47,31 +45,27 @@
                     }
                 }
             }
-
-			   .mat-chip-list {
-					display: inline-block;
-					.mat-chip-list-wrapper {
-						display: inline-block;
-					}
-
-					.mat-chip {
-						padding: 0;
-						border-radius: 0;
-						background-color: transparent;
-						outline: none;
-
-						.q-grid-icon {
-							margin-left: -3px;
-							margin-right: 0px;
-
-							font-size: 13px;
-							line-height: 13px;
-							height: 15px;
-							width: 15px;
-							vertical-align: middle;
-						}
-					}
-				}
+            .mat-chip-list {
+                display: inline-block;
+                .mat-chip-list-wrapper {
+                    display: inline-block;
+                }
+                .mat-chip {
+                    padding: 0;
+                    border-radius: 0;
+                    background-color: transparent;
+                    outline: none;
+                    .q-grid-icon {
+                        margin-left: -3px;
+                        margin-right: 0px;
+                        font-size: 13px;
+                        line-height: 13px;
+                        height: 15px;
+                        width: 15px;
+                        vertical-align: middle;
+                    }
+                }
+            }
             .qb {
                 &-operation,
                 &-operator {

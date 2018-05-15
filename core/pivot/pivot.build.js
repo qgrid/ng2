@@ -1,4 +1,4 @@
-import {identity} from '../utility';
+import {identity} from '../utility/index';
 import {pivot} from './pivot';
 import {pivotForm} from './pivot.form';
 

@@ -1,4 +1,4 @@
-import {isUndefined, identity} from '../utility';
+import {isUndefined, identity} from '../utility/index';
 import {AppError} from '../infrastructure';
 import {getFactory} from '../services/value';
 

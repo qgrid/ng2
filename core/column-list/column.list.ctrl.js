@@ -1,5 +1,5 @@
 import { View } from '../view/view';
-import { clone, isUndefined } from '../utility';
+import { clone, isUndefined } from '../utility/index';
 import { compile, getType } from '../services';
 import * as columnService from '../column/column.service';
 import { columnFactory } from '../column/column.factory';

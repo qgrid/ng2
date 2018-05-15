@@ -3,8 +3,8 @@ import { VscrollDirective } from './vscroll.directive';
 import { VscrollBox } from './vscroll.box';
 import { IVscrollSettings } from './vscroll.settings';
 import { VscrollContainer } from './vscroll.container';
-import { isNumber } from 'ng2-qgrid/core/utility';
-import { AppError } from 'ng2-qgrid/core/infrastructure';
+import { isNumber } from 'ng2-qgrid/core/utility/index';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 
 export class VscrollLink {
 	private box = new VscrollBox();

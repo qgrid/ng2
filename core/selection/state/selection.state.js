@@ -1,4 +1,4 @@
-import { isArray } from '../../utility';
+import { isArray } from '../../utility/index';
 import { Node } from '../../node';
 
 export class SelectionState {

@@ -18,14 +18,15 @@ export interface PersistenceGroup {
 	items: PersistenceItem[];
 }
 
-export class PersistenceView extends PluginView {
+export declare class PersistenceView extends PluginView {
 	constructor(model: Model);
+
 	groups: PersistenceGroup[];
 	items: PersistenceItem[];
 	closeEvent: Event;
 
-	get blank(): PersistenceItem;
-	get sortedItems(): PersistenceItem[];
+	readonly blank: PersistenceItem;
+	readonly sortedItems: PersistenceItem[];
 
 	isActive(item: PersistenceItem): boolean;
 	isUniqueTitle(title: string): boolean;

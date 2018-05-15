@@ -1,4 +1,4 @@
-import { flatten, isFunction, yes } from '../utility';
+import { flatten, isFunction, yes } from '../utility/index';
 
 export class ShortcutDispatcher {
 	constructor() {

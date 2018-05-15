@@ -4,7 +4,7 @@ import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
 import { CellSelector } from '../cell';
 import { SelectionService } from '../selection';
-import { noop } from '../utility';
+import { noop } from '../utility/index';
 import { GRID_PREFIX } from '../definition';
 import { Fastdom } from '../services/fastdom';
 

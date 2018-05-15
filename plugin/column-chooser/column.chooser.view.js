@@ -1,7 +1,7 @@
 import * as columnService from '../../core/column/column.service';
 import {Command} from '../../core/command';
 import {Aggregation} from '../../core/services';
-import {isFunction, noop} from '../../core/utility';
+import {isFunction, noop} from '../../core/utility/index';
 import {PluginView} from '../plugin.view';
 import {Event} from '../../core/infrastructure';
 

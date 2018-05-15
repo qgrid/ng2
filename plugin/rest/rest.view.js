@@ -1,5 +1,5 @@
-import { isFunction } from '../../core/utility';
-import { AppError } from '../../core/infrastructure';
+import { isFunction } from '../../core/utility/index';
+import { AppError } from '../../core/infrastructure/error';
 import { PipeUnit } from '../../core/pipe/pipe.unit';
 import { PluginView } from '../plugin.view';
 import { serialize as serializeGet } from '../../core/rest/get.serialize';

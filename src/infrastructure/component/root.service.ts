@@ -1,6 +1,6 @@
+import { Injectable } from '@angular/core';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
-import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { CommandManager } from 'ng2-qgrid/core/command/command.manager';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Table } from 'ng2-qgrid/core/dom/table';
@@ -20,7 +20,7 @@ export class RootService {
 	public table: Table = null;
 	public commandManager;
 
-	constructor(private changeDetector: ChangeDetectorRef) {}
+	constructor() {}
 
 	get model() {
 		Guard.notNull(this.gridModel, 'model');

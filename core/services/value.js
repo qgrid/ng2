@@ -1,4 +1,4 @@
-import {isFunction} from '../utility';
+import {isFunction} from '../utility/index';
 import {compileSet, compileGet} from './path';
 import {AppError} from '../infrastructure';
 

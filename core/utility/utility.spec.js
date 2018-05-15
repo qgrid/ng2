@@ -1,4 +1,4 @@
-import * as Utility from './utility';
+import * as Utility from './utility/index';
 
 describe('utility', () => {
 	describe('isObject', () => {

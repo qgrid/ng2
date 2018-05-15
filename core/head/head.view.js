@@ -3,7 +3,7 @@ import {Log} from '../infrastructure';
 import {Command} from '../command';
 import * as columnService from '../column/column.service';
 import {FilterRowColumn} from '../column-type';
-import {clone, isUndefined} from '../utility';
+import {clone, isUndefined} from '../utility/index';
 
 export class HeadView extends View {
 	constructor(model, table, tagName) {

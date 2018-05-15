@@ -1,6 +1,6 @@
 import {Fetch} from '../infrastructure';
 import {parseFactory} from '../services';
-import {clone, isUndefined, noop} from '../utility';
+import {clone, isUndefined, noop} from '../utility/index';
 import {get as getLabel} from '../services/label';
 
 class CellEditorCore {

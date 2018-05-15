@@ -2,7 +2,7 @@ import { View } from '../view';
 import { Monitor } from './style.monitor';
 import * as columnService from '../column/column.service';
 import { getFactory as valueFactory } from '../services/value';
-import { noop } from '../utility';
+import { noop } from '../utility/index';
 import { VirtualRowStyle, VirtualCellStyle } from './style.virtual';
 import { Composite } from '../infrastructure';
 

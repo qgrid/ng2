@@ -1,11 +1,11 @@
-import {AppError} from '@grid/core/infrastructure';
-import {PluginService} from '@grid/core/plugin';
-import {columnFactory} from '@grid/core/column/column.factory';
-import {generate} from '@grid/core/column-list';
-import {firstRowTitle, numericTitle, alphaTitle} from '@grid/core/services/title';
-import {Json} from '@grid/core/import/json';
-import {Xml} from '@grid/core/import/xml';
-import {Csv} from '@grid/core/import/csv';
+import {AppError} from '../../core/infrastructure';
+import {PluginService} from '../../core/plugin';
+import {columnFactory} from '../../core/column/column.factory';
+import {generate} from '../../core/column-list';
+import {firstRowTitle, numericTitle, alphaTitle} from '../../core/services/title';
+import {Json} from '../../core/import/json';
+import {Xml} from '../../core/import/xml';
+import {Csv} from '../../core/import/csv';
 import {Xlsx} from './xlsx';
 
 function getType(name) {

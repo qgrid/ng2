@@ -7,10 +7,10 @@ export class FocusAfterRender implements OnDestroy {
 
 	constructor(@Optional() root: RootService) {
 		if (root) {
-			this.off = root.model.sceneChanged.on(e => {
+			this.off = root.model.sceneChanged.on((e, off) => {
 				if (e.state.status === 'stop') {
 					root.table.view.focus();
-					this.off();
+					off();
 					this.off = null;
 				}
 			});

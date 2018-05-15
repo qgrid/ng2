@@ -1,6 +1,6 @@
 import {columnFactory} from '../column/column.factory';
 import * as columnService from '../column/column.service';
-import {noop} from '../utility';
+import {noop} from '../utility/index';
 import {generateFactory, sortIndexFactory} from '../column-list';
 
 export function columnPipe(memo, context, next) {

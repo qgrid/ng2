@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
-import {RestComponent} from './rest.component';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { RestComponent } from './rest.component';
 
 @NgModule({
 	imports: [HttpClientModule],

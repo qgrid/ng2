@@ -1,4 +1,4 @@
-import {identity, compare} from '../utility';
+import {identity, compare} from '../utility/index';
 import {Command} from '../command';
 import {TemplatePath} from '../template';
 

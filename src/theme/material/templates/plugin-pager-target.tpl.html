@@ -3,7 +3,7 @@
 	<mat-menu #menu="matMenu" class="q-grid-mat-menu">
 		<mat-card (keyup.enter)="trigger.closeMenu()"
 					 *ngIf="trigger.menuOpen">
-			<mat-input-container>
+			<mat-form-field>
 						<input id="q-grid-menu-input"
 								 matInput type="number" #input
 								 (click)="$event.stopPropagation()"
@@ -13,7 +13,7 @@
 								 q-grid-focus
 								 (keydown)="$target.keyDown($event)"
 								 placeholder="Go to page:"/>
-			</mat-input-container>
+			</mat-from-field>
 		</mat-card>
 	</mat-menu>
 

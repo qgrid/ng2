@@ -1,4 +1,4 @@
-import {isObject, isArray} from '../utility';
+import {isObject, isArray} from '../utility/index';
 
 function flatView(obj, separator = ', ') {
 	const result = {};

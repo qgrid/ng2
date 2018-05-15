@@ -1,5 +1,5 @@
 import {sortPipe as sort} from './sort.pipe';
-import {compare} from '../utility';
+import {compare} from '../utility/index';
 
 describe('sort pipe', () => {
 	const list = [{

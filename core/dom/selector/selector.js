@@ -1,5 +1,5 @@
 import {FakeElement} from '../fake';
-import {isUndefined} from '../../utility';
+import {isUndefined} from '../../utility/index';
 
 export class Selector {
 	constructor(element, bag, factory) {

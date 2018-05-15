@@ -3,9 +3,9 @@ import { PersistenceService } from '../../core/persistence/persistence.service';
 import { Command, CommandManager } from '../../core/command';
 import { stringifyFactory } from '../../core/services/';
 import { Shortcut, ShortcutDispatcher } from '../../core/shortcut';
-import { clone } from '../../core/utility';
-import { Event } from '../../core/infrastructure';
-import { groupBy } from '../../core/utility/utility';
+import { clone } from '../../core/utility/index';
+import { Event } from '../../core/infrastructure/event';
+import { groupBy } from '../../core/utility/index';
 
 export class PersistenceView extends PluginView {
 	constructor(model) {

@@ -1,6 +1,6 @@
 import {FakeElement} from '../fake';
 import {Container} from '../container';
-import {zip, sumBy, max, isUndefined} from '../../utility';
+import {zip, sumBy, max, isUndefined} from '../../utility/index';
 
 export class SelectorMediator {
 	constructor(selectorFactory, factory) {

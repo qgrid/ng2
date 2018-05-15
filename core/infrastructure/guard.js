@@ -1,5 +1,5 @@
 import {AppError} from  './error';
-import {isUndefined, isFunction} from '../utility';
+import {isUndefined, isFunction} from '../utility/index';
 
 export class Guard {
 	/**

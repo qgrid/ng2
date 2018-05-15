@@ -1,19 +1,15 @@
-import fastdom from 'fastdom';
+import FastDom from 'fastdom';
 
 export class Fastdom {
-    static mutate(...args) {
-        return Fastdom.invoke(() => fastdom.mutate(...args));
+    static mutate(task) {
+        return FastDom.mutate(task);
     }
 
-    static measure(...args) {
-        return Fastdom.invoke(() => fastdom.measure(...args));
+    static measure(task) {
+        return FastDom.measure(task);
     }
 
-    static clear(...args) {
-        return Fastdom.invoke(() => fastdom.clear(...args));
-    }
-
-    static invoke(task) {
-        return task();
+    static clear(task) {
+        return FastDom.clear(task);
     }
 }

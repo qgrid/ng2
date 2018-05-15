@@ -1,7 +1,7 @@
 import {ColumnView} from '../scene/view';
 import {DataColumnModel} from './data.column.model';
 import {TemplatePath} from '../template';
-import {yes} from '../utility';
+import {yes} from '../utility/index';
 import {isImage} from '../services/file';
 
 TemplatePath.register('file-cell', (template, column) => {

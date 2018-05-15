@@ -1,5 +1,5 @@
 import {PluginView} from '../plugin.view';
-import {isString, isEqual} from '@grid/core/utility';
+import {isString, isEqual} from '@grid/core/utility/index';
 import * as validationService from '@grid/core/validation/validation.service';
 
 export class ValidatorView extends PluginView {

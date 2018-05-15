@@ -1,7 +1,7 @@
 import { EventEmitter } from '@angular/core';
-import { isUndefined, isNumber, isFunction } from 'ng2-qgrid/core/utility';
+import { isUndefined, isNumber, isFunction } from 'ng2-qgrid/core/utility/index';
 import { IVscrollSettings } from './vscroll.settings';
-import { AppError } from 'ng2-qgrid/core/infrastructure';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 
 export const rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
 

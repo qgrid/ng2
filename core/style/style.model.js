@@ -1,4 +1,4 @@
-import {noop} from '../utility';
+import {noop} from '../utility/index';
 import {Command} from '../command/command';
 
 export class StyleModel {

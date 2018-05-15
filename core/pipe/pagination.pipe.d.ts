@@ -1,4 +1,4 @@
-import {IContext} from './pipe.item';
+import { IContext, IMemo } from './pipe.item';
 
 /**
  * > Under Construction.

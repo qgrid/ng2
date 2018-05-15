@@ -1,5 +1,5 @@
 import {AppError} from '../infrastructure';
-import {orderBy} from '../utility';
+import {orderBy} from '../utility/index';
 import {key as getKey, direction as getDirection} from '../sort/sort.service';
 import {find} from '../column/column.service';
 import {parseFactory} from '../services';

@@ -1,6 +1,6 @@
 import {View} from './view';
 import {Data} from './data';
-import {assignWith, identity} from  '../utility';
+import {assignWith, identity} from  '../utility/index';
 import {FakeLayer} from './fake';
 import {Head} from './head';
 import {Body, VirtualBody} from './body';

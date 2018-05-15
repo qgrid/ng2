@@ -2,7 +2,7 @@ import { PluginView } from '../plugin.view';
 import { Command } from '../../core/command';
 import * as columnService from '../../core/column/column.service';
 import { getFactory as labelFactory } from '../../core/services/label';
-import { clone } from '../../core/utility';
+import { clone } from '../../core/utility/index';
 import { Event } from '../../core/infrastructure';
 
 export class ColumnFilterView extends PluginView {

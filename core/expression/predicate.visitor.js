@@ -1,7 +1,7 @@
 import { AppError } from '../infrastructure';
 import { castFactory as castAsFactory } from './cast.factory';
 import { Visitor } from './expression.visitor';
-import { isArray, identity } from '../utility';
+import { isArray, identity } from '../utility/index';
 
 export class PredicateVisitor extends Visitor {
 	constructor(valueFactory, assertFactory) {

@@ -1,7 +1,5 @@
-import {Output, EventEmitter, Directive, Input, NgZone, Inject} from '@angular/core';
-import {fromEvent} from 'rxjs/observable/fromEvent';
-import {take} from 'rxjs/operators';
-import {DOCUMENT} from '@angular/common';
+import { Output, EventEmitter, Directive, Input, NgZone, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Directive({
 	selector: '[q-grid-backdrop]'
@@ -28,15 +26,13 @@ export class BackdropDirective {
 		this.backdrop.classList.add('q-grid-backdrop');
 		this.backdrop.style.zIndex = '1000';
 
-		fromEvent(this.backdrop, 'click')
-			.pipe(take(1))
-			.subscribe(() => {
-				this.zone.runOutsideAngular(() => {
-					this.close.emit();
-					this.backdrop.remove();
-					this.backdrop = null;
-				});
+		this.backdrop.addEventListener('click', () => {
+			this.zone.runOutsideAngular(() => {
+				this.close.emit();
+				this.backdrop.remove();
+				this.backdrop = null;
 			});
+		});
 
 		this.zone.runOutsideAngular(() => {
 			const element = <HTMLElement>document.querySelector(this.selector);

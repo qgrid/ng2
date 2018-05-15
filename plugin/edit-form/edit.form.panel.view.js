@@ -1,5 +1,5 @@
 import {PluginView} from '../plugin.view';
-import {isUndefined} from '@grid/core/utility';
+import {isUndefined} from '@grid/core/utility/index';
 import {Command} from '@grid/core/command';
 import {RowEditor} from '@grid/core/edit/edit.row.editor';
 import {Event} from '@grid/core/infrastructure';

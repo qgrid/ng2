@@ -10,7 +10,7 @@ import {
 import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 import { ColumnFilterView } from 'ng2-qgrid/plugin/column-filter/column.filter.view';
-import { uniq, flatten } from 'ng2-qgrid/core/utility';
+import { uniq, flatten } from 'ng2-qgrid/core/utility/index';
 import { VscrollService } from 'ng2-qgrid/common/vscroll/vscroll.service';
 import { VscrollContext } from 'ng2-qgrid/common/vscroll/vscroll.context';
 import { GridService } from 'ng2-qgrid/main/grid/grid.service';

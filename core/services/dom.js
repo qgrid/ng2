@@ -1,4 +1,4 @@
-import { isUndefined } from '../utility';
+import { isUndefined } from '../utility/index';
 
 export function css(element, property, value) {
 	const normalizedProperty = normalize(property);

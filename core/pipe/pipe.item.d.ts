@@ -1,4 +1,4 @@
-import {Model} from '../infrastructure/model';
+import { Model } from '../infrastructure/model';
 
 export interface IPivot {
 	heads: any[];

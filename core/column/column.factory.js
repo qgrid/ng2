@@ -1,5 +1,5 @@
 import {Guard} from '../infrastructure';
-import {assignWith, clone, isUndefined} from '../utility';
+import {assignWith, clone, isUndefined} from '../utility/index';
 import {ColumnView as CustomColumn} from '../scene/view/column.view';
 import {
 	TextColumn,

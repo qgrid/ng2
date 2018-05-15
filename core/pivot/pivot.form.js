@@ -1,4 +1,4 @@
-import {flatten} from '../utility';
+import {flatten} from '../utility/index';
 
 function injectData(schema, source, target) {
 	return Object

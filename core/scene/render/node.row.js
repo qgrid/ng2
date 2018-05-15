@@ -1,5 +1,5 @@
 import {DataRow} from './data.row';
-import {takeWhile, dropWhile, sumBy} from '../../utility';
+import {takeWhile, dropWhile, sumBy} from '../../utility/index';
 import {columnFactory} from '../../column/column.factory';
 import {Aggregation} from '../../services';
 import {AppError} from '../../infrastructure';

@@ -1,6 +1,6 @@
 import {compile, getType, merge as mergeFactory} from '../services';
 import {TextColumnModel} from '../column-type';
-import {startCase, assignWith, noop, isUndefined} from '../utility';
+import {startCase, assignWith, noop, isUndefined} from '../utility/index';
 import {columnFactory} from '../column/column.factory';
 import {AppError} from '../infrastructure';
 

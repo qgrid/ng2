@@ -1,6 +1,6 @@
 import { Command } from '../command';
 import { Composite } from './composite';
-import { identity, yes, no } from '../utility';
+import { identity, yes, no } from '../utility/index';
 
 describe('Composite', () => {
 	describe('composite function', () => {

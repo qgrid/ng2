@@ -1,6 +1,6 @@
 import { PluginView } from '../plugin.view';
 import { GRID_PREFIX } from '../../core/definition';
-import { max } from '../../core/utility';
+import { max } from '../../core/utility/index';
 import { EventListener, EventManager } from '../../core/infrastructure';
 import { jobLine } from '../../core/services/job.line';
 

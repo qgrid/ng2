@@ -1,5 +1,5 @@
 import {DataRow} from './data.row';
-import {sumBy} from '../../utility';
+import {sumBy} from '../../utility/index';
 
 export class DetailsRow extends DataRow {
 	constructor(model) {

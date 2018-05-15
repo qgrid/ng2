@@ -5,7 +5,7 @@ import { selectionStateFactory as stateFactory } from './state';
 import { SelectionRange } from './selection.range';
 import { SelectionService } from './selection.service';
 import { GRID_PREFIX } from '../definition';
-import { noop, isUndefined } from '../utility';
+import { noop, isUndefined } from '../utility/index';
 import { SelectionCommandManager } from './selection.command.manager';
 
 export class SelectionView extends View {

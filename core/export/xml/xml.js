@@ -1,4 +1,4 @@
-import {isObject, isArray, isString} from '../../utility';
+import {isObject, isArray, isString} from '../../utility/index';
 
 const begin = '<?xml version="1.0" encoding="UTF-8"?><root>';
 

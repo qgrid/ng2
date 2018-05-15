@@ -1,8 +1,8 @@
-import { GridModel } from '../../core/infrastructure/model';
+import { Model } from '../../core/infrastructure/model';
 import { PluginView } from '../plugin.view';
 
 export declare class ColumnSortView extends PluginView {
-    constructor(model: GridModel, context: any);
+    constructor(model: Model, context: any);
     onMouseOver();
     onMouseLeave();
     onClick(): boolean;

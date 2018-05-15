@@ -1,4 +1,4 @@
-import {flatten} from '../utility';
+import {flatten} from '../utility/index';
 
 export function stringifyFactory(property) {
 	switch (property) {

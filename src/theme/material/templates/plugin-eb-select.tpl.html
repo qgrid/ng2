@@ -1,6 +1,6 @@
 <ng-template key="plugin-eb-select.tpl.html"
              let-$expr>
-    <mat-select [(ngModel)]="$expr.value"
+    <mat-select [(value)]="$expr.value"
                 (selectionChange)="$expr.change && $expr.change($event)"
                 (openedChange)="$expr.open && $expr.open($event)"
                 [q-grid-eb-class]="$expr.classes"

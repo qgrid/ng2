@@ -1,5 +1,5 @@
 import {Resource} from '../resource';
-import {identity} from '../utility';
+import {identity} from '../utility/index';
 import {Command} from '../command';
 
 export class SelectionModel {

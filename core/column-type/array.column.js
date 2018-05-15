@@ -2,7 +2,7 @@ import {ColumnView} from '../scene/view';
 import {DataColumnModel} from './data.column.model';
 import {TemplatePath} from '../template';
 import {get as getValue} from '../services/value';
-import {isArray, identity} from '../utility';
+import {isArray, identity} from '../utility/index';
 
 TemplatePath.register('array-cell', (template, column) => {
 	return {
