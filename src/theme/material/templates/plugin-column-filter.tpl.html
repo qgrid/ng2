@@ -28,13 +28,16 @@
 			</ul>
 			<div [ngSwitch]="$columnFilter.isEmpty()"
 			     class="q-grid-column-filter-by">
-				<ng-container *ngSwitchCase="true">
+				<ng-container *ngSwitchCase="false">
 					<div class="q-grid-column-filter-by-blank">
 						NO SELECTED FILTERS
 					</div>
 				</ng-container>
-				<ng-container *ngSwitchCase="false">
-					<q-grid-column-filter-by [by]="$columnFilter.by" [column]="$plugin.column">
+				<ng-container *ngSwitchCase="true">
+					<q-grid-column-filter-by
+						[by]="$columnFilter.by"
+						[(byBlanks)]="$columnFilter.byBlanks"
+						[column]="$plugin.column">
 					</q-grid-column-filter-by>
 				</ng-container>
 			</div>

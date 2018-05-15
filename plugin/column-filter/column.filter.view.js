@@ -41,8 +41,8 @@ export class ColumnFilterView extends PluginView {
 	}
 
 	isEmpty() {
-		return !this.by.size;
-	}
+		return !!this.by.size || this.byBlanks;
+	};
 
 	get commands() {
 		return {
@@ -57,7 +57,6 @@ export class ColumnFilterView extends PluginView {
 					}
 				}
 			}),
-
 			toggleAll: new Command({
 				source: 'column.filter.view',
 				execute: search => {
