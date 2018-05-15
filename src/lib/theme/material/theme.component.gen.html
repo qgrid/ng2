@@ -1,440 +1,412 @@
-<ng-template key='body-cell-array.tpl.html'
-             let-$cell>
+<ng-template key='body-cell-array.tpl.html' let-$cell>
 	<ul>
 		<li *ngFor="let item of $cell.value">{{item}}</li>
 	</ul>
-</ng-template>
-<ng-template key='body-cell-bool.tpl.html'
+</ng-template><ng-template key='body-cell-bool.tpl.html'
              let-$cell>
-	<mat-icon class="q-grid-icon"
-	          *ngIf="$cell.value === $cell.column.trueValue">
-		check
-	</mat-icon>
-	<mat-icon class="q-grid-icon"
-	          *ngIf="$cell.column.isIndeterminate($cell.value)">
-		remove
-	</mat-icon>
-</ng-template>
-<ng-template key='body-cell-currency.tpl.html'
+    <mat-icon class="q-grid-icon"
+              *ngIf="$cell.value === $cell.column.trueValue">
+        check
+    </mat-icon>
+    <mat-icon class="q-grid-icon"
+              *ngIf="$cell.column.isIndeterminate($cell.value)">
+        remove
+    </mat-icon>
+</ng-template><ng-template key='body-cell-currency.tpl.html'
              let-$cell>
-	<span>{{$cell.value | currency:$cell.column.code}}</span>
-</ng-template>
-<ng-template key='body-cell-date.tpl.html'
-             let-$cell>
+	<span>{{$cell.value | currency: $cell.column.code}}</span>
+</ng-template><ng-template key='body-cell-date.tpl.html' let-$cell>
 	<span>{{$cell.label | date: $cell.column.format}}</span>
 </ng-template>
 <ng-template key='body-cell-email.tpl.html'
              let-$cell
              let-$view="$view">
-	<a [href]="'mailto:$cell.value'"
-	   (bind)="$cell.label || $cell.value">
-		{{$cell.value}}
-	</a>
-	<button class="q-grid-url-edit q-grid-edit-trigger"
-	        color="primary"
-	        mat-icon-button
-	        matTooltip='Edit Email'
-	        [matTooltipPosition]="'before'"
-	        aria-label="'email'"
-	        (disabled)="!$view.edit.cell.enter.canExecute($cell)"
-	        (click)="$view.edit.cell.enter.execute($cell)">
-		<mat-icon class="q-grid-icon">edit</mat-icon>
-	</button>
-</ng-template>
-<ng-template key='body-cell-file.tpl.html'
+    <a [href]="'mailto:$cell.value'"
+       (bind)="$cell.label || $cell.value">
+        {{$cell.value}}
+    </a>
+    <button class="q-grid-url-edit q-grid-edit-trigger"
+            color="primary"
+            mat-icon-button
+            matTooltip='Edit Email'
+            [matTooltipPosition]="'before'"
+            aria-label="'email'"
+            (disabled)="!$view.edit.cell.enter.canExecute($cell)"
+            (click)="$view.edit.cell.enter.execute($cell)">
+        <mat-icon class="q-grid-icon">edit</mat-icon>
+    </button>
+</ng-template><ng-template key='body-cell-file.tpl.html'
              let-$cell
              let-$view="$view">
-	<a [href]="$cell.value">{{$cell.label || $cell.value}}</a>
-	<button mat-icon-button
-	        *ngIf="$view.edit.cell.canEdit($cell)"
-	        class="q-grid-file-edit q-grid-edit-trigger"
-	        matTooltip="Upload"
-	        aria-label="Аile edit"
-	        (disabled)="!$view.edit.cell.enter.canExecute($cell)"
-	        (click)="$view.edit.cell.enter.execute($cell)"
-	        tabindex="-1">
-		<mat-icon class="q-grid-icon">file_upload</mat-icon>
-	</button>
-</ng-template>
-<ng-template key='body-cell-group.tpl.html'
-             let-$cell
-             let-$view="$view">
+    <a [href]="$cell.value">{{$cell.label || $cell.value}}</a>
+    <button mat-icon-button
+            *ngIf="$view.edit.cell.canEdit($cell)"
+            class="q-grid-file-edit q-grid-edit-trigger"
+            matTooltip="Upload"
+            aria-label="Аile edit"
+            (disabled)="!$view.edit.cell.enter.canExecute($cell)"
+            (click)="$view.edit.cell.enter.execute($cell)"
+            tabindex="-1">
+        <mat-icon class="q-grid-icon">file_upload</mat-icon>
+    </button>
+</ng-template><ng-template key='body-cell-group.tpl.html' let-$cell let-$view="$view">
 	<div [ngStyle]="{'padding-left': $view.group.offset($cell.row) + 'px'}">
 		<button (mouseup)="$view.group.toggleStatus.execute($cell.row)"
-		        *ngIf="$view.group.toggleStatus.canExecute($cell.row)"
-		        [ngSwitch]="$view.group.status($cell.row)"
-		        tabindex="-1"
-		        mat-icon-button>
-			<mat-icon class="q-grid-icon"
-			          *ngSwitchCase="'expand'">arrow_drop_down</mat-icon>
-			<mat-icon class="q-grid-arrow-right q-grid-icon"
-			          *ngSwitchCase="'collapse'">arrow_drop_up</mat-icon>
+				  *ngIf="$view.group.toggleStatus.canExecute($cell.row)"
+				  [ngSwitch]="$view.group.status($cell.row)"
+				  tabindex="-1"
+				  mat-icon-button>
+			<mat-icon  class="q-grid-icon" *ngSwitchCase="'expand'">arrow_drop_down</mat-icon>
+			<mat-icon class="q-grid-arrow-right q-grid-icon" *ngSwitchCase="'collapse'">arrow_drop_up</mat-icon>
 		</button>
 		<span>{{$view.group.value($cell.row)}}</span>
 		<span *ngIf="$view.group.toggleStatus.canExecute($cell.row)">({{$view.group.count($cell.row)}})</span>
 	</div>
 </ng-template>
-<ng-template key='body-cell-image.tpl.html'
-             let-$cell>
-	<img *ngIf="$cell.value"
-	     [src]="$cell.value" />
-	<mat-icon class="q-grid-icon"
-	          *ngIf="!$cell.value">insert_photo</mat-icon>
+<ng-template key='body-cell-image.tpl.html' let-$cell>
+	<img *ngIf="$cell.value" [src]="$cell.value"/>
+	<mat-icon class="q-grid-icon" *ngIf="!$cell.value">insert_photo</mat-icon>
 </ng-template>
 <ng-template key='body-cell-password.tpl.html'>
-	***
-</ng-template>
-<ng-template key='body-cell-reference.tpl.html'
+    ***
+</ng-template><ng-template key='body-cell-reference.tpl.html'
              let-$cell
              let-$view="$view">
-	<span>{{$cell.label}}</span>
-	<button *ngIf="$view.edit.cell.canEdit($cell)"
-	        class="q-grid-reference-edit q-grid-edit-trigger"
-	        (disabled)="!$view.edit.cell.enter.canExecute($cell)"
-	        (click)="$view.edit.cell.enter.execute($cell)"
-	        type="button"
-	        mat-icon-button
-	        matTooltip="Edit reference"
-	        matTooltipPosition="below"
-	        tabindex="-1">
-		<mat-icon matSuffix
-		          class="q-grid-icon">search</mat-icon>
-	</button>
-</ng-template>
-<ng-template key="body-cell-row-expand.tpl.html"
-             let-$cell
-             let-$view="$view">
+    <span>{{$cell.label}}</span>
+    <button *ngIf="$view.edit.cell.canEdit($cell)"
+            class="q-grid-reference-edit q-grid-edit-trigger"
+            (disabled)="!$view.edit.cell.enter.canExecute($cell)"
+			(click)="$view.edit.cell.enter.execute($cell)"
+            type="button"
+            mat-icon-button
+            matTooltip="Edit reference"
+            matTooltipPosition="below"
+            tabindex="-1">
+        <mat-icon matSuffix
+                  class="q-grid-icon">search</mat-icon>
+    </button>
+</ng-template><ng-template key="body-cell-row-expand.tpl.html" let-$cell let-$view="$view">
 	<div class="q-grid-actions">
 		<button (mouseup)="$view.rowDetails.toggleStatus.execute($cell.row)"
-		        *ngIf="$view.rowDetails.toggleStatus.canExecute($cell.row)"
-		        tabindex="-1"
-		        mat-icon-button>
+				  *ngIf="$view.rowDetails.toggleStatus.canExecute($cell.row)"
+				  tabindex="-1"				  
+				  mat-icon-button>
 			<span [ngSwitch]="$view.rowDetails.status($cell.row)">
-				<mat-icon class="q-grid-icon"
-				          *ngSwitchCase="'expand'">arrow_drop_down</mat-icon>
-				<mat-icon class="q-grid-icon"
-				          *ngSwitchCase="'collapse'"
-				          class="q-grid-arrow-right">arrow_drop_up</mat-icon>
+				<mat-icon class="q-grid-icon" *ngSwitchCase="'expand'">arrow_drop_down</mat-icon>
+				<mat-icon class="q-grid-icon" *ngSwitchCase="'collapse'" class="q-grid-arrow-right" >arrow_drop_up</mat-icon>
 			</span>
 		</button>
 	</div>
 </ng-template>
 <ng-template key="body-cell-row-indicator.tpl.html"
-             let-$cell
-             let-$view="$view">
+			 let-$cell
+			 let-$view="$view">
 	<ng-container *ngIf="$view.row.canDrag">
 		<div [q-grid-drag]="$view.row.transfer($cell.rowIndex)"
-		     [q-grid-drop]="$view.row.transfer($cell.rowIndex)"
-		     (q-grid-on-drop)="$view.row.drop.execute($event)"
-		     [q-grid-can-drop]="$view.row.drop.canExecute"
-		     [q-grid-can-drag]="$view.row.drag.canExecute"
-		     class="q-grid-draggable">
+			 [q-grid-drop]="$view.row.transfer($cell.rowIndex)"
+			 (q-grid-on-drop)="$view.row.drop.execute($event)"
+			 [q-grid-can-drop]="$view.row.drop.canExecute"
+			 [q-grid-can-drag]="$view.row.drag.canExecute"
+			 class="q-grid-draggable">
 			<mat-icon class="q-grid-icon">drag_handle</mat-icon>
 		</div>
 	</ng-container>
 	<ng-container *ngIf="$view.row.canResize">
 		<div [q-grid-drag]="$view.row.transfer($cell.row)"
-		     [q-grid-resize]="$cell.row"
-		     q-grid-resize-path="rows"
-		     [q-grid-can-resize]="$view.row.resize.canExecute"
-		     class="q-grid-resizable">
+			 [q-grid-resize]="$cell.row"
+			 q-grid-resize-path="rows"
+			 [q-grid-can-resize]="$view.row.resize.canExecute"
+			 class="q-grid-resizable">
 		</div>
 	</ng-container>
-</ng-template>
-<ng-template key='body-cell-row-number.tpl.html'
-             let-$cell>
+</ng-template><ng-template key='body-cell-row-number.tpl.html' let-$cell>
 	{{$cell.rowIndex + 1}}
 </ng-template>
 <ng-template key='body-cell-row-options.tpl.html'>
-	<mat-icon class="q-grid-icon">more_vert</mat-icon>
-</ng-template>
-<ng-template key='body-cell-select.tpl.html'
-             let-$cell
-             let-$view="$view">
+    <mat-icon class="q-grid-icon">more_vert</mat-icon>
+</ng-template><ng-template key='body-cell-select.tpl.html' let-$cell let-$view="$view">
 	<mat-checkbox [indeterminate]="$view.selection.isIndeterminate($cell.row)"
-	              [checked]="$view.selection.state($cell.row)"
-	              [disabled]="!$view.selection.toggleRow.canExecute($cell.row)"
-	              (change)="$view.selection.toggleRow.execute($cell.row)"
-	              tabindex="-1"
-	              aria-label="Select"
-	              class="q-grid-checkbox">
+					[checked]="$view.selection.state($cell.row)"
+					[disabled]="!$view.selection.toggleRow.canExecute($cell.row)"
+					(change)="$view.selection.toggleRow.execute($cell.row)"
+					tabindex="-1"
+					aria-label="Select"
+					class="q-grid-checkbox">
 	</mat-checkbox>
-</ng-template>
-<ng-template key='body-cell-text.tpl.html'
+</ng-template><ng-template key='body-cell-text.tpl.html'
              let-$cell>
-	{{$cell.label}}
-</ng-template>
-<ng-template key='body-cell-time.tpl.html'
+    {{$cell.label}}
+</ng-template><ng-template key='body-cell-time.tpl.html'
              let-$cell>
-	{{$cell.label}}
-</ng-template>
-<ng-template key='body-cell-url.tpl.html'
+    {{$cell.label}}
+</ng-template><ng-template key='body-cell-url.tpl.html'
              let-$cell
              let-$view="$view">
-	<a [attr.href]='$cell.value'>
-		{{$cell.label || $cell.value}}
-	</a>
-	<button *ngIf="$view.edit.cell.canEdit($cell)"
-	        class="q-grid-url-edit q-grid-edit-trigger"
-	        mat-icon-button
-	        aria-label="url"
-	        [disabled]="!$view.edit.cell.enter.canExecute($cell)"
-	        (click)="$view.edit.cell.enter.execute($cell)"
-	        tabindex="-1"
-	        matTooltip="Edit Url"
-	        [matTooltipPosition]="'below'">
-		<mat-icon class="q-grid-icon">edit</mat-icon>
-	</button>
-</ng-template>
-<ng-template key='edit-cell-array.tpl.html'
+    <a [attr.href]='$cell.value'>
+       {{$cell.label || $cell.value}}
+    </a>
+    <button *ngIf="$view.edit.cell.canEdit($cell)"
+            class="q-grid-url-edit q-grid-edit-trigger"
+            mat-icon-button
+            aria-label="url"
+            [disabled]="!$view.edit.cell.enter.canExecute($cell)"
+            (click)="$view.edit.cell.enter.execute($cell)"
+            tabindex="-1"
+            matTooltip="Edit Url"
+            [matTooltipPosition]="'below'">
+        <mat-icon class="q-grid-icon">edit</mat-icon>
+    </button>
+</ng-template><ng-template key='column-filter-cell-currency.tpl.html'
+             let-$item
+             let-$list="itemList">
+    <span [innerHTML]="$item.value | currency: $list.column.code | qGridHighlight: $list.search"></span>
+</ng-template><ng-template key='column-filter-cell-date.tpl.html'
+             let-$item
+             let-$list="itemList">
+    <span [innerHTML]="$item.value | date: $list.column.format | qGridHighlight: $list.search"></span>
+</ng-template><ng-template key='column-filter-cell-text.tpl.html'
+             let-$item
+             let-$list="itemList">
+    <span [innerHTML]="$item.value | qGridHighlight: $list.search"></span>
+</ng-template><ng-template key='edit-cell-array.tpl.html'
              let-$cell
              let-$view="$view">
-	<q-grid-cell-editor class="q-grid-array q-grid-editor q-grid-position"
-	                    (close)="$view.edit.cell.exit.execute($cell)"
-	                    q-grid-position="td">
-		<ng-template>
-			<div class="q-grid-array-view">
-				<mat-chip-list #chipList>
-					<mat-chip class="q-grid-array-item"
-					          *ngFor="let value of $view.edit.cell.value;let $index = index"
-					          selectable="true"
-					          removable="true"
-					          (remove)="$view.edit.cell.value.splice($index, 1)">
-						{{value}}
-						<mat-icon class="q-grid-icon"
-						          matChipRemove>cancel</mat-icon>
-					</mat-chip>
-				</mat-chip-list>
-			</div>
-			<mat-form-field q-grid-chips
-			                [floatLabel]="'never'">
-				<input class="q-grid-array-input"
-				       matInput
-				       #chipInput
-				       placeholder="New value"
-				       q-grid-focus
-				       [matChipInputFor]="chipList" />
-			</mat-form-field>
-		</ng-template>
-	</q-grid-cell-editor>
-</ng-template>
-<ng-template key='edit-cell-bool.tpl.html'
+    <q-grid-cell-editor class="q-grid-array q-grid-editor q-grid-position"
+                        (close)="$view.edit.cell.exit.execute($cell)"
+                        q-grid-position="td">
+        <ng-template>
+            <div class="q-grid-array-view">
+                <mat-chip-list #chipList>
+                    <mat-chip class="q-grid-array-item"
+                              *ngFor="let value of $view.edit.cell.value;let $index = index"
+                              selectable="true"
+                              removable="true"
+                              (remove)="$view.edit.cell.value.splice($index, 1)">
+                        {{value}}
+                        <mat-icon class="q-grid-icon"
+                                  matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+            <mat-form-field q-grid-chips
+                            [floatLabel]="'never'">
+                <input class="q-grid-array-input"
+                       matInput
+                       #chipInput
+                       placeholder="New value"
+                       q-grid-focus
+                       [matChipInputFor]="chipList" />
+            </mat-form-field>
+        </ng-template>
+    </q-grid-cell-editor>
+</ng-template><ng-template key='edit-cell-bool.tpl.html'
              let-$cell
              let-$view="$view">
-	<q-grid-bool-editor></q-grid-bool-editor>
-</ng-template>
-<ng-template key='edit-cell-currency.tpl.html'
+    <q-grid-bool-editor></q-grid-bool-editor>
+</ng-template><ng-template key='edit-cell-currency.tpl.html'
              let-$cell
              let-$view="$view">
-	<q-grid-cell-editor class="q-grid-currency q-grid-editor q-grid-position q-grid-text"
-	                    (close)="$view.edit.cell.exit.execute($cell)"
-	                    q-grid-position="td">
-		<ng-template>
-			<mat-form-field>
-				<input matInput
-				       type="number"
-				       #input
-				       q-grid-focus
-				       [(ngModel)]="$view.edit.cell.value" />
-			</mat-form-field>
-		</ng-template>
-	</q-grid-cell-editor>
-</ng-template>
-<ng-template key='edit-cell-date.tpl.html'
+    <q-grid-cell-editor class="q-grid-currency q-grid-editor q-grid-position q-grid-text"
+                        (close)="$view.edit.cell.exit.execute($cell)"
+                        q-grid-position="td">
+        <ng-template>
+            <mat-form-field>
+                <input matInput
+                       type="number"
+                       #input
+                       q-grid-focus
+                       [(ngModel)]="$view.edit.cell.value" />
+            </mat-form-field>
+        </ng-template>
+    </q-grid-cell-editor>
+</ng-template><ng-template key='edit-cell-date.tpl.html'
              let-$cell
              let-$view="$view">
-	<q-grid-cell-editor class="q-grid-date q-grid-editor q-grid-position q-grid-text"
-	                    (close)="$view.edit.cell.exit.execute($cell)"
-	                    q-grid-position="td">
-		<ng-template>
-			<mat-form-field>
-				<input q-grid-focus
-				       matInput
-				       [matDatepicker]="picker"
-				       [(ngModel)]="$view.edit.cell.value" />
-				<mat-datepicker-toggle matSuffix
-				                       [for]="picker">
-				</mat-datepicker-toggle>
-				<mat-datepicker #picker>
-				</mat-datepicker>
-			</mat-form-field>
-		</ng-template>
-	</q-grid-cell-editor>
-</ng-template>
-<ng-template key='edit-cell-dropdown.tpl.html'
+    <q-grid-cell-editor class="q-grid-date q-grid-editor q-grid-position q-grid-text"
+                        (close)="$view.edit.cell.exit.execute($cell)"
+                        q-grid-position="td">
+        <ng-template>
+            <mat-form-field>
+                <input q-grid-focus
+                       matInput
+                       [matDatepicker]="picker"
+                       [(ngModel)]="$view.edit.cell.value" />
+                <mat-datepicker-toggle matSuffix
+                                       [for]="picker">
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker>
+                </mat-datepicker>
+            </mat-form-field>
+        </ng-template>
+    </q-grid-cell-editor>
+</ng-template><ng-template key='edit-cell-dropdown.tpl.html'
              let-$cell
              let-$view="$view">
-	<div class="q-grid-dropdown"
-	     q-grid-select>
-		<mat-select #select
-		            [(value)]="$view.edit.cell.value"
-		            (onOpen)="$view.edit.cell.fetch.busy"
-		            (onClose)="$view.edit.cell.commit.execute($cell)">
-			<mat-option *ngFor="let option of $view.edit.cell.fetch.result"
-			            [value]="option">
-				{{option}}
-			</mat-option>
-		</mat-select>
-	</div>
-</ng-template>
-<ng-template key='edit-cell-email.tpl.html'
+    <div class="q-grid-dropdown"
+         q-grid-select>
+        <mat-select #select
+                    [(ngModel)]="$view.edit.cell.value"
+                    (onOpen)="$view.edit.cell.fetch.busy"
+                    (onClose)="$view.edit.cell.commit.execute($cell)">
+            <mat-option *ngFor="let option of $view.edit.cell.fetch.result"
+                        [value]="option">
+                {{option}}
+            </mat-option>
+        </mat-select>
+    </div>
+</ng-template><ng-template key='edit-cell-email.tpl.html'
              let-$cell
              let-$view="$view">
-	<q-grid-cell-editor class="q-grid-email q-grid-editor q-grid-position"
-	                    (close)="$view.edit.cell.exit.execute($cell)"
-	                    q-grid-position="td">
-		<ng-template>
-			<q-grid-tab-trap>
-				<ng-template>
-					<div class="layout-column q-grid-email-fields"
-					     flex>
-						<mat-form-field *ngIf="$cell.column.label !== null">
-							<input matInput
-							       type="text"
-							       [(ngModel)]="$view.edit.cell.label"
-							       placeholder="Label" />
-						</mat-form-field>
-						<mat-form-field>
-							<input q-grid-focus
-							       matInput
-							       type="email"
-							       [(ngModel)]="$view.edit.cell.value"
-							       placeholder="Email" />
-						</mat-form-field>
-					</div>
-				</ng-template>
-			</q-grid-tab-trap>
-		</ng-template>
-	</q-grid-cell-editor>
-</ng-template>
-<ng-template key='edit-cell-file.tpl.html'
+    <q-grid-cell-editor class="q-grid-email q-grid-editor q-grid-position"
+                        (close)="$view.edit.cell.exit.execute($cell)"
+                        q-grid-position="td">
+        <ng-template>
+            <q-grid-tab-trap>
+                <ng-template>
+                    <div class="layout-column q-grid-email-fields"
+                         flex>
+                        <mat-form-field *ngIf="$cell.column.label !== null">
+                            <input matInput
+                                   type="text"
+                                   [(ngModel)]="$view.edit.cell.label"
+                                   placeholder="Label" />
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input q-grid-focus
+                                   matInput
+                                   type="email"
+                                   [(ngModel)]="$view.edit.cell.value"
+                                   placeholder="Email" />
+                        </mat-form-field>
+                    </div>
+                </ng-template>
+            </q-grid-tab-trap>
+        </ng-template>
+    </q-grid-cell-editor>
+</ng-template><ng-template key='edit-cell-file.tpl.html'
              let-$cell
              let-$view="$view">
-	<q-grid-cell-editor class="q-grid-editor q-grid-file q-grid-position"
-	                    (close)="$view.edit.cell.cancel.execute($cell)"
-	                    q-grid-position="td">
-		<ng-template>
-			<div class="layout-column flex">
-				<div class="q-grid-file-upload-area"
-				     [ngClass]="{'q-grid-file-has-preview': $cell.column.hasPreview($view.edit.cell.label)}">
-					<div class="layout-column q-grid-file-upload-message"
-					     [ngSwitch]="!!$view.edit.cell.value">
-						<span class="q-grid-file-upload-filename"
-						      *ngSwitchCase="true">{{$view.edit.cell.label}}</span>
-						<div class="layout-row"
-						     layout-align="center center">
-							<mat-icon>file_upload</mat-icon>
-							<span *ngSwitchCase="false">Drag and drop a file here or click</span>
-							<span *ngSwitchCase="true">Drag and drop or click to replace </span>
-						</div>
-					</div>
-					<input [q-grid-file-upload]="{ canUpload: $cell.column.canUpload, cell: $view.edit.cell }"
-					       type="file" />
-					<div class="q-grid-file-preview"
-					     *ngIf="$cell.column.hasPreview($view.edit.cell.label)">
-						<img [src]="$view.edit.cell.value" />
-					</div>
-				</div>
-			</div>
-			<div class="q-grid-actions">
-				<button mat-button
-				        color="primary"
-				        (click)="$view.edit.cell.commit.execute($cell, $event)">
-					Save
-				</button>
-				<button mat-button
-				        (click)="$view.edit.cell.clear.execute($cell)">
-					Clear
-				</button>
-				<button mat-button
-				        (click)="$view.edit.cell.cancel.execute($cell, $event)">
-					Cancel
-				</button>
-			</div>
-		</ng-template>
-	</q-grid-cell-editor>
-</ng-template>
-<ng-template key='edit-cell-image.tpl.html'
+    <q-grid-cell-editor class="q-grid-editor q-grid-file q-grid-position"
+                        (close)="$view.edit.cell.cancel.execute($cell)"
+                        q-grid-position="td">
+        <ng-template>
+            <div class="layout-column flex">
+                <div class="q-grid-file-upload-area"
+                     [ngClass]="{'q-grid-file-has-preview': $cell.column.hasPreview($view.edit.cell.label)}">
+                    <div class="layout-column q-grid-file-upload-message"                         
+                         [ngSwitch]="!!$view.edit.cell.value">
+                        <span class="q-grid-file-upload-filename"
+                              *ngSwitchCase="true">{{$view.edit.cell.label}}</span>
+                        <div class="layout-row"
+                             layout-align="center center">
+                            <mat-icon>file_upload</mat-icon>
+                            <span *ngSwitchCase="false">Drag and drop a file here or click</span>
+                            <span *ngSwitchCase="true">Drag and drop or click to replace </span>
+                        </div>
+                    </div>
+                    <input [q-grid-file-upload]="{ canUpload: $cell.column.canUpload, cell: $view.edit.cell }"
+                           type="file" />
+                    <div class="q-grid-file-preview"
+                         *ngIf="$cell.column.hasPreview($view.edit.cell.label)">
+                        <img [src]="$view.edit.cell.value" />
+                    </div>
+                </div>
+            </div>
+            <div class="q-grid-actions">
+                <button mat-button
+                        color="primary"
+                        (click)="$view.edit.cell.commit.execute($cell, $event)">
+                    Save
+                </button>
+                <button mat-button
+                        (click)="$view.edit.cell.clear.execute($cell)">
+                    Clear
+                </button>
+                <button mat-button
+                        (click)="$view.edit.cell.cancel.execute($cell, $event)">
+                    Cancel
+                </button>
+            </div>
+        </ng-template>
+    </q-grid-cell-editor>
+</ng-template><ng-template key='edit-cell-image.tpl.html'
              let-$cell
              let-$view="$view">
-	<q-grid-cell-editor class="q-grid-editor q-grid-file q-grid-position"
-	                    (close)="$view.edit.cell.cancel.execute($cell)"
-	                    q-grid-position="td">
-		<ng-template>
-			<div class="layout-column flex">
-				<div class="q-grid-file-upload-area"
-				     [ngClass]="{'q-grid-file-has-preview': $cell.column.hasPreview($view.edit.cell.label)}">
-					<div class="layout-column q-grid-file-upload-message"
-					     [ngSwitch]="!!$view.edit.cell.value">
-						<span class="q-grid-file-upload-filename"
-						      *ngSwitchCase="true">{{$view.edit.cell.label}}</span>
-						<div class="layout-row"
-						     layout-align="center center">
-							<mat-icon>file_upload</mat-icon>
-							<span *ngSwitchCase="false">Drag and drop an image here or click</span>
-							<span *ngSwitchCase="true">Drag and drop or click to replace </span>
-						</div>
-					</div>
-					<input [q-grid-file-upload]="{ canUpload: $cell.column.canUpload, cell: $view.edit.cell }"
-					       type="file" />
-					<div class="q-grid-file-preview"
-					     *ngIf="$cell.column.hasPreview($view.edit.cell.label)">
-						<img [src]="$view.edit.cell.value" />
-					</div>
-				</div>
-			</div>
-			<div class="q-grid-actions">
-				<button mat-button
-				        color="primary"
-				        (click)="$view.edit.cell.commit.execute($cell, $event)">
-					Save
-				</button>
-				<button mat-button
-				        (click)="$view.edit.cell.clear.execute($cell)">
-					Clear
-				</button>
-				<button mat-button
-				        (click)="$view.edit.cell.cancel.execute($cell, $event)">
-					Cancel
-				</button>
-			</div>
-		</ng-template>
-	</q-grid-cell-editor>
-</ng-template>
-<ng-template key='edit-cell-number.tpl.html'
+    <q-grid-cell-editor class="q-grid-editor q-grid-file q-grid-position"
+                        (close)="$view.edit.cell.cancel.execute($cell)"
+                        q-grid-position="td">
+        <ng-template>
+            <div class="layout-column flex">
+                <div class="q-grid-file-upload-area"
+                     [ngClass]="{'q-grid-file-has-preview': $cell.column.hasPreview($view.edit.cell.label)}">
+                    <div class="layout-column q-grid-file-upload-message"                         
+                         [ngSwitch]="!!$view.edit.cell.value">
+                        <span class="q-grid-file-upload-filename"
+                              *ngSwitchCase="true">{{$view.edit.cell.label}}</span>
+                        <div class="layout-row"
+                             layout-align="center center">
+                            <mat-icon>file_upload</mat-icon>
+                            <span *ngSwitchCase="false">Drag and drop an image here or click</span>
+                            <span *ngSwitchCase="true">Drag and drop or click to replace </span>
+                        </div>
+                    </div>
+                    <input [q-grid-file-upload]="{ canUpload: $cell.column.canUpload, cell: $view.edit.cell }"
+                           type="file" />
+                    <div class="q-grid-file-preview"
+                         *ngIf="$cell.column.hasPreview($view.edit.cell.label)">
+                        <img [src]="$view.edit.cell.value" />
+                    </div>
+                </div>
+            </div>
+            <div class="q-grid-actions">
+                <button mat-button
+                        color="primary"
+                        (click)="$view.edit.cell.commit.execute($cell, $event)">
+                    Save
+                </button>
+                <button mat-button
+                        (click)="$view.edit.cell.clear.execute($cell)">
+                    Clear
+                </button>
+                <button mat-button
+                        (click)="$view.edit.cell.cancel.execute($cell, $event)">
+                    Cancel
+                </button>
+            </div>
+        </ng-template>
+    </q-grid-cell-editor>
+</ng-template><ng-template key='edit-cell-number.tpl.html'
              let-$cell
              let-$view="$view">
-	<q-grid-cell-editor class="q-grid-number q-grid-editor q-grid-position q-grid-text"
-	                    (close)="$view.edit.cell.exit.execute($cell)"
-	                    q-grid-position="td">
-		<ng-template>
-			<mat-form-field>
-				<input matInput
-				       type="number"
-				       #input
-				       q-grid-focus
-				       [(ngModel)]="$view.edit.cell.value" />
-			</mat-form-field>
-		</ng-template>
-	</q-grid-cell-editor>
-</ng-template>
-<ng-template key='edit-cell-password.tpl.html'
+    <q-grid-cell-editor class="q-grid-number q-grid-editor q-grid-position q-grid-text"
+                        (close)="$view.edit.cell.exit.execute($cell)"
+                        q-grid-position="td">
+        <ng-template>
+            <mat-form-field>
+                <input matInput
+                       type="number"
+                       #input
+                       q-grid-focus
+                       [(ngModel)]="$view.edit.cell.value" />
+            </mat-form-field>
+        </ng-template>
+    </q-grid-cell-editor>
+</ng-template><ng-template key='edit-cell-password.tpl.html'
              let-$cell
              let-$view="$view">
-	<q-grid-cell-editor class="q-grid-password q-grid-editor q-grid-position q-grid-text"
-	                    (close)="$view.edit.cell.exit.execute($cell)"
-	                    q-grid-position="td">
-		<ng-template>
-			<mat-form-field>
-				<input matInput
-				       [type]="'password'"
-				       q-grid-focus
-				       [(ngModel)]="$view.edit.cell.value" />
-			</mat-form-field>
-		</ng-template>
-	</q-grid-cell-editor>
-</ng-template>
-<ng-template key='edit-cell-reference.tpl.html'
+    <q-grid-cell-editor class="q-grid-password q-grid-editor q-grid-position q-grid-text"
+                        (close)="$view.edit.cell.exit.execute($cell)"
+                        q-grid-position="td">
+        <ng-template>
+            <mat-form-field>
+                <input matInput
+                       [type]="'password'"
+                       q-grid-focus
+                       [(ngModel)]="$view.edit.cell.value" />
+            </mat-form-field>
+        </ng-template>
+    </q-grid-cell-editor>
+</ng-template><ng-template key='edit-cell-reference.tpl.html'
              let-$cell
              let-$view="$view">
 	<q-grid-cell-editor class="q-grid-reference q-grid-editor q-grid-position"
@@ -444,81 +416,76 @@
 			<q-grid-reference-editor></q-grid-reference-editor>
 		</ng-template>
 	</q-grid-cell-editor>
-</ng-template>
-<ng-template key='edit-cell-row-options.tpl.html'
+</ng-template><ng-template key='edit-cell-row-options.tpl.html'
              let-$cell
              let-$view="$view">
-	<button aria-label="Open row menu"
-	        mat-icon-button
-	        [matMenuTriggerFor]="menu"
-	        (q-grid-menu-trigger)="$view.edit.cell.cancel.execute($cell)">
-		<mat-icon class="q-grid-icon">more_vert</mat-icon>
-	</button>
-	<mat-menu #menu="matMenu">
-		<button mat-menu-item
-		        *ngFor="let $action of $cell.column.editorOptions.actions"
-		        (click)="$action.command.execute($cell)"
-		        [disabled]="!$action.command.canExecute($cell)">
-			<mat-icon class="q-grid-icon">{{$action.icon}}</mat-icon>
-			<span>{{$action.title}}</span>
-		</button>
-	</mat-menu>
-</ng-template>
-<ng-template key='edit-cell-text.tpl.html'
+    <button aria-label="Open row menu"
+            mat-icon-button
+            [matMenuTriggerFor]="menu"            
+            (q-grid-menu-trigger)="$view.edit.cell.cancel.execute($cell)">
+        <mat-icon class="q-grid-icon">more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item
+                *ngFor="let $action of $cell.column.editorOptions.actions"
+                (click)="$action.command.execute($cell)"
+                [disabled]="!$action.command.canExecute($cell)">
+            <mat-icon class="q-grid-icon">{{$action.icon}}</mat-icon>
+            <span>{{$action.title}}</span>
+        </button>
+    </mat-menu>
+</ng-template><ng-template key='edit-cell-text.tpl.html'
              let-$cell
              let-$view="$view">
-	<q-grid-cell-editor class="q-grid-text q-grid-editor q-grid-position"
-	                    (close)="$view.edit.cell.exit.execute($cell)"
-	                    q-grid-position="td">
-		<ng-template>
-			<mat-form-field>
-				<input matInput
-				       #input
-				       q-grid-focus
-				       maxlength="{{$cell.column.maxLength}}"
-				       [(ngModel)]="$view.edit.cell.value" />
-				<mat-hint align="end">{{input.value.length}} / {{$cell.column.maxLength}}</mat-hint>
-			</mat-form-field>
-		</ng-template>
-	</q-grid-cell-editor>
-</ng-template>
-<ng-template key='edit-cell-text-area.tpl.html'
+    <q-grid-cell-editor class="q-grid-text q-grid-editor q-grid-position"
+                        (close)="$view.edit.cell.exit.execute($cell)"
+                        q-grid-position="td">
+        <ng-template>
+            <mat-form-field>
+                <input matInput
+                       #input
+                       q-grid-focus
+                       maxlength="{{$cell.column.maxLength}}"
+                       [(ngModel)]="$view.edit.cell.value" />
+                <mat-hint align="end">{{input.value.length}} / {{$cell.column.maxLength}}</mat-hint>
+            </mat-form-field>
+        </ng-template>
+    </q-grid-cell-editor>
+</ng-template><ng-template key='edit-cell-text-area.tpl.html'
              let-$cell
              let-$view="$view">
-	<q-grid-cell-editor class="q-grid-text-area q-grid-editor q-grid-position"
-	                    (close)="$view.edit.cell.exit.execute($cell)"
-	                    q-grid-position="td">
-		<ng-template>
-			<mat-form-field>
-				<textarea matInput
-				          #input
-				          rows="10"
-				          q-grid-focus
-				          [(ngModel)]="$view.edit.cell.value">
+    <q-grid-cell-editor class="q-grid-text-area q-grid-editor q-grid-position"
+                        (close)="$view.edit.cell.exit.execute($cell)"
+                        q-grid-position="td">
+        <ng-template>
+            <mat-form-field>
+                <textarea matInput
+                          #input
+                          rows="10"
+                          q-grid-focus
+                          [(ngModel)]="$view.edit.cell.value">
                 </textarea>
-				<mat-hint align="end">{{input.value.length}} / {{$cell.column.maxLength}}</mat-hint>
-			</mat-form-field>
-		</ng-template>
-	</q-grid-cell-editor>
-</ng-template>
-<ng-template key='edit-cell-time.tpl.html'
+                <mat-hint align="end">{{input.value.length}} / {{$cell.column.maxLength}}</mat-hint>
+            </mat-form-field>
+        </ng-template>
+    </q-grid-cell-editor>
+</ng-template><ng-template key='edit-cell-time.tpl.html'
              let-$cell
              let-$view="$view">
-	<q-grid-cell-editor class="q-grid-time q-grid-editor q-grid-position q-grid-text"
-	                    (close)="$view.edit.cell.exit.execute($cell)"
-	                    q-grid-position="td">
-		<ng-template>
-			<mat-form-field>
-				<input matInput
-				       type="time"
-				       #input
-				       q-grid-focus
-				       [(ngModel)]="$view.edit.cell.value" />
-			</mat-form-field>
-		</ng-template>
-	</q-grid-cell-editor>
-</ng-template>
-<ng-template key='edit-cell-url.tpl.html'
+    <q-grid-cell-editor class="q-grid-time q-grid-editor q-grid-position q-grid-text"
+                        (close)="$view.edit.cell.exit.execute($cell)"
+                        q-grid-position="td">
+        <ng-template>
+            <mat-form-field>
+                <input matInput
+                       type="time"
+                       #input
+                       q-grid-focus
+                       [(ngModel)]="$view.edit.cell.value" />
+            </mat-form-field>
+        </ng-template>
+    </q-grid-cell-editor>
+</ng-template><ng-template key='edit-cell-url.tpl.html'
              let-$cell
              let-$view="$view">
 	<q-grid-cell-editor class="q-grid-url q-grid-editor q-grid-position"
@@ -546,129 +513,119 @@
 			</q-grid-tab-trap>
 		</ng-template>
 	</q-grid-cell-editor>
-</ng-template>
-<ng-template key='filter-cell-bool.tpl.html'
+</ng-template><ng-template key='filter-cell-bool.tpl.html'
              let-$cell
              let-$view="$view">
-	<mat-checkbox *ngIf="$cell.column.canFilter"
-	              aria-label="Bool cell filter"
-	              class="q-grid-checkbox"
-	              #input
-	              (change)="$view.head.filter.execute($cell.column.model, input.checked)">
-	</mat-checkbox>
-</ng-template>
-<ng-template key='filter-cell-currency.tpl.html'
+    <mat-checkbox *ngIf="$cell.column.canFilter"
+                  aria-label="Bool cell filter"
+                  class="q-grid-checkbox"
+                  #input
+                  (change)="$view.head.filter.execute($cell.column.model, input.checked)">
+    </mat-checkbox>
+</ng-template><ng-template key='filter-cell-currency.tpl.html'
              let-$cell
              let-$view="$view">
-	<mat-form-field *ngIf="$cell.column.canFilter"
-	                floatLabel="never">
-		<mat-placeholder>
-			<mat-icon>filter_list</mat-icon>
-		</mat-placeholder>
-		<input type="number"
-		       matInput
-		       #input
-		       (change)="$view.head.filter.execute($cell.column.model, input.value)" />
-	</mat-form-field>
-</ng-template>
-<ng-template key='filter-cell-date.tpl.html'
+    <mat-form-field *ngIf="$cell.column.canFilter"
+                    floatLabel="never">
+        <mat-placeholder>
+            <mat-icon>filter_list</mat-icon>
+        </mat-placeholder>
+        <input type="number"
+               matInput
+               #input
+               (change)="$view.head.filter.execute($cell.column.model, input.value)" />
+    </mat-form-field>
+</ng-template><ng-template key='filter-cell-date.tpl.html'
              let-$cell
              let-$view="$view">
-	<mat-form-field *ngIf="$cell.column.canFilter"
-	                floatLabel="never">
-		<mat-placeholder>
-			<mat-icon>filter_list</mat-icon>
-		</mat-placeholder>
-		<input matInput
-		       #input
-		       [matDatepicker]="picker"
-		       (dateChange)="$view.head.filter.execute($cell.column.model, input.value)" />
-		<mat-datepicker-toggle matSuffix
-		                       [for]="picker">
-		</mat-datepicker-toggle>
-		<mat-datepicker #picker>
-		</mat-datepicker>
-	</mat-form-field>
-</ng-template>
-<ng-template key='filter-cell-number.tpl.html'
+    <mat-form-field *ngIf="$cell.column.canFilter"
+                    floatLabel="never">
+        <mat-placeholder>
+            <mat-icon>filter_list</mat-icon>
+        </mat-placeholder>
+        <input matInput
+               #input
+               [matDatepicker]="picker"
+               (dateChange)="$view.head.filter.execute($cell.column.model, input.value)" />
+        <mat-datepicker-toggle matSuffix
+                               [for]="picker">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker>
+        </mat-datepicker>
+    </mat-form-field>
+</ng-template><ng-template key='filter-cell-number.tpl.html'
              let-$cell
              let-$view="$view">
-	<mat-form-field *ngIf="$cell.column.canFilter"
-	                floatLabel="never">
-		<mat-placeholder>
-			<mat-icon>filter_list</mat-icon>
-		</mat-placeholder>
-		<input type="number"
-		       matInput
-		       #input
-		       (change)="$view.head.filter.execute($cell.column.model, input.value)" />
-	</mat-form-field>
-</ng-template>
-<ng-template key='filter-cell-text.tpl.html'
+    <mat-form-field *ngIf="$cell.column.canFilter"
+                    floatLabel="never">
+        <mat-placeholder>
+            <mat-icon>filter_list</mat-icon>
+        </mat-placeholder>
+        <input type="number"
+               matInput
+               #input
+               (change)="$view.head.filter.execute($cell.column.model, input.value)" />
+    </mat-form-field>
+</ng-template><ng-template key='filter-cell-text.tpl.html'
              let-$cell
              let-$view="$view">
-	<mat-form-field *ngIf="$cell.column.canFilter"
-	                floatLabel="never">
-		<mat-placeholder>
-			<mat-icon>filter_list</mat-icon>
-		</mat-placeholder>
-		<input type="search"
-		       matInput
-		       #input
-		       (change)="$view.head.filter.execute($cell.column.model, input.value)" />
-	</mat-form-field>
-</ng-template>
-<ng-template key='foot-cell-currency.tpl.html'
-             let-$cell>
+    <mat-form-field *ngIf="$cell.column.canFilter"
+                    floatLabel="never">
+        <mat-placeholder>
+            <mat-icon>filter_list</mat-icon>
+        </mat-placeholder>
+        <input type="search"
+               matInput
+               #input
+               (change)="$view.head.filter.execute($cell.column.model, input.value)" />
+    </mat-form-field>
+</ng-template><ng-template key='foot-cell-currency.tpl.html' let-$cell>
 	<span>{{$cell.value | currency:$cell.column.code}}</span>
 </ng-template>
-<ng-template key='foot-cell-text.tpl.html'
-             let-$cell>
+<ng-template key='foot-cell-text.tpl.html' let-$cell>
 	<span>{{$cell.value}}</span>
 </ng-template>
 <ng-template key="head-cell-select.tpl.html"
              let-$view="$view">
-	<ng-container ngSwitch="$view.selection.mode">
-		<ng-container *ngSwitchCase="'single'"
-		              ngSwitch="!!$view.selection.items.length">
-			<mat-icon class="q-grid-icon"
-			          *ngSwitchCase="true">check</mat-icon>
-			<mat-icon class="q-grid-icon"
-			          *ngSwitchDefault>remove</mat-icon>
-		</ng-container>
-		<mat-checkbox *ngSwitchDefault
-		              [indeterminate]="$view.selection.isIndeterminate()"
-		              [checked]="$view.selection.state()"
-		              [disabled]="!$view.selection.toggleRow.canExecute()"
-		              (change)="$view.selection.toggleRow.execute()"
-		              tabindex="-1"
-		              aria-label="Select all"
-		              class="q-grid-checkbox">
-		</mat-checkbox>
-	</ng-container>
-</ng-template>
-<ng-template key="head-cell-text.tpl.html"
+    <ng-container ngSwitch="$view.selection.mode">
+        <ng-container *ngSwitchCase="'single'"
+                      ngSwitch="!!$view.selection.items.length">
+            <mat-icon class="q-grid-icon"
+                      *ngSwitchCase="true">check</mat-icon>
+            <mat-icon class="q-grid-icon"
+                      *ngSwitchDefault>remove</mat-icon>
+        </ng-container>
+        <mat-checkbox *ngSwitchDefault
+                      [indeterminate]="$view.selection.isIndeterminate()"
+                      [checked]="$view.selection.state()"
+                      [disabled]="!$view.selection.toggleRow.canExecute()"
+                      (change)="$view.selection.toggleRow.execute()"
+                      tabindex="-1"
+                      aria-label="Select all"
+                      class="q-grid-checkbox">
+        </mat-checkbox>
+    </ng-container>
+</ng-template><ng-template key="head-cell-text.tpl.html"
              let-$cell
              let-$view="$view">
-	<q-grid-column-sort *ngIf="$cell.column.canSort"
-	                    [column]="$cell.column"
-	                    class="q-grid-sort">
-		<ng-template>
-			<label [matTooltip]="$cell.column.title">
-				{{$cell.column.title}}
-			</label>
-		</ng-template>
-	</q-grid-column-sort>
-	<label *ngIf="!$cell.column.canSort"
-	       [matTooltip]="$cell.column.title">
-		{{$cell.column.title}}
-	</label>
-	<q-grid-column-filter-trigger class="q-grid-column-filter-trigger"
-	                              *ngIf="$cell.column.canFilter"
-	                              [column]="$cell.column">
-	</q-grid-column-filter-trigger>
-</ng-template>
-<ng-template key="plugin-action-bar.tpl.html"
+    <q-grid-column-sort *ngIf="$cell.column.canSort"
+                        [column]="$cell.column"
+                        class="q-grid-sort">
+        <ng-template>
+            <label [matTooltip]="$cell.column.title">
+                {{$cell.column.title}}
+            </label>
+        </ng-template>
+    </q-grid-column-sort>
+    <label *ngIf="!$cell.column.canSort"
+           [matTooltip]="$cell.column.title">
+        {{$cell.column.title}}
+    </label>
+    <q-grid-column-filter-trigger class="q-grid-column-filter-trigger"
+                                  *ngIf="$cell.column.canFilter"
+                                  [column]="$cell.column">
+    </q-grid-column-filter-trigger>
+</ng-template><ng-template key="plugin-action-bar.tpl.html"
              let-$actionBar>
 	<div class="layout-row">
 		<div class="flex-100 layout-row"
@@ -691,7 +648,7 @@
 	<div class="q-grid-action"
 	     [ngSwitch]="!!$action.templateUrl">
 		<ng-container *ngSwitchCase="true"
-		              [key]="$action.templateUrl">
+			      [key]="$action.templateUrl">
 		</ng-container>
 		<button *ngSwitchDefault
 		        mat-icon-button
@@ -702,32 +659,25 @@
 			<mat-icon class="q-grid-icon">{{$action.icon}}</mat-icon>
 		</button>
 	</div>
-</ng-template>
-<ng-template key="plugin-backdrop.tpl.html"
-             let-$backdrop>
-	<div class="q-grid-backdrop">
-		<ng-container [ngTemplateOutlet]='$backdrop.template'></ng-container>
-	</div>
-</ng-template>
-<ng-template key="plugin-bool-editor.tpl.html"
+</ng-template><ng-template key="plugin-backdrop.tpl.html" let-$backdrop>
+    <div class="q-grid-backdrop">
+        <ng-container [ngTemplateOutlet]='$backdrop.template'></ng-container>
+    </div>
+</ng-template><ng-template key="plugin-bool-editor.tpl.html"
              let-$editor>
-	<mat-checkbox aria-label="Bool cell edit"
-	              class="q-grid-checkbox"
-	              q-grid-focus="input"
-	              [(ngModel)]="$editor.value">
-	</mat-checkbox>
+    <mat-checkbox aria-label="Bool cell edit"
+                  class="q-grid-checkbox"
+                  q-grid-focus="input"
+                  [(ngModel)]="$editor.value">
+    </mat-checkbox>
 
-</ng-template>
-<ng-template key="plugin-cell-editor.tpl.html"
-             let-$editor>
-	<q-grid-backdrop (close)="$editor.close($event)">
-	</q-grid-backdrop>
-	<div class="q-grid-editor-content"
-	     q-grid-stop-propagate="click">
-		<ng-container [ngTemplateOutlet]='$editor.template'></ng-container>
-	</div>
-</ng-template>
-<ng-template key="column-chooser.tpl"
+</ng-template><ng-template key="plugin-cell-editor.tpl.html" let-$editor>
+    <q-grid-backdrop (close)="$editor.close($event)">
+    </q-grid-backdrop>
+    <div class="q-grid-editor-content" q-grid-stop-propagate="click">
+        <ng-container [ngTemplateOutlet]='$editor.template'></ng-container>
+    </div>
+</ng-template><ng-template key="column-chooser.tpl"
              let-$columnChooser>
 	<mat-card class="mat-elevation-z">
 		<mat-card-header>
@@ -785,39 +735,44 @@
 			        (click)="$columnChooser.submit.execute()">Apply</button>
 		</mat-card-actions>
 	</mat-card>
-</ng-template>
-<ng-template key="plugin-column-filter-by.tpl.html"
-             let-$columnFilterBy>
-	<ul>
-		<li *ngFor="let item of $columnFilterBy.by">
+</ng-template><ng-template key="plugin-column-filter-by.tpl.html" let-$by>
+	<ul [q-grid-column-filter-item-list]="$by.column">
+		<li *ngIf="$by.isBlanks">
 			<div class="q-grid-filter-by">
 				<div class="q-grid-filter-by-item">
-					{{item}}
+					(Blanks)
 				</div>
-				<div class="q-grid-filter-by-remove"
-				     (click)="$columnFilterBy.remove(item)">
+				<div class="q-grid-filter-by-remove" (click)="$by.removeByBlanks()">
+					<mat-icon class="q-grid-icon">clear</mat-icon>
+				</div>
+			</div>
+		</li>
+		<li *ngFor="let item of $by.by">
+			<div class="q-grid-filter-by">
+				<div class="q-grid-filter-by-item">
+					<ng-container [q-grid-column-filter-item]="item"></ng-container>
+				</div>
+				<div class="q-grid-filter-by-remove" (click)="$by.remove(item)">
 					<mat-icon class="q-grid-icon">clear</mat-icon>
 				</div>
 			</div>
 		</li>
 	</ul>
 </ng-template>
-<ng-template key="plugin-column-filter-trigger.tpl.html"
-             let-$columnFilterTrigger>
+<ng-template key="plugin-column-filter-trigger.tpl.html" let-$columnFilterTrigger>
 	<button mat-icon-button
-	        tabindex="-1"
-	        #trigger="matMenuTrigger"
-	        [matMenuTriggerFor]="menu"
-	        aria-label="Column filter">
+			tabindex="-1"
+			#trigger="matMenuTrigger"
+			[matMenuTriggerFor]="menu"
+			aria-label="Column filter">
 		<mat-icon class="q-grid-icon">filter_list</mat-icon>
 	</button>
-	<mat-menu #menu="matMenu"
-	          class="q-grid-column-filter q-grid-menu">
+	<mat-menu #menu="matMenu" class="q-grid-column-filter q-grid-menu">
 		<q-grid-column-filter q-grid-menu
-		                      *ngIf="trigger.menuOpen"
-		                      [column]="$columnFilterTrigger.column"
-		                      (cancel)="trigger.closeMenu()"
-		                      (submit)="trigger.closeMenu()">
+							  *ngIf="trigger.menuOpen"
+							  [column]="$columnFilterTrigger.column"
+							  (cancel)="trigger.closeMenu()"
+							  (submit)="trigger.closeMenu()">
 		</q-grid-column-filter>
 	</mat-menu>
 </ng-template>
@@ -851,17 +806,22 @@
 			</ul>
 			<div [ngSwitch]="$columnFilter.isEmpty()"
 			     class="q-grid-column-filter-by">
-				<ng-container *ngSwitchCase="true">
+				<ng-container *ngSwitchCase="false">
 					<div class="q-grid-column-filter-by-blank">
 						NO SELECTED FILTERS
 					</div>
 				</ng-container>
-				<ng-container *ngSwitchCase="false">
-					<q-grid-column-filter-by [by]="$columnFilter.by">
+				<ng-container *ngSwitchCase="true">
+					<q-grid-column-filter-by
+						[by]="$columnFilter.by"
+						[(byBlanks)]="$columnFilter.byBlanks"
+						[column]="$plugin.column">
 					</q-grid-column-filter-by>
 				</ng-container>
 			</div>
 			<div class="q-grid-column-filter-list"
+				 [q-grid-column-filter-item-list]="$plugin.column"
+				 [q-grid-column-filter-search]="$plugin.search"
 			     q-grid-vscroll>
 				<ul [q-grid-vscroll-port-y]="$vscroll">
 					<li *ngFor="let item of $columnFilter.items | qGridVscroll: $vscroll; let $index = index; trackBy: $plugin.rowId"
@@ -870,14 +830,14 @@
 						              *ngIf="$columnFilter.toggle.canExecute(item)"
 						              aria-label="Select filter value"
 						              (change)="$columnFilter.toggle.execute(item)">
-							<span [innerHTML]="item | qGridHighlight: $plugin.search"></span>
+							<ng-container [q-grid-column-filter-item]="item"></ng-container>
 						</mat-checkbox>
 					</li>
 					<li>
 						<mat-checkbox *ngIf="$columnFilter.hasBlanks"
 						              [(ngModel)]="$columnFilter.byBlanks"
 						              aria-label="Select blanks">
-							<span [innerHTML]="'(Blanks)' | qGridHighlight: $columnFilter.search"></span>
+							<span [innerHTML]="'(Blanks)' | qGridHighlight: $plugin.search"></span>
 						</mat-checkbox>
 					</li>
 				</ul>
@@ -894,38 +854,36 @@
 		</mat-card-actions>
 	</mat-card>
 </ng-template>
-<ng-template key="plugin-column-sort.tpl.html"
-             let-$columnSort>
-	<mat-icon class="q-grid-icon q-grid-asc">arrow_upward</mat-icon>
-	<mat-icon class="q-grid-icon q-grid-desc">arrow_downward</mat-icon>
-	<ng-container [ngTemplateOutlet]='$columnSort.template'></ng-container>
-</ng-template>
-<ng-template key="plugin-eb-autocomplete.tpl.html"
-             let-$expr>
+<ng-template key="plugin-column-sort.tpl.html" let-$columnSort>
+    <mat-icon class="q-grid-icon q-grid-asc">arrow_upward</mat-icon>
+    <mat-icon class="q-grid-icon q-grid-desc">arrow_downward</mat-icon>
+    <ng-container [ngTemplateOutlet]='$columnSort.template'></ng-container>
+</ng-template><ng-template key="plugin-eb-autocomplete.tpl.html"
+				 let-$expr>
 	<mat-form-field floatLabel="never"
-	                q-grid-autosize="input"
-	                [q-grid-autisize-value]="$expr.value"
-	                [q-grid-eb-class]="$expr.classes"
-	                [q-grid-eb-class-model]="$expr"
-	                matTooltip="{{$expr.state && $expr.state.join(', ')}}"
-	                matTooltipPosition="after"
-	                matTooltipShowDelay="500"
-	                matTooltipClass="q-grid-query-builder-error-tooltip">
+						 q-grid-autosize="input"
+						 [q-grid-autisize-value]="$expr.value"
+						 [q-grid-eb-class]="$expr.classes"
+						 [q-grid-eb-class-model]="$expr"
+						 matTooltip="{{$expr.state && $expr.state.join(', ')}}"
+						 matTooltipPosition="after"
+						 matTooltipShowDelay="500"
+						 matTooltipClass="q-grid-query-builder-error-tooltip">
 		<input matInput
-		       #input="matAutocompleteTrigger"
-		       [(ngModel)]="$expr.value"
-		       (click)="$expr.refresh && $expr.refresh() && input.openPanel()"
-		       (input)="$expr.change && $expr.change();$expr.refresh && $expr.refresh()"
-		       (optionSelected)="$expr.change && $expr.change()"
-		       [placeholder]="$expr.placeholderText"
-		       [matAutocomplete]="autocomplete">
+				 #input="matAutocompleteTrigger"
+				 [(ngModel)]="$expr.value"
+				 (click)="$expr.refresh && $expr.refresh() && input.openPanel()"
+				 (input)="$expr.change && $expr.change();$expr.refresh && $expr.refresh()"
+				 (optionSelected)="$expr.change && $expr.change()"
+				 [placeholder]="$expr.placeholderText"
+				 [matAutocomplete]="autocomplete">
 
 		<mat-autocomplete #autocomplete="matAutocomplete"
-		                  (q-grid-backdrop)="input.closePanel()"
-		                  [q-grid-backdrop-active]="autocomplete.isOpen"
-		                  q-grid-backdrop-selector=".mat-autocomplete-panel">
+								(q-grid-backdrop)="input.closePanel()"
+								[q-grid-backdrop-active]="autocomplete.isOpen"
+								q-grid-backdrop-selector=".mat-autocomplete-panel">
 			<mat-option *ngFor="let option of $expr.options | async"
-			            [value]="option">
+							[value]="option">
 				{{option}}
 			</mat-option>
 		</mat-autocomplete>
@@ -939,8 +897,7 @@
 	        [ngClass]="$expr.classes">
 		{{$expr.text}}
 	</button>
-</ng-template>
-<ng-template key="plugin-eb-icon-button.tpl.html"
+</ng-template><ng-template key="plugin-eb-icon-button.tpl.html"
              let-$expr>
 	<button class="q-grid-query-builder-icon-button"
 	        (click)="$expr.click && $expr.click($event)"
@@ -950,12 +907,11 @@
 			{{ $expr.icon }}
 		</mat-icon>
 	</button>
-</ng-template>
-<ng-template key="plugin-eb-input.tpl.html"
+</ng-template><ng-template key="plugin-eb-input.tpl.html"
              let-$expr>
 	<mat-form-field floatLabel="never"
 	                q-grid-autosize="input"
-	                [q-grid-autisize-value]="$expr.value"
+						 [q-grid-autisize-value]="$expr.value"
 	                [q-grid-eb-class]="$expr.classes"
 	                [q-grid-eb-class-model]="$expr"
 	                matTooltip="{{$expr.state && $expr.state.join(', ')}}"
@@ -967,106 +923,94 @@
 		       (input)="$expr.change && $expr.change();$expr.refresh && $expr.refresh()"
 		       [placeholder]="$expr.placeholderText" />
 	</mat-form-field>
-</ng-template>
-<ng-template key="plugin-eb-label.tpl.html"
+</ng-template><ng-template key="plugin-eb-label.tpl.html"
              let-$expr>
 	<label class="q-grid-query-builder-label">
 		{{$expr.text}}
 	</label>
-</ng-template>
-<ng-template key="plugin-eb-multiselect.tpl.html"
+</ng-template><ng-template key="plugin-eb-multiselect.tpl.html"
              let-$expr>
-	<mat-chip-list #chipList
-	               class="q-grid-query-builder-multiselect"
-	               [ngClass]="$expr.classes">
-		<mat-chip *ngFor="let value of $expr.values; let $index = index;"
-		          class="mat-basic-chip"
-		          selectable="false"
-		          removable="true"
-		          (remove)="$expr.values.splice($index, 1)">
-			{{value}}
-			<mat-icon class="q-grid-icon"
-			          matChipRemove>
-				close
-			</mat-icon>
-		</mat-chip>
-	</mat-chip-list>
-	<mat-form-field q-grid-chips
-	                [floatLabel]="'never'">
-		<input matInput
-		       #chipInput
-		       [placeholder]="$expr.placeholderText"
-		       [matChipInputFor]="chipList"
-		       matChipInputAddOnBlur="true"
-		       (matChipInputTokenEnd)="$expr.add($event.value);$event.input.value = '';" />
-	</mat-form-field>
+    <mat-chip-list #chipList
+                   class="q-grid-query-builder-multiselect"
+                   [ngClass]="$expr.classes">
+        <mat-chip *ngFor="let value of $expr.values; let $index = index;"
+						class="mat-basic-chip"
+						selectable="false"
+                  removable="true"
+                  (remove)="$expr.values.splice($index, 1)">
+            {{value}}
+            <mat-icon class="q-grid-icon"
+                      matChipRemove>
+                close
+            </mat-icon>
+        </mat-chip>
+    </mat-chip-list>
+    <mat-form-field q-grid-chips
+                    [floatLabel]="'never'">
+        <input matInput
+               #chipInput
+               [placeholder]="$expr.placeholderText"
+               [matChipInputFor]="chipList"
+					matChipInputAddOnBlur="true"
+					(matChipInputTokenEnd)="$expr.add($event.value);$event.input.value = '';"/>
+    </mat-form-field>
 </ng-template>
 <ng-template key="plugin-eb-select.tpl.html"
              let-$expr>
-	<mat-select [(value)]="$expr.value"
-	            (selectionChange)="$expr.change && $expr.change($event)"
-	            (openedChange)="$expr.open && $expr.open($event)"
-	            [q-grid-eb-class]="$expr.classes"
-	            [q-grid-eb-class-model]="$expr">
-		<mat-option *ngFor="let option of ($expr.options || $expr.getOptions())"
-		            [value]="option"
-		            [disabled]="$expr.disabled && $expr.disabled(option)">
-			<mat-icon *ngIf="$expr.icon">{{$expr.icon(option)}}</mat-icon>
-			{{($expr.getLabel && $expr.getLabel(option)) || option}}
-		</mat-option>
-	</mat-select>
-</ng-template>
-<ng-template key="plugin-export.tpl.html"
-             let-$export>
+    <mat-select [(value)]="$expr.value"
+                (selectionChange)="$expr.change && $expr.change($event)"
+                (openedChange)="$expr.open && $expr.open($event)"
+                [q-grid-eb-class]="$expr.classes"
+                [q-grid-eb-class-model]="$expr">
+        <mat-option *ngFor="let option of ($expr.options || $expr.getOptions())"
+                    [value]="option"
+                    [disabled]="$expr.disabled && $expr.disabled(option)">
+            <mat-icon *ngIf="$expr.icon">{{$expr.icon(option)}}</mat-icon>
+            {{($expr.getLabel && $expr.getLabel(option)) || option}}
+        </mat-option>
+    </mat-select>
+</ng-template><ng-template key="plugin-export.tpl.html" let-$export>
 	<div class="q-grid-export">
-		<button mat-button
-		        *ngIf="$export[$export.type] && $export[$export.type].canExecute()"
-		        (click)="$export[$export.type].execute()">
+		<button mat-button *ngIf="$export[$export.type] && $export[$export.type].canExecute()"
+				  (click)="$export[$export.type].execute()">
 			<mat-icon class="q-grid-icon">file_download</mat-icon>
 			Export to {{$export.type}}
 		</button>
 	</div>
 </ng-template>
-<ng-template key="plugin-pager-target.tpl.html"
-             let-$target>
+<ng-template key="plugin-pager-target.tpl.html" let-$target>
 
-	<mat-menu #menu="matMenu"
-	          class="q-grid-mat-menu">
+	<mat-menu #menu="matMenu" class="q-grid-mat-menu">
 		<mat-card (keyup.enter)="trigger.closeMenu()"
-		          *ngIf="trigger.menuOpen">
+					 *ngIf="trigger.menuOpen">
 			<mat-form-field>
-				<input id="q-grid-menu-input"
-				       matInput
-				       type="number"
-				       #input
-				       (click)="$event.stopPropagation()"
-				       [(ngModel)]="$target.value"
-				       [max]="$target.total"
-				       [min]="1"
-				       q-grid-focus
-				       (keydown)="$target.keyDown($event)"
-				       placeholder="Go to page:" />
-			</mat-form-field>
+						<input id="q-grid-menu-input"
+								 matInput type="number" #input
+								 (click)="$event.stopPropagation()"
+								 [(ngModel)]="$target.value"
+								 [max]="$target.total"
+								 [min]="1"
+								 q-grid-focus
+								 (keydown)="$target.keyDown($event)"
+								 placeholder="Go to page:"/>
+			</mat-from-field>
 		</mat-card>
 	</mat-menu>
 
 	<button #trigger="matMenuTrigger"
-	        [matMenuTriggerFor]="menu"
-	        tabindex="-1"
-	        mat-button
-	        (click)="$target.value = $target.current"
-	        class="mat-icon-button">
+			  [matMenuTriggerFor]="menu"
+			  tabindex="-1"
+			  mat-button
+			  (click)="$target.value = $target.current"
+			  class="mat-icon-button">
 		<mat-icon class="q-grid-icon-class">location_searching</mat-icon>
 	</button>
 
 </ng-template>
-<ng-template key="plugin-pager.tpl.html"
-             let-$pager>
-	<div class="q-grid-pager"
-	     [ngSwitch]="$pager.scroll.mode">
+<ng-template key="plugin-pager.tpl.html" let-$pager>
+	<div class="q-grid-pager" [ngSwitch]="$pager.scroll.mode">
 		<div *ngSwitchCase="'virtual'">
-			<label class="q-grid-page"
-			       [ngSwitch]="$pager.mode">
+			<label class="q-grid-page" [ngSwitch]="$pager.mode">
 				<span *ngSwitchCase="'row'">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>
 				<span *ngSwitchDefault>{{$pager.current + 1}} of {{$pager.totalPages}}</span>
 			</label>
@@ -1074,30 +1018,28 @@
 		<div *ngSwitchDefault>
 			<label class="q-grid-page-size hide-xs">Rows per page:</label>
 			<mat-select tabindex="-1"
-			            aria-label="Page Size List"
-			            class="q-grid-page-size hide-xs"
-			            [(value)]="$pager.size">
-				<mat-option *ngFor="let size of $pager.sizeList"
-				            [value]="size">{{size}}</mat-option>
+						  aria-label="Page Size List"
+						  class="q-grid-page-size hide-xs"
+						  [(value)]="$pager.size">
+				<mat-option *ngFor="let size of $pager.sizeList" [value]="size">{{size}}</mat-option>
 			</mat-select>
-			<label class="q-grid-page hide-xs"
-			       ng-switch="::$pager.mode">
+			<label class="q-grid-page hide-xs" ng-switch="::$pager.mode">
 				<span *ngSwitchCase="'row'">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>
 				<span *ngSwitchDefault>{{$pager.current + 1}} of {{$pager.totalPages}}</span>
 			</label>
 			<button tabindex="-1"
-			        mat-button
-			        class="mat-icon-button q-grid-prev-page"
-			        [disabled]="!$pager.prev.canExecute()"
-			        (click)="$pager.prev.execute();">
+					  mat-button
+					  class="mat-icon-button q-grid-prev-page"
+					  [disabled]="!$pager.prev.canExecute()"
+					  (click)="$pager.prev.execute();">
 				<mat-icon class="q-grid-icon">keyboard_arrow_left</mat-icon>
 			</button>
 			<q-grid-pager-target></q-grid-pager-target>
 			<button tabindex="-1"
-			        mat-button
-			        class="mat-icon-button q-grid-next-page"
-			        [disabled]="!$pager.next.canExecute()"
-			        (click)="$pager.next.execute();">
+					  mat-button
+					  class="mat-icon-button q-grid-next-page"
+					  [disabled]="!$pager.next.canExecute()"
+					  (click)="$pager.next.execute();">
 				<mat-icon class="q-grid-icon">keyboard_arrow_right</mat-icon>
 			</button>
 		</div>
@@ -1274,14 +1216,13 @@
 			</button>
 			<button mat-button
 			        color="primary"
-			        (click)="$builder.submit.execute()"
-			        [disabled]="!$builder.submit.canExecute()">
+				(click)="$builder.submit.execute()"
+				[disabled]="!$builder.submit.canExecute()">
 				Apply
 			</button>
 		</mat-card-actions>
 	</mat-card>
-</ng-template>
-<ng-template key="plugin-query-builder.tpl.html">
+</ng-template><ng-template key="plugin-query-builder.tpl.html">
 	<button mat-icon-button
 	        tabindex="-1"
 	        #trigger="matMenuTrigger"
@@ -1296,56 +1237,49 @@
 		                            *ngIf="trigger.menuOpen">
 		</q-grid-query-builder-panel>
 	</mat-menu>
-</ng-template>
-<ng-template key="plugin-reference-editor.tpl.html"
+</ng-template><ng-template key="plugin-reference-editor.tpl.html"
              let-$editor>
-	<mat-card class="q-grid-reference-card">
-		<mat-card-header>
-			<mat-card-title>{{$editor.title}}</mat-card-title>
-		</mat-card-header>
-		<mat-card-content>
-			<q-grid class="q-grid-embed"
-			        [model]="$editor.referenceModel"
-			        q-grid-autofocus>
-				<q-grid-toolbar>
-					<ng-template for="top">
-						<div class="q-grid-progress">
-							<q-grid-progress></q-grid-progress>
-						</div>
-					</ng-template>
-				</q-grid-toolbar>
-			</q-grid>
-		</mat-card-content>
-		<mat-card-actions>
-			<button mat-button
-			        (click)="$editor.cancel.execute()">Cancel</button>
-			<button mat-button
-			        color="primary"
-			        (click)="$editor.submit.execute()">Save</button>
-		</mat-card-actions>
-	</mat-card>
-</ng-template>
-<ng-template for="plugin-status-bar.tpl.html"
-             let-$statusBar>
+    <mat-card class="q-grid-reference-card">
+        <mat-card-header>
+            <mat-card-title>{{$editor.title}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <q-grid class="q-grid-embed"
+                    [model]="$editor.referenceModel"
+                    q-grid-autofocus>
+                <q-grid-toolbar>
+                    <ng-template for="top">
+                        <div class="q-grid-progress">
+                            <q-grid-progress></q-grid-progress>
+                        </div>
+                    </ng-template>
+                </q-grid-toolbar>
+            </q-grid>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button
+                    (click)="$editor.cancel.execute()">Cancel</button>
+            <button mat-button
+                    color="primary"
+                    (click)="$editor.submit.execute()">Save</button>
+        </mat-card-actions>
+    </mat-card>
+</ng-template><ng-template for="plugin-status-bar.tpl.html" let-$statusBar>
 	<div class="q-grid-status-bar">
 		{{$statusBar.columnIndex}}:{{$statusBar.rowIndex}}
 	</div>
 </ng-template>
-<ng-template key="plugin-tab-trap.tpl.html"
-             let-$tabTrap>
-	<div q-grid-tab-trap-in="start"></div>
-	<ng-container [ngTemplateOutlet]='$tabTrap.template'></ng-container>
-	<div q-grid-tab-trap-in="end"></div>
-</ng-template>
-<ng-template key="plugin-title.tpl.html"
-             let-$title>
+<ng-template key="plugin-tab-trap.tpl.html" let-$tabTrap>
+    <div q-grid-tab-trap-in="start"></div>
+    <ng-container [ngTemplateOutlet]='$tabTrap.template'></ng-container>
+    <div q-grid-tab-trap-in="end"></div>
+</ng-template><ng-template key="plugin-title.tpl.html" let-$title>
 	<div class="q-grid-title">
 		<h3 class="mat-card-title">
 			{{$title.value}}
 		</h3>
 	</div>
-</ng-template>
-<ng-template key="bottom-toolbar.tpl.html">
+</ng-template><ng-template key="bottom-toolbar.tpl.html">
 	<div class="layout-row">
 		<div class="flex">
 			<q-grid-legend></q-grid-legend>
