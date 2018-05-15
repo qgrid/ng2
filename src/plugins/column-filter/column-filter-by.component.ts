@@ -23,10 +23,10 @@ export class ColumnFilterByComponent extends PluginComponent {
 	}
 
 	remove(item: string): void {
-		if (item) {
-			this.by.delete(item);
-		} else {
-			this.byBlanksChange.emit(false);
-		}
+		this.by.delete(item);
+	}
+
+	removeByBlanks() {
+		this.byBlanksChange.emit(false);
 	}
 }
