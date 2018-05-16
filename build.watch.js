@@ -22,3 +22,5 @@ sane(templateFolder)
 
     recycle();
   });
+
+recycle();
