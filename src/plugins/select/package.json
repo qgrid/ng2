@@ -1,6 +1,0 @@
-{
-  "name": "ng2-qgrid/plugins/select",
-  "version": "5.3.0",
-  "main": "../../bundles/main.js",
-  "typings": "./select.module.d.ts"
-}

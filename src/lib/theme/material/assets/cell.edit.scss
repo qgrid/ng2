@@ -1,0 +1,78 @@
+.q-grid-edit-trigger {
+	position: absolute;
+	right: 2px;
+	font-size: 12px;
+	min-width: 16px;
+	width: 16px;
+	min-height: 16px;
+	height: 16px;
+	outline: none;
+	border: none;
+	background: transparent;
+	padding: 0;
+	margin: auto 0;
+	top: 0;
+	bottom: 0;
+
+	.q-grid-icon {
+		color: $dark-secondary;
+		font-size: 16px;
+		height: 16px;
+		width: 16px;
+		min-height: 16px;
+		min-width: 16px;
+		line-height: 16px;
+		display: block;
+	}
+}
+
+td.q-grid-edit {
+	overflow: visible !important;
+
+	.q-grid-editor {
+		display: block;
+		position: fixed;
+		border-radius: 4px;
+		background-color: #fcfcfc;
+		color: rgba(0, 0, 0, 0.87);
+		left: 0;
+		top: 0;
+		box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		flex-direction: column;
+		box-sizing: content-box;
+		z-index: 2;
+		padding: 24px;
+	}
+
+	.q-grid-actions {
+		button {
+			margin: 8px 0 0 8px;
+			float: right;
+			text-transform: uppercase;
+		}
+	}
+	.q-grid-position {
+		opacity: 0;
+	}
+	.q-grid-editor-content {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		h2 {
+			margin-top: 0;
+		}
+		.q-grid-editor-actions {
+			text-align: right;
+			button {
+				margin-bottom: 0;
+				display: inline-block;
+				&:last-child {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+}

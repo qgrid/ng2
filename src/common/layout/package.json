@@ -1,6 +1,0 @@
-{
-  "name": "ng2-qgrid/common/layout",
-  "version": "5.3.0",
-  "main": "../../bundles/main.js",
-  "typings": "./layout.module.d.ts"
-}
