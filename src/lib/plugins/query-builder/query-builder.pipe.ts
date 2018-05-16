@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Node } from '../expression-builder/model/node';
 import { MarkupVisitor } from 'ng2-qgrid/core/expression/markup.visitor';
 import { SerializationService } from '../expression-builder/serialization.service';
-import { convert } from './schema/converter';
+import { visit as convert } from './schema/converter';
 import { QueryBuilderService, ColumnMap } from './query-builder.service';
 import { Validator } from './schema/validator';
 

@@ -2,9 +2,7 @@ import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { cloneDeep } from 'ng2-qgrid/core/utility/index';
 import { camelCaseMapping as camelCase } from './operator';
 
-export const convert = visit;
-
-function visit(item) {
+export function visit(item) {
 	switch (item.id) {
 		case '#root':
 			return visit(item.children[0]);

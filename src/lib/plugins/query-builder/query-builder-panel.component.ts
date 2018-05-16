@@ -4,7 +4,7 @@ import { Command } from 'ng2-qgrid/core/command/command';
 import { clone } from 'ng2-qgrid/core/utility/index';
 import { QueryBuilderService } from './query-builder.service';
 import { WhereSchema } from './schema/where.schema';
-import { convert } from './schema/converter';
+import { visit as convert } from './schema/converter';
 import { PluginComponent } from '../plugin.component';
 import { SerializationService } from '../expression-builder/serialization.service';
 import { INodeSchema } from '../expression-builder/model/node.schema';
