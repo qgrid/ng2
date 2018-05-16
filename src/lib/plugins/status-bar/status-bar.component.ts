@@ -12,7 +12,7 @@ export class StatusBarComponent extends PluginComponent implements OnInit {
 	constructor(@Optional() root: RootService, templateHost: TemplateHostService) {
 		super(root);
 
-		templateHost.key = () => `plugin-status-bar.tpl.html`;
+		templateHost.key = () => 'plugin-status-bar.tpl.html';
 	}
 
 	private rowIndex = 0;
