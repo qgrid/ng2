@@ -1,7 +1,7 @@
 import { Component, Input, Optional } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { Action as ActionItem } from 'ng2-qgrid/core/action/action';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
+import { RootService } from '../../infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 
 @Component({

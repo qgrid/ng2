@@ -1,8 +1,8 @@
 import { Component, Optional, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
+import { RootService } from '../../infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 import { ColumnChooserView } from 'ng2-qgrid/plugin/column-chooser/column.chooser.view';
-import { FocusAfterRender } from 'ng2-qgrid/common/focus/focus.service';
+import { FocusAfterRender } from '../../common/focus/focus.service';
 
 const ColumnChooserName = 'qGridColumnChooser';
 

@@ -1,5 +1,5 @@
 import { Component, Optional, Output, EventEmitter, OnInit } from '@angular/core';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
+import { RootService } from '../../infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 import { Node } from '../expression-builder/model/node';
 import { Command } from 'ng2-qgrid/core/command/command';

@@ -6,7 +6,7 @@ import {
 	AfterViewInit
 } from '@angular/core';
 import { Shortcut } from 'ng2-qgrid/core/shortcut/shortcut';
-import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
+import { ViewCoreService } from '../../main/core/view/view-core.service';
 import { MatChipInput } from '@angular/material';
 
 @Directive({

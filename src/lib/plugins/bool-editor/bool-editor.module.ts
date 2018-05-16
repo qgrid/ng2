@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BoolEditorComponent } from './bool-editor.component';
-import { TemplateModule } from 'ng2-qgrid/template/template.module';
+import { TemplateModule } from '../../template/template.module';
 
 @NgModule({
 	declarations: [

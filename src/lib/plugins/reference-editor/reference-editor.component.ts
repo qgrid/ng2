@@ -6,13 +6,13 @@ import {
 	ElementRef
 } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
+import { RootService } from '../../infrastructure/component/root.service';
 import { isString } from 'ng2-qgrid/core/utility/index';
-import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
 import { BoolColumnModel } from 'ng2-qgrid/core/column-type/bool.column';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Command } from 'ng2-qgrid/core/command/command';
+import { ViewCoreService } from '../../main/core/view/view-core.service';
 
 @Component({
 	selector: 'q-grid-reference-editor',

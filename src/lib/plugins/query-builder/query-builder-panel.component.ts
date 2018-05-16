@@ -1,5 +1,5 @@
 import { Component, Optional, Output, EventEmitter, OnInit, ViewEncapsulation } from '@angular/core';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
+import { RootService } from '../../infrastructure/component/root.service';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { clone } from 'ng2-qgrid/core/utility/index';
 import { QueryBuilderService } from './query-builder.service';
@@ -12,7 +12,7 @@ import { Node } from '../expression-builder/model/node';
 import { EbNodeService } from '../expression-builder/eb-node.service';
 import { EbNodeComponent } from '../expression-builder/eb-node.component';
 import { TraverseService } from '../expression-builder/traverse.service';
-import { FocusAfterRender } from 'ng2-qgrid/common/focus/focus.service';
+import { FocusAfterRender } from '../../common/focus/focus.service';
 
 
 @Component({

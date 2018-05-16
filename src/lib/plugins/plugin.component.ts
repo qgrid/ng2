@@ -11,7 +11,7 @@ import { noop } from 'ng2-qgrid/core/utility/index';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 import { NgComponent } from '../infrastructure/component/ng.component';
 import { RootService } from '../infrastructure/component/root.service';
-import { GridComponent } from 'ng2-qgrid/main/grid/grid.component';
+import { GridComponent } from '../main/grid/grid.component';
 
 export class PluginComponent extends NgComponent
 	implements OnInit, OnChanges, OnDestroy {

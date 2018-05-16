@@ -1,6 +1,6 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { Layer } from './layer';
-import { TemplateService } from 'ng2-qgrid/template/template.service';
+import { TemplateService } from '../../../template/template.service';
 
 @Injectable()
 export class LayerService {

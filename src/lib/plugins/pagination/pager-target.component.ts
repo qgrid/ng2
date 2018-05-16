@@ -1,6 +1,6 @@
 import { Component, OnInit, Optional } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
+import { RootService } from '../../infrastructure/component/root.service';
 import { Shortcut } from 'ng2-qgrid/core/shortcut/shortcut';
 
 @Component({

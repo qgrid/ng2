@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { TemplateModule } from 'ng2-qgrid/template/template.module';
-import { StatusBarComponent } from 'ng2-qgrid/plugins/status-bar/status-bar.component';
+import { TemplateModule } from '../../template/template.module';
+import { StatusBarComponent } from './status-bar.component';
 
 @NgModule({
 	declarations: [

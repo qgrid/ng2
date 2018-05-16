@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
+import { MatDialogModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
-import { TemplateModule } from 'ng2-qgrid/template/template.module';
+import { FormsModule } from '@angular/forms';
 import { PersistenceComponent } from './persistence.component';
 import { PersistencePanelComponent } from './persistence-panel.component';
-import { MatDialogModule } from '@angular/material';
-import { FormsModule } from '@angular/forms';
+import { TemplateModule } from '../../template/template.module';
 
 @NgModule({
 	imports: [

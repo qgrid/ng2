@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CommonModule as GridCommonModule } from 'ng2-qgrid/common/common.module';
 import { GridComponent } from './grid/grid.component';
 import { GridService } from './grid/grid.service';
 import { ColumnComponent } from './column/column.component';
@@ -11,6 +10,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { RowComponent } from './core/row/row.component';
 import { LayerComponent } from './core/layer/layer.component';
 import { MarkupDirective } from './markup/markup.directive';
+import { CommonModule as GridCommonModule } from '../common/common.module';
 
 @NgModule({
 	declarations: [

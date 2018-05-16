@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { TemplateModule } from 'ng2-qgrid/template/template.module';
 import { BackdropComponent } from './backdrop.component';
 import { BackdropDirective } from './backdrop.directive';
+import { TemplateModule } from '../../template/template.module';
 
 @NgModule({
 	declarations: [

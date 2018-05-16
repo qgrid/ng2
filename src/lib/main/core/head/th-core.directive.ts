@@ -7,16 +7,16 @@ import {
 	ViewContainerRef
 } from '@angular/core';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
-import { TableCoreService } from '../table/table-core.service';
-import { CellService } from '../cell/cell.service';
-import { ViewCoreService } from '../view/view-core.service';
-import { TrCoreDirective } from '../row/tr-core.directive';
 import { TdCtrl } from 'ng2-qgrid/core/cell/td.ctrl';
 import { ThCtrl } from 'ng2-qgrid/core/cell/th.ctrl';
 import { FilterRowColumnModel } from 'ng2-qgrid/core/column-type/filter.row.column';
+import { TableCoreService } from '../table/table-core.service';
+import { CellService } from '../cell/cell.service';
+import { RootService } from '../../../infrastructure/component/root.service';
+import { ViewCoreService } from '../view/view-core.service';
+import { TrCoreDirective } from '../row/tr-core.directive';
 
 const classifyTd = TdCtrl.classify;
 const classifyTh = ThCtrl.classify;

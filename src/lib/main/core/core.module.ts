@@ -12,12 +12,12 @@ import { CellHandlerComponent } from './cell/cell-handler.component';
 import { TrCoreDirective } from './row/tr-core.directive';
 import { VScrollService } from './scroll/vscroll.service';
 import { MarkupDirective } from './markup/markup.directive';
-import { TemplateCacheService } from 'ng2-qgrid/template/template-cache.service';
-import { TemplateService } from 'ng2-qgrid/template/template.service';
-import { TemplateModule } from 'ng2-qgrid/template/template.module';
-import { CommonModule as GridCommonModule } from 'ng2-qgrid/common/common.module';
-import { TableCoreComponent } from 'ng2-qgrid/main/core/table/table-core.component';
-import { TdCoreAlignDirective } from 'ng2-qgrid/main/core/body/td-core-align.directive';
+import { TemplateCacheService } from '../../template/template-cache.service';
+import { TemplateService } from '../../template/template.service';
+import { TemplateModule } from '../../template/template.module';
+import { CommonModule as GridCommonModule } from '../../common/common.module';
+import { TableCoreComponent } from '../../main/core/table/table-core.component';
+import { TdCoreAlignDirective } from '../../main/core/body/td-core-align.directive';
 import { LayerCoreComponent } from './layer/layer-core.component';
 import { LayerCoreDirective } from './layer/layer-core.directive';
 

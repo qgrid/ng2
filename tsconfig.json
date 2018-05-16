@@ -19,9 +19,6 @@
       ],
       "ng2-qgrid/plugin/*": [
         "plugin/*"
-      ],
-      "ng2-qgrid/*": [
-        "lib/*"
       ]
     },
     "lib": [

@@ -1,5 +1,5 @@
 import { Component, Optional, Input, EventEmitter, OnInit, OnDestroy } from '@angular/core';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
+import { RootService } from '../../infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 import { PersistenceView, PersistenceItem } from 'ng2-qgrid/plugin/persistence/persistence.view';
 import { Command } from 'ng2-qgrid/core/command/command';

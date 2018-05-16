@@ -1,7 +1,7 @@
 import { Component, Optional, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { Command } from 'ng2-qgrid/core/command';
 import { PluginComponent } from '../plugin.component';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
+import { RootService } from '../../infrastructure/component/root.service';
 
 @Component({
 	selector: 'q-grid-progress',

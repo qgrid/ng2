@@ -24,9 +24,6 @@
       ],
       "ng2-qgrid/plugin/*": [
         "plugin/*"
-      ],
-      "ng2-qgrid/*": [
-        "lib/*"
       ]
     }
   },
@@ -37,7 +34,7 @@
     "annotateForClosureCompiler": true,
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
-    "flatModuleOutFile": "index.js",
+    "flatModuleOutFile": "public-api.js",
     "flatModuleId": "ng2-qgrid",
     "fullTemplateTypeCheck": true
   }

@@ -10,8 +10,8 @@ import {
 } from '@angular/core';
 import * as Infrastructure from 'ng2-qgrid/core/infrastructure/index';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
-import { NgComponent } from 'ng2-qgrid/infrastructure/component/ng.component';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
+import { NgComponent } from '../../infrastructure/component/ng.component';
+import { RootService } from '../../infrastructure/component/root.service';
 import { clone, noop } from 'ng2-qgrid/core/utility/index';
 import { DOCUMENT } from '@angular/common';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';

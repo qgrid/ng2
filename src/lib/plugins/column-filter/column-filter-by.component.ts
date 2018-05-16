@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Optional, Output } from '@angular/core';
-import { PluginComponent } from 'ng2-qgrid/plugins/plugin.component';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
+import { PluginComponent } from '../../plugins/plugin.component';
+import { RootService } from '../../infrastructure/component/root.service';
 
 @Component({
 	selector: 'q-grid-column-filter-by',

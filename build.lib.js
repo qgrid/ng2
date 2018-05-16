@@ -16,17 +16,20 @@ const buildTheme = require('./build.theme');
 const rootFolder = path.join(__dirname);
 const tscFolder = path.join(rootFolder, 'out-tsc');
 const srcFolder = path.join(rootFolder, 'src');
-const themeFolder = path.join(tscFolder, 'lib/theme/material');
+const themeFolder = path.join(tscFolder, 'theme/material');
 const distFolder = path.join(rootFolder, 'dist');
 const esm2015Folder = path.join(tscFolder, 'esm2015');
-const esm2015Entry = path.join(esm2015Folder, 'index.js');
+const esm2015Entry = path.join(esm2015Folder, 'public-api.js');
 
 return Promise.resolve()
   // Copy library to temporary folder and inline html/css.
   .then(() => console.log(`copy: ${srcFolder}`))
-  .then(() => relativeCopy(`**/*`, srcFolder, tscFolder))
+  .then(() => relativeCopy(`**/*`, path.join(srcFolder, 'plugin'), path.join(tscFolder, 'plugin')))
+  .then(() => relativeCopy(`**/*`, path.join(srcFolder, 'core'), path.join(tscFolder, 'core')))
+  .then(() => relativeCopy(`**/*`, path.join(srcFolder, 'lib'), tscFolder))
   .then(() => console.log(`copy: succeeded`))
   .then(() => console.log(`theme: build`))
+  // Build еheme
   .then(() =>
     buildTheme({
       path: path.join(themeFolder, 'templates'),

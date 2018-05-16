@@ -8,15 +8,15 @@ import {
 	DoCheck,
 	AfterViewChecked
 } from '@angular/core';
-import { NgComponent } from 'ng2-qgrid/infrastructure/component/ng.component';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Log } from 'ng2-qgrid/core/infrastructure/log';
-import { GridService } from 'ng2-qgrid/main/grid/grid.service';
+import { ViewCtrl } from 'ng2-qgrid/core/view/view.ctrl';
 import { CellService } from '../cell/cell.service';
 import { ViewCoreService } from './view-core.service';
-import { ViewCtrl } from 'ng2-qgrid/core/view/view.ctrl';
+import { NgComponent } from '../../../infrastructure/component/ng.component';
+import { RootService } from '../../../infrastructure/component/root.service';
+import { GridService } from '../../../main/grid/grid.service';
 
 @Component({
 	selector: 'q-grid-core-view',

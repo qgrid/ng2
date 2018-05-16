@@ -1,7 +1,7 @@
 import { Component, OnInit, Optional, ChangeDetectionStrategy } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
-import { TemplateHostService } from 'ng2-qgrid/template/template-host.service';
+import { RootService } from '../../infrastructure/component/root.service';
+import { TemplateHostService } from '../../template/template-host.service';
 
 @Component({
 	selector: 'q-grid-legend',

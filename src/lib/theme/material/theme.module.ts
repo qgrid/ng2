@@ -7,10 +7,10 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThemeComponent } from './theme.component';
-import { PluginModule } from 'ng2-qgrid/plugins/plugin.module';
-import { TemplateModule } from 'ng2-qgrid/template/template.module';
-import { TemplateService } from 'ng2-qgrid/template/template.service';
-import { CommonModule as GridCommonModule } from 'ng2-qgrid/common/common.module';
+import { PluginModule } from '../../plugins/plugin.module';
+import { CommonModule as GridCommonModule } from '../../common/common.module';
+import { TemplateService } from '../../template/template.service';
+import { TemplateModule } from '../../template/template.module';
 import {
 	MatCardModule,
 	MatIconModule,
@@ -31,11 +31,11 @@ import {
 	MatOptionModule,
 	MatToolbarModule
 } from '@angular/material';
-import { PipeModule } from 'ng2-qgrid/pipes/pipe.module';
-import { GridModule } from 'ng2-qgrid/grid.module';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
-import { ThemeService } from 'ng2-qgrid/template/theme.service';
-import { VscrollModule } from 'ng2-qgrid/common/vscroll/vscroll.module';
+import { PipeModule } from '../../pipes/pipe.module';
+import { GridModule } from '../../grid.module';
+import { RootService } from '../../infrastructure/component/root.service';
+import { VscrollModule } from '../../common/vscroll/vscroll.module';
+import { ThemeService } from '../../template/theme.service';
 
 @NgModule({
 	declarations: [

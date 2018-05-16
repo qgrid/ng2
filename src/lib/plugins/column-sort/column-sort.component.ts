@@ -9,13 +9,13 @@ import {
 	TemplateRef,
 	ContentChild
 } from '@angular/core';
-import { PluginComponent } from '../plugin.component';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
+import { RootService } from '../../infrastructure/component/root.service';
 import { ColumnSortView } from 'ng2-qgrid/plugin/column-sort/column.sort.view';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
-import { ViewCoreService } from 'ng2-qgrid/main/core/view/view-core.service';
-import { FocusAfterRender } from 'ng2-qgrid/common/focus/focus.service';
+import { FocusAfterRender } from '../../common/focus/focus.service';
+import { PluginComponent } from '../plugin.component';
+import { ViewCoreService } from '../../main/core/view/view-core.service';
 
 @Component({
 	selector: 'q-grid-column-sort',

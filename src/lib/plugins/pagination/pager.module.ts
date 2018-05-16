@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PagerComponent } from './pager.component';
-import { TemplateModule } from 'ng2-qgrid/template/template.module';
-import { PagerTargetComponent } from 'ng2-qgrid/plugins/pagination/pager-target.component';
+import { PagerTargetComponent } from './pager-target.component';
+import { TemplateModule } from '../../template/template.module';
 
 @NgModule({
 	declarations: [

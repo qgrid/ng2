@@ -7,16 +7,16 @@ import {
 	Output,
 	OnDestroy
 } from '@angular/core';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
-import { PluginComponent } from '../plugin.component';
 import { ColumnFilterView } from 'ng2-qgrid/plugin/column-filter/column.filter.view';
 import { uniq, flatten } from 'ng2-qgrid/core/utility/index';
-import { VscrollService } from 'ng2-qgrid/common/vscroll/vscroll.service';
-import { VscrollContext } from 'ng2-qgrid/common/vscroll/vscroll.context';
-import { GridService } from 'ng2-qgrid/main/grid/grid.service';
-import { Fetch } from 'ng2-qgrid/core/infrastructure/fetch';
-import { FocusAfterRender } from 'ng2-qgrid/common/focus/focus.service';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
+import { Fetch } from 'ng2-qgrid/core/infrastructure/fetch';
+import { VscrollService } from '../../common/vscroll/vscroll.service';
+import { RootService } from '../../infrastructure/component/root.service';
+import { VscrollContext } from '../../common/vscroll/vscroll.context';
+import { FocusAfterRender } from '../../common/focus/focus.service';
+import { PluginComponent } from '../plugin.component';
+import { GridService } from '../../main/grid/grid.service';
 
 @Component({
 	selector: 'q-grid-column-filter',

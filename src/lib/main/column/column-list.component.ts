@@ -1,6 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { ModelComponent } from 'ng2-qgrid/infrastructure/component/model.component';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
+import { ModelComponent } from '../../infrastructure/component/model.component';
+import { RootService } from '../../infrastructure/component/root.service';
 import { ColumnListService } from './column-list.service';
 
 @Component({

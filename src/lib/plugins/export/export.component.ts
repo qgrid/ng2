@@ -5,12 +5,12 @@ import { Command } from 'ng2-qgrid/core/command/command';
 import { Json } from 'ng2-qgrid/core/export/json';
 import { Xml } from 'ng2-qgrid/core/export/xml';
 import { Csv } from 'ng2-qgrid/core/export/csv';
+import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { Xlsx } from './xlsx';
 import { Pdf } from './pdf';
 import { downloadFactory } from './download';
-import { TemplateHostService } from 'ng2-qgrid/template/template-host.service';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
-import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
+import { TemplateHostService } from '../../template/template-host.service';
+import { RootService } from '../../infrastructure/component/root.service';
 
 @Component({
 	selector: 'q-grid-export',

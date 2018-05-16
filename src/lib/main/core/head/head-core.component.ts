@@ -1,12 +1,12 @@
 import { Component, OnInit, ElementRef, NgZone } from '@angular/core';
 import { ViewCoreService } from '../view/view-core.service';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
-import { TableCoreService } from '../table/table-core.service';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
-import { NgComponent } from 'ng2-qgrid/infrastructure/component/ng.component';
 import { HeadCtrl } from 'ng2-qgrid/core/head/head.ctrl';
+import { TableCoreService } from '../table/table-core.service';
+import { RootService } from '../../../infrastructure/component/root.service';
+import { NgComponent } from '../../../infrastructure/component/ng.component';
 
 @Component({
 	selector: 'thead[q-grid-core-head]',

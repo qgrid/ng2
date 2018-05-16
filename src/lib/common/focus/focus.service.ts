@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy, Optional } from '@angular/core';
-import { RootService } from 'ng2-qgrid/infrastructure/component/root.service';
+import { RootService } from '../../infrastructure/component/root.service';
 
 @Injectable()
 export class FocusAfterRender implements OnDestroy {
