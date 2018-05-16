@@ -1,27 +1,65 @@
-# ng2-qgrid
+# qgrid
+Angular data grid
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.0.
+## examples
+https://qgrid.github.io/ng2/
 
-## Development server
+## installation
+* `$ npm install ng2-qgrid`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* add grid and theme modules to your app module
+```javascript
+import { GridModule, ThemeModule } from 'ng2-qgrid';
 
-## Code scaffolding
+@NgModule({
+   imports: [
+      GridModule,
+      ThemeModule
+   ]
+})
+export class AppModule {
+}
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* add grid model and grid service to your component if it's required
+```javascript
+import { GridModel, GridService } from 'ng2-qgrid';
 
-## Build
+@Component({
+   selector: 'my-component',
+   templateUrl: './my-component.html'
+})
+export class MyComponent implements OnInit {
+   public gridModel: GridModel;
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+   constructor(gridService: GridService) {
+      this.gridModel = gridService.model();
+   }
 
-## Running unit tests
+   ngOnInit(): void {
+      this.gridModel
+         .data({
+            rows: getRows()
+         });
+   }
+}
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+* add html markup to your component
+```html
+<q-grid [model]="gridModel">
+   <q-grid-columns generation="deep">
+      <q-grid-column type="number" aggregation="sum"></q-grid-column>
+      <q-grid-column key="totalAmount" type="currency" aggregation="sum"></q-grid-column>
+   </q-grid-columns>
+</q-grid>
+```
 
-## Running end-to-end tests
+## Development
+### run project
+* `git clone https://github.com/qgrid/ng2.git`
+* `npm install`
+* `npm run start`
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## licence
+Code licensed under MIT license.
