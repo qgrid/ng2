@@ -10,6 +10,7 @@ import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { ViewCoreService } from '../view/view-core.service';
 import { TableCoreService } from '../table/table-core.service';
 import { BodyCtrl } from 'ng2-qgrid/core/body/body.ctrl';
+import { ScrollService } from 'ng2-qgrid/core/scroll/scroll.service';
 
 @Component({
 	selector: 'tbody[q-grid-core-body]',
@@ -34,7 +35,8 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 
 		const table = this.$table;
 		const model = this.root.model;
-		const ctrl = new BodyCtrl(model, view, this.root.table, this.root.bag);
+		const scrollService = new ScrollService(model, this.root.table);
+		const ctrl = new BodyCtrl(model, view, this.root.table, this.root.bag, scrollService);
 		const listener = new EventListener(element, new EventManager(this));
 
 		this.zone.runOutsideAngular(() => {

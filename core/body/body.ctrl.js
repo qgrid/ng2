@@ -5,12 +5,13 @@ import { Fastdom } from '../services/fastdom';
 const MOUSE_LEFT_BUTTON = 1;
 
 export class BodyCtrl extends View {
-	constructor(model, view, table, bag) {
+	constructor(model, view, table, bag, scrollService) {
 		super(model);
 
 		this.view = view;
 		this.bag = bag;
 		this.table = table;
+		this.scrollService = scrollService;
 		this.rangeStartCell = null;
 	}
 
@@ -99,6 +100,8 @@ export class BodyCtrl extends View {
 			if (startCell && endCell) {
 				this.navigate(endCell);
 				this.view.selection.selectRange(startCell, endCell, 'body');
+
+				this.scrollService.scroll(e);
 			}
 		}
 	}
