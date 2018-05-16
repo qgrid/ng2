@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService, Human } from './data.service';
-import { Grid, GridModel, Command } from '../lib';
+import { Grid, GridModel, Command } from '../lib/public-api';
 import { uniq, isUndefined } from '../core/utility/index';
 import { map } from 'rxjs/operators';
 

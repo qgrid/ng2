@@ -5,15 +5,16 @@ const libName = require('./package.json').name;
 const camelCase = require('camelcase');
 const nodeResolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
-const sourcemaps = require('rollup-plugin-sourcemaps');
 const alias = require('rollup-plugin-alias');
 const rootFolder = path.join(__dirname);
 const tscFolder = path.join(rootFolder, 'out-tsc');
-const es2015Folder = path.join(tscFolder, 'es2015');
+const esm2015Folder = path.join(tscFolder, 'esm2015');
 
 module.exports = {
   output: {
     name: camelCase(libName),
+    sourcemap: true,
+    sourcemapFile: `${libName}.min.js`,
     // ATTENTION:
     // Add any dependency or peer dependency your library to `globals` and `external`.
     // This is required for UMD bundle users.
@@ -44,7 +45,7 @@ module.exports = {
     "@angular/platform-browser-dynamic",
     "@angular/router",
     "core-js",
-    "rxjs",    
+    "rxjs",
     "zone.js"
   ],
   plugins: [
@@ -66,11 +67,10 @@ module.exports = {
         'node_modules/css.escape/css.escape.js': ['cssEscape']
       }
     }),
-    sourcemaps(),
     alias({
       'ng2-qgrid/core': path.join(tscFolder, '/core/'),
       'ng2-qgrid/plugin': path.join(tscFolder, '/plugin/'),
-      'ng2-qgrid': path.join(es2015Folder, '/lib/')
+      'ng2-qgrid': path.join(esm2015Folder, '/lib/')
     })
   ]
 };

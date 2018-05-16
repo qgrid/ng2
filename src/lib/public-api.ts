@@ -1,3 +1,27 @@
+// Main
+export { GridModule } from './grid.module';
+export { GridComponent } from './main/grid/grid.component';
+export { GridService as Grid } from './main/grid/grid.service';
+export { ThemeModule } from './theme/material/theme.module';
+
+// Core
+export { GridService } from 'ng2-qgrid/core/services/grid';
+export { Model as GridModel } from 'ng2-qgrid/core/infrastructure/model';
+
+// Pipe
+export { HighlightPipe } from './pipes/highlight/highlight.pipe';
+export { FilterPipe } from './pipes/filter/filter.pipe';
+export { PipeModule } from './pipes/pipe.module';
+
+// Infrastructure
+export { Action } from 'ng2-qgrid/core/action/action';
+export { Command } from 'ng2-qgrid/core/command/command';
+export { Pipe } from 'ng2-qgrid/core/pipe/pipe';
+export { PipeUnit } from 'ng2-qgrid/core/pipe/pipe.unit';
+export { Node } from 'ng2-qgrid/core/node/node';
+export { RowDetailsStatus } from 'ng2-qgrid/core/row-details/row.details.status';
+
+// Column
 export { ArrayColumnModel as ArrayColumn } from 'ng2-qgrid/core/column-type/array.column';
 export { BoolColumnModel as BoolColumn } from 'ng2-qgrid/core/column-type/bool.column';
 export { CurrencyColumnModel as CurrencyColumn } from 'ng2-qgrid/core/column-type/currency.column';
@@ -24,3 +48,4 @@ export { SelectColumnModel as SelectColumn } from 'ng2-qgrid/core/column-type/se
 export { TextColumnModel as TextColumn } from 'ng2-qgrid/core/column-type/text.column';
 export { TimeColumnModel as TimeColumn } from 'ng2-qgrid/core/column-type/time.column';
 export { UrlColumnModel as UrlColumn } from 'ng2-qgrid/core/column-type/url.column';
+

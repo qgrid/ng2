@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./out-tsc/es2015",
+    "outDir": "./out-tsc/esm2015",
     "target": "es2015",
     "rootDir": "./out-tsc",
     "sourceMap": true,

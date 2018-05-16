@@ -1,6 +1,0 @@
-{
-  "name": "ng2-qgrid/plugins/chips",
-  "version": "5.3.0",
-  "main": "../../bundles/main.js",
-  "typings": "./chips.module.d.ts"
-}

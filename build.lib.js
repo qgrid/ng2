@@ -17,9 +17,9 @@ const rootFolder = path.join(__dirname);
 const tscFolder = path.join(rootFolder, 'out-tsc');
 const srcFolder = path.join(rootFolder, 'src');
 const themeFolder = path.join(tscFolder, 'lib/theme/material');
-const es2015Folder = path.join(tscFolder, 'es2015');
-const es2015Entry = path.join(es2015Folder, 'index.js');
 const distFolder = path.join(rootFolder, 'dist');
+const esm2015Folder = path.join(tscFolder, 'esm2015');
+const esm2015Entry = path.join(esm2015Folder, 'index.js');
 
 return Promise.resolve()
   // Copy library to temporary folder and inline html/css.
@@ -34,6 +34,7 @@ return Promise.resolve()
     })
   )
   .then(() => console.log(`theme: succeeded`))
+  // Inline styles and templates
   .then(() => console.log(`scss: ${tscFolder}`))
   .then(() => {
     const files = glob.sync('**/index.scss', { cwd: tscFolder });
@@ -56,39 +57,38 @@ return Promise.resolve()
   .then(() => console.log(`inline: ${tscFolder}`))
   .then(() => inlineStyles(tscFolder))
   .then(() => console.log('inline: succeeded'))
-  // Compile to ES2015.
+  // Compile to ESM2015.
   .then(() => console.log('ngc: tsconfig.es2015.json'))
   .then(() => ngc(['--project', 'tsconfig.es2015.json']))
   .then(code => code === 0 ? Promise.resolve() : Promise.reject())
-  .then(() => console.log('ngc es2015: succeeded'))
+  .then(() => console.log('ngc esm2015: succeeded'))
   // Copy typings and metadata to `dist/` folder.
   .then(() => console.log(`copy metadata: ${distFolder}`))
-  .then(() => relativeCopy('*/*.d.ts', es2015Folder, distFolder))
-  .then(() => relativeCopy('**/*.d.ts', path.join(es2015Folder, 'lib'), distFolder))
+  .then(() => relativeCopy('**/*.d.ts', esm2015Folder, distFolder))
+  .then(() => relativeCopy('**/*.metadata.json', esm2015Folder, distFolder))
   .then(() => relativeCopy('**/*.d.ts', path.join(tscFolder, 'core'), path.join(distFolder, 'core')))
   .then(() => relativeCopy('**/*.d.ts', path.join(tscFolder, 'plugin'), path.join(distFolder, 'plugin')))
-  .then(() => relativeCopy('**/*.metadata.json', es2015Folder, distFolder))
   .then(() => console.log('copy metadata: succeeded'))
   // Bundle lib.
-  .then(() => console.log(`bundle es2015: ${libName}`))
+  .then(() => console.log(`bundle fesm2015: ${libName}`))
   .then(() => {
     const cfg = Object.assign({}, rollupConfig, {
-      input: es2015Entry,
+      input: esm2015Entry,
       output: Object.assign({}, rollupConfig.output, {
-        file: path.join(distFolder, `bundles`, `${libName}.js`),
+        file: path.join(distFolder, 'fesm2015', `${libName}.js`),
         format: 'es'
       })
     });
 
     return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
   })
-  .then(() => console.log('bundle es2015: succeeded'))
+  .then(() => console.log('bundle fesm2015: succeeded'))
   .then(() => console.log(`bundle umd: ${libName}`))
   .then(() => {
     const cfg = Object.assign({}, rollupConfig, {
-      input: es2015Entry,
+      input: esm2015Entry,
       output: Object.assign({}, rollupConfig.output, {
-        file: path.join(distFolder, `bundles`, `${libName}.umd.js`),
+        file: path.join(distFolder, 'bundles', `${libName}.umd.js`),
         format: 'umd'
       }),
       plugins: rollupConfig.plugins.concat([babel({})])
@@ -100,9 +100,9 @@ return Promise.resolve()
   .then(() => console.log(`bundle umd.min: ${libName}`))
   .then(() => {
     const cfg = Object.assign({}, rollupConfig, {
-      input: es2015Entry,
+      input: esm2015Entry,
       output: Object.assign({}, rollupConfig.output, {
-        file: path.join(distFolder, `bundles`, `${libName}.umd.min.js`),
+        file: path.join(distFolder, 'bundles', `${libName}.umd.min.js`),
         format: 'umd'
       }),
       plugins: rollupConfig.plugins.concat([babel({}), uglify({})])
@@ -111,19 +111,19 @@ return Promise.resolve()
     return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
   })
   .then(() => console.log('bundle umd.min: succeeded'))
-  .then(() => console.log(`bundle es5: ${libName}`))
+  .then(() => console.log(`bundle fesm5: ${libName}`))
   .then(() => {
     const cfg = Object.assign({}, rollupConfig, {
-      input: es2015Entry,
+      input: esm2015Entry,
       output: Object.assign({}, rollupConfig.output, {
-        file: path.join(distFolder, `bundles`, `${libName}.es5.js`),
+        file: path.join(distFolder, 'fesm5', `${libName}.js`),
         format: 'es'
       }),
       plugins: rollupConfig.plugins.concat([babel({})])
     });
     return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
   })
-  .then(() => console.log('bundle es5: succeeded'))
+  .then(() => console.log('bundle fesm5: succeeded'))
   .then(() => console.log('bundle: successed'))
   // Copy package files
   .then(() => console.log('copy package: start'))

@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { MatCardModule } from '@angular/material';
 import { AppComponent } from './app.component';
 
-import { GridModule, ThemeModule } from '../lib';
+import { GridModule, ThemeModule } from '../lib/public-api';
 
 @NgModule({
   declarations: [

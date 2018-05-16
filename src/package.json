@@ -1,7 +1,6 @@
 {
   "deprecated": false,
   "description": "Angular Grid",
-  "es2015": "./bundles/ng2-qgrid.js",
   "homepage": "https://github.com/qgrid/ng2",
   "keywords": [
     "angular",
@@ -12,7 +11,6 @@
   ],
   "license": "MIT",
   "main": "./bundles/ng2-qgrid.umd.js",
-  "module": "./bundles/ng2-qgrid.es5.js",
   "name": "ng2-qgrid",
   "peerDependencies": {
     "@angular/common": "^6.0.0",
@@ -24,6 +22,6 @@
     "type": "git",
     "url": "git+https://github.com/qgrid/ng2.git"
   },
-  "typings": "./index.d.ts",
-  "version": "6.0.0"
+  "typings": "./public-api.d.ts",
+  "version": "6.0.1"
 }
