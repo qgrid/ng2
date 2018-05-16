@@ -1,12 +1,13 @@
+// Core
+export { Model as GridModel } from 'ng2-qgrid/core/infrastructure/model';
+export { GridService } from 'ng2-qgrid/core/services/grid';
+
 // Main
 export { GridModule } from './grid.module';
 export { GridComponent } from './main/grid/grid.component';
 export { GridService as Grid } from './main/grid/grid.service';
 export { ThemeModule } from './theme/material/theme.module';
-
-// Core
-export { GridService } from 'ng2-qgrid/core/services/grid';
-export { Model as GridModel } from 'ng2-qgrid/core/infrastructure/model';
+export { ThemeComponent } from './theme/material/theme.component';
 
 // Pipe
 export { HighlightPipe } from './pipes/highlight/highlight.pipe';

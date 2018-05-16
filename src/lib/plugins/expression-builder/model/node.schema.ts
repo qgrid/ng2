@@ -15,7 +15,7 @@ export interface INodeSchema {
 	materialize(id: string): Node;
 }
 
-export function nodeSchema(GroupSchemaT: typeof GroupSchema) {
+export function nodeSchema(GroupSchemaT: typeof GroupSchema): any {
 	return class NodeSchema implements INodeSchema {
 		public plan = [];
 		public planMap = {};

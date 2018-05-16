@@ -34,7 +34,7 @@
     "annotateForClosureCompiler": true,
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
-    "flatModuleOutFile": "public-api.js",
+    "flatModuleOutFile": "index.js",
     "flatModuleId": "ng2-qgrid",
     "fullTemplateTypeCheck": true
   }

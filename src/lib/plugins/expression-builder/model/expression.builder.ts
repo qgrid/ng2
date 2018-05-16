@@ -120,6 +120,6 @@ export class ExpressionBuilder {
 			});
 
 		// TODO: think how to avoid this
-		return new NodeSchemaT() as any as T;
+		return new NodeSchemaT() as T;
 	}
 }

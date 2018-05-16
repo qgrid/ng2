@@ -22,6 +22,6 @@
     "type": "git",
     "url": "git+https://github.com/qgrid/ng2.git"
   },
-  "typings": "./public-api.d.ts",
+  "typings": "./index.d.ts",
   "version": "6.0.1"
 }

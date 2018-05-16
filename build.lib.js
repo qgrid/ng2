@@ -19,7 +19,7 @@ const srcFolder = path.join(rootFolder, 'src');
 const themeFolder = path.join(tscFolder, 'theme/material');
 const distFolder = path.join(rootFolder, 'dist');
 const esm2015Folder = path.join(tscFolder, 'esm2015');
-const esm2015Entry = path.join(esm2015Folder, 'public-api.js');
+const esm2015Entry = path.join(esm2015Folder, 'index.js');
 
 return Promise.resolve()
   // Copy library to temporary folder and inline html/css.
@@ -131,7 +131,7 @@ return Promise.resolve()
   // Copy package files
   .then(() => console.log('copy package: start'))
   .then(() => relativeCopy('LICENSE', rootFolder, distFolder))
-  .then(() => relativeCopy('package.json', tscFolder, distFolder))
+  .then(() => relativeCopy('package.json', srcFolder, distFolder))
   .then(() => relativeCopy('README.md', rootFolder, distFolder))
   .then(() => console.log('copy package: success'))
   .catch(ex => {

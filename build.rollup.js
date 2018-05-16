@@ -69,8 +69,7 @@ module.exports = {
     }),
     alias({
       'ng2-qgrid/core': path.join(tscFolder, '/core/'),
-      'ng2-qgrid/plugin': path.join(tscFolder, '/plugin/'),
-      'ng2-qgrid': path.join(esm2015Folder, '/lib/')
+      'ng2-qgrid/plugin': path.join(tscFolder, '/plugin/')      
     })
   ]
 };
