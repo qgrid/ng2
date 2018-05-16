@@ -1,6 +1,7 @@
 import { View } from '../view';
 import { Command } from '../command';
-import { getType, isUndefined } from '../utility';
+import { isUndefined } from '../utility';
+import { getType } from '../services/convert';
 import { SelectionCommandManager } from './../selection/selection.command.manager';
 import { ClipboardService } from './clipboard.service';
 import { SelectionService } from '../selection/selection.service';
@@ -8,6 +9,7 @@ import { RowSelector } from '../row/row.selector';
 import { EditCellView } from '../edit/edit.cell.view';
 import { CommandManager } from '../command/command.manager';
 import { CellEditor } from '../edit/edit.cell.editor';
+import { EventListener, EventManager } from '../../core/infrastructure';
 
 export class ClipboardView extends View {
 	constructor(model, table, commandManager) {
@@ -20,47 +22,49 @@ export class ClipboardView extends View {
 		const action = model.action().shortcut;
 		const commands = this.commands;
 
-		document.addEventListener('paste', (e) => {
+		const documentListener = new EventListener(document, new EventManager(this));
+
+		this.using(documentListener.on('paste', (e) => {
 			e.stopPropagation();
 			e.preventDefault();
 
 			const navigation = model.navigation();
 			const editView = new EditCellView(this.model, this.table, new CommandManager());
 
-			const clipboardData = e.clipboardData;
-			const pastedData = clipboardData.getData('Text');
-			const splited = pastedData.split("\n");
-			const result = splited.slice(0, splited.length - 1);
-			let navigatedCell = navigation.cell;
-			let rowIndex = navigatedCell.rowIndex;
-			let columnIndex = navigatedCell.columnIndex;
+			const data = insertedData(e);
 
-			for (let i = 0; i < result.length; i++) {
-				let cells = result[i].split("\t");
+			let initialCell = navigation.cell;
+			let nextCellFlag = false;
+
+			let rowIndex = initialCell.rowIndex;
+			let columnIndex = initialCell.columnIndex;
+
+			for (let i = 0; i < data.length; i++) {
+				let cells = data[i].split("\t");
 
 				for(let j = 0; j < cells.length; j++) {
 					const label = cells[j];
-					const last = j === cells.length - 1;
-					if (navigatedCell) {
+					const isLast = j === cells.length - 1;
+					if (initialCell && !nextCellFlag) {
 						const cellView = this.table.body.cell(rowIndex, columnIndex).model();
 						changeLabel(cellView, editView, label);
-						navigatedCell = null;
-					} else {
+						if (!isLast) {
+							nextCellFlag = true;
+						}
+					} else if (nextCellFlag) {
 						columnIndex += 1;
 						const cellView = this.table.body.cell(rowIndex, columnIndex).model();
 						changeLabel(cellView, editView, label);
 					}
 
-					if (last) {
-						navigatedCell = model.navigation().cell;
-						rowIndex = navigatedCell.rowIndex + 1;
-						columnIndex = navigatedCell.columnIndex;
+					if (isLast) {
+						rowIndex = initialCell.rowIndex + (i + 1);
+						columnIndex = initialCell.columnIndex;
+						nextCellFlag = false;
 					}
-
 				}
 			}
-		});
-
+		}));
 		this.using(action.register(selectionCommandManager, commands));
 	}
 
@@ -92,18 +96,6 @@ export class ClipboardView extends View {
 					ClipboardService.copy(selector);
 				},
 				shortcut: shortcut.copy
-			}),
-			paste: new Command({
-				source: 'clipboard.view',
-				execute: e => {
-					const navigation = this.model.navigation();
-					const cell = navigation.cell;
-					// document.dispatchEvent(this.pasteEvent);
-					const temp = 123;
-
-
-				},
-				// shortcut: shortcut.paste
 			})
 		};
 
@@ -114,9 +106,89 @@ export class ClipboardView extends View {
 }
 
 function changeLabel(cell, edit, label) {
-	const editor = new CellEditor(cell);
-	editor.label = label;
-	editor.value = label;
-	edit.editor = editor;
-	edit.batchCommit.execute();
+	const columnType = cell.column.type;
+	const labelType = getTypeFromText(label);
+
+	if(columnType !== 'id' && columnType !== 'array') {
+		if (columnType === labelType) {
+			const editor = new CellEditor(cell);
+			editor.label = label;
+			editor.value = label;
+			edit.editor = editor;
+			edit.batchCommit.execute();
+		}
+	}
 }
+
+function insertedData(e) {
+	const clipboardData = e.clipboardData;
+	const pasted = clipboardData.getData('Text');
+	const values = pasted.split("\n");
+
+	return values.slice(0, values.length - 1);
+}
+
+function getTypeFromText(text) {
+	const symbols = text.split('').slice(0, text.length - 1);
+
+	const isText = symbols.every(s => s.charCodeAt(0) >= 65 && s.charCodeAt(0) <= 122);
+	if (isText) {
+		return 'text';
+	}
+
+	const isNumber = symbols.every(s => s.charCodeAt(0) >= 48 && s.charCodeAt(0) <= 57 ||  s.charCodeAt(0) === 46);
+	if (isNumber) {
+		return 'number';
+	}
+
+	const isDate = new Date(text);
+	if (isDate) {
+		return 'date';
+	}
+
+	if (text.includes('@')) {
+		return 'email';
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
