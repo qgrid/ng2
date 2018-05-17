@@ -1,7 +1,7 @@
+import { GRID_PREFIX } from '../definition';
 import { View } from '../view';
 import { Command } from '../command';
 import { isUndefined } from '../utility';
-import { getType } from '../services/convert';
 import { SelectionCommandManager } from './../selection/selection.command.manager';
 import { ClipboardService } from './clipboard.service';
 import { SelectionService } from '../selection/selection.service';
@@ -40,7 +40,7 @@ export class ClipboardView extends View {
 			let columnIndex = initialCell.columnIndex;
 
 			for (let i = 0; i < data.length; i++) {
-				let cells = data[i].split("\t");
+				let cells = data[i].split('\t');
 
 				for(let j = 0; j < cells.length; j++) {
 					const label = cells[j];
@@ -107,10 +107,13 @@ export class ClipboardView extends View {
 
 function changeLabel(cell, edit, label) {
 	const columnType = cell.column.type;
-	const labelType = getTypeFromText(label);
+	const labelType = getType(label);
 
 	if(columnType !== 'id' && columnType !== 'array') {
 		if (columnType === labelType) {
+			const td = cell.model.$implicit.element;
+			td.classList.add(`${GRID_PREFIX}-selected`);
+
 			const editor = new CellEditor(cell);
 			editor.label = label;
 			editor.value = label;
@@ -123,12 +126,12 @@ function changeLabel(cell, edit, label) {
 function insertedData(e) {
 	const clipboardData = e.clipboardData;
 	const pasted = clipboardData.getData('Text');
-	const values = pasted.split("\n");
+	const values = pasted.split('\n');
 
 	return values.slice(0, values.length - 1);
 }
 
-function getTypeFromText(text) {
+function getType(text) {
 	const symbols = text.split('').slice(0, text.length - 1);
 
 	const isText = symbols.every(s => s.charCodeAt(0) >= 65 && s.charCodeAt(0) <= 122);
@@ -141,8 +144,8 @@ function getTypeFromText(text) {
 		return 'number';
 	}
 
-	const isDate = new Date(text);
-	if (isDate) {
+	const date = new Date(text);
+	if (date && isFinite(date)) {
 		return 'date';
 	}
 
