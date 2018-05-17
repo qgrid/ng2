@@ -32,7 +32,7 @@ function buildTable(selector) {
 		}
 
 		if (sourceContainsHead && allowTableHeader) {
-			table = addPartToTable(table, head, 'head');
+			table = addPart(table, head, 'head');
 			allowTableHeader = false;
 		}
 
@@ -45,7 +45,7 @@ function buildTable(selector) {
 		table.appendChild(tr);
 
 		if (sourceContainsFoot && allowTableFooter) {
-			table = addPartToTable(table, foot, 'foot');
+			table = addPart(table, foot, 'foot');
 			allowTableFooter = false;
 		}
 	}
@@ -55,7 +55,7 @@ function buildTable(selector) {
 	return table;
 }
 
-function addPartToTable(table, part, type) {
+function addPart(table, part, type) {
 	const tr = document.createElement('tr');
 
 	switch (type) {

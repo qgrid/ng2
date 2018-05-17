@@ -50,7 +50,7 @@ export class RowSelector {
 			.columns
 			.filter(column => column.class === 'data' || column.class === 'pivot');
 
-		const titles = this.titles(items);
+		const titles = this.itemsTitles(items);
 		const ids = this.ids(items);
 
 		const selectedColumns = columns.filter(column => titles.indexOf(column.title) >= 0);
@@ -58,10 +58,10 @@ export class RowSelector {
 		const head = selectedColumns.map(column => column.title);
 		const foot = selectedColumns.map(column => this.value(column) === null ? '' : this.value(column));
 
-		const emptyBody = this.createEmptyBody(ids, titles);
-		const body = this.fillBodyWithLabels(emptyBody, items, selectedColumns, ids);
+		const emptyBody = this.createBody(ids, titles);
+		const body = this.fill(emptyBody, items, selectedColumns, ids);
 
-		return this.addHeadAndFootToBody(body, head, foot);
+		return this.addParts(body, head, foot);
 	}
 
 	mapFromMix(items) {
@@ -114,7 +114,7 @@ export class RowSelector {
 			body.push(line);
 		}
 
-		return this.addHeadAndFootToBody(body, head, foot);
+		return this.addParts(body, head, foot);
 	}
 
 	value(column) {
@@ -136,7 +136,7 @@ export class RowSelector {
 		return null;
 	}
 
-	fillBodyWithLabels(body, items, columns, ids) {
+	fill(body, items, columns, ids) {
 		for (let y = 0; y < ids.length; y++) {
 			const cellsWithCurrentId = items.filter(cell => cell.row.id === ids[y]);
 
@@ -145,7 +145,7 @@ export class RowSelector {
 				const row = cell.row;
 				const column = cell.column;
 				const label = get(row, column);
-				const specificTitles = this.getSpecificTitlesOfRow(row, columns);
+				const specificTitles = this.rowTitles(row, columns);
 				const x = specificTitles.indexOf(label);
 
 				body[y][x] = label;
@@ -155,22 +155,34 @@ export class RowSelector {
 		return body;
 	}
 
-	titles(items) {
+	itemsTitles(items) {
 		const titles = [];
 		items.forEach(item => titles.indexOf(item.column.title) >= 0 ? null : titles.push(item.column.title));
 
 		return titles;
 	}
 
+	rowTitles(row, columns) {
+		let titles = [];
+
+		for (let i = 0; i < columns.length; i++) {
+			let label = get(row, columns[i]);
+			titles.push(label);
+		}
+
+		return titles;
+	}
+
 	ids(items) {
+		const sortNumber = (a, b) => a - b;
 		const ids = [];
 		items.forEach(cell => ids.indexOf(cell.row.id) >= 0 ? null : ids.push(cell.row.id));
-		ids.sort();
+		ids.sort(sortNumber);
 
 		return ids;
 	}
 
-	createEmptyBody(ids, titles) {
+	createBody(ids, titles) {
 		const height = ids.length;
 		const width = titles.length;
 		const body = [];
@@ -186,22 +198,11 @@ export class RowSelector {
 		return body;
 	}
 
-	addHeadAndFootToBody(body, head, foot) {
+	addParts(body, head, foot) {
 		body.unshift(head);
 		body.push(foot);
 
 		return body;
-	}
-
-	getSpecificTitlesOfRow(row, columns) {
-		let titles = [];
-
-		for (let i = 0; i < columns.length; i++) {
-			let label = get(row, columns[i]);
-			titles.push(label);
-		}
-
-		return titles;
 	}
 }
 

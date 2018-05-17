@@ -1,4 +1,3 @@
-import { GRID_PREFIX } from '../definition';
 import { View } from '../view';
 import { Command } from '../command';
 import { isUndefined } from '../utility';
@@ -39,10 +38,10 @@ export class ClipboardView extends View {
 			let rowIndex = initialCell.rowIndex;
 			let columnIndex = initialCell.columnIndex;
 
-			for (let i = 0; i < data.length; i++) {
+			for (let i = 0, dataLength = data.length; i < dataLength; i++) {
 				let cells = data[i].split('\t');
 
-				for(let j = 0; j < cells.length; j++) {
+				for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
 					const label = cells[j];
 					const isLast = j === cells.length - 1;
 					if (initialCell && !nextCellFlag) {
@@ -65,6 +64,7 @@ export class ClipboardView extends View {
 				}
 			}
 		}));
+
 		this.using(action.register(selectionCommandManager, commands));
 	}
 
@@ -111,14 +111,14 @@ function changeLabel(cell, edit, label) {
 
 	if(columnType !== 'id' && columnType !== 'array') {
 		if (columnType === labelType) {
-			const td = cell.model.$implicit.element;
-			td.classList.add(`${GRID_PREFIX}-selected`);
-
 			const editor = new CellEditor(cell);
 			editor.label = label;
 			editor.value = label;
 			edit.editor = editor;
-			edit.batchCommit.execute();
+
+			if (edit.batchCommit.canExecute()) {
+				edit.batchCommit.execute();
+			}
 		}
 	}
 }
@@ -126,9 +126,9 @@ function changeLabel(cell, edit, label) {
 function insertedData(e) {
 	const clipboardData = e.clipboardData;
 	const pasted = clipboardData.getData('Text');
-	const values = pasted.split('\n');
+	const data = pasted.trim();
 
-	return values.slice(0, values.length - 1);
+	return data.split('\n');
 }
 
 function getType(text) {
@@ -153,45 +153,3 @@ function getType(text) {
 		return 'email';
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
