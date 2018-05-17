@@ -14,29 +14,27 @@
 
 <mat-card>
 	<q-grid id="q-grid-demo"
-			  [model]="gridModel"
-			  q-grid-autofocus
-			  [columns]="columns"
-			  [rows]="rows"
-			  [filterFetch]="filterFetch"
-			  [sortBy]="['+name.last', '-name.first']"
-			  [editCommit]="commitCommand"
-			  selectionMode="multiple"
-			  [selectionUnit]="cell"
-			  header="NG2 QGRID SANDBOX">
+	        [model]="gridModel"
+	        q-grid-autofocus
+	        [columns]="columns"
+	        [rows]="rows"
+	        [sortBy]="['+name.last', '-name.first']"
+	        [editCommit]="commitCommand"
+	        editMethod="batch"
+	        header="NG2 QGRID SANDBOX">
 
 		<q-grid-columns>
 			<q-grid-column type="row-indicator"
-								key="rowIndicator">
+			               key="rowIndicator">
 			</q-grid-column>
 			<q-grid-column type="row-number"
-								key="rowNumber">
+			               key="rowNumber">
 			</q-grid-column>
 			<q-grid-column type="row-options"
-								key="rowOptions">
+			               key="rowOptions">
 			</q-grid-column>
 			<q-grid-column type="number"
-								aggregation="max">
+			               aggregation="max">
 			</q-grid-column>
 		</q-grid-columns>
 
@@ -59,8 +57,8 @@
 			</ng-template>
 		</q-grid-legend>
 
-		<!--<q-grid-data-manipulation>-->
-		<!--</q-grid-data-manipulation>-->
+		<q-grid-data-manipulation>
+		</q-grid-data-manipulation>
 
 		<q-grid-persistence>
 		</q-grid-persistence>
@@ -69,7 +67,7 @@
 		</q-grid-query-builder>
 
 		<q-grid-row canDrag="true"
-						canResize="true">
+		            canResize="true">
 		</q-grid-row>
 
 		<!-- <q-grid-layer>
