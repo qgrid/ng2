@@ -11,6 +11,7 @@ import { FocusModel } from './focus';
 import { ColumnListModel } from './column-list';
 import { RowModel } from './row';
 import { SelectionModel } from './selection';
+import { ClipboardModel } from './clipboard';
 import { FootModel } from './foot';
 import { SortModel } from './sort';
 import { GroupModel } from './group';
@@ -43,6 +44,7 @@ export function setup(model) {
 		.register('view', ViewModel)
 		.register('data', DataModel)
 		.register('selection', SelectionModel)
+    .register('clipboard', ClipboardModel)
 		.register('head', HeadModel)
 		.register('body', BodyModel)
 		.register('navigation', NavigationModel)
