@@ -1,4 +1,4 @@
-import { View } from '../view';
+import { View } from '../view/view';
 
 export class PaginationView extends View {
 	constructor(model) {

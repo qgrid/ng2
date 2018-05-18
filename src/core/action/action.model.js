@@ -1,6 +1,7 @@
-import {Resource} from '../resource';
-import {Shortcut, ShortcutDispatcher} from '../shortcut';
-import {CommandManager} from '../command/command.manager';
+import { Resource } from '../resource/resource';
+import { Shortcut } from '../shortcut/shortcut';
+import { ShortcutDispatcher } from '../shortcut/shortcut.dispatcher';
+import { CommandManager } from '../command/command.manager';
 
 export class ActionModel {
 	constructor() {

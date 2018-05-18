@@ -2,7 +2,7 @@ import {Event} from './event';
 import {AppError} from './error';
 import {Guard} from './guard';
 import {Log} from './log';
-import {isObject, isFunction, isArray} from '../utility/index';
+import {isObject, isFunction, isArray} from '../utility/kit';
 
 const models = {};
 let close = false;

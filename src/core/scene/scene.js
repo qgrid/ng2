@@ -1,6 +1,7 @@
-import {AppError} from '../infrastructure/index';
-import {lineView} from '../column/column.service';
-import {flatView as nodeFlatView, Node} from '../node';
+import { AppError } from '../infrastructure/error';
+import { lineView } from '../column/column.service';
+import { flatView as nodeFlatView } from '../node/node.service';
+import { Node } from '../node/node';
 
 export class Scene {
 	constructor(model) {
@@ -23,7 +24,7 @@ export class Scene {
 		return items;
 	}
 
-	columnLine(items){
+	columnLine(items) {
 		return lineView(items);
 	}
 

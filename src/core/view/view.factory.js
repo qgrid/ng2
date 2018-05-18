@@ -1,22 +1,22 @@
-import {BodyView} from '../body';
-import {HeadView} from '../head';
-import {FootView} from '../foot';
-import {LayoutView} from '../layout';
-import {GroupView} from '../group';
-import {PivotView} from '../pivot';
-import {NavigationView} from '../navigation';
-import {HighlightView} from '../highlight';
-import {SortView} from '../sort';
-import {FilterView} from '../filter';
-import {EditView} from '../edit';
-import {SelectionView} from '../selection';
-import {PaginationView} from '../pagination';
-import {StyleView} from '../style';
-import {ScrollView} from '../scroll';
-import {RowDetailsView} from '../row-details';
-import {RowView} from '../row';
+import { BodyView } from '../body/body.view';
+import { HeadView } from '../head/head.view';
+import { FootView } from '../foot/foot.view';
+import { LayoutView } from '../layout/layout.view';
+import { GroupView } from '../group/group.view';
+import { PivotView } from '../pivot/pivot.view';
+import { NavigationView } from '../navigation/navigation.view';
+import { HighlightView } from '../highlight/highlight.view';
+import { SortView } from '../sort/sort.view';
+import { FilterView } from '../filter/filter.view';
+import { EditView } from '../edit/edit.view';
+import { SelectionView } from '../selection/selection.view';
+import { PaginationView } from '../pagination/pagination.view';
+import { StyleView } from '../style/style.view';
+import { ScrollView } from '../scroll/scroll.view';
+import { RowDetailsView } from '../row-details/row.details.view';
+import { RowView } from '../row/row.view';
 
-export function viewFactory(model, table, commandManager, gridService, vscroll, selectors){
+export function viewFactory(model, table, commandManager, gridService, vscroll, selectors) {
 	return target => {
 		target.style = new StyleView(model, table);
 		target.head = new HeadView(model, table, selectors.th);

@@ -1,4 +1,4 @@
-import {isArray} from '../../utility/index';
+import {isArray} from '../../utility/kit';
 
 export class Json {
 	read(data) {

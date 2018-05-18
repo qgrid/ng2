@@ -1,5 +1,5 @@
-import {columnFactory} from '../column/column.factory';
-import {generateFactory} from '../column-list';
+import { columnFactory } from '../column/column.factory';
+import { generateFactory } from '../column-list/column.list.generate';
 
 export function dataPipe(data, context, next) {
 	const model = context.model;
@@ -9,7 +9,7 @@ export function dataPipe(data, context, next) {
 }
 
 function addDataRows(model, rows) {
-	model.data({rows}, {source: 'data.pipe', behavior: 'core'});
+	model.data({ rows }, { source: 'data.pipe', behavior: 'core' });
 }
 
 function addDataColumns(model) {
@@ -19,6 +19,6 @@ function addDataColumns(model) {
 	const columns = result.columns.map(columnBody => createColumn(columnBody.type || 'text', columnBody).model);
 
 	if (result.hasChanges) {
-		model.data({columns}, {source: 'data.pipe', behavior: 'core'});
+		model.data({ columns }, { source: 'data.pipe', behavior: 'core' });
 	}
 }

@@ -1,4 +1,4 @@
-import {Keyboard} from '../io';
+import {Keyboard} from '../io/keyboard';
 
 export class Shortcut {
 	constructor(dispatcher) {

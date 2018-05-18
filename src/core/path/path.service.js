@@ -1,4 +1,4 @@
-import {AppError} from '../infrastructure';
+import { AppError } from '../infrastructure/error';
 
 export class PathService {
 	constructor(bag) {

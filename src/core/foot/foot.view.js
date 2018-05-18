@@ -1,7 +1,8 @@
-import {View} from '../view';
-import {Aggregation} from '../services';
-import {Log, AppError} from '../infrastructure';
-import {getFactory as valueFactory} from '../services/value';
+import { View } from '../view/view';
+import { Aggregation } from '../services/aggregation';
+import { AppError } from '../infrastructure/error';
+import { Log } from '../infrastructure/log';
+import { getFactory as valueFactory } from '../services/value';
 
 export class FootView extends View {
 	constructor(model, table) {

@@ -1,7 +1,7 @@
-import {Row} from './row';
-import {Column} from './column';
-import {Cell} from './cell';
-import {SelectorFactory} from './selector';
+import { Row } from './row';
+import { Column } from './column';
+import { Cell } from './cell';
+import { SelectorFactory } from './selector/selector.factory';
 
 export class Box {
 	constructor(context, model, selectorMark) {

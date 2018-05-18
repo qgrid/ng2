@@ -1,6 +1,6 @@
-import {isUndefined, identity} from '../utility/index';
-import {AppError} from '../infrastructure';
-import {getFactory} from '../services/value';
+import { isUndefined, identity } from '../utility/kit';
+import { AppError } from '../infrastructure/error';
+import { getFactory } from '../services/value';
 
 function hashColumnKeyFactory(model) {
 	const selectionState = model.selection();
@@ -209,9 +209,9 @@ export class SelectionService {
 				const columnKeys = items.filter(key => key.unit === 'column').map(key => key.item);
 				const cellKeys = items.filter(key => key.unit === 'cell').map(key => key.item);
 
-				entries.push(...this.lookup(rowKeys, 'row').map(entry => ({item: entry, unit: 'row'})));
-				entries.push(...this.lookup(columnKeys, 'column').map(entry => ({item: entry, unit: 'column'})));
-				entries.push(...this.lookup(cellKeys, 'cell').map(entry => ({item: entry, unit: 'cell'})));
+				entries.push(...this.lookup(rowKeys, 'row').map(entry => ({ item: entry, unit: 'row' })));
+				entries.push(...this.lookup(columnKeys, 'column').map(entry => ({ item: entry, unit: 'column' })));
+				entries.push(...this.lookup(cellKeys, 'cell').map(entry => ({ item: entry, unit: 'cell' })));
 				break;
 			}
 			default:

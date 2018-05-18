@@ -1,11 +1,11 @@
-import {Log} from '../infrastructure';
-import {Command} from '../command';
-import {Shortcut} from '../shortcut';
-import {CellEditor} from './edit.cell.editor';
-import {getFactory as valueFactory} from '../services/value';
-import {getFactory as labelFactory} from '../services/label';
-import {parseFactory} from '../services';
-import {View} from '../view';
+import { Log } from '../infrastructure/log';
+import { Command } from '../command/command';
+import { Shortcut } from '../shortcut/shortcut';
+import { CellEditor } from './edit.cell.editor';
+import { getFactory as valueFactory } from '../services/value';
+import { getFactory as labelFactory } from '../services/label';
+import { parseFactory } from '../services/convert';
+import { View } from '../view/view';
 import * as validationService from '../validation/validation.service';
 
 export class EditCellView extends View {
@@ -50,7 +50,7 @@ export class EditCellView extends View {
 	}
 
 	mode(cell, value) {
-		this.model.edit({state: value});
+		this.model.edit({ state: value });
 		cell.mode(value);
 	}
 
@@ -118,7 +118,7 @@ export class EditCellView extends View {
 						const context = this.contextFactory(cell);
 						const key = context.column.key;
 						const validator = validationService.createValidator(model.validation().rules, key);
-						return model.edit().commit.canExecute(context) && validator.validate({[key]: this.value});
+						return model.edit().commit.canExecute(context) && validator.validate({ [key]: this.value });
 					}
 					return false;
 				},
@@ -154,7 +154,7 @@ export class EditCellView extends View {
 						const key = context.column.key;
 						const validator = validationService.createValidator(model.validation().rules, key);
 						return model.edit().commit.canExecute(context)
-							&& validator.validate({[key]: this.value})
+							&& validator.validate({ [key]: this.value })
 							&& cell.column.type !== 'id';
 					}
 					return false;
@@ -296,7 +296,7 @@ export class EditCellView extends View {
 	}
 
 	contextFactory(cell, value, label, tag) {
-		const {column, row, columnIndex, rowIndex, value: oldValue, label: oldLabel} = cell;
+		const { column, row, columnIndex, rowIndex, value: oldValue, label: oldLabel } = cell;
 		return {
 			column,
 			row,

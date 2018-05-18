@@ -1,5 +1,5 @@
-import { View } from '../view';
-import { Command } from '../command';
+import { View } from '../view/view';
+import { Command } from '../command/command';
 
 export class RowView extends View {
 	constructor(model, tagName) {

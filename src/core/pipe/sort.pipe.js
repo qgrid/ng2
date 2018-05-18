@@ -1,8 +1,8 @@
-import {AppError} from '../infrastructure';
-import {orderBy} from '../utility/index';
-import {key as getKey, direction as getDirection} from '../sort/sort.service';
-import {find} from '../column/column.service';
-import {parseFactory} from '../services';
+import { AppError } from '../infrastructure/error';
+import { orderBy } from '../utility/kit';
+import { key as getKey, direction as getDirection } from '../sort/sort.service';
+import { find } from '../column/column.service';
+import { parseFactory } from '../services/convert';
 
 export function sortPipe(data, context, next) {
 	const model = context.model;

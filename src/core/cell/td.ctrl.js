@@ -1,6 +1,6 @@
 import { GRID_PREFIX } from '../definition';
 import * as css from '../services/css';
-import {isFunction, isDate, isArray} from '../utility/index';
+import {isFunction, isDate, isArray} from '../utility/kit';
 
 const toJson = JSON.stringify;
 const toString = Object.prototype.toString;

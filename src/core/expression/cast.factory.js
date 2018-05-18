@@ -1,4 +1,4 @@
-import {AppError} from '../infrastructure';
+import { AppError } from '../infrastructure/error';
 
 export function getType(type) {
 	return {}.toString.call(type).slice('[object]'.length, -1); // returns type of built-in objects

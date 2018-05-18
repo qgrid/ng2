@@ -7,7 +7,7 @@ import {
 import { TemplateLink } from './template-link';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
-import { isString, isArray } from 'ng2-qgrid/core/utility/index';
+import { isString, isArray } from 'ng2-qgrid/core/utility/kit';
 import { TemplateLinkService } from './template-link.service';
 import { TemplateCacheService } from './template-cache.service';
 

@@ -1,4 +1,4 @@
-import { Command } from '../command';
+import { Command } from '../command/command';
 
 export class Navigation {
 	constructor(model, table) {

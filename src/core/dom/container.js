@@ -1,5 +1,5 @@
 import * as css from '../services/css';
-import {min, max} from '../utility/index';
+import {min, max} from '../utility/kit';
 
 export class Container {
 	constructor(elements) {

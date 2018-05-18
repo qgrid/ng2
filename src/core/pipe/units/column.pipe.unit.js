@@ -1,5 +1,5 @@
-import {Pipe} from '../pipe';
-import {Scene} from '../../scene';
+import { Pipe } from '../pipe';
+import { Scene } from '../../scene/scene';
 
 export const columnPipeUnit = [
 	(memo, context, next) => {
@@ -21,7 +21,7 @@ export const columnPipeUnit = [
 		};
 
 		const columns = columnLine.map(c => c.model);
-		model.view({columns}, tag);
+		model.view({ columns }, tag);
 
 		const column = {
 			rows: scene.columnRows(memo.columns),
@@ -29,7 +29,7 @@ export const columnPipeUnit = [
 			line: columnLine
 		};
 
-		context.model.scene({column}, tag);
+		context.model.scene({ column }, tag);
 
 		next(memo);
 	}

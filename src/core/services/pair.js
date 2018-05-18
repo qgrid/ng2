@@ -1,8 +1,8 @@
-import {AppError} from '../infrastructure';
+import { AppError } from '../infrastructure/error';
 
 export function key(pair) {
 	const key = Object.keys(pair)[0];
-	if(!key){
+	if (!key) {
 		throw new AppError(
 			'pair',
 			`Key is not defined in "${pair}"`);

@@ -1,4 +1,4 @@
-import {noop, toCamelCase, isUndefined} from '../utility/index';
+import {noop, toCamelCase, isUndefined} from '../utility/kit';
 import {Log} from './log';
 
 export class ModelBinder {

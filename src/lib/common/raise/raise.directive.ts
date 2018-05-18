@@ -1,5 +1,5 @@
 import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
-import { AppError } from 'ng2-qgrid/core/infrastructure/index.js';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 
 @Directive({
 	selector: '[q-grid-raise]'

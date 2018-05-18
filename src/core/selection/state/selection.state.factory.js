@@ -1,7 +1,7 @@
-import {AppError} from '../../infrastructure';
-import {SingleSelectionState} from './single.selection.state';
-import {MultipleSelectionState} from './multiple.selection.state';
-import {RangeSelectionState} from './range.selection.state';
+import { AppError } from '../../infrastructure/error';
+import { SingleSelectionState } from './single.selection.state';
+import { MultipleSelectionState } from './multiple.selection.state';
+import { RangeSelectionState } from './range.selection.state';
 
 export function selectionStateFactory(model, service) {
 	const mode = model.selection().mode;

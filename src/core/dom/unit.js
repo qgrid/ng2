@@ -1,4 +1,4 @@
-import {FakeElement} from './fake';
+import { FakeElement } from './fake/element';
 import * as css from '../services/css';
 
 const fakeElement = new FakeElement();

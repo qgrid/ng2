@@ -1,5 +1,5 @@
 import {PipeUnit as PU} from '../pipe/pipe.unit';
-import {uniq} from '../utility/index';
+import {uniq} from '../utility/kit';
 
 
 export class PipeModel {

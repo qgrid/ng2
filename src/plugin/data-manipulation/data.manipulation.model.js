@@ -1,5 +1,5 @@
-import {Resource} from '../../core/resource';
-import {identity, cloneDeep, isArray, isObject, isDate, isBoolean, isNumber, isFunction} from '../../core/utility/index';
+import { Resource } from '../../core/resource/resource';
+import { identity, cloneDeep, isArray, isObject, isDate, isBoolean, isNumber, isFunction } from '../../core/utility/kit';
 
 export class DataManipulationModel {
 	constructor() {

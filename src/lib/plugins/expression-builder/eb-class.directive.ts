@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnInit, Input, DoCheck, Optional } from '@angular/core';
-import { isArray } from 'ng2-qgrid/core/utility/index';
+import { isArray } from 'ng2-qgrid/core/utility/kit';
 import { evaluateFactory } from './digest/evaluate';
 import { EbNodeComponent } from './eb-node.component';
 

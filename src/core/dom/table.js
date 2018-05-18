@@ -1,11 +1,11 @@
-import {View} from './view';
-import {Data} from './data';
-import {assignWith, identity} from  '../utility/index';
-import {FakeLayer} from './fake';
-import {Head} from './head';
-import {Body, VirtualBody} from './body';
-import {Foot} from './foot';
-import {Bag} from './bag';
+import { View } from './view';
+import { Data } from './data';
+import { assignWith, identity } from '../utility/kit';
+import { FakeLayer } from './fake/layer';
+import { Head } from './head';
+import { Body, VirtualBody } from './body';
+import { Foot } from './foot';
+import { Bag } from './bag';
 
 export class Table {
 	constructor(model, markup, context = {}) {

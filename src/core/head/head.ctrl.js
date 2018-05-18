@@ -1,5 +1,5 @@
 import { View } from '../view/view';
-import { PathService } from '../path';
+import { PathService } from '../path/path.service';
 import { parents } from '../services/dom';
 
 export class HeadCtrl extends View {

@@ -1,5 +1,5 @@
-import {Command} from '../../core/command';
-import {PluginView} from '../plugin.view';
+import { Command } from '../../core/command/command';
+import { PluginView } from '../plugin.view';
 
 export class PagerView extends PluginView {
 	constructor(model) {
@@ -7,13 +7,13 @@ export class PagerView extends PluginView {
 
 		this.next = new Command({
 			source: 'pager',
-			execute: () => model.pagination({current: model.pagination().current + 1}),
+			execute: () => model.pagination({ current: model.pagination().current + 1 }),
 			canExecute: () => (model.pagination().current + 1) * model.pagination().size < model.pagination().count
 		});
 
 		this.prev = new Command({
 			source: 'pager',
-			execute: () => model.pagination({current: model.pagination().current - 1}),
+			execute: () => model.pagination({ current: model.pagination().current - 1 }),
 			canExecute: () => model.pagination().current > 0
 		});
 	}
@@ -27,7 +27,7 @@ export class PagerView extends PluginView {
 	}
 
 	set size(value) {
-		this.model.pagination({size: value, current: 0});
+		this.model.pagination({ size: value, current: 0 });
 	}
 
 	get sizeList() {
@@ -39,7 +39,7 @@ export class PagerView extends PluginView {
 	}
 
 	set current(value) {
-		return this.model.pagination({current: value});
+		return this.model.pagination({ current: value });
 	}
 
 	get from() {

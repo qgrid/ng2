@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService, Human } from './data.service';
 import { Grid, GridModel, Command } from '../lib/public-api';
-import { uniq, isUndefined } from '../core/utility/index';
+import { uniq, isUndefined } from '../core/utility/kit';
 import { map } from 'rxjs/operators';
 
 // import * as fileSaver from 'file-saver';

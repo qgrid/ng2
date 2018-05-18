@@ -1,8 +1,8 @@
-import {ColumnView} from '../scene/view';
-import {DataColumnModel} from './data.column.model';
-import {TemplatePath} from '../template';
-import {yes} from '../utility/index';
-import {isImage} from '../services/file';
+import { ColumnView } from '../scene/view/column.view';
+import { DataColumnModel } from './data.column.model';
+import { TemplatePath } from '../template/template.path';
+import { yes } from '../utility/kit';
+import { isImage } from '../services/file';
 
 TemplatePath.register('image-cell', (template, column) => {
 	return {

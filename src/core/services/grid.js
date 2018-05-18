@@ -1,5 +1,5 @@
 import { build as buildPipe } from '../pipe/pipe.build';
-import { Log } from '../infrastructure';
+import { Log } from '../infrastructure/log';
 import { guid } from './guid';
 import { PersistenceService } from '../persistence/persistence.service';
 import { Scheduler } from './scheduler';

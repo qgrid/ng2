@@ -1,5 +1,5 @@
-import {Resource} from '../resource';
-import {Cache} from '../infrastructure';
+import { Resource } from '../resource/resource';
+import { Cache } from '../infrastructure/cache';
 
 export class BodyModel {
 	constructor() {

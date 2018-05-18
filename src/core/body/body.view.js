@@ -1,8 +1,8 @@
-import { View } from '../view';
+import { View } from '../view/view';
 import { getFactory as valueFactory } from '../services/value';
 import { getFactory as labelFactory, set as setLabel } from '../services/label';
-import { Log } from '../infrastructure';
-import { Renderer } from '../scene/render';
+import { Log } from '../infrastructure/log';
+import { Renderer } from '../scene/render/render';
 
 export class BodyView extends View {
 	constructor(model, table) {

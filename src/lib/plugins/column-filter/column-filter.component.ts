@@ -8,7 +8,7 @@ import {
 	OnDestroy
 } from '@angular/core';
 import { ColumnFilterView } from 'ng2-qgrid/plugin/column-filter/column.filter.view';
-import { uniq, flatten } from 'ng2-qgrid/core/utility/index';
+import { uniq, flatten } from 'ng2-qgrid/core/utility/kit';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { Fetch } from 'ng2-qgrid/core/infrastructure/fetch';
 import { VscrollService } from '../../common/vscroll/vscroll.service';

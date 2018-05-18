@@ -1,9 +1,9 @@
-import {View} from '../view';
-import {Log} from '../infrastructure';
-import {Command} from '../command';
+import { View } from '../view/view';
+import { Log } from '../infrastructure/log';
+import { Command } from '../command/command';
 import * as columnService from '../column/column.service';
-import {FilterRowColumn} from '../column-type';
-import {clone, isUndefined} from '../utility/index';
+import { FilterRowColumn } from '../column-type/filter.row.column';
+import { clone, isUndefined } from '../utility/kit';
 
 export class HeadView extends View {
 	constructor(model, table, tagName) {
@@ -37,14 +37,14 @@ export class HeadView extends View {
 						const targetColumnIndex = indexMap.indexOf(targetColumn.key);
 						indexMap.splice(sourceColumnIndex, 1);
 						indexMap.splice(targetColumnIndex, 0, sourceColumn.key);
-						model.columnList({index: indexMap});
+						model.columnList({ index: indexMap });
 					}
 				}
 			}
 		});
 
 		this.drag = new Command({
-			source: 'head.view',			
+			source: 'head.view',
 			canExecute: e => {
 				if (e.source.key === tagName) {
 					const map = columnService.map(model.data().columns);
@@ -56,7 +56,7 @@ export class HeadView extends View {
 		});
 
 		this.resize = new Command({
-			source: 'head.view',			
+			source: 'head.view',
 			canExecute: e => {
 				if (e.source.key === tagName) {
 					const map = table.data.columnMap();
@@ -68,7 +68,7 @@ export class HeadView extends View {
 		});
 
 		this.filter = new Command({
-			source: 'head.view',			
+			source: 'head.view',
 			canExecute: () => true,
 			execute: (column, search) => {
 				const filter = this.model.filter;
@@ -93,7 +93,7 @@ export class HeadView extends View {
 					delete by[key];
 				}
 
-				filter({by});
+				filter({ by });
 			}
 		});
 

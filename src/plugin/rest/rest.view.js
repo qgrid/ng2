@@ -1,4 +1,4 @@
-import { isFunction } from '../../core/utility/index';
+import { isFunction } from '../../core/utility/kit';
 import { AppError } from '../../core/infrastructure/error';
 import { PipeUnit } from '../../core/pipe/pipe.unit';
 import { PluginView } from '../plugin.view';

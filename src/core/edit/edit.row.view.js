@@ -1,7 +1,7 @@
-import {Log} from '../infrastructure';
-import {Command} from '../command';
-import {RowEditor} from './edit.row.editor';
-import {View} from '../view';
+import { Log } from '../infrastructure/log';
+import { Command } from '../command/command';
+import { RowEditor } from './edit.row.editor';
+import { View } from '../view/view';
 
 export class EditRowView extends View {
 	constructor(model, table, commandManager) {
@@ -42,7 +42,7 @@ export class EditRowView extends View {
 
 					const columns = this.model.data().columns;
 					this.editor = new RowEditor(row, columns);
-					model.edit({state: 'edit'});
+					model.edit({ state: 'edit' });
 				}
 			}),
 			commit: new Command({
@@ -64,7 +64,7 @@ export class EditRowView extends View {
 
 					this.editor.commit();
 					this.editor = RowEditor.empty;
-					model.edit({state: 'view'});
+					model.edit({ state: 'view' });
 				}
 			}),
 			cancel: new Command({
@@ -85,7 +85,7 @@ export class EditRowView extends View {
 
 					this.editor.reset();
 					this.editor = RowEditor.empty;
-					model.edit({state: 'view'});
+					model.edit({ state: 'view' });
 				}
 			}),
 			reset: new Command({

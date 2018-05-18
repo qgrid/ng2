@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
-import { max } from 'ng2-qgrid/core/utility/index';
+import { max } from 'ng2-qgrid/core/utility/kit';
 import { RootService } from '../../infrastructure/component/root.service';
 import { PositionView } from 'ng2-qgrid/plugin/position/position.view';
 

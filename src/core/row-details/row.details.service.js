@@ -1,6 +1,6 @@
 import { RowDetails } from './row.details';
 import { RowDetailsStatus } from './row.details.status';
-import { AppError } from '../infrastructure';
+import { AppError } from '../infrastructure/error';
 import { columnFactory } from '../column/column.factory';
 
 export function flatView(model, mode) {

@@ -1,6 +1,6 @@
-import {identity, compare} from '../utility/index';
-import {Command} from '../command';
-import {TemplatePath} from '../template';
+import { identity, compare } from '../utility/kit';
+import { Command } from '../command/command';
+import { TemplatePath } from '../template/template.path';
 
 TemplatePath.register('custom-cell', (template, column) => {
 	return {
@@ -34,8 +34,8 @@ export class ColumnModel {
 			cruise: 'control', // control | transparent
 			label: null,
 			value: identity,
-			commit: new Command({source: 'column.model'}),
-			cancel: new Command({source: 'column.model'}),
+			commit: new Command({ source: 'column.model' }),
+			cancel: new Command({ source: 'column.model' }),
 			actions: []
 		};
 
@@ -43,7 +43,7 @@ export class ColumnModel {
 		this.minWidth = 20;
 		this.maxWidth = null;
 		this.viewWidth = null;
-		
+
 		this.widthMode = 'relative'; // relative | absolute
 
 		this.canEdit = true;
@@ -59,7 +59,7 @@ export class ColumnModel {
 
 		this.value = null;
 		this.label = null;
-		
+
 		this.compare = compare;
 
 		this.$label = null;

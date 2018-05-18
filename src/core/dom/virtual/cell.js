@@ -1,6 +1,6 @@
-import {Cell} from '../cell';
-import {CellView} from '../../scene/view';
-import {AppError} from '../../infrastructure';
+import { Cell } from '../cell';
+import { CellView } from '../../scene/view/cell.view';
+import { AppError } from '../../infrastructure/error';
 
 class VirtualCellView {
 	constructor(selector) {
@@ -64,7 +64,7 @@ export class VirtualCell extends Cell {
 				return new CellView(viewModel);
 			}
 		}
-	
+
 		return null;
 	}
 

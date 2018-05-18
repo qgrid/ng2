@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { isObject } from 'ng2-qgrid/core/utility/index';
+import { isObject } from 'ng2-qgrid/core/utility/kit';
 
 @Pipe({
 	name: 'qGridFilter'

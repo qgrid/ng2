@@ -1,6 +1,6 @@
-import {View} from '../view';
-import {AppError} from '../infrastructure';
-import {Command} from '../command';
+import { View } from '../view/view';
+import { AppError } from '../infrastructure/error';
+import { Command } from '../command/command';
 import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
 
@@ -31,7 +31,7 @@ export class SortView extends View {
 							break;
 						}
 						case 'asc': {
-							const entry = {[key]: 'desc'};
+							const entry = { [key]: 'desc' };
 							by[index] = entry;
 							this.hover = false;
 							break;
@@ -47,14 +47,14 @@ export class SortView extends View {
 						by.length = 0;
 					}
 
-					const entry = {[key]: 'asc'};
+					const entry = { [key]: 'asc' };
 					by.push(entry);
 
 					const order = sortService.orderFactory(model);
 					order(by);
 				}
 
-				sort({by}, {source: 'sort.view'});
+				sort({ by }, { source: 'sort.view' });
 			}
 		});
 
@@ -71,7 +71,7 @@ export class SortView extends View {
 				const order = sortService.orderFactory(model);
 				const sortBy = order(Array.from(sortState.by));
 				if (!this.equals(sortBy, sortState.by)) {
-					sort({by: sortBy}, {source: 'sort.view'});
+					sort({ by: sortBy }, { source: 'sort.view' });
 				}
 			}
 		}));
@@ -82,7 +82,7 @@ export class SortView extends View {
 				const columnMap = columnService.map(e.state.columns);
 				const sortBy = sortState.by.filter(entry => columnMap.hasOwnProperty(sortService.key(entry)));
 				if (!this.equals(sortBy, sortState.by)) {
-					sort({by: sortBy}, {source: 'sort.view'});
+					sort({ by: sortBy }, { source: 'sort.view' });
 				}
 			}
 		}));

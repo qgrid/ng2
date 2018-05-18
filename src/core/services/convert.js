@@ -1,4 +1,4 @@
-import {identity, isObject, isArray, isBoolean, isEmail, isString} from '../utility/index';
+import { identity, isObject, isArray, isBoolean, isEmail, isString } from '../utility/kit';
 
 export function parseFactory(type, editor) {
 	switch (type) {

@@ -1,4 +1,4 @@
-import {flatView as nodeFlatView} from '../node';
+import { flatView as nodeFlatView } from '../node/node.service';
 
 export function paginationPipe(memo, context, next) {
 	const model = context.model;
@@ -23,6 +23,6 @@ function paginate(model, rows) {
 	const size = paginationState.size;
 	const current = paginationState.current;
 	const start = current * size;
-	model.pagination({count: rows.length}, {source: 'pagination.pipe', behavior: 'core'});
+	model.pagination({ count: rows.length }, { source: 'pagination.pipe', behavior: 'core' });
 	return rows.slice(start, start + size);
 }

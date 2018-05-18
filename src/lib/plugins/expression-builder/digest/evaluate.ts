@@ -1,4 +1,4 @@
-import { isObject, isArray, isFunction } from 'ng2-qgrid/core/utility/index';
+import { isObject, isArray, isFunction } from 'ng2-qgrid/core/utility/kit';
 
 export function evaluateFactory(expression, args) {
 	return visit;

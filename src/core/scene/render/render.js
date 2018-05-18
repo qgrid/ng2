@@ -1,8 +1,8 @@
-import {Node} from '../../node';
-import {RowDetails} from '../../row-details';
-import {DataRow} from './data.row';
-import {DetailsRow} from './details.row';
-import {NodeRow} from './node.row';
+import { Node } from '../../node/node';
+import { RowDetails } from '../../row-details/row.details';
+import { DataRow } from './data.row';
+import { DetailsRow } from './details.row';
+import { NodeRow } from './node.row';
 
 export class Renderer {
 	constructor(model) {

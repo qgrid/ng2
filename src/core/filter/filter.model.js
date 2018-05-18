@@ -1,6 +1,6 @@
-import { Resource } from '../resource';
+import { Resource } from '../resource/resource';
 import { match } from './match';
-import { noop } from '../utility/index';
+import { noop } from '../utility/kit';
 
 export class FilterModel {
 	constructor() {

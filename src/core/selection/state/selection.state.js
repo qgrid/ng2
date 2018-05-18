@@ -1,5 +1,5 @@
-import { isArray } from '../../utility/index';
-import { Node } from '../../node';
+import { isArray } from '../../utility/kit';
+import { Node } from '../../node/node';
 
 export class SelectionState {
 	constructor(model, service) {

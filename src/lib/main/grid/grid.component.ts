@@ -18,7 +18,7 @@ import { Table } from 'ng2-qgrid/core/dom/table';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { TableCommandManager } from 'ng2-qgrid/core/command/table.command.manager';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
-import { isUndefined } from 'ng2-qgrid/core/utility/index';
+import { isUndefined } from 'ng2-qgrid/core/utility/kit';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';

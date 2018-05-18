@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Optional } from '@angular/core';
-import { PluginService } from 'ng2-qgrid/core/plugin';
+import { PluginService } from 'ng2-qgrid/core/plugin/plugin.service';
 import { PluginComponent } from '../plugin.component';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { Json } from 'ng2-qgrid/core/export/json';

@@ -1,5 +1,5 @@
 import {Command} from '../command/command';
-import {noop} from '../utility/index';
+import {noop} from '../utility/kit';
 
 export class Composite {
 	static func(list, reduce = noop, memo = null) {

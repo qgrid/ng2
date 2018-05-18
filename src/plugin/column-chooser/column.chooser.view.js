@@ -1,9 +1,9 @@
 import * as columnService from '../../core/column/column.service';
-import {Command} from '../../core/command';
-import {Aggregation} from '../../core/services';
-import {isFunction, noop} from '../../core/utility/index';
-import {PluginView} from '../plugin.view';
-import {Event} from '../../core/infrastructure';
+import { Command } from '../../core/command/command';
+import { Aggregation } from '../../core/services/aggregation';
+import { isFunction, noop } from '../../core/utility/kit';
+import { PluginView } from '../plugin.view';
+import { Event } from '../../core/infrastructure/event';
 
 export class ColumnChooserView extends PluginView {
 	constructor(model, context) {
@@ -45,7 +45,7 @@ export class ColumnChooserView extends PluginView {
 			}
 		});
 
-		this.toggleAggregation = new Command({source: 'column.chooser'});
+		this.toggleAggregation = new Command({ source: 'column.chooser' });
 
 		this.drop = new Command({
 			source: 'column.chooser',
@@ -112,8 +112,8 @@ export class ColumnChooserView extends PluginView {
 				model.columnList({
 					index: Array.from(temp.index)
 				}, {
-					source: 'column.chooser'
-				});
+						source: 'column.chooser'
+					});
 
 				this.submitEvent.emit();
 			}

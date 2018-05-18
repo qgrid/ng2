@@ -1,11 +1,13 @@
 import { PluginView } from '../plugin.view';
 import { PersistenceService } from '../../core/persistence/persistence.service';
-import { Command, CommandManager } from '../../core/command';
-import { stringifyFactory } from '../../core/services/';
-import { Shortcut, ShortcutDispatcher } from '../../core/shortcut';
-import { clone } from '../../core/utility/index';
+import { Command } from '../../core/command/command';
+import { CommandManager } from '../../core/command/command.manager';
+import { stringifyFactory } from '../../core/services/model.stringify';
+import { Shortcut } from '../../core/shortcut/shortcut';
+import { ShortcutDispatcher } from '../../core/shortcut/shortcut.dispatcher';
+import { clone } from '../../core/utility/kit';
 import { Event } from '../../core/infrastructure/event';
-import { groupBy } from '../../core/utility/index';
+import { groupBy } from '../../core/utility/kit';
 
 export class PersistenceView extends PluginView {
 	constructor(model) {
