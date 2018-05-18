@@ -12,6 +12,7 @@ import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Log } from 'ng2-qgrid/core/infrastructure/log';
 import { ViewCtrl } from 'ng2-qgrid/core/view/view.ctrl';
+import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { CellService } from '../cell/cell.service';
 import { ViewCoreService } from './view-core.service';
 import { NgComponent } from '../../../infrastructure/component/ng.component';
@@ -27,6 +28,7 @@ export class ViewCoreComponent extends NgComponent
 	implements OnInit, OnDestroy, DoCheck, AfterViewChecked {
 
 	private ctrl: ViewCtrl;
+	private sceneJob = jobLine(0);
 
 	constructor(
 		private root: RootService,
@@ -97,16 +99,18 @@ export class ViewCoreComponent extends NgComponent
 	}
 
 	ngAfterViewChecked() {
-		const model = this.model;
-		const scene = model.scene();
-		if (scene.round > 0 && scene.status === 'start') {
-			model.scene({
-				round: 0,
-				status: 'stop'
-			}, {
-					source: 'grid.component',
-					behavior: 'core'
-				});
-		}
+		this.sceneJob(() => {
+			const model = this.model;
+			const scene = model.scene();
+			if (scene.round > 0 && scene.status === 'start') {
+				model.scene({
+					round: 0,
+					status: 'stop'
+				}, {
+						source: 'grid.component',
+						behavior: 'core'
+					});
+			}
+		});
 	}
 }
