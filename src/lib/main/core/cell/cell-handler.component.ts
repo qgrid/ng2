@@ -107,14 +107,13 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 			if (e.hasChanges('cell')) {
 				const cell = e.state.cell;
-
 				if (model.edit().method === 'batch') {
 					if (prevCell) {
 						Fastdom.mutate(() => this.marker.nativeElement.remove());
 					}
 
-					prevCell = cell.model;
 					if (cell) {
+						prevCell = cell.model;
 						Fastdom.mutate(() => prevCell.element.appendChild(this.marker.nativeElement));
 					} else {
 						prevCell = null;

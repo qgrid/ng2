@@ -1,5 +1,6 @@
 import { jobLine } from '../services/job.line';
 import { View } from '../view/view';
+import { PaginationModel } from '../pagination/pagination.model';
 
 export class ViewCtrl extends View {
 	constructor(model, view, gridService) {
@@ -62,7 +63,7 @@ export class ViewCtrl extends View {
 					.watch(e => {
 						if (e.tag.behavior === 'core') {
 							return;
-						}
+						}						
 
 						const units = [];
 						const trigger = triggers[name];
