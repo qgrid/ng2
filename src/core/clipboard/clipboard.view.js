@@ -132,7 +132,10 @@ function insertedData(e) {
 }
 
 function getType(text) {
-  const symbols = text.split('').slice(0, text.length - 1);
+  let symbols = text.split('');
+  if (symbols.length > 1) {
+    symbols = symbols.slice(0, symbols.length - 1);
+  }
 
   const isText = symbols.every(s => s.charCodeAt(0) >= 65 && s.charCodeAt(0) <= 122);
   if (isText) {
