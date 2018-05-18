@@ -15,6 +15,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Query builder input performance improvements.
 * Batch edit improvements.
 
+## [5.3.8] - 2018-07-18
+### Added
+- Focus method to the grid service.
+
+### Changed
+- AOT Compatible.
+- Angular CLI as app starter.
+- Rollup scripts to build the library.
+
+### Fixed
+- FocusAfterRender service.
+- Column filter IsBlank is displayed in chips.
+- Legend template syntax.
+
 ## [5.3.7] - 2018-07-08
 ### Added
 - Template support of column filter items.
@@ -196,7 +210,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v5.3.7...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v5.3.8...HEAD
+[5.3.8]: https://github.com/qgrid/ng2/compare/v5.3.8...v5.3.7
 [5.3.7]: https://github.com/qgrid/ng2/compare/v5.3.7...v5.3.6
 [5.3.6]: https://github.com/qgrid/ng2/compare/v5.3.6...v5.3.5
 [5.3.5]: https://github.com/qgrid/ng2/compare/v5.3.5...v5.3.4

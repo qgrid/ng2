@@ -1,7 +1,7 @@
 import { Component, Optional, Output, EventEmitter, OnInit, ViewEncapsulation } from '@angular/core';
 import { RootService } from '../../infrastructure/component/root.service';
 import { Command } from 'ng2-qgrid/core/command/command';
-import { clone } from 'ng2-qgrid/core/utility/index';
+import { clone } from 'ng2-qgrid/core/utility/kit';
 import { QueryBuilderService } from './query-builder.service';
 import { WhereSchema } from './schema/where.schema';
 import { visit as convert } from './schema/converter';

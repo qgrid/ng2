@@ -1,4 +1,4 @@
-import { clone } from '../utility/index';
+import { clone } from '../utility/kit';
 
 export class PersistenceService {
 	constructor(model) {

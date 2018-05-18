@@ -1,7 +1,7 @@
-import { View } from '../view';
+import { View } from '../view/view';
 import * as css from '../services/css';
 import * as columnService from '../column/column.service';
-import { Log } from '../infrastructure';
+import { Log } from '../infrastructure/log';
 
 export class LayoutView extends View {
 	constructor(model, table, service) {

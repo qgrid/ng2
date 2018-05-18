@@ -7,7 +7,7 @@ import {
 	SimpleChanges
 } from '@angular/core';
 import { ModelBinder } from 'ng2-qgrid/core/infrastructure/model.bind';
-import { noop } from 'ng2-qgrid/core/utility/index';
+import { noop } from 'ng2-qgrid/core/utility/kit';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 import { NgComponent } from '../infrastructure/component/ng.component';
 import { RootService } from '../infrastructure/component/root.service';

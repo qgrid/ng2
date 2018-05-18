@@ -1,7 +1,8 @@
 import { PluginView } from '../plugin.view';
 import { GRID_PREFIX } from '../../core/definition';
-import { max } from '../../core/utility/index';
-import { EventListener, EventManager } from '../../core/infrastructure';
+import { max } from '../../core/utility/kit';
+import { EventListener } from '../../core/infrastructure/event.listener';
+import { EventManager } from '../../core/infrastructure/event.manager';
 import { jobLine } from '../../core/services/job.line';
 
 export class PositionView extends PluginView {

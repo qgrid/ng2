@@ -5,7 +5,7 @@ import { TemplateModule } from './template/template.module';
 import { TemplateCacheDirective } from './template/template-cache.directive';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Defer } from 'ng2-qgrid/core/infrastructure/defer';
-import { setup } from 'ng2-qgrid/core/index';
+import { setup } from 'ng2-qgrid/core/setup';
 import { GridComponent } from './main/grid/grid.component';
 import { ColumnListComponent } from './main/column/column-list.component';
 import { ColumnComponent } from './main/column/column.component';

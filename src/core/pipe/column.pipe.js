@@ -1,7 +1,8 @@
-import {columnFactory} from '../column/column.factory';
+import { columnFactory } from '../column/column.factory';
 import * as columnService from '../column/column.service';
-import {noop} from '../utility/index';
-import {generateFactory, sortIndexFactory} from '../column-list';
+import { noop } from '../utility/kit';
+import { generateFactory } from '../column-list/column.list.generate';
+import { sortIndexFactory } from '../column-list/column.list.sort';
 
 export function columnPipe(memo, context, next) {
 	const model = context.model;
@@ -16,7 +17,7 @@ export function columnPipe(memo, context, next) {
 	 * We need to invoke addDataColumns earlier that others because it setups data.columns model property
 	 *
 	 */
-	addDataColumns(dataColumns, {rowspan: rowspan, row: 0});
+	addDataColumns(dataColumns, { rowspan: rowspan, row: 0 });
 
 	const addSelectColumn = selectColumnFactory(model);
 	const addGroupColumn = groupColumnFactory(model, nodes);
@@ -31,25 +32,25 @@ export function columnPipe(memo, context, next) {
 	 * if rows are draggable or resizable
 	 *
 	 */
-	addRowIndicatorColumn(columns, {rowspan: rowspan, row: 0});
-	
+	addRowIndicatorColumn(columns, { rowspan: rowspan, row: 0 });
+
 	/*
 	 * Add column with select boxes
 	 * if selection unit is row
 	 *
 	 */
-	addSelectColumn(columns, {rowspan: rowspan, row: 0});
+	addSelectColumn(columns, { rowspan: rowspan, row: 0 });
 
 	/*
 	 * Add group column with nodes
 	 *
 	 */
-	addGroupColumn(columns, {rowspan: rowspan, row: 0});
+	addGroupColumn(columns, { rowspan: rowspan, row: 0 });
 
 	/*
 	 * Add row expand column
 	 */
-	addRowExpandColumn(columns, {rowspan: rowspan, row: 0});
+	addRowExpandColumn(columns, { rowspan: rowspan, row: 0 });
 
 	/*
 	 *Add columns defined by user
@@ -73,7 +74,7 @@ export function columnPipe(memo, context, next) {
 		 * that fills remaining place (width = 100%)
 		 *
 		 */
-		addPadColumn(columns, {rowspan: rowspan, row: 0});
+		addPadColumn(columns, { rowspan: rowspan, row: 0 });
 		memo.columns = [columns];
 	}
 
@@ -185,9 +186,9 @@ function dataColumnsFactory(model) {
 			model.data({
 				columns: result.columns
 			}, {
-				source: 'column.pipe',
-				behavior: 'core'
-			});
+					source: 'column.pipe',
+					behavior: 'core'
+				});
 		}
 
 		columns.push(...
@@ -246,7 +247,7 @@ function pivotColumnsFactory(model) {
 		 * that fills remaining place (width = 100%)
 		 *
 		 */
-		addPadColumn(firstRow, {rowspan: 1, row: 0});
+		addPadColumn(firstRow, { rowspan: 1, row: 0 });
 
 		/*
 		 * Next rows pivot columns
@@ -273,7 +274,7 @@ function pivotColumnsFactory(model) {
 			 * that fills remaining place (width = 100%)
 			 *
 			 */
-			addPadColumn(row, {rowspan: 1, row: 0});
+			addPadColumn(row, { rowspan: 1, row: 0 });
 			rows.push(row);
 		}
 
@@ -335,9 +336,9 @@ function sort(model, columnRows) {
 			columnList({
 				index: indexResult.index
 			}, {
-				source: 'column.pipe',
-				behavior: 'core'
-			});
+					source: 'column.pipe',
+					behavior: 'core'
+				});
 		}
 
 		let index = 0;

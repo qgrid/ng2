@@ -1,5 +1,5 @@
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
-import { cloneDeep } from 'ng2-qgrid/core/utility/index';
+import { cloneDeep } from 'ng2-qgrid/core/utility/kit';
 import { camelCaseMapping as camelCase } from './operator';
 
 export function visit(item) {

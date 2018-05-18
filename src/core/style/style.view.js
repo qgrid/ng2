@@ -1,10 +1,10 @@
-import { View } from '../view';
+import { View } from '../view/view';
 import { Monitor } from './style.monitor';
 import * as columnService from '../column/column.service';
 import { getFactory as valueFactory } from '../services/value';
-import { noop } from '../utility/index';
+import { noop } from '../utility/kit';
 import { VirtualRowStyle, VirtualCellStyle } from './style.virtual';
-import { Composite } from '../infrastructure';
+import { Composite } from '../infrastructure/composite';
 
 export class StyleView extends View {
 	constructor(model, table) {

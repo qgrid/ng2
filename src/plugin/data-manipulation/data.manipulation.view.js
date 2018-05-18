@@ -1,7 +1,8 @@
-import { Command } from '../../core/command';
-import { Action } from '../../core/action';
-import { AppError, Composite } from '../../core/infrastructure';
-import { isUndefined } from '../../core/utility/index';
+import { Command } from '../../core/command/command';
+import { Action } from '../../core/action/action';
+import { AppError } from '../../core/infrastructure/error';
+import { Composite } from '../../core/infrastructure/composite';
+import { isUndefined } from '../../core/utility/kit';
 import * as columnService from '../../core/column/column.service';
 import { set as setValue } from '../../core/services/value';
 import { set as setLabel } from '../../core/services/label';

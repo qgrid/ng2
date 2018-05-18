@@ -1,10 +1,10 @@
-import { View } from '../view';
-import { Command } from '../command';
+import { View } from '../view/view';
+import { Command } from '../command/command';
 import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
-import { CellSelector } from '../cell';
-import { SelectionService } from '../selection';
-import { noop } from '../utility/index';
+import { CellSelector } from '../cell/cell.selector';
+import { SelectionService } from '../selection/selection.service';
+import { noop } from '../utility/kit';
 import { GRID_PREFIX } from '../definition';
 import { Fastdom } from '../services/fastdom';
 

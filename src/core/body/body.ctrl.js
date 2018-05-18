@@ -1,4 +1,4 @@
-import { PathService } from '../path';
+import { PathService } from '../path/path.service';
 import { View } from '../view/view';
 import { Fastdom } from '../services/fastdom';
 
@@ -124,7 +124,7 @@ export class BodyCtrl extends View {
 			}
 
 			if (edit().state === 'startBatch') {
-				edit({state: 'endBatch'});
+				edit({ state: 'endBatch' });
 				return;
 			}
 

@@ -1,11 +1,11 @@
-import { View } from '../view';
-import { AppError } from '../infrastructure';
-import { Command } from '../command';
-import { selectionStateFactory as stateFactory } from './state';
+import { View } from '../view/view';
+import { AppError } from '../infrastructure/error';
+import { Command } from '../command/command';
+import { selectionStateFactory as stateFactory } from './state/selection.state.factory';
 import { SelectionRange } from './selection.range';
 import { SelectionService } from './selection.service';
 import { GRID_PREFIX } from '../definition';
-import { noop, isUndefined } from '../utility/index';
+import { noop, isUndefined } from '../utility/kit';
 import { SelectionCommandManager } from './selection.command.manager';
 
 export class SelectionView extends View {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService, Human } from './data.service';
 import { Grid, GridModel, Command } from '../lib/public-api';
-import { uniq, isUndefined } from '../core/utility/index';
+import { uniq, isUndefined } from '../core/utility/kit';
 import { map } from 'rxjs/operators';
 
 // import * as fileSaver from 'file-saver';
@@ -17,6 +17,7 @@ import { map } from 'rxjs/operators';
 export class AppComponent {
 	public rows: Human[] = [];
 
+	dataSet = '100';
 	searchCommand = new Command();
 	commitCommand = new Command({
 		canExecute: e => e.column.type !== 'id'
@@ -98,7 +99,7 @@ export class AppComponent {
 					.join(', '),
 			editorOptions: {
 				modelFactory: () => {
-					const model = this.qgrid.model();
+					const model = this.grid.model();
 					model
 						.selection({
 							mode: 'multiple',
@@ -163,7 +164,7 @@ export class AppComponent {
 			editor: 'autocomplete',
 			editorOptions: {
 				fetch: (item, d, search = '') => {
-					this.dataService.getPeople(100).subscribe(people => {
+					this.dataService.getPeople(this.dataSet).subscribe(people => {
 						const emails = people.reduce<string[]>((result, human) => {
 							return result.concat(
 								human.contact.email.filter(
@@ -241,8 +242,8 @@ export class AppComponent {
 	gridModel: GridModel;
 	filterFetch = this.fetch.bind(this);
 
-	constructor(private dataService: DataService, public qgrid: Grid) {
-		this.gridModel = qgrid.model();
+	constructor(private dataService: DataService, public grid: Grid) {
+		this.gridModel = grid.model();
 
 		const persistence = this.gridModel.persistence;
 		const storage = persistence().storage;
@@ -266,37 +267,47 @@ export class AppComponent {
 		this.loadData();
 	}
 
+	dataSetChange() {
+		const service = this.grid.service(this.gridModel);
+		service
+			.invalidate()
+			.then(() => {
+				service.focus();
+			});
+	}
+
 	loadData() {
-		this.dataService.getPeople(100).subscribe(people => {
-			this.rows = people;
+		// this.dataService
+		// 	.getPeople(this.dataSet)
+		// 	.subscribe(people => {
+		// 		this.rows = people;
 
-			people.forEach((row, i) => (row.id = i));
-			people[0].password = 'foo';
-			people[3].password = 'bar';
-			people[4].comment =
-				'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
+		// 		people.forEach((row, i) => (row.id = i));
+		// 		people[0].password = 'foo';
+		// 		people[3].password = 'bar';
+		// 		people[4].comment =
+		// 			'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
+		// 	});
+
+
+		this.gridModel.data({
+			pipe: [
+				(memo, context, next) =>
+					this.dataService
+						.getPeople(this.dataSet)
+						.subscribe(people => {
+							people.forEach((row, i) => (row.id = i));
+							people[0].password = 'foo';
+							people[3].password = 'bar';
+							people[4].comment = 'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
+							next(people);
+						})
+			].concat(this.grid.pipeUnit.default)
 		});
-
-
-		// this.gridModel.data({
-		// 	pipe: [
-		// 		(memo, context, next) =>
-		// 			this.dataService.getPeople(100).subscribe(people => {
-		// 				this.rows = people;
-
-		// 				people.forEach((row, i) => (row.id = i));
-		// 				people[0].password = 'foo';
-		// 				people[3].password = 'bar';
-		// 				people[4].comment =
-		// 					'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
-		// 				next(people);
-		// 			})
-		// 	].concat(this.qgrid.pipeUnit.default)
-		// });
 	}
 
 	private fetch(key: string, context) {
-		return this.dataService.getPeople(100).pipe(
+		return this.dataService.getPeople(this.dataSet).pipe(
 			map(people => {
 				const data = people.map(context.value);
 				const uniqData = uniq(data);

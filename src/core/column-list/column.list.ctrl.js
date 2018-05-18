@@ -1,6 +1,7 @@
 import { View } from '../view/view';
-import { clone, isUndefined } from '../utility/index';
-import { compile, getType } from '../services';
+import { clone, isUndefined } from '../utility/kit';
+import { getType } from '../services/convert';
+import { compile } from '../services/path';
 import * as columnService from '../column/column.service';
 import { columnFactory } from '../column/column.factory';
 

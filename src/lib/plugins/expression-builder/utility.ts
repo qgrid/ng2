@@ -1,4 +1,4 @@
-import { clone } from 'ng2-qgrid/core/utility/index';
+import { clone } from 'ng2-qgrid/core/utility/kit';
 
 export function indexOf(array, predicate) {
 	for (let i = 0, length = array.length; i < length; i++) {

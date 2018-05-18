@@ -1,5 +1,5 @@
-import {map as getColumnMap} from '../column/column.service';
-import {nodeBuilder} from '../node';
+import { map as getColumnMap } from '../column/column.service';
+import { nodeBuilder } from '../node/node.build';
 
 export function groupPipe(memo, context, next) {
 	const model = context.model;

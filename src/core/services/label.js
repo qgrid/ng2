@@ -1,4 +1,4 @@
-import {isFunction} from '../utility/index';
+import {isFunction} from '../utility/kit';
 import {compileGet, compileSet} from '../services/path';
 import {get as getValue} from '../services/value';
 

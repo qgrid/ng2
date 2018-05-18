@@ -1,4 +1,4 @@
-import { Resource } from '../../core/resource';
+import { Resource } from '../../core/resource/resource';
 import { serialize } from './get.serialize';
 
 export class RestModel {

@@ -1,6 +1,6 @@
 import * as Utility from './utility/kit';
 
-describe('utility', () => {
+describe('kit', () => {
 	describe('isObject', () => {
 		it('should return false when passing number', () => {
 			expect(Utility.isObject(12)).to.be.false;

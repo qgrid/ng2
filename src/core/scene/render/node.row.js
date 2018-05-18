@@ -1,9 +1,9 @@
-import {DataRow} from './data.row';
-import {takeWhile, dropWhile, sumBy} from '../../utility/index';
-import {columnFactory} from '../../column/column.factory';
-import {Aggregation} from '../../services';
-import {AppError} from '../../infrastructure';
-import {set as setValue} from '../../services/value';
+import { DataRow } from './data.row';
+import { takeWhile, dropWhile, sumBy } from '../../utility/kit';
+import { columnFactory } from '../../column/column.factory';
+import { Aggregation } from '../../services/aggregation';
+import { AppError } from '../../infrastructure/error';
+import { set as setValue } from '../../services/value';
 
 export class NodeRow extends DataRow {
 	constructor(model) {

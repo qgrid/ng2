@@ -1,5 +1,7 @@
-import {PluginView} from '../plugin.view';
-import {Event, EventListener, EventManager} from '../../core/infrastructure';
+import { PluginView } from '../plugin.view';
+import { Event } from '../../core/infrastructure/event';
+import { EventListener } from '../../core/infrastructure/event.listener';
+import { EventManager } from '../../core/infrastructure/event.manager';
 
 const MOUSE_LEFT_BUTTON = 1;
 const MOUSE_WHEEL_BUTTON = 2;
@@ -33,7 +35,7 @@ export class BackdropView extends PluginView {
 		}));
 
 		this.using(listener.on('keydown', e => {
-			context.onKeyDown({$event: e});
+			context.onKeyDown({ $event: e });
 		}));
 	}
 }

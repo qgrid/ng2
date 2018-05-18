@@ -1,4 +1,4 @@
-import {Range} from '../../infrastructure';
+import { Range } from '../../infrastructure/range';
 
 export class SelectorMark {
 	constructor(model, markup, name) {

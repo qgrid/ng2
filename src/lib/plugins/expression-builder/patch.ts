@@ -1,4 +1,4 @@
-import { isFunction } from 'ng2-qgrid/core/utility/index';
+import { isFunction } from 'ng2-qgrid/core/utility/kit';
 
 export function method(inst: any, key: string) {
 	const sourceFn = inst[key];

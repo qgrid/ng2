@@ -1,6 +1,7 @@
-import { Table, Bag } from '../dom';
-import { AppError } from '../infrastructure';
-import { Model } from '../infrastructure';
+import { Bag } from '../dom/bag';
+import { Table } from '../dom/table';
+import { AppError } from '../infrastructure/error';
+import { Model } from '../infrastructure/model';
 import { GRID_PREFIX } from '../definition';
 import { View } from '../view/view';
 import { Shortcut } from '../shortcut/shortcut';

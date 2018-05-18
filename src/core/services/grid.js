@@ -1,5 +1,5 @@
 import { build as buildPipe } from '../pipe/pipe.build';
-import { Log } from '../infrastructure';
+import { Log } from '../infrastructure/log';
 import { guid } from './guid';
 import { PersistenceService } from '../persistence/persistence.service';
 import { Scheduler } from './scheduler';
@@ -79,5 +79,35 @@ export class GridService {
 				progress({ queue });
 			}
 		};
+	}
+
+	focus() {
+		const model = this.model;
+		const { focus, scene } = this.model;
+
+		const activate = () => {
+			const { rowIndex, columnIndex } = focus();
+			model.focus({ rowIndex: -1, columnIndex: -1 });
+
+			if (rowIndex >= 0 && columnIndex >= 0) {
+				model.focus({ rowIndex, columnIndex });
+			} else {
+				const columnIndex = scene().column.line.findIndex(c => c.model.canFocus);
+				model.focus({ rowIndex: 0, columnIndex });
+			}
+		};
+
+		if (scene().status === 'stop') {
+			activate();
+		} else {
+			model.sceneChanged.on((e, off) => {
+				if (e.hasChanges('status')) {
+					if (e.state.status === 'stop') {
+						activate();
+						off();
+					}
+				}
+			});
+		}
 	}
 }

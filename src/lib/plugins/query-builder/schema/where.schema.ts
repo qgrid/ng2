@@ -1,7 +1,7 @@
 import { typeMapping as operators } from './operator';
 import { suggestFactory, suggestsFactory } from './suggest.service';
 import { QueryBuilderService, IQueryBuilderSchema } from '../query-builder.service';
-import { isArray, noop } from 'ng2-qgrid/core/utility/index';
+import { isArray, noop } from 'ng2-qgrid/core/utility/kit';
 import { Validator } from './validator';
 
 export const getValue = (line, id, props) => {

@@ -1,5 +1,5 @@
-import {EnumerableResource} from '../resource';
-import {Cache} from '../infrastructure';
+import { EnumerableResource } from '../resource/resource.enumerable';
+import { Cache } from '../infrastructure/cache';
 
 export class FootModel {
 	constructor() {

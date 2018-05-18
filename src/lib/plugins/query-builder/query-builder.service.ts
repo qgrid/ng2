@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
-import { isUndefined, yes, uniq } from 'ng2-qgrid/core/utility/index';
+import { isUndefined, yes, uniq } from 'ng2-qgrid/core/utility/kit';
 import { ExpressionBuilder } from '../expression-builder/model/expression.builder';
 import { INodeSchema } from '../expression-builder/model/node.schema';
 import { Node } from '../expression-builder/model/node';

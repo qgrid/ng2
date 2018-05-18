@@ -36,6 +36,7 @@
     "skipTemplateCodegen": true,
     "flatModuleOutFile": "index.js",
     "flatModuleId": "ng2-qgrid",
-    "fullTemplateTypeCheck": true
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
   }
 }

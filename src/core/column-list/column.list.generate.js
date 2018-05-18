@@ -1,8 +1,10 @@
-import {compile, getType, merge as mergeFactory} from '../services';
-import {TextColumnModel} from '../column-type';
-import {startCase, assignWith, noop, isUndefined} from '../utility/index';
-import {columnFactory} from '../column/column.factory';
-import {AppError} from '../infrastructure';
+import { merge as mergeFactory } from '../services/merge';
+import { compile } from '../services/path';
+import { getType } from '../services/convert';
+import { TextColumnModel } from '../column-type/text.column';
+import { startCase, assignWith, noop, isUndefined } from '../utility/kit';
+import { columnFactory } from '../column/column.factory';
+import { AppError } from '../infrastructure/error';
 
 function merge(left, right, force = false) {
 	let canAssign;
@@ -38,14 +40,14 @@ export function generateFactory(model) {
 		if (generation) {
 			switch (generation) {
 				case 'deep': {
-					generatedColumns.push(...generate({rows, columnFactory: createColumn, deep: true}));
+					generatedColumns.push(...generate({ rows, columnFactory: createColumn, deep: true }));
 					break;
 				}
 				case
-				'shallow': {
-					generatedColumns.push(...generate({rows, columnFactory: createColumn, deep: false}));
-					break;
-				}
+					'shallow': {
+						generatedColumns.push(...generate({ rows, columnFactory: createColumn, deep: false }));
+						break;
+					}
 				default:
 					throw new AppError('column.list.generate', `Invalid generation mode "${generation}"`);
 			}

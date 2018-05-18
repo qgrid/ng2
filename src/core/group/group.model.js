@@ -1,5 +1,5 @@
-import {Resource} from '../resource';
-import {Command} from '../command';
+import { Resource } from '../resource/resource';
+import { Command } from '../command/command';
 
 export class GroupModel {
 	constructor() {
@@ -9,6 +9,6 @@ export class GroupModel {
 		this.shortcut = {
 			toggle: 'space'
 		};
-		this.toggle = new Command({source: 'group.model'});
+		this.toggle = new Command({ source: 'group.model' });
 	}
 }

@@ -1,10 +1,10 @@
-import {isFunction} from '../utility/index';
-import {compileSet, compileGet} from './path';
-import {AppError} from '../infrastructure';
+import { isFunction } from '../utility/kit';
+import { compileSet, compileGet } from './path';
+import { AppError } from '../infrastructure/error';
 
 export function get(row, column) {
 	return column.$value
-		? column.$value({$row: row, $column: column})
+		? column.$value({ $row: row, $column: column })
 		: column.value
 			? column.value(row)
 			: column.path
@@ -14,7 +14,7 @@ export function get(row, column) {
 
 export function getFactory(column) {
 	const get = column.$value
-		? row => column.$value({$row: row, $column: column})
+		? row => column.$value({ $row: row, $column: column })
 		: column.value
 			? row => column.value(row)
 			: column.path
@@ -26,7 +26,7 @@ export function getFactory(column) {
 
 export function set(row, column, value) {
 	if (isFunction(column.$value)) {
-		return column.$value({$row: row, $value: value, $column: column});
+		return column.$value({ $row: row, $value: value, $column: column });
 	}
 
 	if (isFunction(column.value)) {

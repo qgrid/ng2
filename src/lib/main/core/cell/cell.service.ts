@@ -1,6 +1,6 @@
 import { Injectable, ViewContainerRef, TemplateRef } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
-import { noop } from 'ng2-qgrid/core/utility/index';
+import { noop } from 'ng2-qgrid/core/utility/kit';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { TemplateService } from '../../../template/template.service';
 

@@ -1,5 +1,5 @@
-import { View } from '../view';
-import { Command } from '../command';
+import { View } from '../view/view';
+import { Command } from '../command/command';
 import { toggleStatus, invalidateStatus } from './row.details.service';
 import { RowDetails } from './row.details';
 

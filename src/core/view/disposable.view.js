@@ -1,4 +1,4 @@
-import {Guard} from '../infrastructure';
+import { Guard } from '../infrastructure/guard';
 
 export class DisposableView {
 	constructor() {

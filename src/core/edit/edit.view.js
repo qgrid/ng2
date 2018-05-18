@@ -1,6 +1,6 @@
-import {View} from '../view';
-import {EditCellView} from './edit.cell.view';
-import {EditRowView} from './edit.row.view';
+import { View } from '../view/view';
+import { EditCellView } from './edit.cell.view';
+import { EditRowView } from './edit.row.view';
 
 export class EditView extends View {
 	constructor(model, table, commandManager) {

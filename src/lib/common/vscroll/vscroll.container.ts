@@ -1,5 +1,5 @@
 import { EventEmitter } from '@angular/core';
-import { isUndefined, isNumber, isFunction } from 'ng2-qgrid/core/utility/index';
+import { isUndefined, isNumber, isFunction } from 'ng2-qgrid/core/utility/kit';
 import { IVscrollSettings } from './vscroll.settings';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 

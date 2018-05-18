@@ -1,7 +1,7 @@
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { ModelBinder } from 'ng2-qgrid/core/infrastructure/model.bind';
 import { Event } from 'ng2-qgrid/core/infrastructure/event';
-import { noop } from 'ng2-qgrid/core/utility/index';
+import { noop } from 'ng2-qgrid/core/utility/kit';
 import { OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { NgComponent } from './ng.component';
 

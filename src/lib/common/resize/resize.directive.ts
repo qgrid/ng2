@@ -8,11 +8,12 @@ import {
 	Optional,
 	NgZone
 } from '@angular/core';
-import * as Infrastructure from 'ng2-qgrid/core/infrastructure/index';
+import { EventListener as EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
+import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { NgComponent } from '../../infrastructure/component/ng.component';
 import { RootService } from '../../infrastructure/component/root.service';
-import { clone, noop } from 'ng2-qgrid/core/utility/index';
+import { clone, noop } from 'ng2-qgrid/core/utility/kit';
 import { DOCUMENT } from '@angular/common';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
@@ -22,9 +23,9 @@ import { Model } from 'ng2-qgrid/core/infrastructure/model';
 export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 	private element: HTMLElement;
 	private divider: HTMLElement;
-	private listener = {
-		divider: Infrastructure.EventListener,
-		document: Infrastructure.EventListener
+	private listener: {
+		divider: EventListener,
+		document: EventListener
 	};
 	private context = {
 		x: 0,
@@ -49,14 +50,17 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 		this.element = elementRef.nativeElement;
 		this.divider = document.createElement('div');
 
-		this.listener.divider = new Infrastructure.EventListener(
-			this.divider,
-			new Infrastructure.EventManager(this)
-		);
-		this.listener.document = new Infrastructure.EventListener(
-			document,
-			new Infrastructure.EventManager(this)
-		);
+		this.listener = {
+			divider: new EventListener(
+				this.divider,
+				new EventManager(this)
+			),
+
+			document: new EventListener(
+				document,
+				new EventManager(this)
+			)
+		};
 	}
 
 	ngOnInit() {

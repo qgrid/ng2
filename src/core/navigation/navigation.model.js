@@ -1,4 +1,4 @@
-import { Command } from '../command';
+import { Command } from '../command/command';
 
 export class NavigationModel {
 	constructor() {
@@ -26,17 +26,17 @@ export class NavigationModel {
 		this.prevent = new Set([
 			'space',
 			'shift+space',
-			'up', 
-			'down', 
-			'left', 			
-			'right', 
-			'tab', 
-			'shift+tab', 
-			'home', 
-			'end', 
-			'pageUp', 
-			'pageDown', 
-			'shift+pageDown', 
+			'up',
+			'down',
+			'left',
+			'right',
+			'tab',
+			'shift+tab',
+			'home',
+			'end',
+			'pageUp',
+			'pageDown',
+			'shift+pageDown',
 			'shift+pageUp'
 		]);
 	}

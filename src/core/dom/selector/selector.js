@@ -1,5 +1,5 @@
-import {FakeElement} from '../fake';
-import {isUndefined} from '../../utility/index';
+import { FakeElement } from '../fake/element';
+import { isUndefined } from '../../utility/kit';
 
 export class Selector {
 	constructor(element, bag, factory) {
@@ -143,7 +143,7 @@ export class Selector {
 					return cells[index];
 				}
 
-				if(cursor > columnIndex){
+				if (cursor > columnIndex) {
 					break;
 				}
 

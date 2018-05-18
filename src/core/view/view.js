@@ -1,4 +1,4 @@
-import {DisposableView} from './disposable.view';
+import { DisposableView } from './disposable.view';
 
 export class View extends DisposableView {
 	constructor(model) {

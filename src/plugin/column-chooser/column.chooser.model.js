@@ -1,4 +1,4 @@
-import {Resource} from '../../core/resource';
+import { Resource } from '../../core/resource/resource';
 
 export class ColumnChooserModel {
 	constructor() {

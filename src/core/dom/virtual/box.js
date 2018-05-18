@@ -6,7 +6,7 @@ import { CellBox } from './cell.box';
 import { RowBox } from './row.box';
 import { ColumnBox } from './column.box';
 import { VirtualElement } from './element';
-import { isFunction } from '../../utility/index';
+import { isFunction } from '../../utility/kit';
 import { Event } from '../../infrastructure/event';
 
 export class VirtualBox extends Box {

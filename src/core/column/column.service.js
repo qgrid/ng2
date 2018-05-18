@@ -1,4 +1,4 @@
-import {isFunction} from '../utility/index';
+import {isFunction} from '../utility/kit';
 import {AppError} from '../infrastructure/error';
 
 export function map(columns) {

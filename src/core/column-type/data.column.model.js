@@ -1,4 +1,4 @@
-import {ColumnModel} from './column.model';
+import { ColumnModel } from './column.model';
 
 export class DataColumnModel extends ColumnModel {
 	constructor() {

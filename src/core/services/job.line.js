@@ -1,5 +1,6 @@
-﻿import { AppError, Defer } from '../infrastructure';
-import { isFunction } from '../utility/index';
+﻿import { Defer } from '../infrastructure/defer';
+import { AppError } from '../infrastructure/error';
+import { isFunction } from '../utility/kit';
 
 export function jobLine(delay) {
 	let defer = null;

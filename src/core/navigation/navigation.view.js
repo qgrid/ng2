@@ -1,8 +1,8 @@
-import { View } from '../view';
-import { Command } from '../command';
+import { View } from '../view/view';
+import { Command } from '../command/command';
 import { Navigation } from './navigation';
 import { GRID_PREFIX } from '../definition';
-import { CellView } from '../scene/view';
+import { CellView } from '../scene/view/cell.view';
 import { Fastdom } from '../services/fastdom';
 
 export class NavigationView extends View {
@@ -76,8 +76,8 @@ export class NavigationView extends View {
 					rowIndex: newRow,
 					columnIndex: newColumn
 				}, {
-					source: 'navigation.view'
-				});
+						source: 'navigation.view'
+					});
 			}
 		}));
 

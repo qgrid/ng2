@@ -1,5 +1,5 @@
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
-import { cloneDeep } from 'ng2-qgrid/core/utility/index';
+import { cloneDeep } from 'ng2-qgrid/core/utility/kit';
 import { Expression, GroupExpression } from './expression';
 import { GroupSchema } from './group.schema';
 import { Node } from './node';

@@ -1,6 +1,6 @@
-import {Resource} from '../resource';
-import {identity} from '../utility/index';
-import {Command} from '../command';
+import {Resource} from '../resource/resource';
+import {identity} from '../utility/kit';
+import {Command} from '../command/command';
 
 export class SelectionModel {
 	constructor() {

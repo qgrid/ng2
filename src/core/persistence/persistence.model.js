@@ -1,6 +1,6 @@
 import { PersistenceStorage } from './persistence.storage';
-import { Command } from '../command';
-import { compare } from '../utility/index';
+import { Command } from '../command/command';
+import { compare } from '../utility/kit';
 
 export class PersistenceModel {
 	constructor() {

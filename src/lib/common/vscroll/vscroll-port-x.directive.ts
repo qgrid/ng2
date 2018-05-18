@@ -6,7 +6,7 @@ import { VscrollBox } from './vscroll.box';
 import { VscrollLayout } from './vscroll.layout';
 import { findPosition, recycleFactory, IVscrollPosition } from './vscroll.position';
 import { VscrollDirective } from './vscroll.directive';
-import { isNumber } from 'ng2-qgrid/core/utility/index';
+import { isNumber } from 'ng2-qgrid/core/utility/kit';
 import { VscrollLink } from './vscroll.link';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 

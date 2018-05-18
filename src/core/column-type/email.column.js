@@ -1,6 +1,6 @@
-import {ColumnView} from '../scene/view';
-import {DataColumnModel} from './data.column.model';
-import {TemplatePath} from '../template';
+import { ColumnView } from '../scene/view/column.view';
+import { DataColumnModel } from './data.column.model';
+import { TemplatePath } from '../template/template.path';
 
 TemplatePath.register('email-cell', (template, column) => {
 	return {

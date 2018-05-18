@@ -1,4 +1,4 @@
-import {cloneDeep} from '../utility/index';
+import {cloneDeep} from '../utility/kit';
 import {CellEditor} from './edit.cell.editor';
 import {get as getValue, set as setValue} from '../services/value';
 import {get as getLabel, set as setLabel} from '../services/label';

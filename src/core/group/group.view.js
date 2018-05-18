@@ -1,9 +1,9 @@
-import {View} from '../view';
-import {Command} from '../command';
-import {getFactory as valueFactory} from '../services/value';
-import {getFactory as labelFactory} from '../services/label';
-import {columnFactory} from '../column/column.factory';
-import {PipeUnit} from '../pipe/pipe.unit';
+import { View } from '../view/view';
+import { Command } from '../command/command';
+import { getFactory as valueFactory } from '../services/value';
+import { getFactory as labelFactory } from '../services/label';
+import { columnFactory } from '../column/column.factory';
+import { PipeUnit } from '../pipe/pipe.unit';
 
 export class GroupView extends View {
 	constructor(model, table, commandManager, service) {

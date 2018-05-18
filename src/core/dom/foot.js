@@ -1,5 +1,5 @@
-import {Box} from './box';
-import {SelectorMark} from './selector';
+import { Box } from './box';
+import { SelectorMark } from './selector/selector.mark';
 
 export class Foot extends Box {
 	constructor(context, model, markup) {

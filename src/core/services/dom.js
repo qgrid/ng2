@@ -1,4 +1,4 @@
-import { isUndefined } from '../utility/index';
+import { isUndefined } from '../utility/kit';
 
 export function css(element, property, value) {
 	const normalizedProperty = normalize(property);

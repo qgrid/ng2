@@ -1,7 +1,7 @@
-import {View} from '../view';
-import {groupBuilder} from '../group';
-import {Log} from '../infrastructure';
-import {getFactory as valueFactory} from '../services/value';
+import { View } from '../view/view';
+import { groupBuilder } from '../group/group.build';
+import { Log } from '../infrastructure/log';
+import { getFactory as valueFactory } from '../services/value';
 
 export class PivotView extends View {
 	constructor(model) {

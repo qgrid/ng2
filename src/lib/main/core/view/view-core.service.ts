@@ -16,7 +16,7 @@ import { NavigationView } from 'ng2-qgrid/core/navigation/navigation.view';
 import { ScrollView } from 'ng2-qgrid/core/scroll/scroll.view';
 import { StyleView } from 'ng2-qgrid/core/style/style.view';
 import { RowDetailsView } from 'ng2-qgrid/core/row-details/row.details.view';
-import { noop } from 'ng2-qgrid/core/utility/index';
+import { noop } from 'ng2-qgrid/core/utility/kit';
 import { viewFactory } from 'ng2-qgrid/core/view/view.factory';
 import { RootService } from '../../../infrastructure/component/root.service';
 import { VScrollService } from '../../../main/core/scroll/vscroll.service';

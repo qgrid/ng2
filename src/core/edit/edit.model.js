@@ -1,5 +1,5 @@
-import {Resource} from '../resource';
-import {Command} from '../command';
+import { Resource } from '../resource/resource';
+import { Command } from '../command/command';
 
 export class EditModel {
 	constructor() {
@@ -7,11 +7,11 @@ export class EditModel {
 		this.mode = null; // cell | row
 		this.state = 'view'; // view | edit | startBatch | endBatch
 		this.method = null; // batch
-		this.enter = new Command({source: 'edit.model'});
-		this.commit = new Command({source: 'edit.model'});
-		this.cancel = new Command({source: 'edit.model'});
-		this.reset = new Command({source: 'edit.model'});
-		this.clear = new Command({source: 'edit.model'});
+		this.enter = new Command({ source: 'edit.model' });
+		this.commit = new Command({ source: 'edit.model' });
+		this.cancel = new Command({ source: 'edit.model' });
+		this.reset = new Command({ source: 'edit.model' });
+		this.clear = new Command({ source: 'edit.model' });
 
 		this.cancelShortcuts = {
 			'$default': 'escape'

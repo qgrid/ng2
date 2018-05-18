@@ -1,6 +1,6 @@
-import { View } from '../view';
-import { Log } from '../infrastructure';
-import { isFunction } from '../utility/index';
+import { View } from '../view/view';
+import { Log } from '../infrastructure/log';
+import { isFunction } from '../utility/kit';
 import { Fastdom } from '../services/fastdom';
 
 export class ScrollView extends View {

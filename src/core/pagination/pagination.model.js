@@ -1,4 +1,4 @@
-import { Resource } from '../resource';
+import { Resource } from '../resource/resource';
 
 export class PaginationModel {
 	constructor() {

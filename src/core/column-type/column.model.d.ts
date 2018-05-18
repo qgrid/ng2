@@ -327,7 +327,7 @@ export declare class ColumnModel {
 	/**
 	 * This function is used by `column sort` pipe to order row values.
 	 */
-	compare: (x: any, y: any) => boolean;
+	compare: (x: any, y: any) => number;
 
 	$label: (row: any, value?: any) => any;
 }

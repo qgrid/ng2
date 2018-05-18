@@ -1,4 +1,4 @@
-import { isFunction, isUndefined } from '../utility/index';
+import { isFunction, isUndefined } from '../utility/kit';
 
 export class Fetch {
 	constructor(select) {

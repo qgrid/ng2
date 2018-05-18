@@ -1,4 +1,4 @@
-import {AppError} from '../../infrastructure/index';
+import { AppError } from '../../infrastructure/error';
 
 export class CellView {
 	constructor(model) {

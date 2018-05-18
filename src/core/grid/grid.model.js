@@ -1,4 +1,4 @@
-import {guid} from '../services';
+import { guid } from '../services/guid';
 
 export class GridModel {
 	constructor() {

@@ -1,4 +1,4 @@
-import {CompositeCommandManager} from '../command';
+import { CompositeCommandManager } from '../command/composite.command.manager';
 
 export class SelectionCommandManager extends CompositeCommandManager {
 	constructor(model, manager) {
