@@ -15,5 +15,8 @@ export declare class GridService {
 		changes?: object,
 		pipe?: ((memo: any, context: IContext, next: (param: IMemo) => void) => any)[]
 	): Promise<any>;
+
 	busy(): () => void;
+
+	focus(): void;
 }

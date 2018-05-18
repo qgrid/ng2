@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { MatCardModule } from '@angular/material';
+import { MatCardModule, MatSelectModule } from '@angular/material';
 import { AppComponent } from './app.component';
 
 import { GridModule, ThemeModule } from '../lib/public-api';
@@ -15,7 +15,8 @@ import { GridModule, ThemeModule } from '../lib/public-api';
     ThemeModule,
     BrowserModule,
     BrowserAnimationsModule,
-    MatCardModule
+    MatCardModule,
+    MatSelectModule
   ],
   bootstrap: [AppComponent]
 })

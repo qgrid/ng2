@@ -80,4 +80,8 @@ export class GridService {
 			}
 		};
 	}
+
+	focus() {
+
+	}
 }
