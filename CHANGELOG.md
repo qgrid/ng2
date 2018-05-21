@@ -16,8 +16,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Batch edit improvements.
 
 ## [5.3.10] - 2018-05-21
+### Added
+- `ToggleAll` command that can be override to intersect toggle all groups action.
+
 ### Changed
+- Clicking on group header leads to collapse/expand of all nodes in the view.
 - By default child node label is empty.
+
+### Fixed
+- `Group pipe` index calculation - the root cause of invalid filtering. 
 
 ## [5.3.9] - 2018-05-18
 ### Added

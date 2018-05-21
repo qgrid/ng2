@@ -39,7 +39,7 @@ export class Xml {
 	write(rows) {
 		const result = [begin];
 		for (let row of rows) {
-			result.push(objToXml({ row: row }));
+			result.push(objToXml({ row }));
 		}
 		result.push('</root>');
 		return result.join('');

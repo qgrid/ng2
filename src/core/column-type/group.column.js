@@ -35,7 +35,8 @@ export class GroupColumnModel extends ColumnModel {
 			}
 
 			return node[this.labelPath];
-		};	}
+		};
+	}
 }
 
 export class GroupColumn extends ColumnView {
