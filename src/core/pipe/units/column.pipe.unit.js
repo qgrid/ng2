@@ -1,5 +1,5 @@
 import { Pipe } from '../pipe';
-import { Scene } from '../../scene';
+import { Scene } from '../../scene/scene';
 import { Guard } from '../../infrastructure/guard';
 
 export const columnPipeUnit = [

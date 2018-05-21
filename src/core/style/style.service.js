@@ -1,4 +1,4 @@
-import { noop, isFunction } from '../utility/index';
+import { noop, isFunction } from '../utility/kit';
 import { Composite } from '../infrastructure/composite';
 
 export class StyleService {
