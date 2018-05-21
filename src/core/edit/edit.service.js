@@ -20,7 +20,8 @@ export class EditService {
       const startColumnType = startCell.column.type;
       const selectionItems = this.model.selection().items;
 
-      for (let i = 0, itemsLength = selectionItems.length; i < itemsLength; i++) {
+      for (let i = 0, itemsLength = selectionItems.length; i <
+      itemsLength; i++) {
         const {row, column} = selectionItems[i];
         const rowIndex = rows.indexOf(row);
         const columnIndex = columns.indexOf(column);
