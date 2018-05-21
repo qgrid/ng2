@@ -6,7 +6,6 @@ import { CellView } from 'ng2-qgrid/core/scene/view/cell.view';
 import { ViewCoreService } from '../view/view-core.service';
 import { RootService } from '../../../infrastructure/component/root.service';
 
-
 @Component({
   selector: 'q-grid-cell-handler',
   templateUrl: './cell-handler.component.html'
