@@ -1,4 +1,4 @@
-import {Scene} from '../../scene/scene';
+import { Scene } from '../../scene/scene';
 
 export const rowPipeUnit = [
 	(memo, context, next) => {
@@ -7,12 +7,12 @@ export const rowPipeUnit = [
 			behavior: 'core'
 		};
 
-		const model = context.model;
+		const { model } = context;
 		const scene = new Scene(model);
 
 		const rows = scene.rows(memo);
-		model.view({rows}, tag);
-		model.scene({rows}, tag);
+		model.view({ rows }, tag);
+		model.scene({ rows }, tag);
 
 		next(memo);
 	}

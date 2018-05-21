@@ -1,5 +1,5 @@
-import {Command} from '../command/command';
-import {noop} from '../utility/kit';
+import { Command } from '../command/command';
+import { noop } from '../utility/kit';
 
 export class Composite {
 	static func(list, reduce = noop, memo = null) {
@@ -14,7 +14,7 @@ export class Composite {
 
 	static command(list) {
 		return new Command({
-			source: 'composite',			
+			source: 'composite',
 			canExecute: (...args) => {
 				return list.reduce((memo, cmd) => memo || cmd.canExecute(...args), false);
 			},

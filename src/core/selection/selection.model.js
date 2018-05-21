@@ -1,6 +1,6 @@
-import {Resource} from '../resource/resource';
-import {identity} from '../utility/kit';
-import {Command} from '../command/command';
+import { Resource } from '../resource/resource';
+import { identity } from '../utility/kit';
+import { Command } from '../command/command';
 
 export class SelectionModel {
 	constructor() {
@@ -9,7 +9,7 @@ export class SelectionModel {
 		this.mode = 'single';//single|multiple|range
 		this.items = [];
 		this.area = 'body'; //body, custom
-		this.toggle = new Command({source: 'selection.model'});
+		this.toggle = new Command({ source: 'selection.model' });
 		this.key = {
 			row: identity,
 			column: identity

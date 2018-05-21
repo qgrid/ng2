@@ -1,5 +1,5 @@
-import {sortPipe as sort} from './sort.pipe';
-import {compare} from '../utility/kit';
+import { sortPipe as sort } from './sort.pipe';
+import { compare } from '../utility/kit';
 
 describe('sort pipe', () => {
 	const list = [{
@@ -37,7 +37,7 @@ describe('sort pipe', () => {
 				data: data,
 
 				sort: () => {
-					return {by: [{name: 'asc'}]}
+					return { by: [{ name: 'asc' }] }
 				}
 			}
 		};
@@ -57,7 +57,7 @@ describe('sort pipe', () => {
 				data: data,
 
 				sort: () => {
-					return {by: [{name: 'desc'}]}
+					return { by: [{ name: 'desc' }] }
 				}
 			}
 		};
@@ -78,16 +78,16 @@ describe('sort pipe', () => {
 				data: data,
 
 				sort: () => {
-					return {by: [{name: 'asc'}, {age: 'desc'}]}
+					return { by: [{ name: 'asc' }, { age: 'desc' }] }
 				}
 			}
 		};
 
 		sort(list, ctx, data => {
-			expect(data[0]).to.be.eql({name: 'Alan', age: 30});
-			expect(data[1]).to.be.eql({name: 'Bob', age: 45});
-			expect(data[2]).to.be.eql({name: 'Bob', age: 40});
-			expect(data[3]).to.be.eql({name: 'James', age: 40});
+			expect(data[0]).to.be.eql({ name: 'Alan', age: 30 });
+			expect(data[1]).to.be.eql({ name: 'Bob', age: 45 });
+			expect(data[2]).to.be.eql({ name: 'Bob', age: 40 });
+			expect(data[3]).to.be.eql({ name: 'James', age: 40 });
 		});
 	});
 
@@ -98,16 +98,16 @@ describe('sort pipe', () => {
 				data: data,
 
 				sort: () => {
-					return {by: [{age: 'desc'}, {name: 'asc'}]}
+					return { by: [{ age: 'desc' }, { name: 'asc' }] }
 				}
 			}
 		};
 
 		sort(list, ctx, (data) => {
-			expect(data[0]).to.be.eql({name: 'Bob', age: 45});
-			expect(data[1]).to.be.eql({name: 'Bob', age: 40});
-			expect(data[2]).to.be.eql({name: 'James', age: 40});
-			expect(data[3]).to.be.eql({name: 'Alan', age: 30});
+			expect(data[0]).to.be.eql({ name: 'Bob', age: 45 });
+			expect(data[1]).to.be.eql({ name: 'Bob', age: 40 });
+			expect(data[2]).to.be.eql({ name: 'James', age: 40 });
+			expect(data[3]).to.be.eql({ name: 'Alan', age: 30 });
 		});
 	});
 });

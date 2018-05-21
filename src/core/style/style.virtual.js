@@ -1,16 +1,11 @@
-import {Composite} from '../infrastructure/composite';
-
 export class VirtualRowStyle {
-	constructor(table) {
-		const model = table.model;
+	constructor(table, style) {
 		this.table = table;
-		this.model = model;
+		this.style = style;
 	}
 
-	applyFactory() {
-		const model = this.model;
-		const styleState = model.style();
-		const style = Composite.func(styleState.rows.concat([styleState.row]));
+	visitFactory() {
+		const style = this.style;
 		const mapper = this.table.context.mapper;
 		const box = this.table.body.rowBox;
 		const entries = box.entries;
@@ -36,16 +31,13 @@ export class VirtualRowStyle {
 }
 
 export class VirtualCellStyle {
-	constructor(table) {
-		const model = table.model;
+	constructor(table, style) {
 		this.table = table;
-		this.model = model;
+		this.style = style;
 	}
 
-	applyFactory() {
-		const model = this.model;
-		const styleState = model.style();
-		const style = Composite.func(styleState.cells.concat([styleState.cell]));
+	visitFactory() {
+		const style = this.style;
 		const mapper = this.table.context.mapper;
 		const cellBox = this.table.body.cellBox;
 		const cellEntries = cellBox.entries;

@@ -1,4 +1,13 @@
-import {Node} from './node';
+import { Node } from './node';
+
+export function traverse(nodes, visit) {
+	for (let i = 0, length = nodes.length; i < length; i++) {
+		const node = nodes[i];
+		if (visit(node) !== false) {
+			traverse(node.children, visit);
+		}
+	}
+}
 
 export function flatView(nodes, result = []) {
 	for (let i = 0, nodesLength = nodes.length; i < nodesLength; i++) {

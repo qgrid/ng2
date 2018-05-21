@@ -3,13 +3,16 @@ import { orderBy } from '../utility/kit';
 import { key as getKey, direction as getDirection } from '../sort/sort.service';
 import { find } from '../column/column.service';
 import { parseFactory } from '../services/convert';
+import { Guard } from '../infrastructure/guard';
 
-export function sortPipe(data, context, next) {
-	const model = context.model;
-	const by = model.sort().by;
-	let result = data;
+export function sortPipe(memo, context, next) {
+	Guard.notNull(memo, 'memo');
 
-	if (data.length && by.length) {
+	const { model } = context;
+	const { by } = model.sort();
+	let result = memo;
+
+	if (memo.length && by.length) {
 		const columns = model.data().columns;
 		const mappings = [];
 		const comparers = [];
@@ -31,7 +34,7 @@ export function sortPipe(data, context, next) {
 			comparers.push(sortDir === 'asc' ? compare : (x, y) => -compare(x, y));
 		}
 
-		result = orderBy(data, mappings, comparers);
+		result = orderBy(memo, mappings, comparers);
 	}
 
 	next(result);

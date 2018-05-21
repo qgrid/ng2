@@ -1,4 +1,4 @@
-import {flatten} from '../utility/kit';
+import { flatten } from '../utility/kit';
 
 function injectData(schema, source, target) {
 	return Object
@@ -71,8 +71,8 @@ export function pivotForm(source, comparator) {
 		const schema = sortSchema(source.schema, comparator);
 		const rows = source.data.map(row => injectData(schema, row, expandData(schema, row)));
 		const heads = liftSchema(schema);
-		return {heads, rows};
+		return { heads, rows };
 	}
 
-	return {heads: [], rows: []};
+	return { heads: [], rows: [] };
 }

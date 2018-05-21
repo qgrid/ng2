@@ -1,4 +1,4 @@
-import {ColumnView} from '../column/column.view';
+import { ColumnView } from '../column/column.view';
 
 export declare class Scene {
 	constructor(context: any);

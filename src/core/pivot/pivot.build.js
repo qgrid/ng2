@@ -1,6 +1,6 @@
-import {identity} from '../utility/kit';
-import {pivot} from './pivot';
-import {pivotForm} from './pivot.form';
+import { identity } from '../utility/kit';
+import { pivot } from './pivot';
+import { pivotForm } from './pivot.form';
 
 function buildFactory(columnMap, valueFactory) {
 	return function run(pivot, pivotBy, level = 0) {
@@ -40,6 +40,6 @@ export function build(columnMap, pivotBy, valueFactory) {
 			return pivotForm(data);
 		}
 
-		return {heads: [], rows: []};
+		return { heads: [], rows: [] };
 	};
 }

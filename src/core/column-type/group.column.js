@@ -22,14 +22,20 @@ export class GroupColumnModel extends ColumnModel {
 
 		this.key = '$group';
 		this.path = 'key';
-
+		this.labelPath = 'key';
 		this.title = 'Group';
 		this.offset = 24;
 		this.canEdit = false;
 		this.canSort = false;
 		this.canFilter = false;
 		this.class = 'control';
-	}
+		this.label = function (node) {
+			if (node.type === 'row') {
+				return '';
+			}
+
+			return node[this.labelPath];
+		};	}
 }
 
 export class GroupColumn extends ColumnView {

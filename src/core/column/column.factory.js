@@ -64,7 +64,7 @@ export function columnFactory(model) {
 
 	const create = (entityType, columnType, body) => {
 		const Type = columnMap[entityType];
-		const reference = columnList().reference;
+		const { reference } = columnList();
 		const defaultSettings = reference['$default'];
 		body = merge(body, defaultSettings);
 		const typeSettings = reference[columnType];

@@ -1,5 +1,5 @@
-import {noop, toCamelCase, isUndefined} from '../utility/kit';
-import {Log} from './log';
+import { noop, toCamelCase, isUndefined } from '../utility/kit';
+import { Log } from './log';
 
 export class ModelBinder {
 	constructor(source) {

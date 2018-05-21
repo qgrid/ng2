@@ -1,8 +1,8 @@
-import {Event} from './event';
-import {AppError} from './error';
-import {Guard} from './guard';
-import {Log} from './log';
-import {isObject, isFunction, isArray} from '../utility/kit';
+import { Event } from './event';
+import { AppError } from './error';
+import { Guard } from './guard';
+import { Log } from './log';
+import { isObject, isFunction, isArray } from '../utility/kit';
 
 const models = {};
 let close = false;
@@ -17,7 +17,7 @@ export class Model {
 				const changes = Array.from(changeSet.values())
 					.reduce((memo, key) => {
 						const value = model[key];
-						memo[key] = {newValue: value, oldValue: value};
+						memo[key] = { newValue: value, oldValue: value };
 						return memo;
 					}, {});
 

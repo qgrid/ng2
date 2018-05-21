@@ -1,4 +1,4 @@
-import {Pipe} from '../pipe';
+import { Pipe } from '../pipe';
 
 export const defaultPipeUnit = [
 	Pipe.data,
