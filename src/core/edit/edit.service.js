@@ -1,6 +1,6 @@
-import {CellEditor} from './edit.cell.editor';
-import {EditCellView} from './edit.cell.view';
-import {CommandManager} from '../command/command.manager';
+import { CellEditor } from './edit.cell.editor';
+import { EditCellView } from './edit.cell.view';
+import { CommandManager } from '../command/command.manager';
 
 export class EditService {
   constructor(model, table) {
@@ -15,13 +15,12 @@ export class EditService {
     const label = startCell.label;
     const value = startCell.value;
 
-    const rows = view.rows;
-    const columns = view.columns;
+    const {rows, columns} = view;
     try {
       const startColumnType = startCell.column.type;
       const selectionItems = this.model.selection().items;
 
-      for (let i = 0, max = selectionItems.length; i < max; i++) {
+      for (let i = 0, itemsLength = selectionItems.length; i < itemsLength; i++) {
         const {row, column} = selectionItems[i];
         const rowIndex = rows.indexOf(row);
         const columnIndex = columns.indexOf(column);
