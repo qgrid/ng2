@@ -1,10 +1,10 @@
 import { Guard } from '../infrastructure/guard';
 
 export function memoPipe(data, context, next) {
-	Guard.notNull(memo, 'memo');
+	Guard.notNull(data, 'data');
 
 	next({
-		rows: memo,
+		rows: data,
 		pivot: { heads: [], rows: [] },
 		nodes: []
 	});
