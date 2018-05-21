@@ -7,25 +7,24 @@ export class EditService {
     this.model = model;
     this.table = table;
   }
-
+  
   doBatch(startCell) {
     const view = this.model.view();
     const editView = new EditCellView(this.model, this.table, new CommandManager());
-
+    
     const label = startCell.label;
     const value = startCell.value;
-
+    
     const {rows, columns} = view;
     try {
       const startColumnType = startCell.column.type;
       const selectionItems = this.model.selection().items;
-
-      for (let i = 0, itemsLength = selectionItems.length; i <
-      itemsLength; i++) {
+      
+      for (let i = 0, itemsLength = selectionItems.length; i < itemsLength; i++) {
         const {row, column} = selectionItems[i];
         const rowIndex = rows.indexOf(row);
         const columnIndex = columns.indexOf(column);
-
+        
         const cellView = this.table.body.cell(rowIndex, columnIndex).model();
         const cell = cellView.model;
         const type = cell.column.type;
@@ -34,7 +33,7 @@ export class EditService {
           editor.label = label;
           editor.value = value;
           editView.editor = editor;
-
+          
           if (editView.batchCommit.canExecute()) {
             editView.batchCommit.execute();
           }
