@@ -16,7 +16,6 @@ export class EditService {
     const value = startCell.value;
 
     const {rows, columns} = view;
-    const temp = 123;
     try {
       const startColumnType = startCell.column.type;
       const selectionItems = this.model.selection().items;
