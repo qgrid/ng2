@@ -12,6 +12,7 @@ export class GroupView extends View {
 	constructor(model: Model, table: Table, commandManager: CommandManager, service: GridService);
 
 	toggleStatus: Command;
+	toggleAllStatus: Command;
 
 	count(node: Node): number;
 	status(node: Node): 'expand' | 'collapse';

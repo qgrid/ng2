@@ -1,4 +1,4 @@
-import {flatView} from '../../row-details/row.details.service';
+import { flatView } from '../../row-details/row.details.service';
 
 export const rowDetailsPipeUnit = [
 	(memo, context, next) => {
@@ -7,11 +7,11 @@ export const rowDetailsPipeUnit = [
 			behavior: 'core'
 		};
 
-		const model = context.model;
-		const mode = model.row().mode;
+		const { model } = context;
+		const { mode } = model.row();
 		const rows = flatView(model, mode);
-		model.view({rows}, tag);
-		model.scene({rows}, tag);
+		model.view({ rows }, tag);
+		model.scene({ rows }, tag);
 
 		next(memo);
 	}

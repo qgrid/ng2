@@ -1,4 +1,4 @@
-import {isObject, isArray, isString} from '../../utility/kit';
+import { isObject, isArray, isString } from '../../utility/kit';
 
 const begin = '<?xml version="1.0" encoding="UTF-8"?><root>';
 
@@ -39,7 +39,7 @@ export class Xml {
 	write(rows) {
 		const result = [begin];
 		for (let row of rows) {
-			result.push(objToXml({row: row}));
+			result.push(objToXml({ row }));
 		}
 		result.push('</root>');
 		return result.join('');

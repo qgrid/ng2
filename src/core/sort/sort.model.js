@@ -1,4 +1,4 @@
-import {Resource} from '../resource/resource';
+import { Resource } from '../resource/resource';
 
 export class SortModel {
 	constructor() {

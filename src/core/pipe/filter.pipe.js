@@ -1,7 +1,11 @@
+import { Guard } from '../infrastructure/guard';
+
 export function filterPipe(data, context, next) {
+	Guard.notNull(data, 'data');
+
 	const result = [];
 	if (data.length) {
-		const model = context.model;
+		const { model } = context;
 		const filterState = model.filter();
 		const test = filterState.match(context);
 

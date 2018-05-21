@@ -1,5 +1,6 @@
 import { Pipe } from '../pipe';
 import { Scene } from '../../scene/scene';
+import { Guard } from '../../infrastructure/guard';
 
 export const columnPipeUnit = [
 	(memo, context, next) => {
@@ -12,7 +13,9 @@ export const columnPipeUnit = [
 	},
 	Pipe.column,
 	(memo, context, next) => {
-		const model = context.model;
+		Guard.hasProperty(memo, 'columns');
+
+		const { model } = context;
 		const scene = new Scene(model);
 		const columnLine = scene.columnLine(memo.columns);
 		const tag = {

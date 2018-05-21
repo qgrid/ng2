@@ -15,7 +15,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Query builder input performance improvements.
 * Batch edit improvements.
 
-## [5.3.8] - 2018-07-18
+## [5.3.10] - 2018-05-21
+### Added
+- `ToggleAll` command that can be override to intersect toggle all groups action.
+
+### Changed
+- Clicking on group header leads to collapse/expand of all nodes in the view.
+- By default child node label is empty.
+
+### Fixed
+- `Group pipe` index calculation - the root cause of invalid filtering. 
+
+## [5.3.9] - 2018-05-18
 ### Added
 - Focus method to the grid service.
 
@@ -210,8 +221,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v5.3.8...HEAD
-[5.3.8]: https://github.com/qgrid/ng2/compare/v5.3.8...v5.3.7
+[unreleased]: https://github.com/qgrid/ng2/compare/v5.3.10...HEAD
+[5.3.10]: https://github.com/qgrid/ng2/compare/v5.3.10...v5.3.9
+[5.3.9]: https://github.com/qgrid/ng2/compare/v5.3.8...v5.3.7
 [5.3.7]: https://github.com/qgrid/ng2/compare/v5.3.7...v5.3.6
 [5.3.6]: https://github.com/qgrid/ng2/compare/v5.3.6...v5.3.5
 [5.3.5]: https://github.com/qgrid/ng2/compare/v5.3.5...v5.3.4

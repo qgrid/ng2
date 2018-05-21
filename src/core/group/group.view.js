@@ -4,6 +4,7 @@ import { getFactory as valueFactory } from '../services/value';
 import { getFactory as labelFactory } from '../services/label';
 import { columnFactory } from '../column/column.factory';
 import { PipeUnit } from '../pipe/pipe.unit';
+import { traverse } from '../node/node.service';
 
 export class GroupView extends View {
 	constructor(model, table, commandManager, service) {
@@ -37,9 +38,34 @@ export class GroupView extends View {
 			},
 			shortcut: model.group().shortcut.toggle
 		});
+		
+		let shouldExpand = true;
+
+		this.toggleAllStatus = new Command({
+			source: 'group.view',
+			execute: () => {
+				if (model.group().toggleAll.execute() !== false) {
+					const nodes = model.view().nodes;
+					const toggle = model.group().toggle;
+					const toggleStatus = this.toggleStatus;
+
+					traverse(nodes, node => {
+						if (toggleStatus.canExecute(node)) {
+							if (toggle.execute(node) !== false) {
+								node.state.expand = shouldExpand;
+							}
+						}
+					});
+
+					shouldExpand = !shouldExpand;
+					service.invalidate('group.view', {}, PipeUnit.group);
+				}
+			},
+			canExecute: () => model.group().toggleAll.canExecute()
+		});
 
 		const shortcut = model.action().shortcut;
-		shortcut.register(commandManager, [this.toggleStatus]);
+		shortcut.register(commandManager, [this.toggleStatus, this.toggleAllStatus]);
 
 		const createColumn = columnFactory(model);
 		this.reference = {
@@ -62,7 +88,8 @@ export class GroupView extends View {
 
 	value(node) {
 		const groupColumn = this.column;
-		return labelFactory(groupColumn)(node);
+		const getLabel = labelFactory(groupColumn);
+		return getLabel(node);	
 	}
 
 	get column() {

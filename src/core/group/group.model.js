@@ -10,5 +10,6 @@ export class GroupModel {
 			toggle: 'space'
 		};
 		this.toggle = new Command({ source: 'group.model' });
+		this.toggleAll = new Command({ source: 'group.model' });
 	}
 }

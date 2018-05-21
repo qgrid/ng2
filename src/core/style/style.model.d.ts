@@ -1,4 +1,5 @@
 import { Command } from '../command/command';
+import { ColumnModel } from '../column-type/column.model';
 
 /**
  * A class that allows to apply styles to rows and cells.
@@ -51,12 +52,12 @@ export declare class StyleModel {
 	/**
 	 * Style row.
 	 */
-	row: any;
+	row: (row: any, context: any) => void;
 
 	/**
 	 * Style cell.
 	 */
-	cell: any;
+	cell: (row: any, column: ColumnModel, context: any) => void | { [key: string]: (row: any, column: ColumnModel, context: any) => void };
 
 	/**
 	 * On invalidate.

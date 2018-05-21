@@ -5,12 +5,12 @@ export class StyleModel {
 	constructor() {
 		this.row = noop;
 		this.cell = noop;
+		this.rows = [];
+		this.cells = [];
+
 		this.invalidate = new Command({
 			source: 'style.model',
 			canExecute: context => context.model.edit().state === 'view'
 		});
-		
-		this.rows = [];
-		this.cells = [];
 	}
 }

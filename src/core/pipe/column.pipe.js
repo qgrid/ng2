@@ -3,12 +3,15 @@ import * as columnService from '../column/column.service';
 import { noop } from '../utility/kit';
 import { generateFactory } from '../column-list/column.list.generate';
 import { sortIndexFactory } from '../column-list/column.list.sort';
+import { Guard } from '../infrastructure/guard';
 
 export function columnPipe(memo, context, next) {
-	const model = context.model;
-	const pivot = memo.pivot;
-	const nodes = memo.nodes;
-	const heads = pivot.heads;
+	Guard.hasProperty(memo, 'pivot');
+	Guard.hasProperty(memo, 'nodes');
+
+	const { model } = context;
+	const { pivot, nodes } = memo;
+	const { heads } = pivot;
 	const dataColumns = [];
 	const addDataColumns = dataColumnsFactory(model);
 	const rowspan = Math.max(1, heads.length);

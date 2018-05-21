@@ -1,7 +1,7 @@
-import {Range} from '../../infrastructure';
-import {SelectorMark} from './selector.mark';
-import {modelFactory} from '../../test/model.factory';
-import {ColumnModel} from '../../column-type/column.model';
+import { Range } from '../../infrastructure';
+import { SelectorMark } from './selector.mark';
+import { modelFactory } from '../../test/model.factory';
+import { ColumnModel } from '../../column-type/column.model';
 
 describe('SelectorFactory', () => {
 	const column1 = new ColumnModel();

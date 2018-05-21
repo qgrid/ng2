@@ -1,11 +1,13 @@
 import { columnFactory } from '../column/column.factory';
 import { generateFactory } from '../column-list/column.list.generate';
 
-export function dataPipe(data, context, next) {
-	const model = context.model;
-	addDataRows(model, data);
+export function dataPipe(memo, context, next) {
+	const { model } = context;
+
+	addDataRows(model, memo);
 	addDataColumns(model);
-	next(data);
+	
+	next(memo);
 }
 
 function addDataRows(model, rows) {

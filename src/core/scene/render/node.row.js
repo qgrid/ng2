@@ -55,7 +55,7 @@ export class NodeRow extends DataRow {
 				if (aggregation) {
 					if (!Aggregation.hasOwnProperty(aggregation)) {
 						throw new AppError(
-							'node.visit',
+							'node.row',
 							`Aggregation ${aggregation} is not registered`);
 					}
 

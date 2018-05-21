@@ -3,4 +3,5 @@ export declare class Guard {
 	static notNull(value: any, name: any): void;
 	static notNullOrEmpty(value: any, name: any): void;
 	static invokable(value: any, name: any): void;
+	static hasProperty(instance: any, name: any): void;
 }

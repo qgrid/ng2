@@ -31,4 +31,5 @@ export declare class GroupModel {
 	by: string[];
 	shortcut: object;
 	toggle: Command;
+	toggleAll: Command;
 }

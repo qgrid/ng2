@@ -14,26 +14,26 @@
 
 <mat-card>
 	<q-grid id="q-grid-demo"
-	        [model]="gridModel"
-	        q-grid-autofocus
-	        [columns]="columns"
-	        [sortBy]="['+name.last', '-name.first']"
-	        [editCommit]="commitCommand"
-	        editMethod="batch"
-	        header="NG2 QGRID SANDBOX">
+			[model]="gridModel"
+			q-grid-autofocus
+			[columns]="columns"
+			[sortBy]="['+name.last', '-name.first']"
+			[groupBy]="['gender']"
+			[editCommit]="commitCommand"
+			header="NG2 QGRID SANDBOX">
 
 		<q-grid-columns>
 			<q-grid-column type="row-indicator"
-			               key="rowIndicator">
+						   key="rowIndicator">
 			</q-grid-column>
 			<q-grid-column type="row-number"
-			               key="rowNumber">
+						   key="rowNumber">
 			</q-grid-column>
 			<q-grid-column type="row-options"
-			               key="rowOptions">
+						   key="rowOptions">
 			</q-grid-column>
 			<q-grid-column type="number"
-			               aggregation="max">
+						   aggregation="max">
 			</q-grid-column>
 		</q-grid-columns>
 
@@ -66,15 +66,15 @@
 		</q-grid-query-builder>
 
 		<q-grid-row canDrag="true"
-		            canResize="true">
+					canResize="true">
 		</q-grid-row>
 
 		<!-- <q-grid-toolbar>
 			<ng-template for="top">
 				<mat-form-field>
 					<mat-select [(value)]="dataSet"
-					            (selectionChange)="dataSetChange()"
-					            placeholder="Data Set">
+								(selectionChange)="dataSetChange()"
+								placeholder="Data Set">
 						<mat-option value="10">people/10</mat-option>
 						<mat-option value="100">people/100</mat-option>
 						<mat-option value="1000">people/1000</mat-option>
@@ -86,35 +86,35 @@
 		</q-grid-toolbar> -->
 
 		<!-- <q-grid-layer>
-            <ng-template for="blank">
-                <div style="margin: 0 auto; top: 50%; width: 80px; position: relative;">
-                    <button (click)="loadData()">Load Rows</button>
-                </div>
-            </ng-template>
-        </q-grid-layer> -->
+			<ng-template for="blank">
+				<div style="margin: 0 auto; top: 50%; width: 80px; position: relative;">
+					<button (click)="loadData()">Load Rows</button>
+				</div>
+			</ng-template>
+		</q-grid-layer> -->
 
 		<!-- <q-grid-toolbar>
-            <ng-template for="top">
-                <q-grid-action-bar></q-grid-action-bar>
-            </ng-template>
-        </q-grid-toolbar>
+			<ng-template for="top">
+				<q-grid-action-bar></q-grid-action-bar>
+			</ng-template>
+		</q-grid-toolbar>
 
-        <q-grid-action-list>
-            <q-grid-action icon="search" [command]="searchCommand"></q-grid-action>
-        </q-grid-action-list> -->
+		<q-grid-action-list>
+			<q-grid-action icon="search" [command]="searchCommand"></q-grid-action>
+		</q-grid-action-list> -->
 
 
 		<!-- <q-grid-row unit="details">
-                <ng-template for="details">
-                    <q-grid>
-                        <q-grid-columns>
-                            <q-grid-column type="row-number"
-                                           key="rowNumber">
-                            </q-grid-column>
-                        </q-grid-columns>
-                    </q-grid>
-                </ng-template>
-            </q-grid-row> -->
+				<ng-template for="details">
+					<q-grid>
+						<q-grid-columns>
+							<q-grid-column type="row-number"
+										   key="rowNumber">
+							</q-grid-column>
+						</q-grid-columns>
+					</q-grid>
+				</ng-template>
+			</q-grid-row> -->
 
 	</q-grid>
 </mat-card>

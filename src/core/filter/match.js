@@ -4,7 +4,7 @@ import { PredicateVisitor } from '../expression/predicate.visitor';
 import { yes } from '../utility/kit';
 
 export function match(context) {
-	const model = context.model;
+	const { model } = context;
 	const expression = buildExpression(model.filter().by);
 	if (expression !== null) {
 		const valueFactory = context.labelFactory;

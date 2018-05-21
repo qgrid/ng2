@@ -1,7 +1,13 @@
-import {Scene} from '../scene/scene';
+import { Scene } from '../scene/scene';
+import { Guard } from '../infrastructure/guard';
 
 export function viewPipe(memo, context, next) {
-	const model = context.model;
+	Guard.hasProperty(memo, 'rows');
+	Guard.hasProperty(memo, 'nodes');
+	Guard.hasProperty(memo, 'pivot');
+	Guard.hasProperty(memo, 'columns');
+
+	const { model } = context;
 	const scene = new Scene(model);
 
 	const rows = scene.rows(memo);

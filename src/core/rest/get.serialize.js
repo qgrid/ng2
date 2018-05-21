@@ -11,10 +11,11 @@ export function serialize(model) {
 				return `${order === 'asc' ? '+' : '-'}${field}`;
 			})
 			.join(','),
-		filter: Object.keys(filterState.by)
+		filter: Object
+			.keys(filterState.by)
 			.map(field => {
 				const state = filterState.by[field];
-				if (field === '$expression') {
+				if(field === '$expression') {
 					return `$expression=where:${state}`;
 				}
 
