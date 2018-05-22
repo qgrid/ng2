@@ -72,7 +72,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
             const height = target.offsetHeight + 'px';
 
             Fastdom.mutate(() => {
-              element.style.top = top;
+					element.style.top = top;
               element.style.left = left;
               element.style.width = width;
               element.style.height = height;
