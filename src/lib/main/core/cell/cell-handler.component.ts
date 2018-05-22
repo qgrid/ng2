@@ -16,6 +16,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
   private startCell: CellView = null;
   private initialSelectionMode: string = null;
   private initialEditState: string = null;
+	private componentVisibility = false;
 
   constructor(private element: ElementRef, private root: RootService, private view: ViewCoreService) {
   }
@@ -85,6 +86,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+  	this.componentVisibility = true;
     const model = this.root.model;
     const editService = new EditService(model, this.root.table);
     let prevCell = null;
