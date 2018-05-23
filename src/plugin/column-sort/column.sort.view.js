@@ -16,7 +16,7 @@ export class ColumnSortView extends PluginView {
 		const iconDesc = context.iconDesc;
 		const iconAsc = context.iconAsc;
 
-		this.using(model.sortChanged.watch(e => {
+		model.sortChanged.watch(e => {
 			if (e.hasChanges('by')) {
 				if (view.sort.order(column) < 0) {
 					Fastdom.mutate(() => {
@@ -40,7 +40,7 @@ export class ColumnSortView extends PluginView {
 					});
 				}
 			}
-		}));
+		});
 
 		this.toggle = new Command({
 			canExecute: () => column.canSort,

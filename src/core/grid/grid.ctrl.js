@@ -38,11 +38,11 @@ export class GridCtrl extends View {
 
 		this.table = new Table(model, this.markup, tableContext);
 
-		this.using(model.sceneChanged.watch(e => {
+		model.sceneChanged.watch(e => {
 			if (e.hasChanges('column')) {
 				this.invalidateVisibility();
 			}
-		}));
+		});
 	}
 
 	keyDown(e, source = 'grid') {

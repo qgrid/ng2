@@ -19,7 +19,7 @@ export class SelectionView extends View {
 		this.selectionRange = new SelectionRange(model);
 
 		const selectionCommandManager = new SelectionCommandManager(model, commandManager);
-		const shortcut = model.action().shortcut;
+		const { shortcut } = model.action();
 		const commands = this.commands;
 
 		this.using(shortcut.register(selectionCommandManager, commands));
@@ -29,7 +29,7 @@ export class SelectionView extends View {
 		this.toggleCell = commands.get('toggleCell');
 		this.reset = commands.get('reset');
 
-		this.using(model.navigationChanged.watch(e => {
+		model.navigationChanged.watch(e => {
 			if (e.tag.source === 'selection.view') {
 				return;
 			}
@@ -39,7 +39,7 @@ export class SelectionView extends View {
 					this.toggleCell.execute(e.state.cell);
 				}
 			}
-		}));
+		});
 
 		const modeClass = `${GRID_PREFIX}-select-${model.selection().mode}`;
 		const unitClass = `${GRID_PREFIX}-select-${model.selection().unit}`;
@@ -47,7 +47,7 @@ export class SelectionView extends View {
 		view.addClass(modeClass);
 		view.addClass(unitClass);
 
-		this.using(model.selectionChanged.watch(e => {
+		model.selectionChanged.watch(e => {
 			if (e.hasChanges('mode')) {
 				const newModeClass = `${GRID_PREFIX}-select-${e.state.mode}`;
 				const oldModeClass = `${GRID_PREFIX}-select-${e.changes.mode.oldValue}`;
@@ -84,7 +84,7 @@ export class SelectionView extends View {
 				const newEntries = this.selectionService.lookup(e.state.items);
 				this.select(newEntries, true);
 			}
-		}));
+		});
 	}
 
 	get commands() {

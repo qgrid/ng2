@@ -26,13 +26,14 @@ export class PluginComponent extends NgComponent
 		super();
 	}
 
-	setup() {
-		return this.binder.bind(this.model, this.models, false);
-	}
-
 	ngOnInit() {
 		this.commit = this.setup();
 		this.commit();
+
+		this.onReady();
+	}
+
+	onReady() {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
@@ -41,6 +42,7 @@ export class PluginComponent extends NgComponent
 
 	ngOnDestroy() {
 		super.ngOnDestroy();
+
 		this.binder.bind(null);
 	}
 
@@ -52,5 +54,9 @@ export class PluginComponent extends NgComponent
 		const model = this.gridModel || (this.root && this.root.model);
 		Guard.notNull('model', model);
 		return model;
+	}
+
+	private setup() {
+		return this.binder.bind(this.model, this.models, false);
 	}
 }

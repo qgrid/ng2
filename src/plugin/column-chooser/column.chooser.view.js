@@ -139,7 +139,7 @@ export class ColumnChooserView extends PluginView {
 			.getOwnPropertyNames(Aggregation)
 			.filter(key => isFunction(Aggregation[key]));
 
-		this.using(model.dataChanged.watch(e => {
+		model.dataChanged.watch(e => {
 			if (e.tag.source === 'column.chooser') {
 				return;
 			}
@@ -147,9 +147,9 @@ export class ColumnChooserView extends PluginView {
 			if (e.hasChanges('columns')) {
 				this.temp.columns = this.originColumns(this.temp.index);
 			}
-		}));
+		});
 
-		this.using(model.columnListChanged.watch(e => {
+		model.columnListChanged.watch(e => {
 			if (e.tag.source === 'column.chooser') {
 				return;
 			}
@@ -158,8 +158,7 @@ export class ColumnChooserView extends PluginView {
 				this.temp.index = this.originIndex();
 				this.temp.columns = this.originColumns(this.temp.index);
 			}
-		}));
-
+		});
 	}
 
 	get columns() {

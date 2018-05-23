@@ -30,7 +30,7 @@ export class BoolEditorComponent extends PluginComponent implements OnInit {
 			this.value === this.trueValue
 				? this.falseValue : this.trueValue;
 
-		this.using(this.model.focusChanged.on(e => this.cell.exit.execute()));
+		this.model.focusChanged.on(e => this.cell.exit.execute());
 	}
 
 	isChecked() {

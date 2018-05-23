@@ -30,7 +30,7 @@ export class EditCellView extends View {
 		this.exit = commands.get('exit');
 		this.clear = commands.get('clear');
 
-		this.using(model.navigationChanged.watch(e => {
+		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
 				const oldCell = e.changes.cell.oldValue;
 				if (oldCell && oldCell.column.editorOptions.trigger === 'focus') {
@@ -46,7 +46,7 @@ export class EditCellView extends View {
 					}
 				}
 			}
-		}));
+		});
 	}
 
 	mode(cell, value) {

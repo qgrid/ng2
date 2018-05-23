@@ -22,9 +22,7 @@ export class RestComponent extends PluginComponent
 		this.models = ['rest'];
 	}
 
-	ngOnInit() {
-		super.ngOnInit();
-
+	onReady() {
 		this.rest = new RestView(this.model, {
 			get: (url, params) => this.http.get(url, { params }).toPromise(),
 			post: (url, data) => this.http.post(url, { data }).toPromise()

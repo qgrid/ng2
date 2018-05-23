@@ -25,7 +25,7 @@ import { GridService } from '../../../main/grid/grid.service';
 	providers: [CellService]
 })
 export class ViewCoreComponent extends NgComponent
-	implements OnInit, OnDestroy, DoCheck, AfterViewChecked {
+	implements OnInit, DoCheck, AfterViewChecked {
 
 	private ctrl: ViewCtrl;
 	private sceneJob = jobLine(0);
@@ -41,18 +41,20 @@ export class ViewCoreComponent extends NgComponent
 	}
 
 	ngOnInit() {
-		super.ngOnInit();
-
 		this.root.markup['view'] = this.elementRef.nativeElement;
 
 		// Views should be inited after `sceneChanged.watch` declaration
 		// to persiste the right order of event sourcing.
-		this.view.init();
+		this.view.init(
+			this.model,
+			this.root.table,
+			this.root.commandManager
+		);
 
 		const model = this.model;
 
 		const gridService = this.grid.service(model);
-		this.ctrl = new ViewCtrl(model, this.view, gridService);
+		this.ctrl = this.using(new ViewCtrl(model, this.view, gridService));
 
 		model.sceneChanged.watch(e => {
 			if (e.hasChanges('status')) {
@@ -77,13 +79,6 @@ export class ViewCoreComponent extends NgComponent
 			}
 		});
 
-	}
-
-	ngOnDestroy() {
-		super.ngOnDestroy();
-
-		this.view.destroy();
-		this.ctrl.dispose();
 	}
 
 	get model() {

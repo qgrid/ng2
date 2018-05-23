@@ -64,7 +64,7 @@ export class ScrollView extends View {
 					});
 				};
 
-				this.using(model.sceneChanged.watch(e => {
+				model.sceneChanged.watch(e => {
 					if (e.tag.source === 'scroll.view') {
 						return;
 					}
@@ -78,21 +78,21 @@ export class ScrollView extends View {
 							}
 						}
 					}
-				}));
+				});
 
 				break;
 			}
 			default:
-				this.using(model.paginationChanged.watch(() => {
+				model.paginationChanged.watch(() => {
 					this.y.container.reset();
-				}));
+				});
 		}
 
-		this.using(model.scrollChanged.watch(e => {
+		model.scrollChanged.watch(e => {
 			if (e.hasChanges('left') || e.hasChanges('top')) {
 				this.invalidate();
 			}
-		}));
+		});
 	}
 
 	invalidate() {

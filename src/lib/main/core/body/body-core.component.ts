@@ -27,8 +27,6 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		super.ngOnInit();
-
 		const view = this.$view;
 		const element = this.element.nativeElement as HTMLElement;
 
@@ -38,22 +36,22 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 		const listener = new EventListener(element, new EventManager(this));
 
 		this.zone.runOutsideAngular(() => {
-			this.using(listener.on('wheel', e => ctrl.onWheel(e)));
+			listener.on('wheel', e => ctrl.onWheel(e));
 
-			this.using(listener.on('scroll', () =>
+			listener.on('scroll', () =>
 				ctrl.onScroll({
 					scrollLeft: table.pin ? model.scroll().left : element.scrollLeft,
 					scrollTop: element.scrollTop
 				}),
 				{ passive: true }
-			));
+			);
 
-			this.using(listener.on('mousemove', ctrl.onMouseMove.bind(ctrl)));
-			this.using(listener.on('mouseleave', ctrl.onMouseLeave.bind(ctrl)));
+			listener.on('mousemove', ctrl.onMouseMove.bind(ctrl));
+			listener.on('mouseleave', ctrl.onMouseLeave.bind(ctrl));
 		});
 
-		this.using(listener.on('mousedown', ctrl.onMouseDown.bind(ctrl)));
-		this.using(listener.on('mouseup', ctrl.onMouseUp.bind(ctrl)));
+		listener.on('mousedown', ctrl.onMouseDown.bind(ctrl));
+		listener.on('mouseup', ctrl.onMouseUp.bind(ctrl));
 	}
 
 	get selection(): SelectionModel {

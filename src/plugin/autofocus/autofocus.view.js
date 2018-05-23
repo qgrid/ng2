@@ -1,10 +1,10 @@
-import {PluginView} from '../plugin.view';
+import { PluginView } from '../plugin.view';
 
 export class AutofocusView extends PluginView {
 	constructor(model, table, markup) {
 		super(model);
 
-		this.using(model.sceneChanged.watch((e, off) => {
+		model.sceneChanged.watch((e, off) => {
 			if (e.hasChanges('status')) {
 				if (e.state.status === 'stop') {
 					const count = table.body.rowCount(0);
@@ -39,7 +39,7 @@ export class AutofocusView extends PluginView {
 								});
 
 								if (columnIndex >= 0) {
-									focus({rowIndex, columnIndex});
+									focus({ rowIndex, columnIndex });
 									break;
 								}
 
@@ -49,6 +49,6 @@ export class AutofocusView extends PluginView {
 					}
 				}
 			}
-		}));
+		});
 	}
 }

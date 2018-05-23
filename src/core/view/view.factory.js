@@ -15,44 +15,31 @@ import { StyleView } from '../style/style.view';
 import { ScrollView } from '../scroll/scroll.view';
 import { RowDetailsView } from '../row-details/row.details.view';
 import { RowView } from '../row/row.view';
+import { Model } from '../infrastructure/model';
+import { ModelProxy } from '../infrastructure/model.proxy';
 
 export function viewFactory(model, table, commandManager, gridService, vscroll, selectors) {
-	return target => {
-		target.style = new StyleView(model, table);
-		target.head = new HeadView(model, table, selectors.th);
-		target.body = new BodyView(model, table);
-		target.foot = new FootView(model, table);
-		target.layout = new LayoutView(model, table, gridService);
-		target.selection = new SelectionView(model, table, commandManager);
-		target.group = new GroupView(model, table, commandManager, gridService);
-		target.pivot = new PivotView(model);
-		target.highlight = new HighlightView(model, table);
-		target.sort = new SortView(model);
-		target.filter = new FilterView(model);
-		target.edit = new EditView(model, table, commandManager);
-		target.nav = new NavigationView(model, table, commandManager);
-		target.pagination = new PaginationView(model);
-		target.scroll = new ScrollView(model, table, vscroll);
-		target.rowDetails = new RowDetailsView(model, table, commandManager);
-		target.row = new RowView(model, selectors.tr);
+	const proxy = new ModelProxy(model);
 
-		return () => {
-			target.style.dispose();
-			target.head.dispose();
-			target.body.dispose();
-			target.foot.dispose();
-			target.layout.dispose();
-			target.selection.dispose();
-			target.group.dispose();
-			target.pivot.dispose();
-			target.highlight.dispose();
-			target.sort.dispose();
-			target.filter.dispose();
-			target.edit.dispose();
-			target.nav.dispose();
-			target.pagination.dispose();
-			target.scroll.dispose();
-			target.rowDetails.dispose();
-		};
+	return target => {
+		target.style = new StyleView(proxy.subject, table);
+		target.head = new HeadView(proxy.subject, table, selectors.th);
+		target.body = new BodyView(proxy.subject, table);
+		target.foot = new FootView(proxy.subject, table);
+		target.layout = new LayoutView(proxy.subject, table, gridService);
+		target.selection = new SelectionView(proxy.subject, table, commandManager);
+		target.group = new GroupView(proxy.subject, table, commandManager, gridService);
+		target.pivot = new PivotView(proxy.subject);
+		target.highlight = new HighlightView(proxy.subject, table);
+		target.sort = new SortView(proxy.subject);
+		target.filter = new FilterView(proxy.subject);
+		target.edit = new EditView(proxy.subject, table, commandManager);
+		target.nav = new NavigationView(proxy.subject, table, commandManager);
+		target.pagination = new PaginationView(proxy.subject);
+		target.scroll = new ScrollView(proxy.subject, table, vscroll);
+		target.rowDetails = new RowDetailsView(proxy.subject, table, commandManager);
+		target.row = new RowView(proxy.subject, selectors.tr);
+
+		return () => proxy.dispose();
 	};
 }

@@ -13,14 +13,16 @@ import { ThemeService } from '../../template/theme.service';
 })
 export class BoxComponent extends NgComponent implements OnInit, OnDestroy {
 	@Input('model') private boxModel: Model = null;
-	private ctrl: BoxCtrl;
 
-	constructor( @Optional() private root: RootService, private element: ElementRef, private theme: ThemeService) {
+	constructor(
+		@Optional() private root: RootService,
+		private element: ElementRef,
+		private theme: ThemeService) {
 		super();
 	}
 
 	ngOnInit() {
-		this.ctrl = new BoxCtrl(this.model, this.element.nativeElement);
+		this.using(new BoxCtrl(this.model, this.element.nativeElement));
 		this.initTheme();
 	}
 
@@ -38,13 +40,7 @@ export class BoxComponent extends NgComponent implements OnInit, OnDestroy {
 
 	get model() {
 		const model = this.boxModel || (this.root && this.root.model);
-		Guard.notNull('model', model);
+		Guard.notNull(model, 'model');
 		return model;
-	}
-
-	ngOnDestroy() {
-		super.ngOnDestroy();
-
-		this.ctrl.dispose();
 	}
 }

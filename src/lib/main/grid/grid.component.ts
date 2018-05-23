@@ -46,10 +46,7 @@ import { LayerService } from '../core/layer/layer.service';
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None
 })
-export class GridComponent extends RootComponent implements OnInit, OnDestroy {
-	private ctrl: GridCtrl;
-	private listener: EventListener;
-
+export class GridComponent extends RootComponent implements OnInit {
 	@Input() model;
 	@Input('rows') dataRows;
 	@Input('columns') dataColumns;
@@ -102,9 +99,7 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 			'action'
 		];
 
-		this.using(
-			this.modelChanged.watch(model => (this.rootService.model = model))
-		);
+		this.modelChanged.watch(model => (this.rootService.model = model));
 
 		if (!theme.component) {
 			throw new AppError(
@@ -117,12 +112,10 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		super.ngOnInit();
-
 		const model = this.model;
 
 		const element = this.element.nativeElement;
-		const ctrl = (this.ctrl = new GridCtrl(model, {
+		const ctrl = this.using(new GridCtrl(model, {
 			layerFactory: () => this.layerService,
 			element
 		}));
@@ -144,15 +137,15 @@ export class GridComponent extends RootComponent implements OnInit, OnDestroy {
 		if (navDebounce) {
 			const navJob = new jobLine(navDebounce);
 			this.zone.runOutsideAngular(() => {
-				this.using(listener.on('keydown', e => {
+				listener.on('keydown', e => {
 					const result = ctrl.keyDown(e);
 					if (result.indexOf('navigation') >= 0) {
 						navJob(() => this.app.tick());
 					}
-				}));
+				});
 			});
 		} else {
-			this.using(listener.on('keydown', e => ctrl.keyDown(e)));
+			listener.on('keydown', e => ctrl.keyDown(e));
 		}
 	}
 

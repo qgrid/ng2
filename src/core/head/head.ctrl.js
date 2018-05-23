@@ -14,7 +14,7 @@ export class HeadCtrl extends View {
 		this.x = -1;
 		this.y = -1;
 
-		this.using(model.sceneChanged.watch(e => {
+		model.sceneChanged.watch(e => {
 			if (e.hasChanges('status')) {
 				const status = e.state.status;
 				switch (status) {
@@ -41,7 +41,7 @@ export class HeadCtrl extends View {
 					}
 				}
 			}
-		}));
+		});
 	}
 
 	onMouseMove(e) {

@@ -18,9 +18,7 @@ export class PersistenceComponent extends PluginComponent implements OnInit {
 		this.models = ['persistence'];
 	}
 
-	ngOnInit() {
-		super.ngOnInit();
-
+	onReady() {
 		const model = this.root.model;
 		const id = `q-grid:${model.grid().id}:persistence-list`;
 		model.persistence({id});

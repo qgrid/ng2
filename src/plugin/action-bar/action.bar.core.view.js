@@ -1,4 +1,4 @@
-import {PluginView} from '../plugin.view';
+import { PluginView } from '../plugin.view';
 
 export class ActionBarCoreView extends PluginView {
 	constructor(model) {
@@ -8,8 +8,8 @@ export class ActionBarCoreView extends PluginView {
 
 		const actionState = this.model.action();
 		const shortcut = actionState.shortcut;
-		const commandManager = actionState.manager; 
-		this.using(this.model.actionChanged.watch(e => {
+		const commandManager = actionState.manager;
+		this.model.actionChanged.watch(e => {
 			if (e.hasChanges('items')) {
 				if (this.shortcutOff) {
 					this.shortcutOff();
@@ -19,7 +19,7 @@ export class ActionBarCoreView extends PluginView {
 				const commands = e.state.items.map(act => act.command);
 				this.shortcutOff = shortcut.register(commandManager, commands);
 			}
-		}));
+		});
 	}
 
 	get actions() {

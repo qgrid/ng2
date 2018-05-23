@@ -28,8 +28,8 @@ export class HeadCoreComponent extends NgComponent implements OnInit {
 		const ctrl = new HeadCtrl(this.root.model, this.$view, this.root.bag);
 		const listener = new EventListener(element, new EventManager(this));
 		this.zone.runOutsideAngular(() => {
-			this.using(listener.on('mousemove', e => ctrl.onMouseMove(e)));
-			this.using(listener.on('mouseleave', e => ctrl.onMouseLeave(e)));
+			listener.on('mousemove', e => ctrl.onMouseMove(e));
+			listener.on('mouseleave', e => ctrl.onMouseLeave(e));
 		});
 	}
 

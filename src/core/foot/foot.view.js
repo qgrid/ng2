@@ -13,11 +13,11 @@ export class FootView extends View {
 
 		this.valueFactory = valueFactory;
 
-		this.using(model.sceneChanged.watch(e => {
+		model.sceneChanged.watch(e => {
 			if (e.hasChanges('column')) {
 				this.invalidate();
 			}
-		}));
+		});
 	}
 
 	invalidate() {

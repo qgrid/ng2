@@ -8,28 +8,18 @@ import { PagerView } from 'ng2-qgrid/plugin/pager/pager.view';
 	selector: 'q-grid-pager',
 	templateUrl: './pager.component.html'
 })
-export class PagerComponent extends PluginComponent implements OnInit, OnDestroy {
+export class PagerComponent extends PluginComponent {
 	@Input('size') public paginationSize;
 	@Input('sizeList') public paginationSizeList;
 
-	private pager: PagerView;
-
-	constructor( @Optional() root: RootService) {
+	constructor(@Optional() root: RootService) {
 		super(root);
 
 		this.models = ['pagination'];
 	}
 
-	ngOnInit() {
-		super.ngOnInit();
-
-		this.pager = new PagerView(this.model);
-		this.context = { $implicit: this.pager };
-	}
-
-	ngOnDestroy() {
-		super.ngOnDestroy();
-
-		this.pager.dispose();
+	onReady() {
+		const pager = this.using(new PagerView(this.model));
+		this.context = { $implicit: pager };
 	}
 }

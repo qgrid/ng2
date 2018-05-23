@@ -19,8 +19,6 @@ export class ModelComponent extends NgComponent implements OnChanges, OnInit, On
 	}
 
 	ngOnInit() {
-		super.ngOnInit();
-
 		this.commit = this.setup();
 		this.commit();
 	}
@@ -31,6 +29,7 @@ export class ModelComponent extends NgComponent implements OnChanges, OnInit, On
 
 	ngOnDestroy() {
 		super.ngOnDestroy();
+		
 		this.binder.bind(null);
 	}
 

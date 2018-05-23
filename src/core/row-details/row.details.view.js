@@ -33,7 +33,7 @@ export class RowDetailsView extends View {
 			shortcut: model.row().shortcut.toggle
 		});
 
-		this.using(model.sceneChanged.watch(e => {
+		model.sceneChanged.watch(e => {
 			if (e.tag.source === 'row.details.view') {
 				return;
 			}
@@ -43,7 +43,7 @@ export class RowDetailsView extends View {
 				const status = invalidateStatus(model.data().rows, rowState.status, rowState.mode);
 				model.row({ status }, { source: 'row.details.view' });
 			}
-		}));
+		});
 
 		const shortcut = model.action().shortcut;
 		shortcut.register(commandManager, [this.toggleStatus]);

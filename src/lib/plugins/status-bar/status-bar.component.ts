@@ -21,9 +21,9 @@ export class StatusBarComponent extends PluginComponent implements OnInit {
 	ngOnInit() {
 		const focus = this.model.focus();
 
-		this.using(this.model.focusChanged.on(() => {
+		this.model.focusChanged.on(() => {
 			this.rowIndex = focus.rowIndex;
 			this.columnIndex = focus.columnIndex;
-		}));
+		});
 	}
 }

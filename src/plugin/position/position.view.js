@@ -12,10 +12,10 @@ export class PositionView extends PluginView {
 		this.element = context.element;
 		this.targetName = context.targetName;
 
-		const listener = new EventListener(window, new EventManager(this));
+		const windowListener = new EventListener(window, new EventManager(this));
 		const job = jobLine(400);
 
-		this.using(listener.on('resize', () => {
+		this.using(windowListener.on('resize', () => {
 			this.invalidate();
 			// In case if after window resize there can different animated layout changes
 			job(() => this.invalidate());

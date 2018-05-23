@@ -33,37 +33,31 @@ export class ColumnSortComponent extends PluginComponent implements AfterViewIni
 	}
 
 	ngAfterViewInit() {
-		const nativeElement = this.element.nativeElement;
+		const { nativeElement } = this.element;
 		const iconAsc = nativeElement.querySelector('.q-grid-asc');
 		const iconDesc = nativeElement.querySelector('.q-grid-desc');
 
-		const ctrl = new ColumnSortView(this.model, {
+		const ctrl = this.using(new ColumnSortView(this.model, {
 			element: nativeElement,
 			view: this.view,
 			column: this.column,
 			iconAsc,
 			iconDesc
-		});
+		}));
 
 		const listener = new EventListener(nativeElement, new EventManager(this));
-		this.using(listener.on('click', () => {
+		listener.on('click', () => {
 			if (ctrl.onClick()) {
 				const focus = new FocusAfterRender(this.root);
 			}
-		}));
+		});
 
 		this.zone.runOutsideAngular(() =>
-			this.using(listener.on('mouseleave', () => ctrl.onMouseLeave()))
+			listener.on('mouseleave', () => ctrl.onMouseLeave())
 		);
 
 		this.context = {
 			$implicit: ctrl
 		};
-	}
-
-	ngOnDestroy() {
-		super.ngOnDestroy();
-
-		this.context.$implicit.dispose();
 	}
 }

@@ -15,9 +15,7 @@ export class QueryBuilderComponent extends PluginComponent implements OnInit {
 		super(root);
 	}
 
-	ngOnInit() {
-		super.ngOnInit();
-
+	onReady() {
 		const action =
 			new Action(
 				new Command(),

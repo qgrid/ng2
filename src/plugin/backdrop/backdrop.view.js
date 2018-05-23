@@ -15,7 +15,7 @@ export class BackdropView extends PluginView {
 		const element = context.element;
 		const listener = new EventListener(element, new EventManager(this));
 
-		this.using(listener.on('mouseup', e => {
+		listener.on('mouseup', e => {
 
 			if (e.which === MOUSE_LEFT_BUTTON || e.which === MOUSE_WHEEL_BUTTON) {
 
@@ -32,10 +32,10 @@ export class BackdropView extends PluginView {
 				this.closeEvent.emit(e);
 
 			}
-		}));
+		});
 
-		this.using(listener.on('keydown', e => {
+		listener.on('keydown', e => {
 			context.onKeyDown({ $event: e });
-		}));
+		});
 	}
 }

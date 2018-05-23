@@ -19,12 +19,12 @@ export class BodyView extends View {
 		this.invalidate();
 
 		let wasInvalidated = false;
-		this.using(model.sceneChanged.watch(e => {
+		model.sceneChanged.watch(e => {
 			if (e.hasChanges('rows')) {
 				this.invalidate();
 				wasInvalidated = true;
 			}
-		}));
+		});
 
 		if (!wasInvalidated) {
 			this.invalidate();

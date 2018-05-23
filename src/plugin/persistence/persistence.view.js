@@ -33,13 +33,11 @@ export class PersistenceView extends PluginView {
 				this.groups = this.buildGroups(this.items);
 			});
 
-		this.using(
-			this.model.gridChanged.watch(e => {
-				if (e.hasChanges('status') && e.state.status === 'unbound') {
-					this.closeEvent.emit();
-				}
-			})
-		);
+		this.model.gridChanged.watch(e => {
+			if (e.hasChanges('status') && e.state.status === 'unbound') {
+				this.closeEvent.emit();
+			}
+		});
 
 		this.create = new Command({
 			source: 'persistence.view',
