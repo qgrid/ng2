@@ -13,6 +13,5 @@ export class RowModel {
 		};
 		this.canDrag = false;
 		this.canResize = false;
-		this.frozen = [];
 	}
 }

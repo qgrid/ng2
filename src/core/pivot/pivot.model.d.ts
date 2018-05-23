@@ -1,4 +1,4 @@
-import {Resource} from '../resource/resource';
+import { Resource } from '../resource/resource';
 
 /**
  * A class to control q-grid pivoting functions.
@@ -10,12 +10,11 @@ import {Resource} from '../resource/resource';
  * * [pivot.build.js](https://github.com/qgrid/ng2/blob/master/core/pivot/pivot.build.js)
  * * [pivot.form.js](https://github.com/qgrid/ng2/blob/master/core/pivot/pivot.form.js)
  */
-export declare class PivotModel {
-	constructor();
-	resource: Resource;
+export declare interface PivotModel {
+	resource?: Resource;
 
 	/**
 	 * A list of column keys to pivot. Each item represents next level.
 	 */
-	by: string[];
+	by?: string[];
 }

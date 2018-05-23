@@ -46,18 +46,16 @@ import { Model } from '../infrastructure/model';
  *  };
  * ```
  */
-export declare class PipeModel {
-	constructor();
-
+export declare interface PipeModel {
 	/**
 	 * A function that allows to shrink a number of pipe units that should be invoked on referch request.
 	 */
-	reduce: (xs: PipeUnit[], Model) => PipeUnit[];
+	reduce?: (xs: PipeUnit[], Model) => PipeUnit[];
 
 	/**
 	 * A schema that shows how and when q-grid should be updated.
 	 *
 	 * `{col}`
 	 */
-	triggers: object;
+	triggers?: object;
 }

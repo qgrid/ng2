@@ -11,7 +11,7 @@ export class NavigationView extends View {
 
 		this.table = table;
 
-		const shortcut = model.action().shortcut;
+		const { shortcut } = model.action();
 		const navigation = new Navigation(model, table);
 		let focusBlurs = [];
 

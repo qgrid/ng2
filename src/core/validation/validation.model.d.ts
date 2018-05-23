@@ -1,4 +1,4 @@
-import {Resource} from '../resource/resource';
+import { Resource } from '../resource/resource';
 
 /**
  * A class to setup validation rules settings.
@@ -7,13 +7,11 @@ import {Resource} from '../resource/resource';
  *
  * * [LIVR](https://github.com/koorchik/LIVR)
  */
-export declare class ValidationModel {
-	constructor();
-
-	resource: Resource;
+export declare interface ValidationModel {
+	resource?: Resource;
 
 	/**
 	 * List of validation rules.
 	 */
-	rules: object[];
+	rules?: object[];
 }

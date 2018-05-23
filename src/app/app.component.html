@@ -13,7 +13,9 @@
 </style>
 
 <mat-card>
-	<q-grid id="q-grid-demo"
+	<button (click)="foo = !foo">Click</button>
+	<q-grid *ngIf="foo"
+			id="q-grid-demo"
 			[model]="gridModel"
 			q-grid-autofocus
 			[columns]="columns"

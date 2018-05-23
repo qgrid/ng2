@@ -18,17 +18,16 @@ import { Resource } from '../resource/resource';
  *	});
  * ```
  */
-export declare class ProgressModel {
-	constructor();
-	resource: Resource;
+export declare interface ProgressModel {
+	resource?: Resource;
 
 	/**
 	 * Indicates if there a running job or not.
 	 */
-	isBusy: boolean;
+	isBusy?: boolean;
 
 	/**
 	 * List of progress jobs.
 	 */
-	queue: string[];
+	queue?: string[];
 }

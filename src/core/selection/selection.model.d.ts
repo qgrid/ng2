@@ -8,10 +8,8 @@ import { Resource } from '../resource/resource';
  * * [Scroll View](/doc/api/scroll-view.html)
  * * [selection.service.js](https://github.com/qgrid/ng2/blob/master/core/selection/selection.service.js)
  */
-export declare class SelectionModel {
-	constructor();
-
-	resource: Resource;
+export declare interface SelectionModel {
+	resource?: Resource;
 
 	/**
 	 * Controls if click on the q-grid body should select row or not.
@@ -19,7 +17,7 @@ export declare class SelectionModel {
 	 * * `'body'` click on the q-grid body leads to row select/unselect.
 	 * * `'custom'` only select checkbox click leads to row select/unselect.
 	 */
-	area: string;
+	area?: 'custom' | 'body';
 
 	/**
 	 * Selection primitive.
@@ -29,7 +27,7 @@ export declare class SelectionModel {
 	 * * `'column'` user can select columns by clicking on the q-grid body area.
 	 * * `'mix'` user can select both rows and cells, rows are selectable by clicking on row-indicator column.
 	 */
-	unit: 'row' | 'cell' | 'column' | 'mix';
+	unit?: 'row' | 'cell' | 'column' | 'mix';
 
 	/**
 	 * Selection mode.
@@ -38,12 +36,12 @@ export declare class SelectionModel {
 	 * * `'multiple'`
 	 * * `'range'`
 	 */
-	mode: 'single' | 'mutiple' | 'range';
+	mode?: 'single' | 'multiple' | 'range';
 
 	/**
 	 * List of selected items.
 	 */
-	items: any[];
+	items?: any[];
 
 	/**
 	 * Set of map function, that can convert column and row to nessesary format.
@@ -51,7 +49,7 @@ export declare class SelectionModel {
 	 * * `'column'` custom column key will be stored in the items property.
 	 * * `'row'` custom row id will be stored in the items property.
 	 */
-	key: {
+	key?: {
 		row: () => void,
 		column: () => void
 	};

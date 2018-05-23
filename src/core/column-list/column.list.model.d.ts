@@ -34,35 +34,33 @@ import { ColumnModel } from '../column-type/column.model';
  * * [column.list.sort.js](https://github.com/qgrid/ng2/blob/master/core/column-list/column.list.sort.js)
  *
  */
-export declare class ColumnListModel {
-	constructor();
-
+export declare interface ColumnListModel {
 	/**
 	 * When setup columns will be generated automatically based on passed data source.
 	 * - `null` means auto generation is off.
 	 * - `'deep'` means that algorithm traverses all level keys of the passed data source item.
 	 * - `'shallow'` means algoithm traverses only first level keys of the passed data source item.
 	 */
-	generation: null | 'deep' | 'shallow';
+	generation?: null | 'deep' | 'shallow';
 
 	/**
 	 * Contains array of column keys which q-grid uses for column ordering.
 	 * This is filled automatically by internal service, but can be modified, for instance,
      * by [column sort](/doc/feature/sort.html) plugin.
 	 */
-	index: string[];
+	index?: string[];
 
 	/**
 	 * List of columns from html template. Usually that kind of column can be
 	 * defined with `<q-grid-column>` componet in html,
      * and has `column.source === 'tempate'`.
 	 */
-	columns: ColumnModel[];
+	columns?: ColumnModel[];
 
 	/**
 	 * If user omits key property while defining a column, this column goes to the reference
 	 * object as `{columnType: myColumn}`. The reference settings will be applied for all
 	 * column of appropriate type as defaults.
 	 */
-	reference: object;
+	reference?: object;
 }

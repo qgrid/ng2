@@ -7,6 +7,7 @@ export class EditModel {
 		this.mode = null; // cell | row
 		this.state = 'view'; // view | edit | startBatch | endBatch
 		this.method = null; // batch
+		
 		this.enter = new Command({ source: 'edit.model' });
 		this.commit = new Command({ source: 'edit.model' });
 		this.cancel = new Command({ source: 'edit.model' });

@@ -7,13 +7,11 @@ import { RowView } from './view/row.view';
  * ### Suggested Links
  * [table.js](https://github.com/qgrid/ng2/blob/master/core/dom/table.js)
  */
-export declare class SceneModel {
-	constructor();
-
+export declare interface SceneModel {
 	/**
 	 * Number of invalidations in queue. Is used to understand when dom is ready.
 	 */
-	round: number;
+	round?: number;
 
 	/**
 	 * Status of invalidation.
@@ -21,17 +19,17 @@ export declare class SceneModel {
 	 * * `'start'` refresh was began.
 	 * * `'stop'` refresh was finished.
 	 */
-	status: string;
+	status?: string;
 
 	/**
 	 * List of rows to render.
 	 */
-	rows: RowView[];
+	rows?: RowView[];
 
 	/**
 	 * Column rendering object.
 	 */
-	column: {
+	column?: {
 		rows: ColumnView[][],
 		line: ColumnView[],
 		area: {}

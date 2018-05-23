@@ -102,9 +102,9 @@ export class ViewCoreComponent extends NgComponent
 					round: 0,
 					status: 'stop'
 				}, {
-						source: 'grid.component',
-						behavior: 'core'
-					});
+					source: 'grid.component',
+					behavior: 'core'
+				});
 			}
 		});
 	}

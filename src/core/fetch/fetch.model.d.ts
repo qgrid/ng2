@@ -6,10 +6,10 @@
  *
  * * [Scroll View](/doc/api/scroll-view.html)
  */
-export declare class FetchModel {
+export declare interface FetchModel {
 	/**
 	 * Number of rows that should be skipped to get new portion of data,
 	 * this property is filled by internal virtual scroll service.
 	 */
-	skip: number;
+	skip?: number;
 }

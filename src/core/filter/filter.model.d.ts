@@ -33,8 +33,8 @@ import { IAssert } from './assert';
 
 export declare function match(context: any): (x: any, value: any) => boolean;
 
-export declare class FilterModel {
-	resource: Resource;
+export declare interface FilterModel {
+	resource?: Resource;
 
 	/**
 	 * Object that contains filter values, `{columnKey: items | blanks | expression}`
@@ -43,7 +43,7 @@ export declare class FilterModel {
 	 * * `blanks` boolean value that indicates should we filter blanks values or not.
 	 * * `expression` and\or expression
 	 */
-	by: object;
+	by?: object;
 
 	/**
 	 * Filter representation enum:
@@ -51,17 +51,17 @@ export declare class FilterModel {
 	 * * `default` filtration through column filters and external plugins.
 	 * * `row` filtration through header row filter and external plugins.
 	 */
-	unit: string;
+	unit?: string;
 
 	/**
 	 * Factory for the match function.
 	 */
-	match: () => (x: any, value: any) => boolean;
+	match?: () => (x: any, value: any) => boolean;
 
 	/**
 	 * If setup `column filter` plugin can use this property to populate list of column items.
 	 */
-	fetch: () => any | Promise<any> | any;
+	fetch?: () => any | Promise<any> | any;
 
 	/**
 	 * Factory for assertion unit that contains comparison functions.
@@ -70,5 +70,5 @@ export declare class FilterModel {
 	 * * `lessThan` should return true if the first value is less than the second.
 	 * * `isNull` should return true if value means null.
 	 */
-	assertFactory: () => IAssert;
+	assertFactory?: () => IAssert;
 }

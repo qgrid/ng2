@@ -1,4 +1,4 @@
-import {IContext, IMemo} from '../pipe/pipe.item';
+import {PipeContext, PipeMemo} from '../pipe/pipe.item';
 import {Pipe} from '../pipe/pipe';
 
 export declare class Middleware {
@@ -6,5 +6,5 @@ export declare class Middleware {
 
 	pipes: Pipe[];
 
-	run(context: IContext, memo: IMemo): Promise<any>;
+	run(context: PipeContext, memo: PipeMemo): Promise<any>;
 }
