@@ -147,6 +147,17 @@ export class PersistenceView extends PluginView {
 			}
 		});
 
+		this.reset = new Command({
+			source: 'persistence.view',
+			execute: () => {
+				if (persistence().reset.execute() !== false) {
+					this.service.reset();
+				}
+				return false;
+			},
+			canExecute: () => persistence().reset.canExecute()
+		});
+
 		this.remove = new Command({
 			source: 'persistence.view',
 			execute: item => {
@@ -204,31 +215,10 @@ export class PersistenceView extends PluginView {
 	}
 
 	get blank() {
-		const gridModel = this.model;
-		const settings = gridModel.persistence().settings;
-
-		const model = {};
-		for (const key in settings) {
-			const target = {};
-			model[key] = target;
-			for (const p of settings[key]) {
-				switch (key) {
-					case 'filter':
-						target[p] = {};
-						break;
-					case 'queryBuilder':
-						target[p] = null;
-						break;
-					default:
-						target[p] = [];
-				}
-			}
-		}
-
 		return {
 			title: 'Blank',
 			modified: Date.now(),
-			model: model,
+			model: {},
 			isDefault: false,
 			group: 'blank',
 			canEdit: false

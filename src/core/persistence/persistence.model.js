@@ -11,6 +11,7 @@ export class PersistenceModel {
 		this.create = new Command({ source: 'persistence.model' });
 		this.modify = new Command({ source: 'persistence.model' });
 		this.setDefault = new Command({ source: 'persistence.model' });
+		this.reset = new Command({ source: 'persistence.model' });
 
 		this.storage = new PersistenceStorage(localStorage);
 		this.settings = {

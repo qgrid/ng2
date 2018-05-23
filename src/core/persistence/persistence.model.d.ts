@@ -13,5 +13,6 @@ export declare class PersistenceModel {
 	create: Command;
 	modify: Command;
 	setDefault: Command;
+	reset: Command;
 	settings: object;
 }
