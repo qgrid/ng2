@@ -1,4 +1,3 @@
-import { View } from '../view/view';
 import { Command } from '../command/command';
 import { CommandManager } from '../command/command.manager';
 import { Model } from '../infrastructure/model';
@@ -8,7 +7,7 @@ import { GridService } from '../services/grid';
 /**
  * > Under Construction.
  */
-export class GroupView extends View {
+export class GroupView {
 	constructor(model: Model, table: Table, commandManager: CommandManager, service: GridService);
 
 	toggleStatus: Command;

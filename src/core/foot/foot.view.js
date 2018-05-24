@@ -1,13 +1,11 @@
-import { View } from '../view/view';
 import { Aggregation } from '../services/aggregation';
 import { AppError } from '../infrastructure/error';
 import { Log } from '../infrastructure/log';
 import { getFactory as valueFactory } from '../services/value';
 
-export class FootView extends View {
+export class FootView {
 	constructor(model, table) {
-		super(model);
-
+		this.model = model;
 		this.table = table;
 		this.rows = [];
 

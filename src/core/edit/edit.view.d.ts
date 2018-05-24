@@ -1,4 +1,3 @@
-import { View } from '../view/view';
 import { EditCellView } from './edit.cell.view';
 import { EditRowView } from './edit.row.view';
 import { CommandManager } from '../command/command.manager';
@@ -8,7 +7,7 @@ import { Table } from '../dom/table';
 /**
  * > Under Construction.
  */
-export declare class EditView extends View {
+export declare class EditView {
 	constructor(model: Model, table: Table, commandManager: CommandManager);
 
 	cell: EditCellView;

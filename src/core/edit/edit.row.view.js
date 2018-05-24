@@ -1,12 +1,9 @@
 import { Log } from '../infrastructure/log';
 import { Command } from '../command/command';
 import { RowEditor } from './edit.row.editor';
-import { View } from '../view/view';
 
-export class EditRowView extends View {
+export class EditRowView {
 	constructor(model, table, commandManager) {
-		super();
-
 		this.model = model;
 		this.table = table;
 		this.editor = RowEditor.empty;

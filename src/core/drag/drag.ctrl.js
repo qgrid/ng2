@@ -1,12 +1,11 @@
 import { DragService } from './drag.service';
 import { GRID_PREFIX } from '../definition';
-import { View } from '../view/view';
 
-export class DragCtrl extends View {
+export class DragCtrl {
 	constructor(model, context) {
-		super(model);
-
+		this.model = model;
 		this.context = context;
+		
 		context.element.classList.add(`${GRID_PREFIX}-can-drag`);
 	}
 

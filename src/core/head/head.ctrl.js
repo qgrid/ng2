@@ -1,11 +1,8 @@
-import { View } from '../view/view';
 import { PathService } from '../path/path.service';
 import { parents } from '../services/dom';
 
-export class HeadCtrl extends View {
+export class HeadCtrl {
 	constructor(model, view, bag) {
-		super();
-
 		this.model = model;
 		this.view = view;
 		this.bag = bag;

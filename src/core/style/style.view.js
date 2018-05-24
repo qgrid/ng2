@@ -1,4 +1,3 @@
-import { View } from '../view/view';
 import { Monitor } from './style.monitor';
 import * as columnService from '../column/column.service';
 import { getFactory as valueFactory } from '../services/value';
@@ -6,11 +5,11 @@ import { noop } from '../utility/kit';
 import { VirtualRowStyle, VirtualCellStyle } from './style.virtual';
 import { StyleService } from './style.service';
 
-export class StyleView extends View {
+export class StyleView {
 	constructor(model, table) {
-		super(model);
-
+		this.model = model;
 		this.table = table;
+
 		this.valueFactory = valueFactory;
 		this.service = new StyleService(model);
 		this.active = {

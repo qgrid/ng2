@@ -1,4 +1,3 @@
-import { View } from '../view/view';
 import { Command } from '../command/command';
 import { Model } from '../infrastructure/model';
 import { Table } from '../dom/table';
@@ -6,7 +5,7 @@ import { Table } from '../dom/table';
 /**
  * > Under Construction.
  */
-export declare class NavigationView extends View {
+export declare class NavigationView {
 	constructor(model: Model, table: Table, shortcut: { register: (commands: Command[]) => void });
 
 	focus: Command;

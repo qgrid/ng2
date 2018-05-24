@@ -1,8 +1,6 @@
-import { View } from '../view/view';
-
-export class PaginationView extends View {
+export class PaginationView {
 	constructor(model) {
-		super(model);
+		this.model = model;
 
 		const triggers = model.pagination().resetTriggers;
 		Object.keys(triggers)

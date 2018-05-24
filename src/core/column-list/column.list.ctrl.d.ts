@@ -1,8 +1,7 @@
-import { View } from '../view/view';
 import { Model } from '../infrastructure/model';
 import { ColumnModel } from '../column-type/column.model';
 
-export declare class ColumnListCtrl extends View {
+export declare class ColumnListCtrl {
 	constructor(model: Model,
 		canCopy: (key: string, source: any, target: any) => boolean,
 		parseFactory: (type: string, source: any) => (v: any) => any)

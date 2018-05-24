@@ -1,14 +1,12 @@
-import { View } from '../view/view';
 import { Log } from '../infrastructure/log';
 import { Command } from '../command/command';
 import * as columnService from '../column/column.service';
 import { FilterRowColumn } from '../column-type/filter.row.column';
 import { clone, isUndefined } from '../utility/kit';
 
-export class HeadView extends View {
+export class HeadView {
 	constructor(model, table, tagName) {
-		super(model);
-
+		this.model = model;
 		this.table = table;
 		this.tagName = tagName;
 		this.rows = [];

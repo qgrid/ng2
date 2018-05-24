@@ -1,4 +1,3 @@
-import { View } from '../view/view';
 import { Command } from '../command/command';
 import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
@@ -8,10 +7,9 @@ import { noop } from '../utility/kit';
 import { GRID_PREFIX } from '../definition';
 import { Fastdom } from '../services/fastdom';
 
-export class HighlightView extends View {
+export class HighlightView {
 	constructor(model, table) {
-		super(model);
-
+		this.model = model;
 		this.table = table;
 
 		this.cellSelector = new CellSelector(model, table);

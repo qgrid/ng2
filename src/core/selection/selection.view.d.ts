@@ -1,4 +1,3 @@
-import { View } from '../view/view';
 import { CellView } from '../scene/view/cell.view';
 import { SelectionModel } from './selection.model';
 import { ColumnModel } from '../column-type/column.model';
@@ -10,7 +9,7 @@ import { Table } from '../dom/table';
 /**
  * > Under Construction.
  */
-export declare class SelectionView extends View {
+export declare class SelectionView {
 	constructor(model: Model, table: Table, shortcut: { register: (commands: Command[]) => void });
 
 	readonly selection: SelectionModel;

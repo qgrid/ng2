@@ -1,10 +1,8 @@
-import { View } from '../view/view';
 import { Command } from '../command/command';
 
-export class RowView extends View {
+export class RowView {
 	constructor(model, tagName) {
-		super(model);
-
+		this.model = model;
 		this.tagName = tagName;
 
 		this.drop = new Command({

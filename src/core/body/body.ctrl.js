@@ -1,13 +1,11 @@
 import { PathService } from '../path/path.service';
-import { View } from '../view/view';
 import { Fastdom } from '../services/fastdom';
 
 const MOUSE_LEFT_BUTTON = 1;
 
-export class BodyCtrl extends View {
+export class BodyCtrl {
 	constructor(model, view, table, bag) {
-		super(model);
-
+		this.model = model;
 		this.view = view;
 		this.bag = bag;
 		this.table = table;

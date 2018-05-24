@@ -1,12 +1,11 @@
-import { View } from '../view/view';
 import { AppError } from '../infrastructure/error';
 import { Command } from '../command/command';
 import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
 
-export class SortView extends View {
+export class SortView {
 	constructor(model) {
-		super(model);
+		this.model = model;
 
 		this.hover = false;
 		this.toggle = new Command({

@@ -1,11 +1,10 @@
-import { View } from '../view/view';
 import { Command } from '../command/command';
 import { toggleStatus, invalidateStatus } from './row.details.service';
 import { RowDetails } from './row.details';
 
-export class RowDetailsView extends View {
+export class RowDetailsView {
 	constructor(model, table, commandManager) {
-		super(model);
+		this.model = model;
 
 		this.toggleStatus = new Command({
 			source: 'row.details.view',

@@ -1,12 +1,11 @@
-import { View } from '../view/view';
 import { Log } from '../infrastructure/log';
 import { isFunction } from '../utility/kit';
 import { Fastdom } from '../services/fastdom';
 
-export class ScrollView extends View {
+export class ScrollView {
 	constructor(model, table, vscroll) {
-		super(model);
-
+		
+		this.model = model;
 		this.table = table;
 
 		const scroll = model.scroll;

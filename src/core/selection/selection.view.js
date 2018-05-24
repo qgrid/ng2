@@ -1,4 +1,3 @@
-import { View } from '../view/view';
 import { AppError } from '../infrastructure/error';
 import { Command } from '../command/command';
 import { selectionStateFactory as stateFactory } from './state/selection.state.factory';
@@ -7,10 +6,9 @@ import { SelectionService } from './selection.service';
 import { GRID_PREFIX } from '../definition';
 import { noop, isUndefined } from '../utility/kit';
 
-export class SelectionView extends View {
+export class SelectionView {
 	constructor(model, table, shortcut) {
-		super(model);
-
+		this.model = model;
 		this.table = table;
 
 		this.selectionService = new SelectionService(model);

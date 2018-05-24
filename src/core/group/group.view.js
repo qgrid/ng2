@@ -1,4 +1,3 @@
-import { View } from '../view/view';
 import { Command } from '../command/command';
 import { getFactory as valueFactory } from '../services/value';
 import { getFactory as labelFactory } from '../services/label';
@@ -6,10 +5,9 @@ import { columnFactory } from '../column/column.factory';
 import { PipeUnit } from '../pipe/pipe.unit';
 import { traverse } from '../node/node.service';
 
-export class GroupView extends View {
+export class GroupView {
 	constructor(model, table, commandManager, service) {
-		super(model);
-
+		this.model = model;
 		this.table = table;
 		this.valueFactory = valueFactory;
 		this.toggleStatus = new Command({
@@ -38,7 +36,7 @@ export class GroupView extends View {
 			},
 			shortcut: model.group().shortcut.toggle
 		});
-		
+
 		let shouldExpand = true;
 
 		this.toggleAllStatus = new Command({
@@ -89,7 +87,7 @@ export class GroupView extends View {
 	value(node) {
 		const groupColumn = this.column;
 		const getLabel = labelFactory(groupColumn);
-		return getLabel(node);	
+		return getLabel(node);
 	}
 
 	get column() {

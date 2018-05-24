@@ -1,14 +1,12 @@
-import { View } from '../view/view';
 import { Command } from '../command/command';
 import { Navigation } from './navigation';
 import { GRID_PREFIX } from '../definition';
 import { CellView } from '../scene/view/cell.view';
 import { Fastdom } from '../services/fastdom';
 
-export class NavigationView extends View {
-	constructor(model, table, shortcut) {
-		super(model);
-
+export class NavigationView {
+	constructor(model, table, shortcut) {		
+		this.model = model;
 		this.table = table;
 
 		const navigation = new Navigation(model, table);

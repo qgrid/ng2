@@ -5,13 +5,10 @@ import { CellEditor } from './edit.cell.editor';
 import { getFactory as valueFactory } from '../services/value';
 import { getFactory as labelFactory } from '../services/label';
 import { parseFactory } from '../services/convert';
-import { View } from '../view/view';
 import * as validationService from '../validation/validation.service';
 
-export class EditCellView extends View {
+export class EditCellView {
 	constructor(model, table, commandManager) {
-		super();
-
 		this.model = model;
 		this.table = table;
 

@@ -4,13 +4,12 @@ import { Command } from '../command/command';
 import { ColumnModel } from '../column-type/column.model';
 import { Table } from '../dom/table';
 import { Model } from '../infrastructure/model';
-import { View } from '../view/view';
 import { EditorOptions } from '../column-type/editor.options';
 
 /**
  * > Under Construction.
  */
-export declare class EditCellView extends View {
+export declare class EditCellView {
 	constructor(model: Model, table: Table, commandManager: CommandManager);
 
 	editor: CellEditor;
