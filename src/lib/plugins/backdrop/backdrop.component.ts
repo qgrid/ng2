@@ -27,10 +27,11 @@ export class BackdropComponent extends PluginComponent implements OnDestroy {
 
 		const context = {
 			element: element.nativeElement,
-			onKeyDown: () => { }
+			onKeyDown: () => { },
+			propagate: false
 		};
 
-		const backdrop = this.using(new BackdropView(context));
+		const backdrop = new BackdropView(context);
 		backdrop.closeEvent.on(() => this.closeEvent.emit());
 	}
 }

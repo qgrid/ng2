@@ -54,7 +54,7 @@ export class ViewCoreComponent extends NgComponent
 		const model = this.model;
 
 		const gridService = this.grid.service(model);
-		this.ctrl = this.using(new ViewCtrl(model, this.view, gridService));
+		this.ctrl = new ViewCtrl(model, this.view, gridService);
 
 		model.sceneChanged.watch(e => {
 			if (e.hasChanges('status')) {

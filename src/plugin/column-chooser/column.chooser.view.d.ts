@@ -3,7 +3,8 @@ import { Model } from '../../core/infrastructure/model'
 import { Event } from '../../core/infrastructure/event'
 
 export declare class ColumnChooserView extends PluginView {
-    constructor(model: Model, context: any);
+    constructor(model: Model, context: { name: string });
+
     cancelEvent: Event;
     submitEvent: Event;
 }

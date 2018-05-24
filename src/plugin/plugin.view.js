@@ -1,6 +1,6 @@
-import { DisposableView } from '../core/view/disposable.view';
+import { Disposable } from '../core/infrastructure/disposable';
 
-export class PluginView extends DisposableView {
+export class PluginView extends Disposable {
 	constructor(model) {
 		super();
 

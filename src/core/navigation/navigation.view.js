@@ -6,16 +6,15 @@ import { CellView } from '../scene/view/cell.view';
 import { Fastdom } from '../services/fastdom';
 
 export class NavigationView extends View {
-	constructor(model, table, commandManager) {
+	constructor(model, table, shortcut) {
 		super(model);
 
 		this.table = table;
 
-		const { shortcut } = model.action();
 		const navigation = new Navigation(model, table);
 		let focusBlurs = [];
 
-		this.using(shortcut.register(commandManager, navigation.commands));
+		shortcut.register(navigation.commands);
 
 		this.focus = new Command({
 			source: 'navigation.view',

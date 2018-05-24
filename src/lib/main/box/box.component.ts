@@ -22,7 +22,7 @@ export class BoxComponent extends NgComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		this.using(new BoxCtrl(this.model, this.element.nativeElement));
+		const ctrl = new BoxCtrl(this.model, this.element.nativeElement);
 		this.initTheme();
 	}
 

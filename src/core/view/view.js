@@ -1,9 +1,5 @@
-import { DisposableView } from './disposable.view';
-
-export class View extends DisposableView {
+export class View {
 	constructor(model) {
-		super();
-
 		this.model = model;
 	}
 }

@@ -45,7 +45,7 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 		const key = this.column.key;
 		const context = { key };
 
-		const columnFilter = this.using(new ColumnFilterView(model, context));
+		const columnFilter = new ColumnFilterView(model, context);
 
 		columnFilter.submitEvent.on(() => this.submitEvent.emit());
 		columnFilter.cancelEvent.on(() => this.cancelEvent.emit());

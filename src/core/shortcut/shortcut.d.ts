@@ -1,6 +1,7 @@
-import { CommandManager } from '../command/command.manager';
 import { ShortcutDispatcher } from './shortcut.dispatcher';
 import { KeyCode } from './key.code';
+import { CommandManager } from '../command/command.manager';
+import { Command } from '../command/command';
 
 /**
  * > Under construction.
@@ -18,7 +19,17 @@ export declare class Shortcut {
 	static stringify(keyCode: KeyCode): string;
 	static translate(e: any): string;
 
-	factory(commandManager: CommandManager): object;
-	keyDown(e: any, source?: string): string[];
-	register(commandManager: CommandManager, commands: any[]);
+	factory(commandManager: CommandManager): {
+		register: (commands: Command[]) => void
+	};
+
+	keyDown(
+		e: {
+			key: string, 
+			keyCode: number, 
+			shiftKey: boolean
+		},
+		source?: string): string[];
+
+	register(commandManager: CommandManager, commands: Command[]): () => void;
 }

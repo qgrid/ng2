@@ -12,7 +12,5 @@ export declare class EditView extends View {
 	constructor(model: Model, table: Table, commandManager: CommandManager);
 
 	cell: EditCellView;
-	row: EditRowView;
-
-	onDestroy(): void;
+	row: EditRowView;	
 }

@@ -11,7 +11,7 @@ import { Table } from '../dom/table';
  * > Under Construction.
  */
 export declare class SelectionView extends View {
-	constructor(model: Model, table: Table, commandManager: CommandManager);
+	constructor(model: Model, table: Table, shortcut: { register: (commands: Command[]) => void });
 
 	readonly selection: SelectionModel;
 	readonly rows: any[];
@@ -24,5 +24,4 @@ export declare class SelectionView extends View {
 	selectRange(startCell: CellView, endCell: CellView, source?: string): void;
 	state(item: any): boolean;
 	isIndeterminate(item: any): boolean;
-	destroy(): void;
 }

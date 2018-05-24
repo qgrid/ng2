@@ -1,12 +1,11 @@
 import { jobLine } from '../services/job.line';
-import { View } from '../view/view';
 import { PaginationModel } from '../pagination/pagination.model';
 
-export class ViewCtrl extends View {
+export class ViewCtrl {
 	constructor(model, view, gridService) {
-		super(model);
-
+		this.model = model;
 		this.view = view;
+		
 		this.watch(gridService);
 	}
 

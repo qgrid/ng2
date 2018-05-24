@@ -16,7 +16,6 @@ export class BackdropView extends PluginView {
 		const listener = new EventListener(element, new EventManager(this));
 
 		listener.on('mouseup', e => {
-
 			if (e.which === MOUSE_LEFT_BUTTON || e.which === MOUSE_WHEEL_BUTTON) {
 
 				e.stopPropagation();

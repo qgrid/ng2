@@ -1,28 +1,18 @@
 import { OnInit, OnDestroy } from '@angular/core';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
-import { DisposableView } from 'ng2-qgrid/core/view/disposable.view';
+import { Disposable } from 'ng2-qgrid/core/infrastructure/disposable';
 
 export abstract class NgComponent implements OnDestroy {
-	private disposes: Array<() => void> = [];
+	private basket = new Disposable();
 
 	constructor() {
 	}
 
-	using<T extends DisposableView>(instance: T | (() => void)): T | null {
-		if (instance instanceof DisposableView) {
-			this.disposes.push(() => instance.dispose());
-			return instance;
-		}
-
-		this.disposes.push(instance);
-		return null;
+	using<T extends Disposable>(instance: T | (() => void)): T | null {
+		return this.basket.using(instance);
 	}
 
 	ngOnDestroy() {
-		const temp = this.disposes;
-		this.disposes = [];
-		for (let dispose of temp) {
-			dispose();
-		}
+		this.basket.dispose();
 	}
 }

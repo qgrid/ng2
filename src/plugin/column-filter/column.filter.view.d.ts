@@ -5,7 +5,8 @@ import { ColumnModel } from '../../core/column-type/column.model';
 import { Command } from '../../core/command/command';
 
 export declare class ColumnFilterView extends PluginView {
-	constructor(model: Model, context: any);
+	constructor(model: Model, context: { key: string });
+
 	by: Set<string>;
 	cancelEvent: Event;
 	submitEvent: Event;

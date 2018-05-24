@@ -1,7 +1,7 @@
-import { DisposableView } from './disposable.view';
+import { Model } from '../infrastructure/model';
 
-export declare class View extends DisposableView {
-	constructor(model: any);
+export declare class View {
+	constructor(model: Model);
 
-	model: any;
+	model: Model;
 }

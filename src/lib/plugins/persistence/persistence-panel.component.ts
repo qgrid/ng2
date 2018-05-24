@@ -15,7 +15,7 @@ export class PersistencePanelComponent extends PluginComponent implements OnInit
 	}
 
 	onReady() {
-		const persistence = this.using(new PersistenceView(this.model));
+		const persistence = new PersistenceView(this.model);
 		this.context = { $implicit: persistence };
 	}
 }

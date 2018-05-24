@@ -19,7 +19,7 @@ export class PagerComponent extends PluginComponent {
 	}
 
 	onReady() {
-		const pager = this.using(new PagerView(this.model));
+		const pager = new PagerView(this.model);
 		this.context = { $implicit: pager };
 	}
 }

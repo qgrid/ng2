@@ -1,10 +1,7 @@
 import { GRID_PREFIX } from '../definition';
-import { View } from '../view/view';
 
-export class BoxCtrl extends View {
+export class BoxCtrl {
 	constructor(model, element) {
-		super(model);
-
 		element.classList.add(GRID_PREFIX);
 
 		model.dragChanged.watch(e => {

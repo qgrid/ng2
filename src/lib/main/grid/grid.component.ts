@@ -123,6 +123,7 @@ export class GridComponent extends RootComponent implements OnInit {
 		this.rootService.table = ctrl.table;
 		this.rootService.bag = ctrl.bag;
 		this.rootService.markup = ctrl.markup;
+		
 		this.rootService.commandManager = new TableCommandManager(
 			f => f(),
 			ctrl.table

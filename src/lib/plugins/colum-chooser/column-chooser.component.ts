@@ -28,7 +28,7 @@ export class ColumnChooserComponent extends PluginComponent {
 			name: ColumnChooserName
 		};
 
-		const columnChooser = this.using(new ColumnChooserView(this.model, context));
+		const columnChooser = new ColumnChooserView(this.model, context);
 		columnChooser.submitEvent.on(() => this.submitEvent.emit());
 		columnChooser.cancelEvent.on(() => this.cancelEvent.emit());
 
