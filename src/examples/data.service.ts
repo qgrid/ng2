@@ -14,7 +14,7 @@ export class DataService {
 	constructor(private http: HttpClient) {
 	}
 
-	getPeople(count: string): Observable<Human[]> {
+	getPeople(count: string | number = 100): Observable<Human[]> {
 		return this.http.get<Human[]>(`assets/people/${count}.json`);
 	}
 
