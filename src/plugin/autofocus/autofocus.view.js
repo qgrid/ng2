@@ -1,9 +1,5 @@
-import { PluginView } from '../plugin.view';
-
-export class AutofocusView extends PluginView {
+export class AutofocusView {
 	constructor(model, table, markup) {
-		super(model);
-
 		model.sceneChanged.watch((e, off) => {
 			if (e.hasChanges('status')) {
 				if (e.state.status === 'stop') {

@@ -1,10 +1,9 @@
-import { PluginView } from '../plugin.view';
 import { Model } from '../../core/infrastructure/model';
 import { Event } from '../../core/infrastructure/event';
 import { ColumnModel } from '../../core/column-type/column.model';
 import { Command } from '../../core/command/command';
 
-export declare class ColumnFilterView extends PluginView {
+export declare class ColumnFilterView {
 	constructor(model: Model, context: { key: string });
 
 	by: Set<string>;

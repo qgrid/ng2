@@ -1,8 +1,11 @@
 import { DragService } from './drag.service';
 import { GRID_PREFIX } from '../definition';
+import { Disposable } from '../infrastructure/disposable';
 
-export class DragCtrl {
+export class DragCtrl extends Disposable {
 	constructor(model, context) {
+		super();
+
 		this.model = model;
 		this.context = context;
 		
@@ -43,8 +46,8 @@ export class DragCtrl {
 	}
 
 	dispose() {
-		super.dispose();
-
+		super();
+		
 		this.context.element.classList.remove(`${GRID_PREFIX}-can-drag`);
 	}
 }

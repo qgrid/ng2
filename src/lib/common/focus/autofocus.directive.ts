@@ -7,17 +7,12 @@ import { AutofocusView } from 'ng2-qgrid/plugin/autofocus/autofocus.view';
 @Directive({
 	selector: '[q-grid-autofocus]'
 })
-export class AutoFocusDirective implements AfterViewInit, OnDestroy {
-	private autofocus: AutofocusView;
+export class AutoFocusDirective implements AfterViewInit {
 
 	constructor(private root: RootService) { }
 
 	ngAfterViewInit() {
-		this.autofocus = new AutofocusView(this.model, this.table, this.markup);
-	}
-
-	ngOnDestroy() {
-		this.autofocus.dispose();
+		const autofocus = new AutofocusView(this.model, this.table, this.markup);
 	}
 
 	get markup() {

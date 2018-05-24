@@ -1,17 +1,14 @@
 import { GRID_PREFIX } from '../definition';
+import { Disposable } from '../infrastructure/disposable';
 
-export class DropCtrl {
+export class DropCtrl extends Disposable {
 	constructor(model, context) {
+		supser();
+
 		this.model = model;
 		this.context = context;
 		
 		context.element.classList.add(`${GRID_PREFIX}-can-drop`);
-	}
-
-	dispose() {
-		super.dispose();
-
-		this.context.element.classList.remove(`${GRID_PREFIX}-can-drop`);
 	}
 
 	drop(e) {
@@ -52,5 +49,11 @@ export class DropCtrl {
 
 	leave() {
 		this.context.element.classList.remove(`${GRID_PREFIX}-dragover`);
+	}
+
+	dispose() {
+		super();
+		
+		this.context.element.classList.remove(`${GRID_PREFIX}-can-drop`);
 	}
 }

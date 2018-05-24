@@ -1,14 +1,12 @@
-import { PluginView } from '../plugin.view';
 import { Command } from '../../core/command/command';
 import * as columnService from '../../core/column/column.service';
 import { getFactory as labelFactory } from '../../core/services/label';
 import { clone } from '../../core/utility/kit';
 import { Event } from '../../core/infrastructure/event';
 
-export class ColumnFilterView extends PluginView {
+export class ColumnFilterView {
 	constructor(model, context) {
-		super(...arguments);
-
+		this.model = model;
 		this.key = context.key;
 
 		this.cancelEvent = new Event();

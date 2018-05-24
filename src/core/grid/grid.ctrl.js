@@ -10,7 +10,7 @@ import { Disposable } from '../infrastructure/disposable';
 export class GridCtrl extends Disposable {
 	constructor(model, context) {
 		super();
-		
+
 		if (model.grid().status === 'bound') {
 			throw new AppError('grid', `Model is already used by grid "${model.grid().id}"`);
 		}
@@ -99,10 +99,6 @@ export class GridCtrl extends Disposable {
 	dispose() {
 		super.dispose();
 
-		this.model.grid({
-			status: 'unbound'
-		});
-
-		Model.dispose(this.model, 'component');
+		this.model.grid({ status: 'unbound' }, { source: 'grid.ctrl' });		
 	}
 }

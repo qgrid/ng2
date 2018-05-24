@@ -1,8 +1,6 @@
-import {PluginView} from '../plugin.view';
-
-export class ActionCoreView extends PluginView {
+export class ActionCoreView {
 	constructor(model) {
-		super(model);
+		this.model = model;
 	}
 
 	execute(e) {

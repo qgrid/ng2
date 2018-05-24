@@ -1,10 +1,9 @@
-import {PluginView} from '../plugin.view';
-import {Command} from '@grid/core/command';
-import {Event} from '@grid/core/infrastructure';
+import { Command } from '../../core/command';
+import { Event } from '../../core/infrastructure';
 
-export class EditFormView extends PluginView {
+export class EditFormView {
 	constructor(model, context) {
-		super(model);
+		this.model = model;
 
 		this.key = context.key;
 		this.title = context.title;

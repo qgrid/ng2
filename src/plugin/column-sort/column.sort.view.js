@@ -1,4 +1,3 @@
-import { PluginView } from '../plugin.view';
 import { GRID_PREFIX } from '../../core/definition';
 import { Command } from '../../core/command/command';
 import { Fastdom } from '../../core/services/fastdom';
@@ -6,9 +5,9 @@ import { Fastdom } from '../../core/services/fastdom';
 const GRID_ACTIVE_CLASS = `${GRID_PREFIX}-active`;
 const GRID_HIDE_CLASS = `${GRID_PREFIX}-hide`;
 
-export class ColumnSortView extends PluginView {
+export class ColumnSortView {
 	constructor(model, context) {
-		super(model);
+		this.model = model;
 
 		const column = context.column;
 		const view = context.view;

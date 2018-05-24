@@ -2,12 +2,11 @@ import * as columnService from '../../core/column/column.service';
 import { Command } from '../../core/command/command';
 import { Aggregation } from '../../core/services/aggregation';
 import { isFunction, noop } from '../../core/utility/kit';
-import { PluginView } from '../plugin.view';
 import { Event } from '../../core/infrastructure/event';
 
-export class ColumnChooserView extends PluginView {
+export class ColumnChooserView {
 	constructor(model, context) {
-		super(...arguments);
+		this.model = model;
 
 		this.context = context;
 

@@ -2,15 +2,8 @@ import { EditCellView } from './edit.cell.view';
 import { EditRowView } from './edit.row.view';
 
 export class EditView {
-	constructor(model, table, commandManager) {
-		this.cell = new EditCellView(model, table, commandManager);
-		this.row = new EditRowView(model, table, commandManager);
-	}
-
-	dispose() {
-		super.dispose();
-
-		this.cell.dispose();
-		this.row.dispose();
+	constructor(model, table, shortcut) {
+		this.cell = new EditCellView(model, table, shortcut);
+		this.row = new EditRowView(model, table, shortcut);
 	}
 }

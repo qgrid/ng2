@@ -199,5 +199,4 @@ export declare class Model {
 	dataManipulationChanged: ModelEvent<any>;
 	dataManipulation(value: object, tag?: ModelTag): Model;
 	dataManipulation(): any;
-
 }

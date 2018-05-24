@@ -1,4 +1,3 @@
-import { PluginView } from '../plugin.view';
 import { Model } from '../../core/infrastructure/model';
 import { Event } from '../../core/infrastructure/event';
 
@@ -18,7 +17,7 @@ export interface PersistenceGroup {
 	items: PersistenceItem[];
 }
 
-export declare class PersistenceView extends PluginView {
+export declare class PersistenceView {
 	constructor(model: Model);
 
 	groups: PersistenceGroup[];

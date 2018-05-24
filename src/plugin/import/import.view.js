@@ -1,15 +1,14 @@
-import {PluginView} from '../plugin.view';
-import {Command} from '@grid/core/command';
-import {upload} from '@grid/core/services/upload';
-import {readFile} from './read';
+import { Command } from '@grid/core/command';
+import { upload } from '@grid/core/services/upload';
+import { readFile } from './read';
 
-export class ImportView extends PluginView {
+export class ImportView {
 	constructor(model, context) {
-		super(...arguments);
+		this.model = model;
 
-		const element = context.element;
+		const { element, options } = context;
 
-		this.options = context.options;
+		this.options = options;
 
 		this.upload = new Command({
 			source: 'import',

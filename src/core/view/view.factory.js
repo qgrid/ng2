@@ -34,7 +34,8 @@ export function viewFactory(
 	const navigationShortuct = {
 		register: commands => {
 			basket.using(shortcut.register(commandManager, commands));
-		}
+		},
+		keyCode: () => shortcut.keyCode
 	};
 
 	const selectionCommandManager = new SelectionCommandManager(model, commandManager);
@@ -56,7 +57,7 @@ export function viewFactory(
 		target.highlight = new HighlightView(proxy.subject, table);
 		target.sort = new SortView(proxy.subject);
 		target.filter = new FilterView(proxy.subject);
-		target.edit = new EditView(proxy.subject, table, commandManager);
+		target.edit = new EditView(proxy.subject, table, navigationShortuct);
 		target.nav = new NavigationView(proxy.subject, table, navigationShortuct);
 		target.pagination = new PaginationView(proxy.subject);
 		target.scroll = new ScrollView(proxy.subject, table, vscroll);
@@ -64,6 +65,8 @@ export function viewFactory(
 		target.row = new RowView(proxy.subject, selectors.tr);
 
 		return () => {
+			target.layout.dispose();
+
 			proxy.dispose();
 			basket.dispose();
 		};

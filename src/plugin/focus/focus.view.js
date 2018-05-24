@@ -1,11 +1,8 @@
-import { PluginView } from '../plugin.view';
 import { jobLine } from '../../core/services/job.line';
 import { AppError } from '../../core/infrastructure/error';
 
-export class FocusView extends PluginView {
+export class FocusView {
 	constructor(context) {
-		super();
-
 		this.element = context.element;
 		this.targetSelector = context.targetSelector;
 		this.job = jobLine(context.delay);

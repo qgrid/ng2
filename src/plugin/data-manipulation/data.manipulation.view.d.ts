@@ -1,6 +1,5 @@
-import {PluginView} from '../plugin.view';
-import {Model} from '../../core/infrastructure/model';
+import { Model } from '../../core/infrastructure/model';
 
-export declare class DataManipulationView extends PluginView {
+export declare class DataManipulationView {
 	constructor(model: Model);
 }

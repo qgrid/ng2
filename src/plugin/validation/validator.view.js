@@ -1,14 +1,12 @@
-import {PluginView} from '../plugin.view';
 import {isString, isEqual} from '@grid/core/utility/kit';
 import * as validationService from '@grid/core/validation/validation.service';
 
-export class ValidatorView extends PluginView {
+export class ValidatorView {
 	constructor(model, context) {
-		super(model);
-
-		this.oldErrors = [];
+		this.model = model;
 		this.context = context;
 
+		this.oldErrors = [];
 		if (validationService.hasRules(this.rules, this.context.key)) {
 			this.validator = validationService.createValidator(this.rules, this.context.key);
 		}

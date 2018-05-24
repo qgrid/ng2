@@ -1,23 +1,17 @@
-import { PluginView } from '../plugin.view';
+import { Disposable } from '../../core/infrastructure/disposable';
 
-export class ActionBarCoreView extends PluginView {
+export class ActionBarCoreView extends Disposable {
 	constructor(model) {
-		super(model);
+		this.model = model;
 
-		this.shortcutOff = null;
-
-		const actionState = this.model.action();
-		const shortcut = actionState.shortcut;
+		const { shortcut, manager } = this.model.action();
 		const commandManager = actionState.manager;
 		this.model.actionChanged.watch(e => {
 			if (e.hasChanges('items')) {
-				if (this.shortcutOff) {
-					this.shortcutOff();
-					this.shortcutOff = null;
-				}
-
+				this.dispose();
+				
 				const commands = e.state.items.map(act => act.command);
-				this.shortcutOff = shortcut.register(commandManager, commands);
+				this.using(shortcut.register(manager, commands));
 			}
 		});
 	}

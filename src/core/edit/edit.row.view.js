@@ -3,14 +3,13 @@ import { Command } from '../command/command';
 import { RowEditor } from './edit.row.editor';
 
 export class EditRowView {
-	constructor(model, table, commandManager) {
+	constructor(model, table, shortcut) {
 		this.model = model;
 		this.table = table;
 		this.editor = RowEditor.empty;
-
-		const shortcut = model.action().shortcut;
+		
 		const commands = this.commands;
-		this.shortcutOff = shortcut.register(commandManager, commands);
+		shortcut.register(commands);
 
 		this.enter = commands.get('enter');
 		this.commit = commands.get('commit');
@@ -125,11 +124,5 @@ export class EditRowView {
 			const shortcuts = edit()[type + 'Shortcuts'];
 			return shortcuts['row'] || shortcuts['$default'];
 		};
-	}
-
-	dispose() {
-		super.dispose();
-
-		this.shortcutOff();
 	}
 }
