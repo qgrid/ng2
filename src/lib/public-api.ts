@@ -50,3 +50,5 @@ export { TextColumnModel as TextColumn } from 'ng2-qgrid/core/column-type/text.c
 export { TimeColumnModel as TimeColumn } from 'ng2-qgrid/core/column-type/time.column';
 export { UrlColumnModel as UrlColumn } from 'ng2-qgrid/core/column-type/url.column';
 
+// Style
+export { StyleCellContext, StyleRowContext } from 'ng2-qgrid/core/style/style.context';
