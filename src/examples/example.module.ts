@@ -11,16 +11,24 @@ import { ExampleSelectRowBasicComponent } from './select-row-basic/example-selec
 import { ExampleSelectCellBasicComponent } from './select-cell-basic/example-select-cell-basic.component';
 import { ExampleGroupRowBasicComponent } from './group-row-basic/example-group-row-basic.component';
 import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.component';
+import { ExampleDestroyGridBasicComponent } from './destroy-grid-basic/example-destroy-grid-basic.component';
+import { ExampleDestroyGridModelComponent } from './destroy-grid-model/example-destroy-grid-model.component';
+import { ExampleLookPeopleModelComponent } from './look-people-model/example-look-people-model.component';
+import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-atoms-model.component';
 
 const EXAMPLES = [    
     ExampleLookPeopleBasicComponent,
     ExampleLookAtomsBasicComponent,
+    ExampleLookPeopleModelComponent,
+    ExampleLookAtomsModelComponent,
     ExampleLookAtomsCustomizedComponent,
     ExampleEditCellBasicComponent,
     ExampleSelectRowBasicComponent,
     ExampleSelectCellBasicComponent,
     ExampleGroupRowBasicComponent,
-    ExampleSortRowComponent
+    ExampleSortRowComponent,
+    ExampleDestroyGridBasicComponent,
+    ExampleDestroyGridModelComponent
 ];
 
 const PATH_REGEX = /Example(.*)Component/;

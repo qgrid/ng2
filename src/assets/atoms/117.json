@@ -38,7 +38,7 @@
         "period": 1,
         "phase": "Gas",
         "source": "https://en.wikipedia.org/wiki/Helium",
-        "spectralImg": "//upload.wikimedia.org/wikipedia/commons/8/80/Helium_spectrum.jpg",
+        "spectralImg": "https://upload.wikimedia.org/wikipedia/commons/8/80/Helium_spectrum.jpg",
         "summary": "Helium is a chemical element with symbol He and atomic number 2. It is a colorless, odorless, tasteless, non-toxic, inert, monatomic gas that heads the noble gas group in the periodic table. Its boiling and melting points are the lowest among all the elements.",
         "symbol": "He",
         "shells": [

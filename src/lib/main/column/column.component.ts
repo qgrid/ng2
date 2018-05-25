@@ -13,7 +13,6 @@ import { ColumnListService } from '../../main/column/column-list.service';
 export class ColumnComponent implements OnInit {
 	@Input() public type: string;
 	@Input() public key: string;
-	@Input() public path: string;
 	@Input() public class: string;
 	@Input() public title: string;
 	@Input() public pin: string;
@@ -42,7 +41,9 @@ export class ColumnComponent implements OnInit {
 	@Input() public index: number;
 
 	@Input() public label: any;
+	@Input() public labelPath: string;
 	@Input() public value: any;
+	@Input() public path: string;
 	@Input() public compare: any;
 
 	constructor(
