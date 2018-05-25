@@ -28,6 +28,7 @@ export class ColumnComponent implements OnInit {
 	@Input() public width: number;
 	@Input() public minWidth: number;
 	@Input() public maxWidth: number;
+	@Input() public viewWidth: number;
 
 	@Input() public canEdit: boolean;
 	@Input() public canResize: boolean;
