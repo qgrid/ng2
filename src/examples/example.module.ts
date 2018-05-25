@@ -3,10 +3,18 @@ import { Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { GridModule, ThemeModule } from 'ng2-qgrid';
 
-import { ExampleEditCellBasicComponent } from '../examples/edit-cell-basic/example-edit-cell-basic.component';
 import { ExampleFirstLookComponent } from './first-look/example-first-look.component';
+import { ExampleEditCellBasicComponent } from './edit-cell-basic/example-edit-cell-basic.component';
+import { ExampleSelectionRowBasicComponent } from './selection-row-basic/example-selection-row-basic.component';
+import { ExampleGroupingBasicComponent } from './grouping-basic/example-grouping-basic.component';
+import { ExampleSelectionCellBasicComponent } from 'examples/selection-cell-basic/example-selection-cell-basic.component';
 
 export const exampleRoutes: Routes = [
+    {
+        path: '',
+        redirectTo: '/example-first-look',
+        pathMatch: 'full'
+    },
     {
         path: 'example-first-look',
         component: ExampleFirstLookComponent
@@ -16,16 +24,27 @@ export const exampleRoutes: Routes = [
         component: ExampleEditCellBasicComponent
     },
     {
-        path: '',
-        redirectTo: '/example-first-look',
-        pathMatch: 'full'
-    }
+        path: 'example-selection-row-basic',
+        component: ExampleSelectionRowBasicComponent
+    },
+    {
+        path: 'example-selection-cell-basic',
+        component: ExampleSelectionCellBasicComponent
+    },
+    {
+        path: 'example-grouping-basic',
+        component: ExampleGroupingBasicComponent
+    },
+
 ];
 
 @NgModule({
     declarations: [
         ExampleEditCellBasicComponent,
-        ExampleFirstLookComponent
+        ExampleFirstLookComponent,
+        ExampleSelectionRowBasicComponent,
+        ExampleSelectionCellBasicComponent,
+        ExampleGroupingBasicComponent
     ],
     imports: [
         GridModule,
@@ -34,7 +53,10 @@ export const exampleRoutes: Routes = [
     ],
     exports: [
         ExampleEditCellBasicComponent,
-        ExampleFirstLookComponent        
+        ExampleFirstLookComponent,
+        ExampleSelectionRowBasicComponent,
+        ExampleSelectionCellBasicComponent,
+        ExampleGroupingBasicComponent
     ]
 })
 export class ExampleModule { }

@@ -1,5 +1,5 @@
 <q-grid header="Edit Cell Basic"
-        [rows]="rows"
+        [rows]="rows | async"
         editMode="cell">
 	<q-grid-columns generation="deep">
 	</q-grid-columns>

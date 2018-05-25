@@ -14,11 +14,13 @@
 	             [fixedInViewport]="mobileQuery.matches"
 	             fixedTopGap="56">
 		<mat-nav-list>
-			<a mat-list-item
-			   *ngFor="let example of examples"
-			   [routerLink]="example.path">
-				{{example.path}}
-			</a>
+			<ng-container *ngFor="let example of examples">
+				<a mat-list-item
+				   *ngIf="example.path"
+				   [routerLink]="example.path">
+					{{example.path}}
+				</a>
+			</ng-container>
 		</mat-nav-list>
 	</mat-sidenav>
 	<mat-sidenav-content>
