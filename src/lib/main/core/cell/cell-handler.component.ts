@@ -18,7 +18,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private initialEditState: string = null;
 
 	constructor(private element: ElementRef, private root: RootService, private view: ViewCoreService) {
-		element.nativeElement.style.visibility = 'hidden';
+		Fastdom.mutate(() => element.nativeElement.style.visibility = 'hidden');
 	}
 
 	@ViewChild('marker') marker: ElementRef;
@@ -86,7 +86,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-		this.element.nativeElement.style.visibility = 'visible';
+		Fastdom.mutate(() => this.element.nativeElement.style.visibility = 'visible');
 		const model = this.root.model;
 		const editService = new EditService(model, this.root.table);
 		let prevCell = null;
