@@ -9,6 +9,30 @@ export class Human {
 	comment: string;
 }
 
+export class Atom {
+	name: string;
+	appearance: string;
+	mass: number;
+	boil: number;
+	color: string;
+	density: number;
+	discoveredBy: string;
+	melt: number;
+	namedBy: string;
+	number: number;
+	period: number;
+	phase: string;
+	source: string;
+	spectralImg: string;
+	summary: string;
+	symbol: string;
+	shells: Array<number>;
+	atomicRadius: number;
+	discoveredIn: number;
+	groupBlock: string;
+	bondingType: string;
+}
+
 @Injectable()
 export class DataService {
 	constructor(private http: HttpClient) {
@@ -20,5 +44,9 @@ export class DataService {
 
 	getPresets(): Observable<any> {
 		return this.http.get('assets/presets/1.json');
+	}
+
+	getAtoms(): Observable<Atom[]> {
+		return this.http.get<Atom[]>(`assets/atoms/117.json`);			
 	}
 }

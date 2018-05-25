@@ -3,12 +3,12 @@ import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 
 @Component({
-	selector: 'example-first-look',
-	templateUrl: 'example-first-look.component.html',
-	styleUrls: ['example-first-look.component.css'],
+	selector: 'example-look-people-basic',
+	templateUrl: 'example-look-people-basic.component.html',
+	styleUrls: ['example-look-people-basic.component.css'],
 	providers: [DataService]
 })
-export class ExampleFirstLookComponent {
+export class ExampleLookPeopleBasicComponent {
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {

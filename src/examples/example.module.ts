@@ -3,15 +3,17 @@ import { Routes, Route } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { GridModule, ThemeModule } from 'ng2-qgrid';
 
-import { ExampleFirstLookComponent } from './first-look/example-first-look.component';
+import { ExampleLookPeopleBasicComponent } from './look-people-basic/example-look-people-basic.component';
+import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
 import { ExampleEditCellBasicComponent } from './edit-cell-basic/example-edit-cell-basic.component';
 import { ExampleSelectRowBasicComponent } from './select-row-basic/example-select-row-basic.component';
 import { ExampleSelectCellBasicComponent } from './select-cell-basic/example-select-cell-basic.component';
 import { ExampleGroupRowBasicComponent } from './group-row-basic/example-group-row-basic.component';
 import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.component';
 
-const EXAMPLES = [
-    ExampleFirstLookComponent,
+const EXAMPLES = [    
+    ExampleLookPeopleBasicComponent,
+    ExampleLookAtomsBasicComponent,
     ExampleEditCellBasicComponent,
     ExampleSelectRowBasicComponent,
     ExampleSelectCellBasicComponent,
@@ -37,7 +39,7 @@ export const exampleRoutes: Routes =
         .concat([
             {
                 path: '',
-                redirectTo: toPath(ExampleFirstLookComponent),
+                redirectTo: toPath(ExampleLookPeopleBasicComponent),
                 pathMatch: 'full'
             }
         ]);

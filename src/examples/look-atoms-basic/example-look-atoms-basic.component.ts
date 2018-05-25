@@ -3,12 +3,12 @@ import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
 @Component({
-	selector: 'example-group-row-basic',
-	templateUrl: 'example-group-row-basic.component.html',
-	styleUrls: ['example-group-row-basic.component.css'],
+	selector: 'example-look-atoms-basic',
+	templateUrl: 'example-look-atoms-basic.component.html',
+	styleUrls: ['example-look-atoms-basic.component.css'],
 	providers: [DataService]
 })
-export class ExampleGroupRowBasicComponent {
+export class ExampleLookAtomsBasicComponent {
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {
