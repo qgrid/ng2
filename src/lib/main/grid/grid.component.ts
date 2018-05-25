@@ -58,6 +58,7 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input() groupBy;
 	@Input() pivotBy;
 	@Input() sortBy;
+	@Input() sortTrigger;
 	@Input() sortMode;
 	@Input() filterUnit;
 	@Input() filterFetch;

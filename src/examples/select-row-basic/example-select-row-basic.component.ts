@@ -3,12 +3,12 @@ import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 
 @Component({
-	selector: 'example-selection-cell-basic',
-	templateUrl: 'example-selection-cell-basic.component.html',
-	styleUrls: ['example-selection-cell-basic.component.css'],
+	selector: 'example-select-row-basic',
+	templateUrl: 'example-select-row-basic.component.html',
+	styleUrls: ['example-select-row-basic.component.css'],
 	providers: [DataService]
 })
-export class ExampleSelectionCellBasicComponent {
+export class ExampleSelectRowBasicComponent {
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {
