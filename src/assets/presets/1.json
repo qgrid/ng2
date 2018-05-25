@@ -21,6 +21,9 @@
 					"blanks": false
 				}
 			}
+		},
+		"group": {
+			"by": []
 		}
 	},
 	"isDefault": false,

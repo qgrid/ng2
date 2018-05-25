@@ -29,8 +29,9 @@
 				               class="q-grid-persistence-list-item">
 					<div class="q-grid-persistence-default-icon"></div>
 					<button mat-button
-					        matTooltip="No settings"
-					        (click)="$persistence.load.execute($persistence.blank)">
+							  matTooltip="No settings"
+							  [disabled]="!$persistence.reset.canExecute()"
+					        (click)="$persistence.reset.execute()">
 						<mat-list dense>
 							<mat-list-item>
 								<h3 matLine>{{$persistence.blank.title}}</h3>
