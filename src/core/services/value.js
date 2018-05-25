@@ -1,6 +1,7 @@
 import { isFunction } from '../utility/kit';
 import { compileSet, compileGet } from './path';
 import { AppError } from '../infrastructure/error';
+import { Node } from '../node/node';
 
 export function get(row, column) {
 	return column.$value
@@ -19,9 +20,13 @@ export function getFactory(column) {
 			? row => column.value(row)
 			: column.path
 				? compileGet(column.path)
-				: row => row.rows
-					? row.rows[0]
-					: row[column.key];
+				: row => {
+					if (row.rows && row instanceof Node) {
+						return row.rows[0];
+					} else {
+						return row[column.key];
+					}
+				};
 
 	return get;
 }
