@@ -12,7 +12,7 @@
 // @Component({
 // 	selector: 'example-sandbox-basic',
 // 	templateUrl: 'example-sandbox-basic.component.html',
-// 	styleUrls: ['example-sandbox-basic.component.css'],
+// 	styleUrls: ['example-sandbox-basic.component.scss'],
 // 	providers: [DataService]
 // })
 // export class ExampleSandboxBasic {

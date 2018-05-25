@@ -27,7 +27,7 @@ export class Atom {
 	summary: string;
 	symbol: string;
 	shells: Array<number>;
-	atomicRadius: number;
+	radius: number;
 	discoveredIn: number;
 	groupBlock: string;
 	bondingType: string;

@@ -1,28 +1,28 @@
 [
     {
+        "number": 1,
+        "symbol": "H",
         "name": "Hydrogen",
+        "phase": "Gas",
+        "color": "FFFFFF",
         "appearance": "colorless gas",
+        "groupBlock": "nonmetal",
+        "bondingType": "diatomic",
+        "summary": "Hydrogen is a chemical element with chemical symbol H and atomic number 1. With an atomic weight of 1.00794 u, hydrogen is the lightest element on the periodic table. Its monatomic form (H) is the most abundant chemical substance in the Universe, constituting roughly 75% of all baryonic mass.",
+        "period": 1,
+        "radius": 37,
         "mass": 1.008,
         "boil": 20.271,
-        "color": "FFFFFF",
         "density": 0.08988,
-        "discoveredBy": "Henry Cavendish",
         "melt": 13.99,
-        "namedBy": "Antoine Lavoisier",
-        "number": 1,
-        "period": 1,
-        "phase": "Gas",
-        "source": "https://en.wikipedia.org/wiki/Hydrogen",
-        "spectralImg": "https://en.wikipedia.org/wiki/File:Hydrogen_Spectra.jpg",
-        "summary": "Hydrogen is a chemical element with chemical symbol H and atomic number 1. With an atomic weight of 1.00794 u, hydrogen is the lightest element on the periodic table. Its monatomic form (H) is the most abundant chemical substance in the Universe, constituting roughly 75% of all baryonic mass.",
-        "symbol": "H",
         "shells": [
             1
         ],
-        "atomicRadius": 37,
+        "namedBy": "Antoine Lavoisier",
+        "discoveredBy": "Henry Cavendish",
         "discoveredIn": 1766,
-        "groupBlock": "nonmetal",
-        "bondingType": "diatomic"
+        "spectralImg": "https://en.wikipedia.org/wiki/File:Hydrogen_Spectra.jpg",
+        "source": "https://en.wikipedia.org/wiki/Hydrogen"
     },
     {
         "name": "Helium",
@@ -44,7 +44,7 @@
         "shells": [
             2
         ],
-        "atomicRadius": 32,
+        "radius": 32,
         "discoveredIn": 1868,
         "groupBlock": "noble gas",
         "bondingType": "atomic"
@@ -70,7 +70,7 @@
             2,
             1
         ],
-        "atomicRadius": 134,
+        "radius": 134,
         "discoveredIn": 1817,
         "groupBlock": "alkali metal",
         "bondingType": "metallic"
@@ -96,7 +96,7 @@
             2,
             2
         ],
-        "atomicRadius": 90,
+        "radius": 90,
         "discoveredIn": 1798,
         "groupBlock": "alkaline earth metal",
         "bondingType": "metallic"
@@ -122,7 +122,7 @@
             2,
             3
         ],
-        "atomicRadius": 82,
+        "radius": 82,
         "discoveredIn": 1807,
         "groupBlock": "metalloid",
         "bondingType": "covalent network"
@@ -148,7 +148,7 @@
             2,
             4
         ],
-        "atomicRadius": 77,
+        "radius": 77,
         "discoveredIn": "Ancient",
         "groupBlock": "nonmetal",
         "bondingType": "covalent network"
@@ -174,7 +174,7 @@
             2,
             5
         ],
-        "atomicRadius": 75,
+        "radius": 75,
         "discoveredIn": 1772,
         "groupBlock": "nonmetal",
         "bondingType": "diatomic"
@@ -200,7 +200,7 @@
             2,
             6
         ],
-        "atomicRadius": 73,
+        "radius": 73,
         "discoveredIn": 1774,
         "groupBlock": "nonmetal",
         "bondingType": "diatomic"
@@ -226,7 +226,7 @@
             2,
             7
         ],
-        "atomicRadius": 71,
+        "radius": 71,
         "discoveredIn": 1670,
         "groupBlock": "halogen",
         "bondingType": "atomic"
@@ -252,7 +252,7 @@
             2,
             8
         ],
-        "atomicRadius": 69,
+        "radius": 69,
         "discoveredIn": 1898,
         "groupBlock": "noble gas",
         "bondingType": "atomic"
@@ -279,7 +279,7 @@
             8,
             1
         ],
-        "atomicRadius": 154,
+        "radius": 154,
         "discoveredIn": 1807,
         "groupBlock": "alkali metal",
         "bondingType": "metallic"
@@ -306,7 +306,7 @@
             8,
             2
         ],
-        "atomicRadius": 130,
+        "radius": 130,
         "discoveredIn": 1808,
         "groupBlock": "alkaline earth metal",
         "bondingType": "metallic"
@@ -333,7 +333,7 @@
             8,
             3
         ],
-        "atomicRadius": 118,
+        "radius": 118,
         "discoveredIn": "Ancient",
         "groupBlock": "metal",
         "bondingType": "metallic"
@@ -360,7 +360,7 @@
             8,
             4
         ],
-        "atomicRadius": 111,
+        "radius": 111,
         "discoveredIn": 1854,
         "groupBlock": "metalloid",
         "bondingType": "metallic"
@@ -387,7 +387,7 @@
             8,
             5
         ],
-        "atomicRadius": 106,
+        "radius": 106,
         "discoveredIn": 1669,
         "groupBlock": "nonmetal",
         "bondingType": "covalent network"
@@ -414,7 +414,7 @@
             8,
             6
         ],
-        "atomicRadius": 102,
+        "radius": 102,
         "discoveredIn": "Ancient",
         "groupBlock": "nonmetal",
         "bondingType": "covalent network"
@@ -441,7 +441,7 @@
             8,
             7
         ],
-        "atomicRadius": 99,
+        "radius": 99,
         "discoveredIn": 1774,
         "groupBlock": "halogen",
         "bondingType": "covalent network"
@@ -468,7 +468,7 @@
             8,
             8
         ],
-        "atomicRadius": 97,
+        "radius": 97,
         "discoveredIn": 1894,
         "groupBlock": "noble gas",
         "bondingType": "atomic"
@@ -496,7 +496,7 @@
             8,
             1
         ],
-        "atomicRadius": 196,
+        "radius": 196,
         "discoveredIn": 1807,
         "groupBlock": "alkali metal",
         "bondingType": "metallic"
@@ -524,7 +524,7 @@
             8,
             2
         ],
-        "atomicRadius": 174,
+        "radius": 174,
         "discoveredIn": "Ancient",
         "groupBlock": "alkaline earth metal",
         "bondingType": "metallic"
@@ -552,7 +552,7 @@
             9,
             2
         ],
-        "atomicRadius": 144,
+        "radius": 144,
         "discoveredIn": 1876,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -580,7 +580,7 @@
             10,
             2
         ],
-        "atomicRadius": 136,
+        "radius": 136,
         "discoveredIn": 1791,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -608,7 +608,7 @@
             11,
             2
         ],
-        "atomicRadius": 125,
+        "radius": 125,
         "discoveredIn": 1803,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -636,7 +636,7 @@
             13,
             1
         ],
-        "atomicRadius": 127,
+        "radius": 127,
         "discoveredIn": "Ancient",
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -664,7 +664,7 @@
             13,
             2
         ],
-        "atomicRadius": 139,
+        "radius": 139,
         "discoveredIn": 1774,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -692,7 +692,7 @@
             14,
             2
         ],
-        "atomicRadius": 125,
+        "radius": 125,
         "discoveredIn": "Ancient",
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -720,7 +720,7 @@
             15,
             2
         ],
-        "atomicRadius": 126,
+        "radius": 126,
         "discoveredIn": "Ancient",
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -748,7 +748,7 @@
             16,
             2
         ],
-        "atomicRadius": 121,
+        "radius": 121,
         "discoveredIn": 1751,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -776,7 +776,7 @@
             18,
             1
         ],
-        "atomicRadius": 138,
+        "radius": 138,
         "discoveredIn": "Ancient",
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -804,7 +804,7 @@
             18,
             2
         ],
-        "atomicRadius": 131,
+        "radius": 131,
         "discoveredIn": 1746,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -832,7 +832,7 @@
             18,
             3
         ],
-        "atomicRadius": 126,
+        "radius": 126,
         "discoveredIn": 1875,
         "groupBlock": "metal",
         "bondingType": "metallic"
@@ -860,7 +860,7 @@
             18,
             4
         ],
-        "atomicRadius": 122,
+        "radius": 122,
         "discoveredIn": 1886,
         "groupBlock": "metalloid",
         "bondingType": "metallic"
@@ -888,7 +888,7 @@
             18,
             5
         ],
-        "atomicRadius": 119,
+        "radius": 119,
         "discoveredIn": "Ancient",
         "groupBlock": "metalloid",
         "bondingType": "metallic"
@@ -916,7 +916,7 @@
             18,
             6
         ],
-        "atomicRadius": 116,
+        "radius": 116,
         "discoveredIn": 1817,
         "groupBlock": "nonmetal",
         "bondingType": "metallic"
@@ -944,7 +944,7 @@
             18,
             7
         ],
-        "atomicRadius": 114,
+        "radius": 114,
         "discoveredIn": 1826,
         "groupBlock": "halogen",
         "bondingType": "covalent network"
@@ -972,7 +972,7 @@
             18,
             8
         ],
-        "atomicRadius": 110,
+        "radius": 110,
         "discoveredIn": 1898,
         "groupBlock": "noble gas",
         "bondingType": "atomic"
@@ -1001,7 +1001,7 @@
             8,
             1
         ],
-        "atomicRadius": 211,
+        "radius": 211,
         "discoveredIn": 1861,
         "groupBlock": "alkali metal",
         "bondingType": "metallic"
@@ -1030,7 +1030,7 @@
             8,
             2
         ],
-        "atomicRadius": 192,
+        "radius": 192,
         "discoveredIn": 1790,
         "groupBlock": "alkaline earth metal",
         "bondingType": "metallic"
@@ -1059,7 +1059,7 @@
             9,
             2
         ],
-        "atomicRadius": 162,
+        "radius": 162,
         "discoveredIn": 1794,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -1088,7 +1088,7 @@
             10,
             2
         ],
-        "atomicRadius": 148,
+        "radius": 148,
         "discoveredIn": 1789,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -1117,7 +1117,7 @@
             12,
             1
         ],
-        "atomicRadius": 137,
+        "radius": 137,
         "discoveredIn": 1801,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -1146,7 +1146,7 @@
             13,
             1
         ],
-        "atomicRadius": 145,
+        "radius": 145,
         "discoveredIn": 1778,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -1175,7 +1175,7 @@
             13,
             2
         ],
-        "atomicRadius": 156,
+        "radius": 156,
         "discoveredIn": 1937,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -1204,7 +1204,7 @@
             15,
             1
         ],
-        "atomicRadius": 126,
+        "radius": 126,
         "discoveredIn": 1827,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -1233,7 +1233,7 @@
             16,
             1
         ],
-        "atomicRadius": 135,
+        "radius": 135,
         "discoveredIn": 1803,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -1261,7 +1261,7 @@
             18,
             18
         ],
-        "atomicRadius": 131,
+        "radius": 131,
         "discoveredIn": 1803,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -1290,7 +1290,7 @@
             18,
             1
         ],
-        "atomicRadius": 153,
+        "radius": 153,
         "discoveredIn": "Ancient",
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -1319,7 +1319,7 @@
             18,
             2
         ],
-        "atomicRadius": 148,
+        "radius": 148,
         "discoveredIn": 1817,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -1348,7 +1348,7 @@
             18,
             3
         ],
-        "atomicRadius": 144,
+        "radius": 144,
         "discoveredIn": 1863,
         "groupBlock": "metal",
         "bondingType": "metallic"
@@ -1377,7 +1377,7 @@
             18,
             4
         ],
-        "atomicRadius": 141,
+        "radius": 141,
         "discoveredIn": "Ancient",
         "groupBlock": "metal",
         "bondingType": "metallic"
@@ -1406,7 +1406,7 @@
             18,
             5
         ],
-        "atomicRadius": 138,
+        "radius": 138,
         "discoveredIn": "Ancient",
         "groupBlock": "metalloid",
         "bondingType": "metallic"
@@ -1435,7 +1435,7 @@
             18,
             6
         ],
-        "atomicRadius": 135,
+        "radius": 135,
         "discoveredIn": 1782,
         "groupBlock": "metalloid",
         "bondingType": "metallic"
@@ -1464,7 +1464,7 @@
             18,
             7
         ],
-        "atomicRadius": 133,
+        "radius": 133,
         "discoveredIn": 1811,
         "groupBlock": "halogen",
         "bondingType": "covalent network"
@@ -1493,7 +1493,7 @@
             18,
             8
         ],
-        "atomicRadius": 130,
+        "radius": 130,
         "discoveredIn": 1898,
         "groupBlock": "noble gas",
         "bondingType": "atomic"
@@ -1523,7 +1523,7 @@
             8,
             1
         ],
-        "atomicRadius": 225,
+        "radius": 225,
         "discoveredIn": 1860,
         "groupBlock": "alkali metal",
         "bondingType": "metallic"
@@ -1553,7 +1553,7 @@
             8,
             2
         ],
-        "atomicRadius": 198,
+        "radius": 198,
         "discoveredIn": 1808,
         "groupBlock": "alkaline earth metal",
         "bondingType": "metallic"
@@ -1583,7 +1583,7 @@
             9,
             2
         ],
-        "atomicRadius": 169,
+        "radius": 169,
         "discoveredIn": 1839,
         "groupBlock": "lanthanoid",
         "bondingType": "metallic"
@@ -1613,7 +1613,7 @@
             9,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1803,
         "groupBlock": "lanthanoid",
         "bondingType": "metallic"
@@ -1643,7 +1643,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1885,
         "groupBlock": "lanthanoid",
         "bondingType": "metallic"
@@ -1673,7 +1673,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1885,
         "groupBlock": "lanthanoid",
         "bondingType": "metallic"
@@ -1703,7 +1703,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1947,
         "groupBlock": "lanthanoid",
         "bondingType": "metallic"
@@ -1733,7 +1733,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1853,
         "groupBlock": "lanthanoid",
         "bondingType": "metallic"
@@ -1763,7 +1763,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1901,
         "groupBlock": "lanthanoid",
         "bondingType": "metallic"
@@ -1793,7 +1793,7 @@
             9,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1880,
         "groupBlock": "lanthanoid",
         "bondingType": "metallic"
@@ -1823,7 +1823,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1843,
         "groupBlock": "lanthanoid",
         "bondingType": "metallic"
@@ -1853,7 +1853,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1886,
         "groupBlock": "lanthanoid",
         "bondingType": "metallic"
@@ -1883,7 +1883,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1878,
         "groupBlock": "lanthanoid",
         "bondingType": "metallic"
@@ -1913,7 +1913,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1842,
         "groupBlock": "lanthanoid",
         "bondingType": "metallic"
@@ -1943,7 +1943,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1879,
         "groupBlock": "lanthanoid",
         "bondingType": "metallic"
@@ -1973,7 +1973,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1878,
         "groupBlock": "lanthanoid",
         "bondingType": "metallic"
@@ -2003,7 +2003,7 @@
             9,
             2
         ],
-        "atomicRadius": 160,
+        "radius": 160,
         "discoveredIn": 1907,
         "groupBlock": "lanthanoid",
         "bondingType": "metallic"
@@ -2033,7 +2033,7 @@
             10,
             2
         ],
-        "atomicRadius": 150,
+        "radius": 150,
         "discoveredIn": 1923,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -2063,7 +2063,7 @@
             11,
             2
         ],
-        "atomicRadius": 138,
+        "radius": 138,
         "discoveredIn": 1802,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -2093,7 +2093,7 @@
             12,
             2
         ],
-        "atomicRadius": 146,
+        "radius": 146,
         "discoveredIn": 1783,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -2123,7 +2123,7 @@
             13,
             2
         ],
-        "atomicRadius": 159,
+        "radius": 159,
         "discoveredIn": 1925,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -2153,7 +2153,7 @@
             14,
             2
         ],
-        "atomicRadius": 128,
+        "radius": 128,
         "discoveredIn": 1803,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -2183,7 +2183,7 @@
             15,
             2
         ],
-        "atomicRadius": 137,
+        "radius": 137,
         "discoveredIn": 1803,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -2213,7 +2213,7 @@
             17,
             1
         ],
-        "atomicRadius": 128,
+        "radius": 128,
         "discoveredIn": "Ancient",
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -2243,7 +2243,7 @@
             18,
             1
         ],
-        "atomicRadius": 144,
+        "radius": 144,
         "discoveredIn": "Ancient",
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -2273,7 +2273,7 @@
             18,
             2
         ],
-        "atomicRadius": 149,
+        "radius": 149,
         "discoveredIn": "Ancient",
         "groupBlock": "transition metal",
         "bondingType": "metallic"
@@ -2303,7 +2303,7 @@
             18,
             3
         ],
-        "atomicRadius": 148,
+        "radius": 148,
         "discoveredIn": 1861,
         "groupBlock": "metal",
         "bondingType": "metallic"
@@ -2333,7 +2333,7 @@
             18,
             4
         ],
-        "atomicRadius": 147,
+        "radius": 147,
         "discoveredIn": "Ancient",
         "groupBlock": "metal",
         "bondingType": "metallic"
@@ -2363,7 +2363,7 @@
             18,
             5
         ],
-        "atomicRadius": 146,
+        "radius": 146,
         "discoveredIn": "Ancient",
         "groupBlock": "metal",
         "bondingType": "metallic"
@@ -2393,7 +2393,7 @@
             18,
             6
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1898,
         "groupBlock": "metalloid",
         "bondingType": "metallic"
@@ -2423,7 +2423,7 @@
             18,
             7
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1940,
         "groupBlock": "halogen",
         "bondingType": "covalent network"
@@ -2453,7 +2453,7 @@
             18,
             8
         ],
-        "atomicRadius": 145,
+        "radius": 145,
         "discoveredIn": 1900,
         "groupBlock": "noble gas",
         "bondingType": "atomic"
@@ -2484,7 +2484,7 @@
             8,
             1
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1939,
         "groupBlock": "alkali metal",
         "bondingType": "metallic"
@@ -2515,7 +2515,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1898,
         "groupBlock": "alkaline earth metal",
         "bondingType": "metallic"
@@ -2546,7 +2546,7 @@
             9,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1899,
         "groupBlock": "actinoid",
         "bondingType": "metallic"
@@ -2577,7 +2577,7 @@
             10,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1828,
         "groupBlock": "actinoid",
         "bondingType": "metallic"
@@ -2608,7 +2608,7 @@
             9,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1913,
         "groupBlock": "actinoid",
         "bondingType": "metallic"
@@ -2639,7 +2639,7 @@
             9,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1789,
         "groupBlock": "actinoid",
         "bondingType": "metallic"
@@ -2670,7 +2670,7 @@
             9,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1940,
         "groupBlock": "actinoid",
         "bondingType": "metallic"
@@ -2701,7 +2701,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1940,
         "groupBlock": "actinoid",
         "bondingType": "metallic"
@@ -2732,7 +2732,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1944,
         "groupBlock": "actinoid",
         "bondingType": "metallic"
@@ -2763,7 +2763,7 @@
             9,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1944,
         "groupBlock": "actinoid",
         "bondingType": "metallic"
@@ -2794,7 +2794,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1949,
         "groupBlock": "actinoid",
         "bondingType": "metallic"
@@ -2825,7 +2825,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1950,
         "groupBlock": "actinoid",
         "bondingType": "metallic"
@@ -2856,7 +2856,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1952,
         "groupBlock": "actinoid",
         "bondingType": ""
@@ -2887,7 +2887,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1952,
         "groupBlock": "actinoid",
         "bondingType": ""
@@ -2918,7 +2918,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1955,
         "groupBlock": "actinoid",
         "bondingType": ""
@@ -2949,7 +2949,7 @@
             8,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1957,
         "groupBlock": "actinoid",
         "bondingType": ""
@@ -2980,7 +2980,7 @@
             8,
             3
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1961,
         "groupBlock": "transition metal",
         "bondingType": ""
@@ -3011,7 +3011,7 @@
             10,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1969,
         "groupBlock": "transition metal",
         "bondingType": ""
@@ -3042,7 +3042,7 @@
             11,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1967,
         "groupBlock": "transition metal",
         "bondingType": ""
@@ -3073,7 +3073,7 @@
             12,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1974,
         "groupBlock": "transition metal",
         "bondingType": ""
@@ -3104,7 +3104,7 @@
             13,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1976,
         "groupBlock": "transition metal",
         "bondingType": ""
@@ -3135,7 +3135,7 @@
             14,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1984,
         "groupBlock": "transition metal",
         "bondingType": ""
@@ -3166,7 +3166,7 @@
             15,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1982,
         "groupBlock": "transition metal",
         "bondingType": ""
@@ -3197,7 +3197,7 @@
             16,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1994,
         "groupBlock": "transition metal",
         "bondingType": ""
@@ -3228,7 +3228,7 @@
             17,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1994,
         "groupBlock": "transition metal",
         "bondingType": ""
@@ -3259,7 +3259,7 @@
             18,
             2
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1996,
         "groupBlock": "transition metal",
         "bondingType": ""
@@ -3290,7 +3290,7 @@
             18,
             3
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 2003,
         "groupBlock": "post-transition metal",
         "bondingType": ""
@@ -3321,7 +3321,7 @@
             18,
             4
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 1998,
         "groupBlock": "post-transition metal",
         "bondingType": ""
@@ -3352,7 +3352,7 @@
             18,
             5
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 2003,
         "groupBlock": "post-transition metal",
         "bondingType": ""
@@ -3383,7 +3383,7 @@
             18,
             6
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 2000,
         "groupBlock": "post-transition metal",
         "bondingType": ""
@@ -3414,7 +3414,7 @@
             18,
             7
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 2010,
         "groupBlock": "post-transition metal",
         "bondingType": ""
@@ -3445,7 +3445,7 @@
             18,
             8
         ],
-        "atomicRadius": "",
+        "radius": "",
         "discoveredIn": 2002,
         "groupBlock": "noble gas",
         "bondingType": ""

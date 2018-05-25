@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Component({
 	selector: 'example-edit-cell-basic',
 	templateUrl: 'example-edit-cell-basic.component.html',
-	styleUrls: ['example-edit-cell-basic.component.css'],
+	styleUrls: ['example-edit-cell-basic.component.scss'],
 	providers: [DataService]
 })
 export class ExampleEditCellBasicComponent {

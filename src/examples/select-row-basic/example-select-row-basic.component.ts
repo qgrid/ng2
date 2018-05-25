@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Component({
 	selector: 'example-select-row-basic',
 	templateUrl: 'example-select-row-basic.component.html',
-	styleUrls: ['example-select-row-basic.component.css'],
+	styleUrls: ['example-select-row-basic.component.scss'],
 	providers: [DataService]
 })
 export class ExampleSelectRowBasicComponent {

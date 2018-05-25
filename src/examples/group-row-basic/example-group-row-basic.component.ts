@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Component({
 	selector: 'example-group-row-basic',
 	templateUrl: 'example-group-row-basic.component.html',
-	styleUrls: ['example-group-row-basic.component.css'],
+	styleUrls: ['example-group-row-basic.component.scss'],
 	providers: [DataService]
 })
 export class ExampleGroupRowBasicComponent {

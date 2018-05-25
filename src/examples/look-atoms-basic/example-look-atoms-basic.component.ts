@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Component({
 	selector: 'example-look-atoms-basic',
 	templateUrl: 'example-look-atoms-basic.component.html',
-	styleUrls: ['example-look-atoms-basic.component.css'],
+	styleUrls: ['example-look-atoms-basic.component.scss'],
 	providers: [DataService]
 })
 export class ExampleLookAtomsBasicComponent {

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Component({
 	selector: 'example-sort-row',
 	templateUrl: 'example-sort-row.component.html',
-	styleUrls: ['example-sort-row.component.css'],
+	styleUrls: ['example-sort-row.component.scss'],
 	providers: [DataService]
 })
 export class ExampleSortRowComponent {
