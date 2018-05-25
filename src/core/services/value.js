@@ -19,7 +19,9 @@ export function getFactory(column) {
 			? row => column.value(row)
 			: column.path
 				? compileGet(column.path)
-				: row => row[column.key];
+				: row => row.rows
+					? row.rows[0]
+					: row[column.key];
 
 	return get;
 }
