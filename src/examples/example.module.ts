@@ -5,6 +5,7 @@ import { GridModule, ThemeModule } from 'ng2-qgrid';
 
 import { ExampleLookPeopleBasicComponent } from './look-people-basic/example-look-people-basic.component';
 import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
+import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/example-look-atoms-customized.component';
 import { ExampleEditCellBasicComponent } from './edit-cell-basic/example-edit-cell-basic.component';
 import { ExampleSelectRowBasicComponent } from './select-row-basic/example-select-row-basic.component';
 import { ExampleSelectCellBasicComponent } from './select-cell-basic/example-select-cell-basic.component';
@@ -14,6 +15,7 @@ import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.compo
 const EXAMPLES = [    
     ExampleLookPeopleBasicComponent,
     ExampleLookAtomsBasicComponent,
+    ExampleLookAtomsCustomizedComponent,
     ExampleEditCellBasicComponent,
     ExampleSelectRowBasicComponent,
     ExampleSelectCellBasicComponent,
