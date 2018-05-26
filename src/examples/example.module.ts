@@ -17,6 +17,7 @@ import { ExampleLookPeopleModelComponent } from './look-people-model/example-loo
 import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-atoms-model.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
 import { ExampleManipulateDataBasicComponent } from './manipulate-data-basic/example-manipulate-data-basic.component';
+import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plugin-grid-basic.component';
 
 const EXAMPLES = [    
     ExampleLookPeopleBasicComponent,
@@ -31,6 +32,7 @@ const EXAMPLES = [
     ExampleSortRowComponent,
     ExampleStyleRowBasicComponent,
     ExampleManipulateDataBasicComponent,
+    ExamplePluginGridBasicComponent,
     ExampleDestroyGridBasicComponent,
     ExampleDestroyGridModelComponent
 ];
