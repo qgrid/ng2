@@ -16,6 +16,7 @@ import { ExampleDestroyGridModelComponent } from './destroy-grid-model/example-d
 import { ExampleLookPeopleModelComponent } from './look-people-model/example-look-people-model.component';
 import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-atoms-model.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
+import { ExampleManipulateDataBasicComponent } from './manipulate-data-basic/example-manipulate-data-basic.component';
 
 const EXAMPLES = [    
     ExampleLookPeopleBasicComponent,
@@ -29,6 +30,7 @@ const EXAMPLES = [
     ExampleGroupRowBasicComponent,
     ExampleSortRowComponent,
     ExampleStyleRowBasicComponent,
+    ExampleManipulateDataBasicComponent,
     ExampleDestroyGridBasicComponent,
     ExampleDestroyGridModelComponent
 ];
