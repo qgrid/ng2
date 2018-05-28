@@ -3,8 +3,8 @@ import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 import { EditService } from 'ng2-qgrid/core/edit/edit.service';
 import { CellView } from 'ng2-qgrid/core/scene/view/cell.view';
+import { ViewCoreService } from '../view/view-core.service';
 import { RootService } from '../../../infrastructure/component/root.service';
-import { ViewCoreService } from '../../../main/core/view/view-core.service';
 
 @Component({
 	selector: 'q-grid-cell-handler',
@@ -12,11 +12,13 @@ import { ViewCoreService } from '../../../main/core/view/view-core.service';
 })
 export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private job = jobLine(150);
+	private markerJob = jobLine(150);
 	private startCell: CellView = null;
 	private initialSelectionMode: string = null;
 	private initialEditState: string = null;
 
 	constructor(private element: ElementRef, private root: RootService, private view: ViewCoreService) {
+		Fastdom.mutate(() => element.nativeElement.style.visibility = 'hidden');
 	}
 
 	@ViewChild('marker') marker: ElementRef;
@@ -84,6 +86,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
+		Fastdom.mutate(() => this.element.nativeElement.style.visibility = 'visible');
 		const model = this.root.model;
 		const editService = new EditService(model, this.root.table);
 		let prevCell = null;
@@ -91,9 +94,9 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		model.editChanged.on(e => {
 			if (e.hasChanges('state')) {
 				if (e.state.state === 'endBatch') {
-					model.edit({ state: this.initialEditState });
+					model.edit({state: this.initialEditState});
 					editService.doBatch(this.startCell);
-					model.selection({ mode: this.initialSelectionMode });
+					model.selection({mode: this.initialSelectionMode});
 
 					this.startCell = null;
 				}
@@ -107,14 +110,17 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 			if (e.hasChanges('cell')) {
 				const cell = e.state.cell;
+
 				if (model.edit().method === 'batch') {
 					if (prevCell) {
 						Fastdom.mutate(() => this.marker.nativeElement.remove());
 					}
 
+					prevCell = cell.model;
 					if (cell) {
-						prevCell = cell.model;
-						Fastdom.mutate(() => prevCell.element.appendChild(this.marker.nativeElement));
+						this.markerJob(() => {
+							Fastdom.mutate(() => prevCell.element.appendChild(this.marker.nativeElement));
+						});
 					} else {
 						prevCell = null;
 					}
@@ -134,8 +140,8 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		if (this.startCell) {
 			this.initialEditState = model.edit().state;
 			this.initialSelectionMode = model.selection().mode;
-			model.selection({ mode: 'range' });
-			model.edit({ state: 'startBatch' });
+			model.selection({mode: 'range'});
+			model.edit({state: 'startBatch'});
 		}
 	}
 

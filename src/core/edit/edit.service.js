@@ -1,29 +1,31 @@
-import {CellEditor} from './edit.cell.editor';
-import {EditCellView} from './edit.cell.view';
-import {CommandManager} from '../command/command.manager';
+import { CellEditor } from './edit.cell.editor';
+import { EditCellView } from './edit.cell.view';
+import { CommandManager } from '../command/command.manager';
 
 export class EditService {
 	constructor(model, table) {
 		this.model = model;
 		this.table = table;
 	}
-
+	
 	doBatch(startCell) {
+		const view = this.model.view();
+		const editView = new EditCellView(this.model, this.table, new CommandManager());
+		
 		const label = startCell.label;
 		const value = startCell.value;
-		const editView = new EditCellView(this.model, this.table, new CommandManager());
+		
+		const {rows, columns} = view;
 		try {
 			const startColumnType = startCell.column.type;
-			const columnIndices = this.model.columnList().index;
 			const selectionItems = this.model.selection().items;
-
-			for (let i = 0, max = selectionItems.length; i < max; i++) {
+			
+			for (let i = 0, itemsLength = selectionItems.length; i < itemsLength; i++) {
 				const {row, column} = selectionItems[i];
-				const key = column.key;
-				const columnIndex = columnIndices.indexOf(key);
-				const rowIndex = row.id;
+				const rowIndex = rows.indexOf(row);
+				const columnIndex = columns.indexOf(column);
+				
 				const cellView = this.table.body.cell(rowIndex, columnIndex).model();
-
 				const cell = cellView.model;
 				const type = cell.column.type;
 				if (startColumnType === type) {
@@ -31,7 +33,7 @@ export class EditService {
 					editor.label = label;
 					editor.value = value;
 					editView.editor = editor;
-
+					
 					if (editView.batchCommit.canExecute()) {
 						editView.batchCommit.execute();
 					}
