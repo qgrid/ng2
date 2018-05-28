@@ -8,6 +8,7 @@ export { GridComponent } from './main/grid/grid.component';
 export { GridService as Grid } from './main/grid/grid.service';
 export { ThemeModule } from './theme/material/theme.module';
 export { ThemeComponent } from './theme/material/theme.component';
+export { PluginService as GridPlugin } from './plugins/plugin.service';
 
 // Pipe
 export { HighlightPipe } from './pipes/highlight/highlight.pipe';

@@ -18,9 +18,9 @@ export class RootService {
 	};
 
 	public table: Table = null;
-	public commandManager;
+	public commandManager: CommandManager = null;
 
-	constructor() {}
+	constructor() { }
 
 	get model() {
 		Guard.notNull(this.gridModel, 'model');

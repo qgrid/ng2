@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Routes, Route } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { MatButtonModule } from '@angular/material';
+
 import { GridModule, ThemeModule } from 'ng2-qgrid';
 
 import { ExampleLookPeopleBasicComponent } from './look-people-basic/example-look-people-basic.component';
@@ -18,8 +20,9 @@ import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
 import { ExampleManipulateDataBasicComponent } from './manipulate-data-basic/example-manipulate-data-basic.component';
 import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plugin-grid-basic.component';
+import { ExamplePluginMyPagerComponent } from './plugin-grid-basic/example-plugin-my-pager.component';
 
-const EXAMPLES = [    
+const EXAMPLES: Array<any> = [
     ExampleLookPeopleBasicComponent,
     ExampleLookAtomsBasicComponent,
     ExampleLookPeopleModelComponent,
@@ -61,12 +64,15 @@ export const exampleRoutes: Routes =
         ]);
 
 @NgModule({
-    declarations: EXAMPLES,
+    declarations: EXAMPLES.concat([
+        ExamplePluginMyPagerComponent
+    ]),
     exports: EXAMPLES,
     imports: [
         GridModule,
         ThemeModule,
-        CommonModule
+        CommonModule,
+        MatButtonModule
     ]
 })
 export class ExampleModule { }

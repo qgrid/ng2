@@ -1,0 +1,9 @@
+<ul>
+	<li *ngFor="let page of pages">
+		<button mat-raised-button
+		        [color]="page === currentPage && 'primary'"
+		        (click)="goto.execute(page)">
+			{{page + 1}}
+		</button>
+	</li>
+</ul>
