@@ -21,6 +21,7 @@ import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-r
 import { ExampleManipulateDataBasicComponent } from './manipulate-data-basic/example-manipulate-data-basic.component';
 import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plugin-grid-basic.component';
 import { ExamplePluginMyPagerComponent } from './plugin-grid-basic/example-plugin-my-pager.component';
+import { ExampleActionBarBasicComponent } from './action-bar-basic/example-action-bar-basic.component';
 
 const EXAMPLES: Array<any> = [
     ExampleLookPeopleBasicComponent,
@@ -35,6 +36,7 @@ const EXAMPLES: Array<any> = [
     ExampleSortRowComponent,
     ExampleStyleRowBasicComponent,
     ExampleManipulateDataBasicComponent,
+    ExampleActionBarBasicComponent,
     ExamplePluginGridBasicComponent,
     ExampleDestroyGridBasicComponent,
     ExampleDestroyGridModelComponent
