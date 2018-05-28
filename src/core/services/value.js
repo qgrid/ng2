@@ -20,14 +20,10 @@ export function getFactory(column) {
 			? row => column.value(row)
 			: column.path
 				? compileGet(column.path)
-				: row => {
-					if (row.rows && row instanceof Node) {
-						return row.rows[0];
-					} else {
-						return row[column.key];
-					}
-				};
-
+				: row => row instanceof Node
+					? row.rows[0]
+					: row[column.key];
+	
 	return get;
 }
 
