@@ -16,9 +16,9 @@ export class ProgressComponent extends PluginComponent implements OnInit {
 	}
 
 	onReady() {
-		this.model.progressChanged.watch(() => {
-			this.changeDetector.detectChanges();
-		});
+		this.model.progressChanged.watch(() =>
+			this.changeDetector.detectChanges()
+		);
 	}
 
 	get isBusy() {

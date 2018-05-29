@@ -26,7 +26,7 @@ import { GridService } from '../../../main/grid/grid.service';
 
 @Injectable()
 export class ViewCoreService implements OnDestroy {
-	private destroy: () => void = null;
+	private dispose: () => void = null;
 
 	public group: GroupView = null;
 	public filter: FilterView = null;
@@ -66,13 +66,13 @@ export class ViewCoreService implements OnDestroy {
 			selectors
 		);
 
-		this.destroy = injectViewServicesTo(this);
+		this.dispose = injectViewServicesTo(this);
 	}
 
 	ngOnDestroy() {
-		if (this.destroy) {
-			this.destroy();
-			this.destroy = null;
+		if (this.dispose) {
+			this.dispose();
+			this.dispose = null;
 		}
 	}
 }

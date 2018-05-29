@@ -45,27 +45,27 @@ export function viewFactory(
 		}
 	};
 
-	return target => {
-		target.style = new StyleView(proxy.subject, table);
-		target.head = new HeadView(proxy.subject, table, selectors.th);
-		target.body = new BodyView(proxy.subject, table);
-		target.foot = new FootView(proxy.subject, table);
-		target.layout = new LayoutView(proxy.subject, table, gridService);
-		target.selection = new SelectionView(proxy.subject, table, selectionShortcut);
-		target.group = new GroupView(proxy.subject, table, commandManager, gridService);
-		target.pivot = new PivotView(proxy.subject);
-		target.highlight = new HighlightView(proxy.subject, table);
-		target.sort = new SortView(proxy.subject);
-		target.filter = new FilterView(proxy.subject);
-		target.edit = new EditView(proxy.subject, table, navigationShortuct);
-		target.nav = new NavigationView(proxy.subject, table, navigationShortuct);
-		target.pagination = new PaginationView(proxy.subject);
-		target.scroll = new ScrollView(proxy.subject, table, vscroll);
-		target.rowDetails = new RowDetailsView(proxy.subject, table, commandManager);
-		target.row = new RowView(proxy.subject, selectors.tr);
+	return host => {
+		host.style = new StyleView(proxy.subject, table);
+		host.head = new HeadView(proxy.subject, table, selectors.th);
+		host.body = new BodyView(proxy.subject, table);
+		host.foot = new FootView(proxy.subject, table);
+		host.layout = new LayoutView(proxy.subject, table, gridService);
+		host.selection = new SelectionView(proxy.subject, table, selectionShortcut);
+		host.group = new GroupView(proxy.subject, table, commandManager, gridService);
+		host.pivot = new PivotView(proxy.subject);
+		host.highlight = new HighlightView(proxy.subject, table);
+		host.sort = new SortView(proxy.subject);
+		host.filter = new FilterView(proxy.subject);
+		host.edit = new EditView(proxy.subject, table, navigationShortuct);
+		host.nav = new NavigationView(proxy.subject, table, navigationShortuct);
+		host.pagination = new PaginationView(proxy.subject);
+		host.scroll = new ScrollView(proxy.subject, table, vscroll);
+		host.rowDetails = new RowDetailsView(proxy.subject, table, commandManager);
+		host.row = new RowView(proxy.subject, selectors.tr);
 
 		return () => {
-			target.layout.dispose();
+			host.layout.dispose();
 
 			proxy.dispose();
 			basket.dispose();
