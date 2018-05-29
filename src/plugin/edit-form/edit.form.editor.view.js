@@ -1,9 +1,6 @@
-import {PluginView} from '../plugin.view';
 
-export class EditFormEditorView extends PluginView {
-	constructor(model, context) {
-		super(model);
-
+export class EditFormEditorView {
+	constructor(context) {
 		this.editor = context.editor;
 	}
 }

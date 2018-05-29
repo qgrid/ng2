@@ -28,12 +28,12 @@ export class TabTrapComponent extends PluginComponent {
 		super(root);
 
 		const listener = new EventListener(element.nativeElement, new EventManager(this));
-		this.using(listener.on('keydown', e => {
+		listener.on('keydown', e => {
 			const code = Shortcut.translate(e);
 			if (code === 'tab' || code === 'shift+tab') {
 				e.stopPropagation();
 			}
-		}));
+		});
 	}
 
 	activate(target) {

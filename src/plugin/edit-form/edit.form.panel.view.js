@@ -1,16 +1,15 @@
-import {PluginView} from '../plugin.view';
-import {isUndefined} from '@grid/core/utility/kit';
-import {Command} from '@grid/core/command';
-import {RowEditor} from '@grid/core/edit/edit.row.editor';
-import {Event} from '@grid/core/infrastructure';
+import { isUndefined } from '../../core/utility/kit';
+import { Command } from '../../core/command';
+import { RowEditor } from '../../core/edit/edit.row.editor';
+import { Event } from '../../core/infrastructure';
+import { Disposable } from '../../core/infrastructure/disposable';
 
-export class EditFormPanelView extends PluginView {
+export class EditFormPanelView extends Disposable {
 	constructor(model, context) {
-		super(model);
-		
-		this.shortcutOff = null;
+		this.model = model;
+
 		this.editor = new RowEditor(context.row, model.data().columns);
-		
+
 		this.submitEvent = new Event();
 		this.cancelEvent = new Event();
 		this.resetEvent = new Event();
@@ -20,11 +19,11 @@ export class EditFormPanelView extends PluginView {
 		this.reset = this.commands.reset;
 
 		if (!isUndefined(context.shortcut)) {
-			this.shortcutOff = context.shortcut.register(new Map(
+			this.using(context.shortcut.register(new Map(
 				Object.entries(this.commands)
-			));
+			)));
 		}
-		
+
 	}
 
 	get commands() {

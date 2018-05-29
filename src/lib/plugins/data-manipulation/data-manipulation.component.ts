@@ -7,29 +7,19 @@ import { DataManipulationView } from 'ng2-qgrid/plugin/data-manipulation/data.ma
 	selector: 'q-grid-data-manipulation',
 	template: ''
 })
-export class DataManipulationComponent extends PluginComponent implements OnInit, OnDestroy {
+export class DataManipulationComponent extends PluginComponent {
 	@Input('rowId') public dataManipulationRowId: (x: any) => string;
 	@Input('rowFactory') public dataManipulationRowFactory: (x: any) => any;
 
-	private dataManipulation: DataManipulationView;
-
-	constructor( @Optional() root: RootService) {
+	constructor(@Optional() root: RootService) {
 		super(root);
 
 		this.models = ['dataManipulation'];
 
 	}
 
-	ngOnInit() {
-		super.ngOnInit();
-
-		this.dataManipulation = new DataManipulationView(this.model);
-		this.context = { $implicit: this.dataManipulation };
-	}
-
-	ngOnDestroy() {
-		super.ngOnDestroy();
-
-		this.dataManipulation.dispose();
+	onReady() {
+		const dataManipulation = new DataManipulationView(this.model);
+		this.context = { $implicit: dataManipulation };
 	}
 }

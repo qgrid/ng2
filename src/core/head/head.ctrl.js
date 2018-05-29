@@ -1,11 +1,8 @@
-import { View } from '../view/view';
 import { PathService } from '../path/path.service';
 import { parents } from '../services/dom';
 
-export class HeadCtrl extends View {
+export class HeadCtrl {
 	constructor(model, view, bag) {
-		super();
-
 		this.model = model;
 		this.view = view;
 		this.bag = bag;
@@ -14,7 +11,7 @@ export class HeadCtrl extends View {
 		this.x = -1;
 		this.y = -1;
 
-		this.using(model.sceneChanged.watch(e => {
+		model.sceneChanged.watch(e => {
 			if (e.hasChanges('status')) {
 				const status = e.state.status;
 				switch (status) {
@@ -41,7 +38,7 @@ export class HeadCtrl extends View {
 					}
 				}
 			}
-		}));
+		});
 	}
 
 	onMouseMove(e) {

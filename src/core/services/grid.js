@@ -4,6 +4,7 @@ import { guid } from './guid';
 import { PersistenceService } from '../persistence/persistence.service';
 import { Scheduler } from './scheduler';
 import { Defer } from '../infrastructure/defer';
+import { isUndefined, clone } from '../utility/kit';
 
 export class GridService {
 	constructor(model) {
@@ -81,13 +82,22 @@ export class GridService {
 		};
 	}
 
-	focus() {
+	focus(rowIndex, columnIndex) {
 		const model = this.model;
 		const { focus, scene } = this.model;
 
+		const focusState = clone(focus());
+		if (!isUndefined(rowIndex)) {
+			focusState.rowIndex = rowIndex;
+		}
+
+		if (!isUndefined(columnIndex)) {
+			focusState.columnIndex = columnIndex;
+		}
+
 		const activate = () => {
-			const { rowIndex, columnIndex } = focus();
-			model.focus({ rowIndex: -1, columnIndex: -1 });
+			const { rowIndex, columnIndex } = focusState;
+			model.focus({ rowIndex: -1, columnIndex: -1 }, { behavior: 'core', source: 'grid.service' });
 
 			if (rowIndex >= 0 && columnIndex >= 0) {
 				model.focus({ rowIndex, columnIndex });

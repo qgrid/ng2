@@ -1,13 +1,11 @@
-import { View } from '../view/view';
-
-export class PaginationView extends View {
+export class PaginationView {
 	constructor(model) {
-		super(model);
+		this.model = model;
 
 		const triggers = model.pagination().resetTriggers;
 		Object.keys(triggers)
 			.forEach(name =>
-				this.using(model[name + 'Changed']
+				model[name + 'Changed']
 					.on(e => {
 						if (e.tag.behavior === 'core') {
 							return;
@@ -19,7 +17,7 @@ export class PaginationView extends View {
 								model.pagination({ current: 0 }, { source: 'pagination.view' });
 							}
 						}
-					})));
+					}));
 	}
 
 	get current() {

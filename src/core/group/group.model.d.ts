@@ -14,8 +14,8 @@ import { Command } from '../command/command';
  * * [node.js]((https://github.com/qgrid/ng2/blob/master/core/node/node.js)
  * * [node.build.js](https://github.com/qgrid/ng2/blob/master/core/node.build.js)
  */
-export declare class GroupModel {
-	resource: Resource;
+export declare interface GroupModel {
+	resource?: Resource;
 
 	/**
 	 * How grid will render nodes:
@@ -23,13 +23,13 @@ export declare class GroupModel {
 	 * * `'subhead'` group column try to use all available space to display hierarchy.
 	 * * `'rowspan'` under construction
 	 */
-	mode: string;
+	mode?: 'column' | 'subhead' | 'rowspan';
 	/**
 	 * List of column keys to build appropriate hierarchy.
 	 * Each item represents next level.
 	 */
-	by: string[];
-	shortcut: object;
-	toggle: Command;
-	toggleAll: Command;
+	by?: string[];
+	toggle?: Command;
+	toggleAll?: Command;
+	shortcut?: { [key: string]: string };
 }

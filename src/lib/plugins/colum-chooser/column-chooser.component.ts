@@ -11,12 +11,10 @@ const ColumnChooserName = 'qGridColumnChooser';
 	templateUrl: './column-chooser.component.html',
 	providers: [FocusAfterRender]
 })
-export class ColumnChooserComponent extends PluginComponent implements OnInit, OnDestroy {
+export class ColumnChooserComponent extends PluginComponent {
 	@Input('canAggregate') columnChooserCanAggregate: boolean;
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
-
-	private columnChooser: ColumnChooserView;
 
 	constructor(
 		@Optional() root: RootService, focusAfterRender: FocusAfterRender) {
@@ -25,23 +23,15 @@ export class ColumnChooserComponent extends PluginComponent implements OnInit, O
 		this.models = ['columnChooser'];
 	}
 
-	ngOnInit() {
-		super.ngOnInit();
-
+	onReady() {
 		const context = {
 			name: ColumnChooserName
 		};
 
-		this.columnChooser = new ColumnChooserView(this.model, context);
-		this.using(this.columnChooser.submitEvent.on(() => this.submitEvent.emit()));
-		this.using(this.columnChooser.cancelEvent.on(() => this.cancelEvent.emit()));
+		const columnChooser = new ColumnChooserView(this.model, context);
+		columnChooser.submitEvent.on(() => this.submitEvent.emit());
+		columnChooser.cancelEvent.on(() => this.cancelEvent.emit());
 
-		this.context = { $implicit: this.columnChooser };
-	}
-
-	ngOnDestroy() {
-		super.ngOnDestroy();
-
-		this.columnChooser.dispose();
+		this.context = { $implicit: columnChooser };
 	}
 }

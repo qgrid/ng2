@@ -7,10 +7,10 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2015",
+    "target": "es5",
     "typeRoots": [
       "node_modules/@types",
-      "src/types"
+      "src/core/types"
     ],
     "baseUrl": "./src",
     "paths": {
@@ -19,6 +19,9 @@
       ],
       "ng2-qgrid/plugin/*": [
         "plugin/*"
+      ],
+      "ng2-qgrid": [
+        "lib/public-api.ts"
       ]
     },
     "lib": [

@@ -51,9 +51,9 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 
 		this.listener = new CoreListener(element, new EventManager(this));
 
-		this.using(this.listener.on('change', this.upload));
-		this.using(this.listener.on('click', this.onClick));
-		this.using(this.listener.on('drop', this.upload));
+		this.listener.on('change', this.upload);
+		this.listener.on('click', this.onClick);
+		this.listener.on('drop', this.upload);
 
 		this.reader.onloadend = e => this.setDataUrl(e);
 	}

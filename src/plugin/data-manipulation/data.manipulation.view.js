@@ -6,12 +6,9 @@ import { isUndefined } from '../../core/utility/kit';
 import * as columnService from '../../core/column/column.service';
 import { set as setValue } from '../../core/services/value';
 import { set as setLabel } from '../../core/services/label';
-import { PluginView } from '../plugin.view';
 
-export class DataManipulationView extends PluginView {
-	constructor(model) {
-		super();
-
+export class DataManipulationView {
+	constructor(model) {		
 		this.model = model;
 
 		this.commitCommand = new Command({

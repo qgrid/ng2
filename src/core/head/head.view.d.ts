@@ -1,4 +1,3 @@
-import { View } from '../view/view';
 import { Command } from '../command/command';
 import { Model } from '../infrastructure/model';
 import { Table } from '../dom/table';
@@ -7,7 +6,7 @@ import { ColumnModel } from '../column-type/column.model';
 /**
  * > Under Construction.
  */
-export declare class HeadView extends View {
+export declare class HeadView {
 	constructor(model: Model, table: Table, tagName: string);
 
 	rows: any[];

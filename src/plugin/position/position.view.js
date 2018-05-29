@@ -1,21 +1,21 @@
-import { PluginView } from '../plugin.view';
 import { GRID_PREFIX } from '../../core/definition';
 import { max } from '../../core/utility/kit';
 import { EventListener } from '../../core/infrastructure/event.listener';
 import { EventManager } from '../../core/infrastructure/event.manager';
 import { jobLine } from '../../core/services/job.line';
+import { Disposable } from '../../core/infrastructure/disposable';
 
-export class PositionView extends PluginView {
+export class PositionView extends Disposable {
 	constructor(context) {
 		super();
-
+		
 		this.element = context.element;
 		this.targetName = context.targetName;
 
-		const listener = new EventListener(window, new EventManager(this));
+		const windowListener = new EventListener(window, new EventManager(this));
 		const job = jobLine(400);
 
-		this.using(listener.on('resize', () => {
+		this.using(windowListener.on('resize', () => {
 			this.invalidate();
 			// In case if after window resize there can different animated layout changes
 			job(() => this.invalidate());

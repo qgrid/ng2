@@ -30,7 +30,6 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
-	private columnFilter: ColumnFilterView;
 	private vscrollContext: VscrollContext;
 
 	constructor(
@@ -41,15 +40,15 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 		super(root);
 	}
 
-	ngOnInit() {
+	onReady() {
 		const model = this.model;
 		const key = this.column.key;
 		const context = { key };
 
 		const columnFilter = new ColumnFilterView(model, context);
 
-		this.using(columnFilter.submitEvent.on(() => this.submitEvent.emit()));
-		this.using(columnFilter.cancelEvent.on(() => this.cancelEvent.emit()));
+		columnFilter.submitEvent.on(() => this.submitEvent.emit());
+		columnFilter.cancelEvent.on(() => this.cancelEvent.emit());
 
 		const vscrollContext = this.vscroll.context({
 			threshold: model.columnFilter().threshold,
@@ -113,7 +112,6 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 			},
 		});
 
-		this.columnFilter = columnFilter;
 		this.vscrollContext = vscrollContext;
 
 		this.context = {
@@ -124,17 +122,11 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 	}
 
 	reset() {
-		this.columnFilter.items = [];
+		this.context.$implicit.items = [];
 		this.vscrollContext.container.reset();
 	}
 
 	rowId(index: number) {
 		return index;
-	}
-
-	ngOnDestroy() {
-		super.ngOnDestroy();
-
-		this.columnFilter.dispose();
 	}
 }

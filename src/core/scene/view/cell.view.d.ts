@@ -5,6 +5,7 @@ export declare class CellView {
 	label: any;
 	column: ColumnModel;
 	row: any;
+	model: any;
 
 	mode(value: string): void;
 }

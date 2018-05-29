@@ -1,9 +1,8 @@
 import { Command } from '../../core/command/command';
-import { PluginView } from '../plugin.view';
 
-export class PagerView extends PluginView {
+export class PagerView {
 	constructor(model) {
-		super(...arguments);
+		this.model = model;
 
 		this.next = new Command({
 			source: 'pager',

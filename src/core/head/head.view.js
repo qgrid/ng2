@@ -1,14 +1,12 @@
-import { View } from '../view/view';
 import { Log } from '../infrastructure/log';
 import { Command } from '../command/command';
 import * as columnService from '../column/column.service';
 import { FilterRowColumn } from '../column-type/filter.row.column';
 import { clone, isUndefined } from '../utility/kit';
 
-export class HeadView extends View {
+export class HeadView {
 	constructor(model, table, tagName) {
-		super(model);
-
+		this.model = model;
 		this.table = table;
 		this.tagName = tagName;
 		this.rows = [];
@@ -97,17 +95,17 @@ export class HeadView extends View {
 			}
 		});
 
-		this.using(model.sceneChanged.watch(e => {
+		model.sceneChanged.watch(e => {
 			if (e.hasChanges('column')) {
 				this.invalidate();
 			}
-		}));
+		});
 
-		this.using(model.filterChanged.watch(e => {
+		model.filterChanged.watch(e => {
 			if (e.hasChanges('unit')) {
 				this.invalidate();
 			}
-		}));
+		});
 	}
 
 	transfer(column) {

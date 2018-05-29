@@ -1,6 +1,6 @@
-import { PluginView } from '../plugin.view';
+import { Disposable } from '../../core/infrastructure/disposable';
 
-export declare class PositionView extends PluginView {
+export declare class PositionView extends Disposable {
 	constructor(context: any);
 	invalidate(): void;
 }

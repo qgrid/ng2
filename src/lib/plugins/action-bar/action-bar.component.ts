@@ -15,23 +15,21 @@ export class ActionBarComponent extends PluginComponent
 		super(root);
 	}
 
-	ngOnInit() {
+	onReady() {
 		const shortcut = this.model.action().shortcut;
-		this.using(
-			this.model.actionChanged.watch(e => {
-				if (e.hasChanges('items')) {
-					if (this.shortcutOff) {
-						this.shortcutOff();
-						this.shortcutOff = null;
-					}
-
-					this.shortcutOff = shortcut.register(
-						this.root.commandManager,
-						e.state.items.map(act => act.command)
-					);
+		this.model.actionChanged.watch(e => {
+			if (e.hasChanges('items')) {
+				if (this.shortcutOff) {
+					this.shortcutOff();
+					this.shortcutOff = null;
 				}
-			})
-		);
+
+				this.shortcutOff = shortcut.register(
+					this.root.commandManager,
+					e.state.items.map(act => act.command)
+				);
+			}
+		})
 	}
 
 	get actions() {

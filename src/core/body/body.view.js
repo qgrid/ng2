@@ -1,13 +1,11 @@
-import { View } from '../view/view';
 import { getFactory as valueFactory } from '../services/value';
 import { getFactory as labelFactory, set as setLabel } from '../services/label';
 import { Log } from '../infrastructure/log';
 import { Renderer } from '../scene/render/render';
 
-export class BodyView extends View {
+export class BodyView {
 	constructor(model, table) {
-		super(model);
-
+		this.model = model;
 		this.table = table;
 		this.rows = [];
 		this.render = new Renderer(model);
@@ -19,12 +17,12 @@ export class BodyView extends View {
 		this.invalidate();
 
 		let wasInvalidated = false;
-		this.using(model.sceneChanged.watch(e => {
+		model.sceneChanged.watch(e => {
 			if (e.hasChanges('rows')) {
 				this.invalidate();
 				wasInvalidated = true;
 			}
-		}));
+		});
 
 		if (!wasInvalidated) {
 			this.invalidate();

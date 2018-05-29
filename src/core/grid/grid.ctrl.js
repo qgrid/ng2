@@ -3,18 +3,19 @@ import { Table } from '../dom/table';
 import { AppError } from '../infrastructure/error';
 import { Model } from '../infrastructure/model';
 import { GRID_PREFIX } from '../definition';
-import { View } from '../view/view';
 import { Shortcut } from '../shortcut/shortcut';
 import { Fastdom } from '../services/fastdom';
+import { Disposable } from '../infrastructure/disposable';
 
-export class GridCtrl extends View {
+export class GridCtrl extends Disposable {
 	constructor(model, context) {
-		super(model);
+		super();
 
 		if (model.grid().status === 'bound') {
 			throw new AppError('grid', `Model is already used by grid "${model.grid().id}"`);
 		}
 
+		this.model = model;
 		this.markup = { document };
 
 		this.bag = {
@@ -38,11 +39,11 @@ export class GridCtrl extends View {
 
 		this.table = new Table(model, this.markup, tableContext);
 
-		this.using(model.sceneChanged.watch(e => {
+		model.sceneChanged.watch(e => {
 			if (e.hasChanges('column')) {
 				this.invalidateVisibility();
 			}
-		}));
+		});
 	}
 
 	keyDown(e, source = 'grid') {
@@ -98,10 +99,6 @@ export class GridCtrl extends View {
 	dispose() {
 		super.dispose();
 
-		this.model.grid({
-			status: 'unbound'
-		});
-
-		Model.dispose(this.model, 'component');
+		this.model.grid({ status: 'unbound' }, { source: 'grid.ctrl' });		
 	}
 }

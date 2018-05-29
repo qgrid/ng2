@@ -1,21 +1,18 @@
-import { View } from '../view/view';
 import { Command } from '../command/command';
 import { Navigation } from './navigation';
 import { GRID_PREFIX } from '../definition';
 import { CellView } from '../scene/view/cell.view';
 import { Fastdom } from '../services/fastdom';
 
-export class NavigationView extends View {
-	constructor(model, table, commandManager) {
-		super(model);
-
+export class NavigationView {
+	constructor(model, table, shortcut) {		
+		this.model = model;
 		this.table = table;
 
-		const shortcut = model.action().shortcut;
 		const navigation = new Navigation(model, table);
 		let focusBlurs = [];
 
-		this.using(shortcut.register(commandManager, navigation.commands));
+		shortcut.register(navigation.commands);
 
 		this.focus = new Command({
 			source: 'navigation.view',
@@ -55,7 +52,7 @@ export class NavigationView extends View {
 			canExecute: (row, column) => table.body.cell(row, column).model() !== null
 		});
 
-		this.using(model.navigationChanged.watch(e => {
+		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
 				// We need this one to toggle focus from details to main grid
 				// or when user change navigation cell through the model
@@ -79,9 +76,9 @@ export class NavigationView extends View {
 						source: 'navigation.view'
 					});
 			}
-		}));
+		});
 
-		this.using(model.focusChanged.watch(e => {
+		model.focusChanged.watch(e => {
 			if (e.tag.source === 'navigation.view') {
 				return;
 			}
@@ -90,9 +87,9 @@ export class NavigationView extends View {
 				const cell = table.body.cell(e.state.rowIndex, e.state.columnIndex).model();
 				model.navigation({ cell });
 			}
-		}));
+		});
 
-		this.using(model.sceneChanged.watch(e => {
+		model.sceneChanged.watch(e => {
 			if (e.hasChanges('status')) {
 				const status = e.state.status;
 				switch (status) {
@@ -101,7 +98,7 @@ export class NavigationView extends View {
 						break;
 				}
 			}
-		}));
+		});
 	}
 
 	invalidateFocus(dispose) {

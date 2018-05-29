@@ -1,5 +1,5 @@
 import { ColumnModel } from '../column-type/column.model';
-import { IMemo, IContext } from '../pipe/pipe.item';
+import { PipeContext } from '../pipe/pipe.item';
 
 /**
  * A class that gives access to the high level grid data structures.
@@ -36,7 +36,7 @@ import { IMemo, IContext } from '../pipe/pipe.item';
  *
  * * [data.pipe.js](https://github.com/qgrid/ng2/blob/master/core/pipe/data.pipe.js)
  */
-export declare class DataModel {
+export declare interface DataModel {
 
 	/**
 	 * List of data rows to display.
@@ -45,7 +45,7 @@ export declare class DataModel {
 	 * * Rows `binding` property, `<q-grid [rows]="userRows">`
 	 * * Through q-grid mode data rows property.
 	 */
-	rows: any[];
+	rows?: any[];
 
 	/**
 	 * Set of columns to display.
@@ -60,11 +60,11 @@ export declare class DataModel {
 	 * with the same key, algorithm will try persist settings from both sources but
 	 * javascript will have top priority.
 	 */
-	columns: ColumnModel[];
+	columns?: ColumnModel[];
 
 	/**
 	 * Chain of methods that grid invokes asyncroniuosly anytime refresh is required,
 	 * see `PipeModel` that contains information when grid demands refreshing.
 	 */
-	pipe: ((memo: any, context: IContext, next: (param: IMemo) => void) => any)[];
+	pipe?: ((memo: any, context: PipeContext, next: (memo: any) => void) => any)[];
 }

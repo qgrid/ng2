@@ -1,7 +1,6 @@
-import { View } from '../view/view';
 import { Model } from '../infrastructure/model';
 
-export declare class HeadCtrl extends View {
+export declare class HeadCtrl {
 	constructor(model: Model, view: any, bag: any);
 
 	onMouseMove(e: MouseEvent);

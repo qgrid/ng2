@@ -27,18 +27,18 @@ import { ICommandContext } from './context';
  * * [Action Model](/doc/api/action-model.html)
  * * [Action](/doc/api/action.html)
  */
-export declare class Command {
-	constructor(context?: ICommandContext);
+export declare class Command<T = any> {
+	constructor(context?: ICommandContext<T>);
 
 	/**
 	 * Indicates if command is invokable.
 	 */
-	canExecute: (...args: any[]) => boolean;
+	canExecute: (e?: T, ...args: any[]) => boolean;
 
 	/**
 	 * Invoke the command.
 	 */
-	execute: (...args: any[]) => any;
+	execute: (e?: T, ...args: any[]) => any;
 
 	/**
 	 * Sequence of keyboard key codes, to execute the command.

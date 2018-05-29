@@ -1,10 +1,25 @@
-import { noop, toCamelCase, isUndefined } from '../utility/kit';
+import { noop, toCamelCase, isUndefined, isArray, isObject } from '../utility/kit';
 import { Log } from './log';
 
 export class ModelBinder {
 	constructor(source) {
 		this.source = source;
 		this.off = noop;
+	}
+
+	canWrite(oldValue, newValue, key) {
+		if (isUndefined(newValue)) {
+			Log.warn('model.bind', `can't write undefined to the model[${key}]`);
+			return false;
+		}
+
+		// As `Observable | async` returns null by default so we need to filter it out
+		if (isArray(oldValue) && newValue === null) {
+			Log.warn('model.bind', `the model[${key}] expects array, got ${newValue}`);
+			return false;
+		}
+
+		return true;
 	}
 
 	bind(model, names, run = true) {
@@ -47,7 +62,7 @@ export class ModelBinder {
 						const sourceKey = toCamelCase(name, key);
 						if (source.hasOwnProperty(sourceKey)) {
 							let value = source[sourceKey];
-							if (!isUndefined(value)) {
+							if (this.canWrite(oldState[key], value, key)) {
 								newState[key] = value;
 							}
 						}

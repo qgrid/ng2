@@ -1,0 +1,11 @@
+<button mat-button
+        (click)="isVisible = !isVisible">
+	Show/Hide
+</button>
+<ng-container *ngIf="isVisible">
+	<q-grid header="Destroy Grid Basic"
+	        [rows]="rows | async">
+		<q-grid-columns generation="deep">
+		</q-grid-columns>
+	</q-grid>
+</ng-container>

@@ -1,4 +1,3 @@
-import { View } from '../view/view';
 import { AppError } from '../infrastructure/error';
 import { Command } from '../command/command';
 import { selectionStateFactory as stateFactory } from './state/selection.state.factory';
@@ -6,30 +5,25 @@ import { SelectionRange } from './selection.range';
 import { SelectionService } from './selection.service';
 import { GRID_PREFIX } from '../definition';
 import { noop, isUndefined } from '../utility/kit';
-import { SelectionCommandManager } from './selection.command.manager';
 
-export class SelectionView extends View {
-	constructor(model, table, commandManager) {
-		super(model);
-
+export class SelectionView {
+	constructor(model, table, shortcut) {
+		this.model = model;
 		this.table = table;
 
 		this.selectionService = new SelectionService(model);
 		this.selectionState = stateFactory(model, this.selectionService);
 		this.selectionRange = new SelectionRange(model);
 
-		const selectionCommandManager = new SelectionCommandManager(model, commandManager);
-		const shortcut = model.action().shortcut;
 		const commands = this.commands;
-
-		this.using(shortcut.register(selectionCommandManager, commands));
+		shortcut.register(commands);
 
 		this.toggleRow = commands.get('toggleRow');
 		this.toggleColumn = commands.get('toggleColumn');
 		this.toggleCell = commands.get('toggleCell');
 		this.reset = commands.get('reset');
 
-		this.using(model.navigationChanged.watch(e => {
+		model.navigationChanged.watch(e => {
 			if (e.tag.source === 'selection.view') {
 				return;
 			}
@@ -39,7 +33,7 @@ export class SelectionView extends View {
 					this.toggleCell.execute(e.state.cell);
 				}
 			}
-		}));
+		});
 
 		const modeClass = `${GRID_PREFIX}-select-${model.selection().mode}`;
 		const unitClass = `${GRID_PREFIX}-select-${model.selection().unit}`;
@@ -47,7 +41,7 @@ export class SelectionView extends View {
 		view.addClass(modeClass);
 		view.addClass(unitClass);
 
-		this.using(model.selectionChanged.watch(e => {
+		model.selectionChanged.watch(e => {
 			if (e.hasChanges('mode')) {
 				const newModeClass = `${GRID_PREFIX}-select-${e.state.mode}`;
 				const oldModeClass = `${GRID_PREFIX}-select-${e.changes.mode.oldValue}`;
@@ -84,7 +78,7 @@ export class SelectionView extends View {
 				const newEntries = this.selectionService.lookup(e.state.items);
 				this.select(newEntries, true);
 			}
-		}));
+		});
 	}
 
 	get commands() {

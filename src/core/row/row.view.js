@@ -1,10 +1,8 @@
-import { View } from '../view/view';
 import { Command } from '../command/command';
 
-export class RowView extends View {
+export class RowView {
 	constructor(model, tagName) {
-		super(model);
-
+		this.model = model;
 		this.tagName = tagName;
 
 		this.drop = new Command({
@@ -65,8 +63,8 @@ export class RowView extends View {
 		};
 	}
 
-	get canDrag() {
-		return this.model.row().canDrag;
+	get canMove() {
+		return this.model.row().canMove;
 	}
 
 	get canResize() {

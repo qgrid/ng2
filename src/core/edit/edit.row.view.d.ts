@@ -7,13 +7,11 @@ import { Table } from '../dom/table';
  * > Under Construction.
  */
 export declare class EditRowView {
-	constructor(model: any, table: Table, commandManager: CommandManager);
+	constructor(model: any, table: Table, shortcut: { register: (commands: Command[]) => void });
 
 	editor: RowEditor;
 	enter: Command;
 	commit: Command;
 	cancel: Command;
 	reset: Command;
-
-	destroy(): void;
 }

@@ -118,15 +118,6 @@ export class Model {
 		return false;
 	}
 
-	static dispose(model, lifecycle = null) {
-		for (let name of Object.keys(model)) {
-			const entry = model[name];
-			if (entry instanceof Event) {
-				entry.dispose(lifecycle);
-			}
-		}
-	}
-
 	static register(name, model) {
 		if (models.hasOwnProperty(name)) {
 			throw new AppError(

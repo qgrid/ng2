@@ -8,6 +8,7 @@ export { GridComponent } from './main/grid/grid.component';
 export { GridService as Grid } from './main/grid/grid.service';
 export { ThemeModule } from './theme/material/theme.module';
 export { ThemeComponent } from './theme/material/theme.component';
+export { PluginService as GridPlugin } from './plugins/plugin.service';
 
 // Pipe
 export { HighlightPipe } from './pipes/highlight/highlight.pipe';
@@ -50,3 +51,5 @@ export { TextColumnModel as TextColumn } from 'ng2-qgrid/core/column-type/text.c
 export { TimeColumnModel as TimeColumn } from 'ng2-qgrid/core/column-type/time.column';
 export { UrlColumnModel as UrlColumn } from 'ng2-qgrid/core/column-type/url.column';
 
+// Style
+export { StyleCellContext, StyleRowContext } from 'ng2-qgrid/core/style/style.context';

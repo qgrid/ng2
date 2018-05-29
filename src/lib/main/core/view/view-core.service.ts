@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 import { GroupView } from 'ng2-qgrid/core/group/group.view';
 import { FilterView } from 'ng2-qgrid/core/filter/filter.view';
@@ -18,13 +18,15 @@ import { StyleView } from 'ng2-qgrid/core/style/style.view';
 import { RowDetailsView } from 'ng2-qgrid/core/row-details/row.details.view';
 import { noop } from 'ng2-qgrid/core/utility/kit';
 import { viewFactory } from 'ng2-qgrid/core/view/view.factory';
-import { RootService } from '../../../infrastructure/component/root.service';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
+import { Table } from 'ng2-qgrid/core/dom/table';
+import { CommandManager } from 'ng2-qgrid/core/command/command.manager';
 import { VScrollService } from '../../../main/core/scroll/vscroll.service';
 import { GridService } from '../../../main/grid/grid.service';
 
 @Injectable()
-export class ViewCoreService {
-	public destroy = noop;
+export class ViewCoreService implements OnDestroy {
+	private destroy: () => void = null;
 
 	public group: GroupView = null;
 	public filter: FilterView = null;
@@ -44,16 +46,11 @@ export class ViewCoreService {
 	public rowDetails: RowDetailsView = null;
 
 	constructor(
-		private root: RootService,
 		private gridServiceFactory: GridService,
 		private vscroll: VScrollService
 	) { }
 
-	init() {
-		const root = this.root;
-		const model = root.model;
-		const table = root.table;
-		const commandManager = root.commandManager;
+	init(model: Model, table: Table, commandManager: CommandManager) {
 		const gridService = this.gridServiceFactory.service(model);
 		const selectors = {
 			th: 'q-grid-core-th',
@@ -70,5 +67,12 @@ export class ViewCoreService {
 		);
 
 		this.destroy = injectViewServicesTo(this);
+	}
+
+	ngOnDestroy() {
+		if (this.destroy) {
+			this.destroy();
+			this.destroy = null;
+		}
 	}
 }

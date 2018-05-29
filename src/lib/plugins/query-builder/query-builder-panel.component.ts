@@ -125,9 +125,7 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 		super(root);
 	}
 
-	ngOnInit() {
-		super.ngOnInit();
-
+	onReady() {
 		this.queryService = new QueryBuilderService(this.model);
 
 		const schema = new WhereSchema(this.queryService);

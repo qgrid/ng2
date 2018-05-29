@@ -1,12 +1,9 @@
-import {PluginView} from '../plugin.view';
-import {Event} from '../../core/infrastructure';
+import { Event } from '../../core/infrastructure';
 
-export class CellEditorView extends PluginView {
-	constructor(model) {
-		super(...arguments);
-		
+export class CellEditorView {
+	constructor() {
 		this.closeEvent = new Event();
-		this.using(model.sceneChanged.on(() => this.close()));
+		model.sceneChanged.on(() => this.close());
 	}
 
 	close() {

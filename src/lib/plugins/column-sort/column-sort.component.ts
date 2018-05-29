@@ -9,10 +9,11 @@ import {
 	TemplateRef,
 	ContentChild
 } from '@angular/core';
-import { RootService } from '../../infrastructure/component/root.service';
 import { ColumnSortView } from 'ng2-qgrid/plugin/column-sort/column.sort.view';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
+import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
+import { RootService } from '../../infrastructure/component/root.service';
 import { FocusAfterRender } from '../../common/focus/focus.service';
 import { PluginComponent } from '../plugin.component';
 import { ViewCoreService } from '../../main/core/view/view-core.service';
@@ -22,7 +23,7 @@ import { ViewCoreService } from '../../main/core/view/view-core.service';
 	templateUrl: './column-sort.component.html'
 })
 export class ColumnSortComponent extends PluginComponent implements AfterViewInit, OnDestroy {
-	@Input() public column;
+	@Input() public column: ColumnModel;
 	@ContentChild(TemplateRef) public template: TemplateRef<any>;
 
 	constructor(root: RootService,
@@ -33,7 +34,7 @@ export class ColumnSortComponent extends PluginComponent implements AfterViewIni
 	}
 
 	ngAfterViewInit() {
-		const nativeElement = this.element.nativeElement;
+		const { nativeElement } = this.element;
 		const iconAsc = nativeElement.querySelector('.q-grid-asc');
 		const iconDesc = nativeElement.querySelector('.q-grid-desc');
 
@@ -46,24 +47,18 @@ export class ColumnSortComponent extends PluginComponent implements AfterViewIni
 		});
 
 		const listener = new EventListener(nativeElement, new EventManager(this));
-		this.using(listener.on('click', () => {
+		listener.on('click', () => {
 			if (ctrl.onClick()) {
 				const focus = new FocusAfterRender(this.root);
 			}
-		}));
+		});
 
 		this.zone.runOutsideAngular(() =>
-			this.using(listener.on('mouseleave', () => ctrl.onMouseLeave()))
+			listener.on('mouseleave', () => ctrl.onMouseLeave())
 		);
 
 		this.context = {
 			$implicit: ctrl
 		};
-	}
-
-	ngOnDestroy() {
-		super.ngOnDestroy();
-
-		this.context.$implicit.dispose();
 	}
 }

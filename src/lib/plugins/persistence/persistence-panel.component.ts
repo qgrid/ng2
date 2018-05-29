@@ -9,23 +9,13 @@ import { PersistenceService } from 'ng2-qgrid/core/persistence/persistence.servi
 	selector: 'q-grid-persistence-panel',
 	templateUrl: './persistence-panel.component.html'
 })
-export class PersistencePanelComponent extends PluginComponent implements OnInit, OnDestroy {
-	private persistence: PersistenceView;
-
+export class PersistencePanelComponent extends PluginComponent implements OnInit {
 	constructor(@Optional() root: RootService) {
 		super(root);
 	}
 
-	ngOnInit() {
-		super.ngOnInit();
-
-		this.persistence = new PersistenceView(this.model);
-		this.context = { $implicit: this.persistence };
-	}
-
-	ngOnDestroy() {
-		super.ngOnDestroy();
-
-		this.persistence.dispose();
+	onReady() {
+		const persistence = new PersistenceView(this.model);
+		this.context = { $implicit: persistence };
 	}
 }

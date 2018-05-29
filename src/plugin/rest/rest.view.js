@@ -1,13 +1,12 @@
 import { isFunction } from '../../core/utility/kit';
 import { AppError } from '../../core/infrastructure/error';
 import { PipeUnit } from '../../core/pipe/pipe.unit';
-import { PluginView } from '../plugin.view';
 import { serialize as serializeGet } from '../../core/rest/get.serialize';
 import { serialize as serializePost } from '../../core/rest/post.serialize';
 
-export class RestView extends PluginView {
+export class RestView {
 	constructor(model, { get, post }) {
-		super(model);
+		this.model = model;
 
 		const { method, url, serialize } = this.model.rest();
 		if (!url) {

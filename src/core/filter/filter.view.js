@@ -1,8 +1,6 @@
-import { View } from '../view/view';
-
-export class FilterView extends View {
+export class FilterView {
 	constructor(model) {
-		super(model);
+		this.model = model;
 	}
 
 	has(column) {

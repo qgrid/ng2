@@ -1,12 +1,11 @@
 import { jobLine } from '../services/job.line';
-import { View } from '../view/view';
 import { PaginationModel } from '../pagination/pagination.model';
 
-export class ViewCtrl extends View {
+export class ViewCtrl {
 	constructor(model, view, gridService) {
-		super(model);
-
+		this.model = model;
 		this.view = view;
+		
 		this.watch(gridService);
 	}
 
@@ -59,7 +58,7 @@ export class ViewCtrl extends View {
 
 		Object.keys(triggers)
 			.forEach(name =>
-				this.using(model[name + 'Changed']
+				model[name + 'Changed']
 					.watch(e => {
 						if (e.tag.behavior === 'core') {
 							return;
@@ -77,6 +76,6 @@ export class ViewCtrl extends View {
 						if (units.length > 0) {
 							triggerJob(e.tag.source || name, e.changes, units);
 						}
-					})));
+					}));
 	}
 }

@@ -1,4 +1,3 @@
-import { PluginView } from '../plugin.view';
 import { GRID_PREFIX } from '../../core/definition';
 import { Command } from '../../core/command/command';
 import { Fastdom } from '../../core/services/fastdom';
@@ -6,9 +5,9 @@ import { Fastdom } from '../../core/services/fastdom';
 const GRID_ACTIVE_CLASS = `${GRID_PREFIX}-active`;
 const GRID_HIDE_CLASS = `${GRID_PREFIX}-hide`;
 
-export class ColumnSortView extends PluginView {
+export class ColumnSortView {
 	constructor(model, context) {
-		super(model);
+		this.model = model;
 
 		const column = context.column;
 		const view = context.view;
@@ -16,7 +15,7 @@ export class ColumnSortView extends PluginView {
 		const iconDesc = context.iconDesc;
 		const iconAsc = context.iconAsc;
 
-		this.using(model.sortChanged.watch(e => {
+		model.sortChanged.watch(e => {
 			if (e.hasChanges('by')) {
 				if (view.sort.order(column) < 0) {
 					Fastdom.mutate(() => {
@@ -40,7 +39,7 @@ export class ColumnSortView extends PluginView {
 					});
 				}
 			}
-		}));
+		});
 
 		this.toggle = new Command({
 			canExecute: () => column.canSort,

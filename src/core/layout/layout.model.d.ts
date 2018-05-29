@@ -6,14 +6,14 @@ import { ColumnModel } from '../column-type/column.model';
  * ### Suggested Links
  * * [Layout View](/doc/api/layout-view.html)
  */
-export declare class LayoutModel {
+export declare interface LayoutModel {
 	/**
 	 * Set of column sizes.
 	 */
-	columns: Map<string, any>;
+	columns?: Map<string, any>;
 
 	/**
 	 * Set of row sizes.
 	 */
-	rows: Map<any, any>;
+	rows?: Map<any, any>;
 }

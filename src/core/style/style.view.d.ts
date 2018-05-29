@@ -1,4 +1,3 @@
-import { View } from '../view/view';
 import { Monitor } from './style.monitor';
 import { Model } from '../infrastructure/model';
 import { Table } from '../dom/table';
@@ -6,7 +5,7 @@ import { Table } from '../dom/table';
 /**
  * > Under Construction.
  */
-export declare class StyleView extends View {
+export declare class StyleView {
 	constructor(model: Model, table: Table);
 
 	monitor: {

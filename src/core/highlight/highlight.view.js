@@ -1,4 +1,3 @@
-import { View } from '../view/view';
 import { Command } from '../command/command';
 import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
@@ -8,10 +7,9 @@ import { noop } from '../utility/kit';
 import { GRID_PREFIX } from '../definition';
 import { Fastdom } from '../services/fastdom';
 
-export class HighlightView extends View {
+export class HighlightView {
 	constructor(model, table) {
-		super(model);
-
+		this.model = model;
 		this.table = table;
 
 		this.cellSelector = new CellSelector(model, table);
@@ -78,13 +76,13 @@ export class HighlightView extends View {
 			}
 		});
 
-		this.using(model.selectionChanged.watch(e => {
+		model.selectionChanged.watch(e => {
 			if (e.hasChanges('items')) {
 				selectionBlurs = this.invalidateSelection(selectionBlurs);
 			}
-		}));
+		});
 
-		this.using(model.sceneChanged.watch(e => {
+		model.sceneChanged.watch(e => {
 			if (e.hasChanges('status')) {
 				const status = e.state.status;
 				switch (status) {
@@ -96,15 +94,15 @@ export class HighlightView extends View {
 						break;
 				}
 			}
-		}));
+		});
 
-		this.using(model.sortChanged.watch(e => {
+		model.sortChanged.watch(e => {
 			if (!this.isRendering && e.hasChanges('by')) {
 				sortBlurs = this.invalidateSortBy(sortBlurs);
 			}
-		}));
+		});
 
-		this.using(model.highlightChanged.watch(e => {
+		model.highlightChanged.watch(e => {
 			if (!this.isRendering && e.tag.source !== 'highlight') {
 				if (e.hasChanges('columns')) {
 					columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
@@ -114,16 +112,16 @@ export class HighlightView extends View {
 					rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
 				}
 			}
-		}));
+		});
 
-		this.using(model.scrollChanged.watch(() => {
+		model.scrollChanged.watch(() => {
 			const highlight = model.highlight;
 			if (highlight().rows.length) {
 				highlight({ rows: [] }, {
 					source: 'highlight.view',
 				});
 			}
-		}));
+		});
 	}
 
 	get isRendering() {

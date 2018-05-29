@@ -13,8 +13,8 @@ import { ViewCoreService } from '../../../main/core/view/view-core.service';
 export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private job = jobLine(150);
 	private startCell: CellView = null;
-	private initialSelectionMode: string = null;
-	private initialEditState: string = null;
+	private initialSelectionMode: 'single' | 'multiple' | 'range' = null;
+	private initialEditState: 'view' | 'edit' | 'startBatch' | 'endBatch' = null;
 
 	constructor(private element: ElementRef, private root: RootService, private view: ViewCoreService) {
 	}

@@ -2,12 +2,11 @@ import * as columnService from '../../core/column/column.service';
 import { Command } from '../../core/command/command';
 import { Aggregation } from '../../core/services/aggregation';
 import { isFunction, noop } from '../../core/utility/kit';
-import { PluginView } from '../plugin.view';
 import { Event } from '../../core/infrastructure/event';
 
-export class ColumnChooserView extends PluginView {
+export class ColumnChooserView {
 	constructor(model, context) {
-		super(...arguments);
+		this.model = model;
 
 		this.context = context;
 
@@ -139,7 +138,7 @@ export class ColumnChooserView extends PluginView {
 			.getOwnPropertyNames(Aggregation)
 			.filter(key => isFunction(Aggregation[key]));
 
-		this.using(model.dataChanged.watch(e => {
+		model.dataChanged.watch(e => {
 			if (e.tag.source === 'column.chooser') {
 				return;
 			}
@@ -147,9 +146,9 @@ export class ColumnChooserView extends PluginView {
 			if (e.hasChanges('columns')) {
 				this.temp.columns = this.originColumns(this.temp.index);
 			}
-		}));
+		});
 
-		this.using(model.columnListChanged.watch(e => {
+		model.columnListChanged.watch(e => {
 			if (e.tag.source === 'column.chooser') {
 				return;
 			}
@@ -158,8 +157,7 @@ export class ColumnChooserView extends PluginView {
 				this.temp.index = this.originIndex();
 				this.temp.columns = this.originColumns(this.temp.index);
 			}
-		}));
-
+		});
 	}
 
 	get columns() {

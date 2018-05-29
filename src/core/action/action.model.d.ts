@@ -44,26 +44,24 @@ import { Resource } from '../resource/resource';
  * * [Shortcut](/doc/api/shortcut.html)
  * * [Command Manager](/doc/api/command-manager.html)
  */
-export declare class ActionModel {
-	constructor();
-
-	resource: Resource;
+export declare interface ActionModel {
+	resource?: Resource;
 
 	/**
 	 * List of actions that will be added to the command manager,
 	 * and binded to the keydown events.
 	 */
-	items: Action[];
+	items?: Action[];
 
 	/**
 	 * The service that connects keydown events and commands.
 	 */
-	shortcut: Shortcut;
+	shortcut?: Shortcut;
 
 	/**
 	 * Command manager is responsible for the next questions:
 	 * * What commands can be executed.
 	 * * How(e.g. in which order) commands should be executed.
 	 */
-	manager: CommandManager;
+	manager?: CommandManager;
 }

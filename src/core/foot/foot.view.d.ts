@@ -1,4 +1,3 @@
-import { View } from '../view/view';
 import { Table } from '../dom/table';
 import { ColumnModel } from '../column-type/column.model';
 import { Model } from '../infrastructure/model';
@@ -6,7 +5,7 @@ import { Model } from '../infrastructure/model';
 /**
  * > Under Construction.
  */
-export declare class FootView extends View {
+export declare class FootView {
 	constructor(model: Model, table: Table);
 
 	readonly count: number;

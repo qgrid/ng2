@@ -1,4 +1,4 @@
-import { ColumnView } from '../column/column.view';
+import { ColumnView } from './view/column.view';
 
 export declare class Scene {
 	constructor(context: any);
@@ -6,5 +6,5 @@ export declare class Scene {
 	rows(memo: any): any[];
 	columnRows(items: ColumnView[][]): ColumnView[][];
 	columnLine(items: ColumnView[][]): ColumnView[];
-	columnArea(items: ColumnView[][]): any;
+	columnArea(items: ColumnView[][]): { left: ColumnView[], right: ColumnView[], null: ColumnView[] };
 }

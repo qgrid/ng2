@@ -1,4 +1,3 @@
-import { PluginView } from '../plugin.view';
 import { PersistenceService } from '../../core/persistence/persistence.service';
 import { Command } from '../../core/command/command';
 import { CommandManager } from '../../core/command/command.manager';
@@ -9,10 +8,8 @@ import { clone } from '../../core/utility/kit';
 import { Event } from '../../core/infrastructure/event';
 import { groupBy } from '../../core/utility/kit';
 
-export class PersistenceView extends PluginView {
+export class PersistenceView {
 	constructor(model) {
-		super();
-
 		this.model = model;
 		this.service = new PersistenceService(model);
 		this.items = [];
@@ -33,13 +30,11 @@ export class PersistenceView extends PluginView {
 				this.groups = this.buildGroups(this.items);
 			});
 
-		this.using(
-			this.model.gridChanged.watch(e => {
-				if (e.hasChanges('status') && e.state.status === 'unbound') {
-					this.closeEvent.emit();
-				}
-			})
-		);
+		this.model.gridChanged.watch(e => {
+			if (e.hasChanges('status') && e.state.status === 'unbound') {
+				this.closeEvent.emit();
+			}
+		});
 
 		this.create = new Command({
 			source: 'persistence.view',

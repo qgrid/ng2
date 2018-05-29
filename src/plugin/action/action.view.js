@@ -1,21 +1,18 @@
-import {PluginView} from '../plugin.view';
-import {Action} from '@grid/core/action';
+import { Action } from '@grid/core/action';
 
-export class ActionView extends PluginView {
+export class ActionView {
 	constructor(model, context) {
-		super(...arguments);
+		this.model = model;
 
 		this.command = context.command;
 
 		const action = new Action(context.command, context.title, context.icon);
 		action.id = context.id;
 
-		const actions = Array.from(model.action().items);
-		actions.push(action);
+		const items = Array.from(model.action().items);
+		items.push(action);
 
-		model.action({
-			items: actions
-		});
+		model.action({ items });
 	}
 
 	execute() {

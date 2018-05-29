@@ -1,20 +1,18 @@
-import { View } from '../view/view';
 import { groupBuilder } from '../group/group.build';
 import { Log } from '../infrastructure/log';
 import { getFactory as valueFactory } from '../services/value';
 
-export class PivotView extends View {
+export class PivotView {
 	constructor(model) {
-		super(model);
-
+		this.model = model;
 		this.rows = [];
 		this.valueFactory = valueFactory;
 
-		this.using(model.sceneChanged.watch(e => {
+		model.sceneChanged.watch(e => {
 			if (e.hasChanges('column') || e.hasChanges('rows')) {
 				this.invalidate();
 			}
-		}));
+		});
 	}
 
 	invalidate() {

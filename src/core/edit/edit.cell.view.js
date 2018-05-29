@@ -5,32 +5,29 @@ import { CellEditor } from './edit.cell.editor';
 import { getFactory as valueFactory } from '../services/value';
 import { getFactory as labelFactory } from '../services/label';
 import { parseFactory } from '../services/convert';
-import { View } from '../view/view';
 import * as validationService from '../validation/validation.service';
 
-export class EditCellView extends View {
-	constructor(model, table, commandManager) {
-		super();
-
+export class EditCellView {
+	constructor(model, table, shortcut) {
 		this.model = model;
 		this.table = table;
+		this.shortcut = shortcut;
 
 		this.editor = CellEditor.empty;
 
-		this.shortcut = model.action().shortcut;
 		const commands = this.commands;
 
-		this.shortcutOff = this.shortcut.register(commandManager, commands);
+		shortcut.register(commands);
 
 		this.enter = commands.get('enter');
 		this.commit = commands.get('commit');
-		this.batchCommit = commands.get('batchCommit');
+		this.push = commands.get('push');
 		this.cancel = commands.get('cancel');
 		this.reset = commands.get('reset');
 		this.exit = commands.get('exit');
 		this.clear = commands.get('clear');
 
-		this.using(model.navigationChanged.watch(e => {
+		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
 				const oldCell = e.changes.cell.oldValue;
 				if (oldCell && oldCell.column.editorOptions.trigger === 'focus') {
@@ -46,7 +43,7 @@ export class EditCellView extends View {
 					}
 				}
 			}
-		}));
+		});
 	}
 
 	mode(cell, value) {
@@ -65,7 +62,7 @@ export class EditCellView extends View {
 				canExecute: cell => {
 					// TODO: source should be set up from outside
 					const source = cell ? 'mouse' : 'keyboard';
-					if (source === 'keyboard' && Shortcut.isControl(this.shortcut.keyCode)) {
+					if (source === 'keyboard' && Shortcut.isControl(this.shortcut.keyCode())) {
 						return false;
 					}
 
@@ -87,9 +84,10 @@ export class EditCellView extends View {
 					cell = cell || model.navigation().cell;
 					if (cell && model.edit().enter.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
 						this.editor = new CellEditor(cell);
-						if (source === 'keyboard' && Shortcut.isPrintable(this.shortcut.keyCode)) {
+						const keyCode = this.shortcut.keyCode();
+						if (source === 'keyboard' && Shortcut.isPrintable(keyCode)) {
 							const parse = parseFactory(cell.column.type, cell.column.editor);
-							const value = Shortcut.stringify(this.shortcut.keyCode);
+							const value = Shortcut.stringify(keyCode);
 							const typedValue = parse(value);
 							if (typedValue !== null) {
 								this.value = typedValue;
@@ -142,7 +140,7 @@ export class EditCellView extends View {
 					return false;
 				}
 			}),
-			batchCommit: new Command({
+			push: new Command({
 				priority: 1,
 				source: 'edit.cell.view',
 
@@ -153,9 +151,7 @@ export class EditCellView extends View {
 						const context = this.contextFactory(cell);
 						const key = context.column.key;
 						const validator = validationService.createValidator(model.validation().rules, key);
-						return model.edit().commit.canExecute(context)
-							&& validator.validate({ [key]: this.value })
-							&& cell.column.type !== 'id';
+						return model.edit().commit.canExecute(context) && validator.validate({ [key]: this.value });
 					}
 					return false;
 				},
@@ -364,12 +360,5 @@ export class EditCellView extends View {
 
 			return shortcuts['$default'];
 		};
-	}
-
-	dispose() {
-		super.dispose();
-
-		this.editor.reset();
-		this.shortcutOff();
 	}
 }

@@ -21,23 +21,17 @@ import { BackdropView } from 'ng2-qgrid/plugin/backdrop/backdrop.view';
 export class BackdropComponent extends PluginComponent implements OnDestroy {
 	@ContentChild(TemplateRef) public template: TemplateRef<any>;
 	@Output('close') closeEvent = new EventEmitter<any>();
-	private backdrop: BackdropView;
 
 	constructor(root: RootService, element: ElementRef) {
 		super(root);
 
 		const context = {
 			element: element.nativeElement,
-			onKeyDown: () => { }
+			onKeyDown: () => { },
+			propagate: false
 		};
 
-		this.backdrop = new BackdropView(context);
-		this.using(this.backdrop.closeEvent.on(() => this.closeEvent.emit()));
-	}
-
-	ngOnDestroy() {
-		super.ngOnDestroy();
-
-		this.backdrop.dispose();
+		const backdrop = new BackdropView(context);
+		backdrop.closeEvent.on(() => this.closeEvent.emit());
 	}
 }

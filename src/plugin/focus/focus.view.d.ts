@@ -1,5 +1,3 @@
-import {PluginView} from '../plugin.view';
-
-export declare class FocusView extends PluginView {
+export declare class FocusView {
 	constructor(context: any);
 }

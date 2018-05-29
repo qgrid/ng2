@@ -1,0 +1,20 @@
+<button mat-button
+        (click)="isVisible = !isVisible">
+	Show/Hide [handler counter: {{handlerCount}}]
+</button>
+<ng-container *ngIf="isVisible">
+	<q-grid header="Destroy Grid Model"
+	        [model]="gridModel">
+		<q-grid-columns generation="deep">
+		</q-grid-columns>
+	</q-grid>
+
+	<!-- <q-grid-data-manipulation>
+	</q-grid-data-manipulation>
+
+	<q-grid-persistence>
+	</q-grid-persistence>
+
+	<q-grid-query-builder>
+	</q-grid-query-builder> -->
+</ng-container>

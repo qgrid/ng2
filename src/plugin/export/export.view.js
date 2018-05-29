@@ -1,16 +1,15 @@
-import {PluginView} from '../plugin.view';
-import {PluginService} from '@grid/core/plugin';
-import {Command} from '@grid/core/command';
-import {Csv} from '@grid/core/export/csv';
-import {Json} from '@grid/core/export/json';
-import {Xml} from '@grid/core/export/xml';
-import {downloadFactory} from './download';
-import {Xlsx} from './xlsx';
-import {Pdf} from './pdf';
+import { PluginService } from '@grid/core/plugin';
+import { Command } from '@grid/core/command';
+import { Csv } from '@grid/core/export/csv';
+import { Json } from '@grid/core/export/json';
+import { Xml } from '@grid/core/export/xml';
+import { downloadFactory } from './download';
+import { Xlsx } from './xlsx';
+import { Pdf } from './pdf';
 
-export class ExportView extends PluginView {
+export class ExportView {
 	constructor(model, context) {
-		super(...arguments);
+		this.model = model;
 		this.type = context.type;
 		this.csv = new Command({
 			source: 'export',

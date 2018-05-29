@@ -1,12 +1,12 @@
-import { View } from '../view/view';
 import * as css from '../services/css';
 import * as columnService from '../column/column.service';
 import { Log } from '../infrastructure/log';
+import { Disposable } from '../infrastructure/disposable';
 
-export class LayoutView extends View {
+export class LayoutView extends Disposable {
 	constructor(model, table, service) {
-		super(model);
-
+		super(); 
+	
 		this.model = model;
 		this.table = table;
 		this.service = service;

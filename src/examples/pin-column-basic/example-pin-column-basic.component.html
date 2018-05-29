@@ -1,0 +1,17 @@
+<q-grid header="Pin Column Basic"
+        [rows]="rows | async">
+	<q-grid-columns generation="deep">
+		<q-grid-column key="number"
+		               pin="left">
+		</q-grid-column>
+		<q-grid-column key="symbol"
+		               pin="left">
+		</q-grid-column>
+		<q-grid-column key="period"
+		               pin="right">
+		</q-grid-column>
+		<q-grid-column key="radius"
+		               pin="right">
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>
