@@ -1,11 +1,11 @@
 import { jobLine } from '../services/job.line';
-import { PaginationModel } from '../pagination/pagination.model';
+import { PipeUnit } from '../pipe/pipe.unit';
 
 export class ViewCtrl {
 	constructor(model, view, gridService) {
 		this.model = model;
 		this.view = view;
-		
+
 		this.watch(gridService);
 	}
 
@@ -52,9 +52,12 @@ export class ViewCtrl {
 		const triggerJob = this.triggerLine(service, 10);
 
 		const model = this.model;
-		const triggers = model.pipe().triggers;
+		const { triggers } = model.pipe();
+		const { pipe } = model.data();
 
-		triggerJob('grid', {}, [model.data().pipe]);
+		if (pipe !== PipeUnit.default) {
+			triggerJob('grid', {}, [pipe]);
+		}
 
 		Object.keys(triggers)
 			.forEach(name =>
@@ -62,7 +65,7 @@ export class ViewCtrl {
 					.watch(e => {
 						if (e.tag.behavior === 'core') {
 							return;
-						}						
+						}
 
 						const units = [];
 						const trigger = triggers[name];

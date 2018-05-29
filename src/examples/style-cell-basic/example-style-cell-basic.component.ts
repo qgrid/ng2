@@ -17,10 +17,10 @@ export class ExampleStyleCellBasicComponent {
 	}
 
 	styleCell(row: Atom, column: Column, context: StyleCellContext) {
-		if (column.key === 'symbol' || column.key === 'name') {
+		if (column.key === 'symbol') {
 			context.class(row.symbol, {
 				'color': `#${row.color}`,
-				'background': '#eee'
+				'background': '#3f51b5'
 			});
 		}
 	}
