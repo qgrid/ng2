@@ -19,4 +19,18 @@ export class ExampleDestroyGridModelComponent {
 			.getPeople()
 			.subscribe(rows => this.gridModel.data({ rows }));
 	}
+
+	get handlerCount() {
+		const model = this.gridModel as { [key: string]: any };
+		let count = 0;
+		for (let key in model) {
+			if (key.endsWith('Changed')) {
+				const event = model[key];
+
+				// `handlers` is private really
+				count += event.handlers.length;
+			}
+		}
+		return count;
+	}
 }
