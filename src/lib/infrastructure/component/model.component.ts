@@ -29,8 +29,8 @@ export class ModelComponent extends NgComponent implements OnChanges, OnInit, On
 
 	ngOnDestroy() {
 		super.ngOnDestroy();
-		
-		this.binder.bind(null);
+						
+		this.binder.dispose();
 	}
 
 	get model(): Model {

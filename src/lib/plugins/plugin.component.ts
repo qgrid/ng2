@@ -43,7 +43,7 @@ export class PluginComponent extends NgComponent
 	ngOnDestroy() {
 		super.ngOnDestroy();
 
-		this.binder.bind(null);
+		this.binder.dispose();
 	}
 
 	isReady() {

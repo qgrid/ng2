@@ -34,7 +34,7 @@ export class RootComponent extends NgComponent implements OnChanges, OnDestroy {
 	ngOnDestroy() {
 		super.ngOnDestroy();
 
-		this.binder.bind(null);
+		this.binder.dispose();
 	}
 
 	private setup() {

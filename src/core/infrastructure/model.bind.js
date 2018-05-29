@@ -1,9 +1,12 @@
 import { noop, toCamelCase, isUndefined, isArray, isObject } from '../utility/kit';
+import { Disposable } from './disposable';
 import { Log } from './log';
 
-export class ModelBinder {
-	constructor(source) {
-		this.source = source;
+export class ModelBinder extends Disposable {
+	constructor(subject) {
+		super();
+
+		this.subject = subject;
 		this.off = noop;
 	}
 
@@ -23,9 +26,9 @@ export class ModelBinder {
 	}
 
 	bind(model, names, run = true) {
-		this.off();
-		const source = this.source;
+		this.dispose();
 
+		const subject = this.subject;
 		if (model) {
 			const commits = [];
 			for (let name of names) {
@@ -34,8 +37,8 @@ export class ModelBinder {
 
 					for (let key of Object.keys(e.changes)) {
 						const sourceKey = toCamelCase(name, key);
-						if (source.hasOwnProperty(sourceKey)) {
-							source[sourceKey] = e.changes[key].newValue;
+						if (subject.hasOwnProperty(sourceKey)) {
+							subject[sourceKey] = e.changes[key].newValue;
 						}
 					}
 				};
@@ -51,7 +54,7 @@ export class ModelBinder {
 					});
 				}
 
-				this.off = model[name + 'Changed'].on(doBind);
+				this.using(model[name + 'Changed'].on(doBind));
 
 				commits.push(() => {
 					Log.info('model.bind', `to model "${name}"`);
@@ -60,8 +63,8 @@ export class ModelBinder {
 					const newState = {};
 					for (let key of Object.keys(oldState)) {
 						const sourceKey = toCamelCase(name, key);
-						if (source.hasOwnProperty(sourceKey)) {
-							let value = source[sourceKey];
+						if (subject.hasOwnProperty(sourceKey)) {
+							let value = subject[sourceKey];
 							if (this.canWrite(oldState[key], value, key)) {
 								newState[key] = value;
 							}
@@ -75,7 +78,6 @@ export class ModelBinder {
 			return () => commits.forEach(commit => commit());
 		}
 
-		this.off = noop;
 		return noop;
 	}
 }

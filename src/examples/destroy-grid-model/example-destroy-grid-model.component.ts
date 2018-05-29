@@ -28,7 +28,10 @@ export class ExampleDestroyGridModelComponent {
 				const event = model[key];
 
 				// `handlers` is private really
-				count += event.handlers.length;
+				const { length } = event.handlers;
+				if (length) {
+					count += length;
+				}
 			}
 		}
 		return count;
