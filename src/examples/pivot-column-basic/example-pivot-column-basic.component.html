@@ -1,0 +1,12 @@
+<q-grid header="Pivot Column Basic"
+        [rows]="rows | async"
+        [pivotBy]="['bondingType', 'groupBlock', 'symbol']">
+	<q-grid-columns>
+		<q-grid-column key="bondingType">
+		</q-grid-column>
+		<q-grid-column key="groupBlock">
+		</q-grid-column>
+		<q-grid-column key="symbol">
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>
