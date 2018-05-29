@@ -23,6 +23,8 @@ import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plu
 import { ExamplePluginMyPagerComponent } from './plugin-grid-basic/example-plugin-my-pager.component';
 import { ExampleActionBarBasicComponent } from './action-bar-basic/example-action-bar-basic.component';
 import { ExampleDetailsRowBasicComponent } from './details-row-basic/example-details-row-basic.component';
+import { ExampleDragRowBasicComponent } from './drag-row-basic/example-drag-row-basic.component';
+import { ExampleDragColumnBasicComponent } from './drag-column-basic/example-drag-column-basic.component';
 
 const EXAMPLES: Array<any> = [
     ExampleLookPeopleBasicComponent,
@@ -37,6 +39,8 @@ const EXAMPLES: Array<any> = [
     ExampleSortRowComponent,
     ExampleStyleRowBasicComponent,
     ExampleManipulateDataBasicComponent,
+    ExampleDragRowBasicComponent,
+    ExampleDragColumnBasicComponent,
     ExampleActionBarBasicComponent,
     ExampleDetailsRowBasicComponent,
     ExamplePluginGridBasicComponent,
