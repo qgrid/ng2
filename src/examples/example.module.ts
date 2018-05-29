@@ -31,6 +31,7 @@ import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filte
 import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
 import { ExamplePersistenceBasicComponent } from './persistence-basic/example-persistence-basic.component';
 import { ExamplePaginationBasicComponent } from './pagination-basic/example-pagination-basic.component';
+import { ExamplePinColumnBasicComponent } from './pin-column-basic/example-pin-column-basic.component';
 
 const EXAMPLES: Array<any> = [
     ExampleLookPeopleBasicComponent,
@@ -51,6 +52,7 @@ const EXAMPLES: Array<any> = [
     ExampleActionBarBasicComponent,
     ExampleDetailsRowBasicComponent,
     ExamplePaginationBasicComponent,
+    ExamplePinColumnBasicComponent,
     ExampleFilterConditionBasicComponent,
     ExampleFilterRowBasicComponent,
     ExampleFocusCellAutoComponent,
