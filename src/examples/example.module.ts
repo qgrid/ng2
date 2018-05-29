@@ -25,6 +25,7 @@ import { ExampleActionBarBasicComponent } from './action-bar-basic/example-actio
 import { ExampleDetailsRowBasicComponent } from './details-row-basic/example-details-row-basic.component';
 import { ExampleDragRowBasicComponent } from './drag-row-basic/example-drag-row-basic.component';
 import { ExampleDragColumnBasicComponent } from './drag-column-basic/example-drag-column-basic.component';
+import { ExampleEditCellBatchComponent } from './edit-cell-batch/example-edit-cell-batch.component';
 
 const EXAMPLES: Array<any> = [
     ExampleLookPeopleBasicComponent,
@@ -33,6 +34,7 @@ const EXAMPLES: Array<any> = [
     ExampleLookAtomsModelComponent,
     ExampleLookAtomsCustomizedComponent,
     ExampleEditCellBasicComponent,
+    ExampleEditCellBatchComponent,
     ExampleSelectRowBasicComponent,
     ExampleSelectCellBasicComponent,
     ExampleGroupRowBasicComponent,
