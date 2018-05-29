@@ -61,7 +61,12 @@ export declare interface FilterModel {
 	/**
 	 * If setup `column filter` plugin can use this property to populate list of column items.
 	 */
-	fetch?: () => any | Promise<any> | any;
+	fetch?: (key: string, context: {
+		skip: number,
+		take: number,
+		value: (row: any) => any,
+		filter: string
+	}) => any | Promise<any>;
 
 	/**
 	 * Factory for assertion unit that contains comparison functions.

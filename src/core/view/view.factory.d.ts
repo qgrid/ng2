@@ -9,4 +9,4 @@ export declare function viewFactory(
 	gridService: any,
 	vscroll: any,
 	selectors: any
-): (x: any) => () => void;
+): (host: any) => () => void;

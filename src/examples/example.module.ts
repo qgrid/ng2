@@ -32,10 +32,10 @@ import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plu
 import { ExamplePluginMyPagerComponent } from './plugin-grid-basic/example-plugin-my-pager.component';
 import { ExampleSelectCellBasicComponent } from './select-cell-basic/example-select-cell-basic.component';
 import { ExampleSelectRowBasicComponent } from './select-row-basic/example-select-row-basic.component';
-import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.component';
-import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
 import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-basic.component';
+import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.component';
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
+import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
 
 const EXAMPLES: Array<any> = [
     ExampleActionBarBasicComponent,
@@ -64,10 +64,10 @@ const EXAMPLES: Array<any> = [
     ExamplePluginGridBasicComponent,
     ExampleSelectCellBasicComponent,
     ExampleSelectRowBasicComponent,
-    ExampleSortRowComponent,
-    ExampleStyleRowBasicComponent,
     ExampleSizeRowBasicComponent,
+    ExampleSortRowComponent,
     ExampleStyleCellBasicComponent,
+    ExampleStyleRowBasicComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;

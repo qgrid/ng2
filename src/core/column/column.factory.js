@@ -1,29 +1,29 @@
 import { Guard } from '../infrastructure/guard';
 import { assignWith, clone, isUndefined } from '../utility/kit';
 import { ColumnView as CustomColumn } from '../scene/view/column.view';
-import { TextColumn } from '../column-type/text.column';
-import { NumberColumn } from '../column-type/number.column';
-import { BoolColumn } from '../column-type/bool.column';
-import { DateColumn } from '../column-type/date.column';
-import { PasswordColumn } from '../column-type/password.column';
 import { ArrayColumn } from '../column-type/array.column';
+import { BoolColumn } from '../column-type/bool.column';
+import { CurrencyColumn } from '../column-type/currency.column';
+import { DateColumn } from '../column-type/date.column';
 import { EmailColumn } from '../column-type/email.column';
-import { SelectColumn } from '../column-type/select.column';
+import { FileColumn } from '../column-type/file.column';
 import { GroupColumn } from '../column-type/group.column';
-import { PivotColumn } from '../column-type/pivot.column';
-import { RowNumberColumn } from '../column-type/row.number.column';
-import { RowIndicatorColumn } from '../column-type/row.indicator.column';
-import { RowOptionsColumn } from '../column-type/row.options.column';
-import { RowExpandColumn } from '../column-type/row.expand.column';
-import { RowDetailsColumn } from '../column-type/row.details.column';
+import { IdColumn } from '../column-type/id.column';
+import { ImageColumn } from '../column-type/image.column';
+import { NumberColumn } from '../column-type/number.column';
 import { PadColumn } from '../column-type/pad.column';
+import { PasswordColumn } from '../column-type/password.column';
+import { PivotColumn } from '../column-type/pivot.column';
+import { ReferenceColumn } from '../column-type/reference.column';
+import { RowDetailsColumn } from '../column-type/row.details.column';
+import { RowExpandColumn } from '../column-type/row.expand.column';
+import { RowIndicatorColumn } from '../column-type/row.indicator.column';
+import { RowNumberColumn } from '../column-type/row.number.column';
+import { RowOptionsColumn } from '../column-type/row.options.column';
+import { SelectColumn } from '../column-type/select.column';
+import { TextColumn } from '../column-type/text.column';
 import { TimeColumn } from '../column-type/time.column';
 import { UrlColumn } from '../column-type/url.column';
-import { FileColumn } from '../column-type/file.column';
-import { ImageColumn } from '../column-type/image.column';
-import { ReferenceColumn } from '../column-type/reference.column';
-import { CurrencyColumn } from '../column-type/currency.column';
-import { IdColumn } from '../column-type/id.column';
 
 function merge(target, source) {
 	if (target && source) {
@@ -36,30 +36,30 @@ function merge(target, source) {
 export function columnFactory(model) {
 	const columnList = model.columnList;
 	const columnMap = {
-		'text': TextColumn,
-		'number': NumberColumn,
-		'bool': BoolColumn,
-		'date': DateColumn,
 		'array': ArrayColumn,
-		'email': EmailColumn,
-		'password': PasswordColumn,
-		'select': SelectColumn,
-		'group': GroupColumn,
-		'pivot': PivotColumn,
-		'row-number': RowNumberColumn,
-		'row-indicator': RowIndicatorColumn,
-		'row-options': RowOptionsColumn,
-		'row-expand': RowExpandColumn,
-		'row-details': RowDetailsColumn,
-		'pad': PadColumn,
-		'time': TimeColumn,
-		'url': UrlColumn,
-		'file': FileColumn,
-		'image': ImageColumn,
-		'reference': ReferenceColumn,
-		'id': IdColumn,
+		'bool': BoolColumn,
 		'currency': CurrencyColumn,
-		'custom': CustomColumn
+		'custom': CustomColumn,
+		'date': DateColumn,
+		'email': EmailColumn,
+		'file': FileColumn,
+		'group': GroupColumn,
+		'id': IdColumn,
+		'image': ImageColumn,
+		'number': NumberColumn,
+		'pad': PadColumn,
+		'password': PasswordColumn,
+		'pivot': PivotColumn,
+		'reference': ReferenceColumn,
+		'row-details': RowDetailsColumn,
+		'row-expand': RowExpandColumn,
+		'row-indicator': RowIndicatorColumn,
+		'row-number': RowNumberColumn,
+		'row-options': RowOptionsColumn,
+		'select': SelectColumn,
+		'text': TextColumn,
+		'time': TimeColumn,
+		'url': UrlColumn
 	};
 
 	const create = (entityType, columnType, body) => {

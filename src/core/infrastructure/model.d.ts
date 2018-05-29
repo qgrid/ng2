@@ -142,7 +142,7 @@ export declare class Model {
 
 	progressChanged: ModelEvent<ProgressModel>;
 	progress(value: ProgressModel, tag?: ModelTag): Model;
-	progres(): ProgressModel;
+	progress(): ProgressModel;
 
 	highlightChanged: ModelEvent<HighlightModel>;
 	highlight(value: HighlightModel, tag?: ModelTag): Model;
@@ -199,4 +199,8 @@ export declare class Model {
 	dataManipulationChanged: ModelEvent<any>;
 	dataManipulation(value: object, tag?: ModelTag): Model;
 	dataManipulation(): any;
+
+	columnFilterChanged: ModelEvent<any>;
+	columnFilter(value: object, tag?: ModelTag): Model;
+	columnFilter(): any;
 }

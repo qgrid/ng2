@@ -13,7 +13,7 @@ export class Disposable {
 
 		Guard.invokable(instance, 'instance');
 		this.disposes.push(instance);
-		return null;
+		return instance;
 	}
 
 	dispose() {

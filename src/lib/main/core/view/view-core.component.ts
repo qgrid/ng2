@@ -57,8 +57,9 @@ export class ViewCoreComponent extends NgComponent
 		this.ctrl = new ViewCtrl(model, this.view, gridService);
 
 		model.sceneChanged.watch(e => {
+			const { round, status } = e.state;
 			if (e.hasChanges('status')) {
-				switch (e.state.status) {
+				switch (status) {
 					case 'start': {
 						model.progress({ isBusy: true });
 						break;
@@ -70,7 +71,7 @@ export class ViewCoreComponent extends NgComponent
 				}
 			}
 
-			if (e.hasChanges('round') && e.state.round > 0) {
+			if (e.hasChanges('round') && round > 0) {
 				if (!NgZone.isInAngularZone()) {
 					// Run digest on the start of invalidate(e.g. for busy indicator)
 					// and on the ned of invalidate(e.g. to build the DOM)
@@ -78,7 +79,6 @@ export class ViewCoreComponent extends NgComponent
 				}
 			}
 		});
-
 	}
 
 	get model() {
@@ -90,21 +90,26 @@ export class ViewCoreComponent extends NgComponent
 	}
 
 	ngDoCheck() {
-		this.ctrl.invalidate();
+		const { status } = this.model.scene();
+		if (status === 'stop') {
+			this.ctrl.invalidate();
+		}
 	}
 
 	ngAfterViewChecked() {
 		this.sceneJob(() => {
 			const model = this.model;
-			const scene = model.scene();
-			if (scene.round > 0 && scene.status === 'start') {
+			const { round, status } = model.scene();
+			if (round > 0 && status === 'start') {
 				model.scene({
 					round: 0,
 					status: 'stop'
 				}, {
-					source: 'grid.component',
-					behavior: 'core'
-				});
+						source: 'grid.component',
+						behavior: 'core'
+					});
+
+				this.ctrl.invalidate();
 			}
 		});
 	}

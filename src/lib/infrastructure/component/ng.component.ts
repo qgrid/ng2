@@ -8,8 +8,8 @@ export abstract class NgComponent implements OnDestroy {
 	constructor() {
 	}
 
-	using<T extends Disposable>(instance: T | (() => void)): T | null {
-		return this.basket.using(instance);
+	using<T extends Disposable>(instance: T | (() => void)): T {
+		return this.basket.using(instance) as T;
 	}
 
 	ngOnDestroy() {
