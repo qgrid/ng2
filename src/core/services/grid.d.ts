@@ -18,5 +18,5 @@ export declare class GridService {
 
 	busy(): () => void;
 
-	focus(): void;
+	focus(rowIndex?: number, columnIndex?: number): void;
 }

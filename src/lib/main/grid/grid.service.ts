@@ -19,7 +19,7 @@ export class GridService {
 		return new Model();
 	}
 
-	service(model) {
+	service(model: Model) {
 		return new GridCoreService(model);
 	}
 
