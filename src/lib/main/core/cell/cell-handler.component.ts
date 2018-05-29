@@ -12,11 +12,13 @@ import { ViewCoreService } from '../../../main/core/view/view-core.service';
 })
 export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private job = jobLine(150);
+	private markerJob = jobLine(150);
 	private startCell: CellView = null;
 	private initialSelectionMode: 'single' | 'multiple' | 'range' = null;
 	private initialEditState: 'view' | 'edit' | 'startBatch' | 'endBatch' = null;
 
 	constructor(private element: ElementRef, private root: RootService, private view: ViewCoreService) {
+		Fastdom.mutate(() => element.nativeElement.style.visibility = 'hidden');
 	}
 
 	@ViewChild('marker') marker: ElementRef;
@@ -84,6 +86,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
+		Fastdom.mutate(() => this.element.nativeElement.style.visibility = 'visible');
 		const model = this.root.model;
 		const editService = new EditService(model, this.root.table);
 		let prevCell = null;
@@ -112,9 +115,11 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 						Fastdom.mutate(() => this.marker.nativeElement.remove());
 					}
 
+					prevCell = cell.model;
 					if (cell) {
-						prevCell = cell.model;
-						Fastdom.mutate(() => prevCell.element.appendChild(this.marker.nativeElement));
+						this.markerJob(() => {
+							Fastdom.mutate(() => prevCell.element.appendChild(this.marker.nativeElement));
+						});
 					} else {
 						prevCell = null;
 					}
