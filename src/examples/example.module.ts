@@ -26,6 +26,8 @@ import { ExampleDetailsRowBasicComponent } from './details-row-basic/example-det
 import { ExampleDragRowBasicComponent } from './drag-row-basic/example-drag-row-basic.component';
 import { ExampleDragColumnBasicComponent } from './drag-column-basic/example-drag-column-basic.component';
 import { ExampleEditCellBatchComponent } from './edit-cell-batch/example-edit-cell-batch.component';
+import { ExampleFilterConditionBasicComponent } from './filter-condition-basic/example-filter-condition-basic.component';
+import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filter-row-basic.component';
 
 const EXAMPLES: Array<any> = [
     ExampleLookPeopleBasicComponent,
@@ -45,6 +47,8 @@ const EXAMPLES: Array<any> = [
     ExampleDragColumnBasicComponent,
     ExampleActionBarBasicComponent,
     ExampleDetailsRowBasicComponent,
+    ExampleFilterConditionBasicComponent,
+    ExampleFilterRowBasicComponent,
     ExamplePluginGridBasicComponent,
     ExampleDestroyGridBasicComponent,
     ExampleDestroyGridModelComponent
