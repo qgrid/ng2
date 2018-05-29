@@ -28,22 +28,22 @@ import { GridService } from '../../../main/grid/grid.service';
 export class ViewCoreService implements OnDestroy {
 	private dispose: () => void = null;
 
-	public group: GroupView = null;
-	public filter: FilterView = null;
-	public pivot: PivotView = null;
-	public sort: SortView = null;
-	public pagination: PaginationView = null;
-	public head: HeadView = null;
 	public body: BodyView = null;
-	public foot: FootView = null;
-	public layout: LayoutView = null;
-	public selection: SelectionView = null;
-	public highlight: HighlightView = null;
 	public edit: EditView = null;
+	public filter: FilterView = null;
+	public foot: FootView = null;
+	public group: GroupView = null;
+	public head: HeadView = null;
+	public highlight: HighlightView = null;
+	public layout: LayoutView = null;
 	public nav: NavigationView = null;
-	public scroll: ScrollView = null;
-	public style: StyleView = null;
+	public pagination: PaginationView = null;
+	public pivot: PivotView = null;
 	public rowDetails: RowDetailsView = null;
+	public scroll: ScrollView = null;
+	public selection: SelectionView = null;
+	public sort: SortView = null;
+	public style: StyleView = null;
 
 	constructor(
 		private gridServiceFactory: GridService,

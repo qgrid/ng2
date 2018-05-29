@@ -124,7 +124,7 @@ export class GridComponent extends RootComponent implements OnInit {
 		this.rootService.table = ctrl.table;
 		this.rootService.bag = ctrl.bag;
 		this.rootService.markup = ctrl.markup;
-		
+
 		this.rootService.commandManager = new TableCommandManager(
 			f => f(),
 			ctrl.table
@@ -143,11 +143,18 @@ export class GridComponent extends RootComponent implements OnInit {
 					const result = ctrl.keyDown(e);
 					if (result.indexOf('navigation') >= 0) {
 						navJob(() => this.app.tick());
+					} else if (result.length) {
+						this.app.tick();
 					}
 				});
 			});
 		} else {
-			listener.on('keydown', e => ctrl.keyDown(e));
+			listener.on('keydown', e => {
+				const result = ctrl.keyDown(e);
+				if (result.length) {
+					this.app.tick();
+				}
+			});
 		}
 	}
 
