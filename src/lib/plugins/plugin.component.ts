@@ -66,7 +66,7 @@ export class PluginComponent extends NgComponent implements OnInit, OnChanges, O
 			return this.modelProxy.subject;
 		}
 
-		if (model !== this.modelProxy.subject) {
+		if (model !== this.modelProxy.target) {
 			this.modelProxy.dispose();
 			this.modelProxy = new ModelProxy(model);
 			return this.modelProxy.subject;

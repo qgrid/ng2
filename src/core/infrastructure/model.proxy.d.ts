@@ -1,8 +1,9 @@
 import { Model } from './model';
+import { Disposable } from '../infrastructure/disposable';
 
-export declare class ModelProxy {
+export declare class ModelProxy extends Disposable {
 	constructor(model: Model)
 
-	subject: Model;
-	dispose(): void;
+	target: Model;
+	subject: Model;	
 }

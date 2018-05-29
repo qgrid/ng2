@@ -31,7 +31,7 @@ export class RootService implements OnDestroy {
 
 	set model(value: Model) {
 		if (this.modelProxy) {
-			if (this.modelProxy.subject !== value) {
+			if (this.modelProxy.target !== value) {
 				this.modelProxy.dispose();
 				this.modelProxy = new ModelProxy(value);
 				return;

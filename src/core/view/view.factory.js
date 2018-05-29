@@ -46,23 +46,24 @@ export function viewFactory(
 	};
 
 	return host => {
-		host.body = new BodyView(proxy.subject, table);
-		host.edit = new EditView(proxy.subject, table, navigationShortuct);
-		host.filter = new FilterView(proxy.subject);
-		host.foot = new FootView(proxy.subject, table);
-		host.group = new GroupView(proxy.subject, table, commandManager, gridService);
-		host.head = new HeadView(proxy.subject, table, selectors.th);
-		host.highlight = new HighlightView(proxy.subject, table);
-		host.layout = new LayoutView(proxy.subject, table, gridService);
-		host.nav = new NavigationView(proxy.subject, table, navigationShortuct);
-		host.pagination = new PaginationView(proxy.subject);
-		host.pivot = new PivotView(proxy.subject);
-		host.row = new RowView(proxy.subject, selectors.tr);
-		host.rowDetails = new RowDetailsView(proxy.subject, table, commandManager);
-		host.scroll = new ScrollView(proxy.subject, table, vscroll);
-		host.selection = new SelectionView(proxy.subject, table, selectionShortcut);
-		host.sort = new SortView(proxy.subject);
-		host.style = new StyleView(proxy.subject, table);
+		const modelProxy = proxy.subject;
+		host.body = new BodyView(modelProxy, table);
+		host.edit = new EditView(modelProxy, table, navigationShortuct);
+		host.filter = new FilterView(modelProxy);
+		host.foot = new FootView(modelProxy, table);
+		host.group = new GroupView(modelProxy, table, commandManager, gridService);
+		host.head = new HeadView(modelProxy, table, selectors.th);
+		host.highlight = new HighlightView(modelProxy, table);
+		host.layout = new LayoutView(modelProxy, table, gridService);
+		host.nav = new NavigationView(modelProxy, table, navigationShortuct);
+		host.pagination = new PaginationView(modelProxy);
+		host.pivot = new PivotView(modelProxy);
+		host.row = new RowView(modelProxy, selectors.tr);
+		host.rowDetails = new RowDetailsView(modelProxy, table, commandManager);
+		host.scroll = new ScrollView(modelProxy, table, vscroll);
+		host.selection = new SelectionView(modelProxy, table, selectionShortcut);
+		host.sort = new SortView(modelProxy);
+		host.style = new StyleView(modelProxy, table);
 
 		return () => {
 			host.layout.dispose();

@@ -20,7 +20,7 @@ export class PluginService implements OnDestroy {
             return this.modelProxy.subject;
         }
 
-        if (model !== this.modelProxy.subject) {
+        if (model !== this.modelProxy.target) {
             this.modelProxy.dispose();
             Guard.notNull(model, 'model');
 

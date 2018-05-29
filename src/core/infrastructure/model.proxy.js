@@ -2,7 +2,7 @@ import { Guard } from './guard';
 import { Disposable } from './disposable';
 
 export class ModelProxy extends Disposable {
-    constructor(model) {
+    constructor(target) {
         super();
 
         const modelHandler = {
@@ -21,6 +21,7 @@ export class ModelProxy extends Disposable {
             }
         };
 
-        this.subject = new Proxy(model, modelHandler);
+        this.target = target;
+        this.subject = new Proxy(target, modelHandler);
     }
 }
