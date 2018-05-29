@@ -45,6 +45,6 @@ export class RootComponent extends NgComponent implements OnChanges, OnDestroy {
 			run = false;
 		}
 
-		return this.binder.bind(this.model, this.models, run);
+		return this.binder.bound(this.model, this.models, run);
 	}
 }

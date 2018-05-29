@@ -15,7 +15,7 @@ export class ModelComponent extends NgComponent implements OnChanges, OnInit, On
 	}
 
 	setup() {
-		return this.binder.bind(this.model, this.models, false);
+		return this.binder.bound(this.model, this.models, false);
 	}
 
 	ngOnInit() {
@@ -29,7 +29,7 @@ export class ModelComponent extends NgComponent implements OnChanges, OnInit, On
 
 	ngOnDestroy() {
 		super.ngOnDestroy();
-						
+
 		this.binder.dispose();
 	}
 

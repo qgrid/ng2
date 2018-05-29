@@ -57,6 +57,6 @@ export class PluginComponent extends NgComponent
 	}
 
 	private setup() {
-		return this.binder.bind(this.model, this.models, false);
+		return this.binder.bound(this.model, this.models, false);
 	}
 }

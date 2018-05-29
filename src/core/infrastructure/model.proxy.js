@@ -36,7 +36,8 @@ export class ModelProxy {
     }
 
     dispose() {
-        const temp = Array.from(this.disposes);
+        const temp = this.disposes;
+        this.disposes = [];
         for (let dispose of temp) {
             dispose();
         }

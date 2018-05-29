@@ -7,7 +7,6 @@ export class ModelBinder extends Disposable {
 		super();
 
 		this.subject = subject;
-		this.off = noop;
 	}
 
 	canWrite(oldValue, newValue, key) {
@@ -25,9 +24,7 @@ export class ModelBinder extends Disposable {
 		return true;
 	}
 
-	bind(model, names, run = true) {
-		this.dispose();
-
+	bound(model, names, run = true) {
 		const subject = this.subject;
 		if (model) {
 			const commits = [];
@@ -64,7 +61,7 @@ export class ModelBinder extends Disposable {
 					for (let key of Object.keys(oldState)) {
 						const sourceKey = toCamelCase(name, key);
 						if (subject.hasOwnProperty(sourceKey)) {
-							let value = subject[sourceKey];
+							const value = subject[sourceKey];
 							if (this.canWrite(oldState[key], value, key)) {
 								newState[key] = value;
 							}
