@@ -3,10 +3,10 @@ import { Disposable } from './disposable';
 import { Log } from './log';
 
 export class ModelBinder extends Disposable {
-	constructor(subject) {
+	constructor(host) {
 		super();
 
-		this.subject = subject;
+		this.host = host;
 	}
 
 	canWrite(oldValue, newValue, key) {
@@ -25,49 +25,28 @@ export class ModelBinder extends Disposable {
 	}
 
 	bound(model, names, run = true) {
-		const subject = this.subject;
+		const host = this.host;
 		if (model) {
 			const commits = [];
 			for (let name of names) {
-				const doBind = e => {
-					Log.info('model.bind', `to ctrl "${name}[${Object.keys(e.changes).join(', ')}]"`);
-
-					for (let key of Object.keys(e.changes)) {
-						const sourceKey = toCamelCase(name, key);
-						if (subject.hasOwnProperty(sourceKey)) {
-							subject[sourceKey] = e.changes[key].newValue;
-						}
-					}
-				};
-
 				const state = model[name];
+				const pack = this.packFactory(name);
+				const write = this.writeFactory(name);
+
 				if (run) {
-					const value = state();
-					doBind({
-						changes: {
-							newValue: value,
-							oldValue: value
-						}
-					});
+					const oldState = state();
+					const newState = pack(oldState);
+					const changes = this.buildChanges(newState);
+					write({ changes });
 				}
 
-				this.using(model[name + 'Changed'].on(doBind));
+				this.using(model[name + 'Changed'].on(write));
 
 				commits.push(() => {
 					Log.info('model.bind', `to model "${name}"`);
 
 					const oldState = state();
-					const newState = {};
-					for (let key of Object.keys(oldState)) {
-						const sourceKey = toCamelCase(name, key);
-						if (subject.hasOwnProperty(sourceKey)) {
-							const value = subject[sourceKey];
-							if (this.canWrite(oldState[key], value, key)) {
-								newState[key] = value;
-							}
-						}
-					}
-
+					const newState = pack(oldState);
 					state(newState);
 				});
 			}
@@ -76,5 +55,53 @@ export class ModelBinder extends Disposable {
 		}
 
 		return noop;
+	}
+
+	writeFactory(name) {
+		const host = this.host;
+		return e => {
+			const changes = Object.keys(e.changes);
+			console.log('model.bind', `to ctrl "${name}[${changes.join(', ')}]"`);
+
+			for (let diffKey of changes) {
+				const hostKey = toCamelCase(name, diffKey);
+				if (host.hasOwnProperty(hostKey)) {
+					const diff = e.changes[diffKey];
+					host[hostKey] = diff.newValue;
+				}
+			}
+		};
+	}
+
+	packFactory(name) {
+		return state => {
+			const host = this.host;
+			const newState = {};
+			for (let stateKey of Object.keys(state)) {
+				const hostKey = toCamelCase(name, stateKey);
+				if (host.hasOwnProperty(hostKey)) {
+					const oldValue = state[stateKey];
+					const newValue = host[hostKey];
+					if (this.canWrite(oldValue, newValue, stateKey)) {
+						newState[stateKey] = newValue;
+					}
+				}
+			}
+
+			return newState;
+		};
+	}
+
+	buildChanges(state) {
+		return Object
+			.keys(state)
+			.reduce((memo, key) => {
+				const value = state[key];
+				memo[key] = {
+					newValue: value,
+					oldValue: value
+				};
+				return memo;
+			}, {})
 	}
 }

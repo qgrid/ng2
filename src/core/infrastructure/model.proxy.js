@@ -1,8 +1,9 @@
 import { Guard } from './guard';
+import { Disposable } from './disposable';
 
-export class ModelProxy {
+export class ModelProxy extends Disposable {
     constructor(model) {
-        const disposes = this.disposes = [];
+        super();
 
         const modelHandler = {
             get: (target, key) => {
@@ -10,19 +11,7 @@ export class ModelProxy {
 
                 if (key.endsWith('Changed')) {
                     const eventHandler = {
-                        get: (event, key) => {
-                            return (...args) => {
-                                const off = event[key](...args);
-                                disposes.push(off);
-                                return () => {
-                                    off();
-                                    const index = disposes.indexOf(off);
-                                    if (index >= 0) {
-                                        disposes.splice(index, 1);
-                                    }
-                                };
-                            }
-                        }
+                        get: (event, key) => (...args) => this.using(event[key](...args))
                     };
 
                     return new Proxy(target[key], eventHandler);
@@ -33,13 +22,5 @@ export class ModelProxy {
         };
 
         this.subject = new Proxy(model, modelHandler);
-    }
-
-    dispose() {
-        const temp = this.disposes;
-        this.disposes = [];
-        for (let dispose of temp) {
-            dispose();
-        }
     }
 }
