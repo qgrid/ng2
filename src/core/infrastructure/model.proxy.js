@@ -11,7 +11,17 @@ export class ModelProxy {
                 if (key.endsWith('Changed')) {
                     const eventHandler = {
                         get: (event, key) => {
-                            return (...args) => disposes.push(event[key](...args));
+                            return (...args) => {
+                                const off = event[key](...args);
+                                disposes.push(off);
+                                return () => {
+                                    off();
+                                    const index = disposes.indexOf(off);
+                                    if (index >= 0) {
+                                        disposes.splice(index, 1);
+                                    }
+                                };
+                            }
                         }
                     };
 
@@ -26,9 +36,9 @@ export class ModelProxy {
     }
 
     dispose() {
-        const temp = Array.from(this.disposes);		
-		for (let dispose of temp) {
-			dispose();
-		}
+        const temp = Array.from(this.disposes);
+        for (let dispose of temp) {
+            dispose();
+        }
     }
 }
