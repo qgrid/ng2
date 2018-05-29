@@ -30,6 +30,7 @@ import { ExampleFilterConditionBasicComponent } from './filter-condition-basic/e
 import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filter-row-basic.component';
 import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
 import { ExamplePersistenceBasicComponent } from './persistence-basic/example-persistence-basic.component';
+import { ExamplePaginationBasicComponent } from './pagination-basic/example-pagination-basic.component';
 
 const EXAMPLES: Array<any> = [
     ExampleLookPeopleBasicComponent,
@@ -49,6 +50,7 @@ const EXAMPLES: Array<any> = [
     ExampleDragColumnBasicComponent,
     ExampleActionBarBasicComponent,
     ExampleDetailsRowBasicComponent,
+    ExamplePaginationBasicComponent,
     ExampleFilterConditionBasicComponent,
     ExampleFilterRowBasicComponent,
     ExampleFocusCellAutoComponent,
