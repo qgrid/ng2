@@ -1,0 +1,24 @@
+<q-grid header="Look Legend"
+        [rows]="rows | async">
+	<q-grid-columns generation="deep">
+	</q-grid-columns>
+
+	<q-grid-legend>
+		<ng-template for="content">
+			<ul class="q-grid-legend-list">
+				<li>
+					<div class="q-grid-legend-item male"></div>
+					Male
+				</li>
+				<li>
+					<div class="q-grid-legend-item female"></div>
+					Female
+				</li>
+				<li>
+					<div class="q-grid-legend-item undef"></div>
+					Undefined
+				</li>
+			</ul>
+		</ng-template>
+	</q-grid-legend>
+</q-grid>
