@@ -28,6 +28,7 @@ import { ExampleDragColumnBasicComponent } from './drag-column-basic/example-dra
 import { ExampleEditCellBatchComponent } from './edit-cell-batch/example-edit-cell-batch.component';
 import { ExampleFilterConditionBasicComponent } from './filter-condition-basic/example-filter-condition-basic.component';
 import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filter-row-basic.component';
+import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
 
 const EXAMPLES: Array<any> = [
     ExampleLookPeopleBasicComponent,
@@ -49,6 +50,7 @@ const EXAMPLES: Array<any> = [
     ExampleDetailsRowBasicComponent,
     ExampleFilterConditionBasicComponent,
     ExampleFilterRowBasicComponent,
+    ExampleFocusCellAutoComponent,
     ExamplePluginGridBasicComponent,
     ExampleDestroyGridBasicComponent,
     ExampleDestroyGridModelComponent
