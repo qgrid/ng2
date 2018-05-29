@@ -1,0 +1,32 @@
+<q-grid header="Details Row Basic"
+        [rows]="rows | async">
+	<q-grid-columns>
+		<q-grid-column key="number"
+		               type="id"
+		               title="#"
+		               width="70">
+		</q-grid-column>
+		<q-grid-column key="symbol"
+		               title="Symbol"
+		               width="90">
+		</q-grid-column>
+		<q-grid-column key="name"
+		               title="Name">
+		</q-grid-column>
+		<q-grid-column key="source"
+		               title="Source"
+		               type="url"
+		               width="300">
+		</q-grid-column>
+	</q-grid-columns>
+
+	<q-grid-row unit="details"
+	            mode="single">
+		<ng-template for="details"
+		             let-$cell>
+			<ul>
+				<li>{{$cell.row.item.color}}</li>
+			</ul>
+		</ng-template>
+	</q-grid-row>
+</q-grid>

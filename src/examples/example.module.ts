@@ -22,6 +22,7 @@ import { ExampleManipulateDataBasicComponent } from './manipulate-data-basic/exa
 import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plugin-grid-basic.component';
 import { ExamplePluginMyPagerComponent } from './plugin-grid-basic/example-plugin-my-pager.component';
 import { ExampleActionBarBasicComponent } from './action-bar-basic/example-action-bar-basic.component';
+import { ExampleDetailsRowBasicComponent } from './details-row-basic/example-details-row-basic.component';
 
 const EXAMPLES: Array<any> = [
     ExampleLookPeopleBasicComponent,
@@ -37,6 +38,7 @@ const EXAMPLES: Array<any> = [
     ExampleStyleRowBasicComponent,
     ExampleManipulateDataBasicComponent,
     ExampleActionBarBasicComponent,
+    ExampleDetailsRowBasicComponent,
     ExamplePluginGridBasicComponent,
     ExampleDestroyGridBasicComponent,
     ExampleDestroyGridModelComponent
