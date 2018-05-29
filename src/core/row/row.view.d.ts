@@ -10,5 +10,5 @@ export declare class RowView {
 
 	drop: Command;
 	drag: Command;
-	canDrag: boolean;
+	canMove: boolean;
 }

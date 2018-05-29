@@ -36,7 +36,7 @@ import { Model } from '../infrastructure/model';
  *		},
  *		'row': {
  *		   'status': PU.rowDetails,
- *         'canDrag': PU.column,
+ *         'canMove': PU.column,
  *         'canResize': PU.column
  *		},
  *		'selection': {

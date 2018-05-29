@@ -63,8 +63,8 @@ export class RowView {
 		};
 	}
 
-	get canDrag() {
-		return this.model.row().canDrag;
+	get canMove() {
+		return this.model.row().canMove;
 	}
 
 	get canResize() {

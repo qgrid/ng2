@@ -164,7 +164,7 @@ function rowIndicatorColumnFactory(model) {
 	const dataColumns = model.data().columns;
 	const rowIndicatorColumn = dataColumns.find(item => item.type === 'row-indicator');
 	const rowState = model.row();
-	if ((rowState.canDrag || rowState.canResize) && !rowIndicatorColumn) {
+	if ((rowState.canMove || rowState.canResize) && !rowIndicatorColumn) {
 		const createColumn = columnFactory(model);
 		return (columns, context) => {
 			const expandColumn = createColumn('row-indicator');

@@ -11,7 +11,7 @@ export class RowModel {
 		this.shortcut = {
 			toggle: 'space|enter'
 		};
-		this.canDrag = false;
+		this.canMove = false;
 		this.canResize = false;
 	}
 }

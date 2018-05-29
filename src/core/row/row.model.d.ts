@@ -13,6 +13,6 @@ export declare interface RowModel {
 	unit?: 'data' | 'details';
 	height?: (element: HTMLElement, index: number) => number | number;
 	status?: Map<any, any>;
-	canDrag?: boolean;
+	canMove?: boolean;
 	canResize?: boolean;
 }

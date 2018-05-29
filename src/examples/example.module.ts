@@ -34,6 +34,7 @@ import { ExampleSelectCellBasicComponent } from './select-cell-basic/example-sel
 import { ExampleSelectRowBasicComponent } from './select-row-basic/example-select-row-basic.component';
 import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
+import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-basic.component';
 
 const EXAMPLES: Array<any> = [
     ExampleActionBarBasicComponent,
@@ -64,6 +65,7 @@ const EXAMPLES: Array<any> = [
     ExampleSelectRowBasicComponent,
     ExampleSortRowComponent,
     ExampleStyleRowBasicComponent,
+    ExampleSizeRowBasicComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;

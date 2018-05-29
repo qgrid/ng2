@@ -12,7 +12,7 @@ import { TemplateHostService } from '../../../template/template-host.service';
 export class RowComponent extends ModelComponent {
 	@Input('mode') public rowMode: string;
 	@Input('unit') public rowUnit: string;
-	@Input('canDrag') public rowCanDrag: boolean;
+	@Input('canMove') public rowCanMove: boolean;
 	@Input('canResize') public rowCanResize: boolean;
 
 	constructor(root: RootService, templateHost: TemplateHostService) {
