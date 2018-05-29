@@ -1,4 +1,5 @@
 import { OnDestroy, OnInit, Optional, Component } from '@angular/core';
+import { Action } from 'ng2-qgrid/core/action/action';
 import { RootService } from '../../infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 
@@ -32,7 +33,7 @@ export class ActionBarComponent extends PluginComponent
 		})
 	}
 
-	get actions() {
+	get actions(): Action[] {
 		return this.model.action().items;
 	}
 

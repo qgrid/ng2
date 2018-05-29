@@ -59,7 +59,7 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 				const items = columnFilter.items;
 				if (filterState.fetch !== this.qgrid.noop) {
 					const cancelBusy = service.busy();
-					const select = filterState
+					const select = filterState					
 						.fetch(key, {
 							skip,
 							take,
@@ -79,7 +79,7 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 				} else {
 					const cancelBusy = service.busy();
 					const isBlank = model.filter().assertFactory().isNull;
-					try {
+					try {						
 						if (!items.length) {
 							const source = model[model.columnFilter().source];
 							let items = source().rows.map(columnFilter.getValue);
