@@ -18,6 +18,7 @@ import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filte
 import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
 import { ExampleFocusCellComponent } from './focus-cell-basic/example-focus-cell.component';
 import { ExampleGroupRowBasicComponent } from './group-row-basic/example-group-row-basic.component';
+import { ExampleImportCsvBasicComponent } from './import-csv-basic/example-import-csv-basic.component';
 import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
 import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/example-look-atoms-customized.component';
 import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-atoms-model.component';
@@ -50,7 +51,8 @@ const EXAMPLES: Array<any> = [
     ExampleFilterRowBasicComponent,
     ExampleFocusCellAutoComponent,
     ExampleFocusCellComponent,
-    ExampleGroupRowBasicComponent,
+	 ExampleGroupRowBasicComponent,
+	 ExampleImportCsvBasicComponent,
     ExampleLookAtomsBasicComponent,
     ExampleLookAtomsCustomizedComponent,
     ExampleLookAtomsModelComponent,
