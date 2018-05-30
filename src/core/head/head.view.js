@@ -119,6 +119,15 @@ export class HeadView {
 		return row.filter(c => c.model.pin === pin);
 	}
 
+    get lastRow() {
+        let lastRowIndex = this.rows.length - 1;
+
+        if(lastRowIndex < 0) {
+            return null;
+        }
+        return this.rows[lastRowIndex]
+    }
+
 	invalidate() {
 		Log.info('view.head', 'invalidate');
 

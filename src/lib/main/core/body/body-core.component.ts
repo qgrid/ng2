@@ -25,7 +25,7 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 	) {
 		super();
 	}
-
+    
 	ngOnInit() {
 		const view = this.$view;
 		const element = this.element.nativeElement as HTMLElement;

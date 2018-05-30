@@ -22,7 +22,7 @@ export class HeadCoreComponent extends NgComponent implements OnInit {
 	) {
 		super();
 	}
-
+    
 	ngOnInit() {
 		const element = this.element.nativeElement;
 		const ctrl = new HeadCtrl(this.root.model, this.$view, this.root.bag);

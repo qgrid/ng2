@@ -29,6 +29,15 @@ export class BodyView {
 		}
 	}
 
+    get lastRow() {
+        let lastRowIndex = this.rows.length - 1;
+
+        if(lastRowIndex < 0) {
+            return null;
+        }
+        return this.rows[lastRowIndex]
+    }
+
 	invalidate() {
 		Log.info('view.body', 'invalidate');
 
