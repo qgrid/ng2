@@ -37,6 +37,7 @@ import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.compo
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
 import { ExampleAggregateColumnBasicComponent } from './aggregate-column-basic/example-aggregate-column-basic.component';
+import { ExampleDefineColumnBasicComponent } from './define-column-basic/example-define-column-basic.component';
 
 const EXAMPLES: Array<any> = [
     ExampleActionBarBasicComponent,
@@ -70,6 +71,7 @@ const EXAMPLES: Array<any> = [
     ExampleStyleCellBasicComponent,
     ExampleStyleRowBasicComponent,
     ExampleAggregateColumnBasicComponent,
+    ExampleDefineColumnBasicComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
