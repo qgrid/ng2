@@ -39,72 +39,74 @@ import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
 
 const EXAMPLES: Array<any> = [
-    ExampleActionBarBasicComponent,
-    ExampleDestroyGridBasicComponent,
-    ExampleDestroyGridModelComponent,
-    ExampleDetailsRowBasicComponent,
-    ExampleDragColumnBasicComponent,
-    ExampleDragRowBasicComponent,
-    ExampleEditCellBasicComponent,
-    ExampleEditCellBatchComponent,
-    ExampleFilterConditionBasicComponent,
-    ExampleFilterRowBasicComponent,
-    ExampleFocusCellAutoComponent,
-    ExampleFocusCellComponent,
-	 ExampleGroupRowBasicComponent,
-	 ExampleImportCsvBasicComponent,
-    ExampleLookAtomsBasicComponent,
-    ExampleLookAtomsCustomizedComponent,
-    ExampleLookAtomsModelComponent,
-    ExampleLookPeopleBasicComponent,
-    ExampleLookPeopleModelComponent,
-    ExampleManipulateDataBasicComponent,
-    ExamplePaginationBasicComponent,
-    ExamplePersistenceBasicComponent,
-    ExamplePinColumnBasicComponent,
-    ExamplePivotColumnBasicComponent,
-    ExamplePluginGridBasicComponent,
-    ExampleSelectCellBasicComponent,
-    ExampleSelectRowBasicComponent,
-    ExampleSortRowComponent,
-    ExampleStyleRowBasicComponent,
-    ExampleSizeRowBasicComponent,
-    ExampleStyleCellBasicComponent,
+	ExampleActionBarBasicComponent,
+	ExampleDestroyGridBasicComponent,
+	ExampleDestroyGridModelComponent,
+	ExampleDetailsRowBasicComponent,
+	ExampleDragColumnBasicComponent,
+	ExampleDragRowBasicComponent,
+	ExampleEditCellBasicComponent,
+	ExampleEditCellBatchComponent,
+	ExampleFilterConditionBasicComponent,
+	ExampleFilterRowBasicComponent,
+	ExampleFocusCellAutoComponent,
+	ExampleFocusCellComponent,
+	ExampleGroupRowBasicComponent,
+	ExampleImportCsvBasicComponent,
+	ExampleLookAtomsBasicComponent,
+	ExampleLookAtomsCustomizedComponent,
+	ExampleLookAtomsModelComponent,
+	ExampleLookPeopleBasicComponent,
+	ExampleLookPeopleModelComponent,
+	ExampleManipulateDataBasicComponent,
+	ExamplePaginationBasicComponent,
+	ExamplePersistenceBasicComponent,
+	ExamplePinColumnBasicComponent,
+	ExamplePivotColumnBasicComponent,
+	ExamplePluginGridBasicComponent,
+	ExampleSelectCellBasicComponent,
+	ExampleSelectRowBasicComponent,
+	ExampleSortRowComponent,
+	ExampleStyleRowBasicComponent,
+	ExampleSizeRowBasicComponent,
+	ExampleStyleCellBasicComponent
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
+
 function toPath(componentType: Function) {
-    const name = PATH_REGEX.exec(componentType.name)[1];
-    return name
-        .split(/(?=[A-Z])/)
-        .map(part => part.toLowerCase())
-        .join('-');
+	const name = PATH_REGEX.exec(componentType.name)[ 1 ];
+	return name
+		.split(/(?=[A-Z])/)
+		.map(part => part.toLowerCase())
+		.join('-');
 }
 
 export const exampleRoutes: Routes =
-    EXAMPLES
-        .map<Route>(example => ({
-            path: toPath(example),
-            component: example
-        }))
-        .concat([
-            {
-                path: '',
-                redirectTo: toPath(ExampleLookPeopleBasicComponent),
-                pathMatch: 'full'
-            }
-        ]);
+	EXAMPLES
+		.map<Route>(example => ({
+			path: toPath(example),
+			component: example
+		}))
+		.concat([
+			{
+				path: '',
+				redirectTo: toPath(ExampleLookPeopleBasicComponent),
+				pathMatch: 'full'
+			}
+		]);
 
 @NgModule({
-    declarations: EXAMPLES.concat([
-        ExamplePluginMyPagerComponent
-    ]),
-    exports: EXAMPLES,
-    imports: [
-        GridModule,
-        ThemeModule,
-        CommonModule,
-        MatButtonModule
-    ]
+	declarations: EXAMPLES.concat([
+		ExamplePluginMyPagerComponent
+	]),
+	exports: EXAMPLES,
+	imports: [
+		GridModule,
+		ThemeModule,
+		CommonModule,
+		MatButtonModule
+	]
 })
-export class ExampleModule { }
+export class ExampleModule {
+}
