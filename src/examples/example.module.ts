@@ -26,6 +26,7 @@ import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/exa
 import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-atoms-model.component';
 import { ExampleLookPeopleBasicComponent } from './look-people-basic/example-look-people-basic.component';
 import { ExampleLookPeopleModelComponent } from './look-people-model/example-look-people-model.component';
+import { ExampleLegendBasicComponent } from './legend-basic/example-legend-basic.component';
 import { ExampleManipulateDataBasicComponent } from './manipulate-data-basic/example-manipulate-data-basic.component';
 import { ExamplePaginationBasicComponent } from './pagination-basic/example-pagination-basic.component';
 import { ExamplePersistenceBasicComponent } from './persistence-basic/example-persistence-basic.component';
@@ -62,6 +63,7 @@ const EXAMPLES: Array<any> = [
     ExampleLookAtomsModelComponent,
     ExampleLookPeopleBasicComponent,
     ExampleLookPeopleModelComponent,
+    ExampleLegendBasicComponent,
     ExampleManipulateDataBasicComponent,
     ExamplePaginationBasicComponent,
     ExamplePersistenceBasicComponent,
