@@ -1,0 +1,12 @@
+<q-grid-core-layer></q-grid-core-layer>
+<q-grid-core-table *ngIf="visibility.pin.left"
+                   pin="left"
+                   class="q-grid-table q-grid-table-left layout-column">
+</q-grid-core-table>
+<q-grid-core-table class="q-grid-table q-grid-table-center layout-column flex">
+</q-grid-core-table>
+<q-grid-core-table *ngIf="visibility.pin.right"
+                   pin="right"
+                   class="q-grid-table q-grid-table-right layout-column">
+</q-grid-core-table>
+<q-grid-cell-handler class="q-grid-cell-handler"></q-grid-cell-handler>

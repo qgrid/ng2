@@ -1,0 +1,17 @@
+<ng-template key="plugin-column-filter-trigger.tpl.html" let-$columnFilterTrigger>
+	<button mat-icon-button
+			tabindex="-1"
+			#trigger="matMenuTrigger"
+			[matMenuTriggerFor]="menu"
+			aria-label="Column filter">
+		<mat-icon class="q-grid-icon">filter_list</mat-icon>
+	</button>
+	<mat-menu #menu="matMenu" class="q-grid-column-filter q-grid-menu">
+		<q-grid-column-filter q-grid-menu
+							  *ngIf="trigger.menuOpen"
+							  [column]="$columnFilterTrigger.column"
+							  (cancel)="trigger.closeMenu()"
+							  (submit)="trigger.closeMenu()">
+		</q-grid-column-filter>
+	</mat-menu>
+</ng-template>

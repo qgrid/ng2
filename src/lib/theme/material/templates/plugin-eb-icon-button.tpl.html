@@ -1,0 +1,11 @@
+<ng-template key="plugin-eb-icon-button.tpl.html"
+             let-$expr>
+	<button class="q-grid-query-builder-icon-button"
+	        (click)="$expr.click && $expr.click($event)"
+	        [ngClass]="$expr.classes"
+	        mat-icon-button>
+		<mat-icon class="q-grid-icon">
+			{{ $expr.icon }}
+		</mat-icon>
+	</button>
+</ng-template>

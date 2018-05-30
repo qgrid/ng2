@@ -1,0 +1,17 @@
+<ng-template key="plugin-action-core.tpl.html"
+             let-$action>
+	<div class="q-grid-action"
+	     [ngSwitch]="!!$action.templateUrl">
+		<ng-container *ngSwitchCase="true"
+			      [key]="$action.templateUrl">
+		</ng-container>
+		<button *ngSwitchDefault
+		        mat-icon-button
+		        (click)="$action.execute()"
+		        [disabled]="!$action.canExecute()"
+		        [matTooltip]="$action.title"
+		        tabindex="-1">
+			<mat-icon class="q-grid-icon">{{$action.icon}}</mat-icon>
+		</button>
+	</div>
+</ng-template>

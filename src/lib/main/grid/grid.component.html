@@ -1,0 +1,29 @@
+<ng-container *ngComponentOutlet="themeComponent"></ng-container>
+<q-grid-box class="q-grid-box layout-column"
+            q-grid-markup="box">
+    <q-grid-core-toolbar position="top"
+                         class="q-grid-toolbar q-grid-toolbar-top flex-auto"
+                         *ngIf="visibility.toolbar.top">
+    </q-grid-core-toolbar>
+    <div class="flex-100 layout-row"
+         [ngClass]="{
+		  	'q-grid-with-left-pin': visibility.pin.left,
+		  	'q-grid-with-right-pin': visibility.pin.right
+		  }">
+        <q-grid-core-toolbar position="left"
+                             class="q-grid-toolbar q-grid-toolbar-left flex-auto"
+                             *ngIf="visibility.toolbar.left">
+        </q-grid-core-toolbar>
+        <q-grid-core-view class="q-grid-view layout-row flex"
+                          q-grid-markup="view">
+        </q-grid-core-view>
+        <q-grid-core-toolbar position="right"
+                             class="q-grid-toolbar q-grid-toolbar-right flex-auto"
+                             *ngIf="visibility.toolbar.right">
+        </q-grid-core-toolbar>
+    </div>
+    <q-grid-core-toolbar position="bottom"
+                         class="q-grid-toolbar q-grid-toolbar-bottom flex-auto"
+                         *ngIf="visibility.toolbar.bottom">
+    </q-grid-core-toolbar>
+</q-grid-box>

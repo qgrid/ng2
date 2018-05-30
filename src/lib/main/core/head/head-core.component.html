@@ -1,0 +1,24 @@
+<colgroup *ngIf="$view.head.lastRow">
+    <col *ngFor="let $col of $view.head.columns($view.head.lastRow, $table.pin); trackBy: columnId; index as $columnIndex" 
+            style="display: table-cell">
+</colgroup>
+
+<tr *ngFor="let $row of $view.head.rows; trackBy: rowId; index as $rowIndex"
+    [q-grid-core-tr]="$row"
+    [q-grid-core-index]="$rowIndex"
+    q-grid-core-source="head">
+    <th *ngFor="let $column of $view.head.columns($row, $table.pin); trackBy: columnId; index as $columnIndex"
+        [attr.rowspan]="$column.rowspan"
+        [attr.colspan]="$column.colspan"
+        [q-grid-drag]="$view.head.transfer($column.model)"
+        [q-grid-drop]="$view.head.transfer($column.model)"
+        (q-grid-on-drop)="$view.head.drop.execute($event)"
+        [q-grid-can-drop]="$view.head.drop.canExecute"
+        [q-grid-can-drag]="$view.head.drag.canExecute"
+        [q-grid-resize]="$column.model.key"
+        q-grid-resize-path="columns"
+        [q-grid-can-resize]="$view.head.resize.canExecute">
+        <ng-container [q-grid-core-th]="$column">
+        </ng-container>
+    </th>
+</tr>

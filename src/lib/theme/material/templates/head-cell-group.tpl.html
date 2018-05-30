@@ -1,0 +1,9 @@
+<ng-template key="head-cell-group.tpl.html"
+             let-$cell
+             let-$view="$view">
+    <label (click)="$view.group.toggleAllStatus.execute()"
+           tabindex="-1"
+           [matTooltip]="$cell.column.title">
+        {{$cell.column.title}}
+    </label>
+</ng-template>

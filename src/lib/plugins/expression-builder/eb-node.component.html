@@ -1,0 +1,41 @@
+<ul class="q-grid-eb-node"
+	[q-grid-eb-class]="model.attr('class')"
+	[ngClass]="{'q-grid-eb-active': service.current === model}"
+	(click)="select($event)">
+	<li class="q-grid-eb-line">
+		<ul>
+			<li *ngFor="let expr of model.line.expressions"
+			    class="q-grid-eb-expression">
+				<q-grid-eb-expression [model]="expr"
+				                      [node]="model"
+				                      [line]="model.line">
+				</q-grid-eb-expression>
+			</li>
+		</ul>
+	</li>
+
+	<li class="q-grid-eb-children">
+		<ul>
+			<li *ngFor="let child of model.children"
+			    class="q-grid-eb-child">
+				<q-grid-eb-node [model]="child">
+				</q-grid-eb-node>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+<ng-template key="eb-group.tpl.html"
+			 let-$group
+			 let-$node="node"
+			 let-$line="line">
+	<ul class="q-grid-eb-group">
+		<li *ngFor="let expr of $group.expressions"
+		    class="q-grid-eb-expression">
+			<q-grid-eb-expression [model]="expr"
+			                      [node]="$node"
+			                      [line]="$line">
+			</q-grid-eb-expression>
+		</li>
+	</ul>
+</ng-template>

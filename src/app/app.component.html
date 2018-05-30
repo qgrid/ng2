@@ -1,0 +1,31 @@
+<mat-toolbar color="primary"
+             class="app-toolbar">
+	<button mat-icon-button
+	        (click)="snav.toggle()">
+		<mat-icon>menu</mat-icon>
+	</button>
+	<h1 class="app-name">qgrid</h1>
+</mat-toolbar>
+
+<mat-sidenav-container class="app-sidenav-container"
+                       [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+	<mat-sidenav #snav
+	             [mode]="mobileQuery.matches ? 'over' : 'side'"
+	             [fixedInViewport]="mobileQuery.matches"
+	             fixedTopGap="56">
+		<mat-nav-list>
+			<ng-container *ngFor="let example of examples">
+				<a mat-list-item
+				   *ngIf="example.path"
+				   [routerLink]="example.path">
+					{{example.path}}
+				</a>
+			</ng-container>
+		</mat-nav-list>
+	</mat-sidenav>
+	<mat-sidenav-content>
+		<mat-card>
+			<router-outlet></router-outlet>
+		</mat-card>
+	</mat-sidenav-content>
+</mat-sidenav-container>

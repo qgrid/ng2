@@ -1,0 +1,43 @@
+<q-grid header="Look Atoms Customized"
+        [rows]="rows | async">
+	<q-grid-columns generation="deep">
+		<q-grid-column key="color"
+		               canSort="false"
+		               canFilter="false"
+		               width="50"
+		               title=""
+		               pin="left">
+			<ng-template for="body"
+			             let-$cell>
+				<div class="atom-color"
+				     [style.background-color]="'#' + $cell.value">
+				</div>
+			</ng-template>
+		</q-grid-column>
+		<q-grid-column key="number"
+		               type="id"
+		               title="#"
+		               width="60"
+		               canFilter="false">
+		</q-grid-column>
+		<q-grid-column key="symbol"
+		               width="80">
+		</q-grid-column>
+		<q-grid-column key="name"
+		               type="url"
+		               path="source"
+		               labelPath="name">
+		</q-grid-column>
+		<q-grid-column key="spectralImg"
+		               type="image"
+		               width="120"
+		               title="Spectral Image">
+		</q-grid-column>
+		<q-grid-column key="summary"
+		               width="250"
+		               viewWidth="500"
+		               editor="text-area">
+		</q-grid-column>
+
+	</q-grid-columns>
+</q-grid>

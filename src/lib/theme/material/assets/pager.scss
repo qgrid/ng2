@@ -1,0 +1,52 @@
+@import "variables";
+.q-grid-pager {
+    font-family: $font-family;
+    height: 24px;
+    color: $dark-secondary;
+    float: right;
+    padding: 16px 0;
+    font-size: 12px;
+    >* {
+        display: inline-block;
+    }
+    @media (max-width: 599px) {
+        .hide-xs:not(.show-xs):not(.show),
+        .hide:not(.show-xs):not(.show) {
+            display: none;
+        }
+    }
+    .q-grid-page {
+        margin-left: 32px;
+        margin-right: 14px;
+    }
+    button {
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0;
+        &.q-grid-prev-page {
+            margin-left: 18px;
+            margin-right: 0;
+        }
+        &.q-grid-next-page {
+            margin-right: 14px;
+            margin-left: 0;
+        }
+        &.q-grid-target-page {
+            .q-grid-icon {
+                font-size: 16px;
+                width: 16px;
+                height: 16px;
+                min-width: 16px;
+                min-height: 16px;
+            }
+        }
+    }
+}
+
+@at-root .q-grid-pager-target {
+    width: 200px;
+}

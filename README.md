@@ -9,8 +9,7 @@ https://qgrid.github.io/ng2/
 
 * add grid and theme modules to your app module
 ```javascript
-import {GridModule} from 'ng2-qgrid';
-import {ThemeModule} from 'ng2-qgrid/theme/material';
+import { GridModule, ThemeModule } from 'ng2-qgrid';
 
 @NgModule({
    imports: [
@@ -24,7 +23,7 @@ export class AppModule {
 
 * add grid model and grid service to your component if it's required
 ```javascript
-import {GridModel, GridService} from 'ng2-qgrid';
+import { GridModel, GridService } from 'ng2-qgrid';
 
 @Component({
    selector: 'my-component',
@@ -52,11 +51,6 @@ export class MyComponent implements OnInit {
    <q-grid-columns generation="deep">
       <q-grid-column type="number" aggregation="sum"></q-grid-column>
       <q-grid-column key="totalAmount" type="currency" aggregation="sum"></q-grid-column>
-      <q-grid-column key="businessUnit">
-         <ng-template for="foot">
-            Total:
-         </ng-template>
-      </q-grid-column>
    </q-grid-columns>
 </q-grid>
 ```

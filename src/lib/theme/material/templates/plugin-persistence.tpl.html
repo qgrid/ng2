@@ -1,0 +1,15 @@
+<ng-template key="plugin-persistence.tpl.html">
+	<button mat-icon-button
+	        tabindex="-1"
+	        #trigger="matMenuTrigger"
+	        [matMenuTriggerFor]="menu"
+	        aria-label="Persistence">
+		<mat-icon class="q-grid-icon">history</mat-icon>
+	</button>
+	<mat-menu #menu="matMenu"
+	          class="q-grid-menu q-grid-persistence-panel">
+		<q-grid-persistence-panel q-grid-menu
+		                          *ngIf="trigger.menuOpen">
+		</q-grid-persistence-panel>
+	</mat-menu>
+</ng-template>

@@ -1,0 +1,9 @@
+<ng-template key="plugin-eb-button.tpl.html"
+             let-$expr>
+	<button mat-button
+	        class="q-grid-query-builder-button"
+	        (click)="$expr.click && $expr.click($event)"
+	        [ngClass]="$expr.classes">
+		{{$expr.text}}
+	</button>
+</ng-template>

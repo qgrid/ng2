@@ -1,0 +1,16 @@
+<q-grid header="Action Bar Basic"
+        [rows]="rows | async">
+	<q-grid-columns generation="deep">
+	</q-grid-columns>
+
+	<q-grid-action-list>
+		<q-grid-action icon="refresh"
+		               title="Load Data"
+		               [command]="loadCommand">
+		</q-grid-action>
+		<q-grid-action icon="clear_all"
+		               title="Delete Data"
+		               [command]="clearCommand">
+		</q-grid-action>
+	</q-grid-action-list>
+</q-grid>

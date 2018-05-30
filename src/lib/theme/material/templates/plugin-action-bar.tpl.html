@@ -1,0 +1,18 @@
+<ng-template key="plugin-action-bar.tpl.html"
+             let-$actionBar>
+	<div class="layout-row">
+		<div class="flex-100 layout-row"
+		     layout-align="start center"
+		     layout-align-xs="start start"
+		     layout-align-sm="start start"
+		     layout-xs="column"
+		     layout-sm="column">
+		</div>
+		<div class="q-grid-actions flex-none layout-row"
+		     layout-align="end center">
+			<q-grid-action-core *ngFor="let action of $actionBar.actions"
+			                    [action]="action">
+			</q-grid-action-core>
+		</div>
+	</div>
+</ng-template>

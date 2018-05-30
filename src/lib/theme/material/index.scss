@@ -1,0 +1,67 @@
+.q-grid.q-grid-theme-material {
+    @import "assets/active";
+    @import "assets/backdrop";
+    @import "assets/box";
+    @import "assets/cell.array";
+    @import "assets/cell.autocomplete";
+    @import "assets/cell.bool";
+    @import "assets/cell.edit";
+    @import "assets/cell.email";
+    @import "assets/cell.file";
+    @import "assets/cell.image";
+    @import "assets/cell.pivot";
+    @import "assets/cell.reference";
+    @import "assets/cell.row.details";
+    @import "assets/cell.row.indicator";
+    @import "assets/cell.row.options";
+    @import "assets/cell";
+    @import "assets/cell.select";
+    @import "assets/cell.text.area";
+    @import "assets/cell.text";
+    @import "assets/cell.url";
+    @import "assets/column.filter";
+    @import "assets/column.sort";
+    @import "assets/embed";
+    @import "assets/export";
+    @import "assets/highlight";
+    @import "assets/legend";
+    @import "assets/menu";
+    @import "assets/focus";
+    @import "assets/mixins";
+    @import "assets/node";
+    @import "assets/pager";
+    @import "assets/pager.target";
+    @import "assets/progress";
+    @import "assets/row";
+    @import "assets/selection";
+    @import "assets/table";
+    @import "assets/title";
+    @import "assets/status.bar";
+    @import "assets/validator";
+    @import "assets/query.builder";
+
+    @import "assets/mat/query.builder";    
+    @import "assets/mat/cell.array";
+    @import "assets/mat/cell.autocomplete";
+    @import "assets/mat/cell.checkbox";
+    @import "assets/mat/cell.date";
+    @import "assets/mat/cell.dropdown";
+    @import "assets/mat/cell.filter.row";
+    @import "assets/mat/cell";
+    @import "assets/mat/cell.textarea";
+    @import "assets/mat/column.chooser";
+    @import "assets/mat/column.filter";
+    @import "assets/mat/edit.form";
+    @import "assets/mat/menu";
+    @import "assets/mat/pager";
+    @import "assets/mat/persistence";
+    @import "assets/mat/cell.reference";
+    @import "assets/mat/pager.target";
+}
+
+.q-grid-excel .q-grid.q-grid-theme-material {
+    @import "assets/mat/excel";
+}
+
+@import "assets/embed";
+@import "assets/dark";
