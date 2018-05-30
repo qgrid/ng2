@@ -64,7 +64,10 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 							skip,
 							take,
 							value: columnFilter.getValue,
-							filter: '' + this.search
+							search: '' + this.search,
+
+							// Depricated
+							filter: '' + this.search,
 						});
 
 					const fetch = new Fetch(select);

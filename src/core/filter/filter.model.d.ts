@@ -1,5 +1,6 @@
 import { Resource } from '../resource/resource';
 import { IAssert } from './assert';
+import { FetchContext } from '../fetch/fetch.context';
 
 /**
  * A class to setup data filters and expressions.
@@ -61,12 +62,7 @@ export declare interface FilterModel {
 	/**
 	 * If setup `column filter` plugin can use this property to populate list of column items.
 	 */
-	fetch?: (key: string, context: {
-		skip: number,
-		take: number,
-		value: (row: any) => any,
-		filter: string
-	}) => any | Promise<any>;
+	fetch?: (key: string, context: FetchContext) => any | Promise<any>;
 
 	/**
 	 * Factory for assertion unit that contains comparison functions.

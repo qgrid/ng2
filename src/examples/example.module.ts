@@ -6,6 +6,8 @@ import { MatButtonModule } from '@angular/material';
 import { GridModule, ThemeModule } from 'ng2-qgrid';
 
 import { ExampleActionBarBasicComponent } from './action-bar-basic/example-action-bar-basic.component';
+import { ExampleAggregateColumnBasicComponent } from './aggregate-column-basic/example-aggregate-column-basic.component';
+import { ExampleDefineColumnBasicComponent } from './define-column-basic/example-define-column-basic.component';
 import { ExampleDestroyGridBasicComponent } from './destroy-grid-basic/example-destroy-grid-basic.component';
 import { ExampleDestroyGridModelComponent } from './destroy-grid-model/example-destroy-grid-model.component';
 import { ExampleDetailsRowBasicComponent } from './details-row-basic/example-details-row-basic.component';
@@ -13,6 +15,7 @@ import { ExampleDragColumnBasicComponent } from './drag-column-basic/example-dra
 import { ExampleDragRowBasicComponent } from './drag-row-basic/example-drag-row-basic.component';
 import { ExampleEditCellBasicComponent } from './edit-cell-basic/example-edit-cell-basic.component';
 import { ExampleEditCellBatchComponent } from './edit-cell-batch/example-edit-cell-batch.component';
+import { ExampleFilterColumnFetchComponent } from './filter-column-fetch/example-filter-column-fetch.component';
 import { ExampleFilterConditionBasicComponent } from './filter-condition-basic/example-filter-condition-basic.component';
 import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filter-row-basic.component';
 import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
@@ -39,6 +42,8 @@ import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-r
 
 const EXAMPLES: Array<any> = [
     ExampleActionBarBasicComponent,
+    ExampleAggregateColumnBasicComponent,
+    ExampleDefineColumnBasicComponent,
     ExampleDestroyGridBasicComponent,
     ExampleDestroyGridModelComponent,
     ExampleDetailsRowBasicComponent,
@@ -46,6 +51,7 @@ const EXAMPLES: Array<any> = [
     ExampleDragRowBasicComponent,
     ExampleEditCellBasicComponent,
     ExampleEditCellBatchComponent,
+    ExampleFilterColumnFetchComponent,
     ExampleFilterConditionBasicComponent,
     ExampleFilterRowBasicComponent,
     ExampleFocusCellAutoComponent,

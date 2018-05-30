@@ -1,0 +1,11 @@
+<q-grid header="Aggregate Column Basic"
+        [rows]="rows | async">
+	<q-grid-columns generation="deep">
+		<q-grid-column key="boil"
+		               aggregation="max">
+		</q-grid-column>
+		<q-grid-column key="melt"
+		               aggregation="min">
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>
