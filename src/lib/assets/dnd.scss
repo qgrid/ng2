@@ -8,22 +8,22 @@
     .q-grid-row-indicator {
         .q-grid-draggable {
             cursor: move;
-            opacity: 0;
-            transition: 0.30s;
+            opacity: 0.4;
+           // display: none;
+            margin-left: 4px;
             .q-grid-icon {
                 width: 24px;
                 min-width: 24px;
                 min-height: 24px;
                 height: 24px;
                 font-size: 24px;
-                margin-left: 4px;
             }
         }
     }
     tr.q-grid-highlighted {
         .q-grid-row-indicator {
             .q-grid-draggable {
-                opacity: 1;
+                display: block;
             }
         }
     }

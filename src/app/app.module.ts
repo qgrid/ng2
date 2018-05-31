@@ -24,10 +24,7 @@ import { exampleRoutes, ExampleModule } from '../examples/example.module';
     MatListModule,
     MatButtonModule,
     RouterModule.forRoot(
-      exampleRoutes,
-      {
-        enableTracing: false
-      }
+      exampleRoutes
     ),
     ExampleModule
   ],
