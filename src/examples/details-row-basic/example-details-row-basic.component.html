@@ -24,8 +24,8 @@
 	            mode="single">
 		<ng-template for="details"
 		             let-$cell>
-			<div class="box">
-				<div class="box-avatar" [style.background-color]="'#' + $cell.row.item.color">
+			<div class="atom-details">
+				<div class="atom-box" [style.background-color]="'#' + $cell.row.item.color">
 					<div class="atom-number">
 						{{$cell.row.item.number}}
 					</div>
@@ -43,12 +43,12 @@
 					</div>
 				</div>
 
-				<div class="box-info">
-					<p class="atom-info">
+				<div class="atom-info">
+					<p class="atom-description">
 						<a href={{$cell.row.item.source}} target="_blank"><b>{{$cell.row.item.name}}</b></a>
 						was discovered by
 						<b><a href="http://www.google.com/search?q={{$cell.row.item.discoveredBy}}" target="_blank">{{$cell.row.item.discoveredBy}}</a></b>
-						in <b>{{$cell.row.item.discoveredIn}}</b>.
+						in <em>{{$cell.row.item.discoveredIn}}</em>.
 						{{$cell.row.item.summary}}
 					</p>
 				</div>

@@ -2,19 +2,19 @@ a {
 	text-decoration: none;
 }
 
-.box {
+.atom-details {
 	display: flex;
 	margin: 7px 0 7px -1px;
 }
 
-.box .box-avatar {
+.atom-details .atom-box {
 	width: 100px;
 	height: 100px;
 	border: 2px solid #C8C8C8;
 	border-radius: 3px;
 }
 
-.box .box-info {
+.atom-details .atom-info {
 	display: flex;
 	font-size: 15px;
 	word-wrap: break-word;
@@ -47,7 +47,7 @@ a {
 	margin-top: 7px;
 }
 
-.atom-info {
+.atom-description {
 	margin: auto;
 	padding-left: 21px;
 }
