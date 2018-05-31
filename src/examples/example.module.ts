@@ -35,8 +35,9 @@ import { ExamplePivotColumnBasicComponent } from './pivot-column-basic/example-p
 import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plugin-grid-basic.component';
 import { ExamplePluginMyPagerComponent } from './plugin-grid-basic/example-plugin-my-pager.component';
 import { ExampleSelectCellBasicComponent } from './select-cell-basic/example-select-cell-basic.component';
-import { ExampleSelectRowBasicComponent } from './select-row-basic/example-select-row-basic.component';
 import { ExampleSelectColumnBasicComponent } from './select-column-basic/example-select-column-basic.component';
+import { ExampleSelectMixBasicComponent } from './select-mix-basic/example-select-mix-basic.component';
+import { ExampleSelectRowBasicComponent } from './select-row-basic/example-select-row-basic.component';
 import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-basic.component';
 import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.component';
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
@@ -72,8 +73,9 @@ const EXAMPLES: Array<any> = [
     ExamplePivotColumnBasicComponent,
     ExamplePluginGridBasicComponent,
     ExampleSelectCellBasicComponent,
-    ExampleSelectRowBasicComponent,
     ExampleSelectColumnBasicComponent,
+    ExampleSelectMixBasicComponent,
+    ExampleSelectRowBasicComponent,
     ExampleSizeRowBasicComponent,
     ExampleSortRowComponent,
     ExampleStyleCellBasicComponent,
