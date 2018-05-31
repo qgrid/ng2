@@ -9,6 +9,12 @@ export class Box {
 		this.model = model;
 
 		this.selectFactory = new SelectorFactory(context.bag, selectorMark);
+
+		model.sceneChanged.watch(e => {
+			if (e.hasChanges('round')) {
+				this.selector = this.selectFactory.create();
+			}
+		})
 	}
 
 	columnCount(rowIndex) {
@@ -83,9 +89,5 @@ export class Box {
 
 	createCellCore(rowIndex, columnIndex, element) {
 		return new Cell(this.context, rowIndex, columnIndex, element);
-	}
-
-	get selector() {
-		return this.selectFactory.create();
 	}
 }
