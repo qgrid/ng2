@@ -26,6 +26,7 @@ import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/exa
 import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-atoms-model.component';
 import { ExampleLookPeopleBasicComponent } from './look-people-basic/example-look-people-basic.component';
 import { ExampleLookPeopleModelComponent } from './look-people-model/example-look-people-model.component';
+import { ExampleLegendBasicComponent } from './legend-basic/example-legend-basic.component';
 import { ExampleManipulateDataBasicComponent } from './manipulate-data-basic/example-manipulate-data-basic.component';
 import { ExamplePaginationBasicComponent } from './pagination-basic/example-pagination-basic.component';
 import { ExamplePersistenceBasicComponent } from './persistence-basic/example-persistence-basic.component';
@@ -35,6 +36,7 @@ import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plu
 import { ExamplePluginMyPagerComponent } from './plugin-grid-basic/example-plugin-my-pager.component';
 import { ExampleSelectCellBasicComponent } from './select-cell-basic/example-select-cell-basic.component';
 import { ExampleSelectRowBasicComponent } from './select-row-basic/example-select-row-basic.component';
+import { ExampleSelectColumnBasicComponent } from './select-column-basic/example-select-column-basic.component';
 import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-basic.component';
 import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.component';
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
@@ -73,6 +75,7 @@ const EXAMPLES: Array<any> = [
 	ExamplePluginGridBasicComponent,
 	ExampleSelectCellBasicComponent,
 	ExampleSelectRowBasicComponent,
+	ExampleSelectColumnBasicComponent,
 	ExampleSizeRowBasicComponent,
 	ExampleSortRowComponent,
 	ExampleStyleCellBasicComponent,
