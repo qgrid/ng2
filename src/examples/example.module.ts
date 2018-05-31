@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Routes, Route } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule, MatSelectModule } from '@angular/material';
 
 import { GridModule, ThemeModule } from 'ng2-qgrid';
 
@@ -42,6 +42,8 @@ import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-
 import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.component';
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
+import { ExamplePersistenceServerComponent } from './persistence-server/example-persistence-server.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 const EXAMPLES: Array<any> = [
     ExampleActionBarBasicComponent,
@@ -68,7 +70,8 @@ const EXAMPLES: Array<any> = [
     ExampleLegendBasicComponent,
     ExampleManipulateDataBasicComponent,
     ExamplePaginationBasicComponent,
-    ExamplePersistenceBasicComponent,
+	ExamplePersistenceBasicComponent,
+	ExamplePersistenceServerComponent,
     ExamplePinColumnBasicComponent,
     ExamplePivotColumnBasicComponent,
     ExamplePluginGridBasicComponent,
@@ -84,37 +87,33 @@ const EXAMPLES: Array<any> = [
 
 const PATH_REGEX = /Example(.*)Component/;
 function toPath(componentType: Function) {
-    const name = PATH_REGEX.exec(componentType.name)[1];
-    return name
-        .split(/(?=[A-Z])/)
-        .map(part => part.toLowerCase())
-        .join('-');
+	const name = PATH_REGEX.exec(componentType.name)[1];
+	return name
+		.split(/(?=[A-Z])/)
+		.map(part => part.toLowerCase())
+		.join('-');
 }
 
-export const exampleRoutes: Routes =
-    EXAMPLES
-        .map<Route>(example => ({
-            path: toPath(example),
-            component: example
-        }))
-        .concat([
-            {
-                path: '',
-                redirectTo: toPath(ExampleLookPeopleBasicComponent),
-                pathMatch: 'full'
-            }
-        ]);
+export const exampleRoutes: Routes = EXAMPLES.map<Route>(example => ({
+	path: toPath(example),
+	component: example
+})).concat([
+	{
+		path: '',
+		redirectTo: toPath(ExampleLookPeopleBasicComponent),
+		pathMatch: 'full'
+	}
+]);
 
 @NgModule({
-    declarations: EXAMPLES.concat([
-        ExamplePluginMyPagerComponent
-    ]),
-    exports: EXAMPLES,
-    imports: [
-        GridModule,
-        ThemeModule,
-        CommonModule,
-        MatButtonModule
-    ]
+	declarations: EXAMPLES.concat([ExamplePluginMyPagerComponent]),
+	exports: EXAMPLES,
+	imports: [
+		GridModule,
+		ThemeModule,
+		CommonModule,
+		MatButtonModule,
+		MatSelectModule
+	]
 })
-export class ExampleModule { }
+export class ExampleModule {}
