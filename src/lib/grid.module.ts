@@ -32,8 +32,6 @@ import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 })
 export class GridModule {
 	constructor(zone: NgZone) {
-		setup(Model);
-
 		jobLine.run = (job, delay) => {
 			const defer = new Defer();
 
@@ -45,5 +43,7 @@ export class GridModule {
 		};
 
 		Fastdom.invoke = task => zone.runOutsideAngular(task);
+
+		setup(Model);
 	}
 }

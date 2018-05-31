@@ -1,3 +1,2 @@
-export declare interface AnimationModel {
-
+export declare interface AnimationModel { 
 }
