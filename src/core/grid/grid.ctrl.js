@@ -11,8 +11,9 @@ export class GridCtrl extends Disposable {
 	constructor(model, context) {
 		super();
 
-		if (model.grid().status === 'bound') {
-			throw new AppError('grid', `Model is already used by grid "${model.grid().id}"`);
+		const grid = model.grid;
+		if (grid().status === 'bound') {
+			throw new AppError('grid', `Model is already used by grid "${grid().id}"`);
 		}
 
 		this.model = model;
@@ -29,7 +30,7 @@ export class GridCtrl extends Disposable {
 			element.id = model.grid().id;
 		}
 
-		model.grid({ status: 'bound' });
+		grid({ status: 'bound' }, { source: 'grid.ctrl' });
 
 		const layerFactory = context.layerFactory(this.markup);
 		const tableContext = {
@@ -47,7 +48,8 @@ export class GridCtrl extends Disposable {
 	}
 
 	keyDown(e, source = 'grid') {
-		const shortcut = this.model.action().shortcut;
+		const model = this.model;
+		const { shortcut } = model.action();
 		const result = shortcut.keyDown(e, source);
 		if (result.length > 0) {
 			e.preventDefault();
@@ -57,7 +59,7 @@ export class GridCtrl extends Disposable {
 
 		if (e.target.tagName === 'TBODY') {
 			const code = Shortcut.translate(e);
-			const prevent = this.model.navigation().prevent;
+			const { prevent } = model.navigation();
 			if (prevent.has(code)) {
 				e.preventDefault();
 				e.stopPropagation();
@@ -75,7 +77,9 @@ export class GridCtrl extends Disposable {
 				left: area.left.length,
 				right: area.right.length
 			}
-		});
+		}, {
+				source: 'grid.ctrl'
+			});
 	}
 
 	invalidateActive() {
@@ -83,15 +87,11 @@ export class GridCtrl extends Disposable {
 		const view = this.table.view;
 		const model = this.model;
 		if (view.isFocused()) {
-			Fastdom.mutate(() => {
-				view.addClass(activeClassName);
-			});
+			Fastdom.mutate(() => view.addClass(activeClassName));
 			model.focus({ isActive: true });
 		}
 		else {
-			Fastdom.mutate(() => {
-				view.removeClass(activeClassName);
-			});
+			Fastdom.mutate(() => view.removeClass(activeClassName));
 			model.focus({ isActive: false });
 		}
 	}
@@ -99,6 +99,6 @@ export class GridCtrl extends Disposable {
 	dispose() {
 		super.dispose();
 
-		this.model.grid({ status: 'unbound' }, { source: 'grid.ctrl' });		
+		this.model.grid({ status: 'unbound' }, { source: 'grid.ctrl' });
 	}
 }

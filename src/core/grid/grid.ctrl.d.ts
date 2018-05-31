@@ -16,6 +16,6 @@ export declare class GridCtrl extends Disposable {
 	bag: GridBag;
 	markup: { [key: string]: HTMLElement };
 
-	keyDown(e: any, source?: string);
+	keyDown(e: any, source?: string): string[];
 	invalidateActive(): void;
 }

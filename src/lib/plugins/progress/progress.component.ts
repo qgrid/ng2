@@ -9,20 +9,20 @@ import { RootService } from '../../infrastructure/component/root.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProgressComponent extends PluginComponent implements OnInit {
-	constructor( @Optional() root: RootService, private changeDetector: ChangeDetectorRef) {
+	constructor(@Optional() root: RootService, private changeDetector: ChangeDetectorRef) {
 		super(root);
 
 		this.models = ['progress'];
 	}
 
 	onReady() {
-		this.model.progressChanged.watch(() => {
-			this.changeDetector.detectChanges();
-		});
+		this.model.progressChanged.watch(() =>
+			this.changeDetector.detectChanges()
+		);
 	}
 
 	get isBusy() {
-		const progressState = this.model.progress();
-		return progressState.isBusy || progressState.queue.length;
+		const { isBusy, queue } = this.model.progress();
+		return isBusy || queue.length;
 	}
 }

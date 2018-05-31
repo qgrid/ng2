@@ -26,7 +26,7 @@ import { exampleRoutes, ExampleModule } from '../examples/example.module';
     RouterModule.forRoot(
       exampleRoutes,
       {
-        enableTracing: true
+        enableTracing: false
       }
     ),
     ExampleModule

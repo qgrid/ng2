@@ -1,10 +1,8 @@
 import { Model } from './model';
+import { Disposable } from './disposable';
 
-export declare class ModelBinder {
-	constructor(source: object);
+export declare class ModelBinder extends Disposable {
+	constructor(host: any);
 
-	source: object;
-	off: () => void;
-
-	bind(model: Model, names?: string[], run?: boolean): () => void;
+	bound(model: Model, names?: string[], run?: boolean): () => void;
 }
