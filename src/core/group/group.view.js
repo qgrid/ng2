@@ -20,7 +20,11 @@ export class GroupView {
 				const toggle = model.group().toggle;
 				if (toggle.execute(node) !== false) {
 					node.state.expand = !node.state.expand;
-					service.invalidate('group.view', {}, PipeUnit.group);
+					service.invalidate({
+						source: 'group.view',
+						pipe: PipeUnit.group,
+						why: PipeUnit.group.why
+					});
 				}
 			},
 			canExecute: node => {
@@ -56,7 +60,11 @@ export class GroupView {
 					});
 
 					shouldExpand = !shouldExpand;
-					service.invalidate('group.view', {}, PipeUnit.group);
+					service.invalidate({
+						source: 'group.view',
+						pipe: PipeUnit.group,
+						why: PipeUnit.group.why
+					});
 				}
 			},
 			canExecute: () => model.group().toggleAll.canExecute()

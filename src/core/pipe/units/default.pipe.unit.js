@@ -11,3 +11,5 @@ export const defaultPipeUnit = [
 	Pipe.pagination,
 	Pipe.view
 ];
+
+defaultPipeUnit.why = 'refresh';

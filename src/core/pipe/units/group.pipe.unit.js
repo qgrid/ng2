@@ -21,3 +21,5 @@ export const groupPipeUnit = [
 		next(memo);
 	}
 ];
+
+groupPipeUnit.why = 'redraw';

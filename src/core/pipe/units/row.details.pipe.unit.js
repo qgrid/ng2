@@ -16,3 +16,5 @@ export const rowDetailsPipeUnit = [
 		next(memo);
 	}
 ];
+
+rowDetailsPipeUnit.why = 'redraw';

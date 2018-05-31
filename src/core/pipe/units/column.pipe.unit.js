@@ -37,3 +37,5 @@ export const columnPipeUnit = [
 		next(memo);
 	}
 ];
+
+columnPipeUnit.why = 'redraw';
