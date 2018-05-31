@@ -24,27 +24,27 @@
 	            mode="single">
 		<ng-template for="details"
 		             let-$cell>
-			<div class="row-details">
-				<div class="row-details-avatar" [style.background-color]="'#' + $cell.row.item.color">
-					<div class="row-details-avatar-number">
+			<div class="box">
+				<div class="box-avatar" [style.background-color]="'#' + $cell.row.item.color">
+					<div class="atom-number">
 						{{$cell.row.item.number}}
 					</div>
 
-					<div class="row-details-avatar-symbol">
+					<div class="atom-symbol">
 						{{$cell.row.item.symbol}}
 					</div>
 
-					<div class="row-details-avatar-name">
+					<div class="atom-name">
 						{{$cell.row.item.name}}
 					</div>
 
-					<div class="row-details-avatar-mass">
+					<div class="atom-mass">
 						{{$cell.row.item.mass}}
 					</div>
 				</div>
 
-				<div class="row-details-info">
-					<p class="row-details-info-text">
+				<div class="box-info">
+					<p class="atom-info">
 						<a href={{$cell.row.item.source}} target="_blank"><b>{{$cell.row.item.name}}</b></a>
 						was discovered by
 						<b><a href="http://www.google.com/search?q={{$cell.row.item.discoveredBy}}" target="_blank">{{$cell.row.item.discoveredBy}}</a></b>
