@@ -3,7 +3,8 @@
              let-$view="$view">
 	<ng-container *ngIf="$view.row.canMove">
 		<div [q-grid-drag]="$view.row.drag"
-		     [q-grid-drag-data]="$cell.rowIndex">
+		     [q-grid-drag-data]="$cell.rowIndex"
+		     q-grid-drop-area="body">
 			<mat-icon class="q-grid-icon">drag_handle</mat-icon>
 		</div>
 	</ng-container>

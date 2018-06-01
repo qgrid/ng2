@@ -13,6 +13,7 @@ export class DragDirective {
 	@Input('q-grid-drag-data') data: any;
 	@Input('q-grid-drag-effect') effect: string;
 	@Input('q-grid-drag') drag: Command;
+	@Input('q-grid-drop-area') area: string;
 
 	constructor(@Optional() private root: RootService, private elementRef: ElementRef) {
 		const element = elementRef.nativeElement;
@@ -44,6 +45,7 @@ export class DragDirective {
 		transfer.effectAllowed = this.effect || 'move';
 
 		DragService.data = data;
+		DragService.area = this.area;
 
 		if (this.root) {
 			const model = this.root.model;
@@ -54,6 +56,7 @@ export class DragDirective {
 	onEnd() {
 		this.elementRef.nativeElement.classList.remove(`${GRID_PREFIX}-drag`);
 		DragService.data = null;
+		DragService.area = null;
 
 		if (this.root) {
 			const model = this.root.model;

@@ -13,6 +13,7 @@ export class DropDirective {
 
 	@Input('q-grid-drop') drop: Command<{ data: number, target: number }>;
 	@Input('q-grid-drag-over') dragOver: Command<DragEvent>;
+	@Input('q-grid-drop-area') area: string;
 
 	constructor(private elementRef: ElementRef, zone: NgZone) {
 		const element = elementRef.nativeElement;
@@ -57,7 +58,7 @@ export class DropDirective {
 		e.preventDefault();
 
 		let effect = 'move';
-		if (this.dragOver.canExecute(e)) {
+		if (this.area === DragService.area && this.dragOver.canExecute(e)) {
 			this.target = this.dragOver.execute(e);
 		} else {
 			effect = 'none';

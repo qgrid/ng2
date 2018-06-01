@@ -3,19 +3,22 @@
 	       q-grid-core-head
 	       q-grid-markup="head"
 	       q-grid-animate="false"
-	       q-grid-core-head>
+	       q-grid-drop-area="head"
+	       [q-grid-drop]="$view.head.drop"
+	       [q-grid-drag-over]="$view.head.dragOver">
 	</thead>
 	<tbody *ngIf="visibility.body"
 	       q-grid-core-body
 	       q-grid-markup="body"
 	       q-grid-animate="false"
 	       tabindex="0"
+	       q-grid-drop-area="body"
 	       [q-grid-drop]="$view.row.drop"
-		   [q-grid-drag-over]="$view.row.dragOver">
+	       [q-grid-drag-over]="$view.row.dragOver">
 	</tbody>
 	<tfoot *ngIf="visibility.foot"
+	       q-grid-core-foot
 	       q-grid-markup="foot"
-	       q-grid-animate="false"
-	       q-grid-core-foot>
+	       q-grid-animate="false">
 	</tfoot>
 </table>

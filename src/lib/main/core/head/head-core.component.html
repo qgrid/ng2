@@ -5,9 +5,9 @@
     <th *ngFor="let $column of $view.head.columns($row, $table.pin); trackBy: columnId; index as $columnIndex"
         [attr.rowspan]="$column.rowspan"
         [attr.colspan]="$column.colspan"
-        [q-grid-drop]="$view.head.drop"
         [q-grid-drag]="$view.head.drag"
-        [q-grid-drag-data]="$column.model.key"
+        [q-grid-drag-data]="$column.index"
+        q-grid-drop-area="head"
         [q-grid-resize]="$column.model.key"
         q-grid-resize-path="columns"
         [q-grid-can-resize]="$view.head.resize.canExecute">

@@ -1,8 +1,9 @@
+import { PathService } from '../path/path.service';
 import { Log } from '../infrastructure/log';
 import { Command } from '../command/command';
 import * as columnService from '../column/column.service';
 import { FilterRowColumn } from '../column-type/filter.row.column';
-import { clone, isUndefined } from '../utility/kit';
+import { clone, isUndefined, isNumber } from '../utility/kit';
 
 export class HeadView {
 	constructor(model, table, tagName) {
@@ -11,46 +12,84 @@ export class HeadView {
 		this.tagName = tagName;
 		this.rows = [];
 
+		let oldIndex = -1;
 		this.drop = new Command({
 			source: 'head.view',
 			canExecute: e => {
-				if (e.source && e.source.key === tagName) {
-					const key = e.target.value;
-					const map = columnService.map(model.data().columns);
-					return map.hasOwnProperty(key) && map[key].canMove;
+				const newIndex = e.target;
+				if (isNumber(oldIndex) && isNumber(newIndex)) {
+					const { columns } = model.view();
+					return oldIndex !== newIndex
+						&& oldIndex >= 0
+						&& newIndex >= 0
+						&& columns.length > oldIndex
+						&& columns.length > newIndex;
 				}
 
 				return false;
 			},
 			execute: e => {
-				const columnRows = model.scene().column.rows;
-				for (let columns of columnRows) {
-					const targetIndex = columns.findIndex(c => c.model.key === e.target.value);
-					const sourceIndex = columns.findIndex(c => c.model.key === e.source.value);
-					if (targetIndex >= 0 && sourceIndex >= 0) {
-						const sourceColumn = columns[sourceIndex].model;
-						const targetColumn = columns[targetIndex].model;
-						const indexMap = Array.from(model.columnList().index);
-						const sourceColumnIndex = indexMap.indexOf(sourceColumn.key);
-						const targetColumnIndex = indexMap.indexOf(targetColumn.key);
-						indexMap.splice(sourceColumnIndex, 1);
-						indexMap.splice(targetColumnIndex, 0, sourceColumn.key);
-						model.columnList({ index: indexMap });
-					}
+				const newIndex = e.target;
+				const { rows } = model.scene().column;
+				for (let columns of rows) {
+					const index = Array.from(model.columnList().index);
+					const sourceColumn = columns[oldIndex].model;
+					const targetColumn = columns[newIndex].model;
+					const sourceIndex = index.indexOf(sourceColumn.key);
+					const targetIndex = index.indexOf(targetColumn.key);
+					index.splice(sourceIndex, 1);
+					index.splice(targetIndex, 0, sourceColumn.key);
+					model.columnList({ index });
 				}
+
+				oldIndex = newIndex;
+				return newIndex;
+			}
+		});
+
+		this.dragOver = new Command({
+			source: 'head.view',
+			canExecute: e => {
+				const pathFinder = new PathService(table.context.bag.head);
+				const cell = pathFinder.cell(e.path);
+				return !!cell;
+			},
+			execute: e => {
+				const pathFinder = new PathService(table.context.bag.head);
+				const newIndex = pathFinder.cell(e.path).columnIndex;
+
+				const { rows } = model.scene().column;
+				for (let columns of rows) {
+					const index = Array.from(model.columnList().index);
+					const sourceColumn = columns[oldIndex].model;
+					const targetColumn = columns[newIndex].model;
+					const sourceIndex = index.indexOf(sourceColumn.key);
+					const targetIndex = index.indexOf(targetColumn.key);
+					index.splice(sourceIndex, 1);
+					index.splice(targetIndex, 0, sourceColumn.key);
+					model.columnList({ index });
+				}
+
+				oldIndex = newIndex;
+				return newIndex;
 			}
 		});
 
 		this.drag = new Command({
 			source: 'head.view',
 			canExecute: e => {
-				if (e.source.key === tagName) {
-					const map = columnService.map(model.data().columns);
-					return map.hasOwnProperty(e.source.value) && map[e.source.value].canMove !== false;
+				if (isNumber(e.data)) {
+					if (isNumber(e.data)) {
+						const index = e.data;
+						return index >= 0 && model.view().columns.length > index;
+					}
+
+					return false;
 				}
 
 				return false;
-			}
+			},
+			execute: e => oldIndex = e.data
 		});
 
 		this.resize = new Command({
@@ -106,13 +145,6 @@ export class HeadView {
 				this.invalidate();
 			}
 		});
-	}
-
-	transfer(column) {
-		return {
-			key: this.tagName,
-			value: column.key
-		};
 	}
 
 	columns(row, pin) {
