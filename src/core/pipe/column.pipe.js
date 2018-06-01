@@ -129,7 +129,7 @@ function groupColumnFactory(model, nodes) {
 
 	if (nodes.length || groupState.by.length) {
 		switch (groupState.mode) {
-			case 'default':
+			case 'column':
 				return (columns, context) => {
 					const groupColumn = createColumn('group');
 					groupColumn.model.source = 'generation';

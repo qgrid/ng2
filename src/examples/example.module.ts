@@ -22,6 +22,7 @@ import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-c
 import { ExampleFocusCellComponent } from './focus-cell-basic/example-focus-cell.component';
 import { ExampleGroupRowBasicComponent } from './group-row-basic/example-group-row-basic.component';
 import { ExampleGroupRowspanComponent } from './group-row-rowspan/example-group-row-rowspan.component';
+import { ExampleGroupSubheadComponent } from './group-row-subhead/example-group-row-subhead.component';
 import { ExampleLegendBasicComponent } from './legend-basic/example-legend-basic.component';
 import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
 import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/example-look-atoms-customized.component';
@@ -64,6 +65,7 @@ const EXAMPLES: Array<any> = [
     ExampleFocusCellComponent,
     ExampleGroupRowBasicComponent,
     ExampleGroupRowspanComponent,
+    ExampleGroupSubheadComponent,
     ExampleLegendBasicComponent,
     ExampleLookAtomsBasicComponent,
     ExampleLookAtomsCustomizedComponent,
