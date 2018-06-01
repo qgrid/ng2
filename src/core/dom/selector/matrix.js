@@ -1,79 +1,52 @@
 import { max } from '../../utility/kit';
 
 export class Matrix {
-    constructor(table) {
-        this.table = table;
-        this.rowspans = {};
+    constructor(isDataRow) {
+        this.isDataRow = isDataRow;
     }
 
-    build() {
-        const rows = this.table.rows;
-        const rowsCount = rows.length;
-        const result = [];
-        const rowSpans = {};
+    build(table) {
+        const isDataRow = this.isDataRow;
+        const rows = table.rows;
+        const matrix = [];
 
-        for (let i = 0; i < rowsCount; i++) {
-            const rowElement = rows[i];
-            if (rowElement.classList.contains('q-grid-align')) {
+        const cursor = new Array(rows.length);
+        cursor.fill(0);
+
+        let currentRow = 0;
+        for (let i = 0, rowsLength = rows.length; i < rowsLength; i++) {
+            const tr = rows[i];
+            if (!isDataRow(tr)) {
                 continue;
             }
-            const row = this.populateRow(rowElement);
-            result.push(row);
-        }
 
-        return result;
-    }
+            const cells = tr.cells;
+            for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
+                const td = cells[j];
 
-    populateRow(row) {
-        const cells = row.cells;
-        const cellsCount = cells.length;
-        const result = {
-            row,
-            cells: []
-        };
+                const colSpan = td.colSpan;
+                const rowSpan = td.rowSpan;
 
-        for (let i = 0; i < cellsCount; i++) {
-            const currentCell = cells[i];
-            const rowspan = currentCell.rowSpan || 1;
-            let colSpan = currentCell.colSpan || 1;
+                for (let k = 0; k < rowSpan; k++) {
+                    const rowIndex = currentRow + k;
+                    const colIndex = cursor[rowIndex];
+                    let cursorRow = matrix[rowIndex];
+                    if (!cursorRow) {
+                        cursorRow = [];
+                        matrix[rowIndex] = cursorRow;
+                    }
 
-            this.populateSpan(i, result);
-            this.addRowspan(currentCell, i, rowspan);
+                    for (let m = 0; m < colSpan; m++) {
+                        cursorRow[colIndex + m] = td;
+                    }
 
-            this.addCell(result, currentCell);
-        }
-
-        return result;
-    }
-
-    addRowspan(cell, index, rowspan) {
-        if (rowspan > 1) {
-            const spans = this.rowspans[index] || (this.rowspans[index] = []);
-
-            spans.push({
-                cell,
-                span: rowspan - 1
-            });
-        }
-    }
-
-    populateSpan(index, result) {
-        const spanning = this.rowspans[index];
-        if (spanning) {
-            spanning.forEach(span => {
-                if (span.span) {
-                    this.addCell(result, span.cell);
-                    span.span--;
+                    cursor[rowIndex] = colIndex + colSpan;
                 }
-            });
-        }
-    }
+            }
 
-    addCell(row, cell) {
-        let colSpan = cell.colSpan || 1;
-
-        while (colSpan--) {
-            row.cells.push(cell);
+            currentRow++;
         }
+
+        return matrix;
     }
 }

@@ -53,12 +53,9 @@ export class HeadView {
 		this.resize = new Command({
 			source: 'head.view',
 			canExecute: e => {
-				if (e.source.key === tagName) {
-					const map = table.data.columnMap();
-					return map.hasOwnProperty(e.source.value) && map[e.source.value].canResize !== false;
-				}
-
-				return false;
+				const key = e.data;
+				const map = table.data.columnMap();
+				return map.hasOwnProperty(key) && map[key].canResize !== false;
 			}
 		});
 

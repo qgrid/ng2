@@ -1,8 +1,8 @@
+import { Matrix } from './matrix';
 import { Selector } from './selector';
 import { SelectorMediator } from './selector.mediate';
 import { UnitFactory } from './unit.factory';
 import { Range } from '../../infrastructure/range';
-import { Matrix } from './matrix';
 
 export class SelectorFactory {
 	constructor(bag, selectorMark) {
@@ -17,7 +17,7 @@ export class SelectorFactory {
 			selectorMark
 				.select()
 				.map(({ element, rowRange, columnRange }) => ({
-					element: new Matrix(element).build(),
+					matrix: new Matrix(tr => bag.models.has(tr)).build(element),
 					rowRange,
 					columnRange
 				}));
@@ -26,7 +26,7 @@ export class SelectorFactory {
 			return entries.map(entry => ({
 				invoke: f => {
 					const unitFactory = new UnitFactory(entry.rowRange, entry.columnRange);
-					const selector = new Selector(entry.element, bag, unitFactory);
+					const selector = new Selector(entry.matrix, bag, unitFactory);
 
 					const args = [];
 					args.push(selector);

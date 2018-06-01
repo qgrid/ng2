@@ -2,7 +2,7 @@ import { FakeElement } from '../fake/element';
 import { isUndefined } from '../../utility/kit';
 
 export class Selector {
-	constructor(matrix, bag, factory, ) {
+	constructor(matrix, bag, factory) {
 		this.matrix = matrix;
 		this.bag = bag;
 		this.factory = factory;
@@ -10,33 +10,55 @@ export class Selector {
 
 	columnCount(rowIndex) {
 		const row = this.matrix[rowIndex];
-		return row ? row.cells.length : 0;
+		return row ? row.length : 0;
 	}
 
 	columnCells(columnIndex) {
-		const { factory } = this;
-		const result = this.matrix.map((row, i) => factory.cell(row.cells[columnIndex], i, columnIndex));
+		const factory = this.factory;
+		const matrix = this.matrix;
+		const result = [];
+		const set = new Set();
+		for (let i = 0, length = matrix.length; i < length; i++) {
+			const td = matrix[i][columnIndex];
+			if (!set.has(td)) {
+				set.add(td);
+				result.push(factory.cell(td, i, columnIndex));
+			}
+		}
+
 		return result;
 	}
 
 	rowCount(columnIndex) {
-		const set = new Set(this.matrix.map(row => row.cells[columnIndex]));
+		const matrix = this.matrix;
+		const set = new Set();
+		for (let i = 0, length = matrix.length; i < length; i++) {
+			const td = matrix[i][columnIndex];
+			set.add(td);
+		}
+
 		return set.size;
 	}
 
 	rows(columnIndex) {
-		const rows = this.matrix;
+		const matrix = this.matrix;
 		const factory = this.factory;
+		const set = new Set();
 		const result = [];
 		if (isUndefined(columnIndex)) {
-			for (let i = 0, length = rows.length; i < length; i++) {
-				const row = rows[i];
-				result.push(factory.row(row.row, i));
+			const rows = this.bag.rows;
+			let i = 0;
+			for (let row of rows) {
+				result.push(factory.row(row.element, i++));
 			}
 		} else {
-			for (let i = 0, length = rows.length; i < length; i++) {
-				const row = rows[i];
-				result.push(factory.row(row[columnIndex].parentElement, i));
+			for (let i = 0, length = matrix.length; i < length; i++) {
+				const row = matrix[i];
+				const tr = row[columnIndex].parentElement;
+				if (!set.has(tr)) {
+					set.add(tr);
+					result.push(factory.row(tr, i));
+				}
 			}
 		}
 
@@ -44,18 +66,32 @@ export class Selector {
 	}
 
 	rowCells(rowIndex) {
-		return this.matrix[rowIndex].cells.map((cell, index) => this.factory.cell(cell, rowIndex, index));
+		const matrix = this.matrix;
+		const row = this.matrix[rowIndex];
+		const result = [];
+		if (row) {
+			const set = new Set();
+			const factory = this.factory;
+			for (let i = 0, length = row.length; i < length; i++) {
+				const td = row[i];
+				if (!set.has(td)) {
+					set.add(td);
+					result.push(factory.cell(td, rowIndex, i));
+				}
+			}
+		}
+
+		return result;
 	}
 
 	row(rowIndex) {
-		console.log(`row index: ${rowIndex}`)
-		const row = this.matrix[rowIndex];
 		const factory = this.factory;
+		const row = this.matrix[rowIndex];
 		if (row) {
-			return factory.row(row.row, rowIndex);
+			return factory.row(row[0].parentElement, rowIndex);
 		}
 
-		return factory.row(new FakeElement, rowIndex);
+		return factory.row(new FakeElement(), rowIndex);
 	}
 
 	cell(rowIndex, columnIndex) {
@@ -63,7 +99,7 @@ export class Selector {
 		const factory = this.factory;
 		if (row) {
 			return factory.cell(
-				row.cells[columnIndex],
+				row[columnIndex],
 				rowIndex,
 				columnIndex
 			);
