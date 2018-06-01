@@ -10,25 +10,34 @@ export class RowView {
 		this.drop = new Command({
 			source: 'row.view',
 			canExecute: e => {
+				const oldIndex = e.dragData;
 				const pathFinder = new PathService(table.context.bag.body);
 				const row = pathFinder.row(e.event.path);
 				return !!row;
 			},
 			execute: e => {
-				const pathFinder = new PathService(table.context.bag.body);
 				const oldIndex = e.dragData;
+				const pathFinder = new PathService(table.context.bag.body);
 				const newIndex = pathFinder.row(e.event.path).index;
 
-				const { data } = model;
-				const rows = Array.from(data().rows);
+				if (oldIndex !== newIndex) {
+					console.log('old: ' + oldIndex);
+					console.log('new: ' + newIndex);
+					console.log('----');
 
-				const row = rows[oldIndex];
-				rows.splice(oldIndex, 1);
-				rows.splice(newIndex, 0, row);
+					const { data } = model;
+					const rows = Array.from(data().rows);
 
-				data({ rows });
-				
-				return newIndex;
+					const row = rows[oldIndex];
+					rows.splice(oldIndex, 1);
+					rows.splice(newIndex, 0, row);
+
+					data({ rows });
+
+					return newIndex;
+				}
+
+				return oldIndex;
 			}
 		});
 

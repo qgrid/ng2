@@ -68,7 +68,10 @@ export class DropDirective {
 
 		let effect = 'move';
 		if (this.area === DragService.area && this.dragOver.canExecute(eventArg)) {
-			this.dragData = this.dragOver.execute(eventArg);			
+			this.dragData = this.dragOver.execute(eventArg);
+			if (!isUndefined(this.dragData)) {
+				DragService.data = this.dragData;
+			}
 		} else {
 			effect = 'none';
 		}

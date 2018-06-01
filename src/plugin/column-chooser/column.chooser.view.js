@@ -49,30 +49,31 @@ export class ColumnChooserView {
 		this.drop = new Command({
 			source: 'column.chooser',
 			canExecute: e => {
-				const sourceKey = e.dragData;
 				const targetKey = e.dropData;
 				const map = columnService.map(this.temp.columns);
-				return sourceKey !== targetKey && map.hasOwnProperty(targetKey) && map[targetKey].canMove;
+				return map.hasOwnProperty(targetKey) && map[targetKey].canMove;
 			},
 			execute: e => {
 				const sourceKey = e.dragData;
 				const targetKey = e.dropData;
-				const { index, columns } = this.temp;
+				if (sourceKey !== targetKey) {
+					const { index, columns } = this.temp;
 
-				let oldIndex = index.indexOf(sourceKey);
-				let newIndex = index.indexOf(targetKey);
-				if (oldIndex >= 0 && newIndex >= 0) {
-					index.splice(oldIndex, 1);
-					index.splice(newIndex, 0, sourceKey);
+					let oldIndex = index.indexOf(sourceKey);
+					let newIndex = index.indexOf(targetKey);
+					if (oldIndex >= 0 && newIndex >= 0) {
+						index.splice(oldIndex, 1);
+						index.splice(newIndex, 0, sourceKey);
 
-					oldIndex = columns.findIndex(c => c.key === sourceKey);
-					newIndex = columns.findIndex(c => c.key === targetKey);
+						oldIndex = columns.findIndex(c => c.key === sourceKey);
+						newIndex = columns.findIndex(c => c.key === targetKey);
 
-					const column = columns[oldIndex];
-					columns.splice(oldIndex, 1);
-					columns.splice(newIndex, 0, column);
+						const column = columns[oldIndex];
+						columns.splice(oldIndex, 1);
+						columns.splice(newIndex, 0, column);
 
-					this.temp.columns = Array.from(this.temp.columns);
+						this.temp.columns = Array.from(this.temp.columns);
+					}
 				}
 
 				return sourceKey;
