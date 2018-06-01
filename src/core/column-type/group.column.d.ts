@@ -3,6 +3,8 @@ import { ColumnModel } from './column.model';
 
 export declare class GroupColumnModel extends ColumnModel {
 	constructor();
+
+	by: string;
 }
 
 export declare class GroupColumn extends ColumnView {

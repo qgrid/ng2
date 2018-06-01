@@ -8,5 +8,6 @@ export class Node {
 		this.state = {
 			expand: false
 		};
+		this.source = null;
 	}
 }

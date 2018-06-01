@@ -23,6 +23,7 @@ export function nodeBuilder(columnMap, groupBy, valueFactory, level = 0) {
 			const key = getValue(row);
 			if (!groups.hasOwnProperty(key)) {
 				const node = new Node(key, level);
+				node.source = groupKey;
 				node.rows.push(index);
 				keys.push(key);
 				nodes.push(node);

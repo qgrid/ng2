@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Routes, Route } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule, MatSelectModule } from '@angular/material';
 
 import { GridModule, ThemeModule } from 'ng2-qgrid';
 
@@ -21,16 +21,19 @@ import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filte
 import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
 import { ExampleFocusCellComponent } from './focus-cell-basic/example-focus-cell.component';
 import { ExampleGroupRowBasicComponent } from './group-row-basic/example-group-row-basic.component';
+import { ExampleGroupRowspanComponent } from './group-row-rowspan/example-group-row-rowspan.component';
+import { ExampleLegendBasicComponent } from './legend-basic/example-legend-basic.component';
 import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
 import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/example-look-atoms-customized.component';
 import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-atoms-model.component';
 import { ExampleLookPeopleBasicComponent } from './look-people-basic/example-look-people-basic.component';
 import { ExampleLookPeopleModelComponent } from './look-people-model/example-look-people-model.component';
-import { ExampleLegendBasicComponent } from './legend-basic/example-legend-basic.component';
 import { ExampleManipulateDataBasicComponent } from './manipulate-data-basic/example-manipulate-data-basic.component';
 import { ExamplePaginationBasicComponent } from './pagination-basic/example-pagination-basic.component';
 import { ExamplePersistenceBasicComponent } from './persistence-basic/example-persistence-basic.component';
+import { ExamplePersistenceServerComponent } from './persistence-server/example-persistence-server.component';
 import { ExamplePinColumnBasicComponent } from './pin-column-basic/example-pin-column-basic.component';
+import { ExamplePipeGridBasicComponent } from './pipe-grid-basic/example-pipe-grid-basic.component';
 import { ExamplePivotColumnBasicComponent } from './pivot-column-basic/example-pivot-column-basic.component';
 import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plugin-grid-basic.component';
 import { ExamplePluginMyPagerComponent } from './plugin-grid-basic/example-plugin-my-pager.component';
@@ -42,7 +45,6 @@ import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-
 import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.component';
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
-import { ExamplePipeGridBasicComponent } from './pipe-grid-basic/example-pipe-grid-basic.component';
 
 const EXAMPLES: Array<any> = [
     ExampleActionBarBasicComponent,
@@ -61,16 +63,19 @@ const EXAMPLES: Array<any> = [
     ExampleFocusCellAutoComponent,
     ExampleFocusCellComponent,
     ExampleGroupRowBasicComponent,
+    ExampleGroupRowspanComponent,
+    ExampleLegendBasicComponent,
     ExampleLookAtomsBasicComponent,
     ExampleLookAtomsCustomizedComponent,
     ExampleLookAtomsModelComponent,
     ExampleLookPeopleBasicComponent,
     ExampleLookPeopleModelComponent,
-    ExampleLegendBasicComponent,
     ExampleManipulateDataBasicComponent,
     ExamplePaginationBasicComponent,
     ExamplePersistenceBasicComponent,
+    ExamplePersistenceServerComponent,
     ExamplePinColumnBasicComponent,
+    ExamplePipeGridBasicComponent,
     ExamplePivotColumnBasicComponent,
     ExamplePluginGridBasicComponent,
     ExampleSelectCellBasicComponent,
@@ -81,7 +86,6 @@ const EXAMPLES: Array<any> = [
     ExampleSortRowComponent,
     ExampleStyleCellBasicComponent,
     ExampleStyleRowBasicComponent,
-    ExamplePipeGridBasicComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
@@ -93,30 +97,26 @@ function toPath(componentType: Function) {
         .join('-');
 }
 
-export const exampleRoutes: Routes =
-    EXAMPLES
-        .map<Route>(example => ({
-            path: toPath(example),
-            component: example
-        }))
-        .concat([
-            {
-                path: '',
-                redirectTo: toPath(ExampleLookPeopleBasicComponent),
-                pathMatch: 'full'
-            }
-        ]);
+export const exampleRoutes: Routes = EXAMPLES.map<Route>(example => ({
+    path: toPath(example),
+    component: example
+})).concat([
+    {
+        path: '',
+        redirectTo: toPath(ExampleLookPeopleBasicComponent),
+        pathMatch: 'full'
+    }
+]);
 
 @NgModule({
-    declarations: EXAMPLES.concat([
-        ExamplePluginMyPagerComponent
-    ]),
+    declarations: EXAMPLES.concat([ExamplePluginMyPagerComponent]),
     exports: EXAMPLES,
     imports: [
         GridModule,
         ThemeModule,
         CommonModule,
-        MatButtonModule
+        MatButtonModule,
+        MatSelectModule
     ]
 })
 export class ExampleModule { }
