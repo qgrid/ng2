@@ -42,6 +42,7 @@ import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-
 import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.component';
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
+import { ExamplePipeGridBasicComponent } from './pipe-grid-basic/example-pipe-grid-basic.component';
 
 const EXAMPLES: Array<any> = [
     ExampleActionBarBasicComponent,
@@ -80,6 +81,7 @@ const EXAMPLES: Array<any> = [
     ExampleSortRowComponent,
     ExampleStyleCellBasicComponent,
     ExampleStyleRowBasicComponent,
+    ExamplePipeGridBasicComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;

@@ -10,7 +10,7 @@ export { ThemeModule } from './theme/material/theme.module';
 export { ThemeComponent } from './theme/material/theme.component';
 export { PluginService as GridPlugin } from './plugins/plugin.service';
 
-// Pipe
+// NG Pipe
 export { HighlightPipe } from './pipes/highlight/highlight.pipe';
 export { FilterPipe } from './pipes/filter/filter.pipe';
 export { PipeModule } from './pipes/pipe.module';
@@ -54,3 +54,6 @@ export { UrlColumnModel as UrlColumn } from 'ng2-qgrid/core/column-type/url.colu
 
 // Style
 export { StyleCellContext, StyleRowContext } from 'ng2-qgrid/core/style/style.context';
+
+// Pipe
+export { PipeContext, PipeMemo } from 'ng2-qgrid/core/pipe/pipe.item';
