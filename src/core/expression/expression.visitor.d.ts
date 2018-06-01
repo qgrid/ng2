@@ -1,4 +1,4 @@
-import {Expression} from './expression.build';
+import { Expression } from './expression.build';
 
 export declare class Visitor {
 	constructor();
