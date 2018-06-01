@@ -8,9 +8,9 @@ import { Table } from '../dom/table';
 export declare class RowView {
 	constructor(model: Model, table: Table, tagName: string);
 
-	drop: Command<{ data: number, target: number }>;
-	drag: Command<{ data: number }>;
-	dragOver: Command<DragEvent>;
+	drop: Command<{ dragData: number }>;
+	drag: Command<{ dragData: number }>;
+	dragOver: Command<{ event: DragEvent }>;
 
 	canMove: boolean;
 	canResize: boolean;

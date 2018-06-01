@@ -10,9 +10,9 @@ import { ColumnView } from '../scene/view/column.view';
 export declare class HeadView {
 	constructor(model: Model, table: Table, tagName: string);
 
-	drop: Command<{ data: number, target: number }>;
-	drag: Command<{ data: number }>;
-	dragOver: Command<DragEvent>;
+	drop: Command<{ dragData: number }>;
+	drag: Command<{ dragData: number }>;
+	dragOver: Command<{ event: DragEvent }>;
 
 	resize: Command;
 

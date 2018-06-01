@@ -12,7 +12,7 @@ export class RowView {
 		this.drop = new Command({
 			source: 'row.view',
 			canExecute: e => {
-				const newIndex = e.target;
+				const newIndex = e.dragData;
 				if (isNumber(oldIndex) && isNumber(newIndex)) {
 					const { rows } = model.view();
 					return oldIndex !== newIndex
@@ -26,7 +26,7 @@ export class RowView {
 
 			},
 			execute: e => {
-				const newIndex = e.target;
+				const newIndex = e.dragData;
 				const { data } = model;
 				const rows = Array.from(data().rows);
 				const row = rows[oldIndex];
@@ -41,12 +41,12 @@ export class RowView {
 			source: 'row.view',
 			canExecute: e => {
 				const pathFinder = new PathService(table.context.bag.body);
-				const row = pathFinder.row(e.path);
+				const row = pathFinder.row(e.event.path);
 				return !!row;
 			},
 			execute: e => {
 				const pathFinder = new PathService(table.context.bag.body);
-				const newIndex = pathFinder.row(e.path).index;
+				const newIndex = pathFinder.row(e.event.path).index;
 				//return row.index;
 
 				const { data } = model;

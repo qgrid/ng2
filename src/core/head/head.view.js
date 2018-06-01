@@ -16,7 +16,7 @@ export class HeadView {
 		this.drop = new Command({
 			source: 'head.view',
 			canExecute: e => {
-				const newIndex = e.target;
+				const newIndex = e.dragData;
 				if (isNumber(oldIndex) && isNumber(newIndex)) {
 					const { columns } = model.view();
 					return oldIndex !== newIndex
@@ -29,10 +29,10 @@ export class HeadView {
 				return false;
 			},
 			execute: e => {
-				const newIndex = e.target;
+				const newIndex = e.dragData;
 				const { rows } = model.scene().column;
+				const index = Array.from(model.columnList().index);
 				for (let columns of rows) {
-					const index = Array.from(model.columnList().index);
 					const sourceColumn = columns[oldIndex].model;
 					const targetColumn = columns[newIndex].model;
 					const sourceIndex = index.indexOf(sourceColumn.key);
@@ -51,16 +51,16 @@ export class HeadView {
 			source: 'head.view',
 			canExecute: e => {
 				const pathFinder = new PathService(table.context.bag.head);
-				const cell = pathFinder.cell(e.path);
+				const cell = pathFinder.cell(e.event.path);
 				return !!cell;
 			},
 			execute: e => {
 				const pathFinder = new PathService(table.context.bag.head);
-				const newIndex = pathFinder.cell(e.path).columnIndex;
+				const newIndex = pathFinder.cell(e.event.path).columnIndex;
 
+				const index = Array.from(model.columnList().index);
 				const { rows } = model.scene().column;
 				for (let columns of rows) {
-					const index = Array.from(model.columnList().index);
 					const sourceColumn = columns[oldIndex].model;
 					const targetColumn = columns[newIndex].model;
 					const sourceIndex = index.indexOf(sourceColumn.key);
