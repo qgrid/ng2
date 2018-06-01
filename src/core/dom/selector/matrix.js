@@ -37,22 +37,36 @@ export class Matrix {
             const rowspan = currentCell.rowSpan || 1;
             let colSpan = currentCell.colSpan || 1;
 
-            if (this.rowspans[i] && this.rowspans[i].span) {
-                this.rowspans[i].span--;
-                this.addCell(result, this.rowspans[i].cell);
-            }
-
-            if (rowspan > 1) {
-                this.rowspans[i] = {
-                    cell: currentCell,
-                    span: rowspan - 1
-                };
-            }
+            this.populateSpan(i, result);
+            this.addRowspan(currentCell, i, rowspan);
 
             this.addCell(result, currentCell);
         }
 
         return result;
+    }
+
+    addRowspan(cell, index, rowspan) {
+        if (rowspan > 1) {
+            const spans = this.rowspans[index] || (this.rowspans[index] = []);
+
+            spans.push({
+                cell,
+                span: rowspan - 1
+            });
+        }
+    }
+
+    populateSpan(index, result) {
+        const spanning = this.rowspans[index];
+        if (spanning) {
+            spanning.forEach(span => {
+                if (span.span) {
+                    this.addCell(result, span.cell);
+                    span.span--;
+                }
+            });
+        }
     }
 
     addCell(row, cell) {
