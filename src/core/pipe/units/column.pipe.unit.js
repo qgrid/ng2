@@ -5,7 +5,7 @@ import { Guard } from '../../infrastructure/guard';
 export const columnPipeUnit = [
 	(_, context, next) => {
 		const { view } = context.model;
-		const { rows, pivot, nodes } = view;
+		const { rows, pivot, nodes } = view();
 		next({ rows, pivot, nodes });
 	},
 	Pipe.column,
