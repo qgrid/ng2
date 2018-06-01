@@ -12,54 +12,20 @@ export class HeadView {
 		this.tagName = tagName;
 		this.rows = [];
 
-		let oldIndex = -1;
 		this.drop = new Command({
-			source: 'head.view',
-			canExecute: e => {
-				const newIndex = e.dragData;
-				if (isNumber(oldIndex) && isNumber(newIndex)) {
-					const { columns } = model.view();
-					return oldIndex !== newIndex
-						&& oldIndex >= 0
-						&& newIndex >= 0
-						&& columns.length > oldIndex
-						&& columns.length > newIndex;
-				}
-
-				return false;
-			},
-			execute: e => {
-				const newIndex = e.dragData;
-				const { rows } = model.scene().column;
-				const index = Array.from(model.columnList().index);
-				for (let columns of rows) {
-					const sourceColumn = columns[oldIndex].model;
-					const targetColumn = columns[newIndex].model;
-					const sourceIndex = index.indexOf(sourceColumn.key);
-					const targetIndex = index.indexOf(targetColumn.key);
-					index.splice(sourceIndex, 1);
-					index.splice(targetIndex, 0, sourceColumn.key);
-					model.columnList({ index });
-				}
-
-				oldIndex = newIndex;
-				return newIndex;
-			}
-		});
-
-		this.dragOver = new Command({
 			source: 'head.view',
 			canExecute: e => {
 				const pathFinder = new PathService(table.context.bag.head);
 				const cell = pathFinder.cell(e.event.path);
-				return !!cell;
+				return cell && cell.column.canMove;
 			},
 			execute: e => {
 				const pathFinder = new PathService(table.context.bag.head);
+				const oldIndex = e.dragData;
 				const newIndex = pathFinder.cell(e.event.path).columnIndex;
 
-				const index = Array.from(model.columnList().index);
 				const { rows } = model.scene().column;
+				const index = Array.from(model.columnList().index);
 				for (let columns of rows) {
 					const sourceColumn = columns[oldIndex].model;
 					const targetColumn = columns[newIndex].model;
@@ -70,10 +36,9 @@ export class HeadView {
 					model.columnList({ index });
 				}
 
-				oldIndex = newIndex;
 				return newIndex;
 			}
-		});
+		});	
 
 		this.drag = new Command({
 			source: 'head.view',
@@ -84,8 +49,7 @@ export class HeadView {
 				}
 
 				return false;
-			},
-			execute: e => oldIndex = e.data
+			}
 		});
 
 		this.resize = new Command({

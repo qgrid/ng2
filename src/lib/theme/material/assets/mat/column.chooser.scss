@@ -39,8 +39,9 @@
     }
     .q-grid-can-drag {
         cursor: move;
-        display: inline-block;
         opacity: 0.4;
+        display: inline-block;
+        user-select: none;
         .q-grid-icon {
             width: 16px;
             min-width: 16px;

@@ -12,7 +12,6 @@ export declare class HeadView {
 
 	drop: Command<{ dragData: number }>;
 	drag: Command<{ dragData: number }>;
-	dragOver: Command<{ event: DragEvent }>;
 
 	resize: Command;
 

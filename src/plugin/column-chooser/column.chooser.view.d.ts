@@ -5,9 +5,8 @@ import { Command } from '../../core/command/command';
 export declare class ColumnChooserView {
     constructor(model: Model, context: { name: string });
 
-    drag: Command<{ data: string }>;
-    dragOver: Command<DragEvent>;
-    dropFactory: (key: string) => Command<{ data: string, target: string }>;
+    drag: Command<{ dragData: string }>;
+    drop: Command<{ dragData: string, dropData: string }>;
 
     cancelEvent: Event;
     submitEvent: Event;

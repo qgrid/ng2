@@ -33,9 +33,9 @@
 				<ul class="q-grid-column-chooser-list">
 					<ng-container *ngFor="let column of $columnChooser.columns | qGridFilter: {title: $columnChooser.filter}">
 						<li *ngIf="$columnChooser.toggle.canExecute(column)"
-							[q-grid-drop]="$columnChooser.drop"							
+							[q-grid-drop]="$columnChooser.drop"
 							[q-grid-drop-data]="column.key"
-						    [q-grid-drag-over]="$columnChooser.dragOver"
+						    [q-grid-drag-over]="$columnChooser.drop"
 						    q-grid-drop-area="column-chooser">
 							<div [q-grid-drag]="$columnChooser.drag"
 							     [q-grid-drag-data]="column.key"

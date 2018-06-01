@@ -1,4 +1,4 @@
-import {yes} from '../utility/kit';
+import { yes } from '../utility/kit';
 
 export class Command {
 	constructor(context = {}) {
@@ -7,7 +7,7 @@ export class Command {
 		this.shortcut = '';
 		this.priority = 0;
 		this.source = '';
-		
+
 		Object.assign(this, context);
 	}
 

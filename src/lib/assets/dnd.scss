@@ -1,5 +1,5 @@
 @import "mixins";
-.q-grid-can-drag {
+@at-root .q-grid-can-drag {
     @include user-select(none);
     @include user-drag(element);
 }

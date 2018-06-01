@@ -10,7 +10,6 @@ export declare class RowView {
 
 	drop: Command<{ dragData: number }>;
 	drag: Command<{ dragData: number }>;
-	dragOver: Command<{ event: DragEvent }>;
 
 	canMove: boolean;
 	canResize: boolean;

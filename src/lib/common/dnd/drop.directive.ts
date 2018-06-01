@@ -10,14 +10,14 @@ import { isUndefined } from 'ng2-qgrid/core/utility/kit';
 	selector: '[q-grid-drop]'
 })
 export class DropDirective {
-	private targetData: any;
+	private dragData: any;
 
-	@Input('q-grid-drop') drop: Command<{ event: DragEvent, dragData: any, dropData: any }>;
-	@Input('q-grid-drop-data') data: any;
+	@Input('q-grid-drop-data') dropData: any;
 	@Input('q-grid-drag-over') dragOver: Command<{ event: DragEvent, dragData: any, dropData: any }>;
 	@Input('q-grid-drop-area') area: string;
+	@Input('q-grid-drop') drop: Command<{ event: DragEvent, dragData: any, dropData: any }>;
 
-	constructor(private elementRef: ElementRef, zone: NgZone) {
+	constructor(private elementRef: ElementRef, private zone: NgZone) {
 		const element = elementRef.nativeElement;
 		const listener = new EventListener(element, new EventManager(this));
 
@@ -37,15 +37,15 @@ export class DropDirective {
 		this.elementRef.nativeElement.classList.remove(`${GRID_PREFIX}-dragover`);
 		const eventArg = {
 			event: e,
-			dragData: DragService.data,
-			dropData: isUndefined(this.targetData) ? this.data : this.targetData
+			dragData: isUndefined(this.dragData) ? DragService.data : this.dragData,
+			dropData: this.dropData
 		};
 
 		if (this.drop.canExecute(eventArg)) {
 			this.drop.execute(eventArg);
 		}
 
-		delete this.targetData;
+		delete this.dragData;
 		return false;
 	}
 
@@ -62,13 +62,13 @@ export class DropDirective {
 
 		const eventArg = {
 			event: e,
-			dragData: DragService.data,
-			dropData: this.data
+			dragData: isUndefined(this.dragData) ? DragService.data : this.dragData,
+			dropData: this.dropData
 		};
 
 		let effect = 'move';
 		if (this.area === DragService.area && this.dragOver.canExecute(eventArg)) {
-			this.targetData = this.dragOver.execute(eventArg);
+			this.dragData = this.dragOver.execute(eventArg);			
 		} else {
 			effect = 'none';
 		}

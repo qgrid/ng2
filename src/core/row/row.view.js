@@ -7,37 +7,7 @@ export class RowView {
 		this.model = model;
 		this.tagName = tagName;
 
-		let oldIndex = -1;
-
 		this.drop = new Command({
-			source: 'row.view',
-			canExecute: e => {
-				const newIndex = e.dragData;
-				if (isNumber(oldIndex) && isNumber(newIndex)) {
-					const { rows } = model.view();
-					return oldIndex !== newIndex
-						&& oldIndex >= 0
-						&& newIndex >= 0
-						&& rows.length > oldIndex
-						&& rows.length > newIndex;
-				}
-
-				return false;
-
-			},
-			execute: e => {
-				const newIndex = e.dragData;
-				const { data } = model;
-				const rows = Array.from(data().rows);
-				const row = rows[oldIndex];
-				rows.splice(oldIndex, 1);
-				rows.splice(newIndex, 0, row);
-
-				data({ rows });
-			}
-		});
-
-		this.dragOver = new Command({
 			source: 'row.view',
 			canExecute: e => {
 				const pathFinder = new PathService(table.context.bag.body);
@@ -46,18 +16,18 @@ export class RowView {
 			},
 			execute: e => {
 				const pathFinder = new PathService(table.context.bag.body);
+				const oldIndex = e.dragData;
 				const newIndex = pathFinder.row(e.event.path).index;
-				//return row.index;
 
 				const { data } = model;
 				const rows = Array.from(data().rows);
+
 				const row = rows[oldIndex];
 				rows.splice(oldIndex, 1);
 				rows.splice(newIndex, 0, row);
 
 				data({ rows });
 				
-				oldIndex = newIndex
 				return newIndex;
 			}
 		});
@@ -71,8 +41,7 @@ export class RowView {
 				}
 
 				return false;
-			},
-			execute: e => oldIndex = e.data
+			}
 		});
 
 		this.resize = new Command({
