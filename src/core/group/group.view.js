@@ -79,18 +79,15 @@ export class GroupView {
 		return node.state.expand ? 'expand' : 'collapse';
 	}
 
-	offset(node) {
-		const groupColumn = this.column;
-		return groupColumn.offset * node.level;
+	offset(node, column) {
+		return column ? column.offset * node.level : 0;
 	}
 
-	value(node) {
-		const groupColumn = this.column;
-		const getLabel = labelFactory(groupColumn);
-		return getLabel(node);
-	}
-
-	get column() {
-		return this.table.data.columns().find(c => c.type === 'group') || this.reference.group.model;
+	value(node, column) {
+		if (column) {
+			const getLabel = labelFactory(column);
+			return getLabel(node);
+		}
+		return null;
 	}
 }
