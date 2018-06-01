@@ -13,22 +13,11 @@ export class Matrix {
         const rowSpans = {};
 
         for (let i = 0; i < rowsCount; i++) {
-            const row = this.populateRow(rows[i]);
-
-            const spanning = row.reduce((memo, cell, index) => {
-                if (cell.rowSpan > 1) {
-                    return {
-                        ...memo,
-                        [index]: {
-                            element: cell,
-                            span: cell.rowSpan - 1
-                        }
-                    }
-                }
-
-                return memo;
-            }, {})
-
+            const rowElement = rows[i];
+            if (rowElement.classList.contains('q-grid-align')) {
+                continue;
+            }
+            const row = this.populateRow(rowElement);
             result.push(row);
         }
 
@@ -38,7 +27,10 @@ export class Matrix {
     populateRow(row) {
         const cells = row.cells;
         const cellsCount = cells.length;
-        const result = [];
+        const result = {
+            row,
+            cells: []
+        };
 
         for (let i = 0; i < cellsCount; i++) {
             const currentCell = cells[i];
@@ -67,7 +59,7 @@ export class Matrix {
         let colSpan = cell.colSpan || 1;
 
         while (colSpan--) {
-            row.push(cell);
+            row.cells.push(cell);
         }
     }
 }

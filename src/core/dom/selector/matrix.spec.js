@@ -20,13 +20,45 @@ describe('Matrix builder', () => {
 
         expect(result.length).toEqual(2);
         
-        expect(result[0].length).toEqual(2);
-        expect(result[0][0].id).toEqual('1');
-        expect(result[0][1].id).toEqual('2');
+        expect(result[0].cells.length).toEqual(2);
+        expect(result[0].cells[0].id).toEqual('1');
+        expect(result[0].cells[1].id).toEqual('2');
 
-        expect(result[1].length).toEqual(2);
-        expect(result[1][0].id).toEqual('3');
-        expect(result[1][1].id).toEqual('4');
+        expect(result[1].cells.length).toEqual(2);
+        expect(result[1].cells[0].id).toEqual('3');
+        expect(result[1].cells[1].id).toEqual('4');
+    });
+
+    it('should not include q-grid-align', () => {
+        const table = new DOMParser().parseFromString(`
+            <table>
+                <tbody>
+                    <tr class="q-grid-align">
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td id="1"></td>
+                        <td id="2"></td>
+                    </tr>
+                    <tr>
+                        <td id="3"></td>
+                        <td id="4"></td>
+                    </tr>
+                </tbody>
+            </table>`, 'text/html').body.firstChild;
+
+        const result = new Matrix(table).build();
+
+        expect(result.length).toEqual(2);
+        
+        expect(result[0].cells.length).toEqual(2);
+        expect(result[0].cells[0].id).toEqual('1');
+        expect(result[0].cells[1].id).toEqual('2');
+
+        expect(result[1].cells.length).toEqual(2);
+        expect(result[1].cells[0].id).toEqual('3');
+        expect(result[1].cells[1].id).toEqual('4');
     });
 
     it('should notice colspan', () => {
@@ -47,13 +79,13 @@ describe('Matrix builder', () => {
 
         expect(result.length).toEqual(2);
         
-        expect(result[0].length).toEqual(2);
-        expect(result[0][0].id).toEqual('1');
-        expect(result[0][1].id).toEqual('1');
+        expect(result[0].cells.length).toEqual(2);
+        expect(result[0].cells[0].id).toEqual('1');
+        expect(result[0].cells[1].id).toEqual('1');
 
-        expect(result[1].length).toEqual(2);
-        expect(result[1][0].id).toEqual('3');
-        expect(result[1][1].id).toEqual('4');
+        expect(result[1].cells.length).toEqual(2);
+        expect(result[1].cells[0].id).toEqual('3');
+        expect(result[1].cells[1].id).toEqual('4');
     });
 
     it('should notice rowspan', () => {
@@ -74,13 +106,13 @@ describe('Matrix builder', () => {
 
         expect(result.length).toEqual(2);
         
-        expect(result[0].length).toEqual(2);
-        expect(result[0][0].id).toEqual('1');
-        expect(result[0][1].id).toEqual('2');
+        expect(result[0].cells.length).toEqual(2);
+        expect(result[0].cells[0].id).toEqual('1');
+        expect(result[0].cells[1].id).toEqual('2');
 
-        expect(result[1].length).toEqual(2);
-        expect(result[1][0].id).toEqual('1');
-        expect(result[1][1].id).toEqual('3');
+        expect(result[1].cells.length).toEqual(2);
+        expect(result[1].cells[0].id).toEqual('1');
+        expect(result[1].cells[1].id).toEqual('3');
     });
 
     it('should stop rowspan', () => {
@@ -108,20 +140,20 @@ describe('Matrix builder', () => {
 
         expect(result.length).toEqual(3);
         
-        expect(result[0].length).toEqual(3);
-        expect(result[0][0].id).toEqual('1');
-        expect(result[0][1].id).toEqual('2');
-        expect(result[0][2].id).toEqual('3');
+        expect(result[0].cells.length).toEqual(3);
+        expect(result[0].cells[0].id).toEqual('1');
+        expect(result[0].cells[1].id).toEqual('2');
+        expect(result[0].cells[2].id).toEqual('3');
 
-        expect(result[1].length).toEqual(3);
-        expect(result[1][0].id).toEqual('4');
-        expect(result[1][1].id).toEqual('2');
-        expect(result[1][2].id).toEqual('5');
+        expect(result[1].cells.length).toEqual(3);
+        expect(result[1].cells[0].id).toEqual('4');
+        expect(result[1].cells[1].id).toEqual('2');
+        expect(result[1].cells[2].id).toEqual('5');
 
-        expect(result[2].length).toEqual(3);
-        expect(result[2][0].id).toEqual('6');
-        expect(result[2][1].id).toEqual('7');
-        expect(result[2][2].id).toEqual('8');
+        expect(result[2].cells.length).toEqual(3);
+        expect(result[2].cells[0].id).toEqual('6');
+        expect(result[2].cells[1].id).toEqual('7');
+        expect(result[2].cells[2].id).toEqual('8');
     });
 
     it('should notice rowspan & colspan rectangle', () => {
@@ -144,16 +176,16 @@ describe('Matrix builder', () => {
 
         expect(result.length).toEqual(2);
         
-        expect(result[0].length).toEqual(4);
-        expect(result[0][0].id).toEqual('1');
-        expect(result[0][1].id).toEqual('2');
-        expect(result[0][2].id).toEqual('2');
-        expect(result[0][3].id).toEqual('3');
+        expect(result[0].cells.length).toEqual(4);
+        expect(result[0].cells[0].id).toEqual('1');
+        expect(result[0].cells[1].id).toEqual('2');
+        expect(result[0].cells[2].id).toEqual('2');
+        expect(result[0].cells[3].id).toEqual('3');
 
-        expect(result[1].length).toEqual(4);
-        expect(result[1][0].id).toEqual('4');
-        expect(result[1][1].id).toEqual('2');
-        expect(result[1][2].id).toEqual('2');
-        expect(result[1][3].id).toEqual('5');
+        expect(result[1].cells.length).toEqual(4);
+        expect(result[1].cells[0].id).toEqual('4');
+        expect(result[1].cells[1].id).toEqual('2');
+        expect(result[1].cells[2].id).toEqual('2');
+        expect(result[1].cells[3].id).toEqual('5');
     });
 });
