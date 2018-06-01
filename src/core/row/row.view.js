@@ -21,10 +21,6 @@ export class RowView {
 				const newIndex = pathFinder.row(e.event.path).index;
 
 				if (oldIndex !== newIndex) {
-					console.log('old: ' + oldIndex);
-					console.log('new: ' + newIndex);
-					console.log('----');
-
 					const { data } = model;
 					const rows = Array.from(data().rows);
 
@@ -33,11 +29,9 @@ export class RowView {
 					rows.splice(newIndex, 0, row);
 
 					data({ rows });
-
-					return newIndex;
 				}
 
-				return oldIndex;
+				return newIndex;
 			}
 		});
 

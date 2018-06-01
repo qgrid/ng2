@@ -6,7 +6,7 @@
         [attr.rowspan]="$column.rowspan"
         [attr.colspan]="$column.colspan"
         [q-grid-drag]="$view.head.drag"
-        [q-grid-drag-data]="$column.index"
+        [q-grid-drag-data]="$column.model.key"
         q-grid-drop-area="head"
         [q-grid-resize]="$column.model.key"
         q-grid-resize-path="columns"

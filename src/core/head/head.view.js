@@ -20,35 +20,33 @@ export class HeadView {
 				return cell && cell.column.canMove;
 			},
 			execute: e => {
+				const sourceKey = e.dragData;
 				const pathFinder = new PathService(table.context.bag.head);
-				const oldIndex = e.dragData;
-				const newIndex = pathFinder.cell(e.event.path).columnIndex;
+				const targetKey = pathFinder.cell(e.event.path).column.key;
+				if (sourceKey !== targetKey) {
+					const columnList = model.columnList;
+					const indexMap = Array.from(columnList().index);
 
-				const { rows } = model.scene().column;
-				const index = Array.from(model.columnList().index);
-				for (let columns of rows) {
-					const sourceColumn = columns[oldIndex].model;
-					const targetColumn = columns[newIndex].model;
-					const sourceIndex = index.indexOf(sourceColumn.key);
-					const targetIndex = index.indexOf(targetColumn.key);
-					index.splice(sourceIndex, 1);
-					index.splice(targetIndex, 0, sourceColumn.key);
-					model.columnList({ index });
+					let oldIndex = indexMap.indexOf(sourceKey);
+					let newIndex = indexMap.indexOf(targetKey);
+					if (oldIndex >= 0 && newIndex >= 0) {
+						indexMap.splice(oldIndex, 1);
+						indexMap.splice(newIndex, 0, sourceKey);
+						columnList({ index: indexMap }, { source: 'head.view' });
+					}
 				}
 
-				return newIndex;
+				return sourceKey;
 			}
-		});	
+		});
 
 		this.drag = new Command({
 			source: 'head.view',
 			canExecute: e => {
-				if (isNumber(e.data)) {
-					const index = e.data;
-					return index >= 0 && model.view().columns.length > index;
-				}
-
-				return false;
+				const sourceKey = e.data;
+				const { columns } = model.view();
+				const map = columnService.map(columns);
+				return map.hasOwnProperty(sourceKey) && map[sourceKey].canMove;
 			}
 		});
 
