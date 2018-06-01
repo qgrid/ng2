@@ -125,18 +125,49 @@ function groupColumnFactory(model, nodes) {
 	const dataColumns = model.data().columns;
 	const groupColumn = dataColumns.find(item => item.type === 'group');
 	const groupState = model.group();
-	if (!groupColumn && groupState.mode != 'subhead' && (nodes.length || groupState.by.length)) {
-		const createColumn = columnFactory(model);
-		return (columns, context) => {
-			const groupColumn = createColumn('group');
-			groupColumn.model.source = 'generation';
-			groupColumn.rowspan = context.rowspan;
-			if (groupColumn.model.isVisible) {
-				columns.push(groupColumn);
-				return groupColumn;
-			}
-		};
+	const createColumn = columnFactory(model);
+
+	if (nodes.length || groupState.by.length) {
+		switch (groupState.mode) {
+			case 'default':
+				return (columns, context) => {
+					const groupColumn = createColumn('group');
+					groupColumn.model.source = 'generation';
+					groupColumn.rowspan = context.rowspan;
+					if (groupColumn.model.isVisible) {
+						columns.push(groupColumn);
+						return groupColumn;
+					}
+				};
+			case 'rowspan':
+				return (columns, context) => {
+					groupState.by.forEach(key => {
+						const groupColumn = createColumn('group');
+						groupColumn.model.source = 'generation';
+						groupColumn.rowspan = context.rowspan;
+						groupColumn.model.key = `group-${key}`;
+						groupColumn.model.title = key;
+						groupColumn.model.by = key;
+						
+						if (groupColumn.model.isVisible) {
+							columns.push(groupColumn);
+						}
+					})
+				};
+		}
 	}
+
+	// if (!groupColumn && groupState.mode != 'subhead' && (nodes.length || groupState.by.length)) {
+	// 	return (columns, context) => {
+	// 		const groupColumn = createColumn('group');
+	// 		groupColumn.model.source = 'generation';
+	// 		groupColumn.rowspan = context.rowspan;
+	// 		if (groupColumn.model.isVisible) {
+	// 			columns.push(groupColumn);
+	// 			return groupColumn;
+	// 		}
+	// 	};
+	// }
 
 	return noop;
 }
