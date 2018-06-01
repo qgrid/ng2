@@ -79,12 +79,8 @@ export class HeadView {
 			source: 'head.view',
 			canExecute: e => {
 				if (isNumber(e.data)) {
-					if (isNumber(e.data)) {
-						const index = e.data;
-						return index >= 0 && model.view().columns.length > index;
-					}
-
-					return false;
+					const index = e.data;
+					return index >= 0 && model.view().columns.length > index;
 				}
 
 				return false;

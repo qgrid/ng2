@@ -13,6 +13,7 @@ export declare class HeadView {
 	drop: Command<{ data: number, target: number }>;
 	drag: Command<{ data: number }>;
 	dragOver: Command<DragEvent>;
+
 	resize: Command;
 
 	rows: ColumnView[][];

@@ -31,20 +31,23 @@
 					</li>
 				</ul>
 				<ul class="q-grid-column-chooser-list">
-					<li *ngFor="let column of $columnChooser.columns | qGridFilter: {title: $columnChooser.filter}"
-					    q-grid-drag="$columnChooser.transfer(column)"
-					    q-grid-drop="$columnChooser.transfer(column)"
-					    q-grid-on-drop="$columnChooser.drop.execute($event)"
-					    q-grid-can-drop="$columnChooser.drop.canExecute($event)"
-					    q-grid-can-drag="$columnChooser.drag.canExecute($event)">
-
-						<mat-checkbox *ngIf="$columnChooser.toggle.canExecute(column)"
-						              [checked]="$columnChooser.state(column)"
-						              (change)="$columnChooser.toggle.execute(column)"
-						              aria-label="Selection">
-							<span [innerHTML]="column.title | qGridHighlight: $columnChooser.filter"></span>
-						</mat-checkbox>
-					</li>
+					<ng-container *ngFor="let column of $columnChooser.columns | qGridFilter: {title: $columnChooser.filter}">
+						<li *ngIf="$columnChooser.toggle.canExecute(column)"
+						    [q-grid-drop]="$columnChooser.drop"
+						    [q-grid-drag-over]="$columnChooser.dragOver"
+						    q-grid-drop-area="column-chooser">
+							<div [q-grid-drag]="$columnChooser.drag"
+							     [q-grid-drag-data]="column.key"
+							     q-grid-drop-area="column-chooser">
+								<mat-icon class="q-grid-icon">drag_indicator</mat-icon>
+							</div>
+							<mat-checkbox [checked]="$columnChooser.state(column)"
+							              (change)="$columnChooser.toggle.execute(column)"
+							              aria-label="Selection">
+								<span [innerHTML]="column.title | qGridHighlight: $columnChooser.filter"></span>
+							</mat-checkbox>
+						</li>
+					</ng-container>
 				</ul>
 			</div>
 		</mat-card-content>
