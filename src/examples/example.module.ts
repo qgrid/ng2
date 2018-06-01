@@ -48,77 +48,77 @@ import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
 
 const EXAMPLES: Array<any> = [
-    ExampleActionBarBasicComponent,
-    ExampleAggregateColumnBasicComponent,
-    ExampleDefineColumnBasicComponent,
-    ExampleDestroyGridBasicComponent,
-    ExampleDestroyGridModelComponent,
-    ExampleDetailsRowBasicComponent,
-    ExampleDragColumnBasicComponent,
-    ExampleDragRowBasicComponent,
-    ExampleEditCellBasicComponent,
-    ExampleEditCellBatchComponent,
-    ExampleFilterColumnFetchComponent,
-    ExampleFilterConditionBasicComponent,
-    ExampleFilterRowBasicComponent,
-    ExampleFocusCellAutoComponent,
-    ExampleFocusCellComponent,
-    ExampleGroupRowBasicComponent,
-    ExampleGroupRowspanComponent,
-    ExampleGroupSubheadComponent,
-    ExampleLegendBasicComponent,
-    ExampleLookAtomsBasicComponent,
-    ExampleLookAtomsCustomizedComponent,
-    ExampleLookAtomsModelComponent,
-    ExampleLookPeopleBasicComponent,
-    ExampleLookPeopleModelComponent,
-    ExampleManipulateDataBasicComponent,
-    ExamplePaginationBasicComponent,
-    ExamplePersistenceBasicComponent,
-    ExamplePersistenceServerComponent,
-    ExamplePinColumnBasicComponent,
-    ExamplePipeGridBasicComponent,
-    ExamplePivotColumnBasicComponent,
-    ExamplePluginGridBasicComponent,
-    ExampleSelectCellBasicComponent,
-    ExampleSelectColumnBasicComponent,
-    ExampleSelectMixBasicComponent,
-    ExampleSelectRowBasicComponent,
-    ExampleSizeRowBasicComponent,
-    ExampleSortRowComponent,
-    ExampleStyleCellBasicComponent,
-    ExampleStyleRowBasicComponent,
+	ExampleActionBarBasicComponent,
+	ExampleAggregateColumnBasicComponent,
+	ExampleDefineColumnBasicComponent,
+	ExampleDestroyGridBasicComponent,
+	ExampleDestroyGridModelComponent,
+	ExampleDetailsRowBasicComponent,
+	ExampleDragColumnBasicComponent,
+	ExampleDragRowBasicComponent,
+	ExampleEditCellBasicComponent,
+	ExampleEditCellBatchComponent,
+	ExampleFilterColumnFetchComponent,
+	ExampleFilterConditionBasicComponent,
+	ExampleFilterRowBasicComponent,
+	ExampleFocusCellAutoComponent,
+	ExampleFocusCellComponent,
+	ExampleGroupRowBasicComponent,
+	ExampleGroupRowspanComponent,
+	ExampleGroupSubheadComponent,
+	ExampleLegendBasicComponent,
+	ExampleLookAtomsBasicComponent,
+	ExampleLookAtomsCustomizedComponent,
+	ExampleLookAtomsModelComponent,
+	ExampleLookPeopleBasicComponent,
+	ExampleLookPeopleModelComponent,
+	ExampleManipulateDataBasicComponent,
+	ExamplePaginationBasicComponent,
+	ExamplePersistenceBasicComponent,
+	ExamplePersistenceServerComponent,
+	ExamplePinColumnBasicComponent,
+	ExamplePipeGridBasicComponent,
+	ExamplePivotColumnBasicComponent,
+	ExamplePluginGridBasicComponent,
+	ExampleSelectCellBasicComponent,
+	ExampleSelectColumnBasicComponent,
+	ExampleSelectMixBasicComponent,
+	ExampleSelectRowBasicComponent,
+	ExampleSizeRowBasicComponent,
+	ExampleSortRowComponent,
+	ExampleStyleCellBasicComponent,
+	ExampleStyleRowBasicComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
 function toPath(componentType: Function) {
-    const name = PATH_REGEX.exec(componentType.name)[1];
-    return name
-        .split(/(?=[A-Z])/)
-        .map(part => part.toLowerCase())
-        .join('-');
+	const name = PATH_REGEX.exec(componentType.name)[1];
+	return name
+		.split(/(?=[A-Z])/)
+		.map(part => part.toLowerCase())
+		.join('-');
 }
 
 export const exampleRoutes: Routes = EXAMPLES.map<Route>(example => ({
-    path: toPath(example),
-    component: example
+	path: toPath(example),
+	component: example
 })).concat([
-    {
-        path: '',
-        redirectTo: toPath(ExampleLookPeopleBasicComponent),
-        pathMatch: 'full'
-    }
+	{
+		path: '',
+		redirectTo: toPath(ExampleLookPeopleBasicComponent),
+		pathMatch: 'full'
+	}
 ]);
 
 @NgModule({
-    declarations: EXAMPLES.concat([ExamplePluginMyPagerComponent]),
-    exports: EXAMPLES,
-    imports: [
-        GridModule,
-        ThemeModule,
-        CommonModule,
-        MatButtonModule,
-        MatSelectModule
-    ]
+	declarations: EXAMPLES.concat([ExamplePluginMyPagerComponent]),
+	exports: EXAMPLES,
+	imports: [
+		GridModule,
+		ThemeModule,
+		CommonModule,
+		MatButtonModule,
+		MatSelectModule
+	]
 })
 export class ExampleModule { }
