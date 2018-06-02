@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 	styleUrls: ['example-group-row-subhead.component.scss'],
 	providers: [DataService]
 })
-export class ExampleGroupSubheadComponent {
+export class ExampleGroupRowSubheadComponent {
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

@@ -20,9 +20,10 @@ import { ExampleFilterConditionBasicComponent } from './filter-condition-basic/e
 import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filter-row-basic.component';
 import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
 import { ExampleFocusCellComponent } from './focus-cell-basic/example-focus-cell.component';
+import { ExampleGroupRowFlatComponent } from './group-row-flat/example-group-row-flat.component';
 import { ExampleGroupRowBasicComponent } from './group-row-basic/example-group-row-basic.component';
-import { ExampleGroupRowspanComponent } from './group-row-rowspan/example-group-row-rowspan.component';
-import { ExampleGroupSubheadComponent } from './group-row-subhead/example-group-row-subhead.component';
+import { ExampleGroupRowRowspanComponent } from './group-row-rowspan/example-group-row-rowspan.component';
+import { ExampleGroupRowSubheadComponent } from './group-row-subhead/example-group-row-subhead.component';
 import { ExampleLegendBasicComponent } from './legend-basic/example-legend-basic.component';
 import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
 import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/example-look-atoms-customized.component';
@@ -63,9 +64,10 @@ const EXAMPLES: Array<any> = [
 	ExampleFilterRowBasicComponent,
 	ExampleFocusCellAutoComponent,
 	ExampleFocusCellComponent,
+	ExampleGroupRowFlatComponent,
 	ExampleGroupRowBasicComponent,
-	ExampleGroupRowspanComponent,
-	ExampleGroupSubheadComponent,
+	ExampleGroupRowRowspanComponent,
+	ExampleGroupRowSubheadComponent,
 	ExampleLegendBasicComponent,
 	ExampleLookAtomsBasicComponent,
 	ExampleLookAtomsCustomizedComponent,

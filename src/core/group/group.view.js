@@ -88,7 +88,16 @@ export class GroupView {
 	}
 
 	offset(node, column) {
-		return column ? column.offset * node.level : 0;
+		const { mode } = this.model.group();
+		switch (mode) {
+			case 'nest':
+			case 'subhead': {
+				return column ? column.offset * node.level : 0;
+			}
+			default: {
+				return 0;
+			}
+		}
 	}
 
 	value(node, column) {

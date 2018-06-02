@@ -8,12 +8,12 @@
 		<span [ngSwitch]="$view.rowDetails.status($cell.row)">
 			<mat-icon class="q-grid-icon"
 			          *ngSwitchCase="'expand'">
-				arrow_drop_down
+				chevron_right
 			</mat-icon>
 			<mat-icon class="q-grid-icon"
 			          *ngSwitchCase="'collapse'"
 			          class="q-grid-arrow-right">
-				arrow_drop_up
+				chevron_down
 			</mat-icon>
 		</span>
 	</button>

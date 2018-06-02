@@ -4,7 +4,7 @@ import { Command } from '../command/command';
 export class GroupModel {
 	constructor() {
 		this.resource = new Resource();
-		this.mode = 'column'; // column | subhead | rowspan
+		this.mode = 'nest'; // nest | flat | subhead | rowspan
 		this.by = [];
 		this.shortcut = {
 			toggle: 'space'

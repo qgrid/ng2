@@ -1,12 +1,16 @@
-<ng-template key='body-cell-group.tpl.html' let-$cell let-$view="$view">
-	<div *ngIf="(!$cell.column.by || $cell.row.source === $cell.column.by)" [ngStyle]="{'padding-left': $view.group.offset($cell.row, $cell.column) + 'px'}">
+<ng-template key='body-cell-group.tpl.html'
+             let-$cell
+             let-$view="$view">
+	<div *ngIf="(!$cell.column.by || $cell.row.source === $cell.column.by)"
+	     [ngStyle]="{'padding-left': $view.group.offset($cell.row, $cell.column) + 'px'}">
 		<button (mouseup)="$view.group.toggleStatus.execute($cell.row)"
-				  *ngIf="$view.group.toggleStatus.canExecute($cell.row)"
-				  [ngSwitch]="$view.group.status($cell.row)"
-				  tabindex="-1"
-				  mat-icon-button>
-			<mat-icon  class="q-grid-icon" *ngSwitchCase="'expand'">arrow_drop_down</mat-icon>
-			<mat-icon class="q-grid-arrow-right q-grid-icon" *ngSwitchCase="'collapse'">arrow_drop_up</mat-icon>
+		        *ngIf="$view.group.toggleStatus.canExecute($cell.row)"
+		        tabindex="-1"
+		        [ngClass]="'q-grid-'+$view.group.status($cell.row)"
+		        mat-icon-button>
+			<mat-icon class="q-grid-icon">
+				chevron_right
+			</mat-icon>
 		</button>
 		<span>{{$view.group.value($cell.row, $cell.column)}}</span>
 		<span *ngIf=" $view.group.toggleStatus.canExecute($cell.row)">({{$view.group.count($cell.row)}})</span>
