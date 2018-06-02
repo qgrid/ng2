@@ -21,6 +21,9 @@ import { ExampleFilterConditionBasicComponent } from './filter-condition-basic/e
 import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filter-row-basic.component';
 import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
 import { ExampleFocusCellComponent } from './focus-cell-basic/example-focus-cell.component';
+import { ExampleGenerateColumnCohortComponent } from './generate-column-cohort/example-generate-column-cohort.component';
+import { ExampleGenerateColumnDeepComponent } from './generate-column-deep/example-generate-column-deep.component';
+import { ExampleGenerateColumnShallowComponent } from './generate-column-shallow/example-generate-column-shallow.component';
 import { ExampleGroupColumnBasicComponent } from './group-column-basic/example-group-column-basic.component';
 import { ExampleGroupRowBasicComponent } from './group-row-basic/example-group-row-basic.component';
 import { ExampleGroupRowFlatComponent } from './group-row-flat/example-group-row-flat.component';
@@ -67,6 +70,9 @@ const EXAMPLES: Array<any> = [
 	ExampleFilterRowBasicComponent,
 	ExampleFocusCellAutoComponent,
 	ExampleFocusCellComponent,
+	ExampleGenerateColumnCohortComponent,
+	ExampleGenerateColumnDeepComponent,
+	ExampleGenerateColumnShallowComponent,
 	ExampleGroupColumnBasicComponent,
 	ExampleGroupRowBasicComponent,
 	ExampleGroupRowFlatComponent,
