@@ -47,7 +47,7 @@ export class DataService {
 	}
 
 	getAtoms(): Observable<Atom[]> {
-		return this.http.get<Atom[]>(`assets/atoms/117.json`);
+		return this.http.get<Atom[]>(`assets/atoms/118.json`);
 	}
 
 	getAtomPresets(id, user): Observable<any> {

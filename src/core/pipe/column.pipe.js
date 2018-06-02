@@ -12,16 +12,15 @@ export function columnPipe(memo, context, next) {
 	const { model } = context;
 	const { pivot, nodes } = memo;
 	const { heads } = pivot;
-	const dataColumns = [];
-
 	const rowspan = Math.max(1, heads.length);
-	const addDataColumns = dataColumnsFactory(model);
 
 	/*
 	 * We need to invoke addDataColumns earlier that others because it setups data.columns model property
 	 *
 	 */
-	addDataColumns(dataColumns, { rowspan: rowspan, row: 0 });
+	const dataColumns = []
+	const addDataColumns = dataColumnsFactory(model);
+	addDataColumns(dataColumns, { rowspan, row: 0 });
 
 	const addSelectColumn = selectColumnFactory(model);
 	const addGroupColumn = groupColumnFactory(model, nodes);
@@ -37,25 +36,25 @@ export function columnPipe(memo, context, next) {
 	 * if rows are draggable or resizable
 	 *
 	 */
-	addRowIndicatorColumn(columns, { rowspan: rowspan, row: 0 });
+	addRowIndicatorColumn(columns, { rowspan, row: 0 });
 
 	/*
 	 * Add column with select boxes
 	 * if selection unit is row
 	 *
 	 */
-	addSelectColumn(columns, { rowspan: rowspan, row: 0 });
+	addSelectColumn(columns, { rowspan, row: 0 });
 
 	/*
 	 * Add group column with nodes
 	 *
 	 */
-	addGroupColumn(columns, { rowspan: rowspan, row: 0 });
+	addGroupColumn(columns, { rowspan, row: 0 });
 
 	/*
 	 * Add row expand column
 	 */
-	addRowExpandColumn(columns, { rowspan: rowspan, row: 0 });
+	addRowExpandColumn(columns, { rowspan, row: 0 });
 
 	/*
 	 * Add columns defined by user
@@ -78,7 +77,7 @@ export function columnPipe(memo, context, next) {
 		 * that fills remaining place (width = 100%)
 		 *
 		 */
-		addPadColumn(columns, { rowspan: rowspan, row: 0 });
+		addPadColumn(columns, { rowspan, row: 0 });
 		memo.columns = [columns];
 	}
 

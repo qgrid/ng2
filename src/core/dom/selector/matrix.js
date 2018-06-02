@@ -44,7 +44,7 @@ export class Matrix {
             cursor++;
         }
 
-        this.assertFlatness(matrix);
+        // this.assertFlatness(matrix);
         return matrix;
     }
 
