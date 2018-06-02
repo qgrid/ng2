@@ -47,6 +47,7 @@ import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-
 import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.component';
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
+import { ExampleDragRowNodeComponent } from './drag-row-node/example-drag-row-node.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -57,6 +58,7 @@ const EXAMPLES: Array<any> = [
 	ExampleDetailsRowBasicComponent,
 	ExampleDragColumnBasicComponent,
 	ExampleDragRowBasicComponent,
+	ExampleDragRowNodeComponent,
 	ExampleEditCellBasicComponent,
 	ExampleEditCellBatchComponent,
 	ExampleFilterColumnFetchComponent,
