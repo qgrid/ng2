@@ -42,6 +42,7 @@ import { ExamplePersistenceServerComponent } from './persistence-server/example-
 import { ExamplePinColumnBasicComponent } from './pin-column-basic/example-pin-column-basic.component';
 import { ExamplePipeGridBasicComponent } from './pipe-grid-basic/example-pipe-grid-basic.component';
 import { ExamplePivotColumnBasicComponent } from './pivot-column-basic/example-pivot-column-basic.component';
+import { ExamplePivotColumnTemplateComponent } from './pivot-column-template/example-pivot-column-template.component';
 import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plugin-grid-basic.component';
 import { ExamplePluginMyPagerComponent } from './plugin-grid-basic/example-plugin-my-pager.component';
 import { ExampleSelectCellBasicComponent } from './select-cell-basic/example-select-cell-basic.component';
@@ -52,7 +53,7 @@ import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-
 import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.component';
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
-import { ExamplePivotColumnTemplateComponent } from './pivot-column-template/example-pivot-column-template.component';
+import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -102,6 +103,7 @@ const EXAMPLES: Array<any> = [
 	ExampleSortRowComponent,
 	ExampleStyleCellBasicComponent,
 	ExampleStyleRowBasicComponent,
+	ExampleThemeGridEmbedComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
