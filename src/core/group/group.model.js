@@ -1,5 +1,6 @@
 import { Resource } from '../resource/resource';
 import { Command } from '../command/command';
+import { flatView } from '../node/node.service';
 
 export class GroupModel {
 	constructor() {
@@ -11,5 +12,7 @@ export class GroupModel {
 		};
 		this.toggle = new Command({ source: 'group.model' });
 		this.toggleAll = new Command({ source: 'group.model' });
+
+		this.flatten = flatView;
 	}
 }

@@ -1,5 +1,6 @@
 import { Resource } from '../resource/resource';
 import { Command } from '../command/command';
+import { Node } from '../node/node';
 
 /**
  * A class that allows to apply some hierarchy to the grid.
@@ -33,4 +34,5 @@ export declare interface GroupModel {
 	toggle?: Command;
 	toggleAll?: Command;
 	shortcut?: { [key: string]: string };
+	flatten: (nodes: Node[]) => Node[];
 }
