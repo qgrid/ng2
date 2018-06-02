@@ -2,7 +2,7 @@ import { Node } from '../../node/node';
 import { RowDetails } from '../../row-details/row.details';
 import { DataRow } from './data.row';
 import { DetailsRow } from './details.row';
-import { NodeRow } from './node.row';
+import { NodeRow, SubheadNodeRow, RowspanNodeRow } from './node.row';
 
 export class Renderer {
 	constructor(model) {
@@ -10,8 +10,25 @@ export class Renderer {
 
 		this.strategies = new Map();
 		this.strategies.set(RowDetails, new DetailsRow(model));
-		this.strategies.set(Node, new NodeRow(model));
 		this.defaultStrategy = new DataRow(model);
+
+		const selectNodeStrategy = () => {
+			const { mode } = model.group();
+			switch (mode) {
+				case 'subhead':
+					this.strategies.set(Node, new SubheadNodeRow(model));
+					break;
+				case 'rowspan':
+					this.strategies.set(Node, new RowspanNodeRow(model));
+					break;
+				default:
+					this.strategies.set(Node, new NodeRow(model));
+					break;
+			}
+		};
+
+		selectNodeStrategy();
+		model.groupChanged.on(selectNodeStrategy);
 	}
 
 	colspan(row, column) {
