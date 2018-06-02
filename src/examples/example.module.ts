@@ -13,6 +13,7 @@ import { ExampleDestroyGridModelComponent } from './destroy-grid-model/example-d
 import { ExampleDetailsRowBasicComponent } from './details-row-basic/example-details-row-basic.component';
 import { ExampleDragColumnBasicComponent } from './drag-column-basic/example-drag-column-basic.component';
 import { ExampleDragRowBasicComponent } from './drag-row-basic/example-drag-row-basic.component';
+import { ExampleDragRowNodeComponent } from './drag-row-node/example-drag-row-node.component';
 import { ExampleEditCellBasicComponent } from './edit-cell-basic/example-edit-cell-basic.component';
 import { ExampleEditCellBatchComponent } from './edit-cell-batch/example-edit-cell-batch.component';
 import { ExampleFilterColumnFetchComponent } from './filter-column-fetch/example-filter-column-fetch.component';
@@ -20,8 +21,9 @@ import { ExampleFilterConditionBasicComponent } from './filter-condition-basic/e
 import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filter-row-basic.component';
 import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
 import { ExampleFocusCellComponent } from './focus-cell-basic/example-focus-cell.component';
-import { ExampleGroupRowFlatComponent } from './group-row-flat/example-group-row-flat.component';
+import { ExampleGroupColumnBasicComponent } from './group-column-basic/example-group-column-basic.component';
 import { ExampleGroupRowBasicComponent } from './group-row-basic/example-group-row-basic.component';
+import { ExampleGroupRowFlatComponent } from './group-row-flat/example-group-row-flat.component';
 import { ExampleGroupRowRowspanComponent } from './group-row-rowspan/example-group-row-rowspan.component';
 import { ExampleGroupRowSubheadComponent } from './group-row-subhead/example-group-row-subhead.component';
 import { ExampleLegendBasicComponent } from './legend-basic/example-legend-basic.component';
@@ -47,7 +49,6 @@ import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-
 import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.component';
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
-import { ExampleDragRowNodeComponent } from './drag-row-node/example-drag-row-node.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -66,8 +67,9 @@ const EXAMPLES: Array<any> = [
 	ExampleFilterRowBasicComponent,
 	ExampleFocusCellAutoComponent,
 	ExampleFocusCellComponent,
-	ExampleGroupRowFlatComponent,
+	ExampleGroupColumnBasicComponent,
 	ExampleGroupRowBasicComponent,
+	ExampleGroupRowFlatComponent,
 	ExampleGroupRowRowspanComponent,
 	ExampleGroupRowSubheadComponent,
 	ExampleLegendBasicComponent,
