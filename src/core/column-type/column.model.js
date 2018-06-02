@@ -62,6 +62,8 @@ export class ColumnModel {
 
 		this.compare = compare;
 
+		this.children = [];
+		
 		this.$label = null;
 		this.$value = null;
 	}
