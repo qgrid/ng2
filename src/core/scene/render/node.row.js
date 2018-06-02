@@ -83,7 +83,6 @@ export class NodeRow extends DataRow {
 	}
 }
 
-
 export class RowspanNodeRow extends NodeRow {
 	constructor(model) {
 		super(model);
@@ -92,9 +91,8 @@ export class RowspanNodeRow extends NodeRow {
 	rowspan(node, column) {
 		switch (node.type) {
 			case 'group': {
-				const { mode } = this.model.group();
 				if (node.state.expand && column.model.type === 'group') {
-					return node.children.reduce((memo, child) => memo + this.rowspan(child, column), 1);
+					return node.children.reduce((memo, child) => memo + this.rowspan(child, column), 0);
 				}
 			}
 		}
@@ -105,8 +103,7 @@ export class RowspanNodeRow extends NodeRow {
 	columns(node, pin) {
 		switch (node.type) {
 			case 'group': {
-				const columns = this.columnList(pin);
-				return dropWhile(columns, c => c.model.type === 'group' && c.model.by !== node.source);
+				return dropWhile(this.columnList(pin), c => c.model.type === 'group' && c.model.by !== node.source);
 			}
 			case 'row': {
 				return this.columnList(pin).filter(c => c.model.type !== 'group');

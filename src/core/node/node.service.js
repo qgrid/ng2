@@ -10,7 +10,7 @@ export function traverse(nodes, visit) {
 }
 
 export function flatView(nodes, result = []) {
-	for (let i = 0, nodesLength = nodes.length; i < nodesLength; i++) {
+	for (let i = 0, nodeLength = nodes.length; i < nodeLength; i++) {
 		const node = nodes[i];
 		result.push(node);
 
@@ -21,7 +21,7 @@ export function flatView(nodes, result = []) {
 			}
 			else {
 				const rows = node.rows;
-				for (let j = 0, rowsLength = rows.length; j < rowsLength; j++) {
+				for (let j = 0, rowLength = rows.length; j < rowLength; j++) {
 					const row = rows[j];
 					const rowNode = new Node(node.key, node.level + 1, 'row');
 					rowNode.rows = [row];

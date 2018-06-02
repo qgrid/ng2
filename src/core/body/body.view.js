@@ -34,14 +34,14 @@ export class BodyView {
 
 		const model = this.model;
 		const table = this.table;
-		const sceneState = model.scene();
+		const { rows } = model.scene();
 
-		this.rows = sceneState.rows;
+		this.rows = rows;
 		this.valueCache = new Map();
 		this.labelCache = new Map();
 
 		table.view.removeLayer('blank');
-		if (!this.rows.length && !model.data().rows.length) {
+		if (!rows.length && !model.data().rows.length) {
 			table.view.addLayer('blank');
 		}
 	}

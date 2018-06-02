@@ -9,10 +9,8 @@ export class Matrix {
     build(table) {
         const isDataRow = this.isDataRow;
         const rows = table.rows;
-        const matrix = [];
-
         const offset = new Array(rows.length);
-        offset.fill(0);
+        const matrix = [];
 
         let cursor = 0;
         for (let i = 0, height = rows.length; i < height; i++) {
@@ -28,7 +26,7 @@ export class Matrix {
 
                 for (let y = 0; y < rowSpan; y++) {
                     const yi = cursor + y;
-                    const xi = offset[yi];
+                    const xi = offset[yi] || 0;
                     let row = matrix[yi];
                     if (!row) {
                         row = [];
@@ -56,7 +54,9 @@ export class Matrix {
             const width = matrix[0].length;
             for (let i = 1; i < height; i++) {
                 if (matrix[i].length !== width) {
-                    throw new AppError('matrix', `Matrix is not flat, expect width ${width}, actual ${matrix[i].length}`);
+                    throw new AppError(
+                        'matrix', 
+                        `Matrix is not flat, expect width ${width}, actual ${matrix[i].length}`);
                 }
             }
         }
