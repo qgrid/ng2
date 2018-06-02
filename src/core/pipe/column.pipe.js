@@ -13,8 +13,9 @@ export function columnPipe(memo, context, next) {
 	const { pivot, nodes } = memo;
 	const { heads } = pivot;
 	const dataColumns = [];
-	const addDataColumns = dataColumnsFactory(model);
+
 	const rowspan = Math.max(1, heads.length);
+	const addDataColumns = dataColumnsFactory(model);
 
 	/*
 	 * We need to invoke addDataColumns earlier that others because it setups data.columns model property
@@ -29,6 +30,7 @@ export function columnPipe(memo, context, next) {
 	const addPivotColumns = pivotColumnsFactory(model);
 	const addPadColumn = padColumnFactory(model);
 	const columns = [];
+	const firstRow = [];
 
 	/*
 	 * Add row indicator column
@@ -56,7 +58,7 @@ export function columnPipe(memo, context, next) {
 	addRowExpandColumn(columns, { rowspan: rowspan, row: 0 });
 
 	/*
-	 *Add columns defined by user
+	 * Add columns defined by user
 	 * that are visible
 	 *
 	 */
@@ -68,7 +70,6 @@ export function columnPipe(memo, context, next) {
 		 * if pivot is turned on
 		 *
 		 */
-
 		memo.columns = addPivotColumns(columns, heads);
 	}
 	else {
@@ -94,12 +95,12 @@ function selectColumnFactory(model) {
 
 	if (!indicatorColumn && selection.unit === 'mix') {
 		const createColumn = columnFactory(model);
-		return (columns, context) => {
+		return (memo, context) => {
 			const indicatorColumn = createColumn('row-indicator');
 			indicatorColumn.model.source = 'generation';
 			indicatorColumn.rowspan = context.rowspan;
 			if (indicatorColumn.model.isVisible) {
-				columns.push(indicatorColumn);
+				memo.push(indicatorColumn);
 				return indicatorColumn;
 			}
 		};
@@ -107,12 +108,12 @@ function selectColumnFactory(model) {
 
 	if (!selectColumn && selection.unit === 'row' && selection.mode !== 'range') {
 		const createColumn = columnFactory(model);
-		return (columns, context) => {
+		return (memo, context) => {
 			const selectColumn = createColumn('select');
 			selectColumn.model.source = 'generation';
 			selectColumn.rowspan = context.rowspan;
 			if (selectColumn.model.isVisible) {
-				columns.push(selectColumn);
+				memo.push(selectColumn);
 				return selectColumn;
 			}
 		};
@@ -129,19 +130,20 @@ function groupColumnFactory(model, nodes) {
 
 	if (nodes.length || groupState.by.length) {
 		switch (groupState.mode) {
-			case 'nest':
-				return (columns, context) => {
+			case 'nest': {
+				return (memo, context) => {
 					const groupColumn = createColumn('group');
 					groupColumn.model.source = 'generation';
 					groupColumn.rowspan = context.rowspan;
 					if (groupColumn.model.isVisible) {
-						columns.push(groupColumn);
+						memo.push(groupColumn);
 						return groupColumn;
 					}
 				};
+			}
 			case 'rowspan':
-			case 'flat':
-				return (columns, context) => {
+			case 'flat': {
+				return (memo, context) =>
 					groupState.by.forEach(key => {
 						const groupColumn = createColumn('group');
 						groupColumn.model.source = 'generation';
@@ -149,26 +151,14 @@ function groupColumnFactory(model, nodes) {
 						groupColumn.model.key = `$group-${key}`;
 						groupColumn.model.title = key;
 						groupColumn.model.by = key;
-						
+
 						if (groupColumn.model.isVisible) {
-							columns.push(groupColumn);
+							memo.push(groupColumn);
 						}
-					})
-				};
+					});
+			}
 		}
 	}
-
-	// if (!groupColumn && groupState.mode != 'subhead' && (nodes.length || groupState.by.length)) {
-	// 	return (columns, context) => {
-	// 		const groupColumn = createColumn('group');
-	// 		groupColumn.model.source = 'generation';
-	// 		groupColumn.rowspan = context.rowspan;
-	// 		if (groupColumn.model.isVisible) {
-	// 			columns.push(groupColumn);
-	// 			return groupColumn;
-	// 		}
-	// 	};
-	// }
 
 	return noop;
 }
@@ -178,12 +168,12 @@ function rowExpandColumnFactory(model) {
 	const expandColumn = dataColumns.find(item => item.type === 'row-expand');
 	if (model.row().unit === 'details' && !expandColumn) {
 		const createColumn = columnFactory(model);
-		return (columns, context) => {
+		return (memo, context) => {
 			const expandColumn = createColumn('row-expand');
 			expandColumn.model.source = 'generation';
 			expandColumn.rowspan = context.rowspan;
 			if (expandColumn.model.isVisible) {
-				columns.push(expandColumn);
+				memo.push(expandColumn);
 				return expandColumn;
 			}
 		};
@@ -198,12 +188,12 @@ function rowIndicatorColumnFactory(model) {
 	const rowState = model.row();
 	if ((rowState.canMove || rowState.canResize) && !rowIndicatorColumn) {
 		const createColumn = columnFactory(model);
-		return (columns, context) => {
+		return (memo, context) => {
 			const expandColumn = createColumn('row-indicator');
 			expandColumn.model.source = 'generation';
 			expandColumn.rowspan = context.rowspan;
 			if (expandColumn.model.isVisible) {
-				columns.push(expandColumn);
+				memo.push(expandColumn);
 				return expandColumn;
 			}
 		};
@@ -215,36 +205,30 @@ function rowIndicatorColumnFactory(model) {
 function dataColumnsFactory(model) {
 	const getColumns = generateFactory(model);
 	const createColumn = columnFactory(model);
-	return (columns, context) => {
-		const result = getColumns();
-		if (result.hasChanges) {
-			model.data({
-				columns: result.columns
-			}, {
-					source: 'column.pipe',
-					behavior: 'core'
-				});
+	return (memo, context) => {
+		const { hasChanges, columns } = getColumns();
+		if (hasChanges) {
+			model.data({ columns }, { source: 'column.pipe', behavior: 'core' });
 		}
 
-		columns.push(...
-			result.columns
-				.map(columnBody => {
-					const dataColumn = createColumn(columnBody.type || 'text', columnBody);
-					dataColumn.rowspan = context.rowspan;
-					return dataColumn;
-				}));
+		memo.push(...columns
+			.map(columnBody => {
+				const dataColumn = createColumn(columnBody.type || 'text', columnBody);
+				dataColumn.rowspan = context.rowspan;
+				return dataColumn;
+			}));
 
-		return result.columns;
+		return columns;
 	};
 }
 
 function padColumnFactory(model) {
 	const createColumn = columnFactory(model);
-	return (columns, context) => {
+	return (memo, context) => {
 		const padColumn = createColumn('pad');
 		padColumn.rowspan = context.rowspan;
-		padColumn.model.key = `$pad-${columns.length}`;
-		columns.push(padColumn);
+		padColumn.model.key = `$pad-${memo.length}`;
+		memo.push(padColumn);
 		return padColumn;
 	};
 }
@@ -252,8 +236,8 @@ function padColumnFactory(model) {
 function pivotColumnsFactory(model) {
 	const createColumn = columnFactory(model);
 	const addPadColumn = padColumnFactory(model);
-	return (columns, heads) => {
-		const rows = [columns];
+	return (memo, heads) => {
+		const rows = [memo];
 
 		/*
 		 * Data columns + first row pivot columns
