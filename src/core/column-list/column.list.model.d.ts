@@ -40,8 +40,9 @@ export declare interface ColumnListModel {
 	 * - `null` means auto generation is off.
 	 * - `'deep'` means that algorithm traverses all level keys of the passed data source item.
 	 * - `'shallow'` means algoithm traverses only first level keys of the passed data source item.
+	 * - `'cohort'` similar to deep, but use column groups.
 	 */
-	generation?: null | 'deep' | 'shallow';
+	generation?: null | 'deep' | 'shallow' | 'cohort';
 
 	/**
 	 * Contains array of column keys which q-grid uses for column ordering.

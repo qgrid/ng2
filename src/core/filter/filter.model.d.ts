@@ -52,7 +52,7 @@ export declare interface FilterModel {
 	 * * `default` filtration through column filters and external plugins.
 	 * * `row` filtration through header row filter and external plugins.
 	 */
-	unit?: string;
+	unit?: 'default' | 'row';
 
 	/**
 	 * Factory for the match function.
