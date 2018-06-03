@@ -8,6 +8,8 @@ import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 
 @Injectable()
 export class ColumnListService {
+	columnListCtrl: ColumnListCtrl;
+
 	constructor(private root: RootService) {
 	}
 
@@ -32,6 +34,10 @@ export class ColumnListService {
 	}
 
 	get ctrl() {
+		if (this.columnListCtrl) {
+			return this.columnListCtrl;
+		}
+
 		const canCopy = (key: string, source, target) =>
 			target.hasOwnProperty(key) && !isUndefined(source[key]);
 
