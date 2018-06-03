@@ -41,6 +41,8 @@ export class ColumnListService {
 		const canCopy = (key: string, source, target) =>
 			target.hasOwnProperty(key) && !isUndefined(source[key]);
 
-		return new ColumnListCtrl(this.root.model, canCopy, parseFactory);
+		this.columnListCtrl = new ColumnListCtrl(this.root.model, canCopy, parseFactory);
+
+		return this.columnListCtrl;
 	}
 }
