@@ -212,19 +212,21 @@ function dataColumnsFactory(model) {
 	}
 
 	return (memo, context) => {
-		let rows = [];
+		const rows = [];
 		const heights = [];
 		function add(columns, depth) {
 			let maxHeight = depth;
 			const row = columns
 				.map((body, i) => {
 					const dataColumn = createColumn(body.type || 'text', body);
-					const { children } = body;
+					const { children } = dataColumn.model;
 					let height = 0;
-					if (children && children.length) {
-						dataColumn.colspan = children.length;
-						height = add(children, depth + 1);
+					if (children.length) {
+						const result = add(children, depth + 1);
+						height = result.height;
 						maxHeight = Math.max(maxHeight, height);
+
+						dataColumn.colspan = result.row.reduce((sum, child) => sum + child.colspan, 0);
 					}
 
 					if (depth === 0) {
@@ -239,7 +241,7 @@ function dataColumnsFactory(model) {
 			}
 
 			rows[depth].push(...row);
-			return maxHeight;;
+			return { height: maxHeight, row };
 		}
 
 		add(columns, 0);

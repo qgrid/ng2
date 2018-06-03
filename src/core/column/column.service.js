@@ -45,20 +45,20 @@ export function lineView(columnRows) {
 	return [];
 }
 
-export function expand(columnRows) {
-	const view = [];
+export function expand(rows) {
+	const matrix = [];
 	const offsets = [];
-	for (let y = 0, height = columnRows.length; y < height; y++) {
-		const columnRow = columnRows[y];
+	for (let y = 0, height = rows.length; y < height; y++) {
+		const columns = rows[y];
 		let offset = offsets.length > y ? offsets[y] : offsets[y] = 0;
-		for (let x = 0, width = columnRow.length; x < width; x++) {
-			const column = columnRow[x];
+		for (let x = 0, width = columns.length; x < width; x++) {
+			const column = columns[x];
 			const { rowspan, colspan } = column;
 			for (let i = 0; i < rowspan; i++) {
 				for (let j = 0; j < colspan; j++) {
 					const yi = y + i;
 					const xj = offset + j;
-					const row = view.length > yi ? view[yi] : view[yi] = [];
+					const row = matrix.length > yi ? matrix[yi] : matrix[yi] = [];
 					row[xj] = column;
 
 					const cursor = offsets.length > yi ? offsets[yi] : offsets[yi] = 0;
@@ -73,15 +73,16 @@ export function expand(columnRows) {
 		}
 	}
 
-	return view;
+	return matrix;
+
 }
 
-export function collapse(view) {
+export function collapse(matrix) {
 	const line = [];
-	const height = view.length;
+	const height = matrix.length;
 	if (height) {
 		const set = new Set();
-		const lastRow = view[height - 1];
+		const lastRow = matrix[height - 1];
 		const width = lastRow.length;
 		for (let i = 0; i < width; i++) {
 			const column = lastRow[i];
