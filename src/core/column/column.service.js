@@ -1,5 +1,5 @@
-import {isFunction} from '../utility/kit';
-import {AppError} from '../infrastructure/error';
+import { isFunction } from '../utility/kit';
+import { AppError } from '../infrastructure/error';
 
 export function map(columns) {
 	return columns.reduce((memo, column) => {
@@ -46,33 +46,30 @@ export function lineView(columnRows) {
 }
 
 export function expand(columnRows) {
-	const height = columnRows.length;
 	const view = [];
-	const cursors = [];
-	for (let ri = 0; ri < height; ri++) {
-		const columnRow = columnRows[ri];
-		const columnLength = columnRow.length;
-		let cursor = cursors.length > ri ? cursors[ri] : cursors[ri] = 0;
-		for (let ci = 0; ci < columnLength; ci++) {
-			const column = columnRow[ci];
-			const rowspan = column.rowspan;
-			const colspan = column.colspan;
-			for (let rj = 0; rj < rowspan; rj++) {
-				for (let cj = 0; cj < colspan; cj++) {
-					const rij = ri + rj;
-					const cij = cursor + cj;
-					const viewRow = view.length > rij ? view[rij] : view[rij] = [];
-					viewRow[cij] = column;
+	const offsets = [];
+	for (let y = 0, height = columnRows.length; y < height; y++) {
+		const columnRow = columnRows[y];
+		let offset = offsets.length > y ? offsets[y] : offsets[y] = 0;
+		for (let x = 0, width = columnRow.length; x < width; x++) {
+			const column = columnRow[x];
+			const { rowspan, colspan } = column;
+			for (let i = 0; i < rowspan; i++) {
+				for (let j = 0; j < colspan; j++) {
+					const yi = y + i;
+					const xj = offset + j;
+					const row = view.length > yi ? view[yi] : view[yi] = [];
+					row[xj] = column;
 
-					const rijCursor = cursors.length > rij ? cursors[rij] : cursors[rij] = 0;
-					if (rijCursor === cij) {
-						cursors[rij] = rijCursor + 1;
+					const cursor = offsets.length > yi ? offsets[yi] : offsets[yi] = 0;
+					if (cursor === xj) {
+						offsets[yi] = cursor + 1;
 					}
 				}
 			}
 
-			cursor += colspan;
-			cursors[ri] = cursor;
+			offset += colspan;
+			offsets[y] = offset;
 		}
 	}
 
