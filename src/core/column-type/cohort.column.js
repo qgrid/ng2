@@ -14,7 +14,6 @@ export class CohortColumnModel extends ColumnModel {
 		super('cohort');
 
 		this.key = '$cohort';
-		this.class = 'control';
 
 		this.canEdit = false;
 		this.canSort = false;

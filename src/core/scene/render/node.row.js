@@ -91,8 +91,10 @@ export class RowspanNodeRow extends NodeRow {
 	rowspan(node, column) {
 		switch (node.type) {
 			case 'group': {
-				if (node.state.expand && column.model.type === 'group') {
-					return node.children.reduce((memo, child) => memo + this.rowspan(child, column), 0);
+				if (column.model.type === 'group') {
+					if (node.state.expand) {
+						return node.children.reduce((memo, child) => memo + this.rowspan(child, column), 1);
+					}
 				}
 			}
 		}
@@ -103,6 +105,10 @@ export class RowspanNodeRow extends NodeRow {
 	columns(node, pin) {
 		switch (node.type) {
 			case 'group': {
+				if (node.state.expand) {
+					return this.columnList(pin).filter(c => c.model.by === node.source);
+				}
+
 				return dropWhile(this.columnList(pin), c => c.model.type === 'group' && c.model.by !== node.source);
 			}
 			case 'row': {

@@ -22,14 +22,13 @@ export function columnPipe(memo, context, next) {
 	const addDataColumns = dataColumnsFactory(model);
 	addDataColumns(dataColumns, { rowspan, row: 0 });
 
+	const columns = [];
 	const addSelectColumn = selectColumnFactory(model);
 	const addGroupColumn = groupColumnFactory(model, nodes);
 	const addRowExpandColumn = rowExpandColumnFactory(model);
 	const addRowIndicatorColumn = rowIndicatorColumnFactory(model);
 	const addPivotColumns = pivotColumnsFactory(model);
 	const addPadColumn = padColumnFactory(model);
-	const columns = [];
-	const firstRow = [];
 
 	/*
 	 * Add row indicator column
@@ -56,13 +55,13 @@ export function columnPipe(memo, context, next) {
 	 */
 	addRowExpandColumn(columns, { rowspan, row: 0 });
 
+	columns.push(...dataColumns);
+
 	/*
 	 * Add columns defined by user
 	 * that are visible
 	 *
 	 */
-	columns.push(...dataColumns);
-
 	if (heads.length) {
 		/*
 		 * Add column rows for pivoted data
@@ -70,8 +69,7 @@ export function columnPipe(memo, context, next) {
 		 *
 		 */
 		memo.columns = addPivotColumns(columns, heads);
-	}
-	else {
+	} else {
 		/*
 		 * Add special column type
 		 * that fills remaining place (width = 100%)
@@ -204,19 +202,33 @@ function rowIndicatorColumnFactory(model) {
 function dataColumnsFactory(model) {
 	const getColumns = generateFactory(model);
 	const createColumn = columnFactory(model);
+	const { hasChanges, columns } = getColumns();
+	if (hasChanges) {
+		model.data({ columns }, { source: 'column.pipe', behavior: 'core' });
+	}
+
 	return (memo, context) => {
-		const { hasChanges, columns } = getColumns();
-		if (hasChanges) {
-			model.data({ columns }, { source: 'column.pipe', behavior: 'core' });
+		function add(columns, depth) {
+			const line = columns
+				.map(body => {
+					const dataColumn = createColumn(body.type || 'text', body);
+					dataColumn.rowspan = context.rowspan;
+					// if (body.children && body.children.length) {
+					// 	dataColumn.colspan = add(body.children, depth + 1);
+					// }
+
+					return dataColumn;
+				});
+
+			// if (!memo[depth]) {
+			// 	memo[depth] = [];
+			// }
+
+			memo/*[depth]*/.push(...line);
+			return line.length;
 		}
 
-		memo.push(...columns
-			.map(columnBody => {
-				const dataColumn = createColumn(columnBody.type || 'text', columnBody);
-				dataColumn.rowspan = context.rowspan;
-				return dataColumn;
-			}));
-
+		add(columns, 0);
 		return columns;
 	};
 }
@@ -302,14 +314,12 @@ function pivotColumnsFactory(model) {
 
 function index(columnRows) {
 	const view = columnService.expand(columnRows);
-	const height = view.length;
-	for (let i = 0; i < height; i++) {
-		const row = view[i];
-		const width = row.length;
-		for (let j = 0; j < width; j++) {
-			const column = row[j];
+	for (let y = 0, height = view.length; y < height; y++) {
+		const row = view[y];
+		for (let x = 0, width = row.length; x < width; x++) {
+			const column = row[x];
 			if (column.index < 0) {
-				column.index = j;
+				column.index = x;
 			}
 		}
 	}
@@ -323,14 +333,16 @@ function filter(model, columnRows) {
 	const groupBy = new Set(model.group().by);
 	const pivotBy = new Set(model.pivot().by);
 
-	for (let i = 0; i < height; i++) {
-		const columnRow = columnRows[i];
+	for (let y = 0; y < height; y++) {
+		const columnRow = columnRows[y];
 		const width = columnRow.length;
 		const row = [];
-		for (let j = 0; j < width; j++) {
-			const columnView = columnRow[j];
-			const column = columnView.model;
-			if (column.isVisible && !groupBy.has(column.key) && !pivotBy.has(column.key)) {
+		for (let x = 0; x < width; x++) {
+			const columnView = columnRow[x];
+			const columnModel = columnView.model;
+			if (columnModel.isVisible
+				&& !groupBy.has(columnModel.key)
+				&& !pivotBy.has(columnModel.key)) {
 				row.push(columnView);
 			}
 		}
@@ -349,27 +361,22 @@ function sort(model, columnRows) {
 		const columnList = model.columnList;
 		const buildIndex = sortIndexFactory(model);
 		const columns = columnRow.map(column => column.model);
-		const indexResult = buildIndex(columns);
-		if (indexResult.hasChanges) {
-			columnList({
-				index: indexResult.index
-			}, {
-					source: 'column.pipe',
-					behavior: 'core'
-				});
+		const { hasChanges, index } = buildIndex(columns);
+		if (hasChanges) {
+			columnList({ index }, { source: 'column.pipe', behavior: 'core' });
 		}
 
-		let index = 0;
 		const indexMap =
 			columnList()
 				.index
-				.reduce((memo, key) => {
-					memo[key] = index++;
+				.reduce((memo, key, i) => {
+					memo[key] = i;
 					return memo;
 				}, {});
 
 		const row = Array.from(columnRow);
 		row.sort((x, y) => indexMap[x.model.key] - indexMap[y.model.key]);
+
 		const temp = Array.from(columnRows);
 		temp[0] = row;
 		return temp;

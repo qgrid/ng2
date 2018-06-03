@@ -1,5 +1,6 @@
 import { ColumnModel } from '../../column-type/column.model';
 import { isObject, isFunction } from '../../utility/kit';
+import { isArray } from 'util';
 
 export class ColumnView {
 	constructor(model) {
@@ -31,9 +32,13 @@ export class ColumnView {
 					etalonValue = etalonValue.bind(body);
 				}
 				body[key] = etalonValue;
-			}
-			else if (isObject(body[key]) && !isFunction(body[key])) {
-				body[key] = Object.assign({}, etalon[key], body[key]);
+			} else {
+				const value = body[key];
+				if (isArray(value)) {
+					body[key] = Array.from(value);
+				} else if (isObject(value) && !isFunction(value)) {
+					body[key] = Object.assign({}, etalon[key], value);
+				}
 			}
 		}
 		return body;
