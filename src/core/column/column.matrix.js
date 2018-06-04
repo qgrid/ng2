@@ -81,7 +81,7 @@ function rowsToUseFactory() {
 
 
 export function expand(rows) {
-	const matrix = [];
+	const mx = [];
 	const offsets = [];
 	for (let y = 0, height = rows.length; y < height; y++) {
 		const columns = rows[y];
@@ -90,7 +90,7 @@ export function expand(rows) {
 			const { rowspan, colspan } = column;
 			for (let i = 0; i < rowspan; i++) {
 				const yi = y + i;
-				const row = matrix.length > yi ? matrix[yi] : matrix[yi] = [];
+				const row = mx.length > yi ? mx[yi] : mx[yi] = [];
 				const gaps = offsets.length > yi ? offsets[yi] : offsets[yi] = [0];
 				const offset = gaps.shift();
 				for (let j = 0; j < colspan; j++) {
@@ -106,8 +106,7 @@ export function expand(rows) {
 		}
 	}
 
-	return matrix;
-
+	return mx;
 }
 
 export function collapse(matrix) {
