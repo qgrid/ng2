@@ -88,13 +88,20 @@ export class RowspanNodeRow extends NodeRow {
 		super(model);
 	}
 
-	rowspan(node, column) {
+	rowspan(node, column, isRoot = true) {
 		switch (node.type) {
 			case 'group': {
 				if (column.model.type === 'group') {
 					if (node.state.expand) {
-						return node.children.reduce((memo, child) => memo + this.rowspan(child, column), 1);
+						if (!isRoot || node.source === column.model.by) {
+							return node.children.reduce((memo, child, i) => memo + this.rowspan(child, column, false), 0);
+						} else {
+							if (node.children.length) {
+								return this.rowspan(node.children[0], column, false);
+							}
+						}
 					}
+					return 1;
 				}
 			}
 		}
@@ -105,9 +112,10 @@ export class RowspanNodeRow extends NodeRow {
 	columns(node, pin) {
 		switch (node.type) {
 			case 'group': {
-				if (node.state.expand) {
-					return this.columnList(pin).filter(c => c.model.by === node.source);
-				}
+				// return this.columnList(pin);
+				// if (node.state.expand) {
+				// 	return this.columnList(pin).filter(c => c.model.by === node.source);
+				// }
 
 				return dropWhile(this.columnList(pin), c => c.model.type === 'group' && c.model.by !== node.source);
 			}
