@@ -3,18 +3,11 @@
              let-$view="$view">
 	<button (mouseup)="$view.rowDetails.toggleStatus.execute($cell.row)"
 	        *ngIf="$view.rowDetails.toggleStatus.canExecute($cell.row)"
+	        [ngClass]="'q-grid-'+$view.rowDetails.status($cell.row)"
 	        tabindex="-1"
 	        mat-icon-button>
-		<span [ngSwitch]="$view.rowDetails.status($cell.row)">
-			<mat-icon class="q-grid-icon"
-			          *ngSwitchCase="'expand'">
-				chevron_right
-			</mat-icon>
-			<mat-icon class="q-grid-icon"
-			          *ngSwitchCase="'collapse'"
-			          class="q-grid-arrow-right">
-				chevron_down
-			</mat-icon>
-		</span>
+		<mat-icon class="q-grid-icon">
+			chevron_right
+		</mat-icon>
 	</button>
 </ng-template>

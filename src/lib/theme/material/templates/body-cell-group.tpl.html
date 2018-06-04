@@ -5,8 +5,8 @@
 	     [ngStyle]="{'padding-left': $view.group.offset($cell.row, $cell.column) + 'px'}">
 		<button (mouseup)="$view.group.toggleStatus.execute($cell.row)"
 		        *ngIf="$view.group.toggleStatus.canExecute($cell.row)"
-		        tabindex="-1"
 		        [ngClass]="'q-grid-'+$view.group.status($cell.row)"
+		        tabindex="-1"
 		        mat-icon-button>
 			<mat-icon class="q-grid-icon">
 				chevron_right
