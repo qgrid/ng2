@@ -16,7 +16,7 @@ describe('Matrix builder', () => {
                 </tbody>
             </table>`, 'text/html').body.firstChild;
 
-        const result = new Matrix(table).build();
+        const result = new Matrix(tr => !tr.classList.has('q-grid-align')).build(table);
 
         expect(result.length).toEqual(2);
         
@@ -48,7 +48,7 @@ describe('Matrix builder', () => {
                 </tbody>
             </table>`, 'text/html').body.firstChild;
 
-        const result = new Matrix(table).build();
+        const result = new Matrix(tr => !tr.classList.has('q-grid-align')).build(table);
 
         expect(result.length).toEqual(2);
         
@@ -75,7 +75,7 @@ describe('Matrix builder', () => {
                 </tbody>
             </table>`, 'text/html').body.firstChild;
             
-        const result = new Matrix(table).build();
+        const result = new Matrix(tr => !tr.classList.has('q-grid-align')).build(table);
 
         expect(result.length).toEqual(2);
         
@@ -102,7 +102,7 @@ describe('Matrix builder', () => {
                 </tbody>
             </table>`, 'text/html').body.firstChild;
             
-        const result = new Matrix(table).build();
+        const result = new Matrix(tr => !tr.classList.has('q-grid-align')).build(table);
 
         expect(result.length).toEqual(2);
         
@@ -136,7 +136,7 @@ describe('Matrix builder', () => {
                 </tbody>
             </table>`, 'text/html').body.firstChild;
             
-        const result = new Matrix(table).build();
+        const result = new Matrix(tr => !tr.classList.has('q-grid-align')).build(table);
 
         expect(result.length).toEqual(3);
         
@@ -182,7 +182,7 @@ describe('Matrix builder', () => {
                 </tbody>
             </table>`, 'text/html').body.firstChild;
             
-        const result = new Matrix(table).build();
+        const result = new Matrix(tr => !tr.classList.has('q-grid-align')).build(table);
 
         expect(result.length).toEqual(4);
         
@@ -226,7 +226,7 @@ describe('Matrix builder', () => {
                 </tbody>
             </table>`, 'text/html').body.firstChild;
             
-        const result = new Matrix(table).build();
+        const result = new Matrix(table).build();new Matrix(tr => !tr.classList.has('q-grid-align')).build(table);
 
         expect(result.length).toEqual(2);
         

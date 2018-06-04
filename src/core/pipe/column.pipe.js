@@ -4,7 +4,7 @@ import { noop } from '../utility/kit';
 import { generateFactory } from '../column-list/column.list.generate';
 import { sortIndexFactory } from '../column-list/column.list.sort';
 import { Guard } from '../infrastructure/guard';
-import { flatten } from '../column/column.matrix';
+import { flatten, expand } from '../column/column.matrix';
 
 export function columnPipe(memo, context, next) {
 	Guard.hasProperty(memo, 'pivot');
@@ -300,9 +300,9 @@ function pivotColumnsFactory(model) {
 }
 
 function index(columnRows) {
-	const matrix = columnService.expand(columnRows);
-	for (let y = 0, height = matrix.length; y < height; y++) {
-		const row = matrix[y];
+	const mx = expand(columnRows);
+	for (let y = 0, height = mx.length; y < height; y++) {
+		const row = mx[y];
 		for (let x = 0, width = row.length; x < width; x++) {
 			const column = row[x];
 			if (column.index < 0) {
