@@ -1,6 +1,4 @@
-import { columnFactory } from "./column.factory";
-
-export function flatten(columns, createView) {
+export function flatten(columns, createView, context) {
 	const root = {
 		children: columns
 	};
@@ -28,6 +26,8 @@ export function flatten(columns, createView) {
 			}
 
 			view.colspan = width;
+		} else {
+			view.rowspan = context.rowspan;
 		}
 
 		return view;

@@ -213,7 +213,7 @@ function dataColumnsFactory(model) {
 	}
 	
 	return (memo, context) => {
-		const rows = flatten(columns, createColumn);
+		const rows = flatten(columns, createColumn, context);
 		memo.push(...rows);
 
 		return columns;
@@ -235,8 +235,6 @@ function pivotColumnsFactory(model) {
 	const createColumn = columnFactory(model);
 	const addPadColumn = padColumnFactory(model);
 	return (memo, heads) => {
-		const rows = [memo];
-
 		/*
 		 * Data columns + first row pivot columns
 		 *
@@ -256,7 +254,7 @@ function pivotColumnsFactory(model) {
 			row[j] = pivotColumn;
 		}
 
-		const firstRow = rows[0];
+		const firstRow = memo[0];
 		firstRow.push(...row);
 
 		/*
@@ -292,10 +290,10 @@ function pivotColumnsFactory(model) {
 			 *
 			 */
 			addPadColumn(row, { rowspan: 1, row: 0 });
-			rows.push(row);
+			memo.push(row);
 		}
 
-		return rows;
+		return memo;
 	};
 }
 
