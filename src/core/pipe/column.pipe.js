@@ -4,6 +4,7 @@ import { noop } from '../utility/kit';
 import { generateFactory } from '../column-list/column.list.generate';
 import { sortIndexFactory } from '../column-list/column.list.sort';
 import { Guard } from '../infrastructure/guard';
+import { flatten } from '../column/column.matrix';
 
 export function columnPipe(memo, context, next) {
 	Guard.hasProperty(memo, 'pivot');
@@ -210,51 +211,11 @@ function dataColumnsFactory(model) {
 	if (hasChanges) {
 		model.data({ columns }, { source: 'column.pipe', behavior: 'core' });
 	}
-
+	
 	return (memo, context) => {
-		const rows = [];
-		const heights = [];
-		function add(columns, depth) {
-			let maxHeight = depth;
-			const row = columns
-				.map((body, i) => {
-					const dataColumn = createColumn(body.type || 'text', body);
-					const { children } = dataColumn.model;
-					let height = 0;
-					if (children.length) {
-						const result = add(children, depth + 1);
-						height = result.height;
-						maxHeight = Math.max(maxHeight, height);
-
-						dataColumn.colspan = result.row.reduce((sum, child) => sum + child.colspan, 0);
-					}
-
-					if (depth === 0) {
-						heights[i] = height;
-					}
-
-					return dataColumn;
-				});
-
-			if (!rows[depth]) {
-				rows[depth] = [];
-			}
-
-			rows[depth].push(...row);
-			return { height: maxHeight, row };
-		}
-
-		add(columns, 0);
-
-		const maxHeight = Math.max(context.rowspan, rows.length);
-		if (maxHeight > 0) {
-			const row = rows[0];
-			for (let i = 0, width = row.length; i < width; i++) {
-				row[i].rowspan = maxHeight - heights[i];
-			}
-		}
-
+		const rows = flatten(columns, createColumn);
 		memo.push(...rows);
+
 		return columns;
 	};
 }
