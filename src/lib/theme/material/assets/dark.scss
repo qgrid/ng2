@@ -2,11 +2,22 @@
 	$color-less: rgba(0, 0, 0, 0);
 	$dark: #424242;
 	$dark-accent: #616161;
-	$dark-text: #fff;
-	$dark-header: rgba(255, 255, 255, 0.7);
+	$dark-text: #ffffff;
+	$dark-header: rgba(255, 255, 255, 0.6);
+	$dark-divider: rgba(255, 255, 255, 0.12);
 	$dark-focused: #5565A0;
+
+	$dark-surface: #363640;
+	$dark-container: #3c3c46;
+
 	.q-grid.q-grid-theme-material {
-		background-color: $dark;
+		background-color: $dark-surface;
+		thead {
+			box-shadow: 0 1px 0px $dark-divider;
+		}
+		tbody tr {
+			border-top: 1px solid $dark-divider;
+		}
 		.q-grid-toolbar {
 			.q-grid-title {
 				h3 {
@@ -23,6 +34,7 @@
 			}
 		}
 		.q-grid-view {
+			background-color: $dark-container;
 			thead tr th {
 				color: $dark-header;
 				&.q-grid-focused {
@@ -39,7 +51,7 @@
 					}
 				}
 				> .q-grid-divider {
-					border-right: 1px solid $dark-text;
+					border-right: 1px solid $dark-divider;
 				}
 			}
 			tr td {
