@@ -66,6 +66,7 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input() editReset;
 	
 	@Input() filterFetch;
+	@Input() filterUnit;
 	
 	@Input() groupBy;
 	@Input() groupMode: 'nest' | 'column' | 'subhead' | 'rowspan';
