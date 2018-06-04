@@ -6,7 +6,7 @@ export class UnitFactory {
 
 	cell(element, rowIndex, columnIndex) {
 		return {
-			element: element,
+			element,
 			rowIndex: rowIndex + this.rowRange.start,
 			columnIndex: columnIndex + this.columnRange.start
 		};
@@ -14,7 +14,7 @@ export class UnitFactory {
 
 	row(element, rowIndex) {
 		return {
-			element: element,
+			element,
 			index: rowIndex + this.rowRange.start
 		};
 	}

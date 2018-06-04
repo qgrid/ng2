@@ -15,51 +15,11 @@ export class NodeRow extends DataRow {
 		};
 	}
 
-	rowspan(node, column) {
-		if (node.type === 'group') {
-			const groupState = this.model.group();
-			if (groupState.mode === 'rowspan' && node.state.expand && column.model.type === 'group') {
-				return node.children.reduce((memo, c) => {
-					return memo + this.rowspan(c, column);
-				}, 1);
-			}
-		}
-
-		return super.rowspan(node, column);
-	}
-
-	colspan(node, column) {
-		if (node.type === 'group') {
-			const groupColumn = this.findGroupColumn(column.model.pin);
-			if (groupColumn) {
-				const groupState = this.model.group();
-				if (groupState.mode === 'subhead') {
-					const groupSpan = takeWhile(this.columnList(column.model.pin), c => !c.model.aggregation);
-					if (column.model.type === 'group') {
-						return sumBy(groupSpan, c => c.colspan);
-					}
-				}
-			}
-		}
-
-		return super.colspan(node, column);
-	}
-
 	columns(node, pin) {
-		if (node.type === 'group') {
-			const groupColumn = this.findGroupColumn(pin);
-			if (groupColumn) {
-				const groupState = this.model.group();
-				if (groupState.mode === 'subhead') {
-					const nextColumns = dropWhile(this.columnList(pin), c => !c.model.aggregation);
-					return [groupColumn].concat(nextColumns);
-				} else if (groupState.mode === 'rowspan') {
-					const cols = this.columnList(pin).filter(c => c.model.type !== 'group' || c.model.by === node.source);
-					return cols;
-				}
+		switch (node.type) {
+			case 'row': {
+				return this.columnList(pin);
 			}
-		} else if (node.type === 'row') {
-			return this.columnList(pin).filter(c => c.model.type !== 'group');
 		}
 
 		return super.columns(node, pin);
@@ -92,7 +52,7 @@ export class NodeRow extends DataRow {
 			}
 			default:
 				throw new AppError(
-					'node.visit',
+					'node.row',
 					`Invalid node type ${node.type}`
 				);
 		}
@@ -120,5 +80,81 @@ export class NodeRow extends DataRow {
 		}
 
 		return groupColumn.model.pin !== pin ? null : groupColumn;
+	}
+}
+
+export class RowspanNodeRow extends NodeRow {
+	constructor(model) {
+		super(model);
+	}
+
+	rowspan(node, column) {
+		switch (node.type) {
+			case 'group': {
+				if (column.model.type === 'group') {
+					if (node.state.expand) {
+						return node.children.reduce((memo, child) => memo + this.rowspan(child, column), 1);
+					}
+				}
+			}
+		}
+
+		return super.rowspan(node, column);
+	}
+
+	columns(node, pin) {
+		switch (node.type) {
+			case 'group': {
+				if (node.state.expand) {
+					return this.columnList(pin).filter(c => c.model.by === node.source);
+				}
+
+				return dropWhile(this.columnList(pin), c => c.model.type === 'group' && c.model.by !== node.source);
+			}
+			case 'row': {
+				return this.columnList(pin).filter(c => c.model.type !== 'group');
+			}
+		}
+
+		return super.columns(node, pin);
+	}
+}
+
+export class SubheadNodeRow extends NodeRow {
+	constructor(model) {
+		super(model);
+	}
+
+	colspan(node, column) {
+		switch (node.type) {
+			case 'group': {
+				if (column.model.type === 'group') {
+					const groupColumn = this.findGroupColumn(column.model.pin);
+					if (groupColumn) {
+						const columns = this.columnList(column.model.pin);
+						const groupspan = takeWhile(columns, c => !c.model.aggregation);
+						return sumBy(groupspan, c => c.colspan);
+					}
+				}
+				break;
+			}
+		}
+
+		return super.colspan(node, column);
+	}
+
+	columns(node, pin) {
+		switch (node.type) {
+			case 'group': {
+				const groupColumn = this.findGroupColumn(pin);
+				if (groupColumn) {
+					const nextColumns = dropWhile(this.columnList(pin), c => !c.model.aggregation);
+					return [groupColumn].concat(nextColumns);
+				}
+				break;
+			}
+		}
+
+		return super.columns(node, pin);
 	}
 }

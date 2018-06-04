@@ -2,6 +2,7 @@ import { Command } from '../command/command';
 import { Model } from '../infrastructure/model';
 import { Table } from '../dom/table';
 import { ColumnModel } from '../column-type/column.model';
+import { ColumnView } from '../scene/view/column.view';
 
 /**
  * > Under Construction.
@@ -9,11 +10,11 @@ import { ColumnModel } from '../column-type/column.model';
 export declare class HeadView {
 	constructor(model: Model, table: Table, tagName: string);
 
-	rows: any[];
-	drop: Command;
-	drag: Command;
+	drop: Command<{ dragData: string }>;
+	drag: Command<{ dragData: string }>;
+
 	resize: Command;
-	
-	transfer(column: ColumnModel);
+
+	rows: ColumnView[][];
 	columns(row: any, pin: string);
 }

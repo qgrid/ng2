@@ -13,6 +13,7 @@ import { ExampleDestroyGridModelComponent } from './destroy-grid-model/example-d
 import { ExampleDetailsRowBasicComponent } from './details-row-basic/example-details-row-basic.component';
 import { ExampleDragColumnBasicComponent } from './drag-column-basic/example-drag-column-basic.component';
 import { ExampleDragRowBasicComponent } from './drag-row-basic/example-drag-row-basic.component';
+import { ExampleDragRowNodeComponent } from './drag-row-node/example-drag-row-node.component';
 import { ExampleEditCellBasicComponent } from './edit-cell-basic/example-edit-cell-basic.component';
 import { ExampleEditCellBatchComponent } from './edit-cell-batch/example-edit-cell-batch.component';
 import { ExampleFilterColumnFetchComponent } from './filter-column-fetch/example-filter-column-fetch.component';
@@ -20,18 +21,28 @@ import { ExampleFilterConditionBasicComponent } from './filter-condition-basic/e
 import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filter-row-basic.component';
 import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
 import { ExampleFocusCellComponent } from './focus-cell-basic/example-focus-cell.component';
+import { ExampleGenerateColumnCohortComponent } from './generate-column-cohort/example-generate-column-cohort.component';
+import { ExampleGenerateColumnDeepComponent } from './generate-column-deep/example-generate-column-deep.component';
+import { ExampleGenerateColumnShallowComponent } from './generate-column-shallow/example-generate-column-shallow.component';
+import { ExampleGroupColumnBasicComponent } from './group-column-basic/example-group-column-basic.component';
 import { ExampleGroupRowBasicComponent } from './group-row-basic/example-group-row-basic.component';
+import { ExampleGroupRowFlatComponent } from './group-row-flat/example-group-row-flat.component';
+import { ExampleGroupRowRowspanComponent } from './group-row-rowspan/example-group-row-rowspan.component';
+import { ExampleGroupRowSubheadComponent } from './group-row-subhead/example-group-row-subhead.component';
+import { ExampleLegendBasicComponent } from './legend-basic/example-legend-basic.component';
 import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
 import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/example-look-atoms-customized.component';
 import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-atoms-model.component';
 import { ExampleLookPeopleBasicComponent } from './look-people-basic/example-look-people-basic.component';
 import { ExampleLookPeopleModelComponent } from './look-people-model/example-look-people-model.component';
-import { ExampleLegendBasicComponent } from './legend-basic/example-legend-basic.component';
 import { ExampleManipulateDataBasicComponent } from './manipulate-data-basic/example-manipulate-data-basic.component';
 import { ExamplePaginationBasicComponent } from './pagination-basic/example-pagination-basic.component';
 import { ExamplePersistenceBasicComponent } from './persistence-basic/example-persistence-basic.component';
+import { ExamplePersistenceServerComponent } from './persistence-server/example-persistence-server.component';
 import { ExamplePinColumnBasicComponent } from './pin-column-basic/example-pin-column-basic.component';
+import { ExamplePipeGridBasicComponent } from './pipe-grid-basic/example-pipe-grid-basic.component';
 import { ExamplePivotColumnBasicComponent } from './pivot-column-basic/example-pivot-column-basic.component';
+import { ExamplePivotColumnTemplateComponent } from './pivot-column-template/example-pivot-column-template.component';
 import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plugin-grid-basic.component';
 import { ExamplePluginMyPagerComponent } from './plugin-grid-basic/example-plugin-my-pager.component';
 import { ExampleSelectCellBasicComponent } from './select-cell-basic/example-select-cell-basic.component';
@@ -42,47 +53,57 @@ import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-
 import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.component';
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
-import { ExamplePersistenceServerComponent } from './persistence-server/example-persistence-server.component';
-import { BrowserModule } from '@angular/platform-browser';
+import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
 
 const EXAMPLES: Array<any> = [
-    ExampleActionBarBasicComponent,
-    ExampleAggregateColumnBasicComponent,
-    ExampleDefineColumnBasicComponent,
-    ExampleDestroyGridBasicComponent,
-    ExampleDestroyGridModelComponent,
-    ExampleDetailsRowBasicComponent,
-    ExampleDragColumnBasicComponent,
-    ExampleDragRowBasicComponent,
-    ExampleEditCellBasicComponent,
-    ExampleEditCellBatchComponent,
-    ExampleFilterColumnFetchComponent,
-    ExampleFilterConditionBasicComponent,
-    ExampleFilterRowBasicComponent,
-    ExampleFocusCellAutoComponent,
-    ExampleFocusCellComponent,
-    ExampleGroupRowBasicComponent,
-    ExampleLookAtomsBasicComponent,
-    ExampleLookAtomsCustomizedComponent,
-    ExampleLookAtomsModelComponent,
-    ExampleLookPeopleBasicComponent,
-    ExampleLookPeopleModelComponent,
-    ExampleLegendBasicComponent,
-    ExampleManipulateDataBasicComponent,
-    ExamplePaginationBasicComponent,
+	ExampleActionBarBasicComponent,
+	ExampleAggregateColumnBasicComponent,
+	ExampleDefineColumnBasicComponent,
+	ExampleDestroyGridBasicComponent,
+	ExampleDestroyGridModelComponent,
+	ExampleDetailsRowBasicComponent,
+	ExampleDragColumnBasicComponent,
+	ExampleDragRowBasicComponent,
+	ExampleDragRowNodeComponent,
+	ExampleEditCellBasicComponent,
+	ExampleEditCellBatchComponent,
+	ExampleFilterColumnFetchComponent,
+	ExampleFilterConditionBasicComponent,
+	ExampleFilterRowBasicComponent,
+	ExampleFocusCellAutoComponent,
+	ExampleFocusCellComponent,
+	ExampleGenerateColumnCohortComponent,
+	ExampleGenerateColumnDeepComponent,
+	ExampleGenerateColumnShallowComponent,
+	ExampleGroupColumnBasicComponent,
+	ExampleGroupRowBasicComponent,
+	ExampleGroupRowFlatComponent,
+	ExampleGroupRowRowspanComponent,
+	ExampleGroupRowSubheadComponent,
+	ExampleLegendBasicComponent,
+	ExampleLookAtomsBasicComponent,
+	ExampleLookAtomsCustomizedComponent,
+	ExampleLookAtomsModelComponent,
+	ExampleLookPeopleBasicComponent,
+	ExampleLookPeopleModelComponent,
+	ExampleManipulateDataBasicComponent,
+	ExamplePaginationBasicComponent,
 	ExamplePersistenceBasicComponent,
 	ExamplePersistenceServerComponent,
-    ExamplePinColumnBasicComponent,
-    ExamplePivotColumnBasicComponent,
-    ExamplePluginGridBasicComponent,
-    ExampleSelectCellBasicComponent,
-    ExampleSelectColumnBasicComponent,
-    ExampleSelectMixBasicComponent,
-    ExampleSelectRowBasicComponent,
-    ExampleSizeRowBasicComponent,
-    ExampleSortRowComponent,
-    ExampleStyleCellBasicComponent,
-    ExampleStyleRowBasicComponent,
+	ExamplePinColumnBasicComponent,
+	ExamplePipeGridBasicComponent,
+	ExamplePivotColumnBasicComponent,
+	ExamplePivotColumnTemplateComponent,
+	ExamplePluginGridBasicComponent,
+	ExampleSelectCellBasicComponent,
+	ExampleSelectColumnBasicComponent,
+	ExampleSelectMixBasicComponent,
+	ExampleSelectRowBasicComponent,
+	ExampleSizeRowBasicComponent,
+	ExampleSortRowComponent,
+	ExampleStyleCellBasicComponent,
+	ExampleStyleRowBasicComponent,
+	ExampleThemeGridEmbedComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
@@ -116,4 +137,4 @@ export const exampleRoutes: Routes = EXAMPLES.map<Route>(example => ({
 		MatSelectModule
 	]
 })
-export class ExampleModule {}
+export class ExampleModule { }

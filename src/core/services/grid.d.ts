@@ -14,7 +14,14 @@ export declare class GridService {
 		source?: string,
 		changes?: object,
 		pipe?: ((memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any)[]
-	): Promise<any>;
+	): Promise<void>;
+
+	invalidate(settings: {
+		source?: string,
+		changes?: object,
+		pipe?: ((memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any)[],
+		why?: 'redraw' | 'refresh'
+	}): Promise<void>;
 
 	busy(): () => void;
 

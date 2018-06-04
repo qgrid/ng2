@@ -10,7 +10,8 @@ export class Box {
 
 		this.selectFactory = new SelectorFactory(context.bag, selectorMark);
 
-		model.sceneChanged.watch(e => {
+		this.selector = this.selectFactory.create();
+		model.sceneChanged.on(e => {
 			if (e.hasChanges('round')) {
 				this.selector = this.selectFactory.create();
 			}

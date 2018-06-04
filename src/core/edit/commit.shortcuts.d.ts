@@ -1,4 +1,4 @@
-export interface ICommitShortcuts {
+export interface CommitShortcuts {
 	'$default': string;
 	'date': string;
 	'array': string;

@@ -1,4 +1,4 @@
-import { ICommandContext } from './context';
+import { CommandContext } from './command.context';
 
 /**
  * A class that implements command pattern in the q-grid.
@@ -28,7 +28,7 @@ import { ICommandContext } from './context';
  * * [Action](/doc/api/action.html)
  */
 export declare class Command<T = any> {
-	constructor(context?: ICommandContext<T>);
+	constructor(context?: CommandContext<T>);
 
 	/**
 	 * Indicates if command is invokable.

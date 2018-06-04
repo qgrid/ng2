@@ -1,7 +1,7 @@
 import { flatView } from '../../row-details/row.details.service';
 
 export const rowDetailsPipeUnit = [
-	(memo, context, next) => {
+	(_, context, next) => {
 		const tag = {
 			source: context.source || 'row.details.pipe.unit',
 			behavior: 'core'
@@ -13,6 +13,8 @@ export const rowDetailsPipeUnit = [
 		model.view({ rows }, tag);
 		model.scene({ rows }, tag);
 
-		next(memo);
+		next(rows);
 	}
 ];
+
+rowDetailsPipeUnit.why = 'redraw';

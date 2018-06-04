@@ -1,6 +1,7 @@
 import { GRID_PREFIX } from '../definition';
 
-let transfer = null;
+let data = null;
+let area = null;
 
 export class DragService {
 	constructor() {
@@ -10,12 +11,20 @@ export class DragService {
 		return `application/x-${GRID_PREFIX}+json`;
 	}
 
-	static get transfer() {
-		return transfer;
+	static get data() {
+		return data;
 	}
 
-	static set transfer(value) {
-		transfer = value;
+	static set data(value) {
+		data = value;
+	}
+
+	static get area() {
+		return area;
+	}
+
+	static set area(value) {
+		area = value;
 	}
 
 	static decode(source) {

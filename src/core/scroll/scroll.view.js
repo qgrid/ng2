@@ -1,10 +1,10 @@
 import { Log } from '../infrastructure/log';
 import { isFunction } from '../utility/kit';
 import { Fastdom } from '../services/fastdom';
+import { GRID_PREFIX } from '../definition';
 
 export class ScrollView {
 	constructor(model, table, vscroll) {
-		
 		this.model = model;
 		this.table = table;
 

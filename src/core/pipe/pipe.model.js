@@ -1,7 +1,6 @@
 import { PipeUnit as PU } from '../pipe/pipe.unit';
 import { uniq } from '../utility/kit';
 
-
 export class PipeModel {
 	constructor() {
 		this.reduce = (units, model) => {

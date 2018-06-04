@@ -58,7 +58,7 @@ export function viewFactory(
 		host.nav = new NavigationView(modelProxy, table, navigationShortuct);
 		host.pagination = new PaginationView(modelProxy);
 		host.pivot = new PivotView(modelProxy);
-		host.row = new RowView(modelProxy, selectors.tr);
+		host.row = new RowView(modelProxy, table, selectors.tr);
 		host.rowDetails = new RowDetailsView(modelProxy, table, commandManager);
 		host.scroll = new ScrollView(modelProxy, table, vscroll);
 		host.selection = new SelectionView(modelProxy, table, selectionShortcut);

@@ -1,4 +1,3 @@
-import { flatView as nodeFlatView } from '../node/node.service';
 import { Guard } from '../infrastructure/guard';
 
 export function paginationPipe(memo, context, next) {
@@ -11,8 +10,9 @@ export function paginationPipe(memo, context, next) {
 	}
 
 	if (memo.hasOwnProperty('nodes') && memo.nodes.length) {
+		const { flatten } = model.group();
 		const page = paginate(model, memo.nodes);
-		memo.rows = nodeFlatView(page);
+		memo.rows = flatten(page);
 		next(memo);
 		return;
 	}

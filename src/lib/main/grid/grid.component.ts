@@ -48,31 +48,43 @@ import { LayerService } from '../core/layer/layer.service';
 })
 export class GridComponent extends RootComponent implements OnInit {
 	@Input() model;
-	@Input('rows') dataRows;
+
+	@Input('actions') actionItems;
+
+	@Input('header') gridTitle;
+	@Input('id') gridId;
+
 	@Input('columns') dataColumns;
 	@Input('pipe') dataPipe;
-	@Input('selection') selectionItems;
-	@Input() selectionMode;
-	@Input() selectionUnit;
-	@Input() selectionKey;
-	@Input() groupBy;
-	@Input() pivotBy;
-	@Input() sortBy;
-	@Input() sortTrigger;
-	@Input() sortMode;
-	@Input() filterUnit;
-	@Input() filterFetch;
-	@Input() editMode;
-	@Input() editMethod;
-	@Input() editEnter;
-	@Input() editCommit;
+	@Input('rows') dataRows;
+	
 	@Input() editCancel;
+	@Input() editCommit;
+	@Input() editEnter;
+	@Input() editMethod: null | 'batch';
+	@Input() editMode: 'cell' | 'row';
 	@Input() editReset;
-	@Input() styleRow;
+	
+	@Input() filterFetch;
+	
+	@Input() groupBy;
+	@Input() groupMode: 'nest' | 'column' | 'subhead' | 'rowspan';
+	
+	@Input() pivotBy;
+	
+	@Input('selection') selectionItems;
+	@Input() selectionArea: 'custom' | 'body';
+	@Input() selectionKey;
+	@Input() selectionMode: 'single' | 'multiple' | 'range';
+	@Input() selectionUnit: 'row' | 'cell' | 'column' | 'mix';
+
+	@Input() sortBy;
+	@Input() sortMode: 'single' | 'multiple';;
+	@Input() sortTrigger;
+	
 	@Input() styleCell;
-	@Input('id') gridId;
-	@Input('header') gridTitle;
-	@Input('actions') actionItems;
+	@Input() styleRow;
+
 	@Output() selectionChanged = new EventEmitter<any>();
 
 	public themeComponent: any;
@@ -137,7 +149,7 @@ export class GridComponent extends RootComponent implements OnInit {
 
 		const navDebounce = model.navigation().debounce;
 		if (navDebounce) {
-			const navJob = new jobLine(navDebounce);
+			const navJob = jobLine(navDebounce);
 			this.zone.runOutsideAngular(() => {
 				listener.on('keydown', e => {
 					const result = ctrl.keyDown(e);

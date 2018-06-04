@@ -2,11 +2,6 @@ import { CellView } from '../scene/view/cell.view';
 import { ColumnModel } from '../column-type/column.model';
 import { Model } from '../infrastructure/model';
 
-export interface ICell {
-	column: ColumnModel;
-	row: any;
-}
-
 export declare class SelectionRange {
 	constructor(model: Model);
 
@@ -15,6 +10,6 @@ export declare class SelectionRange {
 	build(): (args: any[]) => (startCell: CellView, endCell: CellView) => any;
 	buildRows(startCell: CellView, endCell: CellView): any[];
 	buildColumns(startCell: CellView, endCell: CellView): ColumnModel[];
-	buildCells(startCell: CellView, endCell: CellView): ICell[];
+	buildCells(startCell: CellView, endCell: CellView): Array<{ column: ColumnModel, row: any }>;
 	buildMix(startCell: CellView, endCell: CellView): any[];
 }

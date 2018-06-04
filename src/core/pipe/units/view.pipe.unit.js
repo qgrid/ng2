@@ -1,4 +1,4 @@
-import {Pipe} from '../pipe';
+import { Pipe } from '../pipe';
 
 export const viewPipeUnit = [
 	Pipe.data,
@@ -6,3 +6,5 @@ export const viewPipeUnit = [
 	Pipe.column,
 	Pipe.view
 ];
+
+viewPipeUnit.why = 'refresh';

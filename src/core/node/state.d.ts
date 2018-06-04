@@ -1,3 +1,3 @@
-export interface IState {
+export interface NodeState {
 	expand: boolean;
 }

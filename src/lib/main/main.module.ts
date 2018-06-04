@@ -35,7 +35,8 @@ import { CommonModule as GridCommonModule } from '../common/common.module';
 	],
 	imports: [
 		CoreModule,
-		CommonModule
+		CommonModule,
+		GridCommonModule
 	],
 	providers: [
 		GridService

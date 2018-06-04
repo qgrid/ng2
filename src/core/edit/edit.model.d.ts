@@ -1,6 +1,6 @@
 import { Resource } from '../resource/resource';
 import { Command } from '../command/command';
-import { ICommitShortcuts } from './commit.shortcuts';
+import { CommitShortcuts } from './commit.shortcuts';
 
 /**
  * A class represent options to control q-grid edit mode.
@@ -62,5 +62,5 @@ export declare interface EditModel {
 	 * Object that contains `{columnKey: keyboardKeys}` map, that is used by q-grid to manage
 	 * when commit command should be execute on key down event.
 	 */
-	commitShortcuts?: ICommitShortcuts;
+	commitShortcuts?: CommitShortcuts;
 }

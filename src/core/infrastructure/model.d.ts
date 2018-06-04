@@ -34,15 +34,17 @@ import { Event } from './event';
 import { PersistenceModel } from '../persistence/persistence.model';
 import { PipeModel } from '../pipe/pipe.model';
 import { RestModel } from '../rest/rest.model';
+import { AnimationModel } from '../animation/animation.model';
 
 export declare interface ModelTag {
 	source?: string;
 	behavior?: string;
+	isBusy?: boolean;
 }
 
 export declare interface ModelEventArg<T> {
 	state: T;
-	changes: any;
+	changes: { [key: string]: { newValue: any, oldValue: any } };
 	hasChanges: (key: string) => boolean;
 	tag: ModelTag;
 }
@@ -63,7 +65,7 @@ export declare class Model {
 	sceneChanged: ModelEvent<SceneModel>;
 	scene(value: SceneModel, tag?: ModelTag): Model;
 	scene(): SceneModel;
-	
+
 	editChanged: ModelEvent<EditModel>;
 	edit(value: EditModel, tag?: ModelTag): Model;
 	edit(): EditModel;
@@ -95,7 +97,7 @@ export declare class Model {
 	focusChanged: ModelEvent<FocusModel>;
 	focus(value: FocusModel, tag?: ModelTag): Model;
 	focus(): FocusModel;
-	
+
 	columnListChanged: ModelEvent<ColumnListModel>;
 	columnList(value: ColumnListModel, tag?: ModelTag): Model;
 	columnList(): ColumnListModel;
@@ -191,6 +193,10 @@ export declare class Model {
 	restChanged: ModelEvent<RestModel>;
 	rest(value: RestModel, tag?: ModelTag): Model;
 	rest(): RestModel;
+
+	animationChanged: ModelEvent<AnimationModel>;
+	animation(value: AnimationModel, tag?: ModelTag): Model;
+	animation(): AnimationModel;
 
 	queryBuilderChanged: ModelEvent<any>;
 	queryBuilder(value: object, tag?: ModelTag): Model;

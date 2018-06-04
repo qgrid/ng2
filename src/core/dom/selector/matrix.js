@@ -1,79 +1,64 @@
 import { max } from '../../utility/kit';
+import { AppError } from '../../infrastructure/error';
 
 export class Matrix {
-    constructor(table) {
-        this.table = table;
-        this.rowspans = {};
+    constructor(isDataRow) {
+        this.isDataRow = isDataRow;
     }
 
-    build() {
-        const rows = this.table.rows;
-        const rowsCount = rows.length;
-        const result = [];
-        const rowSpans = {};
+    build(table) {
+        const isDataRow = this.isDataRow;
+        const rows = table.rows;
+        const offset = new Array(rows.length);
+        const matrix = [];
 
-        for (let i = 0; i < rowsCount; i++) {
-            const rowElement = rows[i];
-            if (rowElement.classList.contains('q-grid-align')) {
+        let cursor = 0;
+        for (let i = 0, height = rows.length; i < height; i++) {
+            const tr = rows[i];
+            if (!isDataRow(tr)) {
                 continue;
             }
-            const row = this.populateRow(rowElement);
-            result.push(row);
-        }
 
-        return result;
-    }
+            const cells = tr.cells;
+            for (let j = 0, width = cells.length; j < width; j++) {
+                const td = cells[j];
+                const { colSpan, rowSpan } = td;
 
-    populateRow(row) {
-        const cells = row.cells;
-        const cellsCount = cells.length;
-        const result = {
-            row,
-            cells: []
-        };
+                for (let y = 0; y < rowSpan; y++) {
+                    const yi = cursor + y;
+                    const xi = offset[yi] || 0;
+                    let row = matrix[yi];
+                    if (!row) {
+                        row = [];
+                        matrix[yi] = row;
+                    }
 
-        for (let i = 0; i < cellsCount; i++) {
-            const currentCell = cells[i];
-            const rowspan = currentCell.rowSpan || 1;
-            let colSpan = currentCell.colSpan || 1;
+                    for (let x = 0; x < colSpan; x++) {
+                        row[xi + x] = td;
+                    }
 
-            this.populateSpan(i, result);
-            this.addRowspan(currentCell, i, rowspan);
-
-            this.addCell(result, currentCell);
-        }
-
-        return result;
-    }
-
-    addRowspan(cell, index, rowspan) {
-        if (rowspan > 1) {
-            const spans = this.rowspans[index] || (this.rowspans[index] = []);
-
-            spans.push({
-                cell,
-                span: rowspan - 1
-            });
-        }
-    }
-
-    populateSpan(index, result) {
-        const spanning = this.rowspans[index];
-        if (spanning) {
-            spanning.forEach(span => {
-                if (span.span) {
-                    this.addCell(result, span.cell);
-                    span.span--;
+                    offset[yi] = xi + colSpan;
                 }
-            });
+            }
+
+            cursor++;
         }
+
+        // this.assertFlatness(matrix);
+        return matrix;
     }
 
-    addCell(row, cell) {
-        let colSpan = cell.colSpan || 1;
-
-        while (colSpan--) {
-            row.cells.push(cell);
+    assertFlatness(matrix) {
+        if (matrix.length) {
+            const height = matrix.length;
+            const width = matrix[0].length;
+            for (let i = 1; i < height; i++) {
+                if (matrix[i].length !== width) {
+                    throw new AppError(
+                        'matrix', 
+                        `Matrix is not flat, expect width ${width}, actual ${matrix[i].length}`);
+                }
+            }
         }
     }
 }
