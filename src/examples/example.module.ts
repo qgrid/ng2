@@ -15,13 +15,13 @@ import { ExampleDragColumnBasicComponent } from './drag-column-basic/example-dra
 import { ExampleDragRowBasicComponent } from './drag-row-basic/example-drag-row-basic.component';
 import { ExampleEditCellBasicComponent } from './edit-cell-basic/example-edit-cell-basic.component';
 import { ExampleEditCellBatchComponent } from './edit-cell-batch/example-edit-cell-batch.component';
+import { ExampleExportCsvBasicComponent } from './export-csv-basic/example-export-csv-basic.component';
 import { ExampleFilterColumnFetchComponent } from './filter-column-fetch/example-filter-column-fetch.component';
 import { ExampleFilterConditionBasicComponent } from './filter-condition-basic/example-filter-condition-basic.component';
 import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filter-row-basic.component';
 import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
 import { ExampleFocusCellComponent } from './focus-cell-basic/example-focus-cell.component';
 import { ExampleGroupRowBasicComponent } from './group-row-basic/example-group-row-basic.component';
-import { ExampleImportCsvBasicComponent } from './import-csv-basic/example-import-csv-basic.component';
 import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
 import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/example-look-atoms-customized.component';
 import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-atoms-model.component';
@@ -37,11 +37,11 @@ import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plu
 import { ExamplePluginMyPagerComponent } from './plugin-grid-basic/example-plugin-my-pager.component';
 import { ExampleSelectCellBasicComponent } from './select-cell-basic/example-select-cell-basic.component';
 import { ExampleSelectRowBasicComponent } from './select-row-basic/example-select-row-basic.component';
-import { ExampleSelectColumnBasicComponent } from './select-column-basic/example-select-column-basic.component';
 import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-basic.component';
 import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.component';
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
+import { ExamplePersistenceServerComponent } from './persistence-server/example-persistence-server.component';
 
 const EXAMPLES: Array<any> = [
     ExampleActionBarBasicComponent,
@@ -54,13 +54,13 @@ const EXAMPLES: Array<any> = [
     ExampleDragRowBasicComponent,
     ExampleEditCellBasicComponent,
     ExampleEditCellBatchComponent,
-    ExampleFilterColumnFetchComponent,
-    ExampleFilterConditionBasicComponent,
-    ExampleFilterRowBasicComponent,
-    ExampleFocusCellAutoComponent,
-    ExampleFocusCellComponent,
-    ExampleGroupRowBasicComponent,
-	ExampleImportCsvBasicComponent,
+	ExampleExportCsvBasicComponent,
+	ExampleFilterColumnFetchComponent,
+	ExampleFilterConditionBasicComponent,
+	ExampleFilterRowBasicComponent,
+	ExampleFocusCellAutoComponent,
+	ExampleFocusCellComponent,
+	ExampleGroupRowBasicComponent,
     ExampleLookAtomsBasicComponent,
     ExampleLookAtomsCustomizedComponent,
     ExampleLookAtomsModelComponent,
@@ -69,13 +69,16 @@ const EXAMPLES: Array<any> = [
     ExampleLegendBasicComponent,
     ExampleManipulateDataBasicComponent,
     ExamplePaginationBasicComponent,
-    ExamplePersistenceBasicComponent,
+	ExamplePersistenceBasicComponent,
+	ExamplePersistenceServerComponent,
     ExamplePinColumnBasicComponent,
     ExamplePivotColumnBasicComponent,
     ExamplePluginGridBasicComponent,
     ExampleSelectCellBasicComponent,
     ExampleSelectRowBasicComponent,
     ExampleSelectColumnBasicComponent,
+    ExampleSelectMixBasicComponent,
+    ExampleSelectRowBasicComponent,
     ExampleSizeRowBasicComponent,
     ExampleSortRowComponent,
     ExampleStyleCellBasicComponent,
@@ -85,37 +88,33 @@ const EXAMPLES: Array<any> = [
 const PATH_REGEX = /Example(.*)Component/;
 
 function toPath(componentType: Function) {
-	const name = PATH_REGEX.exec(componentType.name)[ 1 ];
+	const name = PATH_REGEX.exec(componentType.name)[1];
 	return name
 		.split(/(?=[A-Z])/)
 		.map(part => part.toLowerCase())
 		.join('-');
 }
 
-export const exampleRoutes: Routes =
-	EXAMPLES
-		.map<Route>(example => ({
-			path: toPath(example),
-			component: example
-		}))
-		.concat([
-			{
-				path: '',
-				redirectTo: toPath(ExampleLookPeopleBasicComponent),
-				pathMatch: 'full'
-			}
-		]);
+export const exampleRoutes: Routes = EXAMPLES.map<Route>(example => ({
+	path: toPath(example),
+	component: example
+})).concat([
+	{
+		path: '',
+		redirectTo: toPath(ExampleLookPeopleBasicComponent),
+		pathMatch: 'full'
+	}
+]);
 
 @NgModule({
-	declarations: EXAMPLES.concat([
-		ExamplePluginMyPagerComponent
-	]),
+	declarations: EXAMPLES.concat([ExamplePluginMyPagerComponent]),
 	exports: EXAMPLES,
 	imports: [
 		GridModule,
 		ThemeModule,
 		CommonModule,
-		MatButtonModule
+		MatButtonModule,
+		MatSelectModule
 	]
 })
-export class ExampleModule { }
+export class ExampleModule {}

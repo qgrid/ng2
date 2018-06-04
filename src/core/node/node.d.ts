@@ -37,4 +37,6 @@ export declare class Node {
 	 * Shows if node was expanded or not.
 	 */
 	state: IState;
+
+	source: string;
 }

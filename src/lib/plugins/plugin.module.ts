@@ -26,6 +26,7 @@ import { QueryBuilderModule } from './query-builder/query-builder.module';
 import { QueryBuilderModel } from './query-builder/query-builder.model';
 import { EbModule } from './expression-builder/eb.module';
 import { RestModule } from './rest/rest.module';
+import { ExportModule } from './export/export.module';
 
 Model.register('columnChooser', ColumnChooserModel)
 	.register('columnFilter', ColumnFilterModel)
@@ -41,6 +42,7 @@ Model.register('columnChooser', ColumnChooserModel)
 		ColumnChooserModule,
 		ColumnSortModule,
 		ColumnFilterModule,
+		ExportModule,
 		ProgressModule,
 		TitleModule,
 		MenuModule,

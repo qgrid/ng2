@@ -15,6 +15,19 @@ export class NodeRow extends DataRow {
 		};
 	}
 
+	rowspan(node, column) {
+		if (node.type === 'group') {
+			const groupState = this.model.group();
+			if (groupState.mode === 'rowspan' && node.state.expand && column.model.type === 'group') {
+				return node.children.reduce((memo, c) => {
+					return memo + this.rowspan(c, column);
+				}, 1);
+			}
+		}
+
+		return super.rowspan(node, column);
+	}
+
 	colspan(node, column) {
 		if (node.type === 'group') {
 			const groupColumn = this.findGroupColumn(column.model.pin);
@@ -40,8 +53,13 @@ export class NodeRow extends DataRow {
 				if (groupState.mode === 'subhead') {
 					const nextColumns = dropWhile(this.columnList(pin), c => !c.model.aggregation);
 					return [groupColumn].concat(nextColumns);
+				} else if (groupState.mode === 'rowspan') {
+					const cols = this.columnList(pin).filter(c => c.model.type !== 'group' || c.model.by === node.source);
+					return cols;
 				}
 			}
+		} else if (node.type === 'row') {
+			return this.columnList(pin).filter(c => c.model.type !== 'group');
 		}
 
 		return super.columns(node, pin);
