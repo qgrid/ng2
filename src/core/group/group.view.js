@@ -4,6 +4,29 @@ import { getFactory as labelFactory } from '../services/label';
 import { columnFactory } from '../column/column.factory';
 import { PipeUnit } from '../pipe/pipe.unit';
 import { traverse } from '../node/node.service';
+import { yes } from '../utility/kit';
+
+function rowspanGetNode(node, column) {
+	if (node.source === column.by) {
+		return node;
+	}
+	if (node.children.length) {
+		return node.children[0];
+	}
+	return node;
+}
+
+function rowspanIsVisible(node, column, parent) {
+	if (node.source === column.by) {
+		return !parent || parent.state.expand;
+	}
+
+	if (node.children.length) {
+		return rowspanIsVisible(node.children[0], column, node);
+	}
+
+	return false;
+}
 
 export class GroupView {
 	constructor(model, table, commandManager, service) {
@@ -12,11 +35,8 @@ export class GroupView {
 		this.valueFactory = valueFactory;
 		this.toggleStatus = new Command({
 			source: 'group.view',
-			execute: node => {
-				if (!node) {
-					node = model.navigation().cell.row;
-				}
-
+			execute: (node, column) => {
+				node = this.getNode(node, column);
 				const toggle = model.group().toggle;
 				if (toggle.execute(node) !== false) {
 					node.state.expand = !node.state.expand;
@@ -27,14 +47,8 @@ export class GroupView {
 					});
 				}
 			},
-			canExecute: node => {
-				if (!node) {
-					const cell = model.navigation().cell;
-					if (cell && cell.column.type === 'group') {
-						node = cell.row;
-					}
-				}
-
+			canExecute: (node, column) => {
+				node = this.getNode(node, column);
 				const toggle = model.group().toggle;
 				return node && node.type === 'group' && toggle.canExecute(node);
 			},
@@ -77,17 +91,39 @@ export class GroupView {
 		this.reference = {
 			group: createColumn('group')
 		};
+
+		this.getNode = node => node;
+		this.isVisible = yes;
+		model.groupChanged.watch(e => {
+			if (e.hasChanges('mode')) {
+				switch (e.state.mode) {
+					case 'rowspan': {
+						this.getNode = rowspanGetNode;
+						this.isVisible = rowspanIsVisible;
+						break;
+					}
+					default: {
+						this.getNode = node => node;
+						this.isVisible = yes;
+						break;
+					}
+				}
+			}
+		})
 	}
 
-	count(node) {
+	count(node, column) {
+		node = this.getNode(node, column);
 		return node.children.length || node.rows.length;
 	}
 
-	status(node) {
+	status(node, column) {
+		node = this.getNode(node, column);
 		return node.state.expand ? 'expand' : 'collapse';
 	}
 
 	offset(node, column) {
+		node = this.getNode(node, column);
 		const { mode } = this.model.group();
 		switch (mode) {
 			case 'nest':
@@ -101,10 +137,12 @@ export class GroupView {
 	}
 
 	value(node, column) {
+		node = this.getNode(node, column);
 		if (column) {
 			const getLabel = labelFactory(column);
 			return getLabel(node);
 		}
 		return null;
 	}
+
 }
