@@ -4,24 +4,7 @@ import { getFactory as labelFactory } from '../services/label';
 import { columnFactory } from '../column/column.factory';
 import { PipeUnit } from '../pipe/pipe.unit';
 import { traverse } from '../node/node.service';
-
-// function defaultValue(node, column) {
-// 	if (column) {
-// 		const getLabel = labelFactory(column);
-// 		return getLabel(node);
-// 	}
-// 	return null;
-// }
-
-// function rowspanValue(node, column) {
-// 	if (node.source === column.by) {
-// 		return defaultValue(node, column);
-// 	}
-// 	if (node.children.length) {
-// 		return defaultValue(node.children[0], column);
-// 	}
-// 	return null;
-// }
+import { yes } from '../utility/kit';
 
 function rowspanGetNode(node, column) {
 	if (node.source === column.by) {
@@ -33,6 +16,17 @@ function rowspanGetNode(node, column) {
 	return node;
 }
 
+function rowspanIsVisible(node, column, parent) {
+	if (node.source === column.by) {
+		return !parent || parent.state.expand;
+	}
+
+	if (node.children.length) {
+		return rowspanIsVisible(node.children[0], column, node);
+	}
+
+	return false;
+}
 
 export class GroupView {
 	constructor(model, table, commandManager, service) {
@@ -99,15 +93,18 @@ export class GroupView {
 		};
 
 		this.getNode = node => node;
+		this.isVisible = yes;
 		model.groupChanged.watch(e => {
 			if (e.hasChanges('mode')) {
 				switch (e.state.mode) {
 					case 'rowspan': {
 						this.getNode = rowspanGetNode;
+						this.isVisible = rowspanIsVisible;
 						break;
 					}
 					default: {
 						this.getNode = node => node;
+						this.isVisible = yes;
 						break;
 					}
 				}
@@ -147,5 +144,5 @@ export class GroupView {
 		}
 		return null;
 	}
-	
+
 }

@@ -4,6 +4,7 @@ import { columnFactory } from '../../column/column.factory';
 import { Aggregation } from '../../services/aggregation';
 import { AppError } from '../../infrastructure/error';
 import { set as setValue } from '../../services/value';
+import { findFirstLeaf } from '../../node/node.service';
 
 export class NodeRow extends DataRow {
 	constructor(model) {
@@ -88,6 +89,23 @@ export class RowspanNodeRow extends NodeRow {
 		super(model);
 	}
 
+
+	getValue(node, column, select) {
+		const rows = this.model.data().rows;
+		switch (node.type) {
+			case 'group': {
+				const leaf = findFirstLeaf(node);
+				if (leaf) {
+					const rowIndex = leaf.rows[0];
+					return select(rows[rowIndex], column);	
+				}
+				return null;
+			}
+		}
+
+		return super.getValue(node, column, select);
+	}
+
 	rowspan(node, column, isRoot = true) {
 		switch (node.type) {
 			case 'group': {
@@ -112,11 +130,6 @@ export class RowspanNodeRow extends NodeRow {
 	columns(node, pin) {
 		switch (node.type) {
 			case 'group': {
-				// return this.columnList(pin);
-				// if (node.state.expand) {
-				// 	return this.columnList(pin).filter(c => c.model.by === node.source);
-				// }
-
 				return dropWhile(this.columnList(pin), c => c.model.type === 'group' && c.model.by !== node.source);
 			}
 			case 'row': {

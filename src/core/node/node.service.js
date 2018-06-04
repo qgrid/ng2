@@ -52,3 +52,16 @@ export function some(nodes, test) {
 
 	return false;
 }
+
+
+export function findFirstLeaf(node) {
+	if (node.type !== 'group') {
+		return node;
+	}
+
+	if (!node.state.expand) {
+		return null;
+	}
+
+	return node.children.length && findFirstLeaf(node.children[0]);
+}
