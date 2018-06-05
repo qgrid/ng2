@@ -1,6 +1,5 @@
 <q-grid header="Index Column Basic"
-        [rows]="rows | async"
-        [columns]="columns">
+        [rows]="rows | async">
 	<q-grid-columns>
 		<q-grid-column key="symbol"
 		               index="1"
@@ -8,7 +7,7 @@
 		               type="text">
 		</q-grid-column>
 		<q-grid-column key="source"
-					   title="[3]Wiki"
+		               title="[3]Wiki"
 		               width="300"
 		               type="url">
 		</q-grid-column>

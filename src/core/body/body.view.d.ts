@@ -19,5 +19,5 @@ export declare class BodyView {
 	getValue(row: any, column: ColumnModel, rowIndex: number, columnIndex: number): any;
 	setValue(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number): void;
 	getLabel(row: any, column: ColumnModel, rowIndex: number, columnIndex: number): string;
-	estLabel(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number): void;
+	setLabel(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number): void;
 }
