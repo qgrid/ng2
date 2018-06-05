@@ -62,17 +62,23 @@ export class MyComponent implements OnInit {
 * `npm run start`
 ### sync examples with stackblitz
 You have to run script to update stackblitz projects with examples. It will load content of src/examples to github repository in the separate branches which will be synced with stackblitz projects.
+
 `npm run examples -- -v <version> -p <pattern> -s <silent>`
 
 Available arguments:
-`-v`: Version of qgrid example. It will be added as suffix to example name (default: latest).
-`-p`: Pattern of examples what you'd like to load.
-`-s`: Silent mode to hide extra console output (default: true).
+
+* `-v`: Version of qgrid example. It will be added as suffix to example name (default: latest).
+* `-p`: Pattern of examples what you'd like to load.
+* `-s`: Silent mode to hide extra console output (default: true).
 
 Examples:
+
 * load all examples of 6.0.1 version:
+
 `npm run examples -- 6.0.1`
+
 * load basic example of persistence plugin of latest version and print all logs:
+
 `npm run examples -- -p persistence-basic -s false`
 
 
