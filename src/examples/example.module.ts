@@ -6,6 +6,7 @@ import { MatButtonModule, MatSelectModule } from '@angular/material';
 import { GridModule, ThemeModule } from 'ng2-qgrid';
 
 import { ExampleActionBarBasicComponent } from './action-bar-basic/example-action-bar-basic.component';
+import { ExampleActionBarTemplateComponent } from './action-bar-template/example-action-bar-template.component';
 import { ExampleAggregateColumnBasicComponent } from './aggregate-column-basic/example-aggregate-column-basic.component';
 import { ExampleDefineColumnAsyncComponent } from './define-column-async/example-define-column-async.component';
 import { ExampleDefineColumnBasicComponent } from './define-column-basic/example-define-column-basic.component';
@@ -60,11 +61,14 @@ import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-
 import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.component';
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
+import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggregation/example-summary-column-aggregation.component';
+import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/example-summary-column-basic.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
+	ExampleActionBarTemplateComponent,
 	ExampleAggregateColumnBasicComponent,
 	ExampleDefineColumnAsyncComponent,
 	ExampleDefineColumnBasicComponent,
@@ -118,8 +122,10 @@ const EXAMPLES: Array<any> = [
 	ExampleSortRowComponent,
 	ExampleStyleCellBasicComponent,
 	ExampleStyleRowBasicComponent,
+	ExampleSummaryColumnBasicComponent,
+	ExampleSummaryColumnAggregationComponent,
+	ExampleThemeGridDarkComponent,
 	ExampleThemeGridEmbedComponent,
-	ExampleThemeGridDarkComponent
 ];
 
 const PATH_REGEX = /Example(.*)Component/;

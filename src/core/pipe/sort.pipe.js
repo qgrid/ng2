@@ -30,7 +30,12 @@ export function sortPipe(memo, context, next) {
 			const parseValue = parseFactory(sortColumn.type, sortColumn.editor);
 			const compare = sortColumn.compare;
 
-			mappings.push(row => parseValue(getValue(row)));			
+			mappings.push(row => {
+				const value = getValue(row);
+				const result = parseValue(value);
+				return result === null ? value : result;
+			});
+
 			comparers.push(sortDir === 'asc' ? compare : (x, y) => -compare(x, y));
 		}
 

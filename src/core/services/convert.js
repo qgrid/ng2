@@ -1,4 +1,4 @@
-import { identity, isObject, isArray, isBoolean, isEmail, isString } from '../utility/kit';
+import { identity, isObject, isArray, isBoolean, isEmail, isString, isUrl, isImage } from '../utility/kit';
 
 export function parseFactory(type, editor) {
 	switch (type) {
@@ -55,6 +55,14 @@ export function getType(value) {
 
 	if (isEmail(value)) {
 		return 'email';
+	}
+
+	if (isImage(value)) {
+		return 'image';
+	}
+
+	if (isUrl(value)) {
+		return 'url';
 	}
 
 	if (isString(value)) {

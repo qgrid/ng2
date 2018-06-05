@@ -11,182 +11,151 @@ export class Aggregation {
 	}
 
 	static last(rows, getValue) {
-		if (!rows.length) {
+		const length = rows.length;
+		if (!length) {
 			return null;
 		}
 
-		return getValue(rows[rows.length - 1]);
+		return getValue(rows[length - 1]);
 	}
 
 	static max(rows, getValue) {
-		if (!rows.length) {
+		let length = rows.length;
+		if (!length) {
 			return null;
 		}
 
-		let length = rows.length;
-		let i = 0;
-		let max = getValue(rows[i++]);
-
-		while (i < length) {
-			if (getValue(rows[i]) > max) {
-				max = getValue(rows[i]);
-			}
-			i++;
+		let max = Number.MIN_SAFE_INTEGER;
+		while (length--) {
+			max = Math.max(max, getValue(rows[length]));
 		}
 
 		return max;
 	}
 
 	static min(rows, getValue) {
-		if (!rows.length) {
+		let length = rows.length;
+		if (!length) {
 			return null;
 		}
 
-		let length = rows.length;
-		let i = 0;
-		let min = getValue(rows[i++]);
-
-		while (i < length) {
-			if (getValue(rows[i]) < min) {
-				min = getValue(rows[i]);
-			}
-			i++;
+		let min = Number.MAX_SAFE_INTEGER;
+		while (length--) {
+			min = Math.min(min, getValue(rows[length]));
 		}
 
 		return min;
 	}
 
 	static minMax(rows, getValue) {
-		if (!rows.length) {
+		let length = rows.length;
+		if (!length) {
 			return null;
 		}
 
-		let length = rows.length;
-		let i = 0;
-		let min = getValue(rows[i++]);
-		let max = min;
-
-		while (i < length) {
-			if (getValue(rows[i]) < min) {
-				min = getValue(rows[i]);
-			}
-
-			if (getValue(rows[i]) > max) {
-				max = getValue(rows[i]);
-			}
-
-			i++;
+		let min = Number.MAX_SAFE_INTEGER;
+		let max = Number.MIN_SAFE_INTEGER;
+		while (length--) {
+			const value = getValue(rows[length]);
+			min = Math.min(min, value);
+			max = Math.min(max, value);
 		}
 
 		return [min, max];
 	}
 
 	static avg(rows, getValue, options) {
-		if (!rows.length) {
+		const length = rows.length;
+		if (!length) {
 			return null;
 		}
 
 		if (options.distinct) {
-			let uniqueSet = new Set();
-			return Aggregation.sum(rows, getValue, options, uniqueSet) / uniqueSet.size;
+			const set = new Set();
+			return Aggregation.sum(rows, getValue, options, set) / set.size;
 		}
 
-		return Aggregation.sum(rows, getValue, options) / rows.length;
+		return Aggregation.sum(rows, getValue, options) / length;
 	}
 
-	static sum(rows, getValue, options, container) {
-		if (!rows.length) {
+	static sum(rows, getValue, options, set) {
+		let length = rows.length;
+		if (!length) {
 			return null;
 		}
 
-		let length = rows.length;
-		let i = 0;
 		let sum = 0;
-
 		if (options.distinct) {
-			let uniqueValues = container || new Set();
-			let value = null;
-
-			while (i < length) {
-				value = Number(getValue(rows[i]));
-
-				if (!uniqueValues.has(value)) {
+			const set = set || new Set();
+			while (length--) {
+				const value = getValue(rows[length]);
+				if (!set.has(value)) {
 					sum += value;
-					uniqueValues.add(value);
+					set.add(value);
 				}
-
-				i++;
 			}
-
-			return sum;
-		}
-
-		while (i < length) {
-			sum += Number(getValue(rows[i]));
-			i++;
+		} else {
+			while (length--) {
+				sum += Number(getValue(rows[length]));
+			}
 		}
 
 		return sum;
 	}
 
 	static join(rows, getValue, options) {
-		if (!rows.length) {
+		const length = rows.length;
+		if (!length) {
 			return null;
 		}
 
-		let separator = options.separator || '';
-		let length = rows.length;
-		let i = 0;
-		let join = getValue(rows[i++]);
+		let result = getValue(rows[0]);
+		const separator = options.separator || '';
 
 		if (options.distinct) {
-			let uniqueValues = new Set();
-			let value = join;
-			uniqueValues.add(value);
+			const set = new Set();
+			let value = result;
+			set.add(value);
 
+			let i = 1;
 			while (i < length) {
 				value = getValue(rows[i]);
 
-				if (!uniqueValues.has(value)) {
-					join += separator + value;
-					uniqueValues.add(value);
+				if (!set.has(value)) {
+					result += separator + value;
+					set.add(value);
 				}
 
 				i++;
 			}
-
-			return join;
+		} else {
+			let i = 1;
+			while (i < length) {
+				result += separator + getValue(rows[i]);
+				i++;
+			}
 		}
 
-		while (i < length) {
-			join += separator + getValue(rows[i]);
-			i++;
-		}
-
-		return join;
+		return result;
 	}
 
 	static count(rows, getValue, options) {
-		if (!rows.length) {
+		let length = rows.length;
+		if (!length) {
 			return null;
 		}
 
 		if (options.distinct) {
-			let length = rows.length;
-			let i = 0;
-			let uniqueValues = new Set();
-			let value = null;
-
-			while (i < length) {
-				value = Number(getValue(rows[i]));
-				uniqueValues.add(value);
-				i++;
+			let set = new Set();
+			while (length--) {
+				count = Number(getValue(rows[length]));
+				set.add(count);
 			}
 
-			return uniqueValues.size;
+			return set.size;
 		}
 
-		return rows.length;
+		return length;
 	}
 
 }
