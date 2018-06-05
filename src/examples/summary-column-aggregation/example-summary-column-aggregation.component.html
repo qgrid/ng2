@@ -1,0 +1,35 @@
+<q-grid header="Summary Column Aggregation"
+        [rows]="rows | async">
+	<q-grid-columns generation="deep">
+		<q-grid-column key="number"
+		               aggregation="count">
+			<ng-template for="foot"
+			             let-$cell>
+				NUMBER COUNT: {{$cell.value}}
+			</ng-template>
+		</q-grid-column>
+		<q-grid-column key="phase"
+		               aggregation="join"
+		               [aggregationOptions]="{separator: '+', distinct: true}">
+			<ng-template for="foot"
+			             let-$cell>
+				PHASE JOIN: {{$cell.value}}
+			</ng-template>
+		</q-grid-column>
+		<q-grid-column key="boil"
+		               aggregation="max">
+			<ng-template for="foot"
+			             let-$cell>
+				BOIL MAX: {{$cell.value}}
+			</ng-template>
+		</q-grid-column>
+		<q-grid-column key="melt"
+		               aggregation="min">
+			<ng-template for="foot"
+			             let-$cell>
+				MELT MIN: {{$cell.value}}
+			</ng-template>
+
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

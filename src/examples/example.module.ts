@@ -62,6 +62,8 @@ import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.compo
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
+import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/example-summary-column-basic.component';
+import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggregation/example-summary-column-aggregation.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -120,6 +122,8 @@ const EXAMPLES: Array<any> = [
 	ExampleStyleCellBasicComponent,
 	ExampleStyleRowBasicComponent,
 	ExampleThemeGridEmbedComponent,
+	ExampleSummaryColumnBasicComponent,
+	ExampleSummaryColumnAggregationComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
