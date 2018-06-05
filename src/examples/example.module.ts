@@ -54,6 +54,8 @@ import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.compo
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
+import { ExampleLookAtomsReadonlyComponent } from './look-atoms-readonly/example-look-atoms-readonly.component';
+import { ExamplePivotColumnCohortComponent } from './pivot-column-cohort/example-pivot-column-cohort.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -104,6 +106,8 @@ const EXAMPLES: Array<any> = [
 	ExampleStyleCellBasicComponent,
 	ExampleStyleRowBasicComponent,
 	ExampleThemeGridEmbedComponent,
+	ExamplePivotColumnCohortComponent,
+	ExampleLookAtomsReadonlyComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;

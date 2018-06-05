@@ -8,13 +8,13 @@ import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 
 @Injectable()
 export class ColumnListService {
-	columnListCtrl: ColumnListCtrl;
+	private _ctrl: ColumnListCtrl;
 
 	constructor(private root: RootService) {
 	}
 
-	add(column) {
-		this.ctrl.add(column);
+	add(column: ColumnModel, parent?: ColumnModel) {
+		this.ctrl.add(column, parent);
 	}
 
 	copy(target, source) {
@@ -34,15 +34,15 @@ export class ColumnListService {
 	}
 
 	get ctrl() {
-		if (this.columnListCtrl) {
-			return this.columnListCtrl;
+		if (this._ctrl) {
+			return this._ctrl;
 		}
 
 		const canCopy = (key: string, source, target) =>
 			target.hasOwnProperty(key) && !isUndefined(source[key]);
 
-		this.columnListCtrl = new ColumnListCtrl(this.root.model, canCopy, parseFactory);
+		this._ctrl = new ColumnListCtrl(this.root.model, canCopy, parseFactory);
 
-		return this.columnListCtrl;
+		return this._ctrl;
 	}
 }

@@ -26,10 +26,8 @@ export function flatten(columns, createView, context) {
 			}
 
 			view.colspan = width;
-		} else {
-			view.rowspan = context.rowspan;
 		}
-
+		
 		return view;
 	}
 
