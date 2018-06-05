@@ -1,4 +1,4 @@
-export function flatten(columns, createView, context) {
+export function flatten(columns, createView) {
 	const root = {
 		children: columns
 	};
