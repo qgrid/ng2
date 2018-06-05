@@ -56,7 +56,7 @@ export class Aggregation {
 		let min = Number.MAX_SAFE_INTEGER;
 		let max = Number.MIN_SAFE_INTEGER;
 		while (length--) {
-			const value = getValue(rows[i]);
+			const value = getValue(rows[length]);
 			min = Math.min(min, value);
 			max = Math.min(max, value);
 		}
