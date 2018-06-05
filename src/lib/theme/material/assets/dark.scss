@@ -1,3 +1,23 @@
+@import '~@angular/material/theming';
+
+// Define a custom typography config that overrides the font-family as well as the
+// `headlines` and `body-1` levels.
+$dark-typography: mat-typography-config(
+  $font-family: "Roboto Condensed",
+  $body-2: mat-typography-level(14px, 24px, 400)
+);
+// Override typography CSS classes (e.g., mat-h1, mat-display-1, mat-typography, etc.).
+//@include mat-base-typography($dark-typography);
+
+// Override typography for a specific Angular Material components.
+//@include mat-checkbox-typography($dark-typography);
+
+//Override typography for all Angular Material, including mat-base-typography and all components.
+//@include angular-material-typography($dark-typography);
+
+// Be sure that you only ever include this mixin once!
+//@include mat-core($dark-typography);
+
 .q-grid-dark {
 	$color-less: rgba(0, 0, 0, 0);
 	$dark: #424242;
@@ -12,8 +32,13 @@
 
 	.q-grid.q-grid-theme-material {
 		background-color: $dark-surface;
+		font-family: "Roboto Condensed",Roboto,"Helvetica Neue",sans-serif;
+		font-weight: 300;
 		thead {
 			box-shadow: 0 1px 0px $dark-divider;
+			th {
+				font-weight: 300;
+			}		
 		}
 		tbody tr {
 			border-top: 1px solid $dark-divider;
@@ -56,6 +81,8 @@
 			}
 			tr td {
 				color: $dark-text;
+				font-family: "Roboto Condensed";
+				font-size: 14px;
 			}
 			tr {
 				&.q-grid-highlighted {
