@@ -3,17 +3,17 @@ export function flatten(columns, createView) {
 		children: columns
 	};
 
+	const result = [];
 	const rowsToUse = rowsToUseFactory();
 
-	const result = [];
 	function markup(column, rowIndex, columnIndex, rowsLeft) {
 		const rowspan = rowsLeft - rowsToUse(column);
 		const view = createView(column.type || 'text', column);
+		result.push(view);
+
 		view.rowspan = rowspan;
 		view.rowIndex = rowIndex;
 		view.columnIndex = columnIndex;
-
-		result.push(view);
 
 		const { children } = view.model;
 		if (children.length) {
@@ -24,7 +24,7 @@ export function flatten(columns, createView) {
 				width += colspan;
 				columnIndex += colspan;
 			}
-
+			
 			view.colspan = width;
 		}
 		
