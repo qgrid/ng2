@@ -4,6 +4,7 @@ import { Command } from '../command/command';
 import * as columnService from '../column/column.service';
 import { FilterRowColumn } from '../column-type/filter.row.column';
 import { clone, isUndefined, isNumber } from '../utility/kit';
+import { GRID_PREFIX } from '../definition';
 
 export class HeadView {
 	constructor(model, table, tagName) {
@@ -111,6 +112,12 @@ export class HeadView {
 
 		const model = this.model;
 		this.rows = Array.from(model.scene().column.rows);
+
+		if (this.rows.length > 1) {
+			this.table.view.addClass(`${GRID_PREFIX}-head-multi`);
+		} else {
+			this.table.view.removeClass(`${GRID_PREFIX}-head-multi`);
+		}
 
 		if (model.filter().unit === 'row') {
 			const filterRow = this.table.data.columns().map(c => new FilterRowColumn(c));
