@@ -29,7 +29,7 @@ const projectPath = path.resolve('.');
 const examplesPath = path.join(projectPath, './src/examples');
 const examplesBucketPath = path.join(projectPath, '../examples-bucket');
 const assetsPath = path.join(projectPath, './src/assets');
-const examplesBucketRepoUrl = 'https://github.com/titovmx/examples.git';
+const examplesBucketRepoUrl = 'https://github.com/qgrid/examples.git';
 
 const rmParams = ['-rf', examplesBucketPath];
 shell.rm(...rmParams);
