@@ -1,3 +1,5 @@
+import { binarySearch } from '../utility/kit';
+
 export function flatten(columns, createView) {
 	const root = {
 		children: columns
@@ -83,30 +85,28 @@ export function expand(rows) {
 	const offsets = [];
 	for (let y = 0, height = rows.length; y < height; y++) {
 		const columns = rows[y];
-		const yGaps = offsets.length > y ? offsets[y] : offsets[y] = [0];
+		const offset = offsets.length > y ? offsets[y] : offsets[y] = [0];
 		for (let x = 0, width = columns.length; x < width; x++) {
 			const column = columns[x];
 			const { rowspan, colspan } = column;
-			let offset = yGaps.shift();
+			const current = offset[0];
+			const next = current + colspan;
 			for (let i = 0; i < rowspan; i++) {
 				const yi = y + i;
 				const row = mx.length > yi ? mx[yi] : mx[yi] = [];
 				for (let j = 0; j < colspan; j++) {
-					const xj = offset + j;
+					const xj = current + j;
 					row[xj] = column;
 				}
 
-				const yiGaps = offsets.length > yi ? offsets[yi] : offsets[yi] = [0];
-
-				const last = yiGaps[yiGaps.length - 1];
-				if (row[last]) {
-					yiGaps.pop();
+				const gaps = offsets.length > yi ? offsets[yi] : offsets[yi] = [0];
+				const index = binarySearch(gaps, current);
+				if (row[next]) {
+					gaps.splice(index, 1);
 				}
-
-				const current = offset + colspan;
-				const index = findIndex(yiGaps, current);
-				if (!row[current]) {
-					yiGaps.splice(index, 0, current);
+				else {
+					const xi = gaps[index];
+					gaps.splice(index, row[xi] ? 1 : 0, next);
 				}
 			}
 		}
@@ -134,20 +134,4 @@ export function collapse(matrix) {
 	}
 
 	return line;
-}
-
-function findIndex(sortedList, value) {
-	let low = 0;
-	let high = sortedList.length;
-	while (low < high) {
-		const mid = (low + high) >>> 1;
-		if (sortedList[mid] < value) {
-			low = mid + 1
-		}
-		else {
-			high = mid
-		}
-	}
-
-	return low;
 }

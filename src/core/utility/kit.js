@@ -126,6 +126,22 @@ function escapeRegexp(text) {
 	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
 
+function binarySearch(list, value) {
+	let low = 0;
+	let high = list.length;
+	while (low < high) {
+		const mid = (low + high) >>> 1;
+		if (list[mid] < value) {
+			low = mid + 1
+		}
+		else {
+			high = mid
+		}
+	}
+
+	return low;
+}
+
 export {
 	isObject,
 	isFunction,
@@ -160,5 +176,6 @@ export {
 	dropWhile,
 	groupBy,
 	htmlEncode,
-	escapeRegexp
+	escapeRegexp,
+	binarySearch
 };

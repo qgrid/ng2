@@ -1,4 +1,4 @@
-import { max } from '../../utility/kit';
+import { binarySearch } from '../../utility/kit';
 import { AppError } from '../../infrastructure/error';
 
 export class Matrix {
@@ -7,44 +7,49 @@ export class Matrix {
     }
 
     build(table) {
-        const mx = [];
-        const offsets = [];
+        const rows = table.rows;
         const isDataRow = this.isDataRow;
 
-        const rows = table.rows;
-        let cursor = 0;
-        for (let y = 0, height = rows.length; y < height; y++) {
-            const tr = rows[y];
+        const mx = [];
+        const offsets = [];
+
+        let y = 0;
+        for (let cursor = 0, height = rows.length; cursor < height; cursor++) {
+            const tr = rows[cursor];
             if (!isDataRow(tr)) {
                 continue;
             }
 
+            const offset = offsets.length > y ? offsets[y] : offsets[y] = [0];
             const cells = tr.cells;
             for (let x = 0, width = cells.length; x < width; x++) {
                 const td = cells[x];
                 const { rowSpan, colSpan } = td;
+                const current = offset[0];
+                const next = current + colSpan;
                 for (let i = 0; i < rowSpan; i++) {
-                    const yi = cursor + i;
+                    const yi = y + i;
                     const row = mx.length > yi ? mx[yi] : mx[yi] = [];
-                    const gaps = offsets.length > yi ? offsets[yi] : offsets[yi] = [0];
-                    const offset = gaps.shift();
                     for (let j = 0; j < colSpan; j++) {
-                        const xj = offset + j;
+                        const xj = current + j;
                         row[xj] = td;
                     }
 
-                    const last = offset + colSpan;
-                    if (!row[last]) {
-                        gaps.push(last);
+                    const gaps = offsets.length > yi ? offsets[yi] : offsets[yi] = [0];
+                    const index = binarySearch(gaps, current);
+                    if (row[next]) {
+                        gaps.splice(index, 1);
+                    }
+                    else {
+                        const xi = gaps[index];
+                        gaps.splice(index, row[xi] ? 1 : 0, next);
                     }
                 }
             }
-
-            cursor++;
+            y++;
         }
 
         return mx;
-
     }
 
     assertFlatness(matrix) {
