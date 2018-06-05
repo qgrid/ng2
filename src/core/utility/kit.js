@@ -34,9 +34,9 @@ const toCamelCase = (...names) => {
 	const nameList = names.map(name => '' + name);
 	if (length > 0) {
 		return (nameList[0] +
-		nameList.slice(1)
-			.map(name => name[0].toUpperCase() + name.substring(1, name.length))
-			.join(''));
+			nameList.slice(1)
+				.map(name => name[0].toUpperCase() + name.substring(1, name.length))
+				.join(''));
 	}
 
 	return '';
@@ -78,7 +78,7 @@ function orderBy(data, selectors, compares) {
 			criteria.push(select(row));
 		}
 
-		result.push({row, criteria, index});
+		result.push({ row, criteria, index });
 	}
 
 	// multi selector comparator
@@ -142,6 +142,16 @@ function binarySearch(list, value) {
 	return low;
 }
 
+function isUrl(value) {
+	var a = document.createElement('a');
+	a.href = value;
+	return (a.host && a.host != window.location.host);
+}
+
+function isImage(value) {
+	return (value || '').match(/\.(jpeg|jpg|gif|png)$/) != null;
+}
+
 export {
 	isObject,
 	isFunction,
@@ -153,6 +163,8 @@ export {
 	isDate,
 	isNumber,
 	isEmail,
+	isUrl,
+	isImage,
 	clone,
 	cloneDeep,
 	debounce,
