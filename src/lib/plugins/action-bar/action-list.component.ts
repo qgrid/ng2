@@ -4,7 +4,7 @@ import { PluginComponent } from '../plugin.component';
 import { ActionService } from './action.service';
 
 @Component({
-	selector: 'q-grid-action-list',
+	selector: 'q-grid-actions',
 	template: '',
 	providers: [ActionService],
 	changeDetection: ChangeDetectionStrategy.OnPush
