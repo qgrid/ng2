@@ -3,6 +3,7 @@ import { assignWith, clone, isUndefined } from '../utility/kit';
 import { ColumnView as CustomColumn } from '../scene/view/column.view';
 import { ArrayColumn } from '../column-type/array.column';
 import { BoolColumn } from '../column-type/bool.column';
+import { CohortColumn } from '../column-type/cohort.column';
 import { CurrencyColumn } from '../column-type/currency.column';
 import { DateColumn } from '../column-type/date.column';
 import { EmailColumn } from '../column-type/email.column';
@@ -38,6 +39,7 @@ export function columnFactory(model) {
 	const columnMap = {
 		'array': ArrayColumn,
 		'bool': BoolColumn,
+		'cohort': CohortColumn,
 		'currency': CurrencyColumn,
 		'custom': CustomColumn,
 		'date': DateColumn,

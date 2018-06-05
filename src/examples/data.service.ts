@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export class Human {
 	id: number;
@@ -35,8 +36,7 @@ export class Atom {
 
 @Injectable()
 export class DataService {
-	constructor(private http: HttpClient) {
-	}
+	constructor(private http: HttpClient) {}
 
 	getPeople(count: string | number = 100): Observable<Human[]> {
 		return this.http.get<Human[]>(`assets/people/${count}.json`);
@@ -47,6 +47,33 @@ export class DataService {
 	}
 
 	getAtoms(): Observable<Atom[]> {
-		return this.http.get<Atom[]>(`assets/atoms/117.json`);			
+		return this.http.get<Atom[]>(`assets/atoms/118.json`);
+	}
+
+	getAtomPresets(id, user): Observable<any> {
+		const commonPresets = this.http.get('assets/presets/atoms.json');
+		const items = JSON.parse(localStorage.getItem(id));
+		if (items && items.hasOwnProperty(user)) {
+			return combineLatest(
+				commonPresets,
+				of(items[user]),
+				(...arrays) => arrays.reduce((acc, array) => [...acc, ...array], [])
+			);
+		}
+		return commonPresets;
+	}
+
+	setAtomPresets(id, user, items): Observable<any> {
+		const oldItems = JSON.parse(localStorage.getItem(id));
+		const newItems = {
+			...oldItems,
+			...{ [user]: items }
+		};
+		localStorage.setItem(id, JSON.stringify(newItems));
+		return of(newItems[user]);
+	}
+
+	getUsers(): Observable<string[]> {
+		return of(['user1', 'user2']);
 	}
 }

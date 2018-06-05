@@ -10,7 +10,7 @@ export { ThemeModule } from './theme/material/theme.module';
 export { ThemeComponent } from './theme/material/theme.component';
 export { PluginService as GridPlugin } from './plugins/plugin.service';
 
-// Pipe
+// NG Pipe
 export { HighlightPipe } from './pipes/highlight/highlight.pipe';
 export { FilterPipe } from './pipes/filter/filter.pipe';
 export { PipeModule } from './pipes/pipe.module';
@@ -27,8 +27,9 @@ export { FetchContext } from 'ng2-qgrid/core/fetch/fetch.context';
 // Column
 export { ArrayColumnModel as ArrayColumn } from 'ng2-qgrid/core/column-type/array.column';
 export { BoolColumnModel as BoolColumn } from 'ng2-qgrid/core/column-type/bool.column';
-export { CurrencyColumnModel as CurrencyColumn } from 'ng2-qgrid/core/column-type/currency.column';
+export { CohortColumnModel as CohortColumn } from 'ng2-qgrid/core/column-type/cohort.column';
 export { ColumnModel as Column } from 'ng2-qgrid/core/column-type/column.model';
+export { CurrencyColumnModel as CurrencyColumn } from 'ng2-qgrid/core/column-type/currency.column';
 export { DataColumnModel as DataColumn } from 'ng2-qgrid/core/column-type/data.column.model';
 export { DateColumnModel as DateColumn } from 'ng2-qgrid/core/column-type/date.column';
 export { EmailColumnModel as EmailColumn } from 'ng2-qgrid/core/column-type/email.column';
@@ -54,3 +55,6 @@ export { UrlColumnModel as UrlColumn } from 'ng2-qgrid/core/column-type/url.colu
 
 // Style
 export { StyleCellContext, StyleRowContext } from 'ng2-qgrid/core/style/style.context';
+
+// Pipe
+export { PipeContext, PipeMemo } from 'ng2-qgrid/core/pipe/pipe.item';

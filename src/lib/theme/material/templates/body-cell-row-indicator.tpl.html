@@ -1,22 +1,19 @@
 <ng-template key="body-cell-row-indicator.tpl.html"
-			 let-$cell
-			 let-$view="$view">
+             let-$cell
+             let-$view="$view">
 	<ng-container *ngIf="$view.row.canMove">
-		<div [q-grid-drag]="$view.row.transfer($cell.rowIndex)"
-			 [q-grid-drop]="$view.row.transfer($cell.rowIndex)"
-			 (q-grid-on-drop)="$view.row.drop.execute($event)"
-			 [q-grid-can-drop]="$view.row.drop.canExecute"
-			 [q-grid-can-drag]="$view.row.drag.canExecute"
-			 class="q-grid-draggable">
-			<mat-icon class="q-grid-icon">drag_handle</mat-icon>
+		<div [q-grid-drag]="$view.row.drag"
+		     [q-grid-drag-data]="$cell.rowIndex"
+		     q-grid-drop-area="body">
+			<mat-icon class="q-grid-icon">drag_indicator</mat-icon>
 		</div>
 	</ng-container>
 	<ng-container *ngIf="$view.row.canResize">
-		<div [q-grid-drag]="$view.row.transfer($cell.row)"
-			 [q-grid-resize]="$cell.row"
-			 q-grid-resize-path="rows"
-			 [q-grid-can-resize]="$view.row.resize.canExecute"
-			 class="q-grid-resizable">
-		</div>
+		<!-- <div [q-grid-drag]="$cell.rowIndex"
+		     [q-grid-resize]="$cell.row"
+		     q-grid-resize-path="rows"
+		     [q-grid-can-resize]="$view.row.resize.canExecute"
+		     class="q-grid-resizable">
+		</div> -->
 	</ng-container>
 </ng-template>

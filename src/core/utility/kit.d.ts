@@ -19,3 +19,4 @@ export declare function isString(value: any): boolean;
 export declare function clone(value: any): any;
 export declare function cloneDeep(value: any): any;
 export declare function flatten<T>(collection: Array<Array<T>>): T[];
+export declare function binarySearch<T>(list: Array<any>, value: any): number;

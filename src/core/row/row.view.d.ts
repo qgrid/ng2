@@ -6,9 +6,11 @@ import { Table } from '../dom/table';
  * > Under Construction.
  */
 export declare class RowView {
-	constructor(model: Model, tagName: string);
+	constructor(model: Model, table: Table, tagName: string);
 
-	drop: Command;
-	drag: Command;
+	drop: Command<{ dragData: number }>;
+	drag: Command<{ dragData: number }>;
+
 	canMove: boolean;
+	canResize: boolean;
 }

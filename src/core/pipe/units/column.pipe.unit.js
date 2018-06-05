@@ -3,13 +3,10 @@ import { Scene } from '../../scene/scene';
 import { Guard } from '../../infrastructure/guard';
 
 export const columnPipeUnit = [
-	(memo, context, next) => {
-		const view = context.model.view();
-		next({
-			rows: view.rows,
-			pivot: view.pivot,
-			nodes: view.nodes
-		});
+	(_, context, next) => {
+		const { view } = context.model;
+		const { rows, pivot, nodes } = view();
+		next({ rows, pivot, nodes });
 	},
 	Pipe.column,
 	(memo, context, next) => {
@@ -37,3 +34,5 @@ export const columnPipeUnit = [
 		next(memo);
 	}
 ];
+
+columnPipeUnit.why = 'redraw';

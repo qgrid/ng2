@@ -13,7 +13,7 @@ export function sortPipe(memo, context, next) {
 	let result = memo;
 
 	if (memo.length && by.length) {
-		const columns = model.data().columns;
+		const { columns } = model.data();
 		const mappings = [];
 		const comparers = [];
 
@@ -28,9 +28,9 @@ export function sortPipe(memo, context, next) {
 
 			const getValue = context.valueFactory(sortColumn);
 			const parseValue = parseFactory(sortColumn.type, sortColumn.editor);
-
-			mappings.push(row => parseValue(getValue(row)));
 			const compare = sortColumn.compare;
+
+			mappings.push(row => parseValue(getValue(row)));			
 			comparers.push(sortDir === 'asc' ? compare : (x, y) => -compare(x, y));
 		}
 

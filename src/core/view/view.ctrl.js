@@ -33,9 +33,9 @@ export class ViewCtrl {
 		const reduce = model.pipe().reduce;
 		let sessionUnits = [];
 
-		return (name, changes, units) => {
+		return (source, changes, units) => {
 			model.scene({ status: 'start', round: 0 }, {
-				source: name
+				source
 			});
 
 			sessionUnits.push(...units);
@@ -43,7 +43,12 @@ export class ViewCtrl {
 				const jobUnits = reduce(sessionUnits, model);
 				sessionUnits = [];
 
-				jobUnits.forEach(unit => service.invalidate(name, changes, unit));
+				jobUnits.forEach(pipe => service.invalidate({
+					source,
+					changes,
+					pipe,
+					why: pipe.why || 'refresh'
+				}));
 			});
 		};
 	}

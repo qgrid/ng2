@@ -14,12 +14,12 @@ export class ColumnListCtrl {
 	generateKey(source) {
 		if (!isUndefined(source.editor)) {
 			return `$default.${source.editor}`;
-		} 
-		
+		}
+
 		if (!isUndefined(source.type)) {
 			return `$default.${source.type}`;
-		} 
-		
+		}
+
 		return '$default';
 	}
 
@@ -40,13 +40,18 @@ export class ColumnListCtrl {
 			});
 	}
 
-	add(column) {
-		const columnList = this.model.columnList;
-		const columns = columnList().columns.concat([column]);
-		columnList({ columns }, {
-			source: 'column.list.ctrl',
-			behavior: 'core'
-		});
+	add(column, parent) {
+		if (parent) {
+			parent.children.push(column);
+		}
+		else {
+			const { columnList } = this.model;
+			const columns = columnList().columns.concat([column]);
+			columnList({ columns }, {
+				source: 'column.list.ctrl',
+				behavior: 'core'
+			});
+		}
 	}
 
 	register(column) {

@@ -67,4 +67,11 @@ export declare interface DataModel {
 	 * see `PipeModel` that contains information when grid demands refreshing.
 	 */
 	pipe?: ((memo: any, context: PipeContext, next: (memo: any) => void) => any)[];
+
+	/**
+	 * If setup to true, grid starts to use cache to render values,
+	 * that means if you have some online updates they won't work until explicit
+	 * grid invalidate.
+	 */
+	isReadonly?: boolean;
 }

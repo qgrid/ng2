@@ -1,8 +1,10 @@
+import { PathService } from '../path/path.service';
 import { Log } from '../infrastructure/log';
 import { Command } from '../command/command';
 import * as columnService from '../column/column.service';
 import { FilterRowColumn } from '../column-type/filter.row.column';
-import { clone, isUndefined } from '../utility/kit';
+import { clone, isUndefined, isNumber } from '../utility/kit';
+import { GRID_PREFIX } from '../definition';
 
 export class HeadView {
 	constructor(model, table, tagName) {
@@ -14,54 +16,47 @@ export class HeadView {
 		this.drop = new Command({
 			source: 'head.view',
 			canExecute: e => {
-				if (e.source && e.source.key === tagName) {
-					const key = e.target.value;
-					const map = columnService.map(model.data().columns);
-					return map.hasOwnProperty(key) && map[key].canMove;
-				}
-
-				return false;
+				const pathFinder = new PathService(table.context.bag.head);
+				const cell = pathFinder.cell(e.event.path);
+				return cell && cell.column.canMove;
 			},
 			execute: e => {
-				const columnRows = model.scene().column.rows;
-				for (let columns of columnRows) {
-					const targetIndex = columns.findIndex(c => c.model.key === e.target.value);
-					const sourceIndex = columns.findIndex(c => c.model.key === e.source.value);
-					if (targetIndex >= 0 && sourceIndex >= 0) {
-						const sourceColumn = columns[sourceIndex].model;
-						const targetColumn = columns[targetIndex].model;
-						const indexMap = Array.from(model.columnList().index);
-						const sourceColumnIndex = indexMap.indexOf(sourceColumn.key);
-						const targetColumnIndex = indexMap.indexOf(targetColumn.key);
-						indexMap.splice(sourceColumnIndex, 1);
-						indexMap.splice(targetColumnIndex, 0, sourceColumn.key);
-						model.columnList({ index: indexMap });
+				const sourceKey = e.dragData;
+				const pathFinder = new PathService(table.context.bag.head);
+				const targetKey = pathFinder.cell(e.event.path).column.key;
+				if (sourceKey !== targetKey) {
+					const columnList = model.columnList;
+					const indexMap = Array.from(columnList().index);
+
+					let oldIndex = indexMap.indexOf(sourceKey);
+					let newIndex = indexMap.indexOf(targetKey);
+					if (oldIndex >= 0 && newIndex >= 0) {
+						indexMap.splice(oldIndex, 1);
+						indexMap.splice(newIndex, 0, sourceKey);
+						columnList({ index: indexMap }, { source: 'head.view' });
 					}
 				}
+
+				return sourceKey;
 			}
 		});
 
 		this.drag = new Command({
 			source: 'head.view',
 			canExecute: e => {
-				if (e.source.key === tagName) {
-					const map = columnService.map(model.data().columns);
-					return map.hasOwnProperty(e.source.value) && map[e.source.value].canMove !== false;
-				}
-
-				return false;
+				const sourceKey = e.data;
+				const { columns } = model.view();
+				const map = columnService.map(columns);
+				return map.hasOwnProperty(sourceKey) && map[sourceKey].canMove;
 			}
 		});
 
 		this.resize = new Command({
 			source: 'head.view',
 			canExecute: e => {
-				if (e.source.key === tagName) {
-					const map = table.data.columnMap();
-					return map.hasOwnProperty(e.source.value) && map[e.source.value].canResize !== false;
-				}
-
-				return false;
+				const key = e.data;
+				const map = table.data.columnMap();
+				return map.hasOwnProperty(key) && map[key].canResize !== false;
 			}
 		});
 
@@ -108,13 +103,6 @@ export class HeadView {
 		});
 	}
 
-	transfer(column) {
-		return {
-			key: this.tagName,
-			value: column.key
-		};
-	}
-
 	columns(row, pin) {
 		return row.filter(c => c.model.pin === pin);
 	}
@@ -124,6 +112,12 @@ export class HeadView {
 
 		const model = this.model;
 		this.rows = Array.from(model.scene().column.rows);
+
+		if (this.rows.length > 1) {
+			this.table.view.addClass(`${GRID_PREFIX}-head-multi`);
+		} else {
+			this.table.view.removeClass(`${GRID_PREFIX}-head-multi`);
+		}
 
 		if (model.filter().unit === 'row') {
 			const filterRow = this.table.data.columns().map(c => new FilterRowColumn(c));

@@ -1,8 +1,8 @@
 @import "variables";
 th.q-grid-group {
     label {
-		cursor: pointer;
-		outline: none;
+        cursor: pointer;
+        outline: none;
     }
 }
 
@@ -15,6 +15,11 @@ td.q-grid-row-expand {
         min-height: 24px;
         margin: -1px 0 0 -6px;
         padding: 0;
+        &.q-grid-expand {
+            .q-grid-icon {
+                transform: rotate(90deg);
+            }
+        }
         .q-grid-icon {
             opacity: 0.54;
         }
@@ -27,8 +32,4 @@ td.q-grid-row-expand {
         vertical-align: middle;
         color: $dark-secondary;
     }
-}
-
-.q-grid-arrow-right {
-    transform: rotate(90deg);
 }

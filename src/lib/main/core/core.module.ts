@@ -45,7 +45,7 @@ import { LayerCoreDirective } from './layer/layer-core.directive';
 	],
 	imports: [
 		TemplateModule,
-		CommonModule,
+		CommonModule,		
 		GridCommonModule
 	],
 	providers: [

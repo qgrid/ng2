@@ -1,3 +1,3 @@
-import {PipeContext, PipeMemo} from '../pipe.item';
+import { PipeContext } from '../pipe.item';
 
-export declare const viewPipeUnit: [(memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any];
+export declare const viewPipeUnit: [(rows: any[], context: PipeContext, next: (rows: any[]) => void) => void];

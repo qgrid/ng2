@@ -5,5 +5,6 @@ export class DataModel {
 		this.rows = [];
 		this.columns = [];
 		this.pipe = PipeUnit.default;
+		this.isReadonly = false;
 	}
 }     

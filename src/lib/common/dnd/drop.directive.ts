@@ -3,66 +3,76 @@ import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { DragService } from 'ng2-qgrid/core/drag/drag.service';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
+import { Command } from 'ng2-qgrid/core/command/command';
+import { isUndefined } from 'ng2-qgrid/core/utility/kit';
 
 @Directive({
 	selector: '[q-grid-drop]'
 })
-export class DropDirective implements OnInit, OnDestroy {
-	private element: Element;
-	private listener;
+export class DropDirective {
+	private dragData: any;
 
-	@Input('q-grid-drop') transfer;
-	@Input('q-grid-drop-effect') effect;
-	@Input('q-grid-can-drop') canDrop;
-	@Output('q-grid-on-drop') onDrop = new EventEmitter<any>();
+	@Input('q-grid-drop-data') dropData: any;
+	@Input('q-grid-drag-over') dragOver: Command<{ event: DragEvent, dragData: any, dropData: any }>;
+	@Input('q-grid-drop-area') area: string;
+	@Input('q-grid-drop') drop: Command<{ event: DragEvent, dragData: any, dropData: any }>;
 
-	constructor(elementRef: ElementRef, private zone: NgZone) {
-		this.element = elementRef.nativeElement;
-		this.listener = new EventListener(this.element, new EventManager(this));
-	}
+	constructor(private elementRef: ElementRef, private zone: NgZone) {
+		const element = elementRef.nativeElement;
+		const listener = new EventListener(element, new EventManager(this));
 
-	ngOnInit() {
-		this.element.classList.add(`${GRID_PREFIX}-can-drop`);
-		this.zone.runOutsideAngular(() => {
-			this.listener.on('dragenter', this.enter);
-			this.listener.on('dragover', this.over);
-			this.listener.on('dragleave', this.leave);
+		element.classList.add(`${GRID_PREFIX}-can-drop`);
+		zone.runOutsideAngular(() => {
+			listener.on('dragenter', this.onEnter);
+			listener.on('dragover', this.onOver);
+			listener.on('dragleave', this.onLeave);
 		});
 
-		this.listener.on('drop', this.drop);
+		listener.on('drop', this.onDrop);
 	}
 
-	ngOnDestroy() {
-		this.element.classList.remove(`${GRID_PREFIX}-can-drop`);
-		this.listener.off();
-	}
-
-	drop(e) {
+	onDrop(e: DragEvent) {
 		e.stopPropagation();
 
-		this.element.classList.remove(`${GRID_PREFIX}-dragover`);
-		const event = this.event(e.dataTransfer);
-		if (this.canDrop(event)) {
-			this.onDrop.emit(event);
+		this.elementRef.nativeElement.classList.remove(`${GRID_PREFIX}-dragover`);
+		const eventArg = {
+			event: e,
+			dragData: isUndefined(this.dragData) ? DragService.data : this.dragData,
+			dropData: this.dropData
+		};
+
+		if (this.drop.canExecute(eventArg)) {
+			this.drop.execute(eventArg);
 		}
 
+		delete this.dragData;
 		return false;
 	}
 
-	enter(e) {
+	onEnter(e: DragEvent) {
 		e.preventDefault();
 
-		this.element.classList.add(`${GRID_PREFIX}-dragover`);
-		e.dataTransfer.dropEffect = this.effect || 'move';
+		this.elementRef.nativeElement.classList.add(`${GRID_PREFIX}-dragover`);
+		e.dataTransfer.dropEffect = 'move';
 		return false;
 	}
 
-	over(e) {
+	onOver(e: DragEvent) {
 		e.preventDefault();
 
-		let effect = this.effect || 'move';
-		if (this.element.classList.contains(`${GRID_PREFIX}-drag`) ||
-			this.canDrop(this.event()) === false) {
+		const eventArg = {
+			event: e,
+			dragData: isUndefined(this.dragData) ? DragService.data : this.dragData,
+			dropData: this.dropData
+		};
+
+		let effect = 'move';
+		if (this.area === DragService.area && this.dragOver.canExecute(eventArg)) {
+			this.dragData = this.dragOver.execute(eventArg);
+			if (!isUndefined(this.dragData)) {
+				DragService.data = this.dragData;
+			}
+		} else {
 			effect = 'none';
 		}
 
@@ -70,16 +80,7 @@ export class DropDirective implements OnInit, OnDestroy {
 		return false;
 	}
 
-	leave() {
-		this.element.classList.remove(`${GRID_PREFIX}-dragover`);
-	}
-
-	event(e?) {
-		const target = this.transfer;
-		const source = arguments.length
-			? DragService.decode(e.getData(DragService.mimeType))
-			: DragService.transfer;
-
-		return { source, target };
+	onLeave() {
+		this.elementRef.nativeElement.classList.remove(`${GRID_PREFIX}-dragover`);
 	}
 }

@@ -1,4 +1,4 @@
-import { IState } from './state';
+import { NodeState } from './state';
 
 export declare class Node {
 	constructor(key: string, level: number, type: string);
@@ -36,5 +36,10 @@ export declare class Node {
 	/**
 	 * Shows if node was expanded or not.
 	 */
-	state: IState;
+	state: NodeState;
+
+	/**
+	 * Column key of node.
+	 */
+	source: string;
 }

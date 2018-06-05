@@ -1,3 +1,4 @@
+import { Matrix } from './matrix';
 import { Selector } from './selector';
 import { SelectorMediator } from './selector.mediate';
 import { UnitFactory } from './unit.factory';
@@ -12,23 +13,20 @@ export class SelectorFactory {
 	create() {
 		const bag = this.bag;
 		const selectorMark = this.selectorMark;
+		const entries =
+			selectorMark
+				.select()
+				.map(({ element, rowRange, columnRange }) => ({
+					matrix: new Matrix(tr => bag.models.has(tr)).build(element),
+					rowRange,
+					columnRange
+				}));
+
 		const selectorFactory = context => {
-			const entries =
-				selectorMark
-					.select()
-					.filter(entry => {
-						if (context.hasOwnProperty('column')) {
-							const columnIndex = context.column;
-							return entry.columnRange.start <= columnIndex && columnIndex <= entry.columnRange.end;
-						}
-
-						return true;
-					});
-
 			return entries.map(entry => ({
 				invoke: f => {
 					const unitFactory = new UnitFactory(entry.rowRange, entry.columnRange);
-					const selector = new Selector(entry.element, bag, unitFactory);
+					const selector = new Selector(entry.matrix, bag, unitFactory);
 
 					const args = [];
 					args.push(selector);

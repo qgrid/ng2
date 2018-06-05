@@ -49,48 +49,44 @@ export class ColumnChooserView {
 		this.drop = new Command({
 			source: 'column.chooser',
 			canExecute: e => {
-				if (e.source && e.source.key === context.name) {
-					const map = columnService.map(this.model.data().columns);
-					return map.hasOwnProperty(e.target.value);
-				}
-
-				return false;
+				const targetKey = e.dropData;
+				const map = columnService.map(this.temp.columns);
+				return map.hasOwnProperty(targetKey) && map[targetKey].canMove;
 			},
 			execute: e => {
-				const model = this.model;
-				const columnRows = model.scene().column.rows;
-				for (let columns of columnRows) {
-					const targetIndex = columns.findIndex(c => c.model.key === e.target.value);
-					const sourceIndex = columns.findIndex(c => c.model.key === e.source.value);
-					if (targetIndex >= 0 && sourceIndex >= 0) {
-						const sourceColumn = columns[sourceIndex].model;
-						const targetColumn = columns[targetIndex].model;
-						const indexMap = this.temp.index;
-						const sourceColumnIndex = indexMap.indexOf(sourceColumn.key);
-						const targetColumnIndex = indexMap.indexOf(targetColumn.key);
-						indexMap.splice(sourceColumnIndex, 1);
-						indexMap.splice(targetColumnIndex, 0, sourceColumn.key);
-						this.temp.columns = this.originColumns(indexMap);
+				const sourceKey = e.dragData;
+				const targetKey = e.dropData;
+				if (sourceKey !== targetKey) {
+					const { index, columns } = this.temp;
+
+					let oldIndex = index.indexOf(sourceKey);
+					let newIndex = index.indexOf(targetKey);
+					if (oldIndex >= 0 && newIndex >= 0) {
+						index.splice(oldIndex, 1);
+						index.splice(newIndex, 0, sourceKey);
+
+						oldIndex = columns.findIndex(c => c.key === sourceKey);
+						newIndex = columns.findIndex(c => c.key === targetKey);
+
+						const column = columns[oldIndex];
+						columns.splice(oldIndex, 1);
+						columns.splice(newIndex, 0, column);
+
+						this.temp.columns = Array.from(this.temp.columns);
 					}
 				}
+
+				return sourceKey;
 			}
 		});
 
 		this.drag = new Command({
 			source: 'column.chooser',
 			canExecute: e => {
-				const model = this.model;
-				if (model.columnChooser().canSort) {
-					if (e.source.key === context.name) {
-						const map = columnService.map(model.data().columns);
-						return map.hasOwnProperty(e.source.value) &&
-							map[e.source.value].canMove !== false;
-					}
-				}
-
-				return false;
-			},
-			execute: noop
+				const sourceKey = e.data;
+				const map = columnService.map(this.temp.columns);
+				return map.hasOwnProperty(sourceKey) && map[sourceKey].canMove;
+			}
 		});
 
 		this.submit = new Command({
@@ -131,6 +127,7 @@ export class ColumnChooserView {
 			execute: () => {
 				this.temp.index = this.originIndex();
 				this.temp.columns = this.originColumns(this.temp.index);
+				this.temp.columnMap = columnService.map(this.temp.columns);
 			}
 		});
 
@@ -194,7 +191,8 @@ export class ColumnChooserView {
 				title: c.title,
 				isVisible: c.isVisible,
 				aggregation: c.aggregation,
-				isDefault: c.isDefault
+				isDefault: c.isDefault,
+				canMove: c.canMove
 			}));
 
 		let i = 0;

@@ -1,8 +1,9 @@
 import { guid } from '../services/guid';
+import { GRID_PREFIX } from '../definition';
 
 export class GridModel {
 	constructor() {
-		this.id = `q-grid-${guid()}`;
+		this.id = `${GRID_PREFIX}-${guid()}`;
 		this.status = 'unbound'; //unbound | bound
 		this.title = '';
 	}

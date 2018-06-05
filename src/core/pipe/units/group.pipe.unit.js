@@ -1,7 +1,7 @@
 import { Pipe } from '../pipe';
 
 export const groupPipeUnit = [
-	(memo, context, next) => {
+	(_, context, next) => {
 		const { model } = context;
 		const { nodes, rows } = model.view();
 		next({ nodes, rows });
@@ -21,3 +21,5 @@ export const groupPipeUnit = [
 		next(memo);
 	}
 ];
+
+groupPipeUnit.why = 'redraw';

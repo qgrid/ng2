@@ -4,7 +4,37 @@ import { guid } from './guid';
 import { PersistenceService } from '../persistence/persistence.service';
 import { Scheduler } from './scheduler';
 import { Defer } from '../infrastructure/defer';
-import { isUndefined, clone } from '../utility/kit';
+import { isUndefined, clone, noop, isObject } from '../utility/kit';
+import { PipeUnit } from '../pipe/pipe.unit';
+import { FocusService } from '../focus/focus.service';
+import { isString } from '../utility/kit';
+
+function invalidateSettings(...args) {
+	if (args.length) {
+		if (isString(args[0])) {
+			return {
+				source: args[0],
+				changes: args[1] || {},
+				pipe: args[2],
+				why: 'refresh'
+			};
+		}
+
+		return Object.assign({
+			source: 'invalidate',
+			changes: {},
+			pipe: null,
+			why: 'refresh'
+		}, args[0])
+	}
+
+	return {
+		source: 'invalidate',
+		changes: {},
+		pipe: null,
+		why: 'refresh'
+	};
+}
 
 export class GridService {
 	constructor(model) {
@@ -13,12 +43,13 @@ export class GridService {
 		this.state = new PersistenceService(model);
 	}
 
-	invalidate(source = 'invalidate', changes = {}, pipe = null) {
-		const cancelBusy = this.busy();
-		const scheduler = this.scheduler;
-		const model = this.model;
+	invalidate(...args /*source = 'invalidate', changes = {}, pipe = null*/) {
+		const settings = invalidateSettings(...args);
+		const { source, changes, pipe, why } = settings;
+		const { scheduler, model } = this;
 		const scene = model.scene;
 		const runPipe = buildPipe(model);
+		const cancelBusy = why === 'refresh' ? this.busy() : noop;
 
 		const nextTask = () => {
 			cancelBusy();
@@ -45,7 +76,7 @@ export class GridService {
 			model.body().cache.clear();
 			model.foot().cache.clear();
 
-			return runPipe(source, changes, pipe)
+			return runPipe(source, changes, pipe || model.data().pipe)
 				.then(() => {
 					Log.info('grid', `finish task ${source}`);
 
@@ -83,41 +114,7 @@ export class GridService {
 	}
 
 	focus(rowIndex, columnIndex) {
-		const model = this.model;
-		const { focus, scene } = this.model;
-
-		const focusState = clone(focus());
-		if (!isUndefined(rowIndex)) {
-			focusState.rowIndex = rowIndex;
-		}
-
-		if (!isUndefined(columnIndex)) {
-			focusState.columnIndex = columnIndex;
-		}
-
-		const activate = () => {
-			const { rowIndex, columnIndex } = focusState;
-			model.focus({ rowIndex: -1, columnIndex: -1 }, { behavior: 'core', source: 'grid.service' });
-
-			if (rowIndex >= 0 && columnIndex >= 0) {
-				model.focus({ rowIndex, columnIndex });
-			} else {
-				const columnIndex = scene().column.line.findIndex(c => c.model.canFocus);
-				model.focus({ rowIndex: 0, columnIndex });
-			}
-		};
-
-		if (scene().status === 'stop') {
-			activate();
-		} else {
-			model.sceneChanged.on((e, off) => {
-				if (e.hasChanges('status')) {
-					if (e.state.status === 'stop') {
-						activate();
-						off();
-					}
-				}
-			});
-		}
+		const focus = new FocusService(this.model);
+		focus.activate(rowIndex, columnIndex);
 	}
 }

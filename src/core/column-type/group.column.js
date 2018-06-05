@@ -29,12 +29,14 @@ export class GroupColumnModel extends ColumnModel {
 		this.canSort = false;
 		this.canFilter = false;
 		this.class = 'control';
+		this.by = null;
 		this.label = function (node) {
 			if (node.type === 'row') {
 				return '';
 			}
 
-			return node[this.labelPath];
+			const { by, labelPath } = this;
+			return !by || by === node.source ? node[labelPath] : '';
 		};
 	}
 }

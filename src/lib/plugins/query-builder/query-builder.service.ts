@@ -38,7 +38,12 @@ export class QueryBuilderService {
 		return model
 			.data()
 			.columns
-			.filter(column => typeMapping.hasOwnProperty(column.type));
+			.filter(column => typeMapping.hasOwnProperty(column.type))
+			.map(column => ({
+				key: column.key,
+				title: column.title,
+				type: column.type
+			}));
 	}
 
 	columnMap(): ColumnMap {

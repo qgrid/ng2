@@ -1,4 +1,4 @@
-export interface IPivotSettings {
+export interface PivotSettings {
 	factory: () => object;
 	selector: (param: any) => any;
 	name: string;
@@ -16,5 +16,5 @@ export declare class Plan {
 	compile(data: object): object;
 }
 
-export declare function factory(plan: Plan): (settings: IPivotSettings, plan: Plan) => object;
-export declare function pivot(settings: IPivotSettings, plan: Plan): object;
+export declare function factory(plan: Plan): (settings: PivotSettings, plan: Plan) => object;
+export declare function pivot(settings: PivotSettings, plan: Plan): object;
