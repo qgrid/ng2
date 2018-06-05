@@ -24,10 +24,10 @@ export function flatten(columns, createView) {
 				width += colspan;
 				columnIndex += colspan;
 			}
-			
+
 			view.colspan = width;
 		}
-		
+
 		return view;
 	}
 
@@ -83,22 +83,30 @@ export function expand(rows) {
 	const offsets = [];
 	for (let y = 0, height = rows.length; y < height; y++) {
 		const columns = rows[y];
+		const yGaps = offsets.length > y ? offsets[y] : offsets[y] = [0];
 		for (let x = 0, width = columns.length; x < width; x++) {
 			const column = columns[x];
 			const { rowspan, colspan } = column;
+			let offset = yGaps.shift();
 			for (let i = 0; i < rowspan; i++) {
 				const yi = y + i;
 				const row = mx.length > yi ? mx[yi] : mx[yi] = [];
-				const gaps = offsets.length > yi ? offsets[yi] : offsets[yi] = [0];
-				const offset = gaps.shift();
 				for (let j = 0; j < colspan; j++) {
 					const xj = offset + j;
 					row[xj] = column;
 				}
 
-				const last = offset + colspan;
-				if (!row[last]) {
-					gaps.push(last);
+				const yiGaps = offsets.length > yi ? offsets[yi] : offsets[yi] = [0];
+
+				const last = yiGaps[yiGaps.length - 1];
+				if (row[last]) {
+					yiGaps.pop();
+				}
+
+				const current = offset + colspan;
+				const index = findIndex(yiGaps, current);
+				if (!row[current]) {
+					yiGaps.splice(index, 0, current);
 				}
 			}
 		}
@@ -126,4 +134,20 @@ export function collapse(matrix) {
 	}
 
 	return line;
+}
+
+function findIndex(sortedList, value) {
+	let low = 0;
+	let high = sortedList.length;
+	while (low < high) {
+		const mid = (low + high) >>> 1;
+		if (sortedList[mid] < value) {
+			low = mid + 1
+		}
+		else {
+			high = mid
+		}
+	}
+
+	return low;
 }
