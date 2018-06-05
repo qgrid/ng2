@@ -1,0 +1,30 @@
+@import "variables";
+
+$border: 1px solid $dark-divider;
+
+.q-grid-head-multi {
+    thead {
+        tr {
+            height: 30px;
+        }
+        th {
+            // font-size: 12px !important;
+            // color: #006f8f !important;
+            // font-weight: normal !important;
+            line-height: 14px;
+            .q-grid-icon {
+                line-height: 14px;
+                font-size: 14px;
+            }
+            .q-grid-column-filter-trigger {
+                line-height: 14px;
+                height: 14px;
+            }
+            border-top: $border;
+            border-left: $border;
+            &:nth-last-child(2) {
+                border-right: $border;
+            }
+        }
+    }
+}
