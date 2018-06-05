@@ -14,8 +14,8 @@ function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 		case 'view': {
 			const type = column.type;
 			return [
-				`${source}-cell-${type}-${key}.tpl.html`,
-				`${source}-cell-${key}.tpl.html`,
+				`${source}-cell-${type}-with-${key}.tpl.html`,
+				`${source}-cell-with-${key}.tpl.html`,
 				`${source}-cell-${type}.tpl.html`,
 				`${source}-cell.tpl.html`,
 				`${source}-cell-text.tpl.html`
@@ -24,15 +24,15 @@ function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 		case 'edit': {
 			const type = column.editor || column.type;
 			return [
-				`${mode}-cell-${type}-${key}.tpl.html`,
-				`${mode}-cell-${key}.tpl.html`,
+				`${mode}-cell-${type}-with-${key}.tpl.html`,
+				`${mode}-cell-with-${key}.tpl.html`,
 				`${mode}-cell-${type}.tpl.html`,
 				`${mode}-cell.tpl.html`,
 				`${mode}-cell-text.tpl.html`
 			];
 		}
 		default:
-			throw new AppError('cell.service', `Invalid mode "${mode}"`);
+			throw new AppError('cell.service', `Invalid mode '${mode}'`);
 	}
 }
 
