@@ -149,7 +149,7 @@ function isUrl(value) {
 }
 
 function isImage(value) {
-	return (value || '').match(/\.(jpeg|jpg|gif|png)$/) != null;
+	return ('' + value).match(/\.(jpeg|jpg|gif|png)$/) != null;
 }
 
 export {
