@@ -7,6 +7,7 @@ import { GridModule, ThemeModule } from 'ng2-qgrid';
 
 import { ExampleActionBarBasicComponent } from './action-bar-basic/example-action-bar-basic.component';
 import { ExampleAggregateColumnBasicComponent } from './aggregate-column-basic/example-aggregate-column-basic.component';
+import { ExampleDefineColumnAsyncComponent } from './define-column-async/example-define-column-async.component';
 import { ExampleDefineColumnBasicComponent } from './define-column-basic/example-define-column-basic.component';
 import { ExampleDefineColumnHybridComponent } from './define-column-hybrid/example-define-column-hybrid.component';
 import { ExampleDestroyGridBasicComponent } from './destroy-grid-basic/example-destroy-grid-basic.component';
@@ -64,6 +65,7 @@ import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
 	ExampleAggregateColumnBasicComponent,
+	ExampleDefineColumnAsyncComponent,
 	ExampleDefineColumnBasicComponent,
 	ExampleDefineColumnHybridComponent,
 	ExampleDestroyGridBasicComponent,
