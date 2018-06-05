@@ -67,4 +67,7 @@ export declare interface DataModel {
 	 * see `PipeModel` that contains information when grid demands refreshing.
 	 */
 	pipe?: ((memo: any, context: PipeContext, next: (memo: any) => void) => any)[];
+
+	
+	isReadonly: boolean;
 }

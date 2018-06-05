@@ -16,6 +16,8 @@ export declare class BodyView {
 	columns(row: any, pin: string): ColumnView[];
 	rowspan(row: any, column: ColumnView): number;
 	colspan(row: any, column: ColumnView): number;
-	value(row: any, column: ColumnModel, value?: any): string;
-	label(row: any, column: ColumnModel, value?: any): string;
+	getValue(row: any, column: ColumnModel, rowIndex: number, columnIndex: number): any;
+	setValue(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number): void;
+	getLabel(row: any, column: ColumnModel, rowIndex: number, columnIndex: number): string;
+	estLabel(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number): void;
 }

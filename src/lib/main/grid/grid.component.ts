@@ -53,11 +53,11 @@ export class GridComponent extends RootComponent implements OnInit {
 
 	@Input('header') gridTitle;
 	@Input('id') gridId;
-	@Input('readonly') gridIsReadonly;
 
 	@Input('columns') dataColumns;
 	@Input('pipe') dataPipe;
 	@Input('rows') dataRows;
+	@Input('readonly') dataIsReadonly;
 	
 	@Input() editCancel;
 	@Input() editCommit;
