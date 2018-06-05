@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, Optional, Inject, forwardRef, SkipSelf } from '@angular/core';
 import { isUndefined, clone } from 'ng2-qgrid/core/utility/kit';
+import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { RootService } from '../../infrastructure/component/root.service';
 import { TemplateHostService } from '../../template/template-host.service';
 import { ColumnListService } from '../../main/column/column-list.service';
@@ -11,45 +12,48 @@ import { ColumnListService } from '../../main/column/column-list.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnComponent implements OnInit {
-	@Input() public type: string;
-	@Input() public key: string;
-	@Input() public class: string;
-	@Input() public title: string;
-	@Input() public pin: string;
-	@Input() public aggregation: string;
-	@Input() public aggregationOptions: any;
-	@Input() public editor: string;
-	@Input() public editorOptions: any;
-	@Input() public format: string;
-	@Input() public symbol: string;
-	@Input() public code: string;
+	model: ColumnModel;
 
-	@Input() public width: number;
-	@Input() public minWidth: number;
-	@Input() public maxWidth: number;
-	@Input() public viewWidth: number;
+	@Input() type: string;
+	@Input() key: string;
+	@Input() class: string;
+	@Input() title: string;
+	@Input() pin: string;
+	@Input() aggregation: string;
+	@Input() aggregationOptions: any;
+	@Input() editor: string;
+	@Input() editorOptions: any;
+	@Input() format: string;
+	@Input() symbol: string;
+	@Input() code: string;
 
-	@Input() public canEdit: boolean;
-	@Input() public canResize: boolean;
-	@Input() public canSort: boolean;
-	@Input() public canMove: boolean;
-	@Input() public canFilter: boolean;
-	@Input() public canHighlight: boolean;
-	@Input() public canFocus: boolean;
+	@Input() width: number;
+	@Input() minWidth: number;
+	@Input() maxWidth: number;
+	@Input() viewWidth: number;
 
-	@Input() public isVisible: boolean;
-	@Input() public index: number;
+	@Input() canEdit: boolean;
+	@Input() canResize: boolean;
+	@Input() canSort: boolean;
+	@Input() canMove: boolean;
+	@Input() canFilter: boolean;
+	@Input() canHighlight: boolean;
+	@Input() canFocus: boolean;
 
-	@Input() public label: any;
-	@Input() public labelPath: string;
-	@Input() public value: any;
-	@Input() public path: string;
-	@Input() public compare: any;
+	@Input() isVisible: boolean;
+	@Input() index: number;
+
+	@Input() label: any;
+	@Input() labelPath: string;
+	@Input() value: any;
+	@Input() path: string;
+	@Input() compare: any;
 
 	constructor(
 		private root: RootService,
 		private columnList: ColumnListService,
-		private templateHost: TemplateHostService
+		private templateHost: TemplateHostService,
+		@SkipSelf() @Optional() private parent: ColumnComponent
 	) { }
 
 	ngOnInit() {
@@ -78,11 +82,11 @@ export class ColumnComponent implements OnInit {
 		this.columnList.copy(column, this);
 
 		if (withKey) {
-			this.columnList.add(column);
+			this.columnList.add(column, this.parent && this.parent.model);
 		} else {
 			const settings = Object.keys(this)
 				.filter(
-				key => !isUndefined(this[key]) && column.hasOwnProperty(key)
+					key => !isUndefined(this[key]) && column.hasOwnProperty(key)
 				)
 				.reduce((memo, key) => {
 					memo[key] = column[key];
@@ -91,5 +95,7 @@ export class ColumnComponent implements OnInit {
 
 			this.columnList.register(settings);
 		}
+
+		this.model = column;
 	}
 }

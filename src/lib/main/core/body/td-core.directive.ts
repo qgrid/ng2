@@ -63,27 +63,23 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 	}
 
 	get value() {
-		const column = this.column;
-		const row = this.row;
-		return this.$view.body.value(row, column);
+		const { column, row, rowIndex, columnIndex } = this;
+		return this.$view.body.getValue(row, column, rowIndex, columnIndex);
 	}
 
 	set value(value) {
-		const column = this.column;
-		const row = this.row;
-		this.$view.body.value(row, column, value);
+		const { column, row, rowIndex, columnIndex } = this;
+		this.$view.body.setValue(row, column, value, rowIndex, columnIndex);
 	}
 
 	get label() {
-		const column = this.column;
-		const row = this.row;
-		return this.$view.body.label(row, column);
+		const { column, row, rowIndex, columnIndex } = this;
+		return this.$view.body.getLabel(row, column, rowIndex, columnIndex);
 	}
 
 	set label(label) {
-		const column = this.column;
-		const row = this.row;
-		this.$view.body.label(row, column, label);
+		const { column, row, rowIndex, columnIndex } = this;
+		this.$view.body.setLabel(row, column, label, rowIndex, columnIndex);
 	}
 
 	get column() {

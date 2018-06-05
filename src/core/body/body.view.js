@@ -1,5 +1,5 @@
 import { getFactory as valueFactory } from '../services/value';
-import { getFactory as labelFactory, set as setLabel } from '../services/label';
+import { getFactory as labelFactory, set as setLabelValue } from '../services/label';
 import { Log } from '../infrastructure/log';
 import { Renderer } from '../scene/render/render';
 
@@ -46,16 +46,11 @@ export class BodyView {
 		}
 	}
 
-	columns(row, pin) {
-		return this.render.columns(row, pin);
+	columns(row, pin, rowIndex) {
+		return this.render.columns(row, pin, rowIndex);
 	}
 
-	value(row, column, value) {
-		if (arguments.length === 3) {
-			this.render.setValue(row, column, value);
-			return;
-		}
-
+	getValue(row, column, rowIndex, columnIndex) {
 		const key = column.key;
 		let getValue = this.valueCache.get(key);
 		if (!getValue) {
@@ -63,15 +58,14 @@ export class BodyView {
 			this.valueCache.set(key, getValue);
 		}
 
-		return this.render.getValue(row, column, getValue);
+		return this.render.getValue(row, column, getValue, rowIndex, columnIndex);
 	}
 
-	label(row, column, value) {
-		if (arguments.length === 3) {
-			setLabel(row, column, value);
-			return;
-		}
+	setValue(row, column, value, rowIndex, columnIndex) {
+		this.render.setValue(row, column, value, rowIndex, columnIndex);
+	}
 
+	getLabel(row, column, rowIndex, columnIndex) {
 		const key = column.key;
 		let getLabel = this.labelCache.get(key);
 		if (!getLabel) {
@@ -79,6 +73,10 @@ export class BodyView {
 			this.labelCache.set(key, getLabel);
 		}
 
-		return this.render.getValue(row, column, getLabel);
+		return this.render.getValue(row, column, getLabel, rowIndex, columnIndex);
+	}
+
+	setLabel(row, column, value, rowIndex, columnIndex) {
+		setLabelValue(row, column, value, rowIndex, columnIndex);
 	}
 }

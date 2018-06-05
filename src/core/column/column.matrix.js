@@ -1,19 +1,21 @@
-export function flatten(columns, createView, context) {
+import { binarySearch } from '../utility/kit';
+
+export function flatten(columns, createView) {
 	const root = {
 		children: columns
 	};
 
+	const result = [];
 	const rowsToUse = rowsToUseFactory();
 
-	const result = [];
 	function markup(column, rowIndex, columnIndex, rowsLeft) {
 		const rowspan = rowsLeft - rowsToUse(column);
 		const view = createView(column.type || 'text', column);
+		result.push(view);
+
 		view.rowspan = rowspan;
 		view.rowIndex = rowIndex;
 		view.columnIndex = columnIndex;
-
-		result.push(view);
 
 		const { children } = view.model;
 		if (children.length) {
@@ -26,8 +28,6 @@ export function flatten(columns, createView, context) {
 			}
 
 			view.colspan = width;
-		} else {
-			view.rowspan = context.rowspan;
 		}
 
 		return view;
@@ -85,22 +85,28 @@ export function expand(rows) {
 	const offsets = [];
 	for (let y = 0, height = rows.length; y < height; y++) {
 		const columns = rows[y];
+		const offset = offsets.length > y ? offsets[y] : offsets[y] = [0];
 		for (let x = 0, width = columns.length; x < width; x++) {
 			const column = columns[x];
 			const { rowspan, colspan } = column;
+			const current = offset[0];
+			const next = current + colspan;
 			for (let i = 0; i < rowspan; i++) {
 				const yi = y + i;
 				const row = mx.length > yi ? mx[yi] : mx[yi] = [];
-				const gaps = offsets.length > yi ? offsets[yi] : offsets[yi] = [0];
-				const offset = gaps.shift();
 				for (let j = 0; j < colspan; j++) {
-					const xj = offset + j;
+					const xj = current + j;
 					row[xj] = column;
 				}
 
-				const last = offset + colspan;
-				if (!row[last]) {
-					gaps.push(last);
+				const gaps = offsets.length > yi ? offsets[yi] : offsets[yi] = [0];
+				const index = binarySearch(gaps, current);
+				if (row[next]) {
+					gaps.splice(index, 1);
+				}
+				else {
+					const xi = gaps[index];
+					gaps.splice(index, row[xi] ? 1 : 0, next);
 				}
 			}
 		}

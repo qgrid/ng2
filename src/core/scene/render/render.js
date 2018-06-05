@@ -2,62 +2,72 @@ import { Node } from '../../node/node';
 import { RowDetails } from '../../row-details/row.details';
 import { DataRow } from './data.row';
 import { DetailsRow } from './details.row';
+import { CacheStrategy } from './cache.strategy';
 import { NodeRow, SubheadNodeRow, RowspanNodeRow } from './node.row';
 
 export class Renderer {
 	constructor(model) {
-		this.model = model;
+		model = model;
 
-		this.strategies = new Map();
-		this.strategies.set(RowDetails, new DetailsRow(model));
-		this.defaultStrategy = new DataRow(model);
+		const nodeRow = new CacheStrategy(model, new NodeRow(model));
+		const subheadNodeRow = new CacheStrategy(model, new SubheadNodeRow(model));
+		const rowspanNodeRow = new CacheStrategy(model, new RowspanNodeRow(model));
+		const rowDetails = new CacheStrategy(model, new DetailsRow(model))
+		const dataRow = new CacheStrategy(model, new DataRow(model));
 
-		const selectNodeStrategy = () => {
+		const defaultStrategy = dataRow;
+		const strategies = new Map();
+		strategies.set(RowDetails, rowDetails);
+
+		const selectNodeRowStrategy = () => {
 			const { mode } = model.group();
 			switch (mode) {
 				case 'subhead':
-					this.strategies.set(Node, new SubheadNodeRow(model));
+					strategies.set(Node, subheadNodeRow);
 					break;
 				case 'rowspan':
-					this.strategies.set(Node, new RowspanNodeRow(model));
+					strategies.set(Node, rowspanNodeRow);
 					break;
 				default:
-					this.strategies.set(Node, new NodeRow(model));
+					strategies.set(Node, nodeRow);
 					break;
 			}
 		};
 
-		selectNodeStrategy();
-		model.groupChanged.on(selectNodeStrategy);
-	}
+		selectNodeRowStrategy();
+		model.groupChanged.on(selectNodeRowStrategy);
 
-	colspan(row, column) {
-		const strategy = this.resolve(row);
-		return strategy.colspan(row, column);
-	}
+		const resolve = row => {
+			const type = row.constructor;
+			return strategies.get(type) || defaultStrategy;
+		}
 
-	rowspan(row, column) {
-		const strategy = this.resolve(row);
-		return strategy.rowspan(row, column);
-	}
+		// Public interface
+		this.defaultStrategy = defaultStrategy;
 
-	columns(row, pin) {
-		const strategy = this.resolve(row);
-		return strategy.columns(row, pin);
-	}
+		this.colspan = (row, column, rowIndex, columnIndex) => {
+			const strategy = resolve(row);
+			return strategy.colspan(row, column, rowIndex, columnIndex);
+		}
 
-	getValue(row, column, select) {
-		const strategy = this.resolve(row);
-		return strategy.getValue(row, column, select);
-	}
+		this.rowspan = (row, column, rowIndex, columnIndex) => {
+			const strategy = resolve(row);
+			return strategy.rowspan(row, column, rowIndex, columnIndex);
+		}
 
-	setValue(row, column, value) {
-		const strategy = this.resolve(row);
-		return strategy.setValue(row, column, value);
-	}
+		this.columns = (row, pin, rowIndex) => {
+			const strategy = resolve(row);
+			return strategy.columns(row, pin, rowIndex);
+		}
 
-	resolve(row) {
-		const type = row.constructor;
-		return this.strategies.get(type) || this.defaultStrategy;
+		this.getValue = (row, column, select, rowIndex, columnIndex) => {
+			const strategy = resolve(row);
+			return strategy.getValue(row, column, select, rowIndex, columnIndex);
+		}
+
+		this.setValue = (row, column, value, rowIndex, columnIndex) => {
+			const strategy = resolve(row);
+			return strategy.setValue(row, column, value, rowIndex, columnIndex);
+		}
 	}
 }

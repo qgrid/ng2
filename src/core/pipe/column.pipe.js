@@ -22,6 +22,17 @@ export function columnPipe(memo, context, next) {
 	const dataColumns = []
 	const addDataColumns = dataColumnsFactory(model);
 	addDataColumns(dataColumns, { rowspan, row: 0 });
+
+	if (dataColumns.length) {
+		const diff = rowspan - dataColumns.length;
+		if (diff > 0) {
+			const firstRow = dataColumns[0];
+			for (let column of firstRow) {
+				column.rowspan += diff;
+			}
+		}
+	}
+
 	rowspan = Math.max(rowspan, dataColumns.length);
 
 	const ctrlColumns = [];
@@ -211,7 +222,7 @@ function dataColumnsFactory(model) {
 	if (hasChanges) {
 		model.data({ columns }, { source: 'column.pipe', behavior: 'core' });
 	}
-	
+
 	return (memo, context) => {
 		const rows = flatten(columns, createColumn, context);
 		memo.push(...rows);

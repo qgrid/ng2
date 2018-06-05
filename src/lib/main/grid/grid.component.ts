@@ -57,6 +57,7 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input('columns') dataColumns;
 	@Input('pipe') dataPipe;
 	@Input('rows') dataRows;
+	@Input('readonly') dataIsReadonly;
 	
 	@Input() editCancel;
 	@Input() editCommit;
@@ -66,6 +67,7 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input() editReset;
 	
 	@Input() filterFetch;
+	@Input() filterUnit;
 	
 	@Input() groupBy;
 	@Input() groupMode: 'nest' | 'column' | 'subhead' | 'rowspan';

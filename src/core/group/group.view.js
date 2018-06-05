@@ -4,7 +4,7 @@ import { getFactory as labelFactory } from '../services/label';
 import { columnFactory } from '../column/column.factory';
 import { PipeUnit } from '../pipe/pipe.unit';
 import { traverse } from '../node/node.service';
-import { yes } from '../utility/kit';
+import { yes, identity } from '../utility/kit';
 
 function rowspanGetNode(node, column) {
 	if (node.source === column.by) {
@@ -14,6 +14,10 @@ function rowspanGetNode(node, column) {
 		return node.children[0];
 	}
 	return node;
+}
+
+function flatVisible(node, column) {
+	return column.type !== 'group' || node.source === column.by;
 }
 
 function rowspanIsVisible(node, column, parent) {
@@ -92,7 +96,7 @@ export class GroupView {
 			group: createColumn('group')
 		};
 
-		this.getNode = node => node;
+		this.getNode = identity;
 		this.isVisible = yes;
 		model.groupChanged.watch(e => {
 			if (e.hasChanges('mode')) {
@@ -102,8 +106,12 @@ export class GroupView {
 						this.isVisible = rowspanIsVisible;
 						break;
 					}
+					case 'flat':
+						this.getNode = identity;
+						this.isVisible = flatVisible;
+						break;
 					default: {
-						this.getNode = node => node;
+						this.getNode = identity;
 						this.isVisible = yes;
 						break;
 					}
