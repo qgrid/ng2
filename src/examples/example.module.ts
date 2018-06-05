@@ -6,6 +6,7 @@ import { MatButtonModule, MatSelectModule } from '@angular/material';
 import { GridModule, ThemeModule } from 'ng2-qgrid';
 
 import { ExampleActionBarBasicComponent } from './action-bar-basic/example-action-bar-basic.component';
+import { ExampleActionBarTemplateComponent } from './action-bar-template/example-action-bar-template.component';
 import { ExampleAggregateColumnBasicComponent } from './aggregate-column-basic/example-aggregate-column-basic.component';
 import { ExampleDefineColumnAsyncComponent } from './define-column-async/example-define-column-async.component';
 import { ExampleDefineColumnBasicComponent } from './define-column-basic/example-define-column-basic.component';
@@ -61,10 +62,10 @@ import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.compo
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
-import { ExampleActionBarTemplateComponent } from './action-bar-template/example-action-bar-template.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
+	ExampleActionBarTemplateComponent,
 	ExampleAggregateColumnBasicComponent,
 	ExampleDefineColumnAsyncComponent,
 	ExampleDefineColumnBasicComponent,
@@ -119,7 +120,6 @@ const EXAMPLES: Array<any> = [
 	ExampleStyleCellBasicComponent,
 	ExampleStyleRowBasicComponent,
 	ExampleThemeGridEmbedComponent,
-	ExampleActionBarTemplateComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
