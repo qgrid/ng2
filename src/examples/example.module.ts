@@ -8,6 +8,7 @@ import { GridModule, ThemeModule } from 'ng2-qgrid';
 import { ExampleActionBarBasicComponent } from './action-bar-basic/example-action-bar-basic.component';
 import { ExampleAggregateColumnBasicComponent } from './aggregate-column-basic/example-aggregate-column-basic.component';
 import { ExampleDefineColumnBasicComponent } from './define-column-basic/example-define-column-basic.component';
+import { ExampleDefineColumnHybridComponent } from './define-column-hybrid/example-define-column-hybrid.component';
 import { ExampleDestroyGridBasicComponent } from './destroy-grid-basic/example-destroy-grid-basic.component';
 import { ExampleDestroyGridModelComponent } from './destroy-grid-model/example-destroy-grid-model.component';
 import { ExampleDetailsRowBasicComponent } from './details-row-basic/example-details-row-basic.component';
@@ -29,10 +30,14 @@ import { ExampleGroupRowBasicComponent } from './group-row-basic/example-group-r
 import { ExampleGroupRowFlatComponent } from './group-row-flat/example-group-row-flat.component';
 import { ExampleGroupRowRowspanComponent } from './group-row-rowspan/example-group-row-rowspan.component';
 import { ExampleGroupRowSubheadComponent } from './group-row-subhead/example-group-row-subhead.component';
+import { ExampleIndexColumnBasicComponent } from './index-column-basic/example-index-column-basic.component';
+import { ExampleIndexColumnHybridComponent } from './index-column-hybrid/example-index-column-hybrid.component';
+import { ExampleIndexColumnModelComponent } from './index-column-model/example-index-column-model.component';
 import { ExampleLegendBasicComponent } from './legend-basic/example-legend-basic.component';
 import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
 import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/example-look-atoms-customized.component';
 import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-atoms-model.component';
+import { ExampleLookAtomsReadonlyComponent } from './look-atoms-readonly/example-look-atoms-readonly.component';
 import { ExampleLookPeopleBasicComponent } from './look-people-basic/example-look-people-basic.component';
 import { ExampleLookPeopleModelComponent } from './look-people-model/example-look-people-model.component';
 import { ExampleManipulateDataBasicComponent } from './manipulate-data-basic/example-manipulate-data-basic.component';
@@ -42,6 +47,7 @@ import { ExamplePersistenceServerComponent } from './persistence-server/example-
 import { ExamplePinColumnBasicComponent } from './pin-column-basic/example-pin-column-basic.component';
 import { ExamplePipeGridBasicComponent } from './pipe-grid-basic/example-pipe-grid-basic.component';
 import { ExamplePivotColumnBasicComponent } from './pivot-column-basic/example-pivot-column-basic.component';
+import { ExamplePivotColumnCohortComponent } from './pivot-column-cohort/example-pivot-column-cohort.component';
 import { ExamplePivotColumnTemplateComponent } from './pivot-column-template/example-pivot-column-template.component';
 import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plugin-grid-basic.component';
 import { ExamplePluginMyPagerComponent } from './plugin-grid-basic/example-plugin-my-pager.component';
@@ -54,13 +60,12 @@ import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.compo
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
-import { ExampleLookAtomsReadonlyComponent } from './look-atoms-readonly/example-look-atoms-readonly.component';
-import { ExamplePivotColumnCohortComponent } from './pivot-column-cohort/example-pivot-column-cohort.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
 	ExampleAggregateColumnBasicComponent,
 	ExampleDefineColumnBasicComponent,
+	ExampleDefineColumnHybridComponent,
 	ExampleDestroyGridBasicComponent,
 	ExampleDestroyGridModelComponent,
 	ExampleDetailsRowBasicComponent,
@@ -82,10 +87,14 @@ const EXAMPLES: Array<any> = [
 	ExampleGroupRowFlatComponent,
 	ExampleGroupRowRowspanComponent,
 	ExampleGroupRowSubheadComponent,
+	ExampleIndexColumnBasicComponent,
+	ExampleIndexColumnHybridComponent,
+	ExampleIndexColumnModelComponent,
 	ExampleLegendBasicComponent,
 	ExampleLookAtomsBasicComponent,
 	ExampleLookAtomsCustomizedComponent,
 	ExampleLookAtomsModelComponent,
+	ExampleLookAtomsReadonlyComponent,
 	ExampleLookPeopleBasicComponent,
 	ExampleLookPeopleModelComponent,
 	ExampleManipulateDataBasicComponent,
@@ -95,6 +104,7 @@ const EXAMPLES: Array<any> = [
 	ExamplePinColumnBasicComponent,
 	ExamplePipeGridBasicComponent,
 	ExamplePivotColumnBasicComponent,
+	ExamplePivotColumnCohortComponent,
 	ExamplePivotColumnTemplateComponent,
 	ExamplePluginGridBasicComponent,
 	ExampleSelectCellBasicComponent,
@@ -106,8 +116,6 @@ const EXAMPLES: Array<any> = [
 	ExampleStyleCellBasicComponent,
 	ExampleStyleRowBasicComponent,
 	ExampleThemeGridEmbedComponent,
-	ExamplePivotColumnCohortComponent,
-	ExampleLookAtomsReadonlyComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;

@@ -1,0 +1,23 @@
+<q-grid header="Define Column Basic"
+        [rows]="rows | async">
+	<q-grid-columns>
+		<q-grid-column key="number"
+		               title="#"
+		               width="60"
+		               type="id">
+		</q-grid-column>
+		<q-grid-column key="symbol"
+		               title="Symbol"
+		               width="80"
+		               type="text">
+		</q-grid-column>
+		<q-grid-column key="name"
+		               title="Name">
+		</q-grid-column>
+		<q-grid-column key="source"
+		               title="Wiki"
+		               width="300"
+		               type="url">
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>
