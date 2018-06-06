@@ -13,14 +13,16 @@ export class NodeRow extends BasicRow {
 
 		const createColumn = columnFactory(model);
 		this.reference = {
-			group: createColumn('group')
+			group: createColumn('group'),
+			summary: createColumn('summary')
 		};
 
 		this.getLabel =
 			this.getValue = (node, column, select) => {
 				const { rows } = model.data();
 				switch (node.type) {
-					case 'group': {
+					case 'group':
+					case 'summary': {
 						const agg = column.aggregation;
 						if (agg) {
 							if (!Aggregation.hasOwnProperty(agg)) {
@@ -83,6 +85,23 @@ export class NodeRow extends BasicRow {
 					throw new AppError('node.row', `Can't set label to ${node.type} node`);
 			}
 		};
+	}
+
+	colspan(node, column) {
+		if (node.type === 'summary') {
+			return sumBy(this.columnList(column.model.pin), c => c.colspan);
+		}
+
+		return column.colspan;
+	}
+
+	columns(node, pin) {
+		if (node.type === 'summary') {
+			// TODO: add pin support
+			return [this.reference.summary];
+		}
+
+		return this.columnList(pin);
 	}
 
 	findGroupColumn(pin) {
@@ -152,7 +171,7 @@ export class RowspanNodeRow extends NodeRow {
 			}
 		}
 
-		return this.columnList(pin);
+		return super.columns(node, pin);
 	}
 }
 
@@ -176,7 +195,7 @@ export class SubheadNodeRow extends NodeRow {
 			}
 		}
 
-		return column.colspan;
+		return super.colspan(node, column);
 	}
 
 	columns(node, pin) {
@@ -191,6 +210,6 @@ export class SubheadNodeRow extends NodeRow {
 			}
 		}
 
-		return this.columnList(pin);
+		return super.columns(node, pin);
 	}
 }

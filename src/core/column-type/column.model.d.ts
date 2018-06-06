@@ -168,6 +168,7 @@ export declare class ColumnModel {
 	 * - `row-number`
 	 * - `row-options`
 	 * - `select`
+	 * - `summary`
 	 * - `text`
 	 * - `time`
 	 * - `url`

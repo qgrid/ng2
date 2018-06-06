@@ -22,6 +22,7 @@ import { RowIndicatorColumn } from '../column-type/row.indicator.column';
 import { RowNumberColumn } from '../column-type/row.number.column';
 import { RowOptionsColumn } from '../column-type/row.options.column';
 import { SelectColumn } from '../column-type/select.column';
+import { SummaryColumn } from '../column-type/summary.column';
 import { TextColumn } from '../column-type/text.column';
 import { TimeColumn } from '../column-type/time.column';
 import { UrlColumn } from '../column-type/url.column';
@@ -59,6 +60,7 @@ export function columnFactory(model) {
 		'row-number': RowNumberColumn,
 		'row-options': RowOptionsColumn,
 		'select': SelectColumn,
+		'summary': SummaryColumn,
 		'text': TextColumn,
 		'time': TimeColumn,
 		'url': UrlColumn

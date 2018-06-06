@@ -15,6 +15,7 @@
     @import "assets/cell.row.indicator";
     @import "assets/cell.row.options";
     @import "assets/cell.select";
+    @import "assets/cell.summary";
     @import "assets/cell.text.area";
     @import "assets/cell.text";
     @import "assets/cell.url";
@@ -39,8 +40,8 @@
     @import "assets/status.bar";
     @import "assets/table";
     @import "assets/title";
-    @import "assets/validator";
-
+	@import "assets/validator";
+	
     @import "assets/mat/cell.array";
     @import "assets/mat/cell.autocomplete";
     @import "assets/mat/cell.checkbox";

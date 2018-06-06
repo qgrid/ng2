@@ -69,6 +69,7 @@ import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme
 import { ExampleGroupRowAggregationComponent } from './group-row-aggregation/example-group-row-aggregation.component';
 import { ExampleColumnRowOptionsComponent } from './column-row-options/example-column-row-options.component';
 import { ExampleColumnReferenceBasicComponent } from './column-reference-basic/example-column-reference-basic.component';
+import { ExampleGroupRowSummaryComponent } from './group-row-summary/example-group-row-summary.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -134,6 +135,7 @@ const EXAMPLES: Array<any> = [
 	ExampleGroupRowAggregationComponent,
 	ExampleColumnRowOptionsComponent,
 	ExampleColumnReferenceBasicComponent,
+	ExampleGroupRowSummaryComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;

@@ -58,22 +58,23 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input('pipe') dataPipe;
 	@Input('rows') dataRows;
 	@Input('readonly') dataIsReadonly;
-	
+
 	@Input() editCancel;
 	@Input() editCommit;
 	@Input() editEnter;
 	@Input() editMethod: null | 'batch';
 	@Input() editMode: 'cell' | 'row';
 	@Input() editReset;
-	
+
 	@Input() filterFetch;
 	@Input() filterUnit;
-	
+
 	@Input() groupBy;
 	@Input() groupMode: 'nest' | 'column' | 'subhead' | 'rowspan';
-	
+	@Input() groupSummary: null | 'leaf';
+
 	@Input() pivotBy;
-	
+
 	@Input('selection') selectionItems;
 	@Input() selectionArea: 'custom' | 'body';
 	@Input() selectionKey;
@@ -83,7 +84,7 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input() sortBy;
 	@Input() sortMode: 'single' | 'multiple';;
 	@Input() sortTrigger;
-	
+
 	@Input() styleCell;
 	@Input() styleRow;
 

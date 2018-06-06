@@ -1,19 +1,19 @@
 import { ColumnView } from '../scene/view/column.view';
-import { ColumnModel } from './column.model';
+import { DataColumnModel } from './data.column.model';
 import { TemplatePath } from '../template/template.path';
 
-TemplatePath.register('row-details-cell', (template, column) => {
+TemplatePath.register('summary-cell', (template, column) => {
 	return {
 		model: template.for,
 		resource: column.key
 	};
 });
 
-export class RowDetailsColumnModel extends ColumnModel {
+export class SummaryColumnModel extends DataColumnModel {
 	constructor() {
-		super('row-details');
+		super('summary');
 
-		this.key = '$row.details';
+		this.key = '$summary';
 		this.class = 'control';
 
 		this.canEdit = false;
@@ -25,12 +25,12 @@ export class RowDetailsColumnModel extends ColumnModel {
 	}
 }
 
-export class RowDetailsColumn extends ColumnView {
+export class SummaryColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}
 
 	static model(model) {
-		return model ? RowDetailsColumn.assign(model) : new RowDetailsColumnModel();
+		return model ? SummaryColumn.assign(model) : new SummaryColumnModel();
 	}
 }
