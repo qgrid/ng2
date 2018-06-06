@@ -9,15 +9,13 @@ import { get as getLabel } from '../../services/label';
 
 export class Renderer {
 	constructor(model) {
-		model = model;
-
 		const nodeRow = new CacheStrategy(model, new NodeRow(model));
 		const subheadNodeRow = new CacheStrategy(model, new SubheadNodeRow(model));
 		const rowspanNodeRow = new CacheStrategy(model, new RowspanNodeRow(model));
 		const rowDetails = new CacheStrategy(model, new DetailsRow(model))
 		const dataRow = new CacheStrategy(model, new DataRow(model));
-
 		const defaultStrategy = dataRow;
+
 		const strategies = new Map();
 		strategies.set(RowDetails, rowDetails);
 
@@ -39,46 +37,41 @@ export class Renderer {
 		selectNodeRowStrategy();
 		model.groupChanged.on(selectNodeRowStrategy);
 
-		const resolve = row => {
-			const type = row.constructor;
-			return strategies.get(type) || defaultStrategy;
-		};
-
 		// Public interface
 		this.defaultStrategy = defaultStrategy;
 
 		this.colspan = (row, column, rowIndex, columnIndex) => {
-			const strategy = resolve(row);
+			const strategy = strategies.get(row.constructor) || defaultStrategy;
 			return strategy.colspan(row, column, rowIndex, columnIndex);
 		};
 
 		this.rowspan = (row, column, rowIndex, columnIndex) => {
-			const strategy = resolve(row);
+			const strategy = strategies.get(row.constructor) || defaultStrategy;
 			return strategy.rowspan(row, column, rowIndex, columnIndex);
 		};
 
 		this.columns = (row, pin, rowIndex) => {
-			const strategy = resolve(row);
+			const strategy = strategies.get(row.constructor) || defaultStrategy;
 			return strategy.columns(row, pin, rowIndex);
 		};
 
 		this.getValue = (row, column, rowIndex, columnIndex) => {
-			const strategy = resolve(row);
+			const strategy = strategies.get(row.constructor) || defaultStrategy;
 			return strategy.getValue(row, column, getValue, rowIndex, columnIndex);
 		};
 
 		this.setValue = (row, column, value, rowIndex, columnIndex) => {
-			const strategy = resolve(row);
+			const strategy = strategies.get(row.constructor) || defaultStrategy;
 			return strategy.setValue(row, column, value, rowIndex, columnIndex);
 		};
 
 		this.getLabel = (row, column, rowIndex, columnIndex) => {
-			const strategy = resolve(row);
+			const strategy = strategies.get(row.constructor) || defaultStrategy;
 			return strategy.getLabel(row, column, getLabel, rowIndex, columnIndex);
 		};
 
 		this.setLabel = (row, column, value, rowIndex, columnIndex) => {
-			const strategy = resolve(row);
+			const strategy = strategies.get(row.constructor) || defaultStrategy;
 			return strategy.setLabel(row, column, value, rowIndex, columnIndex);
 		};
 	}

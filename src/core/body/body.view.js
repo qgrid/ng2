@@ -10,7 +10,7 @@ export class BodyView {
 		const render = new Renderer(model);
 
 		this.render = render;
-		this.columns = (row, pin, rowIndex) => render.defaultStrategy.columns(row, pin, rowIndex);
+		this.columns = pin => render.defaultStrategy.columnList(pin);
 
 		let wasInvalidated = false;
 		model.sceneChanged.watch(e => {

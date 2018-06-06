@@ -7,7 +7,7 @@ export class CacheStrategy {
 
         const defaultGetValue =
             (row, column, select, rowIndex, columnIndex) => {
-                const key = `valueFactory-${rowIndex}x${column.key}`;
+                const key = `valueFactory-${column.key}`;
                 select = storage.get(key);
                 if (!select) {
                     select = valueFactory(column);
@@ -31,7 +31,7 @@ export class CacheStrategy {
 
         const defaultGetLabel =
             (row, column, select, rowIndex, columnIndex) => {
-                const key = `labelFactory-${rowIndex}x${column.key}`;
+                const key = `labelFactory-${column.key}`;
                 select = storage.get(key);
                 if (!select) {
                     select = labelFactory(column);
@@ -104,7 +104,11 @@ export class CacheStrategy {
             return value;
         }
 
-        model.sceneChanged.watch(() => storage = new Map());
+        model.sceneChanged.watch(e => {
+            if (e.hasChanges('round') && e.state.round) {
+                storage = new Map()
+            }
+        });
 
         model.dataChanged.watch(e => {
             if (e.hasChanges('isReadonly')) {
