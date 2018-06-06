@@ -22,15 +22,37 @@ export class ColumnChooserView {
 			source: 'column.chooser',
 			execute: column => {
 				column.isVisible = !this.state(column);
+				column.children.forEach(child => child.isVisible = column.isVisible);
 			}
 		});
-
+		
+		this.toggleChild = new Command({
+			source: 'column.chooser',
+			execute: (parent, child) => {
+				const state = !this.state(child);
+				
+				child.isVisible = state;
+				
+				if (parent.children.some(c => this.state(c))) {
+					parent.isVisible = true;
+				}
+				
+				if (parent.children.every(c => !this.state(c))) {
+					parent.isVisible = false;
+				}
+			}
+		});
+		
 		this.toggleAll = new Command({
 			source: 'column.chooser',
 			execute: () => {
 				const state = !this.stateAll();
 				for (let column of this.columns) {
 					column.isVisible = state;
+					
+					for (let child of column.children) {
+						child.isVisible = state;
+					}
 				}
 			}
 		});
@@ -38,8 +60,17 @@ export class ColumnChooserView {
 		this.defaults = new Command({
 			source: 'column.chooser',
 			execute: () => {
+				const state = !this.stateAll();
 				for (let column of this.columns) {
-					column.isVisible = column.isDefault !== false;
+					if (column.isDefault) {
+						column.isVisible = state;
+					}
+					
+					for (let child of column.children) {
+						if (child.isDefault) {
+							child.isVisible = state;
+						}
+					}
 				}
 			}
 		});
@@ -101,6 +132,10 @@ export class ColumnChooserView {
 					if (originColumn) {
 						originColumn.isVisible = column.isVisible;
 						originColumn.aggregation = column.aggregation;
+						//
+						// originColumn.children.forEach((child, index, arr) => {
+						// 	child = column.children[index];
+						// })
 					}
 				});
 
@@ -164,17 +199,28 @@ export class ColumnChooserView {
 	state(column) {
 		return column.isVisible !== false;
 	}
-
+	
 	stateAll() {
 		return this.columns.every(this.state.bind(this));
 	}
 
 	stateDefault() {
-		return this.columns.every(c => (c.isDefault !== false && c.isVisible !== false) || (c.isDefault === false && c.isVisible === false));
+		return this.columns.every(c =>
+			(c.isDefault !== false && c.isVisible !== false) ||
+			(c.isDefault === false && c.isVisible === false) ||
+			(c.children.every(c =>
+				(c.isDefault !== false && c.isVisible !== false) ||
+				(c.isDefault === false && c.isVisible === false)
+			))
+		);
 	}
 
 	isIndeterminate() {
 		return !this.stateAll() && this.columns.some(this.state.bind(this));
+	}
+	
+	isIndeterminateChildren(column) {
+		return !column.children.every(c => c.isVisible !== false) && column.children.some(this.state.bind(this))
 	}
 
 	originIndex() {
@@ -192,7 +238,8 @@ export class ColumnChooserView {
 				isVisible: c.isVisible,
 				aggregation: c.aggregation,
 				isDefault: c.isDefault,
-				canMove: c.canMove
+				canMove: c.canMove,
+				children: c.children
 			}));
 
 		let i = 0;

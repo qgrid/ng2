@@ -44,9 +44,22 @@
 							</div>
 							<mat-checkbox [checked]="$columnChooser.state(column)"
 							              (change)="$columnChooser.toggle.execute(column)"
+										  [indeterminate]="$columnChooser.isIndeterminateChildren(column)"
 							              aria-label="Selection">
 								<span [innerHTML]="column.title | qGridHighlight: $columnChooser.filter"></span>
 							</mat-checkbox>
+							<ul class="q-grid-column-chooser-list-children">
+								<ng-container *ngFor="let child of column.children">
+									<li>
+										<mat-checkbox
+											[checked]="$columnChooser.state(child)"
+											(change)="$columnChooser.toggleChild.execute(column, child)"
+										>
+											<span [innerHTML]="child.title"></span>
+										</mat-checkbox>
+									</li>
+								</ng-container>
+							</ul>
 						</li>
 					</ng-container>
 				</ul>
