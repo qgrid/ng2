@@ -1,9 +1,9 @@
-function generateExampleModule(exampleName) {
+function generateModule(exampleName) {
 	const baseName = exampleName
 		.split('-')
 		.map(s => capitalize(s))
 		.join('');
-	const exampleComponentName = `Example${baseName}Component`;
+	const componentName = `Example${baseName}Component`;
 
 	return `import { CommonModule } from '@angular/common';
 import { Routes, Route } from '@angular/router';
@@ -12,12 +12,12 @@ import { MatButtonModule, MatSelectModule } from '@angular/material';
 
 import { GridModule, ThemeModule } from 'ng2-qgrid';
 
-import { ${exampleComponentName} } from './example/example-${exampleName}.component';
+import { ${componentName} } from './example/example-${exampleName}.component';
 
 
 @NgModule({
-	declarations: [${exampleComponentName}],
-	bootstrap: [${exampleComponentName}],
+	declarations: [${componentName}],
+	bootstrap: [${componentName}],
 	imports: [
 		GridModule,
 		ThemeModule,

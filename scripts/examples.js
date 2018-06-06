@@ -3,8 +3,8 @@ const fs = require('fs');
 const os = require('os');
 const shell = require('shelljs');
 const commandLineArgs = require('command-line-args');
-const generateExampleTemplate = require('./generateExampleTemplate');
-const generateExampleModule = require('./generateExampleModule');
+const generateExampleTemplate = require('./examples.generate.template');
+const generateExampleModule = require('./examples.generate.module');
 
 const args = commandLineArgs([{
 	name: 'version',
@@ -51,7 +51,7 @@ examples.forEach(example => {
 	if (!stats.isDirectory() || fs.readdirSync(exampleDirPath).length === 0) {
 		return;
 	}
-	console.log(`Loading ${example}...`);
+	console.log(`push: ${example}`);
 	const exampleName = `${example}-${version}`;
 
 	shell.exec(`git checkout master`, { silent });
@@ -81,5 +81,3 @@ examples.forEach(example => {
 
 shell.cd(__dirname);
 shell.rm(...rmParams);
-
-console.log('All examples have been successfully loaded');
