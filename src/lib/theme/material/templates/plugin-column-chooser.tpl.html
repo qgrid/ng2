@@ -25,7 +25,8 @@
 					</li>
 					<li>
 						<mat-checkbox [checked]="$columnChooser.stateDefault()"
-						              (change)="$columnChooser.defaults.execute()">
+						              (change)="$columnChooser.defaults.execute()"
+									>
 							Select Defaults
 						</mat-checkbox>
 					</li>
@@ -50,12 +51,22 @@
 							</mat-checkbox>
 							<ul class="q-grid-column-chooser-list-children">
 								<ng-container *ngFor="let child of column.children">
-									<li>
+									<li
+										[q-grid-drop]="$columnChooser.drop"
+										[q-grid-drop-data]="child.key"
+										[q-grid-drag-over]="$columnChooser.drop"
+										q-grid-drop-area="column-chooser">
+
+										<div [q-grid-drag]="$columnChooser.drag"
+											 [q-grid-drag-data]="child.key"
+											 q-grid-drop-area="column-chooser">
+											<mat-icon class="q-grid-icon">drag_indicator</mat-icon>
+										</div>
+
 										<mat-checkbox
 											[checked]="$columnChooser.state(child)"
 											(change)="$columnChooser.toggleChild.execute(column, child)"
-										>
-											<span [innerHTML]="child.title"></span>
+										><span [innerHTML]="child.title"></span>
 										</mat-checkbox>
 									</li>
 								</ng-container>
