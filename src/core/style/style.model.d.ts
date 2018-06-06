@@ -72,4 +72,9 @@ export declare interface StyleModel {
 	 * Queue of cell styles that can be used internally or in plugins.
 	 */
 	cells?: Array<(row: any, column: ColumnModel, context: any) => void>;
+
+	/**
+	 * List of CSS classes
+	 */
+	classList?: Array<string>;
 }
