@@ -10,8 +10,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "clean": "rimraf out-tsc dist",
-	"release": "npm run build:lib && cd dist && npm publish",
-	"examples": "node ./scripts/examples"
+    "release": "npm run build:lib && cd dist && npm publish",
+    "examples": "node ./scripts/examples"
   },
   "private": true,
   "dependencies": {
