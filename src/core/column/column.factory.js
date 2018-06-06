@@ -77,7 +77,9 @@ export function columnFactory(model) {
 	};
 
 	return (type, body = null) => {
-		Guard.notNullOrEmpty(type, 'type');
+		if (!type) {
+			type = 'text';
+		}
 
 		if (columnMap.hasOwnProperty(type)) {
 			return create(type, type, body);
