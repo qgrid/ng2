@@ -64,6 +64,7 @@ import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-r
 import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggregation/example-summary-column-aggregation.component';
 import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/example-summary-column-basic.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
+import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -121,8 +122,9 @@ const EXAMPLES: Array<any> = [
 	ExampleSortRowComponent,
 	ExampleStyleCellBasicComponent,
 	ExampleStyleRowBasicComponent,
-	ExampleSummaryColumnAggregationComponent,
 	ExampleSummaryColumnBasicComponent,
+	ExampleSummaryColumnAggregationComponent,
+	ExampleThemeGridDarkComponent,
 	ExampleThemeGridEmbedComponent,
 ];
 

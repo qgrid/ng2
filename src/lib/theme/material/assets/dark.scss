@@ -1,16 +1,37 @@
+@import '~@angular/material/theming';
+
 .q-grid-dark {
+	//Custom colors
 	$color-less: rgba(0, 0, 0, 0);
 	$dark: #424242;
 	$dark-accent: #616161;
-	$dark-text: #fff;
-	$dark-header: rgba(255, 255, 255, 0.7);
+	$dark-text: #ffffff;
+	$dark-header: rgba(255, 255, 255, 0.6);
+	$dark-divider: rgba(255, 255, 255, 0.12);
 	$dark-focused: #5565A0;
+
+	$dark-surface: #363640;
+	$dark-container: #3c3c46;
+
 	.q-grid.q-grid-theme-material {
-		background-color: $dark;
+		background-color: $dark-surface;
+		font-family: "Roboto Condensed",Roboto,"Helvetica Neue",sans-serif;
+		font-weight: 300;
+
+		thead {
+			box-shadow: 0 1px 0px $dark-divider;
+			th {
+				font-weight: 300;
+			}		
+		}
+		tbody tr {
+			border-top: 1px solid $dark-divider;
+		}
 		.q-grid-toolbar {
 			.q-grid-title {
 				h3 {
 					color: $dark-text;
+					padding-left: 10px
 				}
 			}
 			.q-grid-icon {
@@ -23,6 +44,7 @@
 			}
 		}
 		.q-grid-view {
+			background-color: $dark-container;
 			thead tr th {
 				color: $dark-header;
 				&.q-grid-focused {
@@ -39,11 +61,13 @@
 					}
 				}
 				> .q-grid-divider {
-					border-right: 1px solid $dark-text;
+					border-right: 1px solid $dark-divider;
 				}
 			}
 			tr td {
 				color: $dark-text;
+				font-family: "Roboto Condensed";
+				font-size: 14px;
 			}
 			tr {
 				&.q-grid-highlighted {
