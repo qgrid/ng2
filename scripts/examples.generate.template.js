@@ -1,4 +1,4 @@
-function generateTemplate(exampleName) {
+function generateExampleTemplate(exampleName) {
 	const title = exampleName.replace('-', ' ');
 	return `<html>
 <head>

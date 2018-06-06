@@ -1,4 +1,4 @@
-function generateModule(exampleName) {
+function generateExampleModule(exampleName) {
 	const baseName = exampleName
 		.split('-')
 		.map(s => capitalize(s))
