@@ -23,6 +23,7 @@ export { PipeUnit } from 'ng2-qgrid/core/pipe/pipe.unit';
 export { Node } from 'ng2-qgrid/core/node/node';
 export { RowDetailsStatus } from 'ng2-qgrid/core/row-details/row.details.status';
 export { FetchContext } from 'ng2-qgrid/core/fetch/fetch.context';
+export { EditorOptions } from 'ng2-qgrid/core/column-type/editor.options';
 
 // Column
 export { ArrayColumnModel as ArrayColumn } from 'ng2-qgrid/core/column-type/array.column';
