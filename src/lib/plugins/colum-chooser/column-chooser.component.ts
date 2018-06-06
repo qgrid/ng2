@@ -3,13 +3,11 @@ import { RootService } from '../../infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 import { ColumnChooserView } from 'ng2-qgrid/plugin/column-chooser/column.chooser.view';
 import { FocusAfterRender } from '../../common/focus/focus.service';
-import { ThemeService } from '../../template/theme.service';
 
 const ColumnChooserName = 'qGridColumnChooser';
 
 @Component({
 	selector: 'q-grid-column-chooser',
-	styleUrls: ['../../assets/index.scss', '../../theme/material/index.scss'],
 	templateUrl: './column-chooser.component.html',
 	providers: [FocusAfterRender]
 })
@@ -21,7 +19,6 @@ export class ColumnChooserComponent extends PluginComponent {
 	constructor(
 		@Optional() root: RootService, 
 		focusAfterRender: FocusAfterRender,
-		private theme: ThemeService,
 		private element: ElementRef) {
 		super(root);
 
