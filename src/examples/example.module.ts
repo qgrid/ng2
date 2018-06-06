@@ -59,7 +59,7 @@ import { ExampleSelectColumnBasicComponent } from './select-column-basic/example
 import { ExampleSelectMixBasicComponent } from './select-mix-basic/example-select-mix-basic.component';
 import { ExampleSelectRowBasicComponent } from './select-row-basic/example-select-row-basic.component';
 import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-basic.component';
-import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.component';
+import { ExampleSortRowBasicComponent } from './sort-row-basic/example-sort-row-basic.component';
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
 import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggregation/example-summary-column-aggregation.component';
@@ -121,7 +121,7 @@ const EXAMPLES: Array<any> = [
 	ExampleSelectMixBasicComponent,
 	ExampleSelectRowBasicComponent,
 	ExampleSizeRowBasicComponent,
-	ExampleSortRowComponent,
+	ExampleSortRowBasicComponent,
 	ExampleStyleCellBasicComponent,
 	ExampleStyleRowBasicComponent,
 	ExampleSummaryColumnBasicComponent,
