@@ -21,4 +21,8 @@ export class DetailsRow extends DataRow {
 	getValue() {
 		return null;
 	}
+
+	getLabel() {
+		return null;
+	}
 }

@@ -59,14 +59,24 @@ export class NodeRow extends DataRow {
 		}
 	}
 
-	setValue(node, column, value) {
+	setValue(node, column, value, rowIndex, columnIndex) {
 		if (node.type === 'row') {
 			const rows = this.model.data().rows;
 			const rowIndex = node.rows[0];
 			return setValue(rows[rowIndex], column, value);
 		}
 
-		return super.setValue(node, column, value);
+		return super.setValue(node, column, value, rowIndex, columnIndex);
+	}
+
+	setLabel(node, column, value, rowIndex, columnIndex) {
+		if (node.type === 'row') {
+			const rows = this.model.data().rows;
+			const rowIndex = node.rows[0];
+			return setLabel(rows[rowIndex], column, value);
+		}
+
+		return super.setLabel(node, column, value, rowIndex, columnIndex);
 	}
 
 	findGroupColumn(pin) {

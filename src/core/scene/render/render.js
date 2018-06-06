@@ -4,6 +4,8 @@ import { DataRow } from './data.row';
 import { DetailsRow } from './details.row';
 import { CacheStrategy } from './cache.strategy';
 import { NodeRow, SubheadNodeRow, RowspanNodeRow } from './node.row';
+import { get as getValue } from '../../services/value';
+import { get as getLabel } from '../../services/label';
 
 export class Renderer {
 	constructor(model) {
@@ -40,7 +42,7 @@ export class Renderer {
 		const resolve = row => {
 			const type = row.constructor;
 			return strategies.get(type) || defaultStrategy;
-		}
+		};
 
 		// Public interface
 		this.defaultStrategy = defaultStrategy;
@@ -48,26 +50,36 @@ export class Renderer {
 		this.colspan = (row, column, rowIndex, columnIndex) => {
 			const strategy = resolve(row);
 			return strategy.colspan(row, column, rowIndex, columnIndex);
-		}
+		};
 
 		this.rowspan = (row, column, rowIndex, columnIndex) => {
 			const strategy = resolve(row);
 			return strategy.rowspan(row, column, rowIndex, columnIndex);
-		}
+		};
 
 		this.columns = (row, pin, rowIndex) => {
 			const strategy = resolve(row);
 			return strategy.columns(row, pin, rowIndex);
-		}
+		};
 
-		this.getValue = (row, column, select, rowIndex, columnIndex) => {
+		this.getValue = (row, column, rowIndex, columnIndex) => {
 			const strategy = resolve(row);
-			return strategy.getValue(row, column, select, rowIndex, columnIndex);
-		}
+			return strategy.getValue(row, column, getValue, rowIndex, columnIndex);
+		};
 
 		this.setValue = (row, column, value, rowIndex, columnIndex) => {
 			const strategy = resolve(row);
 			return strategy.setValue(row, column, value, rowIndex, columnIndex);
-		}
+		};
+
+		this.getLabel = (row, column, rowIndex, columnIndex) => {
+			const strategy = resolve(row);
+			return strategy.getLabel(row, column, getLabel, rowIndex, columnIndex);
+		};
+
+		this.setLabel = (row, column, value, rowIndex, columnIndex) => {
+			const strategy = resolve(row);
+			return strategy.setLabel(row, column, value, rowIndex, columnIndex);
+		};
 	}
 }

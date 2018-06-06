@@ -1,13 +1,21 @@
+import { getFactory as valueFactory } from '../../services/value';
+import { getFactory as labelFactory } from '../../services/label';
 
 export class CacheStrategy {
     constructor(model, strategy) {
         let storage = new Map();
 
-        const getValue = strategy.getValue.bind(strategy);
-
         const defaultGetValue =
-            (row, column, select, rowIndex, columnIndex) =>
-                getValue(row, column, select, rowIndex, columnIndex);
+            (row, column, select, rowIndex, columnIndex) => {
+                const key = `valueFactory-${rowIndex}x${column.key}`;
+                select = storage.get(key);
+                if (!select) {
+                    select = valueFactory(column);
+                    storage.set(key, select);
+                }
+
+                return strategy.getValue(row, column, select, rowIndex, columnIndex);
+            };
 
         const readonlyGetValue =
             (row, column, select, rowIndex, columnIndex) => {
@@ -16,12 +24,38 @@ export class CacheStrategy {
                     return storage.get(key);
                 }
 
-                const value = getValue(row, column, select, rowIndex, columnIndex);
+                const value = defaultGetValue(row, column, select, rowIndex, columnIndex);
                 storage.set(key, value);
                 return value;
             };
 
+        const defaultGetLabel =
+            (row, column, select, rowIndex, columnIndex) => {
+                const key = `labelFactory-${rowIndex}x${column.key}`;
+                select = storage.get(key);
+                if (!select) {
+                    select = labelFactory(column);
+                    storage.set(key, select);
+                }
+
+                return strategy.getLabel(row, column, select, rowIndex, columnIndex);
+            };
+
+        const readonlyGetLabel =
+            (row, column, select, rowIndex, columnIndex) => {
+                const key = `getLabel-${rowIndex}x${column.key}`;
+                if (storage.has(key)) {
+                    return storage.get(key);
+                }
+
+                const value = defaultGetLabel(row, column, select, rowIndex, columnIndex);
+                storage.set(key, value);
+                return value;
+            };
+
+
         this.getValue = defaultGetValue;
+        this.getLabel = defaultGetLabel;
 
         this.colspan = (row, column, rowIndex, columnIndex) => {
             const key = `colspan-${rowIndex}x${column.model.key}`;
@@ -56,9 +90,8 @@ export class CacheStrategy {
             return value;
         }
 
-        this.setValue = (row, column, value, rowIndex, columnIndex) => {
-            return strategy.setValue(row, column, value, rowIndex, columnIndex);
-        }
+        this.setValue = (...args) => strategy.setValue(...args);
+        this.setLabel = (...args) => strategy.setLabel(...args);
 
         this.columnList = (pin = null) => {
             const key = `columnList-${pin}`;
@@ -77,9 +110,13 @@ export class CacheStrategy {
             if (e.hasChanges('isReadonly')) {
                 storage = new Map();
 
-                this.getValue = e.state.isReadonly
-                    ? readonlyGetValue
-                    : defaultGetValue;
+                if (e.state.isReadonly) {
+                    this.getValue = readonlyGetValue;
+                    this.getLabel = readonlyGetLabel;
+                } else {
+                    this.getValue = getValue;
+                    this.getLabel = this.getLabel;
+                }
             }
         });
     }

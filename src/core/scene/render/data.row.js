@@ -1,36 +1,48 @@
-import {set as setValue} from '../../services/value';
+import { set as setValue } from '../../services/value';
+import { set as setLabel } from '../../services/label';
+import { isUndefined } from '../../utility/kit';
 
 export class DataRow {
 	constructor(model) {
 		this.model = model;
+
+		this.setValue = setValue;
+		this.setLabel = setLabel;
+
+		let area = {};
+		let line = [];
+		model.sceneChanged.watch(e => {
+			if (e.hasChanges('column')) {
+				area = e.state.column.area;
+				line = e.state.column.line;
+			}
+		});
+
+		const columnList = (pin = null) => {
+			if (isUndefined(pin)) {
+				return line;;
+			}
+
+			return  area[pin] || [];
+		}
+
+		this.columns = (row, pin) => columnList(pin);
+		this.columnList = columnList;
 	}
 
 	colspan(row, column) {
 		return column.colspan;
 	}
 
+	getValue(row, column, select) {
+		return select(row, column);
+	}
+
+	getLabel(row, column, select) {
+		return select(row, column);
+	}
+
 	rowspan() {
 		return 1;
-	}
-
-	columns(row, pin) {
-		return this.columnList(pin);
-	}
-
-	getValue(row, column, select) {
-		return select(row);
-	}
-
-	setValue(row, column, value) {
-		return setValue(row, column, value);
-	}
-
-	columnList(pin = null) {
-		const sceneState = this.model.scene();
-		if (arguments.length) {
-			return sceneState.column.area[pin] || [];
-		}
-
-		return sceneState.column.line;
 	}
 }
