@@ -1,0 +1,9 @@
+<q-grid header="Group Row Aggregation"
+        [rows]="rows | async"
+        [groupBy]="['bondingType', 'groupBlock']">
+	<q-grid-columns generation="deep">
+		<q-grid-column key="melt"
+		               aggregation="avg">
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>
