@@ -1,4 +1,5 @@
 import { Model } from '../infrastructure/model';
+import { Action } from '../action/action';
 
 /**
  * Specific options for the cell edit mode.
@@ -31,6 +32,8 @@ export interface EditorOptions {
 	 * Can be used by e.g. `auto-complete` editor to populate list of items.
 	 */
 	fetch?: () => any | Promise<any> | any;
+
+	actions: Action[];
 
 	label?: any;
 	value?: any;
