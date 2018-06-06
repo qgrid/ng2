@@ -23,12 +23,13 @@ import { ExampleFilterColumnFetchComponent } from './filter-column-fetch/example
 import { ExampleFilterConditionBasicComponent } from './filter-condition-basic/example-filter-condition-basic.component';
 import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filter-row-basic.component';
 import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
-import { ExampleFocusCellComponent } from './focus-cell-basic/example-focus-cell.component';
+import { ExampleFocusCellBasicComponent } from './focus-cell-basic/example-focus-cell-basic.component';
 import { ExampleGenerateColumnCohortComponent } from './generate-column-cohort/example-generate-column-cohort.component';
 import { ExampleGenerateColumnDeepComponent } from './generate-column-deep/example-generate-column-deep.component';
 import { ExampleGenerateColumnShallowComponent } from './generate-column-shallow/example-generate-column-shallow.component';
 import { ExampleGroupColumnBasicComponent } from './group-column-basic/example-group-column-basic.component';
 import { ExampleGroupRowBasicComponent } from './group-row-basic/example-group-row-basic.component';
+import { ExampleGroupRowEditComponent } from './group-row-edit/example-group-row-edit.component';
 import { ExampleGroupRowFlatComponent } from './group-row-flat/example-group-row-flat.component';
 import { ExampleGroupRowRowspanComponent } from './group-row-rowspan/example-group-row-rowspan.component';
 import { ExampleGroupRowSubheadComponent } from './group-row-subhead/example-group-row-subhead.component';
@@ -63,8 +64,8 @@ import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
 import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggregation/example-summary-column-aggregation.component';
 import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/example-summary-column-basic.component';
-import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
+import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -85,12 +86,13 @@ const EXAMPLES: Array<any> = [
 	ExampleFilterConditionBasicComponent,
 	ExampleFilterRowBasicComponent,
 	ExampleFocusCellAutoComponent,
-	ExampleFocusCellComponent,
+	ExampleFocusCellBasicComponent,
 	ExampleGenerateColumnCohortComponent,
 	ExampleGenerateColumnDeepComponent,
 	ExampleGenerateColumnShallowComponent,
 	ExampleGroupColumnBasicComponent,
 	ExampleGroupRowBasicComponent,
+	ExampleGroupRowEditComponent,
 	ExampleGroupRowFlatComponent,
 	ExampleGroupRowRowspanComponent,
 	ExampleGroupRowSubheadComponent,
