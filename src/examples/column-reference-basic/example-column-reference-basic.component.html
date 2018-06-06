@@ -1,0 +1,15 @@
+<q-grid header="Column Reference Basic"
+        [rows]="rows | async"
+        editMode="cell">
+	<q-grid-columns generation="deep">
+		<q-grid-column canEdit="false"></q-grid-column>
+		<q-grid-column type="reference"
+		               key="samePhaseAtoms"
+		               title="Same Phase Atoms"
+		               pin="left"
+		               canEdit="true"
+					   [editorOptions]="{modelFactory: showSamePhaseAtoms}"
+					   label="Click to show">
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

@@ -13,7 +13,7 @@ export class ExampleColumnRowOptionsComponent {
 	rows: Observable<Atom[]>;
 	rowActions = [
 		new Action(
-			new Command({
+			new Command<{ row: Atom }>({
 				execute: cell => window.open(cell.row.source, '_blank')
 			}),
 			'Goto Wiki',
