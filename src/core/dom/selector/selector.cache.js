@@ -61,12 +61,13 @@ export class SelectorCache {
 		return this.rowCellsCache[rowIndex] = this.selector.rowCells(rowIndex);
 	}
 
-	row(rowIndex) {
-		if (this.rowCache.hasOwnProperty(rowIndex)) {
-			return this.rowCache.get(rowIndex);
+	row(rowIndex, columnIndex) {
+		const key = `${rowIndex}x${columnIndex}`;
+		if (this.rowCache.hasOwnProperty(key)) {
+			return this.rowCache.get(key);
 		}
 
-		return this.rowCache[rowIndex] = this.selector.row(rowIndex);
+		return this.rowCache[key] = this.selector.row(rowIndex, columnIndex);
 	}
 
 	cell(rowIndex, columnIndex) {

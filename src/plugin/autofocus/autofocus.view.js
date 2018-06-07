@@ -22,12 +22,9 @@ export class AutofocusView {
 						const cellModel = cell.model();
 						if (!cellModel || !cellModel.column.canFocus) {
 							let rowIndex = 0;
-							while (true) { // eslint-disable-line no-constant-condition
+							const rowCount = body.rowCount(0);
+							while (rowIndex < rowCount) {
 								const row = body.row(rowIndex);
-								if (!row.model()) {
-									break;
-								}
-
 								const cells = row.cells();
 								const columnIndex = cells.findIndex(c => {
 									const m = c.model();

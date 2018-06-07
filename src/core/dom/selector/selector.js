@@ -1,4 +1,5 @@
 import { FakeElement } from '../fake/element';
+import { Container } from '../container';
 import { isUndefined } from '../../utility/kit';
 
 export class Selector {
@@ -92,11 +93,23 @@ export class Selector {
 		return result;
 	}
 
-	row(rowIndex) {
+	row(rowIndex, columnIndex) {
 		const factory = this.factory;
 		const row = this.matrix[rowIndex];
 		if (row && row.length) {
-			return factory.row(row[0].parentElement, rowIndex);
+			if (isUndefined(columnIndex)) {
+				const set = new Set();
+				for (let td of row) {
+					set.add(td.parentElement);
+				}
+
+				const trs = Array.from(set);
+				return factory.row(trs.length > 1 ? new Container(trs) : trs[0], rowIndex);
+			}
+			else if(row.length > columnIndex) {
+				const tr = row[columnIndex].parentElement;
+				return factory.row(tr, rowIndex);
+			}
 		}
 
 		return factory.row(new FakeElement(), rowIndex);

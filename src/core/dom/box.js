@@ -34,8 +34,8 @@ export class Box {
 			.map(cell => columnFactory(cell.columnIndex));
 	}
 
-	row(rowIndex) {
-		return this.rowCore(rowIndex);
+	row(rowIndex, columnIndex) {
+		return this.rowCore(rowIndex, columnIndex);
 	}
 
 	rows(columnIndex) {
@@ -55,9 +55,9 @@ export class Box {
 		return [];
 	}
 
-	rowCore(index) {
+	rowCore(rowIndex, columnIndex) {
 		const rowFactory = this.createRowCore.bind(this);
-		return rowFactory(index, this.selector.row(index).element);
+		return rowFactory(rowIndex, this.selector.row(rowIndex, columnIndex).element);
 	}
 
 	cellCore(rowIndex, columnIndex) {

@@ -77,12 +77,12 @@ export class SelectorMediator {
 		return result;
 	}
 
-	row(rowIndex) {
-		const selectors = this.buildSelectors({ row: rowIndex });
+	row(rowIndex, columnIndex) {
+		const selectors = this.buildSelectors({ row: rowIndex, column: columnIndex });
 		const result = [];
 		for (let i = 0, length = selectors.length; i < length; i++) {
 			const selector = selectors[i];
-			const row = selector.invoke((s, rowIndex) => s.row(rowIndex));
+			const row = selector.invoke((s, rowIndex) => s.row(rowIndex, columnIndex));
 			result.push(row.element);
 		}
 
