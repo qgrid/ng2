@@ -1,6 +1,7 @@
 import { PathService } from '../path/path.service';
 import { Fastdom } from '../services/fastdom';
 import { GRID_PREFIX } from '../definition';
+import { jobLine } from '../services/job.line';
 
 const MOUSE_LEFT_BUTTON = 1;
 const VERTICAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-vertical`;
@@ -13,13 +14,10 @@ export class BodyCtrl {
 		this.bag = bag;
 		this.table = table;
 		this.rangeStartCell = null;
-		this.isScrolling = null;
+		this.scrollingJob = jobLine(100);
 	}
 
 	onScroll(e) {
-		clearTimeout(this.isScrolling);
-		this.isScrolling = setTimeout(this.onScrollEnd.bind(this), 100);
-
 		const scroll = this.model.scroll;
 
 		const oldValue = scroll();
@@ -43,6 +41,8 @@ export class BodyCtrl {
 				behavior: 'core'
 			});
 		}
+
+		this.scrollingJob(this.onScrollEnd.bind(this));
 	}
 
 	onScrollEnd() {
