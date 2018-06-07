@@ -135,10 +135,7 @@
 	.q-grid ::-webkit-scrollbar-track-piece {
 		background-color: $dark;
 	}
-	.q-grid ::-webkit-scrollbar-track,
-	.q-grid ::-webkit-scrollbar-track-piece {
-		background-color: $dark;
-	}
+
 	//Specific controls
 	.q-grid {
 		.mat-select-value {
@@ -162,10 +159,18 @@
 	}
 
 	q-grid-column-chooser {
+
 		.mat-card {
 			background-color: $dark;
 			color: $dark-text;
 			font-weight: 300;
+
+			//Scroll
+			.layout-column ::-webkit-scrollbar-track, 
+			.layout-column ::-webkit-scrollbar-track-piece {
+				background-color: $dark-accent;
+			}
+
 			.mat-card-title{
 				font-size: 16px;
 			}	
@@ -206,7 +211,10 @@
 				font-weight: 300;
 			}
 
-			.mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+			.mat-checkbox-checked.mat-accent 
+			.mat-checkbox-background, 
+			.mat-checkbox-indeterminate.mat-accent 
+			.mat-checkbox-background {
 				background-color: $dark-accent;
 			}
 
