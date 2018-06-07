@@ -40,7 +40,7 @@ import { ExampleGroupRowSummaryComponent } from './group-row-summary/example-gro
 import { ExampleIndexColumnBasicComponent } from './index-column-basic/example-index-column-basic.component';
 import { ExampleIndexColumnHybridComponent } from './index-column-hybrid/example-index-column-hybrid.component';
 import { ExampleIndexColumnModelComponent } from './index-column-model/example-index-column-model.component';
-import { ExampleLegendBasicComponent } from './legend-basic/example-legend-basic.component';
+import { ExampleLegendGridBasicComponent } from './legend-grid-basic/example-legend-grid-basic.component';
 import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
 import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/example-look-atoms-customized.component';
 import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-atoms-model.component';
@@ -107,7 +107,7 @@ const EXAMPLES: Array<any> = [
 	ExampleIndexColumnBasicComponent,
 	ExampleIndexColumnHybridComponent,
 	ExampleIndexColumnModelComponent,
-	ExampleLegendBasicComponent,
+	ExampleLegendGridBasicComponent,
 	ExampleLookAtomsBasicComponent,
 	ExampleLookAtomsCustomizedComponent,
 	ExampleLookAtomsModelComponent,
