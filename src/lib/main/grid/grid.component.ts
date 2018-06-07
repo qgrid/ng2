@@ -52,6 +52,8 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input('actions') actionItems;
 
 	@Input('header') gridTitle;
+	@Input('caption') gridCaption;
+
 	@Input('id') gridId;
 
 	@Input('columns') dataColumns;
