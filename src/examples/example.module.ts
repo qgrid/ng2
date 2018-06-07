@@ -41,12 +41,15 @@ import { ExampleIndexColumnBasicComponent } from './index-column-basic/example-i
 import { ExampleIndexColumnHybridComponent } from './index-column-hybrid/example-index-column-hybrid.component';
 import { ExampleIndexColumnModelComponent } from './index-column-model/example-index-column-model.component';
 import { ExampleLegendGridBasicComponent } from './legend-grid-basic/example-legend-grid-basic.component';
+import { ExampleLiveDataBasicComponent } from './live-data-basic/example-live-data-basic.component';
 import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
 import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/example-look-atoms-customized.component';
 import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-atoms-model.component';
 import { ExampleLookAtomsReadonlyComponent } from './look-atoms-readonly/example-look-atoms-readonly.component';
 import { ExampleLookPeopleBasicComponent } from './look-people-basic/example-look-people-basic.component';
 import { ExampleLookPeopleModelComponent } from './look-people-model/example-look-people-model.component';
+import { ExampleLookQuotesBasicComponent } from './look-quotes-basic/example-look-quotes-basic.component';
+import { ExampleLookQuotesModelComponent } from './look-quotes-model/example-look-quotes-model.component';
 import { ExampleManipulateDataBasicComponent } from './manipulate-data-basic/example-manipulate-data-basic.component';
 import { ExamplePaginationBasicComponent } from './pagination-basic/example-pagination-basic.component';
 import { ExamplePersistenceBasicComponent } from './persistence-basic/example-persistence-basic.component';
@@ -70,8 +73,6 @@ import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggre
 import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/example-summary-column-basic.component';
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
-import { ExampleLookQuotesBasicComponent } from './look-quotes-basic/example-look-quotes-basic.component';
-import { ExampleLookQuotesModelComponent } from './look-quotes-model/example-look-quotes-model.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -110,12 +111,15 @@ const EXAMPLES: Array<any> = [
 	ExampleIndexColumnHybridComponent,
 	ExampleIndexColumnModelComponent,
 	ExampleLegendGridBasicComponent,
+	ExampleLiveDataBasicComponent,
 	ExampleLookAtomsBasicComponent,
 	ExampleLookAtomsCustomizedComponent,
 	ExampleLookAtomsModelComponent,
 	ExampleLookAtomsReadonlyComponent,
 	ExampleLookPeopleBasicComponent,
 	ExampleLookPeopleModelComponent,
+	ExampleLookQuotesBasicComponent,
+	ExampleLookQuotesModelComponent,
 	ExampleManipulateDataBasicComponent,
 	ExamplePaginationBasicComponent,
 	ExamplePersistenceBasicComponent,
@@ -138,8 +142,6 @@ const EXAMPLES: Array<any> = [
 	ExampleSummaryColumnBasicComponent,
 	ExampleThemeGridDarkComponent,
 	ExampleThemeGridEmbedComponent,
-	ExampleLookQuotesBasicComponent,
-	ExampleLookQuotesModelComponent
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
