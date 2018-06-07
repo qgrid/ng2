@@ -23,6 +23,7 @@ export { PipeUnit } from 'ng2-qgrid/core/pipe/pipe.unit';
 export { Node } from 'ng2-qgrid/core/node/node';
 export { RowDetailsStatus } from 'ng2-qgrid/core/row-details/row.details.status';
 export { FetchContext } from 'ng2-qgrid/core/fetch/fetch.context';
+export { EditorOptions } from 'ng2-qgrid/core/column-type/editor.options';
 
 // Column
 export { ArrayColumnModel as ArrayColumn } from 'ng2-qgrid/core/column-type/array.column';
@@ -36,6 +37,7 @@ export { EmailColumnModel as EmailColumn } from 'ng2-qgrid/core/column-type/emai
 export { FileColumnModel as FileColumn } from 'ng2-qgrid/core/column-type/file.column';
 export { FilterRowColumnModel as FilterRowColumn } from 'ng2-qgrid/core/column-type/filter.row.column';
 export { GroupColumnModel as GroupColumn } from 'ng2-qgrid/core/column-type/group.column';
+export { GroupSummaryColumnModel as GroupSummaryColumn } from 'ng2-qgrid/core/column-type/group.summary.column';
 export { IdColumnModel as IdColumn } from 'ng2-qgrid/core/column-type/id.column';
 export { ImageColumnModel as ImageColumn } from 'ng2-qgrid/core/column-type/image.column';
 export { NumberColumnModel as NumberColumn } from 'ng2-qgrid/core/column-type/number.column';

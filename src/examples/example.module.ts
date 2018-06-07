@@ -8,6 +8,8 @@ import { GridModule, ThemeModule } from 'ng2-qgrid';
 import { ExampleActionBarBasicComponent } from './action-bar-basic/example-action-bar-basic.component';
 import { ExampleActionBarTemplateComponent } from './action-bar-template/example-action-bar-template.component';
 import { ExampleAggregateColumnBasicComponent } from './aggregate-column-basic/example-aggregate-column-basic.component';
+import { ExampleColumnReferenceBasicComponent } from './column-reference-basic/example-column-reference-basic.component';
+import { ExampleColumnRowOptionsComponent } from './column-row-options/example-column-row-options.component';
 import { ExampleDefineColumnAsyncComponent } from './define-column-async/example-define-column-async.component';
 import { ExampleDefineColumnBasicComponent } from './define-column-basic/example-define-column-basic.component';
 import { ExampleDefineColumnHybridComponent } from './define-column-hybrid/example-define-column-hybrid.component';
@@ -23,19 +25,22 @@ import { ExampleFilterColumnFetchComponent } from './filter-column-fetch/example
 import { ExampleFilterConditionBasicComponent } from './filter-condition-basic/example-filter-condition-basic.component';
 import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filter-row-basic.component';
 import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
-import { ExampleFocusCellComponent } from './focus-cell-basic/example-focus-cell.component';
+import { ExampleFocusCellBasicComponent } from './focus-cell-basic/example-focus-cell-basic.component';
 import { ExampleGenerateColumnCohortComponent } from './generate-column-cohort/example-generate-column-cohort.component';
 import { ExampleGenerateColumnDeepComponent } from './generate-column-deep/example-generate-column-deep.component';
 import { ExampleGenerateColumnShallowComponent } from './generate-column-shallow/example-generate-column-shallow.component';
 import { ExampleGroupColumnBasicComponent } from './group-column-basic/example-group-column-basic.component';
+import { ExampleGroupRowAggregationComponent } from './group-row-aggregation/example-group-row-aggregation.component';
 import { ExampleGroupRowBasicComponent } from './group-row-basic/example-group-row-basic.component';
+import { ExampleGroupRowEditComponent } from './group-row-edit/example-group-row-edit.component';
 import { ExampleGroupRowFlatComponent } from './group-row-flat/example-group-row-flat.component';
 import { ExampleGroupRowRowspanComponent } from './group-row-rowspan/example-group-row-rowspan.component';
 import { ExampleGroupRowSubheadComponent } from './group-row-subhead/example-group-row-subhead.component';
+import { ExampleGroupRowSummaryComponent } from './group-row-summary/example-group-row-summary.component';
 import { ExampleIndexColumnBasicComponent } from './index-column-basic/example-index-column-basic.component';
 import { ExampleIndexColumnHybridComponent } from './index-column-hybrid/example-index-column-hybrid.component';
 import { ExampleIndexColumnModelComponent } from './index-column-model/example-index-column-model.component';
-import { ExampleLegendBasicComponent } from './legend-basic/example-legend-basic.component';
+import { ExampleLegendGridBasicComponent } from './legend-grid-basic/example-legend-grid-basic.component';
 import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
 import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/example-look-atoms-customized.component';
 import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-atoms-model.component';
@@ -58,18 +63,20 @@ import { ExampleSelectColumnBasicComponent } from './select-column-basic/example
 import { ExampleSelectMixBasicComponent } from './select-mix-basic/example-select-mix-basic.component';
 import { ExampleSelectRowBasicComponent } from './select-row-basic/example-select-row-basic.component';
 import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-basic.component';
-import { ExampleSortRowComponent } from './sort-row-basic/example-sort-row.component';
+import { ExampleSortRowBasicComponent } from './sort-row-basic/example-sort-row-basic.component';
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
 import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggregation/example-summary-column-aggregation.component';
 import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/example-summary-column-basic.component';
-import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
+import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
 	ExampleActionBarTemplateComponent,
 	ExampleAggregateColumnBasicComponent,
+	ExampleColumnReferenceBasicComponent,
+	ExampleColumnRowOptionsComponent,
 	ExampleDefineColumnAsyncComponent,
 	ExampleDefineColumnBasicComponent,
 	ExampleDefineColumnHybridComponent,
@@ -85,19 +92,22 @@ const EXAMPLES: Array<any> = [
 	ExampleFilterConditionBasicComponent,
 	ExampleFilterRowBasicComponent,
 	ExampleFocusCellAutoComponent,
-	ExampleFocusCellComponent,
+	ExampleFocusCellBasicComponent,
 	ExampleGenerateColumnCohortComponent,
 	ExampleGenerateColumnDeepComponent,
 	ExampleGenerateColumnShallowComponent,
 	ExampleGroupColumnBasicComponent,
+	ExampleGroupRowAggregationComponent,
 	ExampleGroupRowBasicComponent,
+	ExampleGroupRowEditComponent,
 	ExampleGroupRowFlatComponent,
 	ExampleGroupRowRowspanComponent,
 	ExampleGroupRowSubheadComponent,
+	ExampleGroupRowSummaryComponent,
 	ExampleIndexColumnBasicComponent,
 	ExampleIndexColumnHybridComponent,
 	ExampleIndexColumnModelComponent,
-	ExampleLegendBasicComponent,
+	ExampleLegendGridBasicComponent,
 	ExampleLookAtomsBasicComponent,
 	ExampleLookAtomsCustomizedComponent,
 	ExampleLookAtomsModelComponent,
@@ -119,11 +129,11 @@ const EXAMPLES: Array<any> = [
 	ExampleSelectMixBasicComponent,
 	ExampleSelectRowBasicComponent,
 	ExampleSizeRowBasicComponent,
-	ExampleSortRowComponent,
+	ExampleSortRowBasicComponent,
 	ExampleStyleCellBasicComponent,
 	ExampleStyleRowBasicComponent,
-	ExampleSummaryColumnBasicComponent,
 	ExampleSummaryColumnAggregationComponent,
+	ExampleSummaryColumnBasicComponent,
 	ExampleThemeGridDarkComponent,
 	ExampleThemeGridEmbedComponent,
 ];

@@ -15,7 +15,6 @@ export class DataManipulationComponent extends PluginComponent {
 		super(root);
 
 		this.models = ['dataManipulation'];
-
 	}
 
 	onReady() {

@@ -22,6 +22,7 @@ export class PivotColumnModel extends ColumnModel {
 		this.canSort = false;
 		this.canResize = false;
 		this.canFilter = false;
+		this.canMove = false;
 		this.rowIndex = 0;
 	}
 }

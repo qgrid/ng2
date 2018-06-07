@@ -1,5 +1,5 @@
 <tr class="q-grid-align">
-	<td *ngFor="let $column of $view.body.render.defaultStrategy.columnList($table.pin); trackBy: columnId"
+	<td *ngFor="let $column of $view.body.columns($table.pin); trackBy: columnId"
 	    [q-grid-core-td-align]="$column">
 	</td>
 </tr>

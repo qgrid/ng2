@@ -48,16 +48,7 @@ export class RowView {
 		});
 
 		this.resize = new Command({
-			source: 'row.view',
-			canExecute: e => {
-				if (e.source && e.source.key === tagName) {
-					const rows = model.data().rows;
-					const index = rows.indexOf(e.source.value);
-					return index >= 0;
-				}
-
-				return false;
-			}
+			source: 'row.view'
 		});
 	}
 

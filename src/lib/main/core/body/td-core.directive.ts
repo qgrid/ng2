@@ -64,22 +64,22 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 
 	get value() {
 		const { column, row, rowIndex, columnIndex } = this;
-		return this.$view.body.getValue(row, column, rowIndex, columnIndex);
+		return this.$view.body.render.getValue(row, column, rowIndex, columnIndex);
 	}
 
 	set value(value) {
 		const { column, row, rowIndex, columnIndex } = this;
-		this.$view.body.setValue(row, column, value, rowIndex, columnIndex);
+		this.$view.body.render.setValue(row, column, value, rowIndex, columnIndex);
 	}
 
 	get label() {
 		const { column, row, rowIndex, columnIndex } = this;
-		return this.$view.body.getLabel(row, column, rowIndex, columnIndex);
+		return this.$view.body.render.getLabel(row, column, rowIndex, columnIndex);
 	}
 
 	set label(label) {
 		const { column, row, rowIndex, columnIndex } = this;
-		this.$view.body.setLabel(row, column, label, rowIndex, columnIndex);
+		this.$view.body.render.setLabel(row, column, label, rowIndex, columnIndex);
 	}
 
 	get column() {

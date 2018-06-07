@@ -19,10 +19,13 @@ export class Selector {
 		const result = [];
 		const set = new Set();
 		for (let i = 0, length = matrix.length; i < length; i++) {
-			const td = matrix[i][columnIndex];
-			if (!set.has(td)) {
-				set.add(td);
-				result.push(factory.cell(td, i, columnIndex));
+			const row = matrix[i];
+			if (row.length > columnIndex) {
+				const td = row[columnIndex];
+				if (!set.has(td)) {
+					set.add(td);
+					result.push(factory.cell(td, i, columnIndex));
+				}
 			}
 		}
 
@@ -33,8 +36,11 @@ export class Selector {
 		const matrix = this.matrix;
 		const set = new Set();
 		for (let i = 0, length = matrix.length; i < length; i++) {
-			const td = matrix[i][columnIndex];
-			set.add(td);
+			const row = matrix[i];
+			if (row.length > columnIndex) {
+				const td = row[columnIndex];
+				set.add(td);
+			}
 		}
 
 		return set.size;
@@ -54,10 +60,12 @@ export class Selector {
 		} else {
 			for (let i = 0, length = matrix.length; i < length; i++) {
 				const row = matrix[i];
-				const tr = row[columnIndex].parentElement;
-				if (!set.has(tr)) {
-					set.add(tr);
-					result.push(factory.row(tr, i));
+				if (row.length > columnIndex) {
+					const tr = row[columnIndex].parentElement;
+					if (!set.has(tr)) {
+						set.add(tr);
+						result.push(factory.row(tr, i));
+					}
 				}
 			}
 		}
@@ -67,7 +75,7 @@ export class Selector {
 
 	rowCells(rowIndex) {
 		const matrix = this.matrix;
-		const row = this.matrix[rowIndex];
+		const row = matrix[rowIndex];
 		const result = [];
 		if (row) {
 			const set = new Set();
@@ -87,7 +95,7 @@ export class Selector {
 	row(rowIndex) {
 		const factory = this.factory;
 		const row = this.matrix[rowIndex];
-		if (row) {
+		if (row && row.length) {
 			return factory.row(row[0].parentElement, rowIndex);
 		}
 
@@ -97,7 +105,7 @@ export class Selector {
 	cell(rowIndex, columnIndex) {
 		const row = this.matrix[rowIndex];
 		const factory = this.factory;
-		if (row) {
+		if (row && row.length > columnIndex) {
 			return factory.cell(
 				row[columnIndex],
 				rowIndex,

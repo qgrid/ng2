@@ -149,7 +149,7 @@
             4
         ],
         "radius": 77,
-        "discoveredIn": "Ancient",
+        "discoveredIn": null,
         "groupBlock": "nonmetal",
         "bondingType": "covalent network"
     },
@@ -334,7 +334,7 @@
             3
         ],
         "radius": 118,
-        "discoveredIn": "Ancient",
+        "discoveredIn": null,
         "groupBlock": "metal",
         "bondingType": "metallic"
     },
@@ -415,7 +415,7 @@
             6
         ],
         "radius": 102,
-        "discoveredIn": "Ancient",
+        "discoveredIn": null,
         "groupBlock": "nonmetal",
         "bondingType": "covalent network"
     },
@@ -525,7 +525,7 @@
             2
         ],
         "radius": 174,
-        "discoveredIn": "Ancient",
+        "discoveredIn": null,
         "groupBlock": "alkaline earth metal",
         "bondingType": "metallic"
     },
@@ -637,7 +637,7 @@
             1
         ],
         "radius": 127,
-        "discoveredIn": "Ancient",
+        "discoveredIn": null,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
     },
@@ -693,7 +693,7 @@
             2
         ],
         "radius": 125,
-        "discoveredIn": "Ancient",
+        "discoveredIn": null,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
     },
@@ -721,7 +721,7 @@
             2
         ],
         "radius": 126,
-        "discoveredIn": "Ancient",
+        "discoveredIn": null,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
     },
@@ -777,7 +777,7 @@
             1
         ],
         "radius": 138,
-        "discoveredIn": "Ancient",
+        "discoveredIn": null,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
     },
@@ -889,7 +889,7 @@
             5
         ],
         "radius": 119,
-        "discoveredIn": "Ancient",
+        "discoveredIn": null,
         "groupBlock": "metalloid",
         "bondingType": "metallic"
     },
@@ -1291,7 +1291,7 @@
             1
         ],
         "radius": 153,
-        "discoveredIn": "Ancient",
+        "discoveredIn": null,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
     },
@@ -1378,7 +1378,7 @@
             4
         ],
         "radius": 141,
-        "discoveredIn": "Ancient",
+        "discoveredIn": null,
         "groupBlock": "metal",
         "bondingType": "metallic"
     },
@@ -1407,7 +1407,7 @@
             5
         ],
         "radius": 138,
-        "discoveredIn": "Ancient",
+        "discoveredIn": null,
         "groupBlock": "metalloid",
         "bondingType": "metallic"
     },
@@ -2214,7 +2214,7 @@
             1
         ],
         "radius": 128,
-        "discoveredIn": "Ancient",
+        "discoveredIn": null,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
     },
@@ -2244,7 +2244,7 @@
             1
         ],
         "radius": 144,
-        "discoveredIn": "Ancient",
+        "discoveredIn": null,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
     },
@@ -2274,7 +2274,7 @@
             2
         ],
         "radius": 149,
-        "discoveredIn": "Ancient",
+        "discoveredIn": null,
         "groupBlock": "transition metal",
         "bondingType": "metallic"
     },
@@ -2334,7 +2334,7 @@
             4
         ],
         "radius": 147,
-        "discoveredIn": "Ancient",
+        "discoveredIn": null,
         "groupBlock": "metal",
         "bondingType": "metallic"
     },
@@ -2364,7 +2364,7 @@
             5
         ],
         "radius": 146,
-        "discoveredIn": "Ancient",
+        "discoveredIn": null,
         "groupBlock": "metal",
         "bondingType": "metallic"
     },

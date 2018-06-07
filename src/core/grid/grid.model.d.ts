@@ -26,5 +26,8 @@ export declare interface GridModel {
 	/**
 	 * Text that is used by grid title plugin to show header inside top toolbar.
 	 */
+	caption?: string;
+
+	// @depricated
 	title?: string;
 }

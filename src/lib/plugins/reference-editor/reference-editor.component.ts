@@ -35,7 +35,7 @@ export class ReferenceEditorComponent extends PluginComponent
 	}
 
 	ngOnInit() {
-		this.referenceModel = this.column.editorOptions.modelFactory();
+		this.referenceModel = this.column.editorOptions.modelFactory(this.cell.editor.cell);
 
 		this.submit = new Command({
 			canExecute: () => this.cell.commit.canExecute(),
