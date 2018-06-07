@@ -8,6 +8,8 @@ import { GridModule, ThemeModule } from 'ng2-qgrid';
 import { ExampleActionBarBasicComponent } from './action-bar-basic/example-action-bar-basic.component';
 import { ExampleActionBarTemplateComponent } from './action-bar-template/example-action-bar-template.component';
 import { ExampleAggregateColumnBasicComponent } from './aggregate-column-basic/example-aggregate-column-basic.component';
+import { ExampleColumnReferenceBasicComponent } from './column-reference-basic/example-column-reference-basic.component';
+import { ExampleColumnRowOptionsComponent } from './column-row-options/example-column-row-options.component';
 import { ExampleDefineColumnAsyncComponent } from './define-column-async/example-define-column-async.component';
 import { ExampleDefineColumnBasicComponent } from './define-column-basic/example-define-column-basic.component';
 import { ExampleDefineColumnHybridComponent } from './define-column-hybrid/example-define-column-hybrid.component';
@@ -28,11 +30,13 @@ import { ExampleGenerateColumnCohortComponent } from './generate-column-cohort/e
 import { ExampleGenerateColumnDeepComponent } from './generate-column-deep/example-generate-column-deep.component';
 import { ExampleGenerateColumnShallowComponent } from './generate-column-shallow/example-generate-column-shallow.component';
 import { ExampleGroupColumnBasicComponent } from './group-column-basic/example-group-column-basic.component';
+import { ExampleGroupRowAggregationComponent } from './group-row-aggregation/example-group-row-aggregation.component';
 import { ExampleGroupRowBasicComponent } from './group-row-basic/example-group-row-basic.component';
 import { ExampleGroupRowEditComponent } from './group-row-edit/example-group-row-edit.component';
 import { ExampleGroupRowFlatComponent } from './group-row-flat/example-group-row-flat.component';
 import { ExampleGroupRowRowspanComponent } from './group-row-rowspan/example-group-row-rowspan.component';
 import { ExampleGroupRowSubheadComponent } from './group-row-subhead/example-group-row-subhead.component';
+import { ExampleGroupRowSummaryComponent } from './group-row-summary/example-group-row-summary.component';
 import { ExampleIndexColumnBasicComponent } from './index-column-basic/example-index-column-basic.component';
 import { ExampleIndexColumnHybridComponent } from './index-column-hybrid/example-index-column-hybrid.component';
 import { ExampleIndexColumnModelComponent } from './index-column-model/example-index-column-model.component';
@@ -66,15 +70,13 @@ import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggre
 import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/example-summary-column-basic.component';
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
-import { ExampleGroupRowAggregationComponent } from './group-row-aggregation/example-group-row-aggregation.component';
-import { ExampleColumnRowOptionsComponent } from './column-row-options/example-column-row-options.component';
-import { ExampleColumnReferenceBasicComponent } from './column-reference-basic/example-column-reference-basic.component';
-import { ExampleGroupRowSummaryComponent } from './group-row-summary/example-group-row-summary.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
 	ExampleActionBarTemplateComponent,
 	ExampleAggregateColumnBasicComponent,
+	ExampleColumnReferenceBasicComponent,
+	ExampleColumnRowOptionsComponent,
 	ExampleDefineColumnAsyncComponent,
 	ExampleDefineColumnBasicComponent,
 	ExampleDefineColumnHybridComponent,
@@ -95,11 +97,13 @@ const EXAMPLES: Array<any> = [
 	ExampleGenerateColumnDeepComponent,
 	ExampleGenerateColumnShallowComponent,
 	ExampleGroupColumnBasicComponent,
+	ExampleGroupRowAggregationComponent,
 	ExampleGroupRowBasicComponent,
 	ExampleGroupRowEditComponent,
 	ExampleGroupRowFlatComponent,
 	ExampleGroupRowRowspanComponent,
 	ExampleGroupRowSubheadComponent,
+	ExampleGroupRowSummaryComponent,
 	ExampleIndexColumnBasicComponent,
 	ExampleIndexColumnHybridComponent,
 	ExampleIndexColumnModelComponent,
@@ -128,14 +132,10 @@ const EXAMPLES: Array<any> = [
 	ExampleSortRowBasicComponent,
 	ExampleStyleCellBasicComponent,
 	ExampleStyleRowBasicComponent,
-	ExampleSummaryColumnBasicComponent,
 	ExampleSummaryColumnAggregationComponent,
+	ExampleSummaryColumnBasicComponent,
 	ExampleThemeGridDarkComponent,
 	ExampleThemeGridEmbedComponent,
-	ExampleGroupRowAggregationComponent,
-	ExampleColumnRowOptionsComponent,
-	ExampleColumnReferenceBasicComponent,
-	ExampleGroupRowSummaryComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
