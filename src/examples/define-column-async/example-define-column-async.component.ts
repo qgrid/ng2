@@ -31,6 +31,7 @@ export class ExampleDefineColumnAsyncComponent {
 						{
 							key: 'symbol+name',
 							label: row => `[${row.symbol}]${row.name}`,
+							value: row => row.symbol,
 							width: 150
 						}]
 					});

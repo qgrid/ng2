@@ -3,7 +3,7 @@ import { toggleStatus, invalidateStatus } from './row.details.service';
 import { RowDetails } from './row.details';
 
 export class RowDetailsView {
-	constructor(model, table, commandManager) {
+	constructor(model, table, shortcut) {
 		this.model = model;
 
 		this.toggleStatus = new Command({
@@ -44,8 +44,7 @@ export class RowDetailsView {
 			}
 		});
 
-		const shortcut = model.action().shortcut;
-		shortcut.register(commandManager, [this.toggleStatus]);
+		shortcut.register([this.toggleStatus]);
 	}
 
 	status(row) {

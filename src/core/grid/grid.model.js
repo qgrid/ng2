@@ -5,6 +5,9 @@ export class GridModel {
 	constructor() {
 		this.id = `${GRID_PREFIX}-${guid()}`;
 		this.status = 'unbound'; //unbound | bound
+		this.caption = '';
+
+		// @depricated
 		this.title = '';
 	}
 }

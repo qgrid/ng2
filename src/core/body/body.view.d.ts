@@ -10,14 +10,9 @@ import { Renderer } from '../scene/render/render';
 export declare class BodyView {
 	constructor(model: Model, table: Table);
 
-	render: Renderer;
-	rows: any[];
+	readonly rows: any[];
 
-	columns(row: any, pin: string): ColumnView[];
-	rowspan(row: any, column: ColumnView): number;
-	colspan(row: any, column: ColumnView): number;
-	getValue(row: any, column: ColumnModel, rowIndex: number, columnIndex: number): any;
-	setValue(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number): void;
-	getLabel(row: any, column: ColumnModel, rowIndex: number, columnIndex: number): string;
-	setLabel(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number): void;
+	render: Renderer;
+
+	columns(pin: string): ColumnView[];
 }

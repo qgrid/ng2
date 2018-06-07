@@ -1,40 +1,38 @@
 .q-grid-view {
-	position: relative;
-	overflow: hidden;
-
-	&.q-grid-select-range {
-		thead, tfoot, tbody {
-			td, th {
-				@include user-select(none);
-				cursor: default;
-			}
-		}
-	}
-
-	> .q-grid-table-left {
-		tbody {
-			overflow-y: hidden;
-		}
-	}
-
-	&.q-grid-scroll-horizontal {
-		> .q-grid-table-left,
-		> .q-grid-table-right {
-			box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-				0 8px 10px 1px rgba(0, 0, 0, 0.14),
-				0 3px 14px 2px rgba(0, 0, 0, 0.12);
-		}
-	}
+    position: relative;
+    overflow: hidden;
+    &.q-grid-select-range {
+        thead,
+        tfoot,
+        tbody {
+            td,
+            th {
+                @include user-select(none);
+                cursor: default;
+            }
+        }
+    }
+    >.q-grid-table-left>table {
+        >tbody {
+            overflow-y: hidden;
+        }
+    }
+    &.q-grid-scroll-horizontal {
+        >.q-grid-table-left,
+        >.q-grid-table-right {
+            box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+        }
+    }
 }
 
 .q-grid-with-right-pin {
-	> .q-grid-view {
-		> .q-grid-table-center {
-			> table {
-				> tbody {
-					overflow-y: hidden;
-				}
-			}
-		}
-	}
+    >.q-grid-view {
+        >.q-grid-table-center {
+            >table {
+                >tbody {
+                    overflow-y: hidden;
+                }
+            }
+        }
+    }
 }

@@ -19,19 +19,19 @@ export declare class Node {
 	 * * `'group'`
 	 * * `'row'`
 	 * * `'value'`
-	 *
+	 * * `'summary'`
 	 */
-	type: string;
+	type: 'group' | 'row' | 'value' | 'summary'; 
 
 	/**
 	 * List of row indicies that belongs to the node.
 	 */
-	rows: any[];
+	rows: number[];
 
 	/**
 	 * List of child nodes.
 	 */
-	children: any[];
+	children: Node[];
 
 	/**
 	 * Shows if node was expanded or not.

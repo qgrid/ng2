@@ -1,4 +1,5 @@
 import { Node } from './node';
+import { noop } from '../utility/kit';
 
 export function traverse(nodes, visit) {
 	for (let i = 0, length = nodes.length; i < length; i++) {
@@ -9,34 +10,65 @@ export function traverse(nodes, visit) {
 	}
 }
 
-export function flatView(nodes, mode, result = []) {
-	for (let i = 0, nodeLength = nodes.length; i < nodeLength; i++) {
-		const node = nodes[i];
-		if (mode !== 'rowspan' || node.level === 0 || i > 0) {
-			result.push(node);
-		}
+export function flattenFactory(model) {
+	const { mode, summary } = model.group();
 
-		if (node.state.expand) {
-			const children = node.children;
-			if (children.length) {
-				flatView(children, mode, result);
-			}
-			else {
-				const rows = node.rows;
-				for (let j = 0, rowLength = rows.length; j < rowLength; j++) {
-					const row = rows[j];
-					const rowNode = new Node(node.key, node.level + 1, 'row');
-					rowNode.rows = [row];
-					children.push(rowNode);
-					if (mode !== 'rowspan' || node.level === 0 || j > 0) {
-						result.push(rowNode);
-					}
+	let push = (node, pos, result) => result.push(node);
+	switch (mode) {
+		case 'rowspan': {
+			push = (node, pos, result) => {
+				if (node.level === 0 || pos > 0) {
+					result.push(node);
 				}
 			}
+			break;
 		}
 	}
 
-	return result;
+	let pushSummary = noop;
+	switch (summary) {
+		case 'leaf': {
+			pushSummary = (node, pos, result, parent, posInParent) => {
+				if (parent && parent.children.length - 1 === posInParent) {
+					const { level, key } = node;
+					const summary = new Node(`${key}-group-summary`, level, 'summary');
+					summary.rows = Array.from(node.rows);
+					result.push(summary);
+				}
+			};
+			break;
+		}
+	}
+
+	return function flatView(nodes, result = [], parent = null, pos = 0) {
+		for (let i = 0, iLength = nodes.length; i < iLength; i++) {
+			const node = nodes[i];
+			push(node, i, result, parent, pos);
+
+			if (node.state.expand) {
+				const children = node.children;
+				if (children.length) {
+					flatView(children, result, node, i);
+				}
+				else {
+					const { rows, level, key } = node;
+					const nextLevel = level + 1;
+					for (let j = 0, jLength = rows.length; j < jLength; j++) {
+						const child = new Node(key, nextLevel, 'row');
+						const row = rows[j];
+						child.rows = [row];
+
+						children.push(child);
+						push(child, j, result, parent, pos);
+					}
+				}
+
+				pushSummary(node, i, result, parent, pos);
+			}
+		}
+
+		return result;
+	};
 }
 
 export function some(nodes, test) {
