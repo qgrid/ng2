@@ -70,6 +70,8 @@ import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggre
 import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/example-summary-column-basic.component';
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
+import { ExampleLookQuotesBasicComponent } from './look-quotes-basic/example-look-quotes-basic.component';
+import { ExampleLookQuotesModelComponent } from './look-quotes-model/example-look-quotes-model.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -136,6 +138,8 @@ const EXAMPLES: Array<any> = [
 	ExampleSummaryColumnBasicComponent,
 	ExampleThemeGridDarkComponent,
 	ExampleThemeGridEmbedComponent,
+	ExampleLookQuotesBasicComponent,
+	ExampleLookQuotesModelComponent
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
