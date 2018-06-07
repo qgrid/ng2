@@ -1,9 +1,7 @@
 <q-grid caption="Drag Row Node"
         [rows]="rows | async"
-        [groupBy]="['bondingType', 'groupBlock']">
+	[groupBy]="['bondingType', 'groupBlock']"
+	rowCanMove="true">
 	<q-grid-columns generation="deep">
 	</q-grid-columns>
-
-	<q-grid-row canMove="true">
-	</q-grid-row>
 </q-grid>

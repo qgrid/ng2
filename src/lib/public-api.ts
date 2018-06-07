@@ -37,6 +37,7 @@ export { EmailColumnModel as EmailColumn } from 'ng2-qgrid/core/column-type/emai
 export { FileColumnModel as FileColumn } from 'ng2-qgrid/core/column-type/file.column';
 export { FilterRowColumnModel as FilterRowColumn } from 'ng2-qgrid/core/column-type/filter.row.column';
 export { GroupColumnModel as GroupColumn } from 'ng2-qgrid/core/column-type/group.column';
+export { GroupSummaryColumnModel as GroupSummaryColumn } from 'ng2-qgrid/core/column-type/group.summary.column';
 export { IdColumnModel as IdColumn } from 'ng2-qgrid/core/column-type/id.column';
 export { ImageColumnModel as ImageColumn } from 'ng2-qgrid/core/column-type/image.column';
 export { NumberColumnModel as NumberColumn } from 'ng2-qgrid/core/column-type/number.column';
@@ -50,7 +51,6 @@ export { RowIndicatorColumnModel as RowIndicatorColumn } from 'ng2-qgrid/core/co
 export { RowNumberColumnModel as RowNumberColumn } from 'ng2-qgrid/core/column-type/row.number.column';
 export { RowOptionsColumnModel as RowOptionsColumn } from 'ng2-qgrid/core/column-type/row.options.column';
 export { SelectColumnModel as SelectColumn } from 'ng2-qgrid/core/column-type/select.column';
-export { SummaryColumnModel as SummaryColumn } from 'ng2-qgrid/core/column-type/summary.column';
 export { TextColumnModel as TextColumn } from 'ng2-qgrid/core/column-type/text.column';
 export { TimeColumnModel as TimeColumn } from 'ng2-qgrid/core/column-type/time.column';
 export { UrlColumnModel as UrlColumn } from 'ng2-qgrid/core/column-type/url.column';

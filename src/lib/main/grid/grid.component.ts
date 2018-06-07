@@ -90,6 +90,11 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input() styleCell;
 	@Input() styleRow;
 
+	@Input() rowMode: 'single' | 'multiple';
+	@Input() rowUnit: 'data' | 'details';
+	@Input() rowCanMove: boolean;
+	@Input() rowCanResize: boolean;
+
 	@Output() selectionChanged = new EventEmitter<any>();
 
 	public themeComponent: any;
@@ -105,16 +110,17 @@ export class GridComponent extends RootComponent implements OnInit {
 		super();
 
 		this.models = [
-			'grid',
+			'action',
 			'data',
+			'edit',
+			'filter',
+			'grid',
+			'group',
+			'pivot',
+			'row',
 			'selection',
 			'sort',
-			'group',
-			'filter',
-			'pivot',
-			'edit',
-			'style',
-			'action'
+			'style'
 		];
 
 		this.modelChanged.watch(model => (this.rootService.model = model));

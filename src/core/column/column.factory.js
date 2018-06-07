@@ -9,6 +9,7 @@ import { DateColumn } from '../column-type/date.column';
 import { EmailColumn } from '../column-type/email.column';
 import { FileColumn } from '../column-type/file.column';
 import { GroupColumn } from '../column-type/group.column';
+import { GroupSummaryColumn } from '../column-type/group.summary.column';
 import { IdColumn } from '../column-type/id.column';
 import { ImageColumn } from '../column-type/image.column';
 import { NumberColumn } from '../column-type/number.column';
@@ -22,7 +23,6 @@ import { RowIndicatorColumn } from '../column-type/row.indicator.column';
 import { RowNumberColumn } from '../column-type/row.number.column';
 import { RowOptionsColumn } from '../column-type/row.options.column';
 import { SelectColumn } from '../column-type/select.column';
-import { SummaryColumn } from '../column-type/summary.column';
 import { TextColumn } from '../column-type/text.column';
 import { TimeColumn } from '../column-type/time.column';
 import { UrlColumn } from '../column-type/url.column';
@@ -60,7 +60,7 @@ export function columnFactory(model) {
 		'row-number': RowNumberColumn,
 		'row-options': RowOptionsColumn,
 		'select': SelectColumn,
-		'summary': SummaryColumn,
+		'group-summary': GroupSummaryColumn,
 		'text': TextColumn,
 		'time': TimeColumn,
 		'url': UrlColumn

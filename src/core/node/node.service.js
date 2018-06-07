@@ -31,7 +31,7 @@ export function flattenFactory(model) {
 			pushSummary = (node, pos, result, parent, posInParent) => {
 				if (parent && parent.children.length - 1 === posInParent) {
 					const { level, key } = node;
-					const summary = new Node(`${key}-summary`, level, 'summary');
+					const summary = new Node(`${key}-group-summary`, level, 'summary');
 					summary.rows = Array.from(node.rows);
 					result.push(summary);
 				}

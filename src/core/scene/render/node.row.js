@@ -14,7 +14,7 @@ export class NodeRow extends BasicRow {
 		const createColumn = columnFactory(model);
 		this.reference = {
 			group: createColumn('group'),
-			summary: createColumn('summary')
+			summary: createColumn('group-summary')
 		};
 
 		this.getLabel =

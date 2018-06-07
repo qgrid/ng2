@@ -2,18 +2,18 @@ import { ColumnView } from '../scene/view/column.view';
 import { DataColumnModel } from './data.column.model';
 import { TemplatePath } from '../template/template.path';
 
-TemplatePath.register('summary-cell', (template, column) => {
+TemplatePath.register('group-summary-cell', (template, column) => {
 	return {
 		model: template.for,
 		resource: column.key
 	};
 });
 
-export class SummaryColumnModel extends DataColumnModel {
+export class GroupSummaryColumnModel extends DataColumnModel {
 	constructor() {
-		super('summary');
+		super('group-summary');
 
-		this.key = '$summary';
+		this.key = '$group.summary';
 		this.class = 'control';
 
 		this.canEdit = false;
@@ -25,12 +25,12 @@ export class SummaryColumnModel extends DataColumnModel {
 	}
 }
 
-export class SummaryColumn extends ColumnView {
+export class GroupSummaryColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}
 
 	static model(model) {
-		return model ? SummaryColumn.assign(model) : new SummaryColumnModel();
+		return model ? GroupSummaryColumn.assign(model) : new GroupSummaryColumnModel();
 	}
 }

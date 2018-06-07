@@ -13,29 +13,31 @@
 </style>
 
 <mat-card>
-	<button (click)="foo = !foo">Click</button>
-	<q-grid *ngIf="foo"
-			id="q-grid-demo"
-			[model]="gridModel"
-			q-grid-autofocus
-			[columns]="columns"
-			[sortBy]="['+name.last', '-name.first']"
-			[groupBy]="['gender']"
-			[editCommit]="commitCommand"
-			caption="NG2 QGRID SANDBOX">
+	<button (click)="gridIsVisible = !gridIsVisible">Toggle Visibility</button>
+	<q-grid *ngIf="gridIsVisible"
+	        caption="NG2 QGRID SANDBOX"
+	        id="q-grid-demo"
+	        [model]="gridModel"
+	        q-grid-autofocus
+	        [columns]="columns"
+	        [sortBy]="['+name.last', '-name.first']"
+	        [groupBy]="['gender']"
+	        [editCommit]="commitCommand"
+	        rowCanMove="true"
+	        rowCanResize="true">
 
 		<q-grid-columns>
 			<q-grid-column type="row-indicator"
-						   key="rowIndicator">
+			               key="rowIndicator">
 			</q-grid-column>
 			<q-grid-column type="row-number"
-						   key="rowNumber">
+			               key="rowNumber">
 			</q-grid-column>
 			<q-grid-column type="row-options"
-						   key="rowOptions">
+			               key="rowOptions">
 			</q-grid-column>
 			<q-grid-column type="number"
-						   aggregation="max">
+			               aggregation="max">
 			</q-grid-column>
 		</q-grid-columns>
 
@@ -66,10 +68,6 @@
 
 		<q-grid-query-builder>
 		</q-grid-query-builder>
-
-		<q-grid-row canMove="true"
-					canResize="true">
-		</q-grid-row>
 
 		<!-- <q-grid-toolbar>
 			<ng-template for="top">
