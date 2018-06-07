@@ -9,8 +9,8 @@ import { PagerView } from 'ng2-qgrid/plugin/pager/pager.view';
 	templateUrl: './pager.component.html'
 })
 export class PagerComponent extends PluginComponent {
-	@Input('size') public paginationSize;
-	@Input('sizeList') public paginationSizeList;
+	@Input('size') paginationSize: number;
+	@Input('sizeList') paginationSizeList: number[];
 
 	constructor(@Optional() root: RootService) {
 		super(root);
