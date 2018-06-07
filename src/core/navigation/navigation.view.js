@@ -5,7 +5,7 @@ import { CellView } from '../scene/view/cell.view';
 import { Fastdom } from '../services/fastdom';
 
 export class NavigationView {
-	constructor(model, table, shortcut) {		
+	constructor(model, table, shortcut) {
 		this.model = model;
 		this.table = table;
 
@@ -17,8 +17,16 @@ export class NavigationView {
 		this.focus = new Command({
 			source: 'navigation.view',
 			execute: cell => {
-				const cellModel = table.body.cell(cell.rowIndex, cell.columnIndex).model();
-				model.navigation({ cell: cellModel });
+				const { rowIndex, columnIndex } = cell;
+				const { row, column } = table.body.cell(rowIndex, columnIndex).model();
+				model.navigation({
+					cell: {
+						rowIndex,
+						columnIndex,
+						row,
+						column
+					}
+				});
 			},
 			canExecute: cell => {
 				const currentCell = model.navigation().cell;
@@ -60,9 +68,9 @@ export class NavigationView {
 					this.table.view.focus();
 				}
 
-				const navState = e.state;
-				const newRow = navState.rowIndex;
-				const newColumn = navState.columnIndex;
+				const { state } = e;
+				const newRow = state.rowIndex;
+				const newColumn = state.columnIndex;
 
 				focusBlurs = this.invalidateFocus(focusBlurs);
 				if (e.tag.source !== 'navigation.scroll' && this.scrollTo.canExecute(newRow, newColumn)) {
@@ -84,8 +92,16 @@ export class NavigationView {
 			}
 
 			if (e.hasChanges('rowIndex') || e.hasChanges('columnIndex')) {
-				const cell = table.body.cell(e.state.rowIndex, e.state.columnIndex).model();
-				model.navigation({ cell });
+				const { rowIndex, columnIndex } = e.state;
+				const { row, column } = table.body.cell(rowIndex, columnIndex).model();
+				model.navigation({
+					cell: {
+						rowIndex,
+						columnIndex,
+						row,
+						column
+					}
+				});
 			}
 		});
 
@@ -105,19 +121,12 @@ export class NavigationView {
 		dispose.forEach(f => f());
 		dispose = [];
 
-		const navState = this.model.navigation();
-		const row = navState.rowIndex;
-		const column = navState.columnIndex;
-		const cell = this.table.body.cell(row, column);
+		const { rowIndex, columnIndex } = this.model.navigation();
+		const cell = this.table.body.cell(rowIndex, columnIndex);
 		if (cell.model()) {
-			Fastdom.mutate(() => {
-				cell.addClass(`${GRID_PREFIX}-focused`);
-			});
+			Fastdom.mutate(() => cell.addClass(`${GRID_PREFIX}-focused`));
 
-			dispose.push(() =>
-				Fastdom.mutate(() => {
-					cell.removeClass(`${GRID_PREFIX}-focused`);
-				}));
+			dispose.push(() => Fastdom.mutate(() => cell.removeClass(`${GRID_PREFIX}-focused`)));
 		}
 
 		return dispose;

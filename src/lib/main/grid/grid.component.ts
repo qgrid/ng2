@@ -169,9 +169,9 @@ export class GridComponent extends RootComponent implements OnInit {
 
 		this.using(windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl)));
 
-		const navDebounce = model.navigation().debounce;
-		if (navDebounce) {
-			const navJob = jobLine(navDebounce);
+		const { debounce } = model.navigation();
+		if (debounce) {
+			const navJob = jobLine(debounce);
 			this.zone.runOutsideAngular(() => {
 				listener.on('keydown', e => {
 					const result = ctrl.keyDown(e);

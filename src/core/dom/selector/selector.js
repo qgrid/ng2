@@ -95,41 +95,52 @@ export class Selector {
 
 	row(rowIndex, columnIndex) {
 		const factory = this.factory;
-		const row = this.matrix[rowIndex];
-		if (row && row.length) {
-			if (isUndefined(columnIndex)) {
-				const set = new Set();
-				for (let td of row) {
-					set.add(td.parentElement);
-				}
+		if (!isUndefined(columnIndex)) {
+			const td = this.td(rowIndex, columnIndex);
+			return factory.row(td.parentElement, rowIndex);
 
-				const trs = Array.from(set);
-				return factory.row(trs.length > 1 ? new Container(trs) : trs[0], rowIndex);
+		}
+
+		const row = this.matrix[rowIndex];
+		if (row) {
+			const set = new Set();
+			for (let td of row) {
+				set.add(td.parentElement);
 			}
-			else if(row.length > columnIndex) {
-				const tr = row[columnIndex].parentElement;
-				return factory.row(tr, rowIndex);
-			}
+
+			const trs = Array.from(set);
+			return factory.row(trs.length > 1 ? new Container(trs) : trs[0], rowIndex);
 		}
 
 		return factory.row(new FakeElement(), rowIndex);
 	}
 
 	cell(rowIndex, columnIndex) {
-		const row = this.matrix[rowIndex];
+		const td = this.td(rowIndex, columnIndex);
 		const factory = this.factory;
-		if (row && row.length > columnIndex) {
-			return factory.cell(
-				row[columnIndex],
-				rowIndex,
-				columnIndex
-			);
+		return factory.cell(td, rowIndex, columnIndex);
+	}
+
+	td(rowIndex, columnIndex) {
+		const set = new Set();
+		const matrix = this.matrix;
+		let cursor = 0;
+		for (let i = 0, length = matrix.length; i < length; i++) {
+			const td = matrix[i][columnIndex];
+			if (td) {
+				set.add(td);
+				if (set.size + cursor > rowIndex) {
+					return td;
+				}
+				continue;
+			}
+
+			cursor++;
+			if (set.size + cursor > rowIndex) {
+				break;
+			}
 		}
 
-		return factory.cell(
-			new FakeElement(),
-			rowIndex,
-			columnIndex
-		);
+		return new FakeElement();
 	}
 }
