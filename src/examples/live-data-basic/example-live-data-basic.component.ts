@@ -1,6 +1,7 @@
 import { Component, ViewChild, ViewChildren } from '@angular/core';
 import { DataService, Quote } from '../data.service';
 import { Observable } from 'rxjs';
+import { Column, StyleCellContext } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-live-data-basic',
@@ -16,6 +17,20 @@ export class ExampleLiveDataBasicComponent {
 			this.rows = quotes;
 			this.update();
 		});
+	}
+
+	diff(cell) {
+		const row = cell.$row;
+		return row.last - row.previous;
+	}
+
+	styleCell(row: Quote, column: Column, context: StyleCellContext) {
+		if (column.key === 'diff') {
+			const d = this.diff({ $row: row });
+			if (d !== 0) {
+				context.class(d > 0 ? 'positive' : 'negative');
+			}
+		}
 	}
 
 	update() {
