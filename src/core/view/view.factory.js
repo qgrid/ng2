@@ -51,7 +51,7 @@ export function viewFactory(
 		host.edit = new EditView(modelProxy, table, navigationShortuct);
 		host.filter = new FilterView(modelProxy);
 		host.foot = new FootView(modelProxy, table);
-		host.group = new GroupView(modelProxy, table, commandManager, gridService);
+		host.group = new GroupView(modelProxy, table, gridService, navigationShortuct);
 		host.head = new HeadView(modelProxy, table, selectors.th);
 		host.highlight = new HighlightView(modelProxy, table);
 		host.layout = new LayoutView(modelProxy, table, gridService);
@@ -59,7 +59,7 @@ export function viewFactory(
 		host.pagination = new PaginationView(modelProxy);
 		host.pivot = new PivotView(modelProxy);
 		host.row = new RowView(modelProxy, table, selectors.tr);
-		host.rowDetails = new RowDetailsView(modelProxy, table, commandManager);
+		host.rowDetails = new RowDetailsView(modelProxy, table, navigationShortuct);
 		host.scroll = new ScrollView(modelProxy, table, vscroll);
 		host.selection = new SelectionView(modelProxy, table, selectionShortcut);
 		host.sort = new SortView(modelProxy);

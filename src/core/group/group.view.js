@@ -33,13 +33,17 @@ function rowspanIsVisible(node, column, parent) {
 }
 
 export class GroupView {
-	constructor(model, table, commandManager, service) {
+	constructor(model, table, service, shortcut) {
 		this.model = model;
 		this.table = table;
 		this.valueFactory = valueFactory;
-		this.toggleStatus = new Command({
+
+		const toggleStatus = new Command({
 			source: 'group.view',
 			execute: (node, column) => {
+				node = node || model.navigation().row;
+				column = column || model.navigation().column;
+
 				node = this.getNode(node, column);
 				const toggle = model.group().toggle;
 				if (toggle.execute(node) !== false) {
@@ -52,6 +56,9 @@ export class GroupView {
 				}
 			},
 			canExecute: (node, column) => {
+				node = node || model.navigation().row;
+				column = column || model.navigation().column;
+
 				node = this.getNode(node, column);
 				const toggle = model.group().toggle;
 				return node && node.type === 'group' && toggle.canExecute(node);
@@ -61,13 +68,12 @@ export class GroupView {
 
 		let shouldExpand = true;
 
-		this.toggleAllStatus = new Command({
+		const toggleAllStatus = new Command({
 			source: 'group.view',
 			execute: () => {
 				if (model.group().toggleAll.execute() !== false) {
 					const nodes = model.view().nodes;
 					const toggle = model.group().toggle;
-					const toggleStatus = this.toggleStatus;
 
 					traverse(nodes, node => {
 						if (toggleStatus.canExecute(node)) {
@@ -88,8 +94,10 @@ export class GroupView {
 			canExecute: () => model.group().toggleAll.canExecute()
 		});
 
-		const shortcut = model.action().shortcut;
-		shortcut.register(commandManager, [this.toggleStatus, this.toggleAllStatus]);
+		this.toggleStatus = toggleStatus;
+		this.toggleAllStatus = toggleAllStatus;
+
+		shortcut.register([toggleStatus, toggleAllStatus]);
 
 		const createColumn = columnFactory(model);
 		this.reference = {
