@@ -1,16 +1,13 @@
 import { ColumnModel } from '../column-type/column.model';
+import { Td } from './td';
+import { TrPosition } from './tr';
 
-export declare class IBagCell {
+export declare interface BagCell extends Td {
 	element: HTMLElement;
-	rowIndex: number;
-	columnIndex: number;
-	row: any;
-	column: ColumnModel;
 }
 
-export declare class IBagRow {
+export declare interface BagRow extends TrPosition {
 	element: HTMLElement;
-	index: number;
 }
 
 export declare class Bag {
@@ -18,8 +15,8 @@ export declare class Bag {
 
 	findModel(element: HTMLElement): any;
 	hasModel(element: HTMLElement): boolean;
-	addRow(row: IBagRow);
-	addCell(cell: IBagCell);
-	deleteRow(row: IBagRow);
-	deleteCell(cell: IBagCell);
+	addRow(row: BagRow);
+	addCell(cell: BagCell);
+	deleteRow(row: BagRow);
+	deleteCell(cell: BagCell);
 }

@@ -24,20 +24,18 @@ export class EditService {
 			const rowIndex = rows.indexOf(row);
 			const columnIndex = columns.indexOf(column);
 			
-			const cellView = this.table.body.cell(rowIndex, columnIndex).model();
-			const cell = cellView.model;
-			const type = cell.column.type;
+			const td = this.table.body.cell(rowIndex, columnIndex).model();
+			const type = td.column.type;
 			if (startColumnType === type) {
-				const editor = new CellEditor(cell);
+				const editor = new CellEditor(td);
 				editor.label = label;
 				editor.value = value;
+
 				editView.editor = editor;
-				
 				if (editView.push.canExecute()) {
 					editView.push.execute();
 				}
 			}
 		}
-
 	}
 }

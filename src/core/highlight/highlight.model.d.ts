@@ -1,3 +1,5 @@
+import { TdPosition } from '../dom/td';
+
 /**
  * A class contains highlight data for rows and columns
  */
@@ -12,5 +14,5 @@ export declare interface HighlightModel {
 	 */
 	rows?: number[];
 
-	cell?: { rowIndex: number, columnIndex: number };
+	cell?: TdPosition;
 }

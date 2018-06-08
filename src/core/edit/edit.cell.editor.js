@@ -1,10 +1,11 @@
-import {Fetch} from '../infrastructure/fetch';
-import {parseFactory} from '../services/convert';
-import {clone, isUndefined, noop} from '../utility/kit';
-import {get as getLabel} from '../services/label';
+import { Fetch } from '../infrastructure/fetch';
+import { parseFactory } from '../services/convert';
+import { clone, isUndefined, noop } from '../utility/kit';
 
 class CellEditorCore {
-	constructor() {
+	constructor(cell) {
+		this.cell = cell;
+
 		this.value = null;
 		this.fetch = noop;
 		this.resetFetch = noop;
@@ -21,13 +22,12 @@ class CellEditorCore {
 	}
 }
 
-const empty = new CellEditorCore();
+const empty = new CellEditorCore(null);
 
 export class CellEditor extends CellEditorCore {
 	constructor(cell) {
-		super();
+		super(cell);
 
-		this.cell = cell;
 		this.fetch = this.fetchFactory();
 		this.resetFetch = this.fetch.run(cell.row);
 
@@ -62,22 +62,6 @@ export class CellEditor extends CellEditorCore {
 		this.value = null;
 		this.resetFetch();
 		this.resetFetch = noop;
-	}
-
-	get title() {
-		return this.cell.column.title;
-	}
-
-	get column() {
-		return this.cell.column;
-	}
-
-	get options() {
-		return this.cell.column.editorOptions;
-	}
-
-	getLabel(item) {
-		return getLabel(item, this.options);
 	}
 
 	fetchFactory() {

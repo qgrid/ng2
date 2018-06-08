@@ -88,9 +88,9 @@ export class BodyCtrl {
 
 	onMouseMove(e) {
 		const pathFinder = new PathService(this.bag.body);
-		const cellView = pathFinder.cell(e.path);
+		const td = pathFinder.cell(e.path);
 
-		if (cellView) {
+		if (td) {
 			const { highlight } = this.view;
 			const { rows, cell } = this.model.highlight();
 
@@ -99,17 +99,17 @@ export class BodyCtrl {
 			}
 
 			const newCell = {
-				rowIndex: cellView.rowIndex,
-				columnIndex: cellView.columnIndex
+				rowIndex: td.rowIndex,
+				columnIndex: td.columnIndex
 			};
 
 			if (highlight.cell.canExecute(newCell)) {
 				highlight.cell.execute(newCell, true)
 			}
 
-			const rowView = pathFinder.row(e.path);
-			if (rowView) {
-				const { index } = rowView;
+			const tr = pathFinder.row(e.path);
+			if (tr) {
+				const { index } = tr;
 
 				if (highlight.row.canExecute(index)) {
 					rows
@@ -123,7 +123,7 @@ export class BodyCtrl {
 
 		if (this.selection.mode === 'range') {
 			const startCell = this.rangeStartCell;
-			const endCell = cellView;
+			const endCell = td;
 
 			if (startCell && endCell) {
 				this.navigate(endCell);

@@ -333,6 +333,14 @@ export class EditCellView {
 		return this.editor.column;
 	}
 
+	get cell() {
+		return this.editor.cell;
+	}
+
+	get row() {
+		return this.editor.row;
+	}
+
 	canEdit(cell) {
 		if (cell) {
 			return cell.column.canEdit && this.model.edit().mode === 'cell';

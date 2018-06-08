@@ -1,7 +1,7 @@
 import { Command } from '../command/command';
 import { Navigation } from './navigation';
 import { GRID_PREFIX } from '../definition';
-import { CellView } from '../scene/view/cell.view';
+import { Td } from '../dom/td';
 import { Fastdom } from '../services/fastdom';
 
 export class NavigationView {
@@ -28,15 +28,15 @@ export class NavigationView {
 					}
 				});
 			},
-			canExecute: cell => {
-				const currentCell = model.navigation().cell;
-				if (cell && cell.column.canFocus && !CellView.equals(cell, currentCell)) {
+			canExecute: newCell => {
+				const oldCell = model.navigation().cell;
+				if (newCell && newCell.column.canFocus && !Td.equals(newCell, oldCell)) {
 					if (this.model.edit().mode !== 'cell') {
 						switch (this.model.selection().unit) {
 							case 'row':
 							case 'column': {
 								// Focus cell only if it was focused previously by keyboard
-								if (!currentCell) {
+								if (!oldCell) {
 									return false;
 								}
 								break;
@@ -125,7 +125,6 @@ export class NavigationView {
 		const cell = this.table.body.cell(rowIndex, columnIndex);
 		if (cell.model()) {
 			Fastdom.mutate(() => cell.addClass(`${GRID_PREFIX}-focused`));
-
 			dispose.push(() => Fastdom.mutate(() => cell.removeClass(`${GRID_PREFIX}-focused`)));
 		}
 
