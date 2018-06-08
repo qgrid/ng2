@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, NgZone } from '@angular/core';
+import { Component, ElementRef, OnInit, NgZone, Input } from '@angular/core';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { PathService } from 'ng2-qgrid/core/path/path.service';
@@ -16,6 +16,8 @@ import { TableCoreService } from '../table/table-core.service';
 	templateUrl: './body-core.component.html'
 })
 export class BodyCoreComponent extends NgComponent implements OnInit {
+	@Input() pin = 'body';
+
 	constructor(
 		private element: ElementRef,
 		public $view: ViewCoreService,

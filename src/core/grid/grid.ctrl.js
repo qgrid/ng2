@@ -71,11 +71,14 @@ export class GridCtrl extends Disposable {
 
 	invalidateVisibility() {
 		const area = this.model.scene().column.area;
+		const rowModel = this.model.row();
 		const visibility = this.model.visibility;
 		visibility({
 			pin: {
-				left: area.left.length,
-				right: area.right.length
+				left: area.left.length > 0,
+				right: area.right.length > 0,
+				top: rowModel.pinTop.length > 0,
+				bottom: rowModel.pinBottom.length > 0
 			}
 		}, {
 				source: 'grid.ctrl'

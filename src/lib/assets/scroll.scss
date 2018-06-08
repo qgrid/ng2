@@ -1,4 +1,5 @@
-$scrollSize: 8px;
+@import "variable.scss";
+
 tbody {
     tr {
         &.q-grid-scroll-mark {

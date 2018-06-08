@@ -32,6 +32,18 @@ export function paginationPipe(memo, context, next) {
 function paginate(model, rows) {
 	const { size, current } = model.pagination();
 	const start = current * size;
-	model.pagination({ count: rows.length }, { source: 'pagination.pipe', behavior: 'core' });
-	return rows.slice(start, start + size);
+	const contentRows = rows.filter(filterPinnedRows(model));
+	model.pagination({ count: contentRows.length }, { source: 'pagination.pipe', behavior: 'core' });
+
+
+return contentRows.slice(start, start + size);
+}
+
+function filterPinnedRows(model) {
+	const rowModel = model.row();
+
+
+
+const pinnedRows = [...rowModel.pinTop, ...rowModel.pinBottom];
+	return row => pinnedRows.every(p => p !== row);
 }
