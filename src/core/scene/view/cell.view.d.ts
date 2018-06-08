@@ -1,11 +1,11 @@
 import { ColumnModel } from '../../column-type/column.model';
 
-export declare class CellView {
-	value: any;
-	label: any;
-	column: ColumnModel;
-	row: any;
-	model: any;
+export interface CellViewPosition {
+	readonly rowIndex: number;
+	readonly columnIndex: number;
+}
 
-	mode(value: string): void;
+export interface CellView extends CellViewPosition {
+	readonly row: any;
+	readonly column: ColumnModel;
 }

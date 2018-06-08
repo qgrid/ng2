@@ -34,7 +34,7 @@ export class SelectorMark {
 				const rowCount = rows.length;
 
 				result.push({
-					element: element,
+					element,
 					columnRange: new Range(columnStart, columnStart + columnCount),
 					rowRange: new Range(rowStart, rowStart + rowCount)
 				});

@@ -9,7 +9,7 @@ import { ExampleActionBarBasicComponent } from './action-bar-basic/example-actio
 import { ExampleActionBarTemplateComponent } from './action-bar-template/example-action-bar-template.component';
 import { ExampleAggregateColumnBasicComponent } from './aggregate-column-basic/example-aggregate-column-basic.component';
 import { ExampleColumnReferenceBasicComponent } from './column-reference-basic/example-column-reference-basic.component';
-import { ExampleColumnRowOptionsComponent } from './column-row-options/example-column-row-options.component';
+import { ExampleColumnRowOptionsBasicComponent } from './column-row-options-basic/example-column-row-options-basic.component';
 import { ExampleDefineColumnAsyncComponent } from './define-column-async/example-define-column-async.component';
 import { ExampleDefineColumnBasicComponent } from './define-column-basic/example-define-column-basic.component';
 import { ExampleDefineColumnHybridComponent } from './define-column-hybrid/example-define-column-hybrid.component';
@@ -41,12 +41,15 @@ import { ExampleIndexColumnBasicComponent } from './index-column-basic/example-i
 import { ExampleIndexColumnHybridComponent } from './index-column-hybrid/example-index-column-hybrid.component';
 import { ExampleIndexColumnModelComponent } from './index-column-model/example-index-column-model.component';
 import { ExampleLegendGridBasicComponent } from './legend-grid-basic/example-legend-grid-basic.component';
+import { ExampleLiveDataBasicComponent } from './live-data-basic/example-live-data-basic.component';
 import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
 import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/example-look-atoms-customized.component';
 import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-atoms-model.component';
 import { ExampleLookAtomsReadonlyComponent } from './look-atoms-readonly/example-look-atoms-readonly.component';
 import { ExampleLookPeopleBasicComponent } from './look-people-basic/example-look-people-basic.component';
 import { ExampleLookPeopleModelComponent } from './look-people-model/example-look-people-model.component';
+import { ExampleLookQuotesBasicComponent } from './look-quotes-basic/example-look-quotes-basic.component';
+import { ExampleLookQuotesModelComponent } from './look-quotes-model/example-look-quotes-model.component';
 import { ExampleManipulateDataBasicComponent } from './manipulate-data-basic/example-manipulate-data-basic.component';
 import { ExamplePaginationBasicComponent } from './pagination-basic/example-pagination-basic.component';
 import { ExamplePersistenceBasicComponent } from './persistence-basic/example-persistence-basic.component';
@@ -70,13 +73,14 @@ import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggre
 import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/example-summary-column-basic.component';
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
+import { ExampleColumnArrayBasicComponent } from './column-array-basic/example-column-array-basic.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
 	ExampleActionBarTemplateComponent,
 	ExampleAggregateColumnBasicComponent,
 	ExampleColumnReferenceBasicComponent,
-	ExampleColumnRowOptionsComponent,
+	ExampleColumnRowOptionsBasicComponent,
 	ExampleDefineColumnAsyncComponent,
 	ExampleDefineColumnBasicComponent,
 	ExampleDefineColumnHybridComponent,
@@ -108,12 +112,15 @@ const EXAMPLES: Array<any> = [
 	ExampleIndexColumnHybridComponent,
 	ExampleIndexColumnModelComponent,
 	ExampleLegendGridBasicComponent,
+	ExampleLiveDataBasicComponent,
 	ExampleLookAtomsBasicComponent,
 	ExampleLookAtomsCustomizedComponent,
 	ExampleLookAtomsModelComponent,
 	ExampleLookAtomsReadonlyComponent,
 	ExampleLookPeopleBasicComponent,
 	ExampleLookPeopleModelComponent,
+	ExampleLookQuotesBasicComponent,
+	ExampleLookQuotesModelComponent,
 	ExampleManipulateDataBasicComponent,
 	ExamplePaginationBasicComponent,
 	ExamplePersistenceBasicComponent,
@@ -136,6 +143,7 @@ const EXAMPLES: Array<any> = [
 	ExampleSummaryColumnBasicComponent,
 	ExampleThemeGridDarkComponent,
 	ExampleThemeGridEmbedComponent,
+	ExampleColumnArrayBasicComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;

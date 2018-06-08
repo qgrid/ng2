@@ -1,5 +1,5 @@
 import { Element } from './element';
-import { CellView } from '../scene/view/cell.view';
+import { Td } from './td';
 
 export class Cell extends Element {
 	constructor(context, rowIndex, columnIndex, element = null) {
@@ -15,7 +15,7 @@ export class Cell extends Element {
 	}
 
 	modelCore() {
-		const model = this.context.bag.findModel(this.getElement());
-		return model ? new CellView(model) : null;
+		const td = this.context.bag.findModel(this.getElement());
+		return td ? new Td(td) : null;
 	}
 }
