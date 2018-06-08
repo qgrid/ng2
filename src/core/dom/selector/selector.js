@@ -11,7 +11,7 @@ export class Selector {
 
 	columnCount(rowIndex) {
 		const row = this.matrix[rowIndex];
-		return row ? row.length : 0;
+		return row ? new Set(row).size : 0;
 	}
 
 	columnCells(columnIndex) {

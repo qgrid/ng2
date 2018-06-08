@@ -17,6 +17,7 @@ export class ExampleColumnArrayBasicComponent {
 			'booleans': [true, false, true],
 			'nulls': [null, undefined, ''],
 			'dates': [new Date(2018, 1, 12), new Date(2018, 2, 13)],
+			'customTemplate': ['Lorem', 'ipsum', 'dolor', 'sit', 'amet']
 		}
 	];
 
