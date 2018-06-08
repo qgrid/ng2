@@ -46,6 +46,10 @@ export class ColumnComponent implements OnInit {
 	@Input() label: (row: any, value?: any) => any | any;
 	@Input() labelPath: string;
 	
+	@Input() itemLabel: (row: any, value?: any) => any;
+	@Input() itemFormat: string;
+	@Input() itemType: string;
+	
 	@Input() value: (row: any, value?: any) => any;
 	@Input() path: string;
 

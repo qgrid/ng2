@@ -22,7 +22,10 @@ export class ArrayColumnModel extends DataColumnModel {
 	constructor() {
 		super('array');
 
+		this.itemType = 'text';
 		this.itemLabel = identity;
+		this.itemFormat = '';
+
 		this.label = function (row) {
 			const value = getValue(row, this);
 			const itemLabel = this.itemLabel.bind(this);

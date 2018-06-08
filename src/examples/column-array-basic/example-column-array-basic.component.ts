@@ -13,7 +13,7 @@ export class ExampleColumnArrayBasicComponent {
 	rows = [
 		{
 			'strings': ['Lorem', 'ipsum', 'dolor', 'sit', 'amet'],
-			'numbers': [1, 3, 5, 7, 11, 13, 17, 19, 23],
+			'numbers': [Number.MIN_SAFE_INTEGER, 1, Math.PI, 5, 7, 11, 13, 17, 19, 23, Number.MAX_VALUE],
 			'booleans': [true, false, true],
 			'nulls': [null, undefined, ''],
 			'dates': [new Date(2018, 1, 12), new Date(2018, 2, 13)],
