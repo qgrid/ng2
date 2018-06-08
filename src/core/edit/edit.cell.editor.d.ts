@@ -14,9 +14,6 @@ export declare class CellEditor {
 	label: any;
 
 	readonly cell: CellView;
-	readonly options: EditorOptions;
-	readonly column: ColumnModel;
-	readonly row: ColumnModel;
 
 	commit(): void;
 	reset(): void;

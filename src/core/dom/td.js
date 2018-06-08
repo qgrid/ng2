@@ -58,7 +58,7 @@ export class Td {
 	}
 
 	set label(label) {
-		if (!Td.equals(this, td.td)) {
+		if (!Td.equals(this, this.td)) {
 			throw new AppError('td', 'Internal model doesn\'t match container');
 		}
 
@@ -66,7 +66,7 @@ export class Td {
 	}
 
 	mode(value) {
-		if (!Td.equals(this, td.td)) {
+		if (!Td.equals(this, this.td)) {
 			throw new AppError('td', 'Internal model doesn\'t match container');
 		}
 

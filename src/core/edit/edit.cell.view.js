@@ -52,8 +52,8 @@ export class EditCellView {
 	}
 
 	get commands() {
-		const model = this.model;
-		const table = this.table;
+		const { model, table } = this;
+
 		const commands = {
 			enter: new Command({
 				priority: 1,
@@ -67,6 +67,7 @@ export class EditCellView {
 					}
 
 					cell = cell || model.navigation().cell;
+
 					return cell
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
@@ -83,7 +84,9 @@ export class EditCellView {
 					const source = cell ? 'mouse' : 'keyboard';
 					cell = cell || model.navigation().cell;
 					if (cell && model.edit().enter.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
-						this.editor = new CellEditor(cell);
+						const td = table.body.cell(cell.rowIndex, cell.columnIndex).model();
+						this.editor = new CellEditor(td);
+
 						const keyCode = this.shortcut.keyCode();
 						if (source === 'keyboard' && Shortcut.isPrintable(keyCode)) {
 							const parse = parseFactory(cell.column.type, cell.column.editor);
@@ -94,7 +97,7 @@ export class EditCellView {
 							}
 						}
 
-						this.mode(cell, 'edit');
+						this.mode(this.editor.td, 'edit');
 						return true;
 					}
 
@@ -106,9 +109,9 @@ export class EditCellView {
 				source: 'edit.cell.view',
 				shortcut: this.shortcutFactory('commit'),
 				canExecute: cell => {
-					cell = cell || this.editor.cell;
+					cell = cell || this.editor.td;
 					const canEdit = cell
-						&& cell === this.editor.cell
+						&& cell === this.editor.td
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
 						&& model.edit().state === 'edit';
@@ -126,7 +129,7 @@ export class EditCellView {
 						e.stopImmediatePropagation();
 					}
 
-					cell = cell || this.editor.cell;
+					cell = cell || this.editor.td;
 					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
 						this.editor.commit();
 						this.editor = CellEditor.empty;
@@ -145,7 +148,7 @@ export class EditCellView {
 				source: 'edit.cell.view',
 
 				canExecute: cell => {
-					cell = cell || this.editor.cell;
+					cell = cell || this.editor.td;
 					const canEdit = cell && cell.column.canEdit;
 					if (canEdit) {
 						const context = this.contextFactory(cell);
@@ -161,7 +164,7 @@ export class EditCellView {
 						e.stopImmediatePropagation();
 					}
 
-					cell = cell || this.editor.cell;
+					cell = cell || this.editor.td;
 					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
 						this.editor.commit();
 						this.editor = CellEditor.empty;
@@ -176,7 +179,7 @@ export class EditCellView {
 				source: 'edit.cell.view',
 				shortcut: this.shortcutFactory('cancel'),
 				canExecute: cell => {
-					cell = cell || this.editor.cell;
+					cell = cell || this.editor.td;
 					return cell
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
@@ -189,7 +192,7 @@ export class EditCellView {
 						e.stopImmediatePropagation();
 					}
 
-					cell = cell || this.editor.cell;
+					cell = cell || this.editor.td;
 					if (cell && model.edit().cancel.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
 						this.editor.reset();
 						this.editor = CellEditor.empty;
@@ -207,7 +210,7 @@ export class EditCellView {
 				priority: 1,
 				source: 'edit.cell.view',
 				canExecute: cell => {
-					cell = cell || this.editor.cell;
+					cell = cell || this.editor.td;
 					return cell
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
@@ -220,7 +223,7 @@ export class EditCellView {
 						e.stopImmediatePropagation();
 					}
 
-					cell = cell || this.editor.cell;
+					cell = cell || this.editor.td;
 					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						this.editor.reset();
 						return true;
@@ -238,7 +241,7 @@ export class EditCellView {
 						e.stopImmediatePropagation();
 					}
 
-					cell = cell || this.editor.cell;
+					cell = cell || this.editor.td;
 					if (cell) {
 						if (this.commit.canExecute(cell, e)) {
 							const originValue = cell.value;
@@ -262,7 +265,7 @@ export class EditCellView {
 				priority: 1,
 				source: 'edit.cell.view',
 				canExecute: cell => {
-					cell = cell || this.editor.cell;
+					cell = cell || this.editor.td;
 					return cell
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
@@ -275,7 +278,7 @@ export class EditCellView {
 						e.stopImmediatePropagation();
 					}
 
-					cell = cell || this.editor.cell;
+					cell = cell || this.editor.td;
 					if (cell && model.edit().clear.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						this.editor.clear();
 						return true;
@@ -329,16 +332,20 @@ export class EditCellView {
 		this.editor.label = label;
 	}
 
+	get row() {
+		return this.cell.row;
+	}
+
 	get column() {
-		return this.editor.column;
+		return this.cell.column;
 	}
 
 	get cell() {
-		return this.editor.cell;
+		return this.editor.td;
 	}
 
-	get row() {
-		return this.editor.row;
+	get options() {
+		return this.column.options;
 	}
 
 	canEdit(cell) {
@@ -349,16 +356,12 @@ export class EditCellView {
 		return false;
 	}
 
-	get options() {
-		return this.editor.options;
-	}
-
 	shortcutFactory(type) {
 		const model = this.model;
 		const edit = model.edit;
 		return () => {
 			const shortcuts = edit()[type + 'Shortcuts'];
-			const cell = this.editor.cell;
+			const cell = this.editor.td;
 			if (cell) {
 				const type = cell.column && cell.column.editor ? cell.column.editor : cell.column.type;
 				if (shortcuts.hasOwnProperty(type)) {

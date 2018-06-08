@@ -3,10 +3,12 @@ import { parseFactory } from '../services/convert';
 import { clone, isUndefined, noop } from '../utility/kit';
 
 class CellEditorCore {
-	constructor(cell) {
-		this.cell = cell;
+	constructor(td) {
+		this.td = td;
 
 		this.value = null;
+		this.label = null;
+
 		this.fetch = noop;
 		this.resetFetch = noop;
 	}
@@ -17,42 +19,44 @@ class CellEditorCore {
 	reset() {
 	}
 
-	get options() {
-		return {};
+	clear() {
+
 	}
 }
 
 const empty = new CellEditorCore(null);
 
 export class CellEditor extends CellEditorCore {
-	constructor(cell) {
-		super(cell);
+	constructor(td) {
+		super(td);
 
 		this.fetch = this.fetchFactory();
-		this.resetFetch = this.fetch.run(cell.row);
+		this.resetFetch = this.fetch.run(td.row);
 
-		if (isUndefined(cell.value)) {
+		if (isUndefined(td.value)) {
 			this.value = null;
 		}
 		else {
-			const parse = parseFactory(cell.column.type, cell.column.editor);
-			const typedValue = parse(clone(cell.value));
-			this.value = typedValue === null ? cell.value : typedValue;
+			const parse = parseFactory(td.column.type, td.column.editor);
+			const typedValue = parse(clone(td.value));
+			this.value = typedValue === null ? td.value : typedValue;
 		}
 
-		this.label = isUndefined(cell.label) ? null : clone(cell.label);
+		this.label = isUndefined(td.label) ? null : clone(td.label);
 	}
 
 	commit() {
-		this.cell.value = this.value;
-		this.cell.label = this.label;
+		this.td.value = this.value;
+		this.td.label = this.label;
+
 		this.resetFetch();
 		this.resetFetch = noop;
 	}
 
 	reset() {
-		this.label = this.cell.label;
-		this.value = this.cell.value;
+		this.label = this.td.label;
+		this.value = this.td.value;
+
 		this.resetFetch();
 		this.resetFetch = noop;
 	}
@@ -60,16 +64,18 @@ export class CellEditor extends CellEditorCore {
 	clear() {
 		this.label = null;
 		this.value = null;
+
 		this.resetFetch();
 		this.resetFetch = noop;
 	}
 
 	fetchFactory() {
-		const options = this.options;
+		const { options } = this.td.column;
 		if (options && options.fetch) {
 			return new Fetch(options.fetch);
 		}
-		return new Fetch(this.cell.value);
+
+		return new Fetch(this.td.value);
 	}
 
 	static get empty() {
