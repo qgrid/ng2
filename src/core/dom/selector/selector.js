@@ -122,22 +122,11 @@ export class Selector {
 	}
 
 	td(rowIndex, columnIndex) {
-		const set = new Set();
-		const matrix = this.matrix;
-		let cursor = 0;
-		for (let i = 0, length = matrix.length; i < length; i++) {
-			const td = matrix[i][columnIndex];
+		const row = this.matrix[rowIndex];
+		if (row) {
+			const td = row[columnIndex];
 			if (td) {
-				set.add(td);
-				if (set.size + cursor > rowIndex) {
-					return td;
-				}
-				continue;
-			}
-
-			cursor++;
-			if (set.size + cursor > rowIndex) {
-				break;
+				return td;
 			}
 		}
 
