@@ -9,8 +9,7 @@ import {
 	ElementRef,
 	EmbeddedViewRef,
 	ComponentRef,
-	NgZone,
-	ApplicationRef
+	NgZone
 } from '@angular/core';
 import { RootComponent } from '../../infrastructure/component/root.component';
 import { RootService } from '../../infrastructure/component/root.service';
@@ -29,7 +28,7 @@ import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 import { FetchContext } from 'ng2-qgrid/core/fetch/fetch.context';
 import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
-import { isUndefined } from 'ng2-qgrid/core/utility/kit';
+import { isUndefined, noop } from 'ng2-qgrid/core/utility/kit';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { PipeContext, PipeMemo } from 'ng2-qgrid/core/pipe/pipe.item';
@@ -115,8 +114,7 @@ export class GridComponent extends RootComponent implements OnInit {
 		private element: ElementRef,
 		private theme: ThemeService,
 		private zone: NgZone,
-		private layerService: LayerService,
-		private app: ApplicationRef
+		private layerService: LayerService
 	) {
 		super();
 
@@ -176,9 +174,10 @@ export class GridComponent extends RootComponent implements OnInit {
 				listener.on('keydown', e => {
 					const result = ctrl.keyDown(e);
 					if (result.indexOf('navigation') >= 0) {
-						navJob(() => this.app.tick());
+						navJob((() => this.zone.run(noop)));
 					} else if (result.length) {
-						this.app.tick();
+						// app.tick is not working correctly, why?
+						this.zone.run(noop);
 					}
 				});
 			});
@@ -186,7 +185,7 @@ export class GridComponent extends RootComponent implements OnInit {
 			listener.on('keydown', e => {
 				const result = ctrl.keyDown(e);
 				if (result.length) {
-					this.app.tick();
+					this.zone.run(noop);
 				}
 			});
 		}
