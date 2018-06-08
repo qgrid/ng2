@@ -4,15 +4,15 @@ import { Column } from './column';
 import { Row } from './row';
 import { Bag } from './bag';
 
-export interface IBoxMapper {
+export interface BoxMapper {
 	row(): any;
 	column(): (columnIndex: number) => ColumnModel;
 	rowBack(): any;
 	columnBack(): any;
 }
 
-export interface IBoxContext {
-	mapper: IBoxMapper;
+export interface BoxContext {
+	mapper: BoxMapper;
 	layer: any;
 	bag: {
 		body: Bag,
@@ -22,9 +22,7 @@ export interface IBoxContext {
 }
 
 export declare class Box {
-	constructor(context: IBoxContext);
-
-	context: IBoxContext;
+	constructor(context: BoxContext);
 
 	cell(rowIndex: number, columnIndex: number): Cell;
 	column(columnIndex: number): Column;

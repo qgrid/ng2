@@ -1,4 +1,4 @@
-import { TdPosition } from '../dom/td';
+import { CellViewPosition } from '../scene/view/cell.view';
 
 /**
  * A class contains highlight data for rows and columns
@@ -14,5 +14,5 @@ export declare interface HighlightModel {
 	 */
 	rows?: number[];
 
-	cell?: TdPosition;
+	cell?: CellViewPosition;
 }

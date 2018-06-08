@@ -68,21 +68,19 @@ export class NavigationView {
 					this.table.view.focus();
 				}
 
-				const { state } = e;
-				const newRow = state.rowIndex;
-				const newColumn = state.columnIndex;
+				const { rowIndex, columnIndex } = e.state;
 
 				focusBlurs = this.invalidateFocus(focusBlurs);
-				if (e.tag.source !== 'navigation.scroll' && this.scrollTo.canExecute(newRow, newColumn)) {
-					this.scrollTo.execute(newRow, newColumn);
+				if (e.tag.source !== 'navigation.scroll' && this.scrollTo.canExecute(rowIndex, columnIndex)) {
+					this.scrollTo.execute(rowIndex, columnIndex);
 				}
 
 				model.focus({
-					rowIndex: newRow,
-					columnIndex: newColumn
+					rowIndex,
+					columnIndex
 				}, {
-						source: 'navigation.view'
-					});
+					source: 'navigation.view'
+				});
 			}
 		});
 

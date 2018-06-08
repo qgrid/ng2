@@ -1,15 +1,15 @@
-import {View} from './view';
-import {Data} from './data';
-import {Head} from './head';
-import {Body} from './body';
-import {Foot} from './foot';
-import {IBoxContext} from './box';
+import { View } from './view';
+import { Data } from './data';
+import { Head } from './head';
+import { Body } from './body';
+import { Foot } from './foot';
+import { BoxContext } from './box';
 
 export declare class Table {
-	constructor(markup: object, context: IBoxContext);
+	constructor(markup: { [key: string]: HTMLElement }, context: BoxContext);
 
-	markup: object;
-	context: IBoxContext;
+	readonly markup: { [key: string]: HTMLElement };
+	readonly context: BoxContext;
 
 	readonly head: Head;
 	readonly body: Body;
