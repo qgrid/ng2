@@ -19,6 +19,7 @@ export class HighlightView {
 		let columnHoverBlurs = [];
 		let rowHoverBlurs = [];
 		let selectionBlurs = [];
+		let cellHoverBlurs = [];
 
 		this.column = new Command({
 			source: 'highlight.view',
@@ -76,6 +77,29 @@ export class HighlightView {
 			}
 		});
 
+		this.cell = new Command({
+			source: 'highlight.view',
+			canExecute: () => !this.isRendering,
+			execute: (newCell, state) => {
+				let { cell } = model.highlight();
+				let hasChanges = true;
+				if (newCell === cell) {
+					hasChanges = false;
+				}
+				else if (newCell && cell) {
+					hasChanges =
+						newCell.rowIndex !== cell.rowIndex
+						|| newCell.columnIndex !== cell.columnIndex;
+				}
+
+				if (hasChanges) {
+					model.highlight({ cell: newCell }, {
+						source: 'highlight.view'
+					});
+				}
+			}
+		});
+
 		model.selectionChanged.watch(e => {
 			if (e.hasChanges('items')) {
 				selectionBlurs = this.invalidateSelection(selectionBlurs);
@@ -89,6 +113,7 @@ export class HighlightView {
 					case 'stop':
 						columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
 						rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
+						cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
 						sortBlurs = this.invalidateSortBy(sortBlurs);
 						selectionBlurs = this.invalidateSelection(selectionBlurs);
 						break;
@@ -104,6 +129,10 @@ export class HighlightView {
 
 		model.highlightChanged.watch(e => {
 			if (!this.isRendering && e.tag.source !== 'highlight') {
+				if (e.hasChanges('cell')) {
+					cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
+				}
+
 				if (e.hasChanges('columns')) {
 					columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
 				}
@@ -115,7 +144,7 @@ export class HighlightView {
 		});
 
 		model.scrollChanged.watch(() => {
-			const highlight = model.highlight;
+			const { highlight } = model;
 			if (highlight().rows.length) {
 				highlight({ rows: [] }, {
 					source: 'highlight.view',
@@ -131,8 +160,8 @@ export class HighlightView {
 	invalidateColumnHover(dispose) {
 		dispose.forEach(f => f());
 		dispose = [];
-		const highlightColumns = this.model.highlight().columns;
-		for (let columnKey of highlightColumns) {
+		const { columns } = this.model.highlight();
+		for (let columnKey of columns) {
 			dispose.push(this.highlightColumn(columnKey, 'highlighted'));
 		}
 
@@ -142,11 +171,23 @@ export class HighlightView {
 	invalidateRowHover(dispose) {
 		dispose.forEach(f => f());
 		dispose = [];
-		const highlightRows = this.model.highlight().rows;
-		for (let rowIndex of highlightRows) {
+		const { rows } = this.model.highlight();
+		for (let rowIndex of rows) {
 			dispose.push(this.highlightRow(rowIndex, 'highlighted'));
 		}
 
+		return dispose;
+	}
+
+	invalidateCellHover(dispose) {
+		dispose.forEach(f => f());
+		dispose = [];
+		const { cell } = this.model.highlight();
+		if (cell) {
+			const { body } = this.table;
+			const { rowIndex, columnIndex } = cell;
+			dispose.push(this.highlightCell(body.cell(rowIndex, columnIndex), 'highlighted'));
+		}
 		return dispose;
 	}
 
@@ -188,51 +229,49 @@ export class HighlightView {
 	}
 
 	highlightColumn(key, cls) {
-		const table = this.table;
 		const index = this.columnIndex(key);
 		if (index < 0) {
 			return noop;
 		}
 
+		const { head, body, foot } = this.table;
 		Fastdom.mutate(() => {
-			const head = table.head;
 			head.column(index).addClass(`${GRID_PREFIX}-${cls}`);
 			head.column(index - 1).addClass(`${GRID_PREFIX}-${cls}-prev`);
 			head.column(index + 1).addClass(`${GRID_PREFIX}-${cls}-next`);
-			table.body.column(index).addClass(`${GRID_PREFIX}-${cls}`);
-			table.foot.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+			body.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+			foot.column(index).addClass(`${GRID_PREFIX}-${cls}`);
 		});
 
 		return this.blurColumn(key, cls);
 	}
 
 	blurColumn(key, cls) {
-		const table = this.table;
 		const index = this.columnIndex(key);
 		if (index < 0) {
 			return noop;
 		}
 
+		const { head, body, foot } = this.table;
 		return () => {
 			Fastdom.mutate(() => {
-				const head = table.head;
 				head.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
 				head.column(index - 1).removeClass(`${GRID_PREFIX}-${cls}-prev`);
 				head.column(index + 1).removeClass(`${GRID_PREFIX}-${cls}-next`);
-				table.body.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
-				table.foot.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+				body.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+				foot.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
 			});
 		};
 	}
 
 	highlightRow(index, cls) {
-		const table = this.table;
 		if (index < 0) {
 			return noop;
 		}
 
+		const { body } = this.table;
 		Fastdom.mutate(() => {
-			table.body.row(index).addClass(`${GRID_PREFIX}-${cls}`);
+			body.row(index).addClass(`${GRID_PREFIX}-${cls}`);
 		});
 
 		return this.blurRow(index, cls);

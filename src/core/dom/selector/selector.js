@@ -1,4 +1,5 @@
 import { FakeElement } from '../fake/element';
+import { Container } from '../container';
 import { isUndefined } from '../../utility/kit';
 
 export class Selector {
@@ -92,31 +93,42 @@ export class Selector {
 		return result;
 	}
 
-	row(rowIndex) {
+	row(rowIndex, columnIndex) {
 		const factory = this.factory;
+		if (!isUndefined(columnIndex)) {
+			const td = this.td(rowIndex, columnIndex);
+			return factory.row(td ? td.parentElement : new FakeElement(), rowIndex);
+
+		}
+
 		const row = this.matrix[rowIndex];
-		if (row && row.length) {
-			return factory.row(row[0].parentElement, rowIndex);
+		if (row) {
+			const set = new Set();
+			for (let td of row) {
+				set.add(td.parentElement);
+			}
+
+			const trs = Array.from(set);
+			return factory.row(trs.length > 1 ? new Container(trs) : trs[0], rowIndex);
 		}
 
 		return factory.row(new FakeElement(), rowIndex);
 	}
 
 	cell(rowIndex, columnIndex) {
+		const td = this.td(rowIndex, columnIndex);
+		return this.factory.cell(td || new FakeElement(), rowIndex, columnIndex);
+	}
+
+	td(rowIndex, columnIndex) {
 		const row = this.matrix[rowIndex];
-		const factory = this.factory;
-		if (row && row.length > columnIndex) {
-			return factory.cell(
-				row[columnIndex],
-				rowIndex,
-				columnIndex
-			);
+		if (row) {
+			const td = row[columnIndex];
+			if (td) {
+				return td;
+			}
 		}
 
-		return factory.cell(
-			new FakeElement(),
-			rowIndex,
-			columnIndex
-		);
+		return null;
 	}
 }

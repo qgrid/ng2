@@ -123,7 +123,7 @@ export class RowspanNodeRow extends NodeRow {
 	constructor(model) {
 		super(model);
 
-		this.getValue = (node, column, select) => {
+		const getValueFactory = getValue => (node, column, select) => {
 			switch (node.type) {
 				case 'group': {
 					const leaf = findFirstLeaf(node);
@@ -136,8 +136,14 @@ export class RowspanNodeRow extends NodeRow {
 				}
 			}
 
-			return super.getValue(node, column, select);
+			return getValue(node, column, select);
 		};
+
+		const getValue = this.getValue;
+		const getLabel = this.getLabel;
+
+		this.getLabel = getValueFactory(getLabel);
+		this.getValue = getValueFactory(getValue);
 	}
 
 	rowspan(node, column, isRoot = true) {

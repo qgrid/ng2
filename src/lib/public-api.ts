@@ -1,5 +1,5 @@
 // Core
-export { Model as GridModel } from 'ng2-qgrid/core/infrastructure/model';
+export { Model as GridModel, ModelEventArg as GridEventArg, ModelEvent as GridEvent } from 'ng2-qgrid/core/infrastructure/model';
 export { GridService } from 'ng2-qgrid/core/services/grid';
 
 // Main
@@ -60,3 +60,13 @@ export { StyleCellContext, StyleRowContext } from 'ng2-qgrid/core/style/style.co
 
 // Pipe
 export { PipeContext, PipeMemo } from 'ng2-qgrid/core/pipe/pipe.item';
+
+// Dom
+export { Tr as DomTr } from 'ng2-qgrid/core/dom/tr';
+export { Td as DomTd } from 'ng2-qgrid/core/dom/td';
+export { Box as DomBox } from 'ng2-qgrid/core/dom/box';
+export { Cell as DomCell } from 'ng2-qgrid/core/dom/cell';
+export { Row as DomRow } from 'ng2-qgrid/core/dom/row';
+export { Data as DomData } from 'ng2-qgrid/core/dom/data';
+export { View as DomView } from 'ng2-qgrid/core/dom/view';
+

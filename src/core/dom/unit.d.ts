@@ -1,4 +1,4 @@
-import {FakeElement} from './fake/element';
+import { FakeElement } from './fake/element';
 
 declare const fakeElement: FakeElement;
 

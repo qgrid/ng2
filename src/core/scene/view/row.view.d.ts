@@ -1,6 +1,7 @@
-export declare class RowView {
-	constructor(row: any);
+export interface RowViewPosition {
+	readonly index: number;
+}
 
-	index: number;
-	model: any;
+export interface RowView extends RowViewPosition {
+	readonly model: any;
 }

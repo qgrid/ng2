@@ -74,6 +74,12 @@
 				&.q-grid-highlighted {
 					background-color: $dark-accent;
 				}
+
+				&:not(.q-grid-highlighted) {
+					td.q-grid-selected {
+						background-color: $dark-accent;
+					}
+				}				
 			}
 			td {
 				&.q-grid-highlighted {

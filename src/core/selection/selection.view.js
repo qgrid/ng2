@@ -89,9 +89,7 @@ export class SelectionView {
 			source: 'selection.view',
 			canExecute: () => model.selection().unit === 'row' && this.rows.length > 0,
 			execute: () => {
-				const navState = model.navigation();
-				const rowIndex = navState.rowIndex;
-
+				const { rowIndex } = model.navigation();
 				const row = this.rows[rowIndex >= 0 ? rowIndex : rowIndex + 1];
 				const commit = this.toggle(row);
 				commit();
@@ -146,7 +144,7 @@ export class SelectionView {
 			commitRow: new Command({
 				source: 'selection.view',
 				canExecute: () => {
-					const column = model.navigation().column;
+					const { column } = model.navigation();
 					return column && column.type === 'select';
 				},
 				execute: () => {
@@ -161,13 +159,12 @@ export class SelectionView {
 				source: 'selection.view',
 				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex > 0,
 				execute: () => {
-					const navState = model.navigation();
-					const rowIndex = navState.rowIndex;
+					const { rowIndex, columnIndex } = model.navigation();
 					const row = this.rows[rowIndex];
 					const commit = this.toggle(row);
 					commit();
 
-					this.navigateTo(rowIndex - 1, navState.columnIndex);
+					this.navigateTo(rowIndex - 1, columnIndex);
 				},
 				shortcut: shortcut.togglePreviousRow
 			}),
@@ -175,13 +172,12 @@ export class SelectionView {
 				source: 'selection.view',
 				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex < this.rows.length - 1,
 				execute: () => {
-					const navState = model.navigation();
-					const rowIndex = navState.rowIndex;
+					const { rowIndex, columnIndex } = model.navigation();
 					const row = this.rows[rowIndex];
 					const commit = this.toggle(row);
 					commit();
 
-					this.navigateTo(rowIndex + 1, navState.columnIndex);
+					this.navigateTo(rowIndex + 1, columnIndex);
 				},
 				shortcut: shortcut.toggleNextRow
 			}),
@@ -189,7 +185,7 @@ export class SelectionView {
 				source: 'selection.view',
 				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex >= 0,
 				execute: () => {
-					const columnIndex = model.navigation().columnIndex;
+					const { columnIndex } = model.navigation();
 					const column = this.columns[columnIndex];
 					const commit = this.toggle(column);
 					commit();
@@ -200,13 +196,12 @@ export class SelectionView {
 				source: 'selection.view',
 				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex < this.columns.length - 1,
 				execute: () => {
-					const navState = model.navigation();
-					const columnIndex = navState.columnIndex;
+					const { rowIndex, columnIndex } = model.navigation();
 					const column = this.columns[columnIndex];
 					const commit = this.toggle(column);
 					commit();
 
-					this.navigateTo(navState.rowIndex, columnIndex + 1);
+					this.navigateTo(rowIndex, columnIndex + 1);
 				},
 				shortcut: shortcut.toggleNextColumn
 			}),
@@ -214,13 +209,12 @@ export class SelectionView {
 				source: 'selection.view',
 				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex > 0,
 				execute: () => {
-					const navState = model.navigation();
-					const columnIndex = navState.columnIndex;
+					const { rowIndex, columnIndex } = model.navigation();
 					const column = this.columns[columnIndex];
 					const commit = this.toggle(column);
 					commit();
 
-					this.navigateTo(navState.rowIndex, columnIndex - 1);
+					this.navigateTo(rowIndex, columnIndex - 1);
 				},
 				shortcut: shortcut.togglePreviousColumn
 			}),
@@ -361,7 +355,14 @@ export class SelectionView {
 	}
 
 	navigateTo(rowIndex, columnIndex) {
-		const cell = this.table.body.cell(rowIndex, columnIndex);
-		this.model.navigation({ cell: cell.model() }, { source: 'selection.view' });
+		const { row, column } = this.table.body.cell(rowIndex, columnIndex).model();
+		this.model.navigation({
+			cell: {
+				rowIndex,
+				columnIndex,
+				row,
+				column
+			}
+		}, { source: 'selection.view' });
 	}
 }

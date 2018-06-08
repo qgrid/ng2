@@ -58,7 +58,7 @@ export class BoolEditorComponent extends PluginComponent implements OnInit {
 	}
 
 	private get column() {
-		return this.view.edit.cell.editor.column as BoolColumnModel;
+		return this.view.edit.cell.column as BoolColumnModel;
 	}
 
 	private get cell() {

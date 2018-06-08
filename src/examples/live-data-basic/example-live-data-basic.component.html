@@ -1,0 +1,19 @@
+<q-grid caption="Live Data Basic"	
+        [rows]="rows">
+	<q-grid-columns generation="deep">
+		<q-grid-column key="metal" width="190"></q-grid-column>
+		<q-grid-column key="ldn1" title="LDN" width="70"></q-grid-column>
+		<q-grid-column key="bid" width="100" type="currency"></q-grid-column>
+		<q-grid-column key="ask" width="100" type="currency"></q-grid-column>
+		<q-grid-column key="ldn2" title="LDN" width="70"></q-grid-column>
+		<q-grid-column key="last" width="100" type="currency" canSort="false"></q-grid-column>
+		<q-grid-column key="ldn3" title="LDN" width="70"></q-grid-column>
+		<!-- <q-grid-column title="+/-" key="diff" type="number" width="70" [value]="diff" canSort="false" canFilter="false"></q-grid-column> -->
+		<q-grid-column key="high" width="100" type="currency"></q-grid-column>
+		<q-grid-column key="low" width="100" type="currency"></q-grid-column>
+		<q-grid-column key="volume" width="100" type="currency"></q-grid-column>
+		<q-grid-column key="settle" width="100" type="currency"></q-grid-column>
+		<q-grid-column key="ldn4" title="LDN" width="70"></q-grid-column>
+		<q-grid-column key="previous" isVisible="false"></q-grid-column>			
+	</q-grid-columns>
+</q-grid>

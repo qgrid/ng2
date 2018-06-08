@@ -1,18 +1,16 @@
 @import 'variables';
 
 .q-grid-view {
-	> .q-grid-table-left {
-		transition: border-color .2s ease-in-out;
-		border-right: 1px solid transparent;
-	}
+	> .q-grid-table-left,
 	> .q-grid-table-right {
-		transition: border-color .2s ease-in-out;
-		border-left: 1px solid transparent;
+		transition: box-shadow .2s ease-in-out;
 	}
 	&.q-grid-scroll-horizontal {
-		> .q-grid-table-left,
+		> .q-grid-table-left {
+			box-shadow: 1px 0 0 0 $dark-divider;
+		}
 		> .q-grid-table-right {
-			border-color: $dark-divider;
+			box-shadow: -1px 0 0 0 $dark-divider;
 		}
 	}
 }
