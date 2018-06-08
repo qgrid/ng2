@@ -29,8 +29,8 @@ export class EditCellView {
 
 		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
-				const oldCell = e.changes.cell.oldValue;
-				if (oldCell && oldCell.column.editorOptions.trigger === 'focus') {
+				const oldCell = this.editor.td;
+				if (oldCell) {
 					if (this.commit.canExecute(oldCell)) {
 						this.commit.execute(oldCell);
 					}

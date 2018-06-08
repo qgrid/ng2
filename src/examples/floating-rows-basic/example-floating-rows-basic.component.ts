@@ -20,7 +20,7 @@ export class ExampleFloatingRowsBasicComponent {
 			.subscribe(rows => {
 				this.gridModel.data({ rows });
 				this.gridModel.row({
-					pinTop: [rows[0]],
+					pinTop: [rows[0], rows[1]],
 					pinBottom: [rows[rows.length - 1]]
 				});
 			});

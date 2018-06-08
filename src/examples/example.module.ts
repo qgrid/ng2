@@ -75,6 +75,7 @@ import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/examp
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
 import { ExampleColumnArrayBasicComponent } from './column-array-basic/example-column-array-basic.component';
+import { ExampleColumnBoolBasicComponent } from './column-bool-basic/example-column-bool-basic.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -146,6 +147,7 @@ const EXAMPLES: Array<any> = [
 	ExampleThemeGridDarkComponent,
 	ExampleThemeGridEmbedComponent,
 	ExampleColumnArrayBasicComponent,
+	ExampleColumnBoolBasicComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;

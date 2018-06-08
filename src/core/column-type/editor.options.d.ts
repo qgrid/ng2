@@ -34,6 +34,9 @@ export interface EditorOptions {
 	 */
 	fetch?: () => any | Promise<any> | any;
 
+	/**
+	 * List of actions, can be used by row-options column to draw menu with commands.
+	 */
 	actions?: Action[];
 
 	label?: any;
