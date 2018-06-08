@@ -30,10 +30,10 @@ export declare interface VisibilityModel {
 	 * * `'left'` show/hide left toolbar.
 	 */
 	toolbar?: {
-		top: boolean,
-		right: boolean,
-		bottom: boolean,
-		left: boolean,
+		top: boolean;
+		right: boolean;
+		bottom: boolean;
+		left: boolean;
 	};
 
 	/**
@@ -41,10 +41,14 @@ export declare interface VisibilityModel {
 	 *
 	 * * `'right'` show/hide right pin panel.
 	 * * `'left'` show/hide left pin panel.
+	 * * `'top'` show/hide top floating rows.
+	 * * `'bottom'` show/hide bottom floating rows.
 	 */
 	pin?: {
-		left: boolean,
-		right: boolean
+		left: boolean;
+		right: boolean;
+		top: boolean;
+		bottom: boolean;
 	};
 
 	plugin?: { [key: string]: boolean };

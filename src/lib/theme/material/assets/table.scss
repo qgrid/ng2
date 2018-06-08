@@ -1,3 +1,5 @@
+@import "variables";
+
 tbody,
 thead,
 tfoot {
@@ -7,4 +9,8 @@ tfoot {
 
 thead {
 	box-shadow: 0 1px 0px #ddd;
+}
+
+.q-grid-body-top {
+	border-bottom: 1px solid $dark-divider;
 }
