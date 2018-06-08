@@ -30,3 +30,15 @@
         }
     }
 }
+
+.q-grid-with-bottom-pin {
+    >.q-grid-view {
+        >.q-grid-table-center {
+            >table {
+                >tbody:not(.q-grid-body-bottom) {
+                    overflow-x: hidden;
+                }
+            }
+        }
+    }
+}

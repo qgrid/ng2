@@ -30,20 +30,21 @@ export class ArrayColumnModel extends DataColumnModel {
 		this.label = function (row) {
 			const value = getValue(row, this);
 			if (isArray(value)) {
-				let format;
+				let formatter;
 				switch (this.itemType) {
 					case 'number':
-						format = FormatService.number;
+						formatter = FormatService.number;
 						break;
 					case 'date':
-						format = FormatService.date;
+						formatter = FormatService.date;
 						break;
 					default:
-						format = this.itemLabel.bind(this);
+						formatter = this.itemLabel.bind(this);
 						break;
 				}
 
-				return value.map(format).join(', ');
+				const format = this.itemFormat;
+				return value.map(item => formatter(item, format)).join(', ');
 			}
 
 			return value;
