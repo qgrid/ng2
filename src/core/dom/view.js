@@ -99,12 +99,12 @@ export class View extends Unit {
 				markup.body.scrollLeft = value;
 			}
 
-			if (markup.bodyTop) {
-				markup.bodyTop.scrollLeft = value;
+			if (markup['body-top']) {
+				markup['body-top'].scrollLeft = value;
 			}
 
-			if (markup.bodyBottom) {
-				markup.bodyBottom.scrollLeft = value;
+			if (markup['body-bottom']) {
+				markup['body-bottom'].scrollLeft = value;
 			}
 
 			return;

@@ -3,6 +3,7 @@ import { DataColumnModel } from './data.column.model';
 import { TemplatePath } from '../template/template.path';
 import { get as getValue } from '../services/value';
 import { isArray, identity } from '../utility/kit';
+import { FormatService } from '../format/format.service';
 
 TemplatePath.register('array-cell', (template, column) => {
 	return {
@@ -28,8 +29,24 @@ export class ArrayColumnModel extends DataColumnModel {
 
 		this.label = function (row) {
 			const value = getValue(row, this);
-			const itemLabel = this.itemLabel.bind(this);
-			return isArray(value) ? value.map(itemLabel).join(', ') : value;
+			if (isArray(value)) {
+				let format;
+				switch (this.itemType) {
+					case 'number':
+						format = FormatService.number;
+						break;
+					case 'date':
+						format = FormatService.date;
+						break;
+					default:
+						format = this.itemLabel.bind(this);
+						break;
+				}
+
+				return value.map(format).join(', ');
+			}
+
+			return value;
 		};
 	}
 }
