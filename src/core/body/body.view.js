@@ -20,6 +20,13 @@ export class BodyView {
 			}
 		});
 
+		model.rowChanged.watch(e => {
+			if (e.hasChanges('pinTop') || e.hasChanges('pinBottom')) {
+				this.invalidate();
+				wasInvalidated = true;
+			}
+		});
+
 		if (!wasInvalidated) {
 			this.invalidate();
 		}
@@ -31,8 +38,13 @@ export class BodyView {
 		const model = this.model;
 		const table = this.table;
 		const { rows } = model.scene();
+		const { pinTop, pinBottom } = model.row();
 
-		this.rows = rows;
+		this.rows = {
+			top: pinTop, 
+			body: rows, 
+			bottom: pinBottom
+		};
 
 		table.view.removeLayer('blank');
 		if (!rows.length && !model.data().rows.length) {

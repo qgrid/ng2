@@ -16,6 +16,8 @@ export class VisibilityModel {
 		this.pin = {
 			left: false,
 			right: false,
+			top: false,
+			bottom: false
 		};
 
 		this.plugin = {};

@@ -24,6 +24,7 @@ import { ExampleEditCellBatchComponent } from './edit-cell-batch/example-edit-ce
 import { ExampleFilterColumnFetchComponent } from './filter-column-fetch/example-filter-column-fetch.component';
 import { ExampleFilterConditionBasicComponent } from './filter-condition-basic/example-filter-condition-basic.component';
 import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filter-row-basic.component';
+import { ExampleFloatingRowsBasicComponent } from './floating-rows-basic/example-floating-rows-basic.component';
 import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
 import { ExampleFocusCellBasicComponent } from './focus-cell-basic/example-focus-cell-basic.component';
 import { ExampleGenerateColumnCohortComponent } from './generate-column-cohort/example-generate-column-cohort.component';
@@ -96,6 +97,7 @@ const EXAMPLES: Array<any> = [
 	ExampleFilterColumnFetchComponent,
 	ExampleFilterConditionBasicComponent,
 	ExampleFilterRowBasicComponent,
+	ExampleFloatingRowsBasicComponent,
 	ExampleFocusCellAutoComponent,
 	ExampleFocusCellBasicComponent,
 	ExampleGenerateColumnCohortComponent,

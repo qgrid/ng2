@@ -6,7 +6,7 @@ export function dataPipe(memo, context, next) {
 
 	addDataRows(model, memo);
 	addDataColumns(model);
-	
+
 	next(memo);
 }
 
@@ -24,3 +24,4 @@ function addDataColumns(model) {
 		model.data({ columns }, { source: 'data.pipe', behavior: 'core' });
 	}
 }
+
