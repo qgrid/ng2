@@ -97,7 +97,7 @@ export class Selector {
 		const factory = this.factory;
 		if (!isUndefined(columnIndex)) {
 			const td = this.td(rowIndex, columnIndex);
-			return factory.row(td.parentElement, rowIndex);
+			return factory.row(td ? td.parentElement : new FakeElement(), rowIndex);
 
 		}
 
@@ -117,8 +117,7 @@ export class Selector {
 
 	cell(rowIndex, columnIndex) {
 		const td = this.td(rowIndex, columnIndex);
-		const factory = this.factory;
-		return factory.cell(td, rowIndex, columnIndex);
+		return this.factory.cell(td || new FakeElement(), rowIndex, columnIndex);
 	}
 
 	td(rowIndex, columnIndex) {
@@ -130,6 +129,6 @@ export class Selector {
 			}
 		}
 
-		return new FakeElement();
+		return null;
 	}
 }

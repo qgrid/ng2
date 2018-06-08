@@ -270,14 +270,8 @@ export class HighlightView {
 		}
 
 		const { body } = this.table;
-		const { cell } = this.model.highlight();
-
 		Fastdom.mutate(() => {
-			if (cell) {
-				body.row(index, cell.columnIndex).addClass(`${GRID_PREFIX}-${cls}`);
-			} else {
-				body.row(index).addClass(`${GRID_PREFIX}-${cls}`);
-			}
+			body.row(index).addClass(`${GRID_PREFIX}-${cls}`);
 		});
 
 		return this.blurRow(index, cls);
