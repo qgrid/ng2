@@ -4,12 +4,12 @@ import { Observable } from 'rxjs';
 import { Action, Command } from 'ng2-qgrid';
 
 @Component({
-	selector: 'example-column-row-options',
-	templateUrl: 'example-column-row-options.component.html',
-	styleUrls: ['example-column-row-options.component.scss'],
+	selector: 'example-column-row-options-basic',
+	templateUrl: 'example-column-row-options-basic.component.html',
+	styleUrls: ['example-column-row-options-basic.component.scss'],
 	providers: [DataService]
 })
-export class ExampleColumnRowOptionsComponent {
+export class ExampleColumnRowOptionsBasicComponent {
 	rows: Observable<Atom[]>;
 	rowActions = [
 		new Action(
