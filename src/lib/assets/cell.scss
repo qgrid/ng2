@@ -120,6 +120,11 @@ tbody {
             max-width: 56px;
             text-overflow: initial;
         }
+        &.q-grid-image {
+            width: 80px;
+            min-width: 80px;
+            max-width: 80px;
+        }
     }
 }
 
