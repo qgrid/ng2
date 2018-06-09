@@ -21,8 +21,7 @@ export class ReferenceColumnModel extends DataColumnModel {
 	constructor() {
 		super('reference');
 
-		this.editorOptions.trigger = 'custom';
-		this.editorOptions.modelFactory = () => new Model();
+		this.editorOptions.trigger = 'custom';		
 	}
 }
 

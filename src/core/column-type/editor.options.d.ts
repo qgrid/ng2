@@ -1,6 +1,7 @@
 import { Model } from '../infrastructure/model';
 import { Action } from '../action/action';
 import { ColumnModel } from '../column-type/column.model';
+import { Command } from '../command/command';
 
 /**
  * Specific options for the cell edit mode.
@@ -38,6 +39,9 @@ export interface EditorOptions {
 	 * List of actions, can be used by row-options column to draw menu with commands.
 	 */
 	actions?: Action[];
+
+	commit?: Command;
+	cancel?: Command;
 
 	label?: any;
 	value?: any;

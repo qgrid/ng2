@@ -23,6 +23,10 @@ export class RootService implements OnDestroy {
 
 	constructor() { }
 
+	get isReady() {
+		return !!this.modelProxy;
+	}
+
 	get model() {
 		Guard.notNull(this.modelProxy, 'model');
 
