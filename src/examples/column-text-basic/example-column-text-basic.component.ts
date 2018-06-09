@@ -18,9 +18,9 @@ export class ExampleColumnTextBasicComponent {
 			'null': null,
 			'undefined': undefined,
 			'empty': '',
-			'maxLength2': "PI",
+			'maxLength2': 'PI',
 			'textArea': 'Lorem ipsum dolor sit amet, ne facete legendos incorrupte duo, sea quot sapientem te, laudem repudiandae sit ne. Ut utinam ullamcorper quo. Odio quidam adolescens vim an, et quidam dolores pro. Semper malorum volumus mei id, utamur placerat volutpat ea pri, no ludus prompta lobortis mel. Quo in duis ferri, at atqui mandamus moderatius nec, eam inermis legendos at. Pro id habemus adipiscing, tibique prodesset ex mei.',
-			'customTemplate': "Hello World"
+			'customTemplate': 'Hello World'
 		}
 	];
 
