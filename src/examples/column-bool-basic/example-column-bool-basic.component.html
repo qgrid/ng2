@@ -1,0 +1,46 @@
+<q-grid caption="Column Bool Basic"
+        [rows]="rows"
+        editMode="cell">
+	<q-grid-columns>
+		<q-grid-column key="true"
+		               title="True"
+		               type="bool">
+		</q-grid-column>
+		<q-grid-column key="false"
+		               title="False"
+		               type="bool">
+		</q-grid-column>
+		<q-grid-column key="undefined"
+		               title="Undefined"
+		               type="bool">
+		</q-grid-column>
+		<q-grid-column key="null"
+		               title="Null"
+		               type="bool">
+		</q-grid-column>
+		<q-grid-column key="yesNo"
+		               title="Yes/No"
+		               trueValue="yes"
+		               falseValue="no"
+		               type="bool">
+		</q-grid-column>
+		<q-grid-column key="noYes"
+		               title="No/Yes"
+		               trueValue="yes"
+		               falseValue="no"
+		               type="bool">
+		</q-grid-column>
+		<q-grid-column key="nullYesNo"
+		               title="Null/Yes/No"
+		               trueValue="yes"
+		               falseValue="no"
+		               type="bool">
+		</q-grid-column>
+		<q-grid-column key="triggerFocus"
+		               [editorOptions]="{trigger: 'focus'}"
+		               title="Trigger Focus"
+		               type="bool">
+		</q-grid-column>
+
+	</q-grid-columns>
+</q-grid>

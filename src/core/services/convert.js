@@ -1,5 +1,6 @@
 import { identity, isObject, isArray, isBoolean, isEmail, isString, isUrl, isImage } from '../utility/kit';
 
+// TODO: right now we check the empty result on null, we need to have a way to make it more explicitly
 export function parseFactory(type, editor) {
 	switch (type) {
 		case 'id': {

@@ -1,4 +1,5 @@
-import {Element} from './element';
+import { Element } from './element';
+import { Tr } from './tr';
 
 export class Row extends Element {
 	constructor(box, index, element = null) {
@@ -9,9 +10,9 @@ export class Row extends Element {
 	}
 
 	model() {
-		const view = this.box.context.bag.findModel(this.getKeyElementCore());
-		if(view){
-			return view.model;
+		const tr = this.box.context.bag.findModel(this.getKeyElementCore());
+		if (tr) {
+			return new Tr(tr);
 		}
 
 		return null;

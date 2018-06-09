@@ -21,6 +21,7 @@ export class RowExpandColumnModel extends ColumnModel {
 		this.canFilter = false;
 		this.canSort = false;
 		this.canHighlight = false;
+		this.canMove = false;
 	}
 }
 

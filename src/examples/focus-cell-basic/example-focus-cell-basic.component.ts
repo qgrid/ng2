@@ -4,12 +4,12 @@ import { Observable } from 'rxjs';
 import { GridModel, Grid } from 'ng2-qgrid';
 
 @Component({
-	selector: 'example-focus-cell',
-	templateUrl: 'example-focus-cell.component.html',
-	styleUrls: ['example-focus-cell.component.scss'],
+	selector: 'example-focus-cell-basic',
+	templateUrl: 'example-focus-cell-basic.component.html',
+	styleUrls: ['example-focus-cell-basic.component.scss'],
 	providers: [DataService]
 })
-export class ExampleFocusCellComponent {
+export class ExampleFocusCellBasicComponent {
 	gridModel: GridModel;
 
 	constructor(dataService: DataService, qgrid: Grid) {

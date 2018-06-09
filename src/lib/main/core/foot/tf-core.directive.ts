@@ -10,6 +10,8 @@ import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { TdCtrl } from 'ng2-qgrid/core/cell/td.ctrl';
+import { Td } from 'ng2-qgrid/core/dom/td';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { ViewCoreService } from '../view/view-core.service';
 import { RootService } from '../../../infrastructure/component/root.service';
 import { CellService } from '../cell/cell.service';
@@ -21,7 +23,7 @@ const classify = TdCtrl.classify;
 @Directive({
 	selector: '[q-grid-core-tf]'
 })
-export class TfCoreDirective implements OnInit, OnDestroy {
+export class TfCoreDirective implements Td, OnInit, OnDestroy {
 	@Input('q-grid-core-tf') columnView: ColumnView;
 	public element: HTMLElement = null;
 	private $implicit = this;
@@ -54,6 +56,10 @@ export class TfCoreDirective implements OnInit, OnDestroy {
 		return this.$view.foot.value(column);
 	}
 
+	get label() {
+		return this.label;
+	}
+
 	get column(): ColumnModel {
 		return this.columnView.model;
 	}
@@ -68,6 +74,10 @@ export class TfCoreDirective implements OnInit, OnDestroy {
 
 	get rowIndex() {
 		return this.tr.index;
+	}
+
+	mode(value: string): void {
+		throw new AppError('tf-core.directive', `${value} mode is not supported`);
 	}
 
 	ngOnDestroy() {

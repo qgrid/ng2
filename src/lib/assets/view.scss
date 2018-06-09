@@ -1,31 +1,44 @@
 .q-grid-view {
-	position: relative;
-	overflow: hidden;
-
-	&.q-grid-select-range {
-		thead, tfoot, tbody {
-			td, th {
-				@include user-select(none);
-				cursor: default;
-			}
-		}
-	}
-
-	> .q-grid-table-left {
-		tbody {
-			overflow-y: hidden;
-		}
-	}
+    position: relative;
+    overflow: hidden;
+    &.q-grid-select-range {
+        thead,
+        tfoot,
+        tbody {
+            td,
+            th {
+                @include user-select(none);
+                cursor: default;
+            }
+        }
+    }
+    >.q-grid-table-left>table {
+        >tbody {
+            overflow-y: hidden;
+        }
+    }
 }
 
 .q-grid-with-right-pin {
-	> .q-grid-view {
-		> .q-grid-table-center {
-			> table {
-				> tbody {
-					overflow-y: hidden;
-				}
-			}
-		}
-	}
+    >.q-grid-view {
+        >.q-grid-table-center {
+            >table {
+                >tbody {
+                    overflow-y: hidden;
+                }
+            }
+        }
+    }
+}
+
+.q-grid-with-bottom-pin {
+    >.q-grid-view {
+        >.q-grid-table-center {
+            >table {
+                >tbody:not(.q-grid-body-bottom) {
+                    overflow-x: hidden;
+                }
+            }
+        }
+    }
 }

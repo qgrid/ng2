@@ -1,5 +1,3 @@
-import { getFactory as valueFactory } from '../services/value';
-import { getFactory as labelFactory, set as setLabelValue } from '../services/label';
 import { Log } from '../infrastructure/log';
 import { Renderer } from '../scene/render/render';
 
@@ -8,17 +6,22 @@ export class BodyView {
 		this.model = model;
 		this.table = table;
 		this.rows = [];
-		this.render = new Renderer(model);
-		this.valueCache = new Map();
-		this.labelCache = new Map();
-		this.valueFactory = valueFactory;
-		this.labelFactory = labelFactory;
 
-		this.invalidate();
+		const render = new Renderer(model);
+
+		this.render = render;
+		this.columns = pin => render.defaultStrategy.columnList(pin);
 
 		let wasInvalidated = false;
 		model.sceneChanged.watch(e => {
 			if (e.hasChanges('rows')) {
+				this.invalidate();
+				wasInvalidated = true;
+			}
+		});
+
+		model.rowChanged.watch(e => {
+			if (e.hasChanges('pinTop') || e.hasChanges('pinBottom')) {
 				this.invalidate();
 				wasInvalidated = true;
 			}
@@ -35,48 +38,17 @@ export class BodyView {
 		const model = this.model;
 		const table = this.table;
 		const { rows } = model.scene();
+		const { pinTop, pinBottom } = model.row();
 
-		this.rows = rows;
-		this.valueCache = new Map();
-		this.labelCache = new Map();
+		this.rows = {
+			top: pinTop, 
+			body: rows, 
+			bottom: pinBottom
+		};
 
 		table.view.removeLayer('blank');
 		if (!rows.length && !model.data().rows.length) {
 			table.view.addLayer('blank');
 		}
-	}
-
-	columns(row, pin, rowIndex) {
-		return this.render.columns(row, pin, rowIndex);
-	}
-
-	getValue(row, column, rowIndex, columnIndex) {
-		const key = column.key;
-		let getValue = this.valueCache.get(key);
-		if (!getValue) {
-			getValue = valueFactory(column);
-			this.valueCache.set(key, getValue);
-		}
-
-		return this.render.getValue(row, column, getValue, rowIndex, columnIndex);
-	}
-
-	setValue(row, column, value, rowIndex, columnIndex) {
-		this.render.setValue(row, column, value, rowIndex, columnIndex);
-	}
-
-	getLabel(row, column, rowIndex, columnIndex) {
-		const key = column.key;
-		let getLabel = this.labelCache.get(key);
-		if (!getLabel) {
-			getLabel = labelFactory(column);
-			this.labelCache.set(key, getLabel);
-		}
-
-		return this.render.getValue(row, column, getLabel, rowIndex, columnIndex);
-	}
-
-	setLabel(row, column, value, rowIndex, columnIndex) {
-		setLabelValue(row, column, value, rowIndex, columnIndex);
 	}
 }

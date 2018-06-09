@@ -1,11 +1,12 @@
 import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Tr } from 'ng2-qgrid/core/dom/tr';
 import { ViewCoreService } from '../view/view-core.service';
 import { RootService } from '../../../infrastructure/component/root.service';
 
 @Directive({
 	selector: '[q-grid-core-tr]'
 })
-export class TrCoreDirective implements OnInit, OnDestroy {
+export class TrCoreDirective implements Tr, OnInit, OnDestroy {
 	@Input('q-grid-core-index') public index: number;
 	@Input('q-grid-core-tr') public model: any;
 	@Input('q-grid-core-source') public source;

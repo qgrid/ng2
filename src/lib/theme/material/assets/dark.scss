@@ -32,7 +32,8 @@
 			border-top: 1px solid $dark-divider;
 		}
 		.q-grid-toolbar {
-			.q-grid-title {
+			.q-grid-title,
+			.q-grid-caption {
 				h3 {
 					color: $dark-text;
 					padding-left: 10px
@@ -78,6 +79,12 @@
 				&.q-grid-highlighted {
 					background-color: $dark-accent;
 				}
+
+				&:not(.q-grid-highlighted) {
+					td.q-grid-selected {
+						background-color: $dark-accent;
+					}
+				}				
 			}
 			td {
 				&.q-grid-highlighted {

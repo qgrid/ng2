@@ -10,7 +10,7 @@ export function flatten(columns, createView) {
 
 	function markup(column, rowIndex, columnIndex, rowsLeft) {
 		const rowspan = rowsLeft - rowsToUse(column);
-		const view = createView(column.type || 'text', column);
+		const view = createView(column.type, column);
 		result.push(view);
 
 		view.rowspan = rowspan;

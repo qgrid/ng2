@@ -1,5 +1,6 @@
-<ng-template key='body-cell-array.tpl.html' let-$cell>
+<ng-template key='body-cell-array.tpl.html'
+             let-$cell>
 	<ul>
-		<li *ngFor="let item of $cell.value">{{item}}</li>
+		<li *ngFor="let item of $cell.value">{{$cell.column.itemLabel(item)}}</li>
 	</ul>
 </ng-template>

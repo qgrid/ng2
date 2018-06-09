@@ -16,9 +16,9 @@ export class ColumnComponent implements OnInit {
 
 	@Input() type: string;
 	@Input() key: string;
-	@Input() class: string;
+	@Input() class: 'data' | 'control' | 'markup' | 'pivot';
 	@Input() title: string;
-	@Input() pin: string;
+	@Input() pin: null | 'left' | 'right';
 	@Input() aggregation: string;
 	@Input() aggregationOptions: any;
 	@Input() editor: string;
@@ -43,11 +43,20 @@ export class ColumnComponent implements OnInit {
 	@Input() isVisible: boolean;
 	@Input() index: number;
 
-	@Input() label: any;
+	@Input() label: (row: any, value?: any) => any | any;
 	@Input() labelPath: string;
-	@Input() value: any;
+	
+	@Input() itemLabel: (row: any, value?: any) => any;
+	@Input() itemFormat: string;
+	@Input() itemType: string;
+	
+	@Input() value: (row: any, value?: any) => any;
 	@Input() path: string;
-	@Input() compare: any;
+
+	@Input() compare: (x: any, y: any) => number;
+
+	@Input() trueValue: any;
+	@Input() falseValue: any;
 
 	constructor(
 		private root: RootService,

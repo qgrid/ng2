@@ -69,7 +69,7 @@ export class ColumnListCtrl {
 		const createColumn = columnFactory(model);
 		let column = columnService.find(model.data().columns, key);
 		if (column) {
-			createColumn(type || 'text', column);
+			createColumn(type, column);
 		} else {
 			column = createColumn(type || 'text').model;
 			column.key = key;

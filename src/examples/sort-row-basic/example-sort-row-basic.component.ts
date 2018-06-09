@@ -3,12 +3,12 @@ import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 
 @Component({
-	selector: 'example-sort-row',
-	templateUrl: 'example-sort-row.component.html',
-	styleUrls: ['example-sort-row.component.scss'],
+	selector: 'example-sort-row-basic',
+	templateUrl: 'example-sort-row-basic.component.html',
+	styleUrls: ['example-sort-row-basic.component.scss'],
 	providers: [DataService]
 })
-export class ExampleSortRowComponent {
+export class ExampleSortRowBasicComponent {
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {

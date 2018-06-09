@@ -3,12 +3,12 @@ import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
 @Component({
-	selector: 'example-legend-basic',
-	templateUrl: 'example-legend-basic.component.html',
-	styleUrls: ['example-legend-basic.component.scss'],
+	selector: 'example-legend-grid-basic',
+	templateUrl: 'example-legend-grid-basic.component.html',
+	styleUrls: ['example-legend-grid-basic.component.scss'],
 	providers: [DataService]
 })
-export class ExampleLegendBasicComponent {
+export class ExampleLegendGridBasicComponent {
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

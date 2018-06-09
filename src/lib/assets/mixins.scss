@@ -1,11 +1,11 @@
-@mixin user-select($value){
-	-webkit-user-select: $value;
-  	-moz-user-select: $value;
-  	-ms-user-select: $value;
-  	user-select: $value; 
+@mixin user-select($value) {
+    -webkit-user-select: $value;
+    -moz-user-select: $value;
+    -ms-user-select: $value;
+    user-select: $value;
 }
 
-@mixin user-drag($value){
-	-khtml-user-drag: $value;
-	-webkit-user-drag: $value;
+@mixin user-drag($value) {
+    -khtml-user-drag: $value;
+    -webkit-user-drag: $value;
 }

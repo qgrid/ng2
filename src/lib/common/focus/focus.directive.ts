@@ -8,6 +8,7 @@ import {
 	NgZone
 } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
+import { isString } from 'ng2-qgrid/core/utility/kit';
 
 @Directive({
 	selector: '[q-grid-focus]'
@@ -15,12 +16,13 @@ import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 export class FocusDirective implements AfterViewInit {
 	@Input('q-grid-focus') selector;
 
-	constructor(private elementRef: ElementRef, private zone: NgZone) { }
+	constructor(private element: ElementRef, private zone: NgZone) { }
 
 	ngAfterViewInit() {
-		const element = this.selector
-			? this.elementRef.nativeElement.querySelector(this.selector)
-			: this.elementRef.nativeElement;
+		const selector = this.selector;
+		const element = selector
+			? isString(selector) ? this.element.nativeElement.querySelector(selector) : selector
+			: this.element.nativeElement;
 
 		if (!element) {
 			throw new AppError(

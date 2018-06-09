@@ -1,32 +1,33 @@
 import { NgModule } from '@angular/core';
-import { ColumnSortModule } from './column-sort/column-sort.module';
-import { PagerModule } from './pagination/pager.module';
-import { ProgressModule } from './progress/progress.module';
-import { ColumnChooserModule } from './colum-chooser/column-chooser.module';
-import { DataManipulationModule } from './data-manipulation/data-manipulation.module';
 import { ActionBarModule } from './action-bar/action-bar.module';
-import { TitleModule } from './title/title.module';
-import { ColumnFilterModule } from './column-filter/column-filter.module';
-import { MenuModule } from './menu/menu.module';
-import { CellEditorModule } from './cell-editor/cell-editor.module';
-import { BoolEditorModule } from './bool-editor/bool-editor.module';
-import { TabTrapModule } from './tab-trap/tab-trap.module';
 import { BackdropModule } from './backdrop/backdrop.module';
-import { SelectModule } from './select/select.module';
-import { LegendModule } from './legend/legend.module';
+import { BoolEditorModule } from './bool-editor/bool-editor.module';
+import { CaptionModule } from './caption/caption.module';
+import { CellEditorModule } from './cell-editor/cell-editor.module';
 import { ChipsModule } from './chips/chips.module';
-import { ReferenceEditorModule } from './reference-editor/reference-editor.module';
-import { PersistenceModule } from './persistence/persistence.module';
 import { ColumnChooserModel } from 'ng2-qgrid/plugin/column-chooser/column.chooser.model';
+import { ColumnChooserModule } from './colum-chooser/column-chooser.module';
 import { ColumnFilterModel } from 'ng2-qgrid/plugin/column-filter/column.filter.model';
+import { ColumnFilterModule } from './column-filter/column-filter.module';
+import { ColumnSortModule } from './column-sort/column-sort.module';
 import { DataManipulationModel } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.model';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
-import { StatusBarModule } from './status-bar/status-bar.module';
-import { QueryBuilderModule } from './query-builder/query-builder.module';
-import { QueryBuilderModel } from './query-builder/query-builder.model';
+import { DataManipulationModule } from './data-manipulation/data-manipulation.module';
 import { EbModule } from './expression-builder/eb.module';
+import { LegendModule } from './legend/legend.module';
+import { MenuModule } from './menu/menu.module';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
+import { PagerModule } from './pagination/pager.module';
+import { PersistenceModule } from './persistence/persistence.module';
+import { ProgressModule } from './progress/progress.module';
+import { QueryBuilderModel } from './query-builder/query-builder.model';
+import { QueryBuilderModule } from './query-builder/query-builder.module';
+import { ReferenceEditorModule } from './reference-editor/reference-editor.module';
 import { RestModule } from './rest/rest.module';
 import { OverlayThemeModule } from '../common/overlay-theme/overlay-theme.module';
+import { SelectModule } from './select/select.module';
+import { StatusBarModule } from './status-bar/status-bar.module';
+import { TabTrapModule } from './tab-trap/tab-trap.module';
+import { TitleModule } from './title/title.module';
 
 Model.register('columnChooser', ColumnChooserModel)
 	.register('columnFilter', ColumnFilterModel)
@@ -37,27 +38,28 @@ Model.register('columnChooser', ColumnChooserModel)
 	declarations: [],
 	exports: [
 		ActionBarModule,
-		DataManipulationModule,
-		PagerModule,
-		ColumnChooserModule,
-		ColumnSortModule,
-		ColumnFilterModule,
-		ProgressModule,
-		TitleModule,
-		MenuModule,
-		CellEditorModule,
-		BoolEditorModule,
-		ReferenceEditorModule,
-		TabTrapModule,
 		BackdropModule,
+		BoolEditorModule,
+		CaptionModule,
+		CellEditorModule,
+		ChipsModule,
+		ColumnChooserModule,
+		ColumnFilterModule,
+		ColumnSortModule,
+		DataManipulationModule,
+		EbModule,
+		LegendModule,
+		MenuModule,
+		PagerModule,
+		PersistenceModule,
+		ProgressModule,
+		QueryBuilderModule,
+		ReferenceEditorModule,
+		RestModule,
 		SelectModule,
 		StatusBarModule,
-		LegendModule,
-		ChipsModule,
-		PersistenceModule,
-		QueryBuilderModule,
-		EbModule,
-		RestModule,
+		TabTrapModule,
+		TitleModule,
 		OverlayThemeModule
 	]
 })

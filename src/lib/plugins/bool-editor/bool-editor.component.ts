@@ -26,9 +26,11 @@ export class BoolEditorComponent extends PluginComponent implements OnInit {
 
 	ngOnInit() {
 		// entering edit mode means toggling boolean value
-		this.value =
-			this.value === this.trueValue
-				? this.falseValue : this.trueValue;
+		if (this.column.editorOptions.trigger === 'click') {
+			this.value =
+				this.value === this.trueValue
+					? this.falseValue : this.trueValue;
+		}
 
 		this.model.focusChanged.on(e => this.cell.exit.execute());
 	}
@@ -58,7 +60,7 @@ export class BoolEditorComponent extends PluginComponent implements OnInit {
 	}
 
 	private get column() {
-		return this.view.edit.cell.editor.column as BoolColumnModel;
+		return this.view.edit.cell.column as BoolColumnModel;
 	}
 
 	private get cell() {
