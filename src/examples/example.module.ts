@@ -88,6 +88,7 @@ import { ExampleColumnFileBasicComponent } from './column-file-basic/example-col
 import { ExampleColumnImageBasicComponent } from './column-image-basic/example-column-image-basic.component';
 import { ExampleColumnTimeBasicComponent } from './column-time-basic/example-column-time-basic.component';
 import { ExampleColumnPasswordBasicComponent } from './column-password-basic/example-column-password-basic.component';
+import { ExampleColumnRowNumberBasicComponent } from './column-row-number-basic/example-column-row-number-basic.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -171,6 +172,7 @@ const EXAMPLES: Array<any> = [
 	ExampleColumnImageBasicComponent,
 	ExampleColumnTimeBasicComponent,
 	ExampleColumnPasswordBasicComponent,
+	ExampleColumnRowNumberBasicComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
