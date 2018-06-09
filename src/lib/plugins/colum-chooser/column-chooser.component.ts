@@ -1,4 +1,4 @@
-import { Component, Optional, Input, Output, ElementRef, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Component, Optional, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { RootService } from '../../infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 import { ColumnChooserView } from 'ng2-qgrid/plugin/column-chooser/column.chooser.view';
@@ -18,8 +18,7 @@ export class ColumnChooserComponent extends PluginComponent {
 
 	constructor(
 		@Optional() root: RootService, 
-		focusAfterRender: FocusAfterRender,
-		private element: ElementRef) {
+		focusAfterRender: FocusAfterRender) {
 		super(root);
 
 		this.models = ['columnChooser'];
