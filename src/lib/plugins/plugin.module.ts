@@ -23,6 +23,7 @@ import { QueryBuilderModel } from './query-builder/query-builder.model';
 import { QueryBuilderModule } from './query-builder/query-builder.module';
 import { ReferenceEditorModule } from './reference-editor/reference-editor.module';
 import { RestModule } from './rest/rest.module';
+import { OverlayThemeModule } from '../common/overlay-theme/overlay-theme.module';
 import { SelectModule } from './select/select.module';
 import { StatusBarModule } from './status-bar/status-bar.module';
 import { TabTrapModule } from './tab-trap/tab-trap.module';
@@ -59,6 +60,7 @@ Model.register('columnChooser', ColumnChooserModel)
 		StatusBarModule,
 		TabTrapModule,
 		TitleModule,
+		OverlayThemeModule
 	]
 })
 export class PluginModule { }

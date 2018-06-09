@@ -17,7 +17,8 @@ export class ColumnChooserComponent extends PluginComponent {
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
 	constructor(
-		@Optional() root: RootService, focusAfterRender: FocusAfterRender) {
+		@Optional() root: RootService, 
+		focusAfterRender: FocusAfterRender) {
 		super(root);
 
 		this.models = ['columnChooser'];
