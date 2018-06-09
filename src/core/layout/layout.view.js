@@ -117,8 +117,8 @@ export class LayoutView extends Disposable {
 					'max-width': size
 				};
 
-				style[`td.q-grid-${key}`] = sizeStyle;
-				style[`th.q-grid-${key}`] = sizeStyle;
+				style[`td.q-grid-the-${key}`] = sizeStyle;
+				style[`th.q-grid-the-${key}`] = sizeStyle;
 			}
 		}
 

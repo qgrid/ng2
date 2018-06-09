@@ -1,6 +1,6 @@
 import { Unit } from './unit';
 import { FakeElement } from './fake/element';
-import * as css from '../services/css';
+import { escapeAttr } from '../services/css';
 
 function isParentOf(parent, element) {
 	while (element) {
@@ -74,13 +74,13 @@ export class View extends Unit {
 
 	addClass(name) {
 		if (this.markup.view) {
-			this.markup.view.classList.add(css.escapeAttr(name));
+			this.markup.view.classList.add(escapeAttr(name));
 		}
 	}
 
 	removeClass(name) {
 		if (this.markup.view) {
-			this.markup.view.classList.remove(css.escapeAttr(name));
+			this.markup.view.classList.remove(escapeAttr(name));
 		}
 	}
 

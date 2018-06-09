@@ -82,7 +82,7 @@ export class ColumnComponent implements OnInit {
 			}
 
 			if (withKey) {
-				parts.push(`with-${column.key}`);
+				parts.push(`the-${column.key}`);
 			}
 
 			return parts.join('-') + '.tpl.html';
