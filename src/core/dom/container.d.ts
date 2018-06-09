@@ -1,4 +1,4 @@
-import {IRect} from './fake/element';
+import { Rect } from './rect';
 
 export interface IClassList {
 	add: (name: string) => void;
@@ -17,7 +17,7 @@ export declare class Container {
 	readonly offsetHeight: number;
 	readonly classList: IClassList;
 
-	getBoundingClientRect(): IRect;
+	getBoundingClientRect(): Rect;
 	addClass(name: string): void;
 	removeClass(name: string): void;
 	hasClass(name: string): boolean;

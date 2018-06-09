@@ -126,6 +126,16 @@ function build(graph, path, columnFactory, deep, cohort, title) {
 				column.path = propPath;
 				column.value = compile(propPath);
 				column.source = 'generation';
+				if (value.length) {
+					column.itemType = getType(value[0]);
+					switch (column.itemType) {
+						case 'date': {
+							column.itemFormat = columnFactory('date').model.format;
+							break;
+						}
+					}
+				}
+
 				memo.push(column);
 				break;
 			}
@@ -149,7 +159,7 @@ function build(graph, path, columnFactory, deep, cohort, title) {
 						column.title = title(propPath, graph, column.length);
 						column.path = propPath;
 						column.value = compile(propPath);
-						column.source = 'generation';		
+						column.source = 'generation';
 						column.children.push(...columns);
 						memo.push(column);
 					} else {

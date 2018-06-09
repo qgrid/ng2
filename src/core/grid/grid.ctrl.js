@@ -70,16 +70,19 @@ export class GridCtrl extends Disposable {
 	}
 
 	invalidateVisibility() {
-		const area = this.model.scene().column.area;
-		const visibility = this.model.visibility;
-		visibility({
+		const { left, right } = this.model.scene().column.area;
+		const { pinTop, pinBottom } = this.model.row();
+
+		this.model.visibility({
 			pin: {
-				left: area.left.length,
-				right: area.right.length
+				left: left.length > 0,
+				right: right.length > 0,
+				top: pinTop.length > 0,
+				bottom: pinBottom.length > 0
 			}
 		}, {
-				source: 'grid.ctrl'
-			});
+			source: 'grid.ctrl'
+		});
 	}
 
 	invalidateActive() {

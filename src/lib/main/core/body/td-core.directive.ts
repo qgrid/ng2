@@ -4,6 +4,7 @@ import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { TdCtrl } from 'ng2-qgrid/core/cell/td.ctrl';
+import { Td } from 'ng2-qgrid/core/dom/td';
 import { ViewCoreService } from '../view/view-core.service';
 import { TableCoreService } from '../table/table-core.service';
 import { RootService } from '../../../infrastructure/component/root.service';
@@ -15,7 +16,7 @@ const classify = TdCtrl.classify;
 @Directive({
 	selector: '[q-grid-core-td]',
 })
-export class TdCoreDirective implements OnInit, OnDestroy {
+export class TdCoreDirective implements Td, OnInit, OnDestroy {
 	@Input('q-grid-core-td') public columnView: ColumnView;
 	public element: HTMLElement = null;
 	private $implicit = this;
@@ -64,22 +65,22 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 
 	get value() {
 		const { column, row, rowIndex, columnIndex } = this;
-		return this.$view.body.getValue(row, column, rowIndex, columnIndex);
+		return this.$view.body.render.getValue(row, column, rowIndex, columnIndex);
 	}
 
 	set value(value) {
 		const { column, row, rowIndex, columnIndex } = this;
-		this.$view.body.setValue(row, column, value, rowIndex, columnIndex);
+		this.$view.body.render.setValue(row, column, value, rowIndex, columnIndex);
 	}
 
 	get label() {
 		const { column, row, rowIndex, columnIndex } = this;
-		return this.$view.body.getLabel(row, column, rowIndex, columnIndex);
+		return this.$view.body.render.getLabel(row, column, rowIndex, columnIndex);
 	}
 
 	set label(label) {
 		const { column, row, rowIndex, columnIndex } = this;
-		this.$view.body.setLabel(row, column, label, rowIndex, columnIndex);
+		this.$view.body.render.setLabel(row, column, label, rowIndex, columnIndex);
 	}
 
 	get column() {

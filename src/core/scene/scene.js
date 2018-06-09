@@ -11,7 +11,8 @@ export class Scene {
 		const { nodes, rows } = memo;
 		if (nodes.length) {
 			if (!(rows.length && rows[0] instanceof Node)) {
-				const { flatten } = this.model.group();
+				const { flattenFactory } = this.model.group();
+				const flatten = flattenFactory(this.model);
 				return flatten(nodes);
 			}
 		}

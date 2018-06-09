@@ -30,9 +30,11 @@ export class SelectorFactory {
 
 					const args = [];
 					args.push(selector);
+					
 					if (context.hasOwnProperty('row')) {
 						args.push(context.row - entry.rowRange.start);
 					}
+
 					if (context.hasOwnProperty('column')) {
 						args.push(context.column - entry.columnRange.start);
 					}

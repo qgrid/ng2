@@ -1,8 +1,10 @@
-import {Bag} from '../dom/bag';
+import { Bag } from '../dom/bag';
+import { Td } from '../dom/td';
+import { Tr } from '../dom/tr';
 
 export declare class PathService {
 	constructor(bag: Bag);
 
-	cell(path: Node[]): string;
-	row(path: Node[]): string;
+	cell(path: Node[]): Td;
+	row(path: Node[]): Tr;
 }

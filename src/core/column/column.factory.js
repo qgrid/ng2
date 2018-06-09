@@ -9,6 +9,7 @@ import { DateColumn } from '../column-type/date.column';
 import { EmailColumn } from '../column-type/email.column';
 import { FileColumn } from '../column-type/file.column';
 import { GroupColumn } from '../column-type/group.column';
+import { GroupSummaryColumn } from '../column-type/group.summary.column';
 import { IdColumn } from '../column-type/id.column';
 import { ImageColumn } from '../column-type/image.column';
 import { NumberColumn } from '../column-type/number.column';
@@ -59,6 +60,7 @@ export function columnFactory(model) {
 		'row-number': RowNumberColumn,
 		'row-options': RowOptionsColumn,
 		'select': SelectColumn,
+		'group-summary': GroupSummaryColumn,
 		'text': TextColumn,
 		'time': TimeColumn,
 		'url': UrlColumn
@@ -77,7 +79,9 @@ export function columnFactory(model) {
 	};
 
 	return (type, body = null) => {
-		Guard.notNullOrEmpty(type, 'type');
+		if (!type) {
+			type = 'text';
+		}
 
 		if (columnMap.hasOwnProperty(type)) {
 			return create(type, type, body);

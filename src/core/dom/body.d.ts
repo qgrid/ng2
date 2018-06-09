@@ -1,5 +1,5 @@
-import {VirtualBox} from './virtual/box';
-import {Box} from './box';
+import { VirtualBox } from './virtual/box';
+import { Box } from './box';
 
 export declare class Body extends Box {
 	constructor(markup: object);

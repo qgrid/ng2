@@ -1,0 +1,16 @@
+@import 'variables';
+
+.q-grid-view {
+	> .q-grid-table-left,
+	> .q-grid-table-right {
+		transition: box-shadow .2s ease-in-out;
+	}
+	&.q-grid-scroll-horizontal {
+		> .q-grid-table-left {
+			box-shadow: 1px 0 0 0 $dark-divider;
+		}
+		> .q-grid-table-right {
+			box-shadow: -1px 0 0 0 $dark-divider;
+		}
+	}
+}

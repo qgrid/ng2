@@ -10,4 +10,5 @@ export declare class HighlightView {
 
 	column: Command;
 	row: Command;
+	cell: Command;
 }

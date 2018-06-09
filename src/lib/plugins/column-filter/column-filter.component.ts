@@ -66,7 +66,7 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 							value: columnFilter.getValue,
 							search: '' + this.search,
 
-							// Depricated
+							// @depricated
 							filter: '' + this.search,
 						});
 

@@ -21,10 +21,10 @@ import { ViewCoreService } from '../../main/core/view/view-core.service';
 export class ReferenceEditorComponent extends PluginComponent
 	implements OnInit {
 
-	public referenceModel: Model;
+	referenceModel: Model;
 
-	public submit: Command;
-	public cancel: Command;
+	submit: Command;
+	cancel: Command;
 
 	constructor(
 		@Optional() root: RootService,
@@ -35,27 +35,27 @@ export class ReferenceEditorComponent extends PluginComponent
 	}
 
 	ngOnInit() {
-		this.referenceModel = this.column.editorOptions.modelFactory();
+		this.referenceModel = this.column.editorOptions.modelFactory(this.editView.cell);
 
 		this.submit = new Command({
-			canExecute: () => this.cell.commit.canExecute(),
+			canExecute: () => this.editView.commit.canExecute(),
 			execute: () => {
-				this.cell.commit.execute();
+				this.editView.commit.execute();
 			}
 		});
 
-		this.cancel = this.cell.cancel;
+		this.cancel = this.editView.cancel;
 	}
 
 	get title(): string {
-		return this.view.edit.cell.editor.title;
+		return this.editView.column.title;
 	}
 
 	get column() {
-		return this.cell.editor.column;
+		return this.editView.column;
 	}
 
-	private get cell() {
+	private get editView() {
 		return this.view.edit.cell;
 	}
 }

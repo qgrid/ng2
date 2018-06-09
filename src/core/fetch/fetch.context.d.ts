@@ -4,6 +4,6 @@ export declare interface FetchContext {
 	search: string;
 	value: (row: any) => any;
 
-	// Depricated
+	// @deprecated
 	filter: string;
 }

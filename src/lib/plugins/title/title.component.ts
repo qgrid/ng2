@@ -2,6 +2,7 @@ import { Component, Optional } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
 import { RootService } from '../../infrastructure/component/root.service';
 
+// @depricated
 @Component({
 	selector: 'q-grid-title',
 	templateUrl: './title.component.html'

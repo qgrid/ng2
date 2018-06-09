@@ -15,4 +15,6 @@ export declare interface RowModel {
 	status?: Map<any, any>;
 	canMove?: boolean;
 	canResize?: boolean;
+	pinTop?: any[];
+	pinBottom?: any[];
 }
