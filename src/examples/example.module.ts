@@ -81,6 +81,7 @@ import { ExampleColumnCurrencyBasicComponent } from './column-currency-basic/exa
 import { ExampleColumnNumberBasicComponent } from './column-number-basic/example-column-number-basic.component';
 import { ExampleColumnTextBasicComponent } from './column-text-basic/example-column-text-basic.component';
 import { ExampleColumnDateBasicComponent } from './column-date-basic/example-column-date-basic.component';
+import { ExampleColumnIdBasicComponent } from './column-id-basic/example-column-id-basic.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -157,6 +158,7 @@ const EXAMPLES: Array<any> = [
 	ExampleColumnNumberBasicComponent,
 	ExampleColumnTextBasicComponent,
 	ExampleColumnDateBasicComponent,
+	ExampleColumnIdBasicComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
