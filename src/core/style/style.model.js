@@ -7,6 +7,7 @@ export class StyleModel {
 		this.cell = noop;
 		this.rows = [];
 		this.cells = [];
+		this.classList = [];
 
 		this.invalidate = new Command({
 			source: 'style.model',

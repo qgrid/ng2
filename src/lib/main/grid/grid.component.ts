@@ -150,10 +150,16 @@ export class GridComponent extends RootComponent implements OnInit {
 		const model = this.model;
 
 		const element = this.element.nativeElement;
+		
+		model.style({
+			classList: Array.from(element.classList)
+		});
+		
 		const ctrl = this.using(new GridCtrl(model, {
 			layerFactory: () => this.layerService,
 			element
 		}));
+		
 
 		this.rootService.table = ctrl.table;
 		this.rootService.bag = ctrl.bag;
