@@ -89,6 +89,7 @@ import { ExampleColumnImageBasicComponent } from './column-image-basic/example-c
 import { ExampleColumnTimeBasicComponent } from './column-time-basic/example-column-time-basic.component';
 import { ExampleColumnPasswordBasicComponent } from './column-password-basic/example-column-password-basic.component';
 import { ExampleColumnRowNumberBasicComponent } from './column-row-number-basic/example-column-row-number-basic.component';
+import { ExampleColumnRowIndicatorBasicComponent } from './column-row-indicator-basic/example-column-row-indicator-basic.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -173,6 +174,7 @@ const EXAMPLES: Array<any> = [
 	ExampleColumnTimeBasicComponent,
 	ExampleColumnPasswordBasicComponent,
 	ExampleColumnRowNumberBasicComponent,
+	ExampleColumnRowIndicatorBasicComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
