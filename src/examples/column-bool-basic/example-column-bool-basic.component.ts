@@ -19,7 +19,8 @@ export class ExampleColumnBoolBasicComponent {
 			'yesNo': 'yes',
 			'noYes': 'no',
 			'nullYesNo': null,
-			'triggerFocus': true
+			'triggerFocus': true,
+			'customTemplate': true
 		}
 	];
 

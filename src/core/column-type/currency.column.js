@@ -19,7 +19,7 @@ TemplatePath.register('currency-cell-edit', (template, column) => {
 
 export class CurrencyColumnModel extends DataColumnModel {
 	constructor() {
-		super('text');
+		super('currency');
 
 		this.maxLength = 20;
 		this.symbol = '$';

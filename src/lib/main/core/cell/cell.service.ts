@@ -11,7 +11,7 @@ function canBuild(column) {
 
 function buildId(source: string, column: ColumnModel, mode = 'view') {
 	let { key, type, itemType } = column as any;
-	return `${source}-${mode}-cell-${type}-of-${itemType}-with-${key}.tpl.html`;
+	return `${source}-${mode}-cell-${type}-of-${itemType}-the-${key}.tpl.html`;
 }
 
 function buildKeys(source: string, column: ColumnModel, mode = 'view') {
@@ -20,8 +20,8 @@ function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 	switch (mode) {
 		case 'view': {
 			const result = [
-				`${source}-cell-${type}-with-${key}.tpl.html`,
-				`${source}-cell-with-${key}.tpl.html`,
+				`${source}-cell-${type}-the-${key}.tpl.html`,
+				`${source}-cell-the-${key}.tpl.html`,
 				`${source}-cell-${type}.tpl.html`,
 				`${source}-cell.tpl.html`,
 				`${source}-cell-text.tpl.html`
@@ -29,7 +29,7 @@ function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 
 			if (itemType) {
 				result.splice(0, 0, ...[
-					`${source}-cell-${type}-of-${itemType}-with-${key}.tpl.html`,
+					`${source}-cell-${type}-of-${itemType}-the-${key}.tpl.html`,
 					`${source}-cell-${type}-of-${itemType}.tpl.html`
 				]);
 			}
@@ -39,8 +39,8 @@ function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 		case 'edit': {
 			type = column.editor || type;
 			const result = [
-				`${mode}-cell-${type}-with-${key}.tpl.html`,
-				`${mode}-cell-with-${key}.tpl.html`,
+				`${mode}-cell-${type}-the-${key}.tpl.html`,
+				`${mode}-cell-the-${key}.tpl.html`,
 				`${mode}-cell-${type}.tpl.html`,
 				`${mode}-cell.tpl.html`,
 				`${mode}-cell-text.tpl.html`
@@ -48,7 +48,7 @@ function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 
 			if (itemType) {
 				result.splice(0, 0, ...[
-					`${mode}-cell-${type}-of-${itemType}-with-${key}.tpl.html`,
+					`${mode}-cell-${type}-of-${itemType}-the-${key}.tpl.html`,
 					`${mode}-cell-${type}-of-${itemType}.tpl.html`,
 				]);
 			}

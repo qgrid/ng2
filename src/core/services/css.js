@@ -31,7 +31,7 @@ export function sheet(id, source) {
 }
 
 export function escapeAttr(name) {
-	return name.replace(/\s|\t|\n|"|'/g, '_');
+	return ('' + name).replace(/\s|\t|\n|"|'/g, '_');
 }
 
 export function escape(name) {

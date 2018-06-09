@@ -22,6 +22,7 @@ import { ${componentName} } from './example/example-${exampleName}.component';
 		GridModule,
 		ThemeModule,
 		CommonModule,
+		FormsModule,
 		MatButtonModule,
 		MatSelectModule
 	]
