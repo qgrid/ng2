@@ -26,6 +26,7 @@ import { QueryBuilderModule } from './query-builder/query-builder.module';
 import { QueryBuilderModel } from './query-builder/query-builder.model';
 import { EbModule } from './expression-builder/eb.module';
 import { RestModule } from './rest/rest.module';
+import { OverlayThemeModule } from '../common/overlay-theme/overlay-theme.module';
 
 Model.register('columnChooser', ColumnChooserModel)
 	.register('columnFilter', ColumnFilterModel)
@@ -56,7 +57,8 @@ Model.register('columnChooser', ColumnChooserModel)
 		PersistenceModule,
 		QueryBuilderModule,
 		EbModule,
-		RestModule
+		RestModule,
+		OverlayThemeModule
 	]
 })
 export class PluginModule { }

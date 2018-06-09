@@ -35,15 +35,5 @@ export class ColumnChooserComponent extends PluginComponent {
 		columnChooser.cancelEvent.on(() => this.cancelEvent.emit());
 
 		this.context = { $implicit: columnChooser };
-
-		const model = this.model;
-
-		const element = this.element.nativeElement;
-		const overlayPane= element.parentElement.parentElement.parentElement;
-		
-		model.style().classList.forEach(cssClass => {
-			overlayPane.classList.add(cssClass);
-		});
-
 	}
 }

@@ -154,9 +154,16 @@
 			background: $dark-accent;
 		}
 	}
+	
 	.mat-menu-panel {
 		background: $dark;
 	}
+	
+	.mat-menu-content {
+		background: $dark;
+		height: 500px;
+	}
+
 
 	q-grid-column-chooser {
 
@@ -200,10 +207,6 @@
 
 			.mat-form-field-ripple {
 				background-color: $dark-primary;
-			}
-
-			.mat-input-element {
-				caret-color: $dark-primary;
 			}
 
 			.mat-form-field-should-float label{
