@@ -47,8 +47,15 @@ export class ExampleColumnReferenceBasicComponent {
 	};
 
 	editableOptions: EditorOptions = {
-		commit: new Command({ execute: e => e.items }),
-		modelFactory: ({ row }) => {
+		modelFactory: ({ row, column, reference }) => {
+			// we need to override commit because of `this.convert`, 
+			// we need to pass ['Lorem', 'ipsum'] but not [{value: 'Lorem'}, {value: 'ipsum'}]
+			reference.commit = new Command({
+				execute: e => row[column.key] = e.items
+			});
+
+			reference.value = this.convert(row[column.key]);
+
 			const model = this.qgrid.model();
 			model
 				.data({
@@ -74,12 +81,19 @@ export class ExampleColumnReferenceBasicComponent {
 	};
 
 	singleValueOptions: EditorOptions = {
-		commit: new Command({ execute: e => e.items[0] }),
-		modelFactory: ({ row }) => {
+		modelFactory: ({ row, column, reference }) => {
+			// we need to override commit because of `this.convert`, 
+			// we need to pass ['Lorem', 'ipsum'] but not [{value: 'Lorem'}, {value: 'ipsum'}]
+			reference.commit = new Command({
+				execute: e => row[column.key] = e.items
+			});
+
+			reference.value = { value: row[column.key] };
+
 			const model = this.qgrid.model();
 			model
 				.data({
-					rows: this.rows[0].notEditable.map(value => ({ value })),
+					rows: this.convert(this.rows[0].notEditable),
 					columns: [
 						{
 							key: 'value',
@@ -100,14 +114,14 @@ export class ExampleColumnReferenceBasicComponent {
 		},
 	};
 
-	complexValuesLabel = row => row.map(x => x.value).join(', ');
+	complexValuesLabel = row => row.complexValues.map(x => x.value).join(', ');
 
 	complexValuesOptions: EditorOptions = {
 		modelFactory: ({ row }) => {
 			const model = this.qgrid.model();
 			model
 				.data({
-					rows: this.rows[0].notEditable.map(value => ({ value })),
+					rows: this.convert(this.rows[0].notEditable),
 					columns: [
 						{
 							key: 'value',

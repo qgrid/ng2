@@ -28,7 +28,12 @@ export interface EditorOptions {
 	/**
 	 * q-grid model factory, can be used by reference column to draw a anpther q-grid in edit cell mode.
 	 */
-	modelFactory?: (cell: { row: any, column: ColumnModel }) => Model;
+	modelFactory?: (context: {
+		row: any,
+		column: ColumnModel,
+		getValue: (row: any) => any,
+		reference: { commit: Command, cancel: Command, value: any }
+	}) => Model;
 
 	/**
 	 * Can be used by e.g. `auto-complete` editor to populate list of items.
@@ -39,9 +44,6 @@ export interface EditorOptions {
 	 * List of actions, can be used by row-options column to draw menu with commands.
 	 */
 	actions?: Action[];
-
-	commit?: Command;
-	cancel?: Command;
 
 	label?: any;
 	value?: any;

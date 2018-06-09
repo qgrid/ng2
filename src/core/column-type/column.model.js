@@ -35,8 +35,6 @@ export class ColumnModel {
 			cruise: 'control', // control | transparent
 			label: null,
 			value: identity,
-			commit: new Command({ source: 'column.model', exeucte: identity }),
-			cancel: new Command({ source: 'column.model' }),
 			actions: []
 		};
 
