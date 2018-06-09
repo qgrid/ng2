@@ -3,7 +3,7 @@ import { RootService } from '../../infrastructure/component/root.service';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 
 @Directive({
-	selector: '[q-grid-overlay-theme]'
+	selector: '[q-grid-theme-overlay]'
 })
 export class OverlayThemeDirective  implements AfterViewInit {
 
