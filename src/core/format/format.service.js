@@ -6,4 +6,8 @@ export class FormatService {
     static date(x, format) {
         return x;
     }
+
+    static currency(X, format) {
+        return x;
+    }
 }

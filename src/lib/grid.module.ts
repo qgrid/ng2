@@ -1,5 +1,5 @@
 import { NgModule, NgZone } from '@angular/core';
-import { DatePipe, DecimalPipe } from '@angular/common';
+import { DatePipe, DecimalPipe, CurrencyPipe } from '@angular/common';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Defer } from 'ng2-qgrid/core/infrastructure/defer';
 import { setup } from 'ng2-qgrid/core/setup';
@@ -34,12 +34,18 @@ import { RowComponent } from './main/core/row/row.component';
 		MainModule,
 		TemplateModule
 	],
-	providers: [DatePipe, DecimalPipe]
+	providers: [
+		DatePipe, 
+		DecimalPipe,
+		CurrencyPipe
+	]
 })
 export class GridModule {
-	constructor(zone: NgZone, datePipe: DatePipe, numberPipe: DecimalPipe) {
+	constructor(zone: NgZone, datePipe: DatePipe, numberPipe: DecimalPipe, currencyPipe: CurrencyPipe) {
 		FormatService.date = (x, format) => datePipe.transform(x, format);
 		FormatService.number = (x, format) => numberPipe.transform(x, format);
+		FormatService.currency = (x, format) => currencyPipe.transform(x, format);
+		
 
 		jobLine.run = (job, delay) => {
 			const defer = new Defer();
