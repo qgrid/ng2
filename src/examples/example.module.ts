@@ -78,6 +78,7 @@ import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme
 import { ExampleColumnArrayBasicComponent } from './column-array-basic/example-column-array-basic.component';
 import { ExampleColumnBoolBasicComponent } from './column-bool-basic/example-column-bool-basic.component';
 import { ExampleColumnCurrencyBasicComponent } from './column-currency-basic/example-column-currency-basic.component';
+import { ExampleColumnNumberBasicComponent } from './column-number-basic/example-column-number-basic.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -151,6 +152,7 @@ const EXAMPLES: Array<any> = [
 	ExampleColumnArrayBasicComponent,
 	ExampleColumnBoolBasicComponent,
 	ExampleColumnCurrencyBasicComponent,
+	ExampleColumnNumberBasicComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
