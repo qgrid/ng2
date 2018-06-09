@@ -83,6 +83,7 @@ import { ExampleColumnTextBasicComponent } from './column-text-basic/example-col
 import { ExampleColumnDateBasicComponent } from './column-date-basic/example-column-date-basic.component';
 import { ExampleColumnIdBasicComponent } from './column-id-basic/example-column-id-basic.component';
 import { ExampleColumnEmailBasicComponent } from './column-email-basic/example-column-email-basic.component';
+import { ExampleColumnUrlBasicComponent } from './column-url-basic/example-column-url-basic.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -161,6 +162,7 @@ const EXAMPLES: Array<any> = [
 	ExampleColumnDateBasicComponent,
 	ExampleColumnIdBasicComponent,
 	ExampleColumnEmailBasicComponent,
+	ExampleColumnUrlBasicComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
