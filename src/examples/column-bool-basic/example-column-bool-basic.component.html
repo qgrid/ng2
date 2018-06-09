@@ -52,7 +52,7 @@
 		               type="bool">
 			<ng-template for="body"
 			             let-$cell>
-				{{$cell.value ? 'YES' : 'NO'}}
+				{{$cell.value === null ? 'NULL' : $cell.value ? 'YES' : 'NO'}}
 			</ng-template>
 			<ng-template for="edit"
 			             let-$view="$view">

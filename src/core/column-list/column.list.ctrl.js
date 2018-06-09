@@ -36,7 +36,7 @@ export class ColumnListCtrl {
 				const type = getType(targetValue);
 				const parse = parseFactory(type);
 				const sourceValue = parse(value, targetValue);
-				accessor(target, sourceValue);
+				accessor(target, sourceValue === null ? value : sourceValue);
 			});
 	}
 
