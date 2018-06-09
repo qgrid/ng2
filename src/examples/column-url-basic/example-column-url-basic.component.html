@@ -11,8 +11,8 @@
 		               type="url">
 		</q-grid-column>
 		<q-grid-column key="withLabel"
-					   title="With Label"
-					   label="QGRID"
+		               title="With Label"
+		               label="QGRID"
 		               type="url">
 		</q-grid-column>
 		<q-grid-column key="customTemplate"
@@ -27,6 +27,7 @@
 			             let-$cell
 			             let-$view="$view">
 				<input style="width: 100%"
+				       type="url"
 				       q-grid-focus
 				       [(ngModel)]="$view.edit.cell.value"
 				       (blur)="$view.edit.cell.exit.execute($cell)" />
