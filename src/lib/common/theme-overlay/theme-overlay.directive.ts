@@ -24,13 +24,7 @@ export class ThemeOverlayDirective  implements AfterViewInit {
 			if(parent.nodeName==='BODY') break;
 		}
 
-		if(parent.nodeName==='BODY') {
-			/*
-			overlayContainer = this.renderer.createElement('div');
-			this.renderer.addClass(overlayContainer, 'cdk-overlay-container')
-			this.renderer.appendChild(parent, overlayContainer);
-			*/
-		} else {
+		if(parent.nodeName !=='BODY') {
 			overlayContainer=parent;
 		}
 
@@ -39,12 +33,10 @@ export class ThemeOverlayDirective  implements AfterViewInit {
 				'theme-overlay.directive',
 				`cdk-overlay container is not found`
 			);
-		}else{
-			model.style().classList.forEach(cssClass => {
+		}
+		
+		model.style().classList.forEach(cssClass => {
 				this.renderer.addClass(overlayContainer, cssClass);
 		});
-	}
-
-
     }
 }
