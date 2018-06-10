@@ -1,0 +1,41 @@
+<q-grid caption="Column Image Basic"
+        [rows]="rows"
+        editMode="cell">
+	<q-grid-columns>
+		<q-grid-column key="invalid"
+		               title="Invalid"
+		               type="image">
+		</q-grid-column>
+		<q-grid-column key="valid"
+		               title="Valid"
+		               type="image">
+		</q-grid-column>
+		<q-grid-column key="withLabel"
+					   title="With Label"
+					   label="QGRID"
+		               type="image">
+		</q-grid-column>
+		<q-grid-column key="empty"
+					   title="Empty"
+		               type="image">
+		</q-grid-column>
+		<q-grid-column key="customTemplate"
+		               title="Custom Template"
+					   [editorOptions]="{trigger: 'click'}"
+					   width="200"
+		               type="image">
+			<ng-template for="body"
+			             let-$cell>
+				<em>{{$cell.value}}</em>
+			</ng-template>
+			<ng-template for="edit"
+			             let-$cell
+			             let-$view="$view">
+				<input style="width: 100%"
+				       q-grid-focus
+				       [(ngModel)]="$view.edit.cell.value"
+				       (blur)="$view.edit.cell.exit.execute($cell)" />
+			</ng-template>
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

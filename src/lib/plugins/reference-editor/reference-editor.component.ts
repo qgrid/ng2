@@ -7,12 +7,14 @@ import {
 } from '@angular/core';
 import { PluginComponent } from '../plugin.component';
 import { RootService } from '../../infrastructure/component/root.service';
-import { isString } from 'ng2-qgrid/core/utility/kit';
+import { isString, isArray } from 'ng2-qgrid/core/utility/kit';
 import { BoolColumnModel } from 'ng2-qgrid/core/column-type/bool.column';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { ViewCoreService } from '../../main/core/view/view-core.service';
+import { SelectionService } from 'ng2-qgrid/core/selection/selection.service';
+import { getFactory as valueFactory } from 'ng2-qgrid/core/services/value';
 
 @Component({
 	selector: 'q-grid-reference-editor',
@@ -35,27 +37,80 @@ export class ReferenceEditorComponent extends PluginComponent
 	}
 
 	ngOnInit() {
-		this.referenceModel = this.column.editorOptions.modelFactory(this.editView.cell);
+		const commit = new Command({
+			execute: e => this.edit.value = e.entries
+		});
 
-		this.submit = new Command({
-			canExecute: () => this.editView.commit.canExecute(),
-			execute: () => {
-				this.editView.commit.execute();
+		const cancel = new Command()
+		const reference = { 
+			commit, 
+			cancel,
+			value: this.edit.value
+		};
+
+		this.referenceModel = this.column.editorOptions.modelFactory({
+			row: this.edit.row,
+			column: this.edit.column,
+			reference,
+			getValue: valueFactory(this.edit.column)
+		});
+
+		const selectionService = new SelectionService(this.referenceModel)
+
+		this.referenceModel.dataChanged.watch((e, off) => {
+			if (e.hasChanges('rows') && e.state.rows.length > 0) {
+				off();
+
+				if (!this.referenceModel.selection().items.length) {
+					const value = reference.value;
+					const entries = isArray(value) ? value : [value];
+					const items = selectionService.map(entries);
+					this.referenceModel.selection({ items });
+				}
 			}
 		});
 
-		this.cancel = this.editView.cancel;
+		this.submit = new Command({
+			canExecute: () => {
+				const { items } = this.referenceModel.selection();
+				let entries = selectionService.lookup(items);
+				const context = { items, entries };
+
+				return this.edit.commit.canExecute() && reference.commit.canExecute(context)
+			},
+			execute: () => {
+				const { items } = this.referenceModel.selection();
+				let entries = selectionService.lookup(items);
+				const context = { items, entries };
+				if (reference.commit.execute(context) !== false) {
+					if (reference.commit === commit) {
+						this.edit.commit.execute();
+					} else {
+						this.edit.cancel.execute();
+					}
+				}
+			}
+		});
+
+		this.cancel = new Command({
+			canExecute: () => this.edit.cancel.canExecute() && reference.cancel.canExecute(),
+			execute: () => {
+				if (reference.cancel.execute() !== false) {
+					this.edit.cancel.execute();
+				}
+			}
+		});
 	}
 
 	get title(): string {
-		return this.editView.column.title;
+		return this.edit.column.title;
 	}
 
 	get column() {
-		return this.editView.column;
+		return this.edit.column;
 	}
 
-	private get editView() {
+	private get edit() {
 		return this.view.edit.cell;
 	}
 }

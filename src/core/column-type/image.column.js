@@ -22,11 +22,11 @@ export class ImageColumnModel extends DataColumnModel {
 	constructor() {
 		super('image');
 
+		this.canSort = false;
+		this.canFilter = false;
 		this.canUpload = yes;
 
 		this.hasPreview = name => isImage(name);
-		this.canSort = false;
-		this.canFilter = false;
 	}
 }
 

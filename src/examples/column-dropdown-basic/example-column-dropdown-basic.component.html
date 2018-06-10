@@ -1,0 +1,51 @@
+<q-grid caption="Column Dropdown Basic"
+        [rows]="rows"
+        editMode="cell">
+	<q-grid-columns>
+		<q-grid-column key="number"
+		               title="Number"
+		               type="number"
+		               editor="dropdown"
+		               [editorOptions]="numberObservableFetchOptions">
+		</q-grid-column>
+		<q-grid-column key="text"
+		               title="Text Value"
+		               type="text"
+		               editor="dropdown"
+		               [editorOptions]="textValueFetchOptions">
+		</q-grid-column>
+		<q-grid-column key="bool"
+		               title="Bool"
+		               type="bool"
+		               editor="dropdown"
+		               [editorOptions]="boolFunctionFetchOptions">
+		</q-grid-column>
+		<q-grid-column key="date"
+		               title="Date"
+		               type="date"
+		               editor="dropdown">
+		</q-grid-column>
+		<q-grid-column key="null"
+		               title="Null"
+		               type="text"
+		               editor="dropdown">
+		</q-grid-column>
+		<q-grid-column key="undefined"
+		               title="Undefined"
+		               type="text"
+		               editor="dropdown">
+		</q-grid-column>
+		<q-grid-column key="empty"
+		               title="Empty Promise"
+		               type="text"
+		               editor="dropdown"
+		               [editorOptions]="textPromiseFetchOptions">
+		</q-grid-column>
+		<q-grid-column key="multi"
+		               title="Multi"
+		               type="text"
+		               editor="dropdown"
+		               [editorOptions]="multiFetchOptions">
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

@@ -1,0 +1,53 @@
+<q-grid caption="Column Id Basic"
+        [rows]="rows"
+        editMode="cell">
+	<q-grid-columns>
+		<q-grid-column key="number"
+					   title="Number"
+					   editor="number"
+		               type="id">
+		</q-grid-column>
+		<q-grid-column key="bool"
+					   title="Bool"
+					   editor="bool"
+		               type="id">
+		</q-grid-column>
+		<q-grid-column key="date"
+					   title="Date"
+					   editor="date"
+		               type="id">
+		</q-grid-column>
+		<q-grid-column key="text"
+		               title="Text"
+		               type="id">
+		</q-grid-column>
+		<q-grid-column key="null"
+		               title="Null"
+		               type="id">
+		</q-grid-column>
+		<q-grid-column key="undefined"
+		               title="Undefined"
+		               type="id">
+		</q-grid-column>
+		<q-grid-column key="empty"
+		               title="Empty"
+		               type="id">
+		</q-grid-column>
+		<q-grid-column key="customTemplate"
+		               title="Custom Template"
+		               type="text">
+			<ng-template for="body"
+			             let-$cell>
+				<strong>{{$cell.value}}</strong>
+			</ng-template>
+			<ng-template for="edit"
+			             let-$cell
+			             let-$view="$view">
+				<input style="width: 100%"
+				       q-grid-focus
+				       [(ngModel)]="$view.edit.cell.value"
+				       (blur)="$view.edit.cell.exit.execute($cell)" />
+			</ng-template>
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

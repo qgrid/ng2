@@ -37,7 +37,6 @@ export class ViewCoreComponent extends NgComponent
 		private zone: NgZone,
 		private elementRef: ElementRef) {
 		super();
-
 	}
 
 	ngOnInit() {
@@ -84,18 +83,20 @@ export class ViewCoreComponent extends NgComponent
 
 	ngAfterViewChecked() {
 		this.sceneJob(() => {
-			const model = this.model;
-			const { round, status } = model.scene();
-			if (round > 0 && status === 'start') {
-				model.scene({
-					round: 0,
-					status: 'stop'
-				}, {
-						source: 'grid.component',
-						behavior: 'core'
-					});
+			if (this.root.isReady) {
+				const model = this.model;
+				const { round, status } = model.scene();
+				if (round > 0 && status === 'start') {
+					model.scene({
+						round: 0,
+						status: 'stop'
+					}, {
+							source: 'grid.component',
+							behavior: 'core'
+						});
 
-				this.ctrl.invalidate();
+					this.ctrl.invalidate();
+				}
 			}
 		});
 	}

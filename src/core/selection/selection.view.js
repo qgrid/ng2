@@ -132,6 +132,13 @@ export class SelectionView {
 				execute: (item, source) => {
 					const commit = this.toggle(item, source);
 					commit();
+				},
+				canExecute: (...args) => {
+					if (!args.length) {
+						return this.mode === 'multiple';
+					}
+
+					return true;
 				}
 			}),
 			toggleColumn: new Command({

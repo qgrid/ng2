@@ -27,10 +27,10 @@ export class ColumnComponent implements OnInit {
 	@Input() symbol: string;
 	@Input() code: string;
 
-	@Input() width: number;
-	@Input() minWidth: number;
-	@Input() maxWidth: number;
-	@Input() viewWidth: number;
+	@Input() width: number | string;
+	@Input() minWidth: number | string;
+	@Input() maxWidth: number | string;
+	@Input() viewWidth: number | string;
 
 	@Input() canEdit: boolean;
 	@Input() canResize: boolean;
@@ -45,11 +45,11 @@ export class ColumnComponent implements OnInit {
 
 	@Input() label: (row: any, value?: any) => any | any;
 	@Input() labelPath: string;
-	
+
 	@Input() itemLabel: (row: any, value?: any) => any;
 	@Input() itemFormat: string;
 	@Input() itemType: string;
-	
+
 	@Input() value: (row: any, value?: any) => any;
 	@Input() path: string;
 
@@ -57,6 +57,8 @@ export class ColumnComponent implements OnInit {
 
 	@Input() trueValue: any;
 	@Input() falseValue: any;
+
+	@Input() maxLength: number;
 
 	constructor(
 		private root: RootService,
