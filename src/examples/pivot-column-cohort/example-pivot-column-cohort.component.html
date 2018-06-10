@@ -2,9 +2,13 @@
         [rows]="rows | async"
         [pivotBy]="['bondingType', 'groupBlock']">
 	<q-grid-columns>
-		<q-grid-column key="name"
-		               width="90"
-		               title="Name">
+		<q-grid-column title="Name">
+			<q-grid-column key="number"
+			               title="Number">
+			</q-grid-column>
+			<q-grid-column key="symbol"
+			               title="Symbol">
+			</q-grid-column>
 		</q-grid-column>
 		<q-grid-column key="bondingType">
 		</q-grid-column>
