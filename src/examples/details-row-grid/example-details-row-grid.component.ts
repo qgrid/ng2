@@ -11,12 +11,19 @@ import { map } from 'rxjs/operators';
 })
 export class ExampleDetailsRowGridComponent {
 	rows: Observable<Atom[]>;
+	map = new Map<string, Observable<Atom[]>>();
 
 	constructor(dataService: DataService) {
 		this.rows = dataService.getAtoms();
 	}
 
 	getSamePhaseRows(atom: Atom) {
-		return this.rows.pipe(map(rows => rows.filter(row => row.phase === atom.phase)));
+		let subject = this.map.get(atom.phase);
+		if (!subject) {
+			subject = this.rows.pipe(map(rows => rows.filter(row => row.phase === atom.phase)));
+			this.map.set(atom.phase, subject);
+		}
+
+		return subject;
 	}
 }
