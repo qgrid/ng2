@@ -36,13 +36,11 @@ export class ColumnListCtrl {
 				const targetType = getType(targetValue);
 				const sourceType = getType(sourceValue);
 				let value = sourceValue;
-				if (targetType !== sourceType) {
-					if (targetValue !== null && !isUndefined(targetValue)) {
-						const parse = parseFactory(targetType);
-						const typedValue = parse(sourceValue, targetValue);
-						if (typedValue !== null) {
-							value = typedValue;
-						}
+				if (targetValue !== null && !isUndefined(targetValue)) {
+					const parse = parseFactory(targetType);
+					const typedValue = parse(sourceValue, targetValue);
+					if (typedValue !== null) {
+						value = typedValue;
 					}
 				}
 
