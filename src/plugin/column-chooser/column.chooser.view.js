@@ -22,15 +22,37 @@ export class ColumnChooserView {
 			source: 'column.chooser',
 			execute: column => {
 				column.isVisible = !this.state(column);
+				column.children.forEach(child => child.isVisible = column.isVisible);
 			}
 		});
-
+		
+		this.toggleChild = new Command({
+			source: 'column.chooser',
+			execute: (parent, child) => {
+				const state = !this.state(child);
+				
+				child.isVisible = state;
+				
+				if (parent.children.some(c => this.state(c))) {
+					parent.isVisible = true;
+				}
+				
+				if (parent.children.every(c => !this.state(c))) {
+					parent.isVisible = false;
+				}
+			}
+		});
+		
 		this.toggleAll = new Command({
 			source: 'column.chooser',
 			execute: () => {
 				const state = !this.stateAll();
 				for (let column of this.columns) {
 					column.isVisible = state;
+					
+					for (let child of column.children) {
+						child.isVisible = state;
+					}
 				}
 			}
 		});
@@ -39,7 +61,15 @@ export class ColumnChooserView {
 			source: 'column.chooser',
 			execute: () => {
 				for (let column of this.columns) {
-					column.isVisible = column.isDefault !== false;
+					column.isVisible = column.isDefault === true;
+					
+					for (let child of column.children) {
+						child.isVisible = child.isDefault === true;
+					}
+					
+					if (column.children.every(c => c.isDefault === true)) {
+						column.isVisible = true;
+					}
 				}
 			}
 		});
@@ -51,14 +81,27 @@ export class ColumnChooserView {
 			canExecute: e => {
 				const targetKey = e.dropData;
 				const map = columnService.map(this.temp.columns);
-				return map.hasOwnProperty(targetKey) && map[targetKey].canMove;
+				const children = map[targetKey.split('.')[0]].children;
+				const mapChildren = children.length ? columnService.map(children) : false;
+				
+				return map.hasOwnProperty(targetKey) && map[targetKey].canMove ||
+					mapChildren.hasOwnProperty(targetKey) && mapChildren[targetKey].canMove;
 			},
 			execute: e => {
 				const sourceKey = e.dragData;
 				const targetKey = e.dropData;
+				
 				if (sourceKey !== targetKey) {
-					const { index, columns } = this.temp;
-
+					const indexColumn = () => {
+						if (sourceKey.split('.').length > 1) {
+							return this.childTemp(sourceKey.split('.')[0]);
+						} else {
+							return this.temp;
+						}
+					};
+					
+					const { index, columns } = indexColumn();
+					
 					let oldIndex = index.indexOf(sourceKey);
 					let newIndex = index.indexOf(targetKey);
 					if (oldIndex >= 0 && newIndex >= 0) {
@@ -85,7 +128,12 @@ export class ColumnChooserView {
 			canExecute: e => {
 				const sourceKey = e.data;
 				const map = columnService.map(this.temp.columns);
-				return map.hasOwnProperty(sourceKey) && map[sourceKey].canMove;
+				const children = map[sourceKey.split('.')[0]].children;
+				const mapChildren = children.length ? columnService.map(children) : false;
+				
+				return map.hasOwnProperty(sourceKey) && map[sourceKey].canMove ||
+						mapChildren.hasOwnProperty(sourceKey) && mapChildren[sourceKey].canMove;
+				
 			}
 		});
 
@@ -164,11 +212,11 @@ export class ColumnChooserView {
 	state(column) {
 		return column.isVisible !== false;
 	}
-
+	
 	stateAll() {
-		return this.columns.every(this.state.bind(this));
+		return this.columns.every(column => this.state(column) && column.children.every(child => this.state(child)));
 	}
-
+	
 	stateDefault() {
 		return this.columns.every(c => (c.isDefault !== false && c.isVisible !== false) || (c.isDefault === false && c.isVisible === false));
 	}
@@ -176,7 +224,11 @@ export class ColumnChooserView {
 	isIndeterminate() {
 		return !this.stateAll() && this.columns.some(this.state.bind(this));
 	}
-
+	
+	isIndeterminateChildren(column) {
+		return !column.children.every(c => c.isVisible !== false) && column.children.some(this.state.bind(this))
+	}
+	
 	originIndex() {
 		return Array.from(this.model.columnList().index);
 	}
@@ -192,7 +244,8 @@ export class ColumnChooserView {
 				isVisible: c.isVisible,
 				aggregation: c.aggregation,
 				isDefault: c.isDefault,
-				canMove: c.canMove
+				canMove: c.canMove,
+				children: c.children
 			}));
 
 		let i = 0;
@@ -212,6 +265,21 @@ export class ColumnChooserView {
 
 	get resource() {
 		return this.model.columnChooser().resource;
+	}
+	
+	childTemp(column) {
+		const col = this.temp.columns.find(c => c.key === column);
+		const children = col.children;
+		const index = [];
+		
+		for (let i = 0; i < children.length; i++) {
+			index.push(children[i].key);
+		}
+		
+		return {
+			columns: children,
+			index
+		}
 	}
 
 	transfer(column) {
