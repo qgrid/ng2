@@ -143,6 +143,11 @@
 		background-color: $dark;
 	}
 
+	.q-grid-menu ::-webkit-scrollbar-track, 
+	.q-grid-menu ::-webkit-scrollbar-track-piece {
+		background-color: $dark-accent;
+	}
+
 	//Specific controls
 	.q-grid {
 		.mat-select-value {
@@ -172,18 +177,12 @@
 	}
 
 
-	q-grid-column-chooser {
-
+	q-grid-column-chooser, 
+	q-grid-column-filter {
 		.mat-card {
 			background-color: $dark;
 			color: $dark-text;
 			font-weight: 300;
-
-			//Scroll
-			.layout-column ::-webkit-scrollbar-track, 
-			.layout-column ::-webkit-scrollbar-track-piece {
-				background-color: $dark-accent;
-			}
 
 			.mat-card-title{
 				font-size: 16px;
@@ -216,9 +215,13 @@
 				background-color: $dark-primary;
 			}
 
-			.mat-form-field-should-float label{
+			.mat-form-field-should-float label, .q-grid-filter-by-item {
 				font-family: "Roboto Condensed",Roboto,"Helvetica Neue",sans-serif;
 				font-weight: 300;
+			}
+
+			.q-grid-filter-by-item{
+				color: $dark;
 			}
 
 			.mat-checkbox-checked.mat-accent 

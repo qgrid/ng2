@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { OverlayThemeDirective } from './overlay-theme.directive';
+import { ThemeOverlayDirective } from './theme-overlay.directive';
 
 @NgModule({
 	declarations: [
-		OverlayThemeDirective
+		ThemeOverlayDirective
 	],
 	exports: [
-		OverlayThemeDirective
+		ThemeOverlayDirective
 	]
 })
 export class OverlayThemeModule {

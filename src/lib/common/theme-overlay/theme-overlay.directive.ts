@@ -5,7 +5,7 @@ import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 @Directive({
 	selector: '[q-grid-theme-overlay]'
 })
-export class OverlayThemeDirective  implements AfterViewInit {
+export class ThemeOverlayDirective  implements AfterViewInit {
 
 	constructor(
 		private root: RootService,
@@ -17,20 +17,34 @@ export class OverlayThemeDirective  implements AfterViewInit {
 		const model = this.root.model;
 		const element = this.element.nativeElement;
 		let parent= this.renderer.parentNode(element);
-		
+		let overlayContainer: any = null;
+
 		while(parent && !(parent.id && parent.id.startsWith('cdk-overlay'))){
 			parent= this.renderer.parentNode(parent);
+			if(parent.nodeName==='BODY') break;
 		}
 
-		if(!parent){
+		if(parent.nodeName==='BODY') {
+			/*
+			overlayContainer = this.renderer.createElement('div');
+			this.renderer.addClass(overlayContainer, 'cdk-overlay-container')
+			this.renderer.appendChild(parent, overlayContainer);
+			*/
+		} else {
+			overlayContainer=parent;
+		}
+
+		if(!overlayContainer){
 			throw new AppError(
-				'overlay-theme.directive',
+				'theme-overlay.directive',
 				`cdk-overlay container is not found`
 			);
-		}
-
-		model.style().classList.forEach(cssClass => {
-			this.renderer.addClass(parent, cssClass);
+		}else{
+			model.style().classList.forEach(cssClass => {
+				this.renderer.addClass(overlayContainer, cssClass);
 		});
+	}
+
+
     }
 }
