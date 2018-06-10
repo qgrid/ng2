@@ -1,0 +1,27 @@
+<q-grid caption="Details Row Grid"
+        [rows]="rows | async"
+        rowUnit="details"
+        rowMode="multiple">
+	<q-grid-columns generation="deep">
+		<q-grid-column type="row-details">
+			<ng-template for="body"
+			             let-$cell>
+				<q-grid caption="{{$cell.row.item.phase}} Phase Atoms"
+				        [rows]="getSamePhaseRows($cell.row.item) | async"
+				        class="q-grid-embed">
+					<q-grid-columns>
+						<q-grid-column key="number"
+						               title="Number">
+						</q-grid-column>
+						<q-grid-column key="symbol"
+						               title="Symbol">
+						</q-grid-column>
+						<q-grid-column key="name"
+						               title="Name">
+						</q-grid-column>
+					</q-grid-columns>
+				</q-grid>
+			</ng-template>
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

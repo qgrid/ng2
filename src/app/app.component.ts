@@ -3,7 +3,6 @@ import { Routes } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { exampleRoutes } from '../examples/example.module';
 
-
 @Component({
 	selector: 'app-root',
 	templateUrl: 'app.component.html',

@@ -11,6 +11,7 @@ import { RowComponent } from './core/row/row.component';
 import { LayerComponent } from './core/layer/layer.component';
 import { MarkupDirective } from './markup/markup.directive';
 import { CommonModule as GridCommonModule } from '../common/common.module';
+import { ColumnService } from './column/column.service';
 
 @NgModule({
 	declarations: [

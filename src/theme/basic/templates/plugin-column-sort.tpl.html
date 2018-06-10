@@ -1,0 +1,5 @@
+<ng-template key="plugin-column-sort.tpl.html" let-$columnSort>
+    <span class="q-grid-icon q-grid-asc">&uarr;</span>
+    <span class="q-grid-icon q-grid-desc">&darr;</span>
+    <ng-container [ngTemplateOutlet]='$columnSort.template'></ng-container>
+</ng-template>

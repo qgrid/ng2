@@ -20,6 +20,9 @@
       "ng2-qgrid/plugin/*": [
         "plugin/*"
       ],
+      "ng2-qgrid/theme/*": [
+        "theme/*"
+      ],
       "ng2-qgrid": [
         "lib/public-api.ts"
       ]

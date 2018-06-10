@@ -1,5 +1,11 @@
 @import 'variable.scss';
 .q-grid-table {
+    tbody,
+    thead,
+    tfoot {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
     table {
         border-spacing: 0;
         overflow: hidden;
@@ -26,11 +32,11 @@
             outline: none;
             overflow-anchor: none;
             &.q-grid-body-top {
-				flex: none;
-				overflow-x: hidden;
+                flex: none;
+                overflow-x: hidden;
             }
             &.q-grid-body-bottom {
-				flex: none;
+                flex: none;
             }
         }
         tbody tr {

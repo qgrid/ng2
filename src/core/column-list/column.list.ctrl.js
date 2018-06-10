@@ -36,13 +36,11 @@ export class ColumnListCtrl {
 				const targetType = getType(targetValue);
 				const sourceType = getType(sourceValue);
 				let value = sourceValue;
-				if (targetType !== sourceType) {
-					if (targetValue !== null && !isUndefined(targetValue)) {
-						const parse = parseFactory(targetType);
-						const typedValue = parse(sourceValue, targetValue);
-						if (typedValue !== null) {
-							value = typedValue;
-						}
+				if (targetValue !== null && !isUndefined(targetValue)) {
+					const parse = parseFactory(targetType);
+					const typedValue = parse(sourceValue, targetValue);
+					if (typedValue !== null) {
+						value = typedValue;
 					}
 				}
 
@@ -52,7 +50,20 @@ export class ColumnListCtrl {
 
 	add(column, parent) {
 		if (parent) {
+			parent.type = 'cohort';
+			if (!parent.key || parent.key === '$default') {
+				parent.key = `$cohort-from-${column.key}`;
+			}
+
 			parent.children.push(column);
+	
+			const { columnList } = this.model;
+			const columns = columnList().columns;
+			if(columns.indexOf(parent) < 0) {
+				columnList({
+					columns: columns.concat([parent])
+				})
+			}
 		}
 		else {
 			const { columnList } = this.model;
