@@ -21,7 +21,11 @@ export class ExampleColumnReferenceBasicComponent {
 	convert = rows => rows.map(value => ({ value }));
 
 	notEditableOptions: EditorOptions = {
-		modelFactory: ({ row }) => {
+		modelFactory: ({ row, reference }) => {
+			reference.commit = new Command({
+				canExecute: () => false
+			});
+			
 			const model = this.qgrid.model();
 			model
 				.data({
