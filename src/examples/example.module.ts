@@ -9,8 +9,25 @@ import { GridModule, ThemeModule } from 'ng2-qgrid';
 import { ExampleActionBarBasicComponent } from './action-bar-basic/example-action-bar-basic.component';
 import { ExampleActionBarTemplateComponent } from './action-bar-template/example-action-bar-template.component';
 import { ExampleAggregateColumnBasicComponent } from './aggregate-column-basic/example-aggregate-column-basic.component';
+import { ExampleColumnArrayBasicComponent } from './column-array-basic/example-column-array-basic.component';
+import { ExampleColumnAutocompletetBasicComponent } from './column-autocomplete-basic/example-column-autocomplete-basic.component';
+import { ExampleColumnBoolBasicComponent } from './column-bool-basic/example-column-bool-basic.component';
+import { ExampleColumnCurrencyBasicComponent } from './column-currency-basic/example-column-currency-basic.component';
+import { ExampleColumnDateBasicComponent } from './column-date-basic/example-column-date-basic.component';
+import { ExampleColumnDropdowntBasicComponent } from './column-dropdown-basic/example-column-dropdown-basic.component';
+import { ExampleColumnEmailBasicComponent } from './column-email-basic/example-column-email-basic.component';
+import { ExampleColumnFileBasicComponent } from './column-file-basic/example-column-file-basic.component';
+import { ExampleColumnIdBasicComponent } from './column-id-basic/example-column-id-basic.component';
+import { ExampleColumnImageBasicComponent } from './column-image-basic/example-column-image-basic.component';
+import { ExampleColumnNumberBasicComponent } from './column-number-basic/example-column-number-basic.component';
+import { ExampleColumnPasswordBasicComponent } from './column-password-basic/example-column-password-basic.component';
 import { ExampleColumnReferenceBasicComponent } from './column-reference-basic/example-column-reference-basic.component';
+import { ExampleColumnRowIndicatorBasicComponent } from './column-row-indicator-basic/example-column-row-indicator-basic.component';
+import { ExampleColumnRowNumberBasicComponent } from './column-row-number-basic/example-column-row-number-basic.component';
 import { ExampleColumnRowOptionsBasicComponent } from './column-row-options-basic/example-column-row-options-basic.component';
+import { ExampleColumnTextBasicComponent } from './column-text-basic/example-column-text-basic.component';
+import { ExampleColumnTimeBasicComponent } from './column-time-basic/example-column-time-basic.component';
+import { ExampleColumnUrlBasicComponent } from './column-url-basic/example-column-url-basic.component';
 import { ExampleDefineColumnAsyncComponent } from './define-column-async/example-define-column-async.component';
 import { ExampleDefineColumnBasicComponent } from './define-column-basic/example-define-column-basic.component';
 import { ExampleDefineColumnHybridComponent } from './define-column-hybrid/example-define-column-hybrid.component';
@@ -75,17 +92,30 @@ import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggre
 import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/example-summary-column-basic.component';
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
-import { ExampleColumnArrayBasicComponent } from './column-array-basic/example-column-array-basic.component';
-import { ExampleColumnBoolBasicComponent } from './column-bool-basic/example-column-bool-basic.component';
-import { ExampleColumnCurrencyBasicComponent } from './column-currency-basic/example-column-currency-basic.component';
-import { ExampleColumnNumberBasicComponent } from './column-number-basic/example-column-number-basic.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
 	ExampleActionBarTemplateComponent,
 	ExampleAggregateColumnBasicComponent,
+	ExampleColumnArrayBasicComponent,
+	ExampleColumnAutocompletetBasicComponent,
+	ExampleColumnBoolBasicComponent,
+	ExampleColumnCurrencyBasicComponent,
+	ExampleColumnDateBasicComponent,
+	ExampleColumnDropdowntBasicComponent,
+	ExampleColumnEmailBasicComponent,
+	ExampleColumnFileBasicComponent,
+	ExampleColumnIdBasicComponent,
+	ExampleColumnImageBasicComponent,
+	ExampleColumnNumberBasicComponent,
+	ExampleColumnPasswordBasicComponent,
 	ExampleColumnReferenceBasicComponent,
+	ExampleColumnRowIndicatorBasicComponent,
+	ExampleColumnRowNumberBasicComponent,
 	ExampleColumnRowOptionsBasicComponent,
+	ExampleColumnTextBasicComponent,
+	ExampleColumnTimeBasicComponent,
+	ExampleColumnUrlBasicComponent,
 	ExampleDefineColumnAsyncComponent,
 	ExampleDefineColumnBasicComponent,
 	ExampleDefineColumnHybridComponent,
@@ -149,10 +179,6 @@ const EXAMPLES: Array<any> = [
 	ExampleSummaryColumnBasicComponent,
 	ExampleThemeGridDarkComponent,
 	ExampleThemeGridEmbedComponent,
-	ExampleColumnArrayBasicComponent,
-	ExampleColumnBoolBasicComponent,
-	ExampleColumnCurrencyBasicComponent,
-	ExampleColumnNumberBasicComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;

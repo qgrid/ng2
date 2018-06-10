@@ -10,7 +10,8 @@
                        type="time"
                        #input
                        q-grid-focus
-                       [(ngModel)]="$view.edit.cell.value" />
+                       [ngModel]="$view.edit.cell.value | date: 'hh:mm'"
+                       (ngModelChanged)="$view.edit.cell.value = $event" />
             </mat-form-field>
         </ng-template>
     </q-grid-cell-editor>

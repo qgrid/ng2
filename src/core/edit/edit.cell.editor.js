@@ -70,9 +70,9 @@ export class CellEditor extends CellEditorCore {
 	}
 
 	fetchFactory() {
-		const { options } = this.td.column;
-		if (options && options.fetch) {
-			return new Fetch(options.fetch);
+		const { editorOptions } = this.td.column;
+		if (editorOptions && editorOptions.fetch) {
+			return new Fetch(editorOptions.fetch);
 		}
 
 		return new Fetch(this.td.value);

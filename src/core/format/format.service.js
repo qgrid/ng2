@@ -7,7 +7,7 @@ export class FormatService {
         return x;
     }
 
-    static currency(X, format) {
+    static currency(x, format) {
         return x;
     }
 }

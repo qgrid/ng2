@@ -76,7 +76,7 @@ tbody {
             max-width: 80px;
         }
         &.q-grid-date {
-            width: 110px;
+            width: 120px;
             min-width: 110px;
             max-width: 110px;
         }
@@ -119,6 +119,11 @@ tbody {
             min-width: 56px;
             max-width: 56px;
             text-overflow: initial;
+        }
+        &.q-grid-image {
+            width: 80px;
+            min-width: 80px;
+            max-width: 80px;
         }
     }
 }

@@ -9,7 +9,8 @@
                 <input q-grid-focus
                        matInput
                        [matDatepicker]="picker"
-                       [(ngModel)]="$view.edit.cell.value" />
+                       [ngModel]="$view.edit.cell.value | date:'yyyy-MM-dd'"
+                       (ngModelChange)="$view.edit.cell.value = $event" />
                 <mat-datepicker-toggle matSuffix
                                        [for]="picker">
                 </mat-datepicker-toggle>

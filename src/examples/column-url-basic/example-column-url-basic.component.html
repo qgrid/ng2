@@ -1,0 +1,37 @@
+<q-grid caption="Column Url Basic"
+        [rows]="rows"
+        editMode="cell">
+	<q-grid-columns>
+		<q-grid-column key="invalid"
+		               title="Invalid"
+		               type="url">
+		</q-grid-column>
+		<q-grid-column key="valid"
+		               title="Valid"
+		               type="url">
+		</q-grid-column>
+		<q-grid-column key="withLabel"
+		               title="With Label"
+		               label="QGRID"
+		               type="url">
+		</q-grid-column>
+		<q-grid-column key="customTemplate"
+		               title="Custom Template"
+		               [editorOptions]="{trigger: 'click'}"
+		               type="url">
+			<ng-template for="body"
+			             let-$cell>
+				<em>{{$cell.value}}</em>
+			</ng-template>
+			<ng-template for="edit"
+			             let-$cell
+			             let-$view="$view">
+				<input style="width: 100%"
+				       type="url"
+				       q-grid-focus
+				       [(ngModel)]="$view.edit.cell.value"
+				       (blur)="$view.edit.cell.exit.execute($cell)" />
+			</ng-template>
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

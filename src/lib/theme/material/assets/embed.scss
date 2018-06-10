@@ -69,6 +69,12 @@
                             }
                         }
                     }
+                    &.q-grid-image {
+                        img {
+                            max-height: 24px;
+                            max-width: 24px;
+                        }
+                    }
                 }
             }
             &-legend {
