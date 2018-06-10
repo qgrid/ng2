@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Routes, Route } from '@angular/router';
 import { MatButtonModule, MatSelectModule } from '@angular/material';
 
-import { GridModule, ThemeModule } from 'ng2-qgrid';
+import { GridModule } from 'ng2-qgrid';
+import { ThemeModule } from 'ng2-qgrid/theme/material/theme.module';
 
 import { ExampleActionBarBasicComponent } from './action-bar-basic/example-action-bar-basic.component';
 import { ExampleActionBarTemplateComponent } from './action-bar-template/example-action-bar-template.component';

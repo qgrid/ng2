@@ -40,9 +40,8 @@
     @import "assets/status.bar";
     @import "assets/table";
     @import "assets/title";
-	  @import "assets/validator";
-	  @import "assets/view";
-
+    @import "assets/validator";
+    @import "assets/view";
     @import "assets/mat/cell.array";
     @import "assets/mat/cell.autocomplete";
     @import "assets/mat/cell.checkbox";
@@ -59,7 +58,8 @@
     @import "assets/mat/pager.target";
     @import "assets/mat/pager";
     @import "assets/mat/persistence";
-    @import "assets/mat/query.builder";}
+    @import "assets/mat/query.builder";
+}
 
 .q-grid-excel .q-grid.q-grid-theme-material {
     @import "assets/mat/excel";

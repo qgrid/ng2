@@ -2,15 +2,11 @@ import {
 	NgModule,
 	ComponentFactoryResolver,
 	ApplicationRef,
-	Injector	
+	Injector
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThemeComponent } from './theme.component';
-import { PluginModule } from '../../plugins/plugin.module';
-import { CommonModule as GridCommonModule } from '../../common/common.module';
-import { TemplateService } from '../../template/template.service';
-import { TemplateModule } from '../../template/template.module';
 import {
 	MatCardModule,
 	MatIconModule,
@@ -31,11 +27,17 @@ import {
 	MatOptionModule,
 	MatToolbarModule
 } from '@angular/material';
-import { PipeModule } from '../../pipes/pipe.module';
-import { GridModule } from '../../grid.module';
-import { RootService } from '../../infrastructure/component/root.service';
-import { VscrollModule } from '../../common/vscroll/vscroll.module';
-import { ThemeService } from '../../template/theme.service';
+import {
+	PluginModule,
+	CommonModule as GridCommonModule,
+	TemplateModule,
+	TemplateService,
+	PipeModule,
+	GridModule,
+	RootService,
+	VscrollModule,
+	ThemeService
+} from '../../lib/public-api';
 
 @NgModule({
 	declarations: [
