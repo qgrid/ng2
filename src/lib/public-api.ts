@@ -76,6 +76,7 @@ export { TemplateModule } from './template/template.module';
 export { TemplateService } from './template/template.service';
 export { ThemeService } from './template/theme.service';
 
+// Common
 export { CommonModule } from './common/common.module';
-export { RootService } from './infrastructure/component/root.service';
 export { VscrollModule } from './common/vscroll/vscroll.module';
+export { RootService } from './infrastructure/component/root.service';
