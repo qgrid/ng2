@@ -90,6 +90,7 @@ import { ExampleColumnTimeBasicComponent } from './column-time-basic/example-col
 import { ExampleColumnPasswordBasicComponent } from './column-password-basic/example-column-password-basic.component';
 import { ExampleColumnRowNumberBasicComponent } from './column-row-number-basic/example-column-row-number-basic.component';
 import { ExampleColumnRowIndicatorBasicComponent } from './column-row-indicator-basic/example-column-row-indicator-basic.component';
+import { ExampleColumnDropdowntBasicComponent } from './column-dropdown-basic/example-column-dropdown-basic.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -175,6 +176,7 @@ const EXAMPLES: Array<any> = [
 	ExampleColumnPasswordBasicComponent,
 	ExampleColumnRowNumberBasicComponent,
 	ExampleColumnRowIndicatorBasicComponent,
+	ExampleColumnDropdowntBasicComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;

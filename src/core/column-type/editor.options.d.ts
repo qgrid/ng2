@@ -38,7 +38,7 @@ export interface EditorOptions {
 	/**
 	 * Can be used by e.g. `auto-complete` editor to populate list of items.
 	 */
-	fetch?: () => any | Promise<any> | any;
+	fetch?: () => Promise<any> | { subscribe: (x: any) => void } | any;
 
 	/**
 	 * List of actions, can be used by row-options column to draw menu with commands.
