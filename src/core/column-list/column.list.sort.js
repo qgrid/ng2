@@ -56,6 +56,10 @@ function compareFactory(scores, listIndex, templateIndex, viewIndex) {
 			templateFind(key) + scores.template(column)
 		];
 
+		console.log('-------------');
+		console.log(key);
+		console.log(JSON.stringify(candidates));
+
 		const weights = candidates.filter(w => w >= 0);
 		const weight = weights.length ? weights[0] : -1;
 		weightCache[key] = weight;

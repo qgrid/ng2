@@ -92,7 +92,7 @@ export class ColumnComponent implements OnInit {
 
 		this.columnList.copy(column, this);
 
-		if (withKey) {
+		if (withKey || this.parent) {
 			this.columnList.add(column, this.parent && this.parent.model);
 		} else {
 			const settings = Object.keys(this)
