@@ -18,6 +18,9 @@ import { TableCoreService } from '../table/table-core.service';
 export class BodyCoreComponent extends NgComponent implements OnInit {
 	@Input() pin = 'body';
 
+	columnId: (index: number, item: ColumnView) => any;
+	rowId: (index: number, row: any) => any;
+
 	constructor(
 		private element: ElementRef,
 		public $view: ViewCoreService,
@@ -73,13 +76,5 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 
 	get model(): Model {
 		return this.root.model;
-	}
-
-	columnId(index: number, item: ColumnView) {
-		return item.model.key;
-	}
-
-	rowId(index: number, row: any) {
-		return index;
 	}
 }
