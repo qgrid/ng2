@@ -21,6 +21,8 @@
     }
 }
 
-tr.q-grid-drag {
+tr.q-grid-drag,
+td.q-grid-drag,
+th.q-grid-drag {
     opacity: 0.4;
 }

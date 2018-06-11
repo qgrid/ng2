@@ -13,31 +13,47 @@ export class HeadView {
 		this.tagName = tagName;
 		this.rows = [];
 
+		const pathFinder = new PathService(table.context.bag.head);
+
 		this.drop = new Command({
 			source: 'head.view',
 			canExecute: e => {
 				if (e.action === 'end') {
-					return false;
+					return true;
 				}
 
-				const pathFinder = new PathService(table.context.bag.head);
 				const cell = pathFinder.cell(e.event.path);
 				return cell && cell.column.canMove;
 			},
 			execute: e => {
 				const sourceKey = e.dragData;
-				const pathFinder = new PathService(table.context.bag.head);
-				const targetKey = pathFinder.cell(e.event.path).column.key;
-				if (sourceKey !== targetKey) {
-					const columnList = model.columnList;
-					const indexMap = Array.from(columnList().index);
+				switch (e.action) {
+					case 'over': {
+						const td = pathFinder.cell(e.event.path);
+						const targetKey = td.column.key;
+						if (sourceKey !== targetKey) {
+							const { columnList } = model;
+							const indexMap = Array.from(columnList().index);
 
-					let oldIndex = indexMap.indexOf(sourceKey);
-					let newIndex = indexMap.indexOf(targetKey);
-					if (oldIndex >= 0 && newIndex >= 0) {
-						indexMap.splice(oldIndex, 1);
-						indexMap.splice(newIndex, 0, sourceKey);
-						columnList({ index: indexMap }, { source: 'head.view' });
+							const oldIndex = indexMap.indexOf(sourceKey);
+							const newIndex = indexMap.indexOf(targetKey);
+							if (oldIndex >= 0 && newIndex >= 0) {
+								indexMap.splice(oldIndex, 1);
+								indexMap.splice(newIndex, 0, sourceKey);
+								columnList({ index: indexMap }, { source: 'head.view' });
+							}
+						}
+						break;
+					}
+					case 'end':
+					case 'drop': {
+						const { index } = model.columnList();
+						let oldIndex = index.indexOf(sourceKey);
+						if (oldIndex >= 0) {
+							const oldColumn = table.body.column(oldIndex);
+							oldColumn.removeClass(`${GRID_PREFIX}-drag`);
+						}
+						break;
 					}
 				}
 			}
@@ -45,6 +61,15 @@ export class HeadView {
 
 		this.drag = new Command({
 			source: 'head.view',
+			execute: e => {
+				const sourceKey = e.data;
+				const { index } = model.columnList();
+				const oldIndex = index.indexOf(sourceKey);
+				if (oldIndex >= 0) {
+					const oldColumn = table.body.column(oldIndex);
+					oldColumn.addClass(`${GRID_PREFIX}-drag`);
+				}
+			},
 			canExecute: e => {
 				const sourceKey = e.data;
 				const { columns } = model.view();
