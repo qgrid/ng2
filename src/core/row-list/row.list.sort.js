@@ -10,28 +10,39 @@ export function sortFactory(model) {
     return rows => {
         let cursor = 0;
         const positions = new Map();
-        return rows
-            .filter((row, i) => {
-                const key = id.row(i, row);
-                const position = index.get(key)
-                if (position || position === 0) {
-                    positions.set(position, row);
-                    return false;
-                }
+        const result =
+            rows
+                .filter((row, i) => {
+                    const key = id.row(i, row);
+                    const position = index.get(key)
+                    if (position || position === 0) {
+                        positions.set(position, row);
+                        return false;
+                    }
 
-                return true;
-            })
-            .reduce((memo, row) => {
-                let indexRow;
-                while (indexRow = positions.get(cursor)) {
-                    memo.push(indexRow)
+                    return true;
+                })
+                .reduce((memo, row) => {
+                    let indexRow;
+                    while (indexRow = positions.get(cursor)) {
+                        positions.delete(cursor);
+                        memo.push(indexRow)
+                        cursor++;
+                    }
+
+                    memo.push(row);
                     cursor++;
-                }
 
-                memo.push(row);
-                cursor++;
+                    return memo;
+                }, []);
 
-                return memo;
-            }, []);
+        if (positions.size) {
+            const remain = Array.from(positions.entries());
+            remain.sort((x, y) => x[0] - y[0]);
+
+            return result.concat(remain.map(pos => pos[1]));
+        }
+
+        return result;
     };
-}
+}``
