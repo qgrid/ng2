@@ -49,7 +49,7 @@ import { Command } from 'ng2-qgrid/core/command/command';
 		TemplateLinkService,
 		LayerService
 	],
-	styleUrls: ['../../assets/index.scss', '../../theme/material/index.scss'],
+	styleUrls: ['../../assets/index.scss'],
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None
 })

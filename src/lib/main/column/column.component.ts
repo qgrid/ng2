@@ -1,15 +1,16 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, Optional, Inject, forwardRef, SkipSelf } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, Optional, Inject, forwardRef, SkipSelf, Host } from '@angular/core';
 import { isUndefined, clone } from 'ng2-qgrid/core/utility/kit';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { RootService } from '../../infrastructure/component/root.service';
 import { TemplateHostService } from '../../template/template-host.service';
 import { ColumnListService } from '../../main/column/column-list.service';
+import { ColumnService } from './column.service';
 
 @Component({
 	selector: 'q-grid-column',
 	template: '<ng-content></ng-content>',
-	providers: [TemplateHostService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	providers: [TemplateHostService, ColumnService],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnComponent implements OnInit {
 	model: ColumnModel;
@@ -64,7 +65,7 @@ export class ColumnComponent implements OnInit {
 		private root: RootService,
 		private columnList: ColumnListService,
 		private templateHost: TemplateHostService,
-		@SkipSelf() @Optional() private parent: ColumnComponent
+		private columnService: ColumnService
 	) { }
 
 	ngOnInit() {
@@ -92,8 +93,10 @@ export class ColumnComponent implements OnInit {
 
 		this.columnList.copy(column, this);
 
-		if (withKey) {
-			this.columnList.add(column, this.parent && this.parent.model);
+		this.columnService.column = column;
+		const { parent } = this.columnService;
+		if (withKey || parent.parent) {
+			this.columnList.add(column, parent.column);
 		} else {
 			const settings = Object.keys(this)
 				.filter(

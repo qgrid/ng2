@@ -24,6 +24,9 @@
       ],
       "ng2-qgrid/plugin/*": [
         "plugin/*"
+      ],
+      "ng2-qgrid/theme/*": [
+        "theme/*"
       ]
     }
   },

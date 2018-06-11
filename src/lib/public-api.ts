@@ -6,8 +6,6 @@ export { GridService } from 'ng2-qgrid/core/services/grid';
 export { GridModule } from './grid.module';
 export { GridComponent } from './main/grid/grid.component';
 export { GridService as Grid } from './main/grid/grid.service';
-export { ThemeModule } from './theme/material/theme.module';
-export { ThemeComponent } from './theme/material/theme.component';
 export { PluginService as GridPlugin } from './plugins/plugin.service';
 
 // NG Pipe
@@ -70,3 +68,15 @@ export { Row as DomRow } from 'ng2-qgrid/core/dom/row';
 export { Data as DomData } from 'ng2-qgrid/core/dom/data';
 export { View as DomView } from 'ng2-qgrid/core/dom/view';
 
+// Plugin
+export { PluginModule } from './plugins/plugin.module';
+
+// Template
+export { TemplateModule } from './template/template.module';
+export { TemplateService } from './template/template.service';
+export { ThemeService } from './template/theme.service';
+
+// Common
+export { CommonModule } from './common/common.module';
+export { VscrollModule } from './common/vscroll/vscroll.module';
+export { RootService } from './infrastructure/component/root.service';

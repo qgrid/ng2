@@ -23,23 +23,26 @@ export class ExampleIndexColumnHybridComponent {
 					columns: [
 						{
 							key: 'name',
-							title: 'js should not be 3]Name',
+							title: '[js 3]Name',
 							index: 3
 						},
 						{
+							key: 'source',
+							title: '[js 2]Source',
+							index: 2
+						}, {
 							key: 'melt',
-							title: '[js 10]Melt',
-							index: 10
+							title: '[js 8]Melt',
+							index: 8
 						},
 						{
 							key: 'mass',
-							title: '[js 0]Mass',
-							index: 0
+							title: '[js no index]Mass',
 						},
 						{
 							key: 'boil',
-							title: '[js 2]Boil',
-							index: 2
+							title: '[js 0]Boil',
+							index: 0
 						},
 					]
 				});

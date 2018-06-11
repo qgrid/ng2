@@ -253,16 +253,16 @@ function pivotColumnsFactory(model) {
 		const head = heads[0];
 		const headLength = head.length;
 		const row = new Array(headLength);
-		for (let j = 0; j < headLength; j++) {
-			const headColumn = head[j];
+		for (let i = 0; i < headLength; i++) {
+			const headColumn = head[i];
 			const pivotColumn = createColumn('pivot');
 			pivotColumn.colspan = headColumn.value;
 			const pivotColumnModel = pivotColumn.model;
 			pivotColumnModel.title = headColumn.key;
-			pivotColumnModel.key = pivotColumnModel.key + `[0][${j}]`;
+			pivotColumnModel.key = pivotColumnModel.key + `[0][${i}]`;
 
 			pivotColumnModel.rowIndex = 0;
-			row[j] = pivotColumn;
+			row[i] = pivotColumn;
 		}
 
 		const firstRow = memo[0];
