@@ -5,17 +5,19 @@ import { DragService } from 'ng2-qgrid/core/drag/drag.service';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { isUndefined } from 'ng2-qgrid/core/utility/kit';
+import { RootService } from '../../infrastructure/component/root.service';
+import { Action } from 'ng2-qgrid';
 
 @Directive({
 	selector: '[q-grid-drop]'
 })
-export class DropDirective {
+export class DropDirective implements OnInit {
 	@Input('q-grid-drop-data') dropData: any;
-	@Input('q-grid-drag-over') dragOver: Command<{ event: DragEvent, dragData: any, dropData: any, source: string }>;
+	@Input('q-grid-drag-over') dragOver: Command<{ event: DragEvent, dragData: any, dropData: any, action: 'over' | 'drop' | 'end' }>;
 	@Input('q-grid-drop-area') area: string;
-	@Input('q-grid-drop') drop: Command<{ event: DragEvent, dragData: any, dropData: any, source: string }>;
+	@Input('q-grid-drop') drop: Command<{ event: DragEvent, dragData: any, dropData: any, action: 'over' | 'drop' | 'end' }>;
 
-	constructor(private elementRef: ElementRef, private zone: NgZone) {
+	constructor(@Optional() private root: RootService, private elementRef: ElementRef, private zone: NgZone) {
 		const element = elementRef.nativeElement;
 		const listener = new EventListener(element, new EventManager(this));
 
@@ -29,6 +31,25 @@ export class DropDirective {
 		listener.on('drop', this.onDrop);
 	}
 
+	ngOnInit() {
+		if (this.root) {
+			this.root.model.dragChanged.on(e => {
+				if (e.hasChanges('isActive') && !e.state.isActive) {
+					const eventArg = {
+						event: null,
+						dragData: DragService.data,
+						dropData: this.dropData,
+						action: 'end'
+					};
+
+					if (this.drop.canExecute(eventArg)) {
+						this.drop.execute(eventArg);
+					}
+				}
+			});
+		}
+	}
+
 	onDrop(e: DragEvent) {
 		e.stopPropagation();
 
@@ -37,7 +58,7 @@ export class DropDirective {
 			event: e,
 			dragData: DragService.data,
 			dropData: this.dropData,
-			source: 'drop'
+			action: 'drop'
 		};
 
 		if (this.drop.canExecute(eventArg)) {
@@ -62,7 +83,7 @@ export class DropDirective {
 			event: e,
 			dragData: DragService.data,
 			dropData: this.dropData,
-			source: 'over'
+			action: 'over'
 		};
 
 		let effect = 'move';

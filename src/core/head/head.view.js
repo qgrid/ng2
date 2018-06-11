@@ -16,6 +16,10 @@ export class HeadView {
 		this.drop = new Command({
 			source: 'head.view',
 			canExecute: e => {
+				if (e.action === 'end') {
+					return false;
+				}
+
 				const pathFinder = new PathService(table.context.bag.head);
 				const cell = pathFinder.cell(e.event.path);
 				return cell && cell.column.canMove;

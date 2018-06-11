@@ -13,38 +13,46 @@ export class RowView {
 		this.drop = new Command({
 			source: 'row.view',
 			canExecute: e => {
+				if (e.action === 'end') {
+					return true;
+				}
+
 				const oldIndex = e.dragData;
 				const row = pathFinder.row(e.event.path);
 				return !!row;
 			},
 			execute: e => {
 				const oldIndex = e.dragData;
-				const newIndex = pathFinder.row(e.event.path).index;
+				switch (e.action) {
+					case 'over': {
+						const newIndex = pathFinder.row(e.event.path).index;
+						if (oldIndex !== newIndex) {
+							const { data } = model;
+							const rows = Array.from(data().rows);
 
-				if (oldIndex !== newIndex) {
-					const { data } = model;
-					const rows = Array.from(data().rows);
+							const row = rows[oldIndex];
+							rows.splice(oldIndex, 1);
+							rows.splice(newIndex, 0, row);
 
-					const row = rows[oldIndex];
-					rows.splice(oldIndex, 1);
-					rows.splice(newIndex, 0, row);
+							const oldRow = table.body.row(oldIndex);
+							oldRow.removeClass(`${GRID_PREFIX}-drag`);
 
-					const oldRow = table.body.row(oldIndex);
-					oldRow.removeClass(`${GRID_PREFIX}-drag`);
-		
-					const newRow = table.body.row(newIndex);
-					newRow.addClass(`${GRID_PREFIX}-drag`);
-		
-					console.log(`oldIndex: ${oldIndex}, newIndex: ${newIndex}`);
-					data({ rows }, { source: 'row.view' });
+							const newRow = table.body.row(newIndex);
+							newRow.addClass(`${GRID_PREFIX}-drag`);
+
+							data({ rows }, { source: 'row.view' });
+
+							e.dragData = newIndex;
+						}
+						break;
+					}
+					case 'drop':
+					case 'end': {
+						const oldRow = table.body.row(oldIndex);
+						oldRow.removeClass(`${GRID_PREFIX}-drag`);
+						break;
+					}
 				}
-
-				if (e.source === 'drop') {
-					const oldRow = table.body.row(oldIndex);
-					oldRow.removeClass(`${GRID_PREFIX}-drag`);
-				}
-
-				e.dragData = newIndex;
 			}
 		});
 
