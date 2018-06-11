@@ -4,18 +4,28 @@ import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { DragService } from 'ng2-qgrid/core/drag/drag.service';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { Command } from 'ng2-qgrid/core/command/command';
-import { isUndefined } from 'ng2-qgrid/core/utility/kit';
+import { isUndefined, no } from 'ng2-qgrid/core/utility/kit';
 import { RootService } from '../../infrastructure/component/root.service';
 import { Action } from 'ng2-qgrid';
+
+export interface DropEventArg {
+	event: DragEvent;
+	dragData: any;
+	dropData: any;
+	action: 'over' | 'drop' | 'end';
+
+	inAreaY(element: HTMLElement);
+	inAreaX(element: HTMLElement);
+}
 
 @Directive({
 	selector: '[q-grid-drop]'
 })
 export class DropDirective implements OnInit {
-	@Input('q-grid-drop-data') dropData: any;
-	@Input('q-grid-drag-over') dragOver: Command<{ event: DragEvent, dragData: any, dropData: any, action: 'over' | 'drop' | 'end' }>;
 	@Input('q-grid-drop-area') area: string;
-	@Input('q-grid-drop') drop: Command<{ event: DragEvent, dragData: any, dropData: any, action: 'over' | 'drop' | 'end' }>;
+	@Input('q-grid-drop-data') dropData: any;
+	@Input('q-grid-drop') drop: Command<{ DropEventArg }>;
+	@Input('q-grid-drag-over') dragOver: Command<{ DropEventArg }>;
 
 	constructor(@Optional() private root: RootService, private elementRef: ElementRef, private zone: NgZone) {
 		const element = elementRef.nativeElement;
@@ -39,7 +49,9 @@ export class DropDirective implements OnInit {
 						event: null,
 						dragData: DragService.data,
 						dropData: this.dropData,
-						action: 'end'
+						action: 'end',
+						inAreaX: no,
+						inAreaY: no
 					};
 
 					if (this.drop.canExecute(eventArg)) {
@@ -58,7 +70,9 @@ export class DropDirective implements OnInit {
 			event: e,
 			dragData: DragService.data,
 			dropData: this.dropData,
-			action: 'drop'
+			action: 'drop',
+			inAreaX: this.inAreaFactory(e, 'x'),
+			inAreaY: this.inAreaFactory(e, 'y')
 		};
 
 		if (this.drop.canExecute(eventArg)) {
@@ -83,7 +97,9 @@ export class DropDirective implements OnInit {
 			event: e,
 			dragData: DragService.data,
 			dropData: this.dropData,
-			action: 'over'
+			action: 'over',
+			inAreaX: this.inAreaFactory(e, 'x'),
+			inAreaY: this.inAreaFactory(e, 'y')
 		};
 
 		let effect = 'move';
@@ -102,5 +118,23 @@ export class DropDirective implements OnInit {
 
 	onLeave() {
 		this.elementRef.nativeElement.classList.remove(`${GRID_PREFIX}-dragover`);
+	}
+
+	private inAreaFactory(e: DragEvent, direction: 'x' | 'y') {
+		if (direction === 'y') {
+			return (element: HTMLElement) => {
+				const src = (DragService.element || e.srcElement).getBoundingClientRect();
+				const trg = element.getBoundingClientRect();
+				return e.clientY > trg.top + src.height / 2
+					|| e.clientY < trg.bottom - src.height / 2;
+			};
+		}
+
+		return (element: HTMLElement) => {
+			const src = (DragService.element || e.srcElement).getBoundingClientRect();
+			const trg = element.getBoundingClientRect();
+			return e.clientX > trg.left + src.width / 2
+				|| e.clientX < trg.right - src.width / 2;
+		};
 	}
 }

@@ -37,7 +37,7 @@ export class DragDirective {
 		}
 
 		const data = this.data;
-		this.drag.execute(eventArg);
+		DragService.element = this.drag.execute(eventArg);
 
 		this.elementRef.nativeElement.classList.add(`${GRID_PREFIX}-drag`);
 
@@ -46,7 +46,7 @@ export class DragDirective {
 
 		DragService.data = data;
 		DragService.area = this.area;
-
+		
 		if (this.root) {
 			const model = this.root.model;
 			model.drag({ isActive: true }, { source: 'drag.directive' });
@@ -62,5 +62,6 @@ export class DragDirective {
 		this.elementRef.nativeElement.classList.remove(`${GRID_PREFIX}-drag`);
 		DragService.data = null;
 		DragService.area = null;
+		DragService.element = null;
 	}
 }

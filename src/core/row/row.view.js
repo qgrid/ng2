@@ -25,7 +25,12 @@ export class RowView {
 				const oldIndex = e.dragData;
 				switch (e.action) {
 					case 'over': {
-						const newIndex = pathFinder.row(e.event.path).index;
+						const row = pathFinder.row(e.event.path);
+						if (!e.inAreaY(row.element)) {
+							return;
+						}
+
+						const newIndex = row.index;
 						if (oldIndex !== newIndex) {
 							if (model.scroll().mode === 'virtual') {
 								const oldRow = table.body.row(oldIndex);
@@ -62,6 +67,7 @@ export class RowView {
 				const index = e.data;
 				const row = table.body.row(index);
 				row.addClass(`${GRID_PREFIX}-drag`);
+				return row.element;
 			},
 			canExecute: e => {
 				if (isNumber(e.data)) {

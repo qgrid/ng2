@@ -29,8 +29,12 @@ export class HeadView {
 				const sourceKey = e.dragData;
 				switch (e.action) {
 					case 'over': {
-						const td = pathFinder.cell(e.event.path);
-						const targetKey = td.column.key;
+						const th = pathFinder.cell(e.event.path);
+						if (!e.inAreaX(th.element)) {
+							return;
+						}
+
+						const targetKey = th.column.key;
 						if (sourceKey !== targetKey) {
 							const { columnList } = model;
 							const index = Array.from(columnList().index);
