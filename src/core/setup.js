@@ -36,6 +36,7 @@ import { ValidationModel } from './validation/validation.model';
 import { TemplateModel } from './template/template.model';
 import { RestModel } from './rest/rest.model';
 import { AnimationModel } from './animation/animation.model';
+import { RowListModel } from './row-list/row.list.model';
 
 export function setup(model) {
 	model.register('grid', GridModel)
@@ -52,6 +53,7 @@ export function setup(model) {
 		.register('layout', LayoutModel)
 		.register('row', RowModel)
 		.register('columnList', ColumnListModel)
+		.register('rowList', RowListModel)
 		.register('sort', SortModel)
 		.register('group', GroupModel)
 		.register('pivot', PivotModel)

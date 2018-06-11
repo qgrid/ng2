@@ -9,7 +9,7 @@ export class DataModel {
 		this.isReadonly = false;
 
 		this.id = {
-			row: (index, row) => index,
+			row: (index, row) => row,
 			column: (index, column) => column.model.key
 		};
 	}

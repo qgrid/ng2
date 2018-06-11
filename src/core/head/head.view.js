@@ -33,14 +33,14 @@ export class HeadView {
 						const targetKey = td.column.key;
 						if (sourceKey !== targetKey) {
 							const { columnList } = model;
-							const indexMap = Array.from(columnList().index);
+							const index = Array.from(columnList().index);
 
-							const oldIndex = indexMap.indexOf(sourceKey);
-							const newIndex = indexMap.indexOf(targetKey);
-							if (oldIndex >= 0 && newIndex >= 0) {
-								indexMap.splice(oldIndex, 1);
-								indexMap.splice(newIndex, 0, sourceKey);
-								columnList({ index: indexMap }, { source: 'head.view' });
+							const oldPos = index.indexOf(sourceKey);
+							const newPos = index.indexOf(targetKey);
+							if (oldPos >= 0 && newPos >= 0) {
+								index.splice(oldPos, 1);
+								index.splice(newPos, 0, sourceKey);
+								columnList({ index }, { source: 'head.view' });
 							}
 						}
 						break;

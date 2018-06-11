@@ -27,20 +27,20 @@ export class RowView {
 					case 'over': {
 						const newIndex = pathFinder.row(e.event.path).index;
 						if (oldIndex !== newIndex) {
-							const { data } = model;
-							const rows = Array.from(data().rows);
+							if (model.scroll().mode === 'virtual') {
+								const oldRow = table.body.row(oldIndex);
+								oldRow.removeClass(`${GRID_PREFIX}-drag`);
 
-							const row = rows[oldIndex];
-							rows.splice(oldIndex, 1);
-							rows.splice(newIndex, 0, row);
+								const newRow = table.body.row(newIndex);
+								newRow.addClass(`${GRID_PREFIX}-drag`);
+							}
 
-							const oldRow = table.body.row(oldIndex);
-							oldRow.removeClass(`${GRID_PREFIX}-drag`);
-
-							const newRow = table.body.row(newIndex);
-							newRow.addClass(`${GRID_PREFIX}-drag`);
-
-							data({ rows }, { source: 'row.view' });
+							const tr = table.body.row(oldIndex).model();
+							const index = new Map(model.rowList().index.entries());
+							const id = model.data().id;
+							const key = id.row(newIndex, tr.model);
+							index.set(key, newIndex);
+							model.rowList({ index }, { source: 'row.view' });
 
 							e.dragData = newIndex;
 						}
