@@ -1,7 +1,12 @@
+import { identity } from "../utility/kit";
+
 export function sortFactory(model) {
     const { index } = model.rowList();
-    const { id } = model.data();
+    if (!index.size) {
+        return identity;
+    }
 
+    const { id } = model.data();
     return rows => {
         let cursor = 0;
         const positions = new Map();
