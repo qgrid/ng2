@@ -26,6 +26,8 @@ export class NavigationView {
 						row,
 						column
 					}
+				}, {
+					source: 'navigation.view'
 				});
 			},
 			canExecute: newCell => {
@@ -62,14 +64,15 @@ export class NavigationView {
 
 		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
-				// We need this one to toggle focus from details to main grid
-				// or when user change navigation cell through the model
-				if (!this.table.view.isFocused()) {
-					this.table.view.focus();
+				if (e.tag.source !== 'navigation.view') {
+					// We need this one to toggle focus from details to main grid
+					// or when user change navigation cell through the model
+					if (!this.table.view.isFocused()) {
+						this.table.view.focus();
+					}
 				}
 
 				const { rowIndex, columnIndex } = e.state;
-
 				focusBlurs = this.invalidateFocus(focusBlurs);
 				if (e.tag.source !== 'navigation.scroll' && this.scrollTo.canExecute(rowIndex, columnIndex)) {
 					this.scrollTo.execute(rowIndex, columnIndex);
@@ -79,8 +82,8 @@ export class NavigationView {
 					rowIndex,
 					columnIndex
 				}, {
-					source: 'navigation.view'
-				});
+						source: 'navigation.view'
+					});
 			}
 		});
 
@@ -90,16 +93,7 @@ export class NavigationView {
 			}
 
 			if (e.hasChanges('rowIndex') || e.hasChanges('columnIndex')) {
-				const { rowIndex, columnIndex } = e.state;
-				const { row, column } = table.body.cell(rowIndex, columnIndex).model();
-				model.navigation({
-					cell: {
-						rowIndex,
-						columnIndex,
-						row,
-						column
-					}
-				});
+				this.focus.execute(e)
 			}
 		});
 

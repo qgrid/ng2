@@ -3,6 +3,7 @@ import { defaultPipeUnit } from './units/default.pipe.unit';
 import { groupPipeUnit } from './units/group.pipe.unit';
 import { rowDetailsPipeUnit } from './units/row.details.pipe.unit';
 import { viewPipeUnit } from './units/view.pipe.unit';
+import { rowPipeUnit } from './units/row.pipe.unit';
 
 export class PipeUnit {
 	static get default() {
@@ -23,5 +24,9 @@ export class PipeUnit {
 
 	static get group() {
 		return groupPipeUnit;
+	}
+
+	static get row() {
+		return rowPipeUnit;
 	}
 }

@@ -49,18 +49,18 @@ export class DragDirective {
 
 		if (this.root) {
 			const model = this.root.model;
-			model.drag({ isActive: true });
+			model.drag({ isActive: true }, { source: 'drag.directive' });
 		}
 	}
 
 	onEnd() {
+		if (this.root) {
+			const model = this.root.model;
+			model.drag({ isActive: false }, { source: 'drag.directive' });
+		}
+
 		this.elementRef.nativeElement.classList.remove(`${GRID_PREFIX}-drag`);
 		DragService.data = null;
 		DragService.area = null;
-
-		if (this.root) {
-			const model = this.root.model;
-			model.drag({ isActive: false });
-		}
 	}
 }

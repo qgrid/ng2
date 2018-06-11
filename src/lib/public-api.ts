@@ -80,3 +80,6 @@ export { ThemeService } from './template/theme.service';
 export { CommonModule } from './common/common.module';
 export { VscrollModule } from './common/vscroll/vscroll.module';
 export { RootService } from './infrastructure/component/root.service';
+
+// View
+export { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';

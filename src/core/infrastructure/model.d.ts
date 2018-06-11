@@ -35,6 +35,7 @@ import { PersistenceModel } from '../persistence/persistence.model';
 import { PipeModel } from '../pipe/pipe.model';
 import { RestModel } from '../rest/rest.model';
 import { AnimationModel } from '../animation/animation.model';
+import { RowListModel } from '../row-list/row.list.model';
 
 export declare interface ModelTag {
 	source?: string;
@@ -105,6 +106,10 @@ export declare class Model {
 	rowChanged: ModelEvent<RowModel>;
 	row(value: RowModel, tag?: ModelTag): Model;
 	row(): RowModel;
+
+	rowListChanged: ModelEvent<RowListModel>;
+	rowList(value: RowListModel, tag?: ModelTag): Model;
+	rowList(): RowListModel;
 
 	selectionChanged: ModelEvent<SelectionModel>;
 	selection(value: SelectionModel, tag?: ModelTag): Model;
