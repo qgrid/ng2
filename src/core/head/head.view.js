@@ -36,8 +36,6 @@ export class HeadView {
 						columnList({ index: indexMap }, { source: 'head.view' });
 					}
 				}
-
-				return sourceKey;
 			}
 		});
 

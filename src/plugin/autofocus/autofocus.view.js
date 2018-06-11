@@ -32,7 +32,7 @@ export class AutofocusView {
 								});
 
 								if (columnIndex >= 0) {
-									focus({ rowIndex, columnIndex });
+									focus({ rowIndex, columnIndex }, { source: 'autofocus.view' });
 									break;
 								}
 

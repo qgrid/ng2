@@ -54,6 +54,17 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 
 		listener.on('mousedown', ctrl.onMouseDown.bind(ctrl));
 		listener.on('mouseup', ctrl.onMouseUp.bind(ctrl));
+
+		const { id } = model.data();
+		this.rowId = id.row;
+		this.columnId = id.column;
+
+		model.dataChanged.watch(e => {
+			if (e.hasChanges('id')) {
+				this.rowId = e.state.id.row;
+				this.columnId = e.state.id.column;
+			}
+		});
 	}
 
 	get selection(): SelectionModel {
@@ -68,7 +79,7 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 		return item.model.key;
 	}
 
-	rowId(index: number) {
+	rowId(index: number, row: any) {
 		return index;
 	}
 }
