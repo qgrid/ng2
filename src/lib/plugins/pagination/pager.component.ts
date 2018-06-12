@@ -22,7 +22,7 @@ export class PagerComponent implements OnInit, OnChanges {
 	}
 
 	ngOnInit() {
-		const pager = new PagerView(this.plugin.model);
+		const pager = new PagerView(this.plugin.model, this.plugin.table);
 		this.context = { $implicit: pager };
 	}
 }

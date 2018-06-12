@@ -31,7 +31,7 @@ export class DropDirective extends NgComponent implements OnInit {
 
 	constructor(
 		@Optional() private root: RootService,
-		private elementRef: ElementRef, 
+		private elementRef: ElementRef,
 		private zone: NgZone
 	) {
 		super();
@@ -102,34 +102,6 @@ export class DropDirective extends NgComponent implements OnInit {
 
 	onOver(e: DragEvent) {
 		e.preventDefault();
-
-		// const src = DragService.element || e.srcElement;
-
-		// const { clientX, clientY } = e;
-		// const { left, top, width, height } = src.getBoundingClientRect();
-
-		// const cx = left + width / 2;
-		// const cy = top + height / 2;
-
-		// const path0 = document.elementsFromPoint(clientX + width /2, clientY - height/2);
-		// const path1 = document.elementsFromPoint(clientX - , y1);
-
-
-		// const { x, y } = DragService.startPosition;
-		// const offsetX = e.clientX - x;
-		// let px;
-		// let py;
-		// if (offsetX > 0) {
-		// 	px = rect.bottom 
-		// } else {
-
-		// }
-		// const cx = DragService.startPosition.x;
-		// const x0 = left;
-		// const y0 = top + height / 2;
-		// const x1 = right;
-		// const y1 = top + height / 2;
-
 
 		const eventArg = {
 			path: (e as any).path,

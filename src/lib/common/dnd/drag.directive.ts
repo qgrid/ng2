@@ -49,9 +49,14 @@ export class DragDirective {
 
 		DragService.data = data;
 		DragService.area = this.area;
+
+		const rect = (DragService.element || e.srcElement).getBoundingClientRect();
 		DragService.startPosition = {
 			x: e.clientX,
-			y: e.clientY
+			y: e.clientY,
+			offsetX: e.clientX - (rect.left + rect.width / 2),
+			offsetY: e.clientY - (rect.top + rect.height / 2),
+			rect
 		};
 
 		if (this.root) {
@@ -70,6 +75,6 @@ export class DragDirective {
 		DragService.data = null;
 		DragService.area = null;
 		DragService.element = null;
-		DragService.startPosition = { x: 0, y: 0 };
+		DragService.startPosition = null;
 	}
 }

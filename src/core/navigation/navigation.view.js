@@ -3,6 +3,7 @@ import { Navigation } from './navigation';
 import { GRID_PREFIX } from '../definition';
 import { Td } from '../dom/td';
 import { Fastdom } from '../services/fastdom';
+import { FocusAfterRender } from '../focus/focus.service';
 
 export class NavigationView {
 	constructor(model, table, shortcut) {
@@ -16,19 +17,30 @@ export class NavigationView {
 
 		this.focus = new Command({
 			source: 'navigation.view',
-			execute: cell => {
-				const { rowIndex, columnIndex } = cell;
-				const { row, column } = table.body.cell(rowIndex, columnIndex).model();
-				model.navigation({
-					cell: {
-						rowIndex,
-						columnIndex,
-						row,
-						column
-					}
-				}, {
-						source: 'navigation.view'
-					});
+			execute: e => {
+				const { rowIndex, columnIndex, behavior } = e;
+				const td = table.body.cell(rowIndex, columnIndex).model();
+				if (td) {
+					const { row, column } = td;
+					model.navigation({
+						cell: {
+							rowIndex,
+							columnIndex,
+							row,
+							column
+						}
+					}, {
+							source: 'navigation.view',
+							behavior
+						});
+				} else {
+					model.navigation({
+						cell: null
+					}, {
+							source: 'navigation.view',
+							behavior
+						});
+				}
 			},
 			canExecute: newCell => {
 				const oldCell = model.navigation().cell;
@@ -64,10 +76,12 @@ export class NavigationView {
 
 		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
-				// We need this one to toggle focus from details to main grid
-				// or when user change navigation cell through the model
-				if (!this.table.view.isFocused()) {
-					this.table.view.focus();
+				if (e.tag.behavior !== 'core') {
+					// We need this one to toggle focus from details to main grid
+					// or when user change navigation cell through the model
+					if (!this.table.view.isFocused()) {
+						this.table.view.focus();
+					}
 				}
 
 				const { rowIndex, columnIndex } = e.state;
@@ -95,12 +109,31 @@ export class NavigationView {
 			}
 		});
 
+		let startRow = null;
+		let startColumn = null;
 		model.sceneChanged.watch(e => {
 			if (e.hasChanges('status')) {
-				const status = e.state.status;
+				const { status } = e.state;
 				switch (status) {
+					case 'start': {
+						startRow = model.navigation().row;
+						startColumn = model.navigation().column;
+						break;
+					}
 					case 'stop':
-						focusBlurs = this.invalidateFocus(focusBlurs);
+						if (startRow && startColumn) {
+							const rowIndex = table.data.rows().indexOf(startRow);
+							const columnIndex = table.data.columns().findIndex(column => column.key === startColumn.key);
+
+							startRow = null;
+							startColumn = null;
+
+							this.focus.execute({
+								rowIndex,
+								columnIndex,
+								behavior: 'core'
+							});
+						}
 						break;
 				}
 			}

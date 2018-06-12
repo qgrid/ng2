@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
@@ -21,13 +21,16 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy {
 	public element: HTMLElement = null;
 	private $implicit = this;
 
-	constructor(public $view: ViewCoreService,
+	constructor(
+		public $view: ViewCoreService,
 		private root: RootService,
 		private viewContainerRef: ViewContainerRef,
 		private cellService: CellService,
 		private table: TableCoreService,
 		private tr: TrCoreDirective,
-		element: ElementRef) {
+		private changeDetector: ChangeDetectorRef,
+		element: ElementRef
+	) {
 
 		this.element = element.nativeElement.parentNode;
 	}
