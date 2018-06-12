@@ -9,6 +9,10 @@ import { Action as ActionItem } from 'ng2-qgrid/core/action/action';
 export class ActionCoreComponent {
 	@Input() action: ActionItem = null;
 
+	context: { $implicit: ActionCoreComponent } = {
+		$implicit: this
+	};
+
 	constructor() {
 	}
 

@@ -21,6 +21,10 @@ export class BackdropComponent {
 	@ContentChild(TemplateRef) public template: TemplateRef<any>;
 	@Output('close') closeEvent = new EventEmitter<any>();
 
+	context: { $implicit: BackdropComponent } = {
+		$implicit: this
+	};
+
 	constructor(element: ElementRef) {
 		const context = {
 			element: element.nativeElement,

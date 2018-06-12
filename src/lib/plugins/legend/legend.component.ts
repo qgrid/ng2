@@ -8,6 +8,10 @@ import { TemplateHostService } from '../../template/template-host.service';
 	providers: [TemplateHostService]
 })
 export class LegendComponent {
+	context: { $implicit: LegendComponent } = {
+		$implicit: this
+	};
+
 	constructor(templateHost: TemplateHostService) {
 		templateHost.key = () => 'plugin-legend-core.tpl.html';
 	}

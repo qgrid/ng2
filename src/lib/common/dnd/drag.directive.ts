@@ -15,7 +15,10 @@ export class DragDirective {
 	@Input('q-grid-drag') drag: Command;
 	@Input('q-grid-drop-area') area: string;
 
-	constructor(@Optional() private root: RootService, private elementRef: ElementRef) {
+	constructor(
+		@Optional() private root: RootService,
+		private elementRef: ElementRef
+	) {
 		const element = elementRef.nativeElement;
 		const listener = new EventListener(element, new EventManager(this));
 		element.classList.add(`${GRID_PREFIX}-can-drag`);

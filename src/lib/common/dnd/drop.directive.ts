@@ -7,6 +7,7 @@ import { Command } from 'ng2-qgrid/core/command/command';
 import { isUndefined, no } from 'ng2-qgrid/core/utility/kit';
 import { RootService } from '../../infrastructure/component/root.service';
 import { Action } from 'ng2-qgrid';
+import { NgComponent } from '../../infrastructure/component/ng.component';
 
 export interface DropEventArg {
 	path: HTMLElement[];
@@ -21,14 +22,20 @@ export interface DropEventArg {
 @Directive({
 	selector: '[q-grid-drop]'
 })
-export class DropDirective implements OnInit {
+export class DropDirective extends NgComponent implements OnInit {
 	@Input('q-grid-drop-area') area: string;
 	@Input('q-grid-drop-data') dropData: any;
 	@Input('q-grid-drop') drop: Command<DropEventArg>;
 	@Input('q-grid-drag-over') dragOver: Command<DropEventArg>;
 	@Input('q-grid-drag-direction') dragDirection: 'x' | 'y' = 'y';
 
-	constructor(@Optional() private root: RootService, private elementRef: ElementRef, private zone: NgZone) {
+	constructor(
+		@Optional() private root: RootService,
+		private elementRef: ElementRef, 
+		private zone: NgZone
+	) {
+		super();
+
 		const element = elementRef.nativeElement;
 		const listener = new EventListener(element, new EventManager(this));
 
@@ -44,7 +51,7 @@ export class DropDirective implements OnInit {
 
 	ngOnInit() {
 		if (this.root) {
-			this.root.model.dragChanged.on(e => {
+			this.using(this.root.model.dragChanged.on(e => {
 				if (e.hasChanges('isActive')) {
 					if (!e.state.isActive) {
 						const eventArg = {
@@ -61,7 +68,7 @@ export class DropDirective implements OnInit {
 						}
 					}
 				}
-			});
+			}));
 		}
 	}
 

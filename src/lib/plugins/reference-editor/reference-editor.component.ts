@@ -20,6 +20,9 @@ import { NgComponent } from '../../infrastructure/component/ng.component';
 	templateUrl: './reference-editor.component.html'
 })
 export class ReferenceEditorComponent extends NgComponent implements OnInit {
+	context: { $implicit: ReferenceEditorComponent } = {
+		$implicit: this
+	};
 
 	referenceModel: Model;
 

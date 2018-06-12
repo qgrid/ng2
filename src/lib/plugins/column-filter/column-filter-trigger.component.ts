@@ -1,5 +1,6 @@
 import { Component, Input, Optional, OnInit, ElementRef } from '@angular/core';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
+import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { ViewCoreService } from '../../main/core/view/view-core.service';
 import { PluginService } from '../plugin.service';
 
@@ -9,9 +10,8 @@ import { PluginService } from '../plugin.service';
 	providers: [PluginService]
 })
 export class ColumnFilterTriggerComponent implements OnInit {
-	@Input() public column;
+	@Input() column: ColumnModel;
 
-	
 	context: { $implicit: ColumnFilterTriggerComponent } = {
 		$implicit: this
 	};

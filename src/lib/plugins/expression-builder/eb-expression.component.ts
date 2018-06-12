@@ -13,7 +13,7 @@ export class EbExpressionComponent implements OnInit, DoCheck {
 	@Input() public line: Line;
 	@Input() public model: any;
 
-	context: any;
+	context: { $implicit: any, node: Node, line: Line };
 
 	ngOnInit() {
 		this.context = { $implicit: this.model, node: this.node, line: this.line };

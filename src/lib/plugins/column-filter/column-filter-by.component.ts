@@ -12,6 +12,11 @@ export class ColumnFilterByComponent {
 
 	@Output() byBlanksChange = new EventEmitter();
 
+	context: { $implicit: ColumnFilterByComponent } = {
+		$implicit: this
+	};
+
+
 	constructor() {
 	}
 
