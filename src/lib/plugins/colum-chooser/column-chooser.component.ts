@@ -26,7 +26,7 @@ export class ColumnChooserComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		this.plugin.tie(this, ['columnChooser']);
+		this.plugin.tie(changes, ['columnChooser']);
 	}
 
 	ngOnInit() {

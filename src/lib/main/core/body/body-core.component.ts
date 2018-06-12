@@ -60,12 +60,13 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 
 		const { id } = model.data();
 		this.rowId = id.row;
-		this.columnId = id.column;
+		this.columnId = (index, columnView) => id.column(index, columnView.model);
 
 		model.dataChanged.watch(e => {
 			if (e.hasChanges('id')) {
 				this.rowId = e.state.id.row;
-				this.columnId = e.state.id.column;
+				const columnId = e.state.id.column;
+				this.columnId = (index, columnView) => columnId(index, columnView.model);
 			}
 		});
 	}

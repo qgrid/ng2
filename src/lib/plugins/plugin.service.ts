@@ -39,9 +39,16 @@ export class PluginService implements OnDestroy {
         return table;
     }
 
-    tie(host: any, models: string[]) {
-        const binder = new ModelBinder(host);
-        binder.bound(this.model, models, true, false);
+    tie(changes: SimpleChanges, models: string[]) {
+        const host = {};
+        for (let key in changes) {
+            const change = changes[key];
+            host[key] = change.currentValue;
+        }
+
+        const binder = new ModelBinder(host); 
+        const commit = binder.bound(this.model, models, false, false);
+        commit();
     }
 
     ngOnDestroy() {

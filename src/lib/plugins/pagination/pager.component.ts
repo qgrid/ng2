@@ -18,7 +18,7 @@ export class PagerComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		this.plugin.tie(this, ['pagination']);
+		this.plugin.tie(changes, ['pagination']);
 	}
 
 	ngOnInit() {

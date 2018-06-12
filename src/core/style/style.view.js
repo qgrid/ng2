@@ -112,17 +112,18 @@ export class StyleView {
 		for (let i = 0, rowsLength = bodyRows.length; i < rowsLength; i++) {
 			const bodyRow = bodyRows[i];
 			const rowIndex = bodyRow.index;
-			const dataRow = bodyRow.model();
-			if (!dataRow) {
+			const tr = bodyRow.model();
+			if (!tr) {
 				continue;
 			}
 
+			const dataItem = tr.model;
 			if (isRowActive) {
 				rowContext.class = domRow(bodyRow);
 				rowContext.row = rowIndex;
 				rowContext.value = value;
 
-				visitRow(dataRow, rowContext);
+				visitRow(dataItem, rowContext);
 			}
 
 			if (isCellActive) {
@@ -139,7 +140,7 @@ export class StyleView {
 					cellContext.column = j;
 					cellContext.value = value;
 
-					visitCell(dataRow, dataCell.column, cellContext);
+					visitCell(dataItem, dataCell.column, cellContext);
 				}
 			}
 		}

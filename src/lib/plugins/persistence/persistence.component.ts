@@ -16,7 +16,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		this.plugin.tie(this, ['persistence']);
+		this.plugin.tie(changes, ['persistence']);
 	}
 	
 	ngOnInit() {

@@ -26,7 +26,5 @@ export class DataManipulationModel {
 				});
 			}
 		};
-
-		this.rowId = identity;
 	}
 }

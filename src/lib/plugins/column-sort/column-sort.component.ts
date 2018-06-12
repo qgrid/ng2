@@ -62,9 +62,5 @@ export class ColumnSortComponent implements AfterViewInit {
 		this.zone.runOutsideAngular(() =>
 			listener.on('mouseleave', () => ctrl.onMouseLeave())
 		);
-
-		this.context = {
-			$implicit: ctrl
-		};
 	}
 }

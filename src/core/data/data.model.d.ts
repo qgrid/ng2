@@ -78,6 +78,6 @@ export declare interface DataModel {
 
 	id?: {
 		row: (index: number, row: any) => any,
-		column: (index: number, column: ColumnView) => any,
+		column: (index: number, column: ColumnModel) => any,
 	};
 }

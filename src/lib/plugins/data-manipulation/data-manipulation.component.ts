@@ -8,7 +8,6 @@ import { PluginService } from '../plugin.service';
 	providers: [PluginService]
 })
 export class DataManipulationComponent implements OnInit, OnChanges {
-	@Input('rowId') public dataManipulationRowId: (x: any) => string;
 	@Input('rowFactory') public dataManipulationRowFactory: (x: any) => any;
 
 	context: {
@@ -19,7 +18,7 @@ export class DataManipulationComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		this.plugin.tie(this, ['dataManipulation']);
+		this.plugin.tie(changes, ['dataManipulation']);
 	}
 
 	ngOnInit() {

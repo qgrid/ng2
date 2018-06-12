@@ -19,7 +19,7 @@ export class RestComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		this.plugin.tie(this, ['rest']);
+		this.plugin.tie(changes, ['rest']);
 	}
 
 	ngOnInit() {
