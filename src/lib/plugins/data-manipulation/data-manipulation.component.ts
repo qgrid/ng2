@@ -1,4 +1,4 @@
-import { Component, Optional, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Optional, Input, OnInit, OnDestroy, SimpleChanges, OnChanges } from '@angular/core';
 import { DataManipulationView } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.view';
 import { PluginService } from '../plugin.service';
 
@@ -7,7 +7,7 @@ import { PluginService } from '../plugin.service';
 	template: '',
 	providers: [PluginService]
 })
-export class DataManipulationComponent implements OnInit {
+export class DataManipulationComponent implements OnInit, OnChanges {
 	@Input('rowId') public dataManipulationRowId: (x: any) => string;
 	@Input('rowFactory') public dataManipulationRowFactory: (x: any) => any;
 
@@ -16,7 +16,10 @@ export class DataManipulationComponent implements OnInit {
 	}
 
 	constructor(private plugin: PluginService) {
-		this.models = ['dataManipulation'];
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
+		this.plugin.tie(this, ['dataManipulation']);
 	}
 
 	ngOnInit() {

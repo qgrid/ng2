@@ -1,4 +1,4 @@
-import { Component, Optional, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Optional, Input, OnInit, OnDestroy, SimpleChanges, OnChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RestView } from 'ng2-qgrid/plugin/rest/rest.view';
 import { PluginService } from '../plugin.service';
@@ -8,7 +8,7 @@ import { PluginService } from '../plugin.service';
 	template: '',
 	providers: [PluginService]
 })
-export class RestComponent implements OnInit {
+export class RestComponent implements OnInit, OnChanges {
 	@Input('url') public restUrl: string;
 	@Input('method') public restMethod: string;
 	@Input('serialize') public restSerialize: (x: any) => any;
@@ -16,7 +16,10 @@ export class RestComponent implements OnInit {
 	context: { $implicit: RestView };
 
 	constructor(private http: HttpClient, private plugin: PluginService) {
-		this.models = ['rest'];
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
+		this.plugin.tie(this, ['rest']);
 	}
 
 	ngOnInit() {

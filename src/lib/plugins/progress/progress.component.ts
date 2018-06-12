@@ -1,4 +1,4 @@
-import { Component, Optional, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, Optional, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { PluginService } from '../plugin.service';
 
@@ -8,18 +8,21 @@ import { PluginService } from '../plugin.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [PluginService]
 })
-export class ProgressComponent implements OnInit {
+export class ProgressComponent implements OnInit, OnChanges {
 	context: { $implicit: ProgressComponent } = {
 		$implicit: this
 	};
 
-	constructor(private plugin: PluginService, private changeDetector: ChangeDetectorRef) {
-		this.models = ['progress'];
+	constructor(private plugin: PluginService, private cd: ChangeDetectorRef) {
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
+		this.plugin.tie(this, ['progress']);
 	}
 
 	ngOnInit() {
 		this.plugin.model.progressChanged.watch(() =>
-			this.changeDetector.detectChanges()
+			this.cd.detectChanges()
 		);
 	}
 

@@ -1,4 +1,4 @@
-import { Component, Optional, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Component, Optional, Input, Output, EventEmitter, OnInit, OnDestroy, SimpleChanges, OnChanges } from '@angular/core';
 import { ColumnChooserView } from 'ng2-qgrid/plugin/column-chooser/column.chooser.view';
 import { FocusAfterRender } from '../../common/focus/focus.service';
 import { PluginService } from '../plugin.service';
@@ -10,7 +10,7 @@ const ColumnChooserName = 'qGridColumnChooser';
 	templateUrl: './column-chooser.component.html',
 	providers: [FocusAfterRender, PluginService]
 })
-export class ColumnChooserComponent {
+export class ColumnChooserComponent implements OnInit, OnChanges {
 	@Input('canAggregate') columnChooserCanAggregate: boolean;
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
@@ -23,7 +23,10 @@ export class ColumnChooserComponent {
 		private plugin: PluginService,
 		focusAfterRender: FocusAfterRender
 	) {
-		this.models = ['columnChooser'];
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
+		this.plugin.tie(this, ['columnChooser']);
 	}
 
 	ngOnInit() {
@@ -31,7 +34,7 @@ export class ColumnChooserComponent {
 			name: ColumnChooserName
 		};
 
-		const columnChooser = new ColumnChooserView(this.model, context);
+		const columnChooser = new ColumnChooserView(this.plugin.model, context);
 		columnChooser.submitEvent.on(() => this.submitEvent.emit());
 		columnChooser.cancelEvent.on(() => this.cancelEvent.emit());
 
