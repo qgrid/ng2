@@ -22,14 +22,14 @@ export class HeadView {
 					return true;
 				}
 
-				const cell = pathFinder.cell(e.event.path);
+				const cell = pathFinder.cell(e.path);
 				return cell && cell.column.canMove;
 			},
 			execute: e => {
 				const sourceKey = e.dragData;
 				switch (e.action) {
 					case 'over': {
-						const th = pathFinder.cell(e.event.path);
+						const th = pathFinder.cell(e.path);
 						if (!e.inAreaX(th.element)) {
 							return;
 						}
@@ -68,10 +68,14 @@ export class HeadView {
 			execute: e => {
 				const sourceKey = e.data;
 				const { index } = model.columnList();
-				const oldIndex = index.indexOf(sourceKey);
-				if (oldIndex >= 0) {
-					const oldColumn = table.body.column(oldIndex);
-					oldColumn.addClass(`${GRID_PREFIX}-drag`);
+				const columnIndex = index.indexOf(sourceKey);
+				if (columnIndex >= 0) {
+					const column = table.body.column(columnIndex);
+					column.addClass(`${GRID_PREFIX}-drag`);
+
+					const rowIndex = table.head.rowCount(columnIndex) - 1;
+					const th = table.head.cell(rowIndex, columnIndex);
+					return th.element;
 				}
 			},
 			canExecute: e => {

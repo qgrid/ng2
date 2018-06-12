@@ -19,7 +19,7 @@ export class PersistenceComponent extends PluginComponent implements OnInit {
 	}
 
 	onReady() {
-		const model = this.root.model;
+		const model = this.model;
 		const id = `q-grid:${model.grid().id}:persistence-list`;
 		model.persistence({id});
 		model.persistence().storage

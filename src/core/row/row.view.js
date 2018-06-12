@@ -18,14 +18,14 @@ export class RowView {
 				}
 
 				const oldIndex = e.dragData;
-				const row = pathFinder.row(e.event.path);
+				const row = pathFinder.row(e.path);
 				return !!row;
 			},
 			execute: e => {
 				const oldIndex = e.dragData;
 				switch (e.action) {
 					case 'over': {
-						const row = pathFinder.row(e.event.path);
+						const row = pathFinder.row(e.path);
 						if (!e.inAreaY(row.element)) {
 							return;
 						}

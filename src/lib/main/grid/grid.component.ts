@@ -110,11 +110,11 @@ export class GridComponent extends RootComponent implements OnInit {
 	public themeComponent: any;
 
 	constructor(
-		private rootService: RootService,
+		private root: RootService,
 		private element: ElementRef,
-		private theme: ThemeService,
 		private zone: NgZone,
-		private layerService: LayerService
+		private layerService: LayerService,
+		theme: ThemeService,
 	) {
 		super();
 
@@ -132,7 +132,7 @@ export class GridComponent extends RootComponent implements OnInit {
 			'style'
 		];
 
-		this.modelChanged.watch(model => (this.rootService.model = model));
+		this.modelChanged.watch(model => this.root.model = model);
 
 		if (!theme.component) {
 			throw new AppError(
@@ -145,7 +145,7 @@ export class GridComponent extends RootComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const model = this.model;
+		const model = this.root.model;
 
 		const element = this.element.nativeElement;
 		
@@ -159,11 +159,11 @@ export class GridComponent extends RootComponent implements OnInit {
 		}));
 		
 
-		this.rootService.table = ctrl.table;
-		this.rootService.bag = ctrl.bag;
-		this.rootService.markup = ctrl.markup;
+		this.root.table = ctrl.table;
+		this.root.bag = ctrl.bag;
+		this.root.markup = ctrl.markup;
 
-		this.rootService.commandManager = new TableCommandManager(
+		this.root.commandManager = new TableCommandManager(
 			f => f(),
 			ctrl.table
 		);
@@ -200,6 +200,6 @@ export class GridComponent extends RootComponent implements OnInit {
 	// @deprecated
 	get visibility(): VisibilityModel {
 		// TODO: get rid of that
-		return this.model.visibility();
+		return this.root.model.visibility();
 	}
 }

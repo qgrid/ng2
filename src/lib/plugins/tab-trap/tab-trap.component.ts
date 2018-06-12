@@ -60,7 +60,7 @@ export class TabTrapComponent extends PluginComponent {
 			shiftKey: target === 'start'
 		};
 
-		const model = this.root.model;
+		const model = this.model;
 		const shortcut = model.action().shortcut;
 		shortcut.keyDown(e, 'tab-trap');
 	}

@@ -46,7 +46,11 @@ export class DragDirective {
 
 		DragService.data = data;
 		DragService.area = this.area;
-		
+		DragService.startPosition = {
+			x: e.clientX,
+			y: e.clientY
+		};
+
 		if (this.root) {
 			const model = this.root.model;
 			model.drag({ isActive: true }, { source: 'drag.directive' });
@@ -63,5 +67,6 @@ export class DragDirective {
 		DragService.data = null;
 		DragService.area = null;
 		DragService.element = null;
+		DragService.startPosition = { x: 0, y: 0 };
 	}
 }

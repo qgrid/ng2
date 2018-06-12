@@ -30,15 +30,15 @@ export class ExportComponent extends PluginComponent implements OnInit {
 	}
 
 	get rows() {
-		return this.root.model.data().rows;
+		return this.model.data().rows;
 	}
 
 	get columns() {
-		return this.root.model.data().columns;
+		return this.model.data().columns;
 	}
 
 	get id() {
-		return this.root.model.grid().id;
+		return this.model.grid().id;
 	}
 
 	get templateContentKey() {

@@ -76,7 +76,7 @@ export declare interface DataModel {
 	 */
 	isReadonly?: boolean;
 
-	id: {
+	id?: {
 		row: (index: number, row: any) => any,
 		column: (index: number, column: ColumnView) => any,
 	};

@@ -142,15 +142,6 @@ export class HighlightView {
 				}
 			}
 		});
-
-		model.scrollChanged.watch(() => {
-			const { highlight } = model;
-			if (highlight().rows.length) {
-				highlight({ rows: [] }, {
-					source: 'highlight.view',
-				});
-			}
-		});
 	}
 
 	get isRendering() {
