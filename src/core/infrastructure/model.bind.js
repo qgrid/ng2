@@ -24,7 +24,7 @@ export class ModelBinder extends Disposable {
 		return true;
 	}
 
-	bound(model, names, run = true) {
+	bound(model, names, run = true, track = true) {
 		const host = this.host;
 		if (model) {
 			const commits = [];
@@ -40,7 +40,9 @@ export class ModelBinder extends Disposable {
 					write({ changes });
 				}
 
-				this.using(model[name + 'Changed'].on(write));
+				if (track) {
+					this.using(model[name + 'Changed'].on(write));
+				}
 
 				commits.push(() => {
 					Log.info('model.bind', `to model "${name}"`);

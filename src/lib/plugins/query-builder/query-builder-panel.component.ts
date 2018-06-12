@@ -1,11 +1,9 @@
 import { Component, Optional, Output, EventEmitter, OnInit, ViewEncapsulation } from '@angular/core';
-import { RootService } from '../../infrastructure/component/root.service';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { clone } from 'ng2-qgrid/core/utility/kit';
 import { QueryBuilderService } from './query-builder.service';
 import { WhereSchema } from './schema/where.schema';
 import { visit as convert } from './schema/converter';
-import { PluginComponent } from '../plugin.component';
 import { SerializationService } from '../expression-builder/serialization.service';
 import { INodeSchema } from '../expression-builder/model/node.schema';
 import { Node } from '../expression-builder/model/node';
@@ -13,17 +11,22 @@ import { EbNodeService } from '../expression-builder/eb-node.service';
 import { EbNodeComponent } from '../expression-builder/eb-node.component';
 import { TraverseService } from '../expression-builder/traverse.service';
 import { FocusAfterRender } from '../../common/focus/focus.service';
+import { PluginService } from '../plugin.service';
 
 
 @Component({
 	selector: 'q-grid-query-builder-panel',
 	templateUrl: './query-builder-panel.component.html',
-	providers: [FocusAfterRender]
+	providers: [FocusAfterRender, PluginService]
 })
-export class QueryBuilderPanelComponent extends PluginComponent implements OnInit {
+export class QueryBuilderPanelComponent implements OnInit {
 	node: Node;
 	@Output() close = new EventEmitter<any>();
 	queryService: QueryBuilderService;
+
+	context: { $implicit: QueryBuilderPanelComponent } = {
+		$implicit: this
+	};
 
 	private traverse = new TraverseService();
 
@@ -76,11 +79,11 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 			const serializer = new SerializationService();
 			const node = serializer.serialize(this.node);
 
-			const by = clone(this.model.filter().by);
+			const by = clone(this.plugin.model.filter().by);
 			by.$expression = convert(node);
 
-			this.model.filter({ by });
-			this.model.queryBuilder({ node: by.$expression ? node : null });
+			this.plugin.model.filter({ by });
+			this.plugin.model.queryBuilder({ node: by.$expression ? node : null });
 
 			this.close.emit();
 		},
@@ -119,21 +122,21 @@ export class QueryBuilderPanelComponent extends PluginComponent implements OnIni
 	private plan: INodeSchema;
 
 	constructor(
-		@Optional() root: RootService,
+		private plugin: PluginService,
 		private nodeService: EbNodeService,
-		focusAfterRender: FocusAfterRender) {
-		super(root);
+		focusAfterRender: FocusAfterRender
+	) {
 	}
 
-	onReady() {
-		this.queryService = new QueryBuilderService(this.model);
+	ngOnInit() {
+		this.queryService = new QueryBuilderService(this.plugin.model);
 
 		const schema = new WhereSchema(this.queryService);
 		this.plan = schema.factory() as any;
 		this.node = this.plan.apply();
 
 		const serializer = new SerializationService();
-		const { node } = this.model.queryBuilder();
+		const { node } = this.plugin.model.queryBuilder();
 		if (node) {
 			this.node = serializer.deserialize(this.plan, node);
 		}

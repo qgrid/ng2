@@ -10,7 +10,7 @@ export class DataModel {
 
 		this.id = {
 			row: (index, row) => row,
-			column: (index, column) => column.model.key
+			column: (index, column) => column.key
 		};
 	}
 }

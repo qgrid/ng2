@@ -5,8 +5,6 @@ import {
 	OnInit,
 	ElementRef
 } from '@angular/core';
-import { PluginComponent } from '../plugin.component';
-import { RootService } from '../../infrastructure/component/root.service';
 import { isString, isArray } from 'ng2-qgrid/core/utility/kit';
 import { BoolColumnModel } from 'ng2-qgrid/core/column-type/bool.column';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
@@ -15,13 +13,16 @@ import { Command } from 'ng2-qgrid/core/command/command';
 import { ViewCoreService } from '../../main/core/view/view-core.service';
 import { SelectionService } from 'ng2-qgrid/core/selection/selection.service';
 import { getFactory as valueFactory } from 'ng2-qgrid/core/services/value';
+import { NgComponent } from '../../infrastructure/component/ng.component';
 
 @Component({
 	selector: 'q-grid-reference-editor',
 	templateUrl: './reference-editor.component.html'
 })
-export class ReferenceEditorComponent extends PluginComponent
-	implements OnInit {
+export class ReferenceEditorComponent extends NgComponent implements OnInit {
+	context: { $implicit: ReferenceEditorComponent } = {
+		$implicit: this
+	};
 
 	referenceModel: Model;
 
@@ -29,11 +30,10 @@ export class ReferenceEditorComponent extends PluginComponent
 	cancel: Command;
 
 	constructor(
-		@Optional() root: RootService,
 		private view: ViewCoreService,
 		private element: ElementRef
 	) {
-		super(root);
+		super();
 	}
 
 	ngOnInit() {
@@ -42,8 +42,8 @@ export class ReferenceEditorComponent extends PluginComponent
 		});
 
 		const cancel = new Command()
-		const reference = { 
-			commit, 
+		const reference = {
+			commit,
 			cancel,
 			value: this.edit.value
 		};
@@ -57,7 +57,7 @@ export class ReferenceEditorComponent extends PluginComponent
 
 		const selectionService = new SelectionService(this.referenceModel)
 
-		this.referenceModel.dataChanged.watch((e, off) => {
+		this.using(this.referenceModel.dataChanged.watch((e, off) => {
 			if (e.hasChanges('rows') && e.state.rows.length > 0) {
 				off();
 
@@ -68,7 +68,7 @@ export class ReferenceEditorComponent extends PluginComponent
 					this.referenceModel.selection({ items });
 				}
 			}
-		});
+		}));
 
 		this.submit = new Command({
 			canExecute: () => {

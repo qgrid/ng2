@@ -4,17 +4,18 @@
 </button>
 <ng-container *ngIf="isVisible">
 	<q-grid caption="Destroy Grid Model"
-	        [model]="gridModel">
+		[model]="gridModel"
+		id="example-destroy-grid-model">
 		<q-grid-columns generation="deep">
 		</q-grid-columns>
 	</q-grid>
 
-	<!-- <q-grid-data-manipulation>
+	<q-grid-data-manipulation>
 	</q-grid-data-manipulation>
 
 	<q-grid-persistence>
 	</q-grid-persistence>
 
 	<q-grid-query-builder>
-	</q-grid-query-builder> -->
+	</q-grid-query-builder>
 </ng-container>

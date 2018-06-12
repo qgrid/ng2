@@ -4,8 +4,8 @@ import { Command } from 'ng2-qgrid/core/command/command';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
-import { ActionService } from './action.service';
 import { TemplateHostService } from '../../template/template-host.service';
+import { PluginService } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-action',
@@ -19,7 +19,7 @@ export class ActionComponent implements OnInit {
 	@Input() public icon: string = null;
 	@Input() public command: Command = null;
 
-	constructor(private actionService: ActionService, templateHost: TemplateHostService) {
+	constructor(private plugin: PluginService, templateHost: TemplateHostService) {
 		templateHost.key = source => `action-${source}-${this.id}.tpl.html`;
 	}
 
@@ -54,6 +54,6 @@ export class ActionComponent implements OnInit {
 	}
 
 	get model(): Model {
-		return this.actionService.model;
+		return this.plugin.model;
 	}
 }

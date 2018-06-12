@@ -1,18 +1,26 @@
 import { Component, Input, Optional } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { Action as ActionItem } from 'ng2-qgrid/core/action/action';
-import { RootService } from '../../infrastructure/component/root.service';
-import { PluginComponent } from '../plugin.component';
+import { PluginService } from '../plugin.service';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 @Component({
 	selector: 'q-grid-action-core',
-	templateUrl: './action-core.component.html'
+	templateUrl: './action-core.component.html',
+	providers: [PluginService]
 })
-export class ActionCoreComponent extends PluginComponent {
-	@Input() public action: ActionItem = null;
+export class ActionCoreComponent {
+	@Input() action: ActionItem = null;
 
-	constructor(@Optional() root: RootService) {
-		super(root);
+	context: { $implicit: ActionCoreComponent } = {
+		$implicit: this
+	};
+
+	constructor(private plugin: PluginService) {
+	}
+
+	get model(): Model {
+		return this.plugin.model;
 	}
 
 	execute() {
@@ -49,7 +57,7 @@ export class ActionCoreComponent extends PluginComponent {
 		}
 
 		const shortcut = this.shortcut;
-		return action.title + (shortcut ? ` (${shortcut})` : '');
+		return action.title + (shortcut ? ` (${shortcut.toUpperCase()})` : '');
 	}
 
 	get icon() {

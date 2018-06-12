@@ -27,8 +27,8 @@ export class NavigationView {
 						column
 					}
 				}, {
-					source: 'navigation.view'
-				});
+						source: 'navigation.view'
+					});
 			},
 			canExecute: newCell => {
 				const oldCell = model.navigation().cell;
@@ -64,12 +64,10 @@ export class NavigationView {
 
 		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
-				if (e.tag.source !== 'navigation.view') {
-					// We need this one to toggle focus from details to main grid
-					// or when user change navigation cell through the model
-					if (!this.table.view.isFocused()) {
-						this.table.view.focus();
-					}
+				// We need this one to toggle focus from details to main grid
+				// or when user change navigation cell through the model
+				if (!this.table.view.isFocused()) {
+					this.table.view.focus();
 				}
 
 				const { rowIndex, columnIndex } = e.state;
@@ -93,7 +91,7 @@ export class NavigationView {
 			}
 
 			if (e.hasChanges('rowIndex') || e.hasChanges('columnIndex')) {
-				this.focus.execute(e)
+				this.focus.execute(e.state);
 			}
 		});
 

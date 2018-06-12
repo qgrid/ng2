@@ -6,27 +6,29 @@ import {
 	ElementRef,
 	Input,
 } from '@angular/core';
-import { PluginComponent } from '../plugin.component';
-import { RootService } from '../../infrastructure/component/root.service';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { Shortcut } from 'ng2-qgrid/core/shortcut/shortcut';
+import { PluginService } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-tab-trap',
-	templateUrl: './tab-trap.component.html'
+	templateUrl: './tab-trap.component.html',
+	providers: [PluginService]
 })
-export class TabTrapComponent extends PluginComponent {
-	@ContentChild(TemplateRef) public template: TemplateRef<any>;
-	@Input() public roundTrip = false;
+export class TabTrapComponent {
+	@ContentChild(TemplateRef) template: TemplateRef<any>;
+	@Input() roundTrip = false;
+
+	context: { $implicit: TabTrapComponent } = {
+		$implicit: this
+	};
 
 	private traps = new Map<string, any>();
 	private isActivating = false;
 
-	constructor(root: RootService, element: ElementRef) {
-		super(root);
-
+	constructor(private plugin: PluginService, element: ElementRef) {
 		const listener = new EventListener(element.nativeElement, new EventManager(this));
 		listener.on('keydown', e => {
 			const code = Shortcut.translate(e);
@@ -60,7 +62,7 @@ export class TabTrapComponent extends PluginComponent {
 			shiftKey: target === 'start'
 		};
 
-		const model = this.root.model;
+		const { model } = this.plugin;
 		const shortcut = model.action().shortcut;
 		shortcut.keyDown(e, 'tab-trap');
 	}

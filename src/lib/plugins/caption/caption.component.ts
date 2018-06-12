@@ -1,18 +1,21 @@
 import { Component, Optional } from '@angular/core';
-import { PluginComponent } from '../plugin.component';
-import { RootService } from '../../infrastructure/component/root.service';
+import { PluginService } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-caption',
-	templateUrl: './caption.component.html'
+	templateUrl: './caption.component.html',
+	providers: [PluginService]
 })
-export class CaptionComponent extends PluginComponent {
-	constructor(root: RootService) {
-		super(root);
+export class CaptionComponent {
+	context: { $implicit: CaptionComponent } = {
+		$implicit: this
+	};
+
+	constructor(private plugin: PluginService) {
 	}
 
 	public get value() {
-		const { caption, title } = this.model.grid()
+		const { caption, title } = this.plugin.model.grid()
 		return caption || title;
 	}
 }
