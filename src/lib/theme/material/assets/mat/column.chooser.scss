@@ -21,12 +21,10 @@
         width: 100%;
     }
     .q-grid-column-chooser-list {
-        margin: 0;
-        overflow-y: auto;
-        height: 275px;
+        margin-left: 10px;
 
 		&-children {
-			margin: 3px 0 3px 41px;
+			margin: 3px 0 3px 11px;
 			font-size: 12px;
 
 			li:not(:last-child) {
@@ -39,6 +37,12 @@
 			}
 		}
     }
+
+	.list {
+		height: 279px;
+		overflow-y: scroll;
+	}
+
     .q-grid-column-chooser-toolbar {
         margin-top: 0;
         padding-left: 16px;

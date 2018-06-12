@@ -3,6 +3,8 @@ import { Command } from '../../core/command/command';
 import { Aggregation } from '../../core/services/aggregation';
 import { isFunction, noop } from '../../core/utility/kit';
 import { Event } from '../../core/infrastructure/event';
+import { CohortColumnModel } from '../../core/column-type/cohort.column';
+import { isArray, isUndefined  } from '../../core/utility/kit';
 
 export class ColumnChooserView {
 	constructor(model, context) {
@@ -20,25 +22,12 @@ export class ColumnChooserView {
 
 		this.toggle = new Command({
 			source: 'column.chooser',
-			execute: column => {
-				column.isVisible = !this.state(column);
-				column.children.forEach(child => child.isVisible = column.isVisible);
-			}
-		});
-		
-		this.toggleChild = new Command({
-			source: 'column.chooser',
-			execute: (parent, child) => {
-				const state = !this.state(child);
+			execute: (column, parent) => {
+				const state = !this.stateChild(column);
 				
-				child.isVisible = state;
-				
-				if (parent.children.some(c => this.state(c))) {
-					parent.isVisible = true;
-				}
-				
-				if (parent.children.every(c => !this.state(c))) {
-					parent.isVisible = false;
+				this.toggleDeep(column, state);
+				if (parent && parent.children) {
+					parent.isVisible = parent.children.some(c => c.isVisible)
 				}
 			}
 		});
@@ -46,31 +35,32 @@ export class ColumnChooserView {
 		this.toggleAll = new Command({
 			source: 'column.chooser',
 			execute: () => {
-				const state = !this.stateAll();
-				for (let column of this.columns) {
-					column.isVisible = state;
-					
-					for (let child of column.children) {
-						child.isVisible = state;
-					}
-				}
+				const state = !this.state(this.columns);
+				
+				this.toggleDeep(this.columns, state);
 			}
 		});
 
 		this.defaults = new Command({
 			source: 'column.chooser',
 			execute: () => {
-				for (let column of this.columns) {
-					column.isVisible = column.isDefault === true;
+				const toggle = (columns) => {
+					columns = isArray(columns) ? columns : [columns];
 					
-					for (let child of column.children) {
-						child.isVisible = child.isDefault === true;
+					for (let i = 0; i < columns.length; i++) {
+						const column = columns[i];
+						
+						if (column.isDefault) {
+							column.isVisible = column.isDefault === true;
+							
+							if (column.children.length) {
+								toggle(column.children);
+							}
+						}
 					}
-					
-					if (column.children.every(c => c.isDefault === true)) {
-						column.isVisible = true;
-					}
-				}
+				};
+				
+				toggle(this.columns);
 			}
 		});
 
@@ -80,21 +70,19 @@ export class ColumnChooserView {
 			source: 'column.chooser',
 			canExecute: e => {
 				const targetKey = e.dropData;
-				const map = columnService.map(this.temp.columns);
-				const children = map[targetKey.split('.')[0]].children;
-				const mapChildren = children.length ? columnService.map(children) : false;
+				const map = this.splitKey(targetKey);
 				
-				return map.hasOwnProperty(targetKey) && map[targetKey].canMove ||
-					mapChildren.hasOwnProperty(targetKey) && mapChildren[targetKey].canMove;
+				return map.hasOwnProperty(targetKey) && map[targetKey].canMove;
 			},
 			execute: e => {
 				const sourceKey = e.dragData;
 				const targetKey = e.dropData;
+				const isChild = sourceKey.split('.').length > 1;
 				
 				if (sourceKey !== targetKey) {
 					const indexColumn = () => {
-						if (sourceKey.split('.').length > 1) {
-							return this.childTemp(sourceKey.split('.')[0]);
+						if (isChild) {
+							return this.childTemp(sourceKey);
 						} else {
 							return this.temp;
 						}
@@ -114,7 +102,11 @@ export class ColumnChooserView {
 						const column = columns[oldIndex];
 						columns.splice(oldIndex, 1);
 						columns.splice(newIndex, 0, column);
-
+						
+						if (isChild) {
+							this.resetDeep(sourceKey, columns);
+						}
+						
 						this.temp.columns = Array.from(this.temp.columns);
 					}
 				}
@@ -127,13 +119,9 @@ export class ColumnChooserView {
 			source: 'column.chooser',
 			canExecute: e => {
 				const sourceKey = e.data;
-				const map = columnService.map(this.temp.columns);
-				const children = map[sourceKey.split('.')[0]].children;
-				const mapChildren = children.length ? columnService.map(children) : false;
+				const map = this.splitKey(sourceKey);
 				
-				return map.hasOwnProperty(sourceKey) && map[sourceKey].canMove ||
-						mapChildren.hasOwnProperty(sourceKey) && mapChildren[sourceKey].canMove;
-				
+				return map.hasOwnProperty(sourceKey) && map[sourceKey].canMove;
 			}
 		});
 
@@ -210,29 +198,103 @@ export class ColumnChooserView {
 	}
 
 	state(column) {
-		return column.isVisible !== false;
+		let state = true;
+		
+		function stateAll(columns) {
+			columns = isArray(columns) ? columns : [columns];
+			
+			for (let i = 0; i < columns.length; i++) {
+				const column = columns[i];
+				
+				if (column.isVisible !== true) {
+					state = false;
+					return;
+				} else if (column.children.length) {
+					stateAll(column.children);
+				}
+			}
+		}
+		
+		stateAll(column);
+		
+		return state;
 	}
 	
-	stateAll() {
-		return this.columns.every(column => this.state(column) && column.children.every(child => this.state(child)));
+	stateChild(columns) {
+		let state = true;
+		
+		function stateChild(columns) {
+			columns = isArray(columns) ? columns : [columns];
+			
+			for (let i = 0; i < columns.length; i++) {
+				const column = columns[i];
+				
+				if (column.isVisible !== true) {
+					state = false;
+					return;
+				} else if (column.children.length) {
+					stateChild(column.children);
+				}
+			}
+		}
+		
+		stateChild(columns);
+		
+		return state;
 	}
 	
 	stateDefault() {
 		return this.columns.every(c => (c.isDefault !== false && c.isVisible !== false) || (c.isDefault === false && c.isVisible === false));
 	}
 
-	isIndeterminate() {
-		return !this.stateAll() && this.columns.some(this.state.bind(this));
+	isIndeterminate(columns) {
+		let state = false;
+		
+		const isIndeterminate = (columns) => {
+			columns = isArray(columns) ? columns : [columns];
+			
+			for (let i = 0; i < columns.length; i++) {
+				const column = columns[i];
+				
+				if (column.isVisible) {
+					state = true;
+					return;
+				} else if (column.children.length) {
+					isIndeterminate(column.children);
+				}
+			}
+		};
+		
+		isIndeterminate(columns);
+		
+		return !this.state(this.columns) && state;
 	}
 	
-	isIndeterminateChildren(column) {
-		return !column.children.every(c => c.isVisible !== false) && column.children.some(this.state.bind(this))
+	isIndeterminateChildren(columns) {
+		return !this.stateChild(columns) && columns.children.some(c => c.isVisible);
 	}
 	
 	originIndex() {
 		return Array.from(this.model.columnList().index);
 	}
-
+	
+	toggleDeep(columns, state) {
+		const toggle = (columns) => {
+			columns = isArray(columns) ? columns : [columns];
+			
+			for (let i = 0; i < columns.length; i++) {
+				const column = columns[i];
+				column.isVisible = state;
+				
+				if (column.children.length) {
+					toggle(column.children);
+				}
+			}
+		};
+		
+		toggle(columns);
+	}
+	
 	originColumns(index) {
 		const columns = this.model
 			.data()
@@ -267,21 +329,69 @@ export class ColumnChooserView {
 		return this.model.columnChooser().resource;
 	}
 	
-	childTemp(column) {
-		const col = this.temp.columns.find(c => c.key === column);
-		const children = col.children;
-		const index = [];
+	childTemp(key) {
+		const child = this.splitKey(key);
+		const columns = Object.values(child);
 		
-		for (let i = 0; i < children.length; i++) {
-			index.push(children[i].key);
+		const index = [];
+		for (let i = 0; i < columns.length; i++) {
+			index.push(columns[i].key);
 		}
 		
 		return {
-			columns: children,
+			columns,
 			index
 		}
 	}
-
+	
+	splitKey(key) {
+		const nested = key.split('.');
+		let map = columnService.map(this.temp.columns);
+		
+		if (nested.length > 1) {
+			let curr = 0;
+			const max = nested.length;
+			
+			let str = '';
+			while (curr < max - 1) {
+				str = str + nested[curr];
+				let column = map[str];
+				map = columnService.map(column.children);
+				str = str + '.';
+				curr++;
+			}
+		}
+		
+		return map;
+	}
+	
+	resetDeep(source, value) {
+		const keys = source.split('.');
+		let key = keys[0];
+		
+		const max = keys.length;
+		let curr = 1;
+		
+		const reset = (columns) => {
+			for (let i = 0; i < columns.length; i++) {
+				let column = columns[i];
+				
+				if (column.key === key) {
+					if (curr < max - 1) {
+						key = key + '.' + keys[curr];
+						curr++;
+						reset(column.children)
+					} else {
+						column.children = value;
+						return;
+					}
+				}
+			}
+		};
+		
+		reset(this.temp.columns);
+	}
+	
 	transfer(column) {
 		return {
 			key: this.context.name,

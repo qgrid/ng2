@@ -1,0 +1,36 @@
+<ng-template key="column-chooser-list.tpl"
+			 let-columnChooser="columnChooser"
+			 let-columns="columns">
+	<ul class="q-grid-column-chooser-list">
+		<ng-container *ngFor="let column of (columns.children ? columns.children : columns) | qGridFilter: {title: columnChooser.filter}">
+			<li *ngIf="columnChooser.toggle.canExecute(column)"
+				[q-grid-drop]="columnChooser.drop"
+				[q-grid-drop-data]="column.key"
+				[q-grid-drag-over]="columnChooser.drop"
+				q-grid-drop-area="column-chooser">
+
+				<div [q-grid-drag]="columnChooser.drag"
+					 [q-grid-drag-data]="column.key"
+					 q-grid-drop-area="column-chooser">
+					<mat-icon class="q-grid-icon">drag_indicator</mat-icon>
+				</div>
+
+				<mat-checkbox
+					[checked]="columnChooser.state(column)"
+					(change)="columnChooser.toggle.execute(column, columns)"
+					[indeterminate]="columnChooser.isIndeterminateChildren(column)"
+					aria-label="Selection"
+					>
+				<span [innerHTML]="column.title | qGridHighlight: columnChooser.filter"></span>
+				</mat-checkbox>
+
+				<div class="q-grid-column-chooser-list-children">
+					<q-grid-column-chooser-list
+						[columns]="column"
+					>
+					</q-grid-column-chooser-list>
+				</div>
+			</li>
+		</ng-container>
+	</ul>
+</ng-template>

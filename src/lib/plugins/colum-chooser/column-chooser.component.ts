@@ -1,8 +1,9 @@
-import { Component, Optional, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Component, Optional, Input, Output, EventEmitter } from '@angular/core';
 import { RootService } from '../../infrastructure/component/root.service';
 import { PluginComponent } from '../plugin.component';
 import { ColumnChooserView } from 'ng2-qgrid/plugin/column-chooser/column.chooser.view';
 import { FocusAfterRender } from '../../common/focus/focus.service';
+import { ColumnChooserListService } from './colum-chooser-list.service';
 
 const ColumnChooserName = 'qGridColumnChooser';
 
@@ -17,11 +18,15 @@ export class ColumnChooserComponent extends PluginComponent {
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
 	constructor(
-		@Optional() root: RootService, focusAfterRender: FocusAfterRender) {
+		@Optional() root: RootService,
+		private listService: ColumnChooserListService,
+		focusAfterRender: FocusAfterRender
+	) {
 		super(root);
 
 		this.models = ['columnChooser'];
 	}
+
 
 	onReady() {
 		const context = {
@@ -32,6 +37,7 @@ export class ColumnChooserComponent extends PluginComponent {
 		columnChooser.submitEvent.on(() => this.submitEvent.emit());
 		columnChooser.cancelEvent.on(() => this.cancelEvent.emit());
 
+		this.listService.columnChooser = columnChooser;
 		this.context = { $implicit: columnChooser };
 	}
 }
