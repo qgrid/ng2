@@ -1,10 +1,13 @@
 import { Component, Input, Optional } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { Action as ActionItem } from 'ng2-qgrid/core/action/action';
+import { PluginService } from '../plugin.service';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 @Component({
 	selector: 'q-grid-action-core',
-	templateUrl: './action-core.component.html'
+	templateUrl: './action-core.component.html',
+	providers: [PluginService]
 })
 export class ActionCoreComponent {
 	@Input() action: ActionItem = null;
@@ -13,7 +16,11 @@ export class ActionCoreComponent {
 		$implicit: this
 	};
 
-	constructor() {
+	constructor(private plugin: PluginService) {
+	}
+
+	get model(): Model {
+		return this.plugin.model;
 	}
 
 	execute() {
@@ -50,7 +57,7 @@ export class ActionCoreComponent {
 		}
 
 		const shortcut = this.shortcut;
-		return action.title + (shortcut ? ` (${shortcut})` : '');
+		return action.title + (shortcut ? ` (${shortcut.toUpperCase()})` : '');
 	}
 
 	get icon() {
