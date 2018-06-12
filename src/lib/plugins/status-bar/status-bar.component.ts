@@ -1,29 +1,26 @@
 import { Component, OnInit, Optional } from '@angular/core';
-import { RootService } from '../../infrastructure/component/root.service';
-import { PluginComponent } from '../plugin.component';
 import { TemplateHostService } from '../../template/template-host.service';
+import { PluginService } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-status-bar',
 	templateUrl: './status-bar.component.html',
-	providers: [TemplateHostService]
+	providers: [TemplateHostService, PluginService]
 })
-export class StatusBarComponent extends PluginComponent implements OnInit {
-	constructor(@Optional() root: RootService, templateHost: TemplateHostService) {
-		super(root);
+export class StatusBarComponent {
+	context: { $implicit: StatusBarComponent } = {
+		$implicit: this
+	};
 
+	constructor(private plugin: PluginService, templateHost: TemplateHostService) {
 		templateHost.key = () => 'plugin-status-bar.tpl.html';
 	}
 
-	private rowIndex = 0;
-	private columnIndex = 0;
+	get rowIndex() {
+		return this.plugin.model.focus().rowIndex;
+	};
+	get columnIndex() {
+		return this.plugin.model.focus().columnIndex;
 
-	ngOnInit() {
-		const focus = this.model.focus();
-
-		this.model.focusChanged.on(() => {
-			this.rowIndex = focus.rowIndex;
-			this.columnIndex = focus.columnIndex;
-		});
-	}
+	};
 }

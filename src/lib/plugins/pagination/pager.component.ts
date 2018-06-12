@@ -1,25 +1,25 @@
 import { Component, Input, Optional, OnDestroy, OnInit } from '@angular/core';
 import { Command } from 'ng2-qgrid/core/command/command';
-import { PluginComponent } from '../plugin.component';
-import { RootService } from '../../infrastructure/component/root.service';
 import { PagerView } from 'ng2-qgrid/plugin/pager/pager.view';
+import { PluginService } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-pager',
-	templateUrl: './pager.component.html'
+	templateUrl: './pager.component.html',
+	providers: [PluginService]
 })
-export class PagerComponent extends PluginComponent {
+export class PagerComponent implements OnInit {
 	@Input('size') paginationSize: number;
 	@Input('sizeList') paginationSizeList: number[];
 
-	constructor(@Optional() root: RootService) {
-		super(root);
+	context: { $implicit: PagerView };
 
+	constructor(private plugin: PluginService) {
 		this.models = ['pagination'];
 	}
 
-	onReady() {
-		const pager = new PagerView(this.model);
+	ngOnInit() {
+		const pager = new PagerView(this.plugin.model);
 		this.context = { $implicit: pager };
 	}
 }

@@ -6,11 +6,11 @@ import { OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { NgComponent } from './ng.component';
 
 export class RootComponent extends NgComponent implements OnChanges, OnDestroy {
+	model: Model = null;
 	modelChanged = new Event();
-	
+
 	protected models: string[] = [];
-	
-	private model: Model = null;
+
 	private binder = new ModelBinder(this);
 	private commit: () => void;
 

@@ -22,7 +22,14 @@ export class RootService implements OnDestroy {
 	table: Table = null;
 	commandManager: CommandManager = null;
 
-	constructor() {
+	constructor(@SkipSelf() @Optional() parent: RootService) {
+		if(parent) {
+			this.model = parent.model;
+			this.markup = parent.markup;
+			this.bag = parent.bag;
+			this.table = parent.table;
+			this.commandManager = parent.commandManager;
+		}
 	}
 
 	get isReady() {
