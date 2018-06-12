@@ -20,4 +20,4 @@ export class DragService {
 DragService.element = null;
 DragService.data = null;
 DragService.area = null;
-DragService.startPosition = { x: 0, y: 0 };
+DragService.startPosition = null;

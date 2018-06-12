@@ -1,6 +1,11 @@
+import { Rect } from "ng2-qgrid/core/dom/rect";
+
 export interface Position {
 	x: number;
 	y: number;
+	offsetX: number;
+	offsetY: number;
+	rect: Rect;
 }
 
 export declare class DragService {
