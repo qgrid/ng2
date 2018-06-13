@@ -13,7 +13,7 @@ import { ViewCoreService } from '../../../main/core/view/view-core.service';
 	selector: 'q-grid-cell-handler',
 	templateUrl: './cell-handler.component.html'
 })
-export class CellHandlerComponent implements OnInit, AfterViewInit {
+export class CellHandlerComponent implements OnInit {
 	@ViewChild('marker') marker: ElementRef;
 
 	private startCell: CellView = null;
@@ -21,7 +21,6 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private initialEditState: 'view' | 'edit' | 'startBatch' | 'endBatch' = null;
 
 	constructor(private element: ElementRef, private root: RootService, private view: ViewCoreService) {
-		Fastdom.mutate(() => element.nativeElement.style.visibility = 'hidden');
 	}
 
 	ngOnInit() {
@@ -29,8 +28,10 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		const updateMarker = this.updateMarkerFactory();
 
 		this.root.model.navigationChanged.watch(e => {
-			updateHandler(e);
-			updateMarker(e);
+			if (!this.root.model.drag().isActive) {
+				updateHandler(e);
+				updateMarker(e);
+			}
 		});
 	}
 
@@ -143,10 +144,6 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 				}
 			}
 		};
-	}
-
-	ngAfterViewInit() {
-		Fastdom.mutate(() => this.element.nativeElement.style.visibility = 'visible');
 	}
 
 	startBatchEdit(e) {
