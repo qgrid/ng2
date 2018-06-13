@@ -20,11 +20,28 @@
     .q-grid-column-chooser-filter {
         width: 100%;
     }
-    .q-grid-column-chooser-list {
-        margin: 0;
-        overflow-y: auto;
-        height: 275px;
-    }
+	.q-grid-column-chooser-list {
+		margin-left: 10px;
+
+		&-children {
+			margin: 3px 0 3px 11px;
+			font-size: 12px;
+
+			li:not(:last-child) {
+				margin-bottom: -5px;
+			}
+
+			.mat-checkbox-inner-container {
+				width: 15px;
+				height: 15px;
+			}
+		}
+	}
+
+	.list {
+		height: 279px;
+		overflow-y: scroll;
+	}
     .q-grid-column-chooser-toolbar {
         margin-top: 0;
         padding-left: 16px;
