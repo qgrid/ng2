@@ -351,7 +351,7 @@ export class Navigation {
 					const newRow = position.row;
 					const newColumn = this.currentColumn;
 					if (go.execute(this.context('pageUp', { newRow, newColumn }))) {
-						this.model.scroll({ top: position.offset });
+						this.model.scroll({ top: position.offset }, { source: 'navigation' });
 						return this.goTo(newRow, newColumn, 'navigation.scroll');
 					}
 
@@ -375,7 +375,7 @@ export class Navigation {
 					const newRow = position.row;
 					const newColumn = this.currentColumn;
 					if (go.execute(this.context('pageDown', { newRow, newColumn }))) {
-						this.model.scroll({ top: position.offset });
+						this.model.scroll({ top: position.offset }, { source: 'navigation' });
 						return this.goTo(position.row, this.currentColumn, 'navigation.scroll');
 					}
 

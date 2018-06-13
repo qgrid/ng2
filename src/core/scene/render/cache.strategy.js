@@ -110,7 +110,7 @@ export class CacheStrategy {
             }
         });
 
-        model.dataChanged.watch(e => {
+        model.gridChanged.watch(e => {
             if (e.hasChanges('isReadonly')) {
                 storage = new Map();
 

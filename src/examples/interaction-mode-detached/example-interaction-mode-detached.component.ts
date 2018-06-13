@@ -3,12 +3,12 @@ import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
 @Component({
-	selector: 'example-look-atoms-readonly',
-	templateUrl: 'example-look-atoms-readonly.component.html',
-	styleUrls: ['example-look-atoms-readonly.component.scss'],
+	selector: 'example-interaction-mode-detached',
+	templateUrl: 'example-interaction-mode-detached.component.html',
+	styleUrls: ['example-interaction-mode-detached.component.scss'],
 	providers: [DataService]
 })
-export class ExampleLookAtomsReadonlyComponent {
+export class ExampleInteractionModeDetachedComponent {
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

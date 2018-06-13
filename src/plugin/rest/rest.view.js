@@ -23,7 +23,7 @@ export class RestView {
 				},
 				...PipeUnit.view
 			]
-		});
+		}, { source: 'rest.view' });
 	}
 
 	fetchFactory(method, get, post) {

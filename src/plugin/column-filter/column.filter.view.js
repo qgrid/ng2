@@ -98,7 +98,7 @@ export class ColumnFilterView {
 						delete by[this.key];
 					}
 
-					model.filter({ by });
+					model.filter({ by }, { source: 'column.filter.view' });
 
 					this.submitEvent.emit();
 				}

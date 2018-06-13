@@ -107,7 +107,7 @@ export class ColumnChooserView {
 				model.columnList({
 					index: Array.from(temp.index)
 				}, {
-						source: 'column.chooser'
+						source: 'column.chooser.view'
 					});
 
 				this.submitEvent.emit();

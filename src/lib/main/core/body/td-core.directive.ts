@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
@@ -17,9 +17,10 @@ const classify = TdCtrl.classify;
 	selector: '[q-grid-core-td]',
 })
 export class TdCoreDirective implements Td, OnInit, OnDestroy {
-	@Input('q-grid-core-td') public columnView: ColumnView;
-	public element: HTMLElement = null;
 	private $implicit = this;
+	
+	@Input('q-grid-core-td') columnView: ColumnView;
+	element: HTMLElement = null;
 
 	constructor(
 		public $view: ViewCoreService,
@@ -28,7 +29,6 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy {
 		private cellService: CellService,
 		private table: TableCoreService,
 		private tr: TrCoreDirective,
-		private changeDetector: ChangeDetectorRef,
 		element: ElementRef
 	) {
 

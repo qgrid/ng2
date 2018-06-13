@@ -35,6 +35,7 @@ import { ExampleDefineColumnHybridComponent } from './define-column-hybrid/examp
 import { ExampleDestroyGridBasicComponent } from './destroy-grid-basic/example-destroy-grid-basic.component';
 import { ExampleDestroyGridModelComponent } from './destroy-grid-model/example-destroy-grid-model.component';
 import { ExampleDetailsRowBasicComponent } from './details-row-basic/example-details-row-basic.component';
+import { ExampleDetailsRowGridComponent } from './details-row-grid/example-details-row-grid.component';
 import { ExampleDragColumnBasicComponent } from './drag-column-basic/example-drag-column-basic.component';
 import { ExampleDragRowBasicComponent } from './drag-row-basic/example-drag-row-basic.component';
 import { ExampleDragRowNodeComponent } from './drag-row-node/example-drag-row-node.component';
@@ -60,12 +61,13 @@ import { ExampleGroupRowSummaryComponent } from './group-row-summary/example-gro
 import { ExampleIndexColumnBasicComponent } from './index-column-basic/example-index-column-basic.component';
 import { ExampleIndexColumnHybridComponent } from './index-column-hybrid/example-index-column-hybrid.component';
 import { ExampleIndexColumnModelComponent } from './index-column-model/example-index-column-model.component';
+import { ExampleInteractionModeDetachedComponent } from './interaction-mode-detached/example-interaction-mode-detached.component';
+import { ExampleInteractionModeReadonlyComponent } from './interaction-mode-readonly/example-interaction-mode-readonly.component';
 import { ExampleLegendGridBasicComponent } from './legend-grid-basic/example-legend-grid-basic.component';
 import { ExampleLiveDataBasicComponent } from './live-data-basic/example-live-data-basic.component';
 import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
 import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/example-look-atoms-customized.component';
 import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-atoms-model.component';
-import { ExampleLookAtomsReadonlyComponent } from './look-atoms-readonly/example-look-atoms-readonly.component';
 import { ExampleLookPeopleBasicComponent } from './look-people-basic/example-look-people-basic.component';
 import { ExampleLookPeopleModelComponent } from './look-people-model/example-look-people-model.component';
 import { ExampleLookQuotesBasicComponent } from './look-quotes-basic/example-look-quotes-basic.component';
@@ -93,7 +95,6 @@ import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggre
 import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/example-summary-column-basic.component';
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
-import { ExampleDetailsRowGridComponent } from './details-row-grid/example-details-row-grid.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -124,6 +125,7 @@ const EXAMPLES: Array<any> = [
 	ExampleDestroyGridBasicComponent,
 	ExampleDestroyGridModelComponent,
 	ExampleDetailsRowBasicComponent,
+	ExampleDetailsRowGridComponent,
 	ExampleDragColumnBasicComponent,
 	ExampleDragRowBasicComponent,
 	ExampleDragRowNodeComponent,
@@ -149,12 +151,13 @@ const EXAMPLES: Array<any> = [
 	ExampleIndexColumnBasicComponent,
 	ExampleIndexColumnHybridComponent,
 	ExampleIndexColumnModelComponent,
+	ExampleInteractionModeDetachedComponent,
+	ExampleInteractionModeReadonlyComponent,
 	ExampleLegendGridBasicComponent,
 	ExampleLiveDataBasicComponent,
 	ExampleLookAtomsBasicComponent,
 	ExampleLookAtomsCustomizedComponent,
 	ExampleLookAtomsModelComponent,
-	ExampleLookAtomsReadonlyComponent,
 	ExampleLookPeopleBasicComponent,
 	ExampleLookPeopleModelComponent,
 	ExampleLookQuotesBasicComponent,
@@ -181,7 +184,6 @@ const EXAMPLES: Array<any> = [
 	ExampleSummaryColumnBasicComponent,
 	ExampleThemeGridDarkComponent,
 	ExampleThemeGridEmbedComponent,
-	ExampleDetailsRowGridComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;

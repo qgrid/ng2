@@ -41,7 +41,19 @@ export class RowView {
 							}
 
 							const tr = table.body.row(oldIndex).model();
-							const index = new Map(model.rowList().index.entries());
+							const entries = [];
+							for (let entry of model.rowList().index.entries()) {
+								const index = entry[1];
+								if (oldIndex < index && index <= newIndex) {
+									entry[1] = index - 1;
+								} else if (oldIndex > index && index >= newIndex) {
+									entry[1] = index + 1;
+								}
+
+								entries.push(entry);
+							}
+
+							const index = new Map(entries);
 							const id = model.data().id;
 							const key = id.row(newIndex, tr.model);
 							index.set(key, newIndex);
@@ -67,6 +79,10 @@ export class RowView {
 				const index = e.data;
 				const row = table.body.row(index);
 				row.addClass(`${GRID_PREFIX}-drag`);
+				const tr = row.model();
+				if (tr) {
+					return tr.element;
+				}
 			},
 			canExecute: e => {
 				if (isNumber(e.data)) {
@@ -81,6 +97,17 @@ export class RowView {
 		this.resize = new Command({
 			source: 'row.view'
 		});
+
+		model.dataChanged.on(e => {
+			if (e.hasChanges('rows')) {
+				model.rowList({
+					index: new Map(),
+				}, {
+						source: 'row.view',
+						behavior: 'core'
+					});
+			}
+		})
 	}
 
 	get canMove() {

@@ -81,8 +81,8 @@ export class GridCtrl extends Disposable {
 				bottom: pinBottom.length > 0
 			}
 		}, {
-			source: 'grid.ctrl'
-		});
+				source: 'grid.ctrl'
+			});
 	}
 
 	invalidateActive() {
@@ -91,11 +91,11 @@ export class GridCtrl extends Disposable {
 		const model = this.model;
 		if (view.isFocused()) {
 			Fastdom.mutate(() => view.addClass(activeClassName));
-			model.focus({ isActive: true });
+			model.focus({ isActive: true }, { source: 'grid.ctrl' });
 		}
 		else {
 			Fastdom.mutate(() => view.removeClass(activeClassName));
-			model.focus({ isActive: false });
+			model.focus({ isActive: false }, { source: 'grid.ctrl' });
 		}
 	}
 
