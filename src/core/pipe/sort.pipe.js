@@ -4,7 +4,6 @@ import { key as getKey, direction as getDirection } from '../sort/sort.service';
 import { find } from '../column/column.service';
 import { parseFactory } from '../services/convert';
 import { Guard } from '../infrastructure/guard';
-import { sortFactory } from '../row-list/row.list.sort';
 
 export function sortPipe(rows, context, next) {
 	Guard.notNull(rows, 'rows');
@@ -42,10 +41,7 @@ export function sortPipe(rows, context, next) {
 			}
 
 			result = orderBy(rows, mappings, comparers);
-		} else {
-			const order = sortFactory(model);
-			result = order(rows);
-		}
+		} 
 	}
 
 	next(result);

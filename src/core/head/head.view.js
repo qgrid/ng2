@@ -72,10 +72,6 @@ export class HeadView {
 				if (columnIndex >= 0) {
 					const column = table.body.column(columnIndex);
 					column.addClass(`${GRID_PREFIX}-drag`);
-
-					const rowIndex = table.head.rowCount(columnIndex) - 1;
-					const th = table.head.cell(rowIndex, columnIndex);
-					return th.element;
 				}
 			},
 			canExecute: e => {

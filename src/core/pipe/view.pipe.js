@@ -1,5 +1,6 @@
 import { Scene } from '../scene/scene';
 import { Guard } from '../infrastructure/guard';
+import { sortFactory } from '../row-list/row.list.sort';
 
 export function viewPipe(memo, context, next) {
 	Guard.hasProperty(memo, 'rows');
@@ -15,10 +16,15 @@ export function viewPipe(memo, context, next) {
 	const { model } = context;
 
 	const scene = new Scene(model);
-	const rows = scene.rows(memo);
+	let rows = scene.rows(memo);
 
 	const { columns, nodes, pivot } = memo;
 	const columnLine = scene.columnLine(columns);
+
+	if (!model.sort().by.length) {
+		const order = sortFactory(model);
+		rows = order(rows);
+	}
 
 	model.view({
 		rows,
