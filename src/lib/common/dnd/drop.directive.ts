@@ -190,7 +190,14 @@ export class DropDirective extends NgComponent implements OnInit {
 
 		if (direction === 'y') {
 			return (element: HTMLElement) => {
-				return true;
+				const trg = element.getBoundingClientRect();
+				// we are on the top of target
+				if (src.top < trg.bottom) {
+					return trg.bottom > y && y > trg.bottom - src.height;
+				}
+
+				// we are on the bottom of target
+				return trg.top < y && y < trg.top + src.height;
 			};
 		}
 
