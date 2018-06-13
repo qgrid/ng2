@@ -44,10 +44,10 @@ export class RowView {
 							const entries = [];
 							for (let entry of model.rowList().index.entries()) {
 								const index = entry[1];
-								if (index >= newIndex) {
-									entry[1] = index + 1;
-								} else {
+								if (oldIndex < index && index <= newIndex) {
 									entry[1] = index - 1;
+								} else if (oldIndex > index && index >= newIndex) {
+									entry[1] = index + 1;
 								}
 
 								entries.push(entry);
@@ -95,7 +95,7 @@ export class RowView {
 		});
 
 		model.dataChanged.on(e => {
-			if (e.hasChanges(row)) {
+			if (e.hasChanges('rows')) {
 				model.rowList({
 					index: new Map(),
 				}, {
