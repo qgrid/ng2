@@ -30,6 +30,8 @@ export class QueryBuilderComponent implements OnInit {
 
 		this.plugin.model.action({
 			items: Composite.list([[action], this.plugin.model.action().items])
-		});
+		}, {
+				source: 'query-builder.component'
+			});
 	}
 }

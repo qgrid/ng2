@@ -9,6 +9,7 @@ import { ModelBinder } from 'ng2-qgrid/core/infrastructure/model.bind';
 @Injectable()
 export class PluginService implements OnDestroy {
     private modelProxy: ModelProxy = null;
+    //    private modelTemp: ModelProxy = null;
 
     constructor(private root: RootService) { }
 
@@ -18,14 +19,17 @@ export class PluginService implements OnDestroy {
             Guard.notNull(model, 'model');
 
             this.modelProxy = new ModelProxy(model);
+            // this.modelTemp = new ModelProxy(model, true);
             return this.modelProxy.subject;
         }
 
         if (model !== this.modelProxy.target) {
             this.modelProxy.dispose();
+            // this.modelTemp.dispose();
             Guard.notNull(model, 'model');
 
             this.modelProxy = new ModelProxy(model);
+            // this.modelTemp = new ModelProxy(model, true);
             return this.modelProxy.subject;
         }
 
@@ -39,14 +43,19 @@ export class PluginService implements OnDestroy {
         return table;
     }
 
-    tie(changes: SimpleChanges, models: string[]) {
+    // get temp(): Model {
+    //    Guard.notNull(this.modelTemp, 'temp');
+    //    return this.modelTemp.subject;
+    // }
+
+    keep(changes: SimpleChanges, models: string[]) {
         const host = {};
         for (let key in changes) {
             const change = changes[key];
             host[key] = change.currentValue;
         }
 
-        const binder = new ModelBinder(host); 
+        const binder = new ModelBinder(host);
         const commit = binder.bound(this.model, models, false, false);
         commit();
     }
@@ -56,5 +65,10 @@ export class PluginService implements OnDestroy {
             this.modelProxy.dispose();
             this.modelProxy = null;
         }
+
+        // if (this.modelTemp) {
+        //     this.modelTemp.dispose();
+        //     this.modelTemp = null;
+        // }
     }
 }

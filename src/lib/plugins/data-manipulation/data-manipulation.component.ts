@@ -18,7 +18,7 @@ export class DataManipulationComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		this.plugin.tie(changes, ['dataManipulation']);
+		this.plugin.keep(changes, ['dataManipulation']);
 	}
 
 	ngOnInit() {

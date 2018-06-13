@@ -17,7 +17,7 @@ export class ProgressComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		this.plugin.tie(changes, ['progress']);
+		this.plugin.keep(changes, ['progress']);
 	}
 
 	ngOnInit() {

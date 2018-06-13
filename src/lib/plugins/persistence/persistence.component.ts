@@ -1,4 +1,4 @@
-import { Component, Optional, Input, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Optional, Input, EventEmitter, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { Action } from 'ng2-qgrid/core/action/action';
 import { Composite } from 'ng2-qgrid/core/infrastructure/composite';
@@ -16,9 +16,9 @@ export class PersistenceComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		this.plugin.tie(changes, ['persistence']);
+		this.plugin.keep(changes, ['persistence']);
 	}
-	
+
 	ngOnInit() {
 		const { model } = this.plugin;
 		const id = `q-grid:${model.grid().id}:persistence-list`;
@@ -46,6 +46,8 @@ export class PersistenceComponent implements OnInit, OnChanges {
 
 		this.plugin.model.action({
 			items: Composite.list([[action], this.plugin.model.action().items])
-		});
+		}, {
+				source: 'persistence.component'
+			});
 	}
 }
