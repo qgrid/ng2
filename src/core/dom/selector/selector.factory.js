@@ -11,7 +11,6 @@ export class SelectorFactory {
 	}
 
 	create() {
-		console.log('selectorFactory: create');
 		const bag = this.bag;
 		const selectorMark = this.selectorMark;
 		const matrix = new Matrix(tr => bag.models.has(tr));
