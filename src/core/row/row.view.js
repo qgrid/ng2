@@ -41,7 +41,19 @@ export class RowView {
 							}
 
 							const tr = table.body.row(oldIndex).model();
-							const index = new Map(model.rowList().index.entries());
+							const entries = [];
+							for (let entry of model.rowList().index.entries()) {
+								const index = entry[1];
+								if (index >= newIndex) {
+									entry[1] = index + 1;
+								} else {
+									entry[1] = index - 1;									
+								}
+
+								entries.push(entry);
+							}
+
+							const index = new Map(entries);
 							const id = model.data().id;
 							const key = id.row(newIndex, tr.model);
 							index.set(key, newIndex);

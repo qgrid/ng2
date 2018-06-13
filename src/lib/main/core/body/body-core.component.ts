@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, NgZone, Input } from '@angular/core';
+import { Component, ElementRef, OnInit, NgZone, Input, ChangeDetectorRef } from '@angular/core';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { PathService } from 'ng2-qgrid/core/path/path.service';
@@ -26,7 +26,8 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 		public $view: ViewCoreService,
 		public $table: TableCoreService,
 		private root: RootService,
-		private zone: NgZone
+		private zone: NgZone,
+		private cd: ChangeDetectorRef
 	) {
 		super();
 	}
@@ -67,6 +68,21 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 				this.rowId = e.state.id.row;
 				const columnId = e.state.id.column;
 				this.columnId = (index, columnView) => columnId(index, columnView.model);
+			}
+		});
+
+		model.sceneChanged.watch(e => {
+			if (model.grid().isReadonly) {
+				if (e.hasChanges('status')) {
+					switch (e.state.status) {
+						case 'stop':
+							this.cd.detach();
+							break;
+						case 'start':
+							this.cd.reattach();
+							break;
+					}
+				}
 			}
 		});
 	}
