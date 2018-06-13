@@ -13,7 +13,7 @@ import { ViewCoreService } from '../../../main/core/view/view-core.service';
 	selector: 'q-grid-cell-handler',
 	templateUrl: './cell-handler.component.html'
 })
-export class CellHandlerComponent implements OnInit {
+export class CellHandlerComponent implements OnInit, AfterViewInit {
 	@ViewChild('marker') marker: ElementRef;
 
 	private startCell: CellView = null;
@@ -21,6 +21,7 @@ export class CellHandlerComponent implements OnInit {
 	private initialEditState: 'view' | 'edit' | 'startBatch' | 'endBatch' = null;
 
 	constructor(private element: ElementRef, private root: RootService, private view: ViewCoreService) {
+		this.element.nativeElement.style.display = 'none';
 	}
 
 	ngOnInit() {
@@ -31,6 +32,10 @@ export class CellHandlerComponent implements OnInit {
 			updateHandler(e);
 			updateMarker(e);
 		});
+	}
+
+	ngAfterViewInit() {
+		this.element.nativeElement.style.display = '';
 	}
 
 	updateHandlerFactory() {
