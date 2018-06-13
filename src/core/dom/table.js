@@ -27,34 +27,9 @@ export class Table {
 			}
 		}, context);
 
-		this._head = null;
-		this._body = null;
-		this._foot = null;
-		this._view = null;
-	}
-
-	get head() {
-		if (this._head) {
-			return this._head;
-		}
-
-		return this._head = this.headCore();
-	}
-
-	get body() {
-		if (this._body) {
-			return this._body;
-		}
-
-		return this._body = this.bodyCore();
-	}
-
-	get foot() {
-		if (this._foot) {
-			return this._foot;
-		}
-
-		return this._foot = this.footCore();
+		this.head = this.headCore();
+		this.body = this.bodyCore();
+		this.foot = this.footCore();
 	}
 
 	get view() {
@@ -62,11 +37,15 @@ export class Table {
 			return this._view;
 		}
 
-		return this._view = this.viewCore();
+		return new View(this.context, this.model, this.markup);
 	}
 
 	get data() {
-		return new Data(this.model);
+		if (this._data) {
+			return this._data;
+		}
+
+		return this._data = new Data(this.model);		
 	}
 
 	headCore() {
@@ -86,10 +65,6 @@ export class Table {
 	footCore() {
 		const context = this.box('foot');
 		return new Foot(context, this.model, this.markup);
-	}
-
-	viewCore() {
-		return new View(this.context, this.model, this.markup);
 	}
 
 	box(source) {
