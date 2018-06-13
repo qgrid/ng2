@@ -100,42 +100,6 @@ export class DropDirective extends NgComponent implements OnInit {
 		return false;
 	}
 
-	getPath(e: DragEvent) {
-		const start = DragService.startPosition;
-		const src = start.rect;
-
-		const offsetX = start.x - (src.left + src.width / 2);
-		const offsetY = start.y - (src.top + src.height / 2);
-
-		const { clientX, clientY } = e;
-
-		const centerX = clientX - offsetX;
-		const centerY = clientY - offsetY;
-
-		// const el = document.createElement('div');
-		// document.body.appendChild(el);
-		// el.style.position = 'fixed';
-		// el.style.top = centerY + 'px';
-		// el.style.left = centerX + 'px';
-		// el.style.width = '1px';
-		// el.style.height = '1px';
-		// el.style.backgroundColor = '#ff0000';
-		// el.style.zIndex = '999';
-
-		// setTimeout(() => el.remove(), 1000);
-
-		// document.elementsFromPoint is not working with tr?
-		// so we need to go through all parent
-		const path = [];
-		let element = document.elementFromPoint(centerX, centerY);
-		while (element) {
-			path.push(element);
-			element = element.parentElement;
-		}
-
-		return path;
-	}
-
 	onOver(e: DragEvent) {
 		e.preventDefault();
 
@@ -148,7 +112,8 @@ export class DropDirective extends NgComponent implements OnInit {
 			return false;
 		}
 
-		const path = this.getPath(e);
+		const pos = this.getPosition(e);
+		const path = this.getPath(pos);
 		if (path.indexOf(DragService.element) >= 0) {
 			return false;
 		}
@@ -178,7 +143,51 @@ export class DropDirective extends NgComponent implements OnInit {
 		this.elementRef.nativeElement.classList.remove(`${GRID_PREFIX}-dragover`);
 	}
 
+	private getPosition(e: DragEvent) {
+		const start = DragService.startPosition;
+		const src = start.rect;
+
+		const offsetX = start.x - (src.left + src.width / 2);
+		const offsetY = start.y - (src.top + src.height / 2);
+
+		const { clientX, clientY } = e;
+
+		const x = clientX - offsetX;
+		const y = clientY - offsetY;
+
+		return { x, y };
+	}
+
+	private getPath({ x, y }: { x: number, y: number }) {
+		// const el = document.createElement('div');
+		// document.body.appendChild(el);
+		// el.style.position = 'fixed';
+		// el.style.top = centerY + 'px';
+		// el.style.left = centerX + 'px';
+		// el.style.width = '1px';
+		// el.style.height = '1px';
+		// el.style.backgroundColor = '#ff0000';
+		// el.style.zIndex = '999';
+
+		// setTimeout(() => el.remove(), 1000);
+
+		// document.elementsFromPoint is not working with tr?
+		// so we need to go through all parent
+
+		const path = [];
+		let element = document.elementFromPoint(x, y);
+		while (element) {
+			path.push(element);
+			element = element.parentElement;
+		}
+
+		return path;
+	}
+
 	private inAreaFactory(e: DragEvent, direction: 'x' | 'y') {
+		const src = DragService.element.getBoundingClientRect();
+		const { x, y } = this.getPosition(e);
+
 		if (direction === 'y') {
 			return (element: HTMLElement) => {
 				return true;
@@ -186,8 +195,14 @@ export class DropDirective extends NgComponent implements OnInit {
 		}
 
 		return (element: HTMLElement) => {
-			return true;
+			const trg = element.getBoundingClientRect();
+			// we are on the left of target
+			if (src.left < trg.right) {
+				return trg.right > x && x > trg.right - src.width;
+			}
 
+			// we are on the right of target
+			return trg.left < x && x < trg.left + src.width;
 		};
 	}
 }
