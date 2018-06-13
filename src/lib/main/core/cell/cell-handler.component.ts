@@ -21,7 +21,6 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private initialEditState: 'view' | 'edit' | 'startBatch' | 'endBatch' = null;
 
 	constructor(private element: ElementRef, private root: RootService, private view: ViewCoreService) {
-		Fastdom.mutate(() => element.nativeElement.style.visibility = 'hidden');
 	}
 
 	ngOnInit() {
@@ -146,7 +145,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-		Fastdom.mutate(() => this.element.nativeElement.style.visibility = 'visible');
+		this.showMarker();
 	}
 
 	startBatchEdit(e) {
@@ -171,5 +170,9 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		}
 
 		return false;
+	}
+
+	showMarker() {
+		this.marker.nativeElement.parentElement.style.display = 'block';
 	}
 }
