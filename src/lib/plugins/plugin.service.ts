@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, SimpleChanges, bind } from '@angular/core';
+import { Injectable, OnDestroy, SimpleChanges } from '@angular/core';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Table } from 'ng2-qgrid/core/dom/table';
