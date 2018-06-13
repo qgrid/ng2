@@ -10,6 +10,6 @@ export class SelectDirective implements AfterViewInit {
 	constructor() {}
 
 	ngAfterViewInit() {
-		this.input.open();
+		Promise.resolve(null).then(() => this.input.open());
 	}
 }
