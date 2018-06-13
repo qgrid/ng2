@@ -1,4 +1,6 @@
-import { isUndefined, clone } from 'ng2-qgrid/core/utility/kit';
+import { isUndefined, clone } from '../utility/kit';
+import { Disposable } from '../infrastructure/disposable';
+
 
 export class FocusService {
     constructor(model) {
@@ -41,5 +43,18 @@ export class FocusService {
                 }
             });
         }
+    }
+}
+
+export class FocusAfterRender extends Disposable {
+    constructor(model, table) {
+        super();
+
+        this.using(model.sceneChanged.on((e, off) => {
+            if (e.state.status === 'stop') {
+                table.view.focus();
+                off();
+            }
+        }));
     }
 }

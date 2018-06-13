@@ -18,6 +18,9 @@ import { TableCoreService } from '../table/table-core.service';
 export class BodyCoreComponent extends NgComponent implements OnInit {
 	@Input() pin = 'body';
 
+	columnId: (index: number, item: ColumnView) => any;
+	rowId: (index: number, row: any) => any;
+
 	constructor(
 		private element: ElementRef,
 		public $view: ViewCoreService,
@@ -54,6 +57,18 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 
 		listener.on('mousedown', ctrl.onMouseDown.bind(ctrl));
 		listener.on('mouseup', ctrl.onMouseUp.bind(ctrl));
+
+		const { id } = model.data();
+		this.rowId = id.row;
+		this.columnId = (index, columnView) => id.column(index, columnView.model);
+
+		model.dataChanged.watch(e => {
+			if (e.hasChanges('id')) {
+				this.rowId = e.state.id.row;
+				const columnId = e.state.id.column;
+				this.columnId = (index, columnView) => columnId(index, columnView.model);
+			}
+		});
 	}
 
 	get selection(): SelectionModel {
@@ -62,13 +77,5 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 
 	get model(): Model {
 		return this.root.model;
-	}
-
-	columnId(index: number, item: ColumnView) {
-		return item.model.key;
-	}
-
-	rowId(index: number) {
-		return index;
 	}
 }

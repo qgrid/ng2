@@ -54,10 +54,11 @@ export class Selector {
 		const result = [];
 		if (isUndefined(columnIndex)) {
 			const rows = this.bag.rows;
-			let i = 0;
-			for (let row of rows) {
-				result.push(factory.row(row.element, i++));
+			for (let tr of rows) {
+				result.push(factory.row(tr.element, tr.index));
 			}
+
+			result.sort((x, y) => x.index - y.index);
 		} else {
 			for (let i = 0, length = matrix.length; i < length; i++) {
 				const row = matrix[i];

@@ -56,13 +56,10 @@ export class ColumnListCtrl {
 			}
 
 			parent.children.push(column);
-	
-			const { columnList } = this.model;
-			const columns = columnList().columns;
-			if(columns.indexOf(parent) < 0) {
-				columnList({
-					columns: columns.concat([parent])
-				})
+
+			const { columns } = this.model.columnList();
+			if (columns.indexOf(parent) < 0) {
+				this.add(parent);
 			}
 		}
 		else {

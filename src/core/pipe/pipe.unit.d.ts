@@ -9,4 +9,5 @@ export declare class PipeUnit {
 	static readonly group: [(rows: any[], context: PipeContext, next: (memo: PipeMemo) => void) => void];
 	static readonly rowDetails: [(rows: any[], context: PipeContext, next: (memo: PipeMemo) => void) => void];
 	static readonly view:  [(rows: any[], context: PipeContext, next: (rows: any[]) => void) => void];
+	static readonly row:  [(rows: any[], context: PipeContext, next: (rows: any[]) => void) => void];
 }

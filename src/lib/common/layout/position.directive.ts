@@ -1,6 +1,4 @@
-import { Directive, ElementRef, Input, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
-import { max } from 'ng2-qgrid/core/utility/kit';
-import { RootService } from '../../infrastructure/component/root.service';
+import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { PositionView } from 'ng2-qgrid/plugin/position/position.view';
 
 @Directive({
@@ -10,7 +8,7 @@ export class PositionDirective implements OnDestroy, OnInit {
 	@Input('q-grid-position') public target = '';
 	private position: PositionView;
 
-	constructor(private element: ElementRef, private root: RootService) {
+	constructor(private element: ElementRef) {
 	}
 
 	ngOnInit() {

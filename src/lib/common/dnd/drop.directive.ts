@@ -4,20 +4,38 @@ import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { DragService } from 'ng2-qgrid/core/drag/drag.service';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { Command } from 'ng2-qgrid/core/command/command';
-import { isUndefined } from 'ng2-qgrid/core/utility/kit';
+import { isUndefined, no } from 'ng2-qgrid/core/utility/kit';
+import { RootService } from '../../infrastructure/component/root.service';
+import { Action } from 'ng2-qgrid';
+import { NgComponent } from '../../infrastructure/component/ng.component';
+
+export interface DropEventArg {
+	path: HTMLElement[];
+	dragData: any;
+	dropData: any;
+	action: string; // 'over' | 'drop' | 'end';
+
+	inAreaY(element: HTMLElement): boolean;
+	inAreaX(element: HTMLElement): boolean;
+}
 
 @Directive({
 	selector: '[q-grid-drop]'
 })
-export class DropDirective {
-	private dragData: any;
-
-	@Input('q-grid-drop-data') dropData: any;
-	@Input('q-grid-drag-over') dragOver: Command<{ event: DragEvent, dragData: any, dropData: any }>;
+export class DropDirective extends NgComponent implements OnInit {
 	@Input('q-grid-drop-area') area: string;
-	@Input('q-grid-drop') drop: Command<{ event: DragEvent, dragData: any, dropData: any }>;
+	@Input('q-grid-drop-data') dropData: any;
+	@Input('q-grid-drop') drop: Command<DropEventArg>;
+	@Input('q-grid-drag-over') dragOver: Command<DropEventArg>;
+	@Input('q-grid-drag-direction') dragDirection: 'x' | 'y' = 'y';
 
-	constructor(private elementRef: ElementRef, private zone: NgZone) {
+	constructor(
+		@Optional() private root: RootService,
+		private elementRef: ElementRef,
+		private zone: NgZone
+	) {
+		super();
+
 		const element = elementRef.nativeElement;
 		const listener = new EventListener(element, new EventManager(this));
 
@@ -31,21 +49,46 @@ export class DropDirective {
 		listener.on('drop', this.onDrop);
 	}
 
+	ngOnInit() {
+		if (this.root) {
+			this.using(this.root.model.dragChanged.on(e => {
+				if (e.hasChanges('isActive')) {
+					if (!e.state.isActive) {
+						const eventArg = {
+							path: [],
+							dragData: DragService.data,
+							dropData: this.dropData,
+							action: 'end',
+							inAreaX: no,
+							inAreaY: no
+						};
+
+						if (this.drop.canExecute(eventArg)) {
+							this.drop.execute(eventArg);
+						}
+					}
+				}
+			}));
+		}
+	}
+
 	onDrop(e: DragEvent) {
 		e.stopPropagation();
 
 		this.elementRef.nativeElement.classList.remove(`${GRID_PREFIX}-dragover`);
 		const eventArg = {
-			event: e,
-			dragData: isUndefined(this.dragData) ? DragService.data : this.dragData,
-			dropData: this.dropData
+			path: (e as any).path,
+			dragData: DragService.data,
+			dropData: this.dropData,
+			action: 'drop',
+			inAreaX: this.inAreaFactory(e, 'x'),
+			inAreaY: this.inAreaFactory(e, 'y')
 		};
 
 		if (this.drop.canExecute(eventArg)) {
 			this.drop.execute(eventArg);
 		}
 
-		delete this.dragData;
 		return false;
 	}
 
@@ -57,30 +100,94 @@ export class DropDirective {
 		return false;
 	}
 
+	getPath(e: DragEvent) {
+		const start = DragService.startPosition;
+		const src = start.rect;
+
+		const offsetX = start.x - (src.left + src.width / 2);
+		const offsetY = start.y - (src.top + src.height / 2);
+
+		const { clientX, clientY } = e;
+
+		const centerX = clientX - offsetX;
+		const centerY = clientY - offsetY;
+
+		// const el = document.createElement('div');
+		// document.body.appendChild(el);
+		// el.style.position = 'fixed';
+		// el.style.top = centerY + 'px';
+		// el.style.left = centerX + 'px';
+		// el.style.width = '1px';
+		// el.style.height = '1px';
+		// el.style.backgroundColor = '#ff0000';
+		// el.style.zIndex = '999';
+
+		// setTimeout(() => el.remove(), 1000);
+
+		// document.elementsFromPoint is not working with tr?
+		// so we need to go through all parent
+		const path = [];
+		let element = document.elementFromPoint(centerX, centerY);
+		while (element) {
+			path.push(element);
+			element = element.parentElement;
+		}
+
+		return path;
+	}
+
 	onOver(e: DragEvent) {
 		e.preventDefault();
 
-		const eventArg = {
-			event: e,
-			dragData: isUndefined(this.dragData) ? DragService.data : this.dragData,
-			dropData: this.dropData
-		};
-
-		let effect = 'move';
-		if (this.area === DragService.area && this.dragOver.canExecute(eventArg)) {
-			this.dragData = this.dragOver.execute(eventArg);
-			if (!isUndefined(this.dragData)) {
-				DragService.data = this.dragData;
-			}
-		} else {
-			effect = 'none';
+		if (this.root && this.root.model.scene().status !== 'stop') {
+			return false;
 		}
 
-		e.dataTransfer.dropEffect = effect;
+		if (this.area !== DragService.area) {
+			e.dataTransfer.dropEffect = 'none';
+			return false;
+		}
+
+		const path = this.getPath(e);
+		if (path.indexOf(DragService.element) >= 0) {
+			return false;
+		}
+
+		const eventArg = {
+			path,
+			dragData: DragService.data,
+			dropData: this.dropData,
+			action: 'over',
+			inAreaX: this.inAreaFactory(e, 'x'),
+			inAreaY: this.inAreaFactory(e, 'y')
+		};
+
+		if (this.dragOver.canExecute(eventArg)) {
+			this.dragOver.execute(eventArg);
+			if (DragService.data !== eventArg.dragData) {
+				DragService.data = eventArg.dragData;
+			}
+
+			e.dataTransfer.dropEffect = 'move';
+		}
+
 		return false;
 	}
 
 	onLeave() {
 		this.elementRef.nativeElement.classList.remove(`${GRID_PREFIX}-dragover`);
+	}
+
+	private inAreaFactory(e: DragEvent, direction: 'x' | 'y') {
+		if (direction === 'y') {
+			return (element: HTMLElement) => {
+				return true;
+			};
+		}
+
+		return (element: HTMLElement) => {
+			return true;
+
+		};
 	}
 }

@@ -15,7 +15,10 @@ export class DragDirective {
 	@Input('q-grid-drag') drag: Command;
 	@Input('q-grid-drop-area') area: string;
 
-	constructor(@Optional() private root: RootService, private elementRef: ElementRef) {
+	constructor(
+		@Optional() private root: RootService,
+		private elementRef: ElementRef
+	) {
 		const element = elementRef.nativeElement;
 		const listener = new EventListener(element, new EventManager(this));
 		element.classList.add(`${GRID_PREFIX}-can-drag`);
@@ -37,7 +40,7 @@ export class DragDirective {
 		}
 
 		const data = this.data;
-		this.drag.execute(eventArg);
+		DragService.element = this.drag.execute(eventArg) || e.srcElement;
 
 		this.elementRef.nativeElement.classList.add(`${GRID_PREFIX}-drag`);
 
@@ -47,20 +50,29 @@ export class DragDirective {
 		DragService.data = data;
 		DragService.area = this.area;
 
+		const rect = DragService.element.getBoundingClientRect();
+		DragService.startPosition = {
+			x: e.clientX,
+			y: e.clientY,
+			rect
+		};
+
 		if (this.root) {
 			const model = this.root.model;
-			model.drag({ isActive: true });
+			model.drag({ isActive: true }, { source: 'drag.directive' });
 		}
 	}
 
 	onEnd() {
+		if (this.root) {
+			const model = this.root.model;
+			model.drag({ isActive: false }, { source: 'drag.directive' });
+		}
+
 		this.elementRef.nativeElement.classList.remove(`${GRID_PREFIX}-drag`);
 		DragService.data = null;
 		DragService.area = null;
-
-		if (this.root) {
-			const model = this.root.model;
-			model.drag({ isActive: false });
-		}
+		DragService.element = null;
+		DragService.startPosition = null;
 	}
 }

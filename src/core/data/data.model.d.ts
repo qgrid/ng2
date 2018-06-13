@@ -1,5 +1,6 @@
 import { ColumnModel } from '../column-type/column.model';
 import { PipeContext } from '../pipe/pipe.item';
+import { ColumnView } from '../scene/view/column.view';
 
 /**
  * A class that gives access to the high level grid data structures.
@@ -74,4 +75,9 @@ export declare interface DataModel {
 	 * grid invalidate.
 	 */
 	isReadonly?: boolean;
+
+	id?: {
+		row: (index: number, row: any) => any,
+		column: (index: number, column: ColumnModel) => any,
+	};
 }

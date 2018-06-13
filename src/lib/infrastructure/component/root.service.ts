@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, SkipSelf, Optional } from '@angular/core';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { CommandManager } from 'ng2-qgrid/core/command/command.manager';
@@ -11,17 +11,19 @@ import { ModelProxy } from 'ng2-qgrid/core/infrastructure/model.proxy';
 @Injectable()
 export class RootService implements OnDestroy {
 	private modelProxy: ModelProxy = null;
-	public markup: any = {};
-	public bag = {
+
+	markup: { [key: string]: HTMLElement } = {};
+	bag = {
 		head: new Bag(),
 		body: new Bag(),
 		foot: new Bag()
 	};
 
-	public table: Table = null;
-	public commandManager: CommandManager = null;
+	table: Table = null;
+	commandManager: CommandManager = null;
 
-	constructor() { }
+	constructor() {
+	}
 
 	get isReady() {
 		return !!this.modelProxy;

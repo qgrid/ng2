@@ -1,42 +1,73 @@
 import { PathService } from '../path/path.service';
 import { Command } from '../command/command';
 import { isNumber } from '../utility/kit';
+import { GRID_PREFIX } from '../definition';
 
 export class RowView {
 	constructor(model, table, tagName) {
 		this.model = model;
 		this.tagName = tagName;
 
+		const pathFinder = new PathService(table.context.bag.body);
+
 		this.drop = new Command({
 			source: 'row.view',
 			canExecute: e => {
+				if (e.action === 'end') {
+					return true;
+				}
+
 				const oldIndex = e.dragData;
-				const pathFinder = new PathService(table.context.bag.body);
-				const row = pathFinder.row(e.event.path);
+				const row = pathFinder.row(e.path);
 				return !!row;
 			},
 			execute: e => {
 				const oldIndex = e.dragData;
-				const pathFinder = new PathService(table.context.bag.body);
-				const newIndex = pathFinder.row(e.event.path).index;
+				switch (e.action) {
+					case 'over': {
+						const row = pathFinder.row(e.path);
+						if (!e.inAreaY(row.element)) {
+							return;
+						}
 
-				if (oldIndex !== newIndex) {
-					const { data } = model;
-					const rows = Array.from(data().rows);
+						const newIndex = row.index;
+						if (oldIndex !== newIndex) {
+							if (model.scroll().mode === 'virtual') {
+								const oldRow = table.body.row(oldIndex);
+								oldRow.removeClass(`${GRID_PREFIX}-drag`);
 
-					const row = rows[oldIndex];
-					rows.splice(oldIndex, 1);
-					rows.splice(newIndex, 0, row);
+								const newRow = table.body.row(newIndex);
+								newRow.addClass(`${GRID_PREFIX}-drag`);
+							}
 
-					data({ rows });
+							const tr = table.body.row(oldIndex).model();
+							const index = new Map(model.rowList().index.entries());
+							const id = model.data().id;
+							const key = id.row(newIndex, tr.model);
+							index.set(key, newIndex);
+							model.rowList({ index }, { source: 'row.view' });
+
+							e.dragData = newIndex;
+						}
+						break;
+					}
+					case 'drop':
+					case 'end': {
+						const oldRow = table.body.row(oldIndex);
+						oldRow.removeClass(`${GRID_PREFIX}-drag`);
+						break;
+					}
 				}
-
-				return newIndex;
 			}
 		});
 
 		this.drag = new Command({
 			source: 'row.view',
+			execute: e => {
+				const index = e.data;
+				const row = table.body.row(index);
+				row.addClass(`${GRID_PREFIX}-drag`);
+			},
 			canExecute: e => {
 				if (isNumber(e.data)) {
 					const index = e.data;
