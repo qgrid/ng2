@@ -164,7 +164,7 @@ export declare class Model {
 	filter(): FilterModel;
 
 	dragChanged: ModelEvent<DragModel>;
-	drag(value?: DragModel, tag?: ModelTag): Model;
+	drag(value: DragModel, tag?: ModelTag): Model;
 	drag(): DragModel;
 
 	styleChanged: ModelEvent<StyleModel>;
