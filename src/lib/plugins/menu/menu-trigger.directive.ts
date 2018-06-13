@@ -6,7 +6,6 @@ import {
 	Input,
 	AfterViewInit
 } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material';
 
 @Directive({
@@ -19,7 +18,8 @@ export class MenuTriggerDirective implements AfterViewInit {
 	constructor() {}
 
 	ngAfterViewInit() {
-		this.trigger.openMenu();
+		Promise.resolve(null).then(() => this.trigger.openMenu());
+
 		this.trigger.menuClosed.subscribe(() => {
 			if (this.onClose) {
 				setTimeout(() => this.onClose.emit(), 10);
