@@ -100,11 +100,46 @@ export class DropDirective extends NgComponent implements OnInit {
 		return false;
 	}
 
+	getPath(e: DragEvent) {
+		const start = DragService.startPosition;
+		const src = start.rect;
+
+		const offsetX = start.x - (src.left + src.width / 2);
+		const offsetY = start.y - (src.top + src.height / 2);
+
+		const { clientX, clientY } = e;
+
+		const centerX = clientX - offsetX;
+		const centerY = clientY - offsetY;
+
+		// const el = document.createElement('div');
+		// document.body.appendChild(el);
+		// el.style.position = 'fixed';
+		// el.style.top = centerY + 'px';
+		// el.style.left = centerX + 'px';
+		// el.style.width = '1px';
+		// el.style.height = '1px';
+		// el.style.backgroundColor = '#ff0000';
+		// el.style.zIndex = '999';
+
+		// setTimeout(() => el.remove(), 1000);
+
+		return document.elementsFromPoint(centerX, centerY);
+	}
+
 	onOver(e: DragEvent) {
 		e.preventDefault();
+		if (this.area !== DragService.area) {
+			return;
+		}
+
+		const path = this.getPath(e);
+		if (path.indexOf(DragService.element) >= 0) {
+			return;
+		}
 
 		const eventArg = {
-			path: (e as any).path,
+			path,
 			dragData: DragService.data,
 			dropData: this.dropData,
 			action: 'over',
@@ -113,7 +148,7 @@ export class DropDirective extends NgComponent implements OnInit {
 		};
 
 		let effect = 'move';
-		if (this.area === DragService.area && this.dragOver.canExecute(eventArg)) {
+		if (this.dragOver.canExecute(eventArg)) {
 			this.dragOver.execute(eventArg);
 			if (DragService.data !== eventArg.dragData) {
 				DragService.data = eventArg.dragData;
@@ -131,6 +166,7 @@ export class DropDirective extends NgComponent implements OnInit {
 	}
 
 	private inAreaFactory(e: DragEvent, direction: 'x' | 'y') {
+
 		if (direction === 'y') {
 			return (element: HTMLElement) => {
 				return true;
@@ -143,27 +179,9 @@ export class DropDirective extends NgComponent implements OnInit {
 		}
 
 		return (element: HTMLElement) => {
+			const trg = element.getBoundingClientRect();
 			return true;
-			// const src = DragService.element || e.srcElement;
-			// const trg = element;
-			// if (src === trg) {
-			// 	return false;
-			// }
 
-			// const srcRect = src.getBoundingClientRect();
-			// const trgRect = trg.getBoundingClientRect();
-			// //	const width = Math.max(srcRect.width, trgRect.width);
-			// const width = srcRect.width;
-			// console.log(width);
-			// console.log(e.clientX);
-			// console.log(e.clientX + ' > ' + (trgRect.left + width / 2));
-			// console.log(e.clientX + ' < ' + (trgRect.right - width / 2));
-			// console.log(srcRect);
-			// console.log(trgRect);
-			// console.log(e);
-
-			// return e.clientX > trgRect.left + width / 2
-			// 	|| e.clientX < trgRect.right - width / 2;
 		};
 	}
 }

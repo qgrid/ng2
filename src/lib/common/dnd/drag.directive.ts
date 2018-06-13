@@ -40,7 +40,7 @@ export class DragDirective {
 		}
 
 		const data = this.data;
-		DragService.element = this.drag.execute(eventArg);
+		DragService.element = this.drag.execute(eventArg) || e.srcElement;
 
 		this.elementRef.nativeElement.classList.add(`${GRID_PREFIX}-drag`);
 
@@ -50,12 +50,10 @@ export class DragDirective {
 		DragService.data = data;
 		DragService.area = this.area;
 
-		const rect = (DragService.element || e.srcElement).getBoundingClientRect();
+		const rect = DragService.element.getBoundingClientRect();
 		DragService.startPosition = {
 			x: e.clientX,
 			y: e.clientY,
-			offsetX: e.clientX - (rect.left + rect.width / 2),
-			offsetY: e.clientY - (rect.top + rect.height / 2),
 			rect
 		};
 
