@@ -124,18 +124,33 @@ export class DropDirective extends NgComponent implements OnInit {
 
 		// setTimeout(() => el.remove(), 1000);
 
-		return document.elementsFromPoint(centerX, centerY);
+		// document.elementsFromPoint is not working with tr?
+		// so we need to go through all parent
+		const path = [];
+		let element = document.elementFromPoint(centerX, centerY);
+		while (element) {
+			path.push(element);
+			element = element.parentElement;
+		}
+
+		return path;
 	}
 
 	onOver(e: DragEvent) {
 		e.preventDefault();
+
+		if (this.root && this.root.model.scene().status !== 'stop') {
+			return false;
+		}
+
 		if (this.area !== DragService.area) {
-			return;
+			e.dataTransfer.dropEffect = 'none';
+			return false;
 		}
 
 		const path = this.getPath(e);
 		if (path.indexOf(DragService.element) >= 0) {
-			return;
+			return false;
 		}
 
 		const eventArg = {
@@ -147,17 +162,15 @@ export class DropDirective extends NgComponent implements OnInit {
 			inAreaY: this.inAreaFactory(e, 'y')
 		};
 
-		let effect = 'move';
 		if (this.dragOver.canExecute(eventArg)) {
 			this.dragOver.execute(eventArg);
 			if (DragService.data !== eventArg.dragData) {
 				DragService.data = eventArg.dragData;
 			}
-		} else {
-			effect = 'none';
+
+			e.dataTransfer.dropEffect = 'move';
 		}
 
-		e.dataTransfer.dropEffect = effect;
 		return false;
 	}
 
@@ -166,20 +179,13 @@ export class DropDirective extends NgComponent implements OnInit {
 	}
 
 	private inAreaFactory(e: DragEvent, direction: 'x' | 'y') {
-
 		if (direction === 'y') {
 			return (element: HTMLElement) => {
 				return true;
-
-				// const src = (DragService.element || e.srcElement).getBoundingClientRect();
-				// const trg = element.getBoundingClientRect();
-				// return e.clientY > trg.top + src.height / 2
-				// 	|| e.clientY < trg.bottom - src.height / 2;
 			};
 		}
 
 		return (element: HTMLElement) => {
-			const trg = element.getBoundingClientRect();
 			return true;
 
 		};

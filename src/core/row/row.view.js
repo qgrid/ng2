@@ -67,7 +67,6 @@ export class RowView {
 				const index = e.data;
 				const row = table.body.row(index);
 				row.addClass(`${GRID_PREFIX}-drag`);
-				return row.element;
 			},
 			canExecute: e => {
 				if (isNumber(e.data)) {
