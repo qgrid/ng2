@@ -11,7 +11,7 @@ export class ColumnChooserListComponent extends PluginComponent {
 	@Input() columns: any;
 
 	constructor(
-		@Optional() root: RootService, public listService: ColumnChooserListService) {
+		@Optional() root: RootService, private listService: ColumnChooserListService) {
 		super(root);
 	}
 
