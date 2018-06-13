@@ -2,6 +2,7 @@ import { Component, Optional, Input, Output, EventEmitter, OnInit, OnDestroy, Si
 import { ColumnChooserView } from 'ng2-qgrid/plugin/column-chooser/column.chooser.view';
 import { FocusAfterRender } from '../../common/focus/focus.service';
 import { PluginService } from '../plugin.service';
+import { ColumnChooserListService } from "./colum-chooser-list.service";
 
 const ColumnChooserName = 'qGridColumnChooser';
 
@@ -21,6 +22,7 @@ export class ColumnChooserComponent implements OnInit, OnChanges {
 
 	constructor(
 		private plugin: PluginService,
+		private listService: ColumnChooserListService,
 		focusAfterRender: FocusAfterRender
 	) {
 	}
@@ -38,6 +40,7 @@ export class ColumnChooserComponent implements OnInit, OnChanges {
 		columnChooser.submitEvent.on(() => this.submitEvent.emit());
 		columnChooser.cancelEvent.on(() => this.cancelEvent.emit());
 
+		this.listService.columnChooser = columnChooser;
 		this.context = { $implicit: columnChooser };
 	}
 }
