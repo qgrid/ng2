@@ -28,10 +28,8 @@ export class CellHandlerComponent implements OnInit {
 		const updateMarker = this.updateMarkerFactory();
 
 		this.root.model.navigationChanged.watch(e => {
-			if (!this.root.model.drag().isActive) {
-				updateHandler(e);
-				updateMarker(e);
-			}
+			updateHandler(e);
+			updateMarker(e);
 		});
 	}
 
@@ -53,7 +51,7 @@ export class CellHandlerComponent implements OnInit {
 
 					// Do not apply animation for columns that have viewWidth assigned
 					// because it can be animated too.
-					const shouldAnimate = oldColumn.key === newColumn.key || !(oldColumn.viewWidth || newColumn.viewWidth);
+					const shouldAnimate = !model.drag().isActive && (oldColumn.key === newColumn.key || !(oldColumn.viewWidth || newColumn.viewWidth));
 					if (!shouldAnimate) {
 						isValid = false;
 						return;
