@@ -47,7 +47,7 @@ export class RowView {
 								if (index >= newIndex) {
 									entry[1] = index + 1;
 								} else {
-									entry[1] = index - 1;									
+									entry[1] = index - 1;
 								}
 
 								entries.push(entry);
@@ -93,6 +93,17 @@ export class RowView {
 		this.resize = new Command({
 			source: 'row.view'
 		});
+
+		model.dataChanged.on(e => {
+			if (e.hasChanges(row)) {
+				model.rowList({
+					index: new Map(),
+				}, {
+						source: 'row.view',
+						behavior: 'core'
+					});
+			}
+		})
 	}
 
 	get canMove() {
