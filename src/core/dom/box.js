@@ -10,8 +10,8 @@ export class Box {
 
 		this.selectFactory = new SelectorFactory(context.bag, selectorMark);
 
-		this.selector = null;
-		model.sceneChanged.watch(e => {
+		this.selector = this.selectFactory.create();
+		model.sceneChanged.on(e => {
 			if (e.hasChanges('status') && e.state.status === 'stop') {
 				this.selector = this.selectFactory.create();
 			}

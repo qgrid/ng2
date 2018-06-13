@@ -15,7 +15,7 @@ import { ExampleColumnAutocompletetBasicComponent } from './column-autocomplete-
 import { ExampleColumnBoolBasicComponent } from './column-bool-basic/example-column-bool-basic.component';
 import { ExampleColumnCurrencyBasicComponent } from './column-currency-basic/example-column-currency-basic.component';
 import { ExampleColumnDateBasicComponent } from './column-date-basic/example-column-date-basic.component';
-import { ExampleColumnDropdowntBasicComponent } from './column-dropdown-basic/example-column-dropdown-basic.component';
+import { ExampleColumnDropdownBasicComponent } from './column-dropdown-basic/example-column-dropdown-basic.component';
 import { ExampleColumnEmailBasicComponent } from './column-email-basic/example-column-email-basic.component';
 import { ExampleColumnFileBasicComponent } from './column-file-basic/example-column-file-basic.component';
 import { ExampleColumnIdBasicComponent } from './column-id-basic/example-column-id-basic.component';
@@ -106,7 +106,7 @@ const EXAMPLES: Array<any> = [
 	ExampleColumnBoolBasicComponent,
 	ExampleColumnCurrencyBasicComponent,
 	ExampleColumnDateBasicComponent,
-	ExampleColumnDropdowntBasicComponent,
+	ExampleColumnDropdownBasicComponent,
 	ExampleColumnEmailBasicComponent,
 	ExampleColumnFileBasicComponent,
 	ExampleColumnIdBasicComponent,

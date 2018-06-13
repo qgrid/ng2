@@ -37,7 +37,7 @@ export class Table {
 			return this._view;
 		}
 
-		return new View(this.context, this.model, this.markup);
+		return this._view = new View(this.context, this.model, this.markup);
 	}
 
 	get data() {

@@ -25,7 +25,7 @@ export class ExampleColumnReferenceBasicComponent {
 			reference.commit = new Command({
 				canExecute: () => false
 			});
-			
+
 			const model = this.qgrid.model();
 			model
 				.data({
@@ -36,6 +36,12 @@ export class ExampleColumnReferenceBasicComponent {
 							title: 'Not Editable'
 						}
 					]
+				})
+				.selection({
+					key: {
+						row: x => x.value,
+						column: x => x.key
+					}
 				})
 				.visibility({
 					toolbar: {
