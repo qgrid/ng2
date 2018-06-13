@@ -109,28 +109,22 @@ export class NavigationView {
 			}
 		});
 
-		let startRow = null;
-		let startColumn = null;
 		model.sceneChanged.watch(e => {
 			if (e.hasChanges('status')) {
 				const { status } = e.state;
 				switch (status) {
-					case 'start': {
-						startRow = model.navigation().row;
-						startColumn = model.navigation().column;
-						break;
-					}
 					case 'stop':
-						if (startRow && startColumn) {
-							const rowIndex = table.data.rows().indexOf(startRow);
-							const columnIndex = table.data.columns().findIndex(column => column.key === startColumn.key);
-
-							startRow = null;
-							startColumn = null;
+						const { row, column, columnIndex } = model.navigation();
+						if (row && column) {
+							const newRowIndex = table.data.rows().indexOf(row);
+							let newColumnIndex = table.data.columns().findIndex(c => c.key === column.key);
+							if (newColumnIndex < 0 && column.class === 'control') {
+								newColumnIndex = columnIndex;
+							}
 
 							this.focus.execute({
-								rowIndex,
-								columnIndex,
+								rowIndex: newRowIndex,
+								columnIndex: newColumnIndex,
 								behavior: 'core'
 							});
 						}

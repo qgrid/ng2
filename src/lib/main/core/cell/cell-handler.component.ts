@@ -21,7 +21,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private initialEditState: 'view' | 'edit' | 'startBatch' | 'endBatch' = null;
 
 	constructor(private element: ElementRef, private root: RootService, private view: ViewCoreService) {
-		Fastdom.mutate(() => element.nativeElement.style.visibility = 'hidden');
+		this.element.nativeElement.style.display = 'none';
 	}
 
 	ngOnInit() {
@@ -32,6 +32,10 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 			updateHandler(e);
 			updateMarker(e);
 		});
+	}
+
+	ngAfterViewInit() {
+		this.element.nativeElement.style.display = '';
 	}
 
 	updateHandlerFactory() {
@@ -52,7 +56,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 					// Do not apply animation for columns that have viewWidth assigned
 					// because it can be animated too.
-					const shouldAnimate = oldColumn.key === newColumn.key || !(oldColumn.viewWidth || newColumn.viewWidth);
+					const shouldAnimate = !model.drag().isActive && (oldColumn.key === newColumn.key || !(oldColumn.viewWidth || newColumn.viewWidth));
 					if (!shouldAnimate) {
 						isValid = false;
 						return;
@@ -143,10 +147,6 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 				}
 			}
 		};
-	}
-
-	ngAfterViewInit() {
-		Fastdom.mutate(() => this.element.nativeElement.style.visibility = 'visible');
 	}
 
 	startBatchEdit(e) {

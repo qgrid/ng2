@@ -34,6 +34,7 @@ import { ExampleDefineColumnBasicComponent } from './define-column-basic/example
 import { ExampleDefineColumnHybridComponent } from './define-column-hybrid/example-define-column-hybrid.component';
 import { ExampleDestroyGridBasicComponent } from './destroy-grid-basic/example-destroy-grid-basic.component';
 import { ExampleDestroyGridModelComponent } from './destroy-grid-model/example-destroy-grid-model.component';
+import { ExampleDetailsRowAllComponent } from './details-row-all/example-details-row-all.component';
 import { ExampleDetailsRowBasicComponent } from './details-row-basic/example-details-row-basic.component';
 import { ExampleDetailsRowGridComponent } from './details-row-grid/example-details-row-grid.component';
 import { ExampleDragColumnBasicComponent } from './drag-column-basic/example-drag-column-basic.component';
@@ -124,6 +125,7 @@ const EXAMPLES: Array<any> = [
 	ExampleDefineColumnHybridComponent,
 	ExampleDestroyGridBasicComponent,
 	ExampleDestroyGridModelComponent,
+	ExampleDetailsRowAllComponent,
 	ExampleDetailsRowBasicComponent,
 	ExampleDetailsRowGridComponent,
 	ExampleDragColumnBasicComponent,

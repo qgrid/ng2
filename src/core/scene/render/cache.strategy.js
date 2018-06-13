@@ -105,8 +105,8 @@ export class CacheStrategy {
         }
 
         model.sceneChanged.watch(e => {
-            if (e.hasChanges('round') && e.state.round) {
-                storage = new Map()
+            if (e.hasChanges('status')) {
+                storage = new Map();
             }
         });
 
