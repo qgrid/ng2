@@ -60,7 +60,7 @@ export class GridComponent extends RootComponent implements OnInit {
 
 	@Input('header') gridTitle: string;
 	@Input('caption') gridCaption: string;
-	@Input('readonly') gridIsReadonly: boolean;
+	@Input('interactionMode') gridInteractionMode: 'full' | 'readonly' | 'detached';
 
 	@Input('id') gridId: string;
 

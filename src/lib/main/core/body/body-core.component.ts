@@ -72,7 +72,7 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 		});
 
 		model.sceneChanged.watch(e => {
-			if (model.grid().isReadonly) {
+			if (model.grid().interactionMode === 'detached') {
 				if (e.hasChanges('status')) {
 					switch (e.state.status) {
 						case 'stop':

@@ -29,11 +29,12 @@ export declare interface GridModel {
 	caption?: string;
 
 	/**
-	 * If setup to true, grid starts to use cache to render values,
-	 * that means if you have some online updates they won't work until explicit
-	 * grid invalidate.
+	 * Allows to change perfomance strategy of the grid.
+	 * * `full` grid has full interaction possibilities.
+	 * * `readonly` grid starts to use cache to render values.
+	 * * `detached` grid disable change detection after render.
 	 */
-	isReadonly?: boolean;
+	interactionMode?: 'full' | 'readonly' | 'detached';
 
 	// @depricated
 	title?: string;
