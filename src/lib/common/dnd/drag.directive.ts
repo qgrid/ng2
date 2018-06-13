@@ -5,6 +5,7 @@ import { DragService } from 'ng2-qgrid/core/drag/drag.service';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { RootService } from '../../infrastructure/component/root.service';
+import { isFunction } from 'ng2-qgrid/core/utility/kit';
 
 @Directive({
 	selector: '[q-grid-drag]'
@@ -40,7 +41,8 @@ export class DragDirective {
 		}
 
 		const data = this.data;
-		DragService.element = this.drag.execute(eventArg) || e.srcElement;
+		const result = this.drag.execute(eventArg);
+		DragService.element = result && isFunction(result.getBoundingClientRect) ? result : e.srcElement;
 
 		this.elementRef.nativeElement.classList.add(`${GRID_PREFIX}-drag`);
 
