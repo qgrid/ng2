@@ -2,7 +2,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const libName = 'theme-material';//require('./package.json').name;
 const glob = require('glob');
 const ngc = require('@angular/compiler-cli/src/main').main;
 const rollup = require('rollup');
@@ -10,134 +9,161 @@ const { uglify } = require('rollup-plugin-uglify');
 const babel = require('rollup-plugin-babel');
 const sass = require('npm-sass');
 const inlineStyles = require('./build.inline');
-const rollupConfig = require('./build.theme.rollup');
+const rollupConfigFactory = require('./build.theme.rollup');
 const { relativeCopy } = require('./build.kit');
+const tsConfig = require('./build.theme.tsconfig.json');
 
 const rootFolder = path.join(__dirname);
-const tscFolder = path.join(rootFolder, 'out-tsc');
-const srcFolder = path.join(rootFolder, 'src');
-const themeFolder = path.join(tscFolder, 'theme/material');
+const tscFolder = path.join(rootFolder, 'out-tsc/theme');
+const srcFolder = path.join(rootFolder, 'src/theme');
 const distFolder = path.join(rootFolder, 'dist');
 const esm2015Folder = path.join(tscFolder, 'esm2015');
-const esm2015Entry = path.join(esm2015Folder, 'theme/material/index.js');
-
 
 return Promise.resolve()
   // Copy library to temporary folder and inline html/css.
   .then(() => console.log(`copy: ${srcFolder}`))
-  .then(() => relativeCopy(`**/*`, path.join(srcFolder, 'theme'), path.join(tscFolder, 'theme')))
-  .then(() => relativeCopy(`**/*`, path.join(srcFolder, 'lib/assets'), path.join(tscFolder, 'lib/assets')))
+  .then(() => relativeCopy(`**/*`, srcFolder, tscFolder))
+  .then(() => relativeCopy(`**/*`, path.join(rootFolder, 'src/lib/assets'), path.join(rootFolder, 'out-tsc/lib/assets')))
   .then(() => console.log(`copy: succeeded`))
-  .then(() => console.log(`theme: build`))
-  // Build theme
-  .then(() =>
-    build({
-      path: path.join(themeFolder, 'templates'),
-      outputPath: path.join(themeFolder, 'theme.component.gen.html'),
-    })
-  )
-  .then(() => console.log(`theme: succeeded`))
-  // Inline styles and templates
-  .then(() => console.log(`scss: ${tscFolder}`))
   .then(() => {
-    const files = glob.sync('**/index.scss', { cwd: tscFolder });
-    return Promise.all(files.map(name =>
-      new Promise((resolve, reject) => {
-        const filePath = path.join(tscFolder, name);
-        console.log(`scss: ${filePath}`)
-        sass(filePath, (err, result) => {
-          if (err) {
-            reject(err);
-          } else {
-            fs.writeFileSync(filePath.replace('.scss', '.css'), result.css);
-            resolve(result);
-          }
-        });
-      })
-    ))
-  })
-  .then(() => console.log(`scss: success`))
-  .then(() => console.log(`inline: ${tscFolder}`))
-  .then(() => inlineStyles(tscFolder))
-  .then(() => console.log('inline: succeeded'))
-  // Compile to ESM2015.
-  .then(() => console.log('ngc: build.theme.tsconfig.json'))
-  .then(() => ngc(['--project', 'build.theme.tsconfig.json']))
-  .then(code => code === 0 ? Promise.resolve() : Promise.reject())
-  .then(() => console.log('ngc theme.esm2015: succeeded'))
-  // Copy typings and metadata to `dist/` folder.
-  .then(() => console.log(`copy metadata: ${distFolder}`))
-  .then(() => relativeCopy('**/*.d.ts', esm2015Folder, distFolder))
-  .then(() => relativeCopy('**/*.metadata.json', esm2015Folder, distFolder))
-  .then(() => console.log('copy metadata: succeeded'))
-  // Bundle lib.
-  .then(() => console.log(`bundle fesm2015: ${libName}`))
-  .then(() => {
-    const cfg = Object.assign({}, rollupConfig, {
-      input: esm2015Entry,
-      output: Object.assign({}, rollupConfig.output, {
-        file: path.join(distFolder, 'fesm2015', `${libName}.js`),
-        format: 'es'
-      })
-    });
+    let task = Promise.resolve();
+    for (let themeName of fs.readdirSync(tscFolder)) {
+      const themeFolder = path.join(srcFolder, themeName);
+      if (!fs.statSync(themeFolder).isDirectory()) {
+        continue;
+      }
 
-    return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
-  })
-  .then(() => console.log('bundle fesm2015: succeeded'))
-  .then(() => console.log(`bundle umd: ${libName}`))
-  .then(() => {
-    const cfg = Object.assign({}, rollupConfig, {
-      input: esm2015Entry,
-      output: Object.assign({}, rollupConfig.output, {
-        file: path.join(distFolder, 'bundles', `${libName}.umd.js`),
-        format: 'umd'
-      }),
-      plugins: rollupConfig.plugins.concat([babel({})])
-    });
+      const esm2015Entry = path.join(themeFolder, 'index.js');
+      const libName = `theme-${themeName}`;
+      const rollupConfig = rollupConfigFactory(libName);
 
-    return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
-  })
-  .then(() => console.log('bundle umd: succeeded'))
-  .then(() => console.log(`bundle umd.min: ${libName}`))
-  .then(() => {
-    const cfg = Object.assign({}, rollupConfig, {
-      input: esm2015Entry,
-      output: Object.assign({}, rollupConfig.output, {
-        file: path.join(distFolder, 'bundles', `${libName}.umd.min.js`),
-        format: 'umd'
-      }),
-      plugins: rollupConfig.plugins.concat([babel({}), uglify({})])
-    });
+      task =
+        task
+          // Copy library to temporary folder and inline html/css.
+          .then(() => console.log(`theme: build`))
+          // Build theme
+          .then(() =>
+            build({
+              path: path.join(themeFolder, 'templates'),
+              outputPath: path.join(themeFolder, 'theme.component.gen.html'),
+            })
+          )
+          .then(() => console.log(`theme: succeeded`))
+          // Inline styles and templates
+          .then(() => console.log(`scss: ${tscFolder}`))
+          .then(() => {
+            const files = glob.sync('**/index.scss', { cwd: tscFolder });
+            return Promise.all(files.map(name =>
+              new Promise((resolve, reject) => {
+                const filePath = path.join(tscFolder, name);
+                console.log(`scss: ${filePath}`)
+                sass(filePath, (err, result) => {
+                  if (err) {
+                    reject(err);
+                  } else {
+                    fs.writeFileSync(filePath.replace('.scss', '.css'), result.css);
+                    resolve(result);
+                  }
+                });
+              })
+            ))
+          })
+          .then(() => console.log(`scss: success`))
+          .then(() => console.log(`inline: ${tscFolder}`))
+          .then(() => inlineStyles(tscFolder))
+          .then(() => console.log('inline: succeeded'))
+          .then(() => console.log('modify: build.theme.tsconfig.json'))
+          .then(() => {
+            tsConfig.files = [
+              `./out-tsc/theme/${libName}/theme.module.ts`
+            ];
 
-    return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
-  })
-  .then(() => console.log('bundle umd.min: succeeded'))
-  .then(() => console.log(`bundle fesm5: ${libName}`))
-  .then(() => {
-    const cfg = Object.assign({}, rollupConfig, {
-      input: esm2015Entry,
-      output: Object.assign({}, rollupConfig.output, {
-        file: path.join(distFolder, 'fesm5', `${libName}.js`),
-        format: 'es'
-      }),
-      plugins: rollupConfig.plugins.concat([babel({})])
-    });
-    return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
-  })
-  .then(() => console.log('bundle fesm5: succeeded'))
-  .then(() => console.log('bundle: successed'))
-  // Copy package files
-  .then(() => console.log('copy package: start'))
-  .then(() => relativeCopy('package.json', path.join(srcFolder, 'theme/material'), path.join(distFolder, 'theme/material')))
-  .then(() => console.log('copy package: success'))
-  .catch(ex => {
-    console.error('\nBuild failed. See below for errors.\n');
-    console.error(ex);
-    process.exit(1);
+            fs.writeFileSync(
+              'build.theme.tsconfig.json', 
+              JSON.stringify(tsConfig)
+            );
+
+          })
+          .then(() => console.log('modify: succeeded'))
+          // Compile to ESM2015.
+          .then(() => console.log('ngc: build.theme.tsconfig.json'))
+          .then(() => ngc(['--project', 'build.theme.tsconfig.json']))
+          .then(code => code === 0 ? Promise.resolve() : Promise.reject())
+          .then(() => console.log('ngc theme.esm2015: succeeded'))
+          // Copy typings and metadata to `dist/` folder.
+          .then(() => console.log(`copy metadata: ${distFolder}`))
+          .then(() => relativeCopy('**/*.d.ts', esm2015Folder, distFolder))
+          .then(() => relativeCopy('**/*.metadata.json', esm2015Folder, distFolder))
+          .then(() => console.log('copy metadata: succeeded'))
+          // Bundle lib.
+          .then(() => console.log(`bundle fesm2015: ${libName}`))
+          .then(() => {
+            const cfg = Object.assign({}, rollupConfig, {
+              input: esm2015Entry,
+              output: Object.assign({}, rollupConfig.output, {
+                file: path.join(distFolder, 'fesm2015', `${libName}.js`),
+                format: 'es'
+              })
+            });
+
+            return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
+          })
+          .then(() => console.log('bundle fesm2015: succeeded'))
+          .then(() => console.log(`bundle umd: ${libName}`))
+          .then(() => {
+            const cfg = Object.assign({}, rollupConfig, {
+              input: esm2015Entry,
+              output: Object.assign({}, rollupConfig.output, {
+                file: path.join(distFolder, 'bundles', `${libName}.umd.js`),
+                format: 'umd'
+              }),
+              plugins: rollupConfig.plugins.concat([babel({})])
+            });
+
+            return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
+          })
+          .then(() => console.log('bundle umd: succeeded'))
+          .then(() => console.log(`bundle umd.min: ${libName}`))
+          .then(() => {
+            const cfg = Object.assign({}, rollupConfig, {
+              input: esm2015Entry,
+              output: Object.assign({}, rollupConfig.output, {
+                file: path.join(distFolder, 'bundles', `${libName}.umd.min.js`),
+                format: 'umd'
+              }),
+              plugins: rollupConfig.plugins.concat([babel({}), uglify({})])
+            });
+
+            return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
+          })
+          .then(() => console.log('bundle umd.min: succeeded'))
+          .then(() => console.log(`bundle fesm5: ${libName}`))
+          .then(() => {
+            const cfg = Object.assign({}, rollupConfig, {
+              input: esm2015Entry,
+              output: Object.assign({}, rollupConfig.output, {
+                file: path.join(distFolder, 'fesm5', `${libName}.js`),
+                format: 'es'
+              }),
+              plugins: rollupConfig.plugins.concat([babel({})])
+            });
+            return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
+          })
+          .then(() => console.log('bundle fesm5: succeeded'))
+          .then(() => console.log('bundle: successed'))
+          // Copy package files
+          .then(() => console.log('copy package: start'))
+          .then(() => relativeCopy('package.json', themeFolder, path.join(distFolder, `theme/${libName}`)))
+          .then(() => console.log('copy package: success'))
+          .catch(ex => {
+            console.error('\nBuild failed. See below for errors.\n');
+            console.error(ex);
+            process.exit(1);
+          });
+    }
   });
 
-
-function build(settings = {}) {
+module.exports = function build(settings = {}) {
   settings = Object.assign(settings, {
     encoding: 'utf-8',
     pattern: /.*\.tpl\.html/

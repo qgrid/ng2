@@ -27,7 +27,7 @@
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
     "flatModuleOutFile": "index.js",
-    "flatModuleId": "ng2-qgrid-theme-material",
+    "flatModuleId": "theme",
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
   }
