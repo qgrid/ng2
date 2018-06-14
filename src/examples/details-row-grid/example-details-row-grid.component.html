@@ -6,7 +6,7 @@
 		<q-grid-column type="row-details">
 			<ng-template for="body"
 			             let-$cell>
-				<q-grid caption="{{$cell.row.item.phase}} Phase Atoms"
+				<q-grid caption="First 3 `{{$cell.row.item.phase}}` atoms"
 				        [rows]="getSamePhaseRows($cell.row.item) | async"
 				        class="q-grid-embed"
 				        style="padding: 20px">

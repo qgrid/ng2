@@ -20,7 +20,7 @@ export class ExampleDetailsRowGridComponent {
 	getSamePhaseRows(atom: Atom) {
 		let subject = this.map.get(atom.phase);
 		if (!subject) {
-			subject = this.rows.pipe(map(rows => rows.filter(row => row.phase === atom.phase)));
+			subject = this.rows.pipe(map(rows => rows.filter(row => row.phase === atom.phase).slice(0, 3)));
 			this.map.set(atom.phase, subject);
 		}
 
