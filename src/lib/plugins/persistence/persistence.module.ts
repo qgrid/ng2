@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { MatDialogModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { PersistenceComponent } from './persistence.component';
@@ -10,8 +9,7 @@ import { TemplateModule } from '../../template/template.module';
 	imports: [
 		BrowserModule,
 		FormsModule,
-		TemplateModule,
-		MatDialogModule
+		TemplateModule
 	],
 	exports: [
 		PersistenceComponent,

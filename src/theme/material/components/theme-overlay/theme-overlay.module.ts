@@ -9,5 +9,5 @@ import { ThemeOverlayDirective } from './theme-overlay.directive';
 		ThemeOverlayDirective
 	]
 })
-export class OverlayThemeModule {
+export class ThemeOverlayModule {
 }

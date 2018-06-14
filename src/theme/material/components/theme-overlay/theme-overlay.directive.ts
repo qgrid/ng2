@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, Output, EventEmitter, Renderer2, AfterViewInit } from '@angular/core';
-import { RootService } from '../../infrastructure/component/root.service';
+import { RootService } from 'ng2-qgrid';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 
 @Directive({
