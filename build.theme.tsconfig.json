@@ -17,9 +17,7 @@
       "es2017",
       "dom"
     ],
-    "baseUrl": "./out-tsc",
-    "paths": {
-    }
+    "baseUrl": "./out-tsc"
   },
   "files": [
     "./out-tsc/theme/material/theme.module.ts"

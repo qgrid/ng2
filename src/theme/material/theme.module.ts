@@ -1,12 +1,11 @@
-import {
-	NgModule,
-	ComponentFactoryResolver,
-	ApplicationRef,
-	Injector
-} from '@angular/core';
+import { NgModule, ComponentFactoryResolver, ApplicationRef, Injector } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThemeComponent } from './theme.component';
+import { SelectModule } from './components/select/select.module';
+import { ChipsModule } from './components/chips/chips.module';
+import { MenuModule } from './components/menu/menu.module';
+import { ThemeOverlayModule } from './components/theme-overlay/theme-overlay.module';
 import {
 	MatCardModule,
 	MatIconModule,
@@ -37,11 +36,7 @@ import {
 	RootService,
 	VscrollModule,
 	ThemeService
-} from '../../lib/public-api';
-import { SelectModule } from './components/select/select.module';
-import { ChipsModule } from './components/chips/chips.module';
-import { MenuModule } from './components/menu/menu.module';
-import { ThemeOverlayModule } from './components/theme-overlay/theme-overlay.module';
+} from 'ng2-qgrid';
 
 @NgModule({
 	declarations: [
