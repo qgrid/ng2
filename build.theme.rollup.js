@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const libName = require('./package.json').name;
+const libName = require('./package.json').name + '-theme-material';
 const camelCase = require('camelcase');
 const nodeResolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
@@ -56,7 +56,6 @@ module.exports = {
       main: true,
       browser: true
     }),
-    commonjs({
-    })
+    commonjs()
   ]
 };

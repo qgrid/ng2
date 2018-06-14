@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const libName = require('./package.json').name;
+const libName = require('./package.json').name + '-theme-material';
 const glob = require('glob');
 const ngc = require('@angular/compiler-cli/src/main').main;
 const rollup = require('rollup');
