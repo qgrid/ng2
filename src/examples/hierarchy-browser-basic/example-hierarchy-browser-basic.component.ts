@@ -27,7 +27,7 @@ export class ExampleHierarchyBrowserBasicComponent {
 			memo.nodes = tree;
 			next(memo);
 		};
-		const job = new jobLine(500);
+		const job = jobLine(500);
 
 		this.gridModel.data({
 			pipe: [qgrid.pipe.memo, treePipe, qgrid.pipe.column, qgrid.pipe.view]
@@ -39,12 +39,12 @@ export class ExampleHierarchyBrowserBasicComponent {
 					}
 
 					node.isVisited = true;
-					let length = Math.floor(Math.random() * 9 + 1);
-					let level = node.level + 1;
+					const length = Math.floor(Math.random() * 9 + 1);
+					const level = node.level + 1;
 					job(() => {
 						node.children = Array.from(new Array(length), function (x, i) {
-							let type = Math.floor(Math.random() * 5) < 3 ? 'group' : 'value';
-							let child = new Node(type + ' node[' + level + ',' + i + ']', level, type);
+							const type = Math.floor(Math.random() * 5) < 3 ? 'group' : 'value';
+							const child = new Node(type + ' node[' + level + ',' + i + ']', level, type);
 							child.isVisited = false;
 							return child;
 						});
