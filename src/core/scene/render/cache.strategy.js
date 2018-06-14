@@ -105,12 +105,12 @@ export class CacheStrategy {
         }
 
         model.sceneChanged.watch(e => {
-            if (e.hasChanges('round') && e.state.round) {
-                storage = new Map()
+            if (e.hasChanges('round') && e.state.round > 0) {
+                storage = new Map();
             }
         });
 
-        model.dataChanged.watch(e => {
+        model.gridChanged.watch(e => {
             if (e.hasChanges('isReadonly')) {
                 storage = new Map();
 

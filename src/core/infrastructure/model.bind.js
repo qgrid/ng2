@@ -63,8 +63,6 @@ export class ModelBinder extends Disposable {
 		const host = this.host;
 		return e => {
 			const changes = Object.keys(e.changes);
-			// console.log('model.bind', `to ctrl "${name}[${changes.join(', ')}]"`);
-
 			for (let diffKey of changes) {
 				const hostKey = toCamelCase(name, diffKey);
 				if (host.hasOwnProperty(hostKey)) {

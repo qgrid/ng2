@@ -9,7 +9,7 @@ import { from, Observable } from 'rxjs';
 	styleUrls: ['example-column-dropdown-basic.component.scss'],
 	providers: [DataService]
 })
-export class ExampleColumnDropdowntBasicComponent {
+export class ExampleColumnDropdownBasicComponent {
 	rows = [
 		{
 			'number': 0,

@@ -12,7 +12,7 @@ export class ActionView {
 		const items = Array.from(model.action().items);
 		items.push(action);
 
-		model.action({ items });
+		model.action({ items }, { source: 'action.view' });
 	}
 
 	execute() {

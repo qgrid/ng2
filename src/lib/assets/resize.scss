@@ -41,3 +41,12 @@ td {
         pointer-events: all;
     }
 }
+
+&.q-grid-box.q-grid-drag {
+    th {
+        .q-grid-divider,
+        .q-grid-resizable {
+            opacity: 0;
+        }
+    }
+}

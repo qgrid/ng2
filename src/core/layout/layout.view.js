@@ -5,8 +5,8 @@ import { Disposable } from '../infrastructure/disposable';
 
 export class LayoutView extends Disposable {
 	constructor(model, table, service) {
-		super(); 
-	
+		super();
+
 		this.model = model;
 		this.table = table;
 		this.service = service;
@@ -57,7 +57,7 @@ export class LayoutView extends Disposable {
 					const index = model.style.rows.indexOf(styleRow);
 					rows.splice(index, 1);
 				}
-				model.style({ rows });
+				model.style({ rows }, { source: 'layout.view' });
 			}
 		});
 	}

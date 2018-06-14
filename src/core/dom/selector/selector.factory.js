@@ -13,11 +13,12 @@ export class SelectorFactory {
 	create() {
 		const bag = this.bag;
 		const selectorMark = this.selectorMark;
+		const matrix = new Matrix(tr => bag.models.has(tr));
 		const entries =
 			selectorMark
 				.select()
 				.map(({ element, rowRange, columnRange }) => ({
-					matrix: new Matrix(tr => bag.models.has(tr)).build(element),
+					matrix: matrix.build(element),
 					rowRange,
 					columnRange
 				}));

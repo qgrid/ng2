@@ -31,8 +31,14 @@ export class EditCellView {
 			if (e.hasChanges('cell')) {
 				const oldCell = this.editor.td;
 				if (oldCell) {
-					if (this.commit.canExecute(oldCell)) {
-						this.commit.execute(oldCell);
+					if (oldCell.column.class === 'data') {
+						if (this.commit.canExecute(oldCell)) {
+							this.commit.execute(oldCell);
+						}
+					} else {
+						if (this.cancel.canExecute(oldCell)) {
+							this.cancel.execute(oldCell);
+						}
 					}
 				}
 

@@ -36,7 +36,8 @@
 							[q-grid-drop]="$columnChooser.drop"
 							[q-grid-drop-data]="column.key"
 						    [q-grid-drag-over]="$columnChooser.drop"
-						    q-grid-drop-area="column-chooser">
+							q-grid-drop-area="column-chooser"
+							q-grid-drag-direction="y">
 							<div [q-grid-drag]="$columnChooser.drag"
 							     [q-grid-drag-data]="column.key"
 							     q-grid-drop-area="column-chooser">

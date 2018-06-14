@@ -12,7 +12,7 @@ export class Box {
 
 		this.selector = this.selectFactory.create();
 		model.sceneChanged.on(e => {
-			if (e.hasChanges('round')) {
+			if (e.hasChanges('status') && e.state.status === 'stop') {
 				this.selector = this.selectFactory.create();
 			}
 		})

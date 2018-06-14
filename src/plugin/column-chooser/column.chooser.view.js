@@ -12,6 +12,7 @@ export class ColumnChooserView {
 
 		this.cancelEvent = new Event();
 		this.submitEvent = new Event();
+		this.dropEvent = new Event();
 
 		this.temp = {
 			index: [],
@@ -54,29 +55,33 @@ export class ColumnChooserView {
 				return map.hasOwnProperty(targetKey) && map[targetKey].canMove;
 			},
 			execute: e => {
-				const sourceKey = e.dragData;
-				const targetKey = e.dropData;
-				if (sourceKey !== targetKey) {
-					const { index, columns } = this.temp;
+				switch (e.action) {
+					case 'over': {
+						const sourceKey = e.dragData;
+						const targetKey = e.dropData;
+						if (sourceKey !== targetKey) {
+							const { index, columns } = this.temp;
 
-					let oldIndex = index.indexOf(sourceKey);
-					let newIndex = index.indexOf(targetKey);
-					if (oldIndex >= 0 && newIndex >= 0) {
-						index.splice(oldIndex, 1);
-						index.splice(newIndex, 0, sourceKey);
+							let oldIndex = index.indexOf(sourceKey);
+							let newIndex = index.indexOf(targetKey);
+							if (oldIndex >= 0 && newIndex >= 0) {
+								index.splice(oldIndex, 1);
+								index.splice(newIndex, 0, sourceKey);
 
-						oldIndex = columns.findIndex(c => c.key === sourceKey);
-						newIndex = columns.findIndex(c => c.key === targetKey);
+								oldIndex = columns.findIndex(c => c.key === sourceKey);
+								newIndex = columns.findIndex(c => c.key === targetKey);
 
-						const column = columns[oldIndex];
-						columns.splice(oldIndex, 1);
-						columns.splice(newIndex, 0, column);
+								const column = columns[oldIndex];
+								columns.splice(oldIndex, 1);
+								columns.splice(newIndex, 0, column);
 
-						this.temp.columns = Array.from(this.temp.columns);
+								this.temp.columns = Array.from(this.temp.columns);
+								this.dropEvent.emit({});
+							}
+						}
 					}
+					break;
 				}
-
-				return sourceKey;
 			}
 		});
 
@@ -107,7 +112,7 @@ export class ColumnChooserView {
 				model.columnList({
 					index: Array.from(temp.index)
 				}, {
-						source: 'column.chooser'
+						source: 'column.chooser.view'
 					});
 
 				this.submitEvent.emit();
@@ -185,7 +190,7 @@ export class ColumnChooserView {
 		const columns = this.model
 			.data()
 			.columns
-			.filter(c => c.class === 'data')
+			.filter(c => c.class === 'data' && c.children.length === 0)
 			.map(c => ({
 				key: c.key,
 				title: c.title,

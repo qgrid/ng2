@@ -60,13 +60,13 @@ export class GridComponent extends RootComponent implements OnInit {
 
 	@Input('header') gridTitle: string;
 	@Input('caption') gridCaption: string;
+	@Input('interactionMode') gridInteractionMode: 'full' | 'readonly' | 'detached';
 
 	@Input('id') gridId: string;
 
 	@Input('columns') dataColumns: Array<ColumnModel>;
 	@Input('pipe') dataPipe: Array<(memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any>;
 	@Input('rows') dataRows: Array<any>;
-	@Input('readonly') dataIsReadonly: boolean;
 
 	@Input() editCancel: Command;
 	@Input() editCommit: Command;

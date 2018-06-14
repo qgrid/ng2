@@ -15,7 +15,7 @@ import { ExampleColumnAutocompletetBasicComponent } from './column-autocomplete-
 import { ExampleColumnBoolBasicComponent } from './column-bool-basic/example-column-bool-basic.component';
 import { ExampleColumnCurrencyBasicComponent } from './column-currency-basic/example-column-currency-basic.component';
 import { ExampleColumnDateBasicComponent } from './column-date-basic/example-column-date-basic.component';
-import { ExampleColumnDropdowntBasicComponent } from './column-dropdown-basic/example-column-dropdown-basic.component';
+import { ExampleColumnDropdownBasicComponent } from './column-dropdown-basic/example-column-dropdown-basic.component';
 import { ExampleColumnEmailBasicComponent } from './column-email-basic/example-column-email-basic.component';
 import { ExampleColumnFileBasicComponent } from './column-file-basic/example-column-file-basic.component';
 import { ExampleColumnIdBasicComponent } from './column-id-basic/example-column-id-basic.component';
@@ -34,7 +34,9 @@ import { ExampleDefineColumnBasicComponent } from './define-column-basic/example
 import { ExampleDefineColumnHybridComponent } from './define-column-hybrid/example-define-column-hybrid.component';
 import { ExampleDestroyGridBasicComponent } from './destroy-grid-basic/example-destroy-grid-basic.component';
 import { ExampleDestroyGridModelComponent } from './destroy-grid-model/example-destroy-grid-model.component';
+import { ExampleDetailsRowAllComponent } from './details-row-all/example-details-row-all.component';
 import { ExampleDetailsRowBasicComponent } from './details-row-basic/example-details-row-basic.component';
+import { ExampleDetailsRowGridComponent } from './details-row-grid/example-details-row-grid.component';
 import { ExampleDragColumnBasicComponent } from './drag-column-basic/example-drag-column-basic.component';
 import { ExampleDragRowBasicComponent } from './drag-row-basic/example-drag-row-basic.component';
 import { ExampleDragRowNodeComponent } from './drag-row-node/example-drag-row-node.component';
@@ -60,12 +62,13 @@ import { ExampleGroupRowSummaryComponent } from './group-row-summary/example-gro
 import { ExampleIndexColumnBasicComponent } from './index-column-basic/example-index-column-basic.component';
 import { ExampleIndexColumnHybridComponent } from './index-column-hybrid/example-index-column-hybrid.component';
 import { ExampleIndexColumnModelComponent } from './index-column-model/example-index-column-model.component';
+import { ExampleInteractionModeDetachedComponent } from './interaction-mode-detached/example-interaction-mode-detached.component';
+import { ExampleInteractionModeReadonlyComponent } from './interaction-mode-readonly/example-interaction-mode-readonly.component';
 import { ExampleLegendGridBasicComponent } from './legend-grid-basic/example-legend-grid-basic.component';
 import { ExampleLiveDataBasicComponent } from './live-data-basic/example-live-data-basic.component';
 import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
 import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/example-look-atoms-customized.component';
 import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-atoms-model.component';
-import { ExampleLookAtomsReadonlyComponent } from './look-atoms-readonly/example-look-atoms-readonly.component';
 import { ExampleLookPeopleBasicComponent } from './look-people-basic/example-look-people-basic.component';
 import { ExampleLookPeopleModelComponent } from './look-people-model/example-look-people-model.component';
 import { ExampleLookQuotesBasicComponent } from './look-quotes-basic/example-look-quotes-basic.component';
@@ -105,7 +108,7 @@ const EXAMPLES: Array<any> = [
 	ExampleColumnBoolBasicComponent,
 	ExampleColumnCurrencyBasicComponent,
 	ExampleColumnDateBasicComponent,
-	ExampleColumnDropdowntBasicComponent,
+	ExampleColumnDropdownBasicComponent,
 	ExampleColumnEmailBasicComponent,
 	ExampleColumnFileBasicComponent,
 	ExampleColumnIdBasicComponent,
@@ -124,7 +127,9 @@ const EXAMPLES: Array<any> = [
 	ExampleDefineColumnHybridComponent,
 	ExampleDestroyGridBasicComponent,
 	ExampleDestroyGridModelComponent,
+	ExampleDetailsRowAllComponent,
 	ExampleDetailsRowBasicComponent,
+	ExampleDetailsRowGridComponent,
 	ExampleDragColumnBasicComponent,
 	ExampleDragRowBasicComponent,
 	ExampleDragRowNodeComponent,
@@ -150,12 +155,13 @@ const EXAMPLES: Array<any> = [
 	ExampleIndexColumnBasicComponent,
 	ExampleIndexColumnHybridComponent,
 	ExampleIndexColumnModelComponent,
+	ExampleInteractionModeDetachedComponent,
+	ExampleInteractionModeReadonlyComponent,
 	ExampleLegendGridBasicComponent,
 	ExampleLiveDataBasicComponent,
 	ExampleLookAtomsBasicComponent,
 	ExampleLookAtomsCustomizedComponent,
 	ExampleLookAtomsModelComponent,
-	ExampleLookAtomsReadonlyComponent,
 	ExampleLookPeopleBasicComponent,
 	ExampleLookPeopleModelComponent,
 	ExampleLookQuotesBasicComponent,

@@ -10,4 +10,5 @@ export declare class ColumnChooserView {
 
     cancelEvent: Event;
     submitEvent: Event;
+    dropEvent: Event;
 }

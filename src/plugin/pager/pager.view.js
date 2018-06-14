@@ -10,7 +10,7 @@ export class PagerView {
 			source: 'pager',
 			execute: () => {
 				new FocusAfterRender(model, table);
-				model.pagination({ current: model.pagination().current + 1 })
+				model.pagination({ current: model.pagination().current + 1 }, { source: 'pager.view' })
 			},
 			canExecute: () => (model.pagination().current + 1) * model.pagination().size < model.pagination().count
 		});
@@ -19,7 +19,7 @@ export class PagerView {
 			source: 'pager',
 			execute: () => {
 				new FocusAfterRender(model, table);
-				model.pagination({ current: model.pagination().current - 1 });
+				model.pagination({ current: model.pagination().current - 1 }, { source: 'pager.view' });
 			},
 			canExecute: () => model.pagination().current > 0
 		});
@@ -34,7 +34,7 @@ export class PagerView {
 	}
 
 	set size(value) {
-		this.model.pagination({ size: value, current: 0 });
+		this.model.pagination({ size: value, current: 0 }, { source: 'pager.view' });
 	}
 
 	get sizeList() {
@@ -46,7 +46,7 @@ export class PagerView {
 	}
 
 	set current(value) {
-		return this.model.pagination({ current: value });
+		return this.model.pagination({ current: value }, { source: 'pager.view' });
 	}
 
 	get from() {

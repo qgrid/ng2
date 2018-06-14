@@ -6,8 +6,6 @@ export class DataModel {
 		this.columns = [];
 		this.pipe = PipeUnit.default;
 
-		this.isReadonly = false;
-
 		this.id = {
 			row: (index, row) => row,
 			column: (index, column) => column.key

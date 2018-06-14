@@ -1,4 +1,4 @@
-import { Component, Optional, Input, Output, EventEmitter, OnInit, OnDestroy, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Optional, Input, Output, EventEmitter, OnInit, OnDestroy, SimpleChanges, OnChanges, NgZone } from '@angular/core';
 import { ColumnChooserView } from 'ng2-qgrid/plugin/column-chooser/column.chooser.view';
 import { FocusAfterRender } from '../../common/focus/focus.service';
 import { PluginService } from '../plugin.service';
@@ -21,12 +21,13 @@ export class ColumnChooserComponent implements OnInit, OnChanges {
 
 	constructor(
 		private plugin: PluginService,
+		private zone: NgZone,
 		focusAfterRender: FocusAfterRender
 	) {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		this.plugin.tie(changes, ['columnChooser']);
+		this.plugin.keep(changes, ['columnChooser']);
 	}
 
 	ngOnInit() {
@@ -37,6 +38,7 @@ export class ColumnChooserComponent implements OnInit, OnChanges {
 		const columnChooser = new ColumnChooserView(this.plugin.model, context);
 		columnChooser.submitEvent.on(() => this.submitEvent.emit());
 		columnChooser.cancelEvent.on(() => this.cancelEvent.emit());
+		columnChooser.dropEvent.on(() => this.zone.run(() => {}));
 
 		this.context = { $implicit: columnChooser };
 	}

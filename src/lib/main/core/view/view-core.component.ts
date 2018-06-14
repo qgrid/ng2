@@ -24,11 +24,8 @@ import { GridService } from '../../../main/grid/grid.service';
 	templateUrl: './view-core.component.html',
 	providers: [CellService]
 })
-export class ViewCoreComponent extends NgComponent
-	implements OnInit, DoCheck, AfterViewChecked {
-
+export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 	private ctrl: ViewCtrl;
-	private sceneJob = jobLine(0);
 
 	constructor(
 		private root: RootService,
@@ -37,6 +34,24 @@ export class ViewCoreComponent extends NgComponent
 		private zone: NgZone,
 		private elementRef: ElementRef) {
 		super();
+
+		zone.onStable.subscribe(() => {
+			if (this.root.isReady) {
+				const model = this.model;
+				const { round, status } = model.scene();
+				if (round > 0 && status === 'start') {
+					model.scene({
+						round: 0,
+						status: 'stop'
+					}, {
+							source: 'grid.component',
+							behavior: 'core'
+						});
+
+					this.ctrl.invalidate();
+				}
+			}
+		});
 	}
 
 	ngOnInit() {
@@ -79,25 +94,5 @@ export class ViewCoreComponent extends NgComponent
 		if (status === 'stop') {
 			this.ctrl.invalidate();
 		}
-	}
-
-	ngAfterViewChecked() {
-		this.sceneJob(() => {
-			if (this.root.isReady) {
-				const model = this.model;
-				const { round, status } = model.scene();
-				if (round > 0 && status === 'start') {
-					model.scene({
-						round: 0,
-						status: 'stop'
-					}, {
-							source: 'grid.component',
-							behavior: 'core'
-						});
-
-					this.ctrl.invalidate();
-				}
-			}
-		});
 	}
 }

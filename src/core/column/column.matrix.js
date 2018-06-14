@@ -67,7 +67,8 @@ function rowsToUseFactory() {
 			return cache.get(column.key);
 		}
 
-		const { children } = column;
+		// as we use here 'raw' columns children can be null
+		const children = column.children || [];
 		let count = children.length == 0 ? 0 : 1;
 		for (let child of children) {
 			count = Math.max(count, rowsToUse(child, depth + 1));
