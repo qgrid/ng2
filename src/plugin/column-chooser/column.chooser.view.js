@@ -190,7 +190,7 @@ export class ColumnChooserView {
 		const columns = this.model
 			.data()
 			.columns
-			.filter(c => c.class === 'data')
+			.filter(c => c.class === 'data' && c.children.length === 0)
 			.map(c => ({
 				key: c.key,
 				title: c.title,
