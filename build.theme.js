@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const libName = require('./package.json').name + '-theme-material';
+const libName = require('./package.json').name;
 const glob = require('glob');
 const ngc = require('@angular/compiler-cli/src/main').main;
 const rollup = require('rollup');
@@ -19,7 +19,7 @@ const srcFolder = path.join(rootFolder, 'src');
 const themeFolder = path.join(tscFolder, 'theme/material');
 const distFolder = path.join(rootFolder, 'dist');
 const esm2015Folder = path.join(tscFolder, 'esm2015');
-const esm2015Entry = path.join(esm2015Folder, 'index.js');
+const esm2015Entry = path.join(esm2015Folder, 'theme/material/index.js');
 
 
 return Promise.resolve()

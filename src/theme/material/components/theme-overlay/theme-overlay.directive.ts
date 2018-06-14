@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, Output, EventEmitter, Renderer2, AfterViewInit } from '@angular/core';
 import { RootService } from 'ng2-qgrid';
-import { AppError } from 'ng2-qgrid/core/infrastructure/error';
+import { GridError } from 'ng2-qgrid';
 
 @Directive({
 	selector: '[q-grid-theme-overlay]'
@@ -29,7 +29,7 @@ export class ThemeOverlayDirective  implements AfterViewInit {
 		}
 
 		if(!overlayContainer){
-			throw new AppError(
+			throw new GridError(
 				'theme-overlay.directive',
 				`cdk-overlay container is not found`
 			);

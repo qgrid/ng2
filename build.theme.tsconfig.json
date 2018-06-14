@@ -26,7 +26,7 @@
     "annotateForClosureCompiler": true,
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
-    "flatModuleOutFile": "ng2-qgrid-theme-material.js",
+    "flatModuleOutFile": "index.js",
     "flatModuleId": "ng2-qgrid-theme-material",
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true

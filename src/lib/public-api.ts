@@ -25,6 +25,7 @@ export { EditorOptions } from 'ng2-qgrid/core/column-type/editor.options';
 export { Shortcut } from 'ng2-qgrid/core/shortcut/shortcut';
 export { ShortcutDispatcher } from 'ng2-qgrid/core/shortcut/shortcut.dispatcher';
 export { CommandManager } from 'ng2-qgrid/core/command/command.manager';
+export { AppError as GridError } from 'ng2-qgrid/core/infrastructure/error';
 
 // Column
 export { ArrayColumnModel as ArrayColumn } from 'ng2-qgrid/core/column-type/array.column';
