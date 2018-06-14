@@ -6,7 +6,7 @@ const path = require('path');
 const glob = require('glob');
 const ngc = require('@angular/compiler-cli/src/main').main;
 const rollup = require('rollup');
-const uglify = require('rollup-plugin-uglify');
+const { uglify } = require('rollup-plugin-uglify');
 const babel = require('rollup-plugin-babel');
 const sass = require('npm-sass');
 const inlineStyles = require('./build.inline');
@@ -16,10 +16,11 @@ const buildTheme = require('./build.theme');
 const rootFolder = path.join(__dirname);
 const tscFolder = path.join(rootFolder, 'out-tsc');
 const srcFolder = path.join(rootFolder, 'src');
-const themeFolder = path.join(tscFolder, 'theme/material');
+// const themeFolder = path.join(tscFolder, 'theme/material');
 const distFolder = path.join(rootFolder, 'dist');
 const esm2015Folder = path.join(tscFolder, 'esm2015');
 const esm2015Entry = path.join(esm2015Folder, 'index.js');
+
 
 return Promise.resolve()
   // Copy library to temporary folder and inline html/css.
@@ -30,12 +31,12 @@ return Promise.resolve()
   .then(() => console.log(`copy: succeeded`))
   .then(() => console.log(`theme: build`))
   // Build еheme
-  .then(() =>
-    buildTheme({
-      path: path.join(themeFolder, 'templates'),
-      outputPath: path.join(themeFolder, 'theme.component.gen.html'),
-    })
-  )
+  // .then(() =>
+  //   buildTheme({
+  //     path: path.join(themeFolder, 'templates'),
+  //     outputPath: path.join(themeFolder, 'theme.component.gen.html'),
+  //   })
+  // )
   .then(() => console.log(`theme: succeeded`))
   // Inline styles and templates
   .then(() => console.log(`scss: ${tscFolder}`))

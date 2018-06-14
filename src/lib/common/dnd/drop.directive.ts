@@ -6,7 +6,7 @@ import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { isUndefined, no } from 'ng2-qgrid/core/utility/kit';
 import { RootService } from '../../infrastructure/component/root.service';
-import { Action } from 'ng2-qgrid';
+import { Action } from 'ng2-qgrid/core/action/action';
 import { NgComponent } from '../../infrastructure/component/ng.component';
 
 export interface DropEventArg {
