@@ -1,0 +1,19 @@
+.master-details {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.top-grid {
+	height: 49%;
+}
+
+.bottom-grid {
+	height: 49%;
+}
+
+.likes-list {
+	display: inline-flex;
+	margin-left: 20px;
+	outline: none;
+}
