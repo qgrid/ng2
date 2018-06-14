@@ -17,7 +17,7 @@ const rootFolder = path.join(__dirname);
 const tscFolder = path.join(rootFolder, 'out-tsc/theme');
 const srcFolder = path.join(rootFolder, 'src/theme');
 const distFolder = path.join(rootFolder, 'dist');
-const esm2015Folder = path.join(tscFolder, 'esm2015');
+const esm2015Folder = path.join(rootFolder, 'out-tsc/esm2015');
 
 return Promise.resolve()
   // Copy library to temporary folder and inline html/css.
@@ -28,12 +28,12 @@ return Promise.resolve()
   .then(() => {
     let task = Promise.resolve();
     for (let themeName of fs.readdirSync(tscFolder)) {
-      const themeFolder = path.join(srcFolder, themeName);
+      const themeFolder = path.join(tscFolder, themeName);
       if (!fs.statSync(themeFolder).isDirectory()) {
         continue;
       }
 
-      const esm2015Entry = path.join(themeFolder, 'index.js');
+      const esm2015Entry = path.join(esm2015Folder, `theme/${themeName}/index.js`);
       const libName = `theme-${themeName}`;
       const rollupConfig = rollupConfigFactory(libName);
 
@@ -75,12 +75,12 @@ return Promise.resolve()
           .then(() => console.log('modify: build.theme.tsconfig.json'))
           .then(() => {
             tsConfig.files = [
-              `./out-tsc/theme/${libName}/theme.module.ts`
+              `./out-tsc/theme/${themeName}/theme.module.ts`
             ];
 
             fs.writeFileSync(
-              'build.theme.tsconfig.json', 
-              JSON.stringify(tsConfig)
+              'build.theme.tsconfig.json',
+              JSON.stringify(tsConfig, null, 2)
             );
 
           })
@@ -90,11 +90,6 @@ return Promise.resolve()
           .then(() => ngc(['--project', 'build.theme.tsconfig.json']))
           .then(code => code === 0 ? Promise.resolve() : Promise.reject())
           .then(() => console.log('ngc theme.esm2015: succeeded'))
-          // Copy typings and metadata to `dist/` folder.
-          .then(() => console.log(`copy metadata: ${distFolder}`))
-          .then(() => relativeCopy('**/*.d.ts', esm2015Folder, distFolder))
-          .then(() => relativeCopy('**/*.metadata.json', esm2015Folder, distFolder))
-          .then(() => console.log('copy metadata: succeeded'))
           // Bundle lib.
           .then(() => console.log(`bundle fesm2015: ${libName}`))
           .then(() => {
@@ -153,17 +148,24 @@ return Promise.resolve()
           .then(() => console.log('bundle: successed'))
           // Copy package files
           .then(() => console.log('copy package: start'))
-          .then(() => relativeCopy('package.json', themeFolder, path.join(distFolder, `theme/${libName}`)))
+          .then(() => relativeCopy('package.json', themeFolder, path.join(distFolder, `theme/${themeName}`)))
           .then(() => console.log('copy package: success'))
-          .catch(ex => {
-            console.error('\nBuild failed. See below for errors.\n');
-            console.error(ex);
-            process.exit(1);
-          });
     }
+
+    return task;
+  })
+  // Copy typings and metadata to `dist/` folder.
+  .then(() => console.log(`copy metadata: ${distFolder}`))
+  .then(() => relativeCopy('**/*.d.ts', esm2015Folder, distFolder))
+  .then(() => relativeCopy('**/*.metadata.json', esm2015Folder, distFolder))
+  .then(() => console.log('copy metadata: succeeded'))
+  .catch(ex => {
+    console.error('\nBuild failed. See below for errors.\n');
+    console.error(ex);
+    process.exit(1);
   });
 
-module.exports = function build(settings = {}) {
+function build(settings = {}) {
   settings = Object.assign(settings, {
     encoding: 'utf-8',
     pattern: /.*\.tpl\.html/
@@ -185,3 +187,5 @@ module.exports = function build(settings = {}) {
     fs.writeFileSync(settings.outputPath, content);
   }
 }
+
+module.exports = build;
