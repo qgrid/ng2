@@ -264,6 +264,8 @@ export declare class ColumnModel {
 	 */
 	viewWidth?: number;
 
+	widthMode?: string;
+
 	/**
 	 * Indicates if cells in the column are editable.
 	 */
