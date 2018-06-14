@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const libName = require('./package.json').name;
+const libName = 'theme-material';//require('./package.json').name;
 const glob = require('glob');
 const ngc = require('@angular/compiler-cli/src/main').main;
 const rollup = require('rollup');
@@ -128,9 +128,7 @@ return Promise.resolve()
   .then(() => console.log('bundle: successed'))
   // Copy package files
   .then(() => console.log('copy package: start'))
-  .then(() => relativeCopy('LICENSE', rootFolder, distFolder))
-  .then(() => relativeCopy('package.json', srcFolder, distFolder))
-  .then(() => relativeCopy('README.md', rootFolder, distFolder))
+  .then(() => relativeCopy('package.json', path.join(srcFolder, 'theme/material'), path.join(distFolder, 'theme/material')))
   .then(() => console.log('copy package: success'))
   .catch(ex => {
     console.error('\nBuild failed. See below for errors.\n');
