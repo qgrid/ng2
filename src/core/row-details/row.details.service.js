@@ -4,27 +4,39 @@ import { AppError } from '../infrastructure/error';
 import { columnFactory } from '../column/column.factory';
 
 export function flatView(model, mode) {
+	const { rows } = model.view();
+	const { status } = model.row();
+	const { line } = model.scene().column;
+
+	const showAll = mode === 'all';
+	const expandColumn = line.find(c => c.model.type === 'row-expand');
+	const columnIndex = expandColumn ? expandColumn.index : 0;
+
 	const result = [];
 	const createColumn = columnFactory(model);
-	const rows = model.view().rows;
-	const status = model.row().status;
-	const showAll = mode === 'all';
-	const columns = model.scene().column.line;
-	const expandColumn = columns.find(c => c.model.type === 'row-expand');
-	const columnIndex = expandColumn ? expandColumn.index : 0;
-	rows.forEach(row => {
-		if (!(row instanceof RowDetails)) {
-			result.push(row);
-			const state = status.get(row) || (showAll && new RowDetailsStatus(true));
-			if (state && state instanceof RowDetailsStatus) {
-				if (state.expand) {
-					const column = createColumn('row-details');
-					column.index = columnIndex;
-					result.push(new RowDetails(row, column));
-				}
+	for (let i = 0, length = rows.length; i < length; i++) {
+		const dataRow = rows[i];
+		result.push(dataRow);
+
+		const nextRow = rows[i + 1];
+		const detailsRow = nextRow instanceof RowDetails ? nextRow : null;
+		const state = status.get(dataRow) || (showAll && new RowDetailsStatus(true));
+		if (state instanceof RowDetailsStatus && state.expand) {
+			if (detailsRow) {
+				result.push(detailsRow);
+				i++;
+			} else {
+				const column = createColumn('row-details');
+				column.index = columnIndex;
+				result.push(new RowDetails(dataRow, column));
 			}
+			continue;
 		}
-	});
+
+		if (detailsRow) {
+			i++;
+		}
+	}
 
 	return result;
 }
