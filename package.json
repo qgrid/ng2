@@ -1,16 +1,17 @@
 {
   "name": "ng2-qgrid",
-  "version": "6.0.2",
+  "version": "6.1.0",
   "scripts": {
     "ng": "ng",
     "start": "node build.serve",
     "build": "ng build",
     "build:lib": "npm run clean && node build.lib.js",
+    "build:theme": "npm run clean && node build.theme.js",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "clean": "rimraf out-tsc dist",
-    "release": "npm run build:lib && cd dist && npm publish",
+    "release": "npm run clean && node build.lib.js && rimraf out-tsc && node build.theme.js && cd dist && npm publish",
     "examples": "node ./scripts/examples"
   },
   "private": true,
