@@ -2,8 +2,8 @@
 
 const sane = require('sane');
 const path = require('path');
-const buildTheme = require('./build.theme');
 const fs = require('fs');
+const { concatFiles } = require('./build.kit');
 
 const rootFolder = path.join(__dirname);
 const themeFolder = path.join(rootFolder, 'src/theme');
@@ -17,7 +17,7 @@ for (let unit of fs.readdirSync(themeFolder)) {
   const templateFolder = path.join(unitFolder, 'templates');
 
   function recycle() {
-    buildTheme({
+    concatFiles({
       path: templateFolder,
       outputPath: path.join(unitFolder, 'theme.component.gen.html'),
     });

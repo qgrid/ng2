@@ -10,7 +10,7 @@ const babel = require('rollup-plugin-babel');
 const sass = require('npm-sass');
 const inlineStyles = require('./build.inline');
 const rollupConfigFactory = require('./build.theme.rollup');
-const { relativeCopy } = require('./build.kit');
+const { relativeCopy, concatFiles } = require('./build.kit');
 const tsConfig = require('./build.theme.tsconfig.json');
 
 const rootFolder = path.join(__dirname);
@@ -43,7 +43,7 @@ return Promise.resolve()
           .then(() => console.log(`theme: build`))
           // Build theme
           .then(() =>
-            build({
+            concatFiles({
               path: path.join(themeFolder, 'templates'),
               outputPath: path.join(themeFolder, 'theme.component.gen.html'),
             })
@@ -164,28 +164,3 @@ return Promise.resolve()
     console.error(ex);
     process.exit(1);
   });
-
-function build(settings = {}) {
-  settings = Object.assign(settings, {
-    encoding: 'utf-8',
-    pattern: /.*\.tpl\.html/
-  });
-
-  const pathes = fs.readdirSync(settings.path);
-  const content = pathes
-    .filter(file => file.match(settings.pattern))
-    .map(file => {
-      const p = path.join(settings.path, file);
-      console.info(`read: ${p}`);
-      return fs.readFileSync(p, { encoding: settings.encoding });
-    })
-    .join('');
-
-  console.info(`write: ${settings.outputPath}`);
-
-  if (!fs.existsSync(settings.outputPath) || fs.readFileSync(settings.outputPath, { encoding: settings.encoding }) !== content) {
-    fs.writeFileSync(settings.outputPath, content);
-  }
-}
-
-module.exports = build;

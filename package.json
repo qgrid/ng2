@@ -7,11 +7,13 @@
     "build": "ng build",
     "build:lib": "npm run clean && node build.lib.js",
     "build:theme": "npm run clean && node build.theme.js",
+    "build:release": "npm run build:lib && npm run copy:npm && node build.theme.js", 
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "clean": "rimraf out-tsc dist",
-    "release": "npm run clean && node build.lib.js && rimraf out-tsc && node build.theme.js && cd dist && npm publish",
+    "copy:npm": "node build.copy.js **/* dist node_modules/ng2-qgrid",
+    "release": "npm run build:release && cd dist && npm publish",
     "examples": "node ./scripts/examples"
   },
   "private": true,
@@ -56,7 +58,7 @@
     "livr": "^2.1.0",
     "lodash-es": "^4.17.10",
     "ng-packagr": "^3.0.0-rc.2",
-    "ng2-qgrid": "*",    
+    "ng2-qgrid": "*",
     "npm-sass": "^2.2.3",
     "protractor": "~5.3.2",
     "rollup": "^0.60.6",
@@ -72,6 +74,6 @@
     "tsickle": ">=0.28.0",
     "tslib": "^1.9.1",
     "tslint": "~5.10.0",
-    "typescript": "~2.7.2"    
+    "typescript": "~2.7.2"
   }
 }
