@@ -12,6 +12,7 @@ const inlineStyles = require('./build.inline');
 const rollupConfigFactory = require('./build.theme.rollup');
 const { relativeCopy, concatFiles } = require('./build.kit');
 const tsConfig = require('./build.theme.tsconfig.json');
+const packageJson = require('./package.json');
 
 const rootFolder = path.join(__dirname);
 const tscFolder = path.join(rootFolder, 'out-tsc/theme');
@@ -72,6 +73,17 @@ return Promise.resolve()
           .then(() => console.log(`inline: ${tscFolder}`))
           .then(() => inlineStyles(tscFolder))
           .then(() => console.log('inline: succeeded'))
+          .then(() => console.log('modify: package.json'))
+          .then(() => {
+            packageJson.devDependencies['ng2-qgrid'] = '*';
+
+            fs.writeFileSync(
+              'package.json',
+              JSON.stringify(packageJson, null, 2)
+            );
+
+          })
+          .then(() => console.log('modify: succeeded'))
           .then(() => console.log('modify: build.theme.tsconfig.json'))
           .then(() => {
             tsConfig.files = [
