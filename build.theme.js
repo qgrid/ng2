@@ -26,6 +26,17 @@ return Promise.resolve()
   .then(() => relativeCopy(`**/*`, srcFolder, tscFolder))
   .then(() => relativeCopy(`**/*`, path.join(rootFolder, 'src/lib/assets'), path.join(rootFolder, 'out-tsc/lib/assets')))
   .then(() => console.log(`copy: succeeded`))
+  .then(() => console.log('modify: package.json'))
+  .then(() => {
+    packageJson.devDependencies['ng2-qgrid'] = '*';
+
+    fs.writeFileSync(
+      'package.json',
+      JSON.stringify(packageJson, null, 2)
+    );
+
+  })
+  .then(() => console.log('modify: succeeded'))
   .then(() => {
     let task = Promise.resolve();
     for (let themeName of fs.readdirSync(tscFolder)) {
@@ -73,17 +84,6 @@ return Promise.resolve()
           .then(() => console.log(`inline: ${tscFolder}`))
           .then(() => inlineStyles(tscFolder))
           .then(() => console.log('inline: succeeded'))
-          .then(() => console.log('modify: package.json'))
-          .then(() => {
-            packageJson.devDependencies['ng2-qgrid'] = '*';
-
-            fs.writeFileSync(
-              'package.json',
-              JSON.stringify(packageJson, null, 2)
-            );
-
-          })
-          .then(() => console.log('modify: succeeded'))
           .then(() => console.log('modify: build.theme.tsconfig.json'))
           .then(() => {
             tsConfig.files = [

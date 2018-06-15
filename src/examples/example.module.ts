@@ -59,6 +59,7 @@ import { ExampleGroupRowFlatComponent } from './group-row-flat/example-group-row
 import { ExampleGroupRowRowspanComponent } from './group-row-rowspan/example-group-row-rowspan.component';
 import { ExampleGroupRowSubheadComponent } from './group-row-subhead/example-group-row-subhead.component';
 import { ExampleGroupRowSummaryComponent } from './group-row-summary/example-group-row-summary.component';
+import { ExampleHierarchyBrowserBasicComponent } from './hierarchy-browser-basic/example-hierarchy-browser-basic.component';
 import { ExampleIndexColumnBasicComponent } from './index-column-basic/example-index-column-basic.component';
 import { ExampleIndexColumnHybridComponent } from './index-column-hybrid/example-index-column-hybrid.component';
 import { ExampleIndexColumnModelComponent } from './index-column-model/example-index-column-model.component';
@@ -74,6 +75,7 @@ import { ExampleLookPeopleModelComponent } from './look-people-model/example-loo
 import { ExampleLookQuotesBasicComponent } from './look-quotes-basic/example-look-quotes-basic.component';
 import { ExampleLookQuotesModelComponent } from './look-quotes-model/example-look-quotes-model.component';
 import { ExampleManipulateDataBasicComponent } from './manipulate-data-basic/example-manipulate-data-basic.component';
+import { ExampleMasterDetailsBasicComponent } from './master-details-basic/example-master-details-basic.component';
 import { ExamplePaginationBasicComponent } from './pagination-basic/example-pagination-basic.component';
 import { ExamplePersistenceBasicComponent } from './persistence-basic/example-persistence-basic.component';
 import { ExamplePersistenceServerComponent } from './persistence-server/example-persistence-server.component';
@@ -96,8 +98,6 @@ import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggre
 import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/example-summary-column-basic.component';
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
-import { ExampleHierarchyBrowserBasicComponent } from './hierarchy-browser-basic/example-hierarchy-browser-basic.component';
-import { ExampleMasterDetailsBasicComponent } from './master-details-basic/example-master-details-basic.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -152,6 +152,7 @@ const EXAMPLES: Array<any> = [
 	ExampleGroupRowRowspanComponent,
 	ExampleGroupRowSubheadComponent,
 	ExampleGroupRowSummaryComponent,
+	ExampleHierarchyBrowserBasicComponent,
 	ExampleIndexColumnBasicComponent,
 	ExampleIndexColumnHybridComponent,
 	ExampleIndexColumnModelComponent,
@@ -167,6 +168,7 @@ const EXAMPLES: Array<any> = [
 	ExampleLookQuotesBasicComponent,
 	ExampleLookQuotesModelComponent,
 	ExampleManipulateDataBasicComponent,
+	ExampleMasterDetailsBasicComponent,
 	ExamplePaginationBasicComponent,
 	ExamplePersistenceBasicComponent,
 	ExamplePersistenceServerComponent,
@@ -188,8 +190,6 @@ const EXAMPLES: Array<any> = [
 	ExampleSummaryColumnBasicComponent,
 	ExampleThemeGridDarkComponent,
 	ExampleThemeGridEmbedComponent,
-	ExampleHierarchyBrowserBasicComponent
-	ExampleMasterDetailsBasicComponent
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
