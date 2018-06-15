@@ -73,30 +73,25 @@
 			margin: 0;
 		}
 	}
-
 	.q-grid-column-filter-by {
 		height: 57px;
 		overflow-y: auto;
 		overflow-x: hidden;
 		margin-bottom: 10px;
 		margin-top: -5px;
-
 		&-blank {
 			text-align: center;
 			color: #C8C8C8;
 			position: relative;
 			top: 20px;
 		}
-
 		ul {
 			margin-top: 0;
 		}
-
 		li {
 			display: inline;
 		}
 	}
-
 	.q-grid-column-filter-actions {
 		padding: 7px 0;
 	}
@@ -114,19 +109,16 @@
 	border-radius: 100px;
 	padding: 0 14px;
 	margin-bottom: 3px;
-
 	&-item {
 		font-size: 12px;
 		margin: 2px 7px 1px -4px;
 	}
-
 	&-remove {
 		width: 5px;
 		height: 5px;
 		position: relative;
 		cursor: pointer;
 	}
-
 	.q-grid-icon {
 		top: 2px;
 		font-size: 14px;
@@ -137,4 +129,12 @@
 	}
 }
 
-
+@at-root {
+	@media (max-height: 540px) {
+		.q-grid-persistence-panel.q-grid-menu {
+			height: 400px;
+			max-height: 400px;
+			min-height: 400px;
+		}
+	}
+}

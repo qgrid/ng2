@@ -128,7 +128,7 @@ export class HighlightView {
 		});
 
 		model.highlightChanged.watch(e => {
-			if (!this.isRendering && e.tag.source !== 'highlight') {
+			if (!this.isRendering) {
 				if (e.hasChanges('cell')) {
 					cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
 				}
@@ -142,10 +142,28 @@ export class HighlightView {
 				}
 			}
 		});
+
+		model.dragChanged.on(e => {
+			if (e.hasChanges('isActive')) {
+				if (e.state.isActive) {
+					model.highlight({
+						columns: [],
+						rows: [],
+						cell: null
+					}, {
+							source: 'highlight.view'
+						});
+
+					columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
+					rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
+					cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
+				}
+			}
+		})
 	}
 
 	get isRendering() {
-		return this.model.scene().status === 'start';
+		return this.model.scene().status === 'start' || this.model.drag().isActive;
 	}
 
 	invalidateColumnHover(dispose) {

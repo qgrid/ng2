@@ -5,15 +5,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 * Auto-complete cell editor.
+* Time cell editor.
 * Row edit form.
 * Infinite scrolling.
-* Performance improvements.
 * Validation framework.
-* Email, url cell editor.
 * Copy/paste selection to excel.
-* Auto-complete for Query builder.
-* Query builder input performance improvements.
-* Batch edit improvements.
+* Live data plugin.
+* Float Row Navigation.
+
+## [6.1.1] - 2018-06-15
+### Fixed
+- Highlight on drag and drop.
+- Pager target should be closed after enter hit.
+
+### Changed 
+- Column Filter, Column Chooser, Query Builder, Persistence Plugins became responsible.
 
 ## [6.1.0] - 2018-06-15
 ### BREAKING
@@ -261,7 +267,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v6.1.0...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v6.1.1...HEAD
+[6.1.1]: https://github.com/qgrid/ng2/compare/v6.1.1...v6.1.0
 [6.1.0]: https://github.com/qgrid/ng2/compare/v6.1.0...v5.3.10
 [5.3.10]: https://github.com/qgrid/ng2/compare/v5.3.10...v5.3.9
 [5.3.9]: https://github.com/qgrid/ng2/compare/v5.3.8...v5.3.7
