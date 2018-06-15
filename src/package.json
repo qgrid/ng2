@@ -13,10 +13,10 @@
   "main": "./bundles/ng2-qgrid.umd.js",
   "name": "ng2-qgrid",
   "peerDependencies": {
-    "@angular/common": "^6.0.0",
-    "@angular/core": "^6.0.0",
-    "@angular/forms": "^6.0.0",
-    "@angular/http": "^6.0.0"
+    "@angular/common": "^6.0.5",
+    "@angular/core": "^6.0.5",
+    "@angular/forms": "^6.0.5",
+    "@angular/http": "^6.0.5"
   },
   "repository": {
     "type": "git",
