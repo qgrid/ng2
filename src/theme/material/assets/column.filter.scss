@@ -131,13 +131,10 @@
 
 @at-root {
     @media (max-height: 540px) {
-        .q-grid-column-filter.q-grid-menu {
+        .q-grid-persistence-panel.q-grid-menu {
 			height: 400px;
 			max-height: 400px;
 			min-height: 400px;
-            .q-grid-column-filter-list {
-                height: 157px;
-            }
         }
     }
 }

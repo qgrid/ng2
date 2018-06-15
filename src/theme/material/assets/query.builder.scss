@@ -137,3 +137,16 @@
         }
     }
 }
+
+@at-root {
+    @media (max-height: 540px) {
+        .q-grid-query-builder-panel.q-grid-menu {
+            height: 400px;
+            max-height: 400px;
+            min-height: 400px;
+            .q-grid-query-builder-expression {
+                height: 138px;
+            }
+        }
+    }
+}

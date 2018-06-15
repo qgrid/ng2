@@ -9,6 +9,7 @@
 		min-width: 400px;
 		max-width: 400px;
 		height: 500px;
+		overflow: hidden;
 	}
 
 	.mat-card-content {
@@ -107,4 +108,18 @@
 		margin: 0;
 		text-transform: uppercase;
 	}
+}
+
+@at-root {
+    @media (max-height: 540px) {
+        .q-grid-persistence-panel.q-grid-menu {
+            height: 400px;
+			max-height: 400px;
+			min-height: 400px;
+            .mat-card-content {
+                max-height: 318px;
+            }
+        
+        }
+    }
 }
