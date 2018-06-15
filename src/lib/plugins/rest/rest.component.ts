@@ -9,9 +9,9 @@ import { PluginService } from '../plugin.service';
 	providers: [PluginService]
 })
 export class RestComponent implements OnInit, OnChanges {
-	@Input('url') public restUrl: string;
-	@Input('method') public restMethod: string;
-	@Input('serialize') public restSerialize: (x: any) => any;
+	@Input('url') restUrl: string;
+	@Input('method') restMethod: string;
+	@Input('serialize') restSerialize: (x: any) => any;
 
 	context: { $implicit: RestView };
 

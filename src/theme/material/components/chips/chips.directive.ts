@@ -1,22 +1,23 @@
 import {
 	Directive,
-	Input,
 	ElementRef,
 	ContentChild,
-	AfterViewInit
+	AfterViewInit,
+	Output,
+	EventEmitter
 } from '@angular/core';
-import { Shortcut } from 'ng2-qgrid/core/shortcut/shortcut';
-import { ViewCoreService } from '../../main/core/view/view-core.service';
 import { MatChipInput } from '@angular/material';
+import { Shortcut, Command } from 'ng2-qgrid';
 
 @Directive({
 	selector: '[q-grid-chips]'
 })
 export class ChipsDirective implements AfterViewInit {
-	@ContentChild(MatChipInput) public input: MatChipInput;
-	@ContentChild('chipInput') public element: ElementRef;
+	@ContentChild(MatChipInput) input: MatChipInput;
+	@ContentChild('chipInput') element: ElementRef;
+	@Output() push = new EventEmitter<any>();;
 
-	constructor(private view: ViewCoreService) {}
+	constructor() { }
 
 	ngAfterViewInit() {
 		this.input.chipEnd.subscribe(e => {
@@ -29,7 +30,8 @@ export class ChipsDirective implements AfterViewInit {
 			if (code === 'enter') {
 				const value = (input.value || '').trim();
 				if (value) {
-					this.view.edit.cell.value.push(value);
+					this.push.emit(value);
+
 					input.value = '';
 					e.stopPropagation();
 				}
