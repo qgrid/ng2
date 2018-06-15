@@ -4,6 +4,7 @@
   "main": "../../bundles/theme-material.umd.js",
   "sideEffects": false,
   "peerDependencies": {
-    "@angular/material": "~6.0.0"    
+    "@angular/material": "~6.0.0",    
+    "@angular/cdk": "~6.0.0"    
   }
 }
