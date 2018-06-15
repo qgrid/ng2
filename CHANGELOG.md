@@ -15,6 +15,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Query builder input performance improvements.
 * Batch edit improvements.
 
+## [6.1.0] - 2018-06-15
+### Deprecated
+
+
+### Added
+
+### Changed
+
+### Fixed
+
 ## [5.3.10] - 2018-05-21
 ### Added
 - `ToggleAll` command that can be override to intersect toggle all groups action.

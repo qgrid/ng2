@@ -125,6 +125,7 @@ return Promise.resolve()
   .then(() => relativeCopy('LICENSE', rootFolder, distFolder))
   .then(() => relativeCopy('package.json', srcFolder, distFolder))
   .then(() => relativeCopy('README.md', rootFolder, distFolder))
+  .then(() => relativeCopy('CHANGELOG.md', rootFolder, distFolder))
   .then(() => console.log('copy package: success'))
   .catch(ex => {
     console.error('\nBuild failed. See below for errors.\n');
