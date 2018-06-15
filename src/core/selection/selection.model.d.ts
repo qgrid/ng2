@@ -52,6 +52,6 @@ export declare interface SelectionModel {
 	 */
 	key?: {
 		row: (row: any) => any,
-		column: (column: ColumnModel) => any
+		column?: (column: ColumnModel) => any
 	};
 }

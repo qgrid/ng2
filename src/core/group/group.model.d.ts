@@ -23,7 +23,7 @@ export declare interface GroupModel {
 	 * * `'nest'` all hierarchy levels inside one group type column.
 	 * * `'flat'` all hierarch levels inside own group type columns.
 	 * * `'subhead'` group column try to use all available space to display hierarchy.
-	 * * `'rowspan'` group column occupies all space on expand 
+	 * * `'rowspan'` group column occupies all space on expand
 	 */
 	mode?: 'nest' | 'column' | 'subhead' | 'rowspan';
 	/**
@@ -34,5 +34,5 @@ export declare interface GroupModel {
 	toggle?: Command;
 	toggleAll?: Command;
 	shortcut?: { [key: string]: string };
-	flatten: (nodes: Node[]) => Node[];
+	flatten?: (nodes: Node[]) => Node[];
 }

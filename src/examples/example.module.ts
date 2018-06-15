@@ -96,7 +96,7 @@ import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggre
 import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/example-summary-column-basic.component';
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
-import { ExampleDetailsRowGridComponent } from './details-row-grid/example-details-row-grid.component';
+import { ExampleHierarchyBrowserBasicComponent } from './hierarchy-browser-basic/example-hierarchy-browser-basic.component';
 import { ExampleMasterDetailsBasicComponent } from './master-details-basic/example-master-details-basic.component';
 
 const EXAMPLES: Array<any> = [
@@ -188,7 +188,7 @@ const EXAMPLES: Array<any> = [
 	ExampleSummaryColumnBasicComponent,
 	ExampleThemeGridDarkComponent,
 	ExampleThemeGridEmbedComponent,
-	ExampleDetailsRowGridComponent,
+	ExampleHierarchyBrowserBasicComponent
 	ExampleMasterDetailsBasicComponent
 ];
 

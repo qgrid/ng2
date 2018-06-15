@@ -1,7 +1,7 @@
 import { NodeState } from './state';
 
 export declare class Node {
-	constructor(key: string, level: number, type: string);
+	constructor(key: string, level: number, type?: string);
 
 	/**
 	 * Unique identifier for the node.
@@ -21,7 +21,7 @@ export declare class Node {
 	 * * `'value'`
 	 * * `'summary'`
 	 */
-	type: 'group' | 'row' | 'value' | 'summary'; 
+	type: 'group' | 'row' | 'value' | 'summary';
 
 	/**
 	 * List of row indicies that belongs to the node.
