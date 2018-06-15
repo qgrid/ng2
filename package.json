@@ -7,7 +7,7 @@
     "build": "ng build",
     "build:lib": "npm run clean && node build.lib.js",
     "build:theme": "npm run clean && node build.theme.js",
-    "build:release": "npm run build:lib && npm run copy:npm && node build.theme.js", 
+    "build:release": "npm run build:lib && npm run copy:npm && node build.theme.js",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
