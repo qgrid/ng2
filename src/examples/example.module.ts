@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, Route } from '@angular/router';
-import { MatButtonModule, MatSelectModule } from '@angular/material';
+import { MatButtonModule, MatSelectModule, MatChipsModule } from '@angular/material';
 
 import { GridModule } from 'ng2-qgrid';
 import { ThemeModule } from 'ng2-qgrid/theme/material';
@@ -96,6 +96,8 @@ import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggre
 import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/example-summary-column-basic.component';
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
+import { ExampleDetailsRowGridComponent } from './details-row-grid/example-details-row-grid.component';
+import { ExampleMasterDetailsBasicComponent } from './master-details-basic/example-master-details-basic.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -186,6 +188,8 @@ const EXAMPLES: Array<any> = [
 	ExampleSummaryColumnBasicComponent,
 	ExampleThemeGridDarkComponent,
 	ExampleThemeGridEmbedComponent,
+	ExampleDetailsRowGridComponent,
+	ExampleMasterDetailsBasicComponent
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
@@ -217,7 +221,8 @@ export const exampleRoutes: Routes = EXAMPLES.map<Route>(example => ({
 		CommonModule,
 		FormsModule,
 		MatButtonModule,
-		MatSelectModule
+		MatSelectModule,
+		MatChipsModule
 	]
 })
 export class ExampleModule { }

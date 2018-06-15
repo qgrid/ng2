@@ -8,6 +8,7 @@ export class Human {
 	contact: { email: string[] };
 	password: string;
 	comment: string;
+	likes: string[];
 }
 
 export class Atom {
@@ -38,8 +39,8 @@ export class Quote {
 	metal: string;
 	ldn1: string;
 	bid: number;
-	ask: number
-	ldn2: string
+	ask: number;
+	ldn2: string;
 	previous: number;
 	last: number;
 	ldn3: string;
