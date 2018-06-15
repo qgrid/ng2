@@ -42,6 +42,4 @@ export declare class Node {
 	 * Column key of node.
 	 */
 	source: string;
-
-	isVisited: boolean;
 }
