@@ -19,6 +19,7 @@
                 </mat-chip-list>
             </div>
             <mat-form-field q-grid-chips
+                            (push)="$view.edit.cell.value.push($event)"
                             [floatLabel]="'never'">
                 <input class="q-grid-array-input"
                        matInput

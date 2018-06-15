@@ -17,7 +17,7 @@ import {
 	RootService,
 	VscrollModule,
 	ThemeService
-} from '../../lib/public-api';
+} from 'ng2-qgrid';
 
 @NgModule({
 	declarations: [

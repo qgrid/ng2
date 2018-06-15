@@ -23,28 +23,30 @@ import { Table } from 'ng2-qgrid/core/dom/table';
 import { CommandManager } from 'ng2-qgrid/core/command/command.manager';
 import { VScrollService } from '../../../main/core/scroll/vscroll.service';
 import { GridService } from '../../../main/grid/grid.service';
+import { RowView } from 'ng2-qgrid/core/row/row.view';
 
 @Injectable()
 export class ViewCoreService implements OnDestroy {
 	private dispose: () => void = null;
 
-	public body: BodyView = null;
-	public edit: EditView = null;
-	public filter: FilterView = null;
-	public foot: FootView = null;
-	public group: GroupView = null;
-	public head: HeadView = null;
-	public highlight: HighlightView = null;
-	public layout: LayoutView = null;
-	public nav: NavigationView = null;
-	public pagination: PaginationView = null;
-	public pivot: PivotView = null;
-	public rowDetails: RowDetailsView = null;
-	public scroll: ScrollView = null;
-	public selection: SelectionView = null;
-	public sort: SortView = null;
-	public style: StyleView = null;
-
+	body: BodyView = null;
+	edit: EditView = null;
+	filter: FilterView = null;
+	foot: FootView = null;
+	group: GroupView = null;
+	head: HeadView = null;
+	highlight: HighlightView = null;
+	layout: LayoutView = null;
+	nav: NavigationView = null;
+	pagination: PaginationView = null;
+	pivot: PivotView = null;
+	rowDetails: RowDetailsView = null;
+	scroll: ScrollView = null;
+	selection: SelectionView = null;
+	sort: SortView = null;
+	style: StyleView = null;
+	row: RowView = null;
+	
 	constructor(
 		private gridServiceFactory: GridService,
 		private vscroll: VScrollService

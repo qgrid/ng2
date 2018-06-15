@@ -1,7 +1,6 @@
 import { Component, OnInit, Optional } from '@angular/core';
 import { Shortcut } from 'ng2-qgrid/core/shortcut/shortcut';
 import { PluginService } from '../plugin.service';
-import { FocusAfterRender } from 'ng2-qgrid/core/focus/focus.service';
 
 @Component({
 	selector: 'q-grid-pager-target',
@@ -33,8 +32,7 @@ export class PagerTargetComponent implements OnInit {
 		switch (code) {
 			case 'enter': {
 				if (value) {
-					new FocusAfterRender(this.plugin.model, this.plugin.table);
-					this.plugin.model.pagination({ current: value - 1 });
+					this.plugin.model.pagination({ current: value - 1 }, { source: 'pager-target.component' });
 				}
 				break;
 			}
