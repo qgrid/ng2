@@ -13,8 +13,8 @@
     "e2e": "ng e2e",
     "clean": "rimraf out-tsc dist",
     "copy:npm": "node build.copy.js **/* dist node_modules/ng2-qgrid",
-    "release": "npm run build:release && cd dist && npm publish",
-    "examples": "node ./scripts/examples"
+    "release:example": "node ./build.example",
+    "release:lib": "npm run build:release && cd dist && npm publish"
   },
   "private": true,
   "dependencies": {

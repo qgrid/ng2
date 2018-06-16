@@ -5,7 +5,7 @@ const path = require('path');
 const glob = require('glob');
 
 // Copy files maintaining relative paths.
-function relativeCopy(fileGlob, from, to) {
+function relativeCopy(fileGlob, from, to, rename = path => path) {
   return new Promise((resolve, reject) => {
     glob(fileGlob, { cwd: from, nodir: true }, (err, files) => {
       if (err) {
@@ -17,7 +17,7 @@ function relativeCopy(fileGlob, from, to) {
         const dest = path.join(to, file);
         const data = fs.readFileSync(origin, 'utf-8');
         makeFolderTree(path.dirname(dest));
-        fs.writeFileSync(dest, data);
+        fs.writeFileSync(rename(dest), data);
         console.log(`copy: ${file}`);
       });
 
