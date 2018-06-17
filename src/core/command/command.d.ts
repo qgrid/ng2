@@ -14,12 +14,12 @@ import { CommandContext } from './command.context';
  *			 text: 'Lorem ipsum dolor sit amet'
  *	      };
  *
- *        gridModel.data({
- *          rows: gridModel.data().rows.concat(newRow)
- *        });
+ *		  gridModel.data({
+ *			 rows: gridModel.data().rows.concat(newRow)
+ *		  });
  *	   },
  *	   shortcut: 'F7'
- *	});
+ *  });
  * ```
  *
  * ### Suggested Links.
@@ -34,7 +34,7 @@ export declare class Command<T = any> {
 
     /**
      * Indicates if a command can be invoked. Use one argument to support typescript generic typification.
-	 * By default true alue is returned.
+	 * By default true value is returned.
      */
     canExecute: (e?: T, ...args: any[]) => boolean;
 
@@ -49,9 +49,9 @@ export declare class Command<T = any> {
      * A sequence of keyboard key codes to execute the command. 
 	 * Here are some examples:
      *
-     * * 'shift+a'
-     * * 'ctrl+s'
-     * * 'f2'
+     * * shift+a
+     * * ctrl+s
+     * * f2
      *
      */
     shortcut?: string;
@@ -69,7 +69,7 @@ export declare class Command<T = any> {
 	source?: string;
 	
 	/**
-	 * If a command is executed by qgrid command manager, the sink value is equal to 
+	 * If a command is executed by qgrid command manager, the sink value contains 
 	 * the last canExecute result. 
 	 */
 	sink?: any;

@@ -42,21 +42,11 @@ export declare interface DataModel {
 
 	/**
  	 * A list of data rows to display. 
-	 * Usually grid user can define this properties in the places listed below:
-	 * 
-     * * In html through attribute bindings: `<q-grid [rows]="myRows">`.
-     * * In js code throught model: `gridModel.data({ rows: myRows })`.
 	 */
 	rows?: any[];
 
 	/**
 	 * A set of columns to display. 
-	 * Data columns can be setup from different places:
-	 *
-	 * * In html through attribute bindings: `<q-grid [columns]="myColumns">`.
-	 * * In html via component: `<q-grid-columns><q-grid-column></q-grid-column>...`.
-	 * * In js code through model: `gridModel.data({ columns: myColumns })`.
-	 *
 	 * qgrid makes it possible to add columns from various sources and then merge 
 	 * them due to each column having a key property. Note that if you have defined columns in 
 	 * javascript and template with the same key, algorithm tries to keep the setting from both 
