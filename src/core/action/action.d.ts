@@ -2,8 +2,8 @@ import { Command } from '../command/command';
 
 /**
  * A class to connect the q-grid [command](/doc/api/command.html) with user interface.
- * Usually action represents button in UI. If user action doesn't populate UI attributes like `title` or `icon`,
- * command can be still available through keyboard shortcut.
+ * Usually action represents a button. If action doesn't populate UI,
+ * action command can be still available through keyboard shortcut.
  *
  * ### Suggested Links
  *

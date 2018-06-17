@@ -19,6 +19,6 @@ export class CommandManager {
 	}
 
 	filter(commands) {
-		return commands.filter(cmd => cmd.canExecute());
+		return commands.filter(cmd => cmd.sink = cmd.canExecute());
 	}
 }
