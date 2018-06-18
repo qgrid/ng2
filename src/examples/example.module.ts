@@ -37,6 +37,7 @@ import { ExampleDestroyGridModelComponent } from './destroy-grid-model/example-d
 import { ExampleDetailsRowAllComponent } from './details-row-all/example-details-row-all.component';
 import { ExampleDetailsRowBasicComponent } from './details-row-basic/example-details-row-basic.component';
 import { ExampleDetailsRowGridComponent } from './details-row-grid/example-details-row-grid.component';
+import { ExampleDetailsRowStartComponent } from './details-row-start/example-details-row-start.component';
 import { ExampleDragColumnBasicComponent } from './drag-column-basic/example-drag-column-basic.component';
 import { ExampleDragRowBasicComponent } from './drag-row-basic/example-drag-row-basic.component';
 import { ExampleDragRowNodeComponent } from './drag-row-node/example-drag-row-node.component';
@@ -130,6 +131,7 @@ const EXAMPLES: Array<any> = [
 	ExampleDetailsRowAllComponent,
 	ExampleDetailsRowBasicComponent,
 	ExampleDetailsRowGridComponent,
+	ExampleDetailsRowStartComponent,
 	ExampleDragColumnBasicComponent,
 	ExampleDragRowBasicComponent,
 	ExampleDragRowNodeComponent,
