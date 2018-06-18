@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { DataService } from '../data.service';
 import { Grid, GridModel } from 'ng2-qgrid';
 import { Node } from 'ng2-qgrid/core/node/node'
@@ -12,7 +12,7 @@ import { jobLine } from 'ng2-qgrid/core/services/job.line';
 	styleUrls: ['example-hierarchy-browser-basic.component.scss'],
 	providers: [DataService]
 })
-export class ExampleHierarchyBrowserBasicComponent implements AfterViewInit {
+export class ExampleHierarchyBrowserBasicComponent {
 	gridModel: GridModel;
 
 	constructor(qgrid: Grid, gridService: GridService) {
@@ -65,9 +65,5 @@ export class ExampleHierarchyBrowserBasicComponent implements AfterViewInit {
 				}
 			}
 		});
-	}
-
-	ngDoCheck() {
-
 	}
 }
