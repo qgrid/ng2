@@ -2,17 +2,25 @@
              let-$cell
              let-$view="$view">
 	<div [ngStyle]="{'padding-left': $view.group.offset($cell.row, $cell.column) + 'px'}"
+		 class="q-grid-group-box"
 	     *ngIf="$view.group.isVisible($cell.row, $cell.column)">
-		<button (mouseup)="$view.group.toggleStatus.execute($cell.row, $cell.column)"
+		<button (click)="$view.group.toggleStatus.execute($cell.row, $cell.column)"
 		        *ngIf="$view.group.toggleStatus.canExecute($cell.row, $cell.column)"
-		        [ngClass]="'q-grid-'+$view.group.status($cell.row, $cell.column)"
 		        tabindex="-1"
+				class="q-grid-group-button"
 		        mat-icon-button>
 			<mat-icon class="q-grid-icon">
-				chevron_right
+				{{$view.group.status($cell.row, $cell.column) === 'expand' ? 'folder_open' : 'folder'}}
 			</mat-icon>
 		</button>
-		<span>{{$view.group.value($cell.row, $cell.column)}}</span>
-		<span *ngIf=" $view.group.toggleStatus.canExecute($cell.row, $cell.column)">({{$view.group.count($cell.row, $cell.column)}})</span>
+		<ng-container *ngIf="($view.group.value($cell.row, $cell.column)).startsWith('file')">
+			<mat-icon class="q-grid-icon">
+				insert_drive_file
+			</mat-icon>
+		</ng-container>
+		<div class="q-grid-group-description">
+			<span>{{$view.group.value($cell.row, $cell.column)}}</span>
+			<span *ngIf=" $view.group.toggleStatus.canExecute($cell.row, $cell.column)">({{$view.group.count($cell.row, $cell.column)}})</span>
+		</div>
 	</div>
 </ng-template>

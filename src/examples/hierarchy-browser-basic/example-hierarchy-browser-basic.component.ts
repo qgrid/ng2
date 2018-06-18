@@ -19,7 +19,7 @@ export class ExampleHierarchyBrowserBasicComponent {
 		this.gridModel = qgrid.model();
 
 		const root = new Node('root', 0);
-		root.isVisited = false;
+		(root as any).isVisited = false;
 
 		const tree = [root];
 		const service = gridService.service(this.gridModel);
@@ -44,8 +44,9 @@ export class ExampleHierarchyBrowserBasicComponent {
 					job(() => {
 						node.children = Array.from(new Array(length), function (x, i) {
 							const type = Math.floor(Math.random() * 5) < 3 ? 'group' : 'value';
-							const child = new Node(type + ' node[' + level + ',' + i + ']', level, type);
-							child.isVisited = false;
+							const title = type === 'group' ? 'folder' : 'file';
+							const child = new Node(title + ' [' + level + ',' + i + '] ', level, type);
+							(child as any).isVisited = false;
 							return child;
 						});
 
