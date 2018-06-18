@@ -15,7 +15,7 @@ import { jobLine } from 'ng2-qgrid/core/services/job.line';
 export class ExampleHierarchyBrowserBasicComponent {
 	gridModel: GridModel;
 
-	constructor(qgrid: Grid, gridService: GridService,) {
+	constructor(qgrid: Grid, gridService: GridService) {
 		this.gridModel = qgrid.model();
 
 		const root = new Node('root', 0);
@@ -30,6 +30,7 @@ export class ExampleHierarchyBrowserBasicComponent {
 		const job = jobLine(500);
 
 		this.gridModel.data({
+
 			pipe: [qgrid.pipe.memo, treePipe, qgrid.pipe.column, qgrid.pipe.view]
 		}).group({
 			toggle: new Command({

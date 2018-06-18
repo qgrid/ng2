@@ -24,7 +24,7 @@ export class GroupColumnModel extends ColumnModel {
 		this.path = 'key';
 		this.labelPath = 'key';
 		this.title = 'Group';
-		this.offset = 40;
+		this.offset = 24;
 		this.canEdit = false;
 		this.canSort = false;
 		this.canFilter = false;
