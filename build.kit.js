@@ -5,7 +5,7 @@ const path = require('path');
 const glob = require('glob');
 
 // Copy files maintaining relative paths.
-function relativeCopy(fileGlob, from, to, rename = path => path) {
+function relativeCopy(fileGlob, from, to) {
   return new Promise((resolve, reject) => {
     glob(fileGlob, { cwd: from, nodir: true }, (err, files) => {
       if (err) {
@@ -17,7 +17,7 @@ function relativeCopy(fileGlob, from, to, rename = path => path) {
         const dest = path.join(to, file);
         const data = fs.readFileSync(origin, 'utf-8');
         makeFolderTree(path.dirname(dest));
-        fs.writeFileSync(rename(dest), data);
+        fs.writeFileSync(dest, data);
         console.log(`copy: ${file}`);
       });
 
@@ -26,16 +26,18 @@ function relativeCopy(fileGlob, from, to, rename = path => path) {
   });
 }
 
-function relativeCopySync(fileGlob, from, to, rename = path => path) {
+function relativeCopySync(fileGlob, from, to, visit = x => x) {
   const files = glob.sync(fileGlob, { cwd: from, nodir: true });
 
   files.forEach(file => {
-    const origin = path.join(from, file);
-    const dest = path.join(to, file);
-    const data = fs.readFileSync(origin, 'utf-8');
-    makeFolderTree(path.dirname(dest));
-    fs.writeFileSync(rename(dest), data);
-    console.log(`copy: ${file}`);
+    const srcPath = path.join(from, file);
+    const dstPath = path.join(to, file);
+    const content = fs.readFileSync(srcPath, 'utf-8');
+    makeFolderTree(path.dirname(dstPath));
+
+    const result = visit({ srcPath, dstPath, content });
+    fs.writeFileSync(result.dstPath, result.content);
+    console.log(`copy: ${file} -> ${result.dstPath}`);
   });
 }
 

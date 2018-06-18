@@ -71,19 +71,29 @@ examples.forEach(example => {
 	// copy files from example to bucket
 	const src = `${examplesPath}/${example}`;
 	const dst = `${repoPath}/src/app`;
-	console.log(src);
-	console.log(dst);
-	const rename = file => {
-		const ext = path.extname(file);
-		const baseName = path.basename(file, ext);
-		console.log(baseName);
-		if (baseName === `example-${example}.component`) {
-			return path.join(path.dirname(file), `app.component${ext}`);
+
+	const visit = ({ dstPath, content }) => {
+		let ext = path.extname(dstPath);
+		if (ext === '.scss') {
+			ext = '.css';
 		}
-		return file;
+
+		const baseName = path.basename(dstPath, ext);
+		if (baseName === `example-${example}.component`) {
+			dstPath = path.join(path.dirname(dstPath), `app.component${ext}`);
+
+			if (ext === '.ts') {
+				content = content
+					.replace(`'example-${example}'`, 'my-app')
+					.replace(`'example-${example}.component.html'`, 'app.component.html')
+					.replace(`'example-${example}.component.scss'`, 'app.component.css');
+			}
+		}
+
+		return { dstPath, content };
 	};
 
-	relativeCopySync('**/*', src, dst, rename);
+	relativeCopySync('**/*', src, dst, visit);
 
 	shell.exec('git add -A');
 	shell.exec(`git commit -m "example/${branch}"`, { silent });
