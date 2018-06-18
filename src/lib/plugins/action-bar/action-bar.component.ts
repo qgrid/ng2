@@ -19,7 +19,6 @@ export class ActionBarComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		const { model } = this.plugin;
-		const shortcut = model.action().shortcut;
 
 		model.actionChanged.watch(e => {
 			if (e.hasChanges('items')) {

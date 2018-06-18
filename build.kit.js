@@ -26,6 +26,21 @@ function relativeCopy(fileGlob, from, to) {
   });
 }
 
+function relativeCopySync(fileGlob, from, to, visit = x => x) {
+  const files = glob.sync(fileGlob, { cwd: from, nodir: true });
+
+  files.forEach(file => {
+    const srcPath = path.join(from, file);
+    const dstPath = path.join(to, file);
+    const content = fs.readFileSync(srcPath, 'utf-8');
+    makeFolderTree(path.dirname(dstPath));
+
+    const result = visit({ srcPath, dstPath, content });
+    fs.writeFileSync(result.dstPath, result.content);
+    console.log(`copy: ${file} -> ${result.dstPath}`);
+  });
+}
+
 // Recursively create a dir.
 function makeFolderTree(dir) {
   if (!fs.existsSync(dir)) {
@@ -58,7 +73,16 @@ function concatFiles(settings = {}) {
   }
 }
 
+function toComponentName(name) {
+	return name
+		.split('-')
+		.map(part => part[0].toUpperCase() + part.slice(1))
+		.join('');
+}
+
 module.exports = {
   relativeCopy,
-  concatFiles
+  relativeCopySync,
+  concatFiles,
+  toComponentName
 };
