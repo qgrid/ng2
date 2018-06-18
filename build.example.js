@@ -3,7 +3,7 @@ const path = require('path');
 const shell = require('shelljs');
 const cmdArgs = require('command-line-args');
 const package = require('./package.json');
-const { relativeCopySync } = require('./build.kit');
+const { relativeCopySync, toComponentName } = require('./build.kit');
 
 const args = cmdArgs([{
 	name: 'version',
@@ -74,19 +74,22 @@ examples.forEach(example => {
 
 	const visit = ({ dstPath, content }) => {
 		let ext = path.extname(dstPath);
-		if (ext === '.scss') {
-			ext = '.css';
-		}
-
 		const baseName = path.basename(dstPath, ext);
 		if (baseName === `example-${example}.component`) {
+			if (ext === '.scss') {
+				ext = '.css';
+			}
+
 			dstPath = path.join(path.dirname(dstPath), `app.component${ext}`);
 
 			if (ext === '.ts') {
 				content = content
-					.replace(`'example-${example}'`, 'my-app')
-					.replace(`'example-${example}.component.html'`, 'app.component.html')
-					.replace(`'example-${example}.component.scss'`, 'app.component.css');
+					.replace(`'example-${example}'`, `'my-app'`)
+					.replace(`'example-${example}.component.html'`, `'app.component.html'`)
+					.replace(`'example-${example}.component.scss'`, `'app.component.css'`)
+					.replace(`Example${toComponentName(example)}Component`, 'AppComponent');
+
+				console.log(toComponentName(example));
 			}
 		}
 

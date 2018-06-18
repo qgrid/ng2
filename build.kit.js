@@ -73,8 +73,16 @@ function concatFiles(settings = {}) {
   }
 }
 
+function toComponentName(name) {
+	return name
+		.split('-')
+		.map(part => part[0].toUpperCase() + part.slice(1))
+		.join('');
+}
+
 module.exports = {
   relativeCopy,
   relativeCopySync,
-  concatFiles
+  concatFiles,
+  toComponentName
 };
