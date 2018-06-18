@@ -32,6 +32,7 @@ export class ColumnComponent implements OnInit {
 	@Input() minWidth: number | string;
 	@Input() maxWidth: number | string;
 	@Input() viewWidth: number | string;
+	@Input() offset: number | string;
 
 	@Input() canEdit: boolean;
 	@Input() canResize: boolean;
