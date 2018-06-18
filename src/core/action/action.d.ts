@@ -2,11 +2,10 @@ import { Command } from '../command/command';
 
 /**
  * Use this class to connect qgrid [command](/doc/api/command.html) and UI.
- * Usually action represents a button, but not nessesary, custom template can be used to, 
- * see [action bar example](/doc/features/action-bar). If action doesn't populate UI, 
- * command still is executable through the keyboard shortcut.
+ * Usually action represents a button, but not nessesary, custom template can be [used to](/doc/features/action-bar).
+ * If action doesn't populate UI, command still is executable through the keyboard shortcut.
  * 
- * ### Create an action using qgrid facade.
+ * ### Create an action using qgrid [front](/doc/api/front).
  *
  * ```javascript
  *	const addRowCommand = 
