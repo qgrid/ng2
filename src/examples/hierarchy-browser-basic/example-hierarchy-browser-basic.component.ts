@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from '../data.service';
 import { Grid, GridModel } from 'ng2-qgrid';
-import { Node } from 'ng2-qgrid/core/node/node'
+import { Node } from 'ng2-qgrid/core/node/node';
 import { GridService } from '../../lib/main/grid/grid.service';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
@@ -15,7 +15,7 @@ import { jobLine } from 'ng2-qgrid/core/services/job.line';
 export class ExampleHierarchyBrowserBasicComponent {
 	gridModel: GridModel;
 
-	constructor(qgrid: Grid, gridService: GridService) {
+	constructor(qgrid: Grid, gridService: GridService) { 
 		this.gridModel = qgrid.model();
 
 		const root = new Node('root', 0);
@@ -34,7 +34,7 @@ export class ExampleHierarchyBrowserBasicComponent {
 			pipe: [qgrid.pipe.memo, treePipe, qgrid.pipe.column, qgrid.pipe.view]
 		}).group({
 			toggle: new Command({
-				execute: function execute(node) {
+				execute: function execute(node) { 
 					if (node.isVisited) {
 						return;
 					}
