@@ -48,7 +48,7 @@ export declare interface ActionModel {
 
 	/**
 	 * List of actions that will be added to the command manager,
-	 * and binded to the keyboard events.
+	 * and bind to the keyboard events.
 	 */
 	items?: Action[];
 
