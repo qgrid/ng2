@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, Route } from '@angular/router';
-import { MatButtonModule, MatSelectModule, MatChipsModule } from '@angular/material';
+import { MatButtonModule, MatSelectModule, MatChipsModule, MatIconModule } from '@angular/material';
 
 import { GridModule } from 'ng2-qgrid';
 import { ThemeModule } from 'ng2-qgrid/theme/material';
@@ -222,7 +222,8 @@ export const exampleRoutes: Routes = EXAMPLES.map<Route>(example => ({
 		FormsModule,
 		MatButtonModule,
 		MatSelectModule,
-		MatChipsModule
+		MatChipsModule,
+		MatIconModule
 	]
 })
 export class ExampleModule { }
