@@ -1,4 +1,4 @@
-# qgrid
+# q-grid
 Angular data grid
 
 ## examples
@@ -68,7 +68,7 @@ You have to run script to update stackblitz projects with examples. It will load
 
 Available arguments:
 
-* `-v`: Version of qgrid example. It will be added as suffix to example name (default: latest).
+* `-v`: Version of q-grid example. It will be added as suffix to example name (default: latest).
 * `-p`: Pattern of examples what you'd like to load.
 * `-s`: Silent mode to hide extra console output (default: true).
 

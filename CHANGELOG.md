@@ -36,7 +36,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Readonly strategies `<q-grid interactionMode="full | readonly | detached">`.
 - Spanned headers and column groups.
 - Group summaries.
-- `PluginServices` that allows to write own plugins for qgrid.
+- `PluginServices` that allows to write own plugins for q-grid.
 - Better caching strategies for renders.
 - New `rowspan` mode for groups.
 - New `rowList` model.

@@ -1,7 +1,7 @@
 import { ColumnModel } from '../column-type/column.model';
 
 /**
- * Use this class to order and generate qgrid columns.
+ * Use this class to order and generate q-grid columns.
  *
  * ### Setup column generation mode in html.
  *
@@ -43,7 +43,7 @@ export declare interface ColumnListModel {
 	generation?: null | 'deep' | 'shallow' | 'cohort';
 
 	/**
-	 * Array of column keys which qgrid uses for column ordering.
+	 * Array of column keys which q-grid uses for column ordering.
 	 * This is filled automatically by internal service, but can be modified, for instance,
      * by [column sort](/doc/feature/sort.html) plugin.
 	 */

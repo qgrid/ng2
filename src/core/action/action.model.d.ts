@@ -5,7 +5,7 @@ import { Resource } from '../resource/resource';
 
 /**
  * Use this class to handle and visualize custom user behaviors.
- * [action bar](/doc/feature/action.html) plugin uses this model to draw buttons on the top of qgrid to execute user commands.
+ * [action bar](/doc/feature/action.html) plugin uses this model to draw buttons on the top of q-grid to execute user commands.
  *
  * ### Usage
  *

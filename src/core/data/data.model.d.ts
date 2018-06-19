@@ -3,7 +3,7 @@ import { PipeContext } from '../pipe/pipe.item';
 import { ColumnView } from '../scene/view/column.view';
 
 /**
- * Use this class to get access to the high level qgrid data structures.
+ * Use this class to get access to the high level q-grid data structures.
  *
  * ### Usage
  * In html through attribute bindings:
@@ -47,7 +47,7 @@ export declare interface DataModel {
 
 	/**
 	 * A set of columns to display. 
-	 * qgrid makes it possible to add columns from various sources and then merge 
+	 * q-grid makes it possible to add columns from various sources and then merge 
 	 * them due to each column having a key property. Note that if you have defined columns in 
 	 * javascript and template with the same key, algorithm tries to keep the setting from both 
 	 * sources but javascript will have a top priority.
@@ -62,7 +62,7 @@ export declare interface DataModel {
 
 	/**
 	 * A set of 2 methods to identify column and row id. Note that if result id
-	 * is not unique qgrid behavior can be unpredictable. 
+	 * is not unique q-grid behavior can be unpredictable. 
 	 * By default: 
 	 * 
 	 * * `row` method is an identity function.

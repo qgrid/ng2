@@ -26,7 +26,7 @@ export interface EditorOptions {
 	cruise?: string;
 
 	/**
-	 * qgrid model factory, can be used by reference column to draw a another qgrid in edit cell mode.
+	 * q-grid model factory, can be used by reference column to draw a another q-grid in edit cell mode.
 	 */
 	modelFactory?: (context: {
 		row: any,

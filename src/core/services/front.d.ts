@@ -8,7 +8,7 @@ import { Node } from '../node/node';
 import { GridService } from './grid';
 
 /**
- * Use this class to create a qgrid model or service
+ * Use this class to create a q-grid model or service
  */
 export declare interface Grid {
 	/**
