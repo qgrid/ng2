@@ -2,6 +2,7 @@ import { Component, Input, Optional, OnDestroy, OnInit, SimpleChanges, OnChanges
 import { Command } from 'ng2-qgrid/core/command/command';
 import { PagerView } from 'ng2-qgrid/plugin/pager/pager.view';
 import { PluginService } from '../plugin.service';
+import { RootService } from '../../infrastructure/component/root.service';
 
 @Component({
 	selector: 'q-grid-pager',
@@ -14,7 +15,7 @@ export class PagerComponent implements OnInit, OnChanges {
 
 	context: { $implicit: PagerView };
 
-	constructor(private plugin: PluginService) {
+	constructor(private root: RootService, private plugin: PluginService) {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
@@ -22,6 +23,8 @@ export class PagerComponent implements OnInit, OnChanges {
 	}
 
 	ngOnInit() {
+		this.plugin.model.pagination().theme = this.root.model.style().classList;
+
 		const pager = new PagerView(this.plugin.model, this.plugin.table);
 		this.context = { $implicit: pager };
 	}

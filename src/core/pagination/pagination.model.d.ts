@@ -35,4 +35,9 @@ export declare interface PaginationModel {
 	 * List of `model name: [model properties]` pairs to reset pagination current property to 0.
 	 */
 	resetTriggers?: { [key: string]: string[] };
+
+	/**
+	 * 	 Theme (CSS class or list of CSS classes)
+	 */
+	theme?: string | Array<string>;
 }
