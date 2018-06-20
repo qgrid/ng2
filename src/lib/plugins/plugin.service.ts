@@ -9,44 +9,35 @@ import { ModelBinder } from 'ng2-qgrid/core/infrastructure/model.bind';
 @Injectable()
 export class PluginService implements OnDestroy {
     private modelProxy: ModelProxy = null;
-    //    private modelTemp: ModelProxy = null;
 
     constructor(private root: RootService) { }
 
-    get model() {
+    get model(): Model {
         const { model } = this.root;
         if (!this.modelProxy) {
             Guard.notNull(model, 'model');
 
             this.modelProxy = new ModelProxy(model);
-            // this.modelTemp = new ModelProxy(model, true);
             return this.modelProxy.subject;
         }
 
         if (model !== this.modelProxy.target) {
             this.modelProxy.dispose();
-            // this.modelTemp.dispose();
             Guard.notNull(model, 'model');
 
             this.modelProxy = new ModelProxy(model);
-            // this.modelTemp = new ModelProxy(model, true);
             return this.modelProxy.subject;
         }
 
         return this.modelProxy.subject;
     }
 
-    get table() {
+    get table(): Table {
         const { table } = this.root;
         Guard.notNull(table, 'table');
 
         return table;
     }
-
-    // get temp(): Model {
-    //    Guard.notNull(this.modelTemp, 'temp');
-    //    return this.modelTemp.subject;
-    // }
 
     keep(changes: SimpleChanges, models: string[]) {
         const host = {};
@@ -65,10 +56,5 @@ export class PluginService implements OnDestroy {
             this.modelProxy.dispose();
             this.modelProxy = null;
         }
-
-        // if (this.modelTemp) {
-        //     this.modelTemp.dispose();
-        //     this.modelTemp = null;
-        // }
     }
 }

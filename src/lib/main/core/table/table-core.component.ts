@@ -1,8 +1,8 @@
 import { OnInit, Component, Input } from '@angular/core';
+import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { RootService } from '../../../infrastructure/component/root.service';
 import { TableCoreService } from './table-core.service';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
-import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { ViewCoreService } from '../view/view-core.service';
 
 @Component({
@@ -29,15 +29,11 @@ export class TableCoreComponent implements OnInit {
 		this.table.pin = this.pin;
 	}
 
-	dropTarget(e: DragEvent) {
-		return 'foo';
-	}
-
-	get visibility() {
+	get visibility(): VisibilityModel {
 		return this.model.visibility();
 	}
 
-	get model() {
+	get model(): Model {
 		return this.root.model;
 	}
 }

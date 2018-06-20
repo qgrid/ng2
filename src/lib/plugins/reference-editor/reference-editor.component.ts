@@ -1,18 +1,11 @@
-import {
-	Component,
-	Optional,
-	TemplateRef,
-	OnInit,
-	ElementRef
-} from '@angular/core';
-import { isString, isArray } from 'ng2-qgrid/core/utility/kit';
-import { BoolColumnModel } from 'ng2-qgrid/core/column-type/bool.column';
-import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
+import { Component, OnInit } from '@angular/core';
+import { isArray } from 'ng2-qgrid/core/utility/kit';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Command } from 'ng2-qgrid/core/command/command';
-import { ViewCoreService } from '../../main/core/view/view-core.service';
 import { SelectionService } from 'ng2-qgrid/core/selection/selection.service';
 import { getFactory as valueFactory } from 'ng2-qgrid/core/services/value';
+import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
+import { ViewCoreService } from '../../main/core/view/view-core.service';
 import { NgComponent } from '../../infrastructure/component/ng.component';
 
 @Component({
@@ -30,8 +23,7 @@ export class ReferenceEditorComponent extends NgComponent implements OnInit {
 	cancel: Command;
 
 	constructor(
-		private view: ViewCoreService,
-		private element: ElementRef
+		private view: ViewCoreService
 	) {
 		super();
 	}
@@ -106,7 +98,7 @@ export class ReferenceEditorComponent extends NgComponent implements OnInit {
 		return this.edit.column.title;
 	}
 
-	get column() {
+	get column(): ColumnModel{
 		return this.edit.column;
 	}
 

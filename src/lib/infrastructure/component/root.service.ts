@@ -1,10 +1,8 @@
-import { Injectable, OnDestroy, SkipSelf, Optional } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
-import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { CommandManager } from 'ng2-qgrid/core/command/command.manager';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Table } from 'ng2-qgrid/core/dom/table';
-import { isUndefined } from 'ng2-qgrid/core/utility/kit';
 import { Bag } from 'ng2-qgrid/core/dom/bag';
 import { ModelProxy } from 'ng2-qgrid/core/infrastructure/model.proxy';
 
