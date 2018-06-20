@@ -1,4 +1,4 @@
-<ng-template key='edit-cell-time.tpl.html'
+<ng-template key="edit-cell-time.tpl.html"
              let-$cell
              let-$view="$view">
     <q-grid-cell-editor class="q-grid-time q-grid-editor q-grid-position q-grid-text"
@@ -10,8 +10,8 @@
                        type="time"
                        #input
                        q-grid-focus
-                       [ngModel]="$view.edit.cell.value | date: 'hh:mm'"
-                       (ngModelChanged)="$view.edit.cell.value = $event" />
+                       [value]="$view.edit.cell.value | qGridTime: 'hh:mm'"
+                       (change)="$view.edit.cell.time = input.value" /> 
             </mat-form-field>
         </ng-template>
     </q-grid-cell-editor>

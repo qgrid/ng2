@@ -354,6 +354,22 @@ export class EditCellView {
 		return this.column.options;
 	}
 
+	set time(value) {
+		const date = new Date(typeof this.value === 'string' ? Date.now() : this.value);
+		const [hours, minutes, seconds] = value.split(':');
+
+		if (hours && minutes) {
+			date.setHours(+hours);
+			date.setMinutes(+minutes);
+			
+			if (seconds) {
+				date.setSeconds(+seconds);
+			}
+		
+			this.value = date;
+		}
+	}
+
 	canEdit(cell) {
 		if (cell) {
 			return cell.column.canEdit && this.model.edit().mode === 'cell';

@@ -50,8 +50,9 @@
 				<input type="time"
 				       style="width: 100%"
 					   q-grid-focus
-					   [ngModel]="$view.edit.cell.value | date: 'hh:mm'" 
-					   (ngModelChange)="$view.edit.cell.value = $event"				       
+					   #input
+					   [value]="$view.edit.cell.value | date: 'hh:mm'"
+                       (change)="$view.edit.cell.time = input.value"		       
 				       (blur)="$view.edit.cell.exit.execute($cell)" />
 			</ng-template>
 		</q-grid-column>

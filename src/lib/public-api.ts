@@ -10,6 +10,7 @@ export { PluginService as GridPlugin } from './plugins/plugin.service';
 
 // NG Pipe
 export { HighlightPipe } from './pipes/highlight/highlight.pipe';
+export { TimePipe } from './pipes/time/time.pipe';
 export { FilterPipe } from './pipes/filter/filter.pipe';
 export { PipeModule } from './pipes/pipe.module';
 
