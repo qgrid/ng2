@@ -1,9 +1,9 @@
 import { CommandContext } from './command.context';
 
 /**
- * Use this class to implement command pattern in the qgrid. The most of interactions in the qgrid are utilized by this pattern.
+ * Use this class to implement command pattern in the qgrid. The most of interactions in the q-grid are utilized by this pattern.
  * 
- * ### Create a command using qgrid facade.
+ * ### Create a command using q-grid facade.
  *
  * ```javascript
  *	const addRowCommand = new qgrid.Command({
@@ -69,7 +69,7 @@ export declare class Command<T = any> {
 	source?: string;
 	
 	/**
-	 * If a command is executed by qgrid command manager, the sink value contains 
+	 * If a command is executed by q-grid command manager, the sink value contains 
 	 * the last canExecute result. 
 	 */
 	sink?: any;

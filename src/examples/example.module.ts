@@ -37,6 +37,7 @@ import { ExampleDestroyGridModelComponent } from './destroy-grid-model/example-d
 import { ExampleDetailsRowAllComponent } from './details-row-all/example-details-row-all.component';
 import { ExampleDetailsRowBasicComponent } from './details-row-basic/example-details-row-basic.component';
 import { ExampleDetailsRowGridComponent } from './details-row-grid/example-details-row-grid.component';
+import { ExampleDetailsRowStartComponent } from './details-row-start/example-details-row-start.component';
 import { ExampleDragColumnBasicComponent } from './drag-column-basic/example-drag-column-basic.component';
 import { ExampleDragRowBasicComponent } from './drag-row-basic/example-drag-row-basic.component';
 import { ExampleDragRowNodeComponent } from './drag-row-node/example-drag-row-node.component';
@@ -69,6 +70,7 @@ import { ExampleLegendGridBasicComponent } from './legend-grid-basic/example-leg
 import { ExampleLiveDataBasicComponent } from './live-data-basic/example-live-data-basic.component';
 import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
 import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/example-look-atoms-customized.component';
+import { ExampleLookAtomsIdComponent } from './look-atoms-id/example-look-atoms-id.component';
 import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-atoms-model.component';
 import { ExampleLookPeopleBasicComponent } from './look-people-basic/example-look-people-basic.component';
 import { ExampleLookPeopleModelComponent } from './look-people-model/example-look-people-model.component';
@@ -130,6 +132,7 @@ const EXAMPLES: Array<any> = [
 	ExampleDetailsRowAllComponent,
 	ExampleDetailsRowBasicComponent,
 	ExampleDetailsRowGridComponent,
+	ExampleDetailsRowStartComponent,
 	ExampleDragColumnBasicComponent,
 	ExampleDragRowBasicComponent,
 	ExampleDragRowNodeComponent,
@@ -162,6 +165,7 @@ const EXAMPLES: Array<any> = [
 	ExampleLiveDataBasicComponent,
 	ExampleLookAtomsBasicComponent,
 	ExampleLookAtomsCustomizedComponent,
+	ExampleLookAtomsIdComponent,
 	ExampleLookAtomsModelComponent,
 	ExampleLookPeopleBasicComponent,
 	ExampleLookPeopleModelComponent,

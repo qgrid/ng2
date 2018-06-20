@@ -1,14 +1,18 @@
-# qgrid
+# q-grid
 Angular data grid
 
-## examples
-https://qgrid.github.io/ng2/
+## Documentation
+https://qgrid.github.io/doc/guide/highlights.html
 
-## installation
-* `$ npm install ng2-qgrid`
+## Install the q-grid via npm
 
-* add grid and theme modules to your app module
-```javascript
+```bash
+npm install ng2-qgrid
+```
+
+## Add q-grid and theme modules to application root
+
+```typescript
 import { GridModule } from 'ng2-qgrid';
 import { ThemeModule } from 'ng2-qgrid/theme/material';
 
@@ -21,67 +25,59 @@ import { ThemeModule } from 'ng2-qgrid/theme/material';
 export class AppModule {
 }
 ```
+Note that now q-grid supports 2 themes out of box `@angular/material` and `basic`, the second one doesn't require `@angular/material` to be installed.
 
-* add grid model and grid service to your component if it's required
-```javascript
-import { GridModel, GridService } from 'ng2-qgrid';
+## Create an angular component
 
+```typescript
 @Component({
    selector: 'my-component',
-   templateUrl: './my-component.html'
+   template: `
+      <q-grid [rows]="myRows | async">
+            <q-grid-columns generation="deep">
+            </q-grid-columns>
+      </q-grid>
+      `
 })
-export class MyComponent implements OnInit {
-   public gridModel: GridModel;
+export class MyComponent {
+   myRows: Observable<[]>;
 
-   constructor(gridService: GridService) {
-      this.gridModel = gridService.model();
-   }
-
-   ngOnInit(): void {
-      this.gridModel
-         .data({
-            rows: getRows()
-         });
+   constructor(dataService: MyDataService) {
+         this.myRows = dataService.getRows();
    }
 }
 ```
 
-* add html markup to your component
-```html
-<q-grid [model]="gridModel">
-   <q-grid-columns generation="deep">
-      <q-grid-column type="number" aggregation="sum"></q-grid-column>
-      <q-grid-column key="totalAmount" type="currency" aggregation="sum"></q-grid-column>
-   </q-grid-columns>
-</q-grid>
-```
+Note that q-grid rows should be an array of objects, any other types like array of numbers or strings will throw an error.
+
+## Dependencies
+
+*  @angular/common
+*  @angular/core
+*  @angular/forms
+*  @angular/http
+
+If you use `material` theme from the q-grid package, you also need to install [angular material](https://material.angular.io/)
+
+* @angular/cdk
+* @angular/material
 
 ## Development
-### run project
-* `git clone https://github.com/qgrid/ng2.git`
-* `npm install`
-* `npm run start`
-### sync examples with stackblitz
-You have to run script to update stackblitz projects with examples. It will load content of src/examples to github repository in the separate branches which will be synced with stackblitz projects.
 
-`npm run examples -- -v <version> -p <pattern> -s <silent>`
+```bash
+git clone https://github.com/qgrid/ng2.git
+npm install
+npm run start
+```
 
-Available arguments:
+## Browser support
 
-* `-v`: Version of qgrid example. It will be added as suffix to example name (default: latest).
-* `-p`: Pattern of examples what you'd like to load.
-* `-s`: Silent mode to hide extra console output (default: true).
+* `Chrome` is supported.
+* `Safari` is in progress.
+* `FireFox` is in progress.
+* `Edge` is in progress.
+* `IE11` is in progress.
 
-Examples:
+## Licence
 
-* load all examples of 6.0.1 version:
-
-`npm run examples -- 6.0.1`
-
-* load basic example of persistence plugin of latest version and print all logs:
-
-`npm run examples -- -p persistence-basic -s false`
-
-
-## licence
 Code licensed under MIT license.

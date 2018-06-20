@@ -4,9 +4,8 @@ import { CommandManager } from '../command/command.manager';
 import { Resource } from '../resource/resource';
 
 /**
- * A class to handle and visualize in UI custom user behaviors(like add or delete row).
- * For instance, [action bar](/doc/feature/action.html) plugin uses this model to draw buttons on top of the q-grid
- * to execute user commands.
+ * Use this class to handle and visualize custom user behaviors.
+ * [action bar](/doc/feature/action.html) plugin uses this model to draw buttons on the top of q-grid to execute user commands.
  *
  * ### Usage
  *
@@ -49,19 +48,19 @@ export declare interface ActionModel {
 
 	/**
 	 * List of actions that will be added to the command manager,
-	 * and binded to the keydown events.
+	 * and bind to the keyboard events.
 	 */
 	items?: Action[];
 
 	/**
-	 * The service that connects keydown events and commands.
+	 * The service that connects keyboard events and commands.
 	 */
 	shortcut?: Shortcut;
 
 	/**
-	 * Command manager is responsible for the next questions:
-	 * * What commands can be executed.
-	 * * How(e.g. in which order) commands should be executed.
+	 * Command manager is responsible for 2 questions:
+	 * * What commands can be executed?
+	 * * How/in what order commands should be executed?
 	 */
 	manager?: CommandManager;
 }

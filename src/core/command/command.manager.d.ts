@@ -15,7 +15,7 @@ export declare class CommandManager {
 	/**
 	 * Execute commands in a manager specific way.
 	 *
-	 * @param commands list of commands to execute, usually come after filter invokation.
+	 * @param commands list of commands to execute, usually come after filter invocation.
 	 * @param source indicates a source of command execution.
 	 */
 	invoke(commands: Command[], source?: string): boolean;

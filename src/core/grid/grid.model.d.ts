@@ -29,7 +29,7 @@ export declare interface GridModel {
 	caption?: string;
 
 	/**
-	 * Allows to change perfomance strategy of the grid.
+	 * Allows to change performance strategy of the grid.
 	 * * `full` grid has full interaction possibilities.
 	 * * `readonly` grid starts to use cache to render values.
 	 * * `detached` grid disable change detection after render.

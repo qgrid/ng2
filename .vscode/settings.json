@@ -1,0 +1,6 @@
+{
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    "typescript.preferences.quoteStyle": "single",
+    "javascript.preferences.quoteStyle": "single",
+    "html.format.wrapAttributes": "force-aligned"
+}
