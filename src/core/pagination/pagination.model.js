@@ -7,7 +7,6 @@ export class PaginationModel {
 		this.size = 50;
 		this.sizeList = [5, 10, 20, 30, 40, 50];
 		this.count = 0;
-		this.theme = null;
 		this.resetTriggers = {
 			'data': ['rows'],
 			'filter': ['by'],

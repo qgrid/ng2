@@ -26,6 +26,10 @@ export class PagerView {
 	}
 
 	get theme() {
+		return this.model.style().classList		
+	}
+
+	set theme(them) {
 		return this.model.pagination().theme		
 	}
 
