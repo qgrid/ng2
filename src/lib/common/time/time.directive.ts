@@ -1,9 +1,18 @@
 import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
 
-export class TimeContext {
-    constructor() { }
+@Directive({
+    selector: '[q-grid-time]'
+})
 
-    time(previous, current) {
+export class TimeDirective {
+    constructor(
+        private templateRef: TemplateRef<TimeDirective>,
+        private viewContainerRef: ViewContainerRef
+    ) {
+        viewContainerRef.createEmbeddedView(templateRef, this);
+     }
+
+     time(previous, current) {
         const date = new Date(typeof current === 'string' ? Date.now() : previous);
         const [hours, minutes, seconds] = current.split(':');
 
@@ -18,18 +27,4 @@ export class TimeContext {
             return date;
         }
     }
-}
-
-@Directive({
-    selector: '[q-grid-time]'
-})
-
-export class TimeDirective {
-    constructor(
-        private templateRef: TemplateRef<TimeContext>,
-        private viewContainerRef: ViewContainerRef
-    ) {
-        const context = new TimeContext();
-        viewContainerRef.createEmbeddedView(templateRef, context);
-     }
 }
