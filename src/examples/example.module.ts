@@ -70,6 +70,7 @@ import { ExampleLegendGridBasicComponent } from './legend-grid-basic/example-leg
 import { ExampleLiveDataBasicComponent } from './live-data-basic/example-live-data-basic.component';
 import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
 import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/example-look-atoms-customized.component';
+import { ExampleLookAtomsIdComponent } from './look-atoms-id/example-look-atoms-id.component';
 import { ExampleLookAtomsModelComponent } from './look-atoms-model/example-look-atoms-model.component';
 import { ExampleLookPeopleBasicComponent } from './look-people-basic/example-look-people-basic.component';
 import { ExampleLookPeopleModelComponent } from './look-people-model/example-look-people-model.component';
@@ -164,6 +165,7 @@ const EXAMPLES: Array<any> = [
 	ExampleLiveDataBasicComponent,
 	ExampleLookAtomsBasicComponent,
 	ExampleLookAtomsCustomizedComponent,
+	ExampleLookAtomsIdComponent,
 	ExampleLookAtomsModelComponent,
 	ExampleLookPeopleBasicComponent,
 	ExampleLookPeopleModelComponent,
