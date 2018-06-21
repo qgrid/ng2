@@ -13,6 +13,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Live data plugin.
 * Float Row Navigation.
 
+## [6.1.3] - 2018-06-21
+### Fixed
+- AOT compilation.
+- Time editor.
+- Dark theme for plugins.
+
 ## [6.1.1] - 2018-06-15
 ### Fixed
 - Highlight on drag and drop.
