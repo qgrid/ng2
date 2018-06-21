@@ -12,7 +12,7 @@ th {
         cursor: col-resize;
         opacity: 0;
     }
-    &:hover,
+    &.q-grid-highlighted,
     &.q-grid-highlighted-prev {
         .q-grid-divider {
             opacity: 1;

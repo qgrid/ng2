@@ -13,6 +13,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Live data plugin.
 * Float Row Navigation.
 
+## [6.1.3] - 2018-06-21
+### Fixed
+- Fixed AOT compilation.
+- Fixed time editor value assign.
+- Dark theme for plugins and cell handler.
+- Textarea editor now shows length of the input text.
+
 ## [6.1.1] - 2018-06-15
 ### Fixed
 - Highlight on drag and drop.
@@ -267,7 +274,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v6.1.1...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v6.1.3...HEAD
+[6.1.3]: https://github.com/qgrid/ng2/compare/v6.1.3...v6.1.1
 [6.1.1]: https://github.com/qgrid/ng2/compare/v6.1.1...v6.1.0
 [6.1.0]: https://github.com/qgrid/ng2/compare/v6.1.0...v5.3.10
 [5.3.10]: https://github.com/qgrid/ng2/compare/v5.3.10...v5.3.9
