@@ -4,7 +4,7 @@
     <div class="q-grid-dropdown">
         <mat-select q-grid-select
                     [(ngModel)]="$view.edit.cell.value"
-                    (q-grid-select-trigger)="$view.edit.cell.commit.execute($cell)">
+                    (selectionChange)="$view.edit.cell.commit.execute($cell)">
             <mat-option *ngFor="let option of $view.edit.cell.fetch.result"
                         [value]="option">
                 {{option}}
