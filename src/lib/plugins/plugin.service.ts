@@ -1,52 +1,47 @@
 import { Injectable, OnDestroy, SimpleChanges } from '@angular/core';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
-import { Table } from 'ng2-qgrid/core/dom/table';
 import { ModelProxy } from 'ng2-qgrid/core/infrastructure/model.proxy';
 import { RootService } from '../infrastructure/component/root.service';
 import { ModelBinder } from 'ng2-qgrid/core/infrastructure/model.bind';
+import { Model as GridModel } from 'ng2-qgrid/core/infrastructure/model';
+import { Table as DomTable } from 'ng2-qgrid/core/dom/table';
+
+export { Model as GridModel, ModelEventArg as GridEventArg, ModelEvent as GridEvent } from 'ng2-qgrid/core/infrastructure/model';
+export { Table as DomTable } from 'ng2-qgrid/core/dom/table';
+
 
 @Injectable()
 export class PluginService implements OnDestroy {
     private modelProxy: ModelProxy = null;
-    //    private modelTemp: ModelProxy = null;
 
     constructor(private root: RootService) { }
 
-    get model() {
+    get model(): GridModel {
         const { model } = this.root;
         if (!this.modelProxy) {
             Guard.notNull(model, 'model');
 
             this.modelProxy = new ModelProxy(model);
-            // this.modelTemp = new ModelProxy(model, true);
             return this.modelProxy.subject;
         }
 
         if (model !== this.modelProxy.target) {
             this.modelProxy.dispose();
-            // this.modelTemp.dispose();
             Guard.notNull(model, 'model');
 
             this.modelProxy = new ModelProxy(model);
-            // this.modelTemp = new ModelProxy(model, true);
             return this.modelProxy.subject;
         }
 
         return this.modelProxy.subject;
     }
 
-    get table() {
+    get table(): DomTable {
         const { table } = this.root;
         Guard.notNull(table, 'table');
 
         return table;
     }
-
-    // get temp(): Model {
-    //    Guard.notNull(this.modelTemp, 'temp');
-    //    return this.modelTemp.subject;
-    // }
 
     keep(changes: SimpleChanges, models: string[]) {
         const host = {};
@@ -65,10 +60,5 @@ export class PluginService implements OnDestroy {
             this.modelProxy.dispose();
             this.modelProxy = null;
         }
-
-        // if (this.modelTemp) {
-        //     this.modelTemp.dispose();
-        //     this.modelTemp = null;
-        // }
     }
 }

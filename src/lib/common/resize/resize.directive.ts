@@ -8,14 +8,14 @@ import {
 	Optional,
 	NgZone
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { EventListener as EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
+import { clone } from 'ng2-qgrid/core/utility/kit';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { NgComponent } from '../../infrastructure/component/ng.component';
 import { RootService } from '../../infrastructure/component/root.service';
-import { clone, noop } from 'ng2-qgrid/core/utility/kit';
-import { DOCUMENT } from '@angular/common';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 @Directive({
 	selector: '[q-grid-resize]'
@@ -41,7 +41,7 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 	constructor(
 		@Optional() private root: RootService,
 		elementRef: ElementRef,
-		@Inject(DOCUMENT) private document: any,
+		@Inject(DOCUMENT) document: any,
 		private zone: NgZone
 	) {
 		super();
@@ -119,7 +119,7 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 		model.drag({ isActive: false });
 	}
 
-	get model() {
+	private get model(): Model {
 		return this.root.model;
 	}
 }

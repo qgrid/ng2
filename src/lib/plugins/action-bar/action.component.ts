@@ -2,7 +2,6 @@ import { Component, ChangeDetectionStrategy, OnInit, Input } from '@angular/core
 import { Action as ActionItem } from 'ng2-qgrid/core/action/action';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
-import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { TemplateHostService } from '../../template/template-host.service';
 import { PluginService } from '../plugin.service';

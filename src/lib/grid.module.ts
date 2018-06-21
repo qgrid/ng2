@@ -7,7 +7,6 @@ import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 import { FormatService } from 'ng2-qgrid/core/format/format.service';
 import { MainModule } from './main/main.module';
-import { ThemeService } from './template/theme.service';
 import { TemplateModule } from './template/template.module';
 import { TemplateCacheDirective } from './template/template-cache.directive';
 import { GridComponent } from './main/grid/grid.component';
@@ -16,6 +15,7 @@ import { ColumnComponent } from './main/column/column.component';
 import { PluginModule } from './plugins/plugin.module';
 import { FocusModule } from './common/focus/focus.module';
 import { RowComponent } from './main/core/row/row.component';
+import { ThemeService } from './template/theme.service';
 
 @NgModule({
 	declarations: [],
@@ -37,7 +37,8 @@ import { RowComponent } from './main/core/row/row.component';
 	providers: [
 		DatePipe, 
 		DecimalPipe,
-		CurrencyPipe
+		CurrencyPipe,
+		ThemeService
 	]
 })
 export class GridModule {

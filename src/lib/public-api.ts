@@ -1,12 +1,11 @@
 // Core
-export { Model as GridModel, ModelEventArg as GridEventArg, ModelEvent as GridEvent } from 'ng2-qgrid/core/infrastructure/model';
 export { GridService } from 'ng2-qgrid/core/services/grid';
 
 // Main
 export { GridModule } from './grid.module';
 export { GridComponent } from './main/grid/grid.component';
 export { GridService as Grid } from './main/grid/grid.service';
-export { PluginService as GridPlugin } from './plugins/plugin.service';
+export { PluginService as GridPlugin, GridModel, GridEventArg, GridEvent, DomTable } from './plugins/plugin.service';
 
 // NG Pipe
 export { HighlightPipe } from './pipes/highlight/highlight.pipe';
@@ -84,7 +83,6 @@ export { ThemeService } from './template/theme.service';
 // Common
 export { CommonModule } from './common/common.module';
 export { VscrollModule } from './common/vscroll/vscroll.module';
-export { RootService } from './infrastructure/component/root.service';
 
 // View
 export { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';

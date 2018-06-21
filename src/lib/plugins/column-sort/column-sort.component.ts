@@ -55,7 +55,7 @@ export class ColumnSortComponent implements AfterViewInit {
 		const listener = new EventListener(nativeElement, new EventManager(this));
 		listener.on('click', () => {
 			if (ctrl.onClick()) {
-				const focus = new FocusAfterRender(this.plugin.model, this.plugin.table, null);
+				const focus = new FocusAfterRender(this.plugin, null);
 			}
 		});
 

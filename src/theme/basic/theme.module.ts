@@ -1,9 +1,4 @@
-import {
-	NgModule,
-	ComponentFactoryResolver,
-	ApplicationRef,
-	Injector
-} from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThemeComponent } from './theme.component';
@@ -11,10 +6,8 @@ import {
 	PluginModule,
 	CommonModule as GridCommonModule,
 	TemplateModule,
-	TemplateService,
 	PipeModule,
 	GridModule,
-	RootService,
 	VscrollModule,
 	ThemeService
 } from 'ng2-qgrid';
@@ -36,18 +29,12 @@ import {
 		PipeModule,
 		VscrollModule
 	],
-	providers: [
-		ThemeService
-	],
 	entryComponents: [
 		ThemeComponent
 	]
 })
 export class ThemeModule {
-	constructor(
-		theme: ThemeService,
-		componentResolver: ComponentFactoryResolver
-	) {
+	constructor(theme: ThemeService) {
 		theme.name = 'basic';
 		theme.component = ThemeComponent;
 	}

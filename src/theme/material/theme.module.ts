@@ -1,4 +1,4 @@
-import { NgModule, ComponentFactoryResolver, ApplicationRef, Injector } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThemeComponent } from './theme.component';
@@ -15,7 +15,6 @@ import {
 	MatTooltipModule,
 	MatProgressBarModule,
 	MatInputModule,
-	MatFormFieldModule,
 	MatDatepickerModule,
 	MatNativeDateModule,
 	MatChipsModule,
@@ -23,17 +22,14 @@ import {
 	MatDialogModule,
 	MatListModule,
 	MatAutocompleteModule,
-	MatOptionModule,
 	MatToolbarModule
 } from '@angular/material';
 import {
 	PluginModule,
 	CommonModule as GridCommonModule,
 	TemplateModule,
-	TemplateService,
 	PipeModule,
 	GridModule,
-	RootService,
 	VscrollModule,
 	ThemeService
 } from 'ng2-qgrid';
@@ -75,18 +71,12 @@ import {
 		ThemeOverlayModule,
 		VscrollModule,
 	],
-	providers: [
-		ThemeService
-	],
 	entryComponents: [
 		ThemeComponent
 	]
 })
 export class ThemeModule {
-	constructor(
-		theme: ThemeService,
-		componentResolver: ComponentFactoryResolver
-	) {
+	constructor(theme: ThemeService) {
 		theme.name = 'material';
 		theme.component = ThemeComponent;
 	}

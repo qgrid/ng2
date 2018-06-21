@@ -1,5 +1,4 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 import { GroupView } from 'ng2-qgrid/core/group/group.view';
 import { FilterView } from 'ng2-qgrid/core/filter/filter.view';
 import { PivotView } from 'ng2-qgrid/core/pivot/pivot.view';
@@ -16,7 +15,6 @@ import { NavigationView } from 'ng2-qgrid/core/navigation/navigation.view';
 import { ScrollView } from 'ng2-qgrid/core/scroll/scroll.view';
 import { StyleView } from 'ng2-qgrid/core/style/style.view';
 import { RowDetailsView } from 'ng2-qgrid/core/row-details/row.details.view';
-import { noop } from 'ng2-qgrid/core/utility/kit';
 import { viewFactory } from 'ng2-qgrid/core/view/view.factory';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Table } from 'ng2-qgrid/core/dom/table';
