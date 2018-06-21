@@ -1,12 +1,11 @@
 // Core
-export { Model as GridModel, ModelEventArg as GridEventArg, ModelEvent as GridEvent } from 'ng2-qgrid/core/infrastructure/model';
 export { GridService } from 'ng2-qgrid/core/services/grid';
 
 // Main
 export { GridModule } from './grid.module';
 export { GridComponent } from './main/grid/grid.component';
 export { GridService as Grid } from './main/grid/grid.service';
-export { PluginService as GridPlugin } from './plugins/plugin.service';
+export { PluginService as GridPlugin, GridModel, GridEventArg, GridEvent, DomTable } from './plugins/plugin.service';
 
 // NG Pipe
 export { HighlightPipe } from './pipes/highlight/highlight.pipe';
@@ -64,7 +63,6 @@ export { StyleCellContext, StyleRowContext } from 'ng2-qgrid/core/style/style.co
 export { PipeContext, PipeMemo } from 'ng2-qgrid/core/pipe/pipe.item';
 
 // Dom
-export { Table as DomTable } from 'ng2-qgrid/core/dom/table';
 export { Tr as DomTr } from 'ng2-qgrid/core/dom/tr';
 export { Td as DomTd } from 'ng2-qgrid/core/dom/td';
 export { Box as DomBox } from 'ng2-qgrid/core/dom/box';

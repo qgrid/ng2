@@ -5,12 +5,12 @@ import { Event } from 'ng2-qgrid/core/infrastructure/event';
 export class ThemeService {
 	private themeName = '';
 
-	public changed = new Event();
-	public component: any;
+	changed = new Event();
+	component: any;
 
 	constructor() {}
 
-	get name(): string {
+	get name() {
 		return this.themeName;
 	}
 

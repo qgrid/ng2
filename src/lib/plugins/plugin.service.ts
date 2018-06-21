@@ -1,10 +1,14 @@
 import { Injectable, OnDestroy, SimpleChanges } from '@angular/core';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
-import { Table } from 'ng2-qgrid/core/dom/table';
 import { ModelProxy } from 'ng2-qgrid/core/infrastructure/model.proxy';
 import { RootService } from '../infrastructure/component/root.service';
 import { ModelBinder } from 'ng2-qgrid/core/infrastructure/model.bind';
+import { Model as GridModel } from 'ng2-qgrid/core/infrastructure/model';
+import { Table as DomTable } from 'ng2-qgrid/core/dom/table';
+
+export { Model as GridModel, ModelEventArg as GridEventArg, ModelEvent as GridEvent } from 'ng2-qgrid/core/infrastructure/model';
+export { Table as DomTable } from 'ng2-qgrid/core/dom/table';
+
 
 @Injectable()
 export class PluginService implements OnDestroy {
@@ -12,7 +16,7 @@ export class PluginService implements OnDestroy {
 
     constructor(private root: RootService) { }
 
-    get model() {
+    get model(): GridModel {
         const { model } = this.root;
         if (!this.modelProxy) {
             Guard.notNull(model, 'model');
@@ -32,7 +36,7 @@ export class PluginService implements OnDestroy {
         return this.modelProxy.subject;
     }
 
-    get table() {
+    get table(): DomTable {
         const { table } = this.root;
         Guard.notNull(table, 'table');
 
