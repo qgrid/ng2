@@ -56,12 +56,13 @@ export class Fetch {
 			let subscription = instance.subscribe(
 				(...args) => {
 					resolve(...args);
-					if (subscription && isFunction(subscription.unsubscribe)) {
-						subscription.unsubscribe();
-						subscription = null;
-					}
 				},
 				reject);
+
+			if (subscription && isFunction(subscription.unsubscribe)) {
+				subscription.unsubscribe();
+				subscription = null;
+			}
 
 		} else {
 			// when options.fetch return result
