@@ -17,7 +17,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Fixed
 - AOT compilation.
 - Time editor.
-- Dark theme for plugins.
+- Dark theme for plugins and cell handler.
+- Textarea editor now shows length of the input text.
 
 ## [6.1.1] - 2018-06-15
 ### Fixed
