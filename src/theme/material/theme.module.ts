@@ -71,9 +71,6 @@ import {
 		ThemeOverlayModule,
 		VscrollModule,
 	],
-	providers: [
-		ThemeService
-	],
 	entryComponents: [
 		ThemeComponent
 	]

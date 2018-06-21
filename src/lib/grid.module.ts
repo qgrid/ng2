@@ -15,6 +15,7 @@ import { ColumnComponent } from './main/column/column.component';
 import { PluginModule } from './plugins/plugin.module';
 import { FocusModule } from './common/focus/focus.module';
 import { RowComponent } from './main/core/row/row.component';
+import { ThemeService } from './template/theme.service';
 
 @NgModule({
 	declarations: [],
@@ -36,7 +37,8 @@ import { RowComponent } from './main/core/row/row.component';
 	providers: [
 		DatePipe, 
 		DecimalPipe,
-		CurrencyPipe
+		CurrencyPipe,
+		ThemeService
 	]
 })
 export class GridModule {

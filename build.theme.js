@@ -90,6 +90,8 @@ return Promise.resolve()
               `./out-tsc/theme/${themeName}/theme.module.ts`
             ];
 
+            tsConfig.angularCompilerOptions.flatModuleId = `ng2-qgrid/theme/${themeName}`,
+
             fs.writeFileSync(
               'build.theme.tsconfig.json',
               JSON.stringify(tsConfig, null, 2)

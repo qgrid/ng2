@@ -29,9 +29,6 @@ import {
 		PipeModule,
 		VscrollModule
 	],
-	providers: [
-		ThemeService
-	],
 	entryComponents: [
 		ThemeComponent
 	]
