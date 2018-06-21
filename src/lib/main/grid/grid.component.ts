@@ -5,10 +5,7 @@ import {
 	EventEmitter,
 	ViewEncapsulation,
 	OnInit,
-	OnDestroy,
 	ElementRef,
-	EmbeddedViewRef,
-	ComponentRef,
 	NgZone
 } from '@angular/core';
 import { RootComponent } from '../../infrastructure/component/root.component';
@@ -29,12 +26,12 @@ import { FetchContext } from 'ng2-qgrid/core/fetch/fetch.context';
 import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
 import { noop } from 'ng2-qgrid/core/utility/kit';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { PipeContext, PipeMemo } from 'ng2-qgrid/core/pipe/pipe.item';
 import { StyleRowContext, StyleCellContext } from 'ng2-qgrid/core/style/style.context';
 import { TableCommandManager } from 'ng2-qgrid/core/command/table.command.manager';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { Command } from 'ng2-qgrid/core/command/command';
+import { GridModel } from '../../plugins/plugin.service';
 
 @Component({
 	selector: 'q-grid',
@@ -52,7 +49,7 @@ import { Command } from 'ng2-qgrid/core/command/command';
 	encapsulation: ViewEncapsulation.None
 })
 export class GridComponent extends RootComponent implements OnInit {
-	@Input() model: Model;
+	@Input() model: GridModel;
 
 	@Input('actions') actionItems: Array<Action>;
 
