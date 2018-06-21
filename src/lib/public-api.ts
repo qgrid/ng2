@@ -64,6 +64,7 @@ export { StyleCellContext, StyleRowContext } from 'ng2-qgrid/core/style/style.co
 export { PipeContext, PipeMemo } from 'ng2-qgrid/core/pipe/pipe.item';
 
 // Dom
+export { Table as DomTable } from 'ng2-qgrid/core/dom/table';
 export { Tr as DomTr } from 'ng2-qgrid/core/dom/tr';
 export { Td as DomTd } from 'ng2-qgrid/core/dom/td';
 export { Box as DomBox } from 'ng2-qgrid/core/dom/box';
@@ -83,7 +84,6 @@ export { ThemeService } from './template/theme.service';
 // Common
 export { CommonModule } from './common/common.module';
 export { VscrollModule } from './common/vscroll/vscroll.module';
-export { RootService } from './infrastructure/component/root.service';
 
 // View
 export { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';

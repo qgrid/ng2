@@ -23,7 +23,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [6.1.0] - 2018-06-15
 ### BREAKING
-- Need to change theme import from `import {ThemeModule} from 'ng2-qgrid'` to `import {ThemeModule} from 'ng2-qgrid/theme/material`
+- Need to change theme import from `import { ThemeModule } from 'ng2-qgrid'` to `import { ThemeModule } from 'ng2-qgrid/theme/material`
 
 ### Deprecated
 - Use `FetchContext` `serach` property instead of `filter` property.
