@@ -9,6 +9,6 @@ import { TemplateHostService } from '../../template/template-host.service';
 })
 export class ToolbarComponent {
 	constructor(private templateHost: TemplateHostService) {
-		templateHost.key = source => `${source}-toolbar.tpl.html`;
+		templateHost.key = source => `toolbar-${source}.tpl.html`;
 	}
 }

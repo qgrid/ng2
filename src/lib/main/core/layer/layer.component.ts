@@ -9,6 +9,6 @@ import { TemplateHostService } from '../../../template/template-host.service';
 })
 export class LayerComponent {
 	constructor(private templateHost: TemplateHostService) {
-		templateHost.key = source => `${source}-layer.tpl.html`;
+		templateHost.key = source => `layer-${source}.tpl.html`;
 	}
 }
