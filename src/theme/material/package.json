@@ -4,7 +4,13 @@
   "main": "../../bundles/theme-material.umd.js",
   "sideEffects": false,
   "peerDependencies": {
-    "@angular/material": "~6.2.1",    
-    "@angular/cdk": "~6.2.1"    
+    "@angular/common": "^6.0.5",
+    "@angular/core": "^6.0.5",
+    "@angular/forms": "^6.0.5",
+    "@angular/material": "~6.2.1",
+    "@angular/cdk": "~6.2.1"
+  },
+  "dependencies": {
+    "ng2-qgrid": "6.1.2"
   }
 }

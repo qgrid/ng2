@@ -2,5 +2,13 @@
   "name": "ng2-qgrid/theme/basic",
   "typings": "./index.d.ts",
   "main": "../../bundles/theme-basic.umd.js",
-  "sideEffects": false
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/common": "^6.0.5",
+    "@angular/core": "^6.0.5",
+    "@angular/forms": "^6.0.5"
+  },
+  "dependencies": {
+    "ng2-qgrid": "6.1.2"
+  }
 }
