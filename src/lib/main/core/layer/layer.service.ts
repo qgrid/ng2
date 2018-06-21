@@ -26,7 +26,7 @@ export class LayerService {
 		}
 
 		const container = this.container;
-		const link = this.templateService.find(`${name}-layer.tpl.html`);
+		const link = this.templateService.find(`layer-${name}.tpl.html`);
 		if (link && container) {
 			const createView = this.templateService.viewFactory({});
 			createView(link, container);
