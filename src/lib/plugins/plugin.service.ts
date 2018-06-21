@@ -12,7 +12,7 @@ export class PluginService implements OnDestroy {
 
     constructor(private root: RootService) { }
 
-    get model(): Model {
+    get model() {
         const { model } = this.root;
         if (!this.modelProxy) {
             Guard.notNull(model, 'model');
@@ -32,7 +32,7 @@ export class PluginService implements OnDestroy {
         return this.modelProxy.subject;
     }
 
-    get table(): Table {
+    get table() {
         const { table } = this.root;
         Guard.notNull(table, 'table');
 

@@ -119,7 +119,7 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 		model.drag({ isActive: false });
 	}
 
-	get model(): Model {
+	private get model(): Model {
 		return this.root.model;
 	}
 }
