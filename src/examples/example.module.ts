@@ -66,6 +66,7 @@ import { ExampleIndexColumnHybridComponent } from './index-column-hybrid/example
 import { ExampleIndexColumnModelComponent } from './index-column-model/example-index-column-model.component';
 import { ExampleInteractionModeDetachedComponent } from './interaction-mode-detached/example-interaction-mode-detached.component';
 import { ExampleInteractionModeReadonlyComponent } from './interaction-mode-readonly/example-interaction-mode-readonly.component';
+import { ExampleLayerGridBlankComponent } from './layer-grid-blank/example-layer-grid-blank.component';
 import { ExampleLegendGridBasicComponent } from './legend-grid-basic/example-legend-grid-basic.component';
 import { ExampleLiveDataBasicComponent } from './live-data-basic/example-live-data-basic.component';
 import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
@@ -161,6 +162,7 @@ const EXAMPLES: Array<any> = [
 	ExampleIndexColumnModelComponent,
 	ExampleInteractionModeDetachedComponent,
 	ExampleInteractionModeReadonlyComponent,
+	ExampleLayerGridBlankComponent,
 	ExampleLegendGridBasicComponent,
 	ExampleLiveDataBasicComponent,
 	ExampleLookAtomsBasicComponent,
