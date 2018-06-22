@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Action, Command } from 'ng2-qgrid';
-import { from, Observable } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 
 @Component({
 	selector: 'example-column-dropdown-basic',
@@ -40,7 +40,7 @@ export class ExampleColumnDropdownBasicComponent {
 	};
 
 	numberObservableFetchOptions = {
-		fetch: from([[Math.PI, Math.LN10, Math.LN2, Math.E, Math.LOG10E, Math.LOG2E, Math.SQRT1_2]])
+		fetch: of([Math.PI, Math.LN10, Math.LN2, Math.E, Math.LOG10E, Math.LOG2E, Math.SQRT1_2])
 	};
 
 	constructor(dataService: DataService) {
