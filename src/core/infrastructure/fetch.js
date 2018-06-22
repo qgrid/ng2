@@ -53,16 +53,28 @@ export class Fetch {
 			}
 		} else if (instance && isFunction(instance.subscribe)) {
 			// when options.fetch returns observable
-			let subscription = instance.subscribe(
+			let isProcessed = false;
+			let subscription;
+			subscription = instance.subscribe(
 				(...args) => {
 					resolve(...args);
+					isProcessed = true;
 					if (subscription && isFunction(subscription.unsubscribe)) {
-						subscription.unsubscribe();
+						// when async
+						subscription.unsubscribe(); 
 						subscription = null;
 					}
 				},
-				reject);
+				reject
+			);
 
+			if (isProcessed) {
+				if (subscription && isFunction(subscription.unsubscribe)) {
+					// when sync
+					subscription.unsubscribe();
+					subscription = null;
+				}
+			}
 		} else {
 			// when options.fetch return result
 			resolve(instance);
