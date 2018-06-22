@@ -136,13 +136,11 @@ function selectColumnFactory(model) {
 }
 
 function groupColumnFactory(model, nodes) {
-	const dataColumns = model.data().columns;
-	const groupColumn = dataColumns.find(item => item.type === 'group');
-	const groupState = model.group();
+	const { by, mode } = model.group();
 	const createColumn = columnFactory(model);
 
-	if (nodes.length || groupState.by.length) {
-		switch (groupState.mode) {
+	if (nodes.length || by) {
+		switch (mode) {
 			case 'nest': {
 				return (memo, context) => {
 					const groupColumn = createColumn('group');
@@ -157,7 +155,7 @@ function groupColumnFactory(model, nodes) {
 			case 'rowspan':
 			case 'flat': {
 				return (memo, context) =>
-					groupState.by.forEach(key => {
+					by.forEach(key => {
 						const groupColumn = createColumn('group');
 						groupColumn.model.source = 'generation';
 						groupColumn.rowspan = context.rowspan;

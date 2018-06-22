@@ -60,7 +60,7 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input('id') gridId: string;
 
 	@Input('columns') dataColumns: Array<ColumnModel>;
-	@Input('pipe') dataPipe: Array<(memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any>;
+	@Input('pipe') dataPipe: Array<(memo: any, context: PipeContext, next: (memo: any) => void) => any>;
 	@Input('rows') dataRows: Array<any>;
 
 	@Input() editCancel: Command;
