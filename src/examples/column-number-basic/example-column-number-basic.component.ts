@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService, Atom } from '../data.service';
-import { Observable } from 'rxjs';
-import { Action, Command } from 'ng2-qgrid';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'example-column-number-basic',
 	templateUrl: 'example-column-number-basic.component.html',
-	styleUrls: ['example-column-number-basic.component.scss'],
-	providers: [DataService]
+	styleUrls: ['example-column-number-basic.component.scss']
 })
 export class ExampleColumnNumberBasicComponent {
 	rows = [
@@ -23,7 +19,4 @@ export class ExampleColumnNumberBasicComponent {
 			'customTemplate': 30
 		}
 	];
-
-	constructor(dataService: DataService) {
-	}
 }

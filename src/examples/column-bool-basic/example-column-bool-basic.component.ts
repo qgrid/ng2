@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService, Atom } from '../data.service';
-import { Observable } from 'rxjs';
-import { Action, Command } from 'ng2-qgrid';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'example-column-bool-basic',
 	templateUrl: 'example-column-bool-basic.component.html',
-	styleUrls: ['example-column-bool-basic.component.scss'],
-	providers: [DataService]
+	styleUrls: ['example-column-bool-basic.component.scss']
 })
 export class ExampleColumnBoolBasicComponent {
 	rows = [
@@ -23,7 +19,4 @@ export class ExampleColumnBoolBasicComponent {
 			'customTemplate': true
 		}
 	];
-
-	constructor(dataService: DataService) {
-	}
 }

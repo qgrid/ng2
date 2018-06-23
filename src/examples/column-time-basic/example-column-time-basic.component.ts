@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService, Atom } from '../data.service';
-import { Observable } from 'rxjs';
-import { Action, Command } from 'ng2-qgrid';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'example-column-time-basic',
 	templateUrl: 'example-column-time-basic.component.html',
-	styleUrls: ['example-column-time-basic.component.scss'],
-	providers: [DataService]
+	styleUrls: ['example-column-time-basic.component.scss']
 })
 export class ExampleColumnTimeBasicComponent {
 	rows = [
@@ -24,7 +20,4 @@ export class ExampleColumnTimeBasicComponent {
 			'customTemplate': new Date(2018, 9, 12, 12, 12, 12, 12)
 		}
 	];
-
-	constructor(dataService: DataService) {
-	}
 }

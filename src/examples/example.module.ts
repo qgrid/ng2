@@ -20,6 +20,7 @@ import { ExampleColumnEmailBasicComponent } from './column-email-basic/example-c
 import { ExampleColumnFileBasicComponent } from './column-file-basic/example-column-file-basic.component';
 import { ExampleColumnIdBasicComponent } from './column-id-basic/example-column-id-basic.component';
 import { ExampleColumnImageBasicComponent } from './column-image-basic/example-column-image-basic.component';
+import { ExampleColumnListBasicComponent } from './column-list-basic/example-column-list-basic.component';
 import { ExampleColumnNumberBasicComponent } from './column-number-basic/example-column-number-basic.component';
 import { ExampleColumnPasswordBasicComponent } from './column-password-basic/example-column-password-basic.component';
 import { ExampleColumnReferenceBasicComponent } from './column-reference-basic/example-column-reference-basic.component';
@@ -116,6 +117,7 @@ const EXAMPLES: Array<any> = [
 	ExampleColumnFileBasicComponent,
 	ExampleColumnIdBasicComponent,
 	ExampleColumnImageBasicComponent,
+	ExampleColumnListBasicComponent,
 	ExampleColumnNumberBasicComponent,
 	ExampleColumnPasswordBasicComponent,
 	ExampleColumnReferenceBasicComponent,

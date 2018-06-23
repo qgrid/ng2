@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService, Atom } from '../data.service';
-import { Observable } from 'rxjs';
-import { Action, Command } from 'ng2-qgrid';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'example-column-image-basic',
 	templateUrl: 'example-column-image-basic.component.html',
-	styleUrls: ['example-column-image-basic.component.scss'],
-	providers: [DataService]
+	styleUrls: ['example-column-image-basic.component.scss']
 })
 export class ExampleColumnImageBasicComponent {
 	rows = [
@@ -19,7 +15,4 @@ export class ExampleColumnImageBasicComponent {
 			'customTemplate': 'https://rawgit.com/qgrid/doc/master/themes/qgrid/source/assets/favicons/favicon-32x32.png'
 		}
 	];
-
-	constructor(dataService: DataService) {
-	}
 }
