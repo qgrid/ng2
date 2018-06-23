@@ -12,4 +12,5 @@ export declare class ColumnListCtrl {
 	register(column: ColumnModel): void;
 	generateKey(source: any): string;
 	extract(key: string, type: string): ColumnModel;
+	delete(key: string);
 }

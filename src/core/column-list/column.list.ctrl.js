@@ -96,4 +96,17 @@ export class ColumnListCtrl {
 
 		return column;
 	}
+
+	delete(key) {
+		const { data } = this.model;
+		const { columns } = data();
+		const line = columnService.findLine(columns, key);
+		if (line) {
+			line.columns.splice(line.index, 1);
+
+			data({
+				columns: Array.from(columns)
+			});
+		}
+	}
 }

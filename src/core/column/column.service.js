@@ -6,13 +6,31 @@ export function flatten(columns, result = []) {
 	for (let i = 0, length = columns.length; i < length; i++) {
 		const column = columns[i];
 		result.push(column);
-		
+
 		if (column.children.length) {
 			flatten(column.children, result);
 		}
 	}
 
 	return result;
+}
+
+export function findLine(columns, key) {
+	for (let index = 0, length = columns.length; index < length; index++) {
+		const column = columns[index];
+		if (column.key === key) {
+			return { columns, index };
+		}
+
+		if (column.children.length) {
+			const result = findLine(column.children, key);
+			if (result) {
+				return result;
+			}
+		}
+	}
+
+	return null;
 }
 
 export function map(columns) {

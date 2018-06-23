@@ -1,5 +1,24 @@
 <q-grid caption="Column List Basic"
-        [rows]="rows"
-        editMode="cell">
+		[rows]="rows | async"
+		[ngSwitch]="group">
+	<q-grid-columns *ngSwitchCase="'name'">
+		<q-grid-column key="name.first" title="First Name"></q-grid-column>
+		<q-grid-column key="name.last" title="Last Name"></q-grid-column>
+	</q-grid-columns>
 
+	<q-grid-columns *ngSwitchCase="'address'">
+			<q-grid-column key="name.first" title="First Name"></q-grid-column>
+			<q-grid-column key="name.last" title="Last Name"></q-grid-column>
+	</q-grid-columns>
+
+	<q-grid-columns *ngSwitchDefault>
+		<q-grid-column key="rowNumber" type="row-number"></q-grid-column>
+	</q-grid-columns>
+	
+	<q-grid-toolbar>
+		<ng-template for="top">
+			<button mat-button (click)="group = 'name'">Name</button>
+			<button mat-button (click)="group = 'address'">Address</button>
+		</ng-template>
+	</q-grid-toolbar>
 </q-grid>

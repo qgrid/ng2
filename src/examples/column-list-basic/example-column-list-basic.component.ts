@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class ExampleColumnListBasicComponent {
 	rows: Observable<Human[]>;
+	group = '';
 
 	constructor(dataService: DataService) {
 		this.rows = dataService.getPeople();

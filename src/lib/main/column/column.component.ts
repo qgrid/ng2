@@ -1,7 +1,6 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, Optional, Inject, forwardRef, SkipSelf, Host } from '@angular/core';
-import { isUndefined, clone } from 'ng2-qgrid/core/utility/kit';
+import { Component, Input, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { isUndefined } from 'ng2-qgrid/core/utility/kit';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
-import { RootService } from '../../infrastructure/component/root.service';
 import { TemplateHostService } from '../../template/template-host.service';
 import { ColumnListService } from '../../main/column/column-list.service';
 import { ColumnService } from './column.service';
@@ -12,7 +11,7 @@ import { ColumnService } from './column.service';
 	providers: [TemplateHostService, ColumnService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ColumnComponent implements OnInit {
+export class ColumnComponent implements OnInit, OnDestroy {
 	model: ColumnModel;
 
 	@Input() type: string;
@@ -63,7 +62,6 @@ export class ColumnComponent implements OnInit {
 	@Input() maxLength: number;
 
 	constructor(
-		private root: RootService,
 		private columnList: ColumnListService,
 		private templateHost: TemplateHostService,
 		private columnService: ColumnService
@@ -112,5 +110,12 @@ export class ColumnComponent implements OnInit {
 		}
 
 		this.model = column;
+	}
+
+	ngOnDestroy() {
+		const { model } = this;
+		if (model && model.source === 'template') {
+			this.columnList.delete(model.key);
+		}
 	}
 }
