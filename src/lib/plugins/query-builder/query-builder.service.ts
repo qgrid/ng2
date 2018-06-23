@@ -72,7 +72,9 @@ export class QueryBuilderService {
 
 		const getValue = getFactory(column);
 		return new Promise(resolve => {
-			const view = model.data().rows
+			const view = model
+				.data()
+				.rows
 				.map(getValue)
 				.filter(item =>
 					!isUndefined(item) &&

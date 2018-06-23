@@ -72,6 +72,10 @@ export class View extends Unit {
 		return false;
 	}
 
+	hasLayer(name) {
+		return this.layers.has(name);
+	}
+
 	addClass(name) {
 		if (this.markup.view) {
 			this.markup.view.classList.add(escapeAttr(name));

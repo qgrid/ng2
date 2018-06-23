@@ -54,7 +54,7 @@ export class RowView {
 							}
 
 							const index = new Map(entries);
-							const id = model.data().id;
+							const { id } = model.data();
 							const key = id.row(newIndex, tr.model);
 							index.set(key, newIndex);
 							model.rowList({ index }, { source: 'row.view' });

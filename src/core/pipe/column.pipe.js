@@ -145,7 +145,7 @@ function groupColumnFactory(model, nodes) {
 		switch (mode) {
 			case 'nest': {
 				return (memo, context) => {
-					const groupColumn = createColumn('group');
+					const groupColumn = createColumn('gr>oup');
 					groupColumn.model.source = 'generation';
 					groupColumn.rowspan = context.rowspan;
 					if (groupColumn.model.isVisible) {

@@ -31,7 +31,7 @@ export class FootView {
 
 	get count() {
 		const model = this.model;
-		const columns = model.data().columns;
+		const { columns } = model.data();
 		const resourceCount = model.foot().resource.count;
 
 		for (let i = 0, length = columns.length; i < length; i++) {

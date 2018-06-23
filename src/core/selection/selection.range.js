@@ -42,7 +42,7 @@ export class SelectionRange {
 			return [startCell.column];
 		}
 
-		const columns = this.model.data().columns;
+		const { columns } = this.model.data();
 		const startIndex = Math.min(startCell.columnIndex, endCell.columnIndex);
 		const endIndex = Math.max(startCell.columnIndex, endCell.columnIndex);
 		return columns.slice(startIndex, endIndex + 1);
