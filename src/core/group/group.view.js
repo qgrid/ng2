@@ -72,7 +72,7 @@ export class GroupView {
 			source: 'group.view',
 			execute: () => {
 				if (model.group().toggleAll.execute() !== false) {
-					const nodes = model.view().nodes;
+					const { nodes } = model.view();
 					const toggle = model.group().toggle;
 
 					traverse(nodes, node => {

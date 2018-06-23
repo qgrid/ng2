@@ -10,7 +10,9 @@ export class EditService {
 
 	doBatch(startCell) {
 		const { table, model } = this;
-		const view = model.view();
+		const { rows, columns } = model.view();
+		const { items } = model.selection();
+
 		const shortcut = { register: () => ({}) };
 		const editView = new EditCellView(model, table, shortcut);
 		const startTd = this.table.body.cell(startCell.rowIndex, startCell.columnIndex).model();
@@ -18,8 +20,6 @@ export class EditService {
 		const label = startTd.label;
 		const value = startTd.value;
 
-		const { rows, columns } = view;
-		const { items } = model.selection();
 		const startColumnType = startTd.column.type;
 		for (let i = 0, length = items.length; i < length; i++) {
 			const { row, column } = items[i];
