@@ -9,7 +9,7 @@ export function match(context) {
 	if (expression !== null) {
 		const valueFactory = context.labelFactory;
 		const assertFactory = model.filter().assertFactory;
-		const columnMap = columnService.map(model.data().columns);
+		const columnMap = columnService.map(model.columnList().line);
 
 		const valueColumnFactory = key => valueFactory(columnMap[key]);
 		const assertColumnFactory = key => assertFactory(columnMap[key]);

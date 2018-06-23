@@ -55,7 +55,7 @@ export class NodeRow extends BasicRow {
 		this.setValue = (node, column, value, rowIndex, columnIndex) => {
 			switch (node.type) {
 				case 'row': {
-					const rows = model.data().rows;
+					const { rows } = model.data();
 					const rowIndex = node.rows[0];
 					setValue(rows[rowIndex], column, value);
 					break;
@@ -72,7 +72,7 @@ export class NodeRow extends BasicRow {
 		this.setLabel = (node, column, value, rowIndex, columnIndex) => {
 			switch (node.type) {
 				case 'row': {
-					const rows = model.data().rows;
+					const { rows } = model.data();
 					const rowIndex = node.rows[0];
 					setLabel(rows[rowIndex], column, value);
 					break;

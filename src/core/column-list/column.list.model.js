@@ -4,5 +4,6 @@ export class ColumnListModel {
 		this.index = [];
 		this.columns = [];
 		this.reference = {};
+		this.line = [];
 	}
 }

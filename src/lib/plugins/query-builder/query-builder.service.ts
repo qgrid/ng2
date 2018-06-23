@@ -34,8 +34,8 @@ export class QueryBuilderService {
 	columns(): Array<Column> {
 		const model = this.model;
 		return model
-			.data()
-			.columns
+			.columnList()
+			.line
 			.filter(column => typeMapping.hasOwnProperty(column.type))
 			.map(column => ({
 				key: column.key,
@@ -64,7 +64,7 @@ export class QueryBuilderService {
 		selection = (selection || []).map(item => ('' + item).toLowerCase());
 
 		const model = this.model;
-		const columnMap = columnService.map(model.data().columns);
+		const columnMap = columnService.map(model.columnList().line);
 		const column = columnMap[key];
 		if (!column) {
 			throw new AppError('query-builder.service', `Column ${key} is not found`);

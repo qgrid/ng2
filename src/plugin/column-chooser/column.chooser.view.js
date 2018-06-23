@@ -100,7 +100,7 @@ export class ColumnChooserView {
 				const model = this.model;
 				const temp = this.temp;
 
-				const columnMap = columnService.map(this.model.data().columns);
+				const columnMap = columnService.map(this.model.columnList().line);
 				temp.columns.forEach(column => {
 					const originColumn = columnMap[column.key];
 					if (originColumn) {
@@ -188,8 +188,8 @@ export class ColumnChooserView {
 
 	originColumns(index) {
 		const columns = this.model
-			.data()
-			.columns
+			.columnList()
+			.line
 			.filter(c => c.class === 'data' && c.children.length === 0)
 			.map(c => ({
 				key: c.key,

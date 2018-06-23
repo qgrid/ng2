@@ -17,7 +17,8 @@ function hashRowKeyFactory(model) {
 	const selectionState = model.selection();
 	const selectionKey = selectionState.key;
 	if (selectionKey.row === identity) {
-		const { columns, rows } = model.data();
+		const { rows } = model.data();
+		const columns = model.columnList().line;
 		const index = columns.findIndex(column => column.type === 'id');
 		if (index >= 0) {
 			const idColumn = columns[index];
@@ -101,12 +102,12 @@ function lookupColumnFactory(model, selectKey) {
 		return identity;
 	}
 
-	const { columns } = model.data();
+	const columns = model.columnList().line;
 	return items => {
 		const result = [];
 		columns.forEach(column => {
-			const colKey = selectKey(column);
-			const found = items.indexOf(colKey) > -1;
+			const columnKey = selectKey(column);
+			const found = items.indexOf(columnKey) > -1;
 			if (found) {
 				result.push(column);
 			}
@@ -142,7 +143,8 @@ function lookupCellFactory(model, selectKey) {
 		return identity;
 	}
 
-	const { rows, columns } = model.data();
+	const { rows } = model.data();
+	const columns = model.columnList().line;
 	const match = cellMatchFactory();
 	return items => {
 		const result = [];

@@ -35,7 +35,7 @@ export class ExportComponent implements OnInit {
 	}
 
 	get columns() {
-		return this.plugin.model.data().columns;
+		return this.plugin.model.columnList().line;
 	}
 
 	get id() {

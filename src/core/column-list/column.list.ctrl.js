@@ -73,7 +73,7 @@ export class ColumnListCtrl {
 	}
 
 	register(column) {
-		const columnList = this.model.columnList;
+		const { columnList } = this.model;
 		const reference = clone(columnList().reference);
 		reference[column.type || '$default'] = column;
 		columnList({ reference }, {
@@ -85,7 +85,7 @@ export class ColumnListCtrl {
 	extract(key, type) {
 		const model = this.model;
 		const createColumn = columnFactory(model);
-		let column = columnService.find(model.data().columns, key);
+		let column = columnService.find(model.columnList().line, key);
 		if (column) {
 			createColumn(type, column);
 		} else {

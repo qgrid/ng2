@@ -2,6 +2,19 @@ import { isFunction } from '../utility/kit';
 import { AppError } from '../infrastructure/error';
 import { expand, collapse } from './column.matrix';
 
+export function flatten(columns, result = []) {
+	for (let i = 0, length = columns.length; i < length; i++) {
+		const column = columns[i];
+		result.push(column);
+		
+		if (column.children.length) {
+			flatten(column.children, result);
+		}
+	}
+
+	return result;
+}
+
 export function map(columns) {
 	return columns.reduce((memo, column) => {
 		memo[column.key] = column;

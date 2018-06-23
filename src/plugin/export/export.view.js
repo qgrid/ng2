@@ -81,6 +81,6 @@ export class ExportView {
 	}
 
 	get columns() {
-		return this.model.data().columns;
+		return this.model.columnList().line;
 	}
 }

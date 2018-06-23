@@ -36,7 +36,7 @@ export class EditRowView {
 						e.stopImmediatePropagation();
 					}
 
-					const { columns } = this.model.data();
+					const columns = this.model.columnList().line;
 
 					this.editor = new RowEditor(row, columns);
 					model.edit({ state: 'edit' }, { source: 'edit.row.view' });

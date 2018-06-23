@@ -31,7 +31,7 @@ export class FootView {
 
 	get count() {
 		const model = this.model;
-		const { columns } = model.data();
+		const columns = model.columnList().line;
 		const resourceCount = model.foot().resource.count;
 
 		for (let i = 0, length = columns.length; i < length; i++) {
@@ -54,7 +54,7 @@ export class FootView {
 					`Aggregation ${aggregation} is not registered`);
 			}
 
-			const rows = this.model.data().rows;
+			const { rows } = this.model.data();
 			const getValue = this.valueFactory(column);
 
 			return Aggregation[aggregation](rows, getValue, aggregationOptions);

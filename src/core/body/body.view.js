@@ -46,7 +46,7 @@ export class BodyView {
 			bottom: pinBottom
 		};
 
-		if (!rows.length && !model.data().rows.length) {
+		if (!(rows.length || model.data().rows.length)) {
 			if (!table.view.hasLayer('blank')) {
 				table.view.addLayer('blank');
 			}

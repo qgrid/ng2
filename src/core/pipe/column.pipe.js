@@ -100,7 +100,7 @@ export function columnPipe(memo, context, next) {
 }
 
 function selectColumnFactory(model) {
-	const dataColumns = model.data().columns;
+	const dataColumns = model.columnList().line;
 	const selection = model.selection();
 
 	const selectColumn = dataColumns.find(item => item.type === 'select');
@@ -136,7 +136,7 @@ function selectColumnFactory(model) {
 }
 
 function groupColumnFactory(model, nodes) {
-	const dataColumns = model.data().columns;
+	const dataColumns = model.columnList().line;
 	const groupColumn = dataColumns.find(item => item.type === 'group');
 	const { by, mode } = model.group();
 	const createColumn = columnFactory(model);
@@ -177,7 +177,7 @@ function groupColumnFactory(model, nodes) {
 }
 
 function rowExpandColumnFactory(model) {
-	const dataColumns = model.data().columns;
+	const dataColumns = model.columnList().line;
 	const expandColumn = dataColumns.find(item => item.type === 'row-expand');
 	if (model.row().unit === 'details' && !expandColumn) {
 		const createColumn = columnFactory(model);
@@ -196,7 +196,7 @@ function rowExpandColumnFactory(model) {
 }
 
 function rowIndicatorColumnFactory(model) {
-	const dataColumns = model.data().columns;
+	const dataColumns = model.columnList().line;
 	const rowIndicatorColumn = dataColumns.find(item => item.type === 'row-indicator');
 	const rowState = model.row();
 	if ((rowState.canMove || rowState.canResize) && !rowIndicatorColumn) {
@@ -350,7 +350,7 @@ function filter(model, columnRows) {
 function sort(model, columnRows) {
 	const columnRow = columnRows[0];
 	if (columnRow) {
-		const columnList = model.columnList;
+		const { columnList } = model;
 		const buildIndex = sortIndexFactory(model);
 		const columns = columnRow.map(column => column.model);
 		const { hasChanges, index } = buildIndex(columns);
