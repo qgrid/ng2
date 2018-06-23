@@ -98,15 +98,23 @@ export class ColumnListCtrl {
 	}
 
 	delete(key) {
-		const { data } = this.model;
-		const { columns } = data();
-		const line = columnService.findLine(columns, key);
+		const { data, columnList } = this.model;
+
+		const htmlColumns = columnList().columns;
+		const index = columnService.findIndex(htmlColumns, key);
+		if (index >= 0) {
+			const columns = Array.from(htmlColumns);
+			columns.splice(index, 1);
+			columnList({ columns }, { source: 'column.list.ctrl', behavior: 'core' });
+		}
+
+		const dataColumns = Array.from(data().columns);
+		const line = columnService.findLine(dataColumns, key);
 		if (line) {
 			line.columns.splice(line.index, 1);
 
-			data({
-				columns: Array.from(columns)
-			});
+			// trigger columns pipe unit
+			data({ columns: dataColumns }, { source: 'column.list.ctrl' });
 		}
 	}
 }
