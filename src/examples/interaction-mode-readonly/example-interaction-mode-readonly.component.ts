@@ -14,4 +14,8 @@ export class ExampleInteractionModeReadonlyComponent {
 	constructor(dataService: DataService) {
 		this.rows = dataService.getAtoms();
 	}
+
+	testAttached() {
+		alert(':-(');
+	}
 }

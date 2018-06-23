@@ -136,10 +136,12 @@ function selectColumnFactory(model) {
 }
 
 function groupColumnFactory(model, nodes) {
+	const dataColumns = model.data().columns;
+	const groupColumn = dataColumns.find(item => item.type === 'group');
 	const { by, mode } = model.group();
 	const createColumn = columnFactory(model);
 
-	if (nodes.length || by) {
+	if (!groupColumn && (nodes.length || by.length)) {
 		switch (mode) {
 			case 'nest': {
 				return (memo, context) => {
