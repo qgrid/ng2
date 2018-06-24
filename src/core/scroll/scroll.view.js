@@ -91,6 +91,12 @@ export class ScrollView {
 					this.y.container.reset();
 				});
 		}
+
+		model.scrollChanged.watch(e => {
+			if (e.hasChanges('left') || e.hasChanges('top')) {
+				this.invalidate();
+			}
+		});
 	}
 
 	invalidate() {
