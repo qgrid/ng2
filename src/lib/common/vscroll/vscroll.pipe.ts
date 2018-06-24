@@ -27,8 +27,8 @@ export class VscrollPipe implements PipeTransform {
 			const threshold = settings.threshold;
 
 			// We need to have a less number of virtual items on
-			// the bottom, as deferred loading is happen there shpuld
-			// be a thresold place to draw several items below.
+			// the bottom, as deferred loading is happen there should
+			// be a threshold place to draw several items below.
 			const first = cursor;
 			if (container.force || first !== container.position) {
 				const last = Math.min(cursor + threshold, count);
