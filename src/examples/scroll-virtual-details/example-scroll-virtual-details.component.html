@@ -1,4 +1,5 @@
-<q-grid caption="Details Row Basic"
+<q-grid caption="Scroll Virtual Details"
+        scrollMode="virtual"
         [rows]="rows | async">
 	<q-grid-columns generation="deep">
 		<q-grid-column key="number"
@@ -27,8 +28,10 @@
 
 	<q-grid-row unit="details"
 	            mode="single">
+
 		<ng-template for="details"
-		             let-$cell>
+					 let-$cell>
+					 
 			<div class="atom-details">
 				<div class="atom-box"
 				     [style.background-color]="'#' + $cell.row.item.color">
@@ -61,7 +64,7 @@
 					</p>
 				</div>
 			</div>
-		</ng-template>
 
+		</ng-template>
 	</q-grid-row>
 </q-grid>

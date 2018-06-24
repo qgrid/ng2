@@ -26,7 +26,7 @@ import { FetchContext } from 'ng2-qgrid/core/fetch/fetch.context';
 import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
 import { noop } from 'ng2-qgrid/core/utility/kit';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
-import { PipeContext, PipeMemo } from 'ng2-qgrid/core/pipe/pipe.item';
+import { PipeContext } from 'ng2-qgrid/core/pipe/pipe.item';
 import { StyleRowContext, StyleCellContext } from 'ng2-qgrid/core/style/style.context';
 import { TableCommandManager } from 'ng2-qgrid/core/command/table.command.manager';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
@@ -94,11 +94,6 @@ export class GridComponent extends RootComponent implements OnInit {
 
 	@Input() styleCell: (row: any, column: ColumnModel, context: StyleCellContext) => void | { [key: string]: (row: any, column: ColumnModel, context: any) => void };
 	@Input() styleRow: (row: any, context: StyleRowContext) => void;
-
-	@Input() rowMode: 'single' | 'multiple';
-	@Input() rowUnit: 'data' | 'details';
-	@Input() rowCanMove: boolean;
-	@Input() rowCanResize: boolean;
 
 	@Output() selectionChanged = new EventEmitter<any>();
 

@@ -102,6 +102,13 @@ import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggre
 import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/example-summary-column-basic.component';
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
+import { ExampleVirtualScrollBasicComponent } from './scroll-virtual-basic/example-scroll-virtual-basic.component';
+import { ExampleVirtualScrollDetailsComponent } from './scroll-virtual-details/example-scroll-virtual-details.component';
+import { ExampleVirtualScrollDragComponent } from './scroll-virtual-drag/example-scroll-virtual-drag.component';
+import { ExampleVirtualScrollEditComponent } from './scroll-virtual-edit/example-scroll-virtual-edit.component';
+import { ExampleVirtualScrollGroupComponent } from './scroll-virtual-group/example-scroll-virtual-group.component';
+import { ExampleVirtualScrollInfiniteComponent } from './scroll-virtual-infinite/example-scroll-virtual-infinite.component';
+import { ExampleVirtualScrollSelectionComponent } from './scroll-virtual-selection/example-scroll-virtual-selection.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -198,6 +205,13 @@ const EXAMPLES: Array<any> = [
 	ExampleSummaryColumnBasicComponent,
 	ExampleThemeGridDarkComponent,
 	ExampleThemeGridEmbedComponent,
+	ExampleVirtualScrollBasicComponent,
+	ExampleVirtualScrollDetailsComponent,
+	ExampleVirtualScrollDragComponent,
+	ExampleVirtualScrollEditComponent,
+	ExampleVirtualScrollGroupComponent,
+	ExampleVirtualScrollInfiniteComponent,
+	ExampleVirtualScrollSelectionComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
