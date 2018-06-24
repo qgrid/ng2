@@ -16,6 +16,6 @@ export class ExampleInteractionModeReadonlyComponent {
 	}
 
 	testAttached() {
-		alert(':-(');
+		alert(':-)');
 	}
 }

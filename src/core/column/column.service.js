@@ -7,8 +7,9 @@ export function flatten(columns, result = []) {
 		const column = columns[i];
 		result.push(column);
 
-		if (column.children.length) {
-			flatten(column.children, result);
+		const { children } = column;
+		if (children && children.length) {
+			flatten(children, result);
 		}
 	}
 
@@ -22,8 +23,9 @@ export function findLine(columns, key) {
 			return { columns, index };
 		}
 
-		if (column.children.length) {
-			const result = findLine(column.children, key);
+		const { children } = column;
+		if (children.length) {
+			const result = findLine(children, key);
 			if (result) {
 				return result;
 			}
