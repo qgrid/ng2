@@ -123,9 +123,8 @@ export class HeadView {
 
 		model.dataChanged.watch(e => {
 			if (e.hasChanges('columns')) {
-				model.columnList({
-					line: columnService.flatten(e.state.columns) 
-				});
+				const line = columnService.flatten(e.state.columns);
+				model.columnList({ line }, { source: 'head.view' });
 			}
 		});
 
