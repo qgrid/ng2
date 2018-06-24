@@ -4,10 +4,6 @@ export function paginationPipe(memo, context, next) {
 	Guard.notNull(memo, 'memo');
 
 	const { model } = context;
-	if (model.scroll().mode === 'virtual') {
-		next(memo);
-		return;
-	}
 
 	if (memo.hasOwnProperty('nodes') && memo.nodes.length) {
 		const { flattenFactory } = model.group();
@@ -32,15 +28,17 @@ export function paginationPipe(memo, context, next) {
 function paginate(model, rows) {
 	const { size, current } = model.pagination();
 	const { pinTop, pinBottom } = model.row();
-	const start = current * size;
-	const pinSet = new Set([...pinTop, ...pinBottom]);
+	const { mode } = model.scroll();
 
-	if (pinSet.size) {
-		rows = rows.filter(row => !pinSet.has(row))
+	const start = current * size;
+	const pinned = new Set([...pinTop, ...pinBottom]);
+
+	if (pinned.size) {
+		rows = rows.filter(row => !pinned.has(row))
 	}
 
 	model.pagination({ count: rows.length }, { source: 'pagination.pipe', behavior: 'core' });
 
-	return rows.slice(start, start + size);
+	return mode === 'virtual' ? rows : rows.slice(start, start + size);
 }
 
