@@ -85,14 +85,15 @@ export function columnPipe(memo, context, next) {
 		 */
 		memo.columns = addPivotColumns(columnRows, heads);
 	} else {
-		/*
-		 * Add special column type
-		 * that fills remaining place (width = 100%)
-		 *
-		 */
-		addPadColumn(columnRows[0], { rowspan, row: 0 });
 		memo.columns = columnRows;
 	}
+
+	/*
+	 * Add special column type
+	 * that fills remaining place (width = 100%)
+	 *
+	 */
+	addPadColumn(memo.columns[0], { rowspan, row: 0 });
 
 	memo.columns = index(filter(model, sort(model, memo.columns)));
 	next(memo);
@@ -235,7 +236,7 @@ function padColumnFactory(model) {
 	return (memo, context) => {
 		const padColumn = createColumn('pad');
 		padColumn.rowspan = context.rowspan;
-		padColumn.model.key = `$pad-${memo.length}`;
+		padColumn.model.key = `$pad-${context.rowspan}`;
 		memo.push(padColumn);
 		return padColumn;
 	};
@@ -243,7 +244,6 @@ function padColumnFactory(model) {
 
 function pivotColumnsFactory(model) {
 	const createColumn = columnFactory(model);
-	const addPadColumn = padColumnFactory(model);
 	return (memo, heads) => {
 		/*
 		 * Data columns + first row pivot columns
@@ -268,13 +268,6 @@ function pivotColumnsFactory(model) {
 		firstRow.push(...row);
 
 		/*
-		 * Add special column type
-		 * that fills remaining place (width = 100%)
-		 *
-		 */
-		addPadColumn(firstRow, { rowspan: 1, row: 0 });
-
-		/*
 		 * Next rows pivot columns
 		 *
 		 */
@@ -294,12 +287,6 @@ function pivotColumnsFactory(model) {
 				row[j] = pivotColumn;
 			}
 
-			/*
-			 * Add special column type
-			 * that fills remaining place (width = 100%)
-			 *
-			 */
-			addPadColumn(row, { rowspan: 1, row: 0 });
 			memo.push(row);
 		}
 

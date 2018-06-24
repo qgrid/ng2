@@ -23,6 +23,12 @@
 		</q-grid-column>
 	</q-grid-columns>
 
+	<q-grid-columns *ngSwitchCase="'gender'">
+		<q-grid-column key="gender"
+		               title="Gender">
+		</q-grid-column>
+	</q-grid-columns>
+
 	<q-grid-columns *ngSwitchDefault>
 		<q-grid-column key="rowNumber"
 		               type="row-number">
@@ -38,6 +44,10 @@
 			<button mat-button
 			        (click)="group = 'address'">
 				Address
+			</button>
+			<button mat-button
+			        (click)="group = 'gender'">
+				Gender
 			</button>
 			<button mat-button
 			        (click)="group = ''">
