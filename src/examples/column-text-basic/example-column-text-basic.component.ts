@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService, Atom } from '../data.service';
-import { Observable } from 'rxjs';
-import { Action, Command } from 'ng2-qgrid';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'example-column-text-basic',
 	templateUrl: 'example-column-text-basic.component.html',
-	styleUrls: ['example-column-text-basic.component.scss'],
-	providers: [DataService]
+	styleUrls: ['example-column-text-basic.component.scss']
 })
 export class ExampleColumnTextBasicComponent {
 	rows = [
@@ -23,7 +19,4 @@ export class ExampleColumnTextBasicComponent {
 			'customTemplate': 'Hello World'
 		}
 	];
-
-	constructor(dataService: DataService) {
-	}
 }

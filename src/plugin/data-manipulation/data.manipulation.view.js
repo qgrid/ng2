@@ -114,7 +114,7 @@ export class DataManipulationView {
 						if (this.changes.edited.has(rowId)) {
 							try {
 								const edits = this.changes.edited.get(rowId);
-								const columnMap = columnService.map(this.model.data().columns);
+								const columnMap = columnService.map(this.model.columnList().line);
 								for (const edit of edits) {
 									const column = columnMap[edit.column];
 									if (!column) {
@@ -175,8 +175,8 @@ export class DataManipulationView {
 		model.dataChanged.watch((e, off) => {
 			if (e.hasChanges('columns')) {
 				const rowOptionsColumn = model
-					.data()
-					.columns
+					.columnList()
+					.line
 					.find(column => column.type === 'row-options');
 
 				if (rowOptionsColumn) {

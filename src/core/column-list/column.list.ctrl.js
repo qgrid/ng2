@@ -73,7 +73,7 @@ export class ColumnListCtrl {
 	}
 
 	register(column) {
-		const columnList = this.model.columnList;
+		const { columnList } = this.model;
 		const reference = clone(columnList().reference);
 		reference[column.type || '$default'] = column;
 		columnList({ reference }, {
@@ -85,7 +85,7 @@ export class ColumnListCtrl {
 	extract(key, type) {
 		const model = this.model;
 		const createColumn = columnFactory(model);
-		let column = columnService.find(model.data().columns, key);
+		let column = columnService.find(model.columnList().line, key);
 		if (column) {
 			createColumn(type, column);
 		} else {
@@ -95,5 +95,26 @@ export class ColumnListCtrl {
 		}
 
 		return column;
+	}
+
+	delete(key) {
+		const { data, columnList } = this.model;
+
+		const htmlColumns = columnList().columns;
+		const index = columnService.findIndex(htmlColumns, key);
+		if (index >= 0) {
+			const columns = Array.from(htmlColumns);
+			columns.splice(index, 1);
+			columnList({ columns }, { source: 'column.list.ctrl', behavior: 'core' });
+		}
+
+		const dataColumns = Array.from(data().columns);
+		const line = columnService.findLine(dataColumns, key);
+		if (line) {
+			line.columns.splice(line.index, 1);
+
+			// trigger columns pipe unit
+			data({ columns: dataColumns }, { source: 'column.list.ctrl' });
+		}
 	}
 }

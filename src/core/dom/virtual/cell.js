@@ -59,8 +59,8 @@ export class VirtualCell extends Cell {
 
 		if (rowIndex >= 0 && columnIndex >= 0) {
 			const gridModel = this.box.model;
-			const rows = gridModel.data().rows;
-			const columns = gridModel.view().columns;
+			const { rows } = gridModel.data();
+			const { columns } = gridModel.view();
 
 			if (rows.length > rowIndex && columns.length > columnIndex) {
 				const selector = () => this.box.cell(rowIndex, columnIndex).modelCore();

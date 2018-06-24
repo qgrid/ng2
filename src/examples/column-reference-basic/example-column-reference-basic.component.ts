@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
 import { Grid, EditorOptions, Command } from 'ng2-qgrid';
 
 @Component({

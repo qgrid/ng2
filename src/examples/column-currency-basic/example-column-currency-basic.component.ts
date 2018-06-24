@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService, Atom } from '../data.service';
-import { Observable } from 'rxjs';
-import { Action, Command } from 'ng2-qgrid';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'example-column-currency-basic',
 	templateUrl: 'example-column-currency-basic.component.html',
-	styleUrls: ['example-column-currency-basic.component.scss'],
-	providers: [DataService]
+	styleUrls: ['example-column-currency-basic.component.scss']
 })
 export class ExampleColumnCurrencyBasicComponent {
 	rows = [
@@ -21,7 +17,4 @@ export class ExampleColumnCurrencyBasicComponent {
 			'customTemplate': 30
 		}
 	];
-
-	constructor(dataService: DataService) {
-	}
 }

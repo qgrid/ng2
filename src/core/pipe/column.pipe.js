@@ -1,10 +1,10 @@
 import { columnFactory } from '../column/column.factory';
-import * as columnService from '../column/column.service';
 import { noop } from '../utility/kit';
 import { generateFactory } from '../column-list/column.list.generate';
 import { sortIndexFactory } from '../column-list/column.list.sort';
 import { Guard } from '../infrastructure/guard';
 import { flatten, expand } from '../column/column.matrix';
+import { guid } from '../services/guid';
 
 export function columnPipe(memo, context, next) {
 	Guard.hasProperty(memo, 'pivot');
@@ -86,21 +86,22 @@ export function columnPipe(memo, context, next) {
 		 */
 		memo.columns = addPivotColumns(columnRows, heads);
 	} else {
-		/*
-		 * Add special column type
-		 * that fills remaining place (width = 100%)
-		 *
-		 */
-		addPadColumn(columnRows[0], { rowspan, row: 0 });
 		memo.columns = columnRows;
 	}
+
+	/*
+	 * Add special column type
+	 * that fills remaining place (width = 100%)
+	 *
+	 */
+	addPadColumn(memo.columns[0], { rowspan, row: 0 });
 
 	memo.columns = index(filter(model, sort(model, memo.columns)));
 	next(memo);
 }
 
 function selectColumnFactory(model) {
-	const dataColumns = model.data().columns;
+	const dataColumns = model.columnList().line;
 	const selection = model.selection();
 
 	const selectColumn = dataColumns.find(item => item.type === 'select');
@@ -136,16 +137,16 @@ function selectColumnFactory(model) {
 }
 
 function groupColumnFactory(model, nodes) {
-	const dataColumns = model.data().columns;
+	const dataColumns = model.columnList().line;
 	const groupColumn = dataColumns.find(item => item.type === 'group');
-	const groupState = model.group();
+	const { by, mode } = model.group();
 	const createColumn = columnFactory(model);
 
-	if (nodes.length || groupState.by.length) {
-		switch (groupState.mode) {
+	if (!groupColumn && (nodes.length || by.length)) {
+		switch (mode) {
 			case 'nest': {
 				return (memo, context) => {
-					const groupColumn = createColumn('group');
+					const groupColumn = createColumn('gr>oup');
 					groupColumn.model.source = 'generation';
 					groupColumn.rowspan = context.rowspan;
 					if (groupColumn.model.isVisible) {
@@ -157,7 +158,7 @@ function groupColumnFactory(model, nodes) {
 			case 'rowspan':
 			case 'flat': {
 				return (memo, context) =>
-					groupState.by.forEach(key => {
+					by.forEach(key => {
 						const groupColumn = createColumn('group');
 						groupColumn.model.source = 'generation';
 						groupColumn.rowspan = context.rowspan;
@@ -177,7 +178,7 @@ function groupColumnFactory(model, nodes) {
 }
 
 function rowExpandColumnFactory(model) {
-	const dataColumns = model.data().columns;
+	const dataColumns = model.columnList().line;
 	const expandColumn = dataColumns.find(item => item.type === 'row-expand');
 	if (model.row().unit === 'details' && !expandColumn) {
 		const createColumn = columnFactory(model);
@@ -196,7 +197,7 @@ function rowExpandColumnFactory(model) {
 }
 
 function rowIndicatorColumnFactory(model) {
-	const dataColumns = model.data().columns;
+	const dataColumns = model.columnList().line;
 	const rowIndicatorColumn = dataColumns.find(item => item.type === 'row-indicator');
 	const rowState = model.row();
 	if ((rowState.canMove || rowState.canResize) && !rowIndicatorColumn) {
@@ -236,7 +237,7 @@ function padColumnFactory(model) {
 	return (memo, context) => {
 		const padColumn = createColumn('pad');
 		padColumn.rowspan = context.rowspan;
-		padColumn.model.key = `$pad-${memo.length}`;
+		padColumn.model.key = `$pad-${guid()}`;
 		memo.push(padColumn);
 		return padColumn;
 	};
@@ -244,7 +245,6 @@ function padColumnFactory(model) {
 
 function pivotColumnsFactory(model) {
 	const createColumn = columnFactory(model);
-	const addPadColumn = padColumnFactory(model);
 	return (memo, heads) => {
 		/*
 		 * Data columns + first row pivot columns
@@ -269,13 +269,6 @@ function pivotColumnsFactory(model) {
 		firstRow.push(...row);
 
 		/*
-		 * Add special column type
-		 * that fills remaining place (width = 100%)
-		 *
-		 */
-		addPadColumn(firstRow, { rowspan: 1, row: 0 });
-
-		/*
 		 * Next rows pivot columns
 		 *
 		 */
@@ -295,12 +288,6 @@ function pivotColumnsFactory(model) {
 				row[j] = pivotColumn;
 			}
 
-			/*
-			 * Add special column type
-			 * that fills remaining place (width = 100%)
-			 *
-			 */
-			addPadColumn(row, { rowspan: 1, row: 0 });
 			memo.push(row);
 		}
 
@@ -350,7 +337,7 @@ function filter(model, columnRows) {
 function sort(model, columnRows) {
 	const columnRow = columnRows[0];
 	if (columnRow) {
-		const columnList = model.columnList;
+		const { columnList } = model;
 		const buildIndex = sortIndexFactory(model);
 		const columns = columnRow.map(column => column.model);
 		const { hasChanges, index } = buildIndex(columns);

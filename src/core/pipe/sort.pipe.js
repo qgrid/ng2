@@ -14,7 +14,7 @@ export function sortPipe(rows, context, next) {
 	if (rows.length) {
 		const { by } = model.sort();
 		if (by.length) {
-			const { columns } = model.data();
+			const columns = model.columnList().line;
 			const mappings = [];
 			const comparers = [];
 
@@ -41,7 +41,7 @@ export function sortPipe(rows, context, next) {
 			}
 
 			result = orderBy(rows, mappings, comparers);
-		} 
+		}
 	}
 
 	next(result);

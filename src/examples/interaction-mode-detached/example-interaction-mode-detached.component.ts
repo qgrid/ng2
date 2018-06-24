@@ -14,4 +14,8 @@ export class ExampleInteractionModeDetachedComponent {
 	constructor(dataService: DataService) {
 		this.rows = dataService.getAtoms();
 	}
+
+	testDetached() {
+		alert(':-(');
+	}
 }

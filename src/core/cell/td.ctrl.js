@@ -8,7 +8,7 @@ const hasCustomToString = obj => isFunction(obj.toString) && obj.toString !== to
 
 export class TdCtrl {
 	static classify(element, column) {
-		// @depricated
+		// @deprecated
 		element.classList.add(escapeAttr(`${GRID_PREFIX}-${column.key}`));
 
 		element.classList.add(escapeAttr(`${GRID_PREFIX}-the-${column.key}`));

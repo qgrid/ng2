@@ -62,4 +62,9 @@ export declare interface ColumnListModel {
 	 * column of appropriate type as defaults.
 	 */
 	reference?: object;
+
+	/**
+	 * Flatten list of data columns, filled automatically on data columns changes.
+	 */
+	line: ColumnModel[];
 }

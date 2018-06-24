@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService, Atom } from '../data.service';
-import { Observable } from 'rxjs';
-import { Action, Command } from 'ng2-qgrid';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'example-column-email-basic',
 	templateUrl: 'example-column-email-basic.component.html',
-	styleUrls: ['example-column-email-basic.component.scss'],
-	providers: [DataService]
+	styleUrls: ['example-column-email-basic.component.scss']
 })
 export class ExampleColumnEmailBasicComponent {
 	rows = [
@@ -21,7 +17,4 @@ export class ExampleColumnEmailBasicComponent {
 			'customTemplate': 'qgrid.team@gmail.com'
 		}
 	];
-
-	constructor(dataService: DataService) {
-	}
 }
