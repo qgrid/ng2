@@ -34,7 +34,7 @@ export function generateFactory(model) {
 	const createColumn = columnFactory(model);
 	return () => {
 		const { rows } = data();
-		const markupColumns = model.columnList().columns;
+		const htmlColumns = model.columnList().columns;
 
 		const spawnColumns = [];
 		const { generation } = model.columnList();
@@ -76,8 +76,8 @@ export function generateFactory(model) {
 			statistics.push(merge(columns, spawnColumns, false));
 		}
 
-		if (markupColumns.length) {
-			statistics.push(merge(columns, markupColumns, true));
+		if (htmlColumns.length) {
+			statistics.push(merge(columns, htmlColumns, true));
 		}
 
 		return {

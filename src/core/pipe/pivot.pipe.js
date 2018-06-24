@@ -7,10 +7,10 @@ export function pivotPipe(memo, context, next) {
 
 	if (memo.rows.length) {
 		const { model } = context;
-		const dataState = model.data();
+		const columns = model.columnList().line;
 		const pivotState = model.pivot();
 		const build = pivotBuilder(
-			getColumnMap(dataState.columns),
+			getColumnMap(columns),
 			pivotState.by,
 			context.valueFactory
 		);

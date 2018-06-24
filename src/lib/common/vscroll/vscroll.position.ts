@@ -1,5 +1,3 @@
-
-
 function findIndexAt(items: Array<number>, value: number) {
 	const length = items.length;
 	let min = 0;
@@ -68,11 +66,16 @@ export function recycleFactory(items: Array<() => number>) {
 		const diff = Math.min(count, threshold + index) - cursor;
 
 		for (let i = threshold - diff; i < threshold; i++) {
-			const value = items[i]();
+			const getSize = items[i];
+			if (!getSize) {
+				debugger;
+			}
+
+			const size = getSize();
 			if (cursor === 0) {
-				offsets[cursor] = value;
+				offsets[cursor] = size;
 			} else {
-				offsets[cursor] = offsets[cursor - 1] + value;
+				offsets[cursor] = offsets[cursor - 1] + size;
 			}
 
 			cursor++;

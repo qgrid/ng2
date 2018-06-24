@@ -3,19 +3,18 @@ import { AppError } from '../infrastructure/error';
 import { Aggregation } from '../services/aggregation';
 
 export function groupBuilder(model) {
-	const viewState = model.view();
-	const dataState = model.data();
+	const { rows } = model.data();
+	const { pivot } = model.view();
+	const nodes = model.view().rows;
+	const columns = model.columnList().line;
 
-	const pivot = model.view().pivot;
 	const pivotRows = pivot.rows;
 	const pivotRowLength = pivotRows[0].length;
 
 	const groupBy = model.group().by;
 	const groupByLength = groupBy.length;
 
-	const columnMap = getColumnMap(dataState.columns);
-	const rows = dataState.rows;
-	const nodes = viewState.rows;
+	const columnMap = getColumnMap(columns);
 
 	return (valueFactory) => {
 		const result = [];

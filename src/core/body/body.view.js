@@ -38,17 +38,15 @@ export class BodyView {
 		const model = this.model;
 		const table = this.table;
 		const { rows } = model.scene();
-		const { pinTop, pinBottom } = model.row();
 
-		this.rows = {
-			top: pinTop, 
-			body: rows, 
-			bottom: pinBottom
-		};
-
-		table.view.removeLayer('blank');
-		if (!rows.length && !model.data().rows.length) {
-			table.view.addLayer('blank');
+		if (!(rows.length || model.data().rows.length)) {
+			if (!table.view.hasLayer('blank')) {
+				table.view.addLayer('blank');
+			}
+		} else {
+			if (table.view.hasLayer('blank')) {
+				table.view.removeLayer('blank');
+			}
 		}
 	}
 }

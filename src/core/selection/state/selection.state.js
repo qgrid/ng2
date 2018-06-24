@@ -15,7 +15,7 @@ export class SelectionState {
 		}
 
 		if (item instanceof Node) {
-			const rows = this.model.data().rows;
+			const { rows } = this.model.data();
 			if (rows.length) {
 				item.rows.forEach(index => this.select(rows[index], state, key));
 				return;
@@ -38,7 +38,7 @@ export class SelectionState {
 		}
 
 		if (item instanceof Node) {
-			const rows = this.model.data().rows;
+			const { rows } = this.model.data();
 			if (rows.length) {
 				const all = item.rows.length && item.rows.every(index => this.state(rows[index], key));
 				return all ? true : item.rows.some(index => this.state(rows[index], key)) ? null : false;

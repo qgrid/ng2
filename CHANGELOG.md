@@ -34,7 +34,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Deprecated
 - Use `FetchContext` `serach` property instead of `filter` property.
-- Don't use `<q-grid-row>` component, use `<q-grid rowCanMove rowCanResize>`, for row details use `<q-grid-column type="row-details"><ng-template for="body">...`.
 - Use `<q-grid caption="My Grid">` instead of `<q-grid header="My Grid">`.
 
 ### Added

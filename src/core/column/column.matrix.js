@@ -5,13 +5,14 @@ export function flatten(columns, createView) {
 		children: columns
 	};
 
-	const result = [];
 	const rowsToUse = rowsToUseFactory();
 
-	function markup(column, rowIndex, columnIndex, rowsLeft) {
+	function markup(column, rowIndex, columnIndex, rowsLeft, result) {
 		const rowspan = rowsLeft - rowsToUse(column);
 		const view = createView(column.type, column);
-		result.push(view);
+		if (!view.model.isVisible) {
+			return null;
+		}
 
 		view.rowspan = rowspan;
 		view.rowIndex = rowIndex;
@@ -20,20 +21,36 @@ export function flatten(columns, createView) {
 		const { children } = view.model;
 		if (children.length) {
 			let width = 0;
+			const childResult = [];
 			for (let child of children) {
-				const childView = markup(child, rowIndex + rowspan, columnIndex, rowsLeft - rowspan);
+				const childView = markup(child, rowIndex + rowspan, columnIndex, rowsLeft - rowspan, childResult);
+				if (!childView) {
+					continue;
+				}
+
 				const { colspan } = childView;
 				width += colspan;
 				columnIndex += colspan;
 			}
 
 			view.colspan = width;
+			if (width > 0) {
+				result.push(view);
+				result.push(...childResult);
+			}
+		} else {
+			if (view.model.type !== 'cohort') {
+				result.push(view);
+			}
 		}
+
 
 		return view;
 	}
 
-	markup(root, 0, 0, rowsToUse(root));
+	const result = [];
+	markup(root, 0, 0, rowsToUse(root), result);
+	// remove root 
 	result.splice(0, 1);
 	return layout(result);
 }

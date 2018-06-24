@@ -1,16 +1,10 @@
-import { Event } from 'ng2-qgrid/core/infrastructure/event';
+import { VscrollContext } from '../../../common/vscroll/vscroll.context';
 
 export class VScrollService {
-	factory() {
-		return {
-			settings: {},
-			container: {
-				reset: () => {
-				},
-				apply: () => {
-				},
-				drawEvent: new Event()
-			}
-		};
+	constructor() {
+	}
+
+	factory(settings) {
+		return new VscrollContext(settings);
 	}
 }

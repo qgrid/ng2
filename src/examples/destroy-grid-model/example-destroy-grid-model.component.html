@@ -5,12 +5,10 @@
 <ng-container *ngIf="isVisible">
 	<q-grid caption="Destroy Grid Model"
 	        [model]="gridModel"
-			id="example-destroy-grid-model"
-			editMode='cell'
-			selectionUnit='row'
-			selectionMode='multiple'
-			rowCanResize="true"
-			rowCanMove="true">
+	        id="example-destroy-grid-model"
+	        editMode='cell'
+	        selectionUnit='row'
+	        selectionMode='multiple'>
 		<q-grid-columns generation="deep">
 			<q-grid-column type="row-indicator"
 			               key="rowIndicator">
@@ -28,5 +26,9 @@
 
 		<q-grid-query-builder>
 		</q-grid-query-builder>
+
+		<q-grid-row canResize="true"
+		            canMove="true">
+		</q-grid-row>
 	</q-grid>
 </ng-container>

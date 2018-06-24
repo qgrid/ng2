@@ -2,6 +2,39 @@ import { isFunction } from '../utility/kit';
 import { AppError } from '../infrastructure/error';
 import { expand, collapse } from './column.matrix';
 
+export function flatten(columns, result = []) {
+	for (let i = 0, length = columns.length; i < length; i++) {
+		const column = columns[i];
+		result.push(column);
+
+		const { children } = column;
+		if (children && children.length) {
+			flatten(children, result);
+		}
+	}
+
+	return result;
+}
+
+export function findLine(columns, key) {
+	for (let index = 0, length = columns.length; index < length; index++) {
+		const column = columns[index];
+		if (column.key === key) {
+			return { columns, index };
+		}
+
+		const { children } = column;
+		if (children.length) {
+			const result = findLine(children, key);
+			if (result) {
+				return result;
+			}
+		}
+	}
+
+	return null;
+}
+
 export function map(columns) {
 	return columns.reduce((memo, column) => {
 		memo[column.key] = column;

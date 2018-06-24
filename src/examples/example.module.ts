@@ -20,6 +20,7 @@ import { ExampleColumnEmailBasicComponent } from './column-email-basic/example-c
 import { ExampleColumnFileBasicComponent } from './column-file-basic/example-column-file-basic.component';
 import { ExampleColumnIdBasicComponent } from './column-id-basic/example-column-id-basic.component';
 import { ExampleColumnImageBasicComponent } from './column-image-basic/example-column-image-basic.component';
+import { ExampleColumnListBasicComponent } from './column-list-basic/example-column-list-basic.component';
 import { ExampleColumnNumberBasicComponent } from './column-number-basic/example-column-number-basic.component';
 import { ExampleColumnPasswordBasicComponent } from './column-password-basic/example-column-password-basic.component';
 import { ExampleColumnReferenceBasicComponent } from './column-reference-basic/example-column-reference-basic.component';
@@ -89,6 +90,14 @@ import { ExamplePivotColumnCohortComponent } from './pivot-column-cohort/example
 import { ExamplePivotColumnTemplateComponent } from './pivot-column-template/example-pivot-column-template.component';
 import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plugin-grid-basic.component';
 import { ExamplePluginMyPagerComponent } from './plugin-grid-basic/example-plugin-my-pager.component';
+import { ExampleScrollVirtualBasicComponent } from './scroll-virtual-basic/example-scroll-virtual-basic.component';
+import { ExampleScrollVirtualDetailsComponent } from './scroll-virtual-details/example-scroll-virtual-details.component';
+import { ExampleScrollVirtualDragComponent } from './scroll-virtual-drag/example-scroll-virtual-drag.component';
+import { ExampleScrollVirtualEditComponent } from './scroll-virtual-edit/example-scroll-virtual-edit.component';
+import { ExampleScrollVirtualGroupComponent } from './scroll-virtual-group/example-scroll-virtual-group.component';
+import { ExampleScrollVirtualHeightComponent } from './scroll-virtual-height/example-scroll-virtual-height.component';
+import { ExampleScrollVirtualInfiniteComponent } from './scroll-virtual-infinite/example-scroll-virtual-infinite.component';
+import { ExampleScrollVirtualSelectionComponent } from './scroll-virtual-selection/example-scroll-virtual-selection.component';
 import { ExampleSelectCellBasicComponent } from './select-cell-basic/example-select-cell-basic.component';
 import { ExampleSelectColumnBasicComponent } from './select-column-basic/example-select-column-basic.component';
 import { ExampleSelectMixBasicComponent } from './select-mix-basic/example-select-mix-basic.component';
@@ -116,6 +125,7 @@ const EXAMPLES: Array<any> = [
 	ExampleColumnFileBasicComponent,
 	ExampleColumnIdBasicComponent,
 	ExampleColumnImageBasicComponent,
+	ExampleColumnListBasicComponent,
 	ExampleColumnNumberBasicComponent,
 	ExampleColumnPasswordBasicComponent,
 	ExampleColumnReferenceBasicComponent,
@@ -184,6 +194,14 @@ const EXAMPLES: Array<any> = [
 	ExamplePivotColumnCohortComponent,
 	ExamplePivotColumnTemplateComponent,
 	ExamplePluginGridBasicComponent,
+	ExampleScrollVirtualBasicComponent,
+	ExampleScrollVirtualDetailsComponent,
+	ExampleScrollVirtualDragComponent,
+	ExampleScrollVirtualEditComponent,
+	ExampleScrollVirtualGroupComponent,
+	ExampleScrollVirtualHeightComponent,
+	ExampleScrollVirtualInfiniteComponent,
+	ExampleScrollVirtualSelectionComponent,
 	ExampleSelectCellBasicComponent,
 	ExampleSelectColumnBasicComponent,
 	ExampleSelectMixBasicComponent,

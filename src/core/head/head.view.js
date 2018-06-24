@@ -3,7 +3,7 @@ import { Log } from '../infrastructure/log';
 import { Command } from '../command/command';
 import * as columnService from '../column/column.service';
 import { FilterRowColumn } from '../column-type/filter.row.column';
-import { clone, isUndefined, isNumber } from '../utility/kit';
+import { clone, isUndefined } from '../utility/kit';
 import { GRID_PREFIX } from '../definition';
 
 export class HeadView {
@@ -118,6 +118,13 @@ export class HeadView {
 				}
 
 				filter({ by });
+			}
+		});
+
+		model.dataChanged.watch(e => {
+			if (e.hasChanges('columns')) {
+				const line = columnService.flatten(e.state.columns);
+				model.columnList({ line }, { source: 'head.view' });
 			}
 		});
 

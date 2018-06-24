@@ -64,29 +64,28 @@ export class LayoutView extends Disposable {
 
 	updateColumnForm() {
 		const model = this.model;
+		const { head } = this.table;
 		const layout = model.layout().columns;
 		const form = new Map();
-		const headRow = this.table.head.row(0);
-		if (headRow) {
-			const columns = this.table.data.columns();
-			let length = columns.length;
-			while (length--) {
-				const column = columns[length];
-				if (!layout.has(column.key)) {
-					if (column.canResize) {
-						const index = columns.findIndex(c => c === column);
-						form.set(column.key, { width: headRow.cell(index).width() });
-					}
-				}
-				else {
-					form.set(column.key, { width: layout.get(column.key).width });
-				}
+		const { cells } = this.table.head.context.bag;
+		for (let cell of cells) {
+			const { column, rowIndex, columnIndex } = cell;
+			if (!column.canResize) {
+				continue;
+			}
+
+			const { key } = column;
+			if (layout.has(key)) {
+				form.set(key, { width: layout.get(key).width });
+			} else {
+				const td = head.cell(rowIndex, columnIndex);
+				form.set(key, { width: td.width() });
 			}
 		}
 
 		model.layout({ columns: form }, { source: 'layout.view', behavior: 'core' });
 
-		const column = this.model.navigation().column;
+		const { column } = this.model.navigation();
 		if (column && column.viewWidth) {
 			const viewForm = new Map(form);
 			viewForm.set(column.key, { width: column.viewWidth });

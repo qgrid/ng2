@@ -20,7 +20,7 @@ export function sortIndexFactory(model) {
 
 		const index = left.concat(center).concat(right);
 		return {
-			index: index,
+			index,
 			hasChanges: !equals(listIndex, index)
 		};
 	};
