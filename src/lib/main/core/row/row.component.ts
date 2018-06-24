@@ -11,10 +11,11 @@ import { TemplateHostService } from '../../../template/template-host.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RowComponent extends ModelComponent {
-	@Input() rowMode: 'single' | 'multiple';
-	@Input() rowUnit: 'data' | 'details';
-	@Input() rowCanMove: boolean;
-	@Input() rowCanResize: boolean;
+	@Input('mode') rowMode: 'single' | 'multiple';
+	@Input('unit') rowUnit: 'data' | 'details';
+	@Input('canMove') rowCanMove: boolean;
+	@Input('canResize') rowCanResize: boolean;
+	@Input('height') rowHeight: number;
 
 	constructor(root: RootService, templateHost: TemplateHostService) {
 		super(root);
