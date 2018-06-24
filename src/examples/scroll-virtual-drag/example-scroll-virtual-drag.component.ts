@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 	styleUrls: ['example-scroll-virtual-drag.component.scss'],
 	providers: [DataService]
 })
-export class ExampleVirtualScrollDragComponent {
+export class ExampleScrollVirtualDragComponent {
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

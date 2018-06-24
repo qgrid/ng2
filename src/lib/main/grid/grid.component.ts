@@ -88,6 +88,8 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input() selectionMode: 'single' | 'multiple' | 'range';
 	@Input() selectionUnit: 'row' | 'cell' | 'column' | 'mix';
 
+	@Input() scrollMode:  'default' | 'virtual';
+
 	@Input() sortBy: Array<string>;
 	@Input() sortMode: 'single' | 'multiple';;
 	@Input() sortTrigger: Array<string>;
@@ -118,6 +120,7 @@ export class GridComponent extends RootComponent implements OnInit {
 			'pivot',
 			'row',
 			'selection',
+			'scroll',
 			'sort',
 			'style'
 		];

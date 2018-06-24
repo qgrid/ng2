@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataService, Atom } from '../data.service';
+import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -8,10 +8,10 @@ import { Observable } from 'rxjs';
 	styleUrls: ['example-scroll-virtual-basic.component.scss'],
 	providers: [DataService]
 })
-export class ExampleVirtualScrollBasicComponent {
-	rows: Observable<Atom[]>;
+export class ExampleScrollVirtualBasicComponent {
+	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {
-		this.rows = dataService.getAtoms();
+		this.rows = dataService.getPeople(100000);
 	}
 }
