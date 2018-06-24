@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+import { Directive, Input, ElementRef, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { sizeFactory } from './vscroll.container';
 import { VscrollPortYDirective } from './vscroll-port-y.directive';
 

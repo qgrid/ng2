@@ -1,5 +1,3 @@
-
-
 function findIndexAt(items: Array<number>, value: number) {
 	const length = items.length;
 	let min = 0;

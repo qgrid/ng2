@@ -1,7 +1,6 @@
 import { Log } from '../infrastructure/log';
 import { isFunction } from '../utility/kit';
 import { Fastdom } from '../services/fastdom';
-import { GRID_PREFIX } from '../definition';
 
 export class ScrollView {
 	constructor(model, table, vscroll) {
@@ -25,15 +24,21 @@ export class ScrollView {
 		this.y.container.read = Fastdom.measure;
 		this.y.container.write = Fastdom.mutate;
 
-		this.y.container.drawEvent.on(e => {
-			scroll({ cursor: e.position }, {
+		const subscribe =
+			(this.y.container.drawEvent.on || this.y.container.drawEvent.subscribe)
+				.bind(this.y.container.drawEvent);
+
+		subscribe(e => {
+			const { position } = e;
+			const { size, current } = pagination();
+			scroll({ cursor: position }, {
 				source: 'scroll.view',
 				behavior: 'core'
 			});
 
-			const current = Math.floor(e.position / pagination().size);
-			if (current !== pagination().current) {
-				pagination({ current }, {
+			const newCurrent = Math.floor(position / size);
+			if (newCurrent !== current) {
+				pagination({ current: newCurrent }, {
 					source: 'scroll.view',
 					behavior: 'core'
 				});
@@ -43,23 +48,23 @@ export class ScrollView {
 		switch (scroll().mode) {
 			case 'virtual': {
 				this.y.settings.fetch = (skip, take, d) => {
-					model.fetch({ skip }, {
-						source: 'scroll.view'
-					});
-
 					model.dataChanged.on((e, off) => {
 						if (e.hasChanges('rows')) {
-							const count = e.state.rows.length;
-							if (pagination().count !== count) {
-								pagination({ count }, {
+							const { length } = e.state.rows;
+							if (pagination().count !== length) {
+								pagination({ count: length }, {
 									source: 'scroll.view',
 									behavior: 'core'
 								});
 							}
 
-							d.resolve(count);
+							d.resolve(length);
 							off();
 						}
+					});
+
+					model.fetch({ skip }, {
+						source: 'scroll.view'
 					});
 				};
 
@@ -86,12 +91,6 @@ export class ScrollView {
 					this.y.container.reset();
 				});
 		}
-
-		model.scrollChanged.watch(e => {
-			if (e.hasChanges('left') || e.hasChanges('top')) {
-				this.invalidate();
-			}
-		});
 	}
 
 	invalidate() {

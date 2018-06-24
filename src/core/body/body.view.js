@@ -38,13 +38,6 @@ export class BodyView {
 		const model = this.model;
 		const table = this.table;
 		const { rows } = model.scene();
-		const { pinTop, pinBottom } = model.row();
-
-		this.rows = {
-			top: pinTop,
-			body: rows,
-			bottom: pinBottom
-		};
 
 		if (!(rows.length || model.data().rows.length)) {
 			if (!table.view.hasLayer('blank')) {

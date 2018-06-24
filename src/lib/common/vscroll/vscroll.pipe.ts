@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { VscrollContext } from './vscroll.context';
-import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 
 const empty = [];

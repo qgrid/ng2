@@ -1,8 +1,6 @@
-import { Injectable, EventEmitter } from '@angular/core';
 import { findPosition, IVscrollPosition, recycleFactory } from './vscroll.position';
 import { VscrollBox } from './vscroll.box';
 import { VscrollPort } from './vscroll.port';
-import { IVscrollSettings } from './vscroll.settings';
 
 const UNSET_ARM = Number.MAX_SAFE_INTEGER;
 

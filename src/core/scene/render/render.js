@@ -74,5 +74,34 @@ export class Renderer {
 			const strategy = strategies.get(row.constructor) || defaultStrategy;
 			return strategy.setLabel(row, column, value, rowIndex, columnIndex);
 		};
+
+		this.rows = {
+			left: [],
+			right: [],
+			null: []
+		};
+
+		const invalidateRows = () => {
+			const { rows } = model.scene();
+			const { pinTop, pinBottom } = model.row();
+
+			this.rows = {
+				top: pinTop,
+				body: rows,
+				bottom: pinBottom
+			};
+		}
+
+		model.sceneChanged.watch(e => {
+			if (e.hasChanges('rows')) {
+				invalidateRows();
+			}
+		});
+
+		model.rowChanged.watch(e => {
+			if (e.hasChanges('pinTop') || e.hasChanges('pinBottom')) {
+				invalidateRows();
+			}
+		});
 	}
 }
