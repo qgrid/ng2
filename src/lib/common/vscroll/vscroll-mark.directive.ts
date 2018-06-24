@@ -1,5 +1,4 @@
 import { Directive, OnInit, OnDestroy, ElementRef, Input, Optional } from '@angular/core';
-import { VscrollLayout } from './vscroll.layout';
 import { VscrollPortXDirective } from './vscroll-port-x.directive';
 import { VscrollPortYDirective } from './vscroll-port-y.directive';
 import { VscrollPort } from './vscroll.port';

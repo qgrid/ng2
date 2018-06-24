@@ -8,7 +8,7 @@ import { GridComponent, Grid } from 'ng2-qgrid';
 	styleUrls: ['example-scroll-virtual-infinite.component.scss'],
 	providers: [DataService]
 })
-export class ExampleVirtualScrollInfiniteComponent {
+export class ExampleScrollVirtualInfiniteComponent {
 	@ViewChild(GridComponent) myGrid;
 
 	constructor(private dataService: DataService, private qgrid: Grid) {
@@ -17,23 +17,19 @@ export class ExampleVirtualScrollInfiniteComponent {
 	ngAfterViewInit() {
 		const { model } = this.myGrid;
 
-		model
-			.pagination({
-				size: 20
-			})
-			.data({
-				pipe: [
-					(rows, context, next) => {
-						const { skip } = model.fetch();
-						const { size } = model.pagination();
+		model.data({
+			pipe: [
+				(rows, context, next) => {
+					const { skip } = model.fetch();
+					const { size } = model.pagination();
 
-						this.dataService
-							.getAtoms()
-							.subscribe(atoms => {
-								const newPage = atoms.slice(skip, skip + size);
-								next(rows.concat(newPage));
-							});
-					}].concat(this.qgrid.pipeUnit.view)
-			});
+					this.dataService
+						.getAtoms()
+						.subscribe(atoms => {
+							const newPage = atoms.slice(skip, skip + size);
+							next(rows.concat(newPage));
+						});
+				}].concat(this.qgrid.pipeUnit.view)
+		});
 	}
 }

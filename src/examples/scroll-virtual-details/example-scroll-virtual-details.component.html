@@ -26,12 +26,15 @@
 		</q-grid-column>
 	</q-grid-columns>
 
+	<q-grid-pager [size]="20">
+	</q-grid-pager>
+
 	<q-grid-row unit="details"
 	            mode="single">
 
 		<ng-template for="details"
-					 let-$cell>
-					 
+		             let-$cell>
+
 			<div class="atom-details">
 				<div class="atom-box"
 				     [style.background-color]="'#' + $cell.row.item.color">

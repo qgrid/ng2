@@ -3,12 +3,12 @@ import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 
 @Component({
-	selector: 'example-scroll-virtual-basic',
-	templateUrl: 'example-scroll-virtual-basic.component.html',
-	styleUrls: ['example-scroll-virtual-basic.component.scss'],
+	selector: 'example-scroll-virtual-height',
+	templateUrl: 'example-scroll-virtual-height.component.html',
+	styleUrls: ['example-scroll-virtual-height.component.scss'],
 	providers: [DataService]
 })
-export class ExampleScrollVirtualBasicComponent {
+export class ExampleScrollVirtualHeightComponent {
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {

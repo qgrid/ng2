@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 	styleUrls: ['example-scroll-virtual-edit.component.scss'],
 	providers: [DataService]
 })
-export class ExampleVirtualScrollEditComponent {
+export class ExampleScrollVirtualEditComponent {
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

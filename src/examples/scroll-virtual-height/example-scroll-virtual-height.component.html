@@ -1,8 +1,10 @@
-<q-grid caption="Scroll Virtual Infinite"
+<q-grid caption="Scroll Virtual Height"
         scrollMode="virtual"
         [rows]="rows | async">
         <q-grid-columns generation="deep">
         </q-grid-columns>
+
+        <q-grid-row [height]="48"></q-grid-row>
 
         <q-grid-pager [size]="20">
         </q-grid-pager>

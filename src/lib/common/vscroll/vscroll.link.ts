@@ -1,20 +1,14 @@
 import { VscrollPort } from './vscroll.port';
-import { VscrollDirective } from './vscroll.directive';
 import { VscrollBox } from './vscroll.box';
-import { IVscrollSettings } from './vscroll.settings';
-import { VscrollContainer } from './vscroll.container';
 import { isNumber } from 'ng2-qgrid/core/utility/kit';
-import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 
 export class VscrollLink {
 	private box = new VscrollBox();
 	private ticking = false;
 
 	constructor(private port: VscrollPort) {
-		const view = port.view;
-		const layout = port.layout;
-		const settings = this.settings;
-		const container = this.container;
+		const { view, layout } = port;
+		const { settings, container } = this;
 
 		if (settings.placeholderHeight > 0 || settings.placeholderWidth > 0) {
 			const width = settings.placeholderWidth || (isNumber(settings.columnWidth) && settings.columnWidth as number);

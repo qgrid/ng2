@@ -1,11 +1,16 @@
-import { Injectable } from '@angular/core';
 import { VscrollContainer } from './vscroll.container';
-import { VscrollSettings } from './vscroll.settings';
+import { VscrollSettings, IVscrollSettings } from './vscroll.settings';
 
 export class VscrollContext {
-	settings = new VscrollSettings(() => this.container.total);
-	container = new VscrollContainer(this.settings);
+	settings: IVscrollSettings;
+	container: VscrollContainer;
 
-	constructor() {
+	constructor(settings?: IVscrollSettings) {
+		this.settings = new VscrollSettings(() => this.container.total)
+		if (settings) {
+			Object.assign(this.settings, settings);
+		}
+
+		this.container = new VscrollContainer(this.settings);
 	}
 }
