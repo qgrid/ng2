@@ -4,6 +4,7 @@ import { generateFactory } from '../column-list/column.list.generate';
 import { sortIndexFactory } from '../column-list/column.list.sort';
 import { Guard } from '../infrastructure/guard';
 import { flatten, expand } from '../column/column.matrix';
+import { guid } from '../services/guid';
 
 export function columnPipe(memo, context, next) {
 	Guard.hasProperty(memo, 'pivot');
@@ -236,7 +237,7 @@ function padColumnFactory(model) {
 	return (memo, context) => {
 		const padColumn = createColumn('pad');
 		padColumn.rowspan = context.rowspan;
-		padColumn.model.key = `$pad-${context.rowspan}`;
+		padColumn.model.key = `$pad-${guid()}`;
 		memo.push(padColumn);
 		return padColumn;
 	};
