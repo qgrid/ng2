@@ -1,4 +1,3 @@
-.q-grid-dark {
     //Custom colors
     $color-less: rgba(0, 0, 0, 0);
     $dark: #424242;
@@ -14,7 +13,35 @@
     $dark-label-focused: rgba(255, 255, 255, 0.2);
     $dark-subscript: rgba(255, 255, 255, 0.6);
     $dark-divider: rgba(255, 255, 255, 0.12);
+    $dark-icon-button: #c8c8c8; 
 
+mat-calendar.q-grid-dark{
+    background-color: $dark-container;
+    font-family: "Roboto Condensed";
+    font-weight: 300;
+}
+
+.q-grid-dark {
+    .mat-calendar-table-header{
+        color: $dark-header;
+    }
+    .mat-calendar-body-label{
+        color: $dark-label;
+    }
+    .mat-calendar-body-cell-content{
+        color: $dark-text;
+    }
+
+    .mat-calendar-table-header-divider::after{
+        background-color: $dark-primary;
+    }
+    .mat-calendar-body-selected {
+        background-color: $dark-highlighted;;
+    }
+
+    .mat-button, .mat-icon-button, .mat-stroked-button {
+        color: $dark-icon-button;
+    }
     .mat-form-field {
         font-weight: 300;
         .mat-form-field-label{

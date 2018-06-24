@@ -57,6 +57,10 @@ export class EditCellView {
 		cell.mode(value);
 	}
 
+	get theme(){
+		return this.model.style().classList;
+	}
+
 	get commands() {
 		const { model, table } = this;
 
