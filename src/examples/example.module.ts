@@ -90,6 +90,14 @@ import { ExamplePivotColumnCohortComponent } from './pivot-column-cohort/example
 import { ExamplePivotColumnTemplateComponent } from './pivot-column-template/example-pivot-column-template.component';
 import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plugin-grid-basic.component';
 import { ExamplePluginMyPagerComponent } from './plugin-grid-basic/example-plugin-my-pager.component';
+import { ExampleScrollVirtualBasicComponent } from './scroll-virtual-basic/example-scroll-virtual-basic.component';
+import { ExampleScrollVirtualDetailsComponent } from './scroll-virtual-details/example-scroll-virtual-details.component';
+import { ExampleScrollVirtualDragComponent } from './scroll-virtual-drag/example-scroll-virtual-drag.component';
+import { ExampleScrollVirtualEditComponent } from './scroll-virtual-edit/example-scroll-virtual-edit.component';
+import { ExampleScrollVirtualGroupComponent } from './scroll-virtual-group/example-scroll-virtual-group.component';
+import { ExampleScrollVirtualHeightComponent } from './scroll-virtual-height/example-scroll-virtual-height.component';
+import { ExampleScrollVirtualInfiniteComponent } from './scroll-virtual-infinite/example-scroll-virtual-infinite.component';
+import { ExampleScrollVirtualSelectionComponent } from './scroll-virtual-selection/example-scroll-virtual-selection.component';
 import { ExampleSelectCellBasicComponent } from './select-cell-basic/example-select-cell-basic.component';
 import { ExampleSelectColumnBasicComponent } from './select-column-basic/example-select-column-basic.component';
 import { ExampleSelectMixBasicComponent } from './select-mix-basic/example-select-mix-basic.component';
@@ -102,13 +110,6 @@ import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggre
 import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/example-summary-column-basic.component';
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
-import { ExampleScrollVirtualBasicComponent } from './scroll-virtual-basic/example-scroll-virtual-basic.component';
-import { ExampleScrollVirtualDetailsComponent } from './scroll-virtual-details/example-scroll-virtual-details.component';
-import { ExampleScrollVirtualDragComponent } from './scroll-virtual-drag/example-scroll-virtual-drag.component';
-import { ExampleScrollVirtualEditComponent } from './scroll-virtual-edit/example-scroll-virtual-edit.component';
-import { ExampleScrollVirtualGroupComponent } from './scroll-virtual-group/example-scroll-virtual-group.component';
-import { ExampleScrollVirtualInfiniteComponent } from './scroll-virtual-infinite/example-scroll-virtual-infinite.component';
-import { ExampleScrollVirtualSelectionComponent } from './scroll-virtual-selection/example-scroll-virtual-selection.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -198,6 +199,7 @@ const EXAMPLES: Array<any> = [
 	ExampleScrollVirtualDragComponent,
 	ExampleScrollVirtualEditComponent,
 	ExampleScrollVirtualGroupComponent,
+	ExampleScrollVirtualHeightComponent,
 	ExampleScrollVirtualInfiniteComponent,
 	ExampleScrollVirtualSelectionComponent,
 	ExampleSelectCellBasicComponent,

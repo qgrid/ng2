@@ -36,7 +36,7 @@ export class ScrollView {
 				behavior: 'core'
 			});
 
-			const newCurrent = Math.floor(position / size);
+			const newCurrent = Math.round(position / size);
 			if (newCurrent !== current) {
 				pagination({ current: newCurrent }, {
 					source: 'scroll.view',
@@ -68,21 +68,21 @@ export class ScrollView {
 					});
 				};
 
-				model.sceneChanged.watch(e => {
-					if (e.tag.source === 'scroll.view') {
-						return;
-					}
+				// model.sceneChanged.watch(e => {
+				// 	if (e.tag.source === 'scroll.view') {
+				// 		return;
+				// 	}
 
-					if (e.hasChanges('status')) {
-						const status = e.state.status;
-						switch (status) {
-							case 'stop': {
-								this.y.container.reset();
-								break;
-							}
-						}
-					}
-				});
+				// 	if (e.hasChanges('status')) {
+				// 		const status = e.state.status;
+				// 		switch (status) {
+				// 			case 'stop': {
+				// 				this.y.container.reset();
+				// 				break;
+				// 			}
+				// 		}
+				// 	}
+				// });
 
 				break;
 			}
