@@ -1,0 +1,27 @@
+{
+    "deprecated": false,
+    "description": "Angular Grid",
+    "homepage": "https://github.com/qgrid/ng2",
+    "keywords": [
+      "angular",
+      "grid",
+      "data grid",
+      "table",
+      "data table"
+    ],
+    "license": "MIT",
+    "main": "./bundles/ng2-qgrid.umd.js",
+    "name": "ng2-qgrid",
+    "peerDependencies": {
+      "@angular/common": "^6.0.5",
+      "@angular/core": "^6.0.5",
+      "@angular/forms": "^6.0.5",
+      "@angular/http": "^6.0.5"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/qgrid/ng2.git"
+    },
+    "typings": "./index.d.ts",
+    "version": "6.1.3"
+  }
