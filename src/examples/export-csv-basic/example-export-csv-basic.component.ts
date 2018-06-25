@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
-import { DataService } from '../data.service';
+import { Atom, DataService } from '../data.service';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'example-export-csv-basic',
@@ -9,5 +10,10 @@ import { DataService } from '../data.service';
 	providers: [ DataService ]
 })
 export class ExampleExportCsvBasicComponent {
+	rows: Observable<Atom[]>;
+
+	constructor(dataService: DataService) {
+		this.rows = dataService.getAtoms();
+	}
 }
 

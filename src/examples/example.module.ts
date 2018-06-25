@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Routes, Route } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule, MatSelectModule } from '@angular/material';
 
 import { GridModule, ThemeModule } from 'ng2-qgrid';
 
@@ -44,16 +44,16 @@ import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-r
 import { ExamplePersistenceServerComponent } from './persistence-server/example-persistence-server.component';
 
 const EXAMPLES: Array<any> = [
-    ExampleActionBarBasicComponent,
-    ExampleAggregateColumnBasicComponent,
-    ExampleDefineColumnBasicComponent,
-    ExampleDestroyGridBasicComponent,
-    ExampleDestroyGridModelComponent,
-    ExampleDetailsRowBasicComponent,
-    ExampleDragColumnBasicComponent,
-    ExampleDragRowBasicComponent,
-    ExampleEditCellBasicComponent,
-    ExampleEditCellBatchComponent,
+	ExampleActionBarBasicComponent,
+	ExampleAggregateColumnBasicComponent,
+	ExampleDefineColumnBasicComponent,
+	ExampleDestroyGridBasicComponent,
+	ExampleDestroyGridModelComponent,
+	ExampleDetailsRowBasicComponent,
+	ExampleDragColumnBasicComponent,
+	ExampleDragRowBasicComponent,
+	ExampleEditCellBasicComponent,
+	ExampleEditCellBatchComponent,
 	ExampleExportCsvBasicComponent,
 	ExampleFilterColumnFetchComponent,
 	ExampleFilterConditionBasicComponent,
@@ -61,34 +61,34 @@ const EXAMPLES: Array<any> = [
 	ExampleFocusCellAutoComponent,
 	ExampleFocusCellComponent,
 	ExampleGroupRowBasicComponent,
-    ExampleLookAtomsBasicComponent,
-    ExampleLookAtomsCustomizedComponent,
-    ExampleLookAtomsModelComponent,
-    ExampleLookPeopleBasicComponent,
-    ExampleLookPeopleModelComponent,
-    ExampleLegendBasicComponent,
-    ExampleManipulateDataBasicComponent,
-    ExamplePaginationBasicComponent,
+	ExampleLookAtomsBasicComponent,
+	ExampleLookAtomsCustomizedComponent,
+	ExampleLookAtomsModelComponent,
+	ExampleLookPeopleBasicComponent,
+	ExampleLookPeopleModelComponent,
+	ExampleLegendBasicComponent,
+	ExampleManipulateDataBasicComponent,
+	ExamplePaginationBasicComponent,
 	ExamplePersistenceBasicComponent,
 	ExamplePersistenceServerComponent,
-    ExamplePinColumnBasicComponent,
-    ExamplePivotColumnBasicComponent,
-    ExamplePluginGridBasicComponent,
-    ExampleSelectCellBasicComponent,
-    ExampleSelectRowBasicComponent,
-    ExampleSelectColumnBasicComponent,
-    ExampleSelectMixBasicComponent,
-    ExampleSelectRowBasicComponent,
-    ExampleSizeRowBasicComponent,
-    ExampleSortRowComponent,
-    ExampleStyleCellBasicComponent,
-    ExampleStyleRowBasicComponent,
+	ExamplePinColumnBasicComponent,
+	ExamplePivotColumnBasicComponent,
+	ExamplePluginGridBasicComponent,
+	ExampleSelectCellBasicComponent,
+	ExampleSelectRowBasicComponent,
+	ExampleSelectColumnBasicComponent,
+	ExampleSelectMixBasicComponent,
+	ExampleSelectRowBasicComponent,
+	ExampleSizeRowBasicComponent,
+	ExampleSortRowComponent,
+	ExampleStyleCellBasicComponent,
+	ExampleStyleRowBasicComponent
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
 
 function toPath(componentType: Function) {
-	const name = PATH_REGEX.exec(componentType.name)[1];
+	const name = PATH_REGEX.exec(componentType.name)[ 1 ];
 	return name
 		.split(/(?=[A-Z])/)
 		.map(part => part.toLowerCase())
@@ -107,7 +107,7 @@ export const exampleRoutes: Routes = EXAMPLES.map<Route>(example => ({
 ]);
 
 @NgModule({
-	declarations: EXAMPLES.concat([ExamplePluginMyPagerComponent]),
+	declarations: EXAMPLES.concat([ ExamplePluginMyPagerComponent ]),
 	exports: EXAMPLES,
 	imports: [
 		GridModule,
@@ -117,4 +117,5 @@ export const exampleRoutes: Routes = EXAMPLES.map<Route>(example => ({
 		MatSelectModule
 	]
 })
-export class ExampleModule {}
+export class ExampleModule {
+}
