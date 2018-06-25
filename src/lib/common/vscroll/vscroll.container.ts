@@ -108,7 +108,9 @@ export function sizeFactory(
 	size: number | GetSize,
 	container: VscrollContainer,
 	element: HTMLElement,
-	index: number): () => number {
+	index: number
+): () => number {
+	
 	if (isFunction(size)) {
 		return () => (size as GetSize)(element, container.position + index);
 	}
