@@ -1,5 +1,5 @@
 import { Log } from '../infrastructure/log';
-import { isFunction } from '../utility/kit';
+import { isFunction, identity } from '../utility/kit';
 import { Fastdom } from '../services/fastdom';
 
 export class ScrollView {
@@ -93,6 +93,36 @@ export class ScrollView {
 		}
 
 		model.scrollChanged.watch(e => {
+			if (e.source === 'scroll.view') {
+				return;
+			}
+
+			if (e.hasChanges('mode')) {
+				switch (e.state.mode) {
+					case 'virtual': {
+						scroll({
+							map: {
+								rowToView: index => index - this.y.container.position,
+								viewToRow: index => index + this.y.container.position
+							}
+						}, {
+								source: 'scroll.view',
+								behavior: 'core'
+							});
+						break;
+					}
+					case 'default': {
+						scroll({
+							map: {
+								rowToView: identity,
+								viewToRow: identity
+							}
+						});
+						break;
+					}
+				}
+			}
+
 			if (e.hasChanges('left') || e.hasChanges('top')) {
 				this.invalidate();
 			}

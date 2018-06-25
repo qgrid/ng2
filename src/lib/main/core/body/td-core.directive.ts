@@ -6,7 +6,6 @@ import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { TdCtrl } from 'ng2-qgrid/core/cell/td.ctrl';
 import { Td } from 'ng2-qgrid/core/dom/td';
 import { ViewCoreService } from '../view/view-core.service';
-import { TableCoreService } from '../table/table-core.service';
 import { RootService } from '../../../infrastructure/component/root.service';
 import { TrCoreDirective } from '../row/tr-core.directive';
 import { CellService } from '../../../main/core/cell/cell.service';
@@ -27,7 +26,6 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy {
 		private root: RootService,
 		private viewContainerRef: ViewContainerRef,
 		private cellService: CellService,
-		private table: TableCoreService,
 		private tr: TrCoreDirective,
 		element: ElementRef
 	) {
@@ -86,7 +84,7 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy {
 		this.$view.body.render.setLabel(row, column, label, rowIndex, columnIndex);
 	}
 
-	get column() {
+	get column(): ColumnModel {
 		return this.columnView.model;
 	}
 

@@ -1,13 +1,13 @@
-import { VirtualCell } from './cell';
-import { VirtualRow } from './row';
-import { VirtualColumn } from './column';
 import { Box } from '../box';
 import { CellBox } from './cell.box';
-import { RowBox } from './row.box';
 import { ColumnBox } from './column.box';
-import { VirtualElement } from './element';
-import { isFunction } from '../../utility/kit';
 import { Event } from '../../infrastructure/event';
+import { isFunction } from '../../utility/kit';
+import { RowBox } from './row.box';
+import { VirtualCell } from './cell';
+import { VirtualColumn } from './column';
+import { VirtualElement } from './element';
+import { VirtualRow } from './row';
 
 export class VirtualBox extends Box {
 	constructor(context, model, selectorMark) {
@@ -101,7 +101,7 @@ export class VirtualBox extends Box {
 	}
 
 	cellCore(rowIndex, columnIndex) {
-		const mapper = this.context.mapper;
+		const { mapper } = this.context;
 		const viewRowIndex = mapper.rowToView(rowIndex);
 		const viewColumnIndex = mapper.columnToView(columnIndex);
 		if (viewRowIndex >= 0 && viewRowIndex < super.rowCount(viewColumnIndex)) {

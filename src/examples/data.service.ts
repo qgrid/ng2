@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export class Human {
 	id: number;
@@ -9,6 +8,7 @@ export class Human {
 	password: string;
 	comment: string;
 	likes: string[];
+	gender: 'male' | 'female';
 }
 
 export class Atom {

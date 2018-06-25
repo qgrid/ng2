@@ -12,10 +12,11 @@ export class Table {
 		this.model = model;
 		this.markup = markup;
 
+		const { scroll } = model;
 		this.context = assignWith({
 			mapper: {
-				rowToView: model.scroll().mode === 'virtual' ? index => index - model.scroll().cursor : identity,
-				viewToRow: model.scroll().mode === 'virtual' ? index => index + model.scroll().cursor : identity,
+				rowToView: index => scroll().map.rowToView(index),
+				viewToRow: index => scroll().map.viewToRow(index),
 				columnToView: identity,
 				viewToColumn: identity
 			},
@@ -45,7 +46,7 @@ export class Table {
 			return this._data;
 		}
 
-		return this._data = new Data(this.model);		
+		return this._data = new Data(this.model);
 	}
 
 	headCore() {
@@ -68,13 +69,33 @@ export class Table {
 	}
 
 	box(source) {
-		const ctx = this.context;
-		return {
-			mapper: ctx.mapper,
-			layer: ctx.layer,
-			bag: ctx.bag[source],
-			view: this.view,
-			data: this.data
-		};
+		const { view, data } = this;
+		const { mapper, layer, bag } = this.context;
+
+		switch (source) {
+			case 'body': {
+				return {
+					mapper,
+					layer,
+					bag: bag[source],
+					view,
+					data
+				};
+			}
+			default: {
+				return {
+					mapper: {
+						rowToView: identity,
+						viewToRow: identity,
+						columnToView: identity,
+						viewToColumn: identity
+					},
+					layer,
+					bag: bag[source],
+					view,
+					data
+				};
+			}
+		}
 	}
 }

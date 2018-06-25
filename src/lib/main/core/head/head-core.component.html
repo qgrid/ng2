@@ -1,5 +1,5 @@
 <tr *ngFor="let $row of $view.head.rows; trackBy: rowId; index as $rowIndex"
-    [q-grid-core-tr]="$row"
+    [q-grid-core-trh]="$row"
     [q-grid-core-index]="$rowIndex"
     q-grid-core-source="head">
     <th *ngFor="let $column of $view.head.columns($row, $table.pin); trackBy: columnId; index as $columnIndex"

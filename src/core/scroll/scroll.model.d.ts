@@ -28,4 +28,9 @@ export declare interface ScrollModel {
 	 * Row index on top of the q-grid client area.
 	 */
 	cursor?: number;
+
+	map: {
+		rowToView: (index: number) => number,
+		viewToRow: (index: number) => number,
+	};
 }
