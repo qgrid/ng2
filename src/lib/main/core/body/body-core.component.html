@@ -14,10 +14,9 @@
 		    [q-grid-core-index]="$rowIndex"
 		    [q-grid-vscroll-row]="$rowIndex"
 		    q-grid-core-source="body">
-			<td *ngFor="let $column of $view.body.render.columns($row, $table.pin, $rowIndex); index as $columnIndex; trackBy: columnId"
-		
-			    [attr.rowspan]="$view.body.render.rowspan($row, $column, $rowIndex, $columnIndex)"
-			    [attr.colspan]="$view.body.render.colspan($row, $column, $rowIndex, $columnIndex)">
+			<td *ngFor="let $column of $view.body.render.columns($row, $table.pin, index); index as $columnIndex; trackBy: columnId"
+			    [attr.rowspan]="$view.body.render.rowspan($row, $column, index, $columnIndex)"
+			    [attr.colspan]="$view.body.render.colspan($row, $column, index, $columnIndex)">
 				<ng-container [q-grid-core-td]="$column">
 				</ng-container>
 			</td>
