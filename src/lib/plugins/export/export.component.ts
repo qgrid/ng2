@@ -1,10 +1,7 @@
 import { Component, Input, OnInit, Optional } from '@angular/core';
-import { PluginService as ImportService } from 'ng2-qgrid/core/plugin/plugin.service';
 import { PluginService } from '../plugin.service';
 import { Command } from 'ng2-qgrid/core/command/command';
-import { Json } from 'ng2-qgrid/core/export/json/json';
-import { Xml } from 'ng2-qgrid/core/export/xml/xml';
-import { Csv } from 'ng2-qgrid/core/export/csv/csv';
+import { ExportView } from 'ng2-qgrid/plugin/export/export.view';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { Xlsx } from './xlsx';
 import { Pdf } from './pdf';
@@ -24,6 +21,7 @@ export class ExportComponent implements OnInit {
 	context: { $implicit: ExportComponent } = {
 		$implicit: this
 	};
+	exportView = new ExportView();
 
 	constructor(private plugin: PluginService, private templateHost: TemplateHostService) {
 	}

@@ -1,8 +1,8 @@
-import { PluginService } from '@grid/core/plugin';
-import { Command } from '@grid/core/command';
-import { Csv } from '@grid/core/export/csv';
-import { Json } from '@grid/core/export/json';
-import { Xml } from '@grid/core/export/xml';
+import { PluginService } from '../../core/plugin.service';
+import { Command } from '../../core/command/command';
+import { Json } from '../../core/export/json/json';
+import { Xml } from '../../core/export/xml/xml';
+import { Csv } from '../../core/export/csv/csv';
 import { downloadFactory } from './download';
 import { Xlsx } from './xlsx';
 import { Pdf } from './pdf';
