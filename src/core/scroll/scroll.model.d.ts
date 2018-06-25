@@ -33,4 +33,6 @@ export declare interface ScrollModel {
 		rowToView: (index: number) => number,
 		viewToRow: (index: number) => number,
 	};
+
+	resetTriggers: Array<string>;
 }

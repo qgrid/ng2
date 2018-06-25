@@ -17,14 +17,12 @@ export class VscrollPipe implements PipeTransform {
 		}
 
 		const count = data.length;
-		const container = context.container;
+		const { container, settings } = context;
 
 		container.update(count);
 		if (count) {
-			const view = container.items;
-			const cursor = container.cursor;
-			const settings = context.settings;
-			const threshold = settings.threshold;
+			const { items, cursor } = container;
+			const { threshold } = settings;
 
 			// We need to have a less number of virtual items on
 			// the bottom, as deferred loading is happen there should
@@ -33,21 +31,15 @@ export class VscrollPipe implements PipeTransform {
 			if (container.force || first !== container.position) {
 				const last = Math.min(cursor + threshold, count);
 				container.position = first;
-				container.drawEvent.emit({
-					first,
-					last,
-					position: cursor
-				});
-
-				view.length = last - first;
+				items.length = last - first;
 				for (let i = first, j = 0; i < last; i++ , j++) {
-					view[j] = data[i];
+					items[j] = data[i];
 				}
 
 				container.force = false;
 			}
 
-			return view;
+			return items;
 		}
 
 		return empty;

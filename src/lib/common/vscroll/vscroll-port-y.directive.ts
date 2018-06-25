@@ -21,7 +21,8 @@ export class VscrollPortYDirective extends VscrollPort implements OnInit {
 	constructor(
 		private zone: NgZone,
 		private elementRef: ElementRef,
-		view: VscrollDirective) {
+		view: VscrollDirective
+	) {
 		super(view, elementRef.nativeElement);
 	}
 

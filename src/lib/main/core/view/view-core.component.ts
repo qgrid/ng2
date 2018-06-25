@@ -29,7 +29,7 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 
 		zone.onStable.subscribe(() => {
 			if (this.root.isReady) {
-				const model = this.model;
+				const { model } = this;
 				const { round, status } = model.scene();
 				if (round > 0 && status === 'start') {
 					model.scene({
@@ -47,6 +47,8 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 	}
 
 	ngDoCheck() {
+		console.log('doCheck');
+		
 		const { status } = this.model.scene();
 		if (status === 'stop') {
 			this.job(() => this.ctrl.invalidate());

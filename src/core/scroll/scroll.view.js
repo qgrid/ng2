@@ -28,22 +28,31 @@ export class ScrollView {
 			(this.y.container.drawEvent.on || this.y.container.drawEvent.subscribe)
 				.bind(this.y.container.drawEvent);
 
-		subscribe(e => {
-			const { position } = e;
+		const updateCurrentPage = position => {
 			const { size, current } = pagination();
-			scroll({ cursor: position }, {
-				source: 'scroll.view',
-				behavior: 'core'
-			});
-
-			const newCurrent = Math.round(position / size);
-			if (newCurrent !== current) {
+			const newCurrent = Math.floor(position / size);
+			if (newCurrent !== current) {				
+				console.log('newPage:' + newCurrent);
 				pagination({ current: newCurrent }, {
 					source: 'scroll.view',
 					behavior: 'core'
 				});
 			}
+		};
+
+		subscribe(e => {
+			const { position } = e;
+
+			console.log('draw:' + position);
+			updateCurrentPage(position);
+
+
+			scroll({ cursor: position }, {
+				source: 'scroll.view',
+				behavior: 'core'
+			});
 		});
+
 
 		switch (scroll().mode) {
 			case 'virtual': {
@@ -68,17 +77,18 @@ export class ScrollView {
 					});
 				};
 
-				let fromScroll = false
+				let startSource;
 				model.sceneChanged.watch(e => {
 					if (e.hasChanges('status')) {
 						const status = e.state.status;
 						switch (status) {
 							case 'start': {
-								fromScroll = e.tag.source === 'scroll.view';
+								startSource = e.tag.source;
 								break;
 							}
 							case 'stop': {
-								if (!fromScroll) {
+								const resetTriggers = new Set(scroll().resetTriggers);
+								if (resetTriggers.has(startSource)) {
 									this.y.container.reset();
 								}
 								break;

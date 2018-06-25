@@ -31,7 +31,7 @@ export function viewFactory(
 	const proxy = new ModelProxy(model);
 	const basket = new Disposable();
 	const { shortcut } = model.action();
-	const navigationShortuct = {
+	const navigationShortcut = {
 		register: commands => {
 			basket.using(shortcut.register(commandManager, commands));
 		},
@@ -57,12 +57,12 @@ export function viewFactory(
 		host.highlight = new HighlightView(modelProxy, table);
 		host.sort = new SortView(modelProxy);
 		host.pagination = new PaginationView(modelProxy);
-		host.nav = new NavigationView(modelProxy, table, navigationShortuct);
-		host.group = new GroupView(modelProxy, table, gridService, navigationShortuct);
-		host.edit = new EditView(modelProxy, table, navigationShortuct);
+		host.nav = new NavigationView(modelProxy, table, navigationShortcut);
+		host.group = new GroupView(modelProxy, table, gridService, navigationShortcut);
+		host.edit = new EditView(modelProxy, table, navigationShortcut);
 		host.filter = new FilterView(modelProxy);
 		host.pivot = new PivotView(modelProxy);
-		host.rowDetails = new RowDetailsView(modelProxy, table, navigationShortuct);
+		host.rowDetails = new RowDetailsView(modelProxy, table, navigationShortcut);
 		host.selection = new SelectionView(modelProxy, table, selectionShortcut);
 		host.style = new StyleView(modelProxy, table);
 

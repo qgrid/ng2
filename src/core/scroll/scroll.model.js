@@ -12,5 +12,10 @@ export class ScrollModel {
 			rowToView: identity,
 			viewToRow: identity
 		};
+
+		this.resetTriggers = [
+			'sort.view',
+			'column.filter.view'
+		];
 	}
 }
