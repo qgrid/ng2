@@ -1,5 +1,6 @@
-import { identity, isObject, isArray, isBoolean, isEmail, isString } from '../utility/kit';
+import { identity, isObject, isArray, isBoolean, isEmail, isString, isUrl, isImage } from '../utility/kit';
 
+// TODO: right now we check the empty result on null, we need to have a way to make it more explicitly
 export function parseFactory(type, editor) {
 	switch (type) {
 		case 'id': {
@@ -55,6 +56,14 @@ export function getType(value) {
 
 	if (isEmail(value)) {
 		return 'email';
+	}
+
+	if (isImage(value)) {
+		return 'image';
+	}
+
+	if (isUrl(value)) {
+		return 'url';
 	}
 
 	if (isString(value)) {

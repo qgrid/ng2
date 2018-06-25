@@ -20,7 +20,7 @@ export class SelectorMark {
 
 	addFactory(result) {
 		const model = this.model;
-		const rows = model.view().rows;
+		const { rows } = model.view();
 		const columns = model.scene().column.area;
 
 		return pin => {
@@ -34,7 +34,7 @@ export class SelectorMark {
 				const rowCount = rows.length;
 
 				result.push({
-					element: element,
+					element,
 					columnRange: new Range(columnStart, columnStart + columnCount),
 					rowRange: new Range(rowStart, rowStart + rowCount)
 				});

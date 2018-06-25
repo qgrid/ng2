@@ -1,79 +1,68 @@
-import { max } from '../../utility/kit';
+import { binarySearch } from '../../utility/kit';
+import { AppError } from '../../infrastructure/error';
 
 export class Matrix {
-    constructor(table) {
-        this.table = table;
-        this.rowspans = {};
+    constructor(isDataRow) {
+        this.isDataRow = isDataRow;
     }
 
-    build() {
-        const rows = this.table.rows;
-        const rowsCount = rows.length;
-        const result = [];
-        const rowSpans = {};
+    build(table) {
+        const rows = table.rows;
+        const isDataRow = this.isDataRow;
 
-        for (let i = 0; i < rowsCount; i++) {
-            const rowElement = rows[i];
-            if (rowElement.classList.contains('q-grid-align')) {
+        const mx = [];
+        const offsets = [];
+
+        let y = 0;
+        for (let cursor = 0, height = rows.length; cursor < height; cursor++) {
+            const tr = rows[cursor];
+            if (!isDataRow(tr)) {
                 continue;
             }
-            const row = this.populateRow(rowElement);
-            result.push(row);
-        }
 
-        return result;
-    }
+            const offset = offsets.length > y ? offsets[y] : offsets[y] = [0];
+            const cells = tr.cells;
+            for (let x = 0, width = cells.length; x < width; x++) {
+                const td = cells[x];
+                const { rowSpan, colSpan } = td;
+                const current = offset[0];
+                const next = current + colSpan;
+                for (let i = 0; i < rowSpan; i++) {
+                    const yi = y + i;
+                    const row = mx.length > yi ? mx[yi] : mx[yi] = [];
+                    for (let j = 0; j < colSpan; j++) {
+                        const xj = current + j;
+                        row[xj] = td;
+                    }
 
-    populateRow(row) {
-        const cells = row.cells;
-        const cellsCount = cells.length;
-        const result = {
-            row,
-            cells: []
-        };
-
-        for (let i = 0; i < cellsCount; i++) {
-            const currentCell = cells[i];
-            const rowspan = currentCell.rowSpan || 1;
-            let colSpan = currentCell.colSpan || 1;
-
-            this.populateSpan(i, result);
-            this.addRowspan(currentCell, i, rowspan);
-
-            this.addCell(result, currentCell);
-        }
-
-        return result;
-    }
-
-    addRowspan(cell, index, rowspan) {
-        if (rowspan > 1) {
-            const spans = this.rowspans[index] || (this.rowspans[index] = []);
-
-            spans.push({
-                cell,
-                span: rowspan - 1
-            });
-        }
-    }
-
-    populateSpan(index, result) {
-        const spanning = this.rowspans[index];
-        if (spanning) {
-            spanning.forEach(span => {
-                if (span.span) {
-                    this.addCell(result, span.cell);
-                    span.span--;
+                    const gaps = offsets.length > yi ? offsets[yi] : offsets[yi] = [0];
+                    const index = binarySearch(gaps, current);
+                    if (row[next]) {
+                        gaps.splice(index, 1);
+                    }
+                    else {
+                        const xi = gaps[index];
+                        gaps.splice(index, row[xi] ? 1 : 0, next);
+                    }
                 }
-            });
+            }
+            y++;
         }
+
+        return mx;
     }
 
-    addCell(row, cell) {
-        let colSpan = cell.colSpan || 1;
-
-        while (colSpan--) {
-            row.cells.push(cell);
+    assertFlatness(matrix) {
+        if (matrix.length) {
+            const height = matrix.length;
+            const width = matrix[0].length;
+            for (let i = 1; i < height; i++) {
+                if (matrix[i].length !== width) {
+                    throw new AppError(
+                        'matrix',
+                        `Matrix is not flat, expect width ${width}, actual ${matrix[i].length}`);
+                }
+            }
         }
     }
 }

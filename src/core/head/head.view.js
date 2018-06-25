@@ -1,8 +1,10 @@
+import { PathService } from '../path/path.service';
 import { Log } from '../infrastructure/log';
 import { Command } from '../command/command';
 import * as columnService from '../column/column.service';
 import { FilterRowColumn } from '../column-type/filter.row.column';
 import { clone, isUndefined } from '../utility/kit';
+import { GRID_PREFIX } from '../definition';
 
 export class HeadView {
 	constructor(model, table, tagName) {
@@ -11,31 +13,51 @@ export class HeadView {
 		this.tagName = tagName;
 		this.rows = [];
 
+		const pathFinder = new PathService(table.context.bag.head);
+
 		this.drop = new Command({
 			source: 'head.view',
 			canExecute: e => {
-				if (e.source && e.source.key === tagName) {
-					const key = e.target.value;
-					const map = columnService.map(model.data().columns);
-					return map.hasOwnProperty(key) && map[key].canMove;
+				if (e.action === 'end') {
+					return true;
 				}
 
-				return false;
+				const cell = pathFinder.cell(e.path);
+				return cell && cell.column.canMove;
 			},
 			execute: e => {
-				const columnRows = model.scene().column.rows;
-				for (let columns of columnRows) {
-					const targetIndex = columns.findIndex(c => c.model.key === e.target.value);
-					const sourceIndex = columns.findIndex(c => c.model.key === e.source.value);
-					if (targetIndex >= 0 && sourceIndex >= 0) {
-						const sourceColumn = columns[sourceIndex].model;
-						const targetColumn = columns[targetIndex].model;
-						const indexMap = Array.from(model.columnList().index);
-						const sourceColumnIndex = indexMap.indexOf(sourceColumn.key);
-						const targetColumnIndex = indexMap.indexOf(targetColumn.key);
-						indexMap.splice(sourceColumnIndex, 1);
-						indexMap.splice(targetColumnIndex, 0, sourceColumn.key);
-						model.columnList({ index: indexMap });
+				const sourceKey = e.dragData;
+				switch (e.action) {
+					case 'over': {
+						const th = pathFinder.cell(e.path);
+						if (!e.inAreaX(th.element)) {
+							return;
+						}
+
+						const targetKey = th.column.key;
+						if (sourceKey !== targetKey) {
+							const { columnList } = model;
+							const index = Array.from(columnList().index);
+
+							const oldPos = index.indexOf(sourceKey);
+							const newPos = index.indexOf(targetKey);
+							if (oldPos >= 0 && newPos >= 0) {
+								index.splice(oldPos, 1);
+								index.splice(newPos, 0, sourceKey);
+								columnList({ index }, { source: 'head.view' });
+							}
+						}
+						break;
+					}
+					case 'end':
+					case 'drop': {
+						const { index } = model.columnList();
+						let oldIndex = index.indexOf(sourceKey);
+						if (oldIndex >= 0) {
+							const oldColumn = table.body.column(oldIndex);
+							oldColumn.removeClass(`${GRID_PREFIX}-drag`);
+						}
+						break;
 					}
 				}
 			}
@@ -43,25 +65,29 @@ export class HeadView {
 
 		this.drag = new Command({
 			source: 'head.view',
-			canExecute: e => {
-				if (e.source.key === tagName) {
-					const map = columnService.map(model.data().columns);
-					return map.hasOwnProperty(e.source.value) && map[e.source.value].canMove !== false;
+			execute: e => {
+				const sourceKey = e.data;
+				const { index } = model.columnList();
+				const columnIndex = index.indexOf(sourceKey);
+				if (columnIndex >= 0) {
+					const column = table.body.column(columnIndex);
+					column.addClass(`${GRID_PREFIX}-drag`);
 				}
-
-				return false;
+			},
+			canExecute: e => {
+				const sourceKey = e.data;
+				const { columns } = model.view();
+				const map = columnService.map(columns);
+				return map.hasOwnProperty(sourceKey) && map[sourceKey].canMove;
 			}
 		});
 
 		this.resize = new Command({
 			source: 'head.view',
 			canExecute: e => {
-				if (e.source.key === tagName) {
-					const map = table.data.columnMap();
-					return map.hasOwnProperty(e.source.value) && map[e.source.value].canResize !== false;
-				}
-
-				return false;
+				const key = e.data;
+				const map = table.data.columnMap();
+				return map.hasOwnProperty(key) && map[key].canResize !== false;
 			}
 		});
 
@@ -95,6 +121,13 @@ export class HeadView {
 			}
 		});
 
+		model.dataChanged.watch(e => {
+			if (e.hasChanges('columns')) {
+				const line = columnService.flatten(e.state.columns);
+				model.columnList({ line }, { source: 'head.view' });
+			}
+		});
+
 		model.sceneChanged.watch(e => {
 			if (e.hasChanges('column')) {
 				this.invalidate();
@@ -108,13 +141,6 @@ export class HeadView {
 		});
 	}
 
-	transfer(column) {
-		return {
-			key: this.tagName,
-			value: column.key
-		};
-	}
-
 	columns(row, pin) {
 		return row.filter(c => c.model.pin === pin);
 	}
@@ -124,6 +150,12 @@ export class HeadView {
 
 		const model = this.model;
 		this.rows = Array.from(model.scene().column.rows);
+
+		if (this.rows.length > 1) {
+			this.table.view.addClass(`${GRID_PREFIX}-head-multi`);
+		} else {
+			this.table.view.removeClass(`${GRID_PREFIX}-head-multi`);
+		}
 
 		if (model.filter().unit === 'row') {
 			const filterRow = this.table.data.columns().map(c => new FilterRowColumn(c));

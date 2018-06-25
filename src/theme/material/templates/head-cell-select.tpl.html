@@ -1,0 +1,13 @@
+<ng-template key="head-cell-select.tpl.html"
+             let-$view="$view">
+    <ng-container>        
+        <mat-checkbox [indeterminate]="$view.selection.isIndeterminate()"
+                      [checked]="$view.selection.state()"
+                      [disabled]="!$view.selection.toggleRow.canExecute()"
+                      (change)="$view.selection.toggleRow.execute()"
+                      tabindex="-1"
+                      aria-label="Select all"
+                      class="q-grid-checkbox">
+        </mat-checkbox>
+    </ng-container>
+</ng-template>

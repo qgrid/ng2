@@ -1,32 +1,33 @@
-import { Component, Optional, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Optional, Input, OnInit, OnDestroy, SimpleChanges, OnChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RestView } from 'ng2-qgrid/plugin/rest/rest.view';
-import { RootService } from '../../infrastructure/component/root.service';
-import { PluginComponent } from '../plugin.component';
+import { PluginService } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-rest',
-	template: ''
+	template: '',
+	providers: [PluginService]
 })
-export class RestComponent extends PluginComponent
-	implements OnInit, OnDestroy {
-	@Input('url') public restUrl: string;
-	@Input('method') public restMethod: string;
-	@Input('serialize') public restSerialize: (x: any) => any;
+export class RestComponent implements OnInit, OnChanges {
+	@Input('url') restUrl: string;
+	@Input('method') restMethod: string;
+	@Input('serialize') restSerialize: (x: any) => any;
 
-	private rest: RestView;
+	context: { $implicit: RestView };
 
-	constructor(private http: HttpClient, @Optional() root: RootService) {
-		super(root);
-
-		this.models = ['rest'];
+	constructor(private http: HttpClient, private plugin: PluginService) {
 	}
 
-	onReady() {
-		this.rest = new RestView(this.model, {
+	ngOnChanges(changes: SimpleChanges) {
+		this.plugin.keep(changes, ['rest']);
+	}
+
+	ngOnInit() {
+		const rest = new RestView(this.plugin.model, {
 			get: (url, params) => this.http.get(url, { params }).toPromise(),
 			post: (url, data) => this.http.post(url, { data }).toPromise()
 		});
-		this.context = { $implicit: this.rest };
+
+		this.context = { $implicit: rest };
 	}
 }

@@ -1,27 +1,28 @@
-import { Component, Optional, Input, EventEmitter, OnInit } from '@angular/core';
-import { RootService } from '../../infrastructure/component/root.service';
-import { PluginComponent } from '../plugin.component';
+import { Component, Optional, Input, EventEmitter, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { Action } from 'ng2-qgrid/core/action/action';
 import { Composite } from 'ng2-qgrid/core/infrastructure/composite';
 import { PersistenceItem } from 'ng2-qgrid/plugin/persistence/persistence.view';
 import { PersistenceService } from 'ng2-qgrid/core/persistence/persistence.service';
+import { PluginService } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-persistence',
-	template: ''
+	template: '',
+	providers: [PluginService]
 })
-export class PersistenceComponent extends PluginComponent implements OnInit {
-	constructor(@Optional() root: RootService) {
-		super(root);
-
-		this.models = ['persistence'];
+export class PersistenceComponent implements OnInit, OnChanges {
+	constructor(private plugin: PluginService) {
 	}
 
-	onReady() {
-		const model = this.root.model;
+	ngOnChanges(changes: SimpleChanges) {
+		this.plugin.keep(changes, ['persistence']);
+	}
+
+	ngOnInit() {
+		const { model } = this.plugin;
 		const id = `q-grid:${model.grid().id}:persistence-list`;
-		model.persistence({id});
+		model.persistence({ id });
 		model.persistence().storage
 			.getItem(id)
 			.then((items: PersistenceItem[]) => {
@@ -42,8 +43,11 @@ export class PersistenceComponent extends PluginComponent implements OnInit {
 				'history'
 			);
 		action.templateUrl = 'plugin-persistence.tpl.html';
-		this.model.action({
-			items: Composite.list([[action], this.model.action().items])
-		});
+
+		this.plugin.model.action({
+			items: Composite.list([[action], this.plugin.model.action().items])
+		}, {
+				source: 'persistence.component'
+			});
 	}
 }

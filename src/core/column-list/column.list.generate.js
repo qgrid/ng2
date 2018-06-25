@@ -33,40 +33,56 @@ export function generateFactory(model) {
 	const data = model.data;
 	const createColumn = columnFactory(model);
 	return () => {
-		const rows = data().rows;
-		const templateColumns = model.columnList().columns;
-		const generatedColumns = [];
-		const generation = model.columnList().generation;
+		const { rows } = data();
+		const htmlColumns = model.columnList().columns;
+
+		const spawnColumns = [];
+		const { generation } = model.columnList();
 		if (generation) {
+			let settings = {
+				rows,
+				columnFactory: createColumn,
+				deep: false,
+				cohort: false
+			};
+
 			switch (generation) {
-				case 'deep': {
-					generatedColumns.push(...generate({ rows, columnFactory: createColumn, deep: true }));
+				case 'shallow': {
 					break;
 				}
-				case
-					'shallow': {
-						generatedColumns.push(...generate({ rows, columnFactory: createColumn, deep: false }));
-						break;
-					}
+				case 'deep': {
+					settings.deep = true;
+					break;
+				}
+				case 'cohort': {
+					settings.deep = true;
+					settings.cohort = true;
+					break;
+				}
 				default:
-					throw new AppError('column.list.generate', `Invalid generation mode "${generation}"`);
+					throw new AppError(
+						'column.list.generate',
+						`Invalid generation mode "${generation}"`
+					);
 			}
+
+			spawnColumns.push(...generate(settings));
 		}
 
-		const dataColumns = Array.from(data().columns);
+		const columns = Array.from(data().columns);
+
 		const statistics = [];
-
-		if (generatedColumns.length) {
-			statistics.push(merge(dataColumns, generatedColumns, false));
+		if (spawnColumns.length) {
+			statistics.push(merge(columns, spawnColumns, false));
 		}
 
-		if (templateColumns.length) {
-			statistics.push(merge(dataColumns, templateColumns, true));
+		if (htmlColumns.length) {
+			statistics.push(merge(columns, htmlColumns, true));
 		}
 
 		return {
-			columns: dataColumns,
-			statistics: statistics,
+			columns,
+			statistics,
 			hasChanges: hasChanges(statistics)
 		};
 	};
@@ -75,21 +91,32 @@ export function generateFactory(model) {
 export function generate(settings) {
 	const context = assignWith({
 		deep: true,
+		cohort: false,
 		rows: [],
 		columnFactory: () => new TextColumnModel(),
 		title: startCase
 	}, settings);
+
 	if (context.rows.length) {
-		return build(context.rows[0], null, context.columnFactory, context.deep, context.title);
+		return build(
+			context.rows[0],
+			null,
+			context.columnFactory,
+			context.deep,
+			context.cohort,
+			context.title
+		);
 	}
+
 	return [];
 }
 
-function build(graph, path, columnFactory, deep, title) {
+function build(graph, path, columnFactory, deep, cohort, title) {
 	const props = Object.getOwnPropertyNames(graph);
-	return props.reduce((columns, prop) => {
-		const value = graph[prop];
+	return props.reduce((memo, prop) => {
 		const propPath = path ? `${path}.${prop}` : prop;
+
+		const value = graph[prop];
 		const type = getType(value);
 		switch (type) {
 			case 'array': {
@@ -99,7 +126,17 @@ function build(graph, path, columnFactory, deep, title) {
 				column.path = propPath;
 				column.value = compile(propPath);
 				column.source = 'generation';
-				columns.push(column);
+				if (value.length) {
+					column.itemType = getType(value[0]);
+					switch (column.itemType) {
+						case 'date': {
+							column.itemFormat = columnFactory('date').model.format;
+							break;
+						}
+					}
+				}
+
+				memo.push(column);
 				break;
 			}
 			case 'collection': {
@@ -107,7 +144,28 @@ function build(graph, path, columnFactory, deep, title) {
 			}
 			case 'object': {
 				if (deep) {
-					columns.push(...build(value, propPath, columnFactory, true, title));
+					const columns = build(
+						value,
+						propPath,
+						columnFactory,
+						deep,
+						cohort,
+						title
+					);
+
+					if (cohort) {
+						const column = columnFactory('cohort').model;
+						column.key = propPath;
+						column.title = title(propPath, graph, column.length);
+						column.path = propPath;
+						column.value = compile(propPath);
+						column.source = 'generation';
+						column.children.push(...columns);
+						memo.push(column);
+					} else {
+						memo.push(...columns);
+					}
+
 				}
 				break;
 			}
@@ -118,11 +176,11 @@ function build(graph, path, columnFactory, deep, title) {
 				column.path = propPath;
 				column.value = compile(propPath);
 				column.source = 'generation';
-				columns.push(column);
+				memo.push(column);
 				break;
 			}
 		}
 
-		return columns;
+		return memo;
 	}, []);
 }

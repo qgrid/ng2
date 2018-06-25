@@ -1,7 +1,7 @@
-import { CellView } from '../scene/view/cell.view';
+import { Td } from '../dom/td';
 
 export declare class CellSelector {
 	constructor();
 
-	map(items: any[]): CellView[];
+	map(items: any[]): Td[];
 }

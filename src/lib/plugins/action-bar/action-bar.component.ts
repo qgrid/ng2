@@ -1,45 +1,43 @@
 import { OnDestroy, OnInit, Optional, Component } from '@angular/core';
 import { Action } from 'ng2-qgrid/core/action/action';
-import { RootService } from '../../infrastructure/component/root.service';
-import { PluginComponent } from '../plugin.component';
+import { PluginService } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-action-bar',
-	templateUrl: './action-bar.component.html'
+	templateUrl: './action-bar.component.html',
+	providers: [PluginService]
 })
-export class ActionBarComponent extends PluginComponent
-	implements OnInit, OnDestroy {
-
+export class ActionBarComponent implements OnInit, OnDestroy {
 	private shortcutOff: () => void = null;
 
-	constructor(@Optional() root: RootService) {
-		super(root);
+	context: { $implicit: ActionBarComponent } = {
+		$implicit: this
+	};
+
+	constructor(private plugin: PluginService) {
 	}
 
-	onReady() {
-		const shortcut = this.model.action().shortcut;
-		this.model.actionChanged.watch(e => {
+	ngOnInit() {
+		const { model } = this.plugin;
+
+		model.actionChanged.watch(e => {
 			if (e.hasChanges('items')) {
 				if (this.shortcutOff) {
 					this.shortcutOff();
 					this.shortcutOff = null;
 				}
 
-				this.shortcutOff = shortcut.register(
-					this.root.commandManager,
-					e.state.items.map(act => act.command)
-				);
+				const { shortcut, manager } = model.action();
+				this.shortcutOff = shortcut.register(manager, e.state.items.map(act => act.command));
 			}
 		})
 	}
 
 	get actions(): Action[] {
-		return this.model.action().items;
+		return this.plugin.model.action().items;
 	}
 
 	ngOnDestroy() {
-		super.ngOnDestroy();
-
 		if (this.shortcutOff) {
 			this.shortcutOff();
 			this.shortcutOff = null;

@@ -1,0 +1,49 @@
+.q-grid.q-grid-theme-basic {
+    font-family: Roboto;
+    .q-grid {
+        &-table {
+            tr {
+                height: 30px;
+            }
+            th {
+                font-size: 12px !important;
+                color: #006f8f !important;
+                font-weight: normal !important;
+                line-height: 14px;
+            }
+            td {
+                font-size: 16px;
+                line-height: 16px;
+                font-weight: normal;
+            }
+            tfoot,
+            tbody {
+                tr {
+                    border-top: 1px solid #e0e0e0;
+                }
+                tr:nth-child(2) {
+                    border-top: 0;
+                }
+            }
+        }
+    }
+    th {
+        .q-grid {
+            &-desc,
+            &-asc {
+                display: none;
+            }
+            &-can-sort {
+                .q-grid {
+                    &-sort {
+                        cursor: pointer;
+                    }
+                    &-desc,
+                    &-asc {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+}

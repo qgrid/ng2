@@ -1,25 +1,28 @@
-import { Component, Optional, Input, OnInit, OnDestroy } from '@angular/core';
-import { RootService } from '../../infrastructure/component/root.service';
-import { PluginComponent } from '../plugin.component';
+import { Component, Optional, Input, OnInit, OnDestroy, SimpleChanges, OnChanges } from '@angular/core';
 import { DataManipulationView } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.view';
+import { PluginService } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-data-manipulation',
-	template: ''
+	template: '',
+	providers: [PluginService]
 })
-export class DataManipulationComponent extends PluginComponent {
-	@Input('rowId') public dataManipulationRowId: (x: any) => string;
+export class DataManipulationComponent implements OnInit, OnChanges {
 	@Input('rowFactory') public dataManipulationRowFactory: (x: any) => any;
 
-	constructor(@Optional() root: RootService) {
-		super(root);
-
-		this.models = ['dataManipulation'];
-
+	context: {
+		$implicit: DataManipulationView
 	}
 
-	onReady() {
-		const dataManipulation = new DataManipulationView(this.model);
+	constructor(private plugin: PluginService) {
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
+		this.plugin.keep(changes, ['dataManipulation']);
+	}
+
+	ngOnInit() {
+		const dataManipulation = new DataManipulationView(this.plugin.model);
 		this.context = { $implicit: dataManipulation };
 	}
 }

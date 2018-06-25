@@ -1,0 +1,30 @@
+<ng-template key="plugin-reference-editor.tpl.html"
+             let-$editor>
+    <mat-card class="q-grid-reference-card">
+        <mat-card-header>
+            <mat-card-title>{{$editor.title}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <q-grid class="q-grid-embed"
+                    [model]="$editor.referenceModel"
+                    q-grid-autofocus>
+                <q-grid-toolbar>
+                    <ng-template for="top">
+                        <div class="q-grid-progress">
+                            <q-grid-progress></q-grid-progress>
+                        </div>
+                    </ng-template>
+                </q-grid-toolbar>
+            </q-grid>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button
+                    [disabled]="!$editor.cancel.canExecute()"
+                    (click)="$editor.cancel.execute()">Cancel</button>
+            <button mat-button
+                    color="primary"
+                    [disabled]="!$editor.submit.canExecute()"
+                    (click)="$editor.submit.execute()">Save</button>
+        </mat-card-actions>
+    </mat-card>
+</ng-template>

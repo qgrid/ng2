@@ -9,7 +9,6 @@ export class Event {
 		const handlers = this.handlers;
 		const handler = {f: f};
 		const off = () => {
-			console.log(`off: ${f}`);
 			const index = handlers.indexOf(handler);
 			if (index >= 0) {
 				handlers.splice(index, 1);

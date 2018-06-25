@@ -6,17 +6,17 @@ import {
 	OnInit,
 	ViewContainerRef
 } from '@angular/core';
-import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { TdCtrl } from 'ng2-qgrid/core/cell/td.ctrl';
 import { ThCtrl } from 'ng2-qgrid/core/cell/th.ctrl';
+import { Td } from 'ng2-qgrid/core/dom/td';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { FilterRowColumnModel } from 'ng2-qgrid/core/column-type/filter.row.column';
-import { TableCoreService } from '../table/table-core.service';
 import { CellService } from '../cell/cell.service';
 import { RootService } from '../../../infrastructure/component/root.service';
 import { ViewCoreService } from '../view/view-core.service';
-import { TrCoreDirective } from '../row/tr-core.directive';
+import { TrhCoreDirective } from '../row/trh-core.directive';
 
 const classifyTd = TdCtrl.classify;
 const classifyTh = ThCtrl.classify;
@@ -24,9 +24,12 @@ const classifyTh = ThCtrl.classify;
 @Directive({
 	selector: '[q-grid-core-th]'
 })
-export class ThCoreDirective implements OnInit, OnDestroy {
+export class ThCoreDirective implements Td, OnInit, OnDestroy {
 	@Input('q-grid-core-th') columnView: ColumnView;
-	public element: HTMLElement = null;
+	element: HTMLElement = null;
+	value: any;
+	label: any;
+	
 	private $implicit = this;
 
 	constructor(
@@ -34,8 +37,7 @@ export class ThCoreDirective implements OnInit, OnDestroy {
 		private root: RootService,
 		private viewContainerRef: ViewContainerRef,
 		private cellService: CellService,
-		private table: TableCoreService,
-		private tr: TrCoreDirective,
+		private tr: TrhCoreDirective,
 		element: ElementRef
 	) {
 		this.element = element.nativeElement.parentNode;
@@ -77,6 +79,10 @@ export class ThCoreDirective implements OnInit, OnDestroy {
 
 	get rowIndex() {
 		return this.tr.index;
+	}
+
+	mode(value: string): void {
+		throw new AppError('th-core.directive', `${value} mode is not supported`);
 	}
 
 	ngOnDestroy() {

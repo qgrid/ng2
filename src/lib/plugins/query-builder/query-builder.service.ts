@@ -1,8 +1,6 @@
-import { Injectable } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { isUndefined, yes, uniq } from 'ng2-qgrid/core/utility/kit';
 import { ExpressionBuilder } from '../expression-builder/model/expression.builder';
-import { INodeSchema } from '../expression-builder/model/node.schema';
 import { Node } from '../expression-builder/model/node';
 import { typeMapping } from './schema/operator';
 import { getFactory } from 'ng2-qgrid/core/services/value';
@@ -36,9 +34,14 @@ export class QueryBuilderService {
 	columns(): Array<Column> {
 		const model = this.model;
 		return model
-			.data()
-			.columns
-			.filter(column => typeMapping.hasOwnProperty(column.type));
+			.columnList()
+			.line
+			.filter(column => typeMapping.hasOwnProperty(column.type))
+			.map(column => ({
+				key: column.key,
+				title: column.title,
+				type: column.type
+			}));
 	}
 
 	columnMap(): ColumnMap {
@@ -61,7 +64,7 @@ export class QueryBuilderService {
 		selection = (selection || []).map(item => ('' + item).toLowerCase());
 
 		const model = this.model;
-		const columnMap = columnService.map(model.data().columns);
+		const columnMap = columnService.map(model.columnList().line);
 		const column = columnMap[key];
 		if (!column) {
 			throw new AppError('query-builder.service', `Column ${key} is not found`);
@@ -69,7 +72,9 @@ export class QueryBuilderService {
 
 		const getValue = getFactory(column);
 		return new Promise(resolve => {
-			const view = model.data().rows
+			const view = model
+				.data()
+				.rows
 				.map(getValue)
 				.filter(item =>
 					!isUndefined(item) &&

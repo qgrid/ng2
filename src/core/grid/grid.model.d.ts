@@ -26,5 +26,16 @@ export declare interface GridModel {
 	/**
 	 * Text that is used by grid title plugin to show header inside top toolbar.
 	 */
+	caption?: string;
+
+	/**
+	 * Allows to change performance strategy of the grid.
+	 * * `full` grid has full interaction possibilities.
+	 * * `readonly` grid starts to use cache to render values.
+	 * * `detached` grid disable change detection after render.
+	 */
+	interactionMode?: 'full' | 'readonly' | 'detached';
+
+	// @depricated
 	title?: string;
 }

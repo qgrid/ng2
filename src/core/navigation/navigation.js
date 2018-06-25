@@ -10,7 +10,7 @@ export class Navigation {
 		const table = this.table;
 		const body = table.body;
 		const lastRow = this.lastRow;
-		const lower = table.view.scrollHeight() - table.view.height(); 
+		const lower = table.view.scrollHeight() - table.view.height();
 
 		let index = 0;
 		let offset = 0;
@@ -31,12 +31,12 @@ export class Navigation {
 		return { row, offset };
 	}
 
-	goTo(row, column, source = 'navigation') {
-		let cell = this.cell(row, column);
+	goTo(rowIndex, columnIndex, source = 'navigation') {
+		let cell = this.cell(rowIndex, columnIndex);
 		if (!cell) {
 			// TODO: make it better, right it just a huck for row-details,
 			// need to support rowspan and colspan
-			cell = this.cell(row, this.firstColumn);
+			cell = this.cell(rowIndex, this.firstColumn);
 		}
 
 		this.model.navigation({ cell }, { source });
@@ -112,9 +112,20 @@ export class Navigation {
 		return this.table.body.rowCount(this.currentColumn) - 1;
 	}
 
-	cell(row, column) {
-		const cell = this.table.body.cell(row, column);
-		return cell.model();
+	cell(rowIndex, columnIndex) {
+		const cell = this.table.body.cell(rowIndex, columnIndex);
+		const model = cell.model();
+		if (model) {
+			const { row, column } = model;
+			return {
+				rowIndex,
+				columnIndex,
+				row,
+				column
+			};
+		}
+
+		return null;
 	}
 
 	context(type, settings) {
@@ -340,7 +351,7 @@ export class Navigation {
 					const newRow = position.row;
 					const newColumn = this.currentColumn;
 					if (go.execute(this.context('pageUp', { newRow, newColumn }))) {
-						this.model.scroll({ top: position.offset });
+						this.model.scroll({ top: position.offset }, { source: 'navigation' });
 						return this.goTo(newRow, newColumn, 'navigation.scroll');
 					}
 
@@ -364,7 +375,7 @@ export class Navigation {
 					const newRow = position.row;
 					const newColumn = this.currentColumn;
 					if (go.execute(this.context('pageDown', { newRow, newColumn }))) {
-						this.model.scroll({ top: position.offset });
+						this.model.scroll({ top: position.offset }, { source: 'navigation' });
 						return this.goTo(position.row, this.currentColumn, 'navigation.scroll');
 					}
 

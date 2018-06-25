@@ -5,15 +5,65 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 * Auto-complete cell editor.
+* Time cell editor.
 * Row edit form.
 * Infinite scrolling.
-* Performance improvements.
 * Validation framework.
-* Email, url cell editor.
 * Copy/paste selection to excel.
-* Auto-complete for Query builder.
-* Query builder input performance improvements.
-* Batch edit improvements.
+* Live data plugin.
+* Float Row Navigation.
+
+## [6.1.3] - 2018-06-21
+### Fixed
+- Fixed AOT compilation.
+- Fixed time editor value assign.
+- Dark theme for plugins and cell handler.
+- Textarea editor now shows length of the input text.
+
+## [6.1.1] - 2018-06-15
+### Fixed
+- Highlight on drag and drop.
+- Pager target should be closed after enter hit.
+
+### Changed 
+- Column Filter, Column Chooser, Query Builder, Persistence Plugins became responsible.
+
+## [6.1.0] - 2018-06-15
+### BREAKING
+- Need to change theme import from `import { ThemeModule } from 'ng2-qgrid'` to `import { ThemeModule } from 'ng2-qgrid/theme/material`
+
+### Deprecated
+- Use `FetchContext` `serach` property instead of `filter` property.
+- Use `<q-grid caption="My Grid">` instead of `<q-grid header="My Grid">`.
+
+### Added
+- Support of custom themes, we are not linked tight with angular/material any more.
+- 113+ Examples.
+- Readonly strategies `<q-grid interactionMode="full | readonly | detached">`.
+- Spanned headers and column groups.
+- Group summaries.
+- `PluginServices` that allows to write own plugins for q-grid.
+- Better caching strategies for renders.
+- New `rowspan` mode for groups.
+- New `rowList` model.
+- Drag and drop column support in `column chooser`.
+- Initial basic theme.
+- Float(fixed) rows support through the `model.row()` `pin` property.
+- New column generation mode `cohort`.
+- Action trigger template support.
+
+### Changed
+- Live `drag and drop` for rows and columns.
+- Use `Model Proxy` for resource utilization.
+- New `Dom matrix` engine for rendering.
+- Reference column API.
+- Pin columns are highlighted when scroll horizontal.
+- 
+### Fixed
+- Better row details rendering. 
+- Fixed focus position on scene render (e.g. sort, filter etc.).
+- Column sort algorithm became more predictable.
+- Array cell editor doesn't work with keyboard.
 
 ## [5.3.10] - 2018-05-21
 ### Added
@@ -39,6 +89,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - FocusAfterRender service.
 - Column filter IsBlank is displayed in chips.
 - Legend template syntax.
+- TypeScript defenitions.
+- Async pipe for rows property.
 
 ## [5.3.7] - 2018-07-08
 ### Added
@@ -221,7 +273,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v5.3.10...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v6.1.3...HEAD
+[6.1.3]: https://github.com/qgrid/ng2/compare/v6.1.3...v6.1.1
+[6.1.1]: https://github.com/qgrid/ng2/compare/v6.1.1...v6.1.0
+[6.1.0]: https://github.com/qgrid/ng2/compare/v6.1.0...v5.3.10
 [5.3.10]: https://github.com/qgrid/ng2/compare/v5.3.10...v5.3.9
 [5.3.9]: https://github.com/qgrid/ng2/compare/v5.3.8...v5.3.7
 [5.3.7]: https://github.com/qgrid/ng2/compare/v5.3.7...v5.3.6

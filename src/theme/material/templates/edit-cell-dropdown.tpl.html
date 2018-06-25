@@ -1,0 +1,14 @@
+<ng-template key='edit-cell-dropdown.tpl.html'
+             let-$cell
+             let-$view="$view">
+    <div class="q-grid-dropdown">
+        <mat-select q-grid-select
+                    [(ngModel)]="$view.edit.cell.value"
+                    (selectionChange)="$view.edit.cell.commit.execute($cell)">
+            <mat-option *ngFor="let option of $view.edit.cell.fetch.result"
+                        [value]="option">
+                {{option}}
+            </mat-option>
+        </mat-select>
+    </div>
+</ng-template>

@@ -13,5 +13,7 @@ export class RowModel {
 		};
 		this.canMove = false;
 		this.canResize = false;
+		this.pinTop = [];
+		this.pinBottom = [];
 	}
 }

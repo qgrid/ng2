@@ -1,0 +1,25 @@
+<q-grid caption="Index Column Basic"
+        [rows]="rows | async">
+	<q-grid-columns>
+		<q-grid-column key="symbol"
+		               index="1"
+		               title="[1]Symbol"
+		               type="text">
+		</q-grid-column>
+		<q-grid-column key="source"
+		               title="[3]Wiki"
+		               width="300"
+		               type="url">
+		</q-grid-column>
+		<q-grid-column key="name"
+		               title="[2]Name"
+		               index="2">
+		</q-grid-column>
+		<q-grid-column key="number"
+		               index="0"
+		               title="[0]#"
+		               width="90"
+		               type="id">
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

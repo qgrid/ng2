@@ -1,8 +1,9 @@
 import { OnInit, Component, Input } from '@angular/core';
+import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { RootService } from '../../../infrastructure/component/root.service';
 import { TableCoreService } from './table-core.service';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
-import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
+import { ViewCoreService } from '../view/view-core.service';
 
 @Component({
 	selector: 'q-grid-core-table',
@@ -14,7 +15,10 @@ import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 export class TableCoreComponent implements OnInit {
 	@Input() public pin = null;
 
-	constructor(private root: RootService, private table: TableCoreService) {
+	constructor(
+		private root: RootService,
+		private table: TableCoreService,
+		public $view: ViewCoreService) {
 	}
 
 	ngOnInit() {
@@ -25,11 +29,11 @@ export class TableCoreComponent implements OnInit {
 		this.table.pin = this.pin;
 	}
 
-	get visibility() {
+	get visibility(): VisibilityModel {
 		return this.model.visibility();
 	}
 
-	get model() {
+	get model(): Model {
 		return this.root.model;
 	}
 }

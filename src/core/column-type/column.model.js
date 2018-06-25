@@ -30,12 +30,11 @@ export class ColumnModel {
 		this.class = 'data';
 		this.editor = null;
 		this.editorOptions = {
+			modelFactory: () => new Model(),
 			trigger: 'click', // click | custom | focus
 			cruise: 'control', // control | transparent
 			label: null,
 			value: identity,
-			commit: new Command({ source: 'column.model' }),
-			cancel: new Command({ source: 'column.model' }),
 			actions: []
 		};
 
@@ -61,6 +60,8 @@ export class ColumnModel {
 		this.label = null;
 
 		this.compare = compare;
+
+		this.children = [];
 
 		this.$label = null;
 		this.$value = null;

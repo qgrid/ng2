@@ -9,8 +9,7 @@ import {
 	ElementRef,
 	ChangeDetectionStrategy,
 } from '@angular/core';
-import { PluginComponent } from '../plugin.component';
-import { RootService } from '../../infrastructure/component/root.service';
+
 import { BackdropView } from 'ng2-qgrid/plugin/backdrop/backdrop.view';
 
 @Component({
@@ -18,13 +17,15 @@ import { BackdropView } from 'ng2-qgrid/plugin/backdrop/backdrop.view';
 	templateUrl: './backdrop.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BackdropComponent extends PluginComponent implements OnDestroy {
+export class BackdropComponent {
 	@ContentChild(TemplateRef) public template: TemplateRef<any>;
 	@Output('close') closeEvent = new EventEmitter<any>();
 
-	constructor(root: RootService, element: ElementRef) {
-		super(root);
+	context: { $implicit: BackdropComponent } = {
+		$implicit: this
+	};
 
+	constructor(element: ElementRef) {
 		const context = {
 			element: element.nativeElement,
 			onKeyDown: () => { },

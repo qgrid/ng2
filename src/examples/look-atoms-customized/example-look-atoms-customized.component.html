@@ -1,12 +1,10 @@
-<q-grid header="Look Atoms Customized"
+<q-grid caption="Look Atoms Customized"
         [rows]="rows | async">
 	<q-grid-columns generation="deep">
 		<q-grid-column key="color"
-		               canSort="false"
-		               canFilter="false"
-		               width="50"
 		               title=""
-		               pin="left">
+		               type="row-indicator"
+		               width="50">
 			<ng-template for="body"
 			             let-$cell>
 				<div class="atom-color"
@@ -23,21 +21,18 @@
 		<q-grid-column key="symbol"
 		               width="80">
 		</q-grid-column>
-		<q-grid-column key="name"
+		<q-grid-column key="source"
 		               type="url"
-		               path="source"
-		               labelPath="name">
-		</q-grid-column>
-		<q-grid-column key="spectralImg"
-		               type="image"
-		               width="120"
-		               title="Spectral Image">
+		               width="100"
+		               label="wiki">
 		</q-grid-column>
 		<q-grid-column key="summary"
 		               width="250"
 		               viewWidth="500"
 		               editor="text-area">
 		</q-grid-column>
-
+		<q-grid-column key="discoveredIn"
+		               width="100">
+		</q-grid-column>
 	</q-grid-columns>
 </q-grid>

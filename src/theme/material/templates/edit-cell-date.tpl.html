@@ -1,0 +1,22 @@
+<ng-template key='edit-cell-date.tpl.html'
+             let-$cell
+             let-$view="$view">
+    <q-grid-cell-editor class="q-grid-date q-grid-editor q-grid-position q-grid-text"
+                        (close)="$view.edit.cell.exit.execute($cell)"
+                        q-grid-position="td">
+        <ng-template>
+            <mat-form-field>
+                <input q-grid-focus
+                       matInput
+                       [matDatepicker]="picker"
+                       [ngModel]="$view.edit.cell.value | date:'yyyy-MM-dd'"
+                       (ngModelChange)="$view.edit.cell.value = $event" />
+                <mat-datepicker-toggle matSuffix
+                                       [for]="picker">
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker>
+                </mat-datepicker>
+            </mat-form-field>
+        </ng-template>
+    </q-grid-cell-editor>
+</ng-template>

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Optional } from '@angular/core';
-import { PluginService } from 'ng2-qgrid/core/plugin/plugin.service';
-import { PluginComponent } from '../plugin.component';
+import { PluginService as ImportService } from 'ng2-qgrid/core/plugin/plugin.service';
+import { PluginService } from '../plugin.service';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { Json } from 'ng2-qgrid/core/export/json';
 import { Xml } from 'ng2-qgrid/core/export/xml';
@@ -10,35 +10,36 @@ import { Xlsx } from './xlsx';
 import { Pdf } from './pdf';
 import { downloadFactory } from './download';
 import { TemplateHostService } from '../../template/template-host.service';
-import { RootService } from '../../infrastructure/component/root.service';
 
 @Component({
 	selector: 'q-grid-export',
 	templateUrl: './export.component.html',
-	providers: [TemplateHostService]
+	providers: [TemplateHostService, PluginService]
 })
-
-export class ExportComponent extends PluginComponent implements OnInit {
+export class ExportComponent implements OnInit {
 	@Input() type: string;
 
-	constructor( @Optional() public root: RootService, private templateHost: TemplateHostService) {
-		super(root);
+	context: { $implicit: ExportComponent } = {
+		$implicit: this
+	};
+
+	constructor(private plugin: PluginService, private templateHost: TemplateHostService) {
 	}
 
-	onReady() {
+	ngOnInit() {
 		this.templateHost.key = (source: string) => `${source}-${this.templateHostKey}`;
 	}
 
 	get rows() {
-		return this.root.model.data().rows;
+		return this.plugin.model.data().rows;
 	}
 
 	get columns() {
-		return this.root.model.data().columns;
+		return this.plugin.model.columnList().line;
 	}
 
 	get id() {
-		return this.root.model.grid().id;
+		return this.plugin.model.grid().id;
 	}
 
 	get templateContentKey() {
@@ -52,8 +53,8 @@ export class ExportComponent extends PluginComponent implements OnInit {
 	csv = new Command({
 		canExecute: () => this.type === 'csv',
 		execute: () => {
-			const pluginService = new PluginService(this.model);
-			const fileSaver = pluginService.resolve('fileSaver');
+			const importService = new ImportService(this.plugin.model);
+			const fileSaver = importService.resolve('fileSaver');
 			const csv = new Csv();
 			const data = csv.write(this.rows, this.columns);
 			const download = downloadFactory(fileSaver);
@@ -64,8 +65,8 @@ export class ExportComponent extends PluginComponent implements OnInit {
 	json = new Command({
 		canExecute: () => this.type === 'json',
 		execute: () => {
-			const pluginService = new PluginService(this.model);
-			const fileSaver = pluginService.resolve('fileSaver');
+			const importService = new ImportService(this.plugin.model);
+			const fileSaver = importService.resolve('fileSaver');
 			const json = new Json();
 			const data = json.write(this.rows, this.columns);
 			const download = downloadFactory(fileSaver);
@@ -75,8 +76,8 @@ export class ExportComponent extends PluginComponent implements OnInit {
 	xml = new Command({
 		canExecute: () => this.type === 'xml',
 		execute: () => {
-			const pluginService = new PluginService(this.model);
-			const fileSaver = pluginService.resolve('fileSaver');
+			const importService = new ImportService(this.plugin.model);
+			const fileSaver = importService.resolve('fileSaver');
 			const xml = new Xml();
 			const data = xml.write(this.rows);
 			const download = downloadFactory(fileSaver);
@@ -86,9 +87,9 @@ export class ExportComponent extends PluginComponent implements OnInit {
 	xlsx = new Command({
 		canExecute: () => this.type === 'xlsx',
 		execute: () => {
-			const pluginService = new PluginService(this.model);
-			const lib = pluginService.resolve('xlsx');
-			const fileSaver = pluginService.resolve('fileSaver');
+			const importService = new ImportService(this.plugin.model);
+			const lib = importService.resolve('xlsx');
+			const fileSaver = importService.resolve('fileSaver');
 			const xlsx = new Xlsx(lib);
 			const data = xlsx.write(this.rows, this.columns);
 			const download = downloadFactory(fileSaver);
@@ -98,8 +99,8 @@ export class ExportComponent extends PluginComponent implements OnInit {
 	pdf = new Command({
 		canExecute: () => this.type === 'pdf',
 		execute: () => {
-			const pluginService = new PluginService(this.model);
-			const lib = pluginService.resolve('pdf');
+			const importService = new ImportService(this.plugin.model);
+			const lib = importService.resolve('pdf');
 			const pdf = new Pdf(lib);
 			pdf.write(this.rows, this.columns, this.id);
 		}

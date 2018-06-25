@@ -1,18 +1,15 @@
-import { flatView as nodeFlatView } from '../node/node.service';
 import { Guard } from '../infrastructure/guard';
 
 export function paginationPipe(memo, context, next) {
 	Guard.notNull(memo, 'memo');
 
 	const { model } = context;
-	if (model.scroll().mode === 'virtual') {
-		next(memo);
-		return;
-	}
 
 	if (memo.hasOwnProperty('nodes') && memo.nodes.length) {
+		const { flattenFactory } = model.group();
 		const page = paginate(model, memo.nodes);
-		memo.rows = nodeFlatView(page);
+		const flatten = flattenFactory(model);
+		memo.rows = flatten(page);
 		next(memo);
 		return;
 	}
@@ -30,7 +27,18 @@ export function paginationPipe(memo, context, next) {
 
 function paginate(model, rows) {
 	const { size, current } = model.pagination();
+	const { pinTop, pinBottom } = model.row();
+	const { mode } = model.scroll();
+
 	const start = current * size;
+	const pinned = new Set([...pinTop, ...pinBottom]);
+
+	if (pinned.size) {
+		rows = rows.filter(row => !pinned.has(row))
+	}
+
 	model.pagination({ count: rows.length }, { source: 'pagination.pipe', behavior: 'core' });
-	return rows.slice(start, start + size);
+
+	return mode === 'virtual' ? rows : rows.slice(start, start + size);
 }
+

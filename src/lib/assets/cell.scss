@@ -1,170 +1,155 @@
 @import 'mixins';
-
 td,
 th {
-	vertical-align: middle;
-	text-align: left;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	position: relative;
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-
-	> * {
-		vertical-align: middle;
-	}
-
-	&.q-grid-pivot {
-		text-align: center;
-	}
+    vertical-align: middle;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: relative;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    >* {
+        vertical-align: middle;
+    }
+    &.q-grid-pivot {
+        text-align: center;
+    }
 }
 
 &.q-grid-box:not(.q-grid-drag) {
-	td, th {
-		transition: min-width 0.3s, width 0.3s, max-width 0.3s;
-	}
+    td,
+    th {
+        transition: min-width 0.3s, width 0.3s, max-width 0.3s;
+    }
 }
 
 thead {
-	th {
-		> div {
-			overflow: hidden;
-			text-overflow: ellipsis;
-			outline: none;
-		}
-	}
+    th {
+        >div {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            outline: none;
+        }
+    }
 }
 
 thead,
 tfoot,
 tbody {
-	td,
-	th {
-		width: 150px;
-		min-width: 150px;
-		max-width: 150px;
-
-		&.q-grid-pad {
-			width: 100%;
-			min-width: 100%;
-			max-width: 100%;
-			padding: 0 0 0 1px !important;
-			margin: 0 !important;
-		}
-
-		&.q-grid-group {
-			width: 200px;
-			min-width: 200px;
-			max-width: 200px;
-		}
-
-		&.q-grid-pivot {
-			width: 80px;
-			min-width: 80px;
-			max-width: 80px;
-		}
-
-		&.q-grid-email {
-			width: 200px;
-			min-width: 200px;
-			max-width: 200px;
-		}
-
-		&.q-grid-password {
-			width: 100px;
-			min-width: 100px;
-			max-width: 100px;
-		}
-
-		&.q-grid-bool {
-			width: 80px;
-			min-width: 80px;
-			max-width: 80px;
-		}
-
-		&.q-grid-date {
-			width: 110px;
-			min-width: 110px;
-			max-width: 110px;
-		}
-
-		&.q-grid-number,
-		&.q-grid-currency,
-		&.q-grid-id {
-			width: 100px;
-			min-width: 100px;
-			max-width: 100px;
-		}
-
-		&.q-grid-array {
-			width: 250px;
-			min-width: 250px;
-			max-width: 250px;
-		}
-
-		&.q-grid-row-indicator {
-			width: 16px;
-			min-width: 16px;
-			max-width: 16px;
-			text-overflow: initial;
-		}
-
-		&.q-grid-row-options {
-			width: 56px;
-			min-width: 56px;
-			max-width: 56px;
-			text-overflow: initial;
-		}
-
-		&.q-grid-row-expand {
-			width: 56px;
-			min-width: 56px;
-			max-width: 56px;
-		}
-
-		&.q-grid-row-number {
-			width: 56px;
-			min-width: 56px;
-			max-width: 56px;
-		}
-
-		&.q-grid-select {
-			width: 56px;
-			min-width: 56px;
-			max-width: 56px;
-			text-overflow: initial;
-		}
-	}
+    td,
+    th {
+        width: 150px;
+        min-width: 150px;
+        max-width: 150px;
+        &.q-grid-pad {
+            width: 100%;
+            min-width: 100%;
+            max-width: 100%;
+            padding: 0 0 0 1px !important;
+            margin: 0 !important;
+        }
+        &.q-grid-group {
+            width: 200px;
+            min-width: 200px;
+            max-width: 200px;
+        }
+        &.q-grid-pivot {
+            width: 80px;
+            min-width: 80px;
+            max-width: 80px;
+        }
+        &.q-grid-email {
+            width: 200px;
+            min-width: 200px;
+            max-width: 200px;
+        }
+        &.q-grid-password {
+            width: 100px;
+            min-width: 100px;
+            max-width: 100px;
+        }
+        &.q-grid-bool {
+            width: 80px;
+            min-width: 80px;
+            max-width: 80px;
+        }
+        &.q-grid-date {
+            width: 120px;
+            min-width: 110px;
+            max-width: 110px;
+        }
+        &.q-grid-number,
+        &.q-grid-currency,
+        &.q-grid-id {
+            width: 100px;
+            min-width: 100px;
+            max-width: 100px;
+        }
+        &.q-grid-array {
+            width: 250px;
+            min-width: 250px;
+            max-width: 250px;
+        }
+        &.q-grid-row-indicator {
+            width: 24px;
+            min-width: 24px;
+            max-width: 24px;
+            text-overflow: initial;
+        }
+        &.q-grid-row-options {
+            width: 48px;
+            min-width: 48px;
+            max-width: 48px;
+            text-overflow: initial;
+        }
+        &.q-grid-row-expand {
+            width: 48px;
+            min-width: 48px;
+            max-width: 48px;
+        }
+        &.q-grid-row-number {
+            width: 56px;
+            min-width: 56px;
+            max-width: 56px;
+        }
+        &.q-grid-select {
+            width: 56px;
+            min-width: 56px;
+            max-width: 56px;
+            text-overflow: initial;
+        }
+        &.q-grid-image {
+            width: 80px;
+            min-width: 80px;
+            max-width: 80px;
+        }
+    }
 }
 
 tbody,
 tfoot {
-	td {
-		&.q-grid-number,
-		&.q-grid-currency {
-			text-align: right;
-		}
-
-		&.q-grid-id {
-			text-align: left;
-		}
-
-		&.q-grid-bool,
-		&.q-grid-password,
-		&.q-grid-select {
-			text-align: center;
-		}
-
-		&.q-grid-dropdown {
-			select {
-				width: 100%;
-			}
-		}
-
-		&.q-grid-row-options {
-			cursor: pointer;
-		}
-	}
+    td {
+        &.q-grid-number,
+        &.q-grid-currency {
+            text-align: right;
+        }
+        &.q-grid-id {
+            text-align: left;
+        }
+        &.q-grid-bool,
+        &.q-grid-password,
+        &.q-grid-select {
+            text-align: center;
+        }
+        &.q-grid-dropdown {
+            select {
+                width: 100%;
+            }
+        }
+        &.q-grid-row-options {
+            cursor: pointer;
+        }
+    }
 }

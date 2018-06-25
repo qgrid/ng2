@@ -7,8 +7,9 @@ export function groupPipe(memo, context, next) {
 
 	const { model } = context;
 	if (memo.rows.length) {
-		const { rows, columns } = model.data();
+		const { rows } = model.data();
 		const { by } = model.group();
+		const columns = model.columnList().line;
 		const columnMap = getColumnMap(columns);
 		const build = nodeBuilder(columnMap, by, context.valueFactory);
 

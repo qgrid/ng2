@@ -1,0 +1,27 @@
+<q-grid caption="Column Array Basic"
+        [rows]="rows"
+        editMode="cell">
+	<q-grid-columns generation="deep">
+		<q-grid-column width="170"></q-grid-column>
+		<q-grid-column key="customTemplate"
+		               viewWidth="200"
+		               title="Custom Template"
+		               type="array">
+			<ng-template for="body"
+			             let-$cell>
+				{{$cell.value.join(', ')}}
+			</ng-template>
+			<ng-template for="edit"
+			             let-$view="$view">
+				<button mat-button
+				        (click)="$view.edit.cell.value = [];$view.edit.cell.exit.execute($cell)">
+					Delete
+				</button>
+				<button mat-button
+				        (click)="$view.edit.cell.cancel.execute($cell)">
+					Cancel
+				</button>
+			</ng-template>
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

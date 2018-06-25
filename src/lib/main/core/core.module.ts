@@ -1,43 +1,45 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ViewCoreComponent } from './view/view-core.component';
-import { ToolbarCoreComponent } from './toolbar/toolbar-core.component';
 import { BodyCoreComponent } from './body/body-core.component';
-import { TdCoreDirective } from './body/td-core.directive';
-import { HeadCoreComponent } from './head/head-core.component';
-import { ThCoreDirective } from './head/th-core.directive';
-import { FootCoreComponent } from './foot/foot-core.component';
-import { TfCoreDirective } from './foot/tf-core.directive';
 import { CellHandlerComponent } from './cell/cell-handler.component';
-import { TrCoreDirective } from './row/tr-core.directive';
-import { VScrollService } from './scroll/vscroll.service';
-import { MarkupDirective } from './markup/markup.directive';
-import { TemplateCacheService } from '../../template/template-cache.service';
-import { TemplateService } from '../../template/template.service';
-import { TemplateModule } from '../../template/template.module';
 import { CommonModule as GridCommonModule } from '../../common/common.module';
-import { TableCoreComponent } from '../../main/core/table/table-core.component';
-import { TdCoreAlignDirective } from '../../main/core/body/td-core-align.directive';
+import { FootCoreComponent } from './foot/foot-core.component';
+import { HeadCoreComponent } from './head/head-core.component';
 import { LayerCoreComponent } from './layer/layer-core.component';
 import { LayerCoreDirective } from './layer/layer-core.directive';
+import { MarkupDirective } from './markup/markup.directive';
+import { TableCoreComponent } from '../../main/core/table/table-core.component';
+import { TdCoreAlignDirective } from '../../main/core/body/td-core-align.directive';
+import { TdCoreDirective } from './body/td-core.directive';
+import { TemplateCacheService } from '../../template/template-cache.service';
+import { TemplateModule } from '../../template/template.module';
+import { TemplateService } from '../../template/template.service';
+import { TfCoreDirective } from './foot/tf-core.directive';
+import { ThCoreDirective } from './head/th-core.directive';
+import { ToolbarCoreComponent } from './toolbar/toolbar-core.component';
+import { TrCoreDirective } from './row/tr-core.directive';
+import { TrhCoreDirective } from './row/trh-core.directive';
+import { ViewCoreComponent } from './view/view-core.component';
+import { VScrollService } from './scroll/vscroll.service';
 
 @NgModule({
 	declarations: [
-		ViewCoreComponent,
-		TableCoreComponent,
-		HeadCoreComponent,
 		BodyCoreComponent,
+		CellHandlerComponent,
 		FootCoreComponent,
-		ToolbarCoreComponent,
-		TrCoreDirective,
-		ThCoreDirective,
+		HeadCoreComponent,
+		LayerCoreComponent,
+		LayerCoreDirective,
+		MarkupDirective,
+		TableCoreComponent,
+		TdCoreAlignDirective,
 		TdCoreDirective,
 		TfCoreDirective,
-		MarkupDirective,
-		TdCoreAlignDirective,
-		CellHandlerComponent,
-		LayerCoreComponent,
-		LayerCoreDirective
+		ThCoreDirective,
+		ToolbarCoreComponent,
+		TrCoreDirective,
+		TrhCoreDirective,
+		ViewCoreComponent,
 	],
 	exports: [
 		ViewCoreComponent,
@@ -45,7 +47,7 @@ import { LayerCoreDirective } from './layer/layer-core.directive';
 	],
 	imports: [
 		TemplateModule,
-		CommonModule,
+		CommonModule,		
 		GridCommonModule
 	],
 	providers: [

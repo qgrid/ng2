@@ -1,14 +1,15 @@
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { ModelBinder } from 'ng2-qgrid/core/infrastructure/model.bind';
 import { Event } from 'ng2-qgrid/core/infrastructure/event';
-import { noop } from 'ng2-qgrid/core/utility/kit';
-import { OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { NgComponent } from './ng.component';
 
 export class RootComponent extends NgComponent implements OnChanges, OnDestroy {
-	public model: Model = null;
-	public modelChanged = new Event();
+	model: Model = null;
+	modelChanged = new Event();
+
 	protected models: string[] = [];
+
 	private binder = new ModelBinder(this);
 	private commit: () => void;
 

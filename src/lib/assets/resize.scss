@@ -12,7 +12,7 @@ th {
         cursor: col-resize;
         opacity: 0;
     }
-    &:hover,
+    &.q-grid-highlighted,
     &.q-grid-highlighted-prev {
         .q-grid-divider {
             opacity: 1;
@@ -39,5 +39,14 @@ td {
         cursor: row-resize;
         z-index: 2;
         pointer-events: all;
+    }
+}
+
+&.q-grid-box.q-grid-drag {
+    th {
+        .q-grid-divider,
+        .q-grid-resizable {
+            opacity: 0;
+        }
     }
 }

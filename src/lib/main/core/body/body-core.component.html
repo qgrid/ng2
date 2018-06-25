@@ -1,16 +1,49 @@
-<tr class="q-grid-align">
-	<td *ngFor="let $column of $view.body.render.defaultStrategy.columnList($table.pin); trackBy: columnId"
-	    [q-grid-core-td-align]="$column">
-	</td>
-</tr>
-<tr *ngFor="let $row of $view.body.rows; index as $rowIndex; trackBy: rowId"
-    [q-grid-core-tr]="$row"
-    [q-grid-core-index]="$rowIndex"
-    q-grid-core-source="body">
-	<td *ngFor="let $column of $view.body.render.columns($row, $table.pin); trackBy: columnId"
-	    [attr.rowspan]="$view.body.render.rowspan($row, $column)"
-	    [attr.colspan]="$view.body.render.colspan($row, $column)">
-		<ng-container [q-grid-core-td]="$column">
-		</ng-container>
-	</td>
-</tr>
+<ng-container [ngSwitch]="$view.scroll.mode === 'virtual' && pin === 'body'">
+
+	<ng-container *ngSwitchCase="true">
+		<tr q-grid-vscroll-mark="top"
+		    class="q-grid-scroll-mark">
+		</tr>
+		<tr class="q-grid-align">
+			<td *ngFor="let $column of $view.body.columns($table.pin); trackBy: columnId"
+				[q-grid-core-td-align]="$column">
+			</td>
+		</tr>
+		<tr *ngFor="let $row of $view.body.render.rows[pin] | qGridVscroll: $view.scroll.y; index as $rowIndex; trackBy: virtualRowId"
+		    [q-grid-core-tr]="$row"
+		    [q-grid-core-index]="$rowIndex"
+		    [q-grid-vscroll-row]="$rowIndex"
+		    q-grid-core-source="body">
+			<td *ngFor="let $column of $view.body.render.columns($row, $table.pin, index); index as $columnIndex; trackBy: columnId"
+			    [attr.rowspan]="$view.body.render.rowspan($row, $column, index, $columnIndex)"
+			    [attr.colspan]="$view.body.render.colspan($row, $column, index, $columnIndex)">
+				<ng-container [q-grid-core-td]="$column">
+				</ng-container>
+			</td>
+		</tr>
+		<tr q-grid-vscroll-mark="bottom"
+		    class="q-grid-scroll-mark">
+		</tr>
+	</ng-container>
+
+	<ng-container *ngSwitchDefault>
+		<tr class="q-grid-align">
+			<td *ngFor="let $column of $view.body.columns($table.pin); trackBy: columnId"
+				[q-grid-core-td-align]="$column">
+			</td>
+		</tr>
+		<tr *ngFor="let $row of $view.body.render.rows[pin]; index as $rowIndex; trackBy: rowId"
+		    [q-grid-core-tr]="$row"
+		    [q-grid-core-index]="$rowIndex"
+		    q-grid-core-source="body">
+			<td *ngFor="let $column of $view.body.render.columns($row, $table.pin, $rowIndex); index as $columnIndex; trackBy: columnId"
+		
+			    [attr.rowspan]="$view.body.render.rowspan($row, $column, $rowIndex, $columnIndex)"
+			    [attr.colspan]="$view.body.render.colspan($row, $column, $rowIndex, $columnIndex)">
+				<ng-container [q-grid-core-td]="$column">
+				</ng-container>
+			</td>
+		</tr>
+	</ng-container>
+
+</ng-container>

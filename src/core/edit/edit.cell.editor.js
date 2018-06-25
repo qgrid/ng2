@@ -1,11 +1,14 @@
-import {Fetch} from '../infrastructure/fetch';
-import {parseFactory} from '../services/convert';
-import {clone, isUndefined, noop} from '../utility/kit';
-import {get as getLabel} from '../services/label';
+import { Fetch } from '../infrastructure/fetch';
+import { parseFactory } from '../services/convert';
+import { clone, isUndefined, noop } from '../utility/kit';
 
 class CellEditorCore {
-	constructor() {
+	constructor(td) {
+		this.td = td;
+
 		this.value = null;
+		this.label = null;
+
 		this.fetch = noop;
 		this.resetFetch = noop;
 	}
@@ -16,43 +19,44 @@ class CellEditorCore {
 	reset() {
 	}
 
-	get options() {
-		return {};
+	clear() {
+
 	}
 }
 
-const empty = new CellEditorCore();
+const empty = new CellEditorCore(null);
 
 export class CellEditor extends CellEditorCore {
-	constructor(cell) {
-		super();
+	constructor(td) {
+		super(td);
 
-		this.cell = cell;
 		this.fetch = this.fetchFactory();
-		this.resetFetch = this.fetch.run(cell.row);
+		this.resetFetch = this.fetch.run(td.row);
 
-		if (isUndefined(cell.value)) {
+		if (isUndefined(td.value)) {
 			this.value = null;
 		}
 		else {
-			const parse = parseFactory(cell.column.type, cell.column.editor);
-			const typedValue = parse(clone(cell.value));
-			this.value = typedValue === null ? cell.value : typedValue;
+			const parse = parseFactory(td.column.type, td.column.editor);
+			const typedValue = parse(clone(td.value));
+			this.value = typedValue === null ? td.value : typedValue;
 		}
 
-		this.label = isUndefined(cell.label) ? null : clone(cell.label);
+		this.label = isUndefined(td.label) ? null : clone(td.label);
 	}
 
 	commit() {
-		this.cell.value = this.value;
-		this.cell.label = this.label;
+		this.td.value = this.value;
+		this.td.label = this.label;
+
 		this.resetFetch();
 		this.resetFetch = noop;
 	}
 
 	reset() {
-		this.label = this.cell.label;
-		this.value = this.cell.value;
+		this.label = this.td.label;
+		this.value = this.td.value;
+
 		this.resetFetch();
 		this.resetFetch = noop;
 	}
@@ -60,32 +64,18 @@ export class CellEditor extends CellEditorCore {
 	clear() {
 		this.label = null;
 		this.value = null;
+
 		this.resetFetch();
 		this.resetFetch = noop;
 	}
 
-	get title() {
-		return this.cell.column.title;
-	}
-
-	get column() {
-		return this.cell.column;
-	}
-
-	get options() {
-		return this.cell.column.editorOptions;
-	}
-
-	getLabel(item) {
-		return getLabel(item, this.options);
-	}
-
 	fetchFactory() {
-		const options = this.options;
-		if (options && options.fetch) {
-			return new Fetch(options.fetch);
+		const { editorOptions } = this.td.column;
+		if (editorOptions && editorOptions.fetch) {
+			return new Fetch(editorOptions.fetch);
 		}
-		return new Fetch(this.cell.value);
+
+		return new Fetch(this.td.value);
 	}
 
 	static get empty() {

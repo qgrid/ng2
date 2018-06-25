@@ -1,0 +1,236 @@
+.q-grid-dark {
+    //Custom colors
+    $color-less: rgba(0, 0, 0, 0);
+    $dark: #424242;
+    $dark-primary: #1eb980;
+    $dark-accent: #616161;
+    $dark-focused: #5565A0;
+    $dark-highlighted: #8d8d8d;
+    $dark-surface: #363640;
+    $dark-container: #3c3c46;
+    $dark-text: #ffffff;
+    $dark-header: rgba(255, 255, 255, 0.6);
+    $dark-divider: rgba(255, 255, 255, 0.12);
+    .q-grid.q-grid-theme-material {
+        background-color: $dark-surface;
+        font-family: "Roboto Condensed", Roboto, "Helvetica Neue", sans-serif;
+        font-weight: 300;
+        thead {
+            box-shadow: 0 1px 0px $dark-divider;
+            th {
+                font-weight: 300;
+            }
+        }
+        tbody tr {
+            border-top: 1px solid $dark-divider;
+        }
+        .q-grid-toolbar {
+            .q-grid-title,
+            .q-grid-caption {
+                h3 {
+                    color: $dark-text;
+                    padding-left: 10px
+                }
+            }
+            .q-grid-icon {
+                color: $dark-text;
+            }
+        }
+        .q-grid-pager {
+            label {
+                color: $dark-text;
+            }
+        }
+        .q-grid-view {
+            background-color: $dark-container;
+            thead tr th {
+                color: $dark-header;
+                &.q-grid-sorted {
+                    .q-grid-sort.q-grid-active {
+                        label {
+                            color: $dark-text;
+                        }
+                        .q-grid-icon {
+                            color: $dark-text;
+                        }
+                    }
+                }
+                >.q-grid-divider {
+                    border-right: 1px solid $dark-divider;
+                }
+            }
+            tr td {
+                color: $dark-text;
+                font-family: "Roboto Condensed";
+                font-size: 14px;
+            }
+            tr {
+                &.q-grid-highlighted {
+                    background-color: $dark-accent;
+                }
+				&:not(.q-grid-highlighted) {
+                    td.q-grid-selected {
+						background-color: $dark-accent;
+						&.q-grid-sorted {
+							background-color: $dark-container;
+						}
+                    }
+                }
+            }
+            td {
+                &.q-grid-highlighted {
+                    background-color: $dark-accent;
+                }
+                &.q-grid-sorted {
+                    background-color: $color-less;
+                }
+                &.q-grid-selected {
+                    background-color: $dark-accent;
+                }
+                &.q-grid-email {
+                    a {
+                        color: $dark-text;
+                    }
+                }
+                &.q-grid-array {
+                    ul li {
+                        color: $dark;
+                    }
+                }
+                .q-grid-editor {
+                    color: $dark-text;
+                    background-color: $dark;
+                }
+            }
+            .q-grid-icon {
+                color: $dark-text;
+            }
+            .mat-hint {
+                color: $dark-text;
+            }
+            .mat-form-field-underline {
+                background-color: $dark-text;
+            }
+            .mat-checkbox-frame {
+                border-color: $dark-text;
+            }
+            .mat-icon {
+                color: $dark-text;
+            }
+            .mat-form-field-ripple {
+                background-color: $dark-accent;
+            }
+        }
+        ul.q-grid-legend-list {
+            color: $dark-text;
+        }
+    } //Scroll
+    .q-grid ::-webkit-scrollbar-track,
+    .q-grid ::-webkit-scrollbar-track-piece {
+        background-color: $dark;
+    }
+    .q-grid-menu ::-webkit-scrollbar-track,
+    .q-grid-menu ::-webkit-scrollbar-track-piece {
+        background-color: $dark-accent;
+    } //Specific controls
+    .q-grid {
+        .mat-select-value {
+            color: $dark-text;
+        }
+        .mat-select-arrow {
+            color: $dark-text;
+        }
+    }
+    div.mat-select-content {
+        background: $dark;
+        .mat-option {
+            color: $dark-text;
+        }
+        .mat-option:hover {
+            background: $dark-accent;
+        }
+    }
+    .mat-menu-panel {
+        background: $dark;
+    }
+    .mat-menu-content {
+        background: $dark;
+        height: 500px;
+    }
+    q-grid-column-chooser,
+    q-grid-column-filter {
+        .mat-card {
+            background-color: $dark;
+            color: $dark-text;
+            font-weight: 300;
+            .mat-card-title {
+                font-size: 16px;
+            }
+            .mat-button {
+                color: $dark-text;
+            }
+            .mat-button:hover {
+                background-color: $dark-accent;
+            }
+            .mat-button.mat-primary {
+                background-color: $dark-accent;
+            }
+            .mat-form-field-label {
+                color: $dark-text;
+            }
+            .mat-input-underline {
+                color: #fff;
+            }
+            .mat-form-field {
+                font-weight: 300;
+            }
+            .mat-form-field-underline {
+                background-color: $dark-divider;
+            }
+            .mat-form-field-ripple {
+                background-color: $dark-primary;
+            }
+            .mat-form-field-should-float label,
+            .q-grid-filter-by-item {
+                font-family: "Roboto Condensed", Roboto, "Helvetica Neue", sans-serif;
+                font-weight: 300;
+            }
+            .q-grid-filter-by-item {
+                color: $dark;
+            }
+            .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+            .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+                background-color: $dark-accent;
+            }
+            .q-grid-highlight-part {
+                background-color: $dark-highlighted;
+                color: $dark-text;
+            }
+        }
+        label {
+            border-color: $dark-text;
+        }
+        .mat-input-underline {
+            color: $dark-text;
+        }
+        .mat-checkbox-frame {
+            border-color: $dark-text;
+		}		
+	}	
+
+	.q-grid-box:not(.q-grid-drag) {
+		td.q-grid-focused {
+			outline-color: $dark-focused;
+		}
+	}
+	
+	.q-grid-view:not(.q-grid-active) {
+		td.q-grid-focused {
+			outline-color: $dark-focused;
+		}
+	}
+	
+	.q-grid-cell-handler {			
+		outline-color:  $dark-focused;
+	}
+}

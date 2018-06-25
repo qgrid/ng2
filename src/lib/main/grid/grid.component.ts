@@ -5,31 +5,33 @@ import {
 	EventEmitter,
 	ViewEncapsulation,
 	OnInit,
-	OnDestroy,
 	ElementRef,
-	EmbeddedViewRef,
-	ComponentRef,
-	NgZone,
-	ApplicationRef
+	NgZone
 } from '@angular/core';
 import { RootComponent } from '../../infrastructure/component/root.component';
 import { RootService } from '../../infrastructure/component/root.service';
-import { Table } from 'ng2-qgrid/core/dom/table';
-import { AppError } from 'ng2-qgrid/core/infrastructure/error';
-import { TableCommandManager } from 'ng2-qgrid/core/command/table.command.manager';
-import { jobLine } from 'ng2-qgrid/core/services/job.line';
-import { isUndefined } from 'ng2-qgrid/core/utility/kit';
-import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
-import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
-import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
-import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
-import { TemplateCacheService } from '../../template/template-cache.service';
-import { TemplateService } from '../../template/template.service';
-import { ViewCoreService } from '../../main/core/view/view-core.service';
-import { ThemeService } from '../../template/theme.service';
-import { GridService } from './grid.service';
-import { TemplateLinkService } from '../../template/template-link.service';
 import { LayerService } from '../core/layer/layer.service';
+import { GridService } from './grid.service';
+import { TemplateCacheService } from '../../template/template-cache.service';
+import { TemplateLinkService } from '../../template/template-link.service';
+import { TemplateService } from '../../template/template.service';
+import { ThemeService } from '../../template/theme.service';
+import { ViewCoreService } from '../../main/core/view/view-core.service';
+import { Action } from 'ng2-qgrid/core/action/action';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
+import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
+import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
+import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
+import { FetchContext } from 'ng2-qgrid/core/fetch/fetch.context';
+import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
+import { noop } from 'ng2-qgrid/core/utility/kit';
+import { jobLine } from 'ng2-qgrid/core/services/job.line';
+import { PipeContext } from 'ng2-qgrid/core/pipe/pipe.item';
+import { StyleRowContext, StyleCellContext } from 'ng2-qgrid/core/style/style.context';
+import { TableCommandManager } from 'ng2-qgrid/core/command/table.command.manager';
+import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
+import { Command } from 'ng2-qgrid/core/command/command';
+import { GridModel } from '../../plugins/plugin.service';
 
 @Component({
 	selector: 'q-grid',
@@ -42,65 +44,88 @@ import { LayerService } from '../core/layer/layer.service';
 		TemplateLinkService,
 		LayerService
 	],
-	styleUrls: ['../../assets/index.scss', '../../theme/material/index.scss'],
+	styleUrls: ['../../assets/index.scss'],
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None
 })
 export class GridComponent extends RootComponent implements OnInit {
-	@Input() model;
-	@Input('rows') dataRows;
-	@Input('columns') dataColumns;
-	@Input('pipe') dataPipe;
-	@Input('selection') selectionItems;
-	@Input() selectionMode;
-	@Input() selectionUnit;
-	@Input() selectionKey;
-	@Input() groupBy;
-	@Input() pivotBy;
-	@Input() sortBy;
-	@Input() sortTrigger;
-	@Input() sortMode;
-	@Input() filterUnit;
-	@Input() filterFetch;
-	@Input() editMode;
-	@Input() editMethod;
-	@Input() editEnter;
-	@Input() editCommit;
-	@Input() editCancel;
-	@Input() editReset;
-	@Input() styleRow;
-	@Input() styleCell;
-	@Input('id') gridId;
-	@Input('header') gridTitle;
-	@Input('actions') actionItems;
+	@Input() model: GridModel;
+
+	@Input('actions') actionItems: Array<Action>;
+
+	@Input('header') gridTitle: string;
+	@Input('caption') gridCaption: string;
+	@Input('interactionMode') gridInteractionMode: 'full' | 'readonly' | 'detached';
+
+	@Input('id') gridId: string;
+
+	@Input('columns') dataColumns: Array<ColumnModel>;
+	@Input('pipe') dataPipe: Array<(memo: any, context: PipeContext, next: (memo: any) => void) => any>;
+	@Input('rows') dataRows: Array<any>;
+
+	@Input() editCancel: Command;
+	@Input() editCommit: Command;
+	@Input() editEnter: Command;
+	@Input() editMethod: null | 'batch';
+	@Input() editMode: 'cell' | 'row';
+	@Input() editReset: Command;
+
+	@Input() filterFetch: (key: string, context: FetchContext) => any | Promise<any>;;
+	@Input() filterUnit: 'default' | 'row';
+
+	@Input() groupBy: Array<string>;
+	@Input() groupMode: 'nest' | 'column' | 'subhead' | 'rowspan';
+	@Input() groupSummary: null | 'leaf';
+
+	@Input() pivotBy: Array<string>;
+
+	@Input('selection') selectionItems: Array<any>;
+	@Input() selectionArea: 'custom' | 'body';
+	@Input() selectionKey: {
+		row: () => void,
+		column: () => void
+	};
+	@Input() selectionMode: 'single' | 'multiple' | 'range';
+	@Input() selectionUnit: 'row' | 'cell' | 'column' | 'mix';
+
+	@Input() scrollMode:  'default' | 'virtual';
+
+	@Input() sortBy: Array<string>;
+	@Input() sortMode: 'single' | 'multiple';;
+	@Input() sortTrigger: Array<string>;
+
+	@Input() styleCell: (row: any, column: ColumnModel, context: StyleCellContext) => void | { [key: string]: (row: any, column: ColumnModel, context: any) => void };
+	@Input() styleRow: (row: any, context: StyleRowContext) => void;
+
 	@Output() selectionChanged = new EventEmitter<any>();
 
 	public themeComponent: any;
 
 	constructor(
-		private rootService: RootService,
+		private root: RootService,
 		private element: ElementRef,
-		private theme: ThemeService,
 		private zone: NgZone,
 		private layerService: LayerService,
-		private app: ApplicationRef
+		theme: ThemeService,
 	) {
 		super();
 
 		this.models = [
-			'grid',
+			'action',
 			'data',
-			'selection',
-			'sort',
-			'group',
-			'filter',
-			'pivot',
 			'edit',
-			'style',
-			'action'
+			'filter',
+			'grid',
+			'group',
+			'pivot',
+			'row',
+			'selection',
+			'scroll',
+			'sort',
+			'style'
 		];
 
-		this.modelChanged.watch(model => (this.rootService.model = model));
+		this.modelChanged.watch(model => this.root.model = model);
 
 		if (!theme.component) {
 			throw new AppError(
@@ -113,19 +138,25 @@ export class GridComponent extends RootComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const model = this.model;
+		const model = this.root.model;
 
 		const element = this.element.nativeElement;
+		
+		model.style({
+			classList: Array.from(element.classList)
+		});
+		
 		const ctrl = this.using(new GridCtrl(model, {
 			layerFactory: () => this.layerService,
 			element
 		}));
+		
 
-		this.rootService.table = ctrl.table;
-		this.rootService.bag = ctrl.bag;
-		this.rootService.markup = ctrl.markup;
+		this.root.table = ctrl.table;
+		this.root.bag = ctrl.bag;
+		this.root.markup = ctrl.markup;
 
-		this.rootService.commandManager = new TableCommandManager(
+		this.root.commandManager = new TableCommandManager(
 			f => f(),
 			ctrl.table
 		);
@@ -135,16 +166,17 @@ export class GridComponent extends RootComponent implements OnInit {
 
 		this.using(windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl)));
 
-		const navDebounce = model.navigation().debounce;
-		if (navDebounce) {
-			const navJob = new jobLine(navDebounce);
+		const { debounce } = model.navigation();
+		if (debounce) {
+			const navJob = jobLine(debounce);
 			this.zone.runOutsideAngular(() => {
 				listener.on('keydown', e => {
 					const result = ctrl.keyDown(e);
 					if (result.indexOf('navigation') >= 0) {
-						navJob(() => this.app.tick());
+						navJob((() => this.zone.run(noop)));
 					} else if (result.length) {
-						this.app.tick();
+						// app.tick is not working correctly, why?
+						this.zone.run(noop);
 					}
 				});
 			});
@@ -152,14 +184,15 @@ export class GridComponent extends RootComponent implements OnInit {
 			listener.on('keydown', e => {
 				const result = ctrl.keyDown(e);
 				if (result.length) {
-					this.app.tick();
+					this.zone.run(noop);
 				}
 			});
 		}
 	}
 
-	get visibility() {
+	// @deprecated
+	get visibility(): VisibilityModel {
 		// TODO: get rid of that
-		return this.model.visibility();
+		return this.root.model.visibility();
 	}
 }

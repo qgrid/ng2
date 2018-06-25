@@ -1,0 +1,44 @@
+<ng-template key="plugin-pager.tpl.html"
+             let-$pager>
+	<div class="q-grid-pager"
+	     [ngSwitch]="$pager.scroll.mode">
+		<div *ngSwitchCase="'virtual'">
+			<label class="q-grid-page"
+			       [ngSwitch]="$pager.mode">
+				<span *ngSwitchCase="'row'">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>
+				<span *ngSwitchDefault>{{$pager.current + 1}} of {{$pager.totalPages}}</span>
+			</label>
+		</div>
+		<div *ngSwitchDefault>
+			<label class="q-grid-page-size hide-xs">Rows per page:</label>
+			<mat-select tabindex="-1"
+			            aria-label="Page Size List"
+			            class="q-grid-page-size hide-xs"
+						[panelClass]=$pager.theme
+			            [(value)]="$pager.size">
+				<mat-option *ngFor="let size of $pager.sizeList"
+				            [value]="size">{{size}}</mat-option>
+			</mat-select>
+			<label class="q-grid-page hide-xs"
+			       ng-switch="::$pager.mode">
+				<span *ngSwitchCase="'row'">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>
+				<span *ngSwitchDefault>{{$pager.current + 1}} of {{$pager.totalPages}}</span>
+			</label>
+			<button tabindex="-1"
+			        mat-button
+			        class="mat-icon-button q-grid-prev-page"
+			        [disabled]="!$pager.prev.canExecute()"
+			        (click)="$pager.prev.execute();">
+				<mat-icon class="q-grid-icon">keyboard_arrow_left</mat-icon>
+			</button>
+			<q-grid-pager-target></q-grid-pager-target>
+			<button tabindex="-1"
+			        mat-button
+			        class="mat-icon-button q-grid-next-page"
+			        [disabled]="!$pager.next.canExecute()"
+			        (click)="$pager.next.execute();">
+				<mat-icon class="q-grid-icon">keyboard_arrow_right</mat-icon>
+			</button>
+		</div>
+	</div>
+</ng-template>

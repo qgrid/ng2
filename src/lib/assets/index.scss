@@ -1,17 +1,16 @@
 @import "layout";
-
 /* Apply Mixins to create Layout/Flexbox styles */
 
 @include layouts_for_breakpoint();
 @include layout-padding-margin();
-
 .q-grid {
-	@import "box";
-	@import "table";
-	@import "cell";
-	@import "dnd";
-	@import "resize";
-	@import "toolbar";
-	@import "view";
-	@import "layer";
+    @import "box";
+    @import "cell";
+    @import "dnd";
+    @import "focus";
+    @import "layer";
+    @import "resize";
+    @import "table";
+    @import "toolbar";
+    @import "view";
 }

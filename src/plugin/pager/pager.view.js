@@ -1,20 +1,32 @@
 import { Command } from '../../core/command/command';
+import { FocusAfterRender } from '../../core/focus/focus.service';
 
 export class PagerView {
-	constructor(model) {
+	constructor(model, table) {
 		this.model = model;
+		this.table = table;
 
 		this.next = new Command({
 			source: 'pager',
-			execute: () => model.pagination({ current: model.pagination().current + 1 }),
+			execute: () => {
+				new FocusAfterRender(model, table);
+				model.pagination({ current: model.pagination().current + 1 }, { source: 'pager.view' })
+			},
 			canExecute: () => (model.pagination().current + 1) * model.pagination().size < model.pagination().count
 		});
 
 		this.prev = new Command({
 			source: 'pager',
-			execute: () => model.pagination({ current: model.pagination().current - 1 }),
+			execute: () => {
+				new FocusAfterRender(model, table);
+				model.pagination({ current: model.pagination().current - 1 }, { source: 'pager.view' });
+			},
 			canExecute: () => model.pagination().current > 0
 		});
+	}
+
+	get theme() {
+		return this.model.style().classList		
 	}
 
 	get resource() {
@@ -26,7 +38,7 @@ export class PagerView {
 	}
 
 	set size(value) {
-		this.model.pagination({ size: value, current: 0 });
+		this.model.pagination({ size: value, current: 0 }, { source: 'pager.view' });
 	}
 
 	get sizeList() {
@@ -38,7 +50,7 @@ export class PagerView {
 	}
 
 	set current(value) {
-		return this.model.pagination({ current: value });
+		return this.model.pagination({ current: value }, { source: 'pager.view' });
 	}
 
 	get from() {

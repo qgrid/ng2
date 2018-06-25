@@ -1,0 +1,18 @@
+<ng-template key='body-cell-group.tpl.html'
+             let-$cell
+             let-$view="$view">
+	<div [ngStyle]="{'padding-left': $view.group.offset($cell.row, $cell.column) + 'px'}"
+	     *ngIf="$view.group.isVisible($cell.row, $cell.column)">
+		<button (mouseup)="$view.group.toggleStatus.execute($cell.row, $cell.column)"
+		        *ngIf="$view.group.toggleStatus.canExecute($cell.row, $cell.column)"
+		        [ngClass]="'q-grid-'+$view.group.status($cell.row, $cell.column)"
+		        tabindex="-1"
+		        mat-icon-button>
+			<mat-icon class="q-grid-icon">
+				chevron_right
+			</mat-icon>
+		</button>
+		<span>{{$view.group.value($cell.row, $cell.column)}}</span>
+		<span *ngIf=" $view.group.toggleStatus.canExecute($cell.row, $cell.column)">({{$view.group.count($cell.row, $cell.column)}})</span>
+	</div>
+</ng-template>

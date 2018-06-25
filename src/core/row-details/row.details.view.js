@@ -3,15 +3,15 @@ import { toggleStatus, invalidateStatus } from './row.details.service';
 import { RowDetails } from './row.details';
 
 export class RowDetailsView {
-	constructor(model, table, commandManager) {
+	constructor(model, table, shortcut) {
 		this.model = model;
 
 		this.toggleStatus = new Command({
 			source: 'row.details.view',
 			execute: row => {
 				if (!row) {
-					const cell = model.navigation().cell;
-					row = cell.row;
+					const currentRow = model.navigation().row;
+					row = currentRow;
 				}
 
 				const status = toggleStatus([row], model.row().status, model.row().mode);
@@ -44,8 +44,7 @@ export class RowDetailsView {
 			}
 		});
 
-		const shortcut = model.action().shortcut;
-		shortcut.register(commandManager, [this.toggleStatus]);
+		shortcut.register([this.toggleStatus]);
 	}
 
 	status(row) {

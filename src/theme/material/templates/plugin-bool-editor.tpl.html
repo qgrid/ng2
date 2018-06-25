@@ -1,0 +1,9 @@
+<ng-template key="plugin-bool-editor.tpl.html"
+             let-$editor>
+    <mat-checkbox aria-label="Bool cell edit"
+                  class="q-grid-checkbox"
+                  #checkbox
+                  [q-grid-focus]="checkbox"
+                  [(ngModel)]="$editor.value">
+    </mat-checkbox>
+</ng-template>

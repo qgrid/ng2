@@ -1,15 +1,30 @@
 import { Command } from '../command/command';
 
 /**
- * A class to connect the q-grid [command](/doc/api/command.html) with user interface.
- * Usually action represents button in UI. If user action doesn't populate UI attributes like `title` or `icon`,
- * command can be still available through keyboard shortcut.
+ * Use this class to connect q-grid [command](/doc/api/command.html) and UI. Usually action represents a button, but not necessary, custom template can be [used to](/doc/features/action-bar).
+ * Note that even action doesn't populate UI, command should be still executable through the keyboard shortcut.
+ * 
+ * ### Create an action.
+ *
+ * ```javascript
+ * this.addRowCommand = 
+ * 		new qgrid.Action(
+ *			new qgrid.Command({	    
+ *		  		execute: () => {
+ *		     		const newRow = { id: 1, text: 'Lorem ipsum dolor sit amet' };
+ *                  this.rows = this.rows.concat(newRow);
+ *		   		},
+ * 			}),
+ * 			'Add Row'
+ *		);
+ * ```
  *
  * ### Suggested Links
  *
  * * [Action Model](/doc/api/action-model.html)
  * * [Command](/doc/api/command.html)
- * * [Action Bar](/doc/feature/action.html)
+ * * [Action Bar](/doc/feature/action-bar.html)
+ * * [Grid Front](/doc/api/front.html)
  */
 export declare class Action {
 	constructor(command: Command, title?: string, icon?: string);
@@ -18,22 +33,24 @@ export declare class Action {
 	 * User command that will be executed when:
 	 *
 	 * * Action button is clicked.
-	 * * Command shortcut keys are pressed.
+	 * * Custom template calls command execute method.
+	 * * Command keyboard shortcut is pressed.
 	 */
 	command: Command;
 
 	/**
-	 * Text that will be shown as a tooltip for the action button, if icon property
-	 * is not set this text can be shown as a label(depends on [action bar](/doc/feature/action.html)
-	 * plugin implementation).
+	 * A text to show in the button, or tooltip to show if the icon property is set.
 	 */
 	title: string;
 
 	/**
-	 * Icon key that will be rendered as a button image.
+	 * An icon key to render on the button.
 	 */
 	icon: string;
 
+	/**
+	 * If custom template is used this property is required for template resolution.
+	 */
 	id: string;
 
 	templateUrl: string;

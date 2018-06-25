@@ -1,0 +1,16 @@
+<q-grid caption="Layer Grid Blank"
+        [rows]="rows | async">
+	<q-grid-columns generation="deep">
+	</q-grid-columns>
+
+	<q-grid-layer>
+		<ng-template for="blank">
+			<div style="margin: 0 auto; top: 50%; width: 100px; position: relative;">
+				<button (click)="loadData()"
+				        mat-button>
+					Load Data
+				</button>
+			</div>
+		</ng-template>
+	</q-grid-layer>
+</q-grid>

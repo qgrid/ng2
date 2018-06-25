@@ -5,8 +5,8 @@ import { Command } from '../command/command';
 export class SelectionModel {
 	constructor() {
 		this.resource = new Resource();
-		this.unit = 'cell';//row|cell|column|mix
-		this.mode = 'single';//single|multiple|range
+		this.unit = 'cell'; //row|cell|column|mix
+		this.mode = 'single'; //single|multiple|range
 		this.items = [];
 		this.area = 'body'; //body, custom
 		this.toggle = new Command({ source: 'selection.model' });

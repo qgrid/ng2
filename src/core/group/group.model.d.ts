@@ -1,5 +1,6 @@
 import { Resource } from '../resource/resource';
 import { Command } from '../command/command';
+import { Node } from '../node/node';
 
 /**
  * A class that allows to apply some hierarchy to the grid.
@@ -19,11 +20,12 @@ export declare interface GroupModel {
 
 	/**
 	 * How grid will render nodes:
-	 * * `'column'` all hierarchy levels inside one group type column.
+	 * * `'nest'` all hierarchy levels inside one group type column.
+	 * * `'flat'` all hierarch levels inside own group type columns.
 	 * * `'subhead'` group column try to use all available space to display hierarchy.
-	 * * `'rowspan'` under construction
+	 * * `'rowspan'` group column occupies all space on expand
 	 */
-	mode?: 'column' | 'subhead' | 'rowspan';
+	mode?: 'nest' | 'column' | 'subhead' | 'rowspan';
 	/**
 	 * List of column keys to build appropriate hierarchy.
 	 * Each item represents next level.
@@ -32,4 +34,5 @@ export declare interface GroupModel {
 	toggle?: Command;
 	toggleAll?: Command;
 	shortcut?: { [key: string]: string };
+	flatten?: (nodes: Node[]) => Node[];
 }

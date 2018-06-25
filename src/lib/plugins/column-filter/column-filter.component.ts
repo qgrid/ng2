@@ -12,36 +12,40 @@ import { uniq, flatten } from 'ng2-qgrid/core/utility/kit';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { Fetch } from 'ng2-qgrid/core/infrastructure/fetch';
 import { VscrollService } from '../../common/vscroll/vscroll.service';
-import { RootService } from '../../infrastructure/component/root.service';
 import { VscrollContext } from '../../common/vscroll/vscroll.context';
 import { FocusAfterRender } from '../../common/focus/focus.service';
-import { PluginComponent } from '../plugin.component';
 import { GridService } from '../../main/grid/grid.service';
+import { PluginService } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-column-filter',
 	templateUrl: './column-filter.component.html',
-	providers: [FocusAfterRender]
+	providers: [FocusAfterRender, PluginService]
 })
-export class ColumnFilterComponent extends PluginComponent implements OnInit, OnDestroy {
+export class ColumnFilterComponent implements OnInit {
 	@Input() public column: ColumnModel;
 	@Input() public search = '';
 
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
+	context: {
+		$implicit: ColumnFilterView,
+		plugin: ColumnFilterComponent,
+		vscroll: VscrollContext
+	};
+
 	private vscrollContext: VscrollContext;
 
 	constructor(
-		@Optional() root: RootService,
+		private plugin: PluginService,
 		private vscroll: VscrollService,
 		private qgrid: GridService,
 		focusAfterRender: FocusAfterRender) {
-		super(root);
 	}
 
-	onReady() {
-		const model = this.model;
+	ngOnInit() {
+		const { model } = this.plugin;
 		const key = this.column.key;
 		const context = { key };
 
@@ -59,14 +63,14 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 				const items = columnFilter.items;
 				if (filterState.fetch !== this.qgrid.noop) {
 					const cancelBusy = service.busy();
-					const select = filterState					
+					const select = filterState
 						.fetch(key, {
 							skip,
 							take,
 							value: columnFilter.getValue,
 							search: '' + this.search,
 
-							// Depricated
+							// @depricated
 							filter: '' + this.search,
 						});
 
@@ -82,7 +86,7 @@ export class ColumnFilterComponent extends PluginComponent implements OnInit, On
 				} else {
 					const cancelBusy = service.busy();
 					const isBlank = model.filter().assertFactory().isNull;
-					try {						
+					try {
 						if (!items.length) {
 							const source = model[model.columnFilter().source];
 							let items = source().rows.map(columnFilter.getValue);

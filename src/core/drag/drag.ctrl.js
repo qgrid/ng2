@@ -8,7 +8,7 @@ export class DragCtrl extends Disposable {
 
 		this.model = model;
 		this.context = context;
-		
+
 		context.element.classList.add(`${GRID_PREFIX}-can-drag`);
 	}
 
@@ -32,7 +32,7 @@ export class DragCtrl extends Disposable {
 		DragService.transfer = source;
 
 		if (this.model) {
-			this.model.drag({ isActive: true });
+			this.model.drag({ isActive: true }, { source: 'drag.ctrl' });
 		}
 	}
 
@@ -41,13 +41,13 @@ export class DragCtrl extends Disposable {
 		DragService.transfer = null;
 
 		if (this.model) {
-			this.model.drag({ isActive: false });
+			this.model.drag({ isActive: false }, { source: 'drag.ctrl' });
 		}
 	}
 
 	dispose() {
 		super();
-		
+
 		this.context.element.classList.remove(`${GRID_PREFIX}-can-drag`);
 	}
 }

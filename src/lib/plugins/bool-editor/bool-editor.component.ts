@@ -5,32 +5,37 @@ import {
 	OnInit,
 	ElementRef
 } from '@angular/core';
-import { PluginComponent } from '../plugin.component';
-import { RootService } from '../../infrastructure/component/root.service';
 import { isString } from 'ng2-qgrid/core/utility/kit';
 import { ViewCoreService } from '../../main/core/view/view-core.service';
 import { BoolColumnModel } from 'ng2-qgrid/core/column-type/bool.column';
+import { PluginService } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-bool-editor',
-	templateUrl: './bool-editor.component.html'
+	templateUrl: './bool-editor.component.html',
+	providers: [PluginService]
 })
-export class BoolEditorComponent extends PluginComponent implements OnInit {
+export class BoolEditorComponent implements OnInit {
+	context: { $implicit: BoolEditorComponent } = {
+		$implicit: this
+	};
+
 	constructor(
-		@Optional() root: RootService,
+		private plugin: PluginService,
 		private view: ViewCoreService,
 		private element: ElementRef
 	) {
-		super(root);
 	}
 
 	ngOnInit() {
 		// entering edit mode means toggling boolean value
-		this.value =
-			this.value === this.trueValue
-				? this.falseValue : this.trueValue;
+		if (this.column.editorOptions.trigger === 'click') {
+			this.value =
+				this.value === this.trueValue
+					? this.falseValue : this.trueValue;
+		}
 
-		this.model.focusChanged.on(e => this.cell.exit.execute());
+		this.plugin.model.focusChanged.on(e => this.cell.exit.execute());
 	}
 
 	isChecked() {
@@ -58,7 +63,7 @@ export class BoolEditorComponent extends PluginComponent implements OnInit {
 	}
 
 	private get column() {
-		return this.view.edit.cell.editor.column as BoolColumnModel;
+		return this.view.edit.cell.column as BoolColumnModel;
 	}
 
 	private get cell() {

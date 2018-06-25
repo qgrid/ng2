@@ -1,0 +1,18 @@
+<q-grid caption="Scroll Virtual Edit"
+        scrollMode="virtual"
+        [rows]="rows | async">
+    <q-grid-columns generation="deep">
+        <q-grid-column key="rowIndicator"
+                       type="row-indicator">
+        </q-grid-column>
+        <q-grid-column key="rowOptions"
+                       type="row-options">
+        </q-grid-column>
+    </q-grid-columns>
+
+    <q-grid-data-manipulation>
+    </q-grid-data-manipulation>
+
+    <q-grid-pager [size]="20">
+    </q-grid-pager>
+</q-grid>

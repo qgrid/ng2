@@ -3,6 +3,9 @@ import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 import { EditService } from 'ng2-qgrid/core/edit/edit.service';
 import { CellView } from 'ng2-qgrid/core/scene/view/cell.view';
+import { ModelEventArg } from 'ng2-qgrid/core/infrastructure/model';
+import { NavigationModel } from 'ng2-qgrid/core/navigation/navigation.model';
+import { Td } from 'ng2-qgrid/core/dom/td';
 import { RootService } from '../../../infrastructure/component/root.service';
 import { ViewCoreService } from '../../../main/core/view/view-core.service';
 
@@ -11,30 +14,41 @@ import { ViewCoreService } from '../../../main/core/view/view-core.service';
 	templateUrl: './cell-handler.component.html'
 })
 export class CellHandlerComponent implements OnInit, AfterViewInit {
-	private job = jobLine(150);
-	private markerJob = jobLine(150);
+	@ViewChild('marker') marker: ElementRef;
+
 	private startCell: CellView = null;
 	private initialSelectionMode: 'single' | 'multiple' | 'range' = null;
 	private initialEditState: 'view' | 'edit' | 'startBatch' | 'endBatch' = null;
 
 	constructor(private element: ElementRef, private root: RootService, private view: ViewCoreService) {
-		Fastdom.mutate(() => element.nativeElement.style.visibility = 'hidden');
+		this.element.nativeElement.style.display = 'none';
 	}
 
-	@ViewChild('marker') marker: ElementRef;
-
 	ngOnInit() {
-		const model = this.root.model;
-		const table = this.root.table;
+		const updateHandler = this.updateHandlerFactory();
+		const updateMarker = this.updateMarkerFactory();
+
+		this.root.model.navigationChanged.watch(e => {
+			updateHandler(e);
+			updateMarker(e);
+		});
+	}
+
+	ngAfterViewInit() {
+		this.element.nativeElement.style.display = '';
+	}
+
+	updateHandlerFactory() {
+		const { model, table } = this.root;
 		const element = this.element.nativeElement;
+		const job = jobLine(150);
 
 		// When navigate first or when animation wasn't applied we need to omit
 		// next navigation event to make handler to correct position.
 		let isValid = false;
-
-		model.navigationChanged.watch(e => {
+		return (e: ModelEventArg<NavigationModel>) => {
 			if (e.hasChanges('cell')) {
-				const cell = e.state.cell;
+				const { cell } = e.state;
 
 				if (cell) {
 					const oldColumn = e.changes.cell.oldValue ? e.changes.cell.oldValue.column : {};
@@ -42,18 +56,19 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 					// Do not apply animation for columns that have viewWidth assigned
 					// because it can be animated too.
-					const shouldAnimate = oldColumn.key === newColumn.key || !(oldColumn.viewWidth || newColumn.viewWidth);
+					const shouldAnimate = !model.drag().isActive && (oldColumn.key === newColumn.key || !(oldColumn.viewWidth || newColumn.viewWidth));
 					if (!shouldAnimate) {
 						isValid = false;
 						return;
 					}
 
-					const domCell = table.body.cell(e.state.rowIndex, e.state.columnIndex);
+					const { rowIndex, columnIndex } = e.state;
+					const domCell = table.body.cell(rowIndex, columnIndex);
 					if (isValid) {
 						domCell.addClass('q-grid-animate');
 						element.classList.add('q-grid-active');
 
-						this.job(() => {
+						job(() => {
 							element.classList.remove('q-grid-active');
 							domCell.removeClass('q-grid-animate');
 						}).catch(() => {
@@ -82,15 +97,16 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 					isValid = true;
 				}
 			}
-		});
+
+		};
 	}
 
-	ngAfterViewInit() {
-		Fastdom.mutate(() => this.element.nativeElement.style.visibility = 'visible');
-		const model = this.root.model;
-		const editService = new EditService(model, this.root.table);
-		let prevCell = null;
+	updateMarkerFactory() {
+		const { model, table } = this.root;
+		const editService = new EditService(model, table);
+		const job = jobLine(150);
 
+		let oldCell: Td = null;
 		model.editChanged.on(e => {
 			if (e.hasChanges('state')) {
 				if (e.state.state === 'endBatch') {
@@ -103,33 +119,34 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 			}
 		});
 
-		model.navigationChanged.watch(e => {
+		return (e: ModelEventArg<NavigationModel>) => {
 			if (!this.marker) {
 				return;
 			}
 
 			if (e.hasChanges('cell')) {
-				const cell = e.state.cell;
-				if (model.edit().method === 'batch') {
-					if (prevCell) {
+				const { rowIndex, columnIndex } = e.state;
+				const { method, state } = model.edit();
+
+				const cell = table.body.cell(rowIndex, columnIndex).model();
+
+				if (method === 'batch') {
+					if (oldCell) {
 						Fastdom.mutate(() => this.marker.nativeElement.remove());
 					}
 
-					prevCell = cell.model;
 					if (cell) {
-						this.markerJob(() => {
-							Fastdom.mutate(() => prevCell.element.appendChild(this.marker.nativeElement));
-						});
-					} else {
-						prevCell = null;
+						job(() => Fastdom.mutate(() => oldCell.element.appendChild(this.marker.nativeElement)));
 					}
+
+					oldCell = cell;
 				}
 
-				if (!this.startCell && model.edit().state === 'startBatch') {
+				if (state === 'startBatch' && !this.startCell) {
 					this.startCell = cell;
 				}
 			}
-		});
+		};
 	}
 
 	startBatchEdit(e) {
@@ -146,11 +163,11 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 	get isMarkerVisible() {
 		const model = this.root.model;
-		const cell: CellView = model.navigation().cell;
+		const { column } = model.navigation();
 
-		if (cell) {
-			const type = cell.column.type;
-			return model.edit().method === 'batch' && type !== 'id';
+		if (column) {
+			const type = column.type;
+			return model.edit().method === 'batch';
 		}
 
 		return false;

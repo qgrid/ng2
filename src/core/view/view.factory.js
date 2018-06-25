@@ -26,8 +26,8 @@ export function viewFactory(
 	commandManager,
 	gridService,
 	vscroll,
-	selectors) {
-
+	selectors
+) {
 	const proxy = new ModelProxy(model);
 	const basket = new Disposable();
 	const { shortcut } = model.action();
@@ -47,22 +47,23 @@ export function viewFactory(
 
 	return host => {
 		const modelProxy = proxy.subject;
+
+		host.head = new HeadView(modelProxy, table, selectors.th);
 		host.body = new BodyView(modelProxy, table);
+		host.foot = new FootView(modelProxy, table);
+		host.row = new RowView(modelProxy, table, selectors.tr);
+		host.layout = new LayoutView(modelProxy, table, gridService);
+		host.scroll = new ScrollView(modelProxy, table, vscroll);
+		host.highlight = new HighlightView(modelProxy, table);
+		host.sort = new SortView(modelProxy);
+		host.pagination = new PaginationView(modelProxy);
+		host.nav = new NavigationView(modelProxy, table, navigationShortuct);
+		host.group = new GroupView(modelProxy, table, gridService, navigationShortuct);
 		host.edit = new EditView(modelProxy, table, navigationShortuct);
 		host.filter = new FilterView(modelProxy);
-		host.foot = new FootView(modelProxy, table);
-		host.group = new GroupView(modelProxy, table, commandManager, gridService);
-		host.head = new HeadView(modelProxy, table, selectors.th);
-		host.highlight = new HighlightView(modelProxy, table);
-		host.layout = new LayoutView(modelProxy, table, gridService);
-		host.nav = new NavigationView(modelProxy, table, navigationShortuct);
-		host.pagination = new PaginationView(modelProxy);
 		host.pivot = new PivotView(modelProxy);
-		host.row = new RowView(modelProxy, selectors.tr);
-		host.rowDetails = new RowDetailsView(modelProxy, table, commandManager);
-		host.scroll = new ScrollView(modelProxy, table, vscroll);
+		host.rowDetails = new RowDetailsView(modelProxy, table, navigationShortuct);
 		host.selection = new SelectionView(modelProxy, table, selectionShortcut);
-		host.sort = new SortView(modelProxy);
 		host.style = new StyleView(modelProxy, table);
 
 		return () => {

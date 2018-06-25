@@ -6,20 +6,21 @@ const path = require('path');
 const glob = require('glob');
 const ngc = require('@angular/compiler-cli/src/main').main;
 const rollup = require('rollup');
-const uglify = require('rollup-plugin-uglify');
+const { uglify } = require('rollup-plugin-uglify');
 const babel = require('rollup-plugin-babel');
 const sass = require('npm-sass');
 const inlineStyles = require('./build.inline');
-const rollupConfig = require('./build.rollup');
-const buildTheme = require('./build.theme');
+const rollupConfig = require('./build.lib.rollup');
+const { relativeCopy } = require('./build.kit');
 
 const rootFolder = path.join(__dirname);
 const tscFolder = path.join(rootFolder, 'out-tsc');
 const srcFolder = path.join(rootFolder, 'src');
-const themeFolder = path.join(tscFolder, 'theme/material');
+// const themeFolder = path.join(tscFolder, 'theme/material');
 const distFolder = path.join(rootFolder, 'dist');
 const esm2015Folder = path.join(tscFolder, 'esm2015');
 const esm2015Entry = path.join(esm2015Folder, 'index.js');
+
 
 return Promise.resolve()
   // Copy library to temporary folder and inline html/css.
@@ -28,15 +29,6 @@ return Promise.resolve()
   .then(() => relativeCopy(`**/*`, path.join(srcFolder, 'core'), path.join(tscFolder, 'core')))
   .then(() => relativeCopy(`**/*`, path.join(srcFolder, 'lib'), tscFolder))
   .then(() => console.log(`copy: succeeded`))
-  .then(() => console.log(`theme: build`))
-  // Build еheme
-  .then(() =>
-    buildTheme({
-      path: path.join(themeFolder, 'templates'),
-      outputPath: path.join(themeFolder, 'theme.component.gen.html'),
-    })
-  )
-  .then(() => console.log(`theme: succeeded`))
   // Inline styles and templates
   .then(() => console.log(`scss: ${tscFolder}`))
   .then(() => {
@@ -61,8 +53,8 @@ return Promise.resolve()
   .then(() => inlineStyles(tscFolder))
   .then(() => console.log('inline: succeeded'))
   // Compile to ESM2015.
-  .then(() => console.log('ngc: tsconfig.es2015.json'))
-  .then(() => ngc(['--project', 'tsconfig.es2015.json']))
+  .then(() => console.log('ngc: build.lib.tsconfig.json'))
+  .then(() => ngc(['--project', 'build.lib.tsconfig.json']))
   .then(code => code === 0 ? Promise.resolve() : Promise.reject())
   .then(() => console.log('ngc esm2015: succeeded'))
   // Copy typings and metadata to `dist/` folder.
@@ -133,39 +125,10 @@ return Promise.resolve()
   .then(() => relativeCopy('LICENSE', rootFolder, distFolder))
   .then(() => relativeCopy('package.json', srcFolder, distFolder))
   .then(() => relativeCopy('README.md', rootFolder, distFolder))
+  .then(() => relativeCopy('CHANGELOG.md', rootFolder, distFolder))
   .then(() => console.log('copy package: success'))
   .catch(ex => {
     console.error('\nBuild failed. See below for errors.\n');
     console.error(ex);
     process.exit(1);
   });
-
-// Copy files maintaining relative paths.
-function relativeCopy(fileGlob, from, to) {
-  return new Promise((resolve, reject) => {
-    glob(fileGlob, { cwd: from, nodir: true }, (err, files) => {
-      if (err) {
-        reject(err);
-      }
-
-      files.forEach(file => {
-        const origin = path.join(from, file);
-        const dest = path.join(to, file);
-        const data = fs.readFileSync(origin, 'utf-8');
-        makeFolderTree(path.dirname(dest));
-        fs.writeFileSync(dest, data);
-        console.log(`copy: ${file}`);
-      });
-
-      resolve();
-    })
-  });
-}
-
-// Recursively create a dir.
-function makeFolderTree(dir) {
-  if (!fs.existsSync(dir)) {
-    makeFolderTree(path.dirname(dir));
-    fs.mkdirSync(dir);
-  }
-}

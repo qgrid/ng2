@@ -1,10 +1,10 @@
-<i [ngClass]="{'q-grid-active': isMarkerVisible}"
-	#marker
-	class="material-icons q-grid-marker"
-	(mousedown)="startBatchEdit($event)">
-	signal_cellular_4_bar
-</i>
-<i [ngClass]="{'q-grid-active': isMarkerVisible}"
-	class="material-icons q-grid-marker">
-	signal_cellular_4_bar
-</i>
+<ng-container *ngIf="isMarkerVisible">
+    <i #marker
+       class="material-icons q-grid-marker"
+       (mousedown)="startBatchEdit($event)">
+        signal_cellular_4_bar
+    </i>
+    <i class="material-icons q-grid-marker">
+        signal_cellular_4_bar
+    </i>
+</ng-container>

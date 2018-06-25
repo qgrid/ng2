@@ -1,0 +1,33 @@
+<div class="master-details">
+	<div class="grid">
+		<q-grid caption="Master Details"
+				[selectionMode]="'single'"
+				[selectionUnit]="'row'"
+				[model]="gridModel"
+				[rows]="rows | async">
+			<q-grid-columns generation="deep">
+			</q-grid-columns>
+		</q-grid>
+	</div>
+
+	<div class="grid">
+		<h3 class="mat-title">People who likes:
+			<mat-chip-list class="likes-list">
+				<mat-chip *ngFor="let like of likes" disabled="true">
+					{{like}}
+				</mat-chip>
+			</mat-chip-list>
+		</h3>
+		<q-grid caption="People who likes:"
+				[rows]="detailsRows | async">
+
+			<q-grid-toolbar>
+				<ng-template for="top">
+				</ng-template>
+			</q-grid-toolbar>
+
+			<q-grid-columns generation="deep">
+			</q-grid-columns>
+		</q-grid>
+	</div>
+</div>

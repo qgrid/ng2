@@ -1,0 +1,20 @@
+@import "variables";
+tr:not(.q-grid-highlighted) {
+    td.q-grid-selected {
+        background-color: $selected;
+        &.q-grid-sorted {
+            background-color: $selected;
+        }
+        &.q-grid-highlighted {
+            background-color: $highlighted;
+        }
+    }
+}
+
+.q-grid-select-cell.q-grid-select-single {
+    tr:not(.q-grid-highlighted) {
+        td.q-grid-selected:not(.q-grid-sorted):not(.q-grid-highlighted) {
+            background-color: inherit;
+        }
+    }
+}

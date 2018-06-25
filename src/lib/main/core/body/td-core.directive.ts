@@ -4,8 +4,8 @@ import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { TdCtrl } from 'ng2-qgrid/core/cell/td.ctrl';
+import { Td } from 'ng2-qgrid/core/dom/td';
 import { ViewCoreService } from '../view/view-core.service';
-import { TableCoreService } from '../table/table-core.service';
 import { RootService } from '../../../infrastructure/component/root.service';
 import { TrCoreDirective } from '../row/tr-core.directive';
 import { CellService } from '../../../main/core/cell/cell.service';
@@ -15,18 +15,20 @@ const classify = TdCtrl.classify;
 @Directive({
 	selector: '[q-grid-core-td]',
 })
-export class TdCoreDirective implements OnInit, OnDestroy {
-	@Input('q-grid-core-td') public columnView: ColumnView;
-	public element: HTMLElement = null;
+export class TdCoreDirective implements Td, OnInit, OnDestroy {
 	private $implicit = this;
+	
+	@Input('q-grid-core-td') columnView: ColumnView;
+	element: HTMLElement = null;
 
-	constructor(public $view: ViewCoreService,
+	constructor(
+		public $view: ViewCoreService,
 		private root: RootService,
 		private viewContainerRef: ViewContainerRef,
 		private cellService: CellService,
-		private table: TableCoreService,
 		private tr: TrCoreDirective,
-		element: ElementRef) {
+		element: ElementRef
+	) {
 
 		this.element = element.nativeElement.parentNode;
 	}
@@ -63,30 +65,26 @@ export class TdCoreDirective implements OnInit, OnDestroy {
 	}
 
 	get value() {
-		const column = this.column;
-		const row = this.row;
-		return this.$view.body.value(row, column);
+		const { column, row, rowIndex, columnIndex } = this;
+		return this.$view.body.render.getValue(row, column, rowIndex, columnIndex);
 	}
 
 	set value(value) {
-		const column = this.column;
-		const row = this.row;
-		this.$view.body.value(row, column, value);
+		const { column, row, rowIndex, columnIndex } = this;
+		this.$view.body.render.setValue(row, column, value, rowIndex, columnIndex);
 	}
 
 	get label() {
-		const column = this.column;
-		const row = this.row;
-		return this.$view.body.label(row, column);
+		const { column, row, rowIndex, columnIndex } = this;
+		return this.$view.body.render.getLabel(row, column, rowIndex, columnIndex);
 	}
 
 	set label(label) {
-		const column = this.column;
-		const row = this.row;
-		this.$view.body.label(row, column, label);
+		const { column, row, rowIndex, columnIndex } = this;
+		this.$view.body.render.setLabel(row, column, label, rowIndex, columnIndex);
 	}
 
-	get column() {
+	get column(): ColumnModel {
 		return this.columnView.model;
 	}
 

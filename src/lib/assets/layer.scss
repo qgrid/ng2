@@ -1,7 +1,10 @@
 .q-grid-view {
-	.q-grid-layer {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-	}
+    .q-grid-layer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        &:empty {
+            pointer-events: none;
+        }
+    }
 }

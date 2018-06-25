@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+import { Directive, Input, ElementRef, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { sizeFactory } from './vscroll.container';
 import { VscrollPortYDirective } from './vscroll-port-y.directive';
 
@@ -15,16 +15,29 @@ export class VscrollColumnDirective implements OnDestroy, OnChanges {
 
 	ngOnChanges(changes: SimpleChanges) {
 		if (changes['index']) {
-			const change = changes['index'];
-			const layout = this.layout;
-			const newIndex = change.currentValue;
-			if (!change.firstChange) {
-				const oldIndex = change.previousValue;
-				layout.removeItem(oldIndex);
+			if (this.port.getItemSize()) {
+				this.ngOnChanges = null;
+				return;
 			}
 
-			const size = sizeFactory(this.settings.columnWidth, this.container, this.column, newIndex);
-			this.layout.setItem(newIndex, size);
+			const { layout, settings, container, column } = this;
+			const { rowHeight } = settings;
+			this.ngOnChanges = (changes: SimpleChanges) => {
+				if (changes['index']) {
+					const change = changes['index'];
+					const newIndex = change.currentValue;
+					const oldIndex = change.previousValue;
+					layout.removeItem(oldIndex);
+
+					const size = sizeFactory(rowHeight, container, column, newIndex);
+					layout.setItem(newIndex, size);
+				}
+			};
+
+			const change = changes['index'];
+			const newIndex = change.currentValue;
+			const size = sizeFactory(rowHeight, container, column, newIndex);
+			layout.setItem(newIndex, size);
 		}
 	}
 

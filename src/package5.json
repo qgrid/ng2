@@ -1,0 +1,9 @@
+{
+  "peerDependencies": {
+    "@angular/common": "^5.2.11",
+    "@angular/core": "^5.2.11",
+    "@angular/forms": "^5.2.11",
+    "@angular/http": "^5.2.11"
+  },
+  "version": "5.4.3"
+}

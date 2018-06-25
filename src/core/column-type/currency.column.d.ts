@@ -3,11 +3,9 @@ import { DataColumnModel } from './data.column.model';
 import { ColumnModel } from './column.model';
 
 export declare class CurrencyColumnModel extends DataColumnModel {
-	constructor();
-
-	symbol: string;
-	code: string;
-	maxLength: number;
+	symbol?: string;
+	code?: string;
+	maxLength?: number;
 }
 
 export declare class CurrencyModel extends ColumnView {

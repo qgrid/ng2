@@ -1,0 +1,10 @@
+<q-grid caption="Scroll Virtual Drag"
+        scrollMode="virtual"
+        [rows]="rows | async"
+        rowCanDrag="true">
+        <q-grid-columns generation="deep">
+        </q-grid-columns>
+
+        <q-grid-pager [size]="20">
+        </q-grid-pager>
+</q-grid>

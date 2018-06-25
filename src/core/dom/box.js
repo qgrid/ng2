@@ -10,8 +10,9 @@ export class Box {
 
 		this.selectFactory = new SelectorFactory(context.bag, selectorMark);
 
-		model.sceneChanged.watch(e => {
-			if (e.hasChanges('round')) {
+		this.selector = this.selectFactory.create();
+		model.sceneChanged.on(e => {
+			if (e.hasChanges('status') && e.state.status === 'stop') {
 				this.selector = this.selectFactory.create();
 			}
 		})
@@ -22,24 +23,21 @@ export class Box {
 	}
 
 	column(columnIndex) {
-		const columnFactory = this.createColumnCore.bind(this);
-		return columnFactory(columnIndex);
+		return this.createColumnCore(columnIndex);
 	}
 
 	columns(rowIndex) {
-		const columnFactory = this.createColumnCore.bind(this);
 		return this.selector
 			.rowCells(rowIndex)
-			.map(cell => columnFactory(cell.columnIndex));
+			.map(cell => this.createColumnCore(cell.columnIndex));
 	}
 
-	row(rowIndex) {
-		return this.rowCore(rowIndex);
+	row(rowIndex, columnIndex) {
+		return this.rowCore(rowIndex, columnIndex);
 	}
 
 	rows(columnIndex) {
-		const rowFactory = this.createRowCore.bind(this);
-		return this.selector.rows(columnIndex).map(row => rowFactory(row.index, row.element));
+		return this.selector.rows(columnIndex).map(row => this.createRowCore(row.index, row.element));
 	}
 
 	rowCount(columnIndex) {
@@ -54,29 +52,25 @@ export class Box {
 		return [];
 	}
 
-	rowCore(index) {
-		const rowFactory = this.createRowCore.bind(this);
-		return rowFactory(index, this.selector.row(index).element);
+	rowCore(rowIndex, columnIndex) {
+		return this.createRowCore(rowIndex, this.selector.row(rowIndex, columnIndex).element);
 	}
 
 	cellCore(rowIndex, columnIndex) {
-		const cellFactory = this.createCellCore.bind(this);
 		const cell = this.selector.cell(rowIndex, columnIndex);
-		return cellFactory(cell.rowIndex, cell.columnIndex, cell.element);
+		return this.createCellCore(cell.rowIndex, cell.columnIndex, cell.element);
 	}
 
 	rowCellsCore(rowIndex) {
-		const cellFactory = this.createCellCore.bind(this);
 		return this.selector
 			.rowCells(rowIndex)
-			.map(cell => cellFactory(cell.rowIndex, cell.columnIndex, cell.element));
+			.map(cell => this.createCellCore(cell.rowIndex, cell.columnIndex, cell.element));
 	}
 
 	columnCellsCore(columnIndex) {
-		const cellFactory = this.createCellCore.bind(this);
 		return this.selector
 			.columnCells(columnIndex)
-			.map(cell => cellFactory(cell.rowIndex, cell.columnIndex, cell.element));
+			.map(cell => this.createCellCore(cell.rowIndex, cell.columnIndex, cell.element));
 	}
 
 	createRowCore(index, element) {

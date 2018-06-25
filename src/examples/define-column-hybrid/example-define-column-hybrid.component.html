@@ -1,0 +1,23 @@
+<q-grid caption="Define Column Hybrid"
+		[rows]="rows | async"
+		[columns]="columns">
+	<q-grid-columns>
+		<q-grid-column key="number"
+		               title="html #"
+		               width="90"
+		               type="id">
+		</q-grid-column>
+		<q-grid-column key="symbol"
+		               title="should be html Symbol"
+		               type="text">
+		</q-grid-column>
+		<q-grid-column key="name"
+		               title="html Name">
+		</q-grid-column>
+		<q-grid-column key="source"
+		               title="html Wiki"
+		               width="300"
+		               type="url">
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

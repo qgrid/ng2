@@ -1,11 +1,12 @@
 export function sortIndexFactory(model) {
 	return (columns, scores) => {
 		const columnListState = model.columnList();
+		const { length } = columns;
 		scores = Object.assign({
 			list: column => column.class === 'data' ? 0.1 : 0.3,
 			index: () => 0.2,
-			view: column => column.class !== 'data' ? 0.1 : 0.3,
-			template: () => 0.4
+			view: column => length + (column.class !== 'data' ? 0.1 : 0.3),
+			template: () => length + 0.4
 		}, scores);
 
 		const listIndex = columnListState.index;
@@ -19,7 +20,7 @@ export function sortIndexFactory(model) {
 
 		const index = left.concat(center).concat(right);
 		return {
-			index: index,
+			index,
 			hasChanges: !equals(listIndex, index)
 		};
 	};
@@ -37,10 +38,10 @@ function sortFactory(scores) {
 	};
 }
 
-function compareFactory(scores, listIndex, templateIndex, viewIndex) {
+function compareFactory(scoreFor, listIndex, templateIndex, viewIndex) {
 	const listFind = findFactory(listIndex);
-	const templateFind = findFactory(templateIndex);
 	const viewFind = findFactory(viewIndex);
+	const templateFind = findFactory(templateIndex);
 
 	const weightCache = {};
 	const getWeight = column => {
@@ -50,10 +51,10 @@ function compareFactory(scores, listIndex, templateIndex, viewIndex) {
 		}
 
 		const candidates = [
-			listFind(key) + scores.list(column),
-			column.index + scores.index(column),
-			viewFind(key) + scores.view(column),
-			templateFind(key) + scores.template(column)
+			listFind(key) + scoreFor.list(column),
+			column.index + scoreFor.index(column),
+			viewFind(key) + scoreFor.view(column),
+			templateFind(key) + scoreFor.template(column)
 		];
 
 		const weights = candidates.filter(w => w >= 0);

@@ -1,6 +1,6 @@
 import { Unit } from './unit';
 import { FakeElement } from './fake/element';
-import * as css from '../services/css';
+import { escapeAttr } from '../services/css';
 
 function isParentOf(parent, element) {
 	while (element) {
@@ -72,15 +72,19 @@ export class View extends Unit {
 		return false;
 	}
 
+	hasLayer(name) {
+		return this.layers.has(name);
+	}
+
 	addClass(name) {
 		if (this.markup.view) {
-			this.markup.view.classList.add(css.escapeAttr(name));
+			this.markup.view.classList.add(escapeAttr(name));
 		}
 	}
 
 	removeClass(name) {
 		if (this.markup.view) {
-			this.markup.view.classList.remove(css.escapeAttr(name));
+			this.markup.view.classList.remove(escapeAttr(name));
 		}
 	}
 
@@ -97,6 +101,14 @@ export class View extends Unit {
 
 			if (markup.body) {
 				markup.body.scrollLeft = value;
+			}
+
+			if (markup['body-top']) {
+				markup['body-top'].scrollLeft = value;
+			}
+
+			if (markup['body-bottom']) {
+				markup['body-bottom'].scrollLeft = value;
 			}
 
 			return;

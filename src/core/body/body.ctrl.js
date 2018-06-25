@@ -1,7 +1,11 @@
 import { PathService } from '../path/path.service';
 import { Fastdom } from '../services/fastdom';
+import { GRID_PREFIX } from '../definition';
+import { jobLine } from '../services/job.line';
 
 const MOUSE_LEFT_BUTTON = 1;
+const VERTICAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-vertical`;
+const HORIZONTAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-horizontal`;
 
 export class BodyCtrl {
 	constructor(model, view, table, bag) {
@@ -10,6 +14,7 @@ export class BodyCtrl {
 		this.bag = bag;
 		this.table = table;
 		this.rangeStartCell = null;
+		this.scrollingJob = jobLine(100);
 	}
 
 	onScroll(e) {
@@ -19,11 +24,13 @@ export class BodyCtrl {
 		const newValue = {};
 		let hasChanges = false;
 		if (oldValue.top !== e.scrollTop) {
+			this.table.view.addClass(VERTICAL_SCROLL_CLASS);
 			newValue.top = e.scrollTop;
 			hasChanges = true;
 		}
 
 		if (oldValue.left !== e.scrollLeft) {
+			this.table.view.addClass(HORIZONTAL_SCROLL_CLASS);
 			newValue.left = e.scrollLeft;
 			hasChanges = true;
 		}
@@ -34,6 +41,13 @@ export class BodyCtrl {
 				behavior: 'core'
 			});
 		}
+
+		this.scrollingJob(this.onScrollEnd.bind(this));
+	}
+
+	onScrollEnd() {
+		this.table.view.removeClass(VERTICAL_SCROLL_CLASS);
+		this.table.view.removeClass(HORIZONTAL_SCROLL_CLASS);
 	}
 
 	onWheel(e) {
@@ -74,25 +88,42 @@ export class BodyCtrl {
 
 	onMouseMove(e) {
 		const pathFinder = new PathService(this.bag.body);
-		const row = pathFinder.row(e.path);
+		const td = pathFinder.cell(e.path);
 
-		if (row) {
-			const index = row.index;
-			const highlightRow = this.view.highlight.row;
-			if (highlightRow.canExecute(index)) {
-				this.model
-					.highlight()
-					.rows
-					.filter(i => i !== index)
-					.forEach(i => highlightRow.execute(i, false));
+		if (td) {
+			const { highlight } = this.view;
+			const { rows, cell } = this.model.highlight();
 
-				highlightRow.execute(index, true);
+			if (cell) {
+				highlight.cell.execute(cell, false);
+			}
+
+			const newCell = {
+				rowIndex: td.rowIndex,
+				columnIndex: td.columnIndex
+			};
+
+			if (highlight.cell.canExecute(newCell)) {
+				highlight.cell.execute(newCell, true)
+			}
+
+			const tr = pathFinder.row(e.path);
+			if (tr) {
+				const { index } = tr;
+
+				if (highlight.row.canExecute(index)) {
+					rows
+						.filter(i => i !== index)
+						.forEach(i => highlight.row.execute(i, false));
+
+					highlight.row.execute(index, true);
+				}
 			}
 		}
 
 		if (this.selection.mode === 'range') {
 			const startCell = this.rangeStartCell;
-			const endCell = pathFinder.cell(e.path);
+			const endCell = td;
 
 			if (startCell && endCell) {
 				this.navigate(endCell);
@@ -102,11 +133,14 @@ export class BodyCtrl {
 	}
 
 	onMouseLeave() {
-		const highlightRow = this.view.highlight.row;
-		this.model
-			.highlight()
-			.rows
-			.forEach(i => highlightRow.execute(i, false));
+		const { highlight } = this.view;
+		const { rows, cell } = this.model.highlight();
+
+		rows.forEach(rowIndex => highlight.row.execute(rowIndex, false));
+
+		if (cell) {
+			highlight.cell.execute(null, false);
+		}
 	}
 
 	onMouseUp(e) {

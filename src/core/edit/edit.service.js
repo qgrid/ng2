@@ -9,35 +9,35 @@ export class EditService {
 	}
 
 	doBatch(startCell) {
-		const view = this.model.view();
+		const { table, model } = this;
+		const { rows, columns } = model.view();
+		const { items } = model.selection();
+
 		const shortcut = { register: () => ({}) };
-		const editView = new EditCellView(this.model, this.table, shortcut);
-		
-		const label = startCell.label;
-		const value = startCell.value;
-		
-		const {rows, columns} = view;
-		const startColumnType = startCell.column.type;
-		const selectionItems = this.model.selection().items;
-		for (let i = 0, itemsLength = selectionItems.length; i < itemsLength; i++) {
-			const {row, column} = selectionItems[i];
+		const editView = new EditCellView(model, table, shortcut);
+		const startTd = this.table.body.cell(startCell.rowIndex, startCell.columnIndex).model();
+
+		const label = startTd.label;
+		const value = startTd.value;
+
+		const startColumnType = startTd.column.type;
+		for (let i = 0, length = items.length; i < length; i++) {
+			const { row, column } = items[i];
 			const rowIndex = rows.indexOf(row);
 			const columnIndex = columns.indexOf(column);
-			
-			const cellView = this.table.body.cell(rowIndex, columnIndex).model();
-			const cell = cellView.model;
-			const type = cell.column.type;
+
+			const td = table.body.cell(rowIndex, columnIndex).model();
+			const type = td.column.type;
 			if (startColumnType === type) {
-				const editor = new CellEditor(cell);
+				const editor = new CellEditor(td);
 				editor.label = label;
 				editor.value = value;
+
 				editView.editor = editor;
-				
 				if (editView.push.canExecute()) {
 					editView.push.execute();
 				}
 			}
 		}
-
 	}
 }

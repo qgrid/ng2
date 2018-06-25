@@ -1,0 +1,59 @@
+<q-grid caption="Group Column Basic"
+        [rows]="rows | async">
+	<q-grid-columns>
+		<q-grid-column title="Name">
+			<q-grid-column title="Given"
+			               key="firstName"
+			               path="name.first">
+			</q-grid-column>
+			<q-grid-column title="Surname"
+			               key="lastName"
+			               path="name.last">
+			</q-grid-column>
+		</q-grid-column>
+		<q-grid-column title="Gender"
+		               key="gender">
+		</q-grid-column>
+		<q-grid-column title="Birthday"
+		               key="birthday">
+		</q-grid-column>
+		<q-grid-column title="Contact Info">
+			<q-grid-column title="Email"
+			               key="email"
+			               path="contact.email">
+			</q-grid-column>
+			<q-grid-column title="Birthday"
+			               key="birthday"
+			               path="contact.birthday">
+			</q-grid-column>
+			<q-grid-column title="Phone"
+			               key="phone"
+			               path="contact.phone">
+			</q-grid-column>
+			<q-grid-column title="Address">
+				<q-grid-column title="Street"
+				               key="street"
+				               path="contact.address.phone">
+				</q-grid-column>
+				<q-grid-column title="Zip"
+				               key="zip"
+				               path="contact.address.phone">
+				</q-grid-column>
+				<q-grid-column title="City"
+				               key="phone"
+				               path="contact.address.phone">
+				</q-grid-column>
+				<q-grid-column title="State"
+				               key="state"
+				               path="contact.address.state">
+				</q-grid-column>
+			</q-grid-column>
+		</q-grid-column>
+		<q-grid-column title="Likes"
+		               key="likes">
+		</q-grid-column>
+		<q-grid-column title="Member Since"
+		               key="memberSince">
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

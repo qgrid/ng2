@@ -3,18 +3,32 @@
 	Show/Hide [handler counter: {{handlerCount}}]
 </button>
 <ng-container *ngIf="isVisible">
-	<q-grid header="Destroy Grid Model"
-	        [model]="gridModel">
+	<q-grid caption="Destroy Grid Model"
+	        [model]="gridModel"
+	        id="example-destroy-grid-model"
+	        editMode='cell'
+	        selectionUnit='row'
+	        selectionMode='multiple'>
 		<q-grid-columns generation="deep">
+			<q-grid-column type="row-indicator"
+			               key="rowIndicator">
+			</q-grid-column>
+			<q-grid-column type="row-options"
+			               key="rowOptions">
+			</q-grid-column>
 		</q-grid-columns>
+
+		<q-grid-data-manipulation>
+		</q-grid-data-manipulation>
+
+		<q-grid-persistence>
+		</q-grid-persistence>
+
+		<q-grid-query-builder>
+		</q-grid-query-builder>
+
+		<q-grid-row canResize="true"
+		            canMove="true">
+		</q-grid-row>
 	</q-grid>
-
-	<!-- <q-grid-data-manipulation>
-	</q-grid-data-manipulation>
-
-	<q-grid-persistence>
-	</q-grid-persistence>
-
-	<q-grid-query-builder>
-	</q-grid-query-builder> -->
 </ng-container>

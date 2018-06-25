@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { VscrollContainer } from './vscroll.container';
-import { VscrollSettings, IVscrollSettings } from './vscroll.settings';
+import { IVscrollSettings } from './vscroll.settings';
 import { VscrollContext } from './vscroll.context';
 
 @Injectable()

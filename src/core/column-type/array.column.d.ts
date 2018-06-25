@@ -3,7 +3,9 @@ import { DataColumnModel } from './data.column.model';
 import { ColumnModel } from './column.model';
 
 export declare class ArrayColumnModel extends DataColumnModel {
-	constructor();
+	itemType: string;
+	itemFormat: string;
+	itemLabel: (row: any, value?: any) => any;
 }
 
 export declare class ArrayColumn extends ColumnView {

@@ -1,6 +1,6 @@
 import { GRID_PREFIX } from '../definition';
-import * as css from '../services/css';
-import {isFunction, isDate, isArray} from '../utility/kit';
+import { escapeAttr } from '../services/css';
+import { isFunction, isDate, isArray } from '../utility/kit';
 
 const toJson = JSON.stringify;
 const toString = Object.prototype.toString;
@@ -8,10 +8,13 @@ const hasCustomToString = obj => isFunction(obj.toString) && obj.toString !== to
 
 export class TdCtrl {
 	static classify(element, column) {
-		element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.key}`));
-		element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.type}`));
+		// @deprecated
+		element.classList.add(escapeAttr(`${GRID_PREFIX}-${column.key}`));
+
+		element.classList.add(escapeAttr(`${GRID_PREFIX}-the-${column.key}`));
+		element.classList.add(escapeAttr(`${GRID_PREFIX}-${column.type}`));
 		if (column.editor) {
-			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.editor}`));
+			element.classList.add(escapeAttr(`${GRID_PREFIX}-${column.editor}`));
 		}
 	}
 

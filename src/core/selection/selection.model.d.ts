@@ -1,4 +1,5 @@
 import { Resource } from '../resource/resource';
+import { ColumnModel } from '../column-type/column.model';
 
 /**
  * A class that allows to control selection function of the q-grid.
@@ -50,7 +51,7 @@ export declare interface SelectionModel {
 	 * * `'row'` custom row id will be stored in the items property.
 	 */
 	key?: {
-		row: () => void,
-		column: () => void
+		row: (row: any) => any,
+		column?: (column: ColumnModel) => any
 	};
 }

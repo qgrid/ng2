@@ -8,14 +8,14 @@ import {
 	Optional,
 	NgZone
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { EventListener as EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
+import { clone } from 'ng2-qgrid/core/utility/kit';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { NgComponent } from '../../infrastructure/component/ng.component';
 import { RootService } from '../../infrastructure/component/root.service';
-import { clone, noop } from 'ng2-qgrid/core/utility/kit';
-import { DOCUMENT } from '@angular/common';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 @Directive({
 	selector: '[q-grid-resize]'
@@ -37,12 +37,11 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 	@Input('q-grid-resize') key;
 	@Input('q-grid-resize-path') path;
 	@Input('q-grid-can-resize') canResize;
-	@Input('q-grid-drag') transfer;
 
 	constructor(
 		@Optional() private root: RootService,
 		elementRef: ElementRef,
-		@Inject(DOCUMENT) private document: any,
+		@Inject(DOCUMENT) document: any,
 		private zone: NgZone
 	) {
 		super();
@@ -64,7 +63,8 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		if (this.canResize(this.event())) {
+		const e = { data: this.key };
+		if (this.canResize(e)) {
 			this.zone.runOutsideAngular(() => {
 				this.listener.divider.on('mousedown', this.dragStart);
 			});
@@ -81,7 +81,7 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 		this.listener.document.off();
 	}
 
-	dragStart(e) {
+	dragStart(e: DragEvent) {
 		e.preventDefault();
 
 		const context = this.context;
@@ -99,16 +99,16 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 		model.drag({ isActive: true });
 	}
 
-	drag(e) {
-		const model = this.model;
+	drag(e: MouseEvent) {
+		const { layout } = this.model;
 		const context = this.context;
-		const layout = model.layout;
 		const state = clone(layout()[this.path]);
 
 		state.set(this.key, {
 			width: context.width + e.screenX - context.x,
 			height: context.height + e.screenY - context.y
 		});
+		
 		layout({ [this.path]: state });
 	}
 
@@ -119,12 +119,7 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 		model.drag({ isActive: false });
 	}
 
-	event() {
-		const source = this.transfer;
-		return { source, target: null };
-	}
-
-	get model() {
+	private get model(): Model {
 		return this.root.model;
 	}
 }

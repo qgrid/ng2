@@ -1,0 +1,11 @@
+<q-grid caption="Summary Column Basic"
+        [rows]="rows | async">
+	<q-grid-columns generation="deep">
+		<q-grid-column key="phase"
+		               title="Phase">
+			<ng-template for="foot">
+				gas | liquid | solid
+			</ng-template>
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

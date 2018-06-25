@@ -5,8 +5,8 @@ import { Disposable } from '../infrastructure/disposable';
 
 export class LayoutView extends Disposable {
 	constructor(model, table, service) {
-		super(); 
-	
+		super();
+
 		this.model = model;
 		this.table = table;
 		this.service = service;
@@ -57,36 +57,35 @@ export class LayoutView extends Disposable {
 					const index = model.style.rows.indexOf(styleRow);
 					rows.splice(index, 1);
 				}
-				model.style({ rows });
+				model.style({ rows }, { source: 'layout.view' });
 			}
 		});
 	}
 
 	updateColumnForm() {
 		const model = this.model;
+		const { head } = this.table;
 		const layout = model.layout().columns;
 		const form = new Map();
-		const headRow = this.table.head.row(0);
-		if (headRow) {
-			const columns = this.table.data.columns();
-			let length = columns.length;
-			while (length--) {
-				const column = columns[length];
-				if (!layout.has(column.key)) {
-					if (column.canResize) {
-						const index = columns.findIndex(c => c === column);
-						form.set(column.key, { width: headRow.cell(index).width() });
-					}
-				}
-				else {
-					form.set(column.key, { width: layout.get(column.key).width });
-				}
+		const { cells } = this.table.head.context.bag;
+		for (let cell of cells) {
+			const { column, rowIndex, columnIndex } = cell;
+			if (!column.canResize) {
+				continue;
+			}
+
+			const { key } = column;
+			if (layout.has(key)) {
+				form.set(key, { width: layout.get(key).width });
+			} else {
+				const th = head.cell(rowIndex, columnIndex);
+				form.set(key, { width: th.width() });
 			}
 		}
 
 		model.layout({ columns: form }, { source: 'layout.view', behavior: 'core' });
 
-		const column = this.model.navigation().column;
+		const { column } = this.model.navigation();
 		if (column && column.viewWidth) {
 			const viewForm = new Map(form);
 			viewForm.set(column.key, { width: column.viewWidth });
@@ -117,8 +116,8 @@ export class LayoutView extends Disposable {
 					'max-width': size
 				};
 
-				style[`td.q-grid-${key}`] = sizeStyle;
-				style[`th.q-grid-${key}`] = sizeStyle;
+				style[`td.q-grid-the-${key}`] = sizeStyle;
+				style[`th.q-grid-the-${key}`] = sizeStyle;
 			}
 		}
 

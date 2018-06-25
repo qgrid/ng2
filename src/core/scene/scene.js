@@ -1,6 +1,5 @@
 import { AppError } from '../infrastructure/error';
 import { lineView } from '../column/column.service';
-import { flatView as nodeFlatView } from '../node/node.service';
 import { Node } from '../node/node';
 
 export class Scene {
@@ -9,11 +8,12 @@ export class Scene {
 	}
 
 	rows(memo) {
-		const nodes = memo.nodes;
-		const rows = memo.rows;
+		const { nodes, rows } = memo;
 		if (nodes.length) {
 			if (!(rows.length && rows[0] instanceof Node)) {
-				return nodeFlatView(nodes);
+				const { flattenFactory } = this.model.group();
+				const flatten = flattenFactory(this.model);
+				return flatten(nodes);
 			}
 		}
 

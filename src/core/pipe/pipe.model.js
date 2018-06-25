@@ -1,7 +1,6 @@
 import { PipeUnit as PU } from '../pipe/pipe.unit';
 import { uniq } from '../utility/kit';
 
-
 export class PipeModel {
 	constructor() {
 		this.reduce = (units, model) => {
@@ -82,6 +81,9 @@ export class PipeModel {
 				'unit': PU.rowDetails,
 				'canMove': PU.column,
 				'canResize': PU.column
+			},
+			'rowList': {
+				'index': PU.row
 			}
 		};
 	}

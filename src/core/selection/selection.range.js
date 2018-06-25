@@ -27,7 +27,7 @@ export class SelectionRange {
 
 	buildRows(startCell, endCell) {
 		const model = this.model;
-		const rows = model.view().rows;
+		const { rows } = model.view();
 		if (!endCell) {
 			return [rows[startCell.rowIndex]];
 		}
@@ -42,7 +42,7 @@ export class SelectionRange {
 			return [startCell.column];
 		}
 
-		const columns = this.model.data().columns;
+		const columns = this.model.columnList().line;
 		const startIndex = Math.min(startCell.columnIndex, endCell.columnIndex);
 		const endIndex = Math.max(startCell.columnIndex, endCell.columnIndex);
 		return columns.slice(startIndex, endIndex + 1);
@@ -57,8 +57,7 @@ export class SelectionRange {
 		}
 
 		const model = this.model;
-		const rows = model.view().rows;
-		const columns = model.view().columns;
+		const { rows, columns } = model.view().rows;
 
 		const startRowIndex = Math.min(startCell.rowIndex, endCell.rowIndex);
 		const endRowIndex = Math.max(startCell.rowIndex, endCell.rowIndex);

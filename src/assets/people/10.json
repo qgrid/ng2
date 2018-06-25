@@ -1,10 +1,277 @@
-[{"name":{"first":"Lue","last":"Laserna"},"gender":"female","birthday":"1983-09-18","contact":{"address":{"street":"19 Deer Loop","zip":"90732","city":"San Pedro","state":"CA"},"email":["lue.laserna@nosql-matters.org","laserna@nosql-matters.org"],"region":"310","phone":["310-8268551","310-7618427"]},"likes":["chatting"],"memberSince":"2011-05-05"},
-{"name":{"first":"Jasper","last":"Grebel"},"gender":"male","birthday":"1989-04-29","contact":{"address":{"street":"19 Florida Loop","zip":"66840","city":"Burns","state":"KS"},"email":["jasper.grebel@nosql-matters.org"],"region":"310","phone":["316-2417120","316-2767391"]},"likes":["shopping"],"memberSince":"2011-11-10"},
-{"name":{"first":"Kandra","last":"Beichner"},"gender":"female","birthday":"1963-11-21","contact":{"address":{"street":"6 John Run","zip":"98434","city":"Tacoma","state":"WA"},"email":["kandra.beichner@nosql-matters.org","kandra@nosql-matters.org"],"region":"310","phone":["253-0405964"]},"likes":["swimming"],"memberSince":"2012-03-18"},
-{"name":{"first":"Jeff","last":"Schmith"},"gender":"male","birthday":"1977-10-14","contact":{"address":{"street":"14 198th St","zip":"72569","city":"Poughkeepsie","state":"WA"},"email":["jeff.schmith@nosql-matters.org"],"region":"310","phone":[]},"likes":["chatting","boxing","reading"],"memberSince":"2011-02-10"},
-{"name":{"first":"Tuan","last":"Climer"},"gender":"male","birthday":"1951-04-06","contact":{"address":{"street":"6 Kansas St","zip":"07921","city":"Bedminster","state":"NJ"},"email":["tuan.climer@nosql-matters.org"],"region":"310","phone":["908-8376478"]},"likes":["ironing"],"memberSince":"2011-02-06"},
-{"name":{"first":"Warner","last":"Lemaire"},"gender":"male","birthday":"1953-05-01","contact":{"address":{"street":"14 234th St","zip":"22553","city":"Spotsylvania","state":"NJ"},"email":["warner.lemaire@nosql-matters.org","warner@nosql-matters.org"],"region":"310","phone":[]},"likes":["driving"],"memberSince":"2008-10-20"},
-{"name":{"first":"Hugh","last":"Potash"},"gender":"male","birthday":"1971-02-17","contact":{"address":{"street":"16 Beechwood Way","zip":"14902","city":"Elmira","state":"NY"},"email":["hugh.potash@nosql-matters.org","potash@nosql-matters.org","hugh@nosql-matters.org"],"region":"310","phone":["607-5183546"]},"likes":[],"memberSince":"2011-10-28"},
-{"name":{"first":"Jennefer","last":"Menning"},"gender":"female","birthday":"1972-09-11","contact":{"address":{"street":"1 Euclid Dr","zip":"56307","city":"Albany","state":"MN"},"email":["jennefer.menning@nosql-matters.org","jennefer@nosql-matters.org"],"region":"310","phone":[]},"likes":[],"memberSince":"2010-09-11"},
-{"name":{"first":"Claude","last":"Willcott"},"gender":"female","birthday":"1979-01-08","contact":{"address":{"street":"2 Country club Ave","zip":"50588","city":"Storm Lake","state":"MN"},"email":["claude.willcott@nosql-matters.org","willcott@nosql-matters.org","claude@nosql-matters.org"],"region":"310","phone":["712-3896363"]},"likes":["chess","driving"],"memberSince":"2010-03-27"},
-{"name":{"first":"Maximina","last":"Kilzer"},"gender":"female","birthday":"1992-03-10","contact":{"address":{"street":"4 Phillips Ln","zip":"73726","city":"Carmen","state":"OK"},"email":["maximina.kilzer@nosql-matters.org","kilzer@nosql-matters.org"],"region":"580","phone":["580-7678062"]},"likes":["shopping","travelling"],"memberSince":"2007-09-12"}]
+[
+    {
+        "name": {
+            "first": "Lue",
+            "last": "Laserna"
+        },
+        "gender": "female",
+        "birthday": "1983-09-18",
+        "contact": {
+            "address": {
+                "street": "19 Deer Loop",
+                "zip": "90732",
+                "city": "San Pedro",
+                "state": "CA"
+            },
+            "email": [
+                "lue.laserna@nosql-matters.org",
+                "laserna@nosql-matters.org"
+            ],
+            "region": "310",
+            "phone": [
+                "310-8268551",
+                "310-7618427"
+            ]
+        },
+        "likes": [
+            "chatting"
+        ],
+        "memberSince": "2011-05-05"
+    },
+    {
+        "name": {
+            "first": "Jasper",
+            "last": "Grebel"
+        },
+        "gender": "male",
+        "birthday": "1989-04-29",
+        "contact": {
+            "address": {
+                "street": "19 Florida Loop",
+                "zip": "66840",
+                "city": "Burns",
+                "state": "KS"
+            },
+            "email": [
+                "jasper.grebel@nosql-matters.org"
+            ],
+            "region": "310",
+            "phone": [
+                "316-2417120",
+                "316-2767391"
+            ]
+        },
+        "likes": [
+            "shopping"
+        ],
+        "memberSince": "2011-11-10"
+    },
+    {
+        "name": {
+            "first": "Kandra",
+            "last": "Beichner"
+        },
+        "gender": "female",
+        "birthday": "1963-11-21",
+        "contact": {
+            "address": {
+                "street": "6 John Run",
+                "zip": "98434",
+                "city": "Tacoma",
+                "state": "WA"
+            },
+            "email": [
+                "kandra.beichner@nosql-matters.org",
+                "kandra@nosql-matters.org"
+            ],
+            "region": "310",
+            "phone": [
+                "253-0405964"
+            ]
+        },
+        "likes": [
+            "swimming"
+        ],
+        "memberSince": "2012-03-18"
+    },
+    {
+        "name": {
+            "first": "Jeff",
+            "last": "Schmith"
+        },
+        "gender": "male",
+        "birthday": "1977-10-14",
+        "contact": {
+            "address": {
+                "street": "14 198th St",
+                "zip": "72569",
+                "city": "Poughkeepsie",
+                "state": "WA"
+            },
+            "email": [
+                "jeff.schmith@nosql-matters.org"
+            ],
+            "region": "310",
+            "phone": []
+        },
+        "likes": [
+            "chatting",
+            "boxing",
+            "reading"
+        ],
+        "memberSince": "2011-02-10"
+    },
+    {
+        "name": {
+            "first": "Tuan",
+            "last": "Climer"
+        },
+        "gender": "male",
+        "birthday": "1951-04-06",
+        "contact": {
+            "address": {
+                "street": "6 Kansas St",
+                "zip": "07921",
+                "city": "Bedminster",
+                "state": "NJ"
+            },
+            "email": [
+                "tuan.climer@nosql-matters.org"
+            ],
+            "region": "310",
+            "phone": [
+                "908-8376478"
+            ]
+        },
+        "likes": [
+            "ironing"
+        ],
+        "memberSince": "2011-02-06"
+    },
+    {
+        "name": {
+            "first": "Warner",
+            "last": "Lemaire"
+        },
+        "gender": "male",
+        "birthday": "1953-05-01",
+        "contact": {
+            "address": {
+                "street": "14 234th St",
+                "zip": "22553",
+                "city": "Spotsylvania",
+                "state": "NJ"
+            },
+            "email": [
+                "warner.lemaire@nosql-matters.org",
+                "warner@nosql-matters.org"
+            ],
+            "region": "310",
+            "phone": []
+        },
+        "likes": [
+            "driving"
+        ],
+        "memberSince": "2008-10-20"
+    },
+    {
+        "name": {
+            "first": "Hugh",
+            "last": "Potash"
+        },
+        "gender": "male",
+        "birthday": "1971-02-17",
+        "contact": {
+            "address": {
+                "street": "16 Beechwood Way",
+                "zip": "14902",
+                "city": "Elmira",
+                "state": "NY"
+            },
+            "email": [
+                "hugh.potash@nosql-matters.org",
+                "potash@nosql-matters.org",
+                "hugh@nosql-matters.org"
+            ],
+            "region": "310",
+            "phone": [
+                "607-5183546"
+            ]
+        },
+        "likes": [],
+        "memberSince": "2011-10-28"
+    },
+    {
+        "name": {
+            "first": "Jennefer",
+            "last": "Menning"
+        },
+        "gender": "female",
+        "birthday": "1972-09-11",
+        "contact": {
+            "address": {
+                "street": "1 Euclid Dr",
+                "zip": "56307",
+                "city": "Albany",
+                "state": "MN"
+            },
+            "email": [
+                "jennefer.menning@nosql-matters.org",
+                "jennefer@nosql-matters.org"
+            ],
+            "region": "310",
+            "phone": []
+        },
+        "likes": [],
+        "memberSince": "2010-09-11"
+    },
+    {
+        "name": {
+            "first": "Claude",
+            "last": "Willcott"
+        },
+        "gender": "female",
+        "birthday": "1979-01-08",
+        "contact": {
+            "address": {
+                "street": "2 Country club Ave",
+                "zip": "50588",
+                "city": "Storm Lake",
+                "state": "MN"
+            },
+            "email": [
+                "claude.willcott@nosql-matters.org",
+                "willcott@nosql-matters.org",
+                "claude@nosql-matters.org"
+            ],
+            "region": "310",
+            "phone": [
+                "712-3896363"
+            ]
+        },
+        "likes": [
+            "chess",
+            "driving"
+        ],
+        "memberSince": "2010-03-27"
+    },
+    {
+        "name": {
+            "first": "Maximina",
+            "last": "Kilzer"
+        },
+        "gender": "female",
+        "birthday": "1992-03-10",
+        "contact": {
+            "address": {
+                "street": "4 Phillips Ln",
+                "zip": "73726",
+                "city": "Carmen",
+                "state": "OK"
+            },
+            "email": [
+                "maximina.kilzer@nosql-matters.org",
+                "kilzer@nosql-matters.org"
+            ],
+            "region": "580",
+            "phone": [
+                "580-7678062"
+            ]
+        },
+        "likes": [
+            "shopping",
+            "travelling"
+        ],
+        "memberSince": "2007-09-12"
+    }
+]

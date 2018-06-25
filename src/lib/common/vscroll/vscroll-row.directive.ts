@@ -7,24 +7,37 @@ import { VscrollPortYDirective } from './vscroll-port-y.directive';
 })
 export class VscrollRowDirective implements OnDestroy, OnChanges {
 	@Input('q-grid-vscroll-row') index: number;
-	private column: HTMLElement;
+	private row: HTMLElement;
 
 	constructor(elementRef: ElementRef, private port: VscrollPortYDirective) {
-		this.column = elementRef.nativeElement;
+		this.row = elementRef.nativeElement;
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
 		if (changes['index']) {
-			const change = changes['index'];
-			const layout = this.layout;
-			const newIndex = change.currentValue;
-			if (!change.firstChange) {
-				const oldIndex = change.previousValue;
-				layout.removeItem(oldIndex);
+			if (this.port.getItemSize()) {
+				this.ngOnChanges = null;
+				return;
 			}
 
-			const size = sizeFactory(this.settings.rowHeight, this.container, this.column, newIndex);
-			this.layout.setItem(newIndex, size);
+			const { layout, settings, container, row } = this;
+			const { rowHeight } = settings;
+			this.ngOnChanges = (changes: SimpleChanges) => {
+				if (changes['index']) {
+					const change = changes['index'];
+					const newIndex = change.currentValue;
+					const oldIndex = change.previousValue;
+					layout.removeItem(oldIndex);
+
+					const size = sizeFactory(rowHeight, container, row, newIndex);
+					layout.setItem(newIndex, size);
+				}
+			};
+
+			const change = changes['index'];
+			const newIndex = change.currentValue;
+			const size = sizeFactory(rowHeight, container, row, newIndex);
+			layout.setItem(newIndex, size);
 		}
 	}
 

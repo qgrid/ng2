@@ -1,3 +1,5 @@
+import { identity } from '../utility/kit';
+
 export class ScrollModel {
 	constructor() {
 		this.mode = 'default';
@@ -5,5 +7,10 @@ export class ScrollModel {
 		this.top = 0;
 		this.left = 0;
 		this.cursor = 0;
+
+		this.map = {
+			rowToView: identity,
+			viewToRow: identity
+		};
 	}
 }

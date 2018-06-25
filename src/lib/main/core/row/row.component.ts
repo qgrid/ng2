@@ -3,6 +3,7 @@ import { ModelComponent } from '../../../infrastructure/component/model.componen
 import { RootService } from '../../../infrastructure/component/root.service';
 import { TemplateHostService } from '../../../template/template-host.service';
 
+// @deprecated
 @Component({
 	selector: 'q-grid-row',
 	template: '<ng-content></ng-content>',
@@ -10,10 +11,11 @@ import { TemplateHostService } from '../../../template/template-host.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RowComponent extends ModelComponent {
-	@Input('mode') public rowMode: string;
-	@Input('unit') public rowUnit: string;
-	@Input('canMove') public rowCanMove: boolean;
-	@Input('canResize') public rowCanResize: boolean;
+	@Input('mode') rowMode: 'single' | 'multiple';
+	@Input('unit') rowUnit: 'data' | 'details';
+	@Input('canMove') rowCanMove: boolean;
+	@Input('canResize') rowCanResize: boolean;
+	@Input('height') rowHeight: number;
 
 	constructor(root: RootService, templateHost: TemplateHostService) {
 		super(root);

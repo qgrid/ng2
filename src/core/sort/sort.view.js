@@ -12,7 +12,7 @@ export class SortView {
 			source: 'sort.view',
 			canExecute: column => {
 				const key = column.key;
-				const map = columnService.map(model.data().columns);
+				const map = columnService.map(model.columnList().line);
 				return map.hasOwnProperty(key) && map[key].canSort !== false;
 			},
 			execute: column => {
@@ -77,11 +77,11 @@ export class SortView {
 
 		model.dataChanged.watch(e => {
 			if (e.hasChanges('columns')) {
-				const sortState = sort();
+				const { by } = sort();
 				const columnMap = columnService.map(e.state.columns);
-				const by = sortState.by.filter(entry => columnMap.hasOwnProperty(sortService.key(entry)));
-				if (!this.equals(by, sortState.by)) {
-					sort({ by }, { source: 'sort.view' });
+				const newBy = by.filter(entry => columnMap.hasOwnProperty(sortService.key(entry)));
+				if (!this.equals(newBy, by)) {
+					sort({ by: newBy }, { source: 'sort.view' });
 				}
 			}
 		});

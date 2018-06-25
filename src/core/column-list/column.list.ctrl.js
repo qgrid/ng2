@@ -14,12 +14,12 @@ export class ColumnListCtrl {
 	generateKey(source) {
 		if (!isUndefined(source.editor)) {
 			return `$default.${source.editor}`;
-		} 
-		
+		}
+
 		if (!isUndefined(source.type)) {
 			return `$default.${source.type}`;
-		} 
-		
+		}
+
 		return '$default';
 	}
 
@@ -30,27 +30,50 @@ export class ColumnListCtrl {
 		Object.keys(source)
 			.filter(key => canCopy(key, source, target))
 			.forEach(key => {
-				const value = source[key];
+				const sourceValue = source[key];
 				const accessor = compile(key);
 				const targetValue = accessor(target);
-				const type = getType(targetValue);
-				const parse = parseFactory(type);
-				const sourceValue = parse(value, targetValue);
-				accessor(target, sourceValue);
+				const targetType = getType(targetValue);
+				const sourceType = getType(sourceValue);
+				let value = sourceValue;
+				if (targetValue !== null && !isUndefined(targetValue)) {
+					const parse = parseFactory(targetType);
+					const typedValue = parse(sourceValue, targetValue);
+					if (typedValue !== null) {
+						value = typedValue;
+					}
+				}
+
+				accessor(target, value);
 			});
 	}
 
-	add(column) {
-		const columnList = this.model.columnList;
-		const columns = columnList().columns.concat([column]);
-		columnList({ columns }, {
-			source: 'column.list.ctrl',
-			behavior: 'core'
-		});
+	add(column, parent) {
+		if (parent) {
+			parent.type = 'cohort';
+			if (!parent.key || parent.key === '$default') {
+				parent.key = `$cohort-from-${column.key}`;
+			}
+
+			parent.children.push(column);
+
+			const { columns } = this.model.columnList();
+			if (columns.indexOf(parent) < 0) {
+				this.add(parent);
+			}
+		}
+		else {
+			const { columnList } = this.model;
+			const columns = columnList().columns.concat([column]);
+			columnList({ columns }, {
+				source: 'column.list.ctrl',
+				behavior: 'core'
+			});
+		}
 	}
 
 	register(column) {
-		const columnList = this.model.columnList;
+		const { columnList } = this.model;
 		const reference = clone(columnList().reference);
 		reference[column.type || '$default'] = column;
 		columnList({ reference }, {
@@ -62,9 +85,9 @@ export class ColumnListCtrl {
 	extract(key, type) {
 		const model = this.model;
 		const createColumn = columnFactory(model);
-		let column = columnService.find(model.data().columns, key);
+		let column = columnService.find(model.columnList().line, key);
 		if (column) {
-			createColumn(type || 'text', column);
+			createColumn(type, column);
 		} else {
 			column = createColumn(type || 'text').model;
 			column.key = key;
@@ -72,5 +95,26 @@ export class ColumnListCtrl {
 		}
 
 		return column;
+	}
+
+	delete(key) {
+		const { data, columnList } = this.model;
+
+		const htmlColumns = columnList().columns;
+		const index = columnService.findIndex(htmlColumns, key);
+		if (index >= 0) {
+			const columns = Array.from(htmlColumns);
+			columns.splice(index, 1);
+			columnList({ columns }, { source: 'column.list.ctrl', behavior: 'core' });
+		}
+
+		const dataColumns = Array.from(data().columns);
+		const line = columnService.findLine(dataColumns, key);
+		if (line) {
+			line.columns.splice(line.index, 1);
+
+			// trigger columns pipe unit
+			data({ columns: dataColumns }, { source: 'column.list.ctrl' });
+		}
 	}
 }

@@ -1,5 +1,5 @@
 import { Resource } from '../resource/resource';
-import { IAssert } from './assert';
+import { Assert } from './assert';
 import { FetchContext } from '../fetch/fetch.context';
 
 /**
@@ -52,7 +52,7 @@ export declare interface FilterModel {
 	 * * `default` filtration through column filters and external plugins.
 	 * * `row` filtration through header row filter and external plugins.
 	 */
-	unit?: string;
+	unit?: 'default' | 'row';
 
 	/**
 	 * Factory for the match function.
@@ -71,5 +71,5 @@ export declare interface FilterModel {
 	 * * `lessThan` should return true if the first value is less than the second.
 	 * * `isNull` should return true if value means null.
 	 */
-	assertFactory?: () => IAssert;
+	assertFactory?: () => Assert;
 }

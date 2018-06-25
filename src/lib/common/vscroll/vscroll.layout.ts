@@ -1,8 +1,7 @@
-import { Injectable, EventEmitter } from '@angular/core';
 import { findPosition, IVscrollPosition, recycleFactory } from './vscroll.position';
 import { VscrollBox } from './vscroll.box';
 import { VscrollPort } from './vscroll.port';
-import { IVscrollSettings } from './vscroll.settings';
+import { InternalFormsSharedModule } from '@angular/forms/src/directives';
 
 const UNSET_ARM = Number.MAX_SAFE_INTEGER;
 
@@ -20,32 +19,13 @@ export class VscrollLayout {
 	}
 
 	recycle(count: number, box: VscrollBox, force: boolean): IVscrollPosition | null {
-		const position = this.position;
-		const threshold = this.settings.threshold;
-		const offsets = this.getOffsets(position.index, count);
-		const arm = this.getArm(offsets, box, position.index);
-		const port = this.port;
-
-		this.minArm = Math.min(this.minArm, arm);
-
-		const newPosition = port.getPosition(offsets, box, this.minArm);
-		if (force || position.index !== newPosition.index) {
-			const itemSize = port.getItemSize();
-			if (itemSize) {
-				newPosition.pad = Math.max(0, itemSize * (count - threshold));
-			} else {
-				const last = Math.min(offsets.length - 1, newPosition.index + threshold - 1);
-				const first = newPosition.index - 1;
-				const viewSize = (offsets[last] || 0) - (offsets[first] || 0);
-				const scrollSize = offsets[offsets.length - 1] || 0;
-				const padSize = scrollSize - viewSize;
-				newPosition.pad = padSize;
-			}
-
-			return this.position = newPosition;
+		const { port } = this;
+		const itemSize = port.getItemSize();
+		if (itemSize) {
+			return this.recycleItemSize(count, box, force, itemSize)
 		}
 
-		return null;
+		return this.recycleOffsets(count, box, force);
 	}
 
 	invalidate(position: IVscrollPosition): number {
@@ -84,15 +64,52 @@ export class VscrollLayout {
 		}
 	}
 
-	private getArm(offsets: Array<number>, box: VscrollBox, index: number) {
-		const itemSize = this.port.getItemSize();
-		if (itemSize) {
-			const threshold = this.settings.threshold;
-			const portSize = this.port.getSize(box);
-			const viewSize = threshold * itemSize;
-			return Math.max(0, (viewSize - portSize) / 2);
+	private recycleOffsets(count: number, box: VscrollBox, force: boolean) {
+		const { position, port } = this;
+		const { threshold } = this.settings;
+		const offsets = this.getOffsets(position.index, count);
+		const arm = this.getArmUsginOffsets(offsets, box, position.index);
+
+		this.minArm = Math.min(this.minArm, arm);
+
+		const newPosition = port.getPosition(offsets, box, this.minArm);
+		if (force || position.index !== newPosition.index) {
+			const last = Math.min(offsets.length - 1, newPosition.index + threshold - 1);
+			const first = newPosition.index - 1;
+			const viewSize = (offsets[last] || 0) - (offsets[first] || 0);
+			const scrollSize = offsets[offsets.length - 1] || 0;
+			const padSize = scrollSize - viewSize;
+			newPosition.pad = padSize;
+			return this.position = newPosition;
 		}
 
+		return null;
+	}
+
+	recycleItemSize(count: number, box: VscrollBox, force: boolean, itemSize: number) {
+		const { position, port } = this;
+		const { threshold } = this.settings;
+		const arm = this.getArmUsingItemSize(box, itemSize);
+
+		this.minArm = Math.min(this.minArm, arm);
+
+		const newPosition = port.getPosition([], box, this.minArm);
+		if (force || position.index !== newPosition.index) {
+			newPosition.pad = Math.max(0, itemSize * (count - threshold));
+			return this.position = newPosition;
+		}
+
+		return null;
+	}
+
+	private getArmUsingItemSize(box: VscrollBox, itemSize: number) {
+		const { threshold } = this.settings;
+		const portSize = this.port.getSize(box);
+		const viewSize = threshold * itemSize;
+		return Math.max(0, (viewSize - portSize) / 2);
+	}
+
+	private getArmUsginOffsets(offsets: Array<number>, box: VscrollBox, index: number) {
 		if (offsets.length) {
 			const threshold = this.settings.threshold;
 			const portSize = this.port.getSize(box);

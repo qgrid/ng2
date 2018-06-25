@@ -1,19 +1,21 @@
 import { Component, OnInit, Optional } from '@angular/core';
-import { PluginComponent } from '../plugin.component';
-import { RootService } from '../../infrastructure/component/root.service';
 import { Shortcut } from 'ng2-qgrid/core/shortcut/shortcut';
+import { PluginService } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-pager-target',
-	templateUrl: './pager-target.component.html'
+	templateUrl: './pager-target.component.html',
+	providers: [PluginService]
 })
-
-export class PagerTargetComponent extends PluginComponent implements OnInit {
-	constructor(@Optional() root: RootService) {
-		super(root);
-	}
-
+export class PagerTargetComponent implements OnInit {
 	private value: number;
+
+	context: { $implicit: PagerTargetComponent } = {
+		$implicit: this
+	};
+
+	constructor(private plugin: PluginService) {
+	}
 
 	ngOnInit() {
 		this.value = this.current;
@@ -30,7 +32,7 @@ export class PagerTargetComponent extends PluginComponent implements OnInit {
 		switch (code) {
 			case 'enter': {
 				if (value) {
-					this.model.pagination({ current: value - 1 });
+					this.plugin.model.pagination({ current: value - 1 }, { source: 'pager-target.component' });
 				}
 				break;
 			}
@@ -67,16 +69,14 @@ export class PagerTargetComponent extends PluginComponent implements OnInit {
 	}
 
 	get current() {
-		return this.model.pagination().current + 1;
+		return this.plugin.model.pagination().current + 1;
 	}
 
 	get total() {
-		const pagination = this.model.pagination();
+		const pagination = this.plugin.model.pagination();
 		const count = pagination.count;
 		const size = pagination.size;
 
-		return size === 0
-			? 0
-			: Math.max(1, Math.ceil(count / size));
+		return size === 0 ? 0 : Math.max(1, Math.ceil(count / size));
 	}
 }

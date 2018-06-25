@@ -1,0 +1,10 @@
+{
+  "name": "ng2-qgrid/theme/material",
+  "typings": "./index.d.ts",
+  "main": "../../bundles/theme-material.umd.js",
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/material": "~6.2.1",
+    "@angular/cdk": "~6.2.1"
+  }
+}

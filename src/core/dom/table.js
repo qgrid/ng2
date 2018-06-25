@@ -12,10 +12,11 @@ export class Table {
 		this.model = model;
 		this.markup = markup;
 
+		const { scroll } = model;
 		this.context = assignWith({
 			mapper: {
-				rowToView: model.scroll().mode === 'virtual' ? index => index - model.scroll().cursor : identity,
-				viewToRow: model.scroll().mode === 'virtual' ? index => index + model.scroll().cursor : identity,
+				rowToView: index => scroll().map.rowToView(index),
+				viewToRow: index => scroll().map.viewToRow(index),
 				columnToView: identity,
 				viewToColumn: identity
 			},
@@ -27,34 +28,9 @@ export class Table {
 			}
 		}, context);
 
-		this._head = null;
-		this._body = null;
-		this._foot = null;
-		this._view = null;
-	}
-
-	get head() {
-		if (this._head) {
-			return this._head;
-		}
-
-		return this._head = this.headCore();
-	}
-
-	get body() {
-		if (this._body) {
-			return this._body;
-		}
-
-		return this._body = this.bodyCore();
-	}
-
-	get foot() {
-		if (this._foot) {
-			return this._foot;
-		}
-
-		return this._foot = this.footCore();
+		this.head = this.headCore();
+		this.body = this.bodyCore();
+		this.foot = this.footCore();
 	}
 
 	get view() {
@@ -62,11 +38,15 @@ export class Table {
 			return this._view;
 		}
 
-		return this._view = this.viewCore();
+		return this._view = new View(this.context, this.model, this.markup);
 	}
 
 	get data() {
-		return new Data(this.model);
+		if (this._data) {
+			return this._data;
+		}
+
+		return this._data = new Data(this.model);
 	}
 
 	headCore() {
@@ -88,18 +68,34 @@ export class Table {
 		return new Foot(context, this.model, this.markup);
 	}
 
-	viewCore() {
-		return new View(this.context, this.model, this.markup);
-	}
-
 	box(source) {
-		const ctx = this.context;
-		return {
-			mapper: ctx.mapper,
-			layer: ctx.layer,
-			bag: ctx.bag[source],
-			view: this.view,
-			data: this.data
-		};
+		const { view, data } = this;
+		const { mapper, layer, bag } = this.context;
+
+		switch (source) {
+			case 'body': {
+				return {
+					mapper,
+					layer,
+					bag: bag[source],
+					view,
+					data
+				};
+			}
+			default: {
+				return {
+					mapper: {
+						rowToView: identity,
+						viewToRow: identity,
+						columnToView: identity,
+						viewToColumn: identity
+					},
+					layer,
+					bag: bag[source],
+					view,
+					data
+				};
+			}
+		}
 	}
 }

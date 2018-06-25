@@ -1,7 +1,7 @@
-import { IState } from './state';
+import { NodeState } from './state';
 
 export declare class Node {
-	constructor(key: string, level: number, type: string);
+	constructor(key: string, level: number, type?: string);
 
 	/**
 	 * Unique identifier for the node.
@@ -19,24 +19,27 @@ export declare class Node {
 	 * * `'group'`
 	 * * `'row'`
 	 * * `'value'`
-	 *
+	 * * `'summary'`
 	 */
-	type: string;
+	type: 'group' | 'row' | 'value' | 'summary';
 
 	/**
 	 * List of row indicies that belongs to the node.
 	 */
-	rows: any[];
+	rows: number[];
 
 	/**
 	 * List of child nodes.
 	 */
-	children: any[];
+	children: Node[];
 
 	/**
 	 * Shows if node was expanded or not.
 	 */
-	state: IState;
+	state: NodeState;
 
+	/**
+	 * Column key of node.
+	 */
 	source: string;
 }

@@ -1,12 +1,12 @@
-import {AppError} from '../../core/infrastructure';
-import {PluginService} from '../../core/plugin';
-import {columnFactory} from '../../core/column/column.factory';
-import {generate} from '../../core/column-list';
-import {firstRowTitle, numericTitle, alphaTitle} from '../../core/services/title';
-import {Json} from '../../core/import/json';
-import {Xml} from '../../core/import/xml';
-import {Csv} from '../../core/import/csv';
-import {Xlsx} from './xlsx';
+import { AppError } from '../../core/infrastructure';
+import { PluginService } from '../../core/plugin';
+import { columnFactory } from '../../core/column/column.factory';
+import { generate } from '../../core/column-list';
+import { firstRowTitle, numericTitle, alphaTitle } from '../../core/services/title';
+import { Json } from '../../core/import/json';
+import { Xml } from '../../core/import/xml';
+import { Csv } from '../../core/import/csv';
+import { Xlsx } from './xlsx';
 
 function getType(name) {
 	const dotDelimeter = /[.]/g.test(name);
@@ -35,7 +35,7 @@ function readFile(e, file, model, options = {}) {
 			model.data({
 				columns,
 				rows
-			});
+			}, { source: 'read' });
 			break;
 		}
 		case 'application/json':
@@ -53,7 +53,7 @@ function readFile(e, file, model, options = {}) {
 				model.data({
 					columns,
 					rows
-				});
+				}, { source: 'read' });
 			} else {
 				throw new AppError('import', 'JSON for input should be an array of objects');
 			}
@@ -72,7 +72,7 @@ function readFile(e, file, model, options = {}) {
 			model.data({
 				columns,
 				rows
-			});
+			}, { source: 'read' });
 			break;
 		}
 		case 'application/vnd.ms-excel':
@@ -102,7 +102,7 @@ function readFile(e, file, model, options = {}) {
 			model.data({
 				columns,
 				rows
-			});
+			}, { source: 'read' });
 			break;
 		}
 		default: {

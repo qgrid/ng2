@@ -1,19 +1,20 @@
-import { Scene } from '../../scene/scene';
+import { sortFactory } from '../../row-list/row.list.sort';
 
 export const rowPipeUnit = [
-	(memo, context, next) => {
+	(_, context, next) => {
 		const tag = {
 			source: context.source || 'row.pipe.unit',
 			behavior: 'core'
 		};
 
 		const { model } = context;
-		const scene = new Scene(model);
-
-		const rows = scene.rows(memo);
+		const order = sortFactory(model);
+		const rows = order(model.view().rows);
 		model.view({ rows }, tag);
 		model.scene({ rows }, tag);
 
-		next(memo);
+		next(rows);
 	}
 ];
+
+rowPipeUnit.why = 'redraw';

@@ -1,23 +1,12 @@
 import { Component, Optional, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { RootService } from '../../infrastructure/component/root.service';
-import { PluginComponent } from '../plugin.component';
-import { ActionService } from './action.service';
+import { PluginService } from '../plugin.service';
 
 @Component({
-	selector: 'q-grid-action-list',
+	selector: 'q-grid-actions',
 	template: '',
-	providers: [ActionService],
+	providers: [PluginService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ActionListComponent extends PluginComponent implements OnInit {
-	constructor(
-		@Optional() root: RootService,
-		private actionService: ActionService
-	) {
-		super(root);
-	}
-
-	ngOnInit() {
-		this.actionService.model = this.model;
-	}
+export class ActionListComponent {
+	constructor(private plugin: PluginService) { }
 }

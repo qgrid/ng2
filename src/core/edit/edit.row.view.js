@@ -7,7 +7,7 @@ export class EditRowView {
 		this.model = model;
 		this.table = table;
 		this.editor = RowEditor.empty;
-		
+
 		const commands = this.commands;
 		shortcut.register(commands);
 
@@ -36,9 +36,10 @@ export class EditRowView {
 						e.stopImmediatePropagation();
 					}
 
-					const columns = this.model.data().columns;
+					const columns = this.model.columnList().line;
+
 					this.editor = new RowEditor(row, columns);
-					model.edit({ state: 'edit' });
+					model.edit({ state: 'edit' }, { source: 'edit.row.view' });
 				}
 			}),
 			commit: new Command({
@@ -60,7 +61,7 @@ export class EditRowView {
 
 					this.editor.commit();
 					this.editor = RowEditor.empty;
-					model.edit({ state: 'view' });
+					model.edit({ state: 'view' }, { source: 'edit.row.view' });
 				}
 			}),
 			cancel: new Command({
@@ -81,7 +82,7 @@ export class EditRowView {
 
 					this.editor.reset();
 					this.editor = RowEditor.empty;
-					model.edit({ state: 'view' });
+					model.edit({ state: 'view' }, { source: 'edit.row.view' });
 				}
 			}),
 			reset: new Command({

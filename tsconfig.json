@@ -20,6 +20,12 @@
       "ng2-qgrid/plugin/*": [
         "plugin/*"
       ],
+      "ng2-qgrid/theme/material": [
+        "theme/material/theme.module"
+      ],
+      "ng2-qgrid/theme/basic": [
+        "theme/basic/theme.module"
+      ],
       "ng2-qgrid": [
         "lib/public-api.ts"
       ]
@@ -28,5 +34,9 @@
       "es2017",
       "dom"
     ]
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
   }
 }

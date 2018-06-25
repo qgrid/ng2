@@ -1,0 +1,26 @@
+<q-grid caption="Action Bar Template"
+        [rows]="rows | async">
+	<q-grid-columns generation="deep">
+	</q-grid-columns>
+
+	<q-grid-actions>
+		<q-grid-action id="sort-by-symbol-asc">
+			<ng-template for="trigger"
+			             let-$model="model">
+				<button (click)="sortBySymbol($model, '-')"
+				        mat-button>
+					Sort By Symbol Asc
+				</button>
+			</ng-template>
+		</q-grid-action>
+		<q-grid-action id="sort-by-symbol-desc">
+			<ng-template for="trigger"
+			             let-$model="model">
+				<button (click)="sortBySymbol($model, '+')"
+				        mat-button>
+					Sort By Symbol Desc
+				</button>
+			</ng-template>
+		</q-grid-action>
+	</q-grid-actions>
+</q-grid>

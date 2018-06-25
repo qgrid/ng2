@@ -8,7 +8,7 @@ import { set as setValue } from '../../core/services/value';
 import { set as setLabel } from '../../core/services/label';
 
 export class DataManipulationView {
-	constructor(model) {		
+	constructor(model) {
 		this.model = model;
 
 		this.commitCommand = new Command({
@@ -17,7 +17,8 @@ export class DataManipulationView {
 					return;
 				}
 
-				const rowId = this.rowId(e.row);
+				const rowId = this.rowId(e.rowIndex, e.row);
+				const columnId = this.columnId(e.columnIndex, e.column);
 				const edited = this.changes.edited;
 
 				let entries = edited.get(rowId);
@@ -26,11 +27,11 @@ export class DataManipulationView {
 					edited.set(rowId, entries);
 				}
 
-				let entryIndex = entries.findIndex(entry => entry.column === e.column.key);
+				let entryIndex = entries.findIndex(entry => entry.column === columnId);
 				let entry = entries[entryIndex];
 				if (!entry) {
 					entry = {
-						column: e.column.key,
+						column: columnId,
 						oldValue: e.oldValue,
 						oldLabel: e.oldLabel
 					};
@@ -62,7 +63,7 @@ export class DataManipulationView {
 							throw new AppError('data.manipulation', 'Setup rowFactory property to add new rows');
 						}
 
-						const rowId = this.rowId(newRow);
+						const rowId = this.rowId(0, newRow);
 						const data = this.model.data;
 
 						this.changes.added.add(rowId);
@@ -81,16 +82,16 @@ export class DataManipulationView {
 				new Command({
 					source: 'data.manipulation',
 					canExecute: e => {
-						const rowId = this.rowId(e.row);
+						const rowId = this.rowId(e.rowIndex, e.row);
 						return !this.changes.deleted.has(rowId);
 					},
 					execute: e => {
-						const rowId = this.rowId(e.row);
+						const rowId = this.rowId(e.rowIndex, e.row);
 						const changes = this.changes;
 						if (changes.added.has(rowId)) {
 							changes.added.delete(rowId);
 							const data = this.model.data;
-							const rows = data().rows.filter(row => this.rowId(row) !== rowId);
+							const rows = data().rows.filter((row, i) => this.rowId(i, row) !== rowId);
 							data({ rows });
 						}
 						else {
@@ -105,7 +106,7 @@ export class DataManipulationView {
 				new Command({
 					source: 'data.manipulation',
 					execute: e => {
-						const rowId = this.rowId(e.row);
+						const rowId = this.rowId(e.rowIndex, e.row);
 						if (this.changes.deleted.has(rowId)) {
 							this.changes.deleted.delete(rowId);
 						}
@@ -113,7 +114,7 @@ export class DataManipulationView {
 						if (this.changes.edited.has(rowId)) {
 							try {
 								const edits = this.changes.edited.get(rowId);
-								const columnMap = columnService.map(this.model.data().columns);
+								const columnMap = columnService.map(this.model.columnList().line);
 								for (const edit of edits) {
 									const column = columnMap[edit.column];
 									if (!column) {
@@ -130,7 +131,7 @@ export class DataManipulationView {
 						}
 					},
 					canExecute: e => {
-						const rowId = this.rowId(e.row);
+						const rowId = this.rowId(e.rowIndex, e.row);
 						return this.changes.deleted.has(rowId) || this.changes.edited.has(rowId);
 					}
 				}),
@@ -149,7 +150,8 @@ export class DataManipulationView {
 			// )
 		];
 
-		this.rowId = model.dataManipulation().rowId;
+		this.rowId = model.data().id.row;
+		this.columnId = model.data().id.column;
 		this.rowFactory = model.dataManipulation().rowFactory;
 
 		const styleState = model.style();
@@ -173,8 +175,8 @@ export class DataManipulationView {
 		model.dataChanged.watch((e, off) => {
 			if (e.hasChanges('columns')) {
 				const rowOptionsColumn = model
-					.data()
-					.columns
+					.columnList()
+					.line
 					.find(column => column.type === 'row-options');
 
 				if (rowOptionsColumn) {
@@ -191,14 +193,14 @@ export class DataManipulationView {
 	}
 
 	styleRow(row, context) {
-		const rowId = this.rowId(row);
+		const rowId = this.rowId(context.row, row);
 		if (this.changes.deleted.has(rowId)) {
 			context.class('deleted', { opacity: 0.3 });
 		}
 	}
 
 	styleCell(row, column, context) {
-		const rowId = this.rowId(row);
+		const rowId = this.rowId(context.row, row);
 		const changes = this.changes;
 		if (column.type === 'row-indicator') {
 			if (changes.deleted.has(rowId)) {
@@ -216,7 +218,7 @@ export class DataManipulationView {
 
 		if (changes.edited.has(rowId)) {
 			const entries = changes.edited.get(rowId);
-			if (entries.findIndex(entry => entry.column === column.key) >= 0) {
+			if (entries.findIndex(entry => entry.column === this.columnId(context.column, column)) >= 0) {
 				context.class('edited', { background: '#E3F2FD' });
 			}
 		}

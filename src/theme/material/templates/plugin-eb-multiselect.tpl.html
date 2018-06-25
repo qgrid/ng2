@@ -1,0 +1,26 @@
+<ng-template key="plugin-eb-multiselect.tpl.html"
+             let-$expr>
+    <mat-chip-list #chipList
+                   class="q-grid-query-builder-multiselect"
+                   [ngClass]="$expr.classes">
+        <mat-chip *ngFor="let value of $expr.values; let $index = index;"
+                  class="mat-basic-chip"
+                  selectable="false"
+                  removable="true"                  
+                  (removed)="$expr.values.splice($index, 1)">
+            {{value}}
+            <mat-icon class="q-grid-icon"
+                      matChipRemove>
+                close
+            </mat-icon>
+        </mat-chip>
+    </mat-chip-list>
+    <mat-form-field [floatLabel]="'never'">
+        <input matInput
+               #chipInput
+               [placeholder]="$expr.placeholderText"
+               [matChipInputFor]="chipList"
+               matChipInputAddOnBlur="true"
+               (matChipInputTokenEnd)="$expr.add($event.value);$event.input.value = '';" />
+    </mat-form-field>
+</ng-template>
