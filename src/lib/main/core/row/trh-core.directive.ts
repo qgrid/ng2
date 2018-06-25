@@ -4,11 +4,11 @@ import { ViewCoreService } from '../view/view-core.service';
 import { RootService } from '../../../infrastructure/component/root.service';
 
 @Directive({
-	selector: '[q-grid-core-tr]'
+	selector: '[q-grid-core-trh]'
 })
-export class TrCoreDirective implements Tr, OnInit, OnDestroy {
-	@Input('q-grid-core-index') private viewIndex: number;
-	@Input('q-grid-core-tr') model: any;
+export class TrhCoreDirective implements Tr, OnInit, OnDestroy {
+	@Input('q-grid-core-index') index: number;
+	@Input('q-grid-core-trh') model: any;
 	@Input('q-grid-core-source') source;
 
 	element: HTMLElement;
@@ -19,10 +19,6 @@ export class TrCoreDirective implements Tr, OnInit, OnDestroy {
 		elementRef: ElementRef
 	) {
 		this.element = elementRef.nativeElement;
-	}
-
-	get index() {
-		return this.$view.scroll.y.container.position + this.viewIndex;
 	}
 
 	ngOnInit() {

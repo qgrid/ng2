@@ -48,7 +48,7 @@ export class VirtualCell extends Cell {
 
 		this.box = box;
 
-		const mapper = box.context.mapper;
+		const { mapper } = box.context;
 		this.dataRowIndex = mapper.viewToRow(rowIndex);
 		this.dataColumnIndex = mapper.viewToColumn(columnIndex);
 	}
