@@ -10,10 +10,11 @@ export declare class CellEditor {
 	fetch: () => void;
 	resetFetch: () => void;
 
+	td: any;
 	value: any;
 	label: any;
 
-	readonly cell: CellView;
+	readonly cell: CellView; 
 
 	commit(): void;
 	reset(): void;
