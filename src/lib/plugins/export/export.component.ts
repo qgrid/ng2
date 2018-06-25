@@ -10,11 +10,13 @@ import { Xlsx } from './xlsx';
 import { Pdf } from './pdf';
 import { downloadFactory } from './download';
 import { TemplateHostService } from '../../template/template-host.service';
+import { Action } from 'ng2-qgrid/core/action/action';
+import { Composite } from 'ng2-qgrid/core/infrastructure/composite';
 
 @Component({
 	selector: 'q-grid-export',
 	templateUrl: './export.component.html',
-	providers: [TemplateHostService, PluginService]
+	providers: [ TemplateHostService, PluginService ]
 })
 export class ExportComponent implements OnInit {
 	@Input() type: string;
@@ -28,6 +30,18 @@ export class ExportComponent implements OnInit {
 
 	ngOnInit() {
 		this.templateHost.key = (source: string) => `${source}-${this.templateHostKey}`;
+		const { model } = this.plugin;
+		const action = new Action(
+			new Command({ execute: () => alert(this.type) }),
+			`Export to ${this.type}`,
+			'file_download'
+		);
+
+		model.action({
+			items: Composite.list([ [ action ], model.action().items ])
+		}, {
+			source: 'export.component'
+		});
 	}
 
 	get rows() {
@@ -43,66 +57,10 @@ export class ExportComponent implements OnInit {
 	}
 
 	get templateContentKey() {
-		return [`content-${this.templateHostKey}`, 'plugin-export.tpl.html'];
+		return [ `content-${this.templateHostKey}`, 'plugin-export.tpl.html' ];
 	}
 
 	get templateHostKey() {
 		return `plugin-export-${this.type}.tpl.html`;
 	}
-
-	csv = new Command({
-		canExecute: () => this.type === 'csv',
-		execute: () => {
-			const importService = new ImportService(this.plugin.model);
-			const fileSaver = importService.resolve('fileSaver');
-			const csv = new Csv();
-			const data = csv.write(this.rows, this.columns);
-			const download = downloadFactory(fileSaver);
-			download(this.id, data, `text/${this.type}`);
-
-		}
-	});
-	json = new Command({
-		canExecute: () => this.type === 'json',
-		execute: () => {
-			const importService = new ImportService(this.plugin.model);
-			const fileSaver = importService.resolve('fileSaver');
-			const json = new Json();
-			const data = json.write(this.rows, this.columns);
-			const download = downloadFactory(fileSaver);
-			download(this.id, data, `text/${this.type}`);
-		}
-	});
-	xml = new Command({
-		canExecute: () => this.type === 'xml',
-		execute: () => {
-			const importService = new ImportService(this.plugin.model);
-			const fileSaver = importService.resolve('fileSaver');
-			const xml = new Xml();
-			const data = xml.write(this.rows);
-			const download = downloadFactory(fileSaver);
-			download(this.id, data, `application/${this.type}`);
-		}
-	});
-	xlsx = new Command({
-		canExecute: () => this.type === 'xlsx',
-		execute: () => {
-			const importService = new ImportService(this.plugin.model);
-			const lib = importService.resolve('xlsx');
-			const fileSaver = importService.resolve('fileSaver');
-			const xlsx = new Xlsx(lib);
-			const data = xlsx.write(this.rows, this.columns);
-			const download = downloadFactory(fileSaver);
-			download(this.id, data, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'xlsx');
-		}
-	});
-	pdf = new Command({
-		canExecute: () => this.type === 'pdf',
-		execute: () => {
-			const importService = new ImportService(this.plugin.model);
-			const lib = importService.resolve('pdf');
-			const pdf = new Pdf(lib);
-			pdf.write(this.rows, this.columns, this.id);
-		}
-	});
 }
