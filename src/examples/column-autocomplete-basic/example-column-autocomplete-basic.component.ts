@@ -40,7 +40,7 @@ export class ExampleColumnAutocompletetBasicComponent {
 	};
 
 	numberObservableFetchOptions = {
-		fetch: of([[Math.PI, Math.LN10, Math.LN2, Math.E, Math.LOG10E, Math.LOG2E, Math.SQRT1_2]])
+		fetch: of([Math.PI, Math.LN10, Math.LN2, Math.E, Math.LOG10E, Math.LOG2E, Math.SQRT1_2])
 	};
 
 	constructor(dataService: DataService) {

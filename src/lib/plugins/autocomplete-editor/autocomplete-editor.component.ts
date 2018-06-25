@@ -41,11 +41,13 @@ export class AutocompleteEditorComponent implements OnInit {
 	}
 
 	filter(val: any): any[] {
+		// For now works only with types 'string' and 'number
+
 		if (val === '') {
 			return;
 		}
 
-		return this.options.filter(option => option.toLowerCase().includes(val.toLowerCase()));
+		return this.options.filter(option => option.toString().toLowerCase().includes(val.toLowerCase()));
 	}
 
 	private exit() {
