@@ -68,21 +68,24 @@ export class ScrollView {
 					});
 				};
 
-				// model.sceneChanged.watch(e => {
-				// 	if (e.tag.source === 'scroll.view') {
-				// 		return;
-				// 	}
-
-				// 	if (e.hasChanges('status')) {
-				// 		const status = e.state.status;
-				// 		switch (status) {
-				// 			case 'stop': {
-				// 				this.y.container.reset();
-				// 				break;
-				// 			}
-				// 		}
-				// 	}
-				// });
+				let fromScroll = false
+				model.sceneChanged.watch(e => {
+					if (e.hasChanges('status')) {
+						const status = e.state.status;
+						switch (status) {
+							case 'start': {
+								fromScroll = e.tag.source === 'scroll.view';
+								break;
+							}
+							case 'stop': {
+								if (!fromScroll) {
+									this.y.container.reset();
+								}
+								break;
+							}
+						}
+					}
+				});
 
 				break;
 			}
