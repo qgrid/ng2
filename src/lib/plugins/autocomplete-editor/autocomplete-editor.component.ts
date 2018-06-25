@@ -63,10 +63,10 @@ export class AutocompleteEditorComponent implements OnInit {
 	}
 
 	get value() {
-		return this.cell.value;
+		return this.view.edit.cell.value;
 	}
 
 	set value(value) {
-		this.cell.value = value;
+		this.view.edit.cell.value = value;
 	}
 }
