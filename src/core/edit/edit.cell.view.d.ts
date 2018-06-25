@@ -27,8 +27,8 @@ export declare class EditCellView {
 	readonly cell: CellView;
 	readonly row: any;
 	readonly column: ColumnModel;
-	readonly options: EditorOptions;
+	readonly options: EditorOptions; 
 
-	readonly fetch: () => void;
+	readonly fetch: any;
 	readonly resetFetch: () => void;
 }
