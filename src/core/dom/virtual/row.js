@@ -4,7 +4,7 @@ export class VirtualRow extends Row {
 	constructor(box, index, element = null) {
 		super(box, index, element);
 
-		const mapper = box.context.mapper;
+		const { mapper } = box.context;
 		this.dataIndex = mapper.viewToRow(index);
 	}
 

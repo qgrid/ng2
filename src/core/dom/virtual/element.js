@@ -1,4 +1,4 @@
-import {FakeClassList} from '../fake/class.list';
+import { FakeClassList } from '../fake/class.list';
 
 export class VirtualElement {
 	constructor(getRect) {

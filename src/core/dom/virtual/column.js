@@ -1,4 +1,4 @@
-import {Column} from '../column';
+import { Column } from '../column';
 
 export class VirtualColumn extends Column {
 	constructor(box, index) {
@@ -6,7 +6,7 @@ export class VirtualColumn extends Column {
 
 		this.box = box;
 
-		const mapper = box.context.mapper;
+		const { mapper } = box.context;
 		this.dataIndex = mapper.viewToColumn(index);
 	}
 

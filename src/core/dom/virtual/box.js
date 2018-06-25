@@ -81,8 +81,14 @@ export class VirtualBox extends Box {
 
 	columns() {
 		const columns = this.context.view.columns();
-		const columnFactory = this.createColumnCore.bind(this);
-		return columns.map(column => columnFactory(column.index));
+		return columns.map(column => this.createColumnCore(column.index));
+	}
+
+	rows(columnIndex) {
+		const { mapper } = this.context;
+		return this.selector
+			.rows(columnIndex)
+			.map(row => this.createRowCore(mapper.rowToView(row.index), row.element));
 	}
 
 	rowCount() {
@@ -95,9 +101,8 @@ export class VirtualBox extends Box {
 			return super.rowCore(viewIndex);
 		}
 
-		const rowFactory = this.createRowCore.bind(this);
 		const createRect = this.createRectFactory();
-		return rowFactory(viewIndex, new VirtualElement(createRect(viewIndex)));
+		return this.createRowCore(viewIndex, new VirtualElement(createRect(viewIndex)));
 	}
 
 	cellCore(rowIndex, columnIndex) {
@@ -108,9 +113,8 @@ export class VirtualBox extends Box {
 			return super.cellCore(viewRowIndex, viewColumnIndex);
 		}
 
-		const cellFactory = this.createCellCore.bind(this);
 		const createRect = this.createRectFactory();
-		return cellFactory(viewRowIndex, viewColumnIndex, new VirtualElement(createRect(viewRowIndex)));
+		return this.createCellCore(viewRowIndex, viewColumnIndex, new VirtualElement(createRect(viewRowIndex)));
 	}
 
 	rowCellsCore(index) {
@@ -119,11 +123,10 @@ export class VirtualBox extends Box {
 			return super.rowCellsCore(viewIndex);
 		}
 
-		const cellFactory = this.createCellCore.bind(this);
 		const createRect = this.createRectFactory();
 		return super
 			.rowCellsCore(0)
-			.map((cell, i) => cellFactory(viewIndex, i, new VirtualElement(createRect(index))));
+			.map((cell, i) => this.createCellCore(viewIndex, i, new VirtualElement(createRect(index))));
 	}
 
 	createRowCore(index, element) {
@@ -139,7 +142,7 @@ export class VirtualBox extends Box {
 	}
 
 	createRectFactory() {
-		const height = this.model.row().height;
+		const { height } = this.model.row();
 		const getHeight = isFunction(height) ? height : () => height;
 
 		let rect = null;

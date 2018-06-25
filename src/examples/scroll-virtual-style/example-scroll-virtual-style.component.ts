@@ -13,7 +13,7 @@ export class ExampleScrollVirtualStyleComponent {
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {
-		this.rows = dataService.getPeople(100000);
+		this.rows = dataService.getPeople();
 	}
 
 	styleCell(row: Human, column: Column, ctx: StyleCellContext) {
