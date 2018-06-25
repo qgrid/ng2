@@ -1,7 +1,6 @@
 import { findPosition, IVscrollPosition, recycleFactory } from './vscroll.position';
 import { VscrollBox } from './vscroll.box';
 import { VscrollPort } from './vscroll.port';
-import { InternalFormsSharedModule } from '@angular/forms/src/directives';
 
 const UNSET_ARM = Number.MAX_SAFE_INTEGER;
 
@@ -68,7 +67,7 @@ export class VscrollLayout {
 		const { position, port } = this;
 		const { threshold } = this.settings;
 		const offsets = this.getOffsets(position.index, count);
-		const arm = this.getArmUsginOffsets(offsets, box, position.index);
+		const arm = this.getArmUsingOffsets(offsets, box, position.index);
 
 		this.minArm = Math.min(this.minArm, arm);
 
@@ -86,7 +85,7 @@ export class VscrollLayout {
 		return null;
 	}
 
-	recycleItemSize(count: number, box: VscrollBox, force: boolean, itemSize: number) {
+	private recycleItemSize(count: number, box: VscrollBox, force: boolean, itemSize: number) {
 		const { position, port } = this;
 		const { threshold } = this.settings;
 		const arm = this.getArmUsingItemSize(box, itemSize);
@@ -96,6 +95,8 @@ export class VscrollLayout {
 		const newPosition = port.getPosition([], box, this.minArm);
 		if (force || position.index !== newPosition.index) {
 			newPosition.pad = Math.max(0, itemSize * (count - threshold));
+			console.log('vscroll box:' + JSON.stringify(box));
+			console.log('vscroll pos:' + JSON.stringify(newPosition));
 			return this.position = newPosition;
 		}
 
@@ -109,9 +110,9 @@ export class VscrollLayout {
 		return Math.max(0, (viewSize - portSize) / 2);
 	}
 
-	private getArmUsginOffsets(offsets: Array<number>, box: VscrollBox, index: number) {
+	private getArmUsingOffsets(offsets: Array<number>, box: VscrollBox, index: number) {
 		if (offsets.length) {
-			const threshold = this.settings.threshold;
+			const { threshold } = this.settings;
 			const portSize = this.port.getSize(box);
 			const last = Math.min(offsets.length, index + threshold) - 1;
 			const first = (last + 1) - threshold;

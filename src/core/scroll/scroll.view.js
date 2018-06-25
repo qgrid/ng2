@@ -3,7 +3,7 @@ import { isFunction, identity } from '../utility/kit';
 import { Fastdom } from '../services/fastdom';
 
 export class ScrollView {
-	constructor(model, table, vscroll) {
+	constructor(model, table, vscroll, gridService) {
 		this.model = model;
 		this.table = table;
 
@@ -31,7 +31,7 @@ export class ScrollView {
 		const updateCurrentPage = position => {
 			const { size, current } = pagination();
 			const newCurrent = Math.floor(position / size);
-			if (newCurrent !== current) {				
+			if (newCurrent !== current) {
 				console.log('newPage:' + newCurrent);
 				pagination({ current: newCurrent }, {
 					source: 'scroll.view',
@@ -57,23 +57,24 @@ export class ScrollView {
 		switch (scroll().mode) {
 			case 'virtual': {
 				this.y.settings.fetch = (skip, take, d) => {
-					model.dataChanged.on((e, off) => {
-						if (e.hasChanges('rows')) {
-							const { length } = e.state.rows;
-							if (pagination().count !== length) {
-								pagination({ count: length }, {
-									source: 'scroll.view',
-									behavior: 'core'
-								});
-							}
-
-							d.resolve(length);
-							off();
-						}
+					model.fetch({ skip }, {
+						source: 'scroll.view',
+						behavior: 'core'
 					});
 
-					model.fetch({ skip }, {
-						source: 'scroll.view'
+					gridService.invalidate({
+						source: 'scroll.view',						
+						why: 'redraw'
+					}).then(() => {
+						const { length } = model.data().rows;
+						if (pagination().count !== length) {
+							pagination({ count: length }, {
+								source: 'scroll.view',
+								behavior: 'core'
+							});
+						}
+
+						d.resolve(length);
 					});
 				};
 
@@ -100,9 +101,7 @@ export class ScrollView {
 				break;
 			}
 			default:
-				model.paginationChanged.watch(() => {
-					this.y.container.reset();
-				});
+				model.paginationChanged.watch(() => this.y.container.reset());
 		}
 
 		model.scrollChanged.watch(e => {

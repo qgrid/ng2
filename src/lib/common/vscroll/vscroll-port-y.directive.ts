@@ -38,6 +38,7 @@ export class VscrollPortYDirective extends VscrollPort implements OnInit {
 	}
 
 	emit(f: () => void) {
+		console.log('vscroll: trigger CD');
 		this.zone.run(f);
 	}
 
@@ -82,7 +83,7 @@ export class VscrollPortYDirective extends VscrollPort implements OnInit {
 	}
 
 	private pad(pos: string, value: number) {
-		const container = this.context.container;
+		const { container } = this.context;
 		container.write(() => {
 			if (this.markup.hasOwnProperty(pos)) {
 				const mark = this.markup[pos];

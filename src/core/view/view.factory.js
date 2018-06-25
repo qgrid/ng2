@@ -53,7 +53,7 @@ export function viewFactory(
 		host.foot = new FootView(modelProxy, table);
 		host.row = new RowView(modelProxy, table, selectors.tr);
 		host.layout = new LayoutView(modelProxy, table, gridService);
-		host.scroll = new ScrollView(modelProxy, table, vscroll);
+		host.scroll = new ScrollView(modelProxy, table, vscroll, gridService);
 		host.highlight = new HighlightView(modelProxy, table);
 		host.sort = new SortView(modelProxy);
 		host.pagination = new PaginationView(modelProxy);
