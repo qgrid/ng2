@@ -1,0 +1,25 @@
+<ng-template key="plugin-autocomplete-editor.tpl.html"
+             let-$editor>
+   <q-grid-cell-editor class="q-grid-editor q-grid-position"     
+                        (close)="$editor.exit()"                 
+                        q-grid-position="td">
+        <ng-template>
+            <mat-form-field>
+                <input type="text"
+                       [formControl]="$editor.control"
+                       [matAutocomplete]="autocomplete"
+                       [(ngModel)]="$editor.value"
+                       placeholder="Pick a {{$editor.title}}"
+                       q-grid-focus
+                       #input
+                       matInput>
+            </mat-form-field>
+
+            <mat-autocomplete #autocomplete="matAutocomplete">
+                <mat-option *ngFor="let option of $editor.filteredOptions | async"
+                            [value]="option">{{option}}</mat-option>
+            </mat-autocomplete>
+        </ng-template>
+    </q-grid-cell-editor> 
+</ng-template>
+

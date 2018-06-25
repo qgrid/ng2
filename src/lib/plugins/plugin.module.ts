@@ -1,5 +1,7 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { ActionBarModule } from './action-bar/action-bar.module';
+import { AutocompleteEditorModule } from './autocomplete-editor/autocomplete-editor.module';
 import { BackdropModule } from './backdrop/backdrop.module';
 import { BoolEditorModule } from './bool-editor/bool-editor.module';
 import { CaptionModule } from './caption/caption.module';
@@ -34,6 +36,7 @@ Model.register('columnChooser', ColumnChooserModel)
 	declarations: [],
 	exports: [
 		ActionBarModule,
+		AutocompleteEditorModule,
 		BackdropModule,
 		BoolEditorModule,
 		CaptionModule,
@@ -52,7 +55,8 @@ Model.register('columnChooser', ColumnChooserModel)
 		RestModule,
 		StatusBarModule,
 		TabTrapModule,
-		TitleModule
+		TitleModule,
+		ReactiveFormsModule
 	]
 })
 export class PluginModule { }
