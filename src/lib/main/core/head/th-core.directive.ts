@@ -6,7 +6,6 @@ import {
 	OnInit,
 	ViewContainerRef
 } from '@angular/core';
-import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { TdCtrl } from 'ng2-qgrid/core/cell/td.ctrl';
@@ -14,11 +13,10 @@ import { ThCtrl } from 'ng2-qgrid/core/cell/th.ctrl';
 import { Td } from 'ng2-qgrid/core/dom/td';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { FilterRowColumnModel } from 'ng2-qgrid/core/column-type/filter.row.column';
-import { TableCoreService } from '../table/table-core.service';
 import { CellService } from '../cell/cell.service';
 import { RootService } from '../../../infrastructure/component/root.service';
 import { ViewCoreService } from '../view/view-core.service';
-import { TrCoreDirective } from '../row/tr-core.directive';
+import { TrhCoreDirective } from '../row/trh-core.directive';
 
 const classifyTd = TdCtrl.classify;
 const classifyTh = ThCtrl.classify;
@@ -39,8 +37,7 @@ export class ThCoreDirective implements Td, OnInit, OnDestroy {
 		private root: RootService,
 		private viewContainerRef: ViewContainerRef,
 		private cellService: CellService,
-		private table: TableCoreService,
-		private tr: TrCoreDirective,
+		private tr: TrhCoreDirective,
 		element: ElementRef
 	) {
 		this.element = element.nativeElement.parentNode;

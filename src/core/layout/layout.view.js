@@ -78,8 +78,8 @@ export class LayoutView extends Disposable {
 			if (layout.has(key)) {
 				form.set(key, { width: layout.get(key).width });
 			} else {
-				const td = head.cell(rowIndex, columnIndex);
-				form.set(key, { width: td.width() });
+				const th = head.cell(rowIndex, columnIndex);
+				form.set(key, { width: th.width() });
 			}
 		}
 

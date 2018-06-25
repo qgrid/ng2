@@ -1,15 +1,5 @@
-import {
-	Component,
-	OnDestroy,
-	OnInit,
-	Optional,
-	ElementRef,
-	NgZone,
-	DoCheck,
-	AfterViewChecked
-} from '@angular/core';
+import { Component, OnInit, ElementRef, NgZone, DoCheck } from '@angular/core';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Log } from 'ng2-qgrid/core/infrastructure/log';
 import { ViewCtrl } from 'ng2-qgrid/core/view/view.ctrl';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
@@ -26,13 +16,15 @@ import { GridService } from '../../../main/grid/grid.service';
 })
 export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 	private ctrl: ViewCtrl;
+	private job = jobLine(0);
 
 	constructor(
 		private root: RootService,
 		private view: ViewCoreService,
 		private grid: GridService,
 		private zone: NgZone,
-		private elementRef: ElementRef) {
+		private elementRef: ElementRef
+	) {
 		super();
 
 		zone.onStable.subscribe(() => {
@@ -48,27 +40,34 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 							behavior: 'core'
 						});
 
-					this.ctrl.invalidate();
+					this.job(() => this.ctrl.invalidate());
 				}
 			}
 		});
 	}
 
-	ngOnInit() {
-		this.root.markup['view'] = this.elementRef.nativeElement;
+	ngDoCheck() {
+		const { status } = this.model.scene();
+		if (status === 'stop') {
+			this.job(() => this.ctrl.invalidate());
+		}
+	}
 
-		// Views should be inited after `sceneChanged.watch` declaration
-		// to persiste the right order of event sourcing.
-		this.view.init(
-			this.model,
-			this.root.table,
-			this.root.commandManager
+	ngOnInit() {
+		const { model, root, view } = this;
+
+		root.markup['view'] = this.elementRef.nativeElement;
+
+		// Views need to be init after `sceneChanged.watch` declaration
+		// to persist the right order of event sourcing.
+		view.init(
+			model,
+			root.table,
+			root.commandManager
 		);
 
-		const model = this.model;
-
 		const gridService = this.grid.service(model);
-		this.ctrl = new ViewCtrl(model, this.view, gridService);
+		this.ctrl = new ViewCtrl(model, view, gridService);
 
 		model.sceneChanged.watch(e => {
 			if (e.hasChanges('round') && e.state.round > 0) {
@@ -79,20 +78,16 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 				}
 			}
 		});
+
+		model.highlightChanged.watch(() => this.job(() => this.ctrl.invalidate()));
+		model.navigationChanged.watch(() => this.job(() => this.ctrl.invalidate()));
 	}
 
-	get model() {
+	private get model() {
 		return this.root.model;
 	}
 
-	get visibility() {
+	get visibility(): VisibilityModel {
 		return this.model.visibility();
-	}
-
-	ngDoCheck() {
-		const { status } = this.model.scene();
-		if (status === 'stop') {
-			this.ctrl.invalidate();
-		}
 	}
 }
