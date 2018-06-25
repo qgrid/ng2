@@ -12,9 +12,33 @@
                 line-height: 14px;
             }
             td {
-                font-size: 16px;
                 line-height: 16px;
                 font-weight: normal;
+                color: #212121;
+                font-size: 13px;
+                padding: 0 16px;
+                padding-top: 0px;
+                padding-right: 16px;
+                padding-bottom: 0px;
+                padding-left: 16px;
+            }
+            td.q-grid-array > ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+
+                li {
+                    display: inline-block;
+                    min-width: 16px;
+                    padding: 4px 8px;
+                    text-align: center;
+                    white-space: nowrap;
+                    vertical-align: middle;
+                    background-color: #e0e0e0;
+                    border-radius: 16px;
+                    margin-right: 4px;
+                }
             }
             tfoot,
             tbody {

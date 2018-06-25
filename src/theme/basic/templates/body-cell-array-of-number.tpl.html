@@ -1,6 +1,6 @@
 <ng-template key='body-cell-array-of-number.tpl.html'
 			 let-$cell>
-	<ul>
+	<ul class="q-grid-array">
 		<li *ngFor="let item of $cell.value">{{item | number: $cell.column.itemFormat}}</li>
 	</ul>
 </ng-template>
