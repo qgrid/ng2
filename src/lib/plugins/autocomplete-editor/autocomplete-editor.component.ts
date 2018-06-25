@@ -1,12 +1,5 @@
 import { TdCoreDirective } from './../../main/core/body/td-core.directive';
-import {
-	Component,
-	Optional,
-	TemplateRef,
-	OnInit,
-	ElementRef,
-	Input
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ViewCoreService } from '../../main/core/view/view-core.service';
 import { PluginService } from '../plugin.service';
 import { FormControl } from '@angular/forms';
@@ -41,7 +34,7 @@ export class AutocompleteEditorComponent implements OnInit {
 	}
 
 	filter(val: any): any[] {
-		// For now works only with types 'string' and 'number
+		// For now works only with type 'string' and 'number'
 
 		if (val === '') {
 			return;
