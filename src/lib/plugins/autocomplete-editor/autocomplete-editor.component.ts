@@ -19,8 +19,6 @@ import { map } from 'rxjs/operators';
 	providers: [PluginService]
 })
 export class AutocompleteEditorComponent implements OnInit {
-	@Input() cell: TdCoreDirective;
-
 	control: FormControl = new FormControl();
 
 	filteredOptions: Observable<string[]>;
@@ -51,11 +49,15 @@ export class AutocompleteEditorComponent implements OnInit {
 	}
 
 	private exit() {
-		this.view.edit.cell.exit.execute(this.cell);
+		this.cell.exit.execute(this.cell);
+	}
+
+	private get cell() {
+		return this.view.edit.cell;
 	}
 
 	get options() {
-		return this.view.edit.cell.fetch.result;
+		return this.cell.fetch.result;
 	}
 
 	get title() {
@@ -63,10 +65,10 @@ export class AutocompleteEditorComponent implements OnInit {
 	}
 
 	get value() {
-		return this.view.edit.cell.value;
+		return this.cell.value; 
 	}
 
 	set value(value) {
-		this.view.edit.cell.value = value;
+		this.cell.value = value;
 	}
 }
