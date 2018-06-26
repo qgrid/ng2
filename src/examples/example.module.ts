@@ -44,7 +44,7 @@ import { ExampleDragRowBasicComponent } from './drag-row-basic/example-drag-row-
 import { ExampleDragRowNodeComponent } from './drag-row-node/example-drag-row-node.component';
 import { ExampleEditCellBasicComponent } from './edit-cell-basic/example-edit-cell-basic.component';
 import { ExampleEditCellBatchComponent } from './edit-cell-batch/example-edit-cell-batch.component';
-import { ExampleExportCsvBasicComponent } from './export-csv-basic/example-export-csv-basic.component';
+import { ExampleExportBasicComponent } from './export-basic/example-export-basic.component';
 import { ExampleFilterColumnFetchComponent } from './filter-column-fetch/example-filter-column-fetch.component';
 import { ExampleFilterConditionBasicComponent } from './filter-condition-basic/example-filter-condition-basic.component';
 import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filter-row-basic.component';
@@ -151,7 +151,7 @@ const EXAMPLES: Array<any> = [
 	ExampleDragRowNodeComponent,
 	ExampleEditCellBasicComponent,
 	ExampleEditCellBatchComponent,
-	ExampleExportCsvBasicComponent,
+	ExampleExportBasicComponent,
 	ExampleFilterColumnFetchComponent,
 	ExampleFilterConditionBasicComponent,
 	ExampleFilterRowBasicComponent,
