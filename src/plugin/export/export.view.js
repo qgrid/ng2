@@ -1,4 +1,4 @@
-import { PluginService } from '../../core/plugin.service';
+import { PluginService } from '../../core/plugin/plugin.service';
 import { Command } from '../../core/command/command';
 import { Json } from '../../core/export/json/json';
 import { Xml } from '../../core/export/xml/xml';

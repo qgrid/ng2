@@ -1,4 +1,4 @@
-import {flatView} from '@grid/core/export/export.service';
+import {flatView} from '../../core/export/export.service';
 
 export class Pdf {
 	constructor(jsPDF) {

@@ -21,7 +21,6 @@ export class ExportComponent implements OnInit {
 	context: { $implicit: ExportComponent } = {
 		$implicit: this
 	};
-	exportView = new ExportView();
 
 	constructor(private plugin: PluginService, private templateHost: TemplateHostService) {
 	}
@@ -29,8 +28,9 @@ export class ExportComponent implements OnInit {
 	ngOnInit() {
 		this.templateHost.key = (source: string) => `${source}-${this.templateHostKey}`;
 		const { model } = this.plugin;
+		const exportView = new ExportView(model, { type: this.type });
 		const action = new Action(
-			new Command({ execute: () => alert(this.type) }),
+			new Command({ execute: () => exportView[this.type].execute() }),
 			`Export to ${this.type}`,
 			'file_download'
 		);
