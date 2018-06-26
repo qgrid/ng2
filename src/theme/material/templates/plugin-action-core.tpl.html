@@ -3,8 +3,8 @@
 	<div class="q-grid-action"
 	     [ngSwitch]="!!$action.templateUrl">
 		<ng-container *ngSwitchCase="true"
-			      [key]="$action.templateUrl"
-			      [context]="$action">
+		              [key]="$action.templateUrl"
+		              [context]="{$implicit: $action}">
 		</ng-container>
 		<button *ngSwitchDefault
 		        mat-icon-button
