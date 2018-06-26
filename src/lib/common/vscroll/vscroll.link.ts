@@ -53,6 +53,10 @@ export class VscrollLink {
 			this.container.apply(
 				() => {
 					this.container.cursor = port.layout.invalidate(position);
+					if (this.container.cursor < 0) {
+						debugger;
+					}
+
 					this.container.drawEvent.emit({
 						position: this.container.cursor
 					});

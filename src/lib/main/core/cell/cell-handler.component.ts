@@ -34,8 +34,6 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		const updateMarker = this.updateMarkerFactory();
 
 		this.root.model.navigationChanged.watch(e => {
-			console.log('cell-handler navigation');
-
 			updateHandler(e);
 			updateMarker(e);
 		});
@@ -76,18 +74,16 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 					const { rowIndex, columnIndex } = e.state;
 					const domCell = table.body.cell(rowIndex, columnIndex);
 					if (isValid) {
-						console.log('cell-handler add animate');
 						domCell.addClass('q-grid-animate');
 						element.classList.add('q-grid-active');
+						invalidate();
 
 						job(() => {
-							console.log('cell-handler remove animate');
 							element.classList.remove('q-grid-active');
 							domCell.removeClass('q-grid-animate');
 							invalidate();
 						}).catch(() => {
 							Fastdom.mutate(() => {
-								console.log('cell-handler remove animate');
 								domCell.removeClass('q-grid-animate');
 								invalidate();
 							});
@@ -103,8 +99,6 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 						const height = target.offsetHeight + 'px';
 
 						Fastdom.mutate(() => {
-							console.log('cell-handler move');
-
 							element.style.top = top;
 							element.style.left = left;
 							element.style.width = width;

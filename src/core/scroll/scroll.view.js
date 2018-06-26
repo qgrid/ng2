@@ -62,15 +62,15 @@ export class ScrollView {
 						source: 'scroll.view',						
 						why: 'refresh'
 					}).then(() => {
-						const { length } = model.data().rows;
-						if (pagination().count !== length) {
-							pagination({ count: length }, {
+						const { effect } = model.pipe();
+						if (effect.hasOwnProperty('memo')) {
+							pagination({ count: effect.memo.length }, {
 								source: 'scroll.view',
 								behavior: 'core'
 							});
 						}
 
-						d.resolve(length);
+						d.resolve(effect.memo.length);
 					});
 				};
 

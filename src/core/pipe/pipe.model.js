@@ -85,5 +85,7 @@ export class PipeModel {
 				'index': PU.row
 			}
 		};
+
+		this.effect = {};
 	}
 }

@@ -58,4 +58,6 @@ export declare interface PipeModel {
 	 * `{col}`
 	 */
 	triggers?: object;
+
+	effect: { [key: string]: any }
 }

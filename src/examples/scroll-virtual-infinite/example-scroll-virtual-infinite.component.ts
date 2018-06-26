@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { GridComponent, Grid } from 'ng2-qgrid';
 
@@ -8,7 +8,7 @@ import { GridComponent, Grid } from 'ng2-qgrid';
 	styleUrls: ['example-scroll-virtual-infinite.component.scss'],
 	providers: [DataService]
 })
-export class ExampleScrollVirtualInfiniteComponent {
+export class ExampleScrollVirtualInfiniteComponent implements AfterViewInit {
 	@ViewChild(GridComponent) myGrid;
 
 	constructor(private dataService: DataService, private qgrid: Grid) {
