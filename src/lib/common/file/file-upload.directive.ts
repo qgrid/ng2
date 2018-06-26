@@ -1,3 +1,4 @@
+import { CellEditorComponent } from './../../plugins/cell-editor/cell-editor.component';
 import {
 	Directive,
 	Renderer2,
@@ -6,7 +7,8 @@ import {
 	Output,
 	EventEmitter,
 	AfterViewInit,
-	Optional
+	Optional,
+	ViewChild
 } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
@@ -21,11 +23,13 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 	@Input('q-grid-file-upload') uploder: any;
 
 	private reader: FileReader;
+	private backdrop: HTMLElement;
 	private listener: any;
 
 	private get file(): any {
 		return this.uploder.cell.value;
 	}
+
 	private set file(value: any) {
 		this.uploder.cell.value = value;
 	}
@@ -54,11 +58,21 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 		this.listener.on('change', this.upload);
 		this.listener.on('click', this.onClick);
 		this.listener.on('drop', this.upload);
+		this.listener.on('focus', this.onFocus);
 
 		this.reader.onloadend = e => this.setDataUrl(e);
 	}
 
+	onFocus(e) {
+		if (this.backdrop.hidden) {
+			this.revealBackdrop();
+		}
+	}
+
 	onClick() {
+		this.backdrop = document.querySelector('.q-grid-backdrop');
+		this.hideBackdrop()
+
 		this.file = null;
 		this.uploder.cell.label = null;
 	}
@@ -83,5 +97,13 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 		if (e.target.readyState === this.reader.DONE) {
 			this.file = e.target.result;
 		}
+	}
+
+	hideBackdrop() {
+		this.backdrop.hidden = true;
+	}
+
+	revealBackdrop() {
+		setTimeout(() => this.backdrop.hidden = false, 300);
 	}
 }
