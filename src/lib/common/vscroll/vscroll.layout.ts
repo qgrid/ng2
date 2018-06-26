@@ -87,24 +87,28 @@ export class VscrollLayout {
 
 	private recycleItemSize(count: number, box: VscrollBox, force: boolean, itemSize: number) {
 		const { position, port } = this;
-		const threshold = this.container.items.length;
-		const arm = this.getArmUsingItemSize(box, itemSize);
-		const newPosition = port.getPositionUsingItemSize(itemSize, box, arm);
-		if (force || position.index !== newPosition.index) {
-			newPosition.pad = Math.max(0, itemSize * (count - threshold));
+		const arm = this.getArmUsingItemSize(itemSize, box);
 
-			console.log('vscroll threshold:' + threshold);
-			console.log('vscroll box:' + JSON.stringify(box));
-			console.log('vscroll pos:' + JSON.stringify(newPosition));
+		console.log('arm:' + arm);
+		console.log('box:' + JSON.stringify(box));
+
+		const newPosition = port.getPositionUsingItemSize(itemSize, box, arm);
+
+		if (force || position.index !== newPosition.index) {
+			const { threshold } = this.settings;
+			const remain =  Math.max(0, newPosition.index + threshold - this.container.count);
+			newPosition.pad = Math.max(0, itemSize * (count + remain - threshold));
+
+			console.log(`threshold: ${threshold - remain}`);
+			console.log('pos:' + JSON.stringify(newPosition));
 			return this.position = newPosition;
 		}
 
 		return null;
 	}
 
-	private getArmUsingItemSize(box: VscrollBox, itemSize: number) {
+	private getArmUsingItemSize(itemSize: number, box: VscrollBox) {
 		const { threshold } = this.settings;
-		//	const length = this.container.items.length;
 		const portSize = this.port.getSize(box);
 		const viewSize = threshold * itemSize;
 		return Math.max(0, (viewSize - portSize) / 2);

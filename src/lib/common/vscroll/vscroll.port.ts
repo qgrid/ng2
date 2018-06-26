@@ -10,7 +10,6 @@ export abstract class VscrollPort {
 	context: VscrollContext;
 
 	constructor(public view: VscrollDirective, element: HTMLElement) {
-
 		element.tabIndex = 0;
 		element.style.outline = 'none';
 		(element.style as any).overflowAnchor = 'none';

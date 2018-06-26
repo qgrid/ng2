@@ -38,7 +38,7 @@ export class VscrollPortYDirective extends VscrollPort implements OnInit {
 	}
 
 	emit(f: () => void) {
-		console.log('vscroll: trigger CD');
+		console.log('trigger CD');
 		this.zone.run(f);
 	}
 
@@ -47,20 +47,23 @@ export class VscrollPortYDirective extends VscrollPort implements OnInit {
 		const limitBottom = box.scrollHeight - (box.portHeight + arm);
 		const value = Math.min(limitBottom, Math.max(0, limitTop));
 
+		console.log('limitBottom: ' + limitBottom);
+		console.log('limitTop: ' + limitTop);
+		
 		return findPositionUsingItemSize(value, itemSize);
 	}
 
 	getPositionUsingOffsets(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition {
 		const limitTop = box.scrollTop - arm;
-		const limitBottom = box.scrollHeight - (box.portHeight + arm);
+		const limitBottom = box.scrollHeight - (box.portHeight + arm * 2);
 		const value = Math.min(limitBottom, Math.max(0, limitTop));
 
 		return findPositionUsingOffsets(value, offsets);
 	}
 
 	move(top: number, bottom: number) {
-		console.log('vscroll top: ' + top);
-		console.log('vscroll bottom: ' + bottom);
+		console.log('top: ' + top);
+		console.log('bottom: ' + bottom);
 
 		this.pad('top', top);
 		this.pad('bottom', bottom);
@@ -96,14 +99,11 @@ export class VscrollPortYDirective extends VscrollPort implements OnInit {
 	}
 
 	private pad(pos: string, value: number) {
-		const { container } = this.context;
-		container.write(() => {
-			if (this.markup.hasOwnProperty(pos)) {
-				const mark = this.markup[pos];
-				mark.style.height = value + 'px';
-			} else {
-				this.elementRef.nativeElement.style['padding' + capitalize(pos)] = value + 'px';
-			}
-		});
+		if (this.markup.hasOwnProperty(pos)) {
+			const mark = this.markup[pos];
+			mark.style.height = value + 'px';
+		} else {
+			this.elementRef.nativeElement.style['padding' + capitalize(pos)] = value + 'px';
+		}
 	}
 }

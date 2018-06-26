@@ -92,14 +92,11 @@ export class VscrollPortXDirective extends VscrollPort implements OnInit {
 	}
 
 	private pad(pos: string, value: number) {
-		const container = this.context.container;
-		container.write(() => {
-			if (this.markup.hasOwnProperty(pos)) {
-				const mark = this.markup[pos];
-				mark.style.width = value + 'px';
-			} else {
-				this.elementRef.nativeElement.style['padding' + capitalize(pos)] = value + 'px';
-			}
-		});
+		if (this.markup.hasOwnProperty(pos)) {
+			const mark = this.markup[pos];
+			mark.style.width = value + 'px';
+		} else {
+			this.elementRef.nativeElement.style['padding' + capitalize(pos)] = value + 'px';
+		}
 	}
 }
