@@ -69,9 +69,6 @@ export class VscrollLayout {
 		const offsets = this.getOffsets(position.index, count);
 		const arm = this.getArmUsingOffsets(offsets, box, position.index);
 
-		console.log('arm:' + arm);
-		console.log('box:' + JSON.stringify(box));
-
 		this.minArm = Math.min(this.minArm, arm);
 
 		const newPosition = port.getPositionUsingOffsets(offsets, box, this.minArm);
@@ -91,19 +88,12 @@ export class VscrollLayout {
 	private recycleItemSize(count: number, box: VscrollBox, force: boolean, itemSize: number) {
 		const { position, port } = this;
 		const arm = this.getArmUsingItemSize(itemSize, box);
-
-		console.log('arm:' + arm);
-		console.log('box:' + JSON.stringify(box));
-
 		const newPosition = port.getPositionUsingItemSize(itemSize, box, arm);
 
 		if (force || position.index !== newPosition.index) {
 			const { threshold } = this.settings;
 			const remain =  Math.max(0, newPosition.index + threshold - this.container.count);
 			newPosition.pad = Math.max(0, itemSize * (count + remain - threshold));
-
-			console.log(`threshold: ${threshold - remain}`);
-			console.log('pos:' + JSON.stringify(newPosition));
 			return this.position = newPosition;
 		}
 

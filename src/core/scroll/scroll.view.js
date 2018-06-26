@@ -32,7 +32,6 @@ export class ScrollView {
 			const { size, current } = pagination();
 			const newCurrent = Math.floor(position / size);
 			if (newCurrent !== current) {
-				console.log('newPage:' + newCurrent);
 				pagination({ current: newCurrent }, {
 					source: 'scroll.view',
 					behavior: 'core'

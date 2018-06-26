@@ -39,8 +39,6 @@ export class VscrollPipe implements PipeTransform {
 				container.force = false;
 			}
 
-			console.log('items: ' + items.length);
-
 			return items;
 		}
 

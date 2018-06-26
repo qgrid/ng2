@@ -72,8 +72,6 @@ export class ViewCtrl {
 							return;
 						}
 
-						console.log('invalidate:' + name);
-
 						const units = [];
 						const trigger = triggers[name];
 						for (const key in e.changes) {
