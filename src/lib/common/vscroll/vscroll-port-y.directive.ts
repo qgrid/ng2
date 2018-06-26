@@ -45,7 +45,7 @@ export class VscrollPortYDirective extends VscrollPort implements OnInit {
 	getPositionUsingItemSize(itemSize: number, box: VscrollBox, arm: number): IVscrollPosition {
 		const limitTop = box.scrollTop - arm;
 		const limitBottom = box.scrollHeight - (box.portHeight + arm);
-		const value = Math.min(limitBottom, Math.max(0, limitTop));		
+		const value = Math.min(limitBottom, Math.max(0, limitTop));
 		return findPositionUsingItemSize(value, itemSize);
 	}
 

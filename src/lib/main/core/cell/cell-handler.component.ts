@@ -24,14 +24,12 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	}
 
 	ngOnInit() {
-		if (this.root.model.scroll().mode === 'virtual') {
-			return;
-		}
-
 		const updateHandler = this.updateHandlerFactory();
 		const updateMarker = this.updateMarkerFactory();
 
 		this.root.model.navigationChanged.watch(e => {
+			console.log('cell-handler navigation');
+
 			updateHandler(e);
 			updateMarker(e);
 		});
@@ -68,14 +66,17 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 					const { rowIndex, columnIndex } = e.state;
 					const domCell = table.body.cell(rowIndex, columnIndex);
 					if (isValid) {
+						console.log('cell-handler add animate');
 						domCell.addClass('q-grid-animate');
 						element.classList.add('q-grid-active');
 
 						job(() => {
+							console.log('cell-handler remove animate');
 							element.classList.remove('q-grid-active');
 							domCell.removeClass('q-grid-animate');
 						}).catch(() => {
 							Fastdom.mutate(() => {
+								console.log('cell-handler remove animate');
 								domCell.removeClass('q-grid-animate');
 							});
 						});
@@ -90,6 +91,8 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 						const height = target.offsetHeight + 'px';
 
 						Fastdom.mutate(() => {
+							console.log('cell-handler move');
+
 							element.style.top = top;
 							element.style.left = left;
 							element.style.width = width;

@@ -41,10 +41,7 @@ export class ScrollView {
 
 		subscribe(e => {
 			const { position } = e;
-
-			console.log('draw:' + position);
 			updateCurrentPage(position);
-
 
 			scroll({ cursor: position }, {
 				source: 'scroll.view',

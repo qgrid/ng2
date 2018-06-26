@@ -110,7 +110,6 @@ export function sizeFactory(
 	element: HTMLElement,
 	index: number
 ): () => number {
-	
 	if (isFunction(size)) {
 		return () => (size as GetSize)(element, container.position + index);
 	}

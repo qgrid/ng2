@@ -85,7 +85,7 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 
 		if (model.scroll().mode === 'virtual') {
 			model.highlightChanged.watch(() => this.ctrl.invalidate());
-			// model.navigationChanged.watch(() => this.ctrl.invalidate());
+			model.navigationChanged.watch(() => this.ctrl.invalidate());
 		}
 	}
 
