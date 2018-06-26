@@ -1,8 +1,6 @@
 import {
 	Directive,
-	Renderer2,
 	ElementRef,
-	OnInit,
 	Input,
 	AfterViewInit,
 	NgZone

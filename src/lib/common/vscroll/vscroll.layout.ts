@@ -21,7 +21,7 @@ export class VscrollLayout {
 		const { port } = this;
 		const itemSize = port.getItemSize();
 		if (itemSize) {
-			return this.recycleItemSize(count, box, force, itemSize)
+			return this.recycleItemSize(count, box, force, itemSize);
 		}
 
 		return this.recycleOffsets(count, box, force);

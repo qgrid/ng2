@@ -3,8 +3,6 @@ import {
 	Renderer2,
 	ElementRef,
 	Input,
-	Output,
-	EventEmitter,
 	AfterViewInit,
 	Optional
 } from '@angular/core';

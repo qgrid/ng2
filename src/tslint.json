@@ -4,13 +4,13 @@
         "directive-selector": [
             true,
             "attribute",
-            "q-grid",
+            ["q-grid", "ng-template"],
             "kebab-case"
         ],
         "component-selector": [
             true,
             "element",
-            "q-grid",
+            ["q-grid", "app", "example"],
             "kebab-case"
         ]
     }

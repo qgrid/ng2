@@ -67,10 +67,6 @@ export function recycleFactory(items: Array<() => number>) {
 
 		for (let i = threshold - diff; i < threshold; i++) {
 			const getSize = items[i];
-			if (!getSize) {
-				debugger;
-			}
-
 			const size = getSize();
 			if (cursor === 0) {
 				offsets[cursor] = size;

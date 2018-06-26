@@ -44,7 +44,7 @@ export class ViewCoreService implements OnDestroy {
 	sort: SortView = null;
 	style: StyleView = null;
 	row: RowView = null;
-	
+
 	constructor(
 		private gridServiceFactory: GridService,
 		private vscroll: VScrollService
