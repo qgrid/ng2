@@ -6,7 +6,9 @@ import { CellView } from 'ng2-qgrid/core/scene/view/cell.view';
 import { ModelEventArg } from 'ng2-qgrid/core/infrastructure/model';
 import { NavigationModel } from 'ng2-qgrid/core/navigation/navigation.model';
 import { Td } from 'ng2-qgrid/core/dom/td';
+import { noop } from 'ng2-qgrid/core/utility/kit';
 import { RootService } from '../../../infrastructure/component/root.service';
+import { ViewCoreComponent } from '../view/view-core.component';
 
 @Component({
 	selector: 'q-grid-cell-handler',
@@ -19,7 +21,11 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private initialSelectionMode: 'single' | 'multiple' | 'range' = null;
 	private initialEditState: 'view' | 'edit' | 'startBatch' | 'endBatch' = null;
 
-	constructor(private element: ElementRef, private root: RootService) {
+	constructor(
+		private element: ElementRef,
+		private root: RootService,
+		private view: ViewCoreComponent
+	) {
 		this.element.nativeElement.style.display = 'none';
 	}
 
@@ -47,6 +53,10 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		// When navigate first or when animation wasn't applied we need to omit
 		// next navigation event to make handler to correct position.
 		let isValid = false;
+		const invalidate = model.scroll().mode === 'virtual'
+			? () => this.view.invalidate()
+			: noop;
+
 		return (e: ModelEventArg<NavigationModel>) => {
 			if (e.hasChanges('cell')) {
 				const { cell } = e.state;
@@ -74,10 +84,12 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 							console.log('cell-handler remove animate');
 							element.classList.remove('q-grid-active');
 							domCell.removeClass('q-grid-animate');
+							invalidate();
 						}).catch(() => {
 							Fastdom.mutate(() => {
 								console.log('cell-handler remove animate');
 								domCell.removeClass('q-grid-animate');
+								invalidate();
 							});
 						});
 					}

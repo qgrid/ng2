@@ -17,9 +17,6 @@ import { GridService } from '../../../main/grid/grid.service';
 export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 	private ctrl: ViewCtrl;
 
-	// Need this to ensure that invalidate will be triggered after all necessary events where handled.
-	private job = jobLine(0);
-
 	constructor(
 		private root: RootService,
 		private view: ViewCoreService,
@@ -42,7 +39,7 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 							behavior: 'core'
 						});
 
-					this.ctrl.invalidate();
+					this.invalidate();
 				}
 			}
 		});
@@ -53,7 +50,7 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 
 		const { status } = this.model.scene();
 		if (status === 'stop') {
-			this.ctrl.invalidate();
+			this.invalidate();
 		}
 	}
 
@@ -84,9 +81,12 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 		});
 
 		if (model.scroll().mode === 'virtual') {
-			model.highlightChanged.watch(() => this.ctrl.invalidate());
-			model.navigationChanged.watch(() => this.ctrl.invalidate());
+			model.highlightChanged.watch(() =>this.invalidate());
 		}
+	}
+
+	invalidate() {
+		this.ctrl.invalidate();
 	}
 
 	private get model() {
