@@ -112,6 +112,7 @@ import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggre
 import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/example-summary-column-basic.component';
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
+import { ExampleImportBasicComponent } from './import-basic/example-import-basic.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -170,6 +171,7 @@ const EXAMPLES: Array<any> = [
 	ExampleGroupRowSubheadComponent,
 	ExampleGroupRowSummaryComponent,
 	ExampleHierarchyBrowserBasicComponent,
+	ExampleImportBasicComponent,
 	ExampleIndexColumnBasicComponent,
 	ExampleIndexColumnHybridComponent,
 	ExampleIndexColumnModelComponent,
@@ -217,12 +219,13 @@ const EXAMPLES: Array<any> = [
 	ExampleSummaryColumnAggregationComponent,
 	ExampleSummaryColumnBasicComponent,
 	ExampleThemeGridDarkComponent,
-	ExampleThemeGridEmbedComponent,
+	ExampleThemeGridEmbedComponent
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
+
 function toPath(componentType: Function) {
-	const name = PATH_REGEX.exec(componentType.name)[1];
+	const name = PATH_REGEX.exec(componentType.name)[ 1 ];
 	return name
 		.split(/(?=[A-Z])/)
 		.map(part => part.toLowerCase())
@@ -241,7 +244,7 @@ export const exampleRoutes: Routes = EXAMPLES.map<Route>(example => ({
 ]);
 
 @NgModule({
-	declarations: EXAMPLES.concat([ExamplePluginMyPagerComponent]),
+	declarations: EXAMPLES.concat([ ExamplePluginMyPagerComponent ]),
 	exports: EXAMPLES,
 	imports: [
 		GridModule,
@@ -254,5 +257,5 @@ export const exampleRoutes: Routes = EXAMPLES.map<Route>(example => ({
 		MatIconModule
 	]
 })
-export class ExampleModule { }
+export class ExampleModule {}
 
