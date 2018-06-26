@@ -69,6 +69,9 @@ export class VscrollLayout {
 		const offsets = this.getOffsets(position.index, count);
 		const arm = this.getArmUsingOffsets(offsets, box, position.index);
 
+		console.log('arm:' + arm);
+		console.log('box:' + JSON.stringify(box));
+
 		this.minArm = Math.min(this.minArm, arm);
 
 		const newPosition = port.getPositionUsingOffsets(offsets, box, this.minArm);

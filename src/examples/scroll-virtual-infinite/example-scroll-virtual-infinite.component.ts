@@ -29,6 +29,7 @@ export class ExampleScrollVirtualInfiniteComponent {
 							const newPage = atoms.slice(skip, skip + size);
 							next(rows.concat(newPage));
 						});
+
 				}].concat(this.qgrid.pipeUnit.view)
 		});
 	}

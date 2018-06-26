@@ -64,7 +64,7 @@ export class ScrollView {
 
 					gridService.invalidate({
 						source: 'scroll.view',						
-						why: 'redraw'
+						why: 'refresh'
 					}).then(() => {
 						const { length } = model.data().rows;
 						if (pagination().count !== length) {

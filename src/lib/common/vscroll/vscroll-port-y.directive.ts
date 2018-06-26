@@ -55,9 +55,12 @@ export class VscrollPortYDirective extends VscrollPort implements OnInit {
 
 	getPositionUsingOffsets(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition {
 		const limitTop = box.scrollTop - arm;
-		const limitBottom = box.scrollHeight - (box.portHeight + arm * 2);
+		const limitBottom = box.scrollHeight - (box.portHeight + arm);
 		const value = Math.min(limitBottom, Math.max(0, limitTop));
 
+		console.log('limitBottom: ' + limitBottom);
+		console.log('limitTop: ' + limitTop);
+		
 		return findPositionUsingOffsets(value, offsets);
 	}
 
