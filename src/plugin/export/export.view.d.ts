@@ -6,9 +6,7 @@ import { Column } from 'ng2-qgrid/core/dom/column';
 export declare class ExportView {
 	constructor(model: Model, context: { type: string });
 
-	model: {
-		[ key: string ]: any
-	};
+	model: { [ key: string ]: any };
 	type: string;
 	csv: Command;
 	json: Command;
