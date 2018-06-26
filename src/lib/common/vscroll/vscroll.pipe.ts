@@ -31,6 +31,8 @@ export class VscrollPipe implements PipeTransform {
 			if (container.force || first !== container.position) {
 				const last = Math.min(cursor + threshold, count);
 				container.position = first;
+				console.log('vscroll cursor: ' + cursor);
+				console.log('vscroll items length: ' + (last - first));
 				items.length = last - first;
 				for (let i = first, j = 0; i < last; i++ , j++) {
 					items[j] = data[i];

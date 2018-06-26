@@ -4,7 +4,7 @@ import { VscrollContext } from './vscroll.context';
 import { capitalize } from './vscroll.utility';
 import { VscrollBox } from './vscroll.box';
 import { VscrollLayout } from './vscroll.layout';
-import { findPosition, recycleFactory, IVscrollPosition } from './vscroll.position';
+import { findPositionUsingItemSize, findPositionUsingOffsets, recycleFactory, IVscrollPosition } from './vscroll.position';
 import { VscrollDirective } from './vscroll.directive';
 import { VscrollLink } from './vscroll.link';
 import { isNumber } from 'ng2-qgrid/core/utility/kit';
@@ -42,13 +42,26 @@ export class VscrollPortYDirective extends VscrollPort implements OnInit {
 		this.zone.run(f);
 	}
 
-	getPosition(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition {
-		const value = Math.max(0, box.scrollTop - arm);
-		const size = this.getItemSize();
-		return findPosition(offsets, value, size);
+	getPositionUsingItemSize(itemSize: number, box: VscrollBox, arm: number): IVscrollPosition {
+		const limitTop = box.scrollTop - arm;
+		const limitBottom = box.scrollHeight - (box.portHeight + arm);
+		const value = Math.min(limitBottom, Math.max(0, limitTop));
+
+		return findPositionUsingItemSize(value, itemSize);
+	}
+
+	getPositionUsingOffsets(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition {
+		const limitTop = box.scrollTop - arm;
+		const limitBottom = box.scrollHeight - (box.portHeight + arm);
+		const value = Math.min(limitBottom, Math.max(0, limitTop));
+
+		return findPositionUsingOffsets(value, offsets);
 	}
 
 	move(top: number, bottom: number) {
+		console.log('vscroll top: ' + top);
+		console.log('vscroll bottom: ' + bottom);
+
 		this.pad('top', top);
 		this.pad('bottom', bottom);
 	}

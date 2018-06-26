@@ -25,18 +25,18 @@ export interface IVscrollPosition {
 	pad: number;
 }
 
-export function findPosition(offsets: Array<number>, value: number, itemSize: number): IVscrollPosition {
-	if (itemSize) {
-		const index = Math.round(value / itemSize);
-		return {
-			index,
-			offset: itemSize * index,
-			lastOffset: 0,
-			value,
-			pad: 0
-		};
-	}
+export function findPositionUsingItemSize(value: number, itemSize: number) {
+	const index = Math.round(value / itemSize);
+	return {
+		index,
+		offset: itemSize * index,
+		lastOffset: 0,
+		value,
+		pad: 0
+	};
+}
 
+export function findPositionUsingOffsets(value: number, offsets: Array<number>): IVscrollPosition {
 	const index = findIndexAt(offsets, value);
 	const length = offsets.length;
 	if (index > 0) {
