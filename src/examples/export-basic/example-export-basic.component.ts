@@ -4,8 +4,8 @@ import { Atom, DataService } from '../data.service';
 import { Observable } from 'rxjs';
 import { GridComponent } from 'ng2-qgrid';
 
-import fileSaver from 'file-saver';
-import XLSX from 'xlsx';
+import * as fileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
 
 @Component({
 	selector: 'example-export-csv-basic',
