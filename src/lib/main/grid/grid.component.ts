@@ -94,7 +94,9 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input() sortMode: 'single' | 'multiple';
 	@Input() sortTrigger: Array<string>;
 
-	@Input() styleCell: (row: any, column: ColumnModel, context: StyleCellContext) => void | { [key: string]: (row: any, column: ColumnModel, context: any) => void };
+	@Input() styleCell:
+		(row: any, column: ColumnModel, context: StyleCellContext) => void
+			| { [key: string]: (row: any, column: ColumnModel, context: any) => void };
 
 	@Input() styleRow: (row: any, context: StyleRowContext) => void;
 
