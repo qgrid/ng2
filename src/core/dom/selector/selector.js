@@ -48,12 +48,11 @@ export class Selector {
 	}
 
 	rows(columnIndex) {
-		const matrix = this.matrix;
-		const factory = this.factory;
+		const { matrix, factory, bag } = this;
 		const set = new Set();
 		const result = [];
 		if (isUndefined(columnIndex)) {
-			const rows = this.bag.rows;
+			const rows = bag.getRowElements();
 			for (let tr of rows) {
 				result.push(factory.row(tr.element, tr.index));
 			}

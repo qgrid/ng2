@@ -3,7 +3,7 @@ import {Bag} from './bag';
 describe('Bag', () => {
 
 	afterEach(function() {
-		bag.models.clear();
+		bag.elements.clear();
 		bag.rows.clear();
 		bag.cells.clear();
 	});
@@ -15,7 +15,7 @@ describe('Bag', () => {
 	describe('addRow', () => {
 		it('returns true if row was added', () => {
 			bag.addRow(row);
-			let result = bag.models.has('row') && bag.rows.has(row);
+			let result = bag.elements.has('row') && bag.rows.has(row);
 			expect(result).to.equal(true);
 		});
 	});
@@ -23,7 +23,7 @@ describe('Bag', () => {
 	describe('addCell', () => {
 		it('returns true if cell was added', () => {
 			bag.addCell(cell);
-			let result = bag.models.has('cell') && bag.cells.has(cell);
+			let result = bag.elements.has('cell') && bag.cells.has(cell);
 			expect(result).to.equal(true);
 		});
 	});
@@ -49,7 +49,7 @@ describe('Bag', () => {
 		it('returns true if Cell was deleted', () => {
 			bag.addCell(cell);
 			bag.deleteCell(cell);
-			let result = bag.models.has('cell') && bag.cells.has(cell);
+			let result = bag.elements.has('cell') && bag.cells.has(cell);
 			expect(result).to.equal(false);
 		});
 	});

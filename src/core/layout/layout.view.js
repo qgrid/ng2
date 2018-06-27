@@ -60,6 +60,14 @@ export class LayoutView extends Disposable {
 				model.style({ rows }, { source: 'layout.view' });
 			}
 		});
+
+		model.sceneChanged.watch(e => {
+			if (e.hasChanges('status')) {
+				if (e.state.status === 'stop') {
+					this.updateColumnForm();
+				}
+			}
+		});
 	}
 
 	updateColumnForm() {

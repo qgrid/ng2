@@ -101,7 +101,7 @@ export class VirtualBox extends Box {
 			return super.rowCore(viewIndex);
 		}
 
-		const createRect = this.createRectFactory();
+		const createRect = this.rowRectFactory();
 		return this.createRowCore(viewIndex, new VirtualElement(createRect(viewIndex)));
 	}
 
@@ -113,20 +113,27 @@ export class VirtualBox extends Box {
 			return super.cellCore(viewRowIndex, viewColumnIndex);
 		}
 
-		const createRect = this.createRectFactory();
-		return this.createCellCore(viewRowIndex, viewColumnIndex, new VirtualElement(createRect(viewRowIndex)));
+		const createRect = this.cellRectFactory();
+		return this.createCellCore(viewRowIndex, viewColumnIndex, new VirtualElement(createRect(viewRowIndex, viewColumnIndex)));
 	}
 
 	rowCellsCore(index) {
-		const viewIndex = this.context.mapper.rowToView(index);
+		const { mapper } = this.context;
+		const viewIndex = mapper.rowToView(index);
 		if (viewIndex >= 0 && viewIndex < super.rowCount(0)) {
 			return super.rowCellsCore(viewIndex);
 		}
 
-		const createRect = this.createRectFactory();
+		const createRect = this.cellRectFactory();
 		return super
 			.rowCellsCore(0)
-			.map((cell, i) => this.createCellCore(viewIndex, i, new VirtualElement(createRect(index))));
+			.map((cell, columnIndex) =>
+				this.createCellCore(
+					viewIndex,
+					columnIndex,
+					new VirtualElement(createRect(viewIndex, mapper.columnToView(columnIndex)))
+				)
+			);
 	}
 
 	createRowCore(index, element) {
@@ -141,7 +148,7 @@ export class VirtualBox extends Box {
 		return new VirtualColumn(this, index);
 	}
 
-	createRectFactory() {
+	rowRectFactory() {
 		const { height } = this.model.row();
 		const getHeight = isFunction(height) ? height : () => height;
 
@@ -154,13 +161,45 @@ export class VirtualBox extends Box {
 			}
 
 			// TODO: add correct left, right, width
-			const height = getHeight(null, index);
+			const rowHeight = getHeight(null, index);
 			return {
 				left: 0,
 				right: 0,
-				top: rect.top + height * index,
-				bottom: rect.top + height * (index + 1),
+				top: rect.top + rowHeight * index,
+				bottom: rect.top + rowHeight * (index + 1),
 				width: 0,
+				height: rowHeight
+			};
+		};
+	}
+
+	cellRectFactory() {
+		const { height } = this.model.row();
+		const getHeight = isFunction(height) ? height : () => height;
+		const { count } = this.model.pagination();
+		const form = this.model.layout().columns;
+		const { columns } = this.model.view();
+
+		let rect = null;
+		// as view.rect() can call getBoundingClientRect that impacts performance
+		// and as virtual element rect function is used mostly for end/home navigation we make rect lazy
+		return (rowIndex, columnIndex) => () => {
+			if (!rect) {
+				rect = this.context.view.rect();
+			}
+
+			const column = columns[columnIndex];
+			// TODO: add correct left, right, width
+			const height = getHeight(null, rowIndex);
+			const top = rect.top + height * rowIndex - (rowIndex > 0 ? 0 : (count + rowIndex) * height);
+			const width = form.has(column.key) ? form.get(column.key).width : 0;
+			const left = 0;
+			return {
+				left,
+				right: left + width,
+				top,
+				bottom: top + height,
+				width,
 				height
 			};
 		};
