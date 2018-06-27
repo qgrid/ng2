@@ -26,7 +26,7 @@ export interface IVscrollPosition {
 }
 
 export function findPositionUsingItemSize(value: number, itemSize: number) {
-	const index = Math.round(value / itemSize);
+	const index = Math.max(0, Math.round(value / itemSize));
 	return {
 		index,
 		offset: itemSize * index,
@@ -38,7 +38,7 @@ export function findPositionUsingItemSize(value: number, itemSize: number) {
 
 export function findPositionUsingOffsets(value: number, offsets: Array<number>): IVscrollPosition {
 	const index = findIndexAt(offsets, value);
-	const length = offsets.length;
+	const { length } = offsets;
 	if (index > 0) {
 		return {
 			index,
@@ -52,7 +52,7 @@ export function findPositionUsingOffsets(value: number, offsets: Array<number>):
 	return {
 		index: 0,
 		offset: 0,
-		lastOffset: length ? offsets[length - 1] : 0,
+		lastOffset: 0,
 		value,
 		pad: 0
 	};

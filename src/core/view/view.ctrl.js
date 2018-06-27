@@ -22,12 +22,9 @@ export class ViewCtrl {
 			const rowMonitor = style.monitor.row;
 			const cellMonitor = style.monitor.cell;
 
-			console.log('add style mutate');
-
 			Fastdom.mutate(() => {
 				// Apply mutate inside another mutate to ensure that style.invalidate is triggered last.
 				Fastdom.mutate(() => {
-					console.log('style invalidate');
 					const domCell = cellMonitor.enter();
 					const domRow = rowMonitor.enter();
 					try {

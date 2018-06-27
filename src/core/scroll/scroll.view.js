@@ -39,6 +39,21 @@ export class ScrollView {
 			}
 		};
 
+		const updateTotalCount = () => {
+			const { effect } = model.pipe();
+			if (effect.hasOwnProperty('memo')) {
+				const count = effect.memo.length;
+				pagination({ count }, {
+					source: 'scroll.view',
+					behavior: 'core'
+				});
+
+				return count;
+			}
+
+			return pagination().count;
+		};
+
 		subscribe(e => {
 			const { position } = e;
 			updateCurrentPage(position);
@@ -58,34 +73,39 @@ export class ScrollView {
 						behavior: 'core'
 					});
 
-					gridService.invalidate({
-						source: 'scroll.view',						
-						why: 'refresh'
-					}).then(() => {
-						const { effect } = model.pipe();
-						if (effect.hasOwnProperty('memo')) {
-							pagination({ count: effect.memo.length }, {
-								source: 'scroll.view',
-								behavior: 'core'
-							});
-						}
-
-						d.resolve(effect.memo.length);
-					});
+					if (skip === 0) {
+						const count = updateTotalCount();
+						d.resolve(count);
+					} else {
+						gridService.invalidate({
+							source: 'scroll.view',
+							why: 'refresh'
+						}).then(() => {
+							const count = updateTotalCount();
+							d.resolve(count);
+						});
+					}
 				};
 
 				let startSource;
+				const resetTriggers = new Set(scroll().resetTriggers);
 				model.sceneChanged.watch(e => {
 					if (e.hasChanges('status')) {
 						const status = e.state.status;
 						switch (status) {
 							case 'start': {
 								startSource = e.tag.source;
+								if (resetTriggers.has(startSource)) {
+									model.fetch({ skip: 0 }, {
+										source: 'scroll.view',
+										behavior: 'core'
+									});
+								}
 								break;
 							}
 							case 'stop': {
-								const resetTriggers = new Set(scroll().resetTriggers);
 								if (resetTriggers.has(startSource)) {
+									console.log('RESET');
 									this.y.container.reset();
 								}
 								break;
