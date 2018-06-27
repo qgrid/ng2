@@ -16,7 +16,7 @@ export class VirtualBox extends Box {
 		this.cellBox = new CellBox(context);
 		this.rowBox = new RowBox(context);
 		this.columnBox = new ColumnBox(context);
-		this.changed = new Event();
+		this.requestInvalidate = new Event();
 	}
 
 	addCellClass(cell, name, force = false) {
@@ -25,7 +25,7 @@ export class VirtualBox extends Box {
 		}
 		else {
 			this.cellBox.addClass(cell, name);
-			this.changed.emit({ source: 'addCellClass' });
+			this.requestInvalidate.emit({ source: 'addCellClass' });
 		}
 	}
 
@@ -35,7 +35,7 @@ export class VirtualBox extends Box {
 		}
 		else {
 			this.cellBox.removeClass(cell, name);
-			this.changed.emit({ source: 'removeCellClass' });
+			this.requestInvalidate.emit({ source: 'removeCellClass' });
 		}
 	}
 
@@ -45,7 +45,7 @@ export class VirtualBox extends Box {
 		}
 		else {
 			this.rowBox.addClass(row, name);
-			this.changed.emit({ source: 'addRowClass' });
+			this.requestInvalidate.emit({ source: 'addRowClass' });
 		}
 	}
 
@@ -55,7 +55,7 @@ export class VirtualBox extends Box {
 		}
 		else {
 			this.rowBox.removeClass(row, name);
-			this.changed.emit({ source: 'removeRowClass' });
+			this.requestInvalidate.emit({ source: 'removeRowClass' });
 		}
 	}
 
@@ -65,7 +65,7 @@ export class VirtualBox extends Box {
 		}
 		else {
 			this.columnBox.addClass(column, name);
-			this.changed.emit({ source: 'addColumnClass' });
+			this.requestInvalidate.emit({ source: 'addColumnClass' });
 		}
 	}
 
@@ -75,7 +75,7 @@ export class VirtualBox extends Box {
 		}
 		else {
 			this.columnBox.removeClass(column, name);
-			this.changed.emit({ source: 'removeColumnClass' });
+			this.requestInvalidate.emit({ source: 'removeColumnClass' });
 		}
 	}
 

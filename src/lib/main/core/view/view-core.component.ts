@@ -39,7 +39,7 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 							behavior: 'core'
 						});
 
-					this.invalidate();
+					this.ctrl.invalidate();
 				}
 			}
 		});
@@ -50,7 +50,7 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 
 		const { status } = this.model.scene();
 		if (status === 'stop') {
-			this.invalidate();
+			this.ctrl.invalidate();
 		}
 	}
 
@@ -80,13 +80,12 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 			}
 		});
 
-		if (model.scroll().mode === 'virtual') {
-			model.highlightChanged.watch(() =>this.invalidate());
+		const virtualBody = this.root.table.body as any;
+		if (virtualBody.requestInvalidate) {
+			virtualBody.requestInvalidate.on(() => {
+				this.ctrl.invalidate();
+			});
 		}
-	}
-
-	invalidate() {
-		this.ctrl.invalidate();
 	}
 
 	private get model() {

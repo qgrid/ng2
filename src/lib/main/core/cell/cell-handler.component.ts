@@ -23,8 +23,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 	constructor(
 		private element: ElementRef,
-		private root: RootService,
-		private view: ViewCoreComponent
+		private root: RootService
 	) {
 		this.element.nativeElement.style.display = 'none';
 	}
@@ -51,10 +50,6 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		// When navigate first or when animation wasn't applied we need to omit
 		// next navigation event to make handler to correct position.
 		let isValid = false;
-		const invalidate = model.scroll().mode === 'virtual'
-			? () => this.view.invalidate()
-			: noop;
-
 		return (e: ModelEventArg<NavigationModel>) => {
 			if (e.hasChanges('cell')) {
 				const { cell } = e.state;
@@ -76,16 +71,13 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 					if (isValid) {
 						domCell.addClass('q-grid-animate');
 						element.classList.add('q-grid-active');
-						invalidate();
 
 						job(() => {
 							element.classList.remove('q-grid-active');
 							domCell.removeClass('q-grid-animate');
-							invalidate();
 						}).catch(() => {
 							Fastdom.mutate(() => {
 								domCell.removeClass('q-grid-animate');
-								invalidate();
 							});
 						});
 					}
