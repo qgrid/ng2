@@ -225,7 +225,7 @@ const EXAMPLES: Array<any> = [
 const PATH_REGEX = /Example(.*)Component/;
 
 function toPath(componentType: Function) {
-	const name = PATH_REGEX.exec(componentType.name)[ 1 ];
+	const name = PATH_REGEX.exec(componentType.name)[1];
 	return name
 		.split(/(?=[A-Z])/)
 		.map(part => part.toLowerCase())
@@ -244,7 +244,7 @@ export const exampleRoutes: Routes = EXAMPLES.map<Route>(example => ({
 ]);
 
 @NgModule({
-	declarations: EXAMPLES.concat([ ExamplePluginMyPagerComponent ]),
+	declarations: EXAMPLES.concat([ExamplePluginMyPagerComponent]),
 	exports: EXAMPLES,
 	imports: [
 		GridModule,
@@ -258,4 +258,3 @@ export const exampleRoutes: Routes = EXAMPLES.map<Route>(example => ({
 	]
 })
 export class ExampleModule {}
-
