@@ -19,6 +19,7 @@ import { ScrollView } from '../scroll/scroll.view';
 import { SelectionView } from '../selection/selection.view';
 import { SortView } from '../sort/sort.view';
 import { StyleView } from '../style/style.view';
+import { ThemeView } from '../theme/theme.view';
 
 export function viewFactory(
 	model,
@@ -65,6 +66,7 @@ export function viewFactory(
 		host.rowDetails = new RowDetailsView(modelProxy, table, navigationShortuct);
 		host.selection = new SelectionView(modelProxy, table, selectionShortcut);
 		host.style = new StyleView(modelProxy, table);
+		host.theme = new ThemeView(modelProxy);
 
 		return () => {
 			host.layout.dispose();

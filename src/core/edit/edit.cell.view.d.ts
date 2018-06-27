@@ -23,7 +23,6 @@ export declare class EditCellView {
 
 	value: any;
 	label: any;
-	theme: string | Array<string>;
 
 	readonly cell: CellView;
 	readonly row: any;

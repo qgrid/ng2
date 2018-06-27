@@ -32,6 +32,7 @@ import { TableCommandManager } from 'ng2-qgrid/core/command/table.command.manage
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { GridModel } from '../../plugins/plugin.service';
+import {OverlayContainer} from '@angular/cdk/overlay';
 
 @Component({
 	selector: 'q-grid',
@@ -106,6 +107,7 @@ export class GridComponent extends RootComponent implements OnInit {
 		private element: ElementRef,
 		private zone: NgZone,
 		private layerService: LayerService,
+		private overlayContainer: OverlayContainer,
 		theme: ThemeService,
 	) {
 		super();
@@ -141,6 +143,10 @@ export class GridComponent extends RootComponent implements OnInit {
 		const model = this.root.model;
 
 		const element = this.element.nativeElement;
+		
+		element.classList.forEach(cssClass => {
+			this.overlayContainer.getContainerElement().classList.add(cssClass);
+		});
 		
 		model.style({
 			classList: Array.from(element.classList)
