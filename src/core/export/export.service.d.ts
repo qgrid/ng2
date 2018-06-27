@@ -1,5 +1,5 @@
-declare function flattenObject(obj: object, separator: string): object;
+declare function flatView(obj: object, separator: string): object;
 
 export {
-	flattenObject
+	flatView
 };

@@ -1,0 +1,13 @@
+<q-grid header="Import CSV Basic"
+        [rows]="rows | async">
+	<q-grid-columns generation="deep">
+	</q-grid-columns>
+
+	<q-grid-import>
+		<ng-template>
+			<button class="md-button" (click)="importData.execute()">
+				csv
+			</button>
+		</ng-template>
+	</q-grid-import>
+</q-grid>
