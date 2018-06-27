@@ -29,8 +29,13 @@ export class ScrollView {
 				.bind(this.y.container.drawEvent);
 
 		const updateCurrentPage = position => {
-			const { size, current } = pagination();
-			const newCurrent = Math.floor(position / size);
+			const { size, current, count } = pagination();
+			const newCurrent = size === 0
+				? 0
+				: count - 1 <= position + size
+					? Math.ceil(count / size) - 1
+					: Math.floor((position + size / 2) / size);
+
 			if (newCurrent !== current) {
 				pagination({ current: newCurrent }, {
 					source: 'scroll.view',
