@@ -80,7 +80,7 @@ export function lineView(columnRows) {
 }
 
 export function widthFactory(table, form) {
-	const layout = table.model.layout;
+	const { layout } = table.model;
 	const columns = table.data.columns();
 	const columnMap = map(columns);
 	form = form || layout().columns;
@@ -98,7 +98,6 @@ export function widthFactory(table, form) {
 
 
 	let area;
-
 	function getRect() {
 		if (area) {
 			return area;

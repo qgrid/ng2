@@ -29,12 +29,6 @@ export class LayoutView extends Disposable {
 	onInit() {
 		const model = this.model;
 
-		model.sceneChanged.watch(e => {
-			if (e.hasChanges('column')) {
-				this.invalidateColumns();
-			}
-		});
-
 		const styleRow = this.styleRow.bind(this);
 		model.layoutChanged.watch(e => {
 			if (e.tag.source === 'layout.view') {
@@ -62,6 +56,10 @@ export class LayoutView extends Disposable {
 		});
 
 		model.sceneChanged.watch(e => {
+			if (e.hasChanges('column')) {
+				this.invalidateColumns();
+			}
+
 			if (e.hasChanges('status')) {
 				if (e.state.status === 'stop') {
 					this.updateColumnForm();
