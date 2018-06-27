@@ -37,7 +37,7 @@ export class ImportComponent implements AfterViewInit {
 		const { model } = this.plugin;
 		const context = { element, options: this.options };
 		const importView = new ImportView(model, context);
-		eventListener.on('change', importView.load);
+		eventListener.on('change', (e) => importView.load(e));
 		const action = new Action(
 			new Command({ execute: () => importView.upload.execute() }),
 			`Import data`,

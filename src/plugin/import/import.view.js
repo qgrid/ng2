@@ -22,7 +22,7 @@ export class ImportView {
 		for (let file of files) {
 			const reader = new FileReader();
 			reader.onload = e => {
-				readFile(e, file, this.plugin.model, this.options);
+				readFile(e, file, this.model, this.options);
 			};
 			reader.readAsBinaryString(file);
 		}
