@@ -140,7 +140,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 					}
 
 					if (cell) {
-						job(() => Fastdom.mutate(() => oldCell.element.appendChild(this.marker.nativeElement)));
+						job(() => Fastdom.mutate(() => cell.element.appendChild(this.marker.nativeElement)));
 					}
 
 					oldCell = cell;

@@ -69,7 +69,9 @@ export class DataManipulationView {
 						this.changes.added.add(rowId);
 						data({
 							rows: [newRow].concat(data().rows)
-						});
+						}, {
+								source: 'data.manipulation'
+							});
 					},
 					shortcut: 'F7'
 				}),
@@ -92,7 +94,9 @@ export class DataManipulationView {
 							changes.added.delete(rowId);
 							const data = this.model.data;
 							const rows = data().rows.filter((row, i) => this.rowId(i, row) !== rowId);
-							data({ rows });
+							data({ rows }, {
+								source: 'data.manipulation'
+							});
 						}
 						else {
 							changes.deleted.add(rowId);

@@ -15,7 +15,8 @@ export class ScrollModel {
 
 		this.resetTriggers = [
 			'sort.view',
-			'column.filter.view'
+			'column.filter.view',
+			'data.manipulation'
 		];
 	}
 }
