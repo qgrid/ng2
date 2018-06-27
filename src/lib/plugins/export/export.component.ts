@@ -23,7 +23,8 @@ export class ExportComponent implements AfterViewInit {
 		$implicit: this
 	};
 
-	constructor(private plugin: PluginService, private templateHost: TemplateHostService) {
+	constructor(private plugin: PluginService,
+				private templateHost: TemplateHostService) {
 		this.templateHost.key = () => `export-${this.type}`;
 	}
 
