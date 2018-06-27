@@ -30,11 +30,11 @@ class VirtualTd {
 	}
 
 	get label() {
-		return this.model.value;
+		return this.model.label;
 	}
 
 	set label(value) {
-		this.model.value = value;
+		this.model.label = value;
 	}
 
 	get element() {

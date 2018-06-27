@@ -71,13 +71,16 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 					if (isValid) {
 						domCell.addClass('q-grid-animate');
 						element.classList.add('q-grid-active');
+						console.log('CH add anim');
 
 						job(() => {
 							element.classList.remove('q-grid-active');
 							domCell.removeClass('q-grid-animate');
+							console.log('CH remove anim');
 						}).catch(() => {
 							Fastdom.mutate(() => {
 								domCell.removeClass('q-grid-animate');
+								console.log('CH remove anim');
 							});
 						});
 					}

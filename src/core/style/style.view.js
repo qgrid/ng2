@@ -110,16 +110,17 @@ export class StyleView {
 
 		// To improve performance take rows and cells directly from the bag and not from the DOM table. 
 		const { body } = table;
+		const { rowToView, columnToView } = table.context.mapper;
 		const { rows, cells } = table.context.bag.body;
 
 		if (isRowActive) {
 			for (let tr of rows) {
-				const { rowIndex, element, model } = tr;
-				// This private method we use only for performance, don't use it in other places.
-				const row = body.createRowCore(rowIndex, element);
+				const { index, element, model } = tr;
+				// This private method we use only for performance, don't use it in other places.				
+				const row = body.createRowCore(rowToView(index), element);
 
 				rowContext.class = domRow(row);
-				rowContext.row = rowIndex;
+				rowContext.row = index;
 				rowContext.value = value;
 
 				visitRow(model, rowContext);
@@ -130,7 +131,7 @@ export class StyleView {
 			for (let td of cells) {
 				const { rowIndex, columnIndex, element, row, column } = td;
 				// This private method we use only for performance, don't use it in other places.
-				const cell = body.createCellCore(rowIndex, columnIndex, element);
+				const cell = body.createCellCore(rowToView(rowIndex), columnToView(columnIndex), element);
 
 				cellContext.class = domCell(cell);
 				cellContext.row = rowIndex;

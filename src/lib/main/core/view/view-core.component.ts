@@ -82,9 +82,7 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 
 		const virtualBody = this.root.table.body as any;
 		if (virtualBody.requestInvalidate) {
-			virtualBody.requestInvalidate.on(() => {
-				this.ctrl.invalidate();
-			});
+			virtualBody.requestInvalidate.on(() => this.ctrl.invalidate());
 		}
 	}
 
