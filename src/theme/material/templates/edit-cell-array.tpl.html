@@ -11,10 +11,12 @@
                               *ngFor="let value of $view.edit.cell.value;let $index = index"
                               selectable="true"
                               removable="true"
-                              (remove)="$view.edit.cell.value.splice($index, 1)">
+                              (removed)="$view.edit.cell.value.splice($index, 1)">
                         {{value}}
                         <mat-icon class="q-grid-icon"
-                                  matChipRemove>cancel</mat-icon>
+                                  matChipRemove>
+                            cancel
+                        </mat-icon>
                     </mat-chip>
                 </mat-chip-list>
             </div>
