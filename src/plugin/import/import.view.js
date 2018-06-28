@@ -1,5 +1,5 @@
-import { Command } from '@grid/core/command';
-import { upload } from '@grid/core/services/upload';
+import { Command } from '../../core/command/command';
+import { upload } from '../../core/services/upload';
 import { readFile } from './read';
 
 export class ImportView {

@@ -1,3 +1,4 @@
+export declare function assignWith(x: any, y: any): any;
 export declare function noop(): void;
 export declare function yes(): boolean;
 export declare function no(): boolean;
@@ -7,6 +8,7 @@ export declare function isEmail(value: string): boolean;
 export declare function escapeRegexp(text: string): string;
 export declare function orderBy(data: any[], selectors: ((x: any) => any)[], compares: ((x: any, y: any) => number)[]): void;
 export declare function htmlEncode(text: string): string;
+export declare function startCase(text: string): string;
 export declare function uniq<T>(collection: Array<T>): Array<T>;
 
 export declare function max<T>(collection: Array<T>): T | undefined;

@@ -25,6 +25,7 @@ import { StatusBarModule } from './status-bar/status-bar.module';
 import { TabTrapModule } from './tab-trap/tab-trap.module';
 import { TitleModule } from './title/title.module';
 import { ExportModule } from './export/export.module';
+import { ImportModule } from './import/import.module';
 
 Model.register('columnChooser', ColumnChooserModel)
 	.register('columnFilter', ColumnFilterModel)
@@ -45,6 +46,7 @@ Model.register('columnChooser', ColumnChooserModel)
 		DataManipulationModule,
 		EbModule,
 		ExportModule,
+		ImportModule,
 		LegendModule,
 		PagerModule,
 		PersistenceModule,
