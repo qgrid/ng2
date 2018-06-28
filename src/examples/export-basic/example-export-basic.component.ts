@@ -8,7 +8,7 @@ import * as fileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 
 @Component({
-	selector: 'example-export-csv-basic',
+	selector: 'example-export-basic',
 	templateUrl: 'example-export-basic.component.html',
 	styleUrls: [ 'example-export-basic.component.scss' ],
 	providers: [ DataService ]
