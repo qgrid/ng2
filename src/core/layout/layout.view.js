@@ -55,6 +55,17 @@ export class LayoutView extends Disposable {
 			}
 		});
 
+		model.dataChanged.watch(e => {
+			if (e.hasChanges('columns')) {
+				model.layout({
+					columns: new Map()
+				}, {
+						source: 'layout.view',
+						behavior: 'core'
+					});
+			}
+		});
+
 		model.sceneChanged.watch(e => {
 			if (e.hasChanges('column')) {
 				this.invalidateColumns();

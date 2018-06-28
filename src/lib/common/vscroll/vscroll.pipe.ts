@@ -39,12 +39,6 @@ export class VscrollPipe implements PipeTransform {
 				container.force = false;
 			}
 
-			for (let item of items) {
-				if (!item) {
-					debugger;
-				}
-			}
-
 			return items;
 		}
 
