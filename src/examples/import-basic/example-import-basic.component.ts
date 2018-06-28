@@ -6,7 +6,7 @@ import { DataService, Atom } from '../data.service';
 import { GridComponent } from 'ng2-qgrid';
 
 @Component({
-	selector: 'example-import-csv-basic',
+	selector: 'example-import-basic',
 	templateUrl: 'example-import-basic.component.html',
 	styleUrls: [ 'example-import-basic.component.scss' ],
 	providers: [ DataService ]
