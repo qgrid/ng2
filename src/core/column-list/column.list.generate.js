@@ -2,7 +2,7 @@ import { merge as mergeFactory } from '../services/merge';
 import { compile } from '../services/path';
 import { getType } from '../services/convert';
 import { TextColumnModel } from '../column-type/text.column';
-import { startCase, assignWith, noop, isUndefined } from '../utility/kit';
+import { assignWith, isUndefined, noop, startCase } from '../utility/kit';
 import { columnFactory } from '../column/column.factory';
 import { AppError } from '../infrastructure/error';
 
