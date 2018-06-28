@@ -93,8 +93,9 @@ export class LayoutView extends Disposable {
 
 		const { column } = this.model.navigation();
 		if (column && column.viewWidth) {
-			const viewForm = new Map(form);
-			viewForm.set(column.key, { width: column.viewWidth });
+			const viewForm = new Map(form)
+			const columnForm = form.get(column.key);
+			viewForm.set(column.key, { width: columnForm ? Math.max(columnForm.width, column.viewWidth) : column.viewWidth });
 			return viewForm;
 		}
 
