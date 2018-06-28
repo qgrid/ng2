@@ -1,5 +1,5 @@
 <ng-template key="plugin-tab-trap.tpl.html" let-$tabTrap>
-    <div q-grid-tab-trap-in="start"></div>
+    <div q-grid-tab-trap-in="start" [q-grid-tab-trap-host]="$tabTrap"></div>
     <ng-container [ngTemplateOutlet]='$tabTrap.template'></ng-container>
-    <div q-grid-tab-trap-in="end"></div>
+    <div q-grid-tab-trap-in="end" [q-grid-tab-trap-host]="$tabTrap"></div>
 </ng-template>
