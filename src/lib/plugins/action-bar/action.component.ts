@@ -1,7 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnInit, Input } from '@angular/core';
 import { Action as ActionItem } from 'ng2-qgrid/core/action/action';
 import { Command } from 'ng2-qgrid/core/command/command';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { TemplateHostService } from '../../template/template-host.service';
 import { PluginService } from '../plugin.service';
@@ -13,10 +12,10 @@ import { PluginService } from '../plugin.service';
 	providers: [TemplateHostService]
 })
 export class ActionComponent implements OnInit {
-	@Input() public id: string = null;
-	@Input() public title: string = null;
-	@Input() public icon: string = null;
-	@Input() public command: Command = null;
+	@Input() id: string = null;
+	@Input() title: string = null;
+	@Input() icon: string = null;
+	@Input() command: Command = null;
 
 	constructor(private plugin: PluginService, templateHost: TemplateHostService) {
 		templateHost.key = source => `action-${source}-${this.id}.tpl.html`;
@@ -52,7 +51,7 @@ export class ActionComponent implements OnInit {
 		}
 	}
 
-	get model(): Model {
+	private get model() {
 		return this.plugin.model;
 	}
 }

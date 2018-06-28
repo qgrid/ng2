@@ -110,7 +110,6 @@ export class ScrollView {
 							}
 							case 'stop': {
 								if (resetTriggers.has(startSource)) {
-									console.log('RESET');
 									this.y.container.reset();
 								}
 								break;

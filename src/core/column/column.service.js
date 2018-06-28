@@ -118,7 +118,10 @@ export function widthFactory(table, form) {
 			if (('' + width).indexOf('%') >= 0) {
 				const percent = parseFloat(width);
 				const rect = getRect();
-				const skip = column.widthMode === 'relative' ? occupied : 0;
+				// 2 because pad column has left padding equals to 1px and width 100%
+				// that can produce 1.## values
+				const padSkip = 2;
+				const skip = column.widthMode === 'relative' ? occupied + padSkip : padSkip;
 				width = (rect.width - skip) * percent / 100;
 			}
 

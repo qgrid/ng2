@@ -25,7 +25,6 @@ export class ViewCtrl {
 			Fastdom.mutate(() => {
 				// Apply mutate inside another mutate to ensure that style.invalidate is triggered last.
 				Fastdom.mutate(() => {
-					console.log('invalidate styles');
 					const domCell = cellMonitor.enter();
 					const domRow = rowMonitor.enter();
 					try {

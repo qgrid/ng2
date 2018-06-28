@@ -46,8 +46,6 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 	}
 
 	ngDoCheck() {
-		console.log('doCheck');
-
 		const { status } = this.model.scene();
 		if (status === 'stop') {
 			this.ctrl.invalidate();

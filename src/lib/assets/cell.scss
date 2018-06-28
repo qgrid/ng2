@@ -47,7 +47,8 @@ tbody {
             width: 100%;
             min-width: 100%;
             max-width: 100%;
-            padding: 0 !important;
+            // to show the right border e.g. in pivot columns we need to make 1px left padding.
+            padding: 0 0 0 1px !important;
             margin: 0 !important;
         }
         &.q-grid-group {

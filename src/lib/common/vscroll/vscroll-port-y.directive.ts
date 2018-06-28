@@ -38,7 +38,6 @@ export class VscrollPortYDirective extends VscrollPort implements OnInit {
 	}
 
 	emit(f: () => void) {
-		console.log('trigger CD');
 		this.zone.run(f);
 	}
 

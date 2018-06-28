@@ -1,8 +1,7 @@
-import { Component, Input, Optional } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { Action as ActionItem } from 'ng2-qgrid/core/action/action';
-import { PluginService } from '../plugin.service';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
+import { PluginService, GridModel } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-action-core',
@@ -19,7 +18,7 @@ export class ActionCoreComponent {
 	constructor(private plugin: PluginService) {
 	}
 
-	get model(): Model {
+	get model(): GridModel {
 		return this.plugin.model;
 	}
 
@@ -35,7 +34,7 @@ export class ActionCoreComponent {
 	canExecute() {
 		const action = this.action;
 		if (!action) {
-			throw new AppError('action-core.component', 'Action shoud be setup');
+			throw new AppError('action-core.component', 'Action should be setup');
 		}
 
 		return action.command.canExecute();
@@ -44,7 +43,7 @@ export class ActionCoreComponent {
 	get shortcut() {
 		const action = this.action;
 		if (!action) {
-			throw new AppError('action-core.component', 'Action shoud be setup');
+			throw new AppError('action-core.component', 'Action should be setup');
 		}
 
 		return action.command.shortcut;
@@ -53,7 +52,7 @@ export class ActionCoreComponent {
 	get title() {
 		const action = this.action;
 		if (!action) {
-			throw new AppError('action-core.component', 'Action shoud be setup');
+			throw new AppError('action-core.component', 'Action should be setup');
 		}
 
 		const shortcut = this.shortcut;
@@ -72,7 +71,7 @@ export class ActionCoreComponent {
 	get templateUrl() {
 		const action = this.action;
 		if (!action) {
-			throw new AppError('action-core.component', 'Action shoud be setup');
+			throw new AppError('action-core.component', 'Action should be setup');
 		}
 
 		return action.templateUrl;
