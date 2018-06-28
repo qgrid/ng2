@@ -17,7 +17,7 @@ const classify = TdCtrl.classify;
 })
 export class TdCoreDirective implements Td, OnInit, OnDestroy {
 	private $implicit = this;
-	
+
 	@Input('q-grid-core-td') columnView: ColumnView;
 	element: HTMLElement = null;
 

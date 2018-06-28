@@ -2,9 +2,6 @@ import { AfterViewInit, Component, ContentChild, ElementRef, Input, TemplateRef 
 import { PluginService } from '../plugin.service';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { Command } from 'ng2-qgrid/core/command/command';
-import { Xlsx } from 'ng2-qgrid/plugin/export/xlsx';
-import { Pdf } from 'ng2-qgrid/plugin/export/pdf';
-import { downloadFactory } from 'ng2-qgrid/plugin/export/download';
 import { Action } from 'ng2-qgrid/core/action/action';
 import { Composite } from 'ng2-qgrid/core/infrastructure/composite';
 import { TemplateHostService } from '../../template/template-host.service';
@@ -14,8 +11,8 @@ import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 
 @Component({
 	selector: 'q-grid-import',
-	templateUrl: './import.component.html',
-	providers: [ TemplateHostService, PluginService ]
+	template: '',
+	providers: [TemplateHostService, PluginService]
 })
 export class ImportComponent implements AfterViewInit {
 	@Input() options: any;
@@ -25,10 +22,12 @@ export class ImportComponent implements AfterViewInit {
 		$implicit: this
 	};
 
-	constructor(private plugin: PluginService,
-				private templateHost: TemplateHostService,
-				private hostElement: ElementRef) {
-		this.templateHost.key = () => `import-data`;
+	constructor(
+		private plugin: PluginService,
+		private templateHost: TemplateHostService,
+		private hostElement: ElementRef
+	) {
+		this.templateHost.key = () => `import`;
 	}
 
 	ngAfterViewInit() {
@@ -49,17 +48,17 @@ export class ImportComponent implements AfterViewInit {
 		}
 
 		model.action({
-			items: Composite.list([ model.action().items, [ action ] ])
+			items: Composite.list([model.action().items, [action]])
 		}, {
-			source: 'import.component'
-		});
+				source: 'import.component'
+			});
 	}
 
 	get rows() {
 		return this.plugin.model.data().rows;
 	}
 
-	get columns() {
+	get columns(): ColumnModel[] {
 		return this.plugin.model.columnList().line;
 	}
 

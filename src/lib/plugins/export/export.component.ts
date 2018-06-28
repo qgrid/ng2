@@ -3,17 +3,14 @@ import { PluginService } from '../plugin.service';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { ExportView } from 'ng2-qgrid/plugin/export/export.view';
-import { Xlsx } from 'ng2-qgrid/plugin/export/xlsx';
-import { Pdf } from 'ng2-qgrid/plugin/export/pdf';
-import { downloadFactory } from 'ng2-qgrid/plugin/export/download';
 import { Action } from 'ng2-qgrid/core/action/action';
 import { Composite } from 'ng2-qgrid/core/infrastructure/composite';
 import { TemplateHostService } from '../../template/template-host.service';
 
 @Component({
 	selector: 'q-grid-export',
-	templateUrl: './export.component.html',
-	providers: [ TemplateHostService, PluginService ]
+	template: '',
+	providers: [TemplateHostService, PluginService]
 })
 export class ExportComponent implements AfterViewInit {
 	@Input() type: string;
@@ -23,8 +20,10 @@ export class ExportComponent implements AfterViewInit {
 		$implicit: this
 	};
 
-	constructor(private plugin: PluginService,
-				private templateHost: TemplateHostService) {
+	constructor(
+		private plugin: PluginService,
+		private templateHost: TemplateHostService
+	) {
 		this.templateHost.key = () => `export-${this.type}`;
 	}
 
@@ -32,7 +31,7 @@ export class ExportComponent implements AfterViewInit {
 		const { model } = this.plugin;
 		const exportView = new ExportView(model, { type: this.type });
 		const action = new Action(
-			new Command({ execute: () => exportView[ this.type ].execute() }),
+			new Command({ execute: () => exportView[this.type].execute() }),
 			`Export to ${this.type}`,
 			'file_download'
 		);
@@ -42,17 +41,17 @@ export class ExportComponent implements AfterViewInit {
 		}
 
 		model.action({
-			items: Composite.list([ model.action().items, [ action ] ])
+			items: Composite.list([model.action().items, [action]])
 		}, {
-			source: 'export.component'
-		});
+				source: 'export.component'
+			});
 	}
 
 	get rows() {
 		return this.plugin.model.data().rows;
 	}
 
-	get columns() {
+	get columns(): ColumnModel[] {
 		return this.plugin.model.columnList().line;
 	}
 

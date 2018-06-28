@@ -9,7 +9,12 @@ const empty = [];
 	pure: false
 })
 export class VscrollPipe implements PipeTransform {
-	transform(data: any, context: VscrollContext): any {
+	transform(data: any,
+		context: {
+			container: { position: number, force: boolean, items: any[], cursor: number, update: (count: number) => void },
+			settings: { threshold: number }
+		}
+	): any {
 		Guard.notNull(context, 'context');
 
 		if (!data) {

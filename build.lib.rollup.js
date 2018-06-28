@@ -11,6 +11,7 @@ const tscFolder = path.join(rootFolder, 'out-tsc');
 const esm2015Folder = path.join(tscFolder, 'esm2015');
 
 module.exports = {
+  treeshake: false,
   output: {
     name: camelCase(libName),
     sourcemap: true,
