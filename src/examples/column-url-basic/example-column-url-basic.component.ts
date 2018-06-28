@@ -13,8 +13,25 @@ export class ExampleColumnUrlBasicComponent {
 			'withLabel': 'http://github.com/qgrid/ng2',
 			'null': null,
 			'undefined': undefined,
-			'empty': '',			
+			'empty': '',
 			'customTemplate': 'http://github.com/qgrid/ng2'
 		}
 	];
+
+	private label = 'QGRID';
+
+	myLabel: (row: any, value?: any) => string | undefined;
+
+	constructor() {
+		const self = this;
+		this.myLabel = function (row, value) {
+			if (arguments.length > 1) {
+				self.label = value;
+				return;
+			}
+
+			return self.label;
+		};
+	}
+
 }

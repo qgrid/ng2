@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Atom } from '../data.service';
 
 @Component({
 	selector: 'example-column-email-basic',
@@ -21,7 +20,7 @@ export class ExampleColumnEmailBasicComponent {
 
 	private label = 'QGRID';
 
-	myLabel: (row: Atom, value?: any) => string | undefined;
+	myLabel: (row: any, value?: any) => string | undefined;
 
 	constructor() {
 		const self = this;
