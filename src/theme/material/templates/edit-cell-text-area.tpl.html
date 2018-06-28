@@ -10,6 +10,7 @@
                           #input
                           rows="10"
                           q-grid-focus
+                          maxlength="{{$cell.column.maxLength}}"
                           [(ngModel)]="$view.edit.cell.value">
                 </textarea>
                 <mat-hint align="end">{{input.value.length}} / {{$cell.column.maxLength}}</mat-hint>
