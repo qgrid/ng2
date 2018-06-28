@@ -1,0 +1,24 @@
+<q-grid caption="Size Column Absolute"
+        [rows]="rows | async">
+        <q-grid-columns>
+                <q-grid-column title="Width 120px"
+                               key="number"
+                               width="120">
+                </q-grid-column>
+                <q-grid-column title="Width 15%"
+                               key="symbol"
+                               width="25%"
+                               widthMode="absolute">
+                </q-grid-column>
+                <q-grid-column title="Width 35%"
+                               key="name"
+                               width="35%"
+                               widthMode="absolute">
+                </q-grid-column>
+                <q-grid-column title="Width 50%"
+                               key="appearance"
+                               width="50%"
+                               widthMode="absolute">
+                </q-grid-column>
+        </q-grid-columns>
+</q-grid>

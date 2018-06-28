@@ -18,9 +18,10 @@ export class StatusBarComponent {
 
 	get rowIndex() {
 		return this.plugin.model.focus().rowIndex;
-	};
+	}
+
 	get columnIndex() {
 		return this.plugin.model.focus().columnIndex;
 
-	};
+	}
 }

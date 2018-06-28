@@ -69,7 +69,9 @@ export class DataManipulationView {
 						this.changes.added.add(rowId);
 						data({
 							rows: [newRow].concat(data().rows)
-						});
+						}, {
+								source: 'data.manipulation'
+							});
 					},
 					shortcut: 'F7'
 				}),
@@ -92,7 +94,9 @@ export class DataManipulationView {
 							changes.added.delete(rowId);
 							const data = this.model.data;
 							const rows = data().rows.filter((row, i) => this.rowId(i, row) !== rowId);
-							data({ rows });
+							data({ rows }, {
+								source: 'data.manipulation'
+							});
 						}
 						else {
 							changes.deleted.add(rowId);
@@ -172,13 +176,9 @@ export class DataManipulationView {
 				items: Composite.list([this.actions, model.action().items])
 			});
 
-		model.dataChanged.watch((e, off) => {
-			if (e.hasChanges('columns')) {
-				const rowOptionsColumn = model
-					.columnList()
-					.line
-					.find(column => column.type === 'row-options');
-
+		model.columnListChanged.watch((e, off) => {
+			if (e.hasChanges('line')) {
+				const rowOptionsColumn = e.state.line.find(column => column.type === 'row-options');
 				if (rowOptionsColumn) {
 					rowOptionsColumn.editorOptions.actions.push(...this.rowActions);
 					off();

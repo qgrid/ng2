@@ -5,15 +5,20 @@ import { ColumnView } from '../scene/view/column.view';
 import { Model } from '../infrastructure/model';
 
 export declare class View extends Unit {
-	constructor(context: BoxContext, model: Model, markup: object);
+	constructor(context: BoxContext, model: Model, markup: { [key: string]: HTMLElement });
 
 	columns(): ColumnView[];
+
 	focus(): boolean;
 	blur(): void;
 	isFocused(): boolean;
-	scrollLeft(value: number): number;
-	scrollTop(value: number): number;
+
+	scrollLeft(value?: number): number;
+	scrollTop(value?: number): number;
+	scrollHeight(): number;
+	scrollWidth(): number;
 	canScrollTo(element: Element, direction: string): boolean;
+
 	rect(area?: string): Rect;
 	width(area?: string): number;
 	height(area?: string): number;

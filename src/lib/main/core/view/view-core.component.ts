@@ -16,7 +16,6 @@ import { GridService } from '../../../main/grid/grid.service';
 })
 export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 	private ctrl: ViewCtrl;
-	private job = jobLine(0);
 
 	constructor(
 		private root: RootService,
@@ -29,7 +28,7 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 
 		zone.onStable.subscribe(() => {
 			if (this.root.isReady) {
-				const model = this.model;
+				const { model } = this;
 				const { round, status } = model.scene();
 				if (round > 0 && status === 'start') {
 					model.scene({
@@ -40,7 +39,7 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 							behavior: 'core'
 						});
 
-					this.job(() => this.ctrl.invalidate());
+					this.ctrl.invalidate();
 				}
 			}
 		});
@@ -49,7 +48,7 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 	ngDoCheck() {
 		const { status } = this.model.scene();
 		if (status === 'stop') {
-			this.job(() => this.ctrl.invalidate());
+			this.ctrl.invalidate();
 		}
 	}
 
@@ -79,8 +78,10 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 			}
 		});
 
-		model.highlightChanged.watch(() => this.job(() => this.ctrl.invalidate()));
-		model.navigationChanged.watch(() => this.job(() => this.ctrl.invalidate()));
+		const virtualBody = this.root.table.body as any;
+		if (virtualBody.requestInvalidate) {
+			virtualBody.requestInvalidate.on(() => this.ctrl.invalidate());
+		}
 	}
 
 	private get model() {

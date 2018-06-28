@@ -1,10 +1,10 @@
 <q-grid caption="Scroll Virtual Selection"
         scrollMode="virtual"
         [rows]="rows | async"
-        selectionUnit="row"
-        selectionMode="multiple"
-        selectionArea="custom">
+        selectionUnit="mix"
+        selectionMode="range">
         <q-grid-columns generation="deep">
+                <q-grid-column type="select" key="select"></q-grid-column>
         </q-grid-columns>
 
         <q-grid-pager [size]="20">

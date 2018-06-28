@@ -279,9 +279,7 @@ export class HighlightView {
 		}
 
 		const { body } = this.table;
-		Fastdom.mutate(() => {
-			body.row(index).addClass(`${GRID_PREFIX}-${cls}`);
-		});
+		Fastdom.mutate(() => body.row(index).addClass(`${GRID_PREFIX}-${cls}`));
 
 		return this.blurRow(index, cls);
 	}
@@ -292,10 +290,7 @@ export class HighlightView {
 			return noop;
 		}
 
-		return () =>
-			Fastdom.mutate(() => {
-				table.body.row(index).removeClass(`${GRID_PREFIX}-${cls}`);
-			});
+		return () => Fastdom.mutate(() => table.body.row(index).removeClass(`${GRID_PREFIX}-${cls}`));
 	}
 
 	highlightCell(cell, cls) {
@@ -307,9 +302,6 @@ export class HighlightView {
 	}
 
 	blurCell(cell, cls) {
-		return () =>
-			Fastdom.mutate(() => {
-				cell.removeClass(`${GRID_PREFIX}-${cls}`);
-			});
+		return () => Fastdom.mutate(() => cell.removeClass(`${GRID_PREFIX}-${cls}`));
 	}
 }

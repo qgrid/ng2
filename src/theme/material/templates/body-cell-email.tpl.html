@@ -7,7 +7,8 @@
     <button class="q-grid-url-edit q-grid-edit-trigger"
             color="primary"
             mat-icon-button
-            matTooltip='Edit Email'
+            matTooltip="Edit Email"
+            [matTooltipShowDelay]="800"
             [matTooltipPosition]="'before'"
             aria-label="'email'"
             (disabled)="!$view.edit.cell.enter.canExecute($cell)"

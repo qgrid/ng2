@@ -13,7 +13,7 @@ export class SelectorFactory {
 	create() {
 		const bag = this.bag;
 		const selectorMark = this.selectorMark;
-		const matrix = new Matrix(tr => bag.models.has(tr));
+		const matrix = new Matrix(tr => bag.elements.has(tr));
 		const entries =
 			selectorMark
 				.select()

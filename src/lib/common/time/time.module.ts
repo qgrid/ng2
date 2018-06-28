@@ -6,8 +6,8 @@ import { TimeDirective } from './time.directive';
 		TimeDirective
 	],
 	exports: [
-		TimeDirective 
+		TimeDirective
 	]
 })
-export class TimeModule { 
+export class TimeModule {
 }

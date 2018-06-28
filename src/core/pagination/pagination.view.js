@@ -11,10 +11,14 @@ export class PaginationView {
 							return;
 						}
 
+						if (model.scroll().mode === 'virtual') {
+							return;
+						}
+
 						const trigger = triggers[name];
 						for (const key of trigger) {
 							if (e.hasChanges(key)) {
-								model.pagination({ current: 0 }, { source: 'pagination.view' });
+								model.pagination({ current: 0 }, { source: e.tag.source || 'pagination.view' });
 							}
 						}
 					}));

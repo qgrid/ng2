@@ -21,6 +21,7 @@ import { ExampleColumnFileBasicComponent } from './column-file-basic/example-col
 import { ExampleColumnIdBasicComponent } from './column-id-basic/example-column-id-basic.component';
 import { ExampleColumnImageBasicComponent } from './column-image-basic/example-column-image-basic.component';
 import { ExampleColumnListBasicComponent } from './column-list-basic/example-column-list-basic.component';
+import { ExampleColumnListLoopComponent } from './column-list-loop/example-column-list-loop.component';
 import { ExampleColumnNumberBasicComponent } from './column-number-basic/example-column-number-basic.component';
 import { ExampleColumnPasswordBasicComponent } from './column-password-basic/example-column-password-basic.component';
 import { ExampleColumnReferenceBasicComponent } from './column-reference-basic/example-column-reference-basic.component';
@@ -104,6 +105,9 @@ import { ExampleSelectCellBasicComponent } from './select-cell-basic/example-sel
 import { ExampleSelectColumnBasicComponent } from './select-column-basic/example-select-column-basic.component';
 import { ExampleSelectMixBasicComponent } from './select-mix-basic/example-select-mix-basic.component';
 import { ExampleSelectRowBasicComponent } from './select-row-basic/example-select-row-basic.component';
+import { ExampleSizeColumnAbsoluteComponent } from './size-column-absolute/example-size-column-absolute.component';
+import { ExampleSizeColumnBasicComponent } from './size-column-basic/example-size-column-basic.component';
+import { ExampleSizeColumnFullComponent } from './size-column-full/example-size-column-full.component';
 import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-basic.component';
 import { ExampleSortRowBasicComponent } from './sort-row-basic/example-sort-row-basic.component';
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
@@ -129,6 +133,7 @@ const EXAMPLES: Array<any> = [
 	ExampleColumnIdBasicComponent,
 	ExampleColumnImageBasicComponent,
 	ExampleColumnListBasicComponent,
+	ExampleColumnListLoopComponent,
 	ExampleColumnNumberBasicComponent,
 	ExampleColumnPasswordBasicComponent,
 	ExampleColumnReferenceBasicComponent,
@@ -212,6 +217,9 @@ const EXAMPLES: Array<any> = [
 	ExampleSelectColumnBasicComponent,
 	ExampleSelectMixBasicComponent,
 	ExampleSelectRowBasicComponent,
+	ExampleSizeColumnAbsoluteComponent,
+	ExampleSizeColumnBasicComponent,
+	ExampleSizeColumnFullComponent,
 	ExampleSizeRowBasicComponent,
 	ExampleSortRowBasicComponent,
 	ExampleStyleCellBasicComponent,

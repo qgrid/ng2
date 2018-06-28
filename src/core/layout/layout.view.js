@@ -29,12 +29,6 @@ export class LayoutView extends Disposable {
 	onInit() {
 		const model = this.model;
 
-		model.sceneChanged.watch(e => {
-			if (e.hasChanges('column')) {
-				this.invalidateColumns();
-			}
-		});
-
 		const styleRow = this.styleRow.bind(this);
 		model.layoutChanged.watch(e => {
 			if (e.tag.source === 'layout.view') {
@@ -58,6 +52,29 @@ export class LayoutView extends Disposable {
 					rows.splice(index, 1);
 				}
 				model.style({ rows }, { source: 'layout.view' });
+			}
+		});
+
+		model.dataChanged.watch(e => {
+			if (e.hasChanges('columns')) {
+				model.layout({
+					columns: new Map()
+				}, {
+						source: 'layout.view',
+						behavior: 'core'
+					});
+			}
+		});
+
+		model.sceneChanged.watch(e => {
+			if (e.hasChanges('column')) {
+				this.invalidateColumns();
+			}
+
+			if (e.hasChanges('status')) {
+				if (e.state.status === 'stop') {
+					this.updateColumnForm();
+				}
 			}
 		});
 	}
@@ -87,8 +104,9 @@ export class LayoutView extends Disposable {
 
 		const { column } = this.model.navigation();
 		if (column && column.viewWidth) {
-			const viewForm = new Map(form);
-			viewForm.set(column.key, { width: column.viewWidth });
+			const viewForm = new Map(form)
+			const columnForm = form.get(column.key);
+			viewForm.set(column.key, { width: columnForm ? Math.max(columnForm.width, column.viewWidth) : column.viewWidth });
 			return viewForm;
 		}
 

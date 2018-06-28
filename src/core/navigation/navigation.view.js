@@ -149,11 +149,11 @@ export class NavigationView {
 	}
 
 	scroll(view, target) {
+		const { scroll } = this.model;
 		Fastdom.measure(() => {
 			const tr = target.rect();
 			const vr = view.rect();
-			const oldScrollState = this.model.scroll();
-			const newScrollState = {};
+			const state = {};
 
 			if (view.canScrollTo(target, 'left')) {
 				if (vr.left > tr.left
@@ -162,10 +162,10 @@ export class NavigationView {
 					|| vr.right < tr.right) {
 
 					if (vr.width < tr.width || vr.left > tr.left || vr.left > tr.right) {
-						newScrollState.left = tr.left - vr.left + oldScrollState.left;
+						state.left = tr.left - vr.left + scroll().left;
 					}
 					else if (vr.left < tr.left || vr.right < tr.right) {
-						newScrollState.left = tr.right - vr.right + oldScrollState.left;
+						state.left = tr.right - vr.right + scroll().left;
 					}
 				}
 			}
@@ -177,16 +177,16 @@ export class NavigationView {
 					|| vr.bottom < tr.bottom) {
 
 					if (vr.height < tr.height || vr.top > tr.top || vr.top > tr.bottom) {
-						newScrollState.top = tr.top - vr.top + oldScrollState.top;
+						state.top = tr.top - vr.top + scroll().top;
 					}
 					else if (vr.top < tr.top || vr.bottom < tr.bottom) {
-						newScrollState.top = tr.bottom - vr.bottom + oldScrollState.top;
+						state.top = tr.bottom - vr.bottom + scroll().top;
 					}
 				}
 			}
 
-			if (Object.keys(newScrollState).length) {
-				this.model.scroll(newScrollState, { bevavior: 'core', source: 'navigation.view' });
+			if (Object.keys(state).length) {
+				scroll(state, { behavior: 'core', source: 'navigation.view' });
 			}
 		});
 	}

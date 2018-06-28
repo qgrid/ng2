@@ -6,8 +6,9 @@ import { CellView } from 'ng2-qgrid/core/scene/view/cell.view';
 import { ModelEventArg } from 'ng2-qgrid/core/infrastructure/model';
 import { NavigationModel } from 'ng2-qgrid/core/navigation/navigation.model';
 import { Td } from 'ng2-qgrid/core/dom/td';
+import { noop } from 'ng2-qgrid/core/utility/kit';
 import { RootService } from '../../../infrastructure/component/root.service';
-import { ViewCoreService } from '../../../main/core/view/view-core.service';
+import { ViewCoreComponent } from '../view/view-core.component';
 
 @Component({
 	selector: 'q-grid-cell-handler',
@@ -20,7 +21,10 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private initialSelectionMode: 'single' | 'multiple' | 'range' = null;
 	private initialEditState: 'view' | 'edit' | 'startBatch' | 'endBatch' = null;
 
-	constructor(private element: ElementRef, private root: RootService, private view: ViewCoreService) {
+	constructor(
+		private element: ElementRef,
+		private root: RootService
+	) {
 		this.element.nativeElement.style.display = 'none';
 	}
 
@@ -136,7 +140,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 					}
 
 					if (cell) {
-						job(() => Fastdom.mutate(() => oldCell.element.appendChild(this.marker.nativeElement)));
+						job(() => Fastdom.mutate(() => cell.element.appendChild(this.marker.nativeElement)));
 					}
 
 					oldCell = cell;

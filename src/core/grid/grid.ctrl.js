@@ -11,12 +11,13 @@ export class GridCtrl extends Disposable {
 	constructor(model, context) {
 		super();
 
-		const grid = model.grid;
+		this.model = model;
+
+		const { grid } = model;
 		if (grid().status === 'bound') {
-			throw new AppError('grid', `Model is already used by grid "${grid().id}"`);
+			throw new AppError('grid.ctrl', `Model is already used by grid "${grid().id}"`);
 		}
 
-		this.model = model;
 		this.markup = { document };
 
 		this.bag = {

@@ -57,8 +57,7 @@ export class PipeModel {
 				'size': PU.default
 			},
 			'fetch': {
-				'skip': PU.default,
-				'round': PU.default
+				'skip': PU.default
 			},
 			'sort': {
 				'by': PU.default
@@ -86,5 +85,7 @@ export class PipeModel {
 				'index': PU.row
 			}
 		};
+
+		this.effect = {};
 	}
 }

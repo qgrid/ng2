@@ -1,9 +1,4 @@
-import {
-	Component,
-	ViewContainerRef,
-	ContentChild,
-	ViewChild
-} from '@angular/core';
+import { Component } from '@angular/core';
 import { LayerService } from './layer.service';
 
 @Component({

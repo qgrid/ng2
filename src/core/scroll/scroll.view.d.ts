@@ -6,7 +6,7 @@ import { GridService } from '../services/grid';
  * > Under Construction.
  */
 export declare class ScrollView {
-	constructor(model: Model, table: Table, vscroll: any);
+	constructor(model: Model, table: Table, vscroll: any, gridService: GridService);
 
 	readonly mode: 'virtual' | 'default';
 	readonly y: {

@@ -4,6 +4,7 @@ tbody {
     tr {
         &.q-grid-scroll-mark {
             height: 0;
+            border: none;
         }
     }
 }

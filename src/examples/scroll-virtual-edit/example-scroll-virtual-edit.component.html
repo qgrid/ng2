@@ -1,6 +1,7 @@
 <q-grid caption="Scroll Virtual Edit"
         scrollMode="virtual"
-        [rows]="rows | async">
+        [rows]="rows | async"
+        editMethod="batch">
     <q-grid-columns generation="deep">
         <q-grid-column key="rowIndicator"
                        type="row-indicator">
