@@ -1,4 +1,3 @@
-import { CellEditorComponent } from './../../plugins/cell-editor/cell-editor.component';
 import {
 	Directive,
 	Renderer2,
