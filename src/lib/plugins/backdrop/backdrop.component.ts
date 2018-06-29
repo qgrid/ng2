@@ -15,7 +15,7 @@ import {
 
 import { BackdropView } from 'ng2-qgrid/plugin/backdrop/backdrop.view';
 
-export const EDITORTRIGGER = new InjectionToken<any>('EDITORTRIGGER');
+export const EDITOR = new InjectionToken<any>('EDITOR');
 
 @Component({
 	selector: 'q-grid-backdrop',
@@ -31,7 +31,7 @@ export class BackdropComponent {
 	};
 
 	constructor(element: ElementRef, injector: Injector) {
-		const editorTrigger = injector.get(EDITORTRIGGER);
+		const editorTrigger = injector.get(EDITOR);
 
 		const context = {
 			element: element.nativeElement,

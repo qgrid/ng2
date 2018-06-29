@@ -7,8 +7,7 @@ import {
 	Injector,
 	ReflectiveInjector
 } from '@angular/core';
-import { BackdropComponent, EDITORTRIGGER } from '../backdrop/backdrop.component';
-import { isNull } from '@angular/compiler/src/output/output_ast';
+import { BackdropComponent, EDITOR } from '../backdrop/backdrop.component';
 
 @Component({
 	selector: 'q-grid-cell-editor',
@@ -31,7 +30,7 @@ export class CellEditorComponent {
 			close: () => this.close()
 		};
 
-		this.backdropInjector = ReflectiveInjector.resolveAndCreate([{ provide: EDITORTRIGGER, useValue: editorTrigger }], injector);
+		this.backdropInjector = ReflectiveInjector.resolveAndCreate([{ provide: EDITOR, useValue: editorTrigger }], injector);
 	}
 
 	context: { $implicit: CellEditorComponent } = {

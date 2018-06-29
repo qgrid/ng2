@@ -6,8 +6,7 @@ import {
 	Output,
 	EventEmitter,
 	AfterViewInit,
-	Optional,
-
+	Optional
 } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
