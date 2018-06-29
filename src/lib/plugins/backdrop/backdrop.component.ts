@@ -8,9 +8,14 @@ import {
 	OnDestroy,
 	ElementRef,
 	ChangeDetectionStrategy,
+	Inject,
+	Injector,
+	InjectionToken,
 } from '@angular/core';
 
 import { BackdropView } from 'ng2-qgrid/plugin/backdrop/backdrop.view';
+
+export const EDITORTRIGGER = new InjectionToken<any>('EDITORTRIGGER');
 
 @Component({
 	selector: 'q-grid-backdrop',
@@ -25,7 +30,9 @@ export class BackdropComponent {
 		$implicit: this
 	};
 
-	constructor(element: ElementRef) {
+	constructor(element: ElementRef, injector: Injector) {
+		const editorTrigger = injector.get(EDITORTRIGGER);
+
 		const context = {
 			element: element.nativeElement,
 			onKeyDown: () => { },
@@ -33,6 +40,6 @@ export class BackdropComponent {
 		};
 
 		const backdrop = new BackdropView(context);
-		backdrop.closeEvent.on(() => this.closeEvent.emit());
+		backdrop.closeEvent.on(() => editorTrigger.close());
 	}
 }

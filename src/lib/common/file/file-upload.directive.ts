@@ -8,7 +8,7 @@ import {
 	EventEmitter,
 	AfterViewInit,
 	Optional,
-	ViewChild
+
 } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
@@ -23,11 +23,14 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 	@Input('q-grid-file-upload') uploder: any;
 
 	private reader: FileReader;
-	private backdrop: HTMLElement;
 	private listener: any;
 
 	private get file(): any {
 		return this.uploder.cell.value;
+	}
+
+	private get backdropHandler(): any {
+		return this.uploder.editor.backdropHandler;
 	}
 
 	private set file(value: any) {
@@ -64,14 +67,13 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 	}
 
 	onFocus(e) {
-		if (this.backdrop.hidden) {
+		if (!this.backdropHandler.visible()) {
 			this.revealBackdrop();
 		}
 	}
 
 	onClick() {
-		this.backdrop = document.querySelector('.q-grid-backdrop');
-		this.hideBackdrop()
+		this.hideBackdrop();
 
 		this.file = null;
 		this.uploder.cell.label = null;
@@ -100,10 +102,10 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 	}
 
 	hideBackdrop() {
-		this.backdrop.hidden = true;
+		this.backdropHandler.close();
 	}
 
 	revealBackdrop() {
-		setTimeout(() => this.backdrop.hidden = false, 300);
+		setTimeout(() => this.backdropHandler.open(), 300);
 	}
 }

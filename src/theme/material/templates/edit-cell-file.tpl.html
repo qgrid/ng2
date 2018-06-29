@@ -1,7 +1,7 @@
 <ng-template key='edit-cell-file.tpl.html'
              let-$cell
              let-$view="$view">
-    <q-grid-cell-editor class="q-grid-editor q-grid-file q-grid-position"
+    <q-grid-cell-editor class="q-grid-editor q-grid-file q-grid-position" #editor
                         (close)="$view.edit.cell.cancel.execute($cell)"
                         q-grid-position="td">
         <ng-template>
@@ -20,7 +20,7 @@
                             <span *ngSwitchCase="true">Drag and drop or click to replace </span>
                         </div>
                     </div>
-                    <input [q-grid-file-upload]="{ canUpload: $cell.column.canUpload, cell: $view.edit.cell }"
+                    <input [q-grid-file-upload]="{ canUpload: $cell.column.canUpload, cell: $view.edit.cell, editor: editor }"
                            type="file" />
                     <div class="q-grid-file-preview"
                          *ngIf="$cell.column.hasPreview($view.edit.cell.label)">
