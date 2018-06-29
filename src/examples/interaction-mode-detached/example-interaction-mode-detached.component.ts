@@ -16,6 +16,6 @@ export class ExampleInteractionModeDetachedComponent {
 	}
 
 	testDetached() {
-		alert(':-(');
+		alert(':-)');
 	}
 }
