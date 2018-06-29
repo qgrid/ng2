@@ -29,12 +29,12 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 		return this.uploder.cell.value;
 	}
 
-	private get backdropHandler(): any {
-		return this.uploder.editor.backdropHandler;
-	}
-
 	private set file(value: any) {
 		this.uploder.cell.value = value;
+	}
+
+	private get backdropHandler(): any {
+		return this.uploder.editor.backdropHandler;
 	}
 
 	constructor(
@@ -67,7 +67,7 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 	}
 
 	onFocus(e) {
-		if (!this.backdropHandler.visible()) {
+		if (!this.backdropHandler.isVisible()) {
 			this.revealBackdrop();
 		}
 	}
