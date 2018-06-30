@@ -5,10 +5,10 @@ export class Json {
 		const result = [];
 
 		for (let row of rows) {
-			const rowObj = flatView(row);
+			const flatRow = flatView(row);
 			const obj = {};
 			for (let column of columns) {
-				obj[ column.title ] = rowObj[ column.key ];
+				obj[column.title] = flatRow[column.key];
 			}
 			result.push(obj);
 		}
