@@ -72,15 +72,15 @@ export class ExportView {
 		});
 	}
 
-	get id() {
-		return this.model.grid().id;
+	get columns() {
+		return this.model.columnList().line;
 	}
 
 	get rows() {
 		return this.model.data().rows;
 	}
 
-	get columns() {
-		return this.model.columnList().line;
+	get id() {
+		return this.model.grid().id;
 	}
 }

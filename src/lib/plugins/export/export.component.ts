@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ContentChild, Input, TemplateRef } from '@angular/core';
 import { PluginService } from '../plugin.service';
-import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { ExportView } from 'ng2-qgrid/plugin/export/export.view';
 import { Action } from 'ng2-qgrid/core/action/action';
@@ -46,17 +45,4 @@ export class ExportComponent implements AfterViewInit {
 				source: 'export.component'
 			});
 	}
-
-	get rows() {
-		return this.plugin.model.data().rows;
-	}
-
-	get columns(): ColumnModel[] {
-		return this.plugin.model.columnList().line;
-	}
-
-	get id() {
-		return this.plugin.model.grid().id;
-	}
 }
-

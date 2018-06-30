@@ -1,12 +1,11 @@
 import {flatView} from '../export.service';
 
-function updateTitles(rows, titles) {
+function updateTitles(rows, columns) {
 	const result = [];
 	for (let row of rows) {
 		const obj = {};
-		const values = Object.values(row);
-		for (let i = 0; i < titles.length; i++) {
-			obj[titles[i]] = values[i];
+		for (let column of columns) {
+			obj[column.title] = row[column.key];
 		}
 		result.push(obj);
 	}
@@ -15,16 +14,12 @@ function updateTitles(rows, titles) {
 
 export class Json {
 	write(rows, columns) {
-		const titles = [];
 		const result = [];
 
 		for (let row of rows) {
 			result.push(flatView(row));
 		}
-		for (let column of columns) {
-			titles.push(column.title);
-		}
 
-		return updateTitles(result, titles);
+		return updateTitles(result, columns);
 	}
 }
