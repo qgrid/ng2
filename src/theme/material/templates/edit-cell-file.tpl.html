@@ -1,7 +1,8 @@
 <ng-template key='edit-cell-file.tpl.html'
              let-$cell
              let-$view="$view">
-    <q-grid-cell-editor class="q-grid-editor q-grid-file q-grid-position" #editor
+    <q-grid-cell-editor class="q-grid-editor q-grid-file q-grid-position"
+                        #editor
                         (close)="$view.edit.cell.cancel.execute($cell)"
                         q-grid-position="td">
         <ng-template>
