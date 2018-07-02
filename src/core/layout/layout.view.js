@@ -96,7 +96,11 @@ export class LayoutView extends Disposable {
 				form.set(key, { width: layout.get(key).width });
 			} else {
 				const th = head.cell(rowIndex, columnIndex);
-				form.set(key, { width: th.width() });
+				const width = th.width();
+				// It can be that clientWidth is zero on start, while css is not applied.
+				if (width) {
+					form.set(key, { width });
+				}
 			}
 		}
 
@@ -117,11 +121,12 @@ export class LayoutView extends Disposable {
 		Log.info('layout', 'invalidate columns');
 
 		const table = this.table;
-		const getWidth = columnService.widthFactory(table, form);
 		const columns = table.data.columns();
-		const style = {};
+		const getWidth = columnService.widthFactory(table, form);
 
-		let length = columns.length;
+		const style = {};
+		let { length } = columns;
+
 		while (length--) {
 			const column = columns[length];
 			const width = getWidth(column.key);
@@ -156,8 +161,8 @@ export class LayoutView extends Disposable {
 	dispose() {
 		super.dispose();
 
-		const columnSheet = css.sheet(this.gridId, 'layout-column');
-		columnSheet.remove();
+		const sheet = css.sheet(this.gridId, 'layout-column');
+		sheet.remove();
 	}
 
 	get gridId() {

@@ -9,13 +9,15 @@ import { Observable } from 'rxjs';
 	providers: [DataService]
 })
 export class ExampleInteractionModeDetachedComponent {
-	rows: Observable<Atom[]>;
+	rows: Atom[];
 
 	constructor(dataService: DataService) {
-		this.rows = dataService.getAtoms();
+		dataService
+			.getAtoms()
+			.subscribe(rows => this.rows = rows);
 	}
 
 	testDetached() {
-		alert(':-(');
+		alert(':-)');
 	}
 }

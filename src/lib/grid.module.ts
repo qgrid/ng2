@@ -46,19 +46,9 @@ export class GridModule {
 		FormatService.date = (x, format) => datePipe.transform(x, format);
 		FormatService.number = (x, format) => numberPipe.transform(x, format);
 		FormatService.currency = (x, format) => currencyPipe.transform(x, format);
-		
 
-		jobLine.run = (job, delay) => {
-			const defer = new Defer();
 
-			let token;
-			zone.runOutsideAngular(() => token = setTimeout(job, delay));
-			defer.promise.catch(() => clearTimeout(token));
-
-			return defer;
-		};
-
-		Fastdom.invoke = task => zone.runOutsideAngular(task);
+		Fastdom.invoke = task => zone.runOutsideAngular<any>(task);
 
 		setup(Model);
 	}

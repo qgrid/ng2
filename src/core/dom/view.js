@@ -25,7 +25,7 @@ export class View extends Unit {
 	}
 
 	columns() {
-		const column = this.model.scene().column;
+		const { column } = this.model.scene();
 		return column.line;
 	}
 

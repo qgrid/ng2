@@ -47,7 +47,7 @@ export class ViewCtrl {
 		let sessionUnits = [];
 
 		return (source, changes, units) => {
-			model.scene({ status: 'start', round: 0 }, {
+			model.scene({ status: 'start' }, {
 				source
 			});
 

@@ -14,6 +14,6 @@ export class Fastdom {
     }
 
     static invoke(task) {
-        task();
+        return task();
     }
 }

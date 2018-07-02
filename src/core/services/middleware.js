@@ -4,24 +4,24 @@ export class Middleware {
 	}
 
 	run(context, memo = []) {
-		const pipes = this.pipes
+		const tasks = this.pipes
 			.map(pipe => memo =>
 				new Promise((resolve, reject) =>
 					pipe(memo, context, resolve, reject)));
 
-		return start(pipes, memo);
+		return start(tasks, memo);
 	}
 }
 
-function start(pipes, memo) {
-	pipes = Array.from(pipes);
+function start(tasks, memo) {
+	tasks = Array.from(tasks);
 	return new Promise((resolve, reject) => {
 		invoke(memo);
 
 		function invoke(memo) {
-			if (pipes.length) {
-				const pipe = pipes.shift();
-				const promise = pipe(memo);
+			if (tasks.length) {
+				const task = tasks.shift();
+				const promise = task(memo);
 				promise
 					.then(invoke)
 					.catch(ex => {

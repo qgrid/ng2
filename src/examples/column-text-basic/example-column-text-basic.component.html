@@ -2,6 +2,12 @@
         [rows]="rows"
         editMode="cell">
 	<q-grid-columns>
+		<q-grid-column key="textArea"
+		               title="Text Area"
+		               editor="text-area"
+		               viewWidth="300"
+		               type="text">
+		</q-grid-column>
 		<q-grid-column key="number"
 		               title="Number"
 		               type="text">
@@ -27,14 +33,8 @@
 		               type="text">
 		</q-grid-column>
 		<q-grid-column key="maxLength2"
-					   title="Max Length 2"
-					   maxLength="2"
-		               type="text">
-		</q-grid-column>
-		<q-grid-column key="textArea"
-					   title="Text Area"
-					   editor="text-area"
-					   viewWidth="300"
+		               title="Max Length 2"
+		               maxLength="2"
 		               type="text">
 		</q-grid-column>
 		<q-grid-column key="customTemplate"

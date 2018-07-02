@@ -56,6 +56,7 @@ import { ExampleFocusCellBasicComponent } from './focus-cell-basic/example-focus
 import { ExampleGenerateColumnCohortComponent } from './generate-column-cohort/example-generate-column-cohort.component';
 import { ExampleGenerateColumnDeepComponent } from './generate-column-deep/example-generate-column-deep.component';
 import { ExampleGenerateColumnShallowComponent } from './generate-column-shallow/example-generate-column-shallow.component';
+import { ExampleGridListBasicComponent } from './grid-list-basic/example-grid-list-basic.component';
 import { ExampleGroupColumnBasicComponent } from './group-column-basic/example-group-column-basic.component';
 import { ExampleGroupRowAggregationComponent } from './group-row-aggregation/example-group-row-aggregation.component';
 import { ExampleGroupRowBasicComponent } from './group-row-basic/example-group-row-basic.component';
@@ -65,6 +66,7 @@ import { ExampleGroupRowRowspanComponent } from './group-row-rowspan/example-gro
 import { ExampleGroupRowSubheadComponent } from './group-row-subhead/example-group-row-subhead.component';
 import { ExampleGroupRowSummaryComponent } from './group-row-summary/example-group-row-summary.component';
 import { ExampleHierarchyBrowserBasicComponent } from './hierarchy-browser-basic/example-hierarchy-browser-basic.component';
+import { ExampleImportBasicComponent } from './import-basic/example-import-basic.component';
 import { ExampleIndexColumnBasicComponent } from './index-column-basic/example-index-column-basic.component';
 import { ExampleIndexColumnHybridComponent } from './index-column-hybrid/example-index-column-hybrid.component';
 import { ExampleIndexColumnModelComponent } from './index-column-model/example-index-column-model.component';
@@ -117,7 +119,6 @@ import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggre
 import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/example-summary-column-basic.component';
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
-import { ExampleImportBasicComponent } from './import-basic/example-import-basic.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -169,6 +170,7 @@ const EXAMPLES: Array<any> = [
 	ExampleGenerateColumnCohortComponent,
 	ExampleGenerateColumnDeepComponent,
 	ExampleGenerateColumnShallowComponent,
+	ExampleGridListBasicComponent,
 	ExampleGroupColumnBasicComponent,
 	ExampleGroupRowAggregationComponent,
 	ExampleGroupRowBasicComponent,
@@ -229,7 +231,7 @@ const EXAMPLES: Array<any> = [
 	ExampleSummaryColumnAggregationComponent,
 	ExampleSummaryColumnBasicComponent,
 	ExampleThemeGridDarkComponent,
-	ExampleThemeGridEmbedComponent
+	ExampleThemeGridEmbedComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;

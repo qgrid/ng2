@@ -17,6 +17,10 @@ export class EditFormComponent implements OnInit, OnDestroy {
 
 	private editors: CellEditor[];
 
+	context: { $implicit: EditFormComponent } = {
+		$implicit: this
+	};
+
 	constructor(private plugin: PluginService) {
 	}
 
@@ -31,7 +35,6 @@ export class EditFormComponent implements OnInit, OnDestroy {
 	}
 
 	getKey(column: ColumnModel): string {
-		console.log(`edit-form-${column.editor ? column.editor : column.type}.tpl.html`);
 		return column.type ? `edit-form-${column.editor ? column.editor : column.type}.tpl.html` : 'edit-form-default.tpl.html';
 	}
 }

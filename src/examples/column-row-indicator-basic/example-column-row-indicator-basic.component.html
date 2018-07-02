@@ -3,6 +3,8 @@
         editMode="cell">
 	<q-grid-columns>
 		<q-grid-column key="default"
+			       title="Default Template"
+			       width="150"
 		               type="row-indicator">
 		</q-grid-column>		
 		<q-grid-column key="customTemplate"
@@ -11,7 +13,7 @@
 		               type="row-number">
 			<ng-template for="body"
 			             let-$cell>
-				<strong>>></strong>
+				<strong>&rarr;</strong>
 			</ng-template>			
 		</q-grid-column>
 	</q-grid-columns>

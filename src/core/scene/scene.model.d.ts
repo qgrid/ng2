@@ -8,16 +8,14 @@ import { RowView } from './view/row.view';
  * [table.js](https://github.com/qgrid/ng2/blob/master/src/core/dom/table.js)
  */
 export declare interface SceneModel {
-	/**
-	 * Number of invalidations in queue. Is used to understand when dom is ready.
-	 */
-	round?: number;
 
 	/**
 	 * Status of invalidation.
 	 *
-	 * * `'start'` refresh was began.
-	 * * `'stop'` refresh was finished.
+	 * * `start` request to refresh the q-grid.
+	 * * `pull` request to propagate a q-grid model to the UI.
+	 * * `push` request UI to draw a model.
+	 * * `stop` scene in the stable state.
 	 */
 	status?: string;
 

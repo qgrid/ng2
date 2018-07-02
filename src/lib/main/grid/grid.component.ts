@@ -167,7 +167,7 @@ export class GridComponent extends RootComponent implements OnInit {
 		const listener = new EventListener(element, new EventManager(this));
 		const windowListener = new EventListener(element, new EventManager(this));
 
-		this.using(windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl)));
+		this.zone.runOutsideAngular(() => this.using(windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl))));
 
 		const { debounce } = model.navigation();
 		if (debounce) {

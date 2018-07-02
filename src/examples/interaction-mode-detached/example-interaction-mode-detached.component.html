@@ -1,12 +1,16 @@
 <q-grid caption="Interaction Mode Detached"
         interactionMode="detached"
-        [rows]="rows | async">
+        [rows]="rows">
         <q-grid-columns generation="deep">
-                <q-grid-column key="test" title="Test Detached" index="0">
+                <q-grid-column key="test"
+                               title="Test Detached"
+                               index="0"
+                               canFilter="false"
+                               canSort="false">
                         <ng-template for="body">
                                 <button mat-button
                                         (click)="testDetached()">
-                                        No Alert
+                                        Alert
                                 </button>
                         </ng-template>
                 </q-grid-column>
