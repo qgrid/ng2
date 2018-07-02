@@ -13,6 +13,6 @@ export class Json {
 			result.push(obj);
 		}
 
-		return JSON.stringify(result, '', 4);
+		return JSON.stringify(result, '', 2);
 	}
 }
