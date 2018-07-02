@@ -1,0 +1,17 @@
+<ng-template key="plugin-eb-input.tpl.html"
+             let-$expr>
+	<mat-form-field floatLabel="never"
+	                q-grid-autosize="input"
+						 [q-grid-autisize-value]="$expr.value"
+	                [q-grid-eb-class]="$expr.classes"
+	                [q-grid-eb-class-model]="$expr"
+	                matTooltip="{{$expr.state && $expr.state.join(', ')}}"
+	                matTooltipPosition="after"
+	                matTooltipShowDelay="500"
+	                matTooltipClass="q-grid-query-builder-error-tooltip">
+		<input matInput
+		       [(ngModel)]="$expr.value"
+		       (input)="$expr.change && $expr.change();$expr.refresh && $expr.refresh()"
+		       [placeholder]="$expr.placeholderText" />
+	</mat-form-field>
+</ng-template>

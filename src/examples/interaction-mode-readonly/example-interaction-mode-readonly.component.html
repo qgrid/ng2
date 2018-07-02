@@ -1,0 +1,16 @@
+<q-grid caption="Interaction Mode Readonly"
+        interactionMode="readonly"
+        [rows]="rows | async">
+        <q-grid-columns generation="deep">
+                <q-grid-column key="test"
+                               title="Test Detached"
+                               index="0">
+                        <ng-template for="body">
+                                <button mat-button
+                                        (click)="testAttached()">
+                                        Alert
+                                </button>
+                        </ng-template>
+                </q-grid-column>
+        </q-grid-columns>
+</q-grid>

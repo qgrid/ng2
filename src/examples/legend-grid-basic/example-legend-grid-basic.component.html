@@ -1,0 +1,34 @@
+<q-grid caption="Legend Grid Basic"
+        [rows]="rows | async">
+
+	<q-grid-columns generation="deep">
+		<q-grid-column key="legend"
+		               type="row-indicator"
+		               width="50">
+			<ng-template for="body"
+			             let-$cell>
+				<div class="q-grid-legend-item"
+				     [ngClass]=$cell.row.phase></div>
+			</ng-template>
+		</q-grid-column>
+	</q-grid-columns>
+
+	<q-grid-legend>
+		<ng-template for="content">
+			<ul class="q-grid-legend-list">
+				<li>
+					<div class="q-grid-legend-item Gas"></div>
+					Gas
+				</li>
+				<li>
+					<div class="q-grid-legend-item Solid"></div>
+					Solid
+				</li>
+				<li>
+					<div class="q-grid-legend-item Liquid"></div>
+					Liquid
+				</li>
+			</ul>
+		</ng-template>
+	</q-grid-legend>
+</q-grid>

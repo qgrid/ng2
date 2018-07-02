@@ -1,0 +1,61 @@
+<q-grid caption="Column Time Basic"
+        [rows]="rows"
+        editMode="cell">
+	<q-grid-columns>
+		<q-grid-column key="number"
+		               title="Number"
+		               type="time">
+		</q-grid-column>
+		<q-grid-column key="bool"
+		               title="Bool"
+		               type="time">
+		</q-grid-column>
+		<q-grid-column key="date"
+		               title="Date"
+		               type="time">
+		</q-grid-column>
+		<q-grid-column key="null"
+		               title="Null"
+		               type="time">
+		</q-grid-column>
+		<q-grid-column key="undefined"
+		               title="Undefined"
+		               type="time">
+		</q-grid-column>
+		<q-grid-column key="empty"
+		               title="Empty"
+		               type="time">
+		</q-grid-column>
+		<q-grid-column key="format"
+					   title="Format"
+					   format="mediumTime"
+		               type="time">
+		</q-grid-column>
+		<q-grid-column key="text"
+		               title="Text"
+		               type="time">
+		</q-grid-column>
+		<q-grid-column key="customTemplate"
+					   title="Custom Template"
+					   width="200"
+					   format="fullTime"
+		               type="time">
+			<ng-template for="body"
+			             let-$cell>
+				<em>{{$cell.value | date: $cell.column.format}}</em>
+			</ng-template>
+			<ng-template for="edit"
+			             let-$cell
+			             let-$view="$view">
+				<input type="time"
+					   style="width: 100%"
+					   *q-grid-time="let time='time'"
+					   q-grid-focus
+					   #input
+					   [value]="$view.edit.cell.value | date: 'hh:mm'"
+                       (change)="$view.edit.cell.value = time($view.edit.cell.value, input.value)"		       
+				       (blur)="$view.edit.cell.exit.execute($cell)" />
+			</ng-template>
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

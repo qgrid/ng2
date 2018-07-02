@@ -2,8 +2,8 @@
              let-$editor>
     <mat-checkbox aria-label="Bool cell edit"
                   class="q-grid-checkbox"
-                  q-grid-focus="input"
+                  #checkbox
+                  [q-grid-focus]="checkbox"
                   [(ngModel)]="$editor.value">
     </mat-checkbox>
-
 </ng-template>

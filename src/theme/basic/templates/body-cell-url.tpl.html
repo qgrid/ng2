@@ -1,0 +1,7 @@
+<ng-template key='body-cell-url.tpl.html'
+             let-$cell
+             let-$view="$view">
+    <a [attr.href]='$cell.value'>
+       {{$cell.label || $cell.value}}
+    </a>
+</ng-template>

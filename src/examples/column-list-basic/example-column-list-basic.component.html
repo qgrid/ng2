@@ -1,0 +1,58 @@
+<q-grid caption="Column List Basic"
+        [rows]="rows | async"
+        [ngSwitch]="group">
+	<q-grid-columns *ngSwitchCase="'name'">
+		<q-grid-column key="firstName"
+		               path="name.first"
+		               title="First Name">
+		</q-grid-column>
+		<q-grid-column key="lastName"
+		               path="name.last"
+		               title="Last Name">
+		</q-grid-column>
+	</q-grid-columns>
+
+	<q-grid-columns *ngSwitchCase="'address'">
+		<q-grid-column key="city"
+		               path="contact.address.city"
+		               title="City">
+		</q-grid-column>
+		<q-grid-column key="state"
+		               path="contact.address.state"
+		               title="State">
+		</q-grid-column>
+	</q-grid-columns>
+
+	<q-grid-columns *ngSwitchCase="'gender'">
+		<q-grid-column key="gender"
+		               title="Gender">
+		</q-grid-column>
+	</q-grid-columns>
+
+	<q-grid-columns *ngSwitchDefault>
+		<q-grid-column key="rowNumber"
+		               type="row-number">
+		</q-grid-column>
+	</q-grid-columns>
+
+	<q-grid-toolbar>
+		<ng-template for="top">
+			<button mat-button
+			        (click)="group = 'name'">
+				Name
+			</button>
+			<button mat-button
+			        (click)="group = 'address'">
+				Address
+			</button>
+			<button mat-button
+			        (click)="group = 'gender'">
+				Gender
+			</button>
+			<button mat-button
+			        (click)="group = ''">
+				Default
+			</button>
+		</ng-template>
+	</q-grid-toolbar>
+</q-grid>

@@ -1,14 +1,14 @@
 <ng-template key='body-cell-email.tpl.html'
              let-$cell
              let-$view="$view">
-    <a [href]="'mailto:$cell.value'"
-       (bind)="$cell.label || $cell.value">
-        {{$cell.value}}
+    <a href="mailto:{{$cell.value}}">
+        {{$cell.label || $cell.value}}
     </a>
     <button class="q-grid-url-edit q-grid-edit-trigger"
             color="primary"
             mat-icon-button
-            matTooltip='Edit Email'
+            matTooltip="Edit Email"
+            [matTooltipShowDelay]="800"
             [matTooltipPosition]="'before'"
             aria-label="'email'"
             (disabled)="!$view.edit.cell.enter.canExecute($cell)"

@@ -69,6 +69,12 @@
                             }
                         }
                     }
+                    &.q-grid-image {
+                        img {
+                            max-height: 24px;
+                            max-width: 24px;
+                        }
+                    }
                 }
             }
             &-legend {
@@ -86,7 +92,7 @@
             }
             &-progress {
                 &-linear {
-                    top: -15px;
+                    top: -10px;
                 }
             }
             &-pager {

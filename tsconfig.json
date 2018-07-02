@@ -1,58 +1,42 @@
 {
-	"compilerOptions": {
-		"target": "es5",
-		"module": "commonjs",
-		"moduleResolution": "node",
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
-		"allowSyntheticDefaultImports": true,
-		"sourceMap": true,
-		"noEmitHelpers": true,
-		"importHelpers": true,
-		"strictNullChecks": false,
-		"skipLibCheck": true,
-		"outDir": "./dist/",
-		"declaration": true,
-		"lib": [
-			"dom",
-			"es6",
-		],
-		"typeRoots": [
-			"node_modules/@types"
-		],
-		"types": [
-			"hammerjs",
-			"jasmine",
-			"node",
-			"uglify-js",
-			"webpack"
-		],
-		"baseUrl": ".",
-		"paths": {
-			"ng2-qgrid/core/*": [
-				"./core/*"
-			],
-			"ng2-qgrid/plugin/*": [
-				"./plugin/*"
-			],
-			"ng2-qgrid/*": [
-				"./src/*"
-			]
-		}
-	},
-	"files": [
-		"./src/index.ts"
-	],
-	"exclude": [
-		"node_modules",
-		"dist",
-		"dll",
-		"scripts",
-		"out-tsc"
-	],
-	"compileOnSave": true,
-	"buildOnSave": true,
-	"atom": {
-		"rewriteTsconfig": false
-	}
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types",
+      "src/core/types"
+    ],
+    "baseUrl": "./src",
+    "paths": {
+      "ng2-qgrid/core/*": [
+        "core/*"
+      ],
+      "ng2-qgrid/plugin/*": [
+        "plugin/*"
+      ],
+      "ng2-qgrid/theme/material": [
+        "theme/material/theme.module"
+      ],
+      "ng2-qgrid/theme/basic": [
+        "theme/basic/theme.module"
+      ],
+      "ng2-qgrid": [
+        "lib/public-api.ts"
+      ]
+    },
+    "lib": [
+      "es2017",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
 }

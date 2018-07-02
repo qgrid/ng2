@@ -1,6 +1,19 @@
 td.q-grid-text-area {
+    textarea.mat-input-element {
+        padding: 0;
+    }
+
+    .mat-form-field-hint-wrapper {
+        justify-content: flex-end;
+        transform: none !important;
+
+        .mat-hint {
+            position: fixed;
+        }
+    }  
+
     &.q-grid-edit {
-        .mat-input-infix {
+        .mat-form-field-infix {
             border-top: none;
             padding-top: 0;
         }

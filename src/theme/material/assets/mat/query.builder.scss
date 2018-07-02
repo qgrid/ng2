@@ -1,0 +1,83 @@
+@at-root .q-grid-query-builder-panel.q-grid-menu {
+    .q-grid-query-builder {
+        &-expression {
+            .mat-select {
+                width: auto;
+                &-value {
+                    max-width: none;
+                }
+                &-arrow-wrapper {
+                    display: none;
+                }
+            }
+            .mat-form-field {
+                width: 75px;
+                .mat-form-field-wrapper {
+                    padding-bottom: 0;
+                    .mat-form-field-infix {
+                        border: none;
+                        padding: 0;
+                        input {
+                            margin: 0;
+                        }
+                    }
+                }
+                .mat-form-field-label-wrapper {
+                    top: 0;
+                    padding-top: 0;
+                    >.mat-form-field-label {
+                        top: 0;
+                    }
+                }
+                .mat-form-field-underline {
+                    bottom: 0;
+                    display: none;
+                }
+                &.mat-focused {
+                    .mat-form-field-underline {
+                        display: block;
+                    }
+                }
+                &.qb-invalid {
+                    .mat-form-field-underline {
+                        display: block;
+                        background: #dd2c00;
+                    }
+                }
+            }
+            .mat-chip-list {
+                display: inline-block;
+                .mat-chip-list-wrapper {
+                    display: inline-block;
+                }
+                .mat-chip {
+                    padding: 0;
+                    border-radius: 0;
+                    background-color: transparent;
+                    outline: none;
+                    .q-grid-icon {
+                        margin-left: -3px;
+                        margin-right: 0px;
+                        font-size: 13px;
+                        line-height: 13px;
+                        height: 15px;
+                        width: 15px;
+                        vertical-align: middle;
+                    }
+                }
+            }
+            .qb {
+                &-operation,
+                &-operator {
+                    .mat-select-value {
+                        color: #3eb1c8;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@at-root .q-grid-query-builder-error-tooltip {
+    text-transform: lowercase;
+}

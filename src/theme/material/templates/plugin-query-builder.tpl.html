@@ -1,0 +1,16 @@
+<ng-template key="plugin-query-builder.tpl.html">
+	<button mat-icon-button
+	        tabindex="-1"
+	        #trigger="matMenuTrigger"
+	        [matMenuTriggerFor]="menu"
+	        aria-label="Query Builder">
+		<mat-icon class="q-grid-icon">filter_list</mat-icon>
+	</button>
+	<mat-menu #menu="matMenu"
+	          class="q-grid-menu q-grid-query-builder-panel">
+		<q-grid-query-builder-panel q-grid-menu
+		                            (close)="trigger.closeMenu()"
+		                            *ngIf="trigger.menuOpen">
+		</q-grid-query-builder-panel>
+	</mat-menu>
+</ng-template>

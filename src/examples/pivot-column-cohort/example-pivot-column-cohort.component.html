@@ -1,0 +1,18 @@
+<q-grid caption="Pivot Column Cohort"
+        [rows]="rows | async"
+        [pivotBy]="['bondingType', 'groupBlock']">
+	<q-grid-columns>
+		<q-grid-column title="Name">
+			<q-grid-column key="number"
+			               title="Number">
+			</q-grid-column>
+			<q-grid-column key="symbol"
+			               title="Symbol">
+			</q-grid-column>
+		</q-grid-column>
+		<q-grid-column key="bondingType">
+		</q-grid-column>
+		<q-grid-column key="groupBlock">
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

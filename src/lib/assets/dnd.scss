@@ -1,0 +1,33 @@
+@import "mixins";
+@at-root .q-grid-can-drag {
+    @include user-select(none);
+    @include user-drag(element);
+}
+
+&.q-grid-box {
+    .q-grid-row-indicator {
+        .q-grid-can-drag {
+            cursor: move;
+            opacity: 0.4;
+            .q-grid-icon {
+                width: 16px;
+                min-width: 16px;
+                min-height: 16px;
+                height: 16px;
+                font-size: 16px;
+                vertical-align: middle
+            }
+        }
+    }
+}
+
+tr.q-grid-drag {
+    opacity: 0.5;
+    box-shadow: 0 -2px 0 0 #ddd, 0 2px 0 0 #ddd;
+}
+
+td.q-grid-drag,
+th.q-grid-drag {
+    opacity: 0.5;
+    box-shadow: -2px 0 0 0 #ddd, 2px 0 0 0 #ddd;
+}

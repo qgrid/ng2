@@ -1,0 +1,18 @@
+<q-grid caption="Column Row Indicator Basic"
+        [rows]="rows"
+        editMode="cell">
+	<q-grid-columns>
+		<q-grid-column key="default"
+		               type="row-indicator">
+		</q-grid-column>		
+		<q-grid-column key="customTemplate"
+			       title="Custom Template"
+			       width="150"
+		               type="row-number">
+			<ng-template for="body"
+			             let-$cell>
+				<strong>>></strong>
+			</ng-template>			
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

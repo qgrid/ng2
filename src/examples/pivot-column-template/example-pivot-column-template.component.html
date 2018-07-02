@@ -1,0 +1,25 @@
+<q-grid caption="Pivot Column Template"
+        [rows]="rows | async"
+        [pivotBy]="['bondingType', 'groupBlock']">
+	<q-grid-columns>
+		<q-grid-column key="name"
+		               width="90"
+		               title="Name">
+		</q-grid-column>
+		<q-grid-column key="bondingType">
+		</q-grid-column>
+		<q-grid-column key="groupBlock">
+		</q-grid-column>
+		<q-grid-column type="pivot">
+			<ng-template for="body"
+			             let-$cell
+			             let-$view="$view">
+				<div *ngIf="$view.pivot.value($cell.rowIndex, $cell.columnIndex)"
+				     [style.color]="'#' + $cell.row.color"
+				     style="font-weight: bold;background: #ddd;">
+					X
+				</div>
+			</ng-template>
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

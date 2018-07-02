@@ -26,7 +26,7 @@ td.q-grid-array {
 	width: 340px;
 	height: auto;
 	.q-grid-array-view {
-		max-height: 400px;
+		max-height: 140px;
 		overflow-y: auto;
 		overflow-x: hidden;
 		.q-grid-array-item {
@@ -35,5 +35,6 @@ td.q-grid-array {
 	}
 	.q-grid-array-input {
 		margin: 0px 3px 3px 0px;
+		width: 100%;
 	}
 }

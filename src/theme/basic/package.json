@@ -1,0 +1,6 @@
+{
+  "name": "ng2-qgrid/theme/basic",
+  "typings": "./index.d.ts",
+  "main": "../../bundles/theme-basic.umd.js",
+  "sideEffects": false
+}

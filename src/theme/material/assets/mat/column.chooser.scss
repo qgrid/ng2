@@ -7,6 +7,7 @@
     .mat-card {
         padding: 4px 12px;
         box-shadow: none;
+        margin: 0;
     }
     ul {
         list-style-type: none;
@@ -26,6 +27,7 @@
     }
     .q-grid-column-chooser-toolbar {
         margin-top: 0;
+        padding-left: 16px;
     }
     .q-grid-column-chooser-actions {
         padding: 7px 0;
@@ -34,5 +36,32 @@
         width: 100%;
         overflow: hidden;
         margin: 0 0 5px 0;
+    }
+    .q-grid-can-drag {
+        cursor: move;
+        opacity: 0.4;
+        display: inline-block;
+        user-select: none;
+        .q-grid-icon {
+            width: 16px;
+            min-width: 16px;
+            min-height: 16px;
+            height: 16px;
+            font-size: 16px;
+            vertical-align: middle;
+        }
+    }
+}
+
+@at-root {
+    @media (max-height: 540px) {
+        .q-grid-column-chooser.q-grid-menu {
+            height: 400px;
+            max-height: 400px;
+            min-height: 400px;
+            .q-grid-column-chooser-list {
+                height: 184px;
+            }
+        }
     }
 }

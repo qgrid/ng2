@@ -1,0 +1,73 @@
+<q-grid caption="Scroll Virtual Details"
+        scrollMode="virtual"
+        [rows]="rows | async">
+	<q-grid-columns generation="deep">
+		<q-grid-column key="number"
+		               type="id"
+		               title="#"
+		               width="70">
+		</q-grid-column>
+		<q-grid-column key="symbol"
+		               title="Symbol"
+		               width="90">
+		</q-grid-column>
+		<q-grid-column key="name"
+		               title="Name">
+		</q-grid-column>
+		<q-grid-column key="source"
+		               title="Source"
+		               type="url"
+		               width="300">
+		</q-grid-column>
+		<q-grid-column *ngFor="let key of ['color', 'appearance', 'groupBlock', 'bondingType', 'period', 'radius', 'boil', 'shells', 'melt']"
+	
+		               [key]=key
+		               isVisible="false">
+		</q-grid-column>
+	</q-grid-columns>
+
+	<q-grid-pager [size]="20">
+	</q-grid-pager>
+
+	<q-grid-row unit="details"
+	            mode="single">
+
+		<ng-template for="details"
+		             let-$cell>
+
+			<div class="atom-details">
+				<div class="atom-box"
+				     [style.background-color]="'#' + $cell.row.item.color">
+					<div class="atom-number">
+						{{$cell.row.item.number}}
+					</div>
+
+					<div class="atom-symbol">
+						{{$cell.row.item.symbol}}
+					</div>
+
+					<div class="atom-name">
+						{{$cell.row.item.name}}
+					</div>
+
+					<div class="atom-mass">
+						{{$cell.row.item.mass}}
+					</div>
+				</div>
+
+				<div class="atom-info">
+					<p class="atom-description">
+						<a href={{$cell.row.item.source}}
+						   target="_blank">{{$cell.row.item.name}}</a>
+						was discovered by
+						<a href="http://www.google.com/search?q={{$cell.row.item.discoveredBy}}"
+						   target="_blank">{{$cell.row.item.discoveredBy}}</a>
+						in
+						<em>{{$cell.row.item.discoveredIn}}</em>. {{$cell.row.item.summary}}
+					</p>
+				</div>
+			</div>
+
+		</ng-template>
+	</q-grid-row>
+</q-grid>

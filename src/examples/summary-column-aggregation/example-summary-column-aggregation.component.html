@@ -1,0 +1,71 @@
+<q-grid caption="Summary Column Aggregation"
+        [rows]="rows | async">
+	<q-grid-columns generation="deep">
+		<q-grid-column key="name"
+		               aggregation="first">
+			<ng-template for="foot"
+			             let-$cell>
+				NAME FIRST: {{$cell.value}}
+			</ng-template>
+		</q-grid-column>
+		<q-grid-column key="symbol"
+		               aggregation="last">
+			<ng-template for="foot"
+			             let-$cell>
+				SYMBOL LAST: {{$cell.value}}
+			</ng-template>
+		</q-grid-column>
+		<q-grid-column key="number"
+		               aggregation="count">
+			<ng-template for="foot"
+			             let-$cell>
+				NUMBER COUNT: {{$cell.value}}
+			</ng-template>
+		</q-grid-column>
+		<q-grid-column key="phase"
+		               aggregation="join"
+		               [aggregationOptions]="{separator: '+', distinct: true}">
+			<ng-template for="foot"
+			             let-$cell>
+				PHASE JOIN: {{$cell.value}}
+			</ng-template>
+		</q-grid-column>
+		<q-grid-column key="boil"
+		               aggregation="max">
+			<ng-template for="foot"
+			             let-$cell>
+				BOIL MAX: {{$cell.value}}
+			</ng-template>
+		</q-grid-column>
+		<q-grid-column key="melt"
+		               aggregation="min">
+			<ng-template for="foot"
+			             let-$cell>
+				MELT MIN: {{$cell.value}}
+			</ng-template>
+		</q-grid-column>
+		<q-grid-column key="radius"
+		               aggregation="minMax">
+			<ng-template for="foot"
+			             let-$cell>
+				RADIUS MINMAX: {{$cell.value}}
+			</ng-template>
+		</q-grid-column>
+		<q-grid-column key="mass"
+		               aggregation="sum">
+			<ng-template for="foot"
+			             let-$cell>
+				MASS SUM: {{$cell.value}}
+			</ng-template>
+		</q-grid-column>
+		<q-grid-column key="density"
+		               aggregation="avg">
+			<ng-template for="foot"
+			             let-$cell>
+				DENSITY AVG: {{$cell.value}}
+			</ng-template>
+
+		</q-grid-column>
+
+	</q-grid-columns>
+</q-grid>

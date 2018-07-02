@@ -1,0 +1,23 @@
+<q-grid caption="Hierarchy Browser Basic" [model]="gridModel">
+	<q-grid-columns generation="deep">
+		<q-grid-column title="Name" offset="40" type="group" width="100%" widthMode="relative">
+			<ng-template for="body" let-$cell let-$view="$view">
+				<div [ngStyle]="{'padding-left': $view.group.offset($cell.row, $cell.column) + 'px'}" class="q-grid-group-box" *ngIf="$view.group.isVisible($cell.row, $cell.column)">
+					<button (click)="$view.group.toggleStatus.execute($cell.row, $cell.column)" *ngIf="$view.group.toggleStatus.canExecute($cell.row, $cell.column)"
+					    tabindex="-1" class="q-grid-group-button" mat-icon-button>
+						<mat-icon class="q-grid-icon">
+							{{$view.group.status($cell.row, $cell.column) === 'expand' ? 'folder_open' : 'folder'}}
+						</mat-icon>
+					</button>
+					<mat-icon class="q-grid-icon" *ngIf="($view.group.value($cell.row, $cell.column)).startsWith('file')">
+						insert_drive_file
+					</mat-icon>
+					<div class="q-grid-group-description">
+						<span>{{$view.group.value($cell.row, $cell.column)}}</span>
+						<span *ngIf=" $view.group.toggleStatus.canExecute($cell.row, $cell.column)">({{$view.group.count($cell.row, $cell.column)}})</span>
+					</div>
+				</div>
+			</ng-template>
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

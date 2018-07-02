@@ -1,0 +1,48 @@
+<q-grid caption="Column Currency Basic"
+        [rows]="rows"
+        editMode="cell">
+	<q-grid-columns>
+		<q-grid-column key="number"
+		               title="Number"
+		               type="currency">
+		</q-grid-column>
+		<q-grid-column key="euro"
+		               title="Euro"
+		               code="EUR"
+		               type="currency">
+		</q-grid-column>
+		<q-grid-column key="null"
+		               title="Null"
+		               type="currency">
+		</q-grid-column>
+		<q-grid-column key="undefined"
+		               title="Undefined"
+		               type="currency">
+		</q-grid-column>
+		<q-grid-column key="empty"
+		               title="Empty"
+		               type="currency">
+		</q-grid-column>
+		<q-grid-column key="string"
+		               title="String"
+		               type="currency">
+		</q-grid-column>
+		<q-grid-column key="customTemplate"
+		               title="Custom Template"
+		               type="currency">
+			<ng-template for="body"
+			             let-$cell>
+				usd: {{$cell.value}}
+			</ng-template>
+			<ng-template for="edit"
+			             let-$cell
+			             let-$view="$view">
+				<input type="number"
+				       style="width: 100%"
+				       q-grid-focus
+				       [(ngModel)]="$view.edit.cell.value"
+				       (blur)="$view.edit.cell.exit.execute($cell)" />
+			</ng-template>
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

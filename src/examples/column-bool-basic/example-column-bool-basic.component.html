@@ -1,0 +1,74 @@
+<q-grid caption="Column Bool Basic"
+        [rows]="rows"
+        editMode="cell">
+	<q-grid-columns>
+		<q-grid-column width="100">
+		</q-grid-column>
+		<q-grid-column key="true"
+		               title="True"
+		               type="bool">
+		</q-grid-column>
+		<q-grid-column key="false"
+		               title="False"
+		               type="bool">
+		</q-grid-column>
+		<q-grid-column key="undefined"
+		               title="Undefined"
+		               type="bool">
+		</q-grid-column>
+		<q-grid-column key="null"
+		               title="Null"
+		               type="bool">
+		</q-grid-column>
+		<q-grid-column key="yesNo"
+		               title="Yes/No"
+		               trueValue="yes"
+		               falseValue="no"
+		               type="bool">
+		</q-grid-column>
+		<q-grid-column key="noYes"
+		               title="No/Yes"
+		               trueValue="yes"
+		               falseValue="no"
+		               type="bool">
+		</q-grid-column>
+		<q-grid-column key="nullYesNo"
+		               title="Null/Yes/No"
+		               trueValue="yes"
+		               falseValue="no"
+		               type="bool">
+		</q-grid-column>
+		<q-grid-column key="triggerFocus"
+		               width="120"
+		               [editorOptions]="{trigger: 'focus'}"
+		               title="Trigger Focus"
+		               type="bool">
+		</q-grid-column>
+		<q-grid-column key="customTemplate"
+					   width="120"
+					   viewWidth="300"
+		               title="Custom Template"
+		               [editorOptions]="{trigger: 'focus'}"
+		               type="bool">
+			<ng-template for="body"
+			             let-$cell>
+				{{$cell.value === null ? 'NULL' : $cell.value ? 'YES' : 'NO'}}
+			</ng-template>
+			<ng-template for="edit"
+			             let-$view="$view">
+				<button mat-button
+				        (click)="$view.edit.cell.value = true">
+					SET YES
+				</button>
+				<button mat-button
+				        (click)="$view.edit.cell.value = false">
+					SET NO
+				</button>
+				<button mat-button
+				        (click)="$view.edit.cell.value = null">
+					SET NULL
+				</button>
+			</ng-template>
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

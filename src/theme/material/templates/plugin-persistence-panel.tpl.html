@@ -1,0 +1,103 @@
+<ng-template key="plugin-persistence-panel.tpl.html"
+             let-$persistence>
+	<mat-card class="mat-elevation-z">
+		<mat-card-header>
+			<mat-card-title>Save/Load</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<div class="flex-none layout-row">
+				<div class="flex-100 q-grid-persistence-title">
+					<mat-form-field>
+						<input matInput
+						       type="text"
+						       q-grid-focus
+						       placeholder="Save As..."
+						       [(ngModel)]="$persistence.title" />
+					</mat-form-field>
+				</div>
+				<div class="flex-none q-grid-persistence-save">
+					<button mat-button
+					        color="primary"
+					        [disabled]="!$persistence.create.canExecute()"
+					        (click)="$persistence.create.execute()">
+						Save
+					</button>
+				</div>
+			</div>
+			<mat-list class="q-grid-persistence-list">
+				<mat-list-item [ngClass]="{'q-grid-persistence-selected': $persistence.isActive($persistence.blank)}"
+				               class="q-grid-persistence-list-item">
+					<div class="q-grid-persistence-default-icon"></div>
+					<button mat-button
+							  matTooltip="No settings"
+							  [disabled]="!$persistence.reset.canExecute()"
+					        (click)="$persistence.reset.execute()">
+						<mat-list dense>
+							<mat-list-item>
+								<h3 matLine>{{$persistence.blank.title}}</h3>
+								<span matLine></span>
+							</mat-list-item>
+						</mat-list>
+					</button>
+				</mat-list-item>
+				<ng-container *ngFor="let group of $persistence.groups">
+					<h3 mat-subheader>{{group.key}}</h3>
+					<mat-list-item *ngFor="let item of group.items"
+					               [ngClass]="{'q-grid-persistence-selected': $persistence.isActive(item)}"
+					               class="q-grid-persistence-list-item">
+						<div class="q-grid-persistence-default-icon">
+							<mat-icon class="q-grid-icon"
+							          *ngIf="item.isDefault">star</mat-icon>
+						</div>
+						<button mat-button
+						        matTooltip="{{$persistence.stringify(item)}}"
+						        *ngIf="$persistence.state.editItem !== item"
+						        (click)="$persistence.load.execute(item)">
+							<mat-list dense>
+								<mat-list-item>
+									<h3 matLine>{{item.title}}</h3>
+									<span matLine
+									      class="q-grid-selected-item-modified">{{item.modified | date: 'yyyy/MM/dd h:mm a'}}</span>
+								</mat-list-item>
+							</mat-list>
+						</button>
+						<mat-form-field *ngIf="$persistence.state.editItem === item"
+						                class="q-grid-persistence-item-edit">
+							<input matInput
+							       #input
+							       (blur)="$persistence.edit.commit.canExecute(item) && $persistence.edit.commit.execute(item)"
+							       [(ngModel)]="item.title"
+							       q-grid-focus/>
+						</mat-form-field>
+						<div class="q-grid-more">
+							<button mat-button
+							        [matMenuTriggerFor]="menu">
+								<mat-icon>more_vert</mat-icon>
+							</button>
+							<mat-menu #menu="matMenu">
+								<button mat-menu-item
+								        (click)="$persistence.setDefault.execute(item)"
+								        [disabled]="!$persistence.setDefault.canExecute(item)">
+									<mat-icon class="q-grid-icon">star</mat-icon>
+									Default
+								</button>
+								<button mat-menu-item
+								        (click)="$persistence.edit.enter.execute(item)"
+								        [disabled]="!$persistence.edit.enter.canExecute(item)">
+									<mat-icon class="q-grid-icon">mode_edit</mat-icon>
+									Edit
+								</button>
+								<button mat-menu-item
+								        (click)="$persistence.remove.execute(item)"
+								        [disabled]="!$persistence.remove.canExecute(item)">
+									<mat-icon class="q-grid-icon">close</mat-icon>
+									Remove
+								</button>
+							</mat-menu>
+						</div>
+					</mat-list-item>
+				</ng-container>
+			</mat-list>
+		</mat-card-content>
+	</mat-card>
+</ng-template>

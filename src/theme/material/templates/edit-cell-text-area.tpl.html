@@ -1,0 +1,20 @@
+<ng-template key='edit-cell-text-area.tpl.html'
+             let-$cell
+             let-$view="$view">
+    <q-grid-cell-editor class="q-grid-text-area q-grid-editor q-grid-position"
+                        (close)="$view.edit.cell.exit.execute($cell)"
+                        q-grid-position="td">
+        <ng-template>
+            <mat-form-field>
+                <textarea matInput
+                          #input
+                          rows="10"
+                          q-grid-focus
+                          maxlength="{{$cell.column.maxLength}}"
+                          [(ngModel)]="$view.edit.cell.value">
+                </textarea>
+                <mat-hint align="end">{{input.value.length}} / {{$cell.column.maxLength}}</mat-hint>
+            </mat-form-field>
+        </ng-template>
+    </q-grid-cell-editor>
+</ng-template>

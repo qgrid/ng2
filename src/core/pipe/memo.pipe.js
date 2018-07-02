@@ -1,0 +1,20 @@
+import { Guard } from '../infrastructure/guard';
+
+export function memoPipe(rows, context, next) {
+	Guard.notNull(rows, 'rows');
+
+	const { model } = context;
+
+	model.pipe({
+		effect: Object.assign({}, model.pipe().effect, { memo: rows })
+	}, {
+			source: 'memo.pipe',
+			behavior: 'core'
+		});
+
+	next({
+		rows,
+		pivot: { heads: [], rows: [] },
+		nodes: []
+	});
+}
