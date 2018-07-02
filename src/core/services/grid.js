@@ -55,8 +55,7 @@ export class GridService {
 			cancelBusy();
 
 			if (!scheduler.next()) {
-				const { round } = scene();
-				scene({ round: round + 1 }, {
+				scene({ status: 'pull' }, {
 					source,
 					behavior: 'core'
 				});
@@ -67,7 +66,10 @@ export class GridService {
 		const task = () => {
 			Log.info('grid', `start task ${source}`);
 
-			scene({ status: 'start', round: 0 }, {
+			console.log('---------------');
+			console.log('Start');
+			
+			scene({ status: 'start' }, {
 				source,
 				behavior: 'core'
 			});

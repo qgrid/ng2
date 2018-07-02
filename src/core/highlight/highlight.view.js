@@ -108,15 +108,12 @@ export class HighlightView {
 
         model.sceneChanged.watch(e => {
             if (e.hasChanges('status')) {
-                const { status } = e.state;
-                switch (status) {
-                    case 'stop':
-                        columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
-                        rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
-                        cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
-                        sortBlurs = this.invalidateSortBy(sortBlurs);
-                        selectionBlurs = this.invalidateSelection(selectionBlurs);
-                        break;
+                if (e.state.status === 'stop') {
+                    columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
+                    rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
+                    cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
+                    sortBlurs = this.invalidateSortBy(sortBlurs);
+                    selectionBlurs = this.invalidateSelection(selectionBlurs);
                 }
             }
         });
@@ -163,7 +160,7 @@ export class HighlightView {
     }
 
     get isRendering() {
-        return this.model.scene().status === 'start' || this.model.drag().isActive;
+        return this.model.scene().status !== 'stop' || this.model.drag().isActive;
     }
 
     invalidateColumnHover(dispose) {

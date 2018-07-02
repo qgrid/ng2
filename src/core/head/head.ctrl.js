@@ -45,13 +45,11 @@ export class HeadCtrl {
         this.x = e.clientX;
         this.y = e.clientY;
 
-        if (this.model.scene().status !== 'stop') {
-            return;
-        }
-
-        const cell = this.pathFinder.cell(e.path);
-        if (cell) {
-            this.highlight(cell.column);
+        if (this.model.scene().status === 'stop') {
+            const cell = this.pathFinder.cell(e.path);
+            if (cell) {
+                this.highlight(cell.column);
+            }
         }
     }
 

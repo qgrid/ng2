@@ -96,7 +96,7 @@ export class ScrollView {
 				const resetTriggers = new Set(scroll().resetTriggers);
 				model.sceneChanged.watch(e => {
 					if (e.hasChanges('status')) {
-						const status = e.state.status;
+						const { status } = e.state;
 						switch (status) {
 							case 'start': {
 								startSource = e.tag.source;

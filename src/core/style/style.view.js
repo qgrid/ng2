@@ -37,7 +37,7 @@ export class StyleView {
 
 	needInvalidate() {
 		const model = this.model;
-		if (model.scene().state === 'start') {
+		if (model.scene().state !== 'stop') {
 			return false;
 		}
 
