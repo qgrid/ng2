@@ -1,0 +1,11 @@
+<ng-template key='edit-form-number.tpl.html'
+             let-$control>
+    <mat-form-field>
+        <input matInput
+               type="number"
+               #input
+               q-grid-focus
+               [(ngModel)]="$control.cellEditor.value" />
+    </mat-form-field>
+</ng-template>
+
