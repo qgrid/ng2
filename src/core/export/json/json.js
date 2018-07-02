@@ -1,30 +1,18 @@
-import {flatView} from '../export.service';
-
-function updateTitles(rows, titles) {
-	const result = [];
-	for (let row of rows) {
-		const obj = {};
-		const values = Object.values(row);
-		for (let i = 0; i < titles.length; i++) {
-			obj[titles[i]] = values[i];
-		}
-		result.push(obj);
-	}
-	return JSON.stringify(result, '', 4);
-}
+import { flatView } from '../export.service';
 
 export class Json {
 	write(rows, columns) {
-		const titles = [];
 		const result = [];
 
 		for (let row of rows) {
-			result.push(flatView(row));
-		}
-		for (let column of columns) {
-			titles.push(column.title);
+			const flatRow = flatView(row);
+			const obj = {};
+			for (let column of columns) {
+				obj[column.title] = flatRow[column.key];
+			}
+			result.push(obj);
 		}
 
-		return updateTitles(result, titles);
+		return JSON.stringify(result, '', 2);
 	}
 }
