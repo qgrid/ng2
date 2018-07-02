@@ -27,13 +27,24 @@
         height: 24px;
         line-height: 24px;
         padding: 0;
+
         &.q-grid-prev-page {
+            top: 3px;
             margin-left: 18px;
             margin-right: 0;
+            .q-grid-icon {
+                margin-bottom: 4px;
+                margin-right: 1px;
+            }
         }
         &.q-grid-next-page {
+            top: 3px;
             margin-right: 14px;
             margin-left: 0;
+            .q-grid-icon {
+                margin-bottom: 4px;
+                margin-left: 1px;
+            }
         }
         &.q-grid-target-page {
             .q-grid-icon {
