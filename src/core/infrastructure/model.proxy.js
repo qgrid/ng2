@@ -50,4 +50,12 @@ export class ModelProxy extends Disposable {
         this.target = target;
         this.subject = new Proxy(target, modelHandler);
     }
+
+    toString() {
+        return this.target.toString ? this.target.toString() : JSON.stringify(this.toJSON());
+    }
+
+    toJSON() {
+        return this.target.toJSON ? this.target.toJSON() : this.target;
+    }
 }

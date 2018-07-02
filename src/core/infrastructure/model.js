@@ -57,7 +57,7 @@ export class Model {
 						const newValue = state[key];
 						const oldValue = model[key];
 						if (!equals(newValue, oldValue)) {
-							Log.info('model', `value changed - "${name}.${key}"`);
+							// Log.info('model', `value changed - "${name}.${key}"`);
 							Guard.notUndefined(newValue, `model.${name}.${key}`);
 
 							model[key] = newValue;
@@ -69,9 +69,9 @@ export class Model {
 
 							changeSet.add(key);
 						}
-						else {
-							Log.warn('model', `value was not changed - "${name}.${key}"`);
-						}
+						// else {
+						// 	Log.warn('model', `value was not changed - "${name}.${key}"`);
+						// }
 					}
 
 					if (hasChanges) {

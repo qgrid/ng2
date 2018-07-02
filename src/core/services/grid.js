@@ -4,10 +4,10 @@ import { guid } from './guid';
 import { PersistenceService } from '../persistence/persistence.service';
 import { Scheduler } from './scheduler';
 import { Defer } from '../infrastructure/defer';
-import { isUndefined, clone, noop, isObject } from '../utility/kit';
-import { PipeUnit } from '../pipe/pipe.unit';
+import { noop } from '../utility/kit';
 import { FocusService } from '../focus/focus.service';
 import { isString } from '../utility/kit';
+import { Fastdom } from './fastdom';
 
 function invalidateSettings(...args) {
 	if (args.length) {
@@ -47,7 +47,7 @@ export class GridService {
 		const settings = invalidateSettings(...args);
 		const { source, changes, pipe, why } = settings;
 		const { scheduler, model } = this;
-		const scene = model.scene;
+		const { scene } = model;
 		const runPipe = buildPipe(model);
 		const cancelBusy = why === 'refresh' ? this.busy() : noop;
 
@@ -55,7 +55,7 @@ export class GridService {
 			cancelBusy();
 
 			if (!scheduler.next()) {
-				const round = scene().round;
+				const { round } = scene();
 				scene({ round: round + 1 }, {
 					source,
 					behavior: 'core'
@@ -76,7 +76,7 @@ export class GridService {
 			model.body().cache.clear();
 			model.foot().cache.clear();
 
-			return runPipe(source, changes, pipe || model.data().pipe)
+			return Fastdom.invoke(() => runPipe(source, changes, pipe || model.data().pipe))
 				.then(() => {
 					Log.info('grid', `finish task ${source}`);
 
@@ -99,7 +99,7 @@ export class GridService {
 
 	busy() {
 		const id = guid();
-		const progress = this.model.progress;
+		const { progress } = this.model;
 		const queue = progress().queue.concat([id]);
 		progress({ queue });
 

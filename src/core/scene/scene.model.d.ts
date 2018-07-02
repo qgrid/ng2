@@ -16,8 +16,9 @@ export declare interface SceneModel {
 	/**
 	 * Status of invalidation.
 	 *
-	 * * `'start'` refresh was began.
-	 * * `'stop'` refresh was finished.
+	 * * `start` refresh was began.
+	 * * `stop` refresh was finished.
+	 * * `pending` indeterminate state.
 	 */
 	status?: string;
 
