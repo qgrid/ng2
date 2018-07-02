@@ -65,10 +65,6 @@ export class GridService {
 		const defer = new Defer();
 		const task = () => {
 			Log.info('grid', `start task ${source}`);
-
-			console.log('---------------');
-			console.log('Start');
-			
 			scene({ status: 'start' }, {
 				source,
 				behavior: 'core'

@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, NgZone, DoCheck } from '@angular/core';
+import { Component, OnInit, ElementRef, NgZone, DoCheck, ChangeDetectorRef } from '@angular/core';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { ViewCtrl } from 'ng2-qgrid/core/view/view.ctrl';
 import { CellService } from '../cell/cell.service';
@@ -20,20 +20,16 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 		private view: ViewCoreService,
 		private grid: GridService,
 		private zone: NgZone,
-		private elementRef: ElementRef
+		private elementRef: ElementRef,
+		private cd: ChangeDetectorRef
 	) {
 		super();
-
-		zone.onUnstable.subscribe(() => {
-			console.log('Unstable');
-		});
 
 		zone.onStable.subscribe(() => {
 			if (this.root.isReady) {
 				const { scene } = this.model;
 				const { status } = scene();
 				if (status === 'push') {
-					console.log('Stop');
 					scene({
 						status: 'stop'
 					}, {
@@ -48,23 +44,9 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 	}
 
 	ngDoCheck() {
-		console.log('DoCheck');
-
-		const { scene } = this.model;
-		switch (scene().status) {
-			case 'stop': {
-				this.ctrl.invalidate();
-				break;
-			}
-			case 'check': {
-				scene({
-					status: 'push'
-				}, {
-						source: 'view-core.component',
-						behavior: 'core'
-					});
-				break;
-			}
+		const { status } = this.model.scene();
+		if (status === 'stop') {
+			this.ctrl.invalidate();
 		}
 	}
 
@@ -87,13 +69,13 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 		model.sceneChanged.watch(e => {
 			if (e.hasChanges('status')) {
 				if (e.state.status === 'pull') {
-					console.log('Push');
+					this.cd.markForCheck();
 
 					// Run digest on the start of invalidate(e.g. for busy indicator)
 					// and on the ned of invalidate(e.g. to build the DOM)
 					this.zone.run(() =>
 						model.scene({
-							status: 'check'
+							status: 'push'
 						}, {
 								source: 'view-core.component',
 								behavior: 'core'

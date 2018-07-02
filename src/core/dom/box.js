@@ -14,7 +14,6 @@ export class Box {
 		model.sceneChanged.on(e => {
 			if (e.hasChanges('status')) {
 				if (e.state.status === 'stop') {
-					console.log('Matrix refreshed');
 					this.selector = this.selectFactory.create();
 				}
 			}

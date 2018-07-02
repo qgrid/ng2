@@ -12,11 +12,15 @@ export class EditFormControlComponent implements OnInit {
 	@Input() control: any;
 	@Input() key: string;
 
+	context: { $implicit: EditFormControlComponent } = {
+		$implicit: this
+	};
+
 	constructor() {
 	}
 
 	ngOnInit() {
-		//console.log(this.key);
-		//console.log(this.cellEditor);
+		// console.log(this.key);
+		// console.log(this.cellEditor);
 	}
 }
