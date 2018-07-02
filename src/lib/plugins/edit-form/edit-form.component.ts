@@ -8,7 +8,8 @@ import { PluginService } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-edit-form',
-	templateUrl: './edit-form.component.html'
+	templateUrl: './edit-form.component.html',
+	providers: [PluginService]
 })
 export class EditFormComponent implements OnInit, OnDestroy {
 	@Input() title: string;

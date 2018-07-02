@@ -46,6 +46,7 @@ Model.register('columnChooser', ColumnChooserModel)
 		ColumnSortModule,
 		DataManipulationModule,
 		EbModule,
+		EditFormModule,
 		ExportModule,
 		ImportModule,
 		LegendModule,

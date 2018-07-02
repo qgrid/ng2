@@ -54,7 +54,7 @@ export declare interface ColumnListModel {
 	 * defined with `<q-grid-column>` component in html,
      * and has `column.source === 'template'`.
 	 */
-	line?: ColumnModel[];
+	columns?: ColumnModel[];
 
 	/**
 	 * If user omits key property while defining a column, this column goes to the reference
@@ -66,5 +66,5 @@ export declare interface ColumnListModel {
 	/**
 	 * Flatten list of data columns, filled automatically on data columns changes.
 	 */
-	line: ColumnModel[];
+	line?: ColumnModel[];
 }
