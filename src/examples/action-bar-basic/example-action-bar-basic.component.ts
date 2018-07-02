@@ -24,7 +24,7 @@ export class ExampleActionBarBasicComponent {
 
 	clearCommand = new Command({
 		execute: () => {
-			this.rows = of([])
+			this.rows = of([]);
 			this.canLoad = true;
 		},
 		canExecute: () => !this.canLoad,
