@@ -7,6 +7,16 @@ $head-sorted: #004559;
 
 .q-grid.q-grid-theme-basic {
     font-family: Roboto;
+    
+    &.q-grid-box {
+        .q-grid-row-indicator {
+            .q-grid-can-drag {
+                .q-grid-icon {
+                    font-style: normal;
+                }
+            }
+        }
+    }
 
     &.q-grid-box:not(.q-grid-drag) {
         th {
