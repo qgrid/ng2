@@ -1,0 +1,19 @@
+<ng-template key="body-cell-row-indicator.tpl.html"
+             let-$cell
+             let-$view="$view">
+	<ng-container *ngIf="$view.row.canMove">
+		<div [q-grid-drag]="$view.row.drag"
+		     [q-grid-drag-data]="$cell.rowIndex"
+		     q-grid-drop-area="body">
+			<i class="q-grid-icon">&#8759;</i>
+		</div>
+	</ng-container>
+	<ng-container *ngIf="$view.row.canResize">
+		<div [q-grid-drag]="$view.row.resize"
+		     [q-grid-resize]="$cell.row"
+		     q-grid-resize-path="rows"
+		     [q-grid-can-resize]="$view.row.resize.canExecute"
+		     class="q-grid-resizable">
+		</div>
+	</ng-container>
+</ng-template>
