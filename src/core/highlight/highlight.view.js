@@ -178,8 +178,8 @@ export class HighlightView {
 		dispose.forEach(f => f());
 		dispose = [];
 		const { rows } = this.model.highlight();
-		for (let rowIndex of rows) {
-			dispose.push(this.highlightRow(rowIndex, 'highlighted'));
+		for (let row of rows) {
+			dispose.push(this.highlightRow(row, 'highlighted'));
 		}
 
 		return dispose;
@@ -287,7 +287,8 @@ export class HighlightView {
 			return noop;
 		}
 
-		return () => Fastdom.mutate(() => table.body.row(index).removeClass(`${GRID_PREFIX}-${cls}`));
+		const row = table.body.row(index);
+		return () => Fastdom.mutate(() => row.removeClass(`${GRID_PREFIX}-${cls}`));
 	}
 
 	highlightCell(cell, cls) {

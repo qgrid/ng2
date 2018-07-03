@@ -85,6 +85,7 @@ import { ExampleLookQuotesBasicComponent } from './look-quotes-basic/example-loo
 import { ExampleLookQuotesModelComponent } from './look-quotes-model/example-look-quotes-model.component';
 import { ExampleManipulateDataBasicComponent } from './manipulate-data-basic/example-manipulate-data-basic.component';
 import { ExampleMasterDetailsBasicComponent } from './master-details-basic/example-master-details-basic.component';
+import { ExampleOnPushBasicComponent } from './on-push-basic/example-on-push-basic.component';
 import { ExamplePaginationBasicComponent } from './pagination-basic/example-pagination-basic.component';
 import { ExamplePersistenceBasicComponent } from './persistence-basic/example-persistence-basic.component';
 import { ExamplePersistenceServerComponent } from './persistence-server/example-persistence-server.component';
@@ -199,6 +200,7 @@ const EXAMPLES: Array<any> = [
 	ExampleLookQuotesModelComponent,
 	ExampleManipulateDataBasicComponent,
 	ExampleMasterDetailsBasicComponent,
+	ExampleOnPushBasicComponent,
 	ExamplePaginationBasicComponent,
 	ExamplePersistenceBasicComponent,
 	ExamplePersistenceServerComponent,
