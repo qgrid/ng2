@@ -34,9 +34,9 @@ export class EditFormComponent implements OnInit, OnDestroy {
 
 	}
 
-	getKey(cellEditor: CellEditor): string {
-		if (cellEditor.cell && cellEditor.cell.column) {
-			const column: ColumnModel = cellEditor.cell.column;
+	getKey(cellEditor: any): string {
+		if (cellEditor.td && cellEditor.td.column) {
+			const column: ColumnModel = cellEditor.td.column;
 			return column.type ? `edit-form-${column.editor ? column.editor : column.type}.tpl.html` : 'edit-form-default.tpl.html';
 		}
 
