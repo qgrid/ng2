@@ -33,7 +33,7 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 		@Optional() private root: RootService,
 		@Optional() private backdropService: BackdropService,
 		private renderer: Renderer2,
-		private elementRef: ElementRef,
+		private elementRef: ElementRef
 	) {
 		super();
 		this.reader = new FileReader();

@@ -7,8 +7,6 @@ import {
 	Output,
 	Injector,
 	ReflectiveInjector,
-	Input,
-	Inject,
 	ViewContainerRef
 } from '@angular/core';
 import { BackdropComponent, BACKDROP_CONTROL_TOKEN } from '../backdrop/backdrop.component';
