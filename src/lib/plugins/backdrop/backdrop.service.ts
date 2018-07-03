@@ -10,7 +10,6 @@ export class BackdropService {
 
 	hide() {
 		this.guard();
-		this.renderer.removeClass(this.element, 'q-grid-backdrop-active');
 		this.renderer.addClass(this.element, 'q-grid-backdrop-inactive');
 		this.visibile = false;
 	}
@@ -18,7 +17,6 @@ export class BackdropService {
 	reveal() {
 		this.guard();
 		this.renderer.removeClass(this.element, 'q-grid-backdrop-inactive');
-		this.renderer.addClass(this.element, 'q-grid-backdrop-active');
 		this.visibile = true;
 	}
 
