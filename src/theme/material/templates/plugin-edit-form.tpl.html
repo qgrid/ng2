@@ -10,7 +10,7 @@
 				<li *ngFor="let cellEditor of $editForm.editors">
 					<q-grid-edit-form-control [cellEditor]="cellEditor"
 					                          [control]="$editForm"
-					                          [key]="$editForm.getKey(cellEditor.cell.column)">
+					                          [key]="$editForm.getKey(cellEditor)">
 					</q-grid-edit-form-control>
 				</li>
 			</ul>
