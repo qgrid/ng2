@@ -78,7 +78,6 @@ export class GridService {
 				.then(() => {
 					Log.info('grid', `finish task ${source}`);
 
-					console.log('invalidate');
 					nextTask();
 					defer.resolve();
 				})

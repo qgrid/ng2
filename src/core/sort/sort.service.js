@@ -3,14 +3,14 @@ import { AppError } from '../infrastructure/error';
 
 export const key = getKey;
 export const index = getIndex;
-export const direction = getValue;
+export const direction = getDirection;
 export const map = getMap;
 
 export function orderFactory(model) {
-	const sort = model.sort;
+	const { sort } = model;
 	return by => {
-		const sortState = sort();
-		if (sortState.trigger.indexOf('reorder') >= 0) {
+		const { trigger } = sort();
+		if (trigger.indexOf('reorder') >= 0) {
 			let index = 0;
 			const indexMap = model.columnList().index
 				.reduce((memo, key) => {
@@ -26,10 +26,12 @@ export function orderFactory(model) {
 }
 
 function getKey(pair) {
-	let key = Object.keys(pair)[0];
-
+	let key;
 	if (isString(pair)) {
-		key = pair.split(/[+-]/)[1];
+		const signedKey = pair.split(/[+-]/);
+		key = signedKey[1] || signedKey[0];
+	} else {
+		key = Object.keys(pair)[0]
 	}
 
 	if (!key) {
@@ -41,36 +43,24 @@ function getKey(pair) {
 	return key;
 }
 
-function getValue(pair) {
-	if (!isString(pair)) {
-		const pairKey = getKey(pair);
-		return pair[pairKey];
-	} else {
-		const delimiterSet = [{ 'desc': '-' }, { 'asc': '+' }];
-		const direction = pair.split(pair.split(/[+-]/)[1])[0];
-
-		return delimiterSet.map(obj => {
-			return Object.keys(obj).map(key => {
-				let value = obj[key];
-				if (value === direction) {
-					return key;
-				} else {
-					return null;
-				}
-			}).reduce((p, k) => k, '');
-		}).filter(v => v)
-			.reduce((p, k) => k, '');
+function getDirection(pair) {
+	if (isString(pair)) {
+		const directions = { '-': 'desc', '+': 'asc' };
+		return directions[pair[0]] || 'asc';
 	}
+
+	const pairKey = getKey(pair);
+	return pair[pairKey];
 }
 
 function getMap(pairs) {
 	return pairs.reduce((memo, pair) => {
-		const pairKey = getKey(pair);
-		memo[pairKey] = getValue(pair);
+		const key = getKey(pair);
+		memo[key] = getDirection(pair);
 		return memo;
 	}, {});
 }
 
-function getIndex(pairs, pairKey) {
-	return pairs.map(getKey).findIndex(k => k === pairKey);
+function getIndex(pairs, key) {
+	return pairs.map(getKey).findIndex(pairKey => pairKey === key);
 }
