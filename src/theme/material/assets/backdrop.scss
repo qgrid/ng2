@@ -6,4 +6,12 @@
 	position: fixed;
 	background: transparent;
 	z-index: -1;
+
+	&-active {
+		visibility: visible;
+	}
+
+	&-inactive {
+		visibility: hidden;
+	}
 }

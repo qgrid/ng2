@@ -11,6 +11,7 @@ import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { EventListener as CoreListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { NgComponent } from '../../infrastructure/component/ng.component';
 import { RootService } from '../../infrastructure/component/root.service';
+import { BackdropService } from '../../plugins/backdrop/backdrop.service';
 
 @Directive({
 	selector: '[q-grid-file-upload]'
@@ -30,8 +31,9 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 
 	constructor(
 		@Optional() private root: RootService,
+		@Optional() private backdropService: BackdropService,
 		private renderer: Renderer2,
-		private elementRef: ElementRef
+		private elementRef: ElementRef,
 	) {
 		super();
 		this.reader = new FileReader();
@@ -52,11 +54,20 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 		this.listener.on('change', this.upload);
 		this.listener.on('click', this.onClick);
 		this.listener.on('drop', this.upload);
+		this.listener.on('focus', this.onFocus);
 
 		this.reader.onloadend = e => this.setDataUrl(e);
 	}
 
+	onFocus(e) {
+		if (!this.backdropService.visibile) {
+			this.revealBackdrop();
+		}
+	}
+
 	onClick() {
+		this.hideBackdrop();
+
 		this.file = null;
 		this.uploder.cell.label = null;
 	}
@@ -81,5 +92,13 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 		if (e.target.readyState === this.reader.DONE) {
 			this.file = e.target.result;
 		}
+	}
+
+	hideBackdrop() {
+		this.backdropService.hide();
+	}
+
+	revealBackdrop() {
+		setTimeout(() => this.backdropService.reveal(), 300);
 	}
 }
