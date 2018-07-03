@@ -12,6 +12,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Live data plugin.
 * Float Row Navigation.
 
+## [6.1.5] - 2018-07-03
+### Fixed
+- Row highlight in details modes.
+- Mark q-grid for check on invalidate, that allows to have basic functionality when q-grid host has onPush strategy.
+
+### Added
+- Basic theme array, url and email support.
+
 ## [6.1.4] - 2018-06-28
 ### Fixed
 - Time cell editor.
@@ -290,7 +298,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v6.1.4...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v6.1.5...HEAD
+[6.1.5]: https://github.com/qgrid/ng2/compare/v6.1.5...v6.1.4
 [6.1.4]: https://github.com/qgrid/ng2/compare/v6.1.4...v6.1.3
 [6.1.3]: https://github.com/qgrid/ng2/compare/v6.1.3...v6.1.1
 [6.1.1]: https://github.com/qgrid/ng2/compare/v6.1.1...v6.1.0
