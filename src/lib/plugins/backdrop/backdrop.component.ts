@@ -25,7 +25,6 @@ export const BACKDROP_CONTROL_TOKEN = new InjectionToken<any>('BACKDROP CONTROL'
 })
 export class BackdropComponent {
 	@ContentChild(TemplateRef) public template: TemplateRef<any>;
-	@Output('close') closeEvent = new EventEmitter<any>();
 
 	context: { $implicit: BackdropComponent } = {
 		$implicit: this

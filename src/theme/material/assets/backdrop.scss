@@ -8,10 +8,11 @@
 	z-index: -1;
 
 	&-active {
-		visibility: visible;
+		pointer-events: auto;
 	}
 
 	&-inactive {
-		visibility: hidden;
+		pointer-events: none;
 	}
+
 }
