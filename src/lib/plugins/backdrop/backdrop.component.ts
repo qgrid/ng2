@@ -10,7 +10,6 @@ import {
 	ElementRef,
 	ChangeDetectionStrategy,
 	Injector,
-	Inject,
 	InjectionToken
 } from '@angular/core';
 
