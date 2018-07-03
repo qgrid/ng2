@@ -1,6 +1,5 @@
 import {
 	Directive,
-	Renderer2,
 	ElementRef,
 	Input,
 	AfterViewInit,
@@ -24,13 +23,17 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 	private get file(): any {
 		return this.uploder.cell.value;
 	}
+
 	private set file(value: any) {
 		this.uploder.cell.value = value;
 	}
 
+	private get editor(): any {
+		return this.uploder.editor;
+	}
+
 	constructor(
 		@Optional() private root: RootService,
-		private renderer: Renderer2,
 		private elementRef: ElementRef
 	) {
 		super();
@@ -52,11 +55,20 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 		this.listener.on('change', this.upload);
 		this.listener.on('click', this.onClick);
 		this.listener.on('drop', this.upload);
+		this.listener.on('focus', this.onFocus);
 
 		this.reader.onloadend = e => this.setDataUrl(e);
 	}
 
+	onFocus(e) {
+		if (!this.editor.backdropVisible) {
+			this.revealBackdrop();
+		}
+	}
+
 	onClick() {
+		this.hideBackdrop();
+
 		this.file = null;
 		this.uploder.cell.label = null;
 	}
@@ -81,5 +93,13 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 		if (e.target.readyState === this.reader.DONE) {
 			this.file = e.target.result;
 		}
+	}
+
+	hideBackdrop() {
+		this.editor.hideBackdrop();
+	}
+
+	revealBackdrop() {
+		setTimeout(() => this.editor.revealBackdrop(), 300);
 	}
 }
