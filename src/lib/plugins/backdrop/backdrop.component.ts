@@ -10,8 +10,7 @@ import {
 	ElementRef,
 	ChangeDetectionStrategy,
 	Injector,
-	InjectionToken,
-	Inject
+	InjectionToken
 } from '@angular/core';
 
 import { BackdropView } from 'ng2-qgrid/plugin/backdrop/backdrop.view';
