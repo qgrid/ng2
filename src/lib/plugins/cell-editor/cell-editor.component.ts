@@ -8,7 +8,7 @@ import {
 	Injector,
 	ReflectiveInjector
 } from '@angular/core';
-import { BackdropComponent, BACKDROP_CONTROL_TOKEN } from '../backdrop/backdrop.component';
+import { BackdropComponent, BACKDROP_TOKEN } from '../backdrop/backdrop.component';
 import { BackdropService } from '../backdrop/backdrop.service';
 
 @Component({
@@ -20,18 +20,21 @@ export class CellEditorComponent {
 	@Output('close') closeEvent = new EventEmitter<any>();
 	@ContentChild(TemplateRef) template: TemplateRef<any>;
 
-	backdropComponent = BackdropComponent;
+	backdropType = BackdropComponent;
 	backdropInjector: Injector;
-	backdropControl: any;
+	backdrop: {
+		backdropService: BackdropService;
+		closeEditor: () => void;
+	};
 
 	constructor(public backdropService: BackdropService, injector: Injector) {
-		this.backdropControl = {
+		this.backdrop = {
 			backdropService,
 			closeEditor: () => this.close()
 		};
 
 		this.backdropInjector =
-			ReflectiveInjector.resolveAndCreate([{ provide: BACKDROP_CONTROL_TOKEN, useValue: this.backdropControl }], injector);
+			ReflectiveInjector.resolveAndCreate([{ provide: BACKDROP_TOKEN, useValue: this.backdrop }], injector);
 	}
 
 	context: { $implicit: CellEditorComponent } = {

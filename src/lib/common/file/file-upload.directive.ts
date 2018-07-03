@@ -60,17 +60,11 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 	}
 
 	onFocus(e) {
-		if (this.backdropService) {
-			if (!this.backdropService.visibile) {
-				this.revealBackdrop();
-			}
-		}
+		this.revealBackdrop();
 	}
 
 	onClick() {
-		if (this.backdropService) {
-			this.hideBackdrop();
-		}
+		this.hideBackdrop();
 
 		this.file = null;
 		this.uploder.cell.label = null;
@@ -88,7 +82,7 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 		const file = files[0] || null;
 		if (file) {
 			this.reader.readAsDataURL(file);
-			this.uploder.cell.label = file.name; 
+			this.uploder.cell.label = file.name;
 		}
 	}
 
@@ -99,10 +93,16 @@ export class FileUploadDirective extends NgComponent implements AfterViewInit {
 	}
 
 	hideBackdrop() {
-		this.backdropService.hide();
+		if (this.backdropService) {
+			this.backdropService.hide();
+		}
 	}
 
 	revealBackdrop() {
-		setTimeout(() => this.backdropService.reveal(), 300);
+		if (this.backdropService) {
+			if (!this.backdropService.isVisible) {
+				setTimeout(() => this.backdropService.reveal(), 300);
+			}
+		}
 	}
 }

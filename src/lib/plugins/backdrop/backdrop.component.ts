@@ -10,13 +10,14 @@ import {
 	ElementRef,
 	ChangeDetectionStrategy,
 	Injector,
-	InjectionToken
+	InjectionToken,
+	Inject
 } from '@angular/core';
 
 import { BackdropView } from 'ng2-qgrid/plugin/backdrop/backdrop.view';
 import { BackdropService } from './backdrop.service';
 
-export const BACKDROP_CONTROL_TOKEN = new InjectionToken<any>('BACKDROP CONTROL');
+export const BACKDROP_TOKEN = new InjectionToken<any>('QGRID_BACKDROP_TOKEN');
 
 @Component({
 	selector: 'q-grid-backdrop',
@@ -31,7 +32,7 @@ export class BackdropComponent {
 	};
 
 	constructor(injector: Injector, element: ElementRef) {
-		const {backdropService, closeEditor} = injector.get(BACKDROP_CONTROL_TOKEN);
+		const { backdropService, closeEditor } = injector.get(BACKDROP_TOKEN);
 
 		const context = {
 			element: element.nativeElement,
