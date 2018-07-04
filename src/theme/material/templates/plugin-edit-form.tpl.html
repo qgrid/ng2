@@ -1,6 +1,5 @@
 <ng-template key="plugin-edit-form.tpl.html"
-             let-$editForm
-             let-$view="$view">
+             let-$editForm>
 	<mat-card class="mat-elevation-z">
 		<mat-card-header>
 			<mat-card-title>Columns Filter</mat-card-title>
@@ -16,15 +15,15 @@
 			</ul>
 		</mat-card-content>
 		<mat-card-actions>
-			<!-- <button mat-button
+			<button mat-button
 			        color="primary"
-			        (click)="$view.edit.cell.commit.execute($cell, $event)">
+			        (click)="$editForm.save($event)">
 				Save
 			</button>
 			<button mat-button
-			        (click)="$view.edit.cell.cancel.execute($cell, $event)">
+			        (click)="$editForm.cancel($event)">
 				Cancel
-			</button> -->
+			</button>
 		</mat-card-actions>
 	</mat-card>
 
