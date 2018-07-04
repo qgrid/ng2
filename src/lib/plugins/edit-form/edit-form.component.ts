@@ -7,6 +7,7 @@ import { EditFormPanelView } from 'ng2-qgrid/plugin/edit-form/edit.form.panel.vi
 import { CellEditor } from 'ng2-qgrid/core/edit/edit.cell.editor';
 import { PluginService } from '../plugin.service';
 import { ViewCoreService } from '../../main/core/view/view-core.service';
+import { Output, EventEmitter } from '@angular/core';
 
 @Component({
 	selector: 'q-grid-edit-form',
@@ -16,6 +17,9 @@ import { ViewCoreService } from '../../main/core/view/view-core.service';
 export class EditFormComponent implements OnInit, OnDestroy {
 	@Input() title: string;
 	@Input() cell: any;
+
+	@Output() cancel: EventEmitter<boolean> = new EventEmitter();
+	@Output() submit: EventEmitter<boolean> = new EventEmitter();
 
 	private panelView: any;
 	private editors: CellEditor[];
@@ -47,11 +51,13 @@ export class EditFormComponent implements OnInit, OnDestroy {
 		return 'edit-form-default.tpl.html';
 	}
 
-	save(event: any): void {
+	saveHandler(event: any): void {
 		this.panelView.submit.execute();
+		this.cancel.emit();
 	}
 
-	cancel(event: any): void {
+	cancelHandler(event: any): void {
 		this.panelView.cancel.execute();
+		this.submit.emit();
 	}
 }

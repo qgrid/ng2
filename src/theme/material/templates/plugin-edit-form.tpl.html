@@ -5,23 +5,20 @@
 			<mat-card-title>Columns Filter</mat-card-title>
 		</mat-card-header>
 		<mat-card-content>
-			<ul>
-				<li *ngFor="let cellEditor of $editForm.editors">
-					<q-grid-edit-form-control [cellEditor]="cellEditor"
-					                          [control]="$editForm"
-					                          [key]="$editForm.getKey(cellEditor)">
-					</q-grid-edit-form-control>
-				</li>
-			</ul>
+			<q-grid-edit-form-control *ngFor="let cellEditor of $editForm.editors"
+			                          [cellEditor]="cellEditor"
+			                          [control]="$editForm"
+			                          [key]="$editForm.getKey(cellEditor)">
+			</q-grid-edit-form-control>
 		</mat-card-content>
 		<mat-card-actions>
 			<button mat-button
 			        color="primary"
-			        (click)="$editForm.save($event)">
+			        (click)="$editForm.saveHandler($event)">
 				Save
 			</button>
 			<button mat-button
-			        (click)="$editForm.cancel($event)">
+			        (click)="$editForm.cancelHandler($event)">
 				Cancel
 			</button>
 		</mat-card-actions>
