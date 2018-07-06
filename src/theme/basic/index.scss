@@ -28,6 +28,18 @@ $head-sorted: #004559;
                 }
             }
         }
+
+        tr {
+            &.q-grid-highlighted {
+                background-color: $highlighted;
+            }
+        }
+
+        td {
+            &.q-grid-highlighted {
+                background-color: $highlighted;
+            }
+        }
     }
 
     .q-grid-icon {
