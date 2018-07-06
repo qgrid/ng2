@@ -35,8 +35,6 @@ import { FetchContext } from '../fetch/fetch.context';
 export declare function match(context: any): (x: any, value: any) => boolean;
 
 export declare interface FilterModel {
-	resource?: Resource;
-
 	/**
 	 * Object that contains filter values, `{columnKey: items | blanks | expression}`
 	 *
