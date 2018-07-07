@@ -144,16 +144,12 @@ $group-summary: #007fa3;
                 height: 30px;
             }
             th {
-                line-height: 14px;
                 border-top: 1px solid $grid-border;
                 border-left: 1px solid $grid-border;
             }
 
             th:nth-last-child(2) {
                 border-right: 1px solid $grid-border;
-                border-right-width: 1px;
-                border-right-style: solid;
-                border-right-color: rgb(224, 224, 224);
             }
         }
     }
