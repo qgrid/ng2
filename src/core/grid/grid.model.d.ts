@@ -36,6 +36,6 @@ export declare interface GridModel {
 	 */
 	interactionMode?: 'full' | 'readonly' | 'detached';
 
-	// @depricated
+	// @deprecated
 	title?: string;
 }

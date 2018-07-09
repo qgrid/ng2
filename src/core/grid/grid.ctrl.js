@@ -87,15 +87,11 @@ export class GridCtrl extends Disposable {
 	}
 
 	invalidateActive() {
-		const activeClassName = `${GRID_PREFIX}-active`;
-		const view = this.table.view;
-		const model = this.model;
+		const { view, model } = this.table;
 		if (view.isFocused()) {
-			Fastdom.mutate(() => view.addClass(activeClassName));
 			model.focus({ isActive: true }, { source: 'grid.ctrl' });
 		}
 		else {
-			Fastdom.mutate(() => view.removeClass(activeClassName));
 			model.focus({ isActive: false }, { source: 'grid.ctrl' });
 		}
 	}

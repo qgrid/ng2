@@ -50,6 +50,7 @@ import { ExampleExportBasicComponent } from './export-basic/example-export-basic
 import { ExampleFilterColumnFetchComponent } from './filter-column-fetch/example-filter-column-fetch.component';
 import { ExampleFilterConditionBasicComponent } from './filter-condition-basic/example-filter-condition-basic.component';
 import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filter-row-basic.component';
+import { ExampleFilterRowCustomComponent } from './filter-row-custom/example-filter-row-custom.component';
 import { ExampleFloatingRowsBasicComponent } from './floating-rows-basic/example-floating-rows-basic.component';
 import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
 import { ExampleFocusCellBasicComponent } from './focus-cell-basic/example-focus-cell-basic.component';
@@ -165,6 +166,7 @@ const EXAMPLES: Array<any> = [
 	ExampleFilterColumnFetchComponent,
 	ExampleFilterConditionBasicComponent,
 	ExampleFilterRowBasicComponent,
+	ExampleFilterRowCustomComponent,
 	ExampleFloatingRowsBasicComponent,
 	ExampleFocusCellAutoComponent,
 	ExampleFocusCellBasicComponent,

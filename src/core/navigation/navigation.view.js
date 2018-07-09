@@ -1,9 +1,8 @@
 import { Command } from '../command/command';
 import { Navigation } from './navigation';
 import { GRID_PREFIX } from '../definition';
-import { Td } from '../dom/td';
 import { Fastdom } from '../services/fastdom';
-import { FocusAfterRender } from '../focus/focus.service';
+import { Td } from '../dom/td';
 
 export class NavigationView {
 	constructor(model, table, shortcut) {
@@ -104,9 +103,21 @@ export class NavigationView {
 				return;
 			}
 
+			if (e.hasChanges('isActive')) {
+				const { view } = table;
+				const activeClassName = `${GRID_PREFIX}-active`;
+				if (e.state.isActive) {
+					Fastdom.mutate(() => view.addClass(activeClassName));
+					view.focus();
+				} else {
+					Fastdom.mutate(() => view.removeClass(activeClassName));
+				}
+			}
+
 			if (e.hasChanges('rowIndex') || e.hasChanges('columnIndex')) {
 				this.focus.execute(e.state);
 			}
+
 		});
 
 		model.sceneChanged.watch(e => {
@@ -114,7 +125,7 @@ export class NavigationView {
 				const { status } = e.state;
 				switch (status) {
 					case 'stop':
-						const { row, column, columnIndex } = model.navigation();
+						const { row, column, columnIndex, rowIndex } = model.navigation();
 						if (row && column) {
 							const newRowIndex = table.data.rows().indexOf(row);
 							let newColumnIndex = table.data.columns().findIndex(c => c.key === column.key);

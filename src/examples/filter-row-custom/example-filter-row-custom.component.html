@@ -1,0 +1,17 @@
+<q-grid caption="Filter Row Custom"
+        [rows]="rows | async">
+	<q-grid-columns generation="deep">
+		<q-grid-column canFilter="false"></q-grid-column>
+	</q-grid-columns>
+
+	<q-grid-toolbar>
+		<ng-template for="top">
+			<input #search
+			       style="float: left;"
+			       type="search"
+			       (input)="filter(search.value)"
+			       placeholder="Filter by name" />
+		</ng-template>
+	</q-grid-toolbar>
+
+</q-grid>

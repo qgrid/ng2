@@ -11,8 +11,6 @@ import { Resource } from '../resource/resource';
  * * [pivot.form.js](https://github.com/qgrid/ng2/blob/master/core/pivot/pivot.form.js)
  */
 export declare interface PivotModel {
-	resource?: Resource;
-
 	/**
 	 * A list of column keys to pivot. Each item represents next level.
 	 */

@@ -11,8 +11,6 @@ import { CommitShortcuts } from './commit.shortcuts';
  * * [Edit Row View](/doc/api/edit-row-view.html)
  */
 export declare interface EditModel {
-	resource?: Resource;
-
 	/**
 	 * Property that controls grid edit unit.
 	 *

@@ -10,8 +10,6 @@ import { ColumnModel } from '../column-type/column.model';
  * * [selection.service.js](https://github.com/qgrid/ng2/blob/master/core/selection/selection.service.js)
  */
 export declare interface SelectionModel {
-	resource?: Resource;
-
 	/**
 	 * Controls if click on the q-grid body should select row or not.
 	 *
