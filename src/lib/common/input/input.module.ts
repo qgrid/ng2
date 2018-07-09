@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-//import { InputDirective } from './input.directive';
+// import { InputDirective } from './input.directive';
 
 @NgModule({
 	declarations: [
-//		InputDirective
+// InputDirective
 	],
 	exports: [
-//		InputDirective
+// InputDirective
 	]
 })
 export class InputModule {

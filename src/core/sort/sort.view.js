@@ -92,16 +92,14 @@ export class SortView {
 	}
 
 	direction(column) {
-		const key = column.key;
-		const state = this.model.sort();
-		const by = state.by;
+		const { key } = column;
+		const { by } = this.model.sort();
 		return sortService.map(by)[key];
 	}
 
 	order(column) {
-		const key = column.key;
-		const state = this.model.sort();
-		const by = state.by;
+		const { key } = column;
+		const { by } = this.model.sort();
 		return sortService.index(by, key);
 	}
 }

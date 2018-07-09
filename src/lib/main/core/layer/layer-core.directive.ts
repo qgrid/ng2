@@ -1,7 +1,4 @@
-import {
-	Directive,
-	ViewContainerRef
-} from '@angular/core';
+import { Directive, ViewContainerRef } from '@angular/core';
 import { LayerService } from './layer.service';
 
 @Directive({

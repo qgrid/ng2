@@ -6,7 +6,7 @@ export class VscrollContext {
 	container: VscrollContainer;
 
 	constructor(settings?: IVscrollSettings) {
-		this.settings = new VscrollSettings(() => this.container.total)
+		this.settings = new VscrollSettings(() => this.container.total);
 		if (settings) {
 			Object.assign(this.settings, settings);
 		}

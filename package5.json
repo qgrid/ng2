@@ -1,6 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "5.4.3",
+  "version": "5.4.5",
   "dependencies": {
     "@angular/animations": "^5.2.11",
     "@angular/common": "^5.2.11",

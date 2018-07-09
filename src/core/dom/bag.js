@@ -1,35 +1,71 @@
+import { TrContainer } from './container';
+
 export class Bag {
 	constructor() {
 		this.rows = new Set();
 		this.cells = new Set();
-		this.models = new Map();
+		this.elements = new Map();
+		this.rowContainer = new Map();
 	}
 
 	findModel(element) {
-		return this.models.get(element);
+		return this.elements.get(element);
 	}
 
 	hasModel(element) {
-		return this.models.has(element);
+		return this.elements.has(element);
 	}
 
-	addRow(row) {
-		this.rows.add(row);
-		this.models.set(row.element, row);
+	getRowElements() {
+		return this.rowContainer.values();
 	}
 
-	addCell(cell) {
-		this.cells.add(cell);
-		this.models.set(cell.element, cell);
+	getCellElements() {
+		return this.cells;
 	}
 
-	deleteRow(row) {
-		this.rows.delete(row);
-		this.models.delete(row.element);
+	addRow(tr) {
+		const { rowContainer } = this;
+		const { model, element } = tr;
+
+		this.rows.add(tr);
+		this.elements.set(element, tr);
+
+		const container = rowContainer.get(model);
+		if (container) {
+			container.elements.push(tr);
+		} else {
+			rowContainer.set(model, new TrContainer([tr]));
+		}
 	}
 
-	deleteCell(cell) {
-		this.cells.delete(cell);
-		this.models.delete(cell.element);
+	addCell(td) {
+		this.cells.add(td);
+		this.elements.set(td.element, td);
+	}
+
+	deleteRow(tr) {
+		const { rowContainer } = this;
+		const { model, element } = tr;
+
+		this.rows.delete(tr);
+		this.elements.delete(element);
+
+		const container = rowContainer.get(model);
+		if (container) {
+			const { elements } = container;
+			const index = elements.indexOf(element);
+			if (index >= 0) {
+				elements.splice(index, 1);
+				if (!element.length) {
+					rowContainer.delete(model);
+				}
+			}
+		}
+	}
+
+	deleteCell(td) {
+		this.cells.delete(td);
+		this.elements.delete(td.element);
 	}
 }

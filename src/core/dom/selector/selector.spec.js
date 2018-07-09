@@ -15,7 +15,7 @@ describe('Selector', () => {
 		rows: [row1, row2]
 	};
 	let bag = new Bag();
-	let bagMap = bag.models;
+	let bagMap = bag.elements;
 	bagMap.set(row1, cells1);
 	bagMap.set(row2, cells2);
 	let factory = new UnitFactory(rowRange, columnRange);
@@ -152,7 +152,7 @@ describe('Selector', () => {
 			rows: [row1, row2]
 		};
 		let bag = new Bag();
-		let bagMap = bag.models;
+		let bagMap = bag.elements;
 		bagMap.set(row1, cells1);
 		bagMap.set(row2, cells2);
 		let factory = new UnitFactory(rowRange, columnRange);
@@ -174,7 +174,7 @@ describe('Selector', () => {
 			rows: [row1, row2]
 		};
 		let bag = new Bag();
-		let bagMap = bag.models;
+		let bagMap = bag.elements;
 		bagMap.set(row1, cells1);
 		bagMap.set(row2, cells2);
 		let factory = new UnitFactory(rowRange, columnRange);

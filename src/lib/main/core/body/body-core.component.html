@@ -9,14 +9,14 @@
 				[q-grid-core-td-align]="$column">
 			</td>
 		</tr>
-		<tr *ngFor="let $row of $view.body.render.rows[pin] | qGridVscroll: $view.scroll.y; index as $rowIndex; trackBy: virtualRowId"
+		<tr *ngFor="let $row of $view.body.render.rows[pin] | qGridVscroll: $view.scroll.y; index as $vscrollIndex; viewIndex as $rowIndex; trackBy: virtualRowId"
 		    [q-grid-core-tr]="$row"
-		    [q-grid-core-index]="$rowIndex"
-		    [q-grid-vscroll-row]="$rowIndex"
+		    [q-grid-core-index]="$vscrollIndex"
+		    [q-grid-vscroll-row]="$vscrollIndex"
 		    q-grid-core-source="body">
-			<td *ngFor="let $column of $view.body.render.columns($row, $table.pin, index); index as $columnIndex; trackBy: columnId"
-			    [attr.rowspan]="$view.body.render.rowspan($row, $column, index, $columnIndex)"
-			    [attr.colspan]="$view.body.render.colspan($row, $column, index, $columnIndex)">
+			<td *ngFor="let $column of $view.body.render.columns($row, $table.pin, $rowIndex); index as $columnIndex; trackBy: columnId"
+			    [attr.rowspan]="$view.body.render.rowspan($row, $column, $rowIndex, $columnIndex)"
+			    [attr.colspan]="$view.body.render.colspan($row, $column, $rowIndex, $columnIndex)">
 				<ng-container [q-grid-core-td]="$column">
 				</ng-container>
 			</td>
@@ -37,7 +37,6 @@
 		    [q-grid-core-index]="$rowIndex"
 		    q-grid-core-source="body">
 			<td *ngFor="let $column of $view.body.render.columns($row, $table.pin, $rowIndex); index as $columnIndex; trackBy: columnId"
-		
 			    [attr.rowspan]="$view.body.render.rowspan($row, $column, $rowIndex, $columnIndex)"
 			    [attr.colspan]="$view.body.render.colspan($row, $column, $rowIndex, $columnIndex)">
 				<ng-container [q-grid-core-td]="$column">

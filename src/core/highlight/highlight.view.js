@@ -108,15 +108,12 @@ export class HighlightView {
 
 		model.sceneChanged.watch(e => {
 			if (e.hasChanges('status')) {
-				const status = e.state.status;
-				switch (status) {
-					case 'stop':
-						columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
-						rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
-						cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
-						sortBlurs = this.invalidateSortBy(sortBlurs);
-						selectionBlurs = this.invalidateSelection(selectionBlurs);
-						break;
+				if (e.state.status === 'stop') {
+					columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
+					rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
+					cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
+					sortBlurs = this.invalidateSortBy(sortBlurs);
+					selectionBlurs = this.invalidateSelection(selectionBlurs);
 				}
 			}
 		});
@@ -163,7 +160,7 @@ export class HighlightView {
 	}
 
 	get isRendering() {
-		return this.model.scene().status === 'start' || this.model.drag().isActive;
+		return this.model.scene().status !== 'stop' || this.model.drag().isActive;
 	}
 
 	invalidateColumnHover(dispose) {
@@ -181,8 +178,8 @@ export class HighlightView {
 		dispose.forEach(f => f());
 		dispose = [];
 		const { rows } = this.model.highlight();
-		for (let rowIndex of rows) {
-			dispose.push(this.highlightRow(rowIndex, 'highlighted'));
+		for (let row of rows) {
+			dispose.push(this.highlightRow(row, 'highlighted'));
 		}
 
 		return dispose;
@@ -279,9 +276,7 @@ export class HighlightView {
 		}
 
 		const { body } = this.table;
-		Fastdom.mutate(() => {
-			body.row(index).addClass(`${GRID_PREFIX}-${cls}`);
-		});
+		Fastdom.mutate(() => body.row(index).addClass(`${GRID_PREFIX}-${cls}`));
 
 		return this.blurRow(index, cls);
 	}
@@ -292,10 +287,8 @@ export class HighlightView {
 			return noop;
 		}
 
-		return () =>
-			Fastdom.mutate(() => {
-				table.body.row(index).removeClass(`${GRID_PREFIX}-${cls}`);
-			});
+		const row = table.body.row(index);
+		return () => Fastdom.mutate(() => row.removeClass(`${GRID_PREFIX}-${cls}`));
 	}
 
 	highlightCell(cell, cls) {
@@ -307,9 +300,6 @@ export class HighlightView {
 	}
 
 	blurCell(cell, cls) {
-		return () =>
-			Fastdom.mutate(() => {
-				cell.removeClass(`${GRID_PREFIX}-${cls}`);
-			});
+		return () => Fastdom.mutate(() => cell.removeClass(`${GRID_PREFIX}-${cls}`));
 	}
 }

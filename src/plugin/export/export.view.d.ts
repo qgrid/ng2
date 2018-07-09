@@ -1,7 +1,7 @@
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Command } from 'ng2-qgrid/core/command/command';
-import { Row } from 'ng2-qgrid/core/dom/row';
-import { Column } from 'ng2-qgrid/core/dom/column';
+import { RowModel } from 'ng2-qgrid/core/row/row.model';
+import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 
 export declare class ExportView {
 	constructor(model: Model, context: { type: string });
@@ -14,6 +14,6 @@ export declare class ExportView {
 	xlsx: Command;
 	xml: Command;
 	readonly id: string;
-	readonly rows: Row[];
-	readonly columns: Column[];
+	readonly rows: RowModel[];
+	readonly columns: ColumnModel[];
 }

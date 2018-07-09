@@ -1,8 +1,6 @@
-import { Component, OnInit, ElementRef, NgZone, DoCheck } from '@angular/core';
+import { Component, OnInit, ElementRef, NgZone, DoCheck, ChangeDetectorRef } from '@angular/core';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
-import { Log } from 'ng2-qgrid/core/infrastructure/log';
 import { ViewCtrl } from 'ng2-qgrid/core/view/view.ctrl';
-import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { CellService } from '../cell/cell.service';
 import { ViewCoreService } from './view-core.service';
 import { NgComponent } from '../../../infrastructure/component/ng.component';
@@ -16,31 +14,30 @@ import { GridService } from '../../../main/grid/grid.service';
 })
 export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 	private ctrl: ViewCtrl;
-	private job = jobLine(0);
 
 	constructor(
 		private root: RootService,
 		private view: ViewCoreService,
 		private grid: GridService,
 		private zone: NgZone,
-		private elementRef: ElementRef
+		private elementRef: ElementRef,
+		private cd: ChangeDetectorRef
 	) {
 		super();
 
 		zone.onStable.subscribe(() => {
 			if (this.root.isReady) {
-				const model = this.model;
-				const { round, status } = model.scene();
-				if (round > 0 && status === 'start') {
-					model.scene({
-						round: 0,
+				const { scene } = this.model;
+				const { status } = scene();
+				if (status === 'push') {
+					scene({
 						status: 'stop'
 					}, {
 							source: 'grid.component',
 							behavior: 'core'
 						});
 
-					this.job(() => this.ctrl.invalidate());
+					this.ctrl.invalidate();
 				}
 			}
 		});
@@ -49,7 +46,7 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 	ngDoCheck() {
 		const { status } = this.model.scene();
 		if (status === 'stop') {
-			this.job(() => this.ctrl.invalidate());
+			this.ctrl.invalidate();
 		}
 	}
 
@@ -70,17 +67,27 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 		this.ctrl = new ViewCtrl(model, view, gridService);
 
 		model.sceneChanged.watch(e => {
-			if (e.hasChanges('round') && e.state.round > 0) {
-				if (!NgZone.isInAngularZone()) {
+			if (e.hasChanges('status')) {
+				if (e.state.status === 'pull') {
+					this.cd.markForCheck();
+
 					// Run digest on the start of invalidate(e.g. for busy indicator)
 					// and on the ned of invalidate(e.g. to build the DOM)
-					this.zone.run(() => Log.info('grid.component', 'digest'));
+					this.zone.run(() =>
+						model.scene({
+							status: 'push'
+						}, {
+								source: 'view-core.component',
+								behavior: 'core'
+							}));
 				}
 			}
 		});
 
-		model.highlightChanged.watch(() => this.job(() => this.ctrl.invalidate()));
-		model.navigationChanged.watch(() => this.job(() => this.ctrl.invalidate()));
+		const virtualBody = this.root.table.body as any;
+		if (virtualBody.requestInvalidate) {
+			virtualBody.requestInvalidate.on(() => this.ctrl.invalidate());
+		}
 	}
 
 	private get model() {

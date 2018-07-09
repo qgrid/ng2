@@ -1,7 +1,6 @@
-import { findPosition, IVscrollPosition, recycleFactory } from './vscroll.position';
+import { findPositionUsingOffsets, IVscrollPosition, recycleFactory } from './vscroll.position';
 import { VscrollBox } from './vscroll.box';
 import { VscrollPort } from './vscroll.port';
-import { InternalFormsSharedModule } from '@angular/forms/src/directives';
 
 const UNSET_ARM = Number.MAX_SAFE_INTEGER;
 
@@ -12,7 +11,7 @@ function empty() {
 export class VscrollLayout {
 	private items = [];
 	private minArm = UNSET_ARM;
-	private position = findPosition([], 0, 0);
+	private position = findPositionUsingOffsets(0, []);
 	private getOffsets = recycleFactory(this.items);
 
 	constructor(private port: VscrollPort) {
@@ -22,14 +21,14 @@ export class VscrollLayout {
 		const { port } = this;
 		const itemSize = port.getItemSize();
 		if (itemSize) {
-			return this.recycleItemSize(count, box, force, itemSize)
+			return this.recycleItemSize(count, box, force, itemSize);
 		}
 
 		return this.recycleOffsets(count, box, force);
 	}
 
 	invalidate(position: IVscrollPosition): number {
-		const offset = position.offset;
+		const { offset } = position;
 		const pad1 = Math.max(0, offset);
 		const pad2 = Math.max(0, position.pad - pad1);
 
@@ -40,7 +39,7 @@ export class VscrollLayout {
 	reset() {
 		this.minArm = UNSET_ARM;
 		this.getOffsets = this.port.recycleFactory(this.items);
-		this.position = findPosition([], 0, 0);
+		this.position = findPositionUsingOffsets(0, []);
 		return this.invalidate(this.position);
 	}
 
@@ -68,11 +67,11 @@ export class VscrollLayout {
 		const { position, port } = this;
 		const { threshold } = this.settings;
 		const offsets = this.getOffsets(position.index, count);
-		const arm = this.getArmUsginOffsets(offsets, box, position.index);
+		const arm = this.getArmUsingOffsets(offsets, box, position.index);
 
 		this.minArm = Math.min(this.minArm, arm);
 
-		const newPosition = port.getPosition(offsets, box, this.minArm);
+		const newPosition = port.getPositionUsingOffsets(offsets, box, this.minArm);
 		if (force || position.index !== newPosition.index) {
 			const last = Math.min(offsets.length - 1, newPosition.index + threshold - 1);
 			const first = newPosition.index - 1;
@@ -86,32 +85,31 @@ export class VscrollLayout {
 		return null;
 	}
 
-	recycleItemSize(count: number, box: VscrollBox, force: boolean, itemSize: number) {
+	private recycleItemSize(count: number, box: VscrollBox, force: boolean, itemSize: number) {
 		const { position, port } = this;
-		const { threshold } = this.settings;
-		const arm = this.getArmUsingItemSize(box, itemSize);
+		const arm = this.getArmUsingItemSize(itemSize, box);
+		const newPosition = port.getPositionUsingItemSize(itemSize, box, arm);
 
-		this.minArm = Math.min(this.minArm, arm);
-
-		const newPosition = port.getPosition([], box, this.minArm);
 		if (force || position.index !== newPosition.index) {
-			newPosition.pad = Math.max(0, itemSize * (count - threshold));
+			const { threshold } = this.settings;
+			const remain =  Math.max(0, newPosition.index + threshold - this.container.count);
+			newPosition.pad = Math.max(0, itemSize * (count + remain - threshold));
 			return this.position = newPosition;
 		}
 
 		return null;
 	}
 
-	private getArmUsingItemSize(box: VscrollBox, itemSize: number) {
+	private getArmUsingItemSize(itemSize: number, box: VscrollBox) {
 		const { threshold } = this.settings;
 		const portSize = this.port.getSize(box);
 		const viewSize = threshold * itemSize;
 		return Math.max(0, (viewSize - portSize) / 2);
 	}
 
-	private getArmUsginOffsets(offsets: Array<number>, box: VscrollBox, index: number) {
+	private getArmUsingOffsets(offsets: Array<number>, box: VscrollBox, index: number) {
 		if (offsets.length) {
-			const threshold = this.settings.threshold;
+			const { threshold } = this.settings;
 			const portSize = this.port.getSize(box);
 			const last = Math.min(offsets.length, index + threshold) - 1;
 			const first = (last + 1) - threshold;
@@ -120,6 +118,10 @@ export class VscrollLayout {
 		}
 
 		return UNSET_ARM;
+	}
+
+	private get container() {
+		return this.port.context.container;
 	}
 
 	private get settings() {

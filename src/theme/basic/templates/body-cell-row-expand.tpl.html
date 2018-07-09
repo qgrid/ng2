@@ -1,0 +1,10 @@
+<ng-template key="body-cell-row-expand.tpl.html"
+             let-$cell
+             let-$view="$view">
+	<button (mouseup)="$view.rowDetails.toggleStatus.execute($cell.row)"
+	        *ngIf="$view.rowDetails.toggleStatus.canExecute($cell.row)"
+	        [ngClass]="'q-grid-'+$view.rowDetails.status($cell.row) + ' q-grid-icon-button'"
+	        tabindex="-1">
+		<i class="q-grid-icon">&#10095;</i>
+	</button>
+</ng-template>

@@ -37,7 +37,7 @@ export class StyleView {
 
 	needInvalidate() {
 		const model = this.model;
-		if (model.scene().state === 'start') {
+		if (model.scene().status !== 'stop') {
 			return false;
 		}
 
@@ -50,8 +50,8 @@ export class StyleView {
 		}
 
 		const context = { model };
-		const styleState = model.style();
-		return styleState.invalidate.canExecute(context) && styleState.invalidate.execute(context) !== false;
+		const { invalidate } = model.style();
+		return invalidate.canExecute(context) && invalidate.execute(context) !== false;
 	}
 
 	invalidate(domCell, domRow) {
@@ -88,9 +88,8 @@ export class StyleView {
 			visitCell = new VirtualCellStyle(table, visitCell).visitFactory();
 		}
 
-		const bodyRows = table.body.rows();
-
-		// for performance reason we make rowContext and cellContext the same reference for the all style calls
+		// For performance reason we make rowContext and cellContext the same reference 
+		// for the all style calls.
 		const rowContext = {
 			class: noop,
 			row: -1,
@@ -109,39 +108,39 @@ export class StyleView {
 			columns: rowContext.columns
 		};
 
-		for (let i = 0, rowsLength = bodyRows.length; i < rowsLength; i++) {
-			const bodyRow = bodyRows[i];
-			const rowIndex = bodyRow.index;
-			const tr = bodyRow.model();
-			if (!tr) {
-				continue;
-			}
+		// To improve performance take rows and cells directly from the bag and not from the DOM table. 
+		const { body } = table;
+		const { rowToView, columnToView } = table.context.mapper;
+		const bag = table.context.bag.body;
 
-			const dataItem = tr.model;
-			if (isRowActive) {
-				rowContext.class = domRow(bodyRow);
-				rowContext.row = rowIndex;
+		if (isRowActive) {
+			const rows = table.context.bag.body.getRowElements();
+			for (let tr of rows) {
+				const { index, element, model } = tr;
+				// This private method we use only for performance, don't use it in other places.
+				const row = body.createRowCore(rowToView(index), element);
+
+				rowContext.class = domRow(row);
+				rowContext.row = index;
 				rowContext.value = value;
 
-				visitRow(dataItem, rowContext);
+				visitRow(model, rowContext);
 			}
+		}
 
-			if (isCellActive) {
-				const cells = bodyRow.cells();
-				for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
-					const cell = cells[j];
-					const dataCell = cell.model();
-					if (!dataCell) {
-						continue;
-					}
+		if (isCellActive) {
+			const cells = table.context.bag.body.getCellElements();
+			for (let td of cells) {
+				const { rowIndex, columnIndex, element, row, column } = td;
+				// This private method we use only for performance, don't use it in other places.
+				const cell = body.createCellCore(rowToView(rowIndex), columnToView(columnIndex), element);
 
-					cellContext.class = domCell(cell);
-					cellContext.row = rowIndex;
-					cellContext.column = j;
-					cellContext.value = value;
+				cellContext.class = domCell(cell);
+				cellContext.row = rowIndex;
+				cellContext.column = columnIndex;
+				cellContext.value = value;
 
-					visitCell(dataItem, dataCell.column, cellContext);
-				}
+				visitCell(row, column, cellContext);
 			}
 		}
 	}

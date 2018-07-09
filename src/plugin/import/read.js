@@ -1,12 +1,12 @@
-import { AppError } from '../../core/infrastructure';
-import { PluginService } from '../../core/plugin';
+import { AppError } from '../../core/infrastructure/error';
 import { columnFactory } from '../../core/column/column.factory';
-import { generate } from '../../core/column-list';
+import { generate } from '../../core/column-list/column.list.generate';
 import { firstRowTitle, numericTitle, alphaTitle } from '../../core/services/title';
-import { Json } from '../../core/import/json';
-import { Xml } from '../../core/import/xml';
-import { Csv } from '../../core/import/csv';
 import { Xlsx } from './xlsx';
+import { PluginService } from '../../core/plugin/plugin.service';
+import { Xml } from '../../core/import/xml/xml';
+import { Json } from '../../core/import/json/json';
+import { Csv } from '../../core/import/csv/csv';
 
 function getType(name) {
 	const dotDelimeter = /[.]/g.test(name);

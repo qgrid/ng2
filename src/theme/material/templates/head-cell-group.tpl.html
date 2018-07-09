@@ -3,7 +3,8 @@
              let-$view="$view">
     <label (click)="$view.group.toggleAllStatus.execute()"
            tabindex="-1"
-           [matTooltip]="$cell.column.title">
+           [matTooltip]="$cell.column.title"
+           [matTooltipShowDelay]="800">
         {{$cell.column.title}}
     </label>
 </ng-template>

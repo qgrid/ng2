@@ -1,32 +1,65 @@
+$head-primary: #006f8f;
+$head-secondary: #005D78;
+$head-sorted: #004559;
+
+$grid-border: #e0e0e0;
+$grid-array-background: #e0e0e0;
+
+$selected: #f5f5f5;
+$highlighted: #eee;
+$group-summary: #007fa3;
+
 .q-grid.q-grid-theme-basic {
     font-family: Roboto;
-    .q-grid {
-        &-table {
-            tr {
-                height: 30px;
-            }
-            th {
-                font-size: 12px !important;
-                color: #006f8f !important;
-                font-weight: normal !important;
-                line-height: 14px;
-            }
-            td {
-                font-size: 16px;
-                line-height: 16px;
-                font-weight: normal;
-            }
-            tfoot,
-            tbody {
-                tr {
-                    border-top: 1px solid #e0e0e0;
-                }
-                tr:nth-child(2) {
-                    border-top: 0;
+    
+    &.q-grid-box {
+        .q-grid-row-indicator {
+            .q-grid-can-drag {
+                .q-grid-icon {
+                    font-style: normal;
                 }
             }
         }
     }
+
+    &.q-grid-box:not(.q-grid-drag) {
+        th {
+            .q-grid-sort {
+                &:not(.q-grid-active):hover {
+                    .q-grid-desc {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        tr {
+            &.q-grid-highlighted {
+                background-color: $highlighted;
+            }
+        }
+
+        td {
+            &.q-grid-highlighted {
+                background-color: $highlighted;
+            }
+        }
+    }
+
+    .q-grid-icon {
+        font-style: normal;
+        display: inline-block;
+        font-size: 16px;
+    }
+
+    thead {
+        tr {
+            height: 17px;
+        }
+
+        box-shadow: 0 1px 0px #ddd;
+    }
+
     th {
         .q-grid {
             &-desc,
@@ -42,6 +75,206 @@
                     &-asc {
                         display: block;
                     }
+                }
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            height: 48px;
+        }
+    }
+
+    td {
+        &.q-grid-row-expand button.q-grid-expand .q-grid-icon {
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }  
+        
+        &.q-grid-group button, 
+        &.q-grid-row-expand button {
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            min-height: 24px;
+            margin: -1px 0 0 -6px;
+            padding: 0;
+        }
+
+        &.q-grid-group button.q-grid-expand .q-grid-icon, 
+        &.q-grid-row-expand button.q-grid-expand .q-grid-icon {
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+        &.q-grid-group-summary {
+            color: $group-summary !important;
+        }
+    }
+
+    .q-grid-icon-button{
+        color: inherit;
+        background: 0 0;
+        font-family: Roboto,"Helvetica Neue",sans-serif;
+        font-weight: 500;
+        border-radius: 50%;
+        min-width: 0;
+        flex-shrink: 0;
+        box-sizing: border-box;
+        position: relative;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: pointer;
+        outline: 0;
+        border: none;
+        -webkit-tap-highlight-color: transparent;
+        display: inline-block;
+        white-space: nowrap;
+        text-decoration: none;
+        vertical-align: middle;
+        text-align: center;
+        overflow: visible;
+    }
+
+    .q-grid-head-multi {
+        thead {
+            tr {
+                height: 30px;
+            }
+            th {
+                border-top: 1px solid $grid-border;
+                border-left: 1px solid $grid-border;
+            }
+
+            th:nth-last-child(2) {
+                border-right: 1px solid $grid-border;
+            }
+        }
+    }
+
+    .q-grid {
+        &-table {
+            td.q-grid-sorted {
+                background-color: $selected;
+            }
+            
+            th {
+                font-size: 12px !important;
+                color: $head-primary !important;
+                font-weight: normal !important;
+                line-height: 14px;
+
+                .q-grid-desc,
+                .q-grid-asc {
+                    display: none;
+                }
+                &.q-grid-can-sort {
+                    .q-grid-sort {
+                        cursor: pointer;
+                    }
+                    .q-grid-desc,
+                    .q-grid-asc {
+                        display: block;
+                    }
+                }
+
+                .q-grid-sort {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    margin-left: -16px;
+                    padding-left: 16px;
+                    label {
+                        display: inline;
+                        padding-left: 8px;
+                    }
+                    &.q-grid-active {
+                        label {
+                            color: $head-sorted;
+                        }
+                        .q-grid-icon {
+                            color: $head-sorted;
+                        }
+                    }                             
+                    .q-grid-icon {
+                        transition: opacity 0.3s;
+                        opacity: 0;
+                        position: absolute;
+                        color: $head-secondary;
+                        font-size: 12px;
+                        font-weight: bold;
+                        height: 16px;
+                        width: 16px;
+                        min-height: 16px;
+                        min-width: 16px;
+                        vertical-align: middle;
+                        &.q-grid-active {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+            td {
+                font-weight: normal;
+                color: #212121;
+                font-size: 13px;
+                padding: 0 16px;
+                padding-top: 0px;
+                padding-right: 16px;
+                padding-bottom: 0px;
+                padding-left: 16px;
+
+                &.q-grid-row-expand {
+                    button {
+                        width: 24px;
+                        height: 24px;
+                        line-height: 24px;
+                        min-height: 24px;
+                        margin: -1px 0 0 -6px;
+                        padding: 0;
+                        opacity: 0.54;
+                    }
+                }
+            }
+            td.q-grid-array > ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+
+                li {
+                    display: inline-block;
+                    min-width: 16px;
+                    padding: 4px 8px;
+                    text-align: center;
+                    white-space: nowrap;
+                    vertical-align: middle;
+                    background-color: $grid-array-background;
+                    border-radius: 16px;
+                    margin-right: 4px;
+                }
+            }
+            td.q-grid-image {
+                cursor: pointer;
+                text-align: center;
+                
+                img {
+                    max-height: 40px;
+                    max-width: 40px;
+                }  
+                
+                .q-grid-icon {
+                    color: #757575;
+                }
+            }   
+            tfoot,
+            tbody {
+                tr {
+                    border-top: 1px solid $grid-border;
+                }
+                tr:nth-child(2) {
+                    border-top: 0;
                 }
             }
         }

@@ -1,0 +1,11 @@
+<q-grid caption="Column List Loop"
+        [rows]="rows | async">
+	<q-grid-columns>
+		<q-grid-column *ngFor="let column of columns"
+		               [key]="column.key"
+		               [title]="column.title">
+		</q-grid-column>
+	</q-grid-columns>
+
+	<q-grid-row canMove="true"></q-grid-row>
+</q-grid>

@@ -24,7 +24,7 @@ export class ExampleFilterColumnFetchComponent {
 				.pipe(
 					map(atoms => {
 						const { search, value, take, skip } = context;
-						const columnSearch = context.search.toLowerCase();
+						const columnSearch = search.toLowerCase();
 
 						const columnData = atoms.map(value);
 						const filteredData = columnSearch

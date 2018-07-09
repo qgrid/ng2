@@ -6,7 +6,8 @@ import {
 	ViewEncapsulation,
 	OnInit,
 	ElementRef,
-	NgZone
+	NgZone,
+	Inject
 } from '@angular/core';
 import { RootComponent } from '../../infrastructure/component/root.component';
 import { RootService } from '../../infrastructure/component/root.service';
@@ -33,6 +34,7 @@ import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { GridModel } from '../../plugins/plugin.service';
 import {OverlayContainer} from '@angular/cdk/overlay';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
 	selector: 'q-grid',
@@ -71,7 +73,7 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input() editMode: 'cell' | 'row';
 	@Input() editReset: Command;
 
-	@Input() filterFetch: (key: string, context: FetchContext) => any | Promise<any>;;
+	@Input() filterFetch: (key: string, context: FetchContext) => any | Promise<any>;
 	@Input() filterUnit: 'default' | 'row';
 
 	@Input() groupBy: Array<string>;
@@ -89,13 +91,16 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input() selectionMode: 'single' | 'multiple' | 'range';
 	@Input() selectionUnit: 'row' | 'cell' | 'column' | 'mix';
 
-	@Input() scrollMode:  'default' | 'virtual';
+	@Input() scrollMode: 'default' | 'virtual';
 
 	@Input() sortBy: Array<string>;
-	@Input() sortMode: 'single' | 'multiple';;
+	@Input() sortMode: 'single' | 'multiple';
 	@Input() sortTrigger: Array<string>;
 
-	@Input() styleCell: (row: any, column: ColumnModel, context: StyleCellContext) => void | { [key: string]: (row: any, column: ColumnModel, context: any) => void };
+	@Input() styleCell:
+		(row: any, column: ColumnModel, context: StyleCellContext) => void
+			| { [key: string]: (row: any, column: ColumnModel, context: any) => void };
+
 	@Input() styleRow: (row: any, context: StyleRowContext) => void;
 
 	@Output() selectionChanged = new EventEmitter<any>();
@@ -109,6 +114,7 @@ export class GridComponent extends RootComponent implements OnInit {
 		private layerService: LayerService,
 		private overlayContainer: OverlayContainer,
 		theme: ThemeService,
+		@Inject(DOCUMENT) private document: Document,
 	) {
 		super();
 
@@ -151,12 +157,12 @@ export class GridComponent extends RootComponent implements OnInit {
 		model.style({
 			classList: Array.from(element.classList)
 		});
-		
+
 		const ctrl = this.using(new GridCtrl(model, {
 			layerFactory: () => this.layerService,
 			element
 		}));
-		
+
 
 		this.root.table = ctrl.table;
 		this.root.bag = ctrl.bag;
@@ -168,9 +174,9 @@ export class GridComponent extends RootComponent implements OnInit {
 		);
 
 		const listener = new EventListener(element, new EventManager(this));
-		const windowListener = new EventListener(element, new EventManager(this));
+		const docListener = new EventListener(this.document, new EventManager(this));
 
-		this.using(windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl)));
+		this.zone.runOutsideAngular(() => this.using(docListener.on('focusin', () => ctrl.invalidateActive())));
 
 		const { debounce } = model.navigation();
 		if (debounce) {

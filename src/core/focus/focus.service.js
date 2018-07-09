@@ -1,7 +1,6 @@
 import { isUndefined, clone } from '../utility/kit';
 import { Disposable } from '../infrastructure/disposable';
 
-
 export class FocusService {
     constructor(model) {
         this.model = model;
@@ -21,13 +20,12 @@ export class FocusService {
 
         const activate = () => {
             const { rowIndex, columnIndex } = focusState;
-            focus({ rowIndex: -1, columnIndex: -1 }, { behavior: 'core', source: 'grid.service' });
 
             if (rowIndex >= 0 && columnIndex >= 0) {
-                focus({ rowIndex, columnIndex });
+                focus({ isActive: true, rowIndex, columnIndex }, { source: 'focus.service' });
             } else {
                 const columnIndex = scene().column.line.findIndex(c => c.model.canFocus);
-                focus({ rowIndex: 0, columnIndex });
+                focus({ isActive: true, rowIndex: 0, columnIndex }, { source: 'focus.service' });
             }
         };
 

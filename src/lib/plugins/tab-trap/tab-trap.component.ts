@@ -25,7 +25,7 @@ export class TabTrapComponent {
 		$implicit: this
 	};
 
-	private traps = new Map<string, any>();
+	traps = new Map<string, any>();
 	private isActivating = false;
 
 	constructor(private plugin: PluginService, element: ElementRef) {

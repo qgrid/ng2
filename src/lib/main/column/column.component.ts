@@ -28,6 +28,7 @@ export class ColumnComponent implements OnInit, OnDestroy {
 	@Input() code: string;
 
 	@Input() width: number | string;
+	@Input() widthMode: number | string;
 	@Input() minWidth: number | string;
 	@Input() maxWidth: number | string;
 	@Input() viewWidth: number | string;

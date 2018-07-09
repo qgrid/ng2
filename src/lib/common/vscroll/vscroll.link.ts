@@ -51,8 +51,14 @@ export class VscrollLink {
 		const position = port.layout.recycle(count, this.box, force);
 		if (position) {
 			this.container.apply(
-				() => this.container.cursor = port.layout.invalidate(position),
-				f => port.emit(f));
+				() => {
+					this.container.cursor = port.layout.invalidate(position);
+					this.container.drawEvent.emit({
+						position: this.container.cursor
+					});
+				},
+				f => port.emit(f)
+			);
 		}
 	}
 

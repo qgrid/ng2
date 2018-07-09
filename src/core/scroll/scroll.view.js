@@ -3,7 +3,7 @@ import { isFunction, identity } from '../utility/kit';
 import { Fastdom } from '../services/fastdom';
 
 export class ScrollView {
-	constructor(model, table, vscroll) {
+	constructor(model, table, vscroll, gridService) {
 		this.model = model;
 		this.table = table;
 
@@ -28,57 +28,88 @@ export class ScrollView {
 			(this.y.container.drawEvent.on || this.y.container.drawEvent.subscribe)
 				.bind(this.y.container.drawEvent);
 
-		subscribe(e => {
-			const { position } = e;
-			const { size, current } = pagination();
-			scroll({ cursor: position }, {
-				source: 'scroll.view',
-				behavior: 'core'
-			});
+		const updateCurrentPage = position => {
+			const { size, current, count } = pagination();
+			const newCurrent = size === 0
+				? 0
+				: count - 1 <= position + size
+					? Math.ceil(count / size) - 1
+					: Math.floor((position + size / 2) / size);
 
-			const newCurrent = Math.round(position / size);
 			if (newCurrent !== current) {
 				pagination({ current: newCurrent }, {
 					source: 'scroll.view',
 					behavior: 'core'
 				});
 			}
+		};
+
+		const updateTotalCount = () => {
+			const { effect } = model.pipe();
+			if (effect.hasOwnProperty('memo')) {
+				const count = effect.memo.length;
+				pagination({ count }, {
+					source: 'scroll.view',
+					behavior: 'core'
+				});
+
+				return count;
+			}
+
+			return pagination().count;
+		};
+
+		subscribe(e => {
+			const { position } = e;
+			updateCurrentPage(position);
+
+			scroll({ cursor: position }, {
+				source: 'scroll.view',
+				behavior: 'core'
+			});
 		});
+
 
 		switch (scroll().mode) {
 			case 'virtual': {
 				this.y.settings.fetch = (skip, take, d) => {
-					model.dataChanged.on((e, off) => {
-						if (e.hasChanges('rows')) {
-							const { length } = e.state.rows;
-							if (pagination().count !== length) {
-								pagination({ count: length }, {
-									source: 'scroll.view',
-									behavior: 'core'
-								});
-							}
-
-							d.resolve(length);
-							off();
-						}
-					});
-
 					model.fetch({ skip }, {
-						source: 'scroll.view'
+						source: 'scroll.view',
+						behavior: 'core'
 					});
+
+					if (skip === 0) {
+						const count = updateTotalCount();
+						d.resolve(count);
+					} else {
+						gridService.invalidate({
+							source: 'scroll.view',
+							why: 'refresh'
+						}).then(() => {
+							const count = updateTotalCount();
+							d.resolve(count);
+						});
+					}
 				};
 
-				let fromScroll = false
+				let startSource;
+				const resetTriggers = new Set(scroll().resetTriggers);
 				model.sceneChanged.watch(e => {
 					if (e.hasChanges('status')) {
-						const status = e.state.status;
+						const { status } = e.state;
 						switch (status) {
 							case 'start': {
-								fromScroll = e.tag.source === 'scroll.view';
+								startSource = e.tag.source;
+								if (resetTriggers.has(startSource)) {
+									model.fetch({ skip: 0 }, {
+										source: 'scroll.view',
+										behavior: 'core'
+									});
+								}
 								break;
 							}
 							case 'stop': {
-								if (!fromScroll) {
+								if (resetTriggers.has(startSource)) {
 									this.y.container.reset();
 								}
 								break;
@@ -90,9 +121,7 @@ export class ScrollView {
 				break;
 			}
 			default:
-				model.paginationChanged.watch(() => {
-					this.y.container.reset();
-				});
+				model.paginationChanged.watch(() => this.y.container.reset());
 		}
 
 		model.scrollChanged.watch(e => {

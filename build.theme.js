@@ -34,7 +34,6 @@ return Promise.resolve()
       'package.json',
       JSON.stringify(packageJson, null, 2)
     );
-
   })
   .then(() => console.log('modify: succeeded'))
   .then(() => {

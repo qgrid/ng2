@@ -1,4 +1,5 @@
 @import "variables";
+
 .q-grid-pager {
     font-family: $font-family;
     height: 24px;
@@ -6,7 +7,8 @@
     float: right;
     padding: 16px 0;
     font-size: 12px;
-    >* {
+
+    > * {
         display: inline-block;
     }
     @media (max-width: 599px) {
@@ -15,10 +17,12 @@
             display: none;
         }
     }
+
     .q-grid-page {
         margin-left: 32px;
         margin-right: 14px;
     }
+
     button {
         background: transparent;
         border: none;
@@ -27,14 +31,29 @@
         height: 24px;
         line-height: 24px;
         padding: 0;
+
         &.q-grid-prev-page {
+            top: 3px;
             margin-left: 18px;
             margin-right: 0;
+
+            .q-grid-icon {
+                margin-bottom: 4px;
+                margin-right: 1px;
+            }
         }
+
         &.q-grid-next-page {
+            top: 3px;
             margin-right: 14px;
             margin-left: 0;
+
+            .q-grid-icon {
+                margin-bottom: 4px;
+                margin-left: 1px;
+            }
         }
+
         &.q-grid-target-page {
             .q-grid-icon {
                 font-size: 16px;
@@ -46,7 +65,6 @@
         }
     }
 }
-
 @at-root .q-grid-pager-target {
     width: 200px;
 }

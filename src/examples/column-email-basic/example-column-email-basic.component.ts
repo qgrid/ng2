@@ -13,8 +13,24 @@ export class ExampleColumnEmailBasicComponent {
 			'withLabel': 'qgrid.team@gmail.com',
 			'null': null,
 			'undefined': undefined,
-			'empty': '',			
+			'empty': '',
 			'customTemplate': 'qgrid.team@gmail.com'
 		}
 	];
+
+	private label = 'QGRID';
+
+	myLabel: (row: any, value?: any) => string | undefined;
+
+	constructor() {
+		const self = this;
+		this.myLabel = function (row, value) {
+			if (arguments.length > 1) {
+				self.label = value;
+				return;
+			}
+
+			return self.label;
+		};
+	}
 }

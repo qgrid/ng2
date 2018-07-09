@@ -22,9 +22,9 @@ export class VscrollColumnDirective implements OnDestroy, OnChanges {
 
 			const { layout, settings, container, column } = this;
 			const { rowHeight } = settings;
-			this.ngOnChanges = (changes: SimpleChanges) => {
-				if (changes['index']) {
-					const change = changes['index'];
+			this.ngOnChanges = (e: SimpleChanges) => {
+				if (e['index']) {
+					const change = e['index'];
 					const newIndex = change.currentValue;
 					const oldIndex = change.previousValue;
 					layout.removeItem(oldIndex);
@@ -34,10 +34,10 @@ export class VscrollColumnDirective implements OnDestroy, OnChanges {
 				}
 			};
 
-			const change = changes['index'];
-			const newIndex = change.currentValue;
-			const size = sizeFactory(rowHeight, container, column, newIndex);
-			layout.setItem(newIndex, size);
+			const firstChange = changes['index'];
+			const firstIndex = firstChange.currentValue;
+			const firstSize = sizeFactory(rowHeight, container, column, firstIndex);
+			layout.setItem(firstIndex, firstSize);
 		}
 	}
 

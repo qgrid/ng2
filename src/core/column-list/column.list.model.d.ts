@@ -66,5 +66,5 @@ export declare interface ColumnListModel {
 	/**
 	 * Flatten list of data columns, filled automatically on data columns changes.
 	 */
-	line: ColumnModel[];
+	line?: ColumnModel[];
 }

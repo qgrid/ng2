@@ -70,7 +70,7 @@ export class ColumnFilterComponent implements OnInit {
 							value: columnFilter.getValue,
 							search: '' + this.search,
 
-							// @depricated
+							// @deprecated
 							filter: '' + this.search,
 						});
 

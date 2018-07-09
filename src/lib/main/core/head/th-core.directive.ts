@@ -29,7 +29,7 @@ export class ThCoreDirective implements Td, OnInit, OnDestroy {
 	element: HTMLElement = null;
 	value: any;
 	label: any;
-	
+
 	private $implicit = this;
 
 	constructor(

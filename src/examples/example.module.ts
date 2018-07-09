@@ -21,6 +21,7 @@ import { ExampleColumnFileBasicComponent } from './column-file-basic/example-col
 import { ExampleColumnIdBasicComponent } from './column-id-basic/example-column-id-basic.component';
 import { ExampleColumnImageBasicComponent } from './column-image-basic/example-column-image-basic.component';
 import { ExampleColumnListBasicComponent } from './column-list-basic/example-column-list-basic.component';
+import { ExampleColumnListLoopComponent } from './column-list-loop/example-column-list-loop.component';
 import { ExampleColumnNumberBasicComponent } from './column-number-basic/example-column-number-basic.component';
 import { ExampleColumnPasswordBasicComponent } from './column-password-basic/example-column-password-basic.component';
 import { ExampleColumnReferenceBasicComponent } from './column-reference-basic/example-column-reference-basic.component';
@@ -44,16 +45,19 @@ import { ExampleDragRowBasicComponent } from './drag-row-basic/example-drag-row-
 import { ExampleDragRowNodeComponent } from './drag-row-node/example-drag-row-node.component';
 import { ExampleEditCellBasicComponent } from './edit-cell-basic/example-edit-cell-basic.component';
 import { ExampleEditCellBatchComponent } from './edit-cell-batch/example-edit-cell-batch.component';
+import { ExampleEditRowBasicComponent } from './edit-row-basic/example-edit-row-basic.component';
 import { ExampleExportBasicComponent } from './export-basic/example-export-basic.component';
 import { ExampleFilterColumnFetchComponent } from './filter-column-fetch/example-filter-column-fetch.component';
 import { ExampleFilterConditionBasicComponent } from './filter-condition-basic/example-filter-condition-basic.component';
 import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filter-row-basic.component';
+import { ExampleFilterRowCustomComponent } from './filter-row-custom/example-filter-row-custom.component';
 import { ExampleFloatingRowsBasicComponent } from './floating-rows-basic/example-floating-rows-basic.component';
 import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
 import { ExampleFocusCellBasicComponent } from './focus-cell-basic/example-focus-cell-basic.component';
 import { ExampleGenerateColumnCohortComponent } from './generate-column-cohort/example-generate-column-cohort.component';
 import { ExampleGenerateColumnDeepComponent } from './generate-column-deep/example-generate-column-deep.component';
 import { ExampleGenerateColumnShallowComponent } from './generate-column-shallow/example-generate-column-shallow.component';
+import { ExampleGridListBasicComponent } from './grid-list-basic/example-grid-list-basic.component';
 import { ExampleGroupColumnBasicComponent } from './group-column-basic/example-group-column-basic.component';
 import { ExampleGroupRowAggregationComponent } from './group-row-aggregation/example-group-row-aggregation.component';
 import { ExampleGroupRowBasicComponent } from './group-row-basic/example-group-row-basic.component';
@@ -63,6 +67,7 @@ import { ExampleGroupRowRowspanComponent } from './group-row-rowspan/example-gro
 import { ExampleGroupRowSubheadComponent } from './group-row-subhead/example-group-row-subhead.component';
 import { ExampleGroupRowSummaryComponent } from './group-row-summary/example-group-row-summary.component';
 import { ExampleHierarchyBrowserBasicComponent } from './hierarchy-browser-basic/example-hierarchy-browser-basic.component';
+import { ExampleImportBasicComponent } from './import-basic/example-import-basic.component';
 import { ExampleIndexColumnBasicComponent } from './index-column-basic/example-index-column-basic.component';
 import { ExampleIndexColumnHybridComponent } from './index-column-hybrid/example-index-column-hybrid.component';
 import { ExampleIndexColumnModelComponent } from './index-column-model/example-index-column-model.component';
@@ -81,6 +86,7 @@ import { ExampleLookQuotesBasicComponent } from './look-quotes-basic/example-loo
 import { ExampleLookQuotesModelComponent } from './look-quotes-model/example-look-quotes-model.component';
 import { ExampleManipulateDataBasicComponent } from './manipulate-data-basic/example-manipulate-data-basic.component';
 import { ExampleMasterDetailsBasicComponent } from './master-details-basic/example-master-details-basic.component';
+import { ExampleOnPushBasicComponent } from './on-push-basic/example-on-push-basic.component';
 import { ExamplePaginationBasicComponent } from './pagination-basic/example-pagination-basic.component';
 import { ExamplePersistenceBasicComponent } from './persistence-basic/example-persistence-basic.component';
 import { ExamplePersistenceServerComponent } from './persistence-server/example-persistence-server.component';
@@ -104,6 +110,9 @@ import { ExampleSelectCellBasicComponent } from './select-cell-basic/example-sel
 import { ExampleSelectColumnBasicComponent } from './select-column-basic/example-select-column-basic.component';
 import { ExampleSelectMixBasicComponent } from './select-mix-basic/example-select-mix-basic.component';
 import { ExampleSelectRowBasicComponent } from './select-row-basic/example-select-row-basic.component';
+import { ExampleSizeColumnAbsoluteComponent } from './size-column-absolute/example-size-column-absolute.component';
+import { ExampleSizeColumnBasicComponent } from './size-column-basic/example-size-column-basic.component';
+import { ExampleSizeColumnFullComponent } from './size-column-full/example-size-column-full.component';
 import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-basic.component';
 import { ExampleSortRowBasicComponent } from './sort-row-basic/example-sort-row-basic.component';
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
@@ -128,6 +137,7 @@ const EXAMPLES: Array<any> = [
 	ExampleColumnIdBasicComponent,
 	ExampleColumnImageBasicComponent,
 	ExampleColumnListBasicComponent,
+	ExampleColumnListLoopComponent,
 	ExampleColumnNumberBasicComponent,
 	ExampleColumnPasswordBasicComponent,
 	ExampleColumnReferenceBasicComponent,
@@ -151,16 +161,19 @@ const EXAMPLES: Array<any> = [
 	ExampleDragRowNodeComponent,
 	ExampleEditCellBasicComponent,
 	ExampleEditCellBatchComponent,
+	ExampleEditRowBasicComponent,
 	ExampleExportBasicComponent,
 	ExampleFilterColumnFetchComponent,
 	ExampleFilterConditionBasicComponent,
 	ExampleFilterRowBasicComponent,
+	ExampleFilterRowCustomComponent,
 	ExampleFloatingRowsBasicComponent,
 	ExampleFocusCellAutoComponent,
 	ExampleFocusCellBasicComponent,
 	ExampleGenerateColumnCohortComponent,
 	ExampleGenerateColumnDeepComponent,
 	ExampleGenerateColumnShallowComponent,
+	ExampleGridListBasicComponent,
 	ExampleGroupColumnBasicComponent,
 	ExampleGroupRowAggregationComponent,
 	ExampleGroupRowBasicComponent,
@@ -170,6 +183,7 @@ const EXAMPLES: Array<any> = [
 	ExampleGroupRowSubheadComponent,
 	ExampleGroupRowSummaryComponent,
 	ExampleHierarchyBrowserBasicComponent,
+	ExampleImportBasicComponent,
 	ExampleIndexColumnBasicComponent,
 	ExampleIndexColumnHybridComponent,
 	ExampleIndexColumnModelComponent,
@@ -188,6 +202,7 @@ const EXAMPLES: Array<any> = [
 	ExampleLookQuotesModelComponent,
 	ExampleManipulateDataBasicComponent,
 	ExampleMasterDetailsBasicComponent,
+	ExampleOnPushBasicComponent,
 	ExamplePaginationBasicComponent,
 	ExamplePersistenceBasicComponent,
 	ExamplePersistenceServerComponent,
@@ -210,6 +225,9 @@ const EXAMPLES: Array<any> = [
 	ExampleSelectColumnBasicComponent,
 	ExampleSelectMixBasicComponent,
 	ExampleSelectRowBasicComponent,
+	ExampleSizeColumnAbsoluteComponent,
+	ExampleSizeColumnBasicComponent,
+	ExampleSizeColumnFullComponent,
 	ExampleSizeRowBasicComponent,
 	ExampleSortRowBasicComponent,
 	ExampleStyleCellBasicComponent,
@@ -221,6 +239,7 @@ const EXAMPLES: Array<any> = [
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
+
 function toPath(componentType: Function) {
 	const name = PATH_REGEX.exec(componentType.name)[1];
 	return name
@@ -254,5 +273,4 @@ export const exampleRoutes: Routes = EXAMPLES.map<Route>(example => ({
 		MatIconModule
 	]
 })
-export class ExampleModule { }
-
+export class ExampleModule {}

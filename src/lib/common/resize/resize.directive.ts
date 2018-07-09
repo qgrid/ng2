@@ -108,7 +108,7 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 			width: context.width + e.screenX - context.x,
 			height: context.height + e.screenY - context.y
 		});
-		
+
 		layout({ [this.path]: state });
 	}
 

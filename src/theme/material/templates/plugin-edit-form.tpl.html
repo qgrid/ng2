@@ -1,0 +1,31 @@
+<ng-template key="plugin-edit-form.tpl.html"
+             let-$editForm
+             let-$view="$view">
+	<mat-card class="mat-elevation-z">
+		<mat-card-header>
+			<mat-card-title>Columns Filter</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<ul>
+				<li *ngFor="let cellEditor of $editForm.editors">
+					<q-grid-edit-form-control [cellEditor]="cellEditor"
+					                          [control]="$editForm"
+					                          [key]="$editForm.getKey(cellEditor.cell.column)">
+					</q-grid-edit-form-control>
+				</li>
+			</ul>
+		</mat-card-content>
+		<mat-card-actions>
+			<!-- <button mat-button
+			        color="primary"
+			        (click)="$view.edit.cell.commit.execute($cell, $event)">
+				Save
+			</button>
+			<button mat-button
+			        (click)="$view.edit.cell.cancel.execute($cell, $event)">
+				Cancel
+			</button> -->
+		</mat-card-actions>
+	</mat-card>
+
+</ng-template>

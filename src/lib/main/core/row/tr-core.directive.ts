@@ -7,7 +7,7 @@ import { RootService } from '../../../infrastructure/component/root.service';
 	selector: '[q-grid-core-tr]'
 })
 export class TrCoreDirective implements Tr, OnInit, OnDestroy {
-	@Input('q-grid-core-index') private viewIndex: number;
+	@Input('q-grid-core-index') viewIndex: number;
 	@Input('q-grid-core-tr') model: any;
 	@Input('q-grid-core-source') source;
 

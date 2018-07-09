@@ -12,13 +12,13 @@ export declare class GridService {
 
 	invalidate(
 		source?: string,
-		changes?: object,
+		changes?: { [key: string]: { newValue: any, oldValue: any } },
 		pipe?: ((memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any)[]
 	): Promise<void>;
 
 	invalidate(settings: {
 		source?: string,
-		changes?: object,
+		changes?: { [key: string]: { newValue: any, oldValue: any } },
 		pipe?: ((memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any)[],
 		why?: 'redraw' | 'refresh'
 	}): Promise<void>;

@@ -25,7 +25,7 @@ export class View extends Unit {
 	}
 
 	columns() {
-		const column = this.model.scene().column;
+		const { column } = this.model.scene();
 		return column.line;
 	}
 
@@ -128,14 +128,12 @@ export class View extends Unit {
 		return this.getElement().scrollTop;
 	}
 
-	scrollHeight(value) {
-		if (arguments.length) {
-			this.getElementsCore('body')
-				.forEach(element => element.scrollTop = value);
-			return;
-		}
-
+	scrollHeight() {
 		return this.getElement().scrollHeight;
+	}
+
+	scrollWidth() {
+		return this.getElement().scrollWidth;
 	}
 
 	canScrollTo(target, direction) {

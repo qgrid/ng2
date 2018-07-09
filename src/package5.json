@@ -5,5 +5,5 @@
     "@angular/forms": "^5.2.11",
     "@angular/http": "^5.2.11"
   },
-  "version": "5.4.3"
+  "version": "5.4.5"
 }
