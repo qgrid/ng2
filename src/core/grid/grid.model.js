@@ -8,7 +8,7 @@ export class GridModel {
 		this.caption = '';
 		this.interactionMode = 'full' | 'readonly' | 'detached';
 
-		// @depricated
+		// @deprecated
 		this.title = '';
 	}
 }

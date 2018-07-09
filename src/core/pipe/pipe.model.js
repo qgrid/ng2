@@ -64,6 +64,7 @@ export class PipeModel {
 			},
 			'filter': {
 				'by': PU.default,
+				'match': PU.default,
 				'unit': PU.column
 			},
 			'group': {

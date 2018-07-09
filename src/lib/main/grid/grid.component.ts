@@ -6,7 +6,8 @@ import {
 	ViewEncapsulation,
 	OnInit,
 	ElementRef,
-	NgZone
+	NgZone,
+	Inject
 } from '@angular/core';
 import { RootComponent } from '../../infrastructure/component/root.component';
 import { RootService } from '../../infrastructure/component/root.service';
@@ -32,6 +33,7 @@ import { TableCommandManager } from 'ng2-qgrid/core/command/table.command.manage
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { GridModel } from '../../plugins/plugin.service';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
 	selector: 'q-grid',
@@ -109,6 +111,7 @@ export class GridComponent extends RootComponent implements OnInit {
 		private element: ElementRef,
 		private zone: NgZone,
 		private layerService: LayerService,
+		@Inject(DOCUMENT) private document: Document,
 		theme: ThemeService,
 	) {
 		super();
@@ -165,9 +168,9 @@ export class GridComponent extends RootComponent implements OnInit {
 		);
 
 		const listener = new EventListener(element, new EventManager(this));
-		const windowListener = new EventListener(element, new EventManager(this));
+		const docListener = new EventListener(this.document, new EventManager(this));
 
-		this.zone.runOutsideAngular(() => this.using(windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl))));
+		this.zone.runOutsideAngular(() => this.using(docListener.on('focusin', () => ctrl.invalidateActive())));
 
 		const { debounce } = model.navigation();
 		if (debounce) {

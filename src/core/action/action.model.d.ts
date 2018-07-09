@@ -44,8 +44,6 @@ import { Resource } from '../resource/resource';
  * * [Command Manager](/doc/api/command-manager.html)
  */
 export declare interface ActionModel {
-	resource?: Resource;
-
 	/**
 	 * List of actions that will be added to the command manager,
 	 * and bind to the keyboard events.

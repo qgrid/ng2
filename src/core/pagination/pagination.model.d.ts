@@ -9,8 +9,6 @@ import { Resource } from '../resource/resource';
  * * [pagination.pipe.js](https://github.com/qgrid/ng2/blob/master/core/pipe/pagination.pipe.js)
  */
 export declare interface PaginationModel {
-	resource?: Resource;
-
 	/**
 	 * Current page number;
 	 */

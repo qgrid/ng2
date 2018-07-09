@@ -29,7 +29,6 @@ export class EditModel {
 			'reference': 'ctrl+s',
 			'row': 'ctrl+s',
 			'form': 'ctrl+s',
-			'select': 'space|enter',
 			'bool': 'tab|shift+tab|left|right|up|down|home|end|pageUp|pageDown',
 			'text-area': 'ctrl+s'
 		};

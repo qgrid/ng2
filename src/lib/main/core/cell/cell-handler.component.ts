@@ -8,7 +8,6 @@ import { NavigationModel } from 'ng2-qgrid/core/navigation/navigation.model';
 import { Td } from 'ng2-qgrid/core/dom/td';
 import { noop } from 'ng2-qgrid/core/utility/kit';
 import { RootService } from '../../../infrastructure/component/root.service';
-import { ViewCoreComponent } from '../view/view-core.component';
 
 @Component({
 	selector: 'q-grid-cell-handler',
@@ -52,21 +51,31 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		let isValid = false;
 		return (e: ModelEventArg<NavigationModel>) => {
 			if (e.hasChanges('cell')) {
-				const { cell } = e.state;
+				const { cell, rowIndex, columnIndex } = e.state;
 
 				if (cell) {
-					const oldColumn = e.changes.cell.oldValue ? e.changes.cell.oldValue.column : {};
-					const newColumn = e.changes.cell.newValue ? e.changes.cell.newValue.column : {};
+					const oldCell = e.changes.cell.oldValue || {};
+					const newCell = e.changes.cell.newValue || {};
+					const oldColumn = oldCell.column || {};
+					const newColumn = newCell.column || {};
 
 					// Do not apply animation for columns that have viewWidth assigned
 					// because it can be animated too.
-					const shouldAnimate = !model.drag().isActive && (oldColumn.key === newColumn.key || !(oldColumn.viewWidth || newColumn.viewWidth));
+					const shouldAnimate =
+						!model.drag().isActive
+						&& (oldColumn.key === newColumn.key || !(oldColumn.viewWidth || newColumn.viewWidth));
+
 					if (!shouldAnimate) {
 						isValid = false;
 						return;
 					}
 
-					const { rowIndex, columnIndex } = e.state;
+					// It can be that the cell object was changed but indices are not.
+					isValid =
+						oldCell.rowIndex >= 0
+						&& oldCell.columnIndex >= 0
+						&& (newCell.rowIndex !== oldCell.rowIndex || newCell.columnIndex !== oldCell.columnIndex);
+
 					const domCell = table.body.cell(rowIndex, columnIndex);
 					if (isValid) {
 						domCell.addClass('q-grid-animate');

@@ -363,13 +363,12 @@ export class EditCellView {
 	}
 
 	shortcutFactory(type) {
-		const model = this.model;
-		const edit = model.edit;
+		const { edit } = this.model;
 		return () => {
 			const shortcuts = edit()[type + 'Shortcuts'];
-			const cell = this.editor.td;
-			if (cell) {
-				const type = cell.column && cell.column.editor ? cell.column.editor : cell.column.type;
+			const { td } = this.editor;
+			if (td) {
+				const type = td.column && td.column.editor ? td.column.editor : td.column.type;
 				if (shortcuts.hasOwnProperty(type)) {
 					return shortcuts[type];
 				}

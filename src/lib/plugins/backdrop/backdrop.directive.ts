@@ -9,7 +9,7 @@ export class BackdropDirective {
 	@Output('q-grid-backdrop') close = new EventEmitter<any>();
 	private backdrop: HTMLElement;
 
-	constructor(private zone: NgZone, @Inject(DOCUMENT) private document: any) {
+	constructor(private zone: NgZone, @Inject(DOCUMENT) private document: Document) {
 	}
 
 	@Input('q-grid-backdrop-active')
