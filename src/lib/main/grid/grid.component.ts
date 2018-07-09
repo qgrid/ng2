@@ -113,7 +113,7 @@ export class GridComponent extends RootComponent implements OnInit {
 		private zone: NgZone,
 		private layerService: LayerService,
 		private overlayContainer: OverlayContainer,
-		theme: ThemeService,
+		private theme: ThemeService,
 		@Inject(DOCUMENT) private document: Document,
 	) {
 		super();

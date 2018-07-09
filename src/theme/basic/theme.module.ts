@@ -34,7 +34,7 @@ import {
 	]
 })
 export class ThemeModule {
-	constructor(theme: ThemeService) {
+	constructor(private theme: ThemeService) {
 		theme.name = 'basic';
 		theme.component = ThemeComponent;
 	}

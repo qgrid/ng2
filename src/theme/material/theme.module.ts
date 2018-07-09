@@ -74,7 +74,7 @@ import {
 	]
 })
 export class ThemeModule {
-	constructor(theme: ThemeService) {
+	constructor(private theme: ThemeService) {
 		theme.name = 'material';
 		theme.component = ThemeComponent;
 	}
