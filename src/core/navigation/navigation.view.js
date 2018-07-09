@@ -133,13 +133,11 @@ export class NavigationView {
 								newColumnIndex = columnIndex;
 							}
 
-							if (columnIndex !== newColumnIndex || rowIndex !== newRowIndex) {
-								this.focus.execute({
-									rowIndex: newRowIndex,
-									columnIndex: newColumnIndex,
-									behavior: 'core'
-								});
-							}
+							this.focus.execute({
+								rowIndex: newRowIndex,
+								columnIndex: newColumnIndex,
+								behavior: 'core'
+							});
 						}
 						break;
 				}

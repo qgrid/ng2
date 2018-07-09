@@ -70,7 +70,11 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 						return;
 					}
 
-					isValid = oldCell.rowIndex >= 0 && oldCell.columnIndex >= 0;
+					// It can be that the cell object was changed but indices are not.
+					isValid =
+						oldCell.rowIndex >= 0
+						&& oldCell.columnIndex >= 0
+						&& (newCell.rowIndex !== oldCell.rowIndex || newCell.columnIndex !== oldCell.columnIndex);
 
 					const domCell = table.body.cell(rowIndex, columnIndex);
 					if (isValid) {
