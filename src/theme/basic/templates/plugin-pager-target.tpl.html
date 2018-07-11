@@ -1,0 +1,32 @@
+<ng-template key="plugin-pager-target.tpl.html"
+             let-$target>
+
+	<!-- <div #menu="basicMenu"
+	          class="q-grid-basic-menu">
+		<div class="q-grid-basic-card" 
+			*ngIf="trigger.menuOpen">
+			<div class="mat-form-field">
+				<input id="q-grid-menu-input"
+				       matInput
+				       type="number"
+				       #input
+				       (click)="$event.stopPropagation()"
+				       [(ngModel)]="$target.value"
+				       [max]="$target.total"
+				       [min]="1"
+				       q-grid-focus
+				       (keydown)="$target.keyDown($event)"
+				       (keyup.enter)="trigger.closeMenu()"
+				       placeholder="Go to page:" />
+			</div>
+		</div>
+	</div> -->
+
+	<button tabindex="-1"
+			disabled
+	        (click)="$target.value = $target.current"
+	        class="q-grid-pager-target-trigger q-grid-icon-button">
+		<i class="q-grid-icon">&#9898;</i>
+	</button>
+
+</ng-template>
