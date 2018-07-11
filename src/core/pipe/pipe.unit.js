@@ -1,4 +1,5 @@
 import { columnPipeUnit } from './units/column.pipe.unit';
+import { columnIndexPipeUnit } from './units/column.index.pipe.unit';
 import { defaultPipeUnit } from './units/default.pipe.unit';
 import { groupPipeUnit } from './units/group.pipe.unit';
 import { rowDetailsPipeUnit } from './units/row.details.pipe.unit';
@@ -16,6 +17,10 @@ export class PipeUnit {
 
 	static get column() {
 		return columnPipeUnit;
+	}
+
+	static get columnIndex() {
+		return columnIndexPipeUnit;
 	}
 
 	static get rowDetails() {

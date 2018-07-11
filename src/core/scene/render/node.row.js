@@ -19,6 +19,10 @@ export class NodeRow extends BasicRow {
 
 		this.getLabel =
 			this.getValue = (node, column, select) => {
+				if (column.type === 'pivot') {
+					return super.getLabel(node, column, select);
+				}
+
 				const { rows } = model.data();
 				switch (node.type) {
 					case 'group':
@@ -111,7 +115,7 @@ export class NodeRow extends BasicRow {
 			groupColumn = this.reference.group;
 			if (groupColumn.model.pin === pin) {
 				const firstColumn = this.columnList(pin)[0];
-				groupColumn.index = firstColumn ? firstColumn.index : 0;
+				groupColumn.columnIndex = firstColumn ? firstColumn.columnIndex : 0;
 			}
 		}
 

@@ -5,6 +5,7 @@ import * as columnService from '../column/column.service';
 import { FilterRowColumn } from '../column-type/filter.row.column';
 import { clone, isUndefined } from '../utility/kit';
 import { GRID_PREFIX } from '../definition';
+import { copy, find } from '../node/node.service';
 
 export class HeadView {
 	constructor(model, table, tagName) {
@@ -37,13 +38,13 @@ export class HeadView {
 						const targetKey = th.column.key;
 						if (sourceKey !== targetKey) {
 							const { columnList } = model;
-							const index = Array.from(columnList().index);
+							const index = copy(columnList().index);
 
-							const oldPos = index.indexOf(sourceKey);
-							const newPos = index.indexOf(targetKey);
-							if (oldPos >= 0 && newPos >= 0) {
-								index.splice(oldPos, 1);
-								index.splice(newPos, 0, sourceKey);
+							const oldPos = find(index, node => node.key.model.key === sourceKey);
+							const newPos = find(index, node => node.key.model.key === targetKey);
+							if (oldPos && newPos) {
+								oldPos.parent.children.splice(oldPos.index, 1);
+								newPos.parent.children.splice(newPos.index, 0, oldPos.node);
 								columnList({ index }, { source: 'head.view' });
 							}
 						}
@@ -52,9 +53,9 @@ export class HeadView {
 					case 'end':
 					case 'drop': {
 						const { index } = model.columnList();
-						let oldIndex = index.indexOf(sourceKey);
-						if (oldIndex >= 0) {
-							const oldColumn = table.body.column(oldIndex);
+						const oldPos = find(index, node => node.key.model.key === sourceKey);
+						if (oldPos) {
+							const oldColumn = table.body.column(oldPos.node.key.columnIndex);
 							oldColumn.removeClass(`${GRID_PREFIX}-drag`);
 						}
 						break;
@@ -68,9 +69,9 @@ export class HeadView {
 			execute: e => {
 				const sourceKey = e.data;
 				const { index } = model.columnList();
-				const columnIndex = index.indexOf(sourceKey);
-				if (columnIndex >= 0) {
-					const column = table.body.column(columnIndex);
+				const pos = find(index, node => node.key.model.key === sourceKey);
+				if (pos) {
+					const column = table.body.column(pos.node.key.columnIndex);
 					column.addClass(`${GRID_PREFIX}-drag`);
 				}
 			},
