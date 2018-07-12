@@ -60,17 +60,17 @@ export declare interface EditModel {
 	 * Object that contains `{columnKey: keyboardKeys}` map, that is used by q-grid to manage
 	 * when cancel command should be execute on key down event.
 	 */
-	cancelShortcuts?: CommandShortcuts;
+	cancelShortcuts?: { [key: string]: string };
 
 	/**
 	 * Object that contains `{columnKey: keyboardKeys}` map, that is used by q-grid to manage
 	 * when enter command should be execute on key down event.
 	 */
-	entertShortcuts?: CommandShortcuts;
+	entertShortcuts?: { [key: string]: string };
 
 	/**
 	 * Object that contains `{columnKey: keyboardKeys}` map, that is used by q-grid to manage
 	 * when commit command should be execute on key down event.
 	 */
-	commitShortcuts?: CommandShortcuts;
+	commitShortcuts?: { [key: string]: string };
 }
