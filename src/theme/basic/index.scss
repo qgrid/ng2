@@ -13,7 +13,7 @@ $pager-primary: #757575;
 $icon-button-disabled: rgba(0,0,0,.26);
 
 .q-grid.q-grid-theme-basic {
-    font-family: Roboto;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
     
     &.q-grid-box {
         .q-grid-row-indicator {
@@ -288,7 +288,8 @@ $icon-button-disabled: rgba(0,0,0,.26);
             td {
                 font-weight: normal;
                 color: #212121;
-                font-size: 13px;
+                font-size: 16px;
+                line-height: 16px;
                 padding: 0 16px;
                 padding-top: 0px;
                 padding-right: 16px;
@@ -342,6 +343,7 @@ $icon-button-disabled: rgba(0,0,0,.26);
             tbody {
                 tr {
                     border-top: 1px solid $grid-border;
+                    height: 30px;
                 }
                 tr:nth-child(2) {
                     border-top: 0;
