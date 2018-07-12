@@ -43,8 +43,25 @@ export class HeadView {
 							const oldPos = find(index, node => node.key.model.key === sourceKey);
 							const newPos = find(index, node => node.key.model.key === targetKey);
 							if (oldPos && newPos) {
-								oldPos.parent.children.splice(oldPos.index, 1);
-								newPos.parent.children.splice(newPos.index, 0, oldPos.node);
+								const { path } = oldPos;
+								const hostIndex = path.reverse().findIndex(node => node.children.length > 1);
+								if (hostIndex < 0) {
+									return;
+								}
+
+								const parent = path[hostIndex];
+								const node = path[hostIndex + 1] || oldPos.node;
+								const index = parent.children.indexOf(node);
+								const spring = { parent, index, node };
+
+								console.log('---------------------------------');
+								console.log(`source: ${oldPos.node.key.model.key}`);
+								console.log(`actual: ${spring.node.key.model.key}`);
+								console.log(`near: ${newPos.node.key.model.key}`);
+
+								spring.parent.children.splice(spring.index, 1);
+								newPos.parent.children.splice(newPos.index, 0, spring.node);
+
 								columnList({ index }, { source: 'head.view' });
 							}
 						}
@@ -77,9 +94,9 @@ export class HeadView {
 			},
 			canExecute: e => {
 				const sourceKey = e.data;
-				const { columns } = model.view();
-				const map = columnService.map(columns);
-				return map.hasOwnProperty(sourceKey) && map[sourceKey].canMove;
+				const { index } = model.columnList();
+				const pos = find(index, node => node.key.model.key === sourceKey);
+				return pos && pos.node.key.model.canMove
 			}
 		});
 

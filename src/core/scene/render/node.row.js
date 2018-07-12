@@ -5,7 +5,7 @@ import { Aggregation } from '../../services/aggregation';
 import { AppError } from '../../infrastructure/error';
 import { set as setValue } from '../../services/value';
 import { set as setLabel } from '../../services/label';
-import { findFirstLeaf } from '../../node/node.service';
+import { findFirstLeaf } from '../../group/group.service';
 
 export class NodeRow extends BasicRow {
 	constructor(model) {

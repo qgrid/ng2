@@ -1,6 +1,6 @@
 import { Resource } from '../resource/resource';
 import { Command } from '../command/command';
-import { flattenFactory } from '../node/node.service';
+import { flattenFactory } from './group.service';
 
 export class GroupModel {
 	constructor() {
