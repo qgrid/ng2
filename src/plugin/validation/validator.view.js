@@ -1,5 +1,5 @@
-import {isString, isEqual} from '@grid/core/utility/kit';
-import * as validationService from '@grid/core/validation/validation.service';
+import { isString, isEqual } from '../../core/utility/kit';
+import * as validationService from '../../core/validation/validation.service';
 
 export class ValidatorView {
 	constructor(model, context) {
