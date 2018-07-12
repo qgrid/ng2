@@ -49,6 +49,20 @@ $icon-button-disabled: rgba(0,0,0,.26);
         }
     }
 
+    div.q-grid-caption {
+        height: 32px;
+    }
+
+    .q-grid-caption h3 {
+        margin: 0;
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     .q-grid-icon {
         font-style: normal;
         display: inline-block;
@@ -56,11 +70,11 @@ $icon-button-disabled: rgba(0,0,0,.26);
     }
 
     thead {
-        tr {
-            height: 17px;
-        }
-
         box-shadow: 0 1px 0px #ddd;
+
+        th {
+            padding-left: 16px;
+        }
     }
 
     th {
@@ -80,12 +94,11 @@ $icon-button-disabled: rgba(0,0,0,.26);
                     }
                 }
             }
-        }
-    }
-
-    tbody {
-        tr {
-            height: 48px;
+            &-sort {
+                .q-grid-icon {
+                    margin-left: -16px;
+                }
+            }
         }
     }
 
@@ -147,14 +160,14 @@ $icon-button-disabled: rgba(0,0,0,.26);
 
     .q-grid-pager {
         font-family: Roboto, "Helvetica Neue", sans-serif;
-        padding: 16px 0;
+        padding: 11px 0;
         height: 24px;
         font-size: 12px;
         color: $pager-primary;
 
         .pager-select {
             height: 32px;
-            padding: 4px 0;
+            padding: 3px 0;
 
             select {
                 font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -183,7 +196,7 @@ $icon-button-disabled: rgba(0,0,0,.26);
         width: 24px;
         height: 24px;
         line-height: 24px;
-        padding: 0;
+        padding-top: 2px;
 
         &.q-grid-prev-page {
             top: -4px;
@@ -226,6 +239,10 @@ $icon-button-disabled: rgba(0,0,0,.26);
 
     .q-grid {
         &-table {
+            tr {
+                height: 30px;
+            }
+
             td.q-grid-sorted {
                 background-color: $selected;
             }
@@ -257,7 +274,6 @@ $icon-button-disabled: rgba(0,0,0,.26);
                     padding-left: 16px;
                     label {
                         display: inline;
-                        padding-left: 8px;
                     }
                     &.q-grid-active {
                         label {
@@ -279,6 +295,7 @@ $icon-button-disabled: rgba(0,0,0,.26);
                         min-height: 16px;
                         min-width: 16px;
                         vertical-align: middle;
+                        text-align: center;
                         &.q-grid-active {
                             opacity: 1;
                         }
@@ -308,6 +325,7 @@ $icon-button-disabled: rgba(0,0,0,.26);
                     }
                 }
             }
+
             td.q-grid-array > ul {
                 list-style: none;
                 margin: 0;
