@@ -1,6 +1,5 @@
 import { Resource } from '../resource/resource';
 import { Command } from '../command/command';
-import { CommandShortcuts } from './command.shortcuts';
 
 /**
  * A class represent options to control q-grid edit mode.
