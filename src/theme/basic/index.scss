@@ -11,6 +11,7 @@ $group-summary: #007fa3;
 
 $pager-primary: #757575;
 $icon-button-disabled: rgba(0,0,0,.26);
+$hidden: transparent;
 
 .q-grid.q-grid-theme-basic {
     font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -175,7 +176,7 @@ $icon-button-disabled: rgba(0,0,0,.26);
                 color: $pager-primary;
                 border: none;
                 height: 24px;
-                width: 50px;
+                width: 34px;
                 margin: 0 0 0 12px;
             }
             select:focus {
@@ -184,8 +185,8 @@ $icon-button-disabled: rgba(0,0,0,.26);
         }
 
         .q-grid-page {
-            margin-left: 32px;
-            margin-right: 14px;
+            margin-left: 30px;
+            margin-right: 0;
         }
     }
 
@@ -200,7 +201,7 @@ $icon-button-disabled: rgba(0,0,0,.26);
 
         &.q-grid-prev-page {
             top: -4px;
-            margin-left: 18px;
+            margin-left: 44px;
             margin-right: 0;
         }
 
@@ -216,7 +217,7 @@ $icon-button-disabled: rgba(0,0,0,.26);
         
         .q-grid-icon {
             font-size: 14px;
-            color: $icon-button-disabled;
+            color: $hidden;
             background: transparent;
         }
     }
