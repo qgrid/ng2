@@ -52,6 +52,9 @@ export class BodyCtrl {
 
 	onWheel(e) {
 		const model = this.model;
+		if (e.shiftKey) {
+			return;
+		}
 		if (model.edit().state === 'view') {
 			const scroll = model.scroll;
 			const table = this.table;
