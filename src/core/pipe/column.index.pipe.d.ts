@@ -5,4 +5,4 @@ import { ColumnView } from '../scene/view/column.view';
 /**
  * > Under Construction.
  */
-export declare const columnIndexPipe: (root: Node, context: PipeContext, next: (param: { columns: ColumnView[][], index: Node }) => void) => any;
+export declare const columnIndexPipe: (root: Node, context: PipeContext, next: (param: { columns: ColumnView[][], tree: Node }) => void) => any;

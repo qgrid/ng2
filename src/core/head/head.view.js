@@ -5,7 +5,7 @@ import * as columnService from '../column/column.service';
 import { FilterRowColumn } from '../column-type/filter.row.column';
 import { clone, isUndefined } from '../utility/kit';
 import { GRID_PREFIX } from '../definition';
-import { copy, find, findLeaves } from '../node/node.service';
+import { calk, find, findLeaves } from '../node/node.service';
 
 export class HeadView {
 	constructor(model, table, tagName) {
@@ -38,7 +38,7 @@ export class HeadView {
 						const targetKey = th.column.key;
 						if (sourceKey !== targetKey) {
 							const { columnList } = model;
-							const index = copy(columnList().index);
+							const index = calk(columnList().index);
 
 							const oldPos = find(index, node => node.key.model.key === sourceKey);
 							const newPos = find(index, node => node.key.model.key === targetKey);

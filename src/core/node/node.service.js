@@ -7,6 +7,8 @@ export function preOrderDFS(nodes, visit, memo = null, parent = null) {
 		const nodeMemo = visit(node, memo, parent, i);
 		preOrderDFS(node.children, visit, nodeMemo, node);
 	}
+
+	return memo;
 }
 
 export function findLeaves(node, result = []) {
@@ -44,11 +46,17 @@ export function find(node, test, parent = null, index = -1, path = []) {
 	return null;
 }
 
-export function copy(node) {
+export function calk(node) {
 	const result = new Node(node.key, node.level, node.type);
 	result.rows = Array.from(node.rows);
 	result.children = Array.from(node.children);
 	result.state = cloneDeep(node.state);
+	result.source = node.source;
+	return result;
+}
+
+export function copy(node) {
+	const result = new Node(node.key, node.level, node.type);
 	result.source = node.source;
 	return result;
 }

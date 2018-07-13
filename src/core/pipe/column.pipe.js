@@ -3,8 +3,9 @@ import { noop } from '../utility/kit';
 import { guid } from '../services/guid';
 import { columnFactory } from '../column/column.factory';
 import { generateFactory } from '../column-list/column.list.generate';
-import { Node } from '../node/node';
 import { columnIndexPipe } from './column.index.pipe';
+import { Node } from '../node/node';
+import { preOrderDFS } from '../node/node.service';
 
 export function columnPipe(memo, context, next) {
 	Guard.hasProperty(memo, 'pivot');
@@ -76,8 +77,10 @@ export function columnPipe(memo, context, next) {
 	columnIndexPipe(root, context, ({ columns, index }) => {
 		memo.columns = columns;
 
-		model.columnList({
-			index
+		const { columnList } = model;
+		const tree = sort(index, columnList().index);
+		columnList({
+			index: tree
 		}, {
 				behavior: 'core',
 				source: 'column.pipe'
@@ -242,4 +245,35 @@ function pivotColumnsFactory(model) {
 			fill(pivotNode, child);
 		}
 	};
+}
+
+function sort(xs, ys) {
+	return xs;
+	//const pathMap = preOrderDFS();
+	const xsMap = preOrderDFS(xs, (node, memo) => {
+		const { key } = node.key.model;
+		memo.set(key, node);
+		return memo;
+	}, new Map());
+
+	//remove items
+	const result = preOrderDFS(ys, (node, parent, index) => {
+		const { key } = node.key.model;
+		const x = xsMap.get(key);
+		if (x) {
+			const child = copy(x);
+
+			memo.children.push(copy(x));
+		}
+
+		if(!x) {
+
+		}
+
+		return memo;
+	}, new Node('$root', 0));
+
+	//add items
+
+	return result;
 }
