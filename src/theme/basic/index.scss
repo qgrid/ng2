@@ -166,7 +166,7 @@ $hidden: transparent;
         font-size: 12px;
         color: $pager-primary;
 
-        .pager-select {
+        .q-grid-pager-select {
             height: 32px;
             padding: 3px 0;
 
@@ -184,7 +184,7 @@ $hidden: transparent;
             }
         }
 
-        .q-grid-page {
+        .q-grid-pager-page {
             margin-left: 30px;
             margin-right: 0;
         }
@@ -199,13 +199,13 @@ $hidden: transparent;
         line-height: 24px;
         padding-top: 2px;
 
-        &.q-grid-prev-page {
+        &.q-grid-pager-prev {
             top: -4px;
             margin-left: 44px;
             margin-right: 0;
         }
 
-        &.q-grid-next-page {
+        &.q-grid-pager-next {
             top: -4px;
             margin-right: 14px;
             margin-left: 0;
