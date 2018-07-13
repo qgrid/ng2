@@ -15,7 +15,7 @@ export function columnPipe(memo, context, next) {
 	const { head } = pivot;
 
 	const createColumn = columnFactory(model);
-	const root = new Node(createColumn('$root'), 0);
+	const root = new Node(createColumn('$root', { key: '$root', type: '$root' }), 0);
 	const addDataColumns = dataColumnsFactory(model);
 	const addSelectColumn = selectColumnFactory(model);
 	const addGroupColumn = groupColumnFactory(model, nodes);
