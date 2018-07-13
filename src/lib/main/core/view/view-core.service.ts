@@ -22,6 +22,7 @@ import { CommandManager } from 'ng2-qgrid/core/command/command.manager';
 import { VScrollService } from '../../../main/core/scroll/vscroll.service';
 import { GridService } from '../../../main/grid/grid.service';
 import { RowView } from 'ng2-qgrid/core/row/row.view';
+import { ThemeView } from 'ng2-qgrid/core/theme/theme.view';
 
 @Injectable()
 export class ViewCoreService implements OnDestroy {
@@ -44,7 +45,8 @@ export class ViewCoreService implements OnDestroy {
 	sort: SortView = null;
 	style: StyleView = null;
 	row: RowView = null;
-
+	theme: ThemeView = null;
+	
 	constructor(
 		private gridServiceFactory: GridService,
 		private vscroll: VScrollService

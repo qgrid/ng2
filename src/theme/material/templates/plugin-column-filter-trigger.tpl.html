@@ -8,7 +8,6 @@
 	</button>
 	<mat-menu #menu="matMenu" class="q-grid-column-filter q-grid-menu">
 		<q-grid-column-filter q-grid-menu
-							  q-grid-theme-overlay
 							  *ngIf="trigger.menuOpen"
 							  [column]="$columnFilterTrigger.column"
 							  (cancel)="trigger.closeMenu()"

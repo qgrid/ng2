@@ -5,7 +5,6 @@ import { ThemeComponent } from './theme.component';
 import { SelectModule } from './components/select/select.module';
 import { ChipsModule } from './components/chips/chips.module';
 import { MenuModule } from './components/menu/menu.module';
-import { ThemeOverlayModule } from './components/theme-overlay/theme-overlay.module';
 import {
 	MatCardModule,
 	MatIconModule,
@@ -68,7 +67,6 @@ import {
 		PluginModule,
 		SelectModule,
 		TemplateModule,
-		ThemeOverlayModule,
 		VscrollModule,
 	],
 	entryComponents: [
@@ -76,7 +74,7 @@ import {
 	]
 })
 export class ThemeModule {
-	constructor(theme: ThemeService) {
+	constructor(private theme: ThemeService) {
 		theme.name = 'material';
 		theme.component = ThemeComponent;
 	}

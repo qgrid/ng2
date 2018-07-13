@@ -14,7 +14,6 @@
 			<mat-select tabindex="-1"
 			            aria-label="Page Size List"
 			            class="q-grid-page-size hide-xs"
-						[panelClass]=$pager.theme
 			            [(value)]="$pager.size">
 				<mat-option *ngFor="let size of $pager.sizeList"
 				            [value]="size">{{size}}</mat-option>

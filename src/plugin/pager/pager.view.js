@@ -25,10 +25,6 @@ export class PagerView {
 		});
 	}
 
-	get theme() {
-		return this.model.style().classList		
-	}
-
 	get resource() {
 		return this.model.pagination().resource;
 	}
