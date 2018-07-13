@@ -9,8 +9,12 @@ $selected: #f5f5f5;
 $highlighted: #eee;
 $group-summary: #007fa3;
 
+$pager-primary: #757575;
+$icon-button-disabled: rgba(0,0,0,.26);
+$hidden: transparent;
+
 .q-grid.q-grid-theme-basic {
-    font-family: Roboto;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
     
     &.q-grid-box {
         .q-grid-row-indicator {
@@ -46,6 +50,20 @@ $group-summary: #007fa3;
         }
     }
 
+    div.q-grid-caption {
+        height: 32px;
+    }
+
+    .q-grid-caption h3 {
+        margin: 0;
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     .q-grid-icon {
         font-style: normal;
         display: inline-block;
@@ -53,11 +71,11 @@ $group-summary: #007fa3;
     }
 
     thead {
-        tr {
-            height: 17px;
-        }
-
         box-shadow: 0 1px 0px #ddd;
+
+        th {
+            padding-left: 16px;
+        }
     }
 
     th {
@@ -77,12 +95,11 @@ $group-summary: #007fa3;
                     }
                 }
             }
-        }
-    }
-
-    tbody {
-        tr {
-            height: 48px;
+            &-sort {
+                .q-grid-icon {
+                    margin-left: -16px;
+                }
+            }
         }
     }
 
@@ -138,6 +155,73 @@ $group-summary: #007fa3;
         overflow: visible;
     }
 
+    .q-grid-icon-button[disabled][disabled] {
+        color: $icon-button-disabled;
+    }
+
+    .q-grid-pager {
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        padding: 11px 0;
+        height: 24px;
+        font-size: 12px;
+        color: $pager-primary;
+
+        .q-grid-pager-select {
+            height: 32px;
+            padding: 3px 0;
+
+            select {
+                font-family: Roboto, "Helvetica Neue", sans-serif;
+                font-size: 12px;
+                color: $pager-primary;
+                border: none;
+                height: 24px;
+                width: 34px;
+                margin: 0 0 0 12px;
+            }
+            select:focus {
+                outline: none;
+            }
+        }
+
+        .q-grid-pager-page {
+            margin-left: 30px;
+            margin-right: 0;
+        }
+    }
+
+    .q-grid-pager button {
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        padding-top: 2px;
+
+        &.q-grid-pager-prev {
+            top: -4px;
+            margin-left: 44px;
+            margin-right: 0;
+        }
+
+        &.q-grid-pager-next {
+            top: -4px;
+            margin-right: 14px;
+            margin-left: 0;
+        }
+    }
+
+    .q-grid-pager-target-trigger {
+        top: -4px;
+        
+        .q-grid-icon {
+            font-size: 14px;
+            color: $hidden;
+            background: transparent;
+        }
+    }
+
     .q-grid-head-multi {
         thead {
             tr {
@@ -156,6 +240,10 @@ $group-summary: #007fa3;
 
     .q-grid {
         &-table {
+            tr {
+                height: 30px;
+            }
+
             td.q-grid-sorted {
                 background-color: $selected;
             }
@@ -187,7 +275,6 @@ $group-summary: #007fa3;
                     padding-left: 16px;
                     label {
                         display: inline;
-                        padding-left: 8px;
                     }
                     &.q-grid-active {
                         label {
@@ -209,6 +296,7 @@ $group-summary: #007fa3;
                         min-height: 16px;
                         min-width: 16px;
                         vertical-align: middle;
+                        text-align: center;
                         &.q-grid-active {
                             opacity: 1;
                         }
@@ -218,7 +306,8 @@ $group-summary: #007fa3;
             td {
                 font-weight: normal;
                 color: #212121;
-                font-size: 13px;
+                font-size: 16px;
+                line-height: 16px;
                 padding: 0 16px;
                 padding-top: 0px;
                 padding-right: 16px;
@@ -237,6 +326,7 @@ $group-summary: #007fa3;
                     }
                 }
             }
+
             td.q-grid-array > ul {
                 list-style: none;
                 margin: 0;
@@ -272,6 +362,7 @@ $group-summary: #007fa3;
             tbody {
                 tr {
                     border-top: 1px solid $grid-border;
+                    height: 30px;
                 }
                 tr:nth-child(2) {
                     border-top: 0;
