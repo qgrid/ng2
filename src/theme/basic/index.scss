@@ -4,6 +4,7 @@ $head-sorted: #004559;
 
 $grid-border: #e0e0e0;
 $grid-array-background: #e0e0e0;
+$total-row-border: #e0e0e0;
 
 $selected: #f5f5f5;
 $highlighted: #eee;
@@ -176,7 +177,7 @@ $hidden: transparent;
                 color: $pager-primary;
                 border: none;
                 height: 24px;
-                width: 34px;
+                width: 34.5px;
                 margin: 0 0 0 12px;
             }
             select:focus {
@@ -187,6 +188,8 @@ $hidden: transparent;
         .q-grid-pager-page {
             margin-left: 30px;
             margin-right: 0;
+            width: 37.2px;
+            display: inline-block;
         }
     }
 
