@@ -1,11 +1,11 @@
 import { Command } from '../command/command';
-import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
 import { CellSelector } from '../cell/cell.selector';
 import { SelectionService } from '../selection/selection.service';
 import { noop } from '../utility/kit';
 import { GRID_PREFIX } from '../definition';
 import { Fastdom } from '../services/fastdom';
+import { find, findLeaves } from '../node/node.service';
 
 export class HighlightView {
 	constructor(model, table) {
@@ -220,52 +220,56 @@ export class HighlightView {
 		return dispose;
 	}
 
-	columnIndex(key) {
-		const columns = this.table.data.columns();
-		const index = columnService.findIndex(columns, key);
-		if (index >= 0) {
-			// TODO: add pivot col support
-			const column = columns[index];
-			if (!column.canHighlight) {
-				return -1;
-			}
+	findColumnPosition(key) {
+		const { index } = this.model.columnList();
+		const pos = find(index, node => node.key.model.key === key);
+		if (pos) {
+			return findLeaves(pos.node).map(leaf => leaf.key.columnIndex);
 		}
 
-		return index;
+		return [];
 	}
 
 	highlightColumn(key, cls) {
-		const index = this.columnIndex(key);
-		if (index < 0) {
+		const position = this.findColumnPosition(key);
+		if (!position.length) {
 			return noop;
 		}
 
 		const { head, body, foot } = this.table;
 		Fastdom.mutate(() => {
-			head.column(index).addClass(`${GRID_PREFIX}-${cls}`);
-			head.column(index - 1).addClass(`${GRID_PREFIX}-${cls}-prev`);
-			head.column(index + 1).addClass(`${GRID_PREFIX}-${cls}-next`);
-			body.column(index).addClass(`${GRID_PREFIX}-${cls}`);
-			foot.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+			const isLeaf = position.length === 1;
+			for (let index of position) {
+				if (isLeaf) {
+					head.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+					head.column(index - 1).addClass(`${GRID_PREFIX}-${cls}-prev`);
+					head.column(index + 1).addClass(`${GRID_PREFIX}-${cls}-next`);
+				}
+
+				body.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+				foot.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+			}
 		});
 
 		return this.blurColumn(key, cls);
 	}
 
 	blurColumn(key, cls) {
-		const index = this.columnIndex(key);
-		if (index < 0) {
+		const position = this.findColumnPosition(key);
+		if (!position.length) {
 			return noop;
 		}
 
 		const { head, body, foot } = this.table;
 		return () => {
 			Fastdom.mutate(() => {
-				head.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
-				head.column(index - 1).removeClass(`${GRID_PREFIX}-${cls}-prev`);
-				head.column(index + 1).removeClass(`${GRID_PREFIX}-${cls}-next`);
-				body.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
-				foot.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+				for (let index of position) {
+					head.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+					head.column(index - 1).removeClass(`${GRID_PREFIX}-${cls}-prev`);
+					head.column(index + 1).removeClass(`${GRID_PREFIX}-${cls}-next`);
+					body.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+					foot.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+				}
 			});
 		};
 	}

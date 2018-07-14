@@ -89,7 +89,7 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy {
 	}
 
 	get columnIndex() {
-		return this.columnView.index;
+		return this.columnView.columnIndex;
 	}
 
 	get row() {

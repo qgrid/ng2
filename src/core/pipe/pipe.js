@@ -6,6 +6,7 @@ import { memoPipe } from './memo.pipe';
 import { groupPipe } from './group.pipe';
 import { pivotPipe } from './pivot.pipe';
 import { columnPipe } from './column.pipe';
+import { columnIndexPipe } from './column.index.pipe';
 import { viewPipe } from './view.pipe';
 
 export class Pipe {
@@ -39,6 +40,10 @@ export class Pipe {
 
 	static get column() {
 		return columnPipe;
+	}
+
+	static get columnIndex() {
+		return columnIndexPipe;
 	}
 
 	static get view() {

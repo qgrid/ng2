@@ -1,4 +1,5 @@
 import { flatten } from '../utility/kit';
+import { Node } from '../node/node';
 
 function injectData(schema, source, target) {
 	return Object
@@ -66,13 +67,35 @@ function sortSchema(schema, comparator) {
 		}, {});
 }
 
+
+function reduceSchema(schema) {
+	const baseline = [];
+
+	function lift(schema, node) {
+		if (schema) {
+			Object
+				.keys(schema)
+				.forEach(key => {
+					const child = new Node(key, node.level + 1);
+					node.children.push(child);
+					lift(schema[key], child);
+					return child;
+				})
+		}
+
+		return node;
+	}
+
+	return lift(schema, new Node('$root', 0));
+}
+
 export function pivotForm(source, comparator) {
 	if (source.schema && source.data) {
 		const schema = sortSchema(source.schema, comparator);
 		const rows = source.data.map(row => injectData(schema, row, expandData(schema, row)));
-		const heads = liftSchema(schema);
-		return { heads, rows };
+		const head = reduceSchema(schema);
+		return { head, rows };
 	}
 
-	return { heads: [], rows: [] };
+	return { head: new Node('$root', 0), rows: [] };
 }

@@ -18,7 +18,6 @@ export class CohortColumnModel extends ColumnModel {
 		this.canEdit = false;
 		this.canSort = false;
 		this.canResize = false;
-		this.canHighlight = false;
 		this.canFocus = false;
 		this.canFilter = false;
 	}

@@ -10,7 +10,7 @@ export function flatView(model, mode) {
 
 	const showAll = mode === 'all';
 	const expandColumn = line.find(c => c.model.type === 'row-expand');
-	const columnIndex = expandColumn ? expandColumn.index : 0;
+	const columnIndex = expandColumn ? expandColumn.columnIndex : 0;
 
 	const result = [];
 	const createColumn = columnFactory(model);
@@ -27,7 +27,7 @@ export function flatView(model, mode) {
 				i++;
 			} else {
 				const column = createColumn('row-details');
-				column.index = columnIndex;
+				column.columnIndex = columnIndex;
 				result.push(new RowDetails(dataRow, column));
 			}
 			continue;

@@ -1,5 +1,6 @@
 import { isString } from '../utility/kit';
 import { AppError } from '../infrastructure/error';
+import { preOrderDFS } from '../node/node.service';
 
 export const key = getKey;
 export const index = getIndex;
@@ -12,11 +13,11 @@ export function orderFactory(model) {
 		const { trigger } = sort();
 		if (trigger.indexOf('reorder') >= 0) {
 			let index = 0;
-			const indexMap = model.columnList().index
-				.reduce((memo, key) => {
-					memo[key] = index++;
-					return memo;
-				}, {});
+			const indexMap = {};
+			preOrderDFS(model.columnList().index.children, node => {
+				const { key } = node.key.model.key;
+				indexMap[key] = index++;
+			});
 
 			by.sort((x, y) => indexMap[getKey(x)] - indexMap[getKey(y)]);
 		}
