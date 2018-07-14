@@ -16,7 +16,7 @@ export function groupBuilder(model) {
 
 	const columnMap = getColumnMap(columns);
 
-	return (valueFactory) => {
+	return valueFactory => {
 		const result = [];
 		for (let i = 0, nodeLength = nodes.length; i < nodeLength; i++) {
 			const node = nodes[i];

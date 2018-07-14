@@ -1,24 +1,16 @@
 import { binarySearch } from '../utility/kit';
 
-export function flatten(columns, createView) {
-	const root = {
-		children: columns
-	};
-
+export function flatten(root) {
 	const rowsToUse = rowsToUseFactory();
 
-	function markup(column, rowIndex, columnIndex, rowsLeft, result) {
-		const rowspan = rowsLeft - rowsToUse(column);
-		const view = createView(column.type, column);
-		if (!view.model.isVisible) {
-			return null;
-		}
-
+	function markup(node, rowIndex, columnIndex, rowsLeft, result) {
+		const view = node.key;
+		const rowspan = rowsLeft - rowsToUse(node);
 		view.rowspan = rowspan;
 		view.rowIndex = rowIndex;
 		view.columnIndex = columnIndex;
 
-		const { children } = view.model;
+		const { children } = node;
 		if (children.length) {
 			let width = 0;
 			const childResult = [];
@@ -38,12 +30,9 @@ export function flatten(columns, createView) {
 				result.push(view);
 				result.push(...childResult);
 			}
-		} else {
-			if (view.model.type !== 'cohort') {
-				result.push(view);
-			}
+		} else if (view.model.type !== 'cohort') {
+			result.push(view);
 		}
-
 
 		return view;
 	}
@@ -56,7 +45,7 @@ export function flatten(columns, createView) {
 }
 
 function layout(columns) {
-	const matrix = [];
+	const mx = [];
 
 	columns.sort((x, y) => {
 		const xc = x.rowIndex - y.rowIndex;
@@ -68,31 +57,31 @@ function layout(columns) {
 	});
 
 	for (let column of columns) {
-		if (!matrix[column.rowIndex]) {
-			matrix[column.rowIndex] = [];
+		if (!mx[column.rowIndex]) {
+			mx[column.rowIndex] = [];
 		}
-		matrix[column.rowIndex].push(column);
+		mx[column.rowIndex].push(column);
 	}
 
-	return matrix;
+	return mx;
 }
 
 function rowsToUseFactory() {
 	const cache = new Map();
-	return function rowsToUse(column, depth = 0) {
-		if (cache.has(column.key)) {
-			return cache.get(column.key);
+	return function rowsToUse(node, depth = 0) {
+		const { model } = node.key;
+		if (cache.has(model.key)) {
+			return cache.get(model.key);
 		}
 
-		// as we use here 'raw' columns children can be null
-		const children = column.children || [];
+		const { children } = node;
 		let count = children.length == 0 ? 0 : 1;
 		for (let child of children) {
 			count = Math.max(count, rowsToUse(child, depth + 1));
 		}
 
 		const result = 1 + count;
-		cache.set(column.key, result);
+		cache.set(model.key, result);
 		return result;
 	}
 }

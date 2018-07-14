@@ -5,5 +5,6 @@ export declare class ColumnView {
 	model: ColumnModel;
 	colspan: number;
 	rowspan: number;
-	index: number;
+	columnIndex: number;
+	rowIndex: number;
 }

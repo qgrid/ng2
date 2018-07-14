@@ -1,4 +1,5 @@
 import { ColumnModel } from '../column-type/column.model';
+import { Node } from '../node/node';
 
 /**
  * Use this class to order and generate q-grid columns.
@@ -47,7 +48,7 @@ export declare interface ColumnListModel {
 	 * This is filled automatically by internal service, but can be modified, for instance,
      * by [column sort](/doc/feature/sort.html) plugin.
 	 */
-	index?: string[];
+	index?: Node;
 
 	/**
 	 * List of columns from html template. Usually that kind of column can be
