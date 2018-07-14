@@ -1,4 +1,5 @@
 import { Guard } from '../infrastructure/guard';
+import { Node } from '../node/node';
 
 export function memoPipe(rows, context, next) {
 	Guard.notNull(rows, 'rows');
@@ -14,7 +15,7 @@ export function memoPipe(rows, context, next) {
 
 	next({
 		rows,
-		pivot: { heads: [], rows: [] },
+		pivot: { head: new Node('$root', 0), rows: [] },
 		nodes: []
 	});
 }

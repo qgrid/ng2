@@ -14,7 +14,7 @@
 			<ng-template for="body"
 			             let-$cell
 			             let-$view="$view">
-				<div *ngIf="$view.pivot.value($cell.rowIndex, $cell.columnIndex)"
+				<div *ngIf="$cell.value"
 				     [style.color]="'#' + $cell.row.color"
 				     style="font-weight: bold;background: #ddd;">
 					X

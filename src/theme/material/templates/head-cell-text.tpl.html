@@ -5,14 +5,14 @@
                         [column]="$cell.column"
                         class="q-grid-sort">
         <ng-template>
-            <label [matTooltip]="$cell.column.title"
+            <label [matTooltip]="$cell.column.description"
                    [matTooltipShowDelay]="800">
                 {{$cell.column.title}}
             </label>
         </ng-template>
     </q-grid-column-sort>
     <label *ngIf="!$cell.column.canSort"
-           [matTooltip]="$cell.column.title"
+           [matTooltip]="$cell.column.description"
            [matTooltipShowDelay]="800">
         {{$cell.column.title}}
     </label>

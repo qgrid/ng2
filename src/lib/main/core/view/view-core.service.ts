@@ -1,7 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { GroupView } from 'ng2-qgrid/core/group/group.view';
 import { FilterView } from 'ng2-qgrid/core/filter/filter.view';
-import { PivotView } from 'ng2-qgrid/core/pivot/pivot.view';
 import { SortView } from 'ng2-qgrid/core/sort/sort.view';
 import { PaginationView } from 'ng2-qgrid/core/pagination/pagination.view';
 import { HeadView } from 'ng2-qgrid/core/head/head.view';
@@ -37,7 +36,6 @@ export class ViewCoreService implements OnDestroy {
 	layout: LayoutView = null;
 	nav: NavigationView = null;
 	pagination: PaginationView = null;
-	pivot: PivotView = null;
 	rowDetails: RowDetailsView = null;
 	scroll: ScrollView = null;
 	selection: SelectionView = null;

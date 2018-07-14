@@ -1,6 +1,7 @@
 import { identity } from '../utility/kit';
 import { pivot } from './pivot';
 import { pivotForm } from './pivot.form';
+import { Node } from '../node/node';
 
 function buildFactory(columnMap, valueFactory) {
 	return function run(pivot, pivotBy, level = 0) {
@@ -40,6 +41,6 @@ export function build(columnMap, pivotBy, valueFactory) {
 			return pivotForm(data);
 		}
 
-		return { heads: [], rows: [] };
+		return { head: new Node('$root', 0), rows: [] };
 	};
 }

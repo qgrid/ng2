@@ -74,7 +74,7 @@ export class PipeModel {
 				'by': PU.default
 			},
 			'columnList': {
-				'index': PU.column
+				'index': PU.columnIndex
 			},
 			'row': {
 				'status': PU.rowDetails,
