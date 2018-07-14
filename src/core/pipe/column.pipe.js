@@ -249,31 +249,4 @@ function pivotColumnsFactory(model) {
 
 function sort(xs, ys) {
 	return xs;
-	//const pathMap = preOrderDFS();
-	const xsMap = preOrderDFS(xs, (node, memo) => {
-		const { key } = node.key.model;
-		memo.set(key, node);
-		return memo;
-	}, new Map());
-
-	//remove items
-	const result = preOrderDFS(ys, (node, parent, index) => {
-		const { key } = node.key.model;
-		const x = xsMap.get(key);
-		if (x) {
-			const child = copy(x);
-
-			memo.children.push(copy(x));
-		}
-
-		if(!x) {
-
-		}
-
-		return memo;
-	}, new Node('$root', 0));
-
-	//add items
-
-	return result;
 }

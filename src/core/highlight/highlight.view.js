@@ -238,10 +238,14 @@ export class HighlightView {
 
 		const { head, body, foot } = this.table;
 		Fastdom.mutate(() => {
+			const isLeaf = position.length === 1;
 			for (let index of position) {
-				head.column(index).addClass(`${GRID_PREFIX}-${cls}`);
-				head.column(index - 1).addClass(`${GRID_PREFIX}-${cls}-prev`);
-				head.column(index + 1).addClass(`${GRID_PREFIX}-${cls}-next`);
+				if (isLeaf) {
+					head.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+					head.column(index - 1).addClass(`${GRID_PREFIX}-${cls}-prev`);
+					head.column(index + 1).addClass(`${GRID_PREFIX}-${cls}-next`);
+				}
+
 				body.column(index).addClass(`${GRID_PREFIX}-${cls}`);
 				foot.column(index).addClass(`${GRID_PREFIX}-${cls}`);
 			}
