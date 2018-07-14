@@ -53,10 +53,6 @@ export class HeadView {
 								const springNode = queue[hostIndex - 1] || oldPos.node;
 								const springIndex = springParent.children.indexOf(springNode);
 
-								if (!springNode.key.model.key) {
-									debugger;
-								}
-
 								springParent.children.splice(springIndex, 1);
 								newPos.parent.children.splice(newPos.index, 0, springNode);
 
