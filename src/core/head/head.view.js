@@ -72,7 +72,7 @@ export class HeadView {
 						if (oldPos) {
 							for (let leaf of findLeaves(oldPos.node)) {
 								const oldColumn = table.body.column(leaf.key.columnIndex);
-								//oldColumn.removeClass(`${GRID_PREFIX}-drag`);
+								oldColumn.removeClass(`${GRID_PREFIX}-drag`);
 							}
 						}
 						break;
