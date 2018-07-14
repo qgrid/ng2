@@ -69,7 +69,7 @@ export class DragDirective {
 			model.drag({ isActive: false }, { source: 'drag.directive' });
 		}
 
-		this.elementRef.nativeElement.classList.remove(`${GRID_PREFIX}-drag`);
+//		this.elementRef.nativeElement.classList.remove(`${GRID_PREFIX}-drag`);
 
 		DragService.data = null;
 		DragService.area = null;
