@@ -33,6 +33,14 @@ $hidden: transparent;
 .q-grid.q-grid-theme-basic {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     
+    tr:not(.q-grid-highlighted) {
+        td {
+            &.q-grid-selected {
+                background-color: $selected;
+            }
+        }
+    }
+
     &.q-grid-box {
         .q-grid-row-indicator {
             .q-grid-can-drag {
