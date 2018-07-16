@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ContentChild, Input, TemplateRef } from '@angular/core';
-import { PluginService } from '../plugin.service';
 import { ValidatorView } from 'ng2-qgrid/plugin/validation/validator.view';
+import { PluginService } from '../plugin.service';
 import { TemplateHostService } from '../../template/template-host.service';
 
 @Component({
