@@ -18,11 +18,14 @@
 				<option *ngFor="let size of $pager.sizeList"
 				            [value]="size">{{size}}</option>
 			</select>
-			<label class="q-grid-pager-page hide-xs"
-			       ng-switch="::$pager.mode">
-				<span *ngSwitchCase="'row'">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>
-				<span *ngSwitchDefault>{{$pager.current + 1}} of {{$pager.totalPages}}</span>
-			</label>
+			<div class="q-grid-pager-page">
+				<label class="hide-xs"
+						ng-switch="::$pager.mode">
+					<span *ngSwitchCase="'row'">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>
+					<span *ngSwitchDefault>{{$pager.current + 1}} of {{$pager.totalPages}}</span>
+				</label>
+			 </div>
+
 			<button tabindex="-1"
 			        class="q-grid-icon-button q-grid-pager-prev"
 			        [disabled]="!$pager.prev.canExecute()"
