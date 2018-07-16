@@ -30,9 +30,8 @@ export class DragDirective {
 
 	onStart(e: DragEvent) {
 		const transfer = e.dataTransfer;
-		const eventArg = {
-			data: this.data
-		};
+		const data = this.data;
+		const eventArg = { data };
 
 		if (this.drag.canExecute(eventArg) === false) {
 			e.preventDefault();
@@ -40,7 +39,6 @@ export class DragDirective {
 			return false;
 		}
 
-		const data = this.data;
 		const result = this.drag.execute(eventArg);
 		DragService.element = result && isFunction(result.getBoundingClientRect) ? result : e.srcElement;
 
@@ -60,18 +58,19 @@ export class DragDirective {
 		};
 
 		if (this.root) {
-			const model = this.root.model;
+			const { model } = this.root;
 			model.drag({ isActive: true }, { source: 'drag.directive' });
 		}
 	}
 
 	onEnd() {
 		if (this.root) {
-			const model = this.root.model;
+			const { model } = this.root;
 			model.drag({ isActive: false }, { source: 'drag.directive' });
 		}
 
 		this.elementRef.nativeElement.classList.remove(`${GRID_PREFIX}-drag`);
+
 		DragService.data = null;
 		DragService.area = null;
 		DragService.element = null;

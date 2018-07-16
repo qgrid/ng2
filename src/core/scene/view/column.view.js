@@ -7,7 +7,8 @@ export class ColumnView {
 
 		this.colspan = 1;
 		this.rowspan = 1;
-		this.index = -1;
+		this.rowIndex = -1;
+		this.columnIndex = -1;
 	}
 
 	static model(model) {

@@ -12,7 +12,6 @@ import { HighlightView } from '../highlight/highlight.view';
 import { LayoutView } from '../layout/layout.view';
 import { NavigationView } from '../navigation/navigation.view';
 import { PaginationView } from '../pagination/pagination.view';
-import { PivotView } from '../pivot/pivot.view';
 import { RowDetailsView } from '../row-details/row.details.view';
 import { RowView } from '../row/row.view';
 import { ScrollView } from '../scroll/scroll.view';
@@ -61,7 +60,6 @@ export function viewFactory(
 		host.group = new GroupView(modelProxy, table, gridService, navigationShortcut);
 		host.edit = new EditView(modelProxy, table, navigationShortcut);
 		host.filter = new FilterView(modelProxy);
-		host.pivot = new PivotView(modelProxy);
 		host.rowDetails = new RowDetailsView(modelProxy, table, navigationShortcut);
 		host.selection = new SelectionView(modelProxy, table, selectionShortcut);
 		host.style = new StyleView(modelProxy, table);

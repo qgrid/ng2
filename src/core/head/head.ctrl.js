@@ -60,8 +60,8 @@ export class HeadCtrl {
 	}
 
 	highlight(column) {
-		const highlight = this.view.highlight;
-		if (!highlight.column.canExecute()) {
+		const { highlight } = this.view;
+		if (!highlight.column.canExecute(column)) {
 			return;
 		}
 
