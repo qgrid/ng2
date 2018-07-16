@@ -5,6 +5,7 @@ import { columnFactory } from '../column/column.factory';
 import { generateFactory } from '../column-list/column.list.generate';
 import { columnIndexPipe } from './column.index.pipe';
 import { Node } from '../node/node';
+import { bend } from '../node/node.service';
 import { preOrderDFS } from '../node/node.service';
 
 export function columnPipe(memo, context, next) {
@@ -247,6 +248,55 @@ function pivotColumnsFactory(model) {
 	};
 }
 
-function sort(xs, ys) {
-	return xs;
+function sort(etalon, actual) {
+	const etalonLine = [];
+	const etalonSet = new Set();
+	preOrderDFS(etalon, node => {
+		etalonLine.push(node);
+		etalonSet.add(node.key.model.key);
+	});
+	const actualLine = [];
+	const actualSet = new Set();
+	preOrderDFS(actual, node => {
+		if (etalonSet.has(node.key.model.key)) {
+			actualLine.push(node);
+			actualSet.add(node.key.model.key);
+		}
+	});
+	etalonLine.forEach((etalonNode, i) => {
+		if (actualSet.has(etalonNode.key.model.key)) {
+			return;
+		}
+		if (i === 0) {
+			actualLine.unshift(etalonNode);
+			actualSet.add(etalonNode.node.key.model.key);
+			actualLine.forEach(actualNode => actualNode.level++);
+		} else {
+			if (etalonNode.type === 'cohort') {
+				const child = etalonNode.children[0];
+				if (actualSet.has(child.key.model.key)) {
+					let childIndex = actualLine.findIndex(n => n.key.model.key === child.key.model.key);
+					actualLine.splice(childIndex, 0, etalonNode);
+					actualSet.add(etalonNode.node.key.model.key);
+					childIndex++;
+					const firstChildLevel = actualLine[childIndex].level;
+					let childLevel = firstChildLevel;
+					while (childIndex < actualLine.length && childLevel >= firstChildLevel) {
+						childLevel = actualLine[childIndex].level;
+						actualLine[childIndex].level++;
+						childIndex++;
+					}
+					return;
+				}
+			}
+			const prevEtalonNode = etalonLine[i-1];
+			const actualIndex = actualLine.findIndex(n => n.key.model.key === prevEtalonNode.key.model.key);
+			const actualLevel = actualLine[actualIndex].level;
+			etalonNode.level = etalonNode.level > prevEtalonNode.level ? actualLevel + 1 : actualLevel;
+			actualLine.splice(actualIndex + 1, 0, etalonNode);
+			actualSet.add(etalonNode.node.key.model.key);
+		}
+	});
+
+	return bend(actualLine);
 }

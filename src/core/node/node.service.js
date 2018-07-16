@@ -60,3 +60,23 @@ export function copy(node) {
 	result.source = node.source;
 	return result;
 }
+
+export function bend(line) {
+	if (line.length === 0) {
+		return new Node('$root', 0);
+	}
+	const root = new Node(line[0].key, 0, line[0].type);
+	const levelMap = new Map();
+	levelMap.set(0, root);
+	for (let i = 1; i < line.length; i++) {
+		const source = line[i];
+		const parentLevel = Array.from(levelMap.keys())
+			.find(level => level < source.level);
+		const parentNode = levelMap.get(parentLevel);
+		const nextLevel = parentLevel + 1;
+		const node = new Node(source.key, nextLevel, source.type);
+		parentNode.children.push(node);
+		levelMap.set(nextLevel, node);
+	}
+	return result;
+}
