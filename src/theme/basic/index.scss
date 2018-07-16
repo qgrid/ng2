@@ -14,22 +14,6 @@ $pager-primary: #757575;
 $icon-button-disabled: rgba(0,0,0,.26);
 $hidden: transparent;
 
-.q-grid-aggregation {
-    .q-grid.q-grid-theme-basic {
-        tfoot {
-            tr {
-                border-bottom: 1px solid $total-row-border;
-
-                td {
-                    span {
-                        font-weight: bold;
-                    }
-                }
-            }
-        }
-    }
-}
-
 .q-grid.q-grid-theme-basic {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     
@@ -393,6 +377,18 @@ $hidden: transparent;
                 }
                 tr:nth-child(2) {
                     border-top: 0;
+                }
+            }
+        }
+    }
+
+    tfoot {
+        tr {
+            border-bottom: 1px solid $total-row-border;
+
+            td {
+                span {
+                    font-weight: bold;
                 }
             }
         }
