@@ -5,7 +5,7 @@ import { columnFactory } from '../column/column.factory';
 import { generateFactory } from '../column-list/column.list.generate';
 import { columnIndexPipe } from './column.index.pipe';
 import { Node } from '../node/node';
-import { bend } from '../node/node.service';
+import { bend, copy } from '../node/node.service';
 import { preOrderDFS } from '../node/node.service';
 
 export function columnPipe(memo, context, next) {
@@ -17,7 +17,7 @@ export function columnPipe(memo, context, next) {
 	const { head } = pivot;
 
 	const createColumn = columnFactory(model);
-	const root = new Node(createColumn('$root', { key: '$root', type: '$root' }), 0);
+	const root = new Node(createColumn('cohort', { key: '$root' }), 0);
 	const addDataColumns = dataColumnsFactory(model);
 	const addSelectColumn = selectColumnFactory(model);
 	const addGroupColumn = groupColumnFactory(model, nodes);
@@ -251,15 +251,15 @@ function pivotColumnsFactory(model) {
 function sort(etalon, actual) {
 	const etalonLine = [];
 	const etalonSet = new Set();
-	preOrderDFS(etalon, node => {
+	preOrderDFS([etalon], node => {
 		etalonLine.push(node);
 		etalonSet.add(node.key.model.key);
 	});
 	const actualLine = [];
 	const actualSet = new Set();
-	preOrderDFS(actual, node => {
+	preOrderDFS([actual], node => {
 		if (etalonSet.has(node.key.model.key)) {
-			actualLine.push(node);
+			actualLine.push(copy(node));
 			actualSet.add(node.key.model.key);
 		}
 	});
@@ -268,23 +268,20 @@ function sort(etalon, actual) {
 			return;
 		}
 		if (i === 0) {
-			actualLine.unshift(etalonNode);
-			actualSet.add(etalonNode.node.key.model.key);
+			actualLine.unshift(copy(etalonNode));
+			actualSet.add(etalonNode.key.model.key);
 			actualLine.forEach(actualNode => actualNode.level++);
 		} else {
-			if (etalonNode.type === 'cohort') {
+			if (etalonNode.key.model.type === 'cohort') {
 				const child = etalonNode.children[0];
 				if (actualSet.has(child.key.model.key)) {
 					let childIndex = actualLine.findIndex(n => n.key.model.key === child.key.model.key);
-					actualLine.splice(childIndex, 0, etalonNode);
-					actualSet.add(etalonNode.node.key.model.key);
-					childIndex++;
-					const firstChildLevel = actualLine[childIndex].level;
-					let childLevel = firstChildLevel;
-					while (childIndex < actualLine.length && childLevel >= firstChildLevel) {
-						childLevel = actualLine[childIndex].level;
-						actualLine[childIndex].level++;
-						childIndex++;
+					actualLine.splice(childIndex, 0, copy(etalonNode));
+					actualSet.add(etalonNode.key.model.key);
+					for (let j = 0; j < etalonNode.children.length; j++) {
+						if (actualLine[childIndex+j]) {
+							actualLine[childIndex+j].level++;
+						}
 					}
 					return;
 				}
@@ -292,11 +289,10 @@ function sort(etalon, actual) {
 			const prevEtalonNode = etalonLine[i-1];
 			const actualIndex = actualLine.findIndex(n => n.key.model.key === prevEtalonNode.key.model.key);
 			const actualLevel = actualLine[actualIndex].level;
-			etalonNode.level = etalonNode.level > prevEtalonNode.level ? actualLevel + 1 : actualLevel;
-			actualLine.splice(actualIndex + 1, 0, etalonNode);
-			actualSet.add(etalonNode.node.key.model.key);
+			const nextLevel = actualLevel + etalonNode.level - prevEtalonNode.level;
+			actualLine.splice(actualIndex + 1, 0, new Node(etalonNode.key, nextLevel, etalonNode.type));
+			actualSet.add(etalonNode.key.model.key);
 		}
 	});
-
 	return bend(actualLine);
 }

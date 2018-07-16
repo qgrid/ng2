@@ -1,5 +1,6 @@
 import { Node } from './node';
 import { cloneDeep } from '../utility/kit';
+import { AppError } from '../infrastructure/error';
 
 export function preOrderDFS(nodes, visit, memo = null, parent = null) {
 	for (let i = 0, length = nodes.length; i < length; i++) {
@@ -63,20 +64,22 @@ export function copy(node) {
 
 export function bend(line) {
 	if (line.length === 0) {
-		return new Node('$root', 0);
+		throw new AppError('node.service', 'Line have no nodes');
 	}
 	const root = new Node(line[0].key, 0, line[0].type);
-	const levelMap = new Map();
-	levelMap.set(0, root);
+	const parentStack = [root];
 	for (let i = 1; i < line.length; i++) {
 		const source = line[i];
-		const parentLevel = Array.from(levelMap.keys())
-			.find(level => level < source.level);
-		const parentNode = levelMap.get(parentLevel);
-		const nextLevel = parentLevel + 1;
-		const node = new Node(source.key, nextLevel, source.type);
-		parentNode.children.push(node);
-		levelMap.set(nextLevel, node);
+		let last = parentStack[parentStack.length-1];
+		if (source.level <= last.level) {
+			do {
+				parentStack.pop();
+				last = parentStack[parentStack.length-1];
+			} while (source.level <= last.level);
+		}
+		const newNode = new Node(source.key, last.level + 1, source.type);
+		last.children.push(newNode);
+		parentStack.push(newNode);
 	}
-	return result;
+	return root;
 }
