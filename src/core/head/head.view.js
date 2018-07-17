@@ -57,7 +57,12 @@ export class HeadView {
 								newPos.parent.children.splice(newPos.index, 0, springNode);
 
 								springNode.level = newPos.parent.level +1;
-								preOrderDFS(springNode.children, (node, parent, ) => node.level = parent.level + 1, springNode);
+								preOrderDFS(
+									springNode.children,
+									(node, root, parent) => {
+										node.level = (root || parent).level + 1;
+									},
+									springNode);
 
 								columnList({ index }, { source: 'head.view' });
 							}
