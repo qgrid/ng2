@@ -1,13 +1,16 @@
 <q-grid caption="Edit Row Basic"
-        [rows]="rows | async">
+	[rows]="rows | async">
 	<q-grid-columns generation="deep">
-		<q-grid-column type="edit-form"
-		               key="editForm"
+		<q-grid-column key="editForm"
+		               type="edit-form"
 		               pin="left"
-		               canEdit="false">
+		               canFilter="false"
+		               canSort="false"
+			       canEdit="false"
+			       width="60">
 			<ng-template for="body"
 			             let-$cell>
-				<q-grid-edit-form-trigger title='Edit Form'
+				<q-grid-edit-form-trigger title="Edit Form"
 				                          [cell]="$cell">
 				</q-grid-edit-form-trigger>
 			</ng-template>

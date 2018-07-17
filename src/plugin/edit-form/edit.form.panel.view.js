@@ -7,7 +7,7 @@ import { Disposable } from '../../core/infrastructure/disposable';
 export class EditFormPanelView extends Disposable {
 	constructor(model, context) {
 		super();
-		
+
 		this.model = model;
 
 		this.editor = new RowEditor(context.row, model.columnList().line);
@@ -25,7 +25,10 @@ export class EditFormPanelView extends Disposable {
 				Object.entries(this.commands)
 			)));
 		}
+	}
 
+	get editors() {
+		return this.editor.editors;
 	}
 
 	get commands() {

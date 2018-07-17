@@ -6,23 +6,19 @@
 		</mat-card-header>
 		<mat-card-content>
 			<div class="layout-column flex q-grid-edit-form-panel-body">
-				<div *ngFor="let cellEditor of $editForm.editors">
-					<q-grid-edit-form-control [cellEditor]="cellEditor"
-					                          [control]="$editForm"
-					                          [key]="$editForm.getKey(cellEditor)">
-					</q-grid-edit-form-control>
-				</div>
+				<q-grid-edit-form-control *ngFor="let editor of $editForm.editors"
+				                          [editor]="editor">
+				</q-grid-edit-form-control>
 			</div>
-
 		</mat-card-content>
 		<mat-card-actions>
 			<button mat-button
 			        color="primary"
-			        (click)="$editForm.saveHandler($event)">
+			        (click)="$editForm.submit.execute($event)">
 				Save
 			</button>
 			<button mat-button
-			        (click)="$editForm.cancelHandler($event)">
+			        (click)="$editForm.cancel.execute($event)">
 				Cancel
 			</button>
 		</mat-card-actions>

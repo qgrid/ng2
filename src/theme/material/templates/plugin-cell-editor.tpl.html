@@ -2,6 +2,6 @@
     <q-grid-backdrop (close)="$editor.close($event)">
     </q-grid-backdrop>
     <div class="q-grid-editor-content" q-grid-stop-propagate="click">
-        <ng-container [ngTemplateOutlet]='$editor.template'></ng-container>
+        <ng-container [ngTemplateOutlet]="$editor.template"></ng-container>
     </div>
 </ng-template>
