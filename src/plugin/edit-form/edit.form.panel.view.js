@@ -1,11 +1,13 @@
 import { isUndefined } from '../../core/utility/kit';
-import { Command } from '../../core/command';
+import { Command } from '../../core/command/command';
 import { RowEditor } from '../../core/edit/edit.row.editor';
-import { Event } from '../../core/infrastructure';
+import { Event } from '../../core/infrastructure/event';
 import { Disposable } from '../../core/infrastructure/disposable';
 
 export class EditFormPanelView extends Disposable {
 	constructor(model, context) {
+		super();
+		
 		this.model = model;
 
 		this.editor = new RowEditor(context.row, model.columnList().line);

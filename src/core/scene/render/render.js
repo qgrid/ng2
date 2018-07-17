@@ -1,20 +1,23 @@
 import { Node } from '../../node/node';
 import { RowDetails } from '../../row-details/row.details';
-import { DataRow } from './data.row';
-import { DetailsRow } from './details.row';
 import { CacheStrategy } from './cache.strategy';
-import { NodeRow, SubheadNodeRow, RowspanNodeRow } from './node.row';
 import { get as getValue } from '../../services/value';
 import { get as getLabel } from '../../services/label';
+import { DataRow } from './data.row';
+import { DetailsRow } from './details.row';
+import { NodeRow, SubheadNodeRow, RowspanNodeRow } from './node.row';
+import { PivotRow } from './pivot.row';
 
 export class Renderer {
 	constructor(model) {
-		const nodeRow = new CacheStrategy(model, new NodeRow(model));
-		const subheadNodeRow = new CacheStrategy(model, new SubheadNodeRow(model));
-		const rowspanNodeRow = new CacheStrategy(model, new RowspanNodeRow(model));
-		const rowDetails = new CacheStrategy(model, new DetailsRow(model))
-		const dataRow = new CacheStrategy(model, new DataRow(model));
-		const defaultStrategy = dataRow;
+		const dataRow = new DataRow(model);
+		const pivotRow = new CacheStrategy(model, new PivotRow(model, dataRow));
+		const nodeRow = new NodeRow(model, pivotRow);
+		const nestNodeRow = new CacheStrategy(model, new NodeRow(model, nodeRow));
+		const subheadNodeRow = new CacheStrategy(model, new SubheadNodeRow(nodeRow));
+		const rowspanNodeRow = new CacheStrategy(model, new RowspanNodeRow(model, nodeRow));
+		const rowDetails = new CacheStrategy(model, new DetailsRow(pivotRow));
+		const defaultStrategy = pivotRow;
 
 		const strategies = new Map();
 		strategies.set(RowDetails, rowDetails);
@@ -29,7 +32,7 @@ export class Renderer {
 					strategies.set(Node, rowspanNodeRow);
 					break;
 				default:
-					strategies.set(Node, nodeRow);
+					strategies.set(Node, nestNodeRow);
 					break;
 			}
 		};
