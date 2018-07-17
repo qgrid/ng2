@@ -1,21 +1,31 @@
-$head-primary: #006f8f;
-$head-secondary: #005D78;
-$head-sorted: #004559;
+$head-primary-color: #006f8f;
+$head-secondary-color: #005D78;
+$head-sort-color: #004559;
 
-$grid-border: #e0e0e0;
-$grid-array-background: #e0e0e0;
+$row-border-color: #e0e0e0;
 
-$selected: #f5f5f5;
-$highlighted: #eee;
-$group-summary: #007fa3;
+$cell-array-background-color: #e0e0e0;
+$cell-group-summary-color: #007fa3;
+$cell-select-background-color: #f5f5f5;
+$cell-highlight-background-color: #eee;
 
-$pager-primary: #757575;
-$icon-button-disabled: rgba(0,0,0,.26);
-$hidden: transparent;
+$tfoot-border-color: #e0e0e0;
+
+$pager-primary-color: #757575;
+$button-disabled-color: rgba(0,0,0,.26);
+$hidden-color: transparent;
 
 .q-grid.q-grid-theme-basic {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     
+    tr:not(.q-grid-highlighted) {
+        td {
+            &.q-grid-selected {
+                background-color: $cell-select-background-color;
+            }
+        }
+    }
+
     &.q-grid-box {
         .q-grid-row-indicator {
             .q-grid-can-drag {
@@ -39,13 +49,13 @@ $hidden: transparent;
 
         tr {
             &.q-grid-highlighted {
-                background-color: $highlighted;
+                background-color: $cell-highlight-background-color;
             }
         }
 
         td {
             &.q-grid-highlighted {
-                background-color: $highlighted;
+                background-color: $cell-highlight-background-color;
             }
         }
     }
@@ -125,7 +135,7 @@ $hidden: transparent;
             transform: rotate(90deg);
         }
         &.q-grid-group-summary {
-            color: $group-summary !important;
+            color: $cell-group-summary-color !important;
         }
     }
 
@@ -156,7 +166,7 @@ $hidden: transparent;
     }
 
     .q-grid-icon-button[disabled][disabled] {
-        color: $icon-button-disabled;
+        color: $button-disabled-color;
     }
 
     .q-grid-pager {
@@ -164,7 +174,7 @@ $hidden: transparent;
         padding: 11px 0;
         height: 24px;
         font-size: 12px;
-        color: $pager-primary;
+        color: $pager-primary-color;
 
         .q-grid-pager-select {
             height: 32px;
@@ -173,10 +183,10 @@ $hidden: transparent;
             select {
                 font-family: Roboto, "Helvetica Neue", sans-serif;
                 font-size: 12px;
-                color: $pager-primary;
+                color: $pager-primary-color;
                 border: none;
                 height: 24px;
-                width: 34px;
+                width: 34.5px;
                 margin: 0 0 0 12px;
             }
             select:focus {
@@ -187,6 +197,8 @@ $hidden: transparent;
         .q-grid-pager-page {
             margin-left: 30px;
             margin-right: 0;
+            width: 37.2px;
+            display: inline-block;
         }
     }
 
@@ -217,7 +229,7 @@ $hidden: transparent;
         
         .q-grid-icon {
             font-size: 14px;
-            color: $hidden;
+            color: $hidden-color;
             background: transparent;
         }
     }
@@ -228,12 +240,12 @@ $hidden: transparent;
                 height: 30px;
             }
             th {
-                border-top: 1px solid $grid-border;
-                border-left: 1px solid $grid-border;
+                border-top: 1px solid $row-border-color;
+                border-left: 1px solid $row-border-color;
             }
 
             th:nth-last-child(2) {
-                border-right: 1px solid $grid-border;
+                border-right: 1px solid $row-border-color;
             }
         }
     }
@@ -245,12 +257,12 @@ $hidden: transparent;
             }
 
             td.q-grid-sorted {
-                background-color: $selected;
+                background-color: $cell-select-background-color;
             }
             
             th {
                 font-size: 12px !important;
-                color: $head-primary !important;
+                color: $head-primary-color !important;
                 font-weight: normal !important;
                 line-height: 14px;
 
@@ -278,17 +290,17 @@ $hidden: transparent;
                     }
                     &.q-grid-active {
                         label {
-                            color: $head-sorted;
+                            color: $head-sort-color;
                         }
                         .q-grid-icon {
-                            color: $head-sorted;
+                            color: $head-sort-color;
                         }
                     }                             
                     .q-grid-icon {
                         transition: opacity 0.3s;
                         opacity: 0;
                         position: absolute;
-                        color: $head-secondary;
+                        color: $head-secondary-color;
                         font-size: 12px;
                         font-weight: bold;
                         height: 16px;
@@ -340,7 +352,7 @@ $hidden: transparent;
                     text-align: center;
                     white-space: nowrap;
                     vertical-align: middle;
-                    background-color: $grid-array-background;
+                    background-color: $cell-array-background-color;
                     border-radius: 16px;
                     margin-right: 4px;
                 }
@@ -361,11 +373,23 @@ $hidden: transparent;
             tfoot,
             tbody {
                 tr {
-                    border-top: 1px solid $grid-border;
+                    border-top: 1px solid $row-border-color;
                     height: 30px;
                 }
                 tr:nth-child(2) {
                     border-top: 0;
+                }
+            }
+        }
+    }
+
+    tfoot {
+        tr {
+            border-bottom: 1px solid $tfoot-border-color;
+
+            td {
+                span {
+                    font-weight: bold;
                 }
             }
         }
