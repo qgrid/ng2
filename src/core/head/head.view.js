@@ -5,7 +5,7 @@ import * as columnService from '../column/column.service';
 import { FilterRowColumn } from '../column-type/filter.row.column';
 import { clone, isUndefined } from '../utility/kit';
 import { GRID_PREFIX } from '../definition';
-import { calk, find, findLeaves } from '../node/node.service';
+import { calk, find, findLeaves, preOrderDFS } from '../node/node.service';
 
 export class HeadView {
 	constructor(model, table, tagName) {
@@ -55,6 +55,9 @@ export class HeadView {
 
 								springParent.children.splice(springIndex, 1);
 								newPos.parent.children.splice(newPos.index, 0, springNode);
+
+								springNode.level = newPos.parent.level +1;
+								preOrderDFS(springNode.children, (node, parent, ) => node.level = parent.level + 1, springNode);
 
 								columnList({ index }, { source: 'head.view' });
 							}

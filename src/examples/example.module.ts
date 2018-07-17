@@ -43,6 +43,7 @@ import { ExampleDetailsRowStartComponent } from './details-row-start/example-det
 import { ExampleDragColumnBasicComponent } from './drag-column-basic/example-drag-column-basic.component';
 import { ExampleDragRowBasicComponent } from './drag-row-basic/example-drag-row-basic.component';
 import { ExampleDragRowNodeComponent } from './drag-row-node/example-drag-row-node.component';
+import { ExampleDynamicColumnModelComponent } from './dynamic-column-moodel/example-dynamic-column-model.component';
 import { ExampleEditCellBasicComponent } from './edit-cell-basic/example-edit-cell-basic.component';
 import { ExampleEditCellBatchComponent } from './edit-cell-batch/example-edit-cell-batch.component';
 import { ExampleEditRowBasicComponent } from './edit-row-basic/example-edit-row-basic.component';
@@ -159,6 +160,7 @@ const EXAMPLES: Array<any> = [
 	ExampleDragColumnBasicComponent,
 	ExampleDragRowBasicComponent,
 	ExampleDragRowNodeComponent,
+	ExampleDynamicColumnModelComponent,
 	ExampleEditCellBasicComponent,
 	ExampleEditCellBatchComponent,
 	ExampleEditRowBasicComponent,
