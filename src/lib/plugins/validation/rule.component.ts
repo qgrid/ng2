@@ -1,15 +1,17 @@
-import { AfterViewInit, Component, ContentChild, Input, TemplateRef } from '@angular/core';
+import { Component, ContentChild, Input, OnChanges, SimpleChanges, TemplateRef } from '@angular/core';
 import { PluginService } from '../plugin.service';
 import { TemplateHostService } from '../../template/template-host.service';
 
-const ruleBindings = {};
+const ruleBindings = [ 'required', 'not_empty_list', 'any_object', 'eq', 'string', 'length_between', 'length_equal', 'min_length',
+	'max_length', 'one_of', 'like', 'integer', 'positive_integer', 'decimal', 'max_number', 'min_number', 'email', 'url', 'iso_date',
+	'equal_to_field', 'list_of' ];
 
 @Component({
 	selector: 'q-grid-rule',
 	template: '',
 	providers: [ TemplateHostService, PluginService ]
 })
-export class RuleComponent implements AfterViewInit {
+export class RuleComponent implements OnChanges {
 	@Input() for: string;
 	@Input() key: string;
 
@@ -32,6 +34,7 @@ export class RuleComponent implements AfterViewInit {
 	@Input() integer?: string;
 	@Input('positiveInteger') positive_integer?: string;
 	@Input() decimal?: string;
+	@Input('positiveDecimal') positive_decimal?: string;
 	@Input('maxNumber') max_number?: string;
 	@Input('minNumber') min_number?: string;
 
@@ -55,21 +58,20 @@ export class RuleComponent implements AfterViewInit {
 		this.templateHost.key = () => `rule`;
 	}
 
-	ngAfterViewInit() {
-		const { model } = this.plugin;
-		const predefinedRules = Object.keys(ruleBindings);
-		const validation = model.validation;
-		const rules = Array.from(validation().rules);
+	ngOnChanges(changes: SimpleChanges) {
 		const rule = {
 			for: this.for,
 			key: this.key
 		};
-		for (const name of predefinedRules) {
-			if (this.hasOwnProperty(name)) {
-				rule[ name ] = this[ name ];
-			}
-		}
+		const { model } = this.plugin;
+		const validation = model.validation;
+		const rules = Array.from(validation().rules);
 
+		Object.keys(changes).forEach(key => {
+			if (ruleBindings.includes(key) && changes[ key ].firstChange) {
+				rule[ key ] = this[ key ];
+			}
+		});
 		rules.push(rule);
 		validation({ rules });
 	}

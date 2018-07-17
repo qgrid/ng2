@@ -7,8 +7,40 @@
 		<q-grid-rule for="cell"
 		             key="name.first"
 		             required
-		             min-length="3"
-		             max-length="40">
+		             minLength="3"
+		             maxLength="40">
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+		             key="name.last"
+		             required
+		             lengthBetween="[3, 40]">
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+		             key="gender"
+		             required
+		             oneOf="['male', 'female']">
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+		             key="contact.address.street"
+		             required
+		             minLength="5">
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+		             key="contact.address.zip"
+		             required
+		             positiveInteger>
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+		             key="contact.address.state"
+		             lengthEqual="2">
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+		             key="contact.region"
+		             positiveDecimal>
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+		             key="contact.email"
+		             listOf="['email']">
 		</q-grid-rule>
 	</q-grid-validation>
 
