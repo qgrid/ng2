@@ -75,13 +75,14 @@ export function columnPipe(memo, context, next) {
 	 */
 	addPadColumn(root);
 
-	columnIndexPipe(root, context, ({ columns, index }) => {
+	const { columnList } = model;
+	const tree = sort(root, columnList().index);
+
+	columnIndexPipe(tree, context, ({ columns, index }) => {
 		memo.columns = columns;
 
-		const { columnList } = model;
-		const tree = sort(index, columnList().index);
 		columnList({
-			index: tree
+			index
 		}, {
 				behavior: 'core',
 				source: 'column.pipe'
