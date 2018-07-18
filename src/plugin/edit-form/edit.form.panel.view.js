@@ -11,6 +11,7 @@ export class EditFormPanelView extends Disposable {
 		this.model = model;
 
 		this.editor = new RowEditor(context.row, model.columnList().line);
+		this.caption = context.caption;
 
 		this.submitEvent = new Event();
 		this.cancelEvent = new Event();

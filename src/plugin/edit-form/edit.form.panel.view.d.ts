@@ -3,7 +3,7 @@ import { Model } from '../../core/infrastructure/model';
 import { CellEditor } from '../../core/edit/edit.cell.editor';
 
 export declare class EditFormPanelView extends Disposable {
-	constructor(model: Model, context: { row: any });
+	constructor(model: Model, context: { row: any, caption: string });
 
 	editors: CellEditor[];
 }

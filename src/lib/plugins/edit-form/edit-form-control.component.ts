@@ -8,10 +8,6 @@ import { CellEditor } from 'ng2-qgrid/core/edit/edit.cell.editor';
 export class EditFormControlComponent {
 	@Input() editor: CellEditor;
 
-	context: { $implicit: EditFormControlComponent } = {
-		$implicit: this
-	};
-
 	get key() {
 		if (this.editor) {
 			const { column } = this.editor.cell;

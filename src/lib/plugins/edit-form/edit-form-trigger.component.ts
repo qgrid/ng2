@@ -6,7 +6,7 @@ import { DomTd } from 'ng2-qgrid';
 	templateUrl: './edit-form-trigger.component.html'
 })
 export class EditFormTriggerComponent {
-	@Input() title: string;
+	@Input() caption: string;
 	@Input() cell: DomTd;
 
 	context: any = {

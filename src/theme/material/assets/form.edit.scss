@@ -1,4 +1,4 @@
-q-grid-edit-form-trigger {	
+q-grid-edit-form-trigger {
     .q-grid-icon {
         color: $dark-secondary;
         font-size: 16px;
@@ -6,6 +6,17 @@ q-grid-edit-form-trigger {
         width: 16px;
         min-height: 16px;
         min-width: 16px;
-        display: block;
+        line-height: 16px;
+    }
+}
+
+@at-root {
+    .q-grid-edit-form {
+        width: 400px;
+        min-width: 400px !important;
+        .q-grid-edit-form-body {
+            height: 300px;
+            overflow-y: auto;
+        }
     }
 }
