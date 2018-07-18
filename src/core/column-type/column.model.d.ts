@@ -144,7 +144,7 @@ import { EditorOptions } from './editor.options';
  * * [label.js](https://github.com/qgrid/ng2/blob/master/core/services/label.js)
  * * [column.pipe.js](https://github.com/qgrid/ng2/blob/master/core/pipe/column.pipe.js)
  */
-export declare interface ColumnModel {
+export declare class ColumnModel {
 	/**
 	 * Type of column. Beside below list user is free to define own column type.
 	 * Be aware that some column types are used for internal purposes.

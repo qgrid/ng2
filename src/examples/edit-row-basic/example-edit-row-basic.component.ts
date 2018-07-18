@@ -65,7 +65,7 @@ export class ExampleEditRowBasicComponent implements OnInit {
 						.filter(rowNo => !!rows[rowNo])
 						.map(rowNo => `${rows[rowNo].name.last} ${rows[rowNo].name.first}`)
 						.join(', ');
-				}
+				},
 				editorOptions: {
 					modelFactory: () => {
 						const { rows } = this.myGrid.model.data();
