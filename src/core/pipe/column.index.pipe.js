@@ -6,11 +6,10 @@ export function columnIndexPipe(root, context, next) {
 	Guard.notNull(root, 'root');
 
 	const { model } = context;
-	const sortedIndex = sort(model, root);
-	const filteredIndex = filter(model, sortedIndex);
+	const filteredIndex = filter(model, root);
 	const columnRows = flatten(filteredIndex);
 
-	next({ columns: columnRows, index: sortedIndex });
+	next({ columns: columnRows, index: root });
 }
 
 function filter(model, root) {
@@ -34,35 +33,4 @@ function filter(model, root) {
 	}
 
 	return doFilter(root, new Node(root.key, root.level));
-}
-
-function sort(model, root) {
-	// const buildIndex = sortIndexFactory(model);
-	// const { index } = model.columnList();
-	// const pathMap = new Map();
-	// preOrderDFS([index], (node, memo, parent, index) => {
-	// 	const { key } = node.key.model;
-	// 	const path = `${memo}\\${key}`;
-	// 	const entry = { node, parent, index, path };
-	// 	pathMap.set(key, entry);
-	// 	pathMap.set(path, entry);
-	// 	return path;
-	// }, '');
-
-	// preOrderDFS([root], (node, memo, parent, index) => {
-	// 	const { key } = node.key.model;
-	// 	const path = `${memo}\\${key}`;
-	// 	const entry = pathMap.get(key);
-	// 	if (entry) {
-
-	// 	}
-
-	// 	return path;
-	// }, '');
-
-	// for (let node of entries) {
-	// 	const
-	// }
-
-	return root;
 }
