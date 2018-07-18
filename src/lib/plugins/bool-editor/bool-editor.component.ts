@@ -10,6 +10,7 @@ export class BoolEditorComponent implements OnInit {
 
 	@Input() autofocus = false;
 	@Input() column: BoolColumnModel;
+	@Input() label: string;
 	@Output() valueChange = new EventEmitter<any>();
 
 	context: { $implicit: BoolEditorComponent } = {
