@@ -1,60 +1,77 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { isArray } from 'ng2-qgrid/core/utility/kit';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { SelectionService } from 'ng2-qgrid/core/selection/selection.service';
 import { getFactory as valueFactory } from 'ng2-qgrid/core/services/value';
-import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
-import { ViewCoreService } from '../../main/core/view/view-core.service';
 import { NgComponent } from '../../infrastructure/component/ng.component';
+import { CellView } from 'ng2-qgrid/core/scene/view/cell.view';
 
 @Component({
 	selector: 'q-grid-reference-editor',
 	templateUrl: './reference-editor.component.html'
 })
 export class ReferenceEditorComponent extends NgComponent implements OnInit {
+	private state: any;
+
+	@Input() caption: string;
+	@Input() cell: CellView;
+	@Output() valueChange = new EventEmitter<any>();
+	@Output() afterSubmit = new EventEmitter();
+	@Output() afterCancel = new EventEmitter();
+
 	context: { $implicit: ReferenceEditorComponent } = {
 		$implicit: this
 	};
 
 	referenceModel: Model;
-
 	submit: Command;
 	cancel: Command;
 
-	constructor(
-		private view: ViewCoreService
-	) {
+	constructor() {
 		super();
+	}
+
+	@Input() get value() {
+		return this.state;
+	}
+
+	set value(value) {
+		if (value !== this.state) {
+			this.state = value;
+			this.valueChange.emit(value);
+		}
 	}
 
 	ngOnInit() {
 		const commit = new Command({
-			execute: e => this.edit.value = e.entries
+			execute: e => this.value = e.entries
 		});
 
-		const cancel = new Command()
+		const cancel = new Command();
 		const reference = {
 			commit,
 			cancel,
-			value: this.edit.value
+			value: this.value
 		};
 
-		this.referenceModel = this.column.editorOptions.modelFactory({
-			row: this.edit.row,
-			column: this.edit.column,
+		this.referenceModel = this.cell.column.editorOptions.modelFactory({
+			row: this.cell.row,
+			column: this.cell.column,
 			reference,
-			getValue: valueFactory(this.edit.column)
+			getValue: valueFactory(this.cell.column)
 		});
 
-		const selectionService = new SelectionService(this.referenceModel)
+
+		const { commitShortcuts, cancelShortcuts } = this.referenceModel.edit();
+		const selectionService = new SelectionService(this.referenceModel);
 
 		this.using(this.referenceModel.dataChanged.watch((e, off) => {
 			if (e.hasChanges('rows') && e.state.rows.length > 0) {
 				off();
 
 				if (!this.referenceModel.selection().items.length) {
-					const value = reference.value;
+					const { value } = reference;
 					const entries = isArray(value) ? value : [value];
 					const items = selectionService.map(entries);
 					this.referenceModel.selection({ items });
@@ -63,46 +80,43 @@ export class ReferenceEditorComponent extends NgComponent implements OnInit {
 		}));
 
 		this.submit = new Command({
+			shortcut: commitShortcuts.form,
 			canExecute: () => {
 				const { items } = this.referenceModel.selection();
-				let entries = selectionService.lookup(items);
+				const entries = selectionService.lookup(items);
 				const context = { items, entries };
 
-				return this.edit.commit.canExecute() && reference.commit.canExecute(context)
+				return reference.commit.canExecute(context);
 			},
 			execute: () => {
 				const { items } = this.referenceModel.selection();
-				let entries = selectionService.lookup(items);
+				const entries = selectionService.lookup(items);
 				const context = { items, entries };
 				if (reference.commit.execute(context) !== false) {
 					if (reference.commit === commit) {
-						this.edit.commit.execute();
+						this.afterSubmit.emit();
 					} else {
-						this.edit.cancel.execute();
+						this.afterCancel.emit();
 					}
 				}
+
+				return false;
 			}
 		});
 
 		this.cancel = new Command({
-			canExecute: () => this.edit.cancel.canExecute() && reference.cancel.canExecute(),
+			shortcut: cancelShortcuts.form || cancelShortcuts.$default,
+			canExecute: () => reference.cancel.canExecute(),
 			execute: () => {
 				if (reference.cancel.execute() !== false) {
-					this.edit.cancel.execute();
+					this.afterCancel.emit();
 				}
+
+				return false;
 			}
 		});
-	}
 
-	get title(): string {
-		return this.edit.column.title;
-	}
-
-	get column(): ColumnModel{
-		return this.edit.column;
-	}
-
-	private get edit() {
-		return this.view.edit.cell;
+		const { shortcut, manager } = this.referenceModel.action();
+		shortcut.register(manager, [this.submit, this.cancel]);
 	}
 }

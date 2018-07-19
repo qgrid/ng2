@@ -1,4 +1,16 @@
 <ng-template key="edit-form-email.tpl.html"
              let-$editor>
-    Email is not implemented
+    <h3>{{$editor.cell.column.title}}</h3>
+    <mat-form-field *ngIf="$editor.cell.column.label !== null">
+        <input matInput
+               type="text"
+               [(ngModel)]="$editor.label"
+               placeholder="Label" />
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput
+               type="email"
+               [(ngModel)]="$editor.value"
+               placeholder="Email" />
+    </mat-form-field>
 </ng-template>

@@ -25,6 +25,21 @@ th {
     }
 }
 
+td {
+    .q-grid-box {
+        td,
+        th {
+            transition: none !important;
+        }
+        &:not(.q-grid-drag) {
+            td,
+            th {
+                transition: min-width 0.3s, width 0.3s, max-width 0.3s !important;
+            }
+        }
+    }
+}
+
 thead {
     th {
         >div {
@@ -46,8 +61,7 @@ tbody {
         &.q-grid-pad {
             width: 100%;
             min-width: 100%;
-            max-width: 100%;
-            // to show the right border e.g. in pivot columns we need to make 1px left padding.
+            max-width: 100%; // to show the right border e.g. in pivot columns we need to make 1px left padding.
             padding: 0 0 0 1px !important;
             margin: 0 !important;
         }
