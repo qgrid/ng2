@@ -1,4 +1,7 @@
 <ng-template key="edit-form-reference.tpl.html"
              let-$editor>
-    <q-grid-reference-editor></q-grid-reference-editor>
+    <h3>{{$editor.cell.column.title}}</h3>
+    <q-grid-reference [cell]="$editor.cell"
+                      [(value)]="$editor.value">
+    </q-grid-reference>
 </ng-template>

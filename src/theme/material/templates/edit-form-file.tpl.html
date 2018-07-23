@@ -18,7 +18,7 @@
         <input [q-grid-file-upload]="{ canUpload: $editor.cell.column.canUpload, cell: $editor.cell }"
                type="file" />
         <div class="q-grid-file-preview"
-             *ngIf="$cell.column.hasPreview($editor.label)">
+             *ngIf="$editor.cell.column.hasPreview($editor.label)">
             <img [src]="$editor.value" />
         </div>
     </div>
