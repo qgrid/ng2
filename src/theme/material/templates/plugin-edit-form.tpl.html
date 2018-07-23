@@ -6,7 +6,8 @@
 		</mat-card-header>
 		<mat-card-content class="q-grid-edit-form-body">
 			<q-grid-edit-form-control *ngFor="let editor of $editForm.editors"
-			                          class="q-grid-edit-form-control"
+						  class="q-grid-edit-form-control"
+						  [ngClass]="'q-grid-edit-form-control-' + (editor.cell.column.editor || editor.cell.column.type)"
 			                          [editor]="editor">
 			</q-grid-edit-form-control>
 		</mat-card-content>
