@@ -1,6 +1,7 @@
 export function sortIndexFactory(model) {
+	const templateIndex = model.columnList().columns.map(c => c.key);
+
 	return (columns, scores) => {
-		const columnListState = model.columnList();
 		const { length } = columns;
 		scores = Object.assign({
 			list: column => column.class === 'data' ? 0.1 : 0.3,
@@ -9,26 +10,20 @@ export function sortIndexFactory(model) {
 			template: () => length + 0.4
 		}, scores);
 
-		const listIndex = columnListState.index;
-		const templateIndex = columnListState.columns.map(c => c.key);
 		const viewIndex = columns.map(c => c.key);
 
-		const sort = sortFactory(scores)(listIndex, templateIndex, viewIndex);
+		const sort = sortFactory(scores)(templateIndex, viewIndex);
 		const left = sort(columns.filter(c => c.pin === 'left'));
 		const center = sort(columns.filter(c => !c.pin));
 		const right = sort(columns.filter(c => c.pin === 'right'));
 
-		const index = left.concat(center).concat(right);
-		return {
-			index,
-			hasChanges: !equals(listIndex, index)
-		};
+		return left.concat(center).concat(right);
 	};
 }
 
 function sortFactory(scores) {
-	return (listIndex, templateIndex, viewIndex) => {
-		const compare = compareFactory(scores, listIndex, templateIndex, viewIndex);
+	return (templateIndex, viewIndex) => {
+		const compare = compareFactory(scores, templateIndex, viewIndex);
 		return columns => {
 			const columnIndex = Array.from(columns);
 			columnIndex.sort(compare);
@@ -38,8 +33,7 @@ function sortFactory(scores) {
 	};
 }
 
-function compareFactory(scoreFor, listIndex, templateIndex, viewIndex) {
-	const listFind = findFactory(listIndex);
+function compareFactory(scoreFor, templateIndex, viewIndex) {
 	const viewFind = findFactory(viewIndex);
 	const templateFind = findFactory(templateIndex);
 
@@ -51,7 +45,6 @@ function compareFactory(scoreFor, listIndex, templateIndex, viewIndex) {
 		}
 
 		const candidates = [
-			listFind(key) + scoreFor.list(column),
 			column.index + scoreFor.index(column),
 			viewFind(key) + scoreFor.view(column),
 			templateFind(key) + scoreFor.template(column)
