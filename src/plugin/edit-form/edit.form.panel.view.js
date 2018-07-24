@@ -60,10 +60,10 @@ export class EditFormPanelView extends Disposable {
 	}
 
 	shortcutFactory(type) {
-		const edit = this.model.edit;
+		const { edit } = this.model;
 		return () => {
 			const shortcuts = edit()[type + 'Shortcuts'];
-			return shortcuts['form'] || shortcuts['$default'];
+			return shortcuts['reference'] || shortcuts['$default'];
 		};
 	}
 }

@@ -66,20 +66,24 @@ export function bend(line) {
 	if (line.length === 0) {
 		throw new AppError('node.service', 'Line have no nodes');
 	}
-	const root = new Node(line[0].key, 0, line[0].type);
+
+	const root = copy(line[0]);
 	const parentStack = [root];
-	for (let i = 1; i < line.length; i++) {
-		const source = line[i];
-		let last = parentStack[parentStack.length-1];
-		if (source.level <= last.level) {
-			do {
-				parentStack.pop();
-				last = parentStack[parentStack.length-1];
-			} while (source.level <= last.level);
+	for (let i = 1, length = line.length; i < length; i++) {
+		const current = line[i];
+		
+		let parent = parentStack[parentStack.length - 1];
+		while (current.level <= parent.level) {
+			parentStack.pop();
+			parent = parentStack[parentStack.length - 1];
 		}
-		const newNode = new Node(source.key, last.level + 1, source.type);
-		last.children.push(newNode);
-		parentStack.push(newNode);
+
+		const child = copy(current);
+		child.level = parent.level + 1;
+
+		parent.children.push(child);
+		parentStack.push(child);
 	}
+
 	return root;
 }

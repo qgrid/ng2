@@ -249,51 +249,62 @@ function pivotColumnsFactory(model) {
 	};
 }
 
-function sort(etalon, actual) {
-	const etalonLine = [];
-	const etalonSet = new Set();
-	preOrderDFS([etalon], node => {
-		etalonLine.push(node);
-		etalonSet.add(node.key.model.key);
+function sort(newTree, oldTree) {
+	const newLine = [];
+	const newSet = new Set();
+	preOrderDFS([newTree], node => {
+		newLine.push(node);
+		newSet.add(node.key.model.key);
 	});
-	const actualLine = [];
-	const actualSet = new Set();
-	preOrderDFS([actual], node => {
-		if (etalonSet.has(node.key.model.key)) {
-			actualLine.push(copy(node));
-			actualSet.add(node.key.model.key);
+
+	const oldLine = [];
+	const oldSet = new Set();
+	preOrderDFS([oldTree], node => {
+		// Filter out nodes if they were deleted from newTree.
+		const { key } = node.key.model;
+		if (newSet.has(key)) {
+			oldLine.push(copy(node));
+			oldSet.add(key);
 		}
 	});
-	etalonLine.forEach((etalonNode, i) => {
-		if (actualSet.has(etalonNode.key.model.key)) {
-			return;
+
+	for (let i = 0, length = newLine.length; i < length; i++) {
+		const newNode = newLine[i];
+		const { model } = newNode.key;
+		if (oldSet.has(model.key)) {
+			// This one in the correct order as it was already inside the oldTree.
+			continue;
 		}
+
 		if (i === 0) {
-			actualLine.unshift(copy(etalonNode));
-			actualSet.add(etalonNode.key.model.key);
-			actualLine.forEach(actualNode => actualNode.level++);
+			oldLine.unshift(copy(newNode));
+			oldSet.add(model.key);
+			oldLine.forEach(actualNode => actualNode.level++);
 		} else {
-			if (etalonNode.key.model.type === 'cohort') {
-				const child = etalonNode.children[0];
-				if (actualSet.has(child.key.model.key)) {
-					let childIndex = actualLine.findIndex(n => n.key.model.key === child.key.model.key);
-					actualLine.splice(childIndex, 0, copy(etalonNode));
-					actualSet.add(etalonNode.key.model.key);
-					for (let j = 0; j < etalonNode.children.length; j++) {
-						if (actualLine[childIndex+j]) {
-							actualLine[childIndex+j].level++;
+			if (model.type === 'cohort') {
+				const child = newNode.children[0];
+				if (oldSet.has(child.key.model.key)) {
+					let childIndex = oldLine.findIndex(n => n.key.model.key === child.key.model.key);
+					oldLine.splice(childIndex, 0, copy(newNode));
+					oldSet.add(model.key);
+					for (let j = 0; j < newNode.children.length; j++) {
+						if (oldLine[childIndex + j]) {
+							oldLine[childIndex + j].level++;
 						}
 					}
-					return;
+
+					continue;
 				}
 			}
-			const prevEtalonNode = etalonLine[i-1];
-			const actualIndex = actualLine.findIndex(n => n.key.model.key === prevEtalonNode.key.model.key);
-			const actualLevel = actualLine[actualIndex].level;
-			const nextLevel = actualLevel + etalonNode.level - prevEtalonNode.level;
-			actualLine.splice(actualIndex + 1, 0, new Node(etalonNode.key, nextLevel, etalonNode.type));
-			actualSet.add(etalonNode.key.model.key);
+
+			const prevNewNode = newLine[i - 1];
+			const actualIndex = oldLine.findIndex(n => n.key.model.key === prevNewNode.key.model.key);
+			const actualLevel = oldLine[actualIndex].level;
+			const nextLevel = actualLevel + newNode.level - prevNewNode.level;
+			oldLine.splice(actualIndex + 1, 0, new Node(newNode.key, nextLevel, newNode.type));
+			oldSet.add(newNode.key.model.key);
 		}
-	});
-	return bend(actualLine);
+	}
+
+	return bend(oldLine);
 }
