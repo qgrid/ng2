@@ -1,108 +1,94 @@
-import { Component, OnInit } from '@angular/core';
-import { isArray } from 'ng2-qgrid/core/utility/kit';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
+import { Component, Input, EventEmitter, Output, AfterViewInit } from '@angular/core';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { SelectionService } from 'ng2-qgrid/core/selection/selection.service';
-import { getFactory as valueFactory } from 'ng2-qgrid/core/services/value';
-import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
-import { ViewCoreService } from '../../main/core/view/view-core.service';
 import { NgComponent } from '../../infrastructure/component/ng.component';
+import { CellView } from 'ng2-qgrid/core/scene/view/cell.view';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 @Component({
 	selector: 'q-grid-reference-editor',
 	templateUrl: './reference-editor.component.html'
 })
-export class ReferenceEditorComponent extends NgComponent implements OnInit {
+export class ReferenceEditorComponent extends NgComponent implements AfterViewInit {
+	private state: any;
+
+	@Input() caption: string;
+	@Input() cell: CellView;
+	@Output() valueChange = new EventEmitter<any>();
+	@Output() afterSubmit = new EventEmitter();
+	@Output() afterCancel = new EventEmitter();
+
+	reference: { commit: Command, cancel: Command };
+	model: Model;
+
 	context: { $implicit: ReferenceEditorComponent } = {
 		$implicit: this
 	};
 
-	referenceModel: Model;
+	submit = new Command();
+	cancel = new Command();
 
-	submit: Command;
-	cancel: Command;
-
-	constructor(
-		private view: ViewCoreService
-	) {
+	constructor() {
 		super();
 	}
 
-	ngOnInit() {
-		const commit = new Command({
-			execute: e => this.edit.value = e.entries
-		});
+	@Input() get value() {
+		return this.state;
+	}
 
-		const cancel = new Command()
-		const reference = {
-			commit,
-			cancel,
-			value: this.edit.value
-		};
+	set value(value) {
+		if (value !== this.state) {
+			this.state = value;
+			this.valueChange.emit(value);
+		}
+	}
 
-		this.referenceModel = this.column.editorOptions.modelFactory({
-			row: this.edit.row,
-			column: this.edit.column,
-			reference,
-			getValue: valueFactory(this.edit.column)
-		});
+	ngAfterViewInit() {
+		const { model } = this;
+		const { commit, cancel } = this.reference;
 
-		const selectionService = new SelectionService(this.referenceModel)
+		const { commitShortcuts, cancelShortcuts } = model.edit();
+		const selectionService = new SelectionService(model);
 
-		this.using(this.referenceModel.dataChanged.watch((e, off) => {
-			if (e.hasChanges('rows') && e.state.rows.length > 0) {
-				off();
+		// TODO: think how to get rid of this shit.
+		setTimeout(() => {
+			this.submit = new Command({
+				shortcut: commitShortcuts.form,
+				canExecute: () => {
+					const { items } = model.selection();
+					const entries = selectionService.lookup(items);
+					const context = { items, entries };
 
-				if (!this.referenceModel.selection().items.length) {
-					const value = reference.value;
-					const entries = isArray(value) ? value : [value];
-					const items = selectionService.map(entries);
-					this.referenceModel.selection({ items });
-				}
-			}
-		}));
-
-		this.submit = new Command({
-			canExecute: () => {
-				const { items } = this.referenceModel.selection();
-				let entries = selectionService.lookup(items);
-				const context = { items, entries };
-
-				return this.edit.commit.canExecute() && reference.commit.canExecute(context)
-			},
-			execute: () => {
-				const { items } = this.referenceModel.selection();
-				let entries = selectionService.lookup(items);
-				const context = { items, entries };
-				if (reference.commit.execute(context) !== false) {
-					if (reference.commit === commit) {
-						this.edit.commit.execute();
+					return commit.canExecute(context);
+				},
+				execute: () => {
+					const { items } = model.selection();
+					const entries = selectionService.lookup(items);
+					const context = { items, entries };
+					if (commit.execute(context) !== false) {
+						this.afterSubmit.emit();
 					} else {
-						this.edit.cancel.execute();
+						this.afterCancel.emit();
 					}
+
+					return false;
 				}
-			}
-		});
+			});
 
-		this.cancel = new Command({
-			canExecute: () => this.edit.cancel.canExecute() && reference.cancel.canExecute(),
-			execute: () => {
-				if (reference.cancel.execute() !== false) {
-					this.edit.cancel.execute();
+			this.cancel = new Command({
+				shortcut: cancelShortcuts.form || cancelShortcuts.$default,
+				canExecute: () => cancel.canExecute(),
+				execute: () => {
+					if (cancel.execute() !== false) {
+						this.afterCancel.emit();
+					}
+
+					return false;
 				}
-			}
-		});
-	}
+			});
 
-	get title(): string {
-		return this.edit.column.title;
-	}
-
-	get column(): ColumnModel{
-		return this.edit.column;
-	}
-
-	private get edit() {
-		return this.view.edit.cell;
+			const { shortcut, manager } = model.action();
+			this.using(shortcut.register(manager, [this.submit, this.cancel]));
+		}, 0);
 	}
 }

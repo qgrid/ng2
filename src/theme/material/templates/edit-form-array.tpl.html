@@ -1,32 +1,29 @@
-<ng-template key='edit-form-array.tpl.html'
-             let-$control>
-             {{$control.key}} not implemented
-    <!-- <q-grid-cell-editor class="q-grid-array q-grid-editor q-grid-position"
-                        (close)="$view.edit.cell.exit.execute($cell)"
-                        q-grid-position="td">
-        <ng-template>
-            <div class="q-grid-array-view">
-                <mat-chip-list #chipList>
-                    <mat-chip class="q-grid-array-item"
-                              *ngFor="let value of $view.edit.cell.value;let $index = index"
-                              selectable="true"
-                              removable="true"
-                              (remove)="$view.edit.cell.value.splice($index, 1)">
-                        {{value}}
-                        <mat-icon class="q-grid-icon"
-                                  matChipRemove>cancel</mat-icon>
-                    </mat-chip>
-                </mat-chip-list>
-            </div>
-            <mat-form-field q-grid-chips
-                            [floatLabel]="'never'">
-                <input class="q-grid-array-input"
-                       matInput
-                       #chipInput
-                       placeholder="New value"
-                       q-grid-focus
-                       [matChipInputFor]="chipList" />
-            </mat-form-field>
-        </ng-template>
-    </q-grid-cell-editor> -->
+<ng-template key="edit-form-array.tpl.html"
+             let-$editor>
+    <h3>{{$editor.cell.column.title}}</h3>
+    <div class="q-grid-array-view">
+        <mat-chip-list #chipList>
+            <mat-chip class="q-grid-array-item"
+                      *ngFor="let value of $editor.value;let $index = index"
+                      selectable="true"
+                      removable="true"
+                      (removed)="$editor.value.splice($index, 1)">
+                {{value}}
+                <mat-icon class="q-grid-icon"
+                          matChipRemove>
+                    cancel
+                </mat-icon>
+            </mat-chip>
+        </mat-chip-list>
+    </div>
+    <mat-form-field q-grid-chips
+                    (push)="$editor.value.push($event)"
+                    [floatLabel]="'never'">
+        <input class="q-grid-array-input"
+               matInput
+               type={{$editor.cell.column.itemType}}
+               #chipInput
+               placeholder="New value"
+               [matChipInputFor]="chipList" />
+    </mat-form-field>
 </ng-template>

@@ -1,5 +1,5 @@
 th {
-    .q-grid-divider {
+    >.q-grid-resize-handler {
         top: 20%;
         bottom: 20%;
         right: 0;
@@ -14,22 +14,14 @@ th {
     }
     &.q-grid-highlighted,
     &.q-grid-highlighted-prev {
-        .q-grid-divider {
+        .q-grid-resize-handler {
             opacity: 1;
         }
     }
 }
 
 td {
-    .q-grid-resizable {
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-    }
-    .q-grid-divider {
+    >.q-grid-resize-handler {
         height: 2px;
         width: 100%;
         bottom: 0;
@@ -44,8 +36,7 @@ td {
 
 &.q-grid-box.q-grid-drag {
     th {
-        .q-grid-divider,
-        .q-grid-resizable {
+        >.q-grid-resize-handler {
             opacity: 0;
         }
     }

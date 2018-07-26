@@ -1,5 +1,8 @@
-<ng-template key='edit-cell-bool.tpl.html'
+<ng-template key="edit-cell-bool.tpl.html"
              let-$cell
              let-$view="$view">
-    <q-grid-bool-editor></q-grid-bool-editor>
+    <q-grid-bool-editor [autofocus]="true"
+                        [column]="$cell.column"
+                        [(value)]="$view.edit.cell.value">
+    </q-grid-bool-editor>
 </ng-template>

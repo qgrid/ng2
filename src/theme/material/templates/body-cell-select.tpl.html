@@ -1,10 +1,12 @@
-<ng-template key='body-cell-select.tpl.html' let-$cell let-$view="$view">
+<ng-template key="body-cell-select.tpl.html"
+             let-$cell
+             let-$view="$view">
 	<mat-checkbox [indeterminate]="$view.selection.isIndeterminate($cell.row)"
-					[checked]="$view.selection.state($cell.row)"
-					[disabled]="!$view.selection.toggleRow.canExecute($cell.row)"
-					(change)="$view.selection.toggleRow.execute($cell.row)"
-					tabindex="-1"
-					aria-label="Select"
-					class="q-grid-checkbox">
+	              [checked]="$view.selection.state($cell.row)"
+	              [disabled]="!$view.selection.toggleRow.canExecute($cell.row)"
+	              (change)="$view.selection.toggleRow.execute($cell.row)"
+	              tabindex="-1"
+	              aria-label="Select"
+	              class="q-grid-checkbox">
 	</mat-checkbox>
 </ng-template>

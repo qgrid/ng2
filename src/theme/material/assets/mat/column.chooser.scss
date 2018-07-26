@@ -24,6 +24,11 @@
         margin: 0;
         overflow-y: auto;
         height: 275px;
+        ul {
+            ul {
+                margin-left: 1.25em;
+            }
+        }
     }
     .q-grid-column-chooser-toolbar {
         margin-top: 0;

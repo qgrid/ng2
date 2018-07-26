@@ -7,10 +7,11 @@ import { Disposable } from '../../core/infrastructure/disposable';
 export class EditFormPanelView extends Disposable {
 	constructor(model, context) {
 		super();
-		
+
 		this.model = model;
 
 		this.editor = new RowEditor(context.row, model.columnList().line);
+		this.caption = context.caption;
 
 		this.submitEvent = new Event();
 		this.cancelEvent = new Event();
@@ -25,7 +26,10 @@ export class EditFormPanelView extends Disposable {
 				Object.entries(this.commands)
 			)));
 		}
+	}
 
+	get editors() {
+		return this.editor.editors;
 	}
 
 	get commands() {
@@ -56,10 +60,10 @@ export class EditFormPanelView extends Disposable {
 	}
 
 	shortcutFactory(type) {
-		const edit = this.model.edit;
+		const { edit } = this.model;
 		return () => {
 			const shortcuts = edit()[type + 'Shortcuts'];
-			return shortcuts['form'] || shortcuts['$default'];
+			return shortcuts['reference'] || shortcuts['$default'];
 		};
 	}
 }

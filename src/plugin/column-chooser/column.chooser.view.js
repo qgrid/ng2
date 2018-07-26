@@ -1,8 +1,9 @@
 import * as columnService from '../../core/column/column.service';
 import { Command } from '../../core/command/command';
 import { Aggregation } from '../../core/services/aggregation';
-import { isFunction, noop } from '../../core/utility/kit';
+import { isFunction, cloneDeep } from '../../core/utility/kit';
 import { Event } from '../../core/infrastructure/event';
+import { preOrderDFS } from '../../core/node/node.service';
 
 export class ColumnChooserView {
 	constructor(model, context) {
@@ -14,10 +15,15 @@ export class ColumnChooserView {
 		this.submitEvent = new Event();
 		this.dropEvent = new Event();
 
-		this.temp = {
-			index: [],
-			columns: []
+		const setup = () => {
+			this.tree = cloneDeep(model.columnList().index);
+			this.columns = preOrderDFS([this.tree], (node, memo) => {
+				memo.push(node.key.model);
+				return memo;
+			}, []);
 		};
+
+		setup();
 
 		this.toggle = new Command({
 			source: 'column.chooser',
@@ -80,7 +86,7 @@ export class ColumnChooserView {
 							}
 						}
 					}
-					break;
+						break;
 				}
 			}
 		});
@@ -129,11 +135,7 @@ export class ColumnChooserView {
 
 		this.reset = new Command({
 			source: 'column.chooser',
-			execute: () => {
-				this.temp.index = this.originIndex();
-				this.temp.columns = this.originColumns(this.temp.index);
-				this.temp.columnMap = columnService.map(this.temp.columns);
-			}
+			execute: () => setup()
 		});
 
 		this.aggregations = Object
@@ -146,7 +148,7 @@ export class ColumnChooserView {
 			}
 
 			if (e.hasChanges('columns')) {
-				this.temp.columns = this.originColumns(this.temp.index);
+				setup();
 			}
 		});
 
@@ -156,14 +158,9 @@ export class ColumnChooserView {
 			}
 
 			if (e.hasChanges('index')) {
-				this.temp.index = this.originIndex();
-				this.temp.columns = this.originColumns(this.temp.index);
+				setup();
 			}
 		});
-	}
-
-	get columns() {
-		return this.temp.columns;
 	}
 
 	state(column) {
@@ -180,35 +177,6 @@ export class ColumnChooserView {
 
 	isIndeterminate() {
 		return !this.stateAll() && this.columns.some(this.state.bind(this));
-	}
-
-	originIndex() {
-		return Array.from(this.model.columnList().index);
-	}
-
-	originColumns(index) {
-		const columns = this.model
-			.columnList()
-			.line
-			.filter(c => c.class === 'data' && c.children.length === 0)
-			.map(c => ({
-				key: c.key,
-				title: c.title,
-				isVisible: c.isVisible,
-				aggregation: c.aggregation,
-				isDefault: c.isDefault,
-				canMove: c.canMove
-			}));
-
-		let i = 0;
-		const indexMap = index
-			.reduce((memo, key) => {
-				memo[key] = i++;
-				return memo;
-			}, {});
-
-		columns.sort((x, y) => indexMap[x.key] - indexMap[y.key]);
-		return columns;
 	}
 
 	get canAggregate() {

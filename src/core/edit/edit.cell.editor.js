@@ -78,6 +78,10 @@ export class CellEditor extends CellEditorCore {
 		return new Fetch(this.td.value);
 	}
 
+	get cell() {
+		return this.td;
+	}
+
 	static get empty() {
 		return empty;
 	}

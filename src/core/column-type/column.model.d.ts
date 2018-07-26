@@ -347,5 +347,5 @@ export declare class ColumnModel {
 	 */
 	children?: ColumnModel[]
 
-	$label?: (row: any, value?: any) => any | any;
+	$label?: (row: any, value?: any) => any | any;	
 }

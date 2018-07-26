@@ -1,7 +1,7 @@
-<ng-template key='body-cell-url.tpl.html'
+<ng-template key="body-cell-url.tpl.html"
              let-$cell
              let-$view="$view">
-    <a [attr.href]='$cell.value'>
+    <a [attr.href]="$cell.value">
        {{$cell.label || $cell.value}}
     </a>
     <button *ngIf="$view.edit.cell.canEdit($cell)"

@@ -246,8 +246,12 @@ export class HighlightView {
 					head.column(index + 1).addClass(`${GRID_PREFIX}-${cls}-next`);
 				}
 
-				body.column(index).addClass(`${GRID_PREFIX}-${cls}`);
-				foot.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+				const bodyColumn = body.column(index);
+				const column = bodyColumn.model();
+				if (column && column.canHighlight) {
+					bodyColumn.addClass(`${GRID_PREFIX}-${cls}`);
+					foot.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+				}
 			}
 		});
 
