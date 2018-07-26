@@ -293,37 +293,37 @@ function sort(newTree, oldTree, buildIndex) {
 			continue;
 		}
 
-		oldSet.add(model.key);
-		oldLine.push(copy(newNode));
+		// oldSet.add(model.key);
+		// oldLine.push(copy(newNode));
 
 
-		// if (i === 0) {
-		// 	oldLine.unshift(copy(newNode));
-		// 	oldSet.add(model.key);
-		// 	oldLine.forEach(actualNode => actualNode.level++);
-		// } else {
-		// 	if (model.type === 'cohort') {
-		// 		const child = newNode.children[0];
-		// 		if (oldSet.has(child.key.model.key)) {
-		// 			let childIndex = oldLine.findIndex(n => n.key.model.key === child.key.model.key);
-		// 			oldLine.splice(childIndex, 0, copy(newNode));
-		// 			oldSet.add(model.key);
-		// 			for (let j = 0; j < newNode.children.length; j++) {
-		// 				if (oldLine[childIndex + j]) {
-		// 					oldLine[childIndex + j].level++;
-		// 				}
-		// 			}
+		if (i === 0) {
+			oldLine.unshift(copy(newNode));
+			oldSet.add(model.key);
+			oldLine.forEach(actualNode => actualNode.level++);
+		} else {
+			if (model.type === 'cohort') {
+				const child = newNode.children[0];
+				if (oldSet.has(child.key.model.key)) {
+					let childIndex = oldLine.findIndex(n => n.key.model.key === child.key.model.key);
+					oldLine.splice(childIndex, 0, copy(newNode));
+					oldSet.add(model.key);
+					for (let j = 0; j < newNode.children.length; j++) {
+						if (oldLine[childIndex + j]) {
+							oldLine[childIndex + j].level++;
+						}
+					}
 
-		// 			continue;
-		// 		}
-		// 	}
+					continue;
+				}
+			}
 
-		// 	const prevNewNode = newLine[i - 1];
-		// 	const actualIndex = oldLine.findIndex(n => n.key.model.key === prevNewNode.key.model.key);
-		// 	const actualLevel = oldLine[actualIndex].level;
-		// 	const nextLevel = actualLevel + newNode.level - prevNewNode.level;
-		// 	oldLine.splice(actualIndex + 1, 0, new Node(newNode.key, nextLevel, newNode.type));
-		// 	oldSet.add(newNode.key.model.key);
+			const prevNewNode = newLine[i - 1];
+			const actualIndex = oldLine.findIndex(n => n.key.model.key === prevNewNode.key.model.key);
+			const actualLevel = oldLine[actualIndex].level;
+			const nextLevel = actualLevel + newNode.level - prevNewNode.level;
+			oldLine.splice(actualIndex + 1, 0, new Node(newNode.key, nextLevel, newNode.type));
+			oldSet.add(newNode.key.model.key);
 	}
 
 	return bend(oldLine);

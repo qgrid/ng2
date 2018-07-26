@@ -71,7 +71,7 @@ export function bend(line) {
 	const parentStack = [root];
 	for (let i = 1, length = line.length; i < length; i++) {
 		const current = line[i];
-		
+
 		let parent = parentStack[parentStack.length - 1];
 		while (current.level <= parent.level) {
 			parentStack.pop();
