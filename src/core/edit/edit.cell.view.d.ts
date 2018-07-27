@@ -7,6 +7,7 @@ import { Model } from '../infrastructure/model';
 import { EditorOptions } from '../column-type/editor.options';
 import { KeyCode } from '../shortcut/key.code';
 import { CellView } from '../scene/view/cell.view';
+import { Fetch } from 'ng2-qgrid/core/infrastructure/fetch';
 
 /**
  * > Under Construction.
@@ -30,6 +31,6 @@ export declare class EditCellView {
 	readonly options: EditorOptions;  
 	readonly editor: CellEditor;
 
-	readonly fetch: any;
+	readonly fetch: () => void | Fetch;
 	readonly resetFetch: () => void;
 }
