@@ -263,7 +263,7 @@ function sort(newTree, oldTree, buildIndex) {
 		// Below we sort columns in appropriate order.		
 		const columns = node.children.map(child => child.key.model);
 		const index = buildIndex(columns);
-		
+
 		let cursor = 0;
 		const indexMap =
 			index.reduce((memo, key) => {
@@ -324,6 +324,7 @@ function sort(newTree, oldTree, buildIndex) {
 			const nextLevel = actualLevel + newNode.level - prevNewNode.level;
 			oldLine.splice(actualIndex + 1, 0, new Node(newNode.key, nextLevel, newNode.type));
 			oldSet.add(newNode.key.model.key);
+		}
 	}
 
 	return bend(oldLine);
