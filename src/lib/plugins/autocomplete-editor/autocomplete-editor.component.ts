@@ -13,7 +13,6 @@ import { map } from 'rxjs/operators';
 })
 export class AutocompleteEditorComponent implements OnInit {
 	control: FormControl = new FormControl();
-
 	filteredOptions: Observable<string[]>;
 
 	context: { $implicit: AutocompleteEditorComponent } = {
@@ -43,10 +42,6 @@ export class AutocompleteEditorComponent implements OnInit {
 		return this.options.filter(option => option.toString().toLowerCase().includes(val.toLowerCase()));
 	}
 
-	private get cell() {
-		return this.view.edit.cell;
-	}
-
 	get options() {
 		return this.cell.fetch.result;
 	}
@@ -61,5 +56,9 @@ export class AutocompleteEditorComponent implements OnInit {
 
 	set value(value) {
 		this.cell.value = value;
+	}
+
+	private get cell() {
+		return this.view.edit.cell;
 	}
 }
