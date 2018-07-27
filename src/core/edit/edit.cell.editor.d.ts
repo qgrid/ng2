@@ -7,14 +7,13 @@ import { Td } from '../dom/td';
 export declare class CellEditor {
 	constructor(td: Td);
 
-	fetch: () => void;
+	fetch: () => void | Fetch;
 	resetFetch: () => void;
 
-	td: any;
 	value: any;
 	label: any;
 
-	readonly cell: CellView; 
+	readonly cell: CellView;  
 
 	commit(): void;
 	reset(): void;
