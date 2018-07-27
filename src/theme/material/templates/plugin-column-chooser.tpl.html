@@ -55,7 +55,7 @@
              let-$columnChooser
              let-$parent="node">
 	<ul>
-		<ng-container *ngFor="let node of $parent.children | qGridFilter: {'key.model.title': $columnChooser.filter}">
+		<ng-container *ngFor="let node of $parent.children | qGridFilter: {'key.title': $columnChooser.filter}">
 			<li *ngIf="$columnChooser.toggle.canExecute(node)"
 			    [q-grid-drop]="$columnChooser.drop"
 			    [q-grid-drop-data]="node"
@@ -70,7 +70,7 @@
 				<mat-checkbox [checked]="$columnChooser.state(node)"
 				              (change)="$columnChooser.toggle.execute(node)"
 				              aria-label="Selection">
-					<span [innerHTML]="node.key.model.title | qGridHighlight: $columnChooser.filter"></span>
+					<span [innerHTML]="node.key.title | qGridHighlight: $columnChooser.filter"></span>
 				</mat-checkbox>
 			</li>
 			<ng-container key="column-chooser-node.tpl.html"

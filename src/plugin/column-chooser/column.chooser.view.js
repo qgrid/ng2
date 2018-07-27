@@ -1,9 +1,9 @@
 import * as columnService from '../../core/column/column.service';
 import { Command } from '../../core/command/command';
 import { Aggregation } from '../../core/services/aggregation';
-import { isFunction, cloneDeep } from '../../core/utility/kit';
+import { isFunction } from '../../core/utility/kit';
 import { Event } from '../../core/infrastructure/event';
-import { preOrderDFS } from '../../core/node/node.service';
+import { preOrderDFS, copy } from '../../core/node/node.service';
 
 export class ColumnChooserView {
 	constructor(model, context) {
@@ -16,11 +16,31 @@ export class ColumnChooserView {
 		this.dropEvent = new Event();
 
 		const setup = () => {
-			this.tree = cloneDeep(model.columnList().index);
-			this.columns = preOrderDFS([this.tree], (node, memo) => {
-				memo.push(node.key.model);
-				return memo;
-			}, []);
+			const { index } = model.columnList();
+			this.tree = copy(index);
+			this.columns = [];
+
+			this.tree = preOrderDFS([index], (node, current, parent) => {
+				if (parent) {
+					const { model } = node.key;
+					const column = {
+						key: model.key,
+						title: model.title,
+						isVisible: model.isVisible,
+						canMove: model.canMove,
+						aggregation: model.aggregation
+					};
+
+					this.columns.push(column);
+
+					const newNode = copy(node);
+					newNode.key = column;
+					current.children.push(newNode);
+					return newNode;
+				}
+
+				return current;
+			}, this.tree);
 		};
 
 		setup();
@@ -168,7 +188,7 @@ export class ColumnChooserView {
 	}
 
 	stateAll() {
-		return this.columns.every(this.state.bind(this));
+		return this.columns.every(this.state);
 	}
 
 	stateDefault() {
@@ -176,7 +196,7 @@ export class ColumnChooserView {
 	}
 
 	isIndeterminate() {
-		return !this.stateAll() && this.columns.some(this.state.bind(this));
+		return !this.stateAll() && this.columns.some(this.state);
 	}
 
 	get canAggregate() {
