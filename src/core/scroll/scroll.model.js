@@ -7,6 +7,8 @@ export class ScrollModel {
 		this.top = 0;
 		this.left = 0;		
 		this.cursor = 0;
+		this.velocity = 10;
+		this.offset = 50;
 
 		this.map = {
 			rowToView: identity,

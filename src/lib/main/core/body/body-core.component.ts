@@ -38,9 +38,9 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 
 		const { model } = this.root;
 		const table = this.$table;
-		const scrollService = new ScrollService(model, this.root.table);
-		const ctrl = new BodyCtrl(model, view, scrollService, this.root.table, this.root.bag);
+		const ctrl = new BodyCtrl(model, view, this.root.table, this.root.bag);
 		const listener = new EventListener(element, new EventManager(this));
+		const windowListener = new EventListener(window, new EventManager(this));
 
 		this.zone.runOutsideAngular(() => {
 			listener.on('wheel', e => ctrl.onWheel(e));
@@ -58,7 +58,14 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 		});
 
 		listener.on('mousedown', ctrl.onMouseDown.bind(ctrl));
-		listener.on('mouseup', ctrl.onMouseUp.bind(ctrl));
+
+		windowListener.on('resize', () => ctrl.scrollService.resize());
+		windowListener.on('mouseup', (e) => {
+			const isActive = this.model.focus().isActive;
+			if (isActive) {
+				ctrl.onMouseUp(e);
+			}
+		});
 
 		const { id } = model.data();
 		this.rowId = id.row;

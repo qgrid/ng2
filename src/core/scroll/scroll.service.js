@@ -1,15 +1,10 @@
 import { EventListener } from '../infrastructure/event.listener';
 import { EventManager } from '../infrastructure/event.manager';
-import { Disposable } from '../infrastructure/disposable';
 import { AppError } from '../infrastructure/error';
 import { jobLine } from '../services/job.line';
 
-const OFFSET = 50;
-const VELOCITY = 5;
-
-export class ScrollService extends Disposable {
+export class ScrollService {
     constructor(model, table) {
-        super();
 
         this.model = model;
         this.table = table;
@@ -17,38 +12,26 @@ export class ScrollService extends Disposable {
         this.rect = null;
         this.body = null;
         this.job = jobLine(0);
-
-        const documentListener = new EventListener(document, new EventManager(this));
-        const windowListener = new EventListener(window, new EventManager(this));
-
-        this.using(documentListener.on('mouseup', () => {
-            if (this.interval) {
-                this.stop();
-            }
-        }));
-
-        this.using(windowListener.on('resize', () => {
-            this.setElementsState();
-        }));
     }
 
     canScroll(e) {
         const table = this.rect;
+        const offset = this.offset;
 
-        return !(e.clientY < (table.bottom - OFFSET) &&
-            e.clientY > (table.top + OFFSET) &&
-            e.clientX > (table.left + OFFSET) &&
-            e.clientX < (table.right - OFFSET))
+        return !(e.clientY < (table.bottom - offset) &&
+            e.clientY > (table.top + offset) &&
+            e.clientX > (table.left + offset) &&
+            e.clientX < (table.right - offset))
     }
 
     scroll(e) {
         if (!this.body) {
-            this.setElementsState();
+            this.resize();
         }
 
         if (this.interval) {
             if (!this.canScroll(e)) {
-                this.stop();
+                this.clearInterval();
                 return;
             }
         }
@@ -65,6 +48,8 @@ export class ScrollService extends Disposable {
 
     doScroll(direction) {
         const scrollState = this.model.scroll;
+        const scroll = scrollState();
+        const velocity = scroll.velocity;
         const scrolledToEnd = () => this.isScrolledToEnd(direction);
 
         return () => setInterval(() => {
@@ -73,15 +58,15 @@ export class ScrollService extends Disposable {
                     case 'right':
                     case 'bottom': {
                         const course = direction === 'bottom' ? 'top' : 'left';
-                        const origin = scrollState()[course];
-                        scrollState({ [course]: origin + VELOCITY });
+                        const origin = scroll[course];
+                        scrollState({ [course]: origin + velocity });
                         break;
                     }
                     case 'left':
                     case 'top': {
                         const course = direction === 'top' ? 'top' : 'left';
-                        const origin = scrollState()[course];
-                        scrollState({ [course]: origin - VELOCITY });
+                        const origin = scroll[course];
+                        scrollState({ [course]: origin - velocity });
                         break;
                     }
                     default: {
@@ -89,7 +74,7 @@ export class ScrollService extends Disposable {
                     }
                 }
             }
-        }, VELOCITY);
+        }, 50);
     }
 
     isScrolledToEnd(direction) {
@@ -116,35 +101,36 @@ export class ScrollService extends Disposable {
 
     onEdgeOf(e) {
         const table = this.rect;
+        const offset = this.offset;
 
-        if (e.clientY < (table.top + OFFSET) &&
-            e.clientX > (table.left + OFFSET) &&
-            e.clientX < (table.right - OFFSET)) {
+        if (e.clientY < (table.top + offset) &&
+            e.clientX > (table.left + offset) &&
+            e.clientX < (table.right - offset)) {
             return 'top';
         }
 
-        if (e.clientY > (table.bottom - OFFSET) &&
-            e.clientX > (table.left + OFFSET) &&
-            e.clientX < (table.right - OFFSET)) {
+        if (e.clientY > (table.bottom - offset) &&
+            e.clientX > (table.left + offset) &&
+            e.clientX < (table.right - offset)) {
             return 'bottom';
         }
 
-        if (e.clientX < (table.left + OFFSET) &&
-            e.clientY > (table.top + OFFSET) &&
-            e.clientY < (table.bottom - OFFSET)) {
+        if (e.clientX < (table.left + offset) &&
+            e.clientY > (table.top + offset) &&
+            e.clientY < (table.bottom - offset)) {
             return 'left';
         }
 
-        if (e.clientX > (table.right - OFFSET) &&
-            e.clientY > (table.top + OFFSET) &&
-            e.clientY < (table.bottom - OFFSET)) {
+        if (e.clientX > (table.right - offset) &&
+            e.clientY > (table.top + offset) &&
+            e.clientY < (table.bottom - offset)) {
             return 'right';
         }
 
         return false;
     }
 
-    setElementsState() {
+    resize() {
         const view = this.table.view;
 
         this.body = view.markup.body;
@@ -152,7 +138,17 @@ export class ScrollService extends Disposable {
     }
 
     stop() {
+        if(this.interval) {
+            this.clearInterval();
+        }
+    }
+
+    clearInterval() {
         clearInterval(this.interval);
         this.interval = null;
+    }
+
+    get offset() {
+        return this.model.scroll().offset;
     }
 }

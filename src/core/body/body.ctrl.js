@@ -2,16 +2,17 @@ import { PathService } from '../path/path.service';
 import { Fastdom } from '../services/fastdom';
 import { GRID_PREFIX } from '../definition';
 import { jobLine } from '../services/job.line';
+import { ScrollService } from 'ng2-qgrid/core/scroll/scroll.service';
 
 const MOUSE_LEFT_BUTTON = 1;
 const VERTICAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-vertical`;
 const HORIZONTAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-horizontal`;
 
 export class BodyCtrl {
-	constructor(model, view, scrollService, table, bag) {
+	constructor(model, view, table, bag) {
 		this.model = model;
 		this.view = view;
-		this.scrollService = scrollService;
+		this.scrollService = new ScrollService(model, table);
 		this.bag = bag;
 		this.table = table;
 		this.rangeStartCell = null;
@@ -149,6 +150,8 @@ export class BodyCtrl {
 	}
 
 	onMouseUp(e) {
+		this.scrollService.stop(); 
+
 		const mode = this.selection.mode;
 		const edit = this.model.edit;
 
