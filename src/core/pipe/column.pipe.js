@@ -69,26 +69,29 @@ export function columnPipe(memo, context, next) {
 	 */
 	addPivotColumns(root, head);
 
+	const { columnList } = model;
+	const buildIndex = sortIndexFactory(model);
+	const tree = sort(root, columnList().index, buildIndex);
+
 	/*
 	 * Add special column type
 	 * that fills remaining place (width = 100%)
 	 *
 	 */
-	addPadColumn(root);
-
-	const { columnList } = model;
-	const buildIndex = sortIndexFactory(model);
-	const tree = sort(root, columnList().index, buildIndex);
+	addPadColumn(tree);
 
 	columnIndexPipe(tree, context, ({ columns, index }) => {
 		memo.columns = columns;
 
-		columnList({
-			index
-		}, {
+		columnList(
+			{
+				index
+			},
+			{
 				behavior: 'core',
 				source: 'column.pipe'
-			});
+			}
+		);
 
 		next(memo);
 	});
@@ -99,7 +102,9 @@ function selectColumnFactory(model) {
 	const selection = model.selection();
 
 	const selectColumn = dataColumns.find(item => item.type === 'select');
-	const indicatorColumn = dataColumns.find(item => item.type === 'row-indicator');
+	const indicatorColumn = dataColumns.find(
+		item => item.type === 'row-indicator'
+	);
 
 	if (!indicatorColumn && selection.unit === 'mix') {
 		const createColumn = columnFactory(model);
@@ -107,13 +112,19 @@ function selectColumnFactory(model) {
 			const indicatorColumn = createColumn('row-indicator');
 			indicatorColumn.model.source = 'generation';
 			if (indicatorColumn.model.isVisible) {
-				node.children.unshift(new Node(indicatorColumn, node.level + 1));
+				node.children.unshift(
+					new Node(indicatorColumn, node.level + 1)
+				);
 				return indicatorColumn;
 			}
 		};
 	}
 
-	if (!selectColumn && selection.unit === 'row' && selection.mode !== 'range') {
+	if (
+		!selectColumn &&
+		selection.unit === 'row' &&
+		selection.mode !== 'range'
+	) {
 		const createColumn = columnFactory(model);
 		return node => {
 			const selectColumn = createColumn('select');
@@ -141,7 +152,9 @@ function groupColumnFactory(model, nodes) {
 					const groupColumn = createColumn('group');
 					groupColumn.model.source = 'generation';
 					if (groupColumn.model.isVisible) {
-						node.children.unshift(new Node(groupColumn, node.level + 1));
+						node.children.unshift(
+							new Node(groupColumn, node.level + 1)
+						);
 						return groupColumn;
 					}
 				};
@@ -157,7 +170,9 @@ function groupColumnFactory(model, nodes) {
 						groupColumn.model.by = key;
 
 						if (groupColumn.model.isVisible) {
-							node.children.unshift(new Node(groupColumn, node.level + 1));
+							node.children.unshift(
+								new Node(groupColumn, node.level + 1)
+							);
 						}
 					});
 			}
@@ -187,7 +202,9 @@ function rowExpandColumnFactory(model) {
 
 function rowIndicatorColumnFactory(model) {
 	const dataColumns = model.columnList().line;
-	const rowIndicatorColumn = dataColumns.find(item => item.type === 'row-indicator');
+	const rowIndicatorColumn = dataColumns.find(
+		item => item.type === 'row-indicator'
+	);
 	const { canMove, canResize } = model.row();
 	if ((canMove || canResize) && !rowIndicatorColumn) {
 		const createColumn = columnFactory(model);
@@ -251,81 +268,124 @@ function pivotColumnsFactory(model) {
 	};
 }
 
-function sort(newTree, oldTree, buildIndex) {
-	const newLine = [];
-	const newSet = new Set();
+function running(tree, buildIndex) {
+	const result = {
+		line: [],
+		set: new Set()
+	};
 
-	preOrderDFS([newTree], node => {
-		newLine.push(node);
-		newSet.add(node.key.model.key);
+	preOrderDFS([tree], node => {
+		result.line.push(node);
+		result.set.add(node.key.model.key);
 
 		// As we use pre order direction we can manipulate with children without affecting on algorithm.
-		// Below we sort columns in appropriate order.		
+		// Below we sort columns in appropriate order.
 		const columns = node.children.map(child => child.key.model);
 		const index = buildIndex(columns);
 
 		let cursor = 0;
-		const indexMap =
-			index.reduce((memo, key) => {
-				memo[key] = cursor++;
-				return memo;
-			}, {});
+		const indexMap = index.reduce((memo, key) => {
+			memo[key] = cursor++;
+			return memo;
+		}, {});
 
-		node.children.sort((x, y) => indexMap[x.key.model.key] - indexMap[y.key.model.key]);
+		node.children.sort(
+			(x, y) => indexMap[x.key.model.key] - indexMap[y.key.model.key]
+		);
 	});
 
-	const oldLine = [];
-	const oldSet = new Set();
-	preOrderDFS([oldTree], node => {
+	return result;
+}
+
+function former(tree, current) {
+	const result = {
+		line: [],
+		set: new Set()
+	};
+
+	preOrderDFS([tree], node => {
 		// Filter out nodes if they were deleted from newTree.
 		const { key } = node.key.model;
-		if (newSet.has(key)) {
-			oldLine.push(copy(node));
-			oldSet.add(key);
+		if (current.set.has(key)) {
+			result.line.push(copy(node));
+			result.set.add(key);
 		}
 	});
 
-	for (let i = 0, length = newLine.length; i < length; i++) {
-		const newNode = newLine[i];
-		const { model } = newNode.key;
-		if (oldSet.has(model.key)) {
-			// This one in the correct order as it was already inside the oldTree.
+	return result;
+}
+
+function insertFactory(screen) {
+	const { line } = screen;
+	return (prevNode, node) => {
+		const pos = line.findIndex(
+			n => n.key.model.key === prevNode.key.model.key
+		);
+
+		const level = line[pos].level;
+		const target = copy(node);
+		target.level = level + (node.level - prevNode.level);
+		line.splice(pos + 1, 0, target);
+	};
+}
+
+function insertCohortFactory(screen) {
+	const insertNear = insertFactory(screen);
+	const { line } = screen;
+	return (prevNode, node) => {
+		const set = new Set(node.children.map(n => n.key.model.key));
+		const index = line.findIndex(n => set.has(n.key.model.key));
+
+		if (index < 0) {
+			insertNear(prevNode, node);
+			return;
+		}
+
+		const target = copy(node);
+		const { level } =  line[index];
+		target.level = level;
+		line.splice(index, 0, target);
+
+		for (let i = index + 1, end = line.length; i < end; i++ ) {
+			const child = line[i];
+			if (child.level !== level) {
+				break;
+			}
+
+			if (set.has(child.key.model.key)) {
+				child.level = level + 1;
+			}
+		}
+	};
+}
+
+function sort(newTree, oldTree, buildIndex) {
+	const current = running(newTree, buildIndex);
+	const screen = former(oldTree, current);
+	const insertNear = insertFactory(screen);
+	const insertCohort = insertCohortFactory(screen);
+
+	const root = current.line[0];
+	if (!screen.set.has(root.key.model.key)) {
+		screen.line.unshift(copy(root));
+		screen.line.forEach(n => n.level++);
+	}
+
+	for (let i = 1, length = current.line.length; i < length; i++) {
+		const node = current.line[i];
+		const { model } = node.key;
+		if (screen.set.has(model.key)) {
 			continue;
 		}
 
-		// oldSet.add(model.key);
-		// oldLine.push(copy(newNode));
-
-
-		if (i === 0) {
-			oldLine.unshift(copy(newNode));
-			oldSet.add(model.key);
-			oldLine.forEach(actualNode => actualNode.level++);
+		const prevNode = current.line[i - 1];
+		if (model.type === 'cohort') {
+			insertCohort(prevNode, node);
 		} else {
-			if (model.type === 'cohort') {
-				const child = newNode.children[0];
-				if (oldSet.has(child.key.model.key)) {
-					let childIndex = oldLine.findIndex(n => n.key.model.key === child.key.model.key);
-					oldLine.splice(childIndex, 0, copy(newNode));
-					oldSet.add(model.key);
-					for (let j = 0; j < newNode.children.length; j++) {
-						if (oldLine[childIndex + j]) {
-							oldLine[childIndex + j].level++;
-						}
-					}
-
-					continue;
-				}
-			}
-
-			const prevNewNode = newLine[i - 1];
-			const actualIndex = oldLine.findIndex(n => n.key.model.key === prevNewNode.key.model.key);
-			const actualLevel = oldLine[actualIndex].level;
-			const nextLevel = actualLevel + newNode.level - prevNewNode.level;
-			oldLine.splice(actualIndex + 1, 0, new Node(newNode.key, nextLevel, newNode.type));
-			oldSet.add(newNode.key.model.key);
+			insertNear(prevNode, node);
 		}
 	}
 
-	return bend(oldLine);
+	const bendedTree = bend(screen.line);
+	return bendedTree;
 }
