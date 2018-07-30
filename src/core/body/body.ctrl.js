@@ -8,9 +8,10 @@ const VERTICAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-vertical`;
 const HORIZONTAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-horizontal`;
 
 export class BodyCtrl {
-	constructor(model, view, table, bag) {
+	constructor(model, view, scrollService, table, bag) {
 		this.model = model;
 		this.view = view;
+		this.scrollService = scrollService;
 		this.bag = bag;
 		this.table = table;
 		this.rangeStartCell = null;
@@ -131,6 +132,7 @@ export class BodyCtrl {
 			if (startCell && endCell) {
 				this.navigate(endCell);
 				this.view.selection.selectRange(startCell, endCell, 'body');
+				this.scrollService.scroll(e);
 			}
 		}
 	}
