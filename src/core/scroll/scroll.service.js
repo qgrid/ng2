@@ -47,9 +47,9 @@ export class ScrollService {
     }
 
     doScroll(direction) {
-        const scrollState = this.model.scroll;
-        const scroll = scrollState();
-        const velocity = scroll.velocity;
+        const scroll = this.model.scroll;
+        const scrollState = scroll();
+        const velocity = scrollState.velocity;
         const scrolledToEnd = () => this.isScrolledToEnd(direction);
 
         return () => setInterval(() => {
@@ -58,15 +58,15 @@ export class ScrollService {
                     case 'right':
                     case 'bottom': {
                         const course = direction === 'bottom' ? 'top' : 'left';
-                        const origin = scroll[course];
-                        scrollState({ [course]: origin + velocity });
+                        const origin = scrollState[course];
+                        scroll({ [course]: origin + velocity });
                         break;
                     }
                     case 'left':
                     case 'top': {
                         const course = direction === 'top' ? 'top' : 'left';
-                        const origin = scroll[course];
-                        scrollState({ [course]: origin - velocity });
+                        const origin = scrollState[course];
+                        scroll({ [course]: origin - velocity });
                         break;
                     }
                     default: {
