@@ -1,5 +1,5 @@
-import { EventListener } from '../../core/infrastructure/event.listener';
-import { EventManager } from '../../core/infrastructure/event.manager';
+import { EventListener } from '../infrastructure/event.listener';
+import { EventManager } from '../infrastructure/event.manager';
 import { Disposable } from '../infrastructure/disposable';
 import { AppError } from '../infrastructure/error';
 import { jobLine } from '../services/job.line';
