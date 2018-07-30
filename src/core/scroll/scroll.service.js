@@ -89,7 +89,7 @@ export class ScrollService extends Disposable {
                     }
                 }
             }
-        }, 50);
+        }, VELOCITY);
     }
 
     isScrolledToEnd(direction) {
