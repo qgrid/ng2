@@ -102,9 +102,7 @@ function selectColumnFactory(model) {
 	const selection = model.selection();
 
 	const selectColumn = dataColumns.find(item => item.type === 'select');
-	const indicatorColumn = dataColumns.find(
-		item => item.type === 'row-indicator'
-	);
+	const indicatorColumn = dataColumns.find(item => item.type === 'row-indicator');
 
 	if (!indicatorColumn && selection.unit === 'mix') {
 		const createColumn = columnFactory(model);
@@ -112,19 +110,13 @@ function selectColumnFactory(model) {
 			const indicatorColumn = createColumn('row-indicator');
 			indicatorColumn.model.source = 'generation';
 			if (indicatorColumn.model.isVisible) {
-				node.children.unshift(
-					new Node(indicatorColumn, node.level + 1)
-				);
+				node.children.unshift(new Node(indicatorColumn, node.level + 1));
 				return indicatorColumn;
 			}
 		};
 	}
 
-	if (
-		!selectColumn &&
-		selection.unit === 'row' &&
-		selection.mode !== 'range'
-	) {
+	if (!selectColumn && selection.unit === 'row' && selection.mode !== 'range') {
 		const createColumn = columnFactory(model);
 		return node => {
 			const selectColumn = createColumn('select');
@@ -152,9 +144,7 @@ function groupColumnFactory(model, nodes) {
 					const groupColumn = createColumn('group');
 					groupColumn.model.source = 'generation';
 					if (groupColumn.model.isVisible) {
-						node.children.unshift(
-							new Node(groupColumn, node.level + 1)
-						);
+						node.children.unshift(new Node(groupColumn, node.level + 1));
 						return groupColumn;
 					}
 				};
@@ -170,9 +160,7 @@ function groupColumnFactory(model, nodes) {
 						groupColumn.model.by = key;
 
 						if (groupColumn.model.isVisible) {
-							node.children.unshift(
-								new Node(groupColumn, node.level + 1)
-							);
+							node.children.unshift(new Node(groupColumn, node.level + 1));
 						}
 					});
 			}
@@ -202,9 +190,7 @@ function rowExpandColumnFactory(model) {
 
 function rowIndicatorColumnFactory(model) {
 	const dataColumns = model.columnList().line;
-	const rowIndicatorColumn = dataColumns.find(
-		item => item.type === 'row-indicator'
-	);
+	const rowIndicatorColumn = dataColumns.find(item => item.type === 'row-indicator');
 	const { canMove, canResize } = model.row();
 	if ((canMove || canResize) && !rowIndicatorColumn) {
 		const createColumn = columnFactory(model);
@@ -289,9 +275,7 @@ function running(tree, buildIndex) {
 			return memo;
 		}, {});
 
-		node.children.sort(
-			(x, y) => indexMap[x.key.model.key] - indexMap[y.key.model.key]
-		);
+		node.children.sort((x, y) => indexMap[x.key.model.key] - indexMap[y.key.model.key]);
 	});
 
 	return result;
@@ -318,9 +302,7 @@ function former(tree, current) {
 function insertFactory(screen) {
 	const { line } = screen;
 	return (prevNode, node) => {
-		const pos = line.findIndex(
-			n => n.key.model.key === prevNode.key.model.key
-		);
+		const pos = line.findIndex(n => n.key.model.key === prevNode.key.model.key);
 
 		const level = line[pos].level;
 		const target = copy(node);
@@ -342,11 +324,11 @@ function insertCohortFactory(screen) {
 		}
 
 		const target = copy(node);
-		const { level } =  line[index];
+		const { level } = line[index];
 		target.level = level;
 		line.splice(index, 0, target);
 
-		for (let i = index + 1, end = line.length; i < end; i++ ) {
+		for (let i = index + 1, end = line.length; i < end; i++) {
 			const child = line[i];
 			if (child.level !== level) {
 				break;
