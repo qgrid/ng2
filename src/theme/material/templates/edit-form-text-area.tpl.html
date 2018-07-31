@@ -1,12 +1,12 @@
-<ng-template key='edit-form-text-area.tpl.html'
-             let-$control>
-            <mat-form-field>
-                <textarea matInput
-                          #input
-                          rows="10"
-                          q-grid-focus
-                          [(ngModel)]="$control.cellEditor.value">
+<ng-template key="edit-form-text-area.tpl.html"
+             let-$editor>
+    <mat-form-field>
+        <textarea matInput
+                  #input
+                  rows="10"
+                  [placeholder]="$editor.cell.column.title"
+                  [(ngModel)]="$editor.value">
                 </textarea>
-                <mat-hint align="end">{{input.value.length}} / {{$control.cellEditor.cell.column.maxLength}}</mat-hint>
-            </mat-form-field>
+        <mat-hint align="end">{{input.value.length}} / {{$editor.cell.column.maxLength}}</mat-hint>
+    </mat-form-field>
 </ng-template>

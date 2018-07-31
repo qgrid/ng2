@@ -1,5 +1,5 @@
 <ng-template key="plugin-edit-form-trigger.tpl.html"
-             let-$editFormTrigger>
+             let-$trigger>
 	<button mat-icon-button
 	        tabindex="-1"
 	        #trigger="matMenuTrigger"
@@ -8,9 +8,10 @@
 		<mat-icon class="q-grid-icon">edit</mat-icon>
 	</button>
 	<mat-menu #menu="matMenu"
-	          class="q-grid-form-edit q-grid-menu">
+	          class="q-grid-edit-form q-grid-menu">
 		<q-grid-edit-form q-grid-menu
-		                  [cell]="$editFormTrigger.cell"
+		                  [caption]="$trigger.caption"
+		                  [cell]="$trigger.cell"
 		                  *ngIf="trigger.menuOpen"
 		                  (cancel)="trigger.closeMenu()"
 		                  (submit)="trigger.closeMenu()">

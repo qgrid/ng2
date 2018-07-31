@@ -22,6 +22,8 @@ export class PadColumnModel extends ColumnModel {
 		this.canResize = false;
 		this.canHighlight = false;
 		this.canFocus = false;
+		this.canMove = false;
+		this.canFilter = false;		
 		this.source = 'generation';
 	}
 }

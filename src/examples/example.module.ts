@@ -43,6 +43,7 @@ import { ExampleDetailsRowStartComponent } from './details-row-start/example-det
 import { ExampleDragColumnBasicComponent } from './drag-column-basic/example-drag-column-basic.component';
 import { ExampleDragRowBasicComponent } from './drag-row-basic/example-drag-row-basic.component';
 import { ExampleDragRowNodeComponent } from './drag-row-node/example-drag-row-node.component';
+import { ExampleDynamicColumnModelComponent } from './dynamic-column-moodel/example-dynamic-column-model.component';
 import { ExampleEditCellBasicComponent } from './edit-cell-basic/example-edit-cell-basic.component';
 import { ExampleEditCellBatchComponent } from './edit-cell-batch/example-edit-cell-batch.component';
 import { ExampleEditRowBasicComponent } from './edit-row-basic/example-edit-row-basic.component';
@@ -94,6 +95,7 @@ import { ExamplePinColumnBasicComponent } from './pin-column-basic/example-pin-c
 import { ExamplePipeGridBasicComponent } from './pipe-grid-basic/example-pipe-grid-basic.component';
 import { ExamplePivotColumnBasicComponent } from './pivot-column-basic/example-pivot-column-basic.component';
 import { ExamplePivotColumnCohortComponent } from './pivot-column-cohort/example-pivot-column-cohort.component';
+import { ExamplePivotColumnGroupComponent } from './pivot-column-group/example-pivot-column-group.component';
 import { ExamplePivotColumnTemplateComponent } from './pivot-column-template/example-pivot-column-template.component';
 import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plugin-grid-basic.component';
 import { ExamplePluginMyPagerComponent } from './plugin-grid-basic/example-plugin-my-pager.component';
@@ -160,6 +162,7 @@ const EXAMPLES: Array<any> = [
 	ExampleDragColumnBasicComponent,
 	ExampleDragRowBasicComponent,
 	ExampleDragRowNodeComponent,
+	ExampleDynamicColumnModelComponent,
 	ExampleEditCellBasicComponent,
 	ExampleEditCellBatchComponent,
 	ExampleEditRowBasicComponent,
@@ -211,6 +214,7 @@ const EXAMPLES: Array<any> = [
 	ExamplePipeGridBasicComponent,
 	ExamplePivotColumnBasicComponent,
 	ExamplePivotColumnCohortComponent,
+	ExamplePivotColumnGroupComponent,
 	ExamplePivotColumnTemplateComponent,
 	ExamplePluginGridBasicComponent,
 	ExampleScrollVirtualBasicComponent,
@@ -275,4 +279,4 @@ export const exampleRoutes: Routes = EXAMPLES.map<Route>(example => ({
 		MatIconModule
 	]
 })
-export class ExampleModule {}
+export class ExampleModule { }

@@ -1,5 +1,6 @@
 import { Node } from './node';
 import { cloneDeep } from '../utility/kit';
+import { AppError } from '../infrastructure/error';
 
 export function preOrderDFS(nodes, visit, memo = null, parent = null) {
 	for (let i = 0, length = nodes.length; i < length; i++) {
@@ -59,4 +60,30 @@ export function copy(node) {
 	const result = new Node(node.key, node.level, node.type);
 	result.source = node.source;
 	return result;
+}
+
+export function bend(line) {
+	if (line.length === 0) {
+		throw new AppError('node.service', 'Line have no nodes');
+	}
+
+	const root = copy(line[0]);
+	const parentStack = [root];
+	for (let i = 1, length = line.length; i < length; i++) {
+		const current = line[i];
+
+		let parent = parentStack[parentStack.length - 1];
+		while (current.level <= parent.level) {
+			parentStack.pop();
+			parent = parentStack[parentStack.length - 1];
+		}
+
+		const child = copy(current);
+		child.level = parent.level + 1;
+
+		parent.children.push(child);
+		parentStack.push(child);
+	}
+
+	return root;
 }

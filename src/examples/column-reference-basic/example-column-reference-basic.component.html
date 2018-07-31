@@ -15,7 +15,7 @@
 		</q-grid-column>
 		<q-grid-column type="reference"
 		               key="singleValue"
-		               title="Single Value"		               
+		               title="Single Value"
 		               [editorOptions]="singleValueOptions">
 		</q-grid-column>
 		<q-grid-column type="reference"
@@ -25,7 +25,7 @@
 			<ng-template for="body"
 			             let-$cell
 			             let-$view="$view">
-				<button style="width: 100%;"
+				<button style="width: 100%;text-overflow: ellipsis;overflow: hidden;"
 				        mat-button
 				        (click)="$view.edit.cell.enter.execute($cell)">
 					{{$cell.value.join(', ') || 'EMPTY'}}

@@ -1,34 +1,32 @@
-// .q-grid-form-edit {
-// 	position: absolute;
-// 	top: 0;
-// 	bottom: 0;
-
-// 	.q-grid-icon {
-// 		color: $dark-secondary;
-// 		font-size: 16px;
-// 		height: 16px;
-// 		width: 16px;
-// 		min-height: 16px;
-//         min-width: 16px;
-//         display: block;
-// 	}
-// }
-
-//Can't apply styles
-
-div {
-	&.q-grid-form-edit{
-		width: 401px !important;
-	}
+q-grid-edit-form-trigger {
+    .q-grid-icon {
+        color: $dark-secondary;
+        font-size: 16px;
+        height: 16px;
+        width: 16px;
+        min-height: 16px;
+        min-width: 16px;
+        line-height: 16px;
+    }
 }
 
-q-grid-edit-form-control{
-	.edit-form-text {
-		max-width: 350px;
-	}
+@at-root {
+    .q-grid-edit-form {
+        width: 500px;
+        min-width: 500px !important;
+        .q-grid-edit-form-body {
+            height: 300px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 0 15px;
+            .q-grid-edit-form-control {
+                display: block;
+                margin-bottom: 1.25em;
+                &-image,
+                &-bool {
+                    margin-bottom: 2.5em;
+                }
+            }
+        }
+    }
 }
-
-.mat-menu-panel {
-	max-width: 400px !important;
-}
-

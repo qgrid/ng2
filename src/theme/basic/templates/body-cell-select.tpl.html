@@ -1,0 +1,10 @@
+<ng-template key="body-cell-select.tpl.html"
+             let-$cell
+             let-$view="$view">
+	<input type="checkbox"
+	       [checked]="$view.selection.state($cell.row)"
+	       [disabled]="!$view.selection.toggleRow.canExecute($cell.row)"
+	       (change)="$view.selection.toggleRow.execute($cell.row)"
+	       tabindex="-1"
+	       class="q-grid-checkbox" />
+</ng-template>

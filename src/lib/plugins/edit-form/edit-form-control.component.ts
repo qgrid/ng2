@@ -1,26 +1,20 @@
-import { Component, Optional, Input, OnInit } from '@angular/core';
-import { EditFormView } from 'ng2-qgrid/plugin/edit-form/edit.form.view';
-import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
+import { Component, Input } from '@angular/core';
 import { CellEditor } from 'ng2-qgrid/core/edit/edit.cell.editor';
 
 @Component({
 	selector: 'q-grid-edit-form-control',
 	templateUrl: './edit-form-control.component.html'
 })
-export class EditFormControlComponent implements OnInit {
-	@Input() cellEditor: CellEditor;
-	@Input() control: any;
-	@Input() key: string;
+export class EditFormControlComponent {
+	@Input() editor: CellEditor;
 
-	context: { $implicit: EditFormControlComponent } = {
-		$implicit: this
-	};
+	get key() {
+		if (this.editor) {
+			const { column } = this.editor.cell;
+			const type = column.editor || column.type;
+			return `edit-form-${type}.tpl.html`;
+		}
 
-	constructor() {
-	}
-
-	ngOnInit() {
-		// console.log(this.key);
-		// console.log(this.cellEditor);
+		return 'edit-form-text.tpl.html';
 	}
 }

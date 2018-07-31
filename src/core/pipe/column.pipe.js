@@ -5,7 +5,7 @@ import { columnFactory } from '../column/column.factory';
 import { generateFactory } from '../column-list/column.list.generate';
 import { columnIndexPipe } from './column.index.pipe';
 import { Node } from '../node/node';
-import { preOrderDFS } from '../node/node.service';
+import { sortIndexFactory, sort } from '../column-list/column.list.sort';
 
 export function columnPipe(memo, context, next) {
 	Guard.hasProperty(memo, 'pivot');
@@ -16,7 +16,7 @@ export function columnPipe(memo, context, next) {
 	const { head } = pivot;
 
 	const createColumn = columnFactory(model);
-	const root = new Node(createColumn('$root', { key: '$root', type: '$root' }), 0);
+	const root = new Node(createColumn('cohort', { key: '$root' }), 0);
 	const addDataColumns = dataColumnsFactory(model);
 	const addSelectColumn = selectColumnFactory(model);
 	const addGroupColumn = groupColumnFactory(model, nodes);
@@ -67,24 +67,26 @@ export function columnPipe(memo, context, next) {
 	 */
 	addPivotColumns(root, head);
 
+	const { columnList } = model;
+	const buildIndex = sortIndexFactory(model);
+	const tree = sort(root, columnList().index, buildIndex);
+
 	/*
 	 * Add special column type
 	 * that fills remaining place (width = 100%)
 	 *
 	 */
-	addPadColumn(root);
+	addPadColumn(tree);
 
-	columnIndexPipe(root, context, ({ columns, index }) => {
+	columnIndexPipe(tree, context, ({ columns, index }) => {
 		memo.columns = columns;
 
-		const { columnList } = model;
-		const tree = sort(index, columnList().index);
 		columnList({
-			index: tree
+			index
 		}, {
-				behavior: 'core',
-				source: 'column.pipe'
-			});
+			behavior: 'core',
+			source: 'column.pipe'
+		});
 
 		next(memo);
 	});
@@ -245,8 +247,4 @@ function pivotColumnsFactory(model) {
 			fill(pivotNode, child);
 		}
 	};
-}
-
-function sort(xs, ys) {
-	return xs;
 }

@@ -1,5 +1,5 @@
-<ng-template key='body-cell-array-of-date.tpl.html'
-			 let-$cell>
+<ng-template key="body-cell-array-of-date.tpl.html"
+             let-$cell>
 	<ul>
 		<li *ngFor="let item of $cell.value">{{item | date: $cell.column.itemFormat}}</li>
 	</ul>

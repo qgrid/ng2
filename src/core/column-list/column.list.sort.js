@@ -1,6 +1,15 @@
-export function sortIndexFactory(model) {
+import { bend, copy } from '../node/node.service';
+import { preOrderDFS } from '../node/node.service';
+
+export {
+	sortIndexFactory,
+	sort
+}
+
+function sortIndexFactory(model) {
+	const templateIndex = model.columnList().columns.map(c => c.key);
+
 	return (columns, scores) => {
-		const columnListState = model.columnList();
 		const { length } = columns;
 		scores = Object.assign({
 			list: column => column.class === 'data' ? 0.1 : 0.3,
@@ -9,26 +18,20 @@ export function sortIndexFactory(model) {
 			template: () => length + 0.4
 		}, scores);
 
-		const listIndex = columnListState.index;
-		const templateIndex = columnListState.columns.map(c => c.key);
 		const viewIndex = columns.map(c => c.key);
 
-		const sort = sortFactory(scores)(listIndex, templateIndex, viewIndex);
+		const sort = sortFactory(scores)(templateIndex, viewIndex);
 		const left = sort(columns.filter(c => c.pin === 'left'));
 		const center = sort(columns.filter(c => !c.pin));
 		const right = sort(columns.filter(c => c.pin === 'right'));
 
-		const index = left.concat(center).concat(right);
-		return {
-			index,
-			hasChanges: !equals(listIndex, index)
-		};
+		return left.concat(center).concat(right);
 	};
 }
 
 function sortFactory(scores) {
-	return (listIndex, templateIndex, viewIndex) => {
-		const compare = compareFactory(scores, listIndex, templateIndex, viewIndex);
+	return (templateIndex, viewIndex) => {
+		const compare = compareFactory(scores, templateIndex, viewIndex);
 		return columns => {
 			const columnIndex = Array.from(columns);
 			columnIndex.sort(compare);
@@ -38,8 +41,7 @@ function sortFactory(scores) {
 	};
 }
 
-function compareFactory(scoreFor, listIndex, templateIndex, viewIndex) {
-	const listFind = findFactory(listIndex);
+function compareFactory(scoreFor, templateIndex, viewIndex) {
 	const viewFind = findFactory(viewIndex);
 	const templateFind = findFactory(templateIndex);
 
@@ -51,7 +53,6 @@ function compareFactory(scoreFor, listIndex, templateIndex, viewIndex) {
 		}
 
 		const candidates = [
-			listFind(key) + scoreFor.list(column),
 			column.index + scoreFor.index(column),
 			viewFind(key) + scoreFor.view(column),
 			templateFind(key) + scoreFor.template(column)
@@ -94,4 +95,122 @@ function equals(xs, ys) {
 		}
 	}
 	return true;
+}
+
+function sort(newTree, oldTree, buildIndex) {
+	const current = running(newTree, buildIndex);
+	const screen = former(oldTree, current);
+	const insertNear = insertFactory(screen);
+	const insertCohort = insertCohortFactory(screen);
+
+	const root = current.line[0];
+	if (!screen.set.has(root.key.model.key)) {
+		screen.line.unshift(copy(root));
+		screen.line.forEach(n => n.level++);
+	}
+
+	for (let i = 1, length = current.line.length; i < length; i++) {
+		const node = current.line[i];
+		const { model } = node.key;
+		if (screen.set.has(model.key)) {
+			continue;
+		}
+
+		const prevNode = current.line[i - 1];
+		if (model.type === 'cohort') {
+			insertCohort(prevNode, node);
+		} else {
+			insertNear(prevNode, node);
+		}
+	}
+
+	const bendedTree = bend(screen.line);
+	return bendedTree;
+}
+
+function running(tree, buildIndex) {
+	const result = {
+		line: [],
+		set: new Set()
+	};
+
+	preOrderDFS([tree], node => {
+		result.line.push(node);
+		result.set.add(node.key.model.key);
+
+		// As we use pre order direction we can manipulate with children without affecting on algorithm.
+		// Below we sort columns in appropriate order.
+		const columns = node.children.map(child => child.key.model);
+		const index = buildIndex(columns);
+
+		let cursor = 0;
+		const indexMap = index.reduce((memo, key) => {
+			memo[key] = cursor++;
+			return memo;
+		}, {});
+
+		node.children.sort((x, y) => indexMap[x.key.model.key] - indexMap[y.key.model.key]);
+	});
+
+	return result;
+}
+
+function former(tree, current) {
+	const result = {
+		line: [],
+		set: new Set()
+	};
+
+	preOrderDFS([tree], node => {
+		// Filter out nodes if they were deleted from newTree.
+		const { key } = node.key.model;
+		if (current.set.has(key)) {
+			result.line.push(copy(node));
+			result.set.add(key);
+		}
+	});
+
+	return result;
+}
+
+function insertFactory(screen) {
+	const { line } = screen;
+	return (prevNode, node) => {
+		const pos = line.findIndex(n => n.key.model.key === prevNode.key.model.key);
+
+		const level = line[pos].level;
+		const target = copy(node);
+		target.level = level + (node.level - prevNode.level);
+		line.splice(pos + 1, 0, target);
+	};
+}
+
+function insertCohortFactory(screen) {
+	const insertNear = insertFactory(screen);
+	const { line } = screen;
+	return (prevNode, node) => {
+		const set = new Set(node.children.map(n => n.key.model.key));
+		const index = line.findIndex(n => set.has(n.key.model.key));
+
+		if (index < 0) {
+			insertNear(prevNode, node);
+			return;
+		}
+
+		const target = copy(node);
+		const { level } = line[index];
+		target.level = level;
+		line.splice(index, 0, target);
+
+		for (let i = index + 1, end = line.length; i < end; i++) {
+			const child = line[i];
+			if (child.level !== level) {
+				break;
+			}
+
+			if (set.has(child.key.model.key)) {
+				child.level = level + 1;
+			}
+		}
+	};
 }

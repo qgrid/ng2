@@ -17,8 +17,6 @@ export class ExampleColumnReferenceBasicComponent {
 		}
 	];
 
-	convert = rows => rows.map(value => ({ value }));
-
 	notEditableOptions: EditorOptions = {
 		modelFactory: ({ row, reference }) => {
 			reference.commit = new Command({
@@ -57,10 +55,14 @@ export class ExampleColumnReferenceBasicComponent {
 
 	editableOptions: EditorOptions = {
 		modelFactory: ({ row, column, reference }) => {
-			// we need to override commit because of `this.convert`, 
-			// we need to pass ['Lorem', 'ipsum'] but not [{value: 'Lorem'}, {value: 'ipsum'}]
+			// We need to override commit because of `this.convert`,
+			// We need to pass ['Lorem', 'ipsum'] but not [{value: 'Lorem'}, {value: 'ipsum'}]
 			reference.commit = new Command({
-				execute: e => row[column.key] = e.items
+				execute: e => {
+					row[column.key] = e.items;
+					// To prevent default cell commit return false.
+					return false;
+				}
 			});
 
 			reference.value = this.convert(row[column.key]);
@@ -91,10 +93,13 @@ export class ExampleColumnReferenceBasicComponent {
 
 	singleValueOptions: EditorOptions = {
 		modelFactory: ({ row, column, reference }) => {
-			// we need to override commit because of `this.convert`, 
-			// we need to pass ['Lorem', 'ipsum'] but not [{value: 'Lorem'}, {value: 'ipsum'}]
+			// We need to override commit because of `this.convert`,
+			// We need to pass ['Lorem', 'ipsum'] but not [{value: 'Lorem'}, {value: 'ipsum'}]
 			reference.commit = new Command({
-				execute: e => row[column.key] = e.items
+				execute: e => {
+					row[column.key] = e.items[0];
+					return false;
+				}
 			});
 
 			reference.value = { value: row[column.key] };
@@ -123,8 +128,6 @@ export class ExampleColumnReferenceBasicComponent {
 		},
 	};
 
-	complexValuesLabel = row => row.complexValues.map(x => x.value).join(', ');
-
 	complexValuesOptions: EditorOptions = {
 		modelFactory: ({ row }) => {
 			const model = this.qgrid.model();
@@ -150,6 +153,9 @@ export class ExampleColumnReferenceBasicComponent {
 			return model;
 		}
 	};
+
+	complexValuesLabel = row => row.complexValues.map(x => x.value).join(', ');
+	convert = rows => rows.map(value => ({ value }));
 
 	constructor(private qgrid: Grid) {
 	}

@@ -1,20 +1,16 @@
-<ng-template key='edit-form-email.tpl.html'
-             let-$control>
-             <q-grid-tab-trap>
-                <ng-template>
-                    <div class="layout-column q-grid-email-fields"
-                         flex>
-                        <mat-form-field>
-                            <input q-grid-focus
-                                   matInput
-                                   type="email"
-                                   [(ngModel)]="$control.cellEditor.value"
-                                   placeholder="Email" />
-                        </mat-form-field>
-                    </div>
-                </ng-template>
-            </q-grid-tab-trap>
+<ng-template key="edit-form-email.tpl.html"
+             let-$editor>
+    <h3>{{$editor.cell.column.title}}</h3>
+    <mat-form-field *ngIf="$editor.cell.column.label !== null">
+        <input matInput
+               type="text"
+               [(ngModel)]="$editor.label"
+               placeholder="Label" />
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput
+               type="email"
+               [(ngModel)]="$editor.value"
+               placeholder="Email" />
+    </mat-form-field>
 </ng-template>
-
-
-
