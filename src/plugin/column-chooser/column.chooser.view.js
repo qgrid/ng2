@@ -3,7 +3,7 @@ import { Command } from '../../core/command/command';
 import { Aggregation } from '../../core/services/aggregation';
 import { isFunction } from '../../core/utility/kit';
 import { Event } from '../../core/infrastructure/event';
-import { preOrderDFS, copy } from '../../core/node/node.service';
+import { preOrderDFS, copy, find } from '../../core/node/node.service';
 
 export class ColumnChooserView {
 	constructor(model, context) {
@@ -45,11 +45,17 @@ export class ColumnChooserView {
 
 		setup();
 
+		const toggle = (node, value) => {
+			const { children, key } = node;
+			key.isVisible = value;
+			if (children.length) {
+				children.forEach(n => toggle(n, value));
+			}
+		};
+
 		this.toggle = new Command({
 			source: 'column.chooser',
-			execute: column => {
-				column.isVisible = !this.state(column);
-			}
+			execute: node => toggle(node, !this.state(node))
 		});
 
 		this.toggleAll = new Command({
@@ -76,37 +82,44 @@ export class ColumnChooserView {
 		this.drop = new Command({
 			source: 'column.chooser',
 			canExecute: e => {
-				const targetKey = e.dropData;
-				const map = columnService.map(this.temp.columns);
-				return map.hasOwnProperty(targetKey) && map[targetKey].canMove;
+				const node = e.dropData;
+				return node && node.key.canMove;
+
 			},
 			execute: e => {
 				switch (e.action) {
 					case 'over': {
-						const sourceKey = e.dragData;
-						const targetKey = e.dropData;
-						if (sourceKey !== targetKey) {
-							const { index, columns } = this.temp;
+						const src = e.dragData;
+						const trg = e.dropData;
+						if (src !== trg) {
+							const tree = this.tree;
 
-							let oldIndex = index.indexOf(sourceKey);
-							let newIndex = index.indexOf(targetKey);
-							if (oldIndex >= 0 && newIndex >= 0) {
-								index.splice(oldIndex, 1);
-								index.splice(newIndex, 0, sourceKey);
+							const oldPos = find(tree, node => node === src);
+							const newPos = find(tree, node => node === trg);
+							if (oldPos && newPos && newPos.path.indexOf(oldPos.node) < 0) {
+								const queue = oldPos.path.reverse();
+								const hostIndex = queue.findIndex(node => node.children.length > 1);
+								if (hostIndex >= 0) {
+									const host = queue[hostIndex];
+									const target = queue[hostIndex - 1] || oldPos.node;
+									const index = host.children.indexOf(target);
 
-								oldIndex = columns.findIndex(c => c.key === sourceKey);
-								newIndex = columns.findIndex(c => c.key === targetKey);
+									host.children.splice(index, 1);
+									newPos.parent.children.splice(newPos.index, 0, target);
 
-								const column = columns[oldIndex];
-								columns.splice(oldIndex, 1);
-								columns.splice(newIndex, 0, column);
-
-								this.temp.columns = Array.from(this.temp.columns);
-								this.dropEvent.emit({});
+									target.level = newPos.parent.level + 1;
+									preOrderDFS(
+										target.children,
+										(node, root, parent) => {
+											node.level = (root || parent).level + 1;
+										},
+										target
+									);
+								}
 							}
 						}
-					}
 						break;
+					}
 				}
 			}
 		});
@@ -114,9 +127,8 @@ export class ColumnChooserView {
 		this.drag = new Command({
 			source: 'column.chooser',
 			canExecute: e => {
-				const sourceKey = e.data;
-				const map = columnService.map(this.temp.columns);
-				return map.hasOwnProperty(sourceKey) && map[sourceKey].canMove;
+				const node = e.data;
+				return node && node.key.canMove;
 			}
 		});
 
@@ -183,12 +195,17 @@ export class ColumnChooserView {
 		});
 	}
 
-	state(column) {
-		return column.isVisible !== false;
+	state(node) {
+		const { children, key } = node;
+		if (children.length) {
+			return children.some(n => n.key.isVisible);
+		}
+
+		return key.isVisible !== false;
 	}
 
 	stateAll() {
-		return this.columns.every(this.state);
+		return this.columns.every(c => c.isVisible);
 	}
 
 	stateDefault() {
@@ -196,7 +213,7 @@ export class ColumnChooserView {
 	}
 
 	isIndeterminate() {
-		return !this.stateAll() && this.columns.some(this.state);
+		return !this.stateAll() && this.columns.some(c => c.isVisible);
 	}
 
 	get canAggregate() {
@@ -205,12 +222,5 @@ export class ColumnChooserView {
 
 	get resource() {
 		return this.model.columnChooser().resource;
-	}
-
-	transfer(column) {
-		return {
-			key: this.context.name,
-			value: column.key
-		};
 	}
 }
