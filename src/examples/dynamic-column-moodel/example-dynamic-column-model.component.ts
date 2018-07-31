@@ -27,8 +27,13 @@ export class ExampleDynamicColumnModelComponent {
 		const rows = data.rows.slice();
 		if (side === 'left') {
 			columns.unshift(column);
-		} else {
+		} else if (side === 'right') {
 			columns.push(column);
+		} else {
+			const middlePos = columns.length % 2 === 0
+				? columns.length / 2
+				: Math.floor(columns.length / 2) ;
+			columns.splice(middlePos, 0, column);
 		}
 		rows.forEach(r => r[id] = `value - ${id}`);
 		this.gridModel.data({ columns, rows });

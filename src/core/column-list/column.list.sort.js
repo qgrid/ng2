@@ -100,8 +100,8 @@ function equals(xs, ys) {
 function sort(newTree, oldTree, buildIndex) {
 	const current = running(newTree, buildIndex);
 	const screen = former(oldTree, current);
-	const insertNear = insertFactory(screen);
-	const insertCohort = insertCohortFactory(screen);
+	const insertNear = insertFactory(current, screen);
+	const insertCohort = insertCohortFactory(current, screen);
 
 	const root = current.line[0];
 	if (!screen.set.has(root.key.model.key)) {
@@ -124,8 +124,7 @@ function sort(newTree, oldTree, buildIndex) {
 		}
 	}
 
-	const bendedTree = bend(screen.line);
-	return bendedTree;
+	return bend(screen.line);
 }
 
 function running(tree, buildIndex) {
@@ -173,20 +172,25 @@ function former(tree, current) {
 	return result;
 }
 
-function insertFactory(screen) {
+function insertFactory(current, screen) {
 	const { line } = screen;
 	return (prevNode, node) => {
-		const pos = line.findIndex(n => n.key.model.key === prevNode.key.model.key);
+		let pos = line.findIndex(n => n.key.model.key === prevNode.key.model.key);
 
-		const level = line[pos].level;
 		const target = copy(node);
-		target.level = level + (node.level - prevNode.level);
+		target.level = node.level;
+
+		if (isCohortTail(current, screen, node)) {
+			while (pos < line.length && line[pos].level >= target.level) {
+				pos++;
+			}
+		}
 		line.splice(pos + 1, 0, target);
 	};
 }
 
-function insertCohortFactory(screen) {
-	const insertNear = insertFactory(screen);
+function insertCohortFactory(current, screen) {
+	const insertNear = insertFactory(current, screen);
 	const { line } = screen;
 	return (prevNode, node) => {
 		const set = new Set(node.children.map(n => n.key.model.key));
@@ -213,4 +217,17 @@ function insertCohortFactory(screen) {
 			}
 		}
 	};
+}
+
+function isCohortTail(current, screen, node) {
+	const { line } = current;
+	const index = line.findIndex(c => c.key.model.key === node.key.model.key);
+	let nextIndex = index + 1;
+	while (nextIndex < line.length && node.level === line[nextIndex].level) {
+		if (screen.set.has(line[nextIndex].key.model.key)) {
+			return false;
+		}
+		nextIndex++;
+	}
+	return true;
 }
