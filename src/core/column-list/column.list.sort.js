@@ -1,22 +1,22 @@
 import { bend, copy } from '../node/node.service';
 import { preOrderDFS } from '../node/node.service';
 
-export {
-	sortIndexFactory,
-	sort
-}
+export { sortIndexFactory, sort };
 
 function sortIndexFactory(model) {
 	const templateIndex = model.columnList().columns.map(c => c.key);
 
 	return (columns, scores) => {
 		const { length } = columns;
-		scores = Object.assign({
-			list: column => column.class === 'data' ? 0.1 : 0.3,
-			index: () => 0.2,
-			view: column => length + (column.class !== 'data' ? 0.1 : 0.3),
-			template: () => length + 0.4
-		}, scores);
+		scores = Object.assign(
+			{
+				list: column => (column.class === 'data' ? 0.1 : 0.3),
+				index: () => 0.2,
+				view: column => length + (column.class !== 'data' ? 0.1 : 0.3),
+				template: () => length + 0.4
+			},
+			scores
+		);
 
 		const viewIndex = columns.map(c => c.key);
 
@@ -74,13 +74,12 @@ function compareFactory(scoreFor, templateIndex, viewIndex) {
 }
 
 function findFactory(index) {
-	const map =
-		index.reduce((memo, key, i) => {
-			memo.set(key, i);
-			return memo;
-		}, new Map());
+	const map = index.reduce((memo, key, i) => {
+		memo.set(key, i);
+		return memo;
+	}, new Map());
 
-	return key => map.has(key) ? map.get(key) : -1;
+	return key => (map.has(key) ? map.get(key) : -1);
 }
 
 function equals(xs, ys) {
@@ -100,8 +99,8 @@ function equals(xs, ys) {
 function sort(newTree, oldTree, buildIndex) {
 	const current = running(newTree, buildIndex);
 	const screen = former(oldTree, current);
-	const insertNear = insertFactory(screen);
-	const insertCohort = insertCohortFactory(screen);
+	const insertNear = insertFactory(current, screen);
+	const insertCohort = insertCohortFactory(current, screen);
 
 	const root = current.line[0];
 	if (!screen.set.has(root.key.model.key)) {
@@ -120,12 +119,11 @@ function sort(newTree, oldTree, buildIndex) {
 		if (model.type === 'cohort') {
 			insertCohort(prevNode, node);
 		} else {
-			insertNear(prevNode, node);
+			insertNear(prevNode, node, i);
 		}
 	}
 
-	const bendedTree = bend(screen.line);
-	return bendedTree;
+	return bend(screen.line);
 }
 
 function running(tree, buildIndex) {
@@ -173,20 +171,24 @@ function former(tree, current) {
 	return result;
 }
 
-function insertFactory(screen) {
+function insertFactory(current, screen) {
 	const { line } = screen;
-	return (prevNode, node) => {
-		const pos = line.findIndex(n => n.key.model.key === prevNode.key.model.key);
+	return (prevNode, node, i) => {
+		let pos = line.findIndex(n => n.key.model.key === prevNode.key.model.key);
 
-		const level = line[pos].level;
 		const target = copy(node);
-		target.level = level + (node.level - prevNode.level);
-		line.splice(pos + 1, 0, target);
+		target.level = node.level;
+
+		if (everyNextIsNew(current, screen, i)) {
+			line.push(target);
+		} else {
+			line.splice(pos + 1, 0, target);
+		}
 	};
 }
 
-function insertCohortFactory(screen) {
-	const insertNear = insertFactory(screen);
+function insertCohortFactory(current, screen) {
+	const insertNear = insertFactory(current, screen);
 	const { line } = screen;
 	return (prevNode, node) => {
 		const set = new Set(node.children.map(n => n.key.model.key));
@@ -213,4 +215,17 @@ function insertCohortFactory(screen) {
 			}
 		}
 	};
+}
+
+function everyNextIsNew(current, screen, index) {
+	const { line } = current;
+
+	let n;
+	while ((n = line[++index])) {
+		if (screen.set.has(n.key.model.key)) {
+			return false;
+		}
+	}
+
+	return true;
 }
