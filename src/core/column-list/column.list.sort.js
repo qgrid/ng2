@@ -1,22 +1,22 @@
 import { bend, copy } from '../node/node.service';
 import { preOrderDFS } from '../node/node.service';
 
-export {
-	sortIndexFactory,
-	sort
-}
+export { sortIndexFactory, sort };
 
 function sortIndexFactory(model) {
 	const templateIndex = model.columnList().columns.map(c => c.key);
 
 	return (columns, scores) => {
 		const { length } = columns;
-		scores = Object.assign({
-			list: column => column.class === 'data' ? 0.1 : 0.3,
-			index: () => 0.2,
-			view: column => length + (column.class !== 'data' ? 0.1 : 0.3),
-			template: () => length + 0.4
-		}, scores);
+		scores = Object.assign(
+			{
+				list: column => (column.class === 'data' ? 0.1 : 0.3),
+				index: () => 0.2,
+				view: column => length + (column.class !== 'data' ? 0.1 : 0.3),
+				template: () => length + 0.4
+			},
+			scores
+		);
 
 		const viewIndex = columns.map(c => c.key);
 
@@ -74,13 +74,12 @@ function compareFactory(scoreFor, templateIndex, viewIndex) {
 }
 
 function findFactory(index) {
-	const map =
-		index.reduce((memo, key, i) => {
-			memo.set(key, i);
-			return memo;
-		}, new Map());
+	const map = index.reduce((memo, key, i) => {
+		memo.set(key, i);
+		return memo;
+	}, new Map());
 
-	return key => map.has(key) ? map.get(key) : -1;
+	return key => (map.has(key) ? map.get(key) : -1);
 }
 
 function equals(xs, ys) {
@@ -120,7 +119,7 @@ function sort(newTree, oldTree, buildIndex) {
 		if (model.type === 'cohort') {
 			insertCohort(prevNode, node);
 		} else {
-			insertNear(prevNode, node);
+			insertNear(prevNode, node, i);
 		}
 	}
 
@@ -174,18 +173,17 @@ function former(tree, current) {
 
 function insertFactory(current, screen) {
 	const { line } = screen;
-	return (prevNode, node) => {
+	return (prevNode, node, i) => {
 		let pos = line.findIndex(n => n.key.model.key === prevNode.key.model.key);
 
 		const target = copy(node);
 		target.level = node.level;
 
-		if (isCohortTail(current, screen, node)) {
-			while (pos < line.length && line[pos].level >= target.level) {
-				pos++;
-			}
+		if (everyNextIsNew(current, screen, i)) {
+			line.push(target);
+		} else {
+			line.splice(pos + 1, 0, target);
 		}
-		line.splice(pos + 1, 0, target);
 	};
 }
 
@@ -219,15 +217,15 @@ function insertCohortFactory(current, screen) {
 	};
 }
 
-function isCohortTail(current, screen, node) {
+function everyNextIsNew(current, screen, index) {
 	const { line } = current;
-	const index = line.findIndex(c => c.key.model.key === node.key.model.key);
-	let nextIndex = index + 1;
-	while (nextIndex < line.length && node.level === line[nextIndex].level) {
-		if (screen.set.has(line[nextIndex].key.model.key)) {
+
+	let n;
+	while ((n = line[++index])) {
+		if (screen.set.has(n.key.model.key)) {
 			return false;
 		}
-		nextIndex++;
 	}
+
 	return true;
 }

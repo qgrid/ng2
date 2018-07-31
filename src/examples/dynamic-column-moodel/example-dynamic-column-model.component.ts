@@ -45,9 +45,10 @@ export class ExampleDynamicColumnModelComponent {
 		for (let i = 0; i < 3; i++) {
 			childColumns.push({
 				type: 'text',
-				key: `child${i}`,
+				key: `${groupId}Child${i}`,
 				path: `${groupId}.child${i}`,
-				title: `child - ${groupId} - ${i}`
+				title: `child - ${groupId} - ${i}`,
+				value: () => `value - ${i}`
 			});
 		}
 		const groupColumn = {
@@ -58,14 +59,9 @@ export class ExampleDynamicColumnModelComponent {
 		};
 
 		const data = this.gridModel.data();
-		const columns = data.columns.slice()
-		const rows = data.rows.slice();
+		const columns = data.columns.slice();
 		columns.push(groupColumn);
-		rows.forEach(r => {
-			r[groupId] = {};
-			childColumns.forEach((c, i) => r[groupId][c.key] = `value - ${i}` );
-		});
-		this.gridModel.data({ columns, rows });
+		this.gridModel.data({ columns });
 	}
 
 	reset() {
