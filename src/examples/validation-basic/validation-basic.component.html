@@ -3,7 +3,7 @@
         editMode="cell">
 	<q-grid-columns generation="deep">
 	</q-grid-columns>
-	<q-grid-validation>
+	<q-grid-validator>
 		<q-grid-rule for="cell"
 		             key="name.first"
 		             required
@@ -42,6 +42,6 @@
 		             key="contact.email"
 		             listOf="['email']">
 		</q-grid-rule>
-	</q-grid-validation>
+	</q-grid-validator>
 
 </q-grid>

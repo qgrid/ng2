@@ -4,27 +4,26 @@ import { PluginService } from '../plugin.service';
 import { TemplateHostService } from '../../template/template-host.service';
 
 @Component({
-	selector: 'q-grid-validation',
-	template: '',
+	selector: 'q-grid-validator',
+	templateUrl: './validator.component.html',
 	providers: [ TemplateHostService, PluginService ]
 })
-export class ValidationComponent implements AfterViewInit {
+export class ValidatorComponent implements AfterViewInit {
+	@Input() value: string;
+	@Input() key: string;
 	@Input() type: string;
 	@ContentChild(TemplateRef) templateRef: TemplateRef<any>;
-
-	context: { $implicit: ValidationComponent } = {
-		$implicit: this
-	};
+	context: {};
 
 	constructor(
 		private plugin: PluginService,
 		private templateHost: TemplateHostService
 	) {
-		this.templateHost.key = () => `validator`;
+		// this.templateHost.key = () => `validator`;
 	}
 
 	ngAfterViewInit() {
 		const { model } = this.plugin;
-		const validatorView = new ValidatorView(model, { type: this.type });
+		this.context = { $implicit: new ValidatorView(model, this) };
 	}
 }
