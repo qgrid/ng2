@@ -226,7 +226,7 @@ function padColumnFactory(model) {
 	const createColumn = columnFactory(model);
 	return node => {
 		const padColumn = createColumn('pad');
-		padColumn.model.key = `$pad-${guid()}`;
+		padColumn.model.key = '$pad';
 		node.children.push(new Node(padColumn, node.level + 1));
 		return padColumn;
 	};
