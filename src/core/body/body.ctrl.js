@@ -12,8 +12,8 @@ export class BodyCtrl {
 	constructor(model, view, table, bag) {
 		this.model = model;
 		this.view = view;
-		this.scrollService = new ScrollService(model, table);
 		this.bag = bag;
+		this.scrollService = new ScrollService(model, table, bag, view);
 		this.table = table;
 		this.rangeStartCell = null;
 		this.scrollingJob = jobLine(100);
@@ -133,7 +133,7 @@ export class BodyCtrl {
 			if (startCell && endCell) {
 				this.navigate(endCell);
 				this.view.selection.selectRange(startCell, endCell, 'body');
-				this.scrollService.scroll(e);
+				this.scrollService.scroll(e, startCell);
 			}
 		}
 	}

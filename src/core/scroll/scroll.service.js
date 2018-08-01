@@ -2,16 +2,32 @@ import { EventListener } from '../infrastructure/event.listener';
 import { EventManager } from '../infrastructure/event.manager';
 import { AppError } from '../infrastructure/error';
 import { jobLine } from '../services/job.line';
+import { PathService } from '../path/path.service';
+import { TableCommandManager } from '../command/table.command.manager';
 
 export class ScrollService {
-    constructor(model, table) {
-
+    constructor(model, table, bag, view) {
         this.model = model;
         this.table = table;
+        this.bag = bag;
+        this.view = view;
         this.interval = null;
         this.rect = null;
         this.body = null;
         this.job = jobLine(0);
+        this.startCell = null;
+        this.mousePosition = null; 
+
+        const pathFinder = new PathService(bag.body);
+        model.scrollChanged.watch(e => {
+            if (this.interval) {              
+                const path = this.getPath(this.mousePosition);
+                const td = pathFinder.cell(path);
+
+                this.navigate(td);
+                this.view.selection.selectRange(this.startCell, td, 'body');
+            }
+		});
     }
 
     canScroll(e) {
@@ -24,7 +40,10 @@ export class ScrollService {
             e.clientX < (table.right - offset))
     }
 
-    scroll(e) {
+    scroll(e, startCell) {
+        this.mousePosition = e;
+        this.startCell = startCell; 
+
         if (!this.body) {
             this.resize();
         }
@@ -147,6 +166,24 @@ export class ScrollService {
         clearInterval(this.interval);
         this.interval = null;
     }
+
+    navigate(cell) {
+		const focus = this.view.nav.focus;
+		if (focus.canExecute(cell)) {
+			focus.execute(cell);
+		}
+    }
+    
+    getPath(e) {
+		const path = [];
+		let element = document.elementFromPoint(e.clientX, e.clientY);
+		while (element) {
+			path.push(element);
+			element = element.parentElement;
+		}
+
+		return path;
+	}
 
     get offset() {
         return this.model.scroll().offset;
