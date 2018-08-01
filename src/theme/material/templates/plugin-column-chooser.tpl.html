@@ -1,5 +1,6 @@
 <ng-template key="column-chooser.tpl.html"
-             let-$columnChooser>
+             let-$columnChooser
+             let-$plugin="plugin">
 	<mat-card class="mat-elevation-z">
 		<mat-card-header>
 			<mat-card-title>Columns Filter</mat-card-title>
@@ -10,7 +11,8 @@
 					<input type="search"
 					       placeholder="Find in the list"
 					       matInput
-					       [(ngModel)]="$columnChooser.filter"
+					       (input)="$columnChooser.search($columnChooser.searchText)"
+					       [(ngModel)]="$columnChooser.searchText"
 					       q-grid-focus />
 				</mat-form-field>
 			</div>
@@ -32,7 +34,7 @@
 				</ul>
 				<div class="q-grid-column-chooser-list">
 					<ng-container key="column-chooser-node.tpl.html"
-					              [context]="{$implicit: $columnChooser, node: $columnChooser.tree | qGridFilter: {search: {'value.column.title': $columnChooser.filter}, type: 'node'}}">
+					              [context]="$plugin.root()">
 					</ng-container>
 				</div>
 			</div>
@@ -52,29 +54,28 @@
 </ng-template>
 
 <ng-template key="column-chooser-node.tpl.html"
-             let-$columnChooser
-             let-$parent="node">
+             let-$context>
 	<ul>
-		<ng-container *ngFor="let node of $parent.children">
-			<li *ngIf="$columnChooser.toggle.canExecute(node)"
-			    [q-grid-drop]="$columnChooser.drop"
+		<ng-container *ngFor="let node of $context.node.children">
+			<li *ngIf="$context.ctrl.toggle.canExecute(node)"
+			    [q-grid-drop]="$context.ctrl.drop"
 			    [q-grid-drop-data]="node"
-			    [q-grid-drag-over]="$columnChooser.drop"
+			    [q-grid-drag-over]="$context.ctrl.drop"
 			    q-grid-drop-area="column-chooser"
 			    q-grid-drag-direction="y">
-				<div [q-grid-drag]="$columnChooser.drag"
+				<div [q-grid-drag]="$context.ctrl.drag"
 				     [q-grid-drag-data]="node"
 				     q-grid-drop-area="column-chooser">
 					<mat-icon class="q-grid-icon">drag_indicator</mat-icon>
 				</div>
-				<mat-checkbox [checked]="$columnChooser.state(node)"
-				              (change)="$columnChooser.toggle.execute(node)"
+				<mat-checkbox [checked]="$context.ctrl.state(node)"
+				              (change)="$context.ctrl.toggle.execute(node)"
 				              aria-label="Selection">
-					<span [innerHTML]="node.value.column.title | qGridHighlight: $columnChooser.filter"></span>
+					<span [innerHTML]="node.value.column.title | qGridHighlight: $context.ctrl.searchText"></span>
 				</mat-checkbox>
 			</li>
 			<ng-container key="column-chooser-node.tpl.html"
-			              [context]="{$implicit: $columnChooser, node: node}">
+			              [context]="{$implicit: {ctrl: $context.ctrl, node: node}}">
 			</ng-container>
 		</ng-container>
 	</ul>

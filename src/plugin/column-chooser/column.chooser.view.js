@@ -1,9 +1,9 @@
 import * as columnService from '../../core/column/column.service';
 import { Command } from '../../core/command/command';
 import { Aggregation } from '../../core/services/aggregation';
-import { isFunction } from '../../core/utility/kit';
+import { isFunction, identity } from '../../core/utility/kit';
 import { Event } from '../../core/infrastructure/event';
-import { preOrderDFS, copy, find } from '../../core/node/node.service';
+import { preOrderDFS, copy, find, filter } from '../../core/node/node.service';
 
 export class ColumnChooserView {
 	constructor(model, context) {
@@ -50,7 +50,21 @@ export class ColumnChooserView {
 			}, copy(index));
 		};
 
+		let applyFilter = identity;
+		const updateView = () => this.treeView = applyFilter(this.tree);
+
+		this.search = value => {
+			const search = ('' + value).toLowerCase();
+			applyFilter =
+				search
+					? node => filter(node, n => n.value.column.title.toLowerCase().indexOf(search) >= 0)
+					: identity;
+					
+			updateView();
+		};
+
 		setup();
+		updateView();
 
 		const toggle = (node, value) => {
 			const { children } = node;
