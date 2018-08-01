@@ -129,8 +129,9 @@ export class ExampleColumnReferenceBasicComponent {
 	};
 
 	complexValuesOptions: EditorOptions = {
-		modelFactory: ({ row }) => {
+		modelFactory: () => {
 			const model = this.qgrid.model();
+
 			model
 				.data({
 					rows: this.convert(this.rows[0].notEditable),
