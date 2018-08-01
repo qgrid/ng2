@@ -17,37 +17,42 @@ export class ColumnChooserView {
 
 		const setup = () => {
 			const { index } = model.columnList();
-			this.tree = copy(index);
+
 			this.columns = [];
-
 			this.tree = preOrderDFS([index], (node, current, parent) => {
+				const { model } = node.key;
+				const column = {
+					key: model.key,
+					title: model.title,
+					isVisible: model.isVisible,
+					canMove: model.canMove,
+					aggregation: model.aggregation
+				};
+
 				if (parent) {
-					const { model } = node.key;
-					const column = {
-						key: model.key,
-						title: model.title,
-						isVisible: model.isVisible,
-						canMove: model.canMove,
-						aggregation: model.aggregation
-					};
-
-					this.columns.push(column);
-
 					const newNode = copy(node);
-					newNode.key = column;
+					newNode.column = column;
+					newNode.isVisible = model.class === 'data' || model.class === 'cohort';
 					current.children.push(newNode);
+
+					if (newNode.isVisible) {
+						this.columns.push(column);
+					}
+
 					return newNode;
 				}
 
+				current.column = column;
+				current.isVisible = true;
 				return current;
-			}, this.tree);
+			}, copy(index));
 		};
 
 		setup();
 
 		const toggle = (node, value) => {
-			const { children, key } = node;
-			key.isVisible = value;
+			const { children, column } = node;
+			column.isVisible = value;
 			if (children.length) {
 				children.forEach(n => toggle(n, value));
 			}
@@ -55,6 +60,7 @@ export class ColumnChooserView {
 
 		this.toggle = new Command({
 			source: 'column.chooser',
+			canExecute: node => node.isVisible,
 			execute: node => toggle(node, !this.state(node))
 		});
 
@@ -83,7 +89,7 @@ export class ColumnChooserView {
 			source: 'column.chooser',
 			canExecute: e => {
 				const node = e.dropData;
-				return node && node.key.canMove;
+				return node && node.column.canMove;
 
 			},
 			execute: e => {
@@ -115,6 +121,8 @@ export class ColumnChooserView {
 										},
 										target
 									);
+
+									this.dropEvent.emit();
 								}
 							}
 						}
@@ -128,30 +136,45 @@ export class ColumnChooserView {
 			source: 'column.chooser',
 			canExecute: e => {
 				const node = e.data;
-				return node && node.key.canMove;
+				return node && node.column.canMove;
 			}
 		});
 
 		this.submit = new Command({
 			source: 'column.chooser',
 			execute: () => {
-				const model = this.model;
-				const temp = this.temp;
+				const { model } = this;
 
-				const columnMap = columnService.map(this.model.columnList().line);
-				temp.columns.forEach(column => {
-					const originColumn = columnMap[column.key];
-					if (originColumn) {
-						originColumn.isVisible = column.isVisible;
-						originColumn.aggregation = column.aggregation;
+				const columnMap = columnService.map(model.columnList().line);
+				this.columns.forEach(c => {
+					const column = columnMap[c.key];
+					if (column) {
+						column.isVisible = c.isVisible;
+						column.aggregation = c.aggregation;
 					}
 				});
 
-				model.columnList({
-					index: Array.from(temp.index)
-				}, {
-						source: 'column.chooser.view'
-					});
+				const index = preOrderDFS([this.tree], (node, current, parent) => {
+					if (parent) {
+						const newNode = copy(node);
+						current.children.push(newNode);
+
+						if (node.isVisible) {
+							const { column } = node;
+							const { model } = newNode.key;
+							model.isVisible = column.isVisible;
+							model.aggregation = column.aggregation;
+						}
+
+						return newNode;
+					}
+
+					return current;
+				}, copy(this.tree));
+
+				model.columnList({ index }, {
+					source: 'column.chooser.view'
+				});
 
 				this.submitEvent.emit();
 			}
@@ -159,10 +182,7 @@ export class ColumnChooserView {
 
 		this.cancel = new Command({
 			source: 'column.chooser',
-			execute: () => {
-				this.reset.execute();
-				this.cancelEvent.emit();
-			}
+			execute: () => this.cancelEvent.emit()
 		});
 
 		this.reset = new Command({
@@ -196,12 +216,12 @@ export class ColumnChooserView {
 	}
 
 	state(node) {
-		const { children, key } = node;
+		const { children, column } = node;
 		if (children.length) {
-			return children.some(n => n.key.isVisible);
+			return children.some(n => n.column.isVisible);
 		}
 
-		return key.isVisible !== false;
+		return column.isVisible !== false;
 	}
 
 	stateAll() {

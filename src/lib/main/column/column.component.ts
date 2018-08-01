@@ -16,7 +16,7 @@ export class ColumnComponent implements OnInit, OnDestroy {
 
 	@Input() type: string;
 	@Input() key: string;
-	@Input() class: 'data' | 'control' | 'markup' | 'pivot';
+	@Input() class: 'data' | 'control' | 'markup' | 'pivot' | 'cohort';
 	@Input() title: string;
 	@Input() pin: null | 'left' | 'right';
 	@Input() aggregation: string;
