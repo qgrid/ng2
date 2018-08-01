@@ -31,8 +31,11 @@ export class ColumnChooserView {
 
 				if (parent) {
 					const newNode = copy(node);
-					newNode.column = column;
-					newNode.isVisible = model.class === 'data' || model.class === 'cohort';
+					newNode.value = {
+						column,
+						isVisible: model.class === 'data' || model.class === 'cohort',
+					};
+
 					current.children.push(newNode);
 
 					if (newNode.isVisible) {
@@ -42,8 +45,7 @@ export class ColumnChooserView {
 					return newNode;
 				}
 
-				current.column = column;
-				current.isVisible = true;
+				current.value = { column, isVisible: true };
 				return current;
 			}, copy(index));
 		};
@@ -51,7 +53,8 @@ export class ColumnChooserView {
 		setup();
 
 		const toggle = (node, value) => {
-			const { children, column } = node;
+			const { children } = node;
+			const { column } = node.value;
 			column.isVisible = value;
 			if (children.length) {
 				children.forEach(n => toggle(n, value));
@@ -60,7 +63,7 @@ export class ColumnChooserView {
 
 		this.toggle = new Command({
 			source: 'column.chooser',
-			canExecute: node => node.isVisible,
+			canExecute: node => node.value.isVisible,
 			execute: node => toggle(node, !this.state(node))
 		});
 
@@ -89,7 +92,7 @@ export class ColumnChooserView {
 			source: 'column.chooser',
 			canExecute: e => {
 				const node = e.dropData;
-				return node && node.column.canMove;
+				return node && node.value.column.canMove;
 
 			},
 			execute: e => {
@@ -136,7 +139,7 @@ export class ColumnChooserView {
 			source: 'column.chooser',
 			canExecute: e => {
 				const node = e.data;
-				return node && node.column.canMove;
+				return node && node.value.column.canMove;
 			}
 		});
 
@@ -160,15 +163,17 @@ export class ColumnChooserView {
 						current.children.push(newNode);
 
 						if (node.isVisible) {
-							const { column } = node;
+							const { column } = node.value;
 							const { model } = newNode.key;
 							model.isVisible = column.isVisible;
 							model.aggregation = column.aggregation;
 						}
 
+						newNode.value = null;
 						return newNode;
 					}
 
+					current.value = null;
 					return current;
 				}, copy(this.tree));
 
@@ -216,9 +221,10 @@ export class ColumnChooserView {
 	}
 
 	state(node) {
-		const { children, column } = node;
+		const { children } = node;
+		const { column } = node.value;
 		if (children.length) {
-			return children.some(n => n.column.isVisible);
+			return children.some(n => n.value.column.isVisible);
 		}
 
 		return column.isVisible !== false;

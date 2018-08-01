@@ -27,8 +27,13 @@ export class ExampleDynamicColumnModelComponent {
 		const rows = data.rows.slice();
 		if (side === 'left') {
 			columns.unshift(column);
-		} else {
+		} else if (side === 'right') {
 			columns.push(column);
+		} else {
+			const middlePos = columns.length % 2 === 0
+				? columns.length / 2
+				: Math.floor(columns.length / 2) ;
+			columns.splice(middlePos, 0, column);
 		}
 		rows.forEach(r => r[id] = `value - ${id}`);
 		this.gridModel.data({ columns, rows });
@@ -40,9 +45,10 @@ export class ExampleDynamicColumnModelComponent {
 		for (let i = 0; i < 3; i++) {
 			childColumns.push({
 				type: 'text',
-				key: `child${i}`,
+				key: `${groupId}Child${i}`,
 				path: `${groupId}.child${i}`,
-				title: `child - ${groupId} - ${i}`
+				title: `child - ${groupId} - ${i}`,
+				value: () => `value - ${i}`
 			});
 		}
 		const groupColumn = {
@@ -53,14 +59,9 @@ export class ExampleDynamicColumnModelComponent {
 		};
 
 		const data = this.gridModel.data();
-		const columns = data.columns.slice()
-		const rows = data.rows.slice();
+		const columns = data.columns.slice();
 		columns.push(groupColumn);
-		rows.forEach(r => {
-			r[groupId] = {};
-			childColumns.forEach((c, i) => r[groupId][c.key] = `value - ${i}` );
-		});
-		this.gridModel.data({ columns, rows });
+		this.gridModel.data({ columns });
 	}
 
 	reset() {
