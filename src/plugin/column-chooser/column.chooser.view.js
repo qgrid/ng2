@@ -18,7 +18,6 @@ export class ColumnChooserView {
 		const setup = () => {
 			const { index } = model.columnList();
 
-			this.columns = [];
 			this.tree = preOrderDFS([index], (node, current, parent) => {
 				const { model } = node.key;
 				const column = {
@@ -37,21 +36,26 @@ export class ColumnChooserView {
 					};
 
 					current.children.push(newNode);
-
-					if (newNode.isVisible) {
-						this.columns.push(column);
-					}
-
 					return newNode;
 				}
 
 				current.value = { column, isVisible: true };
 				return current;
 			}, copy(index));
+
+			updateView();
 		};
 
 		let applyFilter = identity;
-		const updateView = () => this.treeView = applyFilter(this.tree);
+		const updateView = () => {
+			this.listView = [];
+			this.treeView = applyFilter(this.tree);
+			preOrderDFS([this.treeView], n => {
+				if (n.value.isVisible) {
+					this.listView.push(n.value.column);
+				}
+			});
+		}
 
 		this.search = value => {
 			const search = ('' + value).toLowerCase();
@@ -59,12 +63,11 @@ export class ColumnChooserView {
 				search
 					? node => filter(node, n => n.value.column.title.toLowerCase().indexOf(search) >= 0)
 					: identity;
-					
+
 			updateView();
 		};
 
 		setup();
-		updateView();
 
 		const toggle = (node, value) => {
 			const { children } = node;
@@ -85,7 +88,7 @@ export class ColumnChooserView {
 			source: 'column.chooser',
 			execute: () => {
 				const state = !this.stateAll();
-				for (let column of this.columns) {
+				for (let column of this.listView) {
 					column.isVisible = state;
 				}
 			}
@@ -94,7 +97,7 @@ export class ColumnChooserView {
 		this.defaults = new Command({
 			source: 'column.chooser',
 			execute: () => {
-				for (let column of this.columns) {
+				for (let column of this.listView) {
 					column.isVisible = column.isDefault !== false;
 				}
 			}
@@ -162,22 +165,13 @@ export class ColumnChooserView {
 			execute: () => {
 				const { model } = this;
 
-				const columnMap = columnService.map(model.columnList().line);
-				this.columns.forEach(c => {
-					const column = columnMap[c.key];
-					if (column) {
-						column.isVisible = c.isVisible;
-						column.aggregation = c.aggregation;
-					}
-				});
-
 				const index = preOrderDFS([this.tree], (node, current, parent) => {
 					if (parent) {
 						const newNode = copy(node);
 						current.children.push(newNode);
 
-						if (node.isVisible) {
-							const { column } = node.value;
+						const { isVisible, column } = node.value;
+						if (isVisible) {
 							const { model } = newNode.key;
 							model.isVisible = column.isVisible;
 							model.aggregation = column.aggregation;
@@ -213,7 +207,7 @@ export class ColumnChooserView {
 			.getOwnPropertyNames(Aggregation)
 			.filter(key => isFunction(Aggregation[key]));
 
-		model.dataChanged.watch(e => {
+		model.dataChanged.on(e => {
 			if (e.tag.source === 'column.chooser') {
 				return;
 			}
@@ -223,7 +217,7 @@ export class ColumnChooserView {
 			}
 		});
 
-		model.columnListChanged.watch(e => {
+		model.columnListChanged.on(e => {
 			if (e.tag.source === 'column.chooser') {
 				return;
 			}
@@ -245,15 +239,15 @@ export class ColumnChooserView {
 	}
 
 	stateAll() {
-		return this.columns.every(c => c.isVisible);
+		return this.listView.every(c => c.isVisible);
 	}
 
 	stateDefault() {
-		return this.columns.every(c => (c.isDefault !== false && c.isVisible !== false) || (c.isDefault === false && c.isVisible === false));
+		return this.listView.every(c => (c.isDefault !== false && c.isVisible !== false) || (c.isDefault === false && c.isVisible === false));
 	}
 
 	isIndeterminate() {
-		return !this.stateAll() && this.columns.some(c => c.isVisible);
+		return !this.stateAll() && this.listView.some(c => c.isVisible);
 	}
 
 	get canAggregate() {
