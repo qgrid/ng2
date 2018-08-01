@@ -1,7 +1,7 @@
 import { bend, copy } from '../node/node.service';
 import { preOrderDFS } from '../node/node.service';
 
-export { sortIndexFactory, sort };
+export { sortIndexFactory, merge };
 
 function sortIndexFactory(model) {
 	const templateIndex = model.columnList().columns.map(c => c.key);
@@ -90,10 +90,11 @@ function equals(xs, ys) {
 			return false;
 		}
 	}
+
 	return true;
 }
 
-function sort(newTree, oldTree, buildIndex) {
+function merge(newTree, oldTree, buildIndex) {
 	const current = running(newTree, buildIndex);
 	const screen = former(oldTree, current);
 	const insertNear = insertFactory(current, screen);
@@ -126,12 +127,12 @@ function sort(newTree, oldTree, buildIndex) {
 function running(tree, buildIndex) {
 	const result = {
 		line: [],
-		set: new Set()
+		map: new Map()
 	};
 
 	preOrderDFS([tree], node => {
 		result.line.push(node);
-		result.set.add(node.key.model.key);
+		result.map.set(node.key.model.key, node.key);
 
 		// As we use pre order direction we can manipulate with children without affecting on algorithm.
 		// Below we sort columns in appropriate order.
@@ -159,8 +160,11 @@ function former(tree, current) {
 	preOrderDFS([tree], node => {
 		// Filter out nodes if they were deleted from newTree.
 		const { key } = node.key.model;
-		if (current.set.has(key)) {
-			result.line.push(copy(node));
+		const view = current.map.get(key);
+		if (view) {
+			const newNode = copy(node);
+			newNode.key = view;
+			result.line.push(newNode);
 			result.set.add(key);
 		}
 	});

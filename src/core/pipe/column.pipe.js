@@ -1,11 +1,10 @@
 import { Guard } from '../infrastructure/guard';
 import { noop } from '../utility/kit';
-import { guid } from '../services/guid';
 import { columnFactory } from '../column/column.factory';
 import { generateFactory } from '../column-list/column.list.generate';
 import { columnIndexPipe } from './column.index.pipe';
 import { Node } from '../node/node';
-import { sortIndexFactory, sort } from '../column-list/column.list.sort';
+import { sortIndexFactory, merge } from '../column-list/column.list.sort';
 
 export function columnPipe(memo, context, next) {
 	Guard.hasProperty(memo, 'pivot');
@@ -69,7 +68,7 @@ export function columnPipe(memo, context, next) {
 
 	const { columnList } = model;
 	const buildIndex = sortIndexFactory(model);
-	const tree = sort(root, columnList().index, buildIndex);
+	const tree = merge(root, columnList().index, buildIndex);
 
 	/*
 	 * Add special column type
