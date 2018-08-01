@@ -84,9 +84,9 @@ export function columnPipe(memo, context, next) {
 		columnList({
 			index
 		}, {
-			behavior: 'core',
-			source: 'column.pipe'
-		});
+				behavior: 'core',
+				source: 'column.pipe'
+			});
 
 		next(memo);
 	});
@@ -227,7 +227,15 @@ function padColumnFactory(model) {
 	return node => {
 		const padColumn = createColumn('pad');
 		padColumn.model.key = '$pad';
-		node.children.push(new Node(padColumn, node.level + 1));
+
+		const index = node.children.findIndex(n => n.key.model.pin === 'right');
+		const padNode = new Node(padColumn, node.level + 1);
+		if (index >= 0) {
+			node.children.splice(index, 0, padNode);
+		} else {
+			node.children.push(padNode);
+		}
+
 		return padColumn;
 	};
 }
