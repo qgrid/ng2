@@ -68,8 +68,8 @@ export class RuleComponent implements OnChanges {
 		const rules = Array.from(validation().rules);
 
 		Object.keys(changes).forEach(key => {
-			if (ruleBindings.includes(key) && changes[ key ].firstChange) {
-				rule[ key ] = this[ key ];
+			if (ruleBindings.includes(key) && changes[key].firstChange) {
+				rule[key] = this[key];
 			}
 		});
 		rules.push(rule);

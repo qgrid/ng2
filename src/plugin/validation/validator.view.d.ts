@@ -1,8 +1,8 @@
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
-import { Validator } from 'ng2-qgrid/core/validation/validation.service';
+import { Model } from '../../core/infrastructure/model';
+import { Validator } from '../../core/validation/validation.service';
 
 export declare class ValidatorView {
-	constructor(model: Model, context: { type: string });
+	constructor(model: Model, context: any);
 
 	context: any;
 	model: { [ key: string ]: any };
