@@ -1,22 +1,23 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnDestroy, SkipSelf, Optional, OnInit, AfterViewInit } from '@angular/core';
 import { isUndefined } from 'ng2-qgrid/core/utility/kit';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { TemplateHostService } from '../../template/template-host.service';
 import { ColumnListService } from '../../main/column/column-list.service';
-import { ColumnService } from './column.service';
+import { guid } from 'ng2-qgrid/core/services/guid';
 
 @Component({
 	selector: 'q-grid-column',
 	template: '<ng-content></ng-content>',
-	providers: [TemplateHostService, ColumnService],
+	providers: [TemplateHostService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ColumnComponent implements OnInit, OnDestroy {
-	model: ColumnModel;
+export class ColumnComponent implements OnInit, AfterViewInit, OnDestroy {
+	private model: ColumnModel;
+	private columns: ColumnModel[] = [];
 
 	@Input() type: string;
 	@Input() key: string;
-	@Input() class: 'data' | 'control' | 'markup' | 'pivot';
+	@Input() class: 'data' | 'control' | 'markup' | 'pivot' | 'cohort';
 	@Input() title: string;
 	@Input() pin: null | 'left' | 'right';
 	@Input() aggregation: string;
@@ -65,38 +66,54 @@ export class ColumnComponent implements OnInit, OnDestroy {
 	constructor(
 		private columnList: ColumnListService,
 		private templateHost: TemplateHostService,
-		private columnService: ColumnService
+		@SkipSelf() @Optional() private parent: ColumnComponent
 	) { }
 
 	ngOnInit() {
 		const withKey = !isUndefined(this.key);
 		const withType = !isUndefined(this.type);
-		if (!withKey) {
-			this.key = this.columnList.generateKey(this);
-		}
-
-		const column = this.columnList.extract(this.key, this.type);
 
 		this.templateHost.key = source => {
 			const parts = [source, 'cell'];
 
 			if (withType) {
-				parts.push(column.type);
+				parts.push(this.type);
 			}
 
 			if (withKey) {
-				parts.push(`the-${column.key}`);
+				parts.push(`the-${this.key}`);
 			}
 
 			return parts.join('-') + '.tpl.html';
 		};
 
+	}
+	ngAfterViewInit() {
+		let withKey = !isUndefined(this.key);
+		if (this.columns.length > 0) {
+			this.type = 'cohort';
+			if (!withKey) {
+				this.key = `$cohort-${this.title || guid()}`;
+			}
+
+			withKey = true;
+		}
+
+		if (!withKey) {
+			this.key = this.columnList.generateKey(this);
+		}
+
+		const column = this.columnList.extract(this.key, this.type);
+		column.children.push(...this.columns);
+
 		this.columnList.copy(column, this);
 
-		this.columnService.column = column;
-		const { parent } = this.columnService;
-		if (withKey || parent.parent) {
-			this.columnList.add(column, parent.column);
+		if (withKey) {
+			if (this.parent) {
+				this.parent.columns.push(column);
+			} else {
+				this.columnList.add(column);
+			}
 		} else {
 			const settings = Object.keys(this)
 				.filter(

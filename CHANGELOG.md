@@ -197,8 +197,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [5.1.2] - 2018-01-03
 ### Added
-* Possibility to change row size `<q-grid-row canResize="true"`.
-* Possibility to drag and drop rows `<q-grid-row canMove="true"`.
+* Possibility to change row size `<q-grid-row [canResize]="true"`.
+* Possibility to drag and drop rows `<q-grid-row [canMove]="true"`.
 * Style queue to the style Api, accessible through style model cells/rows props.
 * Rows property to the layout property.
 
