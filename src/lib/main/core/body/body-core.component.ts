@@ -9,7 +9,6 @@ import { NgComponent } from '../../../infrastructure/component/ng.component';
 import { RootService } from '../../../infrastructure/component/root.service';
 import { ViewCoreService } from '../view/view-core.service';
 import { TableCoreService } from '../table/table-core.service';
-import { ScrollService } from 'ng2-qgrid/core/scroll/scroll.service';
 
 @Component({
 	selector: 'tbody[q-grid-core-body]',
