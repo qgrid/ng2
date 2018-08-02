@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, OnDestroy, AfterViewInit, SkipSelf, Optional } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnDestroy, SkipSelf, Optional, OnInit, AfterViewInit } from '@angular/core';
 import { isUndefined } from 'ng2-qgrid/core/utility/kit';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { TemplateHostService } from '../../template/template-host.service';
@@ -11,7 +11,7 @@ import { guid } from 'ng2-qgrid/core/services/guid';
 	providers: [TemplateHostService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ColumnComponent implements AfterViewInit, OnDestroy {
+export class ColumnComponent implements OnInit, AfterViewInit, OnDestroy {
 	private model: ColumnModel;
 	private columns: ColumnModel[] = [];
 
@@ -69,16 +69,33 @@ export class ColumnComponent implements AfterViewInit, OnDestroy {
 		@SkipSelf() @Optional() private parent: ColumnComponent
 	) { }
 
+	ngOnInit() {
+		const withKey = !isUndefined(this.key);
+		const withType = !isUndefined(this.type);
+
+		this.templateHost.key = source => {
+			const parts = [source, 'cell'];
+
+			if (withType) {
+				parts.push(this.type);
+			}
+
+			if (withKey) {
+				parts.push(`the-${this.key}`);
+			}
+
+			return parts.join('-') + '.tpl.html';
+		};
+
+	}
 	ngAfterViewInit() {
 		let withKey = !isUndefined(this.key);
-		let withType = !isUndefined(this.type);
 		if (this.columns.length > 0) {
 			this.type = 'cohort';
 			if (!withKey) {
 				this.key = `$cohort-${this.title || guid()}`;
 			}
 
-			withType = true;
 			withKey = true;
 		}
 
@@ -88,20 +105,6 @@ export class ColumnComponent implements AfterViewInit, OnDestroy {
 
 		const column = this.columnList.extract(this.key, this.type);
 		column.children.push(...this.columns);
-
-		this.templateHost.key = source => {
-			const parts = [source, 'cell'];
-
-			if (withType) {
-				parts.push(column.type);
-			}
-
-			if (withKey) {
-				parts.push(`the-${column.key}`);
-			}
-
-			return parts.join('-') + '.tpl.html';
-		};
 
 		this.columnList.copy(column, this);
 
