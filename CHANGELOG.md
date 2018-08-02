@@ -6,12 +6,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 * Auto-complete cell editor.
 * Row edit form.
+* Batch edit support.
 * Infinite scrolling.
 * Validation framework.
 * Copy/paste selection to excel.
 * Live data plugin.
 * Float Row Navigation.
 
+## [6.2.0]
+### Fixed
+- Column filter `blanks` is removed when reset clicked.
+
+### Added
+- Column hierarchy and dnd support in the column chooser.
+- Cohort column dnd support.
+
+### BREAKING
+- `model.columnList().index` now contains tree of columns, not a column key list.
+  
 ## [6.1.5] - 2018-07-03
 ### Fixed
 - Row highlight in details modes.
