@@ -12,8 +12,8 @@ export class ColumnListService {
 	constructor(private root: RootService) {
 	}
 
-	add(column: ColumnModel, parent?: ColumnModel) {
-		this.ctrl.add(column, parent);
+	add(column: ColumnModel) {
+		this.ctrl.add(column);
 	}
 
 	copy(target, source) {
