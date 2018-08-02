@@ -1,20 +1,18 @@
-import { Component, Input, ChangeDetectionStrategy, OnDestroy, SkipSelf, Optional, OnInit, AfterViewInit } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnDestroy, SkipSelf, Optional, OnInit, ElementRef } from '@angular/core';
 import { isUndefined } from 'ng2-qgrid/core/utility/kit';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { TemplateHostService } from '../../template/template-host.service';
 import { ColumnListService } from '../../main/column/column-list.service';
 import { guid } from 'ng2-qgrid/core/services/guid';
+import { ColumnService } from './column.service';
 
 @Component({
 	selector: 'q-grid-column',
 	template: '<ng-content></ng-content>',
-	providers: [TemplateHostService],
+	providers: [TemplateHostService, ColumnService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ColumnComponent implements OnInit, AfterViewInit, OnDestroy {
-	private model: ColumnModel;
-	private columns: ColumnModel[] = [];
-
+export class ColumnComponent implements OnInit, OnDestroy {
 	@Input() type: string;
 	@Input() key: string;
 	@Input() class: 'data' | 'control' | 'markup' | 'pivot' | 'cohort';
@@ -66,12 +64,34 @@ export class ColumnComponent implements OnInit, AfterViewInit, OnDestroy {
 	constructor(
 		private columnList: ColumnListService,
 		private templateHost: TemplateHostService,
-		@SkipSelf() @Optional() private parent: ColumnComponent
+		@SkipSelf() @Optional() private parent: ColumnService,
+		private service: ColumnService,
+		private element: ElementRef
 	) { }
 
 	ngOnInit() {
-		const withKey = !isUndefined(this.key);
-		const withType = !isUndefined(this.type);
+		let withKey = !isUndefined(this.key);
+		let withType = !isUndefined(this.type);
+
+		// We want to update model when ngOntInit is triggered and not in afterViewInit
+		// so we apply dirty hack to understand if column is cohort or not.
+		const element = this.element.nativeElement as HTMLElement;
+		if (element.children.length && element.children.item(0).tagName === 'Q-GRID-COLUMN') {
+			this.type = 'cohort';
+			if (!withKey) {
+				this.key = `$cohort-${this.title || guid()}`;
+			}
+
+			withKey = true;
+			withType = true;
+		}
+
+		if (!withKey) {
+			this.key = this.columnList.generateKey(this);
+		}
+
+		const column = this.columnList.extract(this.key, this.type);
+		this.columnList.copy(column, this);
 
 		this.templateHost.key = source => {
 			const parts = [source, 'cell'];
@@ -87,53 +107,31 @@ export class ColumnComponent implements OnInit, AfterViewInit, OnDestroy {
 			return parts.join('-') + '.tpl.html';
 		};
 
-	}
-	ngAfterViewInit() {
-		let withKey = !isUndefined(this.key);
-		if (this.columns.length > 0) {
-			this.type = 'cohort';
-			if (!withKey) {
-				this.key = `$cohort-${this.title || guid()}`;
-			}
-
-			withKey = true;
-		}
-
-		if (!withKey) {
-			this.key = this.columnList.generateKey(this);
-		}
-
-		const column = this.columnList.extract(this.key, this.type);
-		column.children.push(...this.columns);
-
-		this.columnList.copy(column, this);
-
 		if (withKey) {
 			if (this.parent) {
-				this.parent.columns.push(column);
+				this.parent.column.children.push(column);
 			} else {
 				this.columnList.add(column);
 			}
+			this.service.column = column;
 		} else {
-			const settings = Object.keys(this)
-				.filter(
-					key => !isUndefined(this[key]) && column.hasOwnProperty(key)
-				)
-				.reduce((memo, key) => {
-					memo[key] = column[key];
-					return memo;
-				}, {});
+			const settings =
+				Object
+					.keys(this)
+					.filter(key => !isUndefined(this[key]) && column.hasOwnProperty(key))
+					.reduce((memo, key) => {
+						memo[key] = column[key];
+						return memo;
+					}, {});
 
 			this.columnList.register(settings);
 		}
-
-		this.model = column;
 	}
 
 	ngOnDestroy() {
-		const { model } = this;
-		if (model && model.source === 'template') {
-			this.columnList.delete(model.key);
+		const { column } = this.service;
+		if (column && column.source === 'template') {
+			this.columnList.delete(column.key);
 		}
 	}
 }
