@@ -1,4 +1,4 @@
-import { NodeState } from './state';
+import { NodeState } from './node.state';
 
 export declare class Node {
 	constructor(key: string | any, level: number, type?: string);
