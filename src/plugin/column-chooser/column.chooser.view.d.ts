@@ -9,8 +9,10 @@ export declare class ColumnChooserView {
     drag: Command<{ dragData: string }>;
     drop: Command<{ dragData: string, dropData: string }>;
 
-    tree: Node;
+    treeView: Node;
     cancelEvent: Event;
     submitEvent: Event;
     dropEvent: Event;
+
+    search(value: string);
 }

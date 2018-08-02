@@ -15,7 +15,7 @@ export function orderFactory(model) {
 			let index = 0;
 			const indexMap = {};
 			preOrderDFS(model.columnList().index.children, node => {
-				const { key } = node.key.model.key;
+				const { key } = node.key.model;
 				indexMap[key] = index++;
 			});
 
