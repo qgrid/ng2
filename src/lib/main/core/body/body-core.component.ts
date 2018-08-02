@@ -61,7 +61,7 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 
 		windowListener.on('resize', () => ctrl.scrollService.resize());
 		windowListener.on('mouseup', (e) => {
-			const isActive = this.model.focus().isActive;
+			const isActive = model.focus().isActive;
 			if (isActive) {
 				ctrl.onMouseUp(e);
 			}
