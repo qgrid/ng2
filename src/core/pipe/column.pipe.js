@@ -145,18 +145,20 @@ function groupColumnFactory(model, nodes) {
 			}
 			case 'rowspan':
 			case 'flat': {
-				return node =>
-					by.forEach(key => {
-						const groupColumn = createColumn('group');
-						groupColumn.model.source = 'generation';
-						groupColumn.model.key = `$group-${key}`;
-						groupColumn.model.title = key;
-						groupColumn.model.by = key;
+				return node => {
+					const nodes = by
+						.map(key => {
+							const groupColumn = createColumn('group');
+							groupColumn.model.source = 'generation';
+							groupColumn.model.key = `$group-${key}`;
+							groupColumn.model.title = key;
+							groupColumn.model.by = key;
+							return new Node(groupColumn, node.level + 1);
+						})
+						.filter(n => n.key.model.isVisible);
 
-						if (groupColumn.model.isVisible) {
-							node.children.unshift(new Node(groupColumn, node.level + 1));
-						}
-					});
+					node.children.splice(0, 0, ...nodes);
+				}
 			}
 		}
 	}

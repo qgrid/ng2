@@ -1,18 +1,19 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnDestroy, AfterViewInit, SkipSelf, Optional } from '@angular/core';
 import { isUndefined } from 'ng2-qgrid/core/utility/kit';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { TemplateHostService } from '../../template/template-host.service';
 import { ColumnListService } from '../../main/column/column-list.service';
-import { ColumnService } from './column.service';
+import { guid } from 'ng2-qgrid/core/services/guid';
 
 @Component({
 	selector: 'q-grid-column',
 	template: '<ng-content></ng-content>',
-	providers: [TemplateHostService, ColumnService],
+	providers: [TemplateHostService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ColumnComponent implements OnInit, OnDestroy {
-	model: ColumnModel;
+export class ColumnComponent implements AfterViewInit, OnDestroy {
+	private model: ColumnModel;
+	private columns: ColumnModel[] = [];
 
 	@Input() type: string;
 	@Input() key: string;
@@ -65,17 +66,28 @@ export class ColumnComponent implements OnInit, OnDestroy {
 	constructor(
 		private columnList: ColumnListService,
 		private templateHost: TemplateHostService,
-		private columnService: ColumnService
+		@SkipSelf() @Optional() private parent: ColumnComponent
 	) { }
 
-	ngOnInit() {
-		const withKey = !isUndefined(this.key);
-		const withType = !isUndefined(this.type);
+	ngAfterViewInit() {
+		let withKey = !isUndefined(this.key);
+		let withType = !isUndefined(this.type);
+		if (this.columns.length > 0) {
+			this.type = 'cohort';
+			if (!withKey) {
+				this.key = `$cohort-${this.title || guid()}`;
+			}
+
+			withType = true;
+			withKey = true;
+		}
+
 		if (!withKey) {
 			this.key = this.columnList.generateKey(this);
 		}
 
 		const column = this.columnList.extract(this.key, this.type);
+		column.children.push(...this.columns);
 
 		this.templateHost.key = source => {
 			const parts = [source, 'cell'];
@@ -93,10 +105,12 @@ export class ColumnComponent implements OnInit, OnDestroy {
 
 		this.columnList.copy(column, this);
 
-		this.columnService.column = column;
-		const { parent } = this.columnService;
-		if (withKey || parent.parent) {
-			this.columnList.add(column, parent.column);
+		if (withKey) {
+			if (this.parent) {
+				this.parent.columns.push(column);
+			} else {
+				this.columnList.add(column);
+			}
 		} else {
 			const settings = Object.keys(this)
 				.filter(
