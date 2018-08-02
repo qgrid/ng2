@@ -35,7 +35,7 @@ export declare interface ScrollModel {
 	velocity?: number;
 
 	/**
-	 * Defines the distance from borders where scrolling should be started.
+	 * Defines the distance from borders where scrolling should be initiated.
 	 */
 	offset?: number;
 

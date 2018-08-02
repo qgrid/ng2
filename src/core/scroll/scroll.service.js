@@ -1,9 +1,6 @@
-import { EventListener } from '../infrastructure/event.listener';
-import { EventManager } from '../infrastructure/event.manager';
 import { AppError } from '../infrastructure/error';
 import { jobLine } from '../services/job.line';
 import { PathService } from '../path/path.service';
-import { TableCommandManager } from '../command/table.command.manager';
 
 export class ScrollService {
     constructor(model, table, bag, view) {
@@ -66,9 +63,9 @@ export class ScrollService {
     }
 
     doScroll(direction) {
-        const scroll = this.model.scroll;
+        const { scroll } = this.model;
         const scrollState = scroll();
-        const velocity = scrollState.velocity;
+        const { velocity }  = scrollState;
         const scrolledToEnd = () => this.isScrolledToEnd(direction);
 
         return () => setInterval(() => {
@@ -150,7 +147,7 @@ export class ScrollService {
     }
 
     resize() {
-        const view = this.table.view;
+        const { view } = this.table;
 
         this.body = view.markup.body;
         this.rect = view.rect(this.body);
@@ -168,7 +165,7 @@ export class ScrollService {
     }
 
     navigate(cell) {
-		const focus = this.view.nav.focus;
+		const { focus } = this.view.nav;
 		if (focus.canExecute(cell)) {
 			focus.execute(cell);
 		}
