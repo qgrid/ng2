@@ -11,12 +11,12 @@
 		<q-grid-rule for="cell"
 		             key="name"
 		             required
-		             lengthBetween="[3, 40]">
+		             [lengthBetween]="[3, 40]">
 		</q-grid-rule>
 		<q-grid-rule for="cell"
 		             key="phase"
 		             required
-		             oneOf="['Gas', 'Solid']">
+		             [oneOf]="['Gas', 'Solid']">
 		</q-grid-rule>
 		<q-grid-rule for="cell"
 		             key="summary"
@@ -30,12 +30,17 @@
 		             lengthEqual="1">
 		</q-grid-rule>
 		<q-grid-rule for="cell"
+		             key="radius"
+		             required
+		             positiveInteger>
+		</q-grid-rule>
+		<q-grid-rule for="cell"
 		             key="mass"
 		             positiveDecimal>
 		</q-grid-rule>
 		<q-grid-rule for="cell"
-		             key="shells"
-		             listOf="['positiveInteger']">
+		             key="source"
+		             [pattern]="['^http']">
 		</q-grid-rule>
 	</q-grid-validation>
 

@@ -14,6 +14,12 @@
                        [value]="$view.edit.cell.value | qGridTime: 'hh:mm'"
                        (change)="$view.edit.cell.value = time($view.edit.cell.value, input.value)" />
             </mat-form-field>
+	        <q-grid-validator
+		        class="q-grid-validator"
+		        [key]="$cell.column.key"
+		        [type]="$cell.column.type"
+		        [value]="$view.edit.cell.value">
+	        </q-grid-validator>
         </ng-template>
     </q-grid-cell-editor>
 </ng-template>
