@@ -7,7 +7,6 @@ export class ValidatorView {
 		this.context = context;
 
 		this.oldErrors = [];
-		console.log(this.key);
 		if (hasRules(this.rules, this.key)) {
 			this.validator = createValidator(this.rules, this.key);
 		}

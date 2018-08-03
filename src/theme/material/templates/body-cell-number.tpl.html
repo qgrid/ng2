@@ -1,10 +1,4 @@
 <ng-template key="body-cell-number.tpl.html"
              let-$cell>
 	<span>{{$cell.label | number: $cell.column.format}}</span>
-	<q-grid-validator *ngIf="$view?.edit"
-	                  class="q-grid-validator"
-	                  [key]="$cell.column.key"
-	                  [type]="$cell.column.type"
-	                  [value]="$view.edit.cell.value">
-	</q-grid-validator>
 </ng-template>

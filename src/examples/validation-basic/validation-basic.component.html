@@ -5,42 +5,37 @@
 	</q-grid-columns>
 	<q-grid-validation>
 		<q-grid-rule for="cell"
-		             key="name.first"
-		             required
-		             minLength="3"
-		             maxLength="40">
+		             key="number"
+		             required>
 		</q-grid-rule>
 		<q-grid-rule for="cell"
-		             key="name.last"
+		             key="name"
 		             required
 		             lengthBetween="[3, 40]">
 		</q-grid-rule>
 		<q-grid-rule for="cell"
-		             key="gender"
+		             key="phase"
 		             required
-		             oneOf="['male', 'female']">
+		             oneOf="['Gas', 'Solid']">
 		</q-grid-rule>
 		<q-grid-rule for="cell"
-		             key="contact.address.street"
+		             key="summary"
 		             required
 		             minLength="5">
 		</q-grid-rule>
 		<q-grid-rule for="cell"
-		             key="contact.address.zip"
+		             key="period"
 		             required
-		             positiveInteger>
+		             positiveInteger
+		             lengthEqual="1">
 		</q-grid-rule>
 		<q-grid-rule for="cell"
-		             key="contact.address.state"
-		             lengthEqual="2">
-		</q-grid-rule>
-		<q-grid-rule for="cell"
-		             key="contact.region"
+		             key="mass"
 		             positiveDecimal>
 		</q-grid-rule>
 		<q-grid-rule for="cell"
-		             key="contact.email"
-		             listOf="['email']">
+		             key="shells"
+		             listOf="['positiveInteger']">
 		</q-grid-rule>
 	</q-grid-validation>
 
