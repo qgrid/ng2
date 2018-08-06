@@ -35,7 +35,7 @@ import { ThemeService } from './template/theme.service';
 		TemplateModule
 	],
 	providers: [
-		DatePipe, 
+		DatePipe,
 		DecimalPipe,
 		CurrencyPipe,
 		ThemeService

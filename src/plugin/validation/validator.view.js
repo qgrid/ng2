@@ -1,5 +1,5 @@
-import {isString, isEqual} from '@grid/core/utility/kit';
-import * as validationService from '@grid/core/validation/validation.service';
+import { isString, isEqual } from '../../core/utility/kit';
+import { hasRules, createValidator } from '../../core/validation/validation.service';
 
 export class ValidatorView {
 	constructor(model, context) {
@@ -7,20 +7,20 @@ export class ValidatorView {
 		this.context = context;
 
 		this.oldErrors = [];
-		if (validationService.hasRules(this.rules, this.context.key)) {
-			this.validator = validationService.createValidator(this.rules, this.context.key);
+		if (hasRules(this.rules, this.key)) {
+			this.validator = createValidator(this.rules, this.key);
 		}
 	}
 
 	get errors() {
 		if (this.validator) {
 			const target = {
-				[this.context.key]: this.context.value
+				[this.key]: this.value
 			};
 
 			const isValid = this.validator.validate(target);
 			if (!isValid) {
-				const newError = this.validator.getErrors()[this.context.key];
+				const newError = this.validator.getErrors()[this.key];
 				const newErrors = isString(newError) ? [newError] : newError;
 				if (!isEqual(newErrors, this.oldErrors)) {
 					this.oldErrors = newErrors;
@@ -43,5 +43,9 @@ export class ValidatorView {
 
 	get value() {
 		return this.context.value;
+	}
+
+	get key() {
+		return this.context.key;
 	}
 }
