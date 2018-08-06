@@ -226,6 +226,10 @@ export class BodyCtrl {
 		}
 	}
 
+	resize() {
+		this.scrollService.resize();
+	}
+
 	get selection() {
 		return this.model.selection();
 	}
