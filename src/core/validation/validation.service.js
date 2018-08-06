@@ -22,9 +22,6 @@ function toLIVR(rules, key) {
 }
 
 export function hasRules(rules, key) {
-	if (!key) {
-		return;
-	}
 	return toLIVR(rules, key).hasRules;
 }
 

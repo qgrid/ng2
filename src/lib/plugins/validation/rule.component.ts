@@ -2,10 +2,6 @@ import { Component, ContentChild, Input, OnChanges, SimpleChanges, TemplateRef }
 import { PluginService } from '../plugin.service';
 import { TemplateHostService } from '../../template/template-host.service';
 
-const ruleBindings = [ 'required', 'not_empty_list', 'any_object', 'eq', 'string', 'length_between', 'length_equal', 'min_length',
-	'max_length', 'one_of', 'like', 'integer', 'positive_integer', 'decimal', 'max_number', 'min_number', 'email', 'url', 'iso_date',
-	'equal_to_field', 'list_of' ];
-
 @Component({
 	selector: 'q-grid-rule',
 	template: '',
@@ -68,7 +64,7 @@ export class RuleComponent implements OnChanges {
 		const rules = Array.from(validation().rules);
 
 		Object.keys(changes).forEach(key => {
-			if (ruleBindings.includes(key) && changes[key].firstChange) {
+			if (!['for', 'key'].includes(key) && changes[key].firstChange) {
 				rule[key] = this[key];
 			}
 		});

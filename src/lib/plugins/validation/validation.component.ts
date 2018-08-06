@@ -11,9 +11,4 @@ export class ValidationComponent {
 
 	constructor(private plugin: PluginService) {
 	}
-
-	get resource() {
-		const validation = this.plugin.model.validation();
-		return validation['resource'];
-	}
 }
