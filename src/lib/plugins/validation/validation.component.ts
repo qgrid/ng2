@@ -4,7 +4,7 @@ import { PluginService } from '../plugin.service';
 @Component({
 	selector: 'q-grid-validation',
 	template: '',
-	providers: [ PluginService ]
+	providers: [PluginService]
 })
 export class ValidationComponent {
 	@Input() type: string;

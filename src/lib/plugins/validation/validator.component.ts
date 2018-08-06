@@ -6,13 +6,13 @@ import { TemplateHostService } from '../../template/template-host.service';
 @Component({
 	selector: 'q-grid-validator',
 	templateUrl: './validator.component.html',
-	providers: [ TemplateHostService, PluginService ]
+	providers: [TemplateHostService, PluginService]
 })
 export class ValidatorComponent implements OnInit {
 	@Input() value: string;
 	@Input() key: string;
 	@Input() type: string;
-	context = {};
+	context: { $implicit: ValidatorView };
 
 	constructor(
 		private plugin: PluginService,

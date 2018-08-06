@@ -29,13 +29,12 @@
 				       #chipInput
 				       placeholder="New value"
 				       q-grid-focus
-				       [matChipInputFor]="chipList"/>
+				       [matChipInputFor]="chipList" />
 			</mat-form-field>
-			<q-grid-validator
-				class="q-grid-validator"
-				[key]="$cell.column.key"
-				[type]="$cell.column.type"
-				[value]="$view.edit.cell.value">
+			<q-grid-validator class="q-grid-validator"
+			                  [key]="$cell.column.key"
+			                  [type]="$cell.column.type"
+			                  [value]="$view.edit.cell.value">
 			</q-grid-validator>
 		</ng-template>
 	</q-grid-cell-editor>

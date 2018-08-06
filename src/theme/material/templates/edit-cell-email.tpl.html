@@ -13,21 +13,20 @@
 							<input matInput
 							       type="text"
 							       [(ngModel)]="$view.edit.cell.label"
-							       placeholder="Label"/>
+							       placeholder="Label" />
 						</mat-form-field>
 						<mat-form-field>
 							<input q-grid-focus
 							       matInput
 							       type="email"
 							       [(ngModel)]="$view.edit.cell.value"
-							       placeholder="Email"/>
+							       placeholder="Email" />
 						</mat-form-field>
 					</div>
-					<q-grid-validator
-						class="q-grid-validator"
-						[key]="$cell.column.key"
-						[type]="$cell.column.type"
-						[value]="$view.edit.cell.value">
+					<q-grid-validator class="q-grid-validator"
+					                  [key]="$cell.column.key"
+					                  [type]="$cell.column.type"
+					                  [value]="$view.edit.cell.value">
 					</q-grid-validator>
 				</ng-template>
 			</q-grid-tab-trap>

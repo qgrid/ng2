@@ -5,7 +5,7 @@ import { TemplateHostService } from '../../template/template-host.service';
 @Component({
 	selector: 'q-grid-rule',
 	template: '',
-	providers: [ TemplateHostService, PluginService ]
+	providers: [TemplateHostService, PluginService]
 })
 export class RuleComponent implements OnChanges {
 	@Input() for: string;
