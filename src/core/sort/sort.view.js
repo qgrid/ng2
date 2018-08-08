@@ -62,7 +62,7 @@ export class SortView {
 
 	onInit() {
 		const model = this.model;
-		const sort = model.sort;
+		const { sort } = model;
 
 		model.columnListChanged.watch(e => {
 			if (e.hasChanges('index')) {

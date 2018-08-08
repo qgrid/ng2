@@ -21,16 +21,18 @@ th {
 }
 
 td {
-    >.q-grid-resize-handler {
-        height: 2px;
-        width: 100%;
-        bottom: 0;
-        left: 0;
-        width: 100vh;
-        position: absolute;
-        cursor: row-resize;
-        z-index: 2;
-        pointer-events: all;
+    >.q-grid-can-drag {
+        >.q-grid-resize-handler {
+            height: 2px;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            width: 100vh;
+            position: absolute;
+            cursor: row-resize;
+            z-index: 2;
+            pointer-events: all;
+        }
     }
 }
 

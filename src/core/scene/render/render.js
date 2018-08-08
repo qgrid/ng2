@@ -13,7 +13,7 @@ export class Renderer {
 		const dataRow = new DataRow(model);
 		const pivotRow = new CacheStrategy(model, new PivotRow(model, dataRow));
 		const nodeRow = new NodeRow(model, pivotRow);
-		const nestNodeRow = new CacheStrategy(model, new NodeRow(model, nodeRow));
+		const nestNodeRow = new CacheStrategy(model, nodeRow);
 		const subheadNodeRow = new CacheStrategy(model, new SubheadNodeRow(nodeRow));
 		const rowspanNodeRow = new CacheStrategy(model, new RowspanNodeRow(model, nodeRow));
 		const rowDetails = new CacheStrategy(model, new DetailsRow(pivotRow));

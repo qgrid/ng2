@@ -113,6 +113,7 @@ export class ColumnFilterView {
 				source: 'column.filter.view',
 				execute: () => {
 					this.by = new Set();
+					this.byBlanks = false;
 					this.resetEvent.emit();
 				}
 			}),

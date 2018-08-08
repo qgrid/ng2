@@ -1,6 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "6.1.5",
+  "version": "6.2.0",
   "scripts": {
     "ng": "ng",
     "start": "node build.serve",
@@ -76,7 +76,6 @@
     "tslib": "^1.9.2",
     "tslint": "~5.10.0",
     "typescript": "~2.7.2",
-    "xlsx": "^0.13.1",
-    "ng2-qgrid": "*"
+    "xlsx": "^0.13.1"
   }
 }

@@ -81,7 +81,7 @@ export class VirtualBox extends Box {
 
 	columns() {
 		const columns = this.context.view.columns();
-		return columns.map(column => this.createColumnCore(column.index));
+		return columns.map((_, i) => this.createColumnCore(i));
 	}
 
 	rows(columnIndex) {

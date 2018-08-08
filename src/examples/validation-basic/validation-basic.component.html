@@ -1,0 +1,47 @@
+<q-grid header="Validation Basic"
+        [rows]="rows | async"
+        editMode="cell">
+	<q-grid-columns generation="deep">
+	</q-grid-columns>
+	<q-grid-validation>
+		<q-grid-rule for="cell"
+		             key="number"
+		             required>
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+		             key="name"
+		             required
+		             [lengthBetween]="[3, 40]">
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+		             key="phase"
+		             required
+		             [oneOf]="['Gas', 'Solid']">
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+		             key="summary"
+		             required
+		             minLength="5">
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+		             key="period"
+		             required
+		             positiveInteger
+		             lengthEqual="1">
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+		             key="radius"
+		             required
+		             positiveInteger>
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+		             key="mass"
+		             positiveDecimal>
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+		             key="source"
+		             [pattern]="['^http']">
+		</q-grid-rule>
+	</q-grid-validation>
+
+</q-grid>

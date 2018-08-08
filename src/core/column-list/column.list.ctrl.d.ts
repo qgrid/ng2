@@ -8,7 +8,7 @@ export declare class ColumnListCtrl {
 	)
 
 	copy(target: any, source: any): void;
-	add(column: ColumnModel, parent?: ColumnModel): void;
+	add(column: ColumnModel): void;
 	register(column: ColumnModel): void;
 	generateKey(source: any): string;
 	extract(key: string, type: string): ColumnModel;
