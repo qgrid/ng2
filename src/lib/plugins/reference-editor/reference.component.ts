@@ -21,6 +21,7 @@ export class ReferenceComponent extends NgComponent implements OnInit {
 		value: any
 	};
 
+	@Input() autofocus = false;
 	@Input() cell: CellView;
 
 	get value() { return this._value; }
