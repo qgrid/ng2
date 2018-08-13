@@ -1,9 +1,9 @@
-import {generate as doGenerate} from '../column-list';
-import {columnFactory} from '../column/column.factory';
+import { generate as doGenerate } from '../column-list/column.list.generate';
+import { columnFactory } from '../column/column.factory';
 
-const createColumn = columnFactory({columnList: () => ({columns: [], reference: {}})});
-const generate = (rows) => {
-	return rows ? doGenerate({rows, columnFactory: createColumn}) : doGenerate({columnFactory: createColumn});
+const createColumn = columnFactory({ columnList: () => ({ columns: [], reference: {} }) });
+const generate = rows => {
+	return rows ? doGenerate({ rows, columnFactory: createColumn }) : doGenerate({ columnFactory: createColumn });
 };
 
 describe('column generate', () => {
@@ -16,10 +16,12 @@ describe('column generate', () => {
 	});
 
 	it('should return array of columns', () => {
-		const rows = [{
-			lastName: 'Doe',
-			firstName: 'John'
-		}];
+		const rows = [
+			{
+				lastName: 'Doe',
+				firstName: 'John'
+			}
+		];
 
 		const columns = generate(rows);
 
@@ -31,12 +33,14 @@ describe('column generate', () => {
 	});
 
 	it('should handle nested objects', () => {
-		const rows = [{
-			name: {
-				last: 'Doe',
-				first: 'John'
+		const rows = [
+			{
+				name: {
+					last: 'Doe',
+					first: 'John'
+				}
 			}
-		}];
+		];
 
 		const columns = generate(rows);
 
@@ -48,13 +52,16 @@ describe('column generate', () => {
 	});
 
 	it('should assign getter by row', () => {
-		const rows = [{
-			lastName: 'Doe',
-			firstName: 'John'
-		}, {
-			lastName: 'Smith',
-			firstName: 'Jeff'
-		}];
+		const rows = [
+			{
+				lastName: 'Doe',
+				firstName: 'John'
+			},
+			{
+				lastName: 'Smith',
+				firstName: 'Jeff'
+			}
+		];
 
 		const columns = generate(rows);
 
@@ -65,16 +72,18 @@ describe('column generate', () => {
 	});
 
 	it('should assign getter for nested object', () => {
-		const rows = [{
-			lastName: 'Doe',
-			firstName: 'John',
-			contacts: {
-				address: {
-					street: 'Lenina',
-					zip: '123456'
+		const rows = [
+			{
+				lastName: 'Doe',
+				firstName: 'John',
+				contacts: {
+					address: {
+						street: 'Lenina',
+						zip: '123456'
+					}
 				}
 			}
-		}];
+		];
 
 		const columns = generate(rows);
 
@@ -89,10 +98,12 @@ describe('column generate', () => {
 	});
 
 	it('should assign setter', () => {
-		const rows = [{
-			lastName: 'Doe',
-			firstName: 'John'
-		}];
+		const rows = [
+			{
+				lastName: 'Doe',
+				firstName: 'John'
+			}
+		];
 
 		const columns = generate(rows);
 		const lastName = columns[0];
@@ -108,16 +119,18 @@ describe('column generate', () => {
 	});
 
 	it('should assign setter for nested object', () => {
-		const rows = [{
-			lastName: 'Doe',
-			firstName: 'John',
-			contacts: {
-				address: {
-					street: 'Lenina',
-					zip: '123456'
+		const rows = [
+			{
+				lastName: 'Doe',
+				firstName: 'John',
+				contacts: {
+					address: {
+						street: 'Lenina',
+						zip: '123456'
+					}
 				}
 			}
-		}];
+		];
 
 		const columns = generate(rows);
 		const street = columns[2];
@@ -133,11 +146,13 @@ describe('column generate', () => {
 	});
 
 	it('should assign getter for array', () => {
-		const rows = [{
-			lastName: 'Doe',
-			firstName: 'John',
-			likes: ['chatting', 'boxing', 'swimming']
-		}];
+		const rows = [
+			{
+				lastName: 'Doe',
+				firstName: 'John',
+				likes: ['chatting', 'boxing', 'swimming']
+			}
+		];
 
 		const columns = generate(rows);
 

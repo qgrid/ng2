@@ -1,16 +1,16 @@
-import {FakeElement} from '../fake';
-import {Selector} from './selector';
-import {Bag} from '../bag';
-import {UnitFactory} from './unit.factory';
-import {Range} from '../../infrastructure/range';
+import { FakeElement } from '../fake/element';
+import { Selector } from './selector';
+import { Bag } from '../bag';
+import { UnitFactory } from './unit.factory';
+import { Range } from '../../infrastructure/range';
 
 describe('Selector', () => {
-	let cells1 = [1,2];
+	let cells1 = [1, 2];
 	let cells2 = [];
-	let row1 = {cells: [{colSpan: 1}, {colSpan: 2}]};
-	let row2 = {cells: []};
-	let rowRange = new Range(1,3);
-	let columnRange = new Range(1,4);
+	let row1 = { cells: [{ colSpan: 1 }, { colSpan: 2 }] };
+	let row2 = { cells: [] };
+	let rowRange = new Range(1, 3);
+	let columnRange = new Range(1, 4);
 	let element = {
 		rows: [row1, row2]
 	};
@@ -34,13 +34,13 @@ describe('Selector', () => {
 
 	describe('findCellFactory', () => {
 		it('returns cells[1]', () => {
-			let row = {cells: [{colSpan: 1}, {colSpan: 2}]};
+			let row = { cells: [{ colSpan: 1 }, { colSpan: 2 }] };
 			let factory = selector.findCellFactory(1);
 			let result = factory(row);
 			expect(result).to.equal(row.cells[1]);
 		});
 		it('returns null if cell wasn`t found', () => {
-			let row = {cells: [{colSpan: 1}, {colSpan: 2}]};
+			let row = { cells: [{ colSpan: 1 }, { colSpan: 2 }] };
 			let factory = selector.findCellFactory(2);
 			let result = factory(row);
 			expect(result).to.equal(null);
@@ -51,7 +51,7 @@ describe('Selector', () => {
 		it('creates row', () => {
 			let test = {
 				element: {
-					cells: [{colSpan: 1}, {colSpan: 2}]
+					cells: [{ colSpan: 1 }, { colSpan: 2 }]
 				},
 				index: 1
 			};
@@ -113,18 +113,20 @@ describe('Selector', () => {
 		});
 		it('returns empty array if row was not found', () => {
 			let result = selector.rowCells(3);
-			expect(result).to.be.an.instanceOf(Array).and.to.have.lengthOf(0);
+			expect(result)
+				.to.be.an.instanceOf(Array)
+				.and.to.have.lengthOf(0);
 		});
 	});
 
 	describe('rows', () => {
 		it('undefined case', () => {
 			let test1 = {
-				element: {cells: [{colSpan: 1}, {colSpan: 2}]},
+				element: { cells: [{ colSpan: 1 }, { colSpan: 2 }] },
 				index: 1
 			};
 			let test2 = {
-				element: {cells: []},
+				element: { cells: [] },
 				index: 2
 			};
 			let result = selector.rows(undefined);
@@ -133,7 +135,7 @@ describe('Selector', () => {
 		});
 		it('rows', () => {
 			let test = {
-				element: {cells: [{colSpan: 1}, {colSpan: 2}]},
+				element: { cells: [{ colSpan: 1 }, { colSpan: 2 }] },
 				index: 1
 			};
 			let result = selector.rows(1);
@@ -142,12 +144,12 @@ describe('Selector', () => {
 	});
 
 	describe('rowCount', () => {
-		let cells1 = [1,2];
+		let cells1 = [1, 2];
 		let cells2 = [];
-		let row1 = {cells: [{colSpan: 1, rowSpan: 1}, {colSpan: 2, rowSpan: 2}]};
-		let row2 = {cells: []};
-		let rowRange = new Range(1,3);
-		let columnRange = new Range(1,4);
+		let row1 = { cells: [{ colSpan: 1, rowSpan: 1 }, { colSpan: 2, rowSpan: 2 }] };
+		let row2 = { cells: [] };
+		let rowRange = new Range(1, 3);
+		let columnRange = new Range(1, 4);
 		let element = {
 			rows: [row1, row2]
 		};
@@ -164,12 +166,12 @@ describe('Selector', () => {
 	});
 
 	describe('rowCount', () => {
-		let cells1 = [1,2];
+		let cells1 = [1, 2];
 		let cells2 = [];
-		let row1 = {cells: [{colSpan: 1, rowSpan: 1}, {colSpan: 2, rowSpan: 2}]};
-		let row2 = {cells: []};
-		let rowRange = new Range(1,3);
-		let columnRange = new Range(1,4);
+		let row1 = { cells: [{ colSpan: 1, rowSpan: 1 }, { colSpan: 2, rowSpan: 2 }] };
+		let row2 = { cells: [] };
+		let rowRange = new Range(1, 3);
+		let columnRange = new Range(1, 4);
 		let element = {
 			rows: [row1, row2]
 		};
@@ -198,5 +200,4 @@ describe('Selector', () => {
 			expect(JSON.stringify(result[0])).to.equal(JSON.stringify(test));
 		});
 	});
-
 });

@@ -3,6 +3,7 @@ import {GroupView} from './group.view';
 import {modelFactory} from '../test/model.factory';
 import {GridService} from '../services/grid';
 import {GroupColumnModel} from '../column-type/group.column';
+import { Disposable } from '../infrastructure/disposable';
 
 describe('Group View', () => {
 	let node;
@@ -17,7 +18,15 @@ describe('Group View', () => {
 	let model = modelFactory();
 	let gridService = new GridService(model);
 	let commandManager = new CommandManager();
-	let groupView = new GroupView(model, table, commandManager, gridService);
+	const basket = new Disposable();
+	const { shortcut } = model.action();
+	const navShortcut = {
+		register: commands => {
+			basket.using(shortcut.register(commandManager, commands));
+		},
+		keyCode: () => shortcut.keyCode
+	};
+	let groupView = new GroupView(model, table, gridService, navShortcut);
 
 	beforeEach('reset node', () => {
 		node = {
@@ -82,7 +91,7 @@ describe('Group View', () => {
 				}
 			};
 			let gridService = new GridService(model);
-			let groupView = new GroupView(model, table, commandManager, gridService);
+			let groupView = new GroupView(model, table, gridService, navShortcut);
 			let result = groupView.offset(node);
 			expect(result).to.equal(48); // model.offset = 24(optional value) * node.level = 2 == 48
 		});
@@ -100,7 +109,7 @@ describe('Group View', () => {
 				}
 			};
 			let gridService = new GridService(model);
-			let groupView = new GroupView(model, table, commandManager, gridService);
+			let groupView = new GroupView(model, table, gridService, navShortcut);
 			let result = groupView.value(node);
 			expect(result).to.equal('name');
 		});
@@ -118,7 +127,7 @@ describe('Group View', () => {
 				}
 			};
 			let gridService = new GridService(model);
-			let groupView = new GroupView(model, table, commandManager, gridService);
+			let groupView = new GroupView(model, table, gridService, navShortcut);
 			let result = groupView.column;
 			expect(result.key).to.equal('id');
 		});
@@ -133,7 +142,7 @@ describe('Group View', () => {
 				}
 			};
 			let gridService = new GridService(model);
-			let groupView = new GroupView(model, table, commandManager, gridService);
+			let groupView = new GroupView(model, table, gridService, navShortcut);
 			let result = groupView.column;
 			expect(result).to.be.an.instanceOf(GroupColumnModel);
 		});

@@ -1,4 +1,4 @@
-import { Range } from '../../infrastructure';
+import { Range } from '../../infrastructure/range';
 import { SelectorMark } from './selector.mark';
 import { modelFactory } from '../../test/model.factory';
 import { ColumnModel } from '../../column-type/column.model';
