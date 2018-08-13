@@ -83,9 +83,20 @@ export class ReferenceComponent extends NgComponent implements OnInit {
 					if (!isUndefined(value)) {
 						const entries = isArray(value) ? value : [value];
 						const items = selectionService.map(entries);
-						this.model.selection({ items });
+						this.model.selection({ items }, { source: 'reference.component' });
 					}
 				}
+			}
+		}));
+
+		this.using(this.model.selectionChanged.watch(e => {
+			if (e.tag.source === 'reference.component') {
+				return;
+			}
+
+			if (e.hasChanges('items')) {
+				const entries = selectionService.lookup(e.state.items);
+				this.value = entries;
 			}
 		}));
 	}
