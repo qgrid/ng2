@@ -4,15 +4,15 @@
 module.exports = function (config) {
   config.set({
     basePath: '',
-	frameworks: ['mocha','@angular-devkit/build-angular', 'chai-spies', 'chai'],
+    frameworks: ['mocha', '@angular-devkit/build-angular', 'chai-spies', 'chai'],
     plugins: [
-	  require('karma-mocha'),
-	  require('karma-chai'),
-	  require('karma-chai-spies'),
-	  require('karma-chrome-launcher'),
-	  require('karma-mocha-reporter'),
-	  require('karma-coverage-istanbul-reporter'),
-	  require('@angular-devkit/build-angular/plugins/karma')
+      require('karma-mocha'),
+      require('karma-chai'),
+      require('karma-chai-spies'),
+      require('karma-chrome-launcher'),
+      require('karma-mocha-reporter'),
+      require('karma-coverage-istanbul-reporter'),
+      require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
       clearContext: false
@@ -28,12 +28,12 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: [process.env.TRAVIS ? 'ChromeTravis' : 'ChromeHeadless'],
-	customLaunchers: {
-	  ChromeTravis: {
-	    base: 'ChromeHeadless',
-	    flags: ['--no-sandbox']
-	  }
-	},
+    customLaunchers: {
+      ChromeTravis: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      }
+    },
     singleRun: false
   });
 };

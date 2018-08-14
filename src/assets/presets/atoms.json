@@ -1,44 +1,42 @@
 [
-	{
-		"title": "Gas",
-		"modified": 1524245307110,
-		"model": {
-			"filter": {
-				"by": {
-					"phase": {
-						"items": ["Gas"],
-						"blanks": false
-					}
-				}
-			},
-			"group": {
-				"by": []
-			}
-		},
-		"isDefault": false,
-		"group": "Presets",
-		"canEdit": false
-	},
-	{
-		"title": "Metallic",
-		"modified": 1524245307110,
-		"model": {
-			"filter": {
-				"by": {
-					"bondingType": {
-						"items": [
-							"metallic"
-						],
-						"blanks": false
-					}
-				}
-			},
-			"group": {
-				"by": []
-			}
-		},
-		"isDefault": false,
-		"group": "Presets",
-		"canEdit": false
-	}
+  {
+    "title": "Gas",
+    "modified": 1524245307110,
+    "model": {
+      "filter": {
+        "by": {
+          "phase": {
+            "items": ["Gas"],
+            "blanks": false
+          }
+        }
+      },
+      "group": {
+        "by": []
+      }
+    },
+    "isDefault": false,
+    "group": "Presets",
+    "canEdit": false
+  },
+  {
+    "title": "Metallic",
+    "modified": 1524245307110,
+    "model": {
+      "filter": {
+        "by": {
+          "bondingType": {
+            "items": ["metallic"],
+            "blanks": false
+          }
+        }
+      },
+      "group": {
+        "by": []
+      }
+    },
+    "isDefault": false,
+    "group": "Presets",
+    "canEdit": false
+  }
 ]
