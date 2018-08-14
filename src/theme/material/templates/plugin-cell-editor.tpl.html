@@ -1,6 +1,5 @@
 <ng-template key="plugin-cell-editor.tpl.html" let-$editor>
-    <q-grid-backdrop (close)="$editor.close($event)">
-    </q-grid-backdrop>
+    <ng-container *ngComponentOutlet='$editor.backdropType; injector: $editor.backdropInjector'></ng-container>
     <div class="q-grid-editor-content" q-grid-stop-propagate="click">
         <ng-container [ngTemplateOutlet]="$editor.template"></ng-container>
     </div>

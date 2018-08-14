@@ -6,4 +6,8 @@
 	position: fixed;
 	background: transparent;
 	z-index: -1;
+
+	&-inactive {
+		pointer-events: none;
+	}
 }

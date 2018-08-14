@@ -1,3 +1,4 @@
+import { PluginService } from './../plugin.service';
 import {
 	Component,
 	Optional,
@@ -8,9 +9,14 @@ import {
 	OnDestroy,
 	ElementRef,
 	ChangeDetectionStrategy,
+	Injector,
+	InjectionToken
 } from '@angular/core';
 
 import { BackdropView } from 'ng2-qgrid/plugin/backdrop/backdrop.view';
+import { BackdropService } from './backdrop.service';
+
+export const BACKDROP_TOKEN = new InjectionToken<any>('QGRID_BACKDROP_TOKEN');
 
 @Component({
 	selector: 'q-grid-backdrop',
@@ -19,13 +25,14 @@ import { BackdropView } from 'ng2-qgrid/plugin/backdrop/backdrop.view';
 })
 export class BackdropComponent {
 	@ContentChild(TemplateRef) public template: TemplateRef<any>;
-	@Output('close') closeEvent = new EventEmitter<any>();
 
 	context: { $implicit: BackdropComponent } = {
 		$implicit: this
 	};
 
-	constructor(element: ElementRef) {
+	constructor(injector: Injector, element: ElementRef) {
+		const { backdropService, closeEditor } = injector.get(BACKDROP_TOKEN);
+
 		const context = {
 			element: element.nativeElement,
 			onKeyDown: () => { },
@@ -33,6 +40,10 @@ export class BackdropComponent {
 		};
 
 		const backdrop = new BackdropView(context);
-		backdrop.closeEvent.on(() => this.closeEvent.emit());
+		backdrop.closeEvent.on(() => closeEditor());
+
+		if (backdropService) {
+			backdropService.element = element.nativeElement;
+		}
 	}
 }
