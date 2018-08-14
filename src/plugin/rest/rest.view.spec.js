@@ -35,7 +35,7 @@ describe('rest plugin', () => {
 			);
 		});
 
-		xit('should use get by default', done => {
+		it('should use get by default', done => {
 			model.rest({ url: 'url' });
 			new RestView(model, config);
 			service.invalidate().then(() => {
@@ -49,7 +49,7 @@ describe('rest plugin', () => {
 			});
 		});
 
-		xit('should use get if configured', done => {
+		it('should use get if configured', done => {
 			model.rest({ url: 'url', method: 'get' });
 			new RestView(model, config);
 			service.invalidate().then(() => {
@@ -58,7 +58,7 @@ describe('rest plugin', () => {
 			});
 		});
 
-		xit('should use post if configured', done => {
+		it('should use post if configured', done => {
 			model.rest({ url: 'url', method: 'post' });
 			new RestView(model, config);
 			service.invalidate().then(() => {
@@ -67,7 +67,7 @@ describe('rest plugin', () => {
 			});
 		});
 
-		xit('should use custom serializer if provided', done => {
+		it('should use custom serializer if provided', done => {
 			model.rest({
 				url: 'url',
 				method: 'post',
@@ -81,7 +81,7 @@ describe('rest plugin', () => {
 			});
 		});
 
-		xit('should pass url and params to get', done => {
+		it('should pass url and params to get', done => {
 			model.rest({ url: 'url' });
 			new RestView(model, config);
 			service.invalidate().then(() => {

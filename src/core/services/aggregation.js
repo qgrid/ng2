@@ -58,7 +58,7 @@ export class Aggregation {
 		while (length--) {
 			const value = getValue(rows[length]);
 			min = Math.min(min, value);
-			max = Math.min(max, value);
+			max = Math.max(max, value);
 		}
 
 		return [min, max];
