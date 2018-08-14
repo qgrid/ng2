@@ -4,8 +4,8 @@
     "outDir": "../out-tsc/spec",
     "module": "commonjs",
     "types": [
-	  "mocha",
-	  "chai",
+      "mocha",
+      "chai",
       "node"
     ]
   },
