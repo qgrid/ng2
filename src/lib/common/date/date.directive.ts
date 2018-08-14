@@ -1,4 +1,3 @@
-import { TemplateCacheDirective } from './../../template/template-cache.directive';
 import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
