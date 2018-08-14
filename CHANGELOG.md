@@ -6,12 +6,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 * Auto-complete cell editor.
 * Row edit form.
+* Batch edit support.
 * Infinite scrolling.
 * Validation framework.
 * Copy/paste selection to excel.
 * Live data plugin.
 * Float Row Navigation.
 
+## [6.2.0]
+### Fixed
+- Column filter `blanks` is removed when reset clicked.
+
+### Added
+- Column hierarchy and dnd support in the column chooser.
+- Cohort column dnd support.
+
+### BREAKING
+- `model.columnList().index` now contains tree of columns, not a column key list.
+  
 ## [6.1.5] - 2018-07-03
 ### Fixed
 - Row highlight in details modes.
@@ -197,8 +209,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [5.1.2] - 2018-01-03
 ### Added
-* Possibility to change row size `<q-grid-row canResize="true"`.
-* Possibility to drag and drop rows `<q-grid-row canMove="true"`.
+* Possibility to change row size `<q-grid-row [canResize]="true"`.
+* Possibility to drag and drop rows `<q-grid-row [canMove]="true"`.
 * Style queue to the style Api, accessible through style model cells/rows props.
 * Rows property to the layout property.
 

@@ -1,7 +1,8 @@
 <ng-template key="plugin-reference.tpl.html"
              let-$reference>
     <q-grid class="q-grid-embed"
-            [model]="$reference.model">
+            [model]="$reference.model"
+            q-grid-autofocus>
         <q-grid-toolbar>
             <ng-template for="top">
                 <div class="q-grid-progress">

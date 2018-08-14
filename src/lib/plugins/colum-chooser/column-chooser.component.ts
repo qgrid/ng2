@@ -3,8 +3,18 @@ import { ColumnChooserView } from 'ng2-qgrid/plugin/column-chooser/column.choose
 import { FocusAfterRender } from '../../common/focus/focus.service';
 import { PluginService } from '../plugin.service';
 import { noop } from 'ng2-qgrid/core/utility/kit';
+import { Node } from 'ng2-qgrid/core/node/node';
 
 const ColumnChooserName = 'qGridColumnChooser';
+
+export class RootContext {
+	constructor(public ctrl: ColumnChooserView) {
+	}
+
+	get node() {
+		return this.ctrl.treeView;
+	}
+}
 
 @Component({
 	selector: 'q-grid-column-chooser',
@@ -17,7 +27,8 @@ export class ColumnChooserComponent implements OnInit, OnChanges {
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
 	context: {
-		$implicit: ColumnChooserView
+		$implicit: ColumnChooserView,
+		plugin: ColumnChooserComponent
 	};
 
 	constructor(
@@ -26,6 +37,10 @@ export class ColumnChooserComponent implements OnInit, OnChanges {
 		private cd: ChangeDetectorRef,
 		focusAfterRender: FocusAfterRender
 	) {
+	}
+
+	root() {
+		return { $implicit: new RootContext(this.context.$implicit) };
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
@@ -45,6 +60,6 @@ export class ColumnChooserComponent implements OnInit, OnChanges {
 			this.zone.run(noop);
 		});
 
-		this.context = { $implicit: columnChooser };
+		this.context = { $implicit: columnChooser, plugin: this };
 	}
 }

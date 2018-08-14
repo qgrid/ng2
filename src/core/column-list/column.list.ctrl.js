@@ -48,28 +48,14 @@ export class ColumnListCtrl {
 			});
 	}
 
-	add(column, parent) {
-		if (parent) {
-			parent.type = 'cohort';
-			if (!parent.key || parent.key === '$default') {
-				parent.key = `$cohort-from-${column.key}`;
-			}
+	add(column) {
 
-			parent.children.push(column);
-
-			const { columns } = this.model.columnList();
-			if (columns.indexOf(parent) < 0) {
-				this.add(parent);
-			}
-		}
-		else {
-			const { columnList } = this.model;
-			const columns = columnList().columns.concat([column]);
-			columnList({ columns }, {
-				source: 'column.list.ctrl',
-				behavior: 'core'
-			});
-		}
+		const { columnList } = this.model;
+		const columns = columnList().columns.concat([column]);
+		columnList({ columns }, {
+			source: 'column.list.ctrl',
+			behavior: 'core'
+		});
 	}
 
 	register(column) {

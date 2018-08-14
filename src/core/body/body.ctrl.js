@@ -18,7 +18,7 @@ export class BodyCtrl {
 	}
 
 	onScroll(e) {
-		const scroll = this.model.scroll;
+		const { scroll } = this.model;
 
 		const oldValue = scroll();
 		const newValue = {};
@@ -71,15 +71,14 @@ export class BodyCtrl {
 
 	onMouseDown(e) {
 		if (e.which === MOUSE_LEFT_BUTTON) {
-			const selectionState = this.selection;
-			if (selectionState.area !== 'body') {
+			const { area, mode } = this.selection;
+			if (area !== 'body') {
 				return;
 			}
 
 			const pathFinder = new PathService(this.bag.body);
 			const cell = pathFinder.cell(e.path);
-
-			if (selectionState.mode === 'range') {
+			if (mode === 'range') {
 				this.rangeStartCell = cell;
 
 				if (this.rangeStartCell) {
@@ -147,8 +146,8 @@ export class BodyCtrl {
 	}
 
 	onMouseUp(e) {
-		const mode = this.selection.mode;
-		const edit = this.model.edit;
+		const { mode } = this.selection;
+		const { edit } = this.model;
 
 		if (e.which === MOUSE_LEFT_BUTTON) {
 			const pathFinder = new PathService(this.bag.body);
@@ -159,7 +158,7 @@ export class BodyCtrl {
 			}
 
 			if (edit().state === 'startBatch') {
-				edit({ state: 'endBatch' });
+				edit({ state: 'endBatch' }, { source: 'body.ctrl' });
 				return;
 			}
 
@@ -178,15 +177,14 @@ export class BodyCtrl {
 	}
 
 	select(cell) {
-		const selectionState = this.selection;
-		if (cell.column.type !== 'select' &&
-			(selectionState.area !== 'body' || selectionState.mode === 'range')) {
+		const { area, mode, unit } = this.selection;
+		if (cell.column.type !== 'select' && (area !== 'body' || mode === 'range')) {
 			return;
 		}
 
 		const model = this.model;
 		const editMode = model.edit().mode;
-		switch (selectionState.unit) {
+		switch (unit) {
 			case 'row': {
 				if (cell.column.type === 'select' && cell.column.editorOptions.trigger === 'focus') {
 					const focusState = model.focus();

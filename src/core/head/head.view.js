@@ -38,33 +38,32 @@ export class HeadView {
 						const targetKey = th.column.key;
 						if (sourceKey !== targetKey) {
 							const { columnList } = model;
-							const index = calk(columnList().index);
+							const tree = calk(columnList().index);
 
-							const oldPos = find(index, node => node.key.model.key === sourceKey);
-							const newPos = find(index, node => node.key.model.key === targetKey);
-							if (oldPos && newPos) {
+							const oldPos = find(tree, node => node.key.model.key === sourceKey);
+							const newPos = find(tree, node => node.key.model.key === targetKey);
+							if (oldPos && newPos && newPos.path.indexOf(oldPos.node) < 0) {
 								const queue = oldPos.path.reverse();
 								const hostIndex = queue.findIndex(node => node.children.length > 1);
-								if (hostIndex < 0) {
-									return;
+								if (hostIndex >= 0) {
+									const host = queue[hostIndex];
+									const target = queue[hostIndex - 1] || oldPos.node;
+									const index = host.children.indexOf(target);
+
+									host.children.splice(index, 1);
+									newPos.parent.children.splice(newPos.index, 0, target);
+
+									target.level = newPos.parent.level + 1;
+									preOrderDFS(
+										target.children,
+										(node, root, parent) => {
+											node.level = (root || parent).level + 1;
+										},
+										target
+									);
+
+									columnList({ index: tree }, { source: 'head.view' });
 								}
-
-								const springParent = queue[hostIndex];
-								const springNode = queue[hostIndex - 1] || oldPos.node;
-								const springIndex = springParent.children.indexOf(springNode);
-
-								springParent.children.splice(springIndex, 1);
-								newPos.parent.children.splice(newPos.index, 0, springNode);
-
-								springNode.level = newPos.parent.level +1;
-								preOrderDFS(
-									springNode.children,
-									(node, root, parent) => {
-										node.level = (root || parent).level + 1;
-									},
-									springNode);
-
-								columnList({ index }, { source: 'head.view' });
 							}
 						}
 						break;
