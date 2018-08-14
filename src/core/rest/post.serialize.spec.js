@@ -1,5 +1,5 @@
-import {Model} from '../../core/infrastructure';
-import {serialize} from './post.serialize';
+import { Model } from '../../core/infrastructure/model';
+import { serialize } from './post.serialize';
 
 describe('Model serialization to post parameters', () => {
 	describe('pagination', () => {
@@ -17,7 +17,7 @@ describe('Model serialization to post parameters', () => {
 	describe('sorting', () => {
 		it('should map ascending order to "+"', () => {
 			const model = new Model().sort({
-				by: [{lastName: 'asc'}]
+				by: [{ lastName: 'asc' }]
 			});
 			const params = serialize(model);
 			expect(params.order).to.be.deep.equal(['+lastName']);
@@ -25,7 +25,7 @@ describe('Model serialization to post parameters', () => {
 
 		it('should map descending order to "-"', () => {
 			const model = new Model().sort({
-				by: [{lastName: 'desc'}]
+				by: [{ lastName: 'desc' }]
 			});
 			const params = serialize(model);
 			expect(params.order).to.be.deep.equal(['-lastName']);
@@ -33,7 +33,7 @@ describe('Model serialization to post parameters', () => {
 
 		it('should map sorting with correct order', () => {
 			const model = new Model().sort({
-				by: [{firstName: 'asc'}, {lastName: 'desc'}]
+				by: [{ firstName: 'asc' }, { lastName: 'desc' }]
 			});
 			const params = serialize(model);
 			expect(params.order).to.be.deep.equal(['+firstName', '-lastName']);
@@ -48,7 +48,7 @@ describe('Model serialization to post parameters', () => {
 				}
 			});
 			const params = serialize(model);
-			expect(params.filter).to.be.deep.equal({lastName: ['Doe']});
+			expect(params.filter).to.be.deep.equal({ lastName: ['Doe'] });
 		});
 	});
 });

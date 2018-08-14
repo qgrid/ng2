@@ -23,7 +23,7 @@ describe('ModelBinder', () => {
 	};
 
 	let modelBinder = new ModelBinder(source);
-	modelBinder.bind(model, names);
+	modelBinder.bound(model, names);
 
 	describe('bind', () => {
 
