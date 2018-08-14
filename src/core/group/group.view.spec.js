@@ -131,6 +131,7 @@ describe('Group View', () => {
 			let result = groupView.column;
 			expect(result.key).to.equal('id');
 		});
+
 		it('otherwise should return a GroupColumnModel instance', () => {
 
 			let table = {

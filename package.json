@@ -9,6 +9,7 @@
     "build:theme": "npm run clean && node build.theme.js",
     "build:release": "npm run build:lib && npm run copy:npm && node build.theme.js",
     "test": "ng test",
+    "test-debug": "ng test --browsers ChromeDebug",
     "lint": "ng lint",
     "e2e": "protractor ./e2e/protractor.conf.js",
     "pree2e": "webdriver-manager update",
