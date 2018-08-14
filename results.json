@@ -1,0 +1,522 @@
+[
+  {
+    "keyword": "Feature",
+    "name": "Action bar basic",
+    "line": 1,
+    "id": "action-bar-basic",
+    "tags": [],
+    "uri": "e2e\\features\\action-bar-basic.feature",
+    "elements": [
+      {
+        "id": "action-bar-basic;grid-has-no-rows",
+        "keyword": "Scenario",
+        "line": 2,
+        "name": "Grid has no rows",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I am on \"action-bar-basic\"",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2867000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 4,
+            "name": "Grid has no rows",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:25"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 30000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "match": {
+              "location": "node_modules\\protractor-cucumber-framework\\lib\\resultsCapturer.js:25"
+            },
+            "result": {
+              "status": "passed"
+            }
+          }
+        ]
+      },
+      {
+        "id": "action-bar-basic;grid-has-rows",
+        "keyword": "Scenario",
+        "line": 6,
+        "name": "Grid has rows",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on \"action-bar-basic\"",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2207000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 8,
+            "name": "I click \"refresh\" button",
+            "match": {
+              "location": "e2e\\steps\\action-bar-basic.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 110000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 9,
+            "name": "Grid has columns",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:33"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 516000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "match": {
+              "location": "node_modules\\protractor-cucumber-framework\\lib\\resultsCapturer.js:25"
+            },
+            "result": {
+              "status": "passed"
+            }
+          }
+        ]
+      },
+      {
+        "id": "action-bar-basic;grid-has-no-columns",
+        "keyword": "Scenario",
+        "line": 11,
+        "name": "Grid has no columns",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "I am on \"action-bar-basic\"",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5065000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "Grid has no columns",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:36"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 60000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "match": {
+              "location": "node_modules\\protractor-cucumber-framework\\lib\\resultsCapturer.js:25"
+            },
+            "result": {
+              "status": "passed"
+            }
+          }
+        ]
+      },
+      {
+        "id": "action-bar-basic;grid-has-columns",
+        "keyword": "Scenario",
+        "line": 15,
+        "name": "Grid has columns",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 16,
+            "name": "I am on \"action-bar-basic\"",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 11004000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 17,
+            "name": "I click \"refresh\" button",
+            "match": {
+              "location": "e2e\\steps\\action-bar-basic.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 91000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 18,
+            "name": "Grid has columns",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:33"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 434000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "match": {
+              "location": "node_modules\\protractor-cucumber-framework\\lib\\resultsCapturer.js:25"
+            },
+            "result": {
+              "status": "passed"
+            }
+          }
+        ]
+      },
+      {
+        "id": "action-bar-basic;cell-at-row-1-and-column-4-has-value-\"gas\"",
+        "keyword": "Scenario",
+        "line": 20,
+        "name": "Cell at row 1 and column 4 has value \"Gas\"",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 21,
+            "name": "I am on \"action-bar-basic\"",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 9794000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 22,
+            "name": "I click \"refresh\" button",
+            "match": {
+              "location": "e2e\\steps\\action-bar-basic.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 82000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 23,
+            "name": "Cell at row 1 and column 4 has value \"Gas\"",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:40"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 375000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "match": {
+              "location": "node_modules\\protractor-cucumber-framework\\lib\\resultsCapturer.js:25"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1000000
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "keyword": "Feature",
+    "name": "Look People Basic at main page",
+    "line": 1,
+    "id": "look-people-basic-at-main-page",
+    "tags": [],
+    "uri": "e2e\\features\\common.feature",
+    "elements": [
+      {
+        "id": "look-people-basic-at-main-page;grid-has-rows",
+        "keyword": "Scenario",
+        "line": 2,
+        "name": "Grid has rows",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 3,
+            "name": "I am on main page",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 8932000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 4,
+            "name": "Grid has rows",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 43000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "match": {
+              "location": "node_modules\\protractor-cucumber-framework\\lib\\resultsCapturer.js:25"
+            },
+            "result": {
+              "status": "passed"
+            }
+          }
+        ]
+      },
+      {
+        "id": "look-people-basic-at-main-page;grid-has-columns",
+        "keyword": "Scenario",
+        "line": 6,
+        "name": "Grid has columns",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on main page",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 9182000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 8,
+            "name": "Grid has columns",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:33"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 74000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "match": {
+              "location": "node_modules\\protractor-cucumber-framework\\lib\\resultsCapturer.js:25"
+            },
+            "result": {
+              "status": "passed"
+            }
+          }
+        ]
+      },
+      {
+        "id": "look-people-basic-at-main-page;13-columns",
+        "keyword": "Scenario",
+        "line": 10,
+        "name": "13 Columns",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 11,
+            "name": "I am on main page",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 9034000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 12,
+            "name": "Number of columns equals to 13",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 66000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "match": {
+              "location": "node_modules\\protractor-cucumber-framework\\lib\\resultsCapturer.js:25"
+            },
+            "result": {
+              "status": "passed"
+            }
+          }
+        ]
+      },
+      {
+        "id": "look-people-basic-at-main-page;50-rows",
+        "keyword": "Scenario",
+        "line": 14,
+        "name": "50 rows",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 15,
+            "name": "I am on main page",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 8732000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "Number of rows equals to 50",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 53000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "match": {
+              "location": "node_modules\\protractor-cucumber-framework\\lib\\resultsCapturer.js:25"
+            },
+            "result": {
+              "status": "passed"
+            }
+          }
+        ]
+      },
+      {
+        "id": "look-people-basic-at-main-page;lue-laserna-is-woman",
+        "keyword": "Scenario",
+        "line": 18,
+        "name": "Lue Laserna is woman",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 19,
+            "name": "I am on main page",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 8950000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 20,
+            "name": "Cell at row 1 and column 3 has value \"female\"",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:40"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 51000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "match": {
+              "location": "node_modules\\protractor-cucumber-framework\\lib\\resultsCapturer.js:25"
+            },
+            "result": {
+              "status": "passed"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
