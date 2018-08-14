@@ -19,10 +19,10 @@ defineSupportCode(({Given, When, Then, Before}) => {
 			});
 	});
 
-	Then('Table has rows', oneMinuteTimeout, () => getRowCount()
+	Then('Grid has rows', oneMinuteTimeout, () => getRowCount()
 		.then(num => expect(num).to.be.above(1)));
 
-	Then('Table has not rows', oneMinuteTimeout, () => getRowCount()
+	Then('Grid has no rows', oneMinuteTimeout, () => getRowCount()
 		.then(num => expect(num).to.equal(1)));
 
 	Then('Number of rows equals to {int}', oneMinuteTimeout, (count: number) => getRowCount()
@@ -30,10 +30,10 @@ defineSupportCode(({Given, When, Then, Before}) => {
 
 	Then('Number of columns equals to {int}', oneMinuteTimeout, (count: number) => getColumnCount()
 		.then(num => expect(num - 1).to.equal(count)));
-	Then('Table has columns', oneMinuteTimeout, () => getColumnCount()
+	Then('Grid has columns', oneMinuteTimeout, () => getColumnCount()
 		.then(num => expect(num).to.be.above(0)));
 
-	Then('Table has not columns', oneMinuteTimeout, () => browser.waitForAngularEnabled()
+	Then('Grid has no columns', oneMinuteTimeout, () => browser.waitForAngularEnabled()
 		.then(() => element(by.tagName('thead')).element(by.tagName('tr')).isPresent())
 		.then(el => expect(el).to.be.false));
 

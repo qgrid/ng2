@@ -8,10 +8,10 @@
     "uri": "e2e\\features\\action-bar-basic.feature",
     "elements": [
       {
-        "id": "action-bar-basic;page-title-is-look-people-basic",
+        "id": "action-bar-basic;grid-has-no-rows",
         "keyword": "Scenario",
         "line": 2,
-        "name": "Page title is Look People Basic",
+        "name": "Grid has no rows",
         "tags": [],
         "type": "scenario",
         "steps": [
@@ -19,26 +19,26 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 3,
-            "name": "I am on \"/action-bar-basic\"",
+            "name": "I am on \"action-bar-basic\"",
             "match": {
               "location": "e2e\\steps\\common.steps.ts:11"
             },
             "result": {
               "status": "passed",
-              "duration": 3283000000
+              "duration": 2867000000
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 4,
-            "name": "Title is \"Action Bar Basic\"",
+            "name": "Grid has no rows",
             "match": {
-              "location": "e2e\\steps\\common.steps.ts:13"
+              "location": "e2e\\steps\\common.steps.ts:25"
             },
             "result": {
               "status": "passed",
-              "duration": 47000000
+              "duration": 30000000
             }
           },
           {
@@ -48,17 +48,16 @@
               "location": "node_modules\\protractor-cucumber-framework\\lib\\resultsCapturer.js:25"
             },
             "result": {
-              "status": "passed",
-              "duration": 1000000
+              "status": "passed"
             }
           }
         ]
       },
       {
-        "id": "action-bar-basic;table-has-not-rows",
+        "id": "action-bar-basic;grid-has-rows",
         "keyword": "Scenario",
         "line": 6,
-        "name": "Table has not rows",
+        "name": "Grid has rows",
         "tags": [],
         "type": "scenario",
         "steps": [
@@ -66,26 +65,39 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 7,
-            "name": "I am on \"/action-bar-basic\"",
+            "name": "I am on \"action-bar-basic\"",
             "match": {
               "location": "e2e\\steps\\common.steps.ts:11"
             },
             "result": {
               "status": "passed",
-              "duration": 2259000000
+              "duration": 2207000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 8,
+            "name": "I click \"refresh\" button",
+            "match": {
+              "location": "e2e\\steps\\action-bar-basic.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 110000000
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 8,
-            "name": "Table has not rows",
+            "line": 9,
+            "name": "Grid has columns",
             "match": {
-              "location": "e2e\\steps\\common.steps.ts:25"
+              "location": "e2e\\steps\\common.steps.ts:33"
             },
             "result": {
               "status": "passed",
-              "duration": 41000000
+              "duration": 516000000
             }
           },
           {
@@ -101,50 +113,37 @@
         ]
       },
       {
-        "id": "action-bar-basic;table-has-rows",
+        "id": "action-bar-basic;grid-has-no-columns",
         "keyword": "Scenario",
-        "line": 10,
-        "name": "Table has rows",
+        "line": 11,
+        "name": "Grid has no columns",
         "tags": [],
         "type": "scenario",
         "steps": [
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 11,
-            "name": "I am on \"/action-bar-basic\"",
+            "line": 12,
+            "name": "I am on \"action-bar-basic\"",
             "match": {
               "location": "e2e\\steps\\common.steps.ts:11"
             },
             "result": {
               "status": "passed",
-              "duration": 6048000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 12,
-            "name": "I click \"refresh\" button",
-            "match": {
-              "location": "e2e\\steps\\action-bar-basic.steps.ts:6"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 143000000
+              "duration": 5065000000
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 13,
-            "name": "Table has columns",
+            "name": "Grid has no columns",
             "match": {
-              "location": "e2e\\steps\\common.steps.ts:33"
+              "location": "e2e\\steps\\common.steps.ts:36"
             },
             "result": {
               "status": "passed",
-              "duration": 673000000
+              "duration": 60000000
             }
           },
           {
@@ -154,17 +153,16 @@
               "location": "node_modules\\protractor-cucumber-framework\\lib\\resultsCapturer.js:25"
             },
             "result": {
-              "status": "passed",
-              "duration": 1000000
+              "status": "passed"
             }
           }
         ]
       },
       {
-        "id": "action-bar-basic;table-has-not-columns",
+        "id": "action-bar-basic;grid-has-columns",
         "keyword": "Scenario",
         "line": 15,
-        "name": "Table has not columns",
+        "name": "Grid has columns",
         "tags": [],
         "type": "scenario",
         "steps": [
@@ -172,26 +170,39 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 16,
-            "name": "I am on \"/action-bar-basic\"",
+            "name": "I am on \"action-bar-basic\"",
             "match": {
               "location": "e2e\\steps\\common.steps.ts:11"
             },
             "result": {
               "status": "passed",
-              "duration": 9965000000
+              "duration": 11004000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 17,
+            "name": "I click \"refresh\" button",
+            "match": {
+              "location": "e2e\\steps\\action-bar-basic.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 91000000
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 17,
-            "name": "Table has not columns",
+            "line": 18,
+            "name": "Grid has columns",
             "match": {
-              "location": "e2e\\steps\\common.steps.ts:36"
+              "location": "e2e\\steps\\common.steps.ts:33"
             },
             "result": {
               "status": "passed",
-              "duration": 24000000
+              "duration": 434000000
             }
           },
           {
@@ -207,50 +218,50 @@
         ]
       },
       {
-        "id": "action-bar-basic;table-has-columns",
+        "id": "action-bar-basic;cell-at-row-1-and-column-4-has-value-\"gas\"",
         "keyword": "Scenario",
-        "line": 19,
-        "name": "Table has columns",
+        "line": 20,
+        "name": "Cell at row 1 and column 4 has value \"Gas\"",
         "tags": [],
         "type": "scenario",
         "steps": [
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 20,
-            "name": "I am on \"/action-bar-basic\"",
+            "line": 21,
+            "name": "I am on \"action-bar-basic\"",
             "match": {
               "location": "e2e\\steps\\common.steps.ts:11"
             },
             "result": {
               "status": "passed",
-              "duration": 9951000000
+              "duration": 9794000000
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 21,
+            "line": 22,
             "name": "I click \"refresh\" button",
             "match": {
               "location": "e2e\\steps\\action-bar-basic.steps.ts:6"
             },
             "result": {
               "status": "passed",
-              "duration": 89000000
+              "duration": 82000000
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 22,
-            "name": "Table has columns",
+            "line": 23,
+            "name": "Cell at row 1 and column 4 has value \"Gas\"",
             "match": {
-              "location": "e2e\\steps\\common.steps.ts:33"
+              "location": "e2e\\steps\\common.steps.ts:40"
             },
             "result": {
               "status": "passed",
-              "duration": 367000000
+              "duration": 375000000
             }
           },
           {
@@ -262,65 +273,6 @@
             "result": {
               "status": "passed",
               "duration": 1000000
-            }
-          }
-        ]
-      },
-      {
-        "id": "action-bar-basic;cell-at-row-1-and-column-4-has-value-\"gas\"",
-        "keyword": "Scenario",
-        "line": 24,
-        "name": "Cell at row 1 and column 4 has value \"Gas\"",
-        "tags": [],
-        "type": "scenario",
-        "steps": [
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 25,
-            "name": "I am on \"/action-bar-basic\"",
-            "match": {
-              "location": "e2e\\steps\\common.steps.ts:11"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 9893000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 26,
-            "name": "I click \"refresh\" button",
-            "match": {
-              "location": "e2e\\steps\\action-bar-basic.steps.ts:6"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 116000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 27,
-            "name": "Cell at row 1 and column 4 has value \"Gas\"",
-            "match": {
-              "location": "e2e\\steps\\common.steps.ts:40"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 379000000
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "match": {
-              "location": "node_modules\\protractor-cucumber-framework\\lib\\resultsCapturer.js:25"
-            },
-            "result": {
-              "status": "passed"
             }
           }
         ]
@@ -336,10 +288,10 @@
     "uri": "e2e\\features\\common.feature",
     "elements": [
       {
-        "id": "look-people-basic-at-main-page;page-title-is-look-people-basic",
+        "id": "look-people-basic-at-main-page;grid-has-rows",
         "keyword": "Scenario",
         "line": 2,
-        "name": "Page title is Look People Basic",
+        "name": "Grid has rows",
         "tags": [],
         "type": "scenario",
         "steps": [
@@ -353,67 +305,20 @@
             },
             "result": {
               "status": "passed",
-              "duration": 9237000000
+              "duration": 8932000000
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 4,
-            "name": "Title is \"Look People Basic\"",
-            "match": {
-              "location": "e2e\\steps\\common.steps.ts:13"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 30000000
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "match": {
-              "location": "node_modules\\protractor-cucumber-framework\\lib\\resultsCapturer.js:25"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1000000
-            }
-          }
-        ]
-      },
-      {
-        "id": "look-people-basic-at-main-page;table-has-a-rows",
-        "keyword": "Scenario",
-        "line": 6,
-        "name": "Table has a rows",
-        "tags": [],
-        "type": "scenario",
-        "steps": [
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 7,
-            "name": "I am on main page",
-            "match": {
-              "location": "e2e\\steps\\common.steps.ts:9"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 9520000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 8,
-            "name": "Table has rows",
+            "name": "Grid has rows",
             "match": {
               "location": "e2e\\steps\\common.steps.ts:22"
             },
             "result": {
               "status": "passed",
-              "duration": 24000000
+              "duration": 43000000
             }
           },
           {
@@ -429,37 +334,37 @@
         ]
       },
       {
-        "id": "look-people-basic-at-main-page;table-has-columns",
+        "id": "look-people-basic-at-main-page;grid-has-columns",
         "keyword": "Scenario",
-        "line": 10,
-        "name": "Table has columns",
+        "line": 6,
+        "name": "Grid has columns",
         "tags": [],
         "type": "scenario",
         "steps": [
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 11,
+            "line": 7,
             "name": "I am on main page",
             "match": {
               "location": "e2e\\steps\\common.steps.ts:9"
             },
             "result": {
               "status": "passed",
-              "duration": 9201000000
+              "duration": 9182000000
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 12,
-            "name": "Table has columns",
+            "line": 8,
+            "name": "Grid has columns",
             "match": {
               "location": "e2e\\steps\\common.steps.ts:33"
             },
             "result": {
               "status": "passed",
-              "duration": 37000000
+              "duration": 74000000
             }
           },
           {
@@ -477,7 +382,7 @@
       {
         "id": "look-people-basic-at-main-page;13-columns",
         "keyword": "Scenario",
-        "line": 14,
+        "line": 10,
         "name": "13 Columns",
         "tags": [],
         "type": "scenario",
@@ -485,27 +390,27 @@
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 15,
+            "line": 11,
             "name": "I am on main page",
             "match": {
               "location": "e2e\\steps\\common.steps.ts:9"
             },
             "result": {
               "status": "passed",
-              "duration": 9446000000
+              "duration": 9034000000
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 16,
+            "line": 12,
             "name": "Number of columns equals to 13",
             "match": {
               "location": "e2e\\steps\\common.steps.ts:31"
             },
             "result": {
               "status": "passed",
-              "duration": 33000000
+              "duration": 66000000
             }
           },
           {
@@ -523,8 +428,54 @@
       {
         "id": "look-people-basic-at-main-page;50-rows",
         "keyword": "Scenario",
-        "line": 18,
+        "line": 14,
         "name": "50 rows",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 15,
+            "name": "I am on main page",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 8732000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "Number of rows equals to 50",
+            "match": {
+              "location": "e2e\\steps\\common.steps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 53000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "match": {
+              "location": "node_modules\\protractor-cucumber-framework\\lib\\resultsCapturer.js:25"
+            },
+            "result": {
+              "status": "passed"
+            }
+          }
+        ]
+      },
+      {
+        "id": "look-people-basic-at-main-page;lue-laserna-is-woman",
+        "keyword": "Scenario",
+        "line": 18,
+        "name": "Lue Laserna is woman",
         "tags": [],
         "type": "scenario",
         "steps": [
@@ -538,67 +489,20 @@
             },
             "result": {
               "status": "passed",
-              "duration": 9802000000
+              "duration": 8950000000
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 20,
-            "name": "Number of rows equals to 50",
-            "match": {
-              "location": "e2e\\steps\\common.steps.ts:28"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 27000000
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "match": {
-              "location": "node_modules\\protractor-cucumber-framework\\lib\\resultsCapturer.js:25"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1000000
-            }
-          }
-        ]
-      },
-      {
-        "id": "look-people-basic-at-main-page;lue-laserna-is-woman",
-        "keyword": "Scenario",
-        "line": 22,
-        "name": "Lue Laserna is woman",
-        "tags": [],
-        "type": "scenario",
-        "steps": [
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 23,
-            "name": "I am on main page",
-            "match": {
-              "location": "e2e\\steps\\common.steps.ts:9"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 10853000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 24,
             "name": "Cell at row 1 and column 3 has value \"female\"",
             "match": {
               "location": "e2e\\steps\\common.steps.ts:40"
             },
             "result": {
               "status": "passed",
-              "duration": 383000000
+              "duration": 51000000
             }
           },
           {

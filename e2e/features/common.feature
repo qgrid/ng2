@@ -1,15 +1,11 @@
 Feature: Look People Basic at main page
-	Scenario: Page title is Look People Basic
+	Scenario: Grid has rows
 		Given I am on main page
-		Then Title is "Look People Basic"
+		Then Grid has rows
 
-	Scenario: Table has a rows
+	Scenario: Grid has columns
 		Given I am on main page
-		Then Table has rows
-
-	Scenario: Table has columns
-		Given I am on main page
-		Then Table has columns
+		Then Grid has columns
 
 	Scenario: 13 Columns
 		Given I am on main page
