@@ -18,7 +18,7 @@ export class ExampleColumnReferenceBasicComponent {
 	];
 
 	notEditableOptions: EditorOptions = {
-		modelFactory: ({ row, reference }) => {
+		modelFactory: ({ reference }) => {
 			reference.commit = new Command({
 				canExecute: () => false
 			});

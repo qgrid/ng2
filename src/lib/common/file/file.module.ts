@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { FileUploadDirective } from './file-upload.directive';
+import { FileDirective } from './file.directive';
 
 @NgModule({
-	declarations: [FileUploadDirective],
-	exports: [FileUploadDirective]
+	declarations: [FileDirective],
+	exports: [FileDirective]
 })
 export class FileModule {}

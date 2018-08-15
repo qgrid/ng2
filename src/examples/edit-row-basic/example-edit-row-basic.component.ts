@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
-import { Column, BoolColumn, Grid, PipeContext, GridComponent } from 'ng2-qgrid';
+import { Column, BoolColumn, Grid, PipeContext, GridComponent, Command } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-edit-row-basic',
@@ -62,8 +62,7 @@ export class ExampleEditRowBasicComponent implements OnInit {
 				label: (item) => {
 					const { rows } = this.myGrid.model.data();
 					return (item.teammates || [])
-						.filter(rowNo => !!rows[rowNo])
-						.map(rowNo => `${rows[rowNo].name.last} ${rows[rowNo].name.first}`)
+						.map(x => `${x.name.last} ${x.name.first}`)
 						.join(', ');
 				},
 				editorOptions: {
@@ -74,11 +73,13 @@ export class ExampleEditRowBasicComponent implements OnInit {
 							.selection({
 								mode: 'multiple',
 								unit: 'row',
-								key: { row: row => rows.findIndex(r => r.name.last === row.name.last && r.name.first === row.name.first) }
+								key: {
+									row: x => rows.findIndex(r => r.name.last === x.name.last && r.name.first === x.name.first)
+								}
 							})
 							.columnList({
 								generation: 'deep'
-							})
+							}) 
 							.data({
 								pipe: [
 									(_: any[], context: PipeContext, next: (rows: any[]) => void) => {

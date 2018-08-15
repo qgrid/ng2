@@ -1,9 +1,4 @@
-import { defineSupportCode } from 'cucumber';
+import { When } from 'cucumber';
 import { element, by } from 'protractor';
-import { oneMinuteTimeout } from './steps.helper';
 
-defineSupportCode(({Given, When, Then, Before}) => {
-	When('I click {string} button', oneMinuteTimeout, (buttonText) => {
-		return element(by.buttonText(buttonText)).click();
-	});
-});
+When('I click {string} button', text => element(by.buttonText(text)).click());

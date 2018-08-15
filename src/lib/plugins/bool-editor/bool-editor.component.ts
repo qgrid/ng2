@@ -33,7 +33,7 @@ export class BoolEditorComponent implements OnInit {
 
 	ngOnInit() {
 		// entering edit mode means toggling boolean value
-		if (this.column.editorOptions.trigger === 'click') {
+		if (this.autofocus && this.column.editorOptions.trigger === 'click') {
 			Promise.resolve(null).then(() =>
 				this.value =
 				this.value === this.trueValue
@@ -43,8 +43,12 @@ export class BoolEditorComponent implements OnInit {
 		}
 	}
 
-	isChecked() {
+	get isChecked() {
 		return this.column.isChecked(this.value);
+	}
+
+	set isChecked(value: boolean) {
+		this.value = value ? this.trueValue : this.falseValue;
 	}
 
 	isIndeterminate() {

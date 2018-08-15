@@ -7,6 +7,7 @@
         <mat-card-content>
             <q-grid-reference [cell]="$editor.cell"
                               [(value)]="$editor.value"
+                              [autofocus]="true"
                               (modelChange)="$editor.model = $event"
                               (referenceChange)="$editor.reference = $event">
             </q-grid-reference>
