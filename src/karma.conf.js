@@ -38,6 +38,6 @@ module.exports = function (config) {
         flags: [ '--remote-debugging-port=9333' ]
       }
     },
-    singleRun: false
+    singleRun: !!process.env.TRAVIS
   });
 };
