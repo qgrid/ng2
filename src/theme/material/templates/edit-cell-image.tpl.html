@@ -5,7 +5,8 @@
                         (close)="$view.edit.cell.cancel.execute($cell)"
                         q-grid-position="td">
         <ng-template>
-            <div class="layout-column flex">
+            <div class="q-grid-editor-container-large">
+                <div class="layout-column flex">
                 <div class="q-grid-file-upload-area"
                      [ngClass]="{'q-grid-file-has-preview': $cell.column.hasPreview($view.edit.cell.label)}">
                     <div class="layout-column q-grid-file-upload-message"
@@ -43,6 +44,8 @@
                     Cancel
                 </button>
             </div>
+            </div>
+            
         </ng-template>
     </q-grid-cell-editor>
 </ng-template>

@@ -5,12 +5,14 @@
 	                    (close)="$view.edit.cell.exit.execute($cell)"
 	                    q-grid-position="td">
 		<ng-template>
-			<q-grid-reference-editor [cell]="$cell"
+			<div class="q-grid-editor-container-large">
+				<q-grid-reference-editor [cell]="$cell"
 			                         [(value)]="$view.edit.cell.value"
 			                         [caption]="$cell.column.title"
 			                         (afterSubmit)="$view.edit.cell.commit.canExecute() && $view.edit.cell.commit.execute()"
 			                         (afterCancel)="$view.edit.cell.cancel.execute()">
-			</q-grid-reference-editor>
+				</q-grid-reference-editor>
+			</div>
 		</ng-template>
 	</q-grid-cell-editor>
 </ng-template>

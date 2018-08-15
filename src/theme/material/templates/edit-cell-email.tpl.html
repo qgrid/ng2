@@ -9,13 +9,13 @@
 				<ng-template>
 					<div class="layout-column q-grid-email-fields"
 					     flex>
-						<mat-form-field *ngIf="$cell.column.label !== null">
+						<mat-form-field *ngIf="$cell.column.label !== null" class="q-grid-editor-container-small">
 							<input matInput
 							       type="text"
 							       [(ngModel)]="$view.edit.cell.label"
 							       placeholder="Label" />
 						</mat-form-field>
-						<mat-form-field>
+						<mat-form-field class="q-grid-editor-container-small">
 							<input q-grid-focus
 							       matInput
 							       type="email"

@@ -5,7 +5,8 @@
 	                    (close)="$view.edit.cell.exit.execute($cell)"
 	                    q-grid-position="td">
 		<ng-template>
-			<mat-form-field>
+			<div class="q-grid-editor-container-large">
+				<mat-form-field>
 				<textarea matInput
 				          #input
 				          rows="10"
@@ -20,6 +21,7 @@
 			                  [type]="$cell.column.type"
 			                  [value]="$view.edit.cell.value">
 			</q-grid-validator>
+			</div>
 		</ng-template>
 	</q-grid-cell-editor>
 </ng-template>
