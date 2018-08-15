@@ -90,9 +90,9 @@ describe('sort pipe', () => {
 		};
 
 		sort(list, ctx, (data) => {
-			expect(data[0]).to.be.eql({ name: 'Bob', age: 45 });
+			expect(data[0]).to.be.eql({ name: 'James', age: 40 });
 			expect(data[1]).to.be.eql({ name: 'Bob', age: 40 });
-			expect(data[2]).to.be.eql({ name: 'James', age: 40 });
+			expect(data[2]).to.be.eql({ name: 'Bob', age: 45 });
 			expect(data[3]).to.be.eql({ name: 'Alan', age: 30 });
 		});
 	});

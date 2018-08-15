@@ -29,11 +29,13 @@ describe('selection service', () => {
 
 		model = modelFactory();
 
-		model
-			.data({
-				rows,
-				columns
-			});
+		model.data({
+			rows
+		});
+
+		model.columnList({
+			line: columns
+		})
 	});
 
 	describe('row unit', () => {
