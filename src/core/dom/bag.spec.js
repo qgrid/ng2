@@ -55,10 +55,10 @@ describe('Bag', () => {
 	});
 
 	describe('deleteRow', () => {
-		it('returns true if Raw was deleted', () => {
+		it('returns false since Row was deleted', () => {
 			bag.addRow(row);
 			bag.deleteRow(row);
-			let result = bag.models.has('row') && bag.cells.has(row);
+			let result = bag.elements.has('row') && bag.rows.has(row);
 			expect(result).to.equal(false);
 		});
 	});

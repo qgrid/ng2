@@ -1,32 +1,34 @@
-[{
-	"title": "zip starts with 0",
-	"modified": 1524245307110,
-	"model": {
-		"filter": {
-			"by": {
-				"contact.address.zip": {
-					"items": [
-						"00936",
-						"01536",
-						"01910",
-						"02481",
-						"04108",
-						"06754",
-						"05047",
-						"05442",
-						"07717",
-						"07921",
-						"08722"
-					],
-					"blanks": false
-				}
-			}
-		},
-		"group": {
-			"by": []
-		}
-	},
-	"isDefault": false,
-	"group": "Presets",
-	"canEdit": false
-}]
+[
+  {
+    "title": "zip starts with 0",
+    "modified": 1524245307110,
+    "model": {
+      "filter": {
+        "by": {
+          "contact.address.zip": {
+            "items": [
+              "00936",
+              "01536",
+              "01910",
+              "02481",
+              "04108",
+              "06754",
+              "05047",
+              "05442",
+              "07717",
+              "07921",
+              "08722"
+            ],
+            "blanks": false
+          }
+        }
+      },
+      "group": {
+        "by": []
+      }
+    },
+    "isDefault": false,
+    "group": "Presets",
+    "canEdit": false
+  }
+]

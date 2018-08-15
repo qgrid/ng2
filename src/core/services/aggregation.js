@@ -58,7 +58,7 @@ export class Aggregation {
 		while (length--) {
 			const value = getValue(rows[length]);
 			min = Math.min(min, value);
-			max = Math.min(max, value);
+			max = Math.max(max, value);
 		}
 
 		return [min, max];
@@ -86,7 +86,7 @@ export class Aggregation {
 
 		let sum = 0;
 		if (options.distinct) {
-			const set = set || new Set();
+			set = set || new Set();
 			while (length--) {
 				const value = getValue(rows[length]);
 				if (!set.has(value)) {
@@ -148,7 +148,7 @@ export class Aggregation {
 		if (options.distinct) {
 			let set = new Set();
 			while (length--) {
-				count = Number(getValue(rows[length]));
+				const count = Number(getValue(rows[length]));
 				set.add(count);
 			}
 
