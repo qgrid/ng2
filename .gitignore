@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 *.gen.html
+*.log
 
 # dependencies
 /node_modules
