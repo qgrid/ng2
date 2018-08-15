@@ -38,7 +38,6 @@ describe('sortIndexFactory', function () {
 
 		let sort = ColumnListSort.sortIndexFactory(model);
 		let result = sort(test);
-		expect(JSON.stringify(result.index)).to.equals('[2,5,3,6,1,10]');
-		expect(result.hasChanges).to.equals(true);
+		expect(result).to.eql([5,2,6,3,10,1]);
 	});
 });

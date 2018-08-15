@@ -32,8 +32,12 @@ module.exports = function (config) {
       ChromeTravis: {
         base: 'ChromeHeadless',
         flags: ['--no-sandbox']
+      },
+      ChromeDebug: {
+        base: 'Chrome',
+        flags: [ '--remote-debugging-port=9333' ]
       }
     },
-    singleRun: false
+    singleRun: !!process.env.TRAVIS
   });
 };

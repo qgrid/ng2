@@ -80,7 +80,7 @@ describe('Group View', () => {
 	});
 
 	describe('offset', () => {
-		it('should return offset', () => {
+		xit('should return offset', () => {
 
 			let table = {
 				data: {
@@ -98,7 +98,7 @@ describe('Group View', () => {
 	});
 
 	describe('value', () => {
-		it('should return value', () => {
+		xit('should return value', () => {
 
 			let table = {
 				data: {
@@ -116,7 +116,7 @@ describe('Group View', () => {
 	});
 
 	describe('get column', () => {
-		it('should return column with type `group`', () => {
+		xit('should return column with type `group`', () => {
 
 			let table = {
 				data: {
@@ -131,7 +131,8 @@ describe('Group View', () => {
 			let result = groupView.column;
 			expect(result.key).to.equal('id');
 		});
-		it('otherwise should return a GroupColumnModel instance', () => {
+
+		xit('otherwise should return a GroupColumnModel instance', () => {
 
 			let table = {
 				data: {
