@@ -5,30 +5,32 @@
 	                    (close)="$view.edit.cell.exit.execute($cell)"
 	                    q-grid-position="td">
 		<ng-template>
-			<q-grid-tab-trap>
-				<ng-template>
-					<div class="flex layout-column q-grid-url-fields">
-						<mat-form-field *ngIf="$cell.column.label !== null">
-							<input matInput
-							       type="text"
-							       [(ngModel)]="$view.edit.cell.label"
-							       placeholder="Label" />
-						</mat-form-field>
-						<mat-form-field>
-							<input matInput
-							       type="url"
-							       q-grid-focus
-							       [(ngModel)]="$view.edit.cell.value"
-							       placeholder="Url" />
-						</mat-form-field>
-						<q-grid-validator class="q-grid-validator"
-						                  [key]="$cell.column.key"
-						                  [type]="$cell.column.type"
-						                  [value]="$view.edit.cell.value">
-						</q-grid-validator>
-					</div>
-				</ng-template>
-			</q-grid-tab-trap>
+			<div class="q-grid-editor-container-small">
+				<q-grid-tab-trap>
+					<ng-template>
+						<div class="flex layout-column q-grid-url-fields">
+							<mat-form-field *ngIf="$cell.column.label !== null">
+								<input matInput
+								       type="text"
+								       [(ngModel)]="$view.edit.cell.label"
+								       placeholder="Label" />
+							</mat-form-field>
+							<mat-form-field>
+								<input matInput
+								       type="url"
+							 	      q-grid-focus
+							 	     [(ngModel)]="$view.edit.cell.value"
+							  	     placeholder="Url" />
+							</mat-form-field>
+							<q-grid-validator class="q-grid-validator"
+						    	              [key]="$cell.column.key"
+						         	         [type]="$cell.column.type"
+						         	         [value]="$view.edit.cell.value">
+							</q-grid-validator>
+						</div>
+					</ng-template>
+				</q-grid-tab-trap>
+			</div>
 		</ng-template>
 	</q-grid-cell-editor>
 </ng-template>
