@@ -27,6 +27,7 @@ import { TabTrapModule } from './tab-trap/tab-trap.module';
 import { TitleModule } from './title/title.module';
 import { ExportModule } from './export/export.module';
 import { ImportModule } from './import/import.module';
+import { ValidationModule } from './validation/validation.module';
 
 Model.register('columnChooser', ColumnChooserModel)
 	.register('columnFilter', ColumnFilterModel)
@@ -58,7 +59,8 @@ Model.register('columnChooser', ColumnChooserModel)
 		RestModule,
 		StatusBarModule,
 		TabTrapModule,
-		TitleModule
+		TitleModule,
+		ValidationModule
 	]
 })
 export class PluginModule { }

@@ -1,35 +1,43 @@
-import {ModelBinder} from './model.bind';
-import {Event} from './event';
+import { ModelBinder } from './model.bind';
+import { Event } from './event';
 
 describe('ModelBinder', () => {
+	let state = { prop: 'originValue' };
 	let model = {
-		test: function (value) {
+		state: value => {
 			if (value) {
-				return null;
+				Object.assign(state, value);
+				return;
 			}
-			else {
-				return {
-					newValue: 'testValue'
-				}
-			}
+
+			return state;
 		},
-		testChanged: new Event()
+		stateChanged: new Event()
 	};
 
-	let names = ['test'];
+	let modelNames = ['state'];
 
-	let source = {
-		testNewValue: null
-	};
+	let host = { stateProp: 'hostValue' };
 
-	let modelBinder = new ModelBinder(source);
-	modelBinder.bind(model, names);
-
+	let modelBinder = new ModelBinder(host);
 	describe('bind', () => {
-
-		it('should set new value to testNewValue property', () => {
-			expect(source.testNewValue).to.equal('testValue');
+		it('commit should setup model property', () => {
+			const commit = modelBinder.bound(model, modelNames, false);
+			commit();
+			expect(model.state().prop).to.equal('hostValue');
 		});
 
+		it('model property change should lead to host changes', () => {
+			model.stateChanged.emit({
+				changes: {
+					prop: {
+						newValue: 'valueAfterEvent',
+						oldValue: model.state().prop
+					}
+				}
+			});
+
+			expect(host.stateProp).to.equal('valueAfterEvent');
+		});
 	});
 });

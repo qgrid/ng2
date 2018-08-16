@@ -111,7 +111,7 @@ export class GridComponent extends RootComponent implements OnInit {
 		private element: ElementRef,
 		private zone: NgZone,
 		private layerService: LayerService,
-		@Inject(DOCUMENT) private document: Document,
+		@Inject(DOCUMENT) private document: any,
 		theme: ThemeService,
 	) {
 		super();

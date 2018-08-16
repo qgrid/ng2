@@ -1,4 +1,4 @@
-import { Command } from '../command';
+import { Command } from '../command/command';
 import { Composite } from './composite';
 import { identity, yes, no } from '../utility/kit';
 

@@ -25,7 +25,6 @@ export class ModelBinder extends Disposable {
 	}
 
 	bound(model, names, run = true, track = true) {
-		const host = this.host;
 		if (model) {
 			const commits = [];
 			for (let name of names) {

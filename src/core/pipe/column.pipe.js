@@ -1,11 +1,10 @@
 import { Guard } from '../infrastructure/guard';
 import { noop } from '../utility/kit';
-import { guid } from '../services/guid';
 import { columnFactory } from '../column/column.factory';
 import { generateFactory } from '../column-list/column.list.generate';
 import { columnIndexPipe } from './column.index.pipe';
 import { Node } from '../node/node';
-import { sortIndexFactory, sort } from '../column-list/column.list.sort';
+import { sortIndexFactory, merge } from '../column-list/column.list.sort';
 
 export function columnPipe(memo, context, next) {
 	Guard.hasProperty(memo, 'pivot');
@@ -69,7 +68,7 @@ export function columnPipe(memo, context, next) {
 
 	const { columnList } = model;
 	const buildIndex = sortIndexFactory(model);
-	const tree = sort(root, columnList().index, buildIndex);
+	const tree = merge(root, columnList().index, buildIndex);
 
 	/*
 	 * Add special column type
@@ -84,9 +83,9 @@ export function columnPipe(memo, context, next) {
 		columnList({
 			index
 		}, {
-			behavior: 'core',
-			source: 'column.pipe'
-		});
+				behavior: 'core',
+				source: 'column.pipe'
+			});
 
 		next(memo);
 	});
@@ -146,18 +145,20 @@ function groupColumnFactory(model, nodes) {
 			}
 			case 'rowspan':
 			case 'flat': {
-				return node =>
-					by.forEach(key => {
-						const groupColumn = createColumn('group');
-						groupColumn.model.source = 'generation';
-						groupColumn.model.key = `$group-${key}`;
-						groupColumn.model.title = key;
-						groupColumn.model.by = key;
+				return node => {
+					const nodes = by
+						.map(key => {
+							const groupColumn = createColumn('group');
+							groupColumn.model.source = 'generation';
+							groupColumn.model.key = `$group-${key}`;
+							groupColumn.model.title = key;
+							groupColumn.model.by = key;
+							return new Node(groupColumn, node.level + 1);
+						})
+						.filter(n => n.key.model.isVisible);
 
-						if (groupColumn.model.isVisible) {
-							node.children.unshift(new Node(groupColumn, node.level + 1));
-						}
-					});
+					node.children.splice(0, 0, ...nodes);
+				}
 			}
 		}
 	}
@@ -226,8 +227,16 @@ function padColumnFactory(model) {
 	const createColumn = columnFactory(model);
 	return node => {
 		const padColumn = createColumn('pad');
-		padColumn.model.key = `$pad-${guid()}`;
-		node.children.push(new Node(padColumn, node.level + 1));
+		padColumn.model.key = '$pad';
+
+		const index = node.children.findIndex(n => n.key.model.pin === 'right');
+		const padNode = new Node(padColumn, node.level + 1);
+		if (index >= 0) {
+			node.children.splice(index, 0, padNode);
+		} else {
+			node.children.push(padNode);
+		}
+
 		return padColumn;
 	};
 }

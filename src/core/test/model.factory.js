@@ -1,5 +1,5 @@
-import {Model} from '../infrastructure/model';
-import {setup} from '../index';
+import { Model } from '../infrastructure/model';
+import { setup } from '../setup';
 
 let isOpen = true;
 export function modelFactory() {

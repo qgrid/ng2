@@ -1,6 +1,6 @@
 <ng-template key="plugin-edit-form.tpl.html"
              let-$editForm>
-	<mat-card class="mat-elevation-z">
+	<mat-card class="mat-elevation-z" (keydown)="$event.stopPropagation()">
 		<mat-card-header>
 			<mat-card-title>{{$editForm.caption}}</mat-card-title>
 		</mat-card-header>
@@ -13,6 +13,7 @@
 		</mat-card-content>
 		<mat-card-actions>
 			<button mat-button
+			        q-grid-focus
 			        (click)="$editForm.cancel.execute($event)">
 				Cancel
 			</button>

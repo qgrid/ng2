@@ -13,7 +13,7 @@ export class ExampleDefineColumnHybridComponent {
 	rows: Observable<Atom[]>;
 	columns: Column[] = [{
 		key: 'mass',
-		title: 'js Mass'
+		title: 'should be js Mass'
 	}, {
 		key: 'symbol',
 		title: 'shouldnt be js Symbol',

@@ -18,7 +18,7 @@ export class ExampleColumnReferenceBasicComponent {
 	];
 
 	notEditableOptions: EditorOptions = {
-		modelFactory: ({ row, reference }) => {
+		modelFactory: ({ reference }) => {
 			reference.commit = new Command({
 				canExecute: () => false
 			});
@@ -129,8 +129,9 @@ export class ExampleColumnReferenceBasicComponent {
 	};
 
 	complexValuesOptions: EditorOptions = {
-		modelFactory: ({ row }) => {
+		modelFactory: () => {
 			const model = this.qgrid.model();
+
 			model
 				.data({
 					rows: this.convert(this.rows[0].notEditable),

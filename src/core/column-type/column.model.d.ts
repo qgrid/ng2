@@ -232,7 +232,7 @@ export declare class ColumnModel {
 	 *  * `markup` used for the internal markup needs (e.g. `pad` type column).
 	 *  * `pivot`multi head pivot.
 	 */
-	class?: 'data' | 'control' | 'markup' | 'pivot';
+	class?: 'data' | 'control' | 'markup' | 'pivot' | 'cohort';
 
 	/**
 	 * Editor type, will be shown in cell edit mode instead of default column type editor.

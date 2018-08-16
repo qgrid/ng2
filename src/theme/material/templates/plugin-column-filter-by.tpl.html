@@ -1,21 +1,21 @@
 <ng-template key="plugin-column-filter-by.tpl.html" let-$by>
 	<ul [q-grid-column-filter-item-list]="$by.column">
-		<li *ngIf="$by.isBlanks">
-			<div class="q-grid-filter-by">
-				<div class="q-grid-filter-by-item">
-					(Blanks)
-				</div>
-				<div class="q-grid-filter-by-remove" (click)="$by.removeByBlanks()">
-					<mat-icon class="q-grid-icon">clear</mat-icon>
-				</div>
-			</div>
-		</li>
 		<li *ngFor="let item of $by.by">
 			<div class="q-grid-filter-by">
 				<div class="q-grid-filter-by-item">
 					<ng-container [q-grid-column-filter-item]="item"></ng-container>
 				</div>
 				<div class="q-grid-filter-by-remove" (click)="$by.remove(item)">
+					<mat-icon class="q-grid-icon">clear</mat-icon>
+				</div>
+			</div>
+		</li>
+		<li *ngIf="$by.isBlanks">
+			<div class="q-grid-filter-by">
+				<div class="q-grid-filter-by-item">
+					(Blanks)
+				</div>
+				<div class="q-grid-filter-by-remove" (click)="$by.removeByBlanks()">
 					<mat-icon class="q-grid-icon">clear</mat-icon>
 				</div>
 			</div>

@@ -20,6 +20,7 @@ export declare function isObject(value: any): boolean;
 export declare function isString(value: any): boolean;
 export declare function isImage(value: any): boolean;
 export declare function isUrl(value: any): boolean;
+export declare function isEqual(x: any, y: any): boolean;
 export declare function clone(value: any): any;
 export declare function cloneDeep(value: any): any;
 export declare function flatten<T>(collection: Array<Array<T>>): T[];

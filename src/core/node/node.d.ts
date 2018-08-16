@@ -1,4 +1,4 @@
-import { NodeState } from './state';
+import { NodeState } from './node.state';
 
 export declare class Node {
 	constructor(key: string | any, level: number, type?: string);
@@ -34,12 +34,17 @@ export declare class Node {
 	children: Node[];
 
 	/**
+	 * Column key of the node.
+	 */
+	source: string;
+
+	/**
+	 * Value of the node.
+	 */
+	value: any;
+
+	/**
 	 * Shows if node was expanded or not.
 	 */
 	state: NodeState;
-
-	/**
-	 * Column key of node.
-	 */
-	source: string;
 }

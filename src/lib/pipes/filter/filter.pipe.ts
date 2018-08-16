@@ -1,30 +1,24 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { isObject } from 'ng2-qgrid/core/utility/kit';
-import { compileGet } from 'ng2-qgrid/core/services/path';
+import { predicateFactory } from 'ng2-qgrid/core/services/predicate';
+import { filter } from 'ng2-qgrid/core/node/node.service';
+import { Node } from 'ng2-qgrid/core/node/node';
 
 @Pipe({
 	name: 'qGridFilter'
 })
 export class FilterPipe implements PipeTransform {
-	transform(items: any, filter: any): any {
-		if (filter || filter === 0 || filter === false) {
-			if (isObject(filter)) {
-				// TODO: improve performance
-				const getters = Object
-					.keys(filter)
-					.map(key => {
-						const value = compileGet(key);
-						return { key, value };
-					});
-
-				return items.filter(item =>
-					getters.reduce((memo, get) =>
-						(memo && new RegExp(filter[get.key], 'gi').test(get.value(item)) || filter[get.key] === ''),
-						true));
+	transform(items: any[] | Node, { search = null, type = 'plain' }) {
+		if (search || search === 0 || search === false) {
+			const predicate = predicateFactory(search);
+			switch (type) {
+				case 'node': {
+					const root = items as Node;
+					return filter(root, predicate);
+				}
+				default: {
+					return (items as any[]).filter(predicate);
+				}
 			}
-
-			const expr = new RegExp(filter, 'gi');
-			return items.filter(item => expr.test(item));
 		}
 
 		return items;
