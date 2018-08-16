@@ -1,7 +1,12 @@
 .q-grid-editor.q-grid-url {
 	height: auto;
-	width: 250px;
+	width: 300px;
 	.q-grid-url-fields {
 		padding-top: 8px;
+	}
+	.q-grid-editor-content {
+		width: 84%;
+		height: 100%;
+		padding: 24px;
 	}
 }
