@@ -144,20 +144,23 @@ describe('Selector', () => {
 	});
 
 	describe('rowCount', () => {
-		let row1 = [{ colSpan: 1, rowSpan: 1 }, { colSpan: 2, rowSpan: 2 }];
+		let td0 = { colSpan: 1, rowSpan: 1 };
+		let td1 = { colSpan: 2, rowSpan: 2 };
+		let row1 = [td0, td1];
 		let row2 = [];
 		let rowRange = new Range(1, 3);
 		let columnRange = new Range(1, 4);
-		let matrix = [row1, row2];
+		let matrix = [[td0, td1],
+	                  [null, td1]];
 		let bag = new Bag();
 		bag.addRow(row1);
 		bag.addRow(row2);
 		let factory = new UnitFactory(rowRange, columnRange);
 		let selector = new Selector(matrix, bag, factory);
 
-		xit('returns row number', () => {
+		it('returns row number', () => {
 			let result = selector.rowCount(1);
-			expect(result).to.equal(2);
+			expect(result).to.equal(1);
 		});
 	});
 
