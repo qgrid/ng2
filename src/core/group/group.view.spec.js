@@ -1,8 +1,7 @@
-import {CommandManager} from '../command/command.manager';
-import {GroupView} from './group.view';
-import {modelFactory} from '../test/model.factory';
-import {GridService} from '../services/grid';
-import {GroupColumnModel} from '../column-type/group.column';
+import { CommandManager } from '../command/command.manager';
+import { GroupView } from './group.view';
+import { modelFactory } from '../test/model.factory';
+import { GridService } from '../services/grid';
 import { Disposable } from '../infrastructure/disposable';
 
 describe('Group View', () => {
@@ -80,72 +79,20 @@ describe('Group View', () => {
 	});
 
 	describe('offset', () => {
-		xit('should return offset', () => {
-
+		it('should return offset', () => {
+			const column = {
+				key: 'id',
+				offset: 24
+			};
 			let table = {
 				data: {
-					columns: () =>
-						[{
-							key: 'id', type: null
-						}]
+					columns: () => [column]
 				}
 			};
 			let gridService = new GridService(model);
 			let groupView = new GroupView(model, table, gridService, navShortcut);
-			let result = groupView.offset(node);
+			let result = groupView.offset(node, column);
 			expect(result).to.equal(48); // model.offset = 24(optional value) * node.level = 2 == 48
-		});
-	});
-
-	describe('value', () => {
-		xit('should return value', () => {
-
-			let table = {
-				data: {
-					columns: () =>
-						[{
-							key: 'id', type: null
-						}]
-				}
-			};
-			let gridService = new GridService(model);
-			let groupView = new GroupView(model, table, gridService, navShortcut);
-			let result = groupView.value(node);
-			expect(result).to.equal('name');
-		});
-	});
-
-	describe('get column', () => {
-		xit('should return column with type `group`', () => {
-
-			let table = {
-				data: {
-					columns: () =>
-						[{
-							key: 'id', type: 'group'
-						}]
-				}
-			};
-			let gridService = new GridService(model);
-			let groupView = new GroupView(model, table, gridService, navShortcut);
-			let result = groupView.column;
-			expect(result.key).to.equal('id');
-		});
-
-		xit('otherwise should return a GroupColumnModel instance', () => {
-
-			let table = {
-				data: {
-					columns: () =>
-						[{
-							key: 'id', type: null
-						}]
-				}
-			};
-			let gridService = new GridService(model);
-			let groupView = new GroupView(model, table, gridService, navShortcut);
-			let result = groupView.column;
-			expect(result).to.be.an.instanceOf(GroupColumnModel);
 		});
 	});
 });
