@@ -1,6 +1,12 @@
 td {
 	.q-grid-editor.q-grid-text {
-		width: 160px;
-		height: 50px;
+		width: 203px;
+    	height: 96px;
+
+		.q-grid-editor-content {
+			padding: 24px;
+    		width: 77%;
+    		height: 50%;
+		}
 	}
 }
