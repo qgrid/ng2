@@ -6,13 +6,13 @@ const chai = require('chai').use(require('chai-as-promised'));
 const { expect } = chai;
 
 Then('I open cell editor', () => openEditor().then(() => setInitialValue()));
-Then('I change input value', () => changeValue().then(() => verifyChanges().then(el => expect(el).to.be.equal(`${initialValue}Changed`))));
+Then('I change input value', () => changeValue().then(() => changedValue().then(el => expect(el).to.be.equal(`${initialValue}Changed`))));
 Then('I close cell editor', () => closeEditor().then(text => expect(text).to.be.equal(`${initialValue}Changed`)));
 
 let initialValue;
 
 function setInitialValue() {
-    element(by.css('.q-grid-editor-content input')).getAttribute('value').then(value => initialValue = value);
+	element(by.css('.q-grid-editor-content input')).getAttribute('value').then(value => initialValue = value);
 }
 
 function openEditor() {
@@ -33,7 +33,7 @@ function changeValue() {
 	return element(by.css('.q-grid-editor-content input')).sendKeys('Changed');
 }
 
-function verifyChanges() {
+function changedValue() {
 	return element(by.css('.q-grid-editor-content input')).getAttribute('value');
 }
 
