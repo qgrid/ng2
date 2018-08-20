@@ -5,11 +5,17 @@ import { protractor } from 'protractor/built/ptor';
 const chai = require('chai').use(require('chai-as-promised'));
 const { expect } = chai;
 
-Then('I open cell editor', () => openCellEditor());
-Then('I change input value', () => changeInputValue().then(() => verifyInputChanges().then(el => expect(el).to.be.equal('LueChanged'))));
-Then('I close cell editor', () => closeCellEditor().then(text => expect(text).to.be.equal('LueChanged')));
+Then('I open cell editor', () => openEditor().then(() => setInitialValue()));
+Then('I change input value', () => changeValue().then(() => verifyChanges().then(el => expect(el).to.be.equal(`${initialValue}Changed`))));
+Then('I close cell editor', () => closeEditor().then(text => expect(text).to.be.equal(`${initialValue}Changed`)));
 
-function openCellEditor() {
+let initialValue;
+
+function setInitialValue() {
+    element(by.css('.q-grid-editor-content input')).getAttribute('value').then(value => initialValue = value);
+}
+
+function openEditor() {
 	return element.all(by.css('.q-grid-text > span')).first().click()
 	.then(() =>
 			browser.wait(
@@ -19,14 +25,16 @@ function openCellEditor() {
 				5000));
 }
 
-function changeInputValue() {
+function closeEditor() {
+	return browser.actions().sendKeys(protractor.Key.ENTER).perform().then(() => element.all(by.css('.q-grid-text > span')).first().getText());
+}
+
+function changeValue() {
 	return element(by.css('.q-grid-editor-content input')).sendKeys('Changed');
 }
 
-function verifyInputChanges() {
+function verifyChanges() {
 	return element(by.css('.q-grid-editor-content input')).getAttribute('value');
 }
 
-function closeCellEditor() {
-	return browser.actions().sendKeys(protractor.Key.ENTER).perform().then(() => element.all(by.css('.q-grid-text > span')).first().getText());
-}
+
