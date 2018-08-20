@@ -5,13 +5,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 * Auto-complete cell editor.
-* Row edit form.
-* Batch edit support.
-* Infinite scrolling.
-* Validation framework.
+* Batch edit improvements.
+* Vscroll improvements.
 * Copy/paste selection to excel.
 * Live data plugin.
 * Float Row Navigation.
+* Group keyboard navigation improvements.
+
+## [6.2.1]
+### Added
+- Edit form support.
+- Travis CI.
+- Cucumber specs infrastructure.
+- Edit cell validation support.
+
+### Fixed
+- Blanks position in the column filter.
 
 ## [6.2.0]
 ### Fixed
@@ -310,7 +319,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v6.1.5...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v6.2.1...HEAD
+[6.2.1]: https://github.com/qgrid/ng2/compare/v6.2.1...v6.2.0
+[6.2.0]: https://github.com/qgrid/ng2/compare/v6.2.0...v6.1.5
 [6.1.5]: https://github.com/qgrid/ng2/compare/v6.1.5...v6.1.4
 [6.1.4]: https://github.com/qgrid/ng2/compare/v6.1.4...v6.1.3
 [6.1.3]: https://github.com/qgrid/ng2/compare/v6.1.3...v6.1.1
