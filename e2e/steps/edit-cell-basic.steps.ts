@@ -5,7 +5,7 @@ import { protractor } from 'protractor/built/ptor';
 const chai = require('chai').use(require('chai-as-promised'));
 const { expect } = chai;
 
-When('I open cell editor', () => openCellEditor());
+Then('I open cell editor', () => openCellEditor());
 Then('I change input value', () => changeInputValue().then(() => verifyInputChanges().then(el => expect(el).to.be.equal('LueChanged'))));
 Then('I close cell editor', () => closeCellEditor().then(text => expect(text).to.be.equal('LueChanged')));
 
