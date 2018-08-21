@@ -1,7 +1,10 @@
 Feature: Edit cell basic
 
-	Scenario: Save input chages when close cell editor
+	Scenario: Cell value changed on cell editor close
         Given I am on "edit-cell-basic"
-        Then I open cell editor
-        Then I change input value
-        Then I close cell editor
+        When I click on cell of type text
+        Then Editor value
+        When I change editor value
+        Then Editor new value
+        When I close editor via Enter key
+        Then Editor value should be saved

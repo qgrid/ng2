@@ -5,9 +5,12 @@ import { protractor } from 'protractor/built/ptor';
 const chai = require('chai').use(require('chai-as-promised'));
 const { expect } = chai;
 
-Then('I open cell editor', () => openEditor().then(() => setInitialValue()));
-Then('I change input value', () => changeValue().then(() => changedValue().then(el => expect(el).to.be.equal(`${initialValue}Changed`))));
-Then('I close cell editor', () => closeEditor().then(text => expect(text).to.be.equal(`${initialValue}Changed`)));
+When('I click on cell of type text', () => clickCell().then(() => setInitialValue()));
+Then('Editor value', () => getEditorValue().then(value => expect(value).to.be.equal(initialValue)));
+When('I change editor value', () => changeValue());
+Then('Editor new value', () => getEditorValue().then(value => expect(value).to.be.equal(`${initialValue}Changed`)));
+When('I close editor via Enter key', () => pressEnter());
+Then('Editor value should be saved', () => getCellValue().then(value => expect(value).to.be.equal(`${initialValue}Changed`)));
 
 let initialValue;
 
@@ -15,7 +18,7 @@ function setInitialValue() {
 	element(by.css('.q-grid-editor-content input')).getAttribute('value').then(value => initialValue = value);
 }
 
-function openEditor() {
+function clickCell() {
 	return element.all(by.css('.q-grid-text > span')).first().click()
 	.then(() =>
 			browser.wait(
@@ -25,16 +28,18 @@ function openEditor() {
 				5000));
 }
 
-function closeEditor() {
-	return browser.actions().sendKeys(protractor.Key.ENTER).perform().then(() => element.all(by.css('.q-grid-text > span')).first().getText());
+function pressEnter() {
+	return browser.actions().sendKeys(protractor.Key.ENTER).perform();
 }
 
 function changeValue() {
 	return element(by.css('.q-grid-editor-content input')).sendKeys('Changed');
 }
 
-function changedValue() {
+function getEditorValue() {
 	return element(by.css('.q-grid-editor-content input')).getAttribute('value');
 }
 
-
+function getCellValue() {
+	return element.all(by.css('.q-grid-text > span')).first().getText();
+}
