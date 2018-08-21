@@ -5,12 +5,12 @@ import { protractor } from 'protractor/built/ptor';
 const chai = require('chai').use(require('chai-as-promised'));
 const { expect } = chai;
 
-When('I click on cell of type text', () => clickCell().then(() => setInitialValue()));
+When('I open editor of type {string}', editorType => clickCell(editorType).then(() => setInitialValue()));
 Then('Editor value', () => getEditorValue().then(value => expect(value).to.be.equal(initialValue)));
-When('I change editor value', () => changeValue());
-Then('Editor new value', () => getEditorValue().then(value => expect(value).to.be.equal(`${initialValue}Changed`)));
-When('I close editor via Enter key', () => pressEnter());
-Then('Editor value should be saved', () => getCellValue().then(value => expect(value).to.be.equal(`${initialValue}Changed`)));
+When('I change editor value to {string}', value => changeValueTo(value));
+Then('Editor new value equals to {string}', value => getEditorValue().then(v => expect(v).to.be.equal(value)));
+When('I close editor via Enter key', () => pressEnterKey());
+Then('Cell new value equals to {string}', value => getCellValue().then(v => expect(v).to.be.equal(value)));
 
 let initialValue;
 
@@ -18,22 +18,17 @@ function setInitialValue() {
 	element(by.css('.q-grid-editor-content input')).getAttribute('value').then(value => initialValue = value);
 }
 
-function clickCell() {
-	return element.all(by.css('.q-grid-text > span')).first().click()
-	.then(() =>
-			browser.wait(
-				until.presenceOf(
-					element(by.css('.q-grid-editor-content input'))
-				),
-				5000));
+function clickCell(type: string) {
+	return element.all(by.css(`tr[q-grid-core-source="body"] > td.q-grid-${type}`)).first().click();
 }
 
-function pressEnter() {
+function pressEnterKey() {
 	return browser.actions().sendKeys(protractor.Key.ENTER).perform();
 }
 
-function changeValue() {
-	return element(by.css('.q-grid-editor-content input')).sendKeys('Changed');
+function changeValueTo(value: any) {
+	const elem = element(by.css('.q-grid-editor-content input'));
+	return elem.clear().then(() => elem.sendKeys(value));
 }
 
 function getEditorValue() {
