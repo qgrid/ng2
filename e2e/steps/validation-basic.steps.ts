@@ -7,6 +7,7 @@ const { expect } = chai;
 When('I change cell value for column {string} to {string}', (selector, text) => editText(selector, text));
 Then('Input value equals to {string}', (text) => getInput().getAttribute('value').then((value) => expect(value).to.equal(text)));
 Then('No validation errors', () => getValidatorErrors().then((value) => expect(value).to.be.null));
+// And No validation errors
 // When I change value to ""
 // Then Validation error equals to "REQUIRED"
 
@@ -28,7 +29,7 @@ function getValidatorErrors() {
 				),
 				5000))
 		.then((validator) => {
-			const span = validator.element(by.tagName('span'));
+			const span = validator.element(by.cssContainingText('span', 'TOO_SHORT'));
 			return span.getAttribute('value');
 		});
 }
