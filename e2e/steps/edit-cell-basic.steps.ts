@@ -5,12 +5,12 @@ import { protractor } from 'protractor/built/ptor';
 const chai = require('chai').use(require('chai-as-promised'));
 const { expect } = chai;
 
-When('I open editor of type {string}', editorType => clickCell(editorType).then(() => setInitialValue()));
+When('I click on cell of class q-grid-{string}', editorType => clickCell(editorType).then(() => setInitialValue()));
 Then('Editor value', () => getEditorValue().then(value => expect(value).to.be.equal(initialValue)));
 When('I change editor value to {string}', value => changeValueTo(value));
 Then('Editor new value equals to {string}', value => getEditorValue().then(v => expect(v).to.be.equal(value)));
 When('I close editor via Enter key', () => pressEnterKey());
-Then('Cell new value equals to {string}', value => getCellValue().then(v => expect(v).to.be.equal(value)));
+Then('Cell new value equals to {string} {string}', (type, value) => getCellValue(type).then(v => expect(v).to.be.equal(value)));
 
 let initialValue;
 
@@ -35,6 +35,6 @@ function getEditorValue() {
 	return element(by.css('.q-grid-editor-content input')).getAttribute('value');
 }
 
-function getCellValue() {
-	return element.all(by.css('.q-grid-text > span')).first().getText();
+function getCellValue(type) {
+	return element.all(by.css(`.q-grid-${type} > span`)).first().getText();
 }
