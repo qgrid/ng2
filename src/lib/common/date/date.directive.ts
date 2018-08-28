@@ -1,5 +1,8 @@
 import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
 
+const DATEPATTERN_1 = /^\d{1,2}[\/|\-|\.|_]\d{1,2}[\/|\-|\.|_]\d{4}$/g; // Month/Date/Year Date/Month/Year
+const DATEPATTERN_2 = /^\d{4}[\/|\-|\.|_]\d{1,2}[\/|\-|\.|_]\d{1,2}$/g; // Year/Month/Date Year/Date/Month
+
 @Directive({
     selector: '[q-grid-date]'
 })
@@ -9,18 +12,12 @@ export class DateDirective {
     }
 
     isValid(text) {
-        if (text.search(/^\d{1,2}[\/|\-|\.|_]\d{1,2}[\/|\-|\.|_]\d{4}$/g) !== 0) {
+        if (!(text.search(DATEPATTERN_1) === 0) && !(text.search(DATEPATTERN_2) === 0)) {
             return false;
         }
 
-        text = text.replace(/[\-|\.|_]/g, '/');
-        const date = new Date(Date.parse(text));
-        const dateParts = text.split('/');
+        const date = new Date(text);
 
-        return (
-            date.getMonth() === +(dateParts[0] - 1) &&
-            date.getDate() === +(dateParts[1]) &&
-            date.getFullYear() === +(dateParts[2])
-        );
+        return date instanceof Date && !isNaN(date as any);
     }
 }
