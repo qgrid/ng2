@@ -29,6 +29,16 @@ export declare interface ScrollModel {
 	 */
 	cursor?: number;
 
+	/**
+	 * Scroll velocity.
+	 */
+	velocity?: number;
+
+	/**
+	 * Defines the distance from borders where scrolling should be initiated.
+	 */
+	offset?: number;
+
 	map: {
 		rowToView: (index: number) => number,
 		viewToRow: (index: number) => number,
