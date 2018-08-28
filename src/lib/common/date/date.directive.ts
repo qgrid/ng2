@@ -13,7 +13,7 @@ export class DateDirective {
 
     isValid(text) {
         if (!(text.search(DATEPATTERN_1) === 0) && !(text.search(DATEPATTERN_2) === 0)) {
-            return false;
+            return false; 
         }
 
         const date = new Date(text);
