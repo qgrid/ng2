@@ -227,7 +227,7 @@ export class BodyCtrl {
 	}
 
 	resize() {
-		this.scrollService.resize();
+		this.scrollService.invalidate();
 	}
 
 	get selection() {

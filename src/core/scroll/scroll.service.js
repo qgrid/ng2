@@ -42,7 +42,7 @@ export class ScrollService {
         this.startCell = startCell; 
 
         if (!this.body) {
-            this.resize();
+            this.invalidate();
         }
 
         if (this.interval) {
@@ -146,7 +146,7 @@ export class ScrollService {
         return false;
     }
 
-    resize() {
+    invalidate() {
         const { view } = this.table;
 
         this.body = view.markup.body;
