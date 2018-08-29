@@ -10,5 +10,4 @@ export declare class BodyCtrl {
 	onMouseMove(e: MouseEvent);
 	onMouseLeave(e: MouseEvent);
 	onMouseUp(e: MouseEvent);
-	resize(): void;
 }
