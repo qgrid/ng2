@@ -8,8 +8,8 @@ export class ScrollService {
         this.table = table;
         this.bag = bag;
         this.view = view;
-        this.interval = null;
         this.job = jobLine(0);
+        this.interval = null;
         this.startCell = null;
         this.mouseEvent = null; 
 
