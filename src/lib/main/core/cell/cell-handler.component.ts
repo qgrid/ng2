@@ -175,14 +175,9 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	}
 
 	get isMarkerVisible() {
-		const model = this.root.model;
-		const { column } = model.navigation();
+		const { model } = this.root;
+		const { method } = model.edit();
 
-		if (column) {
-			const type = column.type;
-			return model.edit().method === 'batch';
-		}
-
-		return false;
+		return method === 'batch';
 	}
 }
