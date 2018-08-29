@@ -7,5 +7,5 @@ export declare class ScrollService {
 
     start(): void;
     stop(): void;
-    invalidate(): void; 
+    invalidate(): void;
 }

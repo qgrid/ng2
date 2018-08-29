@@ -9,7 +9,6 @@ export class ScrollService {
         this.bag = bag;
         this.view = view;
         this.interval = null;
-        this.markup = null;
         this.job = jobLine(0);
         this.startCell = null;
         this.mouseEvent = null; 
@@ -42,10 +41,6 @@ export class ScrollService {
     start(e, startCell) {
         this.mouseEvent = e;
         this.startCell = startCell; 
-
-        if (!this.markup) {
-            this.invalidate();
-        }
 
         if (this.interval) {
             if (!this.canScroll(e)) {
@@ -94,8 +89,8 @@ export class ScrollService {
         }, 50);
     }
 
-    isScrolledToEnd(direction) {
-        const body = this.markup.body;
+    isScrolledToEnd(direction) { 
+        const body = this.body;
 
         switch (direction) {
             case 'top': {
@@ -147,10 +142,6 @@ export class ScrollService {
         return false;
     }
 
-    invalidate() {
-        this.markup = this.table.view.markup;
-    }
-
     stop() {
         if(this.interval) {
             this.clearInterval();
@@ -181,7 +172,11 @@ export class ScrollService {
     }
 
     get rect() {
-        return this.table.view.rect(this.markup.body);
+        return this.table.view.rect(this.body);
+    }
+
+    get body() {
+       return this.table.view.markup.body;
     }
     
     get offset() {
