@@ -2,7 +2,7 @@ import { PathService } from '../path/path.service';
 import { Fastdom } from '../services/fastdom';
 import { GRID_PREFIX } from '../definition';
 import { jobLine } from '../services/job.line';
-import { ScrollService } from 'ng2-qgrid/core/scroll/scroll.service';
+import { ScrollService } from '../scroll/scroll.service';
 
 const MOUSE_LEFT_BUTTON = 1;
 const VERTICAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-vertical`;
@@ -133,7 +133,7 @@ export class BodyCtrl {
 			if (startCell && endCell) {
 				this.navigate(endCell);
 				this.view.selection.selectRange(startCell, endCell, 'body');
-				this.scrollService.scroll(e, startCell);
+				this.scrollService.start(e, startCell);
 			}
 		}
 	}
@@ -152,8 +152,8 @@ export class BodyCtrl {
 	onMouseUp(e) {
 		this.scrollService.stop(); 
 
-		const mode = this.selection.mode;
-		const edit = this.model.edit;
+		const { mode } = this.selection;
+		const { edit } = this.model;
 
 		if (e.which === MOUSE_LEFT_BUTTON) {
 			const pathFinder = new PathService(this.bag.body);

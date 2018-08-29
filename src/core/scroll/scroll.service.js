@@ -9,16 +9,15 @@ export class ScrollService {
         this.bag = bag;
         this.view = view;
         this.interval = null;
-        this.rect = null;
-        this.body = null;
+        this.markup = null;
         this.job = jobLine(0);
         this.startCell = null;
-        this.mousePosition = null; 
+        this.mouseEvent = null; 
 
         const pathFinder = new PathService(bag.body);
         model.scrollChanged.watch(e => {
             if (this.interval) {              
-                const path = this.getPath(this.mousePosition);
+                const path = this.getPath(this.mouseEvent);
                 const td = pathFinder.cell(path);
 
                 this.navigate(td);
@@ -28,20 +27,23 @@ export class ScrollService {
     }
 
     canScroll(e) {
-        const table = this.rect;
+        const rect = this.rect;
         const offset = this.offset;
 
-        return !(e.clientY < (table.bottom - offset) &&
-            e.clientY > (table.top + offset) &&
-            e.clientX > (table.left + offset) &&
-            e.clientX < (table.right - offset))
+        // check if mouse is not in areas which fire scrolling
+        const mouseNotOnTopSide = e.clientY > (rect.top + offset);
+        const mouseNotOnBottomSide = e.clientY < (rect.bottom - offset);
+        const mouseNotOnLeftSide = e.clientX > (rect.left + offset);
+        const mouseNotOnRightSide = e.clientX < (rect.right - offset);
+
+        return !(mouseNotOnTopSide && mouseNotOnBottomSide && mouseNotOnLeftSide && mouseNotOnRightSide);
     }
 
-    scroll(e, startCell) {
-        this.mousePosition = e;
+    start(e, startCell) {
+        this.mouseEvent = e;
         this.startCell = startCell; 
 
-        if (!this.body) {
+        if (!this.markup) {
             this.invalidate();
         }
 
@@ -55,14 +57,13 @@ export class ScrollService {
         const direction = this.onEdgeOf(e);
         if (direction && !this.interval) {
             this.job(() => {
-                const interval = this.doScroll(direction);
+                const interval = this.scroll(direction);
                 this.interval = interval();
             })
         }
-
     }
 
-    doScroll(direction) {
+    scroll(direction) {
         const { scroll } = this.model;
         const scrollState = scroll();
         const { velocity }  = scrollState;
@@ -94,7 +95,7 @@ export class ScrollService {
     }
 
     isScrolledToEnd(direction) {
-        const body = this.body;
+        const body = this.markup.body;
 
         switch (direction) {
             case 'top': {
@@ -116,30 +117,30 @@ export class ScrollService {
     }
 
     onEdgeOf(e) {
-        const table = this.rect;
+        const rect = this.rect;
         const offset = this.offset;
 
-        if (e.clientY < (table.top + offset) &&
-            e.clientX > (table.left + offset) &&
-            e.clientX < (table.right - offset)) {
+        if (e.clientY < (rect.top + offset) &&
+            e.clientX > (rect.left + offset) &&
+            e.clientX < (rect.right - offset)) {
             return 'top';
         }
 
-        if (e.clientY > (table.bottom - offset) &&
-            e.clientX > (table.left + offset) &&
-            e.clientX < (table.right - offset)) {
+        if (e.clientY > (rect.bottom - offset) &&
+            e.clientX > (rect.left + offset) &&
+            e.clientX < (rect.right - offset)) {
             return 'bottom';
         }
 
-        if (e.clientX < (table.left + offset) &&
-            e.clientY > (table.top + offset) &&
-            e.clientY < (table.bottom - offset)) {
+        if (e.clientX < (rect.left + offset) &&
+            e.clientY > (rect.top + offset) &&
+            e.clientY < (rect.bottom - offset)) {
             return 'left';
         }
 
-        if (e.clientX > (table.right - offset) &&
-            e.clientY > (table.top + offset) &&
-            e.clientY < (table.bottom - offset)) {
+        if (e.clientX > (rect.right - offset) &&
+            e.clientY > (rect.top + offset) &&
+            e.clientY < (rect.bottom - offset)) {
             return 'right';
         }
 
@@ -147,10 +148,7 @@ export class ScrollService {
     }
 
     invalidate() {
-        const { view } = this.table;
-
-        this.body = view.markup.body;
-        this.rect = view.rect(this.body);
+        this.markup = this.table.view.markup;
     }
 
     stop() {
@@ -180,8 +178,12 @@ export class ScrollService {
 		}
 
 		return path;
-	}
+    }
 
+    get rect() {
+        return this.table.view.rect(this.markup.body);
+    }
+    
     get offset() {
         return this.model.scroll().offset;
     }
