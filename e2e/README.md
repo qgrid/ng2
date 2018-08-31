@@ -66,6 +66,8 @@ Feature: User edits text in cell                    |Feature: Using QGrid       
 
 
 ## Common scenarios
-|Action |Standartized description|
-|-------|------------------------|
-|Click cell |Feature: Using QGrid|
+|Action |Standartized description|Example|
+|-------|------------------------|---|
+|Grid is empty  |`Then Grid is empty`|`Then Grid is empty`|
+|Grid is not empty  |`Then Grid is not empty`|`Then Grid is not empty`|
+|Check page `name` is active  |`Given I am on "name"`|`Given I am on "action-bar-basic"`|
