@@ -1,19 +1,19 @@
-Feature: Edit cell basic
+Feature: User edits value in cell
 
-	Scenario: Cell(text) value changed on cell editor close
+As a qgrid user
+I want to edit cell value
+So changes in cell-editor should change value in cell
+
+	Scenario: User edits value in cell of column text
         Given I am on "edit-cell-basic"
-        When I click on cell of class q-grid-"text"
-        Then Editor value
-        When I change editor value to "newValue"
-        Then Editor new value equals to "newValue" 
-        When I close editor via Enter key
-        Then Cell new value equals to "text" "newValue"
-    
-    Scenario: Cell(number) value changed on cell editor close
+        When I click cell of column "text"
+        And I change editor value to "newValue"
+        And I press ENTER key
+        Then Value has been changed to "newValue"
+
+    Scenario: User edits value in cell of column number
         Given I am on "edit-cell-basic"
-        When I click on cell of class q-grid-"number"
-        Then Editor value
-        When I change editor value to "12345"
-        Then Editor new value equals to "12345"
-        When I close editor via Enter key
-        Then Cell new value equals to "number" "12,345"
+        When I click cell of column "number"
+        And I change editor value to "12345"
+        And I press ENTER key
+        Then Value has been changed to "12,345"
