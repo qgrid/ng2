@@ -16,6 +16,6 @@ export class DateDirective {
 			return true;
 		}
 
-		return;
+		return false;
 	}
 }
