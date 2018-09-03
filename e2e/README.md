@@ -64,10 +64,15 @@ Feature: User edits text in cell                    |Feature: Using QGrid       
 **When** I open XYZ page
 **Then** it loads in less than 5 seconds
 
+## Basic scenarios
 
-## Common scenarios
-|Action |Standartized description|Example|
-|-------|------------------------|---|
-|Grid is empty  |`Then Grid is empty`|`Then Grid is empty`|
-|Grid is not empty  |`Then Grid is not empty`|`Then Grid is not empty`|
-|Check page `name` is active  |`Given I am on "name"`|`Given I am on "action-bar-basic"`|
+We pass string parameters inside of double quotes, numbers - without quotes.
+
+|Action |Example|
+|-------|---|
+|Check page `name` is active  |`Given I am on "action-bar-basic"`|
+|Grid is empty  |`Then Grid is empty`|
+|Grid is not empty  |`Then Grid is not empty`|
+|Row count equals to `int`  |`When Row count equals to 5`|
+|Column count equals to `int` |`When Column count equals to 3`|
+|I click cell `columnKey`[`rowNumber`]  |`When I click cell "Strings"[0]`|
