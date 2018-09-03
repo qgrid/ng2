@@ -5,9 +5,9 @@
 	                    (close)="$view.edit.cell.exit.execute($cell)"
 	                    q-grid-position="td">
 		<ng-template>
-			<mat-form-field>
+			<mat-form-field *q-grid-date="let isValid='isValid'"
+			 [ngClass]="{'mat-form-field-invalid': !isValid(input.value)}"> 
 				<input q-grid-focus
-					   *q-grid-date="let isValid='isValid'"
 					   matInput
 					   #input
 				       [matDatepicker]="picker"
