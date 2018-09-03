@@ -2,16 +2,16 @@
              let-$editor>
     <mat-form-field>
         <input type="text"
-               [formControl]="$editor.control"
                [matAutocomplete]="autocomplete"
-               [(ngModel)]="$editor.value"
+               [ngModel]="$editor.value"
+               (ngModelChange)="$editor.filter(input.value)"
                placeholder="Pick a {{$editor.title}}"
                q-grid-focus
                #input
                matInput>
     </mat-form-field>
     <mat-autocomplete #autocomplete="matAutocomplete">
-        <mat-option *ngFor="let option of $editor.filteredOptions | async"
-                    [value]="option">{{option}}</mat-option>
+        <mat-option *ngFor="let option of $editor.filteredOptions"
+                    [value]="option">{{option}}</mat-option> 
     </mat-autocomplete>
 </ng-template>

@@ -1,4 +1,3 @@
-import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { ActionBarModule } from './action-bar/action-bar.module';
 import { AutocompleteEditorModule } from './autocomplete-editor/autocomplete-editor.module';
@@ -55,8 +54,7 @@ Model.register('columnChooser', ColumnChooserModel)
 		RestModule,
 		StatusBarModule,
 		TabTrapModule,
-		TitleModule,
-		ReactiveFormsModule
+		TitleModule
 	]
 })
 export class PluginModule { }
