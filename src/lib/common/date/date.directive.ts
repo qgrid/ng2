@@ -1,7 +1,7 @@
 import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
 
-const DATEPATTERN_1 = /^\d{1,2}[\/|\-|\.|_]\d{1,2}[\/|\-|\.|_]\d{4}$/g; // Month/Date/Year Date/Month/Year
-const DATEPATTERN_2 = /^\d{4}[\/|\-|\.|_]\d{1,2}[\/|\-|\.|_]\d{1,2}$/g; // Year/Month/Date Year/Date/Month
+const DATEPATTERN_1 = /^\d{1,2}[\/|\-|\.|_]\d{1,2}[\/|\-|\.|_]\d{4}$/g; // Month/Day/Year Day/Month/Year
+const DATEPATTERN_2 = /^\d{4}[\/|\-|\.|_]\d{1,2}[\/|\-|\.|_]\d{1,2}$/g; // Year/Day/Date Year/Day/Month
 
 @Directive({
     selector: '[q-grid-date]'
