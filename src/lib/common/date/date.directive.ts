@@ -14,10 +14,8 @@ export class DateDirective {
     isValid(text) {
         if (!(text.search(DATEPATTERN_1) === 0) && !(text.search(DATEPATTERN_2) === 0)) {
             return false;
+        } else {
+            return true;
         }
-
-        const date = new Date(text);
-
-        return date instanceof Date && !isNaN(date as any);
     }
 }
