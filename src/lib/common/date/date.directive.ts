@@ -15,5 +15,7 @@ export class DateDirective {
 		if ((text.search(DATEPATTERN_1) === 0) || (text.search(DATEPATTERN_2) === 0)) {
 			return true;
 		}
+
+		return;
 	}
 }
