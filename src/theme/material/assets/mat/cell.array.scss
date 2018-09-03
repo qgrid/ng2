@@ -2,4 +2,9 @@ td.q-grid-array {
     .mat-form-field-prefix {
         width: 100%;
     }
+    .q-grid-editor-content {
+		.mat-chip-list-wrapper {
+            margin: 0;
+        }
+	}
 }

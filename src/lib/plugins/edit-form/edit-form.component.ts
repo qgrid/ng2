@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { EditFormPanelView } from 'ng2-qgrid/plugin/edit-form/edit.form.panel.view';
 import { PluginService } from '../plugin.service';
-import { DomTd } from 'ng2-qgrid';
+import { Td } from 'ng2-qgrid/core/dom/td';
 
 @Component({
 	selector: 'q-grid-edit-form',
@@ -10,7 +10,7 @@ import { DomTd } from 'ng2-qgrid';
 })
 export class EditFormComponent implements OnInit, OnDestroy {
 	@Input() caption: string;
-	@Input() cell: DomTd;
+	@Input() cell: Td;
 
 	@Output() cancel = new EventEmitter();
 	@Output() reset = new EventEmitter();
