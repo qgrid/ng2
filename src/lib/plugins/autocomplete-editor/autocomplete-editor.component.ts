@@ -1,5 +1,5 @@
 import { TdCoreDirective } from './../../main/core/body/td-core.directive';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Optional } from '@angular/core';
 import { ViewCoreService } from '../../main/core/view/view-core.service';
 import { PluginService } from '../plugin.service';
 
@@ -22,12 +22,33 @@ export class AutocompleteEditorComponent {
 	}
 
 	filter(val: any) {
-		// For now works only with type 'string' and 'number'
+		const columnType = this.cell.column.type;
 
 		if (val === '') {
 			this.filteredOptions = [];
-		} else {
-			this.filteredOptions = this.options.filter(option => option.toString().toLowerCase().includes(val.toLowerCase()));
+			return;
+		}
+
+		switch (columnType) {
+			case 'number':
+			case 'text': {
+				this.filteredOptions = this.options.filter(option => String(option).toLowerCase().includes(val.toLowerCase()));
+				break;
+			}
+			case 'bool': {
+				const result = this.options.filter(option => String(option).toLowerCase().includes(val.toLowerCase()));
+				if (result.length && result[0] === null) {
+					this.filteredOptions = ['null'];
+				} else if (result.length) {
+					this.filteredOptions = [result[0].toString()];
+				} else if (this.filteredOptions.length) {
+					this.filteredOptions = [];
+				}
+				break;
+			}
+			case 'date': {
+
+			}
 		}
 	}
 
