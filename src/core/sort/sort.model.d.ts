@@ -21,8 +21,6 @@ import { Resource } from '../resource/resource';
  * * [sort.pipe.js](https://github.com/qgrid/ng2/blob/master/core/pipe/sort.pipe.js)
  */
 export declare interface SortModel {
-	resource?: Resource;
-
 	/**
 	 * Ordered list of entries to control sorting.
 	 */

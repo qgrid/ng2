@@ -1,15 +1,11 @@
 import { Cell } from '../cell';
 import { Td } from '../td';
 import { AppError } from '../../infrastructure/error';
+import { FakeElement } from '../fake/element';
 
 class VirtualTd {
 	constructor(selector) {
 		this.selector = selector;
-
-		this.rowIndex = 0;
-		this.columnIndex = 0;
-		this.row = null;
-		this.column = null;
 	}
 
 	get model() {
@@ -34,11 +30,15 @@ class VirtualTd {
 	}
 
 	get label() {
-		return this.model.value;
+		return this.model.label;
 	}
 
 	set label(value) {
-		this.model.value = value;
+		this.model.label = value;
+	}
+
+	get element() {
+		return this.model.element || new FakeElement();
 	}
 }
 
@@ -48,7 +48,7 @@ export class VirtualCell extends Cell {
 
 		this.box = box;
 
-		const mapper = box.context.mapper;
+		const { mapper } = box.context;
 		this.dataRowIndex = mapper.viewToRow(rowIndex);
 		this.dataColumnIndex = mapper.viewToColumn(columnIndex);
 	}
@@ -59,17 +59,18 @@ export class VirtualCell extends Cell {
 
 		if (rowIndex >= 0 && columnIndex >= 0) {
 			const gridModel = this.box.model;
-			const rows = gridModel.data().rows;
-			const columns = gridModel.view().columns;
+			const { rows } = gridModel.data();
+			const { columns } = gridModel.view();
 
 			if (rows.length > rowIndex && columns.length > columnIndex) {
 				const selector = () => this.box.cell(rowIndex, columnIndex).modelCore();
-				const td = new VirtualTd(selector);
-				td.rowIndex = rowIndex;
-				td.columnIndex = columnIndex;
-				td.row = rows[rowIndex];
-				td.column = columns[columnIndex];
-				return new Td(td);
+				const vtd = new VirtualTd(selector);
+				vtd.rowIndex = rowIndex;
+				vtd.columnIndex = columnIndex;
+				vtd.row = rows[rowIndex];
+				vtd.column = columns[columnIndex];
+
+				return new Td(vtd);
 			}
 		}
 

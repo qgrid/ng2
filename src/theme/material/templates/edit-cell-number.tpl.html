@@ -1,17 +1,22 @@
-<ng-template key='edit-cell-number.tpl.html'
+<ng-template key="edit-cell-number.tpl.html"
              let-$cell
              let-$view="$view">
-    <q-grid-cell-editor class="q-grid-number q-grid-editor q-grid-position q-grid-text"
-                        (close)="$view.edit.cell.exit.execute($cell)"
-                        q-grid-position="td">
-        <ng-template>
-            <mat-form-field>
-                <input matInput
-                       type="number"
-                       #input
-                       q-grid-focus
-                       [(ngModel)]="$view.edit.cell.value" />
-            </mat-form-field>
-        </ng-template>
-    </q-grid-cell-editor>
+	<q-grid-cell-editor class="q-grid-number q-grid-editor q-grid-position q-grid-text"
+	                    (close)="$view.edit.cell.exit.execute($cell)"
+	                    q-grid-position="td">
+		<ng-template>
+			<mat-form-field>
+				<input matInput
+				       type="number"
+				       #input
+				       q-grid-focus
+				       [(ngModel)]="$view.edit.cell.value" />
+			</mat-form-field>
+			<q-grid-validator class="q-grid-validator"
+			                  [key]="$cell.column.key"
+			                  [type]="$cell.column.type"
+			                  [value]="$view.edit.cell.value">
+			</q-grid-validator>
+		</ng-template>
+	</q-grid-cell-editor>
 </ng-template>

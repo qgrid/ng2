@@ -5,18 +5,25 @@ import { Guard } from '../infrastructure/guard';
 export function pivotPipe(memo, context, next) {
 	Guard.hasProperty(memo, 'rows');
 
+	const { model } = context;
 	if (memo.rows.length) {
-		const { model } = context;
-		const dataState = model.data();
+		const columns = model.columnList().line;
 		const pivotState = model.pivot();
 		const build = pivotBuilder(
-			getColumnMap(dataState.columns),
+			getColumnMap(columns),
 			pivotState.by,
 			context.valueFactory
 		);
 
 		memo.pivot = build(memo.rows);
 	}
+
+	model.pipe({
+		effect: Object.assign({}, model.pipe().effect, { pivot: memo.pivot })
+	}, {
+		source: 'pivot.pipe',
+		behavior: 'core'
+	});
 
 	next(memo);
 }

@@ -16,8 +16,6 @@ import { Node } from '../node/node';
  * * [node.build.js](https://github.com/qgrid/ng2/blob/master/core/node.build.js)
  */
 export declare interface GroupModel {
-	resource?: Resource;
-
 	/**
 	 * How grid will render nodes:
 	 * * `'nest'` all hierarchy levels inside one group type column.

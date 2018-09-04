@@ -35,8 +35,8 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 		const view = this.$view;
 		const element = this.element.nativeElement as HTMLElement;
 
+		const { model } = this.root;
 		const table = this.$table;
-		const model = this.root.model;
 		const ctrl = new BodyCtrl(model, view, this.root.table, this.root.bag);
 		const listener = new EventListener(element, new EventManager(this));
 
@@ -92,5 +92,9 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 
 	get model(): Model {
 		return this.root.model;
+	}
+
+	virtualRowId(index) {
+		return index;
 	}
 }

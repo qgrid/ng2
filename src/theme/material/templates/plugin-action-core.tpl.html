@@ -3,14 +3,15 @@
 	<div class="q-grid-action"
 	     [ngSwitch]="!!$action.templateUrl">
 		<ng-container *ngSwitchCase="true"
-			      [key]="$action.templateUrl"
-			      [context]="$action">
+		              [key]="$action.templateUrl"
+		              [context]="{$implicit: $action}">
 		</ng-container>
 		<button *ngSwitchDefault
 		        mat-icon-button
 		        (click)="$action.execute()"
 		        [disabled]="!$action.canExecute()"
-		        [matTooltip]="$action.title"
+			[matTooltip]="$action.title"
+			[matTooltipShowDelay]="800"
 		        tabindex="-1">
 			<mat-icon class="q-grid-icon">{{$action.icon}}</mat-icon>
 		</button>

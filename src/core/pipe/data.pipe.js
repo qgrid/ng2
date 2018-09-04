@@ -1,13 +1,24 @@
 import { columnFactory } from '../column/column.factory';
 import { generateFactory } from '../column-list/column.list.generate';
 
-export function dataPipe(memo, context, next) {
+export function dataPipe(rows, context, next) {
 	const { model } = context;
 
-	addDataRows(model, memo);
+	model.pipe({
+		effect: Object.assign({}, model.pipe().effect, { data: rows })
+	});
+
+	addDataRows(model, rows);
 	addDataColumns(model);
 
-	next(memo);
+	next(rows);
+
+	model.pipe({
+		effect: Object.assign({}, model.pipe().effect, { data: rows })
+	}, {
+			source: 'data.pipe',
+			behavior: 'core'
+		});
 }
 
 function addDataRows(model, rows) {

@@ -1,11 +1,16 @@
-<ng-template key='edit-cell-reference.tpl.html'
+<ng-template key="edit-cell-reference.tpl.html"
              let-$cell
              let-$view="$view">
 	<q-grid-cell-editor class="q-grid-reference q-grid-editor q-grid-position"
 	                    (close)="$view.edit.cell.exit.execute($cell)"
 	                    q-grid-position="td">
 		<ng-template>
-			<q-grid-reference-editor></q-grid-reference-editor>
+			<q-grid-reference-editor [cell]="$cell"
+			                         [(value)]="$view.edit.cell.value"
+									 [caption]="$cell.column.title"
+			                         (afterSubmit)="$view.edit.cell.commit.canExecute() && $view.edit.cell.commit.execute()"
+			                         (afterCancel)="$view.edit.cell.cancel.execute()">
+			</q-grid-reference-editor>
 		</ng-template>
 	</q-grid-cell-editor>
 </ng-template>

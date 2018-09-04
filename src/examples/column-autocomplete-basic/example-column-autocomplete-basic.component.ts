@@ -6,10 +6,9 @@ import { from, Observable, of } from 'rxjs';
 @Component({
 	selector: 'example-column-autocomplete-basic',
 	templateUrl: 'example-column-autocomplete-basic.component.html',
-	styleUrls: ['example-column-autocomplete-basic.component.scss'],
-	providers: [DataService]
+	styleUrls: ['example-column-autocomplete-basic.component.scss']
 })
-export class ExampleColumnAutocompletetBasicComponent {
+export class ExampleColumnAutocompletetBasicComponent { 
 	rows = [
 		{
 			'number': 0,
@@ -42,7 +41,4 @@ export class ExampleColumnAutocompletetBasicComponent {
 	numberObservableFetchOptions = {
 		fetch: of([Math.PI, Math.LN10, Math.LN2, Math.E, Math.LOG10E, Math.LOG2E, Math.SQRT1_2])
 	};
-
-	constructor(dataService: DataService) {
-	}
 }

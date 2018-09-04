@@ -1,9 +1,8 @@
 import { Command } from '../command/command';
 import { Navigation } from './navigation';
 import { GRID_PREFIX } from '../definition';
-import { Td } from '../dom/td';
 import { Fastdom } from '../services/fastdom';
-import { FocusAfterRender } from '../focus/focus.service';
+import { Td } from '../dom/td';
 
 export class NavigationView {
 	constructor(model, table, shortcut) {
@@ -104,9 +103,21 @@ export class NavigationView {
 				return;
 			}
 
+			if (e.hasChanges('isActive')) {
+				const { view } = table;
+				const activeClassName = `${GRID_PREFIX}-active`;
+				if (e.state.isActive) {
+					Fastdom.mutate(() => view.addClass(activeClassName));
+					view.focus();
+				} else {
+					Fastdom.mutate(() => view.removeClass(activeClassName));
+				}
+			}
+
 			if (e.hasChanges('rowIndex') || e.hasChanges('columnIndex')) {
 				this.focus.execute(e.state);
 			}
+
 		});
 
 		model.sceneChanged.watch(e => {
@@ -114,7 +125,7 @@ export class NavigationView {
 				const { status } = e.state;
 				switch (status) {
 					case 'stop':
-						const { row, column, columnIndex } = model.navigation();
+						const { row, column, columnIndex, rowIndex } = model.navigation();
 						if (row && column) {
 							const newRowIndex = table.data.rows().indexOf(row);
 							let newColumnIndex = table.data.columns().findIndex(c => c.key === column.key);
@@ -149,11 +160,11 @@ export class NavigationView {
 	}
 
 	scroll(view, target) {
+		const { scroll } = this.model;
 		Fastdom.measure(() => {
 			const tr = target.rect();
 			const vr = view.rect();
-			const oldScrollState = this.model.scroll();
-			const newScrollState = {};
+			const state = {};
 
 			if (view.canScrollTo(target, 'left')) {
 				if (vr.left > tr.left
@@ -162,10 +173,10 @@ export class NavigationView {
 					|| vr.right < tr.right) {
 
 					if (vr.width < tr.width || vr.left > tr.left || vr.left > tr.right) {
-						newScrollState.left = tr.left - vr.left + oldScrollState.left;
+						state.left = tr.left - vr.left + scroll().left;
 					}
 					else if (vr.left < tr.left || vr.right < tr.right) {
-						newScrollState.left = tr.right - vr.right + oldScrollState.left;
+						state.left = tr.right - vr.right + scroll().left;
 					}
 				}
 			}
@@ -177,16 +188,16 @@ export class NavigationView {
 					|| vr.bottom < tr.bottom) {
 
 					if (vr.height < tr.height || vr.top > tr.top || vr.top > tr.bottom) {
-						newScrollState.top = tr.top - vr.top + oldScrollState.top;
+						state.top = tr.top - vr.top + scroll().top;
 					}
 					else if (vr.top < tr.top || vr.bottom < tr.bottom) {
-						newScrollState.top = tr.bottom - vr.bottom + oldScrollState.top;
+						state.top = tr.bottom - vr.bottom + scroll().top;
 					}
 				}
 			}
 
-			if (Object.keys(newScrollState).length) {
-				this.model.scroll(newScrollState, { bevavior: 'core', source: 'navigation.view' });
+			if (Object.keys(state).length) {
+				scroll(state, { behavior: 'core', source: 'navigation.view' });
 			}
 		});
 	}

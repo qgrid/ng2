@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService, Atom } from '../data.service';
-import { Observable } from 'rxjs';
-import { Action, Command } from 'ng2-qgrid';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'example-column-file-basic',
 	templateUrl: 'example-column-file-basic.component.html',
-	styleUrls: ['example-column-file-basic.component.scss'],
-	providers: [DataService]
+	styleUrls: ['example-column-file-basic.component.scss']
 })
 export class ExampleColumnFileBasicComponent {
 	rows = [
@@ -19,7 +15,4 @@ export class ExampleColumnFileBasicComponent {
 			'customTemplate': 'https://rawgit.com/qgrid/ng2/master/CHANGELOG.md'
 		}
 	];
-
-	constructor(dataService: DataService) {
-	}
 }

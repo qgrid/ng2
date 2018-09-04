@@ -4,7 +4,7 @@ import { VscrollContext } from './vscroll.context';
 import { capitalize } from './vscroll.utility';
 import { VscrollBox } from './vscroll.box';
 import { VscrollLayout } from './vscroll.layout';
-import { findPosition, recycleFactory, IVscrollPosition } from './vscroll.position';
+import { findPositionUsingItemSize, findPositionUsingOffsets, recycleFactory, IVscrollPosition } from './vscroll.position';
 import { VscrollDirective } from './vscroll.directive';
 import { isNumber } from 'ng2-qgrid/core/utility/kit';
 import { VscrollLink } from './vscroll.link';
@@ -21,7 +21,8 @@ export class VscrollPortXDirective extends VscrollPort implements OnInit {
 	constructor(
 		private zone: NgZone,
 		private elementRef: ElementRef,
-		view: VscrollDirective) {
+		view: VscrollDirective
+	) {
 		super(view, elementRef.nativeElement);
 	}
 
@@ -40,10 +41,20 @@ export class VscrollPortXDirective extends VscrollPort implements OnInit {
 		this.zone.run(f);
 	}
 
-	getPosition(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition {
-		const value = Math.max(0, box.scrollLeft - arm);
-		const size = this.getItemSize();
-		return findPosition(offsets, value, size);
+	getPositionUsingItemSize(itemSize: number, box: VscrollBox, arm: number): IVscrollPosition {
+		const limitTop = box.scrollLeft - arm;
+		const limitBottom = box.scrollWidth - (box.portWidth + arm);
+		const value = Math.min(limitBottom, Math.max(0, limitTop));
+
+		return findPositionUsingItemSize(value, itemSize);
+	}
+
+	getPositionUsingOffsets(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition {
+		const limitTop = box.scrollLeft - arm;
+		const limitBottom = box.scrollHeight - (box.portWidth + arm);
+		const value = Math.min(limitBottom, Math.max(0, limitTop));
+
+		return findPositionUsingOffsets(value, offsets);
 	}
 
 	move(left: number, right: number) {
@@ -81,14 +92,11 @@ export class VscrollPortXDirective extends VscrollPort implements OnInit {
 	}
 
 	private pad(pos: string, value: number) {
-		const container = this.context.container;
-		container.write(() => {
-			if (this.markup.hasOwnProperty(pos)) {
-				const mark = this.markup[pos];
-				mark.style.width = value + 'px';
-			} else {
-				this.elementRef.nativeElement.style['padding' + capitalize(pos)] = value + 'px';
-			}
-		});
+		if (this.markup.hasOwnProperty(pos)) {
+			const mark = this.markup[pos];
+			mark.style.width = value + 'px';
+		} else {
+			this.elementRef.nativeElement.style['padding' + capitalize(pos)] = value + 'px';
+		}
 	}
 }

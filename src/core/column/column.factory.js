@@ -36,7 +36,7 @@ function merge(target, source) {
 }
 
 export function columnFactory(model) {
-	const columnList = model.columnList;
+	const { columnList } = model;
 	const columnMap = {
 		'array': ArrayColumn,
 		'bool': BoolColumn,

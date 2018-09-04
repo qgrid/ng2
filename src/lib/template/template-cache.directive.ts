@@ -10,7 +10,8 @@ export class TemplateCacheDirective implements OnInit {
 	@Input('for') key = '';
 	@Input() context = {};
 
-	constructor(private templateCache: TemplateCacheService,
+	constructor(
+		private templateCache: TemplateCacheService,
 		private templateRef: TemplateRef<any>,
 		@Optional() private templateHost: TemplateHostService) {
 	}

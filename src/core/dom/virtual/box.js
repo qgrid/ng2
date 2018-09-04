@@ -1,13 +1,13 @@
-import { VirtualCell } from './cell';
-import { VirtualRow } from './row';
-import { VirtualColumn } from './column';
 import { Box } from '../box';
 import { CellBox } from './cell.box';
-import { RowBox } from './row.box';
 import { ColumnBox } from './column.box';
-import { VirtualElement } from './element';
-import { isFunction } from '../../utility/kit';
 import { Event } from '../../infrastructure/event';
+import { isFunction } from '../../utility/kit';
+import { RowBox } from './row.box';
+import { VirtualCell } from './cell';
+import { VirtualColumn } from './column';
+import { VirtualElement } from './element';
+import { VirtualRow } from './row';
 
 export class VirtualBox extends Box {
 	constructor(context, model, selectorMark) {
@@ -16,7 +16,7 @@ export class VirtualBox extends Box {
 		this.cellBox = new CellBox(context);
 		this.rowBox = new RowBox(context);
 		this.columnBox = new ColumnBox(context);
-		this.changed = new Event();
+		this.requestInvalidate = new Event();
 	}
 
 	addCellClass(cell, name, force = false) {
@@ -25,7 +25,7 @@ export class VirtualBox extends Box {
 		}
 		else {
 			this.cellBox.addClass(cell, name);
-			this.changed.emit({ source: 'addCellClass' });
+			this.requestInvalidate.emit({ source: 'addCellClass' });
 		}
 	}
 
@@ -35,7 +35,7 @@ export class VirtualBox extends Box {
 		}
 		else {
 			this.cellBox.removeClass(cell, name);
-			this.changed.emit({ source: 'removeCellClass' });
+			this.requestInvalidate.emit({ source: 'removeCellClass' });
 		}
 	}
 
@@ -45,7 +45,7 @@ export class VirtualBox extends Box {
 		}
 		else {
 			this.rowBox.addClass(row, name);
-			this.changed.emit({ source: 'addRowClass' });
+			this.requestInvalidate.emit({ source: 'addRowClass' });
 		}
 	}
 
@@ -55,7 +55,7 @@ export class VirtualBox extends Box {
 		}
 		else {
 			this.rowBox.removeClass(row, name);
-			this.changed.emit({ source: 'removeRowClass' });
+			this.requestInvalidate.emit({ source: 'removeRowClass' });
 		}
 	}
 
@@ -65,7 +65,7 @@ export class VirtualBox extends Box {
 		}
 		else {
 			this.columnBox.addClass(column, name);
-			this.changed.emit({ source: 'addColumnClass' });
+			this.requestInvalidate.emit({ source: 'addColumnClass' });
 		}
 	}
 
@@ -75,14 +75,20 @@ export class VirtualBox extends Box {
 		}
 		else {
 			this.columnBox.removeClass(column, name);
-			this.changed.emit({ source: 'removeColumnClass' });
+			this.requestInvalidate.emit({ source: 'removeColumnClass' });
 		}
 	}
 
 	columns() {
 		const columns = this.context.view.columns();
-		const columnFactory = this.createColumnCore.bind(this);
-		return columns.map(column => columnFactory(column.index));
+		return columns.map((_, i) => this.createColumnCore(i));
+	}
+
+	rows(columnIndex) {
+		const { mapper } = this.context;
+		return this.selector
+			.rows(columnIndex)
+			.map(row => this.createRowCore(mapper.rowToView(row.index), row.element));
 	}
 
 	rowCount() {
@@ -95,35 +101,39 @@ export class VirtualBox extends Box {
 			return super.rowCore(viewIndex);
 		}
 
-		const rowFactory = this.createRowCore.bind(this);
-		const createRect = this.createRectFactory();
-		return rowFactory(viewIndex, new VirtualElement(createRect(viewIndex)));
+		const createRect = this.rowRectFactory();
+		return this.createRowCore(viewIndex, new VirtualElement(createRect(viewIndex)));
 	}
 
 	cellCore(rowIndex, columnIndex) {
-		const mapper = this.context.mapper;
+		const { mapper } = this.context;
 		const viewRowIndex = mapper.rowToView(rowIndex);
 		const viewColumnIndex = mapper.columnToView(columnIndex);
 		if (viewRowIndex >= 0 && viewRowIndex < super.rowCount(viewColumnIndex)) {
 			return super.cellCore(viewRowIndex, viewColumnIndex);
 		}
 
-		const cellFactory = this.createCellCore.bind(this);
-		const createRect = this.createRectFactory();
-		return cellFactory(viewRowIndex, viewColumnIndex, new VirtualElement(createRect(viewRowIndex)));
+		const createRect = this.cellRectFactory();
+		return this.createCellCore(viewRowIndex, viewColumnIndex, new VirtualElement(createRect(viewRowIndex, viewColumnIndex)));
 	}
 
 	rowCellsCore(index) {
-		const viewIndex = this.context.mapper.rowToView(index);
+		const { mapper } = this.context;
+		const viewIndex = mapper.rowToView(index);
 		if (viewIndex >= 0 && viewIndex < super.rowCount(0)) {
 			return super.rowCellsCore(viewIndex);
 		}
 
-		const cellFactory = this.createCellCore.bind(this);
-		const createRect = this.createRectFactory();
+		const createRect = this.cellRectFactory();
 		return super
 			.rowCellsCore(0)
-			.map((cell, i) => cellFactory(viewIndex, i, new VirtualElement(createRect(index))));
+			.map((cell, columnIndex) =>
+				this.createCellCore(
+					viewIndex,
+					columnIndex,
+					new VirtualElement(createRect(viewIndex, mapper.columnToView(columnIndex)))
+				)
+			);
 	}
 
 	createRowCore(index, element) {
@@ -138,8 +148,8 @@ export class VirtualBox extends Box {
 		return new VirtualColumn(this, index);
 	}
 
-	createRectFactory() {
-		const height = this.model.row().height;
+	rowRectFactory() {
+		const { height } = this.model.row();
 		const getHeight = isFunction(height) ? height : () => height;
 
 		let rect = null;
@@ -151,13 +161,45 @@ export class VirtualBox extends Box {
 			}
 
 			// TODO: add correct left, right, width
-			const height = getHeight(null, index);
+			const rowHeight = getHeight(null, index);
 			return {
 				left: 0,
 				right: 0,
-				top: rect.top + height * index,
-				bottom: rect.top + height * (index + 1),
+				top: rect.top + rowHeight * index,
+				bottom: rect.top + rowHeight * (index + 1),
 				width: 0,
+				height: rowHeight
+			};
+		};
+	}
+
+	cellRectFactory() {
+		const { height } = this.model.row();
+		const getHeight = isFunction(height) ? height : () => height;
+		const { count } = this.model.pagination();
+		const form = this.model.layout().columns;
+		const { columns } = this.model.view();
+
+		let rect = null;
+		// as view.rect() can call getBoundingClientRect that impacts performance
+		// and as virtual element rect function is used mostly for end/home navigation we make rect lazy
+		return (rowIndex, columnIndex) => () => {
+			if (!rect) {
+				rect = this.context.view.rect();
+			}
+
+			const column = columns[columnIndex];
+			// TODO: add correct left, right, width
+			const height = getHeight(null, rowIndex);
+			const top = rect.top + height * rowIndex - (rowIndex > 0 ? 0 : (count + rowIndex) * height);
+			const width = form.has(column.key) ? form.get(column.key).width : 0;
+			const left = 0;
+			return {
+				left,
+				right: left + width,
+				top,
+				bottom: top + height,
+				width,
 				height
 			};
 		};

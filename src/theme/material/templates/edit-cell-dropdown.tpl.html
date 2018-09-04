@@ -1,14 +1,18 @@
-<ng-template key='edit-cell-dropdown.tpl.html'
+<ng-template key="edit-cell-dropdown.tpl.html"
              let-$cell
              let-$view="$view">
-    <div class="q-grid-dropdown">
-        <mat-select q-grid-select
-                    [(ngModel)]="$view.edit.cell.value"
-                    (selectionChange)="$view.edit.cell.commit.execute($cell)">
-            <mat-option *ngFor="let option of $view.edit.cell.fetch.result"
-                        [value]="option">
-                {{option}}
-            </mat-option>
-        </mat-select>
-    </div>
+	<q-grid-cell-editor class="q-grid-dropdown"
+	                    (close)="$view.edit.cell.cancel.execute($cell)">
+		<ng-template>
+			<mat-select disableRipple
+			            q-grid-select
+			            [(value)]="$view.edit.cell.value"
+			            (openedChange)="!$event && $view.edit.cell.exit.execute()">
+				<mat-option *ngFor="let option of $view.edit.cell.fetch.result"
+				            [value]="option">
+					{{option}}
+				</mat-option>
+			</mat-select>
+		</ng-template>
+	</q-grid-cell-editor>
 </ng-template>

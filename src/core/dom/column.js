@@ -5,7 +5,7 @@ export class Column {
 	}
 
 	model() {
-		const columns = this.box.model.view().columns;
+		const { columns } = this.box.model.view();
 		const column = columns[this.index];
 		return column || null;
 	}

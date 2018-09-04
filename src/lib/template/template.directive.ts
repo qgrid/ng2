@@ -11,9 +11,10 @@ import { TemplateService } from './template.service';
 	selector: 'ng-container[key]'
 })
 export class TemplateDirective implements DoCheck {
+	private viewRef: EmbeddedViewRef<any>;
+
 	@Input() key: any = '';
 	@Input() context = null;
-	private viewRef: EmbeddedViewRef<any>;
 
 	constructor(
 		private templateService: TemplateService,

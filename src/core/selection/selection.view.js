@@ -236,7 +236,7 @@ export class SelectionView {
 							break;
 						}
 						case 'column': {
-							entries = model.data().columns;
+							entries = model.columnList().line;
 							break;
 						}
 						case 'cell':

@@ -1,5 +1,4 @@
-import { Component, Optional, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { Command } from 'ng2-qgrid/core/command/command';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { PluginService } from '../plugin.service';
 
 @Component({

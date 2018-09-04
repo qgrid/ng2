@@ -8,8 +8,6 @@ import { Resource } from '../resource/resource';
  * * [LIVR](https://github.com/koorchik/LIVR)
  */
 export declare interface ValidationModel {
-	resource?: Resource;
-
 	/**
 	 * List of validation rules.
 	 */

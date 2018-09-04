@@ -1,0 +1,14 @@
+language: node_js
+node_js: "9.0.0"
+sudo: false
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+script: npm run test
+cache:
+  bundler: true
+  directories:
+    - node_modules

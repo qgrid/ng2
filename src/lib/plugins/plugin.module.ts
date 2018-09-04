@@ -12,6 +12,7 @@ import { ColumnFilterModule } from './column-filter/column-filter.module';
 import { ColumnSortModule } from './column-sort/column-sort.module';
 import { DataManipulationModel } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.model';
 import { DataManipulationModule } from './data-manipulation/data-manipulation.module';
+import { EditFormModule } from './edit-form/edit-form.module';
 import { EbModule } from './expression-builder/eb.module';
 import { LegendModule } from './legend/legend.module';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
@@ -25,6 +26,9 @@ import { RestModule } from './rest/rest.module';
 import { StatusBarModule } from './status-bar/status-bar.module';
 import { TabTrapModule } from './tab-trap/tab-trap.module';
 import { TitleModule } from './title/title.module';
+import { ExportModule } from './export/export.module';
+import { ImportModule } from './import/import.module';
+import { ValidationModule } from './validation/validation.module';
 
 Model.register('columnChooser', ColumnChooserModel)
 	.register('columnFilter', ColumnFilterModel)
@@ -45,6 +49,9 @@ Model.register('columnChooser', ColumnChooserModel)
 		ColumnSortModule,
 		DataManipulationModule,
 		EbModule,
+		EditFormModule,
+		ExportModule,
+		ImportModule,
 		LegendModule,
 		PagerModule,
 		PersistenceModule,
@@ -54,7 +61,8 @@ Model.register('columnChooser', ColumnChooserModel)
 		RestModule,
 		StatusBarModule,
 		TabTrapModule,
-		TitleModule
+		TitleModule,
+		ValidationModule
 	]
 })
 export class PluginModule { }

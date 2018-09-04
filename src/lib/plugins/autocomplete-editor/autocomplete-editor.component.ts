@@ -21,10 +21,10 @@ export class AutocompleteEditorComponent {
 	) {
 	}
 
-	filter(val: any) {
+	filter(value: string) {
 		const columnType = this.cell.column.type;
 
-		if (val === '') {
+		if (value === '') {
 			this.filteredOptions = [];
 			return;
 		}
@@ -32,11 +32,11 @@ export class AutocompleteEditorComponent {
 		switch (columnType) {
 			case 'number':
 			case 'text': {
-				this.filteredOptions = this.options.filter(option => String(option).toLowerCase().includes(val.toLowerCase()));
+				this.filteredOptions = this.filterOptions(value);
 				break;
 			}
 			case 'bool': {
-				const result = this.options.filter(option => String(option).toLowerCase().includes(val.toLowerCase()));
+				const result = this.filterOptions(value);
 				if (result.length && result[0] === null) {
 					this.filteredOptions = ['null'];
 				} else if (result.length) {
@@ -46,10 +46,14 @@ export class AutocompleteEditorComponent {
 				}
 				break;
 			}
-			case 'date': {
-
+			default: {
+				break;
 			}
 		}
+	}
+
+	filterOptions(value) {
+		return this.options.filter(option => String(option).toLowerCase().includes(value.toLowerCase()));
 	}
 
 	get options() {

@@ -1,6 +1,5 @@
 import { Resource } from '../resource/resource';
 import { Command } from '../command/command';
-import { CommitShortcuts } from './commit.shortcuts';
 
 /**
  * A class represent options to control q-grid edit mode.
@@ -11,8 +10,6 @@ import { CommitShortcuts } from './commit.shortcuts';
  * * [Edit Row View](/doc/api/edit-row-view.html)
  */
 export declare interface EditModel {
-	resource?: Resource;
-
 	/**
 	 * Property that controls grid edit unit.
 	 *
@@ -60,7 +57,19 @@ export declare interface EditModel {
 
 	/**
 	 * Object that contains `{columnKey: keyboardKeys}` map, that is used by q-grid to manage
+	 * when cancel command should be execute on key down event.
+	 */
+	cancelShortcuts?: { [key: string]: string };
+
+	/**
+	 * Object that contains `{columnKey: keyboardKeys}` map, that is used by q-grid to manage
+	 * when enter command should be execute on key down event.
+	 */
+	entertShortcuts?: { [key: string]: string };
+
+	/**
+	 * Object that contains `{columnKey: keyboardKeys}` map, that is used by q-grid to manage
 	 * when commit command should be execute on key down event.
 	 */
-	commitShortcuts?: CommitShortcuts;
+	commitShortcuts?: { [key: string]: string };
 }

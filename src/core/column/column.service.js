@@ -2,6 +2,39 @@ import { isFunction } from '../utility/kit';
 import { AppError } from '../infrastructure/error';
 import { expand, collapse } from './column.matrix';
 
+export function flatten(columns, result = []) {
+	for (let i = 0, length = columns.length; i < length; i++) {
+		const column = columns[i];
+		result.push(column);
+
+		const { children } = column;
+		if (children && children.length) {
+			flatten(children, result);
+		}
+	}
+
+	return result;
+}
+
+export function findLine(columns, key) {
+	for (let index = 0, length = columns.length; index < length; index++) {
+		const column = columns[index];
+		if (column.key === key) {
+			return { columns, index };
+		}
+
+		const { children } = column;
+		if (children.length) {
+			const result = findLine(children, key);
+			if (result) {
+				return result;
+			}
+		}
+	}
+
+	return null;
+}
+
 export function map(columns) {
 	return columns.reduce((memo, column) => {
 		memo[column.key] = column;
@@ -47,7 +80,7 @@ export function lineView(columnRows) {
 }
 
 export function widthFactory(table, form) {
-	const layout = table.model.layout;
+	const { layout } = table.model;
 	const columns = table.data.columns();
 	const columnMap = map(columns);
 	form = form || layout().columns;
@@ -65,7 +98,6 @@ export function widthFactory(table, form) {
 
 
 	let area;
-
 	function getRect() {
 		if (area) {
 			return area;
@@ -86,7 +118,10 @@ export function widthFactory(table, form) {
 			if (('' + width).indexOf('%') >= 0) {
 				const percent = parseFloat(width);
 				const rect = getRect();
-				const skip = column.widthMode === 'relative' ? occupied : 0;
+				// 2 because pad column has left padding equals to 1px and width 100%
+				// that can produce 1.## values
+				const padSkip = 2;
+				const skip = column.widthMode === 'relative' ? occupied + padSkip : padSkip;
 				width = (rect.width - skip) * percent / 100;
 			}
 

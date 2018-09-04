@@ -46,6 +46,9 @@
             &.q-grid-align {
                 height: 0 !important;
                 border: 0;
+                &:last-child {
+                    display: initial;
+                }
             }
         }
     }

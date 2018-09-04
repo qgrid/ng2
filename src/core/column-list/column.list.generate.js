@@ -2,7 +2,7 @@ import { merge as mergeFactory } from '../services/merge';
 import { compile } from '../services/path';
 import { getType } from '../services/convert';
 import { TextColumnModel } from '../column-type/text.column';
-import { startCase, assignWith, noop, isUndefined } from '../utility/kit';
+import { assignWith, isUndefined, noop, startCase } from '../utility/kit';
 import { columnFactory } from '../column/column.factory';
 import { AppError } from '../infrastructure/error';
 
@@ -34,7 +34,7 @@ export function generateFactory(model) {
 	const createColumn = columnFactory(model);
 	return () => {
 		const { rows } = data();
-		const markupColumns = model.columnList().columns;
+		const htmlColumns = model.columnList().columns;
 
 		const spawnColumns = [];
 		const { generation } = model.columnList();
@@ -76,8 +76,8 @@ export function generateFactory(model) {
 			statistics.push(merge(columns, spawnColumns, false));
 		}
 
-		if (markupColumns.length) {
-			statistics.push(merge(columns, markupColumns, true));
+		if (htmlColumns.length) {
+			statistics.push(merge(columns, htmlColumns, true));
 		}
 
 		return {

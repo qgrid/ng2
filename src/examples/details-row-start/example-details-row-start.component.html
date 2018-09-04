@@ -1,7 +1,5 @@
 <q-grid caption="qgrid"
-        [rows]="rows | async"
-        rowUnit="details"
-        rowMode="single">
+        [rows]="rows | async">
 	<q-grid-columns>
 		<q-grid-column key="name"
 		               title="Name">
@@ -29,9 +27,11 @@
 		               title="Shells"
 		               type="array">
 		</q-grid-column>
+	</q-grid-columns>
 
-		<q-grid-column type="row-details">
-			<ng-template for="body"
+	<q-grid-row unit="details"
+	            mode="single">
+			<ng-template for="details"
 			             let-$cell>
 				<div class="atom-details">
 					<div class="atom-box"
@@ -66,8 +66,6 @@
 						</p>
 					</div>
 				</div>
-
-			</ng-template>
-		</q-grid-column>
-	</q-grid-columns>
+		</ng-template>
+	</q-grid-row>
 </q-grid>

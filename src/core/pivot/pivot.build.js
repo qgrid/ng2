@@ -1,11 +1,19 @@
 import { identity } from '../utility/kit';
 import { pivot } from './pivot';
 import { pivotForm } from './pivot.form';
+import { Node } from '../node/node';
+import { AppError } from '../infrastructure/error';
 
 function buildFactory(columnMap, valueFactory) {
 	return function run(pivot, pivotBy, level = 0) {
 		const key = pivotBy[0];
 		const column = columnMap[key];
+		if(!column) {
+			throw new AppError(
+				'pivot.build',
+				`Invalid key "${key}"`);
+		}
+		
 		const getValue = valueFactory(column);
 
 		return pivot({
@@ -40,6 +48,6 @@ export function build(columnMap, pivotBy, valueFactory) {
 			return pivotForm(data);
 		}
 
-		return { heads: [], rows: [] };
+		return { head: new Node('$root', 0), rows: [] };
 	};
 }

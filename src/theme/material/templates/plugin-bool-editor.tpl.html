@@ -4,6 +4,9 @@
                   class="q-grid-checkbox"
                   #checkbox
                   [q-grid-focus]="checkbox"
-                  [(ngModel)]="$editor.value">
+                  [q-grid-focus-disabled]="!$editor.autofocus"
+                  [checked]="$editor.isChecked"
+                  (change)="$editor.isChecked = $event.checked">
+        {{$editor.label}}
     </mat-checkbox>
 </ng-template>

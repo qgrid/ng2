@@ -6,8 +6,8 @@
 	<q-grid-actions>
 		<q-grid-action id="sort-by-symbol-asc">
 			<ng-template for="trigger"
-			             let-$model="model">
-				<button (click)="sortBySymbol($model, '-')"
+			             let-$action>
+				<button (click)="sortBySymbol($action.model, '+')"
 				        mat-button>
 					Sort By Symbol Asc
 				</button>
@@ -15,8 +15,8 @@
 		</q-grid-action>
 		<q-grid-action id="sort-by-symbol-desc">
 			<ng-template for="trigger"
-			             let-$model="model">
-				<button (click)="sortBySymbol($model, '+')"
+			             let-$action>
+				<button (click)="sortBySymbol($action.model, '-')"
 				        mat-button>
 					Sort By Symbol Desc
 				</button>

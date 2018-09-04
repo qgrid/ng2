@@ -1,18 +1,6 @@
-import {
-	Component,
-	OnDestroy,
-	OnInit,
-	Optional,
-	ElementRef,
-	NgZone,
-	DoCheck,
-	AfterViewChecked
-} from '@angular/core';
+import { Component, OnInit, ElementRef, NgZone, DoCheck, ChangeDetectorRef } from '@angular/core';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
-import { Log } from 'ng2-qgrid/core/infrastructure/log';
 import { ViewCtrl } from 'ng2-qgrid/core/view/view.ctrl';
-import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { CellService } from '../cell/cell.service';
 import { ViewCoreService } from './view-core.service';
 import { NgComponent } from '../../../infrastructure/component/ng.component';
@@ -32,16 +20,17 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 		private view: ViewCoreService,
 		private grid: GridService,
 		private zone: NgZone,
-		private elementRef: ElementRef) {
+		private elementRef: ElementRef,
+		private cd: ChangeDetectorRef
+	) {
 		super();
 
 		zone.onStable.subscribe(() => {
 			if (this.root.isReady) {
-				const model = this.model;
-				const { round, status } = model.scene();
-				if (round > 0 && status === 'start') {
-					model.scene({
-						round: 0,
+				const { scene } = this.model;
+				const { status } = scene();
+				if (status === 'push') {
+					scene({
 						status: 'stop'
 					}, {
 							source: 'grid.component',
@@ -54,45 +43,58 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 		});
 	}
 
-	ngOnInit() {
-		this.root.markup['view'] = this.elementRef.nativeElement;
-
-		// Views should be inited after `sceneChanged.watch` declaration
-		// to persiste the right order of event sourcing.
-		this.view.init(
-			this.model,
-			this.root.table,
-			this.root.commandManager
-		);
-
-		const model = this.model;
-
-		const gridService = this.grid.service(model);
-		this.ctrl = new ViewCtrl(model, this.view, gridService);
-
-		model.sceneChanged.watch(e => {
-			if (e.hasChanges('round') && e.state.round > 0) {
-				if (!NgZone.isInAngularZone()) {
-					// Run digest on the start of invalidate(e.g. for busy indicator)
-					// and on the ned of invalidate(e.g. to build the DOM)
-					this.zone.run(() => Log.info('grid.component', 'digest'));
-				}
-			}
-		});
-	}
-
-	get model() {
-		return this.root.model;
-	}
-
-	get visibility() {
-		return this.model.visibility();
-	}
-
 	ngDoCheck() {
 		const { status } = this.model.scene();
 		if (status === 'stop') {
 			this.ctrl.invalidate();
 		}
+	}
+
+	ngOnInit() {
+		const { model, root, view } = this;
+
+		root.markup['view'] = this.elementRef.nativeElement;
+
+		// Views need to be init after `sceneChanged.watch` declaration
+		// to persist the right order of event sourcing.
+		view.init(
+			model,
+			root.table,
+			root.commandManager
+		);
+
+		const gridService = this.grid.service(model);
+		this.ctrl = new ViewCtrl(model, view, gridService);
+
+		model.sceneChanged.watch(e => {
+			if (e.hasChanges('status')) {
+				if (e.state.status === 'pull') {
+					this.cd.markForCheck();
+
+					// Run digest on the start of invalidate(e.g. for busy indicator)
+					// and on the ned of invalidate(e.g. to build the DOM)
+					this.zone.run(() =>
+						model.scene({
+							status: 'push'
+						}, {
+								source: 'view-core.component',
+								behavior: 'core'
+							}));
+				}
+			}
+		});
+
+		const virtualBody = this.root.table.body as any;
+		if (virtualBody.requestInvalidate) {
+			virtualBody.requestInvalidate.on(() => this.ctrl.invalidate());
+		}
+	}
+
+	private get model() {
+		return this.root.model;
+	}
+
+	get visibility(): VisibilityModel {
+		return this.model.visibility();
 	}
 }

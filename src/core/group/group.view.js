@@ -3,7 +3,7 @@ import { getFactory as valueFactory } from '../services/value';
 import { getFactory as labelFactory } from '../services/label';
 import { columnFactory } from '../column/column.factory';
 import { PipeUnit } from '../pipe/pipe.unit';
-import { traverse } from '../node/node.service';
+import { preOrderDFS } from '../node/node.service';
 import { yes, identity } from '../utility/kit';
 
 function rowspanGetNode(node, column) {
@@ -72,10 +72,10 @@ export class GroupView {
 			source: 'group.view',
 			execute: () => {
 				if (model.group().toggleAll.execute() !== false) {
-					const nodes = model.view().nodes;
+					const { nodes } = model.view();
 					const toggle = model.group().toggle;
 
-					traverse(nodes, node => {
+					preOrderDFS(nodes, node => {
 						if (toggleStatus.canExecute(node)) {
 							if (toggle.execute(node) !== false) {
 								node.state.expand = shouldExpand;

@@ -1,4 +1,4 @@
-<ng-template key='edit-cell-url.tpl.html'
+<ng-template key="edit-cell-url.tpl.html"
              let-$cell
              let-$view="$view">
 	<q-grid-cell-editor class="q-grid-url q-grid-editor q-grid-position"
@@ -21,6 +21,11 @@
 							       [(ngModel)]="$view.edit.cell.value"
 							       placeholder="Url" />
 						</mat-form-field>
+						<q-grid-validator class="q-grid-validator"
+						                  [key]="$cell.column.key"
+						                  [type]="$cell.column.type"
+						                  [value]="$view.edit.cell.value">
+						</q-grid-validator>
 					</div>
 				</ng-template>
 			</q-grid-tab-trap>

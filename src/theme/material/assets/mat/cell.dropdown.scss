@@ -1,16 +1,9 @@
 td.q-grid-edit {
-	&.q-grid-dropdown {
-		md-select {
-			margin: 0;
-			max-height: 30px;
-			md-select-value {
-				border-bottom: none;
-				padding: 0;
-			}
-
-			.md-select-icon {
-				display: none;
-			}
-		}
-	}
+    &.q-grid-dropdown {
+        .mat-select-arrow-wrapper {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+    }
 }

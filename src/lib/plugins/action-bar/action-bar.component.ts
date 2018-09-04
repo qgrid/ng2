@@ -30,7 +30,7 @@ export class ActionBarComponent implements OnInit, OnDestroy {
 				const { shortcut, manager } = model.action();
 				this.shortcutOff = shortcut.register(manager, e.state.items.map(act => act.command));
 			}
-		})
+		});
 	}
 
 	get actions(): Action[] {

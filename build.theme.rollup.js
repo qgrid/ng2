@@ -5,6 +5,7 @@ const commonjs = require('rollup-plugin-commonjs');
 
 module.exports = function (libName) {
   return {
+    treeshake: false,
     output: {
       name: libName,
       sourcemap: true,

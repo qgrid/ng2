@@ -19,5 +19,7 @@ export class Scheduler {
 		if (this.tasks.length === 1) {
 			task();
 		}
+
+		return this.tasks.length;
 	}
 }

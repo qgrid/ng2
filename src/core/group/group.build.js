@@ -3,21 +3,20 @@ import { AppError } from '../infrastructure/error';
 import { Aggregation } from '../services/aggregation';
 
 export function groupBuilder(model) {
-	const viewState = model.view();
-	const dataState = model.data();
+	const { rows } = model.data();
+	const { pivot } = model.view();
+	const nodes = model.view().rows;
+	const columns = model.columnList().line;
 
-	const pivot = model.view().pivot;
 	const pivotRows = pivot.rows;
 	const pivotRowLength = pivotRows[0].length;
 
 	const groupBy = model.group().by;
 	const groupByLength = groupBy.length;
 
-	const columnMap = getColumnMap(dataState.columns);
-	const rows = dataState.rows;
-	const nodes = viewState.rows;
+	const columnMap = getColumnMap(columns);
 
-	return (valueFactory) => {
+	return valueFactory => {
 		const result = [];
 		for (let i = 0, nodeLength = nodes.length; i < nodeLength; i++) {
 			const node = nodes[i];
@@ -25,14 +24,14 @@ export function groupBuilder(model) {
 			const column = columnMap[key];
 			if (!column) {
 				throw new AppError(
-					'view.pivot',
+					'group.build',
 					`Invalid key "${key}"`);
 			}
 
 			const aggregation = column.aggregation || 'count';
 			if (!Aggregation.hasOwnProperty(aggregation)) {
 				throw new AppError(
-					'view.pivot',
+					'group.build',
 					`Aggregation ${aggregation} is not registered`);
 			}
 

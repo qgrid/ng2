@@ -1,24 +1,28 @@
-import { BasicRow } from './basic.row';
 import { takeWhile, dropWhile, sumBy } from '../../utility/kit';
 import { columnFactory } from '../../column/column.factory';
 import { Aggregation } from '../../services/aggregation';
 import { AppError } from '../../infrastructure/error';
-import { set as setValue } from '../../services/value';
-import { set as setLabel } from '../../services/label';
-import { findFirstLeaf } from '../../node/node.service';
+import { findFirstLeaf } from '../../group/group.service';
 
-export class NodeRow extends BasicRow {
-	constructor(model) {
-		super(model);
+export class NodeRow {
+	constructor(model, dataRow) {
+		const { columnList, rowspan } = dataRow;
+
+		this.columnList = columnList;
+		this.rowspan = rowspan;
 
 		const createColumn = columnFactory(model);
-		this.reference = {
+		const reference = {
 			group: createColumn('group'),
 			summary: createColumn('group-summary')
 		};
 
 		this.getLabel =
-			this.getValue = (node, column, select) => {
+			this.getValue = (node, column, select, rowIndex, columnIndex) => {
+				if (column.type === 'pivot') {
+					return dataRow.getLabel(node, column, select, rowIndex, columnIndex);
+				}
+
 				const { rows } = model.data();
 				switch (node.type) {
 					case 'group':
@@ -55,13 +59,13 @@ export class NodeRow extends BasicRow {
 		this.setValue = (node, column, value, rowIndex, columnIndex) => {
 			switch (node.type) {
 				case 'row': {
-					const rows = model.data().rows;
+					const { rows } = model.data();
 					const rowIndex = node.rows[0];
-					setValue(rows[rowIndex], column, value);
+					dataRow.setValue(rows[rowIndex], column, value, rowIndex, columnIndex);
 					break;
 				}
 				case 'value': {
-					setValue(node, column, value);
+					dataRow.setValue(node, column, value, rowIndex, columnIndex);
 					break;
 				}
 				default:
@@ -72,58 +76,86 @@ export class NodeRow extends BasicRow {
 		this.setLabel = (node, column, value, rowIndex, columnIndex) => {
 			switch (node.type) {
 				case 'row': {
-					const rows = model.data().rows;
+					const { rows } = model.data();
 					const rowIndex = node.rows[0];
-					setLabel(rows[rowIndex], column, value);
+					dataRow.setLabel(rows[rowIndex], column, value, rowIndex, columnIndex);
 					break;
 				}
 				case 'value': {
-					setLabel(node, column, value);
+					dataRow.setLabel(node, column, value, rowIndex, columnIndex);
 					break;
 				}
 				default:
 					throw new AppError('node.row', `Can't set label to ${node.type} node`);
 			}
 		};
-	}
 
-	colspan(node, column) {
-		if (node.type === 'summary') {
-			return sumBy(this.columnList(column.model.pin), c => c.colspan);
-		}
-
-		return column.colspan;
-	}
-
-	columns(node, pin) {
-		if (node.type === 'summary') {
-			// TODO: add pin support
-			return [this.reference.summary];
-		}
-
-		return this.columnList(pin);
-	}
-
-	findGroupColumn(pin) {
-		const columnList = this.columnList();
-		let groupColumn = columnList.find(c => c.model.type === 'group');
-		if (!groupColumn) {
-			groupColumn = this.reference.group;
-			if (groupColumn.model.pin === pin) {
-				const firstColumn = this.columnList(pin)[0];
-				groupColumn.index = firstColumn ? firstColumn.index : 0;
+		this.colspan = (node, column) => {
+			if (node.type === 'summary') {
+				return sumBy(columnList(column.model.pin), c => c.colspan);
 			}
-		}
 
-		return groupColumn.model.pin !== pin ? null : groupColumn;
+			return column.colspan;
+		};
+
+		this.columns = (node, pin) => {
+			if (node.type === 'summary') {
+				// TODO: add pin support
+				return [reference.summary];
+			}
+
+			return columnList(pin);
+		};
+
+		this.findGroupColumn = (pin) => {
+			const columns = columnList();
+			let groupColumn = columns.find(c => c.model.type === 'group');
+			if (!groupColumn) {
+				groupColumn = reference.group;
+				if (groupColumn.model.pin === pin) {
+					const firstColumn = columnList(pin)[0];
+					groupColumn.columnIndex = firstColumn ? firstColumn.columnIndex : 0;
+				}
+			}
+
+			return groupColumn.model.pin !== pin ? null : groupColumn;
+		};
 	}
 }
 
-export class RowspanNodeRow extends NodeRow {
-	constructor(model) {
-		super(model);
+export class RowspanNodeRow {
+	constructor(model, nodeRow) {
+		const { columnList, getValue, getLabel, columns } = nodeRow;
 
-		const getValueFactory = getValue => (node, column, select) => {
+		this.setValue = nodeRow.setValue;
+		this.setLabel = nodeRow.setLabel;
+		this.colspan = nodeRow.colspan;
+		this.columnList = columnList;
+		
+		const rowspan = (node, column, isRoot = true) => {
+			switch (node.type) {
+				case 'group': {
+					if (column.model.type === 'group') {
+						if (node.state.expand) {
+							if (!isRoot || node.source === column.model.by) {
+								return node.children.reduce((memo, child, i) => memo + rowspan(child, column, false), 0);
+							} else {
+								if (node.children.length) {
+									return rowspan(node.children[0], column, false);
+								}
+							}
+						}
+						return 1;
+					}
+				}
+			}
+
+			return 1;
+		};
+
+		this.rowspan = rowspan;
+
+		const spanValue = getValue => (node, column, select) => {
 			switch (node.type) {
 				case 'group': {
 					const leaf = findFirstLeaf(node);
@@ -132,6 +164,7 @@ export class RowspanNodeRow extends NodeRow {
 						const rowIndex = leaf.rows[0];
 						return select(rows[rowIndex], column);
 					}
+
 					return null;
 				}
 			}
@@ -139,83 +172,66 @@ export class RowspanNodeRow extends NodeRow {
 			return getValue(node, column, select);
 		};
 
-		const getValue = this.getValue;
-		const getLabel = this.getLabel;
+		this.getLabel = spanValue(getLabel);
+		this.getValue = spanValue(getValue);
 
-		this.getLabel = getValueFactory(getLabel);
-		this.getValue = getValueFactory(getValue);
-	}
-
-	rowspan(node, column, isRoot = true) {
-		switch (node.type) {
-			case 'group': {
-				if (column.model.type === 'group') {
-					if (node.state.expand) {
-						if (!isRoot || node.source === column.model.by) {
-							return node.children.reduce((memo, child, i) => memo + this.rowspan(child, column, false), 0);
-						} else {
-							if (node.children.length) {
-								return this.rowspan(node.children[0], column, false);
-							}
-						}
-					}
-					return 1;
+		this.columns = (node, pin) => {
+			switch (node.type) {
+				case 'group': {
+					return dropWhile(columnList(pin), c => c.model.type === 'group' && c.model.by !== node.source);
+				}
+				case 'row': {
+					return columnList(pin).filter(c => c.model.type !== 'group');
 				}
 			}
-		}
 
-		return 1;
-	}
-
-	columns(node, pin) {
-		switch (node.type) {
-			case 'group': {
-				return dropWhile(this.columnList(pin), c => c.model.type === 'group' && c.model.by !== node.source);
-			}
-			case 'row': {
-				return this.columnList(pin).filter(c => c.model.type !== 'group');
-			}
-		}
-
-		return super.columns(node, pin);
+			return columns(node, pin);
+		};
 	}
 }
 
-export class SubheadNodeRow extends NodeRow {
-	constructor(model) {
-		super(model);
-	}
+export class SubheadNodeRow {
+	constructor(nodeRow) {
+		const { columnList, columns, findGroupColumn } = nodeRow;
 
-	colspan(node, column) {
-		switch (node.type) {
-			case 'group': {
-				if (column.model.type === 'group') {
-					const groupColumn = this.findGroupColumn(column.model.pin);
-					if (groupColumn) {
-						const columns = this.columnList(column.model.pin);
-						const groupspan = takeWhile(columns, c => !c.model.aggregation);
-						return sumBy(groupspan, c => c.colspan);
+		this.setValue = nodeRow.setValue;
+		this.setLabel = nodeRow.setLabel;
+		this.getValue = nodeRow.getValue;
+		this.getLabel = nodeRow.getLabel;
+		this.rowspan = nodeRow.rowspan;
+		this.columnList = columnList;
+
+		this.colspan = (node, column) => {
+			switch (node.type) {
+				case 'group': {
+					if (column.model.type === 'group') {
+						const groupColumn = findGroupColumn(column.model.pin);
+						if (groupColumn) {
+							const nearGroupColumns = columnList(column.model.pin);
+							const groupSpan = takeWhile(nearGroupColumns, c => !c.model.aggregation);
+							return sumBy(groupSpan, c => c.colspan);
+						}
 					}
+					break;
 				}
-				break;
 			}
-		}
 
-		return super.colspan(node, column);
-	}
+			return nodeRow.colspan(node, column);
+		};
 
-	columns(node, pin) {
-		switch (node.type) {
-			case 'group': {
-				const groupColumn = this.findGroupColumn(pin);
-				if (groupColumn) {
-					const nextColumns = dropWhile(this.columnList(pin), c => !c.model.aggregation);
-					return [groupColumn].concat(nextColumns);
+		this.columns = (node, pin) => {
+			switch (node.type) {
+				case 'group': {
+					const groupColumn = findGroupColumn(pin);
+					if (groupColumn) {
+						const nextColumns = dropWhile(columnList(pin), c => !c.model.aggregation);
+						return [groupColumn].concat(nextColumns);
+					}
+					break;
 				}
-				break;
 			}
-		}
 
-		return super.columns(node, pin);
+			return columns(node, pin);
+		};
 	}
 }

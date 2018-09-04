@@ -1,5 +1,3 @@
-
-
 function findIndexAt(items: Array<number>, value: number) {
 	const length = items.length;
 	let min = 0;
@@ -27,20 +25,20 @@ export interface IVscrollPosition {
 	pad: number;
 }
 
-export function findPosition(offsets: Array<number>, value: number, itemSize: number): IVscrollPosition {
-	if (itemSize) {
-		const index = Math.round(value / itemSize);
-		return {
-			index,
-			offset: itemSize * index,
-			lastOffset: 0,
-			value,
-			pad: 0
-		};
-	}
+export function findPositionUsingItemSize(value: number, itemSize: number) {
+	const index = Math.max(0, Math.round(value / itemSize));
+	return {
+		index,
+		offset: itemSize * index,
+		lastOffset: 0,
+		value,
+		pad: 0
+	};
+}
 
+export function findPositionUsingOffsets(value: number, offsets: Array<number>): IVscrollPosition {
 	const index = findIndexAt(offsets, value);
-	const length = offsets.length;
+	const { length } = offsets;
 	if (index > 0) {
 		return {
 			index,
@@ -54,7 +52,7 @@ export function findPosition(offsets: Array<number>, value: number, itemSize: nu
 	return {
 		index: 0,
 		offset: 0,
-		lastOffset: length ? offsets[length - 1] : 0,
+		lastOffset: 0,
 		value,
 		pad: 0
 	};
@@ -68,11 +66,12 @@ export function recycleFactory(items: Array<() => number>) {
 		const diff = Math.min(count, threshold + index) - cursor;
 
 		for (let i = threshold - diff; i < threshold; i++) {
-			const value = items[i]();
+			const getSize = items[i];
+			const size = getSize();
 			if (cursor === 0) {
-				offsets[cursor] = value;
+				offsets[cursor] = size;
 			} else {
-				offsets[cursor] = offsets[cursor - 1] + value;
+				offsets[cursor] = offsets[cursor - 1] + size;
 			}
 
 			cursor++;

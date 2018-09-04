@@ -11,12 +11,13 @@ export class GridCtrl extends Disposable {
 	constructor(model, context) {
 		super();
 
-		const grid = model.grid;
+		this.model = model;
+
+		const { grid } = model;
 		if (grid().status === 'bound') {
-			throw new AppError('grid', `Model is already used by grid "${grid().id}"`);
+			throw new AppError('grid.ctrl', `Model is already used by grid "${grid().id}"`);
 		}
 
-		this.model = model;
 		this.markup = { document };
 
 		this.bag = {
@@ -86,15 +87,11 @@ export class GridCtrl extends Disposable {
 	}
 
 	invalidateActive() {
-		const activeClassName = `${GRID_PREFIX}-active`;
-		const view = this.table.view;
-		const model = this.model;
+		const { view, model } = this.table;
 		if (view.isFocused()) {
-			Fastdom.mutate(() => view.addClass(activeClassName));
 			model.focus({ isActive: true }, { source: 'grid.ctrl' });
 		}
 		else {
-			Fastdom.mutate(() => view.removeClass(activeClassName));
 			model.focus({ isActive: false }, { source: 'grid.ctrl' });
 		}
 	}

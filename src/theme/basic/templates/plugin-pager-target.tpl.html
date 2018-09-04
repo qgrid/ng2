@@ -1,0 +1,9 @@
+<ng-template key="plugin-pager-target.tpl.html"
+             let-$target>
+	<button tabindex="-1"
+			disabled
+	        (click)="$target.value = $target.current"
+	        class="q-grid-pager-target-trigger q-grid-icon-button">
+		<i class="q-grid-icon">&#9898;</i>
+	</button>
+</ng-template>

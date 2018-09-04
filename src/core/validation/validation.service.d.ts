@@ -1,4 +1,3 @@
-
 export declare interface Validator {
 	validate(value: any): boolean;
 	getErrors(): Array<string>;

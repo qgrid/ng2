@@ -188,6 +188,11 @@ export declare class ColumnModel {
 	title?: string;
 
 	/**
+	 * A column description text, showed in the tooltip under basic theme.
+	 */
+	description?: string;
+
+	/**
 	 * Getter, setter for a cell value. If the value property is setup, it is used to get/set cell value.
 	 */
 	value?: (row: any, value?: any) => any;
@@ -227,7 +232,7 @@ export declare class ColumnModel {
 	 *  * `markup` used for the internal markup needs (e.g. `pad` type column).
 	 *  * `pivot`multi head pivot.
 	 */
-	class?: 'data' | 'control' | 'markup' | 'pivot';
+	class?: 'data' | 'control' | 'markup' | 'pivot' | 'cohort';
 
 	/**
 	 * Editor type, will be shown in cell edit mode instead of default column type editor.
@@ -342,5 +347,5 @@ export declare class ColumnModel {
 	 */
 	children?: ColumnModel[]
 
-	$label?: (row: any, value?: any) => any | any;
+	$label?: (row: any, value?: any) => any | any;	
 }

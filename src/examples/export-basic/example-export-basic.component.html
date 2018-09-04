@@ -1,0 +1,28 @@
+<q-grid header="Export Basic"
+        [rows]="rows | async"
+        id="export-example">
+	<q-grid-columns generation="deep">
+	</q-grid-columns>
+
+	<q-grid-export type="json">
+		<ng-template for="trigger" let-$action>
+			<button mat-button (click)="$action.execute()">Export to JSON</button>
+		</ng-template>
+	</q-grid-export>
+	<q-grid-export type="csv">
+		<ng-template for="trigger" let-$action>
+			<button mat-button (click)="$action.execute()">Export to CSV</button>
+		</ng-template>
+	</q-grid-export>
+	<q-grid-export type="xml">
+		<ng-template for="trigger" let-$action>
+			<button mat-button (click)="$action.execute()">Export to XML</button>
+		</ng-template>
+	</q-grid-export>
+	<q-grid-export type="xlsx">
+		<ng-template for="trigger" let-$action>
+			<button mat-button (click)="$action.execute()">Export to XLSX</button>
+		</ng-template>
+	</q-grid-export>
+
+</q-grid>

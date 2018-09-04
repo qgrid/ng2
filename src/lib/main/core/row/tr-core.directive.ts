@@ -7,18 +7,22 @@ import { RootService } from '../../../infrastructure/component/root.service';
 	selector: '[q-grid-core-tr]'
 })
 export class TrCoreDirective implements Tr, OnInit, OnDestroy {
-	@Input('q-grid-core-index') public index: number;
-	@Input('q-grid-core-tr') public model: any;
-	@Input('q-grid-core-source') public source;
+	@Input('q-grid-core-index') viewIndex: number;
+	@Input('q-grid-core-tr') model: any;
+	@Input('q-grid-core-source') source;
 
-	public element: HTMLElement;
+	element: HTMLElement;
 
 	constructor(
 		public $view: ViewCoreService,
 		private root: RootService,
-		private elementRef: ElementRef
+		elementRef: ElementRef
 	) {
 		this.element = elementRef.nativeElement;
+	}
+
+	get index() {
+		return this.$view.scroll.y.container.position + this.viewIndex;
 	}
 
 	ngOnInit() {

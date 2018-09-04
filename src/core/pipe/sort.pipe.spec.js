@@ -1,7 +1,10 @@
 import { sortPipe as sort } from './sort.pipe';
 import { compare } from '../utility/kit';
+import { modelFactory } from '../test/model.factory';
 
 describe('sort pipe', () => {
+	let model;
+
 	const list = [{
 		name: 'Bob',
 		age: 45
@@ -16,30 +19,28 @@ describe('sort pipe', () => {
 		age: 40
 	}];
 
-	const data = () => {
-		return {
-			columns: [{
-				key: 'name',
-				compare
-			}, {
-				key: 'age',
-				compare
-			}]
-		}
+	const columnList = {
+		line: [{
+			key: 'name',
+			compare
+		}, {
+			key: 'age',
+			compare
+		}]
 	};
 
 	const valueFactory = column => row => row[column.key];
 
+	beforeEach(() => {
+		model = modelFactory();
+		model.columnList(columnList);
+	});
+
 	it('should sort by asc', () => {
+		model.sort({ by: [{ name: 'asc' }] });
 		let ctx = {
 			valueFactory: valueFactory,
-			model: {
-				data: data,
-
-				sort: () => {
-					return { by: [{ name: 'asc' }] }
-				}
-			}
+			model
 		};
 
 		sort(list, ctx, (data) => {
@@ -51,15 +52,10 @@ describe('sort pipe', () => {
 	});
 
 	it('should sort by desc', () => {
+		model.sort({ by: [{ name: 'desc' }] });
 		let ctx = {
 			valueFactory: valueFactory,
-			model: {
-				data: data,
-
-				sort: () => {
-					return { by: [{ name: 'desc' }] }
-				}
-			}
+			model
 		};
 
 		sort(list, ctx, (data) => {
@@ -72,15 +68,10 @@ describe('sort pipe', () => {
 	});
 
 	it('should sort by asc then by desc', () => {
+		model.sort({ by: [{ name: 'asc' }, { age: 'desc' }] });
 		let ctx = {
 			valueFactory: valueFactory,
-			model: {
-				data: data,
-
-				sort: () => {
-					return { by: [{ name: 'asc' }, { age: 'desc' }] }
-				}
-			}
+			model
 		};
 
 		sort(list, ctx, data => {
@@ -92,21 +83,16 @@ describe('sort pipe', () => {
 	});
 
 	it('should sort by desc then by asc', () => {
+		model.sort({ by: [{ name: 'desc' }, { age: 'asc' }] });
 		let ctx = {
 			valueFactory: valueFactory,
-			model: {
-				data: data,
-
-				sort: () => {
-					return { by: [{ age: 'desc' }, { name: 'asc' }] }
-				}
-			}
+			model
 		};
 
 		sort(list, ctx, (data) => {
-			expect(data[0]).to.be.eql({ name: 'Bob', age: 45 });
+			expect(data[0]).to.be.eql({ name: 'James', age: 40 });
 			expect(data[1]).to.be.eql({ name: 'Bob', age: 40 });
-			expect(data[2]).to.be.eql({ name: 'James', age: 40 });
+			expect(data[2]).to.be.eql({ name: 'Bob', age: 45 });
 			expect(data[3]).to.be.eql({ name: 'Alan', age: 30 });
 		});
 	});

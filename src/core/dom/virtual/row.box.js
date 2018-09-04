@@ -1,4 +1,4 @@
-import {StyleBox} from './style.box';
+import { StyleBox } from './style.box';
 
 export class RowBox extends StyleBox {
 	constructor(context) {

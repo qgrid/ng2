@@ -5,13 +5,59 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 * Auto-complete cell editor.
-* Time cell editor.
-* Row edit form.
-* Infinite scrolling.
-* Validation framework.
+* Batch edit improvements.
+* Vscroll improvements.
 * Copy/paste selection to excel.
 * Live data plugin.
 * Float Row Navigation.
+* Group keyboard navigation improvements.
+
+## [6.2.1]
+### Added
+- Edit form support.
+- Travis CI.
+- Cucumber specs infrastructure.
+- Edit cell validation support.
+
+### Fixed
+- Blanks position in the column filter.
+
+## [6.2.0]
+### Fixed
+- Column filter `blanks` is removed when reset clicked.
+
+### Added
+- Column hierarchy and dnd support in the column chooser.
+- Cohort column dnd support.
+
+### BREAKING
+- `model.columnList().index` now contains tree of columns, not a column key list.
+  
+## [6.1.5] - 2018-07-03
+### Fixed
+- Row highlight in details modes.
+- Mark q-grid for check on invalidate, that allows to have basic functionality when q-grid host has onPush strategy.
+
+### Added
+- Basic theme array, url and email support.
+
+## [6.1.4] - 2018-06-28
+### Fixed
+- Time cell editor.
+- Fix q-grid-embedded array cell look.
+- Percent width are aware of pad column padding.
+- Show horizontal scroll-bar if there are no data rows, but some columns are present.
+- Observables in dropdown editors.
+
+### Added
+- Beta version of row virtual scrolling.
+- Tab-trap component for the url and email editors.
+- Column groups manipulation through the structural directives.
+- Import from csv, pdf, xlsx, json.
+- Export to csv, pdf, xlsx, json.
+
+### Changed
+- Improve performance of Style API using dom bags directly.
 
 ## [6.1.3] - 2018-06-21
 ### Fixed
@@ -34,7 +80,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Deprecated
 - Use `FetchContext` `serach` property instead of `filter` property.
-- Don't use `<q-grid-row>` component, use `<q-grid rowCanMove rowCanResize>`, for row details use `<q-grid-column type="row-details"><ng-template for="body">...`.
 - Use `<q-grid caption="My Grid">` instead of `<q-grid header="My Grid">`.
 
 ### Added
@@ -173,8 +218,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [5.1.2] - 2018-01-03
 ### Added
-* Possibility to change row size `<q-grid-row canResize="true"`.
-* Possibility to drag and drop rows `<q-grid-row canMove="true"`.
+* Possibility to change row size `<q-grid-row [canResize]="true"`.
+* Possibility to drag and drop rows `<q-grid-row [canMove]="true"`.
 * Style queue to the style Api, accessible through style model cells/rows props.
 * Rows property to the layout property.
 
@@ -274,7 +319,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v6.1.3...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v6.2.1...HEAD
+[6.2.1]: https://github.com/qgrid/ng2/compare/v6.2.1...v6.2.0
+[6.2.0]: https://github.com/qgrid/ng2/compare/v6.2.0...v6.1.5
+[6.1.5]: https://github.com/qgrid/ng2/compare/v6.1.5...v6.1.4
+[6.1.4]: https://github.com/qgrid/ng2/compare/v6.1.4...v6.1.3
 [6.1.3]: https://github.com/qgrid/ng2/compare/v6.1.3...v6.1.1
 [6.1.1]: https://github.com/qgrid/ng2/compare/v6.1.1...v6.1.0
 [6.1.0]: https://github.com/qgrid/ng2/compare/v6.1.0...v5.3.10

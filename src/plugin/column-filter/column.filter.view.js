@@ -21,7 +21,7 @@ export class ColumnFilterView {
 
 		Object.assign(this, this.commands);
 
-		this.column = columnService.find(this.model.data().columns, this.key);
+		this.column = columnService.find(this.model.columnList().line, this.key);
 		this.title = this.column.title;
 		this.getValue = labelFactory(this.column);
 	}
@@ -113,6 +113,7 @@ export class ColumnFilterView {
 				source: 'column.filter.view',
 				execute: () => {
 					this.by = new Set();
+					this.byBlanks = false;
 					this.resetEvent.emit();
 				}
 			}),

@@ -1,12 +1,11 @@
-import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, NgZone } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, Optional, NgZone } from '@angular/core';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { DragService } from 'ng2-qgrid/core/drag/drag.service';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { Command } from 'ng2-qgrid/core/command/command';
-import { isUndefined, no } from 'ng2-qgrid/core/utility/kit';
+import { no } from 'ng2-qgrid/core/utility/kit';
 import { RootService } from '../../infrastructure/component/root.service';
-import { Action } from 'ng2-qgrid/core/action/action';
 import { NgComponent } from '../../infrastructure/component/ng.component';
 
 export interface DropEventArg {
@@ -159,20 +158,8 @@ export class DropDirective extends NgComponent implements OnInit {
 	}
 
 	private getPath({ x, y }: { x: number, y: number }) {
-		// const el = document.createElement('div');
-		// document.body.appendChild(el);
-		// el.style.position = 'fixed';
-		// el.style.top = centerY + 'px';
-		// el.style.left = centerX + 'px';
-		// el.style.width = '1px';
-		// el.style.height = '1px';
-		// el.style.backgroundColor = '#ff0000';
-		// el.style.zIndex = '999';
-
-		// setTimeout(() => el.remove(), 1000);
-
-		// document.elementsFromPoint is not working with tr?
-		// so we need to go through all parent
+		// Document.elementsFromPoint is not working with tr?
+		// so we need to go through all parent.
 
 		const path = [];
 		let element = document.elementFromPoint(x, y);
@@ -185,14 +172,13 @@ export class DropDirective extends NgComponent implements OnInit {
 	}
 
 	private inAreaFactory(e: DragEvent, direction: 'x' | 'y') {
-		const src = DragService.element.getBoundingClientRect();
+		const src = DragService.startPosition.rect;
 		const { x, y } = this.getPosition(e);
-
 		if (direction === 'y') {
 			return (element: HTMLElement) => {
 				const trg = element.getBoundingClientRect();
 				// we are on the top of target
-				if (src.top < trg.bottom) {
+				if (src.top < trg.top) {
 					return trg.bottom > y && y > trg.bottom - src.height;
 				}
 
@@ -203,8 +189,9 @@ export class DropDirective extends NgComponent implements OnInit {
 
 		return (element: HTMLElement) => {
 			const trg = element.getBoundingClientRect();
+
 			// we are on the left of target
-			if (src.left < trg.right) {
+			if (src.left < trg.left) {
 				return trg.right > x && x > trg.right - src.width;
 			}
 

@@ -24,10 +24,17 @@
         margin: 0;
         overflow-y: auto;
         height: 275px;
+        ul {
+            margin: 0;
+            ul {
+                padding-left:  24px;
+            }
+        }
     }
     .q-grid-column-chooser-toolbar {
         margin-top: 0;
         padding-left: 16px;
+        margin-bottom: 14px;
     }
     .q-grid-column-chooser-actions {
         padding: 7px 0;

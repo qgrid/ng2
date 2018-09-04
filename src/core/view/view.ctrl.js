@@ -1,5 +1,6 @@
 import { jobLine } from '../services/job.line';
 import { PipeUnit } from '../pipe/pipe.unit';
+import { Fastdom } from '../services/fastdom';
 
 export class ViewCtrl {
 	constructor(model, view, gridService) {
@@ -7,23 +8,35 @@ export class ViewCtrl {
 		this.view = view;
 
 		this.watch(gridService);
+		this.ticking = false;
 	}
 
 	invalidate() {
-		const style = this.view.style;
+		if (this.ticking) {
+			return;
+		}
+
+		const { style } = this.view;
 		if (style.needInvalidate()) {
+			this.ticking = true;
 			const rowMonitor = style.monitor.row;
 			const cellMonitor = style.monitor.cell;
 
-			const domCell = cellMonitor.enter();
-			const domRow = rowMonitor.enter();
-			try {
-				style.invalidate(domCell, domRow);
-			}
-			finally {
-				rowMonitor.exit();
-				cellMonitor.exit();
-			}
+			Fastdom.mutate(() => {
+				// Apply mutate inside another mutate to ensure that style.invalidate is triggered last.
+				Fastdom.mutate(() => {
+					const domCell = cellMonitor.enter();
+					const domRow = rowMonitor.enter();
+					try {
+						style.invalidate(domCell, domRow);
+					}
+					finally {
+						this.ticking = false;
+						rowMonitor.exit();
+						cellMonitor.exit();
+					}
+				});
+			});
 		}
 	}
 
@@ -34,7 +47,7 @@ export class ViewCtrl {
 		let sessionUnits = [];
 
 		return (source, changes, units) => {
-			model.scene({ status: 'start', round: 0 }, {
+			model.scene({ status: 'start' }, {
 				source
 			});
 

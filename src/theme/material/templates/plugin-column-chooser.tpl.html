@@ -1,5 +1,6 @@
-<ng-template key="column-chooser.tpl"
-             let-$columnChooser>
+<ng-template key="column-chooser.tpl.html"
+             let-$columnChooser
+             let-$plugin="plugin">
 	<mat-card class="mat-elevation-z">
 		<mat-card-header>
 			<mat-card-title>Columns Filter</mat-card-title>
@@ -10,7 +11,8 @@
 					<input type="search"
 					       placeholder="Find in the list"
 					       matInput
-					       [(ngModel)]="$columnChooser.filter"
+					       (input)="$columnChooser.search($columnChooser.searchText)"
+					       [(ngModel)]="$columnChooser.searchText"
 					       q-grid-focus />
 				</mat-form-field>
 			</div>
@@ -30,35 +32,51 @@
 						</mat-checkbox>
 					</li>
 				</ul>
-				<ul class="q-grid-column-chooser-list">
-					<ng-container *ngFor="let column of $columnChooser.columns | qGridFilter: {title: $columnChooser.filter}">
-						<li *ngIf="$columnChooser.toggle.canExecute(column)"
-							[q-grid-drop]="$columnChooser.drop"
-							[q-grid-drop-data]="column.key"
-						    [q-grid-drag-over]="$columnChooser.drop"
-							q-grid-drop-area="column-chooser"
-							q-grid-drag-direction="y">
-							<div [q-grid-drag]="$columnChooser.drag"
-							     [q-grid-drag-data]="column.key"
-							     q-grid-drop-area="column-chooser">
-								<mat-icon class="q-grid-icon">drag_indicator</mat-icon>
-							</div>
-							<mat-checkbox [checked]="$columnChooser.state(column)"
-							              (change)="$columnChooser.toggle.execute(column)"
-							              aria-label="Selection">
-								<span [innerHTML]="column.title | qGridHighlight: $columnChooser.filter"></span>
-							</mat-checkbox>
-						</li>
+				<div class="q-grid-column-chooser-list">
+					<ng-container key="column-chooser-node.tpl.html"
+					              [context]="$plugin.root()">
 					</ng-container>
-				</ul>
+				</div>
 			</div>
 		</mat-card-content>
 		<mat-card-actions>
 			<button mat-button
-			        (click)="$columnChooser.cancel.execute()">Cancel</button>
+			        (click)="$columnChooser.cancel.execute()">
+				Cancel
+			</button>
 			<button mat-button
 			        color="primary"
-			        (click)="$columnChooser.submit.execute()">Apply</button>
+			        (click)="$columnChooser.submit.execute()">
+				Apply
+			</button>
 		</mat-card-actions>
 	</mat-card>
+</ng-template>
+
+<ng-template key="column-chooser-node.tpl.html"
+             let-$context>
+	<ul>
+		<ng-container *ngFor="let node of $context.node.children">
+			<li *ngIf="$context.ctrl.toggle.canExecute(node)"
+			    [q-grid-drop]="$context.ctrl.drop"
+			    [q-grid-drop-data]="node"
+			    [q-grid-drag-over]="$context.ctrl.drop"
+			    q-grid-drop-area="column-chooser"
+			    q-grid-drag-direction="y">
+				<div [q-grid-drag]="$context.ctrl.drag"
+				     [q-grid-drag-data]="node"
+				     q-grid-drop-area="column-chooser">
+					<mat-icon class="q-grid-icon">drag_indicator</mat-icon>
+				</div>
+				<mat-checkbox [checked]="$context.ctrl.state(node)"
+				              (change)="$context.ctrl.toggle.execute(node)"
+				              aria-label="Selection">
+					<span [innerHTML]="node.value.column.title | qGridHighlight: $context.ctrl.searchText"></span>
+				</mat-checkbox>
+			</li>
+			<ng-container key="column-chooser-node.tpl.html"
+			              [context]="{$implicit: {ctrl: $context.ctrl, node: node}}">
+			</ng-container>
+		</ng-container>
+	</ul>
 </ng-template>

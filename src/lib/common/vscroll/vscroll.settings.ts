@@ -1,5 +1,3 @@
-import { VscrollContainer } from './vscroll.container';
-
 export interface IVscrollSettings {
 	threshold?: number;
 	placeholderHeight?: number;

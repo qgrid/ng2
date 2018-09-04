@@ -10,7 +10,6 @@ export abstract class VscrollPort {
 	context: VscrollContext;
 
 	constructor(public view: VscrollDirective, element: HTMLElement) {
-
 		element.tabIndex = 0;
 		element.style.outline = 'none';
 		(element.style as any).overflowAnchor = 'none';
@@ -21,7 +20,8 @@ export abstract class VscrollPort {
 	abstract emit(f: () => void);
 	abstract move(pad1: number, pad2: number);
 	abstract recycleFactory(items: Array<(() => number)>): (index: number, count: number) => Array<number>;
-	abstract getPosition(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition;
+	abstract getPositionUsingOffsets(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition;
+	abstract getPositionUsingItemSize(itemsSize: number, box: VscrollBox, arm: number): IVscrollPosition;
 	abstract getItemSize();
 	abstract getScrollSize(box: VscrollBox);
 	abstract getSize(box: VscrollBox);

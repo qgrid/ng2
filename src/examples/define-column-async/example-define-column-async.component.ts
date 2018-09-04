@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService, Human } from '../data.service';
-import { Observable } from 'rxjs';
+import { DataService } from '../data.service';
 import { GridModel, Grid } from 'ng2-qgrid';
 
 @Component({
@@ -9,7 +8,7 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	styleUrls: ['example-define-column-async.component.scss'],
 	providers: [DataService]
 })
-export class ExampleDefineColumnAsyncComponent {
+export class ExampleDefineColumnAsyncComponent implements OnInit {
 	gridModel: GridModel;
 
 	constructor(private dataService: DataService, qgrid: Grid) {
@@ -20,7 +19,7 @@ export class ExampleDefineColumnAsyncComponent {
 		this.dataService
 			.getAtoms()
 			.subscribe(rows => {
-				this.gridModel.data({ rows })
+				this.gridModel.data({ rows });
 
 				setTimeout(() => {
 					this.gridModel.data({

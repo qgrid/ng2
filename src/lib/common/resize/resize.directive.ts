@@ -69,7 +69,7 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 				this.listener.divider.on('mousedown', this.dragStart);
 			});
 
-			this.divider.classList.add(`${GRID_PREFIX}-divider`);
+			this.divider.classList.add(`${GRID_PREFIX}-resize-handler`);
 			this.element.appendChild(this.divider);
 		}
 	}
@@ -108,7 +108,7 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 			width: context.width + e.screenX - context.x,
 			height: context.height + e.screenY - context.y
 		});
-		
+
 		layout({ [this.path]: state });
 	}
 

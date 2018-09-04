@@ -1,6 +1,7 @@
 ﻿import { Defer } from '../infrastructure/defer';
 import { AppError } from '../infrastructure/error';
 import { isFunction } from '../utility/kit';
+import { Fastdom } from './fastdom';
 
 export function jobLine(delay) {
 	let defer = null;
@@ -15,7 +16,7 @@ export function jobLine(delay) {
 		reset();
 
 		if (!isFunction(job)) {
-			throw new AppError('job.line', 'job is not invokable');
+			throw new AppError('job.line', 'job is not invocable');
 		}
 
 		const doJob = () => {
@@ -33,8 +34,8 @@ export function jobLine(delay) {
 
 jobLine.run = (job, delay) => {
 	const defer = new Defer();
-	const token = setTimeout(job, delay);
 
+	const token = Fastdom.invoke(() => setTimeout(job, delay));
 	defer.promise.catch(() => clearTimeout(token));
 
 	return defer;

@@ -3,7 +3,7 @@
     <mat-form-field>
         <input type="text"
                [matAutocomplete]="autocomplete"
-               [ngModel]="$editor.value"
+               [(ngModel)]="$editor.value"
                (ngModelChange)="$editor.filter(input.value)"
                placeholder="Pick a {{$editor.title}}"
                q-grid-focus

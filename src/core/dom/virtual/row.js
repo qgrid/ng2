@@ -1,10 +1,10 @@
-import {Row} from '../row';
+import { Row } from '../row';
 
 export class VirtualRow extends Row {
 	constructor(box, index, element = null) {
 		super(box, index, element);
 
-		const mapper = box.context.mapper;
+		const { mapper } = box.context;
 		this.dataIndex = mapper.viewToRow(index);
 	}
 
@@ -17,7 +17,7 @@ export class VirtualRow extends Row {
 		const index = this.dataIndex;
 		if (index >= 0) {
 			const gridModel = this.box.model;
-			const rows = gridModel.data().rows;
+			const { rows } = gridModel.data();
 			if (rows.length > index) {
 				return rows[index];
 			}

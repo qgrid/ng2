@@ -5,11 +5,9 @@ import {
 	EventEmitter,
 	ViewEncapsulation,
 	OnInit,
-	OnDestroy,
 	ElementRef,
-	EmbeddedViewRef,
-	ComponentRef,
-	NgZone
+	NgZone,
+	Inject
 } from '@angular/core';
 import { RootComponent } from '../../infrastructure/component/root.component';
 import { RootService } from '../../infrastructure/component/root.service';
@@ -29,12 +27,13 @@ import { FetchContext } from 'ng2-qgrid/core/fetch/fetch.context';
 import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
 import { noop } from 'ng2-qgrid/core/utility/kit';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
-import { PipeContext, PipeMemo } from 'ng2-qgrid/core/pipe/pipe.item';
+import { PipeContext } from 'ng2-qgrid/core/pipe/pipe.item';
 import { StyleRowContext, StyleCellContext } from 'ng2-qgrid/core/style/style.context';
 import { TableCommandManager } from 'ng2-qgrid/core/command/table.command.manager';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { Command } from 'ng2-qgrid/core/command/command';
+import { GridModel } from '../../plugins/plugin.service';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
 	selector: 'q-grid',
@@ -52,7 +51,7 @@ import { Command } from 'ng2-qgrid/core/command/command';
 	encapsulation: ViewEncapsulation.None
 })
 export class GridComponent extends RootComponent implements OnInit {
-	@Input() model: Model;
+	@Input() model: GridModel;
 
 	@Input('actions') actionItems: Array<Action>;
 
@@ -63,7 +62,7 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input('id') gridId: string;
 
 	@Input('columns') dataColumns: Array<ColumnModel>;
-	@Input('pipe') dataPipe: Array<(memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any>;
+	@Input('pipe') dataPipe: Array<(memo: any, context: PipeContext, next: (memo: any) => void) => any>;
 	@Input('rows') dataRows: Array<any>;
 
 	@Input() editCancel: Command;
@@ -73,7 +72,7 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input() editMode: 'cell' | 'row';
 	@Input() editReset: Command;
 
-	@Input() filterFetch: (key: string, context: FetchContext) => any | Promise<any>;;
+	@Input() filterFetch: (key: string, context: FetchContext) => any | Promise<any>;
 	@Input() filterUnit: 'default' | 'row';
 
 	@Input() groupBy: Array<string>;
@@ -91,17 +90,17 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input() selectionMode: 'single' | 'multiple' | 'range';
 	@Input() selectionUnit: 'row' | 'cell' | 'column' | 'mix';
 
+	@Input() scrollMode: 'default' | 'virtual';
+
 	@Input() sortBy: Array<string>;
-	@Input() sortMode: 'single' | 'multiple';;
+	@Input() sortMode: 'single' | 'multiple';
 	@Input() sortTrigger: Array<string>;
 
-	@Input() styleCell: (row: any, column: ColumnModel, context: StyleCellContext) => void | { [key: string]: (row: any, column: ColumnModel, context: any) => void };
-	@Input() styleRow: (row: any, context: StyleRowContext) => void;
+	@Input() styleCell:
+		(row: any, column: ColumnModel, context: StyleCellContext) => void
+			| { [key: string]: (row: any, column: ColumnModel, context: any) => void };
 
-	@Input() rowMode: 'single' | 'multiple';
-	@Input() rowUnit: 'data' | 'details';
-	@Input() rowCanMove: boolean;
-	@Input() rowCanResize: boolean;
+	@Input() styleRow: (row: any, context: StyleRowContext) => void;
 
 	@Output() selectionChanged = new EventEmitter<any>();
 
@@ -112,6 +111,7 @@ export class GridComponent extends RootComponent implements OnInit {
 		private element: ElementRef,
 		private zone: NgZone,
 		private layerService: LayerService,
+		@Inject(DOCUMENT) private document: any,
 		theme: ThemeService,
 	) {
 		super();
@@ -126,6 +126,7 @@ export class GridComponent extends RootComponent implements OnInit {
 			'pivot',
 			'row',
 			'selection',
+			'scroll',
 			'sort',
 			'style'
 		];
@@ -146,16 +147,16 @@ export class GridComponent extends RootComponent implements OnInit {
 		const model = this.root.model;
 
 		const element = this.element.nativeElement;
-		
+
 		model.style({
 			classList: Array.from(element.classList)
 		});
-		
+
 		const ctrl = this.using(new GridCtrl(model, {
 			layerFactory: () => this.layerService,
 			element
 		}));
-		
+
 
 		this.root.table = ctrl.table;
 		this.root.bag = ctrl.bag;
@@ -167,9 +168,9 @@ export class GridComponent extends RootComponent implements OnInit {
 		);
 
 		const listener = new EventListener(element, new EventManager(this));
-		const windowListener = new EventListener(element, new EventManager(this));
+		const docListener = new EventListener(this.document, new EventManager(this));
 
-		this.using(windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl)));
+		this.zone.runOutsideAngular(() => this.using(docListener.on('focusin', () => ctrl.invalidateActive())));
 
 		const { debounce } = model.navigation();
 		if (debounce) {

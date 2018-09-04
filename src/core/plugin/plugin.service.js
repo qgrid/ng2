@@ -1,4 +1,4 @@
-import {AppError} from '../infrastructure';
+import { AppError } from '../../core/infrastructure/error';
 
 export class PluginService {
 	constructor(model) {
@@ -26,3 +26,4 @@ export class PluginService {
 		return lib;
 	}
 }
+

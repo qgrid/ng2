@@ -1,0 +1,11 @@
+<q-grid header="Import CSV Basic"
+        [rows]="rows | async">
+	<q-grid-columns generation="deep">
+	</q-grid-columns>
+
+	<q-grid-import options="{head:'numeric'}">
+		<ng-template for="trigger" let-$action>
+			<button mat-button (click)="$action.execute()">Import file</button>
+		</ng-template>
+	</q-grid-import>
+</q-grid>

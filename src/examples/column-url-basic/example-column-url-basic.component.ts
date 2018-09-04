@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService, Atom } from '../data.service';
-import { Observable } from 'rxjs';
-import { Action, Command } from 'ng2-qgrid';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'example-column-url-basic',
 	templateUrl: 'example-column-url-basic.component.html',
-	styleUrls: ['example-column-url-basic.component.scss'],
-	providers: [DataService]
+	styleUrls: ['example-column-url-basic.component.scss']
 })
 export class ExampleColumnUrlBasicComponent {
 	rows = [
@@ -17,11 +13,25 @@ export class ExampleColumnUrlBasicComponent {
 			'withLabel': 'http://github.com/qgrid/ng2',
 			'null': null,
 			'undefined': undefined,
-			'empty': '',			
+			'empty': '',
 			'customTemplate': 'http://github.com/qgrid/ng2'
 		}
 	];
 
-	constructor(dataService: DataService) {
+	private label = 'QGRID';
+
+	myLabel: (row: any, value?: any) => string | undefined;
+
+	constructor() {
+		const self = this;
+		this.myLabel = function (row, value) {
+			if (arguments.length > 1) {
+				self.label = value;
+				return;
+			}
+
+			return self.label;
+		};
 	}
+
 }

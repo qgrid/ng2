@@ -86,12 +86,12 @@ export class Navigation {
 	}
 
 	get currentRow() {
-		const index = this.model.navigation().rowIndex;
-		if (index < 0) {
+		const { rowIndex } = this.model.navigation();
+		if (rowIndex < 0) {
 			return this.model.scene().rows.length ? 0 : -1;
 		}
 
-		return index;
+		return rowIndex;
 	}
 
 	get nextRow() {

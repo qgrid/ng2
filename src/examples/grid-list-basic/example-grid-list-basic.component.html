@@ -1,0 +1,13 @@
+<q-grid *ngFor="let model of models | async"
+        caption="Grid List Basic"
+        [rows]="model.rows | async">
+	<q-grid-columns>
+		<q-grid-column *ngFor="let column of model.columns"
+		               [key]="column.key"
+		               [title]="column.title"
+		               [type]="column.type">
+		</q-grid-column>
+	</q-grid-columns>
+
+	<q-grid-pager [size]="((model.rows | async) || []).length"></q-grid-pager>
+</q-grid>

@@ -17,17 +17,16 @@ function hashRowKeyFactory(model) {
 	const selectionState = model.selection();
 	const selectionKey = selectionState.key;
 	if (selectionKey.row === identity) {
-		const columns = model.data().columns;
+		const { rows } = model.data();
+		const columns = model.columnList().line;
 		const index = columns.findIndex(column => column.type === 'id');
 		if (index >= 0) {
 			const idColumn = columns[index];
 			const getId = getFactory(idColumn);
 			return getId;
 		}
-		else {
-			const rows = model.data().rows;
-			return row => rows.indexOf(row);
-		}
+
+		return row => rows.indexOf(row);
 	}
 
 	// TODO: investigate if is it necessary to use JSON.stringify here
@@ -103,13 +102,12 @@ function lookupColumnFactory(model, selectKey) {
 		return identity;
 	}
 
-	const dataState = model.data();
-	const columns = dataState.columns;
+	const columns = model.columnList().line;
 	return items => {
 		const result = [];
 		columns.forEach(column => {
-			const colKey = selectKey(column);
-			const found = items.indexOf(colKey) > -1;
+			const columnKey = selectKey(column);
+			const found = items.indexOf(columnKey) > -1;
 			if (found) {
 				result.push(column);
 			}
@@ -125,8 +123,7 @@ function lookupRowFactory(model, selectKey) {
 		return identity;
 	}
 
-	const dataState = model.data();
-	const rows = dataState.rows;
+	const { rows } = model.data();
 	return items => {
 		const result = [];
 		rows.forEach(row => {
@@ -146,9 +143,8 @@ function lookupCellFactory(model, selectKey) {
 		return identity;
 	}
 
-	const dataState = model.data();
-	const rows = dataState.rows;
-	const columns = dataState.columns;
+	const { rows } = model.data();
+	const columns = model.columnList().line;
 	const match = cellMatchFactory();
 	return items => {
 		const result = [];

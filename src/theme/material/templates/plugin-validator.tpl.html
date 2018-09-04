@@ -1,0 +1,8 @@
+<ng-template key="plugin-validator.tpl.html" let-$validator>
+	<ul>
+		<li *ngFor="let error of $validator.errors; let $index = index">
+			<span *ngIf="error">{{error}}</span>
+			<span *ngIf="error && $validator.type === 'array'">: "{{$validator.value[$index]}}"</span>
+		</li>
+	</ul>
+</ng-template>

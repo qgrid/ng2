@@ -57,14 +57,14 @@ export class PipeModel {
 				'size': PU.default
 			},
 			'fetch': {
-				'skip': PU.default,
-				'round': PU.default
+				'skip': PU.default
 			},
 			'sort': {
 				'by': PU.default
 			},
 			'filter': {
 				'by': PU.default,
+				'match': PU.default,
 				'unit': PU.column
 			},
 			'group': {
@@ -74,7 +74,7 @@ export class PipeModel {
 				'by': PU.default
 			},
 			'columnList': {
-				'index': PU.column
+				'index': PU.columnIndex
 			},
 			'row': {
 				'status': PU.rowDetails,
@@ -86,5 +86,7 @@ export class PipeModel {
 				'index': PU.row
 			}
 		};
+
+		this.effect = {};
 	}
 }

@@ -15,8 +15,7 @@ import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { ViewCoreService } from '../view/view-core.service';
 import { RootService } from '../../../infrastructure/component/root.service';
 import { CellService } from '../cell/cell.service';
-import { TableCoreService } from '../table/table-core.service';
-import { TrCoreDirective } from '../row/tr-core.directive';
+import { TrhCoreDirective } from '../row/trh-core.directive';
 
 const classify = TdCtrl.classify;
 
@@ -33,8 +32,7 @@ export class TfCoreDirective implements Td, OnInit, OnDestroy {
 		private root: RootService,
 		private cellService: CellService,
 		private viewContainerRef: ViewContainerRef,
-		private table: TableCoreService,
-		private tr: TrCoreDirective,
+		private tr: TrhCoreDirective,
 		element: ElementRef
 	) {
 		this.element = element.nativeElement.parentNode;
@@ -65,7 +63,7 @@ export class TfCoreDirective implements Td, OnInit, OnDestroy {
 	}
 
 	get columnIndex() {
-		return this.columnView.index;
+		return this.columnView.columnIndex;
 	}
 
 	get row() {

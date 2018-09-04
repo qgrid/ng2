@@ -8,6 +8,7 @@ import { FileModule } from './file/file.module';
 import { VscrollModule } from './vscroll/vscroll.module';
 import { InputModule } from './input/input.module';
 import { TimeModule } from './time/time.module';
+import { DateModule } from './date/date.module';
 
 @NgModule({
 	declarations: [],
@@ -20,7 +21,8 @@ import { TimeModule } from './time/time.module';
 		RaiseModule,
 		FileModule,
 		VscrollModule,
-		TimeModule
+		TimeModule,
+		DateModule
 	]
 })
 export class CommonModule {}

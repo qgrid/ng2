@@ -1,4 +1,4 @@
-import * as Utility from './utility/kit';
+import * as Utility from './kit';
 
 describe('kit', () => {
 	describe('isObject', () => {

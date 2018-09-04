@@ -1,5 +1,5 @@
 
-import { Directive, OnInit, OnDestroy, ElementRef, Input, EventEmitter, NgZone, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, NgZone, Renderer2 } from '@angular/core';
 import { placeholderBitmap } from './vscroll.utility';
 
 @Directive({

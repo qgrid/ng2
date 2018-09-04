@@ -1,0 +1,28 @@
+<q-grid caption="Dynamic Column Model"
+		[model]="gridModel">
+	<q-grid-columns generation="cohort"></q-grid-columns>
+	<q-grid-toolbar>
+		<ng-template for="top">
+			<button mat-button
+			        (click)="addGroup()">
+				Add Group
+			</button>
+			<button mat-button
+			        (click)="addColumn('left')">
+				Add Column To Left
+			</button>
+			<button mat-button
+			        (click)="addColumn('middle')">
+				Add Column To Middle
+			</button>
+			<button mat-button
+			        (click)="addColumn('right')">
+				Add Column To Right
+			</button>
+			<button mat-button
+			        (click)="reset()">
+				Reset
+			</button>
+		</ng-template>
+	</q-grid-toolbar>
+</q-grid>

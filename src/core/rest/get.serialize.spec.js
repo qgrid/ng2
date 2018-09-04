@@ -1,5 +1,6 @@
-import { Model } from '../infrastructure';
+import { Model } from '../infrastructure/model';
 import { serialize } from './get.serialize';
+import { expect } from 'chai';
 
 describe('Model serialization to post parameters', () => {
 	describe('pagination', () => {

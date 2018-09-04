@@ -1,7 +1,7 @@
-import { Component, Optional } from '@angular/core';
+import { Component } from '@angular/core';
 import { PluginService } from '../plugin.service';
 
-// @depricated
+// @deprecated
 @Component({
 	selector: 'q-grid-title',
 	templateUrl: './title.component.html',

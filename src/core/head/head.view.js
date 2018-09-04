@@ -3,8 +3,9 @@ import { Log } from '../infrastructure/log';
 import { Command } from '../command/command';
 import * as columnService from '../column/column.service';
 import { FilterRowColumn } from '../column-type/filter.row.column';
-import { clone, isUndefined, isNumber } from '../utility/kit';
+import { clone, isUndefined } from '../utility/kit';
 import { GRID_PREFIX } from '../definition';
+import { calk, find, findLeaves, preOrderDFS } from '../node/node.service';
 
 export class HeadView {
 	constructor(model, table, tagName) {
@@ -37,14 +38,32 @@ export class HeadView {
 						const targetKey = th.column.key;
 						if (sourceKey !== targetKey) {
 							const { columnList } = model;
-							const index = Array.from(columnList().index);
+							const tree = calk(columnList().index);
 
-							const oldPos = index.indexOf(sourceKey);
-							const newPos = index.indexOf(targetKey);
-							if (oldPos >= 0 && newPos >= 0) {
-								index.splice(oldPos, 1);
-								index.splice(newPos, 0, sourceKey);
-								columnList({ index }, { source: 'head.view' });
+							const oldPos = find(tree, node => node.key.model.key === sourceKey);
+							const newPos = find(tree, node => node.key.model.key === targetKey);
+							if (oldPos && newPos && newPos.path.indexOf(oldPos.node) < 0) {
+								const queue = oldPos.path.reverse();
+								const hostIndex = queue.findIndex(node => node.children.length > 1);
+								if (hostIndex >= 0) {
+									const host = queue[hostIndex];
+									const target = queue[hostIndex - 1] || oldPos.node;
+									const index = host.children.indexOf(target);
+
+									host.children.splice(index, 1);
+									newPos.parent.children.splice(newPos.index, 0, target);
+
+									target.level = newPos.parent.level + 1;
+									preOrderDFS(
+										target.children,
+										(node, root, parent) => {
+											node.level = (root || parent).level + 1;
+										},
+										target
+									);
+
+									columnList({ index: tree }, { source: 'head.view' });
+								}
 							}
 						}
 						break;
@@ -52,10 +71,12 @@ export class HeadView {
 					case 'end':
 					case 'drop': {
 						const { index } = model.columnList();
-						let oldIndex = index.indexOf(sourceKey);
-						if (oldIndex >= 0) {
-							const oldColumn = table.body.column(oldIndex);
-							oldColumn.removeClass(`${GRID_PREFIX}-drag`);
+						const oldPos = find(index, node => node.key.model.key === sourceKey);
+						if (oldPos) {
+							for (let leaf of findLeaves(oldPos.node)) {
+								const oldColumn = table.body.column(leaf.key.columnIndex);
+								oldColumn.removeClass(`${GRID_PREFIX}-drag`);
+							}
 						}
 						break;
 					}
@@ -68,17 +89,20 @@ export class HeadView {
 			execute: e => {
 				const sourceKey = e.data;
 				const { index } = model.columnList();
-				const columnIndex = index.indexOf(sourceKey);
-				if (columnIndex >= 0) {
-					const column = table.body.column(columnIndex);
-					column.addClass(`${GRID_PREFIX}-drag`);
+				const pos = find(index, node => node.key.model.key === sourceKey);
+				if (pos) {
+					for (let leaf of findLeaves(pos.node)) {
+						const column = table.body.column(leaf.key.columnIndex);
+						column.addClass(`${GRID_PREFIX}-drag`);
+						return () => table.head.cell
+					}
 				}
 			},
 			canExecute: e => {
 				const sourceKey = e.data;
-				const { columns } = model.view();
-				const map = columnService.map(columns);
-				return map.hasOwnProperty(sourceKey) && map[sourceKey].canMove;
+				const { index } = model.columnList();
+				const pos = find(index, node => node.key.model.key === sourceKey);
+				return pos && pos.node.key.model.canMove
 			}
 		});
 
@@ -121,6 +145,13 @@ export class HeadView {
 			}
 		});
 
+		model.dataChanged.watch(e => {
+			if (e.hasChanges('columns')) {
+				const line = columnService.flatten(e.state.columns);
+				model.columnList({ line }, { source: 'head.view' });
+			}
+		});
+
 		model.sceneChanged.watch(e => {
 			if (e.hasChanges('column')) {
 				this.invalidate();
@@ -145,9 +176,9 @@ export class HeadView {
 		this.rows = Array.from(model.scene().column.rows);
 
 		if (this.rows.length > 1) {
-			this.table.view.addClass(`${GRID_PREFIX}-head-multi`);
+			this.table.view.addClass(`${GRID_PREFIX}-head-span`);
 		} else {
-			this.table.view.removeClass(`${GRID_PREFIX}-head-multi`);
+			this.table.view.removeClass(`${GRID_PREFIX}-head-span`);
 		}
 
 		if (model.filter().unit === 'row') {

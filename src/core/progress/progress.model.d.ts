@@ -19,8 +19,6 @@ import { Resource } from '../resource/resource';
  * ```
  */
 export declare interface ProgressModel {
-	resource?: Resource;
-
 	/**
 	 * Indicates if there a running job or not.
 	 */

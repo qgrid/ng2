@@ -9,8 +9,6 @@ export interface IClassList {
 export declare class Container {
 	constructor(elements: Element[]);
 
-	elements: Element[];
-
 	readonly clientWidth: number;
 	readonly clientHeight: number;
 	readonly offsetWidth: number;

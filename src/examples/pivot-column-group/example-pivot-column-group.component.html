@@ -1,0 +1,17 @@
+<q-grid caption="Pivot Column Group"
+        [rows]="rows | async"
+	[pivotBy]="['discoveredIn']"
+	[groupBy]="['bondingType', 'groupBlock']">
+	<q-grid-columns>
+		<q-grid-column key="name"
+		               width="90"
+		               title="Name">
+		</q-grid-column>
+		<q-grid-column key="bondingType">
+		</q-grid-column>
+		<q-grid-column key="groupBlock">
+		</q-grid-column>
+		<q-grid-column key="discoveredIn">
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

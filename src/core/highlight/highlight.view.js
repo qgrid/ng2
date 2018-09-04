@@ -1,11 +1,11 @@
 import { Command } from '../command/command';
-import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
 import { CellSelector } from '../cell/cell.selector';
 import { SelectionService } from '../selection/selection.service';
 import { noop } from '../utility/kit';
 import { GRID_PREFIX } from '../definition';
 import { Fastdom } from '../services/fastdom';
+import { find, findLeaves } from '../node/node.service';
 
 export class HighlightView {
 	constructor(model, table) {
@@ -108,15 +108,12 @@ export class HighlightView {
 
 		model.sceneChanged.watch(e => {
 			if (e.hasChanges('status')) {
-				const status = e.state.status;
-				switch (status) {
-					case 'stop':
-						columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
-						rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
-						cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
-						sortBlurs = this.invalidateSortBy(sortBlurs);
-						selectionBlurs = this.invalidateSelection(selectionBlurs);
-						break;
+				if (e.state.status === 'stop') {
+					columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
+					rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
+					cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
+					sortBlurs = this.invalidateSortBy(sortBlurs);
+					selectionBlurs = this.invalidateSelection(selectionBlurs);
 				}
 			}
 		});
@@ -163,7 +160,7 @@ export class HighlightView {
 	}
 
 	get isRendering() {
-		return this.model.scene().status === 'start' || this.model.drag().isActive;
+		return this.model.scene().status !== 'stop' || this.model.drag().isActive;
 	}
 
 	invalidateColumnHover(dispose) {
@@ -181,8 +178,8 @@ export class HighlightView {
 		dispose.forEach(f => f());
 		dispose = [];
 		const { rows } = this.model.highlight();
-		for (let rowIndex of rows) {
-			dispose.push(this.highlightRow(rowIndex, 'highlighted'));
+		for (let row of rows) {
+			dispose.push(this.highlightRow(row, 'highlighted'));
 		}
 
 		return dispose;
@@ -223,52 +220,60 @@ export class HighlightView {
 		return dispose;
 	}
 
-	columnIndex(key) {
-		const columns = this.table.data.columns();
-		const index = columnService.findIndex(columns, key);
-		if (index >= 0) {
-			// TODO: add pivot col support
-			const column = columns[index];
-			if (!column.canHighlight) {
-				return -1;
-			}
+	findColumnPosition(key) {
+		const { index } = this.model.columnList();
+		const pos = find(index, node => node.key.model.key === key);
+		if (pos) {
+			return findLeaves(pos.node).map(leaf => leaf.key.columnIndex);
 		}
 
-		return index;
+		return [];
 	}
 
 	highlightColumn(key, cls) {
-		const index = this.columnIndex(key);
-		if (index < 0) {
+		const position = this.findColumnPosition(key);
+		if (!position.length) {
 			return noop;
 		}
 
 		const { head, body, foot } = this.table;
 		Fastdom.mutate(() => {
-			head.column(index).addClass(`${GRID_PREFIX}-${cls}`);
-			head.column(index - 1).addClass(`${GRID_PREFIX}-${cls}-prev`);
-			head.column(index + 1).addClass(`${GRID_PREFIX}-${cls}-next`);
-			body.column(index).addClass(`${GRID_PREFIX}-${cls}`);
-			foot.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+			const isLeaf = position.length === 1;
+			for (let index of position) {
+				if (isLeaf) {
+					head.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+					head.column(index - 1).addClass(`${GRID_PREFIX}-${cls}-prev`);
+					head.column(index + 1).addClass(`${GRID_PREFIX}-${cls}-next`);
+				}
+
+				const bodyColumn = body.column(index);
+				const column = bodyColumn.model();
+				if (column && column.canHighlight) {
+					bodyColumn.addClass(`${GRID_PREFIX}-${cls}`);
+					foot.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+				}
+			}
 		});
 
 		return this.blurColumn(key, cls);
 	}
 
 	blurColumn(key, cls) {
-		const index = this.columnIndex(key);
-		if (index < 0) {
+		const position = this.findColumnPosition(key);
+		if (!position.length) {
 			return noop;
 		}
 
 		const { head, body, foot } = this.table;
 		return () => {
 			Fastdom.mutate(() => {
-				head.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
-				head.column(index - 1).removeClass(`${GRID_PREFIX}-${cls}-prev`);
-				head.column(index + 1).removeClass(`${GRID_PREFIX}-${cls}-next`);
-				body.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
-				foot.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+				for (let index of position) {
+					head.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+					head.column(index - 1).removeClass(`${GRID_PREFIX}-${cls}-prev`);
+					head.column(index + 1).removeClass(`${GRID_PREFIX}-${cls}-next`);
+					body.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+					foot.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+				}
 			});
 		};
 	}
@@ -279,9 +284,7 @@ export class HighlightView {
 		}
 
 		const { body } = this.table;
-		Fastdom.mutate(() => {
-			body.row(index).addClass(`${GRID_PREFIX}-${cls}`);
-		});
+		Fastdom.mutate(() => body.row(index).addClass(`${GRID_PREFIX}-${cls}`));
 
 		return this.blurRow(index, cls);
 	}
@@ -292,10 +295,8 @@ export class HighlightView {
 			return noop;
 		}
 
-		return () =>
-			Fastdom.mutate(() => {
-				table.body.row(index).removeClass(`${GRID_PREFIX}-${cls}`);
-			});
+		const row = table.body.row(index);
+		return () => Fastdom.mutate(() => row.removeClass(`${GRID_PREFIX}-${cls}`));
 	}
 
 	highlightCell(cell, cls) {
@@ -307,9 +308,6 @@ export class HighlightView {
 	}
 
 	blurCell(cell, cls) {
-		return () =>
-			Fastdom.mutate(() => {
-				cell.removeClass(`${GRID_PREFIX}-${cls}`);
-			});
+		return () => Fastdom.mutate(() => cell.removeClass(`${GRID_PREFIX}-${cls}`));
 	}
 }

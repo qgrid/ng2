@@ -1,12 +1,12 @@
-import { NodeState } from './state';
+import { NodeState } from './node.state';
 
 export declare class Node {
-	constructor(key: string, level: number, type?: string);
+	constructor(key: string | any, level: number, type?: string);
 
 	/**
 	 * Unique identifier for the node.
 	 */
-	key: string;
+	key: string | any;
 
 	/**
 	 * Node hierarchy level.
@@ -24,7 +24,7 @@ export declare class Node {
 	type: 'group' | 'row' | 'value' | 'summary';
 
 	/**
-	 * List of row indicies that belongs to the node.
+	 * List of row indices that belongs to the node.
 	 */
 	rows: number[];
 
@@ -34,12 +34,17 @@ export declare class Node {
 	children: Node[];
 
 	/**
+	 * Column key of the node.
+	 */
+	source: string;
+
+	/**
+	 * Value of the node.
+	 */
+	value: any;
+
+	/**
 	 * Shows if node was expanded or not.
 	 */
 	state: NodeState;
-
-	/**
-	 * Column key of node.
-	 */
-	source: string;
 }

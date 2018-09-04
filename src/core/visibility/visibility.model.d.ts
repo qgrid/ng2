@@ -4,8 +4,6 @@ import { Resource } from '../resource/resource';
  * A class to control visibility of the q-grid areas.
  */
 export declare interface VisibilityModel {
-	resource?: Resource;
-
 	/**
 	 * Indicates if the q-grid `head` is visible.
 	 */

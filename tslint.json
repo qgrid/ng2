@@ -23,7 +23,7 @@
     "import-spacing": true,
     "indent": [
       true,
-      "spaces"
+      "tabs"
     ],
     "interface-over-type-literal": true,
     "label-position": true,
@@ -44,7 +44,7 @@
       }
     ],
     "no-arg": true,
-    "no-bitwise": true,
+    "no-bitwise": false,
     "no-console": [
       true,
       "debug",
@@ -116,12 +116,12 @@
       "check-separator",
       "check-type"
     ],
-    "no-output-on-prefix": true,
+    "no-output-on-prefix": false,
     "use-input-property-decorator": true,
     "use-output-property-decorator": true,
     "use-host-property-decorator": true,
-    "no-input-rename": true,
-    "no-output-rename": true,
+    "no-input-rename": false,
+    "no-output-rename": false,
     "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,

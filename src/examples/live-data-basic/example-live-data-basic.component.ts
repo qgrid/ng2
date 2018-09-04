@@ -25,7 +25,7 @@ export class ExampleLiveDataBasicComponent {
 	}
 
 	styleCell(row: Quote, column: Column, context: StyleCellContext) {
-		if (column.key === 'diff') {
+		if (column.key === 'last') {
 			const d = this.diff({ $row: row });
 			if (d !== 0) {
 				context.class(d > 0 ? 'positive' : 'negative');
@@ -34,7 +34,7 @@ export class ExampleLiveDataBasicComponent {
 	}
 
 	update() {
-		const interval = this.random(2000, 5000);
+		const interval = this.random(200, 2000);
 		setTimeout(() => {
 			this.rows.forEach(quote => {
 				const hasChanges = this.random(0, 2);

@@ -1,7 +1,8 @@
 import { Model } from '../infrastructure/model';
+import { Node } from '../node/node';
 
 export interface PipePivot {
-	heads: any[];
+	head: Node;
 	rows: any[];
 }
 
