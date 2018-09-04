@@ -7,7 +7,7 @@ import { Td } from '../dom/td';
 export declare class CellEditor {
 	constructor(td: Td);
 
-	fetch: () => void | Fetch;
+	fetch: () => void;
 	resetFetch: () => void;
 
 	value: any;
