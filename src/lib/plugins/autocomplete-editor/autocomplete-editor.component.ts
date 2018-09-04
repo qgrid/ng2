@@ -25,7 +25,7 @@ export class AutocompleteEditorComponent {
 		const columnType = this.cell.column.type;
 
 		if (value === '') {
-			this.filteredOptions = [];
+			this.invalidate();
 			return;
 		}
 
@@ -43,7 +43,7 @@ export class AutocompleteEditorComponent {
 				} else if (result.length) {
 					this.filteredOptions = [result[0].toString()];
 				} else if (this.filteredOptions.length) {
-					this.filteredOptions = [];
+					this.invalidate();
 				}
 				break;
 			}
@@ -70,6 +70,10 @@ export class AutocompleteEditorComponent {
 				return String(options).toLowerCase().includes(value.toLowerCase()) ? [String(options)] : [];
 			}
 		}
+	}
+
+	invalidate() {
+		this.filteredOptions = [];
 	}
 
 	getType(type) {
