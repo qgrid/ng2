@@ -31,7 +31,8 @@ export class AutocompleteEditorComponent {
 
 		switch (columnType) {
 			case 'number':
-			case 'text': {
+			case 'text':
+			case 'date': {
 				this.filteredOptions = this.filterOptions(value);
 				break;
 			}
@@ -53,7 +54,26 @@ export class AutocompleteEditorComponent {
 	}
 
 	filterOptions(value) {
-		return this.options.filter(option => String(option).toLowerCase().includes(value.toLowerCase()));
+		const options = this.options;
+		const type = this.getType(options);
+
+		switch (type) {
+			case 'array': {
+				return options.filter(option => String(option).toLowerCase().includes(value.toLowerCase()));
+			}
+			case 'string': {
+				return options.toLowerCase().includes(value.toLowerCase()) ? [options] : [];
+			}
+			case 'date':
+			case 'null':
+			case 'undefined': {
+				return String(options).toLowerCase().includes(value.toLowerCase()) ? [String(options)] : [];
+			}
+		}
+	}
+
+	getType(type) {
+		return {}.toString.call(type).slice('[object]'.length, -1).toLowerCase();
 	}
 
 	get options() {
