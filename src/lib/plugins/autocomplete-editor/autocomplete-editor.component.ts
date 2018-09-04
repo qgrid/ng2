@@ -22,13 +22,12 @@ export class AutocompleteEditorComponent {
 	}
 
 	filter(value: string) {
-		const columnType = this.cell.column.type;
-
 		if (value === '') {
 			this.invalidate();
 			return;
 		}
 
+		const columnType = this.cell.column.type;
 		switch (columnType) {
 			case 'number':
 			case 'text':
