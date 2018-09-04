@@ -7,7 +7,6 @@ import { Model } from '../infrastructure/model';
 import { EditorOptions } from '../column-type/editor.options';
 import { KeyCode } from '../shortcut/key.code';
 import { CellView } from '../scene/view/cell.view';
-import { Fetch } from '../infrastructure/fetch';
 
 /**
  * > Under Construction.
