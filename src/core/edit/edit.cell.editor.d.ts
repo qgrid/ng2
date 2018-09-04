@@ -13,7 +13,7 @@ export declare class CellEditor {
 	value: any;
 	label: any;
 
-	readonly cell: CellView;  
+	readonly cell: CellView;
 
 	commit(): void;
 	reset(): void;
