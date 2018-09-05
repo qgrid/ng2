@@ -8,6 +8,6 @@ import { Command } from '../command/command';
 export class FilterView {
 	constructor(model: Model);
 
-	drop: Command<any>;
+	filter: Command<any>;
 	has(column: ColumnModel): boolean;
 }
