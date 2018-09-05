@@ -2,6 +2,7 @@ import { TdCoreDirective } from './../../main/core/body/td-core.directive';
 import { Component, OnInit, Optional } from '@angular/core';
 import { ViewCoreService } from '../../main/core/view/view-core.service';
 import { PluginService } from '../plugin.service';
+import { predicateFactory } from 'ng2-qgrid/core/services/predicate';
 
 @Component({
 	selector: 'q-grid-autocomplete-editor',
@@ -21,57 +22,54 @@ export class AutocompleteEditorComponent {
 	) {
 	}
 
-	filter(value: string) {
-		if (value === '') {
-			this.invalidate();
+	filter(search: string) {
+		if (search === '') {
+			this.reset();
 			return;
 		}
 
-		const columnType = this.cell.column.type;
-		switch (columnType) {
+		const { type } = this.cell.column;
+		switch (type) {
 			case 'number':
 			case 'text':
 			case 'date': {
-				this.filteredOptions = this.filterOptions(value);
+				this.filteredOptions = this.filterOptions(search);
 				break;
 			}
 			case 'bool': {
-				const result = this.filterOptions(value);
-				if (result.length && result[0] === null) {
-					this.filteredOptions = ['null'];
+				const result = this.filterOptions(search);
+				if (result.length && result[0] === null || !result.length && this.filteredOptions.length) {
+					this.reset();
 				} else if (result.length) {
-					this.filteredOptions = [result[0].toString()];
-				} else if (this.filteredOptions.length) {
-					this.invalidate();
+					this.filteredOptions = [result[0]];
 				}
-				break;
-			}
-			default: {
 				break;
 			}
 		}
 	}
 
 	filterOptions(value) {
-		const options = this.options;
-		const type = this.getType(options);
-
+		const items = this.items;
+		const predict = predicateFactory(value);
+		const type = this.getType(items);
 		switch (type) {
 			case 'array': {
-				return options.filter(option => String(option).toLowerCase().includes(value.toLowerCase()));
+				return items.filter(item => predict(item));
 			}
-			case 'string': {
-				return options.toLowerCase().includes(value.toLowerCase()) ? [options] : [];
+			case 'date': {
+				return String(items).toLowerCase().includes(value.toLowerCase()) ? [String(items)] : [];
 			}
-			case 'date':
 			case 'null':
 			case 'undefined': {
-				return String(options).toLowerCase().includes(value.toLowerCase()) ? [String(options)] : [];
+				if (predict(items)) {
+					return [items];
+				}
+				break;
 			}
 		}
 	}
 
-	invalidate() {
+	reset() {
 		this.filteredOptions = [];
 	}
 
@@ -79,7 +77,7 @@ export class AutocompleteEditorComponent {
 		return {}.toString.call(type).slice('[object]'.length, -1).toLowerCase();
 	}
 
-	get options() {
+	get items() {
 		return this.cell.fetch.result;
 	}
 
