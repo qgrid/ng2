@@ -5,9 +5,9 @@ import { Observable } from 'rxjs';
 import { GridComponent } from 'ng2-qgrid';
 
 @Component({
-	selector: 'validation-basic',
-	templateUrl: 'validation-basic.component.html',
-	styleUrls: [ 'validation-basic.component.scss' ],
+	selector: 'example-validation-basic',
+	templateUrl: 'example-validation-basic.component.html',
+	styleUrls: [ 'example-validation-basic.component.scss' ],
 	providers: [ DataService ]
 })
 export class ExampleValidationBasicComponent {

@@ -9,6 +9,6 @@
         <input type="search"
                matInput
                #input
-               (change)="$view.head.filter.execute($cell.column.model, input.value)" />
+               (change)="$view.filter.column.execute($cell.column.model, input.value)" />
     </mat-form-field>
 </ng-template>
