@@ -50,10 +50,10 @@ export class AutocompleteEditorComponent {
 
 	filterOptions(value) {
 		const items = this.items;
-		const predict = predicateFactory(value);
 		const type = this.getType(items);
 		switch (type) {
 			case 'array': {
+				const predict = predicateFactory(value);
 				return items.filter(item => predict(item));
 			}
 			case 'date': {
@@ -61,6 +61,7 @@ export class AutocompleteEditorComponent {
 			}
 			case 'null':
 			case 'undefined': {
+				const predict = predicateFactory(value);
 				if (predict(items)) {
 					return [items];
 				}
