@@ -3,7 +3,6 @@ import { Log } from '../infrastructure/log';
 import { Command } from '../command/command';
 import * as columnService from '../column/column.service';
 import { FilterRowColumn } from '../column-type/filter.row.column';
-import { clone, isUndefined } from '../utility/kit';
 import { GRID_PREFIX } from '../definition';
 import { calk, find, findLeaves, preOrderDFS } from '../node/node.service';
 
@@ -112,36 +111,6 @@ export class HeadView {
 				const key = e.data;
 				const map = table.data.columnMap();
 				return map.hasOwnProperty(key) && map[key].canResize !== false;
-			}
-		});
-
-		this.filter = new Command({
-			source: 'head.view',
-			canExecute: () => true,
-			execute: (column, search) => {
-				const filter = this.model.filter;
-				const by = clone(filter().by);
-				const key = column.key;
-				if (!isUndefined(search) && search !== '') {
-					by[key] = {
-						expression: {
-							kind: 'group',
-							op: 'and',
-							left: {
-								kind: 'condition',
-								left: key,
-								op: 'like',
-								right: search
-							},
-							right: null
-						}
-					};
-				}
-				else {
-					delete by[key];
-				}
-
-				filter({ by });
 			}
 		});
 
