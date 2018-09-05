@@ -44,7 +44,6 @@ td.q-grid-edit {
 		flex-direction: column;
 		box-sizing: content-box;
 		z-index: 2;
-		padding: 24px;
 	}
 
 	.q-grid-actions {
@@ -58,8 +57,7 @@ td.q-grid-edit {
 		opacity: 0;
 	}
 	.q-grid-editor-content {
-		width: 100%;
-		height: 100%;
+		padding: 24px;
 		overflow: hidden;
 		h2 {
 			margin-top: 0;
