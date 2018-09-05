@@ -5,6 +5,6 @@
                   aria-label="Bool cell filter"
                   class="q-grid-checkbox"
                   #input
-                  (change)="$view.head.filter.execute($cell.column.model, input.checked)">
+                  (change)="$view.filter.column.execute($cell.column.model, input.checked)">
     </mat-checkbox>
 </ng-template>
