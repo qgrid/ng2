@@ -37,6 +37,9 @@ export function predicateFactory(search) {
 	}
 
 	const pattern = escapeRegexp(search);
-	const expr = new RegExp(pattern, 'gi'); 
-	return item => expr.test(item);
+	const expr = new RegExp(pattern, 'gi');
+	return item => {
+		expr.lastIndex = 0;
+		return expr.test(item);
+	}
 }

@@ -8,7 +8,7 @@ import { from, Observable, of } from 'rxjs';
 	templateUrl: 'example-column-autocomplete-basic.component.html',
 	styleUrls: ['example-column-autocomplete-basic.component.scss']
 })
-export class ExampleColumnAutocompletetBasicComponent { 
+export class ExampleColumnAutocompletetBasicComponent {
 	rows = [
 		{
 			'number': 0,
@@ -33,6 +33,15 @@ export class ExampleColumnAutocompletetBasicComponent {
 		fetch: new Promise(resolve =>
 			setTimeout(
 				() => resolve(['Lorem', 'ipsum', 'dolor', 'sit', 'amet']),
+				5000
+			)
+		)
+	};
+
+	dataPromiseFetchOptions = {
+		fetch: new Promise(resolve =>
+			setTimeout(
+				() => resolve([new Date(2017, 7, 7), new Date(2016, 6, 6), new Date(2015, 5, 5)]),
 				5000
 			)
 		)

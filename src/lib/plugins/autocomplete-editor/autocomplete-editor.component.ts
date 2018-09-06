@@ -54,22 +54,9 @@ export class AutocompleteEditorComponent {
 	}
 
 	findItems(value) {
-		const items = this.items;
-		const predict = predicateFactory(value);
+		const test = predicateFactory(value);
 
-		const type = this.getType(items);
-		switch (type) {
-			case 'array': {
-				return items.filter(item => predict(item));
-			}
-			case 'date':
-			case 'null':
-			case 'undefined': {
-				if (predict(items)) {
-					return [items];
-				}
-			}
-		}
+		return this.items.filter(item => test(item));
 	}
 
 	reset() {
