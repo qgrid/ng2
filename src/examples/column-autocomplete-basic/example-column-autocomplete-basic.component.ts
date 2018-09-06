@@ -38,7 +38,7 @@ export class ExampleColumnAutocompletetBasicComponent {
 		)
 	};
 
-	dataPromiseFetchOptions = {
+	datePromiseFetchOptions = {
 		fetch: new Promise(resolve =>
 			setTimeout(
 				() => resolve([new Date(2017, 7, 7), new Date(2016, 6, 6), new Date(2015, 5, 5)]),
