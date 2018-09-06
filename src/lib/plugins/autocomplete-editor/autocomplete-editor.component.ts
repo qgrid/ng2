@@ -64,7 +64,7 @@ export class AutocompleteEditorComponent {
 	}
 
 	get items() {
-		return this.cell.fetch.result;
+		return (this.cell.fetch as any).result;
 	}
 
 	get title() {
