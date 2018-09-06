@@ -1,4 +1,4 @@
-import { isObject, yes } from '../utility/kit';
+import { isObject, yes, escapeRegexp } from '../utility/kit';
 import { compileGet } from './path';
 
 export function predicateFactory(search) {
@@ -36,6 +36,7 @@ export function predicateFactory(search) {
 		}
 	}
 
-	const expr = new RegExp(search, 'gi');
+	const pattern = escapeRegexp(search);
+	const expr = new RegExp(pattern, 'gi'); 
 	return item => expr.test(item);
 }

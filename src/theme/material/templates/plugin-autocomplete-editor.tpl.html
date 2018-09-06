@@ -11,7 +11,7 @@
                [matAutocomplete]="autocomplete">
     </mat-form-field>
     <mat-autocomplete #autocomplete="matAutocomplete">
-        <mat-option *ngFor="let option of $editor.filteredOptions"
+        <mat-option *ngFor="let option of $editor.options"
                     [value]="option">{{option}}</mat-option>
     </mat-autocomplete>
 </ng-template>

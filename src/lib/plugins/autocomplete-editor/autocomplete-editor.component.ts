@@ -10,7 +10,7 @@ import { predicateFactory } from 'ng2-qgrid/core/services/predicate';
 	providers: [PluginService]
 })
 export class AutocompleteEditorComponent {
-	filteredOptions: any[] = [];
+	options: any[] = [];
 
 	context: { $implicit: AutocompleteEditorComponent } = {
 		$implicit: this
@@ -33,45 +33,47 @@ export class AutocompleteEditorComponent {
 			case 'number':
 			case 'text':
 			case 'date': {
-				this.filteredOptions = this.filterOptions(search);
+				const result = this.findItems(search);
+				if (result) {
+					this.options = result;
+				} else {
+					this.reset();
+				}
 				break;
 			}
 			case 'bool': {
-				const result = this.filterOptions(search);
-				if (result.length && result[0] === null || !result.length && this.filteredOptions.length) {
+				const result = this.findItems(search);
+				if (result.length && result[0] === null || !result.length && this.options.length) {
 					this.reset();
 				} else if (result.length) {
-					this.filteredOptions = [result[0]];
+					this.options = [result[0]];
 				}
 				break;
 			}
 		}
 	}
 
-	filterOptions(value) {
+	findItems(value) {
 		const items = this.items;
+		const predict = predicateFactory(value);
+
 		const type = this.getType(items);
 		switch (type) {
 			case 'array': {
-				const predict = predicateFactory(value);
 				return items.filter(item => predict(item));
 			}
-			case 'date': {
-				return String(items).toLowerCase().includes(value.toLowerCase()) ? [String(items)] : [];
-			}
+			case 'date':
 			case 'null':
 			case 'undefined': {
-				const predict = predicateFactory(value);
 				if (predict(items)) {
 					return [items];
 				}
-				break;
 			}
 		}
 	}
 
 	reset() {
-		this.filteredOptions = [];
+		this.options = [];
 	}
 
 	getType(type) {
