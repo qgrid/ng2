@@ -63,10 +63,6 @@ export class AutocompleteEditorComponent {
 		this.options = [];
 	}
 
-	getType(type) {
-		return {}.toString.call(type).slice('[object]'.length, -1).toLowerCase();
-	}
-
 	get items() {
 		return this.cell.fetch.result;
 	}
