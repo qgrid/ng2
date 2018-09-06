@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 import { GridModel, Grid } from 'ng2-qgrid';
-import { map } from 'rxjs/internal/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'example-master-details-basic',
