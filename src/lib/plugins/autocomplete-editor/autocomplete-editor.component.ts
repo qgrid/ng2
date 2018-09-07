@@ -28,35 +28,13 @@ export class AutocompleteEditorComponent {
 			return;
 		}
 
-		const { type } = this.cell.column;
-		switch (type) {
-			case 'number':
-			case 'text':
-			case 'date': {
-				const result = this.findItems(search);
-				if (result) {
-					this.options = result;
-				} else {
-					this.reset();
-				}
-				break;
-			}
-			case 'bool': {
-				const result = this.findItems(search);
-				if (result.length && result[0] === null || !result.length && this.options.length) {
-					this.reset();
-				} else if (result.length) {
-					this.options = [result[0]];
-				}
-				break;
-			}
+		const test = predicateFactory(search);
+		const result = this.items.filter(item => test(item));
+		if (result) {
+			this.options = result;
+		} else {
+			this.reset();
 		}
-	}
-
-	findItems(value) {
-		const test = predicateFactory(value);
-
-		return this.items.filter(item => test(item));
 	}
 
 	reset() {
