@@ -28,7 +28,8 @@ export declare class EditCellView {
 	readonly row: any;
 	readonly column: ColumnModel;
 	readonly options: EditorOptions;
+	readonly editor: CellEditor;
 
-	readonly fetch: () => void;
+	readonly fetch: any;
 	readonly resetFetch: () => void;
 }
