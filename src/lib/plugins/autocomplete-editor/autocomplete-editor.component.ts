@@ -23,18 +23,8 @@ export class AutocompleteEditorComponent {
 	}
 
 	filter(search: string) {
-		if (search === '') {
-			this.reset();
-			return;
-		}
-
 		const test = predicateFactory(search);
-		const result = this.items.filter(item => test(item));
-		if (result) {
-			this.options = result;
-		} else {
-			this.reset();
-		}
+		this.options = this.items.filter(item => test(item));
 	}
 
 	reset() {
