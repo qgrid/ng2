@@ -2,6 +2,7 @@ import { PathService } from '../path/path.service';
 import { Fastdom } from '../services/fastdom';
 import { GRID_PREFIX } from '../definition';
 import { jobLine } from '../services/job.line';
+import { ScrollService } from '../scroll/scroll.service';
 
 const MOUSE_LEFT_BUTTON = 1;
 const VERTICAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-vertical`;
@@ -12,6 +13,7 @@ export class BodyCtrl {
 		this.model = model;
 		this.view = view;
 		this.bag = bag;
+		this.scrollService = new ScrollService(model, table, bag, view);
 		this.table = table;
 		this.rangeStartCell = null;
 		this.scrollingJob = jobLine(100);
@@ -130,6 +132,7 @@ export class BodyCtrl {
 			if (startCell && endCell) {
 				this.navigate(endCell);
 				this.view.selection.selectRange(startCell, endCell, 'body');
+				this.scrollService.start(e, startCell);
 			}
 		}
 	}
@@ -146,6 +149,11 @@ export class BodyCtrl {
 	}
 
 	onMouseUp(e) {
+<<<<<<< HEAD
+=======
+		this.scrollService.stop(); 
+
+>>>>>>> ScrollServiceN
 		const { mode } = this.selection;
 		const { edit } = this.model;
 

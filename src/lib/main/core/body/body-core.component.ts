@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, NgZone, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef, OnInit, NgZone, Input, ChangeDetectorRef, Inject } from '@angular/core';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
@@ -12,7 +12,8 @@ import { TableCoreService } from '../table/table-core.service';
 
 @Component({
 	selector: 'tbody[q-grid-core-body]',
-	templateUrl: './body-core.component.html'
+	templateUrl: './body-core.component.html',
+	providers: [{ provide: 'window',  useValue: window }]
 })
 export class BodyCoreComponent extends NgComponent implements OnInit {
 	@Input() pin = 'body';
@@ -21,6 +22,7 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 	rowId: (index: number, row: any) => any;
 
 	constructor(
+		@Inject('window') private window: Window,
 		private element: ElementRef,
 		public $view: ViewCoreService,
 		public $table: TableCoreService,
@@ -39,6 +41,7 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 		const table = this.$table;
 		const ctrl = new BodyCtrl(model, view, this.root.table, this.root.bag);
 		const listener = new EventListener(element, new EventManager(this));
+		const windowListener = new EventListener(this.window, new EventManager(this));
 
 		this.zone.runOutsideAngular(() => {
 			listener.on('wheel', e => ctrl.onWheel(e));
@@ -56,7 +59,13 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 		});
 
 		listener.on('mousedown', ctrl.onMouseDown.bind(ctrl));
-		listener.on('mouseup', ctrl.onMouseUp.bind(ctrl));
+
+		windowListener.on('mouseup', (e) => {
+			const isActive = model.focus().isActive;
+			if (isActive) {
+				ctrl.onMouseUp(e);
+			}
+		});
 
 		const { id } = model.data();
 		this.rowId = id.row;
