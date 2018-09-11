@@ -9,8 +9,8 @@ import {
 	ElementRef,
 	ChangeDetectionStrategy,
 } from '@angular/core';
-
 import { BackdropView } from 'ng2-qgrid/plugin/backdrop/backdrop.view';
+import { BackdropService } from './backdrop.service';
 
 @Component({
 	selector: 'q-grid-backdrop',
@@ -25,7 +25,9 @@ export class BackdropComponent {
 		$implicit: this
 	};
 
-	constructor(element: ElementRef) {
+	constructor(backdropService: BackdropService, element: ElementRef) {
+		backdropService.element = element;
+
 		const context = {
 			element: element.nativeElement,
 			onKeyDown: () => { },
