@@ -39,6 +39,6 @@ export class BackdropComponent implements OnDestroy {
 	}
 
 	ngOnDestroy() {
-		this.backdropService.reset();
+		this.backdropService.element = null;
 	}
 }
