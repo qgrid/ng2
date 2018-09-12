@@ -1,6 +1,5 @@
 import { Injectable, Renderer2, ElementRef } from '@angular/core';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
-import { jobLine } from 'ng2-qgrid/core/services/job.line';
 
 @Injectable()
 export class BackdropService {
