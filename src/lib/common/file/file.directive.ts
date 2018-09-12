@@ -47,8 +47,8 @@ export class FileDirective extends NgComponent {
 
 		this.using(listener.on('change', this.onUpload));
 		this.using(listener.on('drop', this.onUpload));
-		this.using(listener.on('click', this.onClick));
-		this.using(listener.on('focus', this.onFocus));
+		this.using(listener.on('click', this.hideBackdrop));
+		this.using(listener.on('focus', this.revealBackdrop));
 
 		this.reader.onloadend = e => this.onLoadEnd(e);
 	}
@@ -66,14 +66,6 @@ export class FileDirective extends NgComponent {
 		if (e.target.readyState === this.reader.DONE) {
 			this.value = e.target.result;
 		}
-	}
-
-	onClick(e) {
-		this.hideBackdrop();
-	}
-
-	onFocus(e) {
-		this.revealBackdrop();
 	}
 
 	hideBackdrop() {

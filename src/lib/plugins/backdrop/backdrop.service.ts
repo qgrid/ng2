@@ -5,8 +5,11 @@ import { jobLine } from 'ng2-qgrid/core/services/job.line';
 @Injectable()
 export class BackdropService {
 	element: ElementRef;
-	isVisible = true;
-	job = jobLine(300);
+	isVisible = null;
+
+	constructor() {
+		this.isVisible = true;
+	}
 
 	hide() {
 		Guard.notNull(this.element, 'element');
@@ -19,8 +22,13 @@ export class BackdropService {
 	reveal() {
 		Guard.notNull(this.element, 'element');
 		if (!this.isVisible) {
-			this.job(() => this.element.nativeElement.classList.remove('q-grid-backdrop-inactive'));
+			setTimeout(() => this.element.nativeElement.classList.remove('q-grid-backdrop-inactive'), 300);
 			this.isVisible = true;
 		}
+	}
+
+	reset() {
+		this.element = null;
+		this.isVisible = null;
 	}
 }

@@ -17,7 +17,7 @@ import { BackdropService } from './backdrop.service';
 	templateUrl: './backdrop.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BackdropComponent {
+export class BackdropComponent implements OnDestroy {
 	@ContentChild(TemplateRef) public template: TemplateRef<any>;
 	@Output('close') closeEvent = new EventEmitter<any>();
 
@@ -25,7 +25,7 @@ export class BackdropComponent {
 		$implicit: this
 	};
 
-	constructor(backdropService: BackdropService, element: ElementRef) {
+	constructor(private backdropService: BackdropService, element: ElementRef) {
 		backdropService.element = element;
 
 		const context = {
@@ -36,5 +36,9 @@ export class BackdropComponent {
 
 		const backdrop = new BackdropView(context);
 		backdrop.closeEvent.on(() => this.closeEvent.emit());
+	}
+
+	ngOnDestroy() {
+		this.backdropService.reset();
 	}
 }
