@@ -1,4 +1,4 @@
-import { Injectable, Renderer2, ElementRef } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 
 @Injectable()
