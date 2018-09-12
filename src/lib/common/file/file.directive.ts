@@ -76,7 +76,9 @@ export class FileDirective extends NgComponent {
 
 	revealBackdrop() {
 		if (this.backdropService) {
-			this.backdropService.reveal();
+			if (!this.backdropService.isVisible) {
+				setTimeout(() => this.backdropService.reveal(), 300);
+			}
 		}
 	}
 }

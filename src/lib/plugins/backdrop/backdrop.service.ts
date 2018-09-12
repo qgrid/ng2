@@ -4,11 +4,7 @@ import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 @Injectable()
 export class BackdropService {
 	element: ElementRef;
-	isVisible = null;
-
-	constructor() {
-		this.isVisible = true;
-	}
+	isVisible = true;
 
 	hide() {
 		Guard.notNull(this.element, 'element');
@@ -21,13 +17,12 @@ export class BackdropService {
 	reveal() {
 		Guard.notNull(this.element, 'element');
 		if (!this.isVisible) {
-			setTimeout(() => this.element.nativeElement.classList.remove('q-grid-backdrop-inactive'), 300);
+			this.element.nativeElement.classList.remove('q-grid-backdrop-inactive');
 			this.isVisible = true;
 		}
 	}
 
 	reset() {
 		this.element = null;
-		this.isVisible = null;
 	}
 }
