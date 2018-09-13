@@ -36,6 +36,7 @@ import { PipeModel } from '../pipe/pipe.model';
 import { RestModel } from '../rest/rest.model';
 import { AnimationModel } from '../animation/animation.model';
 import { RowListModel } from '../row-list/row.list.model';
+import { ClipboardModel } from '../clipboard/clipboard.model';
 
 export declare interface ModelTag {
 	source?: string;
@@ -102,6 +103,10 @@ export declare class Model {
 	columnListChanged: ModelEvent<ColumnListModel>;
 	columnList(value: ColumnListModel, tag?: ModelTag): Model;
 	columnList(): ColumnListModel;
+
+	clipboardChanged: ModelEvent<ClipboardModel>;
+	clipboard(value: ClipboardModel, tag?: ModelTag): Model;
+	clipboard(): ClipboardModel;
 
 	rowChanged: ModelEvent<RowModel>;
 	row(value: RowModel, tag?: ModelTag): Model;

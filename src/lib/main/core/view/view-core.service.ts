@@ -1,4 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { ClipboardView } from 'ng2-qgrid/core/clipboard/clipboard.view';
 import { GroupView } from 'ng2-qgrid/core/group/group.view';
 import { FilterView } from 'ng2-qgrid/core/filter/filter.view';
 import { SortView } from 'ng2-qgrid/core/sort/sort.view';
@@ -27,6 +28,7 @@ export class ViewCoreService implements OnDestroy {
 	private dispose: () => void = null;
 
 	body: BodyView = null;
+	clipboard: ClipboardView = null;
 	edit: EditView = null;
 	filter: FilterView = null;
 	foot: FootView = null;

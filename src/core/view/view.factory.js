@@ -3,6 +3,7 @@ import { ModelProxy } from '../infrastructure/model.proxy';
 import { Disposable } from '../infrastructure/disposable';
 import { SelectionCommandManager } from '../selection/selection.command.manager';
 import { BodyView } from '../body/body.view';
+import { ClipboardView } from '../clipboard/clipboard.view';
 import { EditView } from '../edit/edit.view';
 import { FilterView } from '../filter/filter.view';
 import { FootView } from '../foot/foot.view';
@@ -49,6 +50,7 @@ export function viewFactory(
 
 		host.head = new HeadView(modelProxy, table, selectors.th);
 		host.body = new BodyView(modelProxy, table);
+		host.clipboard = new ClipboardView(model, table, commandManager);
 		host.foot = new FootView(modelProxy, table);
 		host.row = new RowView(modelProxy, table, selectors.tr);
 		host.layout = new LayoutView(modelProxy, table, gridService);

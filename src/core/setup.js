@@ -9,6 +9,7 @@ import { LayoutModel } from './layout/layout.model';
 import { NavigationModel } from './navigation/navigation.model';
 import { FocusModel } from './focus/focus.model';
 import { ColumnListModel } from './column-list/column.list.model';
+import { ClipboardModel } from './clipboard/clipboard.model';
 import { RowModel } from './row/row.model';
 import { SelectionModel } from './selection/selection.model';
 import { FootModel } from './foot/foot.model';
@@ -53,6 +54,7 @@ export function setup(model) {
 		.register('layout', LayoutModel)
 		.register('row', RowModel)
 		.register('columnList', ColumnListModel)
+		.register('clipboard', ClipboardModel)
 		.register('rowList', RowListModel)
 		.register('sort', SortModel)
 		.register('group', GroupModel)
