@@ -108,8 +108,8 @@ export class RowSelector {
 
     aggregation(column) {
         if (column.aggregation) {
-            const aggregation = column.aggregation;
-            const aggregationOptions = column.aggregationOptions;
+            const { aggregation } = column;
+            const { aggregationOptions } = column;
 
             if (!Aggregation.hasOwnProperty(aggregation)) {
                 throw new AppError(
@@ -117,7 +117,7 @@ export class RowSelector {
                     `Aggregation ${aggregation} is not registered`);
             }
 
-            const rows = this.model.data().rows;
+            const { rows } = this.model.data();
             const getValue = valueFactory(column);
 
             return Aggregation[aggregation](rows, getValue, aggregationOptions);

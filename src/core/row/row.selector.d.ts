@@ -16,6 +16,4 @@ export declare class RowSelector {
     mapFromCells(items: any[]): any[];
 
     mapFromMix(items: any[]): (items: any[]) => any[];
-
-    value(column: ColumnModel): any;
 }
