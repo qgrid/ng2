@@ -1,16 +1,16 @@
 import { isUndefined } from '../utility/kit';
 
 export class ClipboardService {
-	static copy(selector) {
-		const table = createTable(selector);
+	static copy(context) {
+		const table = createTable(context);
 		select(table);
 		table.remove();
 	}
 }
 
-function createTable(selector) {
-	const { titles, readings, aggregations } = selector.chunks;
-	const { source } = selector;
+function createTable(context) {
+	const { titles, readings, aggregations } = context.chunks;
+	const { source } = context;
 	const table = document.createElement('table');
 
 	const gotTitles = source.indexOf('head') >= 0;

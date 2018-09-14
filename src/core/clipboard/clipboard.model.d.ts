@@ -1,5 +1,5 @@
 export declare class ClipboardModel {
     constructor();
-    shortcut: any;
+    shortcut: {[key: string]: string};
     source: string[]; 
 } 

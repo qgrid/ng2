@@ -1,3 +1,8 @@
+export declare interface CopyContext {
+    chunks: any;
+    source: any;
+}
+
 export declare class ClipboardService {
-    static copy(selector: any): void;
+    static copy(context: CopyContext): void;
 }
