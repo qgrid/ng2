@@ -44,7 +44,7 @@ export class RowSelector {
     mapFromCells(items) {
         const columns = this.columns;
 
-        const { xItems, yItems } = this.itemsTitles(items);
+        const { xItems, yItems } = this.retrieve(items);
 
         const selectedColumns = columns.filter(column => xItems.indexOf(column.title) >= 0);
 
@@ -151,7 +151,7 @@ export class RowSelector {
         return body;
     }
 
-    itemsTitles(items) {
+    retrieve(items) {
         const xItems = [];
         items.forEach(item => xItems.indexOf(item.column.title) >= 0 ? null : xItems.push(item.column.title));
 
@@ -167,31 +167,6 @@ export class RowSelector {
         yItems.sort();
 
         return { xItems, yItems };
-    }
-
-    rowTitles(row, columns) {
-        let titles = [];
-
-        for (let i = 0; i < columns.length; i++) {
-            let label = get(row, columns[i]);
-            titles.push(label);
-        }
-
-        return titles;
-    }
-
-    ids(items) {
-        const yItems = [];
-        const { rows } = this.model.view();
-        for (let i = 0, length = items.length; i < length; i++) {
-            const { row } = items[i];
-            const rowIndex = rows.indexOf(row);
-            if (!yItems.includes(rowIndex)) {
-                yItems.push(rowIndex);
-            } 
-        }
-
-        return yItems.sort();
     }
 
     createBlank(titles, ids) {
