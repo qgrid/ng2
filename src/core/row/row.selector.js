@@ -169,6 +169,17 @@ export class RowSelector {
         return { xItems, yItems };
     }
 
+    rowTitles(row, columns) {
+        let titles = [];
+
+        for (let i = 0; i < columns.length; i++) {
+            let label = get(row, columns[i]);
+            titles.push(label);
+        }
+
+        return titles;
+    }
+
     createBlank(titles, ids) {
         const height = ids.length;
         const width = titles.length;
