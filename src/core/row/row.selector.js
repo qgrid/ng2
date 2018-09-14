@@ -49,7 +49,7 @@ export class RowSelector {
         const selectedColumns = columns.filter(column => xItems.indexOf(column.title) >= 0);
 
         const titles = selectedColumns.map(column => column.title);
-        const aggregations = selectedColumns.map(column => this.value(column) === null ? '' : this.value(column));
+        const aggregations = selectedColumns.map(column => this.aggregation(column) === null ? '' : this.aggregation(column));
 
         const blank = this.createBlank(xItems, yItems);
         const readings = this.fillUp(blank, items, selectedColumns, yItems);
@@ -82,7 +82,7 @@ export class RowSelector {
         const cache = new Map();
 
         const titles = columns.map(column => column.title);
-        const aggregations = columns.map(column => this.value(column) === null ? '' : this.value(column));
+        const aggregations = columns.map(column => this.aggregation(column) === null ? '' : this.aggregation(column));
 
         for (const row of rows) {
             const line = [];
@@ -108,7 +108,7 @@ export class RowSelector {
         return { titles, readings, aggregations };
     }
 
-    value(column) {
+    aggregation(column) {
         if (column.aggregation) {
             const aggregation = column.aggregation;
             const aggregationOptions = column.aggregationOptions;
@@ -128,11 +128,22 @@ export class RowSelector {
     }
 
     fillUp(body, items, columns, ids) {
+        const titles = (row, columns) => {
+            let titles = [];
+
+            for (let i = 0; i < columns.length; i++) {
+                let label = get(row, columns[i]);
+                titles.push(label);
+            }
+
+            return titles;
+        }
+
         for (let y = 0; y < ids.length; y++) {
             const { rows } = this.model.view()
             const { row, column } = items[y];
             const rowIndex = rows.indexOf(row);
-			const columnIndex = columns.indexOf(column);
+            const columnIndex = columns.indexOf(column);
 
             const cellsWithCurrentId = items.filter(item => rows.indexOf(item.row) === ids[y]);
 
@@ -141,7 +152,7 @@ export class RowSelector {
                 const row = cell.row;
                 const column = cell.column;
                 const label = get(row, column);
-                const specificTitles = this.rowTitles(row, columns);
+                const specificTitles = titles(row, columns);
                 const x = specificTitles.indexOf(label);
 
                 body[y][x] = label;
@@ -167,17 +178,6 @@ export class RowSelector {
         yItems.sort();
 
         return { xItems, yItems };
-    }
-
-    rowTitles(row, columns) {
-        let titles = [];
-
-        for (let i = 0; i < columns.length; i++) {
-            let label = get(row, columns[i]);
-            titles.push(label);
-        }
-
-        return titles;
     }
 
     createBlank(titles, ids) {
