@@ -87,7 +87,7 @@ export class RowSelector {
 
             for (const column of columns) {
                 let label;
-                const key = column.key;
+                const { key } = column;
 
                 if (cache.has(key)) {
                     label = cache.get(key)
@@ -147,8 +147,7 @@ export class RowSelector {
 
             for (let k = 0; k < cellsWithCurrentId.length; k++) {
                 const cell = cellsWithCurrentId[k];
-                const row = cell.row;
-                const column = cell.column;
+                const { row, column } = cell;
                 const label = get(row, column);
                 const specificTitles = titles(row, columns);
                 const x = specificTitles.indexOf(label);
@@ -162,7 +161,7 @@ export class RowSelector {
 
     retrieve(items) {
         const xItems = [];
-        items.forEach(item => xItems.indexOf(item.column.title) >= 0 ? null : xItems.push(item.column.title));
+        items.forEach(item => xItems.includes(item.column.title) ? null : xItems.push(item.column.title));
 
         const yItems = [];
         const { rows } = this.model.view();
