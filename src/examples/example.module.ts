@@ -31,7 +31,9 @@ import { ExampleColumnRowOptionsBasicComponent } from './column-row-options-basi
 import { ExampleColumnTextBasicComponent } from './column-text-basic/example-column-text-basic.component';
 import { ExampleColumnTimeBasicComponent } from './column-time-basic/example-column-time-basic.component';
 import { ExampleColumnUrlBasicComponent } from './column-url-basic/example-column-url-basic.component';
-import { ExampleClipboardBasicComponent } from './clipboard-basic/example-clipboard-basic.component';
+import { ExampleClipboardSelectionRowComponent } from './clipboard-selection-row/example-clipboard-selection-row.component';
+import { ExampleClipboardSelectionColumnComponent } from './clipboard-selection-column/example-clipboard-selection-column.component';
+import { ExampleClipboardSelectionCellComponent } from './clipboard-selection-cell/example-clipboard-selection-cell.component';
 import { ExampleDefineColumnAsyncComponent } from './define-column-async/example-define-column-async.component';
 import { ExampleDefineColumnBasicComponent } from './define-column-basic/example-define-column-basic.component';
 import { ExampleDefineColumnHybridComponent } from './define-column-hybrid/example-define-column-hybrid.component';
@@ -151,7 +153,9 @@ const EXAMPLES: Array<any> = [
 	ExampleColumnTextBasicComponent,
 	ExampleColumnTimeBasicComponent,
 	ExampleColumnUrlBasicComponent,
-	ExampleClipboardBasicComponent,
+	ExampleClipboardSelectionRowComponent,
+	ExampleClipboardSelectionColumnComponent,
+	ExampleClipboardSelectionCellComponent,
 	ExampleDefineColumnAsyncComponent,
 	ExampleDefineColumnBasicComponent,
 	ExampleDefineColumnHybridComponent,

@@ -2,13 +2,13 @@ import { isUndefined } from '../utility/kit';
 
 export class ClipboardService {
 	static copy(selector) {
-		const table = buildTable(selector);
+		const table = createTable(selector);
 		select(table);
 		table.remove();
 	}
 }
 
-function buildTable(selector) {
+function createTable(selector) {
 	const { titles, readings, aggregations } = selector.chunks;
 	const { source } = selector;
 	const table = document.createElement('table');

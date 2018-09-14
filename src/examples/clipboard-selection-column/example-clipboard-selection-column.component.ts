@@ -3,12 +3,12 @@ import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 
 @Component({
-	selector: 'example-clipboard-basic',
-	templateUrl: 'example-clipboard-basic.component.html',
-	styleUrls: ['example-clipboard-basic.component.scss'],
+	selector: 'example-clipboard-selection-column',
+	templateUrl: 'example-clipboard-selection-column.component.html',
+	styleUrls: ['example-clipboard-selection-column.component.scss'],
 	providers: [DataService]
 })
-export class ExampleClipboardBasicComponent {
+export class ExampleClipboardSelectionColumnComponent {
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {

@@ -19,58 +19,67 @@ export class ClipboardView {
         const selectionCommandManager = new SelectionCommandManager(model, commandManager);
         const action = model.action().shortcut;
         const commands = this.commands;
+        action.register(selectionCommandManager, commands);
 
         const documentListener = new EventListener(document, new EventManager(this));
+        documentListener.on('paste', this.onPaste);
+    }
 
-        documentListener.on('paste', (e) => {
-            e.stopPropagation();
-            e.preventDefault();
+    onPaste(e) {
+        e.stopPropagation();
+        e.preventDefault();
 
-            const navigation = model.navigation();
-            let initialCell;
-            if (navigation.cell) {
-                initialCell = navigation.cell;
-            } else {
-                throw new AppError('clipboard.view', `Switch selection unit to cell`); // further cell editing is based on navigation.cell
-                return false;
-            }
+        const model = this.model;
+        const table = this.table;
 
-            const shortcut = { register: () => ({}) };
-            const editView = new EditCellView(this.model, this.table, shortcut);
+        const navigation = model.navigation();
+        let initialCell;
+        if (navigation.cell) {
+            initialCell = navigation.cell;
+        } else {
+            // further cell editing is based on navigation.cell, so selection unit should be specified as cell
+            throw new AppError('clipboard.view', `For paste event switch selection unit to cell`);
+            return false;
+        }
 
-            const data = insertedData(e);
+        const shortcut = { register: () => ({}) };
+        const editView = new EditCellView(model, table, shortcut);
 
-            let nextCellFlag = false;
-            let { rowIndex, columnIndex } = initialCell;
+        const data = retrieveData(e);
 
-            for (let i = 0, dataLength = data.length; i < dataLength; i++) {
-                let cells = data[i].split('\t');
+        let nextCellFlag = false;
+        let { rowIndex, columnIndex } = initialCell;
 
-                for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
-                    const label = cells[j];
-                    const isLast = j === cells.length - 1;
-                    if (initialCell && !nextCellFlag) {
-                        const cellView = this.table.body.cell(rowIndex, columnIndex).model();
-                        changeLabel(cellView, editView, label);
-                        if (!isLast) {
-                            nextCellFlag = true;
-                        }
-                    } else if (nextCellFlag) {
-                        columnIndex += 1;
-                        const cellView = this.table.body.cell(rowIndex, columnIndex).model();
-                        changeLabel(cellView, editView, label);
+        for (let i = 0, dataLength = data.length; i < dataLength; i++) {
+
+            const cells = data[i].split('\t');
+            for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
+                const label = cells[j];
+                const isLast = j === cells.length - 1;
+                
+                if (initialCell && !nextCellFlag) {
+                    const cellView = table.body.cell(rowIndex, columnIndex).model();
+                    if (cellView) {
+                        editCell(cellView, editView, label);
                     }
-
-                    if (isLast) {
-                        rowIndex = initialCell.rowIndex + (i + 1);
-                        columnIndex = initialCell.columnIndex;
-                        nextCellFlag = false;
+                    if (!isLast) {
+                        nextCellFlag = true;
+                    }
+                } else if (nextCellFlag) {
+                    columnIndex += 1;
+                    const cellView = table.body.cell(rowIndex, columnIndex).model();
+                    if (cellView) {
+                        editCell(cellView, editView, label);
                     }
                 }
-            }
-        });
 
-        action.register(selectionCommandManager, commands);
+                if (isLast) {
+                    rowIndex = initialCell.rowIndex + (i + 1);
+                    columnIndex = initialCell.columnIndex;
+                    nextCellFlag = false;
+                }
+            }
+        }
     }
 
     get commands() {
@@ -108,7 +117,7 @@ export class ClipboardView {
     }
 }
 
-function changeLabel(cell, edit, label) {
+function editCell(cell, edit, label) {
     const columnType = cell.column.type;
     const labelType = getType(label);
 
@@ -126,7 +135,7 @@ function changeLabel(cell, edit, label) {
     }
 }
 
-function insertedData(e) {
+function retrieveData(e) {
     const clipboardData = e.clipboardData;
     const pasted = clipboardData.getData('Text');
     const data = pasted.trim();
@@ -135,6 +144,7 @@ function insertedData(e) {
 }
 
 function getType(text) {
+    // need to be improved
     let symbols = text.split('');
     if (symbols.length > 1) {
         symbols = symbols.slice(0, symbols.length - 1);

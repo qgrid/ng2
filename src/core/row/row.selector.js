@@ -44,16 +44,15 @@ export class RowSelector {
     mapFromCells(items) {
         const columns = this.columns;
 
-        const yItems = this.itemsTitles(items);
-        const xItems = this.ids(items);
+        const { xItems, yItems } = this.itemsTitles(items);
 
-        const selectedColumns = columns.filter(column => yItems.indexOf(column.title) >= 0);
+        const selectedColumns = columns.filter(column => xItems.indexOf(column.title) >= 0);
 
         const titles = selectedColumns.map(column => column.title);
         const aggregations = selectedColumns.map(column => this.value(column) === null ? '' : this.value(column));
 
-        const emptyBody = this.createBody(xItems, yItems);
-        const readings = this.fill(emptyBody, items, selectedColumns, xItems);
+        const blank = this.createBlank(xItems, yItems);
+        const readings = this.fillUp(blank, items, selectedColumns, yItems);
 
         return { titles, readings, aggregations };
     }
@@ -68,9 +67,7 @@ export class RowSelector {
                 case 'cell': {
                     const cells = [];
                     items.forEach(item => {
-                        const row = item.item.row;
-                        const column = item.item.column;
-
+                        const { row, column } = item.item
                         cells.push({ row, column })
                     });
 
@@ -130,7 +127,7 @@ export class RowSelector {
         return null;
     }
 
-    fill(body, items, columns, ids) {
+    fillUp(body, items, columns, ids) {
         for (let y = 0; y < ids.length; y++) {
             const { rows } = this.model.view()
             const { row, column } = items[y];
@@ -155,10 +152,21 @@ export class RowSelector {
     }
 
     itemsTitles(items) {
-        const titles = [];
-        items.forEach(item => titles.indexOf(item.column.title) >= 0 ? null : titles.push(item.column.title));
+        const xItems = [];
+        items.forEach(item => xItems.indexOf(item.column.title) >= 0 ? null : xItems.push(item.column.title));
 
-        return titles;
+        const yItems = [];
+        const { rows } = this.model.view();
+        for (let i = 0, length = items.length; i < length; i++) {
+            const { row } = items[i];
+            const rowIndex = rows.indexOf(row);
+            if (!yItems.includes(rowIndex)) {
+                yItems.push(rowIndex);
+            } 
+        }
+        yItems.sort();
+
+        return { xItems, yItems };
     }
 
     rowTitles(row, columns) {
@@ -173,20 +181,20 @@ export class RowSelector {
     }
 
     ids(items) {
-        const ids = [];
+        const yItems = [];
         const { rows } = this.model.view();
         for (let i = 0, length = items.length; i < length; i++) {
             const { row } = items[i];
             const rowIndex = rows.indexOf(row);
-            if (!ids.includes(rowIndex)) {
-                ids.push(rowIndex);
+            if (!yItems.includes(rowIndex)) {
+                yItems.push(rowIndex);
             } 
         }
 
-        return ids.sort();
+        return yItems.sort();
     }
 
-    createBody(ids, titles) {
+    createBlank(titles, ids) {
         const height = ids.length;
         const width = titles.length;
         const body = [];
