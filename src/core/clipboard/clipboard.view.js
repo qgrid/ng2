@@ -10,9 +10,12 @@ import { CellEditor } from '../edit/edit.cell.editor';
 import { EventListener } from '../infrastructure/event.listener';
 import { EventManager } from '../infrastructure/event.manager';
 import { AppError } from '../infrastructure/error';
+import { Disposable } from '../infrastructure/disposable'
 
-export class ClipboardView {
+export class ClipboardView extends Disposable {
     constructor(model, table, commandManager) {
+        super();
+        
         this.model = model;
         this.table = table;
 
@@ -22,7 +25,7 @@ export class ClipboardView {
         action.register(selectionCommandManager, commands);
 
         const documentListener = new EventListener(document, new EventManager(this));
-        documentListener.on('paste', this.onPaste);
+        this.using(documentListener.on('paste', this.onPaste));
     }
 
     onPaste(e) {

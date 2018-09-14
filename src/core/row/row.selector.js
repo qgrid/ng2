@@ -45,15 +45,13 @@ export class RowSelector {
         const columns = this.columns;
 
         const { xItems, yItems } = this.retrieve(items);
+        const blank = this.createBlank(xItems, yItems);
 
         const selectedColumns = columns.filter(column => xItems.indexOf(column.title) >= 0);
-
+    
         const titles = selectedColumns.map(column => column.title);
-        const aggregations = selectedColumns.map(column => this.aggregation(column) === null ? '' : this.aggregation(column));
-
-        const blank = this.createBlank(xItems, yItems);
         const readings = this.fillUp(blank, items, selectedColumns, yItems);
-
+        const aggregations = selectedColumns.map(column => this.aggregation(column) === null ? '' : this.aggregation(column));
         return { titles, readings, aggregations };
     }
 
