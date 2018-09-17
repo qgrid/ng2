@@ -15,7 +15,7 @@ import { Disposable } from '../infrastructure/disposable'
 export class ClipboardView extends Disposable {
     constructor(model, table, commandManager) {
         super();
-        
+
         this.model = model;
         this.table = table;
 
@@ -24,8 +24,10 @@ export class ClipboardView extends Disposable {
         const commands = this.commands;
         action.register(selectionCommandManager, commands);
 
-        const documentListener = new EventListener(document, new EventManager(this));
-        this.using(documentListener.on('paste', this.onPaste));
+        model.clipboardChanged.watch(e => {
+            const event = e.state.clipboardEvent;
+            this.onPaste(event);
+        })
     }
 
     onPaste(e) {
@@ -40,7 +42,7 @@ export class ClipboardView extends Disposable {
         if (navigation.cell) {
             initialCell = navigation.cell;
         } else {
-            // further cell editing is based on navigation.cell, so selection unit should be specified as cell
+            // further cell editing is based on navigation.cell, so selection unit should be specified as a cell
             throw new AppError('clipboard.view', `For paste event switch selection unit to cell`);
             return false;
         }
