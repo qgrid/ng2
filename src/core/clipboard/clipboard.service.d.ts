@@ -1,8 +1,12 @@
-export declare interface CopyContext {
-    chunks: any;
-    source: any;
+export declare interface ClipboardContext {
+    chunks: {
+        titles: string[];
+        readings: string[];
+        aggregations: string[];
+    };
+    source: string[];
 }
 
 export declare class ClipboardService {
-    static copy(context: CopyContext): void;
+    static copy(context: ClipboardContext): void;
 }

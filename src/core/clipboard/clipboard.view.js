@@ -149,7 +149,7 @@ function retrieveData(e) {
 }
 
 function getType(text) {
-    // need to be improved
+    // needs to be improved
     let symbols = text.split('');
     if (symbols.length > 1) {
         symbols = symbols.slice(0, symbols.length - 1);
