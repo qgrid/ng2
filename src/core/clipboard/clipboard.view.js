@@ -58,7 +58,7 @@ export class ClipboardView {
                 const label = cells[j];
                 const isLast = j === cells.length - 1;
                 
-                if (initialCell && !nextCellFlag) {
+                if (!nextCellFlag) {
                     const cellView = table.body.cell(rowIndex, columnIndex).model();
                     if (cellView) {
                         editCell(cellView, editView, label);
