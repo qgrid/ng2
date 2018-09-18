@@ -1,5 +1,4 @@
-import { Component, Input, Optional, OnDestroy, OnInit, SimpleChanges, OnChanges } from '@angular/core';
-import { Command } from 'ng2-qgrid/core/command/command';
+import { Component, Input, OnInit, SimpleChanges, OnChanges } from '@angular/core';
 import { PagerView } from 'ng2-qgrid/plugin/pager/pager.view';
 import { PluginService } from '../plugin.service';
 
