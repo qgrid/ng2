@@ -9,15 +9,15 @@ import {
 	ElementRef,
 	ChangeDetectionStrategy,
 } from '@angular/core';
-
 import { BackdropView } from 'ng2-qgrid/plugin/backdrop/backdrop.view';
+import { BackdropService } from './backdrop.service';
 
 @Component({
 	selector: 'q-grid-backdrop',
 	templateUrl: './backdrop.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BackdropComponent {
+export class BackdropComponent implements OnDestroy {
 	@ContentChild(TemplateRef) public template: TemplateRef<any>;
 	@Output('close') closeEvent = new EventEmitter<any>();
 
@@ -25,7 +25,9 @@ export class BackdropComponent {
 		$implicit: this
 	};
 
-	constructor(element: ElementRef) {
+	constructor(private backdropService: BackdropService, element: ElementRef) {
+		backdropService.element = element;
+
 		const context = {
 			element: element.nativeElement,
 			onKeyDown: () => { },
@@ -34,5 +36,9 @@ export class BackdropComponent {
 
 		const backdrop = new BackdropView(context);
 		backdrop.closeEvent.on(() => this.closeEvent.emit());
+	}
+
+	ngOnDestroy() {
+		this.backdropService.element = null;
 	}
 }

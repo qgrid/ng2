@@ -1,5 +1,7 @@
-import { Component,  } from '@angular/core';
-import { Observable, from } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { DataService, Atom } from '../data.service';
+import { Action, Command } from 'ng2-qgrid';
+import { from, Observable, of } from 'rxjs';
 
 @Component({
 	selector: 'example-column-autocomplete-basic',
@@ -36,7 +38,16 @@ export class ExampleColumnAutocompletetBasicComponent {
 		)
 	};
 
+	datePromiseFetchOptions = {
+		fetch: new Promise(resolve =>
+			setTimeout(
+				() => resolve([new Date(2017, 7, 7), new Date(2016, 6, 6), new Date(2015, 5, 5)]),
+				5000
+			)
+		)
+	};
+
 	numberObservableFetchOptions = {
-		fetch: from([[Math.PI, Math.LN10, Math.LN2, Math.E, Math.LOG10E, Math.LOG2E, Math.SQRT1_2]])
+		fetch: of([Math.PI, Math.LN10, Math.LN2, Math.E, Math.LOG10E, Math.LOG2E, Math.SQRT1_2])
 	};
 }

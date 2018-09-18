@@ -23,7 +23,8 @@
 		<q-grid-column key="date"
 		               title="Date"
 		               type="date"
-		               editor="autocomplete">
+					   editor="autocomplete"
+					   [editorOptions]="datePromiseFetchOptions">
 		</q-grid-column>
 		<q-grid-column key="null"
 		               title="Null"

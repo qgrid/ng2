@@ -1,4 +1,5 @@
-import { Directive, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { BackdropService } from './../../plugins/backdrop/backdrop.service';
+import { Directive, ElementRef, Input, Output, EventEmitter, Optional } from '@angular/core';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { yes } from 'ng2-qgrid/core/utility/kit';
@@ -39,13 +40,15 @@ export class FileDirective extends NgComponent {
 		}
 	}
 
-	constructor(elementRef: ElementRef) {
+	constructor(@Optional() private backdropService: BackdropService, elementRef: ElementRef) {
 		super();
 
 		const listener = new EventListener(elementRef.nativeElement, new EventManager(this));
 
 		this.using(listener.on('change', this.onUpload));
 		this.using(listener.on('drop', this.onUpload));
+		this.using(listener.on('click', this.hideBackdrop));
+		this.using(listener.on('focus', this.revealBackdrop));
 
 		this.reader.onloadend = e => this.onLoadEnd(e);
 	}
@@ -62,6 +65,20 @@ export class FileDirective extends NgComponent {
 	onLoadEnd(e) {
 		if (e.target.readyState === this.reader.DONE) {
 			this.value = e.target.result;
+		}
+	}
+
+	hideBackdrop() {
+		if (this.backdropService) {
+			this.backdropService.hide();
+		}
+	}
+
+	revealBackdrop() {
+		if (this.backdropService) {
+			if (!this.backdropService.isActive) {
+				setTimeout(() => this.backdropService.reveal(), 300);
+			}
 		}
 	}
 }
