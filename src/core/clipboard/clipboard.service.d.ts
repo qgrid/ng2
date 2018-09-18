@@ -1,8 +1,8 @@
 export declare interface ClipboardContext {
-    chunks: {
-        titles: string[];
-        readings: string[];
-        aggregations: string[];
+    area: {
+        head: string[];
+        body: string[];
+        foot: string[];
     };
     source: string[];
 }

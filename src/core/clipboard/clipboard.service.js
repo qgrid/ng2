@@ -9,7 +9,7 @@ export class ClipboardService {
 }
 
 function createTable(context) {
-	const { titles, readings, aggregations } = context.chunks;
+	const { head, body, foot } = context.area;
 	const { source } = context;
 	const table = document.createElement('table');
 
@@ -19,9 +19,9 @@ function createTable(context) {
 	let titleFlag = true;
 	let aggregationFlag = false;
 
-	for (let i = 0, rowLength = readings.length; i < rowLength; i++) {
+	for (let i = 0, rowLength = body.length; i < rowLength; i++) {
 		const tr = document.createElement('tr');
-		const row = readings[i];
+		const row = body[i];
 		const last = i === rowLength - 1;
 
 		if (last) {
@@ -29,8 +29,8 @@ function createTable(context) {
 		}
 
 		if (gotTitles && titleFlag) {
-			const create = addSection(table, titles);
-			create('titles');
+			const tr = createPart(head, 'th');
+			table.appendChild(tr);
 			titleFlag = false;
 		}
 
@@ -43,8 +43,8 @@ function createTable(context) {
 		table.appendChild(tr);
 
 		if (gotAggregations && aggregationFlag) {
-			const create = addSection(table, aggregations);
-			create('aggregations');
+			const tr = createPart(foot, 'td');
+			table.appendChild(tr);
 			aggregationFlag = false;
 		}
 	}
@@ -53,6 +53,18 @@ function createTable(context) {
 	document.body.appendChild(table);
 
 	return table;
+}
+
+function createPart(rows, tag) {
+	const tr = document.createElement('tr');
+
+	for (let i = 0; i < rows.length; i++) {
+		const el = document.createElement(tag);
+		el.appendChild(document.createTextNode(rows[i]));
+		tr.appendChild(el);
+	}
+
+	return tr;
 }
 
 function addSection(table, section) {

@@ -49,10 +49,10 @@ export class RowSelector {
 
         const selectedColumns = columns.filter(column => xItems.indexOf(column.title) >= 0);
     
-        const titles = selectedColumns.map(column => column.title);
-        const readings = this.fillUp(blank, items, selectedColumns, yItems);
-        const aggregations = selectedColumns.map(column => this.aggregation(column) === null ? '' : this.aggregation(column));
-        return { titles, readings, aggregations };
+        const head = selectedColumns.map(column => column.title);
+        const body = this.fillUp(blank, items, selectedColumns, yItems);
+        const foot = selectedColumns.map(column => this.aggregation(column) === null ? '' : this.aggregation(column));
+        return { head, body, foot };
     }
 
     mapFromMix(items) {
@@ -76,11 +76,11 @@ export class RowSelector {
     }
 
     mapFromRowColumns(rows, columns) {
-        const readings = [];
+        const body = [];
         const cache = new Map();
 
-        const titles = columns.map(column => column.title);
-        const aggregations = columns.map(column => this.aggregation(column) === null ? '' : this.aggregation(column));
+        const head = columns.map(column => column.title);
+        const foot = columns.map(column => this.aggregation(column) === null ? '' : this.aggregation(column));
 
         for (const row of rows) {
             const line = [];
@@ -100,10 +100,10 @@ export class RowSelector {
                 line.push(value === null || isUndefined(value) ? '' : '' + value);
             }
 
-            readings.push(line);
+            body.push(line);
         }
 
-        return { titles, readings, aggregations };
+        return { head, body, foot };
     }
 
     aggregation(column) {
