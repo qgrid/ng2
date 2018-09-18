@@ -2,7 +2,7 @@
 Angular data grid
 
 ## Documentation
-https://qgrid.github.io/doc/guide/highlights.html
+https://qgrid.github.io
 
 ## Install the q-grid via npm
 
