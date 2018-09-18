@@ -29,13 +29,12 @@ export class ScrollService {
         const rect = this.rect;
         const offset = this.offset;
 
-        // check if mouse is not in areas which fire scrolling
-        const mouseNotOnTopSide = e.clientY > (rect.top + offset);
-        const mouseNotOnBottomSide = e.clientY < (rect.bottom - offset);
-        const mouseNotOnLeftSide = e.clientX > (rect.left + offset);
-        const mouseNotOnRightSide = e.clientX < (rect.right - offset);
+        const mouseOnTopSide = e.clientY < (rect.top + offset);
+        const mouseOnBottomSide = e.clientY > (rect.bottom - offset);
+        const mouseOnLeftSide = e.clientX < (rect.left + offset);
+        const mouseOnRightSide = e.clientX > (rect.right - offset);
 
-        return !(mouseNotOnTopSide && mouseNotOnBottomSide && mouseNotOnLeftSide && mouseNotOnRightSide);
+        return mouseOnTopSide || mouseOnBottomSide || mouseOnLeftSide || mouseOnRightSide;
     }
 
     start(e, startCell) {
