@@ -67,32 +67,6 @@ function createPart(rows, tag) {
 	return tr;
 }
 
-function addSection(table, section) {
-	const tr = document.createElement('tr');
-
-	const create = (element) => {
-		for (let h = 0, length = section.length; h < length; h++) {
-			const el = document.createElement(element);
-			el.appendChild(document.createTextNode(section[h]));
-			tr.appendChild(el);
-			table.appendChild(tr);
-		}
-	}
-
-	return (type) => {
-		switch (type) {
-			case 'titles': {
-				create('th');
-				break;
-			}
-			case 'aggregations': {
-				create('td');
-				break;
-			}
-		}
-	}	
-}
-
 function select(element) {
 	const range = document.createRange();
 	const selection = window.getSelection();
