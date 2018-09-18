@@ -12,6 +12,7 @@ export class ScrollService {
         this.interval = null;
         this.startCell = null;
         this.mouseEvent = null; 
+        this.inScrolling = false;
 
         const pathFinder = new PathService(bag.body);
         model.scrollChanged.watch(e => {
@@ -41,51 +42,52 @@ export class ScrollService {
         this.mouseEvent = e;
         this.startCell = startCell; 
 
-        if (this.interval) {
-            if (!this.canScroll(e)) {
-                this.clearInterval();
-                return;
-            }
-        }
-
         const direction = this.onEdgeOf(e);
-        if (direction && !this.interval) {
-            this.job(() => {
-                const interval = this.scroll(direction);
-                this.interval = interval();
-            })
+        if (direction) {
+            this.scroll(direction, e);
         }
     }
 
-    scroll(direction) {
+    scroll(direction, e) {
         const { scroll } = this.model;
         const scrollState = scroll();
-        const { velocity }  = scrollState;
+        const { velocity } = scrollState;
         const scrolledToEnd = () => this.isScrolledToEnd(direction);
 
-        return () => setInterval(() => {
-            if (!scrolledToEnd()) {
-                switch (direction) {
-                    case 'right':
-                    case 'bottom': {
-                        const course = direction === 'bottom' ? 'top' : 'left';
-                        const origin = scrollState[course];
-                        scroll({ [course]: origin + velocity });
-                        break;
+        const to = () => setTimeout(() => {
+            if (this.canScroll(e) && !scrolledToEnd()) {
+                    switch (direction) {
+                        case 'right':
+                        case 'bottom': {
+                            const course = direction === 'bottom' ? 'top' : 'left';
+                            const origin = scrollState[course];
+                            scroll({ [course]: origin + velocity });
+                            break;
+                        }
+                        case 'left':
+                        case 'top': {
+                            const course = direction === 'top' ? 'top' : 'left';
+                            const origin = scrollState[course];
+                            scroll({ [course]: origin - velocity });
+                            break;
+                        }
+                        default: {
+                            throw new AppError('scroll.service', `doScroll: Wrong direction`);
+                        }
                     }
-                    case 'left':
-                    case 'top': {
-                        const course = direction === 'top' ? 'top' : 'left';
-                        const origin = scrollState[course];
-                        scroll({ [course]: origin - velocity });
-                        break;
-                    }
-                    default: {
-                        throw new AppError('scroll.service', `doScroll: Wrong direction`);
-                    }
-                }
+            } else {
+                this.inScrolling = false;
+                return;
             }
+
+            to();
+
         }, 50);
+
+        if(!this.inScrolling) {
+            this.inScrolling = true;
+            to();
+        }
     }
 
     isScrolledToEnd(direction) { 
