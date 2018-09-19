@@ -1,14 +1,9 @@
 import { Command } from '../command/command';
-import { isUndefined } from '../utility/kit';
-import { SelectionCommandManager } from '../selection/selection.command.manager';
 import { ClipboardService } from './clipboard.service';
 import { SelectionService } from '../selection/selection.service';
 import { RowSelector } from '../row/row.selector';
 import { EditCellView } from '../edit/edit.cell.view';
-import { CommandManager } from '../command/command.manager';
 import { CellEditor } from '../edit/edit.cell.editor';
-import { EventListener } from '../infrastructure/event.listener';
-import { EventManager } from '../infrastructure/event.manager';
 import { AppError } from '../infrastructure/error';
 
 export class ClipboardView {
@@ -19,11 +14,6 @@ export class ClipboardView {
         const { shortcut } = model.action();
         const commands = this.commands;
         shortcut.register(commandManager, commands);
-
-        model.clipboardChanged.watch(e => {
-            const event = e.state.clipboardEvent;
-            this.onPaste(event);
-        });
     }
 
     onPaste(e) {
@@ -46,27 +36,24 @@ export class ClipboardView {
         const shortcut = { register: () => ({}) };
         const editView = new EditCellView(model, table, shortcut);
 
-        const data = retrieveData(e);
-
-        let nextCellFlag = false;
+        let hasNextCell = false;
         let { rowIndex, columnIndex } = initialCell;
-
+        const data = retrieveData(e);
         for (let i = 0, dataLength = data.length; i < dataLength; i++) {
-
-            const cells = data[i].split('\t');
-            for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
-                const label = cells[j];
-                const isLast = j === cells.length - 1;
+            const labels = data[i].split('\t');
+            for (let j = 0, labelsLength = labels.length; j < labelsLength; j++) {
+                const label = labels[j];
+                const isLast = j === labels.length - 1;
                 
-                if (!nextCellFlag) {
+                if (!hasNextCell) {
                     const cellView = table.body.cell(rowIndex, columnIndex).model();
                     if (cellView) {
                         editCell(cellView, editView, label);
                     }
                     if (!isLast) {
-                        nextCellFlag = true;
+                        hasNextCell = true;
                     }
-                } else if (nextCellFlag) {
+                } else if (hasNextCell) {
                     columnIndex += 1;
                     const cellView = table.body.cell(rowIndex, columnIndex).model();
                     if (cellView) {
@@ -77,7 +64,7 @@ export class ClipboardView {
                 if (isLast) {
                     rowIndex = initialCell.rowIndex + (i + 1);
                     columnIndex = initialCell.columnIndex;
-                    nextCellFlag = false;
+                    hasNextCell = false;
                 }
             }
         }

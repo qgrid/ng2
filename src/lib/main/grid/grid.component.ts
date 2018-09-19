@@ -111,8 +111,9 @@ export class GridComponent extends RootComponent implements OnInit {
 		private element: ElementRef,
 		private zone: NgZone,
 		private layerService: LayerService,
+		private $view: ViewCoreService,
 		@Inject(DOCUMENT) private document: any,
-		theme: ThemeService,
+		theme: ThemeService
 	) {
 		super();
 
@@ -169,7 +170,7 @@ export class GridComponent extends RootComponent implements OnInit {
 
 		const listener = new EventListener(element, new EventManager(this));
 		const docListener = new EventListener(this.document, new EventManager(this));
-		docListener.on('paste', (e: ClipboardEvent) => model.clipboard({clipboardEvent: e}));
+		docListener.on('paste', (e: ClipboardEvent) => this.$view.clipboard.onPaste(e));
 
 		this.zone.runOutsideAngular(() => this.using(docListener.on('focusin', () => ctrl.invalidateActive())));
 
