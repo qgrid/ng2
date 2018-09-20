@@ -9,21 +9,21 @@ export class ScrollService {
         this.bag = bag;
         this.view = view;
         this.job = jobLine(0);
-        this.interval = null;
         this.startCell = null;
         this.mouseEvent = null; 
-        this.inScrolling = false;
+        this.inMotion = false;
+        this.allowScroll = false;
 
         const pathFinder = new PathService(bag.body);
         model.scrollChanged.watch(e => {
-            if (this.interval) {              
-                const path = this.getPath(this.mouseEvent);
-                const td = pathFinder.cell(path);
+            const path = this.getPath(this.mouseEvent);
+            const td = pathFinder.cell(path);
 
+            if (td) {
                 this.navigate(td);
                 this.view.selection.selectRange(this.startCell, td, 'body');
             }
-		});
+        });
     }
 
     canScroll(e) {
@@ -44,18 +44,20 @@ export class ScrollService {
 
         const direction = this.onEdgeOf(e);
         if (direction) {
-            this.scroll(direction, e);
+            this.allowScroll = true;
+            this.scroll(direction);
         }
     }
 
-    scroll(direction, e) {
+    scroll(direction) {
         const { scroll } = this.model;
         const scrollState = scroll();
         const { velocity } = scrollState;
         const scrolledToEnd = () => this.isScrolledToEnd(direction);
 
-        const to = () => setTimeout(() => {
-            if (this.canScroll(e) && !scrolledToEnd()) {
+        const timeout = () => setTimeout(() => {
+            if (this.allowScroll && this.canScroll(this.mouseEvent) && !scrolledToEnd()) {
+                this.inMotion = true;
                     switch (direction) {
                         case 'right':
                         case 'bottom': {
@@ -76,17 +78,16 @@ export class ScrollService {
                         }
                     }
             } else {
-                this.inScrolling = false;
+                this.inMotion = false;
                 return;
             }
 
-            to();
+            timeout();
 
         }, 50);
 
-        if(!this.inScrolling) {
-            this.inScrolling = true;
-            to();
+        if(!this.inMotion) {
+            timeout();
         }
     }
 
@@ -144,9 +145,7 @@ export class ScrollService {
     }
 
     stop() {
-        if(this.interval) {
-            this.clearInterval();
-        }
+        this.allowScroll = false;
     }
 
     clearInterval() {
