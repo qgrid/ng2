@@ -4,6 +4,5 @@ export class ClipboardModel {
             copy: 'ctrl+c'
         };
         this.source = ['body'] // ['head', 'body', 'foot'] 
-        this.clipboardEvent = null;
     }
 } 
