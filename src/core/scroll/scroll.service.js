@@ -8,7 +8,7 @@ export class ScrollService {
         this.table = table;
         this.bag = bag;
         this.view = view;
-        this.job = jobLine(0);
+        this.job = jobLine(50);
         this.startCell = null;
         this.mouseEvent = null; 
         this.inMotion = false;
@@ -21,7 +21,7 @@ export class ScrollService {
 
             if (td) {
                 this.navigate(td);
-                this.view.selection.selectRange(this.startCell, td, 'body');
+            this.view.selection.selectRange(this.startCell, td, 'body');
             }
         });
     }
