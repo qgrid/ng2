@@ -43,7 +43,6 @@ export class ClipboardView {
 			}
 		};
 
-		let nextCell = false;
 		const data = retrieveData(e);
         for (let i = 0, dataLength = data.length; i < dataLength; i++) {
             const labels = data[i].split('\t');
@@ -51,17 +50,13 @@ export class ClipboardView {
                 const label = labels[j];
                 const isLast = j === labels.length - 1;
 
-                if (nextCell) {
-					columnIndex++;
-				}
 				edit(label);
 
                 if (isLast) {
 					rowIndex = initialCell.rowIndex + (i + 1);
 					columnIndex = initialCell.columnIndex;
-					nextCell = false;
 				} else {
-					nextCell = true;
+					columnIndex++;
 				}
             }
         }
