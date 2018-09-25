@@ -170,7 +170,7 @@ export class GridComponent extends RootComponent implements OnInit {
 
 		const listener = new EventListener(element, new EventManager(this));
 		const docListener = new EventListener(this.document, new EventManager(this));
-		docListener.on('paste', (e: ClipboardEvent) => this.$view.clipboard.onPaste(e));
+		this.using(docListener.on('paste', (e: ClipboardEvent) => this.$view.clipboard.onPaste(e)));
 
 		this.zone.runOutsideAngular(() => this.using(docListener.on('focusin', () => ctrl.invalidateActive())));
 

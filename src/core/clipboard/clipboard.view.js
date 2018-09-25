@@ -30,7 +30,6 @@ export class ClipboardView {
         } else {
             // further cell editing is based on navigation.cell, so selection unit should be specified as a cell
             throw new AppError('clipboard.view', `For paste event switch selection unit to cell`);
-            return false;
         }
 
         const shortcut = { register: () => ({}) };
@@ -44,7 +43,7 @@ export class ClipboardView {
             for (let j = 0, labelsLength = labels.length; j < labelsLength; j++) {
                 const label = labels[j];
                 const isLast = j === labels.length - 1;
-                
+
                 if (!hasNextCell) {
                     const cellView = table.body.cell(rowIndex, columnIndex).model();
                     if (cellView) {
@@ -83,7 +82,7 @@ export class ClipboardView {
                     const rowSelector = new RowSelector(model);
                     const { items } = model.selection();
                     const entries = selectionService.lookup(items);
-                    
+
                     const area = rowSelector.map(entries);
                     const { source } = model.clipboard();
                     const context = {
