@@ -35,36 +35,34 @@ export class ClipboardView {
         const shortcut = { register: () => ({}) };
         const editView = new EditCellView(model, table, shortcut);
 
-        let hasNextCell = false;
         let { rowIndex, columnIndex } = initialCell;
-        const data = retrieveData(e);
+		const edit = (label) => {
+			const cellView = table.body.cell(rowIndex, columnIndex).model();
+			if (cellView) {
+				editCell(cellView, editView, label);
+			}
+		};
+
+		let nextCell = false;
+		const data = retrieveData(e);
         for (let i = 0, dataLength = data.length; i < dataLength; i++) {
             const labels = data[i].split('\t');
             for (let j = 0, labelsLength = labels.length; j < labelsLength; j++) {
                 const label = labels[j];
                 const isLast = j === labels.length - 1;
 
-                if (!hasNextCell) {
-                    const cellView = table.body.cell(rowIndex, columnIndex).model();
-                    if (cellView) {
-                        editCell(cellView, editView, label);
-                    }
-                    if (!isLast) {
-                        hasNextCell = true;
-                    }
-                } else if (hasNextCell) {
-                    columnIndex += 1;
-                    const cellView = table.body.cell(rowIndex, columnIndex).model();
-                    if (cellView) {
-                        editCell(cellView, editView, label);
-                    }
-                }
+                if (nextCell) {
+					columnIndex++;
+				}
+				edit(label);
 
                 if (isLast) {
-                    rowIndex = initialCell.rowIndex + (i + 1);
-                    columnIndex = initialCell.columnIndex;
-                    hasNextCell = false;
-                }
+					rowIndex = initialCell.rowIndex + (i + 1);
+					columnIndex = initialCell.columnIndex;
+					nextCell = false;
+				} else {
+					nextCell = true;
+				}
             }
         }
     }
