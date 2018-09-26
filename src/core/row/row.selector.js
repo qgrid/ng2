@@ -43,16 +43,16 @@ export class RowSelector {
 
     mapFromCells(items) {
 		const { titles, ids } = this.retrieve(items);
-        const blank = this.createBlank(titles, ids);
+		const blank = this.createBlank(titles, ids);
 
 		const columns = this.columns;
-        const selectedColumns = columns.filter(column => titles.includes(column.title));
+		const selectedColumns = columns.filter(column => titles.includes(column.title));
 
-        const head = selectedColumns.map(column => column.title);
-        const body = this.fillUp(blank, items, selectedColumns, ids);
-        const foot = selectedColumns.map(column => this.aggregation(column) === null ? '' : this.aggregation(column));
-        return { head, body, foot };
-    }
+		const head = selectedColumns.map(column => column.title);
+		const body = this.fillUp(blank, items, selectedColumns, ids);
+		const foot = selectedColumns.map(column => this.aggregation(column) === null ? '' : this.aggregation(column));
+		return { head, body, foot };
+	}
 
     mapFromMix(items) {
         for (const item of items) {
@@ -125,33 +125,33 @@ export class RowSelector {
     }
 
     fillUp(body, items, columns, ids) {
-        const getTitles = (row, columns) => {
-            let titles = [];
+		const getTitles = (row, columns) => {
+			let titles = [];
 
-            for (let i = 0; i < columns.length; i++) {
-                let label = get(row, columns[i]);
-                titles.push(label);
-            }
+			for (let i = 0; i < columns.length; i++) {
+				let label = get(row, columns[i]);
+				titles.push(label);
+			}
 
-            return titles;
-        };
+			return titles;
+		};
 
 		const rows = this.rows;
-        for (let y = 0; y < ids.length; y++) {
-            const cells = items.filter(item => rows.indexOf(item.row) === ids[y]);
+		for (let y = 0; y < ids.length; y++) {
+			const cells = items.filter(item => rows.indexOf(item.row) === ids[y]);
 
-            for (let k = 0; k < cells.length; k++) {
-                const cell = cells[k];
-                const { row, column } = cell;
-                const label = get(row, column);
-                const currentRowTitles = getTitles(row, columns);
-                const x = currentRowTitles.indexOf(label);
+			for (let k = 0; k < cells.length; k++) {
+				const cell = cells[k];
+				const { row, column } = cell;
+				const label = get(row, column);
+				const currentRowTitles = getTitles(row, columns);
+				const x = currentRowTitles.indexOf(label);
 
-                body[y][x] = label;
-            }
-        }
+				body[y][x] = label;
+			}
+		}
 
-        return body;
+		return body;
     }
 
     retrieve(items) {
@@ -171,23 +171,23 @@ export class RowSelector {
 		}
 		ids.sort();
 
-        return { titles, ids };
-    }
+		return { titles, ids };
+	}
 
     createBlank(titles, ids) {
-        const height = ids.length;
-        const width = titles.length;
-        const body = [];
+		const height = ids.length;
+		const width = titles.length;
+		const body = [];
 
-        for (let h = 0; h < height; h++) {
-            body[h] = [];
+		for (let h = 0; h < height; h++) {
+			body[h] = [];
 
-            for (let w = 0; w < width; w++) {
-                body[h][w] = "";
-            }
-        }
+			for (let w = 0; w < width; w++) {
+				body[h][w] = "";
+			}
+		}
 
-        return body;
+		return body;
     }
 
     get columns() {
