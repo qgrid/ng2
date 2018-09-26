@@ -32,7 +32,7 @@ export class ClipboardView {
 			throw new AppError('clipboard.view', `For paste event switch selection unit to cell`);
 		}
 
-		const shortcut = {register: () => ({})};
+		const shortcut = { register: () => ({}) };
 		const editView = new EditCellView(model, table, shortcut);
 
 		let { rowIndex, columnIndex } = initialCell;

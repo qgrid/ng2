@@ -35,11 +35,11 @@ export class RowSelector {
 		return this.mapFromRowColumns(rows, columns);
 	}
 
-    mapFromColumns(columns) {
-        const rows = this.model.view().rows;
+	mapFromColumns(columns) {
+		const rows = this.model.view().rows;
 
-        return this.mapFromRowColumns(rows, columns);
-    }
+		return this.mapFromRowColumns(rows, columns);
+	}
 
 	mapFromCells(items) {
 		const { titles, ids } = this.retrieve(items);
@@ -54,75 +54,75 @@ export class RowSelector {
 		return { head, body, foot };
 	}
 
-    mapFromMix(items) {
-        for (const item of items) {
-            switch (item.unit) {
-                case 'row': {
-                    const row = item.item;
-                    return this.mapFromRows([row]);
-                }
-                case 'cell': {
-                    const cells = [];
-                    items.forEach(item => {
-                        const { row, column } = item.item;
-                        cells.push({ row, column });
-                    });
+	mapFromMix(items) {
+		for (const item of items) {
+			switch (item.unit) {
+				case 'row': {
+					const row = item.item;
+					return this.mapFromRows([row]);
+				}
+				case 'cell': {
+					const cells = [];
+					items.forEach(item => {
+						const { row, column } = item.item;
+						cells.push({ row, column });
+					});
 
-                    return this.mapFromCells(cells);
-                }
-            }
-        }
-    }
+					return this.mapFromCells(cells);
+				}
+			}
+		}
+	}
 
-    mapFromRowColumns(rows, columns) {
-        const body = [];
-        const cache = new Map();
+	mapFromRowColumns(rows, columns) {
+		const body = [];
+		const cache = new Map();
 
-        const head = columns.map(column => column.title);
-        const foot = columns.map(column => this.aggregation(column) === null ? '' : this.aggregation(column));
+		const head = columns.map(column => column.title);
+		const foot = columns.map(column => this.aggregation(column) === null ? '' : this.aggregation(column));
 
-        for (const row of rows) {
-            const line = [];
+		for (const row of rows) {
+			const line = [];
 
-            for (const column of columns) {
-                let label;
-                const { key } = column;
+			for (const column of columns) {
+				let label;
+				const { key } = column;
 
-                if (cache.has(key)) {
-                    label = cache.get(key);
-                } else {
-                    label = valueFactory(column);
-                    cache.set(key, label);
-                }
+				if (cache.has(key)) {
+					label = cache.get(key);
+				} else {
+					label = valueFactory(column);
+					cache.set(key, label);
+				}
 
-                const value = label(row);
-                line.push(value === null || isUndefined(value) ? '' : '' + value);
-            }
+				const value = label(row);
+				line.push(value === null || isUndefined(value) ? '' : '' + value);
+			}
 
-            body.push(line);
-        }
+			body.push(line);
+		}
 
-        return { head, body, foot };
-    }
+		return { head, body, foot };
+	}
 
-    aggregation(column) {
-        if (column.aggregation) {
-            const { aggregation } = column;
-            const { aggregationOptions } = column;
+	aggregation(column) {
+		if (column.aggregation) {
+			const { aggregation } = column;
+			const { aggregationOptions } = column;
 
-            if (!Aggregation.hasOwnProperty(aggregation)) {
-                throw new AppError(
-                    'row.selector',
-                    `Aggregation ${aggregation} is not registered`);
-            }
+			if (!Aggregation.hasOwnProperty(aggregation)) {
+				throw new AppError(
+					'row.selector',
+					`Aggregation ${aggregation} is not registered`);
+			}
 
-            const { rows } = this.model.data();
-            const getValue = valueFactory(column);
+			const { rows } = this.model.data();
+			const getValue = valueFactory(column);
 
-            return Aggregation[aggregation](rows, getValue, aggregationOptions);
-        }
-        return null;
-    }
+			return Aggregation[aggregation](rows, getValue, aggregationOptions);
+		}
+		return null;
+	}
 
 	fillUp(body, items, columns, ids) {
 		const getTitles = (row, columns) => {
@@ -142,12 +142,12 @@ export class RowSelector {
 
 			for (let k = 0; k < cells.length; k++) {
 				const cell = cells[k];
-				const {row, column} = cell;
+				const { row, column } = cell;
 				const label = get(row, column);
 				const currentRowTitles = getTitles(row, columns);
 				const x = currentRowTitles.indexOf(label);
 
-				body[y][x] = label ;
+				body[y][x] = label;
 			}
 		}
 
@@ -157,13 +157,13 @@ export class RowSelector {
 	retrieve(items) {
 		const titles = [];
 		const ids = [];
-		for (let i = 0; i < items.length; i++ ) {
+		for (let i = 0; i < items.length; i++) {
 			const item = items[i];
 			if (!titles.includes(item.column.title)) {
 				titles.push(item.column.title);
 			}
 
-			const {row} = item;
+			const { row } = item;
 			const index = this.rows.indexOf(row);
 			if (!ids.includes(index)) {
 				ids.push(index);
@@ -171,7 +171,7 @@ export class RowSelector {
 		}
 		ids.sort();
 
-		return {titles, ids};
+		return { titles, ids };
 	}
 
 	createBlank(titles, ids) {
@@ -190,12 +190,12 @@ export class RowSelector {
 		return body;
 	}
 
-    get columns() {
-       return this.model.view().columns
-            .filter(column => column.class === 'data' || column.class === 'pivot');
-    }
+	get columns() {
+		return this.model.view().columns
+			.filter(column => column.class === 'data' || column.class === 'pivot');
+	}
 
-    get rows() {
-    	return this.model.view().rows;
+	get rows() {
+		return this.model.view().rows;
 	}
 }
