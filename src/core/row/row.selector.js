@@ -42,15 +42,14 @@ export class RowSelector {
     }
 
     mapFromCells(items) {
-        const columns = this.columns;
+		const { titles, ids } = this.retrieve(items);
+        const blank = this.createBlank(titles, ids);
 
-        const { xItems, yItems } = this.retrieve(items);
-        const blank = this.createBlank(xItems, yItems);
+		const columns = this.columns;
+        const selectedColumns = columns.filter(column => titles.includes(column.title));
 
-        const selectedColumns = columns.filter(column => xItems.indexOf(column.title) >= 0);
-    
         const head = selectedColumns.map(column => column.title);
-        const body = this.fillUp(blank, items, selectedColumns, yItems);
+        const body = this.fillUp(blank, items, selectedColumns, ids);
         const foot = selectedColumns.map(column => this.aggregation(column) === null ? '' : this.aggregation(column));
         return { head, body, foot };
     }
@@ -65,8 +64,8 @@ export class RowSelector {
                 case 'cell': {
                     const cells = [];
                     items.forEach(item => {
-                        const { row, column } = item.item
-                        cells.push({ row, column })
+                        const { row, column } = item.item;
+                        cells.push({ row, column });
                     });
 
                     return this.mapFromCells(cells);
@@ -126,7 +125,7 @@ export class RowSelector {
     }
 
     fillUp(body, items, columns, ids) {
-        const titles = (row, columns) => {
+        const getTitles = (row, columns) => {
             let titles = [];
 
             for (let i = 0; i < columns.length; i++) {
@@ -135,22 +134,18 @@ export class RowSelector {
             }
 
             return titles;
-        }
+        };
 
+		const rows = this.rows;
         for (let y = 0; y < ids.length; y++) {
-            const { rows } = this.model.view()
-            const { row, column } = items[y];
-            const rowIndex = rows.indexOf(row);
-            const columnIndex = columns.indexOf(column);
+            const cells = items.filter(item => rows.indexOf(item.row) === ids[y]);
 
-            const cellsWithCurrentId = items.filter(item => rows.indexOf(item.row) === ids[y]);
-
-            for (let k = 0; k < cellsWithCurrentId.length; k++) {
-                const cell = cellsWithCurrentId[k];
+            for (let k = 0; k < cells.length; k++) {
+                const cell = cells[k];
                 const { row, column } = cell;
                 const label = get(row, column);
-                const specificTitles = titles(row, columns);
-                const x = specificTitles.indexOf(label);
+                const currentRowTitles = getTitles(row, columns);
+                const x = currentRowTitles.indexOf(label);
 
                 body[y][x] = label;
             }
@@ -160,21 +155,23 @@ export class RowSelector {
     }
 
     retrieve(items) {
-        const xItems = [];
-        items.forEach(item => xItems.includes(item.column.title) ? null : xItems.push(item.column.title));
+		const titles = [];
+		const ids = [];
+		for (let i = 0; i < items.length; i++) {
+			const item = items[i];
+			if (!titles.includes(item.column.title)) {
+				titles.push(item.column.title);
+			}
 
-        const yItems = [];
-        const { rows } = this.model.view();
-        for (let i = 0, length = items.length; i < length; i++) {
-            const { row } = items[i];
-            const rowIndex = rows.indexOf(row);
-            if (!yItems.includes(rowIndex)) {
-                yItems.push(rowIndex);
-            } 
-        }
-        yItems.sort();
+			const { row } = item;
+			const index = this.rows.indexOf(row);
+			if (!ids.includes(index)) {
+				ids.push(index);
+			}
+		}
+		ids.sort();
 
-        return { xItems, yItems };
+        return { titles, ids };
     }
 
     createBlank(titles, ids) {
@@ -197,4 +194,8 @@ export class RowSelector {
        return this.model.view().columns
             .filter(column => column.class === 'data' || column.class === 'pivot');
     }
+
+    get rows() {
+    	return this.model.view().rows;
+	}
 }

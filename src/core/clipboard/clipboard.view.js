@@ -1,10 +1,10 @@
-import {Command} from '../command/command';
-import {ClipboardService} from './clipboard.service';
-import {SelectionService} from '../selection/selection.service';
-import {RowSelector} from '../row/row.selector';
-import {EditCellView} from '../edit/edit.cell.view';
-import {CellEditor} from '../edit/edit.cell.editor';
-import {AppError} from '../infrastructure/error';
+import { Command } from '../command/command';
+import { ClipboardService } from './clipboard.service';
+import { SelectionService } from '../selection/selection.service';
+import { RowSelector } from '../row/row.selector';
+import { EditCellView } from '../edit/edit.cell.view';
+import { CellEditor } from '../edit/edit.cell.editor';
+import { AppError } from '../infrastructure/error';
 
 export class ClipboardView {
 	constructor(model, table, commandManager) {
