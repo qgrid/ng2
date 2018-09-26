@@ -147,7 +147,7 @@ export class RowSelector {
 				const currentRowTitles = getTitles(row, columns);
 				const x = currentRowTitles.indexOf(label);
 
-				body[y][x] = label;
+				body[y][x] = label ;
 			}
 		}
 
