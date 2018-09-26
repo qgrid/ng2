@@ -183,7 +183,7 @@ export class RowSelector {
 			body[h] = [];
 
 			for (let w = 0; w < width; w++) {
-				body[h][w] = "";
+				body[h][w] = '';
 			}
 		}
 
