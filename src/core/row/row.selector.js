@@ -157,7 +157,7 @@ export class RowSelector {
 	retrieve(items) {
 		const titles = [];
 		const ids = [];
-		for (let i = 0; i < items.length; i++) {
+		for (let i = 0; i < items.length; i++ ) {
 			const item = items[i];
 			if (!titles.includes(item.column.title)) {
 				titles.push(item.column.title);
