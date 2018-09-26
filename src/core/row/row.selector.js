@@ -174,7 +174,7 @@ export class RowSelector {
 		return {titles, ids};
 	}
 
-    createBlank(titles, ids) {
+	createBlank(titles, ids) {
 		const height = ids.length;
 		const width = titles.length;
 		const body = [];
@@ -188,7 +188,7 @@ export class RowSelector {
 		}
 
 		return body;
-    }
+	}
 
     get columns() {
        return this.model.view().columns
