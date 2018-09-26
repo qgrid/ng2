@@ -41,8 +41,8 @@ export class RowSelector {
         return this.mapFromRowColumns(rows, columns);
     }
 
-    mapFromCells(items) {
-		const { titles, ids } = this.retrieve(items);
+	mapFromCells(items) {
+		const {titles, ids} = this.retrieve(items);
 		const blank = this.createBlank(titles, ids);
 
 		const columns = this.columns;
@@ -51,7 +51,7 @@ export class RowSelector {
 		const head = selectedColumns.map(column => column.title);
 		const body = this.fillUp(blank, items, selectedColumns, ids);
 		const foot = selectedColumns.map(column => this.aggregation(column) === null ? '' : this.aggregation(column));
-		return { head, body, foot };
+		return {head, body, foot};
 	}
 
     mapFromMix(items) {
