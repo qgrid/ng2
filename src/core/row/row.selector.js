@@ -29,11 +29,11 @@ export class RowSelector {
 		}
 	}
 
-    mapFromRows(rows) {
-        const columns = this.columns;
+	mapFromRows(rows) {
+		const columns = this.columns;
 
-        return this.mapFromRowColumns(rows, columns);
-    }
+		return this.mapFromRowColumns(rows, columns);
+	}
 
     mapFromColumns(columns) {
         const rows = this.model.view().rows;
