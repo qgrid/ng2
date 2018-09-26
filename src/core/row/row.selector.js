@@ -5,29 +5,29 @@ import { Aggregation } from '../services/aggregation';
 import { getFactory as valueFactory } from '../services/value';
 
 export class RowSelector {
-    constructor(model) {
-        this.model = model;
-        this.source = this.model.clipboard().source;
-        this.mode = this.model.selection().mode;
-        this.view = this.model.view();
-    }
+	constructor(model) {
+		this.model = model;
+		this.source = this.model.clipboard().source;
+		this.mode = this.model.selection().mode;
+		this.view = this.model.view();
+	}
 
-    map(items) {
-        const selectionState = this.model.selection();
+	map(items) {
+		const selectionState = this.model.selection();
 
-        switch (selectionState.unit) {
-            case 'row':
-                return this.mapFromRows(items);
-            case 'column':
-                return this.mapFromColumns(items);
-            case 'cell':
-                return this.mapFromCells(items);
-            case 'mix':
-                return this.mapFromMix(items);
-            default:
-                throw new AppError('row.selector', `Invalid unit ${selectionState.unit}`);
-        }
-    }
+		switch (selectionState.unit) {
+			case 'row':
+				return this.mapFromRows(items);
+			case 'column':
+				return this.mapFromColumns(items);
+			case 'cell':
+				return this.mapFromCells(items);
+			case 'mix':
+				return this.mapFromMix(items);
+			default:
+				throw new AppError('row.selector', `Invalid unit ${selectionState.unit}`);
+		}
+	}
 
     mapFromRows(rows) {
         const columns = this.columns;
