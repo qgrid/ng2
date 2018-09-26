@@ -89,7 +89,7 @@ export class RowSelector {
                 const { key } = column;
 
                 if (cache.has(key)) {
-                    label = cache.get(key)
+                    label = cache.get(key);
                 } else {
                     label = valueFactory(column);
                     cache.set(key, label);
@@ -154,25 +154,25 @@ export class RowSelector {
 		return body;
 	}
 
-	retrieve(items) {
-		const titles = [];
-		const ids = [];
-		for (let i = 0; i < items.length; i++) {
-			const item = items[i];
-			if (!titles.includes(item.column.title)) {
-				titles.push(item.column.title);
-			}
+    retrieve(items) {
+        const titles = [];
+        const ids = [];
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            if (!titles.includes(item.column.title)) {
+                titles.push(item.column.title);
+            }
 
-			const {row} = item;
-			const index = this.rows.indexOf(row);
-			if (!ids.includes(index)) {
-				ids.push(index);
-			}
-		}
-		ids.sort();
+            const {row} = item;
+            const index = this.rows.indexOf(row);
+            if (!ids.includes(index)) {
+                ids.push(index);
+            }
+        }
+        ids.sort();
 
-		return {titles, ids};
-	}
+        return {titles, ids};
+    }
 
 	createBlank(titles, ids) {
 		const height = ids.length;
