@@ -54,7 +54,7 @@ export declare interface SelectionModel {
 	};
 
 	/**
-	 * Keyboard shortcuts to control selection behavior.
+	 * Keyboard shortcuts to control selection behavior. Changed.
 	 */
 	shortcut?: {[key: string]: string};
 }
