@@ -5,13 +5,20 @@
 	</q-grid-columns>
 
 	<q-grid-toolbar>
-		<ng-template for="top">
-			<input #search
-			       style="float: left;"
-			       type="search"
-			       (input)="filter(search.value)"
-			       placeholder="Filter by name" />
-		</ng-template>
-	</q-grid-toolbar>
+		<ng-template for="top"> 
+			Name: 
+				<input type="search" (input)="filter('name', $event.target.value)" autofocus />
+			Phase: 
+				<input type="search" (input)="filter('phase', $event.target.value)" />
+		</ng-template> 
+	</q-grid-toolbar> 
+
+	<!--
+	<input #search
+		style="float: left;"
+		type="search"
+		(input)="filter(search.value)"
+		placeholder="Filter by name" />
+	-->
 
 </q-grid>
