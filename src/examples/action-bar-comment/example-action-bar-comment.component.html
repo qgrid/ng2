@@ -1,8 +1,9 @@
 <q-grid caption="Action Bar Comment"
         [rows]="rows | async"
         [model]="gridModel"
-        class="q-grid-embed"
-        selectionUnit="row">
+				class="q-grid-embed"
+				selectionUnit="mix">
+				
   <q-grid-columns generation="deep">
     <q-grid-column type="select" isVisible="false"></q-grid-column>
     <q-grid-column type="row-options" key="rowOptions" [editorOptions]="rowOptions"></q-grid-column>  
