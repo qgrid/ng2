@@ -52,4 +52,9 @@ export declare interface SelectionModel {
 		row: (row: any) => any,
 		column?: (column: ColumnModel) => any
 	};
+
+	/**
+	 * Keyboard shortcuts to control selection behavior. Changed.
+	 */
+	shortcut?: {[key: string]: string};
 }
