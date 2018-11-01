@@ -8,6 +8,7 @@ import { GridModule } from 'ng2-qgrid';
 import { ThemeModule } from 'ng2-qgrid/theme/material';
 
 import { ExampleActionBarBasicComponent } from './action-bar-basic/example-action-bar-basic.component';
+import { ExampleActionBarOnEnterComponent } from './action-bar-on-enter/example-action-bar-on-enter.component';
 import { ExampleActionBarTemplateComponent } from './action-bar-template/example-action-bar-template.component';
 import { ExampleAggregateColumnBasicComponent } from './aggregate-column-basic/example-aggregate-column-basic.component';
 import { ExampleColumnArrayBasicComponent } from './column-array-basic/example-column-array-basic.component';
@@ -127,6 +128,7 @@ import { ExampleValidationBasicComponent } from './validation-basic/example-vali
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
+	ExampleActionBarOnEnterComponent,
 	ExampleActionBarTemplateComponent,
 	ExampleAggregateColumnBasicComponent,
 	ExampleColumnArrayBasicComponent,
