@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-	selector: 'example-details-row-basic',
+	selector: 'example-details-row-grid',
 	templateUrl: 'example-details-row-grid.component.html',
 	styleUrls: ['example-details-row-grid.component.scss'],
 	providers: [DataService]
