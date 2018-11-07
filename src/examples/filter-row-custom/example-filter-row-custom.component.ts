@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { GridComponent, GridService, Grid, GridModel } from 'ng2-qgrid';
-//import { GridModel } from 'ng2-qgrid/core/grid/grid.model';
 
 @Component({
 	selector: 'example-filter-row-custom',
@@ -15,10 +14,6 @@ export class ExampleFilterRowCustomComponent {
 	rows: Observable<Atom[]>;
 	gridModel: GridModel;
 	gridService: GridService;
-
-	// constructor(dataService: DataService) {
-	// 	this.rows = dataService.getAtoms();
-	// }
 
 	search = {
 		name: '',

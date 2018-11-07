@@ -48,11 +48,6 @@ export class NavigationView {
 						switch (this.model.selection().unit) {
 							case 'row':
 							case 'column': {
-								// // Focus cell only if it was focused previously by keyboard
-								// if (!oldCell) {
-								// 	return false;
-								// }
-								// break;
 							}
 						}
 					}
