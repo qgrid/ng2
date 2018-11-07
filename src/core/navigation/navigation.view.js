@@ -45,11 +45,6 @@ export class NavigationView {
 				const oldCell = model.navigation().cell;
 				if (newCell && newCell.column.canFocus && !Td.equals(newCell, oldCell)) {
 					if (this.model.edit().mode !== 'cell') {
-						switch (this.model.selection().unit) {
-							case 'row':
-							case 'column': {
-							}
-						}
 					}
 
 					return true;
