@@ -44,9 +44,6 @@ export class NavigationView {
 			canExecute: newCell => {
 				const oldCell = model.navigation().cell;
 				if (newCell && newCell.column.canFocus && !Td.equals(newCell, oldCell)) {
-					if (this.model.edit().mode !== 'cell') {
-					}
-
 					return true;
 				}
 
