@@ -15,58 +15,50 @@ export class ExampleActionBarOnEnterComponent {
 	gridService: GridService;
 
 	rowOptions = {
-		trigger: 'focus', 
+		trigger: 'focus',
 		actions: [
-		  new Action({ execute: () => ({}), canExecute: () => true }, "Hello"),
-		  new Action({ execute: () => ({}), canExecute: () => true }, "World")
+			new Action({ execute: () => ({}), canExecute: () => true }, "Hello"),
+			new Action({ execute: () => ({}), canExecute: () => true }, "World")
 		]
-	}; 
+	};
 
 	pickCommand = new Command({
-		
-	execute: () => {
-		const { items } = this.gridModel.selection();
-		const { rowIndex, columnIndex } = this.gridModel.navigation();
-		const { columns } = this.gridModel.view();
 
-		const newColumnIndex = columns.findIndex(c => c.key === 'rowOptions');
+		execute: () => {
+			const { items } = this.gridModel.selection();
+			const { rowIndex, columnIndex } = this.gridModel.navigation();
+			const { columns } = this.gridModel.view();
 
-		this.gridService.focus(rowIndex, newColumnIndex);
+			const newColumnIndex = columns.findIndex(c => c.key === 'rowOptions');
 
-		// Comment this out if don't need to revert focus back after action
-		this.gridModel.editChanged.watch((e, off) => {
-		if (e.hasChanges('state') && e.state.state === 'view') {
-			this.gridService.focus(rowIndex, columnIndex);
-			off();
-		}
-		});
-	},
-	canExecute: () => {
-		const { items } = this.gridModel.selection();
-		return items.length > 0;
-	},
-	shortcut: 'enter'
-	});	
+			this.gridService.focus(rowIndex, newColumnIndex);
+
+			// Comment this out if don't need to revert focus back after action
+			this.gridModel.editChanged.watch((e, off) => {
+				if (e.hasChanges('state') && e.state.state === 'view') {
+					this.gridService.focus(rowIndex, columnIndex);
+					off();
+				}
+			});
+		},
+		canExecute: () => {
+			const { items } = this.gridModel.selection();
+			return items.length > 0;
+		},
+		shortcut: 'enter'
+	});
 
 	constructor(dataService: DataService, grid: Grid) {
 		this.rows = dataService.getAtoms();
 		this.gridModel = grid.model();
 		this.gridService = grid.service(this.gridModel);
-	
-		this.gridModel.navigationChanged.watch(e => {
-		  if (e.hasChanges('cell') && e.state.cell) {
-			this.gridModel.selection({
-			  items: [e.state.row]
-			});
-		  }
-		});
-	  }
-	  
-	  
-  
-  	
 
-	sortBySymbol(gridModel: GridModel, dir: string) {
-		gridModel.sort({ by: [`${dir}symbol`] });
+		this.gridModel.navigationChanged.watch(e => {
+			if (e.hasChanges('cell') && e.state.cell) {
+				this.gridModel.selection({
+					items: [e.state.row]
+				});
+			}
+		});
 	}
 }
