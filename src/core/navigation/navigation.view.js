@@ -44,19 +44,6 @@ export class NavigationView {
 			canExecute: newCell => {
 				const oldCell = model.navigation().cell;
 				if (newCell && newCell.column.canFocus && !Td.equals(newCell, oldCell)) {
-					if (this.model.edit().mode !== 'cell') {
-						switch (this.model.selection().unit) {
-							case 'row':
-							case 'column': {
-								// Focus cell only if it was focused previously by keyboard
-								if (!oldCell) {
-									return false;
-								}
-								break;
-							}
-						}
-					}
-
 					return true;
 				}
 

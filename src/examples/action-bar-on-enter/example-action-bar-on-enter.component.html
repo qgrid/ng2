@@ -1,0 +1,20 @@
+<q-grid caption="Action Bar On Enter"
+        [rows]="rows | async"
+        [model]="gridModel"
+        class="q-grid-embed"
+        selectionUnit="row">
+	<q-grid-columns generation="deep">
+		<q-grid-column type="select"
+		               isVisible="false"></q-grid-column>
+		<q-grid-column type="row-options"
+		               key="rowOptions"
+		               [editorOptions]="rowOptions"></q-grid-column>
+	</q-grid-columns>
+
+	<q-grid-actions>
+		<q-grid-action id="pick-action"
+		               [command]="pickCommand">
+		</q-grid-action>
+	</q-grid-actions>
+
+</q-grid>
