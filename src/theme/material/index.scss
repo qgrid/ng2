@@ -30,6 +30,7 @@
     @import "assets/menu";
     @import "assets/mixins";
     @import "assets/node";
+    @import "assets/nohandler";
     @import "assets/pager.target";
     @import "assets/pager";
     @import "assets/progress";
@@ -66,4 +67,5 @@
 }
 
 @import "assets/embed";
+@import "assets/nohandler";
 @import "assets/dark";
