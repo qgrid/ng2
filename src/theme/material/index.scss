@@ -9,6 +9,7 @@
     @import "assets/cell.email";
     @import "assets/cell.file";
     @import "assets/cell.group.summary";
+    @import "assets/cell.handler.hide";
     @import "assets/cell.image";
     @import "assets/cell.pivot";
     @import "assets/cell.reference";
@@ -65,5 +66,6 @@
     @import "assets/mat/excel";
 }
 
-@import "assets/embed";
 @import "assets/dark";
+@import "assets/embed";
+@import "assets/cell.handler.hide";
