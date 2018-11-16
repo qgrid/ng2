@@ -45,8 +45,10 @@ export class HeadCtrl {
 		this.x = e.clientX;
 		this.y = e.clientY;
 
+		const path = e.composedPath();
+
 		if (this.model.scene().status === 'stop') {
-			const cell = this.pathFinder.cell(e.path);
+			const cell = this.pathFinder.cell(path);
 			if (cell) {
 				this.highlight(cell.column);
 			}

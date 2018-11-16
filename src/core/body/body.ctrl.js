@@ -76,8 +76,10 @@ export class BodyCtrl {
 				return;
 			}
 
+			const path = e.composedPath();
+
 			const pathFinder = new PathService(this.bag.body);
-			const cell = pathFinder.cell(e.path);
+			const cell = pathFinder.cell(path);
 			if (mode === 'range') {
 				this.rangeStartCell = cell;
 
@@ -89,8 +91,10 @@ export class BodyCtrl {
 	}
 
 	onMouseMove(e) {
+		const path = e.composedPath();
 		const pathFinder = new PathService(this.bag.body);
-		const td = pathFinder.cell(e.path);
+
+		const td = pathFinder.cell(path);
 
 		if (td) {
 			const { highlight } = this.view;
@@ -109,7 +113,7 @@ export class BodyCtrl {
 				highlight.cell.execute(newCell, true)
 			}
 
-			const tr = pathFinder.row(e.path);
+			const tr = pathFinder.row(path);
 			if (tr) {
 				const { index } = tr;
 
@@ -148,10 +152,11 @@ export class BodyCtrl {
 	onMouseUp(e) {
 		const { mode } = this.selection;
 		const { edit } = this.model;
+		const path = e.composedPath();
 
 		if (e.which === MOUSE_LEFT_BUTTON) {
 			const pathFinder = new PathService(this.bag.body);
-			const cell = pathFinder.cell(e.path);
+			const cell = pathFinder.cell(path);
 
 			if (mode === 'range') {
 				this.rangeStartCell = null;
