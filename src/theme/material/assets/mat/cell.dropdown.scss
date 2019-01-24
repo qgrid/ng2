@@ -1,9 +1,12 @@
 td.q-grid-edit {
     &.q-grid-dropdown {
-        .mat-select-arrow-wrapper {
-            opacity: 0;
-            width: 0;
-            height: 0;
+        .q-grid-editor-content {
+            padding: 0;
+            .mat-select-arrow-wrapper {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
         }
     }
 }

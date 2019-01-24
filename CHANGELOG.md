@@ -14,7 +14,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [6.2.2]
 ### Fixed
-- Better FireFox support.
+- Better FireFox support by encapsulation of MouseEvent path property.
 - Better edit strategy when trigger of editor options is set to 'focus'.
 
 ## [6.2.1]
