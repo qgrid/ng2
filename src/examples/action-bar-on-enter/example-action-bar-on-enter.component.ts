@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { DataService, Atom } from '../data.service';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { GridModel, Action, GridService, Command, Grid } from 'ng2-qgrid';
 
 @Component({
@@ -17,15 +17,13 @@ export class ExampleActionBarOnEnterComponent {
 	rowOptions = {
 		trigger: 'focus',
 		actions: [
-			new Action({ execute: () => ({}), canExecute: () => true }, "Hello"),
-			new Action({ execute: () => ({}), canExecute: () => true }, "World")
+			new Action(new Command(), 'Hello'),
+			new Action(new Command(), 'World')
 		]
 	};
 
 	pickCommand = new Command({
-
 		execute: () => {
-			const { items } = this.gridModel.selection();
 			const { rowIndex, columnIndex } = this.gridModel.navigation();
 			const { columns } = this.gridModel.view();
 

@@ -166,7 +166,7 @@ export class BodyCtrl {
 			if (cell) {
 				this.select(cell);
 				this.navigate(cell);
-				if (cell.column.editorOptions.trigger === 'click' && this.view.edit.cell.enter.canExecute(cell)) {
+				if (this.view.edit.cell.enter.canExecute(cell)) {
 					if (this.selection.items.length > 1) {
 						return;
 					}
