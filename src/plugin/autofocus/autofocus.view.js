@@ -1,6 +1,10 @@
-export class AutofocusView {
+import { Disposable } from '../../core/infrastructure/disposable';
+
+export class AutofocusView extends Disposable {
 	constructor(model, table, markup) {
-		model.sceneChanged.watch((e, off) => {
+		super();
+
+		this.using(model.sceneChanged.watch((e, off) => {
 			if (e.hasChanges('status')) {
 				if (e.state.status === 'stop') {
 					const count = table.body.rowCount(0);
@@ -42,6 +46,6 @@ export class AutofocusView {
 					}
 				}
 			}
-		});
+		}));
 	}
 }

@@ -27,3 +27,19 @@ export function parents(element) {
 
 	return path;
 }
+
+export function eventPath(event) {
+	const path = (event.composedPath && event.composedPath()) || event.path;
+	const target = event.target;
+
+	if (path) {
+		// Safari doesn't include Window, but it should.
+		return (path.indexOf(window) < 0) ? path.concat(window) : path;
+	}
+
+	if (target === window) {
+		return [window];
+	}
+
+	return [target].concat(parents(target), window);
+}

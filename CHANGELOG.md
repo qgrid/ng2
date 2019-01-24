@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float Row Navigation.
 * Group keyboard navigation improvements.
 
+## [6.2.2]
+### Fixed
+- Better FireFox support by encapsulation of MouseEvent path property.
+- Better edit strategy when trigger of editor options is set to 'focus'.
+
 ## [6.2.1]
 ### Added
 - Edit form support.
@@ -135,7 +140,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - FocusAfterRender service.
 - Column filter IsBlank is displayed in chips.
 - Legend template syntax.
-- TypeScript defenitions.
+- TypeScript definitions.
 - Async pipe for rows property.
 
 ## [5.3.7] - 2018-07-08
@@ -175,7 +180,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Pager target menu.
 
 ### Changed
-- Added grid core pipes under ther `ng2-qgrid` namespace.
+- Added grid core pipes under there `ng2-qgrid` namespace.
 - Remove `popup` module.
 
 ### Fixed
@@ -200,7 +205,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [5.2.2] - 2018-02-12
 ### Fixed
-- Remove `BrowserModule` from componentns to allow lazy loading.
+- Remove `BrowserModule` from components to allow lazy loading.
 - Fix column filter and column chooser styles.
 
 ## [5.2.0] - 2018-02-09
@@ -227,7 +232,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Improve performance through change detection strategy.
 * Improve performance through reducing number of change detections.
 * Improve performance through adding track by index.
-* Improve performance through invoking drang and drop out of ng zone.
+* Improve performance through invoking drag and drop out of ng zone.
 * Layout columns property changed type form object to map.
 
 ## [5.1.1] - 2017-12-28
@@ -319,7 +324,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v6.2.1...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v6.2.2...HEAD
+[6.2.2]: https://github.com/qgrid/ng2/compare/v6.2.2...v6.2.1
 [6.2.1]: https://github.com/qgrid/ng2/compare/v6.2.1...v6.2.0
 [6.2.0]: https://github.com/qgrid/ng2/compare/v6.2.0...v6.1.5
 [6.1.5]: https://github.com/qgrid/ng2/compare/v6.1.5...v6.1.4

@@ -2,8 +2,9 @@ import { PathService } from '../path/path.service';
 import { Fastdom } from '../services/fastdom';
 import { GRID_PREFIX } from '../definition';
 import { jobLine } from '../services/job.line';
+import { eventPath } from '../services/dom';
+import { LEFT_BUTTON, checkButtonCode } from '../mouse/mouse.code';
 
-const MOUSE_LEFT_BUTTON = 1;
 const VERTICAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-vertical`;
 const HORIZONTAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-horizontal`;
 
@@ -70,14 +71,14 @@ export class BodyCtrl {
 	}
 
 	onMouseDown(e) {
-		if (e.which === MOUSE_LEFT_BUTTON) {
+		if (checkButtonCode(e, LEFT_BUTTON)) {
 			const { area, mode } = this.selection;
 			if (area !== 'body') {
 				return;
 			}
 
 			const pathFinder = new PathService(this.bag.body);
-			const cell = pathFinder.cell(e.path);
+			const cell = pathFinder.cell(eventPath(e));
 			if (mode === 'range') {
 				this.rangeStartCell = cell;
 
@@ -90,7 +91,7 @@ export class BodyCtrl {
 
 	onMouseMove(e) {
 		const pathFinder = new PathService(this.bag.body);
-		const td = pathFinder.cell(e.path);
+		const td = pathFinder.cell(eventPath(e));
 
 		if (td) {
 			const { highlight } = this.view;
@@ -109,7 +110,7 @@ export class BodyCtrl {
 				highlight.cell.execute(newCell, true)
 			}
 
-			const tr = pathFinder.row(e.path);
+			const tr = pathFinder.row(eventPath(e));
 			if (tr) {
 				const { index } = tr;
 
@@ -149,9 +150,9 @@ export class BodyCtrl {
 		const { mode } = this.selection;
 		const { edit } = this.model;
 
-		if (e.which === MOUSE_LEFT_BUTTON) {
+		if (checkButtonCode(e, LEFT_BUTTON)) {
 			const pathFinder = new PathService(this.bag.body);
-			const cell = pathFinder.cell(e.path);
+			const cell = pathFinder.cell(eventPath(e));
 
 			if (mode === 'range') {
 				this.rangeStartCell = null;
@@ -165,7 +166,7 @@ export class BodyCtrl {
 			if (cell) {
 				this.select(cell);
 				this.navigate(cell);
-				if (cell.column.editorOptions.trigger === 'click' && this.view.edit.cell.enter.canExecute(cell)) {
+				if (this.view.edit.cell.enter.canExecute(cell)) {
 					if (this.selection.items.length > 1) {
 						return;
 					}
