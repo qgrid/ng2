@@ -21,7 +21,7 @@ export class RowDetailsView {
 			},
 			canExecute: row => {
 				if (!row) {
-					const cell = model.navigation().cell;
+					const { cell } = model.navigation();
 					if (cell && cell.column.type === 'row-expand') {
 						row = cell.row;
 					}
@@ -52,7 +52,7 @@ export class RowDetailsView {
 			return null;
 		}
 
-		const status = this.model.row().status;
+		const { status } = this.model.row();
 		const state = status.get(row);
 		return state && state.expand ? 'expand' : 'collapse';
 	}

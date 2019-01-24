@@ -12,7 +12,7 @@ describe('Guard', () => {
 	describe('notUndefined', () => {
 
 		it('should throw an exception if value is undefined', () => {
-			expect(() => Guard.notUndefined(test.param4, 'name')).to.throw('guard.notUndefined');
+			expect(() => Guard.notUndefined('name', test.param4)).to.throw('guard.notUndefined');
 		});
 
 	});

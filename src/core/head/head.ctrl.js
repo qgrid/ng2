@@ -1,5 +1,6 @@
 import { PathService } from '../path/path.service';
 import { parents } from '../services/dom';
+import { eventPath } from '../services/dom';
 
 export class HeadCtrl {
 	constructor(model, view, bag) {
@@ -46,7 +47,7 @@ export class HeadCtrl {
 		this.y = e.clientY;
 
 		if (this.model.scene().status === 'stop') {
-			const cell = this.pathFinder.cell(e.path);
+			const cell = this.pathFinder.cell(eventPath(e));
 			if (cell) {
 				this.highlight(cell.column);
 			}

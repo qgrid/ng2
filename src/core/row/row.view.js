@@ -2,6 +2,7 @@ import { PathService } from '../path/path.service';
 import { Command } from '../command/command';
 import { isNumber } from '../utility/kit';
 import { GRID_PREFIX } from '../definition';
+import { eventPath } from '../services/dom';
 
 export class RowView {
 	constructor(model, table, tagName) {
@@ -18,14 +19,14 @@ export class RowView {
 				}
 
 				const oldIndex = e.dragData;
-				const row = pathFinder.row(e.path);
+				const row = pathFinder.row(eventPath(e));
 				return !!row;
 			},
 			execute: e => {
 				const oldIndex = e.dragData;
 				switch (e.action) {
 					case 'over': {
-						const row = pathFinder.row(e.path);
+						const row = pathFinder.row(eventPath(e));
 						if (!e.inAreaY(row.element)) {
 							return;
 						}

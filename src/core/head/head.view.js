@@ -5,6 +5,7 @@ import * as columnService from '../column/column.service';
 import { FilterRowColumn } from '../column-type/filter.row.column';
 import { GRID_PREFIX } from '../definition';
 import { calk, find, findLeaves, preOrderDFS } from '../node/node.service';
+import { eventPath } from '../services/dom';
 
 export class HeadView {
 	constructor(model, table, tagName) {
@@ -22,14 +23,14 @@ export class HeadView {
 					return true;
 				}
 
-				const cell = pathFinder.cell(e.path);
+				const cell = pathFinder.cell(eventPath(e));
 				return cell && cell.column.canMove;
 			},
 			execute: e => {
 				const sourceKey = e.dragData;
 				switch (e.action) {
 					case 'over': {
-						const th = pathFinder.cell(e.path);
+						const th = pathFinder.cell(eventPath(e));
 						if (!e.inAreaX(th.element)) {
 							return;
 						}

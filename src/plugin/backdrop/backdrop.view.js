@@ -1,9 +1,7 @@
 import { Event } from '../../core/infrastructure/event';
 import { EventListener } from '../../core/infrastructure/event.listener';
 import { EventManager } from '../../core/infrastructure/event.manager';
-
-const MOUSE_LEFT_BUTTON = 1;
-const MOUSE_WHEEL_BUTTON = 2;
+import { checkButtonCode, LEFT_BUTTON, MIDDLE_BUTTON } from '../../core/mouse/mouse.code';
 
 export class BackdropView {
 	constructor(context) {
@@ -13,7 +11,7 @@ export class BackdropView {
 		const listener = new EventListener(element, new EventManager(this));
 
 		listener.on('mouseup', e => {
-			if (e.which === MOUSE_LEFT_BUTTON || e.which === MOUSE_WHEEL_BUTTON) {
+			if (checkButtonCode(e, LEFT_BUTTON) || checkButtonCode(e, MIDDLE_BUTTON)) {
 
 				e.stopPropagation();
 				element.remove();
