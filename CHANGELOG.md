@@ -12,7 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float Row Navigation.
 * Group keyboard navigation improvements.
 
+## [6.2.4] - 2019-02-05
+### Fixed
+- Row options shortcut fix for multiple actions.
+
 ## [6.2.3] - 2019-02-05
+### Added
 - Row options shortcut support.
 
 ## [6.2.2]
@@ -327,7 +332,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v6.2.3...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v6.2.4...HEAD
+[6.2.3]: https://github.com/qgrid/ng2/compare/v6.2.4...v6.2.3
 [6.2.3]: https://github.com/qgrid/ng2/compare/v6.2.3...v6.2.2
 [6.2.2]: https://github.com/qgrid/ng2/compare/v6.2.2...v6.2.1
 [6.2.1]: https://github.com/qgrid/ng2/compare/v6.2.1...v6.2.0

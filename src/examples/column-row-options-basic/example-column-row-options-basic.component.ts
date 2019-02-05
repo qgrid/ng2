@@ -15,10 +15,17 @@ export class ExampleColumnRowOptionsBasicComponent {
 		new Action(
 			new Command<{ row: Atom }>({
 				execute: cell => window.open(cell.row.source, '_blank'),
-				shortcut: 'alt+w'
+				shortcut: 'alt+g'
 			}),
 			'Goto Wiki',
 			'link'
+		),
+		new Action(
+			new Command({
+				execute: () => alert('hello world'),
+				shortcut: 'alt+h'
+			}),
+			'Hello World'
 		)
 	];
 
