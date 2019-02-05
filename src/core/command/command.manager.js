@@ -1,21 +1,35 @@
 export class CommandManager {
-	constructor(apply = f => f()) {
+	constructor(apply = f => f(), context) {
 		this.apply = apply;
+		this.context = context;
 	}
 
 	invoke(commands) {
-		this.apply(() => {
-			const priorityCommands = Array.from(commands);
-			priorityCommands.sort((x, y) => y.priority - x.priority);
+		if (commands.length) {
 
-			for (const cmd of priorityCommands) {
-				if (cmd.execute() === false) {
-					break;
+			this.apply(() => {
+				const context = this.context;
+				const priorityCommands = Array.from(commands);
+				priorityCommands.sort((x, y) => y.priority - x.priority);
+
+				for (const cmd of priorityCommands) {
+					if (context) {
+						if (cmd.execute(context) === false) {
+							break;
+						}
+					} else {
+						if (cmd.execute() === false) {
+							break;
+						}
+					}
+
 				}
-			}
-		});
+			});
 
-		return commands.length > 0;
+			return true;
+		}
+
+		return false;
 	}
 
 	filter(commands) {

@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { DateDirective } from './date.directive';
 
 @NgModule({

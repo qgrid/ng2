@@ -11,7 +11,10 @@
         <button mat-menu-item
                 *ngFor="let $action of $cell.column.editorOptions.actions"
                 (click)="$action.command.execute($cell)"
-                [disabled]="!$action.command.canExecute($cell)">
+                [disabled]="!$action.command.canExecute($cell)"
+                [q-grid-command]="$action.command"
+                [q-grid-command-context]="$cell"
+                (q-grid-command-execute)="$view.edit.cell.cancel.execute($cell)">
             <mat-icon class="q-grid-icon">{{$action.icon}}</mat-icon>
             <span>{{$action.title}}</span>
             <span *ngIf="$action.command.shortcut"
