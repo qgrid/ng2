@@ -1,9 +1,8 @@
 import { Directive, Input, OnDestroy, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
-import { Command } from '../../../core/command/command';
-import { RootService } from '../../infrastructure/component/root.service';
-import { CommandManager } from '../../../core/command/command.manager';
-import { Shortcut } from '../../../core/shortcut/shortcut';
-import { ShortcutDispatcher } from '../../../core/shortcut/shortcut.dispatcher';
+import { Command } from 'ng2-qgrid/core/command/command';
+import { CommandManager } from 'ng2-qgrid/core/command/command.manager';
+import { Shortcut } from 'ng2-qgrid/core/shortcut/shortcut';
+import { ShortcutDispatcher } from 'ng2-qgrid/core/shortcut/shortcut.dispatcher';
 
 
 @Directive({
@@ -32,7 +31,7 @@ export class CommandDirective implements OnInit, OnDestroy {
 		}
 	}
 
-	@HostListener('keydown', ['$event'])
+	@HostListener('document:keydown', ['$event'])
 	onKeyDown(e: KeyboardEvent) {
 		if (this.shortcutOff) {
 			this.shortcut.keyDown(e, 'command');
