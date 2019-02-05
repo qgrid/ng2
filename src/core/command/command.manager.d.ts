@@ -10,7 +10,7 @@ import { Command } from './command';
  * * [Shortcut](/doc/api/shortcut.html)
  */
 export declare class CommandManager {
-	constructor();
+	constructor(apply?: (f: () => void) => void, context?: any);
 
 	/**
 	 * Execute commands in a manager specific way.

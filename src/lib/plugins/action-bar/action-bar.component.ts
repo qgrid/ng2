@@ -1,4 +1,4 @@
-import { OnDestroy, OnInit, Optional, Component } from '@angular/core';
+import { OnDestroy, OnInit, Component } from '@angular/core';
 import { Action } from 'ng2-qgrid/core/action/action';
 import { PluginService } from '../plugin.service';
 

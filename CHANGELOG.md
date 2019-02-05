@@ -12,6 +12,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float Row Navigation.
 * Group keyboard navigation improvements.
 
+## [6.2.3] - 2019-02-05
+- Row options shortcut support.
+
 ## [6.2.2]
 ### Fixed
 - Better FireFox support by encapsulation of MouseEvent path property.
@@ -324,7 +327,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v6.2.2...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v6.2.3...HEAD
+[6.2.3]: https://github.com/qgrid/ng2/compare/v6.2.3...v6.2.2
 [6.2.2]: https://github.com/qgrid/ng2/compare/v6.2.2...v6.2.1
 [6.2.1]: https://github.com/qgrid/ng2/compare/v6.2.1...v6.2.0
 [6.2.0]: https://github.com/qgrid/ng2/compare/v6.2.0...v6.1.5

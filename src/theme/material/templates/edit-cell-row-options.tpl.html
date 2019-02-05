@@ -3,17 +3,24 @@
              let-$view="$view">
     <button aria-label="Open row menu"
             mat-icon-button
-            [matMenuTriggerFor]="menu"            
+            [matMenuTriggerFor]="menu"
             (q-grid-menu-trigger)="$view.edit.cell.cancel.execute($cell)">
         <mat-icon class="q-grid-icon">more_vert</mat-icon>
     </button>
-    <mat-menu #menu="matMenu">
+    <mat-menu #menu="matMenu" class="q-grid-row-options">
         <button mat-menu-item
                 *ngFor="let $action of $cell.column.editorOptions.actions"
                 (click)="$action.command.execute($cell)"
-                [disabled]="!$action.command.canExecute($cell)">
+                [disabled]="!$action.command.canExecute($cell)"
+                [q-grid-command]="$action.command"
+                [q-grid-command-context]="$cell"
+                (q-grid-command-execute)="$view.edit.cell.cancel.execute($cell)">
             <mat-icon class="q-grid-icon">{{$action.icon}}</mat-icon>
             <span>{{$action.title}}</span>
+            <span *ngIf="$action.command.shortcut"
+                  class="q-grid-shortcut">
+                {{$action.command.shortcut}}
+            </span>
         </button>
     </mat-menu>
 </ng-template>
