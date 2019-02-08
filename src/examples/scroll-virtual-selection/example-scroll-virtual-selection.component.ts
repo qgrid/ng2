@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 	selector: 'example-scroll-virtual-selection',
 	templateUrl: 'example-scroll-virtual-selection.component.html',
 	styleUrls: ['example-scroll-virtual-selection.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleScrollVirtualSelectionComponent {
 	rows: Observable<Atom[]>;

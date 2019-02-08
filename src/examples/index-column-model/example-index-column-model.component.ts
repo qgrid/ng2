@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService, Atom } from '../data.service';
-import { Observable } from 'rxjs';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { DataService } from '../data.service';
 import { GridModel, Grid } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-index-column-model',
 	templateUrl: 'example-index-column-model.component.html',
 	styleUrls: ['example-index-column-model.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleIndexColumnModelComponent {
 	gridModel: GridModel;

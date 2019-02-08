@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../data.service';
 import { GridModel, Grid } from 'ng2-qgrid';
 
@@ -6,7 +6,8 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	selector: 'example-define-column-async',
 	templateUrl: 'example-define-column-async.component.html',
 	styleUrls: ['example-define-column-async.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDefineColumnAsyncComponent implements OnInit {
 	gridModel: GridModel;

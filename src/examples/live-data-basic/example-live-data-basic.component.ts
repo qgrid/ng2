@@ -1,13 +1,13 @@
-import { Component, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Quote } from '../data.service';
-import { Observable } from 'rxjs';
 import { Column, StyleCellContext } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-live-data-basic',
 	templateUrl: 'example-live-data-basic.component.html',
 	styleUrls: ['example-live-data-basic.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleLiveDataBasicComponent {
 	rows: Quote[];

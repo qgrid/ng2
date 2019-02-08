@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { GridModel, Grid } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-dynamic-column-model',
 	templateUrl: 'example-dynamic-column-model.component.html',
-	styleUrls: ['example-dynamic-column-model.component.scss']
+	styleUrls: ['example-dynamic-column-model.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDynamicColumnModelComponent {
 	gridModel: GridModel;

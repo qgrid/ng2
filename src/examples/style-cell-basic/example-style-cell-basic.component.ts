@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DataService, Atom } from '../data.service';
 import { StyleCellContext, Column } from 'ng2-qgrid';
@@ -7,7 +7,8 @@ import { StyleCellContext, Column } from 'ng2-qgrid';
 	selector: 'example-style-cell-basic',
 	templateUrl: 'example-style-cell-basic.component.html',
 	styleUrls: ['example-style-cell-basic.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleStyleCellBasicComponent {
 	rows: Observable<Atom[]>;

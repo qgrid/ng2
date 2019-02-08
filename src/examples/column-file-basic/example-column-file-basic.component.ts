@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'example-column-file-basic',
 	templateUrl: 'example-column-file-basic.component.html',
-	styleUrls: ['example-column-file-basic.component.scss']
+	styleUrls: ['example-column-file-basic.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnFileBasicComponent {
 	rows = [

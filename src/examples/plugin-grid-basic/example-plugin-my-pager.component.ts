@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { GridPlugin, Command } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-plugin-my-pager',
 	templateUrl: 'example-plugin-my-pager.component.html',
 	styleUrls: ['example-plugin-my-pager.component.scss'],
-	providers: [GridPlugin]
+	providers: [GridPlugin],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplePluginMyPagerComponent {
 	goto = new Command({

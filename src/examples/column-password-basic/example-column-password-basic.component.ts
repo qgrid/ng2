@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'example-column-password-basic',
 	templateUrl: 'example-column-password-basic.component.html',
-	styleUrls: ['example-column-password-basic.component.scss']
+	styleUrls: ['example-column-password-basic.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnPasswordBasicComponent {
 	rows = [

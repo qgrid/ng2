@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,7 +8,8 @@ import { FetchContext } from 'ng2-qgrid';
 	selector: 'example-filter-column-fetch',
 	templateUrl: 'example-filter-column-fetch.component.html',
 	styleUrls: ['example-filter-column-fetch.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleFilterColumnFetchComponent {
 	rows: Observable<Atom[]>;

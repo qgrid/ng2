@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'example-column-time-basic',
 	templateUrl: 'example-column-time-basic.component.html',
-	styleUrls: ['example-column-time-basic.component.scss']
+	styleUrls: ['example-column-time-basic.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnTimeBasicComponent {
 	rows = [

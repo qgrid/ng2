@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 import { Column, StyleCellContext } from 'ng2-qgrid';
@@ -7,7 +7,8 @@ import { Column, StyleCellContext } from 'ng2-qgrid';
 	selector: 'example-scroll-virtual-style',
 	templateUrl: 'example-scroll-virtual-style.component.html',
 	styleUrls: ['example-scroll-virtual-style.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleScrollVirtualStyleComponent {
 	rows: Observable<Human[]>;

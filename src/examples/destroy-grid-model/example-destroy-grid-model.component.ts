@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService, Human } from '../data.service';
-import { Observable } from 'rxjs';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { DataService } from '../data.service';
 import { GridModel, Grid } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-destroy-grid-model',
 	templateUrl: 'example-destroy-grid-model.component.html',
 	styleUrls: ['example-destroy-grid-model.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDestroyGridModelComponent {
 	gridModel: GridModel;
