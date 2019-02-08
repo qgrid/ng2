@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ElementRef, NgZone, ChangeDetectionStrategy } from '@angular/core';
 import { ViewCoreService } from '../view/view-core.service';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
@@ -10,7 +10,8 @@ import { NgComponent } from '../../../infrastructure/component/ng.component';
 
 @Component({
 	selector: 'thead[q-grid-core-head]',
-	templateUrl: './head-core.component.html'
+	templateUrl: './head-core.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeadCoreComponent extends NgComponent implements OnInit {
 	constructor(

@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, AfterViewInit } from '@angular/core';
+import { Component, Input, EventEmitter, Output, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { SelectionService } from 'ng2-qgrid/core/selection/selection.service';
 import { NgComponent } from '../../infrastructure/component/ng.component';
@@ -7,7 +7,8 @@ import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 @Component({
 	selector: 'q-grid-reference-editor',
-	templateUrl: './reference-editor.component.html'
+	templateUrl: './reference-editor.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReferenceEditorComponent extends NgComponent implements AfterViewInit {
 	private state: any;

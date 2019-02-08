@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 import { EditService } from 'ng2-qgrid/core/edit/edit.service';
@@ -6,12 +6,12 @@ import { CellView } from 'ng2-qgrid/core/scene/view/cell.view';
 import { ModelEventArg } from 'ng2-qgrid/core/infrastructure/model';
 import { NavigationModel } from 'ng2-qgrid/core/navigation/navigation.model';
 import { Td } from 'ng2-qgrid/core/dom/td';
-import { noop } from 'ng2-qgrid/core/utility/kit';
 import { RootService } from '../../../infrastructure/component/root.service';
 
 @Component({
 	selector: 'q-grid-cell-handler',
-	templateUrl: './cell-handler.component.html'
+	templateUrl: './cell-handler.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CellHandlerComponent implements OnInit, AfterViewInit {
 	@ViewChild('marker') marker: ElementRef;

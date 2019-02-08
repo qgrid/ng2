@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChild, Input, TemplateRef } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, Input, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
 import { PluginService } from '../plugin.service';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { ExportView } from 'ng2-qgrid/plugin/export/export.view';
@@ -9,7 +9,8 @@ import { TemplateHostService } from '../../template/template-host.service';
 @Component({
 	selector: 'q-grid-export',
 	template: '',
-	providers: [TemplateHostService, PluginService]
+	providers: [TemplateHostService, PluginService],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExportComponent implements AfterViewInit {
 	@Input() type: string;

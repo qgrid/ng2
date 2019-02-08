@@ -1,11 +1,12 @@
-import { OnDestroy, OnInit, Component } from '@angular/core';
+import { OnDestroy, OnInit, Component, ChangeDetectionStrategy } from '@angular/core';
 import { Action } from 'ng2-qgrid/core/action/action';
 import { PluginService } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-action-bar',
 	templateUrl: './action-bar.component.html',
-	providers: [PluginService]
+	providers: [PluginService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActionBarComponent implements OnInit, OnDestroy {
 	private shortcutOff: () => void = null;

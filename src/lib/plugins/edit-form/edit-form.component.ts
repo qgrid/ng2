@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { EditFormPanelView } from 'ng2-qgrid/plugin/edit-form/edit.form.panel.view';
 import { PluginService } from '../plugin.service';
 import { Td } from 'ng2-qgrid/core/dom/td';
@@ -6,7 +6,8 @@ import { Td } from 'ng2-qgrid/core/dom/td';
 @Component({
 	selector: 'q-grid-edit-form',
 	templateUrl: './edit-form.component.html',
-	providers: [PluginService]
+	providers: [PluginService],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditFormComponent implements OnInit, OnDestroy {
 	@Input() caption: string;

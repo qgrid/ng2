@@ -1,4 +1,15 @@
-import { Component, Input, Output, EventEmitter, OnInit, SimpleChanges, OnChanges, NgZone, ChangeDetectorRef } from '@angular/core';
+import {
+	Component,
+	Input,
+	Output,
+	EventEmitter,
+	OnInit,
+	SimpleChanges,
+	OnChanges,
+	NgZone,
+	ChangeDetectorRef,
+	ChangeDetectionStrategy
+} from '@angular/core';
 import { ColumnChooserView } from 'ng2-qgrid/plugin/column-chooser/column.chooser.view';
 import { FocusAfterRender } from '../../common/focus/focus.service';
 import { PluginService } from '../plugin.service';
@@ -11,7 +22,7 @@ export class RootContext {
 	constructor(public ctrl: ColumnChooserView) {
 	}
 
-	get node() {
+	get node(): Node {
 		return this.ctrl.treeView;
 	}
 }
@@ -19,7 +30,8 @@ export class RootContext {
 @Component({
 	selector: 'q-grid-column-chooser',
 	templateUrl: './column-chooser.component.html',
-	providers: [FocusAfterRender, PluginService]
+	providers: [FocusAfterRender, PluginService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnChooserComponent implements OnInit, OnChanges {
 	@Input('canAggregate') columnChooserCanAggregate: boolean;

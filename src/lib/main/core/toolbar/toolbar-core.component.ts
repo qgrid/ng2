@@ -1,15 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'q-grid-core-toolbar',
-	templateUrl: './toolbar-core.component.html'
+	templateUrl: './toolbar-core.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToolbarCoreComponent implements OnInit {
+export class ToolbarCoreComponent {
 	@Input() position;
 
 	constructor() {
-	}
-
-	ngOnInit() {
 	}
 }

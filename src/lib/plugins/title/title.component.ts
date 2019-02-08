@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { PluginService } from '../plugin.service';
 
 // @deprecated
 @Component({
 	selector: 'q-grid-title',
 	templateUrl: './title.component.html',
-	providers: [PluginService]
+	providers: [PluginService],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TitleComponent {
 	context: { $implicit: TitleComponent } = {

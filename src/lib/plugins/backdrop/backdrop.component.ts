@@ -1,6 +1,5 @@
 import {
 	Component,
-	Optional,
 	ContentChild,
 	TemplateRef,
 	Output,

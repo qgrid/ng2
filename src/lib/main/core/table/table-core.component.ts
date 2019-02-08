@@ -1,4 +1,4 @@
-import { OnInit, Component, Input } from '@angular/core';
+import { OnInit, Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { RootService } from '../../../infrastructure/component/root.service';
@@ -10,7 +10,8 @@ import { ViewCoreService } from '../view/view-core.service';
 	templateUrl: './table-core.component.html',
 	providers: [
 		TableCoreService
-	]
+	],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableCoreComponent implements OnInit {
 	@Input() public pin = null;

@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Optional, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 
 @Component({
 	selector: 'q-grid-column-filter-by',
-	templateUrl: './column-filter-by.component.html'
+	templateUrl: './column-filter-by.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnFilterByComponent {
 	@Input() by: Set<string>;

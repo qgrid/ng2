@@ -1,15 +1,16 @@
 import {
-	Component,
-	Optional,
+	Component,	
 	TemplateRef,
 	ContentChild,
 	EventEmitter,
 	Output,
+	ChangeDetectionStrategy,
 } from '@angular/core';
 
 @Component({
 	selector: 'q-grid-cell-editor',
-	templateUrl: './cell-editor.component.html'
+	templateUrl: './cell-editor.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CellEditorComponent {
 	@ContentChild(TemplateRef) public template: TemplateRef<any>;

@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, NgZone, DoCheck, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ElementRef, NgZone, DoCheck, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { ViewCtrl } from 'ng2-qgrid/core/view/view.ctrl';
 import { CellService } from '../cell/cell.service';
@@ -10,7 +10,8 @@ import { GridService } from '../../../main/grid/grid.service';
 @Component({
 	selector: 'q-grid-core-view',
 	templateUrl: './view-core.component.html',
-	providers: [CellService]
+	providers: [CellService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 	private ctrl: ViewCtrl;

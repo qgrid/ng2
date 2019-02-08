@@ -4,8 +4,8 @@ import { PluginService } from '../plugin.service';
 @Component({
 	selector: 'q-grid-progress',
 	templateUrl: './progress.component.html',
+	providers: [PluginService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [PluginService]
 })
 export class ProgressComponent implements OnInit, OnChanges {
 	context: { $implicit: ProgressComponent } = {

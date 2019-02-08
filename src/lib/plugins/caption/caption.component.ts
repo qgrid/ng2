@@ -1,10 +1,11 @@
-import { Component, Optional } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { PluginService } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-caption',
 	templateUrl: './caption.component.html',
-	providers: [PluginService]
+	providers: [PluginService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CaptionComponent {
 	context: { $implicit: CaptionComponent } = {

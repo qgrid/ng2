@@ -1,11 +1,12 @@
-import { Component, OnInit, Optional } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TemplateHostService } from '../../template/template-host.service';
 import { PluginService } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-status-bar',
 	templateUrl: './status-bar.component.html',
-	providers: [TemplateHostService, PluginService]
+	providers: [TemplateHostService, PluginService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatusBarComponent {
 	context: { $implicit: StatusBarComponent } = {
@@ -22,6 +23,5 @@ export class StatusBarComponent {
 
 	get columnIndex() {
 		return this.plugin.model.focus().columnIndex;
-
 	}
 }

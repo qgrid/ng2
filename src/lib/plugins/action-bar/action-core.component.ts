@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { Action as ActionItem } from 'ng2-qgrid/core/action/action';
 import { PluginService, GridModel } from '../plugin.service';
@@ -6,7 +6,8 @@ import { PluginService, GridModel } from '../plugin.service';
 @Component({
 	selector: 'q-grid-action-core',
 	templateUrl: './action-core.component.html',
-	providers: [PluginService]
+	providers: [PluginService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActionCoreComponent {
 	@Input() action: ActionItem = null;

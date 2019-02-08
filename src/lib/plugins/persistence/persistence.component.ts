@@ -1,4 +1,4 @@
-import { Component, Optional, Input, EventEmitter, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { Action } from 'ng2-qgrid/core/action/action';
 import { Composite } from 'ng2-qgrid/core/infrastructure/composite';
@@ -9,7 +9,8 @@ import { PluginService } from '../plugin.service';
 @Component({
 	selector: 'q-grid-persistence',
 	template: '',
-	providers: [PluginService]
+	providers: [PluginService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PersistenceComponent implements OnInit, OnChanges {
 	constructor(private plugin: PluginService) {

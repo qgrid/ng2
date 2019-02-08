@@ -1,11 +1,12 @@
-import { Component, ContentChild, Input, OnChanges, SimpleChanges, TemplateRef } from '@angular/core';
+import { Component, ContentChild, Input, OnChanges, SimpleChanges, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
 import { PluginService } from '../plugin.service';
 import { TemplateHostService } from '../../template/template-host.service';
 
 @Component({
 	selector: 'q-grid-rule',
 	template: '',
-	providers: [TemplateHostService, PluginService]
+	providers: [TemplateHostService, PluginService],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RuleComponent implements OnChanges {
 	@Input() for: string;
@@ -59,15 +60,19 @@ export class RuleComponent implements OnChanges {
 			for: this.for,
 			key: this.key
 		};
+
 		const { model } = this.plugin;
 		const validation = model.validation;
 		const rules = Array.from(validation().rules);
 
-		Object.keys(changes).forEach(key => {
-			if (!['for', 'key'].includes(key) && changes[key].firstChange) {
-				rule[key] = this[key];
-			}
-		});
+		Object
+			.keys(changes)
+			.forEach(key => {
+				if (!['for', 'key'].includes(key) && changes[key].firstChange) {
+					rule[key] = this[key];
+				}
+			});
+
 		rules.push(rule);
 		validation({ rules });
 	}

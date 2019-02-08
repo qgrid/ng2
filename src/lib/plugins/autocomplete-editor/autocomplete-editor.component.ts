@@ -1,5 +1,4 @@
-import { TdCoreDirective } from './../../main/core/body/td-core.directive';
-import { Component, OnInit, Optional } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ViewCoreService } from '../../main/core/view/view-core.service';
 import { PluginService } from '../plugin.service';
 import { predicateFactory } from 'ng2-qgrid/core/services/predicate';
@@ -7,7 +6,8 @@ import { predicateFactory } from 'ng2-qgrid/core/services/predicate';
 @Component({
 	selector: 'q-grid-autocomplete-editor',
 	templateUrl: './autocomplete-editor.component.html',
-	providers: [PluginService]
+	providers: [PluginService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AutocompleteEditorComponent {
 	options: any[] = [];

@@ -1,11 +1,12 @@
-import { Component, Input, OnInit, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { PagerView } from 'ng2-qgrid/plugin/pager/pager.view';
 import { PluginService } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-pager',
 	templateUrl: './pager.component.html',
-	providers: [PluginService]
+	providers: [PluginService],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PagerComponent implements OnInit, OnChanges {
 	@Input('size') paginationSize: number;

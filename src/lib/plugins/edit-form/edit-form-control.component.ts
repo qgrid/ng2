@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CellEditor } from 'ng2-qgrid/core/edit/edit.cell.editor';
 
 @Component({
 	selector: 'q-grid-edit-form-control',
-	templateUrl: './edit-form-control.component.html'
+	templateUrl: './edit-form-control.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditFormControlComponent {
 	@Input() editor: CellEditor;

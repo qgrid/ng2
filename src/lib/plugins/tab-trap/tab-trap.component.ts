@@ -1,10 +1,10 @@
 import {
-	Component,
-	Optional,
+	Component,	
 	TemplateRef,
 	ContentChild,
 	ElementRef,
 	Input,
+	ChangeDetectionStrategy,
 } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
@@ -15,7 +15,8 @@ import { PluginService } from '../plugin.service';
 @Component({
 	selector: 'q-grid-tab-trap',
 	templateUrl: './tab-trap.component.html',
-	providers: [PluginService]
+	providers: [PluginService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TabTrapComponent {
 	@ContentChild(TemplateRef) template: TemplateRef<any>;
