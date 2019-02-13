@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 import { EditService } from 'ng2-qgrid/core/edit/edit.service';
@@ -22,7 +22,8 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 	constructor(
 		private element: ElementRef,
-		private root: RootService
+		private root: RootService,
+		private cd: ChangeDetectorRef
 	) {
 		this.element.nativeElement.style.display = 'none';
 	}
@@ -162,7 +163,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		};
 	}
 
-	startBatchEdit(e) {
+	startBatchEdit() {
 		const model = this.root.model;
 
 		this.startCell = model.navigation().cell;
@@ -179,7 +180,6 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		const { column } = model.navigation();
 
 		if (column) {
-			const type = column.type;
 			return model.edit().method === 'batch';
 		}
 

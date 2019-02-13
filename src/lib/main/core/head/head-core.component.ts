@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, NgZone, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ElementRef, NgZone, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ViewCoreService } from '../view/view-core.service';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
@@ -19,19 +19,33 @@ export class HeadCoreComponent extends NgComponent implements OnInit {
 		public $table: TableCoreService,
 		private root: RootService,
 		private element: ElementRef,
-		private zone: NgZone
+		private zone: NgZone,
+		private cd: ChangeDetectorRef;
 	) {
 		super();
 	}
 
 	ngOnInit() {
+		const { model } = this.root;
+
 		const element = this.element.nativeElement;
-		const ctrl = new HeadCtrl(this.root.model, this.$view, this.root.bag);
+		const ctrl = new HeadCtrl(model, this.$view, this.root.bag);
 		const listener = new EventListener(element, new EventManager(this));
+
 		this.zone.runOutsideAngular(() => {
-			listener.on('mousemove', e => ctrl.onMouseMove(e));
-			listener.on('mouseleave', e => ctrl.onMouseLeave(e));
+			this.using(listener.on('mousemove', e => ctrl.onMouseMove(e)));
+			this.using(listener.on('mouseleave', e => ctrl.onMouseLeave(e)));
 		});
+
+		this.using(model.sceneChanged.watch(e => {
+			if (e.hasChanges('status')) {
+				switch (e.state.status) {
+					case 'stop':
+						this.cd.detectChanges();
+						break;
+				}
+			}
+		}));
 	}
 
 	columnId(index: number, item: ColumnView) {
