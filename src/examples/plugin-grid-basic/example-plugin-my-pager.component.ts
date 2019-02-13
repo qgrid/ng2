@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { GridPlugin, Command } from 'ng2-qgrid';
 
 @Component({
@@ -8,7 +8,7 @@ import { GridPlugin, Command } from 'ng2-qgrid';
 	providers: [GridPlugin],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExamplePluginMyPagerComponent {
+export class ExamplePluginMyPagerComponent implements OnInit {
 	goto = new Command({
 		execute: page => this.currentPage = page,
 		canExecute: page => page >= 0 && page < this.numberOfPages

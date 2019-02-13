@@ -6,6 +6,7 @@ import { NgComponent } from '../../../infrastructure/component/ng.component';
 import { RootService } from '../../../infrastructure/component/root.service';
 
 @Component({
+	// tslint:disable-next-line
 	selector: 'tfoot[q-grid-core-foot]',
 	templateUrl: './foot-core.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush

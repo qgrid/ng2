@@ -1,5 +1,5 @@
 import {
-	Component,	
+	Component,
 	TemplateRef,
 	ContentChild,
 	EventEmitter,

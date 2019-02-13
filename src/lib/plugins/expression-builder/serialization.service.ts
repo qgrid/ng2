@@ -4,45 +4,6 @@ import { GroupExpression } from './model/expression';
 import { INodeSchema } from './model/node.schema';
 import { override, indexOf } from './utility';
 
-export declare interface ISerializationNode {
-	id: string;
-	attributes: Object;
-	children: ISerializationNode[];
-	line: ISerializationGroup[];
-}
-
-export declare interface ISerializationGroup {
-	id: string;
-	expressions: ISerializationExpression[];
-}
-
-export declare interface ISerializationExpression {
-	id: string;
-	type: string;
-	method: Array<string>;
-}
-
-export class SerializationService {
-	serialize(node: Node): ISerializationNode {
-		return new Serializer(node).serialize();
-	}
-
-	deserialize(schema: INodeSchema, data: ISerializationNode): Node {
-		return new Deserializer(schema).deserialize(data);
-	}
-}
-
-function traverse(node: Node, map: Object) {
-	if (!map.hasOwnProperty(node.id)) {
-		map[node.id] = node;
-	}
-
-	for (let i = 0, length = node.children.length; i < length; i++) {
-		const child = node.children[0];
-		traverse(child, map);
-	}
-}
-
 class Serializer {
 	constructor(private node: Node) {
 	}
@@ -170,5 +131,44 @@ class Deserializer {
 				});
 			}
 		}
+	}
+}
+
+function traverse(node: Node, map: Object) {
+	if (!map.hasOwnProperty(node.id)) {
+		map[node.id] = node;
+	}
+
+	for (let i = 0, length = node.children.length; i < length; i++) {
+		const child = node.children[0];
+		traverse(child, map);
+	}
+}
+
+export declare interface ISerializationNode {
+	id: string;
+	attributes: Object;
+	children: ISerializationNode[];
+	line: ISerializationGroup[];
+}
+
+export declare interface ISerializationGroup {
+	id: string;
+	expressions: ISerializationExpression[];
+}
+
+export declare interface ISerializationExpression {
+	id: string;
+	type: string;
+	method: Array<string>;
+}
+
+export class SerializationService {
+	serialize(node: Node): ISerializationNode {
+		return new Serializer(node).serialize();
+	}
+
+	deserialize(schema: INodeSchema, data: ISerializationNode): Node {
+		return new Deserializer(schema).deserialize(data);
 	}
 }

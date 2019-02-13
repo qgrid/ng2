@@ -7,7 +7,7 @@ import {
 	EventEmitter
 } from '@angular/core';
 import { MatChipInput } from '@angular/material';
-import { Shortcut, Command } from 'ng2-qgrid';
+import { Shortcut } from 'ng2-qgrid';
 
 @Directive({
 	selector: '[q-grid-chips]'
@@ -15,9 +15,7 @@ import { Shortcut, Command } from 'ng2-qgrid';
 export class ChipsDirective implements AfterViewInit {
 	@ContentChild(MatChipInput) input: MatChipInput;
 	@ContentChild('chipInput') element: ElementRef;
-	@Output() push = new EventEmitter<any>();;
-
-	constructor() { }
+	@Output() push = new EventEmitter<string>();
 
 	ngAfterViewInit() {
 		this.input.chipEnd.subscribe(e => {
@@ -28,7 +26,7 @@ export class ChipsDirective implements AfterViewInit {
 		input.addEventListener('keydown', e => {
 			const code = Shortcut.translate(e);
 			if (code === 'enter') {
-				const value = (input.value || '').trim();
+				const value = (input.value || '').trim() as string;
 				if (value) {
 					this.push.emit(value);
 

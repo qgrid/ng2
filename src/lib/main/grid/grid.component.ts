@@ -11,6 +11,7 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef
 } from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
 import { RootComponent } from '../../infrastructure/component/root.component';
 import { RootService } from '../../infrastructure/component/root.service';
 import { LayerService } from '../core/layer/layer.service';
@@ -35,7 +36,6 @@ import { TableCommandManager } from 'ng2-qgrid/core/command/table.command.manage
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { GridModel } from '../../plugins/plugin.service';
-import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
 	selector: 'q-grid',

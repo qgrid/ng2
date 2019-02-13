@@ -8,6 +8,7 @@ import {
 import { TemplateService } from './template.service';
 
 @Directive({
+	// tslint:disable-next-line
 	selector: 'ng-container[key]'
 })
 export class TemplateDirective implements DoCheck {

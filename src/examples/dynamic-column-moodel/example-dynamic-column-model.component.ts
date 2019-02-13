@@ -24,8 +24,9 @@ export class ExampleDynamicColumnModelComponent {
 		};
 
 		const data = this.gridModel.data();
-		const columns = data.columns.slice()
+		const columns = data.columns.slice();
 		const rows = data.rows.slice();
+
 		if (side === 'left') {
 			columns.unshift(column);
 		} else if (side === 'right') {
@@ -33,7 +34,7 @@ export class ExampleDynamicColumnModelComponent {
 		} else {
 			const middlePos = columns.length % 2 === 0
 				? columns.length / 2
-				: Math.floor(columns.length / 2) ;
+				: Math.floor(columns.length / 2);
 			columns.splice(middlePos, 0, column);
 		}
 		rows.forEach(r => r[id] = `value - ${id}`);
@@ -76,7 +77,7 @@ export class ExampleDynamicColumnModelComponent {
 		let id = '';
 		const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
-		for (var i = 0; i < 5; i++) {
+		for (let i = 0; i < 5; i++) {
 			id += possible.charAt(Math.floor(Math.random() * possible.length));
 		}
 

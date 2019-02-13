@@ -4,6 +4,7 @@ import { TemplateHostService } from './template-host.service';
 import { TemplateLink } from './template-link';
 
 @Directive({
+	// tslint:disable-next-line
 	selector: 'ng-template[for]'
 })
 export class TemplateCacheDirective implements OnInit {

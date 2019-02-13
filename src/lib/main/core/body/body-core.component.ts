@@ -11,6 +11,7 @@ import { ViewCoreService } from '../view/view-core.service';
 import { TableCoreService } from '../table/table-core.service';
 
 @Component({
+	// tslint:disable-next-line
 	selector: 'tbody[q-grid-core-body]',
 	templateUrl: './body-core.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush

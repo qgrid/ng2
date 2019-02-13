@@ -23,8 +23,8 @@ export class ExampleDestroyGridModelComponent {
 	get handlerCount() {
 		const model = this.gridModel as { [key: string]: any };
 		let count = 0;
-		for (let key in model) {
-			if (key.endsWith('Changed')) {
+		for (const key in model) {
+			if (model.hasOwnProperty(key) && key.endsWith('Changed')) {
 				const event = model[key];
 
 				// `handlers` is private really

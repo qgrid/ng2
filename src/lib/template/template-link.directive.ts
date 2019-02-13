@@ -3,6 +3,7 @@ import { TemplateLinkService } from './template-link.service';
 import { TemplateLink } from './template-link';
 
 @Directive({
+	// tslint:disable-next-line
 	selector: 'ng-template[key]'
 })
 export class TemplateLinkDirective implements OnInit {

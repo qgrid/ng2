@@ -21,7 +21,9 @@ export class ThemeOverlayDirective implements AfterViewInit {
 
 		while (parent && !(parent.id && parent.id.startsWith('cdk-overlay'))) {
 			parent = this.renderer.parentNode(parent);
-			if (parent.nodeName === 'BODY') break;
+			if (parent.nodeName === 'BODY') {
+				break;
+			}
 		}
 
 		if (parent.nodeName !== 'BODY') {

@@ -80,7 +80,7 @@ export class ExampleEditRowBasicComponent implements OnInit {
 							})
 							.columnList({
 								generation: 'deep'
-							}) 
+							})
 							.data({
 								pipe: [
 									(_: any[], context: PipeContext, next: (rows: any[]) => void) => {

@@ -9,11 +9,12 @@ function canBuild(column) {
 }
 
 function buildId(source: string, column: ColumnModel, mode = 'view') {
-	let { key, type, itemType } = column as any;
+	const { key, type, itemType } = column as any;
 	return `${source}-${mode}-cell-${type}-of-${itemType}-the-${key}.tpl.html`;
 }
 
 function buildKeys(source: string, column: ColumnModel, mode = 'view') {
+	// tslint:disable-next-line
 	let { key, type, itemType } = column as any;
 
 	switch (mode) {

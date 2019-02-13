@@ -89,24 +89,24 @@ export class ColumnFilterComponent implements OnInit {
 					try {
 						if (!items.length) {
 							const source = model[model.columnFilter().source];
-							let items = source().rows.map(columnFilter.getValue);
+							let values = source().rows.map(columnFilter.getValue);
 							if (columnFilter.column.type === 'array') {
-								items = flatten(items);
+								values = flatten(values);
 							}
 
-							const uniqItems = uniq(items);
-							const notBlankItems = uniqItems.filter(x => !isBlank(x));
+							const uniqValues = uniq(values);
+							const notBlankValues = uniqValues.filter(x => !isBlank(x));
 
 							// TODO: improve search algo
 							const search = ('' + this.search).toLowerCase();
 							const filteredItems = search
-								? notBlankItems.filter(x => ('' + x).toLowerCase().indexOf(search) >= 0)
-								: notBlankItems;
+								? notBlankValues.filter(x => ('' + x).toLowerCase().indexOf(search) >= 0)
+								: notBlankValues;
 
 							filteredItems.sort(columnFilter.column.compare);
 							columnFilter.items = filteredItems;
 							columnFilter.hasBlanks =
-								notBlankItems.length !== uniqItems.length &&
+								notBlankValues.length !== uniqValues.length &&
 								(!search || 'blanks'.indexOf(search.toLowerCase()) >= 0);
 						}
 

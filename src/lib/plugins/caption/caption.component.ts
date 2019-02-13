@@ -16,7 +16,7 @@ export class CaptionComponent {
 	}
 
 	public get value() {
-		const { caption, title } = this.plugin.model.grid()
+		const { caption, title } = this.plugin.model.grid();
 		return caption || title;
 	}
 }

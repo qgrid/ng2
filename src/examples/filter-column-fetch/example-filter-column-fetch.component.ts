@@ -35,5 +35,5 @@ export class ExampleFilterColumnFetchComponent {
 						filteredData.sort();
 						return filteredData.slice(skip, skip + take);
 					}));
-	};
+	}
 }

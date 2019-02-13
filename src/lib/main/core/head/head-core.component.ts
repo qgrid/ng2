@@ -9,6 +9,7 @@ import { RootService } from '../../../infrastructure/component/root.service';
 import { NgComponent } from '../../../infrastructure/component/ng.component';
 
 @Component({
+	// tslint:disable-next-line
 	selector: 'thead[q-grid-core-head]',
 	templateUrl: './head-core.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush

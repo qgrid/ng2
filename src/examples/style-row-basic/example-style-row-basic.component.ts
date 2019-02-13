@@ -18,6 +18,6 @@ export class ExampleStyleRowBasicComponent {
 	}
 
 	styleRow(row: Atom, context: StyleRowContext) {
-		context.class(row.symbol, { 'background-color': `#${row.color}` })
+		context.class(row.symbol, { 'background-color': `#${row.color}` });
 	}
 }
