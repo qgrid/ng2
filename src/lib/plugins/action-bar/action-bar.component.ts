@@ -1,4 +1,4 @@
-import { OnDestroy, OnInit, Component, ChangeDetectionStrategy } from '@angular/core';
+import { OnDestroy, OnInit, Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Action } from 'ng2-qgrid/core/action/action';
 import { PluginService } from '../plugin.service';
 
@@ -15,7 +15,7 @@ export class ActionBarComponent implements OnInit, OnDestroy {
 		$implicit: this
 	};
 
-	constructor(private plugin: PluginService) {
+	constructor(private plugin: PluginService, private cd: ChangeDetectorRef) {
 	}
 
 	ngOnInit() {
@@ -31,6 +31,8 @@ export class ActionBarComponent implements OnInit, OnDestroy {
 				const { shortcut, manager } = model.action();
 				this.shortcutOff = shortcut.register(manager, e.state.items.map(act => act.command));
 			}
+
+			this.cd.detectChanges();
 		});
 	}
 

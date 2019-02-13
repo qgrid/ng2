@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { PluginService } from '../plugin.service';
 
 @Component({
@@ -7,15 +7,19 @@ import { PluginService } from '../plugin.service';
 	providers: [PluginService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CaptionComponent {
+export class CaptionComponent implements OnInit {
 	context: { $implicit: CaptionComponent } = {
 		$implicit: this
 	};
 
-	constructor(private plugin: PluginService) {
+	constructor(private plugin: PluginService, private cd: ChangeDetectorRef) {
 	}
 
-	public get value() {
+	ngOnInit() {
+		this.plugin.model.gridChanged.on(() => this.cd.detectChanges());
+	}
+
+	get value() {
 		const { caption, title } = this.plugin.model.grid();
 		return caption || title;
 	}

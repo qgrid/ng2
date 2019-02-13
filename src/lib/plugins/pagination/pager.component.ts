@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { PagerView } from 'ng2-qgrid/plugin/pager/pager.view';
 import { PluginService } from '../plugin.service';
 
@@ -14,7 +14,7 @@ export class PagerComponent implements OnInit, OnChanges {
 
 	context: { $implicit: PagerView };
 
-	constructor(private plugin: PluginService) {
+	constructor(private plugin: PluginService, private cd: ChangeDetectorRef) {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
@@ -22,7 +22,10 @@ export class PagerComponent implements OnInit, OnChanges {
 	}
 
 	ngOnInit() {
-		const pager = new PagerView(this.plugin.model, this.plugin.table);
+		const { model, table } = this.plugin;
+		const pager = new PagerView(model, table);
 		this.context = { $implicit: pager };
+
+		model.paginationChanged.on(() => this.cd.detectChanges());
 	}
 }

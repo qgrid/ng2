@@ -20,9 +20,7 @@ export class ProgressComponent implements OnInit, OnChanges {
 	}
 
 	ngOnInit() {
-		this.plugin.model.progressChanged.watch(() =>
-			this.cd.detectChanges()
-		);
+		this.plugin.model.progressChanged.watch(() => this.cd.detectChanges());
 	}
 
 	get isBusy() {

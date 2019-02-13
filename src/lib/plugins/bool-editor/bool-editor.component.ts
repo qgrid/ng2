@@ -18,9 +18,6 @@ export class BoolEditorComponent implements OnInit {
 		$implicit: this
 	};
 
-	constructor() {
-	}
-
 	@Input() get value() {
 		return this.state;
 	}
