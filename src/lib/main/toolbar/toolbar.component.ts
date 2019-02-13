@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TemplateHostService } from '../../template/template-host.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { TemplateHostService } from '../../template/template-host.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToolbarComponent {
-	constructor(private templateHost: TemplateHostService) {
+	constructor(templateHost: TemplateHostService) {
 		templateHost.key = source => `toolbar-${source}.tpl.html`;
 	}
 }

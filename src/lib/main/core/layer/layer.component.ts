@@ -8,7 +8,7 @@ import { TemplateHostService } from '../../../template/template-host.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LayerComponent {
-	constructor(private templateHost: TemplateHostService) {
+	constructor(templateHost: TemplateHostService) {
 		templateHost.key = source => `layer-${source}.tpl.html`;
 	}
 }

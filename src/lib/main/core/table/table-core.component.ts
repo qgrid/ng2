@@ -1,9 +1,10 @@
-import { OnInit, Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { OnInit, Component, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { RootService } from '../../../infrastructure/component/root.service';
 import { TableCoreService } from './table-core.service';
 import { ViewCoreService } from '../view/view-core.service';
+import { NgComponent } from '../../../infrastructure/component/ng.component';
 
 @Component({
 	selector: 'q-grid-core-table',
@@ -13,28 +14,33 @@ import { ViewCoreService } from '../view/view-core.service';
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableCoreComponent implements OnInit {
+export class TableCoreComponent extends NgComponent implements OnInit {
 	@Input() public pin = null;
 
 	constructor(
+		public $view: ViewCoreService,
+		private cd: ChangeDetectorRef,
 		private root: RootService,
 		private table: TableCoreService,
-		public $view: ViewCoreService) {
+	) {
+		super();
 	}
 
 	ngOnInit() {
+		const { model } = this.root;
+
 		if (!this.pin) {
 			this.pin = null;
 		}
 
 		this.table.pin = this.pin;
+		this.using(model.visibilityChanged.watch(e => {
+			this.cd.detectChanges();
+		}));
+
 	}
 
 	get visibility(): VisibilityModel {
-		return this.model.visibility();
-	}
-
-	get model(): Model {
-		return this.root.model;
+		return this.root.model.visibility();
 	}
 }

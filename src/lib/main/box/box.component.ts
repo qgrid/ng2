@@ -42,6 +42,7 @@ export class BoxComponent extends NgComponent implements OnInit, OnDestroy {
 	get model() {
 		const model = this.boxModel || (this.root && this.root.model);
 		Guard.notNull(model, 'model');
+
 		return model;
 	}
 }

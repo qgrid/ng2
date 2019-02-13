@@ -7,7 +7,4 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 })
 export class ToolbarCoreComponent {
 	@Input() position;
-
-	constructor() {
-	}
 }
