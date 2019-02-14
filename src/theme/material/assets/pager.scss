@@ -18,9 +18,11 @@
         }
     }
 
-    .q-grid-page {
+    .q-grid-pager-page {
         margin-left: 32px;
         margin-right: 14px;
+        min-width: 37.2px;
+        display: inline-block;
     }
 
     button {

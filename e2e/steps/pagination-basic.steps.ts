@@ -4,7 +4,7 @@ import { element, by, browser, ExpectedConditions as until } from 'protractor';
 When('I choose page size {int}', size => openPageSizeSelect().then(() => selectPageSizeOption(size)));
 
 function openPageSizeSelect() {
-	return element(by.css('mat-select.q-grid-page-size'))
+	return element(by.css('mat-select.q-grid-pager-page-size'))
 		.click()
 		.then(() =>
 			browser.wait(

@@ -10,10 +10,10 @@
 			</label>
 		</div>
 		<div *ngSwitchDefault class="q-grid-pager-select">
-			<label class="q-grid-page-size hide-xs">Rows per page:</label>
+			<label class="q-grid-pager-page-size hide-xs">Rows per page:</label>
 			<select tabindex="-1"
 			            aria-label="Page Size List"
-			            class="q-grid-page-size hide-xs"
+			            class="q-grid-pager-page-size hide-xs"
 			            [(ngModel)]="$pager.size">
 				<option *ngFor="let size of $pager.sizeList"
 				            [value]="size">{{size}}</option>
