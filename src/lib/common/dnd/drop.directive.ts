@@ -5,6 +5,7 @@ import { DragService } from 'ng2-qgrid/core/drag/drag.service';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { no } from 'ng2-qgrid/core/utility/kit';
+import { elementFromPoint, parents } from 'ng2-qgrid/core/services/dom';
 import { RootService } from '../../infrastructure/component/root.service';
 import { NgComponent } from '../../infrastructure/component/ng.component';
 
@@ -31,7 +32,7 @@ export class DropDirective extends NgComponent implements OnInit {
 	constructor(
 		@Optional() private root: RootService,
 		private elementRef: ElementRef,
-		private zone: NgZone
+		zone: NgZone
 	) {
 		super();
 
@@ -161,13 +162,8 @@ export class DropDirective extends NgComponent implements OnInit {
 		// Document.elementsFromPoint is not working with tr?
 		// so we need to go through all parent.
 
-		const path = [];
-		let element = document.elementFromPoint(x, y);
-		while (element) {
-			path.push(element);
-			element = element.parentElement;
-		}
-
+		const element = elementFromPoint(x, y);
+		const path = parents(element);
 		return path;
 	}
 
