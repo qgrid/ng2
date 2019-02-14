@@ -26,7 +26,7 @@ export class FootCoreComponent extends NgComponent implements OnInit {
 		this.using(model.sceneChanged.watch(e => {
 			if (e.hasChanges('status')) {
 				switch (e.state.status) {
-					case 'stop':
+					case 'push':
 						this.cd.detectChanges();
 						break;
 				}

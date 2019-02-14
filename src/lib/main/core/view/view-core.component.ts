@@ -67,23 +67,23 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 		const gridService = this.grid.service(model);
 		this.ctrl = new ViewCtrl(model, view, gridService);
 
-		model.sceneChanged.watch(e => {
-			if (e.hasChanges('status')) {
-				if (e.state.status === 'pull') {
-					this.cd.markForCheck();
+		this.using(model.sceneChanged.watch(e => {
+			if (e.hasChanges('status') && e.state.status === 'pull') {
+				this.cd.markForCheck();
 
-					// Run digest on the start of invalidate(e.g. for busy indicator)
-					// and on the ned of invalidate(e.g. to build the DOM)
-					this.zone.run(() =>
-						model.scene({
-							status: 'push'
-						}, {
-								source: 'view-core.component',
-								behavior: 'core'
-							}));
-				}
+				// Run digest on the start of invalidate(e.g. for busy indicator)
+				// and on the ned of invalidate(e.g. to build the DOM)
+				this.zone.run(() =>
+					model.scene({
+						status: 'push'
+					}, {
+							source: 'view-core.component',
+							behavior: 'core'
+						}));
 			}
-		});
+		}));
+
+		this.using(model.visibilityChanged.on(() => this.cd.detectChanges()));
 
 		const virtualBody = this.root.table.body as any;
 		if (virtualBody.requestInvalidate) {
