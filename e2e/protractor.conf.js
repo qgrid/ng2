@@ -9,6 +9,7 @@ exports.config = {
       args: ['--headless', '--disable-gpu', '--window-size=1920,1080']
     }
   },
+  SELENIUM_PROMISE_MANAGER: false,
   directConnect: true,
   specs: ['./features/*.feature'],
   baseUrl: 'http://localhost:4200/',
@@ -32,5 +33,6 @@ exports.config = {
     require('ts-node').register({
       project: './e2e/tsconfig.e2e.json'
     });
+    browser.driver.manage().window().setSize(1366, 1024);
   }
 };
