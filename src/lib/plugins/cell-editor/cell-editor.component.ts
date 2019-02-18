@@ -13,7 +13,7 @@ import {
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CellEditorComponent {
-	@ContentChild(TemplateRef) public template: TemplateRef<any>;
+	@ContentChild(TemplateRef) template: TemplateRef<any>;
 	@Output('close') closeEvent = new EventEmitter<any>();
 
 	context: { $implicit: CellEditorComponent } = {

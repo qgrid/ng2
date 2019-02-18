@@ -21,6 +21,9 @@ export class PositionDirective implements OnDestroy, OnInit {
 	}
 
 	ngOnDestroy() {
-		this.position.dispose();
+		if (this.position) {
+			this.position.dispose();
+			this.position = null;
+		}
 	}
 }

@@ -80,11 +80,12 @@ export class LayoutView extends Disposable {
 	}
 
 	updateColumnForm() {
-		const model = this.model;
-		const { head } = this.table;
+		const { model, table } = this;
+		const { head } = table;
+		const { cells } = head.context.bag;
 		const layout = model.layout().columns;
+
 		const form = new Map();
-		const { cells } = this.table.head.context.bag;
 		for (let cell of cells) {
 			const { column, rowIndex, columnIndex } = cell;
 			if (!column.canResize) {
@@ -97,6 +98,7 @@ export class LayoutView extends Disposable {
 			} else {
 				const th = head.cell(rowIndex, columnIndex);
 				const width = th.width();
+
 				// It can be that clientWidth is zero on start, while css is not applied.
 				if (width) {
 					form.set(key, { width });
@@ -106,7 +108,7 @@ export class LayoutView extends Disposable {
 
 		model.layout({ columns: form }, { source: 'layout.view', behavior: 'core' });
 
-		const { column } = this.model.navigation();
+		const { column } = model.navigation();
 		if (column && column.viewWidth) {
 			const viewForm = new Map(form)
 			const columnForm = form.get(column.key);
