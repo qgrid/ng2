@@ -1,12 +1,12 @@
 import {
 	Component,
-	ContentChild,
 	TemplateRef,
 	Output,
 	EventEmitter,
 	OnDestroy,
 	ElementRef,
-	ChangeDetectionStrategy
+	ChangeDetectionStrategy,
+	ViewChild
 } from '@angular/core';
 import { BackdropView } from 'ng2-qgrid/plugin/backdrop/backdrop.view';
 import { BackdropService } from './backdrop.service';
@@ -17,7 +17,7 @@ import { BackdropService } from './backdrop.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BackdropComponent implements OnDestroy {
-	@ContentChild(TemplateRef) public template: TemplateRef<any>;
+	@ViewChild(TemplateRef) public template: TemplateRef<any>;
 	@Output('close') closeEvent = new EventEmitter<any>();
 
 	context: { $implicit: BackdropComponent } = {

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChild, ElementRef, Input, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, TemplateRef, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { PluginService } from '../plugin.service';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { Command } from 'ng2-qgrid/core/command/command';
@@ -11,13 +11,13 @@ import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 
 @Component({
 	selector: 'q-grid-import',
-	template: '',
+	templateUrl: './import.component.html',
 	providers: [TemplateHostService, PluginService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImportComponent implements AfterViewInit {
 	@Input() options: any;
-	@ContentChild(TemplateRef) templateRef: TemplateRef<any>;
+	@ViewChild(TemplateRef) templateRef: TemplateRef<any>;
 
 	context: { $implicit: ImportComponent } = {
 		$implicit: this
