@@ -3,8 +3,7 @@ import {
 	Component,
 	OnInit,
 	EventEmitter,
-	Output,
-	ChangeDetectionStrategy
+	Output
 } from '@angular/core';
 import { ColumnFilterView } from 'ng2-qgrid/plugin/column-filter/column.filter.view';
 import { uniq, flatten } from 'ng2-qgrid/core/utility/kit';
@@ -19,8 +18,7 @@ import { PluginService } from '../plugin.service';
 @Component({
 	selector: 'q-grid-column-filter',
 	templateUrl: './column-filter.component.html',
-	providers: [FocusAfterRender, PluginService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	providers: [FocusAfterRender, PluginService]
 })
 export class ColumnFilterComponent implements OnInit {
 	@Input() column: ColumnModel;

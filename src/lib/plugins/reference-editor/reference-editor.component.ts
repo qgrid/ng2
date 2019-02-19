@@ -7,8 +7,7 @@ import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 @Component({
 	selector: 'q-grid-reference-editor',
-	templateUrl: './reference-editor.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	templateUrl: './reference-editor.component.html'
 })
 export class ReferenceEditorComponent extends NgComponent implements AfterViewInit {
 	private state: any;

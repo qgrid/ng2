@@ -6,8 +6,7 @@ import { predicateFactory } from 'ng2-qgrid/core/services/predicate';
 @Component({
 	selector: 'q-grid-autocomplete-editor',
 	templateUrl: './autocomplete-editor.component.html',
-	providers: [PluginService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	providers: [PluginService]
 })
 export class AutocompleteEditorComponent {
 	options: any[] = [];

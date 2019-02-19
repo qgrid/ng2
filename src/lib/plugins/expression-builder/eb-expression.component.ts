@@ -5,8 +5,7 @@ import { Watcher } from './digest/watch';
 
 @Component({
 	selector: 'q-grid-eb-expression',
-	templateUrl: './eb-expression.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	templateUrl: './eb-expression.component.html'
 })
 export class EbExpressionComponent implements OnInit, DoCheck {
 	private watchers: Watcher[];

@@ -7,8 +7,7 @@ import { PluginService } from '../plugin.service';
 @Component({
 	selector: 'q-grid-query-builder',
 	templateUrl: './query-builder.component.html',
-	providers: [PluginService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	providers: [PluginService]
 })
 export class QueryBuilderComponent implements OnInit {
 	context: { $implicit: QueryBuilderComponent } = {

@@ -15,8 +15,7 @@ import { PluginService } from '../plugin.service';
 @Component({
 	selector: 'q-grid-query-builder-panel',
 	templateUrl: './query-builder-panel.component.html',
-	providers: [FocusAfterRender, PluginService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	providers: [FocusAfterRender, PluginService]
 })
 export class QueryBuilderPanelComponent implements OnInit {
 	node: Node;

@@ -9,8 +9,7 @@ import { PluginService } from '../plugin.service';
 @Component({
 	selector: 'q-grid-persistence',
 	template: '',
-	providers: [PluginService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	providers: [PluginService]
 })
 export class PersistenceComponent implements OnInit, OnChanges {
 	constructor(private plugin: PluginService) {

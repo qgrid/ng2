@@ -6,8 +6,7 @@ import { Td } from 'ng2-qgrid/core/dom/td';
 @Component({
 	selector: 'q-grid-edit-form',
 	templateUrl: './edit-form.component.html',
-	providers: [PluginService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [PluginService]
 })
 export class EditFormComponent implements OnInit, OnDestroy {
 	@Input() caption: string;

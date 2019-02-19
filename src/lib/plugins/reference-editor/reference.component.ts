@@ -9,8 +9,7 @@ import { SelectionService } from 'ng2-qgrid/core/selection/selection.service';
 
 @Component({
 	selector: 'q-grid-reference',
-	templateUrl: './reference.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	templateUrl: './reference.component.html'
 })
 export class ReferenceComponent extends NgComponent implements OnInit {
 	private _value: any;

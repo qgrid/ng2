@@ -1,10 +1,9 @@
 import {
 	Component,
 	TemplateRef,
-	ContentChild,
 	ElementRef,
 	Input,
-	ChangeDetectionStrategy,
+	ViewChild
 } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
@@ -15,11 +14,12 @@ import { PluginService } from '../plugin.service';
 @Component({
 	selector: 'q-grid-tab-trap',
 	templateUrl: './tab-trap.component.html',
-	providers: [PluginService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	providers: [PluginService]
 })
 export class TabTrapComponent {
-	@ContentChild(TemplateRef) template: TemplateRef<any>;
+	private isActivating = false;
+
+	@ViewChild(TemplateRef) template: TemplateRef<any>;
 	@Input() roundTrip = false;
 
 	context: { $implicit: TabTrapComponent } = {
@@ -27,7 +27,6 @@ export class TabTrapComponent {
 	};
 
 	traps = new Map<string, any>();
-	private isActivating = false;
 
 	constructor(private plugin: PluginService, element: ElementRef) {
 		const listener = new EventListener(element.nativeElement, new EventManager(this));

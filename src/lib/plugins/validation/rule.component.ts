@@ -1,12 +1,11 @@
-import { Component, ContentChild, Input, OnChanges, SimpleChanges, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ContentChild, Input, OnChanges, SimpleChanges, TemplateRef } from '@angular/core';
 import { PluginService } from '../plugin.service';
 import { TemplateHostService } from '../../template/template-host.service';
 
 @Component({
 	selector: 'q-grid-rule',
 	template: '',
-	providers: [TemplateHostService, PluginService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [TemplateHostService, PluginService]
 })
 export class RuleComponent implements OnChanges {
 	@Input() for: string;

@@ -10,8 +10,7 @@ import { GridService } from '../../../main/grid/grid.service';
 @Component({
 	selector: 'q-grid-core-view',
 	templateUrl: './view-core.component.html',
-	providers: [CellService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	providers: [CellService]
 })
 export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 	private ctrl: ViewCtrl;

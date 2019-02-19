@@ -5,8 +5,7 @@ import { PluginService } from '../plugin.service';
 @Component({
 	selector: 'q-grid-persistence-panel',
 	templateUrl: './persistence-panel.component.html',
-	providers: [PluginService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	providers: [PluginService]
 })
 export class PersistencePanelComponent implements OnInit {
 	context: {

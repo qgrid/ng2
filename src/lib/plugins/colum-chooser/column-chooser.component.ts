@@ -30,8 +30,7 @@ export class RootContext {
 @Component({
 	selector: 'q-grid-column-chooser',
 	templateUrl: './column-chooser.component.html',
-	providers: [FocusAfterRender, PluginService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	providers: [FocusAfterRender, PluginService]
 })
 export class ColumnChooserComponent implements OnInit, OnChanges {
 	@Input('canAggregate') columnChooserCanAggregate: boolean;

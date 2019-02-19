@@ -3,8 +3,7 @@ import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 
 @Component({
 	selector: 'q-grid-column-filter-by',
-	templateUrl: './column-filter-by.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	templateUrl: './column-filter-by.component.html'
 })
 export class ColumnFilterByComponent {
 	@Input() by: Set<string>;
