@@ -66,7 +66,7 @@ export class CellService {
 
 	constructor(private templateService: TemplateService) { }
 
-	public build(source: string, column: ColumnModel, mode: 'view' | 'edit' = 'view') {
+	build(source: string, column: ColumnModel, mode: 'view' | 'edit' = 'view') {
 		if (!canBuild(column)) {
 			return noop;
 		}

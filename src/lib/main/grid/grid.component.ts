@@ -107,7 +107,7 @@ export class GridComponent extends RootComponent implements OnInit {
 
 	@Output() selectionChanged = new EventEmitter<any>();
 
-	public themeComponent: any;
+	themeComponent: any;
 
 	constructor(
 		private root: RootService,

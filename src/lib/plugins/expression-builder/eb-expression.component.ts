@@ -10,9 +10,10 @@ import { Watcher } from './digest/watch';
 })
 export class EbExpressionComponent implements OnInit, DoCheck {
 	private watchers: Watcher[];
-	@Input() public node: Node;
-	@Input() public line: Line;
-	@Input() public model: any;
+
+	@Input() node: Node;
+	@Input() line: Line;
+	@Input() model: any;
 
 	context: { $implicit: any, node: Node, line: Line };
 

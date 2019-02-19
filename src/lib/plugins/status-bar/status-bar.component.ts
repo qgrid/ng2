@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { TemplateHostService } from '../../template/template-host.service';
 import { PluginService } from '../plugin.service';
 
@@ -8,13 +8,21 @@ import { PluginService } from '../plugin.service';
 	providers: [TemplateHostService, PluginService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StatusBarComponent {
+export class StatusBarComponent implements OnInit {
 	context: { $implicit: StatusBarComponent } = {
 		$implicit: this
 	};
 
-	constructor(private plugin: PluginService, templateHost: TemplateHostService) {
+	constructor(
+		private plugin: PluginService,
+		private cd: ChangeDetectorRef,
+		templateHost: TemplateHostService) {
 		templateHost.key = () => 'plugin-status-bar.tpl.html';
+	}
+
+	ngOnInit() {
+		const { model } = this.plugin;
+		model.focusChanged.on(() => this.cd.detectChanges());
 	}
 
 	get rowIndex() {

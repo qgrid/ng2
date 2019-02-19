@@ -9,7 +9,7 @@ import { PluginService } from '../plugin.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataManipulationComponent implements OnInit, OnChanges {
-	@Input('rowFactory') public dataManipulationRowFactory: (x: any) => any;
+	@Input('rowFactory') dataManipulationRowFactory: (x: any) => any;
 
 	context: {
 		$implicit: DataManipulationView

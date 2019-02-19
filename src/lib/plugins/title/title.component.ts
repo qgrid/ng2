@@ -20,7 +20,7 @@ export class TitleComponent implements OnInit {
 		this.plugin.model.gridChanged.on(() => this.cd.detectChanges());
 	}
 
-	public get value() {
+	get value() {
 		return this.plugin.model.grid().title;
 	}
 }

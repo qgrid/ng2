@@ -33,7 +33,7 @@ export class VscrollPortYDirective extends VscrollPort implements OnInit {
 		return new VscrollLink(this);
 	}
 
-	public reset() {
+	reset() {
 		this.view.resetY();
 	}
 

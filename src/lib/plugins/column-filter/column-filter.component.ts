@@ -23,8 +23,8 @@ import { PluginService } from '../plugin.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnFilterComponent implements OnInit {
-	@Input() public column: ColumnModel;
-	@Input() public search = '';
+	@Input() column: ColumnModel;
+	@Input() search = '';
 
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();

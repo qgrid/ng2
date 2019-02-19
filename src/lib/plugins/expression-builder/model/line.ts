@@ -11,8 +11,8 @@ interface ExpressionEntry {
 }
 
 export class Line {
-	public immutable = true;
-	public readonly expressions: Expression[] = [];
+	immutable = true;
+	readonly expressions: Expression[] = [];
 
 	constructor(private GroupSchemaT: typeof GroupSchema) {
 	}

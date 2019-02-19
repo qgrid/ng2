@@ -3,7 +3,7 @@ import { Node } from './node';
 import { GroupExpression } from './expression';
 
 export class GroupSchema {
-	public plan: Array<(node: Node, line: Line, group: GroupExpression) => void> = [];
+	plan: Array<(node: Node, line: Line, group: GroupExpression) => void> = [];
 
 	constructor(public node: Node, public line: Line) {
 	}

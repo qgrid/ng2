@@ -4,7 +4,7 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 	selector: '[q-grid-stop-propagate]'
 })
 export class StopPropagateDirective implements OnInit {
-	@Input('q-grid-stop-propagate') public key = '';
+	@Input('q-grid-stop-propagate') key = '';
 
 	constructor(private element: ElementRef) {
 	}

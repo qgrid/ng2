@@ -15,7 +15,7 @@ import { NgComponent } from '../../../infrastructure/component/ng.component';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableCoreComponent extends NgComponent implements OnInit {
-	@Input() public pin = null;
+	@Input() pin = null;
 
 	constructor(
 		public $view: ViewCoreService,

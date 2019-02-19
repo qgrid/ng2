@@ -5,5 +5,5 @@ export class TableCoreService {
 	constructor() {
 	}
 
-	public pin: string;
+	pin: string;
 }
