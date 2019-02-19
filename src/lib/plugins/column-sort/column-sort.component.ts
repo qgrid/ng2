@@ -34,13 +34,13 @@ export class ColumnSortComponent implements AfterViewInit {
 	constructor(
 		private plugin: PluginService,
 		private view: ViewCoreService,
-		private element: ElementRef,
+		private elementRef: ElementRef,
 		private zone: NgZone
 	) {
 	}
 
 	ngAfterViewInit() {
-		const { nativeElement } = this.element;
+		const { nativeElement } = this.elementRef;
 		const iconAsc = nativeElement.querySelector('.q-grid-asc');
 		const iconDesc = nativeElement.querySelector('.q-grid-desc');
 

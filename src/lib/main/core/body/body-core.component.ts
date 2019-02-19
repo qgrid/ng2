@@ -22,9 +22,9 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 	rowId: (index: number, row: any) => any;
 
 	constructor(
-		private element: ElementRef,
 		public $view: ViewCoreService,
 		public $table: TableCoreService,
+		private elementRef: ElementRef,
 		private root: RootService,
 		private zone: NgZone,
 		private cd: ChangeDetectorRef
@@ -41,7 +41,7 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 
 		const table = this.$table;
 		const view = this.$view;
-		const nativeElement = this.element.nativeElement as HTMLElement;
+		const nativeElement = this.elementRef.nativeElement as HTMLElement;
 
 		const ctrl = new BodyCtrl(model, view, this.root.table, this.root.bag);
 		const listener = new EventListener(nativeElement, new EventManager(this));

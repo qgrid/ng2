@@ -34,9 +34,9 @@ export class TfCoreDirective implements Td, OnInit, OnDestroy {
 		private cellService: CellService,
 		private viewContainerRef: ViewContainerRef,
 		private tr: TrhCoreDirective,
-		element: ElementRef
+		elementRef: ElementRef
 	) {
-		this.element = element.nativeElement.parentNode;
+		this.element = elementRef.nativeElement.parentNode;
 	}
 
 	ngOnInit() {

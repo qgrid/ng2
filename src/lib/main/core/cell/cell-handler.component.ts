@@ -21,10 +21,10 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private initialEditState: 'view' | 'edit' | 'startBatch' | 'endBatch' = null;
 
 	constructor(
-		private element: ElementRef,
+		private elementRef: ElementRef,
 		private root: RootService
 	) {
-		this.element.nativeElement.style.display = 'none';
+		this.elementRef.nativeElement.style.display = 'none';
 	}
 
 	ngOnInit() {
@@ -38,12 +38,12 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-		this.element.nativeElement.style.display = '';
+		this.elementRef.nativeElement.style.display = '';
 	}
 
 	updateHandlerFactory() {
 		const { model, table } = this.root;
-		const element = this.element.nativeElement;
+		const element = this.elementRef.nativeElement;
 		const job = jobLine(150);
 
 		// When navigate first or when animation wasn't applied we need to omit

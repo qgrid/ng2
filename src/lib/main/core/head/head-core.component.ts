@@ -18,7 +18,7 @@ export class HeadCoreComponent extends NgComponent implements OnInit {
 		public $view: ViewCoreService,
 		public $table: TableCoreService,
 		private root: RootService,
-		private element: ElementRef,
+		private elementRef: ElementRef,
 		private zone: NgZone,
 		private cd: ChangeDetectorRef
 	) {
@@ -28,7 +28,7 @@ export class HeadCoreComponent extends NgComponent implements OnInit {
 	ngOnInit() {
 		const { model } = this.root;
 
-		const element = this.element.nativeElement;
+		const element = this.elementRef.nativeElement;
 		const ctrl = new HeadCtrl(model, this.$view, this.root.bag);
 		const listener = new EventListener(element, new EventManager(this));
 

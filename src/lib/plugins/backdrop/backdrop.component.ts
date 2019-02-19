@@ -13,8 +13,7 @@ import { BackdropService } from './backdrop.service';
 
 @Component({
 	selector: 'q-grid-backdrop',
-	templateUrl: './backdrop.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	templateUrl: './backdrop.component.html'
 })
 export class BackdropComponent implements OnDestroy {
 	@ViewChild(TemplateRef) public template: TemplateRef<any>;
@@ -24,11 +23,11 @@ export class BackdropComponent implements OnDestroy {
 		$implicit: this
 	};
 
-	constructor(private backdropService: BackdropService, element: ElementRef) {
-		backdropService.element = element;
+	constructor(private backdropService: BackdropService, elementRef: ElementRef) {
+		backdropService.element = elementRef;
 
 		const context = {
-			element: element.nativeElement,
+			element: elementRef.nativeElement,
 			onKeyDown: () => { },
 			propagate: false
 		};

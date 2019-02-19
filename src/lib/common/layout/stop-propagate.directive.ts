@@ -6,11 +6,11 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 export class StopPropagateDirective implements OnInit {
 	@Input('q-grid-stop-propagate') key = '';
 
-	constructor(private element: ElementRef) {
+	constructor(private elementRef: ElementRef) {
 	}
 
 	ngOnInit() {
-		this.element.nativeElement.addEventListener(this.key, e =>
+		this.elementRef.nativeElement.addEventListener(this.key, e =>
 			e.stopPropagation()
 		);
 	}

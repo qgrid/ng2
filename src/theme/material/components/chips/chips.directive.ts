@@ -14,7 +14,7 @@ import { Shortcut } from 'ng2-qgrid';
 })
 export class ChipsDirective implements AfterViewInit {
 	@ContentChild(MatChipInput) input: MatChipInput;
-	@ContentChild('chipInput') element: ElementRef;
+	@ContentChild('chipInput') elementRef: ElementRef;
 	@Output() push = new EventEmitter<string>();
 
 	ngAfterViewInit() {
@@ -22,7 +22,7 @@ export class ChipsDirective implements AfterViewInit {
 			// we need to override it to prevent default behavior
 		});
 
-		const input = this.element.nativeElement;
+		const input = this.elementRef.nativeElement;
 		input.addEventListener('keydown', e => {
 			const code = Shortcut.translate(e);
 			if (code === 'enter') {

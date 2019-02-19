@@ -3,12 +3,14 @@ import {
 	TemplateRef,
 	EventEmitter,
 	Output,
-	ViewChild
+	ViewChild,
+	ChangeDetectionStrategy
 } from '@angular/core';
 
 @Component({
 	selector: 'q-grid-cell-editor',
-	templateUrl: './cell-editor.component.html'
+	templateUrl: './cell-editor.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CellEditorComponent {
 	@ViewChild(TemplateRef) template: TemplateRef<any>;
@@ -17,10 +19,6 @@ export class CellEditorComponent {
 	context: { $implicit: CellEditorComponent } = {
 		$implicit: this
 	};
-
-	constructor() {
-
-	}
 
 	close() {
 		this.closeEvent.emit();

@@ -15,7 +15,7 @@ export class FocusDirective implements AfterViewInit {
 	@Input('q-grid-focus') selector;
 	@Input('q-grid-focus-disabled') disabled = false;
 
-	constructor(private element: ElementRef, private zone: NgZone) { }
+	constructor(private elementRef: ElementRef, private zone: NgZone) { }
 
 	ngAfterViewInit() {
 		if (this.disabled) {
@@ -24,8 +24,8 @@ export class FocusDirective implements AfterViewInit {
 
 		const selector = this.selector;
 		const element = selector
-			? isString(selector) ? this.element.nativeElement.querySelector(selector) : selector
-			: this.element.nativeElement;
+			? isString(selector) ? this.elementRef.nativeElement.querySelector(selector) : selector
+			: this.elementRef.nativeElement;
 
 		if (!element) {
 			throw new AppError(

@@ -27,10 +27,10 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy {
 		private viewContainerRef: ViewContainerRef,
 		private cellService: CellService,
 		private tr: TrCoreDirective,
-		element: ElementRef
+		elementRef: ElementRef
 	) {
 
-		this.element = element.nativeElement.parentNode;
+		this.element = elementRef.nativeElement.parentNode;
 	}
 
 	ngOnInit() {

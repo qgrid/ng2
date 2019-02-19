@@ -10,10 +10,10 @@ export class TabtrapInDirective implements OnInit {
 	@Input('q-grid-tab-trap-in') target;
 	@Input('q-grid-tab-trap-host') host: TabTrapComponent;
 
-	constructor(private element: ElementRef) {
-		element.nativeElement.tabIndex = 0;
+	constructor(private elementRef: ElementRef) {
+		elementRef.nativeElement.tabIndex = 0;
 
-		const listener = new EventListener(element.nativeElement, new EventManager(this));
+		const listener = new EventListener(elementRef.nativeElement, new EventManager(this));
 		listener.on('focus', () => this.host.activate(this.target));
 	}
 
@@ -22,6 +22,6 @@ export class TabtrapInDirective implements OnInit {
 	}
 
 	focus() {
-		this.element.nativeElement.focus();
+		this.elementRef.nativeElement.focus();
 	}
 }

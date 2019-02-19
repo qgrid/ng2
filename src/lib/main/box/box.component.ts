@@ -16,18 +16,19 @@ export class BoxComponent extends NgComponent implements OnInit, OnDestroy {
 
 	constructor(
 		@Optional() private root: RootService,
-		private element: ElementRef,
-		private theme: ThemeService) {
+		private elementRef: ElementRef,
+		private theme: ThemeService
+	) {
 		super();
 	}
 
 	ngOnInit() {
-		const ctrl = new BoxCtrl(this.model, this.element.nativeElement);
+		const ctrl = new BoxCtrl(this.model, this.elementRef.nativeElement);
 		this.initTheme();
 	}
 
 	initTheme() {
-		const element = this.element.nativeElement;
+		const element = this.elementRef.nativeElement;
 
 		this.using(this.theme.changed.watch(e => {
 			if (e) {

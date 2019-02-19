@@ -28,8 +28,8 @@ export class TabTrapComponent {
 
 	traps = new Map<string, any>();
 
-	constructor(private plugin: PluginService, element: ElementRef) {
-		const listener = new EventListener(element.nativeElement, new EventManager(this));
+	constructor(private plugin: PluginService, elementRef: ElementRef) {
+		const listener = new EventListener(elementRef.nativeElement, new EventManager(this));
 		listener.on('keydown', e => {
 			const code = Shortcut.translate(e);
 			if (code === 'tab' || code === 'shift+tab') {

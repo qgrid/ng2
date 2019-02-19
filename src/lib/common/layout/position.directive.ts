@@ -9,12 +9,12 @@ export class PositionDirective implements OnDestroy, OnInit {
 
 	@Input('q-grid-position') target = '';
 
-	constructor(private element: ElementRef) {
+	constructor(private elementRef: ElementRef) {
 	}
 
 	ngOnInit() {
 		this.position = new PositionView({
-			element: this.element.nativeElement,
+			element: this.elementRef.nativeElement,
 			targetName: this.target
 		});
 

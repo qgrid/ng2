@@ -109,7 +109,7 @@ export class GridComponent extends RootComponent implements OnInit {
 
 	constructor(
 		private root: RootService,
-		private element: ElementRef,
+		private elementRef: ElementRef,
 		private zone: NgZone,
 		private layerService: LayerService,
 		private cd: ChangeDetectorRef,
@@ -147,7 +147,7 @@ export class GridComponent extends RootComponent implements OnInit {
 
 	ngOnInit() {
 		const { model } = this.root;
-		const { nativeElement } = this.element;
+		const { nativeElement } = this.elementRef;
 
 		model.style({
 			classList: Array.from(nativeElement.classList)
