@@ -1,4 +1,4 @@
-import { Component, ElementRef, Optional, Input, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, Optional, Input, OnInit, OnDestroy } from '@angular/core';
 import { NgComponent } from '../../infrastructure/component/ng.component';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
@@ -9,8 +9,7 @@ import { ThemeService } from '../../template/theme.service';
 
 @Component({
 	selector: 'q-grid-box',
-	template: '<ng-content></ng-content>',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	template: '<ng-content></ng-content>'
 })
 export class BoxComponent extends NgComponent implements OnInit, OnDestroy {
 	@Input('model') private boxModel: Model = null;

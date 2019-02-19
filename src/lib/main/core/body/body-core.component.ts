@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, NgZone, Input, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, OnInit, NgZone, Input, ChangeDetectorRef } from '@angular/core';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
@@ -13,8 +13,7 @@ import { TableCoreService } from '../table/table-core.service';
 @Component({
 	// tslint:disable-next-line
 	selector: 'tbody[q-grid-core-body]',
-	templateUrl: './body-core.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	templateUrl: './body-core.component.html'
 })
 export class BodyCoreComponent extends NgComponent implements OnInit {
 	@Input() pin = 'body';
@@ -75,11 +74,16 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 		}));
 
 		this.using(model.sceneChanged.watch(e => {
-			if (e.hasChanges('status')) {
-				switch (e.state.status) {
-					case 'push':
-						this.cd.detectChanges();
-						break;
+			if (model.grid().interactionMode === 'detached') {
+				if (e.hasChanges('status')) {
+					switch (e.state.status) {
+						case 'stop':
+							this.cd.detach();
+							break;
+						case 'start':
+							this.cd.reattach();
+							break;
+					}
 				}
 			}
 		}));

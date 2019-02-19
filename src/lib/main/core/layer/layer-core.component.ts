@@ -3,8 +3,7 @@ import { LayerService } from './layer.service';
 
 @Component({
 	selector: 'q-grid-core-layer',
-	templateUrl: './layer-core.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	templateUrl: './layer-core.component.html'
 })
 export class LayerCoreComponent {
 	constructor(private layerService: LayerService) {

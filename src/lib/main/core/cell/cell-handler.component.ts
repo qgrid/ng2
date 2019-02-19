@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 import { EditService } from 'ng2-qgrid/core/edit/edit.service';
@@ -22,8 +22,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 	constructor(
 		private element: ElementRef,
-		private root: RootService,
-		private cd: ChangeDetectorRef
+		private root: RootService
 	) {
 		this.element.nativeElement.style.display = 'none';
 	}

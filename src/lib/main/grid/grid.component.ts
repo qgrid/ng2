@@ -8,7 +8,6 @@ import {
 	ElementRef,
 	NgZone,
 	Inject,
-	ChangeDetectionStrategy,
 	ChangeDetectorRef
 } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
@@ -50,8 +49,7 @@ import { GridModel } from '../../plugins/plugin.service';
 	],
 	styleUrls: ['../../assets/index.scss'],
 	templateUrl: './grid.component.html',
-	encapsulation: ViewEncapsulation.None,
-	changeDetection: ChangeDetectionStrategy.OnPush
+	encapsulation: ViewEncapsulation.None
 })
 export class GridComponent extends RootComponent implements OnInit {
 	@Input() model: GridModel;

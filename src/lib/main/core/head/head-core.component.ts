@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, NgZone, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ElementRef, NgZone, ChangeDetectorRef } from '@angular/core';
 import { ViewCoreService } from '../view/view-core.service';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
@@ -11,8 +11,7 @@ import { NgComponent } from '../../../infrastructure/component/ng.component';
 @Component({
 	// tslint:disable-next-line
 	selector: 'thead[q-grid-core-head]',
-	templateUrl: './head-core.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	templateUrl: './head-core.component.html'
 })
 export class HeadCoreComponent extends NgComponent implements OnInit {
 	constructor(
@@ -21,7 +20,7 @@ export class HeadCoreComponent extends NgComponent implements OnInit {
 		private root: RootService,
 		private element: ElementRef,
 		private zone: NgZone,
-		private cd: ChangeDetectorRef;
+		private cd: ChangeDetectorRef
 	) {
 		super();
 	}
@@ -39,11 +38,16 @@ export class HeadCoreComponent extends NgComponent implements OnInit {
 		});
 
 		this.using(model.sceneChanged.watch(e => {
-			if (e.hasChanges('status')) {
-				switch (e.state.status) {
-					case 'push':
-						this.cd.detectChanges();
-						break;
+			if (model.grid().interactionMode === 'detached') {
+				if (e.hasChanges('status')) {
+					switch (e.state.status) {
+						case 'stop':
+							this.cd.detach();
+							break;
+						case 'start':
+							this.cd.reattach();
+							break;
+					}
 				}
 			}
 		}));
