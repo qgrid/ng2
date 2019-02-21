@@ -1,9 +1,8 @@
 import { Component, Input, ChangeDetectionStrategy, OnDestroy, SkipSelf, Optional, OnInit, ElementRef } from '@angular/core';
 import { isUndefined } from 'ng2-qgrid/core/utility/kit';
-import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
+import { guid } from 'ng2-qgrid/core/services/guid';
 import { TemplateHostService } from '../../template/template-host.service';
 import { ColumnListService } from '../../main/column/column-list.service';
-import { guid } from 'ng2-qgrid/core/services/guid';
 import { ColumnService } from './column.service';
 
 @Component({

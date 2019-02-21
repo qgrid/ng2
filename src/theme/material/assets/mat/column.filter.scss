@@ -11,5 +11,13 @@
             margin-left: 0;
             margin-right: 0;
         }
+        .mat-card-header-text {
+            overflow: hidden;
+            .mat-card-title {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+        }
     }
 }
