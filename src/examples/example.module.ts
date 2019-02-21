@@ -125,6 +125,7 @@ import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/examp
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
 import { ExampleValidationBasicComponent } from './validation-basic/example-validation-basic.component';
+import { ExampleKeyWithSymbolsComponent } from './key-with-symbols/example-key-with-symbols.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -195,6 +196,7 @@ const EXAMPLES: Array<any> = [
 	ExampleIndexColumnModelComponent,
 	ExampleInteractionModeDetachedComponent,
 	ExampleInteractionModeReadonlyComponent,
+	ExampleKeyWithSymbolsComponent,
 	ExampleLayerGridBlankComponent,
 	ExampleLegendGridBasicComponent,
 	ExampleLiveDataBasicComponent,
@@ -243,7 +245,7 @@ const EXAMPLES: Array<any> = [
 	ExampleSummaryColumnBasicComponent,
 	ExampleThemeGridDarkComponent,
 	ExampleThemeGridEmbedComponent,
-	ExampleValidationBasicComponent
+	ExampleValidationBasicComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;

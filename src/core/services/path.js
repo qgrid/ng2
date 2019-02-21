@@ -1,5 +1,4 @@
-export function compile(path) {
-	const parts = path.split('.');
+export function compile(parts) {
 	const last = parts.length - 1;
 	const accessor = getAccessor(parts, last);
 	const key = parts[last];

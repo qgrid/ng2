@@ -100,7 +100,7 @@ export function generate(settings) {
 	if (context.rows.length) {
 		return build(
 			context.rows[0],
-			null,
+			[],
 			context.columnFactory,
 			context.deep,
 			context.cohort,
@@ -111,10 +111,11 @@ export function generate(settings) {
 	return [];
 }
 
-function build(graph, path, columnFactory, deep, cohort, title) {
+function build(graph, pathParts, columnFactory, deep, cohort, title) {
 	const props = Object.getOwnPropertyNames(graph);
-	return props.reduce((memo, prop) => {
-		const propPath = path ? `${path}.${prop}` : prop;
+	return props.reduce((memo, prop) => {		
+		const propParts = [...pathParts, prop];
+		const propPath = propParts.join('.');
 
 		const value = graph[prop];
 		const type = getType(value);
@@ -123,8 +124,7 @@ function build(graph, path, columnFactory, deep, cohort, title) {
 				const column = columnFactory(type).model;
 				column.key = propPath;
 				column.title = title(propPath, graph, column.length);
-				column.path = propPath;
-				column.value = compile(propPath);
+				column.value = compile(propParts);
 				column.source = 'generation';
 				if (value.length) {
 					column.itemType = getType(value[0]);
@@ -146,7 +146,7 @@ function build(graph, path, columnFactory, deep, cohort, title) {
 				if (deep) {
 					const columns = build(
 						value,
-						propPath,
+						propParts,
 						columnFactory,
 						deep,
 						cohort,
@@ -157,8 +157,7 @@ function build(graph, path, columnFactory, deep, cohort, title) {
 						const column = columnFactory('cohort').model;
 						column.key = propPath;
 						column.title = title(propPath, graph, column.length);
-						column.path = propPath;
-						column.value = compile(propPath);
+						column.value = compile(propParts);
 						column.source = 'generation';
 						column.children.push(...columns);
 						memo.push(column);
@@ -173,8 +172,7 @@ function build(graph, path, columnFactory, deep, cohort, title) {
 				const column = columnFactory(type).model;
 				column.key = propPath;
 				column.title = title(propPath, graph, column.length);
-				column.path = propPath;
-				column.value = compile(propPath);
+				column.value = compile(propParts);
 				column.source = 'generation';
 				memo.push(column);
 				break;

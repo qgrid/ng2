@@ -34,7 +34,6 @@ export class ColumnListCtrl {
 				const accessor = compile(key);
 				const targetValue = accessor(target);
 				const targetType = getType(targetValue);
-				const sourceType = getType(sourceValue);
 				let value = sourceValue;
 				if (targetValue !== null && !isUndefined(targetValue)) {
 					const parse = parseFactory(targetType);
