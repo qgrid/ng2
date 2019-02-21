@@ -127,6 +127,7 @@ import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme
 import { ExampleValidationBasicComponent } from './validation-basic/example-validation-basic.component';
 import { ExampleKeyWithSymbolsComponent } from './key-with-symbols/example-key-with-symbols.component';
 import { ExampleRestApiBasicComponent } from './rest-api-basic/example-rest-api-basic.component';
+import { ExampleDetailsRowApiComponent } from './details-row-api/example-details-row-api.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -160,6 +161,7 @@ const EXAMPLES: Array<any> = [
 	ExampleDestroyGridBasicComponent,
 	ExampleDestroyGridModelComponent,
 	ExampleDetailsRowAllComponent,
+	ExampleDetailsRowApiComponent,
 	ExampleDetailsRowBasicComponent,
 	ExampleDetailsRowGridComponent,
 	ExampleDetailsRowStartComponent,
