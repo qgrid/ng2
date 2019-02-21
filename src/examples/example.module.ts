@@ -126,6 +126,7 @@ import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-g
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
 import { ExampleValidationBasicComponent } from './validation-basic/example-validation-basic.component';
 import { ExampleKeyWithSymbolsComponent } from './key-with-symbols/example-key-with-symbols.component';
+import { ExampleRestApiBasicComponent } from './rest-api-basic/example-rest-api-basic.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -221,6 +222,7 @@ const EXAMPLES: Array<any> = [
 	ExamplePivotColumnGroupComponent,
 	ExamplePivotColumnTemplateComponent,
 	ExamplePluginGridBasicComponent,
+	ExampleRestApiBasicComponent,
 	ExampleScrollVirtualBasicComponent,
 	ExampleScrollVirtualDetailsComponent,
 	ExampleScrollVirtualDragComponent,
