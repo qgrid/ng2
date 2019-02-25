@@ -22,6 +22,10 @@ export class ExampleColumnRowOptionsBasicComponent {
 			'link'
 		),
 		new Action(
+			new Command(),
+			'---'
+		),
+		new Action(
 			new Command({
 				execute: () => alert('hello world'),
 				shortcut: 'alt+h'

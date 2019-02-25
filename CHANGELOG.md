@@ -12,6 +12,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float Row Navigation.
 * Group keyboard navigation improvements.
 
+## [6.3.0] - 2019-02-22
+## Changed
+- Show action title if icon is not set.
+- Get rid of ng-template in cell editor component.
+
+## Fixed
+- Custom symbols in the column `key`.
+- Fix column chooser label style.
+- Fix column filter header style.
+- Pagination styles.
+
 ## [6.2.4] - 2019-02-05
 ### Fixed
 - Row options shortcut fix for multiple actions.
