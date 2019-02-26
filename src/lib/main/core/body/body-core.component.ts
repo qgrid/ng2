@@ -59,11 +59,13 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 
 			this.using(listener.on('mousemove', ctrl.onMouseMove.bind(ctrl)));
 			this.using(listener.on('mouseleave', ctrl.onMouseLeave.bind(ctrl)));
+
+			this.using(listener.on('mousedown', ctrl.onMouseDown.bind(ctrl)));
+			this.using(listener.on('mouseup', e => {
+				ctrl.onMouseUp(e);
+				this.cd.detectChanges();
+			}));
 		});
-
-		this.using(listener.on('mousedown', ctrl.onMouseDown.bind(ctrl)));
-		this.using(listener.on('mouseup', ctrl.onMouseUp.bind(ctrl)));
-
 
 		this.using(model.dataChanged.watch(e => {
 			if (e.hasChanges('id')) {

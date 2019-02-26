@@ -128,6 +128,8 @@ import { ExampleValidationBasicComponent } from './validation-basic/example-vali
 import { ExampleKeyWithSymbolsComponent } from './key-with-symbols/example-key-with-symbols.component';
 import { ExampleRestApiBasicComponent } from './rest-api-basic/example-rest-api-basic.component';
 import { ExampleDetailsRowApiComponent } from './details-row-api/example-details-row-api.component';
+import { ExampleSelectRowSingleComponent } from './select-row-single/example-select-row-single.component';
+import { ExampleSelectRowCommandComponent } from './select-row-command/example-select-row-command.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -238,6 +240,8 @@ const EXAMPLES: Array<any> = [
 	ExampleSelectColumnBasicComponent,
 	ExampleSelectMixBasicComponent,
 	ExampleSelectRowBasicComponent,
+	ExampleSelectRowCommandComponent,
+	ExampleSelectRowSingleComponent,
 	ExampleSizeColumnAbsoluteComponent,
 	ExampleSizeColumnBasicComponent,
 	ExampleSizeColumnFullComponent,

@@ -13,6 +13,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Group keyboard navigation improvements.
 
 ## [6.3.0] - 2019-02-22
+## Added
+- Add support row options menu dividers.
+
 ## Changed
 - Show action title if icon is not set.
 - Get rid of ng-template in cell editor component.
