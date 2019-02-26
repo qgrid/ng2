@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 import { EditService } from 'ng2-qgrid/core/edit/edit.service';
@@ -18,11 +18,12 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 	private startCell: CellView = null;
 	private initialSelectionMode: 'single' | 'multiple' | 'range' = null;
-	private initialEditState: 'view' | 'edit' | 'startBatch' | 'endBatch' = null;
+	private initialEditState: 'view' | 'edit' | 'startBatch' | 'endBatch' = null; 
 
 	constructor(
 		private element: ElementRef,
-		private root: RootService
+		private root: RootService,
+		private cdRef: ChangeDetectorRef
 	) {
 		this.element.nativeElement.style.display = 'none';
 	}
@@ -133,14 +134,17 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		});
 
 		return (e: ModelEventArg<NavigationModel>) => {
+			const { method } = model.edit();
+			if (!this.marker && method === 'batch') {
+				this.cdRef.detectChanges(); // need to make marker visible when html template rendered for the first time
+			}
+
 			if (!this.marker) {
 				return;
 			}
 
 			if (e.hasChanges('cell')) {
 				const { rowIndex, columnIndex } = e.state;
-				const { method, state } = model.edit();
-
 				const cell = table.body.cell(rowIndex, columnIndex).model();
 
 				if (method === 'batch') {
@@ -155,6 +159,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 					oldCell = cell;
 				}
 
+				const { state } = model.edit();
 				if (state === 'startBatch' && !this.startCell) {
 					this.startCell = cell;
 				}
@@ -181,7 +186,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		if (column) {
 			const type = column.type;
 			return model.edit().method === 'batch';
-		}
+		} 
 
 		return false;
 	}
