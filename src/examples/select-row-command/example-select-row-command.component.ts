@@ -23,7 +23,9 @@ export class ExampleSelectRowCommandComponent implements AfterViewInit {
 
 		model.selection({
 			toggle: new Command({
-				canExecute: e => e.items.length === 1
+				canExecute: e => {
+					return e.items[0] !== model.selection().items[0];
+				}
 			})
 		});
 	}
