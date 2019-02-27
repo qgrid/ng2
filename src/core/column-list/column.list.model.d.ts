@@ -62,7 +62,7 @@ export declare interface ColumnListModel {
 	 * object as `{columnType: myColumn}`. The reference settings will be applied for all
 	 * column of appropriate type as defaults.
 	 */
-	reference?: object;
+	reference?: { [type: string]: ColumnModel };
 
 	/**
 	 * Flatten list of data columns, filled automatically on data columns changes.

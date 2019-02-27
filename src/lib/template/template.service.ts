@@ -11,7 +11,7 @@ export class TemplateService {
 		private templateCache: TemplateCacheService
 	) { }
 
-	viewFactory(context: object) {
+	viewFactory(context: any) {
 		return (link: TemplateLink, viewContainerRef: ViewContainerRef): EmbeddedViewRef<any> => {
 			const { template } = link;
 			return viewContainerRef.createEmbeddedView(template, context);

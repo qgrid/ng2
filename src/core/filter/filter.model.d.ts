@@ -42,7 +42,7 @@ export declare interface FilterModel {
 	 * * `blanks` boolean value that indicates should we filter blanks values or not.
 	 * * `expression` and\or expression
 	 */
-	by?: object;
+	by?: { [key: string]: any };
 
 	/**
 	 * Filter representation enum:

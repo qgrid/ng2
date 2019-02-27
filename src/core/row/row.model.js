@@ -1,4 +1,5 @@
 import { Resource } from '../resource/resource';
+import { Command } from '../command/command';
 
 export class RowModel {
 	constructor() {
@@ -15,5 +16,6 @@ export class RowModel {
 		this.canResize = false;
 		this.pinTop = [];
 		this.pinBottom = [];
+		this.toggle = new Command();
 	}
 }

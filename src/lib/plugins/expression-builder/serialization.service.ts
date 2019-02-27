@@ -134,7 +134,7 @@ class Deserializer {
 	}
 }
 
-function traverse(node: Node, map: Object) {
+function traverse(node: Node, map: { [key: string]: Node }) {
 	if (!map.hasOwnProperty(node.id)) {
 		map[node.id] = node;
 	}
@@ -147,7 +147,7 @@ function traverse(node: Node, map: Object) {
 
 export declare interface ISerializationNode {
 	id: string;
-	attributes: Object;
+	attributes: any;
 	children: ISerializationNode[];
 	line: ISerializationGroup[];
 }

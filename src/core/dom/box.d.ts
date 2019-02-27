@@ -3,6 +3,7 @@ import { Cell } from './cell';
 import { Column } from './column';
 import { Row } from './row';
 import { Bag } from './bag';
+import { Model } from '../infrastructure/model';
 
 export interface BoxMapper {
 	row(): any;
@@ -22,7 +23,7 @@ export interface BoxContext {
 }
 
 export declare class Box {
-	constructor(context: BoxContext);
+	constructor(context: BoxContext, model: Model, selectorMark: any);
 
 	cell(rowIndex: number, columnIndex: number): Cell;
 	column(columnIndex: number): Column;

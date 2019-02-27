@@ -10,8 +10,7 @@ export class RowDetailsView {
 			source: 'row.details.view',
 			execute: row => {
 				if (!row) {
-					const currentRow = model.navigation().row;
-					row = currentRow;
+					row = model.navigation().row;;
 				}
 
 				const status = toggleStatus([row], model.row().status, model.row().mode);

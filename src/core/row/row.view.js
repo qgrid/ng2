@@ -18,7 +18,6 @@ export class RowView {
 					return true;
 				}
 
-				const oldIndex = e.dragData;
 				const row = pathFinder.row(eventPath(e));
 				return !!row;
 			},
