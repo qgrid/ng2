@@ -25,7 +25,7 @@ When('I look at the Page', { timeout: 20 * 1000 }, async () => {
 	await browser.sleep(3000);
 	currentScreenshot = await browser.takeScreenshot();
 });
-Then('Page looks the same as before', async () => await expect(await blueharvest.compareScreenshot(currentScreenshot, goldenPath, diffDir))
+Then('Page looks the same as before', { timeout: 20 * 1000 }, async () => await expect(await blueharvest.compareScreenshot(currentScreenshot, goldenPath, diffDir))
 														.to
 														.satisfy(result => result.includes('The test passed. ') || result.includes('was successfully updated')));
 When('I click {string} button', (element:string) => clickElement(element));

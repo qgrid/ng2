@@ -1,6 +1,6 @@
 Feature: Column Email Basic
 
-	Scenario: column-email-basic is the same after clicking on Invalid cell
+	Scenario: column-email-basic is the same after clicking on With Label cell
 		Given I am on "column-email-basic"
 		When I click cell "With Label"[0]
 		And I look at the Page
