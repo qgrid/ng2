@@ -11,5 +11,5 @@ export declare interface ValidationModel {
 	/**
 	 * List of validation rules.
 	 */
-	rules?: object[];
+	rules?: any[];
 }
