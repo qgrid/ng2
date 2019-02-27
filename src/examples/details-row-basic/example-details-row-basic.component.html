@@ -1,37 +1,36 @@
 <q-grid caption="Details Row Basic"
-        [rows]="rows | async">
+		[rows]="rows | async">
 	<q-grid-columns generation="deep">
 		<q-grid-column key="number"
-		               type="id"
-		               title="#"
-		               width="70">
+					   type="id"
+					   title="#"
+					   [width]="70">
 		</q-grid-column>
 		<q-grid-column key="symbol"
-		               title="Symbol"
-		               width="90">
+					   title="Symbol"
+					   [width]="90">
 		</q-grid-column>
 		<q-grid-column key="name"
-		               title="Name">
+					   title="Name">
 		</q-grid-column>
 		<q-grid-column key="source"
-		               title="Source"
-		               type="url"
-		               width="300">
+					   title="Source"
+					   type="url"
+					   [width]="300">
 		</q-grid-column>
 		<q-grid-column *ngFor="let key of ['color', 'appearance', 'groupBlock', 'bondingType', 'period', 'radius', 'boil', 'shells', 'melt']"
-	
-		               [key]=key
-		               isVisible="false">
+					   [key]="key"
+					   [isVisible]="false">
 		</q-grid-column>
 	</q-grid-columns>
 
 	<q-grid-row unit="details"
-	            mode="single">
+				mode="single">
 		<ng-template for="details"
-		             let-$cell>
+					 let-$cell>
 			<div class="atom-details">
 				<div class="atom-box"
-				     [style.background-color]="'#' + $cell.row.item.color">
+					 [style.background-color]="'#' + $cell.row.item.color">
 					<div class="atom-number">
 						{{$cell.row.item.number}}
 					</div>

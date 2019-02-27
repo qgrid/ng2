@@ -131,6 +131,7 @@ import { ExampleDetailsRowApiComponent } from './details-row-api/example-details
 import { ExampleSelectRowSingleComponent } from './select-row-single/example-select-row-single.component';
 import { ExampleSelectRowCommandComponent } from './select-row-command/example-select-row-command.component';
 import { ExampleVisibilityBasicComponent } from './visibility-basic/example-visibility-basic.component';
+import { ExampleVisibilityModelComponent } from './visibility-model/example-visibility-model.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -256,6 +257,7 @@ const EXAMPLES: Array<any> = [
 	ExampleThemeGridEmbedComponent,
 	ExampleValidationBasicComponent,
 	ExampleVisibilityBasicComponent,
+	ExampleVisibilityModelComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;

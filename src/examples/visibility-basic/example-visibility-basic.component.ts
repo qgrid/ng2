@@ -10,27 +10,10 @@ import { GridComponent } from 'ng2-qgrid';
 	providers: [DataService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExampleVisibilityBasicComponent implements AfterViewInit {
-	@ViewChild(GridComponent) grid: GridComponent;
-
+export class ExampleVisibilityBasicComponent {
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {
 		this.rows = dataService.getAtoms();
-	}
-
-	ngAfterViewInit() {
-		const { model } = this.grid;
-
-		model.visibility({
-			foot: false,
-			head: false,
-			toolbar: {
-				bottom: false,
-				left: false,
-				right: false,
-				top: false
-			},
-		});
 	}
 }
