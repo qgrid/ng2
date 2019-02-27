@@ -24,7 +24,7 @@ export declare interface RowModel {
 	 * Indicates if row details is turned on.
 	 */
 	unit?: 'data' | 'details';
-	
+
 	height?: (element: HTMLElement, index: number) => number | number;
 
 	/**
@@ -55,10 +55,10 @@ export declare interface RowModel {
 	/**
 	 * 
 	 */
-	toggle?: Command;
+	toggle?: Command<{ row: any }>;
 
 	/**
 	 * Keyboard shortcuts to control actions.
 	 */
-	shortcut: { [key: string]: string };
+	shortcut?: { [key: string]: string };
 }

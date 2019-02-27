@@ -22,7 +22,7 @@ import { ColumnView } from '../scene/view/column.view';
  * </q-grid>
  * ```
  *
- * In js code throught model:
+ * In js code through model:
  * ```javascript
  * const myRows = [];
  * const myColumns = [];

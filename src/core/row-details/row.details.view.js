@@ -13,10 +13,13 @@ export class RowDetailsView {
 					row = model.navigation().row;;
 				}
 
-				const status = toggleStatus([row], model.row().status, model.row().mode);
-				model.row({ status }, {
-					source: 'row.details.view'
-				});
+				const { toggle } = model.row();
+				if (toggle.execute({ row }) !== false) {
+					const status = toggleStatus([row], model.row().status, model.row().mode);
+					model.row({ status }, {
+						source: 'row.details.view'
+					});
+				}
 			},
 			canExecute: row => {
 				if (!row) {
@@ -26,7 +29,8 @@ export class RowDetailsView {
 					}
 				}
 
-				return !!row;
+				const { toggle } = model.row();
+				return !!row && toggle.canExecute({ row });
 			},
 			shortcut: model.row().shortcut.toggle
 		});
