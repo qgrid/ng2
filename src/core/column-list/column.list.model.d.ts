@@ -18,7 +18,7 @@ import { Node } from '../node/node';
  * ```html
  * <q-grid>
  *    <q-grid-columns>
- *       <q-grid-column type="number" canSort="false" canFilter="false"></q-grid-column>
+ *       <q-grid-column type="number" [canSort]="false" [canFilter]="false"></q-grid-column>
  *    </q-grid-columns>
  * </q-grid>
  * ```
