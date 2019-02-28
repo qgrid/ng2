@@ -55,8 +55,7 @@ export class ActionCoreComponent {
 			throw new AppError('action-core.component', 'Action should be setup');
 		}
 
-		const shortcut = this.shortcut;
-		return action.title + (shortcut ? ` (${shortcut.toUpperCase()})` : '');
+		return action.title;
 	}
 
 	get icon() {
