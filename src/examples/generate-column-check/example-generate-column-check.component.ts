@@ -9,6 +9,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 export class ExampleGenerateColumnCheckComponent {
 	rows = [
 		{
+			number: '1',
 			notNumber: '1',
 			notDate: '1983-09-18',
 			notBoolean: 'true',
@@ -18,6 +19,7 @@ export class ExampleGenerateColumnCheckComponent {
 			notArray: ['1', '2', '3'],
 		},
 		{
+			number: '',
 			notNumber: 'some text',
 			notDate: 'some text',
 			notBoolean: 'some text',
