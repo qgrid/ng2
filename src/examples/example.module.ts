@@ -31,6 +31,7 @@ import { ExampleColumnRowNumberBasicComponent } from './column-row-number-basic/
 import { ExampleColumnRowOptionsBasicComponent } from './column-row-options-basic/example-column-row-options-basic.component';
 import { ExampleColumnTextBasicComponent } from './column-text-basic/example-column-text-basic.component';
 import { ExampleColumnTimeBasicComponent } from './column-time-basic/example-column-time-basic.component';
+import { ExampleColumnTypeSafeComponent } from './column-type-safe/example-column-type-safe.component';
 import { ExampleColumnUrlBasicComponent } from './column-url-basic/example-column-url-basic.component';
 import { ExampleDefineColumnAsyncComponent } from './define-column-async/example-define-column-async.component';
 import { ExampleDefineColumnBasicComponent } from './define-column-basic/example-define-column-basic.component';
@@ -159,6 +160,7 @@ const EXAMPLES: Array<any> = [
 	ExampleColumnRowOptionsBasicComponent,
 	ExampleColumnTextBasicComponent,
 	ExampleColumnTimeBasicComponent,
+	ExampleColumnTypeSafeComponent,
 	ExampleColumnUrlBasicComponent,
 	ExampleDefineColumnAsyncComponent,
 	ExampleDefineColumnBasicComponent,
