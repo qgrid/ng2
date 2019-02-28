@@ -30,6 +30,18 @@ export function parseFactory(type, editor) {
 	}
 }
 
+export function resolveType(values) {
+	const types = values.map(getType);
+	if (types.length) {
+		const test = types[0];
+		if (types.every(x => x === test)) {
+			return test;
+		}
+	}
+
+	return 'text';
+}
+
 export function getType(value) {
 	if (isArray(value)) {
 		if (value.length) {

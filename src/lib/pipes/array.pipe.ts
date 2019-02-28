@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { isArray } from 'ng2-qgrid/core/utility/kit';
+import { isArray, isUndefined } from 'ng2-qgrid/core/utility/kit';
 import { Log } from 'ng2-qgrid/core/infrastructure/log';
 
 @Pipe({
@@ -12,6 +12,6 @@ export class ArrayPipe implements PipeTransform {
 		}
 
 		Log.warn('ArrayPipe', `${value} is not of array type`);
-		return [value];
+		return isUndefined(value) || value === null ? [] : [value];
 	}
 }

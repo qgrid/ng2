@@ -1,6 +1,6 @@
 import { merge as mergeFactory } from '../services/merge';
 import { compile } from '../services/path';
-import { getType } from '../services/convert';
+import { getType, resolveType } from '../services/convert';
 import { TextColumnModel } from '../column-type/text.column';
 import { assignWith, isUndefined, noop, startCase } from '../utility/kit';
 import { columnFactory } from '../column/column.factory';
@@ -94,7 +94,8 @@ export function generate(settings) {
 		cohort: false,
 		rows: [],
 		columnFactory: () => new TextColumnModel(),
-		title: startCase
+		title: startCase,
+		testNumber: 10
 	}, settings);
 
 	if (context.rows.length) {
@@ -104,30 +105,33 @@ export function generate(settings) {
 			context.columnFactory,
 			context.deep,
 			context.cohort,
-			context.title
+			context.title,
+			context.rows.slice(0, context.testNumber)
 		);
 	}
 
 	return [];
 }
 
-function build(graph, pathParts, columnFactory, deep, cohort, title) {
+function build(graph, pathParts, columnFactory, deep, cohort, title, rows) {
 	const props = Object.getOwnPropertyNames(graph);
-	return props.reduce((memo, prop) => {		
+	return props.reduce((memo, prop) => {
 		const propParts = [...pathParts, prop];
+		const propValue = compile(propParts);
 		const propPath = propParts.join('.');
 
-		const value = graph[prop];
-		const type = getType(value);
+		const subject = graph[prop];
+		const type = resolveType(rows.map(propValue));
+
 		switch (type) {
 			case 'array': {
 				const column = columnFactory(type).model;
 				column.key = propPath;
 				column.title = title(propPath, graph, column.length);
-				column.value = compile(propParts);
+				column.value = propValue;
 				column.source = 'generation';
-				if (value.length) {
-					column.itemType = getType(value[0]);
+				if (subject.length) {
+					column.itemType = getType(subject[0]);
 					switch (column.itemType) {
 						case 'date': {
 							column.itemFormat = columnFactory('date').model.format;
@@ -145,19 +149,20 @@ function build(graph, pathParts, columnFactory, deep, cohort, title) {
 			case 'object': {
 				if (deep) {
 					const columns = build(
-						value,
+						subject,
 						propParts,
 						columnFactory,
 						deep,
 						cohort,
-						title
+						title,
+						rows
 					);
 
 					if (cohort) {
 						const column = columnFactory('cohort').model;
 						column.key = propPath;
 						column.title = title(propPath, graph, column.length);
-						column.value = compile(propParts);
+						column.value = propValue;
 						column.source = 'generation';
 						column.children.push(...columns);
 						memo.push(column);
@@ -172,7 +177,7 @@ function build(graph, pathParts, columnFactory, deep, cohort, title) {
 				const column = columnFactory(type).model;
 				column.key = propPath;
 				column.title = title(propPath, graph, column.length);
-				column.value = compile(propParts);
+				column.value = propValue;
 				column.source = 'generation';
 				memo.push(column);
 				break;

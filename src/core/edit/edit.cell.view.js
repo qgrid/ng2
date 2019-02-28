@@ -162,6 +162,7 @@ export class EditCellView {
 						const validator = validationService.createValidator(model.validation().rules, key);
 						return model.edit().commit.canExecute(context) && validator.validate({ [key]: this.value });
 					}
+
 					return false;
 				},
 				execute: (cell, e) => {

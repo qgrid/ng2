@@ -15,6 +15,7 @@ import { ExampleColumnArrayBasicComponent } from './column-array-basic/example-c
 import { ExampleColumnAutocompletetBasicComponent } from './column-autocomplete-basic/example-column-autocomplete-basic.component';
 import { ExampleColumnBoolBasicComponent } from './column-bool-basic/example-column-bool-basic.component';
 import { ExampleColumnCurrencyBasicComponent } from './column-currency-basic/example-column-currency-basic.component';
+import { ExampleColumnDataSafeComponent } from './column-data-safe/example-column-data-safe.component';
 import { ExampleColumnDateBasicComponent } from './column-date-basic/example-column-date-basic.component';
 import { ExampleColumnDropdownBasicComponent } from './column-dropdown-basic/example-column-dropdown-basic.component';
 import { ExampleColumnEmailBasicComponent } from './column-email-basic/example-column-email-basic.component';
@@ -144,6 +145,7 @@ const EXAMPLES: Array<any> = [
 	ExampleColumnAutocompletetBasicComponent,
 	ExampleColumnBoolBasicComponent,
 	ExampleColumnCurrencyBasicComponent,
+	ExampleColumnDataSafeComponent,
 	ExampleColumnDateBasicComponent,
 	ExampleColumnDropdownBasicComponent,
 	ExampleColumnEmailBasicComponent,
