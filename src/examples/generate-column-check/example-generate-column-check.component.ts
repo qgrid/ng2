@@ -12,19 +12,19 @@ export class ExampleGenerateColumnCheckComponent {
 			notNumber: '1',
 			notDate: '1983-09-18',
 			notBoolean: 'true',
-			notArray: ['1', '2', '3'],
 			notEmail: 'john@mail.com',
 			notTime: '12:00PM',
-			notImage: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Hydrogen_Spectra.jpg'
+			notImage: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Hydrogen_Spectra.jpg',
+			notArray: ['1', '2', '3'],
 		},
 		{
 			notNumber: 'some text',
 			notDate: 'some text',
 			notBoolean: 'some text',
-			notArray: 'some text',
 			notEmail: 'some text',
 			notTime: 'some text',
-			notImage: 'some text'
+			notImage: 'some text',
+			notArray: 'some text',
 		}
 	];
 }

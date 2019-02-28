@@ -1,17 +1,19 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { Log } from 'ng2-qgrid/core/infrastructure/log';
 
 @Pipe({
 	name: 'qGridTime'
 })
-export class TimePipe extends DatePipe implements PipeTransform {
-	transform(value: any, format?: any): any {
-		const date = new Date(value);
+export class TimePipe implements PipeTransform {
+	constructor(private pipe: DatePipe) { }
 
-		if (date instanceof Date && !isNaN(date as any)) {
-			return super.transform(value, format);
+	transform(value: any, format?: any, timezone?: any, locale?: any) {
+		try {
+			return this.pipe.transform(value, format, timezone, locale);
+		} catch (ex) {
+			Log.warn('TimePipe', ex.message);
+			return value;
 		}
-
-		return value;
 	}
 }
