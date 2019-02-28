@@ -49,7 +49,6 @@ export class GridModule {
 		FormatService.number = (x, format) => numberPipe.transform(x, format);
 		FormatService.currency = (x, format) => currencyPipe.transform(x, format);
 
-
 		Fastdom.invoke = task => zone.runOutsideAngular<any>(task);
 
 		setup(Model);

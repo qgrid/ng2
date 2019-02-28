@@ -8,9 +8,12 @@ export { GridService as Grid } from './main/grid/grid.service';
 export { PluginService as GridPlugin, GridModel, GridEventArg, GridEvent, DomTable } from './plugins/plugin.service';
 
 // NG Pipe
-export { HighlightPipe } from './pipes/highlight/highlight.pipe';
-export { TimePipe } from './pipes/time/time.pipe';
-export { FilterPipe } from './pipes/filter/filter.pipe';
+export { HighlightPipe } from './pipes/highlight.pipe';
+export { TimePipe } from './pipes/time.pipe';
+export { FilterPipe } from './pipes/filter.pipe';
+export { NumberPipe } from './pipes/number.pipe';
+export { DatePipe } from './pipes/date.pipe';
+export { CurrencyPipe } from './pipes/currency.pipe';
 export { PipeModule } from './pipes/pipe.module';
 
 // Infrastructure

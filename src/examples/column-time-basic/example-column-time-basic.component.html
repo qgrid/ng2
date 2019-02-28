@@ -42,7 +42,7 @@
 					   type="time">
 			<ng-template for="body"
 						 let-$cell>
-				<em>{{$cell.value | date: $cell.column.format}}</em>
+				<em>{{$cell.value | qGridDate: $cell.column.format}}</em>
 			</ng-template>
 			<ng-template for="edit"
 						 let-$cell
@@ -52,7 +52,7 @@
 					   *q-grid-time="let time='time'"
 					   q-grid-focus
 					   #input
-					   [value]="$view.edit.cell.value | date: 'hh:mm'"
+					   [value]="$view.edit.cell.value | qGridDate: 'hh:mm'"
 					   (change)="$view.edit.cell.value = time($view.edit.cell.value, input.value)"
 					   (blur)="$view.edit.cell.exit.execute($cell)" />
 			</ng-template>

@@ -1,4 +1,3 @@
-import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
@@ -11,9 +10,8 @@ export class TimePipe extends DatePipe implements PipeTransform {
 
 		if (date instanceof Date && !isNaN(date as any)) {
 			return super.transform(value, format);
-		} else {
-			return value;
 		}
 
+		return value;
 	}
 }
