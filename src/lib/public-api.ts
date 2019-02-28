@@ -14,6 +14,7 @@ export { FilterPipe } from './pipes/filter.pipe';
 export { NumberPipe } from './pipes/number.pipe';
 export { DatePipe } from './pipes/date.pipe';
 export { CurrencyPipe } from './pipes/currency.pipe';
+export { ArrayPipe } from './pipes/array.pipe';
 export { PipeModule } from './pipes/pipe.module';
 
 // Infrastructure

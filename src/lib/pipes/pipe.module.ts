@@ -5,6 +5,7 @@ import { TimePipe } from './time.pipe';
 import { NumberPipe } from './number.pipe';
 import { DatePipe } from './date.pipe';
 import { CurrencyPipe } from './currency.pipe';
+import { ArrayPipe } from './array.pipe';
 
 @NgModule({
 	declarations: [
@@ -14,6 +15,7 @@ import { CurrencyPipe } from './currency.pipe';
 		NumberPipe,
 		DatePipe,
 		CurrencyPipe,
+		ArrayPipe,
 	],
 	exports: [
 		HighlightPipe,
@@ -22,6 +24,7 @@ import { CurrencyPipe } from './currency.pipe';
 		NumberPipe,
 		DatePipe,
 		CurrencyPipe,
+		ArrayPipe,
 	]
 })
 export class PipeModule {

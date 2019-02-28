@@ -13,7 +13,7 @@ export class ExampleGenerateColumnCheckComponent {
 			notDate: '1983-09-18',
 			notBoolean: 'true',
 			notEmail: 'john@mail.com',
-			notTime: '12:00PM',
+			notTime: '12:00',
 			notImage: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Hydrogen_Spectra.jpg',
 			notArray: ['1', '2', '3'],
 		},
