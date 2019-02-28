@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 import { EditService } from 'ng2-qgrid/core/edit/edit.service';
@@ -14,15 +14,17 @@ import { RootService } from '../../../infrastructure/component/root.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CellHandlerComponent implements OnInit, AfterViewInit {
-	@ViewChild('marker') marker: ElementRef;
-
 	private startCell: CellView = null;
 	private initialSelectionMode: 'single' | 'multiple' | 'range' = null;
 	private initialEditState: 'view' | 'edit' | 'startBatch' | 'endBatch' = null;
 
+	@ViewChild('marker') marker: ElementRef;
+	isMarkerVisible = false;
+
 	constructor(
 		private elementRef: ElementRef,
-		private root: RootService
+		private root: RootService,
+		private cd: ChangeDetectorRef
 	) {
 		this.elementRef.nativeElement.style.display = 'none';
 	}
@@ -34,6 +36,13 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		this.root.model.navigationChanged.watch(e => {
 			updateHandler(e);
 			updateMarker(e);
+		});
+
+		this.root.model.editChanged.watch(e => {
+			if (e.hasChanges('method')) {
+				this.isMarkerVisible = e.state.method === 'batch';
+				this.cd.detectChanges();
+			}
 		});
 	}
 
@@ -172,16 +181,5 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 			model.selection({ mode: 'range' });
 			model.edit({ state: 'startBatch' });
 		}
-	}
-
-	get isMarkerVisible() {
-		const model = this.root.model;
-		const { column } = model.navigation();
-
-		if (column) {
-			return model.edit().method === 'batch';
-		}
-
-		return false;
 	}
 }
