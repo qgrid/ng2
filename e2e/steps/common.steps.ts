@@ -1,4 +1,4 @@
-import { Given, Then, When, Before, BeforeAll } from 'cucumber';
+import { Given, Then, When, Before, BeforeAll, After } from 'cucumber';
 import { browser, element, by, promise, protractor } from 'protractor';
 import * as blueharvest from 'blue-harvest';
 import * as path from 'path';
@@ -15,11 +15,16 @@ const diffDir = path.join(__dirname, '..', 'diff/');
 
 BeforeAll(() => clearDiff());
 Before((scenario) => goldenPath = goldenDir + scenario.pickle.name + '.png');
+
+After(() => checkErrors());
+
 Given('I am on {string}', START_OPTIONS, (path: string) => browser.get(path));
+
 Then('Grid is not empty', () => getRowCount().then(x => expect(x).to.be.above(0)));
 Then('Grid is empty', () => getRowCount().then(x => expect(x).to.equal(0)));
 Then('Row count equals to {int}', (count: number) => getRowCount().then(x => expect(x).to.equal(count)));
 Then('Column count equals to {int}', (count: number) => getColumnCount().then(x => expect(x).to.equal(count)));
+
 When('I click cell {string}[{int}]', (key, index) => getCell(key, index).click());
 When('I look at the Page', { timeout: 20 * 1000 }, async () => { 
 	await browser.sleep(3000);
@@ -30,6 +35,15 @@ Then('Page looks the same as before', { timeout: 20 * 1000 }, async () => await 
 														.satisfy(result => result.includes('The test passed. ') || result.includes('was successfully updated')));
 When('I click {string} button', (element:string) => clickElement(element));
 When('I enter {string} text', (text: string) => enterText(text));
+
+async function checkErrors() {
+	await browser.manage().logs().get('browser').then(function(browserLog) {
+		let str = '' + browserLog.length + ' errors';
+		let errorLog = '\n';
+		browserLog.map((item) => { errorLog += JSON.stringify(item.message) + '\n' });
+		expect(str).to.equal('0 errors', errorLog);
+	})
+}
 
 function getRowCount() {
 	return element(by.tagName('tbody'))
