@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'example-interaction-mode-detached',
@@ -9,12 +10,10 @@ import { DataService, Atom } from '../data.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleInteractionModeDetachedComponent {
-	rows: Atom[];
+	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {
-		dataService
-			.getAtoms()
-			.subscribe(rows => this.rows = rows);
+		this.rows = dataService.getAtoms();
 	}
 
 	testDetached() {
