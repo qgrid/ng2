@@ -1,4 +1,4 @@
-import { Directive, ElementRef, NgZone, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, NgZone, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { VscrollPort } from './vscroll.port';
 import { VscrollContext } from './vscroll.context';
 import { capitalize } from './vscroll.utility';
@@ -8,12 +8,11 @@ import { findPositionUsingItemSize, findPositionUsingOffsets, recycleFactory, IV
 import { VscrollDirective } from './vscroll.directive';
 import { isNumber } from 'ng2-qgrid/core/utility/kit';
 import { VscrollLink } from './vscroll.link';
-import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 
 @Directive({
 	selector: '[q-grid-vscroll-port-x]'
 })
-export class VscrollPortXDirective extends VscrollPort implements OnInit {
+export class VscrollPortXDirective extends VscrollPort implements OnChanges {
 	@Input('q-grid-vscroll-port-x') context: VscrollContext;
 
 	markup = {};
@@ -28,11 +27,12 @@ export class VscrollPortXDirective extends VscrollPort implements OnInit {
 		super(view, elementRef.nativeElement);
 	}
 
-	ngOnInit() {
-		Guard.notNull(this.context, 'context');
-
-		this.layout = new VscrollLayout(this);
-		this.link = new VscrollLink(this);
+	ngOnChanges(changes: SimpleChanges) {
+		const contextChange = changes['context'];
+		if (contextChange && this.context) {
+			this.layout = new VscrollLayout(this);
+			this.link = new VscrollLink(this);
+		}
 	}
 
 	reset() {
