@@ -1,24 +1,18 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { VscrollContext } from './vscroll.context';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
+import { VscrollContext } from './vscroll.context';
 
-const empty = [];
+const EMPTY_ITEMS = [];
 
 @Pipe({
-	name: 'qGridVscroll',
-	pure: false
+	name: 'qGridVscroll'
 })
 export class VscrollPipe implements PipeTransform {
-	transform(data: any,
-		context: {
-			container: { position: number, force: boolean, items: any[], cursor: number, update: (count: number) => void },
-			settings: { threshold: number }
-		}
-	): any {
+	transform(data: any[], context: VscrollContext): any[] {
 		Guard.notNull(context, 'context');
 
 		if (!data) {
-			return empty;
+			return EMPTY_ITEMS;
 		}
 
 		const count = data.length;
@@ -47,6 +41,6 @@ export class VscrollPipe implements PipeTransform {
 			return items;
 		}
 
-		return empty;
+		return EMPTY_ITEMS;
 	}
 }

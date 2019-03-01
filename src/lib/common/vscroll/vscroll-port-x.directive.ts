@@ -15,8 +15,10 @@ import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 })
 export class VscrollPortXDirective extends VscrollPort implements OnInit {
 	@Input('q-grid-vscroll-port-x') context: VscrollContext;
+
 	markup = {};
 	layout: VscrollLayout;
+	link: VscrollLink;
 
 	constructor(
 		private zone: NgZone,
@@ -30,7 +32,7 @@ export class VscrollPortXDirective extends VscrollPort implements OnInit {
 		Guard.notNull(this.context, 'context');
 
 		this.layout = new VscrollLayout(this);
-		return new VscrollLink(this);
+		this.link = new VscrollLink(this);
 	}
 
 	reset() {
