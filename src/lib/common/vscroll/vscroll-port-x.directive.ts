@@ -41,6 +41,12 @@ export class VscrollPortXDirective extends VscrollPort implements OnChanges {
 	}
 
 	emit(f: () => void) {
+		const { settings } = this.context;
+		if (settings.emit) {
+			settings.emit(f);
+			return;
+		}
+
 		f();
 
 		this.cd.markForCheck();

@@ -4,7 +4,8 @@ import {
 	OnInit,
 	EventEmitter,
 	Output,
-	ChangeDetectionStrategy
+	ChangeDetectionStrategy,
+	ChangeDetectorRef
 } from '@angular/core';
 import { ColumnFilterView } from 'ng2-qgrid/plugin/column-filter/column.filter.view';
 import { uniq, flatten } from 'ng2-qgrid/core/utility/kit';
@@ -41,6 +42,7 @@ export class ColumnFilterComponent implements OnInit {
 		private plugin: PluginService,
 		private vscroll: VscrollService,
 		private qgrid: GridService,
+		private cd: ChangeDetectorRef,
 		focusAfterRender: FocusAfterRender) {
 	}
 
@@ -55,6 +57,12 @@ export class ColumnFilterComponent implements OnInit {
 		columnFilter.cancelEvent.on(() => this.cancelEvent.emit());
 
 		const vscrollContext = this.vscroll.context({
+			emit: f => {
+				f();
+
+				this.cd.markForCheck();
+				this.cd.detectChanges();
+			},
 			threshold: model.columnFilter().threshold,
 			fetch: (skip, take, d) => {
 				const filterState = model.filter();

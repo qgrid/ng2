@@ -6,6 +6,7 @@ export interface IVscrollSettings {
 	rowHeight?: number | ((element: HTMLElement) => number);
 	columnWidth?: number | ((element: HTMLElement) => number);
 	fetch?: (skip: number, take: number, d) => void;
+	emit?: (f: () => void) => void;
 }
 
 export class VscrollSettings implements IVscrollSettings {
@@ -13,6 +14,7 @@ export class VscrollSettings implements IVscrollSettings {
 	placeholderHeight = 0;
 	placeholderWidth = 0;
 	resetTriggers = ['resize'];
+	emit: (f: () => void) => void;
 
 	constructor(private getCount: () => number) {
 	}

@@ -10,7 +10,9 @@ import { GridService } from '../../../main/grid/grid.service';
 @Component({
 	selector: 'q-grid-core-view',
 	templateUrl: './view-core.component.html',
-	providers: [CellService]
+	providers: [
+		CellService
+	]
 })
 export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 	private ctrl: ViewCtrl;
@@ -62,6 +64,13 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 			root.table,
 			root.commandManager
 		);
+
+		view.scroll.y.settings.emit = f => {
+			f();
+
+			this.cd.markForCheck();
+			this.cd.detectChanges();
+		};
 
 		const gridService = this.grid.service(model);
 		this.ctrl = new ViewCtrl(model, view, gridService);
