@@ -1,4 +1,4 @@
-import { Directive, ElementRef, NgZone, Input, ApplicationRef, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, Input, ApplicationRef, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
 import { VscrollPort } from './vscroll.port';
 import { VscrollContext } from './vscroll.context';
 import { capitalize } from './vscroll.utility';
@@ -20,7 +20,6 @@ export class VscrollPortYDirective extends VscrollPort implements OnChanges {
 	link: VscrollLink;
 
 	constructor(
-		private zone: NgZone,
 		private elementRef: ElementRef,
 		private cd: ChangeDetectorRef,
 		private app: ApplicationRef,
@@ -42,8 +41,10 @@ export class VscrollPortYDirective extends VscrollPort implements OnChanges {
 	}
 
 	emit(f: () => void) {
+		f();
+
 		this.cd.markForCheck();
-		setTimeout(f, 0);
+		this.app.tick();
 	}
 
 	getPositionUsingItemSize(itemSize: number, box: VscrollBox, arm: number): IVscrollPosition {
