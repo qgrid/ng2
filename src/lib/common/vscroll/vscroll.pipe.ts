@@ -22,7 +22,7 @@ export class VscrollPipe implements PipeTransform {
 
 		container.update(length);
 		if (length) {
-			const { items, cursor } = container;
+			const { cursor } = container;
 			const { threshold } = settings;
 
 			// We need to have a less number of virtual items on
@@ -40,13 +40,11 @@ export class VscrollPipe implements PipeTransform {
 
 				container.force = false;
 				container.items = wnd;
-				return wnd;
 			}
-
-			return items;
+		} else {
+			container.items = [];
 		}
 
-		container.items = [];
-		return EMPTY_ITEMS;
+		return container.items;
 	}
 }

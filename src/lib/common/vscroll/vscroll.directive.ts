@@ -26,15 +26,11 @@ export class VscrollDirective {
 	}
 
 	resetX() {
-		if (this.elementRef.nativeElement.scrollLeft) {
-			this.elementRef.nativeElement.scrollLeft = 0;
-		}
+		this.elementRef.nativeElement.scrollLeft = 0;
 	}
 
 	resetY() {
-		if (this.elementRef.nativeElement.scrollTop) {
-			this.elementRef.nativeElement.scrollTop = 0;
-		}
+		this.elementRef.nativeElement.scrollTop = 0;
 	}
 
 	get element() {
