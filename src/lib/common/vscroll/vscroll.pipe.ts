@@ -5,11 +5,10 @@ import { Log } from 'ng2-qgrid/core/infrastructure/log';
 const EMPTY_ITEMS = [];
 
 @Pipe({
-	name: 'qGridVscroll',
-	pure: false
+	name: 'qGridVscroll'
 })
 export class VscrollPipe implements PipeTransform {
-	transform(data: any[], context: VscrollContext): any[] {
+	transform(data: any[], context: VscrollContext, force: boolean): any[] {
 		if (!context) {
 			Log.warn('VscrollPipe', 'Context is not defined');
 			return EMPTY_ITEMS;
@@ -20,7 +19,7 @@ export class VscrollPipe implements PipeTransform {
 		const { length } = data;
 		const { container, settings } = context;
 
-		container.update(length);
+		let wnd = container.items;
 		if (length) {
 			const { cursor } = container;
 			const { threshold } = settings;
@@ -29,22 +28,21 @@ export class VscrollPipe implements PipeTransform {
 			// the bottom, as deferred loading is happen there should
 			// be a threshold place to draw several items below.
 			const first = cursor;
-			if (container.force || first !== container.position) {
+			if (force || first !== container.position) {
 				const last = Math.min(cursor + threshold, length);
 				container.position = first;
 
-				const wnd = new Array(last - first);
+				console.log(`WINDOW: ${first}:${last}`);
+
+				wnd = new Array(last - first);
 				for (let i = first, j = 0; i < last; i++ , j++) {
 					wnd[j] = data[i];
 				}
-
-				container.force = false;
-				container.items = wnd;
 			}
-		} else {
-			container.items = [];
+		} else if (wnd.length) {
+			wnd = [];
 		}
 
-		return container.items;
+		return wnd;
 	}
 }

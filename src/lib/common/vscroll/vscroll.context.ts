@@ -4,7 +4,6 @@ import { VscrollSettings, IVscrollSettings } from './vscroll.settings';
 export class VscrollContext {
 	settings: IVscrollSettings;
 	container: VscrollContainer;
-	items: any[];
 
 	constructor(settings?: IVscrollSettings) {
 		this.settings = new VscrollSettings(() => this.container.total);
@@ -13,5 +12,13 @@ export class VscrollContext {
 		}
 
 		this.container = new VscrollContainer(this.settings);
+	}
+
+	get items() {
+		return this.container.items;
+	}
+
+	id(index: number) {
+		return index;
 	}
 }

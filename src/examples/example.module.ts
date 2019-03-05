@@ -114,6 +114,7 @@ import { ExampleScrollVirtualGroupComponent } from './scroll-virtual-group/examp
 import { ExampleScrollVirtualHeightComponent } from './scroll-virtual-height/example-scroll-virtual-height.component';
 import { ExampleScrollVirtualInfiniteComponent } from './scroll-virtual-infinite/example-scroll-virtual-infinite.component';
 import { ExampleScrollVirtualListComponent } from './scroll-virtual-list/example-scroll-virtual-list.component';
+import { ExampleScrollVirtualListInfiniteComponent } from './scroll-virtual-list-infinite/example-scroll-virtual-list-infinite.component';
 import { ExampleScrollVirtualSelectionComponent } from './scroll-virtual-selection/example-scroll-virtual-selection.component';
 import { ExampleScrollVirtualStyleComponent } from './scroll-virtual-style/example-scroll-virtual-style.component';
 import { ExampleSelectCellBasicComponent } from './select-cell-basic/example-select-cell-basic.component';
@@ -244,6 +245,7 @@ const EXAMPLES: Array<any> = [
 	ExampleScrollVirtualHeightComponent,
 	ExampleScrollVirtualInfiniteComponent,
 	ExampleScrollVirtualListComponent,
+	ExampleScrollVirtualListInfiniteComponent,
 	ExampleScrollVirtualSelectionComponent,
 	ExampleScrollVirtualStyleComponent,
 	ExampleSelectCellBasicComponent,

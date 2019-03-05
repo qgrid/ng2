@@ -18,13 +18,17 @@ export class VscrollLayout {
 	}
 
 	recycle(count: number, box: VscrollBox, force: boolean): IVscrollPosition | null {
-		const { port } = this;
-		const itemSize = port.getItemSize();
+		const itemSize = this.port.getItemSize();
 		if (itemSize) {
 			return this.recycleItemSize(count, box, force, itemSize);
 		}
 
 		return this.recycleOffsets(count, box, force);
+	}
+
+	isSynced() {
+		const { container, items } = this;
+		return items.length === container.items.length;
 	}
 
 	invalidate(position: IVscrollPosition): number {
@@ -44,22 +48,33 @@ export class VscrollLayout {
 	}
 
 	setItem(index: number, item: () => number) {
-		this.items[index] = item;
+		const { items } = this;
+
+		console.log(`SET ITEM: ${index}`);
+
+		items[index] = item;
+		while (--index >= 0) {
+			if (items[index]) {
+				break;
+			}
+
+			items[index] = empty;
+		}
 	}
 
 	removeItem(index: number) {
-		const items = this.items;
-		let last = items.length - 1;
-		if (index === 0) {
-			items.shift();
-		} else if (index === last) {
-			items.pop();
-			while (last-- && items[last] === empty) {
-				items.pop();
+		const { items } = this;
+
+		console.log(`REMOVE ITEM: ${index}`);
+
+		items.splice(index, 1);
+		while (--index >= 0) {
+			const item = items[index];
+			if (item && item !== empty) {
+				break;
 			}
-		} else {
-			// TODO: think how to avoid this
-			items[index] = empty;
+
+			items.splice(index, 1);
 		}
 	}
 
@@ -92,7 +107,7 @@ export class VscrollLayout {
 
 		if (force || position.index !== newPosition.index) {
 			const { threshold } = this.settings;
-			const remain =  Math.max(0, newPosition.index + threshold - this.container.count);
+			const remain = Math.max(0, newPosition.index + threshold - this.container.count);
 			newPosition.pad = Math.max(0, itemSize * (count + remain - threshold));
 			return this.position = newPosition;
 		}

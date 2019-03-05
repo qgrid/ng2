@@ -105,7 +105,7 @@ export class ColumnFilterComponent implements OnInit {
 							const uniqValues = uniq(values);
 							const notBlankValues = uniqValues.filter(x => !isBlank(x));
 
-							// TODO: improve search algo
+							// TODO: improve search also
 							const search = ('' + this.search).toLowerCase();
 							const filteredItems = search
 								? notBlankValues.filter(x => ('' + x).toLowerCase().indexOf(search) >= 0)
@@ -139,9 +139,5 @@ export class ColumnFilterComponent implements OnInit {
 	reset() {
 		this.context.$implicit.items = [];
 		this.vscrollContext.container.reset();
-	}
-
-	rowId(index: number) {
-		return index;
 	}
 }

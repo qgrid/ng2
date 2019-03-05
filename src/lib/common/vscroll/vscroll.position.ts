@@ -1,22 +1,3 @@
-function findIndexAt(items: Array<number>, value: number) {
-	const length = items.length;
-	let min = 0;
-	let max = length - 1;
-	while (min <= max) {
-		const mid = (min + max) >> 1;
-		const k = items[mid];
-		if (k === value) {
-			return mid;
-		} else if (k < value) {
-			min = mid + 1;
-		} else {
-			max = mid - 1;
-		}
-	}
-
-	return min;
-}
-
 export interface IVscrollPosition {
 	index: number;
 	offset: number;
@@ -65,6 +46,10 @@ export function recycleFactory(items: Array<() => number>) {
 		const threshold = items.length;
 		const diff = Math.min(count, threshold + index) - cursor;
 
+		if (items.some(x => !x())) {
+			debugger;
+		}
+
 		for (let i = threshold - diff; i < threshold; i++) {
 			const getSize = items[i];
 			const size = getSize();
@@ -79,4 +64,24 @@ export function recycleFactory(items: Array<() => number>) {
 
 		return offsets;
 	};
+}
+
+function findIndexAt(values: number[], value: number) {
+	const { length } = values;
+
+	let min = 0;
+	let max = length - 1;
+	while (min <= max) {
+		const mid = (min + max) >> 1;
+		const k = values[mid];
+		if (k === value) {
+			return mid;
+		} else if (k < value) {
+			min = mid + 1;
+		} else {
+			max = mid - 1;
+		}
+	}
+
+	return min;
 }

@@ -98,8 +98,4 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 	get model(): Model {
 		return this.root.model;
 	}
-
-	virtualRowId(index) {
-		return index;
-	}
 }

@@ -1,25 +1,27 @@
 import { EventEmitter } from '@angular/core';
-import { isUndefined, isNumber, isFunction } from 'ng2-qgrid/core/utility/kit';
+import { isNumber, isFunction, noop } from 'ng2-qgrid/core/utility/kit';
 import { IVscrollSettings } from './vscroll.settings';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
+import { jobLine } from 'ng2-qgrid/core/services/job.line';
 
 export const rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
 
 export class VscrollContainer {
-	constructor(private settings: IVscrollSettings) {
-	}
+	private job = jobLine(0);
 
 	count = 0;
 	total = 0;
 	position = 0;
 	cursor = 0;
-	page = 0;
+	lastPage = 0;
 	items = [];
-	force = true;
-	resetEvent = new EventEmitter<any>();
-	updateEvent = new EventEmitter<any>();
-	drawEvent = new EventEmitter<any>();
-	deferred = null;
+
+	resetEvent = new EventEmitter<{ handled: boolean, source: string }>();
+	updateEvent = new EventEmitter<{ source: string }>();
+	drawEvent = new EventEmitter<{ position: number }>();
+
+	constructor(private settings: IVscrollSettings) {
+	}
 
 	tick(f: () => void) {
 		rAF(f);
@@ -37,81 +39,76 @@ export class VscrollContainer {
 		emit(f);
 	}
 
-	place() {
-		const threshold = this.settings.threshold;
-		const cursor = this.cursor;
+	get currentPage() {
+		const { threshold } = this.settings;
+		const { cursor } = this;
+
 		return Math.ceil((cursor + threshold) / threshold) - 1;
 	}
 
-	update(count: number, force?: boolean) {
-		const settings = this.settings;
-		const threshold = settings.threshold;
-		const largestPage = this.page;
-		const currentPage = this.place();
+	update(count: number, source: string) {
+		this.count = count;
+		this.total = Math.max(this.total, count);
 
-		if (this.count !== count) {
-			this.count = count;
-			this.total = Math.max(this.total, count);
-			this.updateEvent.emit({
-				force: isUndefined(force)
-					? (isNumber(settings.rowHeight) && settings.rowHeight > 0) || (isNumber(settings.columnWidth) && settings.columnWidth > 0)
-					: force
-			});
+		console.log(`UPDATE: ${count}, ${source}`);
+
+		this.updateEvent.emit({ source });
+
+		if (this.currentPage > this.lastPage) {
+			this.fetchPage(this.currentPage);
 		}
+	}
 
-		if (force || currentPage > largestPage) {
-			this.page = currentPage;
+	fetchPage(page: number) {
+		const { lastPage } = this;
+		const { threshold } = this.settings;
 
-			new Promise<number>((resolve, reject) => {
-				const deferred = this.deferred = { resolve, reject };
-				if (currentPage === 0) {
-					settings.fetch(0, threshold, deferred);
-				} else {
-					const skip = (largestPage + 1) * threshold;
-					if (this.total < skip) {
-						deferred.resolve(this.total);
-					} else {
-						const take = (currentPage - largestPage) * threshold;
-						settings.fetch(skip, take, deferred);
-					}
-				}
-			}).then(nextCount => {
-				this.force = true;
-				this.update(nextCount);
-			}).catch(() => this.deferred = null);
+		this.lastPage = page;
+
+		console.log(`FETCH: ${page}`);
+
+		const deferred = {
+			resolve: (count: number) => this.update(count, 'fetch'),
+			reject: noop,
+		};
+
+		if (page === 0) {
+			this.settings.fetch(0, threshold, deferred);
+		} else {
+			const skip = (lastPage + 1) * threshold;
+			if (this.total < skip) {
+				deferred.resolve(this.total);
+			} else {
+				const take = (page - lastPage) * threshold;
+				this.settings.fetch(skip, take, deferred);
+			}
 		}
 	}
 
 	reset() {
-		if (this.deferred) {
-			this.deferred = null;
-		}
-
 		this.count = 0;
 		this.total = 0;
 		this.position = 0;
 		this.cursor = 0;
-		this.page = 0;
 		this.items = [];
-		this.force = true;
 
 		const e = { handled: false, source: 'container' };
 		this.resetEvent.emit(e);
 
-		this.update(this.count, true);
+		this.fetchPage(0);
 	}
 }
 
-export type GetSize = (element: HTMLElement, index: number) => number;
+export type VscrollSize = (element: HTMLElement, index: number) => number;
 
 export function sizeFactory(
-	size: number | GetSize,
+	size: number | VscrollSize,
 	container: VscrollContainer,
 	element: HTMLElement,
 	index: number
 ): () => number {
 	if (isFunction(size)) {
-		return () => (size as GetSize)(element, container.position + index);
+		return () => (size as VscrollSize)(element, container.position + index);
 	}
 
 	if (isNumber(size)) {

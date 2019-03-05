@@ -8,12 +8,16 @@ import { findPositionUsingItemSize, findPositionUsingOffsets, recycleFactory, IV
 import { VscrollDirective } from './vscroll.directive';
 import { VscrollLink } from './vscroll.link';
 import { isNumber } from 'ng2-qgrid/core/utility/kit';
+import { VscrollPipe } from './vscroll.pipe';
 
 @Directive({
 	selector: '[q-grid-vscroll-port-y]'
 })
 export class VscrollPortYDirective extends VscrollPort implements OnChanges {
+	private pipe = new VscrollPipe();
+
 	@Input('q-grid-vscroll-port-y') context: VscrollContext;
+	@Input('q-grid-vscroll-port-y-items') items: any[];
 
 	markup = {};
 	layout: VscrollLayout;
@@ -33,24 +37,31 @@ export class VscrollPortYDirective extends VscrollPort implements OnChanges {
 		if (contextChange && this.context) {
 			this.layout = new VscrollLayout(this);
 			this.link = new VscrollLink(this);
+			this.context.container.fetchPage(0);
 		}
+
+		this.reset();
 	}
 
 	reset() {
 		this.view.resetY();
 	}
 
-	emit(f: () => void) {
-		const { settings } = this.context;
+	emit(f: () => void, force: boolean) {
+		const { items, context } = this;
+		const { settings, container } = context;
+
+		const wnd = this.pipe.transform(items, context, force);
+		container.items = wnd;
+		container.update((items || []).length, 'transform');
+
 		if (settings.emit) {
 			settings.emit(f);
-			return;
+		} else {
+			f();
+			this.cd.markForCheck();
+			this.app.tick();
 		}
-
-		f();
-
-		this.cd.markForCheck();
-		this.app.tick();
 	}
 
 	getPositionUsingItemSize(itemSize: number, box: VscrollBox, arm: number): IVscrollPosition {
