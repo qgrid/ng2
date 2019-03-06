@@ -17,7 +17,7 @@ export abstract class VscrollPort {
 
 	abstract reset();
 	abstract hasChanges(newBox: VscrollBox, oldBox: VscrollBox);
-	abstract emit(f: () => void, force: boolean);
+	abstract emit(f: () => void);
 	abstract move(pad1: number, pad2: number);
 	abstract recycleFactory(items: Array<(() => number)>): (index: number, count: number) => Array<number>;
 	abstract getPositionUsingOffsets(offsets: Array<number>, box: VscrollBox, arm: number): IVscrollPosition;

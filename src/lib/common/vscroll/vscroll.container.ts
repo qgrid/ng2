@@ -1,13 +1,13 @@
 import { EventEmitter } from '@angular/core';
-import { isNumber, isFunction, noop } from 'ng2-qgrid/core/utility/kit';
+import { isUndefined, isNumber, isFunction } from 'ng2-qgrid/core/utility/kit';
 import { IVscrollSettings } from './vscroll.settings';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
-import { jobLine } from 'ng2-qgrid/core/services/job.line';
 
 export const rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
 
 export class VscrollContainer {
-	private job = jobLine(0);
+	constructor(private settings: IVscrollSettings) {
+	}
 
 	count = 0;
 	total = 0;
@@ -15,13 +15,10 @@ export class VscrollContainer {
 	cursor = 0;
 	lastPage = 0;
 	items = [];
-
+	force = true;
 	resetEvent = new EventEmitter<{ handled: boolean, source: string }>();
-	updateEvent = new EventEmitter<{ source: string }>();
+	updateEvent = new EventEmitter<{ force: boolean }>();
 	drawEvent = new EventEmitter<{ position: number }>();
-
-	constructor(private settings: IVscrollSettings) {
-	}
 
 	tick(f: () => void) {
 		rAF(f);
@@ -40,49 +37,58 @@ export class VscrollContainer {
 	}
 
 	get currentPage() {
-		const { threshold } = this.settings;
-		const { cursor } = this;
-
+		const threshold = this.settings.threshold;
+		const cursor = this.cursor;
 		return Math.ceil((cursor + threshold) / threshold) - 1;
 	}
 
-	update(count: number, source: string) {
-		this.count = count;
-		this.total = Math.max(this.total, count);
+	update(count: number) {
+		const settings = this.settings;
 
-		console.log(`UPDATE: ${count}, ${source}`);
+		if (this.count !== count) {
+			console.log('UPDATE: ' + count);
 
-		this.updateEvent.emit({ source });
+			this.count = count;
+			this.total = Math.max(this.total, count);
+			this.updateEvent.emit({
+				force: this.force
+					|| (isNumber(settings.rowHeight) && settings.rowHeight > 0)
+					|| (isNumber(settings.columnWidth) && settings.columnWidth > 0)
+			});
+		}
 
-		if (this.currentPage > this.lastPage) {
-			this.fetchPage(this.currentPage);
+		const { lastPage, currentPage } = this;
+		if (currentPage > lastPage) {
+			this.fetchPage(currentPage);
 		}
 	}
 
 	fetchPage(page: number) {
-		const { lastPage } = this;
-		const { threshold } = this.settings;
+		console.log('FETCH: ' + page);
+		const { settings, lastPage } = this;
+		const { threshold } = settings;
 
 		this.lastPage = page;
 
-		console.log(`FETCH: ${page}`);
-
-		const deferred = {
-			resolve: (count: number) => this.update(count, 'fetch'),
-			reject: noop,
-		};
-
-		if (page === 0) {
-			this.settings.fetch(0, threshold, deferred);
-		} else {
-			const skip = (lastPage + 1) * threshold;
-			if (this.total < skip) {
-				deferred.resolve(this.total);
+		new Promise<number>((resolve, reject) => {
+			const deferred = { resolve, reject };
+			if (page === 0) {
+				settings.fetch(0, threshold, deferred);
 			} else {
-				const take = (page - lastPage) * threshold;
-				this.settings.fetch(skip, take, deferred);
+				const skip = (lastPage + 1) * threshold;
+				if (this.total < skip) {
+					deferred.resolve(this.total);
+				} else {
+					const take = (page - lastPage) * threshold;
+					settings.fetch(skip, take, deferred);
+				}
 			}
-		}
+		}).then(count => {
+			if (count > this.total) {
+				this.force = true;
+				this.update(count);
+			}
+		});
 	}
 
 	reset() {
@@ -90,7 +96,9 @@ export class VscrollContainer {
 		this.total = 0;
 		this.position = 0;
 		this.cursor = 0;
+		this.lastPage = 0;
 		this.items = [];
+		this.force = true;
 
 		const e = { handled: false, source: 'container' };
 		this.resetEvent.emit(e);

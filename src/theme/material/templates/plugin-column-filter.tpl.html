@@ -44,9 +44,8 @@
 				 [q-grid-column-filter-item-list]="$plugin.column"
 				 [q-grid-column-filter-search]="$plugin.search"
 				 q-grid-vscroll>
-				<ul [q-grid-vscroll-port-y]="$vscroll"
-					[q-grid-vscroll-port-y-items]="$columnFilter.items">
-					<li *ngFor="let item of $vscroll.items; let $index = index; trackBy: $vscroll.id"
+				<ul [q-grid-vscroll-port-y]="$vscroll">
+					<li *ngFor="let item of $columnFilter.items | qGridVscroll: $vscroll; let $index = index; trackBy: $vscroll.id"
 						[q-grid-vscroll-row]="$index">
 						<mat-checkbox [checked]="$columnFilter.state(item)"
 									  *ngIf="$columnFilter.toggle.canExecute(item)"

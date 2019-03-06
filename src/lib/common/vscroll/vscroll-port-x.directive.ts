@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, SimpleChanges, OnChanges, ChangeDetectorRef, ApplicationRef } from '@angular/core';
+import { Directive, ElementRef, Input, ChangeDetectorRef, ApplicationRef, OnChanges, SimpleChanges } from '@angular/core';
 import { VscrollPort } from './vscroll.port';
 import { VscrollContext } from './vscroll.context';
 import { capitalize } from './vscroll.utility';
@@ -8,17 +8,13 @@ import { findPositionUsingItemSize, findPositionUsingOffsets, recycleFactory, IV
 import { VscrollDirective } from './vscroll.directive';
 import { isNumber } from 'ng2-qgrid/core/utility/kit';
 import { VscrollLink } from './vscroll.link';
-import { VscrollPipe } from './vscroll.pipe';
+import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 
 @Directive({
 	selector: '[q-grid-vscroll-port-x]'
 })
 export class VscrollPortXDirective extends VscrollPort implements OnChanges {
-	private pipe = new VscrollPipe();
-
 	@Input('q-grid-vscroll-port-x') context: VscrollContext;
-	@Input('q-grid-vscroll-port-x-items') items: any[];
-
 	markup = {};
 	layout: VscrollLayout;
 	link: VscrollLink;
@@ -27,6 +23,7 @@ export class VscrollPortXDirective extends VscrollPort implements OnChanges {
 		private elementRef: ElementRef,
 		private cd: ChangeDetectorRef,
 		private app: ApplicationRef,
+
 		view: VscrollDirective
 	) {
 		super(view, elementRef.nativeElement);
@@ -37,6 +34,7 @@ export class VscrollPortXDirective extends VscrollPort implements OnChanges {
 		if (contextChange && this.context) {
 			this.layout = new VscrollLayout(this);
 			this.link = new VscrollLink(this);
+			this.context.container.fetchPage(0);
 		}
 	}
 
@@ -44,13 +42,8 @@ export class VscrollPortXDirective extends VscrollPort implements OnChanges {
 		this.view.resetX();
 	}
 
-	emit(f: () => void, force: boolean) {
-		const { items, context } = this;
-		const { settings, container } = context;
-
-		const wnd = this.pipe.transform(items, context, force);
-		container.items = wnd;
-		container.update((items || []).length, 'transform');
+	emit(f: () => void) {
+		const { settings } = this.context;
 
 		if (settings.emit) {
 			settings.emit(f);

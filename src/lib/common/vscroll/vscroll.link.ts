@@ -37,39 +37,36 @@ export class VscrollLink {
 		});
 
 		container.updateEvent.subscribe(e => {
-			const { rowHeight, columnWidth } = settings;
-			const forceByContSize = (isNumber(rowHeight) && rowHeight > 0) || (isNumber(columnWidth) && columnWidth > 0);
-			const forceByCount = !this.port.layout.isSynced();
-			const forceBySource = e.source === 'fetch';
-
-			if (forceByContSize || forceBySource) {
+			if (e.force) {
 				this.update(true);
 			}
 		});
 	}
 
-	tick(force: boolean) {
+	tick(force) {
 		this.ticking = false;
 
 		const { port, container, box } = this;
-		const position = port.layout.recycle(container.count, box, force);
+		const count = container.count;
+		const position = port.layout.recycle(count, box, force);
 		if (position) {
+			console.log(`DRAW`);
+
 			const draw = () => {
 				container.cursor = port.layout.invalidate(position);
 				container.drawEvent.emit({
-					position: this.container.cursor
+					position: container.cursor
 				});
 			};
 
-			const emit = f => port.emit(f, force);
-
-			console.log('DRAW');
+			const emit = f => port.emit(f);
 			container.apply(draw, emit);
 		}
 	}
 
 	update(force = false) {
-		const { view } = this.port;
+		const { container, port, box } = this;
+		const { view } = port;
 		this.container.read(() => {
 			const element = view.element;
 			const newBox = {
@@ -81,11 +78,11 @@ export class VscrollLink {
 				portHeight: element.clientHeight
 			};
 
-			if (force || this.port.hasChanges(newBox, this.box)) {
+			if (force || port.hasChanges(newBox, box)) {
 				this.box = newBox;
-				if (!this.ticking) {
+				if (container.count && !this.ticking) {
 					this.ticking = true;
-					this.container.tick(() => this.tick(force));
+					container.tick(() => this.tick(force));
 				}
 			}
 		});
