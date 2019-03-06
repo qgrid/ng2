@@ -3,14 +3,15 @@
 			 let-$view="$view">
 	<q-grid-cell-editor class="q-grid-array q-grid-editor q-grid-position"
 						(close)="$view.edit.cell.exit.execute($cell)"
-						q-grid-position="td">
+						q-grid-position="td"
+						q-grid-chips>
 		<div class="q-grid-array-view">
 			<mat-chip-list #chipList>
 				<mat-chip class="q-grid-array-item"
 						  *ngFor="let value of $view.edit.cell.value;let $index = index"
 						  selectable="true"
 						  removable="true"
-						  (removed)="$view.edit.cell.value.splice($index, 1)">
+						  (q-grid-chips-remove)="$view.edit.cell.value.splice($index, 1)">
 					{{value}}
 					<mat-icon class="q-grid-icon"
 							  matChipRemove>
@@ -19,14 +20,12 @@
 				</mat-chip>
 			</mat-chip-list>
 		</div>
-		<mat-form-field q-grid-chips
-						(push)="($view.edit.cell.value || []).push($event)"
+		<mat-form-field (q-grid-chips-push)="($view.edit.cell.value || []).push($event)"
 						[floatLabel]="'never'">
 			<input class="q-grid-array-input"
 				   matInput
 				   type={{$cell.column.itemType}}
-				   #chipInput
-				   placeholder="New value"
+				   #qGridInput
 				   q-grid-focus
 				   [matChipInputFor]="chipList" />
 		</mat-form-field>

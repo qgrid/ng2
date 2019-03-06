@@ -16,10 +16,6 @@ export class ColumnFilterByComponent {
 		$implicit: this
 	};
 
-
-	constructor() {
-	}
-
 	get isBlanks() {
 		return this.byBlanks;
 	}

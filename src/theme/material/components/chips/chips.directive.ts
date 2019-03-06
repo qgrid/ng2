@@ -1,39 +1,17 @@
 import {
 	Directive,
-	ElementRef,
-	ContentChild,
-	AfterViewInit,
-	Output,
-	EventEmitter
+	ApplicationRef,
+	NgZone,
+	ChangeDetectorRef
 } from '@angular/core';
-import { MatChipInput } from '@angular/material';
-import { Shortcut } from 'ng2-qgrid';
 
 @Directive({
 	selector: '[q-grid-chips]'
 })
-export class ChipsDirective implements AfterViewInit {
-	@ContentChild(MatChipInput) input: MatChipInput;
-	@ContentChild('chipInput') elementRef: ElementRef;
-	@Output() push = new EventEmitter<string>();
+export class ChipsDirective {
+	constructor(private app: ApplicationRef, private zone: NgZone, public cd: ChangeDetectorRef) { }
 
-	ngAfterViewInit() {
-		this.input.chipEnd.subscribe(e => {
-			// we need to override it to prevent default behavior
-		});
-
-		const input = this.elementRef.nativeElement;
-		input.addEventListener('keydown', e => {
-			const code = Shortcut.translate(e);
-			if (code === 'enter') {
-				const value = (input.value || '').trim() as string;
-				if (value) {
-					this.push.emit(value);
-
-					input.value = '';
-					e.stopPropagation();
-				}
-			}
-		});
+	tick() {
+		this.app.tick();
 	}
 }
