@@ -44,21 +44,31 @@ export class VscrollLayout {
 	}
 
 	setItem(index: number, item: () => number) {
-		this.items[index] = item;
+		const { items } = this;
+		items[index] = item;
+		while (--index >= 0) {
+			if (items[index]) {
+				break;
+			}
+
+			items[index] = empty;
+		}
 	}
 
 	removeItem(index: number) {
-		const items = this.items;
-		let last = items.length - 1;
-		if (index === 0) {
-			items.shift();
-		} else if (index === last) {
+		const { items } = this;
+		const last = items.length - 1;
+		if (index === last) {
 			items.pop();
-			while (last-- && items[last] === empty) {
+			while (--index >= 0) {
+				const item = items[index];
+				if (item !== empty) {
+					break;
+				}
+
 				items.pop();
 			}
 		} else {
-			// TODO: think how to avoid this
 			items[index] = empty;
 		}
 	}
@@ -92,7 +102,7 @@ export class VscrollLayout {
 
 		if (force || position.index !== newPosition.index) {
 			const { threshold } = this.settings;
-			const remain =  Math.max(0, newPosition.index + threshold - this.container.count);
+			const remain = Math.max(0, newPosition.index + threshold - this.container.count);
 			newPosition.pad = Math.max(0, itemSize * (count + remain - threshold));
 			return this.position = newPosition;
 		}

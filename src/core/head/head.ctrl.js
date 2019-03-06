@@ -1,6 +1,6 @@
 import { PathService } from '../path/path.service';
 import { parents } from '../services/dom';
-import { eventPath } from '../services/dom';
+import { eventPath, elementFromPoint } from '../services/dom';
 
 export class HeadCtrl {
 	constructor(model, view, bag) {
@@ -22,7 +22,7 @@ export class HeadCtrl {
 					}
 					case 'stop': {
 						if (this.x >= 0 && this.y >= 0) {
-							const target = document.elementFromPoint(this.x, this.y);
+							const target = elementFromPoint(this.x, this.y);
 							if (target) {
 								const path = parents(target);
 								const cell = this.pathFinder.cell(path);

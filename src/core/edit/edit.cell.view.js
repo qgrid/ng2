@@ -5,6 +5,7 @@ import { CellEditor } from './edit.cell.editor';
 import { getFactory as valueFactory } from '../services/value';
 import { getFactory as labelFactory } from '../services/label';
 import { parseFactory } from '../services/convert';
+import { Td } from '../dom/td';
 import * as validationService from '../validation/validation.service';
 
 export class EditCellView {
@@ -117,7 +118,7 @@ export class EditCellView {
 				canExecute: cell => {
 					cell = cell || this.editor.td;
 					const canEdit = cell
-						&& cell === this.editor.td
+						&& Td.equals(cell, this.editor.td)
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
 						&& model.edit().state === 'edit';
@@ -152,7 +153,6 @@ export class EditCellView {
 			push: new Command({
 				priority: 1,
 				source: 'edit.cell.view',
-
 				canExecute: cell => {
 					cell = cell || this.editor.td;
 					const canEdit = cell && cell.column.canEdit;
@@ -162,6 +162,7 @@ export class EditCellView {
 						const validator = validationService.createValidator(model.validation().rules, key);
 						return model.edit().commit.canExecute(context) && validator.validate({ [key]: this.value });
 					}
+
 					return false;
 				},
 				execute: (cell, e) => {

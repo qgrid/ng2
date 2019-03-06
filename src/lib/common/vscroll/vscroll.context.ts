@@ -13,4 +13,8 @@ export class VscrollContext {
 
 		this.container = new VscrollContainer(this.settings);
 	}
+
+	id(index: number) {
+		return index;
+	}
 }

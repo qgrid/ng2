@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { DataService, Atom } from '../data.service';
-import { Observable } from 'rxjs';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { DataService } from '../data.service';
 import { GridModel, Grid } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-floating-rows-basic',
 	templateUrl: 'example-floating-rows-basic.component.html',
 	styleUrls: ['example-floating-rows-basic.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleFloatingRowsBasicComponent {
 	gridModel: GridModel;

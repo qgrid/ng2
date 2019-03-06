@@ -1,4 +1,4 @@
-import { Component, Optional, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { PluginService } from '../plugin.service';
 
 @Component({

@@ -1,10 +1,9 @@
 import {
 	Component,
-	Optional,
 	TemplateRef,
-	ContentChild,
 	EventEmitter,
 	Output,
+	ViewChild
 } from '@angular/core';
 
 @Component({
@@ -12,7 +11,7 @@ import {
 	templateUrl: './cell-editor.component.html'
 })
 export class CellEditorComponent {
-	@ContentChild(TemplateRef) public template: TemplateRef<any>;
+	@ViewChild(TemplateRef) template: TemplateRef<any>;
 	@Output('close') closeEvent = new EventEmitter<any>();
 
 	context: { $implicit: CellEditorComponent } = {

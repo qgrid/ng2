@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 	selector: 'example-details-row-start',
 	templateUrl: 'example-details-row-start.component.html',
 	styleUrls: ['example-details-row-start.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDetailsRowStartComponent {
 	rows: Observable<Atom[]>;

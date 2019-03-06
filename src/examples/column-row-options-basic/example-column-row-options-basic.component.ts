@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { Action, Command } from 'ng2-qgrid';
@@ -7,7 +7,8 @@ import { Action, Command } from 'ng2-qgrid';
 	selector: 'example-column-row-options-basic',
 	templateUrl: 'example-column-row-options-basic.component.html',
 	styleUrls: ['example-column-row-options-basic.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnRowOptionsBasicComponent {
 	rows: Observable<Atom[]>;
@@ -19,6 +20,10 @@ export class ExampleColumnRowOptionsBasicComponent {
 			}),
 			'Goto Wiki',
 			'link'
+		),
+		new Action(
+			new Command(),
+			'---'
 		),
 		new Action(
 			new Command({

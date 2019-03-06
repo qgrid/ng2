@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 	selector: 'example-filter-row-basic',
 	templateUrl: 'example-filter-row-basic.component.html',
 	styleUrls: ['example-filter-row-basic.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleFilterRowBasicComponent {
 	rows: Observable<Atom[]>;

@@ -7,13 +7,13 @@ import { EbNodeComponent } from './eb-node.component';
 	selector: '[q-grid-eb-class]'
 })
 export class EbClassDirective implements OnInit, DoCheck {
-	@Input('q-grid-eb-class') klass: any;
-	@Input('q-grid-eb-class-model') model: any;
-
 	private evaluate: (value: any) => any;
 	private oldClassList: Array<string> = [];
 
-	constructor(private element: ElementRef, @Optional() private node: EbNodeComponent) {
+	@Input('q-grid-eb-class') klass: any;
+	@Input('q-grid-eb-class-model') model: any;
+
+	constructor(private elementRef: ElementRef, @Optional() private node: EbNodeComponent) {
 	}
 
 	ngOnInit() {
@@ -27,13 +27,13 @@ export class EbClassDirective implements OnInit, DoCheck {
 			if (this.oldClassList.length !== classList.length
 				|| this.oldClassList.join(' ') !== classList.join(' ')) {
 
-				const element = this.element.nativeElement as HTMLElement;
+				const element = this.elementRef.nativeElement as HTMLElement;
 				element.classList.remove(...this.oldClassList);
 				element.classList.add(...classList);
 				this.oldClassList = classList;
 			}
 		} else if (this.oldClassList.length) {
-			const element = this.element.nativeElement as HTMLElement;
+			const element = this.elementRef.nativeElement as HTMLElement;
 			element.classList.remove(...this.oldClassList);
 			this.oldClassList = [];
 		}

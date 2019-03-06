@@ -9,7 +9,7 @@ import { PluginService, GridModel } from '../plugin.service';
 	providers: [PluginService]
 })
 export class ActionCoreComponent {
-	@Input() action: ActionItem = null;
+	@Input() action: ActionItem;
 
 	context: { $implicit: ActionCoreComponent } = {
 		$implicit: this
@@ -55,8 +55,7 @@ export class ActionCoreComponent {
 			throw new AppError('action-core.component', 'Action should be setup');
 		}
 
-		const shortcut = this.shortcut;
-		return action.title + (shortcut ? ` (${shortcut.toUpperCase()})` : '');
+		return action.title;
 	}
 
 	get icon() {

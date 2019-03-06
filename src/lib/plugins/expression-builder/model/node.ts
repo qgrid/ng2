@@ -2,10 +2,10 @@ import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { Line } from './line';
 
 export class Node {
-	public readonly attributes: { [key: string]: any } = {};
-	public children: Node[] = [];
-	public level: number;
-	public line: Line;
+	readonly attributes: { [key: string]: any } = {};
+	children: Node[] = [];
+	level: number;
+	line: Line;
 
 	constructor(public id: string, public schema, public parent?: Node) {
 		this.level = parent ? parent.level + 1 : 0;

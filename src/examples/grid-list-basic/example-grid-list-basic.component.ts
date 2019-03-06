@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../data.service';
 import { Observable, of } from 'rxjs';
 
@@ -6,7 +6,8 @@ import { Observable, of } from 'rxjs';
 	selector: 'example-grid-list-basic',
 	templateUrl: 'example-grid-list-basic.component.html',
 	styleUrls: ['example-grid-list-basic.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleGridListBasicComponent {
 	models: Observable<any[]>;

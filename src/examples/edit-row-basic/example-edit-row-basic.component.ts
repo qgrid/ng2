@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 import { Column, BoolColumn, Grid, PipeContext, GridComponent, Command } from 'ng2-qgrid';
@@ -7,7 +7,8 @@ import { Column, BoolColumn, Grid, PipeContext, GridComponent, Command } from 'n
 	selector: 'example-edit-row-basic',
 	templateUrl: 'example-edit-row-basic.component.html',
 	styleUrls: ['example-edit-row-basic.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleEditRowBasicComponent implements OnInit {
 	rows: Observable<Human[]>;
@@ -79,7 +80,7 @@ export class ExampleEditRowBasicComponent implements OnInit {
 							})
 							.columnList({
 								generation: 'deep'
-							}) 
+							})
 							.data({
 								pipe: [
 									(_: any[], context: PipeContext, next: (rows: any[]) => void) => {

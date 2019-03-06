@@ -22,11 +22,12 @@ export function methodsOf(inst: any) {
 
 	return {
 		with: (...args) => {
-			const keys = Object.keys(patch);
-			const length = keys.length;
+			const patchKeys = Object.keys(patch);
+			const patchLength = patchKeys.length;
 
-			for (let i = 0; i < length; i++) {
-				const key = keys[i];
+			for (let i = 0; i < patchLength; i++) {
+				const key = patchKeys[i];
+
 				inst.action = key;
 				patch[key].with.apply(inst, args);
 			}

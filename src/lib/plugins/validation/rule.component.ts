@@ -1,10 +1,10 @@
-import { Component, ContentChild, Input, OnChanges, SimpleChanges, TemplateRef } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { PluginService } from '../plugin.service';
 import { TemplateHostService } from '../../template/template-host.service';
 
 @Component({
 	selector: 'q-grid-rule',
-	template: '',
+	templateUrl: './rule.component.html',
 	providers: [TemplateHostService, PluginService]
 })
 export class RuleComponent implements OnChanges {
@@ -41,7 +41,7 @@ export class RuleComponent implements OnChanges {
 	@Input('equalToField') equal_to_field?: string;
 	@Input('listOf') list_of?: string;
 
-	@ContentChild(TemplateRef) templateRef: TemplateRef<any>;
+	@ViewChild(TemplateRef) templateRef: TemplateRef<any>;
 
 	context: { $implicit: RuleComponent } = {
 		$implicit: this
@@ -59,15 +59,19 @@ export class RuleComponent implements OnChanges {
 			for: this.for,
 			key: this.key
 		};
+
 		const { model } = this.plugin;
 		const validation = model.validation;
 		const rules = Array.from(validation().rules);
 
-		Object.keys(changes).forEach(key => {
-			if (!['for', 'key'].includes(key) && changes[key].firstChange) {
-				rule[key] = this[key];
-			}
-		});
+		Object
+			.keys(changes)
+			.forEach(key => {
+				if (!['for', 'key'].includes(key) && changes[key].firstChange) {
+					rule[key] = this[key];
+				}
+			});
+
 		rules.push(rule);
 		validation({ rules });
 	}

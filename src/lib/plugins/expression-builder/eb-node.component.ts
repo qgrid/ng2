@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, OnInit, ElementRef, OnDestroy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Node } from './model/node';
 import { EbNodeService } from './eb-node.service';
 

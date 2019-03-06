@@ -31,10 +31,9 @@ export class ColumnListCtrl {
 			.filter(key => canCopy(key, source, target))
 			.forEach(key => {
 				const sourceValue = source[key];
-				const accessor = compile(key);
+				const accessor = compile([key]);
 				const targetValue = accessor(target);
 				const targetType = getType(targetValue);
-				const sourceType = getType(sourceValue);
 				let value = sourceValue;
 				if (targetValue !== null && !isUndefined(targetValue)) {
 					const parse = parseFactory(targetType);

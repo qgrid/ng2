@@ -1,4 +1,4 @@
-import { Component, OnInit, Optional, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TemplateHostService } from '../../template/template-host.service';
 
 @Component({

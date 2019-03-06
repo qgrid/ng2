@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, NgZone, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef, OnInit, NgZone, Input, ChangeDetectorRef, ApplicationRef } from '@angular/core';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
@@ -11,6 +11,7 @@ import { ViewCoreService } from '../view/view-core.service';
 import { TableCoreService } from '../table/table-core.service';
 
 @Component({
+	// tslint:disable-next-line
 	selector: 'tbody[q-grid-core-body]',
 	templateUrl: './body-core.component.html'
 })
@@ -21,9 +22,9 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 	rowId: (index: number, row: any) => any;
 
 	constructor(
-		private element: ElementRef,
 		public $view: ViewCoreService,
 		public $table: TableCoreService,
+		private elementRef: ElementRef,
 		private root: RootService,
 		private zone: NgZone,
 		private cd: ChangeDetectorRef
@@ -32,45 +33,48 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const view = this.$view;
-		const element = this.element.nativeElement as HTMLElement;
-
 		const { model } = this.root;
-		const table = this.$table;
-		const ctrl = new BodyCtrl(model, view, this.root.table, this.root.bag);
-		const listener = new EventListener(element, new EventManager(this));
-
-		this.zone.runOutsideAngular(() => {
-			listener.on('wheel', e => ctrl.onWheel(e));
-
-			listener.on('scroll', () =>
-				ctrl.onScroll({
-					scrollLeft: table.pin ? model.scroll().left : element.scrollLeft,
-					scrollTop: element.scrollTop
-				}),
-				{ passive: true }
-			);
-
-			listener.on('mousemove', ctrl.onMouseMove.bind(ctrl));
-			listener.on('mouseleave', ctrl.onMouseLeave.bind(ctrl));
-		});
-
-		listener.on('mousedown', ctrl.onMouseDown.bind(ctrl));
-		listener.on('mouseup', ctrl.onMouseUp.bind(ctrl));
-
 		const { id } = model.data();
+
 		this.rowId = id.row;
 		this.columnId = (index, columnView) => id.column(index, columnView.model);
 
-		model.dataChanged.watch(e => {
+		const table = this.$table;
+		const view = this.$view;
+		const nativeElement = this.elementRef.nativeElement as HTMLElement;
+
+		const ctrl = new BodyCtrl(model, view, this.root.table, this.root.bag);
+		const listener = new EventListener(nativeElement, new EventManager(this));
+
+		this.zone.runOutsideAngular(() => {
+			this.using(listener.on('wheel', e => ctrl.onWheel(e)));
+
+			this.using(listener.on('scroll', () =>
+				ctrl.onScroll({
+					scrollLeft: table.pin ? model.scroll().left : nativeElement.scrollLeft,
+					scrollTop: nativeElement.scrollTop
+				}),
+				{ passive: true }
+			));
+
+			this.using(listener.on('mousemove', ctrl.onMouseMove.bind(ctrl)));
+			this.using(listener.on('mouseleave', ctrl.onMouseLeave.bind(ctrl)));
+			this.using(listener.on('mousedown', ctrl.onMouseDown.bind(ctrl)));
+			this.using(listener.on('mouseup', e => {
+				this.cd.markForCheck();
+				this.zone.run(() => ctrl.onMouseUp(e));
+			}));
+		});
+
+		this.using(model.dataChanged.watch(e => {
 			if (e.hasChanges('id')) {
 				this.rowId = e.state.id.row;
 				const columnId = e.state.id.column;
 				this.columnId = (index, columnView) => columnId(index, columnView.model);
 			}
-		});
+		}));
 
-		model.sceneChanged.watch(e => {
+		this.using(model.sceneChanged.watch(e => {
 			if (model.grid().interactionMode === 'detached') {
 				if (e.hasChanges('status')) {
 					switch (e.state.status) {
@@ -83,7 +87,7 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 					}
 				}
 			}
-		});
+		}));
 	}
 
 	get selection(): SelectionModel {
@@ -92,9 +96,5 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 
 	get model(): Model {
 		return this.root.model;
-	}
-
-	virtualRowId(index) {
-		return index;
 	}
 }

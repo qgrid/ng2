@@ -5,15 +5,16 @@ import { PositionView } from 'ng2-qgrid/plugin/position/position.view';
 	selector: '[q-grid-position]'
 })
 export class PositionDirective implements OnDestroy, OnInit {
-	@Input('q-grid-position') public target = '';
 	private position: PositionView;
 
-	constructor(private element: ElementRef) {
+	@Input('q-grid-position') target = '';
+
+	constructor(private elementRef: ElementRef) {
 	}
 
 	ngOnInit() {
 		this.position = new PositionView({
-			element: this.element.nativeElement,
+			element: this.elementRef.nativeElement,
 			targetName: this.target
 		});
 
@@ -21,6 +22,9 @@ export class PositionDirective implements OnDestroy, OnInit {
 	}
 
 	ngOnDestroy() {
-		this.position.dispose();
+		if (this.position) {
+			this.position.dispose();
+			this.position = null;
+		}
 	}
 }

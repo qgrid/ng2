@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { GridComponent, GridService, Grid, GridModel } from 'ng2-qgrid';
@@ -7,7 +7,8 @@ import { GridComponent, GridService, Grid, GridModel } from 'ng2-qgrid';
 	selector: 'example-filter-row-custom',
 	templateUrl: 'example-filter-row-custom.component.html',
 	styleUrls: ['example-filter-row-custom.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleFilterRowCustomComponent {
 	@ViewChild(GridComponent) myGrid: GridComponent;

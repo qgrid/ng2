@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService, Atom } from '../data.service';
-import { Action, Command } from 'ng2-qgrid';
-import { from, Observable, of } from 'rxjs';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { of, Observable } from 'rxjs';
 
 @Component({
 	selector: 'example-column-autocomplete-basic',
 	templateUrl: 'example-column-autocomplete-basic.component.html',
-	styleUrls: ['example-column-autocomplete-basic.component.scss']
+	styleUrls: ['example-column-autocomplete-basic.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnAutocompletetBasicComponent {
 	rows = [

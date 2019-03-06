@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Routes } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { exampleRoutes } from '../examples/example.module';
@@ -6,7 +6,8 @@ import { exampleRoutes } from '../examples/example.module';
 @Component({
 	selector: 'app-root',
 	templateUrl: 'app.component.html',
-	styleUrls: ['app.component.scss']
+	styleUrls: ['app.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnDestroy {
 	mobileQuery: MediaQueryList;

@@ -1,4 +1,4 @@
-import { identity, isObject, isArray, isBoolean, isEmail, isString, isUrl, isImage } from '../utility/kit';
+import { identity, isObject, isArray, isBoolean, isEmail, isString, isUrl, isImage, isUndefined } from '../utility/kit';
 
 // TODO: right now we check the empty result on null, we need to have a way to make it more explicitly
 export function parseFactory(type, editor) {
@@ -28,6 +28,21 @@ export function parseFactory(type, editor) {
 		default:
 			return identity;
 	}
+}
+
+export function resolveType(values) {
+	const types = values
+		.filter(x => !(isUndefined(x) || x === null || x === ''))
+		.map(getType);
+
+	if (types.length) {
+		const test = types[0];
+		if (types.every(x => x === test)) {
+			return test;
+		}
+	}
+
+	return 'text';
 }
 
 export function getType(value) {

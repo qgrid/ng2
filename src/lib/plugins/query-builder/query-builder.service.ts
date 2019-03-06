@@ -4,11 +4,16 @@ import { ExpressionBuilder } from '../expression-builder/model/expression.builde
 import { Node } from '../expression-builder/model/node';
 import { typeMapping } from './schema/operator';
 import { getFactory } from 'ng2-qgrid/core/services/value';
-import * as columnService from 'ng2-qgrid/core/column/column.service';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
+import * as columnService from 'ng2-qgrid/core/column/column.service';
 
-export declare type Column = { key: string, title: string, type: string };
-export declare type ColumnMap = { [key: string]: Column };
+export interface Column {
+	key: string; title: string; type: string;
+}
+
+export interface ColumnMap {
+	[key: string]: Column;
+}
 
 export interface IQueryBuilderSchema {
 	apply(node?: Node): Node;

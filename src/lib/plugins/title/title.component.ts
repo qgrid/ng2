@@ -1,21 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { PluginService } from '../plugin.service';
 
 // @deprecated
 @Component({
 	selector: 'q-grid-title',
 	templateUrl: './title.component.html',
-	providers: [PluginService]
+	providers: [PluginService],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TitleComponent {
+export class TitleComponent implements OnInit {
 	context: { $implicit: TitleComponent } = {
 		$implicit: this
 	};
 
-	constructor(private plugin: PluginService) {
+	constructor(private plugin: PluginService, private cd: ChangeDetectorRef) {
 	}
 
-	public get value() {
+	ngOnInit() {
+		this.plugin.model.gridChanged.on(() => this.cd.detectChanges());
+	}
+
+	get value() {
 		return this.plugin.model.grid().title;
 	}
 }

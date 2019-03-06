@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { NgComponent } from '../../infrastructure/component/ng.component';
 import { CellView } from 'ng2-qgrid/core/scene/view/cell.view';
 import { Command } from 'ng2-qgrid/core/command/command';
@@ -6,7 +6,6 @@ import { getFactory as valueFactory } from 'ng2-qgrid/core/services/value';
 import { isArray, isUndefined } from 'ng2-qgrid/core/utility/kit';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { SelectionService } from 'ng2-qgrid/core/selection/selection.service';
-import { ReferenceEditorComponent } from './reference-editor.component';
 
 @Component({
 	selector: 'q-grid-reference',

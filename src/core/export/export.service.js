@@ -1,9 +1,9 @@
 import { isObject, isArray } from '../utility/kit';
 
-function flatView(obj, separator = ', ') {
+function flatView(graph, separator = ', ') {
 	const result = {};
 
-	for (let [prop, value] of Object.entries(obj)) {
+	for (let [prop, value] of Object.entries(graph)) {
 		if (isArray(value)) {
 			const items = [];
 			for (let item of value) {

@@ -7,7 +7,7 @@ function swap(inst: { [key: string]: string }): { [key: string]: string } {
 	}
 
 	return result;
-};
+}
 
 const commonOperators = [
 	'EQUALS',

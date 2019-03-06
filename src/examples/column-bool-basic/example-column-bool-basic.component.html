@@ -2,7 +2,7 @@
         [rows]="rows"
         editMode="cell">
 	<q-grid-columns>
-		<q-grid-column width="100">
+		<q-grid-column [width]="100">
 		</q-grid-column>
 		<q-grid-column key="true"
 		               title="True"
@@ -39,14 +39,14 @@
 		               type="bool">
 		</q-grid-column>
 		<q-grid-column key="triggerFocus"
-		               width="120"
+		               [width]="120"
 		               [editorOptions]="{trigger: 'focus'}"
 		               title="Trigger Focus"
 		               type="bool">
 		</q-grid-column>
 		<q-grid-column key="customTemplate"
-					   width="120"
-					   viewWidth="300"
+					   [width]="120"
+					   [viewWidth]="300"
 		               title="Custom Template"
 		               [editorOptions]="{trigger: 'focus'}"
 		               type="bool">

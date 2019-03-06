@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../data.service';
 import { Grid, GridModel, Command, Node } from 'ng2-qgrid';
 
@@ -6,7 +6,8 @@ import { Grid, GridModel, Command, Node } from 'ng2-qgrid';
 	selector: 'example-hierarchy-browser-basic',
 	templateUrl: 'example-hierarchy-browser-basic.component.html',
 	styleUrls: ['example-hierarchy-browser-basic.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleHierarchyBrowserBasicComponent {
 	gridModel: GridModel;

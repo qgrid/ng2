@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CellEditor } from 'ng2-qgrid/core/edit/edit.cell.editor';
 
 @Component({

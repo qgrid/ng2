@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Optional, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 
 @Component({
@@ -15,10 +15,6 @@ export class ColumnFilterByComponent {
 	context: { $implicit: ColumnFilterByComponent } = {
 		$implicit: this
 	};
-
-
-	constructor() {
-	}
 
 	get isBlanks() {
 		return this.byBlanks;

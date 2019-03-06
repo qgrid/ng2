@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
@@ -27,38 +27,40 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy {
 		private viewContainerRef: ViewContainerRef,
 		private cellService: CellService,
 		private tr: TrCoreDirective,
-		element: ElementRef
+		private cd: ChangeDetectorRef,
+		elementRef: ElementRef
 	) {
-
-		this.element = element.nativeElement.parentNode;
+		this.element = elementRef.nativeElement.parentNode;
 	}
 
 	ngOnInit() {
 		this.root.bag.body.addCell(this);
 		classify(this.element, this.column);
 
-		this.mode('init');
+		const link = this.cellService.build('body', this.column, 'view');
+		link(this.viewContainerRef, this);
 	}
 
-	mode(value) {
+	mode(value: 'view' | 'edit') {
 		switch (value) {
-			case 'view':
-			case 'init': {
+			case 'view': {
+				this.element.classList.remove(`${GRID_PREFIX}-edit`);
+
 				const link = this.cellService.build('body', this.column, 'view');
 				link(this.viewContainerRef, this);
-				if (value !== 'init') {
-					this.element.classList.remove(`${GRID_PREFIX}-edit`);
-				}
-
+				this.cd.markForCheck();
+				this.cd.detectChanges();
 				break;
 			}
 			case 'edit': {
+				this.element.classList.add(`${GRID_PREFIX}-edit`);
+
 				const link = this.cellService.build('body', this.column, 'edit');
 				link(this.viewContainerRef, this);
-
-				this.element.classList.add(`${GRID_PREFIX}-edit`);
-			}
+				this.cd.markForCheck();
+				this.cd.detectChanges();
 				break;
+			}
 			default:
 				throw new AppError('td.core', `Invalid mode ${value}`);
 		}

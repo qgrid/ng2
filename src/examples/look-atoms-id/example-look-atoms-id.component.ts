@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { GridComponent } from 'ng2-qgrid';
@@ -7,7 +7,8 @@ import { GridComponent } from 'ng2-qgrid';
 	selector: 'example-look-atoms-id',
 	templateUrl: 'example-look-atoms-id.component.html',
 	styleUrls: ['example-look-atoms-id.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleLookAtomsIdComponent implements AfterViewInit {
 	@ViewChild(GridComponent) myGrid: GridComponent;

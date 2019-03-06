@@ -2,9 +2,9 @@
         [rows]="rows"
         editMode="cell">
 	<q-grid-columns generation="deep">
-		<q-grid-column width="170"></q-grid-column>
+		<q-grid-column [width]="170"></q-grid-column>
 		<q-grid-column key="customTemplate"
-		               viewWidth="200"
+		               [viewWidth]="200"
 		               title="Custom Template"
 		               type="array">
 			<ng-template for="body"

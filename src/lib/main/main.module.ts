@@ -11,27 +11,30 @@ import { RowComponent } from './core/row/row.component';
 import { LayerComponent } from './core/layer/layer.component';
 import { MarkupDirective } from './markup/markup.directive';
 import { CommonModule as GridCommonModule } from '../common/common.module';
+import { VisibilityComponent } from './visibility/visibility.component';
 
 @NgModule({
 	declarations: [
-		GridComponent,
 		BoxComponent,
-		ColumnListComponent,
 		ColumnComponent,
-		ToolbarComponent,
-		RowComponent,
+		ColumnListComponent,
+		GridComponent,
 		LayerComponent,
-		MarkupDirective
+		MarkupDirective,
+		RowComponent,
+		ToolbarComponent,
+		VisibilityComponent,
 	],
 	exports: [
-		GridComponent,
-		ColumnListComponent,
-		ColumnComponent,
 		BoxComponent,
-		ToolbarComponent,
-		RowComponent,
+		ColumnComponent,
+		ColumnListComponent,
+		GridCommonModule,
+		GridComponent,
 		LayerComponent,
-		GridCommonModule
+		RowComponent,
+		ToolbarComponent,
+		VisibilityComponent,
 	],
 	imports: [
 		CoreModule,
@@ -43,6 +46,4 @@ import { CommonModule as GridCommonModule } from '../common/common.module';
 	]
 })
 export class MainModule {
-	constructor() {
-	}
 }

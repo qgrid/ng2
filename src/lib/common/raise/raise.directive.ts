@@ -5,8 +5,8 @@ import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 	selector: '[q-grid-raise]'
 })
 export class RaiseDirective implements AfterViewInit {
-	@Input('q-grid-raise') public type = 'click';
-	@Input('q-grid-raise-target') public target: string;
+	@Input('q-grid-raise') type = 'click';
+	@Input('q-grid-raise-target') target: string;
 
 	constructor(private element: ElementRef) {}
 

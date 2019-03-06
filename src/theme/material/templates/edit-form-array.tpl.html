@@ -1,29 +1,29 @@
 <ng-template key="edit-form-array.tpl.html"
              let-$editor>
-    <h3>{{$editor.cell.column.title}}</h3>
-    <div class="q-grid-array-view">
-        <mat-chip-list #chipList>
-            <mat-chip class="q-grid-array-item"
-                      *ngFor="let value of $editor.value;let $index = index"
-                      selectable="true"
-                      removable="true"
-                      (removed)="$editor.value.splice($index, 1)">
-                {{value}}
-                <mat-icon class="q-grid-icon"
-                          matChipRemove>
-                    cancel
-                </mat-icon>
-            </mat-chip>
-        </mat-chip-list>
-    </div>
-    <mat-form-field q-grid-chips
-                    (push)="$editor.value.push($event)"
-                    [floatLabel]="'never'">
-        <input class="q-grid-array-input"
-               matInput
-               type={{$editor.cell.column.itemType}}
-               #chipInput
-               placeholder="New value"
-               [matChipInputFor]="chipList" />
-    </mat-form-field>
+    <ng-container q-grid-chips>
+        <h3>{{$editor.cell.column.title}}</h3>
+        <div class="q-grid-array-view">
+            <mat-chip-list #chipList>
+                <mat-chip class="q-grid-array-item"
+                          *ngFor="let value of $editor.value;let $index = index"
+                          selectable="true"
+                          removable="true"
+                          (q-grid-chips-remove)="$editor.value.splice($index, 1)">
+                    {{value}}
+                    <mat-icon class="q-grid-icon"
+                              matChipRemove>
+                        cancel
+                    </mat-icon>
+                </mat-chip>
+            </mat-chip-list>
+        </div>
+        <mat-form-field (q-grid-chips-push)="$editor.value.push($event)"
+                        [floatLabel]="'never'">
+            <input class="q-grid-array-input"
+                   matInput
+                   type={{$editor.cell.column.itemType}}
+                   #qGridInput
+                   [matChipInputFor]="chipList" />
+        </mat-form-field>
+    </ng-container>
 </ng-template>

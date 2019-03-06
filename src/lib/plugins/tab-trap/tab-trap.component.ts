@@ -1,10 +1,9 @@
 import {
 	Component,
-	Optional,
 	TemplateRef,
-	ContentChild,
 	ElementRef,
 	Input,
+	ViewChild
 } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
@@ -18,7 +17,9 @@ import { PluginService } from '../plugin.service';
 	providers: [PluginService]
 })
 export class TabTrapComponent {
-	@ContentChild(TemplateRef) template: TemplateRef<any>;
+	private isActivating = false;
+
+	@ViewChild(TemplateRef) template: TemplateRef<any>;
 	@Input() roundTrip = false;
 
 	context: { $implicit: TabTrapComponent } = {
@@ -26,10 +27,9 @@ export class TabTrapComponent {
 	};
 
 	traps = new Map<string, any>();
-	private isActivating = false;
 
-	constructor(private plugin: PluginService, element: ElementRef) {
-		const listener = new EventListener(element.nativeElement, new EventManager(this));
+	constructor(private plugin: PluginService, elementRef: ElementRef) {
+		const listener = new EventListener(elementRef.nativeElement, new EventManager(this));
 		listener.on('keydown', e => {
 			const code = Shortcut.translate(e);
 			if (code === 'tab' || code === 'shift+tab') {

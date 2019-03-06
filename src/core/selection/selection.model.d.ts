@@ -1,5 +1,6 @@
 import { Resource } from '../resource/resource';
 import { ColumnModel } from '../column-type/column.model';
+import { Command } from '../command/command';
 
 /**
  * A class that allows to control selection function of the q-grid.
@@ -57,4 +58,9 @@ export declare interface SelectionModel {
 	 * Keyboard shortcuts to control selection behavior. Changed.
 	 */
 	shortcut?: {[key: string]: string};
+
+	/**
+	 * Allows to disable selection and execute action on selection changed from ui.
+	 */
+	toggle?: Command;
 }

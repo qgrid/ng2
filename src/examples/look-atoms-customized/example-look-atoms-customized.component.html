@@ -4,7 +4,7 @@
 		<q-grid-column key="color"
 		               title=""
 		               type="row-indicator"
-		               width="50">
+		               [width]="50">
 			<ng-template for="body"
 			             let-$cell>
 				<div class="atom-color"
@@ -15,24 +15,24 @@
 		<q-grid-column key="number"
 		               type="id"
 		               title="#"
-		               width="60"
-		               canFilter="false">
+		               [width]="60"
+		               [canFilter]="false">
 		</q-grid-column>
 		<q-grid-column key="symbol"
-		               width="80">
+		               [width]="80">
 		</q-grid-column>
 		<q-grid-column key="source"
 		               type="url"
-		               width="100"
+		               [width]="100"
 		               label="wiki">
 		</q-grid-column>
 		<q-grid-column key="summary"
-		               width="250"
-		               viewWidth="500"
+		               [width]="250"
+		               [viewWidth]="500"
 		               editor="text-area">
 		</q-grid-column>
 		<q-grid-column key="discoveredIn"
-		               width="100">
+		               [width]="100">
 		</q-grid-column>
 	</q-grid-columns>
 </q-grid>

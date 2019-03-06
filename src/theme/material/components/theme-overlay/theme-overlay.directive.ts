@@ -9,19 +9,21 @@ export class ThemeOverlayDirective implements AfterViewInit {
 
 	constructor(
 		private plugin: GridPlugin,
-		private element: ElementRef,
+		private elementRef: ElementRef,
 		private renderer: Renderer2) {
 	}
 
 	ngAfterViewInit(): void {
 		const { model } = this.plugin;
-		const element = this.element.nativeElement;
+		const element = this.elementRef.nativeElement;
 		let parent = this.renderer.parentNode(element);
 		let overlayContainer: any = null;
 
 		while (parent && !(parent.id && parent.id.startsWith('cdk-overlay'))) {
 			parent = this.renderer.parentNode(parent);
-			if (parent.nodeName === 'BODY') break;
+			if (parent.nodeName === 'BODY') {
+				break;
+			}
 		}
 
 		if (parent.nodeName !== 'BODY') {

@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { BoolColumnModel } from 'ng2-qgrid/core/column-type/bool.column';
 
 @Component({
 	selector: 'q-grid-bool-editor',
-	templateUrl: './bool-editor.component.html'
+	templateUrl: './bool-editor.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BoolEditorComponent implements OnInit {
 	private state: any;
@@ -16,9 +17,6 @@ export class BoolEditorComponent implements OnInit {
 	context: { $implicit: BoolEditorComponent } = {
 		$implicit: this
 	};
-
-	constructor() {
-	}
 
 	@Input() get value() {
 		return this.state;

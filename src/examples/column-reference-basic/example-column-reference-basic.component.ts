@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Grid, EditorOptions, Command } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-column-reference-basic',
 	templateUrl: 'example-column-reference-basic.component.html',
-	styleUrls: ['example-column-reference-basic.component.scss']
+	styleUrls: ['example-column-reference-basic.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnReferenceBasicComponent {
 	rows = [

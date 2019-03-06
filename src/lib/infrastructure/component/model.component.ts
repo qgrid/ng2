@@ -6,9 +6,10 @@ import { RootService } from './root.service';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 export class ModelComponent extends NgComponent implements OnChanges, OnInit, OnDestroy {
-	public binder = new ModelBinder(this);
-	public commit = noop;
 	protected models: string[] = [];
+
+	binder = new ModelBinder(this);
+	commit = noop;
 
 	constructor(public root: RootService) {
 		super();

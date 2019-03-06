@@ -10,7 +10,7 @@ import { AutocompleteEditorComponent } from './autocomplete-editor.component';
 		AutocompleteEditorComponent
 	],
 	imports: [
-		TemplateModule  
+		TemplateModule
 	]
 })
 export class AutocompleteEditorModule {

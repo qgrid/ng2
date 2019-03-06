@@ -11,7 +11,7 @@ Phase: <input type="search"
         [rows]="rows | async"
         [model]="gridModel">
 	<q-grid-columns generation="deep">
-		<q-grid-column canFilter="false"></q-grid-column>
+		<q-grid-column [canFilter]="false"></q-grid-column>
 	</q-grid-columns>
 
 </q-grid>

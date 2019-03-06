@@ -17,8 +17,8 @@ export interface INodeSchema {
 
 export function nodeSchema(GroupSchemaT: typeof GroupSchema): any {
 	return class NodeSchema implements INodeSchema {
-		public plan = [];
-		public planMap = {};
+		plan = [];
+		planMap = {};
 
 		constructor(public schemaMap = {}) {
 		}

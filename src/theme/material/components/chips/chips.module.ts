@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { ChipsDirective } from './chips.directive';
+import { ChipsPushDirective } from './chips-push.directive';
+import { ChipsRemoveDirective } from './chips-remove.directive';
 
 @NgModule({
 	declarations: [
-		ChipsDirective
+		ChipsDirective,
+		ChipsPushDirective,
+		ChipsRemoveDirective,
 	],
 	exports: [
-		ChipsDirective
+		ChipsDirective,
+		ChipsPushDirective,
+		ChipsRemoveDirective,
 	]
 })
 export class ChipsModule {

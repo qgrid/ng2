@@ -23,9 +23,10 @@ const classify = TdCtrl.classify;
 	selector: '[q-grid-core-tf]'
 })
 export class TfCoreDirective implements Td, OnInit, OnDestroy {
+	$implicit = this;
+
 	@Input('q-grid-core-tf') columnView: ColumnView;
-	public element: HTMLElement = null;
-	private $implicit = this;
+	element: HTMLElement = null;
 
 	constructor(
 		public $view: ViewCoreService,
@@ -33,9 +34,9 @@ export class TfCoreDirective implements Td, OnInit, OnDestroy {
 		private cellService: CellService,
 		private viewContainerRef: ViewContainerRef,
 		private tr: TrhCoreDirective,
-		element: ElementRef
+		elementRef: ElementRef
 	) {
-		this.element = element.nativeElement.parentNode;
+		this.element = elementRef.nativeElement.parentNode;
 	}
 
 	ngOnInit() {

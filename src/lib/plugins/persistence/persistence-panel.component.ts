@@ -1,7 +1,5 @@
-import { Component, Optional, Input, EventEmitter, OnInit, OnDestroy } from '@angular/core';
-import { PersistenceView, PersistenceItem } from 'ng2-qgrid/plugin/persistence/persistence.view';
-import { Command } from 'ng2-qgrid/core/command/command';
-import { PersistenceService } from 'ng2-qgrid/core/persistence/persistence.service';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { PersistenceView } from 'ng2-qgrid/plugin/persistence/persistence.view';
 import { PluginService } from '../plugin.service';
 
 @Component({

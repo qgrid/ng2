@@ -1,0 +1,19 @@
+<q-grid caption="Generate Column Check"
+		[rows]="rows">
+	<q-grid-columns generation="deep">
+		<q-grid-column [width]="150">
+			<ng-template for="head"
+						 let-$cell>
+				<q-grid-column-sort [column]="$cell.column"
+									class="q-grid-sort">
+					<label>
+						{{$cell.column.title}}/{{$cell.column.type}}
+					</label>
+				</q-grid-column-sort>
+				<q-grid-column-filter-trigger class="q-grid-column-filter-trigger"
+											  [column]="$cell.column">
+				</q-grid-column-filter-trigger>
+			</ng-template>
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

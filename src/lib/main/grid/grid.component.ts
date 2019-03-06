@@ -7,8 +7,11 @@ import {
 	OnInit,
 	ElementRef,
 	NgZone,
-	Inject
+	Inject,
+	ChangeDetectorRef,
+	ApplicationRef
 } from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
 import { RootComponent } from '../../infrastructure/component/root.component';
 import { RootService } from '../../infrastructure/component/root.service';
 import { LayerService } from '../core/layer/layer.service';
@@ -33,7 +36,6 @@ import { TableCommandManager } from 'ng2-qgrid/core/command/table.command.manage
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { GridModel } from '../../plugins/plugin.service';
-import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
 	selector: 'q-grid',
@@ -104,13 +106,15 @@ export class GridComponent extends RootComponent implements OnInit {
 
 	@Output() selectionChanged = new EventEmitter<any>();
 
-	public themeComponent: any;
+	themeComponent: any;
 
 	constructor(
 		private root: RootService,
-		private element: ElementRef,
+		private elementRef: ElementRef,
 		private zone: NgZone,
 		private layerService: LayerService,
+		private cd: ChangeDetectorRef,
+		private app: ApplicationRef,
 		@Inject(DOCUMENT) private document: any,
 		theme: ThemeService,
 	) {
@@ -144,19 +148,17 @@ export class GridComponent extends RootComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const model = this.root.model;
-
-		const element = this.element.nativeElement;
+		const { model } = this.root;
+		const { nativeElement } = this.elementRef;
 
 		model.style({
-			classList: Array.from(element.classList)
+			classList: Array.from(nativeElement.classList)
 		});
 
 		const ctrl = this.using(new GridCtrl(model, {
 			layerFactory: () => this.layerService,
-			element
+			element: nativeElement
 		}));
-
 
 		this.root.table = ctrl.table;
 		this.root.bag = ctrl.bag;
@@ -167,7 +169,7 @@ export class GridComponent extends RootComponent implements OnInit {
 			ctrl.table
 		);
 
-		const listener = new EventListener(element, new EventManager(this));
+		const listener = new EventListener(nativeElement, new EventManager(this));
 		const docListener = new EventListener(this.document, new EventManager(this));
 
 		this.zone.runOutsideAngular(() => this.using(docListener.on('focusin', () => ctrl.invalidateActive())));
@@ -176,24 +178,26 @@ export class GridComponent extends RootComponent implements OnInit {
 		if (debounce) {
 			const navJob = jobLine(debounce);
 			this.zone.runOutsideAngular(() => {
-				listener.on('keydown', e => {
+				this.using(listener.on('keydown', e => {
 					const result = ctrl.keyDown(e);
 					if (result.indexOf('navigation') >= 0) {
-						navJob((() => this.zone.run(noop)));
+						navJob((() => {
+							this.cd.markForCheck();
+							this.zone.run(noop);
+						}));
 					} else if (result.length) {
 						// app.tick is not working correctly, why?
+						this.cd.markForCheck();
 						this.zone.run(noop);
 					}
-				});
+				}));
 			});
 		} else {
-			listener.on('keydown', e => {
-				const result = ctrl.keyDown(e);
-				if (result.length) {
-					this.zone.run(noop);
-				}
-			});
+			this.using(listener.on('keydown', e => ctrl.keyDown(e)));
 		}
+
+		this.using(model.visibilityChanged.on(() => this.cd.detectChanges()));
+
 	}
 
 	// @deprecated

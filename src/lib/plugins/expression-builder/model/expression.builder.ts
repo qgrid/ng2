@@ -56,10 +56,10 @@ export class ExpressionBuilder {
 							const sourceFunction = expression[key];
 
 							if (isFunction(sourceFunction)) {
-								expression[key] = (...args) => {
-									const result = sourceFunction.apply(expression, args);
+								expression[key] = (...context) => {
+									const result = sourceFunction.apply(expression, context);
 
-									// TODO add decorator for muttable methods instead of trigger
+									// TODO add decorator for mutable methods instead of trigger
 									if (!line.immutable) {
 										expression.method = expression.method || [];
 										if (expression.method.indexOf(key) < 0) {

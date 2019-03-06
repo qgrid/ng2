@@ -6,7 +6,7 @@ export abstract class Expression {
 }
 
 export class GroupExpression extends Expression {
-	public expressions: Expression[] = [];
+	expressions: Expression[] = [];
 
 	constructor() {
 		super();
