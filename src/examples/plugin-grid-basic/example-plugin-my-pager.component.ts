@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { GridPlugin, Command } from 'ng2-qgrid';
 
 @Component({
@@ -26,7 +26,7 @@ export class ExamplePluginMyPagerComponent implements OnInit {
 		shortcut: 'ctrl+left'
 	});
 
-	constructor(private plugin: GridPlugin) {
+	constructor(private plugin: GridPlugin, private cd: ChangeDetectorRef) {
 	}
 
 	ngOnInit() {
@@ -35,6 +35,9 @@ export class ExamplePluginMyPagerComponent implements OnInit {
 			this.gotoNext,
 			this.gotoPrev
 		]);
+
+		// If onPush is used, need to trigger change detection manually.
+		this.model.paginationChanged.on(() => this.cd.detectChanges());
 	}
 
 	get pages() {

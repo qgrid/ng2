@@ -10,7 +10,7 @@ import { RootService } from '../../../infrastructure/component/root.service';
 	selector: 'tfoot[q-grid-core-foot]',
 	templateUrl: './foot-core.component.html'
 })
-export class FootCoreComponent extends NgComponent implements OnInit {
+export class FootCoreComponent extends NgComponent {
 	constructor(
 		public $view: ViewCoreService,
 		public $table: TableCoreService,
@@ -18,24 +18,6 @@ export class FootCoreComponent extends NgComponent implements OnInit {
 		private cd: ChangeDetectorRef
 	) {
 		super();
-	}
-
-	ngOnInit() {
-		const { model } = this.root;
-		this.using(model.sceneChanged.watch(e => {
-			if (model.grid().interactionMode === 'detached') {
-				if (e.hasChanges('status')) {
-					switch (e.state.status) {
-						case 'stop':
-							this.cd.detach();
-							break;
-						case 'start':
-							this.cd.reattach();
-							break;
-					}
-				}
-			}
-		}));
 	}
 
 	columnId(index: number, item: ColumnView) {

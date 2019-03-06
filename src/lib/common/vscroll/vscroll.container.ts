@@ -44,8 +44,6 @@ export class VscrollContainer {
 
 	update(count: number) {
 		if (this.count !== count) {
-			console.log('UPDATE: ' + count);
-
 			this.count = count;
 			this.total = Math.max(this.total, count);
 			this.updateEvent.emit({});
@@ -58,7 +56,6 @@ export class VscrollContainer {
 	}
 
 	fetchPage(page: number) {
-		console.log('FETCH: ' + page);
 		const { settings, lastPage } = this;
 		const { threshold } = settings;
 

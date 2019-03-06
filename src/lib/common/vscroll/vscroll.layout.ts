@@ -45,9 +45,6 @@ export class VscrollLayout {
 
 	setItem(index: number, item: () => number) {
 		const { items } = this;
-
-		// console.log(`SET ITEM: ${index}`);
-
 		items[index] = item;
 		while (--index >= 0) {
 			if (items[index]) {
@@ -56,15 +53,10 @@ export class VscrollLayout {
 
 			items[index] = empty;
 		}
-
-		// console.log(items);
 	}
 
 	removeItem(index: number) {
 		const { items } = this;
-
-		// console.log(`REMOVE ITEM: ${index}`);
-
 		const last = items.length - 1;
 		if (index === last) {
 			items.pop();
@@ -79,8 +71,6 @@ export class VscrollLayout {
 		} else {
 			items[index] = empty;
 		}
-
-		// console.log(items);
 	}
 
 	private recycleOffsets(count: number, box: VscrollBox, force: boolean) {

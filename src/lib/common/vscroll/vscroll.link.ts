@@ -46,8 +46,6 @@ export class VscrollLink {
 		const count = container.count;
 		const position = port.layout.recycle(count, box, force);
 		if (position) {
-			console.log(`DRAW, force: ${force}`);
-
 			const draw = () => {
 				container.cursor = port.layout.invalidate(position);
 				container.drawEvent.emit({

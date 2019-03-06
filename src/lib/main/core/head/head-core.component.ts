@@ -36,21 +36,6 @@ export class HeadCoreComponent extends NgComponent implements OnInit {
 			this.using(listener.on('mousemove', e => ctrl.onMouseMove(e)));
 			this.using(listener.on('mouseleave', e => ctrl.onMouseLeave(e)));
 		});
-
-		this.using(model.sceneChanged.watch(e => {
-			if (model.grid().interactionMode === 'detached') {
-				if (e.hasChanges('status')) {
-					switch (e.state.status) {
-						case 'stop':
-							this.cd.detach();
-							break;
-						case 'start':
-							this.cd.reattach();
-							break;
-					}
-				}
-			}
-		}));
 	}
 
 	columnId(index: number, item: ColumnView) {

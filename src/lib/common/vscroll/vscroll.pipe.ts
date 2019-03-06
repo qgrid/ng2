@@ -19,7 +19,6 @@ export class VscrollPipe implements PipeTransform {
 		const { length } = data;
 		const { container, settings } = context;
 
-		// console.log('PIPE: ' + length);
 		container.update(length);
 
 		let wnd = container.items;
@@ -39,7 +38,6 @@ export class VscrollPipe implements PipeTransform {
 					wnd[j] = data[i];
 				}
 
-				console.log(wnd);
 				container.force = false;
 			}
 		} else if (wnd.length) {
