@@ -8,7 +8,8 @@ import {
 	ElementRef,
 	NgZone,
 	Inject,
-	ChangeDetectorRef
+	ChangeDetectorRef,
+	ApplicationRef
 } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { RootComponent } from '../../infrastructure/component/root.component';
@@ -113,6 +114,7 @@ export class GridComponent extends RootComponent implements OnInit {
 		private zone: NgZone,
 		private layerService: LayerService,
 		private cd: ChangeDetectorRef,
+		private app: ApplicationRef,
 		@Inject(DOCUMENT) private document: any,
 		theme: ThemeService,
 	) {
@@ -179,20 +181,19 @@ export class GridComponent extends RootComponent implements OnInit {
 				this.using(listener.on('keydown', e => {
 					const result = ctrl.keyDown(e);
 					if (result.indexOf('navigation') >= 0) {
-						navJob((() => this.zone.run(noop)));
+						navJob((() => {
+							this.cd.markForCheck();
+							this.zone.run(noop);
+						}));
 					} else if (result.length) {
 						// app.tick is not working correctly, why?
+						this.cd.markForCheck();
 						this.zone.run(noop);
 					}
 				}));
 			});
 		} else {
-			this.using(listener.on('keydown', e => {
-				const result = ctrl.keyDown(e);
-				if (result.length) {
-					this.zone.run(noop);
-				}
-			}));
+			this.using(listener.on('keydown', e => ctrl.keyDown(e)));
 		}
 
 		this.using(model.visibilityChanged.on(() => this.cd.detectChanges()));

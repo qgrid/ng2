@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, NgZone, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef, OnInit, NgZone, Input, ChangeDetectorRef, ApplicationRef } from '@angular/core';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
@@ -59,11 +59,10 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 
 			this.using(listener.on('mousemove', ctrl.onMouseMove.bind(ctrl)));
 			this.using(listener.on('mouseleave', ctrl.onMouseLeave.bind(ctrl)));
-
 			this.using(listener.on('mousedown', ctrl.onMouseDown.bind(ctrl)));
 			this.using(listener.on('mouseup', e => {
-				ctrl.onMouseUp(e);
-				this.cd.detectChanges();
+				this.cd.markForCheck();
+				this.zone.run(() => ctrl.onMouseUp(e));
 			}));
 		});
 

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ViewCoreService } from '../../main/core/view/view-core.service';
 import { PluginService } from '../plugin.service';
 import { predicateFactory } from 'ng2-qgrid/core/services/predicate';

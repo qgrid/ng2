@@ -4,7 +4,7 @@ export class NavigationModel {
 	constructor() {
 		this.cell = null;
 
-		this.debounce = 100;
+		this.debounce = 0;
 
 		this.shortcut = {
 			up: 'up',

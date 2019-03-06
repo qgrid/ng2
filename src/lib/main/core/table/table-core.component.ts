@@ -8,9 +8,7 @@ import { NgComponent } from '../../../infrastructure/component/ng.component';
 @Component({
 	selector: 'q-grid-core-table',
 	templateUrl: './table-core.component.html',
-	providers: [
-		TableCoreService
-	]
+	providers: [TableCoreService]
 })
 export class TableCoreComponent extends NgComponent implements OnInit {
 	@Input() pin = null;

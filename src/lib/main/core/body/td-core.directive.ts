@@ -48,6 +48,7 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy {
 
 				const link = this.cellService.build('body', this.column, 'view');
 				link(this.viewContainerRef, this);
+				this.cd.markForCheck();
 				this.cd.detectChanges();
 				break;
 			}
@@ -56,6 +57,7 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy {
 
 				const link = this.cellService.build('body', this.column, 'edit');
 				link(this.viewContainerRef, this);
+				this.cd.markForCheck();
 				this.cd.detectChanges();
 				break;
 			}
