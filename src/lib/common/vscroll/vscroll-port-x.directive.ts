@@ -49,6 +49,7 @@ export class VscrollPortXDirective extends VscrollPort implements OnChanges {
 			settings.emit(f);
 		} else {
 			f();
+
 			this.cd.markForCheck();
 			this.app.tick();
 		}

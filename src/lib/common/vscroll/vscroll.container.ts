@@ -1,5 +1,5 @@
 import { EventEmitter } from '@angular/core';
-import { isUndefined, isNumber, isFunction } from 'ng2-qgrid/core/utility/kit';
+import { isNumber, isFunction } from 'ng2-qgrid/core/utility/kit';
 import { IVscrollSettings } from './vscroll.settings';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 
@@ -9,15 +9,15 @@ export class VscrollContainer {
 	constructor(private settings: IVscrollSettings) {
 	}
 
+	force = false;
 	count = 0;
 	total = 0;
 	position = 0;
 	cursor = 0;
 	lastPage = 0;
 	items = [];
-	force = true;
 	resetEvent = new EventEmitter<{ handled: boolean, source: string }>();
-	updateEvent = new EventEmitter<{ force: boolean }>();
+	updateEvent = new EventEmitter<{}>();
 	drawEvent = new EventEmitter<{ position: number }>();
 
 	tick(f: () => void) {
@@ -43,18 +43,12 @@ export class VscrollContainer {
 	}
 
 	update(count: number) {
-		const settings = this.settings;
-
 		if (this.count !== count) {
 			console.log('UPDATE: ' + count);
 
 			this.count = count;
 			this.total = Math.max(this.total, count);
-			this.updateEvent.emit({
-				force: this.force
-					|| (isNumber(settings.rowHeight) && settings.rowHeight > 0)
-					|| (isNumber(settings.columnWidth) && settings.columnWidth > 0)
-			});
+			this.updateEvent.emit({});
 		}
 
 		const { lastPage, currentPage } = this;
@@ -84,24 +78,28 @@ export class VscrollContainer {
 				}
 			}
 		}).then(count => {
+			this.force = true;
+
 			if (count > this.total) {
-				this.force = true;
 				this.update(count);
 			}
 		});
 	}
 
 	reset() {
+		this.items = [];
+		this.force = false;
+
 		this.count = 0;
 		this.total = 0;
 		this.position = 0;
 		this.cursor = 0;
 		this.lastPage = 0;
-		this.items = [];
-		this.force = true;
 
-		const e = { handled: false, source: 'container' };
-		this.resetEvent.emit(e);
+		this.resetEvent.emit({
+			handled: false,
+			source: 'container'
+		});
 
 		this.fetchPage(0);
 	}

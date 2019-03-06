@@ -36,21 +36,17 @@ export class VscrollLink {
 			port.reset();
 		});
 
-		container.updateEvent.subscribe(e => {
-			if (e.force) {
-				this.update(true);
-			}
-		});
+		container.updateEvent.subscribe(() => this.update(true));
 	}
 
-	tick(force) {
+	tick(force: boolean) {
 		this.ticking = false;
 
 		const { port, container, box } = this;
 		const count = container.count;
 		const position = port.layout.recycle(count, box, force);
 		if (position) {
-			console.log(`DRAW`);
+			console.log(`DRAW, force: ${force}`);
 
 			const draw = () => {
 				container.cursor = port.layout.invalidate(position);
@@ -64,7 +60,7 @@ export class VscrollLink {
 		}
 	}
 
-	update(force = false) {
+	update(force: boolean) {
 		const { container, port, box } = this;
 		const { view } = port;
 		this.container.read(() => {
