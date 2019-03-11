@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, NgZone, Input, ChangeDetectorRef, ApplicationRef } from '@angular/core';
+import { Component, ElementRef, OnInit, NgZone, Input, ChangeDetectorRef } from '@angular/core';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';

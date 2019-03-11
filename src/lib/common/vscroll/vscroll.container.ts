@@ -5,7 +5,19 @@ import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 
 export const rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
 
-export class VscrollContainer {
+export interface IVscrollContainer {
+	count: number;
+	total: number;
+	position: number;
+	cursor: number;
+	items: any[];
+	force: boolean;
+
+	reset(): void;
+	update(count: number): void;
+}
+
+export class VscrollContainer implements IVscrollContainer {
 	constructor(private settings: IVscrollSettings) {
 	}
 
@@ -16,6 +28,7 @@ export class VscrollContainer {
 	cursor = 0;
 	lastPage = 0;
 	items = [];
+
 	resetEvent = new EventEmitter<{ handled: boolean, source: string }>();
 	updateEvent = new EventEmitter<{}>();
 	drawEvent = new EventEmitter<{ position: number }>();

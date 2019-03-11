@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { RootService } from 'lib/infrastructure/component/root.service';
+import { RootService } from '../../infrastructure/component/root.service';
 
 @Component({
 	selector: 'q-grid-visibility',
