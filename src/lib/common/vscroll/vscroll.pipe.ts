@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { VscrollContext } from './vscroll.context';
 import { Log } from 'ng2-qgrid/core/infrastructure/log';
+import { IVscrollContainer } from './vscroll.container';
+import { IVscrollSettings } from './vscroll.settings';
 
 const EMPTY_ITEMS = [];
 @Pipe({
@@ -8,7 +9,7 @@ const EMPTY_ITEMS = [];
 	pure: false
 })
 export class VscrollPipe implements PipeTransform {
-	transform(data: any[], context: VscrollContext): any[] {
+	transform(data: any[], context: { settings: IVscrollSettings, container: IVscrollContainer }): any[] {
 		if (!context) {
 			Log.warn('VscrollPipe', 'Context is not defined');
 			return EMPTY_ITEMS;

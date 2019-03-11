@@ -8,8 +8,7 @@ import {
 	ElementRef,
 	NgZone,
 	Inject,
-	ChangeDetectorRef,
-	ApplicationRef
+	ChangeDetectorRef
 } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { RootComponent } from '../../infrastructure/component/root.component';
@@ -114,7 +113,6 @@ export class GridComponent extends RootComponent implements OnInit {
 		private zone: NgZone,
 		private layerService: LayerService,
 		private cd: ChangeDetectorRef,
-		private app: ApplicationRef,
 		@Inject(DOCUMENT) private document: any,
 		theme: ThemeService,
 	) {
