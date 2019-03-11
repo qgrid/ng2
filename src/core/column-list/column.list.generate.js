@@ -113,7 +113,7 @@ export function generate(settings) {
 	return [];
 }
 
-function build(graph, pathParts, columnFactory, deep, cohort, title, rows) {
+function build(graph, pathParts, columnFactory, deep, cohort, title, testRows) {
 	const props = Object.getOwnPropertyNames(graph);
 	return props.reduce((memo, prop) => {
 		const propParts = [...pathParts, prop];
@@ -121,7 +121,7 @@ function build(graph, pathParts, columnFactory, deep, cohort, title, rows) {
 		const propPath = propParts.join('.');
 
 		const subject = graph[prop];
-		const type = resolveType(rows.map(propValue));
+		const type = resolveType(testRows.map(propValue));
 
 		switch (type) {
 			case 'array': {
@@ -155,7 +155,7 @@ function build(graph, pathParts, columnFactory, deep, cohort, title, rows) {
 						deep,
 						cohort,
 						title,
-						rows
+						testRows
 					);
 
 					if (cohort) {
