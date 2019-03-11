@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 
@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 	selector: 'example-scroll-virtual-basic',
 	templateUrl: 'example-scroll-virtual-basic.component.html',
 	styleUrls: ['example-scroll-virtual-basic.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleScrollVirtualBasicComponent {
 	rows: Observable<Human[]>;

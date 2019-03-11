@@ -7,7 +7,6 @@ export class VscrollService {
 	context(settings: IVscrollSettings = {}) {
 		const context = new VscrollContext();
 		Object.assign(context.settings, settings);
-		context.container.update(0, true);
 		return context;
 	}
 }

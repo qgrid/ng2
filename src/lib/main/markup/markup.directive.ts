@@ -10,11 +10,11 @@ export class MarkupDirective implements OnInit, OnDestroy {
 
 	constructor(
 		private root: RootService,
-		private element: ElementRef
+		private elementRef: ElementRef
 	) { }
 
 	ngOnInit() {
-		this.root.markup[this.name] = this.element.nativeElement;
+		this.root.markup[this.name] = this.elementRef.nativeElement;
 	}
 
 	ngOnDestroy() {

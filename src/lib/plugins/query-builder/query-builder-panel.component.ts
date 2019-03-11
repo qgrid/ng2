@@ -1,4 +1,4 @@
-import { Component, Optional, Output, EventEmitter, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { clone } from 'ng2-qgrid/core/utility/kit';
 import { QueryBuilderService } from './query-builder.service';
@@ -8,11 +8,9 @@ import { SerializationService } from '../expression-builder/serialization.servic
 import { INodeSchema } from '../expression-builder/model/node.schema';
 import { Node } from '../expression-builder/model/node';
 import { EbNodeService } from '../expression-builder/eb-node.service';
-import { EbNodeComponent } from '../expression-builder/eb-node.component';
 import { TraverseService } from '../expression-builder/traverse.service';
 import { FocusAfterRender } from '../../common/focus/focus.service';
 import { PluginService } from '../plugin.service';
-
 
 @Component({
 	selector: 'q-grid-query-builder-panel',

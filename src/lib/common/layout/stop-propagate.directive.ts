@@ -1,17 +1,24 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { isArray } from 'ng2-qgrid/core/utility/kit';
 
 @Directive({
 	selector: '[q-grid-stop-propagate]'
 })
 export class StopPropagateDirective implements OnInit {
-	@Input('q-grid-stop-propagate') public key = '';
+	@Input('q-grid-stop-propagate') events;
 
-	constructor(private element: ElementRef) {
+	constructor(private elementRef: ElementRef) {
 	}
 
 	ngOnInit() {
-		this.element.nativeElement.addEventListener(this.key, e =>
-			e.stopPropagation()
-		);
+		let { events } = this;
+		if (!isArray(events)) {
+			events = [events];
+		}
+
+		events.forEach(eventName =>
+			this.elementRef.nativeElement.addEventListener(eventName, e =>
+				e.stopPropagation()
+			));
 	}
 }

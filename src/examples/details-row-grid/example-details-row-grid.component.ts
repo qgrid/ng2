@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -7,7 +7,8 @@ import { map } from 'rxjs/operators';
 	selector: 'example-details-row-grid',
 	templateUrl: 'example-details-row-grid.component.html',
 	styleUrls: ['example-details-row-grid.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDetailsRowGridComponent {
 	rows: Observable<Atom[]>;

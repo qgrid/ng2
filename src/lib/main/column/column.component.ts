@@ -1,9 +1,8 @@
 import { Component, Input, ChangeDetectionStrategy, OnDestroy, SkipSelf, Optional, OnInit, ElementRef } from '@angular/core';
 import { isUndefined } from 'ng2-qgrid/core/utility/kit';
-import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
+import { guid } from 'ng2-qgrid/core/services/guid';
 import { TemplateHostService } from '../../template/template-host.service';
 import { ColumnListService } from '../../main/column/column-list.service';
-import { guid } from 'ng2-qgrid/core/services/guid';
 import { ColumnService } from './column.service';
 
 @Component({
@@ -66,8 +65,9 @@ export class ColumnComponent implements OnInit, OnDestroy {
 		private templateHost: TemplateHostService,
 		@SkipSelf() @Optional() private parent: ColumnService,
 		private service: ColumnService,
-		private element: ElementRef
-	) { }
+		private elementRef: ElementRef
+	) {
+	}
 
 	ngOnInit() {
 		let withKey = !isUndefined(this.key);
@@ -75,7 +75,7 @@ export class ColumnComponent implements OnInit, OnDestroy {
 
 		// We want to update model when ngOntInit is triggered and not in afterViewInit
 		// so we apply dirty hack to understand if column is cohort or not.
-		const element = this.element.nativeElement as HTMLElement;
+		const element = this.elementRef.nativeElement as HTMLElement;
 		if (element.children.length && element.children.item(0).tagName === 'Q-GRID-COLUMN') {
 			this.type = 'cohort';
 			if (!withKey) {

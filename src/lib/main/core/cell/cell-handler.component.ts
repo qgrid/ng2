@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 import { EditService } from 'ng2-qgrid/core/edit/edit.service';
@@ -6,25 +6,27 @@ import { CellView } from 'ng2-qgrid/core/scene/view/cell.view';
 import { ModelEventArg } from 'ng2-qgrid/core/infrastructure/model';
 import { NavigationModel } from 'ng2-qgrid/core/navigation/navigation.model';
 import { Td } from 'ng2-qgrid/core/dom/td';
-import { noop } from 'ng2-qgrid/core/utility/kit';
 import { RootService } from '../../../infrastructure/component/root.service';
 
 @Component({
 	selector: 'q-grid-cell-handler',
-	templateUrl: './cell-handler.component.html'
+	templateUrl: './cell-handler.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CellHandlerComponent implements OnInit, AfterViewInit {
-	@ViewChild('marker') marker: ElementRef;
-
 	private startCell: CellView = null;
 	private initialSelectionMode: 'single' | 'multiple' | 'range' = null;
 	private initialEditState: 'view' | 'edit' | 'startBatch' | 'endBatch' = null;
 
+	@ViewChild('marker') marker: ElementRef;
+	isMarkerVisible = false;
+
 	constructor(
-		private element: ElementRef,
-		private root: RootService
+		private elementRef: ElementRef,
+		private root: RootService,
+		private cd: ChangeDetectorRef
 	) {
-		this.element.nativeElement.style.display = 'none';
+		this.elementRef.nativeElement.style.display = 'none';
 	}
 
 	ngOnInit() {
@@ -35,15 +37,22 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 			updateHandler(e);
 			updateMarker(e);
 		});
+
+		this.root.model.editChanged.watch(e => {
+			if (e.hasChanges('method')) {
+				this.isMarkerVisible = e.state.method === 'batch';
+				this.cd.detectChanges();
+			}
+		});
 	}
 
 	ngAfterViewInit() {
-		this.element.nativeElement.style.display = '';
+		this.elementRef.nativeElement.style.display = '';
 	}
 
 	updateHandlerFactory() {
 		const { model, table } = this.root;
-		const element = this.element.nativeElement;
+		const element = this.elementRef.nativeElement;
 		const job = jobLine(150);
 
 		// When navigate first or when animation wasn't applied we need to omit
@@ -162,7 +171,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		};
 	}
 
-	startBatchEdit(e) {
+	startBatchEdit() {
 		const model = this.root.model;
 
 		this.startCell = model.navigation().cell;
@@ -172,17 +181,5 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 			model.selection({ mode: 'range' });
 			model.edit({ state: 'startBatch' });
 		}
-	}
-
-	get isMarkerVisible() {
-		const model = this.root.model;
-		const { column } = model.navigation();
-
-		if (column) {
-			const type = column.type;
-			return model.edit().method === 'batch';
-		}
-
-		return false;
 	}
 }

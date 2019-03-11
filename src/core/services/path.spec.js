@@ -9,7 +9,7 @@ describe('path service', () => {
 		});
 
 		it('should return value by path', () => {
-			const path = 'name.last';
+			const path = ['name', 'last'];
 			const item = {
 				name: {
 					last: 'Doe',
@@ -23,7 +23,7 @@ describe('path service', () => {
 		});
 
 		it('should set value by path', () => {
-			const path = 'name.last';
+			const path = ['name', 'last'];
 			const item = {
 				name: {
 					last: 'Doe',

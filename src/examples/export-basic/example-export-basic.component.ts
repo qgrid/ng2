@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 
 import { Atom, DataService } from '../data.service';
 import { Observable } from 'rxjs';
@@ -11,7 +11,8 @@ import * as XLSX from 'xlsx';
 	selector: 'example-export-basic',
 	templateUrl: 'example-export-basic.component.html',
 	styleUrls: [ 'example-export-basic.component.scss' ],
-	providers: [ DataService ]
+	providers: [ DataService ],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleExportBasicComponent implements AfterViewInit {
 	@ViewChild(GridComponent) myGrid: GridComponent;

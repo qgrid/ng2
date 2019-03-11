@@ -1,0 +1,9 @@
+<div q-grid-vscroll
+     style="height: 100%; width: 100%; overflow: auto;">
+    <ul [q-grid-vscroll-port-y]="context">
+        <li *ngFor="let item of items | qGridVscroll: context; let $index = index; trackBy: context.id"
+            [q-grid-vscroll-row]="$index">
+            {{item}}
+        </li>
+    </ul>
+</div>

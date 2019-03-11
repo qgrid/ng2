@@ -1,4 +1,4 @@
-import { Component, ContentChild, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ValidatorView } from 'ng2-qgrid/plugin/validation/validator.view';
 import { PluginService } from '../plugin.service';
 import { TemplateHostService } from '../../template/template-host.service';

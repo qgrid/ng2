@@ -1,1 +1,1 @@
-export declare function stringifyFactory(property: string): (model: object) => string;
+export declare function stringifyFactory(property: string): (model: any) => string;

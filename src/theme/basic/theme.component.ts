@@ -8,5 +8,4 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/
 	encapsulation: ViewEncapsulation.None
 })
 export class ThemeComponent {
-	constructor() { }
 }

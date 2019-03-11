@@ -3,7 +3,7 @@ import { Model } from '../infrastructure/model';
 export declare class PersistenceService {
 	constructor(model: Model);
 
-	save(settings?: object): object;
-	load(model: object, settings?: object): void;
-	reset(settings?: object): object;
+	save(settings?: { [key: string]: string[] }): { [key: string]: any };
+	load(model: { [key: string]: any }, settings?: { [key: string]: string[] }): void;
+	reset(settings?: { [key: string]: string[] }): { [key: string]: any };
 }

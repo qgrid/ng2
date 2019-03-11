@@ -21,9 +21,9 @@ export class QueryBuilderPipe implements PipeTransform {
 				const columnMap = service.columnMap();
 				this.visitor =
 					new MarkupVisitor(
-						key => columnMap[key].title,
-						key => columnMap[key].type,
-						(key, value) => validator.for(key)(value).length === 0
+						k => columnMap[k].title,
+						k => columnMap[k].type,
+						(k, v) => validator.for(k)(v).length === 0
 					);
 			}
 

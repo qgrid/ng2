@@ -1,11 +1,12 @@
-import { Component, OnInit, Optional } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Shortcut } from 'ng2-qgrid/core/shortcut/shortcut';
 import { PluginService } from '../plugin.service';
 
 @Component({
 	selector: 'q-grid-pager-target',
 	templateUrl: './pager-target.component.html',
-	providers: [PluginService]
+	providers: [PluginService],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PagerTargetComponent implements OnInit {
 	private value: number;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { GridModel, Action, GridService, Command, Grid } from 'ng2-qgrid';
@@ -7,7 +7,8 @@ import { GridModel, Action, GridService, Command, Grid } from 'ng2-qgrid';
 	selector: 'example-action-bar-on-enter',
 	templateUrl: 'example-action-bar-on-enter.component.html',
 	styleUrls: ['example-action-bar-on-enter.component.scss'],
-	providers: [DataService]
+	providers: [DataService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleActionBarOnEnterComponent {
 	rows: Observable<Atom[]>;

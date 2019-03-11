@@ -4,11 +4,15 @@ import { Expression, GroupExpression } from './expression';
 import { GroupSchema } from './group.schema';
 import { Node } from './node';
 
-declare type ExpressionEntry = { index: number, expression: Expression, parent: GroupExpression };
+interface ExpressionEntry {
+	index: number;
+	expression: Expression;
+	parent: GroupExpression;
+}
 
 export class Line {
-	public immutable = true;
-	public readonly expressions: Expression[] = [];
+	immutable = true;
+	readonly expressions: Expression[] = [];
 
 	constructor(private GroupSchemaT: typeof GroupSchema) {
 	}

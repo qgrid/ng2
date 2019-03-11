@@ -1,12 +1,8 @@
 {
   "name": "ng2-qgrid",
-  "version": "6.2.4",
+  "version": "6.3.0",
   "scripts": {
-    "ng": "ng",
-    "start": "node build.serve",
-    "build": "ng build",
     "build:lib": "npm run clean && node build.lib.js",
-    "build:theme": "npm run clean && node build.theme.js",
     "build:release": "npm run build:lib && npm run copy:npm && node build.theme.js",
     "test": "ng test",
     "test:debug": "ng test --browsers ChromeDebug",
@@ -15,10 +11,14 @@
     "test:screenshot": "protractor ./e2e/protractor.conf.js",
     "test:screenshot-update-goldens": "protractor ./e2e/protractor-update-goldens.conf.js",
     "pree2e": "webdriver-manager update",
+    "build:theme": "npm run clean && node build.theme.js",
+    "build": "ng build",
     "clean": "rimraf out-tsc dist",
     "copy:npm": "node build.copy.js **/* dist node_modules/ng2-qgrid",
+    "ng": "ng",
     "release:example": "node ./build.example",
-    "release:lib": "npm run build:release && cd dist && npm publish"
+    "release:lib": "npm run build:release && cd dist && npm publish",
+    "start": "node build.serve"
   },
   "private": true,
   "dependencies": {

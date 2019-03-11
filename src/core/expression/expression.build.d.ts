@@ -1,8 +1,8 @@
 export interface Expression {
 	kind: string;
 	op: string;
-	left: object;
-	right: object;
+	left: Expression | string;
+	right: Expression | any;
 }
 
-export declare function build(filterBy: object, op: string): Expression;
+export declare function build(filterBy: { [key: string]: any }, op: string): Expression;

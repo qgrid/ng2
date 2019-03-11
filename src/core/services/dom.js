@@ -43,3 +43,7 @@ export function eventPath(event) {
 
 	return [target].concat(parents(target), window);
 }
+
+export function elementFromPoint(x, y) {
+	return document.elementFromPoint(x, y);
+}

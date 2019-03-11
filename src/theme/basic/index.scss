@@ -197,7 +197,7 @@ $hidden-color: transparent;
         .q-grid-pager-page {
             margin-left: 30px;
             margin-right: 0;
-            width: 37.2px;
+            min-width: 37.2px;
             display: inline-block;
         }
     }

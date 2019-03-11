@@ -1,4 +1,4 @@
-import { Directive, ElementRef, NgZone, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, ChangeDetectorRef, ApplicationRef, SimpleChanges, OnChanges } from '@angular/core';
 import { VscrollPort } from './vscroll.port';
 import { VscrollContext } from './vscroll.context';
 import { capitalize } from './vscroll.utility';
@@ -13,24 +13,28 @@ import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 @Directive({
 	selector: '[q-grid-vscroll-port-y]'
 })
-export class VscrollPortYDirective extends VscrollPort implements OnInit {
+export class VscrollPortYDirective extends VscrollPort implements OnChanges {
 	@Input('q-grid-vscroll-port-y') context: VscrollContext;
 	markup = {};
 	layout: VscrollLayout;
+	link: VscrollLink;
 
 	constructor(
-		private zone: NgZone,
 		private elementRef: ElementRef,
+		private cd: ChangeDetectorRef,
+		private app: ApplicationRef,
 		view: VscrollDirective
 	) {
 		super(view, elementRef.nativeElement);
 	}
 
-	ngOnInit() {
-		Guard.notNull(this.context, 'context');
-
-		this.layout = new VscrollLayout(this);
-		return new VscrollLink(this);
+	ngOnChanges(changes: SimpleChanges) {
+		const contextChange = changes['context'];
+		if (contextChange && this.context) {
+			this.layout = new VscrollLayout(this);
+			this.link = new VscrollLink(this);
+			this.context.container.fetchPage(0);
+		}
 	}
 
 	public reset() {
@@ -38,7 +42,15 @@ export class VscrollPortYDirective extends VscrollPort implements OnInit {
 	}
 
 	emit(f: () => void) {
-		this.zone.run(f);
+		const { settings } = this.context;
+		if (settings.emit) {
+			settings.emit(f);
+		} else {
+			f();
+
+			this.cd.markForCheck();
+			this.app.tick();
+		}
 	}
 
 	getPositionUsingItemSize(itemSize: number, box: VscrollBox, arm: number): IVscrollPosition {

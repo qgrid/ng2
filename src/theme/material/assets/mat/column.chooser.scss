@@ -27,8 +27,11 @@
         ul {
             margin: 0;
             ul {
-                padding-left:  24px;
+                padding-left: 24px;
             }
+        }
+        li {
+            white-space: nowrap;
         }
     }
     .q-grid-column-chooser-toolbar {

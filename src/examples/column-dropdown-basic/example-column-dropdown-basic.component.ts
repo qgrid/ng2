@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { of, Observable } from 'rxjs';
 
 @Component({
 	selector: 'example-column-dropdown-basic',
 	templateUrl: 'example-column-dropdown-basic.component.html',
-	styleUrls: ['example-column-dropdown-basic.component.scss']
+	styleUrls: ['example-column-dropdown-basic.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnDropdownBasicComponent {
 	rows = [

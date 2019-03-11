@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, Route } from '@angular/router';
 import { MatButtonModule, MatSelectModule, MatChipsModule, MatIconModule } from '@angular/material';
 
-import { GridModule } from 'ng2-qgrid';
+import { GridModule, PipeModule } from 'ng2-qgrid';
 import { ThemeModule } from 'ng2-qgrid/theme/material';
 
 import { ExampleActionBarBasicComponent } from './action-bar-basic/example-action-bar-basic.component';
@@ -15,6 +15,7 @@ import { ExampleColumnArrayBasicComponent } from './column-array-basic/example-c
 import { ExampleColumnAutocompletetBasicComponent } from './column-autocomplete-basic/example-column-autocomplete-basic.component';
 import { ExampleColumnBoolBasicComponent } from './column-bool-basic/example-column-bool-basic.component';
 import { ExampleColumnCurrencyBasicComponent } from './column-currency-basic/example-column-currency-basic.component';
+import { ExampleColumnDataSafeComponent } from './column-data-safe/example-column-data-safe.component';
 import { ExampleColumnDateBasicComponent } from './column-date-basic/example-column-date-basic.component';
 import { ExampleColumnDropdownBasicComponent } from './column-dropdown-basic/example-column-dropdown-basic.component';
 import { ExampleColumnEmailBasicComponent } from './column-email-basic/example-column-email-basic.component';
@@ -31,6 +32,7 @@ import { ExampleColumnRowNumberBasicComponent } from './column-row-number-basic/
 import { ExampleColumnRowOptionsBasicComponent } from './column-row-options-basic/example-column-row-options-basic.component';
 import { ExampleColumnTextBasicComponent } from './column-text-basic/example-column-text-basic.component';
 import { ExampleColumnTimeBasicComponent } from './column-time-basic/example-column-time-basic.component';
+import { ExampleColumnTypeSafeComponent } from './column-type-safe/example-column-type-safe.component';
 import { ExampleColumnUrlBasicComponent } from './column-url-basic/example-column-url-basic.component';
 import { ExampleDefineColumnAsyncComponent } from './define-column-async/example-define-column-async.component';
 import { ExampleDefineColumnBasicComponent } from './define-column-basic/example-define-column-basic.component';
@@ -38,6 +40,7 @@ import { ExampleDefineColumnHybridComponent } from './define-column-hybrid/examp
 import { ExampleDestroyGridBasicComponent } from './destroy-grid-basic/example-destroy-grid-basic.component';
 import { ExampleDestroyGridModelComponent } from './destroy-grid-model/example-destroy-grid-model.component';
 import { ExampleDetailsRowAllComponent } from './details-row-all/example-details-row-all.component';
+import { ExampleDetailsRowApiComponent } from './details-row-api/example-details-row-api.component';
 import { ExampleDetailsRowBasicComponent } from './details-row-basic/example-details-row-basic.component';
 import { ExampleDetailsRowGridComponent } from './details-row-grid/example-details-row-grid.component';
 import { ExampleDetailsRowStartComponent } from './details-row-start/example-details-row-start.component';
@@ -56,6 +59,7 @@ import { ExampleFilterRowCustomComponent } from './filter-row-custom/example-fil
 import { ExampleFloatingRowsBasicComponent } from './floating-rows-basic/example-floating-rows-basic.component';
 import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
 import { ExampleFocusCellBasicComponent } from './focus-cell-basic/example-focus-cell-basic.component';
+import { ExampleGenerateColumnCheckComponent } from './generate-column-check/example-generate-column-check.component';
 import { ExampleGenerateColumnCohortComponent } from './generate-column-cohort/example-generate-column-cohort.component';
 import { ExampleGenerateColumnDeepComponent } from './generate-column-deep/example-generate-column-deep.component';
 import { ExampleGenerateColumnShallowComponent } from './generate-column-shallow/example-generate-column-shallow.component';
@@ -75,6 +79,7 @@ import { ExampleIndexColumnHybridComponent } from './index-column-hybrid/example
 import { ExampleIndexColumnModelComponent } from './index-column-model/example-index-column-model.component';
 import { ExampleInteractionModeDetachedComponent } from './interaction-mode-detached/example-interaction-mode-detached.component';
 import { ExampleInteractionModeReadonlyComponent } from './interaction-mode-readonly/example-interaction-mode-readonly.component';
+import { ExampleKeyWithSymbolsComponent } from './key-with-symbols/example-key-with-symbols.component';
 import { ExampleLayerGridBlankComponent } from './layer-grid-blank/example-layer-grid-blank.component';
 import { ExampleLegendGridBasicComponent } from './legend-grid-basic/example-legend-grid-basic.component';
 import { ExampleLiveDataBasicComponent } from './live-data-basic/example-live-data-basic.component';
@@ -100,6 +105,7 @@ import { ExamplePivotColumnGroupComponent } from './pivot-column-group/example-p
 import { ExamplePivotColumnTemplateComponent } from './pivot-column-template/example-pivot-column-template.component';
 import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plugin-grid-basic.component';
 import { ExamplePluginMyPagerComponent } from './plugin-grid-basic/example-plugin-my-pager.component';
+import { ExampleRestApiBasicComponent } from './rest-api-basic/example-rest-api-basic.component';
 import { ExampleScrollVirtualBasicComponent } from './scroll-virtual-basic/example-scroll-virtual-basic.component';
 import { ExampleScrollVirtualDetailsComponent } from './scroll-virtual-details/example-scroll-virtual-details.component';
 import { ExampleScrollVirtualDragComponent } from './scroll-virtual-drag/example-scroll-virtual-drag.component';
@@ -107,12 +113,16 @@ import { ExampleScrollVirtualEditComponent } from './scroll-virtual-edit/example
 import { ExampleScrollVirtualGroupComponent } from './scroll-virtual-group/example-scroll-virtual-group.component';
 import { ExampleScrollVirtualHeightComponent } from './scroll-virtual-height/example-scroll-virtual-height.component';
 import { ExampleScrollVirtualInfiniteComponent } from './scroll-virtual-infinite/example-scroll-virtual-infinite.component';
+import { ExampleScrollVirtualListComponent } from './scroll-virtual-list/example-scroll-virtual-list.component';
+import { ExampleScrollVirtualListInfiniteComponent } from './scroll-virtual-list-infinite/example-scroll-virtual-list-infinite.component';
 import { ExampleScrollVirtualSelectionComponent } from './scroll-virtual-selection/example-scroll-virtual-selection.component';
 import { ExampleScrollVirtualStyleComponent } from './scroll-virtual-style/example-scroll-virtual-style.component';
 import { ExampleSelectCellBasicComponent } from './select-cell-basic/example-select-cell-basic.component';
 import { ExampleSelectColumnBasicComponent } from './select-column-basic/example-select-column-basic.component';
 import { ExampleSelectMixBasicComponent } from './select-mix-basic/example-select-mix-basic.component';
 import { ExampleSelectRowBasicComponent } from './select-row-basic/example-select-row-basic.component';
+import { ExampleSelectRowCommandComponent } from './select-row-command/example-select-row-command.component';
+import { ExampleSelectRowSingleComponent } from './select-row-single/example-select-row-single.component';
 import { ExampleSizeColumnAbsoluteComponent } from './size-column-absolute/example-size-column-absolute.component';
 import { ExampleSizeColumnBasicComponent } from './size-column-basic/example-size-column-basic.component';
 import { ExampleSizeColumnFullComponent } from './size-column-full/example-size-column-full.component';
@@ -125,6 +135,8 @@ import { ExampleSummaryColumnBasicComponent } from './summary-column-basic/examp
 import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-grid-dark.component';
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
 import { ExampleValidationBasicComponent } from './validation-basic/example-validation-basic.component';
+import { ExampleVisibilityBasicComponent } from './visibility-basic/example-visibility-basic.component';
+import { ExampleVisibilityModelComponent } from './visibility-model/example-visibility-model.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -135,6 +147,7 @@ const EXAMPLES: Array<any> = [
 	ExampleColumnAutocompletetBasicComponent,
 	ExampleColumnBoolBasicComponent,
 	ExampleColumnCurrencyBasicComponent,
+	ExampleColumnDataSafeComponent,
 	ExampleColumnDateBasicComponent,
 	ExampleColumnDropdownBasicComponent,
 	ExampleColumnEmailBasicComponent,
@@ -151,6 +164,7 @@ const EXAMPLES: Array<any> = [
 	ExampleColumnRowOptionsBasicComponent,
 	ExampleColumnTextBasicComponent,
 	ExampleColumnTimeBasicComponent,
+	ExampleColumnTypeSafeComponent,
 	ExampleColumnUrlBasicComponent,
 	ExampleDefineColumnAsyncComponent,
 	ExampleDefineColumnBasicComponent,
@@ -158,6 +172,7 @@ const EXAMPLES: Array<any> = [
 	ExampleDestroyGridBasicComponent,
 	ExampleDestroyGridModelComponent,
 	ExampleDetailsRowAllComponent,
+	ExampleDetailsRowApiComponent,
 	ExampleDetailsRowBasicComponent,
 	ExampleDetailsRowGridComponent,
 	ExampleDetailsRowStartComponent,
@@ -176,6 +191,7 @@ const EXAMPLES: Array<any> = [
 	ExampleFloatingRowsBasicComponent,
 	ExampleFocusCellAutoComponent,
 	ExampleFocusCellBasicComponent,
+	ExampleGenerateColumnCheckComponent,
 	ExampleGenerateColumnCohortComponent,
 	ExampleGenerateColumnDeepComponent,
 	ExampleGenerateColumnShallowComponent,
@@ -195,6 +211,7 @@ const EXAMPLES: Array<any> = [
 	ExampleIndexColumnModelComponent,
 	ExampleInteractionModeDetachedComponent,
 	ExampleInteractionModeReadonlyComponent,
+	ExampleKeyWithSymbolsComponent,
 	ExampleLayerGridBlankComponent,
 	ExampleLegendGridBasicComponent,
 	ExampleLiveDataBasicComponent,
@@ -219,6 +236,7 @@ const EXAMPLES: Array<any> = [
 	ExamplePivotColumnGroupComponent,
 	ExamplePivotColumnTemplateComponent,
 	ExamplePluginGridBasicComponent,
+	ExampleRestApiBasicComponent,
 	ExampleScrollVirtualBasicComponent,
 	ExampleScrollVirtualDetailsComponent,
 	ExampleScrollVirtualDragComponent,
@@ -226,12 +244,16 @@ const EXAMPLES: Array<any> = [
 	ExampleScrollVirtualGroupComponent,
 	ExampleScrollVirtualHeightComponent,
 	ExampleScrollVirtualInfiniteComponent,
+	ExampleScrollVirtualListComponent,
+	ExampleScrollVirtualListInfiniteComponent,
 	ExampleScrollVirtualSelectionComponent,
 	ExampleScrollVirtualStyleComponent,
 	ExampleSelectCellBasicComponent,
 	ExampleSelectColumnBasicComponent,
 	ExampleSelectMixBasicComponent,
 	ExampleSelectRowBasicComponent,
+	ExampleSelectRowCommandComponent,
+	ExampleSelectRowSingleComponent,
 	ExampleSizeColumnAbsoluteComponent,
 	ExampleSizeColumnBasicComponent,
 	ExampleSizeColumnFullComponent,
@@ -243,7 +265,9 @@ const EXAMPLES: Array<any> = [
 	ExampleSummaryColumnBasicComponent,
 	ExampleThemeGridDarkComponent,
 	ExampleThemeGridEmbedComponent,
-	ExampleValidationBasicComponent
+	ExampleValidationBasicComponent,
+	ExampleVisibilityBasicComponent,
+	ExampleVisibilityModelComponent,
 ];
 
 const PATH_REGEX = /Example(.*)Component/;
@@ -273,6 +297,7 @@ export const exampleRoutes: Routes = EXAMPLES.map<Route>(example => ({
 	imports: [
 		GridModule,
 		ThemeModule,
+		PipeModule,
 		CommonModule,
 		FormsModule,
 		MatButtonModule,

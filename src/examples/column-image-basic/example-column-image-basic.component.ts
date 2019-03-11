@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'example-column-image-basic',
 	templateUrl: 'example-column-image-basic.component.html',
-	styleUrls: ['example-column-image-basic.component.scss']
+	styleUrls: ['example-column-image-basic.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnImageBasicComponent {
 	rows = [

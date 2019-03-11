@@ -8,9 +8,13 @@ export { GridService as Grid } from './main/grid/grid.service';
 export { PluginService as GridPlugin, GridModel, GridEventArg, GridEvent, DomTable } from './plugins/plugin.service';
 
 // NG Pipe
-export { HighlightPipe } from './pipes/highlight/highlight.pipe';
-export { TimePipe } from './pipes/time/time.pipe';
-export { FilterPipe } from './pipes/filter/filter.pipe';
+export { HighlightPipe } from './pipes/highlight.pipe';
+export { TimePipe } from './pipes/time.pipe';
+export { FilterPipe } from './pipes/filter.pipe';
+export { NumberPipe } from './pipes/number.pipe';
+export { DatePipe } from './pipes/date.pipe';
+export { CurrencyPipe } from './pipes/currency.pipe';
+export { ArrayPipe } from './pipes/array.pipe';
 export { PipeModule } from './pipes/pipe.module';
 
 // Infrastructure
@@ -82,7 +86,21 @@ export { ThemeService } from './template/theme.service';
 
 // Common
 export { CommonModule } from './common/common.module';
-export { VscrollModule } from './common/vscroll/vscroll.module';
 
 // View
 export { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
+
+// Vscroll
+export { VscrollModule } from './common/vscroll/vscroll.module';
+export { VscrollContext } from './common/vscroll/vscroll.context';
+export { VscrollService } from './common/vscroll/vscroll.service';
+export { VscrollSettings } from './common/vscroll/vscroll.settings';
+export { VscrollContainer } from './common/vscroll/vscroll.container';
+export { VscrollPipe } from './common/vscroll/vscroll.pipe';
+export { VscrollPortXDirective } from './common/vscroll/vscroll-port-x.directive';
+export { VscrollPortYDirective } from './common/vscroll/vscroll-port-y.directive';
+export { VscrollMarkDirective } from './common/vscroll/vscroll-mark.directive';
+export { VscrollColumnDirective } from './common/vscroll/vscroll-column.directive';
+export { VscrollRowDirective } from './common/vscroll/vscroll-row.directive';
+export { VscrollDirective } from './common/vscroll/vscroll.directive';
+

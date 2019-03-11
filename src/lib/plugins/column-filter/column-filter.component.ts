@@ -1,11 +1,11 @@
 import {
 	Input,
 	Component,
-	Optional,
 	OnInit,
 	EventEmitter,
 	Output,
-	OnDestroy
+	ChangeDetectionStrategy,
+	ChangeDetectorRef
 } from '@angular/core';
 import { ColumnFilterView } from 'ng2-qgrid/plugin/column-filter/column.filter.view';
 import { uniq, flatten } from 'ng2-qgrid/core/utility/kit';
@@ -20,11 +20,12 @@ import { PluginService } from '../plugin.service';
 @Component({
 	selector: 'q-grid-column-filter',
 	templateUrl: './column-filter.component.html',
-	providers: [FocusAfterRender, PluginService]
+	providers: [FocusAfterRender, PluginService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnFilterComponent implements OnInit {
-	@Input() public column: ColumnModel;
-	@Input() public search = '';
+	@Input() column: ColumnModel;
+	@Input() search = '';
 
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
@@ -41,6 +42,7 @@ export class ColumnFilterComponent implements OnInit {
 		private plugin: PluginService,
 		private vscroll: VscrollService,
 		private qgrid: GridService,
+		private cd: ChangeDetectorRef,
 		focusAfterRender: FocusAfterRender) {
 	}
 
@@ -55,6 +57,12 @@ export class ColumnFilterComponent implements OnInit {
 		columnFilter.cancelEvent.on(() => this.cancelEvent.emit());
 
 		const vscrollContext = this.vscroll.context({
+			emit: f => {
+				f();
+
+				this.cd.markForCheck();
+				this.cd.detectChanges();
+			},
 			threshold: model.columnFilter().threshold,
 			fetch: (skip, take, d) => {
 				const filterState = model.filter();
@@ -89,24 +97,24 @@ export class ColumnFilterComponent implements OnInit {
 					try {
 						if (!items.length) {
 							const source = model[model.columnFilter().source];
-							let items = source().rows.map(columnFilter.getValue);
+							let values = source().rows.map(columnFilter.getValue);
 							if (columnFilter.column.type === 'array') {
-								items = flatten(items);
+								values = flatten(values);
 							}
 
-							const uniqItems = uniq(items);
-							const notBlankItems = uniqItems.filter(x => !isBlank(x));
+							const uniqValues = uniq(values);
+							const notBlankValues = uniqValues.filter(x => !isBlank(x));
 
-							// TODO: improve search algo
+							// TODO: improve search also
 							const search = ('' + this.search).toLowerCase();
 							const filteredItems = search
-								? notBlankItems.filter(x => ('' + x).toLowerCase().indexOf(search) >= 0)
-								: notBlankItems;
+								? notBlankValues.filter(x => ('' + x).toLowerCase().indexOf(search) >= 0)
+								: notBlankValues;
 
 							filteredItems.sort(columnFilter.column.compare);
 							columnFilter.items = filteredItems;
 							columnFilter.hasBlanks =
-								notBlankItems.length !== uniqItems.length &&
+								notBlankValues.length !== uniqValues.length &&
 								(!search || 'blanks'.indexOf(search.toLowerCase()) >= 0);
 						}
 
@@ -131,9 +139,5 @@ export class ColumnFilterComponent implements OnInit {
 	reset() {
 		this.context.$implicit.items = [];
 		this.vscrollContext.container.reset();
-	}
-
-	rowId(index: number) {
-		return index;
 	}
 }

@@ -35,8 +35,8 @@ export class WhereSchema {
 		const validator = new Validator(service);
 
 		return this.service.build()
-			.node('#logical', function (schema) {
-				schema
+			.node('#logical', function (logical) {
+				logical
 					.attr('serialize', {
 						'#logical-op': ['value']
 					})
@@ -56,8 +56,8 @@ export class WhereSchema {
 						options: ['AND', 'OR'],
 						value: 'AND'
 					})
-					.node('#condition', function (schema) {
-						schema
+					.node('#condition', function (condition) {
+						condition
 							.attr('serialize', {
 								'#field': ['value'],
 								'#operator': ['value'],
@@ -131,8 +131,8 @@ export class WhereSchema {
 														'qb-has-value': function () {
 															return !!this.value;
 														},
-														'qb-invalid': function (node) {
-															return !this.isValid(node);
+														'qb-invalid': function (n) {
+															return !this.isValid(n);
 														}
 													},
 													value: value,
@@ -143,23 +143,23 @@ export class WhereSchema {
 													placeholderText: 'Select value',
 													suggest: suggest,
 													options: null,
-													refresh: function (node, line) {
-														this.options = this.suggest(node, line);
+													refresh: function (n, l) {
+														this.options = this.suggest(n, l);
 													}
 												});
 											});
 											break;
 										case 'between':
-											line.put('#operand', node, function (schema) {
-												schema
+											line.put('#operand', node, function (operand) {
+												operand
 													.input('#from', {
 														classes: {
 															'qb-operand': true,
 															'qb-has-value': function () {
 																return !!this.value;
 															},
-															'qb-invalid': function (node) {
-																return !this.isValid(node);
+															'qb-invalid': function (n) {
+																return !this.isValid(n);
 															}
 														},
 														validate: function () {
@@ -180,8 +180,8 @@ export class WhereSchema {
 															'qb-has-value': function () {
 																return !!this.value;
 															},
-															'qb-invalid': function (node) {
-																return !this.isValid(node);
+															'qb-invalid': function (n) {
+																return !this.isValid(n);
 															}
 														},
 														value: null,
@@ -192,8 +192,8 @@ export class WhereSchema {
 														placeholderText: 'Select value',
 														suggest: suggest,
 														options: null,
-														refresh: function (node, line) {
-															this.options = this.suggest(node, line);
+														refresh: function (n, l) {
+															this.options = this.suggest(n, l);
 														}
 													});
 											});
@@ -210,8 +210,8 @@ export class WhereSchema {
 															'qb-has-value': function () {
 																return !!this.values.length;
 															},
-															'qb-invalid': function (node) {
-																return !this.isValid(node);
+															'qb-invalid': function (n) {
+																return !this.isValid(n);
 															}
 														},
 														validate: function () {
@@ -221,9 +221,9 @@ export class WhereSchema {
 														values: [],
 														options: suggests,
 														placeholderText: 'Select value',
-														add: function (node, line, value) {
-															if (value && this.values.indexOf(value) < 0) {
-																this.values.push(value);
+														add: function (n, l, v) {
+															if (v && this.values.indexOf(v) < 0) {
+																this.values.push(v);
 															}
 														}
 													})

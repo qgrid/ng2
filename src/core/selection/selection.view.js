@@ -1,10 +1,10 @@
 import { AppError } from '../infrastructure/error';
 import { Command } from '../command/command';
-import { selectionStateFactory as stateFactory } from './state/selection.state.factory';
+import { selectionStateFactory as formFactory } from './state/selection.state.factory';
 import { SelectionRange } from './selection.range';
 import { SelectionService } from './selection.service';
 import { GRID_PREFIX } from '../definition';
-import { noop, isUndefined } from '../utility/kit';
+import { noop, isArray } from '../utility/kit';
 
 export class SelectionView {
 	constructor(model, table, shortcut) {
@@ -12,7 +12,7 @@ export class SelectionView {
 		this.table = table;
 
 		this.selectionService = new SelectionService(model);
-		this.selectionState = stateFactory(model, this.selectionService);
+		this.form = formFactory(model, this.selectionService);
 		this.selectionRange = new SelectionRange(model);
 
 		const commands = this.commands;
@@ -60,12 +60,12 @@ export class SelectionView {
 
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
 				if (!e.hasChanges('items')) {
-					this.selectionState.clear();
+					this.form.clear();
 					model.selection({ items: [] }, {
 						source: 'selection.view'
 					});
 
-					this.selectionState = stateFactory(model, this.selectionService);
+					this.form = formFactory(model, this.selectionService);
 				}
 			}
 
@@ -272,9 +272,9 @@ export class SelectionView {
 	}
 
 	toggle(items, source = 'custom') {
-		const toggle = this.model.selection().toggle;
+		const { toggle } = this.model.selection();
 		const e = {
-			items,
+			items: isArray(items) ? items : [items],
 			source,
 			kind: 'toggle'
 		};
@@ -282,15 +282,11 @@ export class SelectionView {
 		if (toggle.canExecute(e)) {
 			toggle.execute(e);
 
-			const selectionState = this.selectionState;
-			if (!arguments.length || isUndefined(items)) {
-				items = this.model.view().rows;
-			}
-
-			selectionState.toggle(items);
+			const { form } = this;
+			form.toggle(items);
 
 			return () => {
-				const items = this.selectionService.map(selectionState.entries());
+				const items = this.selectionService.map(form.entries());
 				this.model.selection({ items }, {
 					source: 'selection.view'
 				});
@@ -311,7 +307,7 @@ export class SelectionView {
 
 		if (toggle.canExecute(e)) {
 			toggle.execute(e);
-			const selectionState = this.selectionState;
+			const selectionState = this.form;
 			selectionState.select(items, state);
 
 			return () => {
@@ -327,18 +323,18 @@ export class SelectionView {
 
 	state(item) {
 		if (!arguments.length) {
-			return !!this.selectionState.stateAll(this.rows);
+			return !!this.form.stateAll(this.rows);
 		}
 
-		return this.selectionState.state(item) === true;
+		return this.form.state(item) === true;
 	}
 
 	isIndeterminate(item) {
 		if (!arguments.length) {
-			return this.selectionState.stateAll(this.rows) === null;
+			return this.form.stateAll(this.rows) === null;
 		}
 
-		return this.selectionState.state(item) === null;
+		return this.form.state(item) === null;
 	}
 
 	get selection() {

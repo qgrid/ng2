@@ -1,4 +1,4 @@
-import { Component, Optional, Input, OnInit, OnDestroy, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RestView } from 'ng2-qgrid/plugin/rest/rest.view';
 import { PluginService } from '../plugin.service';
@@ -6,7 +6,8 @@ import { PluginService } from '../plugin.service';
 @Component({
 	selector: 'q-grid-rest',
 	template: '',
-	providers: [PluginService]
+	providers: [PluginService],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RestComponent implements OnInit, OnChanges {
 	@Input('url') restUrl: string;

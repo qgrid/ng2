@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ElementRef, NgZone, ChangeDetectorRef } from '@angular/core';
 import { ViewCoreService } from '../view/view-core.service';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
@@ -9,6 +9,7 @@ import { RootService } from '../../../infrastructure/component/root.service';
 import { NgComponent } from '../../../infrastructure/component/ng.component';
 
 @Component({
+	// tslint:disable-next-line
 	selector: 'thead[q-grid-core-head]',
 	templateUrl: './head-core.component.html'
 })
@@ -17,19 +18,23 @@ export class HeadCoreComponent extends NgComponent implements OnInit {
 		public $view: ViewCoreService,
 		public $table: TableCoreService,
 		private root: RootService,
-		private element: ElementRef,
-		private zone: NgZone
+		private elementRef: ElementRef,
+		private zone: NgZone,
+		private cd: ChangeDetectorRef
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		const element = this.element.nativeElement;
-		const ctrl = new HeadCtrl(this.root.model, this.$view, this.root.bag);
+		const { model } = this.root;
+
+		const element = this.elementRef.nativeElement;
+		const ctrl = new HeadCtrl(model, this.$view, this.root.bag);
 		const listener = new EventListener(element, new EventManager(this));
+
 		this.zone.runOutsideAngular(() => {
-			listener.on('mousemove', e => ctrl.onMouseMove(e));
-			listener.on('mouseleave', e => ctrl.onMouseLeave(e));
+			this.using(listener.on('mousemove', e => ctrl.onMouseMove(e)));
+			this.using(listener.on('mouseleave', e => ctrl.onMouseLeave(e)));
 		});
 	}
 

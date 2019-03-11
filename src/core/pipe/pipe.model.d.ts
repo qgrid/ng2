@@ -52,11 +52,10 @@ export declare interface PipeModel {
 	reduce?: (xs: PipeUnit[], Model) => PipeUnit[];
 
 	/**
-	 * A schema that shows how and when q-grid should be updated.
+	 * A schema that shows what pipeline will be executed on appropriate model property change.
 	 *
-	 * `{col}`
 	 */
-	triggers?: object;
+	triggers?: { [modelName: string]: { [modelProperty: string]: PipeUnit } };
 
 	effect: { [key: string]: any }
 }

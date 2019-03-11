@@ -56,7 +56,7 @@ export declare class Model {
 	static register(name: string, model: { new(): {} }): typeof Model;
 
 	gridChanged: ModelEvent<GridModel>;
-	grid(value: object, tag?: ModelTag): Model;
+	grid(value: GridModel, tag?: ModelTag): Model;
 	grid(): GridModel;
 
 	pipeChanged: ModelEvent<PipeModel>;
@@ -204,14 +204,14 @@ export declare class Model {
 	animation(): AnimationModel;
 
 	queryBuilderChanged: ModelEvent<any>;
-	queryBuilder(value: object, tag?: ModelTag): Model;
+	queryBuilder(value: any, tag?: ModelTag): Model;
 	queryBuilder(): any;
 
 	dataManipulationChanged: ModelEvent<any>;
-	dataManipulation(value: object, tag?: ModelTag): Model;
+	dataManipulation(value: any, tag?: ModelTag): Model;
 	dataManipulation(): any;
 
 	columnFilterChanged: ModelEvent<any>;
-	columnFilter(value: object, tag?: ModelTag): Model;
+	columnFilter(value: any, tag?: ModelTag): Model;
 	columnFilter(): any;
 }

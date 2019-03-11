@@ -47,7 +47,7 @@ import { VScrollService } from './scroll/vscroll.service';
 	],
 	imports: [
 		TemplateModule,
-		CommonModule,		
+		CommonModule,
 		GridCommonModule
 	],
 	providers: [

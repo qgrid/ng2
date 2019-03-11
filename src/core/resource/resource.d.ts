@@ -1,6 +1,6 @@
 export declare class Resource {
-	constructor(data?: object, scope?: object);
+	constructor(data?: any, scope?: any);
 
-	data: object;
-	scope: object;
+	data: any;
+	scope: any;
 }

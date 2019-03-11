@@ -5,11 +5,11 @@
 		<q-grid-column key="number"
 		               type="id"
 		               title="#"
-		               width="70">
+		               [width]="70">
 		</q-grid-column>
 		<q-grid-column key="symbol"
 		               title="Symbol"
-		               width="90">
+		               [width]="90">
 		</q-grid-column>
 		<q-grid-column key="name"
 		               title="Name">
@@ -17,12 +17,11 @@
 		<q-grid-column key="source"
 		               title="Source"
 		               type="url"
-		               width="300">
+		               [width]="300">
 		</q-grid-column>
 		<q-grid-column *ngFor="let key of ['color', 'appearance', 'groupBlock', 'bondingType', 'period', 'radius', 'boil', 'shells', 'melt']"
-	
 		               [key]=key
-		               isVisible="false">
+		               [isVisible]="false">
 		</q-grid-column>
 	</q-grid-columns>
 

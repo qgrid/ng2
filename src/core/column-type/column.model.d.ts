@@ -248,7 +248,7 @@ export declare class ColumnModel {
 	/**
 	 * Width of the q-grid column.
 	 *
-	 * * Can be setup in `pixels` like `<q-grid-column width="100"></q-grid-column>`.
+	 * * Can be setup in `pixels` like `<q-grid-column [width]="100"></q-grid-column>`.
 	 * * Can be setup in `percents` like `<q-grid-column width="20%"></q-grid-column>`.
 	 *
 	 * Percents are materialized only once on init, and depend on the q-grid size.

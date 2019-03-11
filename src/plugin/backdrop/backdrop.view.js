@@ -2,6 +2,7 @@ import { Event } from '../../core/infrastructure/event';
 import { EventListener } from '../../core/infrastructure/event.listener';
 import { EventManager } from '../../core/infrastructure/event.manager';
 import { checkButtonCode, LEFT_BUTTON, MIDDLE_BUTTON } from '../../core/mouse/mouse.code';
+import { elementFromPoint } from '../../core/services/dom';
 
 export class BackdropView {
 	constructor(context) {
@@ -17,7 +18,7 @@ export class BackdropView {
 				element.remove();
 
 				if (context.propagate !== false) {
-					const target = document.elementFromPoint(e.clientX, e.clientY);
+					const target = elementFromPoint(e.clientX, e.clientY);
 					const event = document.createEvent('MouseEvents');
 					event.initEvent('mouseup', true, true);
 					target.dispatchEvent(event);
