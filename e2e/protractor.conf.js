@@ -19,7 +19,7 @@ exports.config = {
     // require step definition files before executing features
     require: ['./steps/**/*.ts'],
     // <string[]> (expression) only execute the features or scenarios with tags matching the expression
-    tags: [],
+    tags: false,
     // <boolean> fail if there are any undefined or pending steps
     strict: true,
     // <string[]> (type[:path]) specify the output format, optionally supply PATH to redirect formatter output (repeatable)

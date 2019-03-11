@@ -1,3 +1,4 @@
+@basic
 Feature: qgrid screenshot testing
 
 	Scenario: action-bar-basic page is the same

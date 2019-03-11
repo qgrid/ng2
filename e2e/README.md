@@ -24,6 +24,17 @@ npm run test:screenshot
 npm run test:screenshot-update-goldens
 ```
 
+## Run tagged features/scenario
+
+```bash
+npm run test:screenshot -- --cucumberOpts.tags @basic
+```
+## Exclude tagged features/scenario
+
+```bash
+npm run test:screenshot -- --cucumberOpts.tags ~@basic
+```
+
 ## Good practice
 
 (https://github.com/strongqa/howitzer/wiki/Cucumber-Best-Practices)

@@ -6,7 +6,7 @@ import * as path from 'path';
 const chai = require('chai').use(require('chai-as-promised'));
 const { expect } = chai;
 
-const START_OPTIONS = { timeout: 30 * 1000 };
+const START_OPTIONS = { timeout: 20 * 1000 };
 
 let currentScreenshot = null;
 let goldenPath = '';
@@ -26,7 +26,7 @@ Then('Row count equals to {int}', (count: number) => getRowCount().then(x => exp
 Then('Column count equals to {int}', (count: number) => getColumnCount().then(x => expect(x).to.equal(count)));
 
 When('I click cell {string}[{int}]', (key, index) => getCell(key, index).click());
-When('I look at the Page', { timeout: 20 * 1000 }, async () => { 
+When('I look at the Page', async () => { 
 	await browser.sleep(3000);
 	currentScreenshot = await browser.takeScreenshot();
 });
@@ -51,13 +51,8 @@ function getRowCount() {
 		.count();
 }
 
-function getEditor() {
-	return element(by.css('.q-grid-editor-content'));
-}
-
 function getInput() {
-	const editor = getEditor();
-	return editor.element(by.css('.mat-input-element'));
+	return element(by.css('.mat-input-element'));
 }
 
 async function enterText(text:string) {
@@ -78,7 +73,7 @@ function getCell(key, index) {
 	const tr = element(by.tagName('tbody'))
 		.all(by.css('tr[q-grid-core-source=body]'))
 		.get(index);
-	return tr.element(by.css(`.q-grid-the-${stringToClassName(key)}`));
+	return tr.element(by.className(`q-grid-the-${stringToClassName(key)}`));
 }
 
 function getColumnCount() {

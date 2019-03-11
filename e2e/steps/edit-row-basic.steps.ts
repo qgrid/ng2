@@ -1,12 +1,12 @@
 import { When } from 'cucumber';
 import { element, by, protractor } from 'protractor';
 
-When('I click edit button [{int}]', (index: number) => getEditButton(index));
+When('I click edit button [{int}]', (index: number) => getEditButton(index).click());
 When('I enter {string} into {string} field', (text: string, field: string) => enterText(text, field));
 When('I click "Is Female" checkbox', () => clickIsFemale());
 
 function getEditButton(index) {
-	return element.all(by.xpath("//*[(text()='edit')]")).get(index).click();
+	return element.all(by.xpath("//*[(text()='edit')]")).get(index);
 }
 
 function getEditFormBody() {
