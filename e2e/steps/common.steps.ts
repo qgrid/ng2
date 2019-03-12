@@ -35,6 +35,7 @@ Then('Page looks the same as before', { timeout: 20 * 1000 }, async () => await 
 														.satisfy(result => result.includes('The test passed. ') || result.includes('was successfully updated')));
 When('I click {string} button', (element:string) => clickElement(element));
 When('I enter {string} text', (text: string) => enterText(text));
+When('I click filter button for {string}', (text: string) => getFilterButton(text).click());
 
 async function checkErrors() {
 	await browser.manage().logs().get('browser').then(function(browserLog) {
@@ -85,6 +86,10 @@ function getColumnCount() {
 			// Minus pad column
 			new promise.Promise(resolve => resolve(x - 1))
 		);
+}
+
+function getFilterButton(text) {
+	return element(by.xpath("//q-grid-column-filter-trigger[@ng-reflect-column='text: " + text.replace(/\s/g, '') + "']/button"));
 }
 
 function clearDiff() {
