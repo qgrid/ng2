@@ -42,7 +42,9 @@ export class PersistenceComponent implements OnInit, OnChanges {
 				'Save/Load',
 				'history'
 			);
+
 		action.templateUrl = 'plugin-persistence.tpl.html';
+		action.id = 'persistence';
 
 		this.plugin.model.action({
 			items: Composite.list([[action], this.plugin.model.action().items])

@@ -26,6 +26,7 @@ export class QueryBuilderComponent implements OnInit {
 			);
 
 		action.templateUrl = 'plugin-query-builder.tpl.html';
+		action.id = 'query-builder';
 
 		this.plugin.model.action({
 			items: Composite.list([[action], this.plugin.model.action().items])

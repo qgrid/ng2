@@ -75,4 +75,13 @@ export class ActionCoreComponent {
 
 		return action.templateUrl;
 	}
+
+	get id() {
+		const action = this.action;
+		if (!action) {
+			throw new AppError('action-core.component', 'Action should be setup');
+		}
+
+		return action.id;
+	}
 }

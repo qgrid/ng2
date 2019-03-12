@@ -1,26 +1,27 @@
 <ng-template key="plugin-action-core.tpl.html"
-		   let-$action>
+			 let-$action>
 	<div class="q-grid-action"
-		[ngSwitch]="!!$action.templateUrl">
+		 [ngClass]="'q-grid-action-' + $action.id"
+		 [ngSwitch]="!!$action.templateUrl">
 		<ng-container *ngSwitchCase="true"
-				    [key]="$action.templateUrl"
-				    [context]="{$implicit: $action}">
+					  [key]="$action.templateUrl"
+					  [context]="{$implicit: $action}">
 		</ng-container>
 		<ng-container *ngSwitchDefault>
 			<button *ngIf="$action.icon"
-				   mat-icon-button
-				   (click)="$action.execute()"
-				   [disabled]="!$action.canExecute()"
-				   [matTooltip]="$action.title + ' (' + $action.shortcut + ')'"
-				   [matTooltipShowDelay]="800"
-				   tabindex="-1">
+					mat-icon-button
+					(click)="$action.execute()"
+					[disabled]="!$action.canExecute()"
+					[matTooltip]="$action.title + ' (' + $action.shortcut + ')'"
+					[matTooltipShowDelay]="800"
+					tabindex="-1">
 				<mat-icon>{{$action.icon}}</mat-icon>
 			</button>
 			<button *ngIf="!$action.icon && $action.title"
-				   mat-button
-				   (click)="$action.execute()"
-				   [disabled]="!$action.canExecute()"
-				   tabindex="-1">
+					mat-button
+					(click)="$action.execute()"
+					[disabled]="!$action.canExecute()"
+					tabindex="-1">
 				{{$action.title}}
 			</button>
 		</ng-container>
