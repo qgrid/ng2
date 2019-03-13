@@ -1,0 +1,16 @@
+{
+    "timeoutList": {
+        "scroll-virtual-height": 3000,
+        "scroll-virtual-basic": 3000,
+        "pipe-grid-basic": 3000,
+        "look-atoms-id": 3000,
+        "sort-row-basic": 3000,
+        "pagination-basic": 3000,
+        "column-image-basic": 3000,
+        "drag-row-basic": 3000,
+        "drag-row-node": 3000
+    },
+    "ignoreList": [
+        "live-data-basic"
+    ]
+}
