@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, TemplateRef, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, TemplateRef, ChangeDetectionStrategy, ContentChild } from '@angular/core';
 import { PluginService } from '../plugin.service';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { ExportView } from 'ng2-qgrid/plugin/export/export.view';
@@ -14,7 +14,7 @@ import { TemplateHostService } from '../../template/template-host.service';
 })
 export class ExportComponent implements AfterViewInit {
 	@Input() type: string;
-	@ViewChild(TemplateRef) templateRef: TemplateRef<any>;
+	@ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
 	context: { $implicit: ExportComponent } = {
 		$implicit: this
@@ -36,6 +36,7 @@ export class ExportComponent implements AfterViewInit {
 			'file_download'
 		);
 
+		action.id = this.type;
 		if (this.templateRef) {
 			action.templateUrl = this.templateHost.key('trigger');
 		}

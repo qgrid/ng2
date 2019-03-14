@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, TemplateRef, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, TemplateRef, ChangeDetectionStrategy, ContentChild } from '@angular/core';
 import { PluginService } from '../plugin.service';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { Command } from 'ng2-qgrid/core/command/command';
@@ -17,7 +17,7 @@ import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 })
 export class ImportComponent implements AfterViewInit {
 	@Input() options: any;
-	@ViewChild(TemplateRef) templateRef: TemplateRef<any>;
+	@ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
 	context: { $implicit: ImportComponent } = {
 		$implicit: this
@@ -43,6 +43,8 @@ export class ImportComponent implements AfterViewInit {
 			`Import data`,
 			'file_upload'
 		);
+
+		action.id = 'import';
 
 		if (this.templateRef) {
 			action.templateUrl = this.templateHost.key('trigger');

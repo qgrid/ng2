@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float Row Navigation.
 * Group keyboard navigation improvements.
 
+## [6.3.4] - 2019-03-12
+## Fixed
+- Default import template is shown up.
+
 ## [6.3.0] - 2019-02-22
 ## Added
 - Add support row options menu dividers.

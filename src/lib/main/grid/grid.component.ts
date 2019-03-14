@@ -146,6 +146,8 @@ export class GridComponent extends RootComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		super.ngOnInit();
+
 		const { model } = this.root;
 		const { nativeElement } = this.elementRef;
 
