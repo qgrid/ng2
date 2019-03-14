@@ -1,10 +1,10 @@
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { ModelBinder } from 'ng2-qgrid/core/infrastructure/model.bind';
 import { Event } from 'ng2-qgrid/core/infrastructure/event';
-import { OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { OnChanges, OnDestroy, SimpleChanges, OnInit } from '@angular/core';
 import { NgComponent } from './ng.component';
 
-export class RootComponent extends NgComponent implements OnChanges, OnDestroy {
+export class RootComponent extends NgComponent implements OnChanges, OnInit, OnDestroy {
 	model: Model = null;
 	modelChanged = new Event();
 
@@ -15,6 +15,12 @@ export class RootComponent extends NgComponent implements OnChanges, OnDestroy {
 
 	constructor() {
 		super();
+	}
+
+	ngOnInit() {
+		if (!this.commit) {
+			this.commit = this.setup();
+		}
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {

@@ -11,5 +11,5 @@ import { DataService, Atom } from '../data.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleImportCsvComponent {
-	rows: Observable<Atom[]> = of([]);
+	rows$: Observable<Atom[]> = of([]);
 }
