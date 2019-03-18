@@ -16,8 +16,7 @@ let resultLog = '';
 
 When('I look through all examples', () => getAllExamples());
 Then('Examples are the same as before', { timeout: -1 }, () => checkExamples());
-
-After(() => expect(comparisonResults.concat(resultLog)).to.equal(''));
+Then('There are no errors', () => expect(comparisonResults.concat(resultLog)).to.equal(''));
 
 async function getAllExamples() {
 

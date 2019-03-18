@@ -6,7 +6,7 @@ import * as path from 'path';
 const chai = require('chai').use(require('chai-as-promised'));
 const { expect } = chai;
 
-const START_OPTIONS = { timeout: 20 * 1000 };
+const START_OPTIONS = { timeout: 30 * 1000 };
 
 let currentScreenshot = null;
 let goldenPath = '';
@@ -14,7 +14,7 @@ const goldenDir = path.join(__dirname, '..', 'goldens/');
 const diffDir = path.join(__dirname, '..', 'diff/');
 
 BeforeAll(() => clearDiff());
-Before((scenario) => goldenPath = goldenDir + scenario.pickle.name + '.png');
+Before((scenario) => { goldenPath = goldenDir + scenario.pickle.name + '.png'; console.log('\n' + scenario.pickle.name); });
 
 After(() => checkErrors());
 
@@ -36,9 +36,10 @@ Then('Page looks the same as before', { timeout: 20 * 1000 }, async () => await 
 When('I click {string} button', (element:string) => clickElement(element));
 When('I enter {string} text', (text: string) => enterText(text));
 When('I click filter button for {string}', (text: string) => getFilterButton(text).click());
+When('I select persistence item [{int}]', (num: number) => selectPersistenceItem(num));
 
 async function checkErrors() {
-	await browser.manage().logs().get('browser').then(function(browserLog) {
+	await browser.manage().logs().get('browser').then((browserLog) => {
 		let str = '' + browserLog.length + ' errors';
 		let errorLog = '\n';
 		browserLog.map((item) => { errorLog += JSON.stringify(item.message) + '\n' });
@@ -90,6 +91,15 @@ function getColumnCount() {
 
 function getFilterButton(text) {
 	return element(by.xpath("//q-grid-column-filter-trigger[@ng-reflect-column='text: " + text.replace(/\s/g, '') + "']/button"));
+}
+
+function selectPersistenceItem(num) {
+	return element(by.className("q-grid-persistence-list"))
+		.all(by.className("q-grid-persistence-list-item"))
+		.get(num)
+		.all(by.tagName('button'))
+		.get(0)
+		.click();
 }
 
 function clearDiff() {
