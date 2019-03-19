@@ -10,7 +10,7 @@
     "e2e": "protractor ./e2e/protractor.conf.js",
     "test:screenshot": "protractor ./e2e/protractor.conf.js",
     "test:screenshot-update-goldens": "protractor ./e2e/protractor-update-goldens.conf.js",
-    "pree2e": "webdriver-manager update",
+    "pree2e": "webdriver-manager update --gecko=false",
     "build:theme": "npm run clean && node build.theme.js",
     "build": "ng build",
     "clean": "rimraf out-tsc dist",
