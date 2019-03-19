@@ -7,7 +7,9 @@ addons:
       - google-chrome
     packages:
       - google-chrome-stable
-script: npm run test
+script:
+  - npm run test
+  - npm run test:screenshot
 cache:
   bundler: true
   directories:
