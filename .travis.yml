@@ -9,6 +9,7 @@ addons:
       - google-chrome-stable
 script:
   - npm run test
+  - npm run pree2e
   - npm run test:screenshot
 cache:
   bundler: true
