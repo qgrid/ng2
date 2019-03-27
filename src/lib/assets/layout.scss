@@ -133,10 +133,11 @@ $layout-gutter-width: ($baseline-grid * 2) !default;
         display: flex;
     }
     .layout#{$name}-column {
-        flex-direction: column;
+		flex-direction: column;
     }
     .layout#{$name}-row {
         flex-direction: row;
+		min-height: 0;
     }
 }
 

@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float Row Navigation.
 * Group keyboard navigation improvements.
 
+## [6.3.5] - 2019-03-27
+## Fixed
+- Compatibility with Chrome implementation of flex box overflow since version 73.
+
 ## [6.3.4] - 2019-03-12
 ## Fixed
 - Default import template is shown up.
@@ -351,7 +355,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Progress plugin.
 
 [unreleased]: https://github.com/qgrid/ng2/compare/v6.2.4...HEAD
-[6.2.3]: https://github.com/qgrid/ng2/compare/v6.2.4...v6.2.3
+[6.3.5]: https://github.com/qgrid/ng2/compare/v6.3.5...v6.3.4
+[6.3.4]: https://github.com/qgrid/ng2/compare/v6.3.4...v6.3.0
+[6.3.0]: https://github.com/qgrid/ng2/compare/v6.3.0...v6.2.4
+[6.2.4]: https://github.com/qgrid/ng2/compare/v6.2.4...v6.2.3
+[6.2.4]: https://github.com/qgrid/ng2/compare/v6.2.4...v6.2.3
 [6.2.3]: https://github.com/qgrid/ng2/compare/v6.2.3...v6.2.2
 [6.2.2]: https://github.com/qgrid/ng2/compare/v6.2.2...v6.2.1
 [6.2.1]: https://github.com/qgrid/ng2/compare/v6.2.1...v6.2.0
