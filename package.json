@@ -1,6 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "6.3.4",
+  "version": "6.3.5",
   "scripts": {
     "build:lib": "npm run clean && node build.lib.js",
     "build:release": "npm run build:lib && npm run copy:npm && node build.theme.js",
