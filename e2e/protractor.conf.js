@@ -5,6 +5,7 @@ exports.config = {
   allScriptsTimeout: 11000,
   capabilities: {
     browserName: 'chrome',
+    loggingPrefs: {"browser": "SEVERE"},
     chromeOptions: {
       args: ['--headless', '--disable-gpu', '--window-size=1920,1080']
     }

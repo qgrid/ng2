@@ -1,5 +1,5 @@
-import { Given, Then, When, Before, BeforeAll } from 'cucumber';
-import { browser, element, by, promise } from 'protractor';
+import { Given, Then, When, Before, BeforeAll, After } from 'cucumber';
+import { browser, element, by, promise, protractor } from 'protractor';
 import * as blueharvest from 'blue-harvest';
 import * as path from 'path';
 
@@ -14,15 +14,38 @@ const goldenDir = path.join(__dirname, '..', 'goldens/');
 const diffDir = path.join(__dirname, '..', 'diff/');
 
 BeforeAll(() => clearDiff());
-Before((scenario) => goldenPath = goldenDir + scenario.pickle.name + '.png');
+Before((scenario) => { goldenPath = goldenDir + scenario.pickle.name + '.png'; console.log('\n' + scenario.pickle.name); });
+
+After(() => checkErrors());
+
 Given('I am on {string}', START_OPTIONS, (path: string) => browser.get(path));
+
 Then('Grid is not empty', () => getRowCount().then(x => expect(x).to.be.above(0)));
 Then('Grid is empty', () => getRowCount().then(x => expect(x).to.equal(0)));
 Then('Row count equals to {int}', (count: number) => getRowCount().then(x => expect(x).to.equal(count)));
 Then('Column count equals to {int}', (count: number) => getColumnCount().then(x => expect(x).to.equal(count)));
+
 When('I click cell {string}[{int}]', (key, index) => getCell(key, index).click());
-When('I look at the Page', async () => currentScreenshot = await browser.takeScreenshot());
-Then('Page looks the same as before', async () => await expect(await blueharvest.compareScreenshot(currentScreenshot, goldenPath, diffDir)).to.satisfy(result => result.includes('The test passed. ') || result.includes('was successfully updated')));
+When('I look at the Page', async () => { 
+	await browser.sleep(3000);
+	currentScreenshot = await browser.takeScreenshot();
+});
+Then('Page looks the same as before', { timeout: 20 * 1000 }, async () => await expect(await blueharvest.compareScreenshot(currentScreenshot, goldenPath, diffDir))
+														.to
+														.satisfy(result => result.includes('The test passed. ') || result.includes('was successfully updated')));
+When('I click {string} button', (element:string) => clickElement(element));
+When('I enter {string} text', (text: string) => enterText(text));
+When('I click filter button for {string}', (text: string) => getFilterButton(text).click());
+When('I select persistence item [{int}]', (num: number) => selectPersistenceItem(num));
+
+async function checkErrors() {
+	await browser.manage().logs().get('browser').then((browserLog) => {
+		let str = '' + browserLog.length + ' errors';
+		let errorLog = '\n';
+		browserLog.map((item) => { errorLog += JSON.stringify(item.message) + '\n' });
+		expect(str).to.equal('0 errors', errorLog);
+	})
+}
 
 function getRowCount() {
 	return element(by.tagName('tbody'))
@@ -30,11 +53,29 @@ function getRowCount() {
 		.count();
 }
 
+function getInput() {
+	return element(by.css('.mat-input-element'));
+}
+
+async function enterText(text:string) {
+	const input = getInput();
+	await input.clear();
+	await input.sendKeys(text, protractor.Key.ENTER);
+}
+
+function clickElement(text:string) {
+	return element(by.xpath("//*[contains(text(),'" + text + "')]")).click();
+}
+
+function stringToClassName(string: string) {
+	return (string.charAt(0).toLowerCase() + string.slice(1)).replace(/\s/g, '')
+}
+
 function getCell(key, index) {
 	const tr = element(by.tagName('tbody'))
 		.all(by.css('tr[q-grid-core-source=body]'))
 		.get(index);
-	return tr.element(by.css(`.q-grid-the-${key}`));
+	return tr.element(by.className(`q-grid-the-${stringToClassName(key)}`));
 }
 
 function getColumnCount() {
@@ -48,6 +89,19 @@ function getColumnCount() {
 		);
 }
 
+function getFilterButton(text) {
+	return element(by.xpath("//q-grid-column-filter-trigger[@ng-reflect-column='text: " + text.replace(/\s/g, '') + "']/button"));
+}
+
+function selectPersistenceItem(num) {
+	return element(by.className("q-grid-persistence-list"))
+		.all(by.className("q-grid-persistence-list-item"))
+		.get(num)
+		.all(by.tagName('button'))
+		.get(0)
+		.click();
+}
+
 function clearDiff() {
 
 	let fs = require('fs');
@@ -55,11 +109,11 @@ function clearDiff() {
 
 	fs.readdir(diffDir, (err, files) => {
 		if (err) throw err;
-	  
+
 		for (const file of files) {
 		  fs.unlink(path.join(diffDir, file), err => {
 			if (err) throw err;
 		  });
 		}
-	  });		  
+	  });
 }

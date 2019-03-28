@@ -1,5 +1,7 @@
 Feature: Validation basic
-	Scenario:  Check "required" rule
+
+	Scenario:  validation-basic page is the same after clicking on cell
 		Given I am on "validation-basic"
 		When I click cell "summary"[0]
-		Then Input value equals to "Hydrogen is a chemical element with chemical symbol H and atomic number 1. With an atomic weight of 1.00794 u, hydrogen is the lightest element on the periodic table. Its monatomic form (H) is the most abundant chemical substance in the Universe, constituting roughly 75% of all baryonic mass."
+		And I look at the Page
+		Then Page looks the same as before
