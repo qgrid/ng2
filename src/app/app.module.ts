@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import {
 	MatCardModule,
 	MatSelectModule,
@@ -14,7 +14,7 @@ import {
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { exampleRoutes, ExampleModule } from '../examples/example.module';
+import { ExampleModule, APP_ROUTES } from '../examples/example.module';
 
 @NgModule({
 	declarations: [
@@ -31,11 +31,18 @@ import { exampleRoutes, ExampleModule } from '../examples/example.module';
 		MatIconModule,
 		MatListModule,
 		MatButtonModule,
-		RouterModule.forRoot(
-			exampleRoutes
-		),
+		RouterModule.forRoot([{
+			path: '',
+			redirectTo: 'action-bar-basic',
+			pathMatch: 'full'
+		}]),
 		ExampleModule
 	],
-	bootstrap: [AppComponent]
+	bootstrap: [AppComponent],
+	entryComponents: APP_ROUTES.map(x => x.component)
 })
-export class AppModule { }
+export class AppModule {
+	constructor(router: Router) {
+		router.config.unshift(...APP_ROUTES);
+	}
+}
