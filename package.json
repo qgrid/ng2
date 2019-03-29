@@ -1,24 +1,23 @@
 {
   "name": "ng2-qgrid",
-  "version": "6.3.4",
+  "version": "6.3.5",
   "scripts": {
     "build:lib": "npm run clean && node build.lib.js",
     "build:release": "npm run build:lib && npm run copy:npm && node build.theme.js",
+    "test": "ng test",
+    "test:debug": "ng test --browsers ChromeDebug",
+    "lint": "ng lint",
+    "test:screenshot": "protractor ./e2e/protractor.conf.js",
+    "test:screenshot-update-goldens": "protractor ./e2e/protractor-update-goldens.conf.js",
+    "pretest:screenshot": "mkdir e2e/diff && webdriver-manager update --gecko=false",
     "build:theme": "npm run clean && node build.theme.js",
     "build": "ng build",
     "clean": "rimraf out-tsc dist",
     "copy:npm": "node build.copy.js **/* dist node_modules/ng2-qgrid",
-    "e2e": "protractor ./e2e/protractor.conf.js",
-    "lint": "ng lint",
     "ng": "ng",
-    "pree2e": "webdriver-manager update",
     "release:example": "node ./build.example",
-    "release:lib": "npm run build:release && cd dist && npm publish",
-    "start": "node build.serve",
-    "test:debug": "ng test --browsers ChromeDebug",
-    "test:screenshot-update-goldens": "protractor ./e2e/protractor-update-goldens.conf.js --specs=e2e/features/screenshot-testing.feature",
-    "test:screenshot": "protractor ./e2e/protractor.conf.js --specs=e2e/features/screenshot-testing.feature",
-    "test": "ng test"
+    "release:lib": "npm run test && npm run test:screenshot && npm run build:release && cd dist && npm publish",
+    "start": "node build.serve"
   },
   "private": true,
   "dependencies": {

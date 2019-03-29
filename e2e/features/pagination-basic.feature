@@ -1,10 +1,15 @@
-Feature: Pagination basic
+Feature: Pagination Basic
 
-	Scenario: Number of rows is correct on start
+	Scenario: pagination-basic is the same after selecting a page
 		Given I am on "pagination-basic"
-		Then Row count equals to 10
-	
-	Scenario: Number of rows is corresponding to the selected page size
+		When I click "location_searching" button
+		And I enter "5" text
+		And I click "keyboard_arrow_left" button
+		And I look at the Page
+		Then Page looks the same as before
+
+	Scenario: pagination-basic is the same after moving to the next page
 		Given I am on "pagination-basic"
-		When I choose page size 5
-		Then Row count equals to 5
+		When I click "keyboard_arrow_right" button
+		And I look at the Page
+		Then Page looks the same as before

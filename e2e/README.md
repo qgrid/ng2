@@ -15,13 +15,24 @@ npm run e2e -- --specs=e2e/features/pagination-basic.feature
 ## Launch screenshot-testing
 
 ```bash
-npm run screenshot-testing
+npm run test:screenshot
 ```
 
 ## Update golden screenshots for screenshot-testing
 
 ```bash
-npm run screenshot-testing:update-goldens
+npm run test:screenshot-update-goldens
+```
+
+## Run tagged features/scenario
+
+```bash
+npm run test:screenshot -- --cucumberOpts.tags @basic
+```
+## Exclude tagged features/scenario
+
+```bash
+npm run test:screenshot -- --cucumberOpts.tags ~@basic
 ```
 
 ## Good practice
