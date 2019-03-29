@@ -4,27 +4,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
-* Auto-complete cell editor.
-* Batch edit improvements.
 * Vscroll improvements.
 * Copy/paste selection to excel.
 * Live data plugin.
-* Float Row Navigation.
-* Group keyboard navigation improvements.
+* Float rows navigation.
+* Grouped rows navigation improvements.
 
 ## [6.3.4] - 2019-03-12
-## Fixed
+### Fixed
 - Default import template is shown up.
 
 ## [6.3.0] - 2019-02-22
-## Added
+### Added
 - Add support row options menu dividers.
 
-## Changed
+### Changed
 - Show action title if icon is not set.
 - Get rid of ng-template in cell editor component.
 
-## Fixed
+### Fixed
 - Custom symbols in the column `key`.
 - Fix column chooser label style.
 - Fix column filter header style.
@@ -350,8 +348,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v6.2.4...HEAD
-[6.2.3]: https://github.com/qgrid/ng2/compare/v6.2.4...v6.2.3
+[unreleased]: https://github.com/qgrid/ng2/compare/v6.3.4...HEAD
+[6.3.4]: https://github.com/qgrid/ng2/compare/v6.3.0...v6.3.4
+[6.3.0]: https://github.com/qgrid/ng2/compare/v6.2.4...v6.3.0
+[6.2.4]: https://github.com/qgrid/ng2/compare/v6.2.4...v6.2.3
 [6.2.3]: https://github.com/qgrid/ng2/compare/v6.2.3...v6.2.2
 [6.2.2]: https://github.com/qgrid/ng2/compare/v6.2.2...v6.2.1
 [6.2.1]: https://github.com/qgrid/ng2/compare/v6.2.1...v6.2.0
