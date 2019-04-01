@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "test:screenshot": "protractor ./e2e/protractor.conf.js",
     "test:screenshot-update-goldens": "protractor ./e2e/protractor-update-goldens.conf.js",
-    "pretest:screenshot": "mkdir e2e/diff && webdriver-manager update --gecko=false",
+    "pretest:screenshot": "if not exist e2e\\diff mkdir e2e\\diff && webdriver-manager update --gecko=false",
     "build:theme": "npm run clean && node build.theme.js",
     "build": "ng build",
     "clean": "rimraf out-tsc dist",
