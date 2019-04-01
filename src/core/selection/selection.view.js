@@ -3,8 +3,8 @@ import { Command } from '../command/command';
 import { selectionStateFactory as formFactory } from './state/selection.state.factory';
 import { SelectionRange } from './selection.range';
 import { SelectionService } from './selection.service';
+import { noop, isArray, isUndefined } from '../utility/kit';
 import { GRID_PREFIX } from '../definition';
-import { noop, isArray } from '../utility/kit';
 
 export class SelectionView {
 	constructor(model, table, shortcut) {
@@ -273,12 +273,13 @@ export class SelectionView {
 
 	toggle(items, source = 'custom') {
 		const { toggle } = this.model.selection();
-		const e = {
-			items: isArray(items) ? items : [items],
-			source,
-			kind: 'toggle'
-		};
 
+		items = !arguments.length || isUndefined(items)
+			? this.model.view().rows
+			: isArray(items)
+				? items : [items];
+
+		const e = { items, source, kind: 'toggle' };
 		if (toggle.canExecute(e)) {
 			toggle.execute(e);
 
@@ -286,14 +287,15 @@ export class SelectionView {
 			form.toggle(items);
 
 			return () => {
-				const items = this.selectionService.map(form.entries());
-				this.model.selection({ items }, {
-					source: 'selection.view'
-				});
+				this.model.selection({
+					items: this.selectionService.map(form.entries())
+				}, {
+						source: 'selection.view'
+					});
 			};
-		} else {
-			return noop;
 		}
+
+		return noop;
 	}
 
 	select(items, state, source = 'custom') {

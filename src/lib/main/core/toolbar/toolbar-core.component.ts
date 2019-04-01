@@ -5,5 +5,5 @@ import { Component, Input } from '@angular/core';
 	templateUrl: './toolbar-core.component.html'
 })
 export class ToolbarCoreComponent {
-	@Input() position;
+	@Input() position: 'top' | 'right' | 'bottom' | 'left';
 }

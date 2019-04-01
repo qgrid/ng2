@@ -284,16 +284,10 @@ function toPath(componentType: Function) {
 		.join('-');
 }
 
-export const exampleRoutes: Routes = EXAMPLES.map<Route>(example => ({
+export const APP_ROUTES: Routes = EXAMPLES.map<Route>(example => ({
 	path: toPath(example),
 	component: example
-})).concat([
-	{
-		path: '',
-		redirectTo: toPath(ExampleLookPeopleBasicComponent),
-		pathMatch: 'full'
-	}
-]);
+}));
 
 @NgModule({
 	declarations: EXAMPLES.concat([ExamplePluginMyPagerComponent]),

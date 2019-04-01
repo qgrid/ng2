@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Routes } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { exampleRoutes } from '../examples/example.module';
+import { APP_ROUTES } from '../examples/example.module';
 
 @Component({
 	selector: 'app-root',
@@ -11,7 +11,7 @@ import { exampleRoutes } from '../examples/example.module';
 })
 export class AppComponent implements OnDestroy {
 	mobileQuery: MediaQueryList;
-	examples: Routes = exampleRoutes;
+	examples: Routes = APP_ROUTES;
 
 	private mobileQueryListener: () => void;
 
