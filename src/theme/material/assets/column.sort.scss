@@ -39,6 +39,7 @@ th {
 		padding-left: 16px;
 		label {
 			display: inline;
+			vertical-align: middle;
 		}
 		&.q-grid-active {
 			label {
@@ -60,6 +61,7 @@ th {
 			min-height: 16px;
 			min-width: 16px;
 			vertical-align: middle;
+			display: inline-block;
 			&.q-grid-active {
 				opacity: 1;
 			}
