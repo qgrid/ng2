@@ -11,6 +11,7 @@ export class VscrollDirective {
 
 	constructor(private elementRef: ElementRef, zone: NgZone, renderer: Renderer2) {
 		zone.runOutsideAngular(() => {
+			elementRef.nativeElement.addEventListener('DOMMouseScroll', (event) => this.onMozWheel(event), { passive: false });
 			elementRef.nativeElement.addEventListener('scroll', () => this.onScroll(), { passive: true });
 			renderer.listen(window, 'resize', () => this.onResize());
 		});
@@ -39,6 +40,12 @@ export class VscrollDirective {
 
 	private onScroll() {
 		this.scrollEvent.emit();
+	}
+
+	private onMozWheel(event: MouseEvent) {
+		this.elementRef.nativeElement.scrollTop += event.detail / 3 * 100;
+		this.scrollEvent.emit();
+		event.stopPropagation();
 	}
 
 	private onResize() {
