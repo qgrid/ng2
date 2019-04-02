@@ -9,38 +9,72 @@ export class FocusService {
     activate(rowIndex, columnIndex) {
         const { focus, scene, sceneChanged } = this.model;
 
-        const focusState = clone(focus());
-        if (!isUndefined(rowIndex)) {
-            focusState.rowIndex = rowIndex;
+        if (isUndefined(rowIndex)) {
+            rowIndex = focus().rowIndex;
         }
 
-        if (!isUndefined(columnIndex)) {
-            focusState.columnIndex = columnIndex;
+        if (rowIndex < 0) {
+            rowIndex = 0;
         }
 
-        const activate = () => {
-            const { rowIndex, columnIndex } = focusState;
+        if (isUndefined(columnIndex)) {
+            columnIndex = focus().columnIndex;
+        }
 
-            if (rowIndex >= 0 && columnIndex >= 0) {
-                focus({ isActive: true, rowIndex, columnIndex }, { source: 'focus.service' });
-            } else {
-                const columnIndex = scene().column.line.findIndex(c => c.model.canFocus);
-                focus({ isActive: true, rowIndex: 0, columnIndex }, { source: 'focus.service' });
-            }
-        };
+        if (columnIndex < 0) {
+            columnIndex = scene().column.line.findIndex(c => c.model.canFocus);
+        }
 
         if (scene().status === 'stop') {
-            activate();
-        } else {
-            sceneChanged.on((e, off) => {
-                if (e.hasChanges('status')) {
-                    if (e.state.status === 'stop') {
-                        activate();
-                        off();
-                    }
-                }
-            });
+            this.focus(rowIndex, columnIndex);
+            return;
         }
+
+        sceneChanged.on((e, off) => {
+            if (e.hasChanges('status')) {
+                if (e.state.status === 'stop') {
+                    off();
+
+                    this.focus(rowIndex, columnIndex);
+                }
+            }
+        });
+    }
+
+    focus(rowIndex, columnIndex) {
+        const { pagination, focus } = this.model;
+        const { count, current, size } = pagination();
+
+        const last = this.getPage(count);
+        const target = Math.max(0, Math.min(this.getPage(rowIndex), last));
+
+        if (current !== target) {
+            pagination({
+                current: target
+            }, {
+                    source: 'focus.service'
+                });
+
+            this.activate(rowIndex, columnIndex);
+            return;
+        }
+
+        rowIndex = rowIndex - size * current;
+
+        focus({
+            isActive: true,
+            rowIndex,
+            columnIndex
+        }, {
+                source: 'focus.service'
+            });
+    }
+
+    getPage(index) {
+        const { model } = this;
+        const { size } = model.pagination();
+
+        return Math.max(0, Math.floor(index / size));
     }
 }
 
