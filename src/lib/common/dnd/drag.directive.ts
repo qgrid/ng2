@@ -23,6 +23,7 @@ export class DragDirective {
 		const element = elementRef.nativeElement;
 		const listener = new EventListener(element, new EventManager(this));
 		element.classList.add(`${GRID_PREFIX}-can-drag`);
+		element.setAttribute('draggable', true);
 
 		listener.on('dragstart', this.onStart);
 		listener.on('dragend', this.onEnd);
