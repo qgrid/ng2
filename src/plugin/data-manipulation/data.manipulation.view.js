@@ -11,6 +11,46 @@ export class DataManipulationView {
 	constructor(model) {
 		this.model = model;
 
+		const { rowFactory, styleRow, styleCell } = model.dataManipulation();
+
+		const rowFactory = rowFactory;
+		const rowId = model.data().id.row;
+		const columnId = model.data().id.column;
+
+		const styleState = model.style();
+		const rows = Array.from(styleState.rows);
+		const cells = Array.from(styleState.cells);
+
+		if (styleRow) {
+			rows.push(styleRow);
+		}
+
+		if (styleCell) {
+			cells.push(styleCell);
+		}
+
+		model
+			.edit({
+				mode: 'cell',
+				commit: Composite.command([this.commitCommand, model.edit().commit])
+			})
+			.style({
+				rows, cells
+			})
+			.action({
+				items: Composite.list([this.actions, model.action().items])
+			});
+
+		model.columnListChanged.watch((e, off) => {
+			if (e.hasChanges('line')) {
+				const rowOptionsColumn = e.state.line.find(column => column.type === 'row-options');
+				if (rowOptionsColumn) {
+					rowOptionsColumn.editorOptions.actions.push(...this.rowActions);
+					off();
+				}
+			}
+		});
+
 		this.commitCommand = new Command({
 			execute: e => {
 				if (e.column.class !== 'data') {
@@ -153,75 +193,11 @@ export class DataManipulationView {
 			// 	'edit'
 			// )
 		];
-
-		this.rowId = model.data().id.row;
-		this.columnId = model.data().id.column;
-		this.rowFactory = model.dataManipulation().rowFactory;
-
-		const styleState = model.style();
-		const rows = Array.from(styleState.rows);
-		const cells = Array.from(styleState.cells);
-		rows.push(this.styleRow.bind(this));
-		cells.push(this.styleCell.bind(this));
-
-		model
-			.edit({
-				mode: 'cell',
-				commit: Composite.command([this.commitCommand, model.edit().commit])
-			})
-			.style({
-				rows, cells
-			})
-			.action({
-				items: Composite.list([this.actions, model.action().items])
-			});
-
-		model.columnListChanged.watch((e, off) => {
-			if (e.hasChanges('line')) {
-				const rowOptionsColumn = e.state.line.find(column => column.type === 'row-options');
-				if (rowOptionsColumn) {
-					rowOptionsColumn.editorOptions.actions.push(...this.rowActions);
-					off();
-				}
-			}
-		});
 	}
 
 	hasChanges(newValue, oldValue) {
 		// TODO: understand if we need to parse values (e.g. '12' vs 12)
 		return newValue !== oldValue;
-	}
-
-	styleRow(row, context) {
-		const rowId = this.rowId(context.row, row);
-		if (this.changes.deleted.has(rowId)) {
-			context.class('deleted', { opacity: 0.3 });
-		}
-	}
-
-	styleCell(row, column, context) {
-		const rowId = this.rowId(context.row, row);
-		const changes = this.changes;
-		if (column.type === 'row-indicator') {
-			if (changes.deleted.has(rowId)) {
-				context.class('delete-indicator', { background: '#EF5350' });
-			}
-			else if (changes.added.has(rowId)) {
-				context.class('add-indicator', { background: '#C8E6C9' });
-			}
-			else if (changes.edited.has(rowId)) {
-				context.class('edit-indicator', { background: '#E3F2FD' });
-			}
-
-			return;
-		}
-
-		if (changes.edited.has(rowId)) {
-			const entries = changes.edited.get(rowId);
-			if (entries.findIndex(entry => entry.column === this.columnId(context.column, column)) >= 0) {
-				context.class('edited', { background: '#E3F2FD' });
-			}
-		}
 	}
 
 	get changes() {
