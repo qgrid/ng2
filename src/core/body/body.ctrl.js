@@ -63,7 +63,9 @@ export class BodyCtrl {
 
 			Fastdom.measure(() => {
 				const lower = table.view.scrollHeight() - table.view.height();
-				const top = Math.min(lower, Math.max(upper, scroll().top + e.deltaY));
+				const defaultDeltaY = 100; // as default value in Chrome
+				const deltaY = defaultDeltaY * Math.sign(e.deltaY);
+				const top = Math.min(lower, Math.max(upper, scroll().top + deltaY));
 
 				scroll({ top }, { source: 'body.core' });
 			});
