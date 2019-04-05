@@ -7,6 +7,7 @@ import { LEFT_BUTTON, checkButtonCode } from '../mouse/mouse.code';
 
 const VERTICAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-vertical`;
 const HORIZONTAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-horizontal`;
+const DEFAULT_DELTA_Y = 100;
 
 export class BodyCtrl {
 	constructor(model, view, table, bag) {
@@ -63,7 +64,8 @@ export class BodyCtrl {
 
 			Fastdom.measure(() => {
 				const lower = table.view.scrollHeight() - table.view.height();
-				const top = Math.min(lower, Math.max(upper, scroll().top + e.deltaY));
+				const deltaY = DEFAULT_DELTA_Y * Math.sign(e.deltaY);
+				const top = Math.min(lower, Math.max(upper, scroll().top + deltaY));
 
 				scroll({ top }, { source: 'body.core' });
 			});
