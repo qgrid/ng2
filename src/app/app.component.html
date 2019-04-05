@@ -1,5 +1,5 @@
 <mat-toolbar color="primary"
-             class="app-toolbar">
+			 class="app-toolbar">
 	<button mat-icon-button
 	        (click)="snav.toggle()">
 		<mat-icon>menu</mat-icon>
@@ -16,7 +16,8 @@
 			<ng-container *ngFor="let example of examples">
 				<a mat-list-item
 				   *ngIf="example.path"
-				   [routerLink]="example.path">
+				   [routerLink]="example.path"
+				   [routerLinkActive]="'active'">
 					{{example.path}}
 				</a>
 			</ng-container>

@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { Routes } from '@angular/router';
+import { ChangeDetectorRef, Component, OnDestroy, ChangeDetectionStrategy, ElementRef, ViewChildren, QueryList, AfterViewInit, NgZone } from '@angular/core';
+import { Routes, RouterLinkActive } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { APP_ROUTES } from '../examples/example.module';
 
@@ -9,17 +9,32 @@ import { APP_ROUTES } from '../examples/example.module';
 	styleUrls: ['app.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements AfterViewInit, OnDestroy {
 	mobileQuery: MediaQueryList;
 	examples: Routes = APP_ROUTES;
 
+	@ViewChildren(RouterLinkActive, { read: ElementRef })
+	menuItems: QueryList<ElementRef>;
+
 	private mobileQueryListener: () => void;
 
-	constructor(cd: ChangeDetectorRef, media: MediaMatcher) {
+	constructor(cd: ChangeDetectorRef, media: MediaMatcher, private zone: NgZone) {
 		this.mobileQueryListener = () => cd.detectChanges();
 
 		this.mobileQuery = media.matchMedia('(max-width: 600px)');
 		this.mobileQuery.addListener(this.mobileQueryListener);
+	}
+
+	ngAfterViewInit() {
+		this.zone.runOutsideAngular(() => {
+			setTimeout(() => {
+				const activeItem = this.findActiveItem();
+				activeItem.nativeElement.scrollIntoView({ block: "center" });
+			}, 0);
+		})
+	}
+	private findActiveItem() {
+		return this.menuItems.find(item => item.nativeElement.classList.contains('active'))
 	}
 
 	ngOnDestroy(): void {
