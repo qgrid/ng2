@@ -26,9 +26,76 @@ import { PluginService } from '../plugin.service';
 export class ColumnFilterComponent implements OnInit {
 	@Input() column: ColumnModel;
 	@Input() search = '';
+	@Input() rightSearch = '';
 
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
+
+	numberOperatorKey = 'contains';
+	numberOperators = {
+		contains: {
+			icon: '⌕',
+			name: 'Contains',
+			leftInputLabel: 'Find in the list'
+		},
+		isEmpty: {
+			icon: '∅',
+			name: 'Is empty'
+		},
+		isNotEmpty: {
+			icon: 'O',
+			name: 'Is not empty'
+		},
+		equals: {
+			icon: '=',
+			name: 'Equals to',
+			leftInputLabel: 'Equals to'
+		},
+		in: {
+			icon: '^',
+			name: 'In range',
+			leftInputLabel: 'Range'
+		},
+		notEquals: {
+			icon: '≠',
+			name: 'Not equals to',
+			leftInputLabel: 'Not equals to'
+		},
+		between: {
+			icon: '…',
+			name: 'Between',
+			leftInputLabel: 'From',
+			rightInputLabel: 'To',
+		},
+		lessThan: {
+			icon: '<',
+			name: 'Less than',
+			leftInputLabel: 'Less than'
+		},
+		lessThanOrEquals: {
+			icon: '≤',
+			name: 'Less than or equals',
+			leftInputLabel: 'Less than or equals'
+		},
+		greaterThan: {
+			icon: '>',
+			name: 'Greater than',
+			leftInputLabel: 'Greater than'
+		},
+		greaterThanOrEquals: {
+			icon: '≥',
+			name: 'Greater than or equals',
+			leftInputLabel: 'Greater than or equals'
+		},
+	};
+
+	get numberOperatorsKeys() { 
+		return Object.keys(this.numberOperators);
+	}
+
+	get currentOperator() {
+		return this.numberOperators[this.numberOperatorKey];
+	}
 
 	context: {
 		$implicit: ColumnFilterView,
@@ -52,6 +119,16 @@ export class ColumnFilterComponent implements OnInit {
 		const context = { key };
 
 		const columnFilter = new ColumnFilterView(model, context);
+
+		if (columnFilter.expression) {
+			this.numberOperatorKey = columnFilter.expression.op;
+			if (Array.isArray(columnFilter.expression.right)) {
+				this.search = columnFilter.expression.right[0];
+				this.rightSearch = columnFilter.expression.right[1];
+			} else {
+				this.search = columnFilter.expression.right;
+			}
+		}
 
 		columnFilter.submitEvent.on(() => this.submitEvent.emit());
 		columnFilter.cancelEvent.on(() => this.cancelEvent.emit());
@@ -139,5 +216,14 @@ export class ColumnFilterComponent implements OnInit {
 	reset() {
 		this.context.$implicit.items = [];
 		this.vscrollContext.container.reset();
+	}
+
+	get templateKey() {
+		const { column } = this;
+		if (column && (column.type === 'number' || column.type === 'date')) {
+			return `plugin-column-filter-${column.type}.tpl.html`;
+		}
+
+		return `plugin-column-filter.tpl.html`;
 	}
 }

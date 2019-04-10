@@ -16,6 +16,7 @@ export class ColumnFilterView {
 		const filterBy = this.model.filter().by[this.key];
 		this.by = new Set((filterBy && filterBy.items) || []);
 		this.byBlanks = !!(filterBy && filterBy.blanks);
+		this.expression = filterBy && filterBy.expression;
 
 		this.items = [];
 
@@ -83,15 +84,28 @@ export class ColumnFilterView {
 
 			submit: new Command({
 				source: 'column.filter.view',
-				execute: () => {
+				execute: (operator = null, value = null, extra = null) => {
 					const model = this.model;
 					const by = clone(model.filter().by);
 
 					const filter = by[this.key] || {};
-					filter.items = Array.from(this.by);
-					filter.blanks = this.byBlanks;
+					if (operator) {
+						const right = operator === 'between' ? [value, extra] : value;
+						filter.expression = {
+							kind: 'condition',
+							left: this.key,
+							op: operator,
+							right: right,
+						};
+						filter.items = [];
+						filter.blanks = false;
+					} else {
+						filter.items = Array.from(this.by);
+						filter.blanks = this.byBlanks;
+						filter.expression = null;
+					}
 
-					if (filter.items.length || filter.blanks || filter.expression) {
+					if (filter.items && filter.items.length || filter.blanks || filter.expression) {
 						by[this.key] = filter;
 					}
 					else {
