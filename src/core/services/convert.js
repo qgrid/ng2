@@ -107,16 +107,38 @@ export function isPrimitive(type) {
 	}
 }
 
-function parseText(value) {
-	return value === null || isUndefined(value)
-		? value
-		: '' + value;
+function isDate(value) {
+	if (value === null || isUndefined(value) || value === '') {
+		return false;
+	}
+
+	if (value instanceof Date) {
+		return true;
+	}
+
+	value = '' + value;
+	return !!value.match(/^(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2}))?))?)?)?)?$/);
+}
+
+function isNumber(value) {
+	if (isNaN(value)) {
+		return false;
+	}
+
+	const number = parseFloat(value);
+	return !isNaN(number) && isFinite(number);
 }
 
 function parseBool(value) {
 	return value === null || isUndefined(value)
 		? value
 		: !!value;
+}
+
+function parseText(value) {
+	return value === null || isUndefined(value)
+		? value
+		: '' + value;
 }
 
 function parseDate(value) {
@@ -132,51 +154,7 @@ function parseDate(value) {
 		return value;
 	}
 
-	value = '' + value;
-	const m = value.match(/^(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2}))?))?)?)?)?$/);
-	if (m) {
-		const utc = Date.UTC(
-			m[1],
-			m[3] ? m[3] - 1 : 0,
-			m[5] || 1,
-			m[7] || 0,
-			m[8] || 0,
-			m[10] || 0,
-			m[12] ? Number('0.' + m[12]) * 1000 : 0
-		);
-
-		const date = new Date(utc);
-		if (m[13]) { // has gmt offset or Z
-			if (m[14]) { // has gmt offset
-				date.setUTCMinutes(
-					date.getUTCMinutes() +
-					(m[15] == '-' ? 1 : -1) * (Number(m[16]) * 60 + (m[18] ? Number(m[18]) : 0))
-				);
-			}
-		}
-		return date;
-	}
-
-	return new Date(value);
-}
-
-function isDate(value) {
-	if (value === null || isUndefined(value) || value === '') {
-		return false;
-	}
-
-	if (value instanceof Date) {
-		return true;
-	}
-
-	value = '' + value;
-	const m = value.match(/^(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2}))?))?)?)?)?$/);
-	return !!m;
-}
-
-function isNumber(value) {
-	const number = parseFloat(value);
-	return !isNaN(number) && isFinite(number);
+	return new Date('' + value);
 }
 
 function parseNumber(value) {
