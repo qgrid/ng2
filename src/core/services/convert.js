@@ -57,15 +57,15 @@ export function getType(value) {
 		return 'array';
 	}
 
-	if (parseNumber(value) !== null && !isNaN(value)) {
+	if (isNumber(value)) {
 		return 'number';
 	}
 
-	if (parseBool(value) !== null) {
+	if (isBoolean(value)) {
 		return 'bool';
 	}
 
-	if (parseDate(value) !== null) {
+	if (isDate(value)) {
 		return 'date';
 	}
 
@@ -95,6 +95,7 @@ export function getType(value) {
 export function isPrimitive(type) {
 	switch (type) {
 		case 'date':
+		case 'time':
 		case 'bool':
 		case 'text':
 		case 'number':
@@ -106,24 +107,24 @@ export function isPrimitive(type) {
 	}
 }
 
-function parseBool(value) {
-	return isBoolean(value)
+function parseText(value) {
+	return value === null || isUndefined(value)
 		? value
-		: value === 'true'
-			? true
-			: value === 'false'
-				? false
-				: null;
+		: '' + value;
 }
 
-function parseText(value) {
-	return value !== null
-		? '' + value
-		: null;
+function parseBool(value) {
+	return value === null || isUndefined(value)
+		? value
+		: !!value;
 }
 
 function parseDate(value) {
-	if (value === null) {
+	if (value === null || isUndefined(value)) {
+		return value
+	}
+
+	if (value === '') {
 		return null;
 	}
 
@@ -143,6 +144,7 @@ function parseDate(value) {
 			m[10] || 0,
 			m[12] ? Number('0.' + m[12]) * 1000 : 0
 		);
+
 		const date = new Date(utc);
 		if (m[13]) { // has gmt offset or Z
 			if (m[14]) { // has gmt offset
@@ -155,22 +157,45 @@ function parseDate(value) {
 		return date;
 	}
 
-	return null;
+	return new Date(value);
+}
+
+function isDate(value) {
+	if (value === null || isUndefined(value) || value === '') {
+		return false;
+	}
+
+	if (value instanceof Date) {
+		return true;
+	}
+
+	value = '' + value;
+	const m = value.match(/^(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2}))?))?)?)?)?$/);
+	return !!m;
+}
+
+function isNumber(value) {
+	const number = parseFloat(value);
+	return !isNaN(number) && isFinite(number);
 }
 
 function parseNumber(value) {
+	if (value === null || isUndefined(value)) {
+		return value
+	}
+
+	if (value === '') {
+		return null;
+	}
+
 	const number = parseFloat(value);
 	if (!isNaN(number) && isFinite(number)) {
 		return number;
 	}
 
-	return null;
+	return value;
 }
 
 function parseArray(value) {
-	if (isArray(value)) {
-		return value;
-	}
-
-	return null;
+	return value;
 }

@@ -7,8 +7,8 @@ export function filterPipe(rows, context, next) {
 
 	const result = [];
 	if (rows.length) {
-		const filterState = model.filter();
-		const test = filterState.match(context);
+		const { match } = model.filter();
+		const test = match(context);
 
 		for (let i = 0, length = rows.length; i < length; i++) {
 			const row = rows[i];
