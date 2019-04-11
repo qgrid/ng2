@@ -21,7 +21,9 @@ export class ExampleFocusCellBasicComponent {
 				this.gridModel.data({ rows });
 
 				const gridService = qgrid.service(this.gridModel);
-				gridService.focus(1, 2);
+
+				// navigate to the 2nd page to the bottom
+				gridService.focus(99, 2);
 			});
 	}
 }

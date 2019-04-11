@@ -101,9 +101,8 @@ export class GridComponent extends RootComponent implements OnInit {
 		(row: any, column: ColumnModel, context: StyleCellContext) => void
 			| { [key: string]: (row: any, column: ColumnModel, context: any) => void };
 
-	@Input() styleRow: (row: any, context: StyleRowContext) => void;
-
-	@Output() selectionChanged = new EventEmitter<any>();
+	@Input() styleRow:
+		(row: any, context: StyleRowContext) => void;
 
 	themeComponent: any;
 

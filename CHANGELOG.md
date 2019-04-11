@@ -10,16 +10,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
-## [6.3.5] - 2019-03-29
-### Added
-- Possibility to validate `auto-complete` editor
-- .
+## [6.3.5] - 2019-04-11
 ### Changed
-- `Data manipulation` plugin improvements.
-- `Focus service` improvements.
+- `Focus service` takes into account pagination.
 
 ### Fixed
 - Compatibility with Chrome implementation of flex box overflow since version 73.
+- Select all button.
 
 ## [6.3.4] - 2019-03-12
 ### Fixed

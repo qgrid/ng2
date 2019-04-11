@@ -1,8 +1,8 @@
 import { Injectable, ViewContainerRef, EmbeddedViewRef } from '@angular/core';
 import { TemplateLink } from './template-link';
-import { isString, isArray } from 'ng2-qgrid/core/utility/kit';
 import { TemplateLinkService } from './template-link.service';
 import { TemplateCacheService } from './template-cache.service';
+import { isString, isArray } from 'ng2-qgrid/core/utility/kit';
 
 @Injectable()
 export class TemplateService {

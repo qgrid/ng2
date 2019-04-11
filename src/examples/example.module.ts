@@ -139,6 +139,7 @@ import { ExampleValidationBasicComponent } from './validation-basic/example-vali
 import { ExampleVisibilityBasicComponent } from './visibility-basic/example-visibility-basic.component';
 import { ExampleVisibilityModelComponent } from './visibility-model/example-visibility-model.component';
 import { ExampleImportCsvComponent } from './import-csv/example-import-csv.component';
+import { ExampleFocusCellCustomComponent } from './focus-cell-custom/example-focus-cell-custom.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -194,6 +195,7 @@ const EXAMPLES: Array<any> = [
 	ExampleFloatingRowsBasicComponent,
 	ExampleFocusCellAutoComponent,
 	ExampleFocusCellBasicComponent,
+	ExampleFocusCellCustomComponent,
 	ExampleGenerateColumnCheckComponent,
 	ExampleGenerateColumnCohortComponent,
 	ExampleGenerateColumnDeepComponent,
