@@ -11,22 +11,25 @@ export class DataManipulationView {
 	constructor(model) {
 		this.model = model;
 
-		const { rowFactory, styleRow, styleCell } = model.dataManipulation();
-
-		const rowFactory = rowFactory;
-		const rowId = model.data().id.row;
-		const columnId = model.data().id.column;
+		const { styleRow, styleCell, add, delete: remove, restore } = model.dataManipulation();
 
 		const styleState = model.style();
 		const rows = Array.from(styleState.rows);
 		const cells = Array.from(styleState.cells);
 
+		let hasStyleChanges = false;
 		if (styleRow) {
 			rows.push(styleRow);
+			hasStyleChanges = true;
 		}
 
 		if (styleCell) {
 			cells.push(styleCell);
+			hasStyleChanges = true;
+		}
+
+		if (hasStyleChanges) {
+			model.style({ rows, cells }, { source: 'data.manipulation' })
 		}
 
 		model
@@ -94,110 +97,13 @@ export class DataManipulationView {
 		});
 
 		this.actions = [
-			new Action(
-				new Command({
-					source: 'data.manipulation',
-					execute: () => {
-						const newRow = this.rowFactory(this.model.data().rows[0]);
-						if (isUndefined(newRow)) {
-							throw new AppError('data.manipulation', 'Setup rowFactory property to add new rows');
-						}
-
-						const rowId = this.rowId(0, newRow);
-						const data = this.model.data;
-
-						this.changes.added.add(rowId);
-						data({
-							rows: [newRow].concat(data().rows)
-						}, {
-								source: 'data.manipulation'
-							});
-					},
-					shortcut: 'F7'
-				}),
-				'Add New Row',
-				'add'
-			)];
+			new Action(add, 'Add New Row', 'add')
+		];
 
 		this.rowActions = [
-			new Action(
-				new Command({
-					source: 'data.manipulation',
-					canExecute: e => {
-						const rowId = this.rowId(e.rowIndex, e.row);
-						return !this.changes.deleted.has(rowId);
-					},
-					execute: e => {
-						const rowId = this.rowId(e.rowIndex, e.row);
-						const changes = this.changes;
-						if (changes.added.has(rowId)) {
-							changes.added.delete(rowId);
-							const data = this.model.data;
-							const rows = data().rows.filter((row, i) => this.rowId(i, row) !== rowId);
-							data({ rows }, {
-								source: 'data.manipulation'
-							});
-						}
-						else {
-							changes.deleted.add(rowId);
-						}
-					}
-				}),
-				'Delete Row',
-				'delete'
-			),
-			new Action(
-				new Command({
-					source: 'data.manipulation',
-					execute: e => {
-						const rowId = this.rowId(e.rowIndex, e.row);
-						if (this.changes.deleted.has(rowId)) {
-							this.changes.deleted.delete(rowId);
-						}
-
-						if (this.changes.edited.has(rowId)) {
-							try {
-								const edits = this.changes.edited.get(rowId);
-								const columnMap = columnService.map(this.model.columnList().line);
-								for (const edit of edits) {
-									const column = columnMap[edit.column];
-									if (!column) {
-										throw new AppError('data.manipulation', `Column ${edit.column} is not found`);
-									}
-
-									setValue(e.row, column, edit.oldValue);
-									setLabel(e.row, column, edit.oldLabel);
-								}
-							}
-							finally {
-								this.changes.edited.delete(rowId);
-							}
-						}
-					},
-					canExecute: e => {
-						const rowId = this.rowId(e.rowIndex, e.row);
-						return this.changes.deleted.has(rowId) || this.changes.edited.has(rowId);
-					}
-				}),
-				'Revert Row',
-				'restore'
-			),
-			// new Action(
-			//	source: 'data.manipulation',
-			// 	new Command({
-			// 		execute: () => {
-			// 			// TODO make edit form service
-			// 		}
-			// 	}),
-			// 	'Edit Form',
-			// 	'edit'
-			// )
+			new Action(remove, 'Delete Row', 'delete'),
+			new Action(restore, 'Revert Row', 'restore'),
 		];
-	}
-
-	hasChanges(newValue, oldValue) {
-		// TODO: understand if we need to parse values (e.g. '12' vs 12)
-		return newValue !== oldValue;
 	}
 
 	get changes() {

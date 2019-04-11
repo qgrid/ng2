@@ -153,5 +153,54 @@ export class DataManipulationModel {
 			},
 			shortcut: 'F7'
 		});
+
+		this.commit = new Command({
+			execute: e => {
+				const { model, column, rowIndex, row, columnIndex, column } = e;
+				if (column.class !== 'data') {
+					return;
+				}
+
+				const { id } = model.data();
+				const rowId = id.row(rowIndex, row);
+				const columnId = id.column(columnIndex, column);
+				const { edited } = this.changes;
+
+				let entries = edited.get(rowId);
+				if (!entries) {
+					entries = [];
+					edited.set(rowId, entries);
+				}
+
+				let entryIndex = entries.findIndex(entry => entry.column === columnId);
+				let entry = entries[entryIndex];
+				if (!entry) {
+					entry = {
+						column: columnId,
+						oldValue: e.oldValue,
+						oldLabel: e.oldLabel
+					};
+
+					entryIndex = entries.length;
+					entries.push(entry);
+				}
+
+				entry.newValue = e.newValue;
+				entry.newLabel = e.newLabel;
+
+				// TODO: understand if we need to track label changes?
+				if (!this.hasChanges(entry.newValue, entry.oldValue)) {
+					entries.splice(entryIndex, 1);
+					if (!entries.length) {
+						edited.delete(rowId);
+					}
+				}
+			}
+		});
+
+		this.hasChanges = (newValue, oldValue) => {
+			// TODO: understand if we need to parse values (e.g. '12' vs 12)
+			return newValue !== oldValue;
+		};
 	}
 }
