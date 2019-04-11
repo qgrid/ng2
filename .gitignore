@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/e2e/diff
 *.gen.html
 *.log
 
