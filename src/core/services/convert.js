@@ -162,7 +162,7 @@ function parseNumber(value) {
 		return value
 	}
 
-	if (value === '') {
+	if (value === '' || isNaN(value)) {
 		return null;
 	}
 
@@ -171,7 +171,7 @@ function parseNumber(value) {
 		return number;
 	}
 
-	return value;
+	return null;
 }
 
 function parseArray(value) {
