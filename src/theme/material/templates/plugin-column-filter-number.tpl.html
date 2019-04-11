@@ -4,8 +4,8 @@
              let-$vscroll="vscroll">
 	<div class="plugin-column-filter-number">
 		<mat-select class="q-grid-column-filter-change-operator"
-					[(value)]="$plugin.numberOperatorKey"
-					(selectionChange)="$plugin.reset()">
+		            [(value)]="$plugin.numberOperatorKey"
+		            (selectionChange)="$plugin.reset()">
 			<mat-select-trigger>
 				<mat-icon>{{ $plugin.currentOperator.icon }}</mat-icon>
 			</mat-select-trigger>
@@ -17,33 +17,78 @@
 		</mat-select>
 
 		<div [ngSwitch]="$plugin.numberOperatorKey">
+			<!-- For default Contains operator -->
 			<ng-container *ngSwitchCase="'contains'"
 			              key="plugin-column-filter.tpl.html"
 			              [context]="{ $implicit: $columnFilter, plugin: $plugin, vscroll: $vscroll }"></ng-container>
 
+			<!-- For custom number operators -->
 			<mat-card *ngSwitchDefault
 			          class="mat-elevation-z">
 				<mat-card-header>
 					<mat-card-title> {{ $columnFilter.title }} Filter </mat-card-title>
 				</mat-card-header>
-				<mat-card-content>
-					<div>
-						<mat-form-field class="q-grid-column-filter-filter"
-										[ngClass]="{ 'half' : !!$plugin.currentOperator.rightInputLabel }">
-							<input type="search"
-								matInput
-								placeholder="{{ $plugin.currentOperator.leftInputLabel }}"
-								[(ngModel)]="$plugin.currentOperator.leftInputLabel && $plugin.search"
-								[disabled]="!$plugin.currentOperator.leftInputLabel"
-								q-grid-focus />
+				<mat-card-content [ngSwitch]="$plugin.currentOperator.inputType">
+					<!-- For Between, etc. operators -->
+					<div *ngSwitchCase="'twoFields'">
+						<mat-form-field class="q-grid-column-filter-filter half">
+							<input matInput
+							       [placeholder]="$plugin.currentOperator.leftInputLabel"
+							       [(ngModel)]="$plugin.search"
+							       q-grid-focus />
 						</mat-form-field>
-						<mat-form-field class="q-grid-column-filter-filter half"
-										*ngIf="$plugin.currentOperator.rightInputLabel">
-							<input type="search"
-								matInput
-								placeholder="{{ $plugin.currentOperator.rightInputLabel }}"
-								[(ngModel)]="$plugin.rightSearch"
-								q-grid-focus />
+						<mat-form-field class="q-grid-column-filter-filter half">
+							<input matInput
+							       [placeholder]="$plugin.currentOperator.rightInputLabel"
+							       [(ngModel)]="$plugin.altSearch"
+							       q-grid-focus />
+						</mat-form-field>
+					</div>
+
+					<!-- For IsEmpty, IsNotEmpty etc. operators -->
+					<div *ngSwitchCase="'disabled'">
+						<mat-form-field class="q-grid-column-filter-filter">
+							<input matInput
+							       disabled
+							       q-grid-focus />
+						</mat-form-field>
+					</div>
+
+					<!-- For InRange etc. operators -->
+					<div *ngSwitchCase="'chips'"
+					     class="q-grid-column-filter-chips-wrapper">
+						<mat-chip-list #chipList
+						               class="q-grid-column-filter-chips">
+							<mat-chip *ngFor="let value of $plugin.arraySearch; let $index = index;"
+							          class="flat-chip"
+							          selectable="false"
+							          removable="true"
+							          (removed)="$plugin.arraySearch.splice($index, 1)">
+								{{value}}
+								<mat-icon class="q-grid-icon"
+								          matChipRemove>
+									close
+								</mat-icon>
+							</mat-chip>
+
+							<div class="q-grid-column-filter-chips-input-wrapper">
+								<input #chipInput
+								       class="q-grid-column-filter-chips-input"
+								       [placeholder]="$plugin.currentOperator.leftInputLabel"
+								       [matChipInputFor]="chipList"
+								       matChipInputAddOnBlur="false"
+								       (matChipInputTokenEnd)="$plugin.addChipFromInput($event)" />
+							</div>
+						</mat-chip-list>
+					</div>
+
+					<!-- For Equals, Less/Gr.than etc. operators -->
+					<div *ngSwitchDefault>
+						<mat-form-field class="q-grid-column-filter-filter">
+							<input matInput
+							       [placeholder]="$plugin.currentOperator.leftInputLabel"
+							       [(ngModel)]="$plugin.search"
+							       q-grid-focus />
 						</mat-form-field>
 					</div>
 				</mat-card-content>
@@ -58,7 +103,7 @@
 					</button>
 					<button mat-button
 					        color="primary"
-					        (click)="$columnFilter.submit.execute($plugin.numberOperatorKey, $plugin.search, $plugin.rightSearch)">
+					        (click)="$columnFilter.submit.execute($plugin.numberOperatorKey, $plugin.value)">
 						Apply
 					</button>
 				</mat-card-actions>
