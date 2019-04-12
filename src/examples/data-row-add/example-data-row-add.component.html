@@ -1,0 +1,13 @@
+<q-grid caption="Data Add Row"
+		[rows]="rows | async">
+	<q-grid-columns generation="deep">
+	</q-grid-columns>
+
+	<q-grid-actions>
+		<q-grid-action id="addRow"
+					   title="Add Row"
+					   icon="add"
+					   [command]="addRow">
+		</q-grid-action>
+	</q-grid-actions>
+</q-grid>
