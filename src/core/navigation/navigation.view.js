@@ -112,7 +112,7 @@ export class NavigationView {
 				const { status } = e.state;
 				switch (status) {
 					case 'stop':
-						const { row, column, columnIndex, rowIndex } = model.navigation();
+						const { row, column, columnIndex } = model.navigation();
 						if (row && column) {
 							const newRowIndex = table.data.rows().indexOf(row);
 							let newColumnIndex = table.data.columns().findIndex(c => c.key === column.key);

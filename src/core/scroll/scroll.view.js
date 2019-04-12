@@ -120,8 +120,14 @@ export class ScrollView {
 
 				break;
 			}
-			default:
-				model.paginationChanged.watch(() => this.y.container.reset());
+			default: {
+				model.paginationChanged.watch(e => {
+					if (e.tag.behavior !== 'core') {
+						this.y.container.reset();
+					}
+				});
+				break;
+			}
 		}
 
 		model.scrollChanged.watch(e => {
@@ -164,12 +170,12 @@ export class ScrollView {
 	invalidate() {
 		Log.info('layout', 'invalidate scroll');
 
-		const table = this.table;
-		const scroll = this.model.scroll();
+		const { view } = this.table;
+		const { left, top } = this.model.scroll();
 
 		Fastdom.mutate(() => {
-			table.view.scrollLeft(scroll.left);
-			table.view.scrollTop(scroll.top);
+			view.scrollLeft(left);
+			view.scrollTop(top);
 		});
 	}
 

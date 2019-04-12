@@ -6,7 +6,7 @@ export class Log {
 	}
 
 	static warn(source, message) {
-		console.warn(`qgrid.${source}: ${message}`);
+		// console.warn(`qgrid.${source}: ${message}`);
 	}
 
 	static error(source, message) {

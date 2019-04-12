@@ -10,6 +10,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
+## [6.3.7] - 2019-04-12
+### Fixed
+- Propagate `description` property in column component.
+- Reset scroll only if page size, page or filter was changed.
+- Better pagination behavior when after data rows changed.
+
 ## [6.3.5] - 2019-04-11
 ### Changed
 - `Focus service` takes into account pagination.
@@ -356,7 +362,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v6.3.5...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v6.3.7...HEAD
+[6.3.7]: https://github.com/qgrid/ng2/compare/v6.3.5...v6.3.7
 [6.3.5]: https://github.com/qgrid/ng2/compare/v6.3.4...v6.3.5
 [6.3.4]: https://github.com/qgrid/ng2/compare/v6.3.0...v6.3.4
 [6.3.0]: https://github.com/qgrid/ng2/compare/v6.2.4...v6.3.0
