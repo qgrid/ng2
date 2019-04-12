@@ -142,6 +142,7 @@ import { ExampleImportCsvComponent } from './import-csv/example-import-csv.compo
 import { ExampleFocusCellCustomComponent } from './focus-cell-custom/example-focus-cell-custom.component';
 import { ExampleDataRowAddComponent } from './data-row-add/example-data-row-add.component';
 import { ExampleColumnTooltipBasicComponent } from './column-tooltip-basic/example-column-tooltip-basic.component';
+import { ExampleDataRowDeleteComponent } from './data-row-delete/example-data-row-delete.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -173,6 +174,7 @@ const EXAMPLES: Array<any> = [
 	ExampleColumnTypeSafeComponent,
 	ExampleColumnUrlBasicComponent,
 	ExampleDataRowAddComponent,
+	ExampleDataRowDeleteComponent,
 	ExampleDefineColumnAsyncComponent,
 	ExampleDefineColumnBasicComponent,
 	ExampleDefineColumnHybridComponent,

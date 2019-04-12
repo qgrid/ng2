@@ -13,6 +13,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## [6.3.7] - 2019-04-12
 ### Fixed
 - Propagate `description` property in column component.
+- Reset scroll only if page size, page or filter was changed.
+- Better pagination behavior when after data rows changed.
 
 ## [6.3.5] - 2019-04-11
 ### Changed

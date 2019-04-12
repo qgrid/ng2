@@ -36,7 +36,7 @@ function paginate(model, rows) {
 	}
 
 	const count = rows.length;
-	const last = Math.max(0, Math.floor(count / size));
+	const last = Math.max(0, Math.floor((count - 1) / size));
 	current = Math.min(last, current);
 	const start = current * size;
 
