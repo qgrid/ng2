@@ -50,7 +50,7 @@ export class ColumnFilterComponent implements OnInit {
 		},
 		between: {
 			name: 'Between',
-			leftInputLabel: 'Since',
+			leftInputLabel: 'From',
 			rightInputLabel: 'to',
 			inputType: 'twoFields'
 		},

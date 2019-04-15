@@ -89,7 +89,7 @@ export class ColumnFilterView {
 					const by = clone(model.filter().by);
 
 					const filter = by[this.key] || {};
-					if (!operator || !value && operator !== 'notEquals' && operator !== 'notEquals') {
+					if (!operator || !value && operator !== 'isEmpty' && operator !== 'isNotEmpty') {
 						filter.items = Array.from(this.by);
 						filter.blanks = this.byBlanks;
 						filter.expression = null;
