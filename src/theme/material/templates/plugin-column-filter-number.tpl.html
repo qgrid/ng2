@@ -7,12 +7,12 @@
 		            [(value)]="$plugin.numberOperatorKey"
 		            (selectionChange)="$plugin.reset()">
 			<mat-select-trigger>
-				<mat-icon>{{ $plugin.currentOperator.icon }}</mat-icon>
+				<mat-icon class="q-grid-icon">more_vert</mat-icon>
 			</mat-select-trigger>
 
 			<mat-option *ngFor="let opKey of $plugin.numberOperatorsKeys"
 			            value="{{ opKey }}">
-				<mat-icon class="q-grid-icon html">{{ $plugin.numberOperators[opKey].icon }}</mat-icon> {{ $plugin.numberOperators[opKey].name }}
+				{{ $plugin.numberOperators[opKey].name }}
 			</mat-option>
 		</mat-select>
 
@@ -34,14 +34,13 @@
 						<mat-form-field class="q-grid-column-filter-filter half">
 							<input matInput
 							       [placeholder]="$plugin.currentOperator.leftInputLabel"
-							       [(ngModel)]="$plugin.search"
+							       [(ngModel)]="$plugin.exprValue[0]"
 							       q-grid-focus />
 						</mat-form-field>
 						<mat-form-field class="q-grid-column-filter-filter half">
 							<input matInput
 							       [placeholder]="$plugin.currentOperator.rightInputLabel"
-							       [(ngModel)]="$plugin.altSearch"
-							       q-grid-focus />
+							       [(ngModel)]="$plugin.exprValue[1]"/>
 						</mat-form-field>
 					</div>
 
@@ -50,36 +49,9 @@
 						<mat-form-field class="q-grid-column-filter-filter">
 							<input matInput
 							       disabled
+							       [placeholder]="$plugin.currentOperator.leftInputLabel"
 							       q-grid-focus />
 						</mat-form-field>
-					</div>
-
-					<!-- For InRange etc. operators -->
-					<div *ngSwitchCase="'chips'"
-					     class="q-grid-column-filter-chips-wrapper">
-						<mat-chip-list #chipList
-						               class="q-grid-column-filter-chips">
-							<mat-chip *ngFor="let value of $plugin.arraySearch; let $index = index;"
-							          class="flat-chip"
-							          selectable="false"
-							          removable="true"
-							          (removed)="$plugin.arraySearch.splice($index, 1)">
-								{{value}}
-								<mat-icon class="q-grid-icon"
-								          matChipRemove>
-									close
-								</mat-icon>
-							</mat-chip>
-
-							<div class="q-grid-column-filter-chips-input-wrapper">
-								<input #chipInput
-								       class="q-grid-column-filter-chips-input"
-								       [placeholder]="$plugin.currentOperator.leftInputLabel"
-								       [matChipInputFor]="chipList"
-								       matChipInputAddOnBlur="false"
-								       (matChipInputTokenEnd)="$plugin.addChipFromInput($event)" />
-							</div>
-						</mat-chip-list>
 					</div>
 
 					<!-- For Equals, Less/Gr.than etc. operators -->
@@ -87,7 +59,7 @@
 						<mat-form-field class="q-grid-column-filter-filter">
 							<input matInput
 							       [placeholder]="$plugin.currentOperator.leftInputLabel"
-							       [(ngModel)]="$plugin.search"
+							       [(ngModel)]="$plugin.exprValue[0]"
 							       q-grid-focus />
 						</mat-form-field>
 					</div>
@@ -98,7 +70,7 @@
 						Cancel
 					</button>
 					<button mat-button
-					        (click)="$columnFilter.reset.execute()">
+					        (click)="$plugin.clear()">
 						Clear
 					</button>
 					<button mat-button

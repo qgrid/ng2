@@ -12,9 +12,9 @@
 	right: 2px;
 	transition: opacity 0.3s;
 	margin: 0 auto;
+	opacity: 0;
 	height: 16px;
 	line-height: 16px;
-	opacity: 0;
 	transition: opacity 0.3s;
 	&.q-grid-active {
 		opacity: 1;
@@ -63,89 +63,28 @@
     }
 
     .plugin-column-filter-number {
+        position: relative;
+
         .q-grid-column-filter-change-operator {
             position: absolute;
             z-index: 1;
             top: 54px;
-            left: 16px;
-            height: 28px;
-            width: 28px;
-            min-height: 28px;
-            min-width: 28px;
+            right: 0;
+            height: 40px;
+            width: 40px;
+            min-height: 40px;
+            min-width: 40px;
+
+            .mat-icon {
+                font-size: 20px;
+            }
 
             .mat-select-arrow {
                 border-width: 0;
             }
-
-            mat-icon {
-                color: $dark-secondary;
-                font-size: 20px;
-                line-height: 20px;
-                display: block;
-                margin: 0 auto;
-                text-align: center;
-            }
         }
 
-        .q-grid-column-filter-chips-wrapper {
-            padding-left: 28px;
-            padding-top: 15px;
-            width: calc(100% - 28px);
-            display: flex;
-            flex-firection: row;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            align-items: middle;
-
-            .q-grid-column-filter-chips {
-                position: relative;
-                &::before {
-                    content: '(';
-                    position: absolute;
-                    font-size: 20px;
-                    left: -6px;
-                    top: 0;
-                }
-            }
-            
-
-            .flat-chip {
-                padding: 4px;
-                background-color: white;
-            }
-
-            .q-grid-column-filter-chips {
-                margin-right: 10px;
-            }
-
-            .q-grid-column-filter-chips-input-wrapper {
-                position: relative;
-                padding: 0 3px;
-                &::after {
-                    content: ')';
-                    position: absolute;
-                    font-size: 20px;
-                    right: -3px;
-                    top: 3px;
-                }
-
-                .q-grid-column-filter-chips-input {
-                    max-width: 70px;
-                    outline: 0;
-                    padding: 3px 0;
-                    border-width: 0;
-                    border-bottom: solid thin $dark-secondary;
-                    transition: .25s;
-    
-                    &:hover, &:active, &:focus {
-                        border-bottom: solid 2px #3f51b5;
-                    }
-                }
-            }
-        }
-        
         .q-grid-column-filter-filter {
-            padding-left: 28px;
             width: calc(100% - 28px);
 
             &.half {

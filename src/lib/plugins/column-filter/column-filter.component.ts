@@ -26,77 +26,107 @@ import { PluginService } from '../plugin.service';
 export class ColumnFilterComponent implements OnInit {
 	@Input() column: ColumnModel;
 	@Input() search = '';
-	@Input() altSearch = '';
-	@Input() arraySearch = [];
+	@Input() exprValue = [];
 
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
-	numberOperatorKey = 'contains';
-	numberOperators = {
+	dateOperatorKey = 'contains';
+	dateOperators = {
 		contains: {
-			icon: 'search',
 			name: 'Contains',
 			leftInputLabel: 'Find in the list',
 			inputType: 'oneField'
 		},
+		lessThanOrEquals: {
+			name: 'Before',
+			leftInputLabel: 'Before than',
+			inputType: 'oneField'
+		},
+		greaterThanOrEquals: {
+			name: 'After',
+			leftInputLabel: 'After than',
+			inputType: 'oneField'
+		},
+		between: {
+			name: 'Between',
+			leftInputLabel: 'Since',
+			rightInputLabel: 'to',
+			inputType: 'twoFields'
+		},
 		isEmpty: {
-			icon: '∅',
 			name: 'Is empty',
+			leftInputLabel: 'Is empty',
 			inputType: 'disabled'
 		},
 		isNotEmpty: {
-			icon: 'O',
 			name: 'Is not empty',
+			leftInputLabel: 'Is not empty',
 			inputType: 'disabled'
 		},
-		in: {
-			icon: '^',
-			name: 'In range',
-			leftInputLabel: 'Add item...',
-			inputType: 'chips'
-		},
 		equals: {
-			icon: '=',
 			name: 'Equals to',
 			leftInputLabel: 'Equals to',
 			inputType: 'oneField'
 		},
 		notEquals: {
-			icon: '≠',
 			name: 'Not equals to',
 			leftInputLabel: 'Not equals to',
 			inputType: 'oneField'
 		},
+	};
+
+	numberOperatorKey = 'contains';
+	numberOperators = {
+		contains: {
+			name: 'Contains',
+			leftInputLabel: 'Find in the list',
+			inputType: 'oneField'
+		},
 		between: {
-			icon: '…',
 			name: 'Between',
 			leftInputLabel: 'From',
 			rightInputLabel: 'To',
 			inputType: 'twoFields'
 		},
 		lessThan: {
-			icon: '<',
 			name: 'Less than',
 			leftInputLabel: 'Less than',
 			inputType: 'oneField'
 		},
 		lessThanOrEquals: {
-			icon: '≤',
 			name: 'Less than or equals',
 			leftInputLabel: 'Less than or equals',
 			inputType: 'oneField'
 		},
 		greaterThan: {
-			icon: '>',
 			name: 'Greater than',
 			leftInputLabel: 'Greater than',
 			inputType: 'oneField'
 		},
 		greaterThanOrEquals: {
-			icon: '≥',
 			name: 'Greater than or equals',
 			leftInputLabel: 'Greater than or equals',
+			inputType: 'oneField'
+		},
+		isEmpty: {
+			name: 'Is empty',
+			leftInputLabel: 'Is empty',
+			inputType: 'disabled'
+		},
+		isNotEmpty: {
+			name: 'Is not empty',
+			leftInputLabel: 'Is not empty',
+			inputType: 'disabled'
+		},
+		equals: {
+			name: 'Equals to',
+			leftInputLabel: 'Equals to',
+			inputType: 'oneField'
+		},
+		notEquals: {
+			name: 'Not equals to',
+			leftInputLabel: 'Not equals to',
 			inputType: 'oneField'
 		},
 	};
@@ -126,17 +156,11 @@ export class ColumnFilterComponent implements OnInit {
 
 		if (columnFilter.expression) {
 			this.numberOperatorKey = columnFilter.expression.op;
-			switch (columnFilter.expression.op) {
-				case 'between':
-					this.search = columnFilter.expression.right[0];
-					this.altSearch = columnFilter.expression.right[1];
-					break;
-				case 'in':
-					this.arraySearch = columnFilter.expression.right;
-					break;
-				default:
-					this.search = columnFilter.expression.right;
-					break;
+			this.dateOperatorKey = columnFilter.expression.op;
+			if (columnFilter.expression.op === 'between') {
+				this.exprValue = columnFilter.expression.right;
+			} else {
+				this.exprValue[0] = columnFilter.expression.right;
 			}
 		}
 
@@ -228,13 +252,19 @@ export class ColumnFilterComponent implements OnInit {
 		this.vscrollContext.container.reset();
 	}
 
+	clear() {
+		this.search = '';
+		this.exprValue = [];
+		this.context.$implicit.reset.execute();
+	}
+
 	addChipFromInput($event) {
-		this.arraySearch.push($event.value);
-		const containsSimilar = this.arraySearch.some((x, i, arr) => arr.indexOf(x) < i);
+		this.exprValue.push($event.value);
+		const containsSimilar = this.exprValue.some((x, i, arr) => arr.indexOf(x) < i);
 		if (!containsSimilar) {
 			$event.input.value = '';
 		}
-		this.arraySearch = this.arraySearch.filter((x, i, arr) => arr.indexOf(x) === i);;
+		this.exprValue = this.exprValue.filter((x, i, arr) => arr.indexOf(x) === i);;
 	}
 
 	get templateKey() {
@@ -250,16 +280,37 @@ export class ColumnFilterComponent implements OnInit {
 		return Object.keys(this.numberOperators);
 	}
 
+	get dateOperatorsKeys() {
+		return Object.keys(this.dateOperators);
+	}
+
 	get currentOperator() {
-		return this.numberOperators[this.numberOperatorKey];
+		const { column } = this;
+		return column.type === 'date' ? this.dateOperators[this.dateOperatorKey] : this.numberOperators[this.numberOperatorKey];
+	}
+
+	yyyymmdd(date, separator) {
+		if (!date || !date.getFullYear) {
+			return date;
+		}
+		const yyyy = date.getFullYear();
+		const mm = (date.getMonth() + 1).toString().padStart(2, '0');
+		const dd = date.getDate().toString().padStart(2, '0');
+		return [yyyy, mm, dd].join(separator);
 	}
 
 	get value() {
 		switch (this.currentOperator.inputType) {
-			case 'oneField': return this.search;
-			case 'twoFields': return [this.search, this.altSearch];
-			case 'disabled': return null;
-			case 'chips': return this.arraySearch;
+			case 'oneField':
+				return this.column.type === 'date'
+					? this.yyyymmdd(this.exprValue[0], '-')
+					: this.exprValue[0];
+			case 'disabled':
+				return null;
+			case 'twoFields':
+				return this.column.type === 'date'
+					? this.exprValue.map(d => this.yyyymmdd(d, '-'))
+					: this.exprValue;
 			default: throw new Error(`Unknown operator type ${this.currentOperator.inputType}`);
 		}
 	}
