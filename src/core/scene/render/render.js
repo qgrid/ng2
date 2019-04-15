@@ -16,7 +16,7 @@ export class Renderer {
 		const nestNodeRow = new CacheStrategy(model, nodeRow);
 		const subheadNodeRow = new CacheStrategy(model, new SubheadNodeRow(nodeRow));
 		const rowspanNodeRow = new CacheStrategy(model, new RowspanNodeRow(model, nodeRow));
-		const rowDetails = new CacheStrategy(model, new DetailsRow(pivotRow));
+		const rowDetails = new CacheStrategy(model, new DetailsRow(model, pivotRow));
 		const defaultStrategy = pivotRow;
 
 		const strategies = new Map();
