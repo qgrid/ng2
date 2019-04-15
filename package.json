@@ -1,6 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "6.3.7",
+  "version": "6.3.8",
   "scripts": {
     "build:lib": "npm run clean && node build.lib.js",
     "build:release": "npm run build:lib && npm run copy:npm && node build.theme.js",
@@ -16,7 +16,7 @@
     "copy:npm": "node build.copy.js **/* dist node_modules/ng2-qgrid",
     "ng": "ng",
     "release:example": "node ./build.example",
-    "release:lib": "npm run test && npm run test:screenshot && npm run build:release && cd dist && npm publish",
+    "release:lib": "npm run build:release && cd dist && npm publish",
     "start": "node build.serve"
   },
   "private": true,
