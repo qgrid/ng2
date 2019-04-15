@@ -11,6 +11,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Grouped rows navigation improvements.
 
 ## [6.3.8] - 2019-04-15
+### Fixed
+- Support right pinned column in details mode.
 
 ## [6.3.7] - 2019-04-12
 ### Fixed
