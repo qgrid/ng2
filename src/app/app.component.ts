@@ -7,7 +7,8 @@ import {
 	ViewChildren,
 	QueryList,
 	AfterViewInit,
-	NgZone
+	NgZone,
+	ViewEncapsulation
 } from '@angular/core';
 import { Routes, RouterLinkActive } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
@@ -17,7 +18,8 @@ import { APP_ROUTES } from '../examples/example.module';
 	selector: 'app-root',
 	templateUrl: 'app.component.html',
 	styleUrls: ['app.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
 	mobileQuery: MediaQueryList;
