@@ -1,0 +1,19 @@
+<ng-template key="plugin-column-filter-between.tpl.html"
+             let-$columnFilter
+             let-$plugin="plugin"
+             let-$vscroll="vscroll">
+
+	<mat-form-field class="q-grid-column-filter-input half">
+		<input matInput
+		       placeholder="From"
+		       [(ngModel)]="$plugin.exprValue[0]"
+		       q-grid-focus />
+	</mat-form-field>
+
+	<mat-form-field class="q-grid-column-filter-input half">
+		<input matInput
+		       placeholder="To"
+		       [(ngModel)]="$plugin.exprValue[1]" />
+	</mat-form-field>
+
+</ng-template>

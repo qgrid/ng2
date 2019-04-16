@@ -1,0 +1,11 @@
+<ng-template key="plugin-column-filter-disabled.tpl.html"
+             let-$columnFilter
+             let-$plugin="plugin"
+             let-$vscroll="vscroll">
+
+	<mat-form-field class="q-grid-column-filter-input">
+		<input matInput
+		       [placeholder]="$plugin.beautyOperatorName"
+		       disabled />
+	</mat-form-field>
+</ng-template>

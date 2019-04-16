@@ -1,0 +1,13 @@
+<ng-template key="plugin-column-filter-default.tpl.html"
+             let-$columnFilter
+             let-$plugin="plugin"
+             let-$vscroll="vscroll">
+
+	<mat-form-field class="q-grid-column-filter-input">
+		<input matInput
+		       [placeholder]="$plugin.beautyOperatorName"
+		       [(ngModel)]="$plugin.exprValue[0]"
+		       q-grid-focus />
+	</mat-form-field>
+
+</ng-template>

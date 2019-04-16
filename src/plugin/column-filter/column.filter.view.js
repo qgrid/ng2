@@ -89,21 +89,37 @@ export class ColumnFilterView {
 					const by = clone(model.filter().by);
 
 					const filter = by[this.key] || {};
-					if (!operator || !value && operator !== 'isEmpty' && operator !== 'isNotEmpty') {
-						filter.items = Array.from(this.by);
-						filter.blanks = this.byBlanks;
-						filter.expression = null;
-					} else {
-						filter.expression = {
-							kind: 'condition',
-							left: this.key,
-							op: operator,
-							right: value,
-						};
-						filter.items = [];
-						filter.blanks = false;
-					}
 
+					switch (operator) {
+						case 'contains' : {
+							filter.items = Array.from(this.by);
+							filter.blanks = this.byBlanks;
+							filter.expression = null;
+							break;
+						}
+						default : {
+							if (!value || !value.length) {
+								filter.items = Array.from(this.by);
+								filter.blanks = this.byBlanks;
+								filter.expression = null;
+								break;
+							}
+						}
+						case 'isEmpty' :
+						case 'isNotEmpty' :
+						case 'isNull' :
+						case 'isNotNull' : {
+							filter.expression = {
+								kind: 'condition',
+								left: this.key,
+								op: operator,
+								right: value,
+							};
+							filter.items = [];
+							filter.blanks = false;
+						}
+					}
+						
 					if (filter.items && filter.items.length || filter.blanks || filter.expression) {
 						by[this.key] = filter;
 					}

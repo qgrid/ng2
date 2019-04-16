@@ -1,6 +1,7 @@
 import { Resource } from '../resource/resource';
 import { Assert } from './assert';
 import { FetchContext } from '../fetch/fetch.context';
+import { ColumnModel } from '../column-type/column.model';
 
 /**
  * A class to setup data filters and expressions.
@@ -70,4 +71,9 @@ export declare interface FilterModel {
 	 * * `isNull` should return true if value means null.
 	 */
 	assertFactory?: () => Assert;
+	
+	/**
+	 * Returns an array of filter operators available for a certain column.
+	 */
+	operators?: (column : ColumnModel) => string[];
 }

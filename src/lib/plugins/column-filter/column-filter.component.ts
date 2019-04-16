@@ -31,105 +31,8 @@ export class ColumnFilterComponent implements OnInit {
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
-	dateOperatorKey = 'contains';
-	dateOperators = {
-		contains: {
-			name: 'Contains',
-			leftInputLabel: 'Find in the list',
-			inputType: 'oneField'
-		},
-		lessThanOrEquals: {
-			name: 'Before',
-			leftInputLabel: 'Before than',
-			inputType: 'oneField'
-		},
-		greaterThanOrEquals: {
-			name: 'After',
-			leftInputLabel: 'After than',
-			inputType: 'oneField'
-		},
-		between: {
-			name: 'Between',
-			leftInputLabel: 'From',
-			rightInputLabel: 'to',
-			inputType: 'twoFields'
-		},
-		isEmpty: {
-			name: 'Is empty',
-			leftInputLabel: 'Is empty',
-			inputType: 'disabled'
-		},
-		isNotEmpty: {
-			name: 'Is not empty',
-			leftInputLabel: 'Is not empty',
-			inputType: 'disabled'
-		},
-		equals: {
-			name: 'Equals to',
-			leftInputLabel: 'Equals to',
-			inputType: 'oneField'
-		},
-		notEquals: {
-			name: 'Not equals to',
-			leftInputLabel: 'Not equals to',
-			inputType: 'oneField'
-		},
-	};
-
-	numberOperatorKey = 'contains';
-	numberOperators = {
-		contains: {
-			name: 'Contains',
-			leftInputLabel: 'Find in the list',
-			inputType: 'oneField'
-		},
-		between: {
-			name: 'Between',
-			leftInputLabel: 'From',
-			rightInputLabel: 'To',
-			inputType: 'twoFields'
-		},
-		lessThan: {
-			name: 'Less than',
-			leftInputLabel: 'Less than',
-			inputType: 'oneField'
-		},
-		lessThanOrEquals: {
-			name: 'Less than or equals',
-			leftInputLabel: 'Less than or equals',
-			inputType: 'oneField'
-		},
-		greaterThan: {
-			name: 'Greater than',
-			leftInputLabel: 'Greater than',
-			inputType: 'oneField'
-		},
-		greaterThanOrEquals: {
-			name: 'Greater than or equals',
-			leftInputLabel: 'Greater than or equals',
-			inputType: 'oneField'
-		},
-		isEmpty: {
-			name: 'Is empty',
-			leftInputLabel: 'Is empty',
-			inputType: 'disabled'
-		},
-		isNotEmpty: {
-			name: 'Is not empty',
-			leftInputLabel: 'Is not empty',
-			inputType: 'disabled'
-		},
-		equals: {
-			name: 'Equals to',
-			leftInputLabel: 'Equals to',
-			inputType: 'oneField'
-		},
-		notEquals: {
-			name: 'Not equals to',
-			leftInputLabel: 'Not equals to',
-			inputType: 'oneField'
-		},
-	};
+	filterOperators = [];
+	filterOperator = '';
 
 	context: {
 		$implicit: ColumnFilterView,
@@ -149,14 +52,16 @@ export class ColumnFilterComponent implements OnInit {
 
 	ngOnInit() {
 		const { model } = this.plugin;
-		const key = this.column.key;
+		const { column } = this;
+		const { key } = column;
 		const context = { key };
 
 		const columnFilter = new ColumnFilterView(model, context);
+		this.filterOperators = model.filter().operators(column);
+		this.filterOperator = this.filterOperators.length && this.filterOperators[0];
 
 		if (columnFilter.expression) {
-			this.numberOperatorKey = columnFilter.expression.op;
-			this.dateOperatorKey = columnFilter.expression.op;
+			this.filterOperator = columnFilter.expression.op;
 			if (columnFilter.expression.op === 'between') {
 				this.exprValue = columnFilter.expression.right;
 			} else {
@@ -258,35 +163,68 @@ export class ColumnFilterComponent implements OnInit {
 		this.context.$implicit.reset.execute();
 	}
 
-	addChipFromInput($event) {
-		this.exprValue.push($event.value);
-		const containsSimilar = this.exprValue.some((x, i, arr) => arr.indexOf(x) < i);
-		if (!containsSimilar) {
-			$event.input.value = '';
+	get operatorTemplateKey() {
+		const { column, filterOperator } = this;
+		switch (filterOperator) {
+			case 'contains': {
+				return 'plugin-column-filter-search.tpl.html';
+			}
+			case 'between': {
+				return column.type === 'date'
+					? 'plugin-column-filter-date-between.tpl.html'
+					: 'plugin-column-filter-between.tpl.html';
+			}
+			case 'isEmpty':
+			case 'isNotEmpty':
+			case 'isNull':
+			case 'isNotNull': {
+				return 'plugin-column-filter-disabled.tpl.html';
+			}
+			default: {
+				return column.type === 'date'
+					? 'plugin-column-filter-date.tpl.html'
+					: 'plugin-column-filter-default.tpl.html';
+			}
 		}
-		this.exprValue = this.exprValue.filter((x, i, arr) => arr.indexOf(x) === i);;
 	}
 
-	get templateKey() {
-		const { column } = this;
-		if (column && (column.type === 'number' || column.type === 'date')) {
-			return `plugin-column-filter-${column.type}.tpl.html`;
+	get beautyOperatorName() {
+		const { filterOperator } = this;
+
+		if (filterOperator) {
+			return this.beautifyOperatorName(filterOperator);
 		}
-
-		return `plugin-column-filter.tpl.html`;
 	}
 
-	get numberOperatorsKeys() {
-		return Object.keys(this.numberOperators);
+	get filterOperatorValue() {
+		switch (this.filterOperator) {
+			case 'isNull':
+			case 'isNotNull':
+			case 'isEmpty':
+			case 'isNotEmpty': {
+				return null;
+			}
+			case 'between': {
+				return this.column.type === 'date'
+					? this.exprValue.map(d => this.yyyymmdd(d, '-'))
+					: this.exprValue;
+			}
+			default: {
+				return this.column.type === 'date'
+					? this.yyyymmdd(this.exprValue[0], '-')
+					: this.exprValue[0];
+			}
+		}
 	}
 
-	get dateOperatorsKeys() {
-		return Object.keys(this.dateOperators);
+	get hasOperators() {
+		return this.filterOperators && this.filterOperators.length > 1;
 	}
 
-	get currentOperator() {
-		const { column } = this;
-		return column.type === 'date' ? this.dateOperators[this.dateOperatorKey] : this.numberOperators[this.numberOperatorKey];
+	beautifyOperatorName(op) {
+		const lcAll = op.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
+		const ucFirst = lcAll.charAt(0).toUpperCase() + lcAll.slice(1);
+		return ucFirst;
 	}
 
 	yyyymmdd(date, separator) {
@@ -297,21 +235,5 @@ export class ColumnFilterComponent implements OnInit {
 		const mm = (date.getMonth() + 1).toString().padStart(2, '0');
 		const dd = date.getDate().toString().padStart(2, '0');
 		return [yyyy, mm, dd].join(separator);
-	}
-
-	get value() {
-		switch (this.currentOperator.inputType) {
-			case 'oneField':
-				return this.column.type === 'date'
-					? this.yyyymmdd(this.exprValue[0], '-')
-					: this.exprValue[0];
-			case 'disabled':
-				return null;
-			case 'twoFields':
-				return this.column.type === 'date'
-					? this.exprValue.map(d => this.yyyymmdd(d, '-'))
-					: this.exprValue;
-			default: throw new Error(`Unknown operator type ${this.currentOperator.inputType}`);
-		}
 	}
 }

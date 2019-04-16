@@ -1,53 +1,59 @@
 @import "variables";
+
 &.q-grid-box:not(.q-grid-drag) {
-	th.q-grid-highlighted {
-		.q-grid-column-filter-trigger {
-			opacity: 1;
-		}
-	}
+    th.q-grid-highlighted {
+        .q-grid-column-filter-trigger {
+            opacity: 1;
+        }
+    }
 }
 
 .q-grid-column-filter-trigger {
-	position: absolute;
-	right: 2px;
-	transition: opacity 0.3s;
-	margin: 0 auto;
-	opacity: 0;
-	height: 16px;
-	line-height: 16px;
-	transition: opacity 0.3s;
-	&.q-grid-active {
-		opacity: 1;
-		.q-grid-icon {
-			color: $dark;
-		}
-		&+label {
-			color: $dark;
-		}
-	}
-	button {
-		font-size: 12px;
-		width: 16px;
-		min-width: 16px;
-		min-height: 16px;
-		height: 16px;
-		outline: none;
-		border: none;
-		background: transparent;
-		padding: 0;
-		left: 0;
-		margin: 0 2px 2px 2px;
-		.q-grid-icon {
-			color: $dark-secondary;
-			font-size: 16px;
-			height: 16px;
-			width: 16px;
-			min-height: 16px;
-			min-width: 16px;
-			line-height: 16px;
-			display: block;
-		}
-	}
+    position: absolute;
+    right: 2px;
+    transition: opacity 0.3s;
+    margin: 0 auto;
+    opacity: 0;
+    height: 16px;
+    line-height: 16px;
+    transition: opacity 0.3s;
+
+    &.q-grid-active {
+        opacity: 1;
+
+        .q-grid-icon {
+            color: $dark;
+        }
+
+        &+label {
+            color: $dark;
+        }
+    }
+
+    button {
+        font-size: 12px;
+        width: 16px;
+        min-width: 16px;
+        min-height: 16px;
+        height: 16px;
+        outline: none;
+        border: none;
+        background: transparent;
+        padding: 0;
+        left: 0;
+        margin: 0 2px 2px 2px;
+
+        .q-grid-icon {
+            color: $dark-secondary;
+            font-size: 16px;
+            height: 16px;
+            width: 16px;
+            min-height: 16px;
+            min-width: 16px;
+            line-height: 16px;
+            display: block;
+        }
+    }
 }
 
 @at-root .q-grid-column-filter.q-grid-menu {
@@ -62,18 +68,14 @@
         padding: 0;
     }
 
-    .plugin-column-filter-number {
+    .q-grid-column-filter-with-operators {
         position: relative;
 
-        .q-grid-column-filter-change-operator {
+        .q-grid-column-filter-operator-select {
             position: absolute;
-            z-index: 1;
-            top: 54px;
-            right: 0;
-            height: 40px;
+            top: 15px;
+            right: -20px;
             width: 40px;
-            min-height: 40px;
-            min-width: 40px;
 
             .mat-icon {
                 font-size: 20px;
@@ -84,7 +86,7 @@
             }
         }
 
-        .q-grid-column-filter-filter {
+        .q-grid-column-filter-input {
             width: calc(100% - 28px);
 
             &.half {
@@ -95,14 +97,11 @@
                     padding-left: 12px;
                 }
             }
-
-            &.disabled {
-                z-index: -1;
-            }
         }
+
     }
 
-    .q-grid-column-filter-filter {
+    .q-grid-column-filter-input {
         margin: 0;
         padding: 0;
         width: 100%;
@@ -162,38 +161,41 @@
 }
 
 @at-root .q-grid-filter-by {
-	display: inline-flex;
-	background-color: #EBEBEB;
-	margin-right: 2px;
-	border-radius: 100px;
-	padding: 0 14px;
-	margin-bottom: 3px;
-	&-item {
-		font-size: 12px;
-		margin: 2px 7px 1px -4px;
-	}
-	&-remove {
-		width: 5px;
-		height: 5px;
-		position: relative;
-		cursor: pointer;
-	}
-	.q-grid-icon {
-		top: 2px;
-		font-size: 14px;
-		width: 5px;
-		height: 5px;
-		position: absolute;
-		color: #C8C8C8;
-	}
+    display: inline-flex;
+    background-color: #EBEBEB;
+    margin-right: 2px;
+    border-radius: 100px;
+    padding: 0 14px;
+    margin-bottom: 3px;
+
+    &-item {
+        font-size: 12px;
+        margin: 2px 7px 1px -4px;
+    }
+
+    &-remove {
+        width: 5px;
+        height: 5px;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .q-grid-icon {
+        top: 2px;
+        font-size: 14px;
+        width: 5px;
+        height: 5px;
+        position: absolute;
+        color: #C8C8C8;
+    }
 }
 
 @at-root {
-	@media (max-height: 540px) {
-		.q-grid-persistence-panel.q-grid-menu {
-			height: 400px;
-			max-height: 400px;
-			min-height: 400px;
-		}
-	}
+    @media (max-height: 540px) {
+        .q-grid-persistence-panel.q-grid-menu {
+            height: 400px;
+            max-height: 400px;
+            min-height: 400px;
+        }
+    }
 }
