@@ -10,15 +10,20 @@ import {
 	MatToolbarModule,
 	MatIconModule,
 	MatListModule,
-	MatButtonModule
+	MatButtonModule,
+	MatInputModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { ExampleModule, APP_ROUTES } from '../examples/example.module';
+import { HighlightSearch } from './app.highlight.pipe';
+import { FilterSearch } from './app.filter.pipe';
 
 @NgModule({
 	declarations: [
-		AppComponent
+		AppComponent,
+		HighlightSearch,
+		FilterSearch
 	],
 	imports: [
 		CommonModule,
@@ -30,6 +35,7 @@ import { ExampleModule, APP_ROUTES } from '../examples/example.module';
 		MatToolbarModule,
 		MatIconModule,
 		MatListModule,
+		MatInputModule,
 		MatButtonModule,
 		RouterModule.forRoot([{
 			path: '',

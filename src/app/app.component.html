@@ -1,7 +1,7 @@
 <mat-toolbar color="primary"
 			 class="app-toolbar">
 	<button mat-icon-button
-	        (click)="snav.toggle()">
+			(click)="snav.toggle()">
 		<mat-icon>menu</mat-icon>
 	</button>
 	<h1 class="app-name">qgrid</h1>
@@ -9,16 +9,23 @@
 
 <mat-sidenav-container class="app-sidenav-container">
 	<mat-sidenav #snav
-	             [mode]="mobileQuery.matches ? 'over' : 'side'"
-	             [fixedInViewport]="mobileQuery.matches"
-	             fixedTopGap="56">
+				 [mode]="mobileQuery.matches ? 'over' : 'side'"
+				 [fixedInViewport]="mobileQuery.matches"
+				 fixedTopGap="56">
+		<mat-form-field class="search">
+			<input matInput
+				   #searchInput
+				   placeholder="Search"
+				   type="search" />
+		</mat-form-field>
 		<mat-nav-list>
 			<ng-container *ngFor="let example of examples">
 				<a mat-list-item
-				   *ngIf="example.path"
+				   *ngIf="example.path | filterSearch: searchInput.value"
 				   [routerLink]="example.path"
 				   [routerLinkActive]="'active'">
-					{{example.path}}
+					<div [innerHTML]="example.path | highlightSearch: searchInput.value">
+					</div>
 				</a>
 			</ng-container>
 		</mat-nav-list>

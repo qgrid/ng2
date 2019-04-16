@@ -38,3 +38,22 @@ h1.app-name {
 .active {
     background-color: #efefef;
 }
+.search {
+    margin: 15px;
+    width: 80%;
+    display: block;
+     input{
+        height: 25px;
+    }
+}
+.mat-sidenav {
+   width: 260px;
+}
+.mat-nav-list {
+    display: block;
+    height: calc(100% - 108px);
+    overflow-y: auto;
+}
+.highlight {
+    background-color: #fceb00;
+}
