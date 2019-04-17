@@ -16,13 +16,12 @@ import {
 
 import { AppComponent } from './app.component';
 import { ExampleModule, APP_ROUTES } from '../examples/example.module';
-import { HighlightSearch } from './app.highlight.pipe';
-import { FilterSearch } from './app.filter.pipe';
 
+import { FilterSearch } from './app.filter.pipe';
+import { PipeModule } from 'ng2-qgrid';
 @NgModule({
 	declarations: [
 		AppComponent,
-		HighlightSearch,
 		FilterSearch
 	],
 	imports: [
@@ -42,6 +41,7 @@ import { FilterSearch } from './app.filter.pipe';
 			redirectTo: 'action-bar-basic',
 			pathMatch: 'full'
 		}]),
+		PipeModule,
 		ExampleModule
 	],
 	bootstrap: [AppComponent],

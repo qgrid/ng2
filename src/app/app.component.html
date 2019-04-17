@@ -24,7 +24,7 @@
 				   *ngIf="example.path | filterSearch: searchInput.value"
 				   [routerLink]="example.path"
 				   [routerLinkActive]="'active'">
-					<div [innerHTML]="example.path | highlightSearch: searchInput.value">
+					<div [innerHTML]="example.path | qGridHighlight: searchInput.value">
 					</div>
 				</a>
 			</ng-container>

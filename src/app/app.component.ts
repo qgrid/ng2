@@ -18,8 +18,7 @@ import { APP_ROUTES } from '../examples/example.module';
 	selector: 'app-root',
 	templateUrl: 'app.component.html',
 	styleUrls: ['app.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
 	mobileQuery: MediaQueryList;
