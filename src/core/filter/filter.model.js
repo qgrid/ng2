@@ -18,32 +18,34 @@ export class FilterModel {
 
 		this.operators = (column) => {
 			switch (column.type) {
-				case 'date': return [
-					'contains',
-					'lessThanOrEquals',
-					'greaterThanOrEquals',
-					'between',
-					'equals',
-					'notEquals',
-					'isEmpty',
-					'isNotEmpty',
-				];
-
+				case 'date': {
+					return [
+						'contains',
+						'lessThanOrEquals',
+						'greaterThanOrEquals',
+						'between',
+						'equals',
+						'notEquals',
+						'isEmpty',
+						'isNotEmpty',
+					];
+				}
 				case 'currency':
-				case 'number': return [
-					'contains',
-					'lessThan',
-					'lessThanOrEquals',
-					'greaterThan',
-					'greaterThanOrEquals',
-					'between',
-					'equals',
-					'notEquals',
-					'isEmpty',
-					'isNotEmpty',
-				];
-
-				default : return [ 'contains' ];
+				case 'number': {
+					return [
+						'contains',
+						'lessThan',
+						'lessThanOrEquals',
+						'greaterThan',
+						'greaterThanOrEquals',
+						'between',
+						'equals',
+						'notEquals',
+						'isEmpty',
+						'isNotEmpty',
+					];
+				}
+				default: { return ['contains']; }
 			}
 		}
 	}
