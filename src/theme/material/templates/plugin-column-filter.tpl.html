@@ -9,19 +9,20 @@
 			</mat-card-title>
 		</mat-card-header>
 		<mat-card-content>
-			<div [ngClass]="{ 'q-grid-column-filter-with-operators' : $plugin.hasOperators }">
-				
+			<div class='q-grid-column-filter-{{$plugin.operator}}'
+			     [ngClass]="{ 'q-grid-column-filter-with-operators' : $plugin.hasOperators }">
+
 				<!-- Fitler operator select -->
 				<mat-select class="q-grid-column-filter-operator-select"
 				            *ngIf="$plugin.hasOperators"
-				            [(value)]="$plugin.filterOperator"
+				            [(value)]="$plugin.operator"
 				            (selectionChange)="$plugin.reset()">
 					<mat-select-trigger>
 						<mat-icon class="q-grid-icon">more_vert</mat-icon>
 					</mat-select-trigger>
-					<mat-option *ngFor="let op of $plugin.filterOperators"
+					<mat-option *ngFor="let op of $plugin.operators"
 					            [value]="op">
-						{{ $plugin.beautifyOperatorName(op) }}
+						{{ op | beautify }}
 					</mat-option>
 				</mat-select>
 
@@ -43,7 +44,7 @@
 			</button>
 			<button mat-button
 			        color="primary"
-			        (click)="$columnFilter.submit.execute($plugin.filterOperator, $plugin.filterOperatorValue)">
+			        (click)="$columnFilter.submit.execute($plugin.operator, $plugin.operatorValue)">
 				Apply
 			</button>
 		</mat-card-actions>

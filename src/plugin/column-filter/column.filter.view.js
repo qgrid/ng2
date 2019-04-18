@@ -84,7 +84,7 @@ export class ColumnFilterView {
 
 			submit: new Command({
 				source: 'column.filter.view',
-				execute: (operator = null, value = null) => {
+				execute: (operator, value) => {
 					const model = this.model;
 					const by = clone(model.filter().by);
 

@@ -31,8 +31,7 @@ export class ColumnFilterComponent implements OnInit {
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
-	filterOperators = [];
-	filterOperator = '';
+	operator = '';
 
 	context: {
 		$implicit: ColumnFilterView,
@@ -50,18 +49,20 @@ export class ColumnFilterComponent implements OnInit {
 		focusAfterRender: FocusAfterRender) {
 	}
 
+	get operators() {
+		return this.plugin.model.filter().operators(this.column);
+	}
+
 	ngOnInit() {
 		const { model } = this.plugin;
-		const { column } = this;
-		const { key } = column;
+		const { key } = this.column;
 		const context = { key };
 
 		const columnFilter = new ColumnFilterView(model, context);
-		this.filterOperators = model.filter().operators(column);
-		this.filterOperator = this.filterOperators.length && this.filterOperators[0];
+		this.operator = this.operators[0];
 
 		if (columnFilter.expression) {
-			this.filterOperator = columnFilter.expression.op;
+			this.operator = columnFilter.expression.op;
 			if (columnFilter.expression.op === 'between') {
 				this.exprValue = columnFilter.expression.right;
 			} else {
@@ -164,21 +165,21 @@ export class ColumnFilterComponent implements OnInit {
 	}
 
 	get operatorTemplateKey() {
-		const { column, filterOperator } = this;
-		switch (filterOperator) {
+		const { column, operator } = this;
+		switch (operator) {
 			case 'contains': {
-				return 'plugin-column-filter-search.tpl.html';
+				return 'plugin-column-filter-default-contains.tpl.html';
 			}
 			case 'between': {
 				return column.type === 'date'
 					? 'plugin-column-filter-date-between.tpl.html'
-					: 'plugin-column-filter-between.tpl.html';
+					: 'plugin-column-filter-default-between.tpl.html';
 			}
 			case 'isEmpty':
 			case 'isNotEmpty':
 			case 'isNull':
 			case 'isNotNull': {
-				return 'plugin-column-filter-disabled.tpl.html';
+				return 'plugin-column-filter-default-disabled.tpl.html';
 			}
 			default: {
 				return column.type === 'date'
@@ -188,16 +189,8 @@ export class ColumnFilterComponent implements OnInit {
 		}
 	}
 
-	get beautyOperatorName() {
-		const { filterOperator } = this;
-
-		if (filterOperator) {
-			return this.beautifyOperatorName(filterOperator);
-		}
-	}
-
-	get filterOperatorValue() {
-		switch (this.filterOperator) {
+	get operatorValue() {
+		switch (this.operator) {
 			case 'isNull':
 			case 'isNotNull':
 			case 'isEmpty':
@@ -218,13 +211,7 @@ export class ColumnFilterComponent implements OnInit {
 	}
 
 	get hasOperators() {
-		return this.filterOperators && this.filterOperators.length > 1;
-	}
-
-	beautifyOperatorName(op) {
-		const lcAll = op.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
-		const ucFirst = lcAll.charAt(0).toUpperCase() + lcAll.slice(1);
-		return ucFirst;
+		return this.operators && this.operators.length > 1;
 	}
 
 	yyyymmdd(date, separator) {

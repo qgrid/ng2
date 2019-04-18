@@ -11,7 +11,7 @@
 		       matInput
 		       #input
 		       [matDatepicker]="picker"
-		       [placeholder]="$plugin.beautyOperatorName"
+		       [placeholder]="$plugin.operator | beautify"
 		       [ngModel]="$plugin.exprValue[0] | qGridDate:'yyyy-MM-dd'"
 			   (ngModelChange)="isValid(input.value) && ($plugin.exprValue[0] = $event)" />
 			   
