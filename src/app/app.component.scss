@@ -38,3 +38,15 @@ h1.app-name {
 .active {
     background-color: #efefef;
 }
+.search {
+    margin: 15px 35px 15px 15px;
+    display: block;
+}
+.mat-sidenav {
+   width: 260px;
+}
+.mat-nav-list {
+    display: block;
+    height: calc(100% - 108px);
+    overflow-y: auto;
+}

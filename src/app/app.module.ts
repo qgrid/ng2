@@ -10,15 +10,19 @@ import {
 	MatToolbarModule,
 	MatIconModule,
 	MatListModule,
-	MatButtonModule
+	MatButtonModule,
+	MatInputModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { ExampleModule, APP_ROUTES } from '../examples/example.module';
 
+import { FilterSearch } from './app.filter.pipe';
+import { PipeModule } from 'ng2-qgrid';
 @NgModule({
 	declarations: [
-		AppComponent
+		AppComponent,
+		FilterSearch
 	],
 	imports: [
 		CommonModule,
@@ -30,12 +34,14 @@ import { ExampleModule, APP_ROUTES } from '../examples/example.module';
 		MatToolbarModule,
 		MatIconModule,
 		MatListModule,
+		MatInputModule,
 		MatButtonModule,
 		RouterModule.forRoot([{
 			path: '',
 			redirectTo: 'action-bar-basic',
 			pathMatch: 'full'
 		}]),
+		PipeModule,
 		ExampleModule
 	],
 	bootstrap: [AppComponent],
