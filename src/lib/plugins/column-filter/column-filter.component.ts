@@ -50,7 +50,7 @@ export class ColumnFilterComponent implements OnInit {
 	}
 
 	get operators() {
-		return this.plugin.model.filter().operators(this.column);
+		return this.plugin.model.filter().operatorFactory(this.column);
 	}
 
 	ngOnInit() {

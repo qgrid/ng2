@@ -16,7 +16,7 @@ export class FilterModel {
 			isNull: x => x === '' || x === null || x === undefined
 		});
 
-		this.operators = (column) => {
+		this.operatorFactory = (column) => {
 			switch (column.type) {
 				case 'date': {
 					return [

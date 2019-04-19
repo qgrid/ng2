@@ -73,7 +73,7 @@ export declare interface FilterModel {
 	assertFactory?: () => Assert;
 	
 	/**
-	 * Returns an array of filter operators available for a certain column.
+	 * Factory for getting collection of filter operators available for a certain column.
 	 */
-	operators?: (column : ColumnModel) => string[];
+	operatorFactory?: (column : ColumnModel) => string[];
 }
