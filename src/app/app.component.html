@@ -14,17 +14,17 @@
 				 fixedTopGap="56">
 		<mat-form-field class="search">
 			<input matInput
-				   #searchInput
+				   #search
 				   placeholder="Search"
 				   type="search" />
 		</mat-form-field>
 		<mat-nav-list>
-			<ng-container *ngFor="let example of examples">
+			<ng-container *ngFor="let example of examples | filter: search.value">
 				<a mat-list-item
-				   *ngIf="example.path | filterSearch: searchInput.value"
+				   *ngIf="example.path"
 				   [routerLink]="example.path"
 				   [routerLinkActive]="'active'">
-					<div [innerHTML]="example.path | qGridHighlight: searchInput.value">
+					<div [innerHTML]="example.path | qGridHighlight: search.value">
 					</div>
 				</a>
 			</ng-container>

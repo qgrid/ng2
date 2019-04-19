@@ -7,8 +7,7 @@ import {
 	ViewChildren,
 	QueryList,
 	AfterViewInit,
-	NgZone,
-	ViewEncapsulation
+	NgZone
 } from '@angular/core';
 import { Routes, RouterLinkActive } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';

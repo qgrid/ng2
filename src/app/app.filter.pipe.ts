@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'filterSearch'
+    name: 'filter'
 })
 
 export class FilterSearch implements PipeTransform {
-    transform(item: string, search: string) {
-            const contains = new RegExp(search, 'gi');
-            return (contains.test(item));
+    transform(items: any[], search: string) {
+        const contains = new RegExp(search, 'gi');
+        return items.filter(item => contains.test(item.path));
     }
 }

@@ -39,12 +39,8 @@ h1.app-name {
     background-color: #efefef;
 }
 .search {
-    margin: 15px;
-    width: 80%;
+    margin: 15px 35px 15px 15px;
     display: block;
-     input{
-        height: 25px;
-    }
 }
 .mat-sidenav {
    width: 260px;
@@ -53,7 +49,4 @@ h1.app-name {
     display: block;
     height: calc(100% - 108px);
     overflow-y: auto;
-}
-.highlight {
-    background-color: #fceb00;
 }
