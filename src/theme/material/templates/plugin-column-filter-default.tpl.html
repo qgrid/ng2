@@ -5,7 +5,7 @@
 
 	<mat-form-field class="q-grid-column-filter-input">
 		<input matInput
-		       [placeholder]="$plugin.operator | beautify"
+		       [placeholder]="$plugin.operator | qGridText : 'fromCamelCase'"
 		       [(ngModel)]="$plugin.exprValue[0]"
 		       q-grid-focus />
 	</mat-form-field>

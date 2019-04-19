@@ -22,7 +22,7 @@
 					</mat-select-trigger>
 					<mat-option *ngFor="let op of $plugin.operators"
 					            [value]="op">
-						{{ op | beautify }}
+						{{ op | qGridText : 'fromCamelCase' }}
 					</mat-option>
 				</mat-select>
 

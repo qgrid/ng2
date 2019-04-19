@@ -5,7 +5,7 @@
 
 	<mat-form-field class="q-grid-column-filter-input">
 		<input matInput
-		       [placeholder]="$plugin.operator | beautify"
+		       [placeholder]="$plugin.operator | qGridText : 'fromCamelCase'"
 		       disabled />
 	</mat-form-field>
 </ng-template>
