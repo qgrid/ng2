@@ -11,8 +11,8 @@
 		       #inputLeft
 		       placeholder="From"
 		       [matDatepicker]="leftPicker"
-		       [ngModel]="$plugin.exprValue[0] | qGridDate:'yyyy-MM-dd'"
-		       (ngModelChange)="isValid(inputLeft.value) && ($plugin.exprValue[0] = $event)" />
+		       [ngModel]="$columnFilter.expression.right[0] | qGridDate:'yyyy-MM-dd'"
+		       (ngModelChange)="isValid(inputLeft.value) && ($columnFilter.expression.right[0] = $event)" />
 		
 		<mat-datepicker-toggle matSuffix [for]="leftPicker"> </mat-datepicker-toggle>
 		<mat-datepicker #leftPicker> </mat-datepicker>
@@ -25,8 +25,8 @@
 		       #inputRight
 		       placeholder="To"
 		       [matDatepicker]="rightPicker"
-		       [ngModel]="$plugin.exprValue[1] | qGridDate:'yyyy-MM-dd'"
-			   (ngModelChange)="isValid(inputRight.value) && ($plugin.exprValue[1] = $event)" />
+		       [ngModel]="$columnFilter.expression.right[1] | qGridDate:'yyyy-MM-dd'"
+			   (ngModelChange)="isValid(inputRight.value) && ($columnFilter.expression.right[1] = $event)" />
 			   
 		<mat-datepicker-toggle matSuffix [for]="rightPicker"> </mat-datepicker-toggle>
 		<mat-datepicker #rightPicker> </mat-datepicker>

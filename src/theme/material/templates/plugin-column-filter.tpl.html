@@ -15,7 +15,7 @@
 				<!-- Fitler operator select -->
 				<mat-select class="q-grid-column-filter-operator-select"
 				            *ngIf="$plugin.hasOperators"
-				            [(value)]="$plugin.operator"
+				            [(value)]="$columnFilter.expression.op"
 				            (selectionChange)="$plugin.reset()">
 					<mat-select-trigger>
 						<mat-icon class="q-grid-icon">more_vert</mat-icon>
@@ -27,7 +27,7 @@
 				</mat-select>
 
 				<!-- Form inputs in accordance with selected filter operator -->
-				<ng-container [key]="$plugin.operatorTemplateKey"
+				<ng-container [key]="$plugin.operatorTemplateKey($columnFilter.expression.op)"
 				              [context]="{ $implicit: $columnFilter, plugin: $plugin, vscroll: $vscroll }">
 				</ng-container>
 
@@ -44,7 +44,7 @@
 			</button>
 			<button mat-button
 			        color="primary"
-			        (click)="$columnFilter.submit.execute($plugin.operator, $plugin.operatorValue)">
+			        (click)="$columnFilter.submit.execute()">
 				Apply
 			</button>
 		</mat-card-actions>

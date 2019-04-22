@@ -16,7 +16,16 @@ export class ColumnFilterView {
 		const filterBy = this.model.filter().by[this.key];
 		this.by = new Set((filterBy && filterBy.items) || []);
 		this.byBlanks = !!(filterBy && filterBy.blanks);
-		this.expression = filterBy && filterBy.expression;
+		this.expression = filterBy && filterBy.expression || {
+			kind: "condition",
+			op: "contains",
+			left: this.key,
+			right: []
+		};
+
+		if (filterBy && filterBy.expression && filterBy.expression.op !== 'between') {
+			this.expression.right = [filterBy.expression.right];
+		}
 
 		this.items = [];
 
@@ -84,39 +93,20 @@ export class ColumnFilterView {
 
 			submit: new Command({
 				source: 'column.filter.view',
-				execute: (operator, value) => {
+				execute: () => {
 					const model = this.model;
 					const by = clone(model.filter().by);
 
 					const filter = by[this.key] || {};
 
-					switch (operator) {
-						case 'contains': {
-							filter.items = Array.from(this.by);
-							filter.blanks = this.byBlanks;
-							filter.expression = null;
-							break;
-						}
-						default: {
-							if (!value) {
-								filter.items = Array.from(this.by);
-								filter.blanks = this.byBlanks;
-								filter.expression = null;
-								break;
-							}
-						}
-						case 'isEmpty':
-						case 'isNotEmpty':
-						case 'isNull':
-						case 'isNotNull': {
-							filter.expression = {
-								kind: 'condition',
-								left: this.key,
-								op: operator,
-								right: value,
-							};
-							filter.items = [];
-							filter.blanks = false;
+					filter.items = Array.from(this.by);
+					filter.blanks = this.byBlanks;
+
+					if (this.expression.op !== 'contains') {
+						filter.expression = this.expression;
+
+						if (this.expression.op !== 'between') {
+							filter.expression.right = this.expression.right[0];
 						}
 					}
 
@@ -143,7 +133,7 @@ export class ColumnFilterView {
 				execute: () => {
 					this.by = new Set();
 					this.byBlanks = false;
-					this.expression = {};
+					this.expression.right = [];
 					this.resetEvent.emit();
 				}
 			}),

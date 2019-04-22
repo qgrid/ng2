@@ -26,12 +26,9 @@ import { PluginService } from '../plugin.service';
 export class ColumnFilterComponent implements OnInit {
 	@Input() column: ColumnModel;
 	@Input() search = '';
-	@Input() exprValue = [];
 
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
-
-	operator = '';
 
 	context: {
 		$implicit: ColumnFilterView,
@@ -59,16 +56,6 @@ export class ColumnFilterComponent implements OnInit {
 		const context = { key };
 
 		const columnFilter = new ColumnFilterView(model, context);
-		this.operator = this.operators[0];
-
-		if (columnFilter.expression) {
-			this.operator = columnFilter.expression.op;
-			if (columnFilter.expression.op === 'between') {
-				this.exprValue = columnFilter.expression.right;
-			} else {
-				this.exprValue[0] = columnFilter.expression.right;
-			}
-		}
 
 		columnFilter.submitEvent.on(() => this.submitEvent.emit());
 		columnFilter.cancelEvent.on(() => this.cancelEvent.emit());
@@ -160,50 +147,33 @@ export class ColumnFilterComponent implements OnInit {
 
 	clear() {
 		this.search = '';
-		this.exprValue = [];
 		this.context.$implicit.reset.execute();
 	}
 
-	get operatorTemplateKey() {
-		const { column, operator } = this;
-		switch (operator) {
-			case 'contains': {
-				return 'plugin-column-filter-default-contains.tpl.html';
-			}
-			case 'between': {
-				return column.type === 'date'
-					? 'plugin-column-filter-date-between.tpl.html'
-					: 'plugin-column-filter-default-between.tpl.html';
-			}
+	operatorTemplateKey(op) {
+		let tplName;
+		switch (op) {
 			case 'isEmpty':
 			case 'isNotEmpty':
 			case 'isNull':
 			case 'isNotNull': {
-				return 'plugin-column-filter-default-disabled.tpl.html';
+				tplName = 'default-disabled';
+				break;
 			}
-			default: {
-				return column.type === 'date'
-					? 'plugin-column-filter-date.tpl.html'
-					: 'plugin-column-filter-default.tpl.html';
-			}
-		}
-	}
-
-	get operatorValue() {
-		switch (this.operator) {
-			case 'isNull':
-			case 'isNotNull':
-			case 'isEmpty':
-			case 'isNotEmpty': {
-				return null;
+			case 'contains': {
+				tplName = 'default-contains';
+				break;
 			}
 			case 'between': {
-				return this.exprValue;
+				tplName = this.column.type === 'date' ? 'date-between' : 'default-between';
+				break;
 			}
 			default: {
-				return this.exprValue[0];
+				tplName = this.column.type === 'date' ? 'date' : 'default';
+				break;
 			}
 		}
+		return `plugin-column-filter-${tplName}.tpl.html`;
 	}
 
 	get hasOperators() {
