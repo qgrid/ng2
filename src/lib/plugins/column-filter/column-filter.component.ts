@@ -198,29 +198,15 @@ export class ColumnFilterComponent implements OnInit {
 				return null;
 			}
 			case 'between': {
-				return this.column.type === 'date'
-					? this.exprValue.map(d => this.yyyymmdd(d, '-'))
-					: this.exprValue;
+				return this.exprValue;
 			}
 			default: {
-				return this.column.type === 'date'
-					? this.yyyymmdd(this.exprValue[0], '-')
-					: this.exprValue[0];
+				return this.exprValue[0];
 			}
 		}
 	}
 
 	get hasOperators() {
 		return this.operators && this.operators.length > 1;
-	}
-
-	yyyymmdd(date, separator) {
-		if (!date || !date.getFullYear) {
-			return date;
-		}
-		const yyyy = date.getFullYear();
-		const mm = (date.getMonth() + 1).toString().padStart(2, '0');
-		const dd = date.getDate().toString().padStart(2, '0');
-		return [yyyy, mm, dd].join(separator);
 	}
 }

@@ -1,5 +1,5 @@
 import { AppError } from '../infrastructure/error';
-import { castFactory as castAsFactory } from './cast.factory';
+import { parseFactory, getType } from '../services/convert';
 import { Visitor } from './expression.visitor';
 import { isArray, identity } from '../utility/kit';
 
@@ -40,16 +40,18 @@ export class PredicateVisitor extends Visitor {
 		const assert = this.assertFactory(name);
 		const map = new Set();
 
-		let rCastAs;
+		let parse, rt;
 		if (isArray(r)) {
 			if (r.length) {
-				rCastAs = castAsFactory(r[0]);
+				rt = getType(r[0]);
+				parse = parseFactory(rt);
 				r.forEach(x => map.add('' + x));
 			} else {
-				rCastAs = identity;
+				parse = identity;
 			}
 		} else {
-			rCastAs = castAsFactory(r);
+			rt = getType(r);
+			parse = parseFactory(rt);
 		}
 
 		const equals = assert.equals;
@@ -70,25 +72,25 @@ export class PredicateVisitor extends Visitor {
 				predicate = l => isNull(l);
 				break;
 			case 'equals':
-				predicate = l => equals(rCastAs(l), l);
+				predicate = l => equals(parse(l), r);
 				break;
 			case 'notEquals':
-				predicate = l => !equals(rCastAs(l), l);
+				predicate = l => !equals(parse(l), r);
 				break;
 			case 'greaterThanOrEquals':
-				predicate = l => greaterThanOrEquals(l, rCastAs(l));
+				predicate = l => greaterThanOrEquals(parse(l), r);
 				break;
 			case 'greaterThan':
-				predicate = l => greaterThan(l, rCastAs(l));
+				predicate = l => greaterThan(parse(l), r);
 				break;
 			case 'lessThanOrEquals':
-				predicate = l => lessThanOrEquals(l, rCastAs(l));
+				predicate = l => lessThanOrEquals(parse(l), r);
 				break;
 			case 'lessThan':
-				predicate = l => lessThan(l, rCastAs(l));
+				predicate = l => lessThan(parse(l), r);
 				break;
 			case 'between':
-				predicate = l => lessThanOrEquals(castAsFactory(r[0])(l), l) && greaterThanOrEquals(castAsFactory(r[1])(l), l);
+				predicate = l => lessThanOrEquals(parse(l), r[1]) && greaterThanOrEquals(parse(l), r[0]);
 				break;
 			case 'in':
 				predicate = l => {
@@ -97,28 +99,17 @@ export class PredicateVisitor extends Visitor {
 				};
 				break;
 			case 'like':
-				predicate = l => {
-					const r = rCastAs(l);
-					return l && ('' + l).toLowerCase().includes(('' + r).toLowerCase());
-				};
+				predicate = l => l && ('' + l).toLowerCase().includes(('' + r).toLowerCase());
 				break;
 			case 'notLike':
-				predicate = l => {
-					const r = rCastAs(l);
-					return l && !('' + l).toLowerCase().includes(('' + r).toLowerCase());
-				};
+				predicate = l => l && !('' + l).toLowerCase().includes(('' + r).toLowerCase());
 				break;
 			case 'startsWith':
-				predicate = l => {
-					const r = rCastAs(l);
-					const substr = l.substr(0, r.length).toLowerCase();
-					return ('' + r).toLowerCase() === substr;
-				};
+				predicate = l => l && (('' + l).toLowerCase().indexOf(('' + r).toLowerCase()) === 0);
 				break;
 			case 'endsWith':
 				predicate = l => {
-					const r = rCastAs(l);
-					const substr = l.slice(-r.length).toLowerCase();
+					const substr = ('' + l).slice(-('' + r).length).toLowerCase();
 					return ('' + r).toLowerCase() === substr;
 				};
 				break;
