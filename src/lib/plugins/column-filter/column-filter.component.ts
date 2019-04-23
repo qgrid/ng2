@@ -151,29 +151,29 @@ export class ColumnFilterComponent implements OnInit {
 	}
 
 	operatorTemplateKey(op) {
-		let tplName;
+		let key;
 		switch (op) {
 			case 'isEmpty':
 			case 'isNotEmpty':
 			case 'isNull':
 			case 'isNotNull': {
-				tplName = 'default-disabled';
+				key = 'default-disabled';
 				break;
 			}
 			case 'contains': {
-				tplName = 'default-contains';
+				key = 'default-contains';
 				break;
 			}
 			case 'between': {
-				tplName = this.column.type === 'date' ? 'date-between' : 'default-between';
+				key = this.column.type === 'date' ? 'date-between' : 'default-between';
 				break;
 			}
 			default: {
-				tplName = this.column.type === 'date' ? 'date' : 'default';
+				key = this.column.type === 'date' ? 'date' : 'default';
 				break;
 			}
 		}
-		return `plugin-column-filter-${tplName}.tpl.html`;
+		return `plugin-column-filter-${key}.tpl.html`;
 	}
 
 	get hasOperators() {

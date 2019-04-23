@@ -40,23 +40,18 @@ export class PredicateVisitor extends Visitor {
 		const assert = this.assertFactory(name);
 		const map = new Set();
 
-		let parse, rt;
+		const rt = getType(isArray(r) ? r[0] : r);
+		const parse = parseFactory(rt);
+
 		if (isArray(r)) {
 			if (r.length) {
-				rt = getType(r[0]);
-				parse = parseFactory(rt);
 				r.forEach(x => map.add('' + x));
 			} else {
 				parse = identity;
 			}
-		} else {
-			rt = getType(r);
-			parse = parseFactory(rt);
 		}
 
-		const equals = assert.equals;
-		const isNull = assert.isNull;
-		const lessThan = assert.lessThan;
+		const { equals, isNull, lessThan } = assert;
 		const lessThanOrEquals = (x, y) => equals(parse(x), parse(y)) || lessThan(x, y);
 		const greaterThan = (x, y) => !lessThanOrEquals(x, y);
 		const greaterThanOrEquals = (x, y) => !lessThan(x, y);
