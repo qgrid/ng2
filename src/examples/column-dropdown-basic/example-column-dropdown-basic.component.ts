@@ -16,7 +16,8 @@ export class ExampleColumnDropdownBasicComponent {
 			'date': new Date(2018, 9, 12),
 			'null': null,
 			'undefined': undefined,
-			'empty': ''
+			'empty': '',
+			'object': null
 		}
 	];
 
@@ -40,4 +41,19 @@ export class ExampleColumnDropdownBasicComponent {
 	numberObservableFetchOptions = {
 		fetch: of([Math.PI, Math.LN10, Math.LN2, Math.E, Math.LOG10E, Math.LOG2E, Math.SQRT1_2])
 	};
+
+	objectFetchOptions = {
+		fetch: [
+			{ label: 'hello' },
+			{ label: 'world' }
+		]
+	};
+
+	getLabel(row: any) {
+		return row.object ? row.object.label : '';
+	}
+
+	getItemLabel(item: { label: string }) {
+		return item.label;
+	}
 }
