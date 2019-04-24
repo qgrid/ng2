@@ -20,12 +20,9 @@ export class ColumnFilterView {
 			kind: "condition",
 			op: "contains",
 			left: this.key,
-			right: []
+			right: null
 		};
-
-		if (filterBy && filterBy.expression && filterBy.expression.op !== 'between') {
-			this.expression.right = [filterBy.expression.right];
-		}
+		this.value = this.expression.right;
 
 		this.items = [];
 
@@ -104,10 +101,7 @@ export class ColumnFilterView {
 
 					if (this.expression.op !== 'contains') {
 						filter.expression = this.expression;
-
-						if (this.expression.op !== 'between') {
-							filter.expression.right = this.expression.right[0];
-						}
+						filter.expression.right = this.value;
 					}
 
 					if (filter.items && filter.items.length || filter.blanks || filter.expression) {
@@ -133,6 +127,7 @@ export class ColumnFilterView {
 				execute: () => {
 					this.by = new Set();
 					this.byBlanks = false;
+					this.value = this.expression.op === "between" ? [] : null;
 					this.expression.right = [];
 					this.resetEvent.emit();
 				}
