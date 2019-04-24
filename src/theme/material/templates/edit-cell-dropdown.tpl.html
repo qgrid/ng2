@@ -9,7 +9,7 @@
 					(openedChange)="!$event && $view.edit.cell.exit.execute()">
 			<mat-option *ngFor="let option of $view.edit.cell.fetch.result"
 						[value]="option">
-				{{option}}
+				{{($cell.column.itemLabel && $cell.column.itemLabel(option)) || option}}
 			</mat-option>
 		</mat-select>
 	</q-grid-cell-editor>

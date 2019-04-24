@@ -1,5 +1,4 @@
 import { identity, compare } from '../utility/kit';
-import { Command } from '../command/command';
 import { TemplatePath } from '../template/template.path';
 
 TemplatePath.register('custom-cell', (template, column) => {
@@ -66,6 +65,8 @@ export class ColumnModel {
 
 		this.$label = null;
 		this.$value = null;
+
+		this.itemLabel = identity;
 	}
 
 	toString() {
