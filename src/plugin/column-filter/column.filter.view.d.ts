@@ -13,7 +13,7 @@ export declare class ColumnFilterView {
 	submitEvent: Event;
 	getValue: (row: any) => any;
 	column: ColumnModel;
-	value: string | Date | number | Array<any>;
+	value: any;
 	items: Array<any>;
 	reset: Command;
 	commit: Command;
