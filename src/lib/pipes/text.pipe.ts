@@ -8,9 +8,7 @@ export class TextPipe implements PipeTransform {
     transform(item: string, format: 'fromCamelCase'): string {
         switch (format) {
             case 'fromCamelCase': {
-                const lcAll = item.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
-                const ucFirst = lcAll.charAt(0).toUpperCase() + lcAll.slice(1);
-                return ucFirst;
+                return item.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
             }
             default: {
                 throw new AppError('text.pipe', `Unknown input format type '${format}'`);

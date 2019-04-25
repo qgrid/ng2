@@ -152,12 +152,20 @@
 }
 
 @at-root .mat-option {
+    .mat-option-text::first-letter {
+        text-transform: uppercase;
+    }
+
     .mat-icon.html {
         font-size: 20px;
         line-height: 20px;
         margin-top: -6px;
         margin-right: 0;
     }
+}
+
+@at-root .mat-form-field-label::first-letter {
+    text-transform: uppercase;
 }
 
 @at-root .q-grid-filter-by {
