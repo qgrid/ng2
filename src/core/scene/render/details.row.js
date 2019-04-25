@@ -1,8 +1,12 @@
 import { AppError } from '../../infrastructure/error';
 import { sumBy } from '../../utility/kit';
+import { columnFactory } from '../../column/column.factory';
 
 export class DetailsRow {
-	constructor(dataRow) {
+	constructor(model, dataRow) {
+		const createColumn = columnFactory(model);
+		const emptyColumn = createColumn('pad', { key: 'row-details-pad' });
+
 		this.columns = dataRow.getColumns;
 		this.rowspan = dataRow.rowspan;
 
@@ -15,9 +19,8 @@ export class DetailsRow {
 				return [rowDetails.column];
 			}
 
-			return dataRow.columnList(pin);
+			return [emptyColumn];
 		};
-
 
 		this.getValue = () => { throw new AppError('details.row', `Can't get value from row details`); };
 		this.getLabel = () => { throw new AppError('details.row', `Can't get label from row details`); };

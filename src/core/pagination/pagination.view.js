@@ -2,8 +2,8 @@ export class PaginationView {
 	constructor(model) {
 		this.model = model;
 
-		const triggers = model.pagination().resetTriggers;
-		Object.keys(triggers)
+		const { resetTriggers } = model.pagination();
+		Object.keys(resetTriggers)
 			.forEach(name =>
 				model[name + 'Changed']
 					.on(e => {
@@ -15,7 +15,7 @@ export class PaginationView {
 							return;
 						}
 
-						const trigger = triggers[name];
+						const trigger = resetTriggers[name];
 						for (const key of trigger) {
 							if (e.hasChanges(key)) {
 								model.pagination({ current: 0 }, { source: e.tag.source || 'pagination.view' });

@@ -8,7 +8,6 @@ export class PaginationModel {
 		this.sizeList = [5, 10, 20, 30, 40, 50];
 		this.count = 0;
 		this.resetTriggers = {
-			'data': ['rows'],
 			'filter': ['by'],
 			'pivot': ['by'],
 			'group': ['by']

@@ -2,7 +2,7 @@ import { ColumnView } from '../scene/view/column.view';
 import { DataColumnModel } from './data.column.model';
 import { TemplatePath } from '../template/template.path';
 import { get as getValue } from '../services/value';
-import { isArray, identity } from '../utility/kit';
+import { isArray } from '../utility/kit';
 import { FormatService } from '../format/format.service';
 
 TemplatePath.register('array-cell', (template, column) => {
@@ -24,7 +24,6 @@ export class ArrayColumnModel extends DataColumnModel {
 		super('array');
 
 		this.itemType = 'text';
-		this.itemLabel = identity;
 		this.itemFormat = '';
 
 		this.label = function (row) {
