@@ -88,6 +88,29 @@ export class ColumnFilterView {
 				}
 			}),
 
+			update: new Command({
+				source: 'column.filter.view',
+				execute: () => {
+					this.items = [];
+
+					let { value } = this;
+					switch (this.expression.op) {
+						case 'between': {
+							if (!Array.isArray(value)) {
+								this.value = [value];
+							}
+							break;
+						}
+						default: {
+							if (Array.isArray(value)) {
+								this.value = value[0];
+							}
+							break;
+						}
+					}
+				}
+			}),
+
 			submit: new Command({
 				source: 'column.filter.view',
 				execute: () => {

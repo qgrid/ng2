@@ -16,6 +16,7 @@ export declare class ColumnFilterView {
 	value: any;
 	items: Array<any>;
 	reset: Command;
+	update: Command;
 	commit: Command;
 	cancel: Command;
 	hasBlanks: boolean;

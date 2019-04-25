@@ -140,24 +140,8 @@ export class ColumnFilterComponent implements OnInit {
 		};
 	}
 
-	reset(op) {
-		let { value } = this.context.$implicit;
-		switch (op) {
-			case 'between': {
-				if (!Array.isArray(value)) {
-					this.context.$implicit.value = [value];
-				}
-				break;
-			}
-			default: {
-				if (Array.isArray(value)) { 
-					this.context.$implicit.value = value[0]; 
-				}
-				break;
-			}
-		}
-
-		this.context.$implicit.items = [];
+	reset() {
+		this.context.$implicit.update.execute();
 		this.vscrollContext.container.reset();
 	}
 

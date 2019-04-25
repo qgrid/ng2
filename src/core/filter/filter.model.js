@@ -21,8 +21,8 @@ export class FilterModel {
 				case 'date': {
 					return [
 						'contains',
-						'lessThanOrEquals',
-						'greaterThanOrEquals',
+						'lessThan',
+						'greaterThan',
 						'between',
 						'equals',
 						'notEquals',
