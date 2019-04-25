@@ -52,7 +52,7 @@ export class PredicateVisitor extends Visitor {
 		}
 
 		const { equals, isNull, lessThan } = assert;
-		const lessThanOrEquals = (x, y) => equals(parse(x), parse(y)) || lessThan(x, y);
+		const lessThanOrEquals = (x, y) => equals(x, y) || lessThan(x, y);
 		const greaterThan = (x, y) => !lessThanOrEquals(x, y);
 		const greaterThanOrEquals = (x, y) => !lessThan(x, y);
 
@@ -67,25 +67,25 @@ export class PredicateVisitor extends Visitor {
 				predicate = l => isNull(l);
 				break;
 			case 'equals':
-				predicate = l => equals(parse(l), r);
+				predicate = l => equals(parse(l), parse(r));
 				break;
 			case 'notEquals':
-				predicate = l => !equals(parse(l), r);
+				predicate = l => !equals(parse(l), parse(r));
 				break;
 			case 'greaterThanOrEquals':
-				predicate = l => greaterThanOrEquals(parse(l), r);
+				predicate = l => greaterThanOrEquals(parse(l), parse(r));
 				break;
 			case 'greaterThan':
-				predicate = l => greaterThan(parse(l), r);
+				predicate = l => greaterThan(parse(l), parse(r));
 				break;
 			case 'lessThanOrEquals':
-				predicate = l => lessThanOrEquals(parse(l), r);
+				predicate = l => lessThanOrEquals(parse(l), parse(r));
 				break;
 			case 'lessThan':
-				predicate = l => lessThan(parse(l), r);
+				predicate = l => lessThan(parse(l), parse(r));
 				break;
 			case 'between':
-				predicate = l => lessThanOrEquals(parse(l), r[1]) && greaterThanOrEquals(parse(l), r[0]);
+				predicate = l => lessThanOrEquals(parse(l), parse(r[1])) && greaterThanOrEquals(parse(l), parse(r[0]));
 				break;
 			case 'in':
 				predicate = l => {
