@@ -141,7 +141,7 @@ export class ColumnFilterComponent implements OnInit {
 	}
 
 	reset() {
-		this.context.$implicit.update.execute();
+		this.context.$implicit.items = [];
 		this.vscrollContext.container.reset();
 	}
 

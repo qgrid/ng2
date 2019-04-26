@@ -11,7 +11,7 @@
 		       matInput
 		       #input
 		       [matDatepicker]="picker"
-		       [placeholder]="$columnFilter.expression.op | qGridText : 'fromCamelCase'"
+		       [placeholder]="$columnFilter.operator | qGridText : 'fromCamelCase'"
 		       [ngModel]="$columnFilter.value | qGridDate:'yyyy-MM-dd'"
 			   (ngModelChange)="isValid(input.value) && ($columnFilter.value = $event)" />
 			   
