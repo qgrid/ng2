@@ -46,9 +46,13 @@ export class ColumnFilterComponent implements OnInit {
 		focusAfterRender: FocusAfterRender) {
 	}
 
+	get operators() {
+		return this.plugin.model.filter().operatorFactory(this.column);
+	}
+
 	ngOnInit() {
 		const { model } = this.plugin;
-		const key = this.column.key;
+		const { key } = this.column;
 		const context = { key };
 
 		const columnFilter = new ColumnFilterView(model, context);
@@ -139,5 +143,40 @@ export class ColumnFilterComponent implements OnInit {
 	reset() {
 		this.context.$implicit.items = [];
 		this.vscrollContext.container.reset();
+	}
+
+	clear() {
+		this.search = '';
+		this.context.$implicit.reset.execute();
+	}
+
+	operatorTemplateKey(op) {
+		let key;
+		switch (op) {
+			case 'isEmpty':
+			case 'isNotEmpty':
+			case 'isNull':
+			case 'isNotNull': {
+				key = 'default-disabled';
+				break;
+			}
+			case 'contains': {
+				key = 'default-contains';
+				break;
+			}
+			case 'between': {
+				key = this.column.type === 'date' ? 'date-between' : 'default-between';
+				break;
+			}
+			default: {
+				key = this.column.type === 'date' ? 'date' : 'default';
+				break;
+			}
+		}
+		return `plugin-column-filter-${key}.tpl.html`;
+	}
+
+	get hasOperators() {
+		return this.operators && this.operators.length > 1;
 	}
 }

@@ -3,7 +3,9 @@ import {
 	DoCheck,
 	EmbeddedViewRef,
 	Input,
-	ViewContainerRef
+	ViewContainerRef,
+	SimpleChanges,
+	OnChanges
 } from '@angular/core';
 import { TemplateService } from './template.service';
 
@@ -11,9 +13,10 @@ import { TemplateService } from './template.service';
 	// tslint:disable-next-line
 	selector: 'ng-container[key]'
 })
-export class TemplateDirective implements DoCheck {
+export class TemplateDirective implements DoCheck, OnChanges {
 	private viewRef: EmbeddedViewRef<any>;
 
+	@Input() check = false;
 	@Input() key: any = '';
 	@Input() context = null;
 
@@ -21,6 +24,16 @@ export class TemplateDirective implements DoCheck {
 		private templateService: TemplateService,
 		private viewContainerRef: ViewContainerRef
 	) { }
+
+	ngOnChanges(changes: SimpleChanges) {
+		const keyChange = changes['key'];
+		if (keyChange) {
+			if (this.viewRef) {
+				this.viewRef.destroy();
+				this.viewRef = null;
+			}
+		}
+	}
 
 	ngDoCheck() {
 		if (!this.viewRef) {
