@@ -12,7 +12,7 @@
 				 [mode]="mobileQuery.matches ? 'over' : 'side'"
 				 [fixedInViewport]="mobileQuery.matches"
 				 fixedTopGap="56">
-		<mat-form-field class="search">
+		<mat-form-field class="app-search">
 			<input matInput
 				   #search
 				   placeholder="Search"
@@ -23,7 +23,7 @@
 				<a mat-list-item
 				   *ngIf="example.path"
 				   [routerLink]="example.path"
-				   [routerLinkActive]="'active'">
+				   [routerLinkActive]="'app-active'">
 					<div [innerHTML]="example.path | qGridHighlight: search.value">
 					</div>
 				</a>
