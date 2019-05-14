@@ -18,18 +18,31 @@ export class FilterModel {
 
 		this.operatorFactory = (column) => {
 			switch (column.type) {
+				case 'text':
+				case 'url':
+				case 'email':
+				case 'file': {
+					return [
+						'contains',
+						'like',
+						'notLike',
+						'startsWith',
+						'endsWith',
+						'isEmpty',
+						'isNotEmpty',
+					];
+				}
 				case 'date': {
 					return [
 						'contains',
 						'lessThan',
 						'greaterThan',
 						'between',
-						'equals',
-						'notEquals',
 						'isEmpty',
 						'isNotEmpty',
 					];
 				}
+				case 'id':
 				case 'currency':
 				case 'number': {
 					return [
@@ -39,8 +52,6 @@ export class FilterModel {
 						'greaterThan',
 						'greaterThanOrEquals',
 						'between',
-						'equals',
-						'notEquals',
 						'isEmpty',
 						'isNotEmpty',
 					];

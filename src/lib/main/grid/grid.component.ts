@@ -192,7 +192,13 @@ export class GridComponent extends RootComponent implements OnInit {
 				}));
 			});
 		} else {
-			this.using(listener.on('keydown', e => ctrl.keyDown(e)));
+			this.using(listener.on('keydown', e => {
+				const result = ctrl.keyDown(e);
+				if (result.indexOf('selection.view') >= 0) {
+					this.cd.markForCheck();
+					this.zone.run(noop);
+				}
+			}));
 		}
 
 		this.using(model.visibilityChanged.on(() => this.cd.detectChanges()));

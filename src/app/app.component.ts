@@ -39,7 +39,9 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 		this.zone.runOutsideAngular(() => {
 			setTimeout(() => {
 				const activeItem = this.findActiveItem();
-				activeItem.nativeElement.scrollIntoView({ block: 'center' });
+				if (activeItem) {
+					activeItem.nativeElement.scrollIntoView({ block: 'center' });
+				}
 			}, 0);
 		});
 	}
