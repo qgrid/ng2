@@ -7,6 +7,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FilterSearch implements PipeTransform {
     transform(items: any[], search: string) {
         const contains = new RegExp(search, 'i');
-        return (items as any[]).filter(item => contains.test(item.path));
+        return (items).filter(item => contains.test(item.path));
     }
 }
