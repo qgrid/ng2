@@ -24,7 +24,7 @@ export class ExampleSelectRowDisableComponent implements AfterViewInit {
 
 		model.selection({
 			toggle: new Command({
-				canExecute: () => false
+				canExecute: ({ items }) => items.length === 1 && items[0].gender === 'male'
 			})
 		});
 	}

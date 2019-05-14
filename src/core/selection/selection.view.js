@@ -133,12 +133,20 @@ export class SelectionView {
 					const commit = this.toggle(item, source);
 					commit();
 				},
-				canExecute: (...args) => {
-					if (!args.length) {
-						return this.mode === 'multiple';
+				canExecute: row => {
+					const e = {
+						items: isUndefined(row)
+							? this.model.view().rows
+							: [row],
+						source: 'custom',
+						kind: 'toggleRow'
+					};
+
+					if (!row) {
+						return model.selection().toggle.canExecute(e) && this.mode === 'multiple';
 					}
 
-					return true;
+					return model.selection().toggle.canExecute(e);
 				}
 			}),
 			toggleColumn: new Command({
@@ -299,16 +307,16 @@ export class SelectionView {
 	}
 
 	select(items, state, source = 'custom') {
-		const toggle = this.model.selection().toggle;
+		const { toggle } = this.model.selection();
 		const e = {
 			items,
-			state,
 			source,
 			kind: 'select'
 		};
 
 		if (toggle.canExecute(e)) {
 			toggle.execute(e);
+
 			const selectionState = this.form;
 			selectionState.select(items, state);
 
