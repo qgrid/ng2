@@ -205,5 +205,11 @@
             max-height: 400px;
             min-height: 400px;
         }
+
+        .q-grid-column-filter-contains {
+            .q-grid-column-filter-list {
+                max-height: 148px;                
+            }
+        }
     }
 }
