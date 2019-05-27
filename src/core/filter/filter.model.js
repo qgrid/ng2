@@ -15,5 +15,49 @@ export class FilterModel {
 			lessThan: (x, y) => x < y,
 			isNull: x => x === '' || x === null || x === undefined
 		});
+
+		this.operatorFactory = (column) => {
+			switch (column.type) {
+				case 'text':
+				case 'url':
+				case 'email':
+				case 'file': {
+					return [
+						'contains',
+						'like',
+						'notLike',
+						'startsWith',
+						'endsWith',
+						'isEmpty',
+						'isNotEmpty',
+					];
+				}
+				case 'date': {
+					return [
+						'contains',
+						'lessThan',
+						'greaterThan',
+						'between',
+						'isEmpty',
+						'isNotEmpty',
+					];
+				}
+				case 'id':
+				case 'currency':
+				case 'number': {
+					return [
+						'contains',
+						'lessThan',
+						'lessThanOrEquals',
+						'greaterThan',
+						'greaterThanOrEquals',
+						'between',
+						'isEmpty',
+						'isNotEmpty',
+					];
+				}
+				default: { return ['contains']; }
+			}
+		}
 	}
 }

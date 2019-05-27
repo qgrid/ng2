@@ -35,16 +35,20 @@ h1.app-name {
        `<body>` to be our scrolling element for mobile layouts. */
     flex: 1 0 auto;
 }
-.active {
+
+.app-active {
     background-color: #efefef;
 }
-.search {
-    margin: 15px 35px 15px 15px;
+
+.app-search {
+    padding: 10px 15px 0 15px;
     display: block;
 }
+
 .mat-sidenav {
-   width: 260px;
+    width: 260px;
 }
+
 .mat-nav-list {
     display: block;
     height: calc(100% - 108px);

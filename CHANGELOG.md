@@ -10,6 +10,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
+## [6.4.0] - 2019-05-14
+### Added
+- Column filter modes.
+
+### Fixed
+- Selection toggle command can control checkbox disable state.
+
 ## [6.3.9] - 2019-04-24
 ### Added
 - Dropdown supports array of objects.
@@ -370,7 +377,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v6.3.9...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v6.4.0...HEAD
+[6.4.0]: https://github.com/qgrid/ng2/compare/v6.3.9...v6.4.0
 [6.3.9]: https://github.com/qgrid/ng2/compare/v6.3.7...v6.3.9
 [6.3.8]: https://github.com/qgrid/ng2/compare/v6.3.7...v6.3.8
 [6.3.7]: https://github.com/qgrid/ng2/compare/v6.3.5...v6.3.7

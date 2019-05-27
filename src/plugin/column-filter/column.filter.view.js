@@ -16,6 +16,8 @@ export class ColumnFilterView {
 		const filterBy = this.model.filter().by[this.key];
 		this.by = new Set((filterBy && filterBy.items) || []);
 		this.byBlanks = !!(filterBy && filterBy.blanks);
+		this.operator = filterBy && filterBy.expression && filterBy.expression.op || 'contains';
+		this.value = filterBy && filterBy.expression && filterBy.expression.right || null;
 
 		this.items = [];
 
@@ -81,6 +83,29 @@ export class ColumnFilterView {
 				}
 			}),
 
+			changeOperator: new Command({
+				source: 'column.filter.view',
+				execute: (op) => {
+					this.operator = op;
+
+					let { value } = this;
+					switch (op) {
+						case 'between': {
+							if (!Array.isArray(value)) {
+								this.value = [value];
+							}
+							break;
+						}
+						default: {
+							if (Array.isArray(value)) {
+								this.value = value[0];
+							}
+							break;
+						}
+					}
+				}
+			}),
+
 			submit: new Command({
 				source: 'column.filter.view',
 				execute: () => {
@@ -88,10 +113,20 @@ export class ColumnFilterView {
 					const by = clone(model.filter().by);
 
 					const filter = by[this.key] || {};
+
 					filter.items = Array.from(this.by);
 					filter.blanks = this.byBlanks;
 
-					if (filter.items.length || filter.blanks || filter.expression) {
+					if (this.operator !== 'contains') {
+						filter.expression = {
+							kind: "condition",
+							op: this.operator,
+							left: this.key,
+							right: this.value
+						};
+					}
+
+					if (filter.items && filter.items.length || filter.blanks || filter.expression) {
 						by[this.key] = filter;
 					}
 					else {
@@ -114,6 +149,7 @@ export class ColumnFilterView {
 				execute: () => {
 					this.by = new Set();
 					this.byBlanks = false;
+					this.value = this.operator === "between" ? [] : null;
 					this.resetEvent.emit();
 				}
 			}),

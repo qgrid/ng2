@@ -1,7 +1,7 @@
 <ng-template key="plugin-column-filter.tpl.html"
-			 let-$columnFilter
-			 let-$plugin="plugin"
-			 let-$vscroll="vscroll">
+             let-$columnFilter
+             let-$plugin="plugin"
+             let-$vscroll="vscroll">
 	<mat-card class="mat-elevation-z">
 		<mat-card-header>
 			<mat-card-title>
@@ -9,73 +9,42 @@
 			</mat-card-title>
 		</mat-card-header>
 		<mat-card-content>
-			<mat-form-field class="q-grid-column-filter-filter">
-				<input type="search"
-					   matInput
-					   placeholder="Find in the list"
-					   [(ngModel)]="$plugin.search"
-					   (input)="$plugin.reset()"
-					   q-grid-focus />
-			</mat-form-field>
-			<ul class="q-grid-column-filter-toolbar">
-				<li>
-					<mat-checkbox [checked]="$columnFilter.stateAll()"
-								  (change)="$columnFilter.toggleAll.execute($plugin.search)"
-								  [indeterminate]="$columnFilter.isIndeterminate()">
-						Select All
-					</mat-checkbox>
-				</li>
-			</ul>
-			<div [ngSwitch]="$columnFilter.isEmpty()"
-				 class="q-grid-column-filter-by">
-				<ng-container *ngSwitchCase="false">
-					<div class="q-grid-column-filter-by-blank">
-						NO SELECTED FILTERS
-					</div>
+			<div class='q-grid-column-filter-{{$columnFilter.operator}}'
+			     [ngClass]="{ 'q-grid-column-filter-with-operators' : $plugin.hasOperators }">
+
+				<!-- Fitler operator select -->
+				<mat-select class="q-grid-column-filter-operator-select"
+				            *ngIf="$plugin.hasOperators"
+				            [(value)]="$columnFilter.operator"
+				            (selectionChange)="$plugin.reset(); $columnFilter.changeOperator.execute($columnFilter.operator)">
+					<mat-select-trigger>
+						<mat-icon class="q-grid-icon">more_vert</mat-icon>
+					</mat-select-trigger>
+					<mat-option *ngFor="let op of $plugin.operators"
+					            [value]="op">
+						{{ op | qGridText : 'fromCamelCase' }}
+					</mat-option>
+				</mat-select>
+
+				<!-- Form inputs in accordance with selected filter operator -->
+				<ng-container [key]="$plugin.operatorTemplateKey($columnFilter.operator)"
+				              [context]="{ $implicit: $columnFilter, plugin: $plugin, vscroll: $vscroll }">
 				</ng-container>
-				<ng-container *ngSwitchCase="true">
-					<q-grid-column-filter-by [by]="$columnFilter.by"
-											 [(byBlanks)]="$columnFilter.byBlanks"
-											 [column]="$plugin.column">
-					</q-grid-column-filter-by>
-				</ng-container>
-			</div>
-			<div class="q-grid-column-filter-list"
-				 [q-grid-column-filter-item-list]="$plugin.column"
-				 [q-grid-column-filter-search]="$plugin.search"
-				 q-grid-vscroll>
-				<ul [q-grid-vscroll-port-y]="$vscroll">
-					<li *ngFor="let item of $columnFilter.items | qGridVscroll: $vscroll; let $index = index; trackBy: $vscroll.id"
-						[q-grid-vscroll-row]="$index">
-						<mat-checkbox [checked]="$columnFilter.state(item)"
-									  *ngIf="$columnFilter.toggle.canExecute(item)"
-									  aria-label="Select filter value"
-									  (change)="$columnFilter.toggle.execute(item)">
-							<ng-container [q-grid-column-filter-item]="item"></ng-container>
-						</mat-checkbox>
-					</li>
-					<li>
-						<mat-checkbox *ngIf="$columnFilter.hasBlanks"
-									  [(ngModel)]="$columnFilter.byBlanks"
-									  aria-label="Select blanks">
-							<span [innerHTML]="'(Blanks)' | qGridHighlight: $plugin.search"></span>
-						</mat-checkbox>
-					</li>
-				</ul>
+
 			</div>
 		</mat-card-content>
 		<mat-card-actions>
 			<button mat-button
-					(click)="$columnFilter.cancel.execute()">
+			        (click)="$columnFilter.cancel.execute()">
 				Cancel
 			</button>
 			<button mat-button
-					(click)="$columnFilter.reset.execute()">
+			        (click)="$plugin.clear()">
 				Clear
 			</button>
 			<button mat-button
-					color="primary"
-					(click)="$columnFilter.submit.execute()">
+			        color="primary"
+			        (click)="$columnFilter.submit.execute()">
 				Apply
 			</button>
 		</mat-card-actions>
