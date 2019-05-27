@@ -33,5 +33,6 @@ export class ExampleActionBarBasicComponent {
 	});
 
 	constructor(private dataService: DataService) {
+		this.rows = dataService.getAtoms();
 	}
 }
