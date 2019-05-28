@@ -73,7 +73,7 @@ h1.app-name {
     overflow-y: auto;
 }
 
-::ng-deep {
+/deep/ {
     .mat-form-field,
     .mat-form-field.mat-focused {
         .mat-form-field-label {
@@ -122,10 +122,10 @@ h1.app-name {
     background-color: #0078CF;
 }
 
-.links {
+.app-source-links {
     position: absolute;
     z-index: 2;
-    top: 48px;
+    top: 55px;
     right: 15px;
 
     a {
@@ -139,13 +139,13 @@ h1.app-name {
         background-position: 8px center;
     }
 
-    .github {
+    .app-source-github {
         padding-left: 28px;
-        background-image: url('assets/logos/github.png');
+        background-image: url('assets/icons/github.png');
     }
 
-    .stackblitz {
+    .app-source-stackblitz {
         padding-left: 22px;
-        background-image: url('assets/logos/stackblitz.svg');
+        background-image: url('assets/icons/stackblitz.svg');
     }
 }

@@ -26,7 +26,8 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
 	@ViewChildren(RouterLinkActive, {read: ElementRef})
 	menuItems: QueryList<ElementRef>;
-	activeItemName: string = null;
+	githubUrl: string = null;
+	stackblitzUrl: string = null;
 
 	private mobileQueryListener: () => void;
 
@@ -37,12 +38,9 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 		this.mobileQuery.addListener(this.mobileQueryListener);
 	}
 
-	get githubLink(): string {
-		return `https://github.com/qgrid/ng2-example/tree/${this.activeItemName}/latest/src/app`;
-	}
-
-	get stackblitzLink(): string {
-		return `https://stackblitz.com/github/qgrid/ng2-example/tree/${this.activeItemName}/latest`;
+	setSourceLinks(activeItemName: string): void {
+		this.githubUrl = `https://github.com/qgrid/ng2-example/tree/${activeItemName}/latest/src/app`;
+		this.stackblitzUrl = `https://stackblitz.com/github/qgrid/ng2-example/tree/${activeItemName}/latest`;
 	}
 
 	ngAfterViewInit() {
@@ -50,7 +48,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 			setTimeout(() => {
 				const activeItem = this.findActiveItem();
 				if (activeItem) {
-					this.activeItemName = activeItem.nativeElement.textContent;
+					this.setSourceLinks(activeItem.nativeElement.textContent);
 					activeItem.nativeElement.scrollIntoView({block: 'center'});
 				}
 			}, 0);
@@ -63,7 +61,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
 	onExampleClick(event: MouseEvent): void {
 		const el = <HTMLElement>event.target;
-		this.activeItemName = el.textContent;
+		this.setSourceLinks(el.textContent);
 	}
 
 	ngOnDestroy(): void {
