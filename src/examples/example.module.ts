@@ -145,6 +145,7 @@ import { ExampleColumnTooltipBasicComponent } from './column-tooltip-basic/examp
 import { ExampleDataRowDeleteComponent } from './data-row-delete/example-data-row-delete.component';
 import { ExampleDetailsRowPinComponent } from './details-row-pin/example-details-row-pin.component';
 import { ExampleSelectRowDisableComponent } from './select-row-disable/example-select-row-disable.component';
+import { ExampleSelectRowDisableUnselectComponent } from './select-row-disable-unselect/example-select-row-disable-unselect.component';
 
 const EXAMPLES: Array<any> = [
 	ExampleActionBarBasicComponent,
@@ -268,6 +269,7 @@ const EXAMPLES: Array<any> = [
 	ExampleSelectMixBasicComponent,
 	ExampleSelectRowBasicComponent,
 	ExampleSelectRowDisableComponent,
+	ExampleSelectRowDisableUnselectComponent,
 	ExampleSelectRowCommandComponent,
 	ExampleSelectRowSingleComponent,
 	ExampleSizeColumnAbsoluteComponent,

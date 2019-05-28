@@ -1,38 +1,40 @@
-<mat-toolbar color="primary"
-			 class="app-toolbar">
-	<button mat-icon-button
-			(click)="snav.toggle()">
-		<mat-icon>menu</mat-icon>
-	</button>
-	<h1 class="app-name">qgrid</h1>
+<mat-toolbar color="primary" class="app-toolbar">
+    <button mat-icon-button (click)="snav.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="app-name">qgrid</h1>
 </mat-toolbar>
-
+<div class="links">
+    <a mat-raised-button [href]="githubLink" class="github" title="GitHub" target="_blank">GitHub</a>
+    <a mat-raised-button [href]="stackblitzLink" class="stackblitz" title="StackBlitz" target="_blank">StackBlitz</a>
+</div>
 <mat-sidenav-container class="app-sidenav-container">
-	<mat-sidenav #snav
-				 [mode]="mobileQuery.matches ? 'over' : 'side'"
-				 [fixedInViewport]="mobileQuery.matches"
-				 fixedTopGap="56">
-		<mat-form-field class="app-search">
-			<input matInput
-				   #search
-				   placeholder="Search"
-				   type="search" />
-		</mat-form-field>
-		<mat-nav-list>
-			<ng-container *ngFor="let example of examples | filter: search.value">
-				<a mat-list-item
-				   *ngIf="example.path"
-				   [routerLink]="example.path"
-				   [routerLinkActive]="'app-active'">
-					<div [innerHTML]="example.path | qGridHighlight: search.value">
-					</div>
-				</a>
-			</ng-container>
-		</mat-nav-list>
-	</mat-sidenav>
-	<mat-sidenav-content>
-		<mat-card>
-			<router-outlet></router-outlet>
-		</mat-card>
-	</mat-sidenav-content>
+    <mat-sidenav #snav
+                 [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches"
+                 fixedTopGap="56">
+        <mat-form-field class="app-search">
+            <input matInput
+                   #search
+                   placeholder="Search"
+                   type="search"/>
+        </mat-form-field>
+        <mat-nav-list>
+            <ng-container *ngFor="let example of examples | filter: search.value">
+                <a mat-list-item
+                   *ngIf="example.path"
+                   [routerLink]="example.path"
+                   [routerLinkActive]="'app-active'"
+                   (click)="onExampleClick($event)">
+                    <div [innerHTML]="example.path | qGridHighlight: search.value">
+                    </div>
+                </a>
+            </ng-container>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-card>
+            <router-outlet></router-outlet>
+        </mat-card>
+    </mat-sidenav-content>
 </mat-sidenav-container>

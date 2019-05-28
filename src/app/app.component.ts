@@ -7,24 +7,26 @@ import {
 	ViewChildren,
 	QueryList,
 	AfterViewInit,
-	NgZone
+	NgZone,
 } from '@angular/core';
-import { Routes, RouterLinkActive } from '@angular/router';
-import { MediaMatcher } from '@angular/cdk/layout';
-import { APP_ROUTES } from '../examples/example.module';
+import {Routes, RouterLinkActive} from '@angular/router';
+import {MediaMatcher} from '@angular/cdk/layout';
+import {APP_ROUTES} from '../examples/example.module';
 
 @Component({
 	selector: 'app-root',
 	templateUrl: 'app.component.html',
 	styleUrls: ['app.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
+
 	mobileQuery: MediaQueryList;
 	examples: Routes = APP_ROUTES;
 
-	@ViewChildren(RouterLinkActive, { read: ElementRef })
+	@ViewChildren(RouterLinkActive, {read: ElementRef})
 	menuItems: QueryList<ElementRef>;
+	activeItemName: string = null;
 
 	private mobileQueryListener: () => void;
 
@@ -35,21 +37,37 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 		this.mobileQuery.addListener(this.mobileQueryListener);
 	}
 
+	get githubLink(): string {
+		return `https://github.com/qgrid/ng2-example/tree/${this.activeItemName}/latest/src/app`;
+	}
+
+	get stackblitzLink(): string {
+		return `https://stackblitz.com/github/qgrid/ng2-example/tree/${this.activeItemName}/latest`;
+	}
+
 	ngAfterViewInit() {
 		this.zone.runOutsideAngular(() => {
 			setTimeout(() => {
 				const activeItem = this.findActiveItem();
 				if (activeItem) {
-					activeItem.nativeElement.scrollIntoView({ block: 'center' });
+					this.activeItemName = activeItem.nativeElement.textContent;
+					activeItem.nativeElement.scrollIntoView({block: 'center'});
 				}
 			}, 0);
 		});
 	}
-	private findActiveItem() {
-		return this.menuItems.find(item => item.nativeElement.classList.contains('active'));
+
+	private findActiveItem(): ElementRef<HTMLElement> {
+		return this.menuItems.find(item => item.nativeElement.classList.contains('app-active'));
+	}
+
+	onExampleClick(event: MouseEvent): void {
+		const el = <HTMLElement>event.target;
+		this.activeItemName = el.textContent;
 	}
 
 	ngOnDestroy(): void {
 		this.mobileQuery.removeListener(this.mobileQueryListener);
 	}
+
 }

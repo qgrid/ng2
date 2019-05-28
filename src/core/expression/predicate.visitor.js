@@ -41,7 +41,7 @@ export class PredicateVisitor extends Visitor {
 		const map = new Set();
 
 		const rt = getType(isArray(r) ? r[0] : r);
-		const parse = parseFactory(rt);
+		let parse = parseFactory(rt);
 
 		if (isArray(r)) {
 			if (r.length) {
