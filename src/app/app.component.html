@@ -24,8 +24,7 @@
 				<a mat-list-item
 				   *ngIf="example.path"
 				   [routerLink]="example.path"
-				   [routerLinkActive]="'app-active'"
-				   (click)="onExampleClick($event)">
+				   [routerLinkActive]="'app-active'">
 					<div [innerHTML]="example.path | qGridHighlight: search.value">
 					</div>
 				</a>

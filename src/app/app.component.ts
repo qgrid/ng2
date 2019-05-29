@@ -9,7 +9,11 @@ import {
 	AfterViewInit,
 	NgZone,
 } from '@angular/core';
-import {Routes, RouterLinkActive} from '@angular/router';
+import {
+	Router,
+	Routes,
+	RouterLinkActive,
+} from '@angular/router';
 import {MediaMatcher} from '@angular/cdk/layout';
 import {APP_ROUTES} from '../examples/example.module';
 
@@ -26,31 +30,33 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
 	@ViewChildren(RouterLinkActive, {read: ElementRef})
 	menuItems: QueryList<ElementRef>;
-	activeItemName: string = null;
 
 	private mobileQueryListener: () => void;
 
-	constructor(cd: ChangeDetectorRef, media: MediaMatcher, private zone: NgZone) {
+	constructor(
+		private zone: NgZone,
+		private router: Router,
+		cd: ChangeDetectorRef,
+		media: MediaMatcher,
+	) {
 		this.mobileQueryListener = () => cd.detectChanges();
-
 		this.mobileQuery = media.matchMedia('(max-width: 600px)');
 		this.mobileQuery.addListener(this.mobileQueryListener);
 	}
 
 	getGithubUrl(): string {
-		return `https://github.com/qgrid/ng2-example/tree/${this.activeItemName}/latest/src/app`;
+		return `https://github.com/qgrid/ng2-example/tree${this.router.url}/latest/src/app`;
 	}
 
 	getStackblitzUrl(): string {
-		return `https://stackblitz.com/github/qgrid/ng2-example/tree/${this.activeItemName}/latest`;
+		return `https://stackblitz.com/github/qgrid/ng2-example/tree${this.router.url}/latest`;
 	}
 
-	ngAfterViewInit() {
+	ngAfterViewInit(): void {
 		this.zone.runOutsideAngular(() => {
 			setTimeout(() => {
 				const activeItem = this.findActiveItem();
 				if (activeItem) {
-					this.activeItemName = activeItem.nativeElement.textContent;
 					activeItem.nativeElement.scrollIntoView({block: 'center'});
 				}
 			}, 0);
@@ -59,11 +65,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
 	private findActiveItem(): ElementRef<HTMLElement> {
 		return this.menuItems.find(item => item.nativeElement.classList.contains('app-active'));
-	}
-
-	onExampleClick(event: MouseEvent): void {
-		const el = <HTMLElement>event.target;
-		this.activeItemName = el.textContent;
 	}
 
 	ngOnDestroy(): void {
