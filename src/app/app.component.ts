@@ -3,16 +3,12 @@ import {
 	Component,
 	OnDestroy,
 	ChangeDetectionStrategy,
-	ElementRef,
-	ViewChildren,
-	QueryList,
-	AfterViewInit,
+	HostBinding,
 	NgZone,
 } from '@angular/core';
 import {
 	Router,
 	Routes,
-	RouterLinkActive,
 } from '@angular/router';
 import {MediaMatcher} from '@angular/cdk/layout';
 import {APP_ROUTES} from '../examples/example.module';
@@ -23,15 +19,12 @@ import {APP_ROUTES} from '../examples/example.module';
 	styleUrls: ['app.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements AfterViewInit, OnDestroy {
+export class AppComponent implements OnDestroy {
 
-	mobileQuery: MediaQueryList;
+	@HostBinding('class.app-is-mobile') isMobile: boolean;
 	examples: Routes = APP_ROUTES;
-
-	@ViewChildren(RouterLinkActive, {read: ElementRef})
-	menuItems: QueryList<ElementRef>;
-
 	private mobileQueryListener: () => void;
+	private mobileQuery: MediaQueryList;
 
 	constructor(
 		private zone: NgZone,
@@ -39,9 +32,16 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 		cd: ChangeDetectorRef,
 		media: MediaMatcher,
 	) {
-		this.mobileQueryListener = () => cd.detectChanges();
+		const setIsMobile = () => {
+			this.isMobile = this.mobileQuery.matches;
+		};
+		this.mobileQueryListener = () => {
+			setIsMobile();
+			cd.detectChanges();
+		};
 		this.mobileQuery = media.matchMedia('(max-width: 600px)');
 		this.mobileQuery.addListener(this.mobileQueryListener);
+		setIsMobile();
 	}
 
 	getGithubUrl(): string {
@@ -50,21 +50,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
 	getStackblitzUrl(): string {
 		return `https://stackblitz.com/github/qgrid/ng2-example/tree${this.router.url}/latest`;
-	}
-
-	ngAfterViewInit(): void {
-		this.zone.runOutsideAngular(() => {
-			setTimeout(() => {
-				const activeItem = this.findActiveItem();
-				if (activeItem) {
-					activeItem.nativeElement.scrollIntoView({block: 'center'});
-				}
-			}, 0);
-		});
-	}
-
-	private findActiveItem(): ElementRef<HTMLElement> {
-		return this.menuItems.find(item => item.nativeElement.classList.contains('app-active'));
 	}
 
 	ngOnDestroy(): void {
