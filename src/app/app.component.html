@@ -13,7 +13,7 @@
 				 [mode]="isMobile ? 'over' : 'side'"
 				 [opened]="!isMobile"
 				 [fixedInViewport]="isMobile">
-		<a href="/" class="logo" *ngIf="!isMobile"></a>
+		<a routerLink="/" class="logo" *ngIf="!isMobile"></a>
 		<mat-form-field class="app-search">
 			<input matInput
 				   #search
