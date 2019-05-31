@@ -71,7 +71,7 @@ export function generateFactory(model) {
 
 		const columns = Array.from(data().columns);
 
-		const statistics = [];
+		let statistics = [];
 		if (spawnColumns.length) {
 			statistics.push(merge(columns, spawnColumns, false));
 		}

@@ -14,7 +14,7 @@ export class Model {
 			const model = new models[name]();
 			const changeSet = new Set();
 			const watchArg = () => {
-				const changes = Array.from(changeSet.values())
+				let changes = Array.from(changeSet.values())
 					.reduce((memo, key) => {
 						const value = model[key];
 						memo[key] = { newValue: value, oldValue: value };
@@ -43,7 +43,7 @@ export class Model {
 					}
 
 					let hasChanges = false;
-					const changes = {};
+					let changes = {};
 					const keys = Object.keys(state);
 					for (let i = 0, keyLength = keys.length; i < keyLength; i++) {
 						const key = keys[i];
