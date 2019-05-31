@@ -12,6 +12,8 @@ import {GridComponent} from 'ng2-qgrid';
 })
 export class ExampleSelectRowDisableUnselectComponent implements AfterViewInit {
 
+	static id = 'select-row-disable-unselect';
+
 	rows: Observable<Atom[]>;
 	@ViewChild(GridComponent) grid: GridComponent;
 	selection: any = [];

@@ -1,16 +1,19 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DataService, Atom } from '../data.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
+import {DataService, Atom} from '../data.service';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
 	selector: 'example-details-row-grid',
 	templateUrl: 'example-details-row-grid.component.html',
 	styleUrls: ['example-details-row-grid.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDetailsRowGridComponent {
+
+	static id = 'details-row-grid';
+
 	rows: Observable<Atom[]>;
 	map = new Map<string, Observable<Atom[]>>();
 
@@ -27,4 +30,5 @@ export class ExampleDetailsRowGridComponent {
 
 		return subject;
 	}
+
 }

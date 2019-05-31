@@ -11,6 +11,9 @@ import {Observable} from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleScrollVirtualInfiniteComponent implements AfterViewInit {
+
+	static id = 'scroll-virtual-infinite';
+
 	@ViewChild(GridComponent) myGrid;
 	rows: Observable<Atom[]>;
 
@@ -36,4 +39,5 @@ export class ExampleScrollVirtualInfiniteComponent implements AfterViewInit {
 				}].concat(this.qgrid.pipeUnit.view),
 		});
 	}
+
 }

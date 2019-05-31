@@ -1,17 +1,20 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DataService, Human } from '../data.service';
-import { Observable } from 'rxjs';
-import { GridModel, Grid } from 'ng2-qgrid';
-import { map } from 'rxjs/operators';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
+import {DataService, Human} from '../data.service';
+import {Observable} from 'rxjs';
+import {GridModel, Grid} from 'ng2-qgrid';
+import {map} from 'rxjs/operators';
 
 @Component({
 	selector: 'example-master-details-basic',
 	templateUrl: 'example-master-details-basic.component.html',
 	styleUrls: ['example-master-details-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleMasterDetailsBasicComponent {
+
+	static id = 'master-details-basic';
+
 	gridModel: GridModel;
 	rows: Observable<Human[]>;
 	detailsRows: Observable<Human[]>;
@@ -29,9 +32,10 @@ export class ExampleMasterDetailsBasicComponent {
 				this.detailsRows = dataService.getPeople().pipe(
 					map(humans =>
 						humans.filter(human =>
-							this.likes.every(like => human.likes.indexOf(like) >= 0)))
+							this.likes.every(like => human.likes.indexOf(like) >= 0))),
 				);
 			}
 		});
 	}
+
 }

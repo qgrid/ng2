@@ -1,15 +1,18 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DataService, Atom } from '../data.service';
-import { Observable } from 'rxjs';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
+import {DataService, Atom} from '../data.service';
+import {Observable} from 'rxjs';
 
 @Component({
 	selector: 'example-column-list-loop',
 	templateUrl: 'example-column-list-loop.component.html',
 	styleUrls: ['example-column-list-loop.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnListLoopComponent {
+
+	static id = 'column-list-loop';
+
 	rows: Observable<Atom[]>;
 
 	columns = [
@@ -19,19 +22,20 @@ export class ExampleColumnListLoopComponent {
 		},
 		{
 			key: 'symbol',
-			title: 'Symbol'
+			title: 'Symbol',
 		},
 		{
 			key: 'name',
-			title: 'Name'
+			title: 'Name',
 		},
 		{
 			key: 'appearance',
-			title: 'Appearance'
-		}
+			title: 'Appearance',
+		},
 	];
 
 	constructor(dataService: DataService) {
 		this.rows = dataService.getAtoms();
 	}
+
 }

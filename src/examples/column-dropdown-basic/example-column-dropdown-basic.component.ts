@@ -9,6 +9,8 @@ import {Observable, of} from 'rxjs';
 })
 export class ExampleColumnDropdownBasicComponent {
 
+	static id = 'column-dropdown-basic';
+
 	rows = [
 		{
 			'number': 0,

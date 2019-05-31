@@ -1,12 +1,15 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
 	selector: 'example-column-array-basic',
 	templateUrl: 'example-column-array-basic.component.html',
 	styleUrls: ['example-column-array-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnArrayBasicComponent {
+
+	static id = 'column-array-basic';
+
 	rows = [
 		{
 			'strings': ['Lorem', 'ipsum', 'dolor', 'sit', 'amet'],
@@ -14,7 +17,8 @@ export class ExampleColumnArrayBasicComponent {
 			'booleans': [true, false, true],
 			'nulls': [null, undefined, ''],
 			'dates': [new Date(2018, 1, 12), new Date(2018, 2, 13)],
-			'customTemplate': ['Lorem', 'ipsum', 'dolor', 'sit', 'amet']
-		}
+			'customTemplate': ['Lorem', 'ipsum', 'dolor', 'sit', 'amet'],
+		},
 	];
+
 }

@@ -1,18 +1,20 @@
-import { Component, ChangeDetectionStrategy, AfterViewInit, ViewChild } from '@angular/core';
-import { DataService, Atom } from '../data.service';
-import { Observable } from 'rxjs';
-import { GridComponent } from 'ng2-qgrid';
+import {Component, ChangeDetectionStrategy, AfterViewInit, ViewChild} from '@angular/core';
+import {DataService, Atom} from '../data.service';
+import {Observable} from 'rxjs';
+import {GridComponent} from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-on-push-basic',
 	templateUrl: 'example-on-push-basic.component.html',
 	styleUrls: ['example-on-push-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleOnPushBasicComponent implements AfterViewInit {
-	@ViewChild(GridComponent) myGrid: GridComponent;
 
+	static id = 'on-push-basic';
+
+	@ViewChild(GridComponent) myGrid: GridComponent;
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {
@@ -21,10 +23,11 @@ export class ExampleOnPushBasicComponent implements AfterViewInit {
 
 	ngAfterViewInit() {
 		setTimeout(() => {
-			const { rows } = this.myGrid.model.data();
+			const {rows} = this.myGrid.model.data();
 			if (rows.length) {
 				rows[0].number = rows[0].number + 1;
 			}
 		}, 1000);
 	}
+
 }

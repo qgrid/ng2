@@ -1,12 +1,11 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation, OnDestroy } from '@angular/core';
-import { DataService, Quote } from '../data.service';
-import { Column, StyleCellContext } from 'ng2-qgrid';
+import {Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation, OnDestroy} from '@angular/core';
+import {DataService, Quote} from '../data.service';
+import {Column, StyleCellContext} from 'ng2-qgrid';
 
 function diff(cell) {
 	const row = cell.$row;
 	return row.last - row.previous;
 }
-
 
 @Component({
 	selector: 'example-live-data-basic',
@@ -14,9 +13,12 @@ function diff(cell) {
 	styleUrls: ['example-live-data-basic.component.scss'],
 	providers: [DataService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
 })
 export class ExampleLiveDataBasicComponent implements OnDestroy {
+
+	static id = 'live-data-basic';
+
 	private isLive = true;
 
 	rows: Quote[];
@@ -30,7 +32,7 @@ export class ExampleLiveDataBasicComponent implements OnDestroy {
 
 	styleCell(row: Quote, column: Column, context: StyleCellContext) {
 		if (column.key === 'last') {
-			const d = diff({ $row: row });
+			const d = diff({$row: row});
 			if (d !== 0) {
 				context.class(d > 0 ? 'positive' : 'negative');
 			}
@@ -64,4 +66,5 @@ export class ExampleLiveDataBasicComponent implements OnDestroy {
 	ngOnDestroy() {
 		this.isLive = false;
 	}
+
 }

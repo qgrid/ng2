@@ -58,7 +58,7 @@ import {ExampleDetailsRowStartComponent} from './details-row-start/example-detai
 import {ExampleDragColumnBasicComponent} from './drag-column-basic/example-drag-column-basic.component';
 import {ExampleDragRowBasicComponent} from './drag-row-basic/example-drag-row-basic.component';
 import {ExampleDragRowNodeComponent} from './drag-row-node/example-drag-row-node.component';
-import {ExampleDynamicColumnModelComponent} from './dynamic-column-moodel/example-dynamic-column-model.component';
+import {ExampleDynamicColumnModelComponent} from './dynamic-column-model/example-dynamic-column-model.component';
 import {ExampleEditCellBasicComponent} from './edit-cell-basic/example-edit-cell-basic.component';
 import {ExampleEditCellBatchComponent} from './edit-cell-batch/example-edit-cell-batch.component';
 import {ExampleEditRowBasicComponent} from './edit-row-basic/example-edit-row-basic.component';
@@ -299,17 +299,8 @@ const EXAMPLES: any[] = [
 	ExampleVisibilityModelComponent,
 ];
 
-const toPath = (component: any): string => {
-	const PATH_REGEX = /Example(.*)Component/;
-	const name = PATH_REGEX.exec(component.name)[1];
-	return name
-		.split(/(?=[A-Z])/)
-		.map(part => part.toLowerCase())
-		.join('-');
-};
-
 export const APP_ROUTES: Routes = EXAMPLES.map<Route>(example => ({
-	path: toPath(example),
+	path: example.id,
 	component: example,
 }));
 

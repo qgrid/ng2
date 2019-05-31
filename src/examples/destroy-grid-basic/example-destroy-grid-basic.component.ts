@@ -10,10 +10,14 @@ import {Observable} from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDestroyGridBasicComponent {
+
+	static id = 'destroy-grid-basic';
+
 	rows: Observable<Human[]>;
 	isVisible = true;
 
 	constructor(dataService: DataService) {
 		this.rows = dataService.getPeople();
 	}
+
 }

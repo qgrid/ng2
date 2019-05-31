@@ -1,15 +1,18 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DataService } from '../data.service';
-import { GridModel, Grid } from 'ng2-qgrid';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
+import {DataService} from '../data.service';
+import {GridModel, Grid} from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-focus-cell-basic',
 	templateUrl: 'example-focus-cell-basic.component.html',
 	styleUrls: ['example-focus-cell-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleFocusCellBasicComponent {
+
+	static id = 'focus-cell-basic';
+
 	gridModel: GridModel;
 
 	constructor(dataService: DataService, qgrid: Grid) {
@@ -18,7 +21,7 @@ export class ExampleFocusCellBasicComponent {
 		dataService
 			.getAtoms()
 			.subscribe(rows => {
-				this.gridModel.data({ rows });
+				this.gridModel.data({rows});
 
 				const gridService = qgrid.service(this.gridModel);
 
@@ -26,4 +29,5 @@ export class ExampleFocusCellBasicComponent {
 				gridService.focus(99, 2);
 			});
 	}
+
 }

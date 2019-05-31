@@ -1,12 +1,15 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
 	selector: 'example-column-id-basic',
 	templateUrl: 'example-column-id-basic.component.html',
 	styleUrls: ['example-column-id-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnIdBasicComponent {
+
+	static id = 'column-id-basic';
+
 	rows = [
 		{
 			'number': 100.12,
@@ -16,7 +19,8 @@ export class ExampleColumnIdBasicComponent {
 			'null': null,
 			'undefined': undefined,
 			'empty': '',
-			'customTemplate': 'my id'
-		}
+			'customTemplate': 'my id',
+		},
 	];
+
 }

@@ -9,6 +9,8 @@ import {Observable, of} from 'rxjs';
 })
 export class ExampleColumnAutocompleteBasicComponent {
 
+	static id = 'column-autocomplete-basic';
+
 	rows = [
 		{
 			'number': 0,
@@ -47,7 +49,7 @@ export class ExampleColumnAutocompleteBasicComponent {
 		),
 	};
 
-	numberObservableFetchOptions: { fetch: Observable<number[]> } = {
+	numberObservableFetchOptions = {
 		fetch: of([Math.PI, Math.LN10, Math.LN2, Math.E, Math.LOG10E, Math.LOG2E, Math.SQRT1_2]),
 	};
 

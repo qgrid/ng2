@@ -1,12 +1,15 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
 	selector: 'example-column-password-basic',
 	templateUrl: 'example-column-password-basic.component.html',
 	styleUrls: ['example-column-password-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnPasswordBasicComponent {
+
+	static id = 'column-password-basic';
+
 	rows = [
 		{
 			'number': 100.12,
@@ -16,7 +19,8 @@ export class ExampleColumnPasswordBasicComponent {
 			'undefined': undefined,
 			'empty': '',
 			'maxLength2': 'PI',
-			'customTemplate': 'Hello World'
-		}
+			'customTemplate': 'Hello World',
+		},
 	];
+
 }

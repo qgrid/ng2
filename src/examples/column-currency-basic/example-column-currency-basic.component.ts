@@ -1,12 +1,15 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
 	selector: 'example-column-currency-basic',
 	templateUrl: 'example-column-currency-basic.component.html',
 	styleUrls: ['example-column-currency-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnCurrencyBasicComponent {
+
+	static id = 'column-currency-basic';
+
 	rows = [
 		{
 			'number': 100,
@@ -15,7 +18,8 @@ export class ExampleColumnCurrencyBasicComponent {
 			'undefined': undefined,
 			'empty': '',
 			'string': '120',
-			'customTemplate': 30
-		}
+			'customTemplate': 30,
+		},
 	];
+
 }

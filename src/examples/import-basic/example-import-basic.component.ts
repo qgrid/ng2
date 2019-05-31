@@ -1,29 +1,30 @@
-import { AfterViewInit, Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import {AfterViewInit, Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
+import {Observable, of} from 'rxjs';
 import * as XLSX from 'xlsx';
 
-import { DataService, Atom } from '../data.service';
-import { GridComponent } from 'ng2-qgrid';
+import {DataService, Atom} from '../data.service';
+import {GridComponent} from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-import-basic',
 	templateUrl: 'example-import-basic.component.html',
 	styleUrls: ['example-import-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleImportBasicComponent implements AfterViewInit {
+
+	static id = 'import-basic';
+
 	@ViewChild(GridComponent) myGrid: GridComponent;
 	rows: Observable<Atom[]> = of([]);
-
-	constructor(dataService: DataService) {
-	}
 
 	ngAfterViewInit() {
 		this.myGrid.model.plugin({
 			imports: {
-				'xlsx': XLSX
-			}
+				'xlsx': XLSX,
+			},
 		});
 	}
+
 }

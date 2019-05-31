@@ -1,12 +1,15 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
 	selector: 'example-column-text-basic',
 	templateUrl: 'example-column-text-basic.component.html',
 	styleUrls: ['example-column-text-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnTextBasicComponent {
+
+	static id = 'column-text-basic';
+
 	rows = [
 		{
 			'number': 100.12,
@@ -25,6 +28,7 @@ export class ExampleColumnTextBasicComponent {
 			no ludus prompta lobortis mel. Quo in duis ferri, at atqui
 			mandamus moderatius nec, eam inermis legendos at.
 			Pro id habemus adipiscing, tibique prodesset ex mei.`,
-		}
+		},
 	];
+
 }

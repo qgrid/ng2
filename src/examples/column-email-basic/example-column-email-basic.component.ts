@@ -1,12 +1,15 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
 	selector: 'example-column-email-basic',
 	templateUrl: 'example-column-email-basic.component.html',
 	styleUrls: ['example-column-email-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnEmailBasicComponent {
+
+	static id = 'column-email-basic';
+
 	rows = [
 		{
 			'valid': 'qgrid.team@gmail.com',
@@ -15,8 +18,8 @@ export class ExampleColumnEmailBasicComponent {
 			'null': null,
 			'undefined': undefined,
 			'empty': '',
-			'customTemplate': 'qgrid.team@gmail.com'
-		}
+			'customTemplate': 'qgrid.team@gmail.com',
+		},
 	];
 
 	private label = 'QGRID';
@@ -34,4 +37,5 @@ export class ExampleColumnEmailBasicComponent {
 			return self.label;
 		};
 	}
+
 }

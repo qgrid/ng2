@@ -1,15 +1,18 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DataService } from '../data.service';
-import { Grid, GridModel, Command, Node } from 'ng2-qgrid';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
+import {DataService} from '../data.service';
+import {Grid, GridModel, Command, Node} from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-hierarchy-browser-basic',
 	templateUrl: 'example-hierarchy-browser-basic.component.html',
 	styleUrls: ['example-hierarchy-browser-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleHierarchyBrowserBasicComponent {
+
+	static id = 'hierarchy-browser-basic';
+
 	gridModel: GridModel;
 
 	constructor(qgrid: Grid) {
@@ -31,8 +34,8 @@ export class ExampleHierarchyBrowserBasicComponent {
 					qgrid.pipe.memo,
 					treePipe,
 					qgrid.pipe.column,
-					qgrid.pipe.view
-				]
+					qgrid.pipe.view,
+				],
 			})
 			.group({
 				toggle: new Command({
@@ -55,8 +58,8 @@ export class ExampleHierarchyBrowserBasicComponent {
 
 							service.invalidate();
 						}, 500);
-					}
-				})
+					},
+				}),
 			})
 			.selection({
 				mode: 'multiple',
@@ -65,8 +68,9 @@ export class ExampleHierarchyBrowserBasicComponent {
 				key: {
 					row: function row(node) {
 						return node.key;
-					}
-				}
+					},
+				},
 			});
 	}
+
 }

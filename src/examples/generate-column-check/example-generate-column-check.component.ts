@@ -1,12 +1,15 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
 	selector: 'example-generate-column-check',
 	templateUrl: 'example-generate-column-check.component.html',
 	styleUrls: ['example-generate-column-check.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleGenerateColumnCheckComponent {
+
+	static id = 'generate-column-check';
+
 	rows = [
 		{
 			number: '1',
@@ -27,6 +30,7 @@ export class ExampleGenerateColumnCheckComponent {
 			notTime: 'some text',
 			notImage: 'some text',
 			notArray: 'some text',
-		}
+		},
 	];
+
 }

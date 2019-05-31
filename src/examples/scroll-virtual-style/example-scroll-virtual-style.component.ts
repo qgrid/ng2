@@ -1,16 +1,19 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DataService, Human } from '../data.service';
-import { Observable } from 'rxjs';
-import { Column, StyleCellContext } from 'ng2-qgrid';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
+import {DataService, Human} from '../data.service';
+import {Observable} from 'rxjs';
+import {Column, StyleCellContext} from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-scroll-virtual-style',
 	templateUrl: 'example-scroll-virtual-style.component.html',
 	styleUrls: ['example-scroll-virtual-style.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleScrollVirtualStyleComponent {
+
+	static id = 'scroll-virtual-style';
+
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {
@@ -19,7 +22,8 @@ export class ExampleScrollVirtualStyleComponent {
 
 	styleCell(row: Human, column: Column, ctx: StyleCellContext) {
 		if (column.key === 'gender') {
-			ctx.class(row.gender, { color: row.gender === 'female' ? 'red' : 'blue' });
+			ctx.class(row.gender, {color: row.gender === 'female' ? 'red' : 'blue'});
 		}
 	}
+
 }

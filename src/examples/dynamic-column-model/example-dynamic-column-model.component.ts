@@ -1,13 +1,16 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { GridModel, Grid } from 'ng2-qgrid';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
+import {GridModel, Grid} from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-dynamic-column-model',
 	templateUrl: 'example-dynamic-column-model.component.html',
 	styleUrls: ['example-dynamic-column-model.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDynamicColumnModelComponent {
+
+	static id = 'dynamic-column-model';
+
 	gridModel: GridModel;
 
 	constructor(private qgrid: Grid) {
@@ -20,7 +23,7 @@ export class ExampleDynamicColumnModelComponent {
 		const column = {
 			type: 'text',
 			key: id,
-			title: `${side} - ${id}`
+			title: `${side} - ${id}`,
 		};
 
 		const data = this.gridModel.data();
@@ -38,7 +41,7 @@ export class ExampleDynamicColumnModelComponent {
 			columns.splice(middlePos, 0, column);
 		}
 		rows.forEach(r => r[id] = `value - ${id}`);
-		this.gridModel.data({ columns, rows });
+		this.gridModel.data({columns, rows});
 	}
 
 	addGroup() {
@@ -50,26 +53,26 @@ export class ExampleDynamicColumnModelComponent {
 				key: `${groupId}Child${i}`,
 				path: `${groupId}.child${i}`,
 				title: `child - ${groupId} - ${i}`,
-				value: () => `value - ${i}`
+				value: () => `value - ${i}`,
 			});
 		}
 		const groupColumn = {
 			type: 'cohort',
 			key: groupId,
 			children: childColumns,
-			title: `group - ${groupId}`
+			title: `group - ${groupId}`,
 		};
 
 		const data = this.gridModel.data();
 		const columns = data.columns.slice();
 		columns.push(groupColumn);
-		this.gridModel.data({ columns });
+		this.gridModel.data({columns});
 	}
 
 	reset() {
 		this.gridModel.data({
 			columns: [],
-			rows: new Array(100).fill({})
+			rows: new Array(100).fill({}),
 		});
 	}
 
@@ -83,4 +86,5 @@ export class ExampleDynamicColumnModelComponent {
 
 		return id;
 	}
+
 }
