@@ -1,13 +1,14 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { of, Observable } from 'rxjs';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
+import {Observable, of} from 'rxjs';
 
 @Component({
 	selector: 'example-column-dropdown-basic',
 	templateUrl: 'example-column-dropdown-basic.component.html',
 	styleUrls: ['example-column-dropdown-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleColumnDropdownBasicComponent {
+
 	rows = [
 		{
 			'number': 0,
@@ -17,43 +18,48 @@ export class ExampleColumnDropdownBasicComponent {
 			'null': null,
 			'undefined': undefined,
 			'empty': '',
-			'object': null
-		}
+			'object': null,
+		},
 	];
 
 	boolFunctionFetchOptions = {
-		fetch: row => [true, false, null].filter(item => item !== row.bool)
+		fetch: row => [true, false, null].filter(item => item !== row.bool),
 	};
 
 	textValueFetchOptions = {
-		fetch: ['Lorem', 'ipsum', 'dolor', 'sit', 'amet']
+		fetch: ['Lorem', 'ipsum', 'dolor', 'sit', 'amet'],
 	};
 
 	textPromiseFetchOptions = {
 		fetch: new Promise(resolve =>
 			setTimeout(
 				() => resolve(['Lorem', 'ipsum', 'dolor', 'sit', 'amet']),
-				5000
-			)
-		)
+				5000,
+			),
+		),
 	};
 
 	numberObservableFetchOptions = {
-		fetch: of([Math.PI, Math.LN10, Math.LN2, Math.E, Math.LOG10E, Math.LOG2E, Math.SQRT1_2])
+		fetch: of([Math.PI, Math.LN10, Math.LN2, Math.E, Math.LOG10E, Math.LOG2E, Math.SQRT1_2]),
 	};
 
 	objectFetchOptions = {
 		fetch: [
-			{ label: 'hello' },
-			{ label: 'world' }
-		]
+			{label: 'hello'},
+			{label: 'world'},
+		],
 	};
 
-	getLabel(row: any) {
+	multiFetchOptions = {
+		fetch: of([]),
+	};
+
+	getLabel(row: any): string {
 		return row.object ? row.object.label : '';
 	}
 
-	getItemLabel(item: { label: string }) {
+	getItemLabel(item: { label: string }): string {
 		return item.label;
 	}
+
 }

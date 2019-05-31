@@ -4,6 +4,7 @@
   "scripts": {
     "build:lib": "npm run clean && node build.lib.js",
     "build:release": "npm run build:lib && npm run copy:npm && node build.theme.js",
+    "build:docs": "ng build --prod --output-path docs --base-href /qgrid-ng2/",
     "test": "ng test",
     "test:debug": "ng test --browsers ChromeDebug",
     "lint": "ng lint",

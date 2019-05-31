@@ -1,8 +1,11 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {
+	RouterModule,
+	Router,
+} from '@angular/router';
 import {
 	MatCardModule,
 	MatSelectModule,
@@ -11,18 +14,22 @@ import {
 	MatIconModule,
 	MatListModule,
 	MatButtonModule,
-	MatInputModule
+	MatInputModule,
 } from '@angular/material';
 
-import { AppComponent } from './app.component';
-import { ExampleModule, APP_ROUTES } from '../examples/example.module';
+import {AppComponent} from './app.component';
+import {
+	ExampleModule,
+	APP_ROUTES,
+} from '../examples/example.module';
 
-import { FilterSearch } from './app.filter.pipe';
-import { PipeModule } from 'ng2-qgrid';
+import {FilterSearch} from './app.filter.pipe';
+import {PipeModule} from 'ng2-qgrid';
+
 @NgModule({
 	declarations: [
 		AppComponent,
-		FilterSearch
+		FilterSearch,
 	],
 	imports: [
 		CommonModule,
@@ -39,13 +46,13 @@ import { PipeModule } from 'ng2-qgrid';
 		RouterModule.forRoot([{
 			path: '',
 			redirectTo: 'action-bar-basic',
-			pathMatch: 'full'
+			pathMatch: 'full',
 		}]),
 		PipeModule,
-		ExampleModule
+		ExampleModule,
 	],
 	bootstrap: [AppComponent],
-	entryComponents: APP_ROUTES.map(x => x.component)
+	entryComponents: APP_ROUTES.map(route => route.component),
 })
 export class AppModule {
 	constructor(router: Router) {
