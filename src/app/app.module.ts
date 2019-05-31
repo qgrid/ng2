@@ -20,6 +20,7 @@ import {
 import {AppComponent} from './app.component';
 import {
 	ExampleModule,
+	EXAMPLES,
 	APP_ROUTES,
 } from '../examples/example.module';
 
@@ -52,7 +53,7 @@ import {PipeModule} from 'ng2-qgrid';
 		ExampleModule,
 	],
 	bootstrap: [AppComponent],
-	entryComponents: APP_ROUTES.map(route => route.component),
+	entryComponents: EXAMPLES,
 })
 export class AppModule {
 	constructor(router: Router) {

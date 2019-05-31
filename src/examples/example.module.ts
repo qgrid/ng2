@@ -158,7 +158,7 @@ import {ExampleDetailsRowPinComponent} from './details-row-pin/example-details-r
 import {ExampleSelectRowDisableComponent} from './select-row-disable/example-select-row-disable.component';
 import {ExampleSelectRowDisableUnselectComponent} from './select-row-disable-unselect/example-select-row-disable-unselect.component';
 
-const EXAMPLES: any[] = [
+export const EXAMPLES: any[] = [
 	ExampleActionBarBasicComponent,
 	ExampleActionBarOnEnterComponent,
 	ExampleActionBarTemplateComponent,
