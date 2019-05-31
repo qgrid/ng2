@@ -4,7 +4,7 @@
   "scripts": {
     "build:lib": "npm run clean && node build.lib.js",
     "build:release": "npm run build:lib && npm run copy:npm && node build.theme.js",
-    "build:docs": "ng build --prod --output-path docs --base-href /ng2/",
+    "build:docs": "ng build --prod --output-path docs --base-href /ng2/ && npx angular-cli-ghpages --dir=docs",
     "test": "ng test",
     "test:debug": "ng test --browsers ChromeDebug",
     "lint": "ng lint",
@@ -49,6 +49,7 @@
     "@types/lodash-es": "^4.17.0",
     "@types/mocha": "^5.2.5",
     "@types/node": "~10.1.2",
+    "angular-cli-ghpages": "^0.5.3",
     "babel-core": "^6.26.3",
     "babel-preset-es2015-rollup": "^3.0.0",
     "blue-harvest": "^0.3.1",
