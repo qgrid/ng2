@@ -9,17 +9,10 @@
 	<a mat-raised-button [href]="getStackblitzUrl()" class="app-source-stackblitz" title="StackBlitz" target="_blank">StackBlitz</a>
 </div>
 <mat-sidenav-container>
-	<mat-sidenav #sidenav
-				 [mode]="isMobile ? 'over' : 'side'"
-				 [opened]="!isMobile"
-				 [fixedInViewport]="isMobile">
+	<mat-sidenav #sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile" [fixedInViewport]="isMobile">
 		<a routerLink="/" class="logo" *ngIf="!isMobile"></a>
 		<mat-form-field class="app-search">
-			<input matInput
-				   #search
-				   placeholder="Search in qgrid examples"
-				   autocomplete="off"
-				   type="search"/>
+			<input matInput #search placeholder="Search in qgrid examples" autocomplete="off" type="search"/>
 		</mat-form-field>
 		<mat-nav-list>
 			<a *ngFor="let example of examples | filter: search.value"

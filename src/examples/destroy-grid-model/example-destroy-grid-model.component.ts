@@ -1,16 +1,15 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-import {DataService} from '../data.service';
-import {GridModel, Grid} from 'ng2-qgrid';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { DataService } from '../data.service';
+import { GridModel, Grid } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-destroy-grid-model',
 	templateUrl: 'example-destroy-grid-model.component.html',
 	styleUrls: ['example-destroy-grid-model.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDestroyGridModelComponent {
-
 	static id = 'destroy-grid-model';
 
 	gridModel: GridModel;
@@ -21,7 +20,7 @@ export class ExampleDestroyGridModelComponent {
 
 		dataService
 			.getPeople()
-			.subscribe(rows => this.gridModel.data({rows}));
+			.subscribe(rows => this.gridModel.data({ rows }));
 	}
 
 	get handlerCount(): number {
@@ -32,7 +31,7 @@ export class ExampleDestroyGridModelComponent {
 				const event = model[key];
 
 				// `handlers` is private really
-				const {length} = event.handlers;
+				const { length } = event.handlers;
 				if (length) {
 					count += length;
 				}
@@ -40,5 +39,4 @@ export class ExampleDestroyGridModelComponent {
 		}
 		return count;
 	}
-
 }

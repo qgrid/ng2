@@ -1,17 +1,16 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-import {DataService, Atom} from '../data.service';
-import {Observable} from 'rxjs';
-import {Action, Command} from 'ng2-qgrid';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { DataService, Atom } from '../data.service';
+import { Observable } from 'rxjs';
+import { Action, Command } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-column-row-options-basic',
 	templateUrl: 'example-column-row-options-basic.component.html',
 	styleUrls: ['example-column-row-options-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnRowOptionsBasicComponent {
-
 	static id = 'column-row-options-basic';
 
 	rows: Observable<Atom[]>;
@@ -19,26 +18,25 @@ export class ExampleColumnRowOptionsBasicComponent {
 		new Action(
 			new Command<{ row: Atom }>({
 				execute: cell => window.open(cell.row.source, '_blank'),
-				shortcut: 'alt+g',
+				shortcut: 'alt+g'
 			}),
 			'Goto Wiki',
-			'link',
+			'link'
 		),
 		new Action(
 			new Command(),
-			'---',
+			'---'
 		),
 		new Action(
 			new Command({
 				execute: () => alert('hello world'),
-				shortcut: 'alt+h',
+				shortcut: 'alt+h'
 			}),
-			'Hello World',
-		),
+			'Hello World'
+		)
 	];
 
 	constructor(dataService: DataService) {
 		this.rows = dataService.getAtoms();
 	}
-
 }

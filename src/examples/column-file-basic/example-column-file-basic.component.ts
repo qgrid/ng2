@@ -1,13 +1,12 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'example-column-file-basic',
 	templateUrl: 'example-column-file-basic.component.html',
 	styleUrls: ['example-column-file-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnFileBasicComponent {
-
 	static id = 'column-file-basic';
 
 	rows = [
@@ -16,8 +15,7 @@ export class ExampleColumnFileBasicComponent {
 			'invalid': 'Lorem ipsum dolor',
 			'withLabel': 'https://rawgit.com/qgrid/ng2/master/CHANGELOG.md',
 			'empty': '',
-			'customTemplate': 'https://rawgit.com/qgrid/ng2/master/CHANGELOG.md',
-		},
+			'customTemplate': 'https://rawgit.com/qgrid/ng2/master/CHANGELOG.md'
+		}
 	];
-
 }

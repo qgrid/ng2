@@ -1,17 +1,16 @@
-import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
-import {DataService, Atom} from '../data.service';
-import {Observable} from 'rxjs';
-import {GridComponent, GridService, Grid, GridModel} from 'ng2-qgrid';
+import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { DataService, Atom } from '../data.service';
+import { Observable } from 'rxjs';
+import { GridComponent, GridService, Grid, GridModel } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-filter-row-custom',
 	templateUrl: 'example-filter-row-custom.component.html',
 	styleUrls: ['example-filter-row-custom.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleFilterRowCustomComponent {
-
 	static id = 'filter-row-custom';
 
 	@ViewChild(GridComponent) myGrid: GridComponent;
@@ -21,7 +20,7 @@ export class ExampleFilterRowCustomComponent {
 
 	search = {
 		name: '',
-		phase: '',
+		phase: ''
 	};
 
 	constructor(dataService: DataService, grid: Grid) {
@@ -32,7 +31,7 @@ export class ExampleFilterRowCustomComponent {
 		this.gridModel.navigationChanged.watch(e => {
 			if (e.hasChanges('cell') && e.state.cell) {
 				this.gridModel.selection({
-					items: [e.state.row],
+					items: [e.state.row]
 				});
 			}
 		});
@@ -53,8 +52,7 @@ export class ExampleFilterRowCustomComponent {
 			}, x => true);
 
 		this.gridModel.filter({
-			match: () => predicate,
+			match: () => predicate
 		});
 	}
-
 }

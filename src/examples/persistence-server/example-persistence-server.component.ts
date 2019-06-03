@@ -13,7 +13,6 @@ import { DataService, Atom } from '../data.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplePersistenceServerComponent {
-
 	static id = 'persistence-server';
 
 	gridModel: GridModel;
@@ -48,5 +47,4 @@ export class ExamplePersistenceServerComponent {
 			}
 		};
 	}
-
 }

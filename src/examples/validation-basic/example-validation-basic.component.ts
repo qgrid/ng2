@@ -1,17 +1,16 @@
-import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
-import {Observable} from 'rxjs';
-import {GridComponent} from 'ng2-qgrid';
-import {Atom, DataService} from '../data.service';
+import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Observable } from 'rxjs';
+import { GridComponent } from 'ng2-qgrid';
+import { Atom, DataService } from '../data.service';
 
 @Component({
 	selector: 'example-validation-basic',
 	templateUrl: 'example-validation-basic.component.html',
 	styleUrls: ['example-validation-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleValidationBasicComponent {
-
 	static id = 'validation-basic';
 
 	@ViewChild(GridComponent) myGrid: GridComponent;
@@ -20,5 +19,4 @@ export class ExampleValidationBasicComponent {
 	constructor(dataService: DataService) {
 		this.rows = dataService.getAtoms();
 	}
-
 }

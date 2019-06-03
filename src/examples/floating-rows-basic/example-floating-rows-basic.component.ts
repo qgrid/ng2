@@ -1,16 +1,15 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-import {DataService} from '../data.service';
-import {GridModel, Grid} from 'ng2-qgrid';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { DataService } from '../data.service';
+import { GridModel, Grid } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-floating-rows-basic',
 	templateUrl: 'example-floating-rows-basic.component.html',
 	styleUrls: ['example-floating-rows-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleFloatingRowsBasicComponent {
-
 	static id = 'floating-rows-basic';
 
 	gridModel: GridModel;
@@ -21,12 +20,11 @@ export class ExampleFloatingRowsBasicComponent {
 		dataService
 			.getAtoms()
 			.subscribe(rows => {
-				this.gridModel.data({rows});
+				this.gridModel.data({ rows });
 				this.gridModel.row({
 					pinTop: [rows[0], rows[1]],
-					pinBottom: [rows[rows.length - 1]],
+					pinBottom: [rows[rows.length - 1]]
 				});
 			});
 	}
-
 }

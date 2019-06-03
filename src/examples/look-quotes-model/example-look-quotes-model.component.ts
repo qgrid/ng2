@@ -1,16 +1,15 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-import {DataService} from '../data.service';
-import {GridModel, Grid} from 'ng2-qgrid';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { DataService } from '../data.service';
+import { GridModel, Grid } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-look-quotes-model',
 	templateUrl: 'example-look-quotes-model.component.html',
 	styleUrls: ['example-look-quotes-model.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleLookQuotesModelComponent {
-
 	static id = 'look-quotes-model';
 
 	gridModel: GridModel;
@@ -20,7 +19,6 @@ export class ExampleLookQuotesModelComponent {
 
 		dataService
 			.getQuotes()
-			.subscribe(rows => this.gridModel.data({rows}));
+			.subscribe(rows => this.gridModel.data({ rows }));
 	}
-
 }

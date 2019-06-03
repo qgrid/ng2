@@ -1,17 +1,16 @@
-import {Component, ChangeDetectionStrategy, ViewChild, AfterViewInit} from '@angular/core';
-import {DataService, Atom} from '../data.service';
-import {Observable} from 'rxjs';
-import {GridComponent} from 'ng2-qgrid';
+import { Component, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@angular/core';
+import { DataService, Atom } from '../data.service';
+import { Observable } from 'rxjs';
+import { GridComponent } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-action-bar-basic',
 	templateUrl: 'example-select-row-disable-unselect.component.html',
 	styleUrls: ['example-select-row-disable-unselect.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleSelectRowDisableUnselectComponent implements AfterViewInit {
-
 	static id = 'select-row-disable-unselect';
 
 	rows: Observable<Atom[]>;
@@ -23,7 +22,7 @@ export class ExampleSelectRowDisableUnselectComponent implements AfterViewInit {
 	}
 
 	public ngAfterViewInit(): void {
-		const {model} = this.grid;
+		const { model } = this.grid;
 
 		model.selectionChanged.on(e => {
 			const change = e.changes['items'];
@@ -31,11 +30,10 @@ export class ExampleSelectRowDisableUnselectComponent implements AfterViewInit {
 				this.selection = e.state.items;
 				if (!change.newValue.length) {
 					model.selection({
-						items: change.oldValue,
+						items: change.oldValue
 					});
 				}
 			}
 		});
 	}
-
 }

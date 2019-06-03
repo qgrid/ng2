@@ -1,13 +1,12 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'example-column-type-safe',
 	templateUrl: 'example-column-type-safe.component.html',
 	styleUrls: ['example-column-type-safe.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnTypeSafeComponent {
-
 	static id = 'column-type-safe';
 
 	rows = [
@@ -19,7 +18,7 @@ export class ExampleColumnTypeSafeComponent {
 			notEmail: 'john@mail.com',
 			notTime: '12:00',
 			notImage: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Hydrogen_Spectra.jpg',
-			notArray: ['1', '2', '3'],
+			notArray: ['1', '2', '3']
 		},
 		{
 			notNumber: 'some text',
@@ -29,8 +28,7 @@ export class ExampleColumnTypeSafeComponent {
 			notEmail: 'some text',
 			notTime: 'some text',
 			notImage: 'some text',
-			notArray: 'some text',
-		},
+			notArray: 'some text'
+		}
 	];
-
 }

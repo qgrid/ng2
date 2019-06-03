@@ -1,16 +1,15 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-import {DataService} from '../data.service';
-import {GridModel, Grid} from 'ng2-qgrid';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { DataService } from '../data.service';
+import { GridModel, Grid } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-look-people-model',
 	templateUrl: 'example-look-people-model.component.html',
 	styleUrls: ['example-look-people-model.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleLookPeopleModelComponent {
-
 	static id = 'look-people-model';
 
 	gridModel: GridModel;
@@ -20,7 +19,6 @@ export class ExampleLookPeopleModelComponent {
 
 		dataService
 			.getPeople()
-			.subscribe(rows => this.gridModel.data({rows}));
+			.subscribe(rows => this.gridModel.data({ rows }));
 	}
-
 }

@@ -1,13 +1,12 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'example-column-url-basic',
 	templateUrl: 'example-column-url-basic.component.html',
 	styleUrls: ['example-column-url-basic.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnUrlBasicComponent {
-
 	static id = 'column-url-basic';
 
 	rows = [
@@ -18,8 +17,8 @@ export class ExampleColumnUrlBasicComponent {
 			'null': null,
 			'undefined': undefined,
 			'empty': '',
-			'customTemplate': 'http://github.com/qgrid/ng2',
-		},
+			'customTemplate': 'http://github.com/qgrid/ng2'
+		}
 	];
 
 	private label = 'QGRID';
@@ -37,5 +36,4 @@ export class ExampleColumnUrlBasicComponent {
 			return self.label;
 		};
 	}
-
 }

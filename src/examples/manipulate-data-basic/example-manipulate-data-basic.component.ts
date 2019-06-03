@@ -1,16 +1,15 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-import {DataService, Human} from '../data.service';
-import {Observable} from 'rxjs';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { DataService, Human } from '../data.service';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'example-manipulate-data-basic',
 	templateUrl: 'example-manipulate-data-basic.component.html',
 	styleUrls: ['example-manipulate-data-basic.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleManipulateDataBasicComponent {
-
 	static id = 'manipulate-data-basic';
 
 	rows: Observable<Human[]>;
@@ -18,5 +17,4 @@ export class ExampleManipulateDataBasicComponent {
 	constructor(dataService: DataService) {
 		this.rows = dataService.getPeople();
 	}
-
 }

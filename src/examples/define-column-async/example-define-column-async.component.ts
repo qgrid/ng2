@@ -1,16 +1,15 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {DataService} from '../data.service';
-import {GridModel, Grid} from 'ng2-qgrid';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { DataService } from '../data.service';
+import { GridModel, Grid } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-define-column-async',
 	templateUrl: 'example-define-column-async.component.html',
 	styleUrls: ['example-define-column-async.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDefineColumnAsyncComponent implements OnInit {
-
 	static id = 'define-column-async';
 
 	gridModel: GridModel;
@@ -23,23 +22,24 @@ export class ExampleDefineColumnAsyncComponent implements OnInit {
 		this.dataService
 			.getAtoms()
 			.subscribe(rows => {
-				this.gridModel.data({rows});
+				this.gridModel.data({ rows });
 
 				setTimeout(() => {
 					this.gridModel.data({
-						columns: [{
-							key: 'source',
-							width: 300,
-						},
+						columns: [
+							{
+								key: 'source',
+								width: 300
+							},
 							{
 								key: 'symbol+name',
 								label: row => `[${row.symbol}]${row.name}`,
 								value: row => row.symbol,
-								width: 150,
-							}],
+								width: 150
+							}
+						]
 					});
 				}, 1000);
 			});
 	}
-
 }

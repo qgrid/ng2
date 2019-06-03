@@ -4,7 +4,7 @@
   "scripts": {
     "build:lib": "npm run clean && node build.lib.js",
     "build:release": "npm run build:lib && npm run copy:npm && node build.theme.js",
-    "build:docs": "ng build --prod --output-path docs --base-href /ng2/ && npx angular-cli-ghpages --dir=docs",
+    "build:app": "ng build --prod --output-path dist/app --base-href /ng2/",
     "test": "ng test",
     "test:debug": "ng test --browsers ChromeDebug",
     "lint": "ng lint",
@@ -18,6 +18,7 @@
     "ng": "ng",
     "release:example": "node ./build.example",
     "release:lib": "npm run build:release && cd dist && npm publish",
+    "release:app": "npx angular-cli-ghpages --dir=dist/app",
     "start": "node build.serve"
   },
   "private": true,

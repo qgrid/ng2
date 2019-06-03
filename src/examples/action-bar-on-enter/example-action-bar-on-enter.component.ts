@@ -1,17 +1,16 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-import {DataService, Atom} from '../data.service';
-import {Observable} from 'rxjs';
-import {GridModel, Action, GridService, Command, Grid} from 'ng2-qgrid';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { DataService, Atom } from '../data.service';
+import { Observable } from 'rxjs';
+import { GridModel, Action, GridService, Command, Grid } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-action-bar-on-enter',
 	templateUrl: 'example-action-bar-on-enter.component.html',
 	styleUrls: ['example-action-bar-on-enter.component.scss'],
 	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleActionBarOnEnterComponent {
-
 	static id = 'action-bar-on-enter';
 
 	rows: Observable<Atom[]>;
@@ -22,14 +21,14 @@ export class ExampleActionBarOnEnterComponent {
 		trigger: 'focus',
 		actions: [
 			new Action(new Command(), 'Hello'),
-			new Action(new Command(), 'World'),
-		],
+			new Action(new Command(), 'World')
+		]
 	};
 
 	pickCommand = new Command({
 		execute: () => {
-			const {rowIndex, columnIndex} = this.gridModel.navigation();
-			const {columns} = this.gridModel.view();
+			const { rowIndex, columnIndex } = this.gridModel.navigation();
+			const { columns } = this.gridModel.view();
 
 			const newColumnIndex = columns.findIndex(c => c.key === 'rowOptions');
 
@@ -44,10 +43,10 @@ export class ExampleActionBarOnEnterComponent {
 			});
 		},
 		canExecute: () => {
-			const {items} = this.gridModel.selection();
+			const { items } = this.gridModel.selection();
 			return items.length > 0;
 		},
-		shortcut: 'enter',
+		shortcut: 'enter'
 	});
 
 	constructor(dataService: DataService, grid: Grid) {
@@ -58,10 +57,9 @@ export class ExampleActionBarOnEnterComponent {
 		this.gridModel.navigationChanged.watch(e => {
 			if (e.hasChanges('cell') && e.state.cell) {
 				this.gridModel.selection({
-					items: [e.state.row],
+					items: [e.state.row]
 				});
 			}
 		});
 	}
-
 }
