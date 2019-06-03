@@ -11,6 +11,8 @@ import { GridModel, Action, GridService, Command, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleActionBarOnEnterComponent {
+	static id = 'action-bar-on-enter';
+
 	rows: Observable<Atom[]>;
 	gridModel: GridModel;
 	gridService: GridService;

@@ -10,12 +10,14 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnListLoopComponent {
+	static id = 'column-list-loop';
+
 	rows: Observable<Atom[]>;
 
 	columns = [
 		{
 			key: 'number',
-			title: 'Number',
+			title: 'Number'
 		},
 		{
 			key: 'symbol',

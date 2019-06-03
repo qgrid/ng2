@@ -1,4 +1,3 @@
-
 import { Component, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
@@ -12,6 +11,8 @@ import { GridComponent, Command, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDataRowAddComponent {
+	static id = 'data-row-add';
+
 	@ViewChild(GridComponent) grid: GridComponent;
 	rows: Observable<Human[]>;
 

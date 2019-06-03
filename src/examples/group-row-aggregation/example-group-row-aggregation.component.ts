@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleGroupRowAggregationComponent {
+	static id = 'group-row-aggregation';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

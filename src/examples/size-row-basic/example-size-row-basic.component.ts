@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleSizeRowBasicComponent {
+	static id = 'size-row-basic';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

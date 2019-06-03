@@ -7,6 +7,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnArrayBasicComponent {
+	static id = 'column-array-basic';
+
 	rows = [
 		{
 			'strings': ['Lorem', 'ipsum', 'dolor', 'sit', 'amet'],

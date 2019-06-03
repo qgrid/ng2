@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleFocusCellAutoComponent {
+	static id = 'focus-cell-auto';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

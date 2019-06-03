@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleGroupRowSubheadComponent {
+	static id = 'group-row-subhead';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

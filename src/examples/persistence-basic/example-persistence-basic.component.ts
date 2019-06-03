@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplePersistenceBasicComponent {
+	static id = 'persistence-basic';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

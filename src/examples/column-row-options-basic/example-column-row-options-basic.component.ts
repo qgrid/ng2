@@ -11,6 +11,8 @@ import { Action, Command } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnRowOptionsBasicComponent {
+	static id = 'column-row-options-basic';
+
 	rows: Observable<Atom[]>;
 	rowActions = [
 		new Action(

@@ -9,6 +9,8 @@ import { DataService } from '../data.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleKeyWithSymbolsComponent {
+	static id = 'key-with-symbols';
+
 	rows = [{
 		'key.With.Symbols': {
 			'sub.Key.With."."': 'sub-key with dot',
@@ -21,7 +23,7 @@ export class ExampleKeyWithSymbolsComponent {
 			'sub.Key.With."^"': 'sub-key with "^"',
 			'sub.Key.With.";"': 'sub-key with ";"',
 			'sub.Key.With."#"': 'sub-key with "#"',
-			'sub.Key.With."%"': 'sub-key with "%"',
+			'sub.Key.With."%"': 'sub-key with "%"'
 		}
 	}];
 }

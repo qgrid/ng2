@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplePinColumnBasicComponent {
+	static id = 'pin-column-basic';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

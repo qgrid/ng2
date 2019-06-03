@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleGenerateColumnDeepComponent {
+	static id = 'generate-column-deep';
+
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {

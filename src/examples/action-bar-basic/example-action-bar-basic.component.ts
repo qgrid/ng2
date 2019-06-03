@@ -11,6 +11,8 @@ import { Command } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleActionBarBasicComponent {
+	static id = 'action-bar-basic';
+
 	canLoad = true;
 	rows: Observable<Atom[]>;
 
@@ -33,5 +35,6 @@ export class ExampleActionBarBasicComponent {
 	});
 
 	constructor(private dataService: DataService) {
+		this.rows = dataService.getAtoms();
 	}
 }

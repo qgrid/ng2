@@ -11,6 +11,8 @@ import { GridComponent, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleFocusCellCustomComponent {
+	static id = 'focus-cell-custom';
+
 	@ViewChild(GridComponent) grid: GridComponent;
 	rows: Observable<Atom[]>;
 

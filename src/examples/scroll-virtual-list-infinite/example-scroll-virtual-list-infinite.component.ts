@@ -1,7 +1,6 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { VscrollContext, VscrollService } from 'ng2-qgrid';
 
-
 @Component({
 	selector: 'example-scroll-virtual-list-infinite',
 	templateUrl: 'example-scroll-virtual-list-infinite.component.html',
@@ -9,6 +8,8 @@ import { VscrollContext, VscrollService } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleScrollVirtualListInfiniteComponent {
+	static id = 'scroll-virtual-list-infinite';
+
 	context: VscrollContext;
 	items = [];
 

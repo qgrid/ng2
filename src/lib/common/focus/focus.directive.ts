@@ -4,8 +4,6 @@ import {
 	Input,
 	AfterViewInit,
 	NgZone,
-	ApplicationRef,
-	ChangeDetectorRef
 } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { isString, isFunction } from 'ng2-qgrid/core/utility/kit';

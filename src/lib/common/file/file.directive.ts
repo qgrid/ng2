@@ -1,4 +1,4 @@
-import { BackdropService } from './../../plugins/backdrop/backdrop.service';
+import { BackdropService } from '../../plugins/backdrop/backdrop.service';
 import { Directive, ElementRef, Input, Output, EventEmitter, Optional } from '@angular/core';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';

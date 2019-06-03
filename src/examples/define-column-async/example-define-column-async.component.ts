@@ -10,6 +10,8 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDefineColumnAsyncComponent implements OnInit {
+	static id = 'define-column-async';
+
 	gridModel: GridModel;
 
 	constructor(private dataService: DataService, qgrid: Grid) {
@@ -24,16 +26,18 @@ export class ExampleDefineColumnAsyncComponent implements OnInit {
 
 				setTimeout(() => {
 					this.gridModel.data({
-						columns: [{
-							key: 'source',
-							width: 300
-						},
-						{
-							key: 'symbol+name',
-							label: row => `[${row.symbol}]${row.name}`,
-							value: row => row.symbol,
-							width: 150
-						}]
+						columns: [
+							{
+								key: 'source',
+								width: 300
+							},
+							{
+								key: 'symbol+name',
+								label: row => `[${row.symbol}]${row.name}`,
+								value: row => row.symbol,
+								width: 150
+							}
+						]
 					});
 				}, 1000);
 			});

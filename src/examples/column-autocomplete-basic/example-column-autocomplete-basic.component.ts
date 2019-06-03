@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { of, Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Component({
 	selector: 'example-column-autocomplete-basic',
@@ -7,7 +7,9 @@ import { of, Observable } from 'rxjs';
 	styleUrls: ['example-column-autocomplete-basic.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExampleColumnAutocompletetBasicComponent {
+export class ExampleColumnAutocompleteBasicComponent {
+	static id = 'column-autocomplete-basic';
+
 	rows = [
 		{
 			'number': 0,
@@ -48,5 +50,9 @@ export class ExampleColumnAutocompletetBasicComponent {
 
 	numberObservableFetchOptions = {
 		fetch: of([Math.PI, Math.LN10, Math.LN2, Math.E, Math.LOG10E, Math.LOG2E, Math.SQRT1_2])
+	};
+
+	multiFetchOptions = {
+		fetch: of([])
 	};
 }

@@ -10,6 +10,8 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleIndexColumnHybridComponent {
+	static id = 'index-column-hybrid';
+
 	gridModel: GridModel;
 
 	constructor(dataService: DataService, qgrid: Grid) {
@@ -37,13 +39,13 @@ export class ExampleIndexColumnHybridComponent {
 						},
 						{
 							key: 'mass',
-							title: '[js no index]Mass',
+							title: '[js no index]Mass'
 						},
 						{
 							key: 'boil',
 							title: '[js 0]Boil',
 							index: 0
-						},
+						}
 					]
 				});
 			});

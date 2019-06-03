@@ -11,8 +11,9 @@ import { GridComponent } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleVisibilityModelComponent implements AfterViewInit {
-	@ViewChild(GridComponent) grid: GridComponent;
+	static id = 'visibility-model';
 
+	@ViewChild(GridComponent) grid: GridComponent;
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {
@@ -28,7 +29,7 @@ export class ExampleVisibilityModelComponent implements AfterViewInit {
 				left: false,
 				right: false,
 				top: false
-			},
+			}
 		});
 	}
 }

@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleScrollVirtualHeightComponent {
+	static id = 'scroll-virtual-height';
+
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {

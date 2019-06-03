@@ -11,6 +11,8 @@ import { GridComponent, GridService, Grid, GridModel } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleFilterRowCustomComponent {
+	static id = 'filter-row-custom';
+
 	@ViewChild(GridComponent) myGrid: GridComponent;
 	rows: Observable<Atom[]>;
 	gridModel: GridModel;

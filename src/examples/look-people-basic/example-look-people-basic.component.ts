@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleLookPeopleBasicComponent {
+	static id = 'look-people-basic';
+
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {

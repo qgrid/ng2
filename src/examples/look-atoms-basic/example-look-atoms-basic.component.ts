@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleLookAtomsBasicComponent {
+	static id = 'look-atoms-basic';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

@@ -9,4 +9,5 @@ import { DataService } from '../data.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleRestApiBasicComponent {
+	static id = 'rest-api-basic';
 }

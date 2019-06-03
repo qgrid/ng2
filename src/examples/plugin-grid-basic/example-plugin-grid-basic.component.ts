@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplePluginGridBasicComponent {
+	static id = 'plugin-grid-basic';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

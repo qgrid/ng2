@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleEditCellBatchComponent {
+	static id = 'edit-cell-batch';
+
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {

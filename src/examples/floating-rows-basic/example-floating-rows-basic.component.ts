@@ -10,6 +10,8 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleFloatingRowsBasicComponent {
+	static id = 'floating-rows-basic';
+
 	gridModel: GridModel;
 
 	constructor(dataService: DataService, qgrid: Grid) {

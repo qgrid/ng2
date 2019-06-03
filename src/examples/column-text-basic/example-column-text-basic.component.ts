@@ -7,6 +7,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnTextBasicComponent {
+	static id = 'column-text-basic';
+
 	rows = [
 		{
 			'number': 100.12,
@@ -24,7 +26,7 @@ export class ExampleColumnTextBasicComponent {
 			Semper malorum volumus mei id, utamur placerat volutpat ea pri,
 			no ludus prompta lobortis mel. Quo in duis ferri, at atqui
 			mandamus moderatius nec, eam inermis legendos at.
-			Pro id habemus adipiscing, tibique prodesset ex mei.`,
+			Pro id habemus adipiscing, tibique prodesset ex mei.`
 		}
 	];
 }

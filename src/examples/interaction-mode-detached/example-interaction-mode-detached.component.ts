@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleInteractionModeDetachedComponent {
+	static id = 'interaction-mode-detached';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

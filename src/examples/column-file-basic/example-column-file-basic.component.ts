@@ -7,6 +7,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnFileBasicComponent {
+	static id = 'column-file-basic';
+
 	rows = [
 		{
 			'valid': 'https://rawgit.com/qgrid/ng2/master/CHANGELOG.md',

@@ -7,6 +7,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnTypeSafeComponent {
+	static id = 'column-type-safe';
+
 	rows = [
 		{
 			notNumber: '1',
@@ -16,7 +18,7 @@ export class ExampleColumnTypeSafeComponent {
 			notEmail: 'john@mail.com',
 			notTime: '12:00',
 			notImage: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Hydrogen_Spectra.jpg',
-			notArray: ['1', '2', '3'],
+			notArray: ['1', '2', '3']
 		},
 		{
 			notNumber: 'some text',
@@ -26,7 +28,7 @@ export class ExampleColumnTypeSafeComponent {
 			notEmail: 'some text',
 			notTime: 'some text',
 			notImage: 'some text',
-			notArray: 'some text',
+			notArray: 'some text'
 		}
 	];
 }

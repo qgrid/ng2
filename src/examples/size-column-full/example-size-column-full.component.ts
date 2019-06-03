@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleSizeColumnFullComponent {
+	static id = 'size-column-full';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

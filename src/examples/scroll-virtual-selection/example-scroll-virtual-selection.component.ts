@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleScrollVirtualSelectionComponent {
+	static id = 'scroll-virtual-selection';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

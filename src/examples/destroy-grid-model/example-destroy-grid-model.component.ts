@@ -10,7 +10,10 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDestroyGridModelComponent {
+	static id = 'destroy-grid-model';
+
 	gridModel: GridModel;
+	isVisible = true;
 
 	constructor(dataService: DataService, qgrid: Grid) {
 		this.gridModel = qgrid.model();
@@ -20,7 +23,7 @@ export class ExampleDestroyGridModelComponent {
 			.subscribe(rows => this.gridModel.data({ rows }));
 	}
 
-	get handlerCount() {
+	get handlerCount(): number {
 		const model = this.gridModel as { [key: string]: any };
 		let count = 0;
 		for (const key in model) {

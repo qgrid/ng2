@@ -10,6 +10,8 @@ import { GridModel, Grid, PipeContext } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplePipeGridBasicComponent {
+	static id = 'pipe-grid-basic';
+
 	gridModel: GridModel;
 
 	constructor(dataService: DataService, qgrid: Grid, zone: NgZone) {
@@ -19,9 +21,9 @@ export class ExamplePipeGridBasicComponent {
 			(rows: any[], context: PipeContext, next: (data: any[]) => void) => {
 				zone.runOutsideAngular(() =>
 					setTimeout(() =>
-						dataService
-							.getAtoms()
-							.subscribe(next)
+							dataService
+								.getAtoms()
+								.subscribe(next)
 						, 1000)
 				);
 			};

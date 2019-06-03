@@ -8,6 +8,8 @@ import { Grid, EditorOptions, Command } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnReferenceBasicComponent {
+	static id = 'column-reference-basic';
+
 	rows = [
 		{
 			'notEditable': ['Lorem', 'ipsum', 'dolor', 'sit', 'amet'],
@@ -126,7 +128,7 @@ export class ExampleColumnReferenceBasicComponent {
 				});
 
 			return model;
-		},
+		}
 	};
 
 	complexValuesOptions: EditorOptions = {
@@ -159,6 +161,5 @@ export class ExampleColumnReferenceBasicComponent {
 	complexValuesLabel = row => row.complexValues.map(x => x.value).join(', ');
 	convert = rows => rows.map(value => ({ value }));
 
-	constructor(private qgrid: Grid) {
-	}
+	constructor(private qgrid: Grid) { }
 }

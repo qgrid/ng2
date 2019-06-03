@@ -7,6 +7,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnDateBasicComponent {
+	static id = 'column-date-basic';
+
 	rows = [
 		{
 			'number': 100.12,

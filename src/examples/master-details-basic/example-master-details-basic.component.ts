@@ -12,6 +12,8 @@ import { map } from 'rxjs/operators';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleMasterDetailsBasicComponent {
+	static id = 'master-details-basic';
+
 	gridModel: GridModel;
 	rows: Observable<Human[]>;
 	detailsRows: Observable<Human[]>;

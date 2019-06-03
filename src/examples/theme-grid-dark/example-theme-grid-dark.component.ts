@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleThemeGridDarkComponent {
+	static id = 'theme-grid-dark';
+
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {

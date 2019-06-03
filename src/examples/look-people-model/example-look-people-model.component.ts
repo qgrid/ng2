@@ -10,6 +10,8 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleLookPeopleModelComponent {
+	static id = 'look-people-model';
+
 	gridModel: GridModel;
 
 	constructor(dataService: DataService, qgrid: Grid) {

@@ -8,6 +8,8 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDynamicColumnModelComponent {
+	static id = 'dynamic-column-model';
+
 	gridModel: GridModel;
 
 	constructor(private qgrid: Grid) {

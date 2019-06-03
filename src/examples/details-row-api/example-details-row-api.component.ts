@@ -11,8 +11,9 @@ import { Command, GridComponent, RowDetailsStatus } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDetailsRowApiComponent implements AfterViewInit {
-	@ViewChild(GridComponent) grid: GridComponent;
+	static id = 'details-row-api';
 
+	@ViewChild(GridComponent) grid: GridComponent;
 	rows: Observable<Atom[]>;
 	enableExpand = true;
 

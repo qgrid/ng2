@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnListBasicComponent {
+	static id = 'column-list-basic';
+
 	rows: Observable<Human[]>;
 	group = '';
 

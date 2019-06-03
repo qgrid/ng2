@@ -7,6 +7,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnBoolBasicComponent {
+	static id = 'column-bool-basic';
+
 	rows = [
 		{
 			'true': true,

@@ -11,6 +11,8 @@ import { map } from 'rxjs/operators';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDetailsRowGridComponent {
+	static id = 'details-row-grid';
+
 	rows: Observable<Atom[]>;
 	map = new Map<string, Observable<Atom[]>>();
 

@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable, of } from 'rxjs';
-
 import { DataService, Atom } from '../data.service';
 
 @Component({
@@ -11,5 +10,7 @@ import { DataService, Atom } from '../data.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleImportCsvComponent {
-	rows$: Observable<Atom[]> = of([]);
+	static id = 'import-csv';
+
+	rows: Observable<Atom[]> = of([]);
 }

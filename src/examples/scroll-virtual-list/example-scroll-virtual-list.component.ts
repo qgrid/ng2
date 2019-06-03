@@ -8,6 +8,8 @@ import { VscrollContext, VscrollService } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleScrollVirtualListComponent {
+	static id = 'scroll-virtual-list';
+
 	context: VscrollContext;
 	items = Array.from(Array(200).keys());
 

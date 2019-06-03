@@ -11,6 +11,8 @@ import { StyleRowContext } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleStyleRowBasicComponent {
+	static id = 'style-row-basic';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

@@ -12,7 +12,7 @@ import { ExampleActionBarOnEnterComponent } from './action-bar-on-enter/example-
 import { ExampleActionBarTemplateComponent } from './action-bar-template/example-action-bar-template.component';
 import { ExampleAggregateColumnBasicComponent } from './aggregate-column-basic/example-aggregate-column-basic.component';
 import { ExampleColumnArrayBasicComponent } from './column-array-basic/example-column-array-basic.component';
-import { ExampleColumnAutocompletetBasicComponent } from './column-autocomplete-basic/example-column-autocomplete-basic.component';
+import { ExampleColumnAutocompleteBasicComponent } from './column-autocomplete-basic/example-column-autocomplete-basic.component';
 import { ExampleColumnBoolBasicComponent } from './column-bool-basic/example-column-bool-basic.component';
 import { ExampleColumnCurrencyBasicComponent } from './column-currency-basic/example-column-currency-basic.component';
 import { ExampleColumnDataSafeComponent } from './column-data-safe/example-column-data-safe.component';
@@ -47,7 +47,7 @@ import { ExampleDetailsRowStartComponent } from './details-row-start/example-det
 import { ExampleDragColumnBasicComponent } from './drag-column-basic/example-drag-column-basic.component';
 import { ExampleDragRowBasicComponent } from './drag-row-basic/example-drag-row-basic.component';
 import { ExampleDragRowNodeComponent } from './drag-row-node/example-drag-row-node.component';
-import { ExampleDynamicColumnModelComponent } from './dynamic-column-moodel/example-dynamic-column-model.component';
+import { ExampleDynamicColumnModelComponent } from './dynamic-column-model/example-dynamic-column-model.component';
 import { ExampleEditCellBasicComponent } from './edit-cell-basic/example-edit-cell-basic.component';
 import { ExampleEditCellBatchComponent } from './edit-cell-batch/example-edit-cell-batch.component';
 import { ExampleEditRowBasicComponent } from './edit-row-basic/example-edit-row-basic.component';
@@ -145,14 +145,15 @@ import { ExampleColumnTooltipBasicComponent } from './column-tooltip-basic/examp
 import { ExampleDataRowDeleteComponent } from './data-row-delete/example-data-row-delete.component';
 import { ExampleDetailsRowPinComponent } from './details-row-pin/example-details-row-pin.component';
 import { ExampleSelectRowDisableComponent } from './select-row-disable/example-select-row-disable.component';
+import { ExampleSelectRowDisableUnselectComponent } from './select-row-disable-unselect/example-select-row-disable-unselect.component';
 
-const EXAMPLES: Array<any> = [
+export const EXAMPLES: any[] = [
 	ExampleActionBarBasicComponent,
 	ExampleActionBarOnEnterComponent,
 	ExampleActionBarTemplateComponent,
 	ExampleAggregateColumnBasicComponent,
 	ExampleColumnArrayBasicComponent,
-	ExampleColumnAutocompletetBasicComponent,
+	ExampleColumnAutocompleteBasicComponent,
 	ExampleColumnBoolBasicComponent,
 	ExampleColumnCurrencyBasicComponent,
 	ExampleColumnDataSafeComponent,
@@ -268,6 +269,7 @@ const EXAMPLES: Array<any> = [
 	ExampleSelectMixBasicComponent,
 	ExampleSelectRowBasicComponent,
 	ExampleSelectRowDisableComponent,
+	ExampleSelectRowDisableUnselectComponent,
 	ExampleSelectRowCommandComponent,
 	ExampleSelectRowSingleComponent,
 	ExampleSizeColumnAbsoluteComponent,
@@ -283,26 +285,16 @@ const EXAMPLES: Array<any> = [
 	ExampleThemeGridEmbedComponent,
 	ExampleValidationBasicComponent,
 	ExampleVisibilityBasicComponent,
-	ExampleVisibilityModelComponent,
+	ExampleVisibilityModelComponent
 ];
 
-const PATH_REGEX = /Example(.*)Component/;
-
-function toPath(componentType: Function) {
-	const name = PATH_REGEX.exec(componentType.name)[1];
-	return name
-		.split(/(?=[A-Z])/)
-		.map(part => part.toLowerCase())
-		.join('-');
-}
-
 export const APP_ROUTES: Routes = EXAMPLES.map<Route>(example => ({
-	path: toPath(example),
+	path: example.id,
 	component: example
 }));
 
 @NgModule({
-	declarations: EXAMPLES.concat([ExamplePluginMyPagerComponent]),
+	declarations: [...EXAMPLES, ExamplePluginMyPagerComponent],
 	exports: EXAMPLES,
 	imports: [
 		GridModule,

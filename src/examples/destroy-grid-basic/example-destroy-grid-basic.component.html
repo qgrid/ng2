@@ -1,6 +1,6 @@
 <button mat-button
         (click)="isVisible = !isVisible">
-	Show/Hide
+	{{ isVisible? 'Hide' : 'Show' }}
 </button>
 <ng-container *ngIf="isVisible">
 	<q-grid caption="Destroy Grid Basic"

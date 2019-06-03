@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleManipulateDataBasicComponent {
+	static id = 'manipulate-data-basic';
+
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {

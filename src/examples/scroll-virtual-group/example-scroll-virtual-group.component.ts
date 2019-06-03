@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleScrollVirtualGroupComponent {
+	static id = 'scroll-virtual-group';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

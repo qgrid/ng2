@@ -10,6 +10,8 @@ import { Grid, GridModel, Command, Node } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleHierarchyBrowserBasicComponent {
+	static id = 'hierarchy-browser-basic';
+
 	gridModel: GridModel;
 
 	constructor(qgrid: Grid) {

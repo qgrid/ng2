@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplePaginationBasicComponent {
+	static id = 'pagination-basic';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

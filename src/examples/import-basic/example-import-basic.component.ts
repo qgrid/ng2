@@ -13,11 +13,10 @@ import { GridComponent } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleImportBasicComponent implements AfterViewInit {
+	static id = 'import-basic';
+
 	@ViewChild(GridComponent) myGrid: GridComponent;
 	rows: Observable<Atom[]> = of([]);
-
-	constructor(dataService: DataService) {
-	}
 
 	ngAfterViewInit() {
 		this.myGrid.model.plugin({

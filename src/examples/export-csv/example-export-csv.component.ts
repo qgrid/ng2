@@ -1,9 +1,7 @@
 import { AfterViewInit, Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-
-import { Atom, DataService } from '../data.service';
 import { Observable } from 'rxjs';
 import { GridComponent } from 'ng2-qgrid';
-
+import { Atom, DataService } from '../data.service';
 import * as fileSaver from 'file-saver';
 
 @Component({
@@ -14,6 +12,8 @@ import * as fileSaver from 'file-saver';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleExportCsvComponent implements AfterViewInit {
+	static id = 'export-csv';
+
 	@ViewChild(GridComponent) myGrid: GridComponent;
 	rows: Observable<Atom[]>;
 
