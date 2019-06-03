@@ -11,6 +11,8 @@ import { GridComponent } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleLookAtomsIdComponent implements AfterViewInit {
+	static id = 'look-atoms-id';
+
 	@ViewChild(GridComponent) myGrid: GridComponent;
 	rows: Observable<Atom[]>;
 

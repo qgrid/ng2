@@ -7,6 +7,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnEmailBasicComponent {
+	static id = 'column-email-basic';
+
 	rows = [
 		{
 			'valid': 'qgrid.team@gmail.com',

@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleSelectRowBasicComponent {
+	static id = 'select-row-basic';
+
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {

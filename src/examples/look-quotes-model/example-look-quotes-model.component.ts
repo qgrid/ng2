@@ -10,6 +10,8 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleLookQuotesModelComponent {
+	static id = 'look-quotes-model';
+
 	gridModel: GridModel;
 
 	constructor(dataService: DataService, qgrid: Grid) {

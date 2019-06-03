@@ -7,7 +7,6 @@ function diff(cell) {
 	return row.last - row.previous;
 }
 
-
 @Component({
 	selector: 'example-live-data-basic',
 	templateUrl: 'example-live-data-basic.component.html',
@@ -17,6 +16,8 @@ function diff(cell) {
 	encapsulation: ViewEncapsulation.None
 })
 export class ExampleLiveDataBasicComponent implements OnDestroy {
+	static id = 'live-data-basic';
+
 	private isLive = true;
 
 	rows: Quote[];

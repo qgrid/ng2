@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleSummaryColumnAggregationComponent {
+	static id = 'summary-column-aggregation';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

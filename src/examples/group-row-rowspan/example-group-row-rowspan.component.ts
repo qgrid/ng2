@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleGroupRowRowspanComponent {
+	static id = 'group-row-rowspan';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

@@ -1,151 +1,186 @@
-.mat-toolbar {
-    background: #24292e;
+@font-face {
+	font-family: 'qgrid-iconfont';
+	src: url('../assets/fonts/qgrid-iconfont.eot');
+	src: url('../assets/fonts/qgrid-iconfont.eot?#iefix') format('eot'),
+	url('../assets/fonts/qgrid-iconfont.woff2') format('woff2'),
+	url('../assets/fonts/qgrid-iconfont.woff') format('woff'),
+	url('../assets/fonts/qgrid-iconfont.ttf') format('truetype'),
+	url('../assets/fonts/qgrid-iconfont.svg#qgrid-iconfont') format('svg');
 }
 
-.mat-card {
-    height: calc(100% - 86px);
-    margin: 15px;
-    pointer-events: all;
+::-webkit-scrollbar {
+	width: 0.5em;
 }
 
-.app-container {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+::-webkit-scrollbar-thumb {
+	background: #649eed;
 }
 
-.app-is-mobile .app-toolbar {
-    position: fixed;
-    /* Make sure the toolbar will stay on top of the content as it scrolls past. */
-    z-index: 2;
+::-webkit-scrollbar-track {
+	background: #b2cff6;
 }
 
-h1.app-name {
-    margin-left: 8px;
-}
+:host {
+	.mat-toolbar {
+		display: none;
+		color: #fff;
+		background: #24292e;
 
-.app-sidenav-container {
-    /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
-       causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
-    flex: 1;
-    height: calc(100% - 56px);
-    z-index: 3;
-    background: transparent;
-    pointer-events: none;
-}
+		h1 {
+			margin-left: 8px;
+		}
+	}
 
-.app-is-mobile .app-sidenav-container {
-    /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
-       `<body>` to be our scrolling element for mobile layouts. */
-    flex: 1 0 auto;
-}
+	.app-source-links {
+		position: absolute;
+		z-index: 2;
+		top: 3px;
+		right: 15px;
 
-.app-search {
-    padding: 10px 15px 0 15px;
-    display: block;
-}
+		a {
+			font-size: 12px;
+			display: inline-block;
+			min-width: auto;
+			line-height: inherit;
+			padding: 5px 8px;
+			background-size: auto 16px;
+			background-repeat: no-repeat;
+			background-position: 8px center;
+		}
 
-.mat-sidenav {
-    width: 260px;
-    background-color: #353535;
-    pointer-events: all;
+		.app-source-github {
+			padding-left: 28px;
+			background-image: url('../assets/icons/github.png');
+		}
 
-    ::-webkit-scrollbar {
-        width: 0.5em;
-    }
+		.app-source-stackblitz {
+			padding-left: 22px;
+			background-image: url('../assets/icons/stackblitz.svg');
+		}
+	}
 
-    ::-webkit-scrollbar-thumb {
-        background: #649EED;
-    }
+	.mat-sidenav-container {
+		/* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+           causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+		flex: 1;
+		height: 100%;
+		z-index: 3;
+		background: transparent;
+		pointer-events: none;
 
-    ::-webkit-scrollbar-track {
-        background: #b2cff6;
-    }
-}
+		.mat-sidenav {
+			width: 260px;
+			background-color: #353535;
+			pointer-events: all;
 
-.mat-nav-list {
-    display: block;
-    height: calc(100% - 108px);
-    overflow-y: auto;
-}
+			.logo {
+				display: block;
+				margin: 15px;
+				font-family: 'qgrid-iconfont', 'Helvetica Neue', sans-serif;
+				font-size: 100px;
+				text-align: center;
+				color: #fff;
+				text-decoration: none;
 
-/deep/ {
-    .mat-form-field,
-    .mat-form-field.mat-focused {
-        .mat-form-field-label {
-            top: 32px;
-            left: 10px;
-            color: #fff;
-        }
+				&:before {
+					content: '\E006';
+				}
+			}
 
-        .mat-form-field-underline {
-            background-color: #fff;
-        }
+			.app-search {
+				padding: 10px 15px 0 15px;
+				display: block;
 
-        .mat-form-field-ripple {
-            background-color: #fff;
-        }
+				.mat-input-element {
+					color: #fff;
+					background-color: #444;
+					caret-color: #fff;
+					padding: 15px;
+				}
 
-        &::-webkit-search-cancel-button {
-            background: red;
-        }
-    }
+				/deep/ {
+					.mat-form-field-label {
+						top: 32px;
+						left: 10px;
+						color: #fff;
+					}
 
-    .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float {
-        .mat-form-field-label {
-            top: 18px;
-        }
-    }
-}
+					.mat-form-field-underline {
+						background-color: #fff;
+					}
 
-.mat-input-element {
-    color: #fff;
-    background-color: #444;
-    caret-color: #fff;
-    padding: 15px;
-}
+					.mat-form-field-ripple {
+						background-color: #fff;
+					}
+				}
 
-.mat-list-item {
-    color: #fff;
+				&.mat-form-field-should-float {
+					/deep/ .mat-form-field-label {
+						top: 18px;
+					}
+				}
+			}
 
-    &:hover {
-        background-color: #0078CF;
-    }
-}
+			.mat-nav-list {
+				display: block;
+				height: calc(100% - 234px);
+				overflow-y: auto;
 
-.app-active,
-.app-active:hover {
-    background-color: #0078CF;
-}
+				.mat-list-item {
+					color: #fff;
 
-.app-source-links {
-    position: absolute;
-    z-index: 2;
-    top: 55px;
-    right: 15px;
+					&:hover,
+					&.app-active {
+						background-color: #0078cf;
+					}
+				}
+			}
+		}
 
-    a {
-        font-size: 12px;
-        display: inline-block;
-        min-width: auto;
-        line-height: inherit;
-        padding: 5px 8px;
-        background-size: auto 16px;
-        background-repeat: no-repeat;
-        background-position: 8px center;
-    }
+		.mat-sidenav-content {
+			.mat-card {
+				height: calc(100% - 88px);
+				margin: 25px 15px 15px;
+				pointer-events: all;
+			}
+		}
+	}
 
-    .app-source-github {
-        padding-left: 28px;
-        background-image: url('assets/icons/github.png');
-    }
+	&.app-is-mobile {
+		.mat-toolbar {
+			display: flex;
+			position: fixed;
+			/* Make sure the toolbar will stay on top of the content as it scrolls past. */
+			z-index: 2;
+		}
 
-    .app-source-stackblitz {
-        padding-left: 22px;
-        background-image: url('assets/icons/stackblitz.svg');
-    }
+		.app-source-links {
+			top: 50px;
+		}
+
+		.mat-sidenav-container {
+			//margin-top: 56px;
+			//height: calc(100% - 56px);
+			/* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+               `<body>` to be our scrolling element for mobile layouts. */
+			flex: 1 0 auto;
+
+			.mat-sidenav {
+				.mat-nav-list {
+					height: calc(100% - 104px);
+				}
+			}
+
+			.mat-sidenav-content {
+				.mat-card {
+					height: calc(100% - 134px);
+					margin: 71px 15px 15px;
+				}
+			}
+
+			&.mat-drawer-opened {
+				pointer-events: all;
+			}
+		}
+	}
 }

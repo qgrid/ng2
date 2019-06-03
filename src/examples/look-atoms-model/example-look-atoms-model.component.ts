@@ -10,6 +10,8 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleLookAtomsModelComponent {
+	static id = 'look-atoms-model';
+
 	gridModel: GridModel;
 
 	constructor(dataService: DataService, qgrid: Grid) {

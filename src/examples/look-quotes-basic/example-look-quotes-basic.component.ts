@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleLookQuotesBasicComponent {
+	static id = 'look-quotes-basic';
+
 	rows: Observable<Quote[]>;
 
 	constructor(dataService: DataService) {

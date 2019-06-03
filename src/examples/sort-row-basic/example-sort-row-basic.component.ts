@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleSortRowBasicComponent {
+	static id = 'sort-row-basic';
+
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {

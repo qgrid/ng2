@@ -10,6 +10,8 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleIndexColumnModelComponent {
+	static id = 'index-column-model';
+
 	gridModel: GridModel;
 
 	constructor(dataService: DataService, qgrid: Grid) {
@@ -40,7 +42,7 @@ export class ExampleIndexColumnModelComponent {
 							key: 'number',
 							title: '[0]Number',
 							index: 0
-						},
+						}
 					]
 				});
 			});

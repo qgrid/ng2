@@ -10,6 +10,8 @@ import { Observable, of } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleGridListBasicComponent {
+	static id = 'grid-list-basic';
+
 	models: Observable<any[]>;
 
 	constructor(dataService: DataService) {
@@ -23,7 +25,7 @@ export class ExampleGridListBasicComponent {
 			}
 			],
 			rows: dataService.getAtoms()
-		},
+		}
 		]);
 	}
 }

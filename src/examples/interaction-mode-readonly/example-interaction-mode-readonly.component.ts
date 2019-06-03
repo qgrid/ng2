@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleInteractionModeReadonlyComponent {
+	static id = 'interaction-mode-readonly';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

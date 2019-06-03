@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleThemeGridEmbedComponent {
+	static id = 'theme-grid-embed';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

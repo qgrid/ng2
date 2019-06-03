@@ -11,8 +11,9 @@ import { GridComponent } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleOnPushBasicComponent implements AfterViewInit {
-	@ViewChild(GridComponent) myGrid: GridComponent;
+	static id = 'on-push-basic';
 
+	@ViewChild(GridComponent) myGrid: GridComponent;
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

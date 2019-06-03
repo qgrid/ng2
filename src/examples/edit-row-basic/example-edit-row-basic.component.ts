@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
-import { Column, BoolColumn, Grid, PipeContext, GridComponent, Command } from 'ng2-qgrid';
+import { Column, BoolColumn, Grid, PipeContext, GridComponent } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-edit-row-basic',
@@ -11,6 +11,8 @@ import { Column, BoolColumn, Grid, PipeContext, GridComponent, Command } from 'n
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleEditRowBasicComponent implements OnInit {
+	static id = 'edit-row-basic';
+
 	rows: Observable<Human[]>;
 	columns: Array<Column | BoolColumn>;
 	@ViewChild(GridComponent) myGrid: GridComponent;
@@ -128,7 +130,7 @@ export class ExampleEditRowBasicComponent implements OnInit {
 				key: 'contact.phone',
 				title: 'Contact Phones',
 				type: 'array',
-				path: 'contact.phone',
+				path: 'contact.phone'
 			},
 			{
 				key: 'contact.email.primary',
@@ -169,9 +171,8 @@ export class ExampleEditRowBasicComponent implements OnInit {
 				title: 'Attachment',
 				type: 'file',
 				value: (item, value) => isUndef(value) ? item.attachment : item.attachment = value,
-				label: (item, label) => isUndef(label) ? item.attachmentLabel || null : item.attachmentLabel = label,
+				label: (item, label) => isUndef(label) ? item.attachmentLabel || null : item.attachmentLabel = label
 			}
 		];
-
 	}
 }

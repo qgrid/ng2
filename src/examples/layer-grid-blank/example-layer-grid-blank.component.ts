@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleLayerGridBlankComponent {
+	static id = 'layer-grid-blank';
+
 	rows: Observable<Atom[]>;
 
 	constructor(private dataService: DataService) {

@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplePivotColumnBasicComponent {
+	static id = 'pivot-column-basic';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

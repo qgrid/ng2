@@ -11,6 +11,8 @@ import { Observable } from 'rxjs';
 	encapsulation: ViewEncapsulation.None
 })
 export class ExampleDetailsRowPinComponent {
+	static id = 'details-row-pin';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

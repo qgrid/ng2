@@ -12,8 +12,9 @@ import { FetchContext, GridComponent } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleFilterColumnFetchComponent implements AfterViewInit {
-	@ViewChild(GridComponent) myGrid: GridComponent;
+	static id = 'filter-column-fetch';
 
+	@ViewChild(GridComponent) myGrid: GridComponent;
 	rows: Observable<Atom[]>;
 
 	constructor(private dataService: DataService) {

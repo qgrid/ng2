@@ -11,6 +11,8 @@ import { Column, StyleCellContext } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleScrollVirtualStyleComponent {
+	static id = 'scroll-virtual-style';
+
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {

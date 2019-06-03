@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleGenerateColumnCohortComponent {
+	static id = 'generate-column-cohort';
+
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {

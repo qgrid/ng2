@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { of, Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Component({
 	selector: 'example-column-dropdown-basic',
@@ -8,6 +8,8 @@ import { of, Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnDropdownBasicComponent {
+	static id = 'column-dropdown-basic';
+
 	rows = [
 		{
 			'number': 0,
@@ -49,11 +51,15 @@ export class ExampleColumnDropdownBasicComponent {
 		]
 	};
 
-	getLabel(row: any) {
+	multiFetchOptions = {
+		fetch: of([])
+	};
+
+	getLabel(row: any): string {
 		return row.object ? row.object.label : '';
 	}
 
-	getItemLabel(item: { label: string }) {
+	getItemLabel(item: { label: string }): string {
 		return item.label;
 	}
 }

@@ -11,6 +11,8 @@ import { GridComponent, Command } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleSelectRowCommandComponent implements AfterViewInit {
+	static id = 'select-row-command';
+
 	@ViewChild(GridComponent) grid: GridComponent;
 	rows: Observable<Human[]>;
 

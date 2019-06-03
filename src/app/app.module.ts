@@ -15,10 +15,11 @@ import {
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { ExampleModule, APP_ROUTES } from '../examples/example.module';
+import { ExampleModule, EXAMPLES, APP_ROUTES } from '../examples/example.module';
 
 import { FilterSearch } from './app.filter.pipe';
 import { PipeModule } from 'ng2-qgrid';
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -45,7 +46,7 @@ import { PipeModule } from 'ng2-qgrid';
 		ExampleModule
 	],
 	bootstrap: [AppComponent],
-	entryComponents: APP_ROUTES.map(x => x.component)
+	entryComponents: EXAMPLES
 })
 export class AppModule {
 	constructor(router: Router) {

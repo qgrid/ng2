@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDragRowNodeComponent {
+	static id = 'drag-row-node';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

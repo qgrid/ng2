@@ -7,6 +7,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnPasswordBasicComponent {
+	static id = 'column-password-basic';
+
 	rows = [
 		{
 			'number': 100.12,

@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleFilterConditionBasicComponent {
+	static id = 'filter-condition-basic';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

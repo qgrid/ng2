@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleLookAtomsCustomizedComponent {
+	static id = 'look-atoms-customized';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

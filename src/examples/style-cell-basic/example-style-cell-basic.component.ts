@@ -11,6 +11,8 @@ import { StyleCellContext, Column } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleStyleCellBasicComponent {
+	static id = 'style-cell-basic';
+
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

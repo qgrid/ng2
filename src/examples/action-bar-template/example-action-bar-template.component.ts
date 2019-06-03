@@ -11,6 +11,8 @@ import { GridModel } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleActionBarTemplateComponent {
+	static id = 'action-bar-template';
+
 	rows: Observable<Atom[]>;
 
 	constructor(private dataService: DataService) {

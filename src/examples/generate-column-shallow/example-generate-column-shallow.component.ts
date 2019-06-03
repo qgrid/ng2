@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleGenerateColumnShallowComponent {
+	static id = 'generate-column-shallow';
+
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {

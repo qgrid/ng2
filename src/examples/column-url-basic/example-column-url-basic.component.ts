@@ -7,6 +7,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnUrlBasicComponent {
+	static id = 'column-url-basic';
+
 	rows = [
 		{
 			'valid': 'http://github.com/qgrid/ng2',
@@ -34,5 +36,4 @@ export class ExampleColumnUrlBasicComponent {
 			return self.label;
 		};
 	}
-
 }

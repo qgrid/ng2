@@ -1,4 +1,3 @@
-
 import { Directive, ElementRef, EventEmitter, NgZone, Renderer2 } from '@angular/core';
 import { placeholderBitmap } from './vscroll.utility';
 

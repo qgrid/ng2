@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleSelectMixBasicComponent {
+	static id = 'select-mix-basic';
+
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {
