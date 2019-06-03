@@ -54,7 +54,7 @@ function getRowCount() {
 }
 
 function getInput() {
-	return element(by.css('.mat-input-element'));
+	return element.all(by.css('.mat-input-element')).get(1);
 }
 
 async function enterText(text:string) {
