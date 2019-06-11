@@ -70,7 +70,7 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input() editCommit: Command;
 	@Input() editEnter: Command;
 	@Input() editMethod: null | 'batch';
-	@Input() editMode: 'cell' | 'row';
+	@Input() editMode: null | 'cell' | 'row';
 	@Input() editReset: Command;
 
 	@Input() filterFetch: (key: string, context: FetchContext) => any | Promise<any>;
