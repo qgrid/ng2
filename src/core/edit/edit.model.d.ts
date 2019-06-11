@@ -15,8 +15,9 @@ export declare interface EditModel {
 	 *
 	 * * `'cell'` data is editable through the grid cells.
 	 * * `'row'` data is editable through the grid rows.
+	 * * `'null'` data is not editable.
 	 */
-	mode?: 'cell' | 'row';
+	mode?: 'cell' | 'row' | 'null';
 
 	/**
 	 * Indicates if q-grid is in `'edit'` or in a `'view'` mode.
