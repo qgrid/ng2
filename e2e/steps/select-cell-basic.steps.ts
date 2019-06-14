@@ -6,12 +6,12 @@ When('I click Select all', () => getSelectAll());
 
 async function getFilteritem(item) {
 	await browser.sleep(1000);
-	let el = await element(by.xpath("//*[text()='" + item + "']/../.."));
+	const el = await element(by.xpath(`//*[text()='" + item + "']/../..`));
 	el.click();
 }
 
 async function getSelectAll() {
 	await browser.sleep(1000);
-	let el = await element(by.xpath("//*[contains(text(),'Select All')]/.."));
+	const el = await element(by.xpath(`//*[contains(text(),'Select All')]/..`));
 	el.click();
 }

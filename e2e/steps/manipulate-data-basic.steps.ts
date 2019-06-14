@@ -5,11 +5,11 @@ When('I click add button', () => getAddButton().click());
 When('I click on cell {string}[{int}]', (key, index) => getCell(key, index).click());
 
 function getAddButton() {
-	return element(by.xpath("//*[(text()='add')]"));
+	return element(by.xpath(`//*[(text()='add')]`));
 }
 
 function stringToClassName(string: string) {
-	return (string.charAt(0).toLowerCase() + string.slice(1).toLowerCase()).replace(/\s/g, ".")
+	return (string.charAt(0).toLowerCase() + string.slice(1).toLowerCase()).replace(/\s/g, '.');
 }
 
 function getCell(key, index) {

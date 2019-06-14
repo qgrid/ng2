@@ -1,4 +1,4 @@
-import { Then, When, After } from 'cucumber';
+import { Then, When } from 'cucumber';
 import { browser, element, by } from 'protractor';
 import * as blueharvest from 'blue-harvest';
 import * as path from 'path';
@@ -24,25 +24,26 @@ async function getAllExamples() {
 	const count = await exampleElements.count();
 
 	for (let i = 0; i < count; i++) {
-		let elem = await exampleElements.get(i);
+		const elem = await exampleElements.get(i);
 		exampleLinks[i] = await elem.getAttribute('href');
-	};
+	}
 }
 
 async function checkExamples() {
 
 	for (let i = 0; i < exampleLinks.length; i++) {
 
-		let current = exampleLinks[i].split('/')[3];
+		const current = exampleLinks[i].split('/')[3];
 		goldenPath = goldenDir + current + ' is the same.png';
 
-		if (config.ignoreList.indexOf(current) == -1) {
+		if (config.ignoreList.indexOf(current) === -1) {
 
 			await browser.get(current);
-			if (config.timeoutList[current] > 0)
+			if (config.timeoutList[current] > 0) {
 				await browser.sleep(config.timeoutList[current]);
+			}
 
-			let currentScreenshot = await browser.takeScreenshot();
+			const currentScreenshot = await browser.takeScreenshot();
 			blueharvest.compareScreenshot(currentScreenshot, goldenPath, diffDir).catch((result) => comparisonResults += result + '\n');
 
 			await browser.manage().logs().get('browser').then((browserLog) => {
@@ -51,7 +52,7 @@ async function checkExamples() {
 					browserLog.map((item) => { errorLog += JSON.stringify(item.message) + '\n' });
 					resultLog += errorLog;
 				}
-			})
+			});
 		}
 	}
 }
