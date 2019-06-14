@@ -43,7 +43,7 @@ export class DragDirective {
 		const result = this.drag.execute(eventArg);
 		DragService.element =
 			result && isFunction(result.getBoundingClientRect)
-				? result : e.srcElement;
+				? result : (e.srcElement || e.target);
 
 		this.elementRef.nativeElement.classList.add(`${GRID_PREFIX}-drag`);
 
