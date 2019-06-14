@@ -10,6 +10,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
+## [7.0.0] - 2019-06-14
+### Changed
+- Migrate to Angular 7.
+
+### Fixed
+
 ## [6.4.0] - 2019-05-14
 ### Added
 - Column filter modes.

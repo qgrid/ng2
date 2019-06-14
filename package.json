@@ -1,6 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "6.4.0",
+  "version": "7.0.0",
   "scripts": {
     "build:lib": "npm run clean && node build.lib.js",
     "build:release": "npm run build:lib && npm run copy:npm && node build.theme.js",
@@ -18,7 +18,7 @@
     "ng": "ng",
     "release:example": "node ./build.example",
     "release:lib": "npm run build:release && cd dist && npm publish",
-    "release:app": "npx angular-cli-ghpages --dir=dist/app",
+    "release:app": "npm run build:app && npx angular-cli-ghpages --dir=dist/app",
     "start": "node build.serve"
   },
   "private": true,
