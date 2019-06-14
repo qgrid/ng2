@@ -1,8 +1,6 @@
 import {
 	Component,
 	Input,
-	Output,
-	EventEmitter,
 	ViewEncapsulation,
 	OnInit,
 	ElementRef,
@@ -10,7 +8,7 @@ import {
 	Inject,
 	ChangeDetectorRef
 } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 import { RootComponent } from '../../infrastructure/component/root.component';
 import { RootService } from '../../infrastructure/component/root.service';
 import { LayerService } from '../core/layer/layer.service';

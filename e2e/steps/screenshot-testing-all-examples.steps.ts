@@ -49,7 +49,7 @@ async function checkExamples() {
 			await browser.manage().logs().get('browser').then((browserLog) => {
 				if (browserLog.length > 0) {
 					let errorLog = '\nThere are errors in ' + current + ':\n';
-					browserLog.map((item) => { errorLog += JSON.stringify(item.message) + '\n' });
+					browserLog.map((item) => { errorLog += JSON.stringify(item.message) + '\n'; });
 					resultLog += errorLog;
 				}
 			});

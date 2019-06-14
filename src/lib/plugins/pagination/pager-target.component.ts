@@ -55,8 +55,8 @@ export class PagerTargetComponent implements OnInit {
 				break;
 			}
 			default: {
-				const digit = Number.parseInt(code);
-				const page = Number.parseInt('' + value + digit);
+				const digit = Number.parseInt(code, 10);
+				const page = Number.parseInt('' + value + digit, 10);
 				const min = 1;
 				const max = this.total;
 				const isValid = page >= min && page <= max && !isNaN(digit);

@@ -1,7 +1,7 @@
 import { When } from 'cucumber';
 import { element, by, protractor } from 'protractor';
 
-When('I delete a character', () => deleteChar())
+When('I delete a character', () => deleteChar());
 
 function getEditor() {
 	return element(by.css('.q-grid-editor-content'));
