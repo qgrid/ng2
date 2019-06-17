@@ -5,13 +5,18 @@ import {
 	ChangeDetectionStrategy,
 	HostBinding,
 	NgZone,
+	ElementRef,
+	ViewChildren,
+	QueryList,
+	AfterViewInit
 } from '@angular/core';
 import {
 	Router,
 	Routes,
+	RouterLinkActive
 } from '@angular/router';
-import {MediaMatcher} from '@angular/cdk/layout';
-import {APP_ROUTES} from '../examples/example.module';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { APP_ROUTES } from '../examples/example.module';
 
 @Component({
 	selector: 'app-root',
@@ -19,12 +24,15 @@ import {APP_ROUTES} from '../examples/example.module';
 	styleUrls: ['app.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements AfterViewInit, OnDestroy {
 
 	@HostBinding('class.app-is-mobile') isMobile: boolean;
 	examples: Routes = APP_ROUTES;
 	private mobileQueryListener: () => void;
 	private mobileQuery: MediaQueryList;
+
+	@ViewChildren(RouterLinkActive, { read: ElementRef })
+	menuItems: QueryList<ElementRef>;
 
 	constructor(
 		private zone: NgZone,
@@ -50,6 +58,19 @@ export class AppComponent implements OnDestroy {
 
 	getStackblitzUrl(): string {
 		return `https://stackblitz.com/github/qgrid/ng2-example/tree${this.router.url}/latest`;
+	}
+
+	ngAfterViewInit() {
+		this.zone.runOutsideAngular(() => {
+			setTimeout(() => {
+				const activeItem = this.findActiveItem();
+				activeItem.nativeElement.scrollIntoView();
+			}, 0);
+		});
+	}
+
+	private findActiveItem() {
+		return this.menuItems.find(item => item.nativeElement.classList.contains('app-active'));
 	}
 
 	ngOnDestroy(): void {
