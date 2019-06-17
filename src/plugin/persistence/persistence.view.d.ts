@@ -18,7 +18,7 @@ export interface PersistenceGroup {
 }
 
 export declare class PersistenceView {
-	constructor(model: Model);
+	constructor(model: Model, createDefaultModel: () => Model);
 
 	groups: PersistenceGroup[];
 	items: PersistenceItem[];

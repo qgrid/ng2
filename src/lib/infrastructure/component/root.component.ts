@@ -3,6 +3,7 @@ import { ModelBinder } from 'ng2-qgrid/core/infrastructure/model.bind';
 import { Event } from 'ng2-qgrid/core/infrastructure/event';
 import { OnChanges, OnDestroy, SimpleChanges, OnInit } from '@angular/core';
 import { NgComponent } from './ng.component';
+import { ModelBuilderService } from 'lib/main/model/model-builder.service';
 
 export class RootComponent extends NgComponent implements OnChanges, OnInit, OnDestroy {
 	model: Model = null;
@@ -13,7 +14,7 @@ export class RootComponent extends NgComponent implements OnChanges, OnInit, OnD
 	private binder = new ModelBinder(this);
 	private commit: () => void;
 
-	constructor() {
+	constructor(private modelBuilder: ModelBuilderService) {
 		super();
 	}
 
@@ -47,7 +48,7 @@ export class RootComponent extends NgComponent implements OnChanges, OnInit, OnD
 	private setup() {
 		let run = true;
 		if (!this.model) {
-			this.model = new Model();
+			this.model = this.modelBuilder.build();
 			this.modelChanged.emit(this.model);
 			run = false;
 		}

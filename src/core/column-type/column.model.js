@@ -30,7 +30,7 @@ export class ColumnModel {
 		this.class = 'data';
 		this.editor = null;
 		this.editorOptions = {
-			modelFactory: () => new Model(),
+			modelFactory: ({ createDefaultModel }) => createDefaultModel(),
 			trigger: 'click', // click | custom | focus
 			cruise: 'control', // control | transparent
 			label: null,

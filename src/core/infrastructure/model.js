@@ -1,16 +1,40 @@
 import { Event } from './event';
 import { AppError } from './error';
 import { Guard } from './guard';
-import { isObject, isFunction, isArray } from '../utility/kit';
+import { isObject, isArray } from '../utility/kit';
 
-const models = {};
-let finalized = false;
+function equals(x, y) {
+	// TODO: improve equality algorithm
+	if (x === y) {
+		return true;
+	}
+
+	if (isArray(x)) {
+		if (x.length === 0 && y.length === 0) {
+			return true;
+		}
+	}
+
+	if (x instanceof Map) {
+		if (x.size === 0 && y.size === 0) {
+			return true;
+		}
+	}
+
+	if (x instanceof Set) {
+		if (x.size === 0 && y.size === 0) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 export class Model {
-	constructor() {
-		finalized = true;
-		for (let name of Object.keys(models)) {
-			const model = new models[name]();
+	constructor(state) {
+		for (let name of Object.keys(state)) {
+			const Type = state[name];
+			const model = new Type();
 			const changeSet = new Set();
 			const watchArg = () => {
 				const prevChanges = Array.from(changeSet.values())
@@ -30,10 +54,9 @@ export class Model {
 			};
 
 			const event = new Event(watchArg);
-			const equals = Model.equals;
 			this[name + 'Changed'] = event;
 			this[name] = function (state, tag) {
-				const length = arguments.length;
+				const { length } = arguments;
 				if (length) {
 					if (!isObject(state)) {
 						throw new AppError(
@@ -89,55 +112,5 @@ export class Model {
 				return model;
 			};
 		}
-	}
-
-	static equals(x, y) {
-		// TODO: improve equality algorithm
-		if (x === y) {
-			return true;
-		}
-
-		if (isArray(x)) {
-			if (x.length === 0 && y.length === 0) {
-				return true;
-			}
-		}
-
-		if (x instanceof Map) {
-			if (x.size === 0 && y.size === 0) {
-				return true;
-			}
-		}
-
-		if (x instanceof Set) {
-			if (x.size === 0 && y.size === 0) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	static register(name, model) {
-		if (models.hasOwnProperty(name)) {
-			throw new AppError(
-				'model',
-				`"${name}" is already registered`);
-		}
-
-		if (!isFunction(model)) {
-			throw new AppError(
-				`model.${name}`,
-				`"${model}" is not a valid type, should be an constructor function`);
-		}
-
-		if (finalized) {
-			throw new AppError(
-				`model.${name}`,
-				'can\'t register, registration was closed');
-		}
-
-		models[name] = model;
-		return Model;
 	}
 }

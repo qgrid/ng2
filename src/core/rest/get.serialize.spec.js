@@ -1,11 +1,11 @@
-import { Model } from '../infrastructure/model';
 import { serialize } from './get.serialize';
+import { modelFactory } from '../test/model.factory';
 import { expect } from 'chai';
 
 describe('Model serialization to post parameters', () => {
 	describe('pagination', () => {
 		it('should set skip/take values', () => {
-			const model = new Model().pagination({
+			const model = modelFactory().pagination({
 				current: 2,
 				size: 50
 			});
@@ -17,7 +17,7 @@ describe('Model serialization to post parameters', () => {
 
 	describe('sorting', () => {
 		it('should map ascending order to "+"', () => {
-			const model = new Model().sort({
+			const model = modelFactory.sort({
 				by: [{ lastName: 'asc' }]
 			});
 			const params = serialize(model);
@@ -25,7 +25,7 @@ describe('Model serialization to post parameters', () => {
 		});
 
 		it('should map descending order to "-"', () => {
-			const model = new Model().sort({
+			const model = modelFactory.sort({
 				by: [{ lastName: 'desc' }]
 			});
 			const params = serialize(model);
@@ -33,7 +33,7 @@ describe('Model serialization to post parameters', () => {
 		});
 
 		it('should map sorting to comma-separated string', () => {
-			const model = new Model().sort({
+			const model = modelFactory.sort({
 				by: [{ firstName: 'asc' }, { lastName: 'desc' }]
 			});
 			const params = serialize(model);
@@ -43,7 +43,7 @@ describe('Model serialization to post parameters', () => {
 
 	describe('filtering', () => {
 		it('should be empty string in case of empty filter', () => {
-			const model = new Model().filter({
+			const model = modelFactory.filter({
 				by: {}
 			});
 			const params = serialize(model);
@@ -51,7 +51,7 @@ describe('Model serialization to post parameters', () => {
 		});
 
 		it('should map filter to in operation', () => {
-			const model = new Model().filter({
+			const model = modelFactory.filter({
 				by: {
 					lastName: { items: ['Doe'] }
 				}
@@ -61,7 +61,7 @@ describe('Model serialization to post parameters', () => {
 		});
 
 		it('should join parameters with comma', () => {
-			const model = new Model().filter({
+			const model = modelFactory.filter({
 				by: {
 					lastName: {
 						items: ['Doe', 'Jones']
@@ -73,7 +73,7 @@ describe('Model serialization to post parameters', () => {
 		});
 
 		it('should join fields with ;', () => {
-			const model = new Model().filter({
+			const model = modelFactory.filter({
 				by: {
 					lastName: { items: ['Doe', 'Jones'] },
 					firstName: { items: ['John', 'Harry'] }

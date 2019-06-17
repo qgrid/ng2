@@ -9,9 +9,9 @@ import { Event } from '../../core/infrastructure/event';
 import { groupBy } from '../../core/utility/kit';
 
 export class PersistenceView {
-	constructor(model) {
+	constructor(model, createDefaultModel) {
 		this.model = model;
-		this.service = new PersistenceService(model);
+		this.service = new PersistenceService(model, createDefaultModel);
 		this.items = [];
 		this.state = {
 			editItem: null,

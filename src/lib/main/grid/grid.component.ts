@@ -33,6 +33,7 @@ import { TableCommandManager } from 'ng2-qgrid/core/command/table.command.manage
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { GridModel } from '../../plugins/plugin.service';
+import { ModelBuilderService } from '../model/model-builder.service';
 
 @Component({
 	selector: 'q-grid',
@@ -110,10 +111,11 @@ export class GridComponent extends RootComponent implements OnInit {
 		private zone: NgZone,
 		private layerService: LayerService,
 		private cd: ChangeDetectorRef,
+		modelBuilder: ModelBuilderService,
 		@Inject(DOCUMENT) private document: any,
 		theme: ThemeService,
 	) {
-		super();
+		super(modelBuilder);
 
 		this.models = [
 			'action',
