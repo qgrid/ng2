@@ -1,6 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "7.0.0",
+  "version": "7.2.0",
   "scripts": {
     "build:lib": "npm run clean && node build.lib.js",
     "build:release": "npm run build:lib && npm run copy:npm && node build.theme.js",
@@ -88,6 +88,7 @@
     "sane": "^2.5.2",
     "shelljs": "^0.8.2",
     "ts-node": "~7.0.0",
+    "tsickle": "^0.35.0",
     "tslint": "~5.11.0",
     "typescript": "~3.2.2",
     "xlsx": "^0.13.1"
