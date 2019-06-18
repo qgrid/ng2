@@ -27,7 +27,7 @@ export class VscrollSettings implements IVscrollSettings {
 		let height = element.offsetHeight;
 		const style = getComputedStyle(element);
 
-		height += Number.parseInt(style.marginTop) + Number.parseInt(style.marginBottom);
+		height += Number.parseInt(style.marginTop, 10) + Number.parseInt(style.marginBottom, 10);
 		return height;
 	}
 
@@ -35,7 +35,7 @@ export class VscrollSettings implements IVscrollSettings {
 		let width = element.offsetWidth;
 		const style = getComputedStyle(element);
 
-		width += Number.parseInt(style.marginLeft) + Number.parseInt(style.marginRight);
+		width += Number.parseInt(style.marginLeft, 10) + Number.parseInt(style.marginRight, 10);
 		return width;
 	}
 }

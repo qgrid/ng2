@@ -1,9 +1,9 @@
 import { clone } from '../utility/kit';
-import {Model} from '../infrastructure/model';
 
 export class PersistenceService {
-	constructor(model) {
+	constructor(model, createDefaultModel) {
 		this.model = model;
+		this.createDefaultModel = createDefaultModel;
 	}
 
 	save(settings) {
@@ -40,7 +40,7 @@ export class PersistenceService {
 	}
 
 	reset(settings) {
-		const defaultModel = new Model();
+		const defaultModel = this.createDefaultModel();
 		const gridModel = this.model;
 		settings = settings || gridModel.persistence().settings;
 

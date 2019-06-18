@@ -27,8 +27,9 @@ export class ExampleColumnEmailBasicComponent {
 
 	constructor() {
 		const self = this;
-		this.myLabel = function (row, value) {
-			if (arguments.length > 1) {
+		this.myLabel = (...args) => {
+			const [_, value] = args;
+			if (args.length > 1) {
 				self.label = value;
 				return;
 			}

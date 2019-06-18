@@ -4,7 +4,6 @@ import {
 	OnDestroy,
 	ChangeDetectionStrategy,
 	HostBinding,
-	NgZone,
 	ElementRef,
 	ViewChildren,
 	QueryList,
@@ -35,7 +34,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 	menuItems: QueryList<ElementRef>;
 
 	constructor(
-		private zone: NgZone,
 		private router: Router,
 		cd: ChangeDetectorRef,
 		media: MediaMatcher,

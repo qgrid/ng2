@@ -9,13 +9,15 @@ import { getFactory as labelFactory } from 'ng2-qgrid/core/services/label';
 import { RowDetailsStatus } from 'ng2-qgrid/core/row-details/row.details.status';
 import { identity, noop } from 'ng2-qgrid/core/utility/kit';
 import { GridModel } from '../../plugins/plugin.service';
+import { ModelBuilderService } from '../model/model-builder.service';
 
 @Injectable()
 export class GridService {
-	constructor() { }
+	constructor(private modelBuilder: ModelBuilderService) {
+	}
 
 	model() {
-		return new GridModel();
+		return this.modelBuilder.build();
 	}
 
 	service(model: GridModel) {

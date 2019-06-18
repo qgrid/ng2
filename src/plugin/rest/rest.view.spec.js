@@ -1,6 +1,6 @@
-import { Model } from '../../core/infrastructure/model';
 import { GridService } from '../../core/services/grid';
 import { RestView } from './rest.view';
+import { modelFactory } from '../../core/test/model.factory';
 
 describe('rest plugin', () => {
 	let config;
@@ -10,7 +10,7 @@ describe('rest plugin', () => {
 	let post;
 
 	beforeEach(() => {
-		model = new Model();
+		model = modelFactory();
 		service = new GridService(model);
 		get = chai.spy(
 			(url, params) => new Promise(resolve => resolve({ data: [] }))

@@ -52,9 +52,7 @@ export declare interface ModelEventArg<T> {
 
 export declare type ModelEvent<T> = Event<ModelEventArg<T>>;
 
-export declare class Model {
-	static register(name: string, model: { new(): {} }): typeof Model;
-
+export declare interface Model {
 	gridChanged: ModelEvent<GridModel>;
 	grid(value: GridModel, tag?: ModelTag): Model;
 	grid(): GridModel;

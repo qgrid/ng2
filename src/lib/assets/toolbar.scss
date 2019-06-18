@@ -4,4 +4,8 @@
         max-width: 250px;
         overflow: auto;
     }
+    &-top,
+    &-bottom{
+        overflow: hidden;
+    }
 }
