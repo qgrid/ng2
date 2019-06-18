@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { PersistenceView } from 'ng2-qgrid/plugin/persistence/persistence.view';
 import { PluginService } from '../plugin.service';
-import { ModelBuilderService } from 'lib/main/model/model-builder.service';
+import { ModelBuilderService } from '../../main/model/model-builder.service';
 
 @Component({
 	selector: 'q-grid-persistence-panel',

@@ -28,10 +28,9 @@ import { TitleModule } from './title/title.module';
 import { ExportModule } from './export/export.module';
 import { ImportModule } from './import/import.module';
 import { ValidationModule } from './validation/validation.module';
-import { ModelBuilderService } from 'lib/main/model/model-builder.service';
+import { ModelBuilderService } from '../main/model/model-builder.service';
 
 @NgModule({
-	declarations: [],
 	exports: [
 		ActionBarModule,
 		AutocompleteEditorModule,

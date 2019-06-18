@@ -6,7 +6,7 @@ import { getFactory as valueFactory } from 'ng2-qgrid/core/services/value';
 import { isArray, isUndefined } from 'ng2-qgrid/core/utility/kit';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { SelectionService } from 'ng2-qgrid/core/selection/selection.service';
-import { ModelBuilderService } from 'lib/main/model/model-builder.service';
+import { ModelBuilderService } from '../../main/model/model-builder.service';
 
 @Component({
 	selector: 'q-grid-reference',

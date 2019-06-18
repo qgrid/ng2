@@ -20,7 +20,8 @@ module.exports = function (libName) {
         '@angular/core': 'ng.core',
         '@angular/common': 'ng.common',
         '@angular/common/http': 'ng.common.http',
-        '@angular/material': 'ng.material'
+        '@angular/material': 'ng.material',
+        '@angular/forms': 'ng.forms'
       }
     },
     external: [
