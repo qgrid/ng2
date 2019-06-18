@@ -7,7 +7,8 @@ import {
 	ElementRef,
 	ViewChildren,
 	QueryList,
-	AfterViewInit
+	AfterViewInit,
+	NgZone
 } from '@angular/core';
 import {
 	Router,
@@ -24,27 +25,28 @@ import { APP_ROUTES } from '../examples/example.module';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
-
 	@HostBinding('class.app-is-mobile') isMobile: boolean;
 	examples: Routes = APP_ROUTES;
-	private mobileQueryListener: () => void;
-	private mobileQuery: MediaQueryList;
 
 	@ViewChildren(RouterLinkActive, { read: ElementRef })
 	menuItems: QueryList<ElementRef>;
 
+	private mobileQueryListener: () => void;
+	private mobileQuery: MediaQueryList;
+
 	constructor(
 		private router: Router,
+		private zone: NgZone,
 		cd: ChangeDetectorRef,
 		media: MediaMatcher,
 	) {
-		const setIsMobile = () => {
-			this.isMobile = this.mobileQuery.matches;
-		};
+		const setIsMobile = () => this.isMobile = this.mobileQuery.matches;
+
 		this.mobileQueryListener = () => {
 			setIsMobile();
 			cd.detectChanges();
 		};
+
 		this.mobileQuery = media.matchMedia('(max-width: 600px)');
 		this.mobileQuery.addListener(this.mobileQueryListener);
 		setIsMobile();
@@ -74,5 +76,4 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 	ngOnDestroy(): void {
 		this.mobileQuery.removeListener(this.mobileQueryListener);
 	}
-
 }
