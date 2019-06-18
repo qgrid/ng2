@@ -66,12 +66,13 @@
         pointer-events: none;
 
         .mat-sidenav {
-            width: 320px;
             background-color: #334863;
             pointer-events: all;
-			::ng-deep .mat-drawer-inner-container {
-				overflow: hidden;
-			}
+            border: 0;
+
+            ::ng-deep .mat-drawer-inner-container {
+                overflow: hidden;
+            }
 
             .logo {
                 display: block;
@@ -123,7 +124,7 @@
 
             .mat-nav-list {
                 display: block;
-                height: calc(100% - 369px);
+                height: calc(100% - 364px);
                 overflow-y: auto;
 
                 .mat-list-item {
@@ -139,8 +140,8 @@
 
         .mat-sidenav-content {
             .mat-card {
-                height: calc(100% - 100px);
-                margin: 25px 15px 15px;
+                height: calc(100% - 99px);
+                margin: 15px;
                 pointer-events: all;
 
                 .mat-card-footer {
@@ -165,10 +166,6 @@
         }
 
         .mat-sidenav-container {
-            //margin-top: 56px;
-            //height: calc(100% - 56px);
-            /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
-               `<body>` to be our scrolling element for mobile layouts. */
             flex: 1 0 auto;
 
             .mat-sidenav {
@@ -179,8 +176,8 @@
 
             .mat-sidenav-content {
                 .mat-card {
-                    height: calc(100% - 174px);
-                    margin: 71px 15px 15px;
+                    height: calc(100% - 154px);
+                    top: 56px;
                 }
             }
 
