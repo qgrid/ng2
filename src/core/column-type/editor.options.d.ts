@@ -32,7 +32,7 @@ export interface EditorOptions {
 		row: any,
 		column: ColumnModel,
 		getValue: (row: any) => any,
-		reference: { commit: Command, cancel: Command, value: any }
+		reference: { commit: Command, cancel: Command, value: any }		
 	}) => Model;
 
 	/**

@@ -40,7 +40,6 @@ export class GridService {
 	constructor(model) {
 		this.model = model;
 		this.scheduler = new Scheduler();
-		this.state = new PersistenceService(model);
 	}
 
 	invalidate(...args /*source = 'invalidate', changes = {}, pipe = null*/) {

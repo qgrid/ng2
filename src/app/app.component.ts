@@ -4,14 +4,13 @@ import {
 	OnDestroy,
 	ChangeDetectionStrategy,
 	HostBinding,
-	NgZone,
 } from '@angular/core';
 import {
 	Router,
 	Routes,
 } from '@angular/router';
-import {MediaMatcher} from '@angular/cdk/layout';
-import {APP_ROUTES} from '../examples/example.module';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { APP_ROUTES } from '../examples/example.module';
 
 @Component({
 	selector: 'app-root',
@@ -27,7 +26,6 @@ export class AppComponent implements OnDestroy {
 	private mobileQuery: MediaQueryList;
 
 	constructor(
-		private zone: NgZone,
 		private router: Router,
 		cd: ChangeDetectorRef,
 		media: MediaMatcher,

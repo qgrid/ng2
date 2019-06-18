@@ -15,7 +15,6 @@ import { DataManipulationModule } from './data-manipulation/data-manipulation.mo
 import { EditFormModule } from './edit-form/edit-form.module';
 import { EbModule } from './expression-builder/eb.module';
 import { LegendModule } from './legend/legend.module';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { PagerModule } from './pagination/pager.module';
 import { PersistenceModule } from './persistence/persistence.module';
 import { ProgressModule } from './progress/progress.module';
@@ -29,11 +28,7 @@ import { TitleModule } from './title/title.module';
 import { ExportModule } from './export/export.module';
 import { ImportModule } from './import/import.module';
 import { ValidationModule } from './validation/validation.module';
-
-Model.register('columnChooser', ColumnChooserModel)
-	.register('columnFilter', ColumnFilterModel)
-	.register('dataManipulation', DataManipulationModel)
-	.register('queryBuilder', QueryBuilderModel);
+import { ModelBuilderService } from 'lib/main/model/model-builder.service';
 
 @NgModule({
 	declarations: [],
@@ -65,4 +60,12 @@ Model.register('columnChooser', ColumnChooserModel)
 		ValidationModule
 	]
 })
-export class PluginModule { }
+export class PluginModule {
+	constructor(modelBuilder: ModelBuilderService) {
+		modelBuilder
+			.register('columnChooser', ColumnChooserModel)
+			.register('columnFilter', ColumnFilterModel)
+			.register('dataManipulation', DataManipulationModel)
+			.register('queryBuilder', QueryBuilderModel);
+	}
+}

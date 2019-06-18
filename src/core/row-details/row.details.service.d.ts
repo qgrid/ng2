@@ -1,7 +1,7 @@
 import { RowDetailsStatus } from './row.details.status';
-import { GridModel } from '../grid/grid.model';
+import { Model } from '../infrastructure/model';
 
-export declare function flatView(model: GridModel, mode: 'single' | 'multiple'): any[];
+export declare function flatView(model: Model, mode: 'single' | 'multiple'): any[];
 
 export declare function toggleStatus(rows: any[], status: Map<any, RowDetailsStatus>, mode: 'single' | 'multiple'):
 	Map<any, RowDetailsStatus>;

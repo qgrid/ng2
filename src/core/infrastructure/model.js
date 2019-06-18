@@ -1,20 +1,43 @@
 import { Event } from './event';
 import { AppError } from './error';
 import { Guard } from './guard';
-import { Log } from './log';
-import { isObject, isFunction, isArray } from '../utility/kit';
+import { isObject, isArray } from '../utility/kit';
 
-const models = {};
-let close = false;
+function equals(x, y) {
+	// TODO: improve equality algorithm
+	if (x === y) {
+		return true;
+	}
+
+	if (isArray(x)) {
+		if (x.length === 0 && y.length === 0) {
+			return true;
+		}
+	}
+
+	if (x instanceof Map) {
+		if (x.size === 0 && y.size === 0) {
+			return true;
+		}
+	}
+
+	if (x instanceof Set) {
+		if (x.size === 0 && y.size === 0) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 export class Model {
-	constructor() {
-		close = true;
-		for (let name of Object.keys(models)) {
-			const model = new models[name]();
+	constructor(state) {
+		for (let name of Object.keys(state)) {
+			const Type = state[name];
+			const model = new Type();
 			const changeSet = new Set();
 			const watchArg = () => {
-				let changes = Array.from(changeSet.values())
+				const prevChanges = Array.from(changeSet.values())
 					.reduce((memo, key) => {
 						const value = model[key];
 						memo[key] = { newValue: value, oldValue: value };
@@ -23,18 +46,17 @@ export class Model {
 
 				return {
 					state: model,
-					hasChanges: changes.hasOwnProperty.bind(changes),
-					changes: changes,
+					changes: prevChanges,
+					hasChanges: prevChanges.hasOwnProperty.bind(prevChanges),
 					tag: {},
 					source: 'watch',
 				};
 			};
 
 			const event = new Event(watchArg);
-			const equals = Model.equals;
 			this[name + 'Changed'] = event;
 			this[name] = function (state, tag) {
-				const length = arguments.length;
+				const { length } = arguments;
 				if (length) {
 					if (!isObject(state)) {
 						throw new AppError(
@@ -42,8 +64,8 @@ export class Model {
 							`"${state}" is not a valid type, should be an object`);
 					}
 
+					const changes = {};
 					let hasChanges = false;
-					let changes = {};
 					const keys = Object.keys(state);
 					for (let i = 0, keyLength = keys.length; i < keyLength; i++) {
 						const key = keys[i];
@@ -77,67 +99,18 @@ export class Model {
 					if (hasChanges) {
 						event.emit({
 							state: model,
+							changes,
 							hasChanges: changes.hasOwnProperty.bind(changes),
-							changes: changes,
 							tag: length > 1 ? tag : {},
 							source: 'emit'
 						});
 					}
+
 					return this;
 				}
 
 				return model;
 			};
 		}
-	}
-
-	static equals(x, y) {
-		// TODO: improve equality algo
-		if (x === y) {
-			return true;
-		}
-
-		if (isArray(x)) {
-			if (x.length === 0 && y.length === 0) {
-				return true;
-			}
-		}
-
-		if (x instanceof Map) {
-			if (x.size === 0 && y.size === 0) {
-				return true;
-			}
-		}
-
-		if (x instanceof Set) {
-			if (x.size === 0 && y.size === 0) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	static register(name, model) {
-		if (models.hasOwnProperty(name)) {
-			throw new AppError(
-				'model',
-				`"${name}" is already registered`);
-		}
-
-		if (!isFunction(model)) {
-			throw new AppError(
-				`model.${name}`,
-				`"${model}" is not a valid type, should be an constructor function`);
-		}
-
-		if (close) {
-			throw new AppError(
-				`model.${name}`,
-				'can\'t register, registration was closed');
-		}
-
-		models[name] = model;
-		return Model;
 	}
 }
