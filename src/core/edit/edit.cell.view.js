@@ -79,7 +79,7 @@ export class EditCellView {
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
 						&& model.edit().state === 'view'
-						&& model.edit().enter.canExecute(this.contextFactory(cell));
+						&& model.edit().enter.canExecute(this.contextFactory(cell, cell.value, cell.label));
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'edit mode');
@@ -123,7 +123,7 @@ export class EditCellView {
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
 						&& model.edit().state === 'edit';
 					if (canEdit) {
-						const context = this.contextFactory(cell);
+						const context = this.contextFactory(cell, this.value, this.label, this.tag);
 						const key = context.column.key;
 						const validator = validationService.createValidator(model.validation().rules, key);
 						return model.edit().commit.canExecute(context) && validator.validate({ [key]: this.value });
@@ -157,7 +157,7 @@ export class EditCellView {
 					cell = cell || this.editor.td;
 					const canEdit = cell && cell.column.canEdit;
 					if (canEdit) {
-						const context = this.contextFactory(cell);
+						const context = this.contextFactory(cell, this.value, this.label, this.tag);
 						const key = context.column.key;
 						const validator = validationService.createValidator(model.validation().rules, key);
 						return model.edit().commit.canExecute(context) && validator.validate({ [key]: this.value });
@@ -200,7 +200,7 @@ export class EditCellView {
 					}
 
 					cell = cell || this.editor.td;
-					if (cell && model.edit().cancel.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
+					if (cell && model.edit().cancel.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						this.editor.reset();
 						this.editor = CellEditor.empty;
 
@@ -301,7 +301,7 @@ export class EditCellView {
 		);
 	}
 
-	contextFactory(cell, value, label, tag) {
+	contextFactory(cell, newValue, newLabel, tag) {
 		const { column, row, columnIndex, rowIndex, value: oldValue, label: oldLabel } = cell;
 		return {
 			column,
@@ -309,9 +309,9 @@ export class EditCellView {
 			columnIndex,
 			rowIndex,
 			oldValue,
-			newValue: arguments.length >= 2 ? value : oldValue,
+			newValue,
 			oldLabel,
-			newLabel: arguments.length >= 3 ? label : oldLabel,
+			newLabel,
 			unit: 'cell',
 			tag,
 			valueFactory,
