@@ -109,9 +109,7 @@
 
     .q-grid-column-filter-list {
         overflow-y: auto;
-        height: 255px;
-        margin-bottom: 14px;
-
+        height: 230px;
         ul {
             margin: 0;
         }
@@ -138,10 +136,6 @@
         li {
             display: inline;
         }
-    }
-
-    .q-grid-column-filter-actions {
-        padding: 7px 0;
     }
 
     .q-grid-checkbox {
@@ -200,12 +194,6 @@
 
 @at-root {
     @media (max-height: 540px) {
-        .q-grid-persistence-panel.q-grid-menu {
-            height: 400px;
-            max-height: 400px;
-            min-height: 400px;
-        }
-
         .q-grid-column-filter-contains {
             .q-grid-column-filter-list {
                 max-height: 148px;                
