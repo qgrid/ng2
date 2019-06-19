@@ -20,16 +20,16 @@
     }
 
     &-right {
-        top: -50px;
+        bottom: 8px;
         right: 0;
         width: 300px;
-        height: calc(100% + 10px);
+        height: calc(100% + 50px);
     }
 
     &-left {
-        top: -50px;
+        bottom: 8px;
         left: 0;
         width: 300px;
-        height: calc(100% + 10px);
+        height: calc(100% + 50px);
     }
 }

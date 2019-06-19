@@ -1,5 +1,5 @@
 import { Command } from '../../core/command/command';
-import { FocusAfterRender } from '../../core/focus/focus.service';
+import { FocusAfterRenderService } from '../../core/focus/focus.service';
 
 export class PagerView {
 	constructor(model, table) {
@@ -9,7 +9,7 @@ export class PagerView {
 		this.next = new Command({
 			source: 'pager',
 			execute: () => {
-				new FocusAfterRender(model, table);
+				new FocusAfterRenderService(model, table);
 				model.pagination({ current: model.pagination().current + 1 }, { source: 'pager.view' })
 			},
 			canExecute: () => (model.pagination().current + 1) * model.pagination().size < model.pagination().count
@@ -18,7 +18,7 @@ export class PagerView {
 		this.prev = new Command({
 			source: 'pager',
 			execute: () => {
-				new FocusAfterRender(model, table);
+				new FocusAfterRenderService(model, table);
 				model.pagination({ current: model.pagination().current - 1 }, { source: 'pager.view' });
 			},
 			canExecute: () => model.pagination().current > 0

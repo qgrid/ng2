@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GridComponent } from './grid/grid.component';
-import { GridService } from './grid/grid.service';
+import { Grid } from './grid/grid.service';
 import { ColumnComponent } from './column/column.component';
 import { ColumnListComponent } from './column/column-list.component';
 import { BoxComponent } from './box/box.component';
@@ -39,7 +39,7 @@ import { VisibilityComponent } from './visibility/visibility.component';
 		GridCommonModule
 	],
 	providers: [
-		GridService
+		Grid
 	]
 })
 export class MainModule {

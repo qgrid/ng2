@@ -3,7 +3,7 @@ import { Command } from 'ng2-qgrid/core/command/command';
 import { clone } from 'ng2-qgrid/core/utility/kit';
 import { QueryBuilderService } from './query-builder.service';
 import { WhereSchema } from './schema/where.schema';
-import { visit as convert } from './schema/converter';
+import * as converter from './schema/converter';
 import { SerializationService } from '../expression-builder/serialization.service';
 import { INodeSchema } from '../expression-builder/model/node.schema';
 import { Node } from '../expression-builder/model/node';
@@ -78,7 +78,7 @@ export class QueryBuilderPanelComponent implements OnInit {
 			const node = serializer.serialize(this.node);
 
 			const by = clone(this.plugin.model.filter().by);
-			by.$expression = convert(node);
+			by.$expression = converter.visit(node);
 
 			this.plugin.model.filter({ by });
 			this.plugin.model.queryBuilder({ node: by.$expression ? node : null });

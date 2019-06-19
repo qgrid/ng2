@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
-import { Action as ActionItem } from 'ng2-qgrid/core/action/action';
+import { Action } from 'ng2-qgrid/core/action/action';
 import { PluginService, GridModel } from '../plugin.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { PluginService, GridModel } from '../plugin.service';
 	providers: [PluginService]
 })
 export class ActionCoreComponent {
-	@Input() action: ActionItem;
+	@Input() action: Action;
 
 	context: { $implicit: ActionCoreComponent } = {
 		$implicit: this

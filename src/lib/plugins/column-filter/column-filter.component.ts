@@ -14,7 +14,7 @@ import { Fetch } from 'ng2-qgrid/core/infrastructure/fetch';
 import { VscrollService } from '../../common/vscroll/vscroll.service';
 import { VscrollContext } from '../../common/vscroll/vscroll.context';
 import { FocusAfterRender } from '../../common/focus/focus.service';
-import { GridService } from '../../main/grid/grid.service';
+import { Grid } from '../../main/grid/grid.service';
 import { PluginService } from '../plugin.service';
 
 @Component({
@@ -41,7 +41,7 @@ export class ColumnFilterComponent implements OnInit {
 	constructor(
 		private plugin: PluginService,
 		private vscroll: VscrollService,
-		private qgrid: GridService,
+		private qgrid: Grid,
 		private cd: ChangeDetectorRef,
 		focusAfterRender: FocusAfterRender) {
 	}

@@ -12,7 +12,7 @@ import { DOCUMENT } from '@angular/common';
 import { RootComponent } from '../../infrastructure/component/root.component';
 import { RootService } from '../../infrastructure/component/root.service';
 import { LayerService } from '../core/layer/layer.service';
-import { GridService } from './grid.service';
+import { Grid } from './grid.service';
 import { TemplateCacheService } from '../../template/template-cache.service';
 import { TemplateLinkService } from '../../template/template-link.service';
 import { TemplateService } from '../../template/template.service';
@@ -42,7 +42,7 @@ import { ModelBuilderService } from '../model/model-builder.service';
 		TemplateCacheService,
 		TemplateService,
 		ViewCoreService,
-		GridService,
+		Grid,
 		TemplateLinkService,
 		LayerService
 	],
