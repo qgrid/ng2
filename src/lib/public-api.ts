@@ -104,3 +104,5 @@ export { VscrollColumnDirective } from './common/vscroll/vscroll-column.directiv
 export { VscrollRowDirective } from './common/vscroll/vscroll-row.directive';
 export { VscrollDirective } from './common/vscroll/vscroll.directive';
 
+export { PaneModule } from './plugins/pane/pane.module';
+export { PaneComponent } from './plugins/pane/pane.component';

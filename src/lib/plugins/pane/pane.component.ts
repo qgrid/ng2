@@ -21,7 +21,7 @@ export class PaneComponent implements OnInit {
 			rowIndex: number,
 			columnIndex: number,
 			row: any,
-			column: ColumnModel
+			column: any
 		};
 	};
 
@@ -35,7 +35,7 @@ export class PaneComponent implements OnInit {
 
 	ngOnInit() {
 		const { model } = this.plugin;
-		const parts = (this.trigger || '').split('.');
+		const parts = this.trigger ? this.trigger.split('.') : [];
 		if (parts.length > 0) {
 			const [state, prop] = parts;
 			if (!model[state]) {
@@ -45,13 +45,6 @@ export class PaneComponent implements OnInit {
 			model[`${state}Changed`].watch(e => {
 				if (!prop || e.hasChanges(prop)) {
 					this.close('right');
-
-					this.context = {
-						$implicit: this,
-						cell: model.navigation().cell
-					};
-
-					this.cd.markForCheck();
 					this.open('right');
 				}
 			});
@@ -59,7 +52,14 @@ export class PaneComponent implements OnInit {
 	}
 
 	open(side: 'right') {
-		const { table } = this.plugin;
+		const { table, model } = this.plugin;
+
+		this.context = {
+			$implicit: this,
+			cell: model.navigation().cell
+		};
+
+		this.cd.markForCheck();
 		table.view.addLayer(`pane-${side}`);
 	}
 

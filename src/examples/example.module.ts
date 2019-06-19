@@ -147,6 +147,7 @@ import { ExampleDetailsRowPinComponent } from './details-row-pin/example-details
 import { ExampleSelectRowDisableComponent } from './select-row-disable/example-select-row-disable.component';
 import { ExampleSelectRowDisableUnselectComponent } from './select-row-disable-unselect/example-select-row-disable-unselect.component';
 import { ExamplePaneBasicComponent } from './pane-basic/example-pane-basic.component';
+import { ExamplePaneTriggerComponent } from './pane-trigger/example-pane-trigger.component';
 
 export const EXAMPLES: any[] = [
 	ExampleActionBarBasicComponent,
@@ -245,6 +246,7 @@ export const EXAMPLES: any[] = [
 	ExampleOnPushBasicComponent,
 	ExamplePaginationBasicComponent,
 	ExamplePaneBasicComponent,
+	ExamplePaneTriggerComponent,
 	ExamplePersistenceBasicComponent,
 	ExamplePersistenceServerComponent,
 	ExamplePinColumnBasicComponent,
