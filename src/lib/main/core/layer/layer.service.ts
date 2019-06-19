@@ -25,17 +25,23 @@ export class LayerService {
 			return this.layers.get(name);
 		}
 
-		const container = this.container;
+		const { container } = this;
+
 		const link = this.templateService.find(`layer-${name}.tpl.html`);
 		if (link && container) {
+			const { nativeElement } = container.element;
+			nativeElement.parentElement.classList.add(`q-grid-layer-${name}`);
+
 			const createView = this.templateService.viewFactory({});
 			createView(link, container);
 		}
 
 		const layer = new Layer(() => {
 			this.layers.delete(name);
-			if (this.container) {
-				this.container.clear();
+			if (container) {
+				const { nativeElement } = container.element;
+				nativeElement.parentElement.classList.add(`q-grid-layer-${name}`);
+				container.clear();
 			}
 		});
 

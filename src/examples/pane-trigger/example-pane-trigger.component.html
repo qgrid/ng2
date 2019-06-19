@@ -1,0 +1,26 @@
+<q-grid caption="Pane Trigger"
+		[rows]="rows$ | async">
+	<q-grid-columns generation="deep">
+	</q-grid-columns>
+
+	<q-grid-actions>
+		<q-grid-action icon="details"
+					   title="Open Pane"
+					   [command]="openPane">
+		</q-grid-action>
+	</q-grid-actions>
+
+	<q-grid-pane>
+		<ng-template for="right"
+					 let-$pane
+					 let-$cell="cell">
+			<button mat-icon-button
+					style="float: right;"
+					(click)="$pane.close('right')">
+				<mat-icon>close</mat-icon>
+			</button>
+
+			<h2>{{$cell.row.name.last}}, {{$cell.row.name.first}}</h2>
+		</ng-template>
+	</q-grid-pane>
+</q-grid>
