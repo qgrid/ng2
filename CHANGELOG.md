@@ -15,6 +15,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Migrate to Angular 7.
 
 ### Fixed
+- Commit command get correct arguments.
+
+### Added
+- Possibility to add panes.
 
 ## [6.4.0] - 2019-05-14
 ### Added

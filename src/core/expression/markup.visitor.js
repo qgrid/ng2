@@ -38,7 +38,7 @@ function stringifyDate(value) {
 }
 
 function stringifyNumber(value) {
-    const number = parseFloat(value);
+    const number = Number.parseFloat(value);
     if (!isNaN(number) && isFinite(number)) {
         return `<span class="q-grid-markup-condition-value q-grid-markup-condition-number">${value}</span>`;
     }
@@ -47,7 +47,7 @@ function stringifyNumber(value) {
 }
 
 function stringifyInteger(value) {
-    const number = parseInt(value);
+    const number = Number.parseInt(value, 10);
     if (!isNaN(number) && isFinite(number)) {
         return `<span class="q-grid-markup-condition-value q-grid-markup-condition-number">${value}</span>`;
     }

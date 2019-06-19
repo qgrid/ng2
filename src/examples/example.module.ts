@@ -149,6 +149,7 @@ import { ExampleSelectRowDisableUnselectComponent } from './select-row-disable-u
 import { ExamplePaneBasicComponent } from './pane-basic/example-pane-basic.component';
 import { ExamplePaneTriggerComponent } from './pane-trigger/example-pane-trigger.component';
 import { ExampleDefineColumnTypeComponent } from './define-column-type/example-define-column-type.component';
+import { ExampleSizeColumnPinComponent } from './size-column-pin/example-size-column-pin.component';
 
 export const EXAMPLES: any[] = [
 	ExampleActionBarBasicComponent,
@@ -281,6 +282,7 @@ export const EXAMPLES: any[] = [
 	ExampleSizeColumnAbsoluteComponent,
 	ExampleSizeColumnBasicComponent,
 	ExampleSizeColumnFullComponent,
+	ExampleSizeColumnPinComponent,
 	ExampleSizeRowBasicComponent,
 	ExampleSortRowBasicComponent,
 	ExampleStyleCellBasicComponent,
