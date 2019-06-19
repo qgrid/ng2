@@ -38,10 +38,10 @@ export class LayerService {
 
 		const layer = new Layer(() => {
 			this.layers.delete(name);
-			if (this.container) {
+			if (container) {
 				const { nativeElement } = container.element;
 				nativeElement.parentElement.classList.add(`q-grid-layer-${name}`);
-				this.container.clear();
+				container.clear();
 			}
 		});
 

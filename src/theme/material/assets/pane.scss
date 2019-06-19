@@ -1,4 +1,5 @@
 .q-grid-layer-pane {
+
     &-right,
     &-left {
         pointer-events: none;
@@ -12,6 +13,11 @@
     background: #fff;
     padding: 16px;
     pointer-events: all;
+
+    >.mat-card {
+        box-shadow: none;
+        padding: 0;
+    }
 
     &-right {
         top: -50px;
