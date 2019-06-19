@@ -8,7 +8,6 @@ import { BoxComponent } from './box/box.component';
 import { CoreModule } from './core/core.module';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { RowComponent } from './core/row/row.component';
-import { LayerComponent } from './core/layer/layer.component';
 import { MarkupDirective } from './markup/markup.directive';
 import { CommonModule as GridCommonModule } from '../common/common.module';
 import { VisibilityComponent } from './visibility/visibility.component';
@@ -19,7 +18,6 @@ import { VisibilityComponent } from './visibility/visibility.component';
 		ColumnComponent,
 		ColumnListComponent,
 		GridComponent,
-		LayerComponent,
 		MarkupDirective,
 		RowComponent,
 		ToolbarComponent,
@@ -31,7 +29,6 @@ import { VisibilityComponent } from './visibility/visibility.component';
 		ColumnListComponent,
 		GridCommonModule,
 		GridComponent,
-		LayerComponent,
 		RowComponent,
 		ToolbarComponent,
 		VisibilityComponent,

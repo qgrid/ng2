@@ -1,18 +1,36 @@
-import { Component, Input, OnInit, OnDestroy, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
-import { EditFormPanelView } from 'ng2-qgrid/plugin/edit-form/edit.form.panel.view';
+import { Component, OnInit } from '@angular/core';
 import { PluginService } from '../plugin.service';
-import { Td } from 'ng2-qgrid/core/dom/td';
+import { TemplateHostService } from '../../template/template-host.service';
 
 @Component({
 	selector: 'q-grid-pane',
 	templateUrl: './pane.component.html',
-	providers: [PluginService]
+	providers: [
+		PluginService,
+		TemplateHostService
+	]
 })
-export class PaneComponent {
-	@Output() cancel = new EventEmitter();
-	@Output() reset = new EventEmitter();
-	@Output() submit = new EventEmitter();
+export class PaneComponent implements OnInit {
+	constructor(private plugin: PluginService, templateHost: TemplateHostService) {
+		templateHost.key = source => `plugin-pane-${source}.tpl.html`;
+	}
 
-	constructor(private plugin: PluginService) {
+	ngOnInit() {
+		const { model } = this.plugin;
+		model.selectionChanged.watch(e => {
+			if (e.hasChanges('items')) {
+				this.open('right');
+			}
+		});
+	}
+
+	open(side: 'right') {
+		const { table } = this.plugin;
+		table.view.addLayer(`pane-${side}`);
+	}
+
+	close(side: 'right') {
+		const { table } = this.plugin;
+		table.view.removeLayer(`pane-${side}`);
 	}
 }

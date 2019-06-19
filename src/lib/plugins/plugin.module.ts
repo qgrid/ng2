@@ -30,6 +30,7 @@ import { StatusBarModule } from './status-bar/status-bar.module';
 import { TabTrapModule } from './tab-trap/tab-trap.module';
 import { TitleModule } from './title/title.module';
 import { ValidationModule } from './validation/validation.module';
+import { LayerModule } from './layer/layer.module';
 
 @NgModule({
 	exports: [
@@ -47,6 +48,7 @@ import { ValidationModule } from './validation/validation.module';
 		EditFormModule,
 		ExportModule,
 		ImportModule,
+		LayerModule,
 		LegendModule,
 		PagerModule,
 		PaneModule,

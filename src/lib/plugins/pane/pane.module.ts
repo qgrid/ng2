@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TemplateModule } from '../../template/template.module';
 import { PaneTriggerComponent } from './pane-trigger.component';
 import { PaneComponent } from './pane.component';
+import { LayerModule } from '../layer/layer.module';
 
 @NgModule({
 	declarations: [
@@ -15,7 +16,8 @@ import { PaneComponent } from './pane.component';
 	],
 	imports: [
 		CommonModule,
-		TemplateModule
+		TemplateModule,
+		LayerModule
 	]
 })
 export class PaneModule { }
