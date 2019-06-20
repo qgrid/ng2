@@ -16,9 +16,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Fixed
 - Commit command get correct arguments.
+- Better mouse navigation in edit mode.
 
 ### Added
 - Possibility to add panes.
+- Layer panel gets class appropriate to layer name.
 
 ## [6.4.0] - 2019-05-14
 ### Added
