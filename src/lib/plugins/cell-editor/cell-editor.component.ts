@@ -5,6 +5,7 @@ import {
 	Output,
 	ViewChild
 } from '@angular/core';
+import { ViewCoreService } from 'lib/main/core/view/view-core.service';
 
 @Component({
 	selector: 'q-grid-cell-editor',
@@ -17,6 +18,10 @@ export class CellEditorComponent {
 	context: { $implicit: CellEditorComponent } = {
 		$implicit: this
 	};
+
+	constructor(view: ViewCoreService) {
+		view.edit.cell.requestClose = () => this.close();
+	}
 
 	close() {
 		this.closeEvent.emit();

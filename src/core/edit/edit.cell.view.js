@@ -15,6 +15,7 @@ export class EditCellView {
 		this.shortcut = shortcut;
 
 		this.editor = CellEditor.empty;
+		this.requestClose = null;
 
 		const commands = this.commands;
 
@@ -37,8 +38,10 @@ export class EditCellView {
 					}
 				} else {
 					model.edit({ state: 'edit' }, { source: 'edit.cell.view' });
-					if (this.exit.canExecute()) {
-						this.exit.execute();
+					if (this.requestClose) {
+						this.requestClose();
+					} else if (this.cancel.canExecute()) {
+						this.cancel.execute();
 					}
 				}
 			}
@@ -156,6 +159,7 @@ export class EditCellView {
 					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
 						this.editor.commit();
 						this.editor = CellEditor.empty;
+						this.requestClose = null;
 
 						this.mode(cell, 'view');
 						table.view.focus();
@@ -191,6 +195,8 @@ export class EditCellView {
 					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
 						this.editor.commit();
 						this.editor = CellEditor.empty;
+						this.requestClose = null;
+
 						return true;
 					}
 
@@ -219,6 +225,7 @@ export class EditCellView {
 					if (cell && model.edit().cancel.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						this.editor.reset();
 						this.editor = CellEditor.empty;
+						this.requestClose = null;
 
 						this.mode(cell, 'view');
 						table.view.focus();
