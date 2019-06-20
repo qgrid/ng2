@@ -9,32 +9,32 @@ import {
 	ChangeDetectorRef
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { Action } from 'ng2-qgrid/core/action/action';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
+import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
+import { Command } from 'ng2-qgrid/core/command/command';
+import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
+import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
+import { eventPath } from 'ng2-qgrid/core/services/dom';
+import { FetchContext } from 'ng2-qgrid/core/fetch/fetch.context';
+import { Grid } from './grid.service';
+import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
+import { GridModel } from '../../plugins/plugin.service';
+import { jobLine } from 'ng2-qgrid/core/services/job.line';
+import { LayerService } from '../layer/layer.service';
+import { ModelBuilderService } from '../model/model-builder.service';
+import { noop } from 'ng2-qgrid/core/utility/kit';
+import { PipeContext } from 'ng2-qgrid/core/pipe/pipe.item';
 import { RootComponent } from '../../infrastructure/component/root.component';
 import { RootService } from '../../infrastructure/component/root.service';
-import { LayerService } from '../core/layer/layer.service';
-import { Grid } from './grid.service';
+import { StyleRowContext, StyleCellContext } from 'ng2-qgrid/core/style/style.context';
+import { TableCommandManager } from 'ng2-qgrid/core/command/table.command.manager';
 import { TemplateCacheService } from '../../template/template-cache.service';
 import { TemplateLinkService } from '../../template/template-link.service';
 import { TemplateService } from '../../template/template.service';
 import { ThemeService } from '../../template/theme.service';
 import { ViewCoreService } from '../../main/core/view/view-core.service';
-import { Action } from 'ng2-qgrid/core/action/action';
-import { AppError } from 'ng2-qgrid/core/infrastructure/error';
-import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
-import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
-import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
-import { FetchContext } from 'ng2-qgrid/core/fetch/fetch.context';
-import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
-import { noop } from 'ng2-qgrid/core/utility/kit';
-import { jobLine } from 'ng2-qgrid/core/services/job.line';
-import { PipeContext } from 'ng2-qgrid/core/pipe/pipe.item';
-import { StyleRowContext, StyleCellContext } from 'ng2-qgrid/core/style/style.context';
-import { TableCommandManager } from 'ng2-qgrid/core/command/table.command.manager';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
-import { Command } from 'ng2-qgrid/core/command/command';
-import { GridModel } from '../../plugins/plugin.service';
-import { ModelBuilderService } from '../model/model-builder.service';
-import { eventPath } from 'ng2-qgrid/core/services/dom';
 
 @Component({
 	selector: 'q-grid',

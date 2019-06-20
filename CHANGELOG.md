@@ -14,12 +14,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Changed
 - Migrate to Angular 7.
 - Reference editor cancels value on backdrop click.
+- Move layer component under the box.
 
 ### Fixed
 - Commit command get correct arguments.
 - Better mouse navigation in edit mode.
 - Dropdown behavior on close.
 - Limit filter by chip width to support multiline text.
+- Do not show shortcut tooltip in action bar if it's empty
 
 ### Added
 - Possibility to add panes.
