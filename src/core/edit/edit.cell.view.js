@@ -28,6 +28,22 @@ export class EditCellView {
 		this.exit = commands.get('exit');
 		this.clear = commands.get('clear');
 
+		model.editChanged.watch(e => {
+			if (e.hasChanges('state') && e.tag.source !== 'edit.cell.view') {
+				if (e.changes.state.newValue === 'edit') {
+					model.edit({ state: 'view' }, { source: 'edit.cell.view' });
+					if (this.enter.canExecute()) {
+						this.enter.execute();
+					}
+				} else {
+					model.edit({ state: 'edit' }, { source: 'edit.cell.view' });
+					if (this.exit.canExecute()) {
+						this.exit.execute();
+					}
+				}
+			}
+		});
+
 		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
 				const oldCell = this.editor.td;
@@ -54,7 +70,7 @@ export class EditCellView {
 	}
 
 	mode(cell, value) {
-		this.model.edit({ state: value });
+		this.model.edit({ state: value }, { source: 'edit.cell.view' });
 		cell.mode(value);
 	}
 

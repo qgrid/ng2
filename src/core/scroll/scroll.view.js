@@ -131,7 +131,7 @@ export class ScrollView {
 		}
 
 		model.scrollChanged.watch(e => {
-			if (e.source === 'scroll.view') {
+			if (e.tag.source === 'scroll.view') {
 				return;
 			}
 

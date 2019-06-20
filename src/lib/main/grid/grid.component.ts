@@ -34,6 +34,7 @@ import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { GridModel } from '../../plugins/plugin.service';
 import { ModelBuilderService } from '../model/model-builder.service';
+import { eventPath } from 'ng2-qgrid/core/services/dom';
 
 @Component({
 	selector: 'q-grid',
@@ -171,7 +172,22 @@ export class GridComponent extends RootComponent implements OnInit {
 		const listener = new EventListener(nativeElement, new EventManager(this));
 		const docListener = new EventListener(this.document, new EventManager(this));
 
-		this.zone.runOutsideAngular(() => this.using(docListener.on('focusin', () => ctrl.invalidateActive())));
+		this.zone.runOutsideAngular(() => {
+			this.using(docListener.on('focusin', () => ctrl.invalidateActive()));
+			this.using(docListener.on('click', e => {
+				const path = eventPath(e);
+				const clickedOutside = path.every(x => x !== nativeElement);
+				if (clickedOutside) {
+					if (model.edit().state === 'edit') {
+						model.edit({
+							state: 'view'
+						}, {
+								source: 'document.click'
+							});
+					}
+				}
+			}));
+		});
 
 		const { debounce } = model.navigation();
 		if (debounce) {

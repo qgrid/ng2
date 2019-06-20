@@ -5,8 +5,9 @@ import {
 	EventEmitter,
 	OnDestroy,
 	ElementRef,
-	ChangeDetectionStrategy,
-	ViewChild
+	ViewChild,
+	Input,
+	OnInit
 } from '@angular/core';
 import { BackdropView } from 'ng2-qgrid/plugin/backdrop/backdrop.view';
 import { BackdropService } from './backdrop.service';
@@ -15,9 +16,10 @@ import { BackdropService } from './backdrop.service';
 	selector: 'q-grid-backdrop',
 	templateUrl: './backdrop.component.html'
 })
-export class BackdropComponent implements OnDestroy {
-	@ViewChild(TemplateRef) public template: TemplateRef<any>;
+export class BackdropComponent implements OnInit, OnDestroy {
+	@ViewChild(TemplateRef) template: TemplateRef<any>;
 	@Output('close') closeEvent = new EventEmitter<any>();
+	@Input() propagate = true;
 
 	context: { $implicit: BackdropComponent } = {
 		$implicit: this
@@ -25,11 +27,13 @@ export class BackdropComponent implements OnDestroy {
 
 	constructor(private backdropService: BackdropService, elementRef: ElementRef) {
 		backdropService.element = elementRef;
+	}
 
+	ngOnInit() {
 		const context = {
-			element: elementRef.nativeElement,
+			element: this.backdropService.element.nativeElement,
+			propagate: this.propagate,
 			onKeyDown: () => { },
-			propagate: false
 		};
 
 		const backdrop = new BackdropView(context);
