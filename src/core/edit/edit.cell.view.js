@@ -36,7 +36,7 @@ export class EditCellView {
 					if (this.enter.canExecute()) {
 						this.enter.execute();
 					}
-				} else {
+				} else if(e.changes.state.newValue === 'view') {
 					model.edit({ state: 'edit' }, { source: 'edit.cell.view' });
 					if (this.requestClose) {
 						if (this.requestClose()) {

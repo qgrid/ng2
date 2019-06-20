@@ -27,7 +27,6 @@ export class LayerService {
 
 			const createView = templateService.viewFactory({});
 			createView(link, container);
-			console.log('create');
 		}
 
 		const destroy = container
@@ -36,7 +35,6 @@ export class LayerService {
 				const { nativeElement } = container.element;
 				nativeElement.parentElement.classList.add(`q-grid-layer-${name}`);
 				container.clear();
-				console.log('destroy');
 			}
 			: () => this.layers.delete(name);
 

@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
-* Vscroll improvements.
+* Vscroll.
 * Copy/paste selection to excel.
 * Live data plugin.
 * Float rows navigation.
@@ -22,6 +22,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Dropdown behavior on close.
 - Limit filter by chip width to support multiline text.
 - Do not show shortcut tooltip in action bar if it's empty
+- Same id layers can be accidentally shown.
 
 ### Added
 - Possibility to add panes.
