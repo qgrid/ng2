@@ -2,7 +2,7 @@
 			 let-$cell
 			 let-$view="$view">
 	<q-grid-cell-editor class="q-grid-reference q-grid-editor q-grid-position"
-						(close)="$view.edit.cell.exit.execute($cell)"
+						(close)="$view.edit.cell.cancel.execute($cell)"
 						q-grid-position="td">
 		<q-grid-reference-editor [cell]="$cell"
 								 [(value)]="$view.edit.cell.value"

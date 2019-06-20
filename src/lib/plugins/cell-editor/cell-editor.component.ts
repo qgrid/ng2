@@ -20,7 +20,14 @@ export class CellEditorComponent {
 	};
 
 	constructor(view: ViewCoreService) {
-		view.edit.cell.requestClose = () => this.close();
+		view.edit.cell.requestClose = () => {
+			if (this.closeEvent.observers.length) {
+				this.close();
+				return true;
+			}
+
+			return false;
+		};
 	}
 
 	close() {

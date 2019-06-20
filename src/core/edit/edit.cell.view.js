@@ -39,8 +39,12 @@ export class EditCellView {
 				} else {
 					model.edit({ state: 'edit' }, { source: 'edit.cell.view' });
 					if (this.requestClose) {
-						this.requestClose();
-					} else if (this.cancel.canExecute()) {
+						if (this.requestClose()) {
+							return;
+						}
+					}
+
+					if (this.cancel.canExecute()) {
 						this.cancel.execute();
 					}
 				}

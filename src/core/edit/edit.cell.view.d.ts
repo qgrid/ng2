@@ -23,7 +23,7 @@ export declare class EditCellView {
 
 	value: any;
 	label: any;
-	requestClose: () => void;
+	requestClose: () => boolean;
 
 	readonly cell: CellView;
 	readonly row: any;
