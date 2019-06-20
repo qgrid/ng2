@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node build.serve",
+    "start:prod": "node build.serve.prod",
     "clean": "rimraf out-tsc dist",
     "copy:npm": "node build.copy.js **/* dist node_modules/ng2-qgrid",
     "lint": "ng lint",
