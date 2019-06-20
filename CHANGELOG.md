@@ -13,10 +13,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## [7.2.0] - 2019-06-14
 ### Changed
 - Migrate to Angular 7.
+- Reference editor cancels value on backdrop click.
 
 ### Fixed
 - Commit command get correct arguments.
 - Better mouse navigation in edit mode.
+- Dropdown behavior on close.
+- Limit filter by chip width to support multiline text.
 
 ### Added
 - Possibility to add panes.
