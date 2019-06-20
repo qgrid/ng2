@@ -116,7 +116,7 @@ export function widthFactory(table, form) {
 		let width = size.width;
 		if (width || width === 0) {
 			if (('' + width).indexOf('%') >= 0) {
-				const percent = parseFloat(width);
+				const percent = Number.parseFloat(width);
 				const rect = getRect();
 				// 2 because pad column has left padding equals to 1px and width 100%
 				// that can produce 1.## values
@@ -125,7 +125,7 @@ export function widthFactory(table, form) {
 				width = (rect.width - skip) * percent / 100;
 			}
 
-			return Math.max(parseInt(width), parseInt(column.minWidth));
+			return Math.max(Number.parseInt(width, 10), Number.parseInt(column.minWidth, 10));
 		}
 
 		return null;

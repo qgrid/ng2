@@ -19,7 +19,7 @@ import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Table } from 'ng2-qgrid/core/dom/table';
 import { CommandManager } from 'ng2-qgrid/core/command/command.manager';
 import { VScrollService } from '../../../main/core/scroll/vscroll.service';
-import { GridService } from '../../../main/grid/grid.service';
+import { Grid } from '../../../main/grid/grid.service';
 import { RowView } from 'ng2-qgrid/core/row/row.view';
 
 @Injectable()
@@ -44,7 +44,7 @@ export class ViewCoreService implements OnDestroy {
 	row: RowView = null;
 
 	constructor(
-		private gridServiceFactory: GridService,
+		private gridServiceFactory: Grid,
 		private vscroll: VScrollService
 	) { }
 

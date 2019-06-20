@@ -5,9 +5,9 @@
                #input
                q-grid-focus
                matInput
+               placeholder="Pick a {{$editor.title}}"
                [(ngModel)]="$editor.value"
                (ngModelChange)="$editor.filter(input.value)"
-               placeholder="Pick a {{$editor.title}}"
                [matAutocomplete]="autocomplete">
     </mat-form-field>
     <mat-autocomplete #autocomplete="matAutocomplete">

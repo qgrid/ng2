@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GridComponent } from './grid/grid.component';
-import { GridService } from './grid/grid.service';
+import { Grid } from './grid/grid.service';
 import { ColumnComponent } from './column/column.component';
 import { ColumnListComponent } from './column/column-list.component';
 import { BoxComponent } from './box/box.component';
@@ -11,6 +11,8 @@ import { RowComponent } from './core/row/row.component';
 import { MarkupDirective } from './markup/markup.directive';
 import { CommonModule as GridCommonModule } from '../common/common.module';
 import { VisibilityComponent } from './visibility/visibility.component';
+import { LayerCoreComponent } from './layer/layer-core.component';
+import { LayerCoreDirective } from './layer/layer-core.directive';
 
 @NgModule({
 	declarations: [
@@ -22,6 +24,8 @@ import { VisibilityComponent } from './visibility/visibility.component';
 		RowComponent,
 		ToolbarComponent,
 		VisibilityComponent,
+		LayerCoreComponent,
+		LayerCoreDirective
 	],
 	exports: [
 		BoxComponent,
@@ -39,7 +43,7 @@ import { VisibilityComponent } from './visibility/visibility.component';
 		GridCommonModule
 	],
 	providers: [
-		GridService
+		Grid
 	]
 })
 export class MainModule {

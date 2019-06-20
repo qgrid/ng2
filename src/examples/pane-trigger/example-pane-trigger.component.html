@@ -14,13 +14,17 @@
 		<ng-template for="right"
 					 let-$pane
 					 let-$cell="cell">
-			<button mat-icon-button
-					style="float: right;"
-					(click)="$pane.close('right')">
-				<mat-icon>close</mat-icon>
-			</button>
+			<div style="width: 300px;">
+				<button mat-icon-button
+						style="float: right;"
+						(click)="$pane.close('right')">
+					<mat-icon>close</mat-icon>
+				</button>
 
-			<h2>{{$cell.row.name.last}}, {{$cell.row.name.first}}</h2>
+				<h2>
+					{{$cell.row.name.last}}, {{$cell.row.name.first}}
+				</h2>
+			</div>
 		</ng-template>
 	</q-grid-pane>
 </q-grid>

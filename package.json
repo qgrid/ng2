@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node build.serve",
+    "start:prod": "node build.serve.prod",
     "clean": "rimraf out-tsc dist",
     "copy:npm": "node build.copy.js **/* dist node_modules/ng2-qgrid",
     "lint": "ng lint",
@@ -90,6 +91,7 @@
     "tsickle": "^0.35.0",
     "tslint": "~5.17.0",
     "typescript": "~3.2.2",
-    "xlsx": "^0.14.3"
+    "xlsx": "^0.14.3",
+    "ng2-qgrid": "*"
   }
 }

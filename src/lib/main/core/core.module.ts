@@ -5,8 +5,6 @@ import { CellHandlerComponent } from './cell/cell-handler.component';
 import { CommonModule as GridCommonModule } from '../../common/common.module';
 import { FootCoreComponent } from './foot/foot-core.component';
 import { HeadCoreComponent } from './head/head-core.component';
-import { LayerCoreComponent } from './layer/layer-core.component';
-import { LayerCoreDirective } from './layer/layer-core.directive';
 import { MarkupDirective } from './markup/markup.directive';
 import { TableCoreComponent } from '../../main/core/table/table-core.component';
 import { TdCoreAlignDirective } from '../../main/core/body/td-core-align.directive';
@@ -28,8 +26,6 @@ import { VScrollService } from './scroll/vscroll.service';
 		CellHandlerComponent,
 		FootCoreComponent,
 		HeadCoreComponent,
-		LayerCoreComponent,
-		LayerCoreDirective,
 		MarkupDirective,
 		TableCoreComponent,
 		TdCoreAlignDirective,

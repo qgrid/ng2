@@ -78,7 +78,7 @@ export class FocusService {
     }
 }
 
-export class FocusAfterRender extends Disposable {
+export class FocusAfterRenderService extends Disposable {
     constructor(model, table) {
         super();
 

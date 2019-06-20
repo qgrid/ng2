@@ -1,0 +1,14 @@
+<q-grid caption="Define Column Type"
+		[rows]="rows | async"
+		[columns]="columns">
+	<q-grid-columns>
+		<q-grid-column key="number"
+					   title="should be number"
+					   [width]="90">
+		</q-grid-column>
+		<q-grid-column key="symbol"
+					   title="should be text"
+					   type="text">
+		</q-grid-column>
+	</q-grid-columns>
+</q-grid>

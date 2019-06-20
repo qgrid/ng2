@@ -43,5 +43,6 @@ export function set(row, column, value) {
 
 	throw new AppError(
 		'value',
-		`Row can't be edit on "${column.key}" column`);
+		`Row can't be edit on "${column.key}" column`
+	);
 }

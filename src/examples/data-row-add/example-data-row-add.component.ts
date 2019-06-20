@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 import { GridComponent, Command, Grid } from 'ng2-qgrid';
@@ -10,7 +10,7 @@ import { GridComponent, Command, Grid } from 'ng2-qgrid';
 	providers: [DataService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExampleDataRowAddComponent {
+export class ExampleDataRowAddComponent implements AfterViewInit {
 	static id = 'data-row-add';
 
 	@ViewChild(GridComponent) grid: GridComponent;
@@ -33,5 +33,12 @@ export class ExampleDataRowAddComponent {
 
 	constructor(dataService: DataService, private qgrid: Grid) {
 		this.rows = dataService.getPeople();
+	}
+
+	ngAfterViewInit() {
+		const { model } = this.grid;
+		model.edit({
+			mode: 'cell'
+		});
 	}
 }

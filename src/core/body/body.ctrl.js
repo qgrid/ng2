@@ -166,12 +166,13 @@ export class BodyCtrl {
 			}
 
 			if (cell) {
+				const { state: beforeSelectState } = edit();
 				this.select(cell);
 				this.navigate(cell);
-				if (this.view.edit.cell.enter.canExecute(cell)) {
-					if (this.selection.items.length > 1) {
-						return;
-					}
+
+				if (beforeSelectState === 'view' &&
+					this.selection.items.length == 1 &&
+					this.view.edit.cell.enter.canExecute(cell)) {
 
 					this.view.edit.cell.enter.execute(cell);
 				}

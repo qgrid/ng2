@@ -9,7 +9,7 @@ import {
 	NgZone
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { EventListener as EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
+import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { clone } from 'ng2-qgrid/core/utility/kit';
