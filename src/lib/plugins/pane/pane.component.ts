@@ -65,6 +65,10 @@ export class PaneComponent implements OnInit {
 
 	close(side: 'right') {
 		const { table } = this.plugin;
+
 		table.view.removeLayer(`pane-${side}`);
+
+		this.context = null;
+		this.cd.markForCheck();
 	}
 }
