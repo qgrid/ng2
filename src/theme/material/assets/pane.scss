@@ -1,16 +1,9 @@
-.q-grid-layer-pane {
-    &-right {
-        pointer-events: none;
-    }
-}
-
 .q-grid-pane {
     box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
     position: absolute;
     z-index: 3;
     background: #fff;
     padding: 4px 16px;
-    pointer-events: all;
 
     >.mat-card {
         box-shadow: none;
@@ -20,6 +13,6 @@
     &-right {
         bottom: 8px;
         right: 0;
-        height: calc(100% + 35px);
+        height: calc(100% + 40px);
     }
 }

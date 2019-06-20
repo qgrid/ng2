@@ -1,15 +1,10 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { LayerService } from './layer.service';
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
 	selector: 'q-grid-core-layer',
 	templateUrl: './layer-core.component.html'
 })
 export class LayerCoreComponent {
-	constructor(private layerService: LayerService) {
-	}
-
-	get isActive() {
-		return this.layerService.count > 0;
-	}
+	@HostBinding('class')
+	hostClass = 'q-grid-layer';
 }

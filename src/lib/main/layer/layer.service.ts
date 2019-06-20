@@ -12,12 +12,6 @@ export class LayerService {
 
 	init(container: ViewContainerRef) {
 		this.container = container;
-
-		const layers = this.layers;
-		this.layers = new Map();
-		for (const key of Array.from(layers.keys())) {
-			this.create(key);
-		}
 	}
 
 	create(name) {
@@ -25,26 +19,28 @@ export class LayerService {
 			return this.layers.get(name);
 		}
 
-		const { container } = this;
-
-		const link = this.templateService.find(`layer-${name}.tpl.html`);
+		const { container, templateService } = this;
+		const link = templateService.find(`layer-${name}.tpl.html`);
 		if (link && container) {
 			const { nativeElement } = container.element;
 			nativeElement.parentElement.classList.add(`q-grid-layer-${name}`);
 
-			const createView = this.templateService.viewFactory({});
+			const createView = templateService.viewFactory({});
 			createView(link, container);
+			console.log('create');
 		}
 
-		const layer = new Layer(() => {
-			this.layers.delete(name);
-			if (container) {
+		const destroy = container
+			? () => {
+				this.layers.delete(name);
 				const { nativeElement } = container.element;
 				nativeElement.parentElement.classList.add(`q-grid-layer-${name}`);
 				container.clear();
+				console.log('destroy');
 			}
-		});
+			: () => this.layers.delete(name);
 
+		const layer = new Layer(destroy);
 		this.layers.set(name, layer);
 		return layer;
 	}
