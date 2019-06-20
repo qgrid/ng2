@@ -2,12 +2,12 @@
              let-$cell
              let-$view="$view">
     <a [href]="$cell.value">{{$cell.label || $cell.value}}</a>
-    <button mat-icon-button
-            *ngIf="$view.edit.cell.canEdit($cell)"
+    <button *ngIf="$view.edit.cell.canEdit($cell)"
+            mat-icon-button
+            [disabled]="!$view.edit.cell.enter.canExecute($cell)"
             class="q-grid-file-edit q-grid-edit-trigger"
             matTooltip="Upload"
             aria-label="Аile edit"
-            (disabled)="!$view.edit.cell.enter.canExecute($cell)"
             (click)="$view.edit.cell.enter.execute($cell)"
             tabindex="-1">
         <mat-icon class="q-grid-icon">file_upload</mat-icon>
