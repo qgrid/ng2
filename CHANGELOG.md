@@ -10,7 +10,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
-## [7.2.0] - 2019-06-14
+## [7.2.2] - 2019-06-20
+### Fixed
+- Layer default styles.
+
+## [7.2.1] - 2019-06-20
+### Fixed
+- Angular Material version.
+
+## [7.2.0] - 2019-06-20
 ### Changed
 - Migrate to Angular 7.
 - Reference editor cancels value on backdrop click.
@@ -395,7 +403,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v6.4.0...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v7.2.2...HEAD
+[7.2.2]: https://github.com/qgrid/ng2/compare/v7.2.1...v7.2.2
+[7.2.1]: https://github.com/qgrid/ng2/compare/v7.2.0...v7.2.1
+[7.2.0]: https://github.com/qgrid/ng2/compare/v6.4.0...v7.2.0
 [6.4.0]: https://github.com/qgrid/ng2/compare/v6.3.9...v6.4.0
 [6.3.9]: https://github.com/qgrid/ng2/compare/v6.3.7...v6.3.9
 [6.3.8]: https://github.com/qgrid/ng2/compare/v6.3.7...v6.3.8
