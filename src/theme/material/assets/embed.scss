@@ -89,7 +89,7 @@ $color-black-87: rgba(0, 0, 0, 0.87);
                     color: $color-black-87;
 
                     &.q-grid-text-area {
-                        > span {
+                        >span {
                             white-space: nowrap;
                         }
                     }
@@ -147,6 +147,16 @@ $color-black-87: rgba(0, 0, 0, 0.87);
             &-legend-list {
                 margin-top: 15px;
             }
+
+            &-layer {
+                top: 50px;
+            }
+
+            &-pane {
+				&-right {
+					bottom: 2px;
+				}
+			}
         }
     }
 }
