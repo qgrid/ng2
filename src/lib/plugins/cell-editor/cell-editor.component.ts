@@ -5,7 +5,7 @@ import {
 	Output,
 	ViewChild
 } from '@angular/core';
-import { ViewCoreService } from 'lib/main/core/view/view-core.service';
+import { ViewCoreService } from '../../main/core/view/view-core.service';
 
 @Component({
 	selector: 'q-grid-cell-editor',
