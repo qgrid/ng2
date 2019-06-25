@@ -16,6 +16,8 @@
 		<mat-form-field class="app-search">
 			<input matInput
 				   #search
+				   [(ngModel)]="inputValue"
+				   (ngModelChange)="onSearchChange()"
 				   placeholder="Search in qgrid examples"
 				   autocomplete="off"
 				   type="search" />
@@ -24,6 +26,7 @@
 			<a *ngFor="let example of examples | filter: search.value"
 			   mat-list-item
 			   [routerLink]="example.path"
+			   [queryParams]="(search.value) ? {search: search.value} : {}"
 			   routerLinkActive="app-active"
 			   (click)="isMobile ? sidenav.toggle() : null">
 				<span [innerHTML]="example.path | qGridHighlight: search.value"></span>

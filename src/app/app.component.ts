@@ -13,10 +13,12 @@ import {
 import {
 	Router,
 	Routes,
-	RouterLinkActive
+	RouterLinkActive,
+	ActivatedRoute
 } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { APP_ROUTES } from '../examples/example.module';
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'app-root',
@@ -33,9 +35,12 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
 	private mobileQueryListener: () => void;
 	private mobileQuery: MediaQueryList;
+	inputValue: string;
 
 	constructor(
 		private router: Router,
+		private activatedRoute: ActivatedRoute,
+		private location: Location,
 		private zone: NgZone,
 		cd: ChangeDetectorRef,
 		media: MediaMatcher,
@@ -52,21 +57,40 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 		setIsMobile();
 	}
 
+	onSearchChange() {
+		this.location.go(this.router.url.split('?')[0], (this.inputValue) ? `search=${this.inputValue}` : '');
+	}
+
 	getGithubUrl(): string {
-		return `https://github.com/qgrid/ng2-example/tree${this.router.url}/latest/src/app`;
+		return `https://github.com/qgrid/ng2-example/tree${this.router.url.split('?')[0]}/latest/src/app`;
 	}
 
 	getStackblitzUrl(): string {
-		return `https://stackblitz.com/github/qgrid/ng2-example/tree${this.router.url}/latest`;
+		return `https://stackblitz.com/github/qgrid/ng2-example/tree${this.router.url.split('?')[0]}/latest`;
 	}
 
 	ngAfterViewInit() {
+		const subscriber = this.activatedRoute.queryParams.subscribe(params => {
+			if (params['search']) {
+				this.inputValue = params['search'];
+				subscriber.unsubscribe();
+			}
+		});
 		this.zone.runOutsideAngular(() => {
 			setTimeout(() => {
+				if (this.menuItems.first && !this.findRequestedItem()) {
+					this.router.navigateByUrl(this.menuItems.first.nativeElement.getAttribute('href'));
+				}
 				const activeItem = this.findActiveItem();
-				activeItem.nativeElement.scrollIntoView();
+				if (activeItem) {
+					activeItem.nativeElement.scrollIntoView();
+				}
 			}, 0);
 		});
+	}
+
+	private findRequestedItem() {
+		return this.menuItems.find(item => item.nativeElement.getAttribute('href').includes(this.router.url.split('?')[0]));
 	}
 
 	private findActiveItem() {
