@@ -7,27 +7,30 @@ import { DatePipe } from './date.pipe';
 import { TextPipe } from './text.pipe';
 import { CurrencyPipe } from './currency.pipe';
 import { ArrayPipe } from './array.pipe';
+import { ItemLabelPipe } from './item-label.pipe';
 
 @NgModule({
 	declarations: [
-		TextPipe,
-		HighlightPipe,
-		FilterPipe,
-		TimePipe,
-		NumberPipe,
-		DatePipe,
-		CurrencyPipe,
 		ArrayPipe,
+		CurrencyPipe,
+		DatePipe,
+		FilterPipe,
+		HighlightPipe,
+		ItemLabelPipe,
+		NumberPipe,
+		TextPipe,
+		TimePipe,
 	],
 	exports: [
-		TextPipe,
-		HighlightPipe,
-		FilterPipe,
-		TimePipe,
-		NumberPipe,
-		DatePipe,
-		CurrencyPipe,
 		ArrayPipe,
+		CurrencyPipe,
+		DatePipe,
+		FilterPipe,
+		HighlightPipe,
+		ItemLabelPipe,
+		NumberPipe,
+		TextPipe,
+		TimePipe,
 	]
 })
 export class PipeModule {
