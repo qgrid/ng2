@@ -20,6 +20,7 @@ const srcFolder = path.join(rootFolder, 'src');
 const distFolder = path.join(rootFolder, 'dist');
 const esm2015Folder = path.join(tscFolder, 'esm2015');
 const esm2015Entry = path.join(esm2015Folder, 'index.js');
+const fesm2015Entry = path.join(distFolder, 'fesm2015', 'ng2-qgrid.js');
 
 
 return Promise.resolve()
@@ -81,12 +82,12 @@ return Promise.resolve()
   .then(() => console.log(`bundle umd: ${libName}`))
   .then(() => {
     const cfg = Object.assign({}, rollupConfig, {
-      input: esm2015Entry,
+      input: fesm2015Entry,
       output: Object.assign({}, rollupConfig.output, {
         file: path.join(distFolder, 'bundles', `${libName}.umd.js`),
         format: 'umd'
       }),
-      plugins: rollupConfig.plugins.concat([babel({})])
+      plugins: [babel({})]
     });
 
     return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
@@ -95,12 +96,12 @@ return Promise.resolve()
   .then(() => console.log(`bundle umd.min: ${libName}`))
   .then(() => {
     const cfg = Object.assign({}, rollupConfig, {
-      input: esm2015Entry,
+      input: fesm2015Entry,
       output: Object.assign({}, rollupConfig.output, {
         file: path.join(distFolder, 'bundles', `${libName}.umd.min.js`),
         format: 'umd'
       }),
-      plugins: rollupConfig.plugins.concat([babel({}), uglify({})])
+      plugins: [babel({}), uglify({})]
     });
 
     return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
@@ -109,12 +110,12 @@ return Promise.resolve()
   .then(() => console.log(`bundle fesm5: ${libName}`))
   .then(() => {
     const cfg = Object.assign({}, rollupConfig, {
-      input: esm2015Entry,
+      input: fesm2015Entry,
       output: Object.assign({}, rollupConfig.output, {
         file: path.join(distFolder, 'fesm5', `${libName}.js`),
         format: 'es'
       }),
-      plugins: rollupConfig.plugins.concat([babel({})])
+      plugins: [babel({})]
     });
     return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
   })

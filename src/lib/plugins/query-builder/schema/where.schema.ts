@@ -1,4 +1,4 @@
-import { typeMapping as operators } from './operator';
+import { typeMapping } from './operator';
 import { suggestFactory, suggestsFactory } from './suggest.service';
 import { QueryBuilderService, IQueryBuilderSchema } from '../query-builder.service';
 import { isArray, noop } from 'ng2-qgrid/core/utility/kit';
@@ -81,7 +81,7 @@ export class WhereSchema {
 								change: function (node, line) {
 									const field = this.value;
 									const type = this.getType(field);
-									const ops = operators[type] || [];
+									const ops = typeMapping[type] || [];
 									const op = line.get('#operator').expressions[0];
 
 									if (ops.indexOf(op.value) < 0) {
@@ -107,7 +107,7 @@ export class WhereSchema {
 									const name = field.value;
 									const type = field.getType(name);
 
-									return type ? operators[type] : [];
+									return type ? typeMapping[type] : [];
 								},
 								value: 'EQUALS',
 								change: function (node, line) {

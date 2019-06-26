@@ -26,7 +26,8 @@ module.exports = {
       '@angular/core': 'ng.core',
       '@angular/common': 'ng.common',
       '@angular/common/http': 'ng.common.http',
-      '@angular/material': 'ng.material'
+      '@angular/material': 'ng.material',
+      '@angular/forms': 'ng.forms'
     }
   },
   external: [
@@ -41,7 +42,6 @@ module.exports = {
     "@angular/compiler",
     "@angular/core",
     "@angular/forms",
-    "@angular/http",
     "@angular/platform-browser",
     "@angular/platform-browser-dynamic",
     "@angular/router",

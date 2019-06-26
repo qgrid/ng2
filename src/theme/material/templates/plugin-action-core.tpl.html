@@ -12,7 +12,7 @@
 					mat-icon-button
 					(click)="$action.execute()"
 					[disabled]="!$action.canExecute()"
-					[matTooltip]="$action.title + ' (' + $action.shortcut + ')'"
+					[matTooltip]="$action.title + ($action.shortcut ? ' (' + $action.shortcut + ')' : '')"
 					[matTooltipShowDelay]="800"
 					tabindex="-1">
 				<mat-icon>{{$action.icon}}</mat-icon>

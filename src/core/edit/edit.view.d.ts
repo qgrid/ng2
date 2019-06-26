@@ -12,5 +12,5 @@ export declare class EditView {
 	constructor(model: Model, table: Table, shortcut: { register: (commands: Command[]) => void });
 
 	cell: EditCellView;
-	row: EditRowView;	
+	row: EditRowView;
 }

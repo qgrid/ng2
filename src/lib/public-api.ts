@@ -1,10 +1,7 @@
-// Core
-export { GridService } from 'ng2-qgrid/core/services/grid';
-
 // Main
 export { GridModule } from './grid.module';
 export { GridComponent } from './main/grid/grid.component';
-export { GridService as Grid } from './main/grid/grid.service';
+export { Grid, GridService } from './main/grid/grid.service';
 export { PluginService as GridPlugin, GridModel, GridEventArg, GridEvent, DomTable } from './plugins/plugin.service';
 
 // NG Pipe
@@ -104,3 +101,5 @@ export { VscrollColumnDirective } from './common/vscroll/vscroll-column.directiv
 export { VscrollRowDirective } from './common/vscroll/vscroll-row.directive';
 export { VscrollDirective } from './common/vscroll/vscroll.directive';
 
+export { PaneModule } from './plugins/pane/pane.module';
+export { PaneComponent } from './plugins/pane/pane.component';

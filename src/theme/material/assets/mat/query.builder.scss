@@ -1,43 +1,58 @@
 @at-root .q-grid-query-builder-panel.q-grid-menu {
+    .mat-card {
+        padding: 4px 16px;
+    }
+
     .q-grid-query-builder {
         &-expression {
             .mat-select {
                 width: auto;
+
                 &-value {
                     max-width: none;
                 }
+
                 &-arrow-wrapper {
                     display: none;
                 }
             }
+
             .mat-form-field {
                 width: 75px;
+
                 .mat-form-field-wrapper {
                     padding-bottom: 0;
+
                     .mat-form-field-infix {
                         border: none;
                         padding: 0;
+
                         input {
                             margin: 0;
                         }
                     }
                 }
+
                 .mat-form-field-label-wrapper {
                     top: 0;
                     padding-top: 0;
+
                     >.mat-form-field-label {
                         top: 0;
                     }
                 }
+
                 .mat-form-field-underline {
                     bottom: 0;
                     display: none;
                 }
+
                 &.mat-focused {
                     .mat-form-field-underline {
                         display: block;
                     }
                 }
+
                 &.qb-invalid {
                     .mat-form-field-underline {
                         display: block;
@@ -45,16 +60,20 @@
                     }
                 }
             }
+
             .mat-chip-list {
                 display: inline-block;
+
                 .mat-chip-list-wrapper {
                     display: inline-block;
                 }
+
                 .mat-chip {
                     padding: 0;
                     border-radius: 0;
                     background-color: transparent;
                     outline: none;
+
                     .q-grid-icon {
                         margin-left: -3px;
                         margin-right: 0px;
@@ -66,7 +85,9 @@
                     }
                 }
             }
+
             .qb {
+
                 &-operation,
                 &-operator {
                     .mat-select-value {

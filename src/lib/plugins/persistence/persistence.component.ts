@@ -5,7 +5,7 @@ import { Composite } from 'ng2-qgrid/core/infrastructure/composite';
 import { PersistenceItem } from 'ng2-qgrid/plugin/persistence/persistence.view';
 import { PersistenceService } from 'ng2-qgrid/core/persistence/persistence.service';
 import { PluginService } from '../plugin.service';
-import { ModelBuilderService } from 'lib/main/model/model-builder.service';
+import { ModelBuilderService } from '../../main/model/model-builder.service';
 
 @Component({
 	selector: 'q-grid-persistence',

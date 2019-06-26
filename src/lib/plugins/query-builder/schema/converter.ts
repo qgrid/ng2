@@ -1,6 +1,6 @@
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { cloneDeep } from 'ng2-qgrid/core/utility/kit';
-import { camelCaseMapping as camelCase } from './operator';
+import { camelCaseMapping } from './operator';
 
 export function visit(item) {
 	switch (item.id) {
@@ -92,7 +92,7 @@ function visitUnary(line, op) {
 
 	return {
 		left: left.value,
-		op: camelCase[op.toUpperCase()]
+		op: camelCaseMapping[op.toUpperCase()]
 	};
 }
 
@@ -102,7 +102,7 @@ function visitBinary(line, op) {
 
 	return {
 		left: left.value,
-		op: camelCase[op.toUpperCase()],
+		op: camelCaseMapping[op.toUpperCase()],
 		right: right.value
 	};
 }

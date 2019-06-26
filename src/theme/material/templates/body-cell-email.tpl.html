@@ -4,14 +4,15 @@
     <a href="mailto:{{$cell.value}}">
         {{$cell.label || $cell.value}}
     </a>
-    <button class="q-grid-url-edit q-grid-edit-trigger"
+    <button *ngIf="$view.edit.cell.canEdit($cell)"
+            class="q-grid-url-edit q-grid-edit-trigger"
             color="primary"
+            [disabled]="!$view.edit.cell.enter.canExecute($cell)"
             mat-icon-button
             matTooltip="Edit Email"
             [matTooltipShowDelay]="800"
             [matTooltipPosition]="'before'"
             aria-label="'email'"
-            (disabled)="!$view.edit.cell.enter.canExecute($cell)"
             (click)="$view.edit.cell.enter.execute($cell)">
         <mat-icon class="q-grid-icon">edit</mat-icon>
     </button>

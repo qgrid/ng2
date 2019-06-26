@@ -3,7 +3,7 @@ import { ModelBinder } from 'ng2-qgrid/core/infrastructure/model.bind';
 import { Event } from 'ng2-qgrid/core/infrastructure/event';
 import { OnChanges, OnDestroy, SimpleChanges, OnInit } from '@angular/core';
 import { NgComponent } from './ng.component';
-import { ModelBuilderService } from 'lib/main/model/model-builder.service';
+import { ModelBuilderService } from '../../main/model/model-builder.service';
 
 export class RootComponent extends NgComponent implements OnChanges, OnInit, OnDestroy {
 	model: Model = null;
