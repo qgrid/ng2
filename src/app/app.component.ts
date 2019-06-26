@@ -35,7 +35,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
 	private mobileQueryListener: () => void;
 	private mobileQuery: MediaQueryList;
-	inputValue: string;
+	search: string;
 
 	constructor(
 		private router: Router,
@@ -58,21 +58,25 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 	}
 
 	onSearchChange() {
-		this.location.go(this.router.url.split('?')[0], (this.inputValue) ? `search=${this.inputValue}` : '');
+		this.location.go(this.router.url.split('?')[0], (this.search) ? `search=${this.search}` : '');
 	}
 
 	getGithubUrl(): string {
-		return `https://github.com/qgrid/ng2-example/tree${this.router.url.split('?')[0]}/latest/src/app`;
+		return `https://github.com/qgrid/ng2-example/tree${this.getExamplePath()}/latest/src/app`;
 	}
 
 	getStackblitzUrl(): string {
-		return `https://stackblitz.com/github/qgrid/ng2-example/tree${this.router.url.split('?')[0]}/latest`;
+		return `https://stackblitz.com/github/qgrid/ng2-example/tree${this.getExamplePath()}/latest`;
+	}
+
+	getExamplePath(): string {
+		return this.router.url.split('?')[0];
 	}
 
 	ngAfterViewInit() {
 		const subscriber = this.activatedRoute.queryParams.subscribe(params => {
 			if (params['search']) {
-				this.inputValue = params['search'];
+				this.search = params['search'];
 				subscriber.unsubscribe();
 			}
 		});
