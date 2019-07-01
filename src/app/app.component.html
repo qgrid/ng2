@@ -15,18 +15,20 @@
 		   *ngIf="!isMobile"></a>
 		<mat-form-field class="app-search">
 			<input matInput
-				   #search
+				   [(ngModel)]="search"
+				   (ngModelChange)="onSearchChange()"
 				   placeholder="Search in q-grid examples"
 				   autocomplete="off"
 				   type="search" />
 		</mat-form-field>
 		<mat-nav-list>
-			<a *ngFor="let example of examples | filter: search.value"
+			<a *ngFor="let example of examples | filter: search"
 			   mat-list-item
 			   [routerLink]="example.path"
+			   [queryParams]="(search) ? {search: search} : {}"
 			   routerLinkActive="app-active"
 			   (click)="isMobile ? sidenav.toggle() : null">
-				<span [innerHTML]="example.path | qGridHighlight: search.value"></span>
+				<span [innerHTML]="example.path | qGridHighlight: search"></span>
 			</a>
 		</mat-nav-list>
 	</mat-sidenav>

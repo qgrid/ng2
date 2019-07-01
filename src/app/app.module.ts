@@ -19,6 +19,7 @@ import { ExampleModule, EXAMPLES, APP_ROUTES } from '../examples/example.module'
 
 import { FilterSearch } from './app.filter.pipe';
 import { PipeModule } from 'ng2-qgrid';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
 	declarations: [
@@ -43,7 +44,8 @@ import { PipeModule } from 'ng2-qgrid';
 			pathMatch: 'full'
 		}]),
 		PipeModule,
-		ExampleModule
+		ExampleModule,
+		FormsModule
 	],
 	bootstrap: [AppComponent],
 	entryComponents: EXAMPLES
