@@ -6,6 +6,7 @@ export declare function identity(x: any): any;
 export declare function toCamelCase(...names: string[]): string;
 export declare function isEmail(value: string): boolean;
 export declare function escapeRegexp(text: string): string;
+export declare function regexpFromArray(array: any[], separator: string): RegExp;
 export declare function orderBy(data: any[], selectors: ((x: any) => any)[], compares: ((x: any, y: any) => number)[]): void;
 export declare function htmlEncode(text: string): string;
 export declare function startCase(text: string): string;

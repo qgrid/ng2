@@ -28,7 +28,7 @@
 			   [queryParams]="(search) ? {search: search} : {}"
 			   routerLinkActive="app-active"
 			   (click)="isMobile ? sidenav.toggle() : null">
-				<span [innerHTML]="example.path | qGridHighlight: search"></span>
+				<span [innerHTML]="example.path | highlight: search"></span>
 			</a>
 		</mat-nav-list>
 	</mat-sidenav>
