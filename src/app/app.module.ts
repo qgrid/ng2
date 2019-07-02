@@ -20,13 +20,13 @@ import { ExampleModule, EXAMPLES, APP_ROUTES } from '../examples/example.module'
 import { FilterSearch } from './app.filter.pipe';
 import { PipeModule } from 'ng2-qgrid';
 import { FormsModule } from '@angular/forms';
-import { HighlightSearch } from './app.highlight.pipe';
+import { Highlight } from './app.highlight.pipe';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		FilterSearch,
-		HighlightSearch
+		Highlight
 	],
 	imports: [
 		CommonModule,

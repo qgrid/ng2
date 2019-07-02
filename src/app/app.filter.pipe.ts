@@ -1,14 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { escapeRegexp, regexpFromArray } from 'ng2-qgrid/core/utility/kit';
+import { regexpFromArray } from './app.component';
+import { escapeRegExp } from '@angular/compiler/src/util';
 
 @Pipe({
-	name: 'filter'
+	name: 'appFilter'
 })
 export class FilterSearch implements PipeTransform {
 	transform(items: any[], search: string) {
 		if (search) {
-			const searchArray = search.split(',').map(word => escapeRegexp(word));
-			return (items).filter(item => regexpFromArray(searchArray, ',').test(item.path));
+			const words = search.split(',').map(word => escapeRegExp(word));
+			return (items).filter(item => regexpFromArray(words, ',').test(item.path));
 		}
 		return items;
 	}

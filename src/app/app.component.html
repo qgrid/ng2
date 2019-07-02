@@ -22,13 +22,13 @@
 				   type="search" />
 		</mat-form-field>
 		<mat-nav-list>
-			<a *ngFor="let example of examples | filter: search"
+			<a *ngFor="let example of examples | appFilter: search"
 			   mat-list-item
 			   [routerLink]="example.path"
 			   [queryParams]="(search) ? {search: search} : {}"
 			   routerLinkActive="app-active"
 			   (click)="isMobile ? sidenav.toggle() : null">
-				<span [innerHTML]="example.path | highlight: search"></span>
+				<span [innerHTML]="example.path | appHighlight: search"></span>
 			</a>
 		</mat-nav-list>
 	</mat-sidenav>

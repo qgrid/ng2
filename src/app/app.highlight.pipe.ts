@@ -1,14 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { escapeRegexp, regexpFromArray } from 'ng2-qgrid/core/utility/kit';
+import { regexpFromArray } from './app.component';
+import { escapeRegExp } from '@angular/compiler/src/util';
 
 @Pipe({
-	name: 'highlight'
+	name: 'appHighlight'
 })
-export class HighlightSearch implements PipeTransform {
+export class Highlight implements PipeTransform {
 	transform(item: string, search: string) {
 		if (search) {
-			const searchArray = search.split(',').map(word => escapeRegexp(word));
-			const contains = regexpFromArray(searchArray, ',');
+			const words = search.split(',').map(word => escapeRegExp(word));
+			const contains = regexpFromArray(words, ',');
 			if (contains.test(item)) {
 				return item.replace(contains, s => `<mark>${s}</mark>`);
 			}

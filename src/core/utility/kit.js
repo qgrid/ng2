@@ -152,15 +152,6 @@ function isImage(value) {
 	return ('' + value).match(/\.(jpeg|jpg|gif|png)$/) != null;
 }
 
-function regexpFromArray(array, separator) {
-	const text = array.join(separator);
-	separator = new RegExp(escapeRegexp(separator), 'g');
-	const pattern = text.replace(separator, (match, key) => {
-		return (key === text.length - 1 || (text[key + 1] && separator.test(text[key + 1]))) ? '' : '|';
-	});
-	return new RegExp(pattern, 'gi');
-}
-
 export {
 	isObject,
 	isFunction,
@@ -198,6 +189,5 @@ export {
 	groupBy,
 	htmlEncode,
 	escapeRegexp,
-	regexpFromArray,
 	binarySearch
 };
