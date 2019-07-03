@@ -20,15 +20,6 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { APP_ROUTES } from '../examples/example.module';
 import { Location } from '@angular/common';
 
-export function regexpFromArray(array, separator): RegExp {
-	const text = array.join(separator);
-	separator = new RegExp(separator, 'g');
-	const pattern = text.replace(separator, (match, key) => {
-		return (key === text.length - 1 || ((text[key + 1]) && text[key + 1].match(separator))) ? '' : '|';
-	});
-	return new RegExp(pattern, 'gi');
-}
-
 @Component({
 	selector: 'app-root',
 	templateUrl: 'app.component.html',
