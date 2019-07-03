@@ -2,16 +2,18 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { escapeRegExp } from '@angular/compiler/src/util';
 
 @Pipe({
-	name: 'appFilter'
+	name: 'appHighlight'
 })
-export class FilterSearchPipe implements PipeTransform {
-	transform(items: any[], search: string) {
+export class HighlightPipe implements PipeTransform {
+	transform(item: string, search: string) {
 		if (search) {
 			const words = search.split(',').filter(word => word).map(word => escapeRegExp(word));
 			const pattern = words.map((word, index) => (index < words.length - 1) ? word + '|' : word).join('');
 			const contains = new RegExp(pattern, 'gi');
-			return (items).filter(item => contains.test(item.path));
+			if (contains.test(item)) {
+				return item.replace(contains, s => `<mark>${s}</mark>`);
+			}
 		}
-		return items;
+		return item;
 	}
 }

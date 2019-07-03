@@ -74,10 +74,10 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 	}
 
 	ngAfterViewInit() {
-		const subscriber = this.activatedRoute.queryParams.subscribe(params => {
+		const subscription = this.activatedRoute.queryParams.subscribe(params => {
 			if (params['search']) {
 				this.search = params['search'];
-				subscriber.unsubscribe();
+				subscription.unsubscribe();
 			}
 		});
 		this.zone.runOutsideAngular(() => {
