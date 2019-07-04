@@ -4,6 +4,12 @@
 npm run test:screenshot
 ```
 
+## Launch specific feature in screenshot-testing
+
+```bash
+npm run test:screenshot -- --specs=e2e/features/select-cell-basic.feature
+```
+
 ## Update golden screenshots for screenshot-testing
 
 ```bash
