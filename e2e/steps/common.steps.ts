@@ -55,11 +55,12 @@ function getRowCount() {
 }
 
 function getInput() {
-	return element.all(by.css('.mat-input-element')).get(1);
+	return element.all(by.className('mat-input-element')).get(1);
 }
 
 async function enterText(text: string) {
 	const input = getInput();
+	await browser.sleep(1000);
 	await input.clear();
 	await input.sendKeys(text, protractor.Key.ENTER);
 }
