@@ -1,12 +1,6 @@
-import { Model } from '../infrastructure/model';
-import { setup } from '../setup';
+import { ModelBuilder } from '../infrastructure/model.builder';
 
-let isOpen = true;
+const builder = new ModelBuilder();
 export function modelFactory() {
-	if (isOpen) {
-		setup(Model);
-		isOpen = false;
-	}
-
-	return new Model();
+	return builder.build();
 }

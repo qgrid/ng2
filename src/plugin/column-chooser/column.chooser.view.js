@@ -1,4 +1,3 @@
-import * as columnService from '../../core/column/column.service';
 import { Command } from '../../core/command/command';
 import { Aggregation } from '../../core/services/aggregation';
 import { isFunction, identity } from '../../core/utility/kit';

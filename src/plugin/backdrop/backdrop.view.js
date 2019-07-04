@@ -13,7 +13,6 @@ export class BackdropView {
 
 		listener.on('mouseup', e => {
 			if (checkButtonCode(e, LEFT_BUTTON) || checkButtonCode(e, MIDDLE_BUTTON)) {
-
 				e.stopPropagation();
 				element.remove();
 
@@ -25,7 +24,6 @@ export class BackdropView {
 				}
 
 				this.closeEvent.emit(e);
-
 			}
 		});
 

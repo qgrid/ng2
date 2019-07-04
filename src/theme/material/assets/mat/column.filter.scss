@@ -3,14 +3,18 @@
         box-shadow: none;
         padding: 4px 16px;
         margin: 0;
+
+        &-content {
+            margin-bottom: 0;
+        }
+
         .q-grid-column-filter-toolbar {
             margin-top: 0;
         }
-        .mat-card-actions {
-            margin: -12px 0 0 0 !important;
-        }
+
         .mat-card-header-text {
             overflow: hidden;
+
             .mat-card-title {
                 overflow: hidden;
                 white-space: nowrap;

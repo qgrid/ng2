@@ -2,10 +2,11 @@ import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy
 import { NgComponent } from '../../infrastructure/component/ng.component';
 import { CellView } from 'ng2-qgrid/core/scene/view/cell.view';
 import { Command } from 'ng2-qgrid/core/command/command';
-import { getFactory as valueFactory } from 'ng2-qgrid/core/services/value';
+import { getFactory } from 'ng2-qgrid/core/services/value';
 import { isArray, isUndefined } from 'ng2-qgrid/core/utility/kit';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { SelectionService } from 'ng2-qgrid/core/selection/selection.service';
+import { ModelBuilderService } from '../../main/model/model-builder.service';
 
 @Component({
 	selector: 'q-grid-reference',
@@ -54,7 +55,7 @@ export class ReferenceComponent extends NgComponent implements OnInit {
 		$implicit: this
 	};
 
-	constructor() {
+	constructor(private modelBuilder: ModelBuilderService) {
 		super();
 	}
 
@@ -69,8 +70,9 @@ export class ReferenceComponent extends NgComponent implements OnInit {
 			reference: this.reference,
 			row: this.cell.row,
 			column: this.cell.column,
-			getValue: valueFactory(this.cell.column)
-		});
+			getValue: getFactory(this.cell.column),
+			createDefaultModel: () => this.modelBuilder.build(),
+		} as any);
 
 		const selectionService = new SelectionService(this.model);
 		this.using(this.model.dataChanged.watch((e, off) => {

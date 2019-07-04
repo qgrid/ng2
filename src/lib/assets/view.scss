@@ -21,6 +21,9 @@
 
 .q-grid-with-right-pin {
     >.q-grid-view {
+		.q-grid-table thead th:first-child {
+			border-left: none;
+		}
         >.q-grid-table-center {
             >table {
                 >tbody {

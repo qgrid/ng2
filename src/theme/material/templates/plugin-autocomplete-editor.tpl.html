@@ -5,15 +5,16 @@
                #input
                q-grid-focus
                matInput
+               placeholder="Pick a {{$editor.title}}"
                [(ngModel)]="$editor.value"
                (ngModelChange)="$editor.filter(input.value)"
-               placeholder="Pick a {{$editor.title}}"
                [matAutocomplete]="autocomplete">
     </mat-form-field>
-    <mat-autocomplete #autocomplete="matAutocomplete">
+    <mat-autocomplete #autocomplete="matAutocomplete"
+                      [displayWith]="$editor.itemLabelFactory($editor.cell.column)">
         <mat-option *ngFor="let option of $editor.options"
                     [value]="option">
-            {{option}}
+            {{option | qGridItemLabel : $editor.itemLabelFactory($editor.cell.column)}}
         </mat-option>
     </mat-autocomplete>
 </ng-template>

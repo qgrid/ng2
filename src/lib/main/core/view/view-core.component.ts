@@ -1,11 +1,11 @@
-import { Component, OnInit, ElementRef, NgZone, DoCheck, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ElementRef, NgZone, DoCheck, ChangeDetectorRef } from '@angular/core';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { ViewCtrl } from 'ng2-qgrid/core/view/view.ctrl';
 import { CellService } from '../cell/cell.service';
 import { ViewCoreService } from './view-core.service';
 import { NgComponent } from '../../../infrastructure/component/ng.component';
 import { RootService } from '../../../infrastructure/component/root.service';
-import { GridService } from '../../../main/grid/grid.service';
+import { Grid } from '../../../main/grid/grid.service';
 
 @Component({
 	selector: 'q-grid-core-view',
@@ -18,7 +18,7 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 	constructor(
 		private root: RootService,
 		private view: ViewCoreService,
-		private grid: GridService,
+		private grid: Grid,
 		private zone: NgZone,
 		private elementRef: ElementRef,
 		private cd: ChangeDetectorRef
@@ -37,7 +37,9 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 							behavior: 'core'
 						});
 
-					this.ctrl.invalidate();
+					if (this.ctrl) {
+						this.ctrl.invalidate();
+					}
 				}
 			}
 		});
@@ -45,7 +47,7 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 
 	ngDoCheck() {
 		const { status } = this.model.scene();
-		if (status === 'stop') {
+		if (status === 'stop' && this.ctrl) {
 			this.ctrl.invalidate();
 		}
 	}

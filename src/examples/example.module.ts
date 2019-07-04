@@ -146,6 +146,10 @@ import { ExampleDataRowDeleteComponent } from './data-row-delete/example-data-ro
 import { ExampleDetailsRowPinComponent } from './details-row-pin/example-details-row-pin.component';
 import { ExampleSelectRowDisableComponent } from './select-row-disable/example-select-row-disable.component';
 import { ExampleSelectRowDisableUnselectComponent } from './select-row-disable-unselect/example-select-row-disable-unselect.component';
+import { ExamplePaneBasicComponent } from './pane-basic/example-pane-basic.component';
+import { ExamplePaneTriggerComponent } from './pane-trigger/example-pane-trigger.component';
+import { ExampleDefineColumnTypeComponent } from './define-column-type/example-define-column-type.component';
+import { ExampleSizeColumnPinComponent } from './size-column-pin/example-size-column-pin.component';
 
 export const EXAMPLES: any[] = [
 	ExampleActionBarBasicComponent,
@@ -181,6 +185,7 @@ export const EXAMPLES: any[] = [
 	ExampleDefineColumnAsyncComponent,
 	ExampleDefineColumnBasicComponent,
 	ExampleDefineColumnHybridComponent,
+	ExampleDefineColumnTypeComponent,
 	ExampleDestroyGridBasicComponent,
 	ExampleDestroyGridModelComponent,
 	ExampleDetailsRowAllComponent,
@@ -243,6 +248,8 @@ export const EXAMPLES: any[] = [
 	ExampleMasterDetailsBasicComponent,
 	ExampleOnPushBasicComponent,
 	ExamplePaginationBasicComponent,
+	ExamplePaneBasicComponent,
+	ExamplePaneTriggerComponent,
 	ExamplePersistenceBasicComponent,
 	ExamplePersistenceServerComponent,
 	ExamplePinColumnBasicComponent,
@@ -275,6 +282,7 @@ export const EXAMPLES: any[] = [
 	ExampleSizeColumnAbsoluteComponent,
 	ExampleSizeColumnBasicComponent,
 	ExampleSizeColumnFullComponent,
+	ExampleSizeColumnPinComponent,
 	ExampleSizeRowBasicComponent,
 	ExampleSortRowBasicComponent,
 	ExampleStyleCellBasicComponent,

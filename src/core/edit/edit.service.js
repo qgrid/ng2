@@ -13,7 +13,7 @@ export class EditService {
 		const { rows, columns } = model.view();
 		const { items } = model.selection();
 
-		const shortcut = { register: () => ({}) };
+		const shortcut = { register: () => ({}), keyCode: () => '' };
 		const editView = new EditCellView(model, table, shortcut);
 		const startTd = this.table.body.cell(startCell.rowIndex, startCell.columnIndex).model();
 

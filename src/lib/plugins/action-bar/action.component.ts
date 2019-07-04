@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit, Input } from '@angular/core';
-import { Action as ActionItem } from 'ng2-qgrid/core/action/action';
+import { Action } from 'ng2-qgrid/core/action/action';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { TemplateHostService } from '../../template/template-host.service';
@@ -34,7 +34,7 @@ export class ActionComponent implements OnInit {
 
 		const hasCommand = !!this.command;
 		const command = hasCommand ? this.command : new Command();
-		const action = new ActionItem(command, this.title, this.icon);
+		const action = new Action(command, this.title, this.icon);
 		action.id = this.id;
 
 		const actions = Array.from(model.action().items);

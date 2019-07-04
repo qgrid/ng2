@@ -17,13 +17,16 @@ import {
 import { AppComponent } from './app.component';
 import { ExampleModule, EXAMPLES, APP_ROUTES } from '../examples/example.module';
 
-import { FilterSearch } from './app.filter.pipe';
+import { FilterSearchPipe } from './app.filter.pipe';
 import { PipeModule } from 'ng2-qgrid';
+import { FormsModule } from '@angular/forms';
+import { HighlightPipe } from './app.highlight.pipe';
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		FilterSearch
+		FilterSearchPipe,
+		HighlightPipe
 	],
 	imports: [
 		CommonModule,
@@ -43,7 +46,8 @@ import { PipeModule } from 'ng2-qgrid';
 			pathMatch: 'full'
 		}]),
 		PipeModule,
-		ExampleModule
+		ExampleModule,
+		FormsModule
 	],
 	bootstrap: [AppComponent],
 	entryComponents: EXAMPLES

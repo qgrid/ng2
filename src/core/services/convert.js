@@ -125,7 +125,7 @@ function isNumber(value) {
 		return false;
 	}
 
-	const number = parseFloat(value);
+	const number = Number.parseFloat(value);
 	return !isNaN(number) && isFinite(number);
 }
 
@@ -166,7 +166,7 @@ function parseNumber(value) {
 		return null;
 	}
 
-	const number = parseFloat(value);
+	const number = Number.parseFloat(value);
 	if (!isNaN(number) && isFinite(number)) {
 		return number;
 	}

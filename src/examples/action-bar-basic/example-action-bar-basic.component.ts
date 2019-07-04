@@ -13,7 +13,7 @@ import { Command } from 'ng2-qgrid';
 export class ExampleActionBarBasicComponent {
 	static id = 'action-bar-basic';
 
-	canLoad = true;
+	canLoad = false;
 	rows: Observable<Atom[]>;
 
 	loadCommand = new Command({

@@ -55,7 +55,6 @@ Note that q-grid rows should be an array of objects, any other types like array 
 *  @angular/common
 *  @angular/core
 *  @angular/forms
-*  @angular/http
 
 If you use `material` theme from the q-grid package, you also need to install [angular material](https://material.angular.io/)
 

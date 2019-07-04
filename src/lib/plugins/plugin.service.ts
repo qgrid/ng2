@@ -1,10 +1,10 @@
 import { Injectable, OnDestroy, SimpleChanges } from '@angular/core';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 import { ModelProxy } from 'ng2-qgrid/core/infrastructure/model.proxy';
-import { RootService } from '../infrastructure/component/root.service';
 import { ModelBinder } from 'ng2-qgrid/core/infrastructure/model.bind';
 import { Model as GridModel } from 'ng2-qgrid/core/infrastructure/model';
 import { Table as DomTable } from 'ng2-qgrid/core/dom/table';
+import { RootService } from '../infrastructure/component/root.service';
 
 export { Model as GridModel, ModelEventArg as GridEventArg, ModelEvent as GridEvent } from 'ng2-qgrid/core/infrastructure/model';
 export { Table as DomTable } from 'ng2-qgrid/core/dom/table';

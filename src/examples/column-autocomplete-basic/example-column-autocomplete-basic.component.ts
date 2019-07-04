@@ -18,7 +18,8 @@ export class ExampleColumnAutocompleteBasicComponent {
 			'date': new Date(2018, 9, 12),
 			'null': null,
 			'undefined': undefined,
-			'empty': ''
+			'empty': '',
+			'object': { label: 'foo', value: 1 }
 		}
 	];
 
@@ -55,4 +56,19 @@ export class ExampleColumnAutocompleteBasicComponent {
 	multiFetchOptions = {
 		fetch: of([])
 	};
+
+	objectFetchOptions = {
+		fetch: [
+			{ label: 'foo', value: 1 },
+			{ label: 'bar', value: 2 }
+		]
+	};
+
+	getLabel(row: any) {
+		return row.object.label;
+	}
+
+	getItemLabel(item: { label: string }) {
+		return item ? item.label : '';
+	}
 }

@@ -1,186 +1,190 @@
 @font-face {
-	font-family: 'qgrid-iconfont';
-	src: url('../assets/fonts/qgrid-iconfont.eot');
-	src: url('../assets/fonts/qgrid-iconfont.eot?#iefix') format('eot'),
-	url('../assets/fonts/qgrid-iconfont.woff2') format('woff2'),
-	url('../assets/fonts/qgrid-iconfont.woff') format('woff'),
-	url('../assets/fonts/qgrid-iconfont.ttf') format('truetype'),
-	url('../assets/fonts/qgrid-iconfont.svg#qgrid-iconfont') format('svg');
+    font-family: 'qgrid-iconfont';
+    src: url('../assets/fonts/qgrid-iconfont.eot');
+    src: url('../assets/fonts/qgrid-iconfont.eot?#iefix') format('eot'),
+        url('../assets/fonts/qgrid-iconfont.woff2') format('woff2'),
+        url('../assets/fonts/qgrid-iconfont.woff') format('woff'),
+        url('../assets/fonts/qgrid-iconfont.ttf') format('truetype'),
+        url('../assets/fonts/qgrid-iconfont.svg#qgrid-iconfont') format('svg');
 }
 
 ::-webkit-scrollbar {
-	width: 0.5em;
+    width: 0.5em;
 }
 
 ::-webkit-scrollbar-thumb {
-	background: #649eed;
+    background: #A8A8A8;
 }
 
 ::-webkit-scrollbar-track {
-	background: #b2cff6;
+    background: #D8D8D8;
 }
 
 :host {
-	.mat-toolbar {
-		display: none;
-		color: #fff;
-		background: #24292e;
+    .mat-toolbar {
+        display: none;
+        color: #fff;
+        background: #334863;
 
-		h1 {
-			margin-left: 8px;
-		}
-	}
+        h1 {
+            margin-left: 8px;
+        }
+    }
 
-	.app-source-links {
-		position: absolute;
-		z-index: 2;
-		top: 3px;
-		right: 15px;
+    .app-source-links {
+        text-align: center;
+        background-color: #4B4B4B;
+        height: 45px;
 
-		a {
-			font-size: 12px;
-			display: inline-block;
-			min-width: auto;
-			line-height: inherit;
-			padding: 5px 8px;
-			background-size: auto 16px;
-			background-repeat: no-repeat;
-			background-position: 8px center;
-		}
+        a {
+            font-size: 14px;
+            display: inline-block;
+            min-width: auto;
+            line-height: inherit;
+            padding: 6px 9px;
+            margin: 8px 0;
+            background-color: #373737;
+            color: #fff;
+        }
 
-		.app-source-github {
-			padding-left: 28px;
-			background-image: url('../assets/icons/github.png');
-		}
+        .app-source-github {
+            border-radius: 7px 0 0 7px;
+        }
 
-		.app-source-stackblitz {
-			padding-left: 22px;
-			background-image: url('../assets/icons/stackblitz.svg');
-		}
-	}
+        .app-source-stackblitz {
+            border-radius: 0 7px 7px 0;
+        }
+    }
 
-	.mat-sidenav-container {
-		/* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+    .mat-sidenav-container {
+        /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
            causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
-		flex: 1;
-		height: 100%;
-		z-index: 3;
-		background: transparent;
-		pointer-events: none;
+        flex: 1;
+        height: 100%;
+        z-index: 3;
+        background: transparent;
+        pointer-events: none;
 
-		.mat-sidenav {
-			width: 260px;
-			background-color: #353535;
-			pointer-events: all;
+        .mat-sidenav {
+            width: 260px;
+            background-color: #334863;
+            pointer-events: all;
+            border: 0;
 
-			.logo {
-				display: block;
-				margin: 15px;
-				font-family: 'qgrid-iconfont', 'Helvetica Neue', sans-serif;
-				font-size: 100px;
-				text-align: center;
-				color: #fff;
-				text-decoration: none;
+            ::ng-deep .mat-drawer-inner-container {
+                overflow: hidden;
+            }
 
-				&:before {
-					content: '\E006';
-				}
-			}
+            .logo {
+                display: block;
+                margin: 70px 10px 35px 0;
+                font-family: 'qgrid-iconfont', 'Helvetica Neue', sans-serif;
+                font-size: 100px;
+                text-align: center;
+                color: #fff;
+                text-decoration: none;
 
-			.app-search {
-				padding: 10px 15px 0 15px;
-				display: block;
+                &:before {
+                    content: url('../assets/icons/qgrid_logo.svg');
+                }
+            }
 
-				.mat-input-element {
-					color: #fff;
-					background-color: #444;
-					caret-color: #fff;
-					padding: 15px;
-				}
+            .app-search {
+                padding: 10px 15px 0 15px;
+                display: block;
 
-				/deep/ {
-					.mat-form-field-label {
-						top: 32px;
-						left: 10px;
-						color: #fff;
-					}
+                .mat-input-element {
+                    color: #fff;
+                    background-color: #25364A;
+                    caret-color: #fff;
+                    padding: 15px;
+                }
 
-					.mat-form-field-underline {
-						background-color: #fff;
-					}
+                ::ng-deep {
+                    .mat-form-field-label {
+                        top: 32px;
+                        left: 10px;
+                        color: #fff;
+                    }
 
-					.mat-form-field-ripple {
-						background-color: #fff;
-					}
-				}
+                    .mat-form-field-underline {
+                        background-color: #fff;
+                    }
 
-				&.mat-form-field-should-float {
-					/deep/ .mat-form-field-label {
-						top: 18px;
-					}
-				}
-			}
+                    .mat-form-field-ripple {
+                        background-color: #fff;
+                    }
+                }
 
-			.mat-nav-list {
-				display: block;
-				height: calc(100% - 234px);
-				overflow-y: auto;
+                &.mat-form-field-should-float {
+                    ::ng-deep .mat-form-field-label {
+                        top: 18px;
+                    }
+                }
+            }
 
-				.mat-list-item {
-					color: #fff;
+            .mat-nav-list {
+                display: block;
+                height: calc(100% - 364px);
+                overflow-y: auto;
 
-					&:hover,
-					&.app-active {
-						background-color: #0078cf;
-					}
-				}
-			}
-		}
+                .mat-list-item {
+                    color: #fff;
 
-		.mat-sidenav-content {
-			.mat-card {
-				height: calc(100% - 88px);
-				margin: 25px 15px 15px;
-				pointer-events: all;
-			}
-		}
-	}
+                    &:hover,
+                    &.app-active {
+                        background-color: #25364A;
+                    }
+                }
+            }
+        }
 
-	&.app-is-mobile {
-		.mat-toolbar {
-			display: flex;
-			position: fixed;
-			/* Make sure the toolbar will stay on top of the content as it scrolls past. */
-			z-index: 2;
-		}
+        .mat-sidenav-content {
+            .mat-card {
+                height: calc(100% - 99px);
+                margin: 15px;
+                pointer-events: all;
 
-		.app-source-links {
-			top: 50px;
-		}
+                .mat-card-footer {
+                    position: absolute;
+                    width: 100%;
+                    bottom: -20px;
+                }
+            }
+        }
+    }
 
-		.mat-sidenav-container {
-			//margin-top: 56px;
-			//height: calc(100% - 56px);
-			/* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
-               `<body>` to be our scrolling element for mobile layouts. */
-			flex: 1 0 auto;
+    &.app-is-mobile {
+        .mat-toolbar {
+            display: flex;
+            position: fixed;
+            /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+            z-index: 2;
+        }
 
-			.mat-sidenav {
-				.mat-nav-list {
-					height: calc(100% - 104px);
-				}
-			}
+        .app-source-links {
+            top: 50px;
+        }
 
-			.mat-sidenav-content {
-				.mat-card {
-					height: calc(100% - 134px);
-					margin: 71px 15px 15px;
-				}
-			}
+        .mat-sidenav-container {
+            flex: 1 0 auto;
 
-			&.mat-drawer-opened {
-				pointer-events: all;
-			}
-		}
-	}
+            .mat-sidenav {
+                .mat-nav-list {
+                    height: calc(100% - 104px);
+                }
+            }
+
+            .mat-sidenav-content {
+                .mat-card {
+                    height: calc(100% - 154px);
+                    top: 56px;
+                }
+            }
+
+            &.mat-drawer-opened {
+                pointer-events: all;
+            }
+        }
+    }
 }

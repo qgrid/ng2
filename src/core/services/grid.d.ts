@@ -8,8 +8,6 @@ import { PersistenceService } from '../persistence/persistence.service';
 export declare class GridService {
 	constructor(model: Model);
 
-	state: PersistenceService;
-
 	invalidate(
 		source?: string,
 		changes?: { [key: string]: { newValue: any, oldValue: any } },

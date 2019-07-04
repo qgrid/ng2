@@ -1,10 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 import { CommandManager } from 'ng2-qgrid/core/command/command.manager';
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { Table } from 'ng2-qgrid/core/dom/table';
 import { Bag } from 'ng2-qgrid/core/dom/bag';
 import { ModelProxy } from 'ng2-qgrid/core/infrastructure/model.proxy';
+import { Model } from 'ng2-qgrid/core/infrastructure/model';
 
 @Injectable()
 export class RootService implements OnDestroy {

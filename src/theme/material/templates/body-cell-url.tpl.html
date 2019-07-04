@@ -2,7 +2,7 @@
              let-$cell
              let-$view="$view">
     <a [attr.href]="$cell.value">
-       {{$cell.label || $cell.value}}
+        {{$cell.label || $cell.value}}
     </a>
     <button *ngIf="$view.edit.cell.canEdit($cell)"
             class="q-grid-url-edit q-grid-edit-trigger"

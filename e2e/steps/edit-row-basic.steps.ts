@@ -6,7 +6,7 @@ When('I enter {string} into {string} field', (text: string, field: string) => en
 When('I click "Is Female" checkbox', () => clickIsFemale());
 
 function getEditButton(index) {
-	return element.all(by.xpath("//*[(text()='edit')]")).get(index);
+	return element.all(by.xpath('//*[(text()=\'edit\')]')).get(index);
 }
 
 function getEditFormBody() {
@@ -15,10 +15,10 @@ function getEditFormBody() {
 
 function getFormInput(field) {
 	const editor = getEditFormBody();
-	return editor.element(by.xpath("//*[(text()='" + field + "')]/../../input"));
+	return editor.element(by.xpath('//*[(text()=\'' + field + '\')]/../../input'));
 }
 
-async function enterText(text:string, field: string) {
+async function enterText(text: string, field: string) {
 	const input = getFormInput(field);
 	await input.clear();
 	await input.sendKeys(text, protractor.Key.ENTER);
@@ -26,5 +26,5 @@ async function enterText(text:string, field: string) {
 
 function clickIsFemale() {
 	const editor = getEditFormBody();
-	return editor.element(by.xpath("//span[(text()=' Is Female ')]")).click();
+	return editor.element(by.xpath('//span[(text()=\' Is Female \')]')).click();
 }

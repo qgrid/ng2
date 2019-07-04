@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { PersistenceView } from 'ng2-qgrid/plugin/persistence/persistence.view';
 import { PluginService } from '../plugin.service';
+import { ModelBuilderService } from '../../main/model/model-builder.service';
 
 @Component({
 	selector: 'q-grid-persistence-panel',
@@ -12,11 +13,14 @@ export class PersistencePanelComponent implements OnInit {
 		$implicit: PersistenceView
 	};
 
-	constructor(private plugin: PluginService) {
+	constructor(
+		private plugin: PluginService,
+		private modelBuilder: ModelBuilderService
+	) {
 	}
 
 	ngOnInit() {
-		const persistence = new PersistenceView(this.plugin.model);
+		const persistence = new PersistenceView(this.plugin.model, () => this.modelBuilder.build());
 		this.context = { $implicit: persistence };
 	}
 }

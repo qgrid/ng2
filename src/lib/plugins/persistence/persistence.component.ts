@@ -5,6 +5,7 @@ import { Composite } from 'ng2-qgrid/core/infrastructure/composite';
 import { PersistenceItem } from 'ng2-qgrid/plugin/persistence/persistence.view';
 import { PersistenceService } from 'ng2-qgrid/core/persistence/persistence.service';
 import { PluginService } from '../plugin.service';
+import { ModelBuilderService } from '../../main/model/model-builder.service';
 
 @Component({
 	selector: 'q-grid-persistence',
@@ -12,7 +13,10 @@ import { PluginService } from '../plugin.service';
 	providers: [PluginService]
 })
 export class PersistenceComponent implements OnInit, OnChanges {
-	constructor(private plugin: PluginService) {
+	constructor(
+		private plugin: PluginService,
+		private modelBuilder: ModelBuilderService,
+	) {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
@@ -31,7 +35,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 				}
 				const defaultItem = items.find(item => item.isDefault);
 				if (defaultItem) {
-					const persistenceService = new PersistenceService(model);
+					const persistenceService = new PersistenceService(model, () => this.modelBuilder.build());
 					persistenceService.load(defaultItem.model);
 				}
 			});

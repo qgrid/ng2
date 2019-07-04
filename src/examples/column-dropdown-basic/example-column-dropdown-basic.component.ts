@@ -19,7 +19,8 @@ export class ExampleColumnDropdownBasicComponent {
 			'null': null,
 			'undefined': undefined,
 			'empty': '',
-			'object': null
+			'object': null,
+			'multi': null
 		}
 	];
 
@@ -53,6 +54,13 @@ export class ExampleColumnDropdownBasicComponent {
 
 	multiFetchOptions = {
 		fetch: of([])
+	};
+
+	dateFetchOptions = {
+		fetch: [
+			new Date(2018, 9, 12),
+			new Date(2019, 9, 12),
+		]
 	};
 
 	getLabel(row: any): string {

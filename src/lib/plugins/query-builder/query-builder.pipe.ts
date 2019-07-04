@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Node } from '../expression-builder/model/node';
 import { MarkupVisitor } from 'ng2-qgrid/core/expression/markup.visitor';
 import { SerializationService } from '../expression-builder/serialization.service';
-import { visit as convert } from './schema/converter';
+import * as converter from './schema/converter';
 import { QueryBuilderService, ColumnMap } from './query-builder.service';
 import { Validator } from './schema/validator';
 
@@ -29,7 +29,7 @@ export class QueryBuilderPipe implements PipeTransform {
 
 			const serializer = new SerializationService();
 			const filter = serializer.serialize(node);
-			const expression = convert(filter);
+			const expression = converter.visit(filter);
 			if (expression) {
 				return this.visitor.visit(expression);
 			}

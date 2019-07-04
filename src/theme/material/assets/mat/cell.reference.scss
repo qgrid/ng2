@@ -1,20 +1,25 @@
 .q-grid-reference-card {
-	margin: 0;
-	box-shadow: none;
-	padding: 0;
-	.mat-card-header-text {
-		margin: 0;
-	}
-	.mat-card-content {
-		height: 325px;
-		margin: 0;
-	}
-	.mat-card-actions {
-		margin-left: 0;
-		margin-right: 0;
-		text-align: right;
-		>button {
-			text-transform: uppercase;
-		}
-	}
+    margin: 0;
+    box-shadow: none;
+    padding: 0;
+    background: inherit;
+
+    .mat-card-header-text {
+        margin: 0;
+    }
+
+    .mat-card-content {
+        height: 310px;
+        margin: 0;
+    }
+
+    .mat-card-actions {
+        margin-left: 0;
+        margin-right: 0;
+        text-align: right;
+
+        >button {
+            text-transform: uppercase;
+        }
+    }
 }
