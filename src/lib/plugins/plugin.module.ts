@@ -31,6 +31,7 @@ import { TabTrapModule } from './tab-trap/tab-trap.module';
 import { TitleModule } from './title/title.module';
 import { ValidationModule } from './validation/validation.module';
 import { LayerModule } from './layer/layer.module';
+import { LiveCellModule } from './live-cell/live-cell.module';
 
 @NgModule({
 	exports: [
@@ -61,6 +62,7 @@ import { LayerModule } from './layer/layer.module';
 		TabTrapModule,
 		TitleModule,
 		ValidationModule,
+		LiveCellModule
 	]
 })
 export class PluginModule {

@@ -29,30 +29,23 @@ export class ExampleLiveDataBasicComponent implements OnDestroy {
 		});
 	}
 
-	styleCell(row: Quote, column: Column, context: StyleCellContext) {
-		if (column.key === 'last') {
-			const d = diff({ $row: row });
-			if (d !== 0) {
-				context.class(d > 0 ? 'positive' : 'negative');
-			}
-		}
-	}
-
 	update() {
 		if (!this.isLive) {
 			return;
 		}
 
-		const interval = this.random(200, 2000);
+		const interval = 4000; // this.random(200, 2000);
 		setTimeout(() => {
 			this.rows.forEach(quote => {
-				const hasChanges = this.random(0, 2);
+				const hasChanges = this.random(0, 5);
 				if (hasChanges) {
 					const rnd = this.random(-5, 5);
 					quote.last = quote.last + rnd;
 				}
 			});
 
+			this.rows = Array.from(this.rows);
+			this.cd.markForCheck();
 			this.cd.detectChanges();
 			this.update();
 		}, interval);

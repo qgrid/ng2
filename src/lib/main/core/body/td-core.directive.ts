@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef, ChangeDetectorRef, OnChanges, SimpleChanges, } from '@angular/core';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
@@ -15,8 +15,10 @@ const classify = TdCtrl.classify;
 @Directive({
 	selector: '[q-grid-core-td]',
 })
-export class TdCoreDirective implements Td, OnInit, OnDestroy {
+export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 	private $implicit = this;
+
+	private initilized = false;
 
 	@Input('q-grid-core-td') columnView: ColumnView;
 	element: HTMLElement = null;
@@ -39,9 +41,28 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy {
 
 		const link = this.cellService.build('body', this.column, 'view');
 		link(this.viewContainerRef, this);
+
+		this.initilized = true;
 	}
 
-	mode(value: 'view' | 'edit') {
+	ngOnChanges(changes: SimpleChanges) {
+		if (!this.initilized) {
+			return;
+		}
+
+		for (const propName in changes) {
+			if (changes[propName]) {
+				const chng = changes[propName];
+				const cur  = chng.currentValue;
+
+				// if ( cur.model.key === 'last' ) {
+					this.mode('change');
+				// }
+			}
+		}
+	}
+
+	mode(value: 'view' | 'edit' | 'change') {
 		switch (value) {
 			case 'view': {
 				this.element.classList.remove(`${GRID_PREFIX}-edit`);
@@ -56,6 +77,15 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy {
 				this.element.classList.add(`${GRID_PREFIX}-edit`);
 
 				const link = this.cellService.build('body', this.column, 'edit');
+				link(this.viewContainerRef, this);
+				this.cd.markForCheck();
+				this.cd.detectChanges();
+				break;
+			}
+			case 'change': {
+				this.element.classList.add(`${GRID_PREFIX}-change`);
+
+				const link = this.cellService.build('body', this.column, 'change');
 				link(this.viewContainerRef, this);
 				this.cd.markForCheck();
 				this.cd.detectChanges();
