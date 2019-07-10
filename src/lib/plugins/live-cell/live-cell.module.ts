@@ -1,16 +1,19 @@
-import { NgModule } from '@angular/core';
+import { NgModule, } from '@angular/core';
 import { TemplateModule } from '../../template/template.module';
 import { LiveCellComponent } from './live-cell.component';
+import { LiveCellUpdateComponent } from './live-cell-update.component';
 
 @NgModule({
 	declarations: [
-		LiveCellComponent
+		LiveCellComponent,
+		LiveCellUpdateComponent,
 	],
 	exports: [
-		LiveCellComponent
+		LiveCellComponent,
+		LiveCellUpdateComponent
 	],
 	imports: [
-		TemplateModule
+		TemplateModule,
 	]
 })
 export class LiveCellModule {

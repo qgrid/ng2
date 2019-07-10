@@ -39,7 +39,8 @@
 			<td *ngFor="let $column of $view.body.render.columns($row, $table.pin, $rowIndex); index as $columnIndex; trackBy: columnId"
 				[attr.rowspan]="$view.body.render.rowspan($row, $column, $rowIndex, $columnIndex)"
 				[attr.colspan]="$view.body.render.colspan($row, $column, $rowIndex, $columnIndex)">
-				<ng-container [q-grid-core-td]="$column">
+				<ng-container 	[q-grid-core-td]="$column"
+								[liveValue]="$view.body.render.getValue($row, $column.model, $rowIndex, $columnIndex)">
 				</ng-container>
 			</td>
 		</tr>

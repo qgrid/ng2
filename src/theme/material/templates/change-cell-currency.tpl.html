@@ -1,4 +1,4 @@
 <ng-template key="change-cell-currency.tpl.html"
              let-$cell>
-    <span>{{$cell.label}}  2222</span>
+        <span>{{ result }}</span> <span>{{$cell.value | qGridCurrency: $cell.column.code}} 222</span>
 </ng-template>

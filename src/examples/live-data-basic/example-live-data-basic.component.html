@@ -2,9 +2,10 @@
 		[rows]="rows">
 	<q-grid-columns generation="deep">
 		<q-grid-column key="metal" [width]="290">
-			<ng-template let-$cell>
+			<ng-template for="change" let-$cell>
 				<q-grid-live-cell
 					[cell]="$cell"
+					[cellValue]="$cell.value"
 					[upAnimation]="[]"
 					[downAnimation]="[]"
 					[animationEnable]="true"
@@ -16,13 +17,14 @@
 			</ng-template>
 		</q-grid-column>
 		<q-grid-column key="ldn1" title="LDN" [width]="70"></q-grid-column>
-		<q-grid-column key="ask" [width]="100" type="currency"></q-grid-column>
+		<q-grid-column key="ask" type="currency" [width]="150"></q-grid-column>
 		<q-grid-column key="ldn2" title="LDN" [width]="70"></q-grid-column>
 		<q-grid-column key="ldn3" title="LDN" [width]="70"></q-grid-column>
 		<q-grid-column key="last" type="currency" [width]="150">
 			<ng-template for="change" let-$cell>
 				<q-grid-live-cell
 					[cell]="$cell"
+					[cellValue]="$cell.value"
 					[upAnimation]="[]"
 					[downAnimation]="[]"
 					[animationEnable]="true"

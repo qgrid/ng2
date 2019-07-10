@@ -18,9 +18,9 @@ const classify = TdCtrl.classify;
 export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 	private $implicit = this;
 
-	private initilized = false;
-
 	@Input('q-grid-core-td') columnView: ColumnView;
+	@Input() liveValue: any;
+
 	element: HTMLElement = null;
 
 	constructor(
@@ -41,24 +41,15 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 
 		const link = this.cellService.build('body', this.column, 'view');
 		link(this.viewContainerRef, this);
-
-		this.initilized = true;
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		if (!this.initilized) {
-			return;
-		}
-
-		for (const propName in changes) {
-			if (changes[propName]) {
-				const chng = changes[propName];
-				const cur  = chng.currentValue;
-
-				// if ( cur.model.key === 'last' ) {
-					this.mode('change');
-				// }
+		for (const propName of Object.keys(changes)) {
+			if (changes[propName].firstChange) {
+				continue;
 			}
+			this.mode('change');
+			console.log(changes[propName]);
 		}
 	}
 
