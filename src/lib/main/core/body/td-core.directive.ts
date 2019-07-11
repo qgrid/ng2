@@ -1,5 +1,5 @@
-// tslint:disable-next-line: max-line-length
-import { Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, OnInit,
+		ViewContainerRef, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';

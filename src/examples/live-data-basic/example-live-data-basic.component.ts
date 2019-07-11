@@ -6,7 +6,7 @@ import { DataService, Quote } from '../data.service';
 	templateUrl: 'example-live-data-basic.component.html',
 	styleUrls: ['example-live-data-basic.component.scss'],
 	providers: [DataService],
-	// changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None
 })
 export class ExampleLiveDataBasicComponent {

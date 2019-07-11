@@ -36,26 +36,8 @@ function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 
 			return result;
 		}
+		case 'change':
 		case 'edit': {
-			type = column.editor || type;
-			const result = [
-				`${mode}-cell-${type}-the-${key}.tpl.html`,
-				`${mode}-cell-the-${key}.tpl.html`,
-				`${mode}-cell-${type}.tpl.html`,
-				`${mode}-cell.tpl.html`,
-				`${mode}-cell-text.tpl.html`
-			];
-
-			if (itemType) {
-				result.splice(0, 0, ...[
-					`${mode}-cell-${type}-of-${itemType}-the-${key}.tpl.html`,
-					`${mode}-cell-${type}-of-${itemType}.tpl.html`,
-				]);
-			}
-
-			return result;
-		}
-		case 'change': {
 			type = column.editor || type;
 			const result = [
 				`${mode}-cell-${type}-the-${key}.tpl.html`,
