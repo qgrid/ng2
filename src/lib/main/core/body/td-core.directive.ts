@@ -1,4 +1,5 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef, ChangeDetectorRef, OnChanges, SimpleChanges, } from '@angular/core';
+// tslint:disable-next-line: max-line-length
+import { Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
@@ -22,6 +23,7 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 	@Input() liveValue: any;
 
 	element: HTMLElement = null;
+	changes: any = null;
 
 	constructor(
 		public $view: ViewCoreService,
@@ -45,11 +47,12 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 
 	ngOnChanges(changes: SimpleChanges) {
 		for (const propName of Object.keys(changes)) {
-			if (changes[propName].firstChange) {
+			if (changes[propName].firstChange || propName !== 'liveValue'
+			&& (changes[propName].currentValue === changes[propName].previousValue)) {
 				continue;
 			}
+			this['changes'] = changes;
 			this.mode('change');
-			console.log(changes[propName]);
 		}
 	}
 

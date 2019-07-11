@@ -1,0 +1,21 @@
+<ng-container [ngSwitch]="type">
+    <div class="live-cell {{ resultClass }} {{ [resultClass, type].join('-') }}" *ngSwitchCase="'currency'">
+        <span *ngIf="showArrow" class="live-cell__arrow">
+            <i *ngIf="difference > 0" class="q-grid-icon q-grid-asc">&uarr;</i>
+            <i *ngIf="difference < 0" class="q-grid-icon q-grid-desc">&darr;</i>
+        </span>
+        <span *ngIf="showDifference" class="live-cell__difference">{{ difference | qGridCurrency: cell.column.code}}</span>
+        <span *ngIf="showPrev" class="live-cell__previous">{{ cell.changes.liveValue.previousValue | qGridCurrency: cell.column.code}}</span>
+        <span class="live-cell__current">{{ cell.label | qGridCurrency: cell.column.code}}</span>
+    </div>
+
+    <div class="{{ resultClass }} {{ [resultClass, type].join('-') }}" *ngSwitchCase="'text'">
+        <span class="live-cell__current">{{ cell.label }}</span>
+        <span *ngIf="showPrev" class="live-cell__previous">{{ cell.changes.liveValue.previousValue }}</span>
+        <span *ngIf="showDifference" class="live-cell__difference">{{ difference }}</span>
+        <span *ngIf="showArrow" class="live-cell__arrow">
+            <i *ngIf="difference > 0" class="q-grid-icon q-grid-asc">&uarr;</i>
+            <i *ngIf="difference < 0" class="q-grid-icon q-grid-desc">&darr;</i>
+        </span>
+    </div>
+</ng-container>

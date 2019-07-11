@@ -23,7 +23,7 @@ export class ExampleLiveDataBasicComponent {
 
 	update() {
 
-		const interval = 2000; // this.random(200, 2000);
+		const interval = this.random(4000, 6000);
 		setTimeout(() => {
 			this.rows.forEach(quote => {
 				const hasChanges = this.random(0, 7);
@@ -36,7 +36,7 @@ export class ExampleLiveDataBasicComponent {
 
 			this.cd.markForCheck();
 			this.cd.detectChanges();
-			
+
 			this.update();
 		}, interval);
 	}

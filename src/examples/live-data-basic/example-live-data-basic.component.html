@@ -1,35 +1,29 @@
 <q-grid caption="Live Data Basic"	
 		[rows]="rows">
 	<q-grid-columns generation="deep">
-		<q-grid-column key="metal" [width]="290">
+		<q-grid-column key="metal" [width]="290"></q-grid-column>
+		<q-grid-column key="ldn1" title="LDN" [width]="70"></q-grid-column>
+		<q-grid-column key="ask" [width]="250">
 			<ng-template for="change" let-$cell>
 				<q-grid-live-cell
 					[cell]="$cell"
-					[cellValue]="$cell.value"
-					[upAnimation]="[]"
-					[downAnimation]="[]"
-					[animationEnable]="true"
-					upClass="green-arrow"
-					downClass="red-arrow"
+					duration="2000"
+					upClass="positive-change"
+					downClass="negative-change"
 					[showArrow]="true"
 					[showPrev]="true">
 				</q-grid-live-cell>
 			</ng-template>
 		</q-grid-column>
-		<q-grid-column key="ldn1" title="LDN" [width]="70"></q-grid-column>
-		<q-grid-column key="ask" type="currency" [width]="150"></q-grid-column>
 		<q-grid-column key="ldn2" title="LDN" [width]="70"></q-grid-column>
 		<q-grid-column key="ldn3" title="LDN" [width]="70"></q-grid-column>
-		<q-grid-column key="last" type="currency" [width]="150">
+		<q-grid-column key="last" type="currency" [width]="270">
 			<ng-template for="change" let-$cell>
 				<q-grid-live-cell
 					[cell]="$cell"
-					[cellValue]="$cell.value"
-					[upAnimation]="[]"
-					[downAnimation]="[]"
-					[animationEnable]="true"
-					upClass="green-arrow"
-					downClass="red-arrow"
+					duration="3000"
+					upClass="positive-change"
+					downClass="negative-change"
 					[showArrow]="true"
 					[showPrev]="true">
 				</q-grid-live-cell>
