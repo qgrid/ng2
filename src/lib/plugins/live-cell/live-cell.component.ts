@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, SimpleChange, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, SimpleChange, ChangeDetectionStrategy, NgZone } from '@angular/core';
 import { TemplateHostService } from '../../template/template-host.service';
 import { TdCoreDirective } from 'lib/main/core/body/td-core.directive';
+import { AppError } from '../../../core/infrastructure/error';
 
 @Component({
 	selector: 'q-grid-live-cell',
@@ -9,31 +10,35 @@ import { TdCoreDirective } from 'lib/main/core/body/td-core.directive';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LiveCellComponent implements OnInit {
-
 	@Input() cell: TdCoreDirective;
 	@Input() duration = 500;
 
-	difference = 0;
+	changes: any;
 
-	constructor() {
+	constructor(private zone: NgZone) {
 	}
 
 	ngOnInit() {
 		if (!this.cell.changes) {
-			this.cell.mode('view');
-			return;
+			throw new AppError('q-grid-live-cell', 'Changes is not defined in live-cell.component.ts');
 		}
-		this.difference = this.diff(this.cell.changes);
 
-		setTimeout(() => {
-			this.cell.mode('view');
-		}, this.duration);
+		this.changes = this.getDifference(this.cell.changes);
+		this.zone.runOutsideAngular(() => {
+			setTimeout(() => {
+				this.cell.mode('view');
+			}, this.duration);
+		});
 	}
 
-	diff(value: SimpleChange) {
-		if (value.currentValue && value.previousValue) {
-			return +value.currentValue - +value.previousValue;
+	getDifference(value: SimpleChange) {
+		switch (typeof(value.currentValue)) {
+			case 'number':
+				return +value.currentValue - +value.previousValue;
+			case 'string':
+				return value.previousValue;
+			default:
+				return null;
 		}
-		return 0;
 	}
 }

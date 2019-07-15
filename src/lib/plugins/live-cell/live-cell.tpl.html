@@ -2,14 +2,14 @@
     <div *ngSwitchCase="'currency'"
     [ngClass]="{ 'q-grid-live-cell' : true, 
                  'q-grid-live-cell-currency': true,
-                 'q-grid-live-cell-up': difference > 0,
-                 'q-grid-live-cell-down': difference < 0
+                 'q-grid-live-cell-up': changes > 0,
+                 'q-grid-live-cell-down': changes < 0
             }">
         <span [ngClass]="'q-grid-live-cell-arrow'">
-            <i *ngIf="difference > 0" class="q-grid-icon q-grid-asc">&uarr;</i>
-            <i *ngIf="difference < 0" class="q-grid-icon q-grid-desc">&darr;</i>
+            <i *ngIf="changes > 0" class="q-grid-icon q-grid-asc">&uarr;</i>
+            <i *ngIf="changes < 0" class="q-grid-icon q-grid-desc">&darr;</i>
         </span>
-        <span [ngClass]="'q-grid-live-cell-diff'">{{ difference | qGridCurrency: cell.column.code}}</span>
+        <span [ngClass]="'q-grid-live-cell-diff'">{{ changes | qGridCurrency: cell.column.code}}</span>
         <span [ngClass]="'q-grid-live-cell-prev'">{{ cell.changes.previousValue | qGridCurrency: cell.column.code}}</span>
         <span [ngClass]="'q-grid-live-cell-curr'">{{ cell.label | qGridCurrency: cell.column.code}}</span>
     </div>
@@ -17,15 +17,15 @@
     <div *ngSwitchCase="'text'"
         [ngClass]="{'q-grid-live-cell' : true,
                     'q-grid-live-cell-text': true,
-                    'q-grid-live-cell-up': difference > 0,
-                    'q-grid-live-cell-down': difference < 0
+                    'q-grid-live-cell-up': changes > 0,
+                    'q-grid-live-cell-down': changes < 0
                 }">
         <span [ngClass]="'q-grid-live-cell-curr'">{{ cell.label }}</span>
         <span [ngClass]="'q-grid-live-cell-prev'">{{ cell.changes.previousValue }}</span>
-        <span [ngClass]="'q-grid-live-cell-diff'">{{ difference }}</span>
+        <span [ngClass]="'q-grid-live-cell-diff'">{{ changes }}</span>
         <span [ngClass]="'q-grid-live-cell-arrow'">
-            <i *ngIf="difference > 0" class="q-grid-icon q-grid-asc">&uarr;</i>
-            <i *ngIf="difference < 0" class="q-grid-icon q-grid-desc">&darr;</i>
+            <i *ngIf="changes > 0" class="q-grid-icon q-grid-asc">&uarr;</i>
+            <i *ngIf="changes < 0" class="q-grid-icon q-grid-desc">&darr;</i>
         </span>
     </div>
 </ng-container>

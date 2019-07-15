@@ -23,7 +23,7 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 	@Input('q-grid-core-td') columnView: ColumnView;
 
 	element: HTMLElement = null;
-	changes: SimpleChange = null;
+	changes: SimpleChange;
 
 	constructor(
 		public $view: ViewCoreService,
@@ -47,10 +47,10 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 
 	ngOnChanges(changes: SimpleChanges) {
 
-		const { changedValue } = changes;
+		const { actualValue } = changes;
 
-		if (changedValue && !changedValue.firstChange && (changedValue.currentValue !== changedValue.previousValue)) {
-			this.changes = changedValue;
+		if (actualValue && !actualValue.firstChange && (actualValue.currentValue !== actualValue.previousValue)) {
+			this.changes = actualValue;
 			this.mode('change');
 		}
 	}

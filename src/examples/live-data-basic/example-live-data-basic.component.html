@@ -7,7 +7,7 @@
 			<ng-template for="change" let-$cell>
 				<q-grid-live-cell
 					[cell]="$cell"
-					duration="2000">
+					[duration]="2000">
 				</q-grid-live-cell>
 			</ng-template>
 		</q-grid-column>
@@ -17,7 +17,7 @@
 			<ng-template for="change" let-$cell>
 				<q-grid-live-cell
 					[cell]="$cell"
-					duration="3000">
+					[duration]="3000">
 				</q-grid-live-cell>
 			</ng-template>
 		</q-grid-column>
@@ -26,6 +26,5 @@
 		<q-grid-column key="volume" [width]="100" type="currency"></q-grid-column>
 		<q-grid-column key="settle" [width]="100" type="currency"></q-grid-column>
 		<q-grid-column key="ldn4" title="LDN" [width]="70"></q-grid-column>
-		<q-grid-column key="previous" [isVisible]="false"></q-grid-column>
 	</q-grid-columns>
 </q-grid>

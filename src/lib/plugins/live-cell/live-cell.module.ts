@@ -4,7 +4,6 @@ import { TemplateModule } from '../../template/template.module';
 import { LiveCellComponent } from './live-cell.component';
 import { PipeModule } from '../../../lib/pipes/pipe.module';
 
-
 @NgModule({
 	declarations: [
 		LiveCellComponent,
