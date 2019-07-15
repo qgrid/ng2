@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, SimpleChange, ChangeDetectionStrategy } from '@angular/core';
 import { TemplateHostService } from '../../template/template-host.service';
+import { TdCoreDirective } from 'lib/main/core/body/td-core.directive';
 
 @Component({
 	selector: 'q-grid-live-cell',
@@ -9,17 +10,10 @@ import { TemplateHostService } from '../../template/template-host.service';
 })
 export class LiveCellComponent implements OnInit {
 
-	@Input() cell: any;
+	@Input() cell: TdCoreDirective;
 	@Input() duration = 500;
-	@Input() upClass = 'positive-change';
-	@Input() downClass = 'negative-change';
-	@Input() showArrow = true;
-	@Input() showDifference = true;
-	@Input() showPrev = false;
 
 	difference = 0;
-	resultClass = '';
-	type = '';
 
 	constructor() {
 	}
@@ -29,9 +23,7 @@ export class LiveCellComponent implements OnInit {
 			this.cell.mode('view');
 			return;
 		}
-		this.type = this.cell.column.type;
-		this.difference = this.diff(this.cell.changes.liveValue);
-		this.resultClass = this.difference > 0 ? this.upClass : this.downClass;
+		this.difference = this.diff(this.cell.changes);
 
 		setTimeout(() => {
 			this.cell.mode('view');

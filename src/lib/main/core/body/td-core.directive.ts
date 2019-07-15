@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnDestroy, OnInit,
-		ViewContainerRef, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
+		ViewContainerRef, ChangeDetectorRef, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
@@ -18,12 +18,12 @@ const classify = TdCtrl.classify;
 })
 export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 	private $implicit = this;
+	@Input('q-grid-core-value') private actualValue: any;
 
 	@Input('q-grid-core-td') columnView: ColumnView;
-	@Input() liveValue: any;
 
 	element: HTMLElement = null;
-	changes: any = null;
+	changes: SimpleChange = null;
 
 	constructor(
 		public $view: ViewCoreService,
@@ -46,12 +46,11 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		for (const propName of Object.keys(changes)) {
-			if (changes[propName].firstChange || propName !== 'liveValue'
-			&& (changes[propName].currentValue === changes[propName].previousValue)) {
-				continue;
-			}
-			this['changes'] = changes;
+
+		const { changedValue } = changes;
+
+		if (changedValue && !changedValue.firstChange && (changedValue.currentValue !== changedValue.previousValue)) {
+			this.changes = changedValue;
 			this.mode('change');
 		}
 	}
@@ -91,10 +90,8 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 	}
 
 	get value() {
-		const { column, row, rowIndex, columnIndex } = this;
-		return this.$view.body.render.getValue(row, column, rowIndex, columnIndex);
+		return this.actualValue;
 	}
-
 	set value(value) {
 		const { column, row, rowIndex, columnIndex } = this;
 		this.$view.body.render.setValue(row, column, value, rowIndex, columnIndex);
