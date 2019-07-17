@@ -1,0 +1,57 @@
+.q-grid-live-cell {
+
+   @keyframes textBackroundColor {
+      0% { background-color: rgba(70, 140, 160, .3) }
+      100% { background-color: transparent }
+   }
+
+    & span {
+        display: inline-block;
+        padding: 0 5px;
+
+        &:first-child {
+            padding-left: 10px;
+        }
+
+        &:last-child {
+            padding-right: 10px;
+        }
+    }
+
+   &-container {
+      margin: 0 -10px;
+      border-radius: 5px;
+   }
+ 
+   &-diff {
+      font-weight: bold;
+   }
+ 
+   &-up {
+      color: green;
+      background-color: rgba(0, 100, 0, .1);
+   }
+ 
+   &-down {
+      color: red;
+      background-color: rgba(100, 0, 0, .1);
+   }
+ 
+   &-text {
+ 
+      & .q-grid-live-cell-prev {
+         text-decoration: line-through;
+      }
+
+      & .q-grid-live-cell-container {
+         animation: textBackroundColor 3s;
+      }
+   }
+
+   &-currency {
+      & .q-grid-live-cell-prev {
+         display: none;
+      }
+   }
+}
+ 

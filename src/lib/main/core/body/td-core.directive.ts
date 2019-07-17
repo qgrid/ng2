@@ -58,6 +58,7 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 	mode(value: 'view' | 'edit' | 'change') {
 		switch (value) {
 			case 'view': {
+				this.element.classList.remove(`${GRID_PREFIX}-change`);
 				this.element.classList.remove(`${GRID_PREFIX}-edit`);
 
 				const link = this.cellService.build('body', this.column, 'view');

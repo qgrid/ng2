@@ -23,14 +23,16 @@ export class ExampleLiveDataBasicComponent {
 
 	update() {
 
-		const interval = this.random(4000, 6000);
+		const interval = this.random(2000, 4000);
 		setTimeout(() => {
 			this.rows.forEach(quote => {
 				const hasChanges = this.random(0, 7);
 				if (hasChanges) {
-					const rnd = this.random(-5, 5);
+					const rnd = this.random(-50, 50);
 					quote.last += rnd;
 					quote.ask += rnd;
+					quote.ldn1 = this.randomTime(quote.ldn1);
+					quote.ldn2 = this.randomTime(quote.ldn2);
 				}
 			});
 
@@ -39,6 +41,28 @@ export class ExampleLiveDataBasicComponent {
 
 			this.update();
 		}, interval);
+	}
+
+	randomTime(time: string): string {
+		if (time.indexOf(':') === -1) {
+			return time;
+		}
+		const timeArr = time.split(':').map((val, i) => {
+			let num = parseInt(val);
+			if (i === 0) {
+				num += this.random(-5, 5);
+				if (num > 23 || num < 0) {
+					num = Math.sqrt(Math.pow(num % 24, 2));
+				}
+			} else if (i === 1) {
+				num += this.random(-20, 20);
+				if (num > 59 || num < 0) {
+					num = Math.sqrt(Math.pow(num % 60, 2));
+				}
+			}
+			return num.toString().padStart(2, '0');
+		});
+		return timeArr.join(':');
 	}
 
 	random(min, max) {

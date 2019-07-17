@@ -1,9 +1,9 @@
-<ng-container [ngSwitch]="cell.column.type">
-    <div *ngSwitchCase="'currency'"
-    [ngClass]="{ 'q-grid-live-cell' : true, 
-                 'q-grid-live-cell-currency': true,
-                 'q-grid-live-cell-up': changes > 0,
-                 'q-grid-live-cell-down': changes < 0
+<ng-container *ngTemplateOutlet="getTemplate()"></ng-container>
+<!--Templates: -->
+<ng-template #currency>
+    <div [ngClass]="{'q-grid-live-cell-container': true, 
+                    'q-grid-live-cell-up': changes > 0,
+                    'q-grid-live-cell-down': changes < 0
             }">
         <span [ngClass]="'q-grid-live-cell-arrow'">
             <i *ngIf="changes > 0" class="q-grid-icon q-grid-asc">&uarr;</i>
@@ -13,12 +13,12 @@
         <span [ngClass]="'q-grid-live-cell-prev'">{{ cell.changes.previousValue | qGridCurrency: cell.column.code}}</span>
         <span [ngClass]="'q-grid-live-cell-curr'">{{ cell.label | qGridCurrency: cell.column.code}}</span>
     </div>
+</ng-template>
 
-    <div *ngSwitchCase="'text'"
-        [ngClass]="{'q-grid-live-cell' : true,
-                    'q-grid-live-cell-text': true,
-                    'q-grid-live-cell-up': changes > 0,
-                    'q-grid-live-cell-down': changes < 0
+<ng-template #number>
+        <div [ngClass]="{'q-grid-live-cell-container': true,
+                        'q-grid-live-cell-up': changes > 0,
+                        'q-grid-live-cell-down': changes < 0
                 }">
         <span [ngClass]="'q-grid-live-cell-curr'">{{ cell.label }}</span>
         <span [ngClass]="'q-grid-live-cell-prev'">{{ cell.changes.previousValue }}</span>
@@ -28,4 +28,18 @@
             <i *ngIf="changes < 0" class="q-grid-icon q-grid-desc">&darr;</i>
         </span>
     </div>
-</ng-container>
+</ng-template>
+
+<ng-template #time>
+    <div [ngClass]="'q-grid-live-cell-container'">
+        <span [ngClass]="'q-grid-live-cell-prev'">{{ cell.changes.previousValue }}</span>
+        <span [ngClass]="'q-grid-live-cell-curr'">{{ cell.label }}</span>
+    </div>
+</ng-template>
+
+<ng-template #text>
+    <div [ngClass]="'q-grid-live-cell-container'">
+        <span [ngClass]="'q-grid-live-cell-prev'">{{ cell.changes.previousValue }}</span>
+        <span [ngClass]="'q-grid-live-cell-curr'">{{ cell.label }}</span>
+    </div>
+</ng-template>

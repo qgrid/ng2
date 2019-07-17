@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, SimpleChange, ChangeDetectionStrategy, NgZone } from '@angular/core';
+import { Component, Input, OnInit, SimpleChange, ChangeDetectionStrategy,
+		NgZone, HostBinding, TemplateRef, ViewChild } from '@angular/core';
 import { TemplateHostService } from '../../template/template-host.service';
-import { TdCoreDirective } from 'lib/main/core/body/td-core.directive';
+import { TdCoreDirective } from '../../../lib/main/core/body/td-core.directive';
 import { AppError } from '../../../core/infrastructure/error';
 
 @Component({
@@ -14,15 +15,23 @@ export class LiveCellComponent implements OnInit {
 	@Input() duration = 500;
 
 	changes: any;
+	type: string;
+
+	@HostBinding('class') class: string;
+
+	@ViewChild('currency') currencyTemplate: TemplateRef<any>;
+	@ViewChild('number') numberTemplate: TemplateRef<any>;
+	@ViewChild('time') timeTemplate: TemplateRef<any>;
+	@ViewChild('text') textTemplate: TemplateRef<any>;
 
 	constructor(private zone: NgZone) {
 	}
 
 	ngOnInit() {
 		if (!this.cell.changes) {
-			throw new AppError('q-grid-live-cell', 'Changes is not defined in live-cell.component.ts');
+			throw new AppError('live-cell.component', 'No changes found');
 		}
-
+		this.class = `q-grid-live-cell q-grid-live-cell-${this.cell.column.type}`;
 		this.changes = this.getDifference(this.cell.changes);
 		this.zone.runOutsideAngular(() => {
 			setTimeout(() => {
@@ -32,13 +41,25 @@ export class LiveCellComponent implements OnInit {
 	}
 
 	getDifference(value: SimpleChange) {
-		switch (typeof(value.currentValue)) {
+		switch (this.cell.column.type) {
 			case 'number':
+			case 'currency':
 				return +value.currentValue - +value.previousValue;
-			case 'string':
-				return value.previousValue;
 			default:
 				return null;
+		}
+	}
+
+	getTemplate() {
+		switch (this.cell.column.type) {
+			case 'currency':
+				return this.currencyTemplate;
+			case 'time':
+				return this.timeTemplate;
+			case 'number':
+				return this.numberTemplate;
+			default:
+				return this.textTemplate;
 		}
 	}
 }
