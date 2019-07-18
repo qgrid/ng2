@@ -40,6 +40,7 @@
 				[attr.rowspan]="$view.body.render.rowspan($row, $column, $rowIndex, $columnIndex)"
 				[attr.colspan]="$view.body.render.colspan($row, $column, $rowIndex, $columnIndex)">
 				<ng-container 	[q-grid-core-td]="$column"
+								[q-grid-core-label]="$view.body.render.getLabel($row, $column.model, $rowIndex, $columnIndex)"
 								[q-grid-core-value]="$view.body.render.getValue($row, $column.model, $rowIndex, $columnIndex)">
 				</ng-container>
 			</td>

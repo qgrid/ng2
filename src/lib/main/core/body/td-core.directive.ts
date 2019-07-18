@@ -19,6 +19,7 @@ const classify = TdCtrl.classify;
 export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 	private $implicit = this;
 	@Input('q-grid-core-value') private actualValue: any;
+	@Input('q-grid-core-label') private actualLabel: any;
 
 	@Input('q-grid-core-td') columnView: ColumnView;
 
@@ -46,11 +47,10 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
+		const { actualLabel } = changes;
 
-		const { actualValue } = changes;
-
-		if (actualValue && !actualValue.firstChange && (actualValue.currentValue !== actualValue.previousValue)) {
-			this.changes = actualValue;
+		if (actualLabel && !actualLabel.firstChange && (actualLabel.currentValue !== actualLabel.previousValue)) {
+			this.changes = actualLabel;
 			this.mode('change');
 		}
 	}
@@ -99,8 +99,7 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 	}
 
 	get label() {
-		const { column, row, rowIndex, columnIndex } = this;
-		return this.$view.body.render.getLabel(row, column, rowIndex, columnIndex);
+		return this.actualLabel;
 	}
 
 	set label(label) {

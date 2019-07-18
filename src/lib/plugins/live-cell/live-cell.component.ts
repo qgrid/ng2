@@ -1,5 +1,14 @@
-import { Component, Input, OnInit, SimpleChange, ChangeDetectionStrategy,
-		NgZone, HostBinding, TemplateRef, ViewChild } from '@angular/core';
+import {
+	Component,
+	Input,
+	OnInit,
+	SimpleChange,
+	ChangeDetectionStrategy,
+	NgZone,
+	HostBinding,
+	TemplateRef,
+	ViewChild
+} from '@angular/core';
 import { TemplateHostService } from '../../template/template-host.service';
 import { TdCoreDirective } from '../../../lib/main/core/body/td-core.directive';
 import { AppError } from '../../../core/infrastructure/error';
@@ -13,9 +22,6 @@ import { AppError } from '../../../core/infrastructure/error';
 export class LiveCellComponent implements OnInit {
 	@Input() cell: TdCoreDirective;
 	@Input() duration = 500;
-
-	changes: any;
-	type: string;
 
 	@HostBinding('class') class: string;
 
@@ -31,8 +37,11 @@ export class LiveCellComponent implements OnInit {
 		if (!this.cell.changes) {
 			throw new AppError('live-cell.component', 'No changes found');
 		}
-		this.class = `q-grid-live-cell q-grid-live-cell-${this.cell.column.type}`;
-		this.changes = this.getDifference(this.cell.changes);
+		this.class = `q-grid-live-cell q-grid-live-cell-${this.cell.column.type} `;
+
+		if (this.getDifference(this.cell.changes)) {
+			this.class += this.getDifference(this.cell.changes) > 0 ? `q-grid-live-cell-up ` : `q-grid-live-cell-down `;
+		}
 		this.zone.runOutsideAngular(() => {
 			setTimeout(() => {
 				this.cell.mode('view');

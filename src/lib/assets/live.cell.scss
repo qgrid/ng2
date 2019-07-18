@@ -1,4 +1,7 @@
 .q-grid-live-cell {
+   display: block;
+   margin: 0 -10px;
+   border-radius: 5px;
 
    @keyframes textBackroundColor {
       0% { background-color: rgba(70, 140, 160, .3) }
@@ -18,11 +21,6 @@
         }
     }
 
-   &-container {
-      margin: 0 -10px;
-      border-radius: 5px;
-   }
- 
    &-diff {
       font-weight: bold;
    }
