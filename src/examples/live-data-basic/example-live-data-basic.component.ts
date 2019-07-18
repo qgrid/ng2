@@ -1,11 +1,5 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { DataService, Quote } from '../data.service';
-import { Column, StyleCellContext } from 'ng2-qgrid';
-
-function diff(cell) {
-	const row = cell.$row;
-	return row.last - row.previous;
-}
 
 @Component({
 	selector: 'example-live-data-basic',
@@ -15,10 +9,8 @@ function diff(cell) {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None
 })
-export class ExampleLiveDataBasicComponent implements OnDestroy {
+export class ExampleLiveDataBasicComponent {
 	static id = 'live-data-basic';
-
-	private isLive = true;
 
 	rows: Quote[];
 
@@ -29,40 +21,51 @@ export class ExampleLiveDataBasicComponent implements OnDestroy {
 		});
 	}
 
-	styleCell(row: Quote, column: Column, context: StyleCellContext) {
-		if (column.key === 'last') {
-			const d = diff({ $row: row });
-			if (d !== 0) {
-				context.class(d > 0 ? 'positive' : 'negative');
-			}
-		}
-	}
-
 	update() {
-		if (!this.isLive) {
-			return;
-		}
 
-		const interval = this.random(200, 2000);
+		const interval = this.random(2000, 4000);
 		setTimeout(() => {
 			this.rows.forEach(quote => {
-				const hasChanges = this.random(0, 2);
+				const hasChanges = this.random(0, 7);
 				if (hasChanges) {
-					const rnd = this.random(-5, 5);
-					quote.last = quote.last + rnd;
+					const rnd = this.random(-50, 50);
+					quote.last += rnd;
+					quote.ask += rnd;
+					quote.ldn1 = this.randomTime(quote.ldn1);
+					quote.ldn2 = this.randomTime(quote.ldn2);
 				}
 			});
 
+			this.cd.markForCheck();
 			this.cd.detectChanges();
+
 			this.update();
 		}, interval);
 	}
 
-	random(min, max) {
-		return Math.floor(Math.random() * (max - min)) + min;
+	randomTime(time: string): string {
+		if (time.indexOf(':') === -1) {
+			return time;
+		}
+		const timeArr = time.split(':').map((val, i) => {
+			let num = parseInt(val);
+			if (i === 0) {
+				num += this.random(-5, 5);
+				if (num > 23 || num < 0) {
+					num = Math.sqrt(Math.pow(num % 24, 2));
+				}
+			} else if (i === 1) {
+				num += this.random(-20, 20);
+				if (num > 59 || num < 0) {
+					num = Math.sqrt(Math.pow(num % 60, 2));
+				}
+			}
+			return num.toString().padStart(2, '0');
+		});
+		return timeArr.join(':');
 	}
 
-	ngOnDestroy() {
-		this.isLive = false;
+	random(min, max) {
+		return Math.floor(Math.random() * (max - min)) + min;
 	}
 }

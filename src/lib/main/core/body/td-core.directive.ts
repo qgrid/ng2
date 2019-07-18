@@ -1,4 +1,5 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, OnInit,
+		ViewContainerRef, ChangeDetectorRef, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
@@ -15,11 +16,15 @@ const classify = TdCtrl.classify;
 @Directive({
 	selector: '[q-grid-core-td]',
 })
-export class TdCoreDirective implements Td, OnInit, OnDestroy {
+export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 	private $implicit = this;
+	@Input('q-grid-core-value') private actualValue: any;
+	@Input('q-grid-core-label') private actualLabel: any;
 
 	@Input('q-grid-core-td') columnView: ColumnView;
+
 	element: HTMLElement = null;
+	changes: SimpleChange;
 
 	constructor(
 		public $view: ViewCoreService,
@@ -41,9 +46,19 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy {
 		link(this.viewContainerRef, this);
 	}
 
-	mode(value: 'view' | 'edit') {
+	ngOnChanges(changes: SimpleChanges) {
+		const { actualLabel } = changes;
+
+		if (actualLabel && !actualLabel.firstChange && (actualLabel.currentValue !== actualLabel.previousValue)) {
+			this.changes = actualLabel;
+			this.mode('change');
+		}
+	}
+
+	mode(value: 'view' | 'edit' | 'change') {
 		switch (value) {
 			case 'view': {
+				this.element.classList.remove(`${GRID_PREFIX}-change`);
 				this.element.classList.remove(`${GRID_PREFIX}-edit`);
 
 				const link = this.cellService.build('body', this.column, 'view');
@@ -61,24 +76,30 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy {
 				this.cd.detectChanges();
 				break;
 			}
+			case 'change': {
+				this.element.classList.add(`${GRID_PREFIX}-change`);
+
+				const link = this.cellService.build('body', this.column, 'change');
+				link(this.viewContainerRef, this);
+				this.cd.markForCheck();
+				this.cd.detectChanges();
+				break;
+			}
 			default:
 				throw new AppError('td.core', `Invalid mode ${value}`);
 		}
 	}
 
 	get value() {
-		const { column, row, rowIndex, columnIndex } = this;
-		return this.$view.body.render.getValue(row, column, rowIndex, columnIndex);
+		return this.actualValue;
 	}
-
 	set value(value) {
 		const { column, row, rowIndex, columnIndex } = this;
 		this.$view.body.render.setValue(row, column, value, rowIndex, columnIndex);
 	}
 
 	get label() {
-		const { column, row, rowIndex, columnIndex } = this;
-		return this.$view.body.render.getLabel(row, column, rowIndex, columnIndex);
+		return this.actualLabel;
 	}
 
 	set label(label) {

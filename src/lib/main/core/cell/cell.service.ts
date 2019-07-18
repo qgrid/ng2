@@ -36,6 +36,7 @@ function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 
 			return result;
 		}
+		case 'change':
 		case 'edit': {
 			type = column.editor || type;
 			const result = [
@@ -66,7 +67,7 @@ export class CellService {
 
 	constructor(private templateService: TemplateService) { }
 
-	build(source: string, column: ColumnModel, mode: 'view' | 'edit' = 'view') {
+	build(source: string, column: ColumnModel, mode: 'view' | 'edit' | 'change' = 'view') {
 		if (!canBuild(column)) {
 			return noop;
 		}
