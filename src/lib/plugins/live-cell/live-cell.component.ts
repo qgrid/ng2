@@ -31,7 +31,7 @@ export class LiveCellComponent implements OnInit, OnDestroy {
 	@ViewChild('time') timeTemplate: TemplateRef<any>;
 	@ViewChild('text') textTemplate: TemplateRef<any>;
 
-	timerLink: NodeJS.Timeout;
+	timerLink: any = null;
 
 	constructor(private zone: NgZone) {
 	}
@@ -53,7 +53,9 @@ export class LiveCellComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		clearTimeout(this.timerLink);
+		if (this.timerLink) {
+			clearTimeout(this.timerLink);
+		}
 	}
 
 	getDifference(value: SimpleChange) {

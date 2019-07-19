@@ -10,6 +10,7 @@ import { ViewCoreService } from '../view/view-core.service';
 import { RootService } from '../../../infrastructure/component/root.service';
 import { TrCoreDirective } from '../row/tr-core.directive';
 import { CellService } from '../../../main/core/cell/cell.service';
+import { noop } from 'ng2-qgrid/core/utility/kit';
 
 const classify = TdCtrl.classify;
 
@@ -67,19 +68,12 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 				this.cd.detectChanges();
 				break;
 			}
-			case 'edit': {
-				this.element.classList.add(`${GRID_PREFIX}-edit`);
-
-				const link = this.cellService.build('body', this.column, 'edit');
-				link(this.viewContainerRef, this);
-				this.cd.markForCheck();
-				this.cd.detectChanges();
-				break;
-			}
+			case 'edit':
 			case 'change': {
-				this.element.classList.add(`${GRID_PREFIX}-change`);
-
-				const link = this.cellService.build('body', this.column, 'change');
+				const link = this.cellService.build('body', this.column, value);
+				if (link !== noop) {
+					this.element.classList.add(`${GRID_PREFIX}-${value}`);
+				}
 				link(this.viewContainerRef, this);
 				this.cd.markForCheck();
 				this.cd.detectChanges();

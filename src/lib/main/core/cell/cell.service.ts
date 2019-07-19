@@ -67,12 +67,6 @@ export class CellService {
 
 	constructor(private templateService: TemplateService) { }
 
-	findLink(source: string, column: ColumnModel, mode: 'view' | 'edit' | 'change' = 'view') {
-		const keys = buildKeys(source, column, mode);
-		const templateLink = this.templateService.find(keys);
-		return templateLink ? templateLink : null;
-	}
-
 	build(source: string, column: ColumnModel, mode: 'view' | 'edit' | 'change' = 'view') {
 		if (!canBuild(column)) {
 			return noop;
@@ -81,16 +75,11 @@ export class CellService {
 		if (commit) {
 			return commit;
 		}
-		const templateLink = this.findLink(source, column, mode);
+		const keys = buildKeys(source, column, mode);
+		const templateLink = this.templateService.find(keys);
 		if (!templateLink) {
-			if (mode === 'change') {
-				return noop;
-			}
-			const keys = buildKeys(source, column, mode);
-			throw new AppError(
-				'cell.service',
-				`Can't find template for ${keys[0]}`
-			);
+			console.warn(`Can't find template for ${keys[0]}`);
+			return noop;
 		}
 		commit = (container: ViewContainerRef, context: any) => {
 			container.clear();

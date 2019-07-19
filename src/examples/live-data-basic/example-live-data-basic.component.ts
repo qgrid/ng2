@@ -13,7 +13,7 @@ export class ExampleLiveDataBasicComponent implements OnDestroy {
 	static id = 'live-data-basic';
 
 	rows: Quote[];
-	timerLink: NodeJS.Timeout;
+	timerLink: any = null;
 
 	constructor(dataService: DataService, private cd: ChangeDetectorRef) {
 		dataService.getQuotes().subscribe(quotes => {
@@ -23,7 +23,9 @@ export class ExampleLiveDataBasicComponent implements OnDestroy {
 	}
 
 	ngOnDestroy() {
-		clearTimeout(this.timerLink);
+		if (this.timerLink) {
+			clearTimeout(this.timerLink);
+		}
 	}
 
 	update() {
