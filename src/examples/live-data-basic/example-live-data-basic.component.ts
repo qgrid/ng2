@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { DataService, Quote } from '../data.service';
 
 @Component({
@@ -9,10 +9,11 @@ import { DataService, Quote } from '../data.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None
 })
-export class ExampleLiveDataBasicComponent {
+export class ExampleLiveDataBasicComponent implements OnDestroy {
 	static id = 'live-data-basic';
 
 	rows: Quote[];
+	timerLink: NodeJS.Timeout;
 
 	constructor(dataService: DataService, private cd: ChangeDetectorRef) {
 		dataService.getQuotes().subscribe(quotes => {
@@ -21,10 +22,14 @@ export class ExampleLiveDataBasicComponent {
 		});
 	}
 
+	ngOnDestroy() {
+		clearTimeout(this.timerLink);
+	}
+
 	update() {
 
 		const interval = this.random(2000, 4000);
-		setTimeout(() => {
+		this.timerLink = setTimeout(() => {
 			this.rows.forEach(quote => {
 				const hasChanges = this.random(0, 7);
 				if (hasChanges) {
@@ -48,6 +53,7 @@ export class ExampleLiveDataBasicComponent {
 			return time;
 		}
 		const timeArr = time.split(':').map((val, i) => {
+			// tslint:disable-next-line: radix
 			let num = parseInt(val);
 			if (i === 0) {
 				num += this.random(-5, 5);

@@ -67,37 +67,38 @@ export class CellService {
 
 	constructor(private templateService: TemplateService) { }
 
+	findLink(source: string, column: ColumnModel, mode: 'view' | 'edit' | 'change' = 'view') {
+		const keys = buildKeys(source, column, mode);
+		const templateLink = this.templateService.find(keys);
+		return templateLink ? templateLink : null;
+	}
+
 	build(source: string, column: ColumnModel, mode: 'view' | 'edit' | 'change' = 'view') {
 		if (!canBuild(column)) {
 			return noop;
 		}
-
-		const id = buildId(source, column, mode);
-		const commits = this.commits;
-		let commit = commits.get(column.key);
+		let commit = this.commits.get(column.key);
 		if (commit) {
 			return commit;
 		}
-
-		const templateService = this.templateService;
-		const keys = buildKeys(source, column, mode);
-		const link = templateService.find(keys);
-
-		if (!link) {
+		const templateLink = this.findLink(source, column, mode);
+		if (!templateLink) {
+			if (mode === 'change') {
+				return noop;
+			}
+			const keys = buildKeys(source, column, mode);
 			throw new AppError(
 				'cell.service',
 				`Can't find template for ${keys[0]}`
 			);
 		}
-
 		commit = (container: ViewContainerRef, context: any) => {
 			container.clear();
-
-			const createView = templateService.viewFactory(context);
-			createView(link, container);
+			const createView = this.templateService.viewFactory(context);
+			createView(templateLink, container);
 		};
-
-		commits.set(id, commit);
+		const id = buildId(source, column, mode);
+		this.commits.set(id, commit);
 		return commit;
 	}
 }

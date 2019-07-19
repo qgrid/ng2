@@ -7,7 +7,8 @@ import {
 	NgZone,
 	HostBinding,
 	TemplateRef,
-	ViewChild
+	ViewChild,
+	OnDestroy
 } from '@angular/core';
 import { TemplateHostService } from '../../template/template-host.service';
 import { TdCoreDirective } from '../../../lib/main/core/body/td-core.directive';
@@ -19,7 +20,7 @@ import { AppError } from '../../../core/infrastructure/error';
 	providers: [TemplateHostService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LiveCellComponent implements OnInit {
+export class LiveCellComponent implements OnInit, OnDestroy {
 	@Input() cell: TdCoreDirective;
 	@Input() duration = 500;
 
@@ -29,6 +30,8 @@ export class LiveCellComponent implements OnInit {
 	@ViewChild('number') numberTemplate: TemplateRef<any>;
 	@ViewChild('time') timeTemplate: TemplateRef<any>;
 	@ViewChild('text') textTemplate: TemplateRef<any>;
+
+	timerLink: NodeJS.Timeout;
 
 	constructor(private zone: NgZone) {
 	}
@@ -43,10 +46,14 @@ export class LiveCellComponent implements OnInit {
 			this.class += this.getDifference(this.cell.changes) > 0 ? `q-grid-live-cell-up ` : `q-grid-live-cell-down `;
 		}
 		this.zone.runOutsideAngular(() => {
-			setTimeout(() => {
+			this.timerLink = setTimeout(() => {
 				this.cell.mode('view');
 			}, this.duration);
 		});
+	}
+
+	ngOnDestroy() {
+		clearTimeout(this.timerLink);
 	}
 
 	getDifference(value: SimpleChange) {
