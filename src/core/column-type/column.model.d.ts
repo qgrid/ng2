@@ -350,4 +350,19 @@ export declare class ColumnModel {
 	$label?: (row: any, value?: any) => any | any;
 
 	itemLabel?: (row: any, value?: any) => any;
+
+	symbol?: string;
+	code?: string;
+
+	trueValue?: any;
+	falseValue?: any;
+
+	itemType?: string;
+	itemFormat?: string;
+	format?: string;
+
+	canUpload?: () => boolean;
+	hasPreview?: (name: string) => boolean;
+
+	offset?: number;
 }
