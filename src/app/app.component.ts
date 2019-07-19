@@ -53,6 +53,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 		};
 
 		this.mobileQuery = media.matchMedia('(max-width: 600px)');
+		// tslint:disable-next-line: deprecation
 		this.mobileQuery.addListener(this.mobileQueryListener);
 		setIsMobile();
 	}
@@ -102,6 +103,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
+		// tslint:disable-next-line: deprecation
 		this.mobileQuery.removeListener(this.mobileQueryListener);
 	}
 }

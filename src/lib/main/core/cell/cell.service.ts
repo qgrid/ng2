@@ -71,33 +71,22 @@ export class CellService {
 		if (!canBuild(column)) {
 			return noop;
 		}
-
 		const id = buildId(source, column, mode);
-		const commits = this.commits;
-		let commit = commits.get(column.key);
+		let commit = this.commits.get(id);
 		if (commit) {
 			return commit;
 		}
-
-		const templateService = this.templateService;
 		const keys = buildKeys(source, column, mode);
-		const link = templateService.find(keys);
-
-		if (!link) {
-			throw new AppError(
-				'cell.service',
-				`Can't find template for ${keys[0]}`
-			);
+		const templateLink = this.templateService.find(keys);
+		if (!templateLink) {
+			return null;
 		}
-
 		commit = (container: ViewContainerRef, context: any) => {
 			container.clear();
-
-			const createView = templateService.viewFactory(context);
-			createView(link, container);
+			const createView = this.templateService.viewFactory(context);
+			createView(templateLink, container);
 		};
-
-		commits.set(id, commit);
+		this.commits.set(id, commit);
 		return commit;
 	}
 }
