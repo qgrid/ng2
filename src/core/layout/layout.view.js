@@ -2,6 +2,7 @@ import * as css from '../services/css';
 import * as columnService from '../column/column.service';
 import { Log } from '../infrastructure/log';
 import { Disposable } from '../infrastructure/disposable';
+import { Fastdom } from '../services/fastdom';
 
 export class LayoutView extends Disposable {
 	constructor(model, table, service) {
@@ -17,8 +18,10 @@ export class LayoutView extends Disposable {
 				const newColumn = e.changes.cell.newValue ? e.changes.cell.newValue.column : {};
 
 				if (oldColumn.key !== newColumn.key && (oldColumn.viewWidth || newColumn.viewWidth)) {
-					const form = this.updateColumnForm();
-					this.invalidateColumns(form);
+					Fastdom.measure(() => {
+						const form = this.updateColumnForm();
+						this.invalidateColumns(form);
+					});
 				}
 			}
 		});
@@ -36,8 +39,10 @@ export class LayoutView extends Disposable {
 			}
 
 			if (e.hasChanges('columns')) {
-				const form = this.updateColumnForm();
-				this.invalidateColumns(form);
+				Fastdom.measure(() => {
+					const form = this.updateColumnForm();
+					this.invalidateColumns(form);
+				});
 			}
 		});
 
@@ -67,14 +72,15 @@ export class LayoutView extends Disposable {
 		});
 
 		model.sceneChanged.watch(e => {
-			if (e.hasChanges('column')) {
-				this.invalidateColumns();
-			}
-
 			if (e.hasChanges('status')) {
 				if (e.state.status === 'stop') {
-					this.updateColumnForm();
+					Fastdom.measure(() => this.updateColumnForm());
 				}
+			}
+
+			if (e.hasChanges('column')) {
+				const { columns } = this.model.layout();
+				Fastdom.measure(() => this.invalidateColumns(columns));
 			}
 		});
 	}
@@ -122,7 +128,7 @@ export class LayoutView extends Disposable {
 	invalidateColumns(form) {
 		Log.info('layout', 'invalidate columns');
 
-		const table = this.table;
+		const { table } = this;
 		const columns = table.data.columns();
 		const getWidth = columnService.widthFactory(table, form);
 
@@ -147,7 +153,7 @@ export class LayoutView extends Disposable {
 		}
 
 		const sheet = css.sheet(this.gridId, 'layout-column');
-		sheet.set(style);
+		Fastdom.mutate(() => sheet.set(style));
 	}
 
 	styleRow(row, context) {

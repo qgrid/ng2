@@ -80,10 +80,8 @@ export function lineView(columnRows) {
 }
 
 export function widthFactory(table, form) {
-	const { layout } = table.model;
 	const columns = table.data.columns();
 	const columnMap = map(columns);
-	form = form || layout().columns;
 
 	const occupied = columns
 		.filter(c => form.has(c.key) || ('' + c.width).indexOf('%') < 0)
