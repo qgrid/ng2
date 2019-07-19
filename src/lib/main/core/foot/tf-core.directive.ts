@@ -47,6 +47,12 @@ export class TfCoreDirective implements Td, OnInit, OnDestroy {
 		classify(element, column);
 
 		const link = this.cellService.build('foot', this.column);
+		if (!link) {
+			throw new AppError(
+				`tf-core.directive`,
+				`Can't find template link for ${this.column.key}`
+			);
+		}
 		link(this.viewContainerRef, this);
 	}
 

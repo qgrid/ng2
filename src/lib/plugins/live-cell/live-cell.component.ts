@@ -31,7 +31,7 @@ export class LiveCellComponent implements OnInit, OnDestroy {
 	@ViewChild('time') timeTemplate: TemplateRef<any>;
 	@ViewChild('text') textTemplate: TemplateRef<any>;
 
-	timerLink: any = null;
+	timeoutId: any = null;
 
 	constructor(private zone: NgZone) {
 	}
@@ -46,15 +46,15 @@ export class LiveCellComponent implements OnInit, OnDestroy {
 			this.class += this.getDifference(this.cell.changes) > 0 ? `q-grid-live-cell-up ` : `q-grid-live-cell-down `;
 		}
 		this.zone.runOutsideAngular(() => {
-			this.timerLink = setTimeout(() => {
+			this.timeoutId = setTimeout(() => {
 				this.cell.mode('view');
 			}, this.duration);
 		});
 	}
 
 	ngOnDestroy() {
-		if (this.timerLink) {
-			clearTimeout(this.timerLink);
+		if (this.timeoutId) {
+			clearTimeout(this.timeoutId);
 		}
 	}
 

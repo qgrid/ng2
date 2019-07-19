@@ -71,12 +71,17 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 			case 'edit':
 			case 'change': {
 				const link = this.cellService.build('body', this.column, value);
-				if (link !== noop) {
+				if (link && link !== noop) {
 					this.element.classList.add(`${GRID_PREFIX}-${value}`);
+					link(this.viewContainerRef, this);
+					this.cd.markForCheck();
+					this.cd.detectChanges();
+				} else if (value !== 'change') {
+					throw new AppError(
+						`td-core.directive`,
+						`Can't find template link for ${this.column.key}`
+					);
 				}
-				link(this.viewContainerRef, this);
-				this.cd.markForCheck();
-				this.cd.detectChanges();
 				break;
 			}
 			default:

@@ -62,6 +62,12 @@ export class ThCoreDirective implements Td, OnInit, OnDestroy {
 		}
 
 		const link = this.cellService.build(source, target, 'view');
+		if (!link) {
+			throw new AppError(
+				`th-core.directive`,
+				`Can't find template link for ${this.column.key}`
+			);
+		}
 		link(this.viewContainerRef, this);
 	}
 
