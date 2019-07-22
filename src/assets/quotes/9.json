@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "metal": "SHFE Cooper Active(N7)",
     "ldn1": "15:30",
     "bid": 46990,
@@ -15,6 +16,7 @@
     "ldn4": "13 Jul"
   },
   {
+    "id": 2,
     "metal": "SHFE Aluminium Active(N7)",
     "ldn1": "15:24",
     "bid": 14030,
@@ -30,6 +32,7 @@
     "ldn4": "13 Jul"
   },
   {
+    "id": 3,
     "metal": "SHFE Zinc Active(N7)",
     "ldn1": "15:30",
     "bid": 23125,
@@ -45,6 +48,7 @@
     "ldn4": "13 Jul"
   },
   {
+    "id": 4,
     "metal": "SHFE Lead Active(N7)",
     "ldn1": "15:29",
     "bid": 17935,
@@ -60,6 +64,7 @@
     "ldn4": "13 Jul"
   },
   {
+    "id": 5,
     "metal": "SHFE Steel Wire Rod Active(N7)",
     "ldn1": "28 Apr",
     "bid": 3156,
@@ -75,6 +80,7 @@
     "ldn4": "28 Apr"
   },
   {
+    "id": 6,
     "metal": "SHFE Gold Active(N7)",
     "ldn1": "15:59",
     "bid": 271,
@@ -90,6 +96,7 @@
     "ldn4": "28 Apr"
   },
   {
+    "id": 7,
     "metal": "SHFE Silver Active(N7)",
     "ldn1": "15:59",
     "bid": 3823,
@@ -105,6 +112,7 @@
     "ldn4": "13 Jul"
   },
   {
+    "id": 8,
     "metal": "SHFE Nickel Active(N7)",
     "ldn1": "15:31",
     "bid": 76080,
@@ -120,6 +128,7 @@
     "ldn4": "13 Jul"
   },
   {
+    "id": 9,
     "metal": "SHFE Tin Active(N7)",
     "ldn1": "15:31",
     "bid": 154380,

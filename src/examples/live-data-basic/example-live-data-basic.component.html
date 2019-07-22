@@ -1,5 +1,8 @@
-<q-grid caption="Live Data Basic"	
-		[rows]="rows">
+<q-grid caption="Live Data Basic"
+		[rows]="rows"
+		[animateRows]="true"
+		[trackBy]="id"
+	>
 	<q-grid-columns generation="deep">
 		<q-grid-column key="metal" [width]="290"></q-grid-column>
 		<q-grid-column key="ldn1" title="LDN" [width]="120">

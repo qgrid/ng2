@@ -13,24 +13,50 @@ export class ExampleLiveDataBasicComponent implements OnDestroy {
 	static id = 'live-data-basic';
 
 	rows: Quote[];
+	rowsUpdatesCounter = 0;
 	timeoutId: any = null;
+	rowsTimeoutId: any = null;
 
-	constructor(dataService: DataService, private cd: ChangeDetectorRef) {
-		dataService.getQuotes().subscribe(quotes => {
-			this.rows = quotes;
-			this.update();
-		});
+	constructor(private dataService: DataService, private cd: ChangeDetectorRef) {
+		this.updateRows(true);
 	}
 
 	ngOnDestroy() {
 		if (this.timeoutId) {
 			clearTimeout(this.timeoutId);
 		}
+		if (this.rowsTimeoutId) {
+			clearTimeout(this.rowsTimeoutId);
+		}
 	}
 
-	update() {
+	updateRows(immediately = false) {
+		const interval = immediately ? 0 : this.random(10000, 15000);
 
-		const interval = this.random(2000, 4000);
+		this.rowsTimeoutId = setTimeout(() => {
+			this.dataService.getQuotes().subscribe(quotes => {
+				quotes.push(quotes[this.random(0, quotes.length)]);
+				quotes.push(quotes[this.random(0, quotes.length)]);
+				this.rows = quotes.sort((a, b) => {
+					const factor = this.rowsUpdatesCounter % 2 === 0 ? -1 : 1;
+					return a.metal.toLowerCase() >= b.metal.toLowerCase() ? factor * 1 : factor * (-1);
+				});
+				this.rows.push(this.rows[this.random(0, this.rows.length)]);
+				this.updateCells(true);
+			});
+			this.rowsUpdatesCounter++;
+			this.updateRows();
+
+			this.cd.markForCheck();
+			this.cd.detectChanges();
+
+		}, interval);
+
+	}
+
+	updateCells(immediately = false) {
+
+		const interval = immediately ? 0 : this.random(2000, 4000);
 		this.timeoutId = setTimeout(() => {
 			this.rows.forEach(quote => {
 				const hasChanges = this.random(0, 7);
@@ -43,10 +69,16 @@ export class ExampleLiveDataBasicComponent implements OnDestroy {
 				}
 			});
 
+			// if (!this.random(0, 5)) {
+			// 	this.rows.push(this.rows[this.random(0, this.rows.length)]);
+			// 	console.log(`added row`);
+			// }
+			// console.log(this.rows.length);
+
 			this.cd.markForCheck();
 			this.cd.detectChanges();
 
-			this.update();
+			this.updateCells();
 		}, interval);
 	}
 
