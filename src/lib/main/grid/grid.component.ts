@@ -6,9 +6,7 @@ import {
 	ElementRef,
 	NgZone,
 	Inject,
-	ChangeDetectorRef,
-	OnChanges,
-	SimpleChanges
+	ChangeDetectorRef
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Action } from 'ng2-qgrid/core/action/action';
@@ -53,7 +51,7 @@ import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None
 })
-export class GridComponent extends RootComponent implements OnInit, OnChanges {
+export class GridComponent extends RootComponent implements OnInit {
 	@Input() model: GridModel;
 
 	@Input('actions') actionItems: Array<Action>;
@@ -67,8 +65,6 @@ export class GridComponent extends RootComponent implements OnInit, OnChanges {
 	@Input('columns') dataColumns: Array<ColumnModel>;
 	@Input('pipe') dataPipe: Array<(memo: any, context: PipeContext, next: (memo: any) => void) => any>;
 	@Input('rows') dataRows: Array<any>;
-	@Input('animateRows') animateRows = false;
-	@Input('trackBy') trackRowsBy: string;
 
 	@Input() editCancel: Command;
 	@Input() editCommit: Command;
@@ -147,19 +143,6 @@ export class GridComponent extends RootComponent implements OnInit, OnChanges {
 		}
 
 		this.themeComponent = theme.component;
-	}
-
-	ngOnChanges(changes: SimpleChanges) {
-		super.ngOnChanges(changes);
-		console.log(changes);
-		console.log(this.model);
-		console.log(this.modelChanged);
-		console.log(this.models);
-		console.log(this.model);
-		console.log(this.root);
-		const { model } = this.root;
-		console.log(model.data().id.row(1, changes.dataRows.currentValue[4]));
-		console.log(this.elementRef);
 	}
 
 	ngOnInit() {

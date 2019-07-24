@@ -35,13 +35,10 @@ export class ExampleLiveDataBasicComponent implements OnDestroy {
 
 		this.rowsTimeoutId = setTimeout(() => {
 			this.dataService.getQuotes().subscribe(quotes => {
-				quotes.push(quotes[this.random(0, quotes.length)]);
-				quotes.push(quotes[this.random(0, quotes.length)]);
 				this.rows = quotes.sort((a, b) => {
 					const factor = this.rowsUpdatesCounter % 2 === 0 ? -1 : 1;
 					return a.metal.toLowerCase() >= b.metal.toLowerCase() ? factor * 1 : factor * (-1);
 				});
-				this.rows.push(this.rows[this.random(0, this.rows.length)]);
 				this.updateCells(true);
 			});
 			this.rowsUpdatesCounter++;

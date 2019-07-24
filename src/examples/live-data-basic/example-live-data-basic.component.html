@@ -1,7 +1,5 @@
 <q-grid caption="Live Data Basic"
 		[rows]="rows"
-		[animateRows]="true"
-		[trackBy]="id"
 	>
 	<q-grid-columns generation="deep">
 		<q-grid-column key="metal" [width]="290"></q-grid-column>
@@ -44,4 +42,7 @@
 		<q-grid-column key="settle" [width]="100" type="currency"></q-grid-column>
 		<q-grid-column key="ldn4" title="LDN" [width]="70"></q-grid-column>
 	</q-grid-columns>
+	<q-grid-live-rows
+		[trackBy]="'id'"
+	></q-grid-live-rows>
 </q-grid>
