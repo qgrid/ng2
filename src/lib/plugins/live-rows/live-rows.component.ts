@@ -23,7 +23,13 @@ export class LiveRowsComponent implements OnInit, OnChanges {
 	}
 
 	ngOnInit() {
+
 		const { model } = this.root;
+		console.log(this.root);
+		model.viewChanged.watch(e => {
+
+		});
+
 		model.sceneChanged.watch( e => {
 			if (e.hasChanges('rows')) {
 				console.log('rows changed');
@@ -36,8 +42,12 @@ export class LiveRowsComponent implements OnInit, OnChanges {
 					if (!oldRows[i]) {
 						continue;
 					}
+
 					// tslint:disable-next-line: radix
-					// const rowId = model.data().id.row(parseInt(i), oldRows[i]);
+					const tr = this.plugin.table.body.row(parseInt(i));
+					// tslint:disable-next-line: radix
+					const rowId1 = model.data().id.row(parseInt(i), oldRows[i]);
+					// console.log(rowId1);
 					const rowId = oldRows[i][this.trackBy];
 					for (const j in newRows) {
 						if (!newRows[j]) {
@@ -45,8 +55,9 @@ export class LiveRowsComponent implements OnInit, OnChanges {
 						}
 
 						if (newRows[j][this.trackBy] === oldRows[i][this.trackBy]) {
-                            console.log(`Строка ${i} стала строкой ${j}`);
-                            newRows.splice(j, 1);
+							// console.log(`Строка ${i} стала строкой ${j}`);
+							// console.log(Set.prototype.entries(this.root.bag.body.rows));
+							newRows.splice(j, 1);
 						}
 
 					}
