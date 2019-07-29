@@ -1,5 +1,4 @@
 import * as css from '../services/css';
-import { Fastdom } from '../services/fastdom';
 
 class Entry {
 	constructor(element, sheets, markDirty) {
@@ -62,14 +61,14 @@ export class Monitor {
 		for (let cls of oldSheets.keys()) {
 			if (!newSheets.has(cls)) {
 				const sheet = css.sheet(id, cls);
-				Fastdom.mutate(() => sheet.remove());
+				sheet.remove();
 			}
 		}
 
 		for (let [cls, style] of newSheets.entries()) {
 			if (!oldSheets.has(cls)) {
 				const sheet = css.sheet(id, cls);
-				Fastdom.mutate(() => sheet.set({ [`.${cls}`]: style }));
+				sheet.set({ [`.${cls}`]: style });
 			}
 		}
 
