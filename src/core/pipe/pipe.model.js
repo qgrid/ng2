@@ -84,6 +84,9 @@ export class PipeModel {
 			},
 			'rowList': {
 				'index': PU.row
+			},
+			'animation': {
+				'rows': PU.default
 			}
 		};
 

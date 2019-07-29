@@ -19,6 +19,14 @@
 				</q-grid-live-cell>
 			</ng-template>
 		</q-grid-column>
+		<q-grid-column key="last" type="currency" [width]="240">
+			<ng-template for="change" let-$cell>
+				<q-grid-live-cell
+					[cell]="$cell"
+					[duration]="3000">
+				</q-grid-live-cell>
+			</ng-template>
+		</q-grid-column>
 		<q-grid-column key="ldn2" title="LDN" [width]="100">
 			<ng-template for="change" let-$cell>
 					<q-grid-live-cell
@@ -28,14 +36,6 @@
 				</ng-template>
 		</q-grid-column>
 		<q-grid-column key="ldn3" title="LDN" [width]="70"></q-grid-column>
-		<q-grid-column key="last" type="currency" [width]="240">
-			<ng-template for="change" let-$cell>
-				<q-grid-live-cell
-					[cell]="$cell"
-					[duration]="3000">
-				</q-grid-live-cell>
-			</ng-template>
-		</q-grid-column>
 		<q-grid-column key="high" [width]="100" type="currency"></q-grid-column>
 		<q-grid-column key="low" [width]="100" type="currency"></q-grid-column>
 		<q-grid-column key="volume" [width]="100" type="currency"></q-grid-column>

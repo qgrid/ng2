@@ -11,9 +11,6 @@ export function dataPipe(rows, context, next) {
 	addDataRows(model, rows);
 	addDataColumns(model);
 
-	console.log(next);
-	console.log(rows);
-	console.log(context);
 	next(rows);
 
 	model.pipe({

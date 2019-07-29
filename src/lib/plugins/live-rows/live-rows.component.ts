@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
-import { RootService } from '../../infrastructure/component/root.service';
+import { Component, OnInit, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { GridModel } from '../../plugins/plugin.service';
 import { TemplateHostService } from '../../template/template-host.service';
 import { PluginService } from '../plugin.service';
@@ -11,64 +10,63 @@ import { PluginService } from '../plugin.service';
 		TemplateHostService,
 		PluginService
 	],
-	// changeDetection: ChangeDetectionStrategy.OnPush
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LiveRowsComponent implements OnInit, OnChanges {
-
+export class LiveRowsComponent implements OnInit {
 	@Input('trackBy') trackBy = 'id';
+	@Input('duration') duration = 2500;
 
 	model: GridModel;
+	currentValues = [];
+	previousValues = [];
+	isAnimating = false;
 
-	constructor(private root: RootService, private plugin: PluginService) {
+	constructor(private plugin: PluginService) {
 	}
 
 	ngOnInit() {
+		const { model } = this.plugin;
 
-		const { model } = this.root;
-		console.log(this.root);
-		model.viewChanged.watch(e => {
+		model.animation({
+			apply: (memo, context, complete) => {
 
-		});
+				this.previousValues = this.currentValues || [];
+				this.currentValues = memo.rows;
 
-		model.sceneChanged.watch( e => {
-			if (e.hasChanges('rows')) {
-				console.log('rows changed');
-				const oldRows = e.changes.rows.oldValue.slice();
-				const newRows = e.changes.rows.newValue.slice();
+				if (!this.previousValues.length || !this.currentValues.length || this.isAnimating) {
+					complete(memo);
+					return;
+				}
+				this.isAnimating = true;
 
-				console.log(oldRows);
+				for (const row of this.currentValues) {
+					const rowIndex = this.previousValues.findIndex((x: number) => x[this.trackBy] === row[this.trackBy]);
+					const newRowIndex = this.currentValues.findIndex((x: number) => x[this.trackBy] === row[this.trackBy]);
 
-				for (const i in oldRows) {
-					if (!oldRows[i]) {
-						continue;
-					}
+					if (newRowIndex >= 0 && rowIndex !== newRowIndex) {
 
-					// tslint:disable-next-line: radix
-					const tr = this.plugin.table.body.row(parseInt(i));
-					// tslint:disable-next-line: radix
-					const rowId1 = model.data().id.row(parseInt(i), oldRows[i]);
-					// console.log(rowId1);
-					const rowId = oldRows[i][this.trackBy];
-					for (const j in newRows) {
-						if (!newRows[j]) {
+						const trOld = this.plugin.table.body.row(rowIndex);
+						const trNew = this.plugin.table.body.row(newRowIndex);
+
+						if (!trOld.model()) {
 							continue;
 						}
 
-						if (newRows[j][this.trackBy] === oldRows[i][this.trackBy]) {
-							// console.log(`Строка ${i} стала строкой ${j}`);
-							// console.log(Set.prototype.entries(this.root.bag.body.rows));
-							newRows.splice(j, 1);
-						}
-
+						trOld.model().tr.element.animate([
+							{ transform: `translateY(0px)` },
+							{ transform: `translateY(${trNew.rect().top - trOld.rect().top}px)` }
+						], {
+							duration: this.duration,
+						});
 					}
-
 				}
+
+				setTimeout(() => {
+					this.isAnimating = false;
+					complete(memo);
+				}, this.duration );
 			}
 		});
 	}
-
-	ngOnChanges(changes: SimpleChanges): void {
-		console.log(changes);
-	}
-
 }

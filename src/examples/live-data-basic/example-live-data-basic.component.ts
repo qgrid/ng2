@@ -31,23 +31,31 @@ export class ExampleLiveDataBasicComponent implements OnDestroy {
 	}
 
 	updateRows(immediately = false) {
-		const interval = immediately ? 0 : this.random(10000, 15000);
+		// const interval = immediately ? 0 : this.random(5000, 7500);
 
-		this.rowsTimeoutId = setTimeout(() => {
-			this.dataService.getQuotes().subscribe(quotes => {
-				this.rows = quotes.sort((a, b) => {
-					const factor = this.rowsUpdatesCounter % 2 === 0 ? -1 : 1;
-					return a.metal.toLowerCase() >= b.metal.toLowerCase() ? factor * 1 : factor * (-1);
-				});
-				this.updateCells(true);
+		// this.rowsTimeoutId = setTimeout(() => {
+		// 	this.dataService.getQuotes().subscribe(quotes => {
+		// 		this.rows = quotes.sort((a, b) => {
+		// 			const factor = this.rowsUpdatesCounter % 2 === 0 ? -1 : 1;
+		// 			return a.metal.toLowerCase() >= b.metal.toLowerCase() ? factor * 1 : factor * (-1);
+		// 		});
+		// 		this.updateCells(true);
+		// 	});
+		// 	this.rowsUpdatesCounter++;
+		// 	this.updateRows();
+
+		// 	this.cd.markForCheck();
+		// 	this.cd.detectChanges();
+
+		// }, interval);
+
+		this.dataService.getQuotes().subscribe(quotes => {
+			this.rows = quotes.sort((a, b) => {
+				const factor = this.rowsUpdatesCounter % 2 === 0 ? -1 : 1;
+				return a.metal.toLowerCase() >= b.metal.toLowerCase() ? factor * 1 : factor * (-1);
 			});
-			this.rowsUpdatesCounter++;
-			this.updateRows();
-
-			this.cd.markForCheck();
-			this.cd.detectChanges();
-
-		}, interval);
+			this.updateCells(true);
+		});
 
 	}
 
