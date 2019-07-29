@@ -419,7 +419,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v7.2.4...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v7.2.5...HEAD
+[7.2.4]: https://github.com/qgrid/ng2/compare/v7.2.4...v7.2.5
 [7.2.3]: https://github.com/qgrid/ng2/compare/v7.2.3...v7.2.4
 [7.2.3]: https://github.com/qgrid/ng2/compare/v7.2.2...v7.2.3
 [7.2.2]: https://github.com/qgrid/ng2/compare/v7.2.1...v7.2.2
