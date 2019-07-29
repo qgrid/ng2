@@ -11,8 +11,8 @@ import {
 	OnDestroy
 } from '@angular/core';
 import { TemplateHostService } from '../../template/template-host.service';
-import { TdCoreDirective } from '../../../lib/main/core/body/td-core.directive';
-import { AppError } from '../../../core/infrastructure/error';
+import { TdCoreDirective } from '../../main/core/body/td-core.directive';
+import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 
 @Component({
 	selector: 'q-grid-live-cell',
