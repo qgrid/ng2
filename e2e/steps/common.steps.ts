@@ -38,6 +38,7 @@ When('I click {string} button', (text: string) => clickElement(text));
 When('I enter {string} text', (text: string) => enterText(text));
 When('I click filter button for {string}', (text: string) => getFilterButton(text).click());
 When('I select persistence item [{int}]', (num: number) => selectPersistenceItem(num));
+When('I remove all values for selected column', () => removeAllChipValues());
 
 async function checkErrors() {
 	await browser.manage().logs().get('browser').then((browserLog) => {
@@ -116,4 +117,12 @@ function clearDiff() {
 			});
 		}
 	});
+}
+
+async function removeAllChipValues() {
+	let items = await element.all(by.css('.mat-chip'));
+	for (let item of items) {
+		await item.click();
+		await browser.actions().sendKeys(protractor.Key.DELETE).perform();
+	}
 }
