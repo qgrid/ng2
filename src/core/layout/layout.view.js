@@ -2,7 +2,6 @@ import * as css from '../services/css';
 import * as columnService from '../column/column.service';
 import { Log } from '../infrastructure/log';
 import { Disposable } from '../infrastructure/disposable';
-import { Fastdom } from '../services/fastdom';
 
 export class LayoutView extends Disposable {
 	constructor(model, table, service) {
@@ -18,10 +17,8 @@ export class LayoutView extends Disposable {
 				const newColumn = e.changes.cell.newValue ? e.changes.cell.newValue.column : {};
 
 				if (oldColumn.key !== newColumn.key && (oldColumn.viewWidth || newColumn.viewWidth)) {
-					Fastdom.measure(() => {
-						const form = this.updateColumnForm();
-						this.invalidateColumns(form);
-					});
+					const form = this.updateColumnForm();
+					this.invalidateColumns(form);
 				}
 			}
 		});
@@ -39,10 +36,8 @@ export class LayoutView extends Disposable {
 			}
 
 			if (e.hasChanges('columns')) {
-				Fastdom.measure(() => {
-					const form = this.updateColumnForm();
-					this.invalidateColumns(form);
-				});
+				const form = this.updateColumnForm();
+				this.invalidateColumns(form);
 			}
 		});
 
@@ -74,13 +69,13 @@ export class LayoutView extends Disposable {
 		model.sceneChanged.watch(e => {
 			if (e.hasChanges('status')) {
 				if (e.state.status === 'stop') {
-					Fastdom.measure(() => this.updateColumnForm());
+					this.updateColumnForm();
 				}
 			}
 
 			if (e.hasChanges('column')) {
 				const { columns } = this.model.layout();
-				Fastdom.measure(() => this.invalidateColumns(columns));
+				this.invalidateColumns(columns);
 			}
 		});
 	}
@@ -153,7 +148,7 @@ export class LayoutView extends Disposable {
 		}
 
 		const sheet = css.sheet(this.gridId, 'layout-column');
-		Fastdom.mutate(() => sheet.set(style));
+		sheet.set(style);
 	}
 
 	styleRow(row, context) {
