@@ -16,6 +16,7 @@ export class ColumnFilterView {
 		const filterBy = this.model.filter().by[this.key];
 		this.by = new Set((filterBy && filterBy.items) || []);
 		this.byBlanks = !!(filterBy && filterBy.blanks);
+
 		this.operator = filterBy && filterBy.expression && filterBy.expression.op || 'contains';
 		this.value = filterBy && filterBy.expression && filterBy.expression.right || null;
 
@@ -119,14 +120,17 @@ export class ColumnFilterView {
 
 					if (this.operator !== 'contains') {
 						filter.expression = {
-							kind: "condition",
+							kind: 'condition',
 							op: this.operator,
 							left: this.key,
-							right: this.value
+							right: this.value,
 						};
+						filter.items = [];
+					} else {
+						delete filter.expression;
 					}
 
-					if (filter.items && filter.items.length || filter.blanks || filter.expression) {
+					if ((filter.items && filter.items.length) || filter.blanks || filter.expression) {
 						by[this.key] = filter;
 					}
 					else {
@@ -149,7 +153,7 @@ export class ColumnFilterView {
 				execute: () => {
 					this.by = new Set();
 					this.byBlanks = false;
-					this.value = this.operator === "between" ? [] : null;
+					this.value = this.operator === 'between' ? [] : null;
 					this.resetEvent.emit();
 				}
 			}),

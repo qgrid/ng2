@@ -16,7 +16,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Fixed
 - Toggle column filter operator not reset predicate.
-- Search in column chooser does not work.
+- Search in column chooser does not work when column title is null.
 
 ## [7.2.4] - 2019-06-25
 ### Fixed
