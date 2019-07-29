@@ -3,8 +3,8 @@ import { DataColumnModel } from './data.column.model';
 import { ColumnModel } from './column.model';
 
 export declare class FileColumnModel extends DataColumnModel {
-	canUpload?: boolean;
-	hasPreview?: boolean;
+	canUpload?: () => boolean;
+	hasPreview?: (name: string) => boolean;
 }
 
 export declare class FileColumn extends ColumnView {

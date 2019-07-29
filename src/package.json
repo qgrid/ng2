@@ -22,5 +22,5 @@
     "url": "git+https://github.com/qgrid/ng2.git"
   },
   "typings": "./index.d.ts",
-  "version": "7.2.4"
+  "version": "7.2.5"
 }

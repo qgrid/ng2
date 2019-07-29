@@ -60,7 +60,7 @@ export class ColumnChooserView {
 			const search = ('' + value).toLowerCase();
 			applyFilter =
 				search
-					? node => filter(node, n => n.value.column.title.toLowerCase().indexOf(search) >= 0)
+					? node => filter(node, n => (n.value.column.title || '').toLowerCase().indexOf(search) >= 0)
 					: identity;
 
 			updateView();

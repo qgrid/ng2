@@ -10,6 +10,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
+## [7.2.5] - 2019-07-29
+### Added
+- Live cell plugin.
+
+### Fixed
+- Toggle column filter operator not reset predicate.
+- Search in column chooser does not work when column title is null.
+
 ## [7.2.4] - 2019-06-25
 ### Fixed
 - `itemLabel` works for auto-complete.
@@ -411,7 +419,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v7.2.4...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v7.2.5...HEAD
+[7.2.4]: https://github.com/qgrid/ng2/compare/v7.2.4...v7.2.5
 [7.2.3]: https://github.com/qgrid/ng2/compare/v7.2.3...v7.2.4
 [7.2.3]: https://github.com/qgrid/ng2/compare/v7.2.2...v7.2.3
 [7.2.2]: https://github.com/qgrid/ng2/compare/v7.2.1...v7.2.2

@@ -6,7 +6,6 @@ import {
 	OnInit,
 	ViewContainerRef
 } from '@angular/core';
-import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { TdCtrl } from 'ng2-qgrid/core/cell/td.ctrl';
@@ -53,6 +52,7 @@ export class TfCoreDirective implements Td, OnInit, OnDestroy {
 				`Can't find template link for ${this.column.key}`
 			);
 		}
+
 		link(this.viewContainerRef, this);
 	}
 

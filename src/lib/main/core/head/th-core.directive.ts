@@ -68,6 +68,7 @@ export class ThCoreDirective implements Td, OnInit, OnDestroy {
 				`Can't find template link for ${this.column.key}`
 			);
 		}
+
 		link(this.viewContainerRef, this);
 	}
 

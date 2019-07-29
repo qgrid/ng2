@@ -67,14 +67,15 @@ export class LayoutView extends Disposable {
 		});
 
 		model.sceneChanged.watch(e => {
-			if (e.hasChanges('column')) {
-				this.invalidateColumns();
-			}
-
 			if (e.hasChanges('status')) {
 				if (e.state.status === 'stop') {
 					this.updateColumnForm();
 				}
+			}
+
+			if (e.hasChanges('column')) {
+				const { columns } = this.model.layout();
+				this.invalidateColumns(columns);
 			}
 		});
 	}
@@ -122,7 +123,7 @@ export class LayoutView extends Disposable {
 	invalidateColumns(form) {
 		Log.info('layout', 'invalidate columns');
 
-		const table = this.table;
+		const { table } = this;
 		const columns = table.data.columns();
 		const getWidth = columnService.widthFactory(table, form);
 

@@ -1,5 +1,15 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit,
-		ViewContainerRef, ChangeDetectorRef, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
+import {
+	Directive,
+	ElementRef,
+	Input,
+	OnDestroy,
+	OnInit,
+	ViewContainerRef,
+	ChangeDetectorRef,
+	OnChanges,
+	SimpleChanges,
+	SimpleChange
+} from '@angular/core';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
@@ -24,7 +34,7 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 
 	@Input('q-grid-core-td') columnView: ColumnView;
 
-	element: HTMLElement = null;
+	element: HTMLElement;
 	changes: SimpleChange;
 
 	constructor(
@@ -44,54 +54,79 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 		classify(this.element, this.column);
 
 		const link = this.cellService.build('body', this.column, 'view');
+		if (!link) {
+			throw new AppError(
+				`td-core.directive`,
+				`Can't find template link for body of ${this.column.key}`
+			);
+		}
+
 		link(this.viewContainerRef, this);
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
 		const { actualLabel } = changes;
-
-		if (actualLabel && !actualLabel.firstChange && (actualLabel.currentValue !== actualLabel.previousValue)) {
+		if (actualLabel && !actualLabel.firstChange && actualLabel.currentValue !== actualLabel.previousValue) {
 			this.changes = actualLabel;
 			this.mode('change');
 		}
 	}
 
 	mode(value: 'view' | 'edit' | 'change') {
+		const link = this.cellService.build('body', this.column, value);
+
 		switch (value) {
 			case 'view': {
+				if (!link) {
+					throw new AppError(
+						`td-core.directive`,
+						`Can't find template link for body of ${this.column.key}`
+					);
+				}
+
 				this.element.classList.remove(`${GRID_PREFIX}-change`);
 				this.element.classList.remove(`${GRID_PREFIX}-edit`);
 
-				const link = this.cellService.build('body', this.column, 'view');
+				if (link !== noop) {
+					link(this.viewContainerRef, this);
+					this.cd.markForCheck();
+					this.cd.detectChanges();
+				}
+				break;
+			}
+			case 'edit': {
+				if (!link || link === noop) {
+					throw new AppError(
+						`td-core.directive`,
+						`Can't find template link for edit of ${this.column.key}`
+					);
+				}
+
+				this.element.classList.add(`${GRID_PREFIX}-${value}`);
 				link(this.viewContainerRef, this);
 				this.cd.markForCheck();
 				this.cd.detectChanges();
 				break;
 			}
-			case 'edit':
 			case 'change': {
-				const link = this.cellService.build('body', this.column, value);
 				if (link && link !== noop) {
 					this.element.classList.add(`${GRID_PREFIX}-${value}`);
 					link(this.viewContainerRef, this);
 					this.cd.markForCheck();
 					this.cd.detectChanges();
-				} else if (value !== 'change') {
-					throw new AppError(
-						`td-core.directive`,
-						`Can't find template link for ${this.column.key}`
-					);
 				}
 				break;
 			}
-			default:
-				throw new AppError('td.core', `Invalid mode ${value}`);
+			default: {
+				throw new AppError('td-core.directive', `Invalid mode ${value}`);
+			}
 		}
 	}
 
 	get value() {
 		return this.actualValue;
 	}
+
 	set value(value) {
 		const { column, row, rowIndex, columnIndex } = this;
 		this.$view.body.render.setValue(row, column, value, rowIndex, columnIndex);
