@@ -10,6 +10,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
+## [7.2.5] - 2019-07-29
+### Added
+- Live cell plugin.
+
+### Fixed
+- Toggle column filter operator not reset predicate.
+- Search in column chooser does not work.
+
 ## [7.2.4] - 2019-06-25
 ### Fixed
 - `itemLabel` works for auto-complete.

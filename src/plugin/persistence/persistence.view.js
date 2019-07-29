@@ -271,10 +271,11 @@ export class PersistenceView {
 	}
 
 	isUniqueTitle(title) {
+		title = (title || '').trim().toLowerCase();
 		return !this.items.some(item => {
 			return (
 				item !== this.state.editItem &&
-				item.title.toLowerCase() === title.trim().toLowerCase()
+				(item.title || '').toLowerCase() === title
 			);
 		});
 	}
