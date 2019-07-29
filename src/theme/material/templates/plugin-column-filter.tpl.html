@@ -12,7 +12,7 @@
             <div class="q-grid-column-filter-{{$columnFilter.operator}}"
                  [ngClass]="{ 'q-grid-column-filter-with-operators' : $plugin.hasOperators }">
 
-                <!-- Fitler operator select -->
+                <!-- Filter operator select -->
                 <mat-select class="q-grid-column-filter-operator-select"
                             *ngIf="$plugin.hasOperators"
                             [(value)]="$columnFilter.operator"
