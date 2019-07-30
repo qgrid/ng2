@@ -1,0 +1,6 @@
+<q-grid caption="Animated Rows"
+		[rows]="rows | async"
+	>
+	<q-grid-columns generation="deep"></q-grid-columns>
+	<q-grid-live-rows [duration]="500"></q-grid-live-rows>
+</q-grid>

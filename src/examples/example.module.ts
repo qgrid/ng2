@@ -150,6 +150,7 @@ import { ExamplePaneBasicComponent } from './pane-basic/example-pane-basic.compo
 import { ExamplePaneTriggerComponent } from './pane-trigger/example-pane-trigger.component';
 import { ExampleDefineColumnTypeComponent } from './define-column-type/example-define-column-type.component';
 import { ExampleSizeColumnPinComponent } from './size-column-pin/example-size-column-pin.component';
+import { ExampleLiveRows } from './live-rows/example-live-rows.component';
 
 export const EXAMPLES: any[] = [
 	ExampleActionBarBasicComponent,
@@ -293,7 +294,8 @@ export const EXAMPLES: any[] = [
 	ExampleThemeGridEmbedComponent,
 	ExampleValidationBasicComponent,
 	ExampleVisibilityBasicComponent,
-	ExampleVisibilityModelComponent
+	ExampleVisibilityModelComponent,
+	ExampleLiveRows
 ];
 
 export const APP_ROUTES: Routes = EXAMPLES.map<Route>(example => ({
