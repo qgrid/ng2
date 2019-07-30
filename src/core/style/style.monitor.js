@@ -68,7 +68,7 @@ export class Monitor {
 		for (let [cls, style] of newSheets.entries()) {
 			if (!oldSheets.has(cls)) {
 				const sheet = css.sheet(id, cls);
-				sheet.set({[`.${cls}`]: style});
+				sheet.set({ [`.${cls}`]: style });
 			}
 		}
 

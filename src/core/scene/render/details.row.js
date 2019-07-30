@@ -22,9 +22,9 @@ export class DetailsRow {
 			return [emptyColumn];
 		};
 
-		this.getValue = () => { throw new AppError('details.row', `Can't get value from row details`); };
-		this.getLabel = () => { throw new AppError('details.row', `Can't get label from row details`); };
-		this.setValue = () => { throw new AppError('details.row', `Can't set value to row details`); };
-		this.setLabel = () => { throw new AppError('details.row', `Can't set label to row details`); };
+		this.getValue = () => null;
+		this.getLabel = () => null;
+		this.setValue = () => null;
+		this.setLabel = () => null;
 	}
 }
