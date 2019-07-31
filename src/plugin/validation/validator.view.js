@@ -75,7 +75,9 @@ export class ValidatorView {
 					if (rules.eq && rules.eq != this.value) {
 						customErrors.push(`Must be equal to ${rules.eq}`);
 					}
-					else customErrors.push(`Must be one of ${rules.one_of}`);
+					else {
+						customErrors.push(`Must be one of ${rules.one_of}`);
+					}
 					break;
 				}
 				case 'TOO_LONG': {
@@ -85,7 +87,9 @@ export class ValidatorView {
 					else if (rules.length_equal && rules.length_equal != this.value.length) {
 						customErrors.push(`Length must be equal to ${rules.length_equal}`);
 					}
-					else customErrors.push(`Length must be [${rules.length_between['0']},${rules.length_between['1']}]`);
+					else {
+						customErrors.push(`Length must be [${rules.length_between['0']},${rules.length_between['1']}]`);
+					}
 					break;
 				}
 				case 'TOO_SHORT': {
@@ -95,7 +99,9 @@ export class ValidatorView {
 					else if (rules.length_equal && rules.length_equal != this.value.length) {
 						customErrors.push(`Length must be equal to ${rules.length_equal}`);
 					}
-					else customErrors.push(`Length must be [${rules.length_between['0']},${rules.length_between['1']}]`);
+					else {
+						customErrors.push(`Length must be [${rules.length_between['0']},${rules.length_between['1']}]`);
+					}
 					break;
 				}
 				default: customErrors.push(error);
