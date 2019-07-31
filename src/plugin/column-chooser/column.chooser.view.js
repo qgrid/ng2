@@ -23,6 +23,7 @@ export class ColumnChooserView {
 					key: model.key,
 					title: model.title,
 					isVisible: model.isVisible,
+					isDefault: model.isDefault,
 					canMove: model.canMove,
 					aggregation: model.aggregation
 				};
