@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { PluginService } from '../plugin.service';
+import { Fastdom } from '../../../core/services/fastdom';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { jobLine } from 'ng2-qgrid/core/services/job.line';
 
@@ -59,10 +60,12 @@ export class LiveRowsComponent implements OnInit {
 		if (!rowModel) {
 			return;
 		}
-		rowModel.tr.element.animate([
-			{ opacity: `1` },
-			{ opacity: `0` }
-		], { duration: this.duration });
+		Fastdom.mutate(() => {
+			rowModel.tr.element.animate([
+				{ opacity: `1` },
+				{ opacity: `0` }
+			], { duration: this.duration });
+		});
 	}
 
 	moveRow(indexFrom: number, indexTo: number) {
@@ -71,14 +74,21 @@ export class LiveRowsComponent implements OnInit {
 		if (!tr.model() || !newTr.model()) {
 			return;
 		}
-		tr.addClass(`${GRID_PREFIX}-live-row`);
-		tr.model().tr.element.animate([
-			{ transform: `translateY(0px)` },
-			{ transform: `translateY(${newTr.rect().top - tr.rect().top}px)` }
-		], { duration: this.duration, });
+
+		Fastdom.measure(() => {
+			const resultOffset = newTr.rect().top - tr.rect().top;
+
+			Fastdom.mutate(() => {
+				tr.addClass(`${GRID_PREFIX}-live-row`);
+				tr.model().tr.element.animate([
+					{ transform: `translateY(0px)` },
+					{ transform: `translateY(${resultOffset}px)` }
+				], { duration: this.duration, });
+			});
+		});
 
 		setTimeout(() => {
-			tr.removeClass(`${GRID_PREFIX}-live-row`);
+			Fastdom.mutate(() => tr.removeClass(`${GRID_PREFIX}-live-row`));
 		}, this.duration);
 	}
 }
