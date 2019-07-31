@@ -1,5 +1,4 @@
 import * as LIVR from 'livr';
-import { customRules, aliasedRules } from './customRules';
 
 export const { Validator } = LIVR;
 
@@ -29,11 +28,7 @@ export function hasRules(rules, key) {
 export function createValidator(rules, key) {
 	if (arguments.length === 2) {
 		const settings = toLIVR(rules, key);
-		const validator = new Validator(settings.rules).registerRules(customRules);
-		for (let rule in aliasedRules) {
-			validator.registerAliasedRule(aliasedRules[rule]);
-		}
-		return validator;
+		return new Validator(settings.rules);
 	}
 
 	return new Validator(rules);
