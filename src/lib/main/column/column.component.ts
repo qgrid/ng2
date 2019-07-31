@@ -42,6 +42,8 @@ export class ColumnComponent implements OnInit, OnDestroy {
 	@Input() canFocus: boolean;
 
 	@Input() isVisible: boolean;
+	@Input() isDefault: boolean;
+
 	@Input() index: number;
 
 	@Input() label: (row: any, value?: any) => any | any;
