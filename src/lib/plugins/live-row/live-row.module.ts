@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LiveRowsComponent } from './live-rows.component';
+import { LiveRowComponent } from './live-row.component';
 
 @NgModule({
 	declarations: [
-		LiveRowsComponent,
+		LiveRowComponent,
 	],
 	exports: [
-		LiveRowsComponent
+		LiveRowComponent
 	],
 	imports: [
 		CommonModule
 	]
 })
-export class LiveRowsModule {
+export class LiveRowModule {
 }
