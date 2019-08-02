@@ -11,7 +11,6 @@ import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 })
 export class LiveRowComponent implements OnInit {
 	private currentRows: any[];
-	private animations = [];
 
 	@Input('duration') duration: number;
 
@@ -21,46 +20,53 @@ export class LiveRowComponent implements OnInit {
 		const { model } = this.plugin;
 		model.animation({
 			apply: (memo, context, complete) => {
+				const previousRows = this.currentRows;
+				const currentRows = memo.rows;
+				this.currentRows = currentRows;
 
-				if (!this.currentRows || !memo.rows) {
-					this.currentRows = memo.rows;
+				if (!previousRows) {
 					complete(memo);
 					return;
 				}
-				this.zone.runOutsideAngular(() => {
-					for (let rowIndex = 0, length = this.currentRows.length; rowIndex < length; rowIndex++) {
-						const oldRow = model.data().id.row(rowIndex, this.currentRows[rowIndex]);
-						const newRowIndex = memo.rows.findIndex((x: number) => x === oldRow);
 
-						if (newRowIndex < 0) {
-							this.animations.push( this.fadeOutRow(rowIndex) );
-							continue;
-						}
-						if (newRowIndex !== rowIndex) {
-							this.animations.push( this.moveRow(rowIndex, newRowIndex) );
+				this.zone.runOutsideAngular(() => {
+					const id = model.data().id.row;
+					const animations = [];
+
+					for (let rowId = 0, length = previousRows.length; rowId < length; rowId++) {
+						const oldRow = id(rowId, previousRows[rowId]);
+						const newRowId = currentRows.findIndex((row, i) => id(i, row) === oldRow);
+
+						if (newRowId < 0) {
+							animations.push( this.fadeOutRow(rowId) );
+						} else if (newRowId !== rowId) {
+							animations.push( this.moveRow(rowId, newRowId) );
 						}
 					}
-					Promise.all(this.animations)
+
+					Promise.all(animations)
 					.then(() => complete(memo));
 				});
-				this.currentRows = memo.rows;
 			}
 		});
 	}
 
 	fadeOutRow(index: number) {
 		return new Promise( (resolve, reject) => {
-			const rowModel = this.plugin.table.body.row(index).model();
-			if (!rowModel) {
+			const tr = this.plugin.table.body.row(index);
+			if (!tr.model()) {
 				reject(`Can't find model for row ${index}`);
+				return;
 			}
 
 			Fastdom.mutate(() => {
-				rowModel.tr.element.animate([
+				const animation = tr.model().tr.element.animate([
 					{ opacity: `1` },
 					{ opacity: `0` }],
 					{ duration: this.duration }
-				).onfinish = () => resolve();
+				);
+
+				animation.onfinish = () => resolve();
 			});
 		});
 	}
@@ -69,9 +75,11 @@ export class LiveRowComponent implements OnInit {
 		return new Promise( (resolve, reject) => {
 			const oldTr = this.plugin.table.body.row(from);
 			const newTr = this.plugin.table.body.row(to);
+
 			if (!oldTr.model() || !newTr.model()) {
 				const errorIndex = oldTr.model() ? to : from;
 				reject(`Can't find model for row ${errorIndex}`);
+				return;
 			}
 
 			Fastdom.measure(() => {
@@ -79,11 +87,13 @@ export class LiveRowComponent implements OnInit {
 
 				Fastdom.mutate(() => {
 					oldTr.addClass(`${GRID_PREFIX}-live-row`);
-					oldTr.model().tr.element.animate([
+					const animation = oldTr.model().tr.element.animate([
 						{ transform: `translateY(0px)` },
 						{ transform: `translateY(${offset}px)` }],
 						{ duration: this.duration}
-					).onfinish = () => Fastdom.mutate(() => {
+					);
+
+					animation.onfinish = () => Fastdom.mutate(() => {
 						oldTr.removeClass(`${GRID_PREFIX}-live-row`);
 						resolve();
 					});

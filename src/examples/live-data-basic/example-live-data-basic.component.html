@@ -1,5 +1,6 @@
 <q-grid caption="Live Data Basic"
-		[rows]="rows">
+		[rows]="rows"
+		[sortBy]="['-last']">
 	<q-grid-columns generation="deep">
 		<q-grid-column key="metal" [width]="290"></q-grid-column>
 		<q-grid-column key="ldn1" title="LDN" [width]="120">
@@ -10,19 +11,19 @@
 					</q-grid-live-cell>
 				</ng-template>
 		</q-grid-column>
-		<q-grid-column key="ask" [width]="180">
-			<ng-template for="change" let-$cell>
-				<q-grid-live-cell
-					[cell]="$cell"
-					[duration]="2000">
-				</q-grid-live-cell>
-			</ng-template>
-		</q-grid-column>
 		<q-grid-column key="last" type="currency" [width]="240">
 			<ng-template for="change" let-$cell>
 				<q-grid-live-cell
 					[cell]="$cell"
 					[duration]="3000">
+				</q-grid-live-cell>
+			</ng-template>
+		</q-grid-column>
+		<q-grid-column key="ask" [width]="180">
+			<ng-template for="change" let-$cell>
+				<q-grid-live-cell
+					[cell]="$cell"
+					[duration]="2000">
 				</q-grid-live-cell>
 			</ng-template>
 		</q-grid-column>
@@ -41,5 +42,5 @@
 		<q-grid-column key="settle" [width]="100" type="currency"></q-grid-column>
 		<q-grid-column key="ldn4" title="LDN" [width]="70"></q-grid-column>
 	</q-grid-columns>
-	<q-grid-live-rows [duration]="500"></q-grid-live-rows>
+	<q-grid-live-rows [duration]="400"></q-grid-live-rows>
 </q-grid>
