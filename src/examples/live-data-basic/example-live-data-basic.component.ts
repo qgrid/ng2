@@ -15,48 +15,43 @@ export class ExampleLiveDataBasicComponent implements OnDestroy {
 	rows: Quote[];
 	timeoutId: any = null;
 
-	constructor(dataService: DataService, private cd: ChangeDetectorRef) {
-		dataService.getQuotes().subscribe(quotes => {
+	constructor(private dataService: DataService, private cd: ChangeDetectorRef) {
+		this.dataService.getQuotes().subscribe(quotes => {
 			this.rows = quotes;
-			this.update();
+			this.update(true);
 		});
 	}
 
-	ngOnDestroy() {
-		if (this.timeoutId) {
-			clearTimeout(this.timeoutId);
-		}
-	}
-
-	update() {
-
-		const interval = this.random(2000, 4000);
+	update(immediately = false) {
 		this.timeoutId = setTimeout(() => {
-			this.rows.forEach(quote => {
-				const hasChanges = this.random(0, 7);
+			const rows = Array.from(this.rows);
+			rows.forEach(quote => {
+				const hasChanges = this.random(0, 5);
 				if (hasChanges) {
-					const rnd = this.random(-50, 50);
+					const rnd = this.random(-50000, 50000);
 					quote.last += rnd;
 					quote.ask += rnd;
 					quote.ldn1 = this.randomTime(quote.ldn1);
-					quote.ldn2 = this.randomTime(quote.ldn2);
 				}
 			});
 
+			this.rows = rows;
 			this.cd.markForCheck();
 			this.cd.detectChanges();
-
 			this.update();
-		}, interval);
+		}, immediately ? 0 : this.random(2000, 4000));
+	}
+
+	random(min: number, max: number) {
+		return Math.floor(Math.random() * (max - min)) + min;
 	}
 
 	randomTime(time: string): string {
 		if (time.indexOf(':') === -1) {
 			return time;
 		}
-		const timeArr = time.split(':').map((val, i) => {
-			// tslint:disable-next-line: radix
-			let num = parseInt(val);
+		return time.split(':').map((val, i) => {
+			let num = +val;
 			if (i === 0) {
 				num += this.random(-5, 5);
 				if (num > 23 || num < 0) {
@@ -69,11 +64,12 @@ export class ExampleLiveDataBasicComponent implements OnDestroy {
 				}
 			}
 			return num.toString().padStart(2, '0');
-		});
-		return timeArr.join(':');
+		}).join(':');
 	}
 
-	random(min, max) {
-		return Math.floor(Math.random() * (max - min)) + min;
+	ngOnDestroy() {
+		if (this.timeoutId) {
+			clearTimeout(this.timeoutId);
+		}
 	}
 }
