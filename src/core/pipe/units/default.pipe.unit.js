@@ -9,6 +9,7 @@ export const defaultPipeUnit = [
 	Pipe.pivot,
 	Pipe.column,
 	Pipe.pagination,
+	Pipe.animation,
 	Pipe.view
 ];
 

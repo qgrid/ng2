@@ -1,6 +1,7 @@
-import { jobLine } from '../services/job.line';
-
 export class AnimationModel {
 	constructor() {
+		this.apply = (memo, context, next) => {
+			next(memo);
+		};
 	}
 }
