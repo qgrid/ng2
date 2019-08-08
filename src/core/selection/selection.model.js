@@ -15,7 +15,7 @@ export class SelectionModel {
 			column: identity
 		};
 		this.shortcut = {
-			toggleRow: 'shift+space',
+			toggleRow: 'shift+space|space',
 			togglePreviousRow: 'shift+up',
 			toggleNextRow: 'shift+down',
 			toggleColumn: 'ctrl+space',

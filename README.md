@@ -4,6 +4,9 @@ Angular data grid
 ## Documentation
 https://qgrid.github.io
 
+## Examples
+https://qgrid.github.io/ng2
+
 ## Install the q-grid via npm
 
 ```bash
@@ -33,17 +36,17 @@ Note that now q-grid supports 2 themes out of box `@angular/material` and `basic
 @Component({
    selector: 'my-component',
    template: `
-      <q-grid [rows]="myRows | async">
+      <q-grid [rows]="rows$ | async">
             <q-grid-columns generation="deep">
             </q-grid-columns>
       </q-grid>
       `
 })
 export class MyComponent {
-   myRows: Observable<[]>;
+   rows$: Observable<[]>;
 
    constructor(dataService: MyDataService) {
-         this.myRows = dataService.getRows();
+         this.rows$ = dataService.getRows();
    }
 }
 ```
@@ -72,8 +75,8 @@ npm run start
 ## Browser support
 
 * `Chrome` is supported.
-* `Safari` is in progress.
-* `FireFox` is in progress.
+* `FireFox` is supported.
+* `Safari` is supported.
 * `Edge` is in progress.
 * `IE11` is in progress.
 

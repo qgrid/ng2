@@ -1,5 +1,6 @@
-<ng-container *ngTemplateOutlet="getTemplate()"></ng-container>
-<!--Templates: -->
+<ng-container *ngTemplateOutlet="getTemplate()">
+</ng-container>
+
 <ng-template #currency>
     <span class="q-grid-live-cell-arrow">
         <i *ngIf="getDifference(cell.changes) > 0"
