@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, NgZone } from '@angular/core';
 import { PluginService } from '../plugin.service';
-import { Fastdom } from '../../../core/services/fastdom';
+import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 
 @Component({

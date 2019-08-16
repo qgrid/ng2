@@ -15,7 +15,7 @@ import { RootService } from '../../../infrastructure/component/root.service';
 })
 export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private startCell: CellView = null;
-	private initialSelectionMode: 'single' | 'multiple' | 'range' = null;
+	private initialSelectionMode: 'single' | 'multiple' | 'range' | 'singleOnly' = null;
 	private initialEditState: 'view' | 'edit' | 'startBatch' | 'endBatch' = null;
 
 	@ViewChild('marker') marker: ElementRef;

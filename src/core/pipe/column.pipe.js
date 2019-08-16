@@ -114,6 +114,7 @@ function selectColumnFactory(model) {
 		const createColumn = columnFactory(model);
 		return node => {
 			const selectColumn = createColumn('select');
+			selectColumn.model.key = `$select-${model.selection().mode}`;
 			selectColumn.model.source = 'generation';
 			if (selectColumn.model.isVisible) {
 				node.children.unshift(new Node(selectColumn, node.level + 1));
