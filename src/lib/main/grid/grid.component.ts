@@ -88,7 +88,7 @@ export class GridComponent extends RootComponent implements OnInit {
 		row: () => void,
 		column: () => void
 	};
-	@Input() selectionMode: 'single' | 'multiple' | 'range';
+	@Input() selectionMode: 'single' | 'multiple' | 'range' | 'singleOnly';
 	@Input() selectionUnit: 'row' | 'cell' | 'column' | 'mix';
 
 	@Input() scrollMode: 'default' | 'virtual';

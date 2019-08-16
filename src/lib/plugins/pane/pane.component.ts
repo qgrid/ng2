@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { PluginService } from '../plugin.service';
 import { TemplateHostService } from '../../template/template-host.service';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
-import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 
 @Component({
 	selector: 'q-grid-pane',

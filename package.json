@@ -1,6 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "7.3.0",
+  "version": "7.4.0",
   "scripts": {
     "ng": "ng",
     "start": "node build.serve",

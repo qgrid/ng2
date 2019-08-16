@@ -35,8 +35,9 @@ export declare interface SelectionModel {
 	 * * `'single'`
 	 * * `'multiple'`
 	 * * `'range'`
+	 * * `'singleOnly'`
 	 */
-	mode?: 'single' | 'multiple' | 'range';
+	mode?: 'single' | 'multiple' | 'range' | 'singleOnly';
 
 	/**
 	 * List of selected items.
