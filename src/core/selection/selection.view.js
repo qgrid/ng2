@@ -134,6 +134,10 @@ export class SelectionView {
 					commit();
 				},
 				canExecute: row => {
+					if (!this.form.canSelect(row)) {
+						return false;
+					}
+
 					const e = {
 						items: isUndefined(row)
 							? this.model.view().rows
@@ -317,11 +321,10 @@ export class SelectionView {
 		if (toggle.canExecute(e)) {
 			toggle.execute(e);
 
-			const selectionState = this.form;
-			selectionState.select(items, state);
+			this.form.select(items, state);
 
 			return () => {
-				const items = this.selectionService.map(selectionState.entries());
+				const items = this.selectionService.map(this.form.entries());
 				this.model.selection({ items }, {
 					source: 'selection.view'
 				});

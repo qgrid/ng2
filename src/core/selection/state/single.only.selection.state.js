@@ -17,6 +17,10 @@ export class SingleOnlySelectionState extends SelectionState {
 		}
 	}
 
+	canSelectCore(item) {
+		return item !== this.item;
+	}
+
 	stateCore(item, key) {
 		return this.item !== null && key(item) === key(this.item);
 	}
