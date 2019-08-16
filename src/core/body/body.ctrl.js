@@ -190,10 +190,14 @@ export class BodyCtrl {
 				if (cell.column.type === 'select' && cell.column.editorOptions.trigger === 'focus') {
 					const focusState = model.focus();
 					if (focusState.rowIndex !== cell.rowIndex || focusState.columnIndex !== cell.columnIndex) {
-						this.view.selection.toggleRow.execute(cell.row, 'body');
+						if (this.view.selection.toggleRow.canExecute(cell.row)) {
+							this.view.selection.toggleRow.execute(cell.row, 'body');
+						}
 					}
 				} else if (!editMode && cell.column.class !== 'control') {
-					this.view.selection.toggleRow.execute(cell.row, 'body');
+					if (this.view.selection.toggleRow.canExecute(cell.row)) {
+						this.view.selection.toggleRow.execute(cell.row, 'body');
+					}
 				}
 				break;
 			}

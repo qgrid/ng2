@@ -1,6 +1,11 @@
 <q-grid caption="Pane Basic"
-		[rows]="rows$ | async">
+		[rows]="rows$ | async"
+		selectionMode="singleOnly"
+		selectionUnit="row">
 	<q-grid-columns generation="deep">
+		<q-grid-column type="select"
+					   [isVisible]="false">
+		</q-grid-column>
 	</q-grid-columns>
 
 	<q-grid-pane trigger="selection.items">
