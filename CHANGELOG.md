@@ -10,6 +10,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
+## [7.4.1] - 2019-08-28
+### Changed
+- Better column drag and drop.
+- Filter row style enhancements.
+
 ## [7.4.0] - 2019-08-16
 ### Added
 - Selection `singleOnly` mode that prevent row unselecting, and draws radio buttons instead of check boxes.
@@ -435,7 +440,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v7.4.0...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v7.4.1...HEAD
+[7.2.4]: https://github.com/qgrid/ng2/compare/v7.4.0...v7.4.1
 [7.2.4]: https://github.com/qgrid/ng2/compare/v7.3.0...v7.4.0
 [7.2.4]: https://github.com/qgrid/ng2/compare/v7.2.6...v7.3.0
 [7.2.4]: https://github.com/qgrid/ng2/compare/v7.2.5...v7.2.6
