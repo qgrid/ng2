@@ -22,7 +22,6 @@ export class FilterRowColumnModel extends ColumnModel {
 		this.canResize = false;
 		this.canSort = false;
 		this.canMove = false;
-		this.canFilter = model.canFilter && model.class === 'data';
 
 		this.model = model;
 	}

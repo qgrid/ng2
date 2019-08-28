@@ -9,26 +9,29 @@ export class FilterView {
 			source: 'filter.view',
 			execute: (column, search) => {
 				const { key } = column;
-				const { filter } = model;
 
-				const by = clone(filter().by);
+				let { by, operatorFactory } = model.filter();
+				by = clone(by);
+				const filter = by[key] || (by[key] = {});
 				if (!isUndefined(search) && search !== '') {
-					const filter = by[key] || (by[key] = {});
-					filter.expression = {
-						kind: 'condition',
-						left: key,
-						op: filter.expression ? filter.expression.op : 'like',
-						right: search
-					};
-				}
-				else {
-					delete by[key].expression;
-					if (!(filter.items && filter.items.length) || filter.blanks) {
-						delete by[key];
+					const opList = operatorFactory(column);
+					const op = filter.expression ? filter.expression.op : opList[0];
+					if (op === 'contains') {
+						filter.items = [search];
+					} else {
+						filter.expression = {
+							kind: 'condition',
+							left: key,
+							op,
+							right: search
+						};
 					}
 				}
+				else {
+					delete by[key];
+				}
 
-				filter({ by });
+				model.filter({ by }, { source: 'filter.view' });
 			}
 		});
 	}
@@ -36,5 +39,16 @@ export class FilterView {
 	has(column) {
 		const { by } = this.model.filter();
 		return by.hasOwnProperty(column.key);
+	}
+
+	value(column) {
+		const { key } = column;
+		const { by } = this.model.filter();
+		if (by[key]) {
+			const { expression } = by[key];
+			return expression ? expression.right : null;
+		}
+
+		return null;
 	}
 }
