@@ -35,7 +35,6 @@ export class FilterModel {
 				case 'date': {
 					return [
 						'contains',
-						'like',
 						'lessThan',
 						'greaterThan',
 						'between',

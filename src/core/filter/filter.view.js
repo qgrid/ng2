@@ -13,7 +13,7 @@ export class FilterView {
 				let { by, operatorFactory } = model.filter();
 				by = clone(by);
 				const filter = by[key] || (by[key] = {});
-				if (!isUndefined(search) && search !== '') {
+				if (!isUndefined(search) && search !== null && search !== '') {
 					const opList = operatorFactory(column);
 					const op = filter.expression ? filter.expression.op : opList[0];
 					if (op === 'contains') {
@@ -45,8 +45,12 @@ export class FilterView {
 		const { key } = column;
 		const { by } = this.model.filter();
 		if (by[key]) {
-			const { expression } = by[key];
-			return expression ? expression.right : null;
+			const { expression, items } = by[key];
+			return expression
+				? expression.right
+				: items && items.length
+					? items[0]
+					: null;
 		}
 
 		return null;

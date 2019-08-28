@@ -20,8 +20,14 @@ th.q-grid-filter-row {
     }
 
     .mat-focused {
-        .mat-icon {
+        .q-grid-placeholder {
             display: none;
         }
+    }
+
+    .q-grid-close {
+        font-size: 11px;
+        height: 16px;
+        cursor: pointer;
     }
 }

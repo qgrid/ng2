@@ -12,9 +12,9 @@ import { Observable } from 'rxjs';
 export class ExampleFilterRowBasicComponent {
 	static id = 'filter-row-basic';
 
-	rows: Observable<Atom[]>;
+	rows: Observable<any[]>;
 
 	constructor(dataService: DataService) {
-		this.rows = dataService.getAtoms();
+		this.rows = dataService.getPeople();
 	}
 }

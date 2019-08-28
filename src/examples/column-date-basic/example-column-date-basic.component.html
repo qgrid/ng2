@@ -50,7 +50,7 @@
 				<input type="date"
 				       style="width: 100%"
 					   q-grid-focus
-					   [ngModel]="$view.edit.cell.value | qGridDate:'yyyy-MM-dd'" 
+					   [ngModel]="$view.edit.cell.value | qGridDate: 'yyyy-MM-dd'" 
 					   (ngModelChange)="$view.edit.cell.value = $event"				       
 				       (blur)="$view.edit.cell.exit.execute($cell)" />
 			</ng-template>

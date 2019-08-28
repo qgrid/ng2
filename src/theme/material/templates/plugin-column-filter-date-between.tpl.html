@@ -11,7 +11,7 @@
 		       #inputLeft
 		       placeholder="From"
 		       [matDatepicker]="leftPicker"
-		       [ngModel]="$columnFilter.value[0] | qGridDate:'yyyy-MM-dd'"
+		       [ngModel]="$columnFilter.value[0] | qGridDate: 'yyyy-MM-dd'"
 		       (ngModelChange)="isValid(inputLeft.value) && ($columnFilter.value[0] = $event)" />
 		
 		<mat-datepicker-toggle matSuffix [for]="leftPicker"> </mat-datepicker-toggle>
