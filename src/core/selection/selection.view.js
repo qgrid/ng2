@@ -87,7 +87,16 @@ export class SelectionView {
 
 		const toggleActiveRow = new Command({
 			source: 'selection.view',
-			canExecute: () => model.selection().unit === 'row' && this.rows.length > 0,
+			canExecute: () => {
+				const { rowIndex } = model.navigation();
+				const row = this.rows[rowIndex >= 0 ? rowIndex : rowIndex + 1];
+
+				if (!this.form.canSelect(row)) {
+					return false;
+				}
+
+				return model.selection().unit === 'row' && this.rows.length > 0;
+			},
 			execute: () => {
 				const { rowIndex } = model.navigation();
 				const row = this.rows[rowIndex >= 0 ? rowIndex : rowIndex + 1];
