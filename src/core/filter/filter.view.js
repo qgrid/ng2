@@ -13,22 +13,19 @@ export class FilterView {
 
 				const by = clone(filter().by);
 				if (!isUndefined(search) && search !== '') {
-					by[key] = {
-						expression: {
-							kind: 'group',
-							op: 'and',
-							left: {
-								kind: 'condition',
-								left: key,
-								op: 'like',
-								right: search
-							},
-							right: null
-						}
+					const filter = by[key] || (by[key] = {});
+					filter.expression = {
+						kind: 'condition',
+						left: key,
+						op: filter.expression ? filter.expression.op : 'like',
+						right: search
 					};
 				}
 				else {
-					delete by[key];
+					delete by[key].expression;
+					if (!(filter.items && filter.items.length) || filter.blanks) {
+						delete by[key];
+					}
 				}
 
 				filter({ by });
