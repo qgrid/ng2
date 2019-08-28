@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Changed
 - Better column drag and drop.
 - Filter row style enhancements.
+- Navigation event, before selection.
+- Pane context receives value from the trigger not cell.
 
 ## [7.4.0] - 2019-08-16
 ### Added

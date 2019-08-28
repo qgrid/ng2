@@ -167,8 +167,8 @@ export class BodyCtrl {
 
 			if (cell) {
 				const { state: beforeSelectState } = edit();
-				this.select(cell);
 				this.navigate(cell);
+				this.select(cell);
 
 				if (beforeSelectState === 'view' && this.view.edit.cell.enter.canExecute(cell)) {
 					this.view.edit.cell.enter.execute(cell);
