@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'example-filter-row-people-basic',
@@ -19,10 +19,15 @@ export class ExampleFilterRowPeopleBasicComponent {
 		this.rows = dataService
 			.getPeople()
 			.pipe(
-				take(1),
-				map(xs => {
-					xs.forEach((x: any) => x.birthday = new Date(x.birthday));
-					return xs;
-				}));
+				map(xs =>
+					xs.map((x: any) => {
+						x.birthday = new Date(x.birthday);
+						x.birthday.setHours(0);
+						x.birthday.setMinutes(0);
+						x.birthday.setSeconds(0);
+						return x;
+					})
+				)
+			);
 	}
 }

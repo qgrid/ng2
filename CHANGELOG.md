@@ -18,7 +18,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### BREAKING
 - Navigation event raised before selection.
 - Pane context receives value from the trigger not cell.
-- Increase default date width on 15px.
+- Increase default date width on 30px.
 
 ## [7.4.0] - 2019-08-16
 ### Added

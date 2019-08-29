@@ -5,14 +5,17 @@ import { yes } from '../utility/kit';
 
 export function match(context) {
 	const { model } = context;
+
 	const expression = buildExpression(model.filter().by);
 	if (expression !== null) {
-		const valueFactory = context.labelFactory;
-		const assertFactory = model.filter().assertFactory;
+		const { labelFactory } = context;
+		const { assertFactory } = model.filter();
+
 		const columnMap = columnService.map(model.columnList().line);
 
-		const valueColumnFactory = key => valueFactory(columnMap[key]);
+		const valueColumnFactory = key => labelFactory(columnMap[key]);
 		const assertColumnFactory = key => assertFactory(columnMap[key]);
+
 		const visitor = new PredicateVisitor(valueColumnFactory, assertColumnFactory);
 		return visitor.visit(expression);
 	}
