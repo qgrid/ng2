@@ -60,8 +60,9 @@ import { ExampleExportBasicComponent } from './export-basic/example-export-basic
 import { ExampleExportCsvComponent } from './export-csv/example-export-csv.component';
 import { ExampleFilterColumnFetchComponent } from './filter-column-fetch/example-filter-column-fetch.component';
 import { ExampleFilterConditionBasicComponent } from './filter-condition-basic/example-filter-condition-basic.component';
-import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filter-row-basic.component';
+import { ExampleFilterRowAtomBasicComponent } from './filter-row-atom-basic/example-filter-row-atom-basic.component';
 import { ExampleFilterRowCustomComponent } from './filter-row-custom/example-filter-row-custom.component';
+import { ExampleFilterRowPeopleBasicComponent } from './filter-row-people-basic/example-filter-row-people-basic.component';
 import { ExampleFloatingRowsBasicComponent } from './floating-rows-basic/example-floating-rows-basic.component';
 import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
 import { ExampleFocusCellBasicComponent } from './focus-cell-basic/example-focus-cell-basic.component';
@@ -206,8 +207,9 @@ export const EXAMPLES: any[] = [
 	ExampleExportCsvComponent,
 	ExampleFilterColumnFetchComponent,
 	ExampleFilterConditionBasicComponent,
-	ExampleFilterRowBasicComponent,
+	ExampleFilterRowAtomBasicComponent,
 	ExampleFilterRowCustomComponent,
+	ExampleFilterRowPeopleBasicComponent,
 	ExampleFloatingRowsBasicComponent,
 	ExampleFocusCellAutoComponent,
 	ExampleFocusCellBasicComponent,

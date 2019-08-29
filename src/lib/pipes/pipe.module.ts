@@ -8,10 +8,12 @@ import { TextPipe } from './text.pipe';
 import { CurrencyPipe } from './currency.pipe';
 import { ArrayPipe } from './array.pipe';
 import { ItemLabelPipe } from './item-label.pipe';
+import { ConvertPipe } from './convert.pipe';
 
 @NgModule({
 	declarations: [
 		ArrayPipe,
+		ConvertPipe,
 		CurrencyPipe,
 		DatePipe,
 		FilterPipe,
@@ -23,6 +25,7 @@ import { ItemLabelPipe } from './item-label.pipe';
 	],
 	exports: [
 		ArrayPipe,
+		ConvertPipe,
 		CurrencyPipe,
 		DatePipe,
 		FilterPipe,

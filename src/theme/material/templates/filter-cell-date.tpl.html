@@ -13,7 +13,7 @@
             <input matInput
                    #input
                    [matDatepicker]="picker"
-                   [ngModel]="$view.filter.value($cell.column.model) | qGridDate: 'yyyy-MM-dd'"
+                   [ngModel]="$view.filter.value($cell.column.model) | qGridConvert: 'date'"
                    (ngModelChange)="isValid(input.value) && $view.filter.column.execute($cell.column.model, $event)" />
 
             <mat-datepicker-toggle matSuffix

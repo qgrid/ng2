@@ -12,7 +12,7 @@
 			   #input
 			   [matDatepicker]="picker"
 			   [placeholder]="$columnFilter.operator | qGridText : 'fromCamelCase'"
-			   [ngModel]="$columnFilter.value | qGridDate: 'yyyy-MM-dd'"
+			   [ngModel]="$columnFilter.value | qGridConvert: 'date'"
 			   (ngModelChange)="isValid(input.value) && ($columnFilter.value = $event)" />
 
 		<mat-datepicker-toggle matSuffix

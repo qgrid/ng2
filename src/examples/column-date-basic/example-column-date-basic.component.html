@@ -1,58 +1,58 @@
 <q-grid caption="Column Date Basic"
-        [rows]="rows"
-        editMode="cell">
+		[rows]="rows"
+		editMode="cell">
 	<q-grid-columns>
 		<q-grid-column key="number"
-		               title="Number"
-		               type="date">
+					   title="Number"
+					   type="date">
 		</q-grid-column>
 		<q-grid-column key="bool"
-		               title="Bool"
-		               type="date">
+					   title="Bool"
+					   type="date">
 		</q-grid-column>
 		<q-grid-column key="date"
-		               title="Date"
-		               type="date">
+					   title="Date"
+					   type="date">
 		</q-grid-column>
 		<q-grid-column key="null"
-		               title="Null"
-		               type="date">
+					   title="Null"
+					   type="date">
 		</q-grid-column>
 		<q-grid-column key="undefined"
-		               title="Undefined"
-		               type="date">
+					   title="Undefined"
+					   type="date">
 		</q-grid-column>
 		<q-grid-column key="empty"
-		               title="Empty"
-		               type="date">
+					   title="Empty"
+					   type="date">
 		</q-grid-column>
 		<q-grid-column key="format"
 					   title="Format"
 					   format="short"
-		               type="date">
+					   type="date">
 		</q-grid-column>
 		<q-grid-column key="text"
-		               title="Text"
-		               type="date">
+					   title="Text"
+					   type="date">
 		</q-grid-column>
 		<q-grid-column key="customTemplate"
 					   title="Custom Template"
 					   [width]="200"
 					   format="fullDate"
-		               type="date">
+					   type="date">
 			<ng-template for="body"
-			             let-$cell>
+						 let-$cell>
 				<em>{{$cell.value | qGridDate: $cell.column.format}}</em>
 			</ng-template>
 			<ng-template for="edit"
-			             let-$cell
-			             let-$view="$view">
+						 let-$cell
+						 let-$view="$view">
 				<input type="date"
-				       style="width: 100%"
+					   style="width: 100%"
 					   q-grid-focus
-					   [ngModel]="$view.edit.cell.value | qGridDate: 'yyyy-MM-dd'" 
-					   (ngModelChange)="$view.edit.cell.value = $event"				       
-				       (blur)="$view.edit.cell.exit.execute($cell)" />
+					   [ngModel]="$view.edit.cell.value | qGridConvert: 'date'"
+					   (ngModelChange)="$view.edit.cell.value = $event"
+					   (blur)="$view.edit.cell.exit.execute($cell)" />
 			</ng-template>
 		</q-grid-column>
 	</q-grid-columns>
