@@ -45,7 +45,7 @@ export class View extends Unit {
 	}
 
 	isFocused() {
-		return this.getElementsCore('view')
+		return this.getElementsCore('body')
 			.some(element => this.isFocusedCore(element));
 	}
 
@@ -202,9 +202,10 @@ export class View extends Unit {
 	}
 
 	isFocusedCore(target) {
-		const markup = this.markup;
-		const current = markup.document.activeElement;
-		return isParentOf(target, current);
+		const { markup } = this;
+		const { activeElement } = markup.document;
+
+		return isParentOf(target, activeElement);
 	}
 
 	getElementsCore(key) {
