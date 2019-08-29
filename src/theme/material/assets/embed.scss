@@ -1,4 +1,4 @@
-$color-lc-cyan-dark: #006f8f;
+$color-head: #006f8f;
 $color-black-87: rgba(0, 0, 0, 0.87);
 
 .q-grid-embed,
@@ -13,13 +13,13 @@ $color-black-87: rgba(0, 0, 0, 0.87);
                     font-weight: normal;
                     font-style: normal;
                     text-align: left;
-                    color: $color-lc-cyan-dark;
+                    color: $color-head;
                 }
             }
 
             &-caption {
                 h3 {
-                    color: $color-lc-cyan-dark;
+                    color: $color-head;
                 }
             }
 
@@ -38,7 +38,6 @@ $color-black-87: rgba(0, 0, 0, 0.87);
 
                 th {
                     font-size: 12px !important;
-                    color: $color-lc-cyan-dark !important;
                     font-weight: normal !important;
                     line-height: 14px;
 
@@ -50,8 +49,6 @@ $color-black-87: rgba(0, 0, 0, 0.87);
                         text-align: center;
                         line-height: 16px;
                         font-size: 14px;
-                        padding: 0 2px;
-                        color: $color-black-87;
                     }
 
                     .q-grid-column-filter-trigger {
@@ -64,16 +61,12 @@ $color-black-87: rgba(0, 0, 0, 0.87);
                     }
 
                     .q-grid-sort {
-                        padding-left: 20px;
+                        color: $color-head;
 
                         &.q-grid-active {
                             label {
                                 color: inherit;
                             }
-                        }
-
-                        .q-grid-icon {
-                            margin-left: -20px;
                         }
 
                         label {

@@ -1,16 +1,44 @@
+@import "variables";
+
 th {
-	&.q-grid-filter-row {
-		input[placeholder] {
-			text-overflow: ellipsis;
+    &.q-grid-filter-row {
+        text-overflow: unset;
+
+        &:hover {
+            label {
+                font-weight: normal;
+            }
 		}
-		input::-moz-placeholder {
-			text-overflow: ellipsis;
+
+        input {
+            color: $dark;
 		}
-		input:-moz-placeholder {
-			text-overflow: ellipsis;
+		
+		.q-grid-icon {
+			color: $dark-secondary;
 		}
-		input:-ms-input-placeholder {
-			text-overflow: ellipsis;
-		}
-	}
+
+		.q-grid-close {
+            cursor: pointer;
+            font-size: 14px;
+            height: 16px;
+            vertical-align: middle;
+        }    
+
+        input[placeholder] {
+            text-overflow: ellipsis;
+        }
+
+        input::-moz-placeholder {
+            text-overflow: ellipsis;
+        }
+
+        input:-moz-placeholder {
+            text-overflow: ellipsis;
+        }
+
+        input:-ms-input-placeholder {
+            text-overflow: ellipsis;
+        }
+    }
 }

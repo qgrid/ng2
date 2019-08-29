@@ -25,6 +25,11 @@ export class ExampleFilterRowPeopleBasicComponent {
 						x.birthday.setHours(0);
 						x.birthday.setMinutes(0);
 						x.birthday.setSeconds(0);
+
+						x.memberSince = new Date(x.memberSince);
+						x.memberSince.setHours(0);
+						x.memberSince.setMinutes(0);
+						x.memberSince.setSeconds(0);
 						return x;
 					})
 				)

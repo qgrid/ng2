@@ -11,6 +11,7 @@ export class Human {
 	likes: string[];
 	gender: 'male' | 'female';
 	birthday: string;
+	memberSince: string;
 }
 
 export class Atom {

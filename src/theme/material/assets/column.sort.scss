@@ -35,8 +35,9 @@ th {
 	.q-grid-sort {
 		overflow: hidden;
 		text-overflow: ellipsis;
-		margin-left: -16px;
-		padding-left: 16px;
+		margin-left: -20px;
+		padding-left: 20px;
+		padding-right: 5px;
 		label {
 			display: inline;
 			vertical-align: middle;
