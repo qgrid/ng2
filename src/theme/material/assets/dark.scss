@@ -87,11 +87,15 @@
                 }
             }
             .mat-icon,
-            .mat-checkbox-frame,
-            .mat-form-field-underline,
             .mat-hint,
             .q-grid-icon {
                 color: $dark-text;
+            }
+            .mat-checkbox-frame {
+                border-color: $dark-text;
+            }
+            .mat-form-field-underline {
+                background-color: $dark-text;
             }
             .mat-form-field-ripple {
                 background-color: $dark-accent;
