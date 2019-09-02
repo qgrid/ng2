@@ -41,10 +41,8 @@
     }
 
     .q-grid-persistence-default-icon {
-        max-width: $default-icon-size;
-        min-width: $default-icon-size;
-        max-height: $default-icon-size;
-        min-height: $default-icon-size;
+        @include width($default-icon-size);
+        @include height($default-icon-size);
         margin-bottom: $default-icon-size;
 
         .q-grid-icon {
@@ -117,7 +115,7 @@
     .q-grid-more {
         .mat-button {
             min-width: 24px;
-
+            
             .mat-button-focus-overlay {
                 background-color: transparent;
             }
@@ -144,7 +142,6 @@
             .mat-card-content {
                 max-height: 318px;
             }
-
         }
     }
 }

@@ -33,7 +33,8 @@
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+	bottom: 0;
+	margin: 0 auto;
 }
 
 @mixin placeholderOverflow($value) {
@@ -93,3 +94,18 @@
 	height: $value;
 }
 
+@mixin simpleSquareElement($value) {
+	width: $value;
+	height: $value;
+}
+
+@mixin textCutter {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+@mixin borderReset {
+	outline: none;
+	border: none;
+}

@@ -18,10 +18,7 @@
     &.q-grid-active {
         opacity: 1;
 
-        .q-grid-icon {
-            color: $dark;
-        }
-
+        .q-grid-icon,
         &+label {
             color: $dark;
         }
@@ -29,9 +26,8 @@
 
     button {
         @include squareElement(16px);
+        @include borderReset;
         font-size: 12px;
-        outline: none;
-        border: none;
         background: transparent;
         padding: 0;
         left: 0;
@@ -159,7 +155,7 @@
     padding: 0 14px;
     margin-bottom: 3px;
 
-    &-item {
+    &-item { 
         font-size: 12px;
         margin: 2px 7px 1px -4px;
         height: 15px;

@@ -8,22 +8,12 @@
 	font-size: 11px;
 
 	ul {
-		margin: 0;
-		padding: 0;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
+		@include resetDefaultList;
+		@include textCutter;
 
 		li {
 			display: inline;
-			list-style: none;
 			margin-right: 4px;
 		}
 	}
 }
-
-// .q-grid-array {
-// 	.q-grid-validator {
-
-// 	}
-// }

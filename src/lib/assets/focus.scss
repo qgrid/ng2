@@ -15,22 +15,21 @@
 }
 
 .q-grid-cell-handler {
-    transition: all $focus-duration;
+    display: none;
     position: absolute;
+    transition: all $focus-duration;
     pointer-events: none;
     outline: 2px solid $blue-outline05;
     outline-offset: -2px;
-    display: none;
     &.q-grid-active {
         display: block;
     }
 }
 
 .q-grid-marker {
+    @include simpleSquareElement(10px);
     display: block;
     position: absolute;
-    width: 10px;
-    height: 10px;
     bottom: 5px;
     right: 5px;
     font-size: 14px;

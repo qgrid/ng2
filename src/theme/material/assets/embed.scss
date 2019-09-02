@@ -114,8 +114,7 @@
                 }
 
                 &-item {
-                    width: 8px !important;
-                    height: 8px !important;
+                    @include simpleSquareElement(8px !important);
                     margin-right: 18px !important;
                     margin-bottom: 2px !important;
                 }

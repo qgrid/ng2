@@ -1,8 +1,7 @@
 .q-grid-legend-list {
 	@include resetDefaultList;
+	@include  textCutter;
 	margin: 24px 20px 0 20px;
-	white-space: nowrap;
-	text-overflow: ellipsis;
 	color: $dark;
 	font-size: 13px;
 	li {

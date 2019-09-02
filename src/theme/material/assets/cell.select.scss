@@ -3,13 +3,11 @@ th {
 	&.q-grid-select {
 		text-align: center;
 		> div {
-			width: 100%;
-			height: 100%;
+			@include simpleSquareElement(100%);
 			display: inline-block;
 			div {
+				@include simpleSquareElement(100%);
 				border-radius: 2px;
-				width: 100%;
-				height: 100%;
 				box-sizing: border-box;
 				text-align: center;
 				.q-grid-icon {

@@ -7,11 +7,9 @@
         &-expression {
             .mat-select {
                 width: auto;
-
                 &-value {
                     max-width: none;
                 }
-
                 &-arrow-wrapper {
                     display: none;
                 }
@@ -19,14 +17,11 @@
 
             .mat-form-field {
                 width: 75px;
-
                 .mat-form-field-wrapper {
                     padding-bottom: 0;
-
                     .mat-form-field-infix {
                         border: none;
                         padding: 0;
-
                         input {
                             margin: 0;
                         }
@@ -36,7 +31,6 @@
                 .mat-form-field-label-wrapper {
                     top: 0;
                     padding-top: 0;
-
                     >.mat-form-field-label {
                         top: 0;
                     }
@@ -82,12 +76,11 @@
                         height: 15px;
                         width: 15px;
                         vertical-align: middle;
-                    }
+                    } 
                 }
             }
 
             .qb {
-
                 &-operation,
                 &-operator {
                     .mat-select-value {

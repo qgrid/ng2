@@ -1,16 +1,14 @@
 .q-grid-editor {
 	&.q-grid-date {
 		.md-datepicker-button {
+			@include simpleSquareElement(24px);
 			margin-left: 0;
 			padding: 0;
-			width: 24px;
-			height: 24px;
 		}
 		.md-datepicker-triangle-button {
+			@include simpleSquareElement(24px);
 			margin-right: 0;
 			padding: 0;
-			width: 24px;
-			height: 24px;
 		}
 	}
 }

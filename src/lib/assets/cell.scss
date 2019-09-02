@@ -1,12 +1,10 @@
 td,
 th {
+    @include textCutter;
+    @include box-sizing(border-box);
     vertical-align: middle;
     text-align: left;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     position: relative;
-    @include box-sizing(border-box);
     >* {
         vertical-align: middle;
     }
@@ -40,8 +38,7 @@ td {
 thead {
     th {
         >div {
-            overflow: hidden;
-            text-overflow: ellipsis;
+           @include textCutter;
             outline: none;
         }
     }

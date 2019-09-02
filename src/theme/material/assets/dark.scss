@@ -35,10 +35,8 @@
                 color: $dark-header;
                 &.q-grid-sorted {
                     .q-grid-sort.q-grid-active {
+                        .q-grid-icon,
                         label {
-                            color: $dark-text;
-                        }
-                        .q-grid-icon {
                             color: $dark-text;
                         }
                     }
@@ -66,12 +64,10 @@
                 }
             }
             td {
-                &.q-grid-highlighted {
-                    background-color: $dark-accent;
-                }
                 &.q-grid-sorted {
                     background-color: $color-less;
                 }
+                &.q-grid-highlighted,
                 &.q-grid-selected {
                     background-color: $dark-accent;
                 }
@@ -90,19 +86,11 @@
                     background-color: $dark;
                 }
             }
+            .mat-icon,
+            .mat-checkbox-frame,
+            .mat-form-field-underline,
+            .mat-hint,
             .q-grid-icon {
-                color: $dark-text;
-            }
-            .mat-hint {
-                color: $dark-text;
-            }
-            .mat-form-field-underline {
-                background-color: $dark-text;
-            }
-            .mat-checkbox-frame {
-                border-color: $dark-text;
-            }
-            .mat-icon {
                 color: $dark-text;
             }
             .mat-form-field-ripple {
@@ -122,10 +110,8 @@
         background-color: $dark-accent;
     } //Specific controls
     .q-grid {
+        .mat-select-arrow,
         .mat-select-value {
-            color: $dark-text;
-        }
-        .mat-select-arrow {
             color: $dark-text;
         }
     }
@@ -157,12 +143,6 @@
             .mat-button {
                 color: $dark-text;
             }
-            .mat-button:hover {
-                background-color: $dark-accent;
-            }
-            .mat-button.mat-primary {
-                background-color: $dark-accent;
-            }
             .mat-form-field-label {
                 color: $dark-text;
             }
@@ -186,6 +166,10 @@
             .q-grid-filter-by-item {
                 color: $dark;
             }
+            .mat-button:hover {
+                background-color: $dark-accent;
+            }
+            .mat-button.mat-primary,
             .mat-checkbox-checked.mat-accent .mat-checkbox-background,
             .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
                 background-color: $dark-accent;
@@ -195,15 +179,13 @@
                 color: $dark-text;
             }
         }
+        .mat-checkbox-frame,
         label {
             border-color: $dark-text;
         }
         .mat-input-underline {
             color: $dark-text;
-        }
-        .mat-checkbox-frame {
-            border-color: $dark-text;
-		}		
+        }	
 	}	
 
 	.q-grid-box:not(.q-grid-drag) {

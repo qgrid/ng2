@@ -1,4 +1,3 @@
-@import "variables";
 td.q-grid-sorted {
 	background-color: $selected;
 }
@@ -42,10 +41,8 @@ th {
 			vertical-align: middle;
 		}
 		&.q-grid-active {
+			.q-grid-icon,
 			label {
-				color: $dark;
-			}
-			.q-grid-icon {
 				color: $dark;
 			}
 		}
