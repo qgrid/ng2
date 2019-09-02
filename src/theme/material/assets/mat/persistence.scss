@@ -1,5 +1,4 @@
 @import "../../../../lib/assets/scroll.scss";
-@import "../variables.scss";
 
 @at-root .q-grid-persistence-panel {
     $default-icon-size: 14px;
@@ -10,9 +9,7 @@
     }
 
     &.q-grid-menu {
-        width: 400px;
-        min-width: 400px;
-        max-width: 400px;
+        @include width(400px);
         height: 500px;
         overflow: hidden;
     }
@@ -71,7 +68,7 @@
         font-size: 13px;
 
         &.q-grid-persistence-selected {
-            background-color: #f5f5f5;
+            background-color: $selected;
         }
 
         &.mat-list-item {
@@ -142,9 +139,7 @@
 @at-root {
     @media (max-height: 540px) {
         .q-grid-persistence-panel.q-grid-menu {
-            height: 400px;
-            max-height: 400px;
-            min-height: 400px;
+            @include height(400px);
 
             .mat-card-content {
                 max-height: 318px;

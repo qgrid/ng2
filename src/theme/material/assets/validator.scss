@@ -4,7 +4,7 @@
 	position: absolute;
 	bottom: 20px;
 	text-align: left;
-	color: #dd2c00;
+	color: $red;
 	font-size: 11px;
 
 	ul {
@@ -22,8 +22,8 @@
 	}
 }
 
-.q-grid-array {
-	.q-grid-validator {
+// .q-grid-array {
+// 	.q-grid-validator {
 
-	}
-}
+// 	}
+// }

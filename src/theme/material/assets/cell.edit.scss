@@ -1,26 +1,19 @@
 .q-grid-edit-trigger {
-	position: absolute;
+	@include iconSizes(16px);
 	right: 2px;
 	font-size: 12px;
-	min-width: 16px;
-	width: 16px;
-	min-height: 16px;
-	height: 16px;
 	outline: none;
 	border: none;
 	background: transparent;
 	padding: 0;
+	position: absolute;
 	margin: auto 0;
 	top: 0;
 	bottom: 0;
 
 	.q-grid-icon {
+		@include iconSizes(16px);
 		color: $dark-secondary;
-		font-size: 16px;
-		height: 16px;
-		width: 16px;
-		min-height: 16px;
-		min-width: 16px;
 		line-height: 16px;
 		display: block;
 	}
@@ -33,15 +26,11 @@ td.q-grid-edit {
 		display: block;
 		position: fixed;
 		border-radius: 4px;
-		background-color: #fcfcfc;
-		color: rgba(0, 0, 0, 0.87);
+		background-color: $highlighted-third;
+		color: $shadow087;
 		left: 0;
 		top: 0;
-		box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
-		-webkit-box-orient: vertical;
-		-webkit-box-direction: normal;
-		-webkit-flex-direction: column;
-		flex-direction: column;
+		box-shadow: 0 7px 8px -4px $shadow02, 0 13px 19px 2px $shadow014, 0 5px 24px 4px $shadow012;
 		box-sizing: content-box;
 		z-index: 2;
 	}

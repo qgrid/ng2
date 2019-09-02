@@ -1,1 +1,58 @@
-$scrollSize: 8px;
+// Typography
+$font-family: Roboto, 'Helvetica Neue', sans-serif !default;
+$font-family-secondary: "Roboto Condensed", Roboto, "Helvetica Neue", sans-serif;
+
+///Common colors
+$white: #ffffff;
+$black: #000000;
+$red: #dd2c00;
+$blue: rgb(0, 127, 163);
+$pink: rgba(255, 64, 129, 0.87);
+$gray: #C8C8C8;
+$dark: #212121;
+$dark-secondary: #757575;
+$selected: #f5f5f5;
+$highlighted: #eeeeee;
+$highlited-secondary: rgb(224, 224, 224);
+$highlighted-third: #fcfcfc;
+$gray-secondary: #ebebeb;
+$dark-gray: #999999;
+$light-gray: #dddddd;
+
+///Outlines
+$blue-outline025: rgba(63, 81, 181, 0.25);
+$blue-outline05: rgba(63, 81, 181, 0.05);
+
+///Shadows
+$shadow02: rgba(0, 0, 0, .2);
+$shadow04: rgba(0, 0, 0, 0.04);
+$shadow012: rgba(0, 0, 0, .12);
+$shadow014:  rgba(0, 0, 0, .14);
+$shadow087: rgba(0, 0, 0, 0.87);
+
+///Borders
+$common-border-color: #e0e0e0;
+$border: 1px solid $common-border-color;
+$border-color: rgba(0, 0, 0, 0.06);
+$border-color-blue: rgb(63, 81, 181);
+$border-color-checkbox: rgba(0, 0, 0, 0.54);
+
+///Constatnt values
+$scroll-size: 8px;
+$grid-marker-color: #C8C8C8;
+
+///Colors for live rows in Live Data Basic blocks
+$grid-live-pseudo: #e0e0e0;
+$text-bg-color: rgba(70, 140, 160, .3);
+$up-down-bg-color: rgba(0, 100, 0, .1);
+$text-up-color: green;
+$text-down-color: red;
+
+///Colors for scrollbar
+$scrollbar-track-dark: #c8c8c8;
+$scrollbar-track: #f8f8f8;
+$scrollbar-thumb-shadow-dark: inset 1px 1px 0 rgba(0, 0, 0, 0.1);
+$scrollbar-thumb-shadow-light: inset 0 -1px 0 rgba(0, 0, 0, 0.07);
+
+///Animations
+$focus-duration: 0.15s;

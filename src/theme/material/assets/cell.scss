@@ -1,4 +1,3 @@
-@import "variables";
 td {
     color: $dark;
     font-size: 13px;
@@ -7,8 +6,8 @@ td {
 
 tfoot {
     td {
-        color: rgb(0, 127, 163) !important;
-        background-color: rgba(0, 0, 0, 0.04) !important;
+        color: $blue !important;
+        background-color: $shadow04 !important;
     }
 }
 

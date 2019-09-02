@@ -1,28 +1,16 @@
 .q-grid-dark {
-    //Custom colors
-    $color-less: rgba(0, 0, 0, 0);
-    $dark: #424242;
-    $dark-primary: #1eb980;
-    $dark-accent: #616161;
-    $dark-focused: #5565A0;
-    $dark-highlighted: #8d8d8d;
-    $dark-surface: #363640;
-    $dark-container: #3c3c46;
-    $dark-text: #ffffff;
-    $dark-header: rgba(255, 255, 255, 0.6);
-    $dark-divider: rgba(255, 255, 255, 0.12);
     .q-grid.q-grid-theme-material {
         background-color: $dark-surface;
-        font-family: "Roboto Condensed", Roboto, "Helvetica Neue", sans-serif;
+        font-family: $font-family-secondary;
         font-weight: 300;
         thead {
-            box-shadow: 0 1px 0px $dark-divider;
+            box-shadow: 0 1px 0px $common-border-color;
             th {
                 font-weight: 300;
             }
         }
         tbody tr {
-            border-top: 1px solid $dark-divider;
+            border-top: 1px solid $common-border-color;
         }
         .q-grid-toolbar {
             .q-grid-title,
@@ -56,12 +44,12 @@
                     }
                 }
                 >.q-grid-divider {
-                    border-right: 1px solid $dark-divider;
+                    border-right: 1px solid $common-border-color;
                 }
             }
             tr td {
                 color: $dark-text;
-                font-family: "Roboto Condensed";
+                font-family: $font-family-secondary;
                 font-size: 14px;
             }
             tr {
@@ -179,20 +167,20 @@
                 color: $dark-text;
             }
             .mat-input-underline {
-                color: #fff;
+                color: $white;
             }
             .mat-form-field {
                 font-weight: 300;
             }
             .mat-form-field-underline {
-                background-color: $dark-divider;
+                background-color: $common-border-color;
             }
             .mat-form-field-ripple {
                 background-color: $dark-primary;
             }
             .mat-form-field-should-float label,
             .q-grid-filter-by-item {
-                font-family: "Roboto Condensed", Roboto, "Helvetica Neue", sans-serif;
+                font-family: $font-family-secondary;
                 font-weight: 300;
             }
             .q-grid-filter-by-item {

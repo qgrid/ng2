@@ -1,7 +1,5 @@
 @at-root .q-grid-column-chooser.q-grid-menu {
-    width: 360px;
-    max-width: 360px;
-    min-width: 360px;
+    @include width(360px);
     height: 500px;
     overflow: hidden;
 
@@ -65,11 +63,7 @@
         user-select: none;
 
         .q-grid-icon {
-            width: 16px;
-            min-width: 16px;
-            min-height: 16px;
-            height: 16px;
-            font-size: 16px;
+            @include iconSizes(16px);
             vertical-align: middle;
         }
     }
@@ -78,9 +72,7 @@
 @at-root {
     @media (max-height: 540px) {
         .q-grid-column-chooser.q-grid-menu {
-            height: 400px;
-            max-height: 400px;
-            min-height: 400px;
+            @include height(400px);
 
             .q-grid-column-chooser-list {
                 height: 184px;

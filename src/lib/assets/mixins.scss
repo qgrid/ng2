@@ -9,3 +9,87 @@
     -khtml-user-drag: $value;
     -webkit-user-drag: $value;
 }
+
+@mixin box-sizing($value) {
+    -moz-box-sizing: $value;
+    -webkit-box-sizing: $value;
+    box-sizing: $value;
+}
+
+@mixin width($value) {
+    width: $value;
+    min-width: $value;
+    max-width: $value;
+}
+
+@mixin height($value) {
+    height: $value;
+    min-height: $value;
+    max-height: $value;
+}
+
+@mixin absolute-centered {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+@mixin placeholderOverflow($value) {
+	input[placeholder] {
+		text-overflow: $value;
+	}
+	input::-moz-placeholder {
+		text-overflow: $value;
+	}
+	input:-moz-placeholder {
+		text-overflow: $value;
+	}
+	input:-ms-input-placeholder {
+		text-overflow: $value;
+	}
+}
+
+@mixin roundElement($value) {
+	width: $value;
+	height: $value;
+	border-radius: $value;
+}
+
+@mixin typography($f-size, $line-height, $f-weight, $f-style, $f-color) {
+	font-size: $f-size;
+	line-height: $line-height;
+	font-weight: $f-weight;
+	font-style: $f-style;
+	color: $f-color;
+}
+
+@mixin resetDefaultList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+@mixin iconSizes($value) {
+	min-width: $value;
+	width: $value;
+	min-height: $value;
+	height: $value;
+	font-size: $value;
+}
+
+@mixin buttonSizes($value) {
+    width: $value;
+    height: $value;
+    line-height: $value;
+}
+
+@mixin squareElement($value) {
+	min-width: $value;
+	width: $value;
+	min-height: $value;
+	height: $value;
+}
+
