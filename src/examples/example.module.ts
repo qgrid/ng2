@@ -56,6 +56,7 @@ import { ExampleDynamicColumnModelComponent } from './dynamic-column-model/examp
 import { ExampleEditCellBasicComponent } from './edit-cell-basic/example-edit-cell-basic.component';
 import { ExampleEditCellBatchComponent } from './edit-cell-batch/example-edit-cell-batch.component';
 import { ExampleEditRowBasicComponent } from './edit-row-basic/example-edit-row-basic.component';
+import { ExampleEditFormComponent } from './edit-form/example-edit-form.component';
 import { ExampleExportBasicComponent } from './export-basic/example-export-basic.component';
 import { ExampleExportCsvComponent } from './export-csv/example-export-csv.component';
 import { ExampleFilterColumnFetchComponent } from './filter-column-fetch/example-filter-column-fetch.component';
@@ -183,7 +184,7 @@ export const EXAMPLES: any[] = [
 	ExampleColumnUrlBasicComponent,
 	ExampleDataRowAddComponent,
 	ExampleDataRowDeleteComponent,
-	ExampleDefineColumnAsyncComponent,
+	ExampleDefineColumnAsyncComponent, 
 	ExampleDefineColumnBasicComponent,
 	ExampleDefineColumnHybridComponent,
 	ExampleDefineColumnTypeComponent,
@@ -202,6 +203,7 @@ export const EXAMPLES: any[] = [
 	ExampleEditCellBasicComponent,
 	ExampleEditCellBatchComponent,
 	ExampleEditRowBasicComponent,
+	ExampleEditFormComponent,
 	ExampleExportBasicComponent,
 	ExampleExportCsvComponent,
 	ExampleFilterColumnFetchComponent,
