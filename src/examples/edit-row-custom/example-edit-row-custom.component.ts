@@ -4,15 +4,15 @@ import { Observable } from 'rxjs';
 import { Command, GridComponent, PaneComponent } from 'ng2-qgrid';
 
 @Component({
-    selector: 'example-edit-form',
-    templateUrl: './example-edit-form.component.html',
-    styleUrls: ['./example-edit-form.component.scss'],
+    selector: 'example-edit-row-custom',
+    templateUrl: './example-edit-row-custom.component.html',
+    styleUrls: ['./example-edit-row-custom.component.scss'],
     providers: [DataService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class ExampleEditFormComponent {
-    static id = 'edit-form';
+export class ExampleEditRowCustomComponent {
+    static id = 'edit-row-custom';
 
     rows: Observable<Human[]>;
     @ViewChild(GridComponent) myGrid: GridComponent;
