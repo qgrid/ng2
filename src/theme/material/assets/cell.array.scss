@@ -1,9 +1,6 @@
 td.q-grid-array {
 	>ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		overflow: hidden;
+		@include resetDefaultList;
 		li {
 			display: inline-block;
 			min-width: 16px;
@@ -11,7 +8,7 @@ td.q-grid-array {
 			text-align: center;
 			white-space: nowrap;
 			vertical-align: middle;
-			background-color: rgb(224, 224, 224);
+			background-color: $highlited-secondary;
 			border-radius: 16px;
 			margin-right: 4px;
 		}

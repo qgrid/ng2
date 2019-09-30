@@ -1,5 +1,3 @@
-@import "variables";
-
 &.q-grid-box:not(.q-grid-drag) {
 	td,
 	tr {
@@ -12,6 +10,6 @@
 @at-root {
 	.q-grid-highlight-part {
 		background-color: yellow;
-		color: #000;
+		color: $black;
 	}
 }

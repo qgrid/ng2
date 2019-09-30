@@ -16,7 +16,7 @@ $button-disabled-color: rgba(0,0,0,.26);
 $hidden-color: transparent;
 
 .q-grid.q-grid-theme-basic {
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: $font-family;
     
     tr:not(.q-grid-highlighted) {
         td {
@@ -66,10 +66,6 @@ $hidden-color: transparent;
 
     .q-grid-caption h3 {
         margin: 0;
-        margin-top: 0px;
-        margin-right: 0px;
-        margin-bottom: 0px;
-        margin-left: 0px;
         overflow: hidden;
         text-overflow: ellipsis;
     }
@@ -140,19 +136,16 @@ $hidden-color: transparent;
     }
 
     .q-grid-icon-button{
+        @include user-select;
         color: inherit;
         background: 0 0;
-        font-family: Roboto,"Helvetica Neue",sans-serif;
+        font-family: $font-family;
         font-weight: 500;
         border-radius: 50%;
         min-width: 0;
         flex-shrink: 0;
         box-sizing: border-box;
         position: relative;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
         cursor: pointer;
         outline: 0;
         border: none;
@@ -170,7 +163,7 @@ $hidden-color: transparent;
     }
 
     .q-grid-pager {
-        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-family: $font-family;
         padding: 11px 0;
         height: 24px;
         font-size: 12px;
@@ -181,7 +174,7 @@ $hidden-color: transparent;
             padding: 3px 0;
 
             select {
-                font-family: Roboto, "Helvetica Neue", sans-serif;
+                font-family: $font-family;
                 font-size: 12px;
                 color: $pager-primary-color;
                 border: none;
@@ -297,16 +290,13 @@ $hidden-color: transparent;
                         }
                     }                             
                     .q-grid-icon {
+                        @include iconSizes(16px);
+                        font-size: 12px;
                         transition: opacity 0.3s;
                         opacity: 0;
                         position: absolute;
                         color: $head-secondary-color;
-                        font-size: 12px;
                         font-weight: bold;
-                        height: 16px;
-                        width: 16px;
-                        min-height: 16px;
-                        min-width: 16px;
                         vertical-align: middle;
                         text-align: center;
                         &.q-grid-active {

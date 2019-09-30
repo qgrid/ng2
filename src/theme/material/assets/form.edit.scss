@@ -1,11 +1,7 @@
 q-grid-edit-form-trigger {
     .q-grid-icon {
+        @include iconSizes(16px);
         color: $dark-secondary;
-        font-size: 16px;
-        height: 16px;
-        width: 16px;
-        min-height: 16px;
-        min-width: 16px;
         line-height: 16px;
     }
 }
