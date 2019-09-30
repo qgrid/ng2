@@ -2,11 +2,19 @@
              let-$reference>
     <q-grid class="q-grid-embed"
             [model]="$reference.model"
+            [caption]="$reference.caption"
             [q-grid-autofocus]="$reference.autofocus">
         <q-grid-toolbar>
             <ng-template for="top">
-                <div class="q-grid-progress">
-                    <q-grid-progress></q-grid-progress>
+                <div class="layout-row">
+                    <div class="flex-100"
+                         style="padding: 16px 0;">
+                        <q-grid-caption></q-grid-caption>
+                    </div>
+
+                    <div class="q-grid-progress">
+                        <q-grid-progress></q-grid-progress>
+                    </div>
                 </div>
             </ng-template>
         </q-grid-toolbar>

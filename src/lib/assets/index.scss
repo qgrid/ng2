@@ -1,6 +1,7 @@
 @import "layout";
-/* Apply Mixins to create Layout/Flexbox styles */
+@import "grid";
 
+/* Apply Mixins to create Layout/Flexbox styles */
 @include layouts_for_breakpoint();
 @include layout-padding-margin();
 
