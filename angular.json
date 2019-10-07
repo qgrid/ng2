@@ -55,6 +55,9 @@
                   "maximumError": "5mb"
                 }
               ]
+            },
+            "es5": {
+              "tsConfig": "./tsconfig-es5.app.json"
             }
           }
         },
@@ -66,6 +69,9 @@
           "configurations": {
             "production": {
               "browserTarget": "ng2-qgrid:build:production"
+            },
+            "es5": {
+              "browserTarget": "ng2-qgrid:build:es5"
             }
           }
         },
