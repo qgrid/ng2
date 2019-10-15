@@ -1,3 +1,5 @@
+import { PipeContext } from '../pipe/pipe.item';
+
 export declare interface AnimationModel {
-	apply(memo: any, context: any, next: any): void;
+	apply: Array<(memo: any, context: PipeContext, complete: () => void) => void>;
 }
