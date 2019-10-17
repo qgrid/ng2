@@ -1,3 +1,6 @@
+@import '../../lib/assets/variable.scss';
+@import '../../lib/assets/mixins.scss';
+
 $head-primary-color: #006f8f;
 $head-secondary-color: #005D78;
 $head-sort-color: #004559;
@@ -136,7 +139,7 @@ $hidden-color: transparent;
     }
 
     .q-grid-icon-button{
-        @include user-select;
+        @include user-select(none);
         color: inherit;
         background: 0 0;
         font-family: $font-family;
