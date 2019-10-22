@@ -10,7 +10,6 @@ import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LiveRowComponent implements OnInit {
-	private currentRows: any[];
 
 	@Input('duration') duration = 200;
 
@@ -18,17 +17,18 @@ export class LiveRowComponent implements OnInit {
 
 	ngOnInit() {
 		const { model } = this.plugin;
-		model.animation().apply.push((memo, context, complete) => {
-			const previousRows = this.currentRows;
-			const currentRows = memo.rows ? memo.rows : this.currentRows;
-			this.currentRows = currentRows;
+		let currentRows: any[];
 
-			if (!previousRows || !currentRows) {
-				complete();
-				return;
-			}
+		model.animation({
+			apply: model.animation().apply.concat((memo, context, complete) => {
+				const previousRows = currentRows;
+				currentRows = memo.rows ? memo.rows : currentRows;
 
-			this.zone.runOutsideAngular(() => {
+				if (!previousRows || !currentRows) {
+					complete();
+					return;
+				}
+
 				const id = model.data().id.row;
 				const animations = [];
 
@@ -41,9 +41,11 @@ export class LiveRowComponent implements OnInit {
 					}
 				}
 
-				Promise.all(animations)
-					.then(complete);
-			});
+				this.zone.runOutsideAngular(() => {
+					Promise.all(animations)
+						.then(complete);
+				});
+			})
 		});
 	}
 
@@ -68,9 +70,11 @@ export class LiveRowComponent implements OnInit {
 	}
 
 	moveRow(from: number, to: number) {
+		const { table } = this.plugin;
+
 		return new Promise((resolve, reject) => {
-			const oldTr = this.plugin.table.body.row(from);
-			const newTr = this.plugin.table.body.row(to);
+			const oldTr = table.body.row(from);
+			const newTr = table.body.row(to);
 
 			if (!oldTr.model() || !newTr.model()) {
 				const errorIndex = oldTr.model() ? to : from;

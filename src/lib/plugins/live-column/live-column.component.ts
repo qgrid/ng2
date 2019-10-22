@@ -10,27 +10,26 @@ import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LiveColumnComponent implements OnInit {
-	private currentColumns: any[];
 	private startPos: number;
 	private endPos: number;
-	@Input('duration') duration = 500;
+	@Input('duration') duration = 200;
 
 	constructor(private plugin: PluginService, private zone: NgZone) { }
 
 	ngOnInit() {
 		const { model } = this.plugin;
-		model.animation().apply.push((memo, context, complete) => {
+		let currentColumns: any[];
 
-			const previousColumns = this.currentColumns;
-			const currentColumns = memo.columns ? memo.columns[0] : this.currentColumns;
-			this.currentColumns = currentColumns;
+		model.animation({
+			apply: model.animation().apply.concat((memo, context, complete) => {
+				const previousColumns = currentColumns;
+				currentColumns = memo.columns ? memo.columns[0] : currentColumns;
 
-			if (!previousColumns || !currentColumns) {
-				complete();
-				return;
-			}
+				if (!previousColumns || !memo.columns) {
+					complete();
+					return;
+				}
 
-			this.zone.runOutsideAngular(() => {
 				const id = model.data().id.column;
 				const animations = [];
 
@@ -52,18 +51,23 @@ export class LiveColumnComponent implements OnInit {
 						animations.push(this.moveColumn(colId, newColId));
 					}
 				}
-				Promise.all(animations)
-					.then(complete);
-			});
+
+				this.zone.runOutsideAngular(() => {
+					Promise.all(animations)
+						.then(complete);
+				});
+			})
 		});
 	}
 
 	moveColumn(from: number, to: number) {
+		const { table } = this.plugin;
+
 		return new Promise((resolve, reject) => {
-			const oldColumn = this.plugin.table.body.column(from);
-			const newColumn = this.plugin.table.body.column(to);
-			const startColumn = this.plugin.table.body.column(this.startPos);
-			const endColumn = this.plugin.table.body.column(this.endPos);
+			const oldColumn = table.body.column(from);
+			const newColumn = table.body.column(to);
+			const startColumn = table.body.column(this.startPos);
+			const endColumn = table.body.column(this.endPos);
 
 			if (!oldColumn.model() || !newColumn.model()) {
 				const errorIndex = oldColumn.model() ? to : from;
@@ -76,7 +80,6 @@ export class LiveColumnComponent implements OnInit {
 				const oldRect = oldColumn.cells()[0].rect();
 				const startRect = startColumn.cells()[0].rect();
 				const endRect = endColumn.cells()[0].rect();
-
 				let offset = 0;
 
 				if (from < to) {
