@@ -4,19 +4,19 @@ import { Fastdom } from '../../../core/services/fastdom';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 
 @Component({
-	selector: 'q-grid-live-column',
-	template: '<ng-content></ng-content>',
+	selector: 'q-grid-live-columns',
+	template: '',
 	providers: [PluginService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LiveColumnComponent implements OnInit {
-	private startPos: number;
-	private endPos: number;
-	@Input('duration') duration = 200;
+	@Input('duration') duration = 5000;
 
 	constructor(private plugin: PluginService, private zone: NgZone) { }
 
 	ngOnInit() {
+		let startPos: number;
+		let endPos: number;
 		const { model } = this.plugin;
 		let currentColumns: any[];
 
@@ -33,22 +33,25 @@ export class LiveColumnComponent implements OnInit {
 				const id = model.data().id.column;
 				const animations = [];
 
-				this.startPos = currentColumns.length;
-				this.endPos = 0;
+				startPos = currentColumns.length;
+				endPos = 0;
 
-				for (let colId = 0, length = previousColumns.length; colId < length; colId++) {
-					const newColId = currentColumns.findIndex((col, i) => id(i, col.model) === id(colId, previousColumns[colId].model));
-					if (newColId !== colId) {
-						this.startPos = Math.min(Math.min(colId, newColId), this.startPos);
-						this.endPos = Math.max(Math.max(colId, newColId), this.endPos);
+				for (let columnIndex = 0, length = previousColumns.length; columnIndex < length; columnIndex++) {
+					const newColumnIndex = currentColumns.findIndex((column, i) =>
+						id(i, column.model) === id(columnIndex, previousColumns[columnIndex].model));
+
+					if (newColumnIndex !== columnIndex) {
+						startPos = Math.min(Math.min(columnIndex, newColumnIndex), startPos);
+						endPos = Math.max(Math.max(columnIndex, newColumnIndex), endPos);
 					}
 				}
 
-				for (let colId = 0, length = previousColumns.length; colId < length; colId++) {
-					const newColId = currentColumns.findIndex((col, i) => id(i, col.model) === id(colId, previousColumns[colId].model));
+				for (let columnIndex = 0, length = previousColumns.length; columnIndex < length; columnIndex++) {
+					const newColumnIndex = currentColumns.findIndex((column, i) =>
+						id(i, column.model) === id(columnIndex, previousColumns[columnIndex].model));
 
-					if (newColId !== colId) {
-						animations.push(this.moveColumn(colId, newColId));
+					if (newColumnIndex !== columnIndex) {
+						animations.push(this.moveColumn(columnIndex, newColumnIndex, startPos, endPos));
 					}
 				}
 
@@ -60,14 +63,14 @@ export class LiveColumnComponent implements OnInit {
 		});
 	}
 
-	moveColumn(from: number, to: number) {
+	private moveColumn(from: number, to: number, startPos: number, endPos: number) {
 		const { table } = this.plugin;
 
 		return new Promise((resolve, reject) => {
 			const oldColumn = table.body.column(from);
 			const newColumn = table.body.column(to);
-			const startColumn = table.body.column(this.startPos);
-			const endColumn = table.body.column(this.endPos);
+			const startColumn = table.body.column(startPos);
+			const endColumn = table.body.column(endPos);
 
 			if (!oldColumn.model() || !newColumn.model()) {
 				const errorIndex = oldColumn.model() ? to : from;
@@ -83,13 +86,9 @@ export class LiveColumnComponent implements OnInit {
 				let offset = 0;
 
 				if (from < to) {
-					if (Math.abs(from - to) > 1) {
-						offset = newRect.left - oldRect.right + endRect.width;
-					} else { offset = endRect.width; }
+					offset = (Math.abs(from - to) > 1) ? newRect.left - oldRect.right + endRect.width : endRect.width;
 				} else {
-					if (Math.abs(from - to) > 1) {
-						offset = newRect.left - oldRect.left;
-					} else { offset = -1 * startRect.width; }
+					offset = (Math.abs(from - to) > 1) ? newRect.left - oldRect.left : -1 * startRect.width;
 				}
 
 				Fastdom.mutate(() => {

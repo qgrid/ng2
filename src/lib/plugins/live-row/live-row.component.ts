@@ -5,7 +5,7 @@ import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 
 @Component({
 	selector: 'q-grid-live-rows',
-	template: '<ng-content></ng-content>',
+	template: '',
 	providers: [PluginService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -32,12 +32,12 @@ export class LiveRowComponent implements OnInit {
 				const id = model.data().id.row;
 				const animations = [];
 
-				for (let rowId = 0, length = previousRows.length; rowId < length; rowId++) {
-					const newRowId = currentRows.findIndex((row, i) => id(i, row) === id(rowId, previousRows[rowId]));
-					if (newRowId < 0) {
-						animations.push(this.fadeOutRow(rowId));
-					} else if (newRowId !== rowId) {
-						animations.push(this.moveRow(rowId, newRowId));
+				for (let rowIndex = 0, length = previousRows.length; rowIndex < length; rowIndex++) {
+					const newRowIndex = currentRows.findIndex((row, i) => id(i, row) === id(rowIndex, previousRows[rowIndex]));
+					if (newRowIndex < 0) {
+						animations.push(this.fadeOutRow(rowIndex));
+					} else if (newRowIndex !== rowIndex) {
+						animations.push(this.moveRow(rowIndex, newRowIndex));
 					}
 				}
 
@@ -49,7 +49,7 @@ export class LiveRowComponent implements OnInit {
 		});
 	}
 
-	fadeOutRow(index: number) {
+	private fadeOutRow(index: number) {
 		return new Promise((resolve, reject) => {
 			const tr = this.plugin.table.body.row(index);
 			if (!tr.model()) {
@@ -69,7 +69,7 @@ export class LiveRowComponent implements OnInit {
 		});
 	}
 
-	moveRow(from: number, to: number) {
+	private moveRow(from: number, to: number) {
 		const { table } = this.plugin;
 
 		return new Promise((resolve, reject) => {
