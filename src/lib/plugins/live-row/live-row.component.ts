@@ -5,54 +5,52 @@ import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 
 @Component({
 	selector: 'q-grid-live-rows',
-	template: '<ng-content></ng-content>',
+	template: '',
 	providers: [PluginService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LiveRowComponent implements OnInit {
-	private currentRows: any[];
 
-	@Input('duration') duration: number;
+	@Input('duration') duration = 200;
 
 	constructor(private plugin: PluginService, private zone: NgZone) { }
 
 	ngOnInit() {
 		const { model } = this.plugin;
-		model.animation({
-			apply: (memo, context, complete) => {
-				const previousRows = this.currentRows;
-				const currentRows = memo.rows;
-				this.currentRows = currentRows;
+		let currentRows: any[];
 
-				if (!previousRows) {
-					complete(memo);
+		model.animation({
+			apply: model.animation().apply.concat((memo, context, complete) => {
+				const previousRows = currentRows;
+				currentRows = memo.rows ? memo.rows : currentRows;
+
+				if (!previousRows || !currentRows) {
+					complete();
 					return;
 				}
 
-				this.zone.runOutsideAngular(() => {
-					const id = model.data().id.row;
-					const animations = [];
+				const id = model.data().id.row;
+				const animations = [];
 
-					for (let rowId = 0, length = previousRows.length; rowId < length; rowId++) {
-						const oldRow = id(rowId, previousRows[rowId]);
-						const newRowId = currentRows.findIndex((row, i) => id(i, row) === oldRow);
-
-						if (newRowId < 0) {
-							animations.push( this.fadeOutRow(rowId) );
-						} else if (newRowId !== rowId) {
-							animations.push( this.moveRow(rowId, newRowId) );
-						}
+				for (let rowIndex = 0, length = previousRows.length; rowIndex < length; rowIndex++) {
+					const newRowIndex = currentRows.findIndex((row, i) => id(i, row) === id(rowIndex, previousRows[rowIndex]));
+					if (newRowIndex < 0) {
+						animations.push(this.fadeOutRow(rowIndex));
+					} else if (newRowIndex !== rowIndex) {
+						animations.push(this.moveRow(rowIndex, newRowIndex));
 					}
+				}
 
+				this.zone.runOutsideAngular(() => {
 					Promise.all(animations)
-					.then(() => complete(memo));
+						.then(complete);
 				});
-			}
+			})
 		});
 	}
 
-	fadeOutRow(index: number) {
-		return new Promise( (resolve, reject) => {
+	private fadeOutRow(index: number) {
+		return new Promise((resolve, reject) => {
 			const tr = this.plugin.table.body.row(index);
 			if (!tr.model()) {
 				reject(`Can't find model for row ${index}`);
@@ -71,10 +69,12 @@ export class LiveRowComponent implements OnInit {
 		});
 	}
 
-	moveRow(from: number, to: number) {
-		return new Promise( (resolve, reject) => {
-			const oldTr = this.plugin.table.body.row(from);
-			const newTr = this.plugin.table.body.row(to);
+	private moveRow(from: number, to: number) {
+		const { table } = this.plugin;
+
+		return new Promise((resolve, reject) => {
+			const oldTr = table.body.row(from);
+			const newTr = table.body.row(to);
 
 			if (!oldTr.model() || !newTr.model()) {
 				const errorIndex = oldTr.model() ? to : from;
@@ -86,17 +86,24 @@ export class LiveRowComponent implements OnInit {
 				const offset = newTr.rect().top - oldTr.rect().top;
 
 				Fastdom.mutate(() => {
+					const animatedRows = [];
 					oldTr.addClass(`${GRID_PREFIX}-live-row`);
-					const animation = oldTr.model().tr.element.animate([
-						{ transform: `translateY(0px)` },
-						{ transform: `translateY(${offset}px)` }],
-						{ duration: this.duration}
-					);
+					(oldTr.getElement() as any).elements.forEach(rowElement => animatedRows.push(
+						new Promise(res => {
+							const animation = rowElement.animate([
+								{ transform: `translateY(0px)` },
+								{ transform: `translateY(${offset}px)` }],
+								{ duration: this.duration }
+							);
 
-					animation.onfinish = () => Fastdom.mutate(() => {
-						oldTr.removeClass(`${GRID_PREFIX}-live-row`);
-						resolve();
-					});
+							animation.onfinish = () => Fastdom.mutate(() => {
+								oldTr.removeClass(`${GRID_PREFIX}-live-row`);
+								oldTr.removeClass(`${GRID_PREFIX}-drag`);
+								res();
+							});
+						})));
+
+					Promise.all(animatedRows).finally(() => resolve());
 				});
 			});
 		});

@@ -33,6 +33,7 @@ import { ValidationModule } from './validation/validation.module';
 import { LayerModule } from './layer/layer.module';
 import { LiveCellModule } from './live-cell/live-cell.module';
 import { LiveRowModule } from './live-row/live-row.module';
+import { LiveColumnModule } from './live-column/live-column.module';
 
 @NgModule({
 	exports: [
@@ -64,7 +65,8 @@ import { LiveRowModule } from './live-row/live-row.module';
 		TitleModule,
 		ValidationModule,
 		LiveCellModule,
-		LiveRowModule
+		LiveRowModule,
+		LiveColumnModule
 	]
 })
 export class PluginModule {
