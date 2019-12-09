@@ -7,6 +7,12 @@ export class ValidatorView {
 		this.context = context;
 
 		this.oldErrors = [];
+		// this.customValidator
+		// 'customFunction'
+
+		// if (this.customFunction) {
+		// 	console.log(this.customFunction(1), this.customFunction(2), this.customFunction(4), this.customFunction(8));
+		// }
 		if (hasRules(this.rules, this.key)) {
 			this.validator = createValidator(this.rules, this.key);
 		}

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { ValidatorView } from 'ng2-qgrid/plugin/validation/validator.view';
 import { PluginService } from '../plugin.service';
 import { TemplateHostService } from '../../template/template-host.service';
@@ -8,7 +8,7 @@ import { TemplateHostService } from '../../template/template-host.service';
 	templateUrl: './validator.component.html',
 	providers: [TemplateHostService, PluginService]
 })
-export class ValidatorComponent implements OnInit {
+export class ValidatorComponent implements OnInit, AfterViewInit {
 	@Input() value: string;
 	@Input() key: string;
 	@Input() type: string;
@@ -25,5 +25,9 @@ export class ValidatorComponent implements OnInit {
 		const { model } = this.plugin;
 		const view = new ValidatorView(model, this);
 		this.context = { $implicit: view };
+	}
+
+	ngAfterViewInit() {
+		console.log(this.context.$implicit.value);
 	}
 }

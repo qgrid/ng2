@@ -1,14 +1,16 @@
 import * as LIVR from 'livr';
 
-export const { Validator } = LIVR;
+export const {Validator} = LIVR;
 
-function toLIVR(rules, key) {
+function toLIVRFormat(rules, key) {
 	const validationRules = [];
+	const customRules = [];
 	rules.forEach(rule => {
 		if (rule.key === key) {
 			for (let name of Object.keys(rule)) {
-				if (name !== 'key' && name !== 'for') {
-					validationRules.push({
+				if (!['for', 'key'].includes(key)) {
+					const rulesArray = key === 'customFunction' ? customRules : validationRules;
+					rulesArray.push({
 						[name]: rule[name]
 					});
 				}
@@ -16,18 +18,20 @@ function toLIVR(rules, key) {
 		}
 	});
 	return {
-		hasRules: validationRules.length > 0,
-		rules: { [key]: validationRules }
+		customRules: {[key]: customRules},
+		rules: {[key]: validationRules},
+		hasRules: validationRules.length + customRules.length > 0,
+		hasLIVRRules: validationRules.length > 0,
 	};
 }
 
 export function hasRules(rules, key) {
-	return toLIVR(rules, key).hasRules;
+	return toLIVRFormat(rules, key).hasRules;
 }
 
 export function createValidator(rules, key) {
-	if (arguments.length === 2) {
-		const settings = toLIVR(rules, key);
+	if (rules && key) {
+		const settings = toLIVRFormat(rules, key);
 		return new Validator(settings.rules);
 	}
 

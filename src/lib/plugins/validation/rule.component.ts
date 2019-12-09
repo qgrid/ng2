@@ -40,6 +40,7 @@ export class RuleComponent implements OnChanges {
 	@Input('isoDate') iso_date?: string;
 	@Input('equalToField') equal_to_field?: string;
 	@Input('listOf') list_of?: string;
+	@Input('customFunction') customFunction?: Function = null;
 
 	@ViewChild(TemplateRef) templateRef: TemplateRef<any>;
 
@@ -49,7 +50,7 @@ export class RuleComponent implements OnChanges {
 
 	constructor(
 		private plugin: PluginService,
-		private templateHost: TemplateHostService
+		private templateHost: TemplateHostService,
 	) {
 		this.templateHost.key = () => `rule`;
 	}

@@ -19,4 +19,8 @@ export class ExampleValidationBasicComponent {
 	constructor(dataService: DataService) {
 		this.rows = dataService.getAtoms();
 	}
+
+	checkNumber(v) {
+		return v > 5;
+	}
 }
