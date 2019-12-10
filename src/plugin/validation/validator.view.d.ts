@@ -1,5 +1,5 @@
 import { Model } from '../../core/infrastructure/model';
-import { Validator } from '../../core/validation/validation.service';
+import { Validator } from '../../core/validation/validator.builder';
 
 export declare class ValidatorView {
 	constructor(model: Model, context: any);

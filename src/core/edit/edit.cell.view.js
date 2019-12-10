@@ -6,7 +6,8 @@ import { getFactory as valueFactory } from '../services/value';
 import { getFactory as labelFactory } from '../services/label';
 import { parseFactory } from '../services/convert';
 import { Td } from '../dom/td';
-import * as validationService from '../validation/validation.service';
+import * as validationService from '../validation/validator.builder';
+import {ValidatorBuilder} from "../validation/validator.builder";
 
 export class EditCellView {
 	constructor(model, table, shortcut) {
@@ -148,7 +149,7 @@ export class EditCellView {
 					if (canEdit) {
 						const context = this.contextFactory(cell, this.value, this.label, this.tag);
 						const key = context.column.key;
-						const validator = validationService.createValidator(model.validation().rules, key);
+						const validator = new ValidatorBuilder(model.validation().rules, key);
 						return model.edit().commit.canExecute(context) && validator.validate({ [key]: this.value });
 					}
 					return false;
@@ -183,7 +184,7 @@ export class EditCellView {
 					if (canEdit) {
 						const context = this.contextFactory(cell, this.value, this.label, this.tag);
 						const key = context.column.key;
-						const validator = validationService.createValidator(model.validation().rules, key);
+						const validator = new ValidatorBuilder(model.validation().rules, key);
 						return model.edit().commit.canExecute(context) && validator.validate({ [key]: this.value });
 					}
 

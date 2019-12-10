@@ -1,5 +1,5 @@
 import { isString, isEqual } from '../../core/utility/kit';
-import { hasRules, createValidator } from '../../core/validation/validation.service';
+import { ValidatorBuilder } from '../../core/validation/validator.builder';
 
 export class ValidatorView {
 	constructor(model, context) {
@@ -7,15 +7,7 @@ export class ValidatorView {
 		this.context = context;
 
 		this.oldErrors = [];
-		// this.customValidator
-		// 'customFunction'
-
-		// if (this.customFunction) {
-		// 	console.log(this.customFunction(1), this.customFunction(2), this.customFunction(4), this.customFunction(8));
-		// }
-		if (hasRules(this.rules, this.key)) {
-			this.validator = createValidator(this.rules, this.key);
-		}
+		this.validator = new ValidatorBuilder(this.rules, this.key);
 	}
 
 	get errors() {
@@ -55,11 +47,13 @@ export class ValidatorView {
 	}
 
 	stringify(errors) {
-		const customErrors = [];
-		let rules = {};
-		for (const rule of this.validator.livrRules[this.key]) {
-			rules = Object.assign(rules, rule);
+		if (!this.validator.hasRules){
+			return [];
+		} else if (!this.validator.hasLivrRules){
+			return errors;
 		}
+		const customErrors = [];
+		const rules = {...this.validator.livrRules[this.key]};
 
 		for (const error of errors) {
 			switch (error) {
