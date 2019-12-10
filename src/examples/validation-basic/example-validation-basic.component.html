@@ -29,12 +29,56 @@
 		<q-grid-column key="source"
 					   title="Url">
 		</q-grid-column>
+		<q-grid-column key="discoveredIn"
+					   title="Should be > 1800 and even">
+		</q-grid-column>
 	</q-grid-columns>
 	<q-grid-validation>
 		<q-grid-rule for="cell"
 					 key="number"
-					 [customFunction]="checkNumber"
 					 required>
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+					 key="name"
+					 required
+					 [lengthBetween]="[3, 40]">
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+					 key="phase"
+					 required
+					 [oneOf]="['Gas', 'Solid']">
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+					 key="color"
+					 pattern="^[\da-fA-F]{6}$">
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+					 key="summary"
+					 required
+					 minLength="5">
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+					 key="period"
+					 required
+					 positiveInteger
+					 lengthEqual="1">
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+					 key="radius"
+					 required
+					 positiveInteger>
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+					 key="mass"
+					 positiveDecimal>
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+					 key="source"
+					 url>
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+					 key="discoveredIn"
+					 [customValidation]="checkNumberCustom()">
 		</q-grid-rule>
 	</q-grid-validation>
 

@@ -20,7 +20,14 @@ export class ExampleValidationBasicComponent {
 		this.rows = dataService.getAtoms();
 	}
 
+	checkNumberCustom() {
+		return {
+			validationMessage: 'Should be > 1800 and even',
+			validationFunction: this.checkNumber
+		};
+	}
+
 	checkNumber(v) {
-		return v > 5;
+		return v > 1800 && v % 2 === 0;
 	}
 }
