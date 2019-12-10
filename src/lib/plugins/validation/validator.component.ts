@@ -16,7 +16,7 @@ export class ValidatorComponent implements OnInit {
 
 	constructor(
 		private plugin: PluginService,
-		private templateHost: TemplateHostService,
+		private templateHost: TemplateHostService
 	) {
 		this.templateHost.key = () => `validator`;
 	}

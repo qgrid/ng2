@@ -1,6 +1,6 @@
-import * as LIVR from "livr";
+import * as LIVR from 'livr';
 
-export const {Validator: LivrValidator} = LIVR;
+export const { Validator: LivrValidator } = LIVR;
 
 
 export function createLivrValidator(rules) {
@@ -62,7 +62,6 @@ export class ValidatorBuilder {
 					const isValidCustom = this.customRule[k].validationFunction(data[k]);
 					if (!isValidCustom) {
 						this.errors = this.errors || {};
-						// this.errors[k] = 'CUSTOM_ERROR';
 						this.errors[k] = this.customRule[k].validationMessage;
 					}
 

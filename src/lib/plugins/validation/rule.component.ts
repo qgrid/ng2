@@ -50,7 +50,7 @@ export class RuleComponent implements OnChanges {
 
 	constructor(
 		private plugin: PluginService,
-		private templateHost: TemplateHostService,
+		private templateHost: TemplateHostService
 	) {
 		this.templateHost.key = () => `rule`;
 	}
