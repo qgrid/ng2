@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
 import { isArray } from 'ng2-qgrid/core/utility/kit';
 import { Column, QueryBuilderService, ColumnMap } from '../query-builder.service';
-import { createLivrValidator } from 'ng2-qgrid/core/validation/validator.builder';
+import { createValidator } from 'ng2-qgrid/core/validation/validator.builder';
 
 export class Validator {
 	private columnMap: ColumnMap;
@@ -56,7 +56,7 @@ export class Validator {
 				}
 
 				const target = { [id]: value };
-				const validator = createLivrValidator(schema);
+				const validator = createValidator(schema);
 				const isValid = validator.validate(target);
 				if (isValid) {
 					return trueResult;

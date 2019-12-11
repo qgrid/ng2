@@ -12,4 +12,4 @@ export declare interface ValidatorBuilder {
 	hasRules(): boolean;
 }
 
-export declare function createLivrValidator(rules: any): Validator;
+export declare function createValidator(rules: any): Validator;

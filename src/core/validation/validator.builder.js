@@ -2,7 +2,7 @@ import * as LIVR from 'livr';
 
 export const { Validator: LivrValidator } = LIVR;
 
-export function createLivrValidator(rules) {
+export function createValidator(rules) {
 	return new LivrValidator(rules);
 }
 
