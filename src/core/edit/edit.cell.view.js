@@ -6,7 +6,7 @@ import { getFactory as valueFactory } from '../services/value';
 import { getFactory as labelFactory } from '../services/label';
 import { parseFactory } from '../services/convert';
 import { Td } from '../dom/td';
-import { ValidatorBuilder } from "../validation/validator.builder";
+import { ValidatorBuilder } from '../validation/validator.builder';
 
 export class EditCellView {
 	constructor(model, table, shortcut) {
