@@ -1,18 +1,15 @@
 export declare interface Validator {
 	validate(value: any): boolean;
-	getErrors(): { [key: string]: string };
+	getErrors(): Array<string>;
 }
 
 
-export declare interface ValidatorBuilder extends Validator {
-	rules: any;
-	livrRules: any;
-	errors: any;
-	livrValidator: Validator;
-	hasLivrRules: boolean;
+export declare interface ValidatorBuilder {
+	validator: Validator;
+	hasCommonRules: boolean;
 	hasCustomRules: boolean;
 	registerRules(rules: any, key: string): void;
 	hasRules(): boolean;
 }
 
-export declare function createValidator(rules: any): Validator;
+export declare function createLivrValidator(rules: any): Validator;

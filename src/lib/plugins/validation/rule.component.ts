@@ -40,7 +40,7 @@ export class RuleComponent implements OnChanges {
 	@Input('isoDate') iso_date?: string;
 	@Input('equalToField') equal_to_field?: string;
 	@Input('listOf') list_of?: string;
-	@Input('customValidation') customValidation?;
+	@Input('customValidation') custom_validation?;
 
 	@ViewChild(TemplateRef) templateRef: TemplateRef<any>;
 

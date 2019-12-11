@@ -7,7 +7,8 @@ export class ValidatorView {
 		this.context = context;
 
 		this.oldErrors = [];
-		this.validator = new ValidatorBuilder(this.rules, this.key);
+		const validatorBuilder = new ValidatorBuilder(this.rules, this.key);
+		this.validator = validatorBuilder.validator;
 	}
 
 	get errors() {
@@ -47,13 +48,11 @@ export class ValidatorView {
 	}
 
 	stringify(errors) {
-		if (!this.validator.hasRules){
-			return [];
-		} else if (!this.validator.hasLivrRules){
-			return errors;
-		}
 		const customErrors = [];
-		const rules = {...this.validator.livrRules[this.key]};
+		let rules = {};
+		for (const rule of this.validator.livrRules[this.key]) {
+			rules = Object.assign(rules, rule);
+		}
 
 		for (const error of errors) {
 			switch (error) {

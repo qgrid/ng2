@@ -148,7 +148,8 @@ export class EditCellView {
 					if (canEdit) {
 						const context = this.contextFactory(cell, this.value, this.label, this.tag);
 						const key = context.column.key;
-						const validator = new ValidatorBuilder(model.validation().rules, key);
+						const validatorBuilder = new ValidatorBuilder(model.validation().rules, key);
+						const { validator } = validatorBuilder;
 						return model.edit().commit.canExecute(context) && validator.validate({ [key]: this.value });
 					}
 					return false;
@@ -183,7 +184,8 @@ export class EditCellView {
 					if (canEdit) {
 						const context = this.contextFactory(cell, this.value, this.label, this.tag);
 						const key = context.column.key;
-						const validator = new ValidatorBuilder(model.validation().rules, key);
+						const validatorBuilder = new ValidatorBuilder(model.validation().rules, key);
+						const { validator } = validatorBuilder;
 						return model.edit().commit.canExecute(context) && validator.validate({ [key]: this.value });
 					}
 
