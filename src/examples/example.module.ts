@@ -46,6 +46,7 @@ import { ExampleDestroyGridModelComponent } from './destroy-grid-model/example-d
 import { ExampleDetailsRowAllComponent } from './details-row-all/example-details-row-all.component';
 import { ExampleDetailsRowApiComponent } from './details-row-api/example-details-row-api.component';
 import { ExampleDetailsRowBasicComponent } from './details-row-basic/example-details-row-basic.component';
+import { ExampleDetailsRowCustomComponent } from './details-row-custom/example-details-row-custom.component';
 import { ExampleDetailsRowGridComponent } from './details-row-grid/example-details-row-grid.component';
 import { ExampleDetailsRowPinComponent } from './details-row-pin/example-details-row-pin.component';
 import { ExampleDetailsRowStartComponent } from './details-row-start/example-details-row-start.component';
@@ -184,7 +185,7 @@ export const EXAMPLES: any[] = [
 	ExampleColumnUrlBasicComponent,
 	ExampleDataRowAddComponent,
 	ExampleDataRowDeleteComponent,
-	ExampleDefineColumnAsyncComponent, 
+	ExampleDefineColumnAsyncComponent,
 	ExampleDefineColumnBasicComponent,
 	ExampleDefineColumnHybridComponent,
 	ExampleDefineColumnTypeComponent,
@@ -193,6 +194,7 @@ export const EXAMPLES: any[] = [
 	ExampleDetailsRowAllComponent,
 	ExampleDetailsRowApiComponent,
 	ExampleDetailsRowBasicComponent,
+	ExampleDetailsRowCustomComponent,
 	ExampleDetailsRowGridComponent,
 	ExampleDetailsRowPinComponent,
 	ExampleDetailsRowStartComponent,
