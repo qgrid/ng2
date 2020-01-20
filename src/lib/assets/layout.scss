@@ -125,12 +125,13 @@ $layout-gutter-width: ($baseline-grid * 2) !default;
     .layout#{$name},
     .layout#{$name}-column,
     .layout#{$name}-row {
-        box-sizing: border-box;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -moz-box;
-        display: -ms-flexbox;
         display: flex;
+        box-sizing: border-box;
+        //According to caniuse.com flexbox supported by all browsers except Ie 6-9, Opera 10-11, Opera Mobile 12
+        // display: -webkit-box;
+        // display: -webkit-flex;
+        // display: -moz-box;
+        // display: -ms-flexbox;
     }
     .layout#{$name}-column {
 		flex-direction: column;

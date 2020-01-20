@@ -36,6 +36,8 @@ import { PipeModel } from '../pipe/pipe.model';
 import { RestModel } from '../rest/rest.model';
 import { AnimationModel } from '../animation/animation.model';
 import { RowListModel } from '../row-list/row.list.model';
+import { KeyboardModel } from '../keyboard/keyboard.model';
+import { MouseModel } from '../mouse/mouse.model';
 
 export declare interface ModelTag {
 	source?: string;
@@ -200,6 +202,16 @@ export declare interface Model {
 	animationChanged: ModelEvent<AnimationModel>;
 	animation(value: AnimationModel, tag?: ModelTag): Model;
 	animation(): AnimationModel;
+
+	keyboardChanged: ModelEvent<KeyboardModel>;
+	keyboard(value: KeyboardModel, tag?: ModelTag): Model;
+	keyboard(): KeyboardModel;
+
+
+	mouseChanged: ModelEvent<MouseModel>;
+	mouse(value: MouseModel, tag?: ModelTag): Model;
+	mouse(): MouseModel;
+
 
 	queryBuilderChanged: ModelEvent<any>;
 	queryBuilder(value: any, tag?: ModelTag): Model;

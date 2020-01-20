@@ -1,17 +1,15 @@
-@import "variables";
-
 thead {
-    box-shadow: 0 1px 0px #ddd;
+    box-shadow: 0 1px 0px $light-gray;
 }
 
 .q-grid-body-top {
     tr:last-child {
-        border-bottom: 1px solid $dark-divider;
+        border-bottom: 1px solid $common-border-color;
     }
 }
 
 .q-grid-body-bottom {
     tr:first-child {
-        border-top: 1px solid $dark-divider;
+        border-top: 1px solid $common-border-color;
     }
 }

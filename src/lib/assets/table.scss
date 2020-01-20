@@ -1,4 +1,3 @@
-@import 'variable.scss';
 .q-grid-table {
     tbody,
     thead,
@@ -28,7 +27,7 @@
             flex: 1 1 auto;
             display: block;
             overflow: scroll;
-			scrollbar-color: #c8c8c8 #f8f8f8;
+			scrollbar-color: $scrollbar-track-dark $scrollbar-track;
 			scrollbar-width: thin;
             outline: none;
             overflow-anchor: none;

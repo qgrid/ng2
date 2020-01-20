@@ -10,15 +10,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
-## [7.5.0] - 2019-08-28
+## [7.5.0] - 2020-01-20
+### Added
+- Keyboard API.
+- Mouse API.
+
 ### Changed
 - Better column drag and drop.
 - Filter row style enhancements.
 
+### Fixed
+- Progress line.
+
 ### BREAKING
 - Navigation event raised before selection.
 - Pane context receives value from the trigger not cell.
-- Increase default date width on 30px.
 
 ## [7.4.0] - 2019-08-16
 ### Added

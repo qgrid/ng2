@@ -1,5 +1,6 @@
 th {
     >.q-grid-resize-handler {
+        position: absolute;
         top: 20%;
         bottom: 20%;
         right: 0;
@@ -7,8 +8,7 @@ th {
         width: 4px;
         z-index: 2;
         background: transparent;
-        position: absolute;
-        border-right: 1px solid #e0e0e0;
+        border-right: 1px solid $white;
         cursor: col-resize;
         opacity: 0;
     }
@@ -23,12 +23,12 @@ th {
 td {
     >.q-grid-can-drag {
         >.q-grid-resize-handler {
+            position: absolute;
             height: 2px;
             width: 100%;
             bottom: 0;
             left: 0;
             width: 100vh;
-            position: absolute;
             cursor: row-resize;
             z-index: 2;
             pointer-events: all;

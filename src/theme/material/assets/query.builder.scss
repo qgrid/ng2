@@ -1,7 +1,5 @@
 @at-root .q-grid-query-builder-panel.q-grid-menu {
-    width: 480px;
-    min-width: 480px;
-    max-width: 480px;
+    @include width(480px);
     height: 525px;
     overflow: hidden;
     .q-grid-query-builder {
@@ -43,7 +41,7 @@
                             >.q-grid-eb-children {
                                 display: flex;
                                 >ul {
-                                    border-left: 1px solid #999;
+                                    border-left: 1px solid $dark-gray;
                                     border-radius: 5px;
                                     margin-left: 35px;
                                     padding-left: 10px;
@@ -62,25 +60,20 @@
                 }
             }
             .q-grid-eb-active {
-                outline: 2px solid rgba(63, 81, 181, 0.25);
-                background: #f5f5f5;
+                outline: 2px solid $blue-outline025;
+                background: $selected;
             }
         }
         &-icon-button {
-            height: 16px;
-            width: 16px;
-            line-height: 16px;
+            @include buttonSizes(16px);
             .q-grid-icon {
-                line-height: 16px;
-                height: 16px;
-                width: 16px;
-                font-size: 16px;
+                @include iconSizes(16px);
             }
         }
         &-expression-line {
             margin-top: 15px;
             font-size: 12px;
-            background-color: #f5f5f5;
+            background-color: $selected;
             padding: 10px;
             overflow-y: auto;
             height: 27px;
@@ -106,31 +99,29 @@
                         content: ' ';
                     }
                 }
+                &-markup-condition-left,
                 &-markup-group-open,
                 &-markup-group-close,
                 &-markup-condition-open,
                 &-markup-condition-close {
-                    color: #888;
-                }
-                &-markup-condition-left {
-                    color: #888;
+                    color: $markup-gray;
                 }
                 &-markup-condition-quote {
-                    color: #a11;
+                    color: $markup-red;
                 }
                 &-markup-condition-op {
-                    color: #666;
+                    color: $markup-secondary-gray;
                     text-transform: uppercase;
                 }
                 &-markup-condition-value-text {
-                    color: #a11 !important;
+                    color: $markup-red !important;
                 }
                 &-markup-condition-value,
                 &-markup-condition-value {
-                    color: #000;
+                    color: $black;
                 }
                 &-markup-condition-value-invalid:before {
-                    color: #dd2c00;
+                    color: $red;
                     content: '﹏';
                 }
             }
@@ -141,9 +132,7 @@
 @at-root {
     @media (max-height: 540px) {
         .q-grid-query-builder-panel.q-grid-menu {
-            height: 400px;
-            max-height: 400px;
-            min-height: 400px;
+            @include height(400px);
             .q-grid-query-builder-expression {
                 height: 138px;
             }

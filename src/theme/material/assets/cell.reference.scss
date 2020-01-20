@@ -2,7 +2,14 @@
     height: 420px;
     width: 385px;
 
-    .q-grid-editor-content {
-        padding: 0 24px;
+    .q-grid-reference-content {
+        @include simpleSquareElement(100%);
+
+        .q-grid-title,
+        .q-grid-caption {
+            h2 {
+                margin-bottom: 8px;
+            }
+        }
     }
 }

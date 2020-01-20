@@ -8,37 +8,23 @@ th {
             label {
                 font-weight: normal;
             }
-		}
+        }
 
         input {
             color: $dark;
-		}
-		
-		.q-grid-icon {
-			color: $dark-secondary;
-		}
+        }
 
-		.q-grid-close {
+        .q-grid-icon {
+            color: $dark-secondary;
+        }
+
+        .q-grid-close {
             cursor: pointer;
             font-size: 14px;
             height: 16px;
             vertical-align: middle;
-        }    
-
-        input[placeholder] {
-            text-overflow: ellipsis;
         }
 
-        input::-moz-placeholder {
-            text-overflow: ellipsis;
-        }
-
-        input:-moz-placeholder {
-            text-overflow: ellipsis;
-        }
-
-        input:-ms-input-placeholder {
-            text-overflow: ellipsis;
-        }
+        @include placeholderOverflow(ellipsis);
     }
 }

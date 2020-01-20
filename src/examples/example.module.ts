@@ -46,6 +46,7 @@ import { ExampleDestroyGridModelComponent } from './destroy-grid-model/example-d
 import { ExampleDetailsRowAllComponent } from './details-row-all/example-details-row-all.component';
 import { ExampleDetailsRowApiComponent } from './details-row-api/example-details-row-api.component';
 import { ExampleDetailsRowBasicComponent } from './details-row-basic/example-details-row-basic.component';
+import { ExampleDetailsRowCustomComponent } from './details-row-custom/example-details-row-custom.component';
 import { ExampleDetailsRowGridComponent } from './details-row-grid/example-details-row-grid.component';
 import { ExampleDetailsRowPinComponent } from './details-row-pin/example-details-row-pin.component';
 import { ExampleDetailsRowStartComponent } from './details-row-start/example-details-row-start.component';
@@ -56,6 +57,7 @@ import { ExampleDynamicColumnModelComponent } from './dynamic-column-model/examp
 import { ExampleEditCellBasicComponent } from './edit-cell-basic/example-edit-cell-basic.component';
 import { ExampleEditCellBatchComponent } from './edit-cell-batch/example-edit-cell-batch.component';
 import { ExampleEditRowBasicComponent } from './edit-row-basic/example-edit-row-basic.component';
+import { ExampleEditRowCustomComponent } from './edit-row-custom/example-edit-row-custom.component';
 import { ExampleExportBasicComponent } from './export-basic/example-export-basic.component';
 import { ExampleExportCsvComponent } from './export-csv/example-export-csv.component';
 import { ExampleFilterColumnFetchComponent } from './filter-column-fetch/example-filter-column-fetch.component';
@@ -193,6 +195,7 @@ export const EXAMPLES: any[] = [
 	ExampleDetailsRowAllComponent,
 	ExampleDetailsRowApiComponent,
 	ExampleDetailsRowBasicComponent,
+	ExampleDetailsRowCustomComponent,
 	ExampleDetailsRowGridComponent,
 	ExampleDetailsRowPinComponent,
 	ExampleDetailsRowStartComponent,
@@ -203,6 +206,7 @@ export const EXAMPLES: any[] = [
 	ExampleEditCellBasicComponent,
 	ExampleEditCellBatchComponent,
 	ExampleEditRowBasicComponent,
+	ExampleEditRowCustomComponent,
 	ExampleExportBasicComponent,
 	ExampleExportCsvComponent,
 	ExampleFilterColumnFetchComponent,

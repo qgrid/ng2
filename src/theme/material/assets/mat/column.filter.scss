@@ -16,9 +16,7 @@
             overflow: hidden;
 
             .mat-card-title {
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
+                @include textCutter;
             }
         }
     }

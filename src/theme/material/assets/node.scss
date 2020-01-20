@@ -1,4 +1,3 @@
-@import "variables";
 th.q-grid-group {
     label {
         cursor: pointer;
@@ -9,9 +8,7 @@ th.q-grid-group {
 td.q-grid-group,
 td.q-grid-row-expand {
     button {
-        width: 24px;
-        height: 24px;
-        line-height: 24px;
+        @include buttonSizes(24px);
         min-height: 24px;
         margin: -1px 0 0 -6px;
         padding: 0;

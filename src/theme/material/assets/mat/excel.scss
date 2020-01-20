@@ -1,12 +1,3 @@
-$excel-greyscale-light: #eee;
-$excel-greyscale-medium: #ccc;
-$excel-greyscale-lightdark: #d2d2d2;
-$excel-greyscale-dark: #c6c6c6;
-
-$excel-greenscale-light: #D3F0E0;
-$excel-greenscale-medium: #9FD5B7;
-$excel-greenscale-dark: #227447;
-
 .q-grid-view thead tr {
   height: 24px;
   background-color: $excel-greyscale-light;
@@ -15,7 +6,7 @@ $excel-greenscale-dark: #227447;
   th {
     border-left: 1px solid $excel-greyscale-lightdark;
     label {
-      color: black;
+      color: $black;
       font-weight: normal;
     }
     &.q-grid-highlighted {
@@ -45,11 +36,11 @@ $excel-greenscale-dark: #227447;
     border-top-width: 1px;
   }
   tr td {
-    color: black;
+    color: $black;
     border: 1px solid $excel-greyscale-medium;
     line-height: 21px;
     padding: 0 4px 0 4px;
-    background-color: white;
+    background-color: $white;
     vertical-align: top;
     overflow: hidden;
     outline-width: 0;
@@ -80,14 +71,14 @@ $excel-greenscale-dark: #227447;
       }
     }
     &.q-grid-focus {
-      background-color: white !important;
+      background-color: $white !important;
       border: 2px solid $excel-greenscale-dark;
     }
     &.q-grid-focus.q-grid-edit input {
       border: none;
     }
     &.q-grid-selected {
-      background-color: white !important;
+      background-color: $white !important;
     }
     &.q-grid-row-number {
       background-color: $excel-greyscale-light;

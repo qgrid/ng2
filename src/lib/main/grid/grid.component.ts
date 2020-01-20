@@ -182,8 +182,8 @@ export class GridComponent extends RootComponent implements OnInit {
 						model.edit({
 							state: 'view'
 						}, {
-								source: 'document.click'
-							});
+							source: 'document.click'
+						});
 					}
 				}
 			}));
@@ -216,6 +216,13 @@ export class GridComponent extends RootComponent implements OnInit {
 				}
 			}));
 		}
+
+
+		this.zone.runOutsideAngular(() =>
+			this.using(listener.on('keyup', e => {
+				ctrl.keyUp(e, 'grid');
+			}))
+		);
 
 		this.using(model.visibilityChanged.on(() => this.cd.detectChanges()));
 

@@ -1,17 +1,17 @@
-.q-grid-live-row {
-	background-color: #fff !important;
+.q-grid-table-center .q-grid-live-row {
+	background-color: $white !important;
 	z-index: 2;
 	position: relative;
-	border: none !important;
 	display: inline-table !important;
+	opacity: 1 !important;
 
 	&::before,
 	&::after {
 		content: '';
 		position: absolute;
 		width: 100%;
-		height: 1px;
-		background-color: #e0e0e0;
+		height: 0.7px;
+		background-color: $grid-live-pseudo;
 		left: 0;
 	}
 
@@ -24,13 +24,17 @@
 	}
 }
 
+.q-grid-live-row {
+	border: none !important;
+}
+
 .q-grid-live-cell {
 	display: block;
 	margin: 0 -10px;
 	border-radius: 5px;
  
 	@keyframes textBackroundColor {
-	   0% { background-color: rgba(70, 140, 160, .3) }
+	   0% { background-color: $text-bg-color}
 	   100% { background-color: transparent }
 	}
  
@@ -52,17 +56,16 @@
 	}
   
 	&-up {
-	   color: green;
-	   background-color: rgba(0, 100, 0, .1);
+	   color: $text-up-color;
+	   background-color: $up-down-bg-color;
 	}
   
 	&-down {
-	   color: red;
-	   background-color: rgba(100, 0, 0, .1);
+	   color: $text-down-color;
+	   background-color: $up-down-bg-color;
 	}
   
 	&-text {
-  
 	   & .q-grid-live-cell-prev {
 		  text-decoration: line-through;
 	   }
