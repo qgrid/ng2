@@ -90,7 +90,11 @@ tbody {
         }
         &.q-grid-select,
         &.q-grid-row-options,
-        &.q-grid-row-indicator {
+        &.q-grid-row-indicator,
+        &.q-grid-array,
+        &.q-grid-image,
+        &.q-grid-row-expand,
+        &.q-grid-pad {
             text-overflow: initial;
         }
     }

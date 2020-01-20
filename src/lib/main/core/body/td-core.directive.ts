@@ -157,6 +157,11 @@ export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
 		return this.tr.index;
 	}
 
+	get dataRowIndex() {
+		const { model } = this.root;
+		return model.data().rows.indexOf(this.row);
+	}
+
 	ngOnDestroy() {
 		this.root.bag.body.deleteCell(this);
 	}

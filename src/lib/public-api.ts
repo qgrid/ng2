@@ -21,6 +21,7 @@ export { Pipe } from 'ng2-qgrid/core/pipe/pipe';
 export { PipeUnit } from 'ng2-qgrid/core/pipe/pipe.unit';
 export { Node } from 'ng2-qgrid/core/node/node';
 export { RowDetailsStatus } from 'ng2-qgrid/core/row-details/row.details.status';
+export { RowDetails } from 'ng2-qgrid/core/row-details/row.details';
 export { FetchContext } from 'ng2-qgrid/core/fetch/fetch.context';
 export { EditorOptions } from 'ng2-qgrid/core/column-type/editor.options';
 export { Shortcut } from 'ng2-qgrid/core/shortcut/shortcut';
