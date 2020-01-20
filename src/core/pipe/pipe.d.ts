@@ -15,4 +15,5 @@ export declare class Pipe {
 	static readonly columnIndex: (memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any;
 	static readonly animation: (memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any;
 	static readonly view: (memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any;
+	static readonly scene: (memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any;
 }

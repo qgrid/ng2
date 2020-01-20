@@ -25,6 +25,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### BREAKING
 - Navigation event raised before selection.
 - Pane context receives value from the trigger not cell.
+- View model `rows` section now contains data before pagination.
+- Separate pipe `view` to two `scene` and `view`.
 
 ## [7.4.0] - 2019-08-16
 ### Added

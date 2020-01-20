@@ -2,14 +2,12 @@ import { Scene } from '../scene/scene';
 import { Guard } from '../infrastructure/guard';
 import { sortFactory } from '../row-list/row.list.sort';
 
-export function viewPipe(memo, context, next) {
+export function scenePipe(memo, context, next) {
 	Guard.hasProperty(memo, 'rows');
-	Guard.hasProperty(memo, 'nodes');
-	Guard.hasProperty(memo, 'pivot');
 	Guard.hasProperty(memo, 'columns');
 
 	const tag = {
-		source: context.source || 'view.pipe',
+		source: context.source || 'scene.pipe',
 		behavior: 'core'
 	};
 
@@ -18,7 +16,7 @@ export function viewPipe(memo, context, next) {
 	const scene = new Scene(model);
 	let rows = scene.rows(memo);
 
-	const { columns, nodes, pivot } = memo;
+	const { columns } = memo;
 	const columnLine = scene.columnLine(columns);
 
 	if (!model.sort().by.length) {
@@ -26,11 +24,13 @@ export function viewPipe(memo, context, next) {
 		rows = order(rows);
 	}
 
-	model.view({
+	model.scene({
 		rows,
-		columns: columnLine.map(c => c.model),
-		nodes,
-		pivot
+		column: {
+			rows: scene.columnRows(memo.columns),
+			area: scene.columnArea(memo.columns),
+			line: columnLine
+		}
 	}, tag);
 
 	next(memo);

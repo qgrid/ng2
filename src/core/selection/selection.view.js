@@ -149,7 +149,7 @@ export class SelectionView {
 
 					const e = {
 						items: isUndefined(row)
-							? this.model.view().rows
+							? this.model.scene().rows
 							: [row],
 						source: 'custom',
 						kind: 'toggleRow'
@@ -296,7 +296,7 @@ export class SelectionView {
 		const { toggle } = this.model.selection();
 
 		items = !arguments.length || isUndefined(items)
-			? this.model.view().rows
+			? this.model.scene().rows
 			: isArray(items)
 				? items : [items];
 

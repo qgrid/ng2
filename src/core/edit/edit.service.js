@@ -10,7 +10,8 @@ export class EditService {
 
 	doBatch(startCell) {
 		const { table, model } = this;
-		const { rows, columns } = model.view();
+		const { rows } = model.scene();
+		const { columns } = model.view();
 		const { items } = model.selection();
 
 		const shortcut = { register: () => ({}), keyCode: () => '' };
