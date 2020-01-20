@@ -1,8 +1,23 @@
 <q-grid caption="Details Row Custom"
 		[rows]="rows$ | async">
 	<q-grid-columns>
+		<q-grid-column type="row-expand"
+					   [isVisible]="false">
+		</q-grid-column>
+		<q-grid-column type="row-number"
+					   key="rowNumber">
+
+		</q-grid-column>
 		<q-grid-column key="name"
 					   title="Name">
+			<ng-template for="body"
+						 let-$cell>
+				<button mat-button
+						color="primary"
+						(click)="toggleExpand.execute($cell.row)">
+					{{$cell.label}}
+				</button>
+			</ng-template>
 		</q-grid-column>
 		<q-grid-column key="groupBlock"
 					   title="Group">
@@ -68,4 +83,10 @@
 			</div>
 		</ng-template>
 	</q-grid-row>
+
+	<q-grid-actions>
+		<q-grid-action id="expand"
+					   [command]="expand">
+		</q-grid-action>
+	</q-grid-actions>
 </q-grid>

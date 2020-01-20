@@ -1,11 +1,9 @@
 import { Bag } from '../dom/bag';
 import { Table } from '../dom/table';
 import { AppError } from '../infrastructure/error';
-import { Model } from '../infrastructure/model';
-import { GRID_PREFIX } from '../definition';
-import { Shortcut } from '../shortcut/shortcut';
-import { Fastdom } from '../services/fastdom';
+import { uniq } from '../utility/kit';
 import { Disposable } from '../infrastructure/disposable';
+import { Keyboard } from '../keyboard/keyboard';
 
 export class GridCtrl extends Disposable {
 	constructor(model, context) {
@@ -48,9 +46,33 @@ export class GridCtrl extends Disposable {
 		});
 	}
 
+	keyUp(e) {
+		const model = this.model;
+		const code = Keyboard.translate(e.keyCode);
+		const { codes } = model.keyboard();
+		const index = codes.indexOf(code);
+		if (index >= 0) {
+			const newCodes = Array.from(codes);
+			newCodes.splice(index, 1)
+			model.keyboard({
+				codes: newCodes
+			}, {
+				source: 'keyup'
+			});
+		} 
+	}
+
 	keyDown(e, source = 'grid') {
 		const model = this.model;
 		const { shortcut } = model.action();
+
+		const code = Keyboard.translate(e.keyCode);
+		model.keyboard({
+			codes: uniq(model.keyboard().codes.concat(code))
+		}, {
+			source: 'keydown'
+		});
+
 		const result = shortcut.keyDown(e, source);
 		if (result.length > 0) {
 			e.preventDefault();
@@ -59,7 +81,6 @@ export class GridCtrl extends Disposable {
 		}
 
 		if (e.target.tagName === 'TBODY') {
-			const code = Shortcut.translate(e);
 			const { prevent } = model.navigation();
 			if (prevent.has(code)) {
 				e.preventDefault();
@@ -82,8 +103,8 @@ export class GridCtrl extends Disposable {
 				bottom: pinBottom.length > 0
 			}
 		}, {
-				source: 'grid.ctrl'
-			});
+			source: 'grid.ctrl'
+		});
 	}
 
 	invalidateActive() {

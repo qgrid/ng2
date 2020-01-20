@@ -5,7 +5,6 @@ import { CellEditor } from './edit.cell.editor';
 import { getFactory as valueFactory } from '../services/value';
 import { getFactory as labelFactory } from '../services/label';
 import { parseFactory } from '../services/convert';
-import { Td } from '../dom/td';
 import * as validationService from '../validation/validation.service';
 
 export class EditCellView {
