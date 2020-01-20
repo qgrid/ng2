@@ -43,9 +43,26 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 	ngAfterViewInit() {
 		const { model } = this.grid;
 
+		model.pagination({
+			size: 10
+		});
+
+		model.style({
+			row: (row, context) => {
+				const ROW_DETAILS_HEIGHT = 140;
+				if (row instanceof RowDetails) {
+					context.class('row-details-height', {
+						height: `${ROW_DETAILS_HEIGHT}px`,
+						'max-height': `${ROW_DETAILS_HEIGHT}px`,
+						'min-height': `${ROW_DETAILS_HEIGHT}px`
+					});
+				}
+			}
+		});
+
 		model.keyboardChanged.on(e => {
-			if (e.tag.source === 'keydown') {
-				const { codes } = e.state;
+			const { codes, status } = e.state;
+			if (status === 'down') {
 				switch (codes[0]) {
 					case 'enter':
 					case 'space': {
@@ -68,15 +85,11 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 			}
 		});
 
-		model.style({
-			row: (row, context) => {
-				const ROW_DETAILS_HEIGHT = 140;
-				if (row instanceof RowDetails) {
-					context.class('row-details-height', {
-						height: `${ROW_DETAILS_HEIGHT}px`,
-						'max-height': `${ROW_DETAILS_HEIGHT}px`,
-						'min-height': `${ROW_DETAILS_HEIGHT}px`
-					});
+		model.mouseChanged.on(e => {
+			const { code, status, target } = e.state;
+			if (code === 'left' && status === 'up') {
+				if (target && target.column.key !== 'name') {
+					this.toggleExpand.execute(e.state.target.row);
 				}
 			}
 		});

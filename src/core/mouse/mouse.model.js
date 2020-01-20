@@ -1,7 +1,7 @@
-import { NO_BUTTON } from './mouse.code';
-
 export class MouseModel {
 	constructor() {
-		this.code = NO_BUTTON;
+		this.code = null;
+		this.status = 'release';
+		this.target = null;
 	}
 }

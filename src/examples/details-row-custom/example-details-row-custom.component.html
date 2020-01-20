@@ -5,8 +5,12 @@
 					   [isVisible]="false">
 		</q-grid-column>
 		<q-grid-column type="row-number"
-					   key="rowNumber">
-
+					   key="rowNumber"
+					   title="ALT">
+			<ng-template for="body"
+						 let-$cell>
+				{{$cell.dataRowIndex % 10}}
+			</ng-template>
 		</q-grid-column>
 		<q-grid-column key="name"
 					   title="Name">

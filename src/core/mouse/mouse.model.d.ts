@@ -1,3 +1,7 @@
+import { Td } from '../dom/td';
+
 export declare interface MouseModel {
-	code: number;
+	code: 'left' | 'right' | 'middle';
+	status: 'release' | 'down' | 'up';
+	target: Td;
 }

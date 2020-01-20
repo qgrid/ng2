@@ -55,11 +55,20 @@ export class GridCtrl extends Disposable {
 			const newCodes = Array.from(codes);
 			newCodes.splice(index, 1)
 			model.keyboard({
-				codes: newCodes
+				code,
+				codes: newCodes,
+				status: 'up'
 			}, {
-				source: 'keyup'
+				source: 'key.up'
 			});
-		} 
+		}
+
+		model.keyboard({
+			code: null,
+			status: 'release'
+		}, {
+			source: 'key.up'
+		});
 	}
 
 	keyDown(e, source = 'grid') {
@@ -68,9 +77,11 @@ export class GridCtrl extends Disposable {
 
 		const code = Keyboard.translate(e.keyCode);
 		model.keyboard({
-			codes: uniq(model.keyboard().codes.concat(code))
+			code,
+			codes: uniq(model.keyboard().codes.concat(code)),
+			status: 'down'
 		}, {
-			source: 'keydown'
+			source: 'key.down'
 		});
 
 		const result = shortcut.keyDown(e, source);

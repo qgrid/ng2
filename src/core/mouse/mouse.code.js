@@ -11,3 +11,11 @@ export function getButtonCode(event) {
     return event.which;
 }
 
+export function stringify(code) {
+    switch (code) {
+        case LEFT_BUTTON: return 'left';
+        case RIGHT_BUTTON: return 'right';
+        case MIDDLE_BUTTON: return 'middle';
+        default: return null;
+    }
+}
