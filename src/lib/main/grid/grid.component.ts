@@ -189,25 +189,7 @@ export class GridComponent extends RootComponent implements OnInit {
 			}));
 		});
 
-		const { debounce } = model.navigation();
-		if (debounce) {
-			const navJob = jobLine(debounce);
-			this.zone.runOutsideAngular(() => {
-				this.using(listener.on('keydown', e => {
-					const result = ctrl.keyDown(e);
-					if (result.indexOf('navigation') >= 0) {
-						navJob((() => {
-							this.cd.markForCheck();
-							this.zone.run(noop);
-						}));
-					} else if (result.length) {
-						// app.tick is not working correctly, why?
-						this.cd.markForCheck();
-						this.zone.run(noop);
-					}
-				}));
-			});
-		} else {
+		this.zone.runOutsideAngular(() => {
 			this.using(listener.on('keydown', e => {
 				const result = ctrl.keyDown(e);
 				if (result.indexOf('selection.view') >= 0) {
@@ -215,17 +197,10 @@ export class GridComponent extends RootComponent implements OnInit {
 					this.zone.run(noop);
 				}
 			}));
-		}
-
-
-		this.zone.runOutsideAngular(() =>
-			this.using(listener.on('keyup', e => {
-				ctrl.keyUp(e, 'grid');
-			}))
-		);
+			this.using(listener.on('keyup', e => ctrl.keyUp(e, 'grid')));
+		});
 
 		this.using(model.visibilityChanged.on(() => this.cd.detectChanges()));
-
 	}
 
 	// @deprecated

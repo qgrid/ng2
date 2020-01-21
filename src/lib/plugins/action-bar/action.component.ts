@@ -37,8 +37,8 @@ export class ActionComponent implements OnInit {
 		const model = this.model;
 
 		const hasCommand = !!this.command;
-		const command = hasCommand ? this.command : new Command();
-		if (!hasCommand || !this.id) {
+		const command = this.command || new Command();
+		if (!(hasCommand || this.id)) {
 			throw new AppError('action.component', '`Command` or `id` is missed');
 		}
 

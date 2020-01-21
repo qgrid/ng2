@@ -14,11 +14,11 @@ export class ExampleActionBarBasicComponent {
 	static id = 'action-bar-basic';
 
 	canLoad = false;
-	rows: Observable<Atom[]>;
+	rows$: Observable<Atom[]>;
 
 	loadCommand = new Command({
 		execute: () => {
-			this.rows = this.dataService.getAtoms();
+			this.rows$ = this.dataService.getAtoms();
 			this.canLoad = false;
 		},
 		canExecute: () => this.canLoad,
@@ -27,7 +27,7 @@ export class ExampleActionBarBasicComponent {
 
 	clearCommand = new Command({
 		execute: () => {
-			this.rows = of([]);
+			this.rows$ = of([]);
 			this.canLoad = true;
 		},
 		canExecute: () => !this.canLoad,
@@ -35,6 +35,6 @@ export class ExampleActionBarBasicComponent {
 	});
 
 	constructor(private dataService: DataService) {
-		this.rows = dataService.getAtoms();
+		this.rows$ = dataService.getAtoms();
 	}
 }

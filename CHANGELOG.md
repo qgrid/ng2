@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
-## [7.5.0] - 2020-01-20
+## [7.5.0] - 2020-01-21
 ### Added
 - Keyboard API.
 - Mouse API.
@@ -26,7 +26,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Navigation event raised before selection.
 - Pane context receives value from the trigger not cell.
 - View model `rows` section now contains data before pagination.
-- Separate pipe `view` to two `scene` and `view`.
+- Separate pipe `view` to two `scene` and `view`, `view` model contains rows before pagination `scene` after pagination.
+- Grid navigation does not trigger change detection.
+- Remove `debounce` property from navigation model.
 
 ## [7.4.0] - 2019-08-16
 ### Added
