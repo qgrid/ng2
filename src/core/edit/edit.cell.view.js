@@ -7,6 +7,10 @@ import { getFactory as labelFactory } from '../services/label';
 import { parseFactory } from '../services/convert';
 import * as validationService from '../validation/validation.service';
 
+// do not delete this importing it's required in the bundle
+// TODO: investigate how to avoid it
+import { Td } from '../dom/td';
+
 export class EditCellView {
 	constructor(model, table, shortcut) {
 		this.model = model;
@@ -35,7 +39,7 @@ export class EditCellView {
 					if (this.enter.canExecute()) {
 						this.enter.execute();
 					}
-				} else if(e.changes.state.newValue === 'view') {
+				} else if (e.changes.state.newValue === 'view') {
 					model.edit({ state: 'edit' }, { source: 'edit.cell.view' });
 					if (this.requestClose) {
 						if (this.requestClose()) {

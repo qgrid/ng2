@@ -3,6 +3,7 @@ import { ViewCoreService } from '../../main/core/view/view-core.service';
 import { PluginService } from '../plugin.service';
 import { predicateFactory } from 'ng2-qgrid/core/services/predicate';
 import { Column } from 'ng2-qgrid';
+import { isArray } from 'ng2-qgrid/core/utility/kit';
 
 @Component({
 	selector: 'q-grid-autocomplete-editor',
@@ -25,7 +26,9 @@ export class AutocompleteEditorComponent {
 	filter(search: string) {
 		const test = predicateFactory(search);
 		const getLabel = this.itemLabelFactory(this.cell.column);
-		this.options = this.items.filter(item => test(getLabel(item)));
+		if (isArray(this.items)) {
+			this.options = this.items.filter(item => test(getLabel(item)));
+		}
 	}
 
 	reset() {

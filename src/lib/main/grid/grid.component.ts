@@ -20,7 +20,6 @@ import { FetchContext } from 'ng2-qgrid/core/fetch/fetch.context';
 import { Grid } from './grid.service';
 import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
 import { GridModel } from '../../plugins/plugin.service';
-import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { LayerService } from '../layer/layer.service';
 import { ModelBuilderService } from '../model/model-builder.service';
 import { noop } from 'ng2-qgrid/core/utility/kit';

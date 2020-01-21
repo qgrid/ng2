@@ -77,15 +77,7 @@ export class BodyCtrl {
 	onMouseDown(e) {
 		const { model } = this;
 		const pathFinder = new PathService(this.bag.body);
-		const cell = pathFinder.cell(eventPath(e));
-
-		model.mouse({
-			code: stringify(getButtonCode(e)),
-			status: 'down',
-			target: cell
-		}, {
-			source: 'mouse.down'
-		});
+		const cell = pathFinder.cell(eventPath(e));		
 
 		if (checkButtonCode(e, LEFT_BUTTON)) {
 			const { area, mode } = this.selection;
@@ -101,6 +93,14 @@ export class BodyCtrl {
 				}
 			}
 		}
+
+		model.mouse({
+			code: stringify(getButtonCode(e)),
+			status: 'down',
+			target: cell
+		}, {
+			source: 'mouse.down'
+		});
 	}
 
 	onMouseMove(e) {
@@ -168,14 +168,6 @@ export class BodyCtrl {
 		const pathFinder = new PathService(this.bag.body);
 		const cell = pathFinder.cell(eventPath(e));
 
-		model.mouse({
-			code: stringify(getButtonCode(e)),
-			status: 'up',
-			target: cell,
-		}, {
-			source: 'mouse.up'
-		});
-
 		if (checkButtonCode(e, LEFT_BUTTON)) {
 			if (mode === 'range') {
 				this.rangeStartCell = null;
@@ -195,6 +187,14 @@ export class BodyCtrl {
 				}
 			}
 		}
+
+		model.mouse({
+			code: stringify(getButtonCode(e)),
+			status: 'up',
+			target: cell,
+		}, {
+			source: 'mouse.up'
+		});
 
 		model.mouse({
 			code: stringify(NO_BUTTON),
