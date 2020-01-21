@@ -192,7 +192,7 @@ export class GridComponent extends RootComponent implements OnInit {
 
 		this.zone.runOutsideAngular(() => {
 			this.using(listener.on('keydown', e => {
-				const result = ctrl.keyDown(e);
+				const result = ctrl.keyDown(e, 'grid');
 				if (result.indexOf('selection.view') >= 0) {
 					this.cd.markForCheck();
 					this.zone.run(noop);
