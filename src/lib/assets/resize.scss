@@ -8,10 +8,11 @@ th {
         width: 4px;
         z-index: 2;
         background: transparent;
-        border-right: 1px solid $white;
+        border-right: $border;
         cursor: col-resize;
         opacity: 0;
     }
+
     &.q-grid-highlighted,
     &.q-grid-highlighted-prev {
         .q-grid-resize-handler {
