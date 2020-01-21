@@ -152,6 +152,8 @@ export class GridComponent extends RootComponent implements OnInit {
 
 		model.style({
 			classList: Array.from(nativeElement.classList)
+		}, {
+			source: 'grid'
 		});
 
 		const ctrl = this.using(new GridCtrl(model, {
