@@ -18,9 +18,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Changed
 - Better column drag and drop.
 - Filter row style enhancements.
-
+ 
 ### Fixed
 - Progress line.
+- Column filter matches labels not values.
 
 ### BREAKING
 - Navigation event raised before selection.
