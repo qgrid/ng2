@@ -21,7 +21,8 @@ export class ActionComponent implements OnInit {
 	constructor(
 		private plugin: PluginService,
 		private disposable: Disposable,
-		templateHost: TemplateHostService) {
+		templateHost: TemplateHostService
+	) {
 		templateHost.key = source => `action-${source}-${this.id}.tpl.html`;
 	}
 
@@ -34,8 +35,7 @@ export class ActionComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const model = this.model;
-
+		const { model } = this.plugin;
 		const hasCommand = !!this.command;
 		const command = this.command || new Command();
 		if (!(hasCommand || this.id)) {
@@ -64,9 +64,5 @@ export class ActionComponent implements OnInit {
 				});
 			}
 		});
-	}
-
-	private get model() {
-		return this.plugin.model;
 	}
 }

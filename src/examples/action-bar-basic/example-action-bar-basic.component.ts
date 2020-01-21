@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable, of } from 'rxjs';
 import { Command } from 'ng2-qgrid';
@@ -14,12 +14,15 @@ export class ExampleActionBarBasicComponent {
 	static id = 'action-bar-basic';
 
 	canLoad = false;
-	rows$: Observable<Atom[]>;
+	rows$ = this.dataService.getAtoms();
 
 	loadCommand = new Command({
 		execute: () => {
 			this.rows$ = this.dataService.getAtoms();
 			this.canLoad = false;
+
+			this.cd.markForCheck();
+			this.cd.detectChanges();
 		},
 		canExecute: () => this.canLoad,
 		shortcut: 'ctrl+l'
@@ -29,12 +32,17 @@ export class ExampleActionBarBasicComponent {
 		execute: () => {
 			this.rows$ = of([]);
 			this.canLoad = true;
+
+			this.cd.markForCheck();
+			this.cd.detectChanges();
 		},
 		canExecute: () => !this.canLoad,
 		shortcut: 'ctrl+d'
 	});
 
-	constructor(private dataService: DataService) {
-		this.rows$ = dataService.getAtoms();
+	constructor(
+		private dataService: DataService,
+		private cd: ChangeDetectorRef
+	) {
 	}
 }
