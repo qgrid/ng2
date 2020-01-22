@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
+## [7.5.1] - 2020-01-22
+### Fixed
+- Fix npm package.
+
 ## [7.5.0] - 2020-01-22
 ### Added
 - Keyboard API.
@@ -24,11 +28,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Column filter matches labels not values.
 
 ### BREAKING
-- Navigation event raised before selection.
-- Pane context receives value from the trigger not cell.
-- View model `rows` section now contains data before pagination.
-- Separate pipe `view` to two `scene` and `view`, `view` model contains rows before pagination `scene` after pagination.
-- Grid navigation does not trigger change detection.
+- Navigation event raised before selection event.
+- `Pane` context receives value from the trigger property `NOT` cell.
+- `View` model `rows` section now contains data before pagination.
+- Separate `view` pipe to `scene` and `view` pipes.
 - Remove `debounce` property from navigation model.
 
 ## [7.4.0] - 2019-08-16
@@ -456,13 +459,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v7.5.0...HEAD
-[7.2.4]: https://github.com/qgrid/ng2/compare/v7.4.0...v7.5.0
-[7.2.4]: https://github.com/qgrid/ng2/compare/v7.3.0...v7.4.0
-[7.2.4]: https://github.com/qgrid/ng2/compare/v7.2.6...v7.3.0
-[7.2.4]: https://github.com/qgrid/ng2/compare/v7.2.5...v7.2.6
-[7.2.4]: https://github.com/qgrid/ng2/compare/v7.2.4...v7.2.5
-[7.2.3]: https://github.com/qgrid/ng2/compare/v7.2.3...v7.2.4
+[unreleased]: https://github.com/qgrid/ng2/compare/v7.5.1...HEAD
+[7.5.1]: https://github.com/qgrid/ng2/compare/v7.4.0...v7.5.0
+[7.5.0]: https://github.com/qgrid/ng2/compare/v7.4.0...v7.5.0
+[7.4.0]: https://github.com/qgrid/ng2/compare/v7.3.0...v7.4.0
+[7.3.0]: https://github.com/qgrid/ng2/compare/v7.2.6...v7.3.0
+[7.2.6]: https://github.com/qgrid/ng2/compare/v7.2.5...v7.2.6
+[7.2.5]: https://github.com/qgrid/ng2/compare/v7.2.4...v7.2.5
+[7.2.4]: https://github.com/qgrid/ng2/compare/v7.2.3...v7.2.4
 [7.2.3]: https://github.com/qgrid/ng2/compare/v7.2.2...v7.2.3
 [7.2.2]: https://github.com/qgrid/ng2/compare/v7.2.1...v7.2.2
 [7.2.1]: https://github.com/qgrid/ng2/compare/v7.2.0...v7.2.1

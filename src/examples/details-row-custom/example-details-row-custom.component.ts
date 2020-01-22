@@ -73,8 +73,9 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 					case 'alt': {
 						const rowNo = Number.parseInt(codes[1], 10);
 						if (!Number.isNaN(rowNo)) {
-							const { rows } = model.scene();
-							const altRow = rows[rowNo];
+							const { rows } = model.data();
+							const { current, size } = model.pagination();
+							const altRow = rows[rowNo + current * size];
 							if (altRow) {
 								this.toggleExpand.execute(altRow);
 							}
