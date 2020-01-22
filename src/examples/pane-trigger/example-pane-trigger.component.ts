@@ -17,7 +17,7 @@ export class ExamplePaneTriggerComponent {
 	@ViewChild(PaneComponent) pane: PaneComponent;
 
 	rows$: Observable<Human[]>;
-	selectedRow: null;
+	selectedRow: Human;
 
 	openPane = new Command({
 		execute: () => {
