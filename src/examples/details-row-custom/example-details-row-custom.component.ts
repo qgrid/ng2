@@ -89,7 +89,7 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 			const { code, status, target } = e.state;
 			if (code === 'left' && status === 'up') {
 				if (target && target.column.key !== 'name') {
-					this.toggleExpand.execute(e.state.target.row);
+					this.toggleExpand.execute(target.row);
 				}
 			}
 		});
