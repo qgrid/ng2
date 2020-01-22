@@ -47,6 +47,7 @@ export class FilterModel {
 				case 'number': {
 					return [
 						'contains',
+						'like',
 						'lessThan',
 						'lessThanOrEquals',
 						'greaterThan',
@@ -56,7 +57,9 @@ export class FilterModel {
 						'isNotEmpty',
 					];
 				}
-				default: { return ['contains']; }
+				default: {
+					return ['contains'];
+				}
 			}
 		}
 	}

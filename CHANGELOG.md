@@ -10,6 +10,27 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
+## [7.5.0] - 2020-01-21
+### Added
+- Keyboard API.
+- Mouse API.
+
+### Changed
+- Better column drag and drop.
+- Filter row style enhancements.
+ 
+### Fixed
+- Progress line.
+- Column filter matches labels not values.
+
+### BREAKING
+- Navigation event raised before selection.
+- Pane context receives value from the trigger not cell.
+- View model `rows` section now contains data before pagination.
+- Separate pipe `view` to two `scene` and `view`, `view` model contains rows before pagination `scene` after pagination.
+- Grid navigation does not trigger change detection.
+- Remove `debounce` property from navigation model.
+
 ## [7.4.0] - 2019-08-16
 ### Added
 - Selection `singleOnly` mode that prevent row unselecting, and draws radio buttons instead of check boxes.
@@ -435,7 +456,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v7.4.0...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v7.5.0...HEAD
+[7.2.4]: https://github.com/qgrid/ng2/compare/v7.4.0...v7.5.0
 [7.2.4]: https://github.com/qgrid/ng2/compare/v7.3.0...v7.4.0
 [7.2.4]: https://github.com/qgrid/ng2/compare/v7.2.6...v7.3.0
 [7.2.4]: https://github.com/qgrid/ng2/compare/v7.2.5...v7.2.6

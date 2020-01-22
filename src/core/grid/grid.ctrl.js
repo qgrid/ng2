@@ -76,6 +76,20 @@ export class GridCtrl extends Disposable {
 		const { shortcut } = model.action();
 
 		const code = Keyboard.translate(e.keyCode);
+		const result = shortcut.keyDown(e, source);
+		if (result.length > 0) {
+			e.preventDefault();
+			e.stopPropagation();
+		} else {
+			if (e.target.tagName === 'TBODY') {
+				const { prevent } = model.navigation();
+				if (prevent.has(code)) {
+					e.preventDefault();
+					e.stopPropagation();
+				}
+			}
+		}
+
 		model.keyboard({
 			code,
 			codes: uniq(model.keyboard().codes.concat(code)),
@@ -83,21 +97,6 @@ export class GridCtrl extends Disposable {
 		}, {
 			source: 'key.down'
 		});
-
-		const result = shortcut.keyDown(e, source);
-		if (result.length > 0) {
-			e.preventDefault();
-			e.stopPropagation();
-			return result;
-		}
-
-		if (e.target.tagName === 'TBODY') {
-			const { prevent } = model.navigation();
-			if (prevent.has(code)) {
-				e.preventDefault();
-				e.stopPropagation();
-			}
-		}
 
 		return result;
 	}

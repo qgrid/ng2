@@ -33,7 +33,8 @@ export class ExampleHierarchyBrowserBasicComponent {
 					qgrid.pipe.memo,
 					treePipe,
 					qgrid.pipe.column,
-					qgrid.pipe.view
+					qgrid.pipe.view,
+					qgrid.pipe.scene
 				]
 			})
 			.group({

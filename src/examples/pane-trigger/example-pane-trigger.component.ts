@@ -17,13 +17,22 @@ export class ExamplePaneTriggerComponent {
 	@ViewChild(PaneComponent) pane: PaneComponent;
 
 	rows$: Observable<Human[]>;
+	selectedRow: null;
 
 	openPane = new Command({
-		execute: () => this.pane.open('right'),
-		canExecute: () => !!this.grid.model.navigation().cell,
+		execute: () => {
+			this.selectedRow = this.cell.row;
+			this.pane.open('right');
+		},
+		canExecute: () => !!this.cell,
 	});
 
 	constructor(dataService: DataService) {
 		this.rows$ = dataService.getPeople();
+	}
+
+	private get cell() {
+		const { model } = this.grid;
+		return model.selection().items[0];
 	}
 }

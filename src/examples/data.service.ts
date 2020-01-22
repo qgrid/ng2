@@ -10,6 +10,12 @@ export class Human {
 	comment: string;
 	likes: string[];
 	gender: 'male' | 'female';
+	birthday: string;
+	memberSince: string;
+	name: {
+		first: string,
+		last: string
+	}
 }
 
 export class Atom {

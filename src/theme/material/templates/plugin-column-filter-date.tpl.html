@@ -1,21 +1,26 @@
 <ng-template key="plugin-column-filter-date.tpl.html"
-             let-$columnFilter
-             let-$plugin="plugin"
-             let-$vscroll="vscroll">
+			 let-$columnFilter
+			 let-$plugin="plugin"
+			 let-$vscroll="vscroll">
 
 	<mat-form-field class="q-grid-column-filter-input"
-	                *q-grid-date="let isValid='isValid'"
+					*q-grid-date="let isValid='isValid'"
 					[ngClass]="{'mat-form-field-invalid': !isValid(input.value)}">
-					
+
 		<input q-grid-focus
-		       matInput
-		       #input
-		       [matDatepicker]="picker"
-		       [placeholder]="$columnFilter.operator | qGridText : 'fromCamelCase'"
-		       [ngModel]="$columnFilter.value | qGridDate:'yyyy-MM-dd'"
+			   matInput
+			   #input
+			   [matDatepicker]="picker"
+			   [placeholder]="$columnFilter.operator | qGridText : 'fromCamelCase'"
+			   [ngModel]="$columnFilter.value | qGridConvert: 'date'"
 			   (ngModelChange)="isValid(input.value) && ($columnFilter.value = $event)" />
-			   
-		<mat-datepicker-toggle matSuffix [for]="picker"> </mat-datepicker-toggle>
-		<mat-datepicker #picker> </mat-datepicker>
+
+		<mat-datepicker-toggle matSuffix
+							   [for]="picker">
+		</mat-datepicker-toggle>
+
+		<mat-datepicker #picker>
+		</mat-datepicker>
+
 	</mat-form-field>
 </ng-template>

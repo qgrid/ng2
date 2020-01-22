@@ -4,12 +4,12 @@ import { Pipe } from '../pipe';
 export const rowPipeUnit = [
 	(_, context, next) => {
 		const { model } = context;
-		const order = sortFactory(model);
-		const rows = order(model.view().rows);
+		const { rows, pivot, nodes } = model.view();
+		const order = sortFactory(model);		
 		const memo = {
-			rows,
-			pivot: model.view().pivot,
-			nodes: model.view().nodes
+			rows: order(rows),
+			pivot,
+			nodes,
 		};
 		next(memo);
 	},

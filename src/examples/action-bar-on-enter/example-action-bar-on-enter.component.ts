@@ -49,17 +49,10 @@ export class ExampleActionBarOnEnterComponent {
 		shortcut: 'enter'
 	});
 
-	constructor(dataService: DataService, grid: Grid) {
+	constructor(dataService: DataService, qgrid: Grid) {
 		this.rows = dataService.getAtoms();
-		this.gridModel = grid.model();
-		this.gridService = grid.service(this.gridModel);
 
-		this.gridModel.navigationChanged.watch(e => {
-			if (e.hasChanges('cell') && e.state.cell) {
-				this.gridModel.selection({
-					items: [e.state.row]
-				});
-			}
-		});
+		this.gridModel = qgrid.model();
+		this.gridService = qgrid.service(this.gridModel);
 	}
 }

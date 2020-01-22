@@ -1,12 +1,10 @@
 <ng-template key="plugin-reference-editor.tpl.html"
              let-$editor>
     <mat-card class="q-grid-reference-card">
-        <mat-card-header>
-            <mat-card-title>{{$editor.caption}}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
+        <mat-card-content class="q-grid-reference-content">
             <q-grid-reference [cell]="$editor.cell"
                               [(value)]="$editor.value"
+                              [caption]="$editor.caption"
                               [autofocus]="true"
                               (modelChange)="$editor.model = $event"
                               (referenceChange)="$editor.reference = $event">

@@ -1,5 +1,5 @@
 .q-grid-layer {
-    @include absolute-centered;
+    @include absolute-stretched;
     pointer-events: none;
     z-index: 3;
 
