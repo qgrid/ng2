@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ViewCoreService } from '../../main/core/view/view-core.service';
 import { PluginService } from '../plugin.service';
 import { predicateFactory } from 'ng2-qgrid/core/services/predicate';
-import { Column } from 'ng2-qgrid';
 import { isArray } from 'ng2-qgrid/core/utility/kit';
 
 @Component({
@@ -51,7 +50,7 @@ export class AutocompleteEditorComponent {
 		this.cell.value = value;
 	}
 
-	itemLabelFactory(column: Column) {
+	itemLabelFactory(column) {
 		const { itemLabel } = column;
 		if (itemLabel) {
 			return (item) => {
