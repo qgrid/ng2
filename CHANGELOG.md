@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
-## [7.5.0] - 2020-01-21
+## [7.5.0] - 2020-01-22
 ### Added
 - Keyboard API.
 - Mouse API.
