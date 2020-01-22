@@ -10,7 +10,7 @@ import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LiveColumnComponent implements OnInit {
-	@Input('duration') duration = 5000;
+	@Input('duration') duration = 100;
 
 	constructor(private plugin: PluginService, private zone: NgZone) { }
 
