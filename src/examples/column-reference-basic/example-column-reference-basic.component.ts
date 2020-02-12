@@ -45,7 +45,7 @@ export class ExampleColumnReferenceBasicComponent {
 				})
 				.visibility({
 					toolbar: {
-						top: false,
+						top: true,
 						bottom: false,
 						right: false,
 						left: false

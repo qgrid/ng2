@@ -21,6 +21,7 @@ export class ReferenceComponent extends NgComponent implements OnInit {
 		value: any
 	};
 
+	@Input() caption: string;
 	@Input() autofocus = false;
 	@Input() cell: CellView;
 

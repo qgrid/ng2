@@ -5,8 +5,11 @@ import { CellEditor } from './edit.cell.editor';
 import { getFactory as valueFactory } from '../services/value';
 import { getFactory as labelFactory } from '../services/label';
 import { parseFactory } from '../services/convert';
-import { Td } from '../dom/td';
 import { ValidatorBuilder } from '../validation/validator.builder';
+
+// do not delete this importing it's required in the bundle
+// TODO: investigate how to avoid it
+import { Td } from '../dom/td';
 
 export class EditCellView {
 	constructor(model, table, shortcut) {
@@ -36,7 +39,7 @@ export class EditCellView {
 					if (this.enter.canExecute()) {
 						this.enter.execute();
 					}
-				} else if(e.changes.state.newValue === 'view') {
+				} else if (e.changes.state.newValue === 'view') {
 					model.edit({ state: 'edit' }, { source: 'edit.cell.view' });
 					if (this.requestClose) {
 						if (this.requestClose()) {

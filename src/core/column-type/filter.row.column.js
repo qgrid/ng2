@@ -19,7 +19,10 @@ export class FilterRowColumnModel extends ColumnModel {
 		this.type = 'filter-row';
 		this.class = 'control';
 
-		this.canFilter = model.canFilter && model.class === 'data';
+		this.canResize = false;
+		this.canSort = false;
+		this.canMove = false;
+
 		this.model = model;
 	}
 }

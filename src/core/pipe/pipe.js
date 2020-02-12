@@ -9,6 +9,7 @@ import { columnPipe } from './column.pipe';
 import { columnIndexPipe } from './column.index.pipe'
 import { animationPipe } from './animation.pipe';
 import { viewPipe } from './view.pipe';
+import { scenePipe } from './scene.pipe';
 
 export class Pipe {
 	static get data() {
@@ -53,5 +54,9 @@ export class Pipe {
 
 	static get view() {
 		return viewPipe;
+	}
+
+	static get scene() {
+		return scenePipe;
 	}
 }

@@ -8,9 +8,10 @@ export const defaultPipeUnit = [
 	Pipe.group,
 	Pipe.pivot,
 	Pipe.column,
+	Pipe.view,
 	Pipe.pagination,
 	Pipe.animation,
-	Pipe.view
+	Pipe.scene
 ];
 
 defaultPipeUnit.why = 'refresh';

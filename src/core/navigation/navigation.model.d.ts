@@ -29,13 +29,6 @@ export declare interface NavigationModel {
 	 */
 	readonly column?: ColumnModel;
 
-	/**
-	 * Appropriate framework tick timeout while navigation by keyboard is occured.
-	 * * For angularjs - digest is called.
-	 * * For angular - ApplicationRef.tick is called.
-	 */
-	debounce?: number;
-
 	cell?: {
 		rowIndex: number,
 		columnIndex: number,

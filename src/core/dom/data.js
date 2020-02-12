@@ -14,6 +14,6 @@ export class Data {
 	}
 
 	rows() {
-		return this.model.view().rows;
+		return this.model.scene().rows;
 	}
 }

@@ -11,6 +11,7 @@ export class ModelComponent extends NgComponent implements OnChanges, OnInit, On
 	binder = new ModelBinder(this);
 	commit = noop;
 
+
 	constructor(public root: RootService) {
 		super();
 	}

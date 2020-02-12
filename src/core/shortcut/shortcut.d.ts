@@ -17,7 +17,7 @@ export declare class Shortcut {
 	static isControl(keyCode: KeyCode): boolean;
 	static isPrintable(keyCode: KeyCode): boolean;
 	static stringify(keyCode: KeyCode): string;
-	static translate(e: any): string;
+	static translate(e: KeyboardEvent): string;
 
 	factory(commandManager: CommandManager): {
 		register: (commands: Command[]) => void

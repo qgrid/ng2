@@ -5,18 +5,16 @@
     <q-grid-columns generation="deep">
     </q-grid-columns>
 
-    <q-grid-actions>
+    <q-grid-actions>c
         <q-grid-action icon="edit"
                        title="Open Pane"
-                       [command]="openPane"
-                       >
+                       [command]="openPane">
         </q-grid-action>
     </q-grid-actions>
 
     <q-grid-pane>
         <ng-template for="right"
-                     let-$pane
-                     let-$cell="cell">
+                     let-$pane>
             <div style="width: 500px;">
                 <button mat-icon-button
                         style="float: right; z-index: 1;"
@@ -24,9 +22,8 @@
                     <mat-icon>close</mat-icon>
                 </button>
 
-             
-                <q-grid-edit-form [cell]="$cell"
-                caption="{{$cell.row.name.last}}, {{$cell.row.name.first}}"
+                <q-grid-edit-form [cell]="activeCell"
+                                  caption="{{activeCell.row.name.last}}, {{activeCell.row.name.first}}"
                                   (cancel)="$pane.close('right')"
                                   (submit)="$pane.close('right')">
                 </q-grid-edit-form>
@@ -35,4 +32,3 @@
     </q-grid-pane>
 
 </q-grid>
-

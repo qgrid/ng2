@@ -1,4 +1,4 @@
-import {PipeContext, PipeMemo} from './pipe.item';
+import { PipeContext, PipeMemo } from './pipe.item';
 
 /**
  * > Under Construction.

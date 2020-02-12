@@ -1,8 +1,9 @@
 .q-grid-edit-trigger {
 	@include iconSizes(16px);
-	@include absolute-centered;
 	@include borderReset;
+	position: absolute;
 	right: 2px;
+	margin: auto 0;
 	font-size: 12px;
 	background: transparent;
 	padding: 0;

@@ -17,10 +17,8 @@ describe('SelectorFactory', () => {
 
 	const model = modelFactory();
 	model
-		.view({
-			rows: ['row1', 'row2', 'row3'],
-		})
 		.scene({
+			rows: ['row1', 'row2', 'row3'],
 			column: {
 				rows: [],
 				line: [],

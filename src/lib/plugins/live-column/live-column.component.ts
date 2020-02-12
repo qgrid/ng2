@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, NgZone } from '@angular/core';
 import { PluginService } from '../plugin.service';
-import { Fastdom } from '../../../core/services/fastdom';
+import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 
 @Component({
@@ -10,7 +10,7 @@ import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LiveColumnComponent implements OnInit {
-	@Input('duration') duration = 5000;
+	@Input('duration') duration = 100;
 
 	constructor(private plugin: PluginService, private zone: NgZone) { }
 

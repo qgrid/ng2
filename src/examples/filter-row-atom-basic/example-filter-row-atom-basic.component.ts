@@ -3,14 +3,14 @@ import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
 @Component({
-	selector: 'example-filter-row-basic',
-	templateUrl: 'example-filter-row-basic.component.html',
-	styleUrls: ['example-filter-row-basic.component.scss'],
+	selector: 'example-filter-row-atom-basic',
+	templateUrl: 'example-filter-row-atom-basic.component.html',
+	styleUrls: ['example-filter-row-atom-basic.component.scss'],
 	providers: [DataService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExampleFilterRowBasicComponent {
-	static id = 'filter-row-basic';
+export class ExampleFilterRowAtomBasicComponent {
+	static id = 'filter-row-atom-basic';
 
 	rows: Observable<Atom[]>;
 
