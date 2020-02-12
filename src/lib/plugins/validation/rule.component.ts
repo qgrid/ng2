@@ -40,7 +40,9 @@ export class RuleComponent implements OnChanges {
 	@Input('isoDate') iso_date?: string;
 	@Input('equalToField') equal_to_field?: string;
 	@Input('listOf') list_of?: string;
-	@Input('customValidation') custom_validation?;
+
+	// Custom validation rules
+	@Input('test') test?;
 
 	@ViewChild(TemplateRef) templateRef: TemplateRef<any>;
 
@@ -52,7 +54,7 @@ export class RuleComponent implements OnChanges {
 		private plugin: PluginService,
 		private templateHost: TemplateHostService
 	) {
-		this.templateHost.key = () => `rule`;
+		this.templateHost.key = () => 'rule';
 	}
 
 	ngOnChanges(changes: SimpleChanges) {

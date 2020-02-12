@@ -20,7 +20,7 @@ export class ValidatorBuilder {
 		const keyRules = srcRules.filter(r => r.key === key);
 		keyRules.forEach(rule => {
 			for (let name of Object.keys(rule)) {
-				if (name === 'custom_validation') {
+				if (name === 'test') {
 					this.customRule = {[key]: rule[name]};
 					this.hasCustomRules = true;
 				}
@@ -37,7 +37,7 @@ export class ValidatorBuilder {
 		this.validator = new LivrValidator(livrRules);
 		if (this.hasCustomRules) {
 			this.validator.registerRules({
-				custom_validation:() => this.customRule[key]
+				test:() => this.customRule[key]
 			})
 		}
 	}
