@@ -11,6 +11,9 @@ export class RuleComponent implements OnChanges {
 	@Input() for: string;
 	@Input() key: string;
 
+	// Custom validation rules
+	@Input() test?: Function;
+
 	// Common Rules
 	@Input() required?: string;
 	@Input('notEmptyList') not_empty_list?: string;
@@ -40,9 +43,6 @@ export class RuleComponent implements OnChanges {
 	@Input('isoDate') iso_date?: string;
 	@Input('equalToField') equal_to_field?: string;
 	@Input('listOf') list_of?: string;
-
-	// Custom validation rules
-	@Input('test') test?;
 
 	@ViewChild(TemplateRef) templateRef: TemplateRef<any>;
 
