@@ -3,7 +3,6 @@ export declare interface Validator {
 	getErrors(): Array<string>;
 }
 
-
 export declare interface ValidatorBuilder {
 	validator: Validator;
 	hasCommonRules: boolean;
