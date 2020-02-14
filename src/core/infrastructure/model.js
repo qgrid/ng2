@@ -1,7 +1,7 @@
-import { Event } from './event';
-import { AppError } from './error';
-import { Guard } from './guard';
-import { isObject, isArray } from '../utility/kit';
+import {Event} from './event';
+import {AppError} from './error';
+import {Guard} from './guard';
+import {isObject, isArray} from '../utility/kit';
 
 function equals(x, y) {
 	// TODO: improve equality algorithm
@@ -12,6 +12,10 @@ function equals(x, y) {
 	if (isArray(x)) {
 		if (x.length === 0 && y.length === 0) {
 			return true;
+		}
+		const distinct = getDistinct(x);
+		if (distinct.length === y.length) {
+			// TODO: compare arrays to be sure that they are identical
 		}
 	}
 
@@ -30,6 +34,10 @@ function equals(x, y) {
 	return false;
 }
 
+function getDistinct(x) {
+	return x.filter((y, i) => x.indexOf(x.find(z => z.id === y.id)) === i);
+}
+
 export class Model {
 	constructor(state) {
 		for (let name of Object.keys(state)) {
@@ -40,7 +48,7 @@ export class Model {
 				const prevChanges = Array.from(changeSet.values())
 					.reduce((memo, key) => {
 						const value = model[key];
-						memo[key] = { newValue: value, oldValue: value };
+						memo[key] = {newValue: value, oldValue: value};
 						return memo;
 					}, {});
 
@@ -56,7 +64,7 @@ export class Model {
 			const event = new Event(watchArg);
 			this[name + 'Changed'] = event;
 			this[name] = function (state, tag) {
-				const { length } = arguments;
+				const {length} = arguments;
 				if (length) {
 					if (!isObject(state)) {
 						throw new AppError(
