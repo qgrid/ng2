@@ -5,6 +5,7 @@ export declare interface Validator {
 
 export declare interface ValidatorBuilder {
 	validator: Validator;
+	fetch: () => void;
 	hasCommonRules: boolean;
 	hasCustomRules: boolean;
 	registerRules(rules: any, key: string): void;

@@ -1,4 +1,5 @@
 import * as LIVR from 'livr';
+import { Fetch } from '../infrastructure/fetch';
 
 export const { Validator: LivrValidator } = LIVR;
 
@@ -11,6 +12,7 @@ export class ValidatorBuilder {
 		this.validator = null;
 		this.hasCommonRules = false;
 		this.hasCustomRules = false;
+		this.fetch = new Fetch(this.validator);
 
 		this.registerRules(rules, key);
 	}
