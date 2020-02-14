@@ -1,7 +1,7 @@
-import {Event} from './event';
-import {AppError} from './error';
-import {Guard} from './guard';
-import {isObject, isArray} from '../utility/kit';
+import { Event } from './event';
+import { AppError } from './error';
+import { Guard } from './guard';
+import { isArray, isObject } from '../utility/kit';
 
 function equals(x, y) {
 	// TODO: improve equality algorithm
@@ -48,7 +48,7 @@ export class Model {
 				const prevChanges = Array.from(changeSet.values())
 					.reduce((memo, key) => {
 						const value = model[key];
-						memo[key] = {newValue: value, oldValue: value};
+						memo[key] = { newValue: value, oldValue: value };
 						return memo;
 					}, {});
 
@@ -64,7 +64,7 @@ export class Model {
 			const event = new Event(watchArg);
 			this[name + 'Changed'] = event;
 			this[name] = function (state, tag) {
-				const {length} = arguments;
+				const { length } = arguments;
 				if (length) {
 					if (!isObject(state)) {
 						throw new AppError(
