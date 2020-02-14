@@ -15,7 +15,7 @@ function equals(x, y) {
 		}
 		const distinct = getDistinct(x);
 		if (distinct.length === y.length) {
-			// TODO: compare arrays to be sure that they are identical
+			return true;
 		}
 	}
 
