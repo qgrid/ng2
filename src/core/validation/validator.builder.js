@@ -12,7 +12,7 @@ export class ValidatorBuilder {
 		this.validator = null;
 		this.hasCommonRules = false;
 		this.hasCustomRules = false;
-		this.fetch = new Fetch(this.validator);
+		this.fetch = this.fetchFactory();
 
 		this.registerRules(rules, key);
 	}
@@ -42,6 +42,10 @@ export class ValidatorBuilder {
 				test:() => this.customRule[key]
 			})
 		}
+	}
+
+	fetchFactory() {
+		return new Fetch(this.validator);
 	}
 
 	get hasRules() {
