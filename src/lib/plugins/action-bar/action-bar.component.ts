@@ -45,5 +45,6 @@ export class ActionBarComponent implements OnInit, OnDestroy {
 			this.shortcutOff();
 			this.shortcutOff = null;
 		}
+		this.plugin.model.action({ items: [] }, { source: 'action-bar.component' });
 	}
 }

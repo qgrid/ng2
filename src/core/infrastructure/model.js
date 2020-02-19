@@ -13,10 +13,6 @@ function equals(x, y) {
 		if (x.length === 0 && y.length === 0) {
 			return true;
 		}
-		const distinct = getDistinct(x);
-		if (distinct.length === y.length) {
-			return true;
-		}
 	}
 
 	if (x instanceof Map) {
@@ -32,10 +28,6 @@ function equals(x, y) {
 	}
 
 	return false;
-}
-
-function getDistinct(x) {
-	return x.filter((y, i) => x.indexOf(x.find(z => z.id === y.id)) === i);
 }
 
 export class Model {
