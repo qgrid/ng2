@@ -52,6 +52,7 @@ export class DropCtrl extends Disposable {
 	}
 
 	dispose() {
+		super.dispose();
 		this.context.element.classList.remove(`${GRID_PREFIX}-can-drop`);
 	}
 }
