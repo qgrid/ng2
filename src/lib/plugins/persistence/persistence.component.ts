@@ -53,7 +53,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 		action.id = 'persistence';
 
 		model.action(
-			{ items: Composite.list([[action], this.plugin.model.action().items])},
+			{ items: Composite.list([[action], this.plugin.model.action().items]) },
 			{ source: 'persistence.component' });
 		this.disposable.add(() => model.action({ items: [] }));
 	}
