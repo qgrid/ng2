@@ -53,7 +53,7 @@ export class ImportComponent implements AfterViewInit {
 		}
 
 		model.action(
-			{ items: Composite.list([model.action().items, [action]])},
+			{ items: Composite.list([model.action().items, [action]]) },
 			{ source: 'import.component' }
 			);
 		this.disposable.add(() => model.action({ items: [] }));
