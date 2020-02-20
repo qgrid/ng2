@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, Input } from '@angular/core';
 import { Action } from 'ng2-qgrid/core/action/action';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
@@ -59,9 +59,7 @@ export class ActionComponent implements OnInit {
 			if (index >= 0) {
 				const newItems = Array.from(items);
 				newItems.splice(index, 1);
-				model.action({
-					items: newItems
-				});
+				model.action({ items: newItems });
 			}
 		});
 	}

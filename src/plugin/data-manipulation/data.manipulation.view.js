@@ -8,8 +8,9 @@ import { set as setValue } from '../../core/services/value';
 import { set as setLabel } from '../../core/services/label';
 
 export class DataManipulationView {
-	constructor(model) {
+	constructor(model, disposable) {
 		this.model = model;
+		this.disposable = disposable;
 
 		this.commitCommand = new Command({
 			execute: e => {
@@ -175,6 +176,8 @@ export class DataManipulationView {
 			.action({
 				items: Composite.list([this.actions, model.action().items])
 			});
+
+		this.disposable.add(() => model.action({ items: [] }));
 
 		model.columnListChanged.watch((e, off) => {
 			if (e.hasChanges('line')) {

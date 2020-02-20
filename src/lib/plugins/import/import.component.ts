@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, TemplateRef, ChangeDetectionStrategy, ContentChild } from '@angular/core';
+import { Disposable } from '../../infrastructure/disposable';
 import { PluginService } from '../plugin.service';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { Command } from 'ng2-qgrid/core/command/command';
@@ -12,7 +13,7 @@ import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 @Component({
 	selector: 'q-grid-import',
 	templateUrl: './import.component.html',
-	providers: [TemplateHostService, PluginService],
+	providers: [TemplateHostService, PluginService, Disposable],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImportComponent implements AfterViewInit {
@@ -26,7 +27,8 @@ export class ImportComponent implements AfterViewInit {
 	constructor(
 		private plugin: PluginService,
 		private templateHost: TemplateHostService,
-		private hostElement: ElementRef
+		private hostElement: ElementRef,
+		private disposable: Disposable
 	) {
 		this.templateHost.key = () => `import`;
 	}
@@ -50,11 +52,11 @@ export class ImportComponent implements AfterViewInit {
 			action.templateUrl = this.templateHost.key('trigger');
 		}
 
-		model.action({
-			items: Composite.list([model.action().items, [action]])
-		}, {
-				source: 'import.component'
-			});
+		model.action(
+			{ items: Composite.list([model.action().items, [action]])},
+			{ source: 'import.component' }
+			);
+		this.disposable.add(() => model.action({ items: [] }));
 	}
 
 	get rows() {

@@ -4,18 +4,20 @@ import { Action } from 'ng2-qgrid/core/action/action';
 import { Composite } from 'ng2-qgrid/core/infrastructure/composite';
 import { PersistenceItem } from 'ng2-qgrid/plugin/persistence/persistence.view';
 import { PersistenceService } from 'ng2-qgrid/core/persistence/persistence.service';
+import { Disposable } from '../../infrastructure/disposable';
 import { PluginService } from '../plugin.service';
 import { ModelBuilderService } from '../../main/model/model-builder.service';
 
 @Component({
 	selector: 'q-grid-persistence',
 	template: '',
-	providers: [PluginService]
+	providers: [PluginService, Disposable]
 })
 export class PersistenceComponent implements OnInit, OnChanges {
 	constructor(
 		private plugin: PluginService,
 		private modelBuilder: ModelBuilderService,
+		private disposable: Disposable
 	) {
 	}
 
@@ -50,10 +52,9 @@ export class PersistenceComponent implements OnInit, OnChanges {
 		action.templateUrl = 'plugin-persistence.tpl.html';
 		action.id = 'persistence';
 
-		this.plugin.model.action({
-			items: Composite.list([[action], this.plugin.model.action().items])
-		}, {
-				source: 'persistence.component'
-			});
+		model.action(
+			{ items: Composite.list([[action], this.plugin.model.action().items])},
+			{ source: 'persistence.component' });
+		this.disposable.add(() => model.action({ items: [] }));
 	}
 }

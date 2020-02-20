@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { DataManipulationView } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.view';
+import { Disposable } from '../../infrastructure/disposable';
 import { PluginService } from '../plugin.service';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { StyleCellContext, StyleRowContext } from 'ng2-qgrid/core/style/style.context';
@@ -7,7 +8,7 @@ import { StyleCellContext, StyleRowContext } from 'ng2-qgrid/core/style/style.co
 @Component({
 	selector: 'q-grid-data-manipulation',
 	template: '',
-	providers: [PluginService],
+	providers: [PluginService, Disposable],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataManipulationComponent implements OnInit, OnChanges {
@@ -19,7 +20,10 @@ export class DataManipulationComponent implements OnInit, OnChanges {
 		$implicit: DataManipulationView
 	};
 
-	constructor(private plugin: PluginService) {
+	constructor(
+		private plugin: PluginService,
+		private disposable: Disposable
+	) {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
@@ -27,7 +31,7 @@ export class DataManipulationComponent implements OnInit, OnChanges {
 	}
 
 	ngOnInit() {
-		const dataManipulation = new DataManipulationView(this.plugin.model);
+		const dataManipulation = new DataManipulationView(this.plugin.model, this.disposable);
 		this.context = { $implicit: dataManipulation };
 	}
 }

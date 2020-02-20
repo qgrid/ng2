@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, Input, TemplateRef, ChangeDetectionStrategy, ContentChild } from '@angular/core';
+import { Disposable } from '../../infrastructure/disposable';
 import { PluginService } from '../plugin.service';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { ExportView } from 'ng2-qgrid/plugin/export/export.view';
@@ -9,7 +10,7 @@ import { TemplateHostService } from '../../template/template-host.service';
 @Component({
 	selector: 'q-grid-export',
 	templateUrl: './export.component.html',
-	providers: [TemplateHostService, PluginService],
+	providers: [TemplateHostService, PluginService, Disposable],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExportComponent implements AfterViewInit {
@@ -22,7 +23,8 @@ export class ExportComponent implements AfterViewInit {
 
 	constructor(
 		private plugin: PluginService,
-		private templateHost: TemplateHostService
+		private templateHost: TemplateHostService,
+		private disposable: Disposable
 	) {
 		this.templateHost.key = () => `export-${this.type}`;
 	}
@@ -46,5 +48,7 @@ export class ExportComponent implements AfterViewInit {
 		}, {
 				source: 'export.component'
 			});
+
+		this.disposable.add(() => model.action({ items: [] }));
 	}
 }

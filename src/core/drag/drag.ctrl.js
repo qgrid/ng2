@@ -46,8 +46,6 @@ export class DragCtrl extends Disposable {
 	}
 
 	dispose() {
-		super();
-
 		this.context.element.classList.remove(`${GRID_PREFIX}-can-drag`);
 	}
 }
