@@ -33,10 +33,12 @@ export class QueryBuilderComponent implements OnInit {
 		action.templateUrl = 'plugin-query-builder.tpl.html';
 		action.id = 'query-builder';
 
-		const { items } = model.action();
-		const newItems =  Composite.list([items, [action]]);
-		model.action({ items: newItems }, { source: 'query-builder.component' });
+		const items =  Composite.list([model.action().items, [action]]);
+		model.action({ items }, { source: 'query-builder.component' });
 
-		this.disposable.add(() => model.action({ items }));
+		this.disposable.add(() => {
+			const newItems = model.action().items.filter(x => x.id === action.id);
+			model.action({ items: newItems }, { source: 'query-builder.component' });
+		});
 	}
 }

@@ -165,6 +165,7 @@ export class DataManipulationView {
 		rows.push(this.styleRow.bind(this));
 		cells.push(this.styleCell.bind(this));
 
+
 		model
 			.edit({
 				mode: 'cell',
@@ -177,7 +178,11 @@ export class DataManipulationView {
 				items: Composite.list([this.actions, model.action().items])
 			});
 
-		this.disposable.add(() => model.action({ items: [] }));
+		this.disposable.add(() => {
+			const { items } = model.action();
+			const newItems = items.filter(x => this.actions.every(y => y.id !== x.id));
+			model.action({ items: newItems });
+		});
 
 		model.columnListChanged.watch((e, off) => {
 			if (e.hasChanges('line')) {
