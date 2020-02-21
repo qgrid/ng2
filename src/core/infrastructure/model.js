@@ -1,7 +1,7 @@
 import { Event } from './event';
 import { AppError } from './error';
 import { Guard } from './guard';
-import { isObject, isArray } from '../utility/kit';
+import { isArray, isObject } from '../utility/kit';
 
 function equals(x, y) {
 	// TODO: improve equality algorithm

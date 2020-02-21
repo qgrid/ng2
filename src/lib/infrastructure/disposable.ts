@@ -1,20 +1,20 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { Disposable as DisposableCore } from 'ng2-qgrid/core/infrastructure/disposable';
 
 @Injectable()
 export class Disposable implements OnDestroy {
-	private disposes = [];
+	private disposable: DisposableCore;
+
+	constructor() {
+		this.disposable = new DisposableCore();
+	}
 
 	add(instance: () => void) {
-		this.disposes.push(instance);
-		return instance;
+		return this.disposable.using(instance);
 	}
 
 	finalize() {
-		const temp = this.disposes;
-		this.disposes = [];
-		for (const dispose of temp) {
-			dispose();
-		}
+		this.disposable.dispose();
 	}
 
 	ngOnDestroy() {
