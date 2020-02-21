@@ -52,9 +52,10 @@ export class PersistenceComponent implements OnInit, OnChanges {
 		action.templateUrl = 'plugin-persistence.tpl.html';
 		action.id = 'persistence';
 
-		model.action(
-			{ items: Composite.list([[action], this.plugin.model.action().items]) },
-			{ source: 'persistence.component' });
-		this.disposable.add(() => model.action({ items: [] }));
+		const { items } = model.action();
+		const newItems =  Composite.list([items, [action]]);
+		model.action({ items: newItems }, { source: 'persistence.component' });
+
+		this.disposable.add(() => model.action({ items }));
 	}
 }

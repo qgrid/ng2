@@ -52,11 +52,11 @@ export class ImportComponent implements AfterViewInit {
 			action.templateUrl = this.templateHost.key('trigger');
 		}
 
-		model.action(
-			{ items: Composite.list([model.action().items, [action]]) },
-			{ source: 'import.component' }
-			);
-		this.disposable.add(() => model.action({ items: [] }));
+		const { items } = model.action();
+		const newItems =  Composite.list([items, [action]]);
+		model.action({ items: newItems }, { source: 'import.component' });
+
+		this.disposable.add(() => model.action({ items }));
 	}
 
 	get rows() {

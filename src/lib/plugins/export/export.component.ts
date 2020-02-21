@@ -42,13 +42,10 @@ export class ExportComponent implements AfterViewInit {
 		if (this.templateRef) {
 			action.templateUrl = this.templateHost.key('trigger');
 		}
+		const { items } = model.action();
+		const newItems =  Composite.list([items, [action]]);
+		model.action({ items: newItems }, { source: 'export.component' });
 
-		model.action({
-			items: Composite.list([model.action().items, [action]])
-		}, {
-				source: 'export.component'
-			});
-
-		this.disposable.add(() => model.action({ items: [] }));
+		this.disposable.add(() => model.action({ items }));
 	}
 }
