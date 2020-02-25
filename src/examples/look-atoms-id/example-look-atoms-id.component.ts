@@ -13,7 +13,7 @@ import { GridComponent } from 'ng2-qgrid';
 export class ExampleLookAtomsIdComponent implements AfterViewInit {
 	static id = 'look-atoms-id';
 
-	@ViewChild(GridComponent) myGrid: GridComponent;
+	@ViewChild(GridComponent, { static: false }) myGrid: GridComponent;
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

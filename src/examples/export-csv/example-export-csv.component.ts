@@ -14,7 +14,7 @@ import * as fileSaver from 'file-saver';
 export class ExampleExportCsvComponent implements AfterViewInit {
 	static id = 'export-csv';
 
-	@ViewChild(GridComponent) myGrid: GridComponent;
+	@ViewChild(GridComponent, { static: false }) myGrid: GridComponent;
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

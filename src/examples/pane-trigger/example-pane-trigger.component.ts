@@ -13,8 +13,8 @@ import { Command, GridComponent, PaneComponent } from 'ng2-qgrid';
 export class ExamplePaneTriggerComponent {
 	static id = 'pane-trigger';
 
-	@ViewChild(GridComponent) grid: GridComponent;
-	@ViewChild(PaneComponent) pane: PaneComponent;
+	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
+	@ViewChild(PaneComponent, { static: true }) pane: PaneComponent;
 
 	rows$: Observable<Human[]>;
 	selectedRow: Human;

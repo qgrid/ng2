@@ -13,7 +13,7 @@ import { GridComponent, Grid } from 'ng2-qgrid';
 export class ExampleFocusCellCustomComponent {
 	static id = 'focus-cell-custom';
 
-	@ViewChild(GridComponent) grid: GridComponent;
+	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService, private qgrid: Grid) {

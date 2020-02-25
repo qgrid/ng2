@@ -19,7 +19,7 @@ import { PluginService } from '../plugin.service';
 export class TabTrapComponent {
 	private isActivating = false;
 
-	@ViewChild(TemplateRef) template: TemplateRef<any>;
+	@ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
 	@Input() roundTrip = false;
 
 	context: { $implicit: TabTrapComponent } = {

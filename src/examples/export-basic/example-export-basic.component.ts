@@ -15,7 +15,7 @@ import * as XLSX from 'xlsx';
 export class ExampleExportBasicComponent implements AfterViewInit {
 	static id = 'export-basic';
 
-	@ViewChild(GridComponent) myGrid: GridComponent;
+	@ViewChild(GridComponent, { static: false }) myGrid: GridComponent;
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

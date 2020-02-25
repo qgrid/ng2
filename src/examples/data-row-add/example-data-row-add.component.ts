@@ -13,7 +13,7 @@ import { GridComponent, Command, Grid } from 'ng2-qgrid';
 export class ExampleDataRowAddComponent implements AfterViewInit {
 	static id = 'data-row-add';
 
-	@ViewChild(GridComponent) grid: GridComponent;
+	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
 	rows: Observable<Human[]>;
 
 	addRow = new Command({

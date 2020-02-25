@@ -13,7 +13,7 @@ import { GridComponent, GridService, Grid, GridModel } from 'ng2-qgrid';
 export class ExampleFilterRowCustomComponent {
 	static id = 'filter-row-custom';
 
-	@ViewChild(GridComponent) myGrid: GridComponent;
+	@ViewChild(GridComponent, { static: true }) myGrid: GridComponent;
 	rows: Observable<Atom[]>;
 	gridModel: GridModel;
 	gridService: GridService;

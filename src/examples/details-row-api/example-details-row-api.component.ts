@@ -13,7 +13,7 @@ import { Command, GridComponent, RowDetailsStatus } from 'ng2-qgrid';
 export class ExampleDetailsRowApiComponent implements AfterViewInit {
 	static id = 'details-row-api';
 
-	@ViewChild(GridComponent) grid: GridComponent;
+	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
 	rows: Observable<Atom[]>;
 	enableExpand = true;
 
