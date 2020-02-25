@@ -10,6 +10,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
+## [8.0.0] - 2019-02-25
+### Changed
+- Migrate to Angular 8.
+- Static query migration.
+
+### Fixed
+- Get rid of duplicate actions on destroy.
+
 ## [7.5.1] - 2020-01-22
 ### Fixed
 - Fix npm package.
