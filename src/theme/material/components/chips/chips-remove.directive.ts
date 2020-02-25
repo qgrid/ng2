@@ -2,7 +2,7 @@ import {
 	Directive, ContentChild, AfterViewInit, Output, EventEmitter
 } from '@angular/core';
 import { ChipsDirective } from './chips.directive';
-import { MatChip } from '@angular/material';
+import { MatChip } from '@angular/material/chips';
 
 @Directive({
 	selector: '[q-grid-chips-remove]'

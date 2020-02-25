@@ -7,7 +7,7 @@ import {
 	EventEmitter,
 	NgZone
 } from '@angular/core';
-import { MatChipInput } from '@angular/material';
+import { MatChipInput } from '@angular/material/chips';
 import { Shortcut } from 'ng2-qgrid';
 import { ChipsDirective } from './chips.directive';
 

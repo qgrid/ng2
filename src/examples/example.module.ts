@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, Route } from '@angular/router';
-import { MatButtonModule, MatSelectModule, MatChipsModule, MatIconModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 import { GridModule, PipeModule } from 'ng2-qgrid';
 import { ThemeModule } from 'ng2-qgrid/theme/material';
