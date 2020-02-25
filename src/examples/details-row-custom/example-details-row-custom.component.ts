@@ -13,7 +13,7 @@ import { GridComponent, RowDetailsStatus, Command, RowDetails } from 'ng2-qgrid'
 export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 	static id = 'details-row-custom';
 
-	@ViewChild(GridComponent) grid: GridComponent;
+	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
 	rows$: Observable<Atom[]>;
 
 	toggleExpand = new Command({
