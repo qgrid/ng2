@@ -29,6 +29,9 @@
 		<q-grid-column key="source"
 					   title="Url">
 		</q-grid-column>
+		<q-grid-column key="discoveredIn"
+					   title="Should be > 1800 and even">
+		</q-grid-column>
 	</q-grid-columns>
 	<q-grid-validation>
 		<q-grid-rule for="cell"
@@ -72,6 +75,10 @@
 		<q-grid-rule for="cell"
 					 key="source"
 					 url>
+		</q-grid-rule>
+		<q-grid-rule for="cell"
+					 key="discoveredIn"
+					 [test]="checkNumber">
 		</q-grid-rule>
 	</q-grid-validation>
 

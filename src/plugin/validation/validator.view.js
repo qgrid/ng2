@@ -1,5 +1,5 @@
 import { isString, isEqual } from '../../core/utility/kit';
-import { hasRules, createValidator } from '../../core/validation/validation.service';
+import { ValidatorBuilder } from '../../core/validation/validator.builder';
 
 export class ValidatorView {
 	constructor(model, context) {
@@ -7,9 +7,8 @@ export class ValidatorView {
 		this.context = context;
 
 		this.oldErrors = [];
-		if (hasRules(this.rules, this.key)) {
-			this.validator = createValidator(this.rules, this.key);
-		}
+		const validatorBuilder = new ValidatorBuilder(this.rules, this.key);
+		this.validator = validatorBuilder.validator;
 	}
 
 	get errors() {

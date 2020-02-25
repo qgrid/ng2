@@ -11,6 +11,9 @@ export class RuleComponent implements OnChanges {
 	@Input() for: string;
 	@Input() key: string;
 
+	// Custom validation rules
+	@Input() test?: Function;
+
 	// Common Rules
 	@Input() required?: string;
 	@Input('notEmptyList') not_empty_list?: string;
@@ -51,7 +54,7 @@ export class RuleComponent implements OnChanges {
 		private plugin: PluginService,
 		private templateHost: TemplateHostService
 	) {
-		this.templateHost.key = () => `rule`;
+		this.templateHost.key = () => 'rule';
 	}
 
 	ngOnChanges(changes: SimpleChanges) {

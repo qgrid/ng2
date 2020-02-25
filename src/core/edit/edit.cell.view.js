@@ -5,7 +5,7 @@ import { CellEditor } from './edit.cell.editor';
 import { getFactory as valueFactory } from '../services/value';
 import { getFactory as labelFactory } from '../services/label';
 import { parseFactory } from '../services/convert';
-import * as validationService from '../validation/validation.service';
+import { ValidatorBuilder } from '../validation/validator.builder';
 
 // do not delete this importing it's required in the bundle
 // TODO: investigate how to avoid it
@@ -151,7 +151,8 @@ export class EditCellView {
 					if (canEdit) {
 						const context = this.contextFactory(cell, this.value, this.label, this.tag);
 						const key = context.column.key;
-						const validator = validationService.createValidator(model.validation().rules, key);
+						const validatorBuilder = new ValidatorBuilder(model.validation().rules, key);
+						const { validator } = validatorBuilder;
 						return model.edit().commit.canExecute(context) && validator.validate({ [key]: this.value });
 					}
 					return false;
@@ -186,7 +187,8 @@ export class EditCellView {
 					if (canEdit) {
 						const context = this.contextFactory(cell, this.value, this.label, this.tag);
 						const key = context.column.key;
-						const validator = validationService.createValidator(model.validation().rules, key);
+						const validatorBuilder = new ValidatorBuilder(model.validation().rules, key);
+						const { validator } = validatorBuilder;
 						return model.edit().commit.canExecute(context) && validator.validate({ [key]: this.value });
 					}
 

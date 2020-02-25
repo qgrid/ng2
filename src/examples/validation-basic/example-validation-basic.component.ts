@@ -19,4 +19,11 @@ export class ExampleValidationBasicComponent {
 	constructor(dataService: DataService) {
 		this.rows = dataService.getAtoms();
 	}
+
+	checkNumber(v) {
+		const isValid = v > 1800 && v % 2 === 0;
+		if (!isValid) {
+			return 'Should be > 1800 and even';
+		}
+	}
 }
