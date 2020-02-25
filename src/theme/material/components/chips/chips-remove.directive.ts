@@ -8,7 +8,7 @@ import { MatChip } from '@angular/material/chips';
 	selector: '[q-grid-chips-remove]'
 })
 export class ChipsRemoveDirective implements AfterViewInit {
-	@ContentChild(MatChip) list: MatChip;
+	@ContentChild(MatChip, { static: false }) list: MatChip;
 	@Output('q-grid-chips-remove') remove = new EventEmitter<any>();
 
 	constructor(private chipsDirective: ChipsDirective) { }

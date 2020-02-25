@@ -41,7 +41,7 @@ export class RuleComponent implements OnChanges {
 	@Input('equalToField') equal_to_field?: string;
 	@Input('listOf') list_of?: string;
 
-	@ViewChild(TemplateRef) templateRef: TemplateRef<any>;
+	@ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
 
 	context: { $implicit: RuleComponent } = {
 		$implicit: this

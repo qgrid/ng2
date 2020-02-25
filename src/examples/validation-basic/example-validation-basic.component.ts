@@ -13,7 +13,7 @@ import { Atom, DataService } from '../data.service';
 export class ExampleValidationBasicComponent {
 	static id = 'validation-basic';
 
-	@ViewChild(GridComponent) myGrid: GridComponent;
+	@ViewChild(GridComponent, { static: true }) myGrid: GridComponent;
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

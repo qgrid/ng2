@@ -26,10 +26,10 @@ export class LiveCellComponent implements OnInit, OnDestroy {
 
 	@HostBinding('class') class: string;
 
-	@ViewChild('currency') currencyTemplate: TemplateRef<any>;
-	@ViewChild('number') numberTemplate: TemplateRef<any>;
-	@ViewChild('time') timeTemplate: TemplateRef<any>;
-	@ViewChild('text') textTemplate: TemplateRef<any>;
+	@ViewChild('currency', { static: true }) currencyTemplate: TemplateRef<any>;
+	@ViewChild('number', { static: true }) numberTemplate: TemplateRef<any>;
+	@ViewChild('time', { static: true }) timeTemplate: TemplateRef<any>;
+	@ViewChild('text', { static: true }) textTemplate: TemplateRef<any>;
 
 	timeoutId: any = null;
 

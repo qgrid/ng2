@@ -18,7 +18,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private initialSelectionMode: 'single' | 'multiple' | 'range' | 'singleOnly' = null;
 	private initialEditState: 'view' | 'edit' | 'startBatch' | 'endBatch' = null;
 
-	@ViewChild('marker') marker: ElementRef;
+	@ViewChild('marker', { static: true }) marker: ElementRef;
 	isMarkerVisible = false;
 
 	constructor(

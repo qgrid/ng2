@@ -13,7 +13,7 @@ import { GridComponent } from 'ng2-qgrid';
 export class ExampleVisibilityModelComponent implements AfterViewInit {
 	static id = 'visibility-model';
 
-	@ViewChild(GridComponent) grid: GridComponent;
+	@ViewChild(GridComponent, { static: false }) grid: GridComponent;
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

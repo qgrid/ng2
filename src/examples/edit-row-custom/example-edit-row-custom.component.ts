@@ -15,8 +15,8 @@ export class ExampleEditRowCustomComponent {
 	static id = 'edit-row-custom';
 
 	rows: Observable<Human[]>;
-	@ViewChild(GridComponent) grid: GridComponent;
-	@ViewChild(PaneComponent) pane: PaneComponent;
+	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
+	@ViewChild(PaneComponent, { static: true }) pane: PaneComponent;
 
 	openPane = new Command({
 		execute: () => this.pane.open('right'),

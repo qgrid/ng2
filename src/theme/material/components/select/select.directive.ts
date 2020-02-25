@@ -5,7 +5,7 @@ import { MatSelect } from '@angular/material/select';
 	selector: '[q-grid-select]'
 })
 export class SelectDirective implements AfterViewInit {
-	@ContentChild(MatSelect) input: MatSelect;
+	@ContentChild(MatSelect, { static: false }) input: MatSelect;
 
 	constructor() { }
 
