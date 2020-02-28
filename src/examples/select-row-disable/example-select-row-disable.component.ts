@@ -13,7 +13,7 @@ import { GridComponent, Command } from 'ng2-qgrid';
 export class ExampleSelectRowDisableComponent implements AfterViewInit {
 	static id = 'select-row-disable';
 
-	@ViewChild(GridComponent, { static: false }) grid: GridComponent;
+	@ViewChild(GridComponent) grid: GridComponent;
 	rows: Observable<Human[]>;
 
 	constructor(dataService: DataService) {

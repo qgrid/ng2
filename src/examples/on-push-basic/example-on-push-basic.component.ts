@@ -13,7 +13,7 @@ import { GridComponent } from 'ng2-qgrid';
 export class ExampleOnPushBasicComponent implements AfterViewInit {
 	static id = 'on-push-basic';
 
-	@ViewChild(GridComponent, { static: false }) myGrid: GridComponent;
+	@ViewChild(GridComponent) myGrid: GridComponent;
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {
