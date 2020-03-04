@@ -10,6 +10,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
+## [7.5.2] - 2020-03-04
+### Fixed
+- Dynamic column visibility.
+- Dispose actions right.
+
 ## [7.5.1] - 2020-01-22
 ### Fixed
 - Fix npm package.
@@ -459,8 +464,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v7.5.1...HEAD
-[7.5.1]: https://github.com/qgrid/ng2/compare/v7.4.0...v7.5.0
+[unreleased]: https://github.com/qgrid/ng2/compare/v7.5.2...HEAD
+[7.5.2]: https://github.com/qgrid/ng2/compare/v7.5.1...v7.5.2
+[7.5.1]: https://github.com/qgrid/ng2/compare/v7.5.0...v7.5.1
 [7.5.0]: https://github.com/qgrid/ng2/compare/v7.4.0...v7.5.0
 [7.4.0]: https://github.com/qgrid/ng2/compare/v7.3.0...v7.4.0
 [7.3.0]: https://github.com/qgrid/ng2/compare/v7.2.6...v7.3.0
