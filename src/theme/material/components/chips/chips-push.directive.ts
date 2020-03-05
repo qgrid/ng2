@@ -7,7 +7,7 @@ import {
 	EventEmitter,
 	NgZone
 } from '@angular/core';
-import { MatChipInput } from '@angular/material';
+import { MatChipInput } from '@angular/material/chips';
 import { Shortcut } from 'ng2-qgrid';
 import { ChipsDirective } from './chips.directive';
 
@@ -15,8 +15,8 @@ import { ChipsDirective } from './chips.directive';
 	selector: '[q-grid-chips-push]'
 })
 export class ChipsPushDirective implements AfterViewInit {
-	@ContentChild(MatChipInput) inputComponent: MatChipInput;
-	@ContentChild('qGridInput') inputElement: ElementRef;
+	@ContentChild(MatChipInput, { static: false }) inputComponent: MatChipInput;
+	@ContentChild('qGridInput', { static: false }) inputElement: ElementRef;
 
 	@Output('q-grid-chips-push') push = new EventEmitter<string>();
 

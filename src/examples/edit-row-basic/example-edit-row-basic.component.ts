@@ -15,7 +15,7 @@ export class ExampleEditRowBasicComponent implements OnInit {
 
 	rows: Observable<Human[]>;
 	columns: Array<Column | BoolColumn>;
-	@ViewChild(GridComponent) myGrid: GridComponent;
+	@ViewChild(GridComponent, { static: true }) myGrid: GridComponent;
 
 	constructor(private dataService: DataService, private qgrid: Grid) {
 		this.rows = dataService.getPeople();

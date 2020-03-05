@@ -13,7 +13,7 @@ import { GridComponent, Command, Grid } from 'ng2-qgrid';
 export class ExampleDataRowDeleteComponent {
 	static id = 'data-row-delete';
 
-	@ViewChild(GridComponent) grid: GridComponent;
+	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
 	rows: Observable<Human[]>;
 
 	deleteRow = new Command({

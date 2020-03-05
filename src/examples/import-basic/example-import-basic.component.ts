@@ -15,7 +15,7 @@ import { GridComponent } from 'ng2-qgrid';
 export class ExampleImportBasicComponent implements AfterViewInit {
 	static id = 'import-basic';
 
-	@ViewChild(GridComponent) myGrid: GridComponent;
+	@ViewChild(GridComponent, { static: false }) myGrid: GridComponent;
 	rows: Observable<Atom[]> = of([]);
 
 	ngAfterViewInit() {

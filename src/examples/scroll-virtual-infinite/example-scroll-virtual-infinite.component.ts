@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 export class ExampleScrollVirtualInfiniteComponent implements AfterViewInit {
 	static id = 'scroll-virtual-infinite';
 
-	@ViewChild(GridComponent) myGrid;
+	@ViewChild(GridComponent, { static: false }) myGrid;
 	rows: Observable<Atom[]>;
 
 	constructor(private dataService: DataService, private qgrid: Grid) {

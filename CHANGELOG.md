@@ -10,10 +10,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
+## [8.0.0] - 2019-03-25
+### Changed
+- Migrate to Angular 8.
+- Static query migration.
+
 ## [7.5.2] - 2020-03-04
 ### Fixed
 - Dynamic column visibility.
-- Dispose actions right.
+- Get rid of duplicate actions on destroy.
 
 ## [7.5.1] - 2020-01-22
 ### Fixed
@@ -464,7 +469,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v7.5.2...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v8.0.0...HEAD
+[8.0.0]: https://github.com/qgrid/ng2/compare/v7.5.2...v8.0.0
 [7.5.2]: https://github.com/qgrid/ng2/compare/v7.5.1...v7.5.2
 [7.5.1]: https://github.com/qgrid/ng2/compare/v7.5.0...v7.5.1
 [7.5.0]: https://github.com/qgrid/ng2/compare/v7.4.0...v7.5.0

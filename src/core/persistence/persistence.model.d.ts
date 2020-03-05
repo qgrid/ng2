@@ -13,6 +13,6 @@ export declare interface PersistenceModel {
 	create?: Command;
 	modify?: Command;
 	reset?: Command;
-	setDefault?: Command;	
+	setDefault?: Command;
 	settings?: { [key: string]: string[] };
 }

@@ -18,7 +18,7 @@ import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 })
 export class ImportComponent implements AfterViewInit {
 	@Input() options: any;
-	@ContentChild(TemplateRef) templateRef: TemplateRef<any>;
+	@ContentChild(TemplateRef, { static: false }) templateRef: TemplateRef<any>;
 
 	context: { $implicit: ImportComponent } = {
 		$implicit: this
