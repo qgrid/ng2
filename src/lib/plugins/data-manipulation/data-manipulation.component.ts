@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { DataManipulationView } from 'ng2-qgrid/plugin/data-manipulation/data.manipulation.view';
 import { Disposable } from '../../infrastructure/disposable';
+import { Disposable as DisposableCore } from 'ng2-qgrid/core/infrastructure/disposable';
 import { PluginService } from '../plugin.service';
 import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 import { StyleCellContext, StyleRowContext } from 'ng2-qgrid/core/style/style.context';
@@ -31,7 +32,10 @@ export class DataManipulationComponent implements OnInit, OnChanges {
 	}
 
 	ngOnInit() {
-		const dataManipulation = new DataManipulationView(this.plugin.model, this.disposable);
+		const dispose = new DisposableCore();
+		this.disposable.add(() => dispose.dispose());
+
+		const dataManipulation = new DataManipulationView(this.plugin.model, dispose);
 		this.context = { $implicit: dataManipulation };
 	}
 }
