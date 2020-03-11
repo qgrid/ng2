@@ -1,25 +1,22 @@
-$color-lc-cyan-dark: #006f8f;
+$color-head: #006f8f;
 $color-black-87: rgba(0, 0, 0, 0.87);
 
 .q-grid-embed,
 .q-grid-lcc {
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: $font-family;
 
     .q-grid {
         .q-grid {
             &-title {
                 h2 {
-                    font-size: 24px;
-                    font-weight: normal;
-                    font-style: normal;
+                    @include typography(24px, normal, normal, normal, $color-lc-cyan-dark);
                     text-align: left;
-                    color: $color-lc-cyan-dark;
                 }
             }
 
             &-caption {
                 h3 {
-                    color: $color-lc-cyan-dark;
+                    color: $color-head;
                 }
             }
 
@@ -36,11 +33,8 @@ $color-black-87: rgba(0, 0, 0, 0.87);
                     height: 36px;
                 }
 
-                th {
-                    font-size: 12px !important;
-                    color: $color-lc-cyan-dark !important;
-                    font-weight: normal !important;
-                    line-height: 14px;
+                th {                
+                    @include typography(12px !important, 14px,  normal !important, normal, $color-lc-cyan-dark !important);
 
                     &:hover label {
                         font-weight: normal !important;
@@ -50,8 +44,6 @@ $color-black-87: rgba(0, 0, 0, 0.87);
                         text-align: center;
                         line-height: 16px;
                         font-size: 14px;
-                        padding: 0 2px;
-                        color: $color-black-87;
                     }
 
                     .q-grid-column-filter-trigger {
@@ -64,16 +56,12 @@ $color-black-87: rgba(0, 0, 0, 0.87);
                     }
 
                     .q-grid-sort {
-                        padding-left: 20px;
+                        color: $color-head;
 
                         &.q-grid-active {
                             label {
                                 color: inherit;
                             }
-                        }
-
-                        .q-grid-icon {
-                            margin-left: -20px;
                         }
 
                         label {
@@ -83,10 +71,8 @@ $color-black-87: rgba(0, 0, 0, 0.87);
                 }
 
                 td {
-                    font-size: 14px;
-                    font-weight: normal;
+                    @include typography(14px, normal,  normal, normal, $color-black-87);
                     padding: 0 20px;
-                    color: $color-black-87;
 
                     &.q-grid-text-area {
                         >span {
@@ -103,9 +89,7 @@ $color-black-87: rgba(0, 0, 0, 0.87);
                     &.q-grid-edit {
                         &.q-grid-row-options {
                             button {
-                                width: 24px;
-                                height: 24px;
-                                line-height: 24px;
+                                @include buttonSizes(24px);
                             }
                         }
                     }
@@ -123,20 +107,13 @@ $color-black-87: rgba(0, 0, 0, 0.87);
                 &-list {
                     font-size: 16px !important;
                     text-align: left !important;
-                    color: #000000 !important;
+                    color: $black !important;
                 }
 
                 &-item {
-                    width: 8px !important;
-                    height: 8px !important;
+                    @include simpleSquareElement(8px !important);
                     margin-right: 18px !important;
                     margin-bottom: 2px !important;
-                }
-            }
-
-            &-progress {
-                &-linear {
-                    top: -10px;
                 }
             }
 

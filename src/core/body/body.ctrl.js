@@ -3,7 +3,9 @@ import { Fastdom } from '../services/fastdom';
 import { GRID_PREFIX } from '../definition';
 import { jobLine } from '../services/job.line';
 import { eventPath } from '../services/dom';
-import { LEFT_BUTTON, checkButtonCode } from '../mouse/mouse.code';
+import { LEFT_BUTTON, checkButtonCode, getButtonCode } from '../mouse/mouse.code';
+import { NO_BUTTON } from '../mouse/mouse.code';
+import { stringify } from '../mouse/mouse.code';
 
 const VERTICAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-vertical`;
 const HORIZONTAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-horizontal`;
@@ -73,14 +75,16 @@ export class BodyCtrl {
 	}
 
 	onMouseDown(e) {
+		const { model } = this;
+		const pathFinder = new PathService(this.bag.body);
+		const cell = pathFinder.cell(eventPath(e));		
+
 		if (checkButtonCode(e, LEFT_BUTTON)) {
 			const { area, mode } = this.selection;
 			if (area !== 'body') {
 				return;
 			}
 
-			const pathFinder = new PathService(this.bag.body);
-			const cell = pathFinder.cell(eventPath(e));
 			if (mode === 'range') {
 				this.rangeStartCell = cell;
 
@@ -89,6 +93,14 @@ export class BodyCtrl {
 				}
 			}
 		}
+
+		model.mouse({
+			code: stringify(getButtonCode(e)),
+			status: 'down',
+			target: cell
+		}, {
+			source: 'mouse.down'
+		});
 	}
 
 	onMouseMove(e) {
@@ -149,32 +161,48 @@ export class BodyCtrl {
 	}
 
 	onMouseUp(e) {
+		const { model } = this;
 		const { mode } = this.selection;
 		const { edit } = this.model;
 
-		if (checkButtonCode(e, LEFT_BUTTON)) {
-			const pathFinder = new PathService(this.bag.body);
-			const cell = pathFinder.cell(eventPath(e));
+		const pathFinder = new PathService(this.bag.body);
+		const cell = pathFinder.cell(eventPath(e));
 
+		if (checkButtonCode(e, LEFT_BUTTON)) {
 			if (mode === 'range') {
 				this.rangeStartCell = null;
 			}
 
 			if (edit().state === 'startBatch') {
 				edit({ state: 'endBatch' }, { source: 'body.ctrl' });
-				return;
-			}
+			} else {
+				if (cell) {
+					const { state: beforeSelectState } = edit();
+					this.navigate(cell);
+					this.select(cell);					
 
-			if (cell) {
-				const { state: beforeSelectState } = edit();
-				this.select(cell);
-				this.navigate(cell);
-
-				if (beforeSelectState === 'view' && this.view.edit.cell.enter.canExecute(cell)) {
-					this.view.edit.cell.enter.execute(cell);
+					if (beforeSelectState === 'view' && this.view.edit.cell.enter.canExecute(cell)) {
+						this.view.edit.cell.enter.execute(cell);
+					}
 				}
 			}
 		}
+
+		model.mouse({
+			code: stringify(getButtonCode(e)),
+			status: 'up',
+			target: cell,
+		}, {
+			source: 'mouse.up'
+		});
+
+		model.mouse({
+			code: stringify(NO_BUTTON),
+			status: 'release',
+			target: null
+		}, {
+			source: 'mouse.up'
+		});
 	}
 
 	select(cell) {
@@ -190,10 +218,14 @@ export class BodyCtrl {
 				if (cell.column.type === 'select' && cell.column.editorOptions.trigger === 'focus') {
 					const focusState = model.focus();
 					if (focusState.rowIndex !== cell.rowIndex || focusState.columnIndex !== cell.columnIndex) {
-						this.view.selection.toggleRow.execute(cell.row, 'body');
+						if (this.view.selection.toggleRow.canExecute(cell.row)) {
+							this.view.selection.toggleRow.execute(cell.row, 'body');
+						}
 					}
 				} else if (!editMode && cell.column.class !== 'control') {
-					this.view.selection.toggleRow.execute(cell.row, 'body');
+					if (this.view.selection.toggleRow.canExecute(cell.row)) {
+						this.view.selection.toggleRow.execute(cell.row, 'body');
+					}
 				}
 				break;
 			}

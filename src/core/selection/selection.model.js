@@ -6,7 +6,7 @@ export class SelectionModel {
 	constructor() {
 		this.resource = new Resource();
 		this.unit = 'cell'; //row|cell|column|mix
-		this.mode = 'single'; //single|multiple|range
+		this.mode = 'single'; //single|multiple|range|singleOnly
 		this.items = [];
 		this.area = 'body'; //body, custom
 		this.toggle = new Command({ source: 'selection.model' });
@@ -15,7 +15,7 @@ export class SelectionModel {
 			column: identity
 		};
 		this.shortcut = {
-			toggleRow: 'shift+space',
+			toggleRow: 'shift+space|space',
 			togglePreviousRow: 'shift+up',
 			toggleNextRow: 'shift+down',
 			toggleColumn: 'ctrl+space',

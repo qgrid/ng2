@@ -17,7 +17,7 @@ import { BackdropService } from './backdrop.service';
 	templateUrl: './backdrop.component.html'
 })
 export class BackdropComponent implements OnInit, OnDestroy {
-	@ViewChild(TemplateRef) template: TemplateRef<any>;
+	@ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
 	@Output('close') closeEvent = new EventEmitter<any>();
 	@Input() propagate = true;
 

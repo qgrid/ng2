@@ -2,13 +2,10 @@
              let-$reference>
     <q-grid class="q-grid-embed"
             [model]="$reference.model"
+            [caption]="$reference.caption"
             [q-grid-autofocus]="$reference.autofocus">
-        <q-grid-toolbar>
-            <ng-template for="top">
-                <div class="q-grid-progress">
-                    <q-grid-progress></q-grid-progress>
-                </div>
-            </ng-template>
-        </q-grid-toolbar>
+
+        <q-grid-visibility [toolbarTop]="false">
+        </q-grid-visibility>
     </q-grid>
 </ng-template>

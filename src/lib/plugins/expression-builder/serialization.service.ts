@@ -3,6 +3,7 @@ import { Line } from './model/line';
 import { GroupExpression } from './model/expression';
 import { INodeSchema } from './model/node.schema';
 import { override, indexOf } from './utility';
+import { Injectable } from '@angular/core';
 
 class Serializer {
 	constructor(private node: Node) {
@@ -163,6 +164,7 @@ export declare interface ISerializationExpression {
 	method: Array<string>;
 }
 
+@Injectable()
 export class SerializationService {
 	serialize(node: Node): ISerializationNode {
 		return new Serializer(node).serialize();

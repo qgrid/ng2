@@ -1,5 +1,3 @@
-@import 'variables';
-
 .q-grid-view {
 	> .q-grid-table-left,
 	> .q-grid-table-right {
@@ -7,10 +5,10 @@
 	}
 	&.q-grid-scroll-horizontal {
 		> .q-grid-table-left {
-			box-shadow: 1px 0 0 0 $dark-divider;
+			box-shadow: 1px 0 0 0 $common-border-color;
 		}
 		> .q-grid-table-right {
-			box-shadow: -1px 0 0 0 $dark-divider;
+			box-shadow: -1px 0 0 0 $common-border-color;
 		}
 	}
 }

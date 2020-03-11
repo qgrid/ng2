@@ -23,8 +23,7 @@ import takeWhile from 'lodash-es/takeWhile';
 import dropWhile from 'lodash-es/dropWhile';
 import groupBy from 'lodash-es/groupBy';
 
-const noop = () => {
-};
+const noop = () => {};
 const yes = () => true;
 const no = () => false;
 const identity = arg => arg;

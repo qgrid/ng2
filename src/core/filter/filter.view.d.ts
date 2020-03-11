@@ -10,4 +10,5 @@ export class FilterView {
 
 	filter: Command<any>;
 	has(column: ColumnModel): boolean;
+	value(column: ColumnModel): any;
 }

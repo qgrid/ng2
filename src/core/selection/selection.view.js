@@ -87,7 +87,16 @@ export class SelectionView {
 
 		const toggleActiveRow = new Command({
 			source: 'selection.view',
-			canExecute: () => model.selection().unit === 'row' && this.rows.length > 0,
+			canExecute: () => {
+				const { rowIndex } = model.navigation();
+				const row = this.rows[rowIndex >= 0 ? rowIndex : rowIndex + 1];
+
+				if (!this.form.canSelect(row)) {
+					return false;
+				}
+
+				return model.selection().unit === 'row' && this.rows.length > 0;
+			},
 			execute: () => {
 				const { rowIndex } = model.navigation();
 				const row = this.rows[rowIndex >= 0 ? rowIndex : rowIndex + 1];
@@ -134,9 +143,13 @@ export class SelectionView {
 					commit();
 				},
 				canExecute: row => {
+					if (!this.form.canSelect(row)) {
+						return false;
+					}
+
 					const e = {
 						items: isUndefined(row)
-							? this.model.view().rows
+							? this.model.scene().rows
 							: [row],
 						source: 'custom',
 						kind: 'toggleRow'
@@ -283,7 +296,7 @@ export class SelectionView {
 		const { toggle } = this.model.selection();
 
 		items = !arguments.length || isUndefined(items)
-			? this.model.view().rows
+			? this.model.scene().rows
 			: isArray(items)
 				? items : [items];
 
@@ -317,11 +330,10 @@ export class SelectionView {
 		if (toggle.canExecute(e)) {
 			toggle.execute(e);
 
-			const selectionState = this.form;
-			selectionState.select(items, state);
+			this.form.select(items, state);
 
 			return () => {
-				const items = this.selectionService.map(selectionState.entries());
+				const items = this.selectionService.map(this.form.entries());
 				this.model.selection({ items }, {
 					source: 'selection.view'
 				});

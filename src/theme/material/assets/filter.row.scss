@@ -1,16 +1,30 @@
+@import "variables";
+
 th {
-	&.q-grid-filter-row {
-		input[placeholder] {
-			text-overflow: ellipsis;
-		}
-		input::-moz-placeholder {
-			text-overflow: ellipsis;
-		}
-		input:-moz-placeholder {
-			text-overflow: ellipsis;
-		}
-		input:-ms-input-placeholder {
-			text-overflow: ellipsis;
-		}
-	}
+    &.q-grid-filter-row {
+        text-overflow: unset;
+
+        &:hover {
+            label {
+                font-weight: normal;
+            }
+        }
+
+        input {
+            color: $dark;
+        }
+
+        .q-grid-icon {
+            color: $dark-secondary;
+        }
+
+        .q-grid-close {
+            cursor: pointer;
+            font-size: 14px;
+            height: 16px;
+            vertical-align: middle;
+        }
+
+        @include placeholderOverflow(ellipsis);
+    }
 }

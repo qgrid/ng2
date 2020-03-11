@@ -13,17 +13,26 @@ import { Command, GridComponent, PaneComponent } from 'ng2-qgrid';
 export class ExamplePaneTriggerComponent {
 	static id = 'pane-trigger';
 
-	@ViewChild(GridComponent) grid: GridComponent;
-	@ViewChild(PaneComponent) pane: PaneComponent;
+	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
+	@ViewChild(PaneComponent, { static: true }) pane: PaneComponent;
 
 	rows$: Observable<Human[]>;
+	selectedRow: Human;
 
 	openPane = new Command({
-		execute: () => this.pane.open('right'),
-		canExecute: () => !!this.grid.model.navigation().cell,
+		execute: () => {
+			this.selectedRow = this.cell.row;
+			this.pane.open('right');
+		},
+		canExecute: () => !!this.cell,
 	});
 
 	constructor(dataService: DataService) {
 		this.rows$ = dataService.getPeople();
+	}
+
+	private get cell() {
+		const { model } = this.grid;
+		return model.selection().items[0];
 	}
 }

@@ -5,7 +5,7 @@ import { Aggregation } from '../services/aggregation';
 export function groupBuilder(model) {
 	const { rows } = model.data();
 	const { pivot } = model.view();
-	const nodes = model.view().rows;
+	const nodes = model.scene().rows;
 	const columns = model.columnList().line;
 
 	const pivotRows = pivot.rows;

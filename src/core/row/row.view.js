@@ -87,7 +87,7 @@ export class RowView {
 			canExecute: e => {
 				if (isNumber(e.data)) {
 					const index = e.data;
-					return index >= 0 && model.view().rows.length > index;
+					return index >= 0 && model.scene().rows.length > index;
 				}
 
 				return false;

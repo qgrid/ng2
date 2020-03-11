@@ -14,6 +14,7 @@ export class ReferenceEditorComponent extends NgComponent implements AfterViewIn
 
 	@Input() caption: string;
 	@Input() cell: CellView;
+
 	@Output() valueChange = new EventEmitter<any>();
 	@Output() afterSubmit = new EventEmitter();
 	@Output() afterCancel = new EventEmitter();

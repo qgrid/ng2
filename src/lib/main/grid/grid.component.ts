@@ -20,7 +20,6 @@ import { FetchContext } from 'ng2-qgrid/core/fetch/fetch.context';
 import { Grid } from './grid.service';
 import { GridCtrl } from 'ng2-qgrid/core/grid/grid.ctrl';
 import { GridModel } from '../../plugins/plugin.service';
-import { jobLine } from 'ng2-qgrid/core/services/job.line';
 import { LayerService } from '../layer/layer.service';
 import { ModelBuilderService } from '../model/model-builder.service';
 import { noop } from 'ng2-qgrid/core/utility/kit';
@@ -88,7 +87,7 @@ export class GridComponent extends RootComponent implements OnInit {
 		row: () => void,
 		column: () => void
 	};
-	@Input() selectionMode: 'single' | 'multiple' | 'range';
+	@Input() selectionMode: 'single' | 'multiple' | 'range' | 'singleOnly';
 	@Input() selectionUnit: 'row' | 'cell' | 'column' | 'mix';
 
 	@Input() scrollMode: 'default' | 'virtual';
@@ -153,6 +152,8 @@ export class GridComponent extends RootComponent implements OnInit {
 
 		model.style({
 			classList: Array.from(nativeElement.classList)
+		}, {
+			source: 'grid'
 		});
 
 		const ctrl = this.using(new GridCtrl(model, {
@@ -182,43 +183,26 @@ export class GridComponent extends RootComponent implements OnInit {
 						model.edit({
 							state: 'view'
 						}, {
-								source: 'document.click'
-							});
+							source: 'document.click'
+						});
 					}
 				}
 			}));
 		});
 
-		const { debounce } = model.navigation();
-		if (debounce) {
-			const navJob = jobLine(debounce);
-			this.zone.runOutsideAngular(() => {
-				this.using(listener.on('keydown', e => {
-					const result = ctrl.keyDown(e);
-					if (result.indexOf('navigation') >= 0) {
-						navJob((() => {
-							this.cd.markForCheck();
-							this.zone.run(noop);
-						}));
-					} else if (result.length) {
-						// app.tick is not working correctly, why?
-						this.cd.markForCheck();
-						this.zone.run(noop);
-					}
-				}));
-			});
-		} else {
-			this.using(listener.on('keydown', e => {
-				const result = ctrl.keyDown(e);
-				if (result.indexOf('selection.view') >= 0) {
-					this.cd.markForCheck();
-					this.zone.run(noop);
-				}
-			}));
-		}
+		this.using(listener.on('keydown', e => {
+			const result = ctrl.keyDown(e, 'grid');
+			if (result.indexOf('selection.view') >= 0) {
+				this.cd.markForCheck();
+				this.zone.run(noop);
+			}
+		}));
+
+		this.zone.runOutsideAngular(() => {
+			this.using(listener.on('keyup', e => ctrl.keyUp(e, 'grid')));
+		});
 
 		this.using(model.visibilityChanged.on(() => this.cd.detectChanges()));
-
 	}
 
 	// @deprecated

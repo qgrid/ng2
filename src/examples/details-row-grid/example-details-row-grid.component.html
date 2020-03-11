@@ -1,38 +1,33 @@
 <q-grid caption="Details Row Grid"
-        [rows]="rows | async">
+		[rows]="rows | async">
 	<q-grid-columns generation="deep">
 	</q-grid-columns>
 
 	<q-grid-row unit="details"
-	            mode="multiple">
+				mode="multiple">
 		<ng-template for="details"
-		             let-$cell>
+					 let-$cell>
 			<q-grid caption="First 3 `{{$cell.row.item.phase}}` atoms"
-			        [rows]="getSamePhaseRows($cell.row.item) | async"
-			        class="q-grid-embed"
-			        style="padding: 20px">
+					[rows]="getSamePhaseRows($cell.row.item) | async"
+					class="q-grid-embed"
+					style="padding: 0 20px 20px 20px">
 				<q-grid-columns>
 					<q-grid-column [canSort]="false"
-					               [canFilter]="false">
+								   [canFilter]="false">
 					</q-grid-column>
 					<q-grid-column key="number"
-					               title="Number">
+								   title="Number">
 					</q-grid-column>
 					<q-grid-column key="symbol"
-					               title="Symbol">
+								   title="Symbol">
 					</q-grid-column>
 					<q-grid-column key="name"
-					               title="Name">
+								   title="Name">
 					</q-grid-column>
 				</q-grid-columns>
 
-				<q-grid-toolbar>
-					<ng-template for="top">
-						<q-grid-caption></q-grid-caption>
-					</ng-template>
-					<ng-template for="bottom">
-					</ng-template>
-				</q-grid-toolbar>
+				<q-grid-visibility [toolbarBottom]="false">
+				</q-grid-visibility>
 			</q-grid>
 		</ng-template>
 	</q-grid-row>

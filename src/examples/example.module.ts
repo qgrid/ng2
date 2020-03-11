@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, Route } from '@angular/router';
-import { MatButtonModule, MatSelectModule, MatChipsModule, MatIconModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 import { GridModule, PipeModule } from 'ng2-qgrid';
 import { ThemeModule } from 'ng2-qgrid/theme/material';
@@ -32,17 +35,23 @@ import { ExampleColumnRowNumberBasicComponent } from './column-row-number-basic/
 import { ExampleColumnRowOptionsBasicComponent } from './column-row-options-basic/example-column-row-options-basic.component';
 import { ExampleColumnTextBasicComponent } from './column-text-basic/example-column-text-basic.component';
 import { ExampleColumnTimeBasicComponent } from './column-time-basic/example-column-time-basic.component';
+import { ExampleColumnTooltipBasicComponent } from './column-tooltip-basic/example-column-tooltip-basic.component';
 import { ExampleColumnTypeSafeComponent } from './column-type-safe/example-column-type-safe.component';
 import { ExampleColumnUrlBasicComponent } from './column-url-basic/example-column-url-basic.component';
+import { ExampleDataRowAddComponent } from './data-row-add/example-data-row-add.component';
+import { ExampleDataRowDeleteComponent } from './data-row-delete/example-data-row-delete.component';
 import { ExampleDefineColumnAsyncComponent } from './define-column-async/example-define-column-async.component';
 import { ExampleDefineColumnBasicComponent } from './define-column-basic/example-define-column-basic.component';
 import { ExampleDefineColumnHybridComponent } from './define-column-hybrid/example-define-column-hybrid.component';
+import { ExampleDefineColumnTypeComponent } from './define-column-type/example-define-column-type.component';
 import { ExampleDestroyGridBasicComponent } from './destroy-grid-basic/example-destroy-grid-basic.component';
 import { ExampleDestroyGridModelComponent } from './destroy-grid-model/example-destroy-grid-model.component';
 import { ExampleDetailsRowAllComponent } from './details-row-all/example-details-row-all.component';
 import { ExampleDetailsRowApiComponent } from './details-row-api/example-details-row-api.component';
 import { ExampleDetailsRowBasicComponent } from './details-row-basic/example-details-row-basic.component';
+import { ExampleDetailsRowCustomComponent } from './details-row-custom/example-details-row-custom.component';
 import { ExampleDetailsRowGridComponent } from './details-row-grid/example-details-row-grid.component';
+import { ExampleDetailsRowPinComponent } from './details-row-pin/example-details-row-pin.component';
 import { ExampleDetailsRowStartComponent } from './details-row-start/example-details-row-start.component';
 import { ExampleDragColumnBasicComponent } from './drag-column-basic/example-drag-column-basic.component';
 import { ExampleDragRowBasicComponent } from './drag-row-basic/example-drag-row-basic.component';
@@ -51,15 +60,18 @@ import { ExampleDynamicColumnModelComponent } from './dynamic-column-model/examp
 import { ExampleEditCellBasicComponent } from './edit-cell-basic/example-edit-cell-basic.component';
 import { ExampleEditCellBatchComponent } from './edit-cell-batch/example-edit-cell-batch.component';
 import { ExampleEditRowBasicComponent } from './edit-row-basic/example-edit-row-basic.component';
+import { ExampleEditRowCustomComponent } from './edit-row-custom/example-edit-row-custom.component';
 import { ExampleExportBasicComponent } from './export-basic/example-export-basic.component';
 import { ExampleExportCsvComponent } from './export-csv/example-export-csv.component';
 import { ExampleFilterColumnFetchComponent } from './filter-column-fetch/example-filter-column-fetch.component';
 import { ExampleFilterConditionBasicComponent } from './filter-condition-basic/example-filter-condition-basic.component';
-import { ExampleFilterRowBasicComponent } from './filter-row-basic/example-filter-row-basic.component';
+import { ExampleFilterRowAtomBasicComponent } from './filter-row-atom-basic/example-filter-row-atom-basic.component';
 import { ExampleFilterRowCustomComponent } from './filter-row-custom/example-filter-row-custom.component';
+import { ExampleFilterRowPeopleBasicComponent } from './filter-row-people-basic/example-filter-row-people-basic.component';
 import { ExampleFloatingRowsBasicComponent } from './floating-rows-basic/example-floating-rows-basic.component';
 import { ExampleFocusCellAutoComponent } from './focus-cell-auto/example-focus-cell-auto.component';
 import { ExampleFocusCellBasicComponent } from './focus-cell-basic/example-focus-cell-basic.component';
+import { ExampleFocusCellCustomComponent } from './focus-cell-custom/example-focus-cell-custom.component';
 import { ExampleGenerateColumnCheckComponent } from './generate-column-check/example-generate-column-check.component';
 import { ExampleGenerateColumnCohortComponent } from './generate-column-cohort/example-generate-column-cohort.component';
 import { ExampleGenerateColumnDeepComponent } from './generate-column-deep/example-generate-column-deep.component';
@@ -75,6 +87,7 @@ import { ExampleGroupRowSubheadComponent } from './group-row-subhead/example-gro
 import { ExampleGroupRowSummaryComponent } from './group-row-summary/example-group-row-summary.component';
 import { ExampleHierarchyBrowserBasicComponent } from './hierarchy-browser-basic/example-hierarchy-browser-basic.component';
 import { ExampleImportBasicComponent } from './import-basic/example-import-basic.component';
+import { ExampleImportCsvComponent } from './import-csv/example-import-csv.component';
 import { ExampleIndexColumnBasicComponent } from './index-column-basic/example-index-column-basic.component';
 import { ExampleIndexColumnHybridComponent } from './index-column-hybrid/example-index-column-hybrid.component';
 import { ExampleIndexColumnModelComponent } from './index-column-model/example-index-column-model.component';
@@ -84,6 +97,7 @@ import { ExampleKeyWithSymbolsComponent } from './key-with-symbols/example-key-w
 import { ExampleLayerGridBlankComponent } from './layer-grid-blank/example-layer-grid-blank.component';
 import { ExampleLegendGridBasicComponent } from './legend-grid-basic/example-legend-grid-basic.component';
 import { ExampleLiveDataBasicComponent } from './live-data-basic/example-live-data-basic.component';
+import { ExampleLiveRowsBasicComponent } from './live-rows-basic/example-live-rows-basic.component';
 import { ExampleLookAtomsBasicComponent } from './look-atoms-basic/example-look-atoms-basic.component';
 import { ExampleLookAtomsCustomizedComponent } from './look-atoms-customized/example-look-atoms-customized.component';
 import { ExampleLookAtomsIdComponent } from './look-atoms-id/example-look-atoms-id.component';
@@ -96,6 +110,8 @@ import { ExampleManipulateDataBasicComponent } from './manipulate-data-basic/exa
 import { ExampleMasterDetailsBasicComponent } from './master-details-basic/example-master-details-basic.component';
 import { ExampleOnPushBasicComponent } from './on-push-basic/example-on-push-basic.component';
 import { ExamplePaginationBasicComponent } from './pagination-basic/example-pagination-basic.component';
+import { ExamplePaneBasicComponent } from './pane-basic/example-pane-basic.component';
+import { ExamplePaneTriggerComponent } from './pane-trigger/example-pane-trigger.component';
 import { ExamplePersistenceBasicComponent } from './persistence-basic/example-persistence-basic.component';
 import { ExamplePersistenceServerComponent } from './persistence-server/example-persistence-server.component';
 import { ExamplePinColumnBasicComponent } from './pin-column-basic/example-pin-column-basic.component';
@@ -123,10 +139,13 @@ import { ExampleSelectColumnBasicComponent } from './select-column-basic/example
 import { ExampleSelectMixBasicComponent } from './select-mix-basic/example-select-mix-basic.component';
 import { ExampleSelectRowBasicComponent } from './select-row-basic/example-select-row-basic.component';
 import { ExampleSelectRowCommandComponent } from './select-row-command/example-select-row-command.component';
+import { ExampleSelectRowDisableComponent } from './select-row-disable/example-select-row-disable.component';
 import { ExampleSelectRowSingleComponent } from './select-row-single/example-select-row-single.component';
+import { ExampleSelectRowSingleOnlyComponent } from './select-row-single-only/example-select-row-single-only.component';
 import { ExampleSizeColumnAbsoluteComponent } from './size-column-absolute/example-size-column-absolute.component';
 import { ExampleSizeColumnBasicComponent } from './size-column-basic/example-size-column-basic.component';
 import { ExampleSizeColumnFullComponent } from './size-column-full/example-size-column-full.component';
+import { ExampleSizeColumnPinComponent } from './size-column-pin/example-size-column-pin.component';
 import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-basic.component';
 import { ExampleSortRowBasicComponent } from './sort-row-basic/example-sort-row-basic.component';
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
@@ -138,19 +157,6 @@ import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme
 import { ExampleValidationBasicComponent } from './validation-basic/example-validation-basic.component';
 import { ExampleVisibilityBasicComponent } from './visibility-basic/example-visibility-basic.component';
 import { ExampleVisibilityModelComponent } from './visibility-model/example-visibility-model.component';
-import { ExampleImportCsvComponent } from './import-csv/example-import-csv.component';
-import { ExampleFocusCellCustomComponent } from './focus-cell-custom/example-focus-cell-custom.component';
-import { ExampleDataRowAddComponent } from './data-row-add/example-data-row-add.component';
-import { ExampleColumnTooltipBasicComponent } from './column-tooltip-basic/example-column-tooltip-basic.component';
-import { ExampleDataRowDeleteComponent } from './data-row-delete/example-data-row-delete.component';
-import { ExampleDetailsRowPinComponent } from './details-row-pin/example-details-row-pin.component';
-import { ExampleSelectRowDisableComponent } from './select-row-disable/example-select-row-disable.component';
-import { ExampleSelectRowDisableUnselectComponent } from './select-row-disable-unselect/example-select-row-disable-unselect.component';
-import { ExamplePaneBasicComponent } from './pane-basic/example-pane-basic.component';
-import { ExamplePaneTriggerComponent } from './pane-trigger/example-pane-trigger.component';
-import { ExampleDefineColumnTypeComponent } from './define-column-type/example-define-column-type.component';
-import { ExampleSizeColumnPinComponent } from './size-column-pin/example-size-column-pin.component';
-import { ExampleLiveRows } from './live-rows/example-live-rows.component';
 
 export const EXAMPLES: any[] = [
 	ExampleActionBarBasicComponent,
@@ -192,6 +198,7 @@ export const EXAMPLES: any[] = [
 	ExampleDetailsRowAllComponent,
 	ExampleDetailsRowApiComponent,
 	ExampleDetailsRowBasicComponent,
+	ExampleDetailsRowCustomComponent,
 	ExampleDetailsRowGridComponent,
 	ExampleDetailsRowPinComponent,
 	ExampleDetailsRowStartComponent,
@@ -202,12 +209,14 @@ export const EXAMPLES: any[] = [
 	ExampleEditCellBasicComponent,
 	ExampleEditCellBatchComponent,
 	ExampleEditRowBasicComponent,
+	ExampleEditRowCustomComponent,
 	ExampleExportBasicComponent,
 	ExampleExportCsvComponent,
 	ExampleFilterColumnFetchComponent,
 	ExampleFilterConditionBasicComponent,
-	ExampleFilterRowBasicComponent,
+	ExampleFilterRowAtomBasicComponent,
 	ExampleFilterRowCustomComponent,
+	ExampleFilterRowPeopleBasicComponent,
 	ExampleFloatingRowsBasicComponent,
 	ExampleFocusCellAutoComponent,
 	ExampleFocusCellBasicComponent,
@@ -237,6 +246,7 @@ export const EXAMPLES: any[] = [
 	ExampleLayerGridBlankComponent,
 	ExampleLegendGridBasicComponent,
 	ExampleLiveDataBasicComponent,
+	ExampleLiveRowsBasicComponent,
 	ExampleLookAtomsBasicComponent,
 	ExampleLookAtomsCustomizedComponent,
 	ExampleLookAtomsIdComponent,
@@ -276,10 +286,10 @@ export const EXAMPLES: any[] = [
 	ExampleSelectColumnBasicComponent,
 	ExampleSelectMixBasicComponent,
 	ExampleSelectRowBasicComponent,
-	ExampleSelectRowDisableComponent,
-	ExampleSelectRowDisableUnselectComponent,
 	ExampleSelectRowCommandComponent,
+	ExampleSelectRowDisableComponent,
 	ExampleSelectRowSingleComponent,
+	ExampleSelectRowSingleOnlyComponent,
 	ExampleSizeColumnAbsoluteComponent,
 	ExampleSizeColumnBasicComponent,
 	ExampleSizeColumnFullComponent,
@@ -295,7 +305,6 @@ export const EXAMPLES: any[] = [
 	ExampleValidationBasicComponent,
 	ExampleVisibilityBasicComponent,
 	ExampleVisibilityModelComponent,
-	ExampleLiveRows
 ];
 
 export const APP_ROUTES: Routes = EXAMPLES.map<Route>(example => ({

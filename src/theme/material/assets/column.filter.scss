@@ -1,5 +1,3 @@
-@import "variables";
-
 &.q-grid-box:not(.q-grid-drag) {
     th.q-grid-highlighted {
         .q-grid-column-filter-trigger {
@@ -16,40 +14,28 @@
     opacity: 0;
     height: 16px;
     line-height: 16px;
-    transition: opacity 0.3s;
 
     &.q-grid-active {
         opacity: 1;
 
-        .q-grid-icon {
-            color: $dark;
-        }
-
+        .q-grid-icon,
         &+label {
             color: $dark;
         }
     }
 
     button {
+        @include squareElement(16px);
+        @include borderReset;
         font-size: 12px;
-        width: 16px;
-        min-width: 16px;
-        min-height: 16px;
-        height: 16px;
-        outline: none;
-        border: none;
         background: transparent;
         padding: 0;
         left: 0;
         margin: 0 2px 2px 2px;
 
         .q-grid-icon {
+            @include iconSizes(16px);
             color: $dark-secondary;
-            font-size: 16px;
-            height: 16px;
-            width: 16px;
-            min-height: 16px;
-            min-width: 16px;
             line-height: 16px;
             display: block;
         }
@@ -57,9 +43,7 @@
 }
 
 @at-root .q-grid-column-filter.q-grid-menu {
-    width: 360px;
-    min-width: 360px;
-    max-width: 360px;
+    @include width(360px);
     max-height: 500px;
     overflow: hidden;
 
@@ -125,7 +109,7 @@
 
         &-blank {
             text-align: center;
-            color: #C8C8C8;
+            color: $gray;
             position: relative;
             top: 20px;
         }
@@ -165,13 +149,13 @@
 
 @at-root .q-grid-filter-by {
     display: inline-flex;
-    background-color: #EBEBEB;
+    background-color: $gray-secondary;
     margin-right: 2px;
     border-radius: 100px;
     padding: 0 14px;
     margin-bottom: 3px;
 
-    &-item {
+    &-item { 
         font-size: 12px;
         margin: 2px 7px 1px -4px;
         height: 15px;
@@ -186,12 +170,12 @@
     }
 
     .q-grid-icon {
+        position: absolute;
         top: 2px;
         font-size: 14px;
         width: 5px;
         height: 5px;
-        position: absolute;
-        color: #C8C8C8;
+        color: $gray;
     }
 }
 

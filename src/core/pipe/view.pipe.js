@@ -33,14 +33,5 @@ export function viewPipe(memo, context, next) {
 		pivot
 	}, tag);
 
-	model.scene({
-		rows,
-		column: {
-			rows: scene.columnRows(memo.columns),
-			area: scene.columnArea(memo.columns),
-			line: columnLine
-		}
-	}, tag);
-
 	next(memo);
 }

@@ -6,6 +6,6 @@ export interface Storage {
 export declare class PersistenceStorage {
 	constructor(storage: Storage);
 
-	getItem(key: string): Promise<object>;
-	setItem(key: string, value: any): Promise<object>;
+	getItem(key: string): Promise<any>;
+	setItem(key: string, value: any): Promise<any>;
 }

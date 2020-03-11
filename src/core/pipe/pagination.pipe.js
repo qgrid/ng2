@@ -7,8 +7,10 @@ export function paginationPipe(memo, context, next) {
 
 	if (memo.hasOwnProperty('nodes') && memo.nodes.length) {
 		const { flattenFactory } = model.group();
+
 		const page = paginate(model, memo.nodes);
 		const flatten = flattenFactory(model);
+
 		memo.rows = flatten(page);
 		next(memo);
 		return;

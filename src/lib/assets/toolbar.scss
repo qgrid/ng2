@@ -1,23 +1,22 @@
 .q-grid-toolbar {
+    position: relative;
+
     &-left,
     &-right {
         max-width: 250px;
         overflow: auto;
     }
+
     &-top,
-    &-bottom{
+    &-bottom {
         overflow: hidden;
     }
 
     &-top {
-        height: 56px;
-        min-height: 56px;
-        max-height: 56px;
+        @include height(56px);
     }
 
     &-bottom {
-        height: 50px;
-        min-height: 50px;
-        max-height: 50px;
+        @include height(50px);
     }
 }

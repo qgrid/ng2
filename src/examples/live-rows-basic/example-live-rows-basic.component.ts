@@ -3,15 +3,14 @@ import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
 @Component({
-	selector: 'example-live-rows',
-	templateUrl: 'example-live-rows.component.html',
-	styleUrls: ['example-live-rows.component.scss'],
+	selector: 'example-live-rows-basic',
+	templateUrl: 'example-live-rows-basic.component.html',
+	styleUrls: ['example-live-rows-basic.component.scss'],
 	providers: [DataService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	encapsulation: ViewEncapsulation.None
 })
-// tslint:disable-next-line: component-class-suffix
-export class ExampleLiveRows {
+export class ExampleLiveRowsBasicComponent {
 	static id = 'live-rows';
 
 	rows: Observable<Atom[]>;

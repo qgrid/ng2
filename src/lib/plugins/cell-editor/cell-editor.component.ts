@@ -12,7 +12,7 @@ import { ViewCoreService } from '../../main/core/view/view-core.service';
 	templateUrl: './cell-editor.component.html'
 })
 export class CellEditorComponent {
-	@ViewChild(TemplateRef) template: TemplateRef<any>;
+	@ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
 	@Output('close') closeEvent = new EventEmitter<any>();
 
 	context: { $implicit: CellEditorComponent } = {

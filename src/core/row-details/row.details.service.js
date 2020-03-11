@@ -4,7 +4,7 @@ import { AppError } from '../infrastructure/error';
 import { columnFactory } from '../column/column.factory';
 
 export function flatView(model, mode) {
-	const { rows } = model.view();
+	const { rows } = model.scene();
 	const { status } = model.row();
 	const { line } = model.scene().column;
 

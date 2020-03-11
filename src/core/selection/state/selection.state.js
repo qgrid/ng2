@@ -25,6 +25,10 @@ export class SelectionState {
 		this.selectCore(item, state, key);
 	}
 
+	canSelect(item) {
+		return this.canSelectCore(item);
+	}
+
 	toggle(item) {
 		const state = this.state(item);
 		return this.select(item, state === null || !state);
@@ -77,5 +81,9 @@ export class SelectionState {
 
 	stateCore() {
 		return false;
+	}
+
+	canSelectCore() {
+		return true;
 	}
 }

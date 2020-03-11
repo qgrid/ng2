@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { PluginService } from '../plugin.service';
 import { TemplateHostService } from '../../template/template-host.service';
 import { AppError } from 'ng2-qgrid/core/infrastructure/error';
-import { ColumnModel } from 'ng2-qgrid/core/column-type/column.model';
 
 @Component({
 	selector: 'q-grid-pane',
@@ -17,12 +16,7 @@ export class PaneComponent implements OnInit {
 
 	context: {
 		$implicit: PaneComponent,
-		cell: {
-			rowIndex: number,
-			columnIndex: number,
-			row: any,
-			column: any
-		};
+		value: any;
 	};
 
 	constructor(
@@ -35,13 +29,9 @@ export class PaneComponent implements OnInit {
 
 	ngOnInit() {
 		const { model } = this.plugin;
-		const parts = this.trigger ? this.trigger.split('.') : [];
-		if (parts.length > 0) {
-			const [state, prop] = parts;
-			if (!model[state]) {
-				throw new AppError('pane.component', `Trigger ${state} not found`);
-			}
-
+		const scope = this.parse();
+		if (scope) {
+			const [state, prop] = scope;
 			model[`${state}Changed`].watch(e => {
 				if (!prop || e.hasChanges(prop)) {
 					this.close('right');
@@ -54,12 +44,16 @@ export class PaneComponent implements OnInit {
 	open(side: 'right') {
 		const { table, model } = this.plugin;
 
-		this.context = {
-			$implicit: this,
-			cell: model.navigation().cell
-		};
+		let value = null;
+		const scope = this.parse();
+		if (scope) {
+			const [state, prop] = scope;
+			value = model[state]()[prop];
+		}
 
+		this.context = { $implicit: this, value };
 		this.cd.markForCheck();
+
 		table.view.addLayer(`pane-${side}`);
 	}
 
@@ -70,5 +64,20 @@ export class PaneComponent implements OnInit {
 
 		this.context = null;
 		this.cd.markForCheck();
+	}
+
+	private parse() {
+		const { model } = this.plugin;
+		const parts = this.trigger ? this.trigger.split('.') : [];
+		if (parts.length > 0) {
+			const [state, prop] = parts;
+			if (!model[state]) {
+				throw new AppError('pane.component', `Trigger ${state} not found`);
+			}
+
+			return [state, prop];
+		}
+
+		return null;
 	}
 }

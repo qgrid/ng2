@@ -1,12 +1,16 @@
 import { flatten, isFunction, yes } from '../utility/kit';
 
+const WILDCARD_SYMBOL = '*';
+const notWildcard = cmd => cmd.shortcut !== WILDCARD_SYMBOL;
+
+
 export class ShortcutDispatcher {
 	constructor() {
 		this.managerMap = new Map();
 	}
 
 	register(manager, commands) {
-		const cmds = commands.values ? commands.values() : commands;
+		commands = commands.values ? commands.values() : commands;
 		let context = this.managerMap.get(manager);
 		if (!context) {
 			context = {
@@ -18,7 +22,7 @@ export class ShortcutDispatcher {
 		}
 
 		const disposes = [];
-		for (let cmd of cmds) {
+		for (let cmd of commands) {
 			if (cmd.shortcut) {
 				if (isFunction(cmd.shortcut)) {
 					context.commands.push(cmd);
@@ -33,21 +37,22 @@ export class ShortcutDispatcher {
 					cmd.shortcut
 						.toLowerCase()
 						.split('|')
-						.forEach(shortcut => {
-							let temp = [];
-							if (context.shortcuts.has(shortcut)) {
-								temp = context.shortcuts.get(shortcut);
+						.forEach(shct => {
+							let shortcuts = [];
+							if (context.shortcuts.has(shct)) {
+								shortcuts = context.shortcuts.get(shct);
 							}
-							temp.push(cmd);
-							context.shortcuts.set(shortcut, temp);
+
+							shortcuts.push(cmd);
+							context.shortcuts.set(shct, shortcuts);
 							disposes.push(() => {
-								const shortcutCommands = context.shortcuts.get(shortcut);
+								const shortcutCommands = context.shortcuts.get(shct);
 								if (shortcutCommands) {
 									const index = shortcutCommands.indexOf(cmd);
 									if (index >= 0) {
 										shortcutCommands.splice(index, 1);
 										if (!shortcutCommands.length) {
-											context.shortcuts.delete(shortcut);
+											context.shortcuts.delete(shct);
 										}
 									}
 								}
@@ -85,35 +90,25 @@ export class ShortcutDispatcher {
 	}
 
 	fetchActivities(code, source) {
-		const notWildcard = cmd => cmd.shortcut !== '*';
 		const search = this.searchFactory(code);
-		const entries = Array
-			.from(this.managerMap.entries())
-			.map(entry => {
-				const manager = entry[0];
-				const commands = entry[1];
-				return {
-					commands: manager.filter(search(commands), source),
-					manager: entry[0]
-				};
-			})
-			.filter(entry => entry.commands.length > 0);
 
-		const allCommands = flatten(entries.map(x => x.commands));
+		const candidates = Array
+			.from(this.managerMap.entries())
+			.map(([manager, context]) => ({
+				manager,
+				commands: manager.filter(search(context), source)
+			}));
 
 		// Skip wildcard commands if there are some explicit shortcuts
-		const isActive = allCommands.filter(notWildcard).length > 0 ? notWildcard : yes;
-		return entries
-			.map(entry => {
-				const commands = entry.commands;
-				const manager = entry.manager;
-				const activeCommands = commands.filter(isActive);
-				return {
-					commands: activeCommands,
-					manager: manager
-				};
-			})
-			.filter(entry => entry.commands.length > 0);
+		const allCommands = flatten(candidates.map(x => x.commands));
+		const hasNotWildcardCommand = allCommands.filter(notWildcard).length > 0;
+		const test = hasNotWildcardCommand ? notWildcard : yes;
+		return candidates
+			.map(({ commands, manager }) => ({
+				manager,
+				commands: commands.filter(test),
+			}))
+			.filter(({ commands }) => commands.length > 0);
 	}
 
 	searchFactory(code) {
@@ -121,6 +116,10 @@ export class ShortcutDispatcher {
 			let result = [];
 			if (context.shortcuts.has(code)) {
 				result = result.concat(context.shortcuts.get(code));
+			}
+
+			if (context.shortcuts.has(WILDCARD_SYMBOL) && code !== WILDCARD_SYMBOL) {
+				result = result.concat(context.shortcuts.get(WILDCARD_SYMBOL));
 			}
 
 			result = result.concat(context.commands
@@ -136,6 +135,6 @@ export class ShortcutDispatcher {
 		return ('' + shortcut)
 			.toLowerCase()
 			.split('|')
-			.some(shct => shct === '*' || code === shct);
+			.some(shct => shct === WILDCARD_SYMBOL || code === shct);
 	}
 }

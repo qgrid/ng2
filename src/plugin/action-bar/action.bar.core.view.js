@@ -2,6 +2,7 @@ import { Disposable } from '../../core/infrastructure/disposable';
 
 export class ActionBarCoreView extends Disposable {
 	constructor(model) {
+		super();
 		this.model = model;
 
 		const { shortcut, manager } = this.model.action();

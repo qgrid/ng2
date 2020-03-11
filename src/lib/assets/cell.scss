@@ -1,15 +1,10 @@
-@import 'mixins';
 td,
 th {
+    @include textCutter;
+    @include box-sizing(border-box);
     vertical-align: middle;
     text-align: left;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     position: relative;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
     >* {
         vertical-align: middle;
     }
@@ -43,8 +38,7 @@ td {
 thead {
     th {
         >div {
-            overflow: hidden;
-            text-overflow: ellipsis;
+           @include textCutter;
             outline: none;
         }
     }
@@ -55,90 +49,53 @@ tfoot,
 tbody {
     td,
     th {
-        width: 150px;
-        min-width: 150px;
-        max-width: 150px;
+        @include width(150px);
         &.q-grid-pad {
-            width: 100%;
-            min-width: 100%;
-            max-width: 100%; // to show the right border e.g. in pivot columns we need to make 1px left padding.
+            @include width(100%);
+            // to show the right border e.g. in pivot columns we need to make 1px left padding.
             padding: 0 0 0 1px !important;
             margin: 0 !important;
         }
-        &.q-grid-group {
-            width: 200px;
-            min-width: 200px;
-            max-width: 200px;
+        &.q-grid-row-indicator {
+            @include width(24px);
         }
-        &.q-grid-pivot {
-            width: 80px;
-            min-width: 80px;
-            max-width: 80px;
+        &.q-grid-row-expand,
+        &.q-grid-row-options {
+            @include width(48px);
         }
-        &.q-grid-email {
-            width: 200px;
-            min-width: 200px;
-            max-width: 200px;
+        &.q-grid-row-number,
+        &.q-grid-select {
+            @include width(56px);
         }
-        &.q-grid-password {
-            width: 100px;
-            min-width: 100px;
-            max-width: 100px;
-        }
+        &.q-grid-image,
+        &.q-grid-pivot,
         &.q-grid-bool {
-            width: 80px;
-            min-width: 80px;
-            max-width: 80px;
+            @include width(80px);
         }
-        &.q-grid-date {
-            width: 120px;
-            min-width: 110px;
-            max-width: 110px;
-        }
+        &.q-grid-password,
         &.q-grid-number,
         &.q-grid-currency,
         &.q-grid-id {
-            width: 100px;
-            min-width: 100px;
-            max-width: 100px;
+            @include width(100px);
+        }
+        &.q-grid-date {
+            @include width(110px);
+        }
+        &.q-grid-group,
+        &.q-grid-email {
+            @include width(200px);
         }
         &.q-grid-array {
-            width: 250px;
-            min-width: 250px;
-            max-width: 250px;
+            @include width(250px);
         }
-        &.q-grid-row-indicator {
-            width: 24px;
-            min-width: 24px;
-            max-width: 24px;
+        &.q-grid-select,
+        &.q-grid-row-options,
+        &.q-grid-row-indicator,
+        &.q-grid-array,
+        &.q-grid-image,
+        &.q-grid-row-expand,
+        &.q-grid-pad {
             text-overflow: initial;
-        }
-        &.q-grid-row-options {
-            width: 48px;
-            min-width: 48px;
-            max-width: 48px;
-            text-overflow: initial;
-        }
-        &.q-grid-row-expand {
-            width: 48px;
-            min-width: 48px;
-            max-width: 48px;
-        }
-        &.q-grid-row-number {
-            width: 56px;
-            min-width: 56px;
-            max-width: 56px;
-        }
-        &.q-grid-select {
-            width: 56px;
-            min-width: 56px;
-            max-width: 56px;
-            text-overflow: initial;
-        }
-        &.q-grid-image {
-            width: 80px;
-            min-width: 80px;
-            max-width: 80px;
         }
     }
 }

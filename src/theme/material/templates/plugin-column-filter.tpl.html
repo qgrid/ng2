@@ -12,7 +12,6 @@
             <div class="q-grid-column-filter-{{$columnFilter.operator}}"
                  [ngClass]="{ 'q-grid-column-filter-with-operators' : $plugin.hasOperators }">
 
-                <!-- Filter operator select -->
                 <mat-select class="q-grid-column-filter-operator-select"
                             *ngIf="$plugin.hasOperators"
                             [(value)]="$columnFilter.operator"
@@ -26,7 +25,6 @@
                     </mat-option>
                 </mat-select>
 
-                <!-- Form inputs in accordance with selected filter operator -->
                 <ng-container [key]="$plugin.operatorTemplateKey($columnFilter.operator)"
                               [context]="{ $implicit: $columnFilter, plugin: $plugin, vscroll: $vscroll }">
                 </ng-container>

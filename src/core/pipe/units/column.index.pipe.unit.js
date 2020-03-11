@@ -8,8 +8,9 @@ export const columnIndexPipeUnit = [
 		next(index);
 	},
 	Pipe.columnIndex,
+	Pipe.animation,
 	(memo, context, next) => {
-		Guard.hasProperty(memo, 'columns');		
+		Guard.hasProperty(memo, 'columns');
 
 		const { model } = context;
 		const scene = new Scene(model);
@@ -19,16 +20,17 @@ export const columnIndexPipeUnit = [
 			behavior: 'core'
 		};
 
-		const columns = columnLine.map(c => c.model);
-		model.view({ columns }, tag);
+		model.view({
+			columns: columnLine.map(c => c.model)
+		}, tag);
 
-		const column = {
-			rows: scene.columnRows(memo.columns),
-			area: scene.columnArea(memo.columns),
-			line: columnLine
-		};
-
-		context.model.scene({ column }, tag);
+		context.model.scene({
+			column: {
+				rows: scene.columnRows(memo.columns),
+				area: scene.columnArea(memo.columns),
+				line: columnLine
+			}
+		}, tag);
 
 		next(memo);
 	}

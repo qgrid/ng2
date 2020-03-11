@@ -1,5 +1,5 @@
 import { Directive, AfterViewInit, ContentChild } from '@angular/core';
-import { MatSelect } from '@angular/material';
+import { MatSelect } from '@angular/material/select';
 
 @Directive({
 	selector: '[q-grid-select]'

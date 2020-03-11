@@ -7,9 +7,10 @@ export declare class SelectionState {
 	model: Model;
 	service: SelectionService;
 
-	select(item: Node | Node[], state: boolean, key: string): void;
-	toggle(item: Node | Node[]): (item: Node | Node[], state: boolean, key: string) => void;
-	state(item: Node | Node[], key: string): boolean;
+	select(item: any | any[], state: boolean, key: string): void;
+	canSelect(item: any | any[], state: boolean, key: string): void;
+	toggle(item: any | any[]): (item: any | any[], state: boolean, key: string) => void;
+	state(item: any | any[], key: string): boolean;
 	keyFactory(): (key: string) => any;
 	clear(): void;
 }

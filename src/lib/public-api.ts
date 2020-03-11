@@ -21,6 +21,7 @@ export { Pipe } from 'ng2-qgrid/core/pipe/pipe';
 export { PipeUnit } from 'ng2-qgrid/core/pipe/pipe.unit';
 export { Node } from 'ng2-qgrid/core/node/node';
 export { RowDetailsStatus } from 'ng2-qgrid/core/row-details/row.details.status';
+export { RowDetails } from 'ng2-qgrid/core/row-details/row.details';
 export { FetchContext } from 'ng2-qgrid/core/fetch/fetch.context';
 export { EditorOptions } from 'ng2-qgrid/core/column-type/editor.options';
 export { Shortcut } from 'ng2-qgrid/core/shortcut/shortcut';
@@ -101,5 +102,10 @@ export { VscrollColumnDirective } from './common/vscroll/vscroll-column.directiv
 export { VscrollRowDirective } from './common/vscroll/vscroll-row.directive';
 export { VscrollDirective } from './common/vscroll/vscroll.directive';
 
+// Pane
 export { PaneModule } from './plugins/pane/pane.module';
 export { PaneComponent } from './plugins/pane/pane.component';
+
+// Edit
+export { EditFormTriggerComponent } from './plugins/edit-form/edit-form-trigger.component';
+export { EditFormComponent } from './plugins/edit-form/edit-form.component';

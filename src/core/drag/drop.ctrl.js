@@ -3,7 +3,7 @@ import { Disposable } from '../infrastructure/disposable';
 
 export class DropCtrl extends Disposable {
 	constructor(model, context) {
-		supser();
+		super();
 
 		this.model = model;
 		this.context = context;
@@ -52,8 +52,7 @@ export class DropCtrl extends Disposable {
 	}
 
 	dispose() {
-		super();
-		
+		super.dispose();
 		this.context.element.classList.remove(`${GRID_PREFIX}-can-drop`);
 	}
 }

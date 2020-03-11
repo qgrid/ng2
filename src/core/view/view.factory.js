@@ -1,4 +1,3 @@
-import { Model } from '../infrastructure/model';
 import { ModelProxy } from '../infrastructure/model.proxy';
 import { Disposable } from '../infrastructure/disposable';
 import { SelectionCommandManager } from '../selection/selection.command.manager';

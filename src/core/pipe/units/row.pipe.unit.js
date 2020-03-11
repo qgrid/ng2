@@ -1,15 +1,26 @@
 import { sortFactory } from '../../row-list/row.list.sort';
+import { Pipe } from '../pipe';
 
 export const rowPipeUnit = [
 	(_, context, next) => {
+		const { model } = context;
+		const { rows, pivot, nodes } = model.view();
+		const order = sortFactory(model);		
+		const memo = {
+			rows: order(rows),
+			pivot,
+			nodes,
+		};
+		next(memo);
+	},
+	Pipe.animation,
+	({ rows }, context, next) => {
+		const { model } = context;
 		const tag = {
 			source: context.source || 'row.pipe.unit',
 			behavior: 'core'
 		};
 
-		const { model } = context;
-		const order = sortFactory(model);
-		const rows = order(model.view().rows);
 		model.view({ rows }, tag);
 		model.scene({ rows }, tag);
 

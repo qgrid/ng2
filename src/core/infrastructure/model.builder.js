@@ -40,6 +40,8 @@ import { TemplateModel } from '../template/template.model';
 import { RestModel } from '../rest/rest.model';
 import { AnimationModel } from '../animation/animation.model';
 import { RowListModel } from '../row-list/row.list.model';
+import { KeyboardModel } from '../keyboard/keyboard.model';
+import { MouseModel } from '../mouse/mouse.model';
 
 export class ModelBuilder {
     constructor() {
@@ -84,7 +86,9 @@ export class ModelBuilder {
             .register('validation', ValidationModel)
             .register('template', TemplateModel)
             .register('rest', RestModel)
-            .register('animation', AnimationModel);
+            .register('animation', AnimationModel)
+            .register('keyboard', KeyboardModel)
+            .register('mouse', MouseModel);
     }
 
     register(key, ctor) {

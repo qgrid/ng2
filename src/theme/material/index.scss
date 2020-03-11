@@ -1,3 +1,8 @@
+@import "../../lib/assets/mixins.scss";
+@import "../../lib/assets/variable.scss";
+@import "assets/variables";
+@import "assets/mixins";
+
 .q-grid.q-grid-theme-material {
     @import "assets/active";
     @import "assets/backdrop";
@@ -44,6 +49,7 @@
     @import "assets/form.edit";
     @import "assets/pane";
     @import "assets/layer";
+    @import "assets/filter.row";
 
     @import "assets/mat/cell.array";
     @import "assets/mat/cell.autocomplete";
