@@ -1,4 +1,16 @@
-import { Component, Input, ChangeDetectionStrategy, OnDestroy, SkipSelf, Optional, OnInit, ElementRef } from '@angular/core';
+import {
+	Component,
+	Input,
+	ChangeDetectionStrategy,
+	OnDestroy,
+	SkipSelf,
+	Optional,
+	OnInit,
+	ElementRef,
+	OnChanges,
+	SimpleChanges
+} from '@angular/core';
+import { RootService } from '../../infrastructure/component/root.service';
 import { isUndefined } from 'ng2-qgrid/core/utility/kit';
 import { guid } from 'ng2-qgrid/core/services/guid';
 import { TemplateHostService } from '../../template/template-host.service';
@@ -11,7 +23,7 @@ import { ColumnService } from './column.service';
 	providers: [TemplateHostService, ColumnService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ColumnComponent implements OnInit, OnDestroy {
+export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() type: string;
 	@Input() key: string;
 	@Input() class: 'data' | 'control' | 'markup' | 'pivot' | 'cohort';
@@ -67,8 +79,9 @@ export class ColumnComponent implements OnInit, OnDestroy {
 		private columnList: ColumnListService,
 		private templateHost: TemplateHostService,
 		@SkipSelf() @Optional() private parent: ColumnService,
-		private service: ColumnService,
-		private elementRef: ElementRef
+		private columnService: ColumnService,
+		private elementRef: ElementRef,
+		private root: RootService
 	) {
 	}
 
@@ -116,7 +129,7 @@ export class ColumnComponent implements OnInit, OnDestroy {
 			} else {
 				this.columnList.add(column);
 			}
-			this.service.column = column;
+			this.columnService.column = column;
 		} else {
 			const settings =
 				Object
@@ -131,8 +144,30 @@ export class ColumnComponent implements OnInit, OnDestroy {
 		}
 	}
 
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes.isVisible) {
+			const { model } = this.root;
+			const { columns } = model.columnList();
+			const column = columns.find(x => x.key === this.key);
+			if (column) {
+				column.isVisible = this.isVisible;
+				model.columnList({
+					columns: Array.from(columns)
+				}, {
+					source: 'column.component'
+				});
+
+				model.data({
+					columns: Array.from(model.data().columns)
+				}, {
+					source: 'column.component'
+				});
+			}
+		}
+	}
+
 	ngOnDestroy() {
-		const { column } = this.service;
+		const { column } = this.columnService;
 		if (column && column.source === 'template') {
 			this.columnList.delete(column.key);
 		}

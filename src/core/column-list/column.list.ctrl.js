@@ -48,7 +48,6 @@ export class ColumnListCtrl {
 	}
 
 	add(column) {
-
 		const { columnList } = this.model;
 		const columns = columnList().columns.concat([column]);
 		columnList({ columns }, {
@@ -93,13 +92,13 @@ export class ColumnListCtrl {
 			columnList({ columns }, { source: 'column.list.ctrl', behavior: 'core' });
 		}
 
-		const dataColumns = Array.from(data().columns);
-		const line = columnService.findLine(dataColumns, key);
-		if (line) {
-			line.columns.splice(line.index, 1);
+		// const dataColumns = Array.from(data().columns);
+		// const line = columnService.findLine(dataColumns, key);
+		// if (line) {
+		// 	line.columns.splice(line.index, 1);
 
-			// trigger columns pipe unit
-			data({ columns: dataColumns }, { source: 'column.list.ctrl' });
-		}
+		// 	// trigger columns pipe unit
+		// 	data({ columns: dataColumns }, { source: 'column.list.ctrl' });
+		// }
 	}
 }
