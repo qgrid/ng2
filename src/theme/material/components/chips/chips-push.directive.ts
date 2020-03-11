@@ -15,8 +15,8 @@ import { ChipsDirective } from './chips.directive';
 	selector: '[q-grid-chips-push]'
 })
 export class ChipsPushDirective implements AfterViewInit {
-	@ContentChild(MatChipInput, { static: false }) inputComponent: MatChipInput;
-	@ContentChild('qGridInput', { static: false }) inputElement: ElementRef;
+	@ContentChild(MatChipInput) inputComponent: MatChipInput;
+	@ContentChild('qGridInput') inputElement: ElementRef;
 
 	@Output('q-grid-chips-push') push = new EventEmitter<string>();
 

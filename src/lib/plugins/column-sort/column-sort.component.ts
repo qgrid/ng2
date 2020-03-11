@@ -24,7 +24,7 @@ import { PluginService } from '../plugin.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnSortComponent implements AfterViewInit {
-	@ViewChild(TemplateRef, { static: false }) template: TemplateRef<any>;
+	@ViewChild(TemplateRef) template: TemplateRef<any>;
 	@Input() column: ColumnModel;
 
 	context: { $implicit: ColumnSortComponent } = {

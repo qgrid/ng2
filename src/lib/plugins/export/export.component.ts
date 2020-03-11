@@ -15,7 +15,7 @@ import { TemplateHostService } from '../../template/template-host.service';
 })
 export class ExportComponent implements AfterViewInit {
 	@Input() type: string;
-	@ContentChild(TemplateRef, { static: false }) templateRef: TemplateRef<any>;
+	@ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
 	context: { $implicit: ExportComponent } = {
 		$implicit: this
