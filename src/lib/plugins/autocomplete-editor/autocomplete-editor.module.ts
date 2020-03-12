@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { TemplateModule } from '../../template/template.module';
-import { AutocompleteEditorComponent } from './autocomplete-editor.component';
+import { AutoCompleteEditorComponent } from './autocomplete-editor.component';
 
 @NgModule({
 	declarations: [
-		AutocompleteEditorComponent
+		AutoCompleteEditorComponent
 	],
 	exports: [
-		AutocompleteEditorComponent
+		AutoCompleteEditorComponent
 	],
 	imports: [
 		TemplateModule
 	]
 })
-export class AutocompleteEditorModule {
+export class AutoCompleteEditorModule {
 }

@@ -4,7 +4,7 @@ import { Fastdom } from 'ng2-qgrid/core/services/fastdom';
 @Directive({
 	selector: '[q-grid-autosize]'
 })
-export class AutosizeDirective implements OnInit {
+export class AutoSizeDirective implements OnInit {
 	@Input('q-grid-autosize') selector;
 	@Input('q-grid-autosize-empty-width') emptyWidth = 75;
 	private actualText: string;

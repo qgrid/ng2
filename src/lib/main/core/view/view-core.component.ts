@@ -33,9 +33,9 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 					scene({
 						status: 'stop'
 					}, {
-							source: 'grid.component',
-							behavior: 'core'
-						});
+						source: 'grid.component',
+						behavior: 'core'
+					});
 
 					if (this.ctrl) {
 						this.ctrl.invalidate();
@@ -81,13 +81,16 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 
 				// Run digest on the start of invalidate(e.g. for busy indicator)
 				// and on the ned of invalidate(e.g. to build the DOM)
-				this.zone.run(() =>
-					model.scene({
-						status: 'push'
-					}, {
-							source: 'view-core.component',
-							behavior: 'core'
-						}));
+				// this.zone.run(() =>
+				model.scene({
+					status: 'push'
+				}, {
+					source: 'view-core.component',
+					behavior: 'core'
+				});
+				// );
+
+				this.cd.detectChanges();
 			}
 		}));
 

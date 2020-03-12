@@ -33,6 +33,8 @@ import {
 	ThemeService
 } from 'ng2-qgrid';
 
+export { ThemeComponent } from './theme.component';
+
 @NgModule({
 	declarations: [
 		ThemeComponent

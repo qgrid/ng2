@@ -1,25 +1,25 @@
 {
   "name": "ng2-qgrid",
-  "version": "8.0.0",
+  "version": "9.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "node build.serve",
-    "start:prod": "node build.serve.prod",
-    "clean": "rimraf out-tsc dist",
-    "copy:npm": "node build.copy.js **/* dist node_modules/ng2-qgrid",
-    "lint": "ng lint",
-    "test": "ng test",
-    "test:debug": "ng test --browsers ChromeDebug",
-    "test:screenshot": "protractor ./e2e/protractor.conf.js",
-    "test:screenshot-update-goldens": "protractor ./e2e/protractor-update-goldens.conf.js",
-    "pretest:screenshot": "webdriver-manager update --gecko=false --versions.chrome=79.0.3945.130 && if not exist e2e\\diff mkdir e2e\\diff",
     "build:app": "ng build --prod --output-path dist/app --base-href /ng2/",
     "build:lib": "npm run clean && node build.lib.js",
     "build:release": "npm run build:lib && npm run copy:npm && node build.theme.js",
     "build:theme": "npm run clean && node build.theme.js",
+    "clean": "rimraf out-tsc dist",
+    "copy:npm": "node build.copy.js **/* dist node_modules/ng2-qgrid",
+    "lint": "ng lint",
+    "ng": "ng",
+    "pretest:screenshot": "webdriver-manager update --gecko=false --versions.chrome=79.0.3945.130 && if not exist e2e\\diff mkdir e2e\\diff",
+    "release:app": "npm run build:app && npx angular-cli-ghpages --dir=dist/app",
     "release:example": "node ./build.example",
     "release:lib": "npm run build:release && cd dist && npm publish",
-    "release:app": "npm run build:app && npx angular-cli-ghpages --dir=dist/app"
+    "start:prod": "node build.serve.prod",
+    "start": "node build.serve",
+    "test:debug": "ng test --browsers ChromeDebug",
+    "test:screenshot-update-goldens": "protractor ./e2e/protractor-update-goldens.conf.js",
+    "test:screenshot": "protractor ./e2e/protractor.conf.js",
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
@@ -87,8 +87,10 @@
     "sane": "^4.1.0",
     "shelljs": "^0.8.3",
     "ts-node": "~8.3.0",
+    "tsickle": "^0.38.1",
     "tslint": "~5.17.0",
     "typescript": "~3.7.5",
-    "xlsx": "^0.14.3"
+    "xlsx": "^0.14.3",
+    "ng2-qgrid": "*"
   }
 }

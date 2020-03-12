@@ -76,8 +76,10 @@ export class BodyCtrl {
 
 	onMouseDown(e) {
 		const { model } = this;
+		const { edit } = model;
+
 		const pathFinder = new PathService(this.bag.body);
-		const cell = pathFinder.cell(eventPath(e));		
+		const cell = pathFinder.cell(eventPath(e));
 
 		if (checkButtonCode(e, LEFT_BUTTON)) {
 			const { area, mode } = this.selection;
@@ -85,11 +87,21 @@ export class BodyCtrl {
 				return;
 			}
 
-			if (mode === 'range') {
-				this.rangeStartCell = cell;
+			if (cell) {
+				const { state: beforeSelectState } = edit();
+				this.navigate(cell);
+				this.select(cell);
 
-				if (this.rangeStartCell) {
-					this.view.selection.selectRange(this.rangeStartCell, null, 'body');
+				if (beforeSelectState === 'view' && this.view.edit.cell.enter.canExecute(cell)) {
+					this.view.edit.cell.enter.execute(cell);
+				}
+
+				if (mode === 'range') {
+					this.rangeStartCell = cell;
+
+					if (this.rangeStartCell) {
+						this.view.selection.selectRange(this.rangeStartCell, null, 'body');
+					}
 				}
 			}
 		}
@@ -175,16 +187,6 @@ export class BodyCtrl {
 
 			if (edit().state === 'startBatch') {
 				edit({ state: 'endBatch' }, { source: 'body.ctrl' });
-			} else {
-				if (cell) {
-					const { state: beforeSelectState } = edit();
-					this.navigate(cell);
-					this.select(cell);					
-
-					if (beforeSelectState === 'view' && this.view.edit.cell.enter.canExecute(cell)) {
-						this.view.edit.cell.enter.execute(cell);
-					}
-				}
 			}
 		}
 

@@ -51,10 +51,8 @@ module.exports = {
   ],
   plugins: [
     nodeResolve({
-      jsnext: true,
-      module: true,
-      main: true,
-      browser: true
+      mainFields: ['module', 'main', 'jsnext'],
+      browser: true,
     }),
     commonjs({
       include: [

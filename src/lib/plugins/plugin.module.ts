@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ActionBarModule } from './action-bar/action-bar.module';
-import { AutocompleteEditorModule } from './autocomplete-editor/autocomplete-editor.module';
+import { AutoCompleteEditorModule } from './autocomplete-editor/autocomplete-editor.module';
 import { BackdropModule } from './backdrop/backdrop.module';
 import { BoolEditorModule } from './bool-editor/bool-editor.module';
 import { CaptionModule } from './caption/caption.module';
@@ -38,7 +38,7 @@ import { LiveColumnModule } from './live-column/live-column.module';
 @NgModule({
 	exports: [
 		ActionBarModule,
-		AutocompleteEditorModule,
+		AutoCompleteEditorModule,
 		BackdropModule,
 		BoolEditorModule,
 		CaptionModule,

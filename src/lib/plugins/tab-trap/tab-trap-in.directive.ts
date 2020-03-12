@@ -6,7 +6,7 @@ import { TabTrapComponent } from './tab-trap.component';
 @Directive({
 	selector: '[q-grid-tab-trap-in]'
 })
-export class TabtrapInDirective implements OnInit {
+export class TabTrapInDirective implements OnInit {
 	@Input('q-grid-tab-trap-in') target;
 	@Input('q-grid-tab-trap-host') host: TabTrapComponent;
 

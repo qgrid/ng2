@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { TabTrapComponent } from './tab-trap.component';
 import { TemplateModule } from '../../template/template.module';
-import { TabtrapInDirective } from './tab-trap-in.directive';
+import { TabTrapInDirective } from './tab-trap-in.directive';
 
 @NgModule({
 	declarations: [
 		TabTrapComponent,
-		TabtrapInDirective
+		TabTrapInDirective
 	],
 	exports: [
 		TabTrapComponent,
-		TabtrapInDirective
+		TabTrapInDirective
 	],
 	imports: [
 		TemplateModule

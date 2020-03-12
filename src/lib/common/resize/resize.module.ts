@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { ResizeDirective } from './resize.directive';
-import { AutosizeDirective } from './autosize.directive';
+import { AutoSizeDirective } from './autosize.directive';
 
 @NgModule({
 	declarations: [
 		ResizeDirective,
-		AutosizeDirective
+		AutoSizeDirective
 	],
 	exports: [
 		ResizeDirective,
-		AutosizeDirective
+		AutoSizeDirective
 	]
 })
 export class ResizeModule {

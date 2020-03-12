@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 const ngc = require('@angular/compiler-cli/src/main').main;
+const ngFsUtils = require('@angular/compiler-cli/src/ngtsc/file_system');
 const rollup = require('rollup');
 const { uglify } = require('rollup-plugin-uglify');
 const babel = require('rollup-plugin-babel');
@@ -100,6 +101,7 @@ return Promise.resolve()
           .then(() => console.log('modify: succeeded'))
           // Compile to ESM2015.
           .then(() => console.log('ngc: build.theme.tsconfig.json'))
+          .then(() => ngFsUtils.setFileSystem(new ngFsUtils.NodeJSFileSystem()))
           .then(() => ngc(['--project', 'build.theme.tsconfig.json']))
           .then(code => code === 0 ? Promise.resolve() : Promise.reject())
           .then(() => console.log('ngc theme.esm2015: succeeded'))

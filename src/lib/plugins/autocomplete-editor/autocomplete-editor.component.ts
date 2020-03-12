@@ -9,10 +9,10 @@ import { isArray } from 'ng2-qgrid/core/utility/kit';
 	templateUrl: './autocomplete-editor.component.html',
 	providers: [PluginService]
 })
-export class AutocompleteEditorComponent {
+export class AutoCompleteEditorComponent {
 	options: any[] = [];
 
-	context: { $implicit: AutocompleteEditorComponent } = {
+	context: { $implicit: AutoCompleteEditorComponent } = {
 		$implicit: this
 	};
 
