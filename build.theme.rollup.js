@@ -17,11 +17,15 @@ module.exports = function (libName) {
         // The key here is library name, and the value is the the name of the global variable name
         // the window object.
         // See https://github.com/rollup/rollup/wiki/JavaScript-API#globals for more.
+        '@angular/animations': 'ng.animations',
         '@angular/core': 'ng.core',
         '@angular/common': 'ng.common',
         '@angular/common/http': 'ng.common.http',
         '@angular/material': 'ng.material',
-        '@angular/forms': 'ng.forms'
+        '@angular/forms': 'ng.forms',
+        '@angular/platform-browser': 'ng.platform.browser',
+        'ng2-qgrid': 'ng.qgrid',
+        'rxjs': 'rxjs',
       }
     },
     external: [

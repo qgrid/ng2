@@ -11,7 +11,7 @@ export class BackdropView {
 		const element = context.element;
 		const listener = new EventListener(element, new EventManager(this));
 
-		listener.on('mouseup', e => {
+		listener.on('mousedown', e => {
 			if (checkButtonCode(e, LEFT_BUTTON) || checkButtonCode(e, MIDDLE_BUTTON)) {
 				e.stopPropagation();
 				element.remove();
@@ -19,7 +19,7 @@ export class BackdropView {
 				if (context.propagate !== false) {
 					const target = elementFromPoint(e.clientX, e.clientY);
 					const event = document.createEvent('MouseEvents');
-					event.initEvent('mouseup', true, true);
+					event.initEvent('mousedown', true, true);
 					target.dispatchEvent(event);
 				}
 

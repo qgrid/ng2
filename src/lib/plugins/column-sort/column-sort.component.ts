@@ -5,9 +5,8 @@ import {
 	AfterViewInit,
 	NgZone,
 	TemplateRef,
-	ContentChild,
 	ChangeDetectionStrategy,
-	ViewChild
+	ViewChild,
 } from '@angular/core';
 import { ColumnSortView } from 'ng2-qgrid/plugin/column-sort/column.sort.view';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
@@ -24,7 +23,7 @@ import { PluginService } from '../plugin.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnSortComponent implements AfterViewInit {
-	@ViewChild(TemplateRef) template: TemplateRef<any>;
+	@ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
 	@Input() column: ColumnModel;
 
 	context: { $implicit: ColumnSortComponent } = {
@@ -35,7 +34,7 @@ export class ColumnSortComponent implements AfterViewInit {
 		private plugin: PluginService,
 		private view: ViewCoreService,
 		private elementRef: ElementRef,
-		private zone: NgZone
+		private zone: NgZone,
 	) {
 	}
 

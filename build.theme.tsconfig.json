@@ -20,15 +20,16 @@
     "baseUrl": "./out-tsc"
   },
   "files": [
-    "./out-tsc/theme/basic/theme.module.ts"
+    "./out-tsc/theme/material/theme.module.ts"
   ],
   "angularCompilerOptions": {
     "annotateForClosureCompiler": true,
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
     "flatModuleOutFile": "index.js",
-    "flatModuleId": "ng2-qgrid/theme/basic",
+    "flatModuleId": "ng2-qgrid/theme/material",
     "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "strictInjectionParameters": true,
+    "enableIvy": false
   }
 }

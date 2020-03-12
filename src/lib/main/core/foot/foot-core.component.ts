@@ -13,9 +13,7 @@ import { RootService } from '../../../infrastructure/component/root.service';
 export class FootCoreComponent extends NgComponent {
 	constructor(
 		public $view: ViewCoreService,
-		public $table: TableCoreService,
-		private root: RootService,
-		private cd: ChangeDetectorRef
+		public $table: TableCoreService
 	) {
 		super();
 	}
