@@ -5,7 +5,7 @@ describe('Pager view', () => {
 	describe('next command', () => {
 		it('should allow to go to the next page in case of the first page', () => {
 			const model = modelFactory();
-			const view = new PagerView(model);
+			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
 				current: 0,
@@ -18,7 +18,7 @@ describe('Pager view', () => {
 
 		it('should allow to go to the next page in case of the middle page', () => {
 			const model = modelFactory();
-			const view = new PagerView(model);
+			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
 				current: 1,
@@ -31,7 +31,7 @@ describe('Pager view', () => {
 
 		it('should not allow to go to the next page in case of the last page', () => {
 			const model = modelFactory();
-			const view = new PagerView(model);
+			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
 				current: 2,
@@ -44,7 +44,7 @@ describe('Pager view', () => {
 
 		it('should move to the next page', () => {
 			const model = modelFactory();
-			const view = new PagerView(model);
+			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
 				current: 0,
@@ -61,7 +61,7 @@ describe('Pager view', () => {
 	describe('prev command', () => {
 		it('should not allow to go to previous page in case of the first page', () => {
 			const model = modelFactory();
-			const view = new PagerView(model);
+			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
 				current: 0,
@@ -74,7 +74,7 @@ describe('Pager view', () => {
 
 		it('should allow to go to previous page in case of the middle page', () => {
 			const model = modelFactory();
-			const view = new PagerView(model);
+			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
 				current: 1,
@@ -87,7 +87,7 @@ describe('Pager view', () => {
 
 		it('should allow to go to previous page in case of the last page', () => {
 			const model = modelFactory();
-			const view = new PagerView(model);
+			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
 				current: 2,
@@ -100,7 +100,7 @@ describe('Pager view', () => {
 
 		it('should move to previous page', () => {
 			const model = modelFactory();
-			const view = new PagerView(model);
+			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
 				current: 1,
@@ -117,7 +117,7 @@ describe('Pager view', () => {
 	describe('size', () => {
 		it('should return current page size', () => {
 			const model = modelFactory();
-			const view = new PagerView(model);
+			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
 				current: 2,
@@ -129,7 +129,7 @@ describe('Pager view', () => {
 
 		it('should set current page size', () => {
 			const model = modelFactory();
-			const view = new PagerView(model);
+			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
 				current: 2,
@@ -143,7 +143,7 @@ describe('Pager view', () => {
 
 		it('should reset current page when size is changed', () => {
 			const model = modelFactory();
-			const view = new PagerView(model);
+			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
 				current: 2,
@@ -159,7 +159,7 @@ describe('Pager view', () => {
 	describe('total', () => {
 		it('should return count', () => {
 			const model = modelFactory();
-			const view = new PagerView(model);
+			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
 				count: 100
@@ -172,7 +172,7 @@ describe('Pager view', () => {
 	describe('from', () => {
 		it('should return a number of the first page row', () => {
 			const model = modelFactory();
-			const view = new PagerView(model);
+			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
 				count: 100,
@@ -185,7 +185,7 @@ describe('Pager view', () => {
 
 		it('should not exceed a total number of rows', () => {
 			const model = modelFactory();
-			const view = new PagerView(model);
+			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
 				count: 0,
@@ -200,7 +200,7 @@ describe('Pager view', () => {
 	describe('to', () => {
 		it('should return a number of the last page row', () => {
 			const model = modelFactory();
-			const view = new PagerView(model);
+			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
 				count: 100,
@@ -213,7 +213,7 @@ describe('Pager view', () => {
 
 		it('should return a number of the last row in case when the last page is smaller', () => {
 			const model = modelFactory();
-			const view = new PagerView(model);
+			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
 				count: 100,
@@ -228,7 +228,7 @@ describe('Pager view', () => {
 	describe('totalPages', () => {
 		it('should return integer number of pages', () => {
 			const model = modelFactory();
-			const view = new PagerView(model);
+			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
 				count: 100,
@@ -240,7 +240,7 @@ describe('Pager view', () => {
 
 		it('should return 0 when size is set to 0', () => {
 			const model = modelFactory();
-			const view = new PagerView(model);
+			const view = new PagerView(model, null, { add: x => x });
 
 			model.pagination({
 				count: 0,

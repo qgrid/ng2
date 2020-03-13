@@ -19,7 +19,7 @@ describe('ModelBinder', () => {
 
 	let host = { stateProp: 'hostValue' };
 
-	let modelBinder = new ModelBinder(host);
+	let modelBinder = new ModelBinder(host, { add: x => x });
 	describe('bind', () => {
 		it('commit should setup model property', () => {
 			const commit = modelBinder.bound(model, modelNames, false);

@@ -2,7 +2,6 @@ import { CommandManager } from '../command/command.manager';
 import { GroupView } from './group.view';
 import { modelFactory } from '../test/model.factory';
 import { GridService } from '../services/grid';
-import { Disposable } from '../infrastructure/disposable';
 
 describe('Group View', () => {
 	let node;
@@ -17,11 +16,10 @@ describe('Group View', () => {
 	let model = modelFactory();
 	let gridService = new GridService(model);
 	let commandManager = new CommandManager();
-	const disposable = new Disposable();
 	const { shortcut } = model.action();
 	const navShortcut = {
 		register: commands => {
-			disposable.add(shortcut.register(commandManager, commands));
+			shortcut.register(commandManager, commands);
 		},
 		keyCode: () => shortcut.keyCode
 	};
