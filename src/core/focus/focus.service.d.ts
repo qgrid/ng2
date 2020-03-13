@@ -8,6 +8,6 @@ export declare class FocusService {
     activate(rowIndex?: number, columnIndex?: number);
 }
 
-export declare class FocusAfterRenderService extends Disposable {
-    constructor(model: Model, table: Table);
+export declare class FocusAfterRenderService {
+    constructor(model: Model, table: Table, disposable: Disposable);
 }

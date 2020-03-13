@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
-import { NgComponent } from '../../infrastructure/component/ng.component';
 import { CellView } from 'ng2-qgrid/core/scene/view/cell.view';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { getFactory } from 'ng2-qgrid/core/services/value';
@@ -7,12 +6,15 @@ import { isArray, isUndefined } from 'ng2-qgrid/core/utility/kit';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { SelectionService } from 'ng2-qgrid/core/selection/selection.service';
 import { ModelBuilderService } from '../../main/model/model-builder.service';
+import { Disposable } from '../../infrastructure/disposable';
 
 @Component({
 	selector: 'q-grid-reference',
-	templateUrl: './reference.component.html'
+	templateUrl: './reference.component.html',
+	providers: [Disposable],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ReferenceComponent extends NgComponent implements OnInit {
+export class ReferenceComponent implements OnInit {
 	private _value: any;
 	private _model: Model;
 	private _reference: {
@@ -56,8 +58,10 @@ export class ReferenceComponent extends NgComponent implements OnInit {
 		$implicit: this
 	};
 
-	constructor(private modelBuilder: ModelBuilderService) {
-		super();
+	constructor(
+		private modelBuilder: ModelBuilderService,
+		private disposable: Disposable
+	) {
 	}
 
 	ngOnInit() {
@@ -76,30 +80,32 @@ export class ReferenceComponent extends NgComponent implements OnInit {
 		} as any);
 
 		const selectionService = new SelectionService(this.model);
-		this.using(this.model.dataChanged.watch((e, off) => {
-			if (e.hasChanges('rows') && e.state.rows.length > 0) {
-				off();
+		this.disposable.add(
+			this.model.dataChanged.watch((e, off) => {
+				if (e.hasChanges('rows') && e.state.rows.length > 0) {
+					off();
 
-				if (!this.model.selection().items.length) {
-					const { value } = this.reference;
-					if (!isUndefined(value)) {
-						const entries = isArray(value) ? value : [value];
-						const items = selectionService.map(entries);
-						this.model.selection({ items }, { source: 'reference.component' });
+					if (!this.model.selection().items.length) {
+						const { value } = this.reference;
+						if (!isUndefined(value)) {
+							const entries = isArray(value) ? value : [value];
+							const items = selectionService.map(entries);
+							this.model.selection({ items }, { source: 'reference.component' });
+						}
 					}
 				}
-			}
-		}));
+			}));
 
-		this.using(this.model.selectionChanged.watch(e => {
-			if (e.tag.source === 'reference.component') {
-				return;
-			}
+		this.disposable.add(
+			this.model.selectionChanged.watch(e => {
+				if (e.tag.source === 'reference.component') {
+					return;
+				}
 
-			if (e.hasChanges('items')) {
-				const entries = selectionService.lookup(e.state.items);
-				this.value = entries;
-			}
-		}));
+				if (e.hasChanges('items')) {
+					const entries = selectionService.lookup(e.state.items);
+					this.value = entries;
+				}
+			}));
 	}
 }

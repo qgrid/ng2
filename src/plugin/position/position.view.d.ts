@@ -1,6 +1,6 @@
 import { Disposable } from '../../core/infrastructure/disposable';
 
-export declare class PositionView extends Disposable {
-	constructor(context: any);
+export declare class PositionView {
+	constructor(context: any, disposable: Disposable);
 	invalidate(): void;
 }

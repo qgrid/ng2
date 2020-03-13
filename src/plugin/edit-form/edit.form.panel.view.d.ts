@@ -3,8 +3,12 @@ import { Disposable } from '../../core/infrastructure/disposable';
 import { Model } from '../../core/infrastructure/model';
 import { CellEditor } from '../../core/edit/edit.cell.editor';
 
-export declare class EditFormPanelView extends Disposable {
-	constructor(model: Model, context: { row: any, caption: string });
+export declare class EditFormPanelView {
+	constructor(
+		model: Model,
+		context: { row: any, caption: string },
+		disposable: Disposable
+	);
 
 	editors: CellEditor[];
 	submitEvent: Event;

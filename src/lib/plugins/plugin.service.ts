@@ -5,6 +5,7 @@ import { ModelBinder } from 'ng2-qgrid/core/infrastructure/model.bind';
 import { Model as GridModel } from 'ng2-qgrid/core/infrastructure/model';
 import { Table as DomTable } from 'ng2-qgrid/core/dom/table';
 import { RootService } from '../infrastructure/component/root.service';
+import { Disposable } from '../infrastructure/disposable';
 
 export { Model as GridModel, ModelEventArg as GridEventArg, ModelEvent as GridEvent } from 'ng2-qgrid/core/infrastructure/model';
 export { Table as DomTable } from 'ng2-qgrid/core/dom/table';
@@ -12,6 +13,7 @@ export { Table as DomTable } from 'ng2-qgrid/core/dom/table';
 @Injectable()
 export class PluginService implements OnDestroy {
 	private modelProxy: ModelProxy = null;
+	private disposable = new Disposable();
 
 	constructor(private root: RootService) { }
 
@@ -20,15 +22,15 @@ export class PluginService implements OnDestroy {
 		if (!this.modelProxy) {
 			Guard.notNull(model, 'model');
 
-			this.modelProxy = new ModelProxy(model);
+			this.modelProxy = new ModelProxy(model, this.disposable);
 			return this.modelProxy.subject;
 		}
 
 		if (model !== this.modelProxy.target) {
-			this.modelProxy.dispose();
+			this.disposable.finalize();
 			Guard.notNull(model, 'model');
 
-			this.modelProxy = new ModelProxy(model);
+			this.modelProxy = new ModelProxy(model, this.disposable);
 			return this.modelProxy.subject;
 		}
 
@@ -51,15 +53,12 @@ export class PluginService implements OnDestroy {
 			}
 		}
 
-		const binder = new ModelBinder(host);
+		const binder = new ModelBinder(host, this.disposable);
 		const commit = binder.bound(this.model, models, false, false);
 		commit();
 	}
 
 	ngOnDestroy() {
-		if (this.modelProxy) {
-			this.modelProxy.dispose();
-			this.modelProxy = null;
-		}
+		this.disposable.finalize();
 	}
 }

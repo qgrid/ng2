@@ -7,7 +7,7 @@ import { Command } from 'ng2-qgrid/core/command/command';
 import { no } from 'ng2-qgrid/core/utility/kit';
 import { elementFromPoint, parents } from 'ng2-qgrid/core/services/dom';
 import { RootService } from '../../infrastructure/component/root.service';
-import { NgComponent } from '../../infrastructure/component/ng.component';
+import { Disposable } from '../../infrastructure/disposable';
 
 export interface DropEventArg {
 	path: HTMLElement[];
@@ -20,9 +20,10 @@ export interface DropEventArg {
 }
 
 @Directive({
-	selector: '[q-grid-drop]'
+	selector: '[q-grid-drop]',
+	providers: [Disposable]
 })
-export class DropDirective extends NgComponent implements OnInit {
+export class DropDirective implements OnInit {
 	@Input('q-grid-drop-area') area: string;
 	@Input('q-grid-drop-data') dropData: any;
 	@Input('q-grid-drop') drop: Command<DropEventArg>;
@@ -32,10 +33,9 @@ export class DropDirective extends NgComponent implements OnInit {
 	constructor(
 		@Optional() private root: RootService,
 		private elementRef: ElementRef,
+		private disposable: Disposable,
 		zone: NgZone
 	) {
-		super();
-
 		const element = elementRef.nativeElement;
 		const listener = new EventListener(element, new EventManager(this));
 
@@ -51,24 +51,25 @@ export class DropDirective extends NgComponent implements OnInit {
 
 	ngOnInit() {
 		if (this.root) {
-			this.using(this.root.model.dragChanged.on(e => {
-				if (e.hasChanges('isActive')) {
-					if (!e.state.isActive) {
-						const eventArg = {
-							path: [],
-							dragData: DragService.data,
-							dropData: this.dropData,
-							action: 'end',
-							inAreaX: no,
-							inAreaY: no
-						};
+			this.disposable.add(
+				this.root.model.dragChanged.on(e => {
+					if (e.hasChanges('isActive')) {
+						if (!e.state.isActive) {
+							const eventArg = {
+								path: [],
+								dragData: DragService.data,
+								dropData: this.dropData,
+								action: 'end',
+								inAreaX: no,
+								inAreaY: no
+							};
 
-						if (this.drop.canExecute(eventArg)) {
-							this.drop.execute(eventArg);
+							if (this.drop.canExecute(eventArg)) {
+								this.drop.execute(eventArg);
+							}
 						}
 					}
-				}
-			}));
+				}));
 		}
 	}
 

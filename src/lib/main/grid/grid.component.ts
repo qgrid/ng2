@@ -33,6 +33,7 @@ import { TemplateLinkService } from '../../template/template-link.service';
 import { TemplateService } from '../../template/template.service';
 import { ThemeService } from '../../template/theme.service';
 import { ViewCoreService } from '../../main/core/view/view-core.service';
+import { Disposable } from '../../infrastructure/disposable';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 
 @Component({
@@ -44,7 +45,8 @@ import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 		ViewCoreService,
 		Grid,
 		TemplateLinkService,
-		LayerService
+		LayerService,
+		Disposable
 	],
 	styleUrls: ['../../assets/index.scss'],
 	templateUrl: './grid.component.html',
@@ -111,11 +113,12 @@ export class GridComponent extends RootComponent implements OnInit {
 		private zone: NgZone,
 		private layerService: LayerService,
 		private cd: ChangeDetectorRef,
+		private disposable: Disposable,
 		modelBuilder: ModelBuilderService,
 		@Inject(DOCUMENT) private document: any,
 		theme: ThemeService,
 	) {
-		super(modelBuilder);
+		super(modelBuilder, disposable);
 
 		this.models = [
 			'action',
@@ -156,10 +159,13 @@ export class GridComponent extends RootComponent implements OnInit {
 			source: 'grid'
 		});
 
-		const ctrl = this.using(new GridCtrl(model, {
+		const ctrl = new GridCtrl(
+			model, {
 			layerFactory: () => this.layerService,
 			element: nativeElement
-		}));
+		},
+			this.disposable
+		);
 
 		this.root.table = ctrl.table;
 		this.root.bag = ctrl.bag;
@@ -174,8 +180,8 @@ export class GridComponent extends RootComponent implements OnInit {
 		const docListener = new EventListener(this.document, new EventManager(this));
 
 		this.zone.runOutsideAngular(() => {
-			this.using(docListener.on('focusin', () => ctrl.invalidateActive()));
-			this.using(docListener.on('click', e => {
+			this.disposable.add(docListener.on('focusin', () => ctrl.invalidateActive()));
+			this.disposable.add(docListener.on('click', e => {
 				const path = eventPath(e);
 				const clickedOutside = path.every(x => x !== nativeElement);
 				if (clickedOutside) {
@@ -190,7 +196,7 @@ export class GridComponent extends RootComponent implements OnInit {
 			}));
 		});
 
-		this.using(listener.on('keydown', e => {
+		this.disposable.add(listener.on('keydown', e => {
 			const result = ctrl.keyDown(e, 'grid');
 			if (result.indexOf('selection.view') >= 0) {
 				this.cd.markForCheck();
@@ -199,10 +205,10 @@ export class GridComponent extends RootComponent implements OnInit {
 		}));
 
 		this.zone.runOutsideAngular(() => {
-			this.using(listener.on('keyup', e => ctrl.keyUp(e, 'grid')));
+			this.disposable.add(listener.on('keyup', e => ctrl.keyUp(e, 'grid')));
 		});
 
-		this.using(model.visibilityChanged.on(() => this.cd.detectChanges()));
+		this.disposable.add(model.visibilityChanged.on(() => this.cd.detectChanges()));
 	}
 
 	// @deprecated

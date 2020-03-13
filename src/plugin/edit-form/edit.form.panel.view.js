@@ -2,12 +2,9 @@ import { isUndefined } from '../../core/utility/kit';
 import { Command } from '../../core/command/command';
 import { RowEditor } from '../../core/edit/edit.row.editor';
 import { Event } from '../../core/infrastructure/event';
-import { Disposable } from '../../core/infrastructure/disposable';
 
-export class EditFormPanelView extends Disposable {
-	constructor(model, context) {
-		super();
-
+export class EditFormPanelView {
+	constructor(model, context, disposable) {
 		this.model = model;
 
 		this.editor = new RowEditor(context.row, model.columnList().line);
@@ -22,7 +19,7 @@ export class EditFormPanelView extends Disposable {
 		this.reset = this.commands.reset;
 
 		if (!isUndefined(context.shortcut)) {
-			this.using(context.shortcut.register(new Map(
+			disposable.add(context.shortcut.register(new Map(
 				Object.entries(this.commands)
 			)));
 		}

@@ -2,13 +2,10 @@ import { Bag } from '../dom/bag';
 import { Table } from '../dom/table';
 import { AppError } from '../infrastructure/error';
 import { uniq } from '../utility/kit';
-import { Disposable } from '../infrastructure/disposable';
 import { Keyboard } from '../keyboard/keyboard';
 
-export class GridCtrl extends Disposable {
-	constructor(model, context) {
-		super();
-
+export class GridCtrl {
+	constructor(model, context, disposable) {
 		this.model = model;
 
 		const { grid } = model;
@@ -44,6 +41,8 @@ export class GridCtrl extends Disposable {
 				this.invalidateVisibility();
 			}
 		});
+
+		disposable.add(() => model.grid({ status: 'unbound' }, { source: 'grid.ctrl' }));
 	}
 
 	keyUp(e) {
@@ -125,11 +124,5 @@ export class GridCtrl extends Disposable {
 		else {
 			model.focus({ isActive: false }, { source: 'grid.ctrl' });
 		}
-	}
-
-	dispose() {
-		super.dispose();
-
-		this.model.grid({ status: 'unbound' }, { source: 'grid.ctrl' });
 	}
 }

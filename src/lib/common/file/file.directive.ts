@@ -3,12 +3,13 @@ import { Directive, ElementRef, Input, Output, EventEmitter, Optional } from '@a
 import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { EventListener } from 'ng2-qgrid/core/infrastructure/event.listener';
 import { yes } from 'ng2-qgrid/core/utility/kit';
-import { NgComponent } from '../../infrastructure/component/ng.component';
+import { Disposable } from '../../infrastructure/disposable';
 
 @Directive({
-	selector: '[q-grid-file]'
+	selector: '[q-grid-file]',
+	providers: [Disposable]
 })
-export class FileDirective extends NgComponent {
+export class FileDirective {
 	private reader = new FileReader();
 	private _value: any;
 	private _label: string;
@@ -40,15 +41,17 @@ export class FileDirective extends NgComponent {
 		}
 	}
 
-	constructor(@Optional() private backdropService: BackdropService, elementRef: ElementRef) {
-		super();
+	constructor(
+		@Optional() private backdropService: BackdropService,
+		disposable: Disposable,
+		elementRef: ElementRef) {
 
 		const listener = new EventListener(elementRef.nativeElement, new EventManager(this));
 
-		this.using(listener.on('change', this.onUpload));
-		this.using(listener.on('drop', this.onUpload));
-		this.using(listener.on('click', this.hideBackdrop));
-		this.using(listener.on('focus', this.revealBackdrop));
+		disposable.add(listener.on('change', this.onUpload));
+		disposable.add(listener.on('drop', this.onUpload));
+		disposable.add(listener.on('click', this.hideBackdrop));
+		disposable.add(listener.on('focus', this.revealBackdrop));
 
 		this.reader.onloadend = e => this.onLoadEnd(e);
 	}

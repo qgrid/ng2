@@ -1,5 +1,4 @@
-import { isUndefined, clone } from '../utility/kit';
-import { Disposable } from '../infrastructure/disposable';
+import { isUndefined } from '../utility/kit';
 
 export class FocusService {
     constructor(model) {
@@ -52,8 +51,8 @@ export class FocusService {
             pagination({
                 current: target
             }, {
-                    source: 'focus.service'
-                });
+                source: 'focus.service'
+            });
 
             this.activate(rowIndex, columnIndex);
             return;
@@ -66,8 +65,8 @@ export class FocusService {
             rowIndex,
             columnIndex
         }, {
-                source: 'focus.service'
-            });
+            source: 'focus.service'
+        });
     }
 
     getPage(index) {
@@ -78,11 +77,10 @@ export class FocusService {
     }
 }
 
-export class FocusAfterRenderService extends Disposable {
-    constructor(model, table) {
-        super();
+export class FocusAfterRenderService {
+    constructor(model, table, disposable) {
 
-        this.using(model.sceneChanged.on((e, off) => {
+        disposable.add(model.sceneChanged.on((e, off) => {
             if (e.state.status === 'stop') {
                 table.view.focus();
                 off();

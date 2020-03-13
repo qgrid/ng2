@@ -1,25 +1,26 @@
 import { Component, ElementRef, Optional, Input, OnInit, OnDestroy } from '@angular/core';
-import { NgComponent } from '../../infrastructure/component/ng.component';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { Guard } from 'ng2-qgrid/core/infrastructure/guard';
 import { RootService } from '../../infrastructure/component/root.service';
 import { BoxCtrl } from 'ng2-qgrid/core/box/box.ctrl';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { ThemeService } from '../../template/theme.service';
+import { Disposable } from '../../infrastructure/disposable';
 
 @Component({
 	selector: 'q-grid-box',
-	template: '<ng-content></ng-content>'
+	template: '<ng-content></ng-content>',
+	providers: [Disposable]
 })
-export class BoxComponent extends NgComponent implements OnInit, OnDestroy {
+export class BoxComponent implements OnInit {
 	@Input('model') private boxModel: Model = null;
 
 	constructor(
 		@Optional() private root: RootService,
 		private elementRef: ElementRef,
+		private disposable: Disposable,
 		private theme: ThemeService
 	) {
-		super();
 	}
 
 	ngOnInit() {
@@ -30,7 +31,7 @@ export class BoxComponent extends NgComponent implements OnInit, OnDestroy {
 	initTheme() {
 		const element = this.elementRef.nativeElement;
 
-		this.using(this.theme.changed.watch(e => {
+		this.disposable.add(this.theme.changed.watch(e => {
 			if (e) {
 				element.classList.remove(`${GRID_PREFIX}-theme-${e.oldValue}`);
 			}

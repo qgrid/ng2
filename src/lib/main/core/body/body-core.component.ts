@@ -5,17 +5,18 @@ import { ColumnView } from 'ng2-qgrid/core/scene/view/column.view';
 import { SelectionModel } from 'ng2-qgrid/core/selection/selection.model';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
 import { BodyCtrl } from 'ng2-qgrid/core/body/body.ctrl';
-import { NgComponent } from '../../../infrastructure/component/ng.component';
 import { RootService } from '../../../infrastructure/component/root.service';
 import { ViewCoreService } from '../view/view-core.service';
 import { TableCoreService } from '../table/table-core.service';
+import { Disposable } from '../../../infrastructure/disposable';
 
 @Component({
 	// tslint:disable-next-line
 	selector: 'tbody[q-grid-core-body]',
-	templateUrl: './body-core.component.html'
+	templateUrl: './body-core.component.html',
+	providers: [Disposable]
 })
-export class BodyCoreComponent extends NgComponent implements OnInit {
+export class BodyCoreComponent implements OnInit {
 	@Input() pin = 'body';
 
 	columnId: (index: number, item: ColumnView) => any;
@@ -27,9 +28,10 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 		private elementRef: ElementRef,
 		private root: RootService,
 		private zone: NgZone,
-		private cd: ChangeDetectorRef
+		private cd: ChangeDetectorRef,
+		private disposable: Disposable
+
 	) {
-		super();
 	}
 
 	ngOnInit() {
@@ -47,9 +49,9 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 		const listener = new EventListener(nativeElement, new EventManager(this));
 
 		this.zone.runOutsideAngular(() => {
-			this.using(listener.on('wheel', e => ctrl.onWheel(e)));
+			this.disposable.add(listener.on('wheel', e => ctrl.onWheel(e)));
 
-			this.using(listener.on('scroll', () =>
+			this.disposable.add(listener.on('scroll', () =>
 				ctrl.onScroll({
 					scrollLeft: table.pin ? model.scroll().left : nativeElement.scrollLeft,
 					scrollTop: nativeElement.scrollTop
@@ -57,16 +59,16 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 				{ passive: true }
 			));
 
-			this.using(listener.on('mousemove', ctrl.onMouseMove.bind(ctrl)));
-			this.using(listener.on('mouseleave', ctrl.onMouseLeave.bind(ctrl)));
-			this.using(listener.on('mousedown', ctrl.onMouseDown.bind(ctrl)));
-			this.using(listener.on('mouseup', e => {
+			this.disposable.add(listener.on('mousemove', ctrl.onMouseMove.bind(ctrl)));
+			this.disposable.add(listener.on('mouseleave', ctrl.onMouseLeave.bind(ctrl)));
+			this.disposable.add(listener.on('mousedown', ctrl.onMouseDown.bind(ctrl)));
+			this.disposable.add(listener.on('mouseup', e => {
 				this.cd.markForCheck();
 				this.zone.run(() => ctrl.onMouseUp(e));
 			}));
 		});
 
-		this.using(model.dataChanged.watch(e => {
+		this.disposable.add(model.dataChanged.watch(e => {
 			if (e.hasChanges('id')) {
 				this.rowId = e.state.id.row;
 				const columnId = e.state.id.column;
@@ -74,7 +76,7 @@ export class BodyCoreComponent extends NgComponent implements OnInit {
 			}
 		}));
 
-		this.using(model.sceneChanged.watch(e => {
+		this.disposable.add(model.sceneChanged.watch(e => {
 			if (model.grid().interactionMode === 'detached') {
 				if (e.hasChanges('status')) {
 					switch (e.state.status) {

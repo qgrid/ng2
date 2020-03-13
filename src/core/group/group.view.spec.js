@@ -17,11 +17,11 @@ describe('Group View', () => {
 	let model = modelFactory();
 	let gridService = new GridService(model);
 	let commandManager = new CommandManager();
-	const basket = new Disposable();
+	const disposable = new Disposable();
 	const { shortcut } = model.action();
 	const navShortcut = {
 		register: commands => {
-			basket.using(shortcut.register(commandManager, commands));
+			disposable.add(shortcut.register(commandManager, commands));
 		},
 		keyCode: () => shortcut.keyCode
 	};

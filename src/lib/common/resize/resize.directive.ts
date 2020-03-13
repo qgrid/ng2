@@ -14,13 +14,14 @@ import { EventManager } from 'ng2-qgrid/core/infrastructure/event.manager';
 import { GRID_PREFIX } from 'ng2-qgrid/core/definition';
 import { clone } from 'ng2-qgrid/core/utility/kit';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
-import { NgComponent } from '../../infrastructure/component/ng.component';
 import { RootService } from '../../infrastructure/component/root.service';
+import { Disposable } from '../../infrastructure/disposable';
 
 @Directive({
-	selector: '[q-grid-resize]'
+	selector: '[q-grid-resize]',
+	providers: [Disposable]
 })
-export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
+export class ResizeDirective implements OnInit, OnDestroy {
 	private element: HTMLElement;
 	private divider: HTMLElement;
 	private listener: {
@@ -44,8 +45,6 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 		@Inject(DOCUMENT) document: any,
 		private zone: NgZone
 	) {
-		super();
-
 		this.element = elementRef.nativeElement;
 		this.divider = document.createElement('div');
 
@@ -75,8 +74,6 @@ export class ResizeDirective extends NgComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		super.ngOnDestroy();
-
 		this.listener.divider.off();
 		this.listener.document.off();
 	}

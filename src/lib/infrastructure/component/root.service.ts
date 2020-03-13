@@ -5,10 +5,12 @@ import { Table } from 'ng2-qgrid/core/dom/table';
 import { Bag } from 'ng2-qgrid/core/dom/bag';
 import { ModelProxy } from 'ng2-qgrid/core/infrastructure/model.proxy';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
+import { Disposable } from '../disposable';
 
 @Injectable()
 export class RootService implements OnDestroy {
 	private modelProxy: ModelProxy = null;
+	private disposable = new Disposable();
 
 	markup: { [key: string]: HTMLElement } = {};
 	bag = {
@@ -19,9 +21,6 @@ export class RootService implements OnDestroy {
 
 	table: Table = null;
 	commandManager: CommandManager = null;
-
-	constructor() {
-	}
 
 	get isReady() {
 		return !!this.modelProxy;
@@ -36,21 +35,18 @@ export class RootService implements OnDestroy {
 	set model(value: Model) {
 		if (this.modelProxy) {
 			if (this.modelProxy.target !== value) {
-				this.modelProxy.dispose();
-				this.modelProxy = new ModelProxy(value);
+				this.modelProxy = new ModelProxy(value, this.disposable);
 				return;
 			}
 		}
 
 		if (value) {
-			this.modelProxy = new ModelProxy(value);
+			this.modelProxy = new ModelProxy(value, this.disposable);
 		}
 	}
 
 	ngOnDestroy() {
-		if (this.modelProxy) {
-			this.modelProxy.dispose();
-			this.modelProxy = null;
-		}
+		this.disposable.finalize();
+		this.modelProxy = null;
 	}
 }

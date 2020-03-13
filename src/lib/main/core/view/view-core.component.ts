@@ -1,29 +1,29 @@
-import { Component, OnInit, ElementRef, NgZone, DoCheck, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ElementRef, DoCheck, ChangeDetectorRef, NgZone } from '@angular/core';
 import { VisibilityModel } from 'ng2-qgrid/core/visibility/visibility.model';
 import { ViewCtrl } from 'ng2-qgrid/core/view/view.ctrl';
 import { CellService } from '../cell/cell.service';
 import { ViewCoreService } from './view-core.service';
-import { NgComponent } from '../../../infrastructure/component/ng.component';
 import { RootService } from '../../../infrastructure/component/root.service';
 import { Grid } from '../../../main/grid/grid.service';
+import { Disposable } from '../../../infrastructure/disposable';
 
 @Component({
 	selector: 'q-grid-core-view',
 	templateUrl: './view-core.component.html',
-	providers: [CellService]
+	providers: [CellService, Disposable]
 })
-export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
+export class ViewCoreComponent implements OnInit, DoCheck {
 	private ctrl: ViewCtrl;
 
 	constructor(
 		private root: RootService,
 		private view: ViewCoreService,
 		private grid: Grid,
-		private zone: NgZone,
+		private disposable: Disposable,
 		private elementRef: ElementRef,
-		private cd: ChangeDetectorRef
+		private cd: ChangeDetectorRef,
+		private zone: NgZone
 	) {
-		super();
 
 		zone.onStable.subscribe(() => {
 			if (this.root.isReady) {
@@ -75,26 +75,25 @@ export class ViewCoreComponent extends NgComponent implements OnInit, DoCheck {
 		const gridService = this.grid.service(model);
 		this.ctrl = new ViewCtrl(model, view, gridService);
 
-		this.using(model.sceneChanged.watch(e => {
+		this.disposable.add(model.sceneChanged.watch(e => {
 			if (e.hasChanges('status') && e.state.status === 'pull') {
 				this.cd.markForCheck();
+				this.cd.detectChanges();
 
 				// Run digest on the start of invalidate(e.g. for busy indicator)
 				// and on the ned of invalidate(e.g. to build the DOM)
-				// this.zone.run(() =>
-				model.scene({
-					status: 'push'
-				}, {
-					source: 'view-core.component',
-					behavior: 'core'
-				});
-				// );
-
-				this.cd.detectChanges();
+				this.zone.run(() =>
+					model.scene({
+						status: 'push'
+					}, {
+						source: 'view-core.component',
+						behavior: 'core'
+					})
+				);
 			}
 		}));
 
-		this.using(model.visibilityChanged.on(() => this.cd.detectChanges()));
+		this.disposable.add(model.visibilityChanged.on(() => this.cd.detectChanges()));
 
 		const virtualBody = this.root.table.body as any;
 		if (virtualBody.requestInvalidate) {

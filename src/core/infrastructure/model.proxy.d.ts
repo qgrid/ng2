@@ -1,9 +1,13 @@
 import { Model } from './model';
 import { Disposable } from '../infrastructure/disposable';
 
-export declare class ModelProxy extends Disposable {
-	constructor(model: Model, temp?: boolean)
+export declare class ModelProxy {
+	constructor(
+		model: Model,
+		disposable: Disposable,
+		temp?: boolean,
+	)
 
 	target: Model;
-	subject: Model;	
+	subject: Model;
 }

@@ -1,18 +1,20 @@
 import { ModelBinder } from 'ng2-qgrid/core/infrastructure/model.bind';
 import { noop } from 'ng2-qgrid/core/utility/kit';
-import { OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { NgComponent } from './ng.component';
+import { OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { RootService } from './root.service';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
+import { Disposable } from '../disposable';
 
-export class ModelComponent extends NgComponent implements OnChanges, OnInit, OnDestroy {
+export class ModelComponent implements OnChanges, OnInit {
 	protected models: string[] = [];
 
-	binder = new ModelBinder(this);
+	binder = new ModelBinder(this, this.disposable);
 	commit = noop;
 
-	constructor(public root: RootService) {
-		super();
+	constructor(
+		public root: RootService,
+		private disposable: Disposable
+	) {
 	}
 
 	setup() {
@@ -26,12 +28,6 @@ export class ModelComponent extends NgComponent implements OnChanges, OnInit, On
 
 	ngOnChanges(changes: SimpleChanges): void {
 		this.commit();
-	}
-
-	ngOnDestroy() {
-		super.ngOnDestroy();
-
-		this.binder.dispose();
 	}
 
 	get model(): Model {

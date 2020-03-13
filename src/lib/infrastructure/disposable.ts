@@ -4,8 +4,14 @@ import { Injectable, OnDestroy } from '@angular/core';
 export class Disposable implements OnDestroy {
 	private disposes = [];
 
-	add(instance: () => void) {
-		this.disposes.push(instance);
+	add<T extends { finalize: () => void }>(instance: T | (() => void)): T | (() => void) {
+		if (instance) {
+			if (instance.hasOwnProperty('finalize')) {
+				this.disposes.push(() => (instance as any).finalize());
+			} else {
+				this.disposes.push(instance);
+			}
+		}
 		return instance;
 	}
 

@@ -1,12 +1,10 @@
-import { noop, toCamelCase, isUndefined, isArray, isObject } from '../utility/kit';
-import { Disposable } from './disposable';
+import { noop, toCamelCase, isUndefined, isArray } from '../utility/kit';
 import { Log } from './log';
 
-export class ModelBinder extends Disposable {
-	constructor(host) {
-		super();
-
+export class ModelBinder  {
+	constructor(host, disposable) {
 		this.host = host;
+		this.disposable = disposable;
 	}
 
 	canWrite(oldValue, newValue, key) {
@@ -40,7 +38,7 @@ export class ModelBinder extends Disposable {
 				}
 
 				if (track) {
-					this.using(model[name + 'Changed'].on(write));
+					this.disposable.add(model[name + 'Changed'].on(write));
 				}
 
 				commits.push(() => {

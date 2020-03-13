@@ -1,15 +1,16 @@
 import { Component, Input, EventEmitter, Output, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { Command } from 'ng2-qgrid/core/command/command';
 import { SelectionService } from 'ng2-qgrid/core/selection/selection.service';
-import { NgComponent } from '../../infrastructure/component/ng.component';
 import { CellView } from 'ng2-qgrid/core/scene/view/cell.view';
 import { Model } from 'ng2-qgrid/core/infrastructure/model';
+import { Disposable } from '../../infrastructure/disposable';
 
 @Component({
 	selector: 'q-grid-reference-editor',
-	templateUrl: './reference-editor.component.html'
+	templateUrl: './reference-editor.component.html',
+	providers: [Disposable]
 })
-export class ReferenceEditorComponent extends NgComponent implements AfterViewInit {
+export class ReferenceEditorComponent implements AfterViewInit {
 	private state: any;
 
 	@Input() caption: string;
@@ -29,9 +30,7 @@ export class ReferenceEditorComponent extends NgComponent implements AfterViewIn
 	submit = new Command();
 	cancel = new Command();
 
-	constructor() {
-		super();
-	}
+	constructor(private disposable: Disposable) { }
 
 	@Input() get value() {
 		return this.state;
@@ -89,7 +88,7 @@ export class ReferenceEditorComponent extends NgComponent implements AfterViewIn
 			});
 
 			const { shortcut, manager } = model.action();
-			this.using(shortcut.register(manager, [this.submit, this.cancel]));
+			this.disposable.add(shortcut.register(manager, [this.submit, this.cancel]));
 		}, 0);
 	}
 }

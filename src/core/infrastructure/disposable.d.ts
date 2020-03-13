@@ -1,4 +1,4 @@
 export declare class Disposable {
-	using<T extends Disposable>(instance: T | (() => void)): T | (() => void);
-	dispose(): void;
+	add<T extends { finalize: () => void }>(instance: T | (() => void)): T | (() => void);
+	finalize(): void;
 }

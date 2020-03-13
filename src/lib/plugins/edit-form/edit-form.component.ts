@@ -2,13 +2,17 @@ import { Component, Input, OnInit, OnDestroy, EventEmitter, Output, ChangeDetect
 import { EditFormPanelView } from 'ng2-qgrid/plugin/edit-form/edit.form.panel.view';
 import { PluginService } from '../plugin.service';
 import { Td } from 'ng2-qgrid/core/dom/td';
+import { Disposable } from '../../infrastructure/disposable';
 
 @Component({
 	selector: 'q-grid-edit-form',
 	templateUrl: './edit-form.component.html',
-	providers: [PluginService]
+	providers: [
+		PluginService,
+		Disposable
+	]
 })
-export class EditFormComponent implements OnInit, OnDestroy {
+export class EditFormComponent implements OnInit {
 	@Input() caption: string;
 	@Input() cell: Td;
 
@@ -18,19 +22,23 @@ export class EditFormComponent implements OnInit, OnDestroy {
 
 	context: { $implicit: EditFormPanelView };
 
-	constructor(private plugin: PluginService) {
+	constructor(
+		private plugin: PluginService,
+		private disposable: Disposable
+	) {
 	}
 
 	ngOnInit() {
-		const view = new EditFormPanelView(this.plugin.model, { row: this.cell.row, caption: this.caption });
+		const view = new EditFormPanelView(
+			this.plugin.model,
+			{ row: this.cell.row, caption: this.caption },
+			this.disposable
+		);
+
 		view.submitEvent.on(() => this.submit.emit());
 		view.cancelEvent.on(() => this.cancel.emit());
 		view.resetEvent.on(() => this.reset.emit());
 
 		this.context = { $implicit: view };
-	}
-
-	ngOnDestroy() {
-		this.context.$implicit.dispose();
 	}
 }

@@ -1,12 +1,9 @@
 import * as css from '../services/css';
 import * as columnService from '../column/column.service';
 import { Log } from '../infrastructure/log';
-import { Disposable } from '../infrastructure/disposable';
 
-export class LayoutView extends Disposable {
-	constructor(model, table, service) {
-		super();
-
+export class LayoutView {
+	constructor(model, table, service, disposable) {
 		this.model = model;
 		this.table = table;
 		this.service = service;
@@ -24,6 +21,11 @@ export class LayoutView extends Disposable {
 		});
 
 		this.onInit();
+
+		disposable.add(() => {
+			const sheet = css.sheet(this.gridId, 'layout-column');
+			sheet.remove();
+		});
 	}
 
 	onInit() {
@@ -60,9 +62,9 @@ export class LayoutView extends Disposable {
 				model.layout({
 					columns: new Map()
 				}, {
-						source: 'layout.view',
-						behavior: 'core'
-					});
+					source: 'layout.view',
+					behavior: 'core'
+				});
 			}
 		});
 
@@ -159,13 +161,6 @@ export class LayoutView extends Disposable {
 		if (style) {
 			context.class(`resized-${style.height}px`, { height: style.height + 'px' });
 		}
-	}
-
-	dispose() {
-		super.dispose();
-
-		const sheet = css.sheet(this.gridId, 'layout-column');
-		sheet.remove();
 	}
 
 	get gridId() {

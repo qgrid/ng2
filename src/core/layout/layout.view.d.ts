@@ -7,6 +7,11 @@ import { Disposable } from '../infrastructure/disposable';
 /**
  * > Under Construction.
  */
-export declare class LayoutView extends Disposable {
-	constructor(model: Model, table: Table, gridService: GridService);
+export declare class LayoutView {
+	constructor(
+		model: Model,
+		table: Table,
+		gridService: GridService,
+		disposable: Disposable
+	);
 }

@@ -1,5 +1,4 @@
 import { ModelProxy } from '../infrastructure/model.proxy';
-import { Disposable } from '../infrastructure/disposable';
 import { SelectionCommandManager } from '../selection/selection.command.manager';
 import { BodyView } from '../body/body.view';
 import { EditView } from '../edit/edit.view';
@@ -24,14 +23,14 @@ export function viewFactory(
 	commandManager,
 	gridService,
 	vscroll,
-	selectors
+	selectors,
+	disposable
 ) {
-	const proxy = new ModelProxy(model);
-	const basket = new Disposable();
+	const proxy = new ModelProxy(model, disposable);
 	const { shortcut } = model.action();
 	const navigationShortcut = {
 		register: commands => {
-			basket.using(shortcut.register(commandManager, commands));
+			disposable.add(shortcut.register(commandManager, commands));
 		},
 		keyCode: () => shortcut.keyCode
 	};
@@ -39,7 +38,7 @@ export function viewFactory(
 	const selectionCommandManager = new SelectionCommandManager(model, commandManager);
 	const selectionShortcut = {
 		register: commands => {
-			basket.using(shortcut.register(selectionCommandManager, commands));
+			disposable.add(shortcut.register(selectionCommandManager, commands));
 		}
 	};
 
@@ -50,7 +49,7 @@ export function viewFactory(
 		host.body = new BodyView(modelProxy, table);
 		host.foot = new FootView(modelProxy, table);
 		host.row = new RowView(modelProxy, table, selectors.tr);
-		host.layout = new LayoutView(modelProxy, table, gridService);
+		host.layout = new LayoutView(modelProxy, table, gridService, disposable);
 		host.scroll = new ScrollView(modelProxy, table, vscroll, gridService);
 		host.highlight = new HighlightView(modelProxy, table);
 		host.sort = new SortView(modelProxy);
@@ -64,10 +63,7 @@ export function viewFactory(
 		host.style = new StyleView(modelProxy, table);
 
 		return () => {
-			host.layout.dispose();
-
-			proxy.dispose();
-			basket.dispose();
+			disposable.finalize();
 		};
 	};
 }

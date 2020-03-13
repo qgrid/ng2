@@ -10,7 +10,11 @@ import { TemplateHostService } from '../../template/template-host.service';
 @Component({
 	selector: 'q-grid-export',
 	templateUrl: './export.component.html',
-	providers: [TemplateHostService, PluginService, Disposable],
+	providers: [
+		TemplateHostService,
+		PluginService,
+		Disposable
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExportComponent implements AfterViewInit {
@@ -43,7 +47,7 @@ export class ExportComponent implements AfterViewInit {
 			action.templateUrl = this.templateHost.key('trigger');
 		}
 
-		const items =  Composite.list([model.action().items, [action]]);
+		const items = Composite.list([model.action().items, [action]]);
 		model.action({ items }, { source: 'export.component' });
 
 		this.disposable.add(() => {

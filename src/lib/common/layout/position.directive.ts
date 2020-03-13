@@ -1,30 +1,30 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { PositionView } from 'ng2-qgrid/plugin/position/position.view';
+import { Disposable } from '../../infrastructure/disposable';
 
 @Directive({
-	selector: '[q-grid-position]'
+	selector: '[q-grid-position]',
+	providers: [Disposable]
 })
-export class PositionDirective implements OnDestroy, OnInit {
+export class PositionDirective implements OnInit {
 	private position: PositionView;
 
 	@Input('q-grid-position') target = '';
 
-	constructor(private elementRef: ElementRef) {
+	constructor(
+		private elementRef: ElementRef,
+		private disposable: Disposable
+	) {
 	}
 
 	ngOnInit() {
 		this.position = new PositionView({
 			element: this.elementRef.nativeElement,
-			targetName: this.target
-		});
+			targetName: this.target,
+		},
+			this.disposable
+		);
 
 		this.position.invalidate();
-	}
-
-	ngOnDestroy() {
-		if (this.position) {
-			this.position.dispose();
-			this.position = null;
-		}
 	}
 }

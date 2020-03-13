@@ -20,11 +20,12 @@ import { Table } from 'ng2-qgrid/core/dom/table';
 import { CommandManager } from 'ng2-qgrid/core/command/command.manager';
 import { VScrollService } from '../../../main/core/scroll/vscroll.service';
 import { Grid } from '../../../main/grid/grid.service';
+import { Disposable } from '../../../infrastructure/disposable';
 import { RowView } from 'ng2-qgrid/core/row/row.view';
 
 @Injectable()
 export class ViewCoreService implements OnDestroy {
-	private dispose: () => void = null;
+	private disposable = new Disposable();
 
 	body: BodyView = null;
 	edit: EditView = null;
@@ -61,16 +62,15 @@ export class ViewCoreService implements OnDestroy {
 			commandManager,
 			gridService,
 			this.vscroll,
-			selectors
+			selectors,
+			this.disposable
 		);
 
-		this.dispose = injectViewServicesTo(this);
+		const dispose = injectViewServicesTo(this);
+		this.disposable.add(() => dispose());
 	}
 
 	ngOnDestroy() {
-		if (this.dispose) {
-			this.dispose();
-			this.dispose = null;
-		}
+		this.disposable.finalize();
 	}
 }

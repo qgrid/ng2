@@ -9,8 +9,12 @@ export declare class GridBag {
 	foot: Bag;
 }
 
-export declare class GridCtrl extends Disposable {
-	constructor(model: Model, context: { element: HTMLElement, layerFactory: () => any });
+export declare class GridCtrl {
+	constructor(
+		model: Model,
+		context: { element: HTMLElement, layerFactory: () => any },
+		disposable: Disposable
+	);
 
 	table: Table;
 	bag: GridBag;
