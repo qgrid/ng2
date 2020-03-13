@@ -7,7 +7,7 @@ import { TableCoreService } from '../table/table-core.service';
 	// tslint:disable-next-line
 	selector: 'tfoot[q-grid-core-foot]',
 	templateUrl: './foot-core.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FootCoreComponent {
 	constructor(

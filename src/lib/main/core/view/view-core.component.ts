@@ -78,7 +78,6 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		this.disposable.add(model.sceneChanged.watch(e => {
 			if (e.hasChanges('status') && e.state.status === 'pull') {
 				this.cd.markForCheck();
-				this.cd.detectChanges();
 
 				// Run digest on the start of invalidate(e.g. for busy indicator)
 				// and on the ned of invalidate(e.g. to build the DOM)
@@ -90,6 +89,8 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 						behavior: 'core'
 					})
 				);
+
+				this.cd.detectChanges();
 			}
 		}));
 

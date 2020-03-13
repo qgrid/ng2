@@ -94,7 +94,8 @@ export class ReferenceComponent implements OnInit {
 						}
 					}
 				}
-			}));
+			})
+		);
 
 		this.disposable.add(
 			this.model.selectionChanged.watch(e => {
@@ -106,6 +107,7 @@ export class ReferenceComponent implements OnInit {
 					const entries = selectionService.lookup(e.state.items);
 					this.value = entries;
 				}
-			}));
+			})
+		);
 	}
 }

@@ -4,6 +4,7 @@
 
     .q-grid-reference-content {
         @include simpleSquareElement(100%);
+        height: 325px;
 
         .q-grid-title,
         .q-grid-caption {

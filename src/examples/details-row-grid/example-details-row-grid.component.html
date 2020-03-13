@@ -8,9 +8,8 @@
 		<ng-template for="details"
 					 let-$cell>
 			<q-grid caption="First 3 `{{$cell.row.item.phase}}` atoms"
-					[rows]="getSamePhaseRows($cell.row.item) | async"
-					class="q-grid-embed"
-					style="padding: 0 20px 20px 20px">
+					[rows]="getTheSamePhaseRows($cell.row.item) | async"
+					class="q-grid-embed">
 				<q-grid-columns>
 					<q-grid-column [canSort]="false"
 								   [canFilter]="false">

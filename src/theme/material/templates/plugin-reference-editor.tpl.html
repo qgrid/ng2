@@ -13,11 +13,15 @@
         <mat-card-actions>
             <button mat-button
                     [disabled]="!$editor.cancel.canExecute()"
-                    (click)="$editor.cancel.execute()">Cancel</button>
+                    (click)="$editor.cancel.execute()">
+                Cancel
+            </button>
             <button mat-button
                     color="primary"
                     [disabled]="!$editor.submit.canExecute()"
-                    (click)="$editor.submit.execute()">Save</button>
+                    (click)="$editor.submit.execute()">
+                Save
+            </button>
         </mat-card-actions>
     </mat-card>
 </ng-template>

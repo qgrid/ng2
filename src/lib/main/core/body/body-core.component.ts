@@ -61,10 +61,12 @@ export class BodyCoreComponent implements OnInit {
 
 			this.disposable.add(listener.on('mousemove', ctrl.onMouseMove.bind(ctrl)));
 			this.disposable.add(listener.on('mouseleave', ctrl.onMouseLeave.bind(ctrl)));
-			this.disposable.add(listener.on('mousedown', ctrl.onMouseDown.bind(ctrl)));
-			this.disposable.add(listener.on('mouseup', e => {
+			this.disposable.add(listener.on('mousedown', e => {
 				this.cd.markForCheck();
-				this.zone.run(() => ctrl.onMouseUp(e));
+				this.zone.run(() => ctrl.onMouseDown(e));
+			}));
+			this.disposable.add(listener.on('mouseup', e => {
+				ctrl.onMouseUp(e);
 			}));
 		});
 
