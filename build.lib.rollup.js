@@ -30,25 +30,14 @@ module.exports = {
       '@angular/forms': 'ng.forms'
     }
   },
-  external: [
-    // List of dependencies
-    // See https://github.com/rollup/rollup/wiki/JavaScript-API#external for more.
-    '@angular/core',
-    '@angular/common',
-    '@angular/material',
-    "@angular/animations",
-    "@angular/common",
-    "@angular/common/http",
-    "@angular/compiler",
-    "@angular/core",
-    "@angular/forms",
-    "@angular/platform-browser",
-    "@angular/platform-browser-dynamic",
-    "@angular/router",
-    "core-js",
-    "rxjs",
-    "zone.js"
-  ],
+  external: id =>
+    [
+      '@angular',
+      'core-js',
+      'rxjs',
+      'zone.js'
+    ].includes(id.split('/')[0])
+  ,
   plugins: [
     nodeResolve({
       mainFields: ['module', 'main', 'jsnext'],

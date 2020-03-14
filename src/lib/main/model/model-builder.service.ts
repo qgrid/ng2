@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ModelBuilder } from 'ng2-qgrid/core/infrastructure/model.builder';
+import { GridModel } from '../../plugins/plugin.service';
 
 @Injectable()
 export class ModelBuilderService {
@@ -9,7 +10,7 @@ export class ModelBuilderService {
 		return this.builder.register(key, ctor);
 	}
 
-	build() {
+	build(): GridModel {
 		return this.builder.build();
 	}
 }

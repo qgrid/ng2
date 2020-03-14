@@ -1,15 +1,15 @@
 import {
 	Directive,
-	ApplicationRef,
-	NgZone,
-	ChangeDetectorRef
+	ApplicationRef
 } from '@angular/core';
 
 @Directive({
 	selector: '[q-grid-chips]'
 })
 export class ChipsDirective {
-	constructor(private app: ApplicationRef, private zone: NgZone, public cd: ChangeDetectorRef) { }
+	constructor(
+		private app: ApplicationRef
+	) { }
 
 	tick() {
 		this.app.tick();

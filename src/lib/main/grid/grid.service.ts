@@ -10,6 +10,8 @@ import { identity, noop } from 'ng2-qgrid/core/utility/kit';
 import { GridModel } from '../../plugins/plugin.service';
 import { ModelBuilderService } from '../model/model-builder.service';
 import { GridService } from 'ng2-qgrid/core/services/grid';
+import { Node } from 'ng2-qgrid/core/node/node';
+
 export { GridService } from 'ng2-qgrid/core/services/grid';
 
 @Injectable()
