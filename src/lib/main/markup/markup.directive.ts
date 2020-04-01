@@ -1,6 +1,5 @@
 import { Directive, ElementRef, Input, OnDestroy, OnInit, Optional } from '@angular/core';
 import { RootService } from '../../infrastructure/component/root.service';
-import { TableCoreService } from '../core//table/table-core.service';
 
 @Directive({
 	selector: '[q-grid-markup]'

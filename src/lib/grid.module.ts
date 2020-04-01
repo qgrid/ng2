@@ -16,7 +16,6 @@ import { BackdropService } from './plugins/backdrop/backdrop.service';
 import { ModelBuilderService } from './main/model/model-builder.service';
 
 @NgModule({
-	declarations: [],
 	exports: [
 		GridComponent,
 		ColumnListComponent,
