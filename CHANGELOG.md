@@ -10,10 +10,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
+## [9.1.0] - 2020-04-01
+### Changed
+- Enable Ivy
+
 ## [9.0.1] - 2020-03-13
 ### Fixed
 - Build
-- 
+
 ## [9.0.0] - 2020-03-13
 ### Changed
 - Migrate to Angular 9.
@@ -476,7 +480,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v9.0.1...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v9.1.0...HEAD
+[9.1.0]: https://github.com/qgrid/ng2/compare/v9.0.1...v9.1.0
 [9.0.1]: https://github.com/qgrid/ng2/compare/v9.0.0...v9.0.1
 [9.0.0]: https://github.com/qgrid/ng2/compare/v7.5.2...v9.0.0
 [7.5.2]: https://github.com/qgrid/ng2/compare/v7.5.1...v7.5.2
