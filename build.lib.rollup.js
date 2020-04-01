@@ -8,10 +8,9 @@ const commonjs = require('rollup-plugin-commonjs');
 const alias = require('rollup-plugin-alias');
 const rootFolder = path.join(__dirname);
 const tscFolder = path.join(rootFolder, 'out-tsc');
-const esm2015Folder = path.join(tscFolder, 'esm2015');
 
 module.exports = {
-  treeshake: false,
+  treeshake: true,
   output: {
     name: camelCase(libName),
     sourcemap: true,

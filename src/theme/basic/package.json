@@ -2,5 +2,6 @@
   "name": "ng2-qgrid/theme/basic",
   "typings": "./index.d.ts",
   "main": "../../bundles/theme-basic.umd.js",
+  "fesm2015": "../../fesm2015/theme-basic.js",
   "sideEffects": false
 }

@@ -147,20 +147,7 @@ return Promise.resolve()
             return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
           })
           .then(() => console.log('bundle umd.min: succeeded'))
-          .then(() => console.log(`bundle fesm5: ${libName}`))
-          .then(() => {
-            const cfg = Object.assign({}, rollupConfig, {
-              input: esm2015Entry,
-              output: Object.assign({}, rollupConfig.output, {
-                file: path.join(distFolder, 'fesm5', `${libName}.js`),
-                format: 'es'
-              }),
-              plugins: rollupConfig.plugins.concat([babel({})])
-            });
-            return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
-          })
-          .then(() => console.log('bundle fesm5: succeeded'))
-          .then(() => console.log('bundle: successed'))
+          .then(() => console.log('bundle: succeeded'))
           // Copy package files
           .then(() => console.log('copy package: start'))
           .then(() => relativeCopy('package.json', themeFolder, path.join(distFolder, `theme/${themeName}`)))
