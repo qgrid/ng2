@@ -74,7 +74,7 @@ return Promise.resolve()
       input: esm2015Entry,
       output: Object.assign({}, rollupConfig.output, {
         file: path.join(distFolder, 'fesm2015', `${libName}.js`),
-        format: 'es'
+        format: 'esm'
       })
     });
 

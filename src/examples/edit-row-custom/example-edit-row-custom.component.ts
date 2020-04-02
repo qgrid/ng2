@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 import { Command, GridComponent, PaneComponent } from 'ng2-qgrid';
@@ -23,7 +23,7 @@ export class ExampleEditRowCustomComponent {
 		canExecute: () => !!this.activeCell,
 	});
 
-	get activeCell() {
+	get activeCell(): any {
 		return this.grid.model.navigation().cell;
 	}
 

@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "downlevelIteration": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -18,19 +18,22 @@
     ],
     "paths": {
       "ng2-qgrid/core/*": [
-        "core/*"
+        "projects/qgrid-core/*"
       ],
       "ng2-qgrid/plugin/*": [
-        "plugin/*"
+        "projects/qgrid-plugins/*"
       ],
       "ng2-qgrid/theme/material": [
-        "theme/material/theme.module"
+        "projects/ngx-qgrid-theme-material/public-api.ts"
+      ],
+      "ngx-qgrid/plugins/*": [
+        "projects/ngx-qgrid-plugins/*"
       ],
       "ng2-qgrid/theme/basic": [
-        "theme/basic/theme.module"
+        "projects/ngx-qgrid-theme-basic/public-api.ts"
       ],
       "ng2-qgrid": [
-        "lib/public-api.ts"
+        "projects/ngx-qgrid/public-api.ts"
       ]
     },
     "lib": [
