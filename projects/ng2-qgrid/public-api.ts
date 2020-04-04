@@ -22,6 +22,7 @@ export {
 	TdCoreDirective,
 	ToolbarComponent,
 	RowComponent,
+	ThemeService,
 } from 'ngx-qgrid';
 
 // ngx-qgrid-plugins

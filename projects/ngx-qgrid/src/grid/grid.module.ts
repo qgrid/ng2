@@ -10,6 +10,8 @@ import { ToolbarModule } from '../toolbar/toolbar.module';
 import { ViewModule } from '../view/view.module';
 import { LayerModule } from '../layer/layer.module';
 import { BoxModule } from '../box/box.module';
+import { ScrollModule } from '../scroll/scroll.module';
+import { Grid } from './grid';
 
 @NgModule({
 	declarations: [
@@ -27,12 +29,14 @@ import { BoxModule } from '../box/box.module';
 		ViewModule,
 		LayerModule,
 		BoxModule,
+		ScrollModule,
 	],
 	providers: [
 		DatePipe,
 		DecimalPipe,
 		CurrencyPipe,
 		GridModelBuilder,
+		Grid,
 	]
 })
 export class GridModule {

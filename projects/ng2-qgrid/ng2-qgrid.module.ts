@@ -7,6 +7,9 @@ import {
 	ToolbarModule,
 	RowModule,
 	VscrollModule,
+	ThemeModule,
+	ResizeModule,
+	DndModule,
 } from 'ngx-qgrid';
 
 import {
@@ -21,6 +24,9 @@ import {
 		ToolbarModule,
 		RowModule,
 		VscrollModule,
+		ThemeModule,
+		ResizeModule,
+		DndModule,
 		PluginsModule
 	],
 })

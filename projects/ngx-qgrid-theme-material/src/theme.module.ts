@@ -23,16 +23,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {
-	GridModule,
-	TemplateModule,
-	VscrollModel,
-	GridTheme
-} from 'ng2-qgrid';
-
-import {
-	GridPluginModule,
-} from 'ngx-qgrid/plugins';
+import { GridModule, ThemeService } from 'ng2-qgrid';
 
 @NgModule({
 	declarations: [
@@ -47,10 +38,7 @@ import {
 		FormsModule,
 
 		GridModule,
-		GridPluginModule,
-		VscrollModel,
-		TemplateModule,
-		
+
 		SelectModule,
 		ThemeOverlayModule,
 

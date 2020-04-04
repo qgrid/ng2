@@ -1,4 +1,4 @@
-import { AppError } from '../../core/infrastructure/error';
+import { AppError } from '../infrastructure/error';
 
 export class PluginService {
 	constructor(model) {

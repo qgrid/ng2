@@ -45,12 +45,12 @@ export class GridView implements OnDestroy {
 	row: RowView = null;
 
 	constructor(
-		private gridServiceFactory: Grid,
+		private qgrid: Grid,
 		private scrollService: ScrollService
 	) { }
 
 	init(model: GridModel, table: Table, commandManager: CommandManager) {
-		const gridService = this.gridServiceFactory.service(model);
+		const gridService = this.qgrid.service(model);
 		const selectors = {
 			th: 'q-grid-core-th',
 			tr: 'q-grid-core-tr'

@@ -3,12 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThemeComponent } from './theme.component';
 import {
-	PluginModule,
-	CommonModule as GridCommonModule,
 	TemplateModule,
-	PipeModule,
 	GridModule,
-	VscrollModule,
 	ThemeService
 } from 'ng2-qgrid';
 
@@ -21,13 +17,9 @@ import {
 	],
 	imports: [
 		CommonModule,
-		GridCommonModule,
 		FormsModule,
 		TemplateModule,
 		GridModule,
-		PluginModule,
-		PipeModule,
-		VscrollModule
 	],
 	entryComponents: [
 		ThemeComponent

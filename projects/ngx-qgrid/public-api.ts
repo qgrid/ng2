@@ -32,3 +32,9 @@ export { ToolbarComponent } from './src/toolbar/toolbar.component';
 
 export { RowModule } from './src/row/row.module';
 export { RowComponent } from './src/row/row.component';
+
+export { ThemeModule } from './src/theme/theme.module';
+export { ThemeService } from './src/theme/theme.service';
+
+export { DndModule } from './src/dnd/dnd.module';
+export { ResizeModule } from './src/resize/resize.module';

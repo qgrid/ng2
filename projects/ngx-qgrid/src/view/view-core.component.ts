@@ -21,7 +21,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 	constructor(
 		private root: GridRoot,
 		private view: GridView,
-		private grid: Grid,
+		private qgrid: Grid,
 		private disposable: Disposable,
 		private elementRef: ElementRef,
 		private cd: ChangeDetectorRef,
@@ -75,7 +75,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 			this.cd.detectChanges();
 		};
 
-		const gridService = this.grid.service(model);
+		const gridService = this.qgrid.service(model);
 		this.ctrl = new ViewCtrl(model, view, gridService);
 
 		this.disposable.add(model.sceneChanged.watch(e => {
