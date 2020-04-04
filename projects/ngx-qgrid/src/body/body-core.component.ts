@@ -70,28 +70,32 @@ export class BodyCoreComponent implements OnInit {
 			}));
 		});
 
-		this.disposable.add(model.dataChanged.watch(e => {
-			if (e.hasChanges('id')) {
-				this.rowId = e.state.id.row;
-				const columnId = e.state.id.column;
-				this.columnId = (index, columnView) => columnId(index, columnView.model);
-			}
-		}));
+		this.disposable.add(
+			model.dataChanged.watch(e => {
+				if (e.hasChanges('id')) {
+					this.rowId = e.state.id.row;
+					const columnId = e.state.id.column;
+					this.columnId = (index, columnView) => columnId(index, columnView.model);
+				}
+			})
+		);
 
-		this.disposable.add(model.sceneChanged.watch(e => {
-			if (model.grid().interactionMode === 'detached') {
-				if (e.hasChanges('status')) {
-					switch (e.state.status) {
-						case 'stop':
-							this.cd.detach();
-							break;
-						case 'start':
-							this.cd.reattach();
-							break;
+		this.disposable.add(
+			model.sceneChanged.watch(e => {
+				if (model.grid().interactionMode === 'detached') {
+					if (e.hasChanges('status')) {
+						switch (e.state.status) {
+							case 'stop':
+								this.cd.detach();
+								break;
+							case 'start':
+								this.cd.reattach();
+								break;
+						}
 					}
 				}
-			}
-		}));
+			})
+		);
 	}
 
 	get selection(): SelectionModel {

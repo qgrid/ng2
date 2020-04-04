@@ -17,6 +17,9 @@ import { RowModule } from '../row/row.module';
 		VscrollModule,
 		RowModule,
 	],
+	exports: [
+		BodyCoreComponent,
+	]
 })
 export class BodyModule {
 }

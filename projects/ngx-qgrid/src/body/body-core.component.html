@@ -7,7 +7,7 @@
 		<tr class="q-grid-align">
 			<td *ngFor="let $column of $view.body.columns($table.pin); trackBy: columnId"
 				[q-grid-core-td-align]="$column">
-			</td> 
+			</td>
 		</tr>
 		<tr *ngFor="let $row of $view.body.render.rows[pin] | qGridVscroll: $view.scroll.y; index as $vscrollIndex; viewIndex as $rowIndex; trackBy: $view.scroll.y.id"
 			[q-grid-core-tr]="$row"
