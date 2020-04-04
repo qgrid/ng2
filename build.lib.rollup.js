@@ -8,10 +8,9 @@ const commonjs = require('rollup-plugin-commonjs');
 const alias = require('rollup-plugin-alias');
 const rootFolder = path.join(__dirname);
 const tscFolder = path.join(rootFolder, 'out-tsc');
-const esm2015Folder = path.join(tscFolder, 'esm2015');
 
 module.exports = {
-  treeshake: false,
+  treeshake: true,
   output: {
     name: camelCase(libName),
     sourcemap: true,
@@ -30,31 +29,18 @@ module.exports = {
       '@angular/forms': 'ng.forms'
     }
   },
-  external: [
-    // List of dependencies
-    // See https://github.com/rollup/rollup/wiki/JavaScript-API#external for more.
-    '@angular/core',
-    '@angular/common',
-    '@angular/material',
-    "@angular/animations",
-    "@angular/common",
-    "@angular/common/http",
-    "@angular/compiler",
-    "@angular/core",
-    "@angular/forms",
-    "@angular/platform-browser",
-    "@angular/platform-browser-dynamic",
-    "@angular/router",
-    "core-js",
-    "rxjs",
-    "zone.js"
-  ],
+  external: id =>
+    [
+      '@angular',
+      'core-js',
+      'rxjs',
+      'zone.js'
+    ].includes(id.split('/')[0])
+  ,
   plugins: [
     nodeResolve({
-      jsnext: true,
-      module: true,
-      main: true,
-      browser: true
+      mainFields: ['module', 'main', 'jsnext'],
+      browser: true,
     }),
     commonjs({
       include: [
@@ -69,8 +55,10 @@ module.exports = {
       }
     }),
     alias({
-      'ng2-qgrid/core': path.join(tscFolder, '/core/'),
-      'ng2-qgrid/plugin': path.join(tscFolder, '/plugin/')      
+      entries: {
+        'qgrid/core/': path.join(tscFolder, '/core/'),
+        'qgrid/plugins/': path.join(tscFolder, '/plugin/')
+      }
     })
   ]
 };

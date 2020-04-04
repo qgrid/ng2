@@ -1,0 +1,7 @@
+<!-- https://www.w3schools.com/charsets/ref_utf_arrows.asp -->
+<ng-template key="plugin-column-sort.tpl.html" let-$columnSort>
+    <i class="q-grid-icon q-grid-asc">&uarr;</i>
+    <i class="q-grid-icon q-grid-desc">&darr;</i>
+
+    <ng-container *ngTemplateOutlet="$columnSort.template"></ng-container>
+</ng-template>

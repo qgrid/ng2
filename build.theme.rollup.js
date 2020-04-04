@@ -5,7 +5,7 @@ const commonjs = require('rollup-plugin-commonjs');
 
 module.exports = function (libName) {
   return {
-    treeshake: false,
+    treeshake: true,
     output: {
       name: libName,
       sourcemap: true,
@@ -17,39 +17,30 @@ module.exports = function (libName) {
         // The key here is library name, and the value is the the name of the global variable name
         // the window object.
         // See https://github.com/rollup/rollup/wiki/JavaScript-API#globals for more.
+        '@angular/animations': 'ng.animations',
         '@angular/core': 'ng.core',
         '@angular/common': 'ng.common',
         '@angular/common/http': 'ng.common.http',
         '@angular/material': 'ng.material',
-        '@angular/forms': 'ng.forms'
+        '@angular/forms': 'ng.forms',
+        '@angular/platform-browser': 'ng.platform.browser',
+        'ng2-qgrid': 'ng.qgrid',
+        'rxjs': 'rxjs',
       }
     },
-    external: [
-      // List of dependencies
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#external for more.
-      '@angular/core',
-      '@angular/common',
-      '@angular/material',
-      "@angular/animations",
-      "@angular/common",
-      "@angular/common/http",
-      "@angular/compiler",
-      "@angular/core",
-      "@angular/forms",
-      "@angular/platform-browser",
-      "@angular/platform-browser-dynamic",
-      "@angular/router",
-      "core-js",
-      "rxjs",
-      "zone.js",
-      "ng2-qgrid"
-    ],
+    external: id =>
+      [
+        '@angular',
+        'core-js',
+        'rxjs',
+        'ng2-qgrid',
+        'zone.js'
+      ].includes(id.split('/')[0])
+    ,
     plugins: [
       nodeResolve({
-        jsnext: true,
-        module: true,
-        main: true,
-        browser: true
+        mainFields: ['module', 'main', 'jsnext'],
+        browser: true,
       }),
       commonjs()
     ]

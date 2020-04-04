@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 const ngc = require('@angular/compiler-cli/src/main').main;
+const ngFsUtils = require('@angular/compiler-cli/src/ngtsc/file_system');
 const rollup = require('rollup');
 const { uglify } = require('rollup-plugin-uglify');
 const babel = require('rollup-plugin-babel');
@@ -55,6 +56,7 @@ return Promise.resolve()
   .then(() => console.log('inline: succeeded'))
   // Compile to ESM2015.
   .then(() => console.log('ngc: build.lib.tsconfig.json'))
+  .then(() => ngFsUtils.setFileSystem(new ngFsUtils.NodeJSFileSystem()))
   .then(() => ngc(['--project', 'build.lib.tsconfig.json']))
   .then(code => code === 0 ? Promise.resolve() : Promise.reject())
   .then(() => console.log('ngc esm2015: succeeded'))
@@ -72,7 +74,7 @@ return Promise.resolve()
       input: esm2015Entry,
       output: Object.assign({}, rollupConfig.output, {
         file: path.join(distFolder, 'fesm2015', `${libName}.js`),
-        format: 'es'
+        format: 'esm'
       })
     });
 
@@ -107,19 +109,6 @@ return Promise.resolve()
     return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
   })
   .then(() => console.log('bundle umd.min: succeeded'))
-  .then(() => console.log(`bundle fesm5: ${libName}`))
-  .then(() => {
-    const cfg = Object.assign({}, rollupConfig, {
-      input: fesm2015Entry,
-      output: Object.assign({}, rollupConfig.output, {
-        file: path.join(distFolder, 'fesm5', `${libName}.js`),
-        format: 'es'
-      }),
-      plugins: [babel({})]
-    });
-    return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
-  })
-  .then(() => console.log('bundle fesm5: succeeded'))
   .then(() => console.log('bundle: successed'))
   // Copy package files
   .then(() => console.log('copy package: start'))

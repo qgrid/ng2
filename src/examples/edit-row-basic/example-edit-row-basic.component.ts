@@ -63,14 +63,14 @@ export class ExampleEditRowBasicComponent implements OnInit {
 				type: 'reference',
 				value: (item, value) => isUndef(value) ? item.teammates || [] : item.teammates = value,
 				label: (item) => {
-					const { rows } = this.myGrid.model.data();
+					const { rows } = this.qgrid.model().data();
 					return (item.teammates || [])
 						.map(x => `${x.name.last} ${x.name.first}`)
 						.join(', ');
 				},
 				editorOptions: {
 					modelFactory: () => {
-						const { rows } = this.myGrid.model.data();
+						const { rows } = this.qgrid.model().data();
 						const model = this.qgrid.model();
 						model
 							.selection({
