@@ -4,12 +4,13 @@ import {
 	GridModule as NgxGridModule,
 	ColumnListModule,
 	ColumnModule,
-	ToolbarModule,
-	RowModule,
-	VscrollModule,
-	ThemeModule,
-	ResizeModule,
 	DndModule,
+	ResizeModule,
+	RowModule,
+	TemplateModule,
+	ThemeModule,
+	ToolbarModule,
+	VscrollModule,
 } from 'ngx-qgrid';
 
 import {
@@ -27,6 +28,7 @@ import {
 		ThemeModule,
 		ResizeModule,
 		DndModule,
+		TemplateModule,
 		PluginsModule
 	],
 })
