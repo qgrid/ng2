@@ -1,7 +1,7 @@
-import { isUndefined } from '../../core/utility/kit';
-import { Command } from '../../core/command/command';
-import { RowEditor } from '../../core/edit/edit.row.editor';
-import { Event } from '../../core/infrastructure/event';
+import { isUndefined } from 'qgrid/core/utility/kit';
+import { Command } from 'qgrid/core/command/command';
+import { RowEditor } from 'qgrid/core/edit/edit.row.editor';
+import { Event } from 'qgrid/core/infrastructure/event';
 
 export class EditFormPanelView {
 	constructor(model, context, disposable) {

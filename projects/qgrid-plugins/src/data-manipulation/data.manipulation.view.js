@@ -1,11 +1,11 @@
-import { Command } from '../../core/command/command';
-import { Action } from '../../core/action/action';
-import { AppError } from '../../core/infrastructure/error';
-import { Composite } from '../../core/infrastructure/composite';
-import { isUndefined } from '../../core/utility/kit';
-import * as columnService from '../../core/column/column.service';
-import { set as setValue } from '../../core/services/value';
-import { set as setLabel } from '../../core/services/label';
+import { Command } from 'qgrid/core/command/command';
+import { Action } from 'qgrid/core/action/action';
+import { AppError } from 'qgrid/core/infrastructure/error';
+import { Composite } from 'qgrid/core/infrastructure/composite';
+import { isUndefined } from 'qgrid/core/utility/kit';
+import * as columnService from 'qgrid/core/column/column.service';
+import { set as setValue } from 'qgrid/core/services/value';
+import { set as setLabel } from 'qgrid/core/services/label';
 
 export class DataManipulationView {
 	constructor(model, disposable) {

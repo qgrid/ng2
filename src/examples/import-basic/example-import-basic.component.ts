@@ -15,11 +15,11 @@ import { GridComponent } from 'ng2-qgrid';
 export class ExampleImportBasicComponent implements AfterViewInit {
 	static id = 'import-basic';
 
-	@ViewChild(GridComponent) myGrid: GridComponent;
+	@ViewChild(GridComponent) grid: GridComponent;
 	rows: Observable<Atom[]> = of([]);
 
 	ngAfterViewInit() {
-		this.myGrid.model.plugin({
+		this.grid.model.plugin({
 			imports: {
 				'xlsx': XLSX
 			}

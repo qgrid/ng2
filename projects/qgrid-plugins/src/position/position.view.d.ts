@@ -1,4 +1,4 @@
-import { Disposable } from '../../core/infrastructure/disposable';
+import { Disposable } from 'qgrid/core/infrastructure/disposable';
 
 export declare class PositionView {
 	constructor(context: any, disposable: Disposable);

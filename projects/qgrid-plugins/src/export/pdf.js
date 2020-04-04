@@ -1,4 +1,4 @@
-import {flatView} from '../../core/export/export.service';
+import {flatView} from 'qgrid/core/export/export.service';
 
 export class Pdf {
 	constructor(jsPDF) {

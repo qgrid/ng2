@@ -1,7 +1,7 @@
-import { Model } from '../../core/infrastructure/model'
-import { Event } from '../../core/infrastructure/event'
-import { Command } from '../../core/command/command';
-import { Node } from '../../core/node/node';
+import { Model } from 'qgrid/core/infrastructure/model'
+import { Event } from 'qgrid/core/infrastructure/event'
+import { Command } from 'qgrid/core/command/command';
+import { Node } from 'qgrid/core/node/node';
 
 export declare class ColumnChooserView {
     constructor(model: Model, context: { name: string });

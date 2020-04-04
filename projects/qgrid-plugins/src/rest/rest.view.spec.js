@@ -1,6 +1,6 @@
-import { GridService } from '../../core/services/grid';
+import { GridService } from 'qgrid/core/services/grid';
 import { RestView } from './rest.view';
-import { modelFactory } from '../../core/test/model.factory';
+import { modelFactory } from 'qgrid/core/test/model.factory';
 
 describe('rest plugin', () => {
 	let config;

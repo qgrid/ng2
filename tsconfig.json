@@ -17,23 +17,26 @@
       "src/core/types"
     ],
     "paths": {
-      "ng2-qgrid/core/*": [
-        "projects/qgrid-core/*"
+      "qgrid/core/*": [
+        "projects/qgrid-core/src/*"
       ],
-      "ng2-qgrid/plugin/*": [
-        "projects/qgrid-plugins/*"
+      "qgrid/plugins/*": [
+        "projects/qgrid-plugins/src/*"
       ],
       "ng2-qgrid/theme/material": [
         "projects/ngx-qgrid-theme-material/public-api.ts"
       ],
-      "ngx-qgrid/plugins/*": [
-        "projects/ngx-qgrid-plugins/*"
+      "ngx-qgrid": [
+        "projects/ngx-qgrid/public-api.ts"
+      ],
+      "ngx-qgrid/plugins": [
+        "projects/ngx-qgrid-plugins/public-api.ts"
       ],
       "ng2-qgrid/theme/basic": [
         "projects/ngx-qgrid-theme-basic/public-api.ts"
       ],
       "ng2-qgrid": [
-        "projects/ngx-qgrid/public-api.ts"
+        "projects/ng2-qgrid/public-api.ts"
       ]
     },
     "lib": [

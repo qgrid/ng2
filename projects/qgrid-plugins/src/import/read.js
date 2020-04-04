@@ -1,12 +1,12 @@
-import { AppError } from '../../core/infrastructure/error';
-import { columnFactory } from '../../core/column/column.factory';
-import { generate } from '../../core/column-list/column.list.generate';
-import { firstRowTitle, numericTitle, alphaTitle } from '../../core/services/title';
+import { AppError } from 'qgrid/core/infrastructure/error';
+import { columnFactory } from 'qgrid/core/column/column.factory';
+import { generate } from 'qgrid/core/column-list/column.list.generate';
+import { firstRowTitle, numericTitle, alphaTitle } from 'qgrid/core/services/title';
 import { Xlsx } from './xlsx';
-import { PluginService } from '../../core/plugin/plugin.service';
-import { Xml } from '../../core/import/xml/xml';
-import { Json } from '../../core/import/json/json';
-import { Csv } from '../../core/import/csv/csv';
+import { PluginService } from 'qgrid/core/plugin/plugin.service';
+import { Xml } from 'qgrid/core/import/xml/xml';
+import { Json } from 'qgrid/core/import/json/json';
+import { Csv } from 'qgrid/core/import/csv/csv';
 
 function getType(name) {
 	const dotDelimeter = /[.]/g.test(name);

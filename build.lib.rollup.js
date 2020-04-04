@@ -56,8 +56,8 @@ module.exports = {
     }),
     alias({
       entries: {
-        'ng2-qgrid/core': path.join(tscFolder, '/core/'),
-        'ng2-qgrid/plugin': path.join(tscFolder, '/plugin/')
+        'qgrid/core/': path.join(tscFolder, '/core/'),
+        'qgrid/plugins/': path.join(tscFolder, '/plugin/')
       }
     })
   ]

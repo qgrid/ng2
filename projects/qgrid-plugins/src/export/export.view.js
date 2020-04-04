@@ -1,8 +1,8 @@
-import { PluginService } from '../../core/plugin/plugin.service';
-import { Command } from '../../core/command/command';
-import { Json } from '../../core/export/json/json';
-import { Xml } from '../../core/export/xml/xml';
-import { Csv } from '../../core/export/csv/csv';
+import { PluginService } from 'qgrid/core/plugin/plugin.service';
+import { Command } from 'qgrid/core/command/command';
+import { Json } from 'qgrid/core/export/json/json';
+import { Xml } from 'qgrid/core/export/xml/xml';
+import { Csv } from 'qgrid/core/export/csv/csv';
 import { downloadFactory } from './download';
 import { Xlsx } from './xlsx';
 import { Pdf } from './pdf';

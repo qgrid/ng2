@@ -1,4 +1,4 @@
-import { Command } from '../../core/command/command';
+import { Command } from 'qgrid/core/command/command';
 
 export declare class DataManipulationModel {
 	deleted: Set<any>;

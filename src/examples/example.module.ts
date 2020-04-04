@@ -7,8 +7,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 
-import { GridModule, PipeModule } from 'ng2-qgrid';
-import { ThemeModule } from 'ng2-qgrid/theme/material';
+import { GridModule } from 'ng2-qgrid';
+// import { ThemeModule } from 'ng2-qgrid/theme/material';
 
 import { ExampleActionBarBasicComponent } from './action-bar-basic/example-action-bar-basic.component';
 import { ExampleActionBarOnEnterComponent } from './action-bar-on-enter/example-action-bar-on-enter.component';
@@ -319,8 +319,8 @@ export const APP_ROUTES: Routes = EXAMPLES.map<Route>(example => ({
 	exports: EXAMPLES,
 	imports: [
 		GridModule,
-		ThemeModule,
-		PipeModule,
+		// ThemeModule,
+		// PipeModule,
 		CommonModule,
 		FormsModule,
 		MatButtonModule,

@@ -1,4 +1,4 @@
-import {flatView} from '../../core/export/export.service';
+import {flatView} from 'qgrid/core/export/export.service';
 
 function sheet_to_workbook(sheet) {
 	const sheets = {};

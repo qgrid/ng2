@@ -24,14 +24,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {
-	PluginModule,
-	CommonModule as GridCommonModule,
-	TemplateModule,
-	PipeModule,
 	GridModule,
-	VscrollModule,
-	ThemeService
+	TemplateModule,
+	VscrollModel,
+	GridTheme
 } from 'ng2-qgrid';
+
+import {
+	GridPluginModule,
+} from 'ngx-qgrid/plugins';
 
 @NgModule({
 	declarations: [
@@ -44,8 +45,15 @@ import {
 		ChipsModule,
 		CommonModule,
 		FormsModule,
-		GridCommonModule,
+
 		GridModule,
+		GridPluginModule,
+		VscrollModel,
+		TemplateModule,
+		
+		SelectModule,
+		ThemeOverlayModule,
+
 		MatAutocompleteModule,
 		MatButtonModule,
 		MatCardModule,
@@ -64,12 +72,6 @@ import {
 		MatToolbarModule,
 		MatTooltipModule,
 		MenuModule,
-		PipeModule,
-		PluginModule,
-		SelectModule,
-		TemplateModule,
-		ThemeOverlayModule,
-		VscrollModule,
 	],
 	entryComponents: [
 		ThemeComponent

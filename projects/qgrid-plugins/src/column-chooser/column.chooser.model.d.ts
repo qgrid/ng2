@@ -1,4 +1,4 @@
-import { Resource } from '../../core/resource/resource';
+import { Resource } from 'qgrid/core/resource/resource';
 
 export declare class ColumnChooserModel {
 	canAggregate: boolean;

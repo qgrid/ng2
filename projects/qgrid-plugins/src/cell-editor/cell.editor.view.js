@@ -1,4 +1,4 @@
-import { Event } from '../../core/infrastructure';
+import { Event } from 'qgrid/core/infrastructure';
 
 export class CellEditorView {
 	constructor() {

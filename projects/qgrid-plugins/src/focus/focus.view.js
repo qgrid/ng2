@@ -1,5 +1,5 @@
-import { jobLine } from '../../core/services/job.line';
-import { AppError } from '../../core/infrastructure/error';
+import { jobLine } from 'qgrid/core/services/job.line';
+import { AppError } from 'qgrid/core/infrastructure/error';
 
 export class FocusView {
 	constructor(context) {

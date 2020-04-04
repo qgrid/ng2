@@ -1,5 +1,5 @@
-import { Command } from '../../core/command';
-import { Event } from '../../core/infrastructure';
+import { Command } from 'qgrid/core/command';
+import { Event } from 'qgrid/core/infrastructure';
 
 export class EditFormView {
 	constructor(model, context) {

@@ -1,5 +1,5 @@
 import { PagerView } from './pager.view';
-import { modelFactory } from '../../core/test/model.factory';
+import { modelFactory } from 'qgrid/core/test/model.factory';
 
 describe('Pager view', () => {
 	describe('next command', () => {
