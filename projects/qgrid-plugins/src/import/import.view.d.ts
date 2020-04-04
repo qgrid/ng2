@@ -1,6 +1,5 @@
-import { Model } from 'ng2-qgrid/core/infrastructure/model';
-import { Command } from 'ng2-qgrid/core/command/command';
-import { FileChangeEvent } from '@angular/compiler-cli/src/perform_watch';
+import { Model } from 'qgrid/core/infrastructure/model';
+import { Command } from 'qgrid/core/command/command';
 
 export declare interface ImportOptions {
 	head?: 'alpha' | 'numeric' | 'default';
@@ -13,5 +12,5 @@ export declare class ImportView {
 	options?: ImportOptions;
 	upload: Command;
 
-	load(e: FileChangeEvent): void;
+	load(e: any): void;
 }

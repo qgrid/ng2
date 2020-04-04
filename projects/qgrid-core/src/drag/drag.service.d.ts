@@ -1,4 +1,4 @@
-import { Rect } from "ng2-qgrid/core/dom/rect";
+import { Rect } from "qgrid/core/dom/rect";
 
 export interface Position {
 	x: number;
