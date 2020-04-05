@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng2-qgrid": {
+    "ng2-qgrid-app": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -132,7 +132,47 @@
           }
         }
       }
+    },
+    "ng2-qgrid": {
+      "projectType": "library",
+      "root": "projects/ng2-qgrid",
+      "sourceRoot": "projects/ng2-qgrid/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng2-qgrid/tsconfig.lib.json",
+            "project": "projects/ng2-qgrid/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng2-qgrid/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng2-qgrid/src/test.ts",
+            "tsConfig": "projects/ng2-qgrid/tsconfig.spec.json",
+            "karmaConfig": "projects/ng2-qgrid/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng2-qgrid/tsconfig.lib.json",
+              "projects/ng2-qgrid/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
-  "defaultProject": "ng2-qgrid"
+  "defaultProject": "ng2-qgrid-app"
 }

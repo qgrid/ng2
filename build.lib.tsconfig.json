@@ -34,13 +34,6 @@
     "./out-tsc/public-api.ts"
   ],
   "angularCompilerOptions": {
-    "annotateForClosureCompiler": true,
-    "strictMetadataEmit": true,
-    "skipTemplateCodegen": true,
-    "flatModuleOutFile": "index.js",
-    "flatModuleId": "ng2-qgrid",
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true,
     "enableIvy": false
   }
 }

@@ -1,4 +1,4 @@
-export { GridModule } from './ng2-qgrid.module';
+export { GridModule } from './lib/ng2-qgrid.module';
 
 // ngx-qgrid
 export {
