@@ -48,7 +48,7 @@ import { GridModel } from './grid-model';
 		LayerService,
 		Disposable
 	],
-	styleUrls: ['../../../assets/index.scss'],
+	styleUrls: ['../../../../assets/index.scss'],
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None
 })

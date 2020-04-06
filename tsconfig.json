@@ -18,10 +18,10 @@
     ],
     "paths": {
       "ng2-qgrid/theme/material": [
-        "projects/ngx-qgrid-theme-material/public-api.ts"
+        "projects/ngx-qgrid-theme-material/src/public-api.ts"
       ],
       "ng2-qgrid/theme/basic": [
-        "projects/ngx-qgrid-theme-basic/public-api.ts"
+        "projects/ngx-qgrid-theme-basic/src/public-api.ts"
       ],
       "ng2-qgrid": [
         "projects/ng2-qgrid/src/public-api.ts"
@@ -33,11 +33,11 @@
         "projects/qgrid-plugins/src/*"
       ],
       "ngx-qgrid": [
-        "projects/ngx-qgrid/src/public-api.ts",
+        "projects/ngx-qgrid/src/public-api.ts"
       ],
       "ngx-qgrid/plugins": [
-        "projects/ngx-qgrid-plugins/public-api.ts"
-      ]
+        "projects/ngx-qgrid-plugins/src/public-api.ts"
+      ],
     },
     "lib": [
       "es2018",
