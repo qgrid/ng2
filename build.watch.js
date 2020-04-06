@@ -7,8 +7,8 @@ const { concatFiles } = require('./build.kit');
 
 const rootFolder = path.join(__dirname);
 const themeFolders = [
-  path.join(rootFolder, 'projects/ngx-qgrid-theme-material'),
-  path.join(rootFolder, 'projects/ngx-qgrid-theme-basic'),
+  path.join(rootFolder, 'projects/ngx-qgrid-theme-material/src/'),
+  path.join(rootFolder, 'projects/ngx-qgrid-theme-basic/src/'),
 ];
 
 for (let themeFolder of themeFolders)
