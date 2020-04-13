@@ -6,11 +6,11 @@ import {
 	OnInit,
 	ViewContainerRef
 } from '@angular/core';
-import { ColumnView } from 'qgrid/core/scene/view/column.view';
-import { ColumnModel } from 'qgrid/core/column-type/column.model';
-import { TdCtrl } from 'qgrid/core/cell/td.ctrl';
-import { Td } from 'qgrid/core/dom/td';
-import { AppError } from 'qgrid/core/infrastructure/error';
+import { ColumnView } from 'qgrid-core/scene/view/column.view';
+import { ColumnModel } from 'qgrid-core/column-type/column.model';
+import { TdCtrl } from 'qgrid-core/cell/td.ctrl';
+import { Td } from 'qgrid-core/dom/td';
+import { AppError } from 'qgrid-core/infrastructure/error';
 import { GridView } from '../grid/grid-view';
 import { GridRoot } from '../grid/grid-root';
 import { CellService } from '../cell/cell.service';

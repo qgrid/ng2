@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Command } from 'qgrid/core/command/command';
-import { clone } from 'qgrid/core/utility/kit';
+import { Command } from 'qgrid-core/command/command';
+import { clone } from 'qgrid-core/utility/kit';
 import { QueryBuilderService } from './query-builder.service';
 import { WhereSchema } from './schema/where.schema';
 import * as converter from './schema/converter';

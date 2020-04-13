@@ -33,7 +33,9 @@
     "core-js": "^3.6.4",
     "rxjs": "~6.5.4",
     "tslib": "^1.11.1",
-    "zone.js": "~0.10.3"
+    "zone.js": "~0.10.3",
+    "qgrid-core": "file:./projects/qgrid-core",
+    "qgrid-plugins": "file:./projects/qgrid-plugins"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.901.0",
@@ -70,7 +72,7 @@
     "karma-coverage-istanbul-reporter": "~2.1.1",
     "karma-mocha": "^1.3.0",
     "karma-mocha-reporter": "^2.2.5",
-    "livr": "^2.2.5",
+    "livr": "2.2.5",
     "lodash-es": "^4.17.15",
     "mocha": "^7.1.1",
     "ng-packagr": "^9.1.0",

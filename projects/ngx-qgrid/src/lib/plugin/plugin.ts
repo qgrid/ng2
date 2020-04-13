@@ -1,12 +1,12 @@
 import { Injectable, OnDestroy, SimpleChanges } from '@angular/core';
-import { Guard } from 'qgrid/core/infrastructure/guard';
-import { ModelProxy } from 'qgrid/core/infrastructure/model.proxy';
-import { ModelBinder } from 'qgrid/core/infrastructure/model.bind';
+import { Guard } from 'qgrid-core/infrastructure/guard';
+import { ModelProxy } from 'qgrid-core/infrastructure/model.proxy';
+import { ModelBinder } from 'qgrid-core/infrastructure/model.bind';
 import { Disposable } from '../infrastructure/disposable';
 import { GridRoot } from '../grid/grid-root';
 import { GridView } from '../grid/grid-view';
-import { Model } from 'qgrid/core/infrastructure/model';
-import { Table } from 'qgrid/core/dom/table';
+import { Model } from 'qgrid-core/infrastructure/model';
+import { Table } from 'qgrid-core/dom/table';
 
 
 @Injectable()

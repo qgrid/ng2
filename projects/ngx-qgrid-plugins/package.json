@@ -1,10 +1,12 @@
 {
   "name": "ngx-qgrid-plugins",
   "version": "9.1.0",
+  "bundledDependencies": [
+    "qgrid-plugins"
+  ],
   "peerDependencies": {
     "@angular/common": "^9.1.0",
     "@angular/core": "^9.1.0",
-    "tslib": "^1.10.0",
-    "ngx-qgrid": "^9.1.0"
+    "tslib": "^1.10.0"
   }
 }

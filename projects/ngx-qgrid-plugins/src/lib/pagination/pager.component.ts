@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { PagerView } from 'qgrid/plugins/pager/pager.view';
+import { PagerView } from 'qgrid-plugins/pager/pager.view';
 import { GridPlugin } from 'ngx-qgrid';
 import { Disposable } from 'ngx-qgrid';
 

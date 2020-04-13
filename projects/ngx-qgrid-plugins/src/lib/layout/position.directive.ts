@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
-import { PositionView } from 'qgrid/plugins/position/position.view';
+import { PositionView } from 'qgrid-plugins/position/position.view';
 import { Disposable } from 'ngx-qgrid';
 
 @Directive({

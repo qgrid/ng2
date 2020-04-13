@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ValidatorView } from 'qgrid/plugins/validation/validator.view';
+import { ValidatorView } from 'qgrid-plugins/validation/validator.view';
 import { GridPlugin, TemplateHostService } from 'ngx-qgrid';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Td } from 'qgrid/core/dom/td';
+import { Td } from 'qgrid-core/dom/td';
 
 @Component({
 	selector: 'q-grid-edit-form-trigger',

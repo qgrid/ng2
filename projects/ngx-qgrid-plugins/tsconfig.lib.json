@@ -9,7 +9,12 @@
     "lib": [
       "dom",
       "es2018"
-    ]
+    ],
+    "paths": {
+      "ngx-qgrid": [
+        "dist/ngx-qgrid"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,

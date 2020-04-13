@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, Input, TemplateRef, ChangeDetectionStrategy, ContentChild } from '@angular/core';
 import { Disposable } from 'ngx-qgrid';
 import { GridPlugin } from 'ngx-qgrid';
-import { Command } from 'qgrid/core/command/command';
-import { ExportView } from 'qgrid/plugins/export/export.view';
-import { Action } from 'qgrid/core/action/action';
-import { Composite } from 'qgrid/core/infrastructure/composite';
+import { Command } from 'qgrid-core/command/command';
+import { ExportView } from 'qgrid-plugins/export/export.view';
+import { Action } from 'qgrid-core/action/action';
+import { Composite } from 'qgrid-core/infrastructure/composite';
 import { TemplateHostService } from 'ngx-qgrid';
 
 @Component({

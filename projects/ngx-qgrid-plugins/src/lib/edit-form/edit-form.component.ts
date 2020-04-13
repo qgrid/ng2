@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
-import { EditFormPanelView } from 'qgrid/plugins/edit-form/edit.form.panel.view';
+import { EditFormPanelView } from 'qgrid-plugins/edit-form/edit.form.panel.view';
 import { GridPlugin } from 'ngx-qgrid';
-import { Td } from 'qgrid/core/dom/td';
+import { Td } from 'qgrid-core/dom/td';
 import { Disposable } from 'ngx-qgrid';
 
 @Component({

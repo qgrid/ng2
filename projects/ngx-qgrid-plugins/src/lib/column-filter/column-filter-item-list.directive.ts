@@ -1,5 +1,5 @@
 import { Directive, Input } from '@angular/core';
-import { ColumnModel } from 'qgrid/core/column-type/column.model';
+import { ColumnModel } from 'qgrid-core/column-type/column.model';
 import { CellService } from 'ngx-qgrid';
 
 @Directive({

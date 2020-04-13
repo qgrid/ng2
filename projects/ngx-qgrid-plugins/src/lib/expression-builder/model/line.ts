@@ -1,5 +1,5 @@
 import { GridError } from 'ngx-qgrid';
-import { cloneDeep } from 'qgrid/core/utility/kit';
+import { cloneDeep } from 'qgrid-core/utility/kit';
 import { Expression, GroupExpression } from './expression';
 import { GroupSchema } from './group.schema';
 import { Node } from './node';

@@ -1,9 +1,9 @@
 import { Component, Input, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
-import { DataManipulationView } from 'qgrid/plugins/data-manipulation/data.manipulation.view';
+import { DataManipulationView } from 'qgrid-plugins/data-manipulation/data.manipulation.view';
 import { Disposable } from 'ngx-qgrid';
 import { GridPlugin } from 'ngx-qgrid';
-import { ColumnModel } from 'qgrid/core/column-type/column.model';
-import { StyleCellContext, StyleRowContext } from 'qgrid/core/style/style.context';
+import { ColumnModel } from 'qgrid-core/column-type/column.model';
+import { StyleCellContext, StyleRowContext } from 'qgrid-core/style/style.context';
 
 @Component({
 	selector: 'q-grid-data-manipulation',

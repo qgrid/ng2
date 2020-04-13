@@ -1,0 +1,10 @@
+{
+  "name": "qgrid-core",
+  "version": "9.1.0",
+  "bundledDependencies": [
+    "css.escape",
+    "fastdom",
+    "livr",
+    "lodash-es"
+  ]
+}
