@@ -1,6 +1,6 @@
 {
   "name": "ngx-qgrid-theme-material",
-  "version": "9.0.1",
+  "version": "9.1.0",
   "peerDependencies": {
     "@angular/common": "^9.1.0",
     "@angular/core": "^9.1.0",
