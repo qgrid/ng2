@@ -1,8 +1,8 @@
-import { Event } from 'qgrid-core/infrastructure/event';
-import { EventListener } from 'qgrid-core/infrastructure/event.listener';
-import { EventManager } from 'qgrid-core/infrastructure/event.manager';
-import { checkButtonCode, LEFT_BUTTON, MIDDLE_BUTTON } from 'qgrid-core/mouse/mouse.code';
-import { elementFromPoint } from 'qgrid-core/services/dom';
+import { Event } from '@qgrid/core/infrastructure/event';
+import { EventListener } from '@qgrid/core/infrastructure/event.listener';
+import { EventManager } from '@qgrid/core/infrastructure/event.manager';
+import { checkButtonCode, LEFT_BUTTON, MIDDLE_BUTTON } from '@qgrid/core/mouse/mouse.code';
+import { elementFromPoint } from '@qgrid/core/services/dom';
 
 export class BackdropView {
 	constructor(context) {

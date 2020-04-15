@@ -1,4 +1,4 @@
-import { Rect } from 'qgrid-core/dom/rect';
+import { Rect } from '../dom/rect';
 
 export interface Position {
 	x: number;

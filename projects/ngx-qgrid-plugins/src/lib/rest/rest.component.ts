@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RestView } from 'qgrid-plugins/rest/rest.view';
+import { RestView } from '@qgrid/plugins/rest/rest.view';
 import { GridPlugin } from 'ngx-qgrid';
 
 @Component({

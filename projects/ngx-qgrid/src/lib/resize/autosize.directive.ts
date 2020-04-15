@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnInit, Input, } from '@angular/core';
-import { Fastdom } from 'qgrid-core/services/fastdom';
+import { Fastdom } from '@qgrid/core/services/fastdom';
 
 @Directive({
 	selector: '[q-grid-autosize]'

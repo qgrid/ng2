@@ -1,5 +1,5 @@
 import { OnDestroy, OnInit, Component, ChangeDetectorRef } from '@angular/core';
-import { Action } from 'qgrid-core/action/action';
+import { Action } from '@qgrid/core/action/action';
 import { GridPlugin } from 'ngx-qgrid';
 
 @Component({

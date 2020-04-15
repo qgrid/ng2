@@ -1,10 +1,10 @@
 import { Component, ElementRef, OnInit, NgZone, Input, ChangeDetectorRef } from '@angular/core';
-import { EventListener } from 'qgrid-core/infrastructure/event.listener';
-import { EventManager } from 'qgrid-core/infrastructure/event.manager';
-import { ColumnView } from 'qgrid-core/scene/view/column.view';
-import { SelectionModel } from 'qgrid-core/selection/selection.model';
+import { EventListener } from '@qgrid/core/infrastructure/event.listener';
+import { EventManager } from '@qgrid/core/infrastructure/event.manager';
+import { ColumnView } from '@qgrid/core/scene/view/column.view';
+import { SelectionModel } from '@qgrid/core/selection/selection.model';
 import { GridModel } from '../grid/grid-model';
-import { BodyCtrl } from 'qgrid-core/body/body.ctrl';
+import { BodyCtrl } from '@qgrid/core/body/body.ctrl';
 import { GridRoot } from '../grid/grid-root';
 import { GridView } from '../grid/grid-view';
 import { TableCoreService } from '../table/table-core.service';

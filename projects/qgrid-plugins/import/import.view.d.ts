@@ -1,5 +1,5 @@
-import { Model } from 'qgrid-core/infrastructure/model';
-import { Command } from 'qgrid-core/command/command';
+import { Model } from '@qgrid/core/infrastructure/model';
+import { Command } from '@qgrid/core/command/command';
 
 export declare interface ImportOptions {
 	head?: 'alpha' | 'numeric' | 'default';

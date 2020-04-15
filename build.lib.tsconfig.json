@@ -20,10 +20,10 @@
     "baseUrl": "./out-tsc",
     "paths": {
       "qgrid/core/*": [
-        "projects/qgrid-core/*"
+        "projects/@qgrid/core/*"
       ],
       "qgrid/plugins/*": [
-        "projects/qgrid-plugins/*"
+        "projects/@qgrid/plugins/*"
       ],
       "ng2-qgrid/theme/*": [
         "theme/*"

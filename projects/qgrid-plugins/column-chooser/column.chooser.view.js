@@ -1,8 +1,8 @@
-import { Command } from 'qgrid-core/command/command';
-import { Aggregation } from 'qgrid-core/services/aggregation';
-import { isFunction, identity } from 'qgrid-core/utility/kit';
-import { Event } from 'qgrid-core/infrastructure/event';
-import { preOrderDFS, copy, find, filter } from 'qgrid-core/node/node.service';
+import { Command } from '@qgrid/core/command/command';
+import { Aggregation } from '@qgrid/core/services/aggregation';
+import { isFunction, identity } from '@qgrid/core/utility/kit';
+import { Event } from '@qgrid/core/infrastructure/event';
+import { preOrderDFS, copy, find, filter } from '@qgrid/core/node/node.service';
 
 export class ColumnChooserView {
 	constructor(model, context) {

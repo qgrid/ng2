@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
-import { Tr } from 'qgrid-core/dom/tr';
+import { Tr } from '@qgrid/core/dom/tr';
 import { GridView } from '../grid/grid-view';
 import { GridRoot } from '../grid/grid-root';
 

@@ -10,12 +10,12 @@ import {
 	SimpleChanges,
 	SimpleChange
 } from '@angular/core';
-import { GRID_PREFIX } from 'qgrid-core/definition';
-import { ColumnModel } from 'qgrid-core/column-type/column.model';
-import { ColumnView } from 'qgrid-core/scene/view/column.view';
-import { TdCtrl } from 'qgrid-core/cell/td.ctrl';
-import { Td } from 'qgrid-core/dom/td';
-import { noop } from 'qgrid-core/utility/kit';
+import { GRID_PREFIX } from '@qgrid/core/definition';
+import { ColumnModel } from '@qgrid/core/column-type/column.model';
+import { ColumnView } from '@qgrid/core/scene/view/column.view';
+import { TdCtrl } from '@qgrid/core/cell/td.ctrl';
+import { Td } from '@qgrid/core/dom/td';
+import { noop } from '@qgrid/core/utility/kit';
 import { GridView } from '../grid/grid-view';
 import { GridRoot } from '../grid/grid-root';
 import { TrCoreDirective } from '../row/tr-core.directive';

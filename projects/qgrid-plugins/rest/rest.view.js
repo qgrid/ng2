@@ -1,8 +1,8 @@
-import { isFunction } from 'qgrid-core/utility/kit';
-import { AppError } from 'qgrid-core/infrastructure/error';
-import { PipeUnit } from 'qgrid-core/pipe/pipe.unit';
-import { serialize as serializeGet } from 'qgrid-core/rest/get.serialize';
-import { serialize as serializePost } from 'qgrid-core/rest/post.serialize';
+import { isFunction } from '@qgrid/core/utility/kit';
+import { AppError } from '@qgrid/core/infrastructure/error';
+import { PipeUnit } from '@qgrid/core/pipe/pipe.unit';
+import { serialize as serializeGet } from '@qgrid/core/rest/get.serialize';
+import { serialize as serializePost } from '@qgrid/core/rest/post.serialize';
 
 export class RestView {
 	constructor(model, { get, post }) {

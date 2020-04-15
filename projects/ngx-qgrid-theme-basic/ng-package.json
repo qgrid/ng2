@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/ngx-qgrid-theme-basic",
+  "dest": "../../dist/ng2-qgrid/theme/basic",
   "lib": {
     "entryFile": "src/public-api.ts"
   }

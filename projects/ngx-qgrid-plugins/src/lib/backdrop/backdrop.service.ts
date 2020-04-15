@@ -1,5 +1,5 @@
 import { Injectable, ElementRef } from '@angular/core';
-import { Guard } from 'qgrid-core/infrastructure/guard';
+import { Guard } from '@qgrid/core/infrastructure/guard';
 
 @Injectable()
 export class BackdropService {

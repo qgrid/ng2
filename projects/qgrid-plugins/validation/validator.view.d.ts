@@ -1,5 +1,5 @@
-import { Model } from 'qgrid-core/infrastructure/model';
-import { Validator } from 'qgrid-core/validation/validation.service';
+import { Model } from '@qgrid/core/infrastructure/model';
+import { Validator } from '@qgrid/core/validation/validation.service';
 
 export declare class ValidatorView {
 	constructor(model: Model, context: any);

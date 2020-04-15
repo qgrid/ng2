@@ -1,12 +1,12 @@
-import { PersistenceService } from 'qgrid-core/persistence/persistence.service';
-import { Command } from 'qgrid-core/command/command';
-import { CommandManager } from 'qgrid-core/command/command.manager';
-import { stringifyFactory } from 'qgrid-core/services/model.stringify';
-import { Shortcut } from 'qgrid-core/shortcut/shortcut';
-import { ShortcutDispatcher } from 'qgrid-core/shortcut/shortcut.dispatcher';
-import { clone } from 'qgrid-core/utility/kit';
-import { Event } from 'qgrid-core/infrastructure/event';
-import { groupBy } from 'qgrid-core/utility/kit';
+import { PersistenceService } from '@qgrid/core/persistence/persistence.service';
+import { Command } from '@qgrid/core/command/command';
+import { CommandManager } from '@qgrid/core/command/command.manager';
+import { stringifyFactory } from '@qgrid/core/services/model.stringify';
+import { Shortcut } from '@qgrid/core/shortcut/shortcut';
+import { ShortcutDispatcher } from '@qgrid/core/shortcut/shortcut.dispatcher';
+import { clone } from '@qgrid/core/utility/kit';
+import { Event } from '@qgrid/core/infrastructure/event';
+import { groupBy } from '@qgrid/core/utility/kit';
 
 export class PersistenceView {
 	constructor(model, createDefaultModel) {

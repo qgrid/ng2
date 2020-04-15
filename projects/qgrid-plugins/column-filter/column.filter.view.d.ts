@@ -1,8 +1,8 @@
-import { Model } from 'qgrid-core/infrastructure/model';
-import { Event } from 'qgrid-core/infrastructure/event';
-import { ColumnModel } from 'qgrid-core/column-type/column.model';
-import { Command } from 'qgrid-core/command/command';
-import { Expression } from 'qgrid-core/expression/expression.build';
+import { Model } from '@qgrid/core/infrastructure/model';
+import { Event } from '@qgrid/core/infrastructure/event';
+import { ColumnModel } from '@qgrid/core/column-type/column.model';
+import { Command } from '@qgrid/core/command/command';
+import { Expression } from '@qgrid/core/expression/expression.build';
 
 export declare class ColumnFilterView {
 	constructor(model: Model, context: { key: string });

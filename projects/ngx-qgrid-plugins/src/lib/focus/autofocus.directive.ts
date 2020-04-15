@@ -1,6 +1,6 @@
 import { Directive, AfterViewInit, Input } from '@angular/core';
 import { GridRoot, Disposable } from 'ngx-qgrid';
-import { AutofocusView } from 'qgrid-plugins/autofocus/autofocus.view';
+import { AutofocusView } from '@qgrid/plugins/autofocus/autofocus.view';
 
 @Directive({
 	selector: '[q-grid-autofocus]',

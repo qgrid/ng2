@@ -1,7 +1,7 @@
-import { Model } from 'qgrid-core/infrastructure/model';
-import { Command } from 'qgrid-core/command/command';
-import { RowModel } from 'qgrid-core/row/row.model';
-import { ColumnModel } from 'qgrid-core/column-type/column.model';
+import { Model } from '@qgrid/core/infrastructure/model';
+import { Command } from '@qgrid/core/command/command';
+import { RowModel } from '@qgrid/core/row/row.model';
+import { ColumnModel } from '@qgrid/core/column-type/column.model';
 
 export declare class ExportView {
 	constructor(model: Model, context: { type: string });

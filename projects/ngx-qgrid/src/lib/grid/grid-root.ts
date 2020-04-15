@@ -1,9 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Guard } from 'qgrid-core/infrastructure/guard';
-import { CommandManager } from 'qgrid-core/command/command.manager';
-import { Table } from 'qgrid-core/dom/table';
-import { Bag } from 'qgrid-core/dom/bag';
-import { ModelProxy } from 'qgrid-core/infrastructure/model.proxy';
+import { Guard } from '@qgrid/core/infrastructure/guard';
+import { CommandManager } from '@qgrid/core/command/command.manager';
+import { Table } from '@qgrid/core/dom/table';
+import { Bag } from '@qgrid/core/dom/bag';
+import { ModelProxy } from '@qgrid/core/infrastructure/model.proxy';
 import { GridModel } from '../grid/grid-model';
 import { Disposable } from '../infrastructure/disposable';
 

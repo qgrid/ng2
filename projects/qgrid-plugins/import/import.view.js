@@ -1,5 +1,5 @@
-import { Command } from 'qgrid-core/command/command';
-import { upload } from 'qgrid-core/services/upload';
+import { Command } from '@qgrid/core/command/command';
+import { upload } from '@qgrid/core/services/upload';
 import { readFile } from './read';
 
 export class ImportView {

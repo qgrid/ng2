@@ -10,11 +10,11 @@ import {
 	ChangeDetectorRef,
 	ChangeDetectionStrategy
 } from '@angular/core';
-import { ColumnChooserView } from 'qgrid-plugins/column-chooser/column.chooser.view';
+import { ColumnChooserView } from '@qgrid/plugins/column-chooser/column.chooser.view';
 import { FocusAfterRender } from '../focus/focus.service';
 import { GridPlugin } from 'ngx-qgrid';
-import { noop } from 'qgrid-core/utility/kit';
-import { Node } from 'qgrid-core/node/node';
+import { noop } from '@qgrid/core/utility/kit';
+import { Node } from '@qgrid/core/node/node';
 
 const ColumnChooserName = 'qGridColumnChooser';
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PersistenceView } from 'qgrid-plugins/persistence/persistence.view';
+import { PersistenceView } from '@qgrid/plugins/persistence/persistence.view';
 import { GridPlugin } from 'ngx-qgrid';
 import { GridModelBuilder } from 'ngx-qgrid';
 

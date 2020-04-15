@@ -9,7 +9,7 @@ import {
 	Input,
 	OnInit
 } from '@angular/core';
-import { BackdropView } from 'qgrid-plugins/backdrop/backdrop.view';
+import { BackdropView } from '@qgrid/plugins/backdrop/backdrop.view';
 import { BackdropService } from './backdrop.service';
 
 @Component({

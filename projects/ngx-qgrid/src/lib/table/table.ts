@@ -1,1 +1,1 @@
-export { Table as GridTable } from 'qgrid-core/dom/table';
+export { Table as GridTable } from '@qgrid/core/dom/table';

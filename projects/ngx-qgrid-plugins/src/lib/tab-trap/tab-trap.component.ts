@@ -6,9 +6,9 @@ import {
 	ViewChild
 } from '@angular/core';
 import { GridError } from 'ngx-qgrid';
-import { EventListener } from 'qgrid-core/infrastructure/event.listener';
-import { EventManager } from 'qgrid-core/infrastructure/event.manager';
-import { Shortcut } from 'qgrid-core/shortcut/shortcut';
+import { EventListener } from '@qgrid/core/infrastructure/event.listener';
+import { EventManager } from '@qgrid/core/infrastructure/event.manager';
+import { Shortcut } from '@qgrid/core/shortcut/shortcut';
 import { GridPlugin } from 'ngx-qgrid';
 
 @Component({

@@ -1,5 +1,5 @@
-import { Command } from 'qgrid-core/command/command';
-import { FocusAfterRenderService } from 'qgrid-core/focus/focus.service';
+import { Command } from '@qgrid/core/command/command';
+import { FocusAfterRenderService } from '@qgrid/core/focus/focus.service';
 
 export class PagerView {
 	constructor(model, table, disposable) {

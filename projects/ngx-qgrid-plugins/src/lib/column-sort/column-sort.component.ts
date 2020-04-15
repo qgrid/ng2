@@ -8,10 +8,10 @@ import {
 	ChangeDetectionStrategy,
 	ViewChild,
 } from '@angular/core';
-import { ColumnSortView } from 'qgrid-plugins/column-sort/column.sort.view';
-import { EventListener } from 'qgrid-core/infrastructure/event.listener';
-import { EventManager } from 'qgrid-core/infrastructure/event.manager';
-import { ColumnModel } from 'qgrid-core/column-type/column.model';
+import { ColumnSortView } from '@qgrid/plugins/column-sort/column.sort.view';
+import { EventListener } from '@qgrid/core/infrastructure/event.listener';
+import { EventManager } from '@qgrid/core/infrastructure/event.manager';
+import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { FocusAfterRender } from '../focus/focus.service';
 import { GridPlugin } from 'ngx-qgrid';
 

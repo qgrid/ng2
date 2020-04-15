@@ -15,7 +15,7 @@ import {
 
 import {
 	PluginsModule
-} from 'ngx-qgrid/plugins';
+} from 'ngx-qgrid-plugins';
 
 @NgModule({
 	exports: [

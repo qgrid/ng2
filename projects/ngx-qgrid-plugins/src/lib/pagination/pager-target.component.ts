@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Shortcut } from 'qgrid-core/shortcut/shortcut';
+import { Shortcut } from '@qgrid/core/shortcut/shortcut';
 import { GridPlugin } from 'ngx-qgrid';
 
 @Component({

@@ -137,7 +137,7 @@
       "projectType": "library",
       "root": "projects/ng2-qgrid",
       "sourceRoot": "projects/ng2-qgrid/src",
-      "prefix": "lib",
+      "prefix": "q-grid",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -177,7 +177,7 @@
       "projectType": "library",
       "root": "projects/ngx-qgrid",
       "sourceRoot": "projects/ngx-qgrid/src",
-      "prefix": "lib",
+      "prefix": "q-grid",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -217,7 +217,7 @@
       "projectType": "library",
       "root": "projects/ngx-qgrid-plugins",
       "sourceRoot": "projects/ngx-qgrid-plugins/src",
-      "prefix": "lib",
+      "prefix": "q-grid",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -257,7 +257,7 @@
       "projectType": "library",
       "root": "projects/ngx-qgrid-theme-basic",
       "sourceRoot": "projects/ngx-qgrid-theme-basic/src",
-      "prefix": "lib",
+      "prefix": "q-grid",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -297,7 +297,7 @@
       "projectType": "library",
       "root": "projects/ngx-qgrid-theme-material",
       "sourceRoot": "projects/ngx-qgrid-theme-material/src",
-      "prefix": "lib",
+      "prefix": "q-grid",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
