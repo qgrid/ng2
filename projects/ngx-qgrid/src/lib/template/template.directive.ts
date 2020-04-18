@@ -17,8 +17,8 @@ export class TemplateDirective implements DoCheck, OnChanges {
 	private viewRef: EmbeddedViewRef<any>;
 
 	@Input() check = false;
-	@Input() key: any = '';
-	@Input() context = null;
+	@Input() key = '';
+	@Input() context: any = null;
 
 	constructor(
 		private templateService: TemplateService,

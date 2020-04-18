@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { GridRoot } from 'ngx-qgrid';
+import { GridRoot } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-visibility',

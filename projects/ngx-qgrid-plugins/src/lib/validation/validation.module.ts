@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { ValidatorComponent } from './validator.component';
 import { RuleComponent } from './rule.component';
 import { ValidationComponent } from './validation.component';
-import { TemplateModule } from 'ngx-qgrid';
+import { TemplateModule } from '@qgrid/ngx';
 
 @NgModule({
 	declarations: [

@@ -1,14 +1,12 @@
 import { Directive, AfterViewInit, Input } from '@angular/core';
-import { GridRoot, Disposable } from 'ngx-qgrid';
-import { AutofocusView } from '@qgrid/plugins/autofocus/autofocus.view';
+import { GridRoot, Disposable } from '@qgrid/ngx';
+import { AutofocusPlugin } from '@qgrid/plugins/autofocus/autofocus.plugin';
 
 @Directive({
 	selector: '[q-grid-autofocus]',
 	providers: [Disposable]
 })
 export class AutoFocusDirective implements AfterViewInit {
-	private view: AutofocusView;
-
 	@Input('q-grid-autofocus') enabled: boolean;
 
 	constructor(
@@ -19,7 +17,7 @@ export class AutoFocusDirective implements AfterViewInit {
 	ngAfterViewInit() {
 		if (this.enabled !== false) {
 			const { markup, model, table } = this.root;
-			this.view = new AutofocusView(model, table, markup, this.disposable);
+			const plugin = new AutofocusPlugin(model, table, markup, this.disposable);
 		}
 	}
 }

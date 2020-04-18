@@ -1,4 +1,4 @@
-import { GridError } from 'ngx-qgrid';
+import { GridError } from '@qgrid/ngx';
 import { cloneDeep } from '@qgrid/core/utility/kit';
 import { Expression, GroupExpression } from './expression';
 import { GroupSchema } from './group.schema';

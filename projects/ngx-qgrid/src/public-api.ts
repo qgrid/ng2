@@ -8,27 +8,39 @@ export { GridView } from './lib/grid/grid-view';
 export { GridRoot } from './lib/grid/grid-root';
 export { GridModelBuilder } from './lib/grid/grid-model.builder';
 
-export { GridTable } from './lib/table/table';
-
 export { GridError } from './lib/infrastructure/error';
 export { Disposable } from './lib/infrastructure/disposable';
 
 export { TemplateModule } from './lib/template/template.module';
 export { TemplateHostService } from './lib/template/template-host.service';
+export { TemplateDirective } from './lib/template/template.directive';
+export { TemplateLinkDirective } from './lib/template/template-link.directive';
+export { TemplateCacheDirective } from './lib/template/template-cache.directive';
+export { TemplateCacheService } from './lib/template/template-cache.service';
+export { TemplateLinkService } from './lib/template/template-link.service';
+export { TemplateService } from './lib/template/template.service';
 
 export { CellService } from './lib/cell/cell.service';
 
 export { VscrollContext } from './lib/vscroll/vscroll.context';
 export { VscrollService } from './lib/vscroll/vscroll.service';
 export { VscrollModule } from './lib/vscroll/vscroll.module';
-
-export { TdCoreDirective } from './lib/body/td-core.directive';
+export { VscrollColumnDirective } from './lib/vscroll/vscroll-column.directive';
+export { VscrollMarkDirective } from './lib/vscroll/vscroll-mark.directive';
+export { VscrollPortXDirective } from './lib/vscroll/vscroll-port-x.directive';
+export { VscrollPortYDirective } from './lib/vscroll/vscroll-port-y.directive';
+export { VscrollRowDirective } from './lib/vscroll/vscroll-row.directive';
+export { VscrollDirective } from './lib/vscroll/vscroll.directive';
+export { VscrollPipe } from './lib/vscroll/vscroll.pipe';
+export { VscrollPort } from './lib/vscroll/vscroll.port';
+export { IVscrollSettings } from './lib/vscroll/vscroll.settings';
 
 export { ColumnListModule } from './lib/column-list/column-list.module';
 export { ColumnModule } from './lib/column/column.module';
 
 export { ToolbarModule } from './lib/toolbar/toolbar.module';
 export { ToolbarComponent } from './lib/toolbar/toolbar.component';
+export { ToolbarCoreComponent } from './lib/toolbar/toolbar-core.component';
 
 export { RowModule } from './lib/row/row.module';
 export { RowComponent } from './lib/row/row.component';
@@ -36,5 +48,43 @@ export { RowComponent } from './lib/row/row.component';
 export { ThemeModule } from './lib/theme/theme.module';
 export { ThemeService } from './lib/theme/theme.service';
 
-export { DndModule } from './lib/dnd/dnd.module';
 export { ResizeModule } from './lib/resize/resize.module';
+
+export {
+	DomTr,
+	DomTd,
+	DomBox,
+	DomCell,
+	DomRow,
+	DomData,
+	DomView,
+	DomTable,
+	DomBag
+} from './lib/dom/dom';
+
+export { CellHandlerComponent } from './lib/cell-handler/cell-handler.component';
+export { CellHandlerModule } from './lib/cell-handler/cell.module';
+
+export { ColumnListComponent } from './lib/column-list/column-list.component';
+export { ColumnListService } from './lib/column-list/column-list.service';
+export { ColumnComponent } from './lib/column/column.component';
+export { ColumnService } from './lib/column/column.service';
+
+export { DndModule } from './lib/dnd/dnd.module';
+export { DragDirective } from './lib/dnd/drag.directive';
+export { DropDirective } from './lib/dnd/drop.directive';
+
+export { LayerModule } from './lib/layer/layer.module';
+export { LayerCoreComponent } from './lib/layer/layer-core.component';
+export { LayerCoreDirective } from './lib/layer/layer-core.directive';
+export { LayerService } from './lib/layer/layer.service';
+
+export { MarkupDirective } from './lib/markup/markup.directive';
+export { MarkupModule } from './lib/markup/markup.module';
+
+export { AutoSizeDirective } from './lib/resize/autosize.directive';
+export { ResizeDirective } from './lib/resize/resize.directive';
+
+export { TdCoreDirective } from './lib/body/td-core.directive';
+export { TrhCoreDirective } from './lib/row/trh-core.directive';
+export { TrCoreDirective } from './lib/row/tr-core.directive';

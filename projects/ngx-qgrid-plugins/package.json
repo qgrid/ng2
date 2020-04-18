@@ -4,8 +4,7 @@
   "peerDependencies": {
     "@angular/common": "^9.1.0",
     "@angular/core": "^9.1.0",
-    "tslib": "^1.10.0",
-    "@qgrid/plugins": "9.1.0"
+    "tslib": "^1.10.0"
   },
   "author": "qgrid.team@gmail.com"
 }

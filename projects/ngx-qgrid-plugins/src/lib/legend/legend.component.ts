@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { TemplateHostService } from 'ngx-qgrid';
+import { TemplateHostService } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-legend',

@@ -4,7 +4,7 @@ import { Command } from '@qgrid/core/command/command';
 import { getFactory } from '@qgrid/core/services/value';
 import { isArray, isUndefined } from '@qgrid/core/utility/kit';
 import { SelectionService } from '@qgrid/core/selection/selection.service';
-import { GridModel, Disposable, GridModelBuilder } from 'ngx-qgrid';
+import { GridModel, Disposable, GridModelBuilder } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-reference',

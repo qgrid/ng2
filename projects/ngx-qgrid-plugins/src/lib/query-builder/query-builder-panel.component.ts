@@ -10,7 +10,7 @@ import { Node } from '../expression-builder/model/node';
 import { EbNodeService } from '../expression-builder/eb-node.service';
 import { TraverseService } from '../expression-builder/traverse.service';
 import { FocusAfterRender } from '../focus/focus.service';
-import { GridPlugin } from 'ngx-qgrid';
+import { GridPlugin } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-query-builder-panel',

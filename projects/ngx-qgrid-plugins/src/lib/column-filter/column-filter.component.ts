@@ -7,13 +7,12 @@ import {
 	ChangeDetectionStrategy,
 	ChangeDetectorRef
 } from '@angular/core';
-import { ColumnFilterView } from '@qgrid/plugins/column-filter/column.filter.view';
+import { ColumnFilterPlugin } from '@qgrid/plugins/column-filter/column.filter.plugin';
 import { uniq, flatten } from '@qgrid/core/utility/kit';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { Fetch } from '@qgrid/core/infrastructure/fetch';
 import { FocusAfterRender } from '../focus/focus.service';
-import { GridPlugin } from 'ngx-qgrid';
-import { Grid, VscrollService, VscrollContext } from 'ngx-qgrid';
+import { GridPlugin, Grid, VscrollService, VscrollContext } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-column-filter',
@@ -29,7 +28,7 @@ export class ColumnFilterComponent implements OnInit {
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
 	context: {
-		$implicit: ColumnFilterView,
+		$implicit: ColumnFilterPlugin,
 		plugin: ColumnFilterComponent,
 		vscroll: VscrollContext
 	};
@@ -53,7 +52,7 @@ export class ColumnFilterComponent implements OnInit {
 		const { key } = this.column;
 		const context = { key };
 
-		const columnFilter = new ColumnFilterView(model, context);
+		const columnFilter = new ColumnFilterPlugin(model, context);
 
 		columnFilter.submitEvent.on(() => this.submitEvent.emit());
 		columnFilter.cancelEvent.on(() => this.cancelEvent.emit());

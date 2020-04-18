@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { TemplateModule } from 'ngx-qgrid';
+import { TemplateModule } from '@qgrid/ngx';
 import { StatusBarComponent } from './status-bar.component';
 
 @NgModule({

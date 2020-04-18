@@ -13,8 +13,7 @@
     "importHelpers": true,
     "target": "es2015",
     "typeRoots": [
-      "node_modules/@types",
-      "src/core/types"
+      "node_modules/@types"
     ],
     "paths": {
       "ng2-qgrid/theme/material": [
@@ -35,6 +34,6 @@
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
-    "enableIvy": false
+    "enableIvy": true
   }
 }

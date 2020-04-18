@@ -1,9 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Guard } from '@qgrid/core/infrastructure/guard';
 import { CommandManager } from '@qgrid/core/command/command.manager';
-import { Table } from '@qgrid/core/dom/table';
-import { Bag } from '@qgrid/core/dom/bag';
 import { ModelProxy } from '@qgrid/core/infrastructure/model.proxy';
+import { DomTable, DomBag } from '../dom/dom';
 import { GridModel } from '../grid/grid-model';
 import { Disposable } from '../infrastructure/disposable';
 
@@ -14,12 +13,12 @@ export class GridRoot implements OnDestroy {
 
 	markup: { [key: string]: HTMLElement } = {};
 	bag = {
-		head: new Bag(),
-		body: new Bag(),
-		foot: new Bag()
+		head: new DomBag(),
+		body: new DomBag(),
+		foot: new DomBag()
 	};
 
-	table: Table = null;
+	table: DomTable = null;
 	commandManager: CommandManager = null;
 
 	get isReady() {

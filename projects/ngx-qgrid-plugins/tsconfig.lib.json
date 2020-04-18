@@ -9,18 +9,7 @@
     "lib": [
       "dom",
       "es2018"
-    ],
-    "paths": {
-      "@qgrid/core/*": [
-        "./projects/@qgrid/core/*"
-      ],
-      "@qgrid/core-plugins/*": [
-        "./projects/@qgrid/core-plugins/*"
-      ],
-      "ngx-qgrid": [
-        "./dist/ngx-qgrid"
-      ]
-    }
+    ]
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
@@ -30,5 +19,5 @@
   "exclude": [
     "src/test.ts",
     "**/*.spec.ts"
-  ]
+  ],
 }

@@ -1,4 +1,4 @@
-import { GridError } from 'ngx-qgrid';
+import { GridError } from '@qgrid/ngx';
 import { isArray } from '@qgrid/core/utility/kit';
 import { QueryBuilderService, ColumnMap } from '../query-builder.service';
 import { createValidator } from '@qgrid/core/validation/validation.service';

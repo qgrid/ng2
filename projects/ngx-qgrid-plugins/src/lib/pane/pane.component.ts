@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
-import { GridPlugin } from 'ngx-qgrid';
-import { TemplateHostService, GridError } from 'ngx-qgrid';
+import { GridPlugin } from '@qgrid/ngx';
+import { TemplateHostService, GridError } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-pane',

@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
-import { GridPlugin } from 'ngx-qgrid';
-import { TemplateHostService } from 'ngx-qgrid';
+import { GridPlugin } from '@qgrid/ngx';
+import { TemplateHostService } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-rule',

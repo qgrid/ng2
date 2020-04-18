@@ -1,4 +1,4 @@
-import { GridError } from 'ngx-qgrid';
+import { GridError } from '@qgrid/ngx';
 import { Line } from './line';
 import { GroupExpression } from './expression';
 import { Node } from './node';

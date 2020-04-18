@@ -45,7 +45,7 @@ export class AutoSizeDirective implements OnInit {
 		});
 	}
 
-	@Input('q-grid-autisize-value')
+	@Input('q-grid-autosize-value')
 	set value(value: string) {
 		this.autoWidth(value);
 	}

@@ -3,7 +3,7 @@ import { Directive, ElementRef, Input, Output, EventEmitter, Optional } from '@a
 import { EventManager } from '@qgrid/core/infrastructure/event.manager';
 import { EventListener } from '@qgrid/core/infrastructure/event.listener';
 import { yes } from '@qgrid/core/utility/kit';
-import { Disposable } from 'ngx-qgrid';
+import { Disposable } from '@qgrid/ngx';
 
 @Directive({
 	selector: '[q-grid-file]',

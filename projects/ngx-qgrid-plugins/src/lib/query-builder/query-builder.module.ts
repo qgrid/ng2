@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { TemplateModule } from 'ngx-qgrid';
+import { TemplateModule, GridModelBuilder } from '@qgrid/ngx';
 import { QueryBuilderComponent } from './query-builder.component';
 import { QueryBuilderPanelComponent } from './query-builder-panel.component';
 import { QueryBuilderPipe } from './query-builder.pipe';
+import { QueryBuilderModel } from './query-builder.model';
 
 @NgModule({
 	imports: [
@@ -20,4 +21,8 @@ import { QueryBuilderPipe } from './query-builder.pipe';
 	]
 })
 export class QueryBuilderModule {
+	constructor(modelBuilder: GridModelBuilder) {
+		modelBuilder
+			.register('queryBuilder', QueryBuilderModel);
+	}
 }

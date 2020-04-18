@@ -16,7 +16,7 @@ import { StyleView } from '@qgrid/core/style/style.view';
 import { RowDetailsView } from '@qgrid/core/row-details/row.details.view';
 import { viewFactory } from '@qgrid/core/view/view.factory';
 import { RowView } from '@qgrid/core/row/row.view';
-import { Table } from '@qgrid/core/dom/table';
+import { DomTable } from '../dom/dom';
 import { CommandManager } from '@qgrid/core/command/command.manager';
 import { GridModel } from './grid-model';
 import { Grid } from './grid';
@@ -49,7 +49,7 @@ export class GridView implements OnDestroy {
 		private scrollService: ScrollService
 	) { }
 
-	init(model: GridModel, table: Table, commandManager: CommandManager) {
+	init(model: GridModel, table: DomTable, commandManager: CommandManager) {
 		const gridService = this.qgrid.service(model);
 		const selectors = {
 			th: 'q-grid-core-th',

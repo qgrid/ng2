@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy, Optional } from '@angular/core';
 import { FocusAfterRenderService } from '@qgrid/core/focus/focus.service';
-import { GridPlugin } from 'ngx-qgrid';
-import { Disposable, GridRoot } from 'ngx-qgrid';
+import { GridPlugin } from '@qgrid/ngx';
+import { Disposable, GridRoot } from '@qgrid/ngx';
 
 @Injectable()
 export class FocusAfterRender implements OnDestroy {

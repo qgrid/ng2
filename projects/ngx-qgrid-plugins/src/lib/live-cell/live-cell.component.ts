@@ -10,9 +10,7 @@ import {
 	ViewChild,
 	OnDestroy
 } from '@angular/core';
-import { TemplateHostService } from 'ngx-qgrid';
-import { TdCoreDirective } from 'ngx-qgrid';
-import { GridError } from 'ngx-qgrid';
+import { TemplateHostService, TdCoreDirective, GridError } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-live-cell',

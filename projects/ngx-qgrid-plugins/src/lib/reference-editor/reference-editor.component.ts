@@ -2,7 +2,7 @@ import { Component, Input, EventEmitter, Output, AfterViewInit } from '@angular/
 import { Command } from '@qgrid/core/command/command';
 import { SelectionService } from '@qgrid/core/selection/selection.service';
 import { CellView } from '@qgrid/core/scene/view/cell.view';
-import { GridModel, Disposable } from 'ngx-qgrid';
+import { GridModel, Disposable } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-reference-editor',

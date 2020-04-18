@@ -5,7 +5,7 @@ import {
 	AfterViewInit,
 	NgZone,
 } from '@angular/core';
-import { GridError } from 'ngx-qgrid';
+import { GridError } from '@qgrid/ngx';
 import { isString, isFunction } from '@qgrid/core/utility/kit';
 
 @Directive({

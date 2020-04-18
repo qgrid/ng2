@@ -3,8 +3,8 @@ import { jobLine } from '@qgrid/core/services/job.line';
 import { Fastdom } from '@qgrid/core/services/fastdom';
 import { EditService } from '@qgrid/core/edit/edit.service';
 import { CellView } from '@qgrid/core/scene/view/cell.view';
-import { Td } from '@qgrid/core/dom/td';
 import { NavigationModel } from '@qgrid/core/navigation/navigation.model';
+import { DomTd } from '../dom/dom';
 import { GridEventArg } from '../grid/grid-model';
 import { GridRoot } from '../grid/grid-root';
 
@@ -128,7 +128,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		const editService = new EditService(model, table);
 		const job = jobLine(150);
 
-		let oldCell: Td = null;
+		let oldCell: DomTd = null;
 		model.editChanged.on(e => {
 			if (e.hasChanges('state')) {
 				if (e.state.state === 'endBatch') {

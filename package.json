@@ -35,7 +35,9 @@
     "tslib": "^1.11.1",
     "zone.js": "~0.10.3",
     "@qgrid/core": "file:./projects/qgrid-core",
-    "@qgrid/plugins": "file:./projects/qgrid-plugins"
+    "@qgrid/plugins": "file:./projects/qgrid-plugins",
+    "@qgrid/ngx": "file:./dist/ngx-qgrid",
+    "@qgrid/ngx-plugins": "file:./dist/ngx-qgrid-plugins"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.901.0",

@@ -1,4 +1,4 @@
-import { GridError } from 'ngx-qgrid';
+import { GridError } from '@qgrid/ngx';
 import { Line } from './line';
 
 export class Node {

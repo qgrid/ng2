@@ -2,16 +2,15 @@ import { Injectable, OnDestroy, SimpleChanges } from '@angular/core';
 import { Guard } from '@qgrid/core/infrastructure/guard';
 import { ModelProxy } from '@qgrid/core/infrastructure/model.proxy';
 import { ModelBinder } from '@qgrid/core/infrastructure/model.bind';
+import { DomTable } from '../dom/dom';
 import { Disposable } from '../infrastructure/disposable';
 import { GridRoot } from '../grid/grid-root';
 import { GridView } from '../grid/grid-view';
-import { Model } from '@qgrid/core/infrastructure/model';
-import { Table } from '@qgrid/core/dom/table';
-
+import { GridModel } from '../grid/grid-model';
 
 @Injectable()
 export class GridPlugin implements OnDestroy {
-	private modelProxy: ModelProxy = null;
+	private modelProxy: ModelProxy;
 	private disposable = new Disposable();
 
 	constructor(
@@ -19,7 +18,7 @@ export class GridPlugin implements OnDestroy {
 		public view: GridView
 	) { }
 
-	get model(): Model {
+	get model(): GridModel {
 		const { model } = this.root;
 		if (!this.modelProxy) {
 			Guard.notNull(model, 'model');
@@ -39,14 +38,14 @@ export class GridPlugin implements OnDestroy {
 		return this.modelProxy.subject;
 	}
 
-	get table(): Table {
+	get table(): DomTable {
 		const { table } = this.root;
 		Guard.notNull(table, 'table');
 
 		return table;
 	}
 
-	keep(changes: SimpleChanges, models: string[]) {
+	keep(changes: SimpleChanges, models: string[]): void {
 		const host = {};
 		for (const key in changes) {
 			if (changes.hasOwnProperty(key)) {

@@ -8,7 +8,7 @@ import {
 	NgZone
 } from '@angular/core';
 import { MatChipInput } from '@angular/material/chips';
-import { Shortcut } from 'ng2-qgrid';
+import { Shortcut } from '@qgrid/core/shortcut/shortcut';
 import { ChipsDirective } from './chips.directive';
 
 @Directive({

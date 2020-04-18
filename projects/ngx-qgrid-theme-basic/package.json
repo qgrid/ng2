@@ -1,10 +1,11 @@
 {
-  "name": "ngx-qgrid-theme-basic",
+  "name": "ng2-qgrid/theme/basic",
   "version": "9.1.0",
   "peerDependencies": {
     "@angular/common": "^9.1.0",
     "@angular/core": "^9.1.0",
     "tslib": "^1.10.0",
-    "ng2-qgrid": "~9.1.0"
+    "@qgrid/ngx": "9.1.0",
+    "@qgrid/ngx-plugins": "9.1.0"
   }
 }

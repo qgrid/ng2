@@ -9,7 +9,7 @@ import {
 import { ColumnView } from '@qgrid/core/scene/view/column.view';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { TdCtrl } from '@qgrid/core/cell/td.ctrl';
-import { Td } from '@qgrid/core/dom/td';
+import { DomTd } from '../dom/dom';
 import { AppError } from '@qgrid/core/infrastructure/error';
 import { GridView } from '../grid/grid-view';
 import { GridRoot } from '../grid/grid-root';
@@ -21,7 +21,7 @@ const classify = TdCtrl.classify;
 @Directive({
 	selector: '[q-grid-core-tf]'
 })
-export class TfCoreDirective implements Td, OnInit, OnDestroy {
+export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
 	$implicit = this;
 
 	@Input('q-grid-core-tf') columnView: ColumnView;
