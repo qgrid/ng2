@@ -12,7 +12,7 @@
   "license": "MIT",
   "main": "./bundles/ng2-qgrid.umd.js",
   "fesm2015": "./fesm2015/ng2-qgrid.js",
-  "name": "ng2-qgrid",
+  "name": "ng2-qgrid-app",
   "peerDependencies": {
     "@angular/common": "~9.0.4",
     "@angular/core": "~9.0.4",
