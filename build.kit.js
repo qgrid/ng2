@@ -34,12 +34,12 @@ function resolvePathMarker(libName) {
 function buildLib(name, options = []) {
   const watchThat = resolvePathMarker(name);
 
-  console.log(`serve: watch build ${watchThat}`);
+  console.log(`build.kit watch build ${watchThat}`);
   return new Promise((resolve) => {
     let watch = sane(ROOT_PATH)
       .on('add', (fileName) => {
         if (fileName === watchThat) {
-          console.log(`serve: add ${watchThat}`);
+          console.log(`build.kit add ${watchThat}`);
           watch.close();
           watch = null;
           resolve();
@@ -54,11 +54,6 @@ function buildLib(name, options = []) {
       buildOptions,
       SPAWN_OPTS
     );
-
-    if (watch) {
-      watch.close();
-      resolve();
-    }
   });
 }
 
@@ -88,7 +83,7 @@ function buildTheme(name) {
     'templates'
   );
 
-  console.log(`serve: build theme ${templatesPath}`);
+  console.log(`build.kit build theme ${templatesPath}`);
 
   concatFiles({
     path: templatesPath,
@@ -112,7 +107,7 @@ function watchTheme(name) {
 
   sane(templatesPath)
     .on('all', (eventType, fileName) => {
-      console.log(`serve: ${eventType}: ${fileName}`);
+      console.log(`build.kit ${eventType}: ${fileName}`);
 
       buildTheme(name);
     });
