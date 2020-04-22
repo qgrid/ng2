@@ -43,7 +43,6 @@ import { HighlightPipe } from './app.highlight.pipe';
 			redirectTo: 'action-bar-basic',
 			pathMatch: 'full'
 		}]),
-	//	PipeModule,
 		ExampleModule,
 		FormsModule
 	],
