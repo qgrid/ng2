@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
-import { Log } from 'qgrid/core/infrastructure/log';
+import { Log } from '@qgrid/core/infrastructure/log';
 
 @Pipe({
 	name: 'qGridNumber'

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { TemplateModule } from 'ngx-qgrid';
+import { TemplateModule } from '@qgrid/ngx';
 import { ActionBarComponent } from './action-bar.component';
 import { ActionListComponent } from './action-list.component';
 
@@ -12,6 +12,8 @@ import { ActionListComponent } from './action-list.component';
 		ActionBarComponent,
 		ActionListComponent,
 	],
-	imports: [TemplateModule]
+	imports: [
+		TemplateModule
+	]
 })
 export class ActionBarModule { }

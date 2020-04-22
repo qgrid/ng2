@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ValidatorView } from 'qgrid/plugins/validation/validator.view';
-import { GridPlugin, TemplateHostService } from 'ngx-qgrid';
+import { ValidatorPlugin } from '@qgrid/plugins/validation/validator.plugin';
+import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-validator',
@@ -11,7 +11,7 @@ export class ValidatorComponent implements OnInit {
 	@Input() value: string;
 	@Input() key: string;
 	@Input() type: string;
-	context: { $implicit: ValidatorView };
+	context: { $implicit: ValidatorPlugin };
 
 	constructor(
 		private plugin: GridPlugin,
@@ -22,7 +22,7 @@ export class ValidatorComponent implements OnInit {
 
 	ngOnInit() {
 		const { model } = this.plugin;
-		const view = new ValidatorView(model, this);
-		this.context = { $implicit: view };
+		const validator = new ValidatorPlugin(model, this);
+		this.context = { $implicit: validator };
 	}
 }

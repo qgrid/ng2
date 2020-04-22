@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
-import { CellView } from 'qgrid/core/scene/view/cell.view';
-import { Command } from 'qgrid/core/command/command';
-import { getFactory } from 'qgrid/core/services/value';
-import { isArray, isUndefined } from 'qgrid/core/utility/kit';
-import { SelectionService } from 'qgrid/core/selection/selection.service';
-import { GridModel, Disposable, GridModelBuilder } from 'ngx-qgrid';
+import { CellView } from '@qgrid/core/scene/view/cell.view';
+import { Command } from '@qgrid/core/command/command';
+import { getFactory } from '@qgrid/core/services/value';
+import { isArray, isUndefined } from '@qgrid/core/utility/kit';
+import { SelectionService } from '@qgrid/core/selection/selection.service';
+import { GridModel, Disposable, GridModelBuilder } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-reference',

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
-import { GridPlugin, TemplateHostService } from 'ngx-qgrid';
+import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-status-bar',

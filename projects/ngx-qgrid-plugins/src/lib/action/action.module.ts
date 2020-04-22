@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ActionCoreComponent } from './action-core.component';
 import { ActionComponent } from './action.component';
-import { TemplateModule } from 'ngx-qgrid';
+import { TemplateModule } from '@qgrid/ngx';
 
 @NgModule({
 	declarations: [
@@ -12,6 +12,8 @@ import { TemplateModule } from 'ngx-qgrid';
 		ActionComponent,
 		ActionCoreComponent
 	],
-	imports: [TemplateModule]
+	imports: [
+		TemplateModule
+	]
 })
 export class ActionModule { }

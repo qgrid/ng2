@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { GridError } from 'ngx-qgrid';
+import { GridError } from '@qgrid/ngx';
 
 @Pipe({
 	name: 'qGridText'

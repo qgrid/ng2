@@ -1,8 +1,7 @@
-import { Component, Input, OnInit, OnDestroy, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
-import { EditFormPanelView } from 'qgrid/plugins/edit-form/edit.form.panel.view';
-import { GridPlugin } from 'ngx-qgrid';
-import { Td } from 'qgrid/core/dom/td';
-import { Disposable } from 'ngx-qgrid';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { EditFormPanelPlugin } from '@qgrid/plugins/edit-form/edit.form.panel.plugin';
+import { GridPlugin } from '@qgrid/ngx';
+import { Disposable, DomTd } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-edit-form',
@@ -14,13 +13,13 @@ import { Disposable } from 'ngx-qgrid';
 })
 export class EditFormComponent implements OnInit {
 	@Input() caption: string;
-	@Input() cell: Td;
+	@Input() cell: DomTd;
 
 	@Output() cancel = new EventEmitter();
 	@Output() reset = new EventEmitter();
 	@Output() submit = new EventEmitter();
 
-	context: { $implicit: EditFormPanelView };
+	context: { $implicit: EditFormPanelPlugin };
 
 	constructor(
 		private plugin: GridPlugin,
@@ -29,16 +28,16 @@ export class EditFormComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const view = new EditFormPanelView(
+		const editFormPanel = new EditFormPanelPlugin(
 			this.plugin.model,
 			{ row: this.cell.row, caption: this.caption },
 			this.disposable
 		);
 
-		view.submitEvent.on(() => this.submit.emit());
-		view.cancelEvent.on(() => this.cancel.emit());
-		view.resetEvent.on(() => this.reset.emit());
+		editFormPanel.submitEvent.on(() => this.submit.emit());
+		editFormPanel.cancelEvent.on(() => this.cancel.emit());
+		editFormPanel.resetEvent.on(() => this.reset.emit());
 
-		this.context = { $implicit: view };
+		this.context = { $implicit: editFormPanel };
 	}
 }

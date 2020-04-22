@@ -1,6 +1,6 @@
 import { OnDestroy, OnInit, Component, ChangeDetectorRef } from '@angular/core';
-import { Action } from 'qgrid/core/action/action';
-import { GridPlugin } from 'ngx-qgrid';
+import { Action } from '@qgrid/core/action/action';
+import { GridPlugin } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-action-bar',
@@ -14,7 +14,10 @@ export class ActionBarComponent implements OnInit, OnDestroy {
 		$implicit: this
 	};
 
-	constructor(private plugin: GridPlugin, private cd: ChangeDetectorRef) {
+	constructor(
+		private plugin: GridPlugin,
+		private cd: ChangeDetectorRef
+	) {
 	}
 
 	ngOnInit() {

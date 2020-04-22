@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { isUndefined } from 'qgrid/core/utility/kit';
-import { parseFactory } from 'qgrid/core/services/convert';
-import { ColumnListCtrl } from 'qgrid/core/column-list/column.list.ctrl';
-import { ColumnModel } from 'qgrid/core/column-type/column.model';
+import { isUndefined } from '@qgrid/core/utility/kit';
+import { parseFactory } from '@qgrid/core/services/convert';
+import { ColumnListCtrl } from '@qgrid/core/column-list/column.list.ctrl';
+import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { GridRoot } from '../grid/grid-root';
 
 @Injectable()

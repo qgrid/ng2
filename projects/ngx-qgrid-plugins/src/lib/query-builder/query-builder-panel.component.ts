@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Command } from 'qgrid/core/command/command';
-import { clone } from 'qgrid/core/utility/kit';
+import { Command } from '@qgrid/core/command/command';
+import { clone } from '@qgrid/core/utility/kit';
 import { QueryBuilderService } from './query-builder.service';
 import { WhereSchema } from './schema/where.schema';
 import * as converter from './schema/converter';
@@ -10,7 +10,7 @@ import { Node } from '../expression-builder/model/node';
 import { EbNodeService } from '../expression-builder/eb-node.service';
 import { TraverseService } from '../expression-builder/traverse.service';
 import { FocusAfterRender } from '../focus/focus.service';
-import { GridPlugin } from 'ngx-qgrid';
+import { GridPlugin } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-query-builder-panel',

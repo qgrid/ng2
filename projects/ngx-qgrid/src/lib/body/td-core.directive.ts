@@ -10,12 +10,12 @@ import {
 	SimpleChanges,
 	SimpleChange
 } from '@angular/core';
-import { GRID_PREFIX } from 'qgrid/core/definition';
-import { ColumnModel } from 'qgrid/core/column-type/column.model';
-import { ColumnView } from 'qgrid/core/scene/view/column.view';
-import { TdCtrl } from 'qgrid/core/cell/td.ctrl';
-import { Td } from 'qgrid/core/dom/td';
-import { noop } from 'qgrid/core/utility/kit';
+import { GRID_PREFIX } from '@qgrid/core/definition';
+import { ColumnModel } from '@qgrid/core/column-type/column.model';
+import { ColumnView } from '@qgrid/core/scene/view/column.view';
+import { TdCtrl } from '@qgrid/core/cell/td.ctrl';
+import { DomTd } from '../dom/dom';
+import { noop } from '@qgrid/core/utility/kit';
 import { GridView } from '../grid/grid-view';
 import { GridRoot } from '../grid/grid-root';
 import { TrCoreDirective } from '../row/tr-core.directive';
@@ -27,7 +27,7 @@ const classify = TdCtrl.classify;
 @Directive({
 	selector: '[q-grid-core-td]',
 })
-export class TdCoreDirective implements Td, OnInit, OnDestroy, OnChanges {
+export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	private $implicit = this;
 	@Input('q-grid-core-value') private actualValue: any;
 	@Input('q-grid-core-label') private actualLabel: any;

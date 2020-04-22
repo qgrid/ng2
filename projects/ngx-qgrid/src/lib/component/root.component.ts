@@ -1,5 +1,5 @@
-import { ModelBinder } from 'qgrid/core/infrastructure/model.bind';
-import { Event } from 'qgrid/core/infrastructure/event';
+import { ModelBinder } from '@qgrid/core/infrastructure/model.bind';
+import { Event } from '@qgrid/core/infrastructure/event';
 import { GridModel } from '../grid/grid-model';
 import { OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { GridModelBuilder } from '../grid/grid-model.builder';

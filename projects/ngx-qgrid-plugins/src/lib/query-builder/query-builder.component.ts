@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Command } from 'qgrid/core/command/command';
-import { Action } from 'qgrid/core/action/action';
-import { Composite } from 'qgrid/core/infrastructure/composite';
-import { GridPlugin,Disposable } from 'ngx-qgrid';
+import { Command } from '@qgrid/core/command/command';
+import { Action } from '@qgrid/core/action/action';
+import { Composite } from '@qgrid/core/infrastructure/composite';
+import { GridPlugin,Disposable } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-query-builder',

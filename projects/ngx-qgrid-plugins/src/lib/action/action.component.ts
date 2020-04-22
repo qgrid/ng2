@@ -1,14 +1,17 @@
 import { Component, ChangeDetectionStrategy, OnInit, Input } from '@angular/core';
-import { Action } from 'qgrid/core/action/action';
-import { Command } from 'qgrid/core/command/command';
-import { TemplateHostService, Disposable, GridError } from 'ngx-qgrid';
-import { GridPlugin } from 'ngx-qgrid';
+import { Action } from '@qgrid/core/action/action';
+import { Command } from '@qgrid/core/command/command';
+import { TemplateHostService, Disposable, GridError, GridPlugin } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-action',
 	template: '',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [TemplateHostService, Disposable]
+	providers: [
+		GridPlugin,
+		TemplateHostService,
+		Disposable
+	]
 })
 export class ActionComponent implements OnInit {
 	@Input() id: string = null;

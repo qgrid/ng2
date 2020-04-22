@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { PagerView } from 'qgrid/plugins/pager/pager.view';
-import { GridPlugin } from 'ngx-qgrid';
-import { Disposable } from 'ngx-qgrid';
+import { PagerPlugin } from '@qgrid/plugins/pager/pager.plugin';
+import { GridPlugin, Disposable } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-pager',
@@ -13,7 +12,7 @@ export class PagerComponent implements OnInit, OnChanges {
 	@Input('size') paginationSize: number;
 	@Input('sizeList') paginationSizeList: number[];
 
-	context: { $implicit: PagerView };
+	context: { $implicit: PagerPlugin };
 
 	constructor(
 		private plugin: GridPlugin,
@@ -28,7 +27,7 @@ export class PagerComponent implements OnInit, OnChanges {
 
 	ngOnInit() {
 		const { model, table } = this.plugin;
-		const pager = new PagerView(model, table, this.disposable);
+		const pager = new PagerPlugin(model, table, this.disposable);
 		this.context = { $implicit: pager };
 
 		model.paginationChanged.on(() => this.cd.detectChanges());

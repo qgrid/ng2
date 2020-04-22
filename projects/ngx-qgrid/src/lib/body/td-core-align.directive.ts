@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
-import { TdCtrl } from 'qgrid/core/cell/td.ctrl';
-import { ColumnView } from 'qgrid/core/scene/view/column.view';
+import { TdCtrl } from '@qgrid/core/cell/td.ctrl';
+import { ColumnView } from '@qgrid/core/scene/view/column.view';
 
 const classify = TdCtrl.classify;
 

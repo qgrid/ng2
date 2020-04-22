@@ -1,11 +1,11 @@
-import { GridError } from 'ngx-qgrid';
-import { isUndefined, uniq } from 'qgrid/core/utility/kit';
+import { GridError } from '@qgrid/ngx';
+import { isUndefined, uniq } from '@qgrid/core/utility/kit';
 import { ExpressionBuilder } from '../expression-builder/model/expression.builder';
 import { Node } from '../expression-builder/model/node';
 import { typeMapping } from './schema/operator';
-import { getFactory } from 'qgrid/core/services/value';
-import { GridModel } from 'ngx-qgrid';
-import * as columnService from 'qgrid/core/column/column.service';
+import { getFactory } from '@qgrid/core/services/value';
+import { GridModel } from '@qgrid/ngx';
+import * as columnService from '@qgrid/core/column/column.service';
 
 export interface Column {
 	key: string; title: string; type: string;

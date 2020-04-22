@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { GridPlugin } from 'ngx-qgrid';
-import { predicateFactory } from 'qgrid/core/services/predicate';
-import { isArray } from 'qgrid/core/utility/kit';
+import { GridPlugin } from '@qgrid/ngx';
+import { predicateFactory } from '@qgrid/core/services/predicate';
+import { isArray } from '@qgrid/core/utility/kit';
 
 @Component({
 	selector: 'q-grid-autocomplete-editor',

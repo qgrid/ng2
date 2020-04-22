@@ -1,9 +1,9 @@
 import { Component, OnInit, ElementRef, NgZone, ChangeDetectorRef } from '@angular/core';
 import { GridView } from '../grid/grid-view';
-import { ColumnView } from 'qgrid/core/scene/view/column.view';
-import { EventListener } from 'qgrid/core/infrastructure/event.listener';
-import { EventManager } from 'qgrid/core/infrastructure/event.manager';
-import { HeadCtrl } from 'qgrid/core/head/head.ctrl';
+import { ColumnView } from '@qgrid/core/scene/view/column.view';
+import { EventListener } from '@qgrid/core/infrastructure/event.listener';
+import { EventManager } from '@qgrid/core/infrastructure/event.manager';
+import { HeadCtrl } from '@qgrid/core/head/head.ctrl';
 import { TableCoreService } from '../table/table-core.service';
 import { GridRoot } from '../grid/grid-root';
 import { Disposable } from '../infrastructure/disposable';

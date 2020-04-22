@@ -1,5 +1,5 @@
-import { guid } from 'qgrid/core/services/guid';
-import { isFunction } from 'qgrid/core/utility/kit';
+import { guid } from '@qgrid/core/services/guid';
+import { isFunction } from '@qgrid/core/utility/kit';
 import { Expression, GroupExpression } from './expression';
 import { nodeSchema, INodeSchema } from './node.schema';
 import { GroupSchema } from './group.schema';

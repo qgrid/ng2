@@ -1,5 +1,5 @@
-import { GridError } from 'ngx-qgrid';
-import { cloneDeep } from 'qgrid/core/utility/kit';
+import { GridError } from '@qgrid/ngx';
+import { cloneDeep } from '@qgrid/core/utility/kit';
 import { camelCaseMapping } from './operator';
 
 export function visit(item) {

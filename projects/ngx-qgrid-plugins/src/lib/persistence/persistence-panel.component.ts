@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PersistenceView } from 'qgrid/plugins/persistence/persistence.view';
-import { GridPlugin } from 'ngx-qgrid';
-import { GridModelBuilder } from 'ngx-qgrid';
+import { PersistencePlugin } from '@qgrid/plugins/persistence/persistence.plugin';
+import { GridPlugin, GridModelBuilder } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-persistence-panel',
@@ -10,7 +9,7 @@ import { GridModelBuilder } from 'ngx-qgrid';
 })
 export class PersistencePanelComponent implements OnInit {
 	context: {
-		$implicit: PersistenceView
+		$implicit: PersistencePlugin
 	};
 
 	constructor(
@@ -20,7 +19,7 @@ export class PersistencePanelComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const persistence = new PersistenceView(this.plugin.model, () => this.modelBuilder.build());
+		const persistence = new PersistencePlugin(this.plugin.model, () => this.modelBuilder.build());
 		this.context = { $implicit: persistence };
 	}
 }

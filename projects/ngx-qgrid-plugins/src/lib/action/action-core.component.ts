@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { GridError } from 'ngx-qgrid';
-import { Action } from 'qgrid/core/action/action';
-import { GridPlugin, GridModel } from 'ngx-qgrid';
+import { GridError, GridPlugin, GridModel } from '@qgrid/ngx';
+import { Action } from '@qgrid/core/action/action';
 
 @Component({
 	selector: 'q-grid-action-core',

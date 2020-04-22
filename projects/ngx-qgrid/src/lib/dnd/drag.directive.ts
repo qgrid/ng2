@@ -1,11 +1,11 @@
 import { Directive, ElementRef, Input, Optional } from '@angular/core';
-import { EventManager } from 'qgrid/core/infrastructure/event.manager';
-import { EventListener } from 'qgrid/core/infrastructure/event.listener';
-import { DragService } from 'qgrid/core/drag/drag.service';
-import { GRID_PREFIX } from 'qgrid/core/definition';
-import { Command } from 'qgrid/core/command/command';
+import { EventManager } from '@qgrid/core/infrastructure/event.manager';
+import { EventListener } from '@qgrid/core/infrastructure/event.listener';
+import { DragService } from '@qgrid/core/drag/drag.service';
+import { GRID_PREFIX } from '@qgrid/core/definition';
+import { Command } from '@qgrid/core/command/command';
 import { GridRoot } from '../grid/grid-root';
-import { isFunction } from 'qgrid/core/utility/kit';
+import { isFunction } from '@qgrid/core/utility/kit';
 
 @Directive({
 	selector: '[q-grid-drag]'

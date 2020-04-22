@@ -1,9 +1,16 @@
 {
   "name": "ng2-qgrid",
   "version": "9.1.0",
+  "dependencies": {
+    "@qgrid/core": "9.1.0",
+    "@qgrid/plugins": "9.1.0",
+    "@qgrid/ngx": "9.1.0",
+    "@qgrid/ngx-plugins": "9.1.0"
+  },
   "peerDependencies": {
     "@angular/common": "^9.1.0",
     "@angular/core": "^9.1.0",
+    "@angular/forms": "^9.1.0",
     "tslib": "^1.10.0"
   }
 }

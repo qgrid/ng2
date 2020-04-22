@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, DoCheck, ChangeDetectorRef, NgZone } from '@angular/core';
-import { VisibilityModel } from 'qgrid/core/visibility/visibility.model';
-import { ViewCtrl } from 'qgrid/core/view/view.ctrl';
+import { VisibilityModel } from '@qgrid/core/visibility/visibility.model';
+import { ViewCtrl } from '@qgrid/core/view/view.ctrl';
 import { CellService } from '../cell/cell.service';
 import { GridView } from '../grid/grid-view';
 import { GridRoot } from '../grid/grid-root';

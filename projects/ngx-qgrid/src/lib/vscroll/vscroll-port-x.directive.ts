@@ -6,9 +6,9 @@ import { VscrollBox } from './vscroll.box';
 import { VscrollLayout } from './vscroll.layout';
 import { findPositionUsingItemSize, findPositionUsingOffsets, recycleFactory, IVscrollPosition } from './vscroll.position';
 import { VscrollDirective } from './vscroll.directive';
-import { isNumber } from 'qgrid/core/utility/kit';
+import { isNumber } from '@qgrid/core/utility/kit';
 import { VscrollLink } from './vscroll.link';
-import { Guard } from 'qgrid/core/infrastructure/guard';
+import { Guard } from '@qgrid/core/infrastructure/guard';
 
 @Directive({
 	selector: '[q-grid-vscroll-port-x]'

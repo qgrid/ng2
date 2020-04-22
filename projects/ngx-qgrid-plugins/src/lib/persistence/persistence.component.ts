@@ -1,10 +1,10 @@
-import { Component, OnInit, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
-import { Command } from 'qgrid/core/command/command';
-import { Action } from 'qgrid/core/action/action';
-import { Composite } from 'qgrid/core/infrastructure/composite';
-import { PersistenceItem } from 'qgrid/plugins/persistence/persistence.view';
-import { PersistenceService } from 'qgrid/core/persistence/persistence.service';
-import { GridPlugin, Disposable, GridModelBuilder } from 'ngx-qgrid';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Command } from '@qgrid/core/command/command';
+import { Action } from '@qgrid/core/action/action';
+import { Composite } from '@qgrid/core/infrastructure/composite';
+import { PersistenceItem } from '@qgrid/plugins/persistence/persistence.plugin';
+import { PersistenceService } from '@qgrid/core/persistence/persistence.service';
+import { GridPlugin, Disposable, GridModelBuilder } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-persistence',

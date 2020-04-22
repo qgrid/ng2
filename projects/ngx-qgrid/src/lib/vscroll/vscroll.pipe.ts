@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Log } from 'qgrid/core/infrastructure/log';
+import { Log } from '@qgrid/core/infrastructure/log';
 import { IVscrollContainer } from './vscroll.container';
 import { IVscrollSettings } from './vscroll.settings';
 

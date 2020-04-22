@@ -7,8 +7,8 @@ import { VscrollLayout } from './vscroll.layout';
 import { findPositionUsingItemSize, findPositionUsingOffsets, recycleFactory, IVscrollPosition } from './vscroll.position';
 import { VscrollDirective } from './vscroll.directive';
 import { VscrollLink } from './vscroll.link';
-import { isNumber } from 'qgrid/core/utility/kit';
-import { Guard } from 'qgrid/core/infrastructure/guard';
+import { isNumber } from '@qgrid/core/utility/kit';
+import { Guard } from '@qgrid/core/infrastructure/guard';
 
 @Directive({
 	selector: '[q-grid-vscroll-port-y]'

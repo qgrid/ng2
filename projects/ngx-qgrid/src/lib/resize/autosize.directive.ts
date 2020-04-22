@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnInit, Input, } from '@angular/core';
-import { Fastdom } from 'qgrid/core/services/fastdom';
+import { Fastdom } from '@qgrid/core/services/fastdom';
 
 @Directive({
 	selector: '[q-grid-autosize]'
@@ -45,7 +45,7 @@ export class AutoSizeDirective implements OnInit {
 		});
 	}
 
-	@Input('q-grid-autisize-value')
+	@Input('q-grid-autosize-value')
 	set value(value: string) {
 		this.autoWidth(value);
 	}

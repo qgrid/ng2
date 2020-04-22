@@ -1,9 +1,9 @@
 import { BackdropService } from '../backdrop/backdrop.service';
 import { Directive, ElementRef, Input, Output, EventEmitter, Optional } from '@angular/core';
-import { EventManager } from 'qgrid/core/infrastructure/event.manager';
-import { EventListener } from 'qgrid/core/infrastructure/event.listener';
-import { yes } from 'qgrid/core/utility/kit';
-import { Disposable } from 'ngx-qgrid';
+import { EventManager } from '@qgrid/core/infrastructure/event.manager';
+import { EventListener } from '@qgrid/core/infrastructure/event.listener';
+import { yes } from '@qgrid/core/utility/kit';
+import { Disposable } from '@qgrid/ngx';
 
 @Directive({
 	selector: '[q-grid-file]',

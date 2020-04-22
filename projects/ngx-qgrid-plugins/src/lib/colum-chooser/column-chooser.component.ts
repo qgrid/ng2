@@ -7,19 +7,18 @@ import {
 	SimpleChanges,
 	OnChanges,
 	NgZone,
-	ChangeDetectorRef,
-	ChangeDetectionStrategy
+	ChangeDetectorRef
 } from '@angular/core';
-import { ColumnChooserView } from 'qgrid/plugins/column-chooser/column.chooser.view';
+import { ColumnChooserPlugin } from '@qgrid/plugins/column-chooser/column.chooser.plugin';
 import { FocusAfterRender } from '../focus/focus.service';
-import { GridPlugin } from 'ngx-qgrid';
-import { noop } from 'qgrid/core/utility/kit';
-import { Node } from 'qgrid/core/node/node';
+import { GridPlugin } from '@qgrid/ngx';
+import { noop } from '@qgrid/core/utility/kit';
+import { Node } from '@qgrid/core/node/node';
 
 const ColumnChooserName = 'qGridColumnChooser';
 
 export class RootContext {
-	constructor(public ctrl: ColumnChooserView) {
+	constructor(public ctrl: ColumnChooserPlugin) {
 	}
 
 	get node(): Node {
@@ -38,7 +37,7 @@ export class ColumnChooserComponent implements OnInit, OnChanges {
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
 	context: {
-		$implicit: ColumnChooserView,
+		$implicit: ColumnChooserPlugin,
 		plugin: ColumnChooserComponent
 	};
 
@@ -63,7 +62,7 @@ export class ColumnChooserComponent implements OnInit, OnChanges {
 			name: ColumnChooserName
 		};
 
-		const columnChooser = new ColumnChooserView(this.plugin.model, context);
+		const columnChooser = new ColumnChooserPlugin(this.plugin.model, context);
 		columnChooser.submitEvent.on(() => this.submitEvent.emit());
 		columnChooser.cancelEvent.on(() => this.cancelEvent.emit());
 		columnChooser.dropEvent.on(() => {

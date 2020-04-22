@@ -1,6 +1,6 @@
 import { Directive, Input, ElementRef, NgZone, OnInit } from '@angular/core';
-import { EventManager } from 'qgrid/core/infrastructure/event.manager';
-import { EventListener } from 'qgrid/core/infrastructure/event.listener';
+import { EventManager } from '@qgrid/core/infrastructure/event.manager';
+import { EventListener } from '@qgrid/core/infrastructure/event.listener';
 import { TabTrapComponent } from './tab-trap.component';
 
 @Directive({

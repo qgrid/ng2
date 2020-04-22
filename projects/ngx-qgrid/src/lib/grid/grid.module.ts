@@ -1,7 +1,7 @@
 import { NgModule, NgZone } from '@angular/core';
 import { DatePipe, DecimalPipe, CurrencyPipe, CommonModule } from '@angular/common';
-import { Fastdom } from 'qgrid/core/services/fastdom';
-import { FormatService } from 'qgrid/core/format/format.service';
+import { Fastdom } from '@qgrid/core/services/fastdom';
+import { FormatService } from '@qgrid/core/format/format.service';
 import { GridComponent } from './grid.component';
 import { TemplateModule } from '../template/template.module';
 import { ThemeModule } from '../theme/theme.module';

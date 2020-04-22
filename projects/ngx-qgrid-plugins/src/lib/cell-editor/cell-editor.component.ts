@@ -5,7 +5,7 @@ import {
 	Output,
 	ViewChild
 } from '@angular/core';
-import { GridView } from 'ngx-qgrid';
+import { GridView } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-cell-editor',

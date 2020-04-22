@@ -1,6 +1,6 @@
 import { OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ModelBinder } from 'qgrid/core/infrastructure/model.bind';
-import { noop } from 'qgrid/core/utility/kit';
+import { ModelBinder } from '@qgrid/core/infrastructure/model.bind';
+import { noop } from '@qgrid/core/utility/kit';
 import { GridRoot } from '../grid/grid-root';
 import { GridModel } from '../grid/grid-model';
 import { Disposable } from '../infrastructure/disposable';

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ColumnView } from 'qgrid/core/scene/view/column.view';
+import { ColumnView } from '@qgrid/core/scene/view/column.view';
 import { GridView } from '../grid/grid-view';
 import { TableCoreService } from '../table/table-core.service';
 

@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
-import { isArray } from 'qgrid/core/utility/kit';
+import { isArray } from '@qgrid/core/utility/kit';
 
 @Directive({
 	selector: '[q-grid-stop-propagate]'

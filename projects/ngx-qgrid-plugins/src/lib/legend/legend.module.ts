@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { LegendComponent } from './legend.component';
-import { TemplateModule as TemplateModule } from 'ngx-qgrid';
+import { TemplateModule as TemplateModule } from '@qgrid/ngx';
 
 @NgModule({
 	declarations: [

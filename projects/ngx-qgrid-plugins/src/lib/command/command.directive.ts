@@ -1,8 +1,8 @@
 import { Directive, Input, OnDestroy, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
-import { Command } from 'qgrid/core/command/command';
-import { CommandManager } from 'qgrid/core/command/command.manager';
-import { Shortcut } from 'qgrid/core/shortcut/shortcut';
-import { ShortcutDispatcher } from 'qgrid/core/shortcut/shortcut.dispatcher';
+import { Command } from '@qgrid/core/command/command';
+import { CommandManager } from '@qgrid/core/command/command.manager';
+import { Shortcut } from '@qgrid/core/shortcut/shortcut';
+import { ShortcutDispatcher } from '@qgrid/core/shortcut/shortcut.dispatcher';
 
 
 @Directive({

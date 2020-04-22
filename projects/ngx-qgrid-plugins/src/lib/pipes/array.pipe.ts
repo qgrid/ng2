@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { isArray, isUndefined } from 'qgrid/core/utility/kit';
-import { Log } from 'qgrid/core/infrastructure/log';
+import { isArray, isUndefined } from '@qgrid/core/utility/kit';
+import { Log } from '@qgrid/core/infrastructure/log';
 
 @Pipe({
 	name: 'qGridArray'

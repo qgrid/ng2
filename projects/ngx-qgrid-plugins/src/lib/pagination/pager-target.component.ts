@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Shortcut } from 'qgrid/core/shortcut/shortcut';
-import { GridPlugin } from 'ngx-qgrid';
+import { Shortcut } from '@qgrid/core/shortcut/shortcut';
+import { GridPlugin } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-pager-target',

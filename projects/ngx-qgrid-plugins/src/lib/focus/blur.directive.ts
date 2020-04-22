@@ -1,5 +1,5 @@
 import { Directive, OnInit, Input, Renderer2, ElementRef } from '@angular/core';
-import { noop } from 'qgrid/core/utility/kit';
+import { noop } from '@qgrid/core/utility/kit';
 
 @Directive({
 	selector: '[q-grid-on-blur]'

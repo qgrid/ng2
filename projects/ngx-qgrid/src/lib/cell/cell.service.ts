@@ -1,7 +1,7 @@
 import { Injectable, ViewContainerRef, TemplateRef } from '@angular/core';
-import { AppError } from 'qgrid/core/infrastructure/error';
-import { noop } from 'qgrid/core/utility/kit';
-import { ColumnModel } from 'qgrid/core/column-type/column.model';
+import { AppError } from '@qgrid/core/infrastructure/error';
+import { noop } from '@qgrid/core/utility/kit';
+import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { TemplateService } from '../template/template.service';
 
 function canBuild(column) {

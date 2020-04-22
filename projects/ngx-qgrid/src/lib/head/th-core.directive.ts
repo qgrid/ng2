@@ -6,13 +6,13 @@ import {
 	OnInit,
 	ViewContainerRef
 } from '@angular/core';
-import { ColumnModel } from 'qgrid/core/column-type/column.model';
-import { ColumnView } from 'qgrid/core/scene/view/column.view';
-import { TdCtrl } from 'qgrid/core/cell/td.ctrl';
-import { ThCtrl } from 'qgrid/core/cell/th.ctrl';
-import { Td } from 'qgrid/core/dom/td';
-import { AppError } from 'qgrid/core/infrastructure/error';
-import { FilterRowColumnModel } from 'qgrid/core/column-type/filter.row.column';
+import { ColumnModel } from '@qgrid/core/column-type/column.model';
+import { ColumnView } from '@qgrid/core/scene/view/column.view';
+import { TdCtrl } from '@qgrid/core/cell/td.ctrl';
+import { ThCtrl } from '@qgrid/core/cell/th.ctrl';
+import { AppError } from '@qgrid/core/infrastructure/error';
+import { FilterRowColumnModel } from '@qgrid/core/column-type/filter.row.column';
+import { DomTd } from '../dom/dom';
 import { CellService } from '../cell/cell.service';
 import { GridRoot } from '../grid/grid-root';
 import { GridView } from '../grid/grid-view';
@@ -24,7 +24,7 @@ const classifyTh = ThCtrl.classify;
 @Directive({
 	selector: '[q-grid-core-th]'
 })
-export class ThCoreDirective implements Td, OnInit, OnDestroy {
+export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 	@Input('q-grid-core-th') columnView: ColumnView;
 	element: HTMLElement = null;
 	value: any;

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ColumnSortComponent } from './column-sort.component';
-import { TemplateModule } from 'ngx-qgrid';
+import { TemplateModule } from '@qgrid/ngx';
 
 @NgModule({
 	declarations: [

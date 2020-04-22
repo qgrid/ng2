@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, Input, TemplateRef, ChangeDetectionStrategy, ContentChild } from '@angular/core';
-import { Disposable } from 'ngx-qgrid';
-import { GridPlugin } from 'ngx-qgrid';
-import { Command } from 'qgrid/core/command/command';
-import { ExportView } from 'qgrid/plugins/export/export.view';
-import { Action } from 'qgrid/core/action/action';
-import { Composite } from 'qgrid/core/infrastructure/composite';
-import { TemplateHostService } from 'ngx-qgrid';
+import { Disposable } from '@qgrid/ngx';
+import { GridPlugin } from '@qgrid/ngx';
+import { Command } from '@qgrid/core/command/command';
+import { ExportPlugin } from '@qgrid/plugins/export/export.plugin';
+import { Action } from '@qgrid/core/action/action';
+import { Composite } from '@qgrid/core/infrastructure/composite';
+import { TemplateHostService } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-export',
@@ -35,7 +35,7 @@ export class ExportComponent implements AfterViewInit {
 
 	ngAfterViewInit() {
 		const { model } = this.plugin;
-		const exportView = new ExportView(model, { type: this.type });
+		const exportView = new ExportPlugin(model, { type: this.type });
 		const action = new Action(
 			new Command({ execute: () => exportView[this.type].execute() }),
 			`Export to ${this.type}`,

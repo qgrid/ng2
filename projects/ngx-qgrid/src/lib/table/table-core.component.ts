@@ -1,5 +1,5 @@
 import { OnInit, Component, Input } from '@angular/core';
-import { VisibilityModel } from 'qgrid/core/visibility/visibility.model';
+import { VisibilityModel } from '@qgrid/core/visibility/visibility.model';
 import { GridRoot } from '../grid/grid-root';
 import { TableCoreService } from './table-core.service';
 import { GridView } from '../grid/grid-view';

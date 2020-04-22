@@ -5,8 +5,8 @@ import {
 	AfterViewInit,
 	NgZone,
 } from '@angular/core';
-import { GridError } from 'ngx-qgrid';
-import { isString, isFunction } from 'qgrid/core/utility/kit';
+import { GridError } from '@qgrid/ngx';
+import { isString, isFunction } from '@qgrid/core/utility/kit';
 
 @Directive({
 	selector: '[q-grid-focus]'

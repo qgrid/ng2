@@ -17,18 +17,7 @@
       "es2017",
       "dom"
     ],
-    "baseUrl": "./out-tsc",
-    "paths": {
-      "qgrid/core/*": [
-        "projects/qgrid-core/*"
-      ],
-      "qgrid/plugins/*": [
-        "projects/qgrid-plugins/*"
-      ],
-      "ng2-qgrid/theme/*": [
-        "theme/*"
-      ]
-    }
+    "baseUrl": "./out-tsc"
   },
   "files": [
     "./out-tsc/public-api.ts"

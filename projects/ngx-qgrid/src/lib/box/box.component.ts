@@ -1,7 +1,7 @@
 import { Component, ElementRef, Optional, Input, OnInit } from '@angular/core';
-import { GRID_PREFIX } from 'qgrid/core/definition';
-import { Guard } from 'qgrid/core/infrastructure/guard';
-import { BoxCtrl } from 'qgrid/core/box/box.ctrl';
+import { GRID_PREFIX } from '@qgrid/core/definition';
+import { Guard } from '@qgrid/core/infrastructure/guard';
+import { BoxCtrl } from '@qgrid/core/box/box.ctrl';
 import { GridRoot } from '../grid/grid-root';
 import { GridModel } from '../grid/grid-model';
 import { ThemeService } from '../theme/theme.service';

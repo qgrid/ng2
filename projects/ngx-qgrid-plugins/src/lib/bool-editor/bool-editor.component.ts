@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
-import { BoolColumnModel } from 'qgrid/core/column-type/bool.column';
+import { BoolColumnModel } from '@qgrid/core/column-type/bool.column';
 
 @Component({
 	selector: 'q-grid-bool-editor',

@@ -9,7 +9,7 @@ import {
 	Input,
 	OnInit
 } from '@angular/core';
-import { BackdropView } from 'qgrid/plugins/backdrop/backdrop.view';
+import { BackdropPlugin } from '@qgrid/plugins/backdrop/backdrop.plugin';
 import { BackdropService } from './backdrop.service';
 
 @Component({
@@ -36,7 +36,7 @@ export class BackdropComponent implements OnInit, OnDestroy {
 			onKeyDown: () => { },
 		};
 
-		const backdrop = new BackdropView(context);
+		const backdrop = new BackdropPlugin(context);
 		backdrop.closeEvent.on(() => this.closeEvent.emit());
 	}
 

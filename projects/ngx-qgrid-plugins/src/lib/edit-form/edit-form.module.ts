@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { EditFormTriggerComponent } from './edit-form-trigger.component';
 import { EditFormComponent } from './edit-form.component';
 import { EditFormControlComponent } from './edit-form-control.component';
-import { TemplateModule } from 'ngx-qgrid';
+import { TemplateModule } from '@qgrid/ngx';
 
 @NgModule({
 	declarations: [

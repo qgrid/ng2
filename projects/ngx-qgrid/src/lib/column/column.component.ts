@@ -10,8 +10,8 @@ import {
 	OnChanges,
 	SimpleChanges
 } from '@angular/core';
-import { isUndefined } from 'qgrid/core/utility/kit';
-import { guid } from 'qgrid/core/services/guid';
+import { isUndefined } from '@qgrid/core/utility/kit';
+import { guid } from '@qgrid/core/services/guid';
 import { GridRoot } from '../grid/grid-root';
 import { TemplateHostService } from '../template/template-host.service';
 import { ColumnListService } from '../column-list/column-list.service';

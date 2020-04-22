@@ -8,15 +8,20 @@ const { expect } = chai;
 
 const START_OPTIONS = { timeout: 30 * 1000 };
 
-let currentScreenshot = null;
-let goldenPath = '';
-const goldenDir = path.join(__dirname, '..', 'goldens/');
-const diffDir = path.join(__dirname, '..', 'diff/');
+const GOLDEN_DIR = path.join(__dirname, '..', 'goldens/');
+const DIFF_DIR = path.join(__dirname, '..', 'diff/');
 
-BeforeAll(() => clearDiff());
-Before((scenario) => { goldenPath = goldenDir + scenario.pickle.name + '.png'; console.log('\n' + scenario.pickle.name); });
+let scenarioScreenshot = null;
+let scenarioGoldenPath = '';
 
-After(() => checkErrors());
+BeforeAll(clearDiff);
+
+Before((scenario) => {
+	scenarioGoldenPath = GOLDEN_DIR + scenario.pickle.name + '.png';
+	console.log('\n' + scenario.pickle.name);
+});
+
+After(checkErrors);
 
 Given('I am on {string}', START_OPTIONS, (p: string) => browser.get(p));
 
@@ -28,12 +33,16 @@ Then('Column count equals to {int}', (count: number) => getColumnCount().then(x 
 When('I click cell {string}[{int}]', (key, index) => getCell(key, index).click());
 When('I look at the Page', async () => {
 	await browser.sleep(3000);
-	currentScreenshot = await browser.takeScreenshot();
+	scenarioScreenshot = await browser.takeScreenshot();
 });
-Then('Page looks the same as before', { timeout: 20 * 1000 }, async () =>
-	await expect(await blueharvest.compareScreenshot(currentScreenshot, goldenPath, diffDir))
+
+Then('Page looks the same as before', { timeout: 20 * 1000 }, async () => {
+	const comparison = await blueharvest.compareScreenshot(scenarioScreenshot, scenarioGoldenPath, DIFF_DIR);
+	expect(comparison)
 		.to
-		.satisfy(result => result.includes('The test passed. ') || result.includes('was successfully updated')));
+		.satisfy(result => result.includes('The test passed. ') || result.includes('was successfully updated'));
+});
+
 When('I click {string} button', (text: string) => clickElement(text));
 When('I enter {string} text', (text: string) => enterText(text));
 When('I click filter button for {string}', (text: string) => getFilterButton(text).click());
@@ -41,12 +50,16 @@ When('I select persistence item [{int}]', (num: number) => selectPersistenceItem
 When('I remove all values for selected column', () => removeAllChipValues());
 
 async function checkErrors() {
-	await browser.manage().logs().get('browser').then((browserLog) => {
-		const str = '' + browserLog.length + ' errors';
-		let errorLog = '\n';
-		browserLog.map((item) => { errorLog += JSON.stringify(item.message) + '\n'; });
-		expect(str).to.equal('0 errors', errorLog);
-	});
+	await browser
+		.manage()
+		.logs()
+		.get('browser')
+		.then(browserLog => {
+			const str = '' + browserLog.length + ' errors';
+			let errorLog = '\n';
+			browserLog.map((item) => { errorLog += JSON.stringify(item.message) + '\n'; });
+			expect(str).to.equal('0 errors', errorLog);
+		});
 }
 
 function getRowCount() {
@@ -108,11 +121,11 @@ function selectPersistenceItem(num) {
 function clearDiff() {
 	const fs = require('fs');
 
-	fs.readdir(diffDir, (err, files) => {
+	fs.readdir(DIFF_DIR, (err, files) => {
 		if (err) { throw err; }
 
 		for (const file of files) {
-			fs.unlink(path.join(diffDir, file), ex => {
+			fs.unlink(path.join(DIFF_DIR, file), ex => {
 				if (ex) { throw ex; }
 			});
 		}
@@ -120,8 +133,8 @@ function clearDiff() {
 }
 
 async function removeAllChipValues() {
-	let items = await element.all(by.css('.mat-chip'));
-	for (let item of items) {
+	const items = await element.all(by.css('.mat-chip'));
+	for (const item of items) {
 		await item.click();
 		await browser.actions().sendKeys(protractor.Key.DELETE).perform();
 	}

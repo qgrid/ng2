@@ -1,4 +1,4 @@
-import { isFunction } from 'qgrid/core/utility/kit';
+import { isFunction } from '@qgrid/core/utility/kit';
 
 export function method(inst: any, key: string) {
 	const sourceFn = inst[key];

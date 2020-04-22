@@ -1,6 +1,6 @@
 import { Directive, Input } from '@angular/core';
-import { ColumnModel } from 'qgrid/core/column-type/column.model';
-import { CellService } from 'ngx-qgrid';
+import { ColumnModel } from '@qgrid/core/column-type/column.model';
+import { CellService } from '@qgrid/ngx';
 
 @Directive({
 	selector: '[q-grid-column-filter-item-list]',

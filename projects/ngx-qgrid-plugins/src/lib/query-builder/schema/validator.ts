@@ -1,7 +1,7 @@
-import { GridError } from 'ngx-qgrid';
-import { isArray } from 'qgrid/core/utility/kit';
+import { GridError } from '@qgrid/ngx';
+import { isArray } from '@qgrid/core/utility/kit';
 import { QueryBuilderService, ColumnMap } from '../query-builder.service';
-import { createValidator } from 'qgrid/core/validation/validation.service';
+import { createValidator } from '@qgrid/core/validation/validation.service';
 
 export class Validator {
 	private columnMap: ColumnMap;

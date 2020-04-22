@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, NgZone } from '@angular/core';
-import { GridPlugin } from 'ngx-qgrid';
-import { Fastdom } from 'qgrid/core/services/fastdom';
-import { GRID_PREFIX } from 'qgrid/core/definition';
+import { GridPlugin } from '@qgrid/ngx';
+import { Fastdom } from '@qgrid/core/services/fastdom';
+import { GRID_PREFIX } from '@qgrid/core/definition';
 
 @Component({
 	selector: 'q-grid-live-rows',

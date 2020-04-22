@@ -1,11 +1,11 @@
 import { Directive, ElementRef, Input, OnInit, Optional, NgZone } from '@angular/core';
-import { EventManager } from 'qgrid/core/infrastructure/event.manager';
-import { EventListener } from 'qgrid/core/infrastructure/event.listener';
-import { DragService } from 'qgrid/core/drag/drag.service';
-import { GRID_PREFIX } from 'qgrid/core/definition';
-import { Command } from 'qgrid/core/command/command';
-import { no } from 'qgrid/core/utility/kit';
-import { elementFromPoint, parents } from 'qgrid/core/services/dom';
+import { EventManager } from '@qgrid/core/infrastructure/event.manager';
+import { EventListener } from '@qgrid/core/infrastructure/event.listener';
+import { DragService } from '@qgrid/core/drag/drag.service';
+import { GRID_PREFIX } from '@qgrid/core/definition';
+import { Command } from '@qgrid/core/command/command';
+import { no } from '@qgrid/core/utility/kit';
+import { elementFromPoint, parents } from '@qgrid/core/services/dom';
 import { GridRoot } from '../grid/grid-root';
 import { Disposable } from '../infrastructure/disposable';
 

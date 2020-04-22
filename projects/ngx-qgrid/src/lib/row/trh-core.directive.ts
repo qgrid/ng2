@@ -1,12 +1,12 @@
 import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
-import { Tr } from 'qgrid/core/dom/tr';
+import { DomTr } from '../dom/dom';
 import { GridView } from '../grid/grid-view';
 import { GridRoot } from '../grid/grid-root';
 
 @Directive({
 	selector: '[q-grid-core-trh]'
 })
-export class TrhCoreDirective implements Tr, OnInit, OnDestroy {
+export class TrhCoreDirective implements DomTr, OnInit, OnDestroy {
 	@Input('q-grid-core-index') index: number;
 	@Input('q-grid-core-trh') model: any;
 	@Input('q-grid-core-source') source;

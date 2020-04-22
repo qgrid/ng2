@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RestView } from 'qgrid/plugins/rest/rest.view';
-import { GridPlugin } from 'ngx-qgrid';
+import { RestPlugin } from '@qgrid/plugins/rest/rest.plugin';
+import { GridPlugin } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-rest',
@@ -14,7 +14,7 @@ export class RestComponent implements OnInit, OnChanges {
 	@Input('method') restMethod: string;
 	@Input('serialize') restSerialize: (x: any) => any;
 
-	context: { $implicit: RestView };
+	context: { $implicit: RestPlugin };
 
 	constructor(private http: HttpClient, private plugin: GridPlugin) {
 	}
@@ -24,7 +24,8 @@ export class RestComponent implements OnInit, OnChanges {
 	}
 
 	ngOnInit() {
-		const rest = new RestView(this.plugin.model, {
+		const rest = new RestPlugin(
+			this.plugin.model, {
 			get: (url, params) => this.http.get(url, { params }).toPromise(),
 			post: (url, data) => this.http.post(url, { data }).toPromise()
 		});

@@ -137,7 +137,7 @@
       "projectType": "library",
       "root": "projects/ng2-qgrid",
       "sourceRoot": "projects/ng2-qgrid/src",
-      "prefix": "lib",
+      "prefix": "q-grid",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -177,7 +177,7 @@
       "projectType": "library",
       "root": "projects/ngx-qgrid",
       "sourceRoot": "projects/ngx-qgrid/src",
-      "prefix": "lib",
+      "prefix": "q-grid",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -217,7 +217,7 @@
       "projectType": "library",
       "root": "projects/ngx-qgrid-plugins",
       "sourceRoot": "projects/ngx-qgrid-plugins/src",
-      "prefix": "lib",
+      "prefix": "q-grid",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -253,38 +253,38 @@
         }
       }
     },
-    "ngx-qgrid-theme-basic": {
+    "ng2-qgrid-theme-basic": {
       "projectType": "library",
-      "root": "projects/ngx-qgrid-theme-basic",
-      "sourceRoot": "projects/ngx-qgrid-theme-basic/src",
-      "prefix": "lib",
+      "root": "projects/ng2-qgrid-theme-basic",
+      "sourceRoot": "projects/ng2-qgrid-theme-basic/src",
+      "prefix": "q-grid",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/ngx-qgrid-theme-basic/tsconfig.lib.json",
-            "project": "projects/ngx-qgrid-theme-basic/ng-package.json"
+            "tsConfig": "projects/ng2-qgrid-theme-basic/tsconfig.lib.json",
+            "project": "projects/ng2-qgrid-theme-basic/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ngx-qgrid-theme-basic/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ng2-qgrid-theme-basic/tsconfig.lib.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ngx-qgrid-theme-basic/src/test.ts",
-            "tsConfig": "projects/ngx-qgrid-theme-basic/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-qgrid-theme-basic/karma.conf.js"
+            "main": "projects/ng2-qgrid-theme-basic/src/test.ts",
+            "tsConfig": "projects/ng2-qgrid-theme-basic/tsconfig.spec.json",
+            "karmaConfig": "projects/ng2-qgrid-theme-basic/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ngx-qgrid-theme-basic/tsconfig.lib.json",
-              "projects/ngx-qgrid-theme-basic/tsconfig.spec.json"
+              "projects/ng2-qgrid-theme-basic/tsconfig.lib.json",
+              "projects/ng2-qgrid-theme-basic/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -293,38 +293,38 @@
         }
       }
     },
-    "ngx-qgrid-theme-material": {
+    "ng2-qgrid-theme-material": {
       "projectType": "library",
-      "root": "projects/ngx-qgrid-theme-material",
-      "sourceRoot": "projects/ngx-qgrid-theme-material/src",
-      "prefix": "lib",
+      "root": "projects/ng2-qgrid-theme-material",
+      "sourceRoot": "projects/ng2-qgrid-theme-material/src",
+      "prefix": "q-grid",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/ngx-qgrid-theme-material/tsconfig.lib.json",
-            "project": "projects/ngx-qgrid-theme-material/ng-package.json"
+            "tsConfig": "projects/ng2-qgrid-theme-material/tsconfig.lib.json",
+            "project": "projects/ng2-qgrid-theme-material/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ngx-qgrid-theme-material/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ng2-qgrid-theme-material/tsconfig.lib.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ngx-qgrid-theme-material/src/test.ts",
-            "tsConfig": "projects/ngx-qgrid-theme-material/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-qgrid-theme-material/karma.conf.js"
+            "main": "projects/ng2-qgrid-theme-material/src/test.ts",
+            "tsConfig": "projects/ng2-qgrid-theme-material/tsconfig.spec.json",
+            "karmaConfig": "projects/ng2-qgrid-theme-material/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ngx-qgrid-theme-material/tsconfig.lib.json",
-              "projects/ngx-qgrid-theme-material/tsconfig.spec.json"
+              "projects/ng2-qgrid-theme-material/tsconfig.lib.json",
+              "projects/ng2-qgrid-theme-material/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
