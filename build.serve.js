@@ -11,7 +11,7 @@ const SPAWN_OPTS = { shell: true, stdio: 'inherit' };
 function resolvePathMarker(libName) {
   const FILE_MARKER = 'package.json';
 
-  const themeRegexp = /ngx-qgrid-theme-([a-z]+)/is;
+  const themeRegexp = /ng2-qgrid-theme-([a-z]+)/is;
   const themeMatch = themeRegexp.exec(libName);
   if (themeMatch) {
     const themeName = themeMatch[1];
@@ -91,11 +91,11 @@ async function main() {
   await build('ngx-qgrid');
   await build('ngx-qgrid-plugins');
   await build('ng2-qgrid');
-  await build('ngx-qgrid-theme-basic');
-  await build('ngx-qgrid-theme-material');
+  await build('ng2-qgrid-theme-basic');
+  await build('ng2-qgrid-theme-material');
 
-  watchTheme('ngx-qgrid-theme-basic');
-  watchTheme('ngx-qgrid-theme-material');
+  watchTheme('ng2-qgrid-theme-basic');
+  watchTheme('ng2-qgrid-theme-material');
 
   serve();
 }
