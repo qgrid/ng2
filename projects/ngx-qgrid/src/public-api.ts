@@ -78,6 +78,7 @@ export { LayerModule } from './lib/layer/layer.module';
 export { LayerCoreComponent } from './lib/layer/layer-core.component';
 export { LayerCoreDirective } from './lib/layer/layer-core.directive';
 export { LayerService } from './lib/layer/layer.service';
+export { LayerComponent } from './lib/layer/layer.component';
 
 export { MarkupDirective } from './lib/markup/markup.directive';
 export { MarkupModule } from './lib/markup/markup.module';

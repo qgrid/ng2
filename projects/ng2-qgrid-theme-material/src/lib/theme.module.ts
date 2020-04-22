@@ -31,9 +31,6 @@ import {
 	DndModule,
 	VscrollModule,
 	ResizeModule,
-} from '@qgrid/ngx';
-
-import {
 	ActionBarModule,
 	ActionModule,
 	AutoCompleteEditorModule,
@@ -70,7 +67,8 @@ import {
 	TitleModule,
 	ValidationModule,
 	VisibilityModule,
-} from '@qgrid/ngx-plugins';
+} from 'ng2-qgrid';
+
 @NgModule({
 	declarations: [
 		ThemeComponent

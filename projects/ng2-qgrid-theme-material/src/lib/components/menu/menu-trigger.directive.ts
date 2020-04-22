@@ -3,7 +3,6 @@ import {
 	ContentChild,
 	EventEmitter,
 	Output,
-	Input,
 	AfterViewInit
 } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';

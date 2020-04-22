@@ -57,8 +57,6 @@ export { HighlightPipe } from './lib/pipes/highlight.pipe';
 export { ImportComponent } from './lib/import/import.component';
 export { ImportModule } from './lib/import/import.module';
 export { ItemLabelPipe } from './lib/pipes/item-label.pipe';
-export { LayerComponent } from './lib/layer/layer.component';
-export { LayerModule } from './lib/layer/layer.module';
 export { LayoutModule } from './lib/layout/layout.module';
 export { LegendComponent } from './lib/legend/legend.component';
 export { LegendModule } from './lib/legend/legend.module';

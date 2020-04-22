@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { TemplateHostService } from '@qgrid/ngx';
+import { TemplateHostService } from '../template/template-host.service';
 
 @Component({
 	selector: 'q-grid-layer',

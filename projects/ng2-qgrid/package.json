@@ -1,12 +1,12 @@
 {
   "name": "ng2-qgrid",
   "version": "9.1.0",
-  "bundledDependencies": [
-    "@qgrid/core",
-    "@qgrid/plugins",
-    "@qgrid/ngx",
-    "@qgrid/ngx-plugins"
-  ],
+  "dependencies": {
+    "@qgrid/core": "9.1.0",
+    "@qgrid/plugins": "9.1.0",
+    "@qgrid/ngx": "9.1.0",
+    "@qgrid/ngx-plugins": "9.1.0"
+  },
   "peerDependencies": {
     "@angular/common": "^9.1.0",
     "@angular/core": "^9.1.0",

@@ -1,5 +1,9 @@
 import {
-	Directive, ContentChild, AfterViewInit, Output, EventEmitter
+	Directive,
+	ContentChild,
+	AfterViewInit,
+	Output,
+	EventEmitter
 } from '@angular/core';
 import { ChipsDirective } from './chips.directive';
 import { MatChip } from '@angular/material/chips';

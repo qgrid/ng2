@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
-import { GridError, GridPlugin } from '@qgrid/ngx';
+import { GridError, GridPlugin } from 'ng2-qgrid';
 
 @Directive({
 	selector: '[q-grid-theme-overlay]',

@@ -1,43 +1,10 @@
 export { GridModule } from './lib/ng2-qgrid.module';
 
 // @qgrid/ngx
-export {
-	CellService,
-	Disposable,
-	DomBag,
-	DomBox,
-	DomCell,
-	DomData,
-	DomRow,
-	DomTable,
-	DomTd,
-	DomTr,
-	DomView,
-	Grid,
-	GridComponent,
-	GridError,
-	GridModel,
-	GridModelBuilder,
-	GridPlugin,
-	GridRoot,
-	GridService,
-	GridView,
-	RowComponent,
-	TemplateCacheDirective,
-	TemplateDirective,
-	TemplateHostService,
-	TemplateLinkDirective,
-	TemplateModule,
-	ToolbarComponent,
-	VscrollContext,
-	VscrollService,
-} from '@qgrid/ngx';
+export * from '@qgrid/ngx';
 
 // @qgrid/ngx-plugins
-export {
-	PaneComponent,
-	PaneModule,
-} from '@qgrid/ngx-plugins';
+export * from '@qgrid/ngx-plugins';
 
 // @qgrid/core
 export { Action } from '@qgrid/core/action/action';

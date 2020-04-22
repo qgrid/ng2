@@ -8,9 +8,7 @@ import {
 	ThemeService,
 	LayerModule,
 	DndModule,
-	ResizeModule
-} from '@qgrid/ngx';
-import {
+	ResizeModule,
 	ActionBarModule,
 	ActionModule,
 	AutoCompleteEditorModule,
@@ -47,7 +45,7 @@ import {
 	TitleModule,
 	ValidationModule,
 	VisibilityModule,
-} from '@qgrid/ngx-plugins';
+} from 'ng2-qgrid';
 
 @NgModule({
 	declarations: [

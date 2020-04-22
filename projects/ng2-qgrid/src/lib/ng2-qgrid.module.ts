@@ -11,6 +11,7 @@ import {
 	ThemeModule,
 	ToolbarModule,
 	VscrollModule,
+	LayerModule,
 } from '@qgrid/ngx';
 
 import {
@@ -50,7 +51,6 @@ import {
 	TitleModule,
 	ValidationModule,
 	VisibilityModule,
-	LayerModule,
 } from '@qgrid/ngx-plugins';
 
 @NgModule({

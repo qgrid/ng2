@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef, NgZone } from '@angular/core';
+import { Directive, ElementRef, NgZone } from '@angular/core';
 
 @Directive({
 	selector: '[q-grid-menu]'

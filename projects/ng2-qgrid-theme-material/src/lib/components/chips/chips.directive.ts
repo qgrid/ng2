@@ -1,7 +1,4 @@
-import {
-	Directive,
-	ApplicationRef
-} from '@angular/core';
+import { Directive, ApplicationRef } from '@angular/core';
 
 @Directive({
 	selector: '[q-grid-chips]'
