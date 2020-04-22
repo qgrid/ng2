@@ -3,7 +3,7 @@ const path = require('path');
 const shell = require('shelljs');
 const cmdArgs = require('command-line-args');
 const package = require('./package.json');
-const { relativeCopySync, toComponentName } = require('./build.kit');
+const { relativeCopySync, toComponentName } = require('./build.utils');
 
 const args = cmdArgs([{
 	name: 'version',
