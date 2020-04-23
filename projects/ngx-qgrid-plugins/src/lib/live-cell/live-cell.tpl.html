@@ -1,0 +1,43 @@
+<ng-container *ngTemplateOutlet="getTemplate()"></ng-container>
+
+<ng-template #currency>
+    <span class="q-grid-live-cell-arrow">
+        <i *ngIf="getDifference(cell.changes) > 0"
+           class="q-grid-icon q-grid-asc">
+            &uarr;
+        </i>
+        <i *ngIf="getDifference(cell.changes) < 0"
+           class="q-grid-icon q-grid-desc">
+            &darr;
+        </i>
+    </span>
+    <span class="q-grid-live-cell-diff">{{ getDifference(cell.changes) | qGridCurrency: cell.column.code}}</span>
+    <span class="q-grid-live-cell-prev">{{ cell.changes.previousValue | qGridCurrency: cell.column.code}}</span>
+    <span class="q-grid-live-cell-curr">{{ cell.label | qGridCurrency: cell.column.code}}</span>
+</ng-template>
+
+<ng-template #number>
+    <span class="q-grid-live-cell-curr">{{ cell.label }}</span>
+    <span class="q-grid-live-cell-prev">{{ cell.changes.previousValue }}</span>
+    <span class="q-grid-live-cell-diff">{{ getDifference(cell.changes) }}</span>
+    <span class="q-grid-live-cell-arrow">
+        <i *ngIf="getDifference(cell.changes) > 0"
+           class="q-grid-icon q-grid-asc">
+            &uarr;
+        </i>
+        <i *ngIf="getDifference(cell.changes) < 0"
+           class="q-grid-icon q-grid-desc">
+            &darr;
+        </i>
+    </span>
+</ng-template>
+
+<ng-template #time>
+    <span class="q-grid-live-cell-prev">{{ cell.changes.previousValue }}</span>
+    <span class="q-grid-live-cell-curr">{{ cell.label }}</span>
+</ng-template>
+
+<ng-template #text>
+    <span class="q-grid-live-cell-prev">{{ cell.changes.previousValue }}</span>
+    <span class="q-grid-live-cell-curr">{{ cell.label }}</span>
+</ng-template>

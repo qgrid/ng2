@@ -15,7 +15,7 @@ import * as XLSX from 'xlsx';
 export class ExampleExportBasicComponent implements AfterViewInit {
 	static id = 'export-basic';
 
-	@ViewChild(GridComponent) myGrid: GridComponent;
+	@ViewChild(GridComponent) grid: GridComponent;
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {
@@ -23,7 +23,7 @@ export class ExampleExportBasicComponent implements AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-		this.myGrid.model.plugin({
+		this.grid.model.plugin({
 			imports: {
 				'fileSaver': fileSaver,
 				'xlsx': XLSX

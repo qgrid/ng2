@@ -14,7 +14,7 @@ import * as fileSaver from 'file-saver';
 export class ExampleExportCsvComponent implements AfterViewInit {
 	static id = 'export-csv';
 
-	@ViewChild(GridComponent) myGrid: GridComponent;
+	@ViewChild(GridComponent) grid: GridComponent;
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {
@@ -22,7 +22,7 @@ export class ExampleExportCsvComponent implements AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-		this.myGrid.model.plugin({
+		this.grid.model.plugin({
 			imports: {
 				'fileSaver': fileSaver
 			}

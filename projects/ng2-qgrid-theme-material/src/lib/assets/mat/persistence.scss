@@ -1,0 +1,147 @@
+@import "../../../../../assets/scroll.scss";
+
+@at-root .q-grid-persistence-panel {
+    $default-icon-size: 14px;
+    @include scroll();
+
+    .mat-card {
+        padding: 4px 16px;
+    }
+
+    &.q-grid-menu {
+        @include width(400px);
+        height: 500px;
+        overflow: hidden;
+    }
+
+    .mat-card-content {
+        display: flex;
+        flex-direction: column;
+        max-height: 419px;
+
+        >div {
+            flex: 0 0;
+        }
+    }
+
+    .q-grid-persistence-title {
+        margin: 0;
+
+        .mat-form-field {
+            width: 100%;
+        }
+    }
+
+    .q-grid-persistence-save {
+        margin: auto 0 auto 8px;
+
+        .mat-button-wrapper {
+            text-transform: uppercase;
+        }
+    }
+
+    .q-grid-persistence-default-icon {
+        @include width($default-icon-size);
+        @include height($default-icon-size);
+        margin-bottom: $default-icon-size;
+
+        .q-grid-icon {
+            color: $dark-secondary;
+            font-size: $default-icon-size;
+            height: $default-icon-size;
+            width: $default-icon-size;
+        }
+    }
+
+    .q-grid-persistence-list {
+        padding: 0;
+        overflow: auto;
+
+        >.q-grid-persistence-list-item {
+            height: 40px;
+        }
+    }
+
+    .q-grid-persistence-list-item {
+        font-size: 13px;
+
+        &.q-grid-persistence-selected {
+            background-color: $selected;
+        }
+
+        &.mat-list-item {
+            .mat-list-item-content {
+                padding: 0 6px;
+            }
+        }
+
+        .mat-button {
+            line-height: 13px;
+            flex: 1 1;
+            padding: 0 6px;
+        }
+
+        .mat-list[dense] {
+            padding: 0;
+
+            .mat-list-item {
+                height: 40px;
+            }
+
+            .mat-list-item-content {
+                padding: 0;
+                text-align: left;
+            }
+        }
+
+        h3 {
+            text-transform: uppercase;
+        }
+
+        .q-grid-selected-item-modified {
+            color: $dark-secondary;
+        }
+    }
+
+    .q-grid-persistence-item-edit {
+        flex: 1;
+        padding: 0 6px;
+
+        .mat-form-field-infix {
+            width: 100%;
+        }
+    }
+
+    .q-grid-more {
+        .mat-button {
+            min-width: 24px;
+            
+            .mat-button-focus-overlay {
+                background-color: transparent;
+            }
+        }
+
+        .mat-icon {
+            color: $dark-secondary;
+            line-height: 20px;
+            font-size: 20px;
+        }
+    }
+
+    .q-grid-persistence-group-title {
+        margin: 0;
+        text-transform: uppercase;
+    }
+}
+
+@at-root {
+    @media (max-height: 540px) {
+        .q-grid-persistence-panel.q-grid-menu {
+            @include height(400px);
+
+            .mat-card-content {
+                max-height: 318px;
+            }
+        }
+    }
+}

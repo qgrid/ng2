@@ -1,0 +1,17 @@
+{
+  "extends": "../../tslint.json",
+  "rules": {
+    "directive-selector": [
+      true,
+      "attribute",
+      "q-grid",
+      "kebab-case"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      "q-grid",
+      "kebab-case"
+    ]
+  }
+}

@@ -7,7 +7,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 
-import { GridModule, PipeModule } from 'ng2-qgrid';
+import { GridModule } from 'ng2-qgrid';
 import { ThemeModule } from 'ng2-qgrid/theme/material';
 
 import { ExampleActionBarBasicComponent } from './action-bar-basic/example-action-bar-basic.component';
@@ -38,6 +38,7 @@ import { ExampleColumnTimeBasicComponent } from './column-time-basic/example-col
 import { ExampleColumnTooltipBasicComponent } from './column-tooltip-basic/example-column-tooltip-basic.component';
 import { ExampleColumnTypeSafeComponent } from './column-type-safe/example-column-type-safe.component';
 import { ExampleColumnUrlBasicComponent } from './column-url-basic/example-column-url-basic.component';
+import { ExampleColumnColumnVisibilityBasicComponent } from './column-visibility-basic/example-column-visibility-basic.component';
 import { ExampleDataRowAddComponent } from './data-row-add/example-data-row-add.component';
 import { ExampleDataRowDeleteComponent } from './data-row-delete/example-data-row-delete.component';
 import { ExampleDefineColumnAsyncComponent } from './define-column-async/example-define-column-async.component';
@@ -187,6 +188,7 @@ export const EXAMPLES: any[] = [
 	ExampleColumnTooltipBasicComponent,
 	ExampleColumnTypeSafeComponent,
 	ExampleColumnUrlBasicComponent,
+	ExampleColumnColumnVisibilityBasicComponent,
 	ExampleDataRowAddComponent,
 	ExampleDataRowDeleteComponent,
 	ExampleDefineColumnAsyncComponent,
@@ -318,7 +320,6 @@ export const APP_ROUTES: Routes = EXAMPLES.map<Route>(example => ({
 	imports: [
 		GridModule,
 		ThemeModule,
-		PipeModule,
 		CommonModule,
 		FormsModule,
 		MatButtonModule,

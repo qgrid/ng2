@@ -16,7 +16,7 @@ import { AppComponent } from './app.component';
 import { ExampleModule, EXAMPLES, APP_ROUTES } from '../examples/example.module';
 
 import { FilterSearchPipe } from './app.filter.pipe';
-import { PipeModule } from 'ng2-qgrid';
+//import { PipeModule } from 'ng2-qgrid';
 import { FormsModule } from '@angular/forms';
 import { HighlightPipe } from './app.highlight.pipe';
 
@@ -43,7 +43,6 @@ import { HighlightPipe } from './app.highlight.pipe';
 			redirectTo: 'action-bar-basic',
 			pathMatch: 'full'
 		}]),
-		PipeModule,
 		ExampleModule,
 		FormsModule
 	],

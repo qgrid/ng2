@@ -17,29 +17,12 @@
       "es2017",
       "dom"
     ],
-    "baseUrl": "./out-tsc",
-    "paths": {
-      "ng2-qgrid/core/*": [
-        "core/*"
-      ],
-      "ng2-qgrid/plugin/*": [
-        "plugin/*"
-      ],
-      "ng2-qgrid/theme/*": [
-        "theme/*"
-      ]
-    }
+    "baseUrl": "./out-tsc"
   },
   "files": [
     "./out-tsc/public-api.ts"
   ],
   "angularCompilerOptions": {
-    "annotateForClosureCompiler": true,
-    "strictMetadataEmit": true,
-    "skipTemplateCodegen": true,
-    "flatModuleOutFile": "index.js",
-    "flatModuleId": "ng2-qgrid",
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "enableIvy": false
   }
 }

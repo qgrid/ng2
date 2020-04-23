@@ -11,16 +11,17 @@
   ],
   "license": "MIT",
   "main": "./bundles/ng2-qgrid.umd.js",
-  "name": "ng2-qgrid",
+  "fesm2015": "./fesm2015/ng2-qgrid.js",
+  "name": "ng2-qgrid-app",
   "peerDependencies": {
-    "@angular/common": "~7.2.0",
-    "@angular/core": "~7.2.0",
-    "@angular/forms": "~7.2.0"
+    "@angular/common": "~9.0.4",
+    "@angular/core": "~9.0.4",
+    "@angular/forms": "~9.0.4"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/qgrid/ng2.git"
   },
   "typings": "./index.d.ts",
-  "version": "7.5.1"
+  "version": "9.1.0"
 }

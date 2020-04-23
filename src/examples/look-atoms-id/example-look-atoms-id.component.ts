@@ -13,7 +13,7 @@ import { GridComponent } from 'ng2-qgrid';
 export class ExampleLookAtomsIdComponent implements AfterViewInit {
 	static id = 'look-atoms-id';
 
-	@ViewChild(GridComponent) myGrid: GridComponent;
+	@ViewChild(GridComponent) grid: GridComponent;
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {
@@ -21,9 +21,10 @@ export class ExampleLookAtomsIdComponent implements AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-		this.myGrid.model.dataChanged.watch((e, off) => {
+		const { model } = this.grid;
+		model.dataChanged.watch((e, off) => {
 			if (e.hasChanges('columns')) {
-				this.myGrid.model.sort({
+				model.sort({
 					by: ['number']
 				});
 

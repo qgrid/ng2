@@ -10,12 +10,25 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
-## [8.0.0] - 2019-02-25
+## [9.1.0] - 2020-04-01
 ### Changed
-- Migrate to Angular 8.
+- Enable Ivy
+
+## [9.0.1] - 2020-03-13
+### Fixed
+- Build
+
+## [9.0.0] - 2020-03-13
+### Changed
+- Migrate to Angular 9.
 - Static query migration.
 
+### BREAKING
+- Cell selection occurs after mouse down not mouse up.
+
+## [7.5.2] - 2020-03-04
 ### Fixed
+- Dynamic column visibility.
 - Get rid of duplicate actions on destroy.
 
 ## [7.5.1] - 2020-01-22
@@ -467,8 +480,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v7.5.1...HEAD
-[7.5.1]: https://github.com/qgrid/ng2/compare/v7.4.0...v7.5.0
+[unreleased]: https://github.com/qgrid/ng2/compare/v9.1.0...HEAD
+[9.1.0]: https://github.com/qgrid/ng2/compare/v9.0.1...v9.1.0
+[9.0.1]: https://github.com/qgrid/ng2/compare/v9.0.0...v9.0.1
+[9.0.0]: https://github.com/qgrid/ng2/compare/v7.5.2...v9.0.0
+[7.5.2]: https://github.com/qgrid/ng2/compare/v7.5.1...v7.5.2
+[7.5.1]: https://github.com/qgrid/ng2/compare/v7.5.0...v7.5.1
 [7.5.0]: https://github.com/qgrid/ng2/compare/v7.4.0...v7.5.0
 [7.4.0]: https://github.com/qgrid/ng2/compare/v7.3.0...v7.4.0
 [7.3.0]: https://github.com/qgrid/ng2/compare/v7.2.6...v7.3.0
