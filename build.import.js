@@ -27,7 +27,7 @@ function dirDepth(path) {
 };
 
 function fixImports(rootPath) {
-  const files = glob.sync('**/*d.ts', { cwd: rootPath });
+  const files = glob.sync('**/*.ts', { cwd: rootPath });
   const rootPathDepth = dirDepth(rootPath) + 1;
   return Promise.all(
     files.map(filePath => {

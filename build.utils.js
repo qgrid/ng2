@@ -18,7 +18,7 @@ function relativeCopy(fileGlob, from, to) {
         const data = fs.readFileSync(origin, 'utf-8');
         makeFolderTree(path.dirname(dest));
         fs.writeFileSync(dest, data);
-        console.log(`copy: ${file}`);
+        console.log(`copy: ${origin}`);
       });
 
       resolve();
