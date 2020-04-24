@@ -1,5 +1,5 @@
 'use strict';
-const { buildLib, buildTheme, serveApp } = require('./build.kit');
+const { buildLib, buildTheme, serveApp, watchTheme } = require('./build.kit');
 const cmdArgs = require('command-line-args');
 
 const { prod } = cmdArgs([{

@@ -9,7 +9,7 @@
 					 let-$cell>
 			<q-grid caption="First 3 `{{$cell.row.item.phase}}` atoms"
 					[rows]="getTheSamePhaseRows($cell.row.item) | async"
-					class="q-grid-embed">
+					class="q-grid-compact">
 				<q-grid-columns>
 					<q-grid-column [canSort]="false"
 								   [canFilter]="false">
