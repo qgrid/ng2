@@ -1,0 +1,24 @@
+{
+  "name": "ng2-qgrid",
+  "version": "9.1.0",
+  "bundledDependencies": [
+    "@qgrid/core",
+    "@qgrid/plugins",
+    "@qgrid/ngx",
+    "@qgrid/ngx-plugins",
+    "css.escape",
+    "fastdom",
+    "livr",
+    "lodash-es"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^9.1.0",
+    "@angular/core": "^9.1.0",
+    "@angular/forms": "^9.1.0",
+    "tslib": "^1.10.0"
+  },
+  "main": "bundles/ng2-qgrid.umd.js",
+  "typings": "ng2-qgrid.d.ts",
+  "metadata": "ng2-qgrid.metadata.json",
+  "sideEffects": false
+}
