@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import {
-	GridModule as NgxGridModule,
+	GridModule,
 	ColumnListModule,
 	ColumnModule,
 	DndModule,
@@ -55,7 +55,7 @@ import {
 
 @NgModule({
 	exports: [
-		NgxGridModule,
+		GridModule,
 		ColumnListModule,
 		ColumnModule,
 		ToolbarModule,
@@ -105,5 +105,5 @@ import {
 		VisibilityModule,
 	],
 })
-export class GridModule {
+export class Ng2GridModule {
 }
