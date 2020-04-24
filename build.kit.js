@@ -8,9 +8,7 @@ const { concatFiles } = require('./build.utils');
 const ROOT_PATH = path.resolve('.');
 const SPAWN_OPTS = { shell: true, stdio: 'inherit' };
 
-function resolvePathMarker(libName) {
-  const FILE_MARKER = 'package.json';
-
+function resolvePathMarker(libName, marker) {
   const themeRegexp = /ng2-qgrid-theme-([a-z]+)/is;
   const themeMatch = themeRegexp.exec(libName);
   if (themeMatch) {
@@ -20,19 +18,19 @@ function resolvePathMarker(libName) {
       'ng2-qgrid',
       'theme',
       themeName,
-      FILE_MARKER
+      marker
     );
   }
 
   return path.join(
     'dist',
     libName,
-    FILE_MARKER
+    marker
   );
 }
 
-function buildLib(name, options = []) {
-  const watchThat = resolvePathMarker(name);
+function buildLib(name, options = [], marker = 'package.json') {
+  const watchThat = resolvePathMarker(name, marker);
 
   console.log(`build.kit watch build ${watchThat}`);
   return new Promise((resolve) => {
@@ -47,8 +45,8 @@ function buildLib(name, options = []) {
       });
 
     const buildOptions = ['build', name].concat(options);
-
     console.log(buildOptions);
+
     spawn(
       'ng',
       buildOptions,

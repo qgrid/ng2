@@ -23,12 +23,18 @@ const readFile = promiseify(fs.readFile);
 const writeFile = promiseify(fs.writeFile);
 
 function dirDepth(path) {
-  return path.split('\\').length;
-};
+  const SEP = '\\';
+  path = path.trimRight(SEP);
+  if (fs.statSync(path).isDirectory()) {
+    return path.split(SEP).length;
+  }
 
-function fixImports(rootPath) {
-  const files = glob.sync('**/*.ts', { cwd: rootPath });
-  const rootPathDepth = dirDepth(rootPath) + 1;
+  return path.split(SEP).length - 1;
+}
+
+function inImports(rootPath, fix) {
+  const files = glob.sync('**/*d.ts', { cwd: rootPath });
+  const rootPathDepth = dirDepth(rootPath);
   return Promise.all(
     files.map(filePath => {
       const fullFilePath = path.join(rootPath, filePath);
@@ -41,19 +47,22 @@ function fixImports(rootPath) {
           .join('/') || '.';
 
       return readFile(fullFilePath, 'utf-8')
-        .then(content => toRelativePath(content, filePath, basePath))
+        .then(content => fix(content, basePath, filePath))
         .then(content => writeFile(fullFilePath, content))
         .catch(ex => console.error(ex));
     }));
 }
 
-function toRelativePath(content, filePath, relativePath) {
+function fixProjectPaths(content, relativePath, fileName) {
+  console.log(`import.fix: looking for '@qgrid' in '${fileName}'`);
   return content
     .replace(/from\s+'@qgrid/g, () => {
-      console.log(`import.fix: in ${filePath} replace "@qgrid" with "${relativePath}/@qgrid"`);
+      console.log(`import.fix: replaced with '${relativePath}/@qgrid'"`);
       return `from '${relativePath}/@qgrid`;
     });
 }
+
 module.exports = {
-  fixImports
+  inImports,
+  fixProjectPaths
 };

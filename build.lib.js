@@ -1,39 +1,44 @@
 'use strict';
 
 const path = require('path');
-const { fixImports } = require('./build.import');
+const { inImports, fixProjectPaths } = require('./build.import');
 const { buildLib, buildTheme } = require('./build.kit');
 const { relativeCopy } = require('./build.utils');
 
 const ROOT_PATH = path.resolve('.');
+
 const PROJECTS_PATH = path.join(ROOT_PATH, 'projects');
-
-const NG2_QGRID_PATH = path.join(PROJECTS_PATH, 'ng2-qgrid', 'src');
-const NGX_QGRID_PATH = path.join(PROJECTS_PATH, 'ngx-qgrid', 'src');
-const NGX_QGRID_PLUGINS_PATH = path.join(PROJECTS_PATH, 'ngx-qgrid-plugins', 'src');
-const CORE_PATH = path.join(PROJECTS_PATH, 'qgrid-core');
-const PLUGINS_PATH = path.join(PROJECTS_PATH, 'qgrid-plugins');
-const ASSETS_PATH = path.join(PROJECTS_PATH, 'assets');
-
-const NG2_QGRID_PATH_DEPS = path.join(NG2_QGRID_PATH, '@qgrid');
-const NG2_QGRID_CORE_PATH = path.join(NG2_QGRID_PATH_DEPS, 'core');
-const NG2_QGRID_PLUGINS_PATH = path.join(NG2_QGRID_PATH_DEPS, 'plugins');
-const NG2_QGRID_NGX_PATH = path.join(NG2_QGRID_PATH_DEPS, 'ngx');
-const NG2_QGRID_NGX_PLUGINS_PATH = path.join(NG2_QGRID_PATH_DEPS, 'ngx-plugins');
-const NG2_QGRID_ASSETS_PATH = path.join(NG2_QGRID_PATH, 'assets');
+const DIST_PATH = path.join(ROOT_PATH, 'dist');
+const NG2_DIST_PATH = path.join(DIST_PATH, 'ng2-qgrid');
 
 const OPTIONS = ['--prod'];
 
 async function main() {
-  await relativeCopy('**/*', CORE_PATH, NG2_QGRID_CORE_PATH);
-  await relativeCopy('**/*', PLUGINS_PATH, NG2_QGRID_PLUGINS_PATH);
-  await relativeCopy('**/*', NGX_QGRID_PATH, NG2_QGRID_NGX_PATH);
-  await relativeCopy('**/*', NGX_QGRID_PLUGINS_PATH, NG2_QGRID_NGX_PLUGINS_PATH);
-  await relativeCopy('**/*', ASSETS_PATH, NG2_QGRID_ASSETS_PATH);
-
-  await fixImports(NG2_QGRID_PATH);
-
+  await buildLib('ngx-qgrid', OPTIONS);
+  await buildLib('ngx-qgrid-plugins', OPTIONS);
   await buildLib('ng2-qgrid', OPTIONS);
+
+  await relativeCopy('**/*.d.ts',
+    path.join(PROJECTS_PATH, 'qgrid-core'),
+    path.join(NG2_DIST_PATH, '@qgrid', 'core')
+  );
+
+  await relativeCopy('**/*.d.ts',
+    path.join(PROJECTS_PATH, 'qgrid-plugins'),
+    path.join(NG2_DIST_PATH, '@qgrid', 'plugins')
+  );
+
+  await relativeCopy('**/*.d.ts',
+    path.join(DIST_PATH, 'ngx-qgrid'),
+    path.join(NG2_DIST_PATH, '@qgrid', 'ngx')
+  );
+
+  await relativeCopy('**/*.d.ts',
+    path.join(DIST_PATH, 'ngx-qgrid-plugins'),
+    path.join(NG2_DIST_PATH, '@qgrid', 'ngx-plugins')
+  );
+
+  await inImports(NG2_DIST_PATH, fixProjectPaths);
 
   buildTheme('ng2-qgrid-theme-basic');
   await buildLib('ng2-qgrid-theme-basic', OPTIONS);

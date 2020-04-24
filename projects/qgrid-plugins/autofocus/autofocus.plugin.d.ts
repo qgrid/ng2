@@ -1,11 +1,11 @@
 import { Model } from '@qgrid/core/infrastructure/model';
-import { DomTable } from '@qgrid/ngx';
+import { Table } from '@qgrid/core/dom/table';
 import { Disposable } from '@qgrid/core/infrastructure/disposable';
 
 export declare class AutofocusPlugin {
 	constructor(
 		model: Model,
-		table: DomTable,
+		table: Table,
 		markup: { [key: string]: HTMLElement },
 		disposable: Disposable
 	);
