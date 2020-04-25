@@ -1,0 +1,51 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "downlevelIteration": true,
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "paths": {
+      "ng2-qgrid/theme/material": [
+        "./projects/ng2-qgrid-theme-material/src/public-api.ts"
+      ],
+      "ng2-qgrid/theme/basic": [
+        "./projects/ng2-qgrid-theme-basic/src/public-api.ts"
+      ],
+      "ng2-qgrid": [
+        "./projects/ng2-qgrid/src/public-api.ts"
+      ],
+      "@qgrid/core/*": [
+        "./projects/qgrid-core/*"
+      ],
+      "@qgrid/plugins/*": [
+        "./projects/qgrid-plugins/*"
+      ],
+      "@qgrid/ngx": [
+        "./projects/ngx-qgrid/src/public-api.ts"
+      ],
+      "@qgrid/ngx-plugins": [
+        "./projects/ngx-qgrid-plugins/src/public-api.ts"
+      ]
+    },
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "enableIvy": true
+  }
+}
