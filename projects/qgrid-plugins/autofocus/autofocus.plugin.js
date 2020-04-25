@@ -1,8 +1,9 @@
 
 export class AutofocusPlugin {
-	constructor(model, table, markup, disposable) {
-		disposable.add(
-			model.sceneChanged.watch((e, off) => {
+	constructor(plugin, markup) {
+		const { model, table, observeReply } = plugin;
+		observeReply('scene')
+			.subscribe(e => {
 				if (e.hasChanges('status')) {
 					if (e.state.status === 'stop') {
 						const count = table.body.rowCount(0);
@@ -34,7 +35,7 @@ export class AutofocusPlugin {
 									});
 
 									if (columnIndex >= 0) {
-										focus({ rowIndex, columnIndex }, { source: 'autofocus.view' });
+										focus({ rowIndex, columnIndex }, { source: 'autofocus.plugin' });
 										break;
 									}
 

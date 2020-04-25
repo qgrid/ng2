@@ -1,4 +1,3 @@
-import { Resource } from '../resource/resource';
 import { Command } from '../command/command';
 import { Node } from '../node/node';
 
@@ -10,10 +9,10 @@ import { Node } from '../node/node';
  * ### Suggested Links
  *
  * * [Group View](/doc/api/group-view.html)
- * * [group.pipe.js](https://github.com/qgrid/ng2/blob/master/core/pipe/group.pipe.js)
- * * [group.build.js](https://github.com/qgrid/ng2/blob/master/core/group/group.build.js)
- * * [node.js]((https://github.com/qgrid/ng2/blob/master/core/node/node.js)
- * * [node.build.js](https://github.com/qgrid/ng2/blob/master/core/node.build.js)
+ * * [group.pipe.js](https://github.com/qgrid/ng2/blob/master/projects/core/pipe/group.pipe.js)
+ * * [group.build.js](https://github.com/qgrid/ng2/blob/master/projects/core/group/group.build.js)
+ * * [node.js]((https://github.com/qgrid/ng2/blob/master/projects/core/node/node.js)
+ * * [node.build.js](https://github.com/qgrid/ng2/blob/master/projects/core/node.build.js)
  */
 export declare interface GroupModel {
 	/**
@@ -23,14 +22,19 @@ export declare interface GroupModel {
 	 * * `'subhead'` group column try to use all available space to display hierarchy.
 	 * * `'rowspan'` group column occupies all space on expand
 	 */
-	mode?: 'nest' | 'column' | 'subhead' | 'rowspan';
+	mode: 'nest' | 'column' | 'subhead' | 'rowspan';
+	
 	/**
 	 * List of column keys to build appropriate hierarchy.
 	 * Each item represents next level.
 	 */
-	by?: string[];
-	toggle?: Command;
-	toggleAll?: Command;
-	shortcut?: { [key: string]: string };
-	flatten?: (nodes: Node[]) => Node[];
+	by: string[];
+	
+	toggle: Command;
+	
+	toggleAll: Command;
+	
+	shortcut: { [key: string]: string };
+	
+	flatten: (nodes: Node[]) => Node[];
 }

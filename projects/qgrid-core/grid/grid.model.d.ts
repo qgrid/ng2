@@ -3,7 +3,7 @@
  *
  * ## Suggested Links
  *
- * * [grid.ctrl.js](https://github.com/qgrid/ng2/blob/master/core/grid/grid.ctrl.js)
+ * * [grid.ctrl.js](https://github.com/qgrid/ng2/blob/master/projects/core/grid/grid.ctrl.js)
  */
 export declare interface GridModel {
 	/**
@@ -11,7 +11,7 @@ export declare interface GridModel {
 	 * Mostly this id is used in a style generation routine to link concrete grid with appropriate style.
 	 * Also is used in data manipulation plugin to identify correct list of pressets.
 	 */
-	id?: string;
+	id: string;
 
 	/**
 	 * Indicates a state of the model:
@@ -21,12 +21,12 @@ export declare interface GridModel {
 	 * Current version of the grid doesn't allow to use one model on several grids,
 	 * so if user will try to do that exception will be thrown.
 	 */
-	status?: string;
+	status: string;
 
 	/**
 	 * Text that is used by grid title plugin to show header inside top toolbar.
 	 */
-	caption?: string;
+	caption: string;
 
 	/**
 	 * Allows to change performance strategy of the grid.
@@ -34,8 +34,8 @@ export declare interface GridModel {
 	 * * `readonly` grid starts to use cache to render values.
 	 * * `detached` grid disable change detection after render.
 	 */
-	interactionMode?: 'full' | 'readonly' | 'detached';
+	interactionMode: 'full' | 'readonly' | 'detached';
 
 	// @deprecated
-	title?: string;
+	title: string;
 }

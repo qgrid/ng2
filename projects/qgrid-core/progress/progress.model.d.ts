@@ -1,5 +1,3 @@
-import { Resource } from '../resource/resource';
-
 /**
  * A class representing the q-grid job state.
  *
@@ -22,10 +20,10 @@ export declare interface ProgressModel {
 	/**
 	 * Indicates if there a running job or not.
 	 */
-	isBusy?: boolean;
+	isBusy: boolean;
 
 	/**
 	 * List of progress jobs.
 	 */
-	queue?: string[];
+	queue: string[];
 }

@@ -1,4 +1,3 @@
-import { Resource } from '../resource/resource';
 import { Command } from '../command/command';
 import { RowDetailsStatus } from '../row-details/row.details.status';
 

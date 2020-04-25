@@ -1,4 +1,5 @@
 import { ColumnModel } from '../column-type/column.model';
+import { CellView } from '../scene/view/cell.view';
 
 /**
  * A class that gives access to the current cell position inside the q-grid.
@@ -6,33 +7,31 @@ import { ColumnModel } from '../column-type/column.model';
  * ### Suggested Links
  *
  * * [Navigation View](/doc/api/navigation-view.html)
- * * [navigation.js](https://github.com/qgrid/ng2/blob/master/core/navigation/navigation.js)
+ * * [navigation.js](https://github.com/qgrid/ng2/blob/master/projects/core/navigation/navigation.js)
  */
 export declare interface NavigationModel {
 	/**
-	 * Index of the focused cell row.
+	 * Get index of the focused cell row.
 	 */
-	readonly rowIndex?: number;
+	rowIndex: number;
 
 	/**
-	 * Index of the focused cell column.
+	 * Get index of the focused cell column.
 	 */
-	readonly columnIndex?: number;
+	columnIndex: number;
 
 	/**
-	 * Focused cell row.
+	 * Get focused cell row.
 	 */
-	readonly row?: any;
+	row: any;
 
 	/**
-	 * Focused cell column.
+	 * Get focused cell column.
 	 */
-	readonly column?: ColumnModel;
+	column: ColumnModel;
 
-	cell?: {
-		rowIndex: number,
-		columnIndex: number,
-		row: any,
-		column: ColumnModel
-	};
+	/**
+	 * Set/get a focused cell
+	 */
+	cell: CellView;
 }

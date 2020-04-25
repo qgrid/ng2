@@ -1,8 +1,6 @@
 import { Model } from '../infrastructure/model';
 
-/**
- * > Under Construction.
- */
+
 export declare class PaginationView {
 	constructor(model: Model);
 

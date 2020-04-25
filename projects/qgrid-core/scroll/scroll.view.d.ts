@@ -29,9 +29,7 @@ export declare class VscrollContext {
 	id: (index: number) => number;
 }
 
-/**
- * > Under Construction.
- */
+
 export declare class ScrollView {
 	constructor(model: Model, table: Table, vscroll: VscrollContext, gridService: GridService);
 

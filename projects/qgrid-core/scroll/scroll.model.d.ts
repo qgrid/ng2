@@ -12,22 +12,22 @@ export declare interface ScrollModel {
 	 * * `'default'` mode without virtualization.
 	 * * `'virtual'` turn on virtual mode.
 	 */
-	mode?: 'default' | 'virtual';
+	mode: 'default' | 'virtual';
 
 	/**
 	 * Top scroll position.
 	 */
-	top?: number;
+	top: number;
 
 	/**
 	 * Left scroll position.
 	 */
-	left?: number;
+	left: number;
 
 	/**
 	 * Row index on top of the q-grid client area.
 	 */
-	cursor?: number;
+	cursor: number;
 
 	map: {
 		rowToView: (index: number) => number,

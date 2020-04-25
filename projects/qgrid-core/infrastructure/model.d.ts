@@ -45,173 +45,198 @@ export declare interface ModelTag {
 	isBusy?: boolean;
 }
 
-export declare interface ModelEventArg<T> {
-	state: T;
-	changes: { [key: string]: { newValue: any, oldValue: any } };
-	hasChanges: (key: string) => boolean;
+export declare type ModelChanges<TState> = { [key in keyof TState]: { newValue: TState[key] | null, oldValue: TState[key] | null } };
+
+export declare interface ModelEventArg<TState> {
+	state: TState;
+	changes: ModelChanges<TState>;
 	tag: ModelTag;
+
+	hasChanges<TKey extends keyof TState>(key: TKey): boolean;
 }
 
 export declare type ModelEvent<T> = Event<ModelEventArg<T>>;
 
+type StateAccessor<
+	TStateName extends keyof any,
+	TStateChangeName extends keyof any,
+	TState
+	> =
+	StateSet<TStateName, TState>
+	& StateGet<TStateName, TState>
+	& StateChange<TStateChangeName, TState>;
+
+type StateSet<K extends keyof any, TState> = {
+	[P in K]: (state: Partial<TState>, tag?: ModelTag) => Model;
+}
+
+type StateGet<K extends keyof any, TState> = {
+	[P in K]: () => Readonly<Model>;
+}
+
+type StateChange<K extends keyof any, TState> = {
+	[P in K]: ModelEvent<TState>;
+};
+
+
+declare type GridAccessor = StateAccessor<'grid', 'gridChanged', GridModel>;
+
 export declare interface Model {
 	gridChanged: ModelEvent<GridModel>;
-	grid(value: GridModel, tag?: ModelTag): Model;
-	grid(): GridModel;
+	grid(value: Partial<GridModel>, tag?: ModelTag): Model;
+	grid(): Readonly<GridModel>;
 
 	pipeChanged: ModelEvent<PipeModel>;
-	pipe(value: PipeModel, tag?: ModelTag): Model;
-	pipe(): PipeModel;
+	pipe(value: Partial<PipeModel>, tag?: ModelTag): Model;
+	pipe(): Readonly<PipeModel>;
 
 	sceneChanged: ModelEvent<SceneModel>;
-	scene(value: SceneModel, tag?: ModelTag): Model;
-	scene(): SceneModel;
+	scene(value: Partial<SceneModel>, tag?: ModelTag): Model;
+	scene(): Readonly<SceneModel>;
 
 	editChanged: ModelEvent<EditModel>;
-	edit(value: EditModel, tag?: ModelTag): Model;
-	edit(): EditModel;
+	edit(value: Partial<EditModel>, tag?: ModelTag): Model;
+	edit(): Readonly<EditModel>;
 
 	viewChanged: ModelEvent<ViewModel>;
-	view(value: ViewModel, tag?: ModelTag): Model;
-	view(): ViewModel;
+	view(value: Partial<ViewModel>, tag?: ModelTag): Model;
+	view(): Readonly<ViewModel>;
 
 	dataChanged: ModelEvent<DataModel>;
-	data(value: DataModel, tag?: ModelTag): Model;
-	data(): DataModel;
+	data(value: Partial<DataModel>, tag?: ModelTag): Model;
+	data(): Readonly<DataModel>;
 
 	headChanged: ModelEvent<HeadModel>;
-	head(value: HeadModel, tag?: ModelTag): Model;
-	head(): HeadModel;
+	head(value: Partial<HeadModel>, tag?: ModelTag): Model;
+	head(): Readonly<HeadModel>;
 
 	bodyChanged: ModelEvent<BodyModel>;
-	body(value: BodyModel, tag?: ModelTag): Model;
-	body(): BodyModel;
+	body(value: Partial<BodyModel>, tag?: ModelTag): Model;
+	body(): Readonly<BodyModel>;
 
 	layoutChanged: ModelEvent<LayoutModel>;
-	layout(value: LayoutModel, tag?: ModelTag): Model;
-	layout(): LayoutModel;
+	layout(value: Partial<LayoutModel>, tag?: ModelTag): Model;
+	layout(): Readonly<LayoutModel>;
 
 	navigationChanged: ModelEvent<NavigationModel>;
-	navigation(value: NavigationModel, tag?: ModelTag): Model;
-	navigation(): NavigationModel;
+	navigation(value: Partial<NavigationModel>, tag?: ModelTag): Model;
+	navigation(): Readonly<NavigationModel>;
 
 	focusChanged: ModelEvent<FocusModel>;
-	focus(value: FocusModel, tag?: ModelTag): Model;
-	focus(): FocusModel;
+	focus(value: Partial<FocusModel>, tag?: ModelTag): Model;
+	focus(): Readonly<FocusModel>;
 
 	columnListChanged: ModelEvent<ColumnListModel>;
-	columnList(value: ColumnListModel, tag?: ModelTag): Model;
-	columnList(): ColumnListModel;
+	columnList(value: Partial<ColumnListModel>, tag?: ModelTag): Model;
+	columnList(): Readonly<ColumnListModel>;
 
 	rowChanged: ModelEvent<RowModel>;
-	row(value: RowModel, tag?: ModelTag): Model;
-	row(): RowModel;
+	row(value: Partial<RowModel>, tag?: ModelTag): Model;
+	row(): Readonly<RowModel>;
 
 	rowListChanged: ModelEvent<RowListModel>;
-	rowList(value: RowListModel, tag?: ModelTag): Model;
-	rowList(): RowListModel;
+	rowList(value: Partial<RowListModel>, tag?: ModelTag): Model;
+	rowList(): Readonly<RowListModel>;
 
 	selectionChanged: ModelEvent<SelectionModel>;
-	selection(value: SelectionModel, tag?: ModelTag): Model;
-	selection(): SelectionModel;
+	selection(value: Partial<SelectionModel>, tag?: ModelTag): Model;
+	selection(): Readonly<SelectionModel>;
 
 	footChanged: ModelEvent<FootModel>;
-	foot(value: FootModel, tag?: ModelTag): Model;
-	foot(): FootModel;
+	foot(value: Partial<FootModel>, tag?: ModelTag): Model;
+	foot(): Readonly<FootModel>;
 
 	sortChanged: ModelEvent<SortModel>;
-	sort(value: SortModel, tag?: ModelTag): Model;
-	sort(): SortModel;
+	sort(value: Partial<SortModel>, tag?: ModelTag): Model;
+	sort(): Readonly<SortModel>;
 
 	groupChanged: ModelEvent<GroupModel>;
-	group(value: GroupModel, tag?: ModelTag): Model;
-	grop(): GroupModel;
+	group(value: Partial<GroupModel>, tag?: ModelTag): Model;
+	group(): Readonly<GroupModel>;
 
 	pivotChanged: ModelEvent<PivotModel>;
-	pivot(value: PivotModel, tag?: ModelTag): Model;
-	pivot(): PivotModel;
+	pivot(value: Partial<PivotModel>, tag?: ModelTag): Model;
+	pivot(): Readonly<PivotModel>;
 
 	pluginChanged: ModelEvent<PluginModel>;
-	plugin(value: PluginModel, tag?: ModelTag): Model;
-	plugin(): PluginModel;
+	plugin(value: Partial<PluginModel>, tag?: ModelTag): Model;
+	plugin(): Readonly<PluginModel>;
 
 	toolbarChanged: ModelEvent<ToolbarModel>;
-	toolbar(value: ToolbarModel, tag?: ModelTag): Model;
-	toolbar(): ToolbarModel;
+	toolbar(value: Partial<ToolbarModel>, tag?: ModelTag): Model;
+	toolbar(): Readonly<ToolbarModel>;
 
 	layerChanged: ModelEvent<LayerModel>;
-	layer(value: LayerModel, tag?: ModelTag): Model;
-	layer(): LayerModel;
+	layer(value: Partial<LayerModel>, tag?: ModelTag): Model;
+	layer(): Readonly<LayerModel>;
 
 	paginationChanged: ModelEvent<PaginationModel>;
-	pagination(value: PaginationModel, tag?: ModelTag): Model;
-	pagination(): PaginationModel;
+	pagination(value: Partial<PaginationModel>, tag?: ModelTag): Model;
+	pagination(): Readonly<PaginationModel>;
 
 	progressChanged: ModelEvent<ProgressModel>;
-	progress(value: ProgressModel, tag?: ModelTag): Model;
-	progress(): ProgressModel;
+	progress(value: Partial<ProgressModel>, tag?: ModelTag): Model;
+	progress(): Readonly<ProgressModel>;
 
 	highlightChanged: ModelEvent<HighlightModel>;
-	highlight(value: HighlightModel, tag?: ModelTag): Model;
-	highlight(): HighlightModel;
+	highlight(value: Partial<HighlightModel>, tag?: ModelTag): Model;
+	highlight(): Readonly<HighlightModel>;
 
 	visibilityChanged: ModelEvent<VisibilityModel>;
-	visibility(value: VisibilityModel, tag?: ModelTag): Model;
-	visibility(): VisibilityModel;
+	visibility(value: Partial<VisibilityModel>, tag?: ModelTag): Model;
+	visibility(): Readonly<VisibilityModel>;
 
 	filterChanged: ModelEvent<FilterModel>;
-	filter(value: FilterModel, tag?: ModelTag): Model;
-	filter(): FilterModel;
+	filter(value: Partial<FilterModel>, tag?: ModelTag): Model;
+	filter(): Readonly<FilterModel>;
 
 	dragChanged: ModelEvent<DragModel>;
-	drag(value: DragModel, tag?: ModelTag): Model;
-	drag(): DragModel;
+	drag(value: Partial<DragModel>, tag?: ModelTag): Model;
+	drag(): Readonly<DragModel>;
 
 	styleChanged: ModelEvent<StyleModel>;
-	style(value: StyleModel, tag?: ModelTag): Model;
-	style(): StyleModel;
+	style(value: Partial<StyleModel>, tag?: ModelTag): Model;
+	style(): Readonly<StyleModel>;
 
 	scrollChanged: ModelEvent<ScrollModel>;
-	scroll(value: ScrollModel, tag?: ModelTag): Model;
-	scroll(): ScrollModel;
+	scroll(value: Partial<ScrollModel>, tag?: ModelTag): Model;
+	scroll(): Readonly<ScrollModel>;
 
 	exportChanged: ModelEvent<ExportModel>;
-	export(value: ExportModel, tag?: ModelTag): Model;
-	export(): ExportModel;
+	export(value: Partial<ExportModel>, tag?: ModelTag): Model;
+	export(): Readonly<ExportModel>;
 
 	actionChanged: ModelEvent<ActionModel>;
-	action(value: ActionModel, tag?: ModelTag): Model;
-	action(): ActionModel;
+	action(value: Partial<ActionModel>, tag?: ModelTag): Model;
+	action(): Readonly<ActionModel>;
 
 	fetchChanged: ModelEvent<FetchModel>;
 	fetch(value: FetchModel, tag?: ModelTag): Model;
-	fetch(): FetchModel;
+	fetch(): Readonly<FetchModel>;
 
 	persistenceChanged: ModelEvent<PersistenceModel>;
-	persistence(value: PersistenceModel, tag?: ModelTag): Model;
-	persistence(): PersistenceModel;
+	persistence(value: Partial<PersistenceModel>, tag?: ModelTag): Model;
+	persistence(): Readonly<PersistenceModel>;
 
 	validationChanged: ModelEvent<ValidationModel>;
-	validation(value: ValidationModel, tag?: ModelTag): Model;
-	validation(): ValidationModel;
+	validation(value: Partial<ValidationModel>, tag?: ModelTag): Model;
+	validation(): Readonly<ValidationModel>;
 
 	restChanged: ModelEvent<RestModel>;
-	rest(value: RestModel, tag?: ModelTag): Model;
-	rest(): RestModel;
+	rest(value: Partial<RestModel>, tag?: ModelTag): Model;
+	rest(): Readonly<RestModel>;
 
 	animationChanged: ModelEvent<AnimationModel>;
-	animation(value: AnimationModel, tag?: ModelTag): Model;
-	animation(): AnimationModel;
+	animation(value: Partial<AnimationModel>, tag?: ModelTag): Model;
+	animation(): Readonly<AnimationModel>;
 
 	keyboardChanged: ModelEvent<KeyboardModel>;
-	keyboard(value: KeyboardModel, tag?: ModelTag): Model;
-	keyboard(): KeyboardModel;
-
+	keyboard(value: Partial<KeyboardModel>, tag?: ModelTag): Model;
+	keyboard(): Readonly<KeyboardModel>;
 
 	mouseChanged: ModelEvent<MouseModel>;
-	mouse(value: MouseModel, tag?: ModelTag): Model;
-	mouse(): MouseModel;
-
+	mouse(value: Partial<MouseModel>, tag?: ModelTag): Model;
+	mouse(): Readonly<MouseModel>;
 
 	queryBuilderChanged: ModelEvent<any>;
 	queryBuilder(value: any, tag?: ModelTag): Model;

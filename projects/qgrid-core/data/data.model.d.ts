@@ -37,13 +37,14 @@ import { ColumnView } from '../scene/view/column.view';
  *
  * * [qgrid Model](/doc/api/model)
  * * [Data Pipe](/doc/api/data-pipe)
+
  */
 export declare interface DataModel {
 
 	/**
  	 * A list of data rows to display. 
 	 */
-	rows?: any[];
+	rows: any[];
 
 	/**
 	 * A set of columns to display. 
@@ -52,13 +53,13 @@ export declare interface DataModel {
 	 * javascript and template with the same key, algorithm tries to keep the setting from both 
 	 * sources but javascript will have a top priority.
 	 */
-	columns?: ColumnModel[];
+	columns: ColumnModel[];
 
 	/**
      * A series of methods that grid invokes asynchronously anytime refresh is required. 
      * Please see PipeModel section for more information on grid refresh	 
 	 */
-	pipe?: ((memo: any, context: PipeContext, next: (memo: any) => void) => any)[];
+	pipe: ((memo: any, context: PipeContext, next: (memo: any) => void) => any)[];
 
 	/**
 	 * A set of 2 methods to identify column and row id. Note that if result id
@@ -68,7 +69,7 @@ export declare interface DataModel {
 	 * * `row` method is an identity function.
 	 * * `column` method return column key property.
 	 */
-	id?: {
+	id: {
 		row: (index: number, row: any) => any,
 		column: (index: number, column: ColumnModel) => any,
 	};

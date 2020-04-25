@@ -5,11 +5,12 @@ import {
 	Output,
 	ViewChild
 } from '@angular/core';
-import { GridView } from '@qgrid/ngx';
+import { GridPlugin } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-cell-editor',
-	templateUrl: './cell-editor.component.html'
+	templateUrl: './cell-editor.component.html',
+	providers: [GridPlugin]
 })
 export class CellEditorComponent {
 	@ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
@@ -19,7 +20,8 @@ export class CellEditorComponent {
 		$implicit: this
 	};
 
-	constructor(view: GridView) {
+	constructor(plugin: GridPlugin) {
+		const { view } = plugin;
 		view.edit.cell.requestClose = () => {
 			if (this.closeEvent.observers.length) {
 				this.close();

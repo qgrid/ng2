@@ -33,6 +33,16 @@ export class Disposable implements OnDestroy {
 		);
 	}
 
+	remove(resource: Disposable) {
+		const index = this.disposes.indexOf(resource);
+		if (index >= 0) {
+			this.disposes.splice(index, 1);
+			return true;
+		}
+
+		return false;
+	}
+
 	finalize() {
 		const temp = this.disposes;
 		this.disposes = [];

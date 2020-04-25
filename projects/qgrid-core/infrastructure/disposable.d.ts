@@ -5,5 +5,6 @@ export type DisposableResource =
 
 export declare interface Disposable {
 	add(resource: DisposableResource);
+	remove(resource: DisposableResource): boolean;
 	finalize(): void;
 }
