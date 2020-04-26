@@ -45,6 +45,6 @@ export class AutofocusPlugin {
 						}
 					}
 				}
-			}));
+			});
 	}
 }

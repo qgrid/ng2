@@ -16,7 +16,11 @@ export class AutoFocusDirective implements AfterViewInit {
 
 	ngAfterViewInit() {
 		if (this.enabled !== false) {
-			const plugin = new AutofocusPlugin(this.plugin, this.root.markup);
+			// tslint:disable-next-line:no-unused-expression
+			new AutofocusPlugin(
+				this.plugin,
+				this.root.markup
+			);
 		}
 	}
 }

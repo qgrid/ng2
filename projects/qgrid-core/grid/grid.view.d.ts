@@ -9,7 +9,7 @@ import { LayoutView } from '../layout/layout.view';
 import { NavigationView } from '../navigation/navigation.view';
 import { PaginationView } from '../pagination/pagination.view';
 import { RowDetailsView } from '../row-details/row.details.view';
-import { RowView } from '../scene/view/row.view';
+import { RowView } from '../row/row.view';
 import { ScrollView } from '../scroll/scroll.view';
 import { SelectionView } from '../selection/selection.view';
 import { SortView } from '../sort/sort.view';
@@ -26,10 +26,10 @@ export interface GridView {
     layout: LayoutView;
     nav: NavigationView;
     pagination: PaginationView;
+    row: RowView;
     rowDetails: RowDetailsView;
     scroll: ScrollView;
     selection: SelectionView;
     sort: SortView;
     style: StyleView;
-    row: RowView;
 }

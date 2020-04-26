@@ -1,13 +1,13 @@
 export class Event {
-	constructor(e = () => null) {
+	constructor(reply = () => null) {
 		this.handlers = [];
 		this.isDirty = false;
-		this.e = e;
+		this.reply = reply;
 	}
 
 	on(f, lifecycle = 'app') {
-		const handlers = this.handlers;
-		const handler = {f: f};
+		const { handlers } = this;
+		const handler = { f: f };
 		const off = () => {
 			const index = handlers.indexOf(handler);
 			if (index >= 0) {
@@ -24,7 +24,8 @@ export class Event {
 	watch(f, lifecycle = 'app') {
 		const off = this.on(f, lifecycle);
 		if (this.isDirty) {
-			f(this.e(), off);
+			const e = this.reply();
+			f(e, off);
 		}
 
 		return off;
@@ -32,6 +33,7 @@ export class Event {
 
 	emit(e) {
 		this.isDirty = true;
+
 		const temp = Array.from(this.handlers);
 		for (let i = 0, length = temp.length; i < length; i++) {
 			const handler = temp[i];

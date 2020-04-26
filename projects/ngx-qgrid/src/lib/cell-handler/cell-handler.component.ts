@@ -67,8 +67,8 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 				const { cell, rowIndex, columnIndex } = e.state;
 
 				if (cell) {
-					const oldCell = e.changes.cell.oldValue || {};
-					const newCell = e.changes.cell.newValue || {};
+					const oldCell = e.changes.cell.oldValue || {} as CellView;
+					const newCell = e.changes.cell.newValue || {} as CellView;
 					const oldColumn = oldCell.column || {};
 					const newColumn = newCell.column || {};
 

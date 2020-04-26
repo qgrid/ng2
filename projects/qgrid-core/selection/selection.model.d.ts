@@ -50,8 +50,8 @@ export declare interface SelectionModel {
 	 * * `'row'` custom row id will be stored in the items property.
 	 */
 	key: {
-		row: (row: any) => any,
-		column: (column: ColumnModel) => any
+		row?: (row: any) => any,
+		column?: (column: ColumnModel) => any
 	};
 
 	/**
