@@ -19,7 +19,7 @@ export class PersistencePanelComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const persistence = new PersistencePlugin(this.plugin.model, () => this.modelBuilder.build());
+		const persistence = new PersistencePlugin(this.plugin, () => this.modelBuilder.build());
 		this.context = { $implicit: persistence };
 	}
 }
