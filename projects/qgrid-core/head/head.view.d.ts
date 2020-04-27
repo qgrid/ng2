@@ -1,11 +1,9 @@
 import { Command } from '../command/command';
-import { Model } from '../infrastructure/model';
-import { Table } from '../dom/table';
-import { ColumnModel } from '../column-type/column.model';
 import { ColumnView } from '../scene/view/column.view';
+import { GridPlugin } from '../plugin/grid.plugin';
 
 export declare class HeadView {
-	constructor(model: Model, table: Table, tagName: string);
+	constructor(plugin: GridPlugin, tagName: string);
 
 	drop: Command<{ dragData: string }>;
 	drag: Command<{ dragData: string }>;

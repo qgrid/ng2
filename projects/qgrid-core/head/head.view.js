@@ -8,12 +8,12 @@ import { calk, find, findLeaves, preOrderDFS } from '../node/node.service';
 import { eventPath } from '../services/dom';
 
 export class HeadView {
-	constructor(model, table, tagName) {
-		this.model = model;
-		this.table = table;
+	constructor(plugin, tagName) {
+		this.plugin = plugin;
 		this.tagName = tagName;
 		this.rows = [];
 
+		const { model, table } = this.plugin;
 		const pathFinder = new PathService(table.context.bag.head);
 
 		this.drop = new Command({
@@ -142,17 +142,17 @@ export class HeadView {
 	invalidate() {
 		Log.info('view.head', 'invalidate');
 
-		const model = this.model;
+		const { model, table } = this.plugin;
 		this.rows = Array.from(model.scene().column.rows);
 
 		if (this.rows.length > 1) {
-			this.table.view.addClass(`${GRID_PREFIX}-head-span`);
+			table.view.addClass(`${GRID_PREFIX}-head-span`);
 		} else {
-			this.table.view.removeClass(`${GRID_PREFIX}-head-span`);
+			table.view.removeClass(`${GRID_PREFIX}-head-span`);
 		}
 
 		if (model.filter().unit === 'row') {
-			const filterRow = this.table.data.columns().map(c => new FilterRowColumn(c));
+			const filterRow = table.data.columns().map(c => new FilterRowColumn(c));
 			this.rows.push(filterRow);
 		}
 	}

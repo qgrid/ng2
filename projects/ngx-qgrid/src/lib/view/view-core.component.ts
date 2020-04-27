@@ -55,7 +55,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 	}
 
 	ngOnInit() {
-		const { model, observe, observeReply } = this.plugin;
+		const { model, table, observe, observeReply } = this.plugin;
 		this.root.markup['view'] = this.elementRef.nativeElement;
 
 		// Views need to be init after `sceneChanged.watch` declaration
@@ -98,7 +98,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		observe(model.visibilityChanged)
 			.subscribe(() => this.cd.detectChanges());
 
-		const virtualBody = this.root.table.body as any;
+		const virtualBody = table.body as any;
 		if (virtualBody.requestInvalidate) {
 			virtualBody.requestInvalidate.on(() => this.ctrl.invalidate());
 		}

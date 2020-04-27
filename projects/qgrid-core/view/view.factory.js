@@ -46,7 +46,7 @@ export function viewFactory(
 	};
 
 	return host => {
-		host.head = new HeadView(model, table, selectors.th);
+		host.head = new HeadView(plugin, selectors.th);
 		host.body = new BodyView(plugin);
 		host.foot = new FootView(model, table);
 		host.row = new RowView(model, table, selectors.tr);
