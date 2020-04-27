@@ -54,7 +54,7 @@ export class ColumnFilterComponent implements OnInit {
 		const { key } = this.column;
 		const context = { key };
 		const columnFilter = model.resolve(ColumnFilterModel);
-		const columnFilterPlugin = new ColumnFilterPlugin(model, context);
+		const columnFilterPlugin = new ColumnFilterPlugin(this.plugin, context);
 
 		columnFilterPlugin.submitEvent.on(() => this.submitEvent.emit());
 		columnFilterPlugin.cancelEvent.on(() => this.cancelEvent.emit());

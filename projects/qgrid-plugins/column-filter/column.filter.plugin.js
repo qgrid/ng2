@@ -5,15 +5,17 @@ import { clone } from '@qgrid/core/utility/kit';
 import { Event } from '@qgrid/core/infrastructure/event';
 
 export class ColumnFilterPlugin {
-	constructor(model, context) {
-		this.model = model;
+	constructor(plugin, context) {
+		const { model } = plugin;
+
+		this.plugin = plugin;
 		this.key = context.key;
 
 		this.cancelEvent = new Event();
 		this.submitEvent = new Event();
 		this.resetEvent = new Event();
 
-		const filterBy = this.model.filter().by[this.key];
+		const filterBy = model.filter().by[this.key];
 		this.by = new Set((filterBy && filterBy.items) || []);
 		this.byBlanks = !!(filterBy && filterBy.blanks);
 
@@ -24,7 +26,7 @@ export class ColumnFilterPlugin {
 
 		Object.assign(this, this.commands);
 
-		this.column = columnService.find(this.model.columnList().line, this.key);
+		this.column = columnService.find(model.columnList().line, this.key);
 		this.title = this.column.title;
 		this.getValue = labelFactory(this.column);
 	}
@@ -110,7 +112,7 @@ export class ColumnFilterPlugin {
 			submit: new Command({
 				source: 'column.filter.view',
 				execute: () => {
-					const model = this.model;
+					const { model } = this.plugin;
 					const by = clone(model.filter().by);
 
 					const filter = by[this.key] || {};
