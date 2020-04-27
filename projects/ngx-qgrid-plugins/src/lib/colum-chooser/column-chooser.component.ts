@@ -62,7 +62,7 @@ export class ColumnChooserComponent implements OnInit, OnChanges {
 			name: ColumnChooserName
 		};
 
-		const columnChooser = new ColumnChooserPlugin(this.plugin.model, context);
+		const columnChooser = new ColumnChooserPlugin(this.plugin, context);
 		columnChooser.submitEvent.on(() => this.submitEvent.emit());
 		columnChooser.cancelEvent.on(() => this.cancelEvent.emit());
 		columnChooser.dropEvent.on(() => {

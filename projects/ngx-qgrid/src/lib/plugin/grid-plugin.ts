@@ -4,23 +4,21 @@ import { DomTable } from '../dom/dom';
 import { Disposable } from '../infrastructure/disposable';
 import { GridRoot } from '../grid/grid-root';
 import { GridView } from '../grid/grid-view';
-import { GridModel, GridEventArg } from '../grid/grid-model';
+import { GridModel, GridEvent } from '../grid/grid-model';
 import { ObservableLike } from '@qgrid/core/infrastructure/rx';
-import { ModelEvent } from '@qgrid/core/infrastructure/model';
 
 
 @Injectable()
 export class GridPlugin implements OnDestroy {
 	readonly disposable = new Disposable();
 
-	readonly observe = <TState>(event: ModelEvent<TState>) => {
+	readonly observe = <TState>(event: GridEvent<TState>) => {
 		return new ObservableLike(event, false, this.disposable);
 	}
 
-	readonly observeReply = <TState>(event: ModelEvent<TState>) => {
+	readonly observeReply = <TState>(event: GridEvent<TState>) => {
 		return new ObservableLike(event, true, this.disposable);
 	}
-
 
 	constructor(
 		public view: GridView,
