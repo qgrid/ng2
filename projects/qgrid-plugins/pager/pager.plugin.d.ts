@@ -1,7 +1,5 @@
-import { Model } from '@qgrid/core/infrastructure/model';
-import { Disposable } from '@qgrid/core/infrastructure/disposable';
-import { Table } from '@qgrid/core/dom/table';
+import { GridPlugin } from '@qgrid/core/plugin/grid.plugin';
 
 export declare class PagerPlugin {
-	constructor(model: Model, table: Table, disposable: Disposable);
+	constructor(model: GridPlugin);
 }
