@@ -3,8 +3,8 @@
  */
 export declare interface DragModel {
 	/**
-	 * Flag that indicates drag in drop is perfoming.
+	 * Flag that indicates drag in drop is performing.
 	 * Usually is used inside the grid to apply some custom styles.
 	 */
-	isActive?: boolean;
+	isActive: boolean;
 }

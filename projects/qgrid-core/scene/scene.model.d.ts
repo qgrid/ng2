@@ -17,17 +17,17 @@ export declare interface SceneModel {
 	 * * `push` request UI to draw a model.
 	 * * `stop` scene in the stable state.
 	 */
-	status?: string;
+	status: string;
 
 	/**
 	 * List of rows to render.
 	 */
-	rows?: RowView[];
+	rows: RowView[];
 
 	/**
 	 * Column rendering object.
 	 */
-	column?: {
+	column: {
 		rows: ColumnView[][],
 		line: ColumnView[],
 		area: {}

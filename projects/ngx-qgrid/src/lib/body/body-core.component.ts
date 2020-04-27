@@ -8,13 +8,13 @@ import { BodyCtrl } from '@qgrid/core/body/body.ctrl';
 import { GridRoot } from '../grid/grid-root';
 import { GridView } from '../grid/grid-view';
 import { TableCoreService } from '../table/table-core.service';
-import { Disposable } from '../infrastructure/disposable';
+import { GridPlugin } from '../plugin/grid-plugin';
 
 @Component({
 	// tslint:disable-next-line
 	selector: 'tbody[q-grid-core-body]',
 	templateUrl: './body-core.component.html',
-	providers: [Disposable]
+	providers: [GridPlugin]
 })
 export class BodyCoreComponent implements OnInit {
 	@Input() pin = 'body';
@@ -29,59 +29,53 @@ export class BodyCoreComponent implements OnInit {
 		private root: GridRoot,
 		private zone: NgZone,
 		private cd: ChangeDetectorRef,
-		private disposable: Disposable
-
+		private plugin: GridPlugin
 	) {
 	}
 
 	ngOnInit() {
-		const { model } = this.root;
+		const { model, table, disposable, observeReply } = this.plugin;
 		const { id } = model.data();
 
 		this.rowId = id.row;
 		this.columnId = (index, columnView) => id.column(index, columnView.model);
 
-		const table = this.$table;
-		const view = this.$view;
 		const nativeElement = this.elementRef.nativeElement as HTMLElement;
 
-		const ctrl = new BodyCtrl(model, view, this.root.table, this.root.bag);
+		const ctrl = new BodyCtrl(model, this.$view, table, this.root.bag);
 		const listener = new EventListener(nativeElement, new EventManager(this));
 
 		this.zone.runOutsideAngular(() => {
-			this.disposable.add(listener.on('wheel', e => ctrl.onWheel(e)));
-
-			this.disposable.add(listener.on('scroll', () =>
+			disposable.add(listener.on('wheel', e => ctrl.onWheel(e)));
+			disposable.add(listener.on('scroll', () =>
 				ctrl.onScroll({
-					scrollLeft: table.pin ? model.scroll().left : nativeElement.scrollLeft,
+					scrollLeft: this.$table.pin ? model.scroll().left : nativeElement.scrollLeft,
 					scrollTop: nativeElement.scrollTop
 				}),
 				{ passive: true }
 			));
-
-			this.disposable.add(listener.on('mousemove', ctrl.onMouseMove.bind(ctrl)));
-			this.disposable.add(listener.on('mouseleave', ctrl.onMouseLeave.bind(ctrl)));
-			this.disposable.add(listener.on('mousedown', e => {
+			disposable.add(listener.on('mousemove', ctrl.onMouseMove.bind(ctrl)));
+			disposable.add(listener.on('mouseleave', ctrl.onMouseLeave.bind(ctrl)));
+			disposable.add(listener.on('mousedown', e => {
 				this.cd.markForCheck();
 				this.zone.run(() => ctrl.onMouseDown(e));
 			}));
-			this.disposable.add(listener.on('mouseup', e => {
+			disposable.add(listener.on('mouseup', e => {
 				ctrl.onMouseUp(e);
 			}));
 		});
 
-		this.disposable.add(
-			model.dataChanged.watch(e => {
+		observeReply(model.dataChanged)
+			.subscribe(e => {
 				if (e.hasChanges('id')) {
 					this.rowId = e.state.id.row;
 					const columnId = e.state.id.column;
 					this.columnId = (index, columnView) => columnId(index, columnView.model);
 				}
-			})
-		);
+			});
 
-		this.disposable.add(
-			model.sceneChanged.watch(e => {
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
 				if (model.grid().interactionMode === 'detached') {
 					if (e.hasChanges('status')) {
 						switch (e.state.status) {
@@ -94,8 +88,7 @@ export class BodyCoreComponent implements OnInit {
 						}
 					}
 				}
-			})
-		);
+			});
 	}
 
 	get selection(): SelectionModel {
@@ -103,6 +96,6 @@ export class BodyCoreComponent implements OnInit {
 	}
 
 	get model(): GridModel {
-		return this.root.model;
+		return this.plugin.model;
 	}
 }

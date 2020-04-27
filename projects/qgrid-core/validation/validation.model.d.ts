@@ -1,5 +1,3 @@
-import { Resource } from '../resource/resource';
-
 /**
  * A class to setup validation rules settings.
  *
@@ -11,5 +9,5 @@ export declare interface ValidationModel {
 	/**
 	 * List of validation rules.
 	 */
-	rules?: any[];
+	rules: any[];
 }

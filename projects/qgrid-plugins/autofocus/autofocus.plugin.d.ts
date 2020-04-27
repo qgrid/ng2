@@ -1,12 +1,5 @@
-import { Model } from '@qgrid/core/infrastructure/model';
-import { Table } from '@qgrid/core/dom/table';
-import { Disposable } from '@qgrid/core/infrastructure/disposable';
+import { GridPlugin } from '@qgrid/core/plugin/grid.plugin';
 
 export declare class AutofocusPlugin {
-	constructor(
-		model: Model,
-		table: Table,
-		markup: { [key: string]: HTMLElement },
-		disposable: Disposable
-	);
+	constructor(plugin: GridPlugin, markup: { [key: string]: HTMLElement });
 }

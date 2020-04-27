@@ -258,3 +258,6 @@ export { SelectColumnModel as SelectColumn } from '@qgrid/core/column-type/selec
 export { TextColumnModel as TextColumn } from '@qgrid/core/column-type/text.column';
 export { TimeColumnModel as TimeColumn } from '@qgrid/core/column-type/time.column';
 export { UrlColumnModel as UrlColumn } from '@qgrid/core/column-type/url.column';
+
+// infrastructure
+export { Guard } from '@qgrid/core/infrastructure/guard';

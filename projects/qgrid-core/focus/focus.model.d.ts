@@ -5,15 +5,15 @@ export declare interface FocusModel {
 	/**
 	 * Index of row for focused cell.
 	 */
-	rowIndex?: number;
+	rowIndex: number;
 
 	/**
 	 * Index of column for focused cell.
 	 */
-	columnIndex?: number;
+	columnIndex: number;
 
 	/**
 	 * Indicates if grid is focused or not.
 	 */
-	isActive?: boolean;
+	isActive: boolean;
 }

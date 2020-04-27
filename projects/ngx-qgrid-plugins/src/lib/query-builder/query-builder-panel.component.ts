@@ -11,6 +11,7 @@ import { EbNodeService } from '../expression-builder/eb-node.service';
 import { TraverseService } from '../expression-builder/traverse.service';
 import { FocusAfterRender } from '../focus/focus.service';
 import { GridPlugin } from '@qgrid/ngx';
+import { QueryBuilderModel } from './query-builder.model';
 
 @Component({
 	selector: 'q-grid-query-builder-panel',
@@ -80,8 +81,10 @@ export class QueryBuilderPanelComponent implements OnInit {
 			const by = clone(this.plugin.model.filter().by);
 			by.$expression = converter.visit(node);
 
-			this.plugin.model.filter({ by });
-			this.plugin.model.queryBuilder({ node: by.$expression ? node : null });
+			const { model } = this.plugin;
+			model.filter({ by });
+			const qb = model.resolve(QueryBuilderModel);
+			qb.state({ node: by.$expression ? node : null });
 
 			this.close.emit();
 		},
@@ -134,7 +137,8 @@ export class QueryBuilderPanelComponent implements OnInit {
 		this.node = this.plan.apply();
 
 		const serializer = new SerializationService();
-		const { node } = this.plugin.model.queryBuilder();
+		const qb = this.plugin.model.resolve(QueryBuilderModel);
+		const { node } = qb.state();
 		if (node) {
 			this.node = serializer.deserialize(this.plan, node);
 		}

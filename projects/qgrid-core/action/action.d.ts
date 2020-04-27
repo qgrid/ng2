@@ -1,7 +1,7 @@
 import { Command } from '../command/command';
 
 /**
- * Use this class to connect q-grid [command](/doc/api/command.html) and UI. Usually action represents a button, but not necessary, custom template can be [used to](/doc/features/action-bar).
+ * Use this class to connect q-grid command and UI. Usually action represents a button, but not necessary, custom template can be [used to](/doc/features/action-bar).
  * Note that even action doesn't populate UI, command should be still executable through the keyboard shortcut.
  * 
  * ### Create an action.
@@ -18,13 +18,6 @@ import { Command } from '../command/command';
  * 			'Add Row'
  *		);
  * ```
- *
- * ### Suggested Links
- *
- * * [Action Model](/doc/api/action-model.html)
- * * [Command](/doc/api/command.html)
- * * [Action Bar](/doc/feature/action-bar.html)
- * * [Grid Front](/doc/api/front.html)
  */
 export declare class Action {
 	constructor(command: Command, title?: string, icon?: string);

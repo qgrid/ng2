@@ -1,5 +1,5 @@
 'use strict';
-const { buildLib, buildTheme, serveApp } = require('./build.kit');
+const { buildLib, buildTheme, serveApp, watchTheme } = require('./build.kit');
 const cmdArgs = require('command-line-args');
 
 const { prod } = cmdArgs([{
@@ -16,16 +16,6 @@ if (prod) {
 }
 
 async function main() {
-  await buildLib('ngx-qgrid', libOptions);
-  await buildLib('ngx-qgrid-plugins', libOptions);
-  await buildLib('ng2-qgrid', libOptions);
-
-  buildTheme('ng2-qgrid-theme-basic');
-  await buildLib('ng2-qgrid-theme-basic', libOptions);
-
-  buildTheme('ng2-qgrid-theme-material');
-  await buildLib('ng2-qgrid-theme-material', libOptions);
-
   watchTheme('ng2-qgrid-theme-basic');
   watchTheme('ng2-qgrid-theme-material');
 

@@ -4,9 +4,6 @@ import { Table } from '../dom/table';
 import { GridService } from '../services/grid';
 import { ColumnModel } from '../column-type/column.model';
 
-/**
- * > Under Construction.
- */
 export class GroupView {
 	constructor(model: Model, table: Table, service: GridService, shortcut: { register: (commands: Command[]) => void });
 

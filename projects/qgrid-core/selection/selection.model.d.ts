@@ -1,4 +1,3 @@
-import { Resource } from '../resource/resource';
 import { ColumnModel } from '../column-type/column.model';
 import { Command } from '../command/command';
 
@@ -8,7 +7,7 @@ import { Command } from '../command/command';
  * ### Suggested Links
  *
  * * [Scroll View](/doc/api/scroll-view.html)
- * * [selection.service.js](https://github.com/qgrid/ng2/blob/master/core/selection/selection.service.js)
+ * * [selection.service.js](https://github.com/qgrid/ng2/blob/master/projects/core/selection/selection.service.js)
  */
 export declare interface SelectionModel {
 	/**
@@ -17,7 +16,7 @@ export declare interface SelectionModel {
 	 * * `'body'` click on the q-grid body leads to row select/unselect.
 	 * * `'custom'` only select checkbox click leads to row select/unselect.
 	 */
-	area?: 'custom' | 'body';
+	area: 'custom' | 'body';
 
 	/**
 	 * Selection primitive.
@@ -27,7 +26,7 @@ export declare interface SelectionModel {
 	 * * `'column'` user can select columns by clicking on the q-grid body area.
 	 * * `'mix'` user can select both rows and cells, rows are selectable by clicking on row-indicator column.
 	 */
-	unit?: 'row' | 'cell' | 'column' | 'mix';
+	unit: 'row' | 'cell' | 'column' | 'mix';
 
 	/**
 	 * Selection mode.
@@ -37,12 +36,12 @@ export declare interface SelectionModel {
 	 * * `'range'`
 	 * * `'singleOnly'`
 	 */
-	mode?: 'single' | 'multiple' | 'range' | 'singleOnly';
+	mode: 'single' | 'multiple' | 'range' | 'singleOnly';
 
 	/**
 	 * List of selected items.
 	 */
-	items?: any[];
+	items: any[];
 
 	/**
 	 * Set of map function, that can convert column and row to nessesary format.
@@ -50,18 +49,18 @@ export declare interface SelectionModel {
 	 * * `'column'` custom column key will be stored in the items property.
 	 * * `'row'` custom row id will be stored in the items property.
 	 */
-	key?: {
-		row: (row: any) => any,
+	key: {
+		row?: (row: any) => any,
 		column?: (column: ColumnModel) => any
 	};
 
 	/**
 	 * Keyboard shortcuts to control selection behavior. Changed.
 	 */
-	shortcut?: {[key: string]: string};
+	shortcut: {[key: string]: string};
 
 	/**
 	 * Allows to disable selection and execute action on selection changed from ui.
 	 */
-	toggle?: Command;
+	toggle: Command;
 }

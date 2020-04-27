@@ -1,4 +1,4 @@
 
 export declare interface RowListModel {
-	index?: Map<any, number>;
+	index: Map<any, number>;
 }

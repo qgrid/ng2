@@ -6,44 +6,48 @@ import { CellView } from '@qgrid/core/scene/view/cell.view';
 import { NavigationModel } from '@qgrid/core/navigation/navigation.model';
 import { DomTd } from '../dom/dom';
 import { GridEventArg } from '../grid/grid-model';
-import { GridRoot } from '../grid/grid-root';
+import { GridPlugin } from '../plugin/grid-plugin';
 
 @Component({
 	selector: 'q-grid-cell-handler',
 	templateUrl: './cell-handler.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [GridPlugin]
 })
 export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private startCell: CellView = null;
 	private initialSelectionMode: 'single' | 'multiple' | 'range' | 'singleOnly' = null;
 	private initialEditState: 'view' | 'edit' | 'startBatch' | 'endBatch' = null;
 
-	@ViewChild('marker', { static: true }) marker: ElementRef;
 	isMarkerVisible = false;
+	@ViewChild('marker', { static: true }) marker: ElementRef;
 
 	constructor(
 		private elementRef: ElementRef,
-		private root: GridRoot,
+		private plugin: GridPlugin,
 		private cd: ChangeDetectorRef
 	) {
 		this.elementRef.nativeElement.style.display = 'none';
 	}
 
 	ngOnInit() {
+		const { model, observeReply } = this.plugin;
 		const updateHandler = this.updateHandlerFactory();
 		const updateMarker = this.updateMarkerFactory();
 
-		this.root.model.navigationChanged.watch(e => {
-			updateHandler(e);
-			updateMarker(e);
-		});
+		observeReply(model.navigationChanged)
+			.subscribe(e => {
+				updateHandler(e);
+				updateMarker(e);
+			});
 
-		this.root.model.editChanged.watch(e => {
-			if (e.hasChanges('method')) {
-				this.isMarkerVisible = e.state.method === 'batch';
-				this.cd.detectChanges();
-			}
-		});
+		observeReply(model.editChanged)
+			.subscribe(e => {
+				if (e.hasChanges('method')) {
+					this.isMarkerVisible = e.state.method === 'batch';
+					this.cd.detectChanges();
+				}
+			});
 	}
 
 	ngAfterViewInit() {
@@ -51,7 +55,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	}
 
 	updateHandlerFactory() {
-		const { model, table } = this.root;
+		const { model, table } = this.plugin;
 		const element = this.elementRef.nativeElement;
 		const job = jobLine(150);
 
@@ -63,8 +67,8 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 				const { cell, rowIndex, columnIndex } = e.state;
 
 				if (cell) {
-					const oldCell = e.changes.cell.oldValue || {};
-					const newCell = e.changes.cell.newValue || {};
+					const oldCell = e.changes.cell.oldValue || {} as CellView;
+					const newCell = e.changes.cell.newValue || {} as CellView;
 					const oldColumn = oldCell.column || {};
 					const newColumn = newCell.column || {};
 
@@ -124,22 +128,23 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	}
 
 	updateMarkerFactory() {
-		const { model, table } = this.root;
+		const { model, table, observe } = this.plugin;
 		const editService = new EditService(model, table);
 		const job = jobLine(150);
 
 		let oldCell: DomTd = null;
-		model.editChanged.on(e => {
-			if (e.hasChanges('state')) {
-				if (e.state.state === 'endBatch') {
-					model.edit({ state: this.initialEditState });
-					editService.doBatch(this.startCell);
-					model.selection({ mode: this.initialSelectionMode });
+		observe(model.editChanged)
+			.subscribe(e => {
+				if (e.hasChanges('state')) {
+					if (e.state.state === 'endBatch') {
+						model.edit({ state: this.initialEditState });
+						editService.doBatch(this.startCell);
+						model.selection({ mode: this.initialSelectionMode });
 
-					this.startCell = null;
+						this.startCell = null;
+					}
 				}
-			}
-		});
+			});
 
 		return (e: GridEventArg<NavigationModel>) => {
 			if (!this.marker) {
@@ -172,7 +177,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	}
 
 	startBatchEdit() {
-		const model = this.root.model;
+		const { model } = this.plugin;
 
 		this.startCell = model.navigation().cell;
 		if (this.startCell) {

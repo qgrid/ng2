@@ -1,8 +1,6 @@
 import { PipeContext, PipeMemo } from './pipe.item';
 
-/**
- * > Under Construction.
- */
+
 export declare class Pipe {
 	static readonly data: (memo: any, context: PipeContext, next: (param: any[]) => void) => any;
 	static readonly filter: (memo: any, context: PipeContext, next: (param: any[]) => void) => any;

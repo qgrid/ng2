@@ -1,8 +1,11 @@
+export declare type EventUnsubscribe = () => void;
+export declare type EventHandler<TArg> = (arg: TArg, off: EventUnsubscribe) => void;
 
-export declare class Event<T = any> {
-	constructor(e?: () => any);
+export declare class Event<TArg = any> {
+	constructor(reply?: () => TArg);
 
-	on(handler: (arg: T, off?: () => void) => void): () => void;
-	watch(handler: (e: T, off?: () => void) => void): () => void;
-	emit(e: T): void;
+	emit(value: TArg): void;
+
+	on(next: EventHandler<TArg>): EventUnsubscribe;
+	watch(next: EventHandler<TArg>): EventUnsubscribe;
 }

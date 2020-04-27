@@ -11,8 +11,10 @@ import { ColumnFilterPlugin } from '@qgrid/plugins/column-filter/column.filter.p
 import { uniq, flatten } from '@qgrid/core/utility/kit';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { Fetch } from '@qgrid/core/infrastructure/fetch';
-import { FocusAfterRender } from '../focus/focus.service';
+import { ColumnFilterModel } from '@qgrid/plugins/column-filter/column.filter.model';
+import { Guard } from '@qgrid/core/infrastructure/guard';
 import { GridPlugin, Grid, VscrollService, VscrollContext } from '@qgrid/ngx';
+import { FocusAfterRender } from '../focus/focus.service';
 
 @Component({
 	selector: 'q-grid-column-filter',
@@ -51,11 +53,11 @@ export class ColumnFilterComponent implements OnInit {
 		const { model } = this.plugin;
 		const { key } = this.column;
 		const context = { key };
+		const columnFilter = model.resolve(ColumnFilterModel);
+		const columnFilterPlugin = new ColumnFilterPlugin(model, context);
 
-		const columnFilter = new ColumnFilterPlugin(model, context);
-
-		columnFilter.submitEvent.on(() => this.submitEvent.emit());
-		columnFilter.cancelEvent.on(() => this.cancelEvent.emit());
+		columnFilterPlugin.submitEvent.on(() => this.submitEvent.emit());
+		columnFilterPlugin.cancelEvent.on(() => this.cancelEvent.emit());
 
 		const vscrollContext = this.vscroll.context({
 			emit: f => {
@@ -64,19 +66,19 @@ export class ColumnFilterComponent implements OnInit {
 				this.cd.markForCheck();
 				this.cd.detectChanges();
 			},
-			threshold: model.columnFilter().threshold,
+			threshold: columnFilter.state().threshold,
 			fetch: (skip, take, d) => {
 				const filterState = model.filter();
 				const service = this.qgrid.service(model);
 				// We need to close items property for correct reset behavior
-				const items = columnFilter.items;
+				const items = columnFilterPlugin.items;
 				if (filterState.fetch !== this.qgrid.noop) {
 					const cancelBusy = service.busy();
 					const select = filterState
 						.fetch(key, {
 							skip,
 							take,
-							value: columnFilter.getValue,
+							value: columnFilterPlugin.getValue,
 							search: '' + this.search,
 
 							// @deprecated
@@ -97,9 +99,14 @@ export class ColumnFilterComponent implements OnInit {
 					const isBlank = model.filter().assertFactory().isNull;
 					try {
 						if (!items.length) {
-							const source = model[model.columnFilter().source];
-							let values = source().rows.map(columnFilter.getValue);
-							if (columnFilter.column.type === 'array') {
+							const source = model[columnFilter.state().source];
+							Guard.notNull(source, 'source');
+
+							const sourceState = source();
+							Guard.hasProperty(sourceState, 'rows');
+
+							let values = sourceState.rows.map(columnFilterPlugin.getValue);
+							if (columnFilterPlugin.column.type === 'array') {
 								values = flatten(values);
 							}
 
@@ -112,14 +119,14 @@ export class ColumnFilterComponent implements OnInit {
 								? notBlankValues.filter(x => ('' + x).toLowerCase().indexOf(search) >= 0)
 								: notBlankValues;
 
-							filteredItems.sort(columnFilter.column.compare);
-							columnFilter.items = filteredItems;
-							columnFilter.hasBlanks =
+							filteredItems.sort(columnFilterPlugin.column.compare);
+							columnFilterPlugin.items = filteredItems;
+							columnFilterPlugin.hasBlanks =
 								notBlankValues.length !== uniqValues.length &&
 								(!search || 'blanks'.indexOf(search.toLowerCase()) >= 0);
 						}
 
-						d.resolve(columnFilter.items.length);
+						d.resolve(columnFilterPlugin.items.length);
 					}
 					finally {
 						cancelBusy();
@@ -131,7 +138,7 @@ export class ColumnFilterComponent implements OnInit {
 		this.vscrollContext = vscrollContext;
 
 		this.context = {
-			$implicit: columnFilter,
+			$implicit: columnFilterPlugin,
 			plugin: this,
 			vscroll: vscrollContext
 		};

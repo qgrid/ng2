@@ -8,9 +8,6 @@ import { EditorOptions } from '../column-type/editor.options';
 import { KeyCode } from '../shortcut/key.code';
 import { CellView } from '../scene/view/cell.view';
 
-/**
- * > Under Construction.
- */
 export declare class EditCellView {
 	constructor(model: Model, table: Table, shortcut: { register: (commands: Command[]) => void, keyCode: () => KeyCode });
 	

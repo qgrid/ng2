@@ -2,6 +2,10 @@ import { Command } from '../command/command';
 import { ColumnModel } from '../column-type/column.model';
 import { StyleRowContext, StyleCellContext } from './style.context';
 
+
+export declare type StyleRowCallback = (row: any, context: StyleRowContext) => void;
+export declare type StyleCellCallback = (row: any, column: ColumnModel, context: StyleCellContext) => void;
+
 /**
  * A class that allows to apply styles to rows and cells.
  *
@@ -45,36 +49,36 @@ import { StyleRowContext, StyleCellContext } from './style.context';
  *
  * * [Style View](/doc/api/style-view.html)
  * * [style.monitor.js](https://github.com/qgrid/ng2/blob/master/core/style/style.monitor.js)
- */
 
+ */
 export declare interface StyleModel {
 	/**
 	 * Style row.
 	 */
-	row?: (row: any, context: StyleRowContext) => void;
+	row: StyleRowCallback;
 
 	/**
-	 * Style cell.
+	 * Style cell, when object is used key represents column key.
 	 */
-	cell?: (row: any, column: ColumnModel, context: StyleCellContext) => void | { [key: string]: (row: any, column: ColumnModel, context: any) => void };
+	cell: StyleCellCallback | { [key: string]: StyleCellCallback };
 
 	/**
 	 * On invalidate.
 	 */
-	invalidate?: Command;
+	invalidate: Command;
 
 	/**
 	 * Queue of row styles that can be used internally or in plugins.
 	 */
-	rows?: Array<(row: any, context: any) => void>;
+	rows: StyleRowCallback[];
 
 	/**
 	 * Queue of cell styles that can be used internally or in plugins.
 	 */
-	cells?: Array<(row: any, column: ColumnModel, context: any) => void>;
+	cells: StyleCellCallback[];
 
 	/**
 	 * List of CSS classes
 	 */
-	classList?: Array<string>;
+	classList: Array<string>;
 }

@@ -1,9 +1,10 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { GridRoot } from '@qgrid/ngx';
+import { GridPlugin } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-visibility',
-	template: ''
+	template: '',
+	providers: [GridPlugin]
 })
 export class VisibilityComponent implements OnChanges {
 	@Input() head = true;
@@ -19,11 +20,11 @@ export class VisibilityComponent implements OnChanges {
 	@Input() pinRight = false;
 	@Input() pinBottom = false;
 
-	constructor(private root: GridRoot) {
+	constructor(private plugin: GridPlugin) {
 	}
 
 	ngOnChanges() {
-		const { model } = this.root;
+		const { model } = this.plugin;
 		model.visibility({
 			body: this.body,
 			foot: this.foot,

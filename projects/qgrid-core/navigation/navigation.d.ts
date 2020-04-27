@@ -1,6 +1,4 @@
 export declare class Navigation {
-	constructor();
-
 	currentColumn(): number;
 	nextColumn(): number;
 	prevColumn(): number;
