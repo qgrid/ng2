@@ -8,6 +8,7 @@ export class BackdropService {
 
 	hide() {
 		Guard.notNull(this.element, 'element');
+
 		if (this.isActive) {
 			this.element.nativeElement.classList.add('q-grid-backdrop-inactive');
 			this.isActive = false;
@@ -16,6 +17,7 @@ export class BackdropService {
 
 	reveal() {
 		Guard.notNull(this.element, 'element');
+
 		if (!this.isActive) {
 			this.element.nativeElement.classList.remove('q-grid-backdrop-inactive');
 			this.isActive = true;

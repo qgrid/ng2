@@ -101,9 +101,11 @@ export class ColumnFilterComponent implements OnInit {
 						if (!items.length) {
 							const source = model[columnFilter.state().source];
 							Guard.notNull(source, 'source');
-							Guard.hasProperty(source, 'rows');
 
-							let values = source().rows.map(columnFilterPlugin.getValue);
+							const sourceState = source();
+							Guard.hasProperty(sourceState, 'rows');
+
+							let values = sourceState.rows.map(columnFilterPlugin.getValue);
 							if (columnFilterPlugin.column.type === 'array') {
 								values = flatten(values);
 							}

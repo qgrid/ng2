@@ -5,9 +5,9 @@ export class Event {
 		this.reply = reply;
 	}
 
-	on(f, lifecycle = 'app') {
+	on(next, lifecycle = 'app') {
 		const { handlers } = this;
-		const handler = { f: f };
+		const handler = { next };
 		const off = () => {
 			const index = handlers.indexOf(handler);
 			if (index >= 0) {
@@ -18,14 +18,15 @@ export class Event {
 		handler.off = off;
 		handler.lifecycle = lifecycle;
 		handlers.push(handler);
+
 		return off;
 	}
 
-	watch(f, lifecycle = 'app') {
-		const off = this.on(f, lifecycle);
+	watch(next, lifecycle = 'app') {
+		const off = this.on(next, lifecycle);
 		if (this.isDirty) {
 			const e = this.reply();
-			f(e, off);
+			next(e, off);
 		}
 
 		return off;
@@ -33,21 +34,10 @@ export class Event {
 
 	emit(e) {
 		this.isDirty = true;
-
 		const temp = Array.from(this.handlers);
 		for (let i = 0, length = temp.length; i < length; i++) {
 			const handler = temp[i];
-			handler.f(e, handler.off);
-		}
-	}
-
-	dispose(lifecycle = null) {
-		const temp = Array.from(this.handlers);
-		for (let i = 0, length = temp.length; i < length; i++) {
-			const handler = temp[i];
-			if (!lifecycle || handler.lifecycle === lifecycle) {
-				handler.off();
-			}
+			handler.next(e, handler.off);
 		}
 	}
 }

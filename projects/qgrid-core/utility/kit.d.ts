@@ -2,7 +2,7 @@ export declare function assignWith(x: any, y: any): any;
 export declare function noop(): void;
 export declare function yes(): boolean;
 export declare function no(): boolean;
-export declare function identity(x: any): any;
+export declare function identity<T>(x: T): T;
 export declare function toCamelCase(...names: string[]): string;
 export declare function escapeRegexp(text: string): string;
 export declare function orderBy(data: any[], selectors: ((x: any) => any)[], compares: ((x: any, y: any) => number)[]): void;
