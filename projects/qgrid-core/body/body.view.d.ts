@@ -1,8 +1,6 @@
-import { ColumnModel } from '../column-type/column.model';
-import { Model } from '../infrastructure/model';
-import { Table } from '../dom/table';
 import { ColumnView } from '../scene/view/column.view';
 import { Renderer } from '../scene/render/render';
+import { GridPlugin } from '../plugin/grid.plugin';
 
 /**
  * Use this class to get access to the main area rendering options.
@@ -21,14 +19,12 @@ import { Renderer } from '../scene/render/render';
  * * [View](/doc/api/view.html)
  */
 export declare class BodyView {
-	constructor(model: Model, table: Table);
-	
-	readonly rows: any[];
+	constructor(plugin: GridPlugin);
 
 	/**
 	 *  Use to build layout.
 	 */
-	render: Renderer;
+	readonly render: Renderer;
 
 	columns(pin: string): ColumnView[];
 }

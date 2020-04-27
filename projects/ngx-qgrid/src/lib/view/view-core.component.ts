@@ -5,14 +5,14 @@ import { CellService } from '../cell/cell.service';
 import { GridView } from '../grid/grid-view';
 import { GridRoot } from '../grid/grid-root';
 import { Grid } from '../grid/grid';
-import { Disposable } from '../infrastructure/disposable';
+import { GridPlugin } from '../plugin/grid-plugin';
 
 @Component({
 	selector: 'q-grid-core-view',
 	templateUrl: './view-core.component.html',
 	providers: [
 		CellService,
-		Disposable,
+		GridPlugin,
 	]
 })
 export class ViewCoreComponent implements OnInit, DoCheck {
@@ -21,13 +21,12 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 	constructor(
 		private root: GridRoot,
 		private view: GridView,
+		private plugin: GridPlugin,
 		private qgrid: Grid,
-		private disposable: Disposable,
 		private elementRef: ElementRef,
 		private cd: ChangeDetectorRef,
 		private zone: NgZone
 	) {
-
 		zone.onStable.subscribe(() => {
 			if (this.root.isReady) {
 				const { scene } = this.model;
@@ -56,19 +55,17 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 	}
 
 	ngOnInit() {
-		const { model, root, view } = this;
-
-		root.markup['view'] = this.elementRef.nativeElement;
+		const { model, observe, observeReply } = this.plugin;
+		this.root.markup['view'] = this.elementRef.nativeElement;
 
 		// Views need to be init after `sceneChanged.watch` declaration
 		// to persist the right order of event sourcing.
-		view.init(
-			model,
-			root.table,
-			root.commandManager
+		this.view.init(
+			this.plugin,
+			this.root.commandManager
 		);
 
-		view.scroll.y.settings.emit = f => {
+		this.view.scroll.y.settings.emit = f => {
 			f();
 
 			this.cd.markForCheck();
@@ -76,28 +73,30 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		};
 
 		const gridService = this.qgrid.service(model);
-		this.ctrl = new ViewCtrl(model, view, gridService);
+		this.ctrl = new ViewCtrl(model, this.view, gridService);
 
-		this.disposable.add(model.sceneChanged.watch(e => {
-			if (e.hasChanges('status') && e.state.status === 'pull') {
-				this.cd.markForCheck();
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('status') && e.state.status === 'pull') {
+					this.cd.markForCheck();
 
-				// Run digest on the start of invalidate(e.g. for busy indicator)
-				// and on the ned of invalidate(e.g. to build the DOM)
-				this.zone.run(() =>
-					model.scene({
-						status: 'push'
-					}, {
-						source: 'view-core.component',
-						behavior: 'core'
-					})
-				);
+					// Run digest on the start of invalidate(e.g. for busy indicator)
+					// and on the ned of invalidate(e.g. to build the DOM)
+					this.zone.run(() =>
+						model.scene({
+							status: 'push'
+						}, {
+							source: 'view-core.component',
+							behavior: 'core'
+						})
+					);
 
-				this.cd.detectChanges();
-			}
-		}));
+					this.cd.detectChanges();
+				}
+			});
 
-		this.disposable.add(model.visibilityChanged.on(() => this.cd.detectChanges()));
+		observe(model.visibilityChanged)
+			.subscribe(() => this.cd.detectChanges());
 
 		const virtualBody = this.root.table.body as any;
 		if (virtualBody.requestInvalidate) {
@@ -106,7 +105,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 	}
 
 	private get model() {
-		return this.root.model;
+		return this.plugin.model;
 	}
 
 	get visibility(): VisibilityModel {

@@ -1,4 +1,3 @@
-import { ModelProxy } from '../infrastructure/model.proxy';
 import { SelectionCommandManager } from '../selection/selection.command.manager';
 import { BodyView } from '../body/body.view';
 import { EditView } from '../edit/edit.view';
@@ -18,52 +17,50 @@ import { SortView } from '../sort/sort.view';
 import { StyleView } from '../style/style.view';
 
 export function viewFactory(
-	model,
-	table,
+	plugin,
 	commandManager,
 	gridService,
 	vscroll,
-	selectors,
-	disposable
+	selectors
 ) {
-	const proxy = new ModelProxy(model, disposable);
+	const { model, table, disposable } = plugin;
 	const { shortcut } = model.action();
+
 	const navigationShortcut = {
-		register: commands => {
-			disposable.add(shortcut.register(commandManager, commands));
-		},
+		register: commands => disposable.add(shortcut.register(commandManager, commands)),
 		keyCode: () => shortcut.keyCode
 	};
 
-	const selectionCommandManager = new SelectionCommandManager(model, commandManager);
+	const selectionCommandManager =
+		new SelectionCommandManager(
+			model,
+			commandManager
+		);
+
 	const selectionShortcut = {
 		register: commands => {
-			disposable.add(shortcut.register(selectionCommandManager, commands));
+			disposable.add(
+				shortcut.register(selectionCommandManager, commands)
+			);
 		}
 	};
 
 	return host => {
-		const modelProxy = proxy.subject;
-
-		host.head = new HeadView(modelProxy, table, selectors.th);
-		host.body = new BodyView(modelProxy, table);
-		host.foot = new FootView(modelProxy, table);
-		host.row = new RowView(modelProxy, table, selectors.tr);
-		host.layout = new LayoutView(modelProxy, table, gridService, disposable);
-		host.scroll = new ScrollView(modelProxy, table, vscroll, gridService);
-		host.highlight = new HighlightView(modelProxy, table);
-		host.sort = new SortView(modelProxy);
-		host.pagination = new PaginationView(modelProxy);
-		host.nav = new NavigationView(modelProxy, table, navigationShortcut);
-		host.group = new GroupView(modelProxy, table, gridService, navigationShortcut);
-		host.edit = new EditView(modelProxy, table, navigationShortcut);
-		host.filter = new FilterView(modelProxy);
-		host.rowDetails = new RowDetailsView(modelProxy, table, navigationShortcut);
-		host.selection = new SelectionView(modelProxy, table, selectionShortcut);
-		host.style = new StyleView(modelProxy, table);
-
-		return () => {
-			disposable.finalize();
-		};
+		host.head = new HeadView(model, table, selectors.th);
+		host.body = new BodyView(plugin);
+		host.foot = new FootView(model, table);
+		host.row = new RowView(model, table, selectors.tr);
+		host.layout = new LayoutView(model, table, gridService, disposable);
+		host.scroll = new ScrollView(model, table, vscroll, gridService);
+		host.highlight = new HighlightView(model, table);
+		host.sort = new SortView(model);
+		host.pagination = new PaginationView(model);
+		host.nav = new NavigationView(model, table, navigationShortcut);
+		host.group = new GroupView(model, table, gridService, navigationShortcut);
+		host.edit = new EditView(model, table, navigationShortcut);
+		host.filter = new FilterView(model);
+		host.rowDetails = new RowDetailsView(model, table, navigationShortcut);
+		host.selection = new SelectionView(model, table, selectionShortcut);
+		host.style = new StyleView(model, table);
 	};
 }

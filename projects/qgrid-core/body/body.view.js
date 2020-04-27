@@ -2,30 +2,30 @@ import { Log } from '../infrastructure/log';
 import { Renderer } from '../scene/render/render';
 
 export class BodyView {
-	constructor(model, table) {
-		this.model = model;
-		this.table = table;
-		this.rows = [];
-
+	constructor(plugin) {
+		const { model, observeReply } = plugin;
 		const render = new Renderer(model);
 
+		this.plugin = plugin;
 		this.render = render;
 		this.columns = pin => render.defaultStrategy.columnList(pin);
 
 		let wasInvalidated = false;
-		model.sceneChanged.watch(e => {
-			if (e.hasChanges('rows')) {
-				this.invalidate();
-				wasInvalidated = true;
-			}
-		});
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('rows')) {
+					this.invalidate();
+					wasInvalidated = true;
+				}
+			});
 
-		model.rowChanged.watch(e => {
-			if (e.hasChanges('pinTop') || e.hasChanges('pinBottom')) {
-				this.invalidate();
-				wasInvalidated = true;
-			}
-		});
+		observeReply(model.rowChanged)
+			.subscribe(e => {
+				if (e.hasChanges('pinTop') || e.hasChanges('pinBottom')) {
+					this.invalidate();
+					wasInvalidated = true;
+				}
+			});
 
 		if (!wasInvalidated) {
 			this.invalidate();
@@ -35,8 +35,7 @@ export class BodyView {
 	invalidate() {
 		Log.info('view.body', 'invalidate');
 
-		const model = this.model;
-		const table = this.table;
+		const { model, table } = this.plugin;
 		const { rows } = model.scene();
 
 		if (!(rows.length || model.data().rows.length)) {

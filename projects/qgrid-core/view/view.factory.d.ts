@@ -1,14 +1,10 @@
 import { CommandManager } from '../command/command.manager';
-import { Model } from '../infrastructure/model';
-import { Table } from '../dom/table';
-import { Disposable } from '../infrastructure/disposable';
+import { GridPlugin } from '../plugin/grid.plugin';
 
 export declare function viewFactory(
-	model: Model,
-	table: Table,
+	plugin: GridPlugin,
 	commandManager: CommandManager,
 	gridService: any,
 	vscroll: any,
-	selectors: any,
-	disposable: Disposable
-): (host: any) => () => void;
+	selectors: any
+);

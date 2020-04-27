@@ -20,7 +20,6 @@ export class GridRoot implements OnDestroy {
 		foot: new DomBag()
 	};
 
-
 	get isReady() {
 		return !!this.gridModel;
 	}
