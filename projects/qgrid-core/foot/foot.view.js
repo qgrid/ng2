@@ -4,18 +4,19 @@ import { Log } from '../infrastructure/log';
 import { getFactory as valueFactory } from '../services/value';
 
 export class FootView {
-	constructor(model, table) {
-		this.model = model;
-		this.table = table;
+	constructor(plugin) {
+		const { model, observeReply } = plugin;
+
+		this.plugin = plugin;
+		this.valueFactory = valueFactory;
 		this.rows = [];
 
-		this.valueFactory = valueFactory;
-
-		model.sceneChanged.watch(e => {
-			if (e.hasChanges('column')) {
-				this.invalidate();
-			}
-		});
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('column')) {
+					this.invalidate();
+				}
+			});
 	}
 
 	invalidate() {
@@ -25,12 +26,12 @@ export class FootView {
 	}
 
 	columns(row, pin) {
-		const model = this.model;
+		const { model } = this.plugin;
 		return model.scene().column.area[pin] || [];
 	}
 
 	get count() {
-		const model = this.model;
+		const { model } = this.plugin;
 		const { columns } = model.view();
 		const resourceCount = model.foot().resource.count;
 
@@ -54,11 +55,13 @@ export class FootView {
 					`Aggregation ${aggregation} is not registered`);
 			}
 
-			const { rows } = this.model.data();
+			const { model } = this.plugin;
+			const { rows } = model.data();
+			
 			const getValue = this.valueFactory(column);
-
 			return Aggregation[aggregation](rows, getValue, aggregationOptions);
 		}
+
 		return null;
 	}
 }

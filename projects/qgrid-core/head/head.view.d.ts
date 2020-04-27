@@ -5,11 +5,12 @@ import { GridPlugin } from '../plugin/grid.plugin';
 export declare class HeadView {
 	constructor(plugin: GridPlugin, tagName: string);
 
-	drop: Command<{ dragData: string }>;
-	drag: Command<{ dragData: string }>;
+	readonly drop: Command<{ dragData: string }>;
+	readonly drag: Command<{ dragData: string }>;
 
-	resize: Command;
+	readonly resize: Command;
 
-	rows: ColumnView[][];
-	columns(row: any, pin: string);
+	readonly rows: ColumnView[][];
+
+	columns(row: any, pin: string): ColumnView[];
 }
