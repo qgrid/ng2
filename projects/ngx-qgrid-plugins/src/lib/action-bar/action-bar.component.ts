@@ -21,22 +21,23 @@ export class ActionBarComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		const { model } = this.plugin;
+		const { model, observeReply } = this.plugin;
 
-		model.actionChanged.watch(e => {
-			if (e.hasChanges('items')) {
-				if (this.shortcutOff) {
-					this.shortcutOff();
-					this.shortcutOff = null;
+		observeReply(model.actionChanged)
+			.subscribe(e => {
+				if (e.hasChanges('items')) {
+					if (this.shortcutOff) {
+						this.shortcutOff();
+						this.shortcutOff = null;
+					}
+
+					const { shortcut, manager } = model.action();
+					this.shortcutOff = shortcut.register(manager, e.state.items.map(act => act.command));
+
+					this.cd.markForCheck();
+					this.cd.detectChanges();
 				}
-
-				const { shortcut, manager } = model.action();
-				this.shortcutOff = shortcut.register(manager, e.state.items.map(act => act.command));
-
-				this.cd.markForCheck();
-				this.cd.detectChanges();
-			}
-		});
+			});
 	}
 
 	get actions(): Action[] {

@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
-import { GridPlugin } from '@qgrid/ngx';
+import { GridPlugin, GridEventArg } from '@qgrid/ngx';
 import { TemplateHostService, GridError } from '@qgrid/ngx';
 
 @Component({
@@ -27,16 +27,17 @@ export class PaneComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const { model } = this.plugin;
+		const { model, observeReply } = this.plugin;
 		const scope = this.parse();
 		if (scope) {
 			const [state, prop] = scope;
-			model[`${state}Changed`].watch(e => {
-				if (!prop || e.hasChanges(prop)) {
-					this.close('right');
-					this.open('right');
-				}
-			});
+			observeReply(model[`${state}Changed`])
+				.subscribe((e: GridEventArg<any>) => {
+					if (!prop || e.hasChanges(prop)) {
+						this.close('right');
+						this.open('right');
+					}
+				});
 		}
 	}
 

@@ -23,14 +23,17 @@ export class ColumnFilterTriggerComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.plugin.model.filterChanged.watch(e => {
-			if (e.hasChanges('by')) {
-				if (this.plugin.view.filter.has(this.column)) {
-					this.element.nativeElement.classList.add(`${GRID_PREFIX}-active`);
-				} else {
-					this.element.nativeElement.classList.remove(`${GRID_PREFIX}-active`);
+		const { model, observeReply } = this.plugin;
+
+		observeReply(model.filterChanged)
+			.subscribe(e => {
+				if (e.hasChanges('by')) {
+					if (this.plugin.view.filter.has(this.column)) {
+						this.element.nativeElement.classList.add(`${GRID_PREFIX}-active`);
+					} else {
+						this.element.nativeElement.classList.remove(`${GRID_PREFIX}-active`);
+					}
 				}
-			}
-		});
+			});
 	}
 }

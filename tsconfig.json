@@ -1,20 +1,6 @@
 {
-  "compileOnSave": false,
+  "extends": "./tsconfig.prod.json",
   "compilerOptions": {
-    "baseUrl": "./",
-    "downlevelIteration": true,
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
     "paths": {
       "ng2-qgrid/theme/material": [
         "./projects/ng2-qgrid-theme-material/src/public-api.ts"
@@ -37,15 +23,6 @@
       "@qgrid/ngx-plugins": [
         "./projects/ngx-qgrid-plugins/src/public-api.ts"
       ]
-    },
-    "lib": [
-      "es2018",
-      "dom"
-    ]
-  },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true,
-    "enableIvy": true
+    }
   }
 }
