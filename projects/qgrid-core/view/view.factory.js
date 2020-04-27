@@ -49,8 +49,8 @@ export function viewFactory(
 		host.head = new HeadView(plugin, selectors.th);
 		host.body = new BodyView(plugin);
 		host.foot = new FootView(plugin);
-		host.row = new RowView(model, table, selectors.tr);
-		host.layout = new LayoutView(model, table, gridService, disposable);
+		host.row = new RowView(plugin, table, selectors.tr);
+		host.layout = new LayoutView(plugin, gridService);
 		host.scroll = new ScrollView(model, table, vscroll, gridService);
 		host.highlight = new HighlightView(model, table);
 		host.sort = new SortView(model);

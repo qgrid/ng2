@@ -1,24 +1,26 @@
+import { Log } from '../infrastructure/log';
 import * as css from '../services/css';
 import * as columnService from '../column/column.service';
-import { Log } from '../infrastructure/log';
 
 export class LayoutView {
-	constructor(model, table, service, disposable) {
-		this.model = model;
-		this.table = table;
-		this.service = service;
+	constructor(plugin, gridService) {
+		const { model, observeReply, disposable } = plugin;
 
-		model.navigationChanged.watch(e => {
-			if (e.hasChanges('cell')) {
-				const oldColumn = e.changes.cell.oldValue ? e.changes.cell.oldValue.column : {};
-				const newColumn = e.changes.cell.newValue ? e.changes.cell.newValue.column : {};
+		this.plugin = plugin;
+		this.service = gridService;
 
-				if (oldColumn.key !== newColumn.key && (oldColumn.viewWidth || newColumn.viewWidth)) {
-					const form = this.updateColumnForm();
-					this.invalidateColumns(form);
+		observeReply(model.navigationChanged)
+			.subscribe(e => {
+				if (e.hasChanges('cell')) {
+					const oldColumn = e.changes.cell.oldValue ? e.changes.cell.oldValue.column : {};
+					const newColumn = e.changes.cell.newValue ? e.changes.cell.newValue.column : {};
+
+					if (oldColumn.key !== newColumn.key && (oldColumn.viewWidth || newColumn.viewWidth)) {
+						const form = this.updateColumnForm();
+						this.invalidateColumns(form);
+					}
 				}
-			}
-		});
+			});
 
 		this.onInit();
 
@@ -29,61 +31,65 @@ export class LayoutView {
 	}
 
 	onInit() {
-		const model = this.model;
+		const { model, observeReply } = this.plugin;
 
 		const styleRow = this.styleRow.bind(this);
-		model.layoutChanged.watch(e => {
-			if (e.tag.source === 'layout.view') {
-				return;
-			}
-
-			if (e.hasChanges('columns')) {
-				const form = this.updateColumnForm();
-				this.invalidateColumns(form);
-			}
-		});
-
-		model.rowChanged.watch(e => {
-			if (e.hasChanges('canResize')) {
-				const rows = Array.from(model.style().rows);
-				if (e.state.canResize) {
-					rows.push(styleRow);
+		observeReply(model.layoutChanged)
+			.subscribe(e => {
+				if (e.tag.source === 'layout.view') {
+					return;
 				}
-				else {
-					const index = model.style.rows.indexOf(styleRow);
-					rows.splice(index, 1);
+
+				if (e.hasChanges('columns')) {
+					const form = this.updateColumnForm();
+					this.invalidateColumns(form);
 				}
-				model.style({ rows }, { source: 'layout.view' });
-			}
-		});
+			});
 
-		model.dataChanged.watch(e => {
-			if (e.hasChanges('columns')) {
-				model.layout({
-					columns: new Map()
-				}, {
-					source: 'layout.view',
-					behavior: 'core'
-				});
-			}
-		});
-
-		model.sceneChanged.watch(e => {
-			if (e.hasChanges('status')) {
-				if (e.state.status === 'stop') {
-					this.updateColumnForm();
+		observeReply(model.rowChanged)
+			.subscribe(e => {
+				if (e.hasChanges('canResize')) {
+					const rows = Array.from(model.style().rows);
+					if (e.state.canResize) {
+						rows.push(styleRow);
+					}
+					else {
+						const index = model.style.rows.indexOf(styleRow);
+						rows.splice(index, 1);
+					}
+					model.style({ rows }, { source: 'layout.view' });
 				}
-			}
+			});
 
-			if (e.hasChanges('column')) {
-				const { columns } = this.model.layout();
-				this.invalidateColumns(columns);
-			}
-		});
+		observeReply(model.dataChanged)
+			.subscribe(e => {
+				if (e.hasChanges('columns')) {
+					model.layout({
+						columns: new Map()
+					}, {
+						source: 'layout.view',
+						behavior: 'core'
+					});
+				}
+			});
+
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('status')) {
+					if (e.state.status === 'stop') {
+						this.updateColumnForm();
+					}
+				}
+
+				if (e.hasChanges('column')) {
+					const { columns } = model.layout();
+					this.invalidateColumns(columns);
+				}
+			});
 	}
 
 	updateColumnForm() {
-		const { model, table } = this;
+		const { model, table } = this.plugin;
 		const { head } = table;
 		const { cells } = head.context.bag;
 		const layout = model.layout().columns;
@@ -125,7 +131,7 @@ export class LayoutView {
 	invalidateColumns(form) {
 		Log.info('layout', 'invalidate columns');
 
-		const { table } = this;
+		const { table } = this.plugin;
 		const columns = table.data.columns();
 		const getWidth = columnService.widthFactory(table, form);
 
@@ -154,8 +160,9 @@ export class LayoutView {
 	}
 
 	styleRow(row, context) {
-		const model = this.model;
-		const layout = model.layout;
+		const { model } = this.plugin;
+		const { layout } = model;
+
 		const form = layout().rows;
 		const style = form.get(row);
 		if (style) {
@@ -164,6 +171,6 @@ export class LayoutView {
 	}
 
 	get gridId() {
-		return this.model.grid().id;
+		return this.plugin.model.grid().id;
 	}
 }

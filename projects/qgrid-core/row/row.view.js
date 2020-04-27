@@ -5,8 +5,10 @@ import { GRID_PREFIX } from '../definition';
 import { eventPath } from '../services/dom';
 
 export class RowView {
-	constructor(model, table, tagName) {
-		this.model = model;
+	constructor(plugin, tagName) {
+		const { model, table, observe } = plugin;
+
+		this.plugin = plugin;
 		this.tagName = tagName;
 
 		const pathFinder = new PathService(table.context.bag.body);
@@ -98,23 +100,24 @@ export class RowView {
 			source: 'row.view'
 		});
 
-		model.dataChanged.on(e => {
-			if (e.hasChanges('rows')) {
-				model.rowList({
-					index: new Map(),
-				}, {
+		observe(model.dataChanged)
+			.subscribe(e => {
+				if (e.hasChanges('rows')) {
+					model.rowList({
+						index: new Map(),
+					}, {
 						source: 'row.view',
 						behavior: 'core'
 					});
-			}
-		})
+				}
+			})
 	}
 
 	get canMove() {
-		return this.model.row().canMove;
+		return this.plugin.model.row().canMove;
 	}
 
 	get canResize() {
-		return this.model.row().canResize;
+		return this.plugin.model.row().canResize;
 	}
 }

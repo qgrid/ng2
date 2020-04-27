@@ -1,13 +1,12 @@
 import { Command } from '../command/command';
-import { Model } from '../infrastructure/model';
-import { Table } from '../dom/table';
+import { GridPlugin } from '../plugin/grid.plugin';
 
 export declare class RowView {
-	constructor(model: Model, table: Table, tagName: string);
+	constructor(plugin: GridPlugin, tagName: string);
 
-	drop: Command<{ dragData: number }>;
-	drag: Command<{ dragData: number }>;
+	readonly drop: Command<{ dragData: number }>;
+	readonly drag: Command<{ dragData: number }>;
 
-	canMove: boolean;
-	canResize: boolean;
+	readonly canMove: boolean;
+	readonly canResize: boolean;
 }
