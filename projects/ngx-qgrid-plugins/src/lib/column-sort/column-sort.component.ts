@@ -41,7 +41,7 @@ export class ColumnSortComponent implements AfterViewInit {
 		const iconAsc = nativeElement.querySelector('.q-grid-asc');
 		const iconDesc = nativeElement.querySelector('.q-grid-desc');
 
-		const columnSort = new ColumnSortPlugin(this.plugin.model, {
+		const columnSort = new ColumnSortPlugin(this.plugin, {
 			element: nativeElement,
 			view: this.plugin.view,
 			column: this.column,
@@ -52,7 +52,8 @@ export class ColumnSortComponent implements AfterViewInit {
 		const listener = new EventListener(nativeElement, new EventManager(this));
 		listener.on('click', () => {
 			if (columnSort.onClick()) {
-				const focus = new FocusAfterRender(this.plugin, null);
+				// tslint:disable-next-line:no-unused-expression
+				new FocusAfterRender(this.plugin, null);
 			}
 		});
 
