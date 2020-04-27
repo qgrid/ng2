@@ -9,8 +9,8 @@ import { set as setLabel } from '@qgrid/core/services/label';
 import * as columnService from '@qgrid/core/column/column.service';
 
 export class DataManipulationPlugin {
-	constructor(model, disposable) {
-		this.model = model;
+	constructor(plugin) {
+		this.plugin = plugin;
 
 		this.commitCommand = new Command({
 			execute: e => {
@@ -59,14 +59,15 @@ export class DataManipulationPlugin {
 				new Command({
 					source: 'data.manipulation',
 					execute: () => {
-						const newRow = this.rowFactory(this.model.data().rows[0]);
+						const { model } = this.plugin;
+						const { data } = model;
+
+						const newRow = this.rowFactory(model.data().rows[0]);
 						if (isUndefined(newRow)) {
 							throw new AppError('data.manipulation', 'Setup rowFactory property to add new rows');
 						}
 
 						const rowId = this.rowId(0, newRow);
-						const data = this.model.data;
-
 						this.changes.added.add(rowId);
 						data({
 							rows: [newRow].concat(data().rows)
@@ -89,11 +90,13 @@ export class DataManipulationPlugin {
 						return !this.changes.deleted.has(rowId);
 					},
 					execute: e => {
+						const { model } = this.plugin;
+						const { data } = model;
+
 						const rowId = this.rowId(e.rowIndex, e.row);
 						const changes = this.changes;
 						if (changes.added.has(rowId)) {
 							changes.added.delete(rowId);
-							const data = this.model.data;
 							const rows = data().rows.filter((row, i) => this.rowId(i, row) !== rowId);
 							data({ rows }, {
 								source: 'data.manipulation'
@@ -118,8 +121,10 @@ export class DataManipulationPlugin {
 
 						if (this.changes.edited.has(rowId)) {
 							try {
+								const { model } = this.plugin;
+
 								const edits = this.changes.edited.get(rowId);
-								const columnMap = columnService.map(this.model.columnList().line);
+								const columnMap = columnService.map(model.columnList().line);
 								for (const edit of edits) {
 									const column = columnMap[edit.column];
 									if (!column) {
@@ -155,6 +160,8 @@ export class DataManipulationPlugin {
 			// )
 		];
 
+		const { model, disposable, observeReply } = this.plugin;
+
 		this.rowId = model.data().id.row;
 		this.columnId = model.data().id.column;
 
@@ -186,15 +193,25 @@ export class DataManipulationPlugin {
 			model.action({ items: newItems });
 		});
 
-		model.columnListChanged.watch((e, off) => {
-			if (e.hasChanges('line')) {
-				const rowOptionsColumn = e.state.line.find(column => column.type === 'row-options');
-				if (rowOptionsColumn) {
-					rowOptionsColumn.editorOptions.actions.push(...this.rowActions);
-					off();
+		let columnListChangedDone = false;
+		let columnListChangedSub = observeReply(model.columnListChanged)
+			.subscribe(e => {
+				if (e.hasChanges('line')) {
+					const rowOptionsColumn = e.state.line.find(column => column.type === 'row-options');
+					if (rowOptionsColumn) {
+						rowOptionsColumn.editorOptions.actions.push(...this.rowActions);
+						columnListChangedDone = true;
+						if (columnListChangedSub) {
+							columnListChangedSub.unsubscribe();
+							columnListChangedSub = null;
+						}
+					}
 				}
-			}
-		});
+			});
+
+		if (columnListChangedDone && columnListChangedSub) {
+			columnListChangedSub.unsubscribe();
+		}
 	}
 
 	hasChanges(newValue, oldValue) {
@@ -235,7 +252,7 @@ export class DataManipulationPlugin {
 	}
 
 	get changes() {
-		const model = this.model;
+		const { model } = this.plugin;
 		return model.dataManipulation();
 	}
 

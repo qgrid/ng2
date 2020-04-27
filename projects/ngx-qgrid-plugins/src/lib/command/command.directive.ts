@@ -16,9 +16,6 @@ export class CommandDirective implements OnInit, OnDestroy {
 	@Input('q-grid-command-context') commandContext: any;
 	@Output('q-grid-command-execute') execute = new EventEmitter();
 
-	constructor() {
-	}
-
 	ngOnInit() {
 		const command = this.command;
 		if (command && command.shortcut) {
