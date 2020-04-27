@@ -1,5 +1,6 @@
 import { Model } from '../../infrastructure/model';
 import { Range } from '../../infrastructure/range';
+import { Markup } from '../../services/markup';
 
 export interface RangeMark {
 	element: HTMLElement;
@@ -8,7 +9,7 @@ export interface RangeMark {
 }
 
 export declare class SelectorMark {
-	constructor(model: Model, markup: { [key: string]: HTMLElement }, name: string);
+	constructor(model: Model, markup: Markup, name: string);
 
 	select(): RangeMark[];
 }

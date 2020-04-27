@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Guard } from '@qgrid/core/infrastructure/guard';
 import { CommandManager } from '@qgrid/core/command/command.manager';
-import { DomTable, DomBag } from '../dom/dom';
+import { DomTable } from '../dom/dom';
 import { GridModel } from '../grid/grid-model';
 import { Disposable } from '../infrastructure/disposable';
 
@@ -12,13 +12,6 @@ export class GridRoot implements OnDestroy {
 
 	table: DomTable;
 	commandManager: CommandManager;
-
-	markup: { [key: string]: HTMLElement } = {};
-	bag = {
-		head: new DomBag(),
-		body: new DomBag(),
-		foot: new DomBag()
-	};
 
 	get isReady() {
 		return !!this.gridModel;

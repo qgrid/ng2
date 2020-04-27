@@ -22,10 +22,10 @@ export class TrhCoreDirective implements DomTr, OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		this.root.bag[this.source].addRow(this);
+		this.root.table.context.bag[this.source].addRow(this);
 	}
 
 	ngOnDestroy() {
-		this.root.bag[this.source].deleteRow(this);
+		this.root.table.context.bag[this.source].deleteRow(this);
 	}
 }

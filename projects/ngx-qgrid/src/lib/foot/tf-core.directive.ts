@@ -39,10 +39,10 @@ export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		const column = this.column;
-		const element = this.element;
+		const { column, element } = this;
+		const { table } = this.root;
 
-		this.root.bag.foot.addCell(this);
+		table.context.bag.foot.addCell(this);
 		classify(element, column);
 
 		const link = this.cellService.build('foot', this.column);
@@ -86,6 +86,7 @@ export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		this.root.bag.foot.deleteCell(this);
+		const { table } = this.root;
+		table.context.bag.foot.deleteCell(this);
 	}
 }

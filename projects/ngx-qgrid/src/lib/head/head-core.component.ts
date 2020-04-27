@@ -29,7 +29,7 @@ export class HeadCoreComponent implements OnInit {
 		const { model } = this.root;
 
 		const element = this.elementRef.nativeElement;
-		const ctrl = new HeadCtrl(model, this.$view, this.root.bag);
+		const ctrl = new HeadCtrl(model, this.$view, this.root.table.context.bag);
 		const listener = new EventListener(element, new EventManager(this));
 
 		this.zone.runOutsideAngular(() => {

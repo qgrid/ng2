@@ -3,9 +3,10 @@ import { Unit } from './unit';
 import { BoxContext } from './box';
 import { ColumnView } from '../scene/view/column.view';
 import { Model } from '../infrastructure/model';
+import { Markup } from '../services/markup';
 
 export declare class View extends Unit {
-	constructor(context: BoxContext, model: Model, markup: { [key: string]: HTMLElement });
+	constructor(context: BoxContext, model: Model, markup: Markup);
 
 	columns(): ColumnView[];
 

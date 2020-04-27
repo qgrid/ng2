@@ -1,6 +1,6 @@
 
 export class AutofocusPlugin {
-	constructor(plugin, markup) {
+	constructor(plugin) {
 		const { model, table, observeReply } = plugin;
 		observeReply('scene')
 			.subscribe(e => {
@@ -10,9 +10,9 @@ export class AutofocusPlugin {
 						if (count) {
 							off();
 
-							const key = Object.keys(markup).find(p => p.startsWith('body'));
+							const key = Object.keys(table.markup).find(p => p.startsWith('body'));
 							if (key) {
-								const element = markup[key];
+								const element = table.markup[key];
 								if (element) {
 									element.focus();
 								}

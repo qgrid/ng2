@@ -42,7 +42,7 @@ export class BodyCoreComponent implements OnInit {
 
 		const nativeElement = this.elementRef.nativeElement as HTMLElement;
 
-		const ctrl = new BodyCtrl(this.plugin, this.root.bag);
+		const ctrl = new BodyCtrl(this.plugin);
 		const listener = new EventListener(nativeElement, new EventManager(this));
 
 		this.zone.runOutsideAngular(() => {

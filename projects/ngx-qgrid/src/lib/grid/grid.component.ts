@@ -35,6 +35,7 @@ import { ThemeService } from '../theme/theme.service';
 import { GridView } from './grid-view';
 import { Disposable } from '../infrastructure/disposable';
 import { GridModel } from './grid-model';
+import { tableFactory } from '@qgrid/core/dom/table.factory';
 
 @Component({
 	selector: 'q-grid',
@@ -159,56 +160,60 @@ export class GridComponent extends RootComponent implements OnInit {
 			source: 'grid'
 		});
 
+		const table = tableFactory(model, name => this.layerService.create(name));
+		const commandManager = new TableCommandManager(f => f(), table);
 		const ctrl = new GridCtrl(
-			model, {
-			layerFactory: () => this.layerService,
-			element: nativeElement
-		},
+			nativeElement,
+			model,
+			table,
 			this.disposable
 		);
 
-		this.root.table = ctrl.table;
-		this.root.bag = ctrl.bag;
-		this.root.markup = ctrl.markup;
-
-		this.root.commandManager = new TableCommandManager(
-			f => f(),
-			ctrl.table
-		);
+		this.root.table = table;
+		this.root.commandManager = commandManager;
 
 		const listener = new EventListener(nativeElement, new EventManager(this));
 		const docListener = new EventListener(this.document, new EventManager(this));
 
 		this.zone.runOutsideAngular(() => {
-			this.disposable.add(docListener.on('focusin', () => ctrl.invalidateActive()));
-			this.disposable.add(docListener.on('click', e => {
-				const path = eventPath(e);
-				const clickedOutside = path.every(x => x !== nativeElement);
-				if (clickedOutside) {
-					if (model.edit().state === 'edit') {
-						model.edit({
-							state: 'view'
-						}, {
-							source: 'document.click'
-						});
+			this.disposable.add(
+				docListener.on('focusin', () => ctrl.invalidateActive())
+			);
+
+			this.disposable.add(
+				docListener.on('click', e => {
+					const path = eventPath(e);
+					const clickedOutside = path.every(x => x !== nativeElement);
+					if (clickedOutside) {
+						if (model.edit().state === 'edit') {
+							model.edit({
+								state: 'view'
+							}, {
+								source: 'document.click'
+							});
+						}
 					}
+				}));
+		});
+
+		this.disposable.add(
+			listener.on('keydown', e => {
+				const result = ctrl.keyDown(e, 'grid');
+				if (result.indexOf('selection.view') >= 0) {
+					this.cd.markForCheck();
+					this.zone.run(noop);
 				}
 			}));
-		});
-
-		this.disposable.add(listener.on('keydown', e => {
-			const result = ctrl.keyDown(e, 'grid');
-			if (result.indexOf('selection.view') >= 0) {
-				this.cd.markForCheck();
-				this.zone.run(noop);
-			}
-		}));
 
 		this.zone.runOutsideAngular(() => {
-			this.disposable.add(listener.on('keyup', e => ctrl.keyUp(e, 'grid')));
+			this.disposable.add(
+				listener.on('keyup', e => ctrl.keyUp(e, 'grid'))
+			);
 		});
 
-		this.disposable.add(model.visibilityChanged.on(() => this.cd.detectChanges()));
+		this.disposable.add(
+			model.visibilityChanged.on(() => this.cd.detectChanges())
+		);
 	}
 
 	// @deprecated

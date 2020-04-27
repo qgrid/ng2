@@ -5,44 +5,32 @@ import { uniq } from '../utility/kit';
 import { Keyboard } from '../keyboard/keyboard';
 
 export class GridCtrl {
-	constructor(model, context, disposable) {
+	constructor(host, model, table, disposable) {
 		this.model = model;
+		this.table = table;
 
 		const { grid } = model;
 		if (grid().status === 'bound') {
 			throw new AppError('grid.ctrl', `Model is already used by grid "${grid().id}"`);
 		}
 
-		this.markup = { document };
-
-		this.bag = {
-			head: new Bag(),
-			body: new Bag(),
-			foot: new Bag()
-		};
-
-		const element = context.element;
-		if (!element.id) {
-			element.id = model.grid().id;
+		if (!host.id) {
+			host.id = model.grid().id;
 		}
 
 		grid({ status: 'bound' }, { source: 'grid.ctrl' });
 
-		const layerFactory = context.layerFactory(this.markup);
-		const tableContext = {
-			layer: name => layerFactory.create(name),
-			bag: this.bag
-		};
+		disposable.add(
+			model.sceneChanged.watch(e => {
+				if (e.hasChanges('column')) {
+					this.invalidateVisibility();
+				}
+			})
+		);
 
-		this.table = new Table(model, this.markup, tableContext);
-
-		model.sceneChanged.watch(e => {
-			if (e.hasChanges('column')) {
-				this.invalidateVisibility();
-			}
-		});
-
-		disposable.add(() => model.grid({ status: 'unbound' }, { source: 'grid.ctrl' }));
+		disposable.add(
+			() => model.grid({ status: 'unbound' }, { source: 'grid.ctrl' })
+		);
 	}
 
 	keyUp(e) {
@@ -71,7 +59,7 @@ export class GridCtrl {
 	}
 
 	keyDown(e, source = 'grid') {
-		const model = this.model;
+		const { model } = this;
 		const { shortcut } = model.action();
 
 		const code = Keyboard.translate(e.keyCode);
@@ -101,10 +89,11 @@ export class GridCtrl {
 	}
 
 	invalidateVisibility() {
-		const { left, right } = this.model.scene().column.area;
-		const { pinTop, pinBottom } = this.model.row();
+		const { model } = this;
+		const { left, right } = model.scene().column.area;
+		const { pinTop, pinBottom } = model.row();
 
-		this.model.visibility({
+		model.visibility({
 			pin: {
 				left: left.length > 0,
 				right: right.length > 0,

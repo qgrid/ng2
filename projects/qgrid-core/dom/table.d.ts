@@ -4,14 +4,15 @@ import { Head } from './head';
 import { Body } from './body';
 import { Foot } from './foot';
 import { BoxContext } from './box';
+import { Markup } from '../services/markup';
 
 /**
  * Use this class to get access to low level dom elements and functions of the qgrid.
  */
 export declare class Table {
-	constructor(markup: { [key: string]: HTMLElement }, context: BoxContext);
+	constructor(markup: Markup, context: BoxContext);
 
-	readonly markup: { [key: string]: HTMLElement };
+	readonly markup: Markup;
 	readonly context: BoxContext;
 
 	/**

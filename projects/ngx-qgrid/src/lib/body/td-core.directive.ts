@@ -50,7 +50,8 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	}
 
 	ngOnInit() {
-		this.root.bag.body.addCell(this);
+		const { table } = this.root;
+		table.context.bag.body.addCell(this);
 		classify(this.element, this.column);
 
 		const link = this.cellService.build('body', this.column, 'view');
@@ -163,6 +164,7 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	}
 
 	ngOnDestroy() {
-		this.root.bag.body.deleteCell(this);
+		const { table } = this.root;
+		table.context.bag.body.deleteCell(this);
 	}
 }

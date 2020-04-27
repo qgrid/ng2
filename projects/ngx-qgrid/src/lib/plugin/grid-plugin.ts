@@ -3,9 +3,10 @@ import { ModelBinder } from '@qgrid/core/infrastructure/model.bind';
 import { DomTable } from '../dom/dom';
 import { Disposable } from '../infrastructure/disposable';
 import { GridRoot } from '../grid/grid-root';
-import { GridView } from '../grid/grid-view';
+import { GridView as NgxGridView } from '../grid/grid-view';
 import { GridModel, GridEvent } from '../grid/grid-model';
 import { ObservableLike } from '@qgrid/core/infrastructure/rx';
+import { GridView } from '@qgrid/core/grid/grid.view';
 
 
 @Injectable()
@@ -21,18 +22,22 @@ export class GridPlugin implements OnDestroy {
 	}
 
 	constructor(
-		public view: GridView,
-		private root: GridRoot,
+		private $view: NgxGridView,
+		private $root: GridRoot,
 	) { }
 
 	get model(): GridModel {
-		const { model } = this.root;
+		const { model } = this.$root;
 		return model;
 	}
 
 	get table(): DomTable {
-		const { table } = this.root;
+		const { table } = this.$root;
 		return table;
+	}
+
+	get view(): GridView {
+		return this.$view;
 	}
 
 	keep(changes: SimpleChanges, states: string[]): void {

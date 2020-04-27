@@ -1,7 +1,7 @@
 import { GridPlugin } from '../plugin/grid.plugin';
 
 export declare class BodyCtrl {
-	constructor(plugin: GridPlugin, bag: any);
+	constructor(plugin: GridPlugin);
 
 	onScroll(e: any);
 	onWheel(e: any);

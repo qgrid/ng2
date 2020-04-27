@@ -56,7 +56,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 
 	ngOnInit() {
 		const { model, table, observe, observeReply } = this.plugin;
-		this.root.markup['view'] = this.elementRef.nativeElement;
+		table.markup['view'] = this.elementRef.nativeElement;
 
 		// Views need to be init after `sceneChanged.watch` declaration
 		// to persist the right order of event sourcing.

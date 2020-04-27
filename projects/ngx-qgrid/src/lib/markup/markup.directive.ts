@@ -12,14 +12,16 @@ export class MarkupDirective implements OnInit, OnDestroy {
 		private root: GridRoot,
 		private elementRef: ElementRef,
 		@Optional() private table: TableCoreService
-	) {}
+	) { }
 
 	ngOnInit() {
-		this.root.markup[this.getName()] = this.elementRef.nativeElement;
+		const { table } = this.root;
+		table.markup[this.getName()] = this.elementRef.nativeElement;
 	}
 
 	ngOnDestroy() {
-		delete this.root.markup[this.getName()];
+		const { table } = this.root;
+		delete table.markup[this.getName()];
 	}
 
 	private getName() {

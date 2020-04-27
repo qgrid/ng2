@@ -44,10 +44,10 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		const column = this.column;
-		const element = this.element;
+		const { column, element } = this;
+		const { table } = this.root;
 
-		this.root.bag.head.addCell(this);
+		table.context.bag.head.addCell(this);
 		classifyTd(element, column);
 		classifyTh(element, column);
 
@@ -89,10 +89,14 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 	}
 
 	mode(value: string): void {
-		throw new AppError('th-core.directive', `${value} mode is not supported`);
+		throw new AppError(
+			'th-core.directive',
+			`${value} mode is not supported`
+		);
 	}
 
 	ngOnDestroy() {
-		this.root.bag.head.deleteCell(this);
+		const { table } = this.root;
+		table.context.bag.head.deleteCell(this);
 	}
 }

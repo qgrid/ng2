@@ -12,9 +12,8 @@ const HORIZONTAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-horizontal`;
 const DEFAULT_DELTA_Y = 100;
 
 export class BodyCtrl {
-	constructor(plugin, bag) {
+	constructor(plugin) {
 		this.plugin = plugin;
-		this.bag = bag;
 		this.scrollingJob = jobLine(100);
 		this.rangeStartCell = null;
 	}
@@ -76,10 +75,10 @@ export class BodyCtrl {
 	}
 
 	onMouseDown(e) {
-		const { model, view } = this.plugin;
+		const { model, view, table } = this.plugin;
 		const { edit } = model;
 
-		const pathFinder = new PathService(this.bag.body);
+		const pathFinder = new PathService(table.context.bag.body);
 		const cell = pathFinder.cell(eventPath(e));
 
 		if (checkButtonCode(e, LEFT_BUTTON)) {
@@ -117,8 +116,8 @@ export class BodyCtrl {
 	}
 
 	onMouseMove(e) {
-		const { model, view } = this.plugin;
-		const pathFinder = new PathService(this.bag.body);
+		const { model, view, table } = this.plugin;
+		const pathFinder = new PathService(table.context.bag.body);
 		const td = pathFinder.cell(eventPath(e));
 
 		if (td) {
@@ -176,11 +175,11 @@ export class BodyCtrl {
 	}
 
 	onMouseUp(e) {
-		const { model } = this.plugin;
+		const { model, table } = this.plugin;
 		const { mode } = this.selection;
 		const { edit } = model;
 
-		const pathFinder = new PathService(this.bag.body);
+		const pathFinder = new PathService(table.context.bag.body);
 		const cell = pathFinder.cell(eventPath(e));
 
 		if (checkButtonCode(e, LEFT_BUTTON)) {

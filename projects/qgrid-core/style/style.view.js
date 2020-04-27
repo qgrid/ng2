@@ -111,10 +111,10 @@ export class StyleView {
 		// To improve performance take rows and cells directly from the bag and not from the DOM table. 
 		const { body } = table;
 		const { rowToView, columnToView } = table.context.mapper;
-		const bag = table.context.bag.body;
+		const bodyBag = table.context.bag.body;
 
 		if (isRowActive) {
-			const rows = table.context.bag.body.getRowElements();
+			const rows = bodyBag.getRowElements();
 			for (let tr of rows) {
 				const { index, element, model } = tr;
 				// This private method we use only for performance, don't use it in other places.
@@ -129,7 +129,7 @@ export class StyleView {
 		}
 
 		if (isCellActive) {
-			const cells = table.context.bag.body.getCellElements();
+			const cells = bodyBag.getCellElements();
 			for (let td of cells) {
 				const { rowIndex, columnIndex, element, row, column } = td;
 				// This private method we use only for performance, don't use it in other places.

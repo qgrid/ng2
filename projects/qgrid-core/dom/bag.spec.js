@@ -1,15 +1,15 @@
-import {Bag} from './bag';
+import { Bag } from './bag';
 
 describe('Bag', () => {
 
-	afterEach(function() {
+	afterEach(function () {
 		bag.elements.clear();
 		bag.rows.clear();
 		bag.cells.clear();
 	});
 
-	let row = {element: 'row'};
-	let cell = {element: 'cell'};
+	let row = { element: 'row' };
+	let cell = { element: 'cell' };
 	let bag = new Bag();
 
 	describe('addRow', () => {
@@ -32,7 +32,7 @@ describe('Bag', () => {
 		it('returns true if model was found', () => {
 			bag.addCell(cell);
 			let model = bag.findModel('cell');
-			let result =  model.element === 'cell';
+			let result = model.element === 'cell';
 			expect(result).to.equal(true);
 		});
 	});
