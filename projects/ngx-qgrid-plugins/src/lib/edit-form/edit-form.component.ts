@@ -1,14 +1,12 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { EditFormPanelPlugin } from '@qgrid/plugins/edit-form/edit.form.panel.plugin';
-import { GridPlugin } from '@qgrid/ngx';
-import { Disposable, DomTd } from '@qgrid/ngx';
+import { GridPlugin, DomTd } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-edit-form',
 	templateUrl: './edit-form.component.html',
 	providers: [
-		GridPlugin,
-		Disposable
+		GridPlugin
 	]
 })
 export class EditFormComponent implements OnInit {
@@ -22,17 +20,16 @@ export class EditFormComponent implements OnInit {
 	context: { $implicit: EditFormPanelPlugin };
 
 	constructor(
-		private plugin: GridPlugin,
-		private disposable: Disposable
+		private plugin: GridPlugin
 	) {
 	}
 
 	ngOnInit() {
 		const editFormPanel = new EditFormPanelPlugin(
-			this.plugin.model,
-			{ row: this.cell.row, caption: this.caption },
-			this.disposable
-		);
+			this.plugin, {
+			row: this.cell.row,
+			caption: this.caption
+		});
 
 		editFormPanel.submitEvent.on(() => this.submit.emit());
 		editFormPanel.cancelEvent.on(() => this.cancel.emit());
