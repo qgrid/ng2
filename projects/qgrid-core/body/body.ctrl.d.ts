@@ -1,8 +1,7 @@
-import { Model } from '../infrastructure/model';
-import { Table } from '../dom/table';
+import { GridPlugin } from '../plugin/grid.plugin';
 
 export declare class BodyCtrl {
-	constructor(model: Model, view: any, table: Table, bag: any);
+	constructor(plugin: GridPlugin, bag: any);
 
 	onScroll(e: any);
 	onWheel(e: any);

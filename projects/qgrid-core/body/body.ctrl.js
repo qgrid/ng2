@@ -12,29 +12,28 @@ const HORIZONTAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-horizontal`;
 const DEFAULT_DELTA_Y = 100;
 
 export class BodyCtrl {
-	constructor(model, view, table, bag) {
-		this.model = model;
-		this.view = view;
+	constructor(plugin, bag) {
+		this.plugin = plugin;
 		this.bag = bag;
-		this.table = table;
-		this.rangeStartCell = null;
 		this.scrollingJob = jobLine(100);
+		this.rangeStartCell = null;
 	}
 
 	onScroll(e) {
-		const { scroll } = this.model;
+		const { model, table } = this.plugin;
+		const { scroll } = model;
 
 		const oldValue = scroll();
 		const newValue = {};
 		let hasChanges = false;
 		if (oldValue.top !== e.scrollTop) {
-			this.table.view.addClass(VERTICAL_SCROLL_CLASS);
+			table.view.addClass(VERTICAL_SCROLL_CLASS);
 			newValue.top = e.scrollTop;
 			hasChanges = true;
 		}
 
 		if (oldValue.left !== e.scrollLeft) {
-			this.table.view.addClass(HORIZONTAL_SCROLL_CLASS);
+			table.view.addClass(HORIZONTAL_SCROLL_CLASS);
 			newValue.left = e.scrollLeft;
 			hasChanges = true;
 		}
@@ -50,8 +49,10 @@ export class BodyCtrl {
 	}
 
 	onScrollEnd() {
-		this.table.view.removeClass(VERTICAL_SCROLL_CLASS);
-		this.table.view.removeClass(HORIZONTAL_SCROLL_CLASS);
+		const { table } = this.plugin;
+
+		table.view.removeClass(VERTICAL_SCROLL_CLASS);
+		table.view.removeClass(HORIZONTAL_SCROLL_CLASS);
 	}
 
 	onWheel(e) {
@@ -59,7 +60,7 @@ export class BodyCtrl {
 			return;
 		}
 
-		const { model, table } = this;
+		const { model, table } = this.plugin;
 		if (model.edit().state === 'view') {
 			const { scroll } = model;
 			const upper = 0;
@@ -75,7 +76,7 @@ export class BodyCtrl {
 	}
 
 	onMouseDown(e) {
-		const { model } = this;
+		const { model, view } = this.plugin;
 		const { edit } = model;
 
 		const pathFinder = new PathService(this.bag.body);
@@ -92,15 +93,15 @@ export class BodyCtrl {
 				this.navigate(cell);
 				this.select(cell);
 
-				if (beforeSelectState === 'view' && this.view.edit.cell.enter.canExecute(cell)) {
-					this.view.edit.cell.enter.execute(cell);
+				if (beforeSelectState === 'view' && view.edit.cell.enter.canExecute(cell)) {
+					view.edit.cell.enter.execute(cell);
 				}
 
 				if (mode === 'range') {
 					this.rangeStartCell = cell;
 
 					if (this.rangeStartCell) {
-						this.view.selection.selectRange(this.rangeStartCell, null, 'body');
+						view.selection.selectRange(this.rangeStartCell, null, 'body');
 					}
 				}
 			}
@@ -116,12 +117,13 @@ export class BodyCtrl {
 	}
 
 	onMouseMove(e) {
+		const { model, view } = this.plugin;
 		const pathFinder = new PathService(this.bag.body);
 		const td = pathFinder.cell(eventPath(e));
 
 		if (td) {
-			const { highlight } = this.view;
-			const { rows, cell } = this.model.highlight();
+			const { highlight } = view;
+			const { rows, cell } = model.highlight();
 
 			if (cell) {
 				highlight.cell.execute(cell, false);
@@ -156,14 +158,15 @@ export class BodyCtrl {
 
 			if (startCell && endCell) {
 				this.navigate(endCell);
-				this.view.selection.selectRange(startCell, endCell, 'body');
+				view.selection.selectRange(startCell, endCell, 'body');
 			}
 		}
 	}
 
 	onMouseLeave() {
-		const { highlight } = this.view;
-		const { rows, cell } = this.model.highlight();
+		const { model, view } = this.plugin;
+		const { highlight } = view;
+		const { rows, cell } = model.highlight();
 
 		rows.forEach(rowIndex => highlight.row.execute(rowIndex, false));
 
@@ -173,9 +176,9 @@ export class BodyCtrl {
 	}
 
 	onMouseUp(e) {
-		const { model } = this;
+		const { model } = this.plugin;
 		const { mode } = this.selection;
-		const { edit } = this.model;
+		const { edit } = model;
 
 		const pathFinder = new PathService(this.bag.body);
 		const cell = pathFinder.cell(eventPath(e));
@@ -213,48 +216,53 @@ export class BodyCtrl {
 			return;
 		}
 
-		const model = this.model;
+		const { model, view } = this.plugin;
 		const editMode = model.edit().mode;
 		switch (unit) {
 			case 'row': {
 				if (cell.column.type === 'select' && cell.column.editorOptions.trigger === 'focus') {
 					const focusState = model.focus();
 					if (focusState.rowIndex !== cell.rowIndex || focusState.columnIndex !== cell.columnIndex) {
-						if (this.view.selection.toggleRow.canExecute(cell.row)) {
-							this.view.selection.toggleRow.execute(cell.row, 'body');
+						if (view.selection.toggleRow.canExecute(cell.row)) {
+							view.selection.toggleRow.execute(cell.row, 'body');
 						}
 					}
 				} else if (!editMode && cell.column.class !== 'control') {
-					if (this.view.selection.toggleRow.canExecute(cell.row)) {
-						this.view.selection.toggleRow.execute(cell.row, 'body');
+					if (view.selection.toggleRow.canExecute(cell.row)) {
+						view.selection.toggleRow.execute(cell.row, 'body');
 					}
 				}
+
 				break;
 			}
 
 			case 'column': {
 				if (!editMode) {
-					this.view.selection.toggleColumn.execute(cell.column, 'body');
+					view.selection.toggleColumn.execute(cell.column, 'body');
 				}
+
 				break;
 			}
 
 			case 'mix': {
 				if (cell.column.type === 'row-indicator') {
-					this.view.selection.toggleCell.execute(cell, 'body');
+					view.selection.toggleCell.execute(cell, 'body');
 				}
+
+				break;
 			}
 		}
 	}
 
 	navigate(cell) {
-		const focus = this.view.nav.focus;
+		const { view } = this.plugin;
+		const { focus } = view.nav;
 		if (focus.canExecute(cell)) {
 			focus.execute(cell);
 		}
 	}
 
 	get selection() {
-		return this.model.selection();
+		return this.plugin.model.selection();
 	}
 }
