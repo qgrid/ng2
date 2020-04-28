@@ -75,7 +75,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		};
 
 		const gridService = this.qgrid.service(model);
-		this.ctrl = new ViewCtrl(model, this.view, gridService);
+		this.ctrl = new ViewCtrl(this.plugin, gridService);
 
 		observeReply(model.sceneChanged)
 			.subscribe(e => {

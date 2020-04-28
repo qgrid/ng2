@@ -1,8 +1,8 @@
 import { GridService } from '../services/grid';
-import { Model } from '../infrastructure/model';
+import { GridPlugin } from '../plugin/grid.plugin';
 
 export declare class ViewCtrl {
-	constructor(model: Model, view: any, service: GridService);
+	constructor(plugin: GridPlugin, service: GridService);
 
 	invalidate(): void;
 }
