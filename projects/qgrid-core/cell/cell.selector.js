@@ -23,7 +23,7 @@ export class CellSelector {
 	}
 
 	mapFromRows(items) {
-		const table = this.table;
+		const { table } = this;
 		const result = [];
 		const rows = table.data.rows();
 
@@ -38,7 +38,7 @@ export class CellSelector {
 	}
 
 	mapFromColumns(items) {
-		const table = this.table;
+		const { table } = this;
 		const result = [];
 		const columns = table.data.columns();
 
@@ -51,7 +51,7 @@ export class CellSelector {
 	}
 
 	mapFromCells(items) {
-		const table = this.table;
+		const { table } = this;
 		const result = [];
 		const rows = table.data.rows();
 		const columns = table.data.columns();

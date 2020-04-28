@@ -4,6 +4,7 @@ import { Column } from './column';
 import { Row } from './row';
 import { Bag } from './bag';
 import { Model } from '../infrastructure/model';
+import { Markup } from '../services/markup';
 
 export interface BoxMapper {
 	row(): any;
@@ -13,6 +14,7 @@ export interface BoxMapper {
 }
 
 export interface BoxContext {
+	markup: Markup;
 	mapper: BoxMapper;
 	layer: any;
 	bag: {

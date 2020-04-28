@@ -47,7 +47,7 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 		const { column, element } = this;
 		const { table } = this.root;
 
-		table.context.bag.head.addCell(this);
+		table.box.bag.head.addCell(this);
 		classifyTd(element, column);
 		classifyTh(element, column);
 
@@ -97,6 +97,6 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 
 	ngOnDestroy() {
 		const { table } = this.root;
-		table.context.bag.head.deleteCell(this);
+		table.box.bag.head.deleteCell(this);
 	}
 }

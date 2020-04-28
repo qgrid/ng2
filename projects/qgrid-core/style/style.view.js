@@ -110,8 +110,8 @@ export class StyleView {
 
 		// To improve performance take rows and cells directly from the bag and not from the DOM table. 
 		const { body } = table;
-		const { rowToView, columnToView } = table.context.mapper;
-		const bodyBag = table.context.bag.body;
+		const { rowToView, columnToView } = table.box.mapper;
+		const bodyBag = table.box.bag.body;
 
 		if (isRowActive) {
 			const rows = bodyBag.getRowElements();

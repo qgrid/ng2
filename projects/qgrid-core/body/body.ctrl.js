@@ -78,7 +78,7 @@ export class BodyCtrl {
 		const { model, view, table } = this.plugin;
 		const { edit } = model;
 
-		const pathFinder = new PathService(table.context.bag.body);
+		const pathFinder = new PathService(table.box.bag.body);
 		const cell = pathFinder.cell(eventPath(e));
 
 		if (checkButtonCode(e, LEFT_BUTTON)) {
@@ -117,7 +117,7 @@ export class BodyCtrl {
 
 	onMouseMove(e) {
 		const { model, view, table } = this.plugin;
-		const pathFinder = new PathService(table.context.bag.body);
+		const pathFinder = new PathService(table.box.bag.body);
 		const td = pathFinder.cell(eventPath(e));
 
 		if (td) {
@@ -179,7 +179,7 @@ export class BodyCtrl {
 		const { mode } = this.selection;
 		const { edit } = model;
 
-		const pathFinder = new PathService(table.context.bag.body);
+		const pathFinder = new PathService(table.box.bag.body);
 		const cell = pathFinder.cell(eventPath(e));
 
 		if (checkButtonCode(e, LEFT_BUTTON)) {

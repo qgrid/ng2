@@ -16,12 +16,12 @@ export class MarkupDirective implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		const { table } = this.root;
-		table.markup[this.getName()] = this.elementRef.nativeElement;
+		table.box.markup[this.getName()] = this.elementRef.nativeElement;
 	}
 
 	ngOnDestroy() {
 		const { table } = this.root;
-		delete table.markup[this.getName()];
+		delete table.box.markup[this.getName()];
 	}
 
 	private getName() {

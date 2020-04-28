@@ -15,12 +15,11 @@ function isParentOf(parent, element) {
 }
 
 export class View extends Unit {
-	constructor(context, model, markup) {
+	constructor(context, model) {
 		super();
 
 		this.context = context;
 		this.model = model;
-		this.markup = markup;
 		this.layers = new Map();
 	}
 
@@ -77,19 +76,21 @@ export class View extends Unit {
 	}
 
 	addClass(name) {
-		if (this.markup.view) {
-			this.markup.view.classList.add(escapeAttr(name));
+		const { markup } = this.context;
+		if (markup.view) {
+			markup.view.classList.add(escapeAttr(name));
 		}
 	}
 
 	removeClass(name) {
-		if (this.markup.view) {
-			this.markup.view.classList.remove(escapeAttr(name));
+		const { markup } = this.context;
+		if (markup.view) {
+			markup.view.classList.remove(escapeAttr(name));
 		}
 	}
 
 	scrollLeft(value) {
-		const markup = this.markup;
+		const { markup } = this.context;
 		if (arguments.length) {
 			if (markup.head) {
 				markup.head.scrollLeft = value;
@@ -142,7 +143,7 @@ export class View extends Unit {
 				case 'left': {
 					target = target.element;
 					if (target) {
-						const markup = this.markup;
+						const { markup } = this.context;
 						if (markup.table) {
 							return isParentOf(markup.table, target);
 						}
@@ -158,7 +159,7 @@ export class View extends Unit {
 	}
 
 	rect(area = 'body') {
-		const markup = this.markup;
+		const { markup } = this.context;
 		const element = markup[area];
 		if (element) {
 			// TODO: get rid of that
@@ -178,7 +179,7 @@ export class View extends Unit {
 	}
 
 	height(area = 'body') {
-		const markup = this.markup;
+		const { markup } = this.context;
 		const element = markup[area];
 		if (element) {
 			return element.clientHeight;
@@ -188,7 +189,7 @@ export class View extends Unit {
 	}
 
 	width(area = 'body') {
-		const markup = this.markup;
+		const { markup } = this.context;
 		const element = markup[area];
 		if (element) {
 			return element.clientWidth;
@@ -198,18 +199,19 @@ export class View extends Unit {
 	}
 
 	getElementCore() {
-		return this.markup.body;
+		const { markup } = this.context;
+		return markup.body;
 	}
 
 	isFocusedCore(target) {
-		const { markup } = this;
+		const { markup } = this.context;
 		const { activeElement } = markup.document;
 
 		return isParentOf(target, activeElement);
 	}
 
 	getElementsCore(key) {
-		const markup = this.markup;
+		const { markup } = this.context;
 		return [`${key}-left`, key, `${key}-right`]
 			.filter(key => markup.hasOwnProperty(key))
 			.map(key => markup[key]);

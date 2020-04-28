@@ -10,9 +10,9 @@ export class AutofocusPlugin {
 						if (count) {
 							off();
 
-							const key = Object.keys(table.markup).find(p => p.startsWith('body'));
+							const key = Object.keys(table.box.markup).find(p => p.startsWith('body'));
 							if (key) {
-								const element = table.markup[key];
+								const element = table.box.markup[key];
 								if (element) {
 									element.focus();
 								}

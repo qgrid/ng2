@@ -11,7 +11,7 @@ export class RowView {
 		this.plugin = plugin;
 		this.tagName = tagName;
 
-		const pathFinder = new PathService(table.context.bag.body);
+		const pathFinder = new PathService(table.box.bag.body);
 
 		this.drop = new Command({
 			source: 'row.view',

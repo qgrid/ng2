@@ -14,7 +14,7 @@ export class HeadView {
 		this.rows = [];
 
 		const { model, table } = this.plugin;
-		const pathFinder = new PathService(table.context.bag.head);
+		const pathFinder = new PathService(table.box.bag.head);
 
 		this.drop = new Command({
 			source: 'head.view',

@@ -28,7 +28,8 @@ const classify = TdCtrl.classify;
 	selector: '[q-grid-core-td]',
 })
 export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
-	private $implicit = this;
+	$implicit = this;
+
 	@Input('q-grid-core-value') private actualValue: any;
 	@Input('q-grid-core-label') private actualLabel: any;
 
@@ -51,7 +52,7 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 
 	ngOnInit() {
 		const { table } = this.root;
-		table.context.bag.body.addCell(this);
+		table.box.bag.body.addCell(this);
 		classify(this.element, this.column);
 
 		const link = this.cellService.build('body', this.column, 'view');
@@ -165,6 +166,6 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 
 	ngOnDestroy() {
 		const { table } = this.root;
-		table.context.bag.body.deleteCell(this);
+		table.box.bag.body.deleteCell(this);
 	}
 }
