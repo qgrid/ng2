@@ -6,10 +6,10 @@ import { VirtualRowStyle, VirtualCellStyle } from './style.virtual';
 import { StyleService } from './style.service';
 
 export class StyleView {
-	constructor(model, table) {
-		this.model = model;
-		this.table = table;
+	constructor(plugin) {
+		const { model, observeReply } = plugin;
 
+		this.plugin = plugin;
 		this.valueFactory = valueFactory;
 		this.service = new StyleService(model);
 		this.active = {
@@ -22,26 +22,27 @@ export class StyleView {
 			cell: new Monitor(model)
 		};
 
-		model.styleChanged.watch(e => {
-			if (e.hasChanges('row') || e.hasChanges('rows')) {
-				this.active.row = e.state.row !== noop || e.state.rows.length > 0;
-			}
+		observeReply(model.styleChanged)
+			.subscribe(e => {
+				if (e.hasChanges('row') || e.hasChanges('rows')) {
+					this.active.row = e.state.row !== noop || e.state.rows.length > 0;
+				}
 
-			if (e.hasChanges('cell') || e.hasChanges('cells')) {
-				this.active.cell = e.state.cell !== noop || e.state.cells.length > 0;
-			}
+				if (e.hasChanges('cell') || e.hasChanges('cells')) {
+					this.active.cell = e.state.cell !== noop || e.state.cells.length > 0;
+				}
 
-			this.invalidate();
-		});
+				this.invalidate();
+			});
 	}
 
 	needInvalidate() {
-		const model = this.model;
+		const { model } = this.plugin;
 		if (model.scene().status !== 'stop') {
 			return false;
 		}
 
-		const active = this.active;
+		const { active } = this;
 		const isVirtual = model.scroll().mode === 'virtual';
 		const isActive = isVirtual || active.row || active.cell;
 
@@ -49,18 +50,20 @@ export class StyleView {
 			return false;
 		}
 
-		const context = { model };
 		const { invalidate } = model.style();
+		const context = {
+			model
+		};
+
 		return invalidate.canExecute(context) && invalidate.execute(context) !== false;
 	}
 
 	invalidate(domCell, domRow) {
-		const active = this.active;
-		const model = this.model;
+		const { active } = this.active;
+		const { model, table } = this.plugin;
+		const { valueFactory } = this;
 		const isVirtual = model.scroll().mode === 'virtual';
 
-		const table = this.table;
-		const valueFactory = this.valueFactory;
 		// TODO: improve performance
 		const valueCache = new Map();
 		const value = (row, column) => {

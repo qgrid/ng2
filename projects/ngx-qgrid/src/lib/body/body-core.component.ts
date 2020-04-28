@@ -26,7 +26,6 @@ export class BodyCoreComponent implements OnInit {
 		public $view: GridView,
 		public $table: TableCoreService,
 		private elementRef: ElementRef,
-		private root: GridRoot,
 		private zone: NgZone,
 		private cd: ChangeDetectorRef,
 		private plugin: GridPlugin
@@ -34,7 +33,7 @@ export class BodyCoreComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const { model, table, disposable, observeReply } = this.plugin;
+		const { model, disposable, observeReply } = this.plugin;
 		const { id } = model.data();
 
 		this.rowId = id.row;

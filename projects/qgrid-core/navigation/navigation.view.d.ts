@@ -1,11 +1,10 @@
 import { Command } from '../command/command';
-import { Model } from '../infrastructure/model';
-import { Table } from '../dom/table';
+import { GridPlugin } from '../plugin/grid.plugin';
 
 
 export declare class NavigationView {
-	constructor(model: Model, table: Table, shortcut: { register: (commands: Command[]) => void });
+	constructor(plugin: GridPlugin, shortcut: { register: (commands: Command[]) => void });
 
-	focus: Command;
-	scrollTo: Command;
+	readonly focus: Command;
+	readonly scrollTo: Command;
 }

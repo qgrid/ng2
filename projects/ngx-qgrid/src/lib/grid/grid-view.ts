@@ -23,22 +23,22 @@ import { ScrollService } from '../scroll/scroll.service';
 
 @Injectable()
 export class GridView {
-	body: BodyView = null;
-	edit: EditView = null;
-	filter: FilterView = null;
-	foot: FootView = null;
-	group: GroupView = null;
-	head: HeadView = null;
-	highlight: HighlightView = null;
-	layout: LayoutView = null;
-	nav: NavigationView = null;
-	pagination: PaginationView = null;
-	row: RowView = null;
-	rowDetails: RowDetailsView = null;
-	scroll: ScrollView = null;
-	selection: SelectionView = null;
-	sort: SortView = null;
-	style: StyleView = null;
+	body: BodyView;
+	edit: EditView;
+	filter: FilterView;
+	foot: FootView;
+	group: GroupView;
+	head: HeadView;
+	highlight: HighlightView;
+	layout: LayoutView;
+	nav: NavigationView;
+	pagination: PaginationView;
+	row: RowView;
+	rowDetails: RowDetailsView;
+	scroll: ScrollView;
+	selection: SelectionView;
+	sort: SortView;
+	style: StyleView;
 
 	constructor(
 		private qgrid: Grid,

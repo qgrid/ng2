@@ -4,8 +4,9 @@ import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
 
 export class SortView {
-	constructor(model) {
-		this.model = model;
+	constructor(plugin) {
+		const { model } = plugin;
+		this.plugin = plugin;
 
 		this.hover = false;
 		this.toggle = new Command({
@@ -61,30 +62,32 @@ export class SortView {
 	}
 
 	onInit() {
-		const model = this.model;
+		const { model, observeReply } = this.plugin;
 		const { sort } = model;
 
-		model.columnListChanged.watch(e => {
-			if (e.hasChanges('index')) {
-				const sortState = sort();
-				const order = sortService.orderFactory(model);
-				const sortBy = order(Array.from(sortState.by));
-				if (!this.equals(sortBy, sortState.by)) {
-					sort({ by: sortBy }, { source: 'sort.view' });
+		observeReply(model.columnListChanged)
+			.subscribe(e => {
+				if (e.hasChanges('index')) {
+					const sortState = sort();
+					const order = sortService.orderFactory(model);
+					const sortBy = order(Array.from(sortState.by));
+					if (!this.equals(sortBy, sortState.by)) {
+						sort({ by: sortBy }, { source: 'sort.view' });
+					}
 				}
-			}
-		});
+			});
 
-		model.dataChanged.watch(e => {
-			if (e.hasChanges('columns')) {
-				const { by } = sort();
-				const columnMap = columnService.map(e.state.columns);
-				const newBy = by.filter(entry => columnMap.hasOwnProperty(sortService.key(entry)));
-				if (!this.equals(newBy, by)) {
-					sort({ by: newBy }, { source: 'sort.view' });
+		observeReply(model.dataChanged)
+			.subscribe(e => {
+				if (e.hasChanges('columns')) {
+					const { by } = sort();
+					const columnMap = columnService.map(e.state.columns);
+					const newBy = by.filter(entry => columnMap.hasOwnProperty(sortService.key(entry)));
+					if (!this.equals(newBy, by)) {
+						sort({ by: newBy }, { source: 'sort.view' });
+					}
 				}
-			}
-		});
+			});
 	}
 
 	equals(x, y) {
@@ -93,13 +96,13 @@ export class SortView {
 
 	direction(column) {
 		const { key } = column;
-		const { by } = this.model.sort();
+		const { by } = this.plugin.model.sort();
 		return sortService.map(by)[key];
 	}
 
 	order(column) {
 		const { key } = column;
-		const { by } = this.model.sort();
+		const { by } = this.plugin.model.sort();
 		return sortService.index(by, key);
 	}
 }

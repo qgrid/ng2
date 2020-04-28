@@ -28,8 +28,8 @@ import { Node } from '../node/node';
  *
  * * [Column Model](/doc/api/column-model.html)
  * * [Column Sort](/doc/feature/sort.html)
- * * [column.list.generate.js](https://github.com/qgrid/ng2/blob/master/projects/core/column-list/column.list.generate.js)
- * * [column.list.sort.js](https://github.com/qgrid/ng2/blob/master/projects/core/column-list/column.list.sort.js)
+ * * [column.list.generate.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/column-list/column.list.generate.js)
+ * * [column.list.sort.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/column-list/column.list.sort.js)
  *
  */
 export declare interface ColumnListModel {

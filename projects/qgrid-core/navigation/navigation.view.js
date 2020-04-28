@@ -5,9 +5,9 @@ import { Fastdom } from '../services/fastdom';
 import { Td } from '../dom/td';
 
 export class NavigationView {
-	constructor(model, table, shortcut) {
-		this.model = model;
-		this.table = table;
+	constructor(plugin, shortcut) {
+		const { model, table, observeReply } = plugin;
+		this.plugin = plugin;
 
 		const navigation = new Navigation(model, table);
 		let focusBlurs = [];
@@ -29,16 +29,16 @@ export class NavigationView {
 							column
 						}
 					}, {
-							source: 'navigation.view',
-							behavior
-						});
+						source: 'navigation.view',
+						behavior
+					});
 				} else {
 					model.navigation({
 						cell: null
 					}, {
-							source: 'navigation.view',
-							behavior
-						});
+						source: 'navigation.view',
+						behavior
+					});
 				}
 			},
 			canExecute: newCell => {
@@ -60,84 +60,89 @@ export class NavigationView {
 			canExecute: (row, column) => table.body.cell(row, column).model() !== null
 		});
 
-		model.navigationChanged.watch(e => {
-			if (e.hasChanges('cell')) {
-				if (e.tag.behavior !== 'core') {
-					// We need this one to toggle focus from details to main grid
-					// or when user change navigation cell through the model
-					if (!this.table.view.isFocused()) {
-						this.table.view.focus();
+		observeReply(model.navigationChanged)
+			.subscribe(e => {
+				if (e.hasChanges('cell')) {
+					if (e.tag.behavior !== 'core') {
+						// We need this one to toggle focus from details to main grid
+						// or when user change navigation cell through the model
+						if (!table.view.isFocused()) {
+							table.view.focus();
+						}
+					}
+
+					const { rowIndex, columnIndex } = e.state;
+					focusBlurs = this.invalidateFocus(focusBlurs);
+					if (e.tag.source !== 'navigation.scroll' && this.scrollTo.canExecute(rowIndex, columnIndex)) {
+						this.scrollTo.execute(rowIndex, columnIndex);
+					}
+
+					model.focus({
+						rowIndex,
+						columnIndex
+					}, {
+						source: 'navigation.view'
+					});
+				}
+			});
+
+		observeReply(model.focusChanged)
+			.subscribe(e => {
+				if (e.tag.source === 'navigation.view') {
+					return;
+				}
+
+				if (e.hasChanges('isActive')) {
+					const { view } = table;
+					const activeClassName = `${GRID_PREFIX}-active`;
+					if (e.state.isActive) {
+						Fastdom.mutate(() => view.addClass(activeClassName));
+						view.focus();
+					} else {
+						Fastdom.mutate(() => view.removeClass(activeClassName));
 					}
 				}
 
-				const { rowIndex, columnIndex } = e.state;
-				focusBlurs = this.invalidateFocus(focusBlurs);
-				if (e.tag.source !== 'navigation.scroll' && this.scrollTo.canExecute(rowIndex, columnIndex)) {
-					this.scrollTo.execute(rowIndex, columnIndex);
+				if (e.hasChanges('rowIndex') || e.hasChanges('columnIndex')) {
+					this.focus.execute(e.state);
 				}
 
-				model.focus({
-					rowIndex,
-					columnIndex
-				}, {
-						source: 'navigation.view'
-					});
-			}
-		});
+			});
 
-		model.focusChanged.watch(e => {
-			if (e.tag.source === 'navigation.view') {
-				return;
-			}
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('status')) {
+					const { status } = e.state;
+					switch (status) {
+						case 'stop':
+							const { row, column, columnIndex } = model.navigation();
+							if (row && column) {
+								const newRowIndex = table.data.rows().indexOf(row);
+								let newColumnIndex = table.data.columns().findIndex(c => c.key === column.key);
+								if (newColumnIndex < 0 && column.class === 'control') {
+									newColumnIndex = columnIndex;
+								}
 
-			if (e.hasChanges('isActive')) {
-				const { view } = table;
-				const activeClassName = `${GRID_PREFIX}-active`;
-				if (e.state.isActive) {
-					Fastdom.mutate(() => view.addClass(activeClassName));
-					view.focus();
-				} else {
-					Fastdom.mutate(() => view.removeClass(activeClassName));
-				}
-			}
-
-			if (e.hasChanges('rowIndex') || e.hasChanges('columnIndex')) {
-				this.focus.execute(e.state);
-			}
-
-		});
-
-		model.sceneChanged.watch(e => {
-			if (e.hasChanges('status')) {
-				const { status } = e.state;
-				switch (status) {
-					case 'stop':
-						const { row, column, columnIndex } = model.navigation();
-						if (row && column) {
-							const newRowIndex = table.data.rows().indexOf(row);
-							let newColumnIndex = table.data.columns().findIndex(c => c.key === column.key);
-							if (newColumnIndex < 0 && column.class === 'control') {
-								newColumnIndex = columnIndex;
+								this.focus.execute({
+									rowIndex: newRowIndex,
+									columnIndex: newColumnIndex,
+									behavior: 'core'
+								});
 							}
-
-							this.focus.execute({
-								rowIndex: newRowIndex,
-								columnIndex: newColumnIndex,
-								behavior: 'core'
-							});
-						}
-						break;
+							break;
+					}
 				}
-			}
-		});
+			});
 	}
 
 	invalidateFocus(dispose) {
+		const { model, table } = this.plugin;
+
 		dispose.forEach(f => f());
 		dispose = [];
 
-		const { rowIndex, columnIndex } = this.model.navigation();
-		const cell = this.table.body.cell(rowIndex, columnIndex);
+		const { rowIndex, columnIndex } = model.navigation();
+		const cell = table.body.cell(rowIndex, columnIndex);
 		if (cell.model()) {
 			Fastdom.mutate(() => cell.addClass(`${GRID_PREFIX}-focused`));
 			dispose.push(() => Fastdom.mutate(() => cell.removeClass(`${GRID_PREFIX}-focused`)));
@@ -147,7 +152,8 @@ export class NavigationView {
 	}
 
 	scroll(view, target) {
-		const { scroll } = this.model;
+		const { model } = this.plugin;
+		const { scroll } = model;
 		Fastdom.measure(() => {
 			const tr = target.rect();
 			const vr = view.rect();

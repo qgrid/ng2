@@ -4,7 +4,7 @@
  * ### Suggested Links
  *
  * * [Pagination View](/doc/api/pagination-view.html)
- * * [pagination.pipe.js](https://github.com/qgrid/ng2/blob/master/projects/core/pipe/pagination.pipe.js)
+ * * [pagination.pipe.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/pipe/pagination.pipe.js)
  */
 export declare interface PaginationModel {
 	/**

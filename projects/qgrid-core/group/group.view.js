@@ -33,9 +33,10 @@ function rowspanIsVisible(node, column, parent) {
 }
 
 export class GroupView {
-	constructor(model, table, service, shortcut) {
-		this.model = model;
-		this.table = table;
+	constructor(plugin, service, shortcut) {
+		const { model, observeReply } = plugin;
+		this.plugin = plugin;
+
 		this.valueFactory = valueFactory;
 
 		const toggleStatus = new Command({
@@ -73,7 +74,7 @@ export class GroupView {
 			execute: () => {
 				if (model.group().toggleAll.execute() !== false) {
 					const { nodes } = model.view();
-					const toggle = model.group().toggle;
+					const { toggle } = model.group();
 
 					preOrderDFS(nodes, node => {
 						if (toggleStatus.canExecute(node)) {
@@ -106,26 +107,28 @@ export class GroupView {
 
 		this.getNode = identity;
 		this.isVisible = yes;
-		model.groupChanged.watch(e => {
-			if (e.hasChanges('mode')) {
-				switch (e.state.mode) {
-					case 'rowspan': {
-						this.getNode = rowspanGetNode;
-						this.isVisible = rowspanIsVisible;
-						break;
-					}
-					case 'flat':
-						this.getNode = identity;
-						this.isVisible = flatVisible;
-						break;
-					default: {
-						this.getNode = identity;
-						this.isVisible = yes;
-						break;
+
+		observeReply(model.groupChanged)
+			.subscribe(e => {
+				if (e.hasChanges('mode')) {
+					switch (e.state.mode) {
+						case 'rowspan': {
+							this.getNode = rowspanGetNode;
+							this.isVisible = rowspanIsVisible;
+							break;
+						}
+						case 'flat':
+							this.getNode = identity;
+							this.isVisible = flatVisible;
+							break;
+						default: {
+							this.getNode = identity;
+							this.isVisible = yes;
+							break;
+						}
 					}
 				}
-			}
-		})
+			})
 	}
 
 	count(node, column) {
@@ -139,8 +142,10 @@ export class GroupView {
 	}
 
 	offset(node, column) {
+		const { model } = this.plugin;
+
 		node = this.getNode(node, column);
-		const { mode } = this.model.group();
+		const { mode } = model.group();
 		switch (mode) {
 			case 'nest':
 			case 'subhead': {

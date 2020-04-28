@@ -8,9 +8,9 @@ import { Fastdom } from '../services/fastdom';
 import { find, findLeaves } from '../node/node.service';
 
 export class HighlightView {
-	constructor(model, table) {
-		this.model = model;
-		this.table = table;
+	constructor(plugin) {
+		const { model, table, observeReply, observe } = plugin;
+		this.plugin = plugin;
 
 		this.cellSelector = new CellSelector(model, table);
 		this.selectionService = new SelectionService(model);
@@ -100,73 +100,81 @@ export class HighlightView {
 			}
 		});
 
-		model.selectionChanged.watch(e => {
-			if (e.hasChanges('items')) {
-				selectionBlurs = this.invalidateSelection(selectionBlurs);
-			}
-		});
-
-		model.sceneChanged.watch(e => {
-			if (e.hasChanges('status')) {
-				if (e.state.status === 'stop') {
-					columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
-					rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
-					cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
-					sortBlurs = this.invalidateSortBy(sortBlurs);
+		observeReply(model.selectionChanged)
+			.subscribe(e => {
+				if (e.hasChanges('items')) {
 					selectionBlurs = this.invalidateSelection(selectionBlurs);
 				}
-			}
-		});
+			});
 
-		model.sortChanged.watch(e => {
-			if (!this.isRendering && e.hasChanges('by')) {
-				sortBlurs = this.invalidateSortBy(sortBlurs);
-			}
-		});
-
-		model.highlightChanged.watch(e => {
-			if (!this.isRendering) {
-				if (e.hasChanges('cell')) {
-					cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('status')) {
+					if (e.state.status === 'stop') {
+						columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
+						rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
+						cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
+						sortBlurs = this.invalidateSortBy(sortBlurs);
+						selectionBlurs = this.invalidateSelection(selectionBlurs);
+					}
 				}
+			});
 
-				if (e.hasChanges('columns')) {
-					columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
+		observeReply(model.sortChanged)
+			.subscribe(e => {
+				if (!this.isRendering && e.hasChanges('by')) {
+					sortBlurs = this.invalidateSortBy(sortBlurs);
 				}
+			});
 
-				if (e.hasChanges('rows')) {
-					rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
+		observeReply(model.highlightChanged)
+			.subscribe(e => {
+				if (!this.isRendering) {
+					if (e.hasChanges('cell')) {
+						cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
+					}
+
+					if (e.hasChanges('columns')) {
+						columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
+					}
+
+					if (e.hasChanges('rows')) {
+						rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
+					}
 				}
-			}
-		});
+			});
 
-		model.dragChanged.on(e => {
-			if (e.hasChanges('isActive')) {
-				if (e.state.isActive) {
-					model.highlight({
-						columns: [],
-						rows: [],
-						cell: null
-					}, {
+		observe(model.dragChanged)
+			.subscribe(e => {
+				if (e.hasChanges('isActive')) {
+					if (e.state.isActive) {
+						model.highlight({
+							columns: [],
+							rows: [],
+							cell: null
+						}, {
 							source: 'highlight.view'
 						});
 
-					columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
-					rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
-					cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
+						columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
+						rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
+						cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
+					}
 				}
-			}
-		})
+			})
 	}
 
 	get isRendering() {
-		return this.model.scene().status !== 'stop' || this.model.drag().isActive;
+		const { model } = this.plugin;
+		return model.scene().status !== 'stop' || model.drag().isActive;
 	}
 
 	invalidateColumnHover(dispose) {
+		const { model } = this.plugin;
+
 		dispose.forEach(f => f());
 		dispose = [];
-		const { columns } = this.model.highlight();
+		const { columns } = model.highlight();
 		for (let columnKey of columns) {
 			dispose.push(this.highlightColumn(columnKey, 'highlighted'));
 		}
@@ -175,9 +183,11 @@ export class HighlightView {
 	}
 
 	invalidateRowHover(dispose) {
+		const { model } = this.plugin;
+
 		dispose.forEach(f => f());
 		dispose = [];
-		const { rows } = this.model.highlight();
+		const { rows } = model.highlight();
 		for (let row of rows) {
 			dispose.push(this.highlightRow(row, 'highlighted'));
 		}
@@ -186,11 +196,13 @@ export class HighlightView {
 	}
 
 	invalidateCellHover(dispose) {
+		const { model, table } = this.plugin;
+
 		dispose.forEach(f => f());
 		dispose = [];
-		const { cell } = this.model.highlight();
+		const { cell } = model.highlight();
 		if (cell) {
-			const { body } = this.table;
+			const { body } = table;
 			const { rowIndex, columnIndex } = cell;
 			dispose.push(this.highlightCell(body.cell(rowIndex, columnIndex), 'highlighted'));
 		}
@@ -198,10 +210,12 @@ export class HighlightView {
 	}
 
 	invalidateSortBy(dispose) {
+		const { model } = this.plugin;
+
 		dispose.forEach(f => f());
 		dispose = [];
 
-		const sortBy = this.model.sort().by;
+		const sortBy = model.sort().by;
 		for (let entry of sortBy) {
 			const key = sortService.key(entry);
 			dispose.push(this.highlightColumn(key, 'sorted'));
@@ -211,9 +225,10 @@ export class HighlightView {
 	}
 
 	invalidateSelection(dispose) {
-		dispose.forEach(f => f());
+		const { model } = this.plugin;
 
-		const selectionItems = this.model.selection().items;
+		dispose.forEach(f => f());
+		const selectionItems = model.selection().items;
 		const entries = this.selectionService.lookup(selectionItems);
 		const cells = this.cellSelector.map(entries);
 		dispose = cells.map(cell => this.highlightCell(cell, 'selected'));
@@ -221,7 +236,9 @@ export class HighlightView {
 	}
 
 	findColumnPosition(key) {
-		const { index } = this.model.columnList();
+		const { model } = this.plugin;
+
+		const { index } = model.columnList();
 		const pos = find(index, node => node.key.model.key === key);
 		if (pos) {
 			return findLeaves(pos.node).map(leaf => leaf.key.columnIndex);
@@ -231,12 +248,14 @@ export class HighlightView {
 	}
 
 	highlightColumn(key, cls) {
+		const { table } = this.plugin;
+
 		const position = this.findColumnPosition(key);
 		if (!position.length) {
 			return noop;
 		}
 
-		const { head, body, foot } = this.table;
+		const { head, body, foot } = table;
 		Fastdom.mutate(() => {
 			const isLeaf = position.length === 1;
 			for (let index of position) {
@@ -259,12 +278,14 @@ export class HighlightView {
 	}
 
 	blurColumn(key, cls) {
+		const { table } = this.plugin;
+
 		const position = this.findColumnPosition(key);
 		if (!position.length) {
 			return noop;
 		}
 
-		const { head, body, foot } = this.table;
+		const { head, body, foot } = table;
 		return () => {
 			Fastdom.mutate(() => {
 				for (let index of position) {
@@ -279,18 +300,21 @@ export class HighlightView {
 	}
 
 	highlightRow(index, cls) {
+		const { table } = this.plugin;
+
 		if (index < 0) {
 			return noop;
 		}
 
-		const { body } = this.table;
+		const { body } = table;
 		Fastdom.mutate(() => body.row(index).addClass(`${GRID_PREFIX}-${cls}`));
 
 		return this.blurRow(index, cls);
 	}
 
 	blurRow(index, cls) {
-		const table = this.table;
+		const { table } = this.plugin;
+
 		if (index < 0) {
 			return noop;
 		}

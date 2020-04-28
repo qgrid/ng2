@@ -7,15 +7,15 @@ import { noop, isArray, isUndefined } from '../utility/kit';
 import { GRID_PREFIX } from '../definition';
 
 export class SelectionView {
-	constructor(model, table, shortcut) {
-		this.model = model;
-		this.table = table;
+	constructor(plugin, shortcut) {
+		const { model, table, observeReply } = plugin;
 
+		this.plugin = plugin;
 		this.selectionService = new SelectionService(model);
 		this.form = formFactory(model, this.selectionService);
 		this.selectionRange = new SelectionRange(model);
 
-		const commands = this.commands;
+		const commands = this.getCommands();
 		shortcut.register(commands);
 
 		this.toggleRow = commands.get('toggleRow');
@@ -23,67 +23,70 @@ export class SelectionView {
 		this.toggleCell = commands.get('toggleCell');
 		this.reset = commands.get('reset');
 
-		model.navigationChanged.watch(e => {
-			if (e.tag.source === 'selection.view') {
-				return;
-			}
-
-			if (e.hasChanges('cell')) {
-				if (this.toggleCell.canExecute(e.state.cell)) {
-					this.toggleCell.execute(e.state.cell);
+		observeReply(model.navigationChanged)
+			.subscribe(e => {
+				if (e.tag.source === 'selection.view') {
+					return;
 				}
-			}
-		});
+
+				if (e.hasChanges('cell')) {
+					if (this.toggleCell.canExecute(e.state.cell)) {
+						this.toggleCell.execute(e.state.cell);
+					}
+				}
+			});
 
 		const modeClass = `${GRID_PREFIX}-select-${model.selection().mode}`;
 		const unitClass = `${GRID_PREFIX}-select-${model.selection().unit}`;
-		const view = table.view;
+
+		const { view } = table;
 		view.addClass(modeClass);
 		view.addClass(unitClass);
 
-		model.selectionChanged.watch(e => {
-			if (e.hasChanges('mode')) {
-				const newModeClass = `${GRID_PREFIX}-select-${e.state.mode}`;
-				const oldModeClass = `${GRID_PREFIX}-select-${e.changes.mode.oldValue}`;
+		observeReply(model.selectionChanged)
+			.subscribe(e => {
+				if (e.hasChanges('mode')) {
+					const newModeClass = `${GRID_PREFIX}-select-${e.state.mode}`;
+					const oldModeClass = `${GRID_PREFIX}-select-${e.changes.mode.oldValue}`;
 
-				view.removeClass(oldModeClass);
-				view.addClass(newModeClass);
-			}
-
-			if (e.hasChanges('unit')) {
-				const newUnitClass = `${GRID_PREFIX}-select-${e.state.unit}`;
-				const oldUnitClass = `${GRID_PREFIX}-select-${e.changes.unit.oldValue}`;
-
-				view.removeClass(oldUnitClass);
-				view.addClass(newUnitClass);
-			}
-
-			if (e.hasChanges('unit') || e.hasChanges('mode')) {
-				if (!e.hasChanges('items')) {
-					this.form.clear();
-					model.selection({ items: [] }, {
-						source: 'selection.view'
-					});
-
-					this.form = formFactory(model, this.selectionService);
+					view.removeClass(oldModeClass);
+					view.addClass(newModeClass);
 				}
-			}
 
-			if (e.hasChanges('items') && e.tag.source !== 'selection.view') {
-				// Don't use commit it came outside already
+				if (e.hasChanges('unit')) {
+					const newUnitClass = `${GRID_PREFIX}-select-${e.state.unit}`;
+					const oldUnitClass = `${GRID_PREFIX}-select-${e.changes.unit.oldValue}`;
 
-				const oldEntries = this.selectionService.lookup(e.changes.items.oldValue);
-				this.select(oldEntries, false);
+					view.removeClass(oldUnitClass);
+					view.addClass(newUnitClass);
+				}
 
-				const newEntries = this.selectionService.lookup(e.state.items);
-				this.select(newEntries, true);
-			}
-		});
+				if (e.hasChanges('unit') || e.hasChanges('mode')) {
+					if (!e.hasChanges('items')) {
+						this.form.clear();
+						model.selection({ items: [] }, {
+							source: 'selection.view'
+						});
+
+						this.form = formFactory(model, this.selectionService);
+					}
+				}
+
+				if (e.hasChanges('items') && e.tag.source !== 'selection.view') {
+					// Don't use commit it came outside already
+
+					const oldEntries = this.selectionService.lookup(e.changes.items.oldValue);
+					this.select(oldEntries, false);
+
+					const newEntries = this.selectionService.lookup(e.state.items);
+					this.select(newEntries, true);
+				}
+			});
 	}
 
-	get commands() {
-		const model = this.model;
-		const shortcut = model.selection().shortcut;
+	getCommands() {
+		const { model, table } = this.plugin;
+		const { shortcut } = model.selection();
 
 		const toggleActiveRow = new Command({
 			source: 'selection.view',
@@ -149,7 +152,7 @@ export class SelectionView {
 
 					const e = {
 						items: isUndefined(row)
-							? this.model.scene().rows
+							? model.scene().rows
 							: [row],
 						source: 'custom',
 						kind: 'toggleRow'
@@ -262,8 +265,8 @@ export class SelectionView {
 						}
 						case 'cell':
 						case 'mix': {
+							const { body } = table;
 							const buildRange = this.selectionRange.build();
-							const body = this.table.body;
 							const startCell = body.cell(0, 0);
 							const endCell = body.cell(body.rowCount() - 1, body.columnCount() - 1);
 							entries = buildRange(startCell, endCell);
@@ -293,10 +296,11 @@ export class SelectionView {
 	}
 
 	toggle(items, source = 'custom') {
-		const { toggle } = this.model.selection();
+		const { model } = this.plugin;
+		const { toggle } = model.selection();
 
 		items = !arguments.length || isUndefined(items)
-			? this.model.scene().rows
+			? model.scene().rows
 			: isArray(items)
 				? items : [items];
 
@@ -308,11 +312,11 @@ export class SelectionView {
 			form.toggle(items);
 
 			return () => {
-				this.model.selection({
+				model.selection({
 					items: this.selectionService.map(form.entries())
 				}, {
-						source: 'selection.view'
-					});
+					source: 'selection.view'
+				});
 			};
 		}
 
@@ -320,7 +324,8 @@ export class SelectionView {
 	}
 
 	select(items, state, source = 'custom') {
-		const { toggle } = this.model.selection();
+		const { model } = this.plugin;
+		const { toggle } = model.selection();
 		const e = {
 			items,
 			source,
@@ -334,7 +339,7 @@ export class SelectionView {
 
 			return () => {
 				const items = this.selectionService.map(this.form.entries());
-				this.model.selection({ items }, {
+				model.selection({ items }, {
 					source: 'selection.view'
 				});
 			};
@@ -360,7 +365,7 @@ export class SelectionView {
 	}
 
 	get selection() {
-		return this.model.selection();
+		return this.plugin.model.selection();
 	}
 
 	get mode() {
@@ -372,16 +377,17 @@ export class SelectionView {
 	}
 
 	get rows() {
-		return this.table.data.rows();
+		return this.plugin.table.data.rows();
 	}
 
 	get columns() {
-		return this.table.data.columns();
+		return this.plugin.table.data.columns();
 	}
 
 	navigateTo(rowIndex, columnIndex) {
-		const { row, column } = this.table.body.cell(rowIndex, columnIndex).model();
-		this.model.navigation({
+		const { table, model } = this.plugin;
+		const { row, column } = table.body.cell(rowIndex, columnIndex).model();
+		model.navigation({
 			cell: {
 				rowIndex,
 				columnIndex,

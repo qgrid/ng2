@@ -1,12 +1,10 @@
-import { Model } from '../infrastructure/model';
-import { Table } from '../dom/table';
-import { GridService } from '../services/grid';
 import { Command } from '../command/command';
+import { GridPlugin } from '../plugin/grid.plugin';
 
 
 export declare class RowDetailsView {
-	constructor(model: Model, table: Table, shortcut: { register: (commands: Command[]) => void });
+	constructor(plugin: GridPlugin, shortcut: { register: (commands: Command[]) => void });
 
-	toggleStatus: Command;
+	readonly toggleStatus: Command;
 	status(row: any): boolean;
 }

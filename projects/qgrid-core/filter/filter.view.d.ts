@@ -1,11 +1,11 @@
 import { ColumnModel } from '../column-type/column.model';
-import { Model } from '../infrastructure/model';
 import { Command } from '../command/command';
+import { GridPlugin } from '../plugin/grid.plugin';
 
 export class FilterView {
-	constructor(model: Model);
+	constructor(plugin: GridPlugin);
 
-	filter: Command<any>;
+	readonly filter: Command<any>;
 	has(column: ColumnModel): boolean;
-	value(column: ColumnModel): any;
+	value<T>(column: ColumnModel): T;
 }

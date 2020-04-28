@@ -3,12 +3,11 @@ import { Command } from '../command/command';
 import { RowEditor } from './edit.row.editor';
 
 export class EditRowView {
-	constructor(model, table, shortcut) {
-		this.model = model;
-		this.table = table;
+	constructor(plugin, shortcut) {
+		this.plugin = plugin;
 		this.editor = RowEditor.empty;
 
-		const commands = this.commands;
+		const commands = this.getCommands();
 		shortcut.register(commands);
 
 		this.enter = commands.get('enter');
@@ -17,8 +16,8 @@ export class EditRowView {
 		this.reset = commands.get('reset');
 	}
 
-	get commands() {
-		const model = this.model;
+	getCommands() {
+		const { model } = this.plugin;
 		const commands = {
 			enter: new Command({
 				source: 'edit.row.view',
@@ -120,10 +119,11 @@ export class EditRowView {
 	}
 
 	shortcutFactory(type) {
-		const edit = this.model.edit;
+		const { model } = this.plugin;
+		const { edit } = model;
 		return () => {
 			const shortcuts = edit()[type + 'Shortcuts'];
-			return shortcuts['row'] || shortcuts['$default'];
+			return (shortcuts && shortcuts['row']) || shortcuts['$default'];
 		};
 	}
 }

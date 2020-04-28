@@ -3,8 +3,10 @@ import { toggleStatus, invalidateStatus } from './row.details.service';
 import { RowDetails } from './row.details';
 
 export class RowDetailsView {
-	constructor(model, table, shortcut) {
-		this.model = model;
+	constructor(plugin, shortcut) {
+		const { model, observeReply } = plugin;
+
+		this.plugin = plugin;
 
 		this.toggleStatus = new Command({
 			source: 'row.details.view',
@@ -35,17 +37,24 @@ export class RowDetailsView {
 			shortcut: model.row().shortcut.toggle
 		});
 
-		model.sceneChanged.watch(e => {
-			if (e.tag.source === 'row.details.view') {
-				return;
-			}
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.tag.source === 'row.details.view') {
+					return;
+				}
 
-			if (e.hasChanges('rows')) {
-				const rowState = model.row();
-				const status = invalidateStatus(model.data().rows, rowState.status, rowState.mode);
-				model.row({ status }, { source: 'row.details.view' });
-			}
-		});
+				if (e.hasChanges('rows')) {
+					const rowState = model.row();
+					const status =
+						invalidateStatus(
+							model.data().rows,
+							rowState.status,
+							rowState.mode
+						);
+
+					model.row({ status }, { source: 'row.details.view' });
+				}
+			});
 
 		shortcut.register([this.toggleStatus]);
 	}
@@ -55,7 +64,8 @@ export class RowDetailsView {
 			return null;
 		}
 
-		const { status } = this.model.row();
+		const { model } = this.plugin;
+		const { status } = model.row();
 		const state = status.get(row);
 		return state && state.expand ? 'expand' : 'collapse';
 	}

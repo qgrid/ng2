@@ -12,16 +12,16 @@ import * as validationService from '../validation/validation.service';
 import { Td } from '../dom/td';
 
 export class EditCellView {
-	constructor(model, table, shortcut) {
-		this.model = model;
-		this.table = table;
+	constructor(plugin, shortcut) {
+		const { model, observeReply } = plugin;
+
+		this.plugin = plugin;
 		this.shortcut = shortcut;
 
 		this.editor = CellEditor.empty;
 		this.requestClose = null;
 
-		const commands = this.commands;
-
+		const commands = this.getCommands();
 		shortcut.register(commands);
 
 		this.enter = commands.get('enter');
@@ -32,60 +32,64 @@ export class EditCellView {
 		this.exit = commands.get('exit');
 		this.clear = commands.get('clear');
 
-		model.editChanged.watch(e => {
-			if (e.hasChanges('state') && e.tag.source !== 'edit.cell.view') {
-				if (e.changes.state.newValue === 'edit') {
-					model.edit({ state: 'view' }, { source: 'edit.cell.view' });
-					if (this.enter.canExecute()) {
-						this.enter.execute();
-					}
-				} else if (e.changes.state.newValue === 'view') {
-					model.edit({ state: 'edit' }, { source: 'edit.cell.view' });
-					if (this.requestClose) {
-						if (this.requestClose()) {
-							return;
+		observeReply(model.editChanged)
+			.subscribe(e => {
+				if (e.hasChanges('state') && e.tag.source !== 'edit.cell.view') {
+					if (e.changes.state.newValue === 'edit') {
+						model.edit({ state: 'view' }, { source: 'edit.cell.view' });
+						if (this.enter.canExecute()) {
+							this.enter.execute();
 						}
-					}
-
-					if (this.cancel.canExecute()) {
-						this.cancel.execute();
-					}
-				}
-			}
-		});
-
-		model.navigationChanged.watch(e => {
-			if (e.hasChanges('cell')) {
-				const oldCell = this.editor.td;
-				if (oldCell) {
-					if (oldCell.column.class === 'data') {
-						if (this.commit.canExecute(oldCell)) {
-							this.commit.execute(oldCell);
+					} else if (e.changes.state.newValue === 'view') {
+						model.edit({ state: 'edit' }, { source: 'edit.cell.view' });
+						if (this.requestClose) {
+							if (this.requestClose()) {
+								return;
+							}
 						}
-					} else {
-						if (this.cancel.canExecute(oldCell)) {
-							this.cancel.execute(oldCell);
+
+						if (this.cancel.canExecute()) {
+							this.cancel.execute();
 						}
 					}
 				}
+			});
 
-				const newCell = e.changes.cell.newValue;
-				if (newCell && newCell.column.editorOptions.trigger === 'focus') {
-					if (this.enter.canExecute(newCell)) {
-						this.enter.execute(newCell);
+		observeReply(model.navigationChanged)
+			.subscribe(e => {
+				if (e.hasChanges('cell')) {
+					const oldCell = this.editor.td;
+					if (oldCell) {
+						if (oldCell.column.class === 'data') {
+							if (this.commit.canExecute(oldCell)) {
+								this.commit.execute(oldCell);
+							}
+						} else {
+							if (this.cancel.canExecute(oldCell)) {
+								this.cancel.execute(oldCell);
+							}
+						}
+					}
+
+					const newCell = e.changes.cell.newValue;
+					if (newCell && newCell.column.editorOptions.trigger === 'focus') {
+						if (this.enter.canExecute(newCell)) {
+							this.enter.execute(newCell);
+						}
 					}
 				}
-			}
-		});
+			});
 	}
 
 	mode(cell, value) {
-		this.model.edit({ state: value }, { source: 'edit.cell.view' });
+		const { model } = this.plugin;
+
+		model.edit({ state: value }, { source: 'edit.cell.view' });
 		cell.mode(value);
 	}
 
-	get commands() {
-		const { model, table } = this;
+	getCommands() {
+		const { model, table } = this.plugin;
 
 		const commands = {
 			enter: new Command({
@@ -386,21 +390,24 @@ export class EditCellView {
 	}
 
 	canEdit(cell) {
+		const { model } = this.plugin;
+
 		if (cell) {
-			return cell.column.canEdit && this.model.edit().mode === 'cell';
+			return cell.column.canEdit && model.edit().mode === 'cell';
 		}
 
 		return false;
 	}
 
 	shortcutFactory(type) {
-		const { edit } = this.model;
+		const { model } = this.plugin;
+		const { edit } = model;
 		return () => {
 			const shortcuts = edit()[type + 'Shortcuts'];
 			const { td } = this.editor;
 			if (td) {
 				const type = td.column && td.column.editor ? td.column.editor : td.column.type;
-				if (shortcuts.hasOwnProperty(type)) {
+				if (shortcuts && shortcuts.hasOwnProperty(type)) {
 					return shortcuts[type];
 				}
 			}

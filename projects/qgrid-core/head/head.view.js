@@ -9,11 +9,12 @@ import { eventPath } from '../services/dom';
 
 export class HeadView {
 	constructor(plugin, tagName) {
+		const { model, table, observeReply } = plugin;
+
 		this.plugin = plugin;
 		this.tagName = tagName;
 		this.rows = [];
 
-		const { model, table } = this.plugin;
 		const pathFinder = new PathService(table.box.bag.head);
 
 		this.drop = new Command({
@@ -115,24 +116,27 @@ export class HeadView {
 			}
 		});
 
-		model.dataChanged.watch(e => {
-			if (e.hasChanges('columns')) {
-				const line = columnService.flatten(e.state.columns);
-				model.columnList({ line }, { source: 'head.view' });
-			}
-		});
+		observeReply(model.dataChanged)
+			.subscribe(e => {
+				if (e.hasChanges('columns')) {
+					const line = columnService.flatten(e.state.columns);
+					model.columnList({ line }, { source: 'head.view' });
+				}
+			});
 
-		model.sceneChanged.watch(e => {
-			if (e.hasChanges('column')) {
-				this.invalidate();
-			}
-		});
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('column')) {
+					this.invalidate();
+				}
+			});
 
-		model.filterChanged.watch(e => {
-			if (e.hasChanges('unit')) {
-				this.invalidate();
-			}
-		});
+		observeReply(model.filterChanged)
+			.subscribe(e => {
+				if (e.hasChanges('unit')) {
+					this.invalidate();
+				}
+			});
 	}
 
 	columns(row, pin) {

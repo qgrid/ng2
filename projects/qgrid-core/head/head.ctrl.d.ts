@@ -1,7 +1,7 @@
-import { Model } from '../infrastructure/model';
+import { GridPlugin } from '../plugin/grid.plugin';
 
 export declare class HeadCtrl {
-	constructor(model: Model, view: any, bag: any);
+	constructor(plugin: GridPlugin);
 
 	onMouseMove(e: MouseEvent);
 	onMouseLeave(e: MouseEvent);

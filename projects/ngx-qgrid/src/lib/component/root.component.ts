@@ -6,7 +6,7 @@ import { GridModelBuilder } from '../grid/grid-model.builder';
 import { Disposable } from '../infrastructure/disposable';
 
 export class RootComponent implements OnChanges, OnInit {
-	model: GridModel = null;
+	model: GridModel;
 	modelChanged = new Event();
 
 	protected models: string[] = [];

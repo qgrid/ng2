@@ -3,7 +3,7 @@
  *
  * ## Suggested Links
  *
- * * [grid.ctrl.js](https://github.com/qgrid/ng2/blob/master/projects/core/grid/grid.ctrl.js)
+ * * [grid.ctrl.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/grid/grid.ctrl.js)
  */
 export declare interface GridModel {
 	/**

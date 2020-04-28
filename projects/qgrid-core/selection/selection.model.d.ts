@@ -7,7 +7,7 @@ import { Command } from '../command/command';
  * ### Suggested Links
  *
  * * [Scroll View](/doc/api/scroll-view.html)
- * * [selection.service.js](https://github.com/qgrid/ng2/blob/master/projects/core/selection/selection.service.js)
+ * * [selection.service.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/selection/selection.service.js)
  */
 export declare interface SelectionModel {
 	/**

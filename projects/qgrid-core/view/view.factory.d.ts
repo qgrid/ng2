@@ -7,4 +7,4 @@ export declare function viewFactory(
 	gridService: any,
 	vscroll: any,
 	selectors: any
-);
+): (host: any) => void;

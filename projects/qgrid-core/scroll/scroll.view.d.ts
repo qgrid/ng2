@@ -2,6 +2,7 @@ import { Model } from '../infrastructure/model';
 import { Defer } from '../infrastructure/defer';
 import { Table } from '../dom/table';
 import { GridService } from '../services/grid';
+import { GridPlugin } from '../plugin/grid.plugin';
 
 export declare class VscrollContext {
 	settings: {
@@ -29,9 +30,8 @@ export declare class VscrollContext {
 	id: (index: number) => number;
 }
 
-
 export declare class ScrollView {
-	constructor(model: Model, table: Table, vscroll: VscrollContext, gridService: GridService);
+	constructor(plugin: GridPlugin, vscroll: VscrollContext, gridService: GridService);
 
 	readonly mode: 'virtual' | 'default';
 	readonly y: VscrollContext;

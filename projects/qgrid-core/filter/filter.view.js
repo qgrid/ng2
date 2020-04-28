@@ -2,8 +2,10 @@ import { Command } from '../command/command';
 import { clone, isUndefined } from '../utility/kit';
 
 export class FilterView {
-	constructor(model) {
-		this.model = model;
+	constructor(plugin) {
+		const { model } = plugin;
+
+		this.plugin = plugin;
 
 		this.column = new Command({
 			source: 'filter.view',
@@ -37,13 +39,15 @@ export class FilterView {
 	}
 
 	has(column) {
-		const { by } = this.model.filter();
+		const { model } = this.plugin;
+		const { by } = model.filter();
 		return by.hasOwnProperty(column.key);
 	}
 
 	value(column) {
+		const { model } = this.plugin;
 		const { key } = column;
-		const { by } = this.model.filter();
+		const { by } = model.filter();
 		if (by[key]) {
 			const { expression, items } = by[key];
 			return expression

@@ -1,14 +1,13 @@
 import { Command } from '../command/command';
-import { Model } from '../infrastructure/model';
-import { Table } from '../dom/table';
 import { GridService } from '../services/grid';
 import { ColumnModel } from '../column-type/column.model';
+import { GridPlugin } from '../plugin/grid.plugin';
 
 export class GroupView {
-	constructor(model: Model, table: Table, service: GridService, shortcut: { register: (commands: Command[]) => void });
+	constructor(plugin: GridPlugin, service: GridService, shortcut: { register: (commands: Command[]) => void });
 
-	toggleStatus: Command;
-	toggleAllStatus: Command;
+	readonly toggleStatus: Command;
+	readonly toggleAllStatus: Command;
 
 	count(node: Node, column: ColumnModel): number;
 	status(node: Node, column: ColumnModel): 'expand' | 'collapse';

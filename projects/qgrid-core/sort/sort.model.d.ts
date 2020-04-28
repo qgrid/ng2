@@ -16,7 +16,7 @@
  * ### Suggested Links
  *
  * * [Sort View](/doc/api/sort-view.html)
- * * [sort.pipe.js](https://github.com/qgrid/ng2/blob/master/projects/core/pipe/sort.pipe.js)
+ * * [sort.pipe.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/pipe/sort.pipe.js)
  */
 export declare interface SortModel {
 	/**

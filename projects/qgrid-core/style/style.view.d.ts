@@ -1,12 +1,10 @@
 import { Monitor } from './style.monitor';
-import { Model } from '../infrastructure/model';
-import { Table } from '../dom/table';
-
+import { GridPlugin } from '../plugin/grid.plugin';
 
 export declare class StyleView {
-	constructor(model: Model, table: Table);
+	constructor(plugin: GridPlugin);
 
-	monitor: {
+	readonly monitor: {
 		row: Monitor;
 		cell: Monitor;
 	};

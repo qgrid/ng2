@@ -27,24 +27,26 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		private cd: ChangeDetectorRef,
 		private zone: NgZone
 	) {
-		zone.onStable.subscribe(() => {
-			if (this.root.isReady) {
-				const { scene } = this.model;
-				const { status } = scene();
-				if (status === 'push') {
-					scene({
-						status: 'stop'
-					}, {
-						source: 'grid.component',
-						behavior: 'core'
-					});
+		zone
+			.onStable
+			.subscribe(() => {
+				if (this.root.isReady) {
+					const { scene } = this.model;
+					const { status } = scene();
+					if (status === 'push') {
+						scene({
+							status: 'stop'
+						}, {
+							source: 'grid.component',
+							behavior: 'core'
+						});
 
-					if (this.ctrl) {
-						this.ctrl.invalidate();
+						if (this.ctrl) {
+							this.ctrl.invalidate();
+						}
 					}
 				}
-			}
-		});
+			});
 	}
 
 	ngDoCheck() {

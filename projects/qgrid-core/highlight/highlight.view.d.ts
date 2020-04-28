@@ -1,12 +1,10 @@
 import { Command } from '../command/command';
-import { Model } from '../infrastructure/model';
-import { Table } from '../dom/table';
-
+import { GridPlugin } from '../plugin/grid.plugin';
 
 export declare class HighlightView {
-	constructor(model: Model, table: Table);
+	constructor(plugin: GridPlugin);
 
-	column: Command;
-	row: Command;
-	cell: Command;
+	readonly column: Command;
+	readonly row: Command;
+	readonly cell: Command;
 }

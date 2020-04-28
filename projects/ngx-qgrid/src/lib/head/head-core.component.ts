@@ -6,35 +6,34 @@ import { EventManager } from '@qgrid/core/infrastructure/event.manager';
 import { HeadCtrl } from '@qgrid/core/head/head.ctrl';
 import { TableCoreService } from '../table/table-core.service';
 import { GridRoot } from '../grid/grid-root';
-import { Disposable } from '../infrastructure/disposable';
+import { GridPlugin } from '../plugin/grid-plugin';
 
 @Component({
 	// tslint:disable-next-line
 	selector: 'thead[q-grid-core-head]',
 	templateUrl: './head-core.component.html',
-	providers: [Disposable]
+	providers: [GridPlugin]
 })
 export class HeadCoreComponent implements OnInit {
 	constructor(
 		public $view: GridView,
 		public $table: TableCoreService,
-		private root: GridRoot,
 		private elementRef: ElementRef,
-		private zone: NgZone,
-		private disposable: Disposable
+		private plugin: GridPlugin,
+		private zone: NgZone
 	) {
 	}
 
 	ngOnInit() {
-		const { model } = this.root;
+		const { disposable } = this.plugin;
 
 		const element = this.elementRef.nativeElement;
-		const ctrl = new HeadCtrl(model, this.$view, this.root.table.box.bag);
-		const listener = new EventListener(element, new EventManager(this));
+		const ctrl = new HeadCtrl(this.plugin);
 
+		const listener = new EventListener(element, new EventManager(this));
 		this.zone.runOutsideAngular(() => {
-			this.disposable.add(listener.on('mousemove', e => ctrl.onMouseMove(e)));
-			this.disposable.add(listener.on('mouseleave', e => ctrl.onMouseLeave(e)));
+			disposable.add(listener.on('mousemove', e => ctrl.onMouseMove(e)));
+			disposable.add(listener.on('mouseleave', e => ctrl.onMouseLeave(e)));
 		});
 	}
 

@@ -1,14 +1,13 @@
 import { RowEditor } from './edit.row.editor';
-import { CommandManager } from '../command/command.manager';
 import { Command } from '../command/command';
-import { Table } from '../dom/table';
+import { GridPlugin } from '../plugin/grid.plugin';
 
 export declare class EditRowView {
-	constructor(model: any, table: Table, shortcut: { register: (commands: Command[]) => void });
+	constructor(plugin: GridPlugin, shortcut: { register: (commands: Command[]) => void });
 
-	editor: RowEditor;
-	enter: Command;
-	commit: Command;
-	cancel: Command;
-	reset: Command;
+	readonly editor: RowEditor;
+	readonly enter: Command;
+	readonly commit: Command;
+	readonly cancel: Command;
+	readonly reset: Command;
 }

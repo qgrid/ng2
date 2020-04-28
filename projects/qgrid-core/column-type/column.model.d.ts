@@ -140,9 +140,9 @@ import { EditorOptions } from './editor.options';
  *
  * ### Suggested Links
  *
- * * [value.js](https://github.com/qgrid/ng2/blob/master/projects/core/services/value.js)
- * * [label.js](https://github.com/qgrid/ng2/blob/master/projects/core/services/label.js)
- * * [column.pipe.js](https://github.com/qgrid/ng2/blob/master/projects/core/pipe/column.pipe.js)
+ * * [value.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/services/value.js)
+ * * [label.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/services/label.js)
+ * * [column.pipe.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/pipe/column.pipe.js)
  */
 export declare class ColumnModel {
 	/**

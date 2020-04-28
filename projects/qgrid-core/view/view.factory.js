@@ -27,8 +27,14 @@ export function viewFactory(
 	const { shortcut } = model.action();
 
 	const navigationShortcut = {
-		register: commands => disposable.add(shortcut.register(commandManager, commands)),
-		keyCode: () => shortcut.keyCode
+		keyCode: () => shortcut.keyCode,
+		register: commands =>
+			disposable.add(
+				shortcut.register(
+					commandManager,
+					commands
+				)
+			),
 	};
 
 	const selectionCommandManager =
@@ -40,7 +46,10 @@ export function viewFactory(
 	const selectionShortcut = {
 		register: commands => {
 			disposable.add(
-				shortcut.register(selectionCommandManager, commands)
+				shortcut.register(
+					selectionCommandManager,
+					commands
+				)
 			);
 		}
 	};
@@ -49,18 +58,18 @@ export function viewFactory(
 		host.head = new HeadView(plugin, selectors.th);
 		host.body = new BodyView(plugin);
 		host.foot = new FootView(plugin);
-		host.row = new RowView(plugin, table, selectors.tr);
+		host.row = new RowView(plugin, selectors.tr);
 		host.layout = new LayoutView(plugin, gridService);
-		host.scroll = new ScrollView(model, table, vscroll, gridService);
-		host.highlight = new HighlightView(model, table);
-		host.sort = new SortView(model);
-		host.pagination = new PaginationView(model);
-		host.nav = new NavigationView(model, table, navigationShortcut);
-		host.group = new GroupView(model, table, gridService, navigationShortcut);
-		host.edit = new EditView(model, table, navigationShortcut);
-		host.filter = new FilterView(model);
-		host.rowDetails = new RowDetailsView(model, table, navigationShortcut);
-		host.selection = new SelectionView(model, table, selectionShortcut);
-		host.style = new StyleView(model, table);
+		host.scroll = new ScrollView(plugin, vscroll, gridService);
+		host.highlight = new HighlightView(plugin);
+		host.sort = new SortView(plugin);
+		host.pagination = new PaginationView(plugin);
+		host.nav = new NavigationView(plugin, navigationShortcut);
+		host.group = new GroupView(plugin, gridService, navigationShortcut);
+		host.edit = new EditView(plugin, navigationShortcut);
+		host.filter = new FilterView(plugin);
+		host.rowDetails = new RowDetailsView(plugin, navigationShortcut);
+		host.selection = new SelectionView(plugin, selectionShortcut);
+		host.style = new StyleView(plugin);
 	};
 }

@@ -7,7 +7,7 @@ import { CellView } from '../scene/view/cell.view';
  * ### Suggested Links
  *
  * * [Navigation View](/doc/api/navigation-view.html)
- * * [navigation.js](https://github.com/qgrid/ng2/blob/master/projects/core/navigation/navigation.js)
+ * * [navigation.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/navigation/navigation.js)
  */
 export declare interface NavigationModel {
 	/**

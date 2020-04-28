@@ -29,7 +29,7 @@ import { ColumnModel } from '../column-type/column.model';
  *
  * ### Suggested Links
  *
- * * [filter.pipe.js](https://github.com/qgrid/ng2/blob/master/projects/core/pipe/filter.pipe.js)
+ * * [filter.pipe.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/pipe/filter.pipe.js)
  */
 
 export declare function match(context: any): (x: any, value: any) => boolean;

@@ -9,10 +9,10 @@ import { Node } from '../node/node';
  * ### Suggested Links
  *
  * * [Group View](/doc/api/group-view.html)
- * * [group.pipe.js](https://github.com/qgrid/ng2/blob/master/projects/core/pipe/group.pipe.js)
- * * [group.build.js](https://github.com/qgrid/ng2/blob/master/projects/core/group/group.build.js)
- * * [node.js]((https://github.com/qgrid/ng2/blob/master/projects/core/node/node.js)
- * * [node.build.js](https://github.com/qgrid/ng2/blob/master/projects/core/node.build.js)
+ * * [group.pipe.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/pipe/group.pipe.js)
+ * * [group.build.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/group/group.build.js)
+ * * [node.js]((https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/node/node.js)
+ * * [node.build.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/node.build.js)
  */
 export declare interface GroupModel {
 	/**

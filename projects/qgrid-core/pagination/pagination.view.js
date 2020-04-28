@@ -1,12 +1,13 @@
 export class PaginationView {
-	constructor(model) {
-		this.model = model;
+	constructor(plugin) {
+		const { model, observe } = plugin;
+
 
 		const { resetTriggers } = model.pagination();
 		Object.keys(resetTriggers)
 			.forEach(name =>
-				model[name + 'Changed']
-					.on(e => {
+				observe(model[name + 'Changed'])
+					.subscribe(e => {
 						if (e.tag.behavior === 'core') {
 							return;
 						}
@@ -25,10 +26,10 @@ export class PaginationView {
 	}
 
 	get current() {
-		return this.model.pagination().current;
+		return this.plugin.model.pagination().current;
 	}
 
 	get size() {
-		return this.model.pagination().size;
+		return this.plugin.model.pagination().size;
 	}
 }

@@ -8,8 +8,8 @@ import { Command } from '../command/command';
  *
  * ### Suggested Links
  *
- * * [shortcut.manager.js](https://github.com/qgrid/ng2/blob/master/projects/core/shortcut/shortuct.manager.js)
- * * [shortcut.dispatcher.js](https://github.com/qgrid/ng2/blob/master/projects/core/shortcut/shortcut.dispatcher.js)
+ * * [shortcut.manager.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/shortcut/shortuct.manager.js)
+ * * [shortcut.dispatcher.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/shortcut/shortcut.dispatcher.js)
  */
 export declare class Shortcut {
 	constructor(manager: ShortcutDispatcher);
