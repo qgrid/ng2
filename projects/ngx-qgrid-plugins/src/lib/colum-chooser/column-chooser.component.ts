@@ -33,6 +33,7 @@ export class RootContext {
 })
 export class ColumnChooserComponent implements OnInit, OnChanges {
 	@Input('canAggregate') columnChooserCanAggregate: boolean;
+
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 

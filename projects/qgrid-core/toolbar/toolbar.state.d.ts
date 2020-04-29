@@ -1,0 +1,2 @@
+export declare interface ToolbarState {
+}

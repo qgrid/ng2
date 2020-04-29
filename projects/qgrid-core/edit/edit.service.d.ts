@@ -1,5 +1,5 @@
 import { Table } from '../dom/table';
-import { Model } from '../infrastructure/model';
+import { Model } from '../model/model';
 import { Td } from '../dom/td';
 import { CellView } from '../scene/view/cell.view';
 

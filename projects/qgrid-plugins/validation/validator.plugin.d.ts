@@ -1,4 +1,4 @@
-import { Model } from '@qgrid/core/infrastructure/model';
+import { Model } from '@qgrid/core/model/model';
 import { Validator } from '@qgrid/core/validation/validation.service';
 
 export declare class ValidatorPlugin {

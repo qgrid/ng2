@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { DomTr } from '../dom/dom';
-import { GridView } from '../grid/grid-view';
+import { GridLet } from '../grid/grid-let';
 import { GridRoot } from '../grid/grid-root';
 
 @Directive({
@@ -14,7 +14,7 @@ export class TrCoreDirective implements DomTr, OnInit, OnDestroy {
 	element: HTMLElement;
 
 	constructor(
-		public $view: GridView,
+		public $view: GridLet,
 		private root: GridRoot,
 		elementRef: ElementRef
 	) {

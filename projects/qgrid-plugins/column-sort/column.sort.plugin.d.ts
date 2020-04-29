@@ -1,4 +1,3 @@
-import { Model } from '@qgrid/core/infrastructure/model';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { GridPlugin } from '@qgrid/core/plugin/grid.plugin';
 

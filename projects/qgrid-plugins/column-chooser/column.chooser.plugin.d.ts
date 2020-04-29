@@ -1,4 +1,4 @@
-import { Event } from '@qgrid/core/infrastructure/event'
+import { Event } from '@qgrid/core/event/event'
 import { Command } from '@qgrid/core/command/command';
 import { Node } from '@qgrid/core/node/node';
 import { GridPlugin } from '@qgrid/core/plugin/grid.plugin';

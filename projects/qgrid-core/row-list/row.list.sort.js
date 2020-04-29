@@ -1,4 +1,4 @@
-import { identity } from "../utility/kit";
+import { identity } from '../utility/kit';
 
 export function sortFactory(model) {
     const { index } = model.rowList();
@@ -45,4 +45,4 @@ export function sortFactory(model) {
 
         return result;
     };
-}``
+}

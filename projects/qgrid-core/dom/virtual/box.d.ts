@@ -2,7 +2,7 @@ import { Box } from '../box';
 import { Cell } from '../cell';
 import { Row } from '../row';
 import { Column } from '../column';
-import { Event } from '../../infrastructure/event';
+import { Event } from '../../event/event';
 
 export declare class VirtualBox extends Box {
 	constructor();

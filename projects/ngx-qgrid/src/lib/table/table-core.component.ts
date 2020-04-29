@@ -1,8 +1,8 @@
 import { OnInit, Component, Input } from '@angular/core';
-import { VisibilityModel } from '@qgrid/core/visibility/visibility.model';
+import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
 import { GridRoot } from '../grid/grid-root';
 import { TableCoreService } from './table-core.service';
-import { GridView } from '../grid/grid-view';
+import { GridLet } from '../grid/grid-let';
 @Component({
 	selector: 'q-grid-core-table',
 	templateUrl: './table-core.component.html',
@@ -12,7 +12,7 @@ export class TableCoreComponent implements OnInit {
 	@Input() pin = null;
 
 	constructor(
-		public $view: GridView,
+		public $view: GridLet,
 		private root: GridRoot,
 		private table: TableCoreService,
 	) {
@@ -26,7 +26,7 @@ export class TableCoreComponent implements OnInit {
 		this.table.pin = this.pin;
 	}
 
-	get visibility(): VisibilityModel {
+	get visibility(): VisibilityState {
 		return this.root.model.visibility();
 	}
 }

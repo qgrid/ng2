@@ -16,7 +16,7 @@ import { ColumnView } from '@qgrid/core/scene/view/column.view';
 import { TdCtrl } from '@qgrid/core/cell/td.ctrl';
 import { DomTd } from '../dom/dom';
 import { noop } from '@qgrid/core/utility/kit';
-import { GridView } from '../grid/grid-view';
+import { GridLet } from '../grid/grid-let';
 import { GridRoot } from '../grid/grid-root';
 import { TrCoreDirective } from '../row/tr-core.directive';
 import { CellService } from '../cell/cell.service';
@@ -39,7 +39,7 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	changes: SimpleChange;
 
 	constructor(
-		public $view: GridView,
+		public $view: GridLet,
 		private root: GridRoot,
 		private viewContainerRef: ViewContainerRef,
 		private cellService: CellService,

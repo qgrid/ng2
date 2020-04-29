@@ -1,4 +1,4 @@
-import { GridService } from '@qgrid/core/services/grid';
+import { GridService } from '@qgrid/core/grid/grid.service';
 import { RestView } from './rest.view';
 import { modelFactory } from '@qgrid/core/test/model.factory';
 

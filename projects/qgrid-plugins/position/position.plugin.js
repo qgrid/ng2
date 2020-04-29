@@ -1,7 +1,7 @@
 import { GRID_PREFIX } from '@qgrid/core/definition';
 import { max } from '@qgrid/core/utility/kit';
-import { EventListener } from '@qgrid/core/infrastructure/event.listener';
-import { EventManager } from '@qgrid/core/infrastructure/event.manager';
+import { EventListener } from '@qgrid/core/event/event.listener';
+import { EventManager } from '@qgrid/core/event/event.manager';
 import { jobLine } from '@qgrid/core/services/job.line';
 
 export class PositionPlugin {

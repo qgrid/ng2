@@ -9,8 +9,8 @@ import {
 	NgZone
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { EventListener } from '@qgrid/core/infrastructure/event.listener';
-import { EventManager } from '@qgrid/core/infrastructure/event.manager';
+import { EventListener } from '@qgrid/core/event/event.listener';
+import { EventManager } from '@qgrid/core/event/event.manager';
 import { GRID_PREFIX } from '@qgrid/core/definition';
 import { clone } from '@qgrid/core/utility/kit';
 import { GridModel } from '../grid/grid-model';

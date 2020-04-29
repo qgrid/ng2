@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ColumnView } from '@qgrid/core/scene/view/column.view';
-import { GridView } from '../grid/grid-view';
+import { GridLet } from '../grid/grid-let';
 import { TableCoreService } from '../table/table-core.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { TableCoreService } from '../table/table-core.service';
 })
 export class FootCoreComponent {
 	constructor(
-		public $view: GridView,
+		public $view: GridLet,
 		public $table: TableCoreService
 	) {
 	}

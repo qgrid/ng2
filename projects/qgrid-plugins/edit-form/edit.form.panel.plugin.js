@@ -1,7 +1,7 @@
 import { isUndefined } from '@qgrid/core/utility/kit';
 import { Command } from '@qgrid/core/command/command';
 import { RowEditor } from '@qgrid/core/edit/edit.row.editor';
-import { Event } from '@qgrid/core/infrastructure/event';
+import { Event } from '@qgrid/core/event/event';
 
 export class EditFormPanelPlugin {
 	constructor(plugin, context) {

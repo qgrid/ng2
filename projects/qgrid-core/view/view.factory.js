@@ -1,20 +1,20 @@
 import { SelectionCommandManager } from '../selection/selection.command.manager';
-import { BodyView } from '../body/body.view';
-import { EditView } from '../edit/edit.view';
-import { FilterView } from '../filter/filter.view';
-import { FootView } from '../foot/foot.view';
-import { GroupView } from '../group/group.view';
-import { HeadView } from '../head/head.view';
-import { HighlightView } from '../highlight/highlight.view';
-import { LayoutView } from '../layout/layout.view';
-import { NavigationView } from '../navigation/navigation.view';
-import { PaginationView } from '../pagination/pagination.view';
-import { RowDetailsView } from '../row-details/row.details.view';
-import { RowView } from '../row/row.view';
-import { ScrollView } from '../scroll/scroll.view';
-import { SelectionView } from '../selection/selection.view';
-import { SortView } from '../sort/sort.view';
-import { StyleView } from '../style/style.view';
+import { BodyLet } from '../body/body.let';
+import { EditLet } from '../edit/edit.let';
+import { FilterLet } from '../filter/filter.let';
+import { FootLet } from '../foot/foot.let';
+import { GroupLet } from '../group/group.let';
+import { HeadLet } from '../head/head.let';
+import { HighlightLet } from '../highlight/highlight.let';
+import { LayoutLet } from '../layout/layout.let';
+import { NavigationLet } from '../navigation/navigation.let';
+import { PaginationLet } from '../pagination/pagination.let';
+import { RowDetailsLet } from '../row-details/row.details.let';
+import { RowLet } from '../row/row.let';
+import { ScrollLet } from '../scroll/scroll.let';
+import { SelectionLet } from '../selection/selection.let';
+import { SortLet } from '../sort/sort.let';
+import { StyleLet } from '../style/style.let';
 
 export function viewFactory(
 	plugin,
@@ -55,21 +55,21 @@ export function viewFactory(
 	};
 
 	return host => {
-		host.head = new HeadView(plugin, selectors.th);
-		host.body = new BodyView(plugin);
-		host.foot = new FootView(plugin);
-		host.row = new RowView(plugin, selectors.tr);
-		host.layout = new LayoutView(plugin, gridService);
-		host.scroll = new ScrollView(plugin, vscroll, gridService);
-		host.highlight = new HighlightView(plugin);
-		host.sort = new SortView(plugin);
-		host.pagination = new PaginationView(plugin);
-		host.nav = new NavigationView(plugin, navigationShortcut);
-		host.group = new GroupView(plugin, gridService, navigationShortcut);
-		host.edit = new EditView(plugin, navigationShortcut);
-		host.filter = new FilterView(plugin);
-		host.rowDetails = new RowDetailsView(plugin, navigationShortcut);
-		host.selection = new SelectionView(plugin, selectionShortcut);
-		host.style = new StyleView(plugin);
+		host.head = new HeadLet(plugin, selectors.th);
+		host.body = new BodyLet(plugin);
+		host.foot = new FootLet(plugin);
+		host.row = new RowLet(plugin, selectors.tr);
+		host.layout = new LayoutLet(plugin, gridService);
+		host.scroll = new ScrollLet(plugin, vscroll, gridService);
+		host.highlight = new HighlightLet(plugin);
+		host.sort = new SortLet(plugin);
+		host.pagination = new PaginationLet(plugin);
+		host.nav = new NavigationLet(plugin, navigationShortcut);
+		host.group = new GroupLet(plugin, gridService, navigationShortcut);
+		host.edit = new EditLet(plugin, navigationShortcut);
+		host.filter = new FilterLet(plugin);
+		host.rowDetails = new RowDetailsLet(plugin, navigationShortcut);
+		host.selection = new SelectionLet(plugin, selectionShortcut);
+		host.style = new StyleLet(plugin);
 	};
 }

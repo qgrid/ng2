@@ -1,5 +1,6 @@
 import { Disposable } from './disposable';
-import { ModelEvent, ModelEventArg } from './model';
+import { ModelEventArg } from '../model/model.event';
+import { Event } from '../event/event';
 
 export declare class SubscriptionLike {
     unsubscribe(): void;
@@ -14,9 +15,9 @@ export interface OperatorFunctionLike<T, R> extends UnaryFunctionLike<Observable
 }
 
 export declare class ObservableLike<T> {
-    constructor(event: ModelEvent<T>, reply: boolean, disposable: Disposable);
+    constructor(event: Event<T>, reply: boolean, disposable: Disposable);
 
-    subscribe(next: (value: ModelEventArg<T>) => void): SubscriptionLike;
+    subscribe(next: (value: T) => void): SubscriptionLike;
     toPromise(): Promise<T>;
 
     pipe(): ObservableLike<T>;

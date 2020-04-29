@@ -11,7 +11,7 @@ import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { TdCtrl } from '@qgrid/core/cell/td.ctrl';
 import { DomTd } from '../dom/dom';
 import { AppError } from '@qgrid/core/infrastructure/error';
-import { GridView } from '../grid/grid-view';
+import { GridLet } from '../grid/grid-let';
 import { GridRoot } from '../grid/grid-root';
 import { CellService } from '../cell/cell.service';
 import { TrhCoreDirective } from '../row/trh-core.directive';
@@ -28,7 +28,7 @@ export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
 	element: HTMLElement = null;
 
 	constructor(
-		public $view: GridView,
+		public $view: GridLet,
 		private root: GridRoot,
 		private cellService: CellService,
 		private viewContainerRef: ViewContainerRef,

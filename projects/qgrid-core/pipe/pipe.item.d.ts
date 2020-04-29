@@ -1,4 +1,4 @@
-import { Model } from '../infrastructure/model';
+import { Model } from '../model/model';
 import { Node } from '../node/node';
 
 export interface PipePivot {

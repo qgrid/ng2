@@ -4,7 +4,7 @@ import { Head } from './head';
 import { Body } from './body';
 import { Foot } from './foot';
 import { BoxContext } from './box';
-import { Model } from '../infrastructure/model';
+import { Model } from '../model/model';
 
 /**
  * Use this class to get access to low level dom elements and functions of the qgrid.

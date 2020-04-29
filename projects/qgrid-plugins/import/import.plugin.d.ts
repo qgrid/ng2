@@ -1,4 +1,4 @@
-import { Model } from '@qgrid/core/infrastructure/model';
+import { Model } from '@qgrid/core/model/model';
 import { Command } from '@qgrid/core/command/command';
 
 export declare interface ImportOptions {

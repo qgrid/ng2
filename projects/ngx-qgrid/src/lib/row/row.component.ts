@@ -1,33 +1,30 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { ModelComponent } from '../component/model.component';
-import { GridRoot } from '../grid/grid-root';
 import { TemplateHostService } from '../template/template-host.service';
-import { Disposable } from '../infrastructure/disposable';
+import { GridPlugin } from '../plugin/grid-plugin';
+import { RowState } from '@qgrid/core/row/row.state';
 
 @Component({
 	selector: 'q-grid-row',
 	template: '<ng-content></ng-content>',
 	providers: [
 		TemplateHostService,
-		Disposable
+		GridPlugin
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RowComponent extends ModelComponent {
-	@Input('mode') rowMode: 'single' | 'multiple';
-	@Input('unit') rowUnit: 'data' | 'details';
-	@Input('canMove') rowCanMove: boolean;
-	@Input('canResize') rowCanResize: boolean;
-	@Input('height') rowHeight: number;
+export class RowComponent {
+	private rowAccessor = this.plugin.stateAccessor(RowState);
+
+	@Input('mode') set rowMode(mode: 'single' | 'multiple') { this.rowAccessor({ mode }); }
+	@Input('unit') set rowUnit(unit: 'data' | 'details') { this.rowAccessor({ unit }); }
+	@Input('canMove') set rowCanMove(canMove: boolean) { this.rowAccessor({ canMove }); }
+	@Input('canResize') set rowCanResize(canResize: boolean) { this.rowAccessor({ canResize }); }
+	@Input('height') set rowHeight(height) { this.rowAccessor({ height }); }
 
 	constructor(
-		root: GridRoot,
+		private plugin: GridPlugin,
 		templateHost: TemplateHostService,
-		disposable: Disposable
 	) {
-		super(root, disposable);
-
-		this.models = ['row'];
 		templateHost.key = source => `body-cell-row-${source}.tpl.html`;
 	}
 }

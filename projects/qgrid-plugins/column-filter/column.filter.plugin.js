@@ -2,7 +2,7 @@ import { Command } from '@qgrid/core/command/command';
 import * as columnService from '@qgrid/core/column/column.service';
 import { getFactory as labelFactory } from '@qgrid/core/services/label';
 import { clone } from '@qgrid/core/utility/kit';
-import { Event } from '@qgrid/core/infrastructure/event';
+import { Event } from '@qgrid/core/event/event';
 
 export class ColumnFilterPlugin {
 	constructor(plugin, context) {

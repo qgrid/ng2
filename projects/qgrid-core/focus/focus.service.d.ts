@@ -1,4 +1,4 @@
-import { Model } from '../infrastructure/model';
+import { Model } from '../model/model';
 import { Table } from '../dom/table';
 import { Disposable } from '../infrastructure/disposable';
 

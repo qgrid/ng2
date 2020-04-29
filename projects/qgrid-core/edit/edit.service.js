@@ -1,6 +1,5 @@
 import { CellEditor } from './edit.cell.editor';
-import { EditCellView } from './edit.cell.view';
-import { CommandManager } from '../command/command.manager';
+import { EditCellLet } from './edit.cell.let';
 
 export class EditService {
 	constructor(model, table) {
@@ -15,7 +14,7 @@ export class EditService {
 		const { items } = model.selection();
 
 		const shortcut = { register: () => ({}), keyCode: () => '' };
-		const editView = new EditCellView(model, table, shortcut);
+		const editView = new EditCellLet(model, table, shortcut);
 		const startTd = this.table.body.cell(startCell.rowIndex, startCell.columnIndex).model();
 
 		const label = startTd.label;

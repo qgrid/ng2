@@ -1,12 +1,11 @@
 import { Component, ElementRef, OnInit, NgZone, Input, ChangeDetectorRef } from '@angular/core';
-import { EventListener } from '@qgrid/core/infrastructure/event.listener';
-import { EventManager } from '@qgrid/core/infrastructure/event.manager';
+import { EventListener } from '@qgrid/core/event/event.listener';
+import { EventManager } from '@qgrid/core/event/event.manager';
 import { ColumnView } from '@qgrid/core/scene/view/column.view';
-import { SelectionModel } from '@qgrid/core/selection/selection.model';
+import { SelectionState } from '@qgrid/core/selection/selection.state';
 import { GridModel } from '../grid/grid-model';
-import { BodyCtrl } from '@qgrid/core/body/body.ctrl';
-import { GridRoot } from '../grid/grid-root';
-import { GridView } from '../grid/grid-view';
+import { BodyHost } from '@qgrid/core/body/body.host';
+import { GridLet } from '../grid/grid-let';
 import { TableCoreService } from '../table/table-core.service';
 import { GridPlugin } from '../plugin/grid-plugin';
 
@@ -23,7 +22,7 @@ export class BodyCoreComponent implements OnInit {
 	rowId: (index: number, row: any) => any;
 
 	constructor(
-		public $view: GridView,
+		public $view: GridLet,
 		public $table: TableCoreService,
 		private elementRef: ElementRef,
 		private zone: NgZone,
@@ -41,26 +40,27 @@ export class BodyCoreComponent implements OnInit {
 
 		const nativeElement = this.elementRef.nativeElement as HTMLElement;
 
-		const ctrl = new BodyCtrl(this.plugin);
+		const host = new BodyHost(this.plugin);
 		const listener = new EventListener(nativeElement, new EventManager(this));
 
 		this.zone.runOutsideAngular(() => {
-			disposable.add(listener.on('wheel', e => ctrl.onWheel(e)));
-			disposable.add(listener.on('scroll', () =>
-				ctrl.onScroll({
-					scrollLeft: this.$table.pin ? model.scroll().left : nativeElement.scrollLeft,
-					scrollTop: nativeElement.scrollTop
-				}),
-				{ passive: true }
-			));
-			disposable.add(listener.on('mousemove', ctrl.onMouseMove.bind(ctrl)));
-			disposable.add(listener.on('mouseleave', ctrl.onMouseLeave.bind(ctrl)));
+			const scrollSettings = { passive: true };
+			disposable.add(
+				listener.on('scroll', () =>
+					host.scroll({
+						scrollLeft: this.$table.pin ? model.scroll().left : nativeElement.scrollLeft,
+						scrollTop: nativeElement.scrollTop
+					}),
+					scrollSettings
+				));
+
+			disposable.add(listener.on('wheel', e => host.wheel(e)));
+			disposable.add(listener.on('mousemove', host.mouseMove.bind(host)));
+			disposable.add(listener.on('mouseleave', host.mouseLeave.bind(host)));
+			disposable.add(listener.on('mouseup', e => host.mouseUp(e)));
 			disposable.add(listener.on('mousedown', e => {
 				this.cd.markForCheck();
-				this.zone.run(() => ctrl.onMouseDown(e));
-			}));
-			disposable.add(listener.on('mouseup', e => {
-				ctrl.onMouseUp(e);
+				this.zone.run(() => host.mouseDown(e));
 			}));
 		});
 
@@ -90,7 +90,7 @@ export class BodyCoreComponent implements OnInit {
 			});
 	}
 
-	get selection(): SelectionModel {
+	get selection(): SelectionState {
 		return this.model.selection();
 	}
 

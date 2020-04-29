@@ -11,7 +11,7 @@ import { ColumnFilterPlugin } from '@qgrid/plugins/column-filter/column.filter.p
 import { uniq, flatten } from '@qgrid/core/utility/kit';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { Fetch } from '@qgrid/core/infrastructure/fetch';
-import { ColumnFilterModel } from '@qgrid/plugins/column-filter/column.filter.model';
+import { ColumnFilterState } from '@qgrid/plugins/column-filter/column.filter.state';
 import { Guard } from '@qgrid/core/infrastructure/guard';
 import { GridPlugin, Grid, VscrollService, VscrollContext } from '@qgrid/ngx';
 import { FocusAfterRender } from '../focus/focus.service';
@@ -53,7 +53,7 @@ export class ColumnFilterComponent implements OnInit {
 		const { model } = this.plugin;
 		const { key } = this.column;
 		const context = { key };
-		const columnFilter = model.resolve(ColumnFilterModel);
+		const columnFilter = model.resolve(ColumnFilterState);
 		const columnFilterPlugin = new ColumnFilterPlugin(this.plugin, context);
 
 		columnFilterPlugin.submitEvent.on(() => this.submitEvent.emit());

@@ -2,7 +2,7 @@ import { ColumnView } from '../scene/view/column.view';
 import { DataColumnModel } from './data.column.model';
 import { TemplatePath } from '../template/template.path';
 import { yes } from '../utility/kit';
-import { isImage } from '../services/file';
+import { isImage } from '../io/file';
 
 TemplatePath.register('file-cell', (template, column) => {
 	return {

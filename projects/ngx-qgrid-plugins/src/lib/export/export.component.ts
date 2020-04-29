@@ -35,9 +35,11 @@ export class ExportComponent implements AfterViewInit {
 
 	ngAfterViewInit() {
 		const { model } = this.plugin;
-		const exportView = new ExportPlugin(model, { type: this.type });
+		const exportPlugin = new ExportPlugin(model, { type: this.type });
 		const action = new Action(
-			new Command({ execute: () => exportView[this.type].execute() }),
+			new Command({
+				execute: () => exportPlugin[this.type].execute()
+			}),
 			`Export to ${this.type}`,
 			'file_download'
 		);

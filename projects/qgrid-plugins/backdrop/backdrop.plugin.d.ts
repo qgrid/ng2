@@ -1,4 +1,4 @@
-import { Event } from '@qgrid/core/infrastructure/event';
+import { Event } from '@qgrid/core/event/event';
 
 export declare class BackdropPlugin {
 	constructor(context: {

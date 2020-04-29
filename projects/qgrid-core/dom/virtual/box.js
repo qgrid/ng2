@@ -1,7 +1,7 @@
 import { Box } from '../box';
 import { CellBox } from './cell.box';
 import { ColumnBox } from './column.box';
-import { Event } from '../../infrastructure/event';
+import { Event } from '../../event/event';
 import { isFunction } from '../../utility/kit';
 import { RowBox } from './row.box';
 import { VirtualCell } from './cell';

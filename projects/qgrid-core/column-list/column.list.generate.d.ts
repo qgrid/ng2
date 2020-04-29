@@ -1,5 +1,5 @@
 import { ColumnModel } from '../column-type/column.model';
-import { Model } from '../infrastructure/model';
+import { Model } from '../model/model';
 
 export declare interface ColumnListGenerationSettings {
 	columnFactory: (type: string) => ColumnModel;

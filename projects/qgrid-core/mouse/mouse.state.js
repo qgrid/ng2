@@ -1,0 +1,7 @@
+export class MouseState {
+	constructor() {
+		this.code = null;
+		this.status = 'release';
+		this.target = null;
+	}
+}

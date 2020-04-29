@@ -1,4 +1,4 @@
-import { Model } from '../../infrastructure/model';
+import { Model } from '../../model/model';
 import { Range } from '../../infrastructure/range';
 import { Markup } from '../../services/markup';
 

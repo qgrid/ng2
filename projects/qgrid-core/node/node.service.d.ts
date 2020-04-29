@@ -1,5 +1,5 @@
 import { Node } from './node';
-import { Model } from '../infrastructure/model';
+import { Model } from '../model/model';
 
 export declare function preOrderDFS(nodes: Node[], visit: (node: Node, memo: any, parent: Node | null, index: number) => any, memo: any): any;
 export declare function findLeaves(node: Node): Node[];

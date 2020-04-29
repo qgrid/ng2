@@ -1,4 +1,4 @@
-import { Event } from '@qgrid/core/infrastructure/event';
+import { Event } from '@qgrid/core/event/event';
 import { CellEditor } from '@qgrid/core/edit/edit.cell.editor';
 import { GridPlugin } from '@qgrid/core/plugin/grid.plugin';
 

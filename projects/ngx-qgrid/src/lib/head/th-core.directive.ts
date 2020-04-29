@@ -15,7 +15,7 @@ import { FilterRowColumnModel } from '@qgrid/core/column-type/filter.row.column'
 import { DomTd } from '../dom/dom';
 import { CellService } from '../cell/cell.service';
 import { GridRoot } from '../grid/grid-root';
-import { GridView } from '../grid/grid-view';
+import { GridLet } from '../grid/grid-let';
 import { TrhCoreDirective } from '../row/trh-core.directive';
 
 const classifyTd = TdCtrl.classify;
@@ -33,7 +33,7 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 	private $implicit = this;
 
 	constructor(
-		public $view: GridView,
+		public $view: GridLet,
 		private root: GridRoot,
 		private viewContainerRef: ViewContainerRef,
 		private cellService: CellService,

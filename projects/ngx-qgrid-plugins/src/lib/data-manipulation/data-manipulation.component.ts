@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { DataManipulationPlugin } from '@qgrid/plugins/data-manipulation/data.manipulation.plugin';
 import { GridPlugin } from '@qgrid/ngx';
-import { StyleRowCallback, StyleCellCallback } from '@qgrid/core/style/style.model';
+import { StyleRowCallback, StyleCellCallback } from '@qgrid/core/style/style.state';
 
 @Component({
 	selector: 'q-grid-data-manipulation',

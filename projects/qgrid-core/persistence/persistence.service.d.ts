@@ -1,4 +1,4 @@
-import { Model } from '../infrastructure/model';
+import { Model } from '../model/model';
 
 export declare class PersistenceService {
 	constructor(model: Model, createDefaultModel: () => Model);

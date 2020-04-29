@@ -1,6 +1,6 @@
 import * as css from '../services/css';
 
-class Entry {
+export class StyleEntry {
 	constructor(element, sheets, markDirty) {
 		this.element = element;
 		this.list = new Set();
@@ -21,7 +21,7 @@ class Entry {
 	}
 }
 
-export class Monitor {
+export class StyleMonitor {
 	constructor(model) {
 		this.model = model;
 		this.entries = new Set();

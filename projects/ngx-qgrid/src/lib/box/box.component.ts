@@ -1,49 +1,39 @@
-import { Component, ElementRef, Optional, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { GRID_PREFIX } from '@qgrid/core/definition';
-import { Guard } from '@qgrid/core/infrastructure/guard';
-import { BoxCtrl } from '@qgrid/core/box/box.ctrl';
-import { GridRoot } from '../grid/grid-root';
-import { GridModel } from '../grid/grid-model';
+import { BoxHost } from '@qgrid/core/box/box.host';
 import { ThemeService } from '../theme/theme.service';
-import { Disposable } from '../infrastructure/disposable';
+import { GridPlugin } from '../plugin/grid-plugin';
 
 @Component({
 	selector: 'q-grid-box',
 	templateUrl: './box.component.html',
-	providers: [Disposable]
+	providers: [GridPlugin]
 })
 export class BoxComponent implements OnInit {
-	@Input('model') private boxModel: GridModel = null;
-
 	constructor(
-		@Optional() private root: GridRoot,
 		private elementRef: ElementRef,
-		private disposable: Disposable,
-		private theme: ThemeService
+		private theme: ThemeService,
+		private plugin: GridPlugin
 	) {
 	}
 
 	ngOnInit() {
-		const ctrl = new BoxCtrl(this.model, this.elementRef.nativeElement);
+		// tslint:disable-next-line:no-unused-expression
+		new BoxHost(this.elementRef.nativeElement, this.plugin);
 		this.initTheme();
 	}
 
 	initTheme() {
-		const element = this.elementRef.nativeElement;
+		const { observeReply } = this.plugin;
+		const { nativeElement } = this.elementRef;
 
-		this.disposable.add(this.theme.changed.watch(e => {
-			if (e) {
-				element.classList.remove(`${GRID_PREFIX}-theme-${e.oldValue}`);
-			}
+		observeReply(this.theme.changed)
+			.subscribe(e => {
+				if (e) {
+					nativeElement.classList.remove(`${GRID_PREFIX}-theme-${e.oldName}`);
+				}
 
-			element.classList.add(`${GRID_PREFIX}-theme-${this.theme.name}`);
-		}));
-	}
-
-	get model() {
-		const model = this.boxModel || (this.root && this.root.model);
-		Guard.notNull(model, 'model');
-
-		return model;
+				nativeElement.classList.add(`${GRID_PREFIX}-theme-${e.newName}`);
+			});
 	}
 }

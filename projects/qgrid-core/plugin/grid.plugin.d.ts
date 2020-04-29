@@ -1,13 +1,15 @@
-import { Model, ModelEvent } from '../infrastructure/model';
+import { Model } from '../model/model';
+import { ModelEvent } from '../model/model.event';
 import { Table } from '../dom/table';
-import { GridView } from '../grid/grid.view';
+import { GridLet } from '../grid/grid.let';
 import { ObservableLike } from '../infrastructure/rx';
+import { Event } from '../event/event';
 
 export interface GridPlugin {
     readonly model: Model;
     readonly table: Table;
-    readonly view: GridView;
+    readonly view: GridLet;
 
-    readonly observe: <TState>(event: ModelEvent<TState>) => ObservableLike<TState>;
-    readonly observeReply: <TState>(event: ModelEvent<TState>) => ObservableLike<TState>;
+    observe<TState>(event: Event<TState>): ObservableLike<TState>;
+    observeReply<TState>(event: Event<TState>): ObservableLike<TState>;
 }

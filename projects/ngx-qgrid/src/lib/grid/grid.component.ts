@@ -6,63 +6,74 @@ import {
 	ElementRef,
 	NgZone,
 	Inject,
-	ChangeDetectorRef
+	ChangeDetectorRef,
+	SimpleChanges,
+	OnChanges
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Action } from '@qgrid/core/action/action';
+import { ActionState } from '@qgrid/core/action/action.state';
 import { AppError } from '@qgrid/core/infrastructure/error';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { Command } from '@qgrid/core/command/command';
-import { EventListener } from '@qgrid/core/infrastructure/event.listener';
-import { EventManager } from '@qgrid/core/infrastructure/event.manager';
+import { EventListener } from '@qgrid/core/event/event.listener';
+import { EventManager } from '@qgrid/core/event/event.manager';
 import { eventPath } from '@qgrid/core/services/dom';
 import { FetchContext } from '@qgrid/core/fetch/fetch.context';
 import { Grid } from './grid';
-import { GridCtrl } from '@qgrid/core/grid/grid.ctrl';
+import { GridHost } from '@qgrid/core/grid/grid.host';
+import { GridLet } from './grid-let';
+import { GridModel } from './grid-model';
+import { GridModelBuilder } from './grid-model.builder';
+import { GridPlugin } from '../plugin/grid-plugin';
+import { GridRoot } from './grid-root';
+import { GridState } from '@qgrid/core/grid/grid.state';
+import { LayerService } from '../layer/layer.service';
 import { noop } from '@qgrid/core/utility/kit';
 import { PipeContext } from '@qgrid/core/pipe/pipe.item';
-import { StyleRowContext, StyleCellContext } from '@qgrid/core/style/style.context';
+import { StyleRowCallback, StyleCellCallback } from '@qgrid/core/style/style.state';
 import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
-import { VisibilityModel } from '@qgrid/core/visibility/visibility.model';
-import { LayerService } from '../layer/layer.service';
-import { GridModelBuilder } from './grid-model.builder';
-import { RootComponent } from '../component/root.component';
-import { GridRoot } from './grid-root';
+import { tableFactory } from '@qgrid/core/dom/table.factory';
 import { TemplateCacheService } from '../template/template-cache.service';
 import { TemplateLinkService } from '../template/template-link.service';
 import { TemplateService } from '../template/template.service';
 import { ThemeService } from '../theme/theme.service';
-import { GridView } from './grid-view';
-import { Disposable } from '../infrastructure/disposable';
-import { GridModel } from './grid-model';
-import { tableFactory } from '@qgrid/core/dom/table.factory';
+import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
 
 @Component({
 	selector: 'q-grid',
 	providers: [
-		GridRoot,
-		TemplateCacheService,
-		TemplateService,
-		GridView,
 		Grid,
-		TemplateLinkService,
+		GridPlugin,
+		GridRoot,
+		GridLet,
 		LayerService,
-		Disposable
+		TemplateCacheService,
+		TemplateLinkService,
+		TemplateService,
 	],
 	styleUrls: ['../../../../assets/index.scss'],
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None
 })
-export class GridComponent extends RootComponent implements OnInit {
-	@Input() model: GridModel;
+export class GridComponent implements OnInit, OnChanges {
+	private actionAccessor = this.plugin.stateAccessor(ActionState);
+	private gridAccessor = this.plugin.stateAccessor(GridState);
 
-	@Input('actions') actionItems: Array<Action>;
+	@Input() set model(value: GridModel) {
+		this.root.model = value;
+	}
 
-	@Input('header') gridTitle: string;
-	@Input('caption') gridCaption: string;
-	@Input('interactionMode') gridInteractionMode: 'full' | 'readonly' | 'detached';
+	get model(): GridModel {
+		return this.root.model;
+	}
 
-	@Input('id') gridId: string;
+	@Input('actions') set actionItems(items: Action[]) { this.actionAccessor({ items }); }
+
+	@Input('id') set gridId(id) { this.gridAccessor({ id }); }
+	@Input('header') set gridTitle(header) { this.gridAccessor({ caption: header }); }
+	@Input('caption') set gridCaption(caption) { this.gridAccessor({ caption }); }
+	@Input('interactionMode') gridInteractionMode(interactionMode) { this.gridAccessor({ interactionMode }); }
 
 	@Input('columns') dataColumns: Array<ColumnModel>;
 	@Input('pipe') dataPipe: Array<(memo: any, context: PipeContext, next: (memo: any) => void) => any>;
@@ -86,12 +97,12 @@ export class GridComponent extends RootComponent implements OnInit {
 
 	@Input('selection') selectionItems: Array<any>;
 	@Input() selectionArea: 'custom' | 'body';
+	@Input() selectionMode: 'single' | 'multiple' | 'range' | 'singleOnly';
+	@Input() selectionUnit: 'row' | 'cell' | 'column' | 'mix';
 	@Input() selectionKey: {
 		row: () => void,
 		column: () => void
 	};
-	@Input() selectionMode: 'single' | 'multiple' | 'range' | 'singleOnly';
-	@Input() selectionUnit: 'row' | 'cell' | 'column' | 'mix';
 
 	@Input() scrollMode: 'default' | 'virtual';
 
@@ -99,45 +110,22 @@ export class GridComponent extends RootComponent implements OnInit {
 	@Input() sortMode: 'single' | 'multiple';
 	@Input() sortTrigger: Array<string>;
 
-	@Input() styleCell:
-		(row: any, column: ColumnModel, context: StyleCellContext) => void
-			| { [key: string]: (row: any, column: ColumnModel, context: any) => void };
-
-	@Input() styleRow:
-		(row: any, context: StyleRowContext) => void;
+	@Input() styleCell: StyleCellCallback | { [key: string]: StyleCellCallback };
+	@Input() styleRow: StyleRowCallback;
 
 	themeComponent: any;
 
 	constructor(
 		private root: GridRoot,
+		private plugin: GridPlugin,
 		private elementRef: ElementRef,
 		private zone: NgZone,
 		private layerService: LayerService,
 		private cd: ChangeDetectorRef,
-		private disposable: Disposable,
-		modelBuilder: GridModelBuilder,
+		private modelBuilder: GridModelBuilder,
 		@Inject(DOCUMENT) private document: any,
 		theme: ThemeService,
 	) {
-		super(modelBuilder, disposable);
-
-		this.models = [
-			'action',
-			'data',
-			'edit',
-			'filter',
-			'grid',
-			'group',
-			'pivot',
-			'row',
-			'selection',
-			'scroll',
-			'sort',
-			'style'
-		];
-
-		this.modelChanged.watch(model => this.root.model = model);
-
 		if (!theme.component) {
 			throw new AppError(
 				'grid.component',
@@ -149,9 +137,11 @@ export class GridComponent extends RootComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		super.ngOnInit();
+		// if (!this.keepChanges) {
+		// 	this.keepChanges = this.setup();
+		// }
 
-		const { model } = this.root;
+		const { model, disposable, observe } = this.plugin;
 		const { nativeElement } = this.elementRef;
 
 		model.style({
@@ -162,12 +152,7 @@ export class GridComponent extends RootComponent implements OnInit {
 
 		const table = tableFactory(model, name => this.layerService.create(name));
 		const commandManager = new TableCommandManager(f => f(), table);
-		const ctrl = new GridCtrl(
-			nativeElement,
-			model,
-			table,
-			this.disposable
-		);
+		const host = new GridHost(nativeElement, this.plugin);
 
 		this.root.table = table;
 		this.root.commandManager = commandManager;
@@ -176,11 +161,11 @@ export class GridComponent extends RootComponent implements OnInit {
 		const docListener = new EventListener(this.document, new EventManager(this));
 
 		this.zone.runOutsideAngular(() => {
-			this.disposable.add(
-				docListener.on('focusin', () => ctrl.invalidateActive())
+			disposable.add(
+				docListener.on('focusin', () => host.invalidateActive())
 			);
 
-			this.disposable.add(
+			disposable.add(
 				docListener.on('click', e => {
 					const path = eventPath(e);
 					const clickedOutside = path.every(x => x !== nativeElement);
@@ -196,9 +181,9 @@ export class GridComponent extends RootComponent implements OnInit {
 				}));
 		});
 
-		this.disposable.add(
+		disposable.add(
 			listener.on('keydown', e => {
-				const result = ctrl.keyDown(e, 'grid');
+				const result = host.keyDown(e, 'grid');
 				if (result.indexOf('selection.view') >= 0) {
 					this.cd.markForCheck();
 					this.zone.run(noop);
@@ -206,19 +191,23 @@ export class GridComponent extends RootComponent implements OnInit {
 			}));
 
 		this.zone.runOutsideAngular(() => {
-			this.disposable.add(
-				listener.on('keyup', e => ctrl.keyUp(e, 'grid'))
+			disposable.add(
+				listener.on('keyup', e => host.keyUp(e, 'grid'))
 			);
 		});
 
-		this.disposable.add(
-			model.visibilityChanged.on(() => this.cd.detectChanges())
-		);
+		observe(model.visibilityChanged)
+			.subscribe(() => this.cd.detectChanges())
+	}
+
+	ngOnChanges(changes: SimpleChanges): void {
+
 	}
 
 	// @deprecated
-	get visibility(): VisibilityModel {
+	get visibility(): VisibilityState {
 		// TODO: get rid of that
-		return this.root.model.visibility();
+		const { model } = this;
+		return model.visibility();
 	}
 }

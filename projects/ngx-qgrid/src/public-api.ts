@@ -4,7 +4,7 @@ export { GridComponent } from './lib/grid/grid.component';
 export { Grid, GridService } from './lib/grid/grid';
 export { GridPlugin } from './lib/plugin/grid-plugin';
 
-export { GridView } from './lib/grid/grid-view';
+export { GridLet } from './lib/grid/grid-let';
 export { GridRoot } from './lib/grid/grid-root';
 export { GridModelBuilder } from './lib/grid/grid-model.builder';
 
@@ -95,8 +95,6 @@ export { BodyModule } from './lib/body/body.module';
 export { TdCoreAlignDirective } from './lib/body/td-core-align.directive';
 export { BoxComponent } from './lib/box/box.component';
 export { BoxModule } from './lib/box/box.module';
-export { ModelComponent } from './lib/component/model.component';
-export { RootComponent } from './lib/component/root.component';
 export { FootCoreComponent } from './lib/foot/foot-core.component';
 export { FootModule } from './lib/foot/foot.module';
 export { TfCoreDirective } from './lib/foot/tf-core.directive';

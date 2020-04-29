@@ -1,28 +1,28 @@
 import { Injectable, OnDestroy, SimpleChanges } from '@angular/core';
-import { ModelBinder } from '@qgrid/core/infrastructure/model.bind';
+import { ModelBinder } from '@qgrid/core/model/model.bind';
 import { DomTable } from '../dom/dom';
 import { Disposable } from '../infrastructure/disposable';
 import { GridRoot } from '../grid/grid-root';
-import { GridView as NgxGridView } from '../grid/grid-view';
-import { GridModel, GridEvent } from '../grid/grid-model';
+import { GridLet as NgxGridLet } from '../grid/grid-let';
+import { GridModel } from '../grid/grid-model';
 import { ObservableLike } from '@qgrid/core/infrastructure/rx';
-import { GridView } from '@qgrid/core/grid/grid.view';
-
+import { GridLet } from '@qgrid/core/grid/grid.let';
+import { Event } from '@qgrid/core/event/event';
 
 @Injectable()
 export class GridPlugin implements OnDestroy {
 	readonly disposable = new Disposable();
 
-	readonly observe = <TState>(event: GridEvent<TState>) => {
+	readonly observe = <TState>(event: Event<TState>) => {
 		return new ObservableLike(event, false, this.disposable);
 	}
 
-	readonly observeReply = <TState>(event: GridEvent<TState>) => {
+	readonly observeReply = <TState>(event: Event<TState>) => {
 		return new ObservableLike(event, true, this.disposable);
 	}
 
 	constructor(
-		private $view: NgxGridView,
+		private $view: NgxGridLet,
 		private $root: GridRoot,
 	) { }
 
@@ -36,8 +36,12 @@ export class GridPlugin implements OnDestroy {
 		return table;
 	}
 
-	get view(): GridView {
+	get view(): GridLet {
 		return this.$view;
+	}
+
+	stateAccessor<TState>(type: new() => TState): (state: Partial<TState>) => void {
+		return null;
 	}
 
 	keep(changes: SimpleChanges, states: string[]): void {
@@ -49,8 +53,8 @@ export class GridPlugin implements OnDestroy {
 			}
 		}
 
-		const binder = new ModelBinder(host, this.disposable);
-		const commit = binder.bound(this.model, states, false, false);
+		const binder = new ModelBinder(host, this);
+		const commit = binder.bound(states, false, false);
 		commit();
 	}
 

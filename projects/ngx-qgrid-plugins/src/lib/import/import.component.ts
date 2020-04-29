@@ -5,8 +5,8 @@ import { Command } from '@qgrid/core/command/command';
 import { Action } from '@qgrid/core/action/action';
 import { Composite } from '@qgrid/core/infrastructure/composite';
 import { ImportPlugin } from '@qgrid/plugins/import/import.plugin';
-import { EventManager } from '@qgrid/core/infrastructure/event.manager';
-import { EventListener } from '@qgrid/core/infrastructure/event.listener';
+import { EventManager } from '@qgrid/core/event/event.manager';
+import { EventListener } from '@qgrid/core/event/event.listener';
 import { TemplateHostService, Disposable } from '@qgrid/ngx';
 
 @Component({

@@ -1,4 +1,4 @@
-import { Event } from '@qgrid/core/infrastructure/event';
+import { Event } from '@qgrid/core/event/event';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { Command } from '@qgrid/core/command/command';
 import { Expression } from '@qgrid/core/expression/expression.build';

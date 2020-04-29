@@ -3,7 +3,7 @@ import { jobLine } from '@qgrid/core/services/job.line';
 import { Fastdom } from '@qgrid/core/services/fastdom';
 import { EditService } from '@qgrid/core/edit/edit.service';
 import { CellView } from '@qgrid/core/scene/view/cell.view';
-import { NavigationModel } from '@qgrid/core/navigation/navigation.model';
+import { NavigationState } from '@qgrid/core/navigation/navigation.state';
 import { DomTd } from '../dom/dom';
 import { GridEventArg } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
@@ -62,7 +62,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		// When navigate first or when animation wasn't applied we need to omit
 		// next navigation event to make handler to correct position.
 		let isValid = false;
-		return (e: GridEventArg<NavigationModel>) => {
+		return (e: GridEventArg<NavigationState>) => {
 			if (e.hasChanges('cell')) {
 				const { cell, rowIndex, columnIndex } = e.state;
 
@@ -146,7 +146,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 				}
 			});
 
-		return (e: GridEventArg<NavigationModel>) => {
+		return (e: GridEventArg<NavigationState>) => {
 			if (!this.marker) {
 				return;
 			}

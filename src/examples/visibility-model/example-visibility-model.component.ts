@@ -10,7 +10,7 @@ import { GridComponent } from 'ng2-qgrid';
 	providers: [DataService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExampleVisibilityModelComponent implements AfterViewInit {
+export class ExampleVisibilityStateComponent implements AfterViewInit {
 	static id = 'visibility-model';
 
 	@ViewChild(GridComponent) grid: GridComponent;

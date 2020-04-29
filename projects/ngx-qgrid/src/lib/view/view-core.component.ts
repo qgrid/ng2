@@ -1,8 +1,8 @@
 import { Component, OnInit, ElementRef, DoCheck, ChangeDetectorRef, NgZone } from '@angular/core';
-import { VisibilityModel } from '@qgrid/core/visibility/visibility.model';
-import { ViewCtrl } from '@qgrid/core/view/view.ctrl';
+import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
+import { ViewHost } from '@qgrid/core/view/view.host';
 import { CellService } from '../cell/cell.service';
-import { GridView } from '../grid/grid-view';
+import { GridLet } from '../grid/grid-let';
 import { GridRoot } from '../grid/grid-root';
 import { Grid } from '../grid/grid';
 import { GridPlugin } from '../plugin/grid-plugin';
@@ -16,11 +16,11 @@ import { GridPlugin } from '../plugin/grid-plugin';
 	]
 })
 export class ViewCoreComponent implements OnInit, DoCheck {
-	private ctrl: ViewCtrl;
+	private host: ViewHost;
 
 	constructor(
 		private root: GridRoot,
-		private view: GridView,
+		private view: GridLet,
 		private plugin: GridPlugin,
 		private qgrid: Grid,
 		private elementRef: ElementRef,
@@ -41,8 +41,8 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 							behavior: 'core'
 						});
 
-						if (this.ctrl) {
-							this.ctrl.invalidate();
+						if (this.host) {
+							this.host.invalidate();
 						}
 					}
 				}
@@ -51,8 +51,8 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 
 	ngDoCheck() {
 		const { status } = this.model.scene();
-		if (status === 'stop' && this.ctrl) {
-			this.ctrl.invalidate();
+		if (status === 'stop' && this.host) {
+			this.host.invalidate();
 		}
 	}
 
@@ -75,7 +75,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		};
 
 		const gridService = this.qgrid.service(model);
-		this.ctrl = new ViewCtrl(this.plugin, gridService);
+		this.host = new ViewHost(this.plugin, gridService);
 
 		observeReply(model.sceneChanged)
 			.subscribe(e => {
@@ -102,7 +102,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 
 		const virtualBody = table.body as any;
 		if (virtualBody.requestInvalidate) {
-			virtualBody.requestInvalidate.on(() => this.ctrl.invalidate());
+			virtualBody.requestInvalidate.on(() => this.host.invalidate());
 		}
 	}
 
@@ -110,7 +110,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		return this.plugin.model;
 	}
 
-	get visibility(): VisibilityModel {
+	get visibility(): VisibilityState {
 		return this.model.visibility();
 	}
 }

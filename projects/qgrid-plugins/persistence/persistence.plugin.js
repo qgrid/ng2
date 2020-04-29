@@ -5,7 +5,7 @@ import { stringifyFactory } from '@qgrid/core/services/model.stringify';
 import { Shortcut } from '@qgrid/core/shortcut/shortcut';
 import { ShortcutDispatcher } from '@qgrid/core/shortcut/shortcut.dispatcher';
 import { clone } from '@qgrid/core/utility/kit';
-import { Event } from '@qgrid/core/infrastructure/event';
+import { Event } from '@qgrid/core/event/event';
 import { groupBy } from '@qgrid/core/utility/kit';
 
 export class PersistencePlugin {
