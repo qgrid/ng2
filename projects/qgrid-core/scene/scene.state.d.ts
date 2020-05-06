@@ -3,11 +3,8 @@ import { RowView } from './view/row.view';
 
 /**
  * A class that contains results of q-grid invalidate.
- *
- * ### Suggested Links
- * [table.js](https://github.com/qgrid/ng2/blob/master/src/core/dom/table.js)
  */
-export declare interface SceneState {
+export declare class SceneState {
 
 	/**
 	 * Status of invalidation.

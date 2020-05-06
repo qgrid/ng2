@@ -127,7 +127,7 @@ export class Model {
 			return this;
 		}
 
-		const getSet = (...args) => {
+		const accessor = (...args) => {
 			if (args.length) {
 				return setter(args[0], args[1]);
 			}
@@ -137,7 +137,7 @@ export class Model {
 
 		return {
 			changed: event,
-			state: getSet,
+			state: accessor,
 		};
 	}
 

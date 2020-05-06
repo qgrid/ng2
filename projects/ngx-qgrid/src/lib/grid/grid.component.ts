@@ -27,7 +27,7 @@ import { GridModel } from './grid-model';
 import { GridModelBuilder } from './grid-model.builder';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { GridRoot } from './grid-root';
-import { GridState } from '@qgrid/core/grid/grid.state';
+import { GridState, GridStateInteractionMode } from '@qgrid/core/grid/grid.state';
 import { LayerService } from '../layer/layer.service';
 import { noop } from '@qgrid/core/utility/kit';
 import { PipeContext } from '@qgrid/core/pipe/pipe.item';
@@ -39,6 +39,7 @@ import { TemplateLinkService } from '../template/template-link.service';
 import { TemplateService } from '../template/template.service';
 import { ThemeService } from '../theme/theme.service';
 import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
+import { DataState } from '@qgrid/core/data/data.state';
 
 @Component({
 	selector: 'q-grid',
@@ -57,8 +58,9 @@ import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
 	encapsulation: ViewEncapsulation.None
 })
 export class GridComponent implements OnInit, OnChanges {
-	private actionAccessor = this.plugin.stateAccessor(ActionState);
-	private gridAccessor = this.plugin.stateAccessor(GridState);
+	private actionState = this.plugin.stateAccessor(ActionState);
+	private gridState = this.plugin.stateAccessor(GridState);
+	private dataState = this.plugin.stateAccessor(DataState);
 
 	@Input() set model(value: GridModel) {
 		this.root.model = value;
@@ -68,12 +70,12 @@ export class GridComponent implements OnInit, OnChanges {
 		return this.root.model;
 	}
 
-	@Input('actions') set actionItems(items: Action[]) { this.actionAccessor({ items }); }
+	@Input('actions') set actionItems(items: Action[]) { this.actionState({ items }); }
 
-	@Input('id') set gridId(id) { this.gridAccessor({ id }); }
-	@Input('header') set gridTitle(header) { this.gridAccessor({ caption: header }); }
-	@Input('caption') set gridCaption(caption) { this.gridAccessor({ caption }); }
-	@Input('interactionMode') gridInteractionMode(interactionMode) { this.gridAccessor({ interactionMode }); }
+	@Input('id') set gridId(id: string) { this.gridState({ id }); }
+	@Input('header') set gridTitle(header: string) { this.gridState({ caption: header }); }
+	@Input('caption') set gridCaption(caption: string) { this.gridState({ caption }); }
+	@Input('interactionMode') gridInteractionMode(interactionMode: GridStateInteractionMode) { this.gridState({ interactionMode }); }
 
 	@Input('columns') dataColumns: Array<ColumnModel>;
 	@Input('pipe') dataPipe: Array<(memo: any, context: PipeContext, next: (memo: any) => void) => any>;
@@ -170,9 +172,9 @@ export class GridComponent implements OnInit, OnChanges {
 					const path = eventPath(e);
 					const clickedOutside = path.every(x => x !== nativeElement);
 					if (clickedOutside) {
-						if (model.edit().state === 'edit') {
+						if (model.edit().status === 'edit') {
 							model.edit({
-								state: 'view'
+								status: 'view'
 							}, {
 								source: 'document.click'
 							});

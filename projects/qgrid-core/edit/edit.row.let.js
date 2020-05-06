@@ -26,7 +26,7 @@ export class EditRowLet {
 					row = row || model.navigation().row;
 					return row
 						&& model.edit().mode === 'row'
-						&& model.edit().state === 'view'
+						&& model.edit().status === 'view'
 						&& model.edit().enter.canExecute(this.contextFactory(row));
 				},
 				execute: (row, e) => {
@@ -38,7 +38,7 @@ export class EditRowLet {
 					const columns = this.model.columnList().line;
 
 					this.editor = new RowEditor(row, columns);
-					model.edit({ state: 'edit' }, { source: 'edit.row.view' });
+					model.edit({ status: 'edit' }, { source: 'edit.row.view' });
 				}
 			}),
 			commit: new Command({
@@ -49,7 +49,7 @@ export class EditRowLet {
 					row = row || model.navigation().row;
 					return row
 						&& model.edit().mode === 'row'
-						&& model.edit().state === 'edit'
+						&& model.edit().status === 'edit'
 						&& model.edit().commit.canExecute(this.contextFactory(row));
 				},
 				execute: (cell, e) => {
@@ -60,7 +60,7 @@ export class EditRowLet {
 
 					this.editor.commit();
 					this.editor = RowEditor.empty;
-					model.edit({ state: 'view' }, { source: 'edit.row.view' });
+					model.edit({ status: 'view' }, { source: 'edit.row.view' });
 				}
 			}),
 			cancel: new Command({
@@ -70,7 +70,7 @@ export class EditRowLet {
 					row = row || model.navigation().row;
 					return row
 						&& model.edit().mode === 'row'
-						&& model.edit().state === 'edit'
+						&& model.edit().status === 'edit'
 						&& model.edit().cancel.canExecute(this.contextFactory(row));
 				},
 				execute: (row, e) => {
@@ -81,7 +81,7 @@ export class EditRowLet {
 
 					this.editor.reset();
 					this.editor = RowEditor.empty;
-					model.edit({ state: 'view' }, { source: 'edit.row.view' });
+					model.edit({ status: 'view' }, { source: 'edit.row.view' });
 				}
 			}),
 			reset: new Command({
@@ -90,7 +90,7 @@ export class EditRowLet {
 					row = row || model.navigation().row;
 					return row
 						&& model.edit().mode === 'row'
-						&& model.edit().state === 'edit'
+						&& model.edit().status === 'edit'
 						&& model.edit().reset.canExecute(this.contextFactory(row));
 				},
 				execute: (row, e) => {

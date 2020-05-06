@@ -7,6 +7,7 @@ import { NavigationState } from '@qgrid/core/navigation/navigation.state';
 import { DomTd } from '../dom/dom';
 import { GridEventArg } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
+import { EditStateStatus } from '@qgrid/core/edit/edit.state';
 
 @Component({
 	selector: 'q-grid-cell-handler',
@@ -16,8 +17,8 @@ import { GridPlugin } from '../plugin/grid-plugin';
 })
 export class CellHandlerComponent implements OnInit, AfterViewInit {
 	private startCell: CellView = null;
-	private initialSelectionMode: 'single' | 'multiple' | 'range' | 'singleOnly' = null;
-	private initialEditState: 'view' | 'edit' | 'startBatch' | 'endBatch' = null;
+	private initialSelectionMode: SelectionStateMode = null;
+	private initialEditStatus: EditStateStatus = null;
 
 	isMarkerVisible = false;
 	@ViewChild('marker', { static: true }) marker: ElementRef;
@@ -136,8 +137,8 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		observe(model.editChanged)
 			.subscribe(e => {
 				if (e.hasChanges('state')) {
-					if (e.state.state === 'endBatch') {
-						model.edit({ state: this.initialEditState });
+					if (e.state.status === 'endBatch') {
+						model.edit({ status: this.initialEditStatus });
 						editService.doBatch(this.startCell);
 						model.selection({ mode: this.initialSelectionMode });
 
@@ -153,7 +154,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 			if (e.hasChanges('cell')) {
 				const { rowIndex, columnIndex } = e.state;
-				const { method, state } = model.edit();
+				const { method, status } = model.edit();
 
 				const cell = table.body.cell(rowIndex, columnIndex).model();
 
@@ -169,7 +170,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 					oldCell = cell;
 				}
 
-				if (state === 'startBatch' && !this.startCell) {
+				if (status === 'startBatch' && !this.startCell) {
 					this.startCell = cell;
 				}
 			}
@@ -181,10 +182,10 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 		this.startCell = model.navigation().cell;
 		if (this.startCell) {
-			this.initialEditState = model.edit().state;
+			this.initialEditStatus = model.edit().status;
 			this.initialSelectionMode = model.selection().mode;
 			model.selection({ mode: 'range' });
-			model.edit({ state: 'startBatch' });
+			model.edit({ status: 'startBatch' });
 		}
 	}
 }

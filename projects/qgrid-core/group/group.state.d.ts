@@ -5,16 +5,8 @@ import { Node } from '../node/node';
  * A class that allows to apply some hierarchy to the grid.
  * However user is allowed to write any kind of custom hierarchies just by overriding default pipe and
  * working with `Node` object from the grid service.
- *
- * ### Suggested Links
- *
- * * [Group View](/doc/api/group-view.html)
- * * [group.pipe.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/pipe/group.pipe.js)
- * * [group.build.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/group/group.build.js)
- * * [node.js]((https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/node/node.js)
- * * [node.build.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/node.build.js)
  */
-export declare interface GroupState {
+export declare class GroupState {
 	/**
 	 * How grid will render nodes:
 	 * * `'nest'` all hierarchy levels inside one group type column.

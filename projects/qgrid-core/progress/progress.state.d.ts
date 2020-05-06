@@ -16,7 +16,7 @@
  *	});
  * ```
  */
-export declare interface ProgressState {
+export declare class ProgressState {
 	/**
 	 * Indicates if there a running job or not.
 	 */

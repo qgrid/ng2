@@ -1,4 +1,14 @@
 /**
+ * Sorting mode.
+ *
+ * * `'multiple'` allows to sort by several column keys.
+ * * `'single'` allows to sort only by one column key.
+ */
+export declare type SortStateMode = 'single' | 'multiple';
+
+export declare type SortStateDirection = 'desc' | 'asc';
+
+/**
  * A class that allows to control sorting.
  *
  * ### Usage
@@ -12,17 +22,12 @@
  *    by: ['+myColumnKey', '-myOtherColumnKey']
  * });
  * ```
- *
- * ### Suggested Links
- *
- * * [Sort View](/doc/api/sort-view.html)
- * * [sort.pipe.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/pipe/sort.pipe.js)
  */
-export declare interface SortState {
+export declare class SortState {
 	/**
 	 * Ordered list of entries to control sorting.
 	 */
-	by: string[] | Array<{ [key: string]: 'desc' | 'asc' }>;
+	by: string[] | Array<{ [key: string]: SortStateDirection }>;
 
 	/**
 	 * Sorting mode.
@@ -30,7 +35,7 @@ export declare interface SortState {
 	 * * `'multiple'` allows to sort by several column keys.
 	 * * `'single'` allows to sort only by one column key.
 	 */
-	mode: 'single' | 'multiple';
+	mode: SortStateMode;
 
 	/**
 	 * List of triggers that should lead to sorting invalidation.

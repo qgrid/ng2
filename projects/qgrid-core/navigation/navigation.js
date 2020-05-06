@@ -150,7 +150,7 @@ export class Navigation {
 		const edit = model.edit;
 
 		const canNavigate = () => {
-			if (edit().state === 'view') {
+			if (edit().status === 'view') {
 				return true;
 			}
 

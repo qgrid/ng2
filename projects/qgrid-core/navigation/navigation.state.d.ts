@@ -3,13 +3,8 @@ import { CellView } from '../scene/view/cell.view';
 
 /**
  * A class that gives access to the current cell position inside the q-grid.
- *
- * ### Suggested Links
- *
- * * [Navigation View](/doc/api/navigation-view.html)
- * * [navigation.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/navigation/navigation.js)
  */
-export declare interface NavigationState {
+export declare class NavigationState {
 	/**
 	 * Get index of the focused cell row.
 	 */

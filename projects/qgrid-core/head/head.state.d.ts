@@ -1,2 +1,2 @@
-export declare interface HeadState {
+export declare class HeadState {
 }

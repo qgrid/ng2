@@ -36,12 +36,12 @@ export class EditCellLet {
 			.subscribe(e => {
 				if (e.hasChanges('state') && e.tag.source !== 'edit.cell.view') {
 					if (e.changes.state.newValue === 'edit') {
-						model.edit({ state: 'view' }, { source: 'edit.cell.view' });
+						model.edit({ status: 'view' }, { source: 'edit.cell.view' });
 						if (this.enter.canExecute()) {
 							this.enter.execute();
 						}
 					} else if (e.changes.state.newValue === 'view') {
-						model.edit({ state: 'edit' }, { source: 'edit.cell.view' });
+						model.edit({ status: 'edit' }, { source: 'edit.cell.view' });
 						if (this.requestClose) {
 							if (this.requestClose()) {
 								return;
@@ -81,11 +81,11 @@ export class EditCellLet {
 			});
 	}
 
-	mode(cell, value) {
+	mode(cell, status) {
 		const { model } = this.plugin;
 
-		model.edit({ state: value }, { source: 'edit.cell.view' });
-		cell.mode(value);
+		model.edit({ status }, { source: 'edit.cell.view' });
+		cell.mode(status);
 	}
 
 	getCommands() {
@@ -108,7 +108,7 @@ export class EditCellLet {
 					return cell
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
-						&& model.edit().state === 'view'
+						&& model.edit().status === 'view'
 						&& model.edit().enter.canExecute(this.contextFactory(cell, cell.value, cell.label));
 				},
 				execute: (cell, e) => {
@@ -151,7 +151,7 @@ export class EditCellLet {
 						&& Td.equals(cell, this.editor.td)
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
-						&& model.edit().state === 'edit';
+						&& model.edit().status === 'edit';
 					if (canEdit) {
 						const context = this.contextFactory(cell, this.value, this.label, this.tag);
 						const key = context.column.key;
@@ -223,7 +223,7 @@ export class EditCellLet {
 					return cell
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
-						&& model.edit().state === 'edit'
+						&& model.edit().status === 'edit'
 						&& model.edit().cancel.canExecute(this.contextFactory(cell, this.value, this.label));
 				},
 				execute: (cell, e) => {
@@ -255,7 +255,7 @@ export class EditCellLet {
 					return cell
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
-						&& model.edit().state === 'edit'
+						&& model.edit().status === 'edit'
 						&& model.edit().reset.canExecute(this.contextFactory(cell, this.value, this.label));
 				},
 				execute: (cell, e) => {
@@ -310,7 +310,7 @@ export class EditCellLet {
 					return cell
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
-						&& model.edit().state === 'edit'
+						&& model.edit().status === 'edit'
 						&& model.edit().clear.canExecute(this.contextFactory(cell, this.value, this.label));
 				},
 				execute: (cell, e) => {

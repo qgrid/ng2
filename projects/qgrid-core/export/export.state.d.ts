@@ -1,2 +1,2 @@
-export declare interface ExportState {
+export declare class ExportState {
 }

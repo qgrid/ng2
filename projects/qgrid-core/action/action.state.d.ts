@@ -35,12 +35,6 @@ import { Resource } from '../resource/resource';
  * });
  * ```
  *
- * ### Suggested Links
- *
- * * [Action](/doc/api/action.html)
- * * [Command](/doc/api/command.html)
- * * [Shortcut](/doc/api/shortcut.html)
- * * [Command Manager](/doc/api/command-manager.html)
  */
 export declare class ActionState {
 	/**

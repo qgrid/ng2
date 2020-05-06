@@ -60,7 +60,7 @@ export class BodyHost {
 		}
 
 		const { model, table } = this.plugin;
-		if (model.edit().state === 'view') {
+		if (model.edit().status === 'view') {
 			const { scroll } = model;
 			const upper = 0;
 
@@ -88,11 +88,11 @@ export class BodyHost {
 			}
 
 			if (cell) {
-				const { state: beforeSelectState } = edit();
+				const { status: beforeSelectStatus } = edit();
 				this.navigate(cell);
 				this.select(cell);
 
-				if (beforeSelectState === 'view' && view.edit.cell.enter.canExecute(cell)) {
+				if (beforeSelectStatus === 'view' && view.edit.cell.enter.canExecute(cell)) {
 					view.edit.cell.enter.execute(cell);
 				}
 
@@ -187,8 +187,8 @@ export class BodyHost {
 				this.rangeStartCell = null;
 			}
 
-			if (edit().state === 'startBatch') {
-				edit({ state: 'endBatch' }, { source: 'body.ctrl' });
+			if (edit().status === 'startBatch') {
+				edit({ status: 'endBatch' }, { source: 'body.ctrl' });
 			}
 		}
 

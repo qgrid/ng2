@@ -1,7 +1,7 @@
 import { Command } from '../command/command';
 import { PersistenceStorage } from './persistence.storage';
 
-export declare interface PersistenceState {
+export declare class PersistenceState {
 	id: string;
 	defaultGroup: string;
 	storage: PersistenceStorage;

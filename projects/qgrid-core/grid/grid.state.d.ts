@@ -1,9 +1,13 @@
 /**
+ * Allows to change performance strategy of the grid.
+ * * `full` grid has full interaction possibilities.
+ * * `readonly` grid starts to use cache to render values.
+ * * `detached` grid disable change detection after render.
+ */
+export declare type GridStateInteractionMode = 'full' | 'readonly' | 'detached';
+
+/**
  * A class contains basic grid options like id and title.
- *
- * ## Suggested Links
- *
- * * [grid.ctrl.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/grid/grid.ctrl.js)
  */
 export declare class GridState {
 	/**
@@ -34,7 +38,7 @@ export declare class GridState {
 	 * * `readonly` grid starts to use cache to render values.
 	 * * `detached` grid disable change detection after render.
 	 */
-	interactionMode: 'full' | 'readonly' | 'detached';
+	interactionMode: GridStateInteractionMode;
 
 	// @deprecated
 	title: string;

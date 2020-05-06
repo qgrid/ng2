@@ -1,7 +1,7 @@
 /**
  * A class that contains focused cell position.
  */
-export declare interface FocusState {
+export declare class FocusState {
 	/**
 	 * Index of row for focused cell.
 	 */

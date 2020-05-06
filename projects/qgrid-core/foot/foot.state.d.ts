@@ -1,2 +1,2 @@
-export declare interface FootState {
+export declare class FootState {
 }

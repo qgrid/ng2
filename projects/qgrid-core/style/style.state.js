@@ -11,7 +11,7 @@ export class StyleState {
 
 		this.invalidate = new Command({
 			source: 'style.model',
-			canExecute: context => context.model.edit().state === 'view'
+			canExecute: context => context.model.edit().status === 'view'
 		});
 	}
 }

@@ -1,4 +1,4 @@
 
-export declare interface RowListState {
+export declare class RowListState {
 	index: Map<any, number>;
 }

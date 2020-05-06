@@ -1,6 +1,6 @@
 import { Model } from '../model/model';
 
-export declare interface RestState {
+export declare class RestState {
 	url: string;
 	method: string;
 	serialize: (model: Model) => {

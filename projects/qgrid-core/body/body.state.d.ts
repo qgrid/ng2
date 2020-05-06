@@ -1,2 +1,2 @@
-export declare interface BodyState {
+export declare class BodyState {
 }

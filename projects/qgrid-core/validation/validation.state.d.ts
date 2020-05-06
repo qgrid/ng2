@@ -5,7 +5,7 @@
  *
  * * [LIVR](https://github.com/koorchik/LIVR)
  */
-export declare interface ValidationState {
+export declare class ValidationState {
 	/**
 	 * List of validation rules.
 	 */

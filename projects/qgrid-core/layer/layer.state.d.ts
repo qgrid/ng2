@@ -1,2 +1,2 @@
-export declare interface LayerState {
+export declare class LayerState {
 }

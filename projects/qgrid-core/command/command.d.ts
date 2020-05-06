@@ -24,9 +24,6 @@ import { CommandContext } from './command.context';
  *
  * ### Suggested Links.
  *
- * * [Action Model](/doc/api/action-model.html)
- * * [Action](/doc/api/action.html)
- * * [Service](/doc/api/grid.html)
  * * [Command Pattern Wiki](https://en.wikipedia.org/wiki/Command_pattern)
  */
 export declare class Command<T = any> {

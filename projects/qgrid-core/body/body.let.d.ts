@@ -13,10 +13,6 @@ import { GridPlugin } from '../plugin/grid.plugin';
  * </ng-template>
  * ```
  * 
- * * ### Suggested Links
- *
- * * [Render](/doc/api/render.html)
- * * [View](/doc/api/view.html)
  */
 export declare class BodyLet {
 	constructor(plugin: GridPlugin);

@@ -44,14 +44,8 @@ export declare type StyleCellCallback = (row: any, column: ColumnModel, context:
  *        }
  *    });
  * ```
- *
- * ### Suggested Links
- *
- * * [Style View](/doc/api/style-view.html)
- * * [style.monitor.js](https://github.com/qgrid/ng2/blob/master/core/style/style.monitor.js)
-
  */
-export declare interface StyleState {
+export declare class StyleState {
 	/**
 	 * Style row.
 	 */

@@ -2,41 +2,51 @@ import { ColumnModel } from '../column-type/column.model';
 import { Command } from '../command/command';
 
 /**
- * A class that allows to control selection function of the q-grid.
+ * Controls if click on the q-grid body should select row or not.
  *
- * ### Suggested Links
- *
- * * [Scroll View](/doc/api/scroll-view.html)
- * * [selection.service.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/selection/selection.service.js)
+ * * `'body'` click on the q-grid body leads to row select/unselect.
+ * * `'custom'` only select checkbox click leads to row select/unselect.
  */
-export declare interface SelectionState {
+export declare type SelectionStateArea = 'custom' | 'body';
+
+/**
+ * Selection primitive.
+ *
+ * * `'row'` user can select rows by clicking on checkboxes or q-grid body area.
+ * * `'cell'` `default` user can select cells clicking on the q-grid body area.
+ * * `'column'` user can select columns by clicking on the q-grid body area.
+ * * `'mix'` user can select both rows and cells, rows are selectable by clicking on row-indicator column.
+ */
+export declare type SelectionStateUnit = 'row' | 'cell' | 'column' | 'mix';
+
+/**
+ * Selection mode.
+ *
+ * * `'single'`
+ * * `'multiple'`
+ * * `'range'`
+ * * `'singleOnly'`
+ */
+export declare type SelectionStateMode = 'single' | 'multiple' | 'range' | 'singleOnly';
+
+/**
+ * A class that allows to control selection function of the q-grid.
+ */
+export declare class SelectionState {
 	/**
 	 * Controls if click on the q-grid body should select row or not.
-	 *
-	 * * `'body'` click on the q-grid body leads to row select/unselect.
-	 * * `'custom'` only select checkbox click leads to row select/unselect.
 	 */
-	area: 'custom' | 'body';
+	area: SelectionStateArea;
 
 	/**
 	 * Selection primitive.
-	 *
-	 * * `'row'` user can select rows by clicking on checkboxes or q-grid body area.
-	 * * `'cell'` `default` user can select cells clicking on the q-grid body area.
-	 * * `'column'` user can select columns by clicking on the q-grid body area.
-	 * * `'mix'` user can select both rows and cells, rows are selectable by clicking on row-indicator column.
 	 */
-	unit: 'row' | 'cell' | 'column' | 'mix';
+	unit: SelectionStateUnit;
 
 	/**
 	 * Selection mode.
-	 *
-	 * * `'single'`
-	 * * `'multiple'`
-	 * * `'range'`
-	 * * `'singleOnly'`
 	 */
-	mode: 'single' | 'multiple' | 'range' | 'singleOnly';
+	mode: SelectionStateMode;
 
 	/**
 	 * List of selected items.
@@ -57,7 +67,7 @@ export declare interface SelectionState {
 	/**
 	 * Keyboard shortcuts to control selection behavior. Changed.
 	 */
-	shortcut: {[key: string]: string};
+	shortcut: { [key: string]: string };
 
 	/**
 	 * Allows to disable selection and execute action on selection changed from ui.

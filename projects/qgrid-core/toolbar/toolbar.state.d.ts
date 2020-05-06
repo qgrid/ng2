@@ -1,2 +1,2 @@
-export declare interface ToolbarState {
+export declare class ToolbarState {
 }

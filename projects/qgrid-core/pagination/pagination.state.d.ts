@@ -1,12 +1,7 @@
 /**
  * A class that allows to split data to pages, also virtual scroll use some options from here.
- *
- * ### Suggested Links
- *
- * * [Pagination View](/doc/api/pagination-view.html)
- * * [pagination.pipe.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/pipe/pagination.pipe.js)
  */
-export declare interface PaginationState {
+export declare class PaginationState {
 	/**
 	 * Current page number;
 	 */

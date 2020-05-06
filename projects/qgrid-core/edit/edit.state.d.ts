@@ -1,34 +1,44 @@
 import { Command } from '../command/command';
 
 /**
- * A class represent options to control q-grid edit mode.
+ * Property that controls grid edit unit.
  *
- * ### Suggested Links
- *
- * * [Edit Cell View](/doc/api/edit-cell-view.html)
- * * [Edit Row View](/doc/api/edit-row-view.html)
+ * * `'cell'` data is editable through the grid cells.
+ * * `'row'` data is editable through the grid rows.
+ * * `'null'` data is not editable.
  */
-export declare interface EditState {
+export declare type EditStateMode = null | 'cell' | 'row';
+
+/**
+ * Indicates if q-grid is in `'edit'` or in a `'view'` mode.
+ */
+export declare type EditStateStatus = 'edit' | 'view' | 'startBatch' | 'endBatch';
+
+/**
+ * Property that controls grid edit behavior.
+ *
+ * * `'batch'` batch update.
+ */
+export declare type EditStateMethod = null | 'batch';
+
+/**
+ * A class represent options to control q-grid edit mode.
+ */
+export declare class EditState {
 	/**
 	 * Property that controls grid edit unit.
-	 *
-	 * * `'cell'` data is editable through the grid cells.
-	 * * `'row'` data is editable through the grid rows.
-	 * * `'null'` data is not editable.
 	 */
-	mode: null| 'cell' | 'row';
+	mode: EditStateMode;
 
 	/**
 	 * Indicates if q-grid is in `'edit'` or in a `'view'` mode.
 	 */
-	state: 'edit' | 'view' | 'startBatch' | 'endBatch';
+	status: EditStateStatus;
 
 	/**
 	 * Property that controls grid edit behavior.
-	 *
-	 * * `'batch'` bath update.
 	 */
-	method: null | 'batch';
+	method: EditStateMethod;
 
 	/**
 	 * Allows to the grid user to control if cell or row can be edited or not.

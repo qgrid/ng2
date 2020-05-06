@@ -1,6 +1,8 @@
 import { ColumnModel } from '../column-type/column.model';
 import { Node } from '../node/node';
 
+export declare type ColumnListStateGeneration = null | 'deep' | 'shallow' | 'cohort';
+
 /**
  * Use this class to order and generate q-grid columns.
  *
@@ -22,14 +24,6 @@ import { Node } from '../node/node';
  *    </q-grid-columns>
  * </q-grid>
  * ```
- * 
- *
- * ### Suggested Links
- *
- * * [Column Model](/doc/api/column-model.html)
- * * [Column Sort](/doc/feature/sort.html)
- * * [column.list.generate.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/column-list/column.list.generate.js)
- * * [column.list.sort.js](https://github.com/qgrid/ng2/blob/master/projects/qgrid-core/column-list/column.list.sort.js)
  *
  */
 export declare class ColumnListState {
@@ -41,7 +35,7 @@ export declare class ColumnListState {
 	 * - `shallow` number of columns will be equal to number of keys from first row object.
 	 * - `cohort` similar to deep, but use column groups to display hierarchy.
 	 */
-	generation: null | 'deep' | 'shallow' | 'cohort';
+	generation: ColumnListStateGeneration;
 
 	/**
 	 * Array of column keys which q-grid uses for column ordering.

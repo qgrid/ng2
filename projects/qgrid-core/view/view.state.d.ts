@@ -4,7 +4,7 @@ import { PipePivot } from '../pipe/pipe.item';
 /**
  * A class that represent a raw data to render.
  */
-export declare interface ViewState {
+export declare class ViewState {
 	/**
 	 * List of data rows to render.
 	 */

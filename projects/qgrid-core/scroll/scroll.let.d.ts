@@ -1,6 +1,7 @@
 import { Defer } from '../infrastructure/defer';
 import { GridService } from '../grid/grid.service';
 import { GridPlugin } from '../plugin/grid.plugin';
+import { ScrollStateMode } from './scroll.state';
 
 export declare class VscrollContext {
 	settings: {
@@ -31,6 +32,6 @@ export declare class VscrollContext {
 export declare class ScrollLet {
 	constructor(plugin: GridPlugin, vscroll: VscrollContext, gridService: GridService);
 
-	readonly mode: 'virtual' | 'default';
+	readonly mode: ScrollStateMode;
 	readonly y: VscrollContext;
 }

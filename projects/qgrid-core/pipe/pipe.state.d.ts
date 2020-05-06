@@ -45,7 +45,7 @@ import { Model } from '../model/model';
  *  };
  * ```
  */
-export declare interface PipeState {
+export declare class PipeState {
 	/**
 	 * A function that allows to shrink a number of pipe units that should be invoked on refresh request.
 	 */

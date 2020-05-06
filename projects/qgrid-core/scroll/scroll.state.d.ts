@@ -1,18 +1,20 @@
 /**
- * A class that contains properties about scroll status.
+ * Scroll mode.
  *
- * ### Suggested Links
- *
- * * [Scroll View](/doc/api/scroll-view.html)
+ * * `'default'` mode without virtualization.
+ * * `'virtual'` turn on virtual mode.
  */
-export declare interface ScrollState {
+export declare type ScrollStateMode = 'default' | 'virtual';
+
+/**
+ * A class that contains properties about scroll status.
+ */
+export declare class ScrollState {
+
 	/**
 	 * Scroll mode.
-	 *
-	 * * `'default'` mode without virtualization.
-	 * * `'virtual'` turn on virtual mode.
 	 */
-	mode: 'default' | 'virtual';
+	mode: ScrollStateMode;
 
 	/**
 	 * Top scroll position.

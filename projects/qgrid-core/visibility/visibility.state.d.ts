@@ -1,7 +1,7 @@
 /**
  * A class to control visibility of the q-grid areas.
  */
-export declare interface VisibilityState {
+export declare class VisibilityState {
 	/**
 	 * Indicates if the q-grid `head` is visible.
 	 */

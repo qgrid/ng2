@@ -2,11 +2,8 @@ import { ColumnModel } from '../column-type/column.model';
 
 /**
  * A class contains rewritten widths and heights of rows and columns
- *
- * ### Suggested Links
- * * [Layout View](/doc/api/layout-view.html)
  */
-export declare interface LayoutState {
+export declare class LayoutState {
 	/**
 	 * Set of column sizes.
 	 */
