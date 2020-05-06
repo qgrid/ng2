@@ -2,7 +2,7 @@ import { Model } from '@qgrid/core/model/model';
 import { Command } from '@qgrid/core/command/command';
 
 export declare class ExportPlugin {
-	constructor(model: Model, context: { type: string });
+	constructor(model: Model,  type: string );
 	
 	readonly type: string;
 	readonly csv: Command;

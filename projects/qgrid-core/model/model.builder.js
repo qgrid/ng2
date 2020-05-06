@@ -60,7 +60,7 @@ export class ModelBuilder {
             .register('filter', FilterState)
             .register('focus', FocusState)
             .register('foot', FootState)
-            .register('grid', GridModel)
+            .register('grid', GridState)
             .register('group', GroupState)
             .register('head', HeadState)
             .register('highlight', HighlightState)

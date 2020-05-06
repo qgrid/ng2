@@ -33,14 +33,18 @@ export class ImportComponent implements AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-		const element = this.hostElement.nativeElement;
-		const eventListener = new EventListener(element, new EventManager(this));
 		const { model } = this.plugin;
-		const context = { element, options: this.options };
-		const importPlugin = new ImportPlugin(model, context);
+		const { nativeElement } = this.hostElement;
+
+		const eventListener = new EventListener(nativeElement, new EventManager(this));
+		const importPlugin = new ImportPlugin(model, nativeElement, this.options);
+
 		eventListener.on('change', (e) => importPlugin.load(e));
+
 		const action = new Action(
-			new Command({ execute: () => importPlugin.upload.execute() }),
+			new Command({
+				execute: () => importPlugin.upload()
+			}),
 			`Import data`,
 			'file_upload'
 		);
@@ -51,7 +55,7 @@ export class ImportComponent implements AfterViewInit {
 			action.templateUrl = this.templateHost.key('trigger');
 		}
 
-		const items =  Composite.list([model.action().items, [action]]);
+		const items = Composite.list([model.action().items, [action]]);
 		model.action({ items }, { source: 'import.component' });
 
 		this.disposable.add(() => {

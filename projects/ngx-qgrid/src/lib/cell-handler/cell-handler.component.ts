@@ -8,6 +8,7 @@ import { DomTd } from '../dom/dom';
 import { GridEventArg } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { EditStateStatus } from '@qgrid/core/edit/edit.state';
+import { SelectionStateMode } from '@qgrid/core/selection/selection.state';
 
 @Component({
 	selector: 'q-grid-cell-handler',
@@ -136,7 +137,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		let oldCell: DomTd = null;
 		observe(model.editChanged)
 			.subscribe(e => {
-				if (e.hasChanges('state')) {
+				if (e.hasChanges('status')) {
 					if (e.state.status === 'endBatch') {
 						model.edit({ status: this.initialEditStatus });
 						editService.doBatch(this.startCell);

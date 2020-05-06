@@ -11,8 +11,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Grouped rows navigation improvements.
 
 ## [9.1.0] - 2020-04-01
+### BREAKING
+- Rename edit state property from `state` to `status`.
+
 ### Changed
 - Enable Ivy
+  
+
 
 ## [9.0.1] - 2020-03-13
 ### Fixed
