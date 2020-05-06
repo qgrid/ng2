@@ -15,7 +15,10 @@ if (prod) {
   serveOptions.push('--prod');
 }
 
-async function main() {
+function main() {
+  buildTheme('ng2-qgrid-theme-basic');
+  buildTheme('ng2-qgrid-theme-material');
+
   watchTheme('ng2-qgrid-theme-basic');
   watchTheme('ng2-qgrid-theme-material');
 
