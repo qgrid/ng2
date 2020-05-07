@@ -47,32 +47,32 @@ Feature: Select Row Basic
 
 	Scenario: select-row-basic is the same after click one item
 		Given I am on "select-row-basic"
-		When I click cell "name"[2]
+		When I click cell "name.first"[2]
 		And I look at the Page
 		Then Page looks the same as before
 
 	Scenario: select-row-basic is the same after click twice one item
 		Given I am on "select-row-basic"
-		When I click cell "name"[3]
-		And I click cell "name"[3]
+		When I click cell "name.first"[3]
+		And I click cell "name.first"[3]
 		And I look at the Page
 		Then Page looks the same as before
 
 	Scenario: select-row-basic is the same after click on few items
 		Given I am on "select-row-basic"
-		When I click cell "name"[3]
-		And I click cell "name"[4]
-		And I click cell "name"[5]
+		When I click cell "name.first"[3]
+		And I click cell "name.first"[4]
+		And I click cell "name.first"[5]
 		And I look at the Page
 		Then Page looks the same as before
 
 	Scenario: select-row-basic is the same after click twice on each of few items
 		Given I am on "select-row-basic"
-		When I click cell "name"[3]
-		And I click cell "name"[4]
-		And I click cell "name"[5]
-		And I click cell "name"[3]
-		And I click cell "name"[4]
-		And I click cell "name"[5]
+		When I click cell "name.first"[3]
+		And I click cell "name.first"[4]
+		And I click cell "name.first"[5]
+		And I click cell "name.first"[3]
+		And I click cell "name.first"[4]
+		And I click cell "name.first"[5]
 		And I look at the Page
 		Then Page looks the same as before
