@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Command } from '@qgrid/core/command/command';
 import { Action } from '@qgrid/core/action/action';
 import { Composite } from '@qgrid/core/infrastructure/composite';
@@ -9,7 +9,8 @@ import { GridPlugin, GridModelBuilder } from '@qgrid/ngx';
 @Component({
 	selector: 'q-grid-persistence',
 	template: '',
-	providers: [GridPlugin]
+	providers: [GridPlugin],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PersistenceComponent implements OnInit {
 	constructor(

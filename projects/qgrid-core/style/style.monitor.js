@@ -42,7 +42,7 @@ export class StyleMonitor {
 		const markDirty = entry => entries.add(entry);
 
 		return element => {
-			const entry = new Entry(element, newSheets, markDirty);
+			const entry = new StyleEntry(element, newSheets, markDirty);
 			return entry.class.bind(entry);
 		};
 	}

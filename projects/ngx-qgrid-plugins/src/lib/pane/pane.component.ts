@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input, ChangeDetectionStrategy } from '@angular/core';
 import { GridPlugin, GridEventArg } from '@qgrid/ngx';
 import { TemplateHostService, GridError } from '@qgrid/ngx';
 
@@ -8,7 +8,8 @@ import { TemplateHostService, GridError } from '@qgrid/ngx';
 	providers: [
 		GridPlugin,
 		TemplateHostService
-	]
+	],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaneComponent implements OnInit {
 	@Input() trigger: string;

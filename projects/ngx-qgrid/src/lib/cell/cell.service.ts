@@ -71,21 +71,25 @@ export class CellService {
 		if (!canBuild(column)) {
 			return noop;
 		}
+
 		const id = buildId(source, column, mode);
 		let commit = this.commits.get(id);
 		if (commit) {
 			return commit;
 		}
+
 		const keys = buildKeys(source, column, mode);
 		const templateLink = this.templateService.find(keys);
 		if (!templateLink) {
-			return null;
+			return noop;
 		}
+
 		commit = (container: ViewContainerRef, context: any) => {
 			container.clear();
 			const createView = this.templateService.viewFactory(context);
 			createView(templateLink, container);
 		};
+
 		this.commits.set(id, commit);
 		return commit;
 	}

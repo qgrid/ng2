@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { GRID_PREFIX } from '@qgrid/core/definition';
 import { BoxHost } from '@qgrid/core/box/box.host';
 import { ThemeService } from '../theme/theme.service';
@@ -7,7 +7,8 @@ import { GridPlugin } from '../plugin/grid-plugin';
 @Component({
 	selector: 'q-grid-box',
 	templateUrl: './box.component.html',
-	providers: [GridPlugin]
+	providers: [GridPlugin],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BoxComponent implements OnInit {
 	constructor(

@@ -1,11 +1,10 @@
-import { Component, OnInit, DoCheck, ChangeDetectorRef, NgZone } from '@angular/core';
+import { Component, OnInit, DoCheck, ChangeDetectorRef, NgZone, ChangeDetectionStrategy } from '@angular/core';
 import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
 import { ViewHost } from '@qgrid/core/view/view.host';
 import { CellService } from '../cell/cell.service';
 import { GridLet } from '../grid/grid-let';
 import { Grid } from '../grid/grid';
 import { GridPlugin } from '../plugin/grid-plugin';
-import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
 
 @Component({
 	selector: 'q-grid-core-view',
@@ -13,7 +12,8 @@ import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
 	providers: [
 		CellService,
 		GridPlugin,
-	]
+	],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewCoreComponent implements OnInit, DoCheck {
 	private host: ViewHost;
@@ -55,8 +55,8 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 	}
 
 	ngOnInit() {
-		const { model, table, observe, observeReply } = this.plugin;
-		
+		const { model, table, observeReply } = this.plugin;
+
 		this.view.scroll.y.settings.emit = f => {
 			f();
 
@@ -72,23 +72,20 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 				if (e.hasChanges('status') && e.state.status === 'pull') {
 					this.cd.markForCheck();
 
-					// Run digest on the start of invalidate(e.g. for busy indicator)
-					// and on the ned of invalidate(e.g. to build the DOM)
-					this.zone.run(() =>
-						model.scene({
-							status: 'push'
-						}, {
-							source: 'view-core.component',
-							behavior: 'core'
-						})
-					);
+					// // Run digest on the start of invalidate(e.g. for busy indicator)
+					// // and on the ned of invalidate(e.g. to build the DOM)
+					// this.zone.run(() =>
+					model.scene({
+						status: 'push'
+					}, {
+						source: 'view-core.component',
+						behavior: 'core'
+					});
+					// );
 
 					this.cd.detectChanges();
 				}
 			});
-
-		observe(model.visibilityChanged)
-			.subscribe(() => this.cd.detectChanges());
 
 		const virtualBody = table.body as any;
 		if (virtualBody.requestInvalidate) {

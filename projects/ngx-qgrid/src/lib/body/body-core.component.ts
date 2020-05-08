@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, NgZone, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef, OnInit, NgZone, Input, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { BodyHost } from '@qgrid/core/body/body.host';
 import { ColumnView } from '@qgrid/core/scene/view/column.view';
 import { DataState } from '@qgrid/core/data/data.state';
@@ -14,7 +14,8 @@ import { TableCoreService } from '../table/table-core.service';
 	// tslint:disable-next-line
 	selector: 'tbody[q-grid-core-body]',
 	templateUrl: './body-core.component.html',
-	providers: [GridPlugin]
+	providers: [GridPlugin],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodyCoreComponent implements OnInit {
 	@Input() pin = 'body';
@@ -33,7 +34,7 @@ export class BodyCoreComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const { model, disposable, observeReply } = this.plugin;
+		const { model, disposable, observeReply, observe } = this.plugin;
 		const nativeElement = this.elementRef.nativeElement as HTMLElement;
 
 		const host = new BodyHost(this.plugin);
@@ -89,6 +90,13 @@ export class BodyCoreComponent implements OnInit {
 								break;
 						}
 					}
+				}
+			});
+
+		observe(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('status') && e.state.status === 'push') {
+					this.cd.markForCheck();
 				}
 			});
 	}

@@ -3,7 +3,8 @@ import {
 	TemplateRef,
 	ElementRef,
 	Input,
-	ViewChild
+	ViewChild,
+	ChangeDetectionStrategy
 } from '@angular/core';
 import { GridError } from '@qgrid/ngx';
 import { EventListener } from '@qgrid/core/event/event.listener';
@@ -14,7 +15,8 @@ import { GridPlugin } from '@qgrid/ngx';
 @Component({
 	selector: 'q-grid-tab-trap',
 	templateUrl: './tab-trap.component.html',
-	providers: [GridPlugin]
+	providers: [GridPlugin],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TabTrapComponent {
 	private isActivating = false;

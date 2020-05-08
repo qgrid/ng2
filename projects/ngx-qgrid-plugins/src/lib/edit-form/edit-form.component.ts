@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { EditFormPanelPlugin } from '@qgrid/plugins/edit-form/edit.form.panel.plugin';
 import { GridPlugin, DomTd } from '@qgrid/ngx';
 
@@ -7,7 +7,8 @@ import { GridPlugin, DomTd } from '@qgrid/ngx';
 	templateUrl: './edit-form.component.html',
 	providers: [
 		GridPlugin
-	]
+	],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditFormComponent implements OnInit {
 	@Input() caption: string;

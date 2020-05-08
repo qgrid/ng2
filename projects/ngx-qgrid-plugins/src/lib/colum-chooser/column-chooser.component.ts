@@ -7,7 +7,8 @@ import {
 	SimpleChanges,
 	OnChanges,
 	NgZone,
-	ChangeDetectorRef
+	ChangeDetectorRef,
+	ChangeDetectionStrategy
 } from '@angular/core';
 import { ColumnChooserPlugin } from '@qgrid/plugins/column-chooser/column.chooser.plugin';
 import { FocusAfterRender } from '../focus/focus.service';
@@ -34,7 +35,8 @@ export class RootContext {
 		FocusAfterRender,
 		GridPlugin,
 		StateAccessor
-	]
+	],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnChooserComponent implements OnInit, OnChanges {
 	private ccState = this.stateAccessor.setter(ColumnChooserState);

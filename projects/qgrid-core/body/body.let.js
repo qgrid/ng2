@@ -13,22 +13,15 @@ export class BodyLet {
 		observe(model.sceneChanged)
 			.subscribe(e => {
 				if (e.hasChanges('rows')) {
-					this.invalidate();
+					this.tryShowBlankLayer();
 				}
 			});
 
-		observe(model.rowChanged)
-			.subscribe(e => {
-				if (e.hasChanges('pinTop') || e.hasChanges('pinBottom')) {
-					this.invalidate();
-				}
-			});
-
-		this.invalidate();
+		this.tryShowBlankLayer();
 	}
 
-	invalidate() {
-		Log.info('view.body', 'invalidate');
+	tryShowBlankLayer() {
+		Log.info('view.let', 'invalidate');
 
 		const { model, table } = this.plugin;
 		const { rows } = model.scene();

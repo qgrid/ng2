@@ -1,11 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ValidatorPlugin } from '@qgrid/plugins/validation/validator.plugin';
 import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-validator',
 	templateUrl: './validator.component.html',
-	providers: [TemplateHostService, GridPlugin]
+	providers: [TemplateHostService, GridPlugin],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ValidatorComponent implements OnInit {
 	@Input() value: string;

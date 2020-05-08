@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, AfterViewInit } from '@angular/core';
+import { Component, Input, EventEmitter, Output, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { Command } from '@qgrid/core/command/command';
 import { SelectionService } from '@qgrid/core/selection/selection.service';
 import { CellView } from '@qgrid/core/scene/view/cell.view';
@@ -7,7 +7,8 @@ import { GridModel, Disposable } from '@qgrid/ngx';
 @Component({
 	selector: 'q-grid-reference-editor',
 	templateUrl: './reference-editor.component.html',
-	providers: [Disposable]
+	providers: [Disposable],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReferenceEditorComponent implements AfterViewInit {
 	private state: any;

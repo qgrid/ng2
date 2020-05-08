@@ -7,7 +7,8 @@ import { GridPlugin,Disposable } from '@qgrid/ngx';
 @Component({
 	selector: 'q-grid-query-builder',
 	templateUrl: './query-builder.component.html',
-	providers: [GridPlugin, Disposable]
+	providers: [GridPlugin, Disposable],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QueryBuilderComponent implements OnInit {
 	context: { $implicit: QueryBuilderComponent } = {

@@ -8,7 +8,8 @@ import {
 	Inject,
 	ChangeDetectorRef,
 	OnChanges,
-	SimpleChanges
+	SimpleChanges,
+	ChangeDetectionStrategy
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ActionState } from '@qgrid/core/action/action.state';
@@ -45,6 +46,7 @@ import { TemplateService } from '../template/template.service';
 import { ThemeService } from '../theme/theme.service';
 import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
 import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
+
 @Component({
 	selector: 'q-grid',
 	providers: [
@@ -61,7 +63,8 @@ import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
 	],
 	styleUrls: ['../../../../assets/index.scss'],
 	templateUrl: './grid.component.html',
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GridComponent implements OnInit, OnChanges {
 	private firstSetup = true;
@@ -202,7 +205,7 @@ export class GridComponent implements OnInit, OnChanges {
 		});
 
 		observe(model.visibilityChanged)
-			.subscribe(() => this.cd.detectChanges())
+			.subscribe(() => this.cd.detectChanges());
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {

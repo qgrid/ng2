@@ -3,14 +3,16 @@ import {
 	TemplateRef,
 	EventEmitter,
 	Output,
-	ViewChild
+	ViewChild,
+	ChangeDetectionStrategy
 } from '@angular/core';
 import { GridPlugin } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-cell-editor',
 	templateUrl: './cell-editor.component.html',
-	providers: [GridPlugin]
+	providers: [GridPlugin],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CellEditorComponent {
 	@ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;

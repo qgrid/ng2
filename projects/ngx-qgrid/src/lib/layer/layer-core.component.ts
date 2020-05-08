@@ -1,8 +1,9 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'q-grid-core-layer',
-	templateUrl: './layer-core.component.html'
+	templateUrl: './layer-core.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LayerCoreComponent {
 	@HostBinding('class')

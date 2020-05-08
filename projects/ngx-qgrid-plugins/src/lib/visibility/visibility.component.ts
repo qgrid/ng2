@@ -1,10 +1,11 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { GridPlugin } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-visibility',
 	template: '',
-	providers: [GridPlugin]
+	providers: [GridPlugin],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VisibilityComponent implements OnChanges {
 	@Input() head = true;
