@@ -20,8 +20,9 @@ export class StatusBarComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const { model } = this.plugin;
-		model.focusChanged.on(() => this.cd.detectChanges());
+		const { model, observe } = this.plugin;
+		observe(model.focusChanged)
+			.subscribe(() => this.cd.detectChanges());
 	}
 
 	get rowIndex() {

@@ -1,6 +1,6 @@
-import { StyleMonitor } from './style.monitor';
 import { getFactory as valueFactory } from '../services/value';
 import { noop } from '../utility/kit';
+import { StyleMonitor } from './style.monitor';
 import { StyleService } from './style.service';
 import { VirtualRowStyle, VirtualCellStyle } from './style.virtual';
 import * as columnService from '../column/column.service';

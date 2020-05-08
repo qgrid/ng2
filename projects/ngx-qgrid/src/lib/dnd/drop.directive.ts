@@ -51,8 +51,9 @@ export class DropDirective implements OnInit {
 
 	ngOnInit() {
 		if (this.plugin) {
-			this.disposable.add(
-				this.plugin.model.dragChanged.on(e => {
+			const { model, observe } = this.plugin;
+			observe(model.dragChanged)
+				.subscribe(e => {
 					if (e.hasChanges('isActive')) {
 						if (!e.state.isActive) {
 							const eventArg = {
@@ -69,7 +70,7 @@ export class DropDirective implements OnInit {
 							}
 						}
 					}
-				}));
+				});
 		}
 	}
 
