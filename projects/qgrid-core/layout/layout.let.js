@@ -1,10 +1,11 @@
 import { Log } from '../infrastructure/log';
 import * as css from '../services/css';
 import * as columnService from '../column/column.service';
-
+import { Fastdom } from '../services/fastdom';
 export class LayoutLet {
 	constructor(plugin, gridService) {
 		const { model, observeReply, disposable } = plugin;
+		const styleRow = this.styleRow.bind(this);
 
 		this.plugin = plugin;
 		this.service = gridService;
@@ -16,24 +17,14 @@ export class LayoutLet {
 					const newColumn = e.changes.cell.newValue ? e.changes.cell.newValue.column : {};
 
 					if (oldColumn.key !== newColumn.key && (oldColumn.viewWidth || newColumn.viewWidth)) {
-						const form = this.updateColumnForm();
-						this.invalidateColumns(form);
+						Fastdom.measure(() => {
+							const form = this.updateColumnForm();
+							Fastdom.mutate(() => this.invalidateColumns(form));
+						});
 					}
 				}
 			});
 
-		this.onInit();
-
-		disposable.add(() => {
-			const sheet = css.sheet(this.gridId, 'layout-column');
-			sheet.remove();
-		});
-	}
-
-	onInit() {
-		const { model, observeReply } = this.plugin;
-
-		const styleRow = this.styleRow.bind(this);
 		observeReply(model.layoutChanged)
 			.subscribe(e => {
 				if (e.tag.source === 'layout.view') {
@@ -41,8 +32,10 @@ export class LayoutLet {
 				}
 
 				if (e.hasChanges('columns')) {
-					const form = this.updateColumnForm();
-					this.invalidateColumns(form);
+					Fastdom.measure(() => {
+						const form = this.updateColumnForm();
+						Fastdom.mutate(() => this.invalidateColumns(form));
+					});
 				}
 			});
 
@@ -77,15 +70,20 @@ export class LayoutLet {
 			.subscribe(e => {
 				if (e.hasChanges('status')) {
 					if (e.state.status === 'stop') {
-						this.updateColumnForm();
+						Fastdom.measure(() => this.updateColumnForm());
 					}
 				}
 
 				if (e.hasChanges('column')) {
 					const { columns } = model.layout();
-					this.invalidateColumns(columns);
+					Fastdom.mutate(() => this.invalidateColumns(columns));
 				}
 			});
+
+		disposable.add(() => {
+			const sheet = css.sheet(this.gridId, 'layout-column');
+			sheet.remove();
+		});
 	}
 
 	updateColumnForm() {

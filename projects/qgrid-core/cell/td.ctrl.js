@@ -1,6 +1,7 @@
 import { GRID_PREFIX } from '../definition';
 import { escapeAttr } from '../services/css';
 import { isFunction, isDate, isArray } from '../utility/kit';
+import { Fastdom } from '../services/fastdom';
 
 const toJson = JSON.stringify;
 const toString = Object.prototype.toString;
@@ -9,21 +10,23 @@ const hasCustomToString = obj => isFunction(obj.toString) && obj.toString !== to
 export class TdCtrl {
 	static classify(element, column) {
 		// @deprecated
-		element.classList.add(escapeAttr(`${GRID_PREFIX}-${column.key}`));
+		Fastdom.mutate(() => {
+			element.classList.add(escapeAttr(`${GRID_PREFIX}-${column.key}`));
 
-		element.classList.add(escapeAttr(`${GRID_PREFIX}-the-${column.key}`));
-		element.classList.add(escapeAttr(`${GRID_PREFIX}-${column.type}`));
-		if (column.editor) {
-			element.classList.add(escapeAttr(`${GRID_PREFIX}-${column.editor}`));
-		}
+			element.classList.add(escapeAttr(`${GRID_PREFIX}-the-${column.key}`));
+			element.classList.add(escapeAttr(`${GRID_PREFIX}-${column.type}`));
+			if (column.editor) {
+				element.classList.add(escapeAttr(`${GRID_PREFIX}-${column.editor}`));
+			}
+		});
 	}
 
 	static viewMode(element) {
-		element.classList.remove(`${GRID_PREFIX}-edit`);
+		Fastdom.mutate(() => element.classList.remove(`${GRID_PREFIX}-edit`));
 	}
 
 	static editMode(element) {
-		element.classList.add(`${GRID_PREFIX}-edit`);
+		Fastdom.mutate(() => element.classList.add(`${GRID_PREFIX}-edit`));
 	}
 
 	static stringify(value) {

@@ -179,7 +179,7 @@ export {
 	isBoolean,
 	isDate,
 	isEmail,
-	isEqual,
+	isEqual as same,
 	isFunction,
 	isImage,
 	isNumber,
