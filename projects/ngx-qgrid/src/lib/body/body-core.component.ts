@@ -1,13 +1,14 @@
 import { Component, ElementRef, OnInit, NgZone, Input, ChangeDetectorRef } from '@angular/core';
+import { BodyHost } from '@qgrid/core/body/body.host';
+import { ColumnView } from '@qgrid/core/scene/view/column.view';
+import { DataState } from '@qgrid/core/data/data.state';
 import { EventListener } from '@qgrid/core/event/event.listener';
 import { EventManager } from '@qgrid/core/event/event.manager';
-import { ColumnView } from '@qgrid/core/scene/view/column.view';
-import { SelectionState } from '@qgrid/core/selection/selection.state';
-import { GridModel } from '../grid/grid-model';
-import { BodyHost } from '@qgrid/core/body/body.host';
 import { GridLet } from '../grid/grid-let';
-import { TableCoreService } from '../table/table-core.service';
+import { GridModel } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
+import { SelectionState } from '@qgrid/core/selection/selection.state';
+import { TableCoreService } from '../table/table-core.service';
 
 @Component({
 	// tslint:disable-next-line
@@ -33,11 +34,6 @@ export class BodyCoreComponent implements OnInit {
 
 	ngOnInit() {
 		const { model, disposable, observeReply } = this.plugin;
-		const { id } = model.data();
-
-		this.rowId = id.row;
-		this.columnId = (index, columnView) => id.column(index, columnView.model);
-
 		const nativeElement = this.elementRef.nativeElement as HTMLElement;
 
 		const host = new BodyHost(this.plugin);
@@ -64,12 +60,19 @@ export class BodyCoreComponent implements OnInit {
 			}));
 		});
 
+		const setupTrackBy = (state: DataState) => {
+			const { rowId, columnId } = state;
+
+			this.rowId = rowId;
+			this.columnId = (index, columnView) => columnId(index, columnView.model);
+		};
+
+		setupTrackBy(model.data());
+
 		observeReply(model.dataChanged)
 			.subscribe(e => {
-				if (e.hasChanges('id')) {
-					this.rowId = e.state.id.row;
-					const columnId = e.state.id.column;
-					this.columnId = (index, columnView) => columnId(index, columnView.model);
+				if (e.hasChanges('rowId') || e.hasChanges('columnId')) {
+					setupTrackBy(e.state);
 				}
 			});
 

@@ -10,17 +10,17 @@ import {
 	OnChanges,
 	SimpleChanges
 } from '@angular/core';
-import { isUndefined } from '@qgrid/core/utility/kit';
-import { guid } from '@qgrid/core/services/guid';
-import { GridRoot } from '../grid/grid-root';
-import { TemplateHostService } from '../template/template-host.service';
 import { ColumnListService } from '../column-list/column-list.service';
 import { ColumnService } from './column.service';
+import { GridPlugin } from '../plugin/grid-plugin';
+import { guid } from '@qgrid/core/services/guid';
+import { isUndefined } from '@qgrid/core/utility/kit';
+import { TemplateHostService } from '../template/template-host.service';
 
 @Component({
 	selector: 'q-grid-column',
 	template: '<ng-content></ng-content>',
-	providers: [TemplateHostService, ColumnService],
+	providers: [TemplateHostService, ColumnService, GridPlugin],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
@@ -76,12 +76,12 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() maxLength: number;
 
 	constructor(
+		@SkipSelf() @Optional() private parent: ColumnService,
 		private columnList: ColumnListService,
 		private templateHost: TemplateHostService,
-		@SkipSelf() @Optional() private parent: ColumnService,
 		private columnService: ColumnService,
 		private elementRef: ElementRef,
-		private root: GridRoot
+		private plugin: GridPlugin
 	) {
 	}
 
@@ -146,7 +146,7 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 
 	ngOnChanges(changes: SimpleChanges) {
 		if (changes.isVisible) {
-			const { model } = this.root;
+			const { model } = this.plugin;
 			const { columns } = model.columnList();
 			const column = columns.find(x => x.key === this.key);
 			if (column) {

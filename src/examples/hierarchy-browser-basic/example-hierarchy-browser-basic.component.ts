@@ -65,11 +65,7 @@ export class ExampleHierarchyBrowserBasicComponent {
 				mode: 'multiple',
 				unit: 'row',
 				area: 'custom',
-				key: {
-					row: function row(node) {
-						return node.key;
-					}
-				}
+				rowKey: node => node.key
 			});
 	}
 }

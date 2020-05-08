@@ -152,6 +152,10 @@ function isImage(value) {
 }
 
 function getTypeName(type) {
+	if (type.name) {
+		return type.name;
+	}
+
 	const nameRegexp = /function (.{1,})\(/;
 	const results = (nameRegexp).exec(type.constructor.toString());
 	return (results && results.length > 1) ? results[1] : "";

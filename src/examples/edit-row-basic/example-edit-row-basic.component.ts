@@ -76,9 +76,7 @@ export class ExampleEditRowBasicComponent implements OnInit {
 							.selection({
 								mode: 'multiple',
 								unit: 'row',
-								key: {
-									row: x => rows.findIndex(r => r.name.last === x.name.last && r.name.first === x.name.first)
-								}
+								rowKey: x => rows.findIndex(r => r.name.last === x.name.last && r.name.first === x.name.first)
 							})
 							.columnList({
 								generation: 'deep'

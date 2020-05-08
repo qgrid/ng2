@@ -3,14 +3,14 @@ import { FocusAfterRenderService } from '@qgrid/core/focus/focus.service';
 
 export class PagerPlugin {
 	constructor(plugin) {
-		const { model, table, disposable } = plugin;
+		const { model } = plugin;
 
 		this.plugin = plugin;
 
 		this.next = new Command({
 			source: 'pager',
 			execute: () => {
-				new FocusAfterRenderService(model, table, disposable);
+				new FocusAfterRenderService(plugin);
 				model.pagination({ current: model.pagination().current + 1 }, { source: 'pager.view' })
 			},
 			canExecute: () => (model.pagination().current + 1) * model.pagination().size < model.pagination().count
@@ -19,7 +19,7 @@ export class PagerPlugin {
 		this.prev = new Command({
 			source: 'pager',
 			execute: () => {
-				new FocusAfterRenderService(model, table, disposable);
+				new FocusAfterRenderService(plugin);
 				model.pagination({ current: model.pagination().current - 1 }, { source: 'pager.view' });
 			},
 			canExecute: () => model.pagination().current > 0

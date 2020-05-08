@@ -1,8 +1,8 @@
 export class Event {
-	constructor(reply = () => null) {
+	constructor(reply) {
 		this.handlers = [];
-		this.isDirty = false;
-		this.reply = reply;
+		this.lastArg = null;
+		this.reply = reply || (() => this.lastArg);
 	}
 
 	on(next, lifecycle = 'app') {
@@ -24,7 +24,7 @@ export class Event {
 
 	watch(next, lifecycle = 'app') {
 		const off = this.on(next, lifecycle);
-		if (this.isDirty) {
+		if (this.lastArg) {
 			const e = this.reply();
 			next(e, off);
 		}
@@ -32,12 +32,13 @@ export class Event {
 		return off;
 	}
 
-	emit(e) {
-		this.isDirty = true;
+	emit(value) {
+		this.lastArg = value;
+
 		const temp = Array.from(this.handlers);
 		for (let i = 0, length = temp.length; i < length; i++) {
 			const handler = temp[i];
-			handler.next(e, handler.off);
+			handler.next(value, handler.off);
 		}
 	}
 }

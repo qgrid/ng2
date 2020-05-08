@@ -6,14 +6,14 @@ import {
 	OnInit,
 	ViewContainerRef
 } from '@angular/core';
-import { ColumnView } from '@qgrid/core/scene/view/column.view';
-import { ColumnModel } from '@qgrid/core/column-type/column.model';
-import { TdCtrl } from '@qgrid/core/cell/td.ctrl';
-import { DomTd } from '../dom/dom';
 import { AppError } from '@qgrid/core/infrastructure/error';
-import { GridLet } from '../grid/grid-let';
-import { GridRoot } from '../grid/grid-root';
 import { CellService } from '../cell/cell.service';
+import { ColumnModel } from '@qgrid/core/column-type/column.model';
+import { ColumnView } from '@qgrid/core/scene/view/column.view';
+import { DomTd } from '../dom/dom';
+import { GridLet } from '../grid/grid-let';
+import { GridPlugin } from '../plugin/grid-plugin';
+import { TdCtrl } from '@qgrid/core/cell/td.ctrl';
 import { TrhCoreDirective } from '../row/trh-core.directive';
 
 const classify = TdCtrl.classify;
@@ -29,7 +29,7 @@ export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
 
 	constructor(
 		public $view: GridLet,
-		private root: GridRoot,
+		private plugin: GridPlugin,
 		private cellService: CellService,
 		private viewContainerRef: ViewContainerRef,
 		private tr: TrhCoreDirective,
@@ -40,7 +40,7 @@ export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
 
 	ngOnInit() {
 		const { column, element } = this;
-		const { table } = this.root;
+		const { table } = this.plugin;
 
 		table.box.bag.foot.addCell(this);
 		classify(element, column);
@@ -86,7 +86,7 @@ export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		const { table } = this.root;
+		const { table } = this.plugin;
 		table.box.bag.foot.deleteCell(this);
 	}
 }

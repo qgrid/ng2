@@ -78,13 +78,15 @@ export class FocusService {
 }
 
 export class FocusAfterRenderService {
-    constructor(model, table, disposable) {
+    constructor(plugin) {
+        const { table, model, observe } = plugin;
 
-        disposable.add(model.sceneChanged.on((e, off) => {
-            if (e.state.status === 'stop') {
-                table.view.focus();
-                off();
-            }
-        }));
+        const subscription = observe(model.sceneChanged)
+            .subscribe(e => {
+                if (e.state.status === 'stop') {
+                    table.view.focus();
+                    subscription.unsubscribe();
+                }
+            });
     }
 }

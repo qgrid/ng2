@@ -10,17 +10,17 @@ import {
 	SimpleChanges,
 	SimpleChange
 } from '@angular/core';
-import { GRID_PREFIX } from '@qgrid/core/definition';
+import { CellService } from '../cell/cell.service';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { ColumnView } from '@qgrid/core/scene/view/column.view';
-import { TdCtrl } from '@qgrid/core/cell/td.ctrl';
 import { DomTd } from '../dom/dom';
-import { noop } from '@qgrid/core/utility/kit';
-import { GridLet } from '../grid/grid-let';
-import { GridRoot } from '../grid/grid-root';
-import { TrCoreDirective } from '../row/tr-core.directive';
-import { CellService } from '../cell/cell.service';
+import { GRID_PREFIX } from '@qgrid/core/definition';
 import { GridError } from '../infrastructure/error';
+import { GridLet } from '../grid/grid-let';
+import { GridPlugin } from '../plugin/grid-plugin';
+import { noop } from '@qgrid/core/utility/kit';
+import { TdCtrl } from '@qgrid/core/cell/td.ctrl';
+import { TrCoreDirective } from '../row/tr-core.directive';
 
 const classify = TdCtrl.classify;
 
@@ -40,7 +40,7 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 
 	constructor(
 		public $view: GridLet,
-		private root: GridRoot,
+		private plugin: GridPlugin,
 		private viewContainerRef: ViewContainerRef,
 		private cellService: CellService,
 		private tr: TrCoreDirective,
@@ -51,7 +51,7 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	}
 
 	ngOnInit() {
-		const { table } = this.root;
+		const { table } = this.plugin;
 		table.box.bag.body.addCell(this);
 		classify(this.element, this.column);
 
@@ -160,12 +160,12 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	}
 
 	get dataRowIndex() {
-		const { model } = this.root;
+		const { model } = this.plugin;
 		return model.data().rows.indexOf(this.row);
 	}
 
 	ngOnDestroy() {
-		const { table } = this.root;
+		const { table } = this.plugin;
 		table.box.bag.body.deleteCell(this);
 	}
 }

@@ -6,7 +6,7 @@ export class Navigation {
 		this.table = table;
 	}
 
-	positon(y, direction) {
+	position(y, direction) {
 		const table = this.table;
 		const body = table.body;
 		const lastRow = this.lastRow;
@@ -347,7 +347,7 @@ export class Navigation {
 				},
 				execute: () => {
 					const view = table.view;
-					const position = this.positon(view.scrollTop() - view.height(), 'up');
+					const position = this.position(view.scrollTop() - view.height(), 'up');
 					const newRow = position.row;
 					const newColumn = this.currentColumn;
 					if (go.execute(this.context('pageUp', { newRow, newColumn }))) {
@@ -371,7 +371,7 @@ export class Navigation {
 				},
 				execute: () => {
 					const view = table.view;
-					const position = this.positon(view.scrollTop() + view.height(), 'down');
+					const position = this.position(view.scrollTop() + view.height(), 'down');
 					const newRow = position.row;
 					const newColumn = this.currentColumn;
 					if (go.execute(this.context('pageDown', { newRow, newColumn }))) {

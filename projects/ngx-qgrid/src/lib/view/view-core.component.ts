@@ -1,11 +1,11 @@
-import { Component, OnInit, ElementRef, DoCheck, ChangeDetectorRef, NgZone } from '@angular/core';
+import { Component, OnInit, DoCheck, ChangeDetectorRef, NgZone } from '@angular/core';
 import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
 import { ViewHost } from '@qgrid/core/view/view.host';
 import { CellService } from '../cell/cell.service';
 import { GridLet } from '../grid/grid-let';
-import { GridRoot } from '../grid/grid-root';
 import { Grid } from '../grid/grid';
 import { GridPlugin } from '../plugin/grid-plugin';
+import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
 
 @Component({
 	selector: 'q-grid-core-view',
@@ -19,18 +19,16 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 	private host: ViewHost;
 
 	constructor(
-		private root: GridRoot,
 		private view: GridLet,
 		private plugin: GridPlugin,
 		private qgrid: Grid,
-		private elementRef: ElementRef,
 		private cd: ChangeDetectorRef,
 		private zone: NgZone
 	) {
 		zone
 			.onStable
 			.subscribe(() => {
-				if (this.root.isReady) {
+				if (this.model) {
 					const { scene } = this.model;
 					const { status } = scene();
 					if (status === 'push') {
@@ -58,14 +56,11 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 
 	ngOnInit() {
 		const { model, table, observe, observeReply } = this.plugin;
-		table.box.markup['view'] = this.elementRef.nativeElement;
+		const cmdManager = new TableCommandManager(f => f(), table);
 
 		// Views need to be init after `sceneChanged.watch` declaration
 		// to persist the right order of event sourcing.
-		this.view.init(
-			this.plugin,
-			this.root.commandManager
-		);
+		this.view.init(this.plugin, cmdManager);
 
 		this.view.scroll.y.settings.emit = f => {
 			f();

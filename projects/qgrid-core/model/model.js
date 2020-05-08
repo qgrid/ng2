@@ -1,7 +1,8 @@
+import { AppError } from '../infrastructure/error';
 import { Event } from '../event/event';
-import { AppError } from '../infrastructure//error';
-import { Guard } from '../infrastructure//guard';
+import { Guard } from '../infrastructure/guard';
 import { isArray, isObject, getTypeName } from '../utility/kit';
+import { Log } from '../infrastructure/log';
 
 function equals(x, y) {
 	// TODO: improve equality algorithm
@@ -50,7 +51,7 @@ export class Model {
 		}
 
 		const accessor = this.buildAccessor(name, Type);
-		this.accessors.set(name, accessor);
+		this.accessors.set(Type, accessor);
 		return accessor;
 	}
 

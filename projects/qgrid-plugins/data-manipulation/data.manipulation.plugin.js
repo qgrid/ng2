@@ -162,8 +162,8 @@ export class DataManipulationPlugin {
 
 		const { model, disposable, observeReply } = this.plugin;
 
-		this.rowId = model.data().id.row;
-		this.columnId = model.data().id.column;
+		this.rowId = model.data().rowId;
+		this.columnId = model.data().columnId;
 
 		const dm = model.resolve(DataManipulationState);
 		this.rowFactory = dm.state().rowFactory;

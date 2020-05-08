@@ -53,7 +53,7 @@ export class ColumnSortComponent implements AfterViewInit {
 		listener.on('click', () => {
 			if (columnSort.onClick()) {
 				// tslint:disable-next-line:no-unused-expression
-				new FocusAfterRender(this.plugin, null);
+				new FocusAfterRender(this.plugin);
 			}
 		});
 

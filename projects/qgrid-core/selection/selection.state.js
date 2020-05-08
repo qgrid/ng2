@@ -10,10 +10,8 @@ export class SelectionState {
 		this.items = [];
 		this.area = 'body'; //body, custom
 		this.toggle = new Command({ source: 'selection.model' });
-		this.key = {
-			row: identity,
-			column: identity
-		};
+		this.rowKey = identity;
+		this.columnKey = identity;
 		this.shortcut = {
 			toggleRow: 'shift+space|space',
 			togglePreviousRow: 'shift+up',

@@ -1,5 +1,5 @@
 import { Directive, AfterViewInit, Input } from '@angular/core';
-import { GridRoot, GridPlugin } from '@qgrid/ngx';
+import { GridPlugin } from '@qgrid/ngx';
 import { AutofocusPlugin } from '@qgrid/plugins/autofocus/autofocus.plugin';
 
 @Directive({

@@ -7,19 +7,19 @@ import {
 	NgZone,
 	Inject,
 	ChangeDetectorRef,
-	SimpleChanges,
 	OnChanges
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { Action } from '@qgrid/core/action/action';
 import { ActionState } from '@qgrid/core/action/action.state';
 import { AppError } from '@qgrid/core/infrastructure/error';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { Command } from '@qgrid/core/command/command';
+import { DataState } from '@qgrid/core/data/data.state';
+import { EditState, EditStateMethod, EditStateMode } from '@qgrid/core/edit/edit.state';
 import { EventListener } from '@qgrid/core/event/event.listener';
 import { EventManager } from '@qgrid/core/event/event.manager';
 import { eventPath } from '@qgrid/core/services/dom';
-import { FetchContext } from '@qgrid/core/fetch/fetch.context';
+import { FilterState, FilterStateUnit } from '@qgrid/core/filter/filter.state';
 import { Grid } from './grid';
 import { GridHost } from '@qgrid/core/grid/grid.host';
 import { GridLet } from './grid-let';
@@ -28,19 +28,21 @@ import { GridModelBuilder } from './grid-model.builder';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { GridRoot } from './grid-root';
 import { GridState, GridStateInteractionMode } from '@qgrid/core/grid/grid.state';
+import { GroupState, GroupStateMode, GroupStateSummary } from '@qgrid/core/group/group.state';
 import { LayerService } from '../layer/layer.service';
 import { noop } from '@qgrid/core/utility/kit';
-import { PipeContext } from '@qgrid/core/pipe/pipe.item';
-import { StyleRowCallback, StyleCellCallback } from '@qgrid/core/style/style.state';
-import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
+import { PivotState } from '@qgrid/core/pivot/pivot.state';
+import { ScrollState, ScrollStateMode } from '@qgrid/core/scroll/scroll.state';
+import { SelectionState, SelectionStateMode, SelectionStateUnit, SelectionStateArea } from '@qgrid/core/selection/selection.state';
+import { SortState, SortStateMode } from '@qgrid/core/sort/sort.state';
+import { StateAccessor } from '../state/state-accessor';
+import { StyleRowCallback, StyleCellCallback, StyleState } from '@qgrid/core/style/style.state';
 import { tableFactory } from '@qgrid/core/dom/table.factory';
 import { TemplateCacheService } from '../template/template-cache.service';
 import { TemplateLinkService } from '../template/template-link.service';
 import { TemplateService } from '../template/template.service';
 import { ThemeService } from '../theme/theme.service';
 import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
-import { DataState } from '@qgrid/core/data/data.state';
-
 @Component({
 	selector: 'q-grid',
 	providers: [
@@ -52,15 +54,26 @@ import { DataState } from '@qgrid/core/data/data.state';
 		TemplateCacheService,
 		TemplateLinkService,
 		TemplateService,
+		StateAccessor,
 	],
 	styleUrls: ['../../../../assets/index.scss'],
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None
 })
 export class GridComponent implements OnInit, OnChanges {
-	private actionState = this.plugin.stateAccessor(ActionState);
-	private gridState = this.plugin.stateAccessor(GridState);
-	private dataState = this.plugin.stateAccessor(DataState);
+	private actionState = this.stateAccessor.setter(ActionState);
+	private gridState = this.stateAccessor.setter(GridState);
+	private dataState = this.stateAccessor.setter(DataState);
+	private editState = this.stateAccessor.setter(EditState);
+	private filterState = this.stateAccessor.setter(FilterState);
+	private groupState = this.stateAccessor.setter(GroupState);
+	private pivotState = this.stateAccessor.setter(PivotState);
+	private selectionState = this.stateAccessor.setter(SelectionState);
+	private scrollState = this.stateAccessor.setter(ScrollState);
+	private sortState = this.stateAccessor.setter(SortState);
+	private styleState = this.stateAccessor.setter(StyleState);
+
+	themeComponent: any;
 
 	@Input() set model(value: GridModel) {
 		this.root.model = value;
@@ -70,52 +83,42 @@ export class GridComponent implements OnInit, OnChanges {
 		return this.root.model;
 	}
 
-	@Input('actions') set actionItems(items: Action[]) { this.actionState({ items }); }
-
 	@Input('id') set gridId(id: string) { this.gridState({ id }); }
 	@Input('header') set gridTitle(header: string) { this.gridState({ caption: header }); }
 	@Input('caption') set gridCaption(caption: string) { this.gridState({ caption }); }
 	@Input('interactionMode') gridInteractionMode(interactionMode: GridStateInteractionMode) { this.gridState({ interactionMode }); }
 
-	@Input('columns') dataColumns: Array<ColumnModel>;
-	@Input('pipe') dataPipe: Array<(memo: any, context: PipeContext, next: (memo: any) => void) => any>;
-	@Input('rows') dataRows: Array<any>;
+	@Input('columns') set dataColumns(columns: Array<ColumnModel>) { if (Array.isArray(columns)) { this.dataState({ columns }); } }
+	@Input('rows') set dataRows(rows: Array<any>) { if (Array.isArray(rows)) { this.dataState({ rows }); } }
 
-	@Input() editCancel: Command;
-	@Input() editCommit: Command;
-	@Input() editEnter: Command;
-	@Input() editMethod: null | 'batch';
-	@Input() editMode: null | 'cell' | 'row';
-	@Input() editReset: Command;
+	@Input() set editCancel(cancel: Command) { this.editState({ cancel }); }
+	@Input() set editCommit(commit: Command) { this.editState({ commit }); }
+	@Input() set editEnter(enter: Command) { this.editState({ enter }); }
+	@Input() set editMethod(method: EditStateMethod) { this.editState({ method }); }
+	@Input() set editMode(mode: EditStateMode) { this.editState({ mode }); }
+	@Input() set editReset(reset: Command) { this.editState({ reset }); }
 
-	@Input() filterFetch: (key: string, context: FetchContext) => any | Promise<any>;
-	@Input() filterUnit: 'default' | 'row';
+	@Input() set filterUnit(unit: FilterStateUnit) { this.filterState({ unit }); }
 
-	@Input() groupBy: Array<string>;
-	@Input() groupMode: 'nest' | 'column' | 'subhead' | 'rowspan';
-	@Input() groupSummary: null | 'leaf';
+	@Input() set groupBy(by: Array<string>) { this.groupState({ by }); }
+	@Input() set groupMode(mode: GroupStateMode) { this.groupState({ mode }); }
+	@Input() set groupSummary(summary: GroupStateSummary) { this.groupState({ summary }); }
 
-	@Input() pivotBy: Array<string>;
+	@Input() set pivotBy(by: Array<string>) { this.pivotState({ by }); }
 
-	@Input('selection') selectionItems: Array<any>;
-	@Input() selectionArea: 'custom' | 'body';
-	@Input() selectionMode: 'single' | 'multiple' | 'range' | 'singleOnly';
-	@Input() selectionUnit: 'row' | 'cell' | 'column' | 'mix';
-	@Input() selectionKey: {
-		row: () => void,
-		column: () => void
-	};
+	@Input('selection') set selectionItems(items: Array<any>) { this.selectionState({ items }); }
+	@Input() set selectionArea(area: SelectionStateArea) { this.selectionState({ area }); }
+	@Input() set selectionMode(mode: SelectionStateMode) { this.selectionState({ mode }); }
+	@Input() set selectionUnit(unit: SelectionStateUnit) { this.selectionState({ unit }); }
 
-	@Input() scrollMode: 'default' | 'virtual';
+	@Input() set scrollMode(mode: ScrollStateMode) { this.scrollState({ mode }); }
 
-	@Input() sortBy: Array<string>;
-	@Input() sortMode: 'single' | 'multiple';
-	@Input() sortTrigger: Array<string>;
+	@Input() set sortBy(by: Array<string>) { this.sortState({ by }); }
+	@Input() set sortMode(mode: SortStateMode) { this.sortState({ mode }); }
+	@Input() set sortTrigger(trigger: Array<string>) { this.sortState({ trigger }); }
 
-	@Input() styleCell: StyleCellCallback | { [key: string]: StyleCellCallback };
-	@Input() styleRow: StyleRowCallback;
-
-	themeComponent: any;
+	@Input() set styleCell(cell: StyleCellCallback | { [key: string]: StyleCellCallback }) { this.styleState({ cell }); }
+	@Input() set styleRow(row: StyleRowCallback) { this.styleState({ row }); }
 
 	constructor(
 		private root: GridRoot,
@@ -124,6 +127,7 @@ export class GridComponent implements OnInit, OnChanges {
 		private zone: NgZone,
 		private layerService: LayerService,
 		private cd: ChangeDetectorRef,
+		private stateAccessor: StateAccessor,
 		private modelBuilder: GridModelBuilder,
 		@Inject(DOCUMENT) private document: any,
 		theme: ThemeService,
@@ -139,9 +143,9 @@ export class GridComponent implements OnInit, OnChanges {
 	}
 
 	ngOnInit() {
-		// if (!this.keepChanges) {
-		// 	this.keepChanges = this.setup();
-		// }
+		if (!this.model) {
+			this.setup();
+		}
 
 		const { model, disposable, observe } = this.plugin;
 		const { nativeElement } = this.elementRef;
@@ -152,13 +156,7 @@ export class GridComponent implements OnInit, OnChanges {
 			source: 'grid'
 		});
 
-		const table = tableFactory(model, name => this.layerService.create(name));
-		const commandManager = new TableCommandManager(f => f(), table);
 		const host = new GridHost(nativeElement, this.plugin);
-
-		this.root.table = table;
-		this.root.commandManager = commandManager;
-
 		const listener = new EventListener(nativeElement, new EventManager(this));
 		const docListener = new EventListener(this.document, new EventManager(this));
 
@@ -202,14 +200,26 @@ export class GridComponent implements OnInit, OnChanges {
 			.subscribe(() => this.cd.detectChanges())
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
+		if (!this.model) {
+			this.setup();
+		}
 
+		this.stateAccessor.write(this.model);
 	}
 
 	// @deprecated
 	get visibility(): VisibilityState {
 		// TODO: get rid of that
-		const { model } = this;
+		const { model } = this.plugin;
 		return model.visibility();
+	}
+
+	private setup() {
+		const model = this.modelBuilder.build();
+		const table = tableFactory(model, name => this.layerService.create(name));
+
+		this.root.model = model;
+		this.root.table = table;
 	}
 }

@@ -10,6 +10,7 @@ export { GridModelBuilder } from './lib/grid/grid-model.builder';
 
 export { GridError } from './lib/infrastructure/error';
 export { Disposable } from './lib/infrastructure/disposable';
+export { StateAccessor } from './lib/state/state-accessor';
 
 export { TemplateModule } from './lib/template/template.module';
 export { TemplateHostService } from './lib/template/template-host.service';

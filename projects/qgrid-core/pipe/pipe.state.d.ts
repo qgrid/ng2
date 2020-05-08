@@ -49,7 +49,7 @@ export declare class PipeState {
 	/**
 	 * A function that allows to shrink a number of pipe units that should be invoked on refresh request.
 	 */
-	reduce: (xs: PipeUnit[], Model) => PipeUnit[];
+	reduce: (units: PipeUnit[], model: Model) => PipeUnit[];
 
 	/**
 	 * A schema that shows what pipeline will be executed on appropriate model property change.

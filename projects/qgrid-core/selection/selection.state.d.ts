@@ -54,15 +54,13 @@ export declare class SelectionState {
 	items: any[];
 
 	/**
-	 * Set of map function, that can convert column and row to nessesary format.
+	 * Set of map function, that can convert column and row to necessary format.
 	 *
 	 * * `'column'` custom column key will be stored in the items property.
 	 * * `'row'` custom row id will be stored in the items property.
 	 */
-	key: {
-		row?: (row: any) => any,
-		column?: (column: ColumnModel) => any
-	};
+	rowKey: (row: any) => any;
+	columnKey: (column: ColumnModel) => any;
 
 	/**
 	 * Keyboard shortcuts to control selection behavior. Changed.

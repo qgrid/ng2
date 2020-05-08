@@ -30,6 +30,17 @@ import { ColumnModel } from '../column-type/column.model';
 
 export declare function match(context: any): (x: any, value: any) => boolean;
 
+export declare type FilterStateMatch = () => (x: any, value: any) => boolean;
+export declare type FilterStateFetch = (key: string, context: FetchContext) => any | Promise<any>;
+
+/**
+ * Filter representation enum:
+ *
+ * * `default` filtration through column filters and external plugins.
+ * * `row` filtration through header row filter and external plugins.
+ */
+export declare type FilterStateUnit = 'default' | 'row';
+
 export declare class FilterState {
 	/**
 	 * Object that contains filter values, `{columnKey: items | blanks | expression}`
@@ -42,21 +53,18 @@ export declare class FilterState {
 
 	/**
 	 * Filter representation enum:
-	 *
-	 * * `default` filtration through column filters and external plugins.
-	 * * `row` filtration through header row filter and external plugins.
 	 */
-	unit: 'default' | 'row';
+	unit: FilterStateUnit;
 
 	/**
 	 * Factory for the match function.
 	 */
-	match: () => (x: any, value: any) => boolean;
+	match: FilterStateMatch;
 
 	/**
 	 * If setup `column filter` plugin can use this property to populate list of column items.
 	 */
-	fetch: (key: string, context: FetchContext) => any | Promise<any>;
+	fetch: FilterStateFetch;
 
 	/**
 	 * Factory for assertion unit that contains comparison functions.
@@ -66,9 +74,9 @@ export declare class FilterState {
 	 * * `isNull` should return true if value means null.
 	 */
 	assertFactory: () => Assert;
-	
+
 	/**
 	 * Factory for getting collection of filter operators available for a certain column.
 	 */
-	operatorFactory: (column : ColumnModel) => string[];
+	operatorFactory: (column: ColumnModel) => string[];
 }

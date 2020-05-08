@@ -6,8 +6,10 @@ import { Keyboard } from '../keyboard/keyboard';
 export class GridHost {
 	constructor(host, plugin) {
 		const { model, disposable, observeReply } = plugin;
-
 		const { grid } = model;
+
+		this.plugin = plugin;
+
 		if (grid().status === 'bound') {
 			throw new AppError('grid.ctrl', `Model is already used by grid "${grid().id}"`);
 		}
@@ -25,13 +27,13 @@ export class GridHost {
 				}
 			});
 
-		disposable.add(() => model.grid({ status: 'unbound' }, { source: 'grid.ctrl' })	);
+		disposable.add(() => model.grid({ status: 'unbound' }, { source: 'grid.ctrl' }));
 	}
 
 	keyUp(e) {
-		const model = this.model;
-		const code = Keyboard.translate(e.keyCode);
+		const { model } = this.plugin;
 		const { codes } = model.keyboard();
+		const code = Keyboard.translate(e.keyCode);
 		const index = codes.indexOf(code);
 		if (index >= 0) {
 			const newCodes = Array.from(codes);
@@ -54,7 +56,7 @@ export class GridHost {
 	}
 
 	keyDown(e, source = 'grid') {
-		const { model } = this;
+		const { model } = this.plugin;
 		const { shortcut } = model.action();
 
 		const code = Keyboard.translate(e.keyCode);
@@ -84,7 +86,7 @@ export class GridHost {
 	}
 
 	invalidateVisibility() {
-		const { model } = this;
+		const { model } = this.plugin;
 		const { left, right } = model.scene().column.area;
 		const { pinTop, pinBottom } = model.row();
 
@@ -101,8 +103,8 @@ export class GridHost {
 	}
 
 	invalidateActive() {
-		const { view, model } = this.table;
-		if (view.isFocused()) {
+		const { model, table } = this.plugin;
+		if (table.view.isFocused()) {
 			model.focus({ isActive: true }, { source: 'grid.ctrl' });
 		}
 		else {

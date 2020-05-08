@@ -56,15 +56,13 @@ export declare class DataState {
 	pipe: ((memo: any, context: PipeContext, next: (memo: any) => void) => any)[];
 
 	/**
-	 * A set of 2 methods to identify column and row id. Note that if result id
-	 * is not unique q-grid behavior can be unpredictable. 
-	 * By default: 
-	 * 
-	 * * `row` method is an identity function.
-	 * * `column` method return column key property.
+	 * Returns uniq column row key.
 	 */
-	id: {
-		row: (index: number, row: any) => any,
-		column: (index: number, column: ColumnModel) => any,
-	};
+	rowId: (index: number, row: any) => any;
+
+	
+	/**
+     * Returns uniq column key.
+	 */
+	columnId: (index: number, column: ColumnModel) => any;
 }

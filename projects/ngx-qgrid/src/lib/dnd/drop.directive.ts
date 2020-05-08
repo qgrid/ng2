@@ -1,13 +1,13 @@
 import { Directive, ElementRef, Input, OnInit, Optional, NgZone } from '@angular/core';
-import { EventManager } from '@qgrid/core/event/event.manager';
-import { EventListener } from '@qgrid/core/event/event.listener';
-import { DragService } from '@qgrid/core/drag/drag.service';
-import { GRID_PREFIX } from '@qgrid/core/definition';
 import { Command } from '@qgrid/core/command/command';
-import { no } from '@qgrid/core/utility/kit';
-import { elementFromPoint, parents } from '@qgrid/core/services/dom';
-import { GridRoot } from '../grid/grid-root';
 import { Disposable } from '../infrastructure/disposable';
+import { DragService } from '@qgrid/core/drag/drag.service';
+import { elementFromPoint, parents } from '@qgrid/core/services/dom';
+import { EventListener } from '@qgrid/core/event/event.listener';
+import { EventManager } from '@qgrid/core/event/event.manager';
+import { GRID_PREFIX } from '@qgrid/core/definition';
+import { GridPlugin } from '../plugin/grid-plugin';
+import { no } from '@qgrid/core/utility/kit';
 
 export interface DropEventArg {
 	path: HTMLElement[];
@@ -31,7 +31,7 @@ export class DropDirective implements OnInit {
 	@Input('q-grid-drag-direction') dragDirection: 'x' | 'y' = 'y';
 
 	constructor(
-		@Optional() private root: GridRoot,
+		@Optional() private plugin: GridPlugin,
 		private elementRef: ElementRef,
 		private disposable: Disposable,
 		zone: NgZone
@@ -50,9 +50,9 @@ export class DropDirective implements OnInit {
 	}
 
 	ngOnInit() {
-		if (this.root) {
+		if (this.plugin) {
 			this.disposable.add(
-				this.root.model.dragChanged.on(e => {
+				this.plugin.model.dragChanged.on(e => {
 					if (e.hasChanges('isActive')) {
 						if (!e.state.isActive) {
 							const eventArg = {
@@ -104,7 +104,7 @@ export class DropDirective implements OnInit {
 	onOver(e: DragEvent) {
 		e.preventDefault();
 
-		if (this.root && this.root.model.scene().status !== 'stop') {
+		if (this.plugin && this.plugin.model.scene().status !== 'stop') {
 			return false;
 		}
 

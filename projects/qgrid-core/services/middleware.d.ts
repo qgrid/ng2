@@ -1,5 +1,5 @@
-import {PipeContext, PipeMemo} from '../pipe/pipe.item';
-import {Pipe} from '../pipe/pipe';
+import { PipeContext, PipeMemo } from '../pipe/pipe.item';
+import { Pipe } from '../pipe/pipe';
 
 export declare class Middleware {
 	constructor(pipes: Pipe[]);

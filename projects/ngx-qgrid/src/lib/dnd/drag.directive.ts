@@ -1,10 +1,10 @@
 import { Directive, ElementRef, Input, Optional } from '@angular/core';
-import { EventManager } from '@qgrid/core/event/event.manager';
-import { EventListener } from '@qgrid/core/event/event.listener';
-import { DragService } from '@qgrid/core/drag/drag.service';
-import { GRID_PREFIX } from '@qgrid/core/definition';
 import { Command } from '@qgrid/core/command/command';
-import { GridRoot } from '../grid/grid-root';
+import { DragService } from '@qgrid/core/drag/drag.service';
+import { EventListener } from '@qgrid/core/event/event.listener';
+import { EventManager } from '@qgrid/core/event/event.manager';
+import { GRID_PREFIX } from '@qgrid/core/definition';
+import { GridPlugin } from '../plugin/grid-plugin';
 import { isFunction } from '@qgrid/core/utility/kit';
 
 @Directive({
@@ -17,7 +17,7 @@ export class DragDirective {
 	@Input('q-grid-drop-area') area: string;
 
 	constructor(
-		@Optional() private root: GridRoot,
+		@Optional() private plugin: GridPlugin,
 		private elementRef: ElementRef
 	) {
 		const element = elementRef.nativeElement;
@@ -60,15 +60,15 @@ export class DragDirective {
 			rect
 		};
 
-		if (this.root) {
-			const { model } = this.root;
+		if (this.plugin) {
+			const { model } = this.plugin;
 			model.drag({ isActive: true }, { source: 'drag.directive' });
 		}
 	}
 
 	onEnd() {
-		if (this.root) {
-			const { model } = this.root;
+		if (this.plugin) {
+			const { model } = this.plugin;
 			model.drag({ isActive: false }, { source: 'drag.directive' });
 		}
 

@@ -13,11 +13,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## [9.1.0] - 2020-04-01
 ### BREAKING
 - Rename edit state property from `state` to `status`.
+- Selection state `key` property split into 2 `rowKey` and `columnKey`.
+- Data state `id` property split into 2 `rowId` and `columnId`.
+- Remove `actions`, `pipe`, `selectionKey`, `filterFetch` input properties from the grid component.
+- Remove `keep` method from grid plugin.
+
+### Added
+- Ivy support.
 
 ### Changed
-- Enable Ivy
-  
-
+- Better core types.
 
 ## [9.0.1] - 2020-03-13
 ### Fixed

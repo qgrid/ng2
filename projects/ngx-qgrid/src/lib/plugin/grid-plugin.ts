@@ -1,13 +1,12 @@
-import { Injectable, OnDestroy, SimpleChanges } from '@angular/core';
-import { ModelBinder } from '@qgrid/core/model/model.bind';
-import { DomTable } from '../dom/dom';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Disposable } from '../infrastructure/disposable';
-import { GridRoot } from '../grid/grid-root';
+import { DomTable } from '../dom/dom';
+import { Event } from '@qgrid/core/event/event';
+import { GridLet } from '@qgrid/core/grid/grid.let';
 import { GridLet as NgxGridLet } from '../grid/grid-let';
 import { GridModel } from '../grid/grid-model';
+import { GridRoot } from '../grid/grid-root';
 import { ObservableLike } from '@qgrid/core/infrastructure/rx';
-import { GridLet } from '@qgrid/core/grid/grid.let';
-import { Event } from '@qgrid/core/event/event';
 
 @Injectable()
 export class GridPlugin implements OnDestroy {
@@ -31,31 +30,13 @@ export class GridPlugin implements OnDestroy {
 		return model;
 	}
 
-	get table(): DomTable {
-		const { table } = this.$root;
-		return table;
-	}
-
 	get view(): GridLet {
 		return this.$view;
 	}
 
-	stateAccessor<TState>(type: new() => TState): (state: Partial<TState>) => void {
-		return null;
-	}
-
-	keep(changes: SimpleChanges, states: string[]): void {
-		const host = {};
-		for (const key in changes) {
-			if (changes.hasOwnProperty(key)) {
-				const change = changes[key];
-				host[key] = change.currentValue;
-			}
-		}
-
-		const binder = new ModelBinder(host, this);
-		const commit = binder.bound(states, false, false);
-		commit();
+	get table(): DomTable {
+		const { table } = this.$root;
+		return table;
 	}
 
 	ngOnDestroy() {

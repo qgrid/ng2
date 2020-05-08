@@ -3,13 +3,13 @@ import { isUndefined } from '@qgrid/core/utility/kit';
 import { parseFactory } from '@qgrid/core/services/convert';
 import { ColumnListHost } from '@qgrid/core/column-list/column.list.host';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
-import { GridRoot } from '../grid/grid-root';
+import { GridPlugin } from '../plugin/grid-plugin';
 
 @Injectable()
 export class ColumnListService {
 	private host: ColumnListHost;
 
-	constructor(private root: GridRoot) {
+	constructor(private plugin: GridPlugin) {
 	}
 
 	add(column: ColumnModel) {
@@ -44,7 +44,7 @@ export class ColumnListService {
 		const canCopy = (key: string, source, target) =>
 			target.hasOwnProperty(key) && !isUndefined(source[key]);
 
-		this.host = new ColumnListHost(this.root.model, canCopy, parseFactory);
+		this.host = new ColumnListHost(this.plugin.model, canCopy, parseFactory);
 
 		return this.host;
 	}

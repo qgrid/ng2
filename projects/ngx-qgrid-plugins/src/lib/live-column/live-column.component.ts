@@ -30,7 +30,7 @@ export class LiveColumnComponent implements OnInit {
 					return;
 				}
 
-				const id = model.data().id.column;
+				const { columnId } = model.data();
 				const animations = [];
 
 				startPos = currentColumns.length;
@@ -38,7 +38,7 @@ export class LiveColumnComponent implements OnInit {
 
 				for (let columnIndex = 0, length = previousColumns.length; columnIndex < length; columnIndex++) {
 					const newColumnIndex = currentColumns.findIndex((column, i) =>
-						id(i, column.model) === id(columnIndex, previousColumns[columnIndex].model));
+						columnId(i, column.model) === columnId(columnIndex, previousColumns[columnIndex].model));
 
 					if (newColumnIndex !== columnIndex) {
 						startPos = Math.min(Math.min(columnIndex, newColumnIndex), startPos);
@@ -48,7 +48,7 @@ export class LiveColumnComponent implements OnInit {
 
 				for (let columnIndex = 0, length = previousColumns.length; columnIndex < length; columnIndex++) {
 					const newColumnIndex = currentColumns.findIndex((column, i) =>
-						id(i, column.model) === id(columnIndex, previousColumns[columnIndex].model));
+						columnId(i, column.model) === columnId(columnIndex, previousColumns[columnIndex].model));
 
 					if (newColumnIndex !== columnIndex) {
 						animations.push(this.moveColumn(columnIndex, newColumnIndex, startPos, endPos));
