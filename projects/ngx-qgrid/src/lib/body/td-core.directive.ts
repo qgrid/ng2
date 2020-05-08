@@ -51,14 +51,14 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	}
 
 	ngOnInit() {
-	//	this.cd.detach();
-
 		const { table } = this.root;
 		table.box.bag.body.addCell(this);
 		classify(this.element, this.column);
 
 		const link = this.cellService.build('body', this.column, 'view');
 		link(this.viewContainerRef, this);
+
+		console.log('CELL CREATED: ' + this.columnView.model.key);
 	}
 
 	ngOnChanges(changes: SimpleChanges) {

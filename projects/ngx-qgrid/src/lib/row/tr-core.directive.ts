@@ -26,6 +26,7 @@ export class TrCoreDirective implements DomTr, OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
+		console.log('ROW CREATED: ' + this.index);
 		this.plugin.table.box.bag[this.source].addRow(this);
 	}
 

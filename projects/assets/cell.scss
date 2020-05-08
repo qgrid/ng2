@@ -2,13 +2,11 @@ td,
 th {
     @include textCutter;
     @include box-sizing(border-box);
+    @include user-select(none);
+
     vertical-align: middle;
     text-align: left;
     position: relative;
-
-    >* {
-        vertical-align: middle;
-    }
 
     &.q-grid-pivot {
         text-align: center;

@@ -6,7 +6,7 @@ export class DataState {
 		this.columns = [];
 		this.pipe = PipeUnit.default;
 
-		this.rowId = (index, row) => row;
+		this.rowId = (index, row) => index;
 		this.columnId = (index, column) => column.key;
 	}
 }

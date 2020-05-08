@@ -86,8 +86,7 @@ export class CellService {
 
 		commit = (container: ViewContainerRef, context: any) => {
 			container.clear();
-			const createView = this.templateService.viewFactory(context);
-			createView(templateLink, container);
+			return container.createEmbeddedView(templateLink.template, context);
 		};
 
 		this.commits.set(id, commit);
