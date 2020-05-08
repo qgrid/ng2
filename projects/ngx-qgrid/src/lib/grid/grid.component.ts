@@ -7,7 +7,8 @@ import {
 	NgZone,
 	Inject,
 	ChangeDetectorRef,
-	OnChanges
+	OnChanges,
+	SimpleChanges
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ActionState } from '@qgrid/core/action/action.state';
@@ -43,6 +44,7 @@ import { TemplateLinkService } from '../template/template-link.service';
 import { TemplateService } from '../template/template.service';
 import { ThemeService } from '../theme/theme.service';
 import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
+import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
 @Component({
 	selector: 'q-grid',
 	providers: [
@@ -50,6 +52,7 @@ import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
 		GridPlugin,
 		GridRoot,
 		GridLet,
+
 		LayerService,
 		TemplateCacheService,
 		TemplateLinkService,
@@ -61,7 +64,8 @@ import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
 	encapsulation: ViewEncapsulation.None
 })
 export class GridComponent implements OnInit, OnChanges {
-	private actionState = this.stateAccessor.setter(ActionState);
+	private firstSetup = true;
+
 	private gridState = this.stateAccessor.setter(GridState);
 	private dataState = this.stateAccessor.setter(DataState);
 	private editState = this.stateAccessor.setter(EditState);
@@ -122,6 +126,7 @@ export class GridComponent implements OnInit, OnChanges {
 
 	constructor(
 		private root: GridRoot,
+		private view: GridLet,
 		private plugin: GridPlugin,
 		private elementRef: ElementRef,
 		private zone: NgZone,
@@ -143,7 +148,7 @@ export class GridComponent implements OnInit, OnChanges {
 	}
 
 	ngOnInit() {
-		if (!this.model) {
+		if (this.firstSetup) {
 			this.setup();
 		}
 
@@ -200,8 +205,8 @@ export class GridComponent implements OnInit, OnChanges {
 			.subscribe(() => this.cd.detectChanges())
 	}
 
-	ngOnChanges(): void {
-		if (!this.model) {
+	ngOnChanges(changes: SimpleChanges): void {
+		if (changes.model || this.firstSetup) {
 			this.setup();
 		}
 
@@ -216,10 +221,15 @@ export class GridComponent implements OnInit, OnChanges {
 	}
 
 	private setup() {
-		const model = this.modelBuilder.build();
+		this.firstSetup = false;
+
+		const model = this.model || this.modelBuilder.build();
 		const table = tableFactory(model, name => this.layerService.create(name));
 
 		this.root.model = model;
 		this.root.table = table;
+
+		const cmdManager = new TableCommandManager(f => f(), table);
+		this.view.init(this.plugin, cmdManager);
 	}
 }

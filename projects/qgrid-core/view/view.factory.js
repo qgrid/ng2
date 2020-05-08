@@ -23,7 +23,7 @@ export function viewFactory(
 	vscroll,
 	selectors
 ) {
-	const { model, table, disposable } = plugin;
+	const { model, disposable } = plugin;
 	const { shortcut } = model.action();
 
 	const navigationShortcut = {

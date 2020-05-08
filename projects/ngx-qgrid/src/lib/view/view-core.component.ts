@@ -56,12 +56,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 
 	ngOnInit() {
 		const { model, table, observe, observeReply } = this.plugin;
-		const cmdManager = new TableCommandManager(f => f(), table);
-
-		// Views need to be init after `sceneChanged.watch` declaration
-		// to persist the right order of event sourcing.
-		this.view.init(this.plugin, cmdManager);
-
+		
 		this.view.scroll.y.settings.emit = f => {
 			f();
 

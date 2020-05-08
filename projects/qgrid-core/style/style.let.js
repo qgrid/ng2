@@ -59,9 +59,10 @@ export class StyleLet {
 	}
 
 	invalidate(domCell, domRow) {
-		const { active } = this.active;
 		const { model, table } = this.plugin;
 		const { valueFactory } = this;
+		let { row: isRowActive, cell: isCellActive } = this.active;
+
 		const isVirtual = model.scroll().mode === 'virtual';
 
 		// TODO: improve performance
@@ -78,9 +79,6 @@ export class StyleLet {
 
 		const columnList = table.data.columns();
 		const columnMap = columnService.map(columnList);
-
-		let isRowActive = active.row;
-		let isCellActive = active.cell;
 
 		let visitRow = this.service.row();
 		let visitCell = this.service.cell();
