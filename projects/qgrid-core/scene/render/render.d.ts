@@ -1,10 +1,10 @@
 import { ColumnModel } from '../../column-type/column.model';
-import { Model } from '../../model/model';
 import { ColumnView } from '../view/column.view';
 import { RenderStrategy } from './render.strategy';
+import { GridPlugin } from '../../plugin/grid.plugin';
 
 export declare class Renderer {
-	constructor(model: Model);
+	constructor(plugin: GridPlugin);
 
 	defaultStrategy: RenderStrategy;
 

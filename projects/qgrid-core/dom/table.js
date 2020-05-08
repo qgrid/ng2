@@ -41,6 +41,16 @@ export class Table {
 				? new VirtualBody(context, model)
 				: new Body(context, model)
 		});
+
+		model.sceneChanged.on(e => {
+			if (e.hasChanges('status')) {
+				if (e.state.status === 'stop') {
+					this.head.selector = this.head.selectFactory.create();
+					this.body.selector = this.body.selectFactory.create();
+					this.foot.selector = this.foot.selectFactory.create();
+				}
+			}
+		})
 	}
 
 	get view() {

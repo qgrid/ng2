@@ -4,7 +4,7 @@ import { Renderer } from '../scene/render/render';
 export class BodyLet {
 	constructor(plugin) {
 		const { model, observe } = plugin;
-		const render = new Renderer(model);
+		const render = new Renderer(plugin);
 
 		this.plugin = plugin;
 		this.render = render;
