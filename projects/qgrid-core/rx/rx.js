@@ -37,7 +37,6 @@ export class ObservableEvent {
         const dispose = () => {
             off();
 
-            ifPdispo
             this.disposable.remove(off);
         };
 
