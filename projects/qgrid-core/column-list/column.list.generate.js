@@ -4,7 +4,7 @@ import { getType, resolveType } from '../services/convert';
 import { TextColumnModel } from '../column-type/text.column';
 import { assignWith, isUndefined, noop, startCase } from '../utility/kit';
 import { columnFactory } from '../column/column.factory';
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 
 function merge(left, right, force = false) {
 	let canAssign;
@@ -60,7 +60,7 @@ export function generateFactory(model) {
 					break;
 				}
 				default:
-					throw new AppError(
+					throw new GridError(
 						'column.list.generate',
 						`Invalid generation mode "${generation}"`
 					);

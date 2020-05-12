@@ -150,6 +150,12 @@
                     width: 100%;
                     bottom: -20px;
                 }
+
+                ::ng-deep {
+                    >*>q-grid {
+                        height: 100%;
+                    }
+                }
             }
         }
     }

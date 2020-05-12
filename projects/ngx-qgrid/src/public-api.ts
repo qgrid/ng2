@@ -1,3 +1,6 @@
+export { GridError } from '@qgrid/core/infrastructure/error';
+export { Disposable } from '@qgrid/core/infrastructure/disposable';
+
 export { GridModel, GridEventArg, GridEvent } from './lib/grid/grid-model';
 export { GridModule } from './lib/grid/grid.module';
 export { GridComponent } from './lib/grid/grid.component';
@@ -8,8 +11,6 @@ export { GridLet } from './lib/grid/grid-let';
 export { GridRoot } from './lib/grid/grid-root';
 export { GridModelBuilder } from './lib/grid/grid-model.builder';
 
-export { GridError } from './lib/infrastructure/error';
-export { Disposable } from './lib/infrastructure/disposable';
 export { StateAccessor } from './lib/state/state-accessor';
 
 export { TemplateModule } from './lib/template/template.module';

@@ -6,18 +6,18 @@ import { GridLet } from '@qgrid/core/grid/grid.let';
 import { GridLet as NgxGridLet } from '../grid/grid-let';
 import { GridModel } from '../grid/grid-model';
 import { GridRoot } from '../grid/grid-root';
-import { ObservableLike } from '@qgrid/core/infrastructure/rx';
+import { ObservableLike, ObservableEvent } from '@qgrid/core/rx/rx';
 
 @Injectable()
 export class GridPlugin implements OnDestroy {
 	readonly disposable = new Disposable();
 
-	readonly observe = <TState>(event: Event<TState>) => {
-		return new ObservableLike(event, false, this.disposable);
+	readonly observe = <TState>(event: Event<TState>): ObservableLike<TState> => {
+		return new ObservableEvent(event, false, this.disposable);
 	}
 
-	readonly observeReply = <TState>(event: Event<TState>) => {
-		return new ObservableLike(event, true, this.disposable);
+	readonly observeReply = <TState>(event: Event<TState>): ObservableLike<TState> => {
+		return new ObservableEvent(event, true, this.disposable);
 	}
 
 	constructor(

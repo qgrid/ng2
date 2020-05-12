@@ -1,4 +1,4 @@
-import { AppError } from './error';
+import { GridError } from './error';
 import { isUndefined, isFunction } from '../utility/kit';
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -11,7 +11,7 @@ export class Guard {
 	 */
 	static notUndefined(value, name) {
 		if (isUndefined(value)) {
-			throw new AppError('guard.notUndefined', name);
+			throw new GridError('guard.notUndefined', name);
 		}
 	}
 
@@ -23,7 +23,7 @@ export class Guard {
 	 */
 	static notNull(value, name) {
 		if (value === null || isUndefined(value)) {
-			throw new AppError('guard.notNull', name);
+			throw new GridError('guard.notNull', name);
 		}
 	}
 
@@ -34,7 +34,7 @@ export class Guard {
 	 */
 	static notNullOrEmpty(value, name) {
 		if (value === null || isUndefined(value) || value === '') {
-			throw new AppError('guard.notNullOrEmpty', name);
+			throw new GridError('guard.notNullOrEmpty', name);
 		}
 	}
 
@@ -45,14 +45,14 @@ export class Guard {
 	 */
 	static invokable(value, name) {
 		if (!isFunction(value)) {
-			throw new AppError('guard.invokable', name);
+			throw new GridError('guard.invokable', name);
 		}
 	}
 	
 	static hasProperty(instance, name) {
 		Guard.notNull(instance, 'instance');
 		if (!hasOwnProperty.call(instance, name)) {
-			throw new AppError('guard.hasProperty', name);
+			throw new GridError('guard.hasProperty', name);
 		}
 	}
 }

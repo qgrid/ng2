@@ -1,4 +1,4 @@
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { Command } from '../command/command';
 import { selectionStateFactory as formFactory } from './state/selection.state.factory';
 import { SelectionRange } from './selection.range';
@@ -273,7 +273,7 @@ export class SelectionLet {
 							break;
 						}
 						default:
-							throw new AppError('selection.view', `Invalid unit ${model.selection().unit}`);
+							throw new GridError('selection.view', `Invalid unit ${model.selection().unit}`);
 					}
 
 					const commit = this.select(entries, true);

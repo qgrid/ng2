@@ -10,7 +10,7 @@ import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { ColumnView } from '@qgrid/core/scene/view/column.view';
 import { TdCtrl } from '@qgrid/core/cell/td.ctrl';
 import { ThCtrl } from '@qgrid/core/cell/th.ctrl';
-import { AppError } from '@qgrid/core/infrastructure/error';
+import { GridError } from '@qgrid/core/infrastructure/error';
 import { FilterRowColumnModel } from '@qgrid/core/column-type/filter.row.column';
 import { DomTd } from '../dom/dom';
 import { CellService } from '../cell/cell.service';
@@ -82,7 +82,7 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 	}
 
 	mode(value: string): void {
-		throw new AppError(
+		throw new GridError(
 			'th-core.directive',
 			`${value} mode is not supported`
 		);

@@ -1,12 +1,13 @@
 import { Command } from '@qgrid/core/command/command';
 import { Action } from '@qgrid/core/action/action';
-import { AppError } from '@qgrid/core/infrastructure/error';
+import { GridError } from '@qgrid/core/infrastructure/error';
 import { Composite } from '@qgrid/core/infrastructure/composite';
 import { isUndefined } from '@qgrid/core/utility/kit';
 import { DataManipulationState } from './data.manipulation.state';
 import { set as setValue } from '@qgrid/core/services/value';
 import { set as setLabel } from '@qgrid/core/services/label';
 import * as columnService from '@qgrid/core/column/column.service';
+import { takeOnce } from '@qgrid/core/rx/rx.operators';
 
 export class DataManipulationPlugin {
 	constructor(plugin) {
@@ -64,7 +65,7 @@ export class DataManipulationPlugin {
 
 						const newRow = this.rowFactory(model.data().rows[0]);
 						if (isUndefined(newRow)) {
-							throw new AppError('data.manipulation', 'Setup rowFactory property to add new rows');
+							throw new GridError('data.manipulation', 'Setup rowFactory property to add new rows');
 						}
 
 						const rowId = this.rowId(0, newRow);
@@ -128,7 +129,7 @@ export class DataManipulationPlugin {
 								for (const edit of edits) {
 									const column = columnMap[edit.column];
 									if (!column) {
-										throw new AppError('data.manipulation', `Column ${edit.column} is not found`);
+										throw new GridError('data.manipulation', `Column ${edit.column} is not found`);
 									}
 
 									setValue(e.row, column, edit.oldValue);
@@ -193,8 +194,8 @@ export class DataManipulationPlugin {
 			model.action({ items: newItems });
 		});
 
-		let columnListChangedDone = false;
-		let columnListChangedSub = observeReply(model.columnListChanged)
+		observeReply(model.columnListChanged)
+			.pipe(takeOnce())
 			.subscribe(e => {
 				if (e.hasChanges('line')) {
 					const rowOptionsColumn = e.state.line.find(column => column.type === 'row-options');
@@ -208,10 +209,6 @@ export class DataManipulationPlugin {
 					}
 				}
 			});
-
-		if (columnListChangedDone && columnListChangedSub) {
-			columnListChangedSub.unsubscribe();
-		}
 	}
 
 	hasChanges(newValue, oldValue) {

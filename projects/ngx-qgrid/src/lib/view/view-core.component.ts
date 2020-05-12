@@ -55,7 +55,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 	}
 
 	ngOnInit() {
-		const { model, table, observeReply } = this.plugin;
+		const { model, table, observeReply, observe } = this.plugin;
 
 		this.view.scroll.y.settings.emit = f => {
 			f();
@@ -86,6 +86,9 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 					this.cd.detectChanges();
 				}
 			});
+
+		observe(model.styleChanged)
+			.subscribe(() => this.host.invalidate());
 
 		const virtualBody = table.body as any;
 		if (virtualBody.requestInvalidate) {

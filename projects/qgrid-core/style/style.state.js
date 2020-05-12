@@ -1,10 +1,11 @@
-import {noop} from '../utility/kit';
-import {Command} from '../command/command';
+import { noop } from '../utility/kit';
+import { Command } from '../command/command';
 
 export class StyleState {
 	constructor() {
 		this.row = noop;
 		this.cell = noop;
+
 		this.rows = [];
 		this.cells = [];
 		this.classList = [];

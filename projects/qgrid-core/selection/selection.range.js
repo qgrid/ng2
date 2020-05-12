@@ -1,4 +1,4 @@
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 
 export class SelectionRange {
 	constructor(model) {
@@ -18,7 +18,7 @@ export class SelectionRange {
 			const selection = model.selection();
 			const buildRange = rangeMap[selection.unit];
 			if (!buildRange) {
-				throw new AppError('range.builder', `Invalid unit ${selection.unit}`);
+				throw new GridError('range.builder', `Invalid unit ${selection.unit}`);
 			}
 
 			return buildRange(...args);

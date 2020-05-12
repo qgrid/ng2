@@ -1,4 +1,4 @@
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 
 export class Tr {
 	constructor(tr) {
@@ -10,7 +10,7 @@ export class Tr {
 
 	get model() {
 		if (!Tr.equals(this, this.tr)) {
-			throw new AppError('tr', 'Internal model doesn\'t match container');
+			throw new GridError('tr', 'Internal model doesn\'t match container');
 		}
 
 		return this.tr.model;
@@ -18,7 +18,7 @@ export class Tr {
 
 	get element() {
 		if (!Tr.equals(this, this.tr)) {
-			throw new AppError('tr', 'Internal model doesn\'t match container');
+			throw new GridError('tr', 'Internal model doesn\'t match container');
 		}
 
 		return this.tr.element;

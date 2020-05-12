@@ -1,4 +1,4 @@
-import { AppError } from '../../infrastructure/error';
+import { GridError } from '../../infrastructure/error';
 import { SingleSelectionState } from './single.selection.state';
 import { SingleOnlySelectionState } from './single.only.selection.state';
 import { MultipleSelectionState } from './multiple.selection.state';
@@ -17,7 +17,7 @@ export function selectionStateFactory(model, service) {
 		case 'range':
 			return new RangeSelectionState(model, service);
 		default:
-			throw new AppError('selection.state.factory', `Invalid selection mode "${mode}"`);
+			throw new GridError('selection.state.factory', `Invalid selection mode "${mode}"`);
 	}
 }
 

@@ -1,5 +1,5 @@
 ﻿import { Defer } from '../infrastructure/defer';
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { isFunction } from '../utility/kit';
 import { Fastdom } from './fastdom';
 
@@ -16,7 +16,7 @@ export function jobLine(delay) {
 		reset();
 
 		if (!isFunction(job)) {
-			throw new AppError('job.line', 'job is not invocable');
+			throw new GridError('job.line', 'job is not invocable');
 		}
 
 		const doJob = () => {

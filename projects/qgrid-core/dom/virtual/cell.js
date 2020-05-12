@@ -1,6 +1,6 @@
 import { Cell } from '../cell';
 import { Td } from '../td';
-import { AppError } from '../../infrastructure/error';
+import { GridError } from '../../infrastructure/error';
 import { FakeElement } from '../fake/element';
 
 class VirtualTd {
@@ -11,7 +11,7 @@ class VirtualTd {
 	get model() {
 		const td = this.selector();
 		if (!td) {
-			throw new AppError('cell', 'Model is not found');
+			throw new GridError('cell', 'Model is not found');
 		}
 
 		return td;

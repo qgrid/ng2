@@ -1,4 +1,4 @@
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { Command } from '../command/command';
 import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
@@ -37,7 +37,7 @@ export class SortLet {
 							break;
 						}
 						default:
-							throw AppError(
+							throw GridError(
 								'head.core',
 								`Invalid sort direction ${dir}`);
 					}

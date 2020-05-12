@@ -1,20 +1,20 @@
+import { Disposable } from '../infrastructure/disposable';
+import { Event } from '../event/event';
+
 export class SubscriptionLike {
-    constructor(off, disposable) {
+    constructor(off) {
         this.off = off;
-        this.disposable = disposable;
     }
 
     unsubscribe() {
         if (this.off) {
             this.off();
-            this.disposable.remove(this.off);
-
             this.off = null;
         }
     }
 }
 
-export class ObservableLike {
+export class ObservableEvent {
     constructor(event, reply, disposable) {
         this.event = event;
         this.reply = reply;
@@ -30,8 +30,18 @@ export class ObservableLike {
             off = this.event.on(next);
         }
 
-        this.disposable.add(off);
-        return new SubscriptionLike(off, this.disposable);
+        if (this.disposable) {
+            this.disposable.add(off);
+        }
+
+        const dispose = () => {
+            off();
+
+            ifPdispo
+            this.disposable.remove(off);
+        };
+
+        return new SubscriptionLike(dispose);
     }
 
     toPromise() {
@@ -59,5 +69,19 @@ export class ObservableLike {
         }
 
         return target;
+    }
+}
+
+export class SubjectLike extends ObservableEvent {
+    constructor() {
+        super(new Event(), false, new Disposable());
+    }
+
+    next(value) {
+        this.event.emit(value);
+    }
+
+    complete() {
+        this.disposable.finalize();
     }
 }

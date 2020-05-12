@@ -1,5 +1,5 @@
 import { Aggregation } from '../services/aggregation';
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { Log } from '../infrastructure/log';
 import { getFactory as valueFactory } from '../services/value';
 
@@ -50,7 +50,7 @@ export class FootLet {
 			const aggregationOptions = column.aggregationOptions;
 
 			if (!Aggregation.hasOwnProperty(aggregation)) {
-				throw new AppError(
+				throw new GridError(
 					'foot',
 					`Aggregation ${aggregation} is not registered`);
 			}

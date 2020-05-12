@@ -1,5 +1,5 @@
 import { Injectable, ViewContainerRef, TemplateRef } from '@angular/core';
-import { AppError } from '@qgrid/core/infrastructure/error';
+import { GridError } from '@qgrid/core/infrastructure/error';
 import { noop } from '@qgrid/core/utility/kit';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { TemplateService } from '../template/template.service';
@@ -57,7 +57,7 @@ function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 			return result;
 		}
 		default:
-			throw new AppError('cell.service', `Invalid mode '${mode}'`);
+			throw new GridError('cell.service', `Invalid mode '${mode}'`);
 	}
 }
 

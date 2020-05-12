@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ActionState } from '@qgrid/core/action/action.state';
-import { AppError } from '@qgrid/core/infrastructure/error';
+import { GridError } from '@qgrid/core/infrastructure/error';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { Command } from '@qgrid/core/command/command';
 import { DataState } from '@qgrid/core/data/data.state';
@@ -141,7 +141,7 @@ export class GridComponent implements OnInit, OnChanges {
 		theme: ThemeService,
 	) {
 		if (!theme.component) {
-			throw new AppError(
+			throw new GridError(
 				'grid.component',
 				'Ensure that grid theme module was included'
 			);

@@ -31,8 +31,6 @@ export class StyleLet {
 				if (e.hasChanges('cell') || e.hasChanges('cells')) {
 					this.active.cell = e.state.cell !== noop || e.state.cells.length > 0;
 				}
-
-				this.invalidate();
 			});
 	}
 

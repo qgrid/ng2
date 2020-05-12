@@ -1,4 +1,4 @@
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { lineView } from '../column/column.service';
 import { Node } from '../node/node';
 
@@ -41,7 +41,7 @@ export class Scene {
 			const pin = column.model.pin;
 			let area = result[pin];
 			if (!area) {
-				throw new AppError('scene', `Unsupported pin ${pin}`);
+				throw new GridError('scene', `Unsupported pin ${pin}`);
 			}
 
 			area.push(column);

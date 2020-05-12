@@ -1,5 +1,5 @@
 import { Visitor } from './expression.visitor';
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 
 function stringify(value, type, isValid) {
     if (!isValid) {
@@ -83,7 +83,7 @@ export class MarkupVisitor extends Visitor {
             case 'isNull':
                 return `<span class="q-grid-markup-condition-left">${this.label(condition.left)}</span><span class="q-grid-markup-condition-right q-grid-markup-condition-unary">is empty</span>`;
             default:
-                throw new AppError('markup.visitor', `Invalid operation ${condition.op}`)
+                throw new GridError('markup.visitor', `Invalid operation ${condition.op}`)
         }
     }
 
@@ -122,7 +122,7 @@ export class MarkupVisitor extends Visitor {
                 op = 'ends with';
                 break;
             default:
-                throw new AppError('markup.visitor', `Invalid operation ${condition.op}`);
+                throw new GridError('markup.visitor', `Invalid operation ${condition.op}`);
         }
 
         const isValid = this.isValid(condition.left, condition.right);

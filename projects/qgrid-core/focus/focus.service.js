@@ -1,4 +1,5 @@
 import { isUndefined } from '../utility/kit';
+import { takeOnce } from '../rx/rx.operators';
 
 export class FocusService {
     constructor(model) {
@@ -81,7 +82,8 @@ export class FocusAfterRenderService {
     constructor(plugin) {
         const { table, model, observe } = plugin;
 
-        const subscription = observe(model.sceneChanged)
+        observe(model.sceneChanged)
+            .pipe(takeOnce())
             .subscribe(e => {
                 if (e.state.status === 'stop') {
                     table.view.focus();

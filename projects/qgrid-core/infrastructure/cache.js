@@ -1,4 +1,4 @@
-import {AppError} from './error';
+import { GridError } from './error';
 
 export class Cache {
 	constructor() {
@@ -12,7 +12,7 @@ export class Cache {
 	get(key) {
 		const entry = this.find(key);
 		if (!entry) {
-			throw new AppError(
+			throw new GridError(
 				'cache.get',
 				`Entry with key was not found "${key}"`);
 		}
@@ -36,7 +36,7 @@ export class Cache {
 
 	remove(key) {
 		if (!this.items.hasOwnProperty(key)) {
-			throw new AppError(
+			throw new GridError(
 				'cache.remove',
 				`Entry with key was not found "${key}"`);
 		}

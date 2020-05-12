@@ -1,5 +1,5 @@
 import { isUndefined, identity } from '../utility/kit';
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { getFactory } from '../services/value';
 
 function hashColumnKeyFactory(model) {
@@ -59,12 +59,12 @@ function hashKeyFactory(model) {
 					case 'cell':
 						return `${hashColumnKey(key.column)}[${hashRowKey(key.row)}]`;
 					default:
-						throw new AppError('selection.service', `Invalid unit ${entry.unit}`);
+						throw new GridError('selection.service', `Invalid unit ${entry.unit}`);
 				}
 			};
 		}
 		default:
-			throw new AppError('selection.service', `Invalid unit ${selectionState.unit}`);
+			throw new GridError('selection.service', `Invalid unit ${selectionState.unit}`);
 	}
 }
 
@@ -90,7 +90,7 @@ function keySelector(unit, rowKey, columnKey) {
 				return entry;
 			};
 		default:
-			throw new AppError('selection.state', `Invalid unit ${unit}`);
+			throw new GridError('selection.state', `Invalid unit ${unit}`);
 	}
 }
 
@@ -210,7 +210,7 @@ export class SelectionService {
 				break;
 			}
 			default:
-				throw new AppError('selection.state', `Invalid unit ${unit}`);
+				throw new GridError('selection.state', `Invalid unit ${unit}`);
 		}
 
 		return entries;
@@ -230,7 +230,7 @@ export class SelectionService {
 					item: selectKey(entry)
 				}));
 			default:
-				throw new AppError('selection.state', `Invalid unit ${selectionState.unit}`);
+				throw new GridError('selection.state', `Invalid unit ${selectionState.unit}`);
 		}
 	}
 
@@ -261,12 +261,12 @@ export class SelectionService {
 						case 'cell':
 							return selectCellKey(entry.item);
 						default:
-							throw new AppError('selection.service', `Invalid unit ${entry.unit}`);
+							throw new GridError('selection.service', `Invalid unit ${entry.unit}`);
 					}
 				};
 			}
 			default:
-				throw new AppError('selection.service', `Invalid unit ${selectionUnit}`);
+				throw new GridError('selection.service', `Invalid unit ${selectionUnit}`);
 		}
 	}
 

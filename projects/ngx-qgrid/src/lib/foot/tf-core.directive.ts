@@ -6,7 +6,7 @@ import {
 	OnInit,
 	ViewContainerRef
 } from '@angular/core';
-import { AppError } from '@qgrid/core/infrastructure/error';
+import { GridError } from '@qgrid/core/infrastructure/error';
 import { CellService } from '../cell/cell.service';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { ColumnView } from '@qgrid/core/scene/view/column.view';
@@ -75,7 +75,7 @@ export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
 	}
 
 	mode(value: string): void {
-		throw new AppError('tf-core.directive', `${value} mode is not supported`);
+		throw new GridError('tf-core.directive', `${value} mode is not supported`);
 	}
 
 	ngOnDestroy() {

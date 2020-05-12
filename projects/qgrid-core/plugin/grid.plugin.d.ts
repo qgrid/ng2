@@ -2,7 +2,7 @@ import { Model } from '../model/model';
 import { ModelEvent } from '../model/model.event';
 import { Table } from '../dom/table';
 import { GridLet } from '../grid/grid.let';
-import { ObservableLike } from '../infrastructure/rx';
+import { ObservableLike } from '../rx/rx';
 import { Event } from '../event/event';
 
 export interface GridPlugin {

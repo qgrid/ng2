@@ -1,6 +1,6 @@
 import { RowDetails } from './row.details';
 import { RowDetailsStatus } from './row.details.status';
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { columnFactory } from '../column/column.factory';
 
 export function flatView(model, mode) {
@@ -64,7 +64,7 @@ export function invalidateStatus(rows, status, mode) {
 			status = new Map(status.entries());
 			break;
 		default:
-			throw new AppError('row.details.service', `Invalid mode ${mode}`);
+			throw new GridError('row.details.service', `Invalid mode ${mode}`);
 	}
 
 	return status;

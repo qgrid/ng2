@@ -1,4 +1,4 @@
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { Event } from '../event/event';
 import { Guard } from '../infrastructure/guard';
 import { isArray, isObject, getTypeName } from '../utility/kit';
@@ -44,7 +44,7 @@ export class Model {
 
 	resolveAccessor(name, Type) {
 		if (this.accessors.has(name)) {
-			throw new AppError(
+			throw new GridError(
 				'model',
 				`${name} accessor already exists`
 			);
@@ -80,7 +80,7 @@ export class Model {
 		const getter = () => state;
 		const setter = (newState, tag) => {
 			if (!isObject(newState)) {
-				throw new AppError(
+				throw new GridError(
 					`model.${name}`,
 					`"${newState}" is not a valid type, should be an object`);
 			}
@@ -92,7 +92,7 @@ export class Model {
 			for (let i = 0, keysLength = keys.length; i < keysLength; i++) {
 				const key = keys[i];
 				if (!state.hasOwnProperty(key)) {
-					throw new AppError(
+					throw new GridError(
 						`model.${name}`,
 						`"${key}" is not a valid key, only [${Object.keys(state).join(', ')}] keys are supported`
 					);

@@ -1,6 +1,6 @@
 import { ActionState } from '../action/action.state';
 import { AnimationState } from '../animation/animation.state';
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { BodyState } from '../body/body.state';
 import { ColumnListState } from '../column-list/column.list.state';
 import { DataState } from '../data/data.state';
@@ -93,13 +93,13 @@ export class ModelBuilder {
 
     register(key, ctor) {
         if (this.state.hasOwnProperty(key)) {
-            throw new AppError(
+            throw new GridError(
                 'model',
                 `"${key}" is already registered`);
         }
 
         if (!isFunction(ctor)) {
-            throw new AppError(
+            throw new GridError(
                 `model.${key}`,
                 `"${ctor}" is not a valid type, should be an constructor function`);
         }

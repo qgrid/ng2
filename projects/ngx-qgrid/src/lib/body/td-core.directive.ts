@@ -20,7 +20,7 @@ import { GridLet } from '../grid/grid-let';
 import { GridRoot } from '../grid/grid-root';
 import { TrCoreDirective } from '../row/tr-core.directive';
 import { CellService } from '../cell/cell.service';
-import { GridError } from '../infrastructure/error';
+import { GridError } from '@qgrid/core/infrastructure/error';
 
 const classify = TdCtrl.classify;
 

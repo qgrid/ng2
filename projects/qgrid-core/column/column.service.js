@@ -1,5 +1,5 @@
 import { isFunction } from '../utility/kit';
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { expand, collapse } from './column.matrix';
 
 export function flatten(columns, result = []) {
@@ -132,7 +132,7 @@ export function widthFactory(table, form) {
 	return key => {
 		let column = columnMap[key];
 		if (!column) {
-			throw new AppError('column.service', `Column ${key} is not found`);
+			throw new GridError('column.service', `Column ${key} is not found`);
 		}
 
 		return getWidth(column);

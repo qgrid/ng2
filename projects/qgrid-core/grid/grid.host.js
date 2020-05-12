@@ -1,5 +1,5 @@
 
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { uniq, same } from '../utility/kit';
 import { Keyboard } from '../keyboard/keyboard';
 
@@ -11,7 +11,7 @@ export class GridHost {
 		this.plugin = plugin;
 
 		if (grid().status === 'bound') {
-			throw new AppError('grid.host', `Model is already used by grid "${grid().id}"`);
+			throw new GridError('grid.host', `Model is already used by grid "${grid().id}"`);
 		}
 
 		if (!host.id) {

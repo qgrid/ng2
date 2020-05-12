@@ -91,6 +91,7 @@ export class ScrollLet {
 
 				let startSource;
 				const resetTriggers = new Set(scroll().resetTriggers);
+
 				observeReply(model.sceneChanged)
 					.subscribe(e => {
 						if (e.hasChanges('status')) {

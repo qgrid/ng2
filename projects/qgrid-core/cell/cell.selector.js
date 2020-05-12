@@ -1,4 +1,4 @@
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 
 export class CellSelector {
 	constructor(model, table) {
@@ -18,7 +18,7 @@ export class CellSelector {
 			case 'mix':
 				return this.mapFromMix(items);
 			default:
-				throw new AppError('cell.selector', `Invalid unit ${selectionState.unit}`);
+				throw new GridError('cell.selector', `Invalid unit ${selectionState.unit}`);
 		}
 	}
 

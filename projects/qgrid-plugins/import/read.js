@@ -1,4 +1,4 @@
-import { AppError } from '@qgrid/core/infrastructure/error';
+import { GridError } from '@qgrid/core/infrastructure/error';
 import { columnFactory } from '@qgrid/core/column/column.factory';
 import { generate } from '@qgrid/core/column-list/column.list.generate';
 import { firstRowTitle, numericTitle, alphaTitle } from '@qgrid/core/services/title';
@@ -9,9 +9,9 @@ import { Json } from '@qgrid/core/import/json/json';
 import { Csv } from '@qgrid/core/import/csv/csv';
 
 function getType(name) {
-	const dotDelimeter = /[.]/g.test(name);
-	if (dotDelimeter) {
-		let type = name.split('.');
+	const delimiter = /[.]/g.test(name);
+	if (delimiter) {
+		const type = name.split('.');
 		return type[type.length - 1];
 	}
 }
@@ -55,7 +55,7 @@ function readFile(e, file, model, options = {}) {
 					rows
 				}, { source: 'read' });
 			} else {
-				throw new AppError('import', 'JSON for input should be an array of objects');
+				throw new GridError('import', 'JSON for input should be an array of objects');
 			}
 			break;
 		}
@@ -106,7 +106,7 @@ function readFile(e, file, model, options = {}) {
 			break;
 		}
 		default: {
-			throw new AppError('import', `This is not valid file type ${type}`);
+			throw new GridError('import', `This is not valid file type ${type}`);
 		}
 	}
 }
