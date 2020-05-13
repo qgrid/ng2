@@ -38,4 +38,6 @@ export declare class Table {
 	 * Get raw data of what is rendered right now in qgrid.
 	 */
 	readonly data: Data;
+
+	invalidate();
 }

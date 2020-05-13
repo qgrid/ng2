@@ -51,8 +51,8 @@ export class PersistenceComponent implements OnInit {
 		model.action({ items }, { source: 'persistence.component' });
 
 		disposable.add(() => {
-			const newItems = model.action().items.filter(x => x.id === action.id);
-			model.action({ items: newItems }, { source: 'persistence.component' });
+			const notPersistenceActions = model.action().items.filter(x => x.id !== action.id);
+			model.action({ items: notPersistenceActions }, { source: 'persistence.component' });
 		});
 	}
 }

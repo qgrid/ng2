@@ -12,7 +12,6 @@ import {
 	ChangeDetectionStrategy
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { ActionState } from '@qgrid/core/action/action.state';
 import { GridError } from '@qgrid/core/infrastructure/error';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { Command } from '@qgrid/core/command/command';
@@ -54,7 +53,6 @@ import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
 		GridPlugin,
 		GridRoot,
 		GridLet,
-
 		LayerService,
 		TemplateCacheService,
 		TemplateLinkService,
@@ -158,11 +156,13 @@ export class GridComponent implements OnInit, OnChanges {
 		const { model, disposable, observe } = this.plugin;
 		const { nativeElement } = this.elementRef;
 
-		model.style({
-			classList: Array.from(nativeElement.classList)
-		}, {
-			source: 'grid'
-		});
+		if (nativeElement.classList.length) {
+			model.style({
+				classList: Array.from(nativeElement.classList)
+			}, {
+				source: 'grid.component'
+			});
+		}
 
 		const host = new GridHost(nativeElement, this.plugin);
 		const listener = new EventListener(nativeElement, new EventManager(this));

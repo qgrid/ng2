@@ -1,5 +1,5 @@
 export { GridError } from '@qgrid/core/infrastructure/error';
-export { Disposable } from '@qgrid/core/infrastructure/disposable';
+export { Disposable } from './lib/infrastructure/disposable';
 
 export { GridModel, GridEventArg, GridEvent } from './lib/grid/grid-model';
 export { GridModule } from './lib/grid/grid.module';

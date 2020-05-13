@@ -1,13 +1,13 @@
-import { Command } from '@qgrid/core/command/command';
 import { Action } from '@qgrid/core/action/action';
-import { GridError } from '@qgrid/core/infrastructure/error';
+import { Command } from '@qgrid/core/command/command';
 import { Composite } from '@qgrid/core/infrastructure/composite';
-import { isUndefined } from '@qgrid/core/utility/kit';
 import { DataManipulationState } from './data.manipulation.state';
-import { set as setValue } from '@qgrid/core/services/value';
+import { GridError } from '@qgrid/core/infrastructure/error';
+import { isUndefined } from '@qgrid/core/utility/kit';
 import { set as setLabel } from '@qgrid/core/services/label';
-import * as columnService from '@qgrid/core/column/column.service';
+import { set as setValue } from '@qgrid/core/services/value';
 import { takeOnce } from '@qgrid/core/rx/rx.operators';
+import * as columnService from '@qgrid/core/column/column.service';
 
 export class DataManipulationPlugin {
 	constructor(plugin) {
@@ -21,7 +21,7 @@ export class DataManipulationPlugin {
 
 				const rowId = this.rowId(e.rowIndex, e.row);
 				const columnId = this.columnId(e.columnIndex, e.column);
-				const edited = this.changes.edited;
+				const { edited } = this.changes;
 
 				let entries = edited.get(rowId);
 				if (!entries) {
@@ -190,8 +190,8 @@ export class DataManipulationPlugin {
 
 		disposable.add(() => {
 			const { items } = model.action();
-			const newItems = items.filter(x => this.actions.every(y => y.id !== x.id));
-			model.action({ items: newItems });
+			const notDMActions = items.filter(x => this.actions.every(y => y.id !== x.id));
+			model.action({ items: notDMActions });
 		});
 
 		observeReply(model.columnListChanged)
@@ -201,11 +201,6 @@ export class DataManipulationPlugin {
 					const rowOptionsColumn = e.state.line.find(column => column.type === 'row-options');
 					if (rowOptionsColumn) {
 						rowOptionsColumn.editorOptions.actions.push(...this.rowActions);
-						columnListChangedDone = true;
-						if (columnListChangedSub) {
-							columnListChangedSub.unsubscribe();
-							columnListChangedSub = null;
-						}
 					}
 				}
 			});

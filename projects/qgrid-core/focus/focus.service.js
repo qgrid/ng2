@@ -87,7 +87,6 @@ export class FocusAfterRenderService {
             .subscribe(e => {
                 if (e.state.status === 'stop') {
                     table.view.focus();
-                    subscription.unsubscribe();
                 }
             });
     }

@@ -64,9 +64,11 @@ export class SelectionLet {
 				if (e.hasChanges('unit') || e.hasChanges('mode')) {
 					if (!e.hasChanges('items')) {
 						this.form.clear();
-						model.selection({ items: [] }, {
-							source: 'selection.view'
-						});
+						if (model.selection().items.length) {
+							model.selection({ items: [] }, {
+								source: 'selection.view'
+							});
+						}
 
 						this.form = formFactory(model, this.selectionService);
 					}

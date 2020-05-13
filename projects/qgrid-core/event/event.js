@@ -1,13 +1,16 @@
+let counter = 0;
 export class Event {
 	constructor(reply) {
 		this.handlers = [];
+
 		this.lastArg = null;
 		this.reply = reply || (() => this.lastArg);
 	}
 
 	on(next, lifecycle = 'app') {
 		const { handlers } = this;
-		const handler = { next };
+
+		const handler = { next, lifecycle };
 		const off = () => {
 			const index = handlers.indexOf(handler);
 			if (index >= 0) {
@@ -16,7 +19,6 @@ export class Event {
 		};
 
 		handler.off = off;
-		handler.lifecycle = lifecycle;
 		handlers.push(handler);
 
 		return off;
@@ -35,9 +37,9 @@ export class Event {
 	emit(value) {
 		this.lastArg = value;
 
-		const temp = Array.from(this.handlers);
-		for (let i = 0, length = temp.length; i < length; i++) {
-			const handler = temp[i];
+		const handlers = Array.from(this.handlers);
+		for (let i = 0, length = handlers.length; i < length; i++) {
+			const handler = handlers[i];
 			handler.next(value, handler.off);
 		}
 	}

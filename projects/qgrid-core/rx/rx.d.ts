@@ -31,9 +31,10 @@ export declare interface ObservableLike<T> {
 }
 
 export declare class ObservableEvent<T> implements ObservableLike<T> {
-    constructor(event: Event<T>, reply: boolean, disposable: Disposable);
+    constructor(event: Event<T>, disposable: Disposable);
 
-    subscribe(next: (value: T) => void): SubscriptionLike;
+    subscribe(next?: (value: T) => void, error?: (error: any) => void, complete?: () => void): SubscriptionLike;
+
     toPromise(): Promise<T>;
     pipe(): ObservableLike<T>;
     pipe<A>(op1: OperatorFunctionLike<T, A>): ObservableLike<A>;
@@ -48,10 +49,14 @@ export declare class ObservableEvent<T> implements ObservableLike<T> {
     pipe<A, B, C, D, E, F, G, H, I>(op1: OperatorFunctionLike<T, A>, op2: OperatorFunctionLike<A, B>, op3: OperatorFunctionLike<B, C>, op4: OperatorFunctionLike<C, D>, op5: OperatorFunctionLike<D, E>, op6: OperatorFunctionLike<E, F>, op7: OperatorFunctionLike<F, G>, op8: OperatorFunctionLike<G, H>, op9: OperatorFunctionLike<H, I>, ...operations: OperatorFunctionLike<any, any>[]): ObservableLike<{}>;
 }
 
+export declare class ObservableReplyEvent<T> extends ObservableEvent<T> {
+}
+
 export declare class SubjectLike<T> extends ObservableEvent<T> {
     constructor();
 
     next(value: T);
+    error(ex: Error);
     complete();
 }
 

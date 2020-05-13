@@ -2,7 +2,6 @@ import { Component, OnInit, DoCheck, ChangeDetectorRef, NgZone, ChangeDetectionS
 import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
 import { ViewHost } from '@qgrid/core/view/view.host';
 import { CellService } from '../cell/cell.service';
-import { GridLet } from '../grid/grid-let';
 import { Grid } from '../grid/grid';
 import { GridPlugin } from '../plugin/grid-plugin';
 
@@ -19,26 +18,27 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 	private host: ViewHost;
 
 	constructor(
-		private view: GridLet,
 		private plugin: GridPlugin,
 		private qgrid: Grid,
 		private cd: ChangeDetectorRef,
-		private zone: NgZone
+		zone: NgZone
 	) {
 		zone
 			.onStable
 			.subscribe(() => {
-				if (this.model) {
-					const { scene } = this.model;
-					const { status } = scene();
+				const { model, table } = this.plugin;
+
+				if (model) {
+					const { status } = model.scene();
 					if (status === 'push') {
-						scene({
+						model.scene({
 							status: 'stop'
 						}, {
-							source: 'grid.component',
+							source: 'view-core.component',
 							behavior: 'core'
 						});
 
+						table.invalidate();
 						if (this.host) {
 							this.host.invalidate();
 						}
@@ -48,16 +48,18 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 	}
 
 	ngDoCheck() {
-		const { status } = this.model.scene();
-		if (status === 'stop' && this.host) {
-			this.host.invalidate();
+		if (this.host) {
+			const { model } = this.plugin;
+			if (model.scene().status === 'stop') {
+				this.host.invalidate();
+			}
 		}
 	}
 
 	ngOnInit() {
-		const { model, table, observeReply, observe } = this.plugin;
+		const { model, table, observeReply, observe, view } = this.plugin;
 
-		this.view.scroll.y.settings.emit = f => {
+		view.scroll.y.settings.emit = f => {
 			f();
 
 			this.cd.markForCheck();
@@ -72,16 +74,12 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 				if (e.hasChanges('status') && e.state.status === 'pull') {
 					this.cd.markForCheck();
 
-					// // Run digest on the start of invalidate(e.g. for busy indicator)
-					// // and on the ned of invalidate(e.g. to build the DOM)
-					// this.zone.run(() =>
 					model.scene({
 						status: 'push'
 					}, {
 						source: 'view-core.component',
 						behavior: 'core'
 					});
-					// );
 
 					this.cd.detectChanges();
 				}
@@ -90,17 +88,14 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		observe(model.styleChanged)
 			.subscribe(() => this.host.invalidate());
 
-		const virtualBody = table.body as any;
-		if (virtualBody.requestInvalidate) {
-			virtualBody.requestInvalidate.on(() => this.host.invalidate());
+		const asVirtualBody = table.body as any;
+		if (asVirtualBody.requestInvalidate) {
+			asVirtualBody.requestInvalidate.on(() => this.host.invalidate());
 		}
 	}
 
-	private get model() {
-		return this.plugin.model;
-	}
-
 	get visibility(): VisibilityState {
-		return this.model.visibility();
+		const { model } = this.plugin;
+		return model.visibility();
 	}
 }

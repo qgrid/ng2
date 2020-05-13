@@ -4,18 +4,17 @@ import {
 	Output,
 	EventEmitter,
 	OnInit,
-	SimpleChanges,
 	OnChanges,
 	NgZone,
 	ChangeDetectorRef,
 	ChangeDetectionStrategy
 } from '@angular/core';
 import { ColumnChooserPlugin } from '@qgrid/plugins/column-chooser/column.chooser.plugin';
+import { ColumnChooserState } from '@qgrid/plugins/column-chooser/column.chooser.state';
 import { FocusAfterRender } from '../focus/focus.service';
 import { GridPlugin, StateAccessor } from '@qgrid/ngx';
 import { Node } from '@qgrid/core/node/node';
 import { noop } from '@qgrid/core/utility/kit';
-import { ColumnChooserState } from '@qgrid/plugins/column-chooser/column.chooser.state';
 
 const COLUMN_CHOOSER_NAME = 'qGridColumnChooser';
 
@@ -64,7 +63,7 @@ export class ColumnChooserComponent implements OnInit, OnChanges {
 		return { $implicit: new RootContext(this.context.$implicit) };
 	}
 
-	ngOnChanges(changes: SimpleChanges) {
+	ngOnChanges() {
 		const { model } = this.plugin;
 		this.stateAccessor.write(model);
 	}

@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { clone } from '@qgrid/core/utility/kit';
-import { Disposable } from '../infrastructure/disposable';
 import { EventListener } from '@qgrid/core/event/event.listener';
 import { EventManager } from '@qgrid/core/event/event.manager';
 import { GRID_PREFIX } from '@qgrid/core/definition';
@@ -18,8 +17,7 @@ import { GridModel } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
 
 @Directive({
-	selector: '[q-grid-resize]',
-	providers: [Disposable]
+	selector: '[q-grid-resize]'
 })
 export class ResizeDirective implements OnInit, OnDestroy {
 	private element: HTMLElement;

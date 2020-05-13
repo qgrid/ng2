@@ -1,4 +1,5 @@
 import { SubjectLike } from './rx';
+import { noop } from '../utility/kit';
 
 export function takeOnce() {
     return source => {
@@ -6,18 +7,28 @@ export function takeOnce() {
 
         let subscription;
         let completed = false;
+
+        const error = noop;
+
+        const complete = () => {
+            completed = true;
+
+            if (subscription) {
+                subscription.unsubscribe();
+                subscription = null;
+            }
+
+            subject.complete();
+        };
+
+        const next = x => {
+            subject.next(x);
+            complete();
+        };
+
+
         subscription = source
-            .subscribe(x => {
-                completed = true;
-
-                if (subscription) {
-                    subscription.unsubscribe();
-                    subscription = null;
-                }
-
-                subject.next(x);
-                subject.complete();
-            });
+            .subscribe(next, error, complete);
 
         if (completed && subscription) {
             subscription.unsubscribe();
@@ -32,13 +43,17 @@ export function filter(test) {
     return source => {
         const subject = new SubjectLike();
 
-        source
-            .subscribe(x => {
-                if (test(x)) {
-                    subject.next(x);
-                }
-            });
+        const error = ex => subject.error(ex);
 
+        const complete = () => subject.complete();
+
+        const next = x => {
+            if (test(x)) {
+                subject.next(x);
+            }
+        };
+
+        source.subscribe(next, error, complete);
         return subject;
     }
 }

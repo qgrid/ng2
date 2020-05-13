@@ -27,7 +27,8 @@ export class PersistencePlugin {
 		this.title = this.stringify();
 
 		persistence()
-			.storage.getItem(this.id)
+			.storage
+			.getItem(this.id)
 			.then(items => {
 				this.items = items || [];
 				this.groups = this.buildGroups(this.items);
@@ -229,18 +230,19 @@ export class PersistencePlugin {
 	}
 
 	buildGroups(items) {
-		return items.reduce((memo, item) => {
-			const group = memo.find(m => m.key === item.group);
-			if (group) {
-				group.items.push(item);
-			} else {
-				memo.push({
-					key: item.group,
-					items: [item]
-				});
-			}
-			return memo;
-		}, []);
+		return items
+			.reduce((memo, item) => {
+				const group = memo.find(m => m.key === item.group);
+				if (group) {
+					group.items.push(item);
+				} else {
+					memo.push({
+						key: item.group,
+						items: [item]
+					});
+				}
+				return memo;
+			}, []);
 	}
 
 	isActive(item) {
@@ -252,7 +254,8 @@ export class PersistencePlugin {
 
 		model
 			.persistence()
-			.storage.setItem(this.id, this.items.filter(item => item.canEdit));
+			.storage
+			.setItem(this.id, this.items.filter(item => item.canEdit));
 
 		this.groups = this.buildGroups(this.items);
 	}

@@ -7,12 +7,12 @@ import { Composite } from '@qgrid/core/infrastructure/composite';
 import { ImportPlugin } from '@qgrid/plugins/import/import.plugin';
 import { EventManager } from '@qgrid/core/event/event.manager';
 import { EventListener } from '@qgrid/core/event/event.listener';
-import { TemplateHostService, Disposable } from '@qgrid/ngx';
+import { TemplateHostService } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-import',
 	templateUrl: './import.component.html',
-	providers: [TemplateHostService, GridPlugin, Disposable],
+	providers: [TemplateHostService, GridPlugin],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImportComponent implements AfterViewInit {
@@ -26,14 +26,13 @@ export class ImportComponent implements AfterViewInit {
 	constructor(
 		private plugin: GridPlugin,
 		private templateHost: TemplateHostService,
-		private hostElement: ElementRef,
-		private disposable: Disposable
+		private hostElement: ElementRef
 	) {
 		this.templateHost.key = () => `import`;
 	}
 
 	ngAfterViewInit() {
-		const { model } = this.plugin;
+		const { model, disposable } = this.plugin;
 		const { nativeElement } = this.hostElement;
 
 		const eventListener = new EventListener(nativeElement, new EventManager(this));
@@ -58,9 +57,9 @@ export class ImportComponent implements AfterViewInit {
 		const items = Composite.list([model.action().items, [action]]);
 		model.action({ items }, { source: 'import.component' });
 
-		this.disposable.add(() => {
-			const newItems = model.action().items.filter(x => x.id === action.id);
-			model.action({ items: newItems }, { source: 'import.component' });
+		disposable.add(() => {
+			const notImportItems = model.action().items.filter(x => x.id !== action.id);
+			model.action({ items: notImportItems }, { source: 'import.component' });
 		});
 	}
 

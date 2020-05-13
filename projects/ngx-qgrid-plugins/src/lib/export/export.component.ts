@@ -1,19 +1,16 @@
 import { AfterViewInit, Component, Input, TemplateRef, ChangeDetectionStrategy, ContentChild } from '@angular/core';
-import { Disposable } from '@qgrid/ngx';
-import { GridPlugin } from '@qgrid/ngx';
+import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 import { Command } from '@qgrid/core/command/command';
 import { ExportPlugin } from '@qgrid/plugins/export/export.plugin';
 import { Action } from '@qgrid/core/action/action';
 import { Composite } from '@qgrid/core/infrastructure/composite';
-import { TemplateHostService } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-export',
 	templateUrl: './export.component.html',
 	providers: [
 		TemplateHostService,
-		GridPlugin,
-		Disposable
+		GridPlugin
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -27,14 +24,13 @@ export class ExportComponent implements AfterViewInit {
 
 	constructor(
 		private plugin: GridPlugin,
-		private templateHost: TemplateHostService,
-		private disposable: Disposable
+		private templateHost: TemplateHostService
 	) {
 		this.templateHost.key = () => `export-${this.type}`;
 	}
 
 	ngAfterViewInit() {
-		const { model } = this.plugin;
+		const { model, disposable } = this.plugin;
 		const exportPlugin = new ExportPlugin(model, this.type);
 		const action = new Action(
 			new Command({
@@ -52,9 +48,9 @@ export class ExportComponent implements AfterViewInit {
 		const items = Composite.list([model.action().items, [action]]);
 		model.action({ items }, { source: 'export.component' });
 
-		this.disposable.add(() => {
-			const newItems = model.action().items.filter(x => x.id === action.id);
-			model.action({ items: newItems }, { source: 'export.component' });
+		disposable.add(() => {
+			const notExportItems = model.action().items.filter(x => x.id !== action.id);
+			model.action({ items: notExportItems }, { source: 'export.component' });
 		});
 	}
 }

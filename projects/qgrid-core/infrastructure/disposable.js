@@ -43,10 +43,10 @@ export class Disposable {
 	}
 
 	finalize() {
-		const temp = this.disposes;
+		const disposes = this.disposes;
 		this.disposes = [];
 
-		for (const dispose of temp) {
+		for (const dispose of disposes) {
 			dispose();
 		}
 	}

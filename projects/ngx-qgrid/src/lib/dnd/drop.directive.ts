@@ -1,6 +1,5 @@
 import { Directive, ElementRef, Input, OnInit, Optional, NgZone } from '@angular/core';
 import { Command } from '@qgrid/core/command/command';
-import { Disposable } from '../infrastructure/disposable';
 import { DragService } from '@qgrid/core/drag/drag.service';
 import { elementFromPoint, parents } from '@qgrid/core/services/dom';
 import { EventListener } from '@qgrid/core/event/event.listener';
@@ -20,8 +19,7 @@ export interface DropEventArg {
 }
 
 @Directive({
-	selector: '[q-grid-drop]',
-	providers: [Disposable]
+	selector: '[q-grid-drop]'
 })
 export class DropDirective implements OnInit {
 	@Input('q-grid-drop-area') area: string;
@@ -33,7 +31,6 @@ export class DropDirective implements OnInit {
 	constructor(
 		@Optional() private plugin: GridPlugin,
 		private elementRef: ElementRef,
-		private disposable: Disposable,
 		zone: NgZone
 	) {
 		const element = elementRef.nativeElement;

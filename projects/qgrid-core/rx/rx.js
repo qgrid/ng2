@@ -1,5 +1,6 @@
 import { Disposable } from '../infrastructure/disposable';
 import { Event } from '../event/event';
+import { noop } from '../utility/kit';
 
 export class SubscriptionLike {
     constructor(off) {
@@ -14,33 +15,64 @@ export class SubscriptionLike {
     }
 }
 
+let count = 0;
+
 export class ObservableEvent {
-    constructor(event, reply, disposable) {
-        this.event = event;
-        this.reply = reply;
+    constructor(event, disposable) {
+        this.errorSignal = new Event();
+        this.nextSignal = event;
         this.disposable = disposable;
     }
 
-    subscribe(next) {
-        let off;
-        if (this.reply) {
-            off = this.event.watch(next);
-            return
-        } else {
-            off = this.event.on(next);
+    subscribe(next, error, complete) {
+        if (error) {
+            const errorOff = this.errorSignal.on(error);
+            this.disposable.add(errorOff);
         }
 
-        if (this.disposable) {
-            this.disposable.add(off);
+        if (next) {
+            // console.log('sub' + (count++));
+            // console.log(next);
+            const eventOff = this.subscribeEvent(next);
+
+            let disposed = false;
+            const unsubscribe = () => {
+                if (!disposed) {
+                    disposed = true;
+
+                    eventOff();
+                    this.disposable.remove(unsubscribe);
+                    // console.log('unsub' + (count--));
+                    // console.log(next);
+ 
+                    if (complete) {
+                        complete();
+                    }
+                }
+            };
+
+            this.disposable.add(unsubscribe);
+            return new SubscriptionLike(unsubscribe);
         }
 
-        const dispose = () => {
-            off();
+        return new SubscriptionLike(noop);
+    }
 
-            this.disposable.remove(off);
-        };
+    subscribeEvent(next) {
+        return this
+            .nextSignal
+            .on(e => {
+                try {
+                    next(e);
+                } catch (ex) {
+                    this.catchError(ex);
+                }
+            });
+    }
 
-        return new SubscriptionLike(dispose);
+    catchError(ex) {
+        this.errorSignal.emit(ex);
+        throw ex;
     }
 
     toPromise() {
@@ -71,16 +103,37 @@ export class ObservableEvent {
     }
 }
 
+export class ObservableReplyEvent extends ObservableEvent {
+    subscribeEvent(next) {
+        return this
+            .nextSignal
+            .watch(e => {
+                try {
+                    next(e);
+                } catch (ex) {
+                    this.catchError(ex);
+                }
+            });
+    }
+}
+
 export class SubjectLike extends ObservableEvent {
     constructor() {
-        super(new Event(), false, new Disposable());
+        super(
+            new Event(),
+            new Disposable()
+        );
     }
 
     next(value) {
-        this.event.emit(value);
+        this.nextSignal.emit(value);
     }
 
     complete() {
         this.disposable.finalize();
+    }
+
+    error(ex) {
+        this.catchError(ex);
     }
 }
