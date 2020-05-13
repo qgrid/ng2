@@ -62,7 +62,7 @@ function buildKeys(source: string, column: ColumnModel, mode = 'view') {
 }
 
 @Injectable()
-export class CellService {
+export class CellTemplateService {
 	private commits = new Map<string, (container: ViewContainerRef, context: any) => void>();
 
 	constructor(private templateService: TemplateService) { }

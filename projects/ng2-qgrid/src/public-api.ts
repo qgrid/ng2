@@ -9,7 +9,7 @@ export {
 	BoxModule,
 	CellHandlerComponent,
 	CellHandlerModule,
-	CellService,
+	CellTemplateService,
 	ColumnComponent,
 	ColumnListComponent,
 	ColumnListModule,

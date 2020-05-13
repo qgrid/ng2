@@ -43,7 +43,6 @@ export class ColumnSortComponent implements AfterViewInit {
 
 		const columnSort = new ColumnSortPlugin(this.plugin, {
 			element: nativeElement,
-			view: this.plugin.view,
 			column: this.column,
 			iconAsc,
 			iconDesc
@@ -51,14 +50,14 @@ export class ColumnSortComponent implements AfterViewInit {
 
 		const listener = new EventListener(nativeElement, new EventManager(this));
 		listener.on('click', () => {
-			if (columnSort.onClick()) {
+			if (columnSort.click()) {
 				// tslint:disable-next-line:no-unused-expression
 				new FocusAfterRender(this.plugin);
 			}
 		});
 
 		this.zone.runOutsideAngular(() =>
-			listener.on('mouseleave', () => columnSort.onMouseLeave())
+			listener.on('mouseleave', () => columnSort.mouseLeave())
 		);
 	}
 }

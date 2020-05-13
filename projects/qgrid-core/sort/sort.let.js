@@ -102,7 +102,8 @@ export class SortLet {
 
 	order(column) {
 		const { key } = column;
-		const { by } = this.plugin.model.sort();
+		const { model } = this.plugin;
+		const { by } = model.sort();
 		return sortService.index(by, key);
 	}
 }

@@ -7,16 +7,14 @@ import {
 	ViewContainerRef
 } from '@angular/core';
 import { GridError } from '@qgrid/core/infrastructure/error';
-import { CellService } from '../cell/cell.service';
+import { CellTemplateService } from '../cell/cell-template.service';
+import { CellClassService } from '../cell/cell-class.service';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { ColumnView } from '@qgrid/core/scene/view/column.view';
 import { DomTd } from '../dom/dom';
 import { GridLet } from '../grid/grid-let';
 import { GridPlugin } from '../plugin/grid-plugin';
-import { TdCtrl } from '@qgrid/core/cell/td.ctrl';
 import { TrhCoreDirective } from '../row/trh-core.directive';
-
-const classify = TdCtrl.classify;
 
 @Directive({
 	selector: '[q-grid-core-tf]'
@@ -30,7 +28,8 @@ export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
 	constructor(
 		public $view: GridLet,
 		private plugin: GridPlugin,
-		private cellService: CellService,
+		private cellTemplate: CellTemplateService,
+		private cellClass: CellClassService,
 		private viewContainerRef: ViewContainerRef,
 		private tr: TrhCoreDirective,
 		elementRef: ElementRef
@@ -43,9 +42,10 @@ export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
 		const { table } = this.plugin;
 
 		table.box.bag.foot.addCell(this);
-		classify(element, column);
 
-		const link = this.cellService.build('foot', this.column);
+		this.cellClass.toBody(element, column);
+
+		const link = this.cellTemplate.build('foot', this.column);
 		link(this.viewContainerRef, this);
 	}
 

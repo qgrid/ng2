@@ -2,31 +2,38 @@
     @include width(480px);
     height: 525px;
     overflow: hidden;
+
     .q-grid-query-builder {
         &-expression {
             margin-top: 15px;
             height: 270px;
             overflow: auto;
             padding: 2px;
+
             ul {
                 margin: 0;
                 padding: 0;
                 list-style-type: none;
+
                 li {
                     display: inline;
+
                     &.q-grid-eb-expression {
                         margin-right: 3px;
                         display: inline-block;
                     }
                 }
+
                 &.q-grid-eb {
                     &-node {
                         padding: 5px;
                         white-space: nowrap;
+
                         &.qb-logical {
                             padding-left: 0;
                             position: relative;
                             min-height: 27px;
+
                             >.q-grid-eb-line {
                                 position: absolute;
                                 transform: rotate(-90deg);
@@ -34,12 +41,15 @@
                                 top: 50%;
                                 left: -5px;
                                 margin-top: -1px;
+
                                 >ul {
                                     transform: rotate(90deg);
                                 }
                             }
+
                             >.q-grid-eb-children {
                                 display: flex;
+
                                 >ul {
                                     border-left: 1px solid $dark-gray;
                                     border-radius: 5px;
@@ -47,6 +57,7 @@
                                     padding-left: 10px;
                                 }
                             }
+
                             &.qb-or {
                                 >.q-grid-eb-line {
                                     left: 5px;
@@ -54,22 +65,27 @@
                             }
                         }
                     }
+
                     &-group {
                         display: inline;
                     }
                 }
             }
+
             .q-grid-eb-active {
                 outline: 2px solid $blue-outline025;
                 background: $selected;
             }
         }
+
         &-icon-button {
             @include buttonSizes(16px);
+
             .q-grid-icon {
                 @include iconSizes(16px);
             }
         }
+
         &-expression-line {
             margin-top: 15px;
             font-size: 12px;
@@ -77,28 +93,35 @@
             padding: 10px;
             overflow-y: auto;
             height: 27px;
+
             span {
                 word-break: break-word;
             }
+
             .q-grid {
+
                 &-markup-node,
                 &-markup-node-left,
                 &-markup-node-right {
                     display: inline;
                 }
+
                 &-markup-group-op {
                     color: #3eb1c8;
                     text-transform: uppercase;
+
                     &:before,
                     &:after {
                         content: ' ';
                     }
                 }
+
                 &-markup-condition-unary {
                     &:before {
                         content: ' ';
                     }
                 }
+
                 &-markup-condition-left,
                 &-markup-group-open,
                 &-markup-group-close,
@@ -106,20 +129,25 @@
                 &-markup-condition-close {
                     color: $markup-gray;
                 }
+
                 &-markup-condition-quote {
                     color: $markup-red;
                 }
+
                 &-markup-condition-op {
                     color: $markup-secondary-gray;
                     text-transform: uppercase;
                 }
+
                 &-markup-condition-value-text {
                     color: $markup-red !important;
                 }
+
                 &-markup-condition-value,
                 &-markup-condition-value {
                     color: $black;
                 }
+
                 &-markup-condition-value-invalid:before {
                     color: $red;
                     content: '﹏';
@@ -133,6 +161,7 @@
     @media (max-height: 540px) {
         .q-grid-query-builder-panel.q-grid-menu {
             @include height(400px);
+
             .q-grid-query-builder-expression {
                 height: 138px;
             }

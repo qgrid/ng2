@@ -19,9 +19,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Remove `actions`, `pipe`, `selectionKey`, `filterFetch` input properties from the grid component.
 - Remove `keep` method from grid plugin.
 - Data rowId returns row index by default not the instance.
+- Instead of class q-grid-cell.key use q-grid-`the`-cell.key.
+- Get rid of redundant spans in cell templates.
 
 ### Added
 - Ivy support.
+
+### Changed
+- Better plugin support.
+- Get rid of model proxy.
+- Rendering performance improvements.
 
 ### Changed
 - Better core types.

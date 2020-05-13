@@ -1,15 +1,17 @@
 import { Component, OnInit, DoCheck, ChangeDetectorRef, NgZone, ChangeDetectionStrategy } from '@angular/core';
-import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
-import { ViewHost } from '@qgrid/core/view/view.host';
-import { CellService } from '../cell/cell.service';
+import { CellClassService } from '../cell/cell-class.service';
+import { CellTemplateService } from '../cell/cell-template.service';
 import { Grid } from '../grid/grid';
 import { GridPlugin } from '../plugin/grid-plugin';
+import { ViewHost } from '@qgrid/core/view/view.host';
+import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
 
 @Component({
 	selector: 'q-grid-core-view',
 	templateUrl: './view-core.component.html',
 	providers: [
-		CellService,
+		CellTemplateService,
+		CellClassService,
 		GridPlugin,
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
@@ -21,7 +23,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		private plugin: GridPlugin,
 		private qgrid: Grid,
 		private cd: ChangeDetectorRef,
-		zone: NgZone
+		private zone: NgZone
 	) {
 		zone
 			.onStable
@@ -31,6 +33,8 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 				if (model) {
 					const { status } = model.scene();
 					if (status === 'push') {
+						table.invalidate();
+
 						model.scene({
 							status: 'stop'
 						}, {
@@ -38,7 +42,6 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 							behavior: 'core'
 						});
 
-						table.invalidate();
 						if (this.host) {
 							this.host.invalidate();
 						}
@@ -74,14 +77,14 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 				if (e.hasChanges('status') && e.state.status === 'pull') {
 					this.cd.markForCheck();
 
-					model.scene({
-						status: 'push'
-					}, {
-						source: 'view-core.component',
-						behavior: 'core'
-					});
-
-					this.cd.detectChanges();
+					this.zone.run(() =>
+						model.scene({
+							status: 'push'
+						}, {
+							source: 'view-core.component',
+							behavior: 'core'
+						})
+					);
 				}
 			});
 

@@ -6,20 +6,16 @@ import {
 	OnInit,
 	ViewContainerRef
 } from '@angular/core';
+import { CellClassService } from '../cell/cell-class.service';
+import { CellTemplateService } from '../cell/cell-template.service';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { ColumnView } from '@qgrid/core/scene/view/column.view';
-import { TdCtrl } from '@qgrid/core/cell/td.ctrl';
-import { ThCtrl } from '@qgrid/core/cell/th.ctrl';
-import { GridError } from '@qgrid/core/infrastructure/error';
-import { FilterRowColumnModel } from '@qgrid/core/column-type/filter.row.column';
 import { DomTd } from '../dom/dom';
-import { CellService } from '../cell/cell.service';
+import { FilterRowColumnModel } from '@qgrid/core/column-type/filter.row.column';
+import { GridError } from '@qgrid/core/infrastructure/error';
 import { GridLet } from '../grid/grid-let';
-import { TrhCoreDirective } from '../row/trh-core.directive';
 import { GridPlugin } from '../plugin/grid-plugin';
-
-const classifyTd = TdCtrl.classify;
-const classifyTh = ThCtrl.classify;
+import { TrhCoreDirective } from '../row/trh-core.directive';
 
 @Directive({
 	selector: '[q-grid-core-th]'
@@ -36,7 +32,8 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 		public $view: GridLet,
 		private root: GridPlugin,
 		private viewContainerRef: ViewContainerRef,
-		private cellService: CellService,
+		private cellTemplate: CellTemplateService,
+		private cellClass: CellClassService,
 		private tr: TrhCoreDirective,
 		elementRef: ElementRef
 	) {
@@ -48,20 +45,18 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 		const { table } = this.root;
 
 		table.box.bag.head.addCell(this);
-		classifyTd(element, column);
-		classifyTh(element, column);
 
-		let target: any = column;
-		let source = 'head';
+		let targetColumn: ColumnModel = column;
+		let targetSource = 'head';
 		if (column.type === 'filter-row') {
-			const columnModel = (column as FilterRowColumnModel).model;
-			classifyTd(element, columnModel);
-
-			source = 'filter';
-			target = columnModel;
+			targetSource = 'filter';
+			targetColumn = (column as FilterRowColumnModel).model;
 		}
 
-		const link = this.cellService.build(source, target, 'view');
+		this.cellClass.toHead(element, column);
+		this.cellClass.toBody(element, targetColumn);
+
+		const link = this.cellTemplate.build(targetSource, targetColumn, 'view');
 		link(this.viewContainerRef, this);
 	}
 

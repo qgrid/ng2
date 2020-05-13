@@ -7,13 +7,10 @@ const GRID_HIDE_CLASS = `${GRID_PREFIX}-hide`;
 
 export class ColumnSortPlugin {
 	constructor(plugin, context) {
-		const { model, observeReply } = plugin;
+		const { model, observeReply, view } = plugin;
+		const { column, iconDesc, iconAsc, element } = context;
 
-		const column = context.column;
-		const view = context.view;
-		const element = this.element = context.element;
-		const iconDesc = context.iconDesc;
-		const iconAsc = context.iconAsc;
+		this.element = element;
 
 		observeReply(model.sortChanged)
 			.subscribe(e => {
@@ -48,7 +45,7 @@ export class ColumnSortPlugin {
 		});
 	}
 
-	onClick() {
+	click() {
 		if (this.toggle.canExecute()) {
 			this.toggle.execute();
 			return true;
@@ -57,7 +54,7 @@ export class ColumnSortPlugin {
 		return false;
 	}
 
-	onMouseLeave() {
+	mouseLeave() {
 		Fastdom.mutate(() => {
 			this.element.classList.remove(GRID_HIDE_CLASS);
 		});

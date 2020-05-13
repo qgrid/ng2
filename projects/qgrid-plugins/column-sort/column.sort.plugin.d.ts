@@ -9,10 +9,8 @@ export declare class ColumnSortPlugin {
             column: ColumnModel,
             iconAsc: string,
             iconDesc: string,
-            view: any
         });
 
-    onMouseOver();
-    onMouseLeave();
-    onClick(): boolean;
+    mouseLeave();
+    click(): boolean;
 }

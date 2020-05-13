@@ -22,7 +22,7 @@ export { TemplateCacheService } from './lib/template/template-cache.service';
 export { TemplateLinkService } from './lib/template/template-link.service';
 export { TemplateService } from './lib/template/template.service';
 
-export { CellService } from './lib/cell/cell.service';
+export { CellTemplateService } from './lib/cell/cell-template.service';
 
 export { VscrollContext } from './lib/vscroll/vscroll.context';
 export { VscrollService } from './lib/vscroll/vscroll.service';

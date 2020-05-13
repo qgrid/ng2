@@ -66,20 +66,6 @@ export class LayoutLet {
 				}
 			});
 
-		observeReply(model.sceneChanged)
-			.subscribe(e => {
-				if (e.hasChanges('status')) {
-					if (e.state.status === 'stop') {
-						Fastdom.measure(() => this.updateColumnForm());
-					}
-				}
-
-				if (e.hasChanges('column')) {
-					const { columns } = model.layout();
-					Fastdom.mutate(() => this.invalidateColumns(columns));
-				}
-			});
-
 		disposable.add(() => {
 			const sheet = css.sheet(this.gridId, 'layout-column');
 			sheet.remove();
@@ -101,7 +87,8 @@ export class LayoutLet {
 
 			const { key } = column;
 			if (layout.has(key)) {
-				form.set(key, { width: layout.get(key).width });
+				const { width } = layout.get(key);
+				form.set(key, { width });
 			} else {
 				const th = head.cell(rowIndex, columnIndex);
 				const width = th.width();

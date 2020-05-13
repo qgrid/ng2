@@ -13,16 +13,14 @@ import {
 import { GRID_PREFIX } from '@qgrid/core/definition';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { ColumnView } from '@qgrid/core/scene/view/column.view';
-import { TdCtrl } from '@qgrid/core/cell/td.ctrl';
 import { DomTd } from '../dom/dom';
 import { noop } from '@qgrid/core/utility/kit';
 import { GridLet } from '../grid/grid-let';
 import { GridRoot } from '../grid/grid-root';
 import { TrCoreDirective } from '../row/tr-core.directive';
-import { CellService } from '../cell/cell.service';
+import { CellTemplateService } from '../cell/cell-template.service';
 import { GridError } from '@qgrid/core/infrastructure/error';
-
-const classify = TdCtrl.classify;
+import { CellClassService } from '../cell/cell-class.service';
 
 @Directive({
 	selector: '[q-grid-core-td]',
@@ -42,7 +40,8 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 		public $view: GridLet,
 		private root: GridRoot,
 		private viewContainerRef: ViewContainerRef,
-		private cellService: CellService,
+		private cellTemplate: CellTemplateService,
+		private cellClass: CellClassService,
 		private tr: TrCoreDirective,
 		private cd: ChangeDetectorRef,
 		elementRef: ElementRef
@@ -53,9 +52,10 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	ngOnInit() {
 		const { table } = this.root;
 		table.box.bag.body.addCell(this);
-		classify(this.element, this.column);
 
-		const link = this.cellService.build('body', this.column, 'view');
+		this.cellClass.toBody(this.element, this.column);
+
+		const link = this.cellTemplate.build('body', this.column, 'view');
 		link(this.viewContainerRef, this);
 	}
 
@@ -68,7 +68,7 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	}
 
 	mode(value: 'view' | 'edit' | 'change') {
-		const link = this.cellService.build('body', this.column, value);
+		const link = this.cellTemplate.build('body', this.column, value);
 
 		switch (value) {
 			case 'view': {
