@@ -226,12 +226,9 @@ export class HighlightLet {
 		const { model } = this.plugin;
 		const { items } = model.selection();
 
-		console.log('invalidateSelection: ' + items[0]);
-
 		const entries = this.selectionService.lookup(items);
 		const cells = this.cellSelector.map(entries);
 
-		console.log('invalidateSelection: ' + cells.length);
 		return cells
 			.map(cell => this.highlightCell(cell, 'selected'));
 	}
@@ -325,9 +322,7 @@ export class HighlightLet {
 	}
 
 	highlightCell(cell, cls) {
-		console.log('highlight: ' + cell.rowIndex + cls);
 		Fastdom.mutate(() => {
-			console.log('add: ' + cell.rowIndex + cls);
 			cell.addClass(`${GRID_PREFIX}-${cls}`);
 		});
 
@@ -335,10 +330,8 @@ export class HighlightLet {
 	}
 
 	blurCell(cell, cls) {
-		console.log('blur: ' + cell.rowIndex + cls);
 		return () =>
 			Fastdom.mutate(() => {
-				console.log('remove: ' + cell.rowIndex + cls);
 				cell.removeClass(`${GRID_PREFIX}-${cls}`);
 			});
 	}

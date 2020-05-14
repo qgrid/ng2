@@ -67,6 +67,7 @@ import {
 	TitleModule,
 	ValidationModule,
 	VisibilityModule,
+	DateModule,
 } from 'ng2-qgrid';
 
 @NgModule({
@@ -101,6 +102,7 @@ import {
 		ColumnFilterModule,
 		ColumnSortModule,
 		CommandModule,
+		DateModule,
 		DataManipulationModule,
 		EbModule,
 		EditFormModule,

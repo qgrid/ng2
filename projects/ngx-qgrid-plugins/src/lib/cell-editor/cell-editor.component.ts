@@ -23,7 +23,7 @@ export class CellEditorComponent {
 	};
 
 	constructor(plugin: GridPlugin) {
-		const { view } = plugin;
+		const { view, disposable } = plugin;
 		view.edit.cell.requestClose = () => {
 			if (this.closeEvent.observers.length) {
 				this.close();
@@ -32,6 +32,8 @@ export class CellEditorComponent {
 
 			return false;
 		};
+
+		disposable.add(() => view.edit.cell.requestClose = null);
 	}
 
 	close() {
