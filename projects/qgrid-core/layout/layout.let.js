@@ -67,7 +67,7 @@ export class LayoutLet {
 			});
 
 		disposable.add(() => {
-			const sheet = css.sheet(this.gridId, 'layout-column');
+			const sheet = css.sheet(this.gridId, 'column-layout');
 			sheet.remove();
 		});
 	}
@@ -140,7 +140,7 @@ export class LayoutLet {
 			}
 		}
 
-		const sheet = css.sheet(this.gridId, 'layout-column');
+		const sheet = css.sheet(this.gridId, 'column-layout');
 		sheet.set(style);
 	}
 

@@ -5,8 +5,8 @@
 			<mat-card-title>Save/Load</mat-card-title>
 		</mat-card-header>
 		<mat-card-content>
-			<div class="flex-none layout-row">
-				<div class="flex-100 q-grid-persistence-title">
+			<div class="q-grid-flex-none q-grid-layout-row">
+				<div class="q-grid-flex-100 q-grid-persistence-title">
 					<mat-form-field>
 						<input matInput
 						       type="text"
@@ -15,7 +15,7 @@
 						       [(ngModel)]="$persistence.title" />
 					</mat-form-field>
 				</div>
-				<div class="flex-none q-grid-persistence-save">
+				<div class="q-grid-flex-none q-grid-persistence-save">
 					<button mat-button
 					        color="primary"
 					        [disabled]="!$persistence.create.canExecute()"
