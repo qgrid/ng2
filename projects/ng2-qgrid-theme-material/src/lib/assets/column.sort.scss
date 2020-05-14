@@ -1,117 +1,126 @@
 td.q-grid-sorted {
-	background-color: $selected;
+    background-color: $selected;
 }
 
 th {
-	.q-grid-desc,
-	.q-grid-asc {
-		display: none;
-	}
-	&.q-grid-can-sort {
-		.q-grid-sort {
-			cursor: pointer;
-		}
-		.q-grid-desc,
-		.q-grid-asc {
-			display: block;
-		}
-	}
-}
 
-&.q-grid-box:not(.q-grid-drag) {
-	th {
-		.q-grid-sort {
-			&:not(.q-grid-active):hover {
-				.q-grid-desc {
-					opacity: 1;
-				}
-			}
-		}
-	}
-}
+    .q-grid-desc,
+    .q-grid-asc {
+        display: none;
+    }
 
-th {
-	.q-grid-sort {
-		overflow: hidden;
-		text-overflow: ellipsis;
-		margin-left: -20px;
-		padding-left: 20px;
-		padding-right: 5px;
-		label {
-			display: inline;
-			vertical-align: middle;
-		}
-		&.q-grid-active {
-			.q-grid-icon,
-			label {
-				color: $dark;
-			}
-		}
-		.q-grid-icon {
-			@include iconSizes(16px);
-			transition: opacity 0.3s;
-			opacity: 0;
-			position: absolute;
-			margin-left: -16px;
-			color: $dark-secondary;
-			vertical-align: middle;
-			display: inline-block;
-			&.q-grid-active {
-				opacity: 1;
-			}
-		}
-		&.q-grid-hide {
-			.q-grid-icon {
-				opacity: 0 !important;
-			}
-		}
-	}
+    &.q-grid-can-sort {
+        .q-grid-sort {
+            cursor: pointer;
+        }
+
+        .q-grid-desc,
+        .q-grid-asc {
+            display: block;
+        }
+    }
+
+    .q-grid-sort {
+        &:not(.q-grid-active):hover {
+            .q-grid-desc {
+                opacity: 1;
+            }
+        }
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-left: -20px;
+        padding-left: 20px;
+        padding-right: 5px;
+
+        label {
+            display: inline;
+            vertical-align: middle;
+        }
+
+        &.q-grid-active {
+
+            .q-grid-icon,
+            label {
+                color: $dark;
+            }
+        }
+
+        .q-grid-icon {
+            @include iconSizes(16px);
+            transition: opacity 0.3s;
+            opacity: 0;
+            position: absolute;
+            margin-left: -16px;
+            color: $dark-secondary;
+            vertical-align: middle;
+            display: inline-block;
+
+            &.q-grid-active {
+                opacity: 1;
+            }
+        }
+
+        &.q-grid-hide {
+            .q-grid-icon {
+                opacity: 0 !important;
+            }
+        }
+    }
 }
 
 @keyframes arrow-animation-up {
-	0% {
-		transform: rotate(180deg)
-	}
-	25% {
-		transform: rotate(220deg)
-	}
-	50% {
-		transform: rotate(270deg)
-	}
-	75% {
-		transform: rotate(300deg)
-	}
-	100% {
-		transform: rotate(360deg)
-	}
+    0% {
+        transform: rotate(180deg)
+    }
+
+    25% {
+        transform: rotate(220deg)
+    }
+
+    50% {
+        transform: rotate(270deg)
+    }
+
+    75% {
+        transform: rotate(300deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
 }
 
 @keyframes arrow-animation-down {
-	0% {
-		transform: rotate(-180deg)
-	}
-	25% {
-		transform: rotate(-220deg)
-	}
-	50% {
-		transform: rotate(-270deg)
-	}
-	75% {
-		transform: rotate(-300deg)
-	}
-	100% {
-		transform: rotate(-360deg)
-	}
+    0% {
+        transform: rotate(-180deg)
+    }
+
+    25% {
+        transform: rotate(-220deg)
+    }
+
+    50% {
+        transform: rotate(-270deg)
+    }
+
+    75% {
+        transform: rotate(-300deg)
+    }
+
+    100% {
+        transform: rotate(-360deg)
+    }
 }
 
 .q-grid-icon.q-grid-asc.q-grid-active {
-	animation-name: arrow-animation-up;
-	animation-duration: .2s;
-	animation-iteration-count: 1;
+    animation-name: arrow-animation-up;
+    animation-duration: .2s;
+    animation-iteration-count: 1;
 }
 
 .q-grid-icon.q-grid-desc.q-grid-active {
-	animation-name: arrow-animation-down;
-	animation-duration: .2s;
-	animation-iteration-count: 1;
+    animation-name: arrow-animation-down;
+    animation-duration: .2s;
+    animation-iteration-count: 1;
 }

@@ -1,0 +1,18 @@
+@import "./variable";
+
+td {
+
+    &.q-grid-sorted {
+        background-color: $selected;
+    }
+}
+
+.q-grid-select-row,
+.q-grid-select-column,
+.q-grid-select-mix {
+    td {
+        &.q-grid-selected {
+            background-color: $selected;
+        }
+    }
+}

@@ -1,16 +1,15 @@
-&.q-grid-box:not(.q-grid-drag) {
-    td.q-grid-focused {
-        outline: 2px solid $blue-outline025;
-        outline-offset: -2px;
-        &.q-grid-animate {
-            outline: none;
-        }
+td.q-grid-focused {
+    outline: 2px solid $blue-outline005;
+    outline-offset: -2px;
+
+    &.q-grid-animate {
+        outline: none;
     }
 }
 
-.q-grid-view:not(.q-grid-active) {
+.q-grid-view.q-grid-active {
     td.q-grid-focused {
-        outline-color: $blue-outline005;
+        outline-color: $blue-outline025;
     }
 }
 
@@ -21,6 +20,7 @@
     pointer-events: none;
     outline: 2px solid $blue-outline025;
     outline-offset: -2px;
+
     &.q-grid-active {
         display: block;
     }

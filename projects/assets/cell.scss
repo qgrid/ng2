@@ -1,5 +1,6 @@
 td,
 th {
+    @include width(150px);
     @include textCutter;
     @include box-sizing(border-box);
     @include user-select(none);
@@ -7,48 +8,11 @@ th {
     vertical-align: middle;
     text-align: left;
     position: relative;
+    transition: min-width 0.3s, width 0.3s, max-width 0.3s;
 
     &.q-grid-pivot {
         text-align: center;
     }
-}
-
-&.q-grid-box:not(.q-grid-drag) {
-
-    td,
-    th {
-        transition: min-width 0.3s, width 0.3s, max-width 0.3s;
-    }
-}
-
-td {
-    .q-grid-box {
-
-        td,
-        th {
-            transition: none !important;
-        }
-
-        &:not(.q-grid-drag) {
-
-            td,
-            th {
-                transition: min-width 0.3s, width 0.3s, max-width 0.3s !important;
-            }
-        }
-    }
-}
-
-th {
-    >div {
-        @include textCutter;
-        outline: none;
-    }
-}
-
-td,
-th {
-    @include width(150px);
 
     &.q-grid-pad {
         @include width(100%);
