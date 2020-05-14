@@ -87,6 +87,12 @@ export class HeadLet {
 
 		this.drag = new Command({
 			source: 'head.view',
+			canExecute: e => {
+				const sourceKey = e.data;
+				const { index } = model.columnList();
+				const pos = find(index, node => node.key.model.key === sourceKey);
+				return pos && pos.node.key.model.canMove;
+			},
 			execute: e => {
 				const sourceKey = e.data;
 				const { index } = model.columnList();
@@ -95,16 +101,10 @@ export class HeadLet {
 					for (let leaf of findLeaves(pos.node)) {
 						const column = table.body.column(leaf.key.columnIndex);
 						column.addClass(`${GRID_PREFIX}-drag`);
-						return () => table.head.cell
+						return () => table.head.cell;
 					}
 				}
 			},
-			canExecute: e => {
-				const sourceKey = e.data;
-				const { index } = model.columnList();
-				const pos = find(index, node => node.key.model.key === sourceKey);
-				return pos && pos.node.key.model.canMove
-			}
 		});
 
 		this.resize = new Command({

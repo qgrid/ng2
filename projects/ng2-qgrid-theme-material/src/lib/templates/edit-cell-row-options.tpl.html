@@ -1,12 +1,14 @@
 <ng-template key="edit-cell-row-options.tpl.html"
              let-$cell
              let-$view="$view">
-    <button aria-label="Open row menu"
-            mat-icon-button
-            [matMenuTriggerFor]="menu"
-            (q-grid-menu-trigger)="$view.edit.cell.cancel.execute($cell)">
-        <mat-icon class="q-grid-icon">more_vert</mat-icon>
-    </button>
+    <ng-container (q-grid-menu-trigger)="$view.edit.cell.cancel.execute($cell)">
+        <button aria-label="Open row menu"
+                mat-icon-button
+                [matMenuTriggerFor]="menu">
+            <mat-icon class="q-grid-icon">more_vert</mat-icon>
+        </button>
+    </ng-container>
+
     <mat-menu #menu="matMenu"
               class="q-grid-row-options">
         <ng-container *ngFor="let $action of $cell.column.editorOptions.actions"

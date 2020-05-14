@@ -169,6 +169,7 @@ export class DropDirective implements OnInit {
 	private inAreaFactory(e: DragEvent, direction: 'x' | 'y') {
 		const src = DragService.startPosition.rect;
 		const { x, y } = this.getPosition(e);
+
 		if (direction === 'y') {
 			return (element: HTMLElement) => {
 				const trg = element.getBoundingClientRect();
