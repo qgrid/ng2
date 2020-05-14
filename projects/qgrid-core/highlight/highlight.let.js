@@ -170,52 +170,48 @@ export class HighlightLet {
 	}
 
 	invalidateColumnHover(dispose) {
-		const { model } = this.plugin;
-
 		dispose.forEach(f => f());
-		dispose = [];
-		const { columns } = model.highlight();
-		for (let columnKey of columns) {
-			dispose.push(this.highlightColumn(columnKey, 'highlighted'));
-		}
 
-		return dispose;
+		const { model } = this.plugin;
+		const { columns } = model.highlight();
+
+		return columns
+			.map(columnKey => this.highlightColumn(columnKey, 'highlighted'));
 	}
 
 	invalidateRowHover(dispose) {
-		const { model } = this.plugin;
-
 		dispose.forEach(f => f());
-		dispose = [];
-		const { rows } = model.highlight();
-		for (let row of rows) {
-			dispose.push(this.highlightRow(row, 'highlighted'));
-		}
 
-		return dispose;
+		const { model } = this.plugin;
+		const { rows } = model.highlight();
+
+		return rows
+			.map(row => this.highlightRow(row, 'highlighted'));
 	}
 
 	invalidateCellHover(dispose) {
-		const { model, table } = this.plugin;
-
 		dispose.forEach(f => f());
-		dispose = [];
+
+		const { model, table } = this.plugin;
 		const { cell } = model.highlight();
+
+		dispose = [];
 		if (cell) {
 			const { body } = table;
 			const { rowIndex, columnIndex } = cell;
 			dispose.push(this.highlightCell(body.cell(rowIndex, columnIndex), 'highlighted'));
 		}
+
 		return dispose;
 	}
 
 	invalidateSortBy(dispose) {
-		const { model } = this.plugin;
-
 		dispose.forEach(f => f());
-		dispose = [];
 
+		const { model } = this.plugin;
 		const sortBy = model.sort().by;
+
+		dispose = [];
 		for (let entry of sortBy) {
 			const key = sortService.key(entry);
 			dispose.push(this.highlightColumn(key, 'sorted'));
@@ -225,20 +221,25 @@ export class HighlightLet {
 	}
 
 	invalidateSelection(dispose) {
-		const { model } = this.plugin;
-
 		dispose.forEach(f => f());
-		const selectionItems = model.selection().items;
-		const entries = this.selectionService.lookup(selectionItems);
+
+		const { model } = this.plugin;
+		const { items } = model.selection();
+
+		console.log('invalidateSelection: ' + items[0]);
+
+		const entries = this.selectionService.lookup(items);
 		const cells = this.cellSelector.map(entries);
-		dispose = cells.map(cell => this.highlightCell(cell, 'selected'));
-		return dispose;
+
+		console.log('invalidateSelection: ' + cells.length);
+		return cells
+			.map(cell => this.highlightCell(cell, 'selected'));
 	}
 
 	findColumnPosition(key) {
 		const { model } = this.plugin;
-
 		const { index } = model.columnList();
+
 		const pos = find(index, node => node.key.model.key === key);
 		if (pos) {
 			return findLeaves(pos.node).map(leaf => leaf.key.columnIndex);
@@ -324,7 +325,9 @@ export class HighlightLet {
 	}
 
 	highlightCell(cell, cls) {
+		console.log('highlight: ' + cell.rowIndex + cls);
 		Fastdom.mutate(() => {
+			console.log('add: ' + cell.rowIndex + cls);
 			cell.addClass(`${GRID_PREFIX}-${cls}`);
 		});
 
@@ -332,6 +335,11 @@ export class HighlightLet {
 	}
 
 	blurCell(cell, cls) {
-		return () => Fastdom.mutate(() => cell.removeClass(`${GRID_PREFIX}-${cls}`));
+		console.log('blur: ' + cell.rowIndex + cls);
+		return () =>
+			Fastdom.mutate(() => {
+				console.log('remove: ' + cell.rowIndex + cls);
+				cell.removeClass(`${GRID_PREFIX}-${cls}`);
+			});
 	}
 }

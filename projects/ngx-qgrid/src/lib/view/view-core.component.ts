@@ -1,10 +1,12 @@
-import { Component, OnInit, DoCheck, ChangeDetectorRef, NgZone, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, DoCheck, ChangeDetectorRef, NgZone, ChangeDetectionStrategy, ElementRef } from '@angular/core';
 import { CellClassService } from '../cell/cell-class.service';
 import { CellTemplateService } from '../cell/cell-template.service';
 import { Grid } from '../grid/grid';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { ViewHost } from '@qgrid/core/view/view.host';
 import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
+import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
+import { GridLet } from '../grid/grid-let';
 
 @Component({
 	selector: 'q-grid-core-view',
@@ -23,7 +25,9 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		private plugin: GridPlugin,
 		private qgrid: Grid,
 		private cd: ChangeDetectorRef,
-		private zone: NgZone
+		private zone: NgZone,
+		private view: GridLet,
+		private elementRef: ElementRef,
 	) {
 		zone
 			.onStable
@@ -61,6 +65,11 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 
 	ngOnInit() {
 		const { model, table, observeReply, observe, view } = this.plugin;
+
+		// TODO: make it better
+		table.box.markup.view = this.elementRef.nativeElement;
+		const cmdManager = new TableCommandManager(f => f(), table);
+		this.view.init(this.plugin, cmdManager);
 
 		view.scroll.y.settings.emit = f => {
 			f();

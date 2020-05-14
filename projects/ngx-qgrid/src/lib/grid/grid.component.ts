@@ -44,7 +44,6 @@ import { TemplateLinkService } from '../template/template-link.service';
 import { TemplateService } from '../template/template.service';
 import { ThemeService } from '../theme/theme.service';
 import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
-import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
 
 @Component({
 	selector: 'q-grid',
@@ -127,7 +126,6 @@ export class GridComponent implements OnInit, OnChanges {
 
 	constructor(
 		private root: GridRoot,
-		private view: GridLet,
 		private plugin: GridPlugin,
 		private elementRef: ElementRef,
 		private zone: NgZone,
@@ -231,8 +229,5 @@ export class GridComponent implements OnInit, OnChanges {
 
 		this.root.model = model;
 		this.root.table = table;
-
-		const cmdManager = new TableCommandManager(f => f(), table);
-		this.view.init(this.plugin, cmdManager);
 	}
 }

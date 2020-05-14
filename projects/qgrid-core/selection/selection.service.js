@@ -14,7 +14,7 @@ function hashColumnKeyFactory(model) {
 
 function hashRowKeyFactory(model) {
 	const { rowKey } = model.selection();
-	if (rowKey.row === identity) {
+	if (rowKey === identity) {
 		const { rows } = model.data();
 		const columns = model.columnList().line;
 		const index = columns.findIndex(column => column.type === 'id');
