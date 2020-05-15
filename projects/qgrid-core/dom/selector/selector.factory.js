@@ -11,8 +11,8 @@ export class SelectorFactory {
 	}
 
 	create() {
-		const bag = this.bag;
-		const selectorMark = this.selectorMark;
+		const { bag, selectorMark } = this;
+
 		const matrix = new Matrix(tr => bag.elements.has(tr));
 		const entries =
 			selectorMark
@@ -31,7 +31,7 @@ export class SelectorFactory {
 
 					const args = [];
 					args.push(selector);
-					
+
 					if (context.hasOwnProperty('row')) {
 						args.push(context.row - entry.rowRange.start);
 					}

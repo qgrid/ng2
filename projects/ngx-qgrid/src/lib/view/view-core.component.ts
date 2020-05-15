@@ -100,9 +100,11 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		observe(model.styleChanged)
 			.subscribe(() => this.host.invalidate());
 
-		const asVirtualBody = table.body as any;
-		if (asVirtualBody.requestInvalidate) {
-			asVirtualBody.requestInvalidate.on(() => this.host.invalidate());
+		if (model.scroll().mode === 'virtual') {
+			const asVirtualBody = table.body as any;
+			if (asVirtualBody.requestInvalidate) {
+				asVirtualBody.requestInvalidate.on(() => this.host.invalidate());
+			}
 		}
 	}
 

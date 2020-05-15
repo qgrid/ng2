@@ -92,24 +92,29 @@ export class View extends Unit {
 	scrollLeft(value) {
 		const { markup } = this.context;
 		if (arguments.length) {
-			if (markup.head) {
-				markup.head.scrollLeft = value;
+			const headMid = markup['head-mid'];
+			if (headMid) {
+				headMid.scrollLeft = value;
 			}
 
-			if (markup.foot) {
-				markup.foot.scrollLeft = value;
+			const footMid = markup['foot-mid'];
+			if (footMid) {
+				footMid.scrollLeft = value;
 			}
 
-			if (markup.body) {
-				markup.body.scrollLeft = value;
+			const bodyMid = markup['body-mid'];
+			if (bodyMid) {
+				bodyMid.scrollLeft = value;
 			}
 
-			if (markup['body-top']) {
-				markup['body-top'].scrollLeft = value;
+			const bodyTop = markup['body-top'];
+			if (bodyTop) {
+				bodyTop.scrollLeft = value;
 			}
 
-			if (markup['body-bottom']) {
-				markup['body-bottom'].scrollLeft = value;
+			const bodyBottom = markup['body-bottom'];
+			if (bodyBottom) {
+				bodyBottom.scrollLeft = value;
 			}
 
 			return;
@@ -144,21 +149,23 @@ export class View extends Unit {
 					target = target.element;
 					if (target) {
 						const { markup } = this.context;
-						if (markup.table) {
-							return isParentOf(markup.table, target);
+						const tableMid = markup['table-mid'];
+						if (tableMid) {
+							return isParentOf(tableMid, target);
 						}
 					}
 					break;
 				}
-				case 'top':
+				case 'top': {
 					return true;
+				}
 			}
 		}
 
 		return false;
 	}
 
-	rect(area = 'body') {
+	rect(area = 'body-mid') {
 		const { markup } = this.context;
 		const element = markup[area];
 		if (element) {
@@ -178,7 +185,7 @@ export class View extends Unit {
 		return super.rect();
 	}
 
-	height(area = 'body') {
+	height(area = 'body-mid') {
 		const { markup } = this.context;
 		const element = markup[area];
 		if (element) {
@@ -188,7 +195,7 @@ export class View extends Unit {
 		return 0;
 	}
 
-	width(area = 'body') {
+	width(area = 'body-mid') {
 		const { markup } = this.context;
 		const element = markup[area];
 		if (element) {
@@ -200,7 +207,7 @@ export class View extends Unit {
 
 	getElementCore() {
 		const { markup } = this.context;
-		return markup.body;
+		return markup['body-mid'];
 	}
 
 	isFocusedCore(target) {
@@ -212,7 +219,7 @@ export class View extends Unit {
 
 	getElementsCore(key) {
 		const { markup } = this.context;
-		return [`${key}-left`, key, `${key}-right`]
+		return [`${key}-left`, `${key}-mid`, `${key}-right`]
 			.filter(key => markup.hasOwnProperty(key))
 			.map(key => markup[key]);
 	}
