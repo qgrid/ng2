@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Data rowId returns row index by default not the instance.
 - Instead of class q-grid-cell.key use q-grid-`the`-cell.key.
 - Get rid of redundant spans in cell templates.
+- Column pin `min` instead of `null`.
 
 ### Added
 - Ivy support.
@@ -32,7 +33,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Rendering performance improvements.
 - All components got OnPush CDS.
 - Better core types.
-- Column pin `min` instead of `null`.
+
+### Fixed
+- *ngIf for column component works.
 
 ## [9.0.1] - 2020-03-13
 ### Fixed

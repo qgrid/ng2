@@ -48,13 +48,17 @@ export class ColumnListHost {
 	}
 
 	add(column) {
-		const { columnList } = this.model;
+		const { columnList, scene, data } = this.model;
 
 		const columns = columnList().columns.concat([column]);
 		columnList({ columns }, {
 			source: 'column.list.host',
 			behavior: 'core'
 		});
+
+		if (scene().status !== 'idle') {
+			data({ columns: Array.from(data().columns) }, { source: 'column.list.host' });
+		}
 	}
 
 	register(column) {

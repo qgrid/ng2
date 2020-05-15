@@ -31,8 +31,6 @@ export class ObservableEvent {
         }
 
         if (next) {
-            // console.log('sub' + (count++));
-            // console.log(next);
             const eventOff = this.subscribeEvent(next);
 
             let disposed = false;
@@ -42,8 +40,6 @@ export class ObservableEvent {
 
                     eventOff();
                     this.disposable.remove(unsubscribe);
-                    // console.log('unsub' + (count--));
-                    // console.log(next);
  
                     if (complete) {
                         complete();
