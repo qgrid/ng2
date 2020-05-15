@@ -122,7 +122,7 @@ export declare class ColumnModel {
 	/**
 	 * Css class.
 	 */
-	class: string;
+	class?: string;
 
 	/**
 	 * Editor type, will be shown in cell edit mode instead of default column type editor.
