@@ -12,12 +12,11 @@ import {
 } from '@angular/core';
 import { ColumnHostService } from './column-host.service';
 import { ColumnListService } from '../column-list/column-list.service';
-import { Grid } from '../grid/grid';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { guid } from '@qgrid/core/services/guid';
 import { isUndefined } from '@qgrid/core/utility/kit';
 import { TemplateHostService } from '../template/template-host.service';
-import { PipeUnit } from '@qgrid/core/pipe/pipe.unit';
+import { ColumnModelClass, ColumnModelType, ColumnModelOrigin, ColumnModelPin, ColumnModelWidthMode } from '@qgrid/core/column-type/column.model';
 
 @Component({
 	selector: 'q-grid-column',
@@ -26,12 +25,12 @@ import { PipeUnit } from '@qgrid/core/pipe/pipe.unit';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
-	@Input() type: string;
+	@Input() type: string | ColumnModelType;
 	@Input() key: string;
-	@Input() class: 'data' | 'control' | 'markup' | 'pivot' | 'cohort';
+	@Input() class: ColumnModelClass;
 	@Input() title: string;
 	@Input() description: string;
-	@Input() pin: null | 'left' | 'right';
+	@Input() pin: ColumnModelPin;
 	@Input() aggregation: string;
 	@Input() aggregationOptions: any;
 	@Input() editor: string;
@@ -41,7 +40,7 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() code: string;
 
 	@Input() width: number | string;
-	@Input() widthMode: number | string;
+	@Input() widthMode: ColumnModelWidthMode;
 	@Input() minWidth: number | string;
 	@Input() maxWidth: number | string;
 	@Input() viewWidth: number | string;
@@ -84,7 +83,6 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 		private templateHost: TemplateHostService,
 		private elementRef: ElementRef,
 		private plugin: GridPlugin,
-		private qgrid: Grid,
 	) {
 	}
 
@@ -155,11 +153,10 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 				column.isVisible = this.isVisible;
 
 				const { model } = this.plugin;
-				const service = this.qgrid.service(model);
-				service.invalidate({
-					source: 'column.component',
-					pipe: PipeUnit.column,
-					why: PipeUnit.column.why
+				model.data({
+					columns: Array.from(model.data().columns)
+				}, {
+					source: 'column.component'
 				});
 			}
 		}

@@ -1,6 +1,5 @@
 import { Pipe } from '../pipe';
 import { Scene } from '../../scene/scene';
-import { Guard } from '../../infrastructure/guard';
 
 export const columnIndexPipeUnit = [
 	(_, context, next) => {
@@ -22,7 +21,7 @@ export const columnIndexPipeUnit = [
 			columns: columnLine.map(c => c.model)
 		}, tag);
 
-		context.model.scene({
+		model.scene({
 			column: {
 				rows: scene.columnRows(memo.columns),
 				area: scene.columnArea(memo.columns),

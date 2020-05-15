@@ -24,12 +24,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Added
 - Ivy support.
+- New scene status called `idle`, before the first render.
 
 ### Changed
 - Better plugin support.
 - Get rid of model proxy.
 - Rendering performance improvements.
+- All components got OnPush CDS.
 - Better core types.
+- Column pin `min` instead of `null`.
 
 ## [9.0.1] - 2020-03-13
 ### Fixed

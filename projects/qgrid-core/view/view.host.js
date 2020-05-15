@@ -60,7 +60,8 @@ export class ViewHost {
 						changes,
 						pipe,
 						why: pipe.why || 'refresh'
-					}));
+					})
+				);
 			});
 		};
 	}

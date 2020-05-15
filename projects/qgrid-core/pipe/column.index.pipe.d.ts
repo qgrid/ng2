@@ -1,9 +1,9 @@
 import { Node } from '../node/node';
-import { ColumnView } from '../scene/view/column.view';
 import { PipeCallback } from './pipe.types';
+import { SceneStateColumnRows } from '../scene/scene.state';
 
 export declare type ColumnIndexPipeMemo = {
-    columns: ColumnView[][],
+    columns: SceneStateColumnRows,
     tree: Node
 };
 

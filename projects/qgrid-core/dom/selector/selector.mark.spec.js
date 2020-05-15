@@ -13,7 +13,7 @@ describe('SelectorFactory', () => {
 	const column4 = new ColumnModel();
 	column4.pin = 'right';
 	const column5 = new ColumnModel();
-	column5.pin = null;
+	column5.pin = 'mid';
 
 	const model = modelFactory();
 	model
@@ -24,7 +24,7 @@ describe('SelectorFactory', () => {
 				line: [],
 				area: {
 					left: [column2],
-					null: [column5],
+					mid: [column5],
 					right: [column4],
 					grid: [column1, column3]
 				}

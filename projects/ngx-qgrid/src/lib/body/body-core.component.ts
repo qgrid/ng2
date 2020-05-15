@@ -45,7 +45,7 @@ export class BodyCoreComponent implements OnInit {
 			disposable.add(
 				listener.on('scroll', () =>
 					host.scroll({
-						scrollLeft: this.$table.pin ? model.scroll().left : nativeElement.scrollLeft,
+						scrollLeft: this.$table.pin === 'mid' ? nativeElement.scrollLeft : model.scroll().left,
 						scrollTop: nativeElement.scrollTop
 					}),
 					scrollSettings

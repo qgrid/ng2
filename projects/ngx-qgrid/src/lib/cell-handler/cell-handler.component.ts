@@ -110,7 +110,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 						const target = domCell.element;
 						const scrollState = model.scroll();
 						const top = (target.offsetTop - scrollState.top) + 'px';
-						const left = (target.offsetLeft - (cell.column.pin ? 0 : scrollState.left)) + 'px';
+						const left = (target.offsetLeft - (cell.column.pin === 'mid' ? scrollState.left : 0)) + 'px';
 						const width = target.offsetWidth + 'px';
 						const height = target.offsetHeight + 'px';
 

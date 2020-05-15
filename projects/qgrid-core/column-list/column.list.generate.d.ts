@@ -6,8 +6,8 @@ export declare interface ColumnListGenerationSettings {
 	deep: boolean;
 	cohort: boolean;
 	rows: any[];
-	testNumber: number;	
+	testNumber: number;
 }
 
-export declare function generateFactory(model: Model): (GenerateOptions) => ColumnModel[];
+export declare function generateFactory(model: Model): () => { hasChanges: boolean, columns: any[] };
 export declare function generate(settings: ColumnListGenerationSettings): ColumnModel[];

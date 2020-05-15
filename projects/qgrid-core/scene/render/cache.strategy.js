@@ -94,7 +94,7 @@ export class CacheStrategy {
         this.setValue = (...args) => strategy.setValue(...args);
         this.setLabel = (...args) => strategy.setLabel(...args);
 
-        this.columnList = (pin = null) => {
+        this.columnList = (pin = 'mid') => {
             const key = `columnList-${pin}`;
             if (storage.has(key)) {
                 return storage.get(key);

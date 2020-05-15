@@ -1,6 +1,6 @@
 import { Command } from '../command/command';
-import { ColumnView } from '../scene/view/column.view';
 import { GridPlugin } from '../plugin/grid.plugin';
+import { SceneStateColumnRows, SceneStateColumnLine } from '../scene/scene.state';
 
 export declare class HeadLet {
 	constructor(plugin: GridPlugin, tagName: string);
@@ -10,7 +10,7 @@ export declare class HeadLet {
 
 	readonly resize: Command;
 
-	readonly rows: ColumnView[][];
+	readonly rows: SceneStateColumnRows;
 
-	columns(row: any, pin: string): ColumnView[];
+	columns(row: any, pin: string): SceneStateColumnLine;
 }

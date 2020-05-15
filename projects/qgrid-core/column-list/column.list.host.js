@@ -1,8 +1,8 @@
 import { clone, isUndefined } from '../utility/kit';
-import { getType } from '../services/convert';
-import { compile } from '../services/path';
-import * as columnService from '../column/column.service';
 import { columnFactory } from '../column/column.factory';
+import { compile } from '../services/path';
+import { getType } from '../services/convert';
+import * as columnService from '../column/column.service';
 
 export class ColumnListHost {
 	constructor(model, canCopy, parseFactory) {
@@ -49,9 +49,10 @@ export class ColumnListHost {
 
 	add(column) {
 		const { columnList } = this.model;
+
 		const columns = columnList().columns.concat([column]);
 		columnList({ columns }, {
-			source: 'column.list.ctrl',
+			source: 'column.list.host',
 			behavior: 'core'
 		});
 	}
@@ -59,15 +60,17 @@ export class ColumnListHost {
 	register(column) {
 		const { columnList } = this.model;
 		const reference = clone(columnList().reference);
+
 		reference[column.type || '$default'] = column;
 		columnList({ reference }, {
-			source: 'column.list.ctrl',
+			source: 'column.list.host',
 			behavior: 'core'
 		});
 	}
 
 	extract(key, type) {
-		const model = this.model;
+		const { model } = this;
+
 		const createColumn = columnFactory(model);
 		let column = columnService.find(model.columnList().line, key);
 		if (column) {
@@ -82,23 +85,23 @@ export class ColumnListHost {
 	}
 
 	delete(key) {
-		const { columnList } = this.model;
+		const { columnList, data } = this.model;
 
 		const htmlColumns = columnList().columns;
 		const index = columnService.findIndex(htmlColumns, key);
 		if (index >= 0) {
 			const columns = Array.from(htmlColumns);
 			columns.splice(index, 1);
-			columnList({ columns }, { source: 'column.list.ctrl', behavior: 'core' });
+			columnList({ columns }, { source: 'column.list.host', behavior: 'core' });
 		}
 
-		// const dataColumns = Array.from(data().columns);
-		// const line = columnService.findLine(dataColumns, key);
-		// if (line) {
-		// 	line.columns.splice(line.index, 1);
+		const dataColumns = Array.from(data().columns);
+		const line = columnService.findLine(dataColumns, key);
+		if (line) {
+			line.columns.splice(line.index, 1);
 
-		// 	// trigger columns pipe unit
-		// 	data({ columns: dataColumns }, { source: 'column.list.ctrl' });
-		// }
+			// trigger columns pipe unit
+			data({ columns: dataColumns }, { source: 'column.list.host' });
+		}
 	}
 }

@@ -33,12 +33,12 @@ export class Scene {
 		const result = {
 			left: [],
 			right: [],
-			null: []
+			mid: []
 		};
 
 		for (let i = 0, length = line.length; i < length; i++) {
 			const column = line[i];
-			const pin = column.model.pin;
+			const { pin } = column.model;
 			let area = result[pin];
 			if (!area) {
 				throw new GridError('scene', `Unsupported pin ${pin}`);

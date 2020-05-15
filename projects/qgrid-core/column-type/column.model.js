@@ -24,7 +24,7 @@ export class ColumnModel {
 		this.type = type;
 		this.title = null;
 		this.description = null;
-		this.pin = null;
+		this.pin = 'mid';
 		this.origin = 'specific';
 		this.source = 'user';
 		this.class = 'data';

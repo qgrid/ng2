@@ -8,7 +8,7 @@ import { FocusService } from '../focus/focus.service';
 import { isString } from '../utility/kit';
 import { Fastdom } from '../services/fastdom';
 
-function invalidateSettings(...args) {
+function buildSettings(...args) {
 	if (args.length) {
 		if (isString(args[0])) {
 			return {
@@ -42,10 +42,10 @@ export class GridService {
 	}
 
 	invalidate(...args /*source = 'invalidate', changes = {}, pipe = null*/) {
-		const settings = invalidateSettings(...args);
-		const { source, changes, pipe, why } = settings;
+		const { source, changes, pipe, why } = buildSettings(...args);
 		const { scheduler, model } = this;
 		const { scene } = model;
+
 		const runPipe = buildPipe(model);
 		const cancelBusy = why === 'refresh' ? this.busy() : noop;
 

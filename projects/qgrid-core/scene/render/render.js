@@ -84,7 +84,7 @@ export class Renderer {
 		this.rows = {
 			left: [],
 			right: [],
-			null: []
+			mid: []
 		};
 
 		const invalidateRows = () => {

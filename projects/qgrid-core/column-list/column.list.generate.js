@@ -30,7 +30,7 @@ function hasChanges(statistics) {
 }
 
 export function generateFactory(model) {
-	const data = model.data;
+	const { data } = model;
 	const createColumn = columnFactory(model);
 	return () => {
 		const { rows } = data();

@@ -29,13 +29,7 @@ export class DataRow {
 		this.colspan = (row, column) => column.colspan;
 		this.rowspan = () => 1;
 
-		const columnList = (pin = null) => {
-			if (isUndefined(pin)) {
-				return line;
-			}
-
-			return area[pin] || [];
-		};
+		const columnList = (pin = 'mid') => area[pin] || [];
 
 		this.columnList = columnList;
 		this.columns = (row, pin) => columnList(pin);

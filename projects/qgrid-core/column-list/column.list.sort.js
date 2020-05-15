@@ -19,10 +19,10 @@ function sortIndexFactory(model) {
 
 		const sort = sortFactory(scores)(templateIndex, viewIndex);
 		const left = sort(columns.filter(c => c.pin === 'left'));
-		const center = sort(columns.filter(c => !c.pin));
+		const middle = sort(columns.filter(c => c.pin === 'mid'));
 		const right = sort(columns.filter(c => c.pin === 'right'));
 
-		return left.concat(center).concat(right);
+		return left.concat(middle).concat(right);
 	};
 }
 

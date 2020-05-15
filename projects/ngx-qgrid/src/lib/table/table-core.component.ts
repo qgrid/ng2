@@ -3,6 +3,7 @@ import { GridLet } from '../grid/grid-let';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { TableCoreService } from './table-core.service';
 import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
+import { ColumnModelPin } from '@qgrid/core/column-type/column.model';
 
 @Component({
 	selector: 'q-grid-core-table',
@@ -11,12 +12,12 @@ import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableCoreComponent implements OnInit {
-	@Input() pin = null;
+	@Input() pin: ColumnModelPin = 'mid';
 
 	constructor(
 		public $view: GridLet,
 		private plugin: GridPlugin,
-		private tableService: TableCoreService,
+		private tableHost: TableCoreService,
 		private cd: ChangeDetectorRef
 	) {
 	}
@@ -24,11 +25,7 @@ export class TableCoreComponent implements OnInit {
 	ngOnInit() {
 		const { model, observe } = this.plugin;
 
-		if (!this.pin) {
-			this.pin = null;
-		}
-
-		this.tableService.pin = this.pin;
+		this.tableHost.pin = this.pin;
 
 		observe(model.visibilityChanged)
 			.subscribe(() => {
