@@ -1,5 +1,3 @@
-import { GridError } from '../infrastructure/error';
-
 export class PathService {
 	constructor(bag) {
 		this.bag = bag;
@@ -10,7 +8,7 @@ export class PathService {
 			if (node.nodeName === 'TD' || node.nodeName === 'TH') {
 				const model = this.bag.findModel(node);
 				if (!model) {
-					new GridError('path.find', `Can't find model for ${node.nodeName}`);
+					break;
 				}
 
 				return model;
@@ -25,7 +23,7 @@ export class PathService {
 			if (node.nodeName === 'TR') {
 				const model = this.bag.findModel(node);
 				if (!model) {
-					new GridError('path.find', `Can't find model for ${node.nodeName}`);
+					break;
 				}
 
 				return model;

@@ -27,7 +27,7 @@ export class LayoutLet {
 
 		observeReply(model.layoutChanged)
 			.subscribe(e => {
-				if (e.tag.source === 'layout.view') {
+				if (e.tag.source === 'layout.let') {
 					return;
 				}
 
@@ -50,7 +50,7 @@ export class LayoutLet {
 						const index = model.style.rows.indexOf(styleRow);
 						rows.splice(index, 1);
 					}
-					model.style({ rows }, { source: 'layout.view' });
+					model.style({ rows }, { source: 'layout.let' });
 				}
 			});
 
@@ -60,9 +60,17 @@ export class LayoutLet {
 					model.layout({
 						columns: new Map()
 					}, {
-						source: 'layout.view',
+						source: 'layout.let',
 						behavior: 'core'
 					});
+
+					const columns = columnService.flatten(e.state.columns);
+					if (columns.some(x => x.width !== null || x.minWidth !== null || x.maxWidth !== null)) {
+						Fastdom.mutate(() => {
+							const { columns } = model.layout();
+							this.invalidateColumns(columns);
+						});
+					}
 				}
 			});
 
@@ -100,7 +108,7 @@ export class LayoutLet {
 			}
 		}
 
-		model.layout({ columns: form }, { source: 'layout.view', behavior: 'core' });
+		model.layout({ columns: form }, { source: 'layout.let', behavior: 'core' });
 
 		const { column } = model.navigation();
 		if (column && column.viewWidth) {

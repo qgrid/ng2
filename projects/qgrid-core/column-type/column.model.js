@@ -39,7 +39,7 @@ export class ColumnModel {
 		};
 
 		this.width = null;
-		this.minWidth = 20;
+		this.minWidth = null;
 		this.maxWidth = null;
 		this.viewWidth = null;
 

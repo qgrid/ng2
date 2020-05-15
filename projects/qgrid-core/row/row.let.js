@@ -34,13 +34,11 @@ export class RowLet {
 
 						const newIndex = row.index;
 						if (oldIndex !== newIndex) {
-							if (model.scroll().mode === 'virtual') {
-								const oldRow = table.body.row(oldIndex);
-								oldRow.removeClass(`${GRID_PREFIX}-drag`);
+							const oldRow = table.body.row(oldIndex);
+							oldRow.removeClass(`${GRID_PREFIX}-drag`);
 
-								const newRow = table.body.row(newIndex);
-								newRow.addClass(`${GRID_PREFIX}-drag`);
-							}
+							const newRow = table.body.row(newIndex);
+							newRow.addClass(`${GRID_PREFIX}-drag`);
 
 							const tr = table.body.row(oldIndex).model();
 							const entries = [];

@@ -1,4 +1,4 @@
-import {filter, takeOnce} from '@qgrid/core/rx/rx.operators';
+import { filter, takeOnce } from '@qgrid/core/rx/rx.operators';
 
 export class AutofocusPlugin {
 	constructor(plugin) {
@@ -29,7 +29,7 @@ export class AutofocusPlugin {
 				}
 
 				const { body } = table;
-				const { focus } = model.focus;
+				const { focus } = model;
 				const focusState = focus();
 				const cell = body.cell(focusState.rowIndex, focusState.columnIndex);
 				const cellModel = cell.model();

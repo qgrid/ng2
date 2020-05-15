@@ -4,8 +4,8 @@ import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
 	selector: '[q-grid-time]'
 })
 export class TimeDirective {
-	constructor(templateRef: TemplateRef<TimeDirective>, viewContainerRef: ViewContainerRef) {
-		viewContainerRef.createEmbeddedView(templateRef, this);
+	constructor(templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef) {
+		viewContainerRef.createEmbeddedView(templateRef, { $implicit: this });
 	}
 
 	time(previous, current) {

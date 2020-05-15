@@ -122,8 +122,9 @@ export function widthFactory(table, form) {
 				const skip = column.widthMode === 'relative' ? occupied + padSkip : padSkip;
 				width = (rect.width - skip) * percent / 100;
 			}
-
-			return Math.max(Number.parseInt(width, 10), Number.parseInt(column.minWidth, 10));
+			
+			const MIN_WIDTH = 0;
+			return Math.max(Number.parseInt(width, 10), Number.parseInt(column.minWidth, 10) || MIN_WIDTH);
 		}
 
 		return null;

@@ -31,7 +31,7 @@ export class EditState {
 			'row': 'ctrl+s',
 			'form': 'ctrl+s',
 			'bool': 'tab|shift+tab|left|right|up|down|home|end|pageUp|pageDown',
-			'text-area': 'ctrl+s'
+			'text-area': 'ctrl+s|ctrl+enter'
 		};
 	}
 }
