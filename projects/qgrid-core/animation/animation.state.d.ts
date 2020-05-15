@@ -1,5 +1,5 @@
-import { PipeContext } from '../pipe/pipe.item';
+import { PipeCallback } from '../pipe/pipe.types';
 
 export declare class AnimationState {
-	apply: Array<(memo: any, context: PipeContext, complete: () => void) => void>;
+	apply: PipeCallback<any, any>[];
 }

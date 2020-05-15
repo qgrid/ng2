@@ -15,7 +15,7 @@ export {
 	ColumnListModule,
 	ColumnListService,
 	ColumnModule,
-	ColumnService,
+	ColumnHostService,
 	Disposable,
 	DndModule,
 	DomBag,
@@ -216,7 +216,7 @@ export { Action } from '@qgrid/core/action/action';
 export { Command } from '@qgrid/core/command/command';
 export { Pipe } from '@qgrid/core/pipe/pipe';
 export { PipeUnit } from '@qgrid/core/pipe/pipe.unit';
-export { PipeContext, PipeMemo } from '@qgrid/core/pipe/pipe.item';
+export { PipeContext, PipeFolder, PipeCallback, MemoPipe, RowsPipe } from '@qgrid/core/pipe/pipe.types';
 export { Node } from '@qgrid/core/node/node';
 export { RowDetailsStatus } from '@qgrid/core/row-details/row.details.status';
 export { RowDetails } from '@qgrid/core/row-details/row.details';

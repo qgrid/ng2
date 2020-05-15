@@ -86,7 +86,7 @@ export class ExampleEditRowBasicComponent implements OnInit {
 									(_: any[], context: PipeContext, next: (rows: any[]) => void) => {
 										this.dataService.getPeople(10).subscribe(people => next(people));
 									}
-								].concat(this.qgrid.pipeUnit.default)
+								].concat(this.qgrid.pipeUnit.default as any[])
 							});
 
 						return model;

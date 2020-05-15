@@ -1,5 +1,5 @@
 import { ColumnModel } from '../column-type/column.model';
-import { PipeContext } from '../pipe/pipe.item';
+import { PipeCallback } from '../pipe/pipe.types';
 
 /**
  * Use this class to get access to the high level q-grid data structures.
@@ -53,7 +53,7 @@ export declare class DataState {
      * A series of methods that grid invokes asynchronously anytime refresh is required. 
      * Please see PipeModel section for more information on grid refresh	 
 	 */
-	pipe: ((memo: any, context: PipeContext, next: (memo: any) => void) => any)[];
+	pipe: PipeCallback<any, any>[];
 
 	/**
 	 * Returns uniq column row key.

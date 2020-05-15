@@ -24,7 +24,7 @@ export class LiveRowComponent implements OnInit {
 				currentRows = memo.rows ? memo.rows : currentRows;
 
 				if (!previousRows || !currentRows) {
-					complete();
+					complete(0);
 					return;
 				}
 

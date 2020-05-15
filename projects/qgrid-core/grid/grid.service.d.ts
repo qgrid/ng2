@@ -1,21 +1,16 @@
 import { Model } from '../model/model';
-import { PipeContext, PipeMemo } from '../pipe/pipe.item';
+import { PipeCallback, PipeUnitWhy } from '../pipe/pipe.types';
+import { ModelChanges } from '../model/model.event';
 
 export declare class GridService {
 	constructor(model: Model);
 
-	invalidate(
-		source?: string,
-		changes?: { [key: string]: { newValue: any, oldValue: any } },
-		pipe?: ((memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any)[]
-	): Promise<void>;
-
-	invalidate(settings: {
-		source?: string,
-		changes?: { [key: string]: { newValue: any, oldValue: any } },
-		pipe?: ((memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any)[],
-		why?: 'redraw' | 'refresh'
-	}): Promise<void>;
+	invalidate(settings?: Partial<{
+		source: string,
+		changes: ModelChanges<any>,
+		pipe: PipeCallback<any, any>[],
+		why: PipeUnitWhy
+	}>): Promise<void>;
 
 	busy(): () => void;
 

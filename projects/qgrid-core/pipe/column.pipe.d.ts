@@ -1,4 +1,3 @@
-import {PipeContext, PipeMemo} from './pipe.item';
+import { MemoPipe } from './pipe';
 
-
-export declare const columnPipe: (memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any;
+export declare const columnPipe: MemoPipe<any>;

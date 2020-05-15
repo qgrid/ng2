@@ -26,7 +26,7 @@ export class LiveColumnComponent implements OnInit {
 				currentColumns = memo.columns ? memo.columns[0] : currentColumns;
 
 				if (!previousColumns || !memo.columns) {
-					complete();
+					complete(0);
 					return;
 				}
 

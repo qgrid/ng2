@@ -70,7 +70,7 @@ export { CellHandlerModule } from './lib/cell-handler/cell.module';
 export { ColumnListComponent } from './lib/column-list/column-list.component';
 export { ColumnListService } from './lib/column-list/column-list.service';
 export { ColumnComponent } from './lib/column/column.component';
-export { ColumnService } from './lib/column/column.service';
+export { ColumnHostService } from './lib/column/column-host.service';
 
 export { DndModule } from './lib/dnd/dnd.module';
 export { DragDirective } from './lib/dnd/drag.directive';

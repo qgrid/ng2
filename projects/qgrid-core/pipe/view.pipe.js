@@ -3,10 +3,7 @@ import { Guard } from '../infrastructure/guard';
 import { sortFactory } from '../row-list/row.list.sort';
 
 export function viewPipe(memo, context, next) {
-	Guard.hasProperty(memo, 'rows');
-	Guard.hasProperty(memo, 'nodes');
-	Guard.hasProperty(memo, 'pivot');
-	Guard.hasProperty(memo, 'columns');
+	Guard.notNull(memo, 'memo');
 
 	const tag = {
 		source: context.source || 'view.pipe',

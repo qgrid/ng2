@@ -1,3 +1,18 @@
-import { PipeContext } from '../pipe.item';
+import { RowsPipe, MemoPipe, PipeFolder, PipeUnitWhy } from '../pipe.types';
 
-export declare const defaultPipeUnit: [(rows: any[], context: PipeContext, next: (rows: any[]) => void) => void];
+
+export declare type DefaultPipeUnit = [
+    RowsPipe,
+    RowsPipe,
+    RowsPipe,
+    MemoPipe<any[]>,
+    MemoPipe<PipeFolder>,
+    MemoPipe<PipeFolder>,
+    MemoPipe<PipeFolder>,
+    MemoPipe<PipeFolder>,
+    MemoPipe<PipeFolder>,
+    MemoPipe<PipeFolder>,
+    MemoPipe<PipeFolder>,
+] & { why: PipeUnitWhy };
+
+export declare const defaultPipeUnit: DefaultPipeUnit;

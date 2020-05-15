@@ -1,5 +1,5 @@
 import { ColumnModel } from '../column-type/column.model';
-import { PipePivot } from '../pipe/pipe.item';
+import { PipePivot } from '../pipe/pipe.types';
 
 /**
  * A class that represent a raw data to render.

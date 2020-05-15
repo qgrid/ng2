@@ -1,4 +1,4 @@
-import { PipePivot } from '../pipe/pipe.item';
+import { PipePivot } from '../pipe/pipe.types';
 import { ColumnModel } from '../column-type/column.model';
 
 export declare function build(

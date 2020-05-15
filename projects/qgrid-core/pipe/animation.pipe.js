@@ -1,8 +1,9 @@
 export function animationPipe(memo, context, next) {
-	const { apply } = context.model.animation();
+	const { model } = context;
+	const { apply } = model.animation();
 	let { length } = apply;
 	if (length) {
-		const complete = () => {
+		const doNext = () => {
 			length--;
 			if (length === 0) {
 				next(memo);
@@ -10,7 +11,7 @@ export function animationPipe(memo, context, next) {
 		};
 
 		apply.forEach(animation => {
-			animation(memo, context, complete);
+			animation(memo, context, doNext);
 		});
 	} else {
 		next(memo);

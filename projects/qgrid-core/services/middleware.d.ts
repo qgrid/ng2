@@ -1,10 +1,7 @@
-import { PipeContext, PipeMemo } from '../pipe/pipe.item';
-import { Pipe } from '../pipe/pipe';
+import { PipeContext, PipeCallback } from '../pipe/pipe.types';
 
-export declare class Middleware {
-	constructor(pipes: Pipe[]);
+export declare class Middleware<TArg> {
+	constructor(pipes: PipeCallback<TArg, any>);
 
-	pipes: Pipe[];
-
-	run(context: PipeContext, memo: PipeMemo): Promise<any>;
+	run(context: PipeContext, memo: TArg): Promise<any>;
 }

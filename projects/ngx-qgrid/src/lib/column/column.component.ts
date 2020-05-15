@@ -10,17 +10,19 @@ import {
 	OnChanges,
 	SimpleChanges
 } from '@angular/core';
+import { ColumnHostService } from './column-host.service';
 import { ColumnListService } from '../column-list/column-list.service';
-import { ColumnService } from './column.service';
+import { Grid } from '../grid/grid';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { guid } from '@qgrid/core/services/guid';
 import { isUndefined } from '@qgrid/core/utility/kit';
 import { TemplateHostService } from '../template/template-host.service';
+import { PipeUnit } from '@qgrid/core/pipe/pipe.unit';
 
 @Component({
 	selector: 'q-grid-column',
 	template: '<ng-content></ng-content>',
-	providers: [TemplateHostService, ColumnService, GridPlugin],
+	providers: [TemplateHostService, ColumnHostService, GridPlugin],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
@@ -76,12 +78,13 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() maxLength: number;
 
 	constructor(
-		@SkipSelf() @Optional() private parent: ColumnService,
+		@SkipSelf() @Optional() private parentHost: ColumnHostService,
+		private selfHost: ColumnHostService,
 		private columnList: ColumnListService,
 		private templateHost: TemplateHostService,
-		private columnService: ColumnService,
 		private elementRef: ElementRef,
-		private plugin: GridPlugin
+		private plugin: GridPlugin,
+		private qgrid: Grid,
 	) {
 	}
 
@@ -124,12 +127,13 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 		};
 
 		if (withKey) {
-			if (this.parent) {
-				this.parent.column.children.push(column);
+			if (this.parentHost) {
+				this.parentHost.column.children.push(column);
 			} else {
 				this.columnList.add(column);
 			}
-			this.columnService.column = column;
+
+			this.selfHost.column = column;
 		} else {
 			const settings =
 				Object
@@ -145,29 +149,24 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		if (changes.isVisible) {
-			const { model } = this.plugin;
-			const { columns } = model.columnList();
-			const column = columns.find(x => x.key === this.key);
-			if (column) {
+		const { column } = this.selfHost;
+		if (column && changes.isVisible) {
+			if (column.isVisible !== this.isVisible) {
 				column.isVisible = this.isVisible;
-				model.columnList({
-					columns: Array.from(columns)
-				}, {
-					source: 'column.component'
-				});
 
-				model.data({
-					columns: Array.from(model.data().columns)
-				}, {
-					source: 'column.component'
+				const { model } = this.plugin;
+				const service = this.qgrid.service(model);
+				service.invalidate({
+					source: 'column.component',
+					pipe: PipeUnit.column,
+					why: PipeUnit.column.why
 				});
 			}
 		}
 	}
 
 	ngOnDestroy() {
-		const { column } = this.columnService;
+		const { column } = this.selfHost;
 		if (column && column.source === 'template') {
 			this.columnList.delete(column.key);
 		}

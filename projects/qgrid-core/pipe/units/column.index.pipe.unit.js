@@ -10,8 +10,6 @@ export const columnIndexPipeUnit = [
 	Pipe.columnIndex,
 	Pipe.animation,
 	(memo, context, next) => {
-		Guard.hasProperty(memo, 'columns');
-
 		const { model } = context;
 		const scene = new Scene(model);
 		const columnLine = scene.columnLine(memo.columns);
