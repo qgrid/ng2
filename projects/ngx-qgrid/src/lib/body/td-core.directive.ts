@@ -147,7 +147,8 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 
 	get dataRowIndex() {
 		const { model } = this.root;
-		return model.data().rows.indexOf(this.row);
+		const { rows } = model.data();
+		return rows.indexOf(this.row);
 	}
 
 	ngOnDestroy() {

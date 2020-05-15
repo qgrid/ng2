@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, NgZone, Input, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { BodyHost } from '@qgrid/core/body/body.host';
 import { ColumnView } from '@qgrid/core/scene/view/column.view';
-import { DataState } from '@qgrid/core/data/data.state';
 import { EventListener } from '@qgrid/core/event/event.listener';
 import { EventManager } from '@qgrid/core/event/event.manager';
 import { GridLet } from '../grid/grid-let';
@@ -19,9 +18,6 @@ import { TableCoreService } from '../table/table-core.service';
 })
 export class BodyCoreComponent implements OnInit {
 	@Input() pin = 'body';
-
-	columnId: (index: number, item: ColumnView) => any;
-	rowId: (index: number, row: any) => any;
 
 	constructor(
 		public $view: GridLet,
@@ -61,22 +57,6 @@ export class BodyCoreComponent implements OnInit {
 			}));
 		});
 
-		const setupTrackBy = (state: DataState) => {
-			const { rowId, columnId } = state;
-
-			this.rowId = rowId;
-			this.columnId = (index, columnView) => columnId(index, columnView.model);
-		};
-
-		setupTrackBy(model.data());
-
-		observeReply(model.dataChanged)
-			.subscribe(e => {
-				if (e.hasChanges('rowId') || e.hasChanges('columnId')) {
-					setupTrackBy(e.state);
-				}
-			});
-
 		observeReply(model.sceneChanged)
 			.subscribe(e => {
 				if (model.grid().interactionMode === 'detached') {
@@ -101,11 +81,20 @@ export class BodyCoreComponent implements OnInit {
 			});
 	}
 
+	// @deprecated
 	get selection(): SelectionState {
 		return this.model.selection();
 	}
 
 	get model(): GridModel {
 		return this.plugin.model;
+	}
+
+	columnId(index: number, item: ColumnView) {
+		return item.model.key;
+	}
+
+	rowId(index: number, row: any) {
+		return index;
 	}
 }
