@@ -14,7 +14,7 @@ export class PadColumnModel extends ColumnModel {
 		super('pad');
 
 		this.key = '$pad';
-		this.class = 'markup';
+		this.category = 'markup';
 
 		this.title = '';
 		this.canEdit = false;

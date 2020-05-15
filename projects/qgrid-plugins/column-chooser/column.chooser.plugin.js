@@ -33,7 +33,7 @@ export class ColumnChooserPlugin {
 					const newNode = copy(node);
 					newNode.value = {
 						column,
-						isVisible: model.class === 'data' || model.class === 'cohort',
+						isVisible: model.category === 'data' || model.category === 'cohort',
 					};
 
 					current.children.push(newNode);

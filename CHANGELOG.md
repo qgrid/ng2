@@ -22,6 +22,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Instead of class q-grid-cell.key use q-grid-`the`-cell.key.
 - Get rid of redundant spans in cell templates.
 - Column pin `min` instead of `null`.
+- Rename column `class` to `category`
 
 ### Added
 - Ivy support.

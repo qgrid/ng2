@@ -8,7 +8,6 @@ th {
     vertical-align: middle;
     text-align: left;
     position: relative;
-    transition: min-width 0.3s, width 0.3s, max-width 0.3s;
 
     &.q-grid-pivot {
         text-align: center;
@@ -69,6 +68,10 @@ th {
     &.q-grid-row-expand,
     &.q-grid-pad {
         text-overflow: initial;
+    }
+
+    &.q-grid-has-view-width {
+        transition: min-width 0.3s, width 0.3s, max-width 0.3s;
     }
 }
 

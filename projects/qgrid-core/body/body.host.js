@@ -226,7 +226,7 @@ export class BodyHost {
 							view.selection.toggleRow.execute(cell.row, 'body');
 						}
 					}
-				} else if (!editMode && cell.column.class !== 'control') {
+				} else if (!editMode && cell.column.category !== 'control') {
 					if (view.selection.toggleRow.canExecute(cell.row)) {
 						view.selection.toggleRow.execute(cell.row, 'body');
 					}

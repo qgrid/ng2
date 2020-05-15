@@ -13,8 +13,9 @@ export class LayoutLet {
 		observeReply(model.navigationChanged)
 			.subscribe(e => {
 				if (e.hasChanges('cell')) {
-					const oldColumn = e.changes.cell.oldValue ? e.changes.cell.oldValue.column : {};
-					const newColumn = e.changes.cell.newValue ? e.changes.cell.newValue.column : {};
+					const { oldValue, newValue } = e.changes.cell;
+					const oldColumn = oldValue ? oldValue.column : {};
+					const newColumn = newValue ? newValue.column : {};
 
 					if (oldColumn.key !== newColumn.key && (oldColumn.viewWidth || newColumn.viewWidth)) {
 						Fastdom.measure(() => {

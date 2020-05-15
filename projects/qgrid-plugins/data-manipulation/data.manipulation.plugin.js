@@ -15,7 +15,7 @@ export class DataManipulationPlugin {
 
 		this.commitCommand = new Command({
 			execute: e => {
-				if (e.column.class !== 'data') {
+				if (e.column.category !== 'data') {
 					return;
 				}
 

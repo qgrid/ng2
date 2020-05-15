@@ -17,7 +17,7 @@ export declare type ColumnModelPin = 'mid' | 'left' | 'right';
  *  * `markup` used for the internal markup needs (e.g. `pad` type column).
  *  * `pivot`multi head pivot.
  */
-export declare type ColumnModelClass = 'data' | 'control' | 'markup' | 'pivot' | 'cohort';
+export declare type ColumnModelCategory = 'data' | 'control' | 'markup' | 'pivot' | 'cohort';
 
 /**
  * Place where a column was created.
@@ -117,7 +117,12 @@ export declare class ColumnModel {
 	/**
 	 * A functional type of a the column.
 	 */
-	class?: ColumnModelClass;
+	category?: ColumnModelCategory;
+
+	/**
+	 * Css class.
+	 */
+	class: string;
 
 	/**
 	 * Editor type, will be shown in cell edit mode instead of default column type editor.

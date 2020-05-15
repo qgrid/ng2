@@ -16,7 +16,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
 import { guid } from '@qgrid/core/services/guid';
 import { isUndefined } from '@qgrid/core/utility/kit';
 import { TemplateHostService } from '../template/template-host.service';
-import { ColumnModelClass, ColumnModelType, ColumnModelOrigin, ColumnModelPin, ColumnModelWidthMode } from '@qgrid/core/column-type/column.model';
+import { ColumnModelCategory, ColumnModelType, ColumnModelOrigin, ColumnModelPin, ColumnModelWidthMode, ColumnModel } from '@qgrid/core/column-type/column.model';
 
 @Component({
 	selector: 'q-grid-column',
@@ -27,7 +27,8 @@ import { ColumnModelClass, ColumnModelType, ColumnModelOrigin, ColumnModelPin, C
 export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() type: string | ColumnModelType;
 	@Input() key: string;
-	@Input() class: ColumnModelClass;
+	@Input() category: ColumnModelCategory;
+	@Input() class: string;
 	@Input() title: string;
 	@Input() description: string;
 	@Input() pin: ColumnModelPin;
@@ -140,7 +141,7 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 					.reduce((memo, key) => {
 						memo[key] = column[key];
 						return memo;
-					}, {});
+					}, {}) as ColumnModel;
 
 			this.columnList.register(settings);
 		}

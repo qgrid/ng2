@@ -60,7 +60,7 @@ export class EditCellLet {
 				if (e.hasChanges('cell')) {
 					const oldCell = this.editor.td;
 					if (oldCell) {
-						if (oldCell.column.class === 'data') {
+						if (oldCell.column.category === 'data') {
 							if (this.commit.canExecute(oldCell)) {
 								this.commit.execute(oldCell);
 							}
@@ -107,7 +107,7 @@ export class EditCellLet {
 
 					return cell
 						&& cell.column.canEdit
-						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
+						&& (cell.column.category === 'control' || model.edit().mode === 'cell')
 						&& model.edit().status === 'view'
 						&& model.edit().enter.canExecute(this.contextFactory(cell, cell.value, cell.label));
 				},
@@ -150,7 +150,7 @@ export class EditCellLet {
 					const canEdit = cell
 						&& Td.equals(cell, this.editor.td)
 						&& cell.column.canEdit
-						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
+						&& (cell.column.category === 'control' || model.edit().mode === 'cell')
 						&& model.edit().status === 'edit';
 					if (canEdit) {
 						const context = this.contextFactory(cell, this.value, this.label, this.tag);
@@ -222,7 +222,7 @@ export class EditCellLet {
 					cell = cell || this.editor.td;
 					return cell
 						&& cell.column.canEdit
-						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
+						&& (cell.column.category === 'control' || model.edit().mode === 'cell')
 						&& model.edit().status === 'edit'
 						&& model.edit().cancel.canExecute(this.contextFactory(cell, this.value, this.label));
 				},
@@ -254,7 +254,7 @@ export class EditCellLet {
 					cell = cell || this.editor.td;
 					return cell
 						&& cell.column.canEdit
-						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
+						&& (cell.column.category === 'control' || model.edit().mode === 'cell')
 						&& model.edit().status === 'edit'
 						&& model.edit().reset.canExecute(this.contextFactory(cell, this.value, this.label));
 				},
@@ -309,7 +309,7 @@ export class EditCellLet {
 					cell = cell || this.editor.td;
 					return cell
 						&& cell.column.canEdit
-						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
+						&& (cell.column.category === 'control' || model.edit().mode === 'cell')
 						&& model.edit().status === 'edit'
 						&& model.edit().clear.canExecute(this.contextFactory(cell, this.value, this.label));
 				},

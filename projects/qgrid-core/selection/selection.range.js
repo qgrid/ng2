@@ -72,7 +72,7 @@ export class SelectionRange {
 		const items = [];
 		selectedRows.forEach(row => {
 			selectedColumns
-				.filter(column => column.class === 'data')
+				.filter(column => column.category === 'data')
 				.forEach(column => {
 					items.push({
 						column: column,

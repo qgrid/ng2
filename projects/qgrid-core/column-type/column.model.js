@@ -27,7 +27,8 @@ export class ColumnModel {
 		this.pin = 'mid';
 		this.origin = 'specific';
 		this.source = 'user';
-		this.class = 'data';
+		this.category = 'data';
+		this.class = null;
 		this.editor = null;
 		this.editorOptions = {
 			modelFactory: ({ createDefaultModel }) => createDefaultModel(),

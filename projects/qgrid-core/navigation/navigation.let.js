@@ -119,7 +119,7 @@ export class NavigationLet {
 							if (row && column) {
 								const newRowIndex = table.data.rows().indexOf(row);
 								let newColumnIndex = table.data.columns().findIndex(c => c.key === column.key);
-								if (newColumnIndex < 0 && column.class === 'control') {
+								if (newColumnIndex < 0 && column.category === 'control') {
 									newColumnIndex = columnIndex;
 								}
 

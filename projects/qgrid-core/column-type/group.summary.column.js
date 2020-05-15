@@ -14,7 +14,7 @@ export class GroupSummaryColumnModel extends DataColumnModel {
 		super('group-summary');
 
 		this.key = '$group.summary';
-		this.class = 'control';
+		this.category = 'control';
 
 		this.canEdit = false;
 		this.canResize = false;

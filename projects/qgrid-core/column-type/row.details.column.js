@@ -14,7 +14,7 @@ export class RowDetailsColumnModel extends ColumnModel {
 		super('row-details');
 
 		this.key = '$row.details';
-		this.class = 'control';
+		this.category = 'control';
 
 		this.canEdit = false;
 		this.canResize = false;

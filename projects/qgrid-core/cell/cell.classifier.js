@@ -11,6 +11,14 @@ export function bodyCellClassifier(column) {
         classList.push(`${GRID_PREFIX}-${escapeAttr(column.editor)}`);
     }
 
+    if (column.viewWidth) {
+        classList.push(`${GRID_PREFIX}-has-view-width`);
+    }
+
+    if(column.class) {
+        classList.push(escapeAttr(column.class));
+    }
+
     const className = classList.join(' ');
     return element => element.className = className;
 }
