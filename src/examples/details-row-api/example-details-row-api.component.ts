@@ -10,18 +10,19 @@ import { Command, GridComponent, RowDetailsStatus } from 'ng2-qgrid';
 	providers: [DataService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExampleDetailsRowApiComponent implements AfterViewInit {
+export class ExampleDetailsRowApiComponent {
 	static id = 'details-row-api';
 
 	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
-	rows: Observable<Atom[]>;
-	enableExpand = true;
+
+	rows$: Observable<Atom[]>;
 
 	expandAllCommand = new Command({
 		execute: () => {
 			const { model } = this.grid;
+			const { rows } = model.data();
 			model.row({
-				status: new Map(model.data().rows.map<[Atom, RowDetailsStatus]>(x => [x, new RowDetailsStatus(true)]))
+				status: new Map(rows.map<[Atom, RowDetailsStatus]>(x => [x, new RowDetailsStatus(true)]))
 			});
 		}
 	});
@@ -29,8 +30,9 @@ export class ExampleDetailsRowApiComponent implements AfterViewInit {
 	collapseAllCommand = new Command({
 		execute: () => {
 			const { model } = this.grid;
+			const { rows } = model.data();
 			model.row({
-				status: new Map(model.data().rows.map<[Atom, RowDetailsStatus]>(x => [x, new RowDetailsStatus(false)]))
+				status: new Map(rows.map<[Atom, RowDetailsStatus]>(x => [x, new RowDetailsStatus(false)]))
 			});
 		}
 	});
@@ -39,26 +41,39 @@ export class ExampleDetailsRowApiComponent implements AfterViewInit {
 		execute: () => {
 			this.collapseAllCommand.execute();
 			const { model } = this.grid;
+			const theSecondRow = model.data().rows[1];
+
 			model.row({
-				status: new Map([[model.data().rows[1], new RowDetailsStatus(true)]])
+				status: new Map([[theSecondRow, new RowDetailsStatus(true)]])
 			});
 		}
 	});
 
-	disableExpandAllCommand = new Command({ execute: () => this.enableExpand = false });
-	allowExpandAllCommand = new Command({ execute: () => this.enableExpand = true });
+	disableExpand = new Command({
+		execute: () => {
+			const { model } = this.grid;
+
+			model.row({
+				toggle: new Command({
+					canExecute: () => false
+				})
+			});
+		}
+	});
+
+	enableExpand = new Command({
+		execute: () => {
+			const { model } = this.grid;
+
+			model.row({
+				toggle: new Command({
+					canExecute: () => true
+				})
+			});
+		}
+	});
 
 	constructor(dataService: DataService) {
-		this.rows = dataService.getAtoms();
-	}
-
-	ngAfterViewInit() {
-		const { model } = this.grid;
-
-		model.row({
-			toggle: new Command({
-				canExecute: ({ row }) => this.enableExpand
-			})
-		});
+		this.rows$ = dataService.getAtoms();
 	}
 }
