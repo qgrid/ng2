@@ -10,6 +10,7 @@ export class EventListener {
 		const handler = manager.bind(f);
 		const handlerSet = this.handlers[name] || (this.handlers[name] = []);
 		handlerSet.push(handler);
+
 		this.element.addEventListener(name, handler, settings);
 		return () => {
 			this.element.removeEventListener(name, handler);

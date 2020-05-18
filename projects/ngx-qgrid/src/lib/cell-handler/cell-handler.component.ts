@@ -1,14 +1,11 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { jobLine } from '@qgrid/core/services/job.line';
-import { Fastdom } from '@qgrid/core/services/fastdom';
-import { EditService } from '@qgrid/core/edit/edit.service';
 import { CellView } from '@qgrid/core/scene/view/cell.view';
-import { NavigationState } from '@qgrid/core/navigation/navigation.state';
-import { DomTd } from '../dom/dom';
+import { EditService } from '@qgrid/core/edit/edit.service';
+import { Fastdom } from '@qgrid/core/services/fastdom';
 import { GridEventArg } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
-import { EditStateStatus } from '@qgrid/core/edit/edit.state';
-import { SelectionStateMode } from '@qgrid/core/selection/selection.state';
+import { jobLine } from '@qgrid/core/services/job.line';
+import { NavigationState } from '@qgrid/core/navigation/navigation.state';
 
 @Component({
 	selector: 'q-grid-cell-handler',
@@ -17,11 +14,9 @@ import { SelectionStateMode } from '@qgrid/core/selection/selection.state';
 	providers: [GridPlugin]
 })
 export class CellHandlerComponent implements OnInit, AfterViewInit {
-	private startCell: CellView = null;
-	private initialSelectionMode: SelectionStateMode = null;
-	private initialEditStatus: EditStateStatus = null;
+	private endBatchEdit: () => void;
 
-	isMarkerVisible = false;
+	canEditBatch = false;
 	@ViewChild('marker', { static: true }) marker: ElementRef;
 
 	constructor(
@@ -35,19 +30,25 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	ngOnInit() {
 		const { model, observeReply } = this.plugin;
 		const updateHandler = this.updateHandlerFactory();
-		const updateMarker = this.updateMarkerFactory();
 
 		observeReply(model.navigationChanged)
 			.subscribe(e => {
 				updateHandler(e);
-				updateMarker(e);
 			});
 
 		observeReply(model.editChanged)
 			.subscribe(e => {
 				if (e.hasChanges('method')) {
-					this.isMarkerVisible = e.state.method === 'batch';
+					this.canEditBatch = e.state.method === 'batch';
+					this.cd.markForCheck();
 					this.cd.detectChanges();
+				}
+
+				if (e.hasChanges('status')) {
+					if (e.state.status === 'endBatch' && this.endBatchEdit) {
+						this.endBatchEdit();
+						this.endBatchEdit = null;
+					}
 				}
 			});
 	}
@@ -109,6 +110,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 					Fastdom.measure(() => {
 						const target = domCell.element;
 						const scrollState = model.scroll();
+
 						const top = (target.offsetTop - scrollState.top) + 'px';
 						const left = (target.offsetLeft - (cell.column.pin === 'mid' ? scrollState.left : 0)) + 'px';
 						const width = target.offsetWidth + 'px';
@@ -129,64 +131,12 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		};
 	}
 
-	updateMarkerFactory() {
-		const { model, table, observe } = this.plugin;
-		const editService = new EditService(model, table);
-		const job = jobLine(150);
-
-		let oldCell: DomTd = null;
-		observe(model.editChanged)
-			.subscribe(e => {
-				if (e.hasChanges('status')) {
-					if (e.state.status === 'endBatch') {
-						model.edit({ status: this.initialEditStatus });
-						editService.doBatch(this.startCell);
-						model.selection({ mode: this.initialSelectionMode });
-
-						this.startCell = null;
-					}
-				}
-			});
-
-		return (e: GridEventArg<NavigationState>) => {
-			if (!this.marker) {
-				return;
-			}
-
-			if (e.hasChanges('cell')) {
-				const { rowIndex, columnIndex } = e.state;
-				const { method, status } = model.edit();
-
-				const cell = table.body.cell(rowIndex, columnIndex).model();
-
-				if (method === 'batch') {
-					if (oldCell) {
-						Fastdom.mutate(() => this.marker.nativeElement.remove());
-					}
-
-					if (cell) {
-						job(() => Fastdom.mutate(() => cell.element.appendChild(this.marker.nativeElement)));
-					}
-
-					oldCell = cell;
-				}
-
-				if (status === 'startBatch' && !this.startCell) {
-					this.startCell = cell;
-				}
-			}
-		};
-	}
-
 	startBatchEdit() {
 		const { model } = this.plugin;
-
-		this.startCell = model.navigation().cell;
-		if (this.startCell) {
-			this.initialEditStatus = model.edit().status;
-			this.initialSelectionMode = model.selection().mode;
-			model.selection({ mode: 'range' });
-			model.edit({ status: 'startBatch' });
+		const startCell = model.navigation().cell;
+		if (startCell) {
+			const editService = new EditService(this.plugin);
+			this.endBatchEdit = editService.startBatch(startCell);
 		}
 	}
 }

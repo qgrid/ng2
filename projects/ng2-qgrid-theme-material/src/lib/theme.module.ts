@@ -69,6 +69,7 @@ import {
 	ValidationModule,
 	VisibilityModule,
 	VscrollModule,
+	MarkupModule,
 } from 'ng2-qgrid';
 
 @NgModule({
@@ -117,6 +118,7 @@ import {
 		LiveCellModule,
 		LiveColumnModule,
 		LiveRowModule,
+		MarkupModule,
 		PagerModule,
 		PaneModule,
 		PersistenceModule,

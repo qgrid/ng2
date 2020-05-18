@@ -7,6 +7,8 @@ import { ViewHost } from '@qgrid/core/view/view.host';
 import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
 import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
 import { GridLet } from '../grid/grid-let';
+import { EventManager } from '@qgrid/core/event/event.manager';
+import { EventListener } from '@qgrid/core/event/event.listener';
 
 @Component({
 	selector: 'q-grid-core-view',
@@ -64,7 +66,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 	}
 
 	ngOnInit() {
-		const { model, table, observeReply, observe, view } = this.plugin;
+		const { model, table, observeReply, observe, view, disposable } = this.plugin;
 
 		// TODO: make it better
 		table.box.markup.view = this.elementRef.nativeElement;
@@ -99,6 +101,27 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 
 		observe(model.styleChanged)
 			.subscribe(() => this.host.invalidate());
+
+		observeReply(model.editChanged)
+			.subscribe(e => {
+				if (e.hasChanges('status')) {
+					if (e.state.status === 'endBatch') {
+						gridService.invalidate({
+							source: 'view-core.component',
+							why: 'refresh'
+						});
+					}
+				}
+			});
+
+		const listener = new EventListener(this.elementRef.nativeElement, new EventManager(this));
+		disposable.add(listener.on('mousemove', e => this.host.mouseMove(e)));
+		disposable.add(listener.on('mouseleave', e => this.host.mouseLeave(e)));
+		disposable.add(listener.on('mouseup', e => this.host.mouseUp(e)));
+		disposable.add(listener.on('mousedown', e => {
+			this.cd.markForCheck();
+			this.zone.run(() => this.host.mouseDown(e));
+		}));
 
 		if (model.scroll().mode === 'virtual') {
 			const asVirtualBody = table.body as any;

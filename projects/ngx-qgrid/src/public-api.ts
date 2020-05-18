@@ -52,6 +52,7 @@ export { ThemeService } from './lib/theme/theme.service';
 
 export { ResizeModule } from './lib/resize/resize.module';
 
+
 export {
 	DomTr,
 	DomTd,
@@ -65,7 +66,7 @@ export {
 } from './lib/dom/dom';
 
 export { CellHandlerComponent } from './lib/cell-handler/cell-handler.component';
-export { CellHandlerModule } from './lib/cell-handler/cell.module';
+export { CellHandlerModule } from './lib/cell-handler/cell-handler.module';
 
 export { ColumnListComponent } from './lib/column-list/column-list.component';
 export { ColumnListService } from './lib/column-list/column-list.service';
@@ -82,8 +83,9 @@ export { LayerCoreDirective } from './lib/layer/layer-core.directive';
 export { LayerService } from './lib/layer/layer.service';
 export { LayerComponent } from './lib/layer/layer.component';
 
-export { MarkupDirective } from './lib/markup/markup.directive';
 export { MarkupModule } from './lib/markup/markup.module';
+export { StopPropagateDirective } from './lib/markup/stop-propagate.directive';
+export { MarkupDirective } from './lib/markup/markup.directive';
 
 export { AutoSizeDirective } from './lib/resize/autosize.directive';
 export { ResizeDirective } from './lib/resize/resize.directive';

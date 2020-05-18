@@ -34,8 +34,8 @@ export class BodyCoreComponent implements OnInit {
 		const nativeElement = this.elementRef.nativeElement as HTMLElement;
 
 		const host = new BodyHost(this.plugin);
-		const listener = new EventListener(nativeElement, new EventManager(this));
 
+		const listener = new EventListener(this.elementRef.nativeElement, new EventManager(this));
 		this.zone.runOutsideAngular(() => {
 			const scrollSettings = { passive: true };
 			disposable.add(
@@ -48,13 +48,6 @@ export class BodyCoreComponent implements OnInit {
 				));
 
 			disposable.add(listener.on('wheel', e => host.wheel(e)));
-			disposable.add(listener.on('mousemove', host.mouseMove.bind(host)));
-			disposable.add(listener.on('mouseleave', host.mouseLeave.bind(host)));
-			disposable.add(listener.on('mouseup', e => host.mouseUp(e)));
-			disposable.add(listener.on('mousedown', e => {
-				this.cd.markForCheck();
-				this.zone.run(() => host.mouseDown(e));
-			}));
 		});
 
 		observeReply(model.sceneChanged)

@@ -14,25 +14,31 @@ td.q-grid-focused {
 }
 
 .q-grid-cell-handler {
-    display: none;
+    display: block;
     position: absolute;
-    transition: all $focus-duration;
+    outline: none;
     pointer-events: none;
-    outline: 2px solid $blue-outline025;
     outline-offset: -2px;
+    transition:
+        width $focus-duration,
+        height $focus-duration,
+        top $focus-duration,
+        left $focus-duration;
 
     &.q-grid-active {
-        display: block;
+        outline: 2px solid $blue-outline025;
     }
 }
 
-.q-grid-marker {
+.q-grid-edit-marker {
     @include simpleSquareElement(10px);
+    @include user-select(none);
     display: block;
     position: absolute;
-    bottom: 5px;
-    right: 5px;
+    pointer-events: all;
+    cursor: move;
+    bottom: 3px;
+    right: 3px;
     font-size: 14px;
     color: $grid-marker-color;
-    cursor: move;
 }

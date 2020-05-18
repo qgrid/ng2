@@ -5,8 +5,4 @@ export declare class BodyHost {
 
 	scroll(e: { scrollLeft: number, scrollTop: number });
 	wheel(e: MouseWheelEvent);
-	mouseDown(e: MouseEvent);
-	mouseMove(e: MouseEvent);
-	mouseLeave(e: MouseEvent);
-	mouseUp(e: MouseEvent);
 }
