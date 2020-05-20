@@ -15,7 +15,7 @@ function getEditFormBody() {
 
 function getFormInput(field) {
 	const editor = getEditFormBody();
-	return editor.element(by.xpath('//*[(text()=\'' + field + '\')]/../../input'));
+	return editor.element(by.xpath('//*[(text()=\'' + field + '\')]/../../../input'));
 }
 
 async function enterText(text: string, field: string) {
