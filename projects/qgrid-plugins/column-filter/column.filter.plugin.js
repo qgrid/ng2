@@ -58,6 +58,8 @@ export class ColumnFilterPlugin {
 					else {
 						this.by.add(item);
 					}
+
+					this.by = new Set(this.by);
 				}
 			}),
 			toggleAll: new Command({
@@ -82,6 +84,7 @@ export class ColumnFilterPlugin {
 						}
 					}
 
+					this.by = new Set(this.by);
 					this.byBlanks = this.hasBlanks && state;
 				}
 			}),

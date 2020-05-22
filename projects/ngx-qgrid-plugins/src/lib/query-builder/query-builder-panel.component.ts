@@ -17,7 +17,7 @@ import { QueryBuilderModel } from './query-builder.model';
 	selector: 'q-grid-query-builder-panel',
 	templateUrl: './query-builder-panel.component.html',
 	providers: [FocusAfterRender, GridPlugin],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QueryBuilderPanelComponent implements OnInit {
 	node: Node;

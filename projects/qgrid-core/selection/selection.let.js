@@ -1,10 +1,11 @@
-import { GridError } from '../infrastructure/error';
 import { Command } from '../command/command';
-import { selectionStateFactory as formFactory } from './state/selection.state.factory';
+import { GRID_PREFIX } from '../definition';
+import { GridError } from '../infrastructure/error';
+import { noop, isArray, isUndefined } from '../utility/kit';
 import { SelectionRange } from './selection.range';
 import { SelectionService } from './selection.service';
-import { noop, isArray, isUndefined } from '../utility/kit';
-import { GRID_PREFIX } from '../definition';
+import { selectionStateFactory as formFactory } from './state/selection.state.factory';
+import { SubjectLike } from '../rx/rx';
 
 export class SelectionLet {
 	constructor(plugin, shortcut) {
@@ -22,6 +23,7 @@ export class SelectionLet {
 		this.toggleColumn = commands.get('toggleColumn');
 		this.toggleCell = commands.get('toggleCell');
 		this.reset = commands.get('reset');
+		this.stateCheck = new SubjectLike();
 
 		observeReply(model.navigationChanged)
 			.subscribe(e => {
@@ -74,14 +76,18 @@ export class SelectionLet {
 					}
 				}
 
-				if (e.hasChanges('items') && e.tag.source !== 'selection.view') {
-					// Don't use commit it came outside already
+				if (e.hasChanges('items')) {
+					if (e.tag.source !== 'selection.view') {
+						// Don't use commit it came outside already
 
-					const oldEntries = this.selectionService.lookup(e.changes.items.oldValue);
-					this.select(oldEntries, false);
+						const oldEntries = this.selectionService.lookup(e.changes.items.oldValue);
+						this.select(oldEntries, false);
 
-					const newEntries = this.selectionService.lookup(e.state.items);
-					this.select(newEntries, true);
+						const newEntries = this.selectionService.lookup(e.state.items);
+						this.select(newEntries, true);
+					}
+
+					this.stateCheck.next(true);
 				}
 			});
 	}

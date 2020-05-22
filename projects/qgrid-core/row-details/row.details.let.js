@@ -4,7 +4,7 @@ import { RowDetails } from './row.details';
 
 export class RowDetailsLet {
 	constructor(plugin, shortcut) {
-		const { model, observeReply } = plugin;
+		const { model, observeReply, disposable } = plugin;
 
 		this.plugin = plugin;
 
@@ -53,6 +53,30 @@ export class RowDetailsLet {
 						);
 
 					model.row({ status }, { source: 'row.details.view' });
+				}
+			});
+
+		let canExecuteCheckSub;
+		const unsubscribeCanExecuteCheck = () => {
+			if (canExecuteCheckSub) {
+				canExecuteCheckSub.unsubscribe();
+				canExecuteCheckSub = null;
+			}
+		};
+
+		disposable.add(
+			unsubscribeCanExecuteCheck
+		);
+
+		observeReply(model.rowChanged)
+			.subscribe(e => {
+				if (e.hasChanges('toggle')) {
+					const { toggle } = e.state;
+					unsubscribeCanExecuteCheck();
+					canExecuteCheckSub = toggle.canExecuteCheck
+						.subscribe(() => {
+							this.toggleStatus.canExecuteCheck.next();
+						});
 				}
 			});
 

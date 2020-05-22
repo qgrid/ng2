@@ -52,6 +52,7 @@ export { ThemeService } from './lib/theme/theme.service';
 
 export { ResizeModule } from './lib/resize/resize.module';
 
+export { ChangeDetectorModule } from './lib/change-detector/change-detector.module';
 
 export {
 	DomTr,

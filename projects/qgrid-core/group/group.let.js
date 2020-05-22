@@ -34,19 +34,22 @@ function rowspanIsVisible(node, column, parent) {
 
 export class GroupLet {
 	constructor(plugin, service, shortcut) {
-		const { model, observeReply } = plugin;
-		this.plugin = plugin;
+		const { model, observeReply, disposable } = plugin;
 
+		this.plugin = plugin;
 		this.valueFactory = valueFactory;
 
 		const toggleStatus = new Command({
 			source: 'group.view',
-			execute: (node, column) => {
-				node = node || model.navigation().row;
-				column = column || model.navigation().column;
+			execute: args => {
+				let { row, column } = model.navigation();
+				if (args) {
+					row = args[0] || row;
+					column = args[1] || column;
+				}
 
-				node = this.getNode(node, column);
-				const toggle = model.group().toggle;
+				const node = this.getNode(row, column);
+				const { toggle } = model.group();
 				if (toggle.execute(node) !== false) {
 					node.state.expand = !node.state.expand;
 					service.invalidate({
@@ -56,12 +59,15 @@ export class GroupLet {
 					});
 				}
 			},
-			canExecute: (node, column) => {
-				node = node || model.navigation().row;
-				column = column || model.navigation().column;
+			canExecute: args => {
+				let { row, column } = model.navigation();
+				if (args) {
+					row = args[0] || row;
+					column = args[1] || column;
+				}
 
-				node = this.getNode(node, column);
-				const toggle = model.group().toggle;
+				const node = this.getNode(row, column);
+				const { toggle } = model.group();
 				return node && node.type === 'group' && toggle.canExecute(node);
 			},
 			shortcut: model.group().shortcut.toggle
@@ -77,7 +83,7 @@ export class GroupLet {
 					const { toggle } = model.group();
 
 					preOrderDFS(nodes, node => {
-						if (toggleStatus.canExecute(node)) {
+						if (toggleStatus.canExecute([node])) {
 							if (toggle.execute(node) !== false) {
 								node.state.expand = shouldExpand;
 							}
@@ -128,7 +134,31 @@ export class GroupLet {
 						}
 					}
 				}
-			})
+			});
+
+		let canExecuteCheckSub;
+		const unsubscribeCanExecuteCheck = () => {
+			if (canExecuteCheckSub) {
+				canExecuteCheckSub.unsubscribe();
+				canExecuteCheckSub = null;
+			}
+		};
+
+		disposable.add(
+			unsubscribeCanExecuteCheck
+		);
+
+		observeReply(model.rowChanged)
+			.subscribe(e => {
+				if (e.hasChanges('toggle')) {
+					const { toggle } = e.state;
+					unsubscribeCanExecuteCheck();
+					canExecuteCheckSub = toggle.canExecuteCheck
+						.subscribe(() => {
+							this.toggleStatus.canExecuteCheck.next();
+						});
+				}
+			});
 	}
 
 	count(node, column) {

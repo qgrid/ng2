@@ -1,8 +1,9 @@
-import { SelectionState } from './selection.state';
 import { ColumnModel } from '../column-type/column.model';
 import { Command } from '../command/command';
-import { Td } from '../dom/td';
 import { GridPlugin } from '../plugin/grid.plugin';
+import { SelectionState } from './selection.state';
+import { SubjectLike } from '../rx/rx';
+import { Td } from '../dom/td';
 
 export declare class SelectionLet {
 	constructor(plugin: GridPlugin, shortcut: { register: (commands: Command[]) => void });
@@ -16,6 +17,8 @@ export declare class SelectionLet {
 	readonly toggleColumn: Command;
 
 	selectRange(startCell: Td, endCell: Td, source?: string): void;
+
 	state(item: any): boolean;
 	isIndeterminate(item: any): boolean;
+	stateCheck: SubjectLike<boolean>;
 }

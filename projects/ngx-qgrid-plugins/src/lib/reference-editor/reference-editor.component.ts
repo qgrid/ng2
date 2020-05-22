@@ -13,7 +13,7 @@ import { GridModel, Disposable } from '@qgrid/ngx';
 export class ReferenceEditorComponent implements AfterViewInit {
 	private state: any;
 
-	@Input() caption: string;
+	@Input() caption = '';
 	@Input() cell: CellView;
 
 	@Output() valueChange = new EventEmitter<any>();
@@ -88,7 +88,9 @@ export class ReferenceEditorComponent implements AfterViewInit {
 			});
 
 			const { shortcut, manager } = model.action();
-			this.disposable.add(shortcut.register(manager, [this.submit, this.cancel]));
+			this.disposable.add(
+				shortcut.register(manager, [this.submit, this.cancel])
+			);
 		}, 0);
 	}
 }

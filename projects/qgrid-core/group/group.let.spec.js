@@ -40,24 +40,24 @@ describe('GroupLet', () => {
 	describe('toggleStatus', () => {
 		it('execute() should toggle node.state', () => {
 			let command = groupView.toggleStatus;
-			command.execute(node);
+			command.execute([node]);
 			let result = groupView.status(node);
 			expect(result).to.equal('collapse');
-			command.execute(node);
+			command.execute([node]);
 			result = groupView.status(node);
 			expect(result).to.equal('expand');
 		});
 
 		it('should return true if canExecute', () => {
 			let command = groupView.toggleStatus;
-			let result = command.canExecute(node);
+			let result = command.canExecute([node]);
 			expect(result).to.equal(true);
 		});
 
 		it('should return false if can`tExecute', () => {
 			delete node.type;
 			let command = groupView.toggleStatus;
-			let result = command.canExecute(node);
+			let result = command.canExecute([node]);
 			expect(result).to.equal(false);
 		});
 	});

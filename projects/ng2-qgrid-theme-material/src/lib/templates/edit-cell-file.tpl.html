@@ -32,15 +32,18 @@
         <div class="q-grid-actions">
             <button mat-button
                     color="primary"
-                    (click)="$view.edit.cell.commit.execute($cell, $event)">
+                    [q-grid-command]="$view.edit.cell.commit"
+                    [q-grid-command-arg]="$cell">
                 Save
             </button>
             <button mat-button
-                    (click)="$view.edit.cell.clear.execute($cell)">
+                    [q-grid-command]="$view.edit.cell.clear"
+                    [q-grid-command-arg]="$cell">
                 Clear
             </button>
             <button mat-button
-                    (click)="$view.edit.cell.cancel.execute($cell, $event)">
+                    [q-grid-command]="$view.edit.cell.cancel"
+                    [q-grid-command-arg]="$cell">
                 Cancel
             </button>
         </div>

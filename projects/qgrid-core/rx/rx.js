@@ -1,6 +1,6 @@
 import { Disposable } from '../infrastructure/disposable';
 import { Event } from '../event/event';
-import { noop } from '../utility/kit';
+import { noop, isObject, isFunction } from '../utility/kit';
 
 export class SubscriptionLike {
     constructor(off) {
@@ -15,23 +15,30 @@ export class SubscriptionLike {
     }
 }
 
-let count = 0;
-
 export class ObservableEvent {
-    constructor(event, disposable) {
+    constructor(nextSignal, disposable) {
         this.errorSignal = new Event();
-        this.nextSignal = event;
+        this.nextSignal = nextSignal;
         this.disposable = disposable;
     }
 
-    subscribe(next, error, complete) {
-        if (error) {
-            const errorOff = this.errorSignal.on(error);
+    subscribe(...args) {
+        let observer = args[0];
+        if (isFunction(observer)) {
+            observer = {
+                next: args[0],
+                error: args[1],
+                complete: args[2]
+            };
+        }
+
+        if (observer.error) {
+            const errorOff = this.errorSignal.on(ex => observer.error(ex));
             this.disposable.add(errorOff);
         }
 
-        if (next) {
-            const eventOff = this.subscribeEvent(next);
+        if (observer.next) {
+            const eventOff = this.subscribeEvent(e => observer.next(e));
 
             let disposed = false;
             const unsubscribe = () => {
@@ -40,9 +47,9 @@ export class ObservableEvent {
 
                     eventOff();
                     this.disposable.remove(unsubscribe);
- 
-                    if (complete) {
-                        complete();
+
+                    if (observer.complete) {
+                        observer.complete();
                     }
                 }
             };
@@ -62,6 +69,7 @@ export class ObservableEvent {
                     next(e);
                 } catch (ex) {
                     this.catchError(ex);
+                    throw ex;
                 }
             });
     }

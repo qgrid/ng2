@@ -52,6 +52,7 @@ export class ColumnFilterComponent implements OnInit {
 	ngOnInit() {
 		const { model } = this.plugin;
 		const { key } = this.column;
+
 		const context = { key };
 		const columnFilter = model.resolve(ColumnFilterState);
 		const columnFilterPlugin = new ColumnFilterPlugin(this.plugin, context);
@@ -154,8 +155,8 @@ export class ColumnFilterComponent implements OnInit {
 		this.context.$implicit.reset.execute();
 	}
 
-	operatorTemplateKey(op) {
-		let key;
+	operatorTemplateKey(op: string) {
+		let key: string;
 		switch (op) {
 			case 'isEmpty':
 			case 'isNotEmpty':

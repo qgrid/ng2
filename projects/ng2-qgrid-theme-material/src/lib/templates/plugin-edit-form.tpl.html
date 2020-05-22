@@ -1,25 +1,26 @@
 <ng-template key="plugin-edit-form.tpl.html"
-             let-$editForm>
-	<mat-card class="mat-elevation-z" (keydown)="$event.stopPropagation()">
+			 let-$editForm>
+	<mat-card class="mat-elevation-z"
+			  (keydown)="$event.stopPropagation()">
 		<mat-card-header>
 			<mat-card-title>{{$editForm.caption}}</mat-card-title>
 		</mat-card-header>
 		<mat-card-content class="q-grid-edit-form-body">
 			<q-grid-edit-form-control *ngFor="let editor of $editForm.editors"
-			                          class="q-grid-edit-form-control"
-			                          [ngClass]="'q-grid-edit-form-control-' + (editor.cell.column.editor || editor.cell.column.type)"
-			                          [editor]="editor">
+									  class="q-grid-edit-form-control"
+									  [ngClass]="'q-grid-edit-form-control-' + (editor.cell.column.editor || editor.cell.column.type)"
+									  [editor]="editor">
 			</q-grid-edit-form-control>
 		</mat-card-content>
 		<mat-card-actions>
 			<button mat-button
-			        q-grid-focus
-			        (click)="$editForm.cancel.execute($event)">
+					q-grid-focus
+					[q-grid-command]="$editForm.cancel">
 				Cancel
 			</button>
 			<button mat-button
-			        color="primary"
-			        (click)="$editForm.submit.execute($event)">
+					color="primary"
+					[q-grid-command]="$editForm.submit">
 				Save
 			</button>
 		</mat-card-actions>

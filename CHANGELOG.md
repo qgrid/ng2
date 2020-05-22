@@ -37,6 +37,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Fixed
 - *ngIf for column component works.
+- Fix row options icon is jumping on edit.
 
 ## [9.0.1] - 2020-03-13
 ### Fixed

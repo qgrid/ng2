@@ -1,4 +1,3 @@
-let counter = 0;
 export class Event {
 	constructor(reply) {
 		this.handlers = [];

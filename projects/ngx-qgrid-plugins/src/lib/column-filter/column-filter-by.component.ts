@@ -7,10 +7,10 @@ import { ColumnModel } from '@qgrid/core/column-type/column.model';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnFilterByComponent {
-	@Input() by: Set<string>;
 	@Input() column: ColumnModel;
-	@Input() byBlanks: boolean;
 
+	@Input() by: Set<string>;
+	@Input() byBlanks: boolean;
 	@Output() byBlanksChange = new EventEmitter();
 
 	context: { $implicit: ColumnFilterByComponent } = {

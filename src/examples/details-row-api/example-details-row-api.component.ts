@@ -10,12 +10,13 @@ import { Command, GridComponent, RowDetailsStatus } from 'ng2-qgrid';
 	providers: [DataService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExampleDetailsRowApiComponent {
+export class ExampleDetailsRowApiComponent implements AfterViewInit {
 	static id = 'details-row-api';
 
 	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
 
 	rows$: Observable<Atom[]>;
+	canExpand = true;
 
 	expandAllCommand = new Command({
 		execute: () => {
@@ -49,31 +50,32 @@ export class ExampleDetailsRowApiComponent {
 		}
 	});
 
+	toggle = new Command({
+		canExecute: () => this.canExpand
+	});
+
 	disableExpand = new Command({
 		execute: () => {
-			const { model } = this.grid;
-
-			model.row({
-				toggle: new Command({
-					canExecute: () => false
-				})
-			});
+			this.canExpand = false;
+			this.toggle.canExecuteCheck.next();
 		}
 	});
 
 	enableExpand = new Command({
 		execute: () => {
-			const { model } = this.grid;
-
-			model.row({
-				toggle: new Command({
-					canExecute: () => true
-				})
-			});
+			this.canExpand = true;
+			this.toggle.canExecuteCheck.next();
 		}
 	});
 
 	constructor(dataService: DataService) {
 		this.rows$ = dataService.getAtoms();
+	}
+
+	ngAfterViewInit() {
+		const { model } = this.grid;
+		model.row({
+			toggle: this.toggle
+		});
 	}
 }

@@ -1,4 +1,4 @@
-import {CommandManager} from './command.manager';
+import { CommandManager } from './command.manager';
 
 export class TableCommandManager extends CommandManager {
 	constructor(apply, table) {

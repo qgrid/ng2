@@ -6,7 +6,7 @@ import { GridPlugin } from '../plugin/grid.plugin';
 export class GroupLet {
 	constructor(plugin: GridPlugin, service: GridService, shortcut: { register: (commands: Command[]) => void });
 
-	readonly toggleStatus: Command;
+	readonly toggleStatus: Command<[any, ColumnModel]>;
 	readonly toggleAllStatus: Command;
 
 	count(node: Node, column: ColumnModel): number;

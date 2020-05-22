@@ -6,7 +6,6 @@ import { Shortcut } from '@qgrid/core/shortcut/shortcut';
 import { ShortcutDispatcher } from '@qgrid/core/shortcut/shortcut.dispatcher';
 import { clone } from '@qgrid/core/utility/kit';
 import { Event } from '@qgrid/core/event/event';
-import { groupBy } from '@qgrid/core/utility/kit';
 
 export class PersistencePlugin {
 	constructor(plugin, createDefaultModel) {
