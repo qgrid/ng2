@@ -25,8 +25,7 @@ export class LayerService {
 			const { nativeElement } = container.element;
 			nativeElement.parentElement.classList.add(`q-grid-layer-${name}`);
 
-			const createView = templateService.viewFactory({});
-			createView(link, container);
+			container.createEmbeddedView(link.template, {});
 		}
 
 		const destroy = container

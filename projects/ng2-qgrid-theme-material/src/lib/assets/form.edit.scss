@@ -1,8 +1,10 @@
 q-grid-edit-form-trigger {
+    .q-grid-icon-button {
+        @include buttonSizes(24px);
+    }
+
     .q-grid-icon {
-        @include iconSizes(16px);
         color: $dark-secondary;
-        line-height: 16px;
     }
 }
 
@@ -10,14 +12,17 @@ q-grid-edit-form-trigger {
     .q-grid-edit-form {
         width: 500px;
         min-width: 500px !important;
+
         .q-grid-edit-form-body {
             height: 300px;
             overflow-y: auto;
             overflow-x: hidden;
             padding: 0 15px;
+
             .q-grid-edit-form-control {
                 display: block;
                 margin-bottom: 1.25em;
+
                 &-image,
                 &-bool {
                     margin-bottom: 2.5em;

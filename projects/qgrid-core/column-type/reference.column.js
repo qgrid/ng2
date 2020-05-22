@@ -1,7 +1,7 @@
 import { ColumnView } from '../scene/view/column.view';
 import { DataColumnModel } from './data.column.model';
 import { TemplatePath } from '../template/template.path';
-import { Model } from '../infrastructure/model';
+import { Model } from '../model/model';
 
 TemplatePath.register('reference-cell', (template, column) => {
 	return {

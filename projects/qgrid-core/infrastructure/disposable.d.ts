@@ -3,7 +3,7 @@ export type DisposableResource =
 	| { unsubscribe: () => void }
 	| (() => void);
 
-export declare interface Disposable {
+export declare class Disposable {
 	add(resource: DisposableResource);
 	remove(resource: DisposableResource): boolean;
 	finalize(): void;

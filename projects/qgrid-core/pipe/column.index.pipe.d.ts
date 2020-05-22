@@ -1,6 +1,10 @@
-import { PipeContext, PipeMemo } from './pipe.item';
 import { Node } from '../node/node';
-import { ColumnView } from '../scene/view/column.view';
+import { PipeCallback } from './pipe.types';
+import { SceneStateColumnRows } from '../scene/scene.state';
 
+export declare type ColumnIndexPipeMemo = {
+    columns: SceneStateColumnRows,
+    tree: Node
+};
 
-export declare const columnIndexPipe: (root: Node, context: PipeContext, next: (param: { columns: ColumnView[][], tree: Node }) => void) => any;
+export declare const columnIndexPipe: PipeCallback<Node, ColumnIndexPipeMemo>;

@@ -1,4 +1,4 @@
-export declare class AppError extends Error {
+export declare class GridError extends Error {
 	constructor(name: string, message: string);
 
 	name: string;

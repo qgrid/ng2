@@ -1,4 +1,4 @@
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { parseFactory, getType } from '../services/convert';
 import { Visitor } from './expression.visitor';
 import { isArray, identity } from '../utility/kit';
@@ -23,7 +23,7 @@ export class PredicateVisitor extends Visitor {
 					return value => lp(value) || rp(value);
 
 				default:
-					throw AppError(
+					throw GridError(
 						'predicate.visitor',
 						`Invalid operation ${group.op}`
 					);
@@ -109,7 +109,7 @@ export class PredicateVisitor extends Visitor {
 				};
 				break;
 			default:
-				throw new AppError(
+				throw new GridError(
 					'predicate.visitor',
 					`Invalid operation ${condition.op}`
 				);

@@ -1,21 +1,28 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { ModelComponent } from '../component/model.component';
-import { GridRoot } from '../grid/grid-root';
+import { Component, Input, ChangeDetectionStrategy, OnChanges } from '@angular/core';
 import { ColumnListService } from './column-list.service';
-import { Disposable } from '../infrastructure/disposable';
+import { ColumnListState, ColumnListStateGeneration } from '@qgrid/core/column-list/column.list.state';
+import { GridPlugin } from '../plugin/grid-plugin';
+import { StateAccessor } from '../state/state-accessor';
 
 @Component({
 	selector: 'q-grid-columns',
 	template: '<ng-content></ng-content>',
-	providers: [ColumnListService, Disposable],
+	providers: [ColumnListService, GridPlugin, StateAccessor],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ColumnListComponent extends ModelComponent {
-	@Input('generation') public columnListGeneration: string = null;
+export class ColumnListComponent implements OnChanges {
+	private columnListAccessor = this.stateAccessor.setter(ColumnListState);
 
-	constructor(root: GridRoot, disposable: Disposable) {
-		super(root, disposable);
+	@Input('generation') set columnListGeneration(generation: ColumnListStateGeneration) { this.columnListAccessor({ generation }); }
 
-		this.models = ['columnList'];
+	constructor(
+		private plugin: GridPlugin,
+		private stateAccessor: StateAccessor,
+	) {
+	}
+
+	ngOnChanges() {
+		const { model } = this.plugin;
+		this.stateAccessor.write(model);
 	}
 }

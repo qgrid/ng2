@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { PersistencePlugin } from '@qgrid/plugins/persistence/persistence.plugin';
 import { GridPlugin, GridModelBuilder } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-persistence-panel',
 	templateUrl: './persistence-panel.component.html',
-	providers: [GridPlugin]
+	providers: [GridPlugin],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PersistencePanelComponent implements OnInit {
 	context: {
@@ -19,7 +20,7 @@ export class PersistencePanelComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const persistence = new PersistencePlugin(this.plugin.model, () => this.modelBuilder.build());
+		const persistence = new PersistencePlugin(this.plugin, () => this.modelBuilder.build());
 		this.context = { $implicit: persistence };
 	}
 }

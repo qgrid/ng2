@@ -148,7 +148,14 @@
                 .mat-card-footer {
                     position: absolute;
                     width: 100%;
-                    bottom: -20px;
+                    bottom: -28px;
+                    z-index: -1;
+                }
+
+                ::ng-deep {
+                    >*>q-grid {
+                        height: 100%;
+                    }
                 }
             }
         }

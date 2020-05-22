@@ -1,6 +1,6 @@
 import { RowDetails } from './row.details';
 import { RowDetailsStatus } from './row.details.status';
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { columnFactory } from '../column/column.factory';
 
 export function flatView(model, mode) {
@@ -14,27 +14,28 @@ export function flatView(model, mode) {
 
 	const result = [];
 	const createColumn = columnFactory(model);
-	for (let i = 0, length = rows.length; i < length; i++) {
-		const dataRow = rows[i];
+	for (let cursor = 0, length = rows.length; cursor < length; cursor++) {
+		const dataRow = rows[cursor];
 		result.push(dataRow);
 
-		const nextRow = rows[i + 1];
+		const nextRow = rows[cursor + 1];
 		const detailsRow = nextRow instanceof RowDetails ? nextRow : null;
 		const state = status.get(dataRow) || (showAll && new RowDetailsStatus(true));
 		if (state instanceof RowDetailsStatus && state.expand) {
 			if (detailsRow) {
 				result.push(detailsRow);
-				i++;
+				cursor++;
 			} else {
 				const column = createColumn('row-details');
 				column.columnIndex = columnIndex;
 				result.push(new RowDetails(dataRow, column));
 			}
+
 			continue;
 		}
 
 		if (detailsRow) {
-			i++;
+			cursor++;
 		}
 	}
 
@@ -43,7 +44,7 @@ export function flatView(model, mode) {
 
 export function invalidateStatus(rows, status, mode) {
 	switch (mode) {
-		case 'all':
+		case 'all': {
 			status = new Map(status.entries());
 			rows.forEach(row => {
 				if (!status.has(row)) {
@@ -51,20 +52,26 @@ export function invalidateStatus(rows, status, mode) {
 				}
 			});
 			break;
-		case 'single':
+		}
+		case 'single': {
 			status = new Map(Array
 				.from(status.entries())
 				.filter(entry => {
-					const row = entry[0];
-					const status = entry[1];
+					const [row, status] = entry;
 					return rows.indexOf(row) >= 0 || !(status instanceof RowDetailsStatus);
 				}));
 			break;
-		case 'multiple':
+		}
+		case 'multiple': {
 			status = new Map(status.entries());
 			break;
-		default:
-			throw new AppError('row.details.service', `Invalid mode ${mode}`);
+		}
+		default: {
+			throw new GridError(
+				'row.details.service',
+				`Invalid mode ${mode}`
+			);
+		}
 	}
 
 	return status;

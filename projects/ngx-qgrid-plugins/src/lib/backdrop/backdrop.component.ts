@@ -7,14 +7,16 @@ import {
 	ElementRef,
 	ViewChild,
 	Input,
-	OnInit
+	OnInit,
+	ChangeDetectionStrategy
 } from '@angular/core';
 import { BackdropPlugin } from '@qgrid/plugins/backdrop/backdrop.plugin';
 import { BackdropService } from './backdrop.service';
 
 @Component({
 	selector: 'q-grid-backdrop',
-	templateUrl: './backdrop.component.html'
+	templateUrl: './backdrop.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BackdropComponent implements OnInit, OnDestroy {
 	@ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;

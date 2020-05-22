@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { DataManipulationComponent } from './data-manipulation.component';
 import { GridModelBuilder } from '@qgrid/ngx';
-import { DataManipulationModel } from '@qgrid/plugins/data-manipulation/data.manipulation.model';
+import { DataManipulationState } from '@qgrid/plugins/data-manipulation/data.manipulation.state';
 
 @NgModule({
 	declarations: [DataManipulationComponent],
@@ -10,6 +10,6 @@ import { DataManipulationModel } from '@qgrid/plugins/data-manipulation/data.man
 export class DataManipulationModule {
 	constructor(modelBuilder: GridModelBuilder) {
 		modelBuilder
-			.register('dataManipulation', DataManipulationModel);
+			.register('dataManipulation', DataManipulationState);
 	}
 }

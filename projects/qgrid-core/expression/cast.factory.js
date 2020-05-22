@@ -1,4 +1,4 @@
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 
 export function getType(type) {
 	return {}.toString.call(type).slice('[object]'.length, -1); // returns type of built-in objects
@@ -27,7 +27,7 @@ export function castFactory(r) {
 			case 'Boolean':
 				return asBool;
 			default:
-				throw AppError(
+				throw GridError(
 					'cast.factory',
 					`Unsupported format ${lt}`
 				);

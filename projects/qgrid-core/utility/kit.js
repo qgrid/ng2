@@ -1,32 +1,29 @@
-import isObject from 'lodash-es/isObject';
-import isFunction from 'lodash-es/isFunction';
-import isArray from 'lodash-es/isArray';
-import isEqual from 'lodash-es/isEqual';
-import isString from 'lodash-es/isString';
-import isBoolean from 'lodash-es/isBoolean';
-import isNumber from 'lodash-es/isNumber';
-import isDate from 'lodash-es/isDate';
+import assignWith from 'lodash-es/assignWith';
 import clone from 'lodash-es/clone';
 import cloneDeep from 'lodash-es/cloneDeepWith';
-import isUndefined from 'lodash-es/isUndefined';
-import debounce from 'lodash-es/debounce';
-import merge from 'lodash-es/merge';
+import dropWhile from 'lodash-es/dropWhile';
 import flatten from 'lodash-es/flatten';
-import startCase from 'lodash-es/startCase';
-import assignWith from 'lodash-es/assignWith';
-import uniq from 'lodash-es/uniq';
-import sumBy from 'lodash-es/sumBy';
+import isArray from 'lodash-es/isArray';
+import isBoolean from 'lodash-es/isBoolean';
+import isDate from 'lodash-es/isDate';
+import isEqual from 'lodash-es/isEqual';
+import isFunction from 'lodash-es/isFunction';
+import isNumber from 'lodash-es/isNumber';
+import isObject from 'lodash-es/isObject';
+import isString from 'lodash-es/isString';
+import isUndefined from 'lodash-es/isUndefined';
 import max from 'lodash-es/maxBy';
 import min from 'lodash-es/minBy';
-import zip from 'lodash-es/zip';
+import startCase from 'lodash-es/startCase';
+import sumBy from 'lodash-es/sumBy';
 import takeWhile from 'lodash-es/takeWhile';
-import dropWhile from 'lodash-es/dropWhile';
-import groupBy from 'lodash-es/groupBy';
+import uniq from 'lodash-es/uniq';
+import zip from 'lodash-es/zip';
 
 const noop = () => { };
 const yes = () => true;
 const no = () => false;
-const identity = arg => arg;
+const identity = x => x;
 
 const toCamelCase = (...names) => {
 	const length = names.length;
@@ -152,6 +149,10 @@ function isImage(value) {
 }
 
 function getTypeName(type) {
+	if (type.name) {
+		return type.name;
+	}
+
 	const nameRegexp = /function (.{1,})\(/;
 	const results = (nameRegexp).exec(type.constructor.toString());
 	return (results && results.length > 1) ? results[1] : "";
@@ -163,19 +164,17 @@ export {
 	clone,
 	cloneDeep,
 	compare,
-	debounce,
 	dropWhile,
 	escapeRegexp,
 	flatten,
 	getTypeName,
-	groupBy,
 	htmlEncode,
 	identity,
 	isArray,
 	isBoolean,
 	isDate,
 	isEmail,
-	isEqual,
+	isEqual as same,
 	isFunction,
 	isImage,
 	isNumber,
@@ -184,7 +183,6 @@ export {
 	isUndefined,
 	isUrl,
 	max,
-	merge,
 	min,
 	no,
 	noop,

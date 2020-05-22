@@ -20,7 +20,11 @@ import { Command } from '../command/command';
  * ```
  */
 export declare class Action {
-	constructor(command: Command, title?: string, icon?: string);
+	constructor(
+		command: Command,
+		title?: string,
+		icon?: string
+	);
 
 	/**
 	 * User command that will be executed when:

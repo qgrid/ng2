@@ -15,7 +15,7 @@ export class Human {
 	name: {
 		first: string,
 		last: string
-	}
+	};
 }
 
 export class Atom {

@@ -15,12 +15,11 @@ function isParentOf(parent, element) {
 }
 
 export class View extends Unit {
-	constructor(context, model, markup) {
+	constructor(context, model) {
 		super();
 
 		this.context = context;
 		this.model = model;
-		this.markup = markup;
 		this.layers = new Map();
 	}
 
@@ -77,38 +76,45 @@ export class View extends Unit {
 	}
 
 	addClass(name) {
-		if (this.markup.view) {
-			this.markup.view.classList.add(escapeAttr(name));
+		const { markup } = this.context;
+		if (markup.view) {
+			markup.view.classList.add(escapeAttr(name));
 		}
 	}
 
 	removeClass(name) {
-		if (this.markup.view) {
-			this.markup.view.classList.remove(escapeAttr(name));
+		const { markup } = this.context;
+		if (markup.view) {
+			markup.view.classList.remove(escapeAttr(name));
 		}
 	}
 
 	scrollLeft(value) {
-		const markup = this.markup;
+		const { markup } = this.context;
 		if (arguments.length) {
-			if (markup.head) {
-				markup.head.scrollLeft = value;
+			const headMid = markup['head-mid'];
+			if (headMid) {
+				headMid.scrollLeft = value;
 			}
 
-			if (markup.foot) {
-				markup.foot.scrollLeft = value;
+			const footMid = markup['foot-mid'];
+			if (footMid) {
+				footMid.scrollLeft = value;
 			}
 
-			if (markup.body) {
-				markup.body.scrollLeft = value;
+			const bodyMid = markup['body-mid'];
+			if (bodyMid) {
+				bodyMid.scrollLeft = value;
 			}
 
-			if (markup['body-top']) {
-				markup['body-top'].scrollLeft = value;
+			const bodyTop = markup['body-top'];
+			if (bodyTop) {
+				bodyTop.scrollLeft = value;
 			}
 
-			if (markup['body-bottom']) {
-				markup['body-bottom'].scrollLeft = value;
+			const bodyBottom = markup['body-bottom'];
+			if (bodyBottom) {
+				bodyBottom.scrollLeft = value;
 			}
 
 			return;
@@ -142,23 +148,25 @@ export class View extends Unit {
 				case 'left': {
 					target = target.element;
 					if (target) {
-						const markup = this.markup;
-						if (markup.table) {
-							return isParentOf(markup.table, target);
+						const { markup } = this.context;
+						const tableMid = markup['table-mid'];
+						if (tableMid) {
+							return isParentOf(tableMid, target);
 						}
 					}
 					break;
 				}
-				case 'top':
+				case 'top': {
 					return true;
+				}
 			}
 		}
 
 		return false;
 	}
 
-	rect(area = 'body') {
-		const markup = this.markup;
+	rect(area = 'body-mid') {
+		const { markup } = this.context;
 		const element = markup[area];
 		if (element) {
 			// TODO: get rid of that
@@ -177,8 +185,8 @@ export class View extends Unit {
 		return super.rect();
 	}
 
-	height(area = 'body') {
-		const markup = this.markup;
+	height(area = 'body-mid') {
+		const { markup } = this.context;
 		const element = markup[area];
 		if (element) {
 			return element.clientHeight;
@@ -187,8 +195,8 @@ export class View extends Unit {
 		return 0;
 	}
 
-	width(area = 'body') {
-		const markup = this.markup;
+	width(area = 'body-mid') {
+		const { markup } = this.context;
 		const element = markup[area];
 		if (element) {
 			return element.clientWidth;
@@ -198,19 +206,20 @@ export class View extends Unit {
 	}
 
 	getElementCore() {
-		return this.markup.body;
+		const { markup } = this.context;
+		return markup['body-mid'];
 	}
 
 	isFocusedCore(target) {
-		const { markup } = this;
+		const { markup } = this.context;
 		const { activeElement } = markup.document;
 
 		return isParentOf(target, activeElement);
 	}
 
 	getElementsCore(key) {
-		const markup = this.markup;
-		return [`${key}-left`, key, `${key}-right`]
+		const { markup } = this.context;
+		return [`${key}-left`, `${key}-mid`, `${key}-right`]
 			.filter(key => markup.hasOwnProperty(key))
 			.map(key => markup[key]);
 	}

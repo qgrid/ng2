@@ -1,26 +1,27 @@
-import { Command } from '@qgrid/core/command/command';
 import { Action } from '@qgrid/core/action/action';
-import { AppError } from '@qgrid/core/infrastructure/error';
+import { Command } from '@qgrid/core/command/command';
 import { Composite } from '@qgrid/core/infrastructure/composite';
+import { DataManipulationState } from './data.manipulation.state';
+import { GridError } from '@qgrid/core/infrastructure/error';
 import { isUndefined } from '@qgrid/core/utility/kit';
-import { DataManipulationModel } from './data.manipulation.model';
-import { set as setValue } from '@qgrid/core/services/value';
 import { set as setLabel } from '@qgrid/core/services/label';
+import { set as setValue } from '@qgrid/core/services/value';
+import { takeOnce, filter } from '@qgrid/core/rx/rx.operators';
 import * as columnService from '@qgrid/core/column/column.service';
 
 export class DataManipulationPlugin {
-	constructor(model, disposable) {
-		this.model = model;
+	constructor(plugin) {
+		this.plugin = plugin;
 
 		this.commitCommand = new Command({
 			execute: e => {
-				if (e.column.class !== 'data') {
+				if (e.column.category !== 'data') {
 					return;
 				}
 
 				const rowId = this.rowId(e.rowIndex, e.row);
 				const columnId = this.columnId(e.columnIndex, e.column);
-				const edited = this.changes.edited;
+				const { edited } = this.changes;
 
 				let entries = edited.get(rowId);
 				if (!entries) {
@@ -59,20 +60,37 @@ export class DataManipulationPlugin {
 				new Command({
 					source: 'data.manipulation',
 					execute: () => {
-						const newRow = this.rowFactory(this.model.data().rows[0]);
+						const { model, observe, table } = this.plugin;
+						const { data } = model;
+
+						const newRow = this.rowFactory(model.data().rows[0]);
 						if (isUndefined(newRow)) {
-							throw new AppError('data.manipulation', 'Setup rowFactory property to add new rows');
+							throw new GridError('data.manipulation', 'Setup rowFactory property to add new rows');
 						}
 
 						const rowId = this.rowId(0, newRow);
-						const data = this.model.data;
-
 						this.changes.added.add(rowId);
 						data({
 							rows: [newRow].concat(data().rows)
 						}, {
 							source: 'data.manipulation'
 						});
+
+						observe(model.sceneChanged)
+							.pipe(
+								filter(e => e.hasChanges('status') && e.state.status === 'stop'),
+								takeOnce()
+							)
+							.subscribe(e => {
+								const index = model.view().rows.indexOf(newRow);
+								model.focus({
+									rowIndex: index
+								}, {
+									source: 'data.manipulation.plugin'
+								});
+
+								table.view.focus();
+							});
 					},
 					shortcut: 'F7'
 				}),
@@ -89,11 +107,13 @@ export class DataManipulationPlugin {
 						return !this.changes.deleted.has(rowId);
 					},
 					execute: e => {
+						const { model } = this.plugin;
+						const { data } = model;
+
 						const rowId = this.rowId(e.rowIndex, e.row);
 						const changes = this.changes;
 						if (changes.added.has(rowId)) {
 							changes.added.delete(rowId);
-							const data = this.model.data;
 							const rows = data().rows.filter((row, i) => this.rowId(i, row) !== rowId);
 							data({ rows }, {
 								source: 'data.manipulation'
@@ -118,12 +138,14 @@ export class DataManipulationPlugin {
 
 						if (this.changes.edited.has(rowId)) {
 							try {
+								const { model } = this.plugin;
+
 								const edits = this.changes.edited.get(rowId);
-								const columnMap = columnService.map(this.model.columnList().line);
+								const columnMap = columnService.map(model.columnList().line);
 								for (const edit of edits) {
 									const column = columnMap[edit.column];
 									if (!column) {
-										throw new AppError('data.manipulation', `Column ${edit.column} is not found`);
+										throw new GridError('data.manipulation', `Column ${edit.column} is not found`);
 									}
 
 									setValue(e.row, column, edit.oldValue);
@@ -155,10 +177,12 @@ export class DataManipulationPlugin {
 			// )
 		];
 
-		this.rowId = model.data().id.row;
-		this.columnId = model.data().id.column;
+		const { model, disposable, observeReply } = this.plugin;
 
-		const dm = model.resolve(DataManipulationModel);
+		this.rowId = model.data().rowId;
+		this.columnId = model.data().columnId;
+
+		const dm = model.resolve(DataManipulationState);
 		this.rowFactory = dm.state().rowFactory;
 
 		const styleState = model.style();
@@ -182,19 +206,21 @@ export class DataManipulationPlugin {
 
 		disposable.add(() => {
 			const { items } = model.action();
-			const newItems = items.filter(x => this.actions.every(y => y.id !== x.id));
-			model.action({ items: newItems });
+			const notDMActions = items.filter(x => this.actions.every(y => y.id !== x.id));
+			model.action({ items: notDMActions });
 		});
 
-		model.columnListChanged.watch((e, off) => {
-			if (e.hasChanges('line')) {
+		observeReply(model.columnListChanged)
+			.pipe(
+				filter(e => e.hasChanges('line')),
+				takeOnce()
+			)
+			.subscribe(e => {
 				const rowOptionsColumn = e.state.line.find(column => column.type === 'row-options');
 				if (rowOptionsColumn) {
 					rowOptionsColumn.editorOptions.actions.push(...this.rowActions);
-					off();
 				}
-			}
-		});
+			});
 	}
 
 	hasChanges(newValue, oldValue) {
@@ -235,12 +261,12 @@ export class DataManipulationPlugin {
 	}
 
 	get changes() {
-		const model = this.model;
+		const { model } = this.plugin;
 		return model.dataManipulation();
 	}
 
 	get resource() {
-		const dm = this.model.resolve(DataManipulationModel);
+		const dm = this.model.resolve(DataManipulationState);
 		return dm.state().resource;
 	}
 }

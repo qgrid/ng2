@@ -11,8 +11,34 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Grouped rows navigation improvements.
 
 ## [9.1.0] - 2020-04-01
+### BREAKING
+- q-grid is block element by default was inline.
+- Rename edit state property from `state` to `status`.
+- Selection state `key` property split into 2 `rowKey` and `columnKey`.
+- Data state `id` property split into 2 `rowId` and `columnId`.
+- Remove `actions`, `pipe`, `selectionKey`, `filterFetch` input properties from the grid component.
+- Remove `keep` method from grid plugin.
+- Data rowId returns row index by default not the instance.
+- Instead of class q-grid-cell.key use q-grid-`the`-cell.key.
+- Get rid of redundant spans in cell templates.
+- Column pin `min` instead of `null`.
+- Rename column `class` to `category`
+
+### Added
+- Ivy support.
+- New scene status called `idle`, before the first render.
+
 ### Changed
-- Enable Ivy
+- Better plugin support.
+- Get rid of model proxy.
+- Rendering performance improvements.
+- All components got OnPush CDS.
+- Better core types.
+- Row details get focus on expand.
+
+### Fixed
+- *ngIf for column component works.
+- Fix row options icon is jumping on edit.
 
 ## [9.0.1] - 2020-03-13
 ### Fixed

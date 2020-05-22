@@ -1,6 +1,7 @@
 <q-grid caption="Column List Basic"
-		[rows]="rows | async"
+		[rows]="rows$ | async"
 		[ngSwitch]="group">
+
 	<q-grid-columns *ngSwitchCase="'name'">
 		<q-grid-column key="firstName"
 					   path="name.first"

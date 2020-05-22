@@ -17,7 +17,7 @@ export class FilterRowColumnModel extends ColumnModel {
 
 		this.key = `$filter.row.${model.key}`;
 		this.type = 'filter-row';
-		this.class = 'control';
+		this.category = 'control';
 
 		this.canResize = false;
 		this.canSort = false;

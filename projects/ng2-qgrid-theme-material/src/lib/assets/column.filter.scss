@@ -1,8 +1,6 @@
-&.q-grid-box:not(.q-grid-drag) {
-    th.q-grid-highlighted {
-        .q-grid-column-filter-trigger {
-            opacity: 1;
-        }
+th.q-grid-highlighted {
+    .q-grid-column-filter-trigger {
+        opacity: 1;
     }
 }
 
@@ -155,7 +153,7 @@
     padding: 0 14px;
     margin-bottom: 3px;
 
-    &-item { 
+    &-item {
         font-size: 12px;
         margin: 2px 7px 1px -4px;
         height: 15px;

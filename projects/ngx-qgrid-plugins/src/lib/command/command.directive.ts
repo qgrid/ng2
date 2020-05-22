@@ -1,47 +1,132 @@
-import { Directive, Input, OnDestroy, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
+import {
+	Directive,
+	DoCheck,
+	OnChanges,
+	Input,
+	ElementRef,
+	SimpleChanges,
+	OnInit,
+	EventEmitter,
+	Output,
+} from '@angular/core';
+import { Disposable } from '@qgrid/ngx';
 import { Command } from '@qgrid/core/command/command';
 import { CommandManager } from '@qgrid/core/command/command.manager';
 import { Shortcut } from '@qgrid/core/shortcut/shortcut';
 import { ShortcutDispatcher } from '@qgrid/core/shortcut/shortcut.dispatcher';
 
-
 @Directive({
-	selector: '[q-grid-command]'
+	selector: '[q-grid-command]',
+	providers: [Disposable]
 })
-export class CommandDirective implements OnInit, OnDestroy {
-	private shortcut = new Shortcut(new ShortcutDispatcher());
-	private shortcutOff: () => void;
+export class CommandDirective implements DoCheck, OnChanges, OnInit {
+	@Input('q-grid-command')
+	command: Command<any>;
 
-	@Input('q-grid-command') command: Command;
-	@Input('q-grid-command-context') commandContext: any;
-	@Output('q-grid-command-execute') execute = new EventEmitter();
+	@Input('q-grid-command-arg')
+	commandArg: any;
 
-	constructor() {
+	@Input('q-grid-command-use-shortcut')
+	useCommandShortcut: boolean;
+
+	@Input('q-grid-command-event')
+	commandEvent = 'click';
+
+	@Output('q-grid-command-execute')
+	commandExecute = new EventEmitter<any>();
+
+	constructor(
+		private disposable: Disposable,
+		private host: ElementRef
+	) {
 	}
 
 	ngOnInit() {
-		const command = this.command;
-		if (command && command.shortcut) {
+		const { nativeElement } = this.host;
+
+		nativeElement
+			.addEventListener(this.commandEvent, e => {
+				const { command, commandArg } = this;
+				if (command) {
+					const result = command.execute(commandArg) === true;
+					if (result) {
+						e.preventDefault();
+						e.stopPropagation();
+					}
+
+					this.commandExecute.emit(commandArg);
+				}
+			});
+	}
+
+	ngDoCheck() {
+		if (this.command) {
+			this.updateState();
+		}
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes.command) {
+			this.unregister();
+
+			if (this.command) {
+				this.register();
+			}
+		}
+	}
+
+	private register() {
+		const { command, commandArg } = this;
+
+		this.disposable.add(
+			command
+				.canExecuteCheck
+				.subscribe(() => this.updateState())
+		);
+
+		if (this.useCommandShortcut && command.shortcut) {
 			const manager = new CommandManager(f => {
 				f();
-				this.execute.emit();
-			}, this.commandContext);
+				this.commandExecute.emit(commandArg);
+			}, commandArg);
 
-			this.shortcutOff = this.shortcut.register(manager, [command]);
+			const shortcut = new Shortcut(new ShortcutDispatcher());
+
+			const keyDown = e => shortcut.keyDown(e);
+			document.addEventListener('keydown', keyDown);
+
+			this.disposable.add(() =>
+				document.removeEventListener('keydown', keyDown)
+			);
+
+			this.disposable.add(
+				shortcut.register(manager, [command])
+			);
 		}
 	}
 
-	@HostListener('document:keydown', ['$event'])
-	onKeyDown(e: KeyboardEvent) {
-		if (this.shortcutOff) {
-			this.shortcut.keyDown(e, 'command');
-		}
+	private unregister() {
+		this.disposable.finalize();
 	}
 
-	ngOnDestroy() {
-		if (this.shortcutOff) {
-			this.shortcutOff();
-			this.shortcutOff = null;
+	private updateState() {
+		if (!this.host.nativeElement.setAttribute) {
+			return;
+		}
+
+		const { nativeElement } = this.host;
+		const canExecute = this.command.canExecute(this.commandArg) === true;
+		const hasDisabled = !!nativeElement.getAttribute('disabled');
+
+		if (canExecute) {
+			if (hasDisabled) {
+				nativeElement.removeAttribute('disabled');
+			}
+		} else {
+			if (!hasDisabled) {
+				setTimeout(() =>
+					nativeElement.setAttribute('disabled', 'true'), 100);
+			}
 		}
 	}
 }

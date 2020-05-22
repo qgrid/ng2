@@ -9,13 +9,13 @@ export {
 	BoxModule,
 	CellHandlerComponent,
 	CellHandlerModule,
-	CellService,
+	CellTemplateService,
 	ColumnComponent,
+	ColumnHostService,
 	ColumnListComponent,
 	ColumnListModule,
 	ColumnListService,
 	ColumnModule,
-	ColumnService,
 	Disposable,
 	DndModule,
 	DomBag,
@@ -34,12 +34,12 @@ export {
 	Grid, GridService,
 	GridComponent,
 	GridError,
+	GridLet,
 	GridModel,
 	GridModelBuilder,
 	GridModule as NgxGridModule,
 	GridPlugin,
 	GridRoot,
-	GridView,
 	HeadCoreComponent,
 	HeadModule,
 	IVscrollSettings,
@@ -50,14 +50,13 @@ export {
 	LayerService,
 	MarkupDirective,
 	MarkupModule,
-	ModelComponent,
 	ResizeDirective,
 	ResizeModule,
-	RootComponent,
 	RowComponent,
 	RowModule,
 	ScrollModule,
 	ScrollService,
+	StopPropagateDirective,
 	TableCoreComponent,
 	TableCoreService,
 	TableModule,
@@ -196,7 +195,6 @@ export {
 	SerializationService,
 	StatusBarComponent,
 	StatusBarModule,
-	StopPropagateDirective,
 	TabTrapComponent,
 	TabTrapInDirective,
 	TabTrapModule,
@@ -218,7 +216,7 @@ export { Action } from '@qgrid/core/action/action';
 export { Command } from '@qgrid/core/command/command';
 export { Pipe } from '@qgrid/core/pipe/pipe';
 export { PipeUnit } from '@qgrid/core/pipe/pipe.unit';
-export { PipeContext, PipeMemo } from '@qgrid/core/pipe/pipe.item';
+export { PipeContext, PipeFolder, PipeCallback, MemoPipe, RowsPipe } from '@qgrid/core/pipe/pipe.types';
 export { Node } from '@qgrid/core/node/node';
 export { RowDetailsStatus } from '@qgrid/core/row-details/row.details.status';
 export { RowDetails } from '@qgrid/core/row-details/row.details';

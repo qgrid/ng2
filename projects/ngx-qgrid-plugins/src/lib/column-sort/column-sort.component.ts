@@ -9,8 +9,8 @@ import {
 	ViewChild,
 } from '@angular/core';
 import { ColumnSortPlugin } from '@qgrid/plugins/column-sort/column.sort.plugin';
-import { EventListener } from '@qgrid/core/infrastructure/event.listener';
-import { EventManager } from '@qgrid/core/infrastructure/event.manager';
+import { EventListener } from '@qgrid/core/event/event.listener';
+import { EventManager } from '@qgrid/core/event/event.manager';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { FocusAfterRender } from '../focus/focus.service';
 import { GridPlugin } from '@qgrid/ngx';
@@ -41,9 +41,8 @@ export class ColumnSortComponent implements AfterViewInit {
 		const iconAsc = nativeElement.querySelector('.q-grid-asc');
 		const iconDesc = nativeElement.querySelector('.q-grid-desc');
 
-		const columnSort = new ColumnSortPlugin(this.plugin.model, {
+		const columnSort = new ColumnSortPlugin(this.plugin, {
 			element: nativeElement,
-			view: this.plugin.view,
 			column: this.column,
 			iconAsc,
 			iconDesc
@@ -51,13 +50,14 @@ export class ColumnSortComponent implements AfterViewInit {
 
 		const listener = new EventListener(nativeElement, new EventManager(this));
 		listener.on('click', () => {
-			if (columnSort.onClick()) {
-				const focus = new FocusAfterRender(this.plugin, null);
+			if (columnSort.click()) {
+				// tslint:disable-next-line:no-unused-expression
+				new FocusAfterRender(this.plugin);
 			}
 		});
 
 		this.zone.runOutsideAngular(() =>
-			listener.on('mouseleave', () => columnSort.onMouseLeave())
+			listener.on('mouseleave', () => columnSort.mouseLeave())
 		);
 	}
 }

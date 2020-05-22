@@ -2,14 +2,14 @@ import { identity } from '../utility/kit';
 import { pivot } from './pivot';
 import { pivotForm } from './pivot.form';
 import { Node } from '../node/node';
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 
 function buildFactory(columnMap, valueFactory) {
 	return function run(pivot, pivotBy, level = 0) {
 		const key = pivotBy[0];
 		const column = columnMap[key];
 		if(!column) {
-			throw new AppError(
+			throw new GridError(
 				'pivot.build',
 				`Invalid key "${key}"`);
 		}

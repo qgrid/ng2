@@ -1,72 +1,77 @@
-import { Component, OnInit, ElementRef, DoCheck, ChangeDetectorRef, NgZone } from '@angular/core';
-import { VisibilityModel } from '@qgrid/core/visibility/visibility.model';
-import { ViewCtrl } from '@qgrid/core/view/view.ctrl';
-import { CellService } from '../cell/cell.service';
-import { GridView } from '../grid/grid-view';
-import { GridRoot } from '../grid/grid-root';
+import { Component, OnInit, DoCheck, ChangeDetectorRef, NgZone, ChangeDetectionStrategy, ElementRef } from '@angular/core';
+import { CellClassService } from '../cell/cell-class.service';
+import { CellTemplateService } from '../cell/cell-template.service';
 import { Grid } from '../grid/grid';
-import { Disposable } from '../infrastructure/disposable';
+import { GridPlugin } from '../plugin/grid-plugin';
+import { ViewHost } from '@qgrid/core/view/view.host';
+import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
+import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
+import { GridLet } from '../grid/grid-let';
+import { EventManager } from '@qgrid/core/event/event.manager';
+import { EventListener } from '@qgrid/core/event/event.listener';
 
 @Component({
 	selector: 'q-grid-core-view',
 	templateUrl: './view-core.component.html',
 	providers: [
-		CellService,
-		Disposable,
-	]
+		CellTemplateService,
+		CellClassService,
+		GridPlugin,
+	],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewCoreComponent implements OnInit, DoCheck {
-	private ctrl: ViewCtrl;
+	private host: ViewHost;
 
 	constructor(
-		private root: GridRoot,
-		private view: GridView,
+		private plugin: GridPlugin,
 		private qgrid: Grid,
-		private disposable: Disposable,
-		private elementRef: ElementRef,
 		private cd: ChangeDetectorRef,
-		private zone: NgZone
+		private zone: NgZone,
+		private view: GridLet,
+		private elementRef: ElementRef,
 	) {
+		zone
+			.onStable
+			.subscribe(() => {
+				const { model, table } = this.plugin;
 
-		zone.onStable.subscribe(() => {
-			if (this.root.isReady) {
-				const { scene } = this.model;
-				const { status } = scene();
-				if (status === 'push') {
-					scene({
-						status: 'stop'
-					}, {
-						source: 'grid.component',
-						behavior: 'core'
-					});
+				if (model) {
+					const { status } = model.scene();
+					if (status === 'push') {
+						table.invalidate();
 
-					if (this.ctrl) {
-						this.ctrl.invalidate();
+						model.scene({
+							status: 'stop'
+						}, {
+							source: 'view-core.component',
+							behavior: 'core'
+						});
+
+						if (this.host) {
+							this.host.invalidate();
+						}
 					}
 				}
-			}
-		});
+			});
 	}
 
 	ngDoCheck() {
-		const { status } = this.model.scene();
-		if (status === 'stop' && this.ctrl) {
-			this.ctrl.invalidate();
+		if (this.host) {
+			const { model } = this.plugin;
+			if (model.scene().status === 'stop') {
+				this.host.invalidate();
+			}
 		}
 	}
 
 	ngOnInit() {
-		const { model, root, view } = this;
+		const { model, table, observeReply, observe, view, disposable } = this.plugin;
 
-		root.markup['view'] = this.elementRef.nativeElement;
-
-		// Views need to be init after `sceneChanged.watch` declaration
-		// to persist the right order of event sourcing.
-		view.init(
-			model,
-			root.table,
-			root.commandManager
-		);
+		// TODO: make it better
+		table.box.markup.view = this.elementRef.nativeElement;
+		const cmdManager = new TableCommandManager(f => f(), table);
+		this.view.init(this.plugin, cmdManager);
 
 		view.scroll.y.settings.emit = f => {
 			f();
@@ -76,40 +81,58 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		};
 
 		const gridService = this.qgrid.service(model);
-		this.ctrl = new ViewCtrl(model, view, gridService);
+		this.host = new ViewHost(this.plugin, gridService);
 
-		this.disposable.add(model.sceneChanged.watch(e => {
-			if (e.hasChanges('status') && e.state.status === 'pull') {
-				this.cd.markForCheck();
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('status') && e.state.status === 'pull') {
+					this.cd.markForCheck();
 
-				// Run digest on the start of invalidate(e.g. for busy indicator)
-				// and on the ned of invalidate(e.g. to build the DOM)
-				this.zone.run(() =>
-					model.scene({
-						status: 'push'
-					}, {
-						source: 'view-core.component',
-						behavior: 'core'
-					})
-				);
+					this.zone.run(() =>
+						model.scene({
+							status: 'push'
+						}, {
+							source: 'view-core.component',
+							behavior: 'core'
+						})
+					);
+				}
+			});
 
-				this.cd.detectChanges();
-			}
+		observe(model.styleChanged)
+			.subscribe(() => this.host.invalidate());
+
+		observeReply(model.editChanged)
+			.subscribe(e => {
+				if (e.hasChanges('status')) {
+					if (e.state.status === 'endBatch') {
+						gridService.invalidate({
+							source: 'view-core.component',
+							why: 'refresh'
+						});
+					}
+				}
+			});
+
+		const listener = new EventListener(this.elementRef.nativeElement, new EventManager(this));
+		disposable.add(listener.on('mousemove', e => this.host.mouseMove(e)));
+		disposable.add(listener.on('mouseleave', e => this.host.mouseLeave(e)));
+		disposable.add(listener.on('mouseup', e => this.host.mouseUp(e)));
+		disposable.add(listener.on('mousedown', e => {
+			this.cd.markForCheck();
+			this.zone.run(() => this.host.mouseDown(e));
 		}));
 
-		this.disposable.add(model.visibilityChanged.on(() => this.cd.detectChanges()));
-
-		const virtualBody = this.root.table.body as any;
-		if (virtualBody.requestInvalidate) {
-			virtualBody.requestInvalidate.on(() => this.ctrl.invalidate());
+		if (model.scroll().mode === 'virtual') {
+			const asVirtualBody = table.body as any;
+			if (asVirtualBody.requestInvalidate) {
+				asVirtualBody.requestInvalidate.on(() => this.host.invalidate());
+			}
 		}
 	}
 
-	private get model() {
-		return this.root.model;
-	}
-
-	get visibility(): VisibilityModel {
-		return this.model.visibility();
+	get visibility(): VisibilityState {
+		const { model } = this.plugin;
+		return model.visibility();
 	}
 }

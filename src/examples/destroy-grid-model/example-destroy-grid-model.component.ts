@@ -1,6 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { DataService } from '../data.service';
 import { GridModel, Grid } from 'ng2-qgrid';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
 	selector: 'example-destroy-grid-model',
@@ -13,9 +14,15 @@ export class ExampleDestroyGridModelComponent {
 	static id = 'destroy-grid-model';
 
 	gridModel: GridModel;
-	isVisible = true;
+	isVisible = false;
 
-	constructor(dataService: DataService, qgrid: Grid) {
+	handlerCount$ = new BehaviorSubject<number>(0);
+
+	constructor(
+		private cd: ChangeDetectorRef,
+		dataService: DataService,
+		qgrid: Grid,
+	) {
 		this.gridModel = qgrid.model();
 
 		dataService
@@ -23,7 +30,7 @@ export class ExampleDestroyGridModelComponent {
 			.subscribe(rows => this.gridModel.data({ rows }));
 	}
 
-	get handlerCount(): number {
+	getHandlerCount(): number {
 		const model = this.gridModel as { [key: string]: any };
 		let count = 0;
 		for (const key in model) {
@@ -34,9 +41,21 @@ export class ExampleDestroyGridModelComponent {
 				const { length } = event.handlers;
 				if (length) {
 					count += length;
+					if (!this.isVisible) {
+						console.warn(`${key} has some unsubscribed subscriptions`);
+						console.warn(event.handlers);
+					}
 				}
 			}
 		}
 		return count;
+	}
+
+	toggleVisibility() {
+		this.isVisible = !this.isVisible;
+
+		setTimeout(() => {
+			this.handlerCount$.next(this.getHandlerCount());
+		}, 500);
 	}
 }

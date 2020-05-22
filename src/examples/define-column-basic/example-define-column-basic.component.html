@@ -1,5 +1,6 @@
 <q-grid caption="Define Column Basic"
-        [rows]="rows | async">
+		[rows]="rows$ | async"
+		class="define-column-basic">
 	<q-grid-columns>
 		<q-grid-column key="number"
 		               title="#"
@@ -16,7 +17,7 @@
 		</q-grid-column>
 		<q-grid-column key="source"
 		               title="Wiki"
-		               [width]="300"
+		               class="example-source"
 		               type="url">
 		</q-grid-column>
 	</q-grid-columns>

@@ -3,6 +3,7 @@
     <mat-checkbox *ngIf="$view.selection.mode !== 'singleOnly'"
                   [indeterminate]="$view.selection.isIndeterminate()"
                   [checked]="$view.selection.state()"
+                  [q-grid-dirty]="$view.selection.stateCheck | async"
                   [disabled]="!$view.selection.toggleRow.canExecute()"
                   (change)="$view.selection.toggleRow.execute()"
                   tabindex="-1"

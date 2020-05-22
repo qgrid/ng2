@@ -29,7 +29,7 @@
             border-left: none;
         }
 
-        >.q-grid-table-center {
+        >.q-grid-table-mid {
             >table {
                 >tbody {
                     overflow-y: hidden;
@@ -41,7 +41,7 @@
 
 .q-grid-with-bottom-pin {
     >.q-grid-view {
-        >.q-grid-table-center {
+        >.q-grid-table-mid {
             >table {
                 >tbody:not(.q-grid-body-bottom) {
                     overflow-x: hidden;

@@ -12,16 +12,16 @@ export class SelectorMark {
 		const addNext = this.addFactory(result);
 
 		addNext('left');
-		addNext(null);
+		addNext('mid');
 		addNext('right');
 
 		return result;
 	}
 
 	addFactory(result) {
-		const model = this.model;
+		const { model } = this;
 		const { rows } = model.scene();
-		const columns = model.scene().column.area;
+		const columnArea = model.scene().column.area;
 
 		return pin => {
 			const name = pin ? `${this.name}-${pin}` : this.name;
@@ -29,7 +29,7 @@ export class SelectorMark {
 			if (element) {
 				const prev = result[result.length - 1];
 				const columnStart = prev ? prev.columnRange.end : 0;
-				const columnCount = columns[pin].length;
+				const columnCount = columnArea[pin].length;
 				const rowStart = 0;
 				const rowCount = rows.length;
 

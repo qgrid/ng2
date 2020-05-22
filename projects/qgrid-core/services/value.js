@@ -1,6 +1,6 @@
 import { isFunction } from '../utility/kit';
 import { compileSet, compileGet } from './path';
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 
 export function get(row, column) {
 	return column.$value
@@ -41,7 +41,7 @@ export function set(row, column, value) {
 		return row[column.key] = value;
 	}
 
-	throw new AppError(
+	throw new GridError(
 		'value',
 		`Row can't be edit on "${column.key}" column`
 	);

@@ -6,7 +6,7 @@
 			<mat-card-title>Columns Filter</mat-card-title>
 		</mat-card-header>
 		<mat-card-content>
-			<div class="flex-none layout-row">
+			<div class="q-grid-flex-none q-grid-layout-row">
 				<mat-form-field class="q-grid-column-chooser-filter">
 					<input type="search"
 						   placeholder="Find in the list"
@@ -16,7 +16,7 @@
 						   q-grid-focus />
 				</mat-form-field>
 			</div>
-			<div class="flex layout-column">
+			<div class="q-grid-flex q-grid-layout-column">
 				<ul class="q-grid-column-chooser-toolbar">
 					<li>
 						<mat-checkbox [checked]="$columnChooser.stateAll()"
@@ -41,12 +41,12 @@
 		</mat-card-content>
 		<mat-card-actions>
 			<button mat-button
-					(click)="$columnChooser.cancel.execute()">
+					[q-grid-command]="$columnChooser.cancel">
 				Cancel
 			</button>
 			<button mat-button
 					color="primary"
-					(click)="$columnChooser.submit.execute()">
+					[q-grid-command]="$columnChooser.submit">
 				Apply
 			</button>
 		</mat-card-actions>

@@ -27,16 +27,14 @@
 			<button tabindex="-1"
 					mat-button
 					class="mat-icon-button q-grid-prev-page"
-					[disabled]="!$pager.prev.canExecute()"
-					(click)="$pager.prev.execute();">
+					[q-grid-command]="$pager.prev">
 				<mat-icon class="q-grid-icon">keyboard_arrow_left</mat-icon>
 			</button>
 			<q-grid-pager-target></q-grid-pager-target>
 			<button tabindex="-1"
 					mat-button
 					class="mat-icon-button q-grid-next-page"
-					[disabled]="!$pager.next.canExecute()"
-					(click)="$pager.next.execute();">
+					[q-grid-command]="$pager.next">
 				<mat-icon class="q-grid-icon">keyboard_arrow_right</mat-icon>
 			</button>
 		</div>

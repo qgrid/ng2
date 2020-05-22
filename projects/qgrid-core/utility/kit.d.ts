@@ -19,7 +19,7 @@ export declare function isObject(value: any): boolean;
 export declare function isString(value: any): boolean;
 export declare function isImage(value: any): boolean;
 export declare function isUrl(value: any): boolean;
-export declare function isEqual(x: any, y: any): boolean;
+export declare function areSame(x: any, y: any): boolean;
 export declare function isEmail(value: string): boolean;
 export declare function isDate(value: any): boolean;
 export declare function clone(value: any): any;

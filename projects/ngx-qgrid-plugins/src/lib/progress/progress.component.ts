@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { GridPlugin } from '@qgrid/ngx';
 
 @Component({
@@ -7,16 +7,15 @@ import { GridPlugin } from '@qgrid/ngx';
 	providers: [GridPlugin],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProgressComponent implements OnInit, OnChanges {
+export class ProgressComponent implements OnInit {
 	context: { $implicit: ProgressComponent } = {
 		$implicit: this
 	};
 
-	constructor(private plugin: GridPlugin, private cd: ChangeDetectorRef) {
-	}
-
-	ngOnChanges(changes: SimpleChanges) {
-		this.plugin.keep(changes, ['progress']);
+	constructor(
+		private plugin: GridPlugin,
+		private cd: ChangeDetectorRef
+	) {
 	}
 
 	ngOnInit() {

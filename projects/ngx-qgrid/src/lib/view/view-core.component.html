@@ -1,14 +1,15 @@
 <q-grid-core-table *ngIf="visibility.pin.left"
                    pin="left"
-                   class="q-grid-table q-grid-table-left layout-column">
+                   class="q-grid-table q-grid-table-left q-grid-layout-column">
 </q-grid-core-table>
 
-<q-grid-core-table class="q-grid-table q-grid-table-center layout-column flex">
+<q-grid-core-table pin="mid"
+                   class="q-grid-table q-grid-table-mid q-grid-layout-column q-grid-flex">
 </q-grid-core-table>
 
 <q-grid-core-table *ngIf="visibility.pin.right"
                    pin="right"
-                   class="q-grid-table q-grid-table-right layout-column">
+                   class="q-grid-table q-grid-table-right q-grid-layout-column">
 </q-grid-core-table>
 
 <q-grid-cell-handler class="q-grid-cell-handler">

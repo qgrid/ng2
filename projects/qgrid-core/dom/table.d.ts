@@ -4,15 +4,15 @@ import { Head } from './head';
 import { Body } from './body';
 import { Foot } from './foot';
 import { BoxContext } from './box';
+import { Model } from '../model/model';
 
 /**
  * Use this class to get access to low level dom elements and functions of the qgrid.
  */
 export declare class Table {
-	constructor(markup: { [key: string]: HTMLElement }, context: BoxContext);
+	constructor(model: Model, box: BoxContext);
 
-	readonly markup: { [key: string]: HTMLElement };
-	readonly context: BoxContext;
+	readonly box: BoxContext;
 
 	/**
 	 * Contains dom selectors for the q-grid header component.
@@ -38,4 +38,6 @@ export declare class Table {
 	 * Get raw data of what is rendered right now in qgrid.
 	 */
 	readonly data: Data;
+
+	invalidate();
 }

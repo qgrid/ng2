@@ -7,3 +7,4 @@ export { Data as DomData } from '@qgrid/core/dom/data';
 export { View as DomView } from '@qgrid/core/dom/view';
 export { Table as DomTable } from '@qgrid/core/dom/table';
 export { Bag as DomBag } from '@qgrid/core/dom/bag';
+export { Markup as DomMarkup } from '@qgrid/core/services/markup';

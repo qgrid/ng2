@@ -1,6 +1,5 @@
-import { Model } from '@qgrid/core/infrastructure/model';
-import { Disposable } from '@qgrid/core/infrastructure/disposable';
+import { GridPlugin } from '@qgrid/core/plugin/grid.plugin';
 
 export declare class DataManipulationPlugin {
-	constructor(model: Model, disposable: Disposable);
+	constructor(plugin: GridPlugin);
 }

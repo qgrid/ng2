@@ -1,23 +1,26 @@
 <ng-template key="edit-cell-row-options.tpl.html"
              let-$cell
              let-$view="$view">
-    <button aria-label="Open row menu"
-            mat-icon-button
-            [matMenuTriggerFor]="menu"
-            (q-grid-menu-trigger)="$view.edit.cell.cancel.execute($cell)">
-        <mat-icon class="q-grid-icon">more_vert</mat-icon>
-    </button>
+    <ng-container (q-grid-menu-trigger)="$view.edit.cell.cancel.execute($cell)">
+        <mat-icon [matMenuTriggerFor]="menu"
+                  class="q-grid-icon">
+            more_vert
+        </mat-icon>
+    </ng-container>
+
     <mat-menu #menu="matMenu"
               class="q-grid-row-options">
         <ng-container *ngFor="let $action of $cell.column.editorOptions.actions"
                       [ngSwitch]=$action.title>
-            <mat-divider *ngSwitchCase="'---'"></mat-divider>
+
+            <mat-divider *ngSwitchCase="'---'">
+            </mat-divider>
+
             <button *ngSwitchDefault
                     mat-menu-item
-                    (click)="$action.command.execute($cell)"
-                    [disabled]="!$action.command.canExecute($cell)"
                     [q-grid-command]="$action.command"
-                    [q-grid-command-context]="$cell"
+                    [q-grid-command-arg]="$cell"
+                    [q-grid-command-use-shortcut]="true"
                     (q-grid-command-execute)="$view.edit.cell.cancel.execute($cell)">
                 <mat-icon class="q-grid-icon">{{$action.icon}}</mat-icon>
                 <span>{{$action.title}}</span>

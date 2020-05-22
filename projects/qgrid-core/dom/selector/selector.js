@@ -15,8 +15,8 @@ export class Selector {
 	}
 
 	columnCells(columnIndex) {
-		const factory = this.factory;
-		const matrix = this.matrix;
+		const { factory, matrix } = this;
+
 		const result = [];
 		const set = new Set();
 		for (let i = 0, length = matrix.length; i < length; i++) {
@@ -34,7 +34,7 @@ export class Selector {
 	}
 
 	rowCount(columnIndex) {
-		const matrix = this.matrix;
+		const { matrix } = this;
 		const set = new Set();
 		for (let i = 0, length = matrix.length; i < length; i++) {
 			const row = matrix[i];
@@ -75,7 +75,8 @@ export class Selector {
 	}
 
 	rowCells(rowIndex) {
-		const matrix = this.matrix;
+		const { matrix } = this;
+
 		const row = matrix[rowIndex];
 		const result = [];
 		if (row) {
@@ -94,11 +95,10 @@ export class Selector {
 	}
 
 	row(rowIndex, columnIndex) {
-		const factory = this.factory;
+		const { factory } = this;
 		if (!isUndefined(columnIndex)) {
 			const td = this.td(rowIndex, columnIndex);
 			return factory.row(td ? td.parentElement : new FakeElement(), rowIndex);
-
 		}
 
 		const row = this.matrix[rowIndex];

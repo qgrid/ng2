@@ -2,13 +2,7 @@ export class SelectorCache {
 	constructor(selector) {
 		this.selector = selector;
 
-		this.columnCountCache = {};
-		this.columnCellsCache = {};
-		this.rowCountCache = {};
-		this.rowsCache = {};
-		this.rowCellsCache = {};
-		this.rowCache = {};
-		this.cellCache = {};
+		this.clear();
 	}
 
 	clear() {

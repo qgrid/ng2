@@ -16,23 +16,35 @@ export function dataPipe(rows, context, next) {
 	model.pipe({
 		effect: Object.assign({}, model.pipe().effect, { data: rows })
 	}, {
-			source: 'data.pipe',
-			behavior: 'core'
-		});
+		source: 'data.pipe',
+		behavior: 'core'
+	});
 }
 
 function addDataRows(model, rows) {
-	model.data({ rows }, { source: 'data.pipe', behavior: 'core' });
+	const tag = {
+		source: 'data.pipe',
+		behavior: 'core'
+	};
+
+	model.data({ rows }, tag);
 }
 
 function addDataColumns(model) {
 	const getColumns = generateFactory(model);
 	const createColumn = columnFactory(model);
-	const result = getColumns();
-	const columns = result.columns.map(columnBody => createColumn(columnBody.type, columnBody).model);
+	const { hasChanges, columns } = getColumns();
 
-	if (result.hasChanges) {
-		model.data({ columns }, { source: 'data.pipe', behavior: 'core' });
+	const allColumns = columns
+		.map(columnBody => createColumn(columnBody.type, columnBody).model);
+
+	if (hasChanges) {
+		const tag = {
+			source: 'data.pipe',
+			behavior: 'core'
+		};
+
+		model.data({ columns: allColumns }, tag);
 	}
 }
 

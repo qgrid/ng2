@@ -1,4 +1,4 @@
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 
 export class Td {
 	constructor(td) {
@@ -11,7 +11,7 @@ export class Td {
 
 	get row() {
 		if (!Td.equals(this, this.td)) {
-			throw new AppError('td', 'Internal model doesn\'t match container');
+			throw new GridError('td', 'Internal model doesn\'t match container');
 		}
 
 		return this.td.row;
@@ -19,7 +19,7 @@ export class Td {
 
 	get column() {
 		if (!Td.equals(this, this.td)) {
-			throw new AppError('td', 'Internal model doesn\'t match container');
+			throw new GridError('td', 'Internal model doesn\'t match container');
 		}
 
 		return this.td.column;
@@ -27,7 +27,7 @@ export class Td {
 
 	get value() {
 		if (!Td.equals(this, this.td)) {
-			throw new AppError('td', 'Internal model doesn\'t match container');
+			throw new GridError('td', 'Internal model doesn\'t match container');
 		}
 
 		return this.td.value;
@@ -35,7 +35,7 @@ export class Td {
 
 	set value(value) {
 		if (!Td.equals(this, this.td)) {
-			throw new AppError('td', 'Internal model doesn\'t match container');
+			throw new GridError('td', 'Internal model doesn\'t match container');
 		}
 
 		this.td.value = value;
@@ -43,7 +43,7 @@ export class Td {
 
 	get label() {
 		if (!Td.equals(this, this.td)) {
-			throw new AppError('td', 'Internal model doesn\'t match container');
+			throw new GridError('td', 'Internal model doesn\'t match container');
 		}
 
 		return this.td.label;
@@ -51,7 +51,7 @@ export class Td {
 
 	get element() {
 		if (!Td.equals(this, this.td)) {
-			throw new AppError('td', 'Internal model doesn\'t match container');
+			throw new GridError('td', 'Internal model doesn\'t match container');
 		}
 
 		return this.td.element;
@@ -59,7 +59,7 @@ export class Td {
 
 	set label(label) {
 		if (!Td.equals(this, this.td)) {
-			throw new AppError('td', 'Internal model doesn\'t match container');
+			throw new GridError('td', 'Internal model doesn\'t match container');
 		}
 
 		this.td.label = label;
@@ -67,7 +67,7 @@ export class Td {
 
 	mode(value) {
 		if (!Td.equals(this, this.td)) {
-			throw new AppError('td', 'Internal model doesn\'t match container');
+			throw new GridError('td', 'Internal model doesn\'t match container');
 		}
 
 		this.td.mode(value);

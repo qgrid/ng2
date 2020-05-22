@@ -157,7 +157,7 @@ import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-g
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
 import { ExampleValidationBasicComponent } from './validation-basic/example-validation-basic.component';
 import { ExampleVisibilityBasicComponent } from './visibility-basic/example-visibility-basic.component';
-import { ExampleVisibilityModelComponent } from './visibility-model/example-visibility-model.component';
+import { ExampleVisibilityStateComponent } from './visibility-model/example-visibility-model.component';
 
 export const EXAMPLES: any[] = [
 	ExampleActionBarBasicComponent,
@@ -306,7 +306,7 @@ export const EXAMPLES: any[] = [
 	ExampleThemeGridEmbedComponent,
 	ExampleValidationBasicComponent,
 	ExampleVisibilityBasicComponent,
-	ExampleVisibilityModelComponent,
+	ExampleVisibilityStateComponent,
 ];
 
 export const APP_ROUTES: Routes = EXAMPLES.map<Route>(example => ({

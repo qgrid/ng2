@@ -1,4 +1,4 @@
 <ng-template key="foot-cell-number.tpl.html"
              let-$cell>
-    <span>{{$cell.value | qGridNumber:$cell.column.format}}</span>
+    {{$cell.value | qGridNumber:$cell.column.format}}
 </ng-template>

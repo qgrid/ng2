@@ -12,6 +12,7 @@ import { LayerModule } from '../layer/layer.module';
 import { BoxModule } from '../box/box.module';
 import { ScrollModule } from '../scroll/scroll.module';
 import { Grid } from './grid';
+import { MarkupModule } from '../markup/markup.module';
 
 @NgModule({
 	declarations: [
@@ -23,13 +24,14 @@ import { Grid } from './grid';
 	imports: [
 		CommonModule,
 
+		BoxModule,
+		LayerModule,
+		MarkupModule,
+		ScrollModule,
 		TemplateModule,
 		ThemeModule,
 		ToolbarModule,
 		ViewModule,
-		LayerModule,
-		BoxModule,
-		ScrollModule,
 	],
 	providers: [
 		DatePipe,

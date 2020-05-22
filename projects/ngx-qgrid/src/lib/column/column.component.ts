@@ -10,26 +10,28 @@ import {
 	OnChanges,
 	SimpleChanges
 } from '@angular/core';
-import { isUndefined } from '@qgrid/core/utility/kit';
-import { guid } from '@qgrid/core/services/guid';
-import { GridRoot } from '../grid/grid-root';
-import { TemplateHostService } from '../template/template-host.service';
+import { ColumnHostService } from './column-host.service';
 import { ColumnListService } from '../column-list/column-list.service';
-import { ColumnService } from './column.service';
+import { GridPlugin } from '../plugin/grid-plugin';
+import { guid } from '@qgrid/core/services/guid';
+import { isUndefined } from '@qgrid/core/utility/kit';
+import { TemplateHostService } from '../template/template-host.service';
+import { ColumnModelCategory, ColumnModelType, ColumnModelOrigin, ColumnModelPin, ColumnModelWidthMode, ColumnModel } from '@qgrid/core/column-type/column.model';
 
 @Component({
 	selector: 'q-grid-column',
 	template: '<ng-content></ng-content>',
-	providers: [TemplateHostService, ColumnService],
+	providers: [TemplateHostService, ColumnHostService, GridPlugin],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
-	@Input() type: string;
+	@Input() type: string | ColumnModelType;
 	@Input() key: string;
-	@Input() class: 'data' | 'control' | 'markup' | 'pivot' | 'cohort';
+	@Input() category: ColumnModelCategory;
+	@Input() class: string;
 	@Input() title: string;
 	@Input() description: string;
-	@Input() pin: null | 'left' | 'right';
+	@Input() pin: ColumnModelPin;
 	@Input() aggregation: string;
 	@Input() aggregationOptions: any;
 	@Input() editor: string;
@@ -39,7 +41,7 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() code: string;
 
 	@Input() width: number | string;
-	@Input() widthMode: number | string;
+	@Input() widthMode: ColumnModelWidthMode;
 	@Input() minWidth: number | string;
 	@Input() maxWidth: number | string;
 	@Input() viewWidth: number | string;
@@ -76,12 +78,12 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() maxLength: number;
 
 	constructor(
+		@SkipSelf() @Optional() private parentHost: ColumnHostService,
+		private selfHost: ColumnHostService,
 		private columnList: ColumnListService,
 		private templateHost: TemplateHostService,
-		@SkipSelf() @Optional() private parent: ColumnService,
-		private columnService: ColumnService,
 		private elementRef: ElementRef,
-		private root: GridRoot
+		private plugin: GridPlugin,
 	) {
 	}
 
@@ -124,12 +126,13 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 		};
 
 		if (withKey) {
-			if (this.parent) {
-				this.parent.column.children.push(column);
+			if (this.parentHost) {
+				this.parentHost.column.children.push(column);
 			} else {
 				this.columnList.add(column);
 			}
-			this.columnService.column = column;
+
+			this.selfHost.column = column;
 		} else {
 			const settings =
 				Object
@@ -138,25 +141,19 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 					.reduce((memo, key) => {
 						memo[key] = column[key];
 						return memo;
-					}, {});
+					}, {}) as ColumnModel;
 
 			this.columnList.register(settings);
 		}
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		if (changes.isVisible) {
-			const { model } = this.root;
-			const { columns } = model.columnList();
-			const column = columns.find(x => x.key === this.key);
-			if (column) {
+		const { column } = this.selfHost;
+		if (column && changes.isVisible) {
+			if (column.isVisible !== this.isVisible) {
 				column.isVisible = this.isVisible;
-				model.columnList({
-					columns: Array.from(columns)
-				}, {
-					source: 'column.component'
-				});
 
+				const { model } = this.plugin;
 				model.data({
 					columns: Array.from(model.data().columns)
 				}, {
@@ -167,7 +164,7 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	ngOnDestroy() {
-		const { column } = this.columnService;
+		const { column } = this.selfHost;
 		if (column && column.source === 'template') {
 			this.columnList.delete(column.key);
 		}

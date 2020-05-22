@@ -6,17 +6,15 @@ import {
 	OnInit,
 	ViewContainerRef
 } from '@angular/core';
-import { ColumnView } from '@qgrid/core/scene/view/column.view';
+import { GridError } from '@qgrid/core/infrastructure/error';
+import { CellTemplateService } from '../cell/cell-template.service';
+import { CellClassService } from '../cell/cell-class.service';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
-import { TdCtrl } from '@qgrid/core/cell/td.ctrl';
+import { ColumnView } from '@qgrid/core/scene/view/column.view';
 import { DomTd } from '../dom/dom';
-import { AppError } from '@qgrid/core/infrastructure/error';
-import { GridView } from '../grid/grid-view';
-import { GridRoot } from '../grid/grid-root';
-import { CellService } from '../cell/cell.service';
+import { GridLet } from '../grid/grid-let';
+import { GridPlugin } from '../plugin/grid-plugin';
 import { TrhCoreDirective } from '../row/trh-core.directive';
-
-const classify = TdCtrl.classify;
 
 @Directive({
 	selector: '[q-grid-core-tf]'
@@ -28,9 +26,10 @@ export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
 	element: HTMLElement = null;
 
 	constructor(
-		public $view: GridView,
-		private root: GridRoot,
-		private cellService: CellService,
+		public $view: GridLet,
+		private plugin: GridPlugin,
+		private cellTemplate: CellTemplateService,
+		private cellClass: CellClassService,
 		private viewContainerRef: ViewContainerRef,
 		private tr: TrhCoreDirective,
 		elementRef: ElementRef
@@ -39,20 +38,14 @@ export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		const column = this.column;
-		const element = this.element;
+		const { column, element } = this;
+		const { table } = this.plugin;
 
-		this.root.bag.foot.addCell(this);
-		classify(element, column);
+		table.box.bag.foot.addCell(this);
 
-		const link = this.cellService.build('foot', this.column);
-		if (!link) {
-			throw new AppError(
-				`tf-core.directive`,
-				`Can't find template link for ${this.column.key}`
-			);
-		}
+		this.cellClass.toBody(element, column);
 
+		const link = this.cellTemplate.build('foot', this.column);
 		link(this.viewContainerRef, this);
 	}
 
@@ -82,10 +75,11 @@ export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
 	}
 
 	mode(value: string): void {
-		throw new AppError('tf-core.directive', `${value} mode is not supported`);
+		throw new GridError('tf-core.directive', `${value} mode is not supported`);
 	}
 
 	ngOnDestroy() {
-		this.root.bag.foot.deleteCell(this);
+		const { table } = this.plugin;
+		table.box.bag.foot.deleteCell(this);
 	}
 }

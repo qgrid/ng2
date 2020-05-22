@@ -36,7 +36,7 @@ export class ExampleActionBarOnEnterComponent {
 
 			// Comment this out if don't need to revert focus back after action
 			this.gridModel.editChanged.watch((e, off) => {
-				if (e.hasChanges('state') && e.state.state === 'view') {
+				if (e.hasChanges('status') && e.state.status === 'view') {
 					this.gridService.focus(rowIndex, columnIndex);
 					off();
 				}

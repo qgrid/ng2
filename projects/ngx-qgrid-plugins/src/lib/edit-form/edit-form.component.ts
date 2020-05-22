@@ -1,15 +1,14 @@
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { EditFormPanelPlugin } from '@qgrid/plugins/edit-form/edit.form.panel.plugin';
-import { GridPlugin } from '@qgrid/ngx';
-import { Disposable, DomTd } from '@qgrid/ngx';
+import { GridPlugin, DomTd, Grid } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-edit-form',
 	templateUrl: './edit-form.component.html',
 	providers: [
-		GridPlugin,
-		Disposable
-	]
+		GridPlugin
+	],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditFormComponent implements OnInit {
 	@Input() caption: string;
@@ -23,20 +22,29 @@ export class EditFormComponent implements OnInit {
 
 	constructor(
 		private plugin: GridPlugin,
-		private disposable: Disposable
+		private qgrid: Grid,
 	) {
 	}
 
 	ngOnInit() {
-		const editFormPanel = new EditFormPanelPlugin(
-			this.plugin.model,
-			{ row: this.cell.row, caption: this.caption },
-			this.disposable
-		);
+		const context = {
+			row: this.cell.row,
+			caption: this.caption
+		};
 
-		editFormPanel.submitEvent.on(() => this.submit.emit());
+		const editFormPanel = new EditFormPanelPlugin(this.plugin, context);
+		const gridService = this.qgrid.service(this.plugin.model);
+
 		editFormPanel.cancelEvent.on(() => this.cancel.emit());
 		editFormPanel.resetEvent.on(() => this.reset.emit());
+		editFormPanel.submitEvent.on(() => {
+			this.submit.emit();
+
+			gridService.invalidate({
+				source: 'edit-form.component',
+				why: 'refresh'
+			});
+		});
 
 		this.context = { $implicit: editFormPanel };
 	}

@@ -1,4 +1,4 @@
-import { AppError } from '../../infrastructure/error';
+import { GridError } from '../../infrastructure/error';
 import { sumBy } from '../../utility/kit';
 import { columnFactory } from '../../column/column.factory';
 

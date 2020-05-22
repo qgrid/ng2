@@ -1,7 +1,7 @@
 import { Box } from '../box';
 import { CellBox } from './cell.box';
 import { ColumnBox } from './column.box';
-import { Event } from '../../infrastructure/event';
+import { Event } from '../../event/event';
 import { isFunction } from '../../utility/kit';
 import { RowBox } from './row.box';
 import { VirtualCell } from './cell';
@@ -174,13 +174,16 @@ export class VirtualBox extends Box {
 	}
 
 	cellRectFactory() {
-		const { height } = this.model.row();
-		const getHeight = isFunction(height) ? height : () => height;
-		const { count } = this.model.pagination();
-		const form = this.model.layout().columns;
-		const { columns } = this.model.view();
+		const { model } = this;
+		const { height: rowHeight } = model.row();
+		const { count: pageCount } = model.pagination();
+		const { columns } = model.view();
+		const columnWidths = this.model.layout().columns;
+
+		const getHeight = isFunction(rowHeight) ? rowHeight : () => rowHeight;
 
 		let rect = null;
+
 		// as view.rect() can call getBoundingClientRect that impacts performance
 		// and as virtual element rect function is used mostly for end/home navigation we make rect lazy
 		return (rowIndex, columnIndex) => () => {
@@ -189,10 +192,11 @@ export class VirtualBox extends Box {
 			}
 
 			const column = columns[columnIndex];
+
 			// TODO: add correct left, right, width
 			const height = getHeight(null, rowIndex);
-			const top = rect.top + height * rowIndex - (rowIndex > 0 ? 0 : (count + rowIndex) * height);
-			const width = form.has(column.key) ? form.get(column.key).width : 0;
+			const top = rect.top + height * rowIndex - (rowIndex > 0 ? 0 : (pageCount + rowIndex) * height);
+			const width = columnWidths.has(column.key) ? columnWidths.get(column.key).width : 0;
 			const left = 0;
 			return {
 				left,

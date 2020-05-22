@@ -1,7 +1,8 @@
 td,
 th {
     &.q-grid-row-indicator {
-        padding: 0 !important;
+        padding: 0;
+
         .q-grid-icon {
             @include iconSizes(16px);
         }

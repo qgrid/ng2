@@ -1,54 +1,43 @@
-import { Injectable, OnDestroy, SimpleChanges } from '@angular/core';
-import { ModelBinder } from '@qgrid/core/infrastructure/model.bind';
-import { DomTable } from '../dom/dom';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Disposable } from '../infrastructure/disposable';
+import { DomTable } from '../dom/dom';
+import { Event } from '@qgrid/core/event/event';
+import { GridLet } from '@qgrid/core/grid/grid.let';
+import { GridLet as NgxGridLet } from '../grid/grid-let';
+import { GridModel } from '../grid/grid-model';
 import { GridRoot } from '../grid/grid-root';
-import { GridView } from '../grid/grid-view';
-import { GridModel, GridEventArg } from '../grid/grid-model';
-import { ObservableLike } from '@qgrid/core/infrastructure/rx';
-import { ModelEvent } from '@qgrid/core/infrastructure/model';
-
+import { ObservableLike, ObservableEvent, ObservableReplyEvent } from '@qgrid/core/rx/rx';
 
 @Injectable()
 export class GridPlugin implements OnDestroy {
 	readonly disposable = new Disposable();
 
-	readonly observe = <TState>(event: ModelEvent<TState>) => {
-		return new ObservableLike(event, false, this.disposable);
+	readonly observe = <TState>(event: Event<TState>): ObservableLike<TState> => {
+		return new ObservableEvent(event, this.disposable);
 	}
 
-	readonly observeReply = <TState>(event: ModelEvent<TState>) => {
-		return new ObservableLike(event, true, this.disposable);
+	readonly observeReply = <TState>(event: Event<TState>): ObservableLike<TState> => {
+		return new ObservableReplyEvent(event, this.disposable);
 	}
-
 
 	constructor(
-		public view: GridView,
-		private root: GridRoot,
-	) { }
+		private $view: NgxGridLet,
+		private $root: GridRoot,
+	) {
+	}
 
 	get model(): GridModel {
-		const { model } = this.root;
+		const { model } = this.$root;
 		return model;
 	}
 
-	get table(): DomTable {
-		const { table } = this.root;
-		return table;
+	get view(): GridLet {
+		return this.$view;
 	}
 
-	keep(changes: SimpleChanges, states: string[]): void {
-		const host = {};
-		for (const key in changes) {
-			if (changes.hasOwnProperty(key)) {
-				const change = changes[key];
-				host[key] = change.currentValue;
-			}
-		}
-
-		const binder = new ModelBinder(host, this.disposable);
-		const commit = binder.bound(this.model, states, false, false);
-		commit();
+	get table(): DomTable {
+		const { table } = this.$root;
+		return table;
 	}
 
 	ngOnDestroy() {

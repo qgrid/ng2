@@ -24,10 +24,11 @@ export class ColumnModel {
 		this.type = type;
 		this.title = null;
 		this.description = null;
-		this.pin = null;
+		this.pin = 'mid';
 		this.origin = 'specific';
 		this.source = 'user';
-		this.class = 'data';
+		this.category = 'data';
+		this.class = null;
 		this.editor = null;
 		this.editorOptions = {
 			modelFactory: ({ createDefaultModel }) => createDefaultModel(),
@@ -39,7 +40,7 @@ export class ColumnModel {
 		};
 
 		this.width = null;
-		this.minWidth = 20;
+		this.minWidth = null;
 		this.maxWidth = null;
 		this.viewWidth = null;
 

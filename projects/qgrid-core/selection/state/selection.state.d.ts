@@ -1,4 +1,4 @@
-import { Model } from '../../infrastructure/model';
+import { Model } from '../../model/model';
 import { SelectionService } from '../selection.service';
 
 export declare class SelectionState {

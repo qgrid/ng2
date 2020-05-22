@@ -28,7 +28,7 @@ export class GroupColumnModel extends ColumnModel {
 		this.canEdit = false;
 		this.canSort = false;
 		this.canFilter = false;
-		this.class = 'control';
+		this.category = 'control';
 		this.by = null;
 		this.label = function (node) {
 			if (node.type === 'row') {

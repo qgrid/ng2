@@ -1,25 +1,39 @@
 import { CellEditor } from './edit.cell.editor';
-import { EditCellView } from './edit.cell.view';
-import { CommandManager } from '../command/command.manager';
+import { EditCellLet } from './edit.cell.let';
 
 export class EditService {
-	constructor(model, table) {
-		this.model = model;
-		this.table = table;
+	constructor(plugin) {
+		this.plugin = plugin;
+	}
+
+	startBatch(startCell) {
+		const { model } = this.plugin;
+
+		const editStatus = model.edit().status;
+		const selectionMode = model.selection().mode;
+
+		model.selection({ mode: 'range' });
+		model.edit({ status: 'startBatch' });
+
+		return () => {
+			model.edit({ status: editStatus });
+			this.doBatch(startCell);
+			model.selection({ mode: selectionMode });
+		}
 	}
 
 	doBatch(startCell) {
-		const { table, model } = this;
+		const { table, model } = this.plugin;
+
 		const { rows } = model.scene();
 		const { columns } = model.view();
 		const { items } = model.selection();
 
 		const shortcut = { register: () => ({}), keyCode: () => '' };
-		const editView = new EditCellView(model, table, shortcut);
-		const startTd = this.table.body.cell(startCell.rowIndex, startCell.columnIndex).model();
+		const editView = new EditCellLet(this.plugin, shortcut);
 
-		const label = startTd.label;
-		const value = startTd.value;
+		const startTd = table.body.cell(startCell.rowIndex, startCell.columnIndex).model();
+		const { value, label } = startTd;
 
 		const startColumnType = startTd.column.type;
 		for (let i = 0, length = items.length; i < length; i++) {

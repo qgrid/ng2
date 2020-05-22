@@ -26,11 +26,13 @@ export class BackdropDirective {
 		this.backdrop.classList.add('q-grid-backdrop');
 		this.backdrop.style.zIndex = '1000';
 
-		this.backdrop.addEventListener('click', () => {
-			this.zone.runOutsideAngular(() => {
-				this.close.emit();
-				this.backdrop.remove();
-				this.backdrop = null;
+		this.zone.runOutsideAngular(() => {
+			this.backdrop.addEventListener('click', () => {
+				if (this.backdrop) {
+					this.backdrop.remove();
+					this.backdrop = null;
+					this.close.emit();
+				}
 			});
 		});
 

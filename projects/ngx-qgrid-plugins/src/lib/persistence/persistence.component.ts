@@ -1,33 +1,30 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Command } from '@qgrid/core/command/command';
 import { Action } from '@qgrid/core/action/action';
 import { Composite } from '@qgrid/core/infrastructure/composite';
 import { PersistenceItem } from '@qgrid/plugins/persistence/persistence.plugin';
 import { PersistenceService } from '@qgrid/core/persistence/persistence.service';
-import { GridPlugin, Disposable, GridModelBuilder } from '@qgrid/ngx';
+import { GridPlugin, GridModelBuilder } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-persistence',
 	template: '',
-	providers: [GridPlugin, Disposable]
+	providers: [GridPlugin],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PersistenceComponent implements OnInit, OnChanges {
+export class PersistenceComponent implements OnInit {
 	constructor(
 		private plugin: GridPlugin,
 		private modelBuilder: GridModelBuilder,
-		private disposable: Disposable
 	) {
 	}
 
-	ngOnChanges(changes: SimpleChanges) {
-		this.plugin.keep(changes, ['persistence']);
-	}
-
 	ngOnInit() {
-		const { model } = this.plugin;
+		const { model, disposable } = this.plugin;
 		const id = `q-grid:${model.grid().id}:persistence-list`;
 		model.persistence({ id });
-		model.persistence().storage
+		model.persistence()
+			.storage
 			.getItem(id)
 			.then((items: PersistenceItem[]) => {
 				if (!items || items.length === 0) {
@@ -53,9 +50,9 @@ export class PersistenceComponent implements OnInit, OnChanges {
 		const items = Composite.list([model.action().items, [action]]);
 		model.action({ items }, { source: 'persistence.component' });
 
-		this.disposable.add(() => {
-			const newItems = model.action().items.filter(x => x.id === action.id);
-			model.action({ items: newItems }, { source: 'persistence.component' });
+		disposable.add(() => {
+			const notPersistenceActions = model.action().items.filter(x => x.id !== action.id);
+			model.action({ items: notPersistenceActions }, { source: 'persistence.component' });
 		});
 	}
 }

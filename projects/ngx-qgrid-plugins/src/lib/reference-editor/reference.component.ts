@@ -21,7 +21,7 @@ export class ReferenceComponent implements OnInit {
 		value: any
 	};
 
-	@Input() caption: string;
+	@Input() caption = '';
 	@Input() autofocus = false;
 	@Input() cell: CellView;
 

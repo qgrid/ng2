@@ -7,8 +7,11 @@ const DATE_PATTERN_2 = /^\d{4}[\/|\-|\.|_]\d{1,2}[\/|\-|\.|_]\d{1,2}$/g; // Year
 	selector: '[q-grid-date]'
 })
 export class DateDirective {
-	constructor(templateRef: TemplateRef<DateDirective>, viewContainerRef: ViewContainerRef) {
-		viewContainerRef.createEmbeddedView(templateRef, this);
+	constructor(
+		templateRef: TemplateRef<any>,
+		viewContainerRef: ViewContainerRef
+	) {
+		viewContainerRef.createEmbeddedView(templateRef, { $implicit: this });
 	}
 
 	isValid(text) {

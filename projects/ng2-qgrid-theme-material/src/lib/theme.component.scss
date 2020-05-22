@@ -4,9 +4,7 @@
 @import "assets/mixins";
 
 .q-grid.q-grid-theme-material {
-    @import "assets/active";
     @import "assets/backdrop";
-    @import "assets/box";
     @import "assets/cell.array";
     @import "assets/cell.autocomplete";
     @import "assets/cell.bool";
@@ -30,7 +28,6 @@
     @import "assets/embed";
     @import "assets/export";
     @import "assets/head";
-    @import "assets/highlight";
     @import "assets/legend";
     @import "assets/menu";
     @import "assets/mixins";
@@ -40,7 +37,6 @@
     @import "assets/progress";
     @import "assets/query.builder";
     @import "assets/row";
-    @import "assets/selection";
     @import "assets/status.bar";
     @import "assets/table";
     @import "assets/title";

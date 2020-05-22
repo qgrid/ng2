@@ -1,6 +1,6 @@
 import { ColumnModel } from '../column-type/column.model';
 import { ColumnView } from '../scene/view/column.view';
-import { Model } from '../infrastructure/model';
+import { Model } from '../model/model';
 import { Table } from '../dom/table';
 
 export declare function map(columns: ColumnModel[]): { [key: string]: ColumnModel };
