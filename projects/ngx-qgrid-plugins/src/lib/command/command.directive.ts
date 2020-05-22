@@ -75,10 +75,6 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit {
 		}
 	}
 
-	private keyDown(e) {
-		this.shortcut.instance.keyDown(e, 'command');
-	}
-
 	private register() {
 		const { command, commandArg } = this;
 
