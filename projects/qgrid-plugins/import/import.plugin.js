@@ -2,14 +2,13 @@ import { upload } from '@qgrid/core/services/upload';
 import { readFile } from './read';
 
 export class ImportPlugin {
-	constructor(model, context) {
+	constructor(model, element) {
 		this.model = model;
-		this.context = context;
+		this.element = element;
 	}
 
 	upload() {
-		const { element } = this.context;
-		upload(element);
+		upload(this.element);
 	}
 
 	load(e) {

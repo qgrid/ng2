@@ -1,15 +1,19 @@
 .master-details {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-}
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 
-.grid {
-	height: 49%;
+    >div {
+        height: 50%;
+
+        >q-grid {
+            height: 100%;
+        }
+    }
 }
 
 .likes-list {
-	display: inline-flex;
-	margin-left: 20px;
-	outline: none;
+    display: inline-flex;
+    margin-left: 20px;
+    outline: none;
 }

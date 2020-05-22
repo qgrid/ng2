@@ -10,7 +10,7 @@ import { GRID_PREFIX } from '@qgrid/core/definition';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LiveColumnComponent implements OnInit {
-	@Input('duration') duration = 100;
+	@Input('duration') duration = 500;
 
 	constructor(private plugin: GridPlugin, private zone: NgZone) { }
 

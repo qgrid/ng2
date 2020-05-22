@@ -60,7 +60,7 @@ export class DataManipulationPlugin {
 				new Command({
 					source: 'data.manipulation',
 					execute: () => {
-						const { model } = this.plugin;
+						const { model, observe, table } = this.plugin;
 						const { data } = model;
 
 						const newRow = this.rowFactory(model.data().rows[0]);
@@ -75,6 +75,22 @@ export class DataManipulationPlugin {
 						}, {
 							source: 'data.manipulation'
 						});
+
+						observe(model.sceneChanged)
+							.pipe(
+								filter(e => e.hasChanges('status') && e.state.status === 'stop'),
+								takeOnce()
+							)
+							.subscribe(e => {
+								const index = model.view().rows.indexOf(newRow);
+								model.focus({
+									rowIndex: index
+								}, {
+									source: 'data.manipulation.plugin'
+								});
+
+								table.view.focus();
+							});
 					},
 					shortcut: 'F7'
 				}),
