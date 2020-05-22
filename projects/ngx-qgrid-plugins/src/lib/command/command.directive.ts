@@ -125,13 +125,11 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit {
 		if (canExecute) {
 			if (hasDisabled) {
 				nativeElement.removeAttribute('disabled');
-				console.log('ENABLED');
 			}
 		} else {
 			if (!hasDisabled) {
 				setTimeout(() =>
 					nativeElement.setAttribute('disabled', 'true'), 100);
-				console.log('DISABLED');
 			}
 		}
 	}

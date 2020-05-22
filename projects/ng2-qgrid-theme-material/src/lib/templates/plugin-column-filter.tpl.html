@@ -26,7 +26,11 @@
                 </mat-select>
 
                 <ng-container [key]="$plugin.operatorTemplateKey($columnFilter.operator)"
-                              [context]="{ $implicit: $columnFilter, plugin: $plugin, vscroll: $vscroll }">
+                              [context]="{ 
+                                 $implicit: $columnFilter, 
+                                 plugin: $plugin, 
+                                 vscroll: $vscroll 
+                              }">
                 </ng-container>
 
             </div>

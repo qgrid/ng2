@@ -178,6 +178,7 @@ export class ColumnFilterComponent implements OnInit {
 				break;
 			}
 		}
+
 		return `plugin-column-filter-${key}.tpl.html`;
 	}
 
