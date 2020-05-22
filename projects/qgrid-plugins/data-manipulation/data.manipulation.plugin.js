@@ -6,7 +6,7 @@ import { GridError } from '@qgrid/core/infrastructure/error';
 import { isUndefined } from '@qgrid/core/utility/kit';
 import { set as setLabel } from '@qgrid/core/services/label';
 import { set as setValue } from '@qgrid/core/services/value';
-import { takeOnce } from '@qgrid/core/rx/rx.operators';
+import { takeOnce, filter } from '@qgrid/core/rx/rx.operators';
 import * as columnService from '@qgrid/core/column/column.service';
 
 export class DataManipulationPlugin {
@@ -195,13 +195,14 @@ export class DataManipulationPlugin {
 		});
 
 		observeReply(model.columnListChanged)
-			.pipe(takeOnce())
+			.pipe(
+				filter(e => e.hasChanges('line')),
+				takeOnce()
+			)
 			.subscribe(e => {
-				if (e.hasChanges('line')) {
-					const rowOptionsColumn = e.state.line.find(column => column.type === 'row-options');
-					if (rowOptionsColumn) {
-						rowOptionsColumn.editorOptions.actions.push(...this.rowActions);
-					}
+				const rowOptionsColumn = e.state.line.find(column => column.type === 'row-options');
+				if (rowOptionsColumn) {
+					rowOptionsColumn.editorOptions.actions.push(...this.rowActions);
 				}
 			});
 	}

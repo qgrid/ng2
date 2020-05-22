@@ -1,5 +1,5 @@
 import { isUndefined } from '../utility/kit';
-import { takeOnce } from '../rx/rx.operators';
+import { takeOnce, filter } from '../rx/rx.operators';
 
 export class FocusService {
     constructor(model) {
@@ -27,18 +27,17 @@ export class FocusService {
 
         if (scene().status === 'stop') {
             this.focus(rowIndex, columnIndex);
-            return;
-        }
+        } else {
+            sceneChanged.on((e, off) => {
+                if (e.hasChanges('status')) {
+                    if (e.state.status === 'stop') {
+                        off();
 
-        sceneChanged.on((e, off) => {
-            if (e.hasChanges('status')) {
-                if (e.state.status === 'stop') {
-                    off();
-
-                    this.focus(rowIndex, columnIndex);
+                        this.focus(rowIndex, columnIndex);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     focus(rowIndex, columnIndex) {
@@ -83,11 +82,12 @@ export class FocusAfterRenderService {
         const { table, model, observe } = plugin;
 
         observe(model.sceneChanged)
-            .pipe(takeOnce())
+            .pipe(
+                filter(e => e.hasChanges('status') && e.state.status === 'stop'),
+                takeOnce()
+            )
             .subscribe(e => {
-                if (e.state.status === 'stop') {
-                    table.view.focus();
-                }
+                table.view.focus();
             });
     }
 }

@@ -34,6 +34,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Rendering performance improvements.
 - All components got OnPush CDS.
 - Better core types.
+- Row details get focus on expand.
 
 ### Fixed
 - *ngIf for column component works.

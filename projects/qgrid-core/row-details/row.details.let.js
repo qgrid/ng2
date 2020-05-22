@@ -1,10 +1,11 @@
 import { Command } from '../command/command';
 import { toggleStatus, invalidateStatus } from './row.details.service';
 import { RowDetails } from './row.details';
+import { takeOnce, filter } from '../rx/rx.operators';
 
 export class RowDetailsLet {
 	constructor(plugin, shortcut) {
-		const { model, observeReply, disposable } = plugin;
+		const { model, observeReply, observe, disposable } = plugin;
 
 		this.plugin = plugin;
 
@@ -12,15 +13,32 @@ export class RowDetailsLet {
 			source: 'row.details.view',
 			execute: row => {
 				if (!row) {
-					row = model.navigation().row;;
+					row = model.navigation().row;
 				}
 
-				const { toggle } = model.row();
+				const { toggle, status, mode } = model.row();
 				if (toggle.execute({ row }) !== false) {
-					const status = toggleStatus([row], model.row().status, model.row().mode);
-					model.row({ status }, {
+					const newStatus = toggleStatus([row], status, mode);
+					model.row({ status: newStatus }, {
 						source: 'row.details.view'
 					});
+
+					observe(model.sceneChanged)
+						.pipe(
+							filter(e => e.hasChanges('status') && e.state.status === 'stop'),
+							takeOnce()
+						)
+						.subscribe(e => {
+							const rowStatus = newStatus.get(row);
+							if (rowStatus && rowStatus.expand) {
+								const index = model.view().rows.indexOf(row)
+								model.focus({
+									rowIndex: index + 1
+								}, {
+									source: 'row.details.let'
+								});
+							}
+						});
 				}
 			},
 			canExecute: row => {
@@ -44,15 +62,17 @@ export class RowDetailsLet {
 				}
 
 				if (e.hasChanges('rows')) {
-					const rowState = model.row();
-					const status =
+					const { status, mode } = model.row();
+					const newStatus =
 						invalidateStatus(
 							model.data().rows,
-							rowState.status,
-							rowState.mode
+							status,
+							mode
 						);
 
-					model.row({ status }, { source: 'row.details.view' });
+					model.row({ status: newStatus }, {
+						source: 'row.details.view'
+					});
 				}
 			});
 
