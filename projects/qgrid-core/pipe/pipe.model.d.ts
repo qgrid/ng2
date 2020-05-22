@@ -49,13 +49,13 @@ export declare interface PipeModel {
 	/**
 	 * A function that allows to shrink a number of pipe units that should be invoked on referch request.
 	 */
-	reduce?: (xs: PipeUnit[], Model) => PipeUnit[];
+	reduce: (xs: PipeUnit[], Model) => PipeUnit[];
 
 	/**
 	 * A schema that shows what pipeline will be executed on appropriate model property change.
 	 *
 	 */
-	triggers?: { [modelName: string]: { [modelProperty: string]: PipeUnit } };
+	triggers: { [modelName: string]: { [modelProperty: string]: PipeUnit } };
 
 	effect: { [key: string]: any }
 }

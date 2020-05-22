@@ -3,9 +3,10 @@ import { Action } from '@qgrid/core/action/action';
 import { AppError } from '@qgrid/core/infrastructure/error';
 import { Composite } from '@qgrid/core/infrastructure/composite';
 import { isUndefined } from '@qgrid/core/utility/kit';
-import * as columnService from '@qgrid/core/column/column.service';
+import { DataManipulationModel } from './data.manipulation.model';
 import { set as setValue } from '@qgrid/core/services/value';
 import { set as setLabel } from '@qgrid/core/services/label';
+import * as columnService from '@qgrid/core/column/column.service';
 
 export class DataManipulationPlugin {
 	constructor(model, disposable) {
@@ -70,8 +71,8 @@ export class DataManipulationPlugin {
 						data({
 							rows: [newRow].concat(data().rows)
 						}, {
-								source: 'data.manipulation'
-							});
+							source: 'data.manipulation'
+						});
 					},
 					shortcut: 'F7'
 				}),
@@ -156,7 +157,9 @@ export class DataManipulationPlugin {
 
 		this.rowId = model.data().id.row;
 		this.columnId = model.data().id.column;
-		this.rowFactory = model.dataManipulation().rowFactory;
+
+		const dm = model.resolve(DataManipulationModel);
+		this.rowFactory = dm.state().rowFactory;
 
 		const styleState = model.style();
 		const rows = Array.from(styleState.rows);
@@ -237,6 +240,7 @@ export class DataManipulationPlugin {
 	}
 
 	get resource() {
-		return this.model.dataManipulation().resource;
+		const dm = this.model.resolve(DataManipulationModel);
+		return dm.state().resource;
 	}
 }

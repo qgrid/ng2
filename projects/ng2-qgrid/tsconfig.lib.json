@@ -1,6 +1,7 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.prod.json",
   "compilerOptions": {
+    "allowJs": true,
     "outDir": "../../out-tsc/lib",
     "target": "es2015",
     "declaration": true,

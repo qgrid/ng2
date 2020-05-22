@@ -1,124 +1,61 @@
 'use strict';
 
-const libName = require('./package.json').name;
-const fs = require('fs');
 const path = require('path');
-const glob = require('glob');
-const ngc = require('@angular/compiler-cli/src/main').main;
-const ngFsUtils = require('@angular/compiler-cli/src/ngtsc/file_system');
-const rollup = require('rollup');
-const { uglify } = require('rollup-plugin-uglify');
-const babel = require('rollup-plugin-babel');
-const sass = require('npm-sass');
-const inlineStyles = require('./build.inline');
-const rollupConfig = require('./build.lib.rollup');
-const { relativeCopy } = require('./build.kit');
+const fs = require('fs');
+const { inImports, fixProjectPaths } = require('./build.import');
+const { buildLib, buildTheme } = require('./build.kit');
+const { relativeCopy } = require('./build.utils');
 
-const rootFolder = path.join(__dirname);
-const tscFolder = path.join(rootFolder, 'out-tsc');
-const srcFolder = path.join(rootFolder, 'src');
-// const themeFolder = path.join(tscFolder, 'theme/material');
-const distFolder = path.join(rootFolder, 'dist');
-const esm2015Folder = path.join(tscFolder, 'esm2015');
-const esm2015Entry = path.join(esm2015Folder, 'index.js');
-const fesm2015Entry = path.join(distFolder, 'fesm2015', 'ng2-qgrid.js');
+const ROOT_PATH = path.resolve('.');
+const PROJECTS_PATH = path.join(ROOT_PATH, 'projects');
+const DIST_PATH = path.join(ROOT_PATH, 'dist');
+const NG2_DIST_PATH = path.join(DIST_PATH, 'ng2-qgrid');
 
+const OPTIONS = ['--prod'];
 
-return Promise.resolve()
-  // Copy library to temporary folder and inline html/css.
-  .then(() => console.log(`copy: ${srcFolder}`))
-  .then(() => relativeCopy(`**/*`, path.join(srcFolder, 'plugin'), path.join(tscFolder, 'plugin')))
-  .then(() => relativeCopy(`**/*`, path.join(srcFolder, 'core'), path.join(tscFolder, 'core')))
-  .then(() => relativeCopy(`**/*`, path.join(srcFolder, 'lib'), tscFolder))
-  .then(() => console.log(`copy: succeeded`))
-  // Inline styles and templates
-  .then(() => console.log(`scss: ${tscFolder}`))
-  .then(() => {
-    const files = glob.sync('**/index.scss', { cwd: tscFolder });
-    return Promise.all(files.map(name =>
-      new Promise((resolve, reject) => {
-        const filePath = path.join(tscFolder, name);
-        console.log(`scss: ${filePath}`)
-        sass(filePath, (err, result) => {
-          if (err) {
-            reject(err);
-          } else {
-            fs.writeFileSync(filePath.replace('.scss', '.css'), result.css);
-            resolve(result);
-          }
-        });
-      })
-    ))
-  })
-  .then(() => console.log(`scss: success`))
-  .then(() => console.log(`inline: ${tscFolder}`))
-  .then(() => inlineStyles(tscFolder))
-  .then(() => console.log('inline: succeeded'))
-  // Compile to ESM2015.
-  .then(() => console.log('ngc: build.lib.tsconfig.json'))
-  .then(() => ngFsUtils.setFileSystem(new ngFsUtils.NodeJSFileSystem()))
-  .then(() => ngc(['--project', 'build.lib.tsconfig.json']))
-  .then(code => code === 0 ? Promise.resolve() : Promise.reject())
-  .then(() => console.log('ngc esm2015: succeeded'))
-  // Copy typings and metadata to `dist/` folder.
-  .then(() => console.log(`copy metadata: ${distFolder}`))
-  .then(() => relativeCopy('**/*.d.ts', esm2015Folder, distFolder))
-  .then(() => relativeCopy('**/*.metadata.json', esm2015Folder, distFolder))
-  .then(() => relativeCopy('**/*.d.ts', path.join(tscFolder, 'core'), path.join(distFolder, 'core')))
-  .then(() => relativeCopy('**/*.d.ts', path.join(tscFolder, 'plugin'), path.join(distFolder, 'plugin')))
-  .then(() => console.log('copy metadata: succeeded'))
-  // Bundle lib.
-  .then(() => console.log(`bundle fesm2015: ${libName}`))
-  .then(() => {
-    const cfg = Object.assign({}, rollupConfig, {
-      input: esm2015Entry,
-      output: Object.assign({}, rollupConfig.output, {
-        file: path.join(distFolder, 'fesm2015', `${libName}.js`),
-        format: 'esm'
-      })
-    });
+async function main() {
+  await buildLib('ngx-qgrid', OPTIONS);
+  await buildLib('ngx-qgrid-plugins', OPTIONS);
+  await buildLib('ng2-qgrid', OPTIONS);
 
-    return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
-  })
-  .then(() => console.log('bundle fesm2015: succeeded'))
-  .then(() => console.log(`bundle umd: ${libName}`))
-  .then(() => {
-    const cfg = Object.assign({}, rollupConfig, {
-      input: fesm2015Entry,
-      output: Object.assign({}, rollupConfig.output, {
-        file: path.join(distFolder, 'bundles', `${libName}.umd.js`),
-        format: 'umd'
-      }),
-      plugins: [babel({})]
-    });
+  await relativeCopy('**/*.d.ts',
+    path.join(PROJECTS_PATH, 'qgrid-core'),
+    path.join(NG2_DIST_PATH, '@qgrid', 'core')
+  );
 
-    return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
-  })
-  .then(() => console.log('bundle umd: succeeded'))
-  .then(() => console.log(`bundle umd.min: ${libName}`))
-  .then(() => {
-    const cfg = Object.assign({}, rollupConfig, {
-      input: fesm2015Entry,
-      output: Object.assign({}, rollupConfig.output, {
-        file: path.join(distFolder, 'bundles', `${libName}.umd.min.js`),
-        format: 'umd'
-      }),
-      plugins: [babel({}), uglify({})]
-    });
+  await relativeCopy('**/*.d.ts',
+    path.join(PROJECTS_PATH, 'qgrid-plugins'),
+    path.join(NG2_DIST_PATH, '@qgrid', 'plugins')
+  );
 
-    return rollup.rollup(cfg).then(bundle => bundle.write(cfg.output));
-  })
-  .then(() => console.log('bundle umd.min: succeeded'))
-  .then(() => console.log('bundle: successed'))
-  // Copy package files
-  .then(() => console.log('copy package: start'))
-  .then(() => relativeCopy('LICENSE', rootFolder, distFolder))
-  .then(() => relativeCopy('package.json', srcFolder, distFolder))
-  .then(() => relativeCopy('README.md', rootFolder, distFolder))
-  .then(() => relativeCopy('CHANGELOG.md', rootFolder, distFolder))
-  .then(() => console.log('copy package: success'))
-  .catch(ex => {
-    console.error('\nBuild failed. See below for errors.\n');
-    console.error(ex);
-    process.exit(1);
-  });
+  await relativeCopy('**/*.d.ts',
+    path.join(DIST_PATH, 'ngx-qgrid'),
+    path.join(NG2_DIST_PATH, '@qgrid', 'ngx')
+  );
+
+  await relativeCopy('**/*.d.ts',
+    path.join(DIST_PATH, 'ngx-qgrid-plugins'),
+    path.join(NG2_DIST_PATH, '@qgrid', 'ngx-plugins')
+  );
+
+  await inImports(NG2_DIST_PATH, fixProjectPaths);
+
+  buildTheme('ng2-qgrid-theme-basic');
+  await buildLib('ng2-qgrid-theme-basic', OPTIONS);
+
+  await relativeCopy('package.prod.json',
+    path.join(DIST_PATH, 'ngx-qgrid-plugins'),
+    path.join(NG2_DIST_PATH, '@qgrid', 'ngx-plugins')
+  );
+
+  buildTheme('ng2-qgrid-theme-material');
+  await buildLib('ng2-qgrid-theme-material', OPTIONS);
+
+  console.log('build.lib: copy package.json');
+  fs.copyFileSync(
+    path.join(PROJECTS_PATH, 'ng2-qgrid', 'package.prod.json'),
+    path.join(NG2_DIST_PATH, 'package.json')
+  );
+}
+
+main();

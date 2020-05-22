@@ -7,12 +7,12 @@ export declare interface HighlightModel {
 	/**
 	 * Set of columns that should be highlighted.
 	 */
-	columns?: string[];
+	columns: string[];
 
 	/**
 	 * Set of rows that should be highlighted.
 	 */
-	rows?: number[];
+	rows: number[];
 
-	cell?: CellViewPosition;
+	cell: CellViewPosition;
 }

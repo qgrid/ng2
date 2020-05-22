@@ -72,6 +72,13 @@ npm install
 npm run start
 ```
 
+## Build Library
+```bash
+git clone https://github.com/qgrid/ng2.git
+npm install
+npm run build:lib
+```
+
 ## Browser support
 
 * `Chrome` is supported.

@@ -26,10 +26,11 @@ export class PagerComponent implements OnInit, OnChanges {
 	}
 
 	ngOnInit() {
-		const { model, table } = this.plugin;
+		const { model, table, observe } = this.plugin;
 		const pager = new PagerPlugin(model, table, this.disposable);
 		this.context = { $implicit: pager };
 
-		model.paginationChanged.on(() => this.cd.detectChanges());
+		observe(model.paginationChanged)
+			.subscribe(() => this.cd.detectChanges());
 	}
 }

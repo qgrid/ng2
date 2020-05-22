@@ -23,7 +23,7 @@ import takeWhile from 'lodash-es/takeWhile';
 import dropWhile from 'lodash-es/dropWhile';
 import groupBy from 'lodash-es/groupBy';
 
-const noop = () => {};
+const noop = () => { };
 const yes = () => true;
 const no = () => false;
 const identity = arg => arg;
@@ -151,42 +151,49 @@ function isImage(value) {
 	return ('' + value).match(/\.(jpeg|jpg|gif|png)$/) != null;
 }
 
+function getTypeName(type) {
+	const nameRegexp = /function (.{1,})\(/;
+	const results = (nameRegexp).exec(type.constructor.toString());
+	return (results && results.length > 1) ? results[1] : "";
+};
+
 export {
-	isObject,
-	isFunction,
-	isArray,
-	isEqual,
-	isString,
-	isUndefined,
-	isBoolean,
-	isDate,
-	isNumber,
-	isEmail,
-	isUrl,
-	isImage,
+	assignWith,
+	binarySearch,
 	clone,
 	cloneDeep,
-	debounce,
-	merge,
-	flatten,
-	startCase,
-	assignWith,
-	uniq,
-	identity,
-	yes,
-	no,
-	toCamelCase,
-	noop,
 	compare,
-	orderBy,
-	max,
-	min,
-	sumBy,
-	zip,
-	takeWhile,
+	debounce,
 	dropWhile,
+	escapeRegexp,
+	flatten,
+	getTypeName,
 	groupBy,
 	htmlEncode,
-	escapeRegexp,
-	binarySearch
+	identity,
+	isArray,
+	isBoolean,
+	isDate,
+	isEmail,
+	isEqual,
+	isFunction,
+	isImage,
+	isNumber,
+	isObject,
+	isString,
+	isUndefined,
+	isUrl,
+	max,
+	merge,
+	min,
+	no,
+	noop,
+	orderBy,
+	startCase,
+	sumBy,
+	takeWhile,
+	toCamelCase,
+	uniq,
+	yes,
+	zip,
 };

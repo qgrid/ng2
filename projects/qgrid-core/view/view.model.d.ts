@@ -8,20 +8,20 @@ export declare interface ViewModel {
 	/**
 	 * List of data rows to render.
 	 */
-	rows?: any[];
+	rows: any[];
 
 	/**
 	 * The last row of columns that should be rendered.
 	 */
-	columns?: ColumnModel[];
+	columns: ColumnModel[];
 
 	/**
 	 * List of nodes to render.
 	 */
-	nodes?: Node[];
+	nodes: Node[];
 
 	/**
 	 * Pivoted data structure to render.
 	 */
-	pivot?: PipePivot;
+	pivot: PipePivot;
 }

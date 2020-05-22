@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.prod.json",
   "compilerOptions": {
     "allowJs": true,
     "outDir": "../../out-tsc/lib",
@@ -15,7 +15,7 @@
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
-    "enableResourceInlining": true
+    "enableResourceInlining": true,
   },
   "exclude": [
     "src/test.ts",

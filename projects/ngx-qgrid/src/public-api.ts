@@ -1,8 +1,8 @@
-export { GridModel } from './lib/grid/grid-model';
+export { GridModel, GridEventArg } from './lib/grid/grid-model';
 export { GridModule } from './lib/grid/grid.module';
 export { GridComponent } from './lib/grid/grid.component';
 export { Grid, GridService } from './lib/grid/grid';
-export { GridPlugin } from './lib/plugin/plugin';
+export { GridPlugin } from './lib/plugin/grid-plugin';
 
 export { GridView } from './lib/grid/grid-view';
 export { GridRoot } from './lib/grid/grid-root';

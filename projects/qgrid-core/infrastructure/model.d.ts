@@ -45,183 +45,121 @@ export declare interface ModelTag {
 	isBusy?: boolean;
 }
 
-export declare interface ModelEventArg<T> {
-	state: T;
-	changes: { [key: string]: { newValue: any, oldValue: any } };
-	hasChanges: (key: string) => boolean;
+export declare type ModelChanges<TState> = { [key in keyof TState]: { newValue: TState[key] | null, oldValue: TState[key] | null } };
+
+export declare interface ModelEventArg<TState> {
+	state: TState;
+	changes: ModelChanges<TState>;
 	tag: ModelTag;
+
+	hasChanges<TKey extends keyof TState>(key: TKey): boolean;
 }
 
 export declare type ModelEvent<T> = Event<ModelEventArg<T>>;
 
-export declare interface Model {
-	gridChanged: ModelEvent<GridModel>;
-	grid(value: GridModel, tag?: ModelTag): Model;
-	grid(): GridModel;
+export declare type StateAccessor<
+	TStateName extends keyof any,
+	TStateChangeName extends keyof any,
+	TState
+	> =
+	StateSet<TStateName, TState>
+	& StateGet<TStateName, TState>
+	& StateChange<TStateChangeName, TState>;
 
-	pipeChanged: ModelEvent<PipeModel>;
-	pipe(value: PipeModel, tag?: ModelTag): Model;
-	pipe(): PipeModel;
-
-	sceneChanged: ModelEvent<SceneModel>;
-	scene(value: SceneModel, tag?: ModelTag): Model;
-	scene(): SceneModel;
-
-	editChanged: ModelEvent<EditModel>;
-	edit(value: EditModel, tag?: ModelTag): Model;
-	edit(): EditModel;
-
-	viewChanged: ModelEvent<ViewModel>;
-	view(value: ViewModel, tag?: ModelTag): Model;
-	view(): ViewModel;
-
-	dataChanged: ModelEvent<DataModel>;
-	data(value: DataModel, tag?: ModelTag): Model;
-	data(): DataModel;
-
-	headChanged: ModelEvent<HeadModel>;
-	head(value: HeadModel, tag?: ModelTag): Model;
-	head(): HeadModel;
-
-	bodyChanged: ModelEvent<BodyModel>;
-	body(value: BodyModel, tag?: ModelTag): Model;
-	body(): BodyModel;
-
-	layoutChanged: ModelEvent<LayoutModel>;
-	layout(value: LayoutModel, tag?: ModelTag): Model;
-	layout(): LayoutModel;
-
-	navigationChanged: ModelEvent<NavigationModel>;
-	navigation(value: NavigationModel, tag?: ModelTag): Model;
-	navigation(): NavigationModel;
-
-	focusChanged: ModelEvent<FocusModel>;
-	focus(value: FocusModel, tag?: ModelTag): Model;
-	focus(): FocusModel;
-
-	columnListChanged: ModelEvent<ColumnListModel>;
-	columnList(value: ColumnListModel, tag?: ModelTag): Model;
-	columnList(): ColumnListModel;
-
-	rowChanged: ModelEvent<RowModel>;
-	row(value: RowModel, tag?: ModelTag): Model;
-	row(): RowModel;
-
-	rowListChanged: ModelEvent<RowListModel>;
-	rowList(value: RowListModel, tag?: ModelTag): Model;
-	rowList(): RowListModel;
-
-	selectionChanged: ModelEvent<SelectionModel>;
-	selection(value: SelectionModel, tag?: ModelTag): Model;
-	selection(): SelectionModel;
-
-	footChanged: ModelEvent<FootModel>;
-	foot(value: FootModel, tag?: ModelTag): Model;
-	foot(): FootModel;
-
-	sortChanged: ModelEvent<SortModel>;
-	sort(value: SortModel, tag?: ModelTag): Model;
-	sort(): SortModel;
-
-	groupChanged: ModelEvent<GroupModel>;
-	group(value: GroupModel, tag?: ModelTag): Model;
-	grop(): GroupModel;
-
-	pivotChanged: ModelEvent<PivotModel>;
-	pivot(value: PivotModel, tag?: ModelTag): Model;
-	pivot(): PivotModel;
-
-	pluginChanged: ModelEvent<PluginModel>;
-	plugin(value: PluginModel, tag?: ModelTag): Model;
-	plugin(): PluginModel;
-
-	toolbarChanged: ModelEvent<ToolbarModel>;
-	toolbar(value: ToolbarModel, tag?: ModelTag): Model;
-	toolbar(): ToolbarModel;
-
-	layerChanged: ModelEvent<LayerModel>;
-	layer(value: LayerModel, tag?: ModelTag): Model;
-	layer(): LayerModel;
-
-	paginationChanged: ModelEvent<PaginationModel>;
-	pagination(value: PaginationModel, tag?: ModelTag): Model;
-	pagination(): PaginationModel;
-
-	progressChanged: ModelEvent<ProgressModel>;
-	progress(value: ProgressModel, tag?: ModelTag): Model;
-	progress(): ProgressModel;
-
-	highlightChanged: ModelEvent<HighlightModel>;
-	highlight(value: HighlightModel, tag?: ModelTag): Model;
-	highlight(): HighlightModel;
-
-	visibilityChanged: ModelEvent<VisibilityModel>;
-	visibility(value: VisibilityModel, tag?: ModelTag): Model;
-	visibility(): VisibilityModel;
-
-	filterChanged: ModelEvent<FilterModel>;
-	filter(value: FilterModel, tag?: ModelTag): Model;
-	filter(): FilterModel;
-
-	dragChanged: ModelEvent<DragModel>;
-	drag(value: DragModel, tag?: ModelTag): Model;
-	drag(): DragModel;
-
-	styleChanged: ModelEvent<StyleModel>;
-	style(value: StyleModel, tag?: ModelTag): Model;
-	style(): StyleModel;
-
-	scrollChanged: ModelEvent<ScrollModel>;
-	scroll(value: ScrollModel, tag?: ModelTag): Model;
-	scroll(): ScrollModel;
-
-	exportChanged: ModelEvent<ExportModel>;
-	export(value: ExportModel, tag?: ModelTag): Model;
-	export(): ExportModel;
-
-	actionChanged: ModelEvent<ActionModel>;
-	action(value: ActionModel, tag?: ModelTag): Model;
-	action(): ActionModel;
-
-	fetchChanged: ModelEvent<FetchModel>;
-	fetch(value: FetchModel, tag?: ModelTag): Model;
-	fetch(): FetchModel;
-
-	persistenceChanged: ModelEvent<PersistenceModel>;
-	persistence(value: PersistenceModel, tag?: ModelTag): Model;
-	persistence(): PersistenceModel;
-
-	validationChanged: ModelEvent<ValidationModel>;
-	validation(value: ValidationModel, tag?: ModelTag): Model;
-	validation(): ValidationModel;
-
-	restChanged: ModelEvent<RestModel>;
-	rest(value: RestModel, tag?: ModelTag): Model;
-	rest(): RestModel;
-
-	animationChanged: ModelEvent<AnimationModel>;
-	animation(value: AnimationModel, tag?: ModelTag): Model;
-	animation(): AnimationModel;
-
-	keyboardChanged: ModelEvent<KeyboardModel>;
-	keyboard(value: KeyboardModel, tag?: ModelTag): Model;
-	keyboard(): KeyboardModel;
-
-
-	mouseChanged: ModelEvent<MouseModel>;
-	mouse(value: MouseModel, tag?: ModelTag): Model;
-	mouse(): MouseModel;
-
-
-	queryBuilderChanged: ModelEvent<any>;
-	queryBuilder(value: any, tag?: ModelTag): Model;
-	queryBuilder(): any;
-
-	dataManipulationChanged: ModelEvent<any>;
-	dataManipulation(value: any, tag?: ModelTag): Model;
-	dataManipulation(): any;
-
-	columnFilterChanged: ModelEvent<any>;
-	columnFilter(value: any, tag?: ModelTag): Model;
-	columnFilter(): any;
+export declare type StateSet<K extends keyof any, TState> = {
+	[P in K]: (state: Partial<TState>, tag?: ModelTag) => Model;
 }
+
+export declare type StateGet<K extends keyof any, TState> = {
+	[P in K]: () => Readonly<TState>;
+}
+
+export declare type StateChange<K extends keyof any, TState> = {
+	[P in K]: ModelEvent<TState>;
+};
+
+export declare type ActionAccessor = StateAccessor<'action', 'actionChanged', ActionModel>;
+export declare type AnimationAccessor = StateAccessor<'animation', 'animationChanged', AnimationModel>;
+export declare type BodyAccessor = StateAccessor<'body', 'bodyChanged', BodyModel>;
+export declare type ColumnListAccessor = StateAccessor<'columnList', 'columnListChanged', ColumnListModel>;
+export declare type DataAccessor = StateAccessor<'data', 'dataChanged', DataModel>;
+export declare type DragAccessor = StateAccessor<'drag', 'dragChanged', DragModel>;
+export declare type EditAccessor = StateAccessor<'edit', 'editChanged', EditModel>;
+export declare type ExportAccessor = StateAccessor<'export', 'exportChanged', ExportModel>;
+export declare type FetchAccessor = StateAccessor<'fetch', 'fetchChanged', FetchModel>;
+export declare type FilterAccessor = StateAccessor<'filter', 'filterChanged', FilterModel>;
+export declare type FocusAccessor = StateAccessor<'focus', 'focusChanged', FocusModel>;
+export declare type FootAccessor = StateAccessor<'foot', 'footChanged', FootModel>;
+export declare type GridAccessor = StateAccessor<'grid', 'gridChanged', GridModel>;
+export declare type GroupAccessor = StateAccessor<'group', 'GroupChanged', GroupModel>;
+export declare type HeadAccessor = StateAccessor<'head', 'headChanged', HeadModel>;
+export declare type HighlightAccessor = StateAccessor<'highlight', 'highlightChanged', HighlightModel>;
+export declare type KeyboardAccessor = StateAccessor<'keyboard', 'keyboardChanged', KeyboardModel>;
+export declare type LayerAccessor = StateAccessor<'layer', 'layerChanged', LayerModel>;
+export declare type LayoutAccessor = StateAccessor<'layout', 'layoutChanged', LayoutModel>;
+export declare type MouseAccessor = StateAccessor<'mouse', 'mouseChanged', MouseModel>;
+export declare type NavigationAccessor = StateAccessor<'navigation', 'navigationChanged', NavigationModel>;
+export declare type PaginationAccessor = StateAccessor<'pagination', 'paginationChanged', PaginationModel>;
+export declare type PersistenceAccessor = StateAccessor<'persistence', 'persistenceChanged', PersistenceModel>;
+export declare type PipeAccessor = StateAccessor<'pipe', 'pipeChanged', PipeModel>;
+export declare type PivotAccessor = StateAccessor<'pivot', 'PivotChanged', PivotModel>;
+export declare type PluginAccessor = StateAccessor<'plugin', 'pluginChanged', PluginModel>;
+export declare type ProgressAccessor = StateAccessor<'progress', 'progressChanged', ProgressModel>;
+export declare type RestAccessor = StateAccessor<'rest', 'restChanged', RestModel>;
+export declare type RowAccessor = StateAccessor<'row', 'rowChanged', RowModel>;
+export declare type RowListAccessor = StateAccessor<'rowList', 'rowListChanged', RowListModel>;
+export declare type SceneAccessor = StateAccessor<'scene', 'sceneChanged', SceneModel>;
+export declare type ScrollAccessor = StateAccessor<'scroll', 'scrollChanged', ScrollModel>;
+export declare type SelectionAccessor = StateAccessor<'selection', 'selectionChanged', SelectionModel>;
+export declare type SortAccessor = StateAccessor<'sort', 'sortChanged', SortModel>;
+export declare type StyleAccessor = StateAccessor<'style', 'styleChanged', StyleModel>;
+export declare type ToolbarAccessor = StateAccessor<'toolbar', 'toolbarChanged', ToolbarModel>;
+export declare type ValidationAccessor = StateAccessor<'validation', 'validationChanged', ValidationModel>;
+export declare type ViewAccessor = StateAccessor<'view', 'viewChanged', ViewModel>;
+export declare type VisibilityAccessor = StateAccessor<'visibility', 'visibilityChanged', VisibilityModel>;
+
+export declare type ResolveAccessor = {
+	resolve<TState>(type: new () => TState): StateAccessor<'state', 'changed', TState>;
+};
+
+export type Model =
+	ActionAccessor
+	& AnimationAccessor
+	& BodyAccessor
+	& ColumnListAccessor
+	& DataAccessor
+	& DragAccessor
+	& EditAccessor
+	& ExportAccessor
+	& FetchAccessor
+	& FilterAccessor
+	& FocusAccessor
+	& FootAccessor
+	& GridAccessor
+	& GroupAccessor
+	& HeadAccessor
+	& HighlightAccessor
+	& KeyboardAccessor
+	& LayerAccessor
+	& LayoutAccessor
+	& MouseAccessor
+	& NavigationAccessor
+	& PaginationAccessor
+	& PersistenceAccessor
+	& PipeAccessor
+	& PivotAccessor
+	& PluginAccessor
+	& ProgressAccessor
+	& RestAccessor
+	& RowAccessor
+	& RowListAccessor
+	& SceneAccessor
+	& ScrollAccessor
+	& SelectionAccessor
+	& SortAccessor
+	& StyleAccessor
+	& ToolbarAccessor
+	& ValidationAccessor
+	& ViewAccessor
+	& VisibilityAccessor
+	& ResolveAccessor;

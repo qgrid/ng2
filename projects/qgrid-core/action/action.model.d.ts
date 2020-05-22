@@ -39,7 +39,6 @@ import { Resource } from '../resource/resource';
  *
  * * [Action](/doc/api/action.html)
  * * [Command](/doc/api/command.html)
- * * [Action Bar](/doc/feature/action.html)
  * * [Shortcut](/doc/api/shortcut.html)
  * * [Command Manager](/doc/api/command-manager.html)
  */
@@ -48,17 +47,17 @@ export declare interface ActionModel {
 	 * List of actions that will be added to the command manager,
 	 * and bind to the keyboard events.
 	 */
-	items?: Action[];
+	items: Action[];
 
 	/**
 	 * The service that connects keyboard events and commands.
 	 */
-	shortcut?: Shortcut;
+	shortcut: Shortcut;
 
 	/**
 	 * Command manager is responsible for 2 questions:
 	 * * What commands can be executed?
 	 * * How/in what order commands should be executed?
 	 */
-	manager?: CommandManager;
+	manager: CommandManager;
 }

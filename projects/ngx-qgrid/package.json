@@ -6,5 +6,6 @@
     "@angular/core": "^9.1.0",
     "tslib": "^1.10.0",
     "@qgrid/core": "9.1.0"
-  }
+  },
+  "author": "qgrid.team@gmail.com"
 }

@@ -5,6 +5,8 @@
 /tmp
 /out-tsc
 /e2e/diff
+/projects/ng2-qgrid/src/@qgrid
+/projects/ng2-qgrid/src/assets
 *.gen.html
 *.log
 

@@ -1,88 +1,119 @@
 'use strict';
 
-const fs = require('fs');
+const sane = require('sane');
 const path = require('path');
-const glob = require('glob');
+const { spawn } = require('child_process');
+const { concatFiles } = require('./build.utils');
 
-// Copy files maintaining relative paths.
-function relativeCopy(fileGlob, from, to) {
-  return new Promise((resolve, reject) => {
-    glob(fileGlob, { cwd: from, nodir: true }, (err, files) => {
-      if (err) {
-        reject(err);
-      }
+const ROOT_PATH = path.resolve('.');
+const SPAWN_OPTS = { shell: true, stdio: 'inherit' };
 
-      files.forEach(file => {
-        const origin = path.join(from, file);
-        const dest = path.join(to, file);
-        const data = fs.readFileSync(origin, 'utf-8');
-        makeFolderTree(path.dirname(dest));
-        fs.writeFileSync(dest, data);
-        console.log(`copy: ${file}`);
+function resolvePathMarker(libName, marker) {
+  const themeRegexp = /ng2-qgrid-theme-([a-z]+)/is;
+  const themeMatch = themeRegexp.exec(libName);
+  if (themeMatch) {
+    const themeName = themeMatch[1];
+    return path.join(
+      'dist',
+      'ng2-qgrid',
+      'theme',
+      themeName,
+      marker
+    );
+  }
+
+  return path.join(
+    'dist',
+    libName,
+    marker
+  );
+}
+
+function buildLib(name, options = [], marker = 'package.json') {
+  const watchThat = resolvePathMarker(name, marker);
+
+  console.log(`build.kit watch build ${watchThat}`);
+  return new Promise((resolve) => {
+    let watch = sane(ROOT_PATH)
+      .on('add', (fileName) => {
+        if (fileName === watchThat) {
+          console.log(`build.kit add ${watchThat}`);
+          watch.close();
+          watch = null;
+          resolve();
+        }
       });
 
-      resolve();
-    })
+    const buildOptions = ['build', name].concat(options);
+    console.log(buildOptions);
+
+    spawn(
+      'ng',
+      buildOptions,
+      SPAWN_OPTS
+    );
   });
 }
 
-function relativeCopySync(fileGlob, from, to, visit = x => x) {
-  const files = glob.sync(fileGlob, { cwd: from, nodir: true });
+function serveApp(options = []) {
+  const serveOptions = ['serve', '--open'];
+  serveOptions.push(...options);
 
-  files.forEach(file => {
-    const srcPath = path.join(from, file);
-    const dstPath = path.join(to, file);
-    const content = fs.readFileSync(srcPath, 'utf-8');
-    makeFolderTree(path.dirname(dstPath));
+  console.log(serveOptions);
+  spawn(
+    'ng',
+    serveOptions,
+    SPAWN_OPTS
+  );
+}
 
-    const result = visit({ srcPath, dstPath, content });
-    fs.writeFileSync(result.dstPath, result.content);
-    console.log(`copy: ${file} -> ${result.dstPath}`);
+function buildTheme(name) {
+  const libPath = path.join(
+    ROOT_PATH,
+    'projects',
+    name,
+    'src',
+    'lib'
+  );
+
+  const templatesPath = path.join(
+    libPath,
+    'templates'
+  );
+
+  console.log(`build.kit build theme ${templatesPath}`);
+
+  concatFiles({
+    path: templatesPath,
+    outputPath: path.join(libPath, 'theme.component.gen.html'),
   });
 }
 
-// Recursively create a dir.
-function makeFolderTree(dir) {
-  if (!fs.existsSync(dir)) {
-    makeFolderTree(path.dirname(dir));
-    fs.mkdirSync(dir);
-  }
-}
+function watchTheme(name) {
+  const libPath = path.join(
+    ROOT_PATH,
+    'projects',
+    name,
+    'src',
+    'lib'
+  );
 
+  const templatesPath = path.join(
+    libPath,
+    'templates'
+  );
 
-function concatFiles(settings = {}) {
-  settings = Object.assign(settings, {
-    encoding: 'utf-8',
-    pattern: /.*\.tpl\.html/
-  });
+  sane(templatesPath)
+    .on('all', (eventType, fileName) => {
+      console.log(`build.kit ${eventType}: ${fileName}`);
 
-  const pathes = fs.readdirSync(settings.path);
-  const content = pathes
-    .filter(file => file.match(settings.pattern))
-    .map(file => {
-      const p = path.join(settings.path, file);
-      console.info(`read: ${p}`);
-      return fs.readFileSync(p, { encoding: settings.encoding });
-    })
-    .join('');
-
-  console.info(`write: ${settings.outputPath}`);
-
-  if (!fs.existsSync(settings.outputPath) || fs.readFileSync(settings.outputPath, { encoding: settings.encoding }) !== content) {
-    fs.writeFileSync(settings.outputPath, content);
-  }
-}
-
-function toComponentName(name) {
-	return name
-		.split('-')
-		.map(part => part[0].toUpperCase() + part.slice(1))
-		.join('');
+      buildTheme(name);
+    });
 }
 
 module.exports = {
-  relativeCopy,
-  relativeCopySync,
-  concatFiles,
-  toComponentName
+  buildLib,
+  buildTheme,
+  watchTheme,
+  serveApp
 };

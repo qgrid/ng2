@@ -6,9 +6,7 @@ import { Model } from '../infrastructure/model';
 import { Table } from '../dom/table';
 import { Td } from '../dom/td';
 
-/**
- * > Under Construction.
- */
+
 export declare class SelectionView {
 	constructor(model: Model, table: Table, shortcut: { register: (commands: Command[]) => void });
 
