@@ -8,7 +8,7 @@ import { DomTd } from '@qgrid/ngx';
 })
 export class EditFormTriggerComponent {
 	@Input() caption: string;
-	@Input() cell: DomTd;
+	@Input() row: any;
 
 	context: any = {
 		$implicit: this

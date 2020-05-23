@@ -1,11 +1,11 @@
 <q-grid caption="Edit Row Custom"
-        [rows]="rows | async"
+        [rows]="rows$ | async"
         selectionMode="singleOnly"
         selectionUnit="row">
     <q-grid-columns generation="deep">
     </q-grid-columns>
 
-    <q-grid-actions>c
+    <q-grid-actions>
         <q-grid-action icon="edit"
                        title="Open Pane"
                        [command]="openPane">
@@ -15,19 +15,17 @@
     <q-grid-pane>
         <ng-template for="right"
                      let-$pane>
-            <div style="width: 500px;">
-                <button mat-icon-button
-                        style="float: right; z-index: 1;"
-                        (click)="$pane.close('right')">
-                    <mat-icon>close</mat-icon>
-                </button>
+            <button mat-icon-button
+                    style="float: right; z-index: 1;"
+                    (click)="$pane.close('right')">
+                <mat-icon>close</mat-icon>
+            </button>
 
-                <q-grid-edit-form [cell]="activeCell"
-                                  caption="{{activeCell.row.name.last}}, {{activeCell.row.name.first}}"
-                                  (cancel)="$pane.close('right')"
-                                  (submit)="$pane.close('right')">
-                </q-grid-edit-form>
-            </div>
+            <q-grid-edit-form [row]="selectedRow"
+                              caption="{{selectedRow.name.last}}, {{selectedRow.name.first}}"
+                              (cancel)="$pane.close('right')"
+                              (submit)="$pane.close('right')">
+            </q-grid-edit-form>
         </ng-template>
     </q-grid-pane>
 
