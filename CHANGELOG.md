@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [9.1.0] - 2020-04-01
 ### BREAKING
-- q-grid is block element by default was inline.
+- q-grid is block element by default, was inline.
 - Rename edit state property from `state` to `status`.
 - Selection state `key` property split into 2 `rowKey` and `columnKey`.
 - Data state `id` property split into 2 `rowId` and `columnId`.
