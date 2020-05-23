@@ -3,15 +3,16 @@
 	<div class="q-grid-action"
 		 [ngClass]="'q-grid-action-' + $action.id"
 		 [ngSwitch]="!!$action.templateUrl">
+
 		<ng-container *ngSwitchCase="true"
 					  [key]="$action.templateUrl"
 					  [context]="{$implicit: $action}">
 		</ng-container>
+
 		<ng-container *ngSwitchDefault>
 			<button *ngIf="$action.icon"
 					mat-icon-button
-					(click)="$action.execute()"
-					[disabled]="!$action.canExecute"
+					[q-grid-command]="$action.command"
 					[matTooltip]="$action.title + ($action.shortcut ? ' (' + $action.shortcut + ')' : '')"
 					[matTooltipShowDelay]="800"
 					tabindex="-1">
@@ -19,11 +20,11 @@
 			</button>
 			<button *ngIf="!$action.icon && $action.title"
 					mat-button
-					(click)="$action.execute()"
-					[disabled]="!$action.canExecute"
+					[q-grid-command]="$action.command"
 					tabindex="-1">
 				{{$action.title}}
 			</button>
 		</ng-container>
+
 	</div>
 </ng-template>

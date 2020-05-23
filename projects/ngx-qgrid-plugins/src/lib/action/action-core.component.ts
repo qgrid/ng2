@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, DoCheck, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { GridError, GridPlugin, GridModel } from '@qgrid/ngx';
 import { Action } from '@qgrid/core/action/action';
 
@@ -8,18 +8,15 @@ import { Action } from '@qgrid/core/action/action';
 	providers: [GridPlugin],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ActionCoreComponent implements DoCheck {
+export class ActionCoreComponent {
 	@Input() action: Action;
 
 	context: { $implicit: ActionCoreComponent } = {
 		$implicit: this
 	};
 
-	canExecute: boolean;
-
 	constructor(
-		private plugin: GridPlugin,
-		private cd: ChangeDetectorRef,
+		private plugin: GridPlugin
 	) {
 	}
 
@@ -27,34 +24,13 @@ export class ActionCoreComponent implements DoCheck {
 		return this.plugin.model;
 	}
 
-	ngDoCheck() {
-		if (!this.action) {
-			return;
-		}
-
-		const canExecute = this.action.command.canExecute();
-		if (canExecute !== this.canExecute) {
-			this.canExecute = canExecute;
-			this.cd.markForCheck();
-		}
-	}
-
-	execute() {
+	get command() {
 		const action = this.action;
 		if (!action) {
 			throw new GridError('action-core.component', 'Action should be setup');
 		}
 
-		return action.command.execute();
-	}
-
-	get shortcut() {
-		const action = this.action;
-		if (!action) {
-			throw new GridError('action-core.component', 'Action should be setup');
-		}
-
-		return action.command.shortcut;
+		return action.command;
 	}
 
 	get title() {

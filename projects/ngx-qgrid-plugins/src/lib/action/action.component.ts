@@ -25,14 +25,6 @@ export class ActionComponent implements OnInit {
 		templateHost.key = source => `action-${source}-${this.id}.tpl.html`;
 	}
 
-	execute() {
-		return this.command && this.command.execute();
-	}
-
-	canExecute() {
-		return this.command && this.command.canExecute();
-	}
-
 	ngOnInit() {
 		const { model, disposable } = this.plugin;
 		const hasCommand = !!this.command;

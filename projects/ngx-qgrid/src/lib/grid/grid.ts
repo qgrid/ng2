@@ -19,7 +19,7 @@ export class Grid {
 	constructor(private modelBuilder: GridModelBuilder) {
 	}
 
-	model() {
+	model(): GridModel {
 		return this.modelBuilder.build();
 	}
 

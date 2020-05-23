@@ -87,7 +87,7 @@ export class SelectionLet {
 						this.select(newEntries, true);
 					}
 
-					this.stateCheck.next(true);
+					this.stateCheck.next();
 				}
 			});
 	}
