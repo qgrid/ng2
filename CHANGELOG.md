@@ -27,6 +27,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Added
 - Ivy support.
 - New scene status called `idle`, before the first render.
+- Introduce canExecuteCheck for the command to explicitly update canExecute status.
+- Extend plugin interface with `observe` and `observeReply` functions.
 
 ### Changed
 - Better plugin support.

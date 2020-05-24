@@ -7,7 +7,7 @@ import {
 	SimpleChanges,
 	OnInit,
 	EventEmitter,
-	Output,
+	Output
 } from '@angular/core';
 import { Disposable } from '@qgrid/ngx';
 import { Command } from '@qgrid/core/command/command';
@@ -45,18 +45,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit {
 		const { nativeElement } = this.host;
 
 		nativeElement
-			.addEventListener(this.commandEvent, e => {
-				const { command, commandArg } = this;
-				if (command) {
-					const result = command.execute(commandArg) === true;
-					if (result) {
-						e.preventDefault();
-						e.stopPropagation();
-					}
-
-					this.commandExecute.emit(commandArg);
-				}
-			});
+			.addEventListener(this.commandEvent, e => this.execute(e));
 	}
 
 	ngDoCheck() {
@@ -87,7 +76,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit {
 		if (this.useCommandShortcut && command.shortcut) {
 			const manager = new CommandManager(f => {
 				f();
-				this.commandExecute.emit(commandArg);
+				this.afterExecute();
 			}, commandArg);
 
 			const shortcut = new Shortcut(new ShortcutDispatcher());
@@ -103,6 +92,23 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit {
 				shortcut.register(manager, [command])
 			);
 		}
+	}
+
+	private execute(e?: MouseEvent) {
+		const { command, commandArg } = this;
+		const result = command.execute(commandArg) === true;
+		if (result && e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+		this.afterExecute();
+	}
+
+	private afterExecute() {
+		const { commandArg } = this;
+		this.commandExecute.emit(commandArg);
+		this.command.canExecuteCheck.next();
 	}
 
 	private unregister() {

@@ -8,8 +8,7 @@ import { GridPlugin } from '@qgrid/ngx';
 	providers: [GridPlugin],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ActionBarComponent implements OnInit, OnDestroy {
-	private shortcutOff: () => void = null;
+export class ActionBarComponent {
 
 	context: { $implicit: ActionBarComponent } = {
 		$implicit: this
@@ -17,38 +16,10 @@ export class ActionBarComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private plugin: GridPlugin,
-		private cd: ChangeDetectorRef
 	) {
-	}
-
-	ngOnInit() {
-		const { model, observeReply } = this.plugin;
-
-		observeReply(model.actionChanged)
-			.subscribe(e => {
-				if (e.hasChanges('items')) {
-					if (this.shortcutOff) {
-						this.shortcutOff();
-						this.shortcutOff = null;
-					}
-
-					const { shortcut, manager } = model.action();
-					this.shortcutOff = shortcut.register(manager, e.state.items.map(act => act.command));
-
-					this.cd.markForCheck();
-					this.cd.detectChanges();
-				}
-			});
 	}
 
 	get actions(): Action[] {
 		return this.plugin.model.action().items;
-	}
-
-	ngOnDestroy() {
-		if (this.shortcutOff) {
-			this.shortcutOff();
-			this.shortcutOff = null;
-		}
 	}
 }

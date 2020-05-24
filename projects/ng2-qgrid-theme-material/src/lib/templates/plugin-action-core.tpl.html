@@ -13,7 +13,8 @@
 			<button *ngIf="$action.icon"
 					mat-icon-button
 					[q-grid-command]="$action.command"
-					[matTooltip]="$action.title + ($action.shortcut ? ' (' + $action.shortcut + ')' : '')"
+					[q-grid-command-use-shortcut]="true"
+					[matTooltip]="$action.title + ($action.command.shortcut ? ' (' + $action.command.shortcut + ')' : '')"
 					[matTooltipShowDelay]="800"
 					tabindex="-1">
 				<mat-icon>{{$action.icon}}</mat-icon>
@@ -21,8 +22,9 @@
 			<button *ngIf="!$action.icon && $action.title"
 					mat-button
 					[q-grid-command]="$action.command"
+					[q-grid-command-use-shortcut]="true"
 					tabindex="-1">
-				{{$action.title}}
+				{{$action.title + ($action.command.shortcut ? ' (' + $action.command.shortcut + ')' : '')}}
 			</button>
 		</ng-container>
 

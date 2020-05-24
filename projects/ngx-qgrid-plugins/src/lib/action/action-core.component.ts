@@ -45,7 +45,7 @@ export class ActionCoreComponent {
 	get icon() {
 		const action = this.action;
 		if (!action) {
-			throw new GridError('action-core.component', 'Action shoud be setup');
+			throw new GridError('action-core.component', 'Action should be setup');
 		}
 
 		return action.icon;
