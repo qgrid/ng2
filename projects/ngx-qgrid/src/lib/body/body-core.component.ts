@@ -48,6 +48,7 @@ export class BodyCoreComponent implements OnInit {
 				));
 
 			disposable.add(listener.on('wheel', e => host.wheel(e)));
+			disposable.add(listener.on('mouseleave', e => host.mouseLeave(e)));
 		});
 
 		observeReply(model.sceneChanged)

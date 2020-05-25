@@ -38,6 +38,10 @@ export class HeadLet {
 
 						const targetKey = th.column.key;
 						if (sourceKey !== targetKey) {
+							console.log(sourceKey);
+							console.log(targetKey);
+							console.log('----------');
+							
 							const { columnList } = model;
 							const tree = calk(columnList().index);
 

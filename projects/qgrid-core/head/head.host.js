@@ -24,6 +24,9 @@ export class HeadHost {
 						}
 						case 'stop': {
 							if (this.clientX >= 0 && this.clientY >= 0) {
+								console.log(e.changes);
+								console.log(e.state);
+								console.log('head.host.stop')
 								const target = elementFromPoint(this.clientX, this.clientY);
 								if (target) {
 									const path = parents(target);
@@ -45,16 +48,12 @@ export class HeadHost {
 	}
 
 	mouseMove(e) {
-		const { model } = this.plugin;
-
 		this.clientX = e.clientX;
 		this.clientY = e.clientY;
 
-		if (model.scene().status === 'stop') {
-			const cell = this.pathFinder.cell(eventPath(e));
-			if (cell) {
-				this.highlight(cell.column);
-			}
+		const cell = this.pathFinder.cell(eventPath(e));
+		if (cell) {
+			this.highlight(cell.column);
 		}
 	}
 
@@ -78,10 +77,11 @@ export class HeadHost {
 				highlight.column.execute(this.column, false);
 			}
 
-			this.column = column;
 			if (column) {
-				highlight.column.execute(this.column, true);
+				highlight.column.execute(column, true);
 			}
+
+			this.column = column;
 		}
 	}
 }
