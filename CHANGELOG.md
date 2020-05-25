@@ -269,7 +269,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Need to change theme import from `import { ThemeModule } from 'ng2-qgrid'` to `import { ThemeModule } from 'ng2-qgrid/theme/material`
 
 ### Deprecated
-- Use `FetchContext` `serach` property instead of `filter` property.
+- Use `FetchContext` `search` property instead of `filter` property.
 - Use `<q-grid caption="My Grid">` instead of `<q-grid header="My Grid">`.
 
 ### Added
@@ -434,7 +434,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Fixed
 * Array cell editor improvements.
-* Fix minification in release script.
+* Fix minimization in release script.
 * Grid in grid support.
 
 ## [5.0.2] - 2017-12-22

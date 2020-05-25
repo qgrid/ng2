@@ -71,7 +71,7 @@ export class NavigationLet {
 						}
 					}
 
-					const { rowIndex, columnIndex } = e.state;
+					const { rowIndex, columnIndex } = e.state.cell;
 					focusBlurs = this.invalidateFocus(focusBlurs);
 					if (e.tag.source !== 'navigation.scroll' && this.scrollTo.canExecute(rowIndex, columnIndex)) {
 						this.scrollTo.execute(rowIndex, columnIndex);
