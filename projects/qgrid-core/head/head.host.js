@@ -24,9 +24,6 @@ export class HeadHost {
 						}
 						case 'stop': {
 							if (this.clientX >= 0 && this.clientY >= 0) {
-								console.log(e.changes);
-								console.log(e.state);
-								console.log('head.host.stop')
 								const target = elementFromPoint(this.clientX, this.clientY);
 								if (target) {
 									const path = parents(target);

@@ -56,7 +56,7 @@ export class Model {
 	}
 
 	buildAccessor(name, Type) {
-		const state = new Type();
+		let state = new Type();
 
 		const changeSet = new Set();
 		const reply = () => {
@@ -116,6 +116,10 @@ export class Model {
 			}
 
 			if (hasChanges) {
+				state = {
+					...state
+				};
+
 				event.emit({
 					state,
 					changes,
