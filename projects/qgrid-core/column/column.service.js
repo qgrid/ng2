@@ -1,6 +1,7 @@
 import { isFunction } from '../utility/kit';
 import { GridError } from '../infrastructure/error';
 import { expand, collapse } from './column.matrix';
+import { Lazy } from '../infrastructure/lazy';
 
 export function flatten(columns, result = []) {
 	for (let i = 0, length = columns.length; i < length; i++) {
@@ -95,15 +96,11 @@ export function widthFactory(table, form) {
 		}, 0);
 
 
-	let area;
-	function getRect() {
-		if (area) {
-			return area;
-		}
-
-		area = table.view.rect('head-mid');
-		return area;
-	}
+	let rectWidth = new Lazy(() =>
+		table.view.width('head-mid')
+		+ table.view.width('head-left')
+		+ table.view.width('head-right')
+	);
 
 	function getWidth(column) {
 		let size = column;
@@ -111,18 +108,19 @@ export function widthFactory(table, form) {
 			size = form.get(column.key);
 		}
 
-		let width = size.width;
+		let { width } = size;
 		if (width || width === 0) {
 			if (('' + width).indexOf('%') >= 0) {
 				const percent = Number.parseFloat(width);
-				const rect = getRect();
+				const headWidth = rectWidth.instance;
+
 				// 2 because pad column has left padding equals to 1px and width 100%
 				// that can produce 1.## values
 				const padSkip = 2;
-				const skip = column.widthMode === 'relative' ? occupied + padSkip : padSkip;
-				width = (rect.width - skip) * percent / 100;
+				const skipWidth = column.widthMode === 'relative' ? occupied + padSkip : padSkip;
+				width = (headWidth - skipWidth) * percent / 100;
 			}
-			
+
 			const MIN_WIDTH = 0;
 			return Math.max(Number.parseInt(width, 10), Number.parseInt(column.minWidth, 10) || MIN_WIDTH);
 		}

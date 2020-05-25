@@ -157,7 +157,7 @@ export class VirtualBox extends Box {
 		// and as virtual element rect function is used mostly for end/home navigation we make rect lazy
 		return index => () => {
 			if (!rect) {
-				rect = this.context.view.rect();
+				rect = this.context.view.rect('body-mid');
 			}
 
 			// TODO: add correct left, right, width
@@ -188,7 +188,7 @@ export class VirtualBox extends Box {
 		// and as virtual element rect function is used mostly for end/home navigation we make rect lazy
 		return (rowIndex, columnIndex) => () => {
 			if (!rect) {
-				rect = this.context.view.rect();
+				rect = this.context.view.rect('body-mid');
 			}
 
 			const column = columns[columnIndex];

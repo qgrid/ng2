@@ -162,7 +162,7 @@ export class NavigationLet {
 		const { scroll } = model;
 		Fastdom.measure(() => {
 			const tr = target.rect();
-			const vr = view.rect();
+			const vr = view.rect('body-mid');
 			const state = {};
 
 			if (view.canScrollTo(target, 'left')) {
