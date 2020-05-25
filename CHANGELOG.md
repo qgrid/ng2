@@ -30,6 +30,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - New scene status called `idle`, before the first render.
 - Introduce canExecuteCheck for the command to explicitly update canExecute status.
 - Extend plugin interface with `observe` and `observeReply` functions.
+- Copy cell label to clipboard.
 
 ### Changed
 - Better plugin support.
@@ -39,10 +40,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Better core types.
 - Row details get focus on expand.
 - Immutable model state to prevent event handling artifacts.
+- Remove browser select.
 
 ### Fixed
 - *ngIf for column component works.
 - Fix row options icon is jumping on edit.
+- Row resize algorithm.
 
 ## [9.0.1] - 2020-03-13
 ### Fixed

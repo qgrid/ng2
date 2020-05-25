@@ -14,9 +14,11 @@ import { ScrollLet } from '../scroll/scroll.let';
 import { SelectionLet } from '../selection/selection.let';
 import { SortLet } from '../sort/sort.let';
 import { StyleLet } from '../style/style.let';
+import { ClipboardLet } from '../clipboard/clipboard.let';
 
 export interface GridLet {
     body: BodyLet;
+    clipboard: ClipboardLet;
     edit: EditLet;
     filter: FilterLet;
     foot: FootLet;
