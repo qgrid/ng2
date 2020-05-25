@@ -1,63 +1,34 @@
 import { PathService } from '../path/path.service';
-import { parents } from '../services/dom';
-import { eventPath, elementFromPoint } from '../services/dom';
+import { eventPath } from '../services/dom';
 
 export class HeadHost {
 	constructor(plugin) {
 		const { model, table, observeReply } = plugin;
 
 		this.plugin = plugin;
-		this.pathFinder = new PathService(table.box.bag.head);
-
 		this.column = null;
-		this.clientX = -1;
-		this.clientY = -1;
 
-		observeReply(model.sceneChanged)
+		observeReply(model.dragChanged)
 			.subscribe(e => {
-				if (e.hasChanges('status')) {
-					const { status } = e.state;
-					switch (status) {
-						case 'start': {
-							this.highlight(null);
-							break;
-						}
-						case 'stop': {
-							if (this.clientX >= 0 && this.clientY >= 0) {
-								const target = elementFromPoint(this.clientX, this.clientY);
-								if (target) {
-									const path = parents(target);
-									const cell = this.pathFinder.cell(path);
-									if (cell) {
-										this.highlight(cell.column);
-										return;
-									}
-								}
-
-								this.highlight(null);
-							}
-
-							break;
-						}
+				if (e.hasChanges('isActive')) {
+					if(e.state.isActive) {
+						this.column = null;
 					}
 				}
 			});
 	}
 
 	mouseMove(e) {
-		this.clientX = e.clientX;
-		this.clientY = e.clientY;
+		const { table } = this.plugin;
 
-		const cell = this.pathFinder.cell(eventPath(e));
+		const pathFinder = new PathService(table.box.bag.head);
+		const cell = pathFinder.cell(eventPath(e));
 		if (cell) {
 			this.highlight(cell.column);
 		}
 	}
 
 	mouseLeave() {
-		this.clientX = -1;
-		this.clientY = -1;
-
 		this.highlight(null);
 	}
 
