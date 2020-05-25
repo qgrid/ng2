@@ -1,4 +1,4 @@
- import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../data.service';
 import { Grid, GridModel, Command, Node } from 'ng2-qgrid';
 

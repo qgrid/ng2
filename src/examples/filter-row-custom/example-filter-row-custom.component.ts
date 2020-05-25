@@ -31,7 +31,7 @@ export class ExampleFilterRowCustomComponent {
 		this.gridModel.navigationChanged.watch(e => {
 			if (e.hasChanges('cell') && e.state.cell) {
 				this.gridModel.selection({
-					items: [e.state.row]
+					items: [e.state.cell.row]
 				});
 			}
 		});

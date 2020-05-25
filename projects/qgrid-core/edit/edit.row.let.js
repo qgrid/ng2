@@ -1,6 +1,7 @@
 import { Log } from '../infrastructure/log';
 import { Command } from '../command/command';
 import { RowEditor } from './edit.row.editor';
+import { selectRow } from '../navigation/navigation.state.selector';
 
 export class EditRowLet {
 	constructor(plugin, shortcut) {
@@ -23,7 +24,7 @@ export class EditRowLet {
 				source: 'edit.row.view',
 				shortcut: this.shortcutFactory('enter'),
 				canExecute: row => {
-					row = row || model.navigation().row;
+					row = row || selectRow(model.navigation());
 					return row
 						&& model.edit().mode === 'row'
 						&& model.edit().status === 'view'
@@ -46,7 +47,7 @@ export class EditRowLet {
 				shortcut: this.shortcutFactory('commit'),
 				// TODO: add validation support
 				canExecute: row => {
-					row = row || model.navigation().row;
+					row = row || selectRow(model.navigation());
 					return row
 						&& model.edit().mode === 'row'
 						&& model.edit().status === 'edit'
@@ -67,7 +68,7 @@ export class EditRowLet {
 				source: 'edit.row.view',
 				shortcut: this.shortcutFactory('cancel'),
 				canExecute: row => {
-					row = row || model.navigation().row;
+					row = row || selectRow(model.navigation());
 					return row
 						&& model.edit().mode === 'row'
 						&& model.edit().status === 'edit'
@@ -87,7 +88,7 @@ export class EditRowLet {
 			reset: new Command({
 				source: 'edit.row.view',
 				canExecute: row => {
-					row = row || model.navigation().row;
+					row = row || selectRow(model.navigation());
 					return row
 						&& model.edit().mode === 'row'
 						&& model.edit().status === 'edit'

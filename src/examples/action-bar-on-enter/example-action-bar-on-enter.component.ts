@@ -27,17 +27,17 @@ export class ExampleActionBarOnEnterComponent {
 
 	pickCommand = new Command({
 		execute: () => {
-			const { rowIndex, columnIndex } = this.gridModel.navigation();
+			const { cell } = this.gridModel.navigation();
 			const { columns } = this.gridModel.view();
 
 			const newColumnIndex = columns.findIndex(c => c.key === 'rowOptions');
 
-			this.gridService.focus(rowIndex, newColumnIndex);
+			this.gridService.focus(cell.rowIndex, newColumnIndex);
 
 			// Comment this out if don't need to revert focus back after action
 			this.gridModel.editChanged.watch((e, off) => {
 				if (e.hasChanges('status') && e.state.status === 'view') {
-					this.gridService.focus(rowIndex, columnIndex);
+					this.gridService.focus(cell.rowIndex, cell.columnIndex);
 					off();
 				}
 			});

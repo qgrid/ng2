@@ -32,9 +32,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		const updateHandler = this.updateHandlerFactory();
 
 		observeReply(model.navigationChanged)
-			.subscribe(e => {
-				updateHandler(e);
-			});
+			.subscribe(e => updateHandler(e));
 
 		observeReply(model.editChanged)
 			.subscribe(e => {
@@ -67,7 +65,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 		let isValid = false;
 		return (e: GridEventArg<NavigationState>) => {
 			if (e.hasChanges('cell')) {
-				const { cell, rowIndex, columnIndex } = e.state;
+				const { cell } = e.state;
 
 				if (cell) {
 					const oldCell = e.changes.cell.oldValue || {} as CellView;
@@ -92,7 +90,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 						&& oldCell.columnIndex >= 0
 						&& (newCell.rowIndex !== oldCell.rowIndex || newCell.columnIndex !== oldCell.columnIndex);
 
-					const domCell = table.body.cell(rowIndex, columnIndex);
+					const domCell = table.body.cell(cell.rowIndex, cell.columnIndex);
 					if (isValid) {
 						domCell.addClass('q-grid-animate');
 						element.classList.add('q-grid-active');
@@ -133,7 +131,8 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 	startBatchEdit() {
 		const { model } = this.plugin;
-		const startCell = model.navigation().cell;
+
+		const { cell: startCell } = model.navigation();
 		if (startCell) {
 			const editService = new EditService(this.plugin);
 			this.endBatchEdit = editService.startBatch(startCell);

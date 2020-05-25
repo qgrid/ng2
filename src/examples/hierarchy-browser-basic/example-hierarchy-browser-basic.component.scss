@@ -1,13 +1,15 @@
-::ng-deep {
-    td.q-grid-group {
-        button {
-            &:disabled {
-                display: inline-block !important;
-            }
+:host {
+    ::ng-deep {
+        td.q-grid-group {
+            button {
+                &:disabled {
+                    display: inline-block !important;
+                }
 
-            .q-grid-icon {
-                transform: none !important;
-                padding-right: 10px;
+                .q-grid-icon {
+                    transform: none !important;
+                    padding-right: 10px;
+                }
             }
         }
     }

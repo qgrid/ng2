@@ -5,6 +5,7 @@ import { columnFactory } from '../column/column.factory';
 import { PipeUnit } from '../pipe/pipe.unit';
 import { preOrderDFS } from '../node/node.service';
 import { yes, identity } from '../utility/kit';
+import { selectRow, selectColumn } from '../navigation/navigation.state.selector';
 
 function rowspanGetNode(node, column) {
 	if (node.source === column.by) {
@@ -42,7 +43,9 @@ export class GroupLet {
 		const toggleStatus = new Command({
 			source: 'group.view',
 			execute: args => {
-				let { row, column } = model.navigation();
+				let row = selectRow(model.navigation());
+				let column = selectColumn(model.navigation());
+
 				if (args) {
 					row = args[0] || row;
 					column = args[1] || column;
@@ -60,7 +63,9 @@ export class GroupLet {
 				}
 			},
 			canExecute: args => {
-				let { row, column } = model.navigation();
+				let row = selectRow(model.navigation());
+				let column = selectColumn(model.navigation());
+
 				if (args) {
 					row = args[0] || row;
 					column = args[1] || column;

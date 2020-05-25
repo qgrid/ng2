@@ -66,8 +66,8 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 				switch (codes[0]) {
 					case 'enter':
 					case 'space': {
-						const focusedRow = model.navigation().row;
-						this.toggleExpand.execute(focusedRow);
+						const { cell } = model.navigation();
+						this.toggleExpand.execute(cell && cell.row);
 						break;
 					}
 					case 'alt': {

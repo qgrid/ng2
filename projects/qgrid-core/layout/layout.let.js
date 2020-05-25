@@ -2,6 +2,7 @@ import { Log } from '../infrastructure/log';
 import * as css from '../services/css';
 import * as columnService from '../column/column.service';
 import { Fastdom } from '../services/fastdom';
+
 export class LayoutLet {
 	constructor(plugin, gridService) {
 		const { model, observeReply, disposable } = plugin;
@@ -111,7 +112,7 @@ export class LayoutLet {
 
 		model.layout({ columns: form }, { source: 'layout.let', behavior: 'core' });
 
-		const { column } = model.navigation();
+		const column = selectColumn(model.navigation());
 		if (column && column.viewWidth) {
 			const viewForm = new Map(form)
 			const columnForm = form.get(column.key);
@@ -144,8 +145,7 @@ export class LayoutLet {
 					'max-width': size
 				};
 
-				style[`td.q-grid-the-${key}`] = sizeStyle;
-				style[`th.q-grid-the-${key}`] = sizeStyle;
+				style[`.q-grid-the-${key}`] = sizeStyle;
 			}
 		}
 

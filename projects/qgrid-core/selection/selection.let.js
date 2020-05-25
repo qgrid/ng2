@@ -6,6 +6,7 @@ import { SelectionRange } from './selection.range';
 import { SelectionService } from './selection.service';
 import { selectionStateFactory as formFactory } from './state/selection.state.factory';
 import { SubjectLike } from '../rx/rx';
+import { selectRowIndex, selectColumnIndex } from '../navigation/navigation.state.selector';
 
 export class SelectionLet {
 	constructor(plugin, shortcut) {
@@ -99,7 +100,7 @@ export class SelectionLet {
 		const toggleActiveRow = new Command({
 			source: 'selection.view',
 			canExecute: () => {
-				const { rowIndex } = model.navigation();
+				const rowIndex = selectRowIndex(model.navigation());
 				const row = this.rows[rowIndex >= 0 ? rowIndex : rowIndex + 1];
 
 				if (!this.form.canSelect(row)) {
@@ -109,7 +110,7 @@ export class SelectionLet {
 				return model.selection().unit === 'row' && this.rows.length > 0;
 			},
 			execute: () => {
-				const { rowIndex } = model.navigation();
+				const rowIndex = selectRowIndex(model.navigation());
 				const row = this.rows[rowIndex >= 0 ? rowIndex : rowIndex + 1];
 				const commit = this.toggle(row);
 				commit();
@@ -183,7 +184,7 @@ export class SelectionLet {
 			commitRow: new Command({
 				source: 'selection.view',
 				canExecute: () => {
-					const { column } = model.navigation();
+					const column = selectColumn(model.navigation());
 					return column && column.type === 'select';
 				},
 				execute: () => {
@@ -196,9 +197,11 @@ export class SelectionLet {
 			toggleActiveRow: toggleActiveRow,
 			togglePrevRow: new Command({
 				source: 'selection.view',
-				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex > 0,
+				canExecute: () => model.selection().unit === 'row' && selectRowIndex(model.navigation()) > 0,
 				execute: () => {
-					const { rowIndex, columnIndex } = model.navigation();
+					const rowIndex = selectRowIndex(model.navigation());
+					const columnIndex = selectColumnIndex(model.navigation());
+
 					const row = this.rows[rowIndex];
 					const commit = this.toggle(row);
 					commit();
@@ -209,9 +212,11 @@ export class SelectionLet {
 			}),
 			toggleNextRow: new Command({
 				source: 'selection.view',
-				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex < this.rows.length - 1,
+				canExecute: () => model.selection().unit === 'row' && selectRowIndex(model.navigation()) < this.rows.length - 1,
 				execute: () => {
-					const { rowIndex, columnIndex } = model.navigation();
+					const rowIndex = selectRowIndex(model.navigation());
+					const columnIndex = selectColumnIndex(model.navigation());
+
 					const row = this.rows[rowIndex];
 					const commit = this.toggle(row);
 					commit();
@@ -222,9 +227,10 @@ export class SelectionLet {
 			}),
 			toggleActiveColumn: new Command({
 				source: 'selection.view',
-				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex >= 0,
+				canExecute: () => model.selection().unit === 'column' && selectColumnIndex(model.navigation()) >= 0,
 				execute: () => {
-					const { columnIndex } = model.navigation();
+					const columnIndex = selectColumnIndex(model.navigation());
+
 					const column = this.columns[columnIndex];
 					const commit = this.toggle(column);
 					commit();
@@ -233,9 +239,11 @@ export class SelectionLet {
 			}),
 			toggleNextColumn: new Command({
 				source: 'selection.view',
-				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex < this.columns.length - 1,
+				canExecute: () => model.selection().unit === 'column' && selectColumnIndex(model.navigation()) < this.columns.length - 1,
 				execute: () => {
-					const { rowIndex, columnIndex } = model.navigation();
+					const rowIndex = selectRowIndex(model.navigation());
+					const columnIndex = selectColumnIndex(model.navigation());
+
 					const column = this.columns[columnIndex];
 					const commit = this.toggle(column);
 					commit();
@@ -246,9 +254,11 @@ export class SelectionLet {
 			}),
 			togglePrevColumn: new Command({
 				source: 'selection.view',
-				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex > 0,
+				canExecute: () => model.selection().unit === 'column' && selectColumnIndex(model.navigation()) > 0,
 				execute: () => {
-					const { rowIndex, columnIndex } = model.navigation();
+					const rowIndex = selectRowIndex(model.navigation());
+					const columnIndex = selectColumnIndex(model.navigation());
+
 					const column = this.columns[columnIndex];
 					const commit = this.toggle(column);
 					commit();
@@ -274,14 +284,17 @@ export class SelectionLet {
 						case 'cell':
 						case 'mix': {
 							const { body } = table;
+
 							const buildRange = this.selectionRange.build();
 							const startCell = body.cell(0, 0);
 							const endCell = body.cell(body.rowCount() - 1, body.columnCount() - 1);
+
 							entries = buildRange(startCell, endCell);
 							break;
 						}
-						default:
+						default: {
 							throw new GridError('selection.view', `Invalid unit ${model.selection().unit}`);
+						}
 					}
 
 					const commit = this.select(entries, true);

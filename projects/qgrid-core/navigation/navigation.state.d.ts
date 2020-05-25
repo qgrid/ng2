@@ -1,32 +1,19 @@
 import { ColumnModel } from '../column-type/column.model';
 import { CellView } from '../scene/view/cell.view';
+import { Command } from '../command/command';
 
 /**
  * A class that gives access to the current cell position inside the q-grid.
  */
 export declare class NavigationState {
 	/**
-	 * Get index of the focused cell row.
-	 */
-	rowIndex: number;
+     * Set/get a focused cell
+     */
+	cell: CellView | null;
 
-	/**
-	 * Get index of the focused cell column.
-	 */
-	columnIndex: number;
+	go: Command;
 
-	/**
-	 * Get focused cell row.
-	 */
-	row: any;
+	shortcut: { [key: string]: string };
 
-	/**
-	 * Get focused cell column.
-	 */
-	column: ColumnModel;
-
-	/**
-	 * Set/get a focused cell
-	 */
-	cell: CellView;
+	prevent: Set<string>;
 }

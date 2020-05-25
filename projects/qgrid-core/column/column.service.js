@@ -101,7 +101,7 @@ export function widthFactory(table, form) {
 			return area;
 		}
 
-		area = table.view.rect('head');
+		area = table.view.rect('head-mid');
 		return area;
 	}
 
