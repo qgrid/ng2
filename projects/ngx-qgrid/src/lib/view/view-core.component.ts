@@ -102,6 +102,13 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		observe(model.styleChanged)
 			.subscribe(() => this.host.invalidate());
 
+		observe(model.layoutChanged)
+			.subscribe(e => {
+				if (e.hasChanges('rows')) {
+					this.host.invalidate();
+				}
+			});
+
 		observeReply(model.editChanged)
 			.subscribe(e => {
 				if (e.hasChanges('status')) {

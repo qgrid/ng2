@@ -5,8 +5,8 @@ import { noop, isArray, isUndefined } from '../utility/kit';
 import { SelectionRange } from './selection.range';
 import { SelectionService } from './selection.service';
 import { selectionStateFactory as formFactory } from './state/selection.state.factory';
+import { selectRowIndex, selectColumnIndex, selectColumn } from '../navigation/navigation.state.selector';
 import { SubjectLike } from '../rx/rx';
-import { selectRowIndex, selectColumnIndex } from '../navigation/navigation.state.selector';
 
 export class SelectionLet {
 	constructor(plugin, shortcut) {

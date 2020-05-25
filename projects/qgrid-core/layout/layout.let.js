@@ -2,6 +2,7 @@ import { Log } from '../infrastructure/log';
 import * as css from '../services/css';
 import * as columnService from '../column/column.service';
 import { Fastdom } from '../services/fastdom';
+import { selectColumn } from '../navigation/navigation.state.selector';
 
 export class LayoutLet {
 	constructor(plugin, gridService) {
