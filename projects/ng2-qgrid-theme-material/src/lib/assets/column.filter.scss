@@ -93,7 +93,7 @@ th.q-grid-highlighted {
 
     .q-grid-column-filter-list {
         overflow-y: auto;
-        height: 230px;
+        height: 180px;
 
         ul {
             margin: 0;
@@ -183,7 +183,7 @@ th.q-grid-highlighted {
     @media (max-height: 540px) {
         .q-grid-column-filter-contains {
             .q-grid-column-filter-list {
-                max-height: 148px;
+                max-height: 140px;
             }
         }
     }
