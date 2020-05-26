@@ -11,7 +11,7 @@ const PROJECTS_PATH = path.join(ROOT_PATH, 'projects');
 const DIST_PATH = path.join(ROOT_PATH, 'dist');
 const NG2_DIST_PATH = path.join(DIST_PATH, 'ng2-qgrid');
 
-const OPTIONS = ['--prod'];
+const OPTIONS = ['--prod', '--tsConfig=tsconfig.prod.json'];
 
 async function main() {
   await buildLib('ngx-qgrid', OPTIONS);
