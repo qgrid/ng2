@@ -48,13 +48,16 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 
 		let targetColumn: ColumnModel = column;
 		let targetSource = 'head';
+
 		if (column.type === 'filter-row') {
 			targetSource = 'filter';
 			targetColumn = (column as FilterRowColumnModel).model;
+			this.element.classList.add('q-grid-filter-row');
 		}
 
 		this.cellClass.toHead(element, column);
 		this.cellClass.toBody(element, targetColumn);
+
 
 		const link = this.cellTemplate.build(targetSource, targetColumn, 'view');
 		link(this.viewContainerRef, this);

@@ -15,14 +15,13 @@ export function bodyCellClassifier(column) {
         classList.push(`${GRID_PREFIX}-has-view-width`);
     }
 
-    if(column.class) {
+    if (column.class) {
         classList.push(escapeAttr(column.class));
     }
 
-    const className = classList.join(' ');
-    return element => element.className = className;
+    const className = ' ' + classList.join(' ');
+    return element => element.className += className;
 }
-
 
 export function headCellClassifier(column) {
     const classList = [];
@@ -50,6 +49,6 @@ export function headCellClassifier(column) {
         classList.push(`${GRID_PREFIX}-can-highlight`);
     }
 
-    const className = classList.join(' ');
-    return element => element.className = className;
+    const className = ' ' + classList.join(' ');
+    return element => element.className += className;
 }
