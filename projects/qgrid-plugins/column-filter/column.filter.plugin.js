@@ -1,8 +1,8 @@
-import { Command } from '@qgrid/core/command/command';
-import * as columnService from '@qgrid/core/column/column.service';
-import { getFactory as labelFactory } from '@qgrid/core/services/label';
 import { clone } from '@qgrid/core/utility/kit';
+import { Command } from '@qgrid/core/command/command';
 import { Event } from '@qgrid/core/event/event';
+import { getFactory as labelFactory } from '@qgrid/core/services/label';
+import * as columnService from '@qgrid/core/column/column.service';
 
 export class ColumnFilterPlugin {
 	constructor(plugin, context) {
@@ -16,6 +16,7 @@ export class ColumnFilterPlugin {
 		this.resetEvent = new Event();
 
 		const filterBy = model.filter().by[this.key];
+
 		this.by = new Set((filterBy && filterBy.items) || []);
 		this.byBlanks = !!(filterBy && filterBy.blanks);
 

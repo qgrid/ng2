@@ -32,7 +32,8 @@ export class FilterState {
 						'isNotEmpty',
 					];
 				}
-				case 'date': {
+				case 'date':
+				case 'datetime': {
 					return [
 						'contains',
 						'lessThan',

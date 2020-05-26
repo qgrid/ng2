@@ -235,6 +235,7 @@ export { ColumnModel as Column } from '@qgrid/core/column-type/column.model';
 export { CurrencyColumnModel as CurrencyColumn } from '@qgrid/core/column-type/currency.column';
 export { DataColumnModel as DataColumn } from '@qgrid/core/column-type/data.column.model';
 export { DateColumnModel as DateColumn } from '@qgrid/core/column-type/date.column';
+export { DateTimeColumnModel as DateTimeColumn } from '@qgrid/core/column-type/datetime.column';
 export { EmailColumnModel as EmailColumn } from '@qgrid/core/column-type/email.column';
 export { FileColumnModel as FileColumn } from '@qgrid/core/column-type/file.column';
 export { FilterRowColumnModel as FilterRowColumn } from '@qgrid/core/column-type/filter.row.column';

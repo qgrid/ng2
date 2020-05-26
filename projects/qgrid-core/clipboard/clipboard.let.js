@@ -19,7 +19,7 @@ export class ClipboardLet {
                 const { cell } = model.navigation();
                 if (cell) {
                     const { copy } = model.clipboard();
-                    if (copy.execute() !== true) {
+                    if (copy.execute() !== false) {
                         const getLabel = labelFactory(cell.column);
                         copyToClipboard(getLabel(cell.row));
                         table.view.focus();

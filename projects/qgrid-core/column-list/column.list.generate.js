@@ -137,6 +137,10 @@ function build(graph, pathParts, columnFactory, deep, cohort, title, testRows) {
 							column.itemFormat = columnFactory('date').model.format;
 							break;
 						}
+						case 'datetime': {
+							column.itemFormat = columnFactory('datetime').model.format;
+							break;
+						}
 					}
 				}
 

@@ -51,6 +51,10 @@ th {
         @include width(110px);
     }
 
+    &.q-grid-datetime {
+        @include width(160px);
+    }
+
     &.q-grid-group,
     &.q-grid-email {
         @include width(200px);

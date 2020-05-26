@@ -6,6 +6,7 @@ import { BoolColumn } from '../column-type/bool.column';
 import { CohortColumn } from '../column-type/cohort.column';
 import { CurrencyColumn } from '../column-type/currency.column';
 import { DateColumn } from '../column-type/date.column';
+import { DateTimeColumn } from '../column-type/datetime.column';
 import { EmailColumn } from '../column-type/email.column';
 import { FileColumn } from '../column-type/file.column';
 import { GroupColumn } from '../column-type/group.column';
@@ -44,6 +45,7 @@ export function columnFactory(model) {
 		'currency': CurrencyColumn,
 		'custom': CustomColumn,
 		'date': DateColumn,
+		'datetime': DateTimeColumn,
 		'email': EmailColumn,
 		'file': FileColumn,
 		'group': GroupColumn,

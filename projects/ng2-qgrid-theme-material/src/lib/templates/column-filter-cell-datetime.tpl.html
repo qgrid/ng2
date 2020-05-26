@@ -1,0 +1,5 @@
+<ng-template key="column-filter-cell-datetime.tpl.html"
+             let-$item
+             let-$list="itemList">
+    <span [innerHTML]="$item.value | qGridDate: $list.column.format | qGridHighlight: $list.search"></span>
+</ng-template>

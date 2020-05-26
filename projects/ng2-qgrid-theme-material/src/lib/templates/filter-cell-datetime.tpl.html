@@ -1,0 +1,35 @@
+<ng-template key="filter-cell-datetime.tpl.html"
+             let-$cell
+             let-$view="$view">
+    <ng-container *ngIf="$cell.column.canFilter">
+        <mat-form-field *q-grid-date="let qGridDate"
+                        floatLabel="never">
+            <mat-placeholder>
+                <mat-icon class="q-grid-icon q-grid-placeholder">
+                    filter_list
+                </mat-icon>
+            </mat-placeholder>
+
+            <input matInput
+                   #input
+                   [matDatepicker]="picker"
+                   [ngModel]="$view.filter.value($cell.column.model) | qGridConvert: 'date'"
+                   (ngModelChange)="qGridDate.isValid(input.value) && $view.filter.column.execute($cell.column.model, $event)" />
+
+            <mat-datepicker-toggle matSuffix
+                                   [for]="picker">
+            </mat-datepicker-toggle>
+
+            <mat-icon *ngIf="!!$view.filter.value($cell.column.model)"
+                      (click)="$view.filter.column.execute($cell.column.model, null)"
+                      class="q-grid-icon q-grid-close"
+                      matSuffix>
+                close
+            </mat-icon>
+
+            <mat-datepicker #picker>
+            </mat-datepicker>
+
+        </mat-form-field>
+    </ng-container>
+</ng-template>

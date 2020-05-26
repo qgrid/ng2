@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
-## [9.1.0] - 2020-04-01
+## [9.1.0] - 2020-05-26
 ### BREAKING
 - q-grid is block element by default, was inline.
 - Rename edit state property from `state` to `status`.
@@ -44,6 +44,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Row details get focus on expand.
 - Immutable model state to prevent event handling artifacts.
 - Remove browser select.
+- Optimize css styles for rendering performance and size.
 
 ### Fixed
 - *ngIf for column component works.

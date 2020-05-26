@@ -8,13 +8,13 @@ import {
 	ChangeDetectorRef
 } from '@angular/core';
 import { ColumnFilterPlugin } from '@qgrid/plugins/column-filter/column.filter.plugin';
-import { uniq, flatten } from '@qgrid/core/utility/kit';
+import { ColumnFilterState } from '@qgrid/plugins/column-filter/column.filter.state';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { Fetch } from '@qgrid/core/infrastructure/fetch';
-import { ColumnFilterState } from '@qgrid/plugins/column-filter/column.filter.state';
-import { Guard } from '@qgrid/core/infrastructure/guard';
-import { GridPlugin, Grid, VscrollService, VscrollContext } from '@qgrid/ngx';
 import { FocusAfterRender } from '../focus/focus.service';
+import { GridPlugin, Grid, VscrollService, VscrollContext } from '@qgrid/ngx';
+import { Guard } from '@qgrid/core/infrastructure/guard';
+import { uniq, flatten } from '@qgrid/core/utility/kit';
 
 @Component({
 	selector: 'q-grid-column-filter',

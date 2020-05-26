@@ -1,0 +1,6 @@
+<ng-template key="body-cell-array-of-datetime.tpl.html"
+             let-$cell>
+	<ul>
+		<li *ngFor="let item of $cell.value | qGridArray">{{item | qGridDate: $cell.column.itemFormat}}</li>
+	</ul>
+</ng-template>
