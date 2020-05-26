@@ -42,6 +42,7 @@ import { ToolbarState } from '../toolbar/toolbar.state';
 import { ValidationState } from '../validation/validation.state';
 import { ViewState } from '../view/view.state';
 import { VisibilityState } from '../visibility/visibility.state';
+import { ClipboardState } from '../clipboard/clipboard.state';
 
 export class ModelBuilder {
     constructor() {
@@ -51,6 +52,7 @@ export class ModelBuilder {
             .register('action', ActionState)
             .register('animation', AnimationState)
             .register('body', BodyState)
+            .register('clipboard', ClipboardState)
             .register('columnList', ColumnListState)
             .register('data', DataState)
             .register('drag', DragState)

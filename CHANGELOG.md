@@ -31,6 +31,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Introduce canExecuteCheck for the command to explicitly update canExecute status.
 - Extend plugin interface with `observe` and `observeReply` functions.
 - Copy cell label to clipboard.
+- New column type `datetime` that represents date and time.
+- Possibility to change column filter template for the particular column.
+- New way to access dynamic states like columnChooser, through the `resolve` method.
 
 ### Changed
 - Better plugin support.

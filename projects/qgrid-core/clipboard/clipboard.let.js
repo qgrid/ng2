@@ -12,14 +12,18 @@ export class ClipboardLet {
             shortcut: 'ctrl+c',
             canExecute: () => {
                 const { status } = model.edit();
-                return status === 'view';
+                const { copy } = model.clipboard();
+                return status === 'view' && copy.canExecute();
             },
             execute: () => {
                 const { cell } = model.navigation();
                 if (cell) {
-                    const getLabel = labelFactory(cell.column);
-                    copyToClipboard(getLabel(cell.row));
-                    table.view.focus();
+                    const { copy } = model.clipboard();
+                    if (copy.execute() !== true) {
+                        const getLabel = labelFactory(cell.column);
+                        copyToClipboard(getLabel(cell.row));
+                        table.view.focus();
+                    }
                 }
 
                 return true;

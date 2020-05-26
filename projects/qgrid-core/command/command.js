@@ -1,9 +1,9 @@
-import { yes } from '../utility/kit';
+import { yes, noop } from '../utility/kit';
 import { SubjectLike } from '../rx/rx';
 
 export class Command {
 	constructor(context = {}) {
-		this.execute = yes;
+		this.execute = noop;
 		this.canExecute = yes;
 		this.canExecuteCheck = new SubjectLike();
 
