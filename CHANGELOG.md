@@ -45,6 +45,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Immutable model state to prevent event handling artifacts.
 - Remove browser select.
 - Optimize css styles for rendering performance and size.
+- Pin `mid` instead of `null`.
 
 ### Fixed
 - *ngIf for column component works.

@@ -1,6 +1,7 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { GridError, GridPlugin, GridModel } from '@qgrid/ngx';
 import { Action } from '@qgrid/core/action/action';
+import { Command } from '@qgrid/core/command/command';
 
 @Component({
 	selector: 'q-grid-action-core',
@@ -24,7 +25,7 @@ export class ActionCoreComponent {
 		return this.plugin.model;
 	}
 
-	get command() {
+	get command(): Command {
 		const action = this.action;
 		if (!action) {
 			throw new GridError('action-core.component', 'Action should be setup');
