@@ -25,7 +25,7 @@
                     </mat-option>
                 </mat-select>
 
-                <ng-container [key]="$plugin.operatorTemplateKey($columnFilter.operator)"
+                <ng-container [key]="$plugin.getOperatorTemplateKey($columnFilter.operator)"
                               [context]="{ 
                                  $implicit: $columnFilter, 
                                  plugin: $plugin, 

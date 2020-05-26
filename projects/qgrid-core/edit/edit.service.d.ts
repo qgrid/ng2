@@ -1,5 +1,5 @@
 import { CellView } from '../scene/view/cell.view';
-import { GridPlugin } from '@qgrid/ngx';
+import { GridPlugin } from '../plugin/grid.plugin';
 
 export class EditService {
 	constructor(plugin: GridPlugin);

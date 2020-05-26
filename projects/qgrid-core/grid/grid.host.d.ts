@@ -1,4 +1,4 @@
-import { GridPlugin } from '@qgrid/ngx';
+import { GridPlugin } from '../plugin/grid.plugin';
 
 export declare class GridHost {
 	constructor(

@@ -70,8 +70,8 @@ import {
 	VisibilityModule,
 	VscrollModule,
 	MarkupModule,
+	ChangeDetectorModule
 } from 'ng2-qgrid';
-import { ChangeDetectorModule } from '@qgrid/ngx';
 
 @NgModule({
 	declarations: [

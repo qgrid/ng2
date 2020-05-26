@@ -35,17 +35,15 @@ export class FilterState {
 				case 'date':
 				case 'datetime': {
 					return [
+						'between',
 						'contains',
 						'lessThan',
 						'greaterThan',
-						'between',
 						'isEmpty',
 						'isNotEmpty',
 					];
 				}
 				case 'id':
-				case 'currency':
-				case 'number': {
 					return [
 						'contains',
 						'like',
@@ -54,6 +52,19 @@ export class FilterState {
 						'greaterThan',
 						'greaterThanOrEquals',
 						'between',
+						'isEmpty',
+						'isNotEmpty',
+					];
+				case 'currency':
+				case 'number': {
+					return [
+						'between',
+						'contains',
+						'like',
+						'lessThan',
+						'lessThanOrEquals',
+						'greaterThan',
+						'greaterThanOrEquals',
 						'isEmpty',
 						'isNotEmpty',
 					];

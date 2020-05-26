@@ -1,0 +1,42 @@
+<ng-template key="plugin-column-filter-datetime-between.tpl.html"
+			 let-$columnFilter
+			 let-$plugin="plugin"
+			 let-$vscroll="vscroll">
+
+	<mat-form-field class="q-grid-column-filter-input half"
+					*q-grid-date="let qGridDate"
+					[ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(inputLeft.value)}">
+		<input q-grid-focus
+			   matInput
+			   #inputLeft
+			   placeholder="From"
+			   [matDatepicker]="leftPicker"
+			   [ngModel]="$columnFilter.value[0] | qGridConvert: 'date'"
+			   (ngModelChange)="qGridDate.isValid(inputLeft.value) && ($columnFilter.value[0] = $event)" />
+
+		<mat-datepicker-toggle matSuffix
+							   [for]="leftPicker">
+		</mat-datepicker-toggle>
+
+		<mat-datepicker #leftPicker>
+		</mat-datepicker>
+	</mat-form-field>
+
+	<mat-form-field class="q-grid-column-filter-input half"
+					*q-grid-date="let qGridDate"
+					[ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(inputRight.value)}">
+		<input matInput
+			   #inputRight
+			   placeholder="To"
+			   [matDatepicker]="rightPicker"
+			   [ngModel]="$columnFilter.value[1] | qGridConvert: 'date'"
+			   (ngModelChange)="qGridDate.isValid(inputRight.value) && ($columnFilter.value[1] = $event)" />
+
+		<mat-datepicker-toggle matSuffix
+							   [for]="rightPicker">
+		</mat-datepicker-toggle>
+
+		<mat-datepicker #rightPicker> </mat-datepicker>
+	</mat-form-field>
+
+</ng-template>
