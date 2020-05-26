@@ -14,6 +14,18 @@ async function dragNDropRow() {
 
 function doDnd(dragElement, dropElement) {
     // Next comment contains code hidden in CUSTOM_JS_SCRIPT variable
+    // Main purpose: drag-n-drop realization 
+    // Because native protractor methods aren't working
+    // In case of fix replace by one of next 2:
+    // await browser.actions()
+    //     .dragAndDrop(dragElement.getWebElement(), dropElement.getWebElement())
+    //     .perform();
+    // // or
+    // await browser.actions()
+    //     .mouseDown(dragElement.getWebElement())
+    //     .mouseMove(dropElement.getWebElement())
+    //     .mouseUp(dropElement.getWebElement())
+    //     .perform();
 
     // function e(e, t, n, i) {
     //     var r = a.createEvent("DragEvent");
