@@ -13,7 +13,8 @@
     <mat-autocomplete #autocomplete="matAutocomplete"
                       [displayWith]="$editor.itemLabelFactory($editor.cell.column)">
         <mat-option *ngFor="let option of $editor.options"
-                    [value]="option">
+                    [value]="option"
+                    q-grid-stop-propagate="mousedown">
             {{option | qGridItemLabel : $editor.itemLabelFactory($editor.cell.column)}}
         </mat-option>
     </mat-autocomplete>

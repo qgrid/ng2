@@ -172,7 +172,7 @@ export class GridComponent implements OnInit, OnChanges {
 			);
 
 			disposable.add(
-				docListener.on('click', e => {
+				docListener.on('mousedown', e => {
 					const path = eventPath(e);
 					const clickedOutside = path.every(x => x !== nativeElement);
 					if (clickedOutside) {

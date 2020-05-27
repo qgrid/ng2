@@ -34,13 +34,13 @@ export class EditCellLet {
 
 		observeReply(model.editChanged)
 			.subscribe(e => {
-				if (e.hasChanges('state') && e.tag.source !== 'edit.cell.view') {
-					if (e.changes.state.newValue === 'edit') {
+				if (e.hasChanges('status') && e.tag.source !== 'edit.cell.view') {
+					if (e.changes.status.newValue === 'edit') {
 						model.edit({ status: 'view' }, { source: 'edit.cell.view' });
 						if (this.enter.canExecute()) {
 							this.enter.execute();
 						}
-					} else if (e.changes.state.newValue === 'view') {
+					} else if (e.changes.status.newValue === 'view') {
 						model.edit({ status: 'edit' }, { source: 'edit.cell.view' });
 						if (this.requestClose) {
 							if (this.requestClose()) {
@@ -83,7 +83,6 @@ export class EditCellLet {
 
 	mode(cell, status) {
 		const { model } = this.plugin;
-
 		model.edit({ status }, { source: 'edit.cell.view' });
 		cell.mode(status);
 	}
