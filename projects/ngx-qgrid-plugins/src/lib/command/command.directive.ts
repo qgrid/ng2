@@ -7,19 +7,42 @@ import {
 	SimpleChanges,
 	OnInit,
 	EventEmitter,
-	Output
+	Output,
+	Optional,
+	AfterViewInit,
+	NgZone,
+	ApplicationRef
 } from '@angular/core';
-import { Disposable } from '@qgrid/ngx';
+import { Disposable, GridPlugin } from '@qgrid/ngx';
 import { Command } from '@qgrid/core/command/command';
 import { CommandManager } from '@qgrid/core/command/command.manager';
 import { Shortcut } from '@qgrid/core/shortcut/shortcut';
 import { ShortcutDispatcher } from '@qgrid/core/shortcut/shortcut.dispatcher';
+import { CompositeCommandManager } from '@qgrid/core/command/composite.command.manager';
+
+export class ZoneCommandManager extends CompositeCommandManager {
+	constructor(
+		private run: <T>(f: () => T) => T,
+		manager: CommandManager,
+		private commandArg: any
+	) {
+		super(manager);
+	}
+
+	invoke(commands: Command[]) {
+		return this.run(() =>
+			super.invoke(commands, this.commandArg, 'command.directive')
+		);
+	}
+}
 
 @Directive({
 	selector: '[q-grid-command]',
 	providers: [Disposable]
 })
-export class CommandDirective implements DoCheck, OnChanges, OnInit {
+export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewInit {
+	private isAfterViewInit = false;
+
 	@Input('q-grid-command')
 	command: Command<any>;
 
@@ -32,23 +55,35 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit {
 	@Input('q-grid-command-event')
 	commandEvent = 'click';
 
+	@Input('q-grid-command-use-zone')
+	useZone: boolean;
+
 	@Output('q-grid-command-execute')
 	commandExecute = new EventEmitter<any>();
 
 	constructor(
 		private disposable: Disposable,
-		private host: ElementRef
+		private host: ElementRef,
+		private zone: NgZone,
+		private app: ApplicationRef,
+		@Optional() private plugin: GridPlugin
 	) {
 	}
 
 	ngOnInit() {
 		const { nativeElement } = this.host;
 
-		nativeElement
-			.addEventListener(this.commandEvent, e => this.execute(e));
+		this.aroundZone(() =>
+			nativeElement
+				.addEventListener(this.commandEvent, e => this.execute(e))
+		);
 	}
 
 	ngDoCheck() {
+		if (!this.isAfterViewInit) {
+			return;
+		}
+
 		if (this.command) {
 			this.updateState();
 		}
@@ -64,6 +99,14 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit {
 		}
 	}
 
+	ngAfterViewInit() {
+		if (this.command) {
+			this.updateState();
+		}
+
+		this.isAfterViewInit = true;
+	}
+
 	private register() {
 		const { command, commandArg } = this;
 
@@ -74,23 +117,45 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit {
 		);
 
 		if (this.useCommandShortcut && command.shortcut) {
-			const manager = new CommandManager(f => {
-				f();
-				this.afterExecute();
-			}, commandArg);
+			if (this.plugin) {
+				const { model } = this.plugin;
+				const { shortcut, manager } = model.action();
 
-			const shortcut = new Shortcut(new ShortcutDispatcher());
+				const zoneManager = new ZoneCommandManager(
+					f => {
+						const result = this.aroundZone(f);
+						this.afterExecute();
+						return result;
+					},
+					manager,
+					commandArg,
+				);
 
-			const keyDown = e => shortcut.keyDown(e);
-			document.addEventListener('keydown', keyDown);
+				this.disposable.add(
+					shortcut.register(zoneManager, [command])
+				);
+			} else {
+				const manager = new CommandManager(f => {
+					this.aroundZone(f);
+					this.afterExecute();
+				}, commandArg);
 
-			this.disposable.add(() =>
-				document.removeEventListener('keydown', keyDown)
-			);
+				const shortcut = new Shortcut(new ShortcutDispatcher());
 
-			this.disposable.add(
-				shortcut.register(manager, [command])
-			);
+				const keyDown = e => {
+					shortcut.keyDown(e);
+				};
+
+				document.addEventListener('keydown', keyDown);
+
+				this.disposable.add(() =>
+					document.removeEventListener('keydown', keyDown)
+				);
+
+				this.disposable.add(
+					shortcut.register(manager, [command])
+				);
+			}
 		}
 	}
 
@@ -116,12 +181,23 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit {
 	}
 
 	private updateState() {
-		if (!this.host.nativeElement.setAttribute) {
+		const nativeElement = this.host.nativeElement as HTMLElement;
+		if (!nativeElement.setAttribute) {
 			return;
 		}
 
-		const { nativeElement } = this.host;
 		const canExecute = this.command.canExecute(this.commandArg) === true;
-		nativeElement.disabled = !canExecute;
+
+		(nativeElement as any).disabled = !canExecute;
+	}
+
+	private aroundZone<T>(f: () => T): T {
+		if (this.useZone) {
+			const result = this.zone.run(f);
+			this.app.tick();
+			return result;
+		}
+
+		return this.zone.runOutsideAngular(f);
 	}
 }

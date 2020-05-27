@@ -66,9 +66,15 @@ export class LayoutLet {
 						source: 'layout.let',
 						behavior: 'core'
 					});
+				}
+			});
 
+		observeReply(model.viewChanged)
+			.subscribe(e => {
+				if (e.hasChanges('columns')) {
 					const columns = columnService.flatten(e.state.columns);
-					if (columns.some(x => x.width !== null || x.minWidth !== null || x.maxWidth !== null)) {
+					const hasNotDefaultWidth = x => x.width !== null || x.minWidth !== null || x.maxWidth !== null;
+					if (columns.some(hasNotDefaultWidth)) {
 						Fastdom.mutate(() => {
 							const { columns } = model.layout();
 							this.invalidateColumns(columns);

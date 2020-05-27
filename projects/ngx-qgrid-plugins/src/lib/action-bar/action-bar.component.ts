@@ -8,7 +8,7 @@ import { GridPlugin } from '@qgrid/ngx';
 	providers: [GridPlugin],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ActionBarComponent {
+export class ActionBarComponent implements OnInit {
 
 	context: { $implicit: ActionBarComponent } = {
 		$implicit: this
@@ -16,7 +16,20 @@ export class ActionBarComponent {
 
 	constructor(
 		private plugin: GridPlugin,
+		private cd: ChangeDetectorRef,
 	) {
+	}
+
+	ngOnInit() {
+		const { model, observe } = this.plugin;
+
+		observe(model.actionChanged)
+			.subscribe(e => {
+				if (e.hasChanges('items')) {
+					this.cd.markForCheck();
+					this.cd.detectChanges();
+				}
+			});
 	}
 
 	get actions(): Action[] {
