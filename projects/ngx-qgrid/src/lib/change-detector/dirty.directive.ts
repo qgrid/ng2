@@ -1,4 +1,4 @@
-import { OnChanges, Directive, Input, ChangeDetectorRef } from '@angular/core';
+import { OnChanges, Directive, Input, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 
 @Directive({
 	selector: '[q-grid-dirty]',
@@ -9,8 +9,12 @@ export class DirtyDirective implements OnChanges {
 	constructor(private cd: ChangeDetectorRef) {
 	}
 
-	ngOnChanges() {
-		this.cd.markForCheck();
-		this.cd.detectChanges();
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes.trigger) {
+			if (!changes.trigger.firstChange) {
+				this.cd.markForCheck();
+				this.cd.detectChanges();
+			}
+		}
 	}
 }
