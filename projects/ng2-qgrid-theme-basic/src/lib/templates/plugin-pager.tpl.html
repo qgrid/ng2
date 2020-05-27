@@ -5,25 +5,36 @@
 		<div *ngSwitchCase="'virtual'">
 			<label class="q-grid-pager-page"
 				   [ngSwitch]="$pager.mode">
-				<span *ngSwitchCase="'row'">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>
+				<span *ngSwitchCase="'showRows'">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>
 				<span *ngSwitchDefault>{{$pager.current + 1}} of {{$pager.totalPages}}</span>
 			</label>
 		</div>
 		<div *ngSwitchDefault
 			 class="q-grid-pager-select">
-			<label class="q-grid-pager-page-size hide-xs">Rows per page:</label>
+			<label class="q-grid-pager-page-size q-grid-hide-xs">Rows per page:</label>
 			<select tabindex="-1"
 					aria-label="Page Size List"
-					class="q-grid-pager-page-size hide-xs"
+					class="q-grid-pager-page-size q-grid-hide-xs"
 					[(ngModel)]="$pager.size">
 				<option *ngFor="let size of $pager.sizeList"
-						[value]="size">{{size}}</option>
+						[value]="size">
+					{{size}}
+				</option>
 			</select>
 			<div class="q-grid-pager-page">
-				<label class="hide-xs"
-					   ng-switch="::$pager.mode">
-					<span *ngSwitchCase="'row'">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>
-					<span *ngSwitchDefault>{{$pager.current + 1}} of {{$pager.totalPages}}</span>
+				<label class="q-grid-pager-page q-grid-hide-xs"
+					   [ngSwitch]="$pager.mode">
+					<span *ngSwitchCase="'showRows'">
+						<span *ngIf="$pager.total > 0">
+							{{$pager.from}} - {{$pager.to}} of {{$pager.total}}
+						</span>
+						<span *ngIf="$pager.total === 0">
+							No Rows
+						</span>
+					</span>
+					<span *ngSwitchDefault>
+						{{$pager.current + 1}} of {{$pager.totalPages}}
+					</span>
 				</label>
 			</div>
 

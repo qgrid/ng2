@@ -34,6 +34,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - New column type `datetime` that represents date and time.
 - Possibility to change column filter template for the particular column.
 - New way to access dynamic states like columnChooser, through the `resolve` method.
+- Introduce pager `mode` that can be equal to `showRows` or `showPages` value.
 
 ### Changed
 - Better plugin support.
