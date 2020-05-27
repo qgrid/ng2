@@ -1,0 +1,66 @@
+<ng-template key="plugin-column-filter-datetime-between.tpl.html"
+			 let-$columnFilter
+			 let-$plugin="plugin"
+			 let-$vscroll="vscroll">
+	<q-grid-tab-trap>
+		<div>
+			<mat-form-field class="q-grid-column-filter-input q-grid-column-filter-input-half "
+							*q-grid-date="let qGridDate"
+							[ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(inputDateLeft.value)}">
+				<input q-grid-focus
+					   matInput
+					   #inputDateLeft
+					   [matDatepicker]="leftPicker"
+					   placeholder="from"
+					   [ngModel]="$columnFilter.value[0] | qGridConvert: 'date'"
+					   (ngModelChange)="qGridDate.isValid(inputDateLeft.value) && ($columnFilter.value[0] = qGridDate.date($columnFilter.value[0], $event))" />
+
+				<mat-datepicker-toggle matSuffix
+									   [for]="leftPicker">
+				</mat-datepicker-toggle>
+
+				<mat-datepicker #leftPicker>
+				</mat-datepicker>
+			</mat-form-field>
+
+			<mat-form-field *q-grid-time="let qGridTime"
+							class="q-grid-column-filter-input q-grid-column-filter-input-half">
+				<input matInput
+					   type="time"
+					   #inputTimeLeft
+					   [value]="$columnFilter.value[0] | qGridTime: 'hh:mm'"
+					   (change)="$columnFilter.value[0] = qGridTime.time($columnFilter.value[0], inputTimeLeft.value)" />
+			</mat-form-field>
+		</div>
+
+		<div>
+			<mat-form-field class="q-grid-column-filter-input q-grid-column-filter-input-half "
+							*q-grid-date="let qGridDate"
+							[ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(inputDateRight.value)}">
+				<input matInput
+					   #inputDateRight
+					   [matDatepicker]="rightPicker"
+					   placeholder="to"
+					   [ngModel]="$columnFilter.value[1] | qGridConvert: 'date'"
+					   (ngModelChange)="qGridDate.isValid(inputDateRight.value) && ($columnFilter.value[1] = qGridDate.date($columnFilter.value[1], $event))" />
+
+				<mat-datepicker-toggle matSuffix
+									   [for]="rightPicker">
+				</mat-datepicker-toggle>
+
+				<mat-datepicker #rightPicker>
+				</mat-datepicker>
+			</mat-form-field>
+
+			<mat-form-field *q-grid-time="let qGridTime"
+							class="q-grid-column-filter-input q-grid-column-filter-input-half">
+				<input matInput
+					   type="time"
+					   #inputTimeRight
+					   [value]="$columnFilter.value[1] | qGridTime: 'hh:mm'"
+					   (change)="$columnFilter.value[1] = qGridTime.time($columnFilter.value[1], inputTimeRight.value)" />
+			</mat-form-field>
+		</div>
+	</q-grid-tab-trap>
+
+</ng-template>

@@ -20,6 +20,7 @@ import { SelectionLet } from '@qgrid/core/selection/selection.let';
 import { SortLet } from '@qgrid/core/sort/sort.let';
 import { StyleLet } from '@qgrid/core/style/style.let';
 import { viewFactory } from '@qgrid/core/view/view.factory';
+import { ClipboardLet } from '@qgrid/core/clipboard/clipboard.let';
 
 @Injectable()
 export class GridLet {
@@ -39,6 +40,7 @@ export class GridLet {
 	selection: SelectionLet;
 	sort: SortLet;
 	style: StyleLet;
+	clipboard: ClipboardLet;
 
 	constructor(
 		private qgrid: Grid,
@@ -49,6 +51,7 @@ export class GridLet {
 		const { model } = plugin;
 
 		const gridService = this.qgrid.service(model);
+
 		const selectors = {
 			th: 'q-grid-core-th',
 			tr: 'q-grid-core-tr'

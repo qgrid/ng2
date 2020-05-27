@@ -142,16 +142,15 @@ export class ViewHost {
 				}
 			}
 		}
-
 	}
 
 	mouseMove(e) {
-		const { model, table, view } = this.plugin;
-		const td = this.findCell(e);
+		const { model, view } = this.plugin;
+		const { highlight } = view;
+		const { rows, cell } = model.highlight();
 
+		const td = this.findCell(e);
 		if (td) {
-			const { highlight } = view;
-			const { rows, cell } = model.highlight();
 
 			if (cell) {
 				highlight.cell.execute(cell, false);
@@ -192,15 +191,7 @@ export class ViewHost {
 	}
 
 	mouseLeave() {
-		const { model, view } = this.plugin;
-		const { highlight } = view;
-		const { rows, cell } = model.highlight();
-
-		rows.forEach(rowIndex => highlight.row.execute(rowIndex, false));
-
-		if (cell) {
-			highlight.cell.execute(null, false);
-		}
+		this.clearHighlight();
 	}
 
 	mouseUp(e) {
@@ -311,6 +302,14 @@ export class ViewHost {
 		const pathFinder = new PathService(table.box.bag.body);
 		const path = eventPath(e);
 		return pathFinder.row(path);
+	}
+
+	clearHighlight() {
+		const { view } = this.plugin;
+		const { highlight } = view;
+		if (highlight.clear.canExecute()) {
+			highlight.clear.execute();
+		}
 	}
 
 	get selection() {

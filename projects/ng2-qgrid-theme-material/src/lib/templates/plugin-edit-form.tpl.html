@@ -1,11 +1,13 @@
 <ng-template key="plugin-edit-form.tpl.html"
 			 let-$editForm>
-	<mat-card class="mat-elevation-z"
+	<mat-card class="mat-elevation-z q-grid-edit-form-card"
 			  (keydown)="$event.stopPropagation()">
 		<mat-card-header>
-			<mat-card-title>{{$editForm.caption}}</mat-card-title>
+			<mat-card-title>
+				{{$editForm.caption}}
+			</mat-card-title>
 		</mat-card-header>
-		<mat-card-content class="q-grid-edit-form-body">
+		<mat-card-content class="q-grid-edit-form-content">
 			<q-grid-edit-form-control *ngFor="let editor of $editForm.editors"
 									  class="q-grid-edit-form-control"
 									  [ngClass]="'q-grid-edit-form-control-' + (editor.cell.column.editor || editor.cell.column.type)"

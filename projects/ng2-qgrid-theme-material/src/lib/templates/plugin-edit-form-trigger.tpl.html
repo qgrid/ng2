@@ -5,14 +5,16 @@
 			#trigger="matMenuTrigger"
 			[matMenuTriggerFor]="menu"
 			aria-label="Edit form">
-		<mat-icon class="q-grid-icon">edit</mat-icon>
+		<mat-icon class="q-grid-icon">
+			edit
+		</mat-icon>
 	</button>
 	<mat-menu #menu="matMenu"
 			  class="q-grid-edit-form q-grid-menu">
 		<q-grid-edit-form q-grid-menu
 						  *ngIf="trigger.menuOpen"
 						  [caption]="$trigger.caption"
-						  [cell]="$trigger.cell"
+						  [row]="$trigger.row"
 						  (cancel)="trigger.closeMenu()"
 						  (submit)="trigger.closeMenu()">
 		</q-grid-edit-form>

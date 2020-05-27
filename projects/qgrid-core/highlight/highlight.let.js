@@ -100,6 +100,18 @@ export class HighlightLet {
 			}
 		});
 
+		this.clear = new Command({
+			execute: () => {
+				const { rows, cell } = model.highlight();
+
+				rows.forEach(rowIndex => this.row.execute(rowIndex, false));
+
+				if (cell) {
+					this.cell.execute(null, false);
+				}
+			}
+		});
+
 		observeReply(model.selectionChanged)
 			.subscribe(e => {
 				if (e.hasChanges('items')) {

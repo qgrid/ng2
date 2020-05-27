@@ -53,8 +53,8 @@ export class PredicateVisitor extends Visitor {
 
 		const { equals, isNull, lessThan } = assert;
 		const lessThanOrEquals = (x, y) => equals(x, y) || lessThan(x, y);
-		const greaterThan = (x, y) => !lessThanOrEquals(x, y);
-		const greaterThanOrEquals = (x, y) => !lessThan(x, y);
+		const greaterThan = (x, y) => !equals(x, y) && !lessThan(x, y);
+		const greaterThanOrEquals = (x, y) => equals(x, y) || !lessThan(x, y);
 
 		let predicate;
 		switch (condition.op) {

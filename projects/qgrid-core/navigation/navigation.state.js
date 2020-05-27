@@ -38,20 +38,4 @@ export class NavigationState {
 			'shift+pageUp'
 		]);
 	}
-
-	get rowIndex() {
-		return this.cell ? this.cell.rowIndex : -1;
-	}
-
-	get columnIndex() {
-		return this.cell ? this.cell.columnIndex : -1;
-	}
-
-	get row() {
-		return this.cell ? this.cell.row : null;
-	}
-
-	get column() {
-		return this.cell ? this.cell.column : null;
-	}
 }

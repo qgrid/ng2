@@ -75,4 +75,8 @@ export class PagerPlugin {
 	get scroll() {
 		return this.plugin.model.scroll();
 	}
+
+	get mode() {
+		return this.plugin.model.pagination().mode;
+	}
 }

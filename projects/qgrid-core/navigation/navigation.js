@@ -1,4 +1,6 @@
 import { Command } from '../command/command';
+import { selectColumnIndex } from './navigation.state.selector';
+import { selectRowIndex } from './navigation.state.selector';
 
 export class Navigation {
 	constructor(model, table) {
@@ -39,7 +41,12 @@ export class Navigation {
 			cell = this.cell(rowIndex, this.firstColumn);
 		}
 
-		this.model.navigation({ cell }, { source });
+		this.model.navigation({
+			cell
+		}, {
+			source
+		});
+
 		return true;
 	}
 
@@ -57,7 +64,7 @@ export class Navigation {
 
 	get currentColumn() {
 		const columns = this.columns(this.currentRow);
-		const columnIndex = this.model.navigation().columnIndex;
+		const columnIndex = selectColumnIndex(this.model.navigation());
 		const index = columns.indexOf(columnIndex);
 		return columns.length ? columns[Math.max(index, 0)] : -1;
 	}
@@ -86,7 +93,7 @@ export class Navigation {
 	}
 
 	get currentRow() {
-		const { rowIndex } = this.model.navigation();
+		const rowIndex = selectRowIndex(this.model.navigation());
 		if (rowIndex < 0) {
 			return this.model.scene().rows.length ? 0 : -1;
 		}
@@ -144,10 +151,9 @@ export class Navigation {
 	}
 
 	get commands() {
-		const model = this.model;
-		const table = this.table;
-		const shortcut = model.navigation().shortcut;
-		const edit = model.edit;
+		const { model, table } = this;
+		const { edit } = model;
+		const { shortcut, go } = model.navigation();
 
 		const canNavigate = () => {
 			if (edit().status === 'view') {
@@ -157,8 +163,6 @@ export class Navigation {
 			const column = table.body.column(this.currentColumn).model();
 			return column && (column.editorOptions.trigger === 'focus' || column.editorOptions.cruise === 'transparent');
 		};
-
-		const go = this.model.navigation().go;
 
 		const commands = {
 			goDown: new Command({

@@ -1,7 +1,8 @@
 import { Command } from '../command/command';
-import { toggleStatus, invalidateStatus } from './row.details.service';
 import { RowDetails } from './row.details';
 import { takeOnce, filter } from '../rx/rx.operators';
+import { toggleStatus, invalidateStatus } from './row.details.service';
+import { selectRow } from '../navigation/navigation.state.selector';
 
 export class RowDetailsLet {
 	constructor(plugin, shortcut) {
@@ -13,7 +14,7 @@ export class RowDetailsLet {
 			source: 'row.details.view',
 			execute: row => {
 				if (!row) {
-					row = model.navigation().row;
+					row = selectRow(model.navigation());
 				}
 
 				const { toggle, status, mode } = model.row();

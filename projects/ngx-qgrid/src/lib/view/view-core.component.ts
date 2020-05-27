@@ -102,6 +102,13 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		observe(model.styleChanged)
 			.subscribe(() => this.host.invalidate());
 
+		observe(model.layoutChanged)
+			.subscribe(e => {
+				if (e.hasChanges('rows')) {
+					this.host.invalidate();
+				}
+			});
+
 		observeReply(model.editChanged)
 			.subscribe(e => {
 				if (e.hasChanges('status')) {
@@ -115,13 +122,16 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 			});
 
 		const listener = new EventListener(this.elementRef.nativeElement, new EventManager(this));
-		disposable.add(listener.on('mousemove', e => this.host.mouseMove(e)));
-		disposable.add(listener.on('mouseleave', e => this.host.mouseLeave(e)));
-		disposable.add(listener.on('mouseup', e => this.host.mouseUp(e)));
-		disposable.add(listener.on('mousedown', e => {
-			this.cd.markForCheck();
-			this.zone.run(() => this.host.mouseDown(e));
-		}));
+
+		this.zone.runOutsideAngular(() => {
+			disposable.add(listener.on('mousemove', e => this.host.mouseMove(e)));
+			disposable.add(listener.on('mouseleave', e => this.host.mouseLeave(e)));
+			disposable.add(listener.on('mouseup', e => this.host.mouseUp(e)));
+		});
+
+		disposable.add(
+			listener.on('mousedown', e => this.host.mouseDown(e))
+		);
 
 		if (model.scroll().mode === 'virtual') {
 			const asVirtualBody = table.body as any;

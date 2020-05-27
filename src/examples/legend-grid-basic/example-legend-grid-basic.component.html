@@ -1,14 +1,14 @@
 <q-grid caption="Legend Grid Basic"
-        [rows]="rows | async">
+		[rows]="rows | async">
 
 	<q-grid-columns generation="deep">
 		<q-grid-column key="legend"
-		               type="row-indicator"
-		               [width]="50">
+					   type="row-indicator"
+					   [width]="50">
 			<ng-template for="body"
-			             let-$cell>
+						 let-$cell>
 				<div class="q-grid-legend-item"
-				     [ngClass]=$cell.row.phase></div>
+					 [ngClass]=$cell.row.phase></div>
 			</ng-template>
 		</q-grid-column>
 	</q-grid-columns>

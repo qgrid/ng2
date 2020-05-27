@@ -3,27 +3,38 @@
 	<div class="q-grid-action"
 		 [ngClass]="'q-grid-action-' + $action.id"
 		 [ngSwitch]="!!$action.templateUrl">
+
 		<ng-container *ngSwitchCase="true"
 					  [key]="$action.templateUrl"
 					  [context]="{$implicit: $action}">
 		</ng-container>
+
 		<ng-container *ngSwitchDefault>
+
 			<button *ngIf="$action.icon"
 					mat-icon-button
-					(click)="$action.execute()"
-					[disabled]="!$action.canExecute"
-					[matTooltip]="$action.title + ($action.shortcut ? ' (' + $action.shortcut + ')' : '')"
+					[q-grid-command]="$action.command"
+					[q-grid-command-use-shortcut]="true"
+					[matTooltip]="$action.title + ($action.command.shortcut ? ' (' + ($action.command.shortcut | uppercase) + ')' : '')"
 					[matTooltipShowDelay]="800"
 					tabindex="-1">
 				<mat-icon>{{$action.icon}}</mat-icon>
 			</button>
+
 			<button *ngIf="!$action.icon && $action.title"
 					mat-button
-					(click)="$action.execute()"
-					[disabled]="!$action.canExecute"
+					[q-grid-command]="$action.command"
+					[q-grid-command-use-shortcut]="true"
 					tabindex="-1">
-				{{$action.title}}
+				{{$action.title + ($action.command.shortcut ? ' (' + ($action.command.shortcut | uppercase) + ')' : '')}}
 			</button>
+
+			<ng-container *ngIf="!$action.icon && !$action.title"
+						  [q-grid-command]="$action.command"
+						  [q-grid-command-use-shortcut]="true">
+			</ng-container>
+
 		</ng-container>
+
 	</div>
 </ng-template>

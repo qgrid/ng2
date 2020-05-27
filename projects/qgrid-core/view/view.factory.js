@@ -15,6 +15,7 @@ import { ScrollLet } from '../scroll/scroll.let';
 import { SelectionLet } from '../selection/selection.let';
 import { SortLet } from '../sort/sort.let';
 import { StyleLet } from '../style/style.let';
+import { ClipboardLet } from '../clipboard/clipboard.let';
 
 export function viewFactory(
 	plugin,
@@ -71,5 +72,6 @@ export function viewFactory(
 		host.rowDetails = new RowDetailsLet(plugin, navigationShortcut);
 		host.selection = new SelectionLet(plugin, selectionShortcut);
 		host.style = new StyleLet(plugin);
+		host.clipboard = new ClipboardLet(plugin, navigationShortcut);
 	};
 }

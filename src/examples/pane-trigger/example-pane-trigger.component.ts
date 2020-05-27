@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 import { Command, GridComponent, PaneComponent } from 'ng2-qgrid';
@@ -10,29 +10,31 @@ import { Command, GridComponent, PaneComponent } from 'ng2-qgrid';
 	providers: [DataService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExamplePaneTriggerComponent {
+export class ExamplePaneTriggerComponent implements AfterViewInit {
 	static id = 'pane-trigger';
 
-	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
-	@ViewChild(PaneComponent, { static: true }) pane: PaneComponent;
+	@ViewChild(GridComponent) grid: GridComponent;
+	@ViewChild(PaneComponent) pane: PaneComponent;
 
 	rows$: Observable<Human[]>;
 	selectedRow: Human;
 
 	openPane = new Command({
-		execute: () => {
-			this.selectedRow = this.cell.row;
-			this.pane.open('right');
-		},
-		canExecute: () => !!this.cell,
+		execute: () => this.pane.open('right'),
+		canExecute: () => !!this.selectedRow,
 	});
 
 	constructor(dataService: DataService) {
 		this.rows$ = dataService.getPeople();
 	}
 
-	private get cell() {
+	ngAfterViewInit() {
 		const { model } = this.grid;
-		return model.selection().items[0];
+		model.selectionChanged.watch(e => {
+			if (e.hasChanges('items')) {
+				this.selectedRow = e.state.items[0];
+				this.openPane.canExecuteCheck.next();
+			}
+		});
 	}
 }

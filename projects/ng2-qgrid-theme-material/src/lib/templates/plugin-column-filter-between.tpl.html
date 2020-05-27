@@ -1,0 +1,22 @@
+<ng-template key="plugin-column-filter-default-between.tpl.html"
+			 let-$columnFilter
+			 let-$plugin="plugin"
+			 let-$vscroll="vscroll">
+
+	<q-grid-tab-trap>
+		<mat-form-field class="q-grid-column-filter-input q-grid-column-filter-input-half ">
+			<input matInput
+				   placeholder="From"
+				   [(ngModel)]="$columnFilter.value[0]"
+				   [type]="$columnFilter.column.type"
+				   q-grid-focus />
+		</mat-form-field>
+
+		<mat-form-field class="q-grid-column-filter-input q-grid-column-filter-input-half ">
+			<input matInput
+				   placeholder="To"
+				   [(ngModel)]="$columnFilter.value[1]"
+				   [type]="$columnFilter.column.type" />
+		</mat-form-field>
+	</q-grid-tab-trap>
+</ng-template>

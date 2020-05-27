@@ -38,6 +38,7 @@ import { ToolbarState } from '../toolbar/toolbar.state';
 import { ValidationState } from '../validation/validation.state';
 import { ViewState } from '../view/view.state';
 import { VisibilityState } from '../visibility/visibility.state';
+import { ClipboardState } from '../clipboard/clipboard.state';
 
 export declare type StateSet<K extends keyof any, TState> = {
 	[P in K]: (state: Partial<TState>, tag?: ModelTag) => Model;
@@ -99,6 +100,7 @@ export declare type ToolbarAccessor = StateAccessor<'toolbar', 'toolbarChanged',
 export declare type ValidationAccessor = StateAccessor<'validation', 'validationChanged', ValidationState>;
 export declare type ViewAccessor = StateAccessor<'view', 'viewChanged', ViewState>;
 export declare type VisibilityAccessor = StateAccessor<'visibility', 'visibilityChanged', VisibilityState>;
+export declare type ClipboardAccessor = StateAccessor<'clipboard', 'clipboardChanged', ClipboardState>;
 
 export declare type ResolveAccessor = {
 	resolve<TState>(type: new () => TState): StateAccessor<'state', 'changed', TState>;
@@ -109,6 +111,7 @@ export type Model =
 	& AnimationAccessor
 	& BodyAccessor
 	& ColumnListAccessor
+	& ClipboardAccessor
 	& DataAccessor
 	& DragAccessor
 	& EditAccessor

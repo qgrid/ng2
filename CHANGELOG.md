@@ -10,9 +10,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
-## [9.1.0] - 2020-04-01
+## [9.1.0] - 2020-05-26
 ### BREAKING
-- q-grid is block element by default was inline.
+- q-grid is block element by default, was inline.
 - Rename edit state property from `state` to `status`.
 - Selection state `key` property split into 2 `rowKey` and `columnKey`.
 - Data state `id` property split into 2 `rowId` and `columnId`.
@@ -22,11 +22,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Instead of class q-grid-cell.key use q-grid-`the`-cell.key.
 - Get rid of redundant spans in cell templates.
 - Column pin `min` instead of `null`.
-- Rename column `class` to `category`
+- Rename column `class` to `category`.
+- Remove `rowIndex`, `columnIndex`, `row`, `column` from navigation state.
 
 ### Added
 - Ivy support.
 - New scene status called `idle`, before the first render.
+- Introduce canExecuteCheck for the command to explicitly update canExecute status.
+- Extend plugin interface with `observe` and `observeReply` functions.
+- Copy cell label to clipboard.
+- New column type `datetime` that represents date and time.
+- Possibility to change column filter template for the particular column.
+- New way to access dynamic states like columnChooser, through the `resolve` method.
+- Introduce pager `mode` that can be equal to `showRows` or `showPages` value.
 
 ### Changed
 - Better plugin support.
@@ -35,10 +43,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - All components got OnPush CDS.
 - Better core types.
 - Row details get focus on expand.
+- Immutable model state to prevent event handling artifacts.
+- Remove browser select.
+- Optimize css styles for rendering performance and size.
+- Pin `mid` instead of `null`.
 
 ### Fixed
 - *ngIf for column component works.
 - Fix row options icon is jumping on edit.
+- Row resize algorithm.
+- Better paddings for column filter and chooser.
 
 ## [9.0.1] - 2020-03-13
 ### Fixed
@@ -266,7 +280,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Need to change theme import from `import { ThemeModule } from 'ng2-qgrid'` to `import { ThemeModule } from 'ng2-qgrid/theme/material`
 
 ### Deprecated
-- Use `FetchContext` `serach` property instead of `filter` property.
+- Use `FetchContext` `search` property instead of `filter` property.
 - Use `<q-grid caption="My Grid">` instead of `<q-grid header="My Grid">`.
 
 ### Added
@@ -431,7 +445,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Fixed
 * Array cell editor improvements.
-* Fix minification in release script.
+* Fix minimization in release script.
 * Grid in grid support.
 
 ## [5.0.2] - 2017-12-22

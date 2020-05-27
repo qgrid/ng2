@@ -7,7 +7,8 @@
 					[(value)]="$view.edit.cell.value"
 					(selectionChange)="$view.edit.cell.exit.execute()">
 			<mat-option *ngFor="let option of $view.edit.cell.fetch.result"
-						[value]="option">
+						[value]="option"
+						q-grid-stop-propagate="mousedown">
 				{{option | qGridItemLabel : $cell.column.itemLabel}}
 			</mat-option>
 		</mat-select>

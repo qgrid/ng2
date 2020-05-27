@@ -12,7 +12,7 @@ import { GridPlugin, DomTd, Grid } from '@qgrid/ngx';
 })
 export class EditFormComponent implements OnInit {
 	@Input() caption: string;
-	@Input() cell: DomTd;
+	@Input() row: any;
 
 	@Output() cancel = new EventEmitter();
 	@Output() reset = new EventEmitter();
@@ -28,7 +28,7 @@ export class EditFormComponent implements OnInit {
 
 	ngOnInit() {
 		const context = {
-			row: this.cell.row,
+			row: this.row,
 			caption: this.caption
 		};
 

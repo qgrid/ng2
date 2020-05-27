@@ -2,6 +2,8 @@ import { Log } from '../infrastructure/log';
 import * as css from '../services/css';
 import * as columnService from '../column/column.service';
 import { Fastdom } from '../services/fastdom';
+import { selectColumn } from '../navigation/navigation.state.selector';
+
 export class LayoutLet {
 	constructor(plugin, gridService) {
 		const { model, observeReply, disposable } = plugin;
@@ -64,9 +66,15 @@ export class LayoutLet {
 						source: 'layout.let',
 						behavior: 'core'
 					});
+				}
+			});
 
+		observeReply(model.viewChanged)
+			.subscribe(e => {
+				if (e.hasChanges('columns')) {
 					const columns = columnService.flatten(e.state.columns);
-					if (columns.some(x => x.width !== null || x.minWidth !== null || x.maxWidth !== null)) {
+					const hasNotDefaultWidth = x => x.width !== null || x.minWidth !== null || x.maxWidth !== null;
+					if (columns.some(hasNotDefaultWidth)) {
 						Fastdom.mutate(() => {
 							const { columns } = model.layout();
 							this.invalidateColumns(columns);
@@ -111,7 +119,7 @@ export class LayoutLet {
 
 		model.layout({ columns: form }, { source: 'layout.let', behavior: 'core' });
 
-		const { column } = model.navigation();
+		const column = selectColumn(model.navigation());
 		if (column && column.viewWidth) {
 			const viewForm = new Map(form)
 			const columnForm = form.get(column.key);
@@ -144,8 +152,7 @@ export class LayoutLet {
 					'max-width': size
 				};
 
-				style[`td.q-grid-the-${key}`] = sizeStyle;
-				style[`th.q-grid-the-${key}`] = sizeStyle;
+				style[`.q-grid-the-${key}`] = sizeStyle;
 			}
 		}
 

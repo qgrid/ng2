@@ -15,6 +15,7 @@ export function columnPipe(memo, context, next) {
 
 	const createColumn = columnFactory(model);
 	const root = new Node(createColumn('cohort', { key: '$root' }), 0);
+
 	const addDataColumns = dataColumnsFactory(model);
 	const addSelectColumn = selectColumnFactory(model);
 	const addGroupColumn = groupColumnFactory(model, nodes);
@@ -82,9 +83,9 @@ export function columnPipe(memo, context, next) {
 		columnList({
 			index
 		}, {
-				behavior: 'core',
-				source: 'column.pipe'
-			});
+			behavior: 'core',
+			source: 'column.pipe'
+		});
 
 		next(memo);
 	});

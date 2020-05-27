@@ -7,4 +7,5 @@ export declare class HighlightLet {
 	readonly column: Command;
 	readonly row: Command;
 	readonly cell: Command;
+	readonly clear: Command;
 }

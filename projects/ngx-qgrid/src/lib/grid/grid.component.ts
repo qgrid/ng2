@@ -172,7 +172,7 @@ export class GridComponent implements OnInit, OnChanges {
 			);
 
 			disposable.add(
-				docListener.on('click', e => {
+				docListener.on('mousedown', e => {
 					const path = eventPath(e);
 					const clickedOutside = path.every(x => x !== nativeElement);
 					if (clickedOutside) {
@@ -185,22 +185,18 @@ export class GridComponent implements OnInit, OnChanges {
 						}
 					}
 				}));
-		});
 
-		disposable.add(
-			listener.on('keydown', e => {
-				const result = host.keyDown(e, 'grid');
-				if (result.indexOf('selection.view') >= 0) {
-					this.cd.markForCheck();
-					this.zone.run(noop);
-				}
-			}));
 
-		this.zone.runOutsideAngular(() => {
 			disposable.add(
 				listener.on('keyup', e => host.keyUp(e, 'grid'))
 			);
+
 		});
+
+		disposable.add(
+			listener.on('keydown', e => host.keyDown(e, 'grid'))
+		);
+
 
 		observe(model.visibilityChanged)
 			.subscribe(() => this.cd.detectChanges());

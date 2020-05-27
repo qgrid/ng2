@@ -68,4 +68,15 @@ export class BodyHost {
 		}
 	}
 
+	mouseLeave() {
+		this.clearHighlight();
+	}
+
+	clearHighlight() {
+		const { view } = this.plugin;
+		const { highlight } = view;
+		if (highlight.clear.canExecute()) {
+			highlight.clear.execute();
+		}
+	}
 }

@@ -4,7 +4,7 @@ import { EditorOptions } from './editor.options';
 /**
  * Indicates if column should be frozen.
  * - `'left'` - freeze a column to the grid's left.
- * - `'right'` - freeze a column to the grids'right.
+ * - `'right'` - freeze a column to the grid's right.
  * - `'mid'` - do not freeze  a column.
  */
 export declare type ColumnModelPin = 'mid' | 'left' | 'right';
@@ -42,6 +42,7 @@ export declare type ColumnModelType =
 	'cohort' |
 	'currency' |
 	'date' |
+	'datetime' |
 	'email' |
 	'file' |
 	'filter-row' |

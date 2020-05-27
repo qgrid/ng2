@@ -9,12 +9,14 @@ export class GroupState {
 		this.mode = 'nest'; // nest | flat | subhead | rowspan
 		this.summary = null; // null | leaf
 		this.by = [];
-		this.shortcut = {
-			toggle: 'space'
-		};
+
 		this.toggle = new Command({ source: 'group.state' });
 		this.toggleAll = new Command({ source: 'group.state' });
 
 		this.flattenFactory = flattenFactory;
+
+		this.shortcut = {
+			toggle: 'space|enter'
+		};
 	}
 }

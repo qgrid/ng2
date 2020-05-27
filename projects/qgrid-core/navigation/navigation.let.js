@@ -3,6 +3,7 @@ import { Navigation } from './navigation';
 import { GRID_PREFIX } from '../definition';
 import { Fastdom } from '../services/fastdom';
 import { Td } from '../dom/td';
+import { selectRow, selectColumnIndex, selectRowIndex, selectColumn } from './navigation.state.selector';
 
 export class NavigationLet {
 	constructor(plugin, shortcut) {
@@ -42,7 +43,7 @@ export class NavigationLet {
 				}
 			},
 			canExecute: newCell => {
-				const oldCell = model.navigation().cell;
+				const { cell: oldCell } = model.navigation();
 				if (newCell && newCell.column.canFocus && !Td.equals(newCell, oldCell)) {
 					return true;
 				}
@@ -71,7 +72,9 @@ export class NavigationLet {
 						}
 					}
 
-					const { rowIndex, columnIndex } = e.state;
+					const rowIndex = selectRowIndex(e.state);
+					const columnIndex = selectColumnIndex(e.state);
+
 					focusBlurs = this.invalidateFocus(focusBlurs);
 					if (e.tag.source !== 'navigation.scroll' && this.scrollTo.canExecute(rowIndex, columnIndex)) {
 						this.scrollTo.execute(rowIndex, columnIndex);
@@ -115,7 +118,9 @@ export class NavigationLet {
 					const { status } = e.state;
 					switch (status) {
 						case 'stop':
-							const { row, column, columnIndex } = model.navigation();
+							const row = selectRow(model.navigation());
+							const column = selectColumn(model.navigation());
+							const columnIndex = selectColumnIndex(model.navigation());
 							if (row && column) {
 								const newRowIndex = table.data.rows().indexOf(row);
 								let newColumnIndex = table.data.columns().findIndex(c => c.key === column.key);
@@ -141,7 +146,8 @@ export class NavigationLet {
 		dispose.forEach(f => f());
 		dispose = [];
 
-		const { rowIndex, columnIndex } = model.navigation();
+		const rowIndex = selectRowIndex(model.navigation());
+		const columnIndex = selectColumnIndex(model.navigation());
 		const cell = table.body.cell(rowIndex, columnIndex);
 		if (cell.model()) {
 			Fastdom.mutate(() => cell.addClass(`${GRID_PREFIX}-focused`));
@@ -156,7 +162,7 @@ export class NavigationLet {
 		const { scroll } = model;
 		Fastdom.measure(() => {
 			const tr = target.rect();
-			const vr = view.rect();
+			const vr = view.rect('body-mid');
 			const state = {};
 
 			if (view.canScrollTo(target, 'left')) {

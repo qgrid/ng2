@@ -48,7 +48,11 @@ th {
     }
 
     &.q-grid-date {
-        @include width(110px);
+        @include width(120px);
+    }
+
+    &.q-grid-datetime {
+        @include width(180px);
     }
 
     &.q-grid-group,

@@ -9,8 +9,8 @@ export class TimeDirective {
 	}
 
 	time(previous, current) {
-		const date = new Date(typeof current === 'string' ? Date.now() : previous);
-		const [hours, minutes, seconds] = current.split(':');
+		const date = new Date(previous);
+		const [hours, minutes, seconds, ms] = current.split(':');
 
 		if (hours && minutes) {
 			date.setHours(+hours);
@@ -20,7 +20,11 @@ export class TimeDirective {
 				date.setSeconds(+seconds);
 			}
 
-			return date;
+			if (ms) {
+				date.setMilliseconds(+ms);
+			}
 		}
+
+		return date;
 	}
 }

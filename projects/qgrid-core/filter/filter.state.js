@@ -32,12 +32,15 @@ export class FilterState {
 						'isNotEmpty',
 					];
 				}
-				case 'date': {
+				case 'date':
+				case 'datetime': {
 					return [
+						'between',
 						'contains',
 						'lessThan',
+						'lessThanOrEquals',
 						'greaterThan',
-						'between',
+						'greaterThanOrEquals',
 						'isEmpty',
 						'isNotEmpty',
 					];

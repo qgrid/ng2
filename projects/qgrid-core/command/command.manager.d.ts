@@ -14,7 +14,7 @@ export declare class CommandManager {
 	 * @param commands list of commands to execute, usually come after filter invocation.
 	 * @param source indicates a source of command execution.
 	 */
-	invoke(commands: Command[], source?: string): boolean;
+	invoke(commands: Command[], context?: any,  source?: string): boolean;
 
 	/**
 	 * Filter out disabled commands, usually command `canExecute` method is used.
