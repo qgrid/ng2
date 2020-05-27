@@ -193,9 +193,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 
 	private aroundZone<T>(f: () => T): T {
 		if (this.useZone) {
-			const result = this.zone.run(f);
-			this.app.tick();
-			return result;
+			return this.zone.run(f);
 		}
 
 		return this.zone.runOutsideAngular(f);

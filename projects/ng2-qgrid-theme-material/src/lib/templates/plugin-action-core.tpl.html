@@ -15,7 +15,6 @@
 					mat-icon-button
 					[q-grid-command]="$action.command"
 					[q-grid-command-use-shortcut]="true"
-					[q-grid-command-use-zone]="true"
 					[matTooltip]="$action.title + ($action.command.shortcut ? ' (' + ($action.command.shortcut | uppercase) + ')' : '')"
 					[matTooltipShowDelay]="800"
 					tabindex="-1">
@@ -26,15 +25,13 @@
 					mat-button
 					[q-grid-command]="$action.command"
 					[q-grid-command-use-shortcut]="true"
-					[q-grid-command-use-zone]="true"
 					tabindex="-1">
 				{{$action.title + ($action.command.shortcut ? ' (' + ($action.command.shortcut | uppercase) + ')' : '')}}
 			</button>
 
 			<ng-container *ngIf="!$action.icon && !$action.title"
 						  [q-grid-command]="$action.command"
-						  [q-grid-command-use-shortcut]="true"
-						  [q-grid-command-use-zone]="true">
+						  [q-grid-command-use-shortcut]="true">
 			</ng-container>
 
 		</ng-container>
