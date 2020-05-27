@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Float rows navigation.
 * Grouped rows navigation improvements.
 
-## [9.1.0] - 2020-05-26
+## [9.1.2] - 2020-05-27
 ### BREAKING
 - q-grid is block element by default, was inline.
 - Rename edit state property from `state` to `status`.

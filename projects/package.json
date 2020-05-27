@@ -1,16 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "9.1.0",
-  "bundledDependencies": [
-    "@qgrid/core",
-    "@qgrid/plugins",
-    "@qgrid/ngx",
-    "@qgrid/ngx-plugins",
-    "css.escape",
-    "fastdom",
-    "livr",
-    "lodash-es"
-  ],
+  "version": "9.1.2",
   "peerDependencies": {
     "@angular/common": "^9.1.0",
     "@angular/core": "^9.1.0",

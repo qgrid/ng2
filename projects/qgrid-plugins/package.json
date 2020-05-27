@@ -1,8 +1,8 @@
 {
   "name": "@qgrid/plugins",
-  "version": "9.1.0",
+  "version": "9.1.2",
   "peerDependencies": {
-    "@qgrid/core": "9.1.0"
+    "@qgrid/core": "9.1.2"
   },
   "author": "qgrid.team@gmail.com"
 }

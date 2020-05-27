@@ -1,6 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "9.1.0",
+  "version": "9.1.2",
   "scripts": {
     "build:app": "ng build --prod --output-path dist/app --base-href /ng2/",
     "build:lib": "node build.lib.js",
@@ -10,7 +10,7 @@
     "pretest:screenshot": "webdriver-manager update --gecko=false && if not exist e2e\\diff mkdir e2e\\diff",
     "release:app": "npm run build:app && npx angular-cli-ghpages --dir=dist/app",
     "release:example": "node ./build.example",
-    "release:lib": "npm run build:release && cd dist && npm publish",
+    "release:lib": "cd dist/ng2-qgrid && npm publish",
     "start:prod": "rimraf dist && node build.serve --prod",
     "start": "rimraf dist && node build.serve",
     "test:debug": "ng test --browsers ChromeDebug",
