@@ -15,7 +15,7 @@ export class Csv {
 		const values = [];
 		let head = [];
 		for (let column of columns) {
-			if (column.class === 'data') {
+			if (column.category === 'data') {
 				values.push(valueFactory(column));
 				head.push(escape(column.title));
 			}

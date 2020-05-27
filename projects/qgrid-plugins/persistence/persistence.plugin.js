@@ -5,36 +5,40 @@ import { stringifyFactory } from '@qgrid/core/services/model.stringify';
 import { Shortcut } from '@qgrid/core/shortcut/shortcut';
 import { ShortcutDispatcher } from '@qgrid/core/shortcut/shortcut.dispatcher';
 import { clone } from '@qgrid/core/utility/kit';
-import { Event } from '@qgrid/core/infrastructure/event';
-import { groupBy } from '@qgrid/core/utility/kit';
+import { Event } from '@qgrid/core/event/event';
 
 export class PersistencePlugin {
-	constructor(model, createDefaultModel) {
-		this.model = model;
+	constructor(plugin, createDefaultModel) {
+		const { model, observeReply } = plugin;
+
+		this.plugin = plugin;
 		this.service = new PersistenceService(model, createDefaultModel);
+		this.closeEvent = new Event();
 		this.items = [];
 		this.state = {
 			editItem: null,
 			oldValue: null
 		};
-		this.closeEvent = new Event();
 
-		const persistence = model.persistence;
+		const { persistence } = model;
+
 		this.id = persistence().id;
 		this.title = this.stringify();
 
 		persistence()
-			.storage.getItem(this.id)
+			.storage
+			.getItem(this.id)
 			.then(items => {
 				this.items = items || [];
 				this.groups = this.buildGroups(this.items);
 			});
 
-		this.model.gridChanged.watch(e => {
-			if (e.hasChanges('status') && e.state.status === 'unbound') {
-				this.closeEvent.emit();
-			}
-		});
+		observeReply(model.gridChanged)
+			.subscribe(e => {
+				if (e.hasChanges('status') && e.state.status === 'unbound') {
+					this.closeEvent.emit();
+				}
+			});
 
 		this.create = new Command({
 			source: 'persistence.view',
@@ -225,18 +229,19 @@ export class PersistencePlugin {
 	}
 
 	buildGroups(items) {
-		return items.reduce((memo, item) => {
-			const group = memo.find(m => m.key === item.group);
-			if (group) {
-				group.items.push(item);
-			} else {
-				memo.push({
-					key: item.group,
-					items: [item]
-				});
-			}
-			return memo;
-		}, []);
+		return items
+			.reduce((memo, item) => {
+				const group = memo.find(m => m.key === item.group);
+				if (group) {
+					group.items.push(item);
+				} else {
+					memo.push({
+						key: item.group,
+						items: [item]
+					});
+				}
+				return memo;
+			}, []);
 	}
 
 	isActive(item) {
@@ -244,22 +249,26 @@ export class PersistencePlugin {
 	}
 
 	persist() {
-		this.model
+		const { model } = this.plugin;
+
+		model
 			.persistence()
-			.storage.setItem(this.id, this.items.filter(item => item.canEdit));
+			.storage
+			.setItem(this.id, this.items.filter(item => item.canEdit));
 
 		this.groups = this.buildGroups(this.items);
 	}
 
 	stringify(item) {
+		const { settings } = this.plugin.model.persistence();
 		const model = item ? item.model : this.service.save();
 		const targets = [];
-		const settings = this.model.persistence().settings;
 
 		for (let key in settings) {
 			if (!model[key]) {
 				continue;
 			}
+
 			const stringify = stringifyFactory(key);
 			const target = stringify(model[key]);
 			if (target !== '') {
@@ -272,11 +281,10 @@ export class PersistencePlugin {
 
 	isUniqueTitle(title) {
 		title = (title || '').trim().toLowerCase();
-		return !this.items.some(item => {
-			return (
+		return !this.items
+			.some(item =>
 				item !== this.state.editItem &&
 				(item.title || '').toLowerCase() === title
 			);
-		});
 	}
 }

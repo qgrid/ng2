@@ -6,7 +6,7 @@ When('I click Select all', () => getSelectAll());
 
 async function getFilteritem(item) {
 	await browser.sleep(1000);
-	const el = await element(by.xpath(`//*[text()='" + item + "']/../..`));
+	const el = await element(by.xpath(`//*[text()='${item}']/../..`));
 	el.click();
 }
 

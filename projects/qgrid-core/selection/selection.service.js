@@ -1,11 +1,10 @@
 import { isUndefined, identity } from '../utility/kit';
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { getFactory } from '../services/value';
 
 function hashColumnKeyFactory(model) {
-	const selectionState = model.selection();
-	const selectionKey = selectionState.key;
-	if (selectionKey.column === identity) {
+	const { columnKey } = model.selection();
+	if (columnKey === identity) {
 		return column => column.key;
 	}
 
@@ -14,9 +13,8 @@ function hashColumnKeyFactory(model) {
 }
 
 function hashRowKeyFactory(model) {
-	const selectionState = model.selection();
-	const selectionKey = selectionState.key;
-	if (selectionKey.row === identity) {
+	const { rowKey } = model.selection();
+	if (rowKey === identity) {
 		const { rows } = model.data();
 		const columns = model.columnList().line;
 		const index = columns.findIndex(column => column.type === 'id');
@@ -61,12 +59,12 @@ function hashKeyFactory(model) {
 					case 'cell':
 						return `${hashColumnKey(key.column)}[${hashRowKey(key.row)}]`;
 					default:
-						throw new AppError('selection.service', `Invalid unit ${entry.unit}`);
+						throw new GridError('selection.service', `Invalid unit ${entry.unit}`);
 				}
 			};
 		}
 		default:
-			throw new AppError('selection.service', `Invalid unit ${selectionState.unit}`);
+			throw new GridError('selection.service', `Invalid unit ${selectionState.unit}`);
 	}
 }
 
@@ -74,31 +72,31 @@ function cellMatchFactory() {
 	return (x, y) => x.column === y.column && x.row === y.row;
 }
 
-function keySelector(unit, selector) {
+function keySelector(unit, rowKey, columnKey) {
 	switch (unit) {
 		case 'row':
-			return selector.row;
+			return rowKey;
 		case 'column':
-			return selector.column;
+			return columnKey;
 		case 'cell':
 			return entry => {
 				if (entry.row && entry.column) {
 					return {
-						row: selector.row(entry.row),
-						column: selector.column(entry.column)
+						row: rowKey(entry.row),
+						column: columnKey(entry.column)
 					};
 				}
 
 				return entry;
 			};
 		default:
-			throw new AppError('selection.state', `Invalid unit ${unit}`);
+			throw new GridError('selection.state', `Invalid unit ${unit}`);
 	}
 }
 
 function lookupColumnFactory(model, selectKey) {
-	const selectionState = model.selection();
-	if (selectionState.key.column === identity) {
+	const { columnKey } = model.selection();
+	if (columnKey === identity) {
 		return identity;
 	}
 
@@ -118,8 +116,8 @@ function lookupColumnFactory(model, selectKey) {
 }
 
 function lookupRowFactory(model, selectKey) {
-	const selectionState = model.selection();
-	if (selectionState.key.row === identity) {
+	const { rowKey } = model.selection();
+	if (rowKey === identity) {
 		return identity;
 	}
 
@@ -133,13 +131,14 @@ function lookupRowFactory(model, selectKey) {
 				result.push(row);
 			}
 		});
+
 		return result;
 	};
 }
 
 function lookupCellFactory(model, selectKey) {
-	const selectionState = model.selection();
-	if (selectionState.key.row === identity && selectionState.key.column === identity) {
+	const { rowKey, columnKey } = model.selection();
+	if (rowKey === identity && columnKey === identity) {
 		return identity;
 	}
 
@@ -176,7 +175,7 @@ export class SelectionService {
 			return entries;
 		}
 
-		const model = this.model;
+		const { model } = this;
 		if (isUndefined(unit)) {
 			unit = model.selection().unit;
 		}
@@ -211,7 +210,7 @@ export class SelectionService {
 				break;
 			}
 			default:
-				throw new AppError('selection.state', `Invalid unit ${unit}`);
+				throw new GridError('selection.state', `Invalid unit ${unit}`);
 		}
 
 		return entries;
@@ -231,22 +230,23 @@ export class SelectionService {
 					item: selectKey(entry)
 				}));
 			default:
-				throw new AppError('selection.state', `Invalid unit ${selectionState.unit}`);
+				throw new GridError('selection.state', `Invalid unit ${selectionState.unit}`);
 		}
 	}
 
-	keyFactory(unit) {
-		const selectionState = this.model.selection();
-		unit = unit || selectionState.unit;
-		switch (unit) {
+	keyFactory(selectionUnit) {
+		const { rowKey, columnKey, unit } = this.model.selection();
+
+		selectionUnit = selectionUnit || unit;
+		switch (selectionUnit) {
 			case 'column':
 			case 'row':
 			case 'cell':
-				return keySelector(unit, selectionState.key);
+				return keySelector(selectionUnit, rowKey, columnKey);
 			case 'mix': {
-				const cellKey = keySelector('cell', selectionState.key);
-				const rowKey = keySelector('row', selectionState.key);
-				const columnKey = keySelector('column', selectionState.key);
+				const selectCellKey = keySelector('cell', rowKey, columnKey);
+				const selectRowKey = keySelector('row', rowKey, columnKey);
+				const selectColumnKey = keySelector('column', rowKey, columnKey);
 
 				return entry => {
 					if (!entry.unit) {
@@ -255,18 +255,18 @@ export class SelectionService {
 
 					switch (entry.unit) {
 						case 'column':
-							return columnKey(entry.item);
+							return selectColumnKey(entry.item);
 						case 'row':
-							return rowKey(entry.item);
+							return selectRowKey(entry.item);
 						case 'cell':
-							return cellKey(entry.item);
+							return selectCellKey(entry.item);
 						default:
-							throw new AppError('selection.service', `Invalid unit ${entry.unit}`);
+							throw new GridError('selection.service', `Invalid unit ${entry.unit}`);
 					}
 				};
 			}
 			default:
-				throw new AppError('selection.service', `Invalid unit ${unit}`);
+				throw new GridError('selection.service', `Invalid unit ${selectionUnit}`);
 		}
 	}
 

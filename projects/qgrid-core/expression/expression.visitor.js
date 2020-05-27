@@ -1,4 +1,4 @@
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 
 export class Visitor {
 	constructor() {
@@ -13,7 +13,7 @@ export class Visitor {
 			case 'function':
 				return this.visitFunction(item, depth);
 			default:
-				throw AppError(
+				throw GridError(
 					'expression.visitor',
 					`Invalid kind ${item.kind}`
 				);
@@ -55,7 +55,7 @@ export class Visitor {
 			case 'in':
 				return this.visitIn(condition, depth);
 			default:
-				throw new AppError(
+				throw new GridError(
 					'expression.visitor',
 					`Invalid operation ${condition.op}`
 				);

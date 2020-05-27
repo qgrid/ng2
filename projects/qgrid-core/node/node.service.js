@@ -1,6 +1,6 @@
 import { Node } from './node';
 import { cloneDeep } from '../utility/kit';
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 
 export function preOrderDFS(nodes, visit, memo = null, parent = null) {
 	for (let i = 0, length = nodes.length; i < length; i++) {
@@ -89,7 +89,7 @@ export function copy(node) {
 
 export function bend(line) {
 	if (line.length === 0) {
-		throw new AppError('node.service', 'Line have no nodes');
+		throw new GridError('node.service', 'Line have no nodes');
 	}
 
 	const root = copy(line[0]);

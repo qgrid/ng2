@@ -1,6 +1,6 @@
 import { Td } from '../dom/td';
 import { ColumnModel } from '../column-type/column.model';
-import { Model } from '../infrastructure/model';
+import { Model } from '../model/model';
 
 export declare class SelectionRange {
 	constructor(model: Model);

@@ -17,9 +17,11 @@ import { ExampleAggregateColumnBasicComponent } from './aggregate-column-basic/e
 import { ExampleColumnArrayBasicComponent } from './column-array-basic/example-column-array-basic.component';
 import { ExampleColumnAutocompleteBasicComponent } from './column-autocomplete-basic/example-column-autocomplete-basic.component';
 import { ExampleColumnBoolBasicComponent } from './column-bool-basic/example-column-bool-basic.component';
+import { ExampleColumnColumnVisibilityBasicComponent } from './column-visibility-basic/example-column-visibility-basic.component';
 import { ExampleColumnCurrencyBasicComponent } from './column-currency-basic/example-column-currency-basic.component';
 import { ExampleColumnDataSafeComponent } from './column-data-safe/example-column-data-safe.component';
 import { ExampleColumnDateBasicComponent } from './column-date-basic/example-column-date-basic.component';
+import { ExampleColumnDateTimeBasicComponent } from './column-datetime-basic/example-column-datetime-basic.component';
 import { ExampleColumnDropdownBasicComponent } from './column-dropdown-basic/example-column-dropdown-basic.component';
 import { ExampleColumnEmailBasicComponent } from './column-email-basic/example-column-email-basic.component';
 import { ExampleColumnFileBasicComponent } from './column-file-basic/example-column-file-basic.component';
@@ -38,7 +40,6 @@ import { ExampleColumnTimeBasicComponent } from './column-time-basic/example-col
 import { ExampleColumnTooltipBasicComponent } from './column-tooltip-basic/example-column-tooltip-basic.component';
 import { ExampleColumnTypeSafeComponent } from './column-type-safe/example-column-type-safe.component';
 import { ExampleColumnUrlBasicComponent } from './column-url-basic/example-column-url-basic.component';
-import { ExampleColumnColumnVisibilityBasicComponent } from './column-visibility-basic/example-column-visibility-basic.component';
 import { ExampleDataRowAddComponent } from './data-row-add/example-data-row-add.component';
 import { ExampleDataRowDeleteComponent } from './data-row-delete/example-data-row-delete.component';
 import { ExampleDefineColumnAsyncComponent } from './define-column-async/example-define-column-async.component';
@@ -157,7 +158,7 @@ import { ExampleThemeGridDarkComponent } from './theme-grid-dark/example-theme-g
 import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme-grid-embed.component';
 import { ExampleValidationBasicComponent } from './validation-basic/example-validation-basic.component';
 import { ExampleVisibilityBasicComponent } from './visibility-basic/example-visibility-basic.component';
-import { ExampleVisibilityModelComponent } from './visibility-model/example-visibility-model.component';
+import { ExampleVisibilityStateComponent } from './visibility-model/example-visibility-model.component';
 
 export const EXAMPLES: any[] = [
 	ExampleActionBarBasicComponent,
@@ -170,6 +171,7 @@ export const EXAMPLES: any[] = [
 	ExampleColumnCurrencyBasicComponent,
 	ExampleColumnDataSafeComponent,
 	ExampleColumnDateBasicComponent,
+	ExampleColumnDateTimeBasicComponent,
 	ExampleColumnDropdownBasicComponent,
 	ExampleColumnEmailBasicComponent,
 	ExampleColumnFileBasicComponent,
@@ -306,7 +308,7 @@ export const EXAMPLES: any[] = [
 	ExampleThemeGridEmbedComponent,
 	ExampleValidationBasicComponent,
 	ExampleVisibilityBasicComponent,
-	ExampleVisibilityModelComponent,
+	ExampleVisibilityStateComponent,
 ];
 
 export const APP_ROUTES: Routes = EXAMPLES.map<Route>(example => ({

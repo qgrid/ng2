@@ -1,8 +1,6 @@
-&.q-grid-box:not(.q-grid-drag) {
-    th.q-grid-highlighted {
-        .q-grid-column-filter-trigger {
-            opacity: 1;
-        }
+th.q-grid-highlighted {
+    .q-grid-column-filter-trigger {
+        opacity: 1;
     }
 }
 
@@ -73,7 +71,7 @@
         .q-grid-column-filter-input {
             width: calc(100% - 28px);
 
-            &.half {
+            &.q-grid-column-filter-input-half {
                 display: inline-block;
                 width: calc(50% - 20px);
 
@@ -82,6 +80,8 @@
                 }
             }
         }
+
+
 
     }
 
@@ -93,7 +93,7 @@
 
     .q-grid-column-filter-list {
         overflow-y: auto;
-        height: 230px;
+        height: 180px;
 
         ul {
             margin: 0;
@@ -155,7 +155,7 @@
     padding: 0 14px;
     margin-bottom: 3px;
 
-    &-item { 
+    &-item {
         font-size: 12px;
         margin: 2px 7px 1px -4px;
         height: 15px;
@@ -183,7 +183,7 @@
     @media (max-height: 540px) {
         .q-grid-column-filter-contains {
             .q-grid-column-filter-list {
-                max-height: 148px;
+                max-height: 140px;
             }
         }
     }

@@ -38,10 +38,7 @@ export class ExampleColumnReferenceBasicComponent {
 					]
 				})
 				.selection({
-					key: {
-						row: x => x.value,
-						column: x => x.key
-					}
+					rowKey: x => x.value,
 				})
 				.visibility({
 					toolbar: {
@@ -84,10 +81,7 @@ export class ExampleColumnReferenceBasicComponent {
 				.selection({
 					unit: 'row',
 					mode: 'multiple',
-					key: {
-						row: x => x.value,
-						column: x => x.key
-					}
+					rowKey: x => x.value,
 				});
 
 			return model;
@@ -121,10 +115,7 @@ export class ExampleColumnReferenceBasicComponent {
 				.selection({
 					unit: 'row',
 					mode: 'single',
-					key: {
-						row: x => x.value,
-						column: x => x.key
-					}
+					rowKey: x => x.value,
 				});
 
 			return model;
@@ -148,10 +139,7 @@ export class ExampleColumnReferenceBasicComponent {
 				.selection({
 					unit: 'row',
 					mode: 'multiple',
-					key: {
-						row: x => x.value,
-						column: x => x.key
-					}
+					rowKey: x => x.value,
 				});
 
 			return model;

@@ -4,7 +4,8 @@ import { EbNodeService } from './eb-node.service';
 
 @Component({
 	selector: 'q-grid-eb-node',
-	templateUrl: './eb-node.component.html'
+	templateUrl: './eb-node.component.html',
+	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EbNodeComponent {
 	@Input() model: Node;

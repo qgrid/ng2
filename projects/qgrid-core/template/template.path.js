@@ -1,4 +1,4 @@
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { isUndefined } from '../utility/kit';
 
 const resolvers = {};
@@ -8,7 +8,7 @@ export class TemplatePath {
 
 	static register(name, resolve) {
 		if (resolvers.hasOwnProperty(name)) {
-			throw new AppError(
+			throw new GridError(
 				'template.path',
 				`"${name}" is already registered`);
 		}
@@ -21,7 +21,7 @@ export class TemplatePath {
 	static get(source) {
 		const path = this.find(source);
 		if (!path) {
-			throw new AppError(
+			throw new GridError(
 				'template.path',
 				'Template path can\'t be found');
 		}

@@ -31,15 +31,19 @@ export class ArrayColumnModel extends DataColumnModel {
 			if (isArray(value)) {
 				let formatter;
 				switch (this.itemType) {
-					case 'number':
+					case 'number': {
 						formatter = FormatService.number;
 						break;
+					}
 					case 'date':
+					case 'datetime': {
 						formatter = FormatService.date;
 						break;
-					default:
+					}
+					default: {
 						formatter = this.itemLabel.bind(this);
 						break;
+					}
 				}
 
 				const format = this.itemFormat;

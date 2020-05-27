@@ -12,9 +12,8 @@ import { Observable } from 'rxjs';
 export class ExampleDefineColumnBasicComponent {
 	static id = 'define-column-basic';
 
-	rows: Observable<Atom[]>;
+	rows$: Observable<Atom[]> = this.dataService.getAtoms();
 
-	constructor(dataService: DataService) {
-		this.rows = dataService.getAtoms();
+	constructor(private dataService: DataService) {
 	}
 }

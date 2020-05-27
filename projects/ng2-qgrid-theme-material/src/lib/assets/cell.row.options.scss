@@ -1,9 +1,7 @@
-td.q-grid-edit {
-	&.q-grid-row-options {
-		button {
-			width: 24px;
-			margin: 0;
-			padding: 0;
-		}
-	}
+td.q-grid-row-options {
+    padding: 0 12px;
+
+    >.q-grid-icon {
+        display: block;
+    }
 }

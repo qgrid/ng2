@@ -1,32 +1,39 @@
-import { Command } from '@qgrid/core/command/command';
-import * as columnService from '@qgrid/core/column/column.service';
-import { getFactory as labelFactory } from '@qgrid/core/services/label';
 import { clone } from '@qgrid/core/utility/kit';
-import { Event } from '@qgrid/core/infrastructure/event';
+import { Command } from '@qgrid/core/command/command';
+import { Event } from '@qgrid/core/event/event';
+import { getFactory as labelFactory } from '@qgrid/core/services/label';
+import * as columnService from '@qgrid/core/column/column.service';
 
 export class ColumnFilterPlugin {
-	constructor(model, context) {
-		this.model = model;
-		this.key = context.key;
+	constructor(plugin, context) {
+		const { model } = plugin;
+
+		this.plugin = plugin;
+		this.column = context.column;
 
 		this.cancelEvent = new Event();
 		this.submitEvent = new Event();
 		this.resetEvent = new Event();
 
-		const filterBy = this.model.filter().by[this.key];
+		const filterBy = model.filter().by[this.column.key];
+
 		this.by = new Set((filterBy && filterBy.items) || []);
 		this.byBlanks = !!(filterBy && filterBy.blanks);
 
-		this.operator = filterBy && filterBy.expression && filterBy.expression.op || 'contains';
-		this.value = filterBy && filterBy.expression && filterBy.expression.right || null;
+		let defaultOperator = model.filter().operatorFactory(this.column)[0] || 'contains';
+		if(filterBy && filterBy.items && filterBy.items.length) {
+			defaultOperator = 'contains';
+		}
 
 		this.items = [];
+		this.operator = filterBy && filterBy.expression && filterBy.expression.op || defaultOperator;
+		this.value = filterBy && filterBy.expression && filterBy.expression.right || null;
+		this.title = this.column.title;
+		this.getValue = labelFactory(this.column);
 
 		Object.assign(this, this.commands);
 
-		this.column = columnService.find(this.model.columnList().line, this.key);
-		this.title = this.column.title;
-		this.getValue = labelFactory(this.column);
+		this.changeOperator.execute(this.operator);
 	}
 
 	state(item) {
@@ -56,6 +63,8 @@ export class ColumnFilterPlugin {
 					else {
 						this.by.add(item);
 					}
+
+					this.by = new Set(this.by);
 				}
 			}),
 			toggleAll: new Command({
@@ -80,6 +89,7 @@ export class ColumnFilterPlugin {
 						}
 					}
 
+					this.by = new Set(this.by);
 					this.byBlanks = this.hasBlanks && state;
 				}
 			}),
@@ -110,10 +120,10 @@ export class ColumnFilterPlugin {
 			submit: new Command({
 				source: 'column.filter.view',
 				execute: () => {
-					const model = this.model;
+					const { model } = this.plugin;
 					const by = clone(model.filter().by);
 
-					const filter = by[this.key] || {};
+					const filter = by[this.column.key] || {};
 
 					filter.items = Array.from(this.by);
 					filter.blanks = this.byBlanks;
@@ -122,7 +132,7 @@ export class ColumnFilterPlugin {
 						filter.expression = {
 							kind: 'condition',
 							op: this.operator,
-							left: this.key,
+							left: this.column.key,
 							right: this.value,
 						};
 						filter.items = [];
@@ -131,10 +141,10 @@ export class ColumnFilterPlugin {
 					}
 
 					if ((filter.items && filter.items.length) || filter.blanks || filter.expression) {
-						by[this.key] = filter;
+						by[this.column.key] = filter;
 					}
 					else {
-						delete by[this.key];
+						delete by[this.column.key];
 					}
 
 					model.filter({ by }, { source: 'column.filter.view' });

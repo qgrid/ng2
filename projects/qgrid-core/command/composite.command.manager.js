@@ -7,7 +7,7 @@ export class CompositeCommandManager {
 		return this.manager.filter(commands);
 	}
 
-	invoke(commands) {
-		return this.manager.invoke(commands);
+	invoke(commands, context, source) {
+		return this.manager.invoke(commands, context, source);
 	}
 }

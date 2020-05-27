@@ -36,11 +36,3 @@ td {
         }
     }
 }
-
-&.q-grid-box.q-grid-drag {
-    th {
-        >.q-grid-resize-handler {
-            opacity: 0;
-        }
-    }
-}

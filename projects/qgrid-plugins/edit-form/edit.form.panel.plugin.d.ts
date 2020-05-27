@@ -1,13 +1,11 @@
-import { Event } from '@qgrid/core/infrastructure/event';
-import { Disposable } from '@qgrid/core/infrastructure/disposable';
-import { Model } from '@qgrid/core/infrastructure/model';
+import { Event } from '@qgrid/core/event/event';
 import { CellEditor } from '@qgrid/core/edit/edit.cell.editor';
+import { GridPlugin } from '@qgrid/core/plugin/grid.plugin';
 
 export declare class EditFormPanelPlugin {
 	constructor(
-		model: Model,
+		plugin: GridPlugin,
 		context: { row: any, caption: string },
-		disposable: Disposable
 	);
 
 	editors: CellEditor[];

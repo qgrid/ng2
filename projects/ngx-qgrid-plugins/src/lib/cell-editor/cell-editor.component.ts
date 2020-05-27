@@ -3,14 +3,16 @@ import {
 	TemplateRef,
 	EventEmitter,
 	Output,
-	ViewChild
+	ViewChild,
+	ChangeDetectionStrategy
 } from '@angular/core';
 import { GridPlugin } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-cell-editor',
 	templateUrl: './cell-editor.component.html',
-	providers: [GridPlugin]
+	providers: [GridPlugin],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CellEditorComponent {
 	@ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
@@ -21,7 +23,7 @@ export class CellEditorComponent {
 	};
 
 	constructor(plugin: GridPlugin) {
-		const { view } = plugin;
+		const { view, disposable } = plugin;
 		view.edit.cell.requestClose = () => {
 			if (this.closeEvent.observers.length) {
 				this.close();
@@ -30,6 +32,8 @@ export class CellEditorComponent {
 
 			return false;
 		};
+
+		disposable.add(() => view.edit.cell.requestClose = null);
 	}
 
 	close() {

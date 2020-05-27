@@ -1,4 +1,4 @@
-import { identity } from "../utility/kit";
+import { identity } from '../utility/kit';
 
 export function sortFactory(model) {
     const { index } = model.rowList();
@@ -6,14 +6,14 @@ export function sortFactory(model) {
         return identity;
     }
 
-    const { id } = model.data();
+    const { rowId } = model.data();
     return rows => {
         let cursor = 0;
         const positions = new Map();
         const result =
             rows
                 .filter((row, i) => {
-                    const key = id.row(i, row);
+                    const key = rowId(i, row);
                     const position = index.get(key)
                     if (position || position === 0) {
                         positions.set(position, row);
@@ -45,4 +45,4 @@ export function sortFactory(model) {
 
         return result;
     };
-}``
+}

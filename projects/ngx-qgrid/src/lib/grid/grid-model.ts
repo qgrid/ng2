@@ -1,2 +1,8 @@
-export { Model as GridModel } from '@qgrid/core/infrastructure/model';
-export { ModelEventArg as GridEventArg } from '@qgrid/core/infrastructure/model';
+export {
+	Model as GridModel,
+} from '@qgrid/core/model/model';
+
+export {
+	ModelEventArg as GridEventArg,
+	ModelEvent as GridEvent
+} from '@qgrid/core/model/model.event';

@@ -13,12 +13,15 @@ import { Column, BoolColumn, Grid, PipeContext, GridComponent } from 'ng2-qgrid'
 export class ExampleEditRowBasicComponent implements OnInit {
 	static id = 'edit-row-basic';
 
-	rows: Observable<Human[]>;
-	columns: Array<Column | BoolColumn>;
 	@ViewChild(GridComponent, { static: true }) myGrid: GridComponent;
 
-	constructor(private dataService: DataService, private qgrid: Grid) {
-		this.rows = dataService.getPeople();
+	rows$: Observable<Human[]> = this.dataService.getPeople();
+	columns: Array<Column | BoolColumn>;
+
+	constructor(
+		private dataService: DataService,
+		private qgrid: Grid
+	) {
 	}
 
 	ngOnInit() {
@@ -63,7 +66,6 @@ export class ExampleEditRowBasicComponent implements OnInit {
 				type: 'reference',
 				value: (item, value) => isUndef(value) ? item.teammates || [] : item.teammates = value,
 				label: (item) => {
-					const { rows } = this.qgrid.model().data();
 					return (item.teammates || [])
 						.map(x => `${x.name.last} ${x.name.first}`)
 						.join(', ');
@@ -76,9 +78,7 @@ export class ExampleEditRowBasicComponent implements OnInit {
 							.selection({
 								mode: 'multiple',
 								unit: 'row',
-								key: {
-									row: x => rows.findIndex(r => r.name.last === x.name.last && r.name.first === x.name.first)
-								}
+								rowKey: x => rows.findIndex(r => r.name.last === x.name.last && r.name.first === x.name.first)
 							})
 							.columnList({
 								generation: 'deep'
@@ -88,7 +88,7 @@ export class ExampleEditRowBasicComponent implements OnInit {
 									(_: any[], context: PipeContext, next: (rows: any[]) => void) => {
 										this.dataService.getPeople(10).subscribe(people => next(people));
 									}
-								].concat(this.qgrid.pipeUnit.default)
+								].concat(this.qgrid.pipeUnit.default as any[])
 							});
 
 						return model;

@@ -1,4 +1,4 @@
-import { ModelBuilder } from '../infrastructure/model.builder';
+import { ModelBuilder } from '../model/model.builder';
 
 const builder = new ModelBuilder();
 export function modelFactory() {

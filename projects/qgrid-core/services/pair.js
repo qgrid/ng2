@@ -1,9 +1,9 @@
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 
 export function key(pair) {
 	const key = Object.keys(pair)[0];
 	if (!key) {
-		throw new AppError(
+		throw new GridError(
 			'pair',
 			`Key is not defined in "${pair}"`);
 	}

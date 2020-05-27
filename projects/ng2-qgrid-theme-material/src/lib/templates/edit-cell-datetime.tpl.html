@@ -1,0 +1,41 @@
+<ng-template key="edit-cell-datetime.tpl.html"
+			 let-$cell
+			 let-$view="$view">
+	<q-grid-cell-editor class="q-grid-editor q-grid-position q-grid-text q-grid-datetime"
+						(close)="$view.edit.cell.exit.execute($cell)"
+						q-grid-position="td">
+
+		<q-grid-tab-trap>
+			<mat-form-field *q-grid-date="let qGridDate"
+							class="q-grid-datetime-date"
+							[ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(input.value)}">
+				<input q-grid-focus
+					   matInput
+					   #input
+					   [matDatepicker]="picker"
+					   [ngModel]="$view.edit.cell.value | qGridConvert: 'date'"
+					   (ngModelChange)="qGridDate.isValid(input.value) && ($view.edit.cell.value = qGridDate.date($view.edit.cell.value, $event))" />
+				<mat-datepicker-toggle matSuffix
+									   [for]="picker">
+				</mat-datepicker-toggle>
+				<mat-datepicker #picker>
+				</mat-datepicker>
+			</mat-form-field>
+
+			<mat-form-field *q-grid-time="let qGridTime"
+							class="q-grid-datetime-time">
+				<input matInput
+					   type="time"
+					   #input
+					   [value]="$view.edit.cell.value | qGridTime: 'hh:mm'"
+					   (change)="$view.edit.cell.value = qGridTime.time($view.edit.cell.value, input.value)" />
+			</mat-form-field>
+		</q-grid-tab-trap>
+
+		<q-grid-validator class="q-grid-validator"
+						  [key]="$cell.column.key"
+						  [type]="$cell.column.type"
+						  [value]="$view.edit.cell.value">
+		</q-grid-validator>
+	</q-grid-cell-editor>
+</ng-template>

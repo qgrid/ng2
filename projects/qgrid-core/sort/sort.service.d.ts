@@ -1,4 +1,4 @@
-import { Model } from '../infrastructure/model';
+import { Model } from '../model/model';
 
 export declare const key: (pair: any) => string;
 export declare const index: (pairs: any[], pairKey: string) => number;

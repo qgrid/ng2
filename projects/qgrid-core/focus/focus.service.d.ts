@@ -1,6 +1,5 @@
-import { Model } from '../infrastructure/model';
-import { Table } from '../dom/table';
-import { Disposable } from '../infrastructure/disposable';
+import { Model } from '../model/model';
+import { GridPlugin } from '../plugin/grid.plugin';
 
 export declare class FocusService {
     constructor(model: Model);
@@ -9,5 +8,5 @@ export declare class FocusService {
 }
 
 export declare class FocusAfterRenderService {
-    constructor(model: Model, table: Table, disposable: Disposable);
+    constructor(plugin: GridPlugin);
 }

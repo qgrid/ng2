@@ -1,7 +1,7 @@
 import { EventEmitter } from '@angular/core';
 import { isNumber, isFunction } from '@qgrid/core/utility/kit';
 import { IVscrollSettings } from './vscroll.settings';
-import { AppError } from '@qgrid/core/infrastructure/error';
+import { GridError } from '@qgrid/core/infrastructure/error';
 
 export const rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
 
@@ -131,5 +131,5 @@ export function sizeFactory(
 		return () => size as number;
 	}
 
-	throw new AppError('vscroll.utility', `Invalid size ${size}`);
+	throw new GridError('vscroll.utility', `Invalid size ${size}`);
 }

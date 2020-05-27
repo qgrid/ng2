@@ -2,7 +2,8 @@ import { getFactory as valueFactory } from '../../services/value';
 import { getFactory as labelFactory } from '../../services/label';
 
 export class CacheStrategy {
-    constructor(model, strategy) {
+    constructor(plugin, strategy) {
+        const { model, observeReply } = plugin;
         let storage = new Map();
 
         const defaultGetValue =
@@ -93,7 +94,7 @@ export class CacheStrategy {
         this.setValue = (...args) => strategy.setValue(...args);
         this.setLabel = (...args) => strategy.setLabel(...args);
 
-        this.columnList = (pin = null) => {
+        this.columnList = (pin = 'mid') => {
             const key = `columnList-${pin}`;
             if (storage.has(key)) {
                 return storage.get(key);
@@ -104,26 +105,28 @@ export class CacheStrategy {
             return value;
         }
 
-        model.sceneChanged.watch(e => {
-            if (e.hasChanges('status')) {
-                if (e.state.status !== 'stop') {
+        observeReply(model.sceneChanged)
+            .subscribe(e => {
+                if (e.hasChanges('status')) {
+                    if (e.state.status !== 'stop') {
+                        storage = new Map();
+                    }
+                }
+            });
+
+        observeReply(model.gridChanged)
+            .subscribe(e => {
+                if (e.hasChanges('isReadonly')) {
                     storage = new Map();
-                }
-            }
-        });
 
-        model.gridChanged.watch(e => {
-            if (e.hasChanges('isReadonly')) {
-                storage = new Map();
-
-                if (e.state.isReadonly) {
-                    this.getValue = readonlyGetValue;
-                    this.getLabel = readonlyGetLabel;
-                } else {
-                    this.getValue = getValue;
-                    this.getLabel = this.getLabel;
+                    if (e.state.isReadonly) {
+                        this.getValue = readonlyGetValue;
+                        this.getLabel = readonlyGetLabel;
+                    } else {
+                        this.getValue = getValue;
+                        this.getLabel = this.getLabel;
+                    }
                 }
-            }
-        });
+            });
     }
 }

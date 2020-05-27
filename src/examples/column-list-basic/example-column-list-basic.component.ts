@@ -12,10 +12,8 @@ import { Observable } from 'rxjs';
 export class ExampleColumnListBasicComponent {
 	static id = 'column-list-basic';
 
-	rows: Observable<Human[]>;
 	group = '';
+	rows$: Observable<Human[]> = this.dataService.getPeople();
 
-	constructor(dataService: DataService) {
-		this.rows = dataService.getPeople();
-	}
+	constructor(private dataService: DataService) {}
 }

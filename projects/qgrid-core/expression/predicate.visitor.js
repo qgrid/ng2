@@ -1,4 +1,4 @@
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { parseFactory, getType } from '../services/convert';
 import { Visitor } from './expression.visitor';
 import { isArray, identity } from '../utility/kit';
@@ -23,7 +23,7 @@ export class PredicateVisitor extends Visitor {
 					return value => lp(value) || rp(value);
 
 				default:
-					throw AppError(
+					throw GridError(
 						'predicate.visitor',
 						`Invalid operation ${group.op}`
 					);
@@ -53,8 +53,8 @@ export class PredicateVisitor extends Visitor {
 
 		const { equals, isNull, lessThan } = assert;
 		const lessThanOrEquals = (x, y) => equals(x, y) || lessThan(x, y);
-		const greaterThan = (x, y) => !lessThanOrEquals(x, y);
-		const greaterThanOrEquals = (x, y) => !lessThan(x, y);
+		const greaterThan = (x, y) => !equals(x, y) && !lessThan(x, y);
+		const greaterThanOrEquals = (x, y) => equals(x, y) || !lessThan(x, y);
 
 		let predicate;
 		switch (condition.op) {
@@ -109,7 +109,7 @@ export class PredicateVisitor extends Visitor {
 				};
 				break;
 			default:
-				throw new AppError(
+				throw new GridError(
 					'predicate.visitor',
 					`Invalid operation ${condition.op}`
 				);

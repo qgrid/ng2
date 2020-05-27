@@ -1,6 +1,6 @@
 import * as css from '../services/css';
 
-class Entry {
+export class StyleEntry {
 	constructor(element, sheets, markDirty) {
 		this.element = element;
 		this.list = new Set();
@@ -21,7 +21,7 @@ class Entry {
 	}
 }
 
-export class Monitor {
+export class StyleMonitor {
 	constructor(model) {
 		this.model = model;
 		this.entries = new Set();
@@ -42,7 +42,7 @@ export class Monitor {
 		const markDirty = entry => entries.add(entry);
 
 		return element => {
-			const entry = new Entry(element, newSheets, markDirty);
+			const entry = new StyleEntry(element, newSheets, markDirty);
 			return entry.class.bind(entry);
 		};
 	}

@@ -76,7 +76,7 @@ export class ShortcutDispatcher {
 		return activities.reduce((memo, activity) => {
 			const commands = activity.commands;
 			const manager = activity.manager;
-			const result = manager.invoke(commands, source) || result;
+			const result = manager.invoke(commands, null, source) || result;
 			if (result) {
 				memo.push(...commands.map(cmd => cmd.source));
 			}

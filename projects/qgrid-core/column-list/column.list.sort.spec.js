@@ -17,10 +17,10 @@ describe('sortIndexFactory', function () {
 		rightPinColumn2.pin = 'left';
 		rightPinColumn2.key = 2;
 		let centerPinColumn1 = new ColumnModel();
-		centerPinColumn1.pin = null;
+		centerPinColumn1.pin = 'mid';
 		centerPinColumn1.key = 6;
 		let centerPinColumn2 = new ColumnModel();
-		centerPinColumn2.pin = null;
+		centerPinColumn2.pin = 'mid';
 		centerPinColumn2.key = 3;
 
 		let column1 = new ColumnModel();

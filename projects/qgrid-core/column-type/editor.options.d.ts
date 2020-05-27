@@ -1,4 +1,4 @@
-import { Model } from '../infrastructure/model';
+import { Model } from '../model/model';
 import { Action } from '../action/action';
 import { ColumnModel } from '../column-type/column.model';
 import { Command } from '../command/command';

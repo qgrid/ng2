@@ -1,19 +1,19 @@
-import { View } from './view';
-import { Data } from './data';
 import { assignWith, identity } from '../utility/kit';
-import { FakeLayer } from './fake/layer';
-import { Head } from './head';
-import { Body, VirtualBody } from './body';
-import { Foot } from './foot';
 import { Bag } from './bag';
+import { Body, VirtualBody } from './body';
+import { Data } from './data';
+import { FakeLayer } from './fake/layer';
+import { Foot } from './foot';
+import { Head } from './head';
+import { Lazy } from '../infrastructure/lazy';
+import { View } from './view';
 
 export class Table {
-	constructor(model, markup, context = {}) {
+	constructor(model, box) {
 		this.model = model;
-		this.markup = markup;
 
 		const { scroll } = model;
-		this.context = assignWith({
+		const defaults = {
 			mapper: {
 				rowToView: index => scroll().map.rowToView(index),
 				viewToRow: index => scroll().map.viewToRow(index),
@@ -25,52 +25,53 @@ export class Table {
 				head: new Bag(),
 				body: new Bag(),
 				foot: new Bag()
-			}
-		}, context);
+			},
+			markup: {}
+		};
 
-		this.head = this.headCore();
-		this.body = this.bodyCore();
-		this.foot = this.footCore();
+		this.box = assignWith(defaults, box);
+
+		this._data = new Lazy(() => new Data(model));
+		this._view = new Lazy(() => new View(box, model));
+		this._head = new Lazy(() => new Head(this.boxContext('head'), model));
+		this._foot = new Lazy(() => new Foot(this.boxContext('foot'), model));
+		this._body = new Lazy(() => {
+			const context = this.boxContext('body');
+			return scroll().mode === 'virtual'
+				? new VirtualBody(context, model)
+				: new Body(context, model)
+		});
+	}
+
+	invalidate() {
+		this.head.selector = this.head.selectFactory.create();
+		this.body.selector = this.body.selectFactory.create();
+		this.foot.selector = this.foot.selectFactory.create();
 	}
 
 	get view() {
-		if (this._view) {
-			return this._view;
-		}
-
-		return this._view = new View(this.context, this.model, this.markup);
+		return this._view.instance;
 	}
 
 	get data() {
-		if (this._data) {
-			return this._data;
-		}
-
-		return this._data = new Data(this.model);
+		return this._data.instance;
 	}
 
-	headCore() {
-		const context = this.box('head');
-		return new Head(context, this.model, this.markup);
+	get head() {
+		return this._head.instance;
 	}
 
-	bodyCore() {
-		const context = this.box('body');
-		if (this.model.scroll().mode === 'virtual') {
-			return new VirtualBody(context, this.model, this.markup);
-		}
-
-		return new Body(context, this.model, this.markup);
+	get body() {
+		return this._body.instance;
 	}
 
-	footCore() {
-		const context = this.box('foot');
-		return new Foot(context, this.model, this.markup);
+	get foot() {
+		return this._foot.instance;
 	}
 
-	box(source) {
+	boxContext(source) {
 		const { view, data } = this;
-		const { mapper, layer, bag } = this.context;
+		const { mapper, layer, bag, markup } = this.box;
 
 		switch (source) {
 			case 'body': {
@@ -79,7 +80,8 @@ export class Table {
 					layer,
 					bag: bag[source],
 					view,
-					data
+					data,
+					markup
 				};
 			}
 			default: {
@@ -93,7 +95,8 @@ export class Table {
 					layer,
 					bag: bag[source],
 					view,
-					data
+					data,
+					markup
 				};
 			}
 		}

@@ -4,7 +4,7 @@ import { getType, resolveType } from '../services/convert';
 import { TextColumnModel } from '../column-type/text.column';
 import { assignWith, isUndefined, noop, startCase } from '../utility/kit';
 import { columnFactory } from '../column/column.factory';
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 
 function merge(left, right, force = false) {
 	let canAssign;
@@ -30,7 +30,7 @@ function hasChanges(statistics) {
 }
 
 export function generateFactory(model) {
-	const data = model.data;
+	const { data } = model;
 	const createColumn = columnFactory(model);
 	return () => {
 		const { rows } = data();
@@ -60,7 +60,7 @@ export function generateFactory(model) {
 					break;
 				}
 				default:
-					throw new AppError(
+					throw new GridError(
 						'column.list.generate',
 						`Invalid generation mode "${generation}"`
 					);
@@ -135,6 +135,10 @@ function build(graph, pathParts, columnFactory, deep, cohort, title, testRows) {
 					switch (column.itemType) {
 						case 'date': {
 							column.itemFormat = columnFactory('date').model.format;
+							break;
+						}
+						case 'datetime': {
+							column.itemFormat = columnFactory('datetime').model.format;
 							break;
 						}
 					}

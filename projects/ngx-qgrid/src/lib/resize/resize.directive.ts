@@ -9,25 +9,26 @@ import {
 	NgZone
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { EventListener } from '@qgrid/core/infrastructure/event.listener';
-import { EventManager } from '@qgrid/core/infrastructure/event.manager';
-import { GRID_PREFIX } from '@qgrid/core/definition';
 import { clone } from '@qgrid/core/utility/kit';
+import { EventListener } from '@qgrid/core/event/event.listener';
+import { EventManager } from '@qgrid/core/event/event.manager';
+import { GRID_PREFIX } from '@qgrid/core/definition';
 import { GridModel } from '../grid/grid-model';
-import { GridRoot } from '../grid/grid-root';
-import { Disposable } from '../infrastructure/disposable';
+import { GridPlugin } from '../plugin/grid-plugin';
+import { Grid } from '../grid/grid';
 
 @Directive({
-	selector: '[q-grid-resize]',
-	providers: [Disposable]
+	selector: '[q-grid-resize]'
 })
 export class ResizeDirective implements OnInit, OnDestroy {
 	private element: HTMLElement;
 	private divider: HTMLElement;
+
 	private listener: {
 		divider: EventListener,
 		document: EventListener
 	};
+
 	private context = {
 		x: 0,
 		y: 0,
@@ -38,12 +39,14 @@ export class ResizeDirective implements OnInit, OnDestroy {
 	@Input('q-grid-resize') key;
 	@Input('q-grid-resize-path') path;
 	@Input('q-grid-can-resize') canResize;
+	@Input('q-grid-resize-selector') selector;
 
 	constructor(
-		@Optional() private root: GridRoot,
-		elementRef: ElementRef,
+		private zone: NgZone,
+		@Optional() private plugin: GridPlugin,
+		private qgrid: Grid,
 		@Inject(DOCUMENT) document: any,
-		private zone: NgZone
+		elementRef: ElementRef,
 	) {
 		this.element = elementRef.nativeElement;
 		this.divider = document.createElement('div');
@@ -82,8 +85,10 @@ export class ResizeDirective implements OnInit, OnDestroy {
 		e.preventDefault();
 
 		const context = this.context;
-		context.width = this.element.clientWidth;
-		context.height = this.element.clientHeight;
+
+		const host = this.select();
+		context.width = host.clientWidth;
+		context.height = host.clientHeight;
 		context.x = e.screenX;
 		context.y = e.screenY;
 
@@ -97,16 +102,17 @@ export class ResizeDirective implements OnInit, OnDestroy {
 	}
 
 	drag(e: MouseEvent) {
+		const { context, path, key } = this;
 		const { layout } = this.model;
-		const context = this.context;
-		const state = clone(layout()[this.path]);
 
-		state.set(this.key, {
+		const state = clone(layout()[path]);
+
+		state.set(key, {
 			width: context.width + e.screenX - context.x,
 			height: context.height + e.screenY - context.y
 		});
 
-		layout({ [this.path]: state });
+		layout({ [path]: state });
 	}
 
 	dragEnd() {
@@ -116,7 +122,15 @@ export class ResizeDirective implements OnInit, OnDestroy {
 		model.drag({ isActive: false });
 	}
 
+	private select(): HTMLElement {
+		if (this.selector === 'parent') {
+			return this.element.parentElement;
+		}
+
+		return this.element;
+	}
+
 	private get model(): GridModel {
-		return this.root.model;
+		return this.plugin.model;
 	}
 }

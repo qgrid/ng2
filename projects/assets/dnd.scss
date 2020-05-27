@@ -4,10 +4,34 @@
 }
 
 &.q-grid-box {
+    &.q-grid-drag {
+
+        tbody,
+        thead {
+
+            tr,
+            td,
+            th {
+                transition: none !important;
+                background-color: inherit !important;
+                outline: none !important;
+            }
+
+            th {
+
+                .q-grid-icon,
+                .q-grid-resize-handler {
+                    visibility: hidden;
+                }
+            }
+        }
+    }
+
     .q-grid-row-indicator {
         .q-grid-can-drag {
             cursor: move;
             opacity: 0.4;
+
             .q-grid-icon {
                 @include iconSizes(16px);
                 vertical-align: middle

@@ -1,5 +1,5 @@
 import { binarySearch } from '../../utility/kit';
-import { AppError } from '../../infrastructure/error';
+import { GridError } from '../../infrastructure/error';
 
 export class Matrix {
     constructor(isDataRow) {
@@ -58,7 +58,7 @@ export class Matrix {
             const width = matrix[0].length;
             for (let i = 1; i < height; i++) {
                 if (matrix[i].length !== width) {
-                    throw new AppError(
+                    throw new GridError(
                         'matrix',
                         `Matrix is not flat, expect width ${width}, actual ${matrix[i].length}`);
                 }

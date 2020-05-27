@@ -1,96 +1,116 @@
 .q-grid-view thead tr {
-  height: 24px;
-  background-color: $excel-greyscale-light;
-  border-spacing: 0;
-  border-collapse: collapse;
-  th {
-    border-left: 1px solid $excel-greyscale-lightdark;
-    label {
-      color: $black;
-      font-weight: normal;
+    height: 24px;
+    background-color: $excel-greyscale-light;
+    border-spacing: 0;
+    border-collapse: collapse;
+
+    th {
+        border-left: 1px solid $excel-greyscale-lightdark;
+
+        label {
+            color: $black;
+            font-weight: normal;
+        }
+
+        &.q-grid-highlighted {
+            background-color: $excel-greenscale-medium;
+        }
+
+        &.q-grid-sorted {
+            background-color: $excel-greenscale-light;
+        }
+
+        .q-grid-divider {
+            display: none;
+        }
+
+        &.focused-row-header {
+            background-color: $excel-greyscale-lightdark;
+            border-bottom: 1px solid $excel-greenscale-dark;
+
+            label {
+                color: $excel-greenscale-dark;
+            }
+        }
     }
-    &.q-grid-highlighted {
-      background-color: $excel-greenscale-medium;
-    }
-    &.q-grid-sorted {
-      background-color: $excel-greenscale-light;
-    }
-    .q-grid-divider {
-      display: none;
-    }
-    &.focused-row-header {
-      background-color: $excel-greyscale-lightdark;
-      border-bottom: 1px solid $excel-greenscale-dark;
-      label {
-        color: $excel-greenscale-dark;
-      }
-    }
-  }
 }
 
 .q-grid-table tbody {
-  border-collapse: collapse;
-  border-spacing: 0;
-  tr:first-child td.q-grid-focus:first-child {
-    border-left-width: 1px;
-    border-top-width: 1px;
-  }
-  tr td {
-    color: $black;
-    border: 1px solid $excel-greyscale-medium;
-    line-height: 21px;
-    padding: 0 4px 0 4px;
-    background-color: $white;
-    vertical-align: top;
-    overflow: hidden;
-    outline-width: 0;
     border-collapse: collapse;
     border-spacing: 0;
-    &:not(.q-grid-row-number) {
-      cursor: cell;
+
+    tr:first-child td.q-grid-focus:first-child {
+        border-left-width: 1px;
+        border-top-width: 1px;
     }
-    &.q-grid-array ul {
-      display: inline-block;
-      vertical-align: middle;
+
+    tr td {
+        color: $black;
+        border: 1px solid $excel-greyscale-medium;
+        line-height: 21px;
+        padding: 0 4px 0 4px;
+        background-color: $white;
+        vertical-align: top;
+        overflow: hidden;
+        outline-width: 0;
+        border-collapse: collapse;
+        border-spacing: 0;
+
+        &:not(.q-grid-row-number) {
+            cursor: cell;
+        }
+
+        &.q-grid-array ul {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        &.q-grid-array ul li {
+            display: block;
+            min-width: 0;
+            text-align: left;
+            padding: 0;
+            vertical-align: middle;
+            background-color: transparent;
+            border-radius: 0;
+            margin-right: 0;
+
+            &::after {
+                content: ',';
+                white-space: pre;
+            }
+
+            &:last-child::after {
+                content: '';
+            }
+        }
+
+        &.q-grid-focus {
+            background-color: $white !important;
+            border: 2px solid $excel-greenscale-dark;
+        }
+
+        &.q-grid-focus.q-grid-edit input {
+            border: none;
+        }
+
+        &.q-grid-selected {
+            background-color: $white !important;
+        }
+
+        &.q-grid-row-number {
+            background-color: $excel-greyscale-light;
+        }
+
+        &.q-grid-sorted {
+            background-color: $excel-greyscale-dark;
+            border-left: 2px solid $excel-greenscale-dark;
+            border-right: 2px solid $excel-greenscale-dark;
+        }
+
+        &.focused-row-header {
+            background-color: $excel-greyscale-lightdark;
+            border-right: 2px solid $excel-greenscale-dark;
+        }
     }
-    &.q-grid-array ul li {
-      display: block;
-      min-width: 0;
-      text-align: left;
-      padding: 0;
-      vertical-align: middle;
-      background-color: transparent;
-      border-radius: 0;
-      margin-right: 0;
-      &::after {
-        content: ',';
-        white-space: pre;
-      }
-      &:last-child::after {
-        content: '';
-      }
-    }
-    &.q-grid-focus {
-      background-color: $white !important;
-      border: 2px solid $excel-greenscale-dark;
-    }
-    &.q-grid-focus.q-grid-edit input {
-      border: none;
-    }
-    &.q-grid-selected {
-      background-color: $white !important;
-    }
-    &.q-grid-row-number {
-      background-color: $excel-greyscale-light;
-    }
-    &.q-grid-sorted {
-      background-color: $excel-greyscale-dark;
-      border-left: 2px solid $excel-greenscale-dark;
-      border-right: 2px solid $excel-greenscale-dark;
-    }
-    &.focused-row-header {
-      background-color: $excel-greyscale-lightdark;
-      border-right: 2px solid $excel-greenscale-dark;
-    }
-  }
 }

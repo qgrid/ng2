@@ -4,13 +4,13 @@ import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
 	selector: '[q-grid-time]'
 })
 export class TimeDirective {
-	constructor(templateRef: TemplateRef<TimeDirective>, viewContainerRef: ViewContainerRef) {
-		viewContainerRef.createEmbeddedView(templateRef, this);
+	constructor(templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef) {
+		viewContainerRef.createEmbeddedView(templateRef, { $implicit: this });
 	}
 
 	time(previous, current) {
-		const date = new Date(typeof current === 'string' ? Date.now() : previous);
-		const [hours, minutes, seconds] = current.split(':');
+		const date = new Date(previous);
+		const [hours, minutes, seconds, ms] = current.split(':');
 
 		if (hours && minutes) {
 			date.setHours(+hours);
@@ -20,7 +20,11 @@ export class TimeDirective {
 				date.setSeconds(+seconds);
 			}
 
-			return date;
+			if (ms) {
+				date.setMilliseconds(+ms);
+			}
 		}
+
+		return date;
 	}
 }

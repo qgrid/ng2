@@ -1,16 +1,22 @@
 @at-root {
-	.q-grid-menu {
-		.mat-menu-content {
+
+    .q-grid-menu,
+    .q-grid-pane {
+        .mat-menu-content:not(:empty) {
 			padding: 0;
-		}
-		.mat-card-header-text {
-			margin: 0;
-		}
-		.mat-card-actions {
-			text-align: right;
-			>button {
-				text-transform: uppercase;
-			}
-		}
-	}
+			height: 100%;
+        }
+
+        .mat-card-header-text {
+            margin: 0;
+        }
+
+        .mat-card-actions {
+            text-align: right;
+
+            >button {
+                text-transform: uppercase;
+            }
+        }
+    }
 }

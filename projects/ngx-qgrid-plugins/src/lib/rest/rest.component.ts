@@ -1,26 +1,34 @@
-import { Component, Input, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { GridPlugin, StateAccessor } from '@qgrid/ngx';
 import { RestPlugin } from '@qgrid/plugins/rest/rest.plugin';
-import { GridPlugin } from '@qgrid/ngx';
+import { RestState } from '@qgrid/core/rest/rest.state';
 
 @Component({
 	selector: 'q-grid-rest',
 	template: '',
-	providers: [GridPlugin],
+	providers: [GridPlugin, StateAccessor],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RestComponent implements OnInit, OnChanges {
-	@Input('url') restUrl: string;
-	@Input('method') restMethod: string;
-	@Input('serialize') restSerialize: (x: any) => any;
+	private restState = this.stateAccessor.setter(RestState);
+
+	@Input('url') set restUrl(url: string) { this.restState({ url }); }
+	@Input('method') set restMethod(method: string) { this.restState({ method }); }
+	@Input('serialize') set restSerialize(serialize: (x: any) => any) { this.restState({ serialize }); }
 
 	context: { $implicit: RestPlugin };
 
-	constructor(private http: HttpClient, private plugin: GridPlugin) {
+	constructor(
+		private http: HttpClient,
+		private plugin: GridPlugin,
+		private stateAccessor: StateAccessor
+	) {
 	}
 
-	ngOnChanges(changes: SimpleChanges) {
-		this.plugin.keep(changes, ['rest']);
+	ngOnChanges() {
+		const { model } = this.plugin;
+		this.stateAccessor.write(model);
 	}
 
 	ngOnInit() {

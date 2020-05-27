@@ -1,12 +1,12 @@
 import { Command } from '@qgrid/core/command/command';
 import { Aggregation } from '@qgrid/core/services/aggregation';
 import { isFunction, identity } from '@qgrid/core/utility/kit';
-import { Event } from '@qgrid/core/infrastructure/event';
+import { Event } from '@qgrid/core/event/event';
 import { preOrderDFS, copy, find, filter } from '@qgrid/core/node/node.service';
 
 export class ColumnChooserPlugin {
-	constructor(model, context) {
-		this.model = model;
+	constructor(plugin, context) {
+		this.plugin = plugin;
 
 		this.context = context;
 
@@ -15,7 +15,8 @@ export class ColumnChooserPlugin {
 		this.dropEvent = new Event();
 
 		const setup = () => {
-			const { index } = model.columnList();
+			const { model: gridModel } = this.plugin;
+			const { index } = gridModel.columnList();
 
 			this.tree = preOrderDFS([index], (node, current, parent) => {
 				const { model } = node.key;
@@ -32,7 +33,7 @@ export class ColumnChooserPlugin {
 					const newNode = copy(node);
 					newNode.value = {
 						column,
-						isVisible: model.class === 'data' || model.class === 'cohort',
+						isVisible: model.category === 'data' || model.category === 'cohort',
 					};
 
 					current.children.push(newNode);
@@ -163,8 +164,6 @@ export class ColumnChooserPlugin {
 		this.submit = new Command({
 			source: 'column.chooser',
 			execute: () => {
-				const { model } = this;
-
 				const index = preOrderDFS([this.tree], (node, current, parent) => {
 					if (parent) {
 						const newNode = copy(node);
@@ -185,7 +184,8 @@ export class ColumnChooserPlugin {
 					return current;
 				}, copy(this.tree));
 
-				model.columnList({ index }, {
+				const { model: gridModel } = this.plugin;
+				gridModel.columnList({ index }, {
 					source: 'column.chooser.view'
 				});
 
@@ -207,25 +207,28 @@ export class ColumnChooserPlugin {
 			.getOwnPropertyNames(Aggregation)
 			.filter(key => isFunction(Aggregation[key]));
 
-		model.dataChanged.on(e => {
-			if (e.tag.source === 'column.chooser') {
-				return;
-			}
+		const { model: gridModel, observe } = this.plugin;
+		observe(gridModel.dataChanged)
+			.subscribe(e => {
+				if (e.tag.source === 'column.chooser') {
+					return;
+				}
 
-			if (e.hasChanges('columns')) {
-				setup();
-			}
-		});
+				if (e.hasChanges('columns')) {
+					setup();
+				}
+			});
 
-		model.columnListChanged.on(e => {
-			if (e.tag.source === 'column.chooser') {
-				return;
-			}
+		observe(gridModel.columnListChanged)
+			.subscribe(e => {
+				if (e.tag.source === 'column.chooser') {
+					return;
+				}
 
-			if (e.hasChanges('index')) {
-				setup();
-			}
-		});
+				if (e.hasChanges('index')) {
+					setup();
+				}
+			});
 	}
 
 	state(node) {
@@ -255,6 +258,6 @@ export class ColumnChooserPlugin {
 	}
 
 	get resource() {
-		return this.model.columnChooser().resource;
+		return this.plugin.model.columnChooser().resource;
 	}
 }

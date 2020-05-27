@@ -29,6 +29,5 @@ export class ExampleColumnColumnVisibilityBasicComponent {
 
 		model.columnList({ columns });
 		model.data({ columns });
-
 	}
 }

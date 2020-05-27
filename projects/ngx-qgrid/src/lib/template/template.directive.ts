@@ -39,8 +39,7 @@ export class TemplateDirective implements DoCheck, OnChanges {
 		if (!this.viewRef) {
 			const link = this.templateService.find(this.key);
 			if (link) {
-				const createView = this.templateService.viewFactory(this.context);
-				this.viewRef = createView(link, this.viewContainerRef);
+				this.viewRef = this.viewContainerRef.createEmbeddedView(link.template, this.context);
 			}
 		}
 	}

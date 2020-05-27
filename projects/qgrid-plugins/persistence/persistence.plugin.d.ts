@@ -1,5 +1,6 @@
-import { Model } from '@qgrid/core/infrastructure/model';
-import { Event } from '@qgrid/core/infrastructure/event';
+import { Model } from '@qgrid/core/model/model';
+import { Event } from '@qgrid/core/event/event';
+import { GridPlugin } from '@qgrid/core/plugin/grid.plugin';
 
 export interface PersistenceItem {
 	title?: string;
@@ -18,7 +19,7 @@ export interface PersistenceGroup {
 }
 
 export declare class PersistencePlugin {
-	constructor(model: Model, createDefaultModel: () => Model);
+	constructor(plugin: GridPlugin, createDefaultModel: () => Model);
 
 	groups: PersistenceGroup[];
 	items: PersistenceItem[];

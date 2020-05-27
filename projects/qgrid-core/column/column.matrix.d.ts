@@ -1,6 +1,5 @@
-import { ColumnModel } from '../column-type/column.model';
-import { ColumnView } from '../scene/view/column.view';
+import { SceneStateColumnRows, SceneStateColumnLine } from '../scene/scene.state';
 
-export declare function flatten(node: Node): ColumnView[][];
-export declare function collapse(rows: ColumnView[][]): ColumnView[];
-export declare function expand(rows: ColumnView[][]): ColumnView[][];
+export declare function flatten(node: Node): SceneStateColumnRows;
+export declare function collapse(rows: SceneStateColumnRows): SceneStateColumnLine;
+export declare function expand(rows: SceneStateColumnRows): SceneStateColumnRows;

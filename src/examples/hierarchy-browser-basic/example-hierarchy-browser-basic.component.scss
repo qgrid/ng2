@@ -1,17 +1,16 @@
-.q-grid-icon {
-	color: #757575;
-	opacity: 1 !important;
-}
+:host {
+    ::ng-deep {
+        td.q-grid-group {
+            button {
+                &:disabled {
+                    display: inline-block !important;
+                }
 
-.q-grid-group-box {
-	display: flex;
-}
-
-.q-grid-group-description {
-	margin-top: 6px;
-}
-
-button {
-	margin-left: 1px !important;
-
+                .q-grid-icon {
+                    transform: none !important;
+                    padding-right: 10px;
+                }
+            }
+        }
+    }
 }

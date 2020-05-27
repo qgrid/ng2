@@ -1,6 +1,6 @@
-import { Model } from '../infrastructure/model';
+import { Model } from '../model/model';
 
-export declare class Entry {
+export declare class StyleEntry {
 	constructor(element: HTMLElement, sheets: Map<any, any>);
 	element: HTMLElement;
 	sheets: Map<any, any>;
@@ -8,10 +8,10 @@ export declare class Entry {
 	class(key: string, style: string): void;
 }
 
-export declare class Monitor {
+export declare class StyleMonitor {
 	constructor(model: Model);
 
-	entries: Entry[];
+	entries: StyleEntry[];
 	newSheets: Map<any, any>;
 	oldSheets: Map<any, any>;
 

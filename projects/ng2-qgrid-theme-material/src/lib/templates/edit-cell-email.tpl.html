@@ -5,8 +5,7 @@
 						(close)="$view.edit.cell.exit.execute($cell)"
 						q-grid-position="td">
 		<q-grid-tab-trap>
-			<div class="layout-column q-grid-email-fields"
-				 flex>
+			<div class="q-grid-flex q-grid-layout-column q-grid-email-fields">
 				<mat-form-field *ngIf="$cell.column.label !== null">
 					<input matInput
 						   type="text"

@@ -12,16 +12,14 @@ import { Grid, GridModel, Command, Node } from 'ng2-qgrid';
 export class ExampleHierarchyBrowserBasicComponent {
 	static id = 'hierarchy-browser-basic';
 
-	gridModel: GridModel;
+	gridModel: GridModel = this.qgrid.model();
 
-	constructor(qgrid: Grid) {
-		this.gridModel = qgrid.model();
-
+	constructor(private qgrid: Grid) {
+		const gridService = qgrid.service(this.gridModel);
 		const root = new Node('$root', 0);
 		(root as any).isVisited = false;
 
 		const tree = [root];
-		const service = qgrid.service(this.gridModel);
 		const treePipe = (memo, context, next) => {
 			memo.nodes = tree;
 			next(memo);
@@ -56,7 +54,7 @@ export class ExampleHierarchyBrowserBasicComponent {
 								return child;
 							});
 
-							service.invalidate();
+							gridService.invalidate();
 						}, 500);
 					}
 				})
@@ -65,11 +63,7 @@ export class ExampleHierarchyBrowserBasicComponent {
 				mode: 'multiple',
 				unit: 'row',
 				area: 'custom',
-				key: {
-					row: function row(node) {
-						return node.key;
-					}
-				}
+				rowKey: node => node.key
 			});
 	}
 }

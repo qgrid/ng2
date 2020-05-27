@@ -59,6 +59,10 @@ function fixProjectPaths(content, relativePath, fileName) {
     .replace(/from\s+'@qgrid/g, () => {
       console.log(`import.fix: replaced with '${relativePath}/@qgrid'"`);
       return `from '${relativePath}/@qgrid`;
+    })
+    .replace(/from\s+"@qgrid/g, () => {
+      console.log(`import.fix: replaced with '${relativePath}/@qgrid'"`);
+      return `from "${relativePath}/@qgrid`;
     });
 }
 

@@ -1,10 +1,12 @@
-import { ColumnView } from './view/column.view';
+import { Model } from '../model/model';
+import { PipeFolder } from '../pipe/pipe.types';
+import { SceneStateColumnRows, SceneStateColumnLine, SceneStateColumnArea } from './scene.state';
 
 export declare class Scene {
-	constructor(context: any);
+	constructor(model: Model);
 
-	rows(memo: any): any[];
-	columnRows(items: ColumnView[][]): ColumnView[][];
-	columnLine(items: ColumnView[][]): ColumnView[];
-	columnArea(items: ColumnView[][]): { left: ColumnView[], right: ColumnView[], null: ColumnView[] };
+	rows(memo: PipeFolder): any[];
+	columnRows(items: SceneStateColumnRows): SceneStateColumnRows;
+	columnLine(items: SceneStateColumnRows): SceneStateColumnLine;
+	columnArea(items: SceneStateColumnRows): SceneStateColumnArea;
 }

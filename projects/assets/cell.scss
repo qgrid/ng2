@@ -1,125 +1,109 @@
 td,
 th {
+    @include width(150px);
     @include textCutter;
     @include box-sizing(border-box);
+    @include user-select(none);
+
     vertical-align: middle;
     text-align: left;
     position: relative;
-    >* {
-        vertical-align: middle;
-    }
+
     &.q-grid-pivot {
         text-align: center;
     }
-}
 
-&.q-grid-box:not(.q-grid-drag) {
-    td,
-    th {
+    &.q-grid-pad {
+        @include width(100%);
+        // to show the right border e.g. in pivot columns we need to make 1px left padding.
+        padding: 0 0 0 1px !important;
+        margin: 0 !important;
+    }
+
+    &.q-grid-row-indicator {
+        @include width(24px);
+    }
+
+    &.q-grid-row-expand,
+    &.q-grid-row-options {
+        @include width(48px);
+    }
+
+    &.q-grid-row-number,
+    &.q-grid-select {
+        @include width(56px);
+    }
+
+    &.q-grid-image,
+    &.q-grid-pivot,
+    &.q-grid-bool {
+        @include width(80px);
+    }
+
+    &.q-grid-password,
+    &.q-grid-number,
+    &.q-grid-currency,
+    &.q-grid-id {
+        @include width(100px);
+    }
+
+    &.q-grid-date {
+        @include width(120px);
+    }
+
+    &.q-grid-datetime {
+        @include width(180px);
+    }
+
+    &.q-grid-group,
+    &.q-grid-email {
+        @include width(200px);
+    }
+
+    &.q-grid-array {
+        @include width(250px);
+    }
+
+    &.q-grid-select,
+    &.q-grid-row-options,
+    &.q-grid-row-indicator,
+    &.q-grid-array,
+    &.q-grid-image,
+    &.q-grid-row-expand,
+    &.q-grid-pad {
+        text-overflow: initial;
+    }
+
+    &.q-grid-has-view-width {
         transition: min-width 0.3s, width 0.3s, max-width 0.3s;
-    }
-}
-
-td {
-    .q-grid-box {
-        td,
-        th {
-            transition: none !important;
-        }
-        &:not(.q-grid-drag) {
-            td,
-            th {
-                transition: min-width 0.3s, width 0.3s, max-width 0.3s !important;
-            }
-        }
-    }
-}
-
-thead {
-    th {
-        >div {
-           @include textCutter;
-            outline: none;
-        }
-    }
-}
-
-thead,
-tfoot,
-tbody {
-    td,
-    th {
-        @include width(150px);
-        &.q-grid-pad {
-            @include width(100%);
-            // to show the right border e.g. in pivot columns we need to make 1px left padding.
-            padding: 0 0 0 1px !important;
-            margin: 0 !important;
-        }
-        &.q-grid-row-indicator {
-            @include width(24px);
-        }
-        &.q-grid-row-expand,
-        &.q-grid-row-options {
-            @include width(48px);
-        }
-        &.q-grid-row-number,
-        &.q-grid-select {
-            @include width(56px);
-        }
-        &.q-grid-image,
-        &.q-grid-pivot,
-        &.q-grid-bool {
-            @include width(80px);
-        }
-        &.q-grid-password,
-        &.q-grid-number,
-        &.q-grid-currency,
-        &.q-grid-id {
-            @include width(100px);
-        }
-        &.q-grid-date {
-            @include width(110px);
-        }
-        &.q-grid-group,
-        &.q-grid-email {
-            @include width(200px);
-        }
-        &.q-grid-array {
-            @include width(250px);
-        }
-        &.q-grid-select,
-        &.q-grid-row-options,
-        &.q-grid-row-indicator,
-        &.q-grid-array,
-        &.q-grid-image,
-        &.q-grid-row-expand,
-        &.q-grid-pad {
-            text-overflow: initial;
-        }
     }
 }
 
 tbody,
 tfoot {
     td {
+
         &.q-grid-number,
         &.q-grid-currency {
             text-align: right;
         }
+
         &.q-grid-id {
             text-align: left;
         }
+
         &.q-grid-bool,
         &.q-grid-password,
         &.q-grid-select {
             text-align: center;
         }
+
         &.q-grid-dropdown {
             select {
                 width: 100%;
             }
         }
+
         &.q-grid-row-options {
             cursor: pointer;
         }

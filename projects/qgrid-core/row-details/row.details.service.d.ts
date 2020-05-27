@@ -1,5 +1,5 @@
 import { RowDetailsStatus } from './row.details.status';
-import { Model } from '../infrastructure/model';
+import { Model } from '../model/model';
 
 export declare function flatView(model: Model, mode: 'single' | 'multiple'): any[];
 

@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
-import { GridComponent, RowDetailsStatus, Command, RowDetails } from 'ng2-qgrid';
+import { GridComponent, RowDetailsStatus, Command, RowDetails, Grid } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-details-row-custom',
@@ -26,6 +26,10 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 						status: new Map([[row, new RowDetailsStatus(true)]])
 					});
 
+					const { rows } = model.view();
+					const gridService = this.qgrid.service(model);
+					gridService.focus(rows.indexOf(row) + 1);
+
 					return;
 				}
 			}
@@ -36,7 +40,10 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 		}
 	});
 
-	constructor(dataService: DataService) {
+	constructor(
+		dataService: DataService,
+		private qgrid: Grid
+	) {
 		this.rows$ = dataService.getAtoms();
 	}
 
@@ -52,7 +59,7 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 				const ROW_DETAILS_HEIGHT = 140;
 				if (row instanceof RowDetails) {
 					context.class('row-details-height', {
-						height: `${ROW_DETAILS_HEIGHT}px`,
+						'height': `${ROW_DETAILS_HEIGHT}px`,
 						'max-height': `${ROW_DETAILS_HEIGHT}px`,
 						'min-height': `${ROW_DETAILS_HEIGHT}px`
 					});
@@ -66,14 +73,14 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 				switch (codes[0]) {
 					case 'enter':
 					case 'space': {
-						const focusedRow = model.navigation().row;
-						this.toggleExpand.execute(focusedRow);
+						const { cell } = model.navigation();
+						this.toggleExpand.execute(cell && cell.row);
 						break;
 					}
 					case 'alt': {
 						const rowNo = Number.parseInt(codes[1], 10);
 						if (!Number.isNaN(rowNo)) {
-							const { rows } = model.data();
+							const { rows } = model.view();
 							const { current, size } = model.pagination();
 							const altRow = rows[rowNo + current * size];
 							if (altRow) {

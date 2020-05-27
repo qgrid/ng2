@@ -10,7 +10,7 @@ import { GRID_PREFIX } from '@qgrid/core/definition';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LiveRowComponent implements OnInit {
-	@Input('duration') duration = 100;
+	@Input('duration') duration = 200;
 
 	constructor(private plugin: GridPlugin, private zone: NgZone) { }
 
@@ -24,15 +24,15 @@ export class LiveRowComponent implements OnInit {
 				currentRows = memo.rows ? memo.rows : currentRows;
 
 				if (!previousRows || !currentRows) {
-					complete();
+					complete(0);
 					return;
 				}
 
-				const id = model.data().id.row;
+				const { rowId } = model.data();
 				const animations = [];
 
 				for (let rowIndex = 0, length = previousRows.length; rowIndex < length; rowIndex++) {
-					const newRowIndex = currentRows.findIndex((row, i) => id(i, row) === id(rowIndex, previousRows[rowIndex]));
+					const newRowIndex = currentRows.findIndex((row, i) => rowId(i, row) === rowId(rowIndex, previousRows[rowIndex]));
 					if (newRowIndex < 0) {
 						animations.push(this.fadeOutRow(rowIndex));
 					} else if (newRowIndex !== rowIndex) {

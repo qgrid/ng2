@@ -4,14 +4,14 @@ export class CommandManager {
 		this.context = context;
 	}
 
-	invoke(commands) {
+	invoke(commands, context) {
+		context = context || this.context;
 		if (commands.length) {
 
-			this.apply(() => {
-				const context = this.context;
-				const priorityCommands = Array.from(commands);
-				priorityCommands.sort((x, y) => y.priority - x.priority);
+			const priorityCommands = Array.from(commands);
+			priorityCommands.sort((x, y) => y.priority - x.priority);
 
+			this.apply(() => {
 				for (const cmd of priorityCommands) {
 					if (context) {
 						if (cmd.execute(context) === false) {

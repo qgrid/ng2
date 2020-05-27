@@ -1,0 +1,61 @@
+<ng-template key="plugin-column-filter-contains.tpl.html"
+			 let-$columnFilter
+			 let-$plugin="plugin"
+			 let-$vscroll="vscroll">
+
+	<mat-form-field class="q-grid-column-filter-input">
+		<input matInput
+			   placeholder="Find in the list"
+			   [(ngModel)]="$plugin.search"
+			   (input)="$plugin.reset()"
+			   q-grid-focus />
+	</mat-form-field>
+
+	<ul class="q-grid-column-filter-toolbar">
+		<li>
+			<mat-checkbox [checked]="$columnFilter.stateAll()"
+						  (change)="$columnFilter.toggleAll.execute($plugin.search)"
+						  [indeterminate]="$columnFilter.isIndeterminate()">
+				Select All
+			</mat-checkbox>
+		</li>
+	</ul>
+	<div [ngSwitch]="$columnFilter.isEmpty()"
+		 class="q-grid-column-filter-by">
+		<ng-container *ngSwitchCase="false">
+			<div class="q-grid-column-filter-by-blank">
+				NO SELECTED FILTERS
+			</div>
+		</ng-container>
+		<ng-container *ngSwitchCase="true">
+			<q-grid-column-filter-by [by]="$columnFilter.by"
+									 [(byBlanks)]="$columnFilter.byBlanks"
+									 [column]="$plugin.column">
+			</q-grid-column-filter-by>
+		</ng-container>
+	</div>
+	<div class="q-grid-column-filter-list"
+		 [q-grid-column-filter-item-list]="$plugin.column"
+		 [q-grid-column-filter-search]="$plugin.search"
+		 q-grid-vscroll>
+		<ul [q-grid-vscroll-port-y]="$vscroll">
+			<li *ngFor="let item of $columnFilter.items | qGridVscroll: $vscroll; let $index = index; trackBy: $vscroll.id"
+				[q-grid-vscroll-row]="$index">
+				<mat-checkbox [checked]="$columnFilter.state(item)"
+							  *ngIf="$columnFilter.toggle.canExecute(item)"
+							  (change)="$columnFilter.toggle.execute(item)"
+							  aria-label="Select filter value">
+					<ng-container [q-grid-column-filter-item]="item"></ng-container>
+				</mat-checkbox>
+			</li>
+			<li>
+				<mat-checkbox *ngIf="$columnFilter.hasBlanks"
+							  [(ngModel)]="$columnFilter.byBlanks"
+							  aria-label="Select blanks">
+					<span [innerHTML]="'(Blanks)' | qGridHighlight: $plugin.search"></span>
+				</mat-checkbox>
+			</li>
+		</ul>
+	</div>
+
+</ng-template>

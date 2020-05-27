@@ -1,11 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { GridError, GridPlugin, GridModel } from '@qgrid/ngx';
 import { Action } from '@qgrid/core/action/action';
+import { Command } from '@qgrid/core/command/command';
 
 @Component({
 	selector: 'q-grid-action-core',
 	templateUrl: './action-core.component.html',
-	providers: [GridPlugin]
+	providers: [GridPlugin],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActionCoreComponent {
 	@Input() action: Action;
@@ -14,38 +16,22 @@ export class ActionCoreComponent {
 		$implicit: this
 	};
 
-	constructor(private plugin: GridPlugin) {
+	constructor(
+		private plugin: GridPlugin
+	) {
 	}
 
 	get model(): GridModel {
 		return this.plugin.model;
 	}
 
-	execute() {
-		const action = this.action;
-		if (!action) {
-			throw new GridError('action-core.component', 'Action shoud be setup');
-		}
-
-		return action.command.execute();
-	}
-
-	canExecute() {
+	get command(): Command {
 		const action = this.action;
 		if (!action) {
 			throw new GridError('action-core.component', 'Action should be setup');
 		}
 
-		return action.command.canExecute();
-	}
-
-	get shortcut() {
-		const action = this.action;
-		if (!action) {
-			throw new GridError('action-core.component', 'Action should be setup');
-		}
-
-		return action.command.shortcut;
+		return action.command;
 	}
 
 	get title() {
@@ -60,7 +46,7 @@ export class ActionCoreComponent {
 	get icon() {
 		const action = this.action;
 		if (!action) {
-			throw new GridError('action-core.component', 'Action shoud be setup');
+			throw new GridError('action-core.component', 'Action should be setup');
 		}
 
 		return action.icon;

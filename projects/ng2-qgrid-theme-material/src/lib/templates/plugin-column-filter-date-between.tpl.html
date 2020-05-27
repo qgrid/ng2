@@ -3,40 +3,42 @@
 			 let-$plugin="plugin"
 			 let-$vscroll="vscroll">
 
-	<mat-form-field class="q-grid-column-filter-input half"
-					*q-grid-date="let isValid='isValid'"
-					[ngClass]="{'mat-form-field-invalid': !isValid(inputLeft.value)}">
-		<input q-grid-focus
-			   matInput
-			   #inputLeft
-			   placeholder="From"
-			   [matDatepicker]="leftPicker"
-			   [ngModel]="$columnFilter.value[0] | qGridConvert: 'date'"
-			   (ngModelChange)="isValid(inputLeft.value) && ($columnFilter.value[0] = $event)" />
+	<q-grid-tab-trap>
+		<mat-form-field class="q-grid-column-filter-input q-grid-column-filter-input-half "
+						*q-grid-date="let qGridDate"
+						[ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(inputLeft.value)}">
+			<input q-grid-focus
+				   matInput
+				   #inputLeft
+				   placeholder="From"
+				   [matDatepicker]="leftPicker"
+				   [ngModel]="$columnFilter.value[0] | qGridConvert: 'date'"
+				   (ngModelChange)="qGridDate.isValid(inputLeft.value) && ($columnFilter.value[0] = $event)" />
 
-		<mat-datepicker-toggle matSuffix
-							   [for]="leftPicker">
-		</mat-datepicker-toggle>
+			<mat-datepicker-toggle matSuffix
+								   [for]="leftPicker">
+			</mat-datepicker-toggle>
 
-		<mat-datepicker #leftPicker>
-		</mat-datepicker>
-	</mat-form-field>
+			<mat-datepicker #leftPicker>
+			</mat-datepicker>
+		</mat-form-field>
 
-	<mat-form-field class="q-grid-column-filter-input half"
-					*q-grid-date="let isValid='isValid'"
-					[ngClass]="{'mat-form-field-invalid': !isValid(inputRight.value)}">
-		<input matInput
-			   #inputRight
-			   placeholder="To"
-			   [matDatepicker]="rightPicker"
-			   [ngModel]="$columnFilter.value[1] | qGridConvert: 'date'"
-			   (ngModelChange)="isValid(inputRight.value) && ($columnFilter.value[1] = $event)" />
+		<mat-form-field class="q-grid-column-filter-input q-grid-column-filter-input-half "
+						*q-grid-date="let qGridDate"
+						[ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(inputRight.value)}">
+			<input matInput
+				   #inputRight
+				   placeholder="To"
+				   [matDatepicker]="rightPicker"
+				   [ngModel]="$columnFilter.value[1] | qGridConvert: 'date'"
+				   (ngModelChange)="qGridDate.isValid(inputRight.value) && ($columnFilter.value[1] = $event)" />
 
-		<mat-datepicker-toggle matSuffix
-							   [for]="rightPicker">
-		</mat-datepicker-toggle>
+			<mat-datepicker-toggle matSuffix
+								   [for]="rightPicker">
+			</mat-datepicker-toggle>
 
-		<mat-datepicker #rightPicker> </mat-datepicker>
-	</mat-form-field>
+			<mat-datepicker #rightPicker> </mat-datepicker>
+		</mat-form-field>
+	</q-grid-tab-trap>
 
 </ng-template>

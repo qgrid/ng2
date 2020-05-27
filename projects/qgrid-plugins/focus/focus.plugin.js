@@ -1,5 +1,5 @@
 import { jobLine } from '@qgrid/core/services/job.line';
-import { AppError } from '@qgrid/core/infrastructure/error';
+import { GridError } from '@qgrid/core/infrastructure/error';
 
 export class FocusPlugin {
 	constructor(context) {
@@ -22,7 +22,7 @@ export class FocusPlugin {
 					targetElement = target;
 				}
 				else {
-					throw new AppError('focus', `Element "${this.targetSelector}" is not found`);
+					throw new GridError('focus', `Element "${this.targetSelector}" is not found`);
 				}
 			}
 

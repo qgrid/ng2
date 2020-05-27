@@ -1,22 +1,23 @@
 import { GRID_PREFIX } from '@qgrid/core/definition';
 import { max } from '@qgrid/core/utility/kit';
-import { EventListener } from '@qgrid/core/infrastructure/event.listener';
-import { EventManager } from '@qgrid/core/infrastructure/event.manager';
+import { EventListener } from '@qgrid/core/event/event.listener';
+import { EventManager } from '@qgrid/core/event/event.manager';
 import { jobLine } from '@qgrid/core/services/job.line';
 
 export class PositionPlugin {
-	constructor(context, disposable) {	
+	constructor(context, disposable) {
 		this.element = context.element;
 		this.targetName = context.targetName;
 
 		const windowListener = new EventListener(window, new EventManager(this));
 		const job = jobLine(400);
 
-		disposable.add(windowListener.on('resize', () => {
-			this.invalidate();
-			// In case if after window resize there can different animated layout changes
-			job(() => this.invalidate());
-		}));
+		disposable.add(
+			windowListener.on('resize', () => {
+				this.invalidate();
+				// In case if after window resize there can different animated layout changes
+				job(() => this.invalidate());
+			}));
 	}
 
 	invalidate() {
@@ -35,11 +36,12 @@ export class PositionPlugin {
 	layout(target, source) {
 		const { top, right, left, bottom } = target.getBoundingClientRect();
 		const { width, height } = source.getBoundingClientRect();
-		const br = this.boxRect();
+
+		const fitRect = this.boxRect();
 		const intersections = [];
 
 		intersections.push(
-			this.intersection(br, {
+			this.intersection(fitRect, {
 				top: top,
 				right: left + width,
 				bottom: top + height,
@@ -47,7 +49,7 @@ export class PositionPlugin {
 			}));
 
 		intersections.push(
-			this.intersection(br, {
+			this.intersection(fitRect, {
 				top: top,
 				right: right,
 				bottom: top + height,
@@ -55,7 +57,7 @@ export class PositionPlugin {
 			}));
 
 		intersections.push(
-			this.intersection(br, {
+			this.intersection(fitRect, {
 				top: bottom - height,
 				right: left + width,
 				bottom: bottom,
@@ -63,7 +65,7 @@ export class PositionPlugin {
 			}));
 
 		intersections.push(
-			this.intersection(br, {
+			this.intersection(fitRect, {
 				top: bottom - height,
 				right: right,
 				bottom: bottom,
@@ -72,7 +74,7 @@ export class PositionPlugin {
 
 		const intersection = max(intersections, i => i.area);
 		const { left: l, top: t } = intersection.b;
-		const pos = this.fix({ left: l - br.left, top: t - br.top, width, height });
+		const pos = this.fix({ left: l - fitRect.left, top: t - fitRect.top, width, height });
 
 		source.style.left = pos.left + 'px';
 		source.style.top = pos.top + 'px';
@@ -88,21 +90,29 @@ export class PositionPlugin {
 	fix(rect) {
 		const wr = this.windowRect();
 		const br = this.boxRect();
-		const { width: vw, height: vh } = wr;
-		const vx = br.left - wr.left;
-		const vy = br.top - wr.top;
+
+		const { width: ww, height: wh } = wr;
+		const abx = br.left - wr.left;
+		const aby = br.top - wr.top;
+
 		const { height: rh, width: rw } = rect;
-		const rx = rect.left + vx;
-		const ry = rect.top + vy;
-		const gtx1 = rx + rw > vw;
-		const ltx0 = rx < 0;
-		const gty1 = ry + rh > vh;
-		const lty0 = ry < 0;
+		//  absolute coords relative to window
+		const arx = rect.left + abx;
+		const ary = rect.top + aby;
+
+		const ltx0 = arx < wr.left;
+		const gtx1 = arx + rw > ww;
+		const lty0 = ary < wr.top;
+		const gty1 = ary + rh > wh;
+
+		// we are trying to show right bottom corner
+		// it often has control buttons
 		const left = ltx0 || gtx1
-			? (vw - rw) / 2 - vx
+			? rect.left + (ww - arx - rw)
 			: rect.left;
+
 		const top = lty0 || gty1
-			? (vh - rh) / 2 - vy
+			? rect.top + (wh - ary - rh)
 			: rect.top;
 
 		return { left, top };

@@ -2,7 +2,7 @@
              let-$cell
              let-$view="$view">
     <ng-container *ngIf="$cell.column.canFilter">
-        <mat-form-field *q-grid-date="let isValid='isValid'"
+        <mat-form-field *q-grid-date="let qGridDate"
                         floatLabel="never">
             <mat-placeholder>
                 <mat-icon class="q-grid-icon q-grid-placeholder">
@@ -14,7 +14,7 @@
                    #input
                    [matDatepicker]="picker"
                    [ngModel]="$view.filter.value($cell.column.model) | qGridConvert: 'date'"
-                   (ngModelChange)="isValid(input.value) && $view.filter.column.execute($cell.column.model, $event)" />
+                   (ngModelChange)="qGridDate.isValid(input.value) && $view.filter.column.execute($cell.column.model, $event)" />
 
             <mat-datepicker-toggle matSuffix
                                    [for]="picker">

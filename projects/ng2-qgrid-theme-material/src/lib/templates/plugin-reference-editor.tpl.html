@@ -12,14 +12,12 @@
         </mat-card-content>
         <mat-card-actions>
             <button mat-button
-                    [disabled]="!$editor.cancel.canExecute()"
-                    (click)="$editor.cancel.execute()">
+                    [q-grid-command]="$editor.cancel">
                 Cancel
             </button>
             <button mat-button
                     color="primary"
-                    [disabled]="!$editor.submit.canExecute()"
-                    (click)="$editor.submit.execute()">
+                    [q-grid-command]="$editor.submit">
                 Save
             </button>
         </mat-card-actions>
