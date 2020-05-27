@@ -1,4 +1,4 @@
 <ng-template key="body-cell-time.tpl.html"
              let-$cell>
-    <span>{{$cell.label | qGridTime: $cell.column.format}}</span>
+    {{$cell.label | qGridTime: $cell.column.format}}
 </ng-template>

@@ -19,7 +19,8 @@
 					Delete
 				</button>
 				<button mat-button
-						(click)="$view.edit.cell.cancel.execute($cell)">
+						[q-grid-command]="$view.edit.cell.cancel"
+						[q-grid-command-arg]="$cell">
 					Cancel
 				</button>
 			</ng-template>

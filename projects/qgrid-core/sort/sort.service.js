@@ -1,5 +1,5 @@
 import { isString } from '../utility/kit';
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { preOrderDFS } from '../node/node.service';
 
 export const key = getKey;
@@ -36,7 +36,7 @@ function getKey(pair) {
 	}
 
 	if (!key) {
-		throw new AppError(
+		throw new GridError(
 			'sort.service',
 			`Key is not defined in "${pair}"`);
 	}

@@ -14,7 +14,7 @@ export class RowExpandColumnModel extends ColumnModel {
 		super('row-expand');
 
 		this.key = '$row.expand';
-		this.class = 'control';
+		this.category = 'control';
 
 		this.canEdit = false;
 		this.canResize = false;

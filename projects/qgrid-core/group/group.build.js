@@ -1,5 +1,5 @@
 import { map as getColumnMap } from '../column/column.service';
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { Aggregation } from '../services/aggregation';
 
 export function groupBuilder(model) {
@@ -23,14 +23,14 @@ export function groupBuilder(model) {
 			const key = groupBy[Math.min(node.level, groupByLength - 1)];
 			const column = columnMap[key];
 			if (!column) {
-				throw new AppError(
+				throw new GridError(
 					'group.build',
 					`Invalid key "${key}"`);
 			}
 
 			const aggregation = column.aggregation || 'count';
 			if (!Aggregation.hasOwnProperty(aggregation)) {
-				throw new AppError(
+				throw new GridError(
 					'group.build',
 					`Aggregation ${aggregation} is not registered`);
 			}

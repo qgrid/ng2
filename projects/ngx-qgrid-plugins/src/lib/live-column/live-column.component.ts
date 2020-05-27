@@ -10,7 +10,7 @@ import { GRID_PREFIX } from '@qgrid/core/definition';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LiveColumnComponent implements OnInit {
-	@Input('duration') duration = 100;
+	@Input('duration') duration = 500;
 
 	constructor(private plugin: GridPlugin, private zone: NgZone) { }
 
@@ -26,11 +26,11 @@ export class LiveColumnComponent implements OnInit {
 				currentColumns = memo.columns ? memo.columns[0] : currentColumns;
 
 				if (!previousColumns || !memo.columns) {
-					complete();
+					complete(0);
 					return;
 				}
 
-				const id = model.data().id.column;
+				const { columnId } = model.data();
 				const animations = [];
 
 				startPos = currentColumns.length;
@@ -38,7 +38,7 @@ export class LiveColumnComponent implements OnInit {
 
 				for (let columnIndex = 0, length = previousColumns.length; columnIndex < length; columnIndex++) {
 					const newColumnIndex = currentColumns.findIndex((column, i) =>
-						id(i, column.model) === id(columnIndex, previousColumns[columnIndex].model));
+						columnId(i, column.model) === columnId(columnIndex, previousColumns[columnIndex].model));
 
 					if (newColumnIndex !== columnIndex) {
 						startPos = Math.min(Math.min(columnIndex, newColumnIndex), startPos);
@@ -48,7 +48,7 @@ export class LiveColumnComponent implements OnInit {
 
 				for (let columnIndex = 0, length = previousColumns.length; columnIndex < length; columnIndex++) {
 					const newColumnIndex = currentColumns.findIndex((column, i) =>
-						id(i, column.model) === id(columnIndex, previousColumns[columnIndex].model));
+						columnId(i, column.model) === columnId(columnIndex, previousColumns[columnIndex].model));
 
 					if (newColumnIndex !== columnIndex) {
 						animations.push(this.moveColumn(columnIndex, newColumnIndex, startPos, endPos));

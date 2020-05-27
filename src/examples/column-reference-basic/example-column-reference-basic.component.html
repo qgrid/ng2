@@ -27,7 +27,8 @@
 			             let-$view="$view">
 				<button style="width: 100%;text-overflow: ellipsis;overflow: hidden;"
 				        mat-button
-				        (click)="$view.edit.cell.enter.execute($cell)">
+						[q-grid-command]="$view.edit.cell.enter"
+						[q-grid-command-arg]="$cell">
 					{{$cell.value.join(', ') || 'EMPTY'}}
 				</button>
 			</ng-template>

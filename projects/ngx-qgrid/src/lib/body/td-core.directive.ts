@@ -13,22 +13,21 @@ import {
 import { GRID_PREFIX } from '@qgrid/core/definition';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { ColumnView } from '@qgrid/core/scene/view/column.view';
-import { TdCtrl } from '@qgrid/core/cell/td.ctrl';
 import { DomTd } from '../dom/dom';
 import { noop } from '@qgrid/core/utility/kit';
-import { GridView } from '../grid/grid-view';
+import { GridLet } from '../grid/grid-let';
 import { GridRoot } from '../grid/grid-root';
 import { TrCoreDirective } from '../row/tr-core.directive';
-import { CellService } from '../cell/cell.service';
-import { GridError } from '../infrastructure/error';
-
-const classify = TdCtrl.classify;
+import { CellTemplateService } from '../cell/cell-template.service';
+import { GridError } from '@qgrid/core/infrastructure/error';
+import { CellClassService } from '../cell/cell-class.service';
 
 @Directive({
 	selector: '[q-grid-core-td]',
 })
 export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
-	private $implicit = this;
+	$implicit = this;
+
 	@Input('q-grid-core-value') private actualValue: any;
 	@Input('q-grid-core-label') private actualLabel: any;
 
@@ -38,10 +37,11 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	changes: SimpleChange;
 
 	constructor(
-		public $view: GridView,
+		public $view: GridLet,
 		private root: GridRoot,
 		private viewContainerRef: ViewContainerRef,
-		private cellService: CellService,
+		private cellTemplate: CellTemplateService,
+		private cellClass: CellClassService,
 		private tr: TrCoreDirective,
 		private cd: ChangeDetectorRef,
 		elementRef: ElementRef
@@ -50,17 +50,12 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	}
 
 	ngOnInit() {
-		this.root.bag.body.addCell(this);
-		classify(this.element, this.column);
+		const { table } = this.root;
+		table.box.bag.body.addCell(this);
 
-		const link = this.cellService.build('body', this.column, 'view');
-		if (!link) {
-			throw new GridError(
-				`td-core.directive`,
-				`Can't find template link for body of ${this.column.key}`
-			);
-		}
+		this.cellClass.toBody(this.element, this.column);
 
+		const link = this.cellTemplate.build('body', this.column, 'view');
 		link(this.viewContainerRef, this);
 	}
 
@@ -73,17 +68,10 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	}
 
 	mode(value: 'view' | 'edit' | 'change') {
-		const link = this.cellService.build('body', this.column, value);
+		const link = this.cellTemplate.build('body', this.column, value);
 
 		switch (value) {
 			case 'view': {
-				if (!link) {
-					throw new GridError(
-						`td-core.directive`,
-						`Can't find template link for body of ${this.column.key}`
-					);
-				}
-
 				this.element.classList.remove(`${GRID_PREFIX}-change`);
 				this.element.classList.remove(`${GRID_PREFIX}-edit`);
 
@@ -95,7 +83,7 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 				break;
 			}
 			case 'edit': {
-				if (!link || link === noop) {
+				if (link === noop) {
 					throw new GridError(
 						`td-core.directive`,
 						`Can't find template link for edit of ${this.column.key}`
@@ -109,7 +97,7 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 				break;
 			}
 			case 'change': {
-				if (link && link !== noop) {
+				if (link !== noop) {
 					this.element.classList.add(`${GRID_PREFIX}-${value}`);
 					link(this.viewContainerRef, this);
 					this.cd.markForCheck();
@@ -159,10 +147,12 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 
 	get dataRowIndex() {
 		const { model } = this.root;
-		return model.data().rows.indexOf(this.row);
+		const { rows } = model.data();
+		return rows.indexOf(this.row);
 	}
 
 	ngOnDestroy() {
-		this.root.bag.body.deleteCell(this);
+		const { table } = this.root;
+		table.box.bag.body.deleteCell(this);
 	}
 }

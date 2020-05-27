@@ -9,10 +9,10 @@ import { RowDetailsStatus } from '@qgrid/core/row-details/row.details.status';
 import { identity, noop } from '@qgrid/core/utility/kit';
 import { GridModel } from './grid-model';
 import { GridModelBuilder } from '../grid/grid-model.builder';
-import { GridService } from '@qgrid/core/services/grid';
+import { GridService } from '@qgrid/core/grid/grid.service';
 import { Node } from '@qgrid/core/node/node';
 
-export { GridService } from '@qgrid/core/services/grid';
+export { GridService } from '@qgrid/core/grid/grid.service';
 
 @Injectable()
 export class Grid {

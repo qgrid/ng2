@@ -1,7 +1,7 @@
 import { takeWhile, dropWhile, sumBy } from '../../utility/kit';
 import { columnFactory } from '../../column/column.factory';
 import { Aggregation } from '../../services/aggregation';
-import { AppError } from '../../infrastructure/error';
+import { GridError } from '../../infrastructure/error';
 import { findFirstLeaf } from '../../group/group.service';
 
 export class NodeRow {
@@ -30,7 +30,7 @@ export class NodeRow {
 						const agg = column.aggregation;
 						if (agg) {
 							if (!Aggregation.hasOwnProperty(agg)) {
-								throw new AppError(
+								throw new GridError(
 									'node.row',
 									`Aggregation ${agg} is not supported`);
 							}
@@ -49,7 +49,7 @@ export class NodeRow {
 						return select(node, column);
 					}
 					default:
-						throw new AppError(
+						throw new GridError(
 							'node.row',
 							`Invalid node type ${node.type}`
 						);
@@ -69,7 +69,7 @@ export class NodeRow {
 					break;
 				}
 				default:
-					throw new AppError('node.row', `Can't set value to ${node.type} node`);
+					throw new GridError('node.row', `Can't set value to ${node.type} node`);
 			}
 		};
 
@@ -86,7 +86,7 @@ export class NodeRow {
 					break;
 				}
 				default:
-					throw new AppError('node.row', `Can't set label to ${node.type} node`);
+					throw new GridError('node.row', `Can't set label to ${node.type} node`);
 			}
 		};
 

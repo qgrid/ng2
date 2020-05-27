@@ -1,0 +1,21 @@
+@import "./variable";
+
+td {
+
+    &.q-grid-sorted {
+        background-color: $selected;
+    }
+}
+
+.q-grid-select-row,
+.q-grid-select-column,
+.q-grid-select-mix,
+.q-grid-select-range {
+    tr:not(.q-grid-highlighted) {
+        td {
+            &.q-grid-selected {
+                background-color: $selected;
+            }
+        }
+    }
+}

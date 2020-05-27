@@ -1,3 +1,11 @@
-import { PipeContext } from '../pipe.item';
+import { RowsPipe, MemoPipe, PipeFolder, PipeUnitWhy } from '../pipe.types';
 
-export declare const viewPipeUnit: [(rows: any[], context: PipeContext, next: (rows: any[]) => void) => void];
+export declare type ViewPipeUnit = [
+    RowsPipe,
+    MemoPipe<any[]>,
+    MemoPipe<PipeFolder>,
+    MemoPipe<PipeFolder>,
+    MemoPipe<PipeFolder>,
+] & { why: PipeUnitWhy };
+
+export declare const viewPipeUnit: ViewPipeUnit;

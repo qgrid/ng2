@@ -52,7 +52,7 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 				const ROW_DETAILS_HEIGHT = 140;
 				if (row instanceof RowDetails) {
 					context.class('row-details-height', {
-						height: `${ROW_DETAILS_HEIGHT}px`,
+						'height': `${ROW_DETAILS_HEIGHT}px`,
 						'max-height': `${ROW_DETAILS_HEIGHT}px`,
 						'min-height': `${ROW_DETAILS_HEIGHT}px`
 					});

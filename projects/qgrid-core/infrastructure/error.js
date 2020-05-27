@@ -1,6 +1,6 @@
 import { isFunction } from '../utility/kit';
 
-export class AppError extends Error {
+export class GridError extends Error {
 	constructor(name, message) {
 		super(message);
 		this.name = this.constructor.name;

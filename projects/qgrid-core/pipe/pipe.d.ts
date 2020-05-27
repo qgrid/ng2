@@ -1,17 +1,16 @@
-import { PipeContext, PipeMemo } from './pipe.item';
-
+import { PipeFolder, RowsPipe, MemoPipe } from './pipe.types';
 
 export declare class Pipe {
-	static readonly data: (memo: any, context: PipeContext, next: (param: any[]) => void) => any;
-	static readonly filter: (memo: any, context: PipeContext, next: (param: any[]) => void) => any;
-	static readonly pagination: (memo: any, context: PipeContext, next: (param: any[]) => void) => any;
-	static readonly sort: (memo: any, context: PipeContext, next: (param: any[]) => void) => any;
-	static readonly memo: (memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any;
-	static readonly group: (memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any;
-	static readonly pivot: (memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any;
-	static readonly column: (memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any;
-	static readonly columnIndex: (memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any;
-	static readonly animation: (memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any;
-	static readonly view: (memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any;
-	static readonly scene: (memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any;
+	static readonly data: RowsPipe;
+	static readonly filter: RowsPipe;
+	static readonly pagination: RowsPipe;
+	static readonly sort: RowsPipe;
+	static readonly memo: MemoPipe<any[]>;
+	static readonly group: MemoPipe<PipeFolder>;
+	static readonly pivot: MemoPipe<PipeFolder>;
+	static readonly column: MemoPipe<PipeFolder>;
+	static readonly columnIndex: MemoPipe<PipeFolder>;
+	static readonly animation: MemoPipe<PipeFolder>;
+	static readonly view: MemoPipe<PipeFolder>;
+	static readonly scene: MemoPipe<PipeFolder>;
 }

@@ -4,16 +4,16 @@
     <q-grid-cell-editor class="q-grid-editor q-grid-file q-grid-position"
                         (close)="$view.edit.cell.cancel.execute($cell)"
                         q-grid-position="td">
-        <div class="layout-column flex">
+        <div class="q-grid-layout-column q-grid-flex">
             <div class="q-grid-file-upload-area"
                  [ngClass]="{'q-grid-file-has-preview': $cell.column.hasPreview($view.edit.cell.label)}">
-                <div class="layout-column q-grid-file-upload-message"
+                <div class="q-grid-layout-column q-grid-file-upload-message"
                      [ngSwitch]="!!$view.edit.cell.value">
                     <span class="q-grid-file-upload-filename"
                           *ngSwitchCase="true">
                         {{$view.edit.cell.label}}
                     </span>
-                    <div class="layout-row layout-align-center-center">
+                    <div class="q-grid-layout-row q-grid-layout-align-center-center">
                         <mat-icon>file_upload</mat-icon>
                         <span *ngSwitchCase="false">Drag and drop an image here or click</span>
                         <span *ngSwitchCase="true">Drag and drop or click to replace </span>
@@ -32,15 +32,18 @@
         <div class="q-grid-actions">
             <button mat-button
                     color="primary"
-                    (click)="$view.edit.cell.commit.execute($cell, $event)">
+                    [q-grid-command]="$view.edit.cell.commit"
+                    [q-grid-command-arg]="$cell">
                 Save
             </button>
             <button mat-button
-                    (click)="$view.edit.cell.clear.execute($cell)">
+                    [q-grid-command]="$view.edit.cell.clear"
+                    [q-grid-command-arg]="$cell">
                 Clear
             </button>
             <button mat-button
-                    (click)="$view.edit.cell.cancel.execute($cell, $event)">
+                    [q-grid-command]="$view.edit.cell.cancel"
+                    [q-grid-command-arg]="$cell">
                 Cancel
             </button>
         </div>

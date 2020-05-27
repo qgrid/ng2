@@ -1,36 +1,36 @@
-import { Component, Input, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { DataManipulationPlugin } from '@qgrid/plugins/data-manipulation/data.manipulation.plugin';
-import { Disposable, GridPlugin } from '@qgrid/ngx';
-import { ColumnModel } from '@qgrid/core/column-type/column.model';
-import { StyleCellContext, StyleRowContext } from '@qgrid/core/style/style.context';
+import { GridPlugin, StateAccessor } from '@qgrid/ngx';
+import { DataManipulationState } from '@qgrid/plugins/data-manipulation/data.manipulation.state';
 
 @Component({
 	selector: 'q-grid-data-manipulation',
 	template: '',
-	providers: [GridPlugin, Disposable],
+	providers: [GridPlugin, StateAccessor],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataManipulationComponent implements OnInit, OnChanges {
-	@Input('rowFactory') dataManipulationRowFactory: (x: any) => any;
-	@Input('styleRow') dataManipulationStyleRow: (row: any, context: StyleRowContext) => void;
-	@Input('styleCell') dataManipulationStyleCell: (row: any, column: ColumnModel, context: StyleCellContext) => void;
+	private dmState = this.stateAccessor.setter(DataManipulationState);
 
 	context: {
 		$implicit: DataManipulationPlugin
 	};
 
+	@Input('rowFactory') set dataManipulationRowFactory(rowFactory: (x: any) => any) { this.dmState({ rowFactory }); }
+
 	constructor(
 		private plugin: GridPlugin,
-		private disposable: Disposable
+		private stateAccessor: StateAccessor,
 	) {
 	}
 
-	ngOnChanges(changes: SimpleChanges) {
-		this.plugin.keep(changes, ['dataManipulation']);
+	ngOnChanges() {
+		const { model } = this.plugin;
+		this.stateAccessor.write(model);
 	}
 
 	ngOnInit() {
-		const dm = new DataManipulationPlugin(this.plugin.model, this.disposable);
+		const dm = new DataManipulationPlugin(this.plugin);
 		this.context = { $implicit: dm };
 	}
 }

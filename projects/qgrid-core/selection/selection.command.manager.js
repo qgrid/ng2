@@ -8,7 +8,7 @@ export class SelectionCommandManager extends CompositeCommandManager {
 	}
 
 	filter(commands) {
-		if (this.model.edit().state === 'edit') {
+		if (this.model.edit().status === 'edit') {
 			const cell = this.model.navigation().cell;
 			if (cell && cell.column.type !== 'select') {
 				return [];

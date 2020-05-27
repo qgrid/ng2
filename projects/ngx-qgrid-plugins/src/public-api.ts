@@ -98,7 +98,6 @@ export { RuleComponent } from './lib/validation/rule.component';
 export { SerializationService } from './lib/expression-builder/serialization.service';
 export { StatusBarComponent } from './lib/status-bar/status-bar.component';
 export { StatusBarModule } from './lib/status-bar/status-bar.module';
-export { StopPropagateDirective } from './lib/layout/stop-propagate.directive';
 export { TabTrapComponent } from './lib/tab-trap/tab-trap.component';
 export { TabTrapInDirective } from './lib/tab-trap/tab-trap-in.directive';
 export { TabTrapModule } from './lib/tab-trap/tab-trap.module';

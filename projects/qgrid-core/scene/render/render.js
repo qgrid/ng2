@@ -1,22 +1,24 @@
-import { Node } from '../../node/node';
-import { RowDetails } from '../../row-details/row.details';
 import { CacheStrategy } from './cache.strategy';
-import { get as getValue } from '../../services/value';
-import { get as getLabel } from '../../services/label';
 import { DataRow } from './data.row';
 import { DetailsRow } from './details.row';
+import { get as getLabel } from '../../services/label';
+import { get as getValue } from '../../services/value';
+import { Node } from '../../node/node';
 import { NodeRow, SubheadNodeRow, RowspanNodeRow } from './node.row';
 import { PivotRow } from './pivot.row';
+import { RowDetails } from '../../row-details/row.details';
 
 export class Renderer {
-	constructor(model) {
-		const dataRow = new DataRow(model);
-		const pivotRow = new CacheStrategy(model, new PivotRow(model, dataRow));
+	constructor(plugin) {
+		const { model, observe, observeReply } = plugin;
+
+		const dataRow = new DataRow(plugin);
+		const pivotRow = new CacheStrategy(plugin, new PivotRow(plugin, dataRow));
 		const nodeRow = new NodeRow(model, pivotRow);
-		const nestNodeRow = new CacheStrategy(model, nodeRow);
-		const subheadNodeRow = new CacheStrategy(model, new SubheadNodeRow(nodeRow));
-		const rowspanNodeRow = new CacheStrategy(model, new RowspanNodeRow(model, nodeRow));
-		const rowDetails = new CacheStrategy(model, new DetailsRow(model, pivotRow));
+		const nestNodeRow = new CacheStrategy(plugin, nodeRow);
+		const subheadNodeRow = new CacheStrategy(plugin, new SubheadNodeRow(nodeRow));
+		const rowspanNodeRow = new CacheStrategy(plugin, new RowspanNodeRow(model, nodeRow));
+		const rowDetails = new CacheStrategy(plugin, new DetailsRow(model, pivotRow));
 		const defaultStrategy = pivotRow;
 
 		const strategies = new Map();
@@ -38,7 +40,8 @@ export class Renderer {
 		};
 
 		selectNodeRowStrategy();
-		model.groupChanged.on(selectNodeRowStrategy);
+		observe(model.groupChanged)
+			.subscribe(selectNodeRowStrategy);
 
 		// Public interface
 		this.defaultStrategy = defaultStrategy;
@@ -81,7 +84,7 @@ export class Renderer {
 		this.rows = {
 			left: [],
 			right: [],
-			null: []
+			mid: []
 		};
 
 		const invalidateRows = () => {
@@ -95,16 +98,18 @@ export class Renderer {
 			};
 		}
 
-		model.sceneChanged.watch(e => {
-			if (e.hasChanges('rows')) {
-				invalidateRows();
-			}
-		});
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('rows')) {
+					invalidateRows();
+				}
+			});
 
-		model.rowChanged.watch(e => {
-			if (e.hasChanges('pinTop') || e.hasChanges('pinBottom')) {
-				invalidateRows();
-			}
-		});
+		observeReply(model.rowChanged)
+			.subscribe(e => {
+				if (e.hasChanges('pinTop') || e.hasChanges('pinBottom')) {
+					invalidateRows();
+				}
+			});
 	}
 }

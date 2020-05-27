@@ -1,4 +1,5 @@
 import { CommandContext } from './command.context';
+import { SubjectLike } from '../rx/rx';
 
 /**
  * Use this class to implement command pattern in the qgrid. The most of interactions in the q-grid are utilized by this pattern.
@@ -24,9 +25,6 @@ import { CommandContext } from './command.context';
  *
  * ### Suggested Links.
  *
- * * [Action Model](/doc/api/action-model.html)
- * * [Action](/doc/api/action.html)
- * * [Service](/doc/api/grid.html)
  * * [Command Pattern Wiki](https://en.wikipedia.org/wiki/Command_pattern)
  */
 export declare class Command<T = any> {
@@ -37,6 +35,11 @@ export declare class Command<T = any> {
 	 * By default true value is returned.
      */
     canExecute: (e?: T, ...args: any[]) => boolean;
+
+    /**
+     * Triggers canExecute method on UI.
+     */
+    canExecuteCheck: SubjectLike<T>;
 
     /**
      * Invokes the command. Use one argument to support typescript generic typification.
@@ -64,7 +67,7 @@ export declare class Command<T = any> {
     priority?: number;
 
 	/**
-	 * Idicates an origin of the command.
+	 * Indicates an origin of the command.
 	 */
 	source?: string;
 	

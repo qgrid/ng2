@@ -3,7 +3,7 @@ import { build as pivotBuilder } from '../pivot/pivot.build';
 import { Guard } from '../infrastructure/guard';
 
 export function pivotPipe(memo, context, next) {
-	Guard.hasProperty(memo, 'rows');
+	Guard.notNull(memo, 'memo');
 
 	const { model } = context;
 	if (memo.rows.length) {

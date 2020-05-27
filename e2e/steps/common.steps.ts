@@ -45,6 +45,8 @@ Then('Page looks the same as before', { timeout: 20 * 1000 }, async () => {
 
 When('I click {string} button', (text: string) => clickElement(text));
 When('I enter {string} text', (text: string) => enterText(text));
+When('I clear text', () => clearText());
+When('I set {string} text', (text: string) => setText(text));
 When('I click filter button for {string}', (text: string) => getFilterButton(text).click());
 When('I select persistence item [{int}]', (num: number) => selectPersistenceItem(num));
 When('I remove all values for selected column', () => removeAllChipValues());
@@ -70,6 +72,20 @@ function getRowCount() {
 
 function getInput() {
 	return element.all(by.className('mat-input-element')).get(1);
+}
+
+async function clearText() {
+	const input = getInput();
+	await browser.sleep(1000);
+	await input.clear();
+	await input.sendKeys(`a`, protractor.Key.BACK_SPACE);
+}
+
+async function setText(text: string) {
+	const input = getInput();
+	await browser.sleep(1000);
+	await input.clear();
+	await input.sendKeys(text);
 }
 
 async function enterText(text: string) {

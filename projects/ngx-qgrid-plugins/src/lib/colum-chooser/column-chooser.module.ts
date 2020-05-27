@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ColumnChooserComponent } from './column-chooser.component';
-import { ColumnChooserModel } from '@qgrid/plugins/column-chooser/column.chooser.model';
+import { ColumnChooserState } from '@qgrid/plugins/column-chooser/column.chooser.state';
 import { TemplateModule, GridModelBuilder } from '@qgrid/ngx';
 
 @NgModule({
@@ -11,6 +11,6 @@ import { TemplateModule, GridModelBuilder } from '@qgrid/ngx';
 })
 export class ColumnChooserModule {
 	constructor(modelBuilder: GridModelBuilder) {
-		modelBuilder.register('columnChooser', ColumnChooserModel);
+		modelBuilder.register('columnChooser', ColumnChooserState);
 	}
 }

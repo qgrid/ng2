@@ -3,6 +3,7 @@
 			 let-$view="$view">
 	<input type="checkbox"
 		   [checked]="$view.selection.state($cell.row)"
+		   [q-grid-dirty]="$view.selection.stateCheck | async"
 		   [disabled]="!$view.selection.toggleRow.canExecute($cell.row)"
 		   (change)="$view.selection.toggleRow.execute($cell.row)"
 		   tabindex="-1"

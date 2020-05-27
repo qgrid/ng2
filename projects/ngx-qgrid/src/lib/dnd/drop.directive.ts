@@ -1,13 +1,12 @@
 import { Directive, ElementRef, Input, OnInit, Optional, NgZone } from '@angular/core';
-import { EventManager } from '@qgrid/core/infrastructure/event.manager';
-import { EventListener } from '@qgrid/core/infrastructure/event.listener';
-import { DragService } from '@qgrid/core/drag/drag.service';
-import { GRID_PREFIX } from '@qgrid/core/definition';
 import { Command } from '@qgrid/core/command/command';
-import { no } from '@qgrid/core/utility/kit';
+import { DragService } from '@qgrid/core/drag/drag.service';
 import { elementFromPoint, parents } from '@qgrid/core/services/dom';
-import { GridRoot } from '../grid/grid-root';
-import { Disposable } from '../infrastructure/disposable';
+import { EventListener } from '@qgrid/core/event/event.listener';
+import { EventManager } from '@qgrid/core/event/event.manager';
+import { GRID_PREFIX } from '@qgrid/core/definition';
+import { GridPlugin } from '../plugin/grid-plugin';
+import { no } from '@qgrid/core/utility/kit';
 
 export interface DropEventArg {
 	path: HTMLElement[];
@@ -20,8 +19,7 @@ export interface DropEventArg {
 }
 
 @Directive({
-	selector: '[q-grid-drop]',
-	providers: [Disposable]
+	selector: '[q-grid-drop]'
 })
 export class DropDirective implements OnInit {
 	@Input('q-grid-drop-area') area: string;
@@ -31,9 +29,8 @@ export class DropDirective implements OnInit {
 	@Input('q-grid-drag-direction') dragDirection: 'x' | 'y' = 'y';
 
 	constructor(
-		@Optional() private root: GridRoot,
+		@Optional() private plugin: GridPlugin,
 		private elementRef: ElementRef,
-		private disposable: Disposable,
 		zone: NgZone
 	) {
 		const element = elementRef.nativeElement;
@@ -50,9 +47,10 @@ export class DropDirective implements OnInit {
 	}
 
 	ngOnInit() {
-		if (this.root) {
-			this.disposable.add(
-				this.root.model.dragChanged.on(e => {
+		if (this.plugin) {
+			const { model, observe } = this.plugin;
+			observe(model.dragChanged)
+				.subscribe(e => {
 					if (e.hasChanges('isActive')) {
 						if (!e.state.isActive) {
 							const eventArg = {
@@ -69,7 +67,7 @@ export class DropDirective implements OnInit {
 							}
 						}
 					}
-				}));
+				});
 		}
 	}
 
@@ -104,7 +102,7 @@ export class DropDirective implements OnInit {
 	onOver(e: DragEvent) {
 		e.preventDefault();
 
-		if (this.root && this.root.model.scene().status !== 'stop') {
+		if (this.plugin && this.plugin.model.scene().status !== 'stop') {
 			return false;
 		}
 
@@ -171,6 +169,7 @@ export class DropDirective implements OnInit {
 	private inAreaFactory(e: DragEvent, direction: 'x' | 'y') {
 		const src = DragService.startPosition.rect;
 		const { x, y } = this.getPosition(e);
+
 		if (direction === 'y') {
 			return (element: HTMLElement) => {
 				const trg = element.getBoundingClientRect();

@@ -2,14 +2,15 @@ import { Command } from '@qgrid/core/command/command';
 import { FocusAfterRenderService } from '@qgrid/core/focus/focus.service';
 
 export class PagerPlugin {
-	constructor(model, table, disposable) {
-		this.model = model;
-		this.table = table;
+	constructor(plugin) {
+		const { model } = plugin;
+
+		this.plugin = plugin;
 
 		this.next = new Command({
 			source: 'pager',
 			execute: () => {
-				new FocusAfterRenderService(model, table, disposable);
+				new FocusAfterRenderService(plugin);
 				model.pagination({ current: model.pagination().current + 1 }, { source: 'pager.view' })
 			},
 			canExecute: () => (model.pagination().current + 1) * model.pagination().size < model.pagination().count
@@ -18,7 +19,7 @@ export class PagerPlugin {
 		this.prev = new Command({
 			source: 'pager',
 			execute: () => {
-				new FocusAfterRenderService(model, table, disposable);
+				new FocusAfterRenderService(plugin);
 				model.pagination({ current: model.pagination().current - 1 }, { source: 'pager.view' });
 			},
 			canExecute: () => model.pagination().current > 0
@@ -26,31 +27,31 @@ export class PagerPlugin {
 	}
 
 	get theme() {
-		return this.model.style().classList		
+		return this.plugin.model.style().classList
 	}
 
 	get resource() {
-		return this.model.pagination().resource;
+		return this.plugin.model.pagination().resource;
 	}
 
 	get size() {
-		return this.model.pagination().size;
+		return this.plugin.model.pagination().size;
 	}
 
 	set size(value) {
-		this.model.pagination({ size: value, current: 0 }, { source: 'pager.view' });
+		this.plugin.model.pagination({ size: value, current: 0 }, { source: 'pager.view' });
 	}
 
 	get sizeList() {
-		return this.model.pagination().sizeList;
+		return this.plugin.model.pagination().sizeList;
 	}
 
 	get current() {
-		return this.model.pagination().current;
+		return this.plugin.model.pagination().current;
 	}
 
 	set current(value) {
-		return this.model.pagination({ current: value }, { source: 'pager.view' });
+		return this.plugin.model.pagination({ current: value }, { source: 'pager.view' });
 	}
 
 	get from() {
@@ -62,7 +63,7 @@ export class PagerPlugin {
 	}
 
 	get total() {
-		return this.model.pagination().count;
+		return this.plugin.model.pagination().count;
 	}
 
 	get totalPages() {
@@ -72,6 +73,6 @@ export class PagerPlugin {
 	}
 
 	get scroll() {
-		return this.model.scroll();
+		return this.plugin.model.scroll();
 	}
 }

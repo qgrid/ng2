@@ -1,5 +1,5 @@
 <q-grid caption="Details Row API"
-		[rows]="rows | async">
+		[rows]="rows$ | async">
 	<q-grid-columns generation="deep">
 		<q-grid-column key="number"
 					   type="id"
@@ -78,11 +78,11 @@
 		</q-grid-action>
 		<q-grid-action id="disable-expand-all"
 					   title="Disable Expand"
-					   [command]="disableExpandAllCommand">
+					   [command]="disableExpand">
 		</q-grid-action>
 		<q-grid-action id="allow-expand-all"
 					   title="Allow Expand"
-					   [command]="allowExpandAllCommand">
+					   [command]="enableExpand">
 		</q-grid-action>
 	</q-grid-actions>
 

@@ -1,5 +1,5 @@
 import { isFunction } from '@qgrid/core/utility/kit';
-import { AppError } from '@qgrid/core/infrastructure/error';
+import { GridError } from '@qgrid/core/infrastructure/error';
 import { PipeUnit } from '@qgrid/core/pipe/pipe.unit';
 import { serialize as serializeGet } from '@qgrid/core/rest/get.serialize';
 import { serialize as serializePost } from '@qgrid/core/rest/post.serialize';
@@ -10,7 +10,7 @@ export class RestPlugin {
 
 		const { method, url, serialize } = this.model.rest();
 		if (!url) {
-			throw new AppError('rest', 'REST endpoint URL is required');
+			throw new GridError('rest', 'REST endpoint URL is required');
 		}
 
 		const fetch = this.fetchFactory(method, get, post);
@@ -33,7 +33,7 @@ export class RestPlugin {
 			case 'post':
 				return post;
 			default:
-				throw new AppError('rest', `"${method}" is incorrect REST method`);
+				throw new GridError('rest', `"${method}" is incorrect REST method`);
 		}
 	}
 

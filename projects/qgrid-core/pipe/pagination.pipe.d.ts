@@ -1,4 +1,4 @@
-import { PipeContext, PipeMemo } from './pipe.item';
+import { PipeFolder, MemoPipe } from './pipe.types';
 
 
-export declare const paginationPipe: (memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any;
+export declare const paginationPipe: MemoPipe<PipeFolder>;

@@ -1,8 +1,6 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
-import { TdCtrl } from '@qgrid/core/cell/td.ctrl';
 import { ColumnView } from '@qgrid/core/scene/view/column.view';
-
-const classify = TdCtrl.classify;
+import { CellClassService } from '../cell/cell-class.service';
 
 @Directive({
 	selector: '[q-grid-core-td-align]',
@@ -10,10 +8,13 @@ const classify = TdCtrl.classify;
 export class TdCoreAlignDirective implements OnInit {
 	@Input('q-grid-core-td-align') columnView: ColumnView;
 
-	constructor(private elementRef: ElementRef) {
+	constructor(
+		private elementRef: ElementRef,
+		private cellClass: CellClassService,
+		) {
 	}
 
 	ngOnInit() {
-		classify(this.elementRef.nativeElement, this.columnView.model);
+		this.cellClass.toBody(this.elementRef.nativeElement, this.columnView.model);
 	}
 }

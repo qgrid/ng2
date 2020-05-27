@@ -3,17 +3,17 @@ import { nodeBuilder } from '../node/node.build';
 import { Guard } from '../infrastructure/guard';
 
 export function groupPipe(memo, context, next) {
-	Guard.notNull(memo, 'rows');
+	Guard.notNull(memo, 'memo');
 
 	const { model } = context;
-	if (memo.rows.length) {
+	const { rows: memoRows, nodes: memoNodes } = memo;
+	if (memoRows.length) {
 		const { rows } = model.data();
 		const { by } = model.group();
 		const columns = model.columnList().line;
 		const columnMap = getColumnMap(columns);
 		const build = nodeBuilder(columnMap, by, context.valueFactory);
 
-		const memoRows = memo.rows;
 		memo.nodes = build(memoRows, i => {
 			const row = memoRows[i];
 			const index = rows.indexOf(row);
@@ -22,11 +22,11 @@ export function groupPipe(memo, context, next) {
 	}
 
 	model.pipe({
-		effect: Object.assign({}, model.pipe().effect, { group: memo.nodes })
+		effect: Object.assign({}, model.pipe().effect, { group: memoNodes })
 	}, {
-			source: 'group.pipe',
-			behavior: 'core'
-		});
+		source: 'group.pipe',
+		behavior: 'core'
+	});
 
 	next(memo);
 }

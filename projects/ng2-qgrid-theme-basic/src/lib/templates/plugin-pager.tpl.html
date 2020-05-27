@@ -29,15 +29,13 @@
 
 			<button tabindex="-1"
 					class="q-grid-icon-button q-grid-pager-prev"
-					[disabled]="!$pager.prev.canExecute()"
-					(click)="$pager.prev.execute();">
+					[q-grid-command]="pager.prev">
 				<i class="q-grid-icon">&#10094;</i>
 			</button>
 			<q-grid-pager-target></q-grid-pager-target>
 			<button tabindex="-1"
 					class="q-grid-icon-button q-grid-pager-next"
-					[disabled]="!$pager.next.canExecute()"
-					(click)="$pager.next.execute();">
+					[q-grid-command]="pager.next">
 				<i class="q-grid-icon">&#10095;</i>
 			</button>
 		</div>

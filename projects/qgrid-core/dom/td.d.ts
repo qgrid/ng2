@@ -4,8 +4,8 @@ export declare interface Td {
     // @deprecated
     readonly element: HTMLElement;
 
-	value: any;
-	label: any;
+	readonly value: any;
+	readonly label: any;
 
     readonly columnIndex: number;
     readonly rowIndex: number;

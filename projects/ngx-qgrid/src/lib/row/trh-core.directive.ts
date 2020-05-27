@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { DomTr } from '../dom/dom';
-import { GridView } from '../grid/grid-view';
-import { GridRoot } from '../grid/grid-root';
+import { GridLet } from '../grid/grid-let';
+import { GridPlugin } from '../plugin/grid-plugin';
 
 @Directive({
 	selector: '[q-grid-core-trh]'
@@ -14,18 +14,18 @@ export class TrhCoreDirective implements DomTr, OnInit, OnDestroy {
 	element: HTMLElement;
 
 	constructor(
-		public $view: GridView,
-		private root: GridRoot,
+		public $view: GridLet,
+		private plugin: GridPlugin,
 		elementRef: ElementRef
 	) {
 		this.element = elementRef.nativeElement;
 	}
 
 	ngOnInit() {
-		this.root.bag[this.source].addRow(this);
+		this.plugin.table.box.bag[this.source].addRow(this);
 	}
 
 	ngOnDestroy() {
-		this.root.bag[this.source].deleteRow(this);
+		this.plugin.table.box.bag[this.source].deleteRow(this);
 	}
 }

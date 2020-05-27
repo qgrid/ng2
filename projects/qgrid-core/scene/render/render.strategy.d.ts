@@ -1,8 +1,8 @@
-import { ColumnModel } from '../../column-type/column.model';
+import { ColumnModel, ColumnModelPin } from '../../column-type/column.model';
 import { ColumnView } from '../view/column.view';
 
 export declare class RenderStrategy {
-	columns(row: any, pin: string, rowIndex: number): ColumnView[];
+	columns(row: any, pin: ColumnModelPin, rowIndex: number): ColumnView[];
 	rowspan(row: any, column: ColumnView, rowIndex: number, columnIndex: number): number;
 	colspan(row: any, column: ColumnView, rowIndex: number, columnIndex: number): number;
 
@@ -11,5 +11,5 @@ export declare class RenderStrategy {
 	getLabel(row: any, column: ColumnModel, select: (row: any, column: ColumnModel) => any, rowIndex: number, columnIndex: number);
 	setLabel(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number);
 
-	columnList(pin: string): ColumnView[];
+	columnList(pin: ColumnModelPin): ColumnView[];
 }

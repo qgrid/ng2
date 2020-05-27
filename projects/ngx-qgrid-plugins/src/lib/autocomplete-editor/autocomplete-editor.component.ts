@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { GridPlugin } from '@qgrid/ngx';
 import { predicateFactory } from '@qgrid/core/services/predicate';
 import { isArray } from '@qgrid/core/utility/kit';
@@ -6,7 +6,8 @@ import { isArray } from '@qgrid/core/utility/kit';
 @Component({
 	selector: 'q-grid-autocomplete-editor',
 	templateUrl: './autocomplete-editor.component.html',
-	providers: [GridPlugin]
+	providers: [GridPlugin],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AutoCompleteEditorComponent {
 	options: any[] = [];

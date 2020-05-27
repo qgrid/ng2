@@ -1,5 +1,5 @@
 import { isFunction } from '../utility/kit';
-import { AppError } from '../infrastructure/error';
+import { GridError } from '../infrastructure/error';
 import { expand, collapse } from './column.matrix';
 
 export function flatten(columns, result = []) {
@@ -122,8 +122,9 @@ export function widthFactory(table, form) {
 				const skip = column.widthMode === 'relative' ? occupied + padSkip : padSkip;
 				width = (rect.width - skip) * percent / 100;
 			}
-
-			return Math.max(Number.parseInt(width, 10), Number.parseInt(column.minWidth, 10));
+			
+			const MIN_WIDTH = 0;
+			return Math.max(Number.parseInt(width, 10), Number.parseInt(column.minWidth, 10) || MIN_WIDTH);
 		}
 
 		return null;
@@ -132,7 +133,7 @@ export function widthFactory(table, form) {
 	return key => {
 		let column = columnMap[key];
 		if (!column) {
-			throw new AppError('column.service', `Column ${key} is not found`);
+			throw new GridError('column.service', `Column ${key} is not found`);
 		}
 
 		return getWidth(column);

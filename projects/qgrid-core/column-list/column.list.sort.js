@@ -9,9 +9,9 @@ function sortIndexFactory(model) {
 	return (columns, scores) => {
 		const { length } = columns;
 		scores = Object.assign({
-			list: column => (column.class === 'data' || column.class === 'cohort') ? 0.1 : 0.3,
+			list: column => (column.category === 'data' || column.category === 'cohort') ? 0.1 : 0.3,
 			index: () => 0.2,
-			view: column => length + ((column.class !== 'data' && column.class !== 'cohort') ? 0.1 : 0.3),
+			view: column => length + ((column.category !== 'data' && column.category !== 'cohort') ? 0.1 : 0.3),
 			template: () => length + 0.4
 		}, scores);
 
@@ -19,10 +19,10 @@ function sortIndexFactory(model) {
 
 		const sort = sortFactory(scores)(templateIndex, viewIndex);
 		const left = sort(columns.filter(c => c.pin === 'left'));
-		const center = sort(columns.filter(c => !c.pin));
+		const middle = sort(columns.filter(c => c.pin === 'mid'));
 		const right = sort(columns.filter(c => c.pin === 'right'));
 
-		return left.concat(center).concat(right);
+		return left.concat(middle).concat(right);
 	};
 }
 

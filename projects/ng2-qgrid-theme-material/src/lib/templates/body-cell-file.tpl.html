@@ -4,11 +4,11 @@
     <a [href]="$cell.value">{{$cell.label || $cell.value}}</a>
     <button *ngIf="$view.edit.cell.canEdit($cell)"
             mat-icon-button
-            [disabled]="!$view.edit.cell.enter.canExecute($cell)"
             class="q-grid-file-edit q-grid-edit-trigger"
             matTooltip="Upload"
-            aria-label="Аile edit"
-            (click)="$view.edit.cell.enter.execute($cell)"
+            [q-grid-command]="$view.edit.cell.enter"
+            [q-grid-command-arg]="$cell"
+            aria-label="Upload file"
             tabindex="-1">
         <mat-icon class="q-grid-icon">file_upload</mat-icon>
     </button>

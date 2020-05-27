@@ -1,12 +1,13 @@
 import { isUndefined } from '@qgrid/core/utility/kit';
 import { Command } from '@qgrid/core/command/command';
 import { RowEditor } from '@qgrid/core/edit/edit.row.editor';
-import { Event } from '@qgrid/core/infrastructure/event';
+import { Event } from '@qgrid/core/event/event';
 
 export class EditFormPanelPlugin {
-	constructor(model, context, disposable) {
-		this.model = model;
+	constructor(plugin, context) {
+		const { model, disposable } = plugin;
 
+		this.plugin = plugin;
 		this.editor = new RowEditor(context.row, model.columnList().line);
 		this.caption = context.caption;
 
@@ -57,9 +58,9 @@ export class EditFormPanelPlugin {
 	}
 
 	shortcutFactory(type) {
-		const { edit } = this.model;
+		const { model } = this.plugin;
 		return () => {
-			const shortcuts = edit()[type + 'Shortcuts'];
+			const shortcuts = model.edit()[type + 'Shortcuts'];
 			return shortcuts['reference'] || shortcuts['$default'];
 		};
 	}

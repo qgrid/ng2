@@ -7,8 +7,7 @@ import { Node } from '../node/node';
 import { sortIndexFactory, merge } from '../column-list/column.list.sort';
 
 export function columnPipe(memo, context, next) {
-	Guard.hasProperty(memo, 'pivot');
-	Guard.hasProperty(memo, 'nodes');
+	Guard.notNull(memo, 'memo');
 
 	const { model } = context;
 	const { pivot, nodes } = memo;

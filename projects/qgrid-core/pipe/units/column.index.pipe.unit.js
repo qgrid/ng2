@@ -1,6 +1,5 @@
 import { Pipe } from '../pipe';
 import { Scene } from '../../scene/scene';
-import { Guard } from '../../infrastructure/guard';
 
 export const columnIndexPipeUnit = [
 	(_, context, next) => {
@@ -10,8 +9,6 @@ export const columnIndexPipeUnit = [
 	Pipe.columnIndex,
 	Pipe.animation,
 	(memo, context, next) => {
-		Guard.hasProperty(memo, 'columns');
-
 		const { model } = context;
 		const scene = new Scene(model);
 		const columnLine = scene.columnLine(memo.columns);
@@ -24,7 +21,7 @@ export const columnIndexPipeUnit = [
 			columns: columnLine.map(c => c.model)
 		}, tag);
 
-		context.model.scene({
+		model.scene({
 			column: {
 				rows: scene.columnRows(memo.columns),
 				area: scene.columnArea(memo.columns),

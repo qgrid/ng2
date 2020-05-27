@@ -32,7 +32,7 @@ describe('columnFactory', () => {
 		expect(result.model.path).to.equal(null);
 		expect(result.model.origin).to.equal('specific');
 		expect(result.model.source).to.equal('user');
-		expect(result.model.class).to.equal('data');
+		expect(result.model.category).to.equal('data');
 		expect(result.model.editor).to.equal(null);
 		expect(result.model.editorOptions.trigger).to.equal('click');
 		expect(result.model.editorOptions.label).to.equal(null);

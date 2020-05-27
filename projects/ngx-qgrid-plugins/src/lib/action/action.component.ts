@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnInit, Input } from '@angular/core';
 import { Action } from '@qgrid/core/action/action';
 import { Command } from '@qgrid/core/command/command';
-import { TemplateHostService, Disposable, GridError, GridPlugin } from '@qgrid/ngx';
+import { TemplateHostService, GridError, GridPlugin } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-action',
@@ -9,19 +9,17 @@ import { TemplateHostService, Disposable, GridError, GridPlugin } from '@qgrid/n
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		GridPlugin,
-		TemplateHostService,
-		Disposable
+		TemplateHostService
 	]
 })
 export class ActionComponent implements OnInit {
-	@Input() id: string = null;
-	@Input() title: string = null;
-	@Input() icon: string = null;
-	@Input() command: Command = null;
+	@Input() id: string;
+	@Input() title: string;
+	@Input() icon: string;
+	@Input() command: Command;
 
 	constructor(
 		private plugin: GridPlugin,
-		private disposable: Disposable,
 		templateHost: TemplateHostService
 	) {
 		templateHost.key = source => `action-${source}-${this.id}.tpl.html`;
@@ -36,7 +34,7 @@ export class ActionComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const { model } = this.plugin;
+		const { model, disposable } = this.plugin;
 		const hasCommand = !!this.command;
 		const command = this.command || new Command();
 		if (!(hasCommand || this.id)) {
@@ -54,7 +52,7 @@ export class ActionComponent implements OnInit {
 
 		model.action({ items: actions }, { source: 'action.component' });
 
-		this.disposable.add(() => {
+		disposable.add(() => {
 			const { items } = model.action();
 			const index = items.indexOf(action);
 			if (index >= 0) {

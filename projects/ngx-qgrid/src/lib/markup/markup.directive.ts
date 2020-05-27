@@ -1,25 +1,25 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit, Optional } from '@angular/core';
-import { GridRoot } from '../grid/grid-root';
+import { Directive, ElementRef, Input, OnInit, Optional } from '@angular/core';
 import { TableCoreService } from '../table/table-core.service';
+import { GridPlugin } from '../plugin/grid-plugin';
 
 @Directive({
-	selector: '[q-grid-markup]'
+	selector: '[q-grid-markup]',
+	providers: [GridPlugin]
 })
-export class MarkupDirective implements OnInit, OnDestroy {
+export class MarkupDirective implements OnInit {
 	@Input('q-grid-markup') name = '';
 
 	constructor(
-		private root: GridRoot,
+		private plugin: GridPlugin,
 		private elementRef: ElementRef,
 		@Optional() private table: TableCoreService
-	) {}
+	) { }
 
 	ngOnInit() {
-		this.root.markup[this.getName()] = this.elementRef.nativeElement;
-	}
+		const { table, disposable } = this.plugin;
+		table.box.markup[this.getName()] = this.elementRef.nativeElement;
 
-	ngOnDestroy() {
-		delete this.root.markup[this.getName()];
+		disposable.add(() => delete table.box.markup[this.getName()]);
 	}
 
 	private getName() {

@@ -5,17 +5,20 @@ export const rowPipeUnit = [
 	(_, context, next) => {
 		const { model } = context;
 		const { rows, pivot, nodes } = model.view();
-		const order = sortFactory(model);		
+		const order = sortFactory(model);
 		const memo = {
 			rows: order(rows),
 			pivot,
 			nodes,
 		};
+
 		next(memo);
 	},
 	Pipe.animation,
-	({ rows }, context, next) => {
+	(memo, context, next) => {
 		const { model } = context;
+		const { rows } = memo;
+
 		const tag = {
 			source: context.source || 'row.pipe.unit',
 			behavior: 'core'

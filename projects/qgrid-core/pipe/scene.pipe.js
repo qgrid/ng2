@@ -3,8 +3,7 @@ import { Guard } from '../infrastructure/guard';
 import { sortFactory } from '../row-list/row.list.sort';
 
 export function scenePipe(memo, context, next) {
-	Guard.hasProperty(memo, 'rows');
-	Guard.hasProperty(memo, 'columns');
+	Guard.notNull(memo, 'memo');
 
 	const tag = {
 		source: context.source || 'scene.pipe',

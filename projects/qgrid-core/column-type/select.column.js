@@ -23,7 +23,7 @@ export class SelectColumnModel extends ColumnModel {
 
 		this.key = '$select';
 		this.title = '';
-		this.class = 'control';
+		this.category = 'control';
 
 		this.canEdit = false;
 		this.editorOptions.cruise = 'transparent';

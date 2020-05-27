@@ -81,6 +81,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 				subscription.unsubscribe();
 			}
 		});
+
 		this.zone.runOutsideAngular(() => {
 			setTimeout(() => {
 				if (this.menuItems.first && !this.findRequestedItem()) {

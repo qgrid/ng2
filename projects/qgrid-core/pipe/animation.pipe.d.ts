@@ -1,6 +1,6 @@
-import { PipeContext, PipeMemo } from './pipe.item';
+import { PipeCallback } from './pipe.types';
 
 /**
  * The intent is to apply animation to rows before they will be re-rendered
  */
-export declare const animationPipe: (memo: any, context: PipeContext, next: (param: PipeMemo) => void) => any;
+export declare const animationPipe: PipeCallback<any, any>;

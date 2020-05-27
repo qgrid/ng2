@@ -29,7 +29,7 @@ export class ExamplePipeGridBasicComponent {
 			};
 
 		this.gridModel.data({
-			pipe: [myDataPipe].concat(qgrid.pipeUnit.view)
+			pipe: [myDataPipe].concat(qgrid.pipeUnit.view as any[])
 		});
 	}
 }

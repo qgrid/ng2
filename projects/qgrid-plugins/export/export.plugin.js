@@ -8,9 +8,10 @@ import { Xlsx } from './xlsx';
 import { Pdf } from './pdf';
 
 export class ExportPlugin {
-	constructor(model, context) {
+	constructor(model, type) {
 		this.model = model;
-		this.type = context.type;
+		this.type = type;
+
 		this.csv = new Command({
 			source: 'export',
 			canExecute: () => this.type === 'csv',
@@ -23,6 +24,7 @@ export class ExportPlugin {
 				download(this.id, data, `text/${this.type}`);
 			}
 		});
+
 		this.json = new Command({
 			source: 'export',
 			canExecute: () => this.type === 'json',
@@ -35,6 +37,7 @@ export class ExportPlugin {
 				download(this.id, data, `text/${this.type}`);
 			}
 		});
+
 		this.xml = new Command({
 			source: 'export',
 			canExecute: () => this.type === 'xml',
@@ -47,6 +50,7 @@ export class ExportPlugin {
 				download(this.id, data, `application/${this.type}`);
 			}
 		});
+
 		this.xlsx = new Command({
 			source: 'export',
 			canExecute: () => this.type === 'xlsx',
@@ -60,6 +64,7 @@ export class ExportPlugin {
 				download(this.id, data, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'xlsx');
 			}
 		});
+
 		this.pdf = new Command({
 			source: 'export',
 			canExecute: () => this.type === 'pdf',

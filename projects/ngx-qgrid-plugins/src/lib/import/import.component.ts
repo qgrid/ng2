@@ -5,14 +5,14 @@ import { Command } from '@qgrid/core/command/command';
 import { Action } from '@qgrid/core/action/action';
 import { Composite } from '@qgrid/core/infrastructure/composite';
 import { ImportPlugin } from '@qgrid/plugins/import/import.plugin';
-import { EventManager } from '@qgrid/core/infrastructure/event.manager';
-import { EventListener } from '@qgrid/core/infrastructure/event.listener';
-import { TemplateHostService, Disposable } from '@qgrid/ngx';
+import { EventManager } from '@qgrid/core/event/event.manager';
+import { EventListener } from '@qgrid/core/event/event.listener';
+import { TemplateHostService } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-import',
 	templateUrl: './import.component.html',
-	providers: [TemplateHostService, GridPlugin, Disposable],
+	providers: [TemplateHostService, GridPlugin],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImportComponent implements AfterViewInit {
@@ -26,21 +26,24 @@ export class ImportComponent implements AfterViewInit {
 	constructor(
 		private plugin: GridPlugin,
 		private templateHost: TemplateHostService,
-		private hostElement: ElementRef,
-		private disposable: Disposable
+		private hostElement: ElementRef
 	) {
 		this.templateHost.key = () => `import`;
 	}
 
 	ngAfterViewInit() {
-		const element = this.hostElement.nativeElement;
-		const eventListener = new EventListener(element, new EventManager(this));
-		const { model } = this.plugin;
-		const context = { element, options: this.options };
-		const importPlugin = new ImportPlugin(model, context);
+		const { model, disposable } = this.plugin;
+		const { nativeElement } = this.hostElement;
+
+		const eventListener = new EventListener(nativeElement, new EventManager(this));
+		const importPlugin = new ImportPlugin(model, nativeElement, this.options);
+
 		eventListener.on('change', (e) => importPlugin.load(e));
+
 		const action = new Action(
-			new Command({ execute: () => importPlugin.upload.execute() }),
+			new Command({
+				execute: () => importPlugin.upload()
+			}),
 			`Import data`,
 			'file_upload'
 		);
@@ -51,12 +54,12 @@ export class ImportComponent implements AfterViewInit {
 			action.templateUrl = this.templateHost.key('trigger');
 		}
 
-		const items =  Composite.list([model.action().items, [action]]);
+		const items = Composite.list([model.action().items, [action]]);
 		model.action({ items }, { source: 'import.component' });
 
-		this.disposable.add(() => {
-			const newItems = model.action().items.filter(x => x.id === action.id);
-			model.action({ items: newItems }, { source: 'import.component' });
+		disposable.add(() => {
+			const notImportItems = model.action().items.filter(x => x.id !== action.id);
+			model.action({ items: notImportItems }, { source: 'import.component' });
 		});
 	}
 

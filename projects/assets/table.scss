@@ -1,10 +1,12 @@
 .q-grid-table {
+
     tbody,
     thead,
     tfoot {
         border-collapse: collapse;
         border-spacing: 0;
     }
+
     table {
         border-spacing: 0;
         overflow: hidden;
@@ -14,6 +16,7 @@
         height: 100%;
         width: 100%;
         outline: none;
+
         thead,
         tfoot {
             /* head takes the height it requires,
@@ -22,37 +25,45 @@
             width: calc(100% - 8px);
             overflow: hidden;
         }
+
         tbody {
             /* body takes all the remaining available space */
             flex: 1 1 auto;
             display: block;
             overflow: scroll;
-			scrollbar-color: $scrollbar-track-dark $scrollbar-track;
-			scrollbar-width: thin;
+            scrollbar-color: $scrollbar-track-dark $scrollbar-track;
+            scrollbar-width: thin;
             outline: none;
             overflow-anchor: none;
+
             &.q-grid-body-top {
                 flex: none;
                 overflow-x: hidden;
             }
+
             &.q-grid-body-bottom {
                 flex: none;
             }
         }
+
         tbody tr {
             width: 100%;
             display: table-row;
             table-layout: fixed;
+
             &.q-grid-align {
                 height: 0 !important;
                 border: 0;
+
                 &:last-child {
                     display: initial;
                 }
             }
         }
     }
+
     &.q-grid-table-left {
+
         thead,
         tfoot {
             width: 100%;
@@ -62,8 +73,9 @@
 
 .q-grid-with-right-pin {
     >.q-grid-view {
-        >.q-grid-table.q-grid-table-center {
+        >.q-grid-table.q-grid-table-mid {
             >table {
+
                 >thead,
                 >tfoot {
                     width: 100%;
