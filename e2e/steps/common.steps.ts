@@ -122,7 +122,8 @@ function getColumnCount() {
 }
 
 function getFilterButton(text) {
-	return element(by.xpath('//q-grid-column-filter-trigger[@ng-reflect-column=\'text: ' + text.replace(/\s/g, '') + '\']/button'));
+	//return element(by.xpath('//q-grid-column-filter-trigger[@ng-reflect-column=\'text: ' + text.replace(/\s/g, '') + '\']/button'));
+	return element(by.xpath('//*[contains(text(),\' '+ text.replace(/\s/g, '') + ' \')]/../../q-grid-column-filter-trigger/button'));
 }
 
 function selectPersistenceItem(num) {
