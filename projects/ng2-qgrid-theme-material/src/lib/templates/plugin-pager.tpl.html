@@ -38,14 +38,23 @@
 			<button tabindex="-1"
 					mat-button
 					class="mat-icon-button q-grid-prev-page"
-					[q-grid-command]="$pager.prev">
+					[q-grid-command]="$pager.prev"
+					[q-grid-command-use-shortcut]="true"
+					[matTooltip]="$pager.prev.shortcut | uppercase"
+					[matTooltipShowDelay]="800">
 				<mat-icon class="q-grid-icon">keyboard_arrow_left</mat-icon>
 			</button>
-			<q-grid-pager-target></q-grid-pager-target>
+
+			<q-grid-pager-target>
+			</q-grid-pager-target>
+
 			<button tabindex="-1"
 					mat-button
 					class="mat-icon-button q-grid-next-page"
-					[q-grid-command]="$pager.next">
+					[q-grid-command]="$pager.next"
+					[q-grid-command-use-shortcut]="true"
+					[matTooltip]="$pager.next.shortcut | uppercase"
+					[matTooltipShowDelay]="800">
 				<mat-icon class="q-grid-icon">keyboard_arrow_right</mat-icon>
 			</button>
 		</div>
