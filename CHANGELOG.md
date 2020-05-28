@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Fixed
 * Remove auto entering to the edit mode on cell focus.
 * Row options column menu item click doesn't trigger an action.
+* Fixed when cell-handler go out of view port when hold page-up.
 
 ## Added
 * Add new option to generation, typeDetection= 'inference' | 'raw'.
