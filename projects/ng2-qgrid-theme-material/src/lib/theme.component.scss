@@ -25,7 +25,6 @@
     @import "assets/cell";
     @import "assets/column.filter";
     @import "assets/column.sort";
-    @import "assets/embed";
     @import "assets/export";
     @import "assets/head";
     @import "assets/legend";
@@ -67,9 +66,5 @@
     @import "assets/shortcut.scss";
 }
 
-.q-grid-excel .q-grid.q-grid-theme-material {
-    @import "assets/mat/excel";
-}
-
-@import "assets/embed";
+@import "assets/compact";
 @import "assets/dark";

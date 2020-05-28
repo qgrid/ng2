@@ -145,6 +145,7 @@ import { ExampleSelectRowCommandComponent } from './select-row-command/example-s
 import { ExampleSelectRowDisableComponent } from './select-row-disable/example-select-row-disable.component';
 import { ExampleSelectRowSingleComponent } from './select-row-single/example-select-row-single.component';
 import { ExampleSelectRowSingleOnlyComponent } from './select-row-single-only/example-select-row-single-only.component';
+import { ExampleSelectRowRangeComponent } from './select-row-range/example-select-row-range.component';
 import { ExampleSizeColumnAbsoluteComponent } from './size-column-absolute/example-size-column-absolute.component';
 import { ExampleSizeColumnBasicComponent } from './size-column-basic/example-size-column-basic.component';
 import { ExampleSizeColumnFullComponent } from './size-column-full/example-size-column-full.component';
@@ -296,6 +297,7 @@ export const EXAMPLES: any[] = [
 	ExampleSelectRowDisableComponent,
 	ExampleSelectRowSingleComponent,
 	ExampleSelectRowSingleOnlyComponent,
+	ExampleSelectRowRangeComponent,
 	ExampleSizeColumnAbsoluteComponent,
 	ExampleSizeColumnBasicComponent,
 	ExampleSizeColumnFullComponent,

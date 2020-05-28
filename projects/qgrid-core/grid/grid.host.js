@@ -111,7 +111,24 @@ export class GridHost {
 	invalidateActive() {
 		const { model, table } = this.plugin;
 		if (table.view.isFocused()) {
-			model.focus({ isActive: true }, { source: 'grid.host' });
+			const needFocusCell =
+				!model.mouse().target
+				&& (model.focus().rowIndex < 0 || model.focus().columnIndex < 0);
+			if (needFocusCell) {
+				model.focus({
+					rowIndex: 0,
+					columnIndex: 0,
+					isActive: true
+				}, {
+					source: 'grid.host'
+				});
+			} else {
+				model.focus({
+					isActive: true
+				}, {
+					source: 'grid.host'
+				});
+			}
 		}
 		else {
 			model.focus({ isActive: false }, { source: 'grid.host' });

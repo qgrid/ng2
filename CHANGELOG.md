@@ -15,6 +15,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Remove auto entering to the edit mode on cell focus.
 * Row options column menu item click doesn't trigger an action.
 * Fixed when cell-handler go out of view port when hold page-up.
+* Highlight column on mouse over even if it's sorted.
+* When focus grid using tab key, also focus first focusable cell.
+* Clear function on column filter expression views deactivates filter.
 
 ## Added
 * Add new option to generation, typeDetection= 'inference' | 'raw'.
