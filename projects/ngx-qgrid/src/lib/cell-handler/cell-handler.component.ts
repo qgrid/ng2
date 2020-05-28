@@ -109,16 +109,24 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 						const target = domCell.element;
 						const scrollState = model.scroll();
 
-						const top = (target.offsetTop - scrollState.top) + 'px';
-						const left = (target.offsetLeft - (cell.column.pin === 'mid' ? scrollState.left : 0)) + 'px';
-						const width = target.offsetWidth + 'px';
-						const height = target.offsetHeight + 'px';
+						const rect = table.view.rect('body-mid');
+
+						const top = Math.max(0, (target.offsetTop - scrollState.top));
+						const left = (target.offsetLeft - (cell.column.pin === 'mid' ? scrollState.left : 0));
+						const width = target.offsetWidth;
+						const height = target.offsetHeight;
 
 						Fastdom.mutate(() => {
-							element.style.top = top;
-							element.style.left = left;
-							element.style.width = width;
-							element.style.height = height;
+							element.style.top = top + 'px';
+							element.style.left = left + 'px';
+							element.style.width = width + 'px';
+							element.style.height = height + 'px';
+
+							console.log('rect.top ' + rect.top);
+							console.log('target.top ' + target.offsetTop);
+							console.log('scroll.top ' + scrollState.top);
+							console.log('top ' + top);
+							console.log('------------');
 						});
 					});
 

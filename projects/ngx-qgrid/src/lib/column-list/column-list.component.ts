@@ -1,6 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy, OnChanges } from '@angular/core';
 import { ColumnListService } from './column-list.service';
-import { ColumnListState, ColumnListStateGeneration } from '@qgrid/core/column-list/column.list.state';
+import { ColumnListState, ColumnListStateGeneration, ColumnListStateTypeDetection } from '@qgrid/core/column-list/column.list.state';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { StateAccessor } from '../state/state-accessor';
 
@@ -13,7 +13,8 @@ import { StateAccessor } from '../state/state-accessor';
 export class ColumnListComponent implements OnChanges {
 	private columnListAccessor = this.stateAccessor.setter(ColumnListState);
 
-	@Input('generation') set columnListGeneration(generation: ColumnListStateGeneration) { this.columnListAccessor({ generation }); }
+	@Input() set generation(generation: ColumnListStateGeneration) { this.columnListAccessor({ generation }); }
+	@Input() set typeDetection(typeDetection: ColumnListStateTypeDetection) { this.columnListAccessor({ typeDetection }); }
 
 	constructor(
 		private plugin: GridPlugin,

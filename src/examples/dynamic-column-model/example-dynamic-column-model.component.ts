@@ -25,9 +25,9 @@ export class ExampleDynamicColumnModelComponent {
 			title: `${side} - ${id}`
 		};
 
-		const data = this.gridModel.data();
-		const columns = data.columns.slice();
-		const rows = data.rows.slice();
+		const dataState = this.gridModel.data();
+		const columns = dataState.columns.slice();
+		const rows = dataState.rows.slice();
 
 		if (side === 'left') {
 			columns.unshift(column);
@@ -62,8 +62,8 @@ export class ExampleDynamicColumnModelComponent {
 			title: `group - ${groupId}`
 		};
 
-		const data = this.gridModel.data();
-		const columns = data.columns.slice();
+		const dataState = this.gridModel.data();
+		const columns = dataState.columns.slice();
 		columns.push(groupColumn);
 		this.gridModel.data({ columns });
 	}

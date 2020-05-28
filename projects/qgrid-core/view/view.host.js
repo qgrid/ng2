@@ -111,6 +111,7 @@ export class ViewHost {
 	mouseDown(e) {
 		const { model, view } = this.plugin;
 		const { edit } = model;
+
 		const td = this.findCell(e);
 
 		model.mouse({
@@ -125,15 +126,14 @@ export class ViewHost {
 			const { area, mode } = this.selection;
 
 			if (td) {
-				const fromViewMode = edit().status === 'view';
+				const fromNotEditMode = edit().status === 'view'
 
 				this.navigate(td);
-
 				if (area === 'body') {
 					this.select(td);
 				}
 
-				if (fromViewMode && view.edit.cell.enter.canExecute(td)) {
+				if (fromNotEditMode && view.edit.cell.enter.canExecute(td)) {
 					view.edit.cell.enter.execute(td);
 				}
 

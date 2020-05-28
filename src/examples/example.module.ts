@@ -77,6 +77,7 @@ import { ExampleFocusCellCustomComponent } from './focus-cell-custom/example-foc
 import { ExampleGenerateColumnCheckComponent } from './generate-column-check/example-generate-column-check.component';
 import { ExampleGenerateColumnCohortComponent } from './generate-column-cohort/example-generate-column-cohort.component';
 import { ExampleGenerateColumnDeepComponent } from './generate-column-deep/example-generate-column-deep.component';
+import { ExampleGenerateColumnRawComponent } from './generate-column-raw/example-generate-column-raw.component';
 import { ExampleGenerateColumnShallowComponent } from './generate-column-shallow/example-generate-column-shallow.component';
 import { ExampleGridListBasicComponent } from './grid-list-basic/example-grid-list-basic.component';
 import { ExampleGroupColumnBasicComponent } from './group-column-basic/example-group-column-basic.component';
@@ -168,6 +169,7 @@ export const EXAMPLES: any[] = [
 	ExampleColumnArrayBasicComponent,
 	ExampleColumnAutocompleteBasicComponent,
 	ExampleColumnBoolBasicComponent,
+	ExampleColumnColumnVisibilityBasicComponent,
 	ExampleColumnCurrencyBasicComponent,
 	ExampleColumnDataSafeComponent,
 	ExampleColumnDateBasicComponent,
@@ -190,7 +192,6 @@ export const EXAMPLES: any[] = [
 	ExampleColumnTooltipBasicComponent,
 	ExampleColumnTypeSafeComponent,
 	ExampleColumnUrlBasicComponent,
-	ExampleColumnColumnVisibilityBasicComponent,
 	ExampleDataRowAddComponent,
 	ExampleDataRowDeleteComponent,
 	ExampleDefineColumnAsyncComponent,
@@ -228,6 +229,7 @@ export const EXAMPLES: any[] = [
 	ExampleGenerateColumnCheckComponent,
 	ExampleGenerateColumnCohortComponent,
 	ExampleGenerateColumnDeepComponent,
+	ExampleGenerateColumnRawComponent,
 	ExampleGenerateColumnShallowComponent,
 	ExampleGridListBasicComponent,
 	ExampleGroupColumnBasicComponent,

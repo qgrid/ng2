@@ -3,7 +3,8 @@ import { CohortColumn, CohortColumnModel } from '../column-type/cohort.column';
 
 export class ColumnListState {
 	constructor() {
-		this.generation = null; // deep | shallow | cohort
+		this.generation = null; // deep | shallow | cohort | null
+		this.typeDetection = 'inference'; // inference | raw
 
 		const root = new CohortColumnModel();
 		root.key = '$root';

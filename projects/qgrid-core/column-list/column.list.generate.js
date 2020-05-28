@@ -1,6 +1,6 @@
 import { merge as mergeFactory } from '../services/merge';
 import { compile } from '../services/path';
-import { getType, resolveType } from '../services/convert';
+import { getType, inferType, resolveType } from '../services/convert';
 import { TextColumnModel } from '../column-type/text.column';
 import { assignWith, isUndefined, noop, startCase } from '../utility/kit';
 import { columnFactory } from '../column/column.factory';
@@ -37,13 +37,14 @@ export function generateFactory(model) {
 		const htmlColumns = model.columnList().columns;
 
 		const spawnColumns = [];
-		const { generation } = model.columnList();
+		const { generation, typeDetection } = model.columnList();
 		if (generation) {
 			let settings = {
 				rows,
 				columnFactory: createColumn,
 				deep: false,
-				cohort: false
+				cohort: false,
+				typeDetection
 			};
 
 			switch (generation) {
@@ -73,11 +74,15 @@ export function generateFactory(model) {
 
 		let statistics = [];
 		if (spawnColumns.length) {
-			statistics.push(merge(columns, spawnColumns, false));
+			statistics.push(
+				merge(columns, spawnColumns, false)
+			);
 		}
 
 		if (htmlColumns.length) {
-			statistics.push(merge(columns, htmlColumns, true));
+			statistics.push(
+				merge(columns, htmlColumns, true)
+			);
 		}
 
 		return {
@@ -95,25 +100,31 @@ export function generate(settings) {
 		rows: [],
 		columnFactory: () => new TextColumnModel(),
 		title: startCase,
-		testNumber: 10
+		testNumber: 10,
+		typeDetection: 'inference'
 	}, settings);
 
 	if (context.rows.length) {
 		return build(
 			context.rows[0],
 			[],
-			context.columnFactory,
-			context.deep,
-			context.cohort,
-			context.title,
-			context.rows.slice(0, context.testNumber)
+			{
+				columnFactory: context.columnFactory,
+				deep: context.deep,
+				cohort: context.cohort,
+				title: context.title,
+				typeDetection: context.typeDetection,
+				testRows: context.rows.slice(0, context.testNumber),
+			}
 		);
 	}
 
 	return [];
 }
 
-function build(graph, pathParts, columnFactory, deep, cohort, title, testRows) {
+function build(graph, pathParts, settings) {
+	const { columnFactory, deep, cohort, title, testRows, typeDetection } = settings;
+
 	const props = Object.getOwnPropertyNames(graph);
 	return props.reduce((memo, prop) => {
 		const propParts = [...pathParts, prop];
@@ -121,7 +132,9 @@ function build(graph, pathParts, columnFactory, deep, cohort, title, testRows) {
 		const propPath = propParts.join('.');
 
 		const subject = graph[prop];
-		const type = resolveType(testRows.map(propValue));
+		const type = typeDetection === 'raw'
+			? resolveType(testRows.map(propValue))
+			: inferType(testRows.map(propValue));
 
 		switch (type) {
 			case 'array': {
@@ -155,11 +168,7 @@ function build(graph, pathParts, columnFactory, deep, cohort, title, testRows) {
 					const columns = build(
 						subject,
 						propParts,
-						columnFactory,
-						deep,
-						cohort,
-						title,
-						testRows
+						settings
 					);
 
 					if (cohort) {
