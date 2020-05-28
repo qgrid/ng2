@@ -66,7 +66,15 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 	}
 
 	ngOnInit() {
-		const { model, table, observeReply, observe, view, disposable } = this.plugin;
+		const {
+			model,
+			table,
+			observeReply,
+			observe,
+			view,
+			disposable,
+			service
+		} = this.plugin;
 
 		// TODO: make it better
 		table.box.markup.view = this.elementRef.nativeElement;
@@ -80,8 +88,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 			this.cd.detectChanges();
 		};
 
-		const gridService = this.qgrid.service(model);
-		this.host = new ViewHost(this.plugin, gridService);
+		this.host = new ViewHost(this.plugin);
 
 		observeReply(model.sceneChanged)
 			.subscribe(e => {
@@ -113,7 +120,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 			.subscribe(e => {
 				if (e.hasChanges('status')) {
 					if (e.state.status === 'endBatch') {
-						gridService.invalidate({
+						service.invalidate({
 							source: 'view-core.component',
 							why: 'refresh'
 						});

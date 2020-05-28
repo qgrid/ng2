@@ -48,10 +48,6 @@ export class GridLet {
 	) { }
 
 	init(plugin: GridPlugin, commandManager: CommandManager) {
-		const { model } = plugin;
-
-		const gridService = this.qgrid.service(model);
-
 		const selectors = {
 			th: 'q-grid-core-th',
 			tr: 'q-grid-core-tr'
@@ -60,7 +56,6 @@ export class GridLet {
 		const injectLetServicesTo = viewFactory(
 			plugin,
 			commandManager,
-			gridService,
 			this.scrollService,
 			selectors,
 		);

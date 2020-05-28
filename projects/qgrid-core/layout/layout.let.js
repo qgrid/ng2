@@ -5,12 +5,11 @@ import { Fastdom } from '../services/fastdom';
 import { selectColumn } from '../navigation/navigation.state.selector';
 
 export class LayoutLet {
-	constructor(plugin, gridService) {
+	constructor(plugin) {
 		const { model, observeReply, disposable } = plugin;
 		const styleRow = this.styleRow.bind(this);
 
 		this.plugin = plugin;
-		this.service = gridService;
 
 		observeReply(model.navigationChanged)
 			.subscribe(e => {

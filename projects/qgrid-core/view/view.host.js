@@ -13,10 +13,10 @@ import {
 } from '../mouse/mouse.code';
 
 export class ViewHost {
-	constructor(plugin, gridService) {
+	constructor(plugin) {
 		this.plugin = plugin;
 
-		this.watch(gridService);
+		this.watch(plugin.service);
 		this.final = final();
 	}
 

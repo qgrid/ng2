@@ -161,7 +161,10 @@ export class GridComponent implements OnInit, OnChanges {
 			});
 		}
 
-		const host = new GridHost(nativeElement, this.plugin);
+		const host = new GridHost(
+			nativeElement, 
+			this.plugin,
+			);
 		const listener = new EventListener(nativeElement, new EventManager(this));
 		const docListener = new EventListener(this.document, new EventManager(this));
 

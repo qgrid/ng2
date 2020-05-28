@@ -109,19 +109,13 @@ export class GridHost {
 	}
 
 	invalidateActive() {
-		const { model, table } = this.plugin;
+		const { model, table, service } = this.plugin;
 		if (table.view.isFocused()) {
 			const needFocusCell =
 				!model.mouse().target
 				&& (model.focus().rowIndex < 0 || model.focus().columnIndex < 0);
 			if (needFocusCell) {
-				model.focus({
-					rowIndex: 0,
-					columnIndex: 0,
-					isActive: true
-				}, {
-					source: 'grid.host'
-				});
+				service.focus(0);
 			} else {
 				model.focus({
 					isActive: true
