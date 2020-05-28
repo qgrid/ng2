@@ -10,7 +10,7 @@
     "pretest:screenshot": "webdriver-manager update --gecko=false && if not exist e2e\\diff mkdir e2e\\diff",
     "release:app": "npm run build:app && npx angular-cli-ghpages --dir=dist/app",
     "release:example": "node ./build.example",
-    "release:lib": "cd dist/ng2-qgrid && npm publish",
+    "release:lib": "npm run build:lib && cd dist/ng2-qgrid && npm publish",
     "start:prod": "rimraf dist && node build.serve --prod",
     "start": "rimraf dist && node build.serve",
     "test:debug": "ng test --browsers ChromeDebug",

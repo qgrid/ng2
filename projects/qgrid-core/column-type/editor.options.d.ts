@@ -3,6 +3,9 @@ import { Action } from '../action/action';
 import { ColumnModel } from '../column-type/column.model';
 import { Command } from '../command/command';
 
+export declare type EditorOptionsCruise = 'control' | 'transparent';
+export declare type EditorOptionsTrigger = 'click' | 'custom' | 'focus';
+
 /**
  * Specific options for the cell edit mode.
  */
@@ -15,7 +18,7 @@ export interface EditorOptions {
 	 * * `custom` if user defines own edit mode trigger, like button for reference column edit, this option should be used.
 	 * * `focus` edit mode activates when cell receives focus.
 	 */
-	trigger?: string;
+	trigger?: EditorOptionsTrigger;
 
 	/**
 	 * Defines navigation behavior when cell is in edit mode.
@@ -23,7 +26,7 @@ export interface EditorOptions {
 	 * * `control` when cell is in edit mode, keyboard navigation events are disabled(in general, `tab` and `shift+tab` still works).
 	 * * `transparent` when cell is in edit mode, keyboard navigation event are still applicable.
 	 */
-	cruise?: string;
+	cruise?: EditorOptionsCruise;
 
 	/**
 	 * q-grid model factory, can be used by reference column to draw a another q-grid in edit cell mode.

@@ -16,9 +16,9 @@ import { TemplateService } from './template.service';
 export class TemplateDirective implements DoCheck, OnChanges {
 	private viewRef: EmbeddedViewRef<any>;
 
-	@Input() check = false;
 	@Input() key = '';
 	@Input() context: any = null;
+	@Input() check = false;
 
 	constructor(
 		private templateService: TemplateService,

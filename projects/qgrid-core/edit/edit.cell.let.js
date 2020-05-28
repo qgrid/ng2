@@ -73,8 +73,7 @@ export class EditCellLet {
 
 					const { cell: newCell } = e.state;
 					if (newCell &&
-						(newCell.column.editorOptions.trigger === 'focus' ||
-							newCell.column.editorOptions.trigger === 'click')) {
+						(newCell.column.editorOptions.trigger === 'focus')) {
 						if (this.enter.canExecute(newCell)) {
 							this.enter.execute(newCell);
 						}
