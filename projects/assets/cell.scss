@@ -64,6 +64,10 @@ th {
         @include width(250px);
     }
 
+    &.q-grid-the-\$alt\.number {
+        @include width(48px);
+    }
+
     &.q-grid-select,
     &.q-grid-row-options,
     &.q-grid-row-indicator,
@@ -106,6 +110,14 @@ tfoot {
 
         &.q-grid-row-options {
             cursor: pointer;
+        }
+    }
+
+    tr:not(.q-grid-highlighted) {
+        td:not(.q-grid-highlighted) {
+            &.q-grid-row-number {
+                background: $selected;
+            }
         }
     }
 }

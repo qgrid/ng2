@@ -3,14 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
-## [Unreleased]
-* Vscroll.
-* Copy/paste selection to excel.
-* Live data plugin.
-* Float rows navigation.
-* Grouped rows navigation improvements.
+## [9.1.3] - 2020-05-29
+### BREAKING
+* Remove q-grid-title, use `q-grid-caption` instead.
 
-## [9.1.3] - 2020-05-28
 ### Fixed
 * Remove auto entering to the edit mode on cell focus.
 * Row options column menu item click doesn't trigger an action.
@@ -18,12 +14,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Highlight column on mouse over even if it's sorted.
 * When focus grid using tab key, also focus first focusable cell.
 * Clear function on column filter expression views deactivates filter.
+* Pane doesn't work when select row.
 
 ## Added
-* Add new option to generation, typeDetection= 'inference' | 'raw'.
+* Add new option for column generation, typeDetection = 'inference' | 'raw'.
 * Add shortcuts to the pager's next/prev buttons (alt+pagedown, alt+pageup).
 * Introduce q-grid-row `behavior` array input to control if it's required to expand row on click or shortcut.
-* Add q-grid-focused class to the row when one of it's cell is in focus..
+* Add `q-grid-focused` class to the row when one of it's cell is in focus..
+* Added `q-grid-alt` plugin that automatically set pagination and selection by `alt+[0-9]` shortcuts.
 
 ## [9.1.2] - 2020-05-27
 ### BREAKING

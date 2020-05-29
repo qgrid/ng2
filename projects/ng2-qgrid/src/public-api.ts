@@ -205,8 +205,6 @@ export {
 	TimeDirective,
 	TimeModule,
 	TimePipe,
-	TitleComponent,
-	TitleModule,
 	ValidationComponent,
 	ValidationModule,
 	ValidatorComponent,

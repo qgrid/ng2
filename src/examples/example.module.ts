@@ -162,12 +162,14 @@ import { ExampleValidationBasicComponent } from './validation-basic/example-vali
 import { ExampleVisibilityBasicComponent } from './visibility-basic/example-visibility-basic.component';
 import { ExampleVisibilityStateComponent } from './visibility-model/example-visibility-model.component';
 import { ExampleDetailsRowSelectComponent } from './details-row-select/example-details-row-select.component';
+import { ExampleAltBasicComponent } from './pane-basic/example-alt-basic.component';
 
 export const EXAMPLES: any[] = [
 	ExampleActionBarBasicComponent,
 	ExampleActionBarOnEnterComponent,
 	ExampleActionBarTemplateComponent,
 	ExampleAggregateColumnBasicComponent,
+	ExampleAltBasicComponent,
 	ExampleColumnArrayBasicComponent,
 	ExampleColumnAutocompleteBasicComponent,
 	ExampleColumnBoolBasicComponent,

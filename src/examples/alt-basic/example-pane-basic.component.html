@@ -1,0 +1,28 @@
+<q-grid caption="Pane Basic"
+		[rows]="rows$ | async"
+		selectionMode="singleOnly"
+		selectionUnit="row">
+	<q-grid-columns generation="deep">
+		<q-grid-column type="select"
+					   [isVisible]="false">
+		</q-grid-column>
+	</q-grid-columns>
+
+	<q-grid-pane trigger="selection.items">
+		<ng-template for="right"
+					 let-$pane
+					 let-$items="value">
+			<div style="width: 300px;">
+				<button mat-icon-button
+						style="float: right;"
+						(click)="$pane.close('right')">
+					<mat-icon>close</mat-icon>
+				</button>
+
+				<h2>
+					{{$items[0]?.name.last}}, {{$items[0]?.name.first}}
+				</h2>
+			</div>
+		</ng-template>
+	</q-grid-pane>
+</q-grid>

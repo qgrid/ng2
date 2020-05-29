@@ -48,9 +48,9 @@ import {
 	RestModule,
 	StatusBarModule,
 	TabTrapModule,
-	TitleModule,
 	ValidationModule,
 	VisibilityModule,
+	AltModule,
 } from '@qgrid/ngx-plugins';
 
 @NgModule({
@@ -67,6 +67,7 @@ import {
 		TemplateModule,
 
 		ActionBarModule,
+		AltModule,
 		ActionModule,
 		AutoCompleteEditorModule,
 		BackdropModule,
@@ -100,7 +101,6 @@ import {
 		RestModule,
 		StatusBarModule,
 		TabTrapModule,
-		TitleModule,
 		ValidationModule,
 		VisibilityModule,
 	],

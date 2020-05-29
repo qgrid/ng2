@@ -115,7 +115,9 @@ export class GridHost {
 				!model.mouse().target
 				&& (model.focus().rowIndex < 0 || model.focus().columnIndex < 0);
 			if (needFocusCell) {
-				service.focus(0);
+				service.focus(
+					model.pagination().size * model.pagination().current
+				);
 			} else {
 				model.focus({
 					isActive: true

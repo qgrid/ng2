@@ -53,9 +53,10 @@ export class PaneComponent implements OnInit {
 		}
 
 		this.context = { $implicit: this, value };
-		this.cd.markForCheck();
-
 		table.view.addLayer(`pane-${side}`);
+
+		this.cd.markForCheck();
+		this.cd.detectChanges();
 	}
 
 	close(side: 'right') {
@@ -64,7 +65,9 @@ export class PaneComponent implements OnInit {
 		table.view.removeLayer(`pane-${side}`);
 
 		this.context = null;
+
 		this.cd.markForCheck();
+		this.cd.detectChanges();
 	}
 
 	private parse() {

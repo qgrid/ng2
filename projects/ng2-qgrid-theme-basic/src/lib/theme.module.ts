@@ -44,7 +44,6 @@ import {
 	TabTrapModule,
 	TemplateModule,
 	ThemeService,
-	TitleModule,
 	ValidationModule,
 	VisibilityModule,
 } from 'ng2-qgrid';
@@ -101,7 +100,6 @@ import {
 		RestModule,
 		StatusBarModule,
 		TabTrapModule,
-		TitleModule,
 		ValidationModule,
 		VisibilityModule,
 	],

@@ -65,7 +65,6 @@ import {
 	TemplateModule,
 	ThemeService,
 	TimeModule,
-	TitleModule,
 	ValidationModule,
 	VisibilityModule,
 	VscrollModule,
@@ -132,7 +131,6 @@ import {
 		StatusBarModule,
 		TabTrapModule,
 		TimeModule,
-		TitleModule,
 		ValidationModule,
 		VisibilityModule,
 
