@@ -112,10 +112,12 @@ export class RowLet {
 	}
 
 	get canMove() {
-		return this.plugin.model.row().canMove;
+		const { model } = this.plugin;
+		return model.row().canMove;
 	}
 
 	get canResize() {
-		return this.plugin.model.row().canResize;
+		const { model } = this.plugin;
+		return model.row().canResize;
 	}
 }

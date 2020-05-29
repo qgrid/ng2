@@ -161,6 +161,7 @@ import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme
 import { ExampleValidationBasicComponent } from './validation-basic/example-validation-basic.component';
 import { ExampleVisibilityBasicComponent } from './visibility-basic/example-visibility-basic.component';
 import { ExampleVisibilityStateComponent } from './visibility-model/example-visibility-model.component';
+import { ExampleDetailsRowSelectComponent } from './details-row-select/example-details-row-select.component';
 
 export const EXAMPLES: any[] = [
 	ExampleActionBarBasicComponent,
@@ -208,6 +209,7 @@ export const EXAMPLES: any[] = [
 	ExampleDetailsRowGridComponent,
 	ExampleDetailsRowPinComponent,
 	ExampleDetailsRowStartComponent,
+	ExampleDetailsRowSelectComponent,
 	ExampleDragColumnBasicComponent,
 	ExampleDragRowBasicComponent,
 	ExampleDragRowNodeComponent,

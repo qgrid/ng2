@@ -22,6 +22,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## Added
 * Add new option to generation, typeDetection= 'inference' | 'raw'.
 * Add shortcuts to the pager's next/prev buttons (alt+pagedown, alt+pageup).
+* Introduce q-grid-row `behavior` array input to control if it's required to expand row on click or shortcut.
 
 ## [9.1.2] - 2020-05-27
 ### BREAKING
