@@ -22,7 +22,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Add shortcuts to the pager's next/prev buttons (alt+pagedown, alt+pageup).
 * Introduce q-grid-row `behavior` array input to control if it's required to expand row on click or shortcut.
 * Add `q-grid-focused` class to the row when one of it's cell is in focus..
-* Added `q-grid-alt` plugin that automatically set pagination and selection by `alt+[0-9]` shortcuts.
+* Add `q-grid-alt` plugin that automatically set pagination and selection by `alt+[0-9]` shortcuts.
+* Add `timestamp` property to mouse state to handle double clicks.
 
 ## [9.1.2] - 2020-05-27
 ### BREAKING
