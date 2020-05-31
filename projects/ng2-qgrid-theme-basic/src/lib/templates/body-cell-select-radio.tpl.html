@@ -1,10 +1,11 @@
 <ng-template key="body-cell-select-the-$select-singleOnly.tpl.html"
 			 let-$cell
 			 let-$view="$view">
-	<input type="radio"
-		   [q-grid-dirty]="$view.selection.stateCheck | async"
-		   [checked]="$view.selection.state($cell.row)"
-		   [disabled]="!$view.selection.state($cell.row) && !$view.selection.toggleRow.canExecute($cell.row)"
-		   (change)="$view.selection.toggleRow.execute($cell.row)"
-		   tabindex="-1" />
+	<ng-container [q-grid-dirty]="$view.selection.stateCheck | async">
+		<input type="radio"
+			   [checked]="$view.selection.state($cell.row)"
+			   [disabled]="!$view.selection.state($cell.row) && !$view.selection.toggleRow.canExecute($cell.row)"
+			   (change)="$view.selection.toggleRow.execute($cell.row)"
+			   tabindex="-1" />
+	</ng-container>
 </ng-template>

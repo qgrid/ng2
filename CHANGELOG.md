@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * When focus grid using tab key, also focus first focusable cell.
 * Clear function on column filter expression views deactivates filter.
 * Pane doesn't work when select row.
+* Select all by `ctrl-a` in `multiple` and `range` modes.
 
 ## Added
 * Add new option for column generation, typeDetection = 'inference' | 'raw'.
