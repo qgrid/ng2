@@ -61,17 +61,19 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 	@Output('q-grid-command-execute')
 	commandExecute = new EventEmitter<any>();
 
+	@Input('q-grid-command-host')
+	host: 'grid' | 'document' = 'grid';
+
 	constructor(
 		private disposable: Disposable,
-		private host: ElementRef,
+		private elementRef: ElementRef,
 		private zone: NgZone,
-		private app: ApplicationRef,
 		@Optional() private plugin: GridPlugin
 	) {
 	}
 
 	ngOnInit() {
-		const { nativeElement } = this.host;
+		const { nativeElement } = this.elementRef;
 
 		this.aroundZone(() =>
 			nativeElement
@@ -117,7 +119,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 		);
 
 		if (this.useCommandShortcut && command.shortcut) {
-			if (this.plugin) {
+			if (this.plugin && this.host === 'grid') {
 				const { model } = this.plugin;
 				const { shortcut, manager } = model.action();
 
@@ -181,7 +183,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 	}
 
 	private updateState() {
-		const nativeElement = this.host.nativeElement as HTMLElement;
+		const nativeElement = this.elementRef.nativeElement as HTMLElement;
 		if (!nativeElement.setAttribute) {
 			return;
 		}

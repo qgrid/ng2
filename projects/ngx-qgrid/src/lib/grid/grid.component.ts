@@ -192,7 +192,6 @@ export class GridComponent implements OnInit, OnChanges {
 			disposable.add(
 				listener.on('keyup', e => host.keyUp(e, 'grid'))
 			);
-
 		});
 
 		disposable.add(
