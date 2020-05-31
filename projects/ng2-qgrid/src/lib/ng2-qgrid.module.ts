@@ -12,11 +12,13 @@ import {
 	ToolbarModule,
 	VscrollModule,
 	LayerModule,
+	ChangeDetectorModule,
 } from '@qgrid/ngx';
 
 import {
 	ActionBarModule,
 	ActionModule,
+	AltModule,
 	AutoCompleteEditorModule,
 	BackdropModule,
 	BoolEditorModule,
@@ -50,7 +52,6 @@ import {
 	TabTrapModule,
 	ValidationModule,
 	VisibilityModule,
-	AltModule,
 } from '@qgrid/ngx-plugins';
 
 @NgModule({
@@ -78,6 +79,7 @@ import {
 		ColumnFilterModule,
 		ColumnSortModule,
 		CommandModule,
+		ChangeDetectorModule,
 		DataManipulationModule,
 		EbModule,
 		EditFormModule,

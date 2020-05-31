@@ -104,6 +104,8 @@ export {
 	ActionCoreComponent,
 	ActionListComponent,
 	ActionModule,
+	AltComponent,
+	AltModule,
 	ArrayPipe,
 	AutoCompleteEditorComponent,
 	AutoCompleteEditorModule,

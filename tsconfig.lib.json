@@ -2,7 +2,6 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "allowJs": true,
     "downlevelIteration": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -33,11 +32,9 @@
     ]
   },
   "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
+    "fullTemplateTypeCheck": false,
     "strictInjectionParameters": true,
-    "enableIvy": true,
-    "skipTemplateCodegen": true,
-    "strictMetadataEmit": true,
-    "enableResourceInlining": true
+    "enableIvy": false,
+    "skipTemplateCodegen": true
   }
 }
