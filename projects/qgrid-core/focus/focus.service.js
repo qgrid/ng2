@@ -48,7 +48,6 @@ export class FocusService {
         const target = Math.max(0, Math.min(this.getPage(rowIndex), last));
 
         if (current !== target) {
-            console.log(target);
             pagination({
                 current: target
             }, {
