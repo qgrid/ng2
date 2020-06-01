@@ -10,29 +10,30 @@ import {
 	Output,
 	Optional,
 	AfterViewInit,
-	NgZone,
-	ApplicationRef
+	NgZone
 } from '@angular/core';
 import { Disposable, GridPlugin } from '@qgrid/ngx';
 import { Command } from '@qgrid/core/command/command';
 import { CommandManager } from '@qgrid/core/command/command.manager';
 import { Shortcut } from '@qgrid/core/shortcut/shortcut';
 import { ShortcutDispatcher } from '@qgrid/core/shortcut/shortcut.dispatcher';
-import { CompositeCommandManager } from '@qgrid/core/command/composite.command.manager';
 
-export class ZoneCommandManager extends CompositeCommandManager {
+export class ZoneCommandManager {
 	constructor(
 		private run: <T>(f: () => T) => T,
-		manager: CommandManager,
+		private manager: CommandManager,
 		private commandArg: any
 	) {
-		super(manager);
 	}
 
 	invoke(commands: Command[]) {
 		return this.run(() =>
-			super.invoke(commands, this.commandArg, 'command.directive')
+			this.manager.invoke(commands, this.commandArg, 'command.directive')
 		);
+	}
+
+	filter(commands) {
+		return this.manager.filter(commands);
 	}
 }
 
