@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleGenerateColumnRawComponent {
-	static id = 'generate-column-Raw';
+	static id = 'generate-column-raw';
 
 	rows: Observable<Human[]>;
 

@@ -22,46 +22,11 @@ $color-black-87: rgba(0, 0, 0, 0.87);
             font-size: 13px;
         }
 
-        &-table {
+        tbody,
+        tfoot,
+        thead {
             tr {
                 height: 36px;
-            }
-
-            th {
-                @include typography(12px !important, 14px, normal !important, normal, $color-lc-cyan-dark !important);
-
-                &:hover label {
-                    font-weight: normal !important;
-                }
-
-                .q-grid-icon {
-                    text-align: center;
-                    line-height: 16px;
-                    font-size: 14px;
-                }
-
-                .q-grid-column-filter-trigger {
-                    right: 4px;
-
-                    button {
-                        margin: 0;
-                        width: 20px;
-                    }
-                }
-
-                .q-grid-sort {
-                    color: $color-head;
-
-                    &.q-grid-active {
-                        label {
-                            color: inherit;
-                        }
-                    }
-
-                    label {
-                        cursor: pointer;
-                    }
-                }
             }
 
             td {
@@ -97,6 +62,47 @@ $color-black-87: rgba(0, 0, 0, 0.87);
 
                 &.q-grid-row-number {
                     color: $color-head;
+                }
+            }
+        }
+
+
+        thead {
+
+            th {
+                @include typography(12px !important, 14px, normal !important, normal, $color-lc-cyan-dark !important);
+
+                &:hover label {
+                    font-weight: normal !important;
+                }
+
+                .q-grid-icon {
+                    text-align: center;
+                    line-height: 16px;
+                    font-size: 14px;
+                }
+
+                .q-grid-column-filter-trigger {
+                    right: 4px;
+
+                    button {
+                        margin: 0;
+                        width: 20px;
+                    }
+                }
+
+                .q-grid-sort {
+                    color: $color-head;
+
+                    &.q-grid-active {
+                        label {
+                            color: inherit;
+                        }
+                    }
+
+                    label {
+                        cursor: pointer;
+                    }
                 }
             }
         }
