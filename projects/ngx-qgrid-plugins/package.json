@@ -1,11 +1,10 @@
 {
   "name": "@qgrid/ngx-plugins",
-  "version": "9.1.0",
+  "version": "9.1.3",
   "peerDependencies": {
     "@angular/common": "^9.1.0",
-    "@angular/core": "^9.1.0",
-    "tslib": "^1.10.0",
-    "@qgrid/ngx": "9.1.0"
+    "@angular/core": "^9.1.0"
+    "@qgrid/ngx": "9.1.3"
   },
   "author": "qgrid.team@gmail.com"
 }

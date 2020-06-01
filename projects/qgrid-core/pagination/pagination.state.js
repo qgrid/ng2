@@ -15,5 +15,10 @@ export class PaginationState {
 			'pivot': ['by'],
 			'group': ['by']
 		};
+
+		this.shortcut = {
+			prev: 'alt+pageup',
+			next: 'alt+pagedown',
+		};
 	}
 }

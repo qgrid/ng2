@@ -110,7 +110,7 @@ function selectColumnFactory(model) {
 		};
 	}
 
-	if (!selectColumn && selection.unit === 'row' && selection.mode !== 'range') {
+	if (!selectColumn && selection.unit === 'row') {
 		const createColumn = columnFactory(model);
 		return node => {
 			const selectColumn = createColumn('select');

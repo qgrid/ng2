@@ -10,29 +10,30 @@ import {
 	Output,
 	Optional,
 	AfterViewInit,
-	NgZone,
-	ApplicationRef
+	NgZone
 } from '@angular/core';
 import { Disposable, GridPlugin } from '@qgrid/ngx';
 import { Command } from '@qgrid/core/command/command';
 import { CommandManager } from '@qgrid/core/command/command.manager';
 import { Shortcut } from '@qgrid/core/shortcut/shortcut';
 import { ShortcutDispatcher } from '@qgrid/core/shortcut/shortcut.dispatcher';
-import { CompositeCommandManager } from '@qgrid/core/command/composite.command.manager';
 
-export class ZoneCommandManager extends CompositeCommandManager {
+export class ZoneCommandManager {
 	constructor(
 		private run: <T>(f: () => T) => T,
-		manager: CommandManager,
+		private manager: CommandManager,
 		private commandArg: any
 	) {
-		super(manager);
 	}
 
 	invoke(commands: Command[]) {
 		return this.run(() =>
-			super.invoke(commands, this.commandArg, 'command.directive')
+			this.manager.invoke(commands, this.commandArg, 'command.directive')
 		);
+	}
+
+	filter(commands) {
+		return this.manager.filter(commands);
 	}
 }
 
@@ -61,17 +62,19 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 	@Output('q-grid-command-execute')
 	commandExecute = new EventEmitter<any>();
 
+	@Input('q-grid-command-host')
+	host: 'grid' | 'document' = 'grid';
+
 	constructor(
 		private disposable: Disposable,
-		private host: ElementRef,
+		private elementRef: ElementRef,
 		private zone: NgZone,
-		private app: ApplicationRef,
 		@Optional() private plugin: GridPlugin
 	) {
 	}
 
 	ngOnInit() {
-		const { nativeElement } = this.host;
+		const { nativeElement } = this.elementRef;
 
 		this.aroundZone(() =>
 			nativeElement
@@ -117,7 +120,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 		);
 
 		if (this.useCommandShortcut && command.shortcut) {
-			if (this.plugin) {
+			if (this.plugin && this.host === 'grid') {
 				const { model } = this.plugin;
 				const { shortcut, manager } = model.action();
 
@@ -181,7 +184,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 	}
 
 	private updateState() {
-		const nativeElement = this.host.nativeElement as HTMLElement;
+		const nativeElement = this.elementRef.nativeElement as HTMLElement;
 		if (!nativeElement.setAttribute) {
 			return;
 		}

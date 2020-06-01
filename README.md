@@ -43,11 +43,7 @@ Note that now q-grid supports 2 themes out of box `@angular/material` and `basic
       `
 })
 export class MyComponent {
-   rows$: Observable<[]>;
-
-   constructor(dataService: MyDataService) {
-         this.rows$ = dataService.getRows();
-   }
+   rows$ = this.dataService.getRows();
 }
 ```
 
@@ -59,7 +55,7 @@ Note that q-grid rows should be an array of objects, any other types like array 
 *  @angular/core
 *  @angular/forms
 
-If you use `material` theme from the q-grid package, you also need to install [angular material](https://material.angular.io/)
+If `material` theme is used, it's also required to install [angular material](https://material.angular.io/)
 
 * @angular/cdk
 * @angular/material
@@ -79,13 +75,19 @@ npm install
 npm run build:lib
 ```
 
+## Build Application
+```bash
+git clone https://github.com/qgrid/ng2.git
+npm install
+npm run build:app
+```
+
 ## Browser support
 
-* `Chrome` is supported.
-* `FireFox` is supported.
-* `Safari` is supported.
-* `Edge` is in progress.
-* `IE11` is in progress.
+* `Chrome` latest is supported.
+* `FireFox` latest is supported.
+* `Safari` latest is supported.
+* `Edge` latest is supported.
 
 ## Licence
 

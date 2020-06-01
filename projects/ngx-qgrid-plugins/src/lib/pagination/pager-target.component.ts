@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Shortcut } from '@qgrid/core/shortcut/shortcut';
 import { GridPlugin } from '@qgrid/ngx';
+import { FocusAfterRender } from '../focus/focus.service';
 
 @Component({
 	selector: 'q-grid-pager-target',
@@ -33,7 +34,16 @@ export class PagerTargetComponent implements OnInit {
 		switch (code) {
 			case 'enter': {
 				if (value) {
-					this.plugin.model.pagination({ current: value - 1 }, { source: 'pager-target.component' });
+					const current = value - 1;
+					if (this.plugin.model.pagination().current !== current) {
+						// tslint:disable-next-line:no-unused-expression
+						// new FocusAfterRender(this.plugin);
+						this.plugin.model.pagination({
+							current
+						}, {
+							source: 'pager-target.component'
+						});
+					}
 				}
 				break;
 			}
@@ -74,10 +84,7 @@ export class PagerTargetComponent implements OnInit {
 	}
 
 	get total() {
-		const pagination = this.plugin.model.pagination();
-		const count = pagination.count;
-		const size = pagination.size;
-
+		const { count, size } = this.plugin.model.pagination();
 		return size === 0 ? 0 : Math.max(1, Math.ceil(count / size));
 	}
 }

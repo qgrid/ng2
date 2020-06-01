@@ -1,11 +1,11 @@
-import { Command } from '../command/command';
-import { getFactory as valueFactory } from '../services/value';
-import { getFactory as labelFactory } from '../services/label';
 import { columnFactory } from '../column/column.factory';
+import { Command } from '../command/command';
+import { getFactory as labelFactory } from '../services/label';
+import { getFactory as valueFactory } from '../services/value';
 import { PipeUnit } from '../pipe/pipe.unit';
 import { preOrderDFS } from '../node/node.service';
-import { yes, identity } from '../utility/kit';
 import { selectRow, selectColumn } from '../navigation/navigation.state.selector';
+import { yes, identity } from '../utility/kit';
 
 function rowspanGetNode(node, column) {
 	if (node.source === column.by) {
@@ -34,8 +34,8 @@ function rowspanIsVisible(node, column, parent) {
 }
 
 export class GroupLet {
-	constructor(plugin, service, shortcut) {
-		const { model, observeReply, disposable } = plugin;
+	constructor(plugin, shortcut) {
+		const { model, observeReply, disposable, service } = plugin;
 
 		this.plugin = plugin;
 		this.valueFactory = valueFactory;

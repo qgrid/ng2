@@ -20,7 +20,6 @@ import { ClipboardLet } from '../clipboard/clipboard.let';
 export function viewFactory(
 	plugin,
 	commandManager,
-	gridService,
 	vscroll,
 	selectors
 ) {
@@ -60,13 +59,13 @@ export function viewFactory(
 		host.body = new BodyLet(plugin);
 		host.foot = new FootLet(plugin);
 		host.row = new RowLet(plugin, selectors.tr);
-		host.layout = new LayoutLet(plugin, gridService);
-		host.scroll = new ScrollLet(plugin, vscroll, gridService);
+		host.layout = new LayoutLet(plugin);
+		host.scroll = new ScrollLet(plugin, vscroll);
 		host.highlight = new HighlightLet(plugin);
 		host.sort = new SortLet(plugin);
 		host.pagination = new PaginationLet(plugin);
 		host.nav = new NavigationLet(plugin, navigationShortcut);
-		host.group = new GroupLet(plugin, gridService, navigationShortcut);
+		host.group = new GroupLet(plugin, navigationShortcut);
 		host.edit = new EditLet(plugin, navigationShortcut);
 		host.filter = new FilterLet(plugin);
 		host.rowDetails = new RowDetailsLet(plugin, navigationShortcut);

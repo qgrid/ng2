@@ -1,6 +1,19 @@
-import { identity, isObject, isArray, isBoolean, isEmail, isString, isUrl, isImage, isUndefined } from '../utility/kit';
+import { 
+	identity, 
+	isObject, 
+	isArray, 
+	isBoolean, 
+	isDate,
+	isNumber,
+	isEmail, 
+	isString, 
+	isUrl, 
+	isImage, 
+	isUndefined 
+} from '../utility/kit';
 
-// TODO: right now we check the empty result on null, we need to have a way to make it more explicitly
+// TODO: right now we check the empty result on null, 
+// we need to have a way to make it more explicitly
 export function parseFactory(type, editor) {
 	switch (type) {
 		case 'id': {
@@ -30,6 +43,7 @@ export function parseFactory(type, editor) {
 	}
 }
 
+
 export function resolveType(values) {
 	const types = values
 		.filter(x => !(isUndefined(x) || x === null || x === ''))
@@ -48,7 +62,7 @@ export function resolveType(values) {
 export function getType(value) {
 	if (isArray(value)) {
 		if (value.length) {
-			const itemType = getType(value[0]);
+			const itemType = findType(value[0]);
 			if (!isPrimitive(itemType)) {
 				return 'collection';
 			}
@@ -66,6 +80,57 @@ export function getType(value) {
 	}
 
 	if (isDate(value)) {
+		return 'date';
+	}
+
+	if (isString(value)) {
+		return 'text';
+	}
+
+	if (isObject(value)) {
+		return 'object';
+	}
+
+	return 'text';
+
+}
+
+export function inferType(values) {
+	const types = values
+		.filter(x => !(isUndefined(x) || x === null || x === ''))
+		.map(findType);
+
+	if (types.length) {
+		const test = types[0];
+		if (types.every(x => x === test)) {
+			return test;
+		}
+	}
+
+	return 'text';
+}
+
+export function findType(value) {
+	if (isArray(value)) {
+		if (value.length) {
+			const itemType = findType(value[0]);
+			if (!isPrimitive(itemType)) {
+				return 'collection';
+			}
+		}
+
+		return 'array';
+	}
+
+	if (likeNumber(value)) {
+		return 'number';
+	}
+
+	if (isBoolean(value)) {
+		return 'bool';
+	}
+
+	if (likeDate(value)) {
 		return 'date';
 	}
 
@@ -107,7 +172,7 @@ export function isPrimitive(type) {
 	}
 }
 
-function isDate(value) {
+function likeDate(value) {
 	if (value === null || isUndefined(value) || value === '') {
 		return false;
 	}
@@ -122,7 +187,7 @@ function isDate(value) {
 	return !!value.match(/^(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2}))?))?)?)?)?$/);
 }
 
-function isNumber(value) {
+function likeNumber(value) {
 	if (isNaN(value)) {
 		return false;
 	}

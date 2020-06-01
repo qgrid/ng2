@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.prod.json",
+  "extends": "./tsconfig.lib.json",
   "compilerOptions": {
     "paths": {
       "ng2-qgrid/theme/material": [
@@ -24,5 +24,9 @@
         "./projects/ngx-qgrid-plugins/src/public-api.ts"
       ]
     }
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "enableIvy": true
   }
 }

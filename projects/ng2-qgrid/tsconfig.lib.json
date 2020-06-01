@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.prod.json",
+  "extends": "../../tsconfig.lib.json",
   "compilerOptions": {
     "allowJs": true,
     "outDir": "../../out-tsc/lib",

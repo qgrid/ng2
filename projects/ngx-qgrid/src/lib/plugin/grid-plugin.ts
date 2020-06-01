@@ -7,9 +7,13 @@ import { GridLet as NgxGridLet } from '../grid/grid-let';
 import { GridModel } from '../grid/grid-model';
 import { GridRoot } from '../grid/grid-root';
 import { ObservableLike, ObservableEvent, ObservableReplyEvent } from '@qgrid/core/rx/rx';
+import { Grid, GridService } from '../grid/grid';
+import { Lazy } from '@qgrid/core/infrastructure/lazy';
 
 @Injectable()
 export class GridPlugin implements OnDestroy {
+	private serviceLazy = new Lazy(() => this.qgrid.service(this.$root.model));
+
 	readonly disposable = new Disposable();
 
 	readonly observe = <TState>(event: Event<TState>): ObservableLike<TState> => {
@@ -23,6 +27,7 @@ export class GridPlugin implements OnDestroy {
 	constructor(
 		private $view: NgxGridLet,
 		private $root: GridRoot,
+		private qgrid: Grid
 	) {
 	}
 
@@ -38,6 +43,10 @@ export class GridPlugin implements OnDestroy {
 	get table(): DomTable {
 		const { table } = this.$root;
 		return table;
+	}
+
+	get service(): GridService {
+		return this.serviceLazy.instance;
 	}
 
 	ngOnDestroy() {
