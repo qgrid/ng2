@@ -1,7 +1,12 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { DataService, Atom } from '../data.service';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Command } from 'ng2-qgrid';
+
+const EXAMPLE_TAGS = [
+	'action-bar-basic',
+	'Use shortcuts(ALT+D, ALT+L) and clicks to execute custom actions - load and clear data'
+];
 
 @Component({
 	selector: 'example-action-bar-basic',
@@ -11,11 +16,11 @@ import { Command } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleActionBarBasicComponent {
-	static id = 'action-bar-basic';
-
-	private atoms: Atom[] = [];
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	canLoad = false;
+	atoms: Atom[] = [];
 	rows$ = new Subject<Atom[]>();
 
 	loadCommand = new Command({

@@ -1,4 +1,4 @@
-<q-grid caption="Action Bar Basic"
+<q-grid [caption]="title"
 		[rows]="rows$ | async">
 	<q-grid-columns generation="deep">
 	</q-grid-columns>
@@ -9,7 +9,7 @@
 					   [command]="loadCommand">
 		</q-grid-action>
 		<q-grid-action icon="clear_all"
-					   title="Delete Data"
+					   title="Clear Data"
 					   [command]="clearCommand">
 		</q-grid-action>
 	</q-grid-actions>

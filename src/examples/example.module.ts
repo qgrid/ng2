@@ -321,7 +321,7 @@ export const EXAMPLES: any[] = [
 
 export const APP_ROUTES: Routes = EXAMPLES
 	.map<Route>(example => ({
-		path: example.id,
+		path: (example.tags && example.tags[0]) || example.id,
 		component: example
 	}));
 
