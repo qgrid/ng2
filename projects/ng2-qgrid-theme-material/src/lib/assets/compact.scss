@@ -6,13 +6,13 @@ $color-black-87: rgba(0, 0, 0, 0.87);
 .q-grid-compact {
     font-family: $font-family;
 
-    .q-grid {
-
-        &-caption {
-            h3 {
-                color: $color-head;
-            }
+    q-grid-caption {
+        h3 {
+            color: $color-head;
         }
+    }
+
+    .q-grid {
 
         &-sort {
             margin-left: 0;

@@ -16,9 +16,10 @@ import {
 	RouterLinkActive,
 	ActivatedRoute
 } from '@angular/router';
-import { MediaMatcher } from '@angular/cdk/layout';
-import { APP_ROUTES } from '../examples/example.module';
 import { Location } from '@angular/common';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { take } from 'rxjs/operators';
+import { APP_ROUTES } from '../examples/example.module';
 
 @Component({
 	selector: 'app-root',
@@ -28,6 +29,8 @@ import { Location } from '@angular/common';
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
 	@HostBinding('class.app-is-mobile') isMobile: boolean;
+	@HostBinding('class.app-env-test') isTestEnv: boolean;
+
 	examples: Routes = APP_ROUTES;
 
 	@ViewChildren(RouterLinkActive, { read: ElementRef })
@@ -35,11 +38,12 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
 	private mobileQueryListener: () => void;
 	private mobileQuery: MediaQueryList;
+
 	search: string;
 
 	constructor(
+		public activatedRoute: ActivatedRoute,
 		private router: Router,
-		private activatedRoute: ActivatedRoute,
 		private location: Location,
 		private zone: NgZone,
 		cd: ChangeDetectorRef,
@@ -56,10 +60,30 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 		// tslint:disable-next-line: deprecation
 		this.mobileQuery.addListener(this.mobileQueryListener);
 		setIsMobile();
+
+		this
+			.activatedRoute
+			.queryParams
+			.subscribe(params => {
+				this.search = params['search'] || '';
+				this.isTestEnv = params['env'] === 'test';
+			});
 	}
 
 	onSearchChange() {
-		this.location.go(this.router.url.split('?')[0], (this.search) ? `search=${this.search}` : '');
+		const query = [];
+		if (this.search) {
+			query.push(`search=${this.search}`);
+		}
+
+		if (this.isTestEnv) {
+			query.push('env=test');
+		}
+
+		this.location.go(
+			this.router.url.split('?')[0],
+			query.join('&')
+		);
 	}
 
 	getGithubUrl(): string {
@@ -75,18 +99,12 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 	}
 
 	ngAfterViewInit() {
-		const subscription = this.activatedRoute.queryParams.subscribe(params => {
-			if (params['search']) {
-				this.search = params['search'];
-				subscription.unsubscribe();
-			}
-		});
-
 		this.zone.runOutsideAngular(() => {
 			setTimeout(() => {
 				if (this.menuItems.first && !this.findRequestedItem()) {
 					this.router.navigateByUrl(this.menuItems.first.nativeElement.getAttribute('href'));
 				}
+
 				const activeItem = this.findActiveItem();
 				if (activeItem) {
 					activeItem.nativeElement.scrollIntoView();
