@@ -1,24 +1,94 @@
-# Ng2Qgrid
+# q-grid
+Angular data grid
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
+## Documentation
+https://qgrid.github.io
 
-## Code scaffolding
+## Examples
+https://qgrid.github.io/ng2
 
-Run `ng generate component component-name --project ng2-qgrid` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng2-qgrid`.
-> Note: Don't forget to add `--project ng2-qgrid` or else it will be added to the default project in your `angular.json` file. 
+## Install the q-grid via npm
 
-## Build
+```bash
+npm install ng2-qgrid
+```
 
-Run `ng build ng2-qgrid` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Add q-grid and theme modules to application root
 
-## Publishing
+```typescript
+import { GridModule } from 'ng2-qgrid';
+import { ThemeModule } from 'ng2-qgrid/theme/material';
 
-After building your library with `ng build ng2-qgrid`, go to the dist folder `cd dist/ng2-qgrid` and run `npm publish`.
+@NgModule({
+   imports: [
+      GridModule,
+      ThemeModule
+   ]
+})
+export class AppModule {
+}
+```
+Note that now q-grid supports 2 themes out of box `@angular/material` and `basic`, the second one doesn't require `@angular/material` to be installed.
 
-## Running unit tests
+## Create an angular component
 
-Run `ng test ng2-qgrid` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```typescript
+@Component({
+   selector: 'my-component',
+   template: `
+      <q-grid [rows]="rows$ | async">
+            <q-grid-columns generation="deep">
+            </q-grid-columns>
+      </q-grid>
+      `
+})
+export class MyComponent {
+   rows$ = this.dataService.getRows();
+}
+```
 
-## Further help
+Note that q-grid rows should be an array of objects, any other types like array of numbers or strings will throw an error.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Dependencies
+
+*  @angular/common
+*  @angular/core
+*  @angular/forms
+
+If `material` theme is used, it's also required to install [angular material](https://material.angular.io/)
+
+* @angular/cdk
+* @angular/material
+
+## Development
+
+```bash
+git clone https://github.com/qgrid/ng2.git
+npm install
+npm run start
+```
+
+## Build Library
+```bash
+git clone https://github.com/qgrid/ng2.git
+npm install
+npm run build:lib
+```
+
+## Build Application
+```bash
+git clone https://github.com/qgrid/ng2.git
+npm install
+npm run build:app
+```
+
+## Browser support
+
+* `Chrome` latest is supported.
+* `FireFox` latest is supported.
+* `Safari` latest is supported.
+* `Edge` latest is supported.
+
+## Licence
+
+Code licensed under MIT license.
