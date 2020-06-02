@@ -13,10 +13,10 @@ import {
 } from '../mouse/mouse.code';
 
 export class ViewHost {
-	constructor(plugin, gridService) {
+	constructor(plugin) {
 		this.plugin = plugin;
 
-		this.watch(gridService);
+		this.watch(plugin.service);
 		this.final = final();
 	}
 
@@ -111,6 +111,7 @@ export class ViewHost {
 	mouseDown(e) {
 		const { model, view } = this.plugin;
 		const { edit } = model;
+
 		const td = this.findCell(e);
 
 		model.mouse({
@@ -125,15 +126,14 @@ export class ViewHost {
 			const { area, mode } = this.selection;
 
 			if (td) {
-				const fromViewMode = edit().status === 'view';
+				const fromNotEditMode = edit().status === 'view'
 
 				this.navigate(td);
-
 				if (area === 'body') {
 					this.select(td);
 				}
 
-				if (fromViewMode && view.edit.cell.enter.canExecute(td)) {
+				if (fromNotEditMode && view.edit.cell.enter.canExecute(td)) {
 					view.edit.cell.enter.execute(td);
 				}
 
@@ -216,7 +216,8 @@ export class ViewHost {
 		model.mouse({
 			code: stringify(NO_BUTTON),
 			status: 'release',
-			target: null
+			target: null,
+			timestamp: Date.now(),
 		}, {
 			source: 'mouse.up'
 		});

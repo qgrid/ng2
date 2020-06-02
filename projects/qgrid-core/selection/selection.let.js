@@ -269,12 +269,15 @@ export class SelectionLet {
 			}),
 			selectAll: new Command({
 				source: 'selection.view',
-				canExecute: () => model.selection().mode === 'multiple',
+				canExecute: () => {
+					const { mode } = model.selection();
+					return mode === 'multiple' || mode === 'range';
+				},
 				execute: () => {
 					let entries = [];
 					switch (model.selection().unit) {
 						case 'row': {
-							entries = model.data().rows;
+							entries = this.rows;
 							break;
 						}
 						case 'column': {
@@ -287,7 +290,7 @@ export class SelectionLet {
 
 							const buildRange = this.selectionRange.build();
 							const startCell = body.cell(0, 0);
-							const endCell = body.cell(body.rowCount() - 1, body.columnCount() - 1);
+							const endCell = body.cell(this.rows.length, this.columns.length);
 
 							entries = buildRange(startCell, endCell);
 							break;
@@ -321,7 +324,7 @@ export class SelectionLet {
 		const { toggle } = model.selection();
 
 		items = !arguments.length || isUndefined(items)
-			? model.scene().rows
+			? this.rows
 			: isArray(items)
 				? items : [items];
 
@@ -398,11 +401,13 @@ export class SelectionLet {
 	}
 
 	get rows() {
-		return this.plugin.table.data.rows();
+		const { table } = this.plugin;
+		return table.data.rows();
 	}
 
 	get columns() {
-		return this.plugin.table.data.columns();
+		const { table } = this.plugin;
+		return table.data.columns();
 	}
 
 	navigateTo(rowIndex, columnIndex) {

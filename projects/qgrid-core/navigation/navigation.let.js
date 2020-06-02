@@ -150,8 +150,17 @@ export class NavigationLet {
 		const columnIndex = selectColumnIndex(model.navigation());
 		const cell = table.body.cell(rowIndex, columnIndex);
 		if (cell.model()) {
-			Fastdom.mutate(() => cell.addClass(`${GRID_PREFIX}-focused`));
-			dispose.push(() => Fastdom.mutate(() => cell.removeClass(`${GRID_PREFIX}-focused`)));
+			const row = table.body.row(rowIndex);
+
+			Fastdom.mutate(() => {
+				cell.addClass(`${GRID_PREFIX}-focused`);
+				row.addClass(`${GRID_PREFIX}-focused`);
+			});
+
+			dispose.push(() => Fastdom.mutate(() => {
+				cell.removeClass(`${GRID_PREFIX}-focused`);
+				row.removeClass(`${GRID_PREFIX}-focused`);
+			}));
 		}
 
 		return dispose;

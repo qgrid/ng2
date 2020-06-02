@@ -3,11 +3,12 @@ import { isFunction, identity } from '../utility/kit';
 import { Fastdom } from '../services/fastdom';
 
 export class ScrollLet {
-	constructor(plugin, vscroll, gridService) {
-		const { model, observeReply } = plugin;
-		this.plugin = plugin;
-
+	constructor(plugin, vscroll) {
+		const { model, observeReply, service } = plugin;
 		const { scroll, row, pagination, fetch, pipe } = model;
+
+		this.plugin = plugin;
+	
 		const rowHeight = row().height;
 		const settings = {
 			threshold: pagination().size,
@@ -79,7 +80,7 @@ export class ScrollLet {
 						const count = updateTotalCount();
 						d.resolve(count);
 					} else {
-						gridService.invalidate({
+						service.invalidate({
 							source: 'scroll.view',
 							why: 'refresh'
 						}).then(() => {

@@ -37,6 +37,9 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 			model.row({
 				status: new Map()
 			});
+		},
+		canExecute: row => {
+			return !(row instanceof RowDetails);
 		}
 	});
 
@@ -74,7 +77,10 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 					case 'enter':
 					case 'space': {
 						const { cell } = model.navigation();
-						this.toggleExpand.execute(cell && cell.row);
+						const row = cell && cell.row;
+						if (this.toggleExpand.canExecute(row)) {
+							this.toggleExpand.execute(row);
+						}
 						break;
 					}
 					case 'alt': {
@@ -84,7 +90,9 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 							const { current, size } = model.pagination();
 							const altRow = rows[rowNo + current * size];
 							if (altRow) {
-								this.toggleExpand.execute(altRow);
+								if (this.toggleExpand.canExecute(altRow)) {
+									this.toggleExpand.execute(altRow);
+								}
 							}
 						}
 						break;
@@ -97,7 +105,9 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 			const { code, status, target } = e.state;
 			if (code === 'left' && status === 'up') {
 				if (target && target.column.key !== 'name') {
-					this.toggleExpand.execute(target.row);
+					if (this.toggleExpand.canExecute(target.row)) {
+						this.toggleExpand.execute(target.row);
+					}
 				}
 			}
 		});

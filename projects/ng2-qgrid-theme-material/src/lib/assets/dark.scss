@@ -16,16 +16,15 @@
             border-top: 1px solid $common-border-color;
         }
 
-        .q-grid-toolbar {
-
-            .q-grid-title,
-            .q-grid-caption {
-                h3 {
-                    color: $dark-text;
-                    padding-left: 10px
-                }
+        q-grid-caption {
+            h3 {
+                color: $dark-text;
+                padding-left: 10px
             }
+        }
 
+
+        .q-grid-toolbar {
             .q-grid-icon {
                 color: $dark-text;
             }

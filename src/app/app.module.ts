@@ -1,8 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,13 +10,13 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { NgModule } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { ExampleModule, EXAMPLES, APP_ROUTES } from '../examples/example.module';
 
 import { FilterSearchPipe } from './app.filter.pipe';
-//import { PipeModule } from 'ng2-qgrid';
-import { FormsModule } from '@angular/forms';
 import { HighlightPipe } from './app.highlight.pipe';
 
 @NgModule({

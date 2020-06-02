@@ -20,8 +20,22 @@ export class ExampleDataRowAddComponent implements AfterViewInit {
 		execute: () => {
 			const { model } = this.grid;
 
-			const atom = new Human();
-			const rows = Array.from(model.data().rows).concat([atom]);
+			const human: Human = {
+				id: -1,
+				contact: { email: [] },
+				password: '',
+				comment: '',
+				likes: [],
+				gender: 'male',
+				birthday: '',
+				memberSince: '',
+				name: {
+					first: '',
+					last: '',
+				}
+			};
+
+			const rows = Array.from(model.data().rows).concat([human]);
 			model.data({ rows });
 
 			// focus last row, second column

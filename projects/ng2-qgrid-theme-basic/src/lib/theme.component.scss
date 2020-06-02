@@ -54,13 +54,14 @@ $hidden-color: transparent;
         }
     }
 
-    .q-grid-caption {
-        height: 32px;
-
+    q-grid-caption {
+        display: block;
+        max-height: 56px;
+    
         h3 {
             margin: 0;
             overflow: hidden;
-            text-overflow: ellipsis;
+            line-height: 26px;
         }
     }
 
@@ -248,10 +249,6 @@ $hidden-color: transparent;
         &-table {
             tr {
                 height: 30px;
-            }
-
-            td.q-grid-sorted {
-                background-color: $cell-select-background-color;
             }
 
             th {

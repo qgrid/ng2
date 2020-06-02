@@ -14,6 +14,10 @@
 
     &-top {
         @include height(56px);
+
+        >div {
+            height: 100%;
+        }
     }
 
     &-bottom {

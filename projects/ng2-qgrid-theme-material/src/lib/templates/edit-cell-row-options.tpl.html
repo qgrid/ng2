@@ -19,8 +19,11 @@
             <button *ngSwitchDefault
                     mat-menu-item
                     [q-grid-command]="$action.command"
+                    q-grid-command-event="mousedown"
+                    q-grid-command-host="document"
                     [q-grid-command-arg]="$cell"
                     [q-grid-command-use-shortcut]="true"
+                    (keydown.enter)="$action.command.canExecute($cell) === true && $action.command.execute($cell)"
                     (q-grid-command-execute)="$view.edit.cell.cancel.execute($cell)">
                 <mat-icon class="q-grid-icon">{{$action.icon}}</mat-icon>
                 <span>{{$action.title}}</span>

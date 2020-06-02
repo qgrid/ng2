@@ -1,7 +1,17 @@
 import { ColumnModel } from '../column-type/column.model';
 import { Node } from '../node/node';
 
+/**
+ * A column generation mode. Here are possible values:
+ * 
+ * - `null` auto generation is off. 
+ * - `deep` number of columns will be equal to number of graph leafs after deep traversing of first row object.
+ * - `shallow` number of columns will be equal to number of keys from first row object.
+ * - `cohort` similar to deep, but use column groups to display hierarchy.
+ */
 export declare type ColumnListStateGeneration = null | 'deep' | 'shallow' | 'cohort';
+
+export declare type ColumnListStateTypeDetection = 'inference' | 'raw';
 
 /**
  * Use this class to order and generate q-grid columns.
@@ -29,13 +39,10 @@ export declare type ColumnListStateGeneration = null | 'deep' | 'shallow' | 'coh
 export declare class ColumnListState {
 	/**
 	 * A column generation mode. Here are possible values:
-	 * 
-	 * - `null` auto generation is off. 
-	 * - `deep` number of columns will be equal to number of graph leafs after deep traversing of first row object.
-	 * - `shallow` number of columns will be equal to number of keys from first row object.
-	 * - `cohort` similar to deep, but use column groups to display hierarchy.
 	 */
 	generation: ColumnListStateGeneration;
+
+	typeDetection: ColumnListStateTypeDetection;
 
 	/**
 	 * Array of column keys which q-grid uses for column ordering.

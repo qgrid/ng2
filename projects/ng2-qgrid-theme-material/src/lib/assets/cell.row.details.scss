@@ -1,3 +1,4 @@
 td.q-grid-row-details {
-	background: $white;
+    background: $white;
+    @include user-select(auto);
 }

@@ -2,7 +2,6 @@ import { clone } from '@qgrid/core/utility/kit';
 import { Command } from '@qgrid/core/command/command';
 import { Event } from '@qgrid/core/event/event';
 import { getFactory as labelFactory } from '@qgrid/core/services/label';
-import * as columnService from '@qgrid/core/column/column.service';
 
 export class ColumnFilterPlugin {
 	constructor(plugin, context) {
@@ -21,7 +20,7 @@ export class ColumnFilterPlugin {
 		this.byBlanks = !!(filterBy && filterBy.blanks);
 
 		let defaultOperator = model.filter().operatorFactory(this.column)[0] || 'contains';
-		if(filterBy && filterBy.items && filterBy.items.length) {
+		if (filterBy && filterBy.items && filterBy.items.length) {
 			defaultOperator = 'contains';
 		}
 
@@ -128,16 +127,21 @@ export class ColumnFilterPlugin {
 					filter.items = Array.from(this.by);
 					filter.blanks = this.byBlanks;
 
-					if (this.operator !== 'contains') {
-						filter.expression = {
-							kind: 'condition',
-							op: this.operator,
-							left: this.column.key,
-							right: this.value,
-						};
-						filter.items = [];
-					} else {
+					if (this.operator === 'contains') {
 						delete filter.expression;
+					} else {
+						filter.items = [];
+
+						if (this.operator.startsWith('is') || this.value) {
+							filter.expression = {
+								kind: 'condition',
+								op: this.operator,
+								left: this.column.key,
+								right: this.value,
+							};
+						} else {
+							delete filter.expression;
+						}
 					}
 
 					if ((filter.items && filter.items.length) || filter.blanks || filter.expression) {

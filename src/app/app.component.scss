@@ -161,6 +161,24 @@
         }
     }
 
+    &.app-env-test {
+
+        mat-toolbar,
+        mat-sidenav,
+        .app-source-links {
+            display: none !important;
+        }
+
+        mat-sidenav-content {
+            margin: 0 !important;
+
+            mat-card {
+                height: calc(100% - 62px) !important;
+                position: initial !important;
+            }
+        }
+    }
+
     &.app-is-mobile {
         .mat-toolbar {
             display: flex;

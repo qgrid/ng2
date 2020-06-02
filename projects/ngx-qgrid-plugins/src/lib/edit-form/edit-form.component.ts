@@ -22,7 +22,6 @@ export class EditFormComponent implements OnInit {
 
 	constructor(
 		private plugin: GridPlugin,
-		private qgrid: Grid,
 	) {
 	}
 
@@ -33,14 +32,14 @@ export class EditFormComponent implements OnInit {
 		};
 
 		const editFormPanel = new EditFormPanelPlugin(this.plugin, context);
-		const gridService = this.qgrid.service(this.plugin.model);
+		const { service } = this.plugin;
 
 		editFormPanel.cancelEvent.on(() => this.cancel.emit());
 		editFormPanel.resetEvent.on(() => this.reset.emit());
 		editFormPanel.submitEvent.on(() => {
 			this.submit.emit();
 
-			gridService.invalidate({
+			service.invalidate({
 				source: 'edit-form.component',
 				why: 'refresh'
 			});

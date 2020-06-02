@@ -3,14 +3,29 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
-## [Unreleased]
-* Vscroll.
-* Copy/paste selection to excel.
-* Live data plugin.
-* Float rows navigation.
-* Grouped rows navigation improvements.
+## [9.1.3] - 2020-06-01
+### BREAKING
+* Remove q-grid-title, use `q-grid-caption` instead.
 
-## [9.1.0] - 2020-05-26
+### Fixed
+* Remove auto entering to the edit mode on cell focus.
+* Row options column menu item click doesn't trigger an action.
+* Fixed when cell-handler go out of view port when hold page-up.
+* Highlight column on mouse over even if it's sorted.
+* When focus grid using tab key, also focus first focusable cell.
+* Clear function on column filter expression views deactivates filter.
+* Pane doesn't work when select row.
+* Select all by `ctrl-a` in `multiple` and `range` modes.
+
+## Added
+* Add new option for column generation, typeDetection = 'inference' | 'raw'.
+* Add shortcuts to the pager's next/prev buttons (alt+pagedown, alt+pageup).
+* Introduce q-grid-row `behavior` array input to control if it's required to expand row on click or shortcut.
+* Add `q-grid-focused` class to the row when one of it's cell is in focus..
+* Add `q-grid-alt` plugin that automatically set pagination and selection by `alt+[0-9]` shortcuts.
+* Add `timestamp` property to mouse state to handle double clicks.
+
+## [9.1.2] - 2020-05-27
 ### BREAKING
 - q-grid is block element by default, was inline.
 - Rename edit state property from `state` to `status`.
@@ -520,8 +535,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v9.1.0...HEAD
-[9.1.0]: https://github.com/qgrid/ng2/compare/v9.0.1...v9.1.0
+[unreleased]: https://github.com/qgrid/ng2/compare/v9.1.3...HEAD
+[9.1.3]: https://github.com/qgrid/ng2/compare/v9.0.1...v9.1.3
 [9.0.1]: https://github.com/qgrid/ng2/compare/v9.0.0...v9.0.1
 [9.0.0]: https://github.com/qgrid/ng2/compare/v7.5.2...v9.0.0
 [7.5.2]: https://github.com/qgrid/ng2/compare/v7.5.1...v7.5.2

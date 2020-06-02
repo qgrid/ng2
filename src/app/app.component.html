@@ -25,7 +25,7 @@
 			<a *ngFor="let example of examples | appFilter: search"
 			   mat-list-item
 			   [routerLink]="example.path"
-			   [queryParams]="(search) ? {search: search} : {}"
+			   [queryParams]="activatedRoute.queryParams | async"
 			   routerLinkActive="app-active"
 			   (click)="isMobile ? sidenav.toggle() : null">
 				<span [innerHTML]="example.path | appHighlight: search"></span>

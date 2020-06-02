@@ -12,7 +12,6 @@ import {
 	ChangeDetectionStrategy
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { GridError } from '@qgrid/core/infrastructure/error';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { Command } from '@qgrid/core/command/command';
 import { DataState } from '@qgrid/core/data/data.state';
@@ -22,6 +21,7 @@ import { EventManager } from '@qgrid/core/event/event.manager';
 import { eventPath } from '@qgrid/core/services/dom';
 import { FilterState, FilterStateUnit } from '@qgrid/core/filter/filter.state';
 import { Grid } from './grid';
+import { GridError } from '@qgrid/core/infrastructure/error';
 import { GridHost } from '@qgrid/core/grid/grid.host';
 import { GridLet } from './grid-let';
 import { GridModel } from './grid-model';
@@ -31,7 +31,6 @@ import { GridRoot } from './grid-root';
 import { GridState, GridStateInteractionMode } from '@qgrid/core/grid/grid.state';
 import { GroupState, GroupStateMode, GroupStateSummary } from '@qgrid/core/group/group.state';
 import { LayerService } from '../layer/layer.service';
-import { noop } from '@qgrid/core/utility/kit';
 import { PivotState } from '@qgrid/core/pivot/pivot.state';
 import { ScrollState, ScrollStateMode } from '@qgrid/core/scroll/scroll.state';
 import { SelectionState, SelectionStateMode, SelectionStateUnit, SelectionStateArea } from '@qgrid/core/selection/selection.state';
@@ -162,7 +161,10 @@ export class GridComponent implements OnInit, OnChanges {
 			});
 		}
 
-		const host = new GridHost(nativeElement, this.plugin);
+		const host = new GridHost(
+			nativeElement, 
+			this.plugin,
+			);
 		const listener = new EventListener(nativeElement, new EventManager(this));
 		const docListener = new EventListener(this.document, new EventManager(this));
 
@@ -190,7 +192,6 @@ export class GridComponent implements OnInit, OnChanges {
 			disposable.add(
 				listener.on('keyup', e => host.keyUp(e, 'grid'))
 			);
-
 		});
 
 		disposable.add(

@@ -14,6 +14,7 @@ import { ExampleActionBarBasicComponent } from './action-bar-basic/example-actio
 import { ExampleActionBarOnEnterComponent } from './action-bar-on-enter/example-action-bar-on-enter.component';
 import { ExampleActionBarTemplateComponent } from './action-bar-template/example-action-bar-template.component';
 import { ExampleAggregateColumnBasicComponent } from './aggregate-column-basic/example-aggregate-column-basic.component';
+import { ExampleAltBasicComponent } from './pane-basic/example-alt-basic.component';
 import { ExampleColumnArrayBasicComponent } from './column-array-basic/example-column-array-basic.component';
 import { ExampleColumnAutocompleteBasicComponent } from './column-autocomplete-basic/example-column-autocomplete-basic.component';
 import { ExampleColumnBoolBasicComponent } from './column-bool-basic/example-column-bool-basic.component';
@@ -54,6 +55,7 @@ import { ExampleDetailsRowBasicComponent } from './details-row-basic/example-det
 import { ExampleDetailsRowCustomComponent } from './details-row-custom/example-details-row-custom.component';
 import { ExampleDetailsRowGridComponent } from './details-row-grid/example-details-row-grid.component';
 import { ExampleDetailsRowPinComponent } from './details-row-pin/example-details-row-pin.component';
+import { ExampleDetailsRowSelectComponent } from './details-row-select/example-details-row-select.component';
 import { ExampleDetailsRowStartComponent } from './details-row-start/example-details-row-start.component';
 import { ExampleDragColumnBasicComponent } from './drag-column-basic/example-drag-column-basic.component';
 import { ExampleDragRowBasicComponent } from './drag-row-basic/example-drag-row-basic.component';
@@ -77,6 +79,7 @@ import { ExampleFocusCellCustomComponent } from './focus-cell-custom/example-foc
 import { ExampleGenerateColumnCheckComponent } from './generate-column-check/example-generate-column-check.component';
 import { ExampleGenerateColumnCohortComponent } from './generate-column-cohort/example-generate-column-cohort.component';
 import { ExampleGenerateColumnDeepComponent } from './generate-column-deep/example-generate-column-deep.component';
+import { ExampleGenerateColumnRawComponent } from './generate-column-raw/example-generate-column-raw.component';
 import { ExampleGenerateColumnShallowComponent } from './generate-column-shallow/example-generate-column-shallow.component';
 import { ExampleGridListBasicComponent } from './grid-list-basic/example-grid-list-basic.component';
 import { ExampleGroupColumnBasicComponent } from './group-column-basic/example-group-column-basic.component';
@@ -142,6 +145,7 @@ import { ExampleSelectMixBasicComponent } from './select-mix-basic/example-selec
 import { ExampleSelectRowBasicComponent } from './select-row-basic/example-select-row-basic.component';
 import { ExampleSelectRowCommandComponent } from './select-row-command/example-select-row-command.component';
 import { ExampleSelectRowDisableComponent } from './select-row-disable/example-select-row-disable.component';
+import { ExampleSelectRowRangeComponent } from './select-row-range/example-select-row-range.component';
 import { ExampleSelectRowSingleComponent } from './select-row-single/example-select-row-single.component';
 import { ExampleSelectRowSingleOnlyComponent } from './select-row-single-only/example-select-row-single-only.component';
 import { ExampleSizeColumnAbsoluteComponent } from './size-column-absolute/example-size-column-absolute.component';
@@ -165,9 +169,11 @@ export const EXAMPLES: any[] = [
 	ExampleActionBarOnEnterComponent,
 	ExampleActionBarTemplateComponent,
 	ExampleAggregateColumnBasicComponent,
+	ExampleAltBasicComponent,
 	ExampleColumnArrayBasicComponent,
 	ExampleColumnAutocompleteBasicComponent,
 	ExampleColumnBoolBasicComponent,
+	ExampleColumnColumnVisibilityBasicComponent,
 	ExampleColumnCurrencyBasicComponent,
 	ExampleColumnDataSafeComponent,
 	ExampleColumnDateBasicComponent,
@@ -190,7 +196,6 @@ export const EXAMPLES: any[] = [
 	ExampleColumnTooltipBasicComponent,
 	ExampleColumnTypeSafeComponent,
 	ExampleColumnUrlBasicComponent,
-	ExampleColumnColumnVisibilityBasicComponent,
 	ExampleDataRowAddComponent,
 	ExampleDataRowDeleteComponent,
 	ExampleDefineColumnAsyncComponent,
@@ -205,6 +210,7 @@ export const EXAMPLES: any[] = [
 	ExampleDetailsRowCustomComponent,
 	ExampleDetailsRowGridComponent,
 	ExampleDetailsRowPinComponent,
+	ExampleDetailsRowSelectComponent,
 	ExampleDetailsRowStartComponent,
 	ExampleDragColumnBasicComponent,
 	ExampleDragRowBasicComponent,
@@ -228,6 +234,7 @@ export const EXAMPLES: any[] = [
 	ExampleGenerateColumnCheckComponent,
 	ExampleGenerateColumnCohortComponent,
 	ExampleGenerateColumnDeepComponent,
+	ExampleGenerateColumnRawComponent,
 	ExampleGenerateColumnShallowComponent,
 	ExampleGridListBasicComponent,
 	ExampleGroupColumnBasicComponent,
@@ -292,6 +299,7 @@ export const EXAMPLES: any[] = [
 	ExampleSelectRowBasicComponent,
 	ExampleSelectRowCommandComponent,
 	ExampleSelectRowDisableComponent,
+	ExampleSelectRowRangeComponent,
 	ExampleSelectRowSingleComponent,
 	ExampleSelectRowSingleOnlyComponent,
 	ExampleSizeColumnAbsoluteComponent,
@@ -311,23 +319,29 @@ export const EXAMPLES: any[] = [
 	ExampleVisibilityStateComponent,
 ];
 
-export const APP_ROUTES: Routes = EXAMPLES.map<Route>(example => ({
-	path: example.id,
-	component: example
-}));
+export const APP_ROUTES: Routes = EXAMPLES
+	.map<Route>(example => ({
+		path: (example.tags && example.tags[0]) || example.id,
+		component: example
+	}));
 
 @NgModule({
-	declarations: [...EXAMPLES, ExamplePluginMyPagerComponent],
+	declarations: [
+		...EXAMPLES,
+		ExamplePluginMyPagerComponent
+	],
 	exports: EXAMPLES,
 	imports: [
-		GridModule,
-		ThemeModule,
 		CommonModule,
 		FormsModule,
+
 		MatButtonModule,
 		MatSelectModule,
 		MatChipsModule,
-		MatIconModule
+		MatIconModule,
+
+		GridModule,
+		ThemeModule,
 	]
 })
 export class ExampleModule { }

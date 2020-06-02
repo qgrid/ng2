@@ -1,0 +1,136 @@
+$color-head: #006f8f;
+$color-black-87: rgba(0, 0, 0, 0.87);
+
+.q-grid-embed,
+.q-grid-lcc,
+.q-grid-compact {
+    font-family: $font-family;
+
+    q-grid-caption {
+        h3 {
+            color: $color-head;
+        }
+    }
+
+    .q-grid {
+
+        &-sort {
+            margin-left: 0;
+        }
+
+        &-text {
+            font-size: 13px;
+        }
+
+        tbody,
+        tfoot,
+        thead {
+            tr {
+                height: 36px;
+            }
+
+            td {
+                @include typography(14px, normal, normal, normal, $color-black-87);
+                padding: 0 20px;
+
+                &.q-grid-text-area {
+                    >span {
+                        white-space: nowrap;
+                    }
+                }
+
+                &.q-grid-array {
+                    li {
+                        padding: 2px 8px;
+                    }
+                }
+
+                &.q-grid-edit {
+                    &.q-grid-row-options {
+                        button {
+                            @include buttonSizes(24px);
+                        }
+                    }
+                }
+
+                &.q-grid-image {
+                    img {
+                        max-height: 24px;
+                        max-width: 24px;
+                    }
+                }
+
+                &.q-grid-row-number {
+                    color: $color-head;
+                }
+            }
+        }
+
+
+        thead {
+
+            th {
+                @include typography(12px !important, 14px, normal !important, normal, $color-lc-cyan-dark !important);
+
+                &:hover label {
+                    font-weight: normal !important;
+                }
+
+                .q-grid-icon {
+                    text-align: center;
+                    line-height: 16px;
+                    font-size: 14px;
+                }
+
+                .q-grid-column-filter-trigger {
+                    right: 4px;
+
+                    button {
+                        margin: 0;
+                        width: 20px;
+                    }
+                }
+
+                .q-grid-sort {
+                    color: $color-head;
+
+                    &.q-grid-active {
+                        label {
+                            color: inherit;
+                        }
+                    }
+
+                    label {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        &-legend {
+            &-list {
+                font-size: 16px !important;
+                text-align: left !important;
+                color: $black !important;
+            }
+
+            &-item {
+                @include simpleSquareElement(8px !important);
+                margin-right: 18px !important;
+                margin-bottom: 2px !important;
+            }
+        }
+
+        &-pager {
+            padding: 11px 0;
+        }
+
+        &-legend-list {
+            margin-top: 15px;
+        }
+
+        &-layer {
+            top: 50px;
+        }
+    }
+}

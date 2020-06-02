@@ -12,7 +12,7 @@ td {
 .q-grid-select-mix,
 .q-grid-select-range {
     tr:not(.q-grid-highlighted) {
-        td {
+        td:not(.q-grid-highlighted) {
             &.q-grid-selected {
                 background-color: $selected;
             }
