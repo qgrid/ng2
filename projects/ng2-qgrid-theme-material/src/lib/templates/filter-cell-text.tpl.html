@@ -12,10 +12,10 @@
                matInput
                #input
                [value]="$view.filter.value($cell.column.model)"
-               (change)="$view.filter.column.execute($cell.column.model, input.value)" />
+               (change)="$view.filter.row.execute([$cell.column.model, input.value])" />
 
         <mat-icon *ngIf="!!$view.filter.value($cell.column.model)"
-                  (click)="$view.filter.column.execute($cell.column.model, null)"
+                  (click)="$view.filter.row.execute([$cell.column.model, null])"
                   class="q-grid-icon q-grid-close"
                   matSuffix>
             close

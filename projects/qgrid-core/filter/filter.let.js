@@ -1,41 +1,11 @@
-import { Command } from '../command/command';
-import { clone, isUndefined } from '../utility/kit';
+import { FilterRowCommitCommand } from '../command-bag/filter.row.commit.command';
 
 export class FilterLet {
 	constructor(plugin) {
-		const { model } = plugin;
-
 		this.plugin = plugin;
 
-		this.column = new Command({
-			source: 'filter.view',
-			execute: (column, search) => {
-				const { key } = column;
-
-				let { by, operatorFactory } = model.filter();
-				by = clone(by);
-				const filter = by[key] || (by[key] = {});
-				if (!isUndefined(search) && search !== null && search !== '') {
-					const opList = operatorFactory(column);
-					const op = filter.expression ? filter.expression.op : opList[0];
-					if (op === 'contains') {
-						filter.items = [search];
-					} else {
-						filter.expression = {
-							kind: 'condition',
-							left: key,
-							op,
-							right: search
-						};
-					}
-				}
-				else {
-					delete by[key];
-				}
-
-				model.filter({ by }, { source: 'filter.view' });
-			}
-		});
+		this.row = new FilterRowCommitCommand(plugin);
+		commandPalette.register(this.row);
 	}
 
 	has(column) {
