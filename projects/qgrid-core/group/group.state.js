@@ -10,8 +10,8 @@ export class GroupState {
 		this.summary = null; // null | leaf
 		this.by = [];
 
-		this.toggle = new Command({ source: 'group.state' });
-		this.toggleAll = new Command({ source: 'group.state' });
+		this.toggle = new Command();
+		this.toggleAll = new Command();
 
 		this.flattenFactory = flattenFactory;
 

@@ -15,6 +15,7 @@ export class ScrollState {
 
 		this.resetTriggers = [
 			'sort.view',
+			'sort.toggle.command',
 			'column.filter.view',
 			'data.manipulation'
 		];
