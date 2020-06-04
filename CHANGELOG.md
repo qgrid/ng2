@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
-## [9.1.4] - 2020-06-02
+## [9.2.0] - 2020-06-02
 ### Added
 - Support 2 version 9.1.x - Ivy, 9.1.x-ve - View Engine
 - `q-grid-shortcut-host` directive that can change key event source for q-grid commands.
@@ -544,8 +544,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v9.1.4...HEAD
-[9.1.4]: https://github.com/qgrid/ng2/compare/v9.1.3...v9.1.4
+[unreleased]: https://github.com/qgrid/ng2/compare/v9.2.0...HEAD
+[9.2.0]: https://github.com/qgrid/ng2/compare/v9.1.3...v9.2.0
 [9.1.3]: https://github.com/qgrid/ng2/compare/v9.0.1...v9.1.3
 [9.0.1]: https://github.com/qgrid/ng2/compare/v9.0.0...v9.0.1
 [9.0.0]: https://github.com/qgrid/ng2/compare/v7.5.2...v9.0.0
