@@ -3,7 +3,6 @@ import { cloneDeep } from '../utility/kit';
 import { get as getLabel, set as setLabel } from '../services/label';
 import { get as getValue, set as setValue } from '../services/value';
 
-
 class RowEditorCore {
 	constructor() {
 		this.editors = [];
@@ -15,7 +14,6 @@ class RowEditorCore {
 	reset() {
 	}
 }
-
 
 class TdView {
 	constructor(row, column) {
@@ -41,6 +39,7 @@ class TdView {
 }
 
 const empty = new RowEditorCore();
+
 export class RowEditor extends RowEditorCore {
 	constructor(row, columns) {
 		super();

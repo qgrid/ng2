@@ -3,14 +3,12 @@ import { Command } from '../command/command';
 import { GridPlugin } from '../plugin/grid.plugin';
 
 export declare class EditRowLet {
-	constructor(
-		plugin: GridPlugin,
-		shortcut: { register: (commands: Command[]) => void }
-	);
+	constructor(plugin: GridPlugin);
 
 	readonly editor: RowEditor;
-	readonly enter: Command;
-	readonly commit: Command;
-	readonly cancel: Command;
-	readonly reset: Command;
+
+	readonly enter: Command<any>;
+	readonly commit: Command<any>;
+	readonly cancel: Command<any>;
+	readonly reset: Command<any>;
 }

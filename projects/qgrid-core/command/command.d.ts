@@ -1,5 +1,6 @@
 import { CommandContext } from './command.context';
 import { SubjectLike } from '../rx/rx';
+import { CommandKey } from './command.key';
 
 /**
  * Use this class to implement command pattern in the qgrid. The most of interactions in the q-grid are utilized by this pattern.
@@ -28,13 +29,13 @@ import { SubjectLike } from '../rx/rx';
  * * [Command Pattern Wiki](https://en.wikipedia.org/wiki/Command_pattern)
  */
 export declare class Command<T = any> {
-    constructor(context?: CommandContext<T>);
+    constructor(context?: Partial<CommandContext<T>>);
 
     /**
      * Indicates if a command can be invoked. Use one argument to support typescript generic typification.
 	 * By default true value is returned.
      */
-    canExecute: (e?: T, ...args: any[]) => boolean;
+    canExecute: (e?: T) => boolean;
 
     /**
      * Triggers canExecute method on UI.
@@ -46,7 +47,7 @@ export declare class Command<T = any> {
 	 * Sometimes interaction model requires to return a value, for example, default command manager 
 	 * stops to process next commands if false is returned by the command execute method.
      */
-    execute: (e?: T, ...args: any[]) => any;
+    execute: (e?: T) => boolean | void;
 
     /**
      * A sequence of keyboard key codes to execute the command. 
@@ -57,23 +58,17 @@ export declare class Command<T = any> {
      * * f2
      *
      */
-    shortcut?: string;
+    shortcut: string;
 
     /**
      * Command priority that can be used by command manager to specify order of commands to execute. 
 	 * For example, if several commands have the same shortcut, you may need to see in which order 
 	 * these commands should be executed.
      */
-    priority?: number;
+    priority: number;
 
 	/**
 	 * Indicates an origin of the command.
 	 */
-	source?: string;
-	
-	/**
-	 * If a command is executed by q-grid command manager, the sink value contains 
-	 * the last canExecute result. 
-	 */
-	sink?: any;
+	key: CommandKey<T>;
 }

@@ -9,11 +9,11 @@ export class EditState {
 		this.status = 'view'; // view | edit | startBatch | endBatch
 		this.method = null; // batch
 
-		this.enter = new Command({ source: 'edit.model' });
-		this.commit = new Command({ source: 'edit.model' });
-		this.cancel = new Command({ source: 'edit.model' });
-		this.reset = new Command({ source: 'edit.model' });
-		this.clear = new Command({ source: 'edit.model' });
+		this.enter = new Command();
+		this.commit = new Command();
+		this.cancel = new Command();
+		this.reset = new Command();
+		this.clear = new Command();
 
 		this.cancelShortcuts = {
 			'$default': 'escape'

@@ -1,7 +1,10 @@
+import { CommandKey } from './command.key';
+
 export interface CommandContext<T = any> {
-	execute?: (e?: T, ...args: any[]) => any;
-	canExecute?: (e?: T, ...args: any[]) => boolean;
-	shortcut?: string;
-	priority?: number;
-	source?: string;
+	readonly key: CommandKey<T>;
+	readonly execute: (e?: T) => boolean | void;
+	readonly canExecute: (e?: T) => boolean;
+	readonly shortcut: string;
+	readonly priority: number;
+	readonly stopPropagate: boolean;
 }
