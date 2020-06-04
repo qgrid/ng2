@@ -1,11 +1,9 @@
 import { columnFactory } from '../column/column.factory';
-import { Command } from '../command/command';
 import { getFactory as labelFactory } from '../services/label';
 import { getFactory as valueFactory } from '../services/value';
-import { PipeUnit } from '../pipe/pipe.unit';
-import { preOrderDFS } from '../node/node.service';
-import { selectRow, selectColumn } from '../navigation/navigation.state.selector';
 import { yes, identity } from '../utility/kit';
+import { GroupStatusToggleCommand } from '../command-bag/group.status.toggle.command';
+import { GroupStatusToggleAllCommand } from '../command-bag/group.status.toggle.all.command';
 
 function rowspanGetNode(node, column) {
 	if (node.source === column.by) {
@@ -35,81 +33,16 @@ function rowspanIsVisible(node, column, parent) {
 
 export class GroupLet {
 	constructor(plugin, shortcut) {
-		const { model, observeReply, disposable, service } = plugin;
+		const { model, observeReply, disposable, commandPalette } = plugin;
 
 		this.plugin = plugin;
 		this.valueFactory = valueFactory;
 
-		const toggleStatus = new Command({
-			source: 'group.view',
-			execute: args => {
-				let row = selectRow(model.navigation());
-				let column = selectColumn(model.navigation());
+		this.toggleStatus = new GroupStatusToggleCommand(plugin);
+		this.toggleAllStatus = new GroupStatusToggleAllCommand(plugin);
 
-				if (args) {
-					row = args[0] || row;
-					column = args[1] || column;
-				}
-
-				const node = this.getNode(row, column);
-				const { toggle } = model.group();
-				if (toggle.execute(node) !== false) {
-					node.state.expand = !node.state.expand;
-					service.invalidate({
-						source: 'group.view',
-						pipe: PipeUnit.group,
-						why: PipeUnit.group.why
-					});
-				}
-			},
-			canExecute: args => {
-				let row = selectRow(model.navigation());
-				let column = selectColumn(model.navigation());
-
-				if (args) {
-					row = args[0] || row;
-					column = args[1] || column;
-				}
-
-				const node = this.getNode(row, column);
-				const { toggle } = model.group();
-				return node && node.type === 'group' && toggle.canExecute(node);
-			},
-			shortcut: model.group().shortcut.toggle
-		});
-
-		let shouldExpand = true;
-
-		const toggleAllStatus = new Command({
-			source: 'group.view',
-			execute: () => {
-				if (model.group().toggleAll.execute() !== false) {
-					const { nodes } = model.view();
-					const { toggle } = model.group();
-
-					preOrderDFS(nodes, node => {
-						if (toggleStatus.canExecute([node])) {
-							if (toggle.execute(node) !== false) {
-								node.state.expand = shouldExpand;
-							}
-						}
-					});
-
-					shouldExpand = !shouldExpand;
-					service.invalidate({
-						source: 'group.view',
-						pipe: PipeUnit.group,
-						why: PipeUnit.group.why
-					});
-				}
-			},
-			canExecute: () => model.group().toggleAll.canExecute()
-		});
-
-		this.toggleStatus = toggleStatus;
-		this.toggleAllStatus = toggleAllStatus;
-
-		shortcut.register([toggleStatus, toggleAllStatus]);
+		commandPalette.register(this.toggleStatus);
+		commandPalette.register(this.toggleAllStatus);
 
 		const createColumn = columnFactory(model);
 		this.reference = {
@@ -181,6 +114,7 @@ export class GroupLet {
 
 		node = this.getNode(node, column);
 		const { mode } = model.group();
+
 		switch (mode) {
 			case 'nest':
 			case 'subhead': {
@@ -198,6 +132,7 @@ export class GroupLet {
 			const getLabel = labelFactory(column);
 			return getLabel(node);
 		}
+
 		return null;
 	}
 }
