@@ -10,7 +10,6 @@ export class PagerPlugin {
 		const { shortcut } = model.pagination();
 
 		this.next = new Command({
-			source: 'pager',
 			shortcut: shortcut.next,
 			execute: () => {
 				new FocusAfterRenderService(plugin);
@@ -20,7 +19,6 @@ export class PagerPlugin {
 		});
 
 		this.prev = new Command({
-			source: 'pager',
 			shortcut: shortcut.prev,
 			execute: () => {
 				new FocusAfterRenderService(plugin);

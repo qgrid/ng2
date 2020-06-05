@@ -54,7 +54,6 @@ export class ColumnFilterPlugin {
 	get commands() {
 		return {
 			toggle: new Command({
-				source: 'column.filter.view',
 				execute: (item) => {
 					if (this.by.has(item)) {
 						this.by.delete(item);
@@ -67,7 +66,6 @@ export class ColumnFilterPlugin {
 				}
 			}),
 			toggleAll: new Command({
-				source: 'column.filter.view',
 				execute: search => {
 					const state = !this.stateAll();
 					if (state) {
@@ -94,7 +92,6 @@ export class ColumnFilterPlugin {
 			}),
 
 			changeOperator: new Command({
-				source: 'column.filter.view',
 				execute: (op) => {
 					this.operator = op;
 
@@ -117,7 +114,6 @@ export class ColumnFilterPlugin {
 			}),
 
 			submit: new Command({
-				source: 'column.filter.view',
 				execute: () => {
 					const { model } = this.plugin;
 					const by = clone(model.filter().by);
@@ -158,12 +154,10 @@ export class ColumnFilterPlugin {
 			}),
 
 			cancel: new Command({
-				source: 'column.filter.view',
 				execute: () => this.cancelEvent.emit()
 			}),
 
 			reset: new Command({
-				source: 'column.filter.view',
 				execute: () => {
 					this.by = new Set();
 					this.byBlanks = false;

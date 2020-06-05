@@ -58,7 +58,6 @@ export class DataManipulationPlugin {
 		this.actions = [
 			new Action(
 				new Command({
-					source: 'data.manipulation',
 					execute: () => {
 						const { model, observe, table } = this.plugin;
 						const { data } = model;
@@ -101,7 +100,6 @@ export class DataManipulationPlugin {
 		this.rowActions = [
 			new Action(
 				new Command({
-					source: 'data.manipulation',
 					canExecute: e => {
 						const rowId = this.rowId(e.rowIndex, e.row);
 						return !this.changes.deleted.has(rowId);
@@ -129,7 +127,6 @@ export class DataManipulationPlugin {
 			),
 			new Action(
 				new Command({
-					source: 'data.manipulation',
 					execute: e => {
 						const rowId = this.rowId(e.rowIndex, e.row);
 						if (this.changes.deleted.has(rowId)) {

@@ -80,13 +80,11 @@ export class ColumnChooserPlugin {
 		};
 
 		this.toggle = new Command({
-			source: 'column.chooser',
 			canExecute: node => node.value.isVisible,
 			execute: node => toggle(node, !this.state(node))
 		});
 
 		this.toggleAll = new Command({
-			source: 'column.chooser',
 			execute: () => {
 				const state = !this.stateAll();
 				for (let column of this.listView) {
@@ -96,7 +94,6 @@ export class ColumnChooserPlugin {
 		});
 
 		this.defaults = new Command({
-			source: 'column.chooser',
 			execute: () => {
 				for (let column of this.listView) {
 					column.isVisible = column.isDefault !== false;
@@ -104,10 +101,9 @@ export class ColumnChooserPlugin {
 			}
 		});
 
-		this.toggleAggregation = new Command({ source: 'column.chooser' });
+		this.toggleAggregation = new Command();
 
 		this.drop = new Command({
-			source: 'column.chooser',
 			canExecute: e => {
 				const node = e.dropData;
 				return node && node.value.column.canMove;
@@ -154,7 +150,6 @@ export class ColumnChooserPlugin {
 		});
 
 		this.drag = new Command({
-			source: 'column.chooser',
 			canExecute: e => {
 				const node = e.data;
 				return node && node.value.column.canMove;
@@ -162,7 +157,6 @@ export class ColumnChooserPlugin {
 		});
 
 		this.submit = new Command({
-			source: 'column.chooser',
 			execute: () => {
 				const index = preOrderDFS([this.tree], (node, current, parent) => {
 					if (parent) {
@@ -194,12 +188,10 @@ export class ColumnChooserPlugin {
 		});
 
 		this.cancel = new Command({
-			source: 'column.chooser',
 			execute: () => this.cancelEvent.emit()
 		});
 
 		this.reset = new Command({
-			source: 'column.chooser',
 			execute: () => setup()
 		});
 

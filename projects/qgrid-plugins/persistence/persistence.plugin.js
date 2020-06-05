@@ -41,7 +41,6 @@ export class PersistencePlugin {
 			});
 
 		this.create = new Command({
-			source: 'persistence.view',
 			execute: () => {
 				const item = {
 					title: this.title,
@@ -80,7 +79,6 @@ export class PersistencePlugin {
 
 		this.edit = {
 			enter: new Command({
-				source: 'persistence.view',
 				execute: item => {
 					item = item || this.items.find(this.isActive);
 					if (!item) {
@@ -95,7 +93,6 @@ export class PersistencePlugin {
 				canExecute: item => this.state.editItem === null && item.canEdit
 			}),
 			commit: new Command({
-				source: 'persistence.view',
 				shortcut: 'enter',
 				execute: item => {
 					item = item || this.state.editItem;
@@ -117,7 +114,6 @@ export class PersistencePlugin {
 					persistence().modify.canExecute(this.state.editItem)
 			}),
 			cancel: new Command({
-				source: 'persistence.view',
 				shortcut: 'escape',
 				execute: () => {
 					if (this.state.editItem !== null) {
@@ -134,7 +130,6 @@ export class PersistencePlugin {
 		};
 
 		this.load = new Command({
-			source: 'persistence.view',
 			canExecute: item => persistence().load.canExecute(item),
 			execute: item => {
 				if (persistence().load.execute(item) !== false) {
@@ -147,7 +142,6 @@ export class PersistencePlugin {
 		});
 
 		this.reset = new Command({
-			source: 'persistence.view',
 			execute: () => {
 				if (persistence().reset.execute() !== false) {
 					this.service.reset();
@@ -158,7 +152,6 @@ export class PersistencePlugin {
 		});
 
 		this.remove = new Command({
-			source: 'persistence.view',
 			execute: item => {
 				const index = this.items.indexOf(item);
 				if (index >= 0) {
@@ -176,7 +169,6 @@ export class PersistencePlugin {
 		});
 
 		this.setDefault = new Command({
-			source: 'persistence.view',
 			canExecute: item => persistence().setDefault.canExecute(item),
 			execute: item => {
 				if (persistence().setDefault.execute(item) !== false) {

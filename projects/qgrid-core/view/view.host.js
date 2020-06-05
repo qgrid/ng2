@@ -151,18 +151,8 @@ export class ViewHost {
 
 		const td = this.findCell(e);
 		if (td) {
-
-			if (cell) {
-				highlight.cell.execute(cell, false);
-			}
-
-			const newCell = {
-				rowIndex: td.rowIndex,
-				columnIndex: td.columnIndex
-			};
-
-			if (highlight.cell.canExecute(newCell)) {
-				highlight.cell.execute(newCell, true)
+			if (highlight.cell.canExecute(td)) {
+				highlight.cell.execute(td)
 			}
 
 			const tr = this.findRow(e);
@@ -172,9 +162,9 @@ export class ViewHost {
 				if (highlight.row.canExecute(index)) {
 					rows
 						.filter(i => i !== index)
-						.forEach(i => highlight.row.execute(i, false));
+						.forEach(i => highlight.row.execute([i, false]));
 
-					highlight.row.execute(index, true);
+					highlight.row.execute([index, true]);
 				}
 			}
 

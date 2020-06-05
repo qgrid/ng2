@@ -5,12 +5,12 @@ export class PersistenceState {
 	constructor() {
 		this.id = 'default';
 		this.defaultGroup = 'My Presets';
-		this.load = new Command({ source: 'persistence.model' });
-		this.remove = new Command({ source: 'persistence.model' });
-		this.create = new Command({ source: 'persistence.model' });
-		this.modify = new Command({ source: 'persistence.model' });
-		this.setDefault = new Command({ source: 'persistence.model' });
-		this.reset = new Command({ source: 'persistence.model' });
+		this.load = new Command();
+		this.remove = new Command();
+		this.create = new Command();
+		this.modify = new Command();
+		this.setDefault = new Command();
+		this.reset = new Command();
 
 		this.storage = new PersistenceStorage(localStorage);
 		this.settings = {

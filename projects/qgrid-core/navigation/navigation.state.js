@@ -19,7 +19,7 @@ export class NavigationState {
 			downward: 'shift+pageDown'
 		};
 
-		this.go = new Command({ source: 'navigation.model' });
+		this.go = new Command();
 
 		this.prevent = new Set([
 			'space',
