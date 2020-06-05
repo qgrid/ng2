@@ -42,11 +42,11 @@ export class HeadHost {
 
 		if (this.column !== column) {
 			if (this.column) {
-				highlight.column.execute(this.column, false);
+				highlight.column.execute([this.column, false]);
 			}
 
 			if (column) {
-				highlight.column.execute(column, true);
+				highlight.column.execute([column, true]);
 			}
 
 			this.column = column;

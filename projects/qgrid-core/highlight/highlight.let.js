@@ -1,15 +1,17 @@
 import { CellSelector } from '../cell/cell.selector';
-import { Command } from '../command/command';
 import { Fastdom } from '../services/fastdom';
 import { find, findLeaves } from '../node/node.service';
 import { GRID_PREFIX } from '../definition';
 import { noop } from '../utility/kit';
 import { SelectionService } from '../selection/selection.service';
 import * as sortService from '../sort/sort.service';
+import { HighlightColumnCommand } from '../command-bag/highlight.column.command';
+import { HighlightCellCommand } from '../command-bag/highlight.cell.command';
+import { HighlightClearCommand } from '../command-bag/highlight.clear.command';
 
 export class HighlightLet {
 	constructor(plugin) {
-		const { model, table, observeReply, observe } = plugin;
+		const { model, table, observeReply, observe, commandPalette } = plugin;
 		this.plugin = plugin;
 
 		this.cellSelector = new CellSelector(model, table);
@@ -21,96 +23,15 @@ export class HighlightLet {
 		let selectionBlurs = [];
 		let cellHoverBlurs = [];
 
-		this.column = new Command({
-			source: 'highlight.view',
-			canExecute: () => !this.isRendering,
-			execute: (column, state) => {
-				const columns = Array.from(model.highlight().columns);
-				const index = columns.indexOf(column.key);
-				let hasChanges = false;
-				if (state) {
-					if (index < 0) {
-						columns.push(column.key);
-						hasChanges = true;
-					}
-				}
-				else {
-					if (index >= 0) {
-						columns.splice(index, 1);
-						hasChanges = true;
-					}
-				}
+		this.column = new HighlightColumnCommand(plugin);
+		this.row = new HighlightRowCommand(plugin);
+		this.cell = new HighlightCellCommand(plugin);
+		this.clear = new HighlightClearCommand(plugin);
 
-				if (hasChanges) {
-					model.highlight({ columns }, {
-						source: 'highlight.view',
-					});
-				}
-			}
-		});
-
-		this.row = new Command({
-			source: 'highlight.view',
-			canExecute: () => !this.isRendering,
-			execute: (row, state) => {
-				const rows = Array.from(model.highlight().rows);
-				const index = rows.indexOf(row);
-				let hasChanges = false;
-				if (state) {
-					if (index < 0) {
-						rows.push(row);
-						hasChanges = true;
-					}
-				}
-				else {
-					if (index >= 0) {
-						rows.splice(index, 1);
-						hasChanges = true;
-					}
-				}
-
-				if (hasChanges) {
-					model.highlight({ rows }, {
-						source: 'highlight.view'
-					});
-				}
-			}
-		});
-
-		this.cell = new Command({
-			source: 'highlight.view',
-			canExecute: () => !this.isRendering,
-			execute: (newCell, state) => {
-				let { cell } = model.highlight();
-				let hasChanges = true;
-				if (newCell === cell) {
-					hasChanges = false;
-				}
-				else if (newCell && cell) {
-					hasChanges =
-						newCell.rowIndex !== cell.rowIndex
-						|| newCell.columnIndex !== cell.columnIndex;
-				}
-
-				if (hasChanges) {
-					model.highlight({ cell: newCell }, {
-						source: 'highlight.view'
-					});
-				}
-			}
-		});
-
-		this.clear = new Command({
-			execute: () => {
-				const { rows, cell } = model.highlight();
-
-				rows.forEach(rowIndex => this.row.execute(rowIndex, false));
-
-				if (cell) {
-					this.cell.execute(null, false);
-				}
-			}
-		});
+		commandPalette.register(this.row);
+		commandPalette.register(this.column);
+		commandPalette.register(this.cell);
+		commandPalette.register(this.clear);
 
 		observeReply(model.selectionChanged)
 			.subscribe(e => {
@@ -160,13 +81,7 @@ export class HighlightLet {
 			.subscribe(e => {
 				if (e.hasChanges('isActive')) {
 					if (e.state.isActive) {
-						model.highlight({
-							columns: [],
-							rows: [],
-							cell: null
-						}, {
-							source: 'highlight.view'
-						});
+						this.clear.execute();
 
 						columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
 						rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
