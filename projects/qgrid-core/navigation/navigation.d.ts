@@ -1,12 +1,15 @@
+import { CellView } from '../scene/view/cell.view';
+import { GridPlugin } from '../plugin/grid.plugin';
+import { NavigationSite } from './navigation.site';
+
 export declare class Navigation {
-	currentColumn(): number;
-	nextColumn(): number;
-	prevColumn(): number;
-	lastColumn(): number;
-	firstColumn(): number;
-	currentRow(): number;
-	nextRow(): number;
-	prevRow(): number;
-	firstRow(): number;
-	lastRow(): number;
+	constructor(
+		plugin: GridPlugin,
+		site: NavigationSite
+	);
+
+	isActive(): boolean;
+	cell(rowIndex: number, columnIndex: number): CellView | null;
+	goTo(rowIndex: number, columnIndex: number): boolean;
+	position(y: number, dir: 'up' | 'down')
 }

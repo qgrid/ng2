@@ -4,19 +4,46 @@ import { GRID_PREFIX } from '../definition';
 import { Fastdom } from '../services/fastdom';
 import { Td } from '../dom/td';
 import { selectRow, selectColumnIndex, selectRowIndex, selectColumn } from './navigation.state.selector';
+import { NavigationSite } from './navigation.site';
+import { NavigationGoDownCommand } from '../command-bag/navigation.go.down.command';
+import { NavigationGoDownwardCommand } from '../command-bag/navigation.go.downward.command';
+import { NavigationGoEndCommand } from '../command-bag/navigation.go.end.command';
+import { NavigationGoHomeCommand } from '../command-bag/navigation.go.home.command';
+import { NavigationGoLeftCommand } from '../command-bag/navigation.go.left.command';
+import { NavigationGoNextCommand } from '../command-bag/navigation.go.next.command';
+import { NavigationGoPreviousCommand } from '../command-bag/navigation.go.previous.command';
+import { NavigationGoRightCommand } from '../command-bag/navigation.go.right.command';
+import { NavigationGoUpCommand } from '../command-bag/navigation.go.up.command';
+import { NavigationGoUpwardCommand } from '../command-bag/navigation.go.upward.command';
+import { NavigationPageDownCommand } from '../command-bag/navigation.page.down.command';
+import { NavigationPageUpCommand } from '../command-bag/navigation.page.up.command';
 
 export class NavigationLet {
-	constructor(plugin, shortcut) {
-		const { model, table, observeReply } = plugin;
+	constructor(plugin) {
+		const { model, table, observeReply, commandPalette } = plugin;
+
 		this.plugin = plugin;
 
-		const navigation = new Navigation(model, table);
+		const navSite = new NavigationSite(plugin);
+		const nav = new Navigation(plugin, navSite);
+
+		commandPalette.register(new NavigationGoDownCommand(plugin, nav, navSite));
+		commandPalette.register(new NavigationGoDownwardCommand(plugin, nav, navSite));
+		commandPalette.register(new NavigationGoEndCommand(plugin, nav, navSite));
+		commandPalette.register(new NavigationGoHomeCommand(plugin, nav, navSite));
+		commandPalette.register(new NavigationGoLeftCommand(plugin, nav, navSite));
+		commandPalette.register(new NavigationGoNextCommand(plugin, nav, navSite));
+		commandPalette.register(new NavigationGoPreviousCommand(plugin, nav, navSite));
+		commandPalette.register(new NavigationGoRightCommand(plugin, nav, navSite));
+		commandPalette.register(new NavigationGoUpCommand(plugin, nav, navSite));
+		commandPalette.register(new NavigationGoUpwardCommand(plugin, nav, navSite));
+		commandPalette.register(new NavigationPageDownCommand(plugin, nav, navSite));
+		commandPalette.register(new NavigationPageUpCommand(plugin, nav, navSite));
+
 		let focusBlurs = [];
 
-		shortcut.register(navigation.commands);
-
 		this.focus = new Command({
-			source: 'navigation.view',
+			source: 'navigation.let',
 			execute: e => {
 				const { rowIndex, columnIndex, behavior } = e;
 				const td = table.body.cell(rowIndex, columnIndex).model();
@@ -30,14 +57,14 @@ export class NavigationLet {
 							column
 						}
 					}, {
-						source: 'navigation.view',
+						source: 'navigation.let',
 						behavior
 					});
 				} else {
 					model.navigation({
 						cell: null
 					}, {
-						source: 'navigation.view',
+						source: 'navigation.let',
 						behavior
 					});
 				}
@@ -53,7 +80,7 @@ export class NavigationLet {
 		});
 
 		this.scrollTo = new Command({
-			source: 'navigation.view',
+			source: 'navigation.let',
 			execute: (row, column) => {
 				const cell = table.body.cell(row, column);
 				this.scroll(table.view, cell);
@@ -84,14 +111,14 @@ export class NavigationLet {
 						rowIndex,
 						columnIndex
 					}, {
-						source: 'navigation.view'
+						source: 'navigation.let'
 					});
 				}
 			});
 
 		observeReply(model.focusChanged)
 			.subscribe(e => {
-				if (e.tag.source === 'navigation.view') {
+				if (e.tag.source === 'navigation.let') {
 					return;
 				}
 
@@ -205,7 +232,10 @@ export class NavigationLet {
 			}
 
 			if (Object.keys(state).length) {
-				scroll(state, { behavior: 'core', source: 'navigation.view' });
+				scroll(state, {
+					behavior: 'core',
+					source: 'navigation.let'
+				});
 			}
 		});
 	}

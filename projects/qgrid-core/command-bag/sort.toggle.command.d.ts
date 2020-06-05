@@ -8,4 +8,3 @@ export declare const SORT_TOGGLE_COMMAND_KEY: CommandKey<ColumnModel>;
 export declare class SortToggleCommand extends Command<ColumnModel> {
     constructor(plugin: GridPlugin);
 }
-
