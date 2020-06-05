@@ -1,10 +1,9 @@
 import { Command } from '../command/command';
 import { GridPlugin } from '../plugin/grid.plugin';
 
-
 export declare class NavigationLet {
-	constructor(plugin: GridPlugin, shortcut: { register: (commands: Command[]) => void });
+	constructor(plugin: GridPlugin);
 
-	readonly focus: Command;
-	readonly scrollTo: Command;
+	readonly focus: Command<{ rowIndex: number, columnIndex: number, behavior: string }>;
+	readonly scrollTo: Command<any>;
 }

@@ -1,8 +1,6 @@
-import { Command } from '../command/command';
 import { Navigation } from './navigation';
 import { GRID_PREFIX } from '../definition';
 import { Fastdom } from '../services/fastdom';
-import { Td } from '../dom/td';
 import { selectRow, selectColumnIndex, selectRowIndex, selectColumn } from './navigation.state.selector';
 import { NavigationSite } from './navigation.site';
 import { NavigationGoDownCommand } from '../command-bag/navigation.go.down.command';
@@ -17,6 +15,8 @@ import { NavigationGoUpCommand } from '../command-bag/navigation.go.up.command';
 import { NavigationGoUpwardCommand } from '../command-bag/navigation.go.upward.command';
 import { NavigationPageDownCommand } from '../command-bag/navigation.page.down.command';
 import { NavigationPageUpCommand } from '../command-bag/navigation.page.up.command';
+import { NavigationFocusCommand } from '../command-bag/navigation.focus.command';
+import { NavigationScrollToCommand } from '../command-bag/navigation.scroll.to.command';
 
 export class NavigationLet {
 	constructor(plugin) {
@@ -26,6 +26,9 @@ export class NavigationLet {
 
 		const navSite = new NavigationSite(plugin);
 		const nav = new Navigation(plugin, navSite);
+
+		this.focus = new NavigationFocusCommand(plugin);
+		this.scrollTo = new NavigationScrollToCommand(plugin);
 
 		commandPalette.register(new NavigationGoDownCommand(plugin, nav, navSite));
 		commandPalette.register(new NavigationGoDownwardCommand(plugin, nav, navSite));
@@ -41,52 +44,6 @@ export class NavigationLet {
 		commandPalette.register(new NavigationPageUpCommand(plugin, nav, navSite));
 
 		let focusBlurs = [];
-
-		this.focus = new Command({
-			source: 'navigation.let',
-			execute: e => {
-				const { rowIndex, columnIndex, behavior } = e;
-				const td = table.body.cell(rowIndex, columnIndex).model();
-				if (td) {
-					const { row, column } = td;
-					model.navigation({
-						cell: {
-							rowIndex,
-							columnIndex,
-							row,
-							column
-						}
-					}, {
-						source: 'navigation.let',
-						behavior
-					});
-				} else {
-					model.navigation({
-						cell: null
-					}, {
-						source: 'navigation.let',
-						behavior
-					});
-				}
-			},
-			canExecute: newCell => {
-				const { cell: oldCell } = model.navigation();
-				if (newCell && newCell.column.canFocus && !Td.equals(newCell, oldCell)) {
-					return true;
-				}
-
-				return false;
-			}
-		});
-
-		this.scrollTo = new Command({
-			source: 'navigation.let',
-			execute: (row, column) => {
-				const cell = table.body.cell(row, column);
-				this.scroll(table.view, cell);
-			},
-			canExecute: (row, column) => table.body.cell(row, column).model() !== null
-		});
 
 		observeReply(model.navigationChanged)
 			.subscribe(e => {
@@ -191,52 +148,5 @@ export class NavigationLet {
 		}
 
 		return dispose;
-	}
-
-	scroll(view, target) {
-		const { model } = this.plugin;
-		const { scroll } = model;
-		Fastdom.measure(() => {
-			const tr = target.rect();
-			const vr = view.rect('body-mid');
-			const state = {};
-
-			if (view.canScrollTo(target, 'left')) {
-				if (vr.left > tr.left
-					|| vr.left > tr.right
-					|| vr.right < tr.left
-					|| vr.right < tr.right) {
-
-					if (vr.width < tr.width || vr.left > tr.left || vr.left > tr.right) {
-						state.left = tr.left - vr.left + scroll().left;
-					}
-					else if (vr.left < tr.left || vr.right < tr.right) {
-						state.left = tr.right - vr.right + scroll().left;
-					}
-				}
-			}
-
-			if (view.canScrollTo(target, 'top')) {
-				if (vr.top > tr.top
-					|| vr.top > tr.bottom
-					|| vr.bottom < tr.top
-					|| vr.bottom < tr.bottom) {
-
-					if (vr.height < tr.height || vr.top > tr.top || vr.top > tr.bottom) {
-						state.top = tr.top - vr.top + scroll().top;
-					}
-					else if (vr.top < tr.top || vr.bottom < tr.bottom) {
-						state.top = tr.bottom - vr.bottom + scroll().top;
-					}
-				}
-			}
-
-			if (Object.keys(state).length) {
-				scroll(state, {
-					behavior: 'core',
-					source: 'navigation.let'
-				});
-			}
-		});
 	}
 }
