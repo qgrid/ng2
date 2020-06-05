@@ -8,7 +8,7 @@
 			<i class="q-grid-icon">&#8759;</i>
 		</div>
 	</ng-container>
-	<ng-container *ngIf="$view.row.canResize">
+	<ng-container *ngIf="$view.row.resize.canExecute()">
 		<div [q-grid-drag]="$view.row.resize"
 			 [q-grid-resize]="$cell.row"
 			 q-grid-resize-selector="parent"
