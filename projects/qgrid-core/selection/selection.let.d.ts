@@ -1,24 +1,15 @@
-import { ColumnModel } from '../column-type/column.model';
 import { Command } from '../command/command';
 import { GridPlugin } from '../plugin/grid.plugin';
-import { SelectionState } from './selection.state';
 import { SubjectLike } from '../rx/rx';
-import { Td } from '../dom/td';
+import { SelectionStateMode } from './selection.state';
 
 export declare class SelectionLet {
-	constructor(plugin: GridPlugin, shortcut: { register: (commands: Command[]) => void });
+	constructor(plugin: GridPlugin);
 
-	readonly selection: SelectionState;
-	readonly rows: any[];
-	readonly columns: ColumnModel[];
-
-	readonly toggleRow: Command;
-	readonly toggleCell: Command;
-	readonly toggleColumn: Command;
-
-	selectRange(startCell: Td, endCell: Td, source?: string): void;
+	readonly toggleRow: Command<any>;
+	readonly stateCheck: SubjectLike<boolean>;
+	readonly mode: SelectionStateMode;
 
 	state(item: any): boolean;
 	isIndeterminate(item: any): boolean;
-	stateCheck: SubjectLike<boolean>;
 }
