@@ -8,12 +8,13 @@ import {
 	ChangeDetectionStrategy,
 	ViewChild,
 } from '@angular/core';
+import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { ColumnSortPlugin } from '@qgrid/plugins/column-sort/column.sort.plugin';
 import { EventListener } from '@qgrid/core/event/event.listener';
 import { EventManager } from '@qgrid/core/event/event.manager';
-import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { FocusAfterRender } from '../focus/focus.service';
 import { GridPlugin } from '@qgrid/ngx';
+import { SORT_TOGGLE_COMMAND_KEY } from '@qgrid/core/command-bag/sort.toggle.command.d copy';
 
 @Component({
 	selector: 'q-grid-column-sort',
@@ -37,6 +38,9 @@ export class ColumnSortComponent implements AfterViewInit {
 	}
 
 	ngAfterViewInit() {
+		const { commandPalette } = this.plugin;
+		const toggleSort = commandPalette.get(SORT_TOGGLE_COMMAND_KEY);
+
 		const { nativeElement } = this.elementRef;
 		const iconAsc = nativeElement.querySelector('.q-grid-asc');
 		const iconDesc = nativeElement.querySelector('.q-grid-desc');
@@ -50,7 +54,8 @@ export class ColumnSortComponent implements AfterViewInit {
 
 		const listener = new EventListener(nativeElement, new EventManager(this));
 		listener.on('click', () => {
-			if (columnSort.click()) {
+			if (toggleSort.canExecute(this.column) === true) {
+				toggleSort.execute(this.column);
 				// tslint:disable-next-line:no-unused-expression
 				new FocusAfterRender(this.plugin);
 			}

@@ -1,5 +1,4 @@
 import { GRID_PREFIX } from '@qgrid/core/definition';
-import { Command } from '@qgrid/core/command/command';
 import { Fastdom } from '@qgrid/core/services/fastdom';
 
 const GRID_ACTIVE_CLASS = `${GRID_PREFIX}-active`;
@@ -38,20 +37,6 @@ export class ColumnSortPlugin {
 					}
 				}
 			});
-
-		this.toggle = new Command({
-			canExecute: () => column.canSort,
-			execute: () => view.sort.toggle.execute(column)
-		});
-	}
-
-	click() {
-		if (this.toggle.canExecute()) {
-			this.toggle.execute();
-			return true;
-		}
-
-		return false;
 	}
 
 	mouseLeave() {

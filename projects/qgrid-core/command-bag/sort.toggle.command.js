@@ -13,13 +13,7 @@ export class SortToggleCommand extends Command {
         super({
             key: SORT_TOGGLE_COMMAND_KEY,
             canExecute: column => {
-                if (column) {
-                    const { key } = column;
-                    const columnMap = columnService.map(model.columnList().line);
-                    return columnMap.hasOwnProperty(key) && columnMap[key].canSort !== false;
-                }
-
-                return false;
+                return column && column.canSort !== false;
             },
             execute: column => {
                 const { key } = column;
