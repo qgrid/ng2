@@ -1,9 +1,10 @@
+import { eventPath } from '../services/dom';
 import { Fastdom } from '../services/fastdom';
 import { final } from '../infrastructure/final';
 import { jobLine } from '../services/job.line';
 import { PathService } from '../path/path.service';
 import { PipeUnit } from '../pipe/pipe.unit';
-import { eventPath } from '../services/dom';
+import { SELECTION_RANGE_COMMAND_KEY } from '../command-bag/selection.range.command';
 import {
 	stringify,
 	getButtonCode,
@@ -109,7 +110,7 @@ export class ViewHost {
 	}
 
 	mouseDown(e) {
-		const { model, view } = this.plugin;
+		const { model, view, commandPalette } = this.plugin;
 		const { edit } = model;
 
 		const td = this.findCell(e);
@@ -137,17 +138,18 @@ export class ViewHost {
 					view.edit.cell.enter.execute(td);
 				}
 
-				if (mode === 'range') {
-					view.selection.selectRange(td, null, 'body');
+				const selectRange = commandPalette.get(SELECTION_RANGE_COMMAND_KEY);
+				if (selectRange.canExecute([td, null])) {
+					selectRange.execute([td, null]);
 				}
 			}
 		}
 	}
 
 	mouseMove(e) {
-		const { model, view } = this.plugin;
+		const { model, view, commandPalette } = this.plugin;
 		const { highlight } = view;
-		const { rows, cell } = model.highlight();
+		const { rows } = model.highlight();
 
 		const td = this.findCell(e);
 		if (td) {
@@ -168,17 +170,14 @@ export class ViewHost {
 				}
 			}
 
-			if (this.selection.mode === 'range') {
-				const startCell = model.mouse().target;
-				const endCell = td;
-
-				if (startCell && endCell) {
-					this.navigate(endCell);
-					view.selection.selectRange(startCell, endCell, 'body');
-				}
+			const selectRange = commandPalette.get(SELECTION_RANGE_COMMAND_KEY);
+			if (selectRange.canExecute([startCell, endCell])) {
+				this.navigate(endCell);
+				selectRange.execute([startCell, endCell]);
 			}
 		}
 	}
+
 
 	mouseLeave() {
 		this.clearHighlight();
