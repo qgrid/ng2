@@ -3,6 +3,11 @@ import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 import { Column, BoolColumn, Grid, PipeContext, GridComponent } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'edit-row-basic',
+	'Entire row can be edited in separate menu'
+];
+
 @Component({
 	selector: 'example-edit-row-basic',
 	templateUrl: 'example-edit-row-basic.component.html',
@@ -11,7 +16,8 @@ import { Column, BoolColumn, Grid, PipeContext, GridComponent } from 'ng2-qgrid'
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleEditRowBasicComponent implements OnInit {
-	static id = 'edit-row-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	@ViewChild(GridComponent, { static: true }) myGrid: GridComponent;
 

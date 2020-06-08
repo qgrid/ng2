@@ -3,6 +3,11 @@ import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { GridComponent, GridService, Grid, GridModel } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'filter-row-custom',
+	'Table data can be filtered using custom filter inputs'
+];
+
 @Component({
 	selector: 'example-filter-row-custom',
 	templateUrl: 'example-filter-row-custom.component.html',
@@ -11,7 +16,8 @@ import { GridComponent, GridService, Grid, GridModel } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleFilterRowCustomComponent {
-	static id = 'filter-row-custom';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	@ViewChild(GridComponent, { static: true }) myGrid: GridComponent;
 	rows: Observable<Atom[]>;

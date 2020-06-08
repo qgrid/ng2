@@ -2,6 +2,11 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
+const EXAMPLE_TAGS = [
+	'details-row-pin',
+	'Details section of every row is pinned in the middle of the row'
+];
+
 @Component({
 	selector: 'example-details-row-pin',
 	templateUrl: 'example-details-row-pin.component.html',
@@ -11,7 +16,8 @@ import { Observable } from 'rxjs';
 	encapsulation: ViewEncapsulation.None
 })
 export class ExampleDetailsRowPinComponent {
-	static id = 'details-row-pin';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows: Observable<Atom[]>;
 

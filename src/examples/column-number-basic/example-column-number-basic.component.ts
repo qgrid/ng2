@@ -1,5 +1,10 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
+const EXAMPLE_TAGS = [
+	'column-number-basic',
+	'Cell value is number in different formats'
+];
+
 @Component({
 	selector: 'example-column-number-basic',
 	templateUrl: 'example-column-number-basic.component.html',
@@ -7,7 +12,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnNumberBasicComponent {
-	static id = 'column-number-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows = [
 		{

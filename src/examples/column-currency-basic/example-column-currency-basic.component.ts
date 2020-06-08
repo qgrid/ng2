@@ -1,5 +1,10 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
+const EXAMPLE_TAGS = [
+	'column-currency-basic',
+	'Cell value contains currency sign'
+];
+
 @Component({
 	selector: 'example-column-currency-basic',
 	templateUrl: 'example-column-currency-basic.component.html',
@@ -7,7 +12,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnCurrencyBasicComponent {
-	static id = 'column-currency-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows = [
 		{

@@ -1,5 +1,10 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
+const EXAMPLE_TAGS = [
+	'column-email-basic',
+	'Cell value is email'
+];
+
 @Component({
 	selector: 'example-column-email-basic',
 	templateUrl: 'example-column-email-basic.component.html',
@@ -7,7 +12,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnEmailBasicComponent {
-	static id = 'column-email-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows = [
 		{

@@ -1,4 +1,4 @@
-<q-grid caption="Group Row Aggregation"
+<q-grid [caption]="title"
         [rows]="rows | async"
         [groupBy]="['bondingType', 'groupBlock']">
 	<q-grid-columns generation="deep">

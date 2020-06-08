@@ -2,6 +2,11 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 
+const EXAMPLE_TAGS = [
+	'column-list-basic',
+	'Grid content is a list, which can be switched using UI buttons'
+];
+
 @Component({
 	selector: 'example-column-list-basic',
 	templateUrl: 'example-column-list-basic.component.html',
@@ -10,7 +15,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnListBasicComponent {
-	static id = 'column-list-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	group = '';
 	rows$: Observable<Human[]> = this.dataService.getPeople();

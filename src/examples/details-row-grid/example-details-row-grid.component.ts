@@ -3,6 +3,11 @@ import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+const EXAMPLE_TAGS = [
+	'details-row-grid',
+	'Details section of every row is a grid'
+];
+
 @Component({
 	selector: 'example-details-row-grid',
 	templateUrl: 'example-details-row-grid.component.html',
@@ -11,7 +16,8 @@ import { map } from 'rxjs/operators';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDetailsRowGridComponent {
-	static id = 'details-row-grid';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows: Observable<Atom[]>;
 	map = new Map<string, Observable<Atom[]>>();
