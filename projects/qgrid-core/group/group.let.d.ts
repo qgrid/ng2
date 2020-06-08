@@ -3,7 +3,7 @@ import { ColumnModel } from '../column-type/column.model';
 import { GridPlugin } from '../plugin/grid.plugin';
 
 export class GroupLet {
-	constructor(plugin: GridPlugin, shortcut: { register: (commands: Command[]) => void });
+	constructor(plugin: GridPlugin);
 
 	readonly toggleStatus: Command<[any, ColumnModel]>;
 	readonly toggleAllStatus: Command;

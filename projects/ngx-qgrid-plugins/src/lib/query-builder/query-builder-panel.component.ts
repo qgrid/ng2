@@ -74,7 +74,6 @@ export class QueryBuilderPanelComponent implements OnInit {
 	});
 
 	submit = new Command({
-		source: 'query-builder.component',
 		execute: () => {
 			const serializer = new SerializationService();
 			const node = serializer.serialize(this.node);
@@ -100,14 +99,12 @@ export class QueryBuilderPanelComponent implements OnInit {
 	});
 
 	cancel = new Command({
-		source: 'query-builder.component',
 		execute: () => {
 			this.close.emit();
 		}
 	});
 
 	reset = new Command({
-		source: 'query-builder.component',
 		execute: () => {
 			const schema = new WhereSchema(this.queryService);
 			const plan = schema.factory();

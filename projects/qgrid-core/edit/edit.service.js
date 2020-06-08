@@ -29,8 +29,7 @@ export class EditService {
 		const { columns } = model.view();
 		const { items } = model.selection();
 
-		const shortcut = { register: () => ({}), keyCode: () => '' };
-		const editView = new EditCellLet(this.plugin, shortcut);
+		const editView = new EditCellLet(this.plugin);
 
 		const startTd = table.body.cell(startCell.rowIndex, startCell.columnIndex).model();
 		const { value, label } = startTd;

@@ -32,7 +32,7 @@ function rowspanIsVisible(node, column, parent) {
 }
 
 export class GroupLet {
-	constructor(plugin, shortcut) {
+	constructor(plugin) {
 		const { model, observeReply, disposable, commandPalette } = plugin;
 
 		this.plugin = plugin;

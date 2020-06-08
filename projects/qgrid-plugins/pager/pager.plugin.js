@@ -1,31 +1,17 @@
-import { Command } from '@qgrid/core/command/command';
-import { FocusAfterRenderService } from '@qgrid/core/focus/focus.service';
+import { PaginationNextCommand } from '@qgrid/core/command-bag/pagination.next.command';
+import { PaginationPreviousCommand } from '@qgrid/core/command-bag/pagination.previous.command';
 
 export class PagerPlugin {
 	constructor(plugin) {
-		const { model } = plugin;
+		const { commandPalette } = plugin;
 
 		this.plugin = plugin;
 
-		const { shortcut } = model.pagination();
+		this.next = new PaginationNextCommand(plugin);
+		this.prev = new PaginationPreviousCommand(plugin);
 
-		this.next = new Command({
-			shortcut: shortcut.next,
-			execute: () => {
-				new FocusAfterRenderService(plugin);
-				model.pagination({ current: model.pagination().current + 1 }, { source: 'pager.view' })
-			},
-			canExecute: () => (model.pagination().current + 1) * model.pagination().size < model.pagination().count
-		});
-
-		this.prev = new Command({
-			shortcut: shortcut.prev,
-			execute: () => {
-				new FocusAfterRenderService(plugin);
-				model.pagination({ current: model.pagination().current - 1 }, { source: 'pager.view' });
-			},
-			canExecute: () => model.pagination().current > 0
-		});
+		commandPalette.register(this.next);
+		commandPalette.register(this.prev);
 	}
 
 	get theme() {
