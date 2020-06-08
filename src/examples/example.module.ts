@@ -163,6 +163,7 @@ import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme
 import { ExampleValidationBasicComponent } from './validation-basic/example-validation-basic.component';
 import { ExampleVisibilityBasicComponent } from './visibility-basic/example-visibility-basic.component';
 import { ExampleVisibilityStateComponent } from './visibility-model/example-visibility-model.component';
+import { ExampleSelectRowEditComponent } from './select-row-edit/example-select-row-edit.component';
 
 export const EXAMPLES: any[] = [
 	ExampleActionBarBasicComponent,
@@ -299,6 +300,7 @@ export const EXAMPLES: any[] = [
 	ExampleSelectRowBasicComponent,
 	ExampleSelectRowCommandComponent,
 	ExampleSelectRowDisableComponent,
+	ExampleSelectRowEditComponent,
 	ExampleSelectRowRangeComponent,
 	ExampleSelectRowSingleComponent,
 	ExampleSelectRowSingleOnlyComponent,
