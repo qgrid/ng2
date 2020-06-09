@@ -1,4 +1,4 @@
-<q-grid caption="Group Row Edit"
+<q-grid [caption]="title"
         editMode="cell"
         [rows]="rows | async"
         [groupBy]="['bondingType', 'groupBlock']">

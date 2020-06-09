@@ -5,6 +5,11 @@ import { Atom, DataService } from '../data.service';
 import * as fileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 
+const EXAMPLE_TAGS = [
+	'export-basic',
+	'Table data can be exported in different formates, using UI buttons'
+];
+
 @Component({
 	selector: 'example-export-basic',
 	templateUrl: 'example-export-basic.component.html',
@@ -13,7 +18,8 @@ import * as XLSX from 'xlsx';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleExportBasicComponent implements AfterViewInit {
-	static id = 'export-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	@ViewChild(GridComponent) grid: GridComponent;
 	rows: Observable<Atom[]>;

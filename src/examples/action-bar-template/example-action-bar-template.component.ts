@@ -3,6 +3,11 @@ import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { GridModel } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'action-bar-template',
+	'Data can be sorted using the buttons'
+];
+
 @Component({
 	selector: 'example-action-bar-template',
 	templateUrl: 'example-action-bar-template.component.html',
@@ -11,7 +16,8 @@ import { GridModel } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleActionBarTemplateComponent {
-	static id = 'action-bar-template';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows: Observable<Atom[]>;
 

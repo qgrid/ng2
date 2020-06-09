@@ -3,6 +3,11 @@ import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 import { Command, GridComponent, PaneComponent } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'pane-trigger',
+	'Pane for selected row can be opened by clicking on the triangle button'
+];
+
 @Component({
 	selector: 'example-pane-trigger',
 	templateUrl: 'example-pane-trigger.component.html',
@@ -11,7 +16,8 @@ import { Command, GridComponent, PaneComponent } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplePaneTriggerComponent implements AfterViewInit {
-	static id = 'pane-trigger';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	@ViewChild(GridComponent) grid: GridComponent;
 	@ViewChild(PaneComponent) pane: PaneComponent;

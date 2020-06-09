@@ -1,6 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
+const EXAMPLE_TAGS = [
+	'column-dropdown-basic',
+	'Cell value can be selected from dropdown menu'
+];
+
 @Component({
 	selector: 'example-column-dropdown-basic',
 	templateUrl: 'example-column-dropdown-basic.component.html',
@@ -8,7 +13,8 @@ import { Observable, of } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnDropdownBasicComponent {
-	static id = 'column-dropdown-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows = [
 		{

@@ -1,5 +1,10 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
+const EXAMPLE_TAGS = [
+	'column-image-basic',
+	'Cell value contains uploaded image'
+];
+
 @Component({
 	selector: 'example-column-image-basic',
 	templateUrl: 'example-column-image-basic.component.html',
@@ -7,7 +12,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnImageBasicComponent {
-	static id = 'column-image-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows = [
 		{

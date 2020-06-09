@@ -4,6 +4,11 @@ import { GridComponent } from 'ng2-qgrid';
 import { Atom, DataService } from '../data.service';
 import * as fileSaver from 'file-saver';
 
+const EXAMPLE_TAGS = [
+	'export-csv',
+	'Table data can be exported in csv, using UI button'
+];
+
 @Component({
 	selector: 'example-export-csv',
 	templateUrl: 'example-export-csv.component.html',
@@ -12,7 +17,8 @@ import * as fileSaver from 'file-saver';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleExportCsvComponent implements AfterViewInit {
-	static id = 'export-csv';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	@ViewChild(GridComponent) grid: GridComponent;
 	rows: Observable<Atom[]>;

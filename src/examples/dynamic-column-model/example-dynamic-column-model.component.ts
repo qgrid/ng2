@@ -1,6 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { GridModel, Grid } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'dynamic-column-model',
+	'Table can be created by adding columns and groups using UI buttons'
+];
+
 @Component({
 	selector: 'example-dynamic-column-model',
 	templateUrl: 'example-dynamic-column-model.component.html',
@@ -8,7 +13,8 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDynamicColumnModelComponent {
-	static id = 'dynamic-column-model';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	gridModel: GridModel;
 

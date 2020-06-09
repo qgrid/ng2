@@ -2,6 +2,11 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 
+const EXAMPLE_TAGS = [
+	'select-row-basic',
+	'Rows can be selected using checkboxes. Multiple rows can be selected in the same time'
+];
+
 @Component({
 	selector: 'example-select-row-basic',
 	templateUrl: 'example-select-row-basic.component.html',
@@ -10,7 +15,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleSelectRowBasicComponent {
-	static id = 'select-row-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows: Observable<Human[]>;
 

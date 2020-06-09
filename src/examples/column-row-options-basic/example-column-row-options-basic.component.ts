@@ -3,6 +3,11 @@ import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { Action, Command } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'column-row-options-basic',
+	'Each row has a button with some options'
+];
+
 @Component({
 	selector: 'example-column-row-options-basic',
 	templateUrl: 'example-column-row-options-basic.component.html',
@@ -11,7 +16,8 @@ import { Action, Command } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnRowOptionsBasicComponent {
-	static id = 'column-row-options-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows: Observable<Atom[]>;
 	rowActions = [
