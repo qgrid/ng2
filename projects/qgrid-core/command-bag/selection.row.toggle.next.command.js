@@ -4,18 +4,18 @@ import { selectRowIndex, selectColumnIndex } from '../navigation/navigation.stat
 import { SELECTION_TOGGLE_COMMAND_KEY } from './selection.toggle.command';
 import { NAVIGATION_FOCUS_COMMAND_KEY } from './navigation.focus.command';
 
-export const SELECTION_ROW_TOGGLE_PREVIOUS_COMMAND_KEY = commandKey('selection.row.toggle.previous.command');
+export const SELECTION_ROW_TOGGLE_NEXT_COMMAND_KEY = commandKey('selection.row.toggle.next.command');
 
-export class SelectionRowTogglePreviousCommand extends Command {
+export class SelectionRowToggleNextCommand extends Command {
     constructor(plugin) {
         const { model, table, commandPalette } = plugin;
 
         super({
-            key: SELECTION_ROW_TOGGLE_PREVIOUS_COMMAND_KEY,
-            shortcut: model.selection().shortcut.togglePreviousRow,
+            key: SELECTION_ROW_TOGGLE_NEXT_COMMAND_KEY,
+            shortcut: model.selection().shortcut.toggleNextRow,
             canExecute: () => {
                 return model.selection().unit === 'row'
-                    && selectRowIndex(model.navigation()) > 0;
+                    && selectRowIndex(model.navigation()) < table.data.rows().length;
             },
             execute: () => {
                 const toggleSelection = commandPalette.get(SELECTION_TOGGLE_COMMAND_KEY);
@@ -29,7 +29,7 @@ export class SelectionRowTogglePreviousCommand extends Command {
                 commit();
 
                 const cell = {
-                    rowIndex: rowIndex - 1,
+                    rowIndex: rowIndex + 1,
                     columnIndex
                 };
 

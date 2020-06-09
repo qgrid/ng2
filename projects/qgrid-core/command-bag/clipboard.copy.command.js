@@ -1,7 +1,7 @@
 import { Command } from '../command/command';
+import { commandKey } from '../command/command.key';
 import { copyToClipboard } from '../clipboard/clipboard';
 import { getFactory as labelFactory } from '../services/label';
-import { commandKey } from '../command/command.key';
 
 export const CLIPBOARD_COPY_COMMAND_KEY = commandKey('clipboard.copy.command');
 

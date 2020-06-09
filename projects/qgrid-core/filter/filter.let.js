@@ -2,6 +2,8 @@ import { FilterRowCommitCommand } from '../command-bag/filter.row.commit.command
 
 export class FilterLet {
 	constructor(plugin) {
+		const { commandPalette } = plugin;
+
 		this.plugin = plugin;
 
 		this.row = new FilterRowCommitCommand(plugin);

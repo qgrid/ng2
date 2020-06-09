@@ -1,4 +1,5 @@
 import { Command } from '../command/command';
+import { commandKey } from '../command/command.key';
 import { editRowShortcutFactory } from '../edit/edit.row.shortcut.factory';
 import { editRowContextFactory } from '../edit/edit.row.context.factory';
 import { selectRow } from '../navigation/navigation.state.selector';
@@ -11,7 +12,7 @@ export class EditRowResetCommand extends Command {
         const getShortcut = editRowShortcutFactory(plugin);
 
         super({
-            key: EDIT_ROW_CANCEL_COMMAND_KEY,
+            key: EDIT_ROW_RESET_COMMAND_KEY,
             priority: 1,
             shortcut: getShortcut('reset'),
             canExecute: row => {

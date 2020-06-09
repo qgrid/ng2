@@ -1,4 +1,5 @@
 import { Command } from '../command/command';
+import { commandKey } from '../command/command.key';
 import { editRowShortcutFactory } from '../edit/edit.row.shortcut.factory';
 import { editRowContextFactory } from '../edit/edit.row.context.factory';
 import { RowEditor } from '../edit/edit.row.editor';

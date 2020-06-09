@@ -7,7 +7,6 @@ export const SELECTION_CELL_TOGGLE_COMMAND_KEY = commandKey('selection.cell.togg
 export class SelectionCellToggleCommand extends Command {
     constructor(plugin) {
         const { model, commandPalette } = plugin;
-        const toggleSelection = commandPalette.get(SELECTION_TOGGLE_COMMAND_KEY);
 
         super({
             key: SELECTION_CELL_TOGGLE_COMMAND_KEY,
@@ -16,6 +15,8 @@ export class SelectionCellToggleCommand extends Command {
                 return cell && mode !== 'range' && (unit === 'cell' || unit === 'mix');
             },
             execute: cell => {
+                const toggleSelection = commandPalette.get(SELECTION_TOGGLE_COMMAND_KEY);
+
                 const { unit } = model.selection();
                 switch (unit) {
                     case 'cell': {

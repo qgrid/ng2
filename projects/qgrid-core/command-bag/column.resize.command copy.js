@@ -1,7 +1,5 @@
 import { Command } from '../command/command';
 import { commandKey } from '../command/command.key';
-import { Command } from '../command/command';
-
 
 export const COLUMN_RESIZE_COMMAND_KEY = commandKey('column.resize.command');
 

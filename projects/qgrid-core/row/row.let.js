@@ -1,4 +1,3 @@
-import { Command } from '../command/command';
 import { RowDragCommand } from '../command-bag/row.drag.command';
 import { CommandPalette } from '../command/command.palette';
 import { RowDropCommand } from '../command-bag/row.drop.command';
@@ -6,7 +5,7 @@ import { RowResizeCommand } from '../command-bag/row.resize.command';
 
 export class RowLet {
 	constructor(plugin, tagName) {
-		const { model, table, observe } = plugin;
+		const { model, commandPalette, observe } = plugin;
 
 		this.plugin = plugin;
 		this.tagName = tagName;
@@ -15,9 +14,9 @@ export class RowLet {
 		this.drag = new RowDragCommand(plugin);
 		this.resize = new RowResizeCommand(plugin);
 
-		CommandPalette.register(this.drag);
-		CommandPalette.register(this.drop);
-		CommandPalette.register(this.resize);
+		commandPalette.register(this.drag);
+		commandPalette.register(this.drop);
+		commandPalette.register(this.resize);
 
 		observe(model.dataChanged)
 			.subscribe(e => {

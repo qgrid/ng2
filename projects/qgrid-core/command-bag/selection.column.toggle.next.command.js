@@ -8,8 +8,6 @@ export const SELECTION_COLUMN_TOGGLE_NEXT_COMMAND_KEY = commandKey('selection.co
 export class SelectionColumnToggleNextCommand extends Command {
     constructor(plugin) {
         const { model, table, commandPalette } = plugin;
-        const toggleSelection = commandPalette.get(SELECTION_TOGGLE_COMMAND_KEY);
-        const navigateTo = commandPalette.get(NAVIGATION_FOCUS_COMMAND_KEY);
 
         super({
             key: SELECTION_COLUMN_TOGGLE_NEXT_COMMAND_KEY,
@@ -19,6 +17,9 @@ export class SelectionColumnToggleNextCommand extends Command {
                     && selectColumnIndex(model.navigation()) < table.data.columns().length - 1;
             },
             execute: () => {
+                const toggleSelection = commandPalette.get(SELECTION_TOGGLE_COMMAND_KEY);
+                const navigateTo = commandPalette.get(NAVIGATION_FOCUS_COMMAND_KEY);
+
                 const rowIndex = selectRowIndex(model.navigation());
                 const columnIndex = selectColumnIndex(model.navigation());
 

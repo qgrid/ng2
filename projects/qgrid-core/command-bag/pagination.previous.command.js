@@ -1,6 +1,5 @@
 import { Command } from '../command/command';
 import { commandKey } from '../command/command.key';
-import { GridError } from '../infrastructure/error';
 
 export const PAGINATION_PREVIOUS_COMMAND_KEY = commandKey('pagination.previous.command');
 

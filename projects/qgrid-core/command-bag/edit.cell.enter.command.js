@@ -1,4 +1,5 @@
 import { Command } from '../command/command';
+import { commandKey } from '../command/command.key';
 import { editCellContextFactory } from '../edit/edit.cell.context.factory';
 import { editCellShortcutFactory } from '../edit/edit.cell.shortcut.factory';
 import { Keyboard } from '../keyboard/keyboard';

@@ -30,7 +30,7 @@ export class SortLet {
 		observeReply(model.dataChanged)
 			.subscribe(e => {
 				if (e.hasChanges('columns')) {
-					const { by } = sort();
+					const { by } = model.sort();
 					const columnMap = columnService.map(e.state.columns);
 					const sortBy = by.filter(entry => columnMap.hasOwnProperty(sortService.key(entry)));
 					if (!this.equals(sortBy, by)) {

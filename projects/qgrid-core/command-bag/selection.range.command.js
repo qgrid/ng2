@@ -8,7 +8,6 @@ export const SELECTION_RANGE_COMMAND_KEY = commandKey('selection.range.command')
 export class SelectionRangeCommand extends Command {
     constructor(plugin) {
         const { model, commandPalette } = plugin;
-        const selectionSet = commandPalette.get(SELECTION_SET_COMMAND_KEY);
         const selectionRange = new SelectionRange(model);
 
         super({
@@ -17,6 +16,8 @@ export class SelectionRangeCommand extends Command {
                 return model.selection().mode === 'range';
             },
             execute: (startCell, endCell) => {
+                const selectionSet = commandPalette.get(SELECTION_SET_COMMAND_KEY);
+
                 const buildRange = selectionRange.build();
                 const range = buildRange(startCell, endCell);
 

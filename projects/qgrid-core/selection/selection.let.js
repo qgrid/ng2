@@ -13,6 +13,7 @@ import { SelectionService } from './selection.service';
 import { SelectionSetCommand } from '../command-bag/selection.set.command';
 import { selectionStateFactory as formFactory } from './state/selection.state.factory';
 import { SelectionToggleCommand } from '../command-bag/selection.toggle.command';
+import { SelectionRowToggleNextCommand } from '../command-bag/selection.row.toggle.next.command';
 import { SubjectLike } from '../rx/rx';
 
 export class SelectionLet {

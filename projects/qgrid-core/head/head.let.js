@@ -7,7 +7,7 @@ import * as columnService from '../column/column.service';
 
 export class HeadLet {
 	constructor(plugin, tagName) {
-		const { model, table, observeReply, commandPalette } = plugin;
+		const { model, observeReply, commandPalette } = plugin;
 
 		this.plugin = plugin;
 		this.tagName = tagName;

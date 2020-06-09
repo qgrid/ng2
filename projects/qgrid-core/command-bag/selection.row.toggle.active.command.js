@@ -8,7 +8,6 @@ export const SELECTION_ROW_TOGGLE_ACTIVE_COMMAND_KEY = commandKey('selection.row
 export class SelectionRowToggleActiveCommand extends Command {
     constructor(plugin) {
         const { model, table, view, commandPalette } = plugin;
-        const toggleSelection = commandPalette.get(SELECTION_TOGGLE_COMMAND_KEY);
 
         super({
             key: SELECTION_ROW_TOGGLE_ACTIVE_COMMAND_KEY,
@@ -24,6 +23,8 @@ export class SelectionRowToggleActiveCommand extends Command {
                 return model.selection().unit === 'row' && table.data.rows().length > 0;
             },
             execute: () => {
+                const toggleSelection = commandPalette.get(SELECTION_TOGGLE_COMMAND_KEY);
+
                 const rowIndex = selectRowIndex(model.navigation());
                 const row = table.data.rows()[rowIndex >= 0 ? rowIndex : rowIndex + 1];
                 const commit = toggleSelection.execute(row);

@@ -1,5 +1,6 @@
 import { CellEditor } from '../edit/edit.cell.editor';
 import { Command } from '../command/command';
+import { commandKey } from '../command/command.key';
 import { editCellContextFactory } from '../edit/edit.cell.context.factory';
 import * as validationService from '../validation/validation.service';
 

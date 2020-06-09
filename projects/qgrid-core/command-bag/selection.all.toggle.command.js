@@ -7,7 +7,6 @@ export const SELECTION_ALL_TOGGLE_COMMAND_KEY = commandKey('selection.all.toggle
 export class SelectionAllToggleCommand extends Command {
     constructor(plugin) {
         const { model, table, commandPalette } = plugin;
-        const setSelection = commandPalette.get(SELECTION_SET_COMMAND_KEY);
 
         super({
             key: SELECTION_ALL_TOGGLE_COMMAND_KEY,
@@ -17,6 +16,8 @@ export class SelectionAllToggleCommand extends Command {
                 return mode === 'multiple' || mode === 'range';
             },
             execute: () => {
+                const setSelection = commandPalette.get(SELECTION_SET_COMMAND_KEY);
+
                 let entries = [];
                 switch (model.selection().unit) {
                     case 'row': {

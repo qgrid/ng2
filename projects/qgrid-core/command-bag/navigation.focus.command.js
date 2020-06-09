@@ -9,7 +9,7 @@ export class NavigationFocusCommand extends Command {
         const { model, table } = plugin;
 
         super({
-            key: NAVIGATION_PAGE_UP_COMMAND_KEY,
+            key: NAVIGATION_FOCUS_COMMAND_KEY,
             canExecute: cell => {
                 const { cell: currentCell } = model.navigation();
                 if (cell && cell.column.canFocus && !Td.equals(cell, currentCell)) {

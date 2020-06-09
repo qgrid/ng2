@@ -8,7 +8,7 @@ export const ROW_DROP_COMMAND_KEY = commandKey('row.drop.command');
 
 export class RowDropCommand extends Command {
     constructor(plugin) {
-        const { model } = plugin;
+        const { model, table } = plugin;
         const pathFinder = new PathService(table.box.bag.body);
 
         super({

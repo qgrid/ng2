@@ -2,12 +2,13 @@ import { CellSelector } from '../cell/cell.selector';
 import { Fastdom } from '../services/fastdom';
 import { find, findLeaves } from '../node/node.service';
 import { GRID_PREFIX } from '../definition';
+import { HighlightCellCommand } from '../command-bag/highlight.cell.command';
+import { HighlightClearCommand } from '../command-bag/highlight.clear.command';
+import { HighlightColumnCommand } from '../command-bag/highlight.column.command';
+import { HighlightRowCommand } from '../command-bag/highlight.row.command';
 import { noop } from '../utility/kit';
 import { SelectionService } from '../selection/selection.service';
 import * as sortService from '../sort/sort.service';
-import { HighlightColumnCommand } from '../command-bag/highlight.column.command';
-import { HighlightCellCommand } from '../command-bag/highlight.cell.command';
-import { HighlightClearCommand } from '../command-bag/highlight.clear.command';
 
 export class HighlightLet {
 	constructor(plugin) {
