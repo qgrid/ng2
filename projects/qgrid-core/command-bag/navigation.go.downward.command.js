@@ -23,7 +23,7 @@ export class NavigationGoDownwardCommand extends Command {
             execute: () => {
                 const newRow = site.lastRow;
                 const newColumn = site.currentColumn;
-                return model.navigation().go.execute(context('downward', { newRow, newColumn })) && nav.gotTo(newRow, newColumn);
+                return model.navigation().go.execute(context('downward', { newRow, newColumn })) !== true && nav.gotTo(newRow, newColumn);
             }
         });
     }

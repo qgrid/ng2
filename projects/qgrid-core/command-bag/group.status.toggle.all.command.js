@@ -18,13 +18,13 @@ export class GroupStatusToggleAllCommand extends Command {
             },
             execute: () => {
                 const { toggleAll } = model.group();
-                if (toggleAll.execute() !== false) {
+                if (toggleAll.execute() !== true) {
                     const { nodes } = model.view();
                     const { toggle } = model.group();
 
                     preOrderDFS(nodes, node => {
-                        if (toggleStatus.canExecute([node])) {
-                            if (toggle.execute(node) !== false) {
+                        if (toggleStatus.canExecute([node]) === true) {
+                            if (toggle.execute(node) !== true) {
                                 node.state.expand = shouldExpand;
                             }
                         }

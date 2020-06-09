@@ -1,13 +1,10 @@
 import { GRID_PREFIX } from '../definition';
 import { SelectionAllToggleCommand } from '../command-bag/selection.all.toggle.command';
 import { SelectionCellToggleCommand } from '../command-bag/selection.cell.toggle.command';
-import { SelectionCellToggleCommand } from '../command-bag/selection.cell.toggle.d copy';
 import { SelectionColumnToggleActiveCommand } from '../command-bag/selection.column.toggle.active.command';
 import { SelectionColumnToggleCommand } from '../command-bag/selection.column.toggle.command';
 import { SelectionColumnToggleNextCommand } from '../command-bag/selection.column.toggle.next.command';
-import { SelectionColumnToggleNextCommand } from '../command-bag/selection.column.toggle.previous';
 import { SelectionColumnTogglePreviousCommand } from '../command-bag/selection.column.toggle.previous.command';
-import { SelectionRangeCommand } from '../command-bag/selection.range.command';
 import { SelectionRangeCommand } from '../command-bag/selection.range.command';
 import { SelectionRowToggleActiveCommand } from '../command-bag/selection.row.toggle.active.command';
 import { SelectionRowToggleCommand } from '../command-bag/selection.row.toggle.command';
@@ -123,7 +120,6 @@ export class SelectionLet {
 				}
 			});
 	}
-
 
 	state(item) {
 		if (!arguments.length) {

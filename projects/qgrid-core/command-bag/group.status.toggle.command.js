@@ -34,7 +34,7 @@ export class GroupStatusToggleCommand extends Command {
                 let column = (args && args[1]) || selectColumn(navState);
 
                 const node = groupLet.getNode(row, column);
-                if (toggle.execute(node) !== false) {
+                if (toggle.execute(node) !== true) {
                     node.state.expand = !node.state.expand;
                     service.invalidate({
                         source: 'group.status.toggle.command',

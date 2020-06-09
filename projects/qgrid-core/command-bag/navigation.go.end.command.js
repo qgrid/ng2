@@ -23,7 +23,7 @@ export class NavigationGoEndCommand extends Command {
             execute: () => {
                 const newRow = site.currentRow;
                 const newColumn = site.lastColumn;
-                return model.navigation().go.execute(context('end', { newRow, newColumn })) && nav.gotTo(newRow, newColumn);
+                return model.navigation().go.execute(context('end', { newRow, newColumn })) !== true && nav.gotTo(newRow, newColumn);
             }
         });
     }

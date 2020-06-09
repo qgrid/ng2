@@ -1,7 +1,6 @@
 import { CellEditor } from './edit.cell.editor';
 import { Command } from '../command/command';
 import { ColumnModel } from '../column-type/column.model';
-import { EditorOptions } from '../column-type/editor.options';
 import { CellView } from '../scene/view/cell.view';
 import { GridPlugin } from '../plugin/grid.plugin';
 

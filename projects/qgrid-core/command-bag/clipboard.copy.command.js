@@ -22,7 +22,7 @@ export class ClipboardCopyCommand extends Command {
                 const { cell } = model.navigation();
                 if (cell) {
                     const { copy } = model.clipboard();
-                    if (copy.execute() !== false) {
+                    if (copy.execute() !== true) {
                         const getLabel = labelFactory(cell.column);
                         copyToClipboard(getLabel(cell.row));
                         table.view.focus();

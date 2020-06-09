@@ -39,7 +39,7 @@ export class NavigationPageDownCommand extends Command {
                     );
                 }
 
-                return false;
+                return true;
             }
         });
     }

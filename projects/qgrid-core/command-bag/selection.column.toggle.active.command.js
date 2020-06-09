@@ -7,7 +7,7 @@ export const SELECTION_COLUMN_TOGGLE_ACTIVE_COMMAND_KEY = commandKey('selection.
 
 export class SelectionColumnToggleActiveCommand extends Command {
     constructor(plugin) {
-        const { model, table, view, commandPalette } = plugin;
+        const { model, table, commandPalette } = plugin;
         const toggleSelection = commandPalette.get(SELECTION_TOGGLE_COMMAND_KEY);
 
         super({
@@ -15,7 +15,7 @@ export class SelectionColumnToggleActiveCommand extends Command {
             shortcut: model.selection().shortcut.toggleColumn,
             canExecute: () => {
                 return model.selection().unit === 'column'
-                    && selectColumnIndex(model.navigation()) >= 0,
+                    && selectColumnIndex(model.navigation()) >= 0;
             },
             execute: () => {
                 const columnIndex = selectColumnIndex(model.navigation());

@@ -10,7 +10,6 @@ export class EditCellResetCommand extends Command {
         super({
             key: EDIT_CELL_RESET_COMMAND_KEY,
             priority: 1,
-            stopPropagate: true,
             canExecute: cell => {
                 const editLet = view.edit.cell;
                 cell = cell || editLet.editor.td;
@@ -45,13 +44,13 @@ export class EditCellResetCommand extends Command {
                         editLet.tag
                     );
 
-                    if (model.edit().reset.execute(clientContext) !== false) {
+                    if (model.edit().reset.execute(clientContext) !== true) {
                         editLet.editor.reset();
                         return true;
                     }
                 }
 
-                return false;
+                return true;
             }
         });
     }

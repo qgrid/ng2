@@ -13,7 +13,6 @@ export class EditRowResetCommand extends Command {
         super({
             key: EDIT_ROW_CANCEL_COMMAND_KEY,
             priority: 1,
-            stopPropagate: true,
             shortcut: getShortcut('reset'),
             canExecute: row => {
                 row = row || selectRow(model.navigation());
@@ -26,7 +25,7 @@ export class EditRowResetCommand extends Command {
                 const editLet = view.edit.row;
 
                 if (row) {
-                    if (model.edit().reset.execute(editRowContextFactory(row)) !== false) {
+                    if (model.edit().reset.execute(editRowContextFactory(row)) !== true) {
                         editLet.editor.reset();
                         return true;
                     }

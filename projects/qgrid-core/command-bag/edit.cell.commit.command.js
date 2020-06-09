@@ -1,5 +1,4 @@
-import { CellEditor } from './edit.cell.editor';
-import { Command } from '../command/command';
+import { CellEditor } from '../edit/edit.cell.editor';
 import { Command } from '../command/command';
 import { editCellContextFactory } from '../edit/edit.cell.context.factory';
 import { editCellShortcutFactory } from '../edit/edit.cell.shortcut.factory';
@@ -16,7 +15,6 @@ export class EditCellCommitCommand extends Command {
         super({
             key: EDIT_CELL_COMMIT_COMMAND_KEY,
             priority: 1,
-            stopPropagate: true,
             shortcut: getShortcut('commit'),
             canExecute: cell => {
                 const editLet = edit.cell.view;
@@ -57,7 +55,7 @@ export class EditCellCommitCommand extends Command {
                         editLet.tag
                     );
 
-                    if (model.edit().commit.execute(clientContext) !== false) {
+                    if (model.edit().commit.execute(clientContext) !== true) {
                         editLet.editor.commit();
                         editLet.editor = CellEditor.empty;
                         editLet.requestClose = null;
@@ -69,7 +67,7 @@ export class EditCellCommitCommand extends Command {
                     }
                 }
 
-                return false;
+                return true;
             }
 
         });

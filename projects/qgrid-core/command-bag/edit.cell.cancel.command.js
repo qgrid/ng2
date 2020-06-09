@@ -1,4 +1,4 @@
-import { CellEditor } from './edit.cell.editor';
+import { CellEditor } from '../edit/edit.cell.editor';
 import { Command } from '../command/command';
 import { editCellContextFactory } from '../edit/edit.cell.context.factory';
 import { editCellShortcutFactory } from '../edit/edit.cell.shortcut.factory';
@@ -13,7 +13,6 @@ export class EditCellCancelCommand extends Command {
         super({
             key: EDIT_CELL_CANCEL_COMMAND_KEY,
             priority: 1,
-            stopPropagate: true,
             shortcut: getShortcut('cancel'),
             canExecute: cell => {
                 const editLet = view.edit.cell;
@@ -35,7 +34,7 @@ export class EditCellCancelCommand extends Command {
                     return model.edit().cancel.canExecute(clientContext);
                 }
 
-                return false;
+                return true;
             },
             execute: cell => {
                 const editLet = view.edit.cell;
@@ -49,16 +48,16 @@ export class EditCellCancelCommand extends Command {
                         editLet.tag
                     );
 
-                    if (model.edit().cancel.execute(clientContext) !== false) {
+                    if (model.edit().cancel.execute(clientContext) !== true) {
                         editLet.editor.reset();
                         editLet.editor = CellEditor.empty;
                         editLet.requestClose = null;
 
                         editLet.mode(cell, 'view');
                         table.view.focus();
-
-                        return true;
                     }
+
+                    return true;
                 }
 
                 return false;

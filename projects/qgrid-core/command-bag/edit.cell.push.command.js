@@ -1,4 +1,4 @@
-import { CellEditor } from './edit.cell.editor';
+import { CellEditor } from '../edit/edit.cell.editor';
 import { Command } from '../command/command';
 import { editCellContextFactory } from '../edit/edit.cell.context.factory';
 import * as validationService from '../validation/validation.service';
@@ -12,7 +12,6 @@ export class EditCellPushCommand extends Command {
         super({
             key: EDIT_CELL_PUSH_COMMAND_KEY,
             priority: 1,
-            stopPropagate: true,
             canExecute: cell => {
                 const editLet = view.edit.cell;
 
@@ -44,7 +43,7 @@ export class EditCellPushCommand extends Command {
                         editLet.tag
                     );
 
-                    if (model.edit().commit.execute(clientContext) !== false) {
+                    if (model.edit().commit.execute(clientContext) !== true) {
                         editLet.editor.commit();
                         editLet.editor = CellEditor.empty;
                         editLet.requestClose = null;
@@ -53,7 +52,7 @@ export class EditCellPushCommand extends Command {
                     }
                 }
 
-                return false;
+                return true;
             }
         });
     }

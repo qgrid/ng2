@@ -4,7 +4,7 @@ import { navigationContextFactory } from '../navigation/navigation.context.facto
 
 export const NAVIGATION_GO_NEXT_COMMAND_KEY = commandKey('navigation.go.next.command');
 
-export class NavigationGoLeftCommand extends Command {
+export class NavigationGoNextCommand extends Command {
     constructor(plugin, nav, site) {
         const { model } = plugin;
         const context = navigationContextFactory(model);

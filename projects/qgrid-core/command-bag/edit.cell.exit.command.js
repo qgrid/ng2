@@ -11,7 +11,6 @@ export class EditCellExitCommand extends Command {
         super({
             key: EDIT_CELL_EXIT_COMMAND_KEY,
             priority: 1,
-            stopPropagate: true,
             execute: cell => {
                 const editLet = view.edit.cell;
                 cell = cell || cell.editor.td;
@@ -34,7 +33,7 @@ export class EditCellExitCommand extends Command {
                     }
                 }
 
-                return false;
+                return true;
             }
         });
     }

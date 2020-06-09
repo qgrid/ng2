@@ -10,7 +10,6 @@ export class EditCellClearCommand extends Command {
         super({
             key: EDIT_CELL_CLEAR_COMMAND_KEY,
             priority: 1,
-            stopPropagate: true,
             canExecute: cell => {
                 const editLet = view.edit.cell;
                 cell = cell || editLet.editor.td;
@@ -45,13 +44,13 @@ export class EditCellClearCommand extends Command {
                         editLet.tag
                     );
 
-                    if (model.edit().clear.execute(clientContext) !== false) {
+                    if (model.edit().clear.execute(clientContext) !== true) {
                         editLet.editor.clear();
                         return true;
                     }
                 }
 
-                return false;
+                return true;
             }
         });
     }

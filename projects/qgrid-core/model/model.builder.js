@@ -1,8 +1,9 @@
 import { ActionState } from '../action/action.state';
 import { AnimationState } from '../animation/animation.state';
-import { GridError } from '../infrastructure/error';
 import { BodyState } from '../body/body.state';
+import { ClipboardState } from '../clipboard/clipboard.state';
 import { ColumnListState } from '../column-list/column.list.state';
+import { CommandState } from '../command/command.state';
 import { DataState } from '../data/data.state';
 import { DragState } from '../drag/drag.state';
 import { EditState } from '../edit/edit.state';
@@ -11,6 +12,7 @@ import { FetchState } from '../fetch/fetch.state';
 import { FilterState } from '../filter/filter.state';
 import { FocusState } from '../focus/focus.state';
 import { FootState } from '../foot/foot.state';
+import { GridError } from '../infrastructure/error';
 import { GridState } from '../grid/grid.state';
 import { GroupState } from '../group/group.state';
 import { HeadState } from '../head/head.state';
@@ -42,7 +44,6 @@ import { ToolbarState } from '../toolbar/toolbar.state';
 import { ValidationState } from '../validation/validation.state';
 import { ViewState } from '../view/view.state';
 import { VisibilityState } from '../visibility/visibility.state';
-import { ClipboardState } from '../clipboard/clipboard.state';
 
 export class ModelBuilder {
     constructor() {
@@ -54,6 +55,7 @@ export class ModelBuilder {
             .register('body', BodyState)
             .register('clipboard', ClipboardState)
             .register('columnList', ColumnListState)
+            .register('command', CommandState)
             .register('data', DataState)
             .register('drag', DragState)
             .register('edit', EditState)
@@ -96,14 +98,14 @@ export class ModelBuilder {
     register(key, ctor) {
         if (this.state.hasOwnProperty(key)) {
             throw new GridError(
-                'model',
+                'model.builder',
                 `"${key}" is already registered`);
         }
 
         if (!isFunction(ctor)) {
             throw new GridError(
                 `model.${key}`,
-                `"${ctor}" is not a valid type, should be an constructor function`);
+                `"${ctor}" is not a valid type, should be a constructor`);
         }
 
         this.state[key] = ctor;

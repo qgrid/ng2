@@ -6,7 +6,7 @@ export const SELECTION_SET_COMMAND_KEY = commandKey('selection.set.command');
 
 export class SelectionSetCommand extends Command {
     constructor(plugin) {
-        const { model, table, view } = plugin;
+        const { model, view } = plugin;
 
         super({
             key: SELECTION_SET_COMMAND_KEY,

@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Support 2 version 9.1.x - Ivy, 9.1.x-ve - View Engine
 - `q-grid-shortcut-host` directive that can change key event source for q-grid commands.
 - Command palette API to access grid core commands.
+- Command state added to the model.
 
 ### Changed
 - Shortcut system.

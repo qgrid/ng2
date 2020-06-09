@@ -1,7 +1,7 @@
 import { Command } from '../command/command';
 import { editRowShortcutFactory } from '../edit/edit.row.shortcut.factory';
 import { editRowContextFactory } from '../edit/edit.row.context.factory';
-import { RowEditor } from './edit.row.editor';
+import { RowEditor } from '../edit/edit.row.editor';
 import { selectRow } from '../navigation/navigation.state.selector';
 
 export const EDIT_ROW_CANCEL_COMMAND_KEY = commandKey('edit.row.cancel.command');
@@ -14,7 +14,6 @@ export class EditRowCancelCommand extends Command {
         super({
             key: EDIT_ROW_CANCEL_COMMAND_KEY,
             priority: 1,
-            stopPropagate: true,
             shortcut: getShortcut('cancel'),
             canExecute: row => {
                 row = row || selectRow(model.navigation());

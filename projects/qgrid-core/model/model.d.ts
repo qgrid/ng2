@@ -39,6 +39,7 @@ import { ValidationState } from '../validation/validation.state';
 import { ViewState } from '../view/view.state';
 import { VisibilityState } from '../visibility/visibility.state';
 import { ClipboardState } from '../clipboard/clipboard.state';
+import { CommandState } from '../command/command.state';
 
 export declare type StateSet<K extends keyof any, TState> = {
 	[P in K]: (state: Partial<TState>, tag?: ModelTag) => Model;
@@ -64,7 +65,9 @@ export declare type StateAccessor<
 export declare type ActionAccessor = StateAccessor<'action', 'actionChanged', ActionState>;
 export declare type AnimationAccessor = StateAccessor<'animation', 'animationChanged', AnimationState>;
 export declare type BodyAccessor = StateAccessor<'body', 'bodyChanged', BodyState>;
+export declare type ClipboardAccessor = StateAccessor<'clipboard', 'clipboardChanged', ClipboardState>;
 export declare type ColumnListAccessor = StateAccessor<'columnList', 'columnListChanged', ColumnListState>;
+export declare type CommandAccessor = StateAccessor<'command', 'commandChanged', CommandState>;
 export declare type DataAccessor = StateAccessor<'data', 'dataChanged', DataState>;
 export declare type DragAccessor = StateAccessor<'drag', 'dragChanged', DragState>;
 export declare type EditAccessor = StateAccessor<'edit', 'editChanged', EditState>;
@@ -100,7 +103,6 @@ export declare type ToolbarAccessor = StateAccessor<'toolbar', 'toolbarChanged',
 export declare type ValidationAccessor = StateAccessor<'validation', 'validationChanged', ValidationState>;
 export declare type ViewAccessor = StateAccessor<'view', 'viewChanged', ViewState>;
 export declare type VisibilityAccessor = StateAccessor<'visibility', 'visibilityChanged', VisibilityState>;
-export declare type ClipboardAccessor = StateAccessor<'clipboard', 'clipboardChanged', ClipboardState>;
 
 export declare type ResolveAccessor = {
 	resolve<TState>(type: new () => TState): StateAccessor<'state', 'changed', TState>;
@@ -111,6 +113,7 @@ export type Model =
 	& AnimationAccessor
 	& BodyAccessor
 	& ColumnListAccessor
+	& CommandAccessor
 	& ClipboardAccessor
 	& DataAccessor
 	& DragAccessor

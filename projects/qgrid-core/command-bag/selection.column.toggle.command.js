@@ -7,7 +7,7 @@ export const SELECTION_COLUMN_TOGGLE_COMMAND_KEY = commandKey('selection.column.
 
 export class SelectionColumnToggleCommand extends Command {
     constructor(plugin) {
-        const { model, view, commandPalette } = plugin;
+        const { commandPalette } = plugin;
         const toggleSelection = commandPalette.get(SELECTION_TOGGLE_COMMAND_KEY);
 
         super({

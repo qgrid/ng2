@@ -1,7 +1,8 @@
 import { Command } from '../command/command';
-import { editCellShortcutFactory } from '../edit/edit.cell.shortcut.factory';
 import { editCellContextFactory } from '../edit/edit.cell.context.factory';
+import { editCellShortcutFactory } from '../edit/edit.cell.shortcut.factory';
 import { Keyboard } from '../keyboard/keyboard';
+import { CellEditor } from '../edit/edit.cell.editor';
 
 export const EDIT_CELL_ENTER_COMMAND_KEY = commandKey('edit.cell.enter.command');
 
@@ -13,7 +14,6 @@ export class EditCellEnterCommand extends Command {
         super({
             key: EDIT_CELL_ENTER_COMMAND_KEY,
             priority: 1,
-            stopPropagate: true,
             shortcut: getShortcut('enter'),
             canExecute: cell => {
                 cell = cell || model.navigation().cell;
@@ -48,12 +48,11 @@ export class EditCellEnterCommand extends Command {
                         editLet.tag
                     );
 
-                    if (model.edit().enter.execute(clientContext) !== false) {
+                    if (model.edit().enter.execute(clientContext) !== true) {
                         const td = table.body.cell(cell.rowIndex, cell.columnIndex).model();
                         editLet.editor = new CellEditor(td);
-
-                        const keyCode = this.shortcut.keyCode();
-                        if (source === 'keyboard' && Keyboard.isPrintable(keyCode)) {
+                        const keyCode = model.keyboard().codes[0];
+                        if (keyCode && Keyboard.isPrintable(keyCode)) {
                             const parse = parseFactory(cell.column.type, cell.column.editor);
                             const value = Keyboard.stringify(keyCode);
                             const typedValue = parse(value);
