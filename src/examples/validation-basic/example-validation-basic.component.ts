@@ -3,6 +3,11 @@ import { Observable } from 'rxjs';
 import { GridComponent } from 'ng2-qgrid';
 import { Atom, DataService } from '../data.service';
 
+const EXAMPLE_TAGS = [
+	'validation-basic',
+	'Cell inputs have validation rules applied'
+];
+
 @Component({
 	selector: 'example-validation-basic',
 	templateUrl: 'example-validation-basic.component.html',
@@ -11,7 +16,8 @@ import { Atom, DataService } from '../data.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleValidationBasicComponent {
-	static id = 'validation-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	@ViewChild(GridComponent, { static: true }) myGrid: GridComponent;
 	rows: Observable<Atom[]>;

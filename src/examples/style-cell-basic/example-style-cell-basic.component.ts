@@ -3,6 +3,11 @@ import { Observable } from 'rxjs';
 import { DataService, Atom } from '../data.service';
 import { StyleCellContext, Column } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'style-cells-basic',
+	'Some cells have custom style'
+];
+
 @Component({
 	selector: 'example-style-cell-basic',
 	templateUrl: 'example-style-cell-basic.component.html',
@@ -11,7 +16,8 @@ import { StyleCellContext, Column } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleStyleCellBasicComponent {
-	static id = 'style-cell-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows: Observable<Atom[]>;
 

@@ -5,6 +5,11 @@ import { GridModel, Grid } from 'ng2-qgrid';
 
 import { DataService, Atom } from '../data.service';
 
+const EXAMPLE_TAGS = [
+	'persistence-server',
+	'Settings are stored on server and can be saved/loaded in the save/load menu'
+];
+
 @Component({
 	selector: 'example-persistence-server',
 	templateUrl: 'example-persistence-server.component.html',
@@ -13,7 +18,8 @@ import { DataService, Atom } from '../data.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplePersistenceServerComponent {
-	static id = 'persistence-server';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	gridModel: GridModel;
 	rows: Observable<Atom[]>;

@@ -1,5 +1,10 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
+const EXAMPLE_TAGS = [
+	'column-time-basic',
+	'Cell value is in time format and can be entered using corresponding time input'
+];
+
 @Component({
 	selector: 'example-column-time-basic',
 	templateUrl: 'example-column-time-basic.component.html',
@@ -7,7 +12,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnTimeBasicComponent {
-	static id = 'column-time-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows = [
 		{

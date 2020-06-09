@@ -3,7 +3,7 @@
 	{{ isVisible? 'Hide' : 'Show' }} [handler counter: {{handlerCount$ | async}}]
 </button>
 <ng-container *ngIf="isVisible">
-	<q-grid caption="Destroy Grid Model"
+	<q-grid [caption]="title"
 	        [model]="gridModel"
 	        id="example-destroy-grid-model"
 	        editMode="cell"

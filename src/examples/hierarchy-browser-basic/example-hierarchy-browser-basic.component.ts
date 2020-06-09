@@ -2,6 +2,11 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../data.service';
 import { Grid, GridModel, Command, Node } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'hierarchy-browser-basic',
+	'Table content is folder tree'
+];
+
 @Component({
 	selector: 'example-hierarchy-browser-basic',
 	templateUrl: 'example-hierarchy-browser-basic.component.html',
@@ -10,7 +15,8 @@ import { Grid, GridModel, Command, Node } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleHierarchyBrowserBasicComponent {
-	static id = 'hierarchy-browser-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	gridModel: GridModel = this.qgrid.model();
 

@@ -1,6 +1,11 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { DataService, Quote } from '../data.service';
 
+const EXAMPLE_TAGS = [
+	'live-data-basic',
+	'Table data updates in real time'
+];
+
 @Component({
 	selector: 'example-live-data-basic',
 	templateUrl: 'example-live-data-basic.component.html',
@@ -10,7 +15,8 @@ import { DataService, Quote } from '../data.service';
 	encapsulation: ViewEncapsulation.None
 })
 export class ExampleLiveDataBasicComponent implements OnDestroy {
-	static id = 'live-data-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows: Quote[];
 	timeoutId: any = null;

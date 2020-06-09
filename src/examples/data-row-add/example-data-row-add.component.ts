@@ -3,6 +3,11 @@ import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 import { GridComponent, Command, Grid } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'data-row-add',
+	'New row can be added using UI button "add row"'
+];
+
 @Component({
 	selector: 'example-data-row-add',
 	templateUrl: 'example-data-row-add.component.html',
@@ -11,7 +16,8 @@ import { GridComponent, Command, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDataRowAddComponent implements AfterViewInit {
-	static id = 'data-row-add';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
 	rows: Observable<Human[]>;

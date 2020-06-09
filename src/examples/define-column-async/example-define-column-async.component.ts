@@ -2,6 +2,11 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../data.service';
 import { GridModel, Grid } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'define-column-async',
+	'Table content is loaded asynchronously'
+];
+
 @Component({
 	selector: 'example-define-column-async',
 	templateUrl: 'example-define-column-async.component.html',
@@ -10,7 +15,8 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDefineColumnAsyncComponent implements OnInit {
-	static id = 'define-column-async';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	gridModel: GridModel;
 

@@ -3,6 +3,11 @@ import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 import { GridComponent, Command, Grid } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'data-row-delete',
+	'Table rows can be deleted using corresponding UI button "DELETE ROW"'
+];
+
 @Component({
 	selector: 'example-data-row-delete',
 	templateUrl: 'example-data-row-delete.component.html',
@@ -11,7 +16,8 @@ import { GridComponent, Command, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDataRowDeleteComponent {
-	static id = 'data-row-delete';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
 	rows: Observable<Human[]>;

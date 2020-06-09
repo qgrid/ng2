@@ -5,6 +5,11 @@ import * as XLSX from 'xlsx';
 import { DataService, Atom } from '../data.service';
 import { GridComponent } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'import-basic',
+	'Table data can be imported from file'
+];
+
 @Component({
 	selector: 'example-import-basic',
 	templateUrl: 'example-import-basic.component.html',
@@ -13,7 +18,8 @@ import { GridComponent } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleImportBasicComponent implements AfterViewInit {
-	static id = 'import-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	@ViewChild(GridComponent) grid: GridComponent;
 	rows: Observable<Atom[]> = of([]);

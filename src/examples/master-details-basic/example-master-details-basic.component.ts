@@ -4,6 +4,11 @@ import { Observable } from 'rxjs';
 import { GridModel, Grid } from 'ng2-qgrid';
 import { map } from 'rxjs/operators';
 
+const EXAMPLE_TAGS = [
+	'master-details-basic',
+	'Bottom table shows data, related to selected row from upper table'
+];
+
 @Component({
 	selector: 'example-master-details-basic',
 	templateUrl: 'example-master-details-basic.component.html',
@@ -12,7 +17,8 @@ import { map } from 'rxjs/operators';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleMasterDetailsBasicComponent {
-	static id = 'master-details-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows$: Observable<Human[]>;
 	detailsRows$: Observable<Human[]>;

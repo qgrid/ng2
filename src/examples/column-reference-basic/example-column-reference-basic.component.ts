@@ -1,6 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Grid, EditorOptions, Command } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'column-reference-basic',
+	'Cell value is a reference to another value'
+];
+
 @Component({
 	selector: 'example-column-reference-basic',
 	templateUrl: 'example-column-reference-basic.component.html',
@@ -8,7 +13,8 @@ import { Grid, EditorOptions, Command } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnReferenceBasicComponent {
-	static id = 'column-reference-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows = [
 		{

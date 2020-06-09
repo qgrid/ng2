@@ -1,4 +1,4 @@
-<q-grid caption="Sort Row Basic"
+<q-grid [caption]="title"
         [rows]="rows | async"
         [sortBy]="['+gender', '-name.last']"
         [sortTrigger]="[]">
