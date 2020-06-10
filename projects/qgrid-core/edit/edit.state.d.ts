@@ -69,17 +69,17 @@ export declare class EditState {
 	 * Object that contains `{columnKey: keyboardKeys}` map, that is used by q-grid to manage
 	 * when cancel command should be execute on key down event.
 	 */
-	cancelShortcuts: { [key: string]: string };
+	cancelShortcut: { [key: string]: string };
 
 	/**
 	 * Object that contains `{columnKey: keyboardKeys}` map, that is used by q-grid to manage
 	 * when enter command should be execute on key down event.
 	 */
-	enterShortcuts: { [key: string]: string };
+	enterShortcut: { [key: string]: string };
 
 	/**
 	 * Object that contains `{columnKey: keyboardKeys}` map, that is used by q-grid to manage
 	 * when commit command should be execute on key down event.
 	 */
-	commitShortcuts: { [key: string]: string };
+	commitShortcut: { [key: string]: string };
 }

@@ -7,9 +7,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### BREAKING
 - Rename $view.filter.column to $view.filter.row.
 - Remove `options` property from $view.edit.cell.
+- Renmae `shortcuts` to `shortcut` in the edit state.
 
 ### Added
-- Support 2 version 9.1.x - Ivy, 9.1.x-ve - View Engine
+- Support 2 version 9.1.x - Ivy, 9.1.x-ve - View Engine.
 - `q-grid-shortcut-host` directive that can change key event source for q-grid commands.
 - Command palette API to access grid core commands.
 - Command state added to the model.

@@ -15,17 +15,17 @@ export class EditState {
 		this.reset = new Command();
 		this.clear = new Command();
 
-		this.cancelShortcuts = {
+		this.cancelShortcut = {
 			'$default': 'escape'
 		};
 
-		this.enterShortcuts = {
-			'$default': '*',
+		this.enterShortcut = {
+			'$default': /.*/,
 			'row': 'F2|Enter',
 			'form': 'F2|Enter'
 		};
 
-		this.commitShortcuts = {
+		this.commitShortcut = {
 			'$default': 'tab|shift+tab|enter|ctrl+s',
 			'reference': 'ctrl+s',
 			'row': 'ctrl+s',

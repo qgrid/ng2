@@ -2,7 +2,7 @@ export function editCellShortcutFactory(plugin) {
     const { model, view } = plugin;
     return action => () => {
         const state = model.edit();
-        const shortcuts = state[action + 'Shortcuts'];
+        const shortcuts = state[action + 'Shortcut'];
         if (shortcuts) {
             const { td } = view.editor;
             if (td) {

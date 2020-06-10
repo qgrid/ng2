@@ -57,7 +57,7 @@ export class EditFormPanelPlugin {
 	shortcutFactory(type) {
 		const { model } = this.plugin;
 		return () => {
-			const shortcuts = model.edit()[type + 'Shortcuts'];
+			const shortcuts = model.edit()[type + 'Shortcut'];
 			return shortcuts['reference'] || shortcuts['$default'];
 		};
 	}
