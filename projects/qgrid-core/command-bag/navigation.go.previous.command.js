@@ -7,7 +7,7 @@ export const NAVIGATION_GO_PREVIOUS_COMMAND_KEY = commandKey('navigation.go.prev
 export class NavigationGoPreviousCommand extends Command {
     constructor(plugin, nav, site) {
         const { model } = plugin;
-        const context = navigationContextFactory(model);
+        const context = navigationContextFactory(nav);
 
         super({
             key: NAVIGATION_GO_PREVIOUS_COMMAND_KEY,
@@ -24,7 +24,7 @@ export class NavigationGoPreviousCommand extends Command {
                 const hasPrevColumn = prevColumn >= 0;
                 const newColumn = hasPrevColumn ? prevColumn : site.lastColumn;
                 const newRow = hasPrevColumn ? site.currentRow : site.prevRow;
-                return model.navigation().go.execute(context('previous', { newRow, newColumn })) && nav.gotTo(newRow, newColumn);
+                return model.navigation().go.execute(context('previous', { newRow, newColumn })) !== true && nav.goTo(newRow, newColumn);
             }
         });
     }

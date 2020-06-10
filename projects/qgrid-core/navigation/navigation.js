@@ -5,6 +5,7 @@ export class Navigation {
 	}
 
 	position(y, dir) {
+		const { site } = this;
 		const { table } = this.plugin;
 		const { body } = table;
 
@@ -66,7 +67,7 @@ export class Navigation {
 		return null;
 	}
 
-	canNavigate() {
+	isActive() {
 		const { model } = this.plugin;
 		if (model.edit().status === 'view') {
 			return true;

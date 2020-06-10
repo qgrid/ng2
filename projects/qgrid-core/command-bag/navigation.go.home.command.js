@@ -7,7 +7,7 @@ export const NAVIGATION_GO_HOME_COMMAND_KEY = commandKey('navigation.go.home.com
 export class NavigationGoHomeCommand extends Command {
     constructor(plugin, nav, site) {
         const { model } = plugin;
-        const context = navigationContextFactory(model);
+        const context = navigationContextFactory(nav);
 
         super({
             key: NAVIGATION_GO_HOME_COMMAND_KEY,
@@ -23,7 +23,7 @@ export class NavigationGoHomeCommand extends Command {
             execute: () => {
                 const newRow = site.currentRow;
                 const newColumn = site.firstColumn;
-                return model.navigation().go.execute(context('home', { newRow, newColumn })) !== true && nav.gotTo(newRow, newColumn);
+                return model.navigation().go.execute(context('home', { newRow, newColumn })) !== true && nav.goTo(newRow, newColumn);
             }
         });
     }

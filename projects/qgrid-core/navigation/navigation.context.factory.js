@@ -1,15 +1,12 @@
-export function navigationContextFactory(model) {
+export function navigationContextFactory(nav) {
     return (type, settings) => {
-        const oldRow = this.currentRow;
-        const oldColumn = this.currentColumn;
-        const keyCode = model.action().shortcut.keyCode;
-
+        const oldRow = nav.currentRow;
+        const oldColumn = nav.currentColumn;
+  
         return Object.assign({
-            model,
             type,
             oldRow,
             oldColumn,
-            keyCode
         }, settings);
     }
 }

@@ -19,8 +19,8 @@ export class HighlightClearCommand extends Command {
 				const highlightColumn = commandPalette.get(HIGHLIGHT_COLUMN_COMMAND_KEY);
 				const highlightCell = commandPalette.get(HIGHLIGHT_CELL_COMMAND_KEY);
 
-				rows.forEach(row => highlightRow.execute(row, false));
-				columns.forEach(column => highlightColumn.execute(column, false));
+				rows.forEach(row => highlightRow.execute([row, false]));
+				columns.forEach(column => highlightColumn.execute([column, false]));
 
 				if (cell) {
 					highlightCell.execute(null);

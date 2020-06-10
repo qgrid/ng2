@@ -7,7 +7,7 @@ export const NAVIGATION_PAGE_UP_COMMAND_KEY = commandKey('navigation.page.up.com
 export class NavigationPageUpCommand extends Command {
     constructor(plugin, nav, site) {
         const { model, table } = plugin;
-        const context = navigationContextFactory(model);
+        const context = navigationContextFactory(nav);
 
         super({
             key: NAVIGATION_PAGE_UP_COMMAND_KEY,
@@ -25,14 +25,14 @@ export class NavigationPageUpCommand extends Command {
                 const position = nav.position(view.scrollTop() - view.height(), 'up');
                 const newRow = position.row;
                 const newColumn = site.currentColumn;
-                if (model.navigation().go.execute(context('pageUp', { newRow, newColumn }))) {
-                    this.model.scroll({
+                if (model.navigation().go.execute(context('pageUp', { newRow, newColumn })) !== true) {
+                    model.scroll({
                         top: position.offset
                     }, {
                         source: 'navigation.page.up.component'
                     });
 
-                    return nav.gotTo(
+                    return nav.goTo(
                         newRow,
                         newColumn,
                         'navigation.scroll'

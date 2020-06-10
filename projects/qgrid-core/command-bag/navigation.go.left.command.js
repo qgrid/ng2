@@ -7,7 +7,7 @@ export const NAVIGATION_GO_LEFT_COMMAND_KEY = commandKey('navigation.go.left.com
 export class NavigationGoLeftCommand extends Command {
     constructor(plugin, nav, site) {
         const { model } = plugin;
-        const context = navigationContextFactory(model);
+        const context = navigationContextFactory(nav);
 
         super({
             key: NAVIGATION_GO_LEFT_COMMAND_KEY,
@@ -23,7 +23,7 @@ export class NavigationGoLeftCommand extends Command {
             execute: () => {
                 const newRow = site.currentRow;
                 const newColumn = site.prevColumn;
-                return model.navigation().go.execute(context('left', { newRow, newColumn })) && nav.gotTo(newRow, newColumn);
+                return model.navigation().go.execute(context('left', { newRow, newColumn })) !== true && nav.goTo(newRow, newColumn);
             }
         });
     }

@@ -7,7 +7,7 @@ export const NAVIGATION_GO_DOWN_COMMAND_KEY = commandKey('navigation.go.down.com
 export class NavigationGoDownCommand extends Command {
     constructor(plugin, nav, site) {
         const { model } = plugin;
-        const context = navigationContextFactory(model);
+        const context = navigationContextFactory(nav);
 
         super({
             key: NAVIGATION_GO_DOWN_COMMAND_KEY,
@@ -23,7 +23,7 @@ export class NavigationGoDownCommand extends Command {
             execute: () => {
                 const newRow = site.nextRow;
                 const newColumn = site.currentColumn;
-                return model.navigation().go.execute(context('down', { newRow, newColumn })) && nav.gotTo(newRow, newColumn);
+                return model.navigation().go.execute(context('down', { newRow, newColumn })) !== true && nav.goTo(newRow, newColumn);
             }
         });
     }

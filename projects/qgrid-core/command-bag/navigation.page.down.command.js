@@ -7,7 +7,7 @@ export const NAVIGATION_PAGE_DOWN_COMMAND_KEY = commandKey('navigation.page.down
 export class NavigationPageDownCommand extends Command {
     constructor(plugin, nav, site) {
         const { model, table } = plugin;
-        const context = navigationContextFactory(model);
+        const context = navigationContextFactory(nav);
 
         super({
             key: NAVIGATION_PAGE_DOWN_COMMAND_KEY,
@@ -25,14 +25,14 @@ export class NavigationPageDownCommand extends Command {
                 const position = nav.position(view.scrollTop() + view.height(), 'down');
                 const newRow = position.row;
                 const newColumn = site.currentColumn;
-                if (model.navigation().go.execute(context('pageDown', { newRow, newColumn }))) {
+                if (model.navigation().go.execute(context('pageDown', { newRow, newColumn })) !== true) {
                     model.scroll({
                         top: position.offset
                     }, {
                         source: 'navigation.page.down.command'
                     });
 
-                    return nav.gotTo(
+                    return nav.goTo(
                         position.row,
                         site.currentColumn,
                         'navigation.scroll'

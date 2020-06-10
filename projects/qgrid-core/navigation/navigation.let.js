@@ -60,8 +60,8 @@ export class NavigationLet {
 					const columnIndex = selectColumnIndex(e.state);
 
 					focusBlurs = this.invalidateFocus(focusBlurs);
-					if (e.tag.source !== 'navigation.scroll' && this.scrollTo.canExecute(rowIndex, columnIndex)) {
-						this.scrollTo.execute(rowIndex, columnIndex);
+					if (e.tag.source !== 'navigation.scroll' && this.scrollTo.canExecute([rowIndex, columnIndex])) {
+						this.scrollTo.execute([rowIndex, columnIndex]);
 					}
 
 					model.focus({

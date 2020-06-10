@@ -1,5 +1,6 @@
 import { Command } from '../command/command';
 import { commandKey } from '../command/command.key';
+import { Fastdom } from '../services/fastdom';
 
 export const NAVIGATION_SCROLL_TO_COMMAND_KEY = commandKey('navigation.scroll.to.command');
 
@@ -9,11 +10,11 @@ export class NavigationScrollToCommand extends Command {
 
         super({
             key: NAVIGATION_SCROLL_TO_COMMAND_KEY,
-            canExecute: (row, column) => {
+            canExecute: ([row, column]) => {
                 const td = table.body.cell(row, column).model();
                 return td !== null
             },
-            execute: (row, column) => {
+            execute: ([row, column]) => {
                 const { view } = table;
                 const target = table.body.cell(row, column);
 
@@ -29,10 +30,10 @@ export class NavigationScrollToCommand extends Command {
                             || vr.right < tr.right) {
 
                             if (vr.width < tr.width || vr.left > tr.left || vr.left > tr.right) {
-                                state.left = tr.left - vr.left + scroll().left;
+                                state.left = tr.left - vr.left + model.scroll().left;
                             }
                             else if (vr.left < tr.left || vr.right < tr.right) {
-                                state.left = tr.right - vr.right + scroll().left;
+                                state.left = tr.right - vr.right + model.scroll().left;
                             }
                         }
                     }
@@ -44,10 +45,10 @@ export class NavigationScrollToCommand extends Command {
                             || vr.bottom < tr.bottom) {
 
                             if (vr.height < tr.height || vr.top > tr.top || vr.top > tr.bottom) {
-                                state.top = tr.top - vr.top + scroll().top;
+                                state.top = tr.top - vr.top + model.scroll().top;
                             }
                             else if (vr.top < tr.top || vr.bottom < tr.bottom) {
-                                state.top = tr.bottom - vr.bottom + scroll().top;
+                                state.top = tr.bottom - vr.bottom + model.scroll().top;
                             }
                         }
                     }

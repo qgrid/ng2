@@ -7,7 +7,7 @@ export const NAVIGATION_GO_UP_COMMAND_KEY = commandKey('navigation.go.up.command
 export class NavigationGoUpCommand extends Command {
     constructor(plugin, nav, site) {
         const { model } = plugin;
-        const context = navigationContextFactory(model);
+        const context = navigationContextFactory(nav);
 
         super({
             key: NAVIGATION_GO_UP_COMMAND_KEY,
@@ -23,7 +23,7 @@ export class NavigationGoUpCommand extends Command {
             execute: () => {
                 const newRow = site.prevRow;
                 const newColumn = site.currentColumn;
-                return model.navigation().go.execute(context('up', { newRow, newColumn })) && nav.gotTo(newRow, newColumn);
+                return model.navigation().go.execute(context('up', { newRow, newColumn })) !== true && nav.goTo(newRow, newColumn);
             }
         });
     }

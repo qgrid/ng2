@@ -7,14 +7,14 @@ export const NAVIGATION_GO_END_COMMAND_KEY = commandKey('navigation.go.end.comma
 export class NavigationGoEndCommand extends Command {
     constructor(plugin, nav, site) {
         const { model } = plugin;
-        const context = navigationContextFactory(model);
+        const context = navigationContextFactory(nav);
 
         super({
             key: NAVIGATION_GO_END_COMMAND_KEY,
             shortcut: model.navigation().shortcut.end,
             canExecute: () => {
                 if (nav.isActive()) {
-                    const newColumn = site.newColumn;
+                    const newColumn = site.lastColumn;
                     return newColumn >= 0 && model.navigation().go.canExecute(context('end', { newColumn }));
                 }
 
@@ -23,7 +23,7 @@ export class NavigationGoEndCommand extends Command {
             execute: () => {
                 const newRow = site.currentRow;
                 const newColumn = site.lastColumn;
-                return model.navigation().go.execute(context('end', { newRow, newColumn })) !== true && nav.gotTo(newRow, newColumn);
+                return model.navigation().go.execute(context('end', { newRow, newColumn })) !== true && nav.goTo(newRow, newColumn);
             }
         });
     }
