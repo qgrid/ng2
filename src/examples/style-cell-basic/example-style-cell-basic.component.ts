@@ -4,7 +4,7 @@ import { DataService, Atom } from '../data.service';
 import { StyleCellContext, Column } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = [
-	'style-cells-basic',
+	'style-cell-basic',
 	'Some cells have custom style'
 ];
 

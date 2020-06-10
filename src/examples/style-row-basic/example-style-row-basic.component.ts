@@ -4,7 +4,7 @@ import { DataService, Atom } from '../data.service';
 import { StyleRowContext } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = [
-	'style-rows-basic',
+	'style-row-basic',
 	'Rows have custom style'
 ];
 
