@@ -11,6 +11,8 @@
         "drag-row-node": 3000
     },
     "ignoreList": [
-        "live-data-basic"
+        "live-data-basic",
+        "dynamic-column-model",
+        "hierarchy-browser-basic"
     ]
 }

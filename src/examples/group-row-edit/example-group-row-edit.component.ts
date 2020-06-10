@@ -3,7 +3,7 @@ import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
 const EXAMPLE_TAGS = [
-	'group-row-basic',
+	'group-row-edit',
 	'Cells in grouped rows can be edited'
 ];
 

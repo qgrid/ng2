@@ -6,11 +6,11 @@ When('I enter {string} into {string} field', (text: string, field: string) => en
 When('I click "Is Female" checkbox', () => clickIsFemale());
 
 function getEditButton(index) {
-	return element.all(by.xpath('//*[(text()=\'edit\')]')).get(index);
+	return element.all(by.xpath('//*[(text()=\' edit \')]')).get(index);
 }
 
 function getEditFormBody() {
-	return element(by.css('.q-grid-edit-form-body'));
+	return element(by.css('.q-grid-edit-form-card'));
 }
 
 function getFormInput(field) {
