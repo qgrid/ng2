@@ -25,7 +25,6 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 
 	constructor(
 		private plugin: GridPlugin,
-		private qgrid: Grid,
 		private cd: ChangeDetectorRef,
 		private zone: NgZone,
 		private view: GridLet,
@@ -127,18 +126,6 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 					}
 				}
 			});
-
-		const listener = new EventListener(this.elementRef.nativeElement, new EventManager(this));
-
-		this.zone.runOutsideAngular(() => {
-			disposable.add(listener.on('mousemove', e => this.host.mouseMove(e)));
-			disposable.add(listener.on('mouseleave', e => this.host.mouseLeave(e)));
-			disposable.add(listener.on('mouseup', e => this.host.mouseUp(e)));
-		});
-
-		disposable.add(
-			listener.on('mousedown', e => this.host.mouseDown(e))
-		);
 
 		if (model.scroll().mode === 'virtual') {
 			const asVirtualBody = table.body as any;

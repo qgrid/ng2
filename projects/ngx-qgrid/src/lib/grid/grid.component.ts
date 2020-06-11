@@ -34,6 +34,7 @@ import { LayerService } from '../layer/layer.service';
 import { PivotState } from '@qgrid/core/pivot/pivot.state';
 import { ScrollState, ScrollStateMode } from '@qgrid/core/scroll/scroll.state';
 import { SelectionState, SelectionStateMode, SelectionStateUnit, SelectionStateArea } from '@qgrid/core/selection/selection.state';
+import { ShortcutService } from '../shortcut/shortcut.service';
 import { SortState, SortStateMode } from '@qgrid/core/sort/sort.state';
 import { StateAccessor } from '../state/state-accessor';
 import { StyleRowCallback, StyleCellCallback, StyleState } from '@qgrid/core/style/style.state';
@@ -56,6 +57,7 @@ import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
 		TemplateLinkService,
 		TemplateService,
 		StateAccessor,
+		ShortcutService,
 	],
 	styleUrls: ['../../../../assets/index.scss'],
 	templateUrl: './grid.component.html',
@@ -132,7 +134,6 @@ export class GridComponent implements OnInit, OnChanges {
 		private cd: ChangeDetectorRef,
 		private stateAccessor: StateAccessor,
 		private modelBuilder: GridModelBuilder,
-		@Inject(DOCUMENT) private document: any,
 		theme: ThemeService,
 	) {
 		if (!theme.component) {
@@ -150,7 +151,7 @@ export class GridComponent implements OnInit, OnChanges {
 			this.setup();
 		}
 
-		const { model, disposable, observe } = this.plugin;
+		const { model, observe } = this.plugin;
 		const { nativeElement } = this.elementRef;
 
 		if (nativeElement.classList.length) {
@@ -161,43 +162,10 @@ export class GridComponent implements OnInit, OnChanges {
 			});
 		}
 
-		const host = new GridHost(
-			nativeElement, 
+		new GridHost(
+			nativeElement,
 			this.plugin,
-			);
-		const listener = new EventListener(nativeElement, new EventManager(this));
-		const docListener = new EventListener(this.document, new EventManager(this));
-
-		this.zone.runOutsideAngular(() => {
-			disposable.add(
-				docListener.on('focusin', () => host.invalidateActive())
-			);
-
-			disposable.add(
-				docListener.on('mousedown', e => {
-					const path = eventPath(e);
-					const clickedOutside = path.every(x => x !== nativeElement);
-					if (clickedOutside) {
-						if (model.edit().status === 'edit') {
-							model.edit({
-								status: 'view'
-							}, {
-								source: 'document.click'
-							});
-						}
-					}
-				}));
-
-
-			disposable.add(
-				listener.on('keyup', e => host.keyUp(e, 'grid'))
-			);
-		});
-
-		disposable.add(
-			listener.on('keydown', e => host.keyDown(e, 'grid'))
 		);
-
 
 		observe(model.visibilityChanged)
 			.subscribe(() => this.cd.detectChanges());
