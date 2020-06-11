@@ -1,7 +1,7 @@
 import { Command } from '../command/command';
 import { commandKey } from '../command/command.key';
+import { FocusAfterRenderService } from '../focus/focus.service';
 import { GridError } from '../infrastructure/error';
-import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
 
 export const SORT_TOGGLE_COMMAND_KEY = commandKey('sort.toggle.command');
@@ -51,6 +51,8 @@ export class SortToggleCommand extends Command {
                     const order = sortService.orderFactory(model);
                     order(sortBy);
                 }
+
+                new FocusAfterRenderService(plugin);
 
                 model.sort({
                     by: sortBy

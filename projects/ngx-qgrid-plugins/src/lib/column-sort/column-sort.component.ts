@@ -14,7 +14,7 @@ import { EventListener } from '@qgrid/core/event/event.listener';
 import { EventManager } from '@qgrid/core/event/event.manager';
 import { FocusAfterRender } from '../focus/focus.service';
 import { GridPlugin } from '@qgrid/ngx';
-import { SORT_TOGGLE_COMMAND_KEY } from '@qgrid/core/command-bag/sort.toggle.command.d copy';
+import { SORT_TOGGLE_COMMAND_KEY } from '@qgrid/core/command-bag/sort.toggle.command';
 
 @Component({
 	selector: 'q-grid-column-sort',
@@ -56,8 +56,6 @@ export class ColumnSortComponent implements AfterViewInit {
 		listener.on('click', () => {
 			if (toggleSort.canExecute(this.column) === true) {
 				toggleSort.execute(this.column);
-				// tslint:disable-next-line:no-unused-expression
-				new FocusAfterRender(this.plugin);
 			}
 		});
 
