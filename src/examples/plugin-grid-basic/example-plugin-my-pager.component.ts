@@ -30,11 +30,10 @@ export class ExamplePluginMyPagerComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const { shortcut, manager } = this.model.action();
-		shortcut.register(manager, [
-			this.gotoNext,
-			this.gotoPrev
-		]);
+		const { commandPalette } = this.plugin;
+
+		commandPalette.register(this.gotoNext);
+		commandPalette.register(this.gotoPrev);
 
 		// If onPush is used, need to trigger change detection manually.
 		this.model.paginationChanged.on(() => this.cd.detectChanges());

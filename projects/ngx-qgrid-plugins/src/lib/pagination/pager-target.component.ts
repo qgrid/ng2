@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Shortcut } from '@qgrid/core/shortcut/shortcut';
 import { GridPlugin } from '@qgrid/ngx';
-import { FocusAfterRender } from '../focus/focus.service';
+import { Keyboard } from '@qgrid/core/keyboard/keyboard';
 
 @Component({
 	selector: 'q-grid-pager-target',
@@ -24,7 +23,7 @@ export class PagerTargetComponent implements OnInit {
 	}
 
 	keyDown(e: KeyboardEvent) {
-		let code = Shortcut.translate(e);
+		let code = Keyboard.translate(e.code);
 		if (code.startsWith('numpad')) {
 			code = code.slice(6);
 		}

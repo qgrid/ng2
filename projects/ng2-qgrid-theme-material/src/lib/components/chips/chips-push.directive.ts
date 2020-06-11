@@ -8,8 +8,8 @@ import {
 	NgZone
 } from '@angular/core';
 import { MatChipInput } from '@angular/material/chips';
-import { Shortcut } from 'ng2-qgrid';
 import { ChipsDirective } from './chips.directive';
+import { Keyboard } from '@qgrid/core/keyboard/keyboard';
 
 @Directive({
 	selector: '[q-grid-chips-push]'
@@ -30,7 +30,7 @@ export class ChipsPushDirective implements AfterViewInit {
 		const input = this.inputElement.nativeElement;
 		this.zone.runOutsideAngular(() =>
 			input.addEventListener('keydown', e => {
-				const code = Shortcut.translate(e);
+				const code = Keyboard.translate(e.code);
 				if (code === 'enter') {
 					const value = (input.value || '').trim() as string;
 					if (value) {

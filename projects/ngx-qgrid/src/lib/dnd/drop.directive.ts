@@ -84,7 +84,7 @@ export class DropDirective implements OnInit {
 			inAreaY: this.inAreaFactory(e, 'y')
 		};
 
-		if (this.drop.canExecute(eventArg)) {
+		if (this.drop.canExecute(eventArg) === true) {
 			this.drop.execute(eventArg);
 		}
 
@@ -126,7 +126,7 @@ export class DropDirective implements OnInit {
 			inAreaY: this.inAreaFactory(e, 'y')
 		};
 
-		if (this.dragOver.canExecute(eventArg)) {
+		if (this.dragOver.canExecute(eventArg) === true) {
 			this.dragOver.execute(eventArg);
 			if (DragService.data !== eventArg.dragData) {
 				DragService.data = eventArg.dragData;

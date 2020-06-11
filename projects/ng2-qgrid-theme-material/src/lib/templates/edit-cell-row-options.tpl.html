@@ -9,7 +9,8 @@
     </ng-container>
 
     <mat-menu #menu="matMenu"
-              class="q-grid-row-options">
+              class="q-grid-row-options"
+              q-grid-shortcut-host="document">
         <ng-container *ngFor="let $action of $cell.column.editorOptions.actions"
                       [ngSwitch]=$action.title>
 
@@ -20,11 +21,10 @@
                     mat-menu-item
                     [q-grid-command]="$action.command"
                     q-grid-command-event="mousedown"
-                    q-grid-command-host="document"
                     [q-grid-command-arg]="$cell"
-                    [q-grid-command-use-shortcut]="true"
                     (keydown.enter)="$action.command.canExecute($cell) === true && $action.command.execute($cell)"
-                    (q-grid-command-execute)="$view.edit.cell.cancel.execute($cell)">
+                    (keydown.enter)="$action.command.canExecute($cell) === true && $view.edit.cell.cancel.execute($cell)"
+                    (click)="$action.command.canExecute($cell) === true && $view.edit.cell.cancel.execute($cell)">
                 <mat-icon class="q-grid-icon">{{$action.icon}}</mat-icon>
                 <span>{{$action.title}}</span>
                 <span *ngIf="$action.command.shortcut"

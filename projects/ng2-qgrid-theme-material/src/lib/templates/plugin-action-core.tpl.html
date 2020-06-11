@@ -1,7 +1,7 @@
 <ng-template key="plugin-action-core.tpl.html"
 			 let-$action>
 	<div class="q-grid-action"
-		 [ngClass]="'q-grid-action-' + $action.id"
+		 [ngClass]="'q-grid-action-' + $action.command.key.name"
 		 [ngSwitch]="!!$action.templateUrl">
 
 		<ng-container *ngSwitchCase="true"
@@ -14,7 +14,6 @@
 			<button *ngIf="$action.icon"
 					mat-icon-button
 					[q-grid-command]="$action.command"
-					[q-grid-command-use-shortcut]="true"
 					[matTooltip]="$action.title + ($action.command.shortcut ? ' (' + ($action.command.shortcut | uppercase) + ')' : '')"
 					[matTooltipShowDelay]="800"
 					tabindex="-1">
@@ -24,14 +23,12 @@
 			<button *ngIf="!$action.icon && $action.title"
 					mat-button
 					[q-grid-command]="$action.command"
-					[q-grid-command-use-shortcut]="true"
 					tabindex="-1">
 				{{$action.title + ($action.command.shortcut ? ' (' + ($action.command.shortcut | uppercase) + ')' : '')}}
 			</button>
 
 			<ng-container *ngIf="!$action.icon && !$action.title"
-						  [q-grid-command]="$action.command"
-						  [q-grid-command-use-shortcut]="true">
+						  [q-grid-command]="$action.command">
 			</ng-container>
 
 		</ng-container>

@@ -6,11 +6,11 @@ import {
 	ViewChild,
 	ChangeDetectionStrategy
 } from '@angular/core';
-import { GridError } from '@qgrid/ngx';
+import { GridError, ShortcutService } from '@qgrid/ngx';
 import { EventListener } from '@qgrid/core/event/event.listener';
 import { EventManager } from '@qgrid/core/event/event.manager';
-import { Shortcut } from '@qgrid/core/shortcut/shortcut';
 import { GridPlugin } from '@qgrid/ngx';
+import { Keyboard } from '@qgrid/core/keyboard/keyboard';
 
 @Component({
 	selector: 'q-grid-tab-trap',
@@ -30,10 +30,14 @@ export class TabTrapComponent {
 
 	traps = new Map<string, any>();
 
-	constructor(private plugin: GridPlugin, elementRef: ElementRef) {
+	constructor(
+		private plugin: GridPlugin,
+		private shortcutService: ShortcutService,
+		elementRef: ElementRef
+	) {
 		const listener = new EventListener(elementRef.nativeElement, new EventManager(this));
 		listener.on('keydown', e => {
-			const code = Shortcut.translate(e);
+			const code = Keyboard.translate(e.code);
 			if (code === 'tab' || code === 'shift+tab') {
 				e.stopPropagation();
 			}
@@ -59,14 +63,10 @@ export class TabTrapComponent {
 
 	exit(target) {
 		const e = {
-			key: 'Tab',
-			keyCode: 9,
-			shiftKey: target === 'start'
+			code: 'Tab',
 		};
 
-		const { model } = this.plugin;
-		const shortcut = model.action().shortcut;
-		shortcut.keyDown(e, 'tab-trap');
+		this.shortcutService.keyDown(e);
 	}
 
 	goRound(target) {
