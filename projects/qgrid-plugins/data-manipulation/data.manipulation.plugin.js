@@ -202,9 +202,14 @@ export class DataManipulationPlugin {
 			});
 
 		disposable.add(() => {
-			const { items } = model.action();
-			const notDMActions = items.filter(x => this.actions.every(y => y.id !== x.id));
-			model.action({ items: notDMActions });
+			model.action({
+				items: model
+					.action()
+					.items
+					.filter(x => this.actions.indexOf(x) < 0)
+			}, {
+				source: 'data.manipulation.component'
+			});
 		});
 
 		observeReply(model.columnListChanged)
