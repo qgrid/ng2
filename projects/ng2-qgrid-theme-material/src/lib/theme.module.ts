@@ -69,7 +69,8 @@ import {
 	VisibilityModule,
 	VscrollModule,
 	MarkupModule,
-	ChangeDetectorModule
+	ChangeDetectorModule,
+	ShortcutModule
 } from 'ng2-qgrid';
 
 @NgModule({
@@ -88,6 +89,7 @@ import {
 		DndModule,
 		VscrollModule,
 		ResizeModule,
+		ShortcutModule,
 
 		ChipsModule,
 		SelectModule,

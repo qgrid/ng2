@@ -1,7 +1,4 @@
 import { Action } from './action';
-import { Shortcut } from '../shortcut/shortcut';
-import { CommandManager } from '../command/command.manager';
-import { Resource } from '../resource/resource';
 
 /**
  * Use this class to handle and visualize custom user behaviors.
@@ -10,7 +7,7 @@ import { Resource } from '../resource/resource';
  * ### Usage
  *
  * ```javascript
- * const addRowCommand = new qgrid.Command({
+ * const addRowCommand = new Command({
  *   execute: () => {
  *      const newRow = {
  *		 id: 1,
@@ -24,7 +21,7 @@ import { Resource } from '../resource/resource';
  *   shortcut: 'F7'
  *});
  *
- * const addRowAction = new qgrid.Action({
+ * const addRowAction = new Action({
  *    command: addRowCommand,
  *    title: 'Add new row',
  *    icon: 'add'
@@ -42,16 +39,4 @@ export declare class ActionState {
 	 * and bind to the keyboard events.
 	 */
 	items: Action[];
-
-	/**
-	 * The service that connects keyboard events and commands.
-	 */
-	shortcut: Shortcut;
-
-	/**
-	 * Command manager is responsible for 2 questions:
-	 * * What commands can be executed?
-	 * * How/in what order commands should be executed?
-	 */
-	manager: CommandManager;
 }

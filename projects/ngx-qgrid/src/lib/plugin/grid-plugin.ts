@@ -1,18 +1,21 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { CommandPalette } from '@qgrid/core/command/command.palette';
 import { Disposable } from '../infrastructure/disposable';
 import { DomTable } from '../dom/dom';
 import { Event } from '@qgrid/core/event/event';
+import { Grid, GridService } from '../grid/grid';
 import { GridLet } from '@qgrid/core/grid/grid.let';
 import { GridLet as NgxGridLet } from '../grid/grid-let';
 import { GridModel } from '../grid/grid-model';
 import { GridRoot } from '../grid/grid-root';
-import { ObservableLike, ObservableEvent, ObservableReplyEvent } from '@qgrid/core/rx/rx';
-import { Grid, GridService } from '../grid/grid';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Lazy } from '@qgrid/core/infrastructure/lazy';
+import { ObservableLike, ObservableEvent, ObservableReplyEvent } from '@qgrid/core/rx/rx';
+import { ShortcutService } from '../shortcut/shortcut.service';
 
 @Injectable()
 export class GridPlugin implements OnDestroy {
 	private serviceLazy = new Lazy(() => this.qgrid.service(this.$root.model));
+	private commandPaletteLazy = new Lazy(() =>  new CommandPalette(this.model, this.shortcutService.shortcut));
 
 	readonly disposable = new Disposable();
 
@@ -27,7 +30,8 @@ export class GridPlugin implements OnDestroy {
 	constructor(
 		private $view: NgxGridLet,
 		private $root: GridRoot,
-		private qgrid: Grid
+		private qgrid: Grid,
+		private shortcutService: ShortcutService,
 	) {
 	}
 
@@ -47,6 +51,10 @@ export class GridPlugin implements OnDestroy {
 
 	get service(): GridService {
 		return this.serviceLazy.instance;
+	}
+
+	get commandPalette(): CommandPalette {
+		return this.commandPaletteLazy.instance;
 	}
 
 	ngOnDestroy() {

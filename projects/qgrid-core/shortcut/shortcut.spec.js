@@ -93,16 +93,16 @@ describe('Shortcut', () => {
 		});
 	});
 
-	describe('translate', () => {
-		it('should translate keyCode to a string by using codemap set', () => {
-			let result = Shortcut.translate(event);
-			expect(result).to.equal('ctrl+escape');
-		});
-		it('should translate keyCode to a string by using String.fromCharCode', () => {
-			let result = Shortcut.translate(eventA);
-			expect(result).to.equal('shift+a');
-		});
-	});
+	// describe('translate', () => {
+	// 	it('should translate keyCode to a string by using codemap set', () => {
+	// 		let result = Shortcut.translate(event);
+	// 		expect(result).to.equal('ctrl+escape');
+	// 	});
+	// 	it('should translate keyCode to a string by using String.fromCharCode', () => {
+	// 		let result = Shortcut.translate(eventA);
+	// 		expect(result).to.equal('shift+a');
+	// 	});
+	// });
 
 	describe('factory/register/keyDown', () => {
 		it('should return true if shortcut was registered and executed', () => {

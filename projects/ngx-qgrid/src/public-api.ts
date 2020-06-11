@@ -55,6 +55,13 @@ export { ResizeModule } from './lib/resize/resize.module';
 export { ChangeDetectorModule } from './lib/change-detector/change-detector.module';
 export { DirtyDirective } from './lib/change-detector/dirty.directive';
 
+export { ShortcutModule } from './lib/shortcut/shortcut.module';
+export { ShortcutHostDirective } from './lib/shortcut/shortcut-host.directive';
+export { ShortcutPipe } from './lib/shortcut/shortcut.pipe';
+export { ShortcutService } from './lib/shortcut/shortcut.service';
+
+export { EventModule } from './lib/event/event.module';
+
 export {
 	DomTr,
 	DomTd,

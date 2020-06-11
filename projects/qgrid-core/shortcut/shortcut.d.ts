@@ -1,27 +1,18 @@
-import { ShortcutDispatcher } from './shortcut.dispatcher';
-import { KeyCode } from './key.code';
-import { CommandManager } from '../command/command.manager';
 import { Command } from '../command/command';
+import { CommandManager } from '../command/command.manager';
 
 export declare class Shortcut {
-	constructor(manager: ShortcutDispatcher);
+	constructor(commandManager: CommandManager);
 
-	static isControl(keyCode: KeyCode): boolean;
-	static isPrintable(keyCode: KeyCode): boolean;
-	static stringify(keyCode: KeyCode): string;
-	static translate(e: KeyboardEvent): string;
+	getCommands(): Command<any>[];
 
-	factory(commandManager: CommandManager): {
-		register: (commands: Command[]) => void
-	};
+	keyDown(event: { code: string }): void;
 
-	keyDown(
-		e: {
-			key: string, 
-			keyCode: number, 
-			shiftKey: boolean
-		},
-		source?: string): string[];
+	keyUp(event: { code: string }): void;
 
-	register(commandManager: CommandManager, commands: Command[]): () => void;
+	register(command: Command<any>): void;
+
+	unregister(command: Command<any>): void;
+
+	reset(): void;
 }

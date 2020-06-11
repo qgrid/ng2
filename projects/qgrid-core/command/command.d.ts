@@ -1,6 +1,13 @@
-import { CommandContext } from './command.context';
 import { SubjectLike } from '../rx/rx';
 import { CommandKey } from './command.key';
+
+export interface CommandContext<T = any> {
+	readonly key: CommandKey<T>;
+	readonly priority: number;
+	readonly execute: (e?: T) => any;
+	readonly canExecute: (e?: T) => boolean;
+	readonly shortcut: string;
+}
 
 /**
  * Use this class to implement command pattern in the qgrid. The most of interactions in the q-grid are utilized by this pattern.
@@ -8,7 +15,7 @@ import { CommandKey } from './command.key';
  * ### Create a command using q-grid facade.
  *
  * ```javascript
- *	const addRowCommand = new qgrid.Command({
+ *	const addRowCommand = new Command({
  *	   canExecute: () => true,	    
  *	   execute: () => {
  *	      const newRow = {
@@ -47,7 +54,7 @@ export declare class Command<T = any> {
 	 * Sometimes interaction model requires to return a value, for example, default command manager 
 	 * stops to process next commands if false is returned by the command execute method.
      */
-    execute: (e?: T) => boolean | void;
+    execute: (e?: T) => any;
 
     /**
      * A sequence of keyboard key codes to execute the command. 
@@ -56,9 +63,9 @@ export declare class Command<T = any> {
      * * shift+a
      * * ctrl+s
      * * f2
-     *
+     * * alt\+[0-1]
      */
-    shortcut: string;
+    shortcut: string | RegExp;
 
     /**
      * Command priority that can be used by command manager to specify order of commands to execute. 
@@ -70,5 +77,5 @@ export declare class Command<T = any> {
 	/**
 	 * Indicates an origin of the command.
 	 */
-	key: CommandKey<T>;
+    key: CommandKey<T>;
 }

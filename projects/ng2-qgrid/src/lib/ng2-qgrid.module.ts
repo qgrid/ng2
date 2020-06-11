@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 
 import {
-	GridModule,
+	ChangeDetectorModule,
 	ColumnListModule,
 	ColumnModule,
 	DndModule,
+	EventModule,
+	GridModule,
+	LayerModule,
 	ResizeModule,
 	RowModule,
+	ShortcutModule,
 	TemplateModule,
 	ThemeModule,
 	ToolbarModule,
 	VscrollModule,
-	LayerModule,
-	ChangeDetectorModule,
 } from '@qgrid/ngx';
 
 import {
@@ -56,16 +58,18 @@ import {
 
 @NgModule({
 	exports: [
-		GridModule,
 		ColumnListModule,
 		ColumnModule,
-		ToolbarModule,
-		RowModule,
-		VscrollModule,
-		ThemeModule,
-		ResizeModule,
 		DndModule,
+		GridModule,
+		ResizeModule,
+		RowModule,
+		ShortcutModule,
+		EventModule,
 		TemplateModule,
+		ThemeModule,
+		ToolbarModule,
+		VscrollModule,
 
 		ActionBarModule,
 		AltModule,

@@ -1,85 +1,121 @@
 import { Keyboard } from '../keyboard/keyboard';
+import { isString } from '../utility/kit';
+import { GridError } from '../infrastructure/error';
+
+export const SHORTCUT_KEY_SEPARATOR = '+';
+export const SHORTCUT_SEPARATOR = '|';
 
 export class Shortcut {
-	constructor(dispatcher) {
-		this.dispatcher = dispatcher;
-		this.keyCode = {
-			key: null,
-			code: null
-		};
+	constructor(commandManager) {
+		this.textCommands = new Map();
+		this.regexpCommands = [];
+
+		this.pressedKeys = [];
+		this.commandManager = commandManager;
 	}
 
-	static isControl(keyCode) {
-		if (!keyCode) {
-			return false;
+	keyDown(event) {
+		const key = this.getKey(event);
+		if (this.pressedKeys.indexOf(key) < 0) {
+			this.pressedKeys.push(key);
 		}
 
-		const code = keyCode.code;
-		const parts = code.split('+');
-		return parts.some(part => part === 'ctrl' || part === 'alt') ||
-			parts.every(part => Keyboard.isControl(part));
+		const shortcut = this.pressedKeys.join(SHORTCUT_KEY_SEPARATOR);
+		const commands = this.findCommands(shortcut);
+		if (commands.length) {
+			const canRunCommands = this.commandManager.filter(commands);
+			const stopPropagate = this.commandManager.invoke(canRunCommands);
+
+			if (stopPropagate) {
+				event.preventDefault();
+				event.stopImmediatePropagation();
+			}
+		}
+
+		return true;
 	}
 
-	static isPrintable(keyCode) {
-		if (!keyCode) {
-			return false;
-		}
-
-		const code = keyCode.code;
-		const parts = code.split('+');
-		return parts.some(part => Keyboard.isPrintable(part));
+	keyUp(event) {
+		const key = this.getKey(event);
+		const index = this.pressedKeys.indexOf(key);
+		this.pressedKeys.splice(index, 1);
 	}
 
-	static stringify(keyCode) {
-		if (!keyCode) {
-			return '';
-		}
+	register(command) {
+		if (isString(command.shortcut)) {
+			const shortcutList = this.parse(command.shortcut);
+			shortcutList
+				.forEach(shortcut => {
+					if (this.textCommands.has(shortcut)) {
+						const commands = this.textCommands.get(shortcut);
+						if (commands.indexOf(command) >= 0) {
+							throw new GridError(
+								'shortcut',
+								`Command ${command.key.name} is already registered`
+							);
+						}
 
-		return Keyboard.stringify(keyCode.code, keyCode.key);
+						commands.push(command);
+					} else {
+						this.textCommands.set(shortcut, [command]);
+					}
+				});
+		} else if (command.shortcut instanceof RegExp) {
+			this.regexpCommands.push(command);
+		}
 	}
 
-	static translate(e) {
-		const codes = [];
-		const code = Keyboard.translate(e.keyCode).toLowerCase();
-		if (e.ctrlKey) {
-			codes.push('ctrl');
+	unregister(command) {
+		const regexpIndex = this.regexpCommands.indexOf(command);
+		if (regexpIndex >= 0) {
+			this.regexpCommands.splice(regexpIndex, 1);
+			return;
 		}
 
-		if (e.shiftKey) {
-			codes.push('shift');
-		}
+		const shortcutList = this.parse(command.shortcut);
+		shortcutList
+			.forEach(shortcut => {
+				if (this.textCommands.has(shortcut)) {
+					const commands = this.textCommands.get(shortcut);
+					const index = commands.indexOf(command);
+					if (index < 0) {
+						throw new GridError(
+							'shortcut.service',
+							`Can't find command ${command.key.name} in the list`
+						);
+					}
 
-		if (e.altKey) {
-			codes.push('alt');
-		}
-
-		if (code !== 'ctrl' &&
-			code !== 'shift' &&
-			code !== 'alt') {
-			codes.push(code);
-		}
-
-		return codes.join('+');
+					commands.splice(index, 1);
+					if (!commands.length) {
+						this.textCommands.delete(shortcut);
+					}
+				}
+			});
 	}
 
-	factory(manager) {
-		const self = this;
-		return {
-			register: commands => self.register(manager, commands)
-		};
+	reset() {
+		this.pressedKeys = [];
 	}
 
-	keyDown(e, source) {
-		const code = Shortcut.translate(e);
-		this.keyCode = {
-			key: e.key,
-			code: code
-		};
-
-		return this.dispatcher.execute(code, source);
+	findCommands(shortcut) {
+		const commands = this.textCommands.get(shortcut) || [];
+		const regexpCommands = this.regexpCommands.filter(cmd => cmd.shortcut.test(shortcut));
+		return commands.concat(regexpCommands);
 	}
 
-	register(manager, commands) {
-		return this.dispatcher.register(manager, commands);
+	getKey(event) {
+		return Keyboard.translate(event.code);
+	}
+
+	parse(shortcut) {
+		return shortcut
+			.split(SHORTCUT_SEPARATOR)
+			.filter(part => !!part)
+			.map(part => part
+				.split(SHORTCUT_KEY_SEPARATOR)
+				.filter(key => !!key)
+				.join(SHORTCUT_KEY_SEPARATOR)
+				.toLowerCase()
+			);
 	}
 }
