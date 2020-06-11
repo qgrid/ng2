@@ -8,7 +8,7 @@ export const EDIT_CELL_CANCEL_COMMAND_KEY = commandKey('edit.cell.cancel.command
 
 export class EditCellCancelCommand extends Command {
     constructor(plugin) {
-        const { model, view } = plugin;
+        const { model, table, view } = plugin;
         const getShortcut = editCellShortcutFactory(plugin);
 
         super({

@@ -7,7 +7,7 @@ export const CLIPBOARD_COPY_COMMAND_KEY = commandKey('clipboard.copy.command');
 
 export class ClipboardCopyCommand extends Command {
     constructor(plugin) {
-        const { model } = plugin;
+        const { model, table } = plugin;
 
         super({
             key: CLIPBOARD_COPY_COMMAND_KEY,

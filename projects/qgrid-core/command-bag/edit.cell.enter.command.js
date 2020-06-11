@@ -9,7 +9,7 @@ export const EDIT_CELL_ENTER_COMMAND_KEY = commandKey('edit.cell.enter.command')
 
 export class EditCellEnterCommand extends Command {
     constructor(plugin) {
-        const { model, view } = plugin;
+        const { model, table, view } = plugin;
         const getShortcut = editCellShortcutFactory(plugin);
 
         super({
@@ -17,7 +17,9 @@ export class EditCellEnterCommand extends Command {
             priority: 1,
             shortcut: getShortcut('enter'),
             canExecute: cell => {
+                const editLet = view.edit.cell;
                 cell = cell || model.navigation().cell;
+
                 const canEdit =
                     cell
                     && cell.column.canEdit

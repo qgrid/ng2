@@ -1,5 +1,6 @@
 import { Command } from '../command/command';
 import { commandKey } from '../command/command.key';
+import { FocusAfterRenderService } from '../focus/focus.service';
 
 export const PAGINATION_NEXT_COMMAND_KEY = commandKey('pagination.next.command');
 
