@@ -33,6 +33,7 @@ export class ActionBarComponent implements OnInit {
 	}
 
 	get actions(): Action[] {
-		return this.plugin.model.action().items;
+		const { model } = this.plugin;
+		return model.action().items;
 	}
 }

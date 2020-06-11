@@ -47,13 +47,13 @@ export class ReferenceEditorComponent implements AfterViewInit {
 		const { model } = this;
 		const { commit, cancel } = this.reference;
 
-		const { commitShortcuts, cancelShortcuts } = model.edit();
+		const { commitShortcut, cancelShortcut } = model.edit();
 		const selectionService = new SelectionService(model);
 
 		// TODO: think how to get rid of this shit.
 		setTimeout(() => {
 			this.submit = new Command({
-				shortcut: commitShortcuts.form,
+				shortcut: commitShortcut.form,
 				canExecute: () => {
 					const { items } = model.selection();
 					const entries = selectionService.lookup(items);
@@ -76,7 +76,7 @@ export class ReferenceEditorComponent implements AfterViewInit {
 			});
 
 			this.cancel = new Command({
-				shortcut: cancelShortcuts.form || cancelShortcuts.$default,
+				shortcut: cancelShortcut.form || cancelShortcut.$default,
 				canExecute: () => cancel.canExecute(),
 				execute: () => {
 					if (cancel.execute() !== false) {
@@ -87,10 +87,10 @@ export class ReferenceEditorComponent implements AfterViewInit {
 				}
 			});
 
-			const { shortcut, manager } = model.action();
-			this.disposable.add(
-				shortcut.register(manager, [this.submit, this.cancel])
-			);
+			// const { shortcut, manager } = model.action();
+			// this.disposable.add(
+			// 	shortcut.register(manager, [this.submit, this.cancel])
+			// );
 		}, 0);
 	}
 }

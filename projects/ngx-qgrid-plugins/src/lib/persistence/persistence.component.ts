@@ -21,16 +21,21 @@ export class PersistenceComponent implements OnInit {
 
 	ngOnInit() {
 		const { model, disposable } = this.plugin;
+
 		const id = `q-grid:${model.grid().id}:persistence-list`;
-		model.persistence({ id });
+
+		model.persistence({
+			id
+		});
+
 		model.persistence()
 			.storage
 			.getItem(id)
-			.then((items: PersistenceItem[]) => {
-				if (!items || items.length === 0) {
+			.then((entries: PersistenceItem[]) => {
+				if (!entries || entries.length === 0) {
 					return;
 				}
-				const defaultItem = items.find(item => item.isDefault);
+				const defaultItem = entries.find(item => item.isDefault);
 				if (defaultItem) {
 					const persistenceService = new PersistenceService(model, () => this.modelBuilder.build());
 					persistenceService.load(defaultItem.model);
@@ -45,14 +50,23 @@ export class PersistenceComponent implements OnInit {
 			);
 
 		action.templateUrl = 'plugin-persistence.tpl.html';
-		action.id = 'persistence';
 
 		const items = Composite.list([model.action().items, [action]]);
-		model.action({ items }, { source: 'persistence.component' });
+		model.action({
+			items
+		}, {
+			source: 'persistence.component'
+		});
 
 		disposable.add(() => {
-			const notPersistenceActions = model.action().items.filter(x => x.id !== action.id);
-			model.action({ items: notPersistenceActions }, { source: 'persistence.component' });
+			model.action({
+				items: model
+					.action()
+					.items
+					.filter(x => x !== action)
+			}, {
+				source: 'persistence.component'
+			});
 		});
 	}
 }

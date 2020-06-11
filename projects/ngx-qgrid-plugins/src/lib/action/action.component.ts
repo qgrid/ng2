@@ -27,31 +27,32 @@ export class ActionComponent implements OnInit {
 
 	ngOnInit() {
 		const { model, disposable } = this.plugin;
-		const hasCommand = !!this.command;
-		const command = this.command || new Command();
-		if (!(hasCommand || this.id)) {
-			throw new GridError('action.component', '`Command` or `id` is missed');
-		}
+		const action = new Action(
+			this.command || new Command(),
+			this.title,
+			this.icon
+		);
 
-		const action = new Action(command, this.title, this.icon);
-		action.id = this.id;
-		if (!hasCommand) {
+		if (this.id) {
 			action.templateUrl = `action-trigger-${this.id}.tpl.html`;
 		}
 
-		const actions = Array.from(model.action().items);
-		actions.push(action);
-
-		model.action({ items: actions }, { source: 'action.component' });
-
-		disposable.add(() => {
-			const { items } = model.action();
-			const index = items.indexOf(action);
-			if (index >= 0) {
-				const newItems = Array.from(items);
-				newItems.splice(index, 1);
-				model.action({ items: newItems });
-			}
+		model.action({
+			items: model
+				.action()
+				.items
+				.concat([action])
+		}, {
+			source: 'action.component'
 		});
+
+		disposable.add(() =>
+			model.action({
+				items: model
+					.action()
+					.items
+					.filter(x => x !== action)
+			})
+		);
 	}
 }
