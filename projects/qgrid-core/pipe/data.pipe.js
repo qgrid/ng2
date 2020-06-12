@@ -4,14 +4,8 @@ import { generateFactory } from '../column-list/column.list.generate';
 export function dataPipe(rows, context, next) {
 	const { model } = context;
 
-	model.pipe({
-		effect: Object.assign({}, model.pipe().effect, { data: rows })
-	});
-
 	addDataRows(model, rows);
 	addDataColumns(model);
-
-	next(rows);
 
 	model.pipe({
 		effect: Object.assign({}, model.pipe().effect, { data: rows })
@@ -19,6 +13,8 @@ export function dataPipe(rows, context, next) {
 		source: 'data.pipe',
 		behavior: 'core'
 	});
+	
+	next(rows);
 }
 
 function addDataRows(model, rows) {
