@@ -1,5 +1,5 @@
 import { Keyboard } from '../keyboard/keyboard';
-import { isString } from '../utility/kit';
+import { isString, isFunction } from '../utility/kit';
 import { GridError } from '../infrastructure/error';
 
 export const SHORTCUT_KEY_SEPARATOR = '+';
@@ -7,8 +7,9 @@ export const SHORTCUT_SEPARATOR = '|';
 
 export class Shortcut {
 	constructor(commandManager) {
-		this.textCommands = new Map();
-		this.regexpCommands = [];
+		this.textRefs = new Map();
+		this.regexpRefs = [];
+		this.funcRefs = [];
 
 		this.pressedKeys = [];
 		this.commandManager = commandManager;
@@ -20,8 +21,8 @@ export class Shortcut {
 			this.pressedKeys.push(key);
 		}
 
-		const shortcut = this.pressedKeys.join(SHORTCUT_KEY_SEPARATOR);
-		const commands = this.findCommands(shortcut);
+		const keys = this.pressedKeys.join(SHORTCUT_KEY_SEPARATOR);
+		const commands = this.findCommands(keys);
 		if (commands.length) {
 			const canRunCommands = this.commandManager.filter(commands);
 			const stopPropagate = this.commandManager.invoke(canRunCommands);
@@ -42,52 +43,76 @@ export class Shortcut {
 	}
 
 	register(command) {
-		if (isString(command.shortcut)) {
-			const shortcutList = this.parse(command.shortcut);
-			shortcutList
-				.forEach(shortcut => {
-					if (this.textCommands.has(shortcut)) {
-						const commands = this.textCommands.get(shortcut);
-						if (commands.indexOf(command) >= 0) {
-							throw new GridError(
-								'shortcut',
-								`Command ${command.key.name} is already registered`
-							);
-						}
+		const type = this.getType(command.shortcut);
+		switch (type) {
+			case 'text': {
+				const keysList = this.parse(command.shortcut);
+				keysList
+					.forEach(keys => {
+						if (this.textRefs.has(keys)) {
+							const commands = this.textRefs.get(keys);
+							if (commands.indexOf(command) >= 0) {
+								throw new GridError(
+									'shortcut',
+									`Command ${command.key.name} is already registered`
+								);
+							}
 
-						commands.push(command);
-					} else {
-						this.textCommands.set(shortcut, [command]);
-					}
-				});
-		} else if (command.shortcut instanceof RegExp) {
-			this.regexpCommands.push(command);
+							commands.push(command);
+						} else {
+							this.textRefs.set(keys, [command]);
+						}
+					});
+				break;
+			}
+			case 'regexp': {
+				if(this.regexpRefs.indexOf(command) >= 0) {
+					throw new GridError(
+						'shortcut',
+						`Command ${command.key.name} is already registered`
+					);
+				}
+
+				this.regexpRefs.push(command);
+				break;
+			}
+			case 'func': {
+				if(this.funcRefs.indexOf(command) >= 0) {
+					throw new GridError(
+						'shortcut',
+						`Command ${command.key.name} is already registered`
+					);
+				}
+
+				this.funcRefs.push(command);
+				break;
+			}
 		}
 	}
 
 	unregister(command) {
-		const regexpIndex = this.regexpCommands.indexOf(command);
+		const regexpIndex = this.regexpRefs.indexOf(command);
 		if (regexpIndex >= 0) {
-			this.regexpCommands.splice(regexpIndex, 1);
+			this.regexpRefs.splice(regexpIndex, 1);
 			return;
 		}
 
-		const shortcutList = this.parse(command.shortcut);
-		shortcutList
-			.forEach(shortcut => {
-				if (this.textCommands.has(shortcut)) {
-					const commands = this.textCommands.get(shortcut);
+		const keysList = this.parse(command.shortcut);
+		keysList
+			.forEach(keys => {
+				if (this.textRefs.has(keys)) {
+					const commands = this.textRefs.get(keys);
 					const index = commands.indexOf(command);
 					if (index < 0) {
 						throw new GridError(
-							'shortcut.service',
+							'shortcut',
 							`Can't find command ${command.key.name} in the list`
 						);
 					}
 
 					commands.splice(index, 1);
 					if (!commands.length) {
-						this.textCommands.delete(shortcut);
+						this.textRefs.delete(keys);
 					}
 				}
 			});
@@ -97,14 +122,46 @@ export class Shortcut {
 		this.pressedKeys = [];
 	}
 
-	findCommands(shortcut) {
-		const commands = this.textCommands.get(shortcut) || [];
-		const regexpCommands = this.regexpCommands.filter(cmd => cmd.shortcut.test(shortcut));
-		return commands.concat(regexpCommands);
+	findCommands(keys) {
+		const fromText = this.textRefs.get(keys) || [];
+		const fromRegexp = this.regexpRefs.filter(cmd => cmd.shortcut.test(keys));
+		const fromFunc = this.funcRefs.filter(cmd => {
+			const shortcut = cmd.shortcut();
+			const type = this.getType(shortcut);
+			switch(type) {
+				case 'text': {
+					const keysList = this.parse(shortcut);
+					return keysList.some(retKeys => retKeys === keys);
+				}
+				case 'regexp': {
+					return shortcut.test(keys);
+				}
+			}
+
+			return false;
+		});
+
+		return fromText.concat(fromRegexp).concat(fromFunc);
 	}
 
 	getKey(event) {
 		return Keyboard.translate(event.code);
+	}
+
+	getType(shortcut) {
+		if (isString(shortcut)) {
+			return 'text';
+		}
+
+		if (shortcut instanceof RegExp) {
+			return 'regexp';
+		}
+
+		if (isFunction(shortcut)) {
+			return 'func';
+		}
+
+		return null;
 	}
 
 	parse(shortcut) {

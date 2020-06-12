@@ -68,7 +68,7 @@ export class Navigation {
 	}
 
 	isActive() {
-		const { model } = this.plugin;
+		const { model, table } = this.plugin;
 		if (model.edit().status === 'view') {
 			return true;
 		}

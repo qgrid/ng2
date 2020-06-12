@@ -1,74 +1,74 @@
 import { Injectable } from '@angular/core';
 
 const codes = new Map()
-	.set('BracketLeft', '[')
-	.set('BracketRight', ']')
-	.set('Semicolon', ';')
-	.set('Minus', '-')
-	.set('Equal', '=')
-	.set('Period', '.')
-	.set('Slash', '/')
-	.set('NumpadDivide', 'numdivide')
-	.set('NumpadMultiply', 'nummultiply')
-	.set('NumpadSubtract', 'numsubtract')
-	.set('NumpadAdd', 'numadd')
-	.set('NumpadEnter', 'numenter')
-	.set('NumpadDecimal', 'numdecimal')
-	.set('ShiftLeft', 'shift')
-	.set('ShiftRight', 'shift')
-	.set('ControlLeft', 'ctrl')
-	.set('ControlRight', 'ctrl')
-	.set('AltLeft', 'alt')
-	.set('AltRight', 'alt')
-	.set('ArrowLeft', 'left')
-	.set('ArrowUp', 'up')
-	.set('ArrowRight', 'right')
-	.set('ArrowDown', 'down')
-	.set('Numpad0', 'numpad0')
-	.set('Numpad1', 'numpad1')
-	.set('Numpad2', 'numpad2')
-	.set('Numpad3', 'numpad3')
-	.set('Numpad4', 'numpad4')
-	.set('Numpad5', 'numpad5')
-	.set('Numpad6', 'numpad6')
-	.set('Numpad7', 'numpad7')
-	.set('Numpad8', 'numpad8')
-	.set('Numpad9', 'numpad9')
-	.set('F1', 'f1')
-	.set('F2', 'f2')
-	.set('F3', 'f3')
-	.set('F4', 'f4')
-	.set('F5', 'f5')
-	.set('F6', 'f6')
-	.set('F7', 'f7')
-	.set('F8', 'f8')
-	.set('F9', 'f9')
-	.set('F10', 'f10')
-	.set('F11', 'f11')
-	.set('F12', 'f12')
-	.set('Pause', 'pause')
-	.set('Quote', 'quote')
-	.set('Backquote', '`')
-	.set('Backslash', 'backslash')
-	.set('Backspace', 'backspace')
-	.set('Tab', 'tab')
-	.set('Enter', 'enter')
-	.set('CapsLock', 'capslock')
-	.set('Escape', 'esc')
-	.set('Space', 'space')
-	.set('PageUp', 'pageup')
-	.set('PageDown', 'pagedown')
-	.set('End', 'end')
-	.set('Home', 'home')
-	.set('Insert', 'insert')
-	.set('Delete', 'delete')
-	.set('NumLock', 'numlock')
-	.set('ScrollLock', 'scrolllock')
-	.set('Comma', 'comma')
-	.set('MetaLeft', '')
-	.set('MetaRight', '')
-	.set('ContextMenu', '')
-	.set('IntlBackslash', '');
+	.set('bracketleft', '[')
+	.set('bracketright', ']')
+	.set('semicolon', ';')
+	.set('minus', '-')
+	.set('equal', '=')
+	.set('period', '.')
+	.set('slash', '/')
+	.set('numpaddivide', 'numdivide')
+	.set('numpadmultiply', 'nummultiply')
+	.set('numpadsubtract', 'numsubtract')
+	.set('numpadadd', 'numadd')
+	.set('numpadenter', 'numenter')
+	.set('numpaddecimal', 'numdecimal')
+	.set('shiftleft', 'shift')
+	.set('shiftright', 'shift')
+	.set('controlleft', 'ctrl')
+	.set('controlright', 'ctrl')
+	.set('altleft', 'alt')
+	.set('altright', 'alt')
+	.set('arrowleft', 'left')
+	.set('arrowup', 'up')
+	.set('arrowright', 'right')
+	.set('arrowdown', 'down')
+	.set('numpad0', 'numpad0')
+	.set('numpad1', 'numpad1')
+	.set('numpad2', 'numpad2')
+	.set('numpad3', 'numpad3')
+	.set('numpad4', 'numpad4')
+	.set('numpad5', 'numpad5')
+	.set('numpad6', 'numpad6')
+	.set('numpad7', 'numpad7')
+	.set('numpad8', 'numpad8')
+	.set('numpad9', 'numpad9')
+	.set('f1', 'f1')
+	.set('f2', 'f2')
+	.set('f3', 'f3')
+	.set('f4', 'f4')
+	.set('f5', 'f5')
+	.set('f6', 'f6')
+	.set('f7', 'f7')
+	.set('f8', 'f8')
+	.set('f9', 'f9')
+	.set('f10', 'f10')
+	.set('f11', 'f11')
+	.set('f12', 'f12')
+	.set('pause', 'pause')
+	.set('quote', 'quote')
+	.set('backquote', '`')
+	.set('backslash', 'backslash')
+	.set('backspace', 'backspace')
+	.set('tab', 'tab')
+	.set('enter', 'enter')
+	.set('capslock', 'capslock')
+	.set('escape', 'esc')
+	.set('space', 'space')
+	.set('pageup', 'pageup')
+	.set('pagedown', 'pagedown')
+	.set('end', 'end')
+	.set('home', 'home')
+	.set('insert', 'insert')
+	.set('delete', 'delete')
+	.set('numlock', 'numlock')
+	.set('scrolllock', 'scrolllock')
+	.set('comma', 'comma')
+	.set('metaleft', '')
+	.set('metaright', '')
+	.set('contextmenu', '')
+	.set('intlbackslash', '');
 
 const controls = new Set([
 	'shift',
@@ -109,8 +109,23 @@ const modifiers = new Set([
 	'alt'
 ]);
 
+const nonPrintableSet = new Set([
+	'enter',
+	'backspace',
+	'tab',
+	'capslock',
+	'esc'
+]);
+
+const printableMap = new Map()
+	.set('space', ' ');
+
 export class Keyboard {
-	static isControlKey(key) {
+	static isPrintable(key) {
+		return !nonPrintableSet.has(key) && !Keyboard.isControl(key);
+	}
+
+	static isControl(key) {
 		return controls.has(key.toLowerCase());
 	}
 
@@ -118,10 +133,9 @@ export class Keyboard {
 		return modifiers.has(key.toLowerCase());
 	}
 
-	static stringify(code) {
-		const key = Keyboard.translate(code);
-		if (codeSet.has(code)) {
-			return printableMap.get(code) || '';
+	static stringify(key) {
+		if (codes.has(key)) {
+			return printableMap.get(key) || '';
 		}
 
 		return key;
@@ -131,9 +145,11 @@ export class Keyboard {
 		if (!code) {
 			return;
 		}
+
+		code = code.toLowerCase();
 		return codes.get(code) || (
-			code.startsWith('Key') || code.startsWith('Digit')
-				? code.charAt(code.length - 1).toLowerCase() : ''
+			code.startsWith('key') || code.startsWith('digit')
+				? code.charAt(code.length - 1) : ''
 		);
 	}
 }

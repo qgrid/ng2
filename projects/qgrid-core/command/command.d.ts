@@ -2,11 +2,11 @@ import { SubjectLike } from '../rx/rx';
 import { CommandKey } from './command.key';
 
 export interface CommandContext<T = any> {
-	readonly key: CommandKey<T>;
-	readonly priority: number;
-	readonly execute: (e?: T) => any;
-	readonly canExecute: (e?: T) => boolean;
-	readonly shortcut: string;
+    readonly key: CommandKey<T>;
+    readonly priority: number;
+    readonly execute: (e?: T) => any;
+    readonly canExecute: (e?: T) => boolean;
+    readonly shortcut: string;
 }
 
 /**
@@ -65,7 +65,7 @@ export declare class Command<T = any> {
      * * f2
      * * alt\+[0-1]
      */
-    shortcut: string | RegExp;
+    shortcut: () => (string | RegExp) | string | RegExp;
 
     /**
      * Command priority that can be used by command manager to specify order of commands to execute. 

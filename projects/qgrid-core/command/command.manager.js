@@ -5,6 +5,8 @@ export class CommandManager {
 
 		for (const cmd of priorityCommands) {
 			let stopPropagate = cmd.execute() === true;
+			cmd.canExecuteCheck.next();
+
 			if (stopPropagate) {
 				return true;
 			}

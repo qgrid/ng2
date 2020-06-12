@@ -48,24 +48,24 @@ describe('Shortcut', () => {
 		shiftKey: 'shift'
 	};
 
-	describe('isControl', () => {
-		it('should return true', () => {
-			let result = Shortcut.isControl(someKeyCode);
-			expect(result).to.equal(true);
-		});
-		it('should return true', () => {
-			let result = Shortcut.isControl(everyKeyCode);
-			expect(result).to.equal(true);
-		});
-		it('should return false if passed incorrect string', () => {
-			let result = Shortcut.isControl(incorrectCode);
-			expect(result).to.equal(false);
-		});
-		it('should return false if no arguments are specified', () => {
-			let result = Shortcut.isControl();
-			expect(result).to.equal(false);
-		});
-	});
+	// describe('isControl', () => {
+	// 	it('should return true', () => {
+	// 		let result = Shortcut.isControl(someKeyCode);
+	// 		expect(result).to.equal(true);
+	// 	});
+	// 	it('should return true', () => {
+	// 		let result = Shortcut.isControl(everyKeyCode);
+	// 		expect(result).to.equal(true);
+	// 	});
+	// 	it('should return false if passed incorrect string', () => {
+	// 		let result = Shortcut.isControl(incorrectCode);
+	// 		expect(result).to.equal(false);
+	// 	});
+	// 	it('should return false if no arguments are specified', () => {
+	// 		let result = Shortcut.isControl();
+	// 		expect(result).to.equal(false);
+	// 	});
+	// });
 
 	describe('isPrintable', () => {
 		it('should return true', () => {
@@ -93,16 +93,16 @@ describe('Shortcut', () => {
 		});
 	});
 
-	// describe('translate', () => {
-	// 	it('should translate keyCode to a string by using codemap set', () => {
-	// 		let result = Shortcut.translate(event);
-	// 		expect(result).to.equal('ctrl+escape');
-	// 	});
-	// 	it('should translate keyCode to a string by using String.fromCharCode', () => {
-	// 		let result = Shortcut.translate(eventA);
-	// 		expect(result).to.equal('shift+a');
-	// 	});
-	// });
+	describe('translate', () => {
+		it('should translate keyCode to a string by using codemap set', () => {
+			let result = Shortcut.translate(event);
+			expect(result).to.equal('ctrl+esc');
+		});
+		it('should translate keyCode to a string by using String.fromCharCode', () => {
+			let result = Shortcut.translate(eventA);
+			expect(result).to.equal('shift+a');
+		});
+	});
 
 	describe('factory/register/keyDown', () => {
 		it('should return true if shortcut was registered and executed', () => {

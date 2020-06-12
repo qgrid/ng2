@@ -10,7 +10,7 @@ export const EDIT_CELL_COMMIT_COMMAND_KEY = commandKey('edit.cell.commit.command
 
 export class EditCellCommitCommand extends Command {
     constructor(plugin) {
-        const { model, table } = plugin;
+        const { model, table, view } = plugin;
         const getShortcut = editCellShortcutFactory(plugin);
 
         super({
@@ -18,7 +18,7 @@ export class EditCellCommitCommand extends Command {
             priority: 1,
             shortcut: getShortcut('commit'),
             canExecute: cell => {
-                const editLet = edit.cell.view;
+                const editLet = view.edit.cell;
                 cell = cell || editLet.editor.td;
 
                 const canEdit = cell
@@ -45,7 +45,7 @@ export class EditCellCommitCommand extends Command {
                 return false;
             },
             execute: cell => {
-                const editLet = edit.cell.view;
+                const editLet = view.edit.cell;
                 cell = cell || editLet.editor.td;
 
                 if (cell) {

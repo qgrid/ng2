@@ -4,6 +4,7 @@ import { editCellContextFactory } from '../edit/edit.cell.context.factory';
 import { editCellShortcutFactory } from '../edit/edit.cell.shortcut.factory';
 import { Keyboard } from '../keyboard/keyboard';
 import { CellEditor } from '../edit/edit.cell.editor';
+import { parseFactory } from '../services/convert';
 
 export const EDIT_CELL_ENTER_COMMAND_KEY = commandKey('edit.cell.enter.command');
 
@@ -19,6 +20,11 @@ export class EditCellEnterCommand extends Command {
             canExecute: cell => {
                 const editLet = view.edit.cell;
                 cell = cell || model.navigation().cell;
+
+                const { codes } = model.keyboard();
+                if (codes.length && Keyboard.isControl(model.keyboard().codes[0])) {
+                    return false;
+                }
 
                 const canEdit =
                     cell
@@ -54,10 +60,10 @@ export class EditCellEnterCommand extends Command {
                     if (model.edit().enter.execute(clientContext) !== true) {
                         const td = table.body.cell(cell.rowIndex, cell.columnIndex).model();
                         editLet.editor = new CellEditor(td);
-                        const keyCode = model.keyboard().codes[0];
-                        if (keyCode && Keyboard.isPrintable(keyCode)) {
+                        const code = model.keyboard().codes[0];
+                        if (code && Keyboard.isPrintable(code)) {
                             const parse = parseFactory(cell.column.type, cell.column.editor);
-                            const value = Keyboard.stringify(keyCode);
+                            const value = Keyboard.stringify(code);
                             const typedValue = parse(value);
                             if (typedValue !== null) {
                                 editLet.value = typedValue;

@@ -16,7 +16,7 @@ export class EditState {
 		this.clear = new Command();
 
 		this.cancelShortcut = {
-			'$default': 'escape'
+			'$default': 'esc'
 		};
 
 		this.enterShortcut = {

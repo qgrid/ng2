@@ -7,6 +7,7 @@ import {
 	SimpleChanges,
 	OnInit,
 	AfterViewInit,
+	NgZone,
 } from '@angular/core';
 import { Disposable, GridPlugin } from '@qgrid/ngx';
 import { Command } from '@qgrid/core/command/command';
@@ -32,18 +33,21 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 	constructor(
 		private disposable: Disposable,
 		private elementRef: ElementRef,
-		private plugin: GridPlugin
+		private plugin: GridPlugin,
+		private zone: NgZone,
 	) {
 	}
 
 	ngOnInit() {
 		const { nativeElement } = this.elementRef;
 
-		nativeElement
-			.addEventListener(
-				this.commandEvent,
-				e => this.execute(e)
-			);
+		this.zone.runOutsideAngular(() =>
+			nativeElement
+				.addEventListener(
+					this.commandEvent,
+					e => this.execute(e)
+				)
+		);
 	}
 
 	ngDoCheck() {
