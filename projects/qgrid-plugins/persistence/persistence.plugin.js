@@ -114,7 +114,7 @@ export class PersistencePlugin {
 					persistence().modify.canExecute(this.state.editItem)
 			}),
 			cancel: new Command({
-				shortcut: 'escape',
+				shortcut: 'esc',
 				execute: () => {
 					if (this.state.editItem !== null) {
 						const index = this.items.indexOf(this.state.editItem);

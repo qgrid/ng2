@@ -16,6 +16,7 @@ import { SelectionLet } from '../selection/selection.let';
 import { SortLet } from '../sort/sort.let';
 import { StyleLet } from '../style/style.let';
 import { ClipboardLet } from '../clipboard/clipboard.let';
+import { CommandBag } from '../command-bag/command.bag';
 
 export function viewFactory(
 	plugin,
@@ -53,6 +54,8 @@ export function viewFactory(
 			);
 		}
 	};
+
+	new CommandBag(plugin);
 
 	return host => {
 		host.head = new HeadLet(plugin, selectors.th);
