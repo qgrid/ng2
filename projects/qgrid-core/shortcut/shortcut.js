@@ -1,4 +1,3 @@
-import { Keyboard } from '../keyboard/keyboard';
 import { isString, isFunction } from '../utility/kit';
 import { GridError } from '../infrastructure/error';
 
@@ -15,10 +14,9 @@ export class Shortcut {
 		this.commandManager = commandManager;
 	}
 
-	keyDown(event) {
-		const key = this.getKey(event);
-		if (this.pressedKeys.indexOf(key) < 0) {
-			this.pressedKeys.push(key);
+	keyDown(code) {
+		if (this.pressedKeys.indexOf(code) < 0) {
+			this.pressedKeys.push(code);
 		}
 
 		const keys = this.pressedKeys.join(SHORTCUT_KEY_SEPARATOR);
@@ -26,19 +24,14 @@ export class Shortcut {
 		if (commands.length) {
 			const canRunCommands = this.commandManager.filter(commands);
 			const stopPropagate = this.commandManager.invoke(canRunCommands);
-
-			if (stopPropagate) {
-				event.preventDefault();
-				event.stopImmediatePropagation();
-			}
+			return stopPropagate;
 		}
 
-		return true;
+		return false;
 	}
 
-	keyUp(event) {
-		const key = this.getKey(event);
-		const index = this.pressedKeys.indexOf(key);
+	keyUp(code) {
+		const index = this.pressedKeys.indexOf(code);
 		this.pressedKeys.splice(index, 1);
 	}
 
@@ -142,10 +135,6 @@ export class Shortcut {
 		});
 
 		return fromText.concat(fromRegexp).concat(fromFunc);
-	}
-
-	getKey(event) {
-		return Keyboard.translate(event.code);
 	}
 
 	getType(shortcut) {

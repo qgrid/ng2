@@ -1,10 +1,10 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
-import { HIGHLIGHT_ROW_COMMAND_KEY } from './highlight.row.command';
-import { HIGHLIGHT_COLUMN_COMMAND_KEY } from './highlight.column.command';
-import { HIGHLIGHT_CELL_COMMAND_KEY } from './highlight.cell.command';
-
-export const HIGHLIGHT_CLEAR_COMMAND_KEY = commandKey('highlight.clear.command');
+import { 
+	HIGHLIGHT_ROW_COMMAND_KEY,
+	HIGHLIGHT_COLUMN_COMMAND_KEY,
+	HIGHLIGHT_CELL_COMMAND_KEY,
+	HIGHLIGHT_CLEAR_COMMAND_KEY,
+ } from './command.bag';
 
 export class HighlightClearCommand extends Command {
 	constructor(plugin) {

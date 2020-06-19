@@ -1,9 +1,6 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { SelectionRange } from '../selection/selection.range';
-import { SELECTION_SET_COMMAND_KEY } from './selection.set.command';
-
-export const SELECTION_RANGE_COMMAND_KEY = commandKey('selection.range.command');
+import { SELECTION_RANGE_COMMAND_KEY, SELECTION_SET_COMMAND_KEY } from './command.bag';
 
 export class SelectionRangeCommand extends Command {
     constructor(plugin) {

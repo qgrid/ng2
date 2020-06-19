@@ -6,14 +6,14 @@ export declare class EventHost {
 		plugin: GridPlugin
 	);
 
-	keyDown(e: any, source?: string): string[];
-	keyUp(e: any, source?: string): string[];
+	keyDown(e: KeyboardEvent): boolean;
+	keyUp(e: KeyboardEvent): void;
 	keyRelease(): void;
 
-	mouseDown(e: MouseEvent): void;
+	mouseDown(e: MouseEvent): boolean;
 	mouseMove(e: MouseEvent): void;
 	mouseLeave(e: MouseEvent): void;
 	mouseUp(e: MouseEvent): void;
 
-	focusChange(): void;
+	checkFocus(): void;
 }

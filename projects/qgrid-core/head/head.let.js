@@ -1,6 +1,4 @@
-import { ColumnDragCommand } from '../command-bag/column.drag.command';
-import { ColumnDropCommand } from '../command-bag/column.drop.command';
-import { ColumnResizeCommand } from '../command-bag/column.resize.command';
+import { COLUMN_DRAG_COMMAND_KEY,  COLUMN_DROP_COMMAND_KEY, COLUMN_RESIZE_COMMAND_KEY } from '../command-bag/command.bag';
 import { FilterRowColumn } from '../column-type/filter.row.column';
 import { GRID_PREFIX } from '../definition';
 import * as columnService from '../column/column.service';
@@ -13,13 +11,9 @@ export class HeadLet {
 		this.tagName = tagName;
 		this.rows = [];
 
-		this.drop = new ColumnDropCommand(plugin);
-		this.drag = new ColumnDragCommand(plugin);
-		this.resize = new ColumnResizeCommand(plugin);
-
-		commandPalette.register(this.drop);
-		commandPalette.register(this.drag);
-		commandPalette.register(this.resize);
+		this.drop = commandPalette.get(COLUMN_DROP_COMMAND_KEY);
+		this.drag = commandPalette.get(COLUMN_DRAG_COMMAND_KEY);
+		this.resize = commandPalette.get(COLUMN_RESIZE_COMMAND_KEY);
 
 		observeReply(model.dataChanged)
 			.subscribe(e => {

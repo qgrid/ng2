@@ -1,11 +1,13 @@
 import { CellEditor } from './edit.cell.editor';
-import { EditCellEnterCommand } from '../command-bag/edit.cell.enter.command';
-import { EditCellCommitCommand } from '../command-bag/edit.cell.commit.command';
-import { EditCellPushCommand } from '../command-bag/edit.cell.push.command';
-import { EditCellCancelCommand } from '../command-bag/edit.cell.cancel.command';
-import { EditCellResetCommand } from '../command-bag/edit.cell.reset.command';
-import { EditCellExitCommand } from '../command-bag/edit.cell.exit.command';
-import { EditCellClearCommand } from '../command-bag/edit.cell.clear.command';
+import {
+	EDIT_CELL_CANCEL_COMMAND_KEY,
+	EDIT_CELL_CLEAR_COMMAND_KEY,
+	EDIT_CELL_COMMIT_COMMAND_KEY,
+	EDIT_CELL_ENTER_COMMAND_KEY,
+	EDIT_CELL_EXIT_COMMAND_KEY,
+	EDIT_CELL_PUSH_COMMAND_KEY,
+	EDIT_CELL_RESET_COMMAND_KEY
+} from '../command-bag/command.bag';
 
 
 export class EditCellLet {
@@ -17,21 +19,13 @@ export class EditCellLet {
 		this.editor = CellEditor.empty;
 		this.requestClose = null;
 
-		this.enter = new EditCellEnterCommand(plugin);
-		this.commit = new EditCellCommitCommand(plugin);
-		this.push = new EditCellPushCommand(plugin);
-		this.cancel = new EditCellCancelCommand(plugin);
-		this.reset = new EditCellResetCommand(plugin);
-		this.exit = new EditCellExitCommand(plugin);
-		this.clear = new EditCellClearCommand(plugin);
-
-		commandPalette.register(this.enter);
-		commandPalette.register(this.commit);
-		commandPalette.register(this.push);
-		commandPalette.register(this.cancel);
-		commandPalette.register(this.reset);
-		commandPalette.register(this.exit);
-		commandPalette.register(this.clear);
+		this.enter = commandPalette.get(EDIT_CELL_ENTER_COMMAND_KEY);
+		this.commit = commandPalette.get(EDIT_CELL_COMMIT_COMMAND_KEY);
+		this.push = commandPalette.get(EDIT_CELL_PUSH_COMMAND_KEY);
+		this.cancel = commandPalette.get(EDIT_CELL_CANCEL_COMMAND_KEY);
+		this.reset = commandPalette.get(EDIT_CELL_RESET_COMMAND_KEY);
+		this.exit = commandPalette.get(EDIT_CELL_EXIT_COMMAND_KEY);
+		this.clear = commandPalette.get(EDIT_CELL_CLEAR_COMMAND_KEY);
 
 		observeReply(model.editChanged)
 			.subscribe(e => {

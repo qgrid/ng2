@@ -1,11 +1,13 @@
+import {
+	HIGHLIGHT_CELL_COMMAND_KEY,
+	HIGHLIGHT_CLEAR_COMMAND_KEY,
+    HIGHLIGHT_COLUMN_COMMAND_KEY,
+	HIGHLIGHT_ROW_COMMAND_KEY,
+} from '../command-bag/command.bag';
 import { CellSelector } from '../cell/cell.selector';
 import { Fastdom } from '../services/fastdom';
 import { find, findLeaves } from '../node/node.service';
 import { GRID_PREFIX } from '../definition';
-import { HighlightCellCommand } from '../command-bag/highlight.cell.command';
-import { HighlightClearCommand } from '../command-bag/highlight.clear.command';
-import { HighlightColumnCommand } from '../command-bag/highlight.column.command';
-import { HighlightRowCommand } from '../command-bag/highlight.row.command';
 import { noop } from '../utility/kit';
 import { SelectionService } from '../selection/selection.service';
 import * as sortService from '../sort/sort.service';
@@ -24,15 +26,10 @@ export class HighlightLet {
 		let selectionBlurs = [];
 		let cellHoverBlurs = [];
 
-		this.column = new HighlightColumnCommand(plugin);
-		this.row = new HighlightRowCommand(plugin);
-		this.cell = new HighlightCellCommand(plugin);
-		this.clear = new HighlightClearCommand(plugin);
-
-		commandPalette.register(this.row);
-		commandPalette.register(this.column);
-		commandPalette.register(this.cell);
-		commandPalette.register(this.clear);
+		this.column = commandPalette.get(HIGHLIGHT_COLUMN_COMMAND_KEY);
+		this.row = commandPalette.get(HIGHLIGHT_ROW_COMMAND_KEY);
+		this.cell = commandPalette.get(HIGHLIGHT_CELL_COMMAND_KEY);
+		this.clear = commandPalette.get(HIGHLIGHT_CLEAR_COMMAND_KEY);
 
 		observeReply(model.selectionChanged)
 			.subscribe(e => {

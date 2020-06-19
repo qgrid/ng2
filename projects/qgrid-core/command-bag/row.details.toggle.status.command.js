@@ -1,14 +1,12 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { takeOnce, filter } from '../rx/rx.operators';
 import { toggleStatus } from '../row-details/row.details.service';
 import { selectRow } from '../navigation/navigation.state.selector';
-
-export const ROW_DETAILS_TOGGLE_STATUS_COMMAND_KEY = commandKey('row.details.toggle.status.command');
+import { ROW_DETAILS_TOGGLE_STATUS_COMMAND_KEY, NAVIGATION_GO_TO_COMMAND_KEY } from './command.bag';
 
 export class RowDetailsToggleStatusCommand extends Command {
     constructor(plugin) {
-        const { model } = plugin;
+        const { model, commandPalette } = plugin;
 
         super({
             key: ROW_DETAILS_TOGGLE_STATUS_COMMAND_KEY,
@@ -46,12 +44,11 @@ export class RowDetailsToggleStatusCommand extends Command {
                         .subscribe(e => {
                             const rowStatus = newStatus.get(row);
                             if (rowStatus && rowStatus.expand) {
-                                const index = model.view().rows.indexOf(row)
-                                model.focus({
-                                    rowIndex: index + 1
-                                }, {
-                                    source: 'row.details.toggle.status'
-                                });
+                                const goTo = commandPalette.get(NAVIGATION_GO_TO_COMMAND_KEY);
+                                const rowDetailsIndex = model.view().rows.indexOf(row) + 1;
+                                if (goTo.canExecute({ rowIndex: rowDetailsIndex })) {
+                                    goTo.execute({ rowIndex: rowDetailsIndex })
+                                }
                             }
                         });
                 }

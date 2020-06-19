@@ -1,6 +1,6 @@
 import { RowDetails } from './row.details';
 import { invalidateStatus } from './row.details.service';
-import { RowDetailsToggleStatusCommand } from '../command-bag/row.details.toggle.status.command';
+import { ROW_DETAILS_TOGGLE_STATUS_COMMAND_KEY } from '../command-bag/command.bag';
 
 export class RowDetailsLet {
 	constructor(plugin) {
@@ -8,8 +8,7 @@ export class RowDetailsLet {
 
 		this.plugin = plugin;
 
-		this.toggleStatus = new RowDetailsToggleStatusCommand(plugin);
-		commandPalette.register(this.toggleStatus);
+		this.toggleStatus = commandPalette.get(ROW_DETAILS_TOGGLE_STATUS_COMMAND_KEY);
 
 		observeReply(model.sceneChanged)
 			.subscribe(e => {

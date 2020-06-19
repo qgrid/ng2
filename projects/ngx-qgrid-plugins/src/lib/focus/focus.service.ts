@@ -1,6 +1,6 @@
 import { Injectable, Optional } from '@angular/core';
-import { FocusAfterRenderService } from '@qgrid/core/focus/focus.service';
 import { GridPlugin } from '@qgrid/ngx';
+import { FOCUS_AFTER_RENDER_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
 
 @Injectable()
 export class FocusAfterRender {
@@ -8,8 +8,9 @@ export class FocusAfterRender {
 		@Optional() plugin: GridPlugin,
 	) {
 		if (plugin) {
-			// tslint:disable-next-line:no-unused-expression
-			new FocusAfterRenderService(plugin);
+			const { commandPalette } = plugin;
+			const focusAfterRender = commandPalette.get(FOCUS_AFTER_RENDER_COMMAND_KEY);
+			focusAfterRender.execute();
 		}
 	}
 }

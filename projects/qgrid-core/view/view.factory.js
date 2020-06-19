@@ -14,9 +14,7 @@ import { RowLet } from '../row/row.let';
 import { ScrollLet } from '../scroll/scroll.let';
 import { SelectionLet } from '../selection/selection.let';
 import { SortLet } from '../sort/sort.let';
-import { StyleLet } from '../style/style.let';
-import { ClipboardLet } from '../clipboard/clipboard.let';
-import { CommandBag } from '../command-bag/command.bag';
+import { CommandLet } from '../command/command.let';
 
 export function viewFactory(
 	plugin,
@@ -55,25 +53,22 @@ export function viewFactory(
 		}
 	};
 
-	new CommandBag(plugin);
-
 	return host => {
-		host.head = new HeadLet(plugin, selectors.th);
 		host.body = new BodyLet(plugin);
-		host.foot = new FootLet(plugin);
-		host.row = new RowLet(plugin, selectors.tr);
-		host.layout = new LayoutLet(plugin);
-		host.scroll = new ScrollLet(plugin, vscroll);
-		host.highlight = new HighlightLet(plugin);
-		host.sort = new SortLet(plugin);
-		host.pagination = new PaginationLet(plugin);
-		host.nav = new NavigationLet(plugin, navigationShortcut);
-		host.group = new GroupLet(plugin, navigationShortcut);
+		host.command = new CommandLet(plugin);
 		host.edit = new EditLet(plugin, navigationShortcut);
 		host.filter = new FilterLet(plugin);
+		host.foot = new FootLet(plugin);
+		host.group = new GroupLet(plugin, navigationShortcut);
+		host.head = new HeadLet(plugin, selectors.th);
+		host.highlight = new HighlightLet(plugin);
+		host.layout = new LayoutLet(plugin);
+		host.nav = new NavigationLet(plugin, navigationShortcut);
+		host.pagination = new PaginationLet(plugin);
+		host.row = new RowLet(plugin, selectors.tr);
 		host.rowDetails = new RowDetailsLet(plugin, navigationShortcut);
+		host.scroll = new ScrollLet(plugin, vscroll);
 		host.selection = new SelectionLet(plugin, selectionShortcut);
-		host.style = new StyleLet(plugin);
-		host.clipboard = new ClipboardLet(plugin, navigationShortcut);
+		host.sort = new SortLet(plugin);
 	};
 }

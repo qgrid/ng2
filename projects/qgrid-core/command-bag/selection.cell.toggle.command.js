@@ -1,8 +1,5 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
-import { SELECTION_TOGGLE_COMMAND_KEY } from './selection.toggle.command';
-
-export const SELECTION_CELL_TOGGLE_COMMAND_KEY = commandKey('selection.cell.toggle.command');
+import { SELECTION_CELL_TOGGLE_COMMAND_KEY, SELECTION_TOGGLE_COMMAND_KEY } from './command.bag';
 
 export class SelectionCellToggleCommand extends Command {
     constructor(plugin) {

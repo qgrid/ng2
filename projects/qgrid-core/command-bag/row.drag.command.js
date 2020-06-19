@@ -1,9 +1,7 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { isNumber } from '../utility/kit';
 import { GRID_PREFIX } from '../definition';
-
-export const ROW_DRAG_COMMAND_KEY = commandKey('row.drag.command');
+import { ROW_DRAG_COMMAND_KEY } from './command.bag';
 
 export class RowDragCommand extends Command {
     constructor(plugin) {

@@ -1,9 +1,7 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { PipeUnit } from '../pipe/pipe.unit';
 import { selectRow, selectColumn } from '../navigation/navigation.state.selector';
-
-export const GROUP_STATUS_TOGGLE_COMMAND_KEY = commandKey('group.status.toggle.command');
+import { GROUP_STATUS_TOGGLE_COMMAND_KEY, GRID_INVALIDATE_COMMAND_KEY } from './command.bag';
 
 export class GroupStatusToggleCommand extends Command {
     constructor(plugin) {
@@ -36,10 +34,12 @@ export class GroupStatusToggleCommand extends Command {
                 const node = groupLet.getNode(row, column);
                 if (toggle.execute(node) !== true) {
                     node.state.expand = !node.state.expand;
-                    service.invalidate({
+
+                    const invalidate = commandPalette.get(GRID_INVALIDATE_COMMAND_KEY);
+                    invalidate.execute({
                         source: 'group.status.toggle.command',
                         pipe: PipeUnit.group,
-                        why: PipeUnit.group.why
+                        why: PipeUnit.group.wh
                     });
 
                     return true;

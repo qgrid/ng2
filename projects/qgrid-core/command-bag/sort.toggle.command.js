@@ -1,14 +1,11 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
-import { FocusAfterRenderService } from '../focus/focus.service';
 import { GridError } from '../infrastructure/error';
 import * as sortService from '../sort/sort.service';
-
-export const SORT_TOGGLE_COMMAND_KEY = commandKey('sort.toggle.command');
+import { SORT_TOGGLE_COMMAND_KEY, FOCUS_AFTER_RENDER_COMMAND_KEY } from './command.bag';
 
 export class SortToggleCommand extends Command {
     constructor(plugin) {
-        const { model } = plugin;
+        const { model, commandPalette } = plugin;
 
         super({
             key: SORT_TOGGLE_COMMAND_KEY,
@@ -52,8 +49,9 @@ export class SortToggleCommand extends Command {
                     order(sortBy);
                 }
 
-                new FocusAfterRenderService(plugin);
-
+                const focusAfterRender = commandPalette.get(FOCUS_AFTER_RENDER_COMMAND_KEY);
+                focusAfterRender.execute();
+                
                 model.sort({
                     by: sortBy
                 }, {

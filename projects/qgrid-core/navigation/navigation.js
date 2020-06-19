@@ -31,25 +31,6 @@ export class Navigation {
 		return { row, offset };
 	}
 
-	goTo(rowIndex, columnIndex, source = 'navigation') {
-		const { model } = this.plugin;
-
-		let cell = this.cell(rowIndex, columnIndex);
-		if (!cell) {
-			// TODO: make it better, right it just a huck for row-details,
-			// need to support rowspan and colspan
-			cell = this.cell(rowIndex, site.firstColumn);
-		}
-
-		model.navigation({
-			cell
-		}, {
-			source
-		});
-
-		return true;
-	}
-
 	cell(rowIndex, columnIndex) {
 		const { table } = this.plugin;
 		const cell = table.body.cell(rowIndex, columnIndex);

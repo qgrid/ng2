@@ -1,5 +1,4 @@
-import { PaginationNextCommand } from '@qgrid/core/command-bag/pagination.next.command';
-import { PaginationPreviousCommand } from '@qgrid/core/command-bag/pagination.previous.command';
+import { PAGINATION_PREVIOUS_COMMAND_KEY, PAGINATION_NEXT_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
 
 export class PagerPlugin {
 	constructor(plugin) {
@@ -7,11 +6,8 @@ export class PagerPlugin {
 
 		this.plugin = plugin;
 
-		this.next = new PaginationNextCommand(plugin);
-		this.prev = new PaginationPreviousCommand(plugin);
-
-		commandPalette.register(this.next);
-		commandPalette.register(this.prev);
+		this.next = commandPalette.get(PAGINATION_NEXT_COMMAND_KEY);
+		this.prev = commandPalette.get(PAGINATION_PREVIOUS_COMMAND_KEY);
 	}
 
 	get theme() {

@@ -1,8 +1,6 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { editCellContextFactory } from '../edit/edit.cell.context.factory';
-
-export const EDIT_CELL_RESET_COMMAND_KEY = commandKey('edit.cell.reset.command');
+import { EDIT_CELL_RESET_COMMAND_KEY } from './command.bag';
 
 export class EditCellResetCommand extends Command {
     constructor(plugin) {

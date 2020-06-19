@@ -1,4 +1,3 @@
-import { ColumnModel } from '../column-type/column.model';
 import { CellView } from '../scene/view/cell.view';
 import { Command } from '../command/command';
 
@@ -14,6 +13,4 @@ export declare class NavigationState {
 	go: Command;
 
 	shortcut: { [key: string]: string };
-
-	prevent: Set<string>;
 }

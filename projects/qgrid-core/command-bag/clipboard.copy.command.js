@@ -1,13 +1,11 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { copyToClipboard } from '../clipboard/clipboard';
 import { getFactory as labelFactory } from '../services/label';
-
-export const CLIPBOARD_COPY_COMMAND_KEY = commandKey('clipboard.copy.command');
+import { FOCUS_COMMAND_KEY, CLIPBOARD_COPY_COMMAND_KEY } from './command.bag';
 
 export class ClipboardCopyCommand extends Command {
     constructor(plugin) {
-        const { model, table } = plugin;
+        const { model, commandPalette } = plugin;
 
         super({
             key: CLIPBOARD_COPY_COMMAND_KEY,
@@ -25,7 +23,9 @@ export class ClipboardCopyCommand extends Command {
                     if (copy.execute() !== true) {
                         const getLabel = labelFactory(cell.column);
                         copyToClipboard(getLabel(cell.row));
-                        table.view.focus();
+
+                        const focus = commandPalette.get(FOCUS_COMMAND_KEY);
+                        focus.execute();
                     }
                 }
 

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { EditFormPanelPlugin } from '@qgrid/plugins/edit-form/edit.form.panel.plugin';
 import { GridPlugin, DomTd, Grid } from '@qgrid/ngx';
+import { GRID_INVALIDATE_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
 
 @Component({
 	selector: 'q-grid-edit-form',
@@ -32,14 +33,15 @@ export class EditFormComponent implements OnInit {
 		};
 
 		const editFormPanel = new EditFormPanelPlugin(this.plugin, context);
-		const { service } = this.plugin;
+		const { commandPalette } = this.plugin;
 
 		editFormPanel.cancelEvent.on(() => this.cancel.emit());
 		editFormPanel.resetEvent.on(() => this.reset.emit());
 		editFormPanel.submitEvent.on(() => {
 			this.submit.emit();
 
-			service.invalidate({
+			const invalidate = commandPalette.get(GRID_INVALIDATE_COMMAND_KEY);
+			invalidate.execute({
 				source: 'edit-form.component',
 				why: 'refresh'
 			});

@@ -1,7 +1,5 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
-
-export const COLUMN_RESIZE_COMMAND_KEY = commandKey('column.resize.command');
+import { COLUMN_RESIZE_COMMAND_KEY } from './command.bag';
 
 export class ColumnResizeCommand extends Command {
     constructor(plugin) {

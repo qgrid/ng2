@@ -1,7 +1,8 @@
-import { RowDragCommand } from '../command-bag/row.drag.command';
-import { CommandPalette } from '../command/command.palette';
-import { RowDropCommand } from '../command-bag/row.drop.command';
-import { RowResizeCommand } from '../command-bag/row.resize.command';
+import {
+	ROW_DRAG_COMMAND_KEY,
+	ROW_RESIZE_COMMAND_KEY,
+	ROW_DROP_COMMAND_KEY
+} from '../command-bag/command.bag';
 
 export class RowLet {
 	constructor(plugin, tagName) {
@@ -10,13 +11,9 @@ export class RowLet {
 		this.plugin = plugin;
 		this.tagName = tagName;
 
-		this.drop = new RowDropCommand(plugin);
-		this.drag = new RowDragCommand(plugin);
-		this.resize = new RowResizeCommand(plugin);
-
-		commandPalette.register(this.drag);
-		commandPalette.register(this.drop);
-		commandPalette.register(this.resize);
+		this.drop = commandPalette.get(ROW_DROP_COMMAND_KEY);
+		this.drag = commandPalette.get(ROW_DRAG_COMMAND_KEY);
+		this.resize = commandPalette.get(ROW_RESIZE_COMMAND_KEY);
 
 		observe(model.dataChanged)
 			.subscribe(e => {

@@ -1,9 +1,9 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
-import { EDIT_CELL_COMMIT_COMMAND_KEY } from './edit.cell.commit.command';
-import { EDIT_CELL_CANCEL_COMMAND_KEY } from './edit.cell.cancel.command';
-
-export const EDIT_CELL_EXIT_COMMAND_KEY = commandKey('edit.cell.exit.command');
+import { 
+    EDIT_CELL_EXIT_COMMAND_KEY, 
+    EDIT_CELL_COMMIT_COMMAND_KEY, 
+    EDIT_CELL_CANCEL_COMMAND_KEY 
+} from './command.bag';
 
 export class EditCellExitCommand extends Command {
     constructor(plugin) {

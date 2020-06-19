@@ -1,12 +1,10 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { navigationContextFactory } from '../navigation/navigation.context.factory';
-
-export const NAVIGATION_PAGE_UP_COMMAND_KEY = commandKey('navigation.page.up.command');
+import { NAVIGATION_PAGE_UP_COMMAND_KEY, NAVIGATION_GO_TO_COMMAND_KEY } from './command.bag';
 
 export class NavigationPageUpCommand extends Command {
     constructor(plugin, nav, site) {
-        const { model, table } = plugin;
+        const { model, table, commandPalette } = plugin;
         const context = navigationContextFactory(nav);
 
         super({
@@ -14,8 +12,13 @@ export class NavigationPageUpCommand extends Command {
             shortcut: model.navigation().shortcut.pageUp,
             canExecute: () => {
                 if (nav.isActive()) {
+                    const newColumn = site.currentColumn;
                     const newRow = site.prevRow;
-                    return newRow >= 0 && model.navigation().go.canExecute(context('pageUp', { newRow }));
+                    const goTo = commandPalette.get(NAVIGATION_GO_TO_COMMAND_KEY);
+
+                    return newRow >= 0
+                        && model.navigation().go.canExecute(context('pageUp', { newRow }))
+                        && goTo.canExecute({ rowIndex: newRow, columnIndex: newColumn });
                 }
 
                 return false;
@@ -25,6 +28,8 @@ export class NavigationPageUpCommand extends Command {
                 const position = nav.position(view.scrollTop() - view.height(), 'up');
                 const newRow = position.row;
                 const newColumn = site.currentColumn;
+                const goTo = commandPalette.get(NAVIGATION_GO_TO_COMMAND_KEY);
+
                 if (model.navigation().go.execute(context('pageUp', { newRow, newColumn })) !== true) {
                     model.scroll({
                         top: position.offset
@@ -32,11 +37,10 @@ export class NavigationPageUpCommand extends Command {
                         source: 'navigation.page.up.component'
                     });
 
-                    return nav.goTo(
-                        newRow,
-                        newColumn,
-                        'navigation.scroll'
-                    );
+                    return goTo.execute({
+                        rowIndex: newRow,
+                        columnIndex: newColumn
+                    });
                 }
 
                 return true;

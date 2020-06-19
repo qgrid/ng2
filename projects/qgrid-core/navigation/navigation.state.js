@@ -20,22 +20,5 @@ export class NavigationState {
 		};
 
 		this.go = new Command();
-
-		this.prevent = new Set([
-			'space',
-			'shift+space',
-			'up',
-			'down',
-			'left',
-			'right',
-			'tab',
-			'shift+tab',
-			'home',
-			'end',
-			'pageUp',
-			'pageDown',
-			'shift+pageDown',
-			'shift+pageUp'
-		]);
 	}
 }

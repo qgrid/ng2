@@ -12,9 +12,10 @@ import { ColumnFilterState } from '@qgrid/plugins/column-filter/column.filter.st
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { Fetch } from '@qgrid/core/infrastructure/fetch';
 import { FocusAfterRender } from '../focus/focus.service';
-import { GridPlugin, Grid, VscrollService, VscrollContext, TemplateService, GridError } from '@qgrid/ngx';
+import { GridPlugin, VscrollService, VscrollContext, TemplateService, GridError } from '@qgrid/ngx';
 import { Guard } from '@qgrid/core/infrastructure/guard';
-import { uniq, flatten } from '@qgrid/core/utility/kit';
+import { uniq, flatten, noop } from '@qgrid/core/utility/kit';
+import { BUSY_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
 
 @Component({
 	selector: 'q-grid-column-filter',
@@ -40,7 +41,6 @@ export class ColumnFilterComponent implements OnInit {
 	constructor(
 		private plugin: GridPlugin,
 		private vscroll: VscrollService,
-		private qgrid: Grid,
 		private cd: ChangeDetectorRef,
 		private templateService: TemplateService,
 		focusAfterRender: FocusAfterRender) {
@@ -54,7 +54,7 @@ export class ColumnFilterComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const { model } = this.plugin;
+		const { model, commandPalette } = this.plugin;
 		const { column } = this;
 
 		const context = { column };
@@ -74,11 +74,11 @@ export class ColumnFilterComponent implements OnInit {
 			threshold: columnFilter.state().threshold,
 			fetch: (skip, take, d) => {
 				const filterState = model.filter();
-				const service = this.qgrid.service(model);
+				const busy = commandPalette.get(BUSY_COMMAND_KEY);
 				// We need to close items property for correct reset behavior
 				const items = columnFilterPlugin.items;
-				if (filterState.fetch !== this.qgrid.noop) {
-					const cancelBusy = service.busy();
+				if (filterState.fetch !== noop) {
+					const cancelBusy = busy.execute();
 					const select = filterState
 						.fetch(column.key, {
 							skip,
@@ -100,7 +100,7 @@ export class ColumnFilterComponent implements OnInit {
 						})
 						.catch(cancelBusy);
 				} else {
-					const cancelBusy = service.busy();
+					const cancelBusy = busy.execute();
 					const isBlank = model.filter().assertFactory().isNull;
 					try {
 						if (!items.length) {

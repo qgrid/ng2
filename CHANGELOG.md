@@ -7,7 +7,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### BREAKING
 - Rename $view.filter.column to $view.filter.row.
 - Remove `options` property from $view.edit.cell.
-- Renmae `shortcuts` to `shortcut` in the edit state.
+- Rename `shortcuts` to `shortcut` in the edit state.
+- Remove `prevent` property from the navigation state.
 
 ### Added
 - Support 2 version 9.1.x - Ivy, 9.1.x-ve - View Engine.
@@ -17,10 +18,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ### Changed
 - Shortcut system.
-
-### Changed
 - Better top toolbar layout.
 - Grid title now wraps to the second row if not fit to width.
+
+### Fixed
+- Column type email, url doesn't affect tab navigation.
 
 ## [9.1.3] - 2020-06-01
 ### BREAKING

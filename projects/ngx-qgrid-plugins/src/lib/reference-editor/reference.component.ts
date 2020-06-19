@@ -88,7 +88,11 @@ export class ReferenceComponent implements OnInit {
 						if (!isUndefined(value)) {
 							const entries = isArray(value) ? value : [value];
 							const items = selectionService.map(entries);
-							this.model.selection({ items }, { source: 'reference.component' });
+							this.model.selection({
+								items
+							}, {
+								source: 'reference.component'
+							});
 						}
 					}
 				}

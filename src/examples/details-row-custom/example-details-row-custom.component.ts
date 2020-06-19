@@ -33,8 +33,8 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 					});
 
 					const { rows } = model.view();
-					const gridService = this.qgrid.service(model);
-					gridService.focus(rows.indexOf(row) + 1);
+					const service = this.qgrid.service(model);
+					service.focus(rows.indexOf(row) + 1);
 
 					return;
 				}

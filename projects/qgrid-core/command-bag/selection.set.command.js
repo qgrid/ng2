@@ -1,8 +1,6 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { noop } from '../utility/kit';
-
-export const SELECTION_SET_COMMAND_KEY = commandKey('selection.set.command');
+import { SELECTION_SET_COMMAND_KEY } from './command.bag';
 
 export class SelectionSetCommand extends Command {
     constructor(plugin) {

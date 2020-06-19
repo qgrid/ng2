@@ -1,12 +1,10 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { editCellContextFactory } from '../edit/edit.cell.context.factory';
 import { editCellShortcutFactory } from '../edit/edit.cell.shortcut.factory';
 import { Keyboard } from '../keyboard/keyboard';
 import { CellEditor } from '../edit/edit.cell.editor';
 import { parseFactory } from '../services/convert';
-
-export const EDIT_CELL_ENTER_COMMAND_KEY = commandKey('edit.cell.enter.command');
+import { EDIT_CELL_ENTER_COMMAND_KEY } from './command.bag';
 
 export class EditCellEnterCommand extends Command {
     constructor(plugin) {

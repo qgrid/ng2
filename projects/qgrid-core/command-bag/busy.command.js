@@ -1,22 +1,20 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { guid } from '../services/guid';
+import { BUSY_COMMAND_KEY } from './command.bag';
 
-export const GRID_BUSY_COMMAND_KEY = commandKey('grid.busy.command');
-
-export class GridBusyCommand extends Command {
+export class BusyCommand extends Command {
     constructor(plugin) {
         const { model } = plugin;
 
         super({
-            key: GRID_BUSY_COMMAND_KEY,
+            key: BUSY_COMMAND_KEY,
             execute: () => {
                 const id = guid();
                 const queue = model.progress().queue.concat([id]);
                 model.progress({
                     queue
                 }, {
-                    source: 'grid.busy.command'
+                    source: 'busy.command'
                 });
 
                 return () => {
@@ -27,7 +25,7 @@ export class GridBusyCommand extends Command {
                         model.progress({
                             queue
                         }, {
-                            source: 'grid.busy.command'
+                            source: 'busy.command'
                         });
                     }
                 };

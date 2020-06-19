@@ -22,10 +22,10 @@ export class ExampleFocusCellBasicComponent {
 			.subscribe(rows => {
 				this.gridModel.data({ rows });
 
-				const gridService = qgrid.service(this.gridModel);
+				const service = qgrid.service(this.gridModel);
 
 				// navigate to the 2nd page to the bottom
-				gridService.focus(99, 2);
+				service.focus(99, 2);
 			});
 	}
 }

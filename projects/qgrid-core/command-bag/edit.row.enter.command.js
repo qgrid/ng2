@@ -1,11 +1,9 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { editRowShortcutFactory } from '../edit/edit.row.shortcut.factory';
 import { editRowContextFactory } from '../edit/edit.row.context.factory';
 import { RowEditor } from '../edit/edit.row.editor';
 import { selectRow } from '../navigation/navigation.state.selector';
-
-export const EDIT_ROW_ENTER_COMMAND_KEY = commandKey('edit.row.enter.command');
+import { EDIT_ROW_ENTER_COMMAND_KEY } from './command.bag';
 
 export class EditRowEnterCommand extends Command {
     constructor(plugin) {

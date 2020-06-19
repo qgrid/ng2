@@ -1,14 +1,15 @@
 import { Log } from '../infrastructure/log';
 import { isFunction, identity } from '../utility/kit';
 import { Fastdom } from '../services/fastdom';
+import { GRID_INVALIDATE_COMMAND_KEY } from '../command-bag/command.bag';
 
 export class ScrollLet {
 	constructor(plugin, vscroll) {
-		const { model, observeReply, service } = plugin;
+		const { model, observeReply, commandPalette } = plugin;
 		const { scroll, row, pagination, fetch, pipe } = model;
 
 		this.plugin = plugin;
-	
+
 		const rowHeight = row().height;
 		const settings = {
 			threshold: pagination().size,
@@ -80,13 +81,16 @@ export class ScrollLet {
 						const count = updateTotalCount();
 						d.resolve(count);
 					} else {
-						service.invalidate({
-							source: 'scroll.view',
-							why: 'refresh'
-						}).then(() => {
-							const count = updateTotalCount();
-							d.resolve(count);
-						});
+						const invalidate = commandPalette.get(GRID_INVALIDATE_COMMAND_KEY);
+						invalidate
+							.execute({
+								source: 'scroll.view',
+								why: 'refresh'
+							})
+							.then(() => {
+								const count = updateTotalCount();
+								d.resolve(count);
+							});
 					}
 				};
 

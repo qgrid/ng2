@@ -1,13 +1,11 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { PipeUnit } from '../pipe/pipe.unit';
 import { preOrderDFS } from '../node/node.service';
-
-export const GROUP_STATUS_TOGGLE_ALL_COMMAND_KEY = commandKey('group.status.toggle.all.command');
+import { GROUP_STATUS_TOGGLE_ALL_COMMAND_KEY, GRID_INVALIDATE_COMMAND_KEY } from './command.bag';
 
 export class GroupStatusToggleAllCommand extends Command {
     constructor(plugin) {
-        const { model } = plugin;
+        const { model, commandPalette } = plugin;
 
         let shouldExpand = true;
         super({
@@ -32,7 +30,8 @@ export class GroupStatusToggleAllCommand extends Command {
 
                     shouldExpand = !shouldExpand;
 
-                    service.invalidate({
+                    const invalidate = commandPalette.get(GRID_INVALIDATE_COMMAND_KEY);
+                    invalidate.execute({
                         source: 'group.status.toggle.all.command',
                         pipe: PipeUnit.group,
                         why: PipeUnit.group.why

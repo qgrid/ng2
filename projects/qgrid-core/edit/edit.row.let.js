@@ -1,8 +1,10 @@
 import { RowEditor } from './edit.row.editor';
-import { EditRowEnterCommand } from '../command-bag/edit.row.enter.command';
-import { EditRowCommitCommand } from '../command-bag/edit.row.commit.command';
-import { EditRowCancelCommand } from '../command-bag/edit.row.cancel.command';
-import { EditRowResetCommand } from '../command-bag/edit.row.reset.command';
+import {
+	EDIT_ROW_CANCEL_COMMAND_KEY,
+	EDIT_ROW_COMMIT_COMMAND_KEY,
+	EDIT_ROW_ENTER_COMMAND_KEY,
+	EDIT_ROW_RESET_COMMAND_KEY
+} from '../command-bag/command.bag';
 
 export class EditRowLet {
 	constructor(plugin) {
@@ -10,14 +12,9 @@ export class EditRowLet {
 
 		this.editor = RowEditor.empty;
 
-		this.enter = new EditRowEnterCommand(plugin);
-		this.commit = new EditRowCommitCommand(plugin);
-		this.cancel = new EditRowCancelCommand(plugin);
-		this.reset = new EditRowResetCommand(plugin);
-
-		commandPalette.register(this.enter);
-		commandPalette.register(this.commit);
-		commandPalette.register(this.cancel);
-		commandPalette.register(this.reset);
+		this.enter = commandPalette.get(EDIT_ROW_ENTER_COMMAND_KEY);
+		this.commit = commandPalette.get(EDIT_ROW_COMMIT_COMMAND_KEY);
+		this.cancel = commandPalette.get(EDIT_ROW_CANCEL_COMMAND_KEY);
+		this.reset = commandPalette.get(EDIT_ROW_RESET_COMMAND_KEY);
 	}
 }

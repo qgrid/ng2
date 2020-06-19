@@ -1,10 +1,8 @@
 import { CellEditor } from '../edit/edit.cell.editor';
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { editCellContextFactory } from '../edit/edit.cell.context.factory';
 import * as validationService from '../validation/validation.service';
-
-export const EDIT_CELL_PUSH_COMMAND_KEY = commandKey('edit.cell.push.command');
+import { EDIT_CELL_PUSH_COMMAND_KEY } from './command.bag';
 
 export class EditCellPushCommand extends Command {
     constructor(plugin) {

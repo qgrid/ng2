@@ -8,6 +8,7 @@ import { GridModel } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { SelectionState } from '@qgrid/core/selection/selection.state';
 import { TableCoreService } from '../table/table-core.service';
+import { MOUSE_WHEEL_COMMAND_KEY, HIGHLIGHT_CELL_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
 
 @Component({
 	// tslint:disable-next-line
@@ -30,7 +31,7 @@ export class BodyCoreComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const { model, disposable, observeReply, observe } = this.plugin;
+		const { model, disposable, observeReply, observe, commandPalette } = this.plugin;
 		const nativeElement = this.elementRef.nativeElement as HTMLElement;
 
 		const host = new BodyHost(this.plugin);
@@ -47,8 +48,21 @@ export class BodyCoreComponent implements OnInit {
 					scrollSettings
 				));
 
-			disposable.add(listener.on('wheel', e => host.wheel(e)));
-			disposable.add(listener.on('mouseleave', e => host.mouseLeave(e)));
+			disposable.add(
+				listener.on('wheel', e => {
+					const wheel = commandPalette.get(MOUSE_WHEEL_COMMAND_KEY);
+					if (wheel.canExecute(e.deltaY) === true) {
+						wheel.execute(e.deltaY);
+					}
+				}));
+
+			disposable.add(
+				listener.on('mouseleave', () => {
+					const clearHighlight = commandPalette.get(HIGHLIGHT_CELL_COMMAND_KEY);
+					if (clearHighlight.canExecute() === true) {
+						clearHighlight.execute();
+					}
+				}));
 		});
 
 		observeReply(model.sceneChanged)

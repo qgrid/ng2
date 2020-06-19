@@ -2,8 +2,7 @@ import { columnFactory } from '../column/column.factory';
 import { getFactory as labelFactory } from '../services/label';
 import { getFactory as valueFactory } from '../services/value';
 import { yes, identity } from '../utility/kit';
-import { GroupStatusToggleCommand } from '../command-bag/group.status.toggle.command';
-import { GroupStatusToggleAllCommand } from '../command-bag/group.status.toggle.all.command';
+import { GROUP_STATUS_TOGGLE_COMMAND_KEY, GROUP_STATUS_TOGGLE_ALL_COMMAND_KEY } from '../command-bag/command.bag';
 
 function rowspanGetNode(node, column) {
 	if (node.source === column.by) {
@@ -38,11 +37,8 @@ export class GroupLet {
 		this.plugin = plugin;
 		this.valueFactory = valueFactory;
 
-		this.toggleStatus = new GroupStatusToggleCommand(plugin);
-		this.toggleAllStatus = new GroupStatusToggleAllCommand(plugin);
-
-		commandPalette.register(this.toggleStatus);
-		commandPalette.register(this.toggleAllStatus);
+		this.toggleStatus = commandPalette.get(GROUP_STATUS_TOGGLE_COMMAND_KEY);
+		this.toggleAllStatus = commandPalette.get(GROUP_STATUS_TOGGLE_ALL_COMMAND_KEY);
 
 		const createColumn = columnFactory(model);
 		this.reference = {

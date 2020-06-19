@@ -1,8 +1,6 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { clone, isUndefined } from '../utility/kit';
-
-export const FILTER_ROW_COMMIT_COMMAND_KEY = commandKey('filter.row.commit.command');
+import { FILTER_ROW_COMMIT_COMMAND_KEY } from './command.bag';
 
 export class FilterRowCommitCommand extends Command {
     constructor(plugin) {

@@ -37,6 +37,7 @@ import { RowState } from '../row/row.state';
 import { SceneState } from '../scene/scene.state';
 import { ScrollState } from '../scroll/scroll.state';
 import { SelectionState } from '../selection/selection.state';
+import { ShortcutState } from '../shortcut/shortcut.state';
 import { SortState } from '../sort/sort.state';
 import { StyleState } from '../style/style.state';
 import { TemplateState } from '../template/template.state';
@@ -86,6 +87,7 @@ export class ModelBuilder {
             .register('scene', SceneState)
             .register('scroll', ScrollState)
             .register('selection', SelectionState)
+            .register('shortcut', ShortcutState)
             .register('sort', SortState)
             .register('style', StyleState)
             .register('template', TemplateState)

@@ -1,10 +1,8 @@
-import { Fastdom } from '../services/fastdom';
 import { GRID_PREFIX } from '../definition';
 import { jobLine } from '../services/job.line';
 
 const VERTICAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-vertical`;
 const HORIZONTAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-horizontal`;
-const DEFAULT_DELTA_Y = 100;
 
 export class BodyHost {
 	constructor(plugin) {
@@ -46,37 +44,5 @@ export class BodyHost {
 
 		table.view.removeClass(VERTICAL_SCROLL_CLASS);
 		table.view.removeClass(HORIZONTAL_SCROLL_CLASS);
-	}
-
-	wheel(e) {
-		if (e.shiftKey) {
-			return;
-		}
-
-		const { model, table } = this.plugin;
-		if (model.edit().status === 'view') {
-			const { scroll } = model;
-			const upper = 0;
-
-			Fastdom.measure(() => {
-				const lower = table.view.scrollHeight() - table.view.height();
-				const deltaY = DEFAULT_DELTA_Y * Math.sign(e.deltaY);
-				const top = Math.min(lower, Math.max(upper, scroll().top + deltaY));
-
-				scroll({ top }, { source: 'body.core' });
-			});
-		}
-	}
-
-	mouseLeave() {
-		this.clearHighlight();
-	}
-
-	clearHighlight() {
-		const { view } = this.plugin;
-		const { highlight } = view;
-		if (highlight.clear.canExecute()) {
-			highlight.clear.execute();
-		}
 	}
 }

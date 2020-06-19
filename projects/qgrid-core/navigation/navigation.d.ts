@@ -10,6 +10,5 @@ export declare class Navigation {
 
 	isActive(): boolean;
 	cell(rowIndex: number, columnIndex: number): CellView | null;
-	goTo(rowIndex: number, columnIndex: number): boolean;
 	position(y: number, dir: 'up' | 'down')
 }

@@ -1,9 +1,7 @@
 import { find, findLeaves } from '../node/node.service';
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { GRID_PREFIX } from '../definition';
-
-export const COLUMN_DRAG_COMMAND_KEY = commandKey('column.drag.command');
+import { COLUMN_DRAG_COMMAND_KEY } from './command.bag';
 
 export class ColumnDragCommand extends Command {
     constructor(plugin) {

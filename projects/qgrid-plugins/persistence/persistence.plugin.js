@@ -6,6 +6,7 @@ import { Shortcut } from '@qgrid/core/shortcut/shortcut';
 import { ShortcutDispatcher } from '@qgrid/core/shortcut/shortcut.dispatcher';
 import { clone } from '@qgrid/core/utility/kit';
 import { Event } from '@qgrid/core/event/event';
+import { Keyboard } from '@qgrid/core/keyboard/keyboard';
 
 export class PersistencePlugin {
 	constructor(plugin, createDefaultModel) {
@@ -196,7 +197,13 @@ export class PersistencePlugin {
 		const commandManager = new CommandManager();
 		const shortcut = new Shortcut(new ShortcutDispatcher());
 
-		this.keyDown = e => shortcut.keyDown(e);
+		this.keyDown = e => {
+			const code = Keyboard.translate(e.code);
+			if (shortcut.keyDown(code)) {
+				e.preventDefault();
+				e.stopImmediatePropagation();
+			}
+		}
 
 		shortcut.register(commandManager, [
 			this.edit.enter,

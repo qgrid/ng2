@@ -1,18 +1,17 @@
-import { FilterRowCommitCommand } from '../command-bag/filter.row.commit.command';
+import { FILTER_ROW_COMMIT_COMMAND_KEY } from '../command-bag/command.bag';
 
 export class FilterLet {
 	constructor(plugin) {
 		const { commandPalette } = plugin;
 
 		this.plugin = plugin;
-
-		this.row = new FilterRowCommitCommand(plugin);
-		commandPalette.register(this.row);
+		this.row = commandPalette.get(FILTER_ROW_COMMIT_COMMAND_KEY);
 	}
 
 	has(column) {
 		const { model } = this.plugin;
 		const { by } = model.filter();
+
 		return by.hasOwnProperty(column.key);
 	}
 
@@ -20,6 +19,7 @@ export class FilterLet {
 		const { model } = this.plugin;
 		const { key } = column;
 		const { by } = model.filter();
+
 		if (by[key]) {
 			const { expression, items } = by[key];
 			return expression

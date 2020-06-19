@@ -1,14 +1,12 @@
 import { Component, OnInit, DoCheck, ChangeDetectorRef, NgZone, ChangeDetectionStrategy, ElementRef } from '@angular/core';
 import { CellClassService } from '../cell/cell-class.service';
 import { CellTemplateService } from '../cell/cell-template.service';
-import { Grid } from '../grid/grid';
+import { GRID_INVALIDATE_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
+import { GridLet } from '../grid/grid-let';
 import { GridPlugin } from '../plugin/grid-plugin';
+import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
 import { ViewHost } from '@qgrid/core/view/view.host';
 import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
-import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
-import { GridLet } from '../grid/grid-let';
-import { EventManager } from '@qgrid/core/event/event.manager';
-import { EventListener } from '@qgrid/core/event/event.listener';
 
 @Component({
 	selector: 'q-grid-core-view',
@@ -48,7 +46,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 						});
 
 						if (this.host) {
-							this.host.invalidate();
+							this.host.invalidateStyle();
 						}
 					}
 				}
@@ -57,10 +55,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 
 	ngDoCheck() {
 		if (this.host) {
-			const { model } = this.plugin;
-			if (model.scene().status === 'stop') {
-				this.host.invalidate();
-			}
+			this.host.invalidateStyle();
 		}
 	}
 
@@ -71,8 +66,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 			observeReply,
 			observe,
 			view,
-			disposable,
-			service
+			commandPalette
 		} = this.plugin;
 
 		// TODO: make it better
@@ -106,12 +100,12 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 			});
 
 		observe(model.styleChanged)
-			.subscribe(() => this.host.invalidate());
+			.subscribe(() => this.host.invalidateStyle());
 
 		observe(model.layoutChanged)
 			.subscribe(e => {
 				if (e.hasChanges('rows')) {
-					this.host.invalidate();
+					this.host.invalidateStyle();
 				}
 			});
 
@@ -119,7 +113,8 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 			.subscribe(e => {
 				if (e.hasChanges('status')) {
 					if (e.state.status === 'endBatch') {
-						service.invalidate({
+						const invalidate = commandPalette.get(GRID_INVALIDATE_COMMAND_KEY);
+						invalidate.execute({
 							source: 'view-core.component',
 							why: 'refresh'
 						});
@@ -130,7 +125,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		if (model.scroll().mode === 'virtual') {
 			const asVirtualBody = table.body as any;
 			if (asVirtualBody.requestInvalidate) {
-				asVirtualBody.requestInvalidate.on(() => this.host.invalidate());
+				asVirtualBody.requestInvalidate.on(() => this.host.invalidateStyle());
 			}
 		}
 	}

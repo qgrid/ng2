@@ -1,15 +1,14 @@
 
 import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
-import { SortToggleCommand } from '../command-bag/sort.toggle.command';
+import { SORT_TOGGLE_COMMAND_KEY } from '../command-bag/command.bag';
 
 export class SortLet {
 	constructor(plugin) {
 		const { model, observeReply, commandPalette } = plugin;
 		this.plugin = plugin;
 
-		this.toggle = new SortToggleCommand(plugin)
-		commandPalette.register(this.toggle);
+		this.toggle = commandPalette.get(SORT_TOGGLE_COMMAND_KEY);
 
 		observeReply(model.columnListChanged)
 			.subscribe(e => {

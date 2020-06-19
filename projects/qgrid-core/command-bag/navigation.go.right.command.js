@@ -1,12 +1,10 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { navigationContextFactory } from '../navigation/navigation.context.factory';
-
-export const NAVIGATION_GO_RIGHT_COMMAND_KEY = commandKey('navigation.go.right.command');
+import { NAVIGATION_GO_RIGHT_COMMAND_KEY, NAVIGATION_GO_TO_COMMAND_KEY } from './command.bag';
 
 export class NavigationGoRightCommand extends Command {
     constructor(plugin, nav, site) {
-        const { model } = plugin;
+        const { model, commandPalette } = plugin;
         const context = navigationContextFactory(nav);
 
         super({
@@ -14,8 +12,13 @@ export class NavigationGoRightCommand extends Command {
             shortcut: model.navigation().shortcut.right,
             canExecute: () => {
                 if (nav.isActive()) {
+                    const newRow = site.currentRow;
                     const newColumn = site.nextColumn;
-                    return newColumn >= 0 && model.navigation().go.canExecute(context('right', { newColumn })) === true;
+                    const goTo = commandPalette.get(NAVIGATION_GO_TO_COMMAND_KEY);
+
+                    return newColumn >= 0
+                        && model.navigation().go.canExecute(context('right', { newColumn })) === true
+                        && goTo.canExecute({ rowIndex: newRow, columnIndex: newColumn });
                 }
 
                 return false;
@@ -23,7 +26,10 @@ export class NavigationGoRightCommand extends Command {
             execute: () => {
                 const newRow = site.currentRow;
                 const newColumn = site.nextColumn;
-                return model.navigation().go.execute(context('right', { newRow, newColumn })) !== true && nav.goTo(newRow, newColumn);
+                const goTo = commandPalette.get(NAVIGATION_GO_TO_COMMAND_KEY);
+
+                return model.navigation().go.execute(context('right', { newRow, newColumn })) !== true
+                    && goTo.execute({ rowIndex: newRow, columnIndex: newColumn });
             }
         });
     }

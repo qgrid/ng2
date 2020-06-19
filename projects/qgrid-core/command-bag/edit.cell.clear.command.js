@@ -1,8 +1,6 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { editCellContextFactory } from '../edit/edit.cell.context.factory';
-
-export const EDIT_CELL_CLEAR_COMMAND_KEY = commandKey('edit.cell.clear.command');
+import { EDIT_CELL_CLEAR_COMMAND_KEY } from './command.bag';
 
 export class EditCellClearCommand extends Command {
     constructor(plugin) {

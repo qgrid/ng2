@@ -1,10 +1,8 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { GRID_PREFIX } from '../definition';
 import { eventPath } from '../services/dom';
 import { PathService } from '../path/path.service';
-
-export const ROW_DROP_COMMAND_KEY = commandKey('row.drop.command');
+import { ROW_DROP_COMMAND_KEY } from './command.bag';
 
 export class RowDropCommand extends Command {
     constructor(plugin) {

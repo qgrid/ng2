@@ -81,14 +81,9 @@ export class DataManipulationPlugin {
 								takeOnce()
 							)
 							.subscribe(e => {
-								const index = model.view().rows.indexOf(newRow);
-								model.focus({
-									rowIndex: index
-								}, {
-									source: 'data.manipulation.plugin'
-								});
-
-								table.view.focus();
+								const rowIndex = model.view().rows.indexOf(newRow);
+								const focus = commandPalette.get(FOCUS_COMMAND_KEY);
+								focus.execute({ rowIndex });
 							});
 					},
 					shortcut: 'F7'

@@ -1,16 +1,14 @@
 import { CellEditor } from '../edit/edit.cell.editor';
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { editCellContextFactory } from '../edit/edit.cell.context.factory';
 import { editCellShortcutFactory } from '../edit/edit.cell.shortcut.factory';
 import { Td } from '../dom/td';
 import * as validationService from '../validation/validation.service';
-
-export const EDIT_CELL_COMMIT_COMMAND_KEY = commandKey('edit.cell.commit.command');
+import { EDIT_CELL_COMMIT_COMMAND_KEY, FOCUS_COMMAND_KEY } from './command.bag';
 
 export class EditCellCommitCommand extends Command {
     constructor(plugin) {
-        const { model, table, view } = plugin;
+        const { model, view, commandPalette } = plugin;
         const getShortcut = editCellShortcutFactory(plugin);
 
         super({
@@ -62,7 +60,9 @@ export class EditCellCommitCommand extends Command {
                         editLet.requestClose = null;
 
                         editLet.mode(cell, 'view');
-                        table.view.focus();
+
+                        const focus = commandPalette.get(FOCUS_COMMAND_KEY);
+                        focus.execute();
 
                         return true;
                     }

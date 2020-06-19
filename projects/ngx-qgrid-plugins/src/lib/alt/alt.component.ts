@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { GridPlugin } from '@qgrid/ngx';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
+import { FOCUS_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
 
 @Component({
 	selector: 'q-grid-alt',
@@ -15,7 +16,7 @@ export class AltComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const { model, observe, service } = this.plugin;
+		const { model, observe, commandPalette } = this.plugin;
 
 		const altColumn: ColumnModel = {
 			key: '$alt.number',
@@ -60,7 +61,8 @@ export class AltComponent implements OnInit {
 										source: 'alt.component'
 									});
 
-									service.focus(rowIndex);
+									const focus = commandPalette.get(FOCUS_COMMAND_KEY);
+									focus.execute({ rowIndex });
 								}
 							}
 							break;

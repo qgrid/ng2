@@ -1,10 +1,8 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { editRowShortcutFactory } from '../edit/edit.row.shortcut.factory';
 import { editRowContextFactory } from '../edit/edit.row.context.factory';
 import { selectRow } from '../navigation/navigation.state.selector';
-
-export const EDIT_ROW_RESET_COMMAND_KEY = commandKey('edit.row.reset.command');
+import { EDIT_ROW_RESET_COMMAND_KEY } from './command.bag';
 
 export class EditRowResetCommand extends Command {
     constructor(plugin) {

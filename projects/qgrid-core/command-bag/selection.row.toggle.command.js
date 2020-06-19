@@ -1,9 +1,6 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { isUndefined } from '../utility/kit';
-import { SELECTION_TOGGLE_COMMAND_KEY } from './selection.toggle.command';
-
-export const SELECTION_ROW_TOGGLE_COMMAND_KEY = commandKey('selection.row.toggle.command');
+import { SELECTION_ROW_TOGGLE_COMMAND_KEY, SELECTION_TOGGLE_COMMAND_KEY } from './command.bag';
 
 export class SelectionRowToggleCommand extends Command {
     constructor(plugin) {

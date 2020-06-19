@@ -1,9 +1,9 @@
-import { GridState } from '../grid/grid.state';
-import { SceneState } from '../scene/scene.state';
 import { ActionState } from '../action/action.state';
 import { AnimationState } from '../animation/animation.state';
 import { BodyState } from '../body/body.state';
+import { ClipboardState } from '../clipboard/clipboard.state';
 import { ColumnListState } from '../column-list/column.list.state';
+import { CommandState } from '../command/command.state';
 import { DataState } from '../data/data.state';
 import { DragState } from '../drag/drag.state';
 import { EditState } from '../edit/edit.state';
@@ -12,6 +12,7 @@ import { FetchState } from '../fetch/fetch.state';
 import { FilterState } from '../filter/filter.state';
 import { FocusState } from '../focus/focus.state';
 import { FootState } from '../foot/foot.state';
+import { GridState } from '../grid/grid.state';
 import { GroupState } from '../group/group.state';
 import { HeadState } from '../head/head.state';
 import { HighlightState } from '../highlight/highlight.state';
@@ -30,16 +31,16 @@ import { ProgressState } from '../progress/progress.state';
 import { RestState } from '../rest/rest.state';
 import { RowListState } from '../row-list/row.list.state';
 import { RowState } from '../row/row.state';
+import { SceneState } from '../scene/scene.state';
 import { ScrollState } from '../scroll/scroll.state';
 import { SelectionState } from '../selection/selection.state';
+import { ShortcutState } from '../shortcut/shortcut.state';
 import { SortState } from '../sort/sort.state';
 import { StyleState } from '../style/style.state';
 import { ToolbarState } from '../toolbar/toolbar.state';
 import { ValidationState } from '../validation/validation.state';
 import { ViewState } from '../view/view.state';
 import { VisibilityState } from '../visibility/visibility.state';
-import { ClipboardState } from '../clipboard/clipboard.state';
-import { CommandState } from '../command/command.state';
 
 export declare type StateSet<K extends keyof any, TState> = {
 	[P in K]: (state: Partial<TState>, tag?: ModelTag) => Model;
@@ -97,6 +98,7 @@ export declare type RowListAccessor = StateAccessor<'rowList', 'rowListChanged',
 export declare type SceneAccessor = StateAccessor<'scene', 'sceneChanged', SceneState>;
 export declare type ScrollAccessor = StateAccessor<'scroll', 'scrollChanged', ScrollState>;
 export declare type SelectionAccessor = StateAccessor<'selection', 'selectionChanged', SelectionState>;
+export declare type ShortcutAccessor = StateAccessor<'shortcut', 'shortcutChanged', ShortcutState>;
 export declare type SortAccessor = StateAccessor<'sort', 'sortChanged', SortState>;
 export declare type StyleAccessor = StateAccessor<'style', 'styleChanged', StyleState>;
 export declare type ToolbarAccessor = StateAccessor<'toolbar', 'toolbarChanged', ToolbarState>;
@@ -112,9 +114,9 @@ export type Model =
 	ActionAccessor
 	& AnimationAccessor
 	& BodyAccessor
+	& ClipboardAccessor
 	& ColumnListAccessor
 	& CommandAccessor
-	& ClipboardAccessor
 	& DataAccessor
 	& DragAccessor
 	& EditAccessor
@@ -138,16 +140,17 @@ export type Model =
 	& PivotAccessor
 	& PluginAccessor
 	& ProgressAccessor
+	& ResolveAccessor
 	& RestAccessor
 	& RowAccessor
 	& RowListAccessor
 	& SceneAccessor
 	& ScrollAccessor
 	& SelectionAccessor
+	& ShortcutAccessor
 	& SortAccessor
 	& StyleAccessor
 	& ToolbarAccessor
 	& ValidationAccessor
 	& ViewAccessor
-	& VisibilityAccessor
-	& ResolveAccessor;
+	& VisibilityAccessor;

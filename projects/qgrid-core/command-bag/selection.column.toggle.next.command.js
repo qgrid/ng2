@@ -1,9 +1,6 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { selectRowIndex, selectColumnIndex } from '../navigation/navigation.state.selector';
-import { SELECTION_TOGGLE_COMMAND_KEY } from './selection.toggle.command';
-
-export const SELECTION_COLUMN_TOGGLE_NEXT_COMMAND_KEY = commandKey('selection.column.toggle.next.command');
+import { SELECTION_COLUMN_TOGGLE_NEXT_COMMAND_KEY, SELECTION_TOGGLE_COMMAND_KEY } from './command.bag';
 
 export class SelectionColumnToggleNextCommand extends Command {
     constructor(plugin) {

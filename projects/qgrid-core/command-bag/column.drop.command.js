@@ -1,11 +1,9 @@
 import { calk, find, findLeaves, preOrderDFS } from '../node/node.service';
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { eventPath } from '../services/dom';
 import { GRID_PREFIX } from '../definition';
 import { PathService } from '../path/path.service';
-
-export const COLUMN_DROP_COMMAND_KEY = commandKey('column.drop.command');
+import { COLUMN_DROP_COMMAND_KEY } from './command.bag';
 
 export class ColumnDropCommand extends Command {
     constructor(plugin) {

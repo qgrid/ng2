@@ -1,6 +1,4 @@
-import { FocusService } from '../focus/focus.service';
-import { GRID_INVALIDATE_COMMAND_KEY } from '../command-bag/grid.invalidate.command';
-import { GRID_BUSY_COMMAND_KEY } from '../command-bag/grid.busy.command';
+import { GRID_INVALIDATE_COMMAND_KEY, BUSY_COMMAND_KEY, FOCUS_COMMAND_KEY } from '../command-bag/command.bag';
 
 export class GridService {
 	constructor(model) {
@@ -13,13 +11,16 @@ export class GridService {
 	}
 
 	busy() {
-		const busy = this.findCommand(GRID_BUSY_COMMAND_KEY);
+		const busy = this.findCommand(BUSY_COMMAND_KEY);
 		return busy.execute();
 	}
 
 	focus(rowIndex, columnIndex) {
-		const focus = new FocusService(this.model);
-		focus.activate(rowIndex, columnIndex);
+		const focus = this.findCommand(FOCUS_COMMAND_KEY);
+		focus.execute({
+			rowIndex,
+			columnIndex
+		});
 	}
 
 	findCommand(key) {

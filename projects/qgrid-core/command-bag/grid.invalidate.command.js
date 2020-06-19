@@ -1,13 +1,10 @@
 import { build } from '../pipe/pipe.build';
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { Defer } from '../infrastructure/defer';
 import { Fastdom } from '../services/fastdom';
-import { GRID_BUSY_COMMAND_KEY } from './grid.busy.command';
-import { isString } from '../utility/kit';
+import { isString, noop } from '../utility/kit';
 import { Scheduler } from '../services/scheduler';
-
-export const GRID_INVALIDATE_COMMAND_KEY = commandKey('grid.invalidate.command');
+import { GRID_INVALIDATE_COMMAND_KEY, BUSY_COMMAND_KEY } from './command.bag';
 
 export class GridInvalidateCommand extends Command {
     constructor(plugin) {
@@ -18,7 +15,7 @@ export class GridInvalidateCommand extends Command {
             key: GRID_INVALIDATE_COMMAND_KEY,
             execute: (settings) => {
                 const { source, changes, pipe, why } = buildSettings(settings);
-                const busy = commandPalette.get(GRID_BUSY_COMMAND_KEY);
+                const busy = commandPalette.get(BUSY_COMMAND_KEY);
 
                 const runPipe = build(model);
                 const cancelBusy = why === 'refresh' ? busy.execute() : noop;

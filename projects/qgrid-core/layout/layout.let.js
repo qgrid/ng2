@@ -49,7 +49,7 @@ export class LayoutLet {
 						rows.push(styleRow);
 					}
 					else {
-						const index = model.style.rows.indexOf(styleRow);
+						const index = model.style().rows.indexOf(styleRow);
 						rows.splice(index, 1);
 					}
 					model.style({ rows }, { source: 'layout.let' });

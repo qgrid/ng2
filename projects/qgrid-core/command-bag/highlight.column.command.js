@@ -1,7 +1,5 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
-
-export const HIGHLIGHT_COLUMN_COMMAND_KEY = commandKey('highlight.column.command');
+import { HIGHLIGHT_COLUMN_COMMAND_KEY } from './command.bag';
 
 export class HighlightColumnCommand extends Command {
     constructor(plugin) {

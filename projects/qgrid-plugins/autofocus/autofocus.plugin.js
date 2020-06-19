@@ -1,8 +1,9 @@
 import { filter, takeOnce } from '@qgrid/core/rx/rx.operators';
+import { FOCUS_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
 
 export class AutofocusPlugin {
 	constructor(plugin) {
-		const { model, table, observeReply } = plugin;
+		const { model, table, observeReply, commandPalette } = plugin;
 
 		observeReply(model.sceneChanged)
 			.pipe(
@@ -19,39 +20,9 @@ export class AutofocusPlugin {
 				takeOnce()
 			)
 			.subscribe(() => {
-				const key = Object.keys(table.box.markup).find(p => p.startsWith('body'));
-
-				if (key) {
-					const element = table.box.markup[key];
-					if (element) {
-						element.focus();
-					}
-				}
-
-				const { body } = table;
-				const { focus } = model;
-				const focusState = focus();
-				const cell = body.cell(focusState.rowIndex, focusState.columnIndex);
-				const cellModel = cell.model();
-
-				if (!cellModel || !cellModel.column.canFocus) {
-					let rowIndex = 0;
-					const rowCount = body.rowCount(0);
-					while (rowIndex < rowCount) {
-						const row = body.row(rowIndex);
-						const cells = row.cells();
-						const columnIndex = cells.findIndex(c => {
-							const m = c.model();
-							return m && m.column.canFocus;
-						});
-
-						if (columnIndex >= 0) {
-							focus({ rowIndex, columnIndex }, { source: 'autofocus.plugin' });
-							break;
-						}
-
-						rowIndex++;
-					}
+				const focus = commandPalette.get(FOCUS_COMMAND_KEY);
+				if (focus.canExecute()) {
+					focus.execute();
 				}
 			});
 	}

@@ -13,12 +13,11 @@ import { RowLet as RowLet } from '../row/row.let';
 import { ScrollLet } from '../scroll/scroll.let';
 import { SelectionLet } from '../selection/selection.let';
 import { SortLet } from '../sort/sort.let';
-import { StyleLet } from '../style/style.let';
-import { ClipboardLet } from '../clipboard/clipboard.let';
+import { CommandLet } from '../command/command.let';
 
 export interface GridLet {
     body: BodyLet;
-    clipboard: ClipboardLet;
+    command: CommandLet;
     edit: EditLet;
     filter: FilterLet;
     foot: FootLet;
@@ -33,5 +32,4 @@ export interface GridLet {
     scroll: ScrollLet;
     selection: SelectionLet;
     sort: SortLet;
-    style: StyleLet;
 }

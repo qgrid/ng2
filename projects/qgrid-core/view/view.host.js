@@ -1,77 +1,16 @@
-import { Fastdom } from '../services/fastdom';
-import { final } from '../infrastructure/final';
 import { jobLine } from '../services/job.line';
 import { PipeUnit } from '../pipe/pipe.unit';
+import { GRID_INVALIDATE_COMMAND_KEY, STYLE_INVALIDATE_COMMAND_KEY } from '../command-bag/command.bag';
 
 export class ViewHost {
 	constructor(plugin) {
 		this.plugin = plugin;
 
-		this.watch(plugin.service);
-		this.final = final();
-	}
-
-	invalidate() {
-		this.final(() => {
-			const { view } = this.plugin;
-			const { style } = view;
-
-			if (style.needInvalidate()) {
-				const rowMonitor = style.monitor.row;
-				const cellMonitor = style.monitor.cell;
-
-				Fastdom.mutate(() => {
-					// Apply mutate inside another mutate to ensure that style.invalidate is triggered last.
-					Fastdom.mutate(() => {
-						const domCell = cellMonitor.enter();
-						const domRow = rowMonitor.enter();
-						try {
-							style.invalidate(domCell, domRow);
-						}
-						finally {
-							rowMonitor.exit();
-							cellMonitor.exit();
-						}
-					});
-				});
-			}
-		});
-	}
-
-	triggerLine(service, timeout) {
-		const { model } = this.plugin;
-		const { reduce } = model.pipe();
-
-		let session = [];
-		const job = jobLine(timeout);
-		return (source, changes, units) => {
-			model.scene({ status: 'start' }, {
-				source
-			});
-
-			session.push(...units);
-			job(() => {
-				const units = reduce(session, model);
-				session = [];
-
-				units.forEach(pipe =>
-					service.invalidate({
-						source,
-						changes,
-						pipe,
-						why: pipe.why || 'refresh'
-					})
-				);
-			});
-		};
-	}
-
-	watch(service) {
-		const { model, observeReply } = this.plugin;;
+		const { model, observeReply } = this.plugin;
 		const { triggers } = model.pipe();
 		const { pipe } = model.data();
 
-		const triggerJob = this.triggerLine(service, 10);
+		const triggerJob = this.triggerLine(10);
 		if (pipe !== PipeUnit.default) {
 			triggerJob('grid', {}, [pipe]);
 		}
@@ -97,5 +36,42 @@ export class ViewHost {
 							triggerJob(e.tag.source || name, e.changes, units);
 						}
 					}));
+	}
+
+	triggerLine(timeout) {
+		const { model, commandPalette } = this.plugin;
+		const { reduce } = model.pipe();
+
+		let session = [];
+		const job = jobLine(timeout);
+		return (source, changes, units) => {
+			model.scene({ status: 'start' }, {
+				source
+			});
+
+			session.push(...units);
+			job(() => {
+				const units = reduce(session, model);
+				session = [];
+
+				const invalidate = commandPalette.get(GRID_INVALIDATE_COMMAND_KEY);
+				units.forEach(pipe =>
+					invalidate.execute({
+						source,
+						changes,
+						pipe,
+						why: pipe.why || 'refresh'
+					})
+				);
+			});
+		};
+	}
+
+	invalidateStyle() {
+		const { commandPalette } = this.plugin;
+		const styleInvalidate = commandPalette.get(STYLE_INVALIDATE_COMMAND_KEY);
+		if (styleInvalidate.canExecute() === true) {
+			styleInvalidate.execute();
+		}
 	}
 }

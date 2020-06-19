@@ -62,11 +62,7 @@ export class TabTrapComponent {
 	}
 
 	exit(target) {
-		const e = {
-			code: 'Tab',
-		};
-
-		this.shortcutService.keyDown(e);
+		this.shortcutService.keyDown('tab');
 	}
 
 	goRound(target) {

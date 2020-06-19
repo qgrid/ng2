@@ -2,6 +2,7 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { ShortcutService } from './shortcut.service';
 import { Disposable } from '../infrastructure/disposable';
 import { GridPlugin } from '../plugin/grid-plugin';
+import { Keyboard } from '@qgrid/core/keyboard/keyboard';
 
 @Directive({
 	selector: '[q-grid-shortcut-host]',
@@ -35,10 +36,21 @@ export class ShortcutHostDirective implements OnInit {
 
 		const isPassive = this.mode === 'passive';
 
-		const keyDown = (e: KeyboardEvent) => this.shortcutService.keyDown(e);
+		const keyDown = (e: KeyboardEvent) => {
+			const code = Keyboard.translate(e.code);
+			if (this.shortcutService.keyDown(code)) {
+				e.preventDefault();
+				e.stopImmediatePropagation();
+			}
+		};
+
 		window.addEventListener('keydown', keyDown, isPassive);
 
-		const keyUp = (e: KeyboardEvent) => this.shortcutService.keyUp(e);
+		const keyUp = (e: KeyboardEvent) => {
+			const code = Keyboard.translate(e.code);
+			this.shortcutService.keyUp(code);
+		};
+
 		element.addEventListener('keyup', keyUp, isPassive);
 
 		const focusOut = () => this.shortcutService.reset();

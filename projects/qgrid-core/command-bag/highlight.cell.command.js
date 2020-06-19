@@ -1,7 +1,5 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
-
-export const HIGHLIGHT_CELL_COMMAND_KEY = commandKey('highlight.cell.command');
+import { HIGHLIGHT_CELL_COMMAND_KEY } from './command.bag';
 
 export class HighlightCellCommand extends Command {
 	constructor(plugin) {

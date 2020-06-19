@@ -1,8 +1,5 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
-import { FocusAfterRenderService } from '../focus/focus.service';
-
-export const PAGINATION_PREVIOUS_COMMAND_KEY = commandKey('pagination.previous.command');
+import { PAGINATION_PREVIOUS_COMMAND_KEY, FOCUS_AFTER_RENDER_COMMAND_KEY } from './command.bag';
 
 export class PaginationPreviousCommand extends Command {
     constructor(plugin) {
@@ -15,7 +12,9 @@ export class PaginationPreviousCommand extends Command {
                 return model.pagination().current > 0;
             },
             execute: () => {
-                new FocusAfterRenderService(plugin);
+                const focusAfterRender = commandPalette.get(FOCUS_AFTER_RENDER_COMMAND_KEY);
+                focusAfterRender.execute();
+
                 model.pagination({ 
                     current: model.pagination().current - 1 
                 }, { 

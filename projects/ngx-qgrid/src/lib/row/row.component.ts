@@ -5,7 +5,7 @@ import { StateAccessor } from '../state/state-accessor';
 import { TemplateHostService } from '../template/template-host.service';
 import { Command } from '@qgrid/core/command/command';
 import { RowDetails } from '@qgrid/core/row-details/row.details';
-import { ROW_DETAILS_TOGGLE_STATUS_COMMAND_KEY } from '@qgrid/core/command-bag/row.details.toggle.status.command';
+import { ROW_DETAILS_TOGGLE_STATUS_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
 
 // TODO: move it to plugins
 

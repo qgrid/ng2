@@ -6,9 +6,9 @@ export declare class Shortcut {
 
 	getCommands(): Command<any>[];
 
-	keyDown(event: { code: string }): void;
+	keyDown(code: string): boolean;
 
-	keyUp(event: { code: string }): void;
+	keyUp(code: string): void;
 
 	register(command: Command<any>): void;
 

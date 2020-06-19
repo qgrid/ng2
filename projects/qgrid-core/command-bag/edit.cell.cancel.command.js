@@ -1,14 +1,12 @@
 import { CellEditor } from '../edit/edit.cell.editor';
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { editCellContextFactory } from '../edit/edit.cell.context.factory';
 import { editCellShortcutFactory } from '../edit/edit.cell.shortcut.factory';
-
-export const EDIT_CELL_CANCEL_COMMAND_KEY = commandKey('edit.cell.cancel.command');
+import { EDIT_CELL_CANCEL_COMMAND_KEY, FOCUS_COMMAND_KEY } from './command.bag';
 
 export class EditCellCancelCommand extends Command {
     constructor(plugin) {
-        const { model, table, view } = plugin;
+        const { model, commandPalette, view } = plugin;
         const getShortcut = editCellShortcutFactory(plugin);
 
         super({
@@ -55,7 +53,9 @@ export class EditCellCancelCommand extends Command {
                         editLet.requestClose = null;
 
                         editLet.mode(cell, 'view');
-                        table.view.focus();
+
+                        const focus = commandPalette.get(FOCUS_COMMAND_KEY);
+                        focus.execute();
                     }
 
                     return true;

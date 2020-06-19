@@ -1,8 +1,6 @@
 import { Command } from '../command/command';
-import { commandKey } from '../command/command.key';
 import { Fastdom } from '../services/fastdom';
-
-export const NAVIGATION_SCROLL_TO_COMMAND_KEY = commandKey('navigation.scroll.to.command');
+import { NAVIGATION_SCROLL_TO_COMMAND_KEY } from './command.bag';
 
 export class NavigationScrollToCommand extends Command {
     constructor(plugin) {

@@ -12,9 +12,8 @@ import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { ColumnSortPlugin } from '@qgrid/plugins/column-sort/column.sort.plugin';
 import { EventListener } from '@qgrid/core/event/event.listener';
 import { EventManager } from '@qgrid/core/event/event.manager';
-import { FocusAfterRender } from '../focus/focus.service';
 import { GridPlugin } from '@qgrid/ngx';
-import { SORT_TOGGLE_COMMAND_KEY } from '@qgrid/core/command-bag/sort.toggle.command';
+import { SORT_TOGGLE_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
 
 @Component({
 	selector: 'q-grid-column-sort',
