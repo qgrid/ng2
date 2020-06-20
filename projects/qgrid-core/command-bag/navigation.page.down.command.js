@@ -1,6 +1,6 @@
 import { Command } from '../command/command';
 import { navigationContextFactory } from '../navigation/navigation.context.factory';
-import { NAVIGATION_PAGE_DOWN_COMMAND_KEY, NAVIGATION_GO_TO_COMMAND_KEY } from './command.bag';
+import { NAVIGATION_PAGE_DOWN_COMMAND_KEY, NAVIGATION_GO_TO_COMMAND_KEY, SCROLL_COMMAND_KEY } from './command.bag';
 
 export class NavigationPageDownCommand extends Command {
     constructor(plugin, nav, site) {
@@ -16,8 +16,8 @@ export class NavigationPageDownCommand extends Command {
                     const newColumn = site.currentColumn;
                     const goTo = commandPalette.get(NAVIGATION_GO_TO_COMMAND_KEY);
 
-                    return newRow >= 0 
-                    && model.navigation().go.canExecute(context('pageDown', { newRow }));
+                    return newRow >= 0
+                        && model.navigation().go.canExecute(context('pageDown', { newRow }));
                 }
 
                 return false;
@@ -27,15 +27,8 @@ export class NavigationPageDownCommand extends Command {
                 const position = nav.position(view.scrollTop() + view.height(), 'down');
                 const newRow = position.row;
                 const newColumn = site.currentColumn;
-                const goTo = commandPalette.get(NAVIGATION_GO_TO_COMMAND_KEY);
-
                 if (model.navigation().go.execute(context('pageDown', { newRow, newColumn })) !== true) {
-                    model.scroll({
-                        top: position.offset
-                    }, {
-                        source: 'navigation.page.down.command'
-                    });
-
+                    const goTo = commandPalette.get(NAVIGATION_GO_TO_COMMAND_KEY);
                     return goTo.execute({
                         rowIndex: position.row,
                         columnIndex: site.currentColumn

@@ -1,20 +1,20 @@
 import { Command } from '../command/command';
 import { Fastdom } from '../services/fastdom';
-import { NAVIGATION_SCROLL_TO_COMMAND_KEY } from './command.bag';
+import { SCROLL_TO_COMMAND_KEY, SCROLL_COMMAND_KEY } from './command.bag';
 
-export class NavigationScrollToCommand extends Command {
+export class ScrollToCommand extends Command {
     constructor(plugin) {
-        const { model, table } = plugin;
+        const { model, table, commandPalette } = plugin;
 
         super({
-            key: NAVIGATION_SCROLL_TO_COMMAND_KEY,
-            canExecute: ([row, column]) => {
-                const td = table.body.cell(row, column).model();
+            key: SCROLL_TO_COMMAND_KEY,
+            canExecute: ([rowIndex, columnIndex]) => {
+                const td = table.body.cell(rowIndex, columnIndex).model();
                 return td !== null
             },
-            execute: ([row, column]) => {
+            execute: ([rowIndex, columnIndex]) => {
                 const { view } = table;
-                const target = table.body.cell(row, column);
+                const target = table.body.cell(rowIndex, columnIndex);
 
                 Fastdom.measure(() => {
                     const tr = target.rect();
@@ -52,10 +52,13 @@ export class NavigationScrollToCommand extends Command {
                     }
 
                     if (Object.keys(state).length) {
-                        model.scroll(state, {
-                            behavior: 'core',
-                            source: 'navigation.scroll.to.command'
-                        });
+                        const scroll = commandPalette.get(SCROLL_COMMAND_KEY);
+                        const left = state.left || model.scroll().left;
+                        const top = state.top || model.scroll().top;
+                        const pos = [left, top];
+                        if(scroll.canExecute(pos) === true) {
+                            scroll.execute(pos);
+                        }
                     }
                 });
             },

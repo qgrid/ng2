@@ -46,7 +46,7 @@ import { NavigationGoUpCommand } from './navigation.go.up.command';
 import { NavigationGoUpwardCommand } from './navigation.go.upward.command';
 import { NavigationPageDownCommand } from './navigation.page.down.command';
 import { NavigationPageUpCommand } from './navigation.page.up.command';
-import { NavigationScrollToCommand } from './navigation.scroll.to.command';
+import { ScrollToCommand } from './scroll.to.command';
 import { NavigationSite } from '../navigation/navigation.site';
 import { PaginationNextCommand } from './pagination.next.command';
 import { PaginationPreviousCommand } from './pagination.previous.command';
@@ -71,6 +71,7 @@ import { SelectionToggleCommand } from './selection.toggle.command';
 import { SortToggleCommand } from './sort.toggle.command';
 import { StyleInvalidateCommand } from './style.invalidate.command';
 import { MouseWheelCommand } from './mouse.wheel.command';
+import { ScrollCommand } from './scroll.command';
 
 export class CommandBagRegistry {
     constructor(plugin) {
@@ -125,7 +126,7 @@ export class CommandBagRegistry {
         commandPalette.register(new NavigationGoUpwardCommand(plugin, nav, navSite));
         commandPalette.register(new NavigationPageDownCommand(plugin, nav, navSite));
         commandPalette.register(new NavigationPageUpCommand(plugin, nav, navSite));
-        commandPalette.register(new NavigationScrollToCommand(plugin));
+        commandPalette.register(new ScrollToCommand(plugin));
         commandPalette.register(new PaginationNextCommand(plugin));
         commandPalette.register(new PaginationPreviousCommand(plugin));
         commandPalette.register(new RowDetailsToggleStatusCommand(plugin));
@@ -149,5 +150,6 @@ export class CommandBagRegistry {
         commandPalette.register(new SortToggleCommand(plugin));
         commandPalette.register(new StyleInvalidateCommand(plugin));
         commandPalette.register(new MouseWheelCommand(plugin));
+        commandPalette.register(new ScrollCommand(plugin));
     }
 }

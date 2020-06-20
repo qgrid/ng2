@@ -1,7 +1,7 @@
 import { GRID_PREFIX } from '../definition';
 import { Fastdom } from '../services/fastdom';
 import { selectColumnIndex, selectRowIndex } from './navigation.state.selector';
-import { NAVIGATION_SCROLL_TO_COMMAND_KEY } from '../command-bag/command.bag';
+import { SCROLL_TO_COMMAND_KEY } from '../command-bag/command.bag';
 
 export class NavigationLet {
 	constructor(plugin) {
@@ -10,7 +10,7 @@ export class NavigationLet {
 		this.plugin = plugin;
 		let focusBlurs = [];
 
-		const scrollTo = commandPalette.get(NAVIGATION_SCROLL_TO_COMMAND_KEY);
+		const scrollTo = commandPalette.get(SCROLL_TO_COMMAND_KEY);
 		
 		observeReply(model.navigationChanged)
 			.subscribe(e => {

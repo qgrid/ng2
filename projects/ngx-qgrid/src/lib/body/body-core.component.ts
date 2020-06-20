@@ -1,6 +1,13 @@
-import { Component, ElementRef, OnInit, NgZone, Input, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { BodyHost } from '@qgrid/core/body/body.host';
-import { ColumnView } from '@qgrid/core/scene/view/column.view';
+import {
+	Component,
+	ElementRef,
+	OnInit,
+	NgZone,
+	Input,
+	ChangeDetectorRef,
+	ChangeDetectionStrategy
+} from '@angular/core';
+import { ColumnView } from '@qgrid/core/scene/view/colucomn.view';
 import { EventListener } from '@qgrid/core/event/event.listener';
 import { EventManager } from '@qgrid/core/event/event.manager';
 import { GridLet } from '../grid/grid-let';
@@ -8,7 +15,9 @@ import { GridModel } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { SelectionState } from '@qgrid/core/selection/selection.state';
 import { TableCoreService } from '../table/table-core.service';
-import { MOUSE_WHEEL_COMMAND_KEY, HIGHLIGHT_CELL_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
+import { MOUSE_WHEEL_COMMAND_KEY, HIGHLIGHT_CELL_COMMAND_KEY, SCROLL_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
+
+const SCROLL_SETTINGS = { passive: true };
 
 @Component({
 	// tslint:disable-next-line
@@ -33,20 +42,22 @@ export class BodyCoreComponent implements OnInit {
 	ngOnInit() {
 		const { model, disposable, observeReply, observe, commandPalette } = this.plugin;
 		const nativeElement = this.elementRef.nativeElement as HTMLElement;
+		const listener = new EventListener(nativeElement, new EventManager(this));
 
-		const host = new BodyHost(this.plugin);
-
-		const listener = new EventListener(this.elementRef.nativeElement, new EventManager(this));
 		this.zone.runOutsideAngular(() => {
-			const scrollSettings = { passive: true };
 			disposable.add(
-				listener.on('scroll', () =>
-					host.scroll({
-						scrollLeft: this.$table.pin === 'mid' ? nativeElement.scrollLeft : model.scroll().left,
-						scrollTop: nativeElement.scrollTop
-					}),
-					scrollSettings
-				));
+				listener.on('scroll', () => {
+					const scroll = commandPalette.get(SCROLL_COMMAND_KEY);
+					const pos: [number, number] = [
+						this.$table.pin === 'mid'
+							? nativeElement.scrollLeft : model.scroll().left,
+						nativeElement.scrollTop
+					];
+
+					if (scroll.canExecute(pos) === true) {
+						scroll.execute(pos);
+					}
+				}, SCROLL_SETTINGS));
 
 			disposable.add(
 				listener.on('wheel', e => {

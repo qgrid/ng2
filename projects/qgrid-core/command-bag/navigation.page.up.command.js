@@ -31,12 +31,6 @@ export class NavigationPageUpCommand extends Command {
                 const goTo = commandPalette.get(NAVIGATION_GO_TO_COMMAND_KEY);
 
                 if (model.navigation().go.execute(context('pageUp', { newRow, newColumn })) !== true) {
-                    model.scroll({
-                        top: position.offset
-                    }, {
-                        source: 'navigation.page.up.component'
-                    });
-
                     return goTo.execute({
                         rowIndex: newRow,
                         columnIndex: newColumn

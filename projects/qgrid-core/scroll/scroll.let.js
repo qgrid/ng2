@@ -1,7 +1,7 @@
 import { Log } from '../infrastructure/log';
 import { isFunction, identity } from '../utility/kit';
 import { Fastdom } from '../services/fastdom';
-import { GRID_INVALIDATE_COMMAND_KEY } from '../command-bag/command.bag';
+import { GRID_INVALIDATE_COMMAND_KEY, SCROLL_COMMAND_KEY } from '../command-bag/command.bag';
 
 export class ScrollLet {
 	constructor(plugin, vscroll) {
@@ -63,7 +63,9 @@ export class ScrollLet {
 			const { position } = e;
 			updateCurrentPage(position);
 
-			scroll({ cursor: position }, {
+			scroll({
+				cursor: position
+			}, {
 				source: 'scroll.view',
 				behavior: 'core'
 			});
@@ -137,7 +139,8 @@ export class ScrollLet {
 
 		observeReply(model.scrollChanged)
 			.subscribe(e => {
-				if (e.tag.source === 'scroll.view') {
+				if (e.tag.source === 'scroll.view' ||
+					e.tag.source === 'scroll.command') {
 					return;
 				}
 
@@ -161,6 +164,8 @@ export class ScrollLet {
 									rowToView: identity,
 									viewToRow: identity
 								}
+							}, {
+								source: 'scroll.view',
 							});
 							break;
 						}
@@ -168,22 +173,13 @@ export class ScrollLet {
 				}
 
 				if (e.hasChanges('left') || e.hasChanges('top')) {
-					this.invalidate();
+					const scroll = commandPalette.get(SCROLL_COMMAND_KEY);
+					const pos = [e.state.left, e.state.top];
+					if (scroll.canExecute(pos) === true) {
+						scroll.execute(pos);
+					}
 				}
 			});
-	}
-
-	invalidate() {
-		Log.info('layout', 'invalidate scroll');
-
-		const { model, table } = this.plugin;
-		const { view } = table;
-		const { left, top } = model.scroll();
-
-		Fastdom.mutate(() => {
-			view.scrollLeft(left);
-			view.scrollTop(top);
-		});
 	}
 
 	get mode() {
