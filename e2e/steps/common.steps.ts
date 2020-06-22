@@ -23,7 +23,7 @@ Before((scenario) => {
 
 After(checkErrors);
 
-Given('I am on {string}', START_OPTIONS, (p: string) => browser.get(p));
+Given('I am on {string}', START_OPTIONS, (p: string) => browser.get(p + '?env=test'));
 
 Then('Grid is not empty', () => getRowCount().then(x => expect(x).to.be.above(0)));
 Then('Grid is empty', () => getRowCount().then(x => expect(x).to.equal(0)));

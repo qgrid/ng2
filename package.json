@@ -1,6 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "9.1.3",
+  "version": "9.1.4",
   "scripts": {
     "build:app": "npm run clean && ng build --prod --output-path dist/app --base-href /ng2/",
     "build:lib": "npm run clean && node build.lib.js",

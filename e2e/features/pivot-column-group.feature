@@ -4,8 +4,7 @@ Feature: Pivot Column Group
     	Given I am on "pivot-column-group"
 		When I expand group[0]
         And I expand group[0]
-        And I expand group[0]
-        And I expand group[1]        
+        And I expand group[3]
 		And I look at the Page
 		Then Page looks the same as before
 
@@ -13,8 +12,7 @@ Feature: Pivot Column Group
     	Given I am on "pivot-column-group"
 		When I expand group[0]
         And I expand group[0]
-        And I expand group[0]
-        And I expand group[1]      
+        And I expand group[3]      
         And I collapse group[0]
         And I collapse group[0]        
 		And I look at the Page

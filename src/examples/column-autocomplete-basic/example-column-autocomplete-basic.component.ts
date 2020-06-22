@@ -1,6 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
+const EXAMPLE_TAGS = [
+	'column-autocomplete-basic',
+	'Cell value can be entered using autocomplete feature'
+];
+
 @Component({
 	selector: 'example-column-autocomplete-basic',
 	templateUrl: 'example-column-autocomplete-basic.component.html',
@@ -8,7 +13,8 @@ import { Observable, of } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnAutocompleteBasicComponent {
-	static id = 'column-autocomplete-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows = [
 		{

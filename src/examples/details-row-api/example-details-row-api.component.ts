@@ -3,6 +3,11 @@ import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { Command, GridComponent, RowDetailsStatus } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'details-row-api',
+	'Details section of every row can be expanded/collapsed using UI buttons in toolbar and chevron buttons'
+];
+
 @Component({
 	selector: 'example-details-row-api',
 	templateUrl: 'example-details-row-api.component.html',
@@ -11,7 +16,8 @@ import { Command, GridComponent, RowDetailsStatus } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDetailsRowApiComponent implements AfterViewInit {
-	static id = 'details-row-api';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
 

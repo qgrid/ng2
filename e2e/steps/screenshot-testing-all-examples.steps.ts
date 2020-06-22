@@ -33,12 +33,12 @@ async function checkExamples() {
 
 	for (let i = 0; i < exampleLinks.length; i++) {
 
-		const current = exampleLinks[i].split('/')[3];
+		const current = exampleLinks[i].split('/')[3].split('?')[0];
 		goldenPath = goldenDir + current + ' is the same.png';
 
 		if (config.ignoreList.indexOf(current) === -1) {
 
-			await browser.get(current);
+			await browser.get(current + '?env=test');
 			if (config.timeoutList[current] > 0) {
 				await browser.sleep(config.timeoutList[current]);
 			}

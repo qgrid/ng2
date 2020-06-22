@@ -3,6 +3,11 @@ import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { GridComponent, RowDetailsStatus, Command, RowDetails, Grid } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'details-row-custom',
+	'Details section of every row can be expanded/collapsed by clicking on any cell of corresponding row'
+];
+
 @Component({
 	selector: 'example-details-row-custom',
 	templateUrl: 'example-details-row-custom.component.html',
@@ -11,7 +16,8 @@ import { GridComponent, RowDetailsStatus, Command, RowDetails, Grid } from 'ng2-
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleDetailsRowCustomComponent implements AfterViewInit {
-	static id = 'details-row-custom';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
 	rows$: Observable<Atom[]>;

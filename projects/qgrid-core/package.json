@@ -1,11 +1,10 @@
 {
   "name": "@qgrid/core",
-  "version": "9.1.3",
+  "version": "9.1.4",
   "dependencies": {
     "css.escape": "1.5.1",
     "fastdom": "1.0.9",
     "livr": "2.2.5",
     "lodash-es": "4.17.15"
-  },
-  "author": "qgrid.team@gmail.com"
+  }
 }

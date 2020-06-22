@@ -1,5 +1,10 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
+const EXAMPLE_TAGS = [
+	'column-password-basic',
+	'Cell value has password format (all characters are replaced with the asterisk)'
+];
+
 @Component({
 	selector: 'example-column-password-basic',
 	templateUrl: 'example-column-password-basic.component.html',
@@ -7,7 +12,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnPasswordBasicComponent {
-	static id = 'column-password-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows = [
 		{

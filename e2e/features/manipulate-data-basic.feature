@@ -28,16 +28,3 @@ Scenario: manipulate-data-basic is the same after adding new row
 		And I enter "EDITED LAST NAME" text
 		And I look at the Page
 		Then Page looks the same as before
-
-	Scenario: manipulate-data-basic is the same after deleting new row
-		Given I am on "manipulate-data-basic"
-		When I click add button
-		And I delete row[0]
-		And I look at the Page
-		Then Page looks the same as before
-
-	Scenario: manipulate-data-basic is the same after deleting new row
-		Given I am on "manipulate-data-basic"
-		When I delete row[0]
-		And I look at the Page
-		Then Page looks the same as before
