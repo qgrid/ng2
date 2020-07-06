@@ -65,7 +65,7 @@ export declare class Command<T = any> {
      * * f2
      * * alt\+[0-1]
      */
-    shortcut: () => (string | RegExp) | string | RegExp;
+    shortcut: (() => (string | RegExp)) | string | RegExp;
 
     /**
      * Command priority that can be used by command manager to specify order of commands to execute. 
