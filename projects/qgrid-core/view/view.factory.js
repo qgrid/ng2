@@ -54,8 +54,10 @@ export function viewFactory(
 	};
 
 	return host => {
-		host.body = new BodyLet(plugin);
+		// this should be a first let, because commands are registered here.
 		host.command = new CommandLet(plugin);
+
+		host.body = new BodyLet(plugin);
 		host.edit = new EditLet(plugin, navigationShortcut);
 		host.filter = new FilterLet(plugin);
 		host.foot = new FootLet(plugin);

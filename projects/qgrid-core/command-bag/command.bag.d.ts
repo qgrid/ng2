@@ -85,3 +85,4 @@ export declare const MOUSE_WHEEL_COMMAND_KEY: CommandKey<number>;
 export declare const SCROLL_COMMAND_KEY: CommandKey<[number, number]>;
 export declare const LAYOUT_COLUMNS_ISSUE_COMMAND_KEY: CommandKey<any>;
 export declare const STYLE_COLUMNS_WRITE_COMMAND_KEY: CommandKey<Map<string, number>>;
+export declare const LAYER_BLANK_CHECK_COMMAND_KEY: CommandKey<any>;

@@ -74,6 +74,7 @@ import { MouseWheelCommand } from './mouse.wheel.command';
 import { ScrollCommand } from './scroll.command';
 import { LayoutColumnsIssueCommand } from './layout.columns.issue.command';
 import { StyleColumnsWriteCommand } from './style.columns.write';
+import { LayerBlankCheckCommand } from './layer.blank.check';
 
 export class CommandBagRegistry {
     constructor(plugin) {
@@ -154,6 +155,7 @@ export class CommandBagRegistry {
         commandPalette.register(new MouseWheelCommand(plugin));
         commandPalette.register(new ScrollCommand(plugin));
         commandPalette.register(new LayoutColumnsIssueCommand(plugin));
-        commandPalette.register(new StyleColumnsWriteCommand(plugin))
+        commandPalette.register(new StyleColumnsWriteCommand(plugin));
+        commandPalette.register(new LayerBlankCheckCommand(plugin));
     }
 }
