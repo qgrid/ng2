@@ -72,3 +72,5 @@ export const SORT_TOGGLE_COMMAND_KEY = commandKey('sort.toggle');
 export const STYLE_INVALIDATE_COMMAND_KEY = commandKey('style.invalidate');
 export const MOUSE_WHEEL_COMMAND_KEY = commandKey('mouse.wheel');
 export const SCROLL_COMMAND_KEY = commandKey('scroll');
+export const LAYOUT_COLUMNS_ISSUE_COMMAND_KEY = commandKey('layout.columns.issue');
+export const STYLE_COLUMNS_WRITE_COMMAND_KEY = commandKey('style.columns.write');

@@ -72,6 +72,8 @@ import { SortToggleCommand } from './sort.toggle.command';
 import { StyleInvalidateCommand } from './style.invalidate.command';
 import { MouseWheelCommand } from './mouse.wheel.command';
 import { ScrollCommand } from './scroll.command';
+import { LayoutColumnsIssueCommand } from './layout.columns.issue.command';
+import { StyleColumnsWriteCommand } from './style.columns.write';
 
 export class CommandBagRegistry {
     constructor(plugin) {
@@ -151,5 +153,7 @@ export class CommandBagRegistry {
         commandPalette.register(new StyleInvalidateCommand(plugin));
         commandPalette.register(new MouseWheelCommand(plugin));
         commandPalette.register(new ScrollCommand(plugin));
+        commandPalette.register(new LayoutColumnsIssueCommand(plugin));
+        commandPalette.register(new StyleColumnsWriteCommand(plugin))
     }
 }
