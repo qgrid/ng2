@@ -2,6 +2,11 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../data.service';
 import { GridModel, Grid } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'floating-rows-basic',
+	'Rows can be freezed (freezed rows remain on the top, when grid is scrolled)'
+];
+
 @Component({
 	selector: 'example-floating-rows-basic',
 	templateUrl: 'example-floating-rows-basic.component.html',
@@ -10,7 +15,8 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleFloatingRowsBasicComponent {
-	static id = 'floating-rows-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	gridModel: GridModel;
 
