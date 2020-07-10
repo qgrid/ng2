@@ -2,6 +2,11 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../data.service';
 import { GridModel, Grid } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'focus-cell-basic',
+	'Custom cell focus is applied after grid is loaded'
+];
+
 @Component({
 	selector: 'example-focus-cell-basic',
 	templateUrl: 'example-focus-cell-basic.component.html',
@@ -10,7 +15,8 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleFocusCellBasicComponent {
-	static id = 'focus-cell-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	gridModel: GridModel;
 

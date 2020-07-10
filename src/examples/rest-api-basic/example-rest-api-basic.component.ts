@@ -1,6 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../data.service';
 
+const EXAMPLE_TAGS = [
+	'rest-api-basic',
+	'REST-plugin demonstration. All actions are performed on server side'
+];
+
 @Component({
 	selector: 'example-rest-api-basic',
 	templateUrl: 'example-rest-api-basic.component.html',
@@ -9,5 +14,6 @@ import { DataService } from '../data.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleRestApiBasicComponent {
-	static id = 'rest-api-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 }

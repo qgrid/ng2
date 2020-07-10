@@ -1,5 +1,10 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
+const EXAMPLE_TAGS = [
+	'column-data-safe',
+	'No errors exist despite of bad data'
+];
+
 @Component({
 	selector: 'example-column-data-safe',
 	templateUrl: 'example-column-data-safe.component.html',
@@ -7,7 +12,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnDataSafeComponent {
-	static id = 'column-data-safe';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows = [
 		{

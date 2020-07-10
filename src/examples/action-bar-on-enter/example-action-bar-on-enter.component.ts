@@ -5,7 +5,7 @@ import { GridModel, Action, GridService, Command, Grid } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = [
 	'action-bar-on-enter',
-	'Data is shown on startup'
+	'Row actions appear on enter key press'
 ];
 
 @Component({

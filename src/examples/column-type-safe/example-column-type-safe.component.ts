@@ -1,5 +1,10 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
+const EXAMPLE_TAGS = [
+	'column-type-safe',
+	'Grid is stable despite of wrong cell data type'
+];
+
 @Component({
 	selector: 'example-column-type-safe',
 	templateUrl: 'example-column-type-safe.component.html',
@@ -7,7 +12,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnTypeSafeComponent {
-	static id = 'column-type-safe';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows = [
 		{

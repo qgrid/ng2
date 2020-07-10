@@ -2,6 +2,11 @@ import { Component, NgZone, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../data.service';
 import { GridModel, Grid, PipeContext } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'pipe-grid-basic',
+	'Custom pipe demonstration'
+];
+
 @Component({
 	selector: 'example-pipe-grid-basic',
 	templateUrl: 'example-pipe-grid-basic.component.html',
@@ -10,7 +15,8 @@ import { GridModel, Grid, PipeContext } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplePipeGridBasicComponent {
-	static id = 'pipe-grid-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	gridModel: GridModel;
 

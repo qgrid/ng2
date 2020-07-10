@@ -4,6 +4,11 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FetchContext, GridComponent } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'filter-column-fetch',
+	'Column filter value can be loaded from server'
+];
+
 @Component({
 	selector: 'example-filter-column-fetch',
 	templateUrl: 'example-filter-column-fetch.component.html',
@@ -12,7 +17,8 @@ import { FetchContext, GridComponent } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleFilterColumnFetchComponent implements AfterViewInit {
-	static id = 'filter-column-fetch';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	@ViewChild(GridComponent) myGrid: GridComponent;
 	rows: Observable<Atom[]>;
