@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 const EXAMPLE_TAGS = [
 	'filter-row-people-basic',
-	'Filter can by applied to every column'
+	'Filter can be applied to every column'
 ];
 
 @Component({
