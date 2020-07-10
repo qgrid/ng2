@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [9.1.4] - 2020-06-02
+### Added
+- Support 2 version 9.1.x - Ivy, 9.1.x-ve - View Engine
+- `q-grid-shortcut-host` directive that can change key event source for q-grid commands.
+
+### Changed
+- Better top toolbar layout.
+- Grid title now wraps to the second row if not fit to width.
+
 ## [9.1.3] - 2020-06-01
 ### BREAKING
 * Remove q-grid-title, use `q-grid-caption` instead.
@@ -17,7 +26,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pane doesn't work when select row.
 * Select all by `ctrl-a` in `multiple` and `range` modes.
 
-## Added
+### Added
 * Add new option for column generation, typeDetection = 'inference' | 'raw'.
 * Add shortcuts to the pager's next/prev buttons (alt+pagedown, alt+pageup).
 * Introduce q-grid-row `behavior` array input to control if it's required to expand row on click or shortcut.
@@ -535,7 +544,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v9.1.3...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v9.1.4...HEAD
+[9.1.4]: https://github.com/qgrid/ng2/compare/v9.1.3...v9.1.4
 [9.1.3]: https://github.com/qgrid/ng2/compare/v9.0.1...v9.1.3
 [9.0.1]: https://github.com/qgrid/ng2/compare/v9.0.0...v9.0.1
 [9.0.0]: https://github.com/qgrid/ng2/compare/v7.5.2...v9.0.0

@@ -1,10 +1,10 @@
 {
   "name": "ng2-qgrid/theme/material",
-  "version": "9.1.3",
+  "version": "9.1.4",
   "peerDependencies": {
     "@angular/common": "^9.1.0",
     "@angular/core": "^9.1.0",
-    "ng2-qgrid": "9.1.3",
+    "ng2-qgrid": "9.1.4",
     "@angular/cdk": "^9.2.0",
     "@angular/material": "^9.2.0"
   }
