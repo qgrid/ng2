@@ -1,6 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../data.service';
 
+const EXAMPLE_TAGS = [
+	'key-with-symbols',
+	'Any row can be column key'
+];
+
 @Component({
 	selector: 'example-key-with-symbols',
 	templateUrl: 'example-key-with-symbols.component.html',
@@ -9,7 +14,8 @@ import { DataService } from '../data.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleKeyWithSymbolsComponent {
-	static id = 'key-with-symbols';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows = [{
 		'key.With.Symbols': {

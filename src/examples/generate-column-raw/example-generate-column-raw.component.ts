@@ -2,6 +2,11 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 
+const EXAMPLE_TAGS = [
+	'generate-column-raw',
+	'Column generation based on data source'
+];
+
 @Component({
 	selector: 'example-generate-column-raw',
 	templateUrl: 'example-generate-column-raw.component.html',
@@ -10,7 +15,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleGenerateColumnRawComponent {
-	static id = 'generate-column-raw';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows: Observable<Human[]>;
 

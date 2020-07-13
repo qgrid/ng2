@@ -2,6 +2,11 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 
+const EXAMPLE_TAGS = [
+	'generate-column-cohort',
+	'Column generation based on data source'
+];
+
 @Component({
 	selector: 'example-generate-column-cohort',
 	templateUrl: 'example-generate-column-cohort.component.html',
@@ -10,7 +15,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleGenerateColumnCohortComponent {
-	static id = 'generate-column-cohort';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows: Observable<Human[]>;
 

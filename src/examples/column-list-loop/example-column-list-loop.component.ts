@@ -2,6 +2,11 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
+const EXAMPLE_TAGS = [
+	'column-list-loop',
+	'Columns can be created in html-template using *ngFor'
+];
+
 @Component({
 	selector: 'example-column-list-loop',
 	templateUrl: 'example-column-list-loop.component.html',
@@ -10,7 +15,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleColumnListLoopComponent {
-	static id = 'column-list-loop';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows: Observable<Atom[]>;
 

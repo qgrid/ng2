@@ -3,6 +3,11 @@ import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { Column } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'define-column-hybrid',
+	'Columns can be created both in html and typescript'
+];
+
 @Component({
 	selector: 'example-define-column-hybrid',
 	templateUrl: 'example-define-column-hybrid.component.html',
@@ -11,7 +16,8 @@ import { Column } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDefineColumnHybridComponent {
-	static id = 'define-column-hybrid';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows: Observable<Atom[]>;
 	columns: Column[] = [{

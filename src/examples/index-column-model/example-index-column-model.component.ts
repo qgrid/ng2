@@ -2,6 +2,11 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../data.service';
 import { GridModel, Grid } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'index-column-model',
+	'Columns are ordered (grid-model)'
+];
+
 @Component({
 	selector: 'example-index-column-model',
 	templateUrl: 'example-index-column-model.component.html',
@@ -10,7 +15,8 @@ import { GridModel, Grid } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleIndexColumnModelComponent {
-	static id = 'index-column-model';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	gridModel: GridModel;
 
