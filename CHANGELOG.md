@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [9.1.5] - 2020-07-13
+### Fixed
+- Importing of LIVR library.
+- Set compilation target to es5. 
+
 ## [9.1.4] - 2020-06-02
 ### Added
 - Support 2 version 9.1.x - Ivy, 9.1.x-ve - View Engine
@@ -12,7 +17,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Better top toolbar layout.
 - Grid title now wraps to the second row if not fit to width.
 
-## [9.1.3] - 2020-06-01
+## [9.1.4] - 2020-06-01
 ### BREAKING
 * Remove q-grid-title, use `q-grid-caption` instead.
 
@@ -544,7 +549,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v9.1.4...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v9.1.5...HEAD
+[9.1.5]: https://github.com/qgrid/ng2/compare/v9.1.4...v9.1.5
 [9.1.4]: https://github.com/qgrid/ng2/compare/v9.1.3...v9.1.4
 [9.1.3]: https://github.com/qgrid/ng2/compare/v9.0.1...v9.1.3
 [9.0.1]: https://github.com/qgrid/ng2/compare/v9.0.0...v9.0.1

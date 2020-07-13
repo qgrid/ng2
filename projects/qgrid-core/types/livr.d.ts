@@ -3,6 +3,6 @@ declare module "livr" {
         constructor(schema: any);
 
         validate(value: any): boolean;
-        getErrors(): { [key: string]: Array<string> | string };
+        getErrors(): { [key: string]: (Array<string> | string) };
     }
 }
