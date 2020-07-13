@@ -75,6 +75,8 @@ import { ScrollCommand } from './scroll.command';
 import { LayoutColumnsIssueCommand } from './layout.columns.issue.command';
 import { StyleColumnsWriteCommand } from './style.columns.write';
 import { LayerBlankCheckCommand } from './layer.blank.check';
+import { VisibilityCheckCommand } from './visibility.check.command';
+import { DragCheckCommand } from './drag.check.command';
 
 export class CommandBagRegistry {
     constructor(plugin) {
@@ -157,5 +159,7 @@ export class CommandBagRegistry {
         commandPalette.register(new LayoutColumnsIssueCommand(plugin));
         commandPalette.register(new StyleColumnsWriteCommand(plugin));
         commandPalette.register(new LayerBlankCheckCommand(plugin));
+        commandPalette.register(new VisibilityCheckCommand(plugin));
+        commandPalette.register(new DragCheckCommand(plugin));
     }
 }

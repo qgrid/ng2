@@ -1,12 +1,13 @@
 
 import { GridError } from '../infrastructure/error';
-import { uniq, same } from '../utility/kit';
-import { Keyboard } from '../keyboard/keyboard';
+import { VISIBILITY_CHECK_COMMAND_KEY } from '../command-bag/command.bag';
 
 export class GridHost {
 	constructor(host, plugin) {
-		const { model, disposable, observe } = plugin;
+		const { model, disposable, observe, commandPalette } = plugin;
 		const { grid } = model;
+		const visibilityCheck = commandPalette.get(VISIBILITY_CHECK_COMMAND_KEY);
+
 
 		this.plugin = plugin;
 
@@ -27,11 +28,11 @@ export class GridHost {
 			source: 'grid.host'
 		});
 
-		this.invalidateVisibility();
+		visibilityCheck.execute();
 		observe(model.sceneChanged)
 			.subscribe(e => {
 				if (e.hasChanges('column')) {
-					this.invalidateVisibility();
+					visibilityCheck.execute();
 				}
 			});
 
@@ -42,27 +43,5 @@ export class GridHost {
 				source: 'grid.host'
 			})
 		);
-	}
-
-	invalidateVisibility() {
-		const { model } = this.plugin;
-		const { left, right } = model.scene().column.area;
-		const { pinTop, pinBottom } = model.row();
-
-		const { pin: oldPin } = model.visibility();
-		const newPin = {
-			left: left.length > 0,
-			right: right.length > 0,
-			top: pinTop.length > 0,
-			bottom: pinBottom.length > 0
-		};
-
-		if (!same(oldPin, newPin)) {
-			model.visibility({
-				pin: newPin
-			}, {
-				source: 'grid.host'
-			});
-		}
 	}
 }

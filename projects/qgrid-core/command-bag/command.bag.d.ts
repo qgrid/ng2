@@ -1,6 +1,6 @@
 import { CellView, CellViewPosition } from '../scene/view/cell.view';
 import { ColumnModel } from '../column-type/column.model';
-import { CommandKey, commandKey } from '../command/command.key';
+import { CommandKey } from '../command/command.key';
 import { ModelChanges } from '../model/model.event';
 import { PipeCallback, PipeUnitWhy } from '../pipe/pipe.types';
 
@@ -86,3 +86,5 @@ export declare const SCROLL_COMMAND_KEY: CommandKey<[number, number]>;
 export declare const LAYOUT_COLUMNS_ISSUE_COMMAND_KEY: CommandKey<any>;
 export declare const STYLE_COLUMNS_WRITE_COMMAND_KEY: CommandKey<Map<string, number>>;
 export declare const LAYER_BLANK_CHECK_COMMAND_KEY: CommandKey<any>;
+export declare const VISIBILITY_CHECK_COMMAND_KEY: CommandKey<any>;
+export declare const DRAG_CHECK_COMMAND_KEY: CommandKey<HTMLElement>;

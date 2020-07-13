@@ -75,3 +75,5 @@ export const SCROLL_COMMAND_KEY = commandKey('scroll');
 export const LAYOUT_COLUMNS_ISSUE_COMMAND_KEY = commandKey('layout.columns.issue');
 export const STYLE_COLUMNS_WRITE_COMMAND_KEY = commandKey('style.columns.write');
 export const LAYER_BLANK_CHECK_COMMAND_KEY = commandKey('layer.blank.check');
+export const VISIBILITY_CHECK_COMMAND_KEY = commandKey('layer.blank.check');
+export const DRAG_CHECK_COMMAND_KEY = commandKey('drag.check');
