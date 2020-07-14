@@ -1,4 +1,4 @@
-<q-grid caption="Group Row Summary"
+<q-grid [caption]="title"
         [rows]="rows | async"
         [groupBy]="['bondingType', 'groupBlock']"
         groupMode="subhead"

@@ -3,6 +3,11 @@ import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+const EXAMPLE_TAGS = [
+	'filter-row-people-basic',
+	'Filter can be applied to every column'
+];
+
 @Component({
 	selector: 'example-filter-row-people-basic',
 	templateUrl: 'example-filter-row-people-basic.component.html',
@@ -11,7 +16,8 @@ import { map } from 'rxjs/operators';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleFilterRowPeopleBasicComponent {
-	static id = 'filter-row-people-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows: Observable<Human[]>;
 

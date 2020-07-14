@@ -3,6 +3,11 @@ import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { GridComponent } from 'ng2-qgrid';
 
+const EXAMPLE_TAGS = [
+	'on-push-basic',
+	'On push change detection is enabled'
+];
+
 @Component({
 	selector: 'example-on-push-basic',
 	templateUrl: 'example-on-push-basic.component.html',
@@ -11,7 +16,8 @@ import { GridComponent } from 'ng2-qgrid';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleOnPushBasicComponent implements AfterViewInit {
-	static id = 'on-push-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	@ViewChild(GridComponent) grid: GridComponent;
 	rows: Observable<Atom[]>;

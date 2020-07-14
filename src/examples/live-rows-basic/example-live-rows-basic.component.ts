@@ -2,6 +2,11 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulatio
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
+const EXAMPLE_TAGS = [
+	'live-rows',
+	'Grid actions are animated (e.g. row sorting)'
+];
+
 @Component({
 	selector: 'example-live-rows-basic',
 	templateUrl: 'example-live-rows-basic.component.html',
@@ -11,7 +16,8 @@ import { Observable } from 'rxjs';
 	encapsulation: ViewEncapsulation.None
 })
 export class ExampleLiveRowsBasicComponent {
-	static id = 'live-rows';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows: Observable<Atom[]>;
 

@@ -1,4 +1,4 @@
-<q-grid caption="Pivot Column Cohort"
+<q-grid [caption]="title"
         [rows]="rows | async"
         [pivotBy]="['bondingType', 'groupBlock']">
 	<q-grid-columns>

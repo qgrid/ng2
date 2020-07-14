@@ -2,6 +2,11 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 
+const EXAMPLE_TAGS = [
+	'define-column-basic',
+	'Columns can be created in html'
+];
+
 @Component({
 	selector: 'example-define-column-basic',
 	templateUrl: 'example-define-column-basic.component.html',
@@ -10,7 +15,8 @@ import { Observable } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleDefineColumnBasicComponent {
-	static id = 'define-column-basic';
+	static tags = EXAMPLE_TAGS;
+	title = EXAMPLE_TAGS[1];
 
 	rows$: Observable<Atom[]> = this.dataService.getAtoms();
 
