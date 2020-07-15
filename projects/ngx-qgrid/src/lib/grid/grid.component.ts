@@ -162,6 +162,7 @@ export class GridComponent implements OnInit, OnChanges {
 			});
 		}
 
+		// tslint:disable-next-line:no-unused-expression
 		new GridHost(
 			nativeElement,
 			this.plugin,

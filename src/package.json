@@ -7,16 +7,20 @@
     "grid",
     "data grid",
     "table",
-    "data table"
+    "data table",
+    "sheet",
+    "spreadsheet",
+    "excel"
   ],
   "license": "MIT",
   "main": "./bundles/ng2-qgrid.umd.js",
   "fesm2015": "./fesm2015/ng2-qgrid.js",
   "name": "ng2-qgrid-app",
   "peerDependencies": {
-    "@angular/common": "~9.0.4",
-    "@angular/core": "~9.0.4",
-    "@angular/forms": "~9.0.4"
+    "@angular/common": "~10.0.2",
+    "@angular/core": "~10.0.2",
+    "@angular/forms": "~10.0.2",
+    "@qngular/animations": "~10.0.2"
   },
   "repository": {
     "type": "git",

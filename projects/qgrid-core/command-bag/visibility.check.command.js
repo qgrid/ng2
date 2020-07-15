@@ -1,5 +1,6 @@
 import { Command } from '../command/command';
 import { VISIBILITY_CHECK_COMMAND_KEY } from './command.bag';
+import { same } from '../utility/kit';
 
 export class VisibilityCheckCommand extends Command {
     constructor(plugin) {

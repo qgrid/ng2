@@ -7,7 +7,7 @@ import {
 	ChangeDetectorRef,
 	ChangeDetectionStrategy
 } from '@angular/core';
-import { ColumnView } from '@qgrid/core/scene/view/colucomn.view';
+import { ColumnView } from '@qgrid/core/scene/view/column.view';
 import { EventListener } from '@qgrid/core/event/event.listener';
 import { EventManager } from '@qgrid/core/event/event.manager';
 import { GridLet } from '../grid/grid-let';

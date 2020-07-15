@@ -1,7 +1,7 @@
 import { Component, OnInit, DoCheck, ChangeDetectorRef, NgZone, ChangeDetectionStrategy, ElementRef } from '@angular/core';
 import { CellClassService } from '../cell/cell-class.service';
 import { CellTemplateService } from '../cell/cell-template.service';
-import { GRID_INVALIDATE_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
+import { GRID_INVALIDATE_COMMAND_KEY, STYLE_INVALIDATE_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
 import { GridLet } from '../grid/grid-let';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
@@ -46,7 +46,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 						});
 
 						if (this.host) {
-							this.host.invalidateStyle();
+							this.invalidateStyle();
 						}
 					}
 				}
@@ -55,7 +55,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 
 	ngDoCheck() {
 		if (this.host) {
-			this.host.invalidateStyle();
+			this.invalidateStyle();
 		}
 	}
 
@@ -100,12 +100,12 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 			});
 
 		observe(model.styleChanged)
-			.subscribe(() => this.host.invalidateStyle());
+			.subscribe(() => this.invalidateStyle());
 
 		observe(model.layoutChanged)
 			.subscribe(e => {
 				if (e.hasChanges('rows')) {
-					this.host.invalidateStyle();
+					this.invalidateStyle();
 				}
 			});
 
@@ -125,7 +125,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		if (model.scroll().mode === 'virtual') {
 			const asVirtualBody = table.body as any;
 			if (asVirtualBody.requestInvalidate) {
-				asVirtualBody.requestInvalidate.on(() => this.host.invalidateStyle());
+				asVirtualBody.requestInvalidate.on(() => this.invalidateStyle());
 			}
 		}
 	}
@@ -133,5 +133,13 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 	get visibility(): VisibilityState {
 		const { model } = this.plugin;
 		return model.visibility();
+	}
+
+	private invalidateStyle() {
+		const { commandPalette } = this.plugin;
+		const styleInvalidate = commandPalette.get(STYLE_INVALIDATE_COMMAND_KEY);
+		if (styleInvalidate.canExecute() === true) {
+			styleInvalidate.execute();
+		}
 	}
 }

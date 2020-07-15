@@ -1,19 +1,34 @@
 import { jobLine } from '../services/job.line';
 import { PipeUnit } from '../pipe/pipe.unit';
-import { GRID_INVALIDATE_COMMAND_KEY, STYLE_INVALIDATE_COMMAND_KEY } from '../command-bag/command.bag';
+import {
+	GRID_INVALIDATE_COMMAND_KEY,
+	STYLE_INVALIDATE_COMMAND_KEY,
+	VISIBILITY_CHECK_COMMAND_KEY
+} from '../command-bag/command.bag';
 
 export class ViewHost {
 	constructor(plugin) {
 		this.plugin = plugin;
 
-		const { model, observeReply } = this.plugin;
+		const { model, observeReply, observe, commandPalette } = this.plugin;
 		const { triggers } = model.pipe();
 		const { pipe } = model.data();
+
+		const visibilityCheck = commandPalette.get(VISIBILITY_CHECK_COMMAND_KEY);
+		visibilityCheck.execute();
+		observe(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('column')) {
+					visibilityCheck.execute();
+				}
+			});
 
 		const triggerJob = this.triggerLine(10);
 		if (pipe !== PipeUnit.default) {
 			triggerJob('grid', {}, [pipe]);
 		}
+
+
 
 		Object.keys(triggers)
 			.forEach(name =>
@@ -65,13 +80,5 @@ export class ViewHost {
 				);
 			});
 		};
-	}
-
-	invalidateStyle() {
-		const { commandPalette } = this.plugin;
-		const styleInvalidate = commandPalette.get(STYLE_INVALIDATE_COMMAND_KEY);
-		if (styleInvalidate.canExecute() === true) {
-			styleInvalidate.execute();
-		}
 	}
 }

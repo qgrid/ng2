@@ -1,20 +1,14 @@
 
 import { GridError } from '../infrastructure/error';
-import { VISIBILITY_CHECK_COMMAND_KEY } from '../command-bag/command.bag';
 
 export class GridHost {
 	constructor(host, plugin) {
-		const { model, disposable, observe, commandPalette } = plugin;
-		const { grid } = model;
-		const visibilityCheck = commandPalette.get(VISIBILITY_CHECK_COMMAND_KEY);
+		const { model, disposable } = plugin;
 
-
-		this.plugin = plugin;
-
-		if (grid().status === 'bound') {
+		if (model.grid().status === 'bound') {
 			throw new GridError(
 				'grid.host',
-				`Model is already used by grid "${grid().id}"`
+				`Model is already used by grid "${model.grid().id}"`
 			);
 		}
 
@@ -22,19 +16,11 @@ export class GridHost {
 			host.id = model.grid().id;
 		}
 
-		grid({
+		model.grid({
 			status: 'bound'
 		}, {
 			source: 'grid.host'
 		});
-
-		visibilityCheck.execute();
-		observe(model.sceneChanged)
-			.subscribe(e => {
-				if (e.hasChanges('column')) {
-					visibilityCheck.execute();
-				}
-			});
 
 		disposable.add(() =>
 			model.grid({

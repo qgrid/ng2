@@ -2,6 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "allowJs": true,
     "downlevelIteration": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
