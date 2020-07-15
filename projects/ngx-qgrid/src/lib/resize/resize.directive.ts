@@ -103,16 +103,16 @@ export class ResizeDirective implements OnInit, OnDestroy {
 
 	drag(e: MouseEvent) {
 		const { context, path, key } = this;
-		const { layout } = this.model;
+		const { model } = this;
 
-		const state = clone(layout()[path]);
+		const state = clone(model.layout()[path]);
 
 		state.set(key, {
 			width: context.width + e.screenX - context.x,
 			height: context.height + e.screenY - context.y
 		});
 
-		layout({ [path]: state });
+		model.layout({ [path]: state });
 	}
 
 	dragEnd() {

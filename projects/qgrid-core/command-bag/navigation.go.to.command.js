@@ -33,7 +33,8 @@ export class NavigationGoToCommand extends Command {
                 model.navigation({
                     cell
                 }, {
-                    source: 'navigation.go.to.command'
+                    source: 'navigation.go.to.command',
+                    behavior: 'core'
                 });
 
                 return true;

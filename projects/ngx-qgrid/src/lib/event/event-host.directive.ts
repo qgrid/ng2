@@ -53,15 +53,11 @@ export class EventHostDirective implements OnInit {
 		});
 
 		disposable.add(
-			hostListener.on('mousedown', e => {
-				host.mouseDown(e);
-			})
+			hostListener.on('mousedown', e => host.mouseDown(e))
 		);
 
 		disposable.add(
-			hostListener.on('keydown', e => {
-				host.keyDown(e);
-			})
+			hostListener.on('keydown', e => host.keyDown(e))
 		);
 	}
 }

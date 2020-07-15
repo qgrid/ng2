@@ -1,6 +1,6 @@
 import { Command } from '../command/command';
 import { navigationContextFactory } from '../navigation/navigation.context.factory';
-import { NAVIGATION_PAGE_DOWN_COMMAND_KEY, NAVIGATION_GO_TO_COMMAND_KEY, SCROLL_COMMAND_KEY } from './command.bag';
+import { NAVIGATION_PAGE_DOWN_COMMAND_KEY, NAVIGATION_GO_TO_COMMAND_KEY } from './command.bag';
 
 export class NavigationPageDownCommand extends Command {
     constructor(plugin, nav, site) {
@@ -17,7 +17,8 @@ export class NavigationPageDownCommand extends Command {
                     const goTo = commandPalette.get(NAVIGATION_GO_TO_COMMAND_KEY);
 
                     return newRow >= 0
-                        && model.navigation().go.canExecute(context('pageDown', { newRow }));
+                        && model.navigation().go.canExecute(context('pageDown', { newRow }))
+                        && goTo.canExecute({ rowIndex: newRow, columnIndex: newColumn });
                 }
 
                 return false;

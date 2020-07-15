@@ -14,27 +14,28 @@ export class ScrollCommand extends Command {
 
         super({
             key: SCROLL_COMMAND_KEY,
+            canExecute: ([scrollLeft, scrollTop]) => {
+                const currentState = model.scroll();
+                return currentState.left !== scrollLeft || currentState.top !== scrollTop;
+            },
             execute: ([scrollLeft, scrollTop]) => {
                 const currentState = model.scroll();
                 const newState = {};
 
-                let hasChanges = false;
                 if (currentState.top !== scrollTop) {
                     table.view.addClass(VERTICAL_SCROLL_CLASS);
                     newState.top = scrollTop;
-                    table.view.scrollLeft(scrollLeft);
-                    hasChanges = true;
+                    table.view.scrollTop(scrollTop);
                 }
 
                 if (currentState.left !== scrollLeft) {
                     table.view.addClass(HORIZONTAL_SCROLL_CLASS);
                     newState.left = scrollLeft;
-                    table.view.scrollTop(scrollTop);
-                    hasChanges = true;
+                    table.view.scrollLeft(scrollLeft);
                 }
 
-                if (hasChanges) {
-                    scroll(newState, {
+                if (Object.keys(newState).length) {
+                    model.scroll(newState, {
                         source: 'scroll.command'
                     });
                 }

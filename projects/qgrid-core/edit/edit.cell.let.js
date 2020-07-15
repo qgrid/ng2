@@ -30,21 +30,31 @@ export class EditCellLet {
 		observeReply(model.editChanged)
 			.subscribe(e => {
 				if (e.hasChanges('status') && e.tag.source !== 'edit.cell.let') {
-					if (e.changes.status.newValue === 'edit') {
-						model.edit({ status: 'view' }, { source: 'edit.cell.let' });
-						if (this.enter.canExecute()) {
-							this.enter.execute();
-						}
-					} else if (e.changes.status.newValue === 'view') {
-						model.edit({ status: 'edit' }, { source: 'edit.cell.let' });
-						if (this.requestClose) {
-							if (this.requestClose()) {
-								return;
-							}
-						}
+					switch (e.state.status) {
+						case 'edit': {
+							model.edit({
+								status: 'view'
+							}, {
+								source: 'edit.cell.let'
+							});
 
-						if (this.cancel.canExecute()) {
-							this.cancel.execute();
+							if (this.enter.canExecute()) {
+								this.enter.execute();
+							}
+
+							break;
+						}
+						case 'view': {
+							model.edit({ status: 'edit' }, { source: 'edit.cell.let' });
+							if (this.requestClose) {
+								if (this.requestClose()) {
+									return;
+								}
+							}
+
+							if (this.cancel.canExecute()) {
+								this.cancel.execute();
+							}
 						}
 					}
 				}

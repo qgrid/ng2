@@ -77,3 +77,5 @@ export const STYLE_COLUMNS_WRITE_COMMAND_KEY = commandKey('style.columns.write')
 export const LAYER_BLANK_CHECK_COMMAND_KEY = commandKey('layer.blank.check');
 export const VISIBILITY_CHECK_COMMAND_KEY = commandKey('layer.blank.check');
 export const DRAG_CHECK_COMMAND_KEY = commandKey('drag.check');
+export const FOCUS_INVALIDATE_COMMAND_KEY = commandKey('focus.invalidate');
+export const CELL_HANDLER_ANIMATE_COMMAND_KEY = commandKey('cell.handler.animate');

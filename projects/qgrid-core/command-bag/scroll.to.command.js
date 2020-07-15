@@ -1,5 +1,6 @@
 import { Command } from '../command/command';
 import { Fastdom } from '../services/fastdom';
+import { isUndefined } from '../utility/kit';
 import { SCROLL_TO_COMMAND_KEY, SCROLL_COMMAND_KEY } from './command.bag';
 
 export class ScrollToCommand extends Command {
@@ -28,10 +29,10 @@ export class ScrollToCommand extends Command {
                             || vr.right < tr.right) {
 
                             if (vr.width < tr.width || vr.left > tr.left || vr.left > tr.right) {
-                                state.left = tr.left - vr.left + model.scroll().left;
+                                state.left = Math.floor(tr.left - vr.left + model.scroll().left);
                             }
                             else if (vr.left < tr.left || vr.right < tr.right) {
-                                state.left = tr.right - vr.right + model.scroll().left;
+                                state.left = Math.ceil(tr.right - vr.right + model.scroll().left);
                             }
                         }
                     }
@@ -43,20 +44,21 @@ export class ScrollToCommand extends Command {
                             || vr.bottom < tr.bottom) {
 
                             if (vr.height < tr.height || vr.top > tr.top || vr.top > tr.bottom) {
-                                state.top = tr.top - vr.top + model.scroll().top;
+                                state.top = Math.floor(tr.top - vr.top + model.scroll().top);
                             }
                             else if (vr.top < tr.top || vr.bottom < tr.bottom) {
-                                state.top = tr.bottom - vr.bottom + model.scroll().top;
+                                state.top = Math.ceil(tr.bottom - vr.bottom + model.scroll().top);
                             }
                         }
                     }
 
                     if (Object.keys(state).length) {
                         const scroll = commandPalette.get(SCROLL_COMMAND_KEY);
-                        const left = state.left || model.scroll().left;
-                        const top = state.top || model.scroll().top;
+                        const left = isUndefined(state.left) ? model.scroll().left : state.left;
+                        const top = isUndefined(state.top) ? model.scroll().top : state.top;
                         const pos = [left, top];
-                        if(scroll.canExecute(pos) === true) {
+
+                        if (scroll.canExecute(pos) === true) {
                             scroll.execute(pos);
                         }
                     }

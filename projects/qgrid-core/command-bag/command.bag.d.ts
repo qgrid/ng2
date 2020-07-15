@@ -88,3 +88,5 @@ export declare const STYLE_COLUMNS_WRITE_COMMAND_KEY: CommandKey<Map<string, num
 export declare const LAYER_BLANK_CHECK_COMMAND_KEY: CommandKey<any>;
 export declare const VISIBILITY_CHECK_COMMAND_KEY: CommandKey<any>;
 export declare const DRAG_CHECK_COMMAND_KEY: CommandKey<HTMLElement>;
+export declare const FOCUS_INVALIDATE_COMMAND_KEY: CommandKey<any>;
+export declare const CELL_HANDLER_ANIMATE_COMMAND_KEY: CommandKey<{ handler: HTMLElement, oldCell: CellView, newCell: CellView }>;

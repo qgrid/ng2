@@ -4,7 +4,7 @@ import { LAYOUT_COLUMNS_ISSUE_COMMAND_KEY, STYLE_COLUMNS_WRITE_COMMAND_KEY } fro
 
 export class LayoutLet {
 	constructor(plugin) {
-		const { model, observeReply, disposable, commandPalette } = plugin;
+		const { model, observeReply, commandPalette } = plugin;
 		const styleRow = this.styleRow.bind(this);
 
 		const layoutColumnsIssue = commandPalette.get(LAYOUT_COLUMNS_ISSUE_COMMAND_KEY);
@@ -30,7 +30,7 @@ export class LayoutLet {
 
 		observeReply(model.layoutChanged)
 			.subscribe(e => {
-				if (e.tag.source === 'layout.let') {
+				if (e.tag.behavior === 'core') {
 					return;
 				}
 
