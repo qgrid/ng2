@@ -17,6 +17,7 @@ import { PathService } from '../path/path.service';
 import { selectRowIndex, selectColumnIndex } from '../navigation/navigation.state.selector';
 
 export class EventHost {
+
 	constructor(host, plugin) {
 		this.host = host;
 		this.plugin = plugin;
@@ -32,16 +33,22 @@ export class EventHost {
 	}
 
 	keyDown(e) {
-		const { commandPalette } = this.plugin;
+		const { model, commandPalette } = this.plugin;
 		const code = Keyboard.translate(e.code);
 		const keyDown = commandPalette.get(KEY_DOWN_COMMAND_KEY);
 		if (keyDown.canExecute(code) === true) {
 			if (keyDown.execute(code) === true) {
-				e.preventDefault();
-				e.stopImmediatePropagation();
+				this.stopPropagate(e);
 				return true;
 			}
 		}
+
+		// it can be a case when for instance user pressed pagedown and pageup
+		// at the same time, to prevent default behavior we catch them here
+		if (model.navigation().prevent.has(code)) {
+			this.stopPropagate(e);
+			return true;
+		}	
 
 		return false;
 	}
@@ -133,5 +140,10 @@ export class EventHost {
 		}
 
 		return cell;
+	}
+
+	stopPropagate(e) {
+		e.preventDefault();
+		e.stopImmediatePropagation();
 	}
 }

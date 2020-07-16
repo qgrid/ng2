@@ -13,4 +13,6 @@ export declare class NavigationState {
 	go: Command;
 
 	shortcut: { [key: string]: string };
+
+	prevent: Set<string>;
 }

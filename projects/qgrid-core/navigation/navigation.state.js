@@ -13,12 +13,25 @@ export class NavigationState {
 			previous: 'shift+tab',
 			home: 'home',
 			end: 'end',
-			pageUp: 'pageUp',
-			pageDown: 'pageDown',
+			pageUp: 'pageup',
+			pageDown: 'pagedown',
 			upward: 'ctrl+home',
 			downward: 'ctrl+end'
 		};
 
 		this.go = new Command();
+
+		this.prevent = new Set([
+			'space',
+			'up',
+			'down',
+			'left',
+			'right',
+			'tab',
+			'home',
+			'end',
+			'pageup',
+			'pagedown',
+		]);
 	}
 }
