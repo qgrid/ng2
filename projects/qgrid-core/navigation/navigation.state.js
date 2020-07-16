@@ -15,8 +15,8 @@ export class NavigationState {
 			end: 'end',
 			pageUp: 'pageUp',
 			pageDown: 'pageDown',
-			upward: 'shift+pageUp',
-			downward: 'shift+pageDown'
+			upward: 'ctrl+home',
+			downward: 'ctrl+end'
 		};
 
 		this.go = new Command();
