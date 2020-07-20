@@ -28,6 +28,7 @@ export class ValidatorPlugin {
 			} else {
 				this.oldErrors.length = 0;
 			}
+
 			return this.stringify(this.oldErrors);
 		}
 	}

@@ -39,7 +39,7 @@ export class EditCellCommitCommand extends Command {
                         editLet.tag
                     );
 
-                    return validator.validate({ [key]: editLet.value })
+                    return validator.validate({ [key]: editLet.value }) !== false
                         && model.edit().commit.canExecute(clientContext) === true;
                 }
 
