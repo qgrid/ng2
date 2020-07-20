@@ -28,7 +28,7 @@ export class EditCellPushCommand extends Command {
 
                     const { key } = cell.column;
                     const validator = validationService.createValidator(model.validation().rules, key);
-                    return validator.validate({ [key]: this.value })
+                    return validator.validate({ [key]: this.value }) !== false
                         && model.edit().commit.canExecute(clientContext) === true;
                 }
 

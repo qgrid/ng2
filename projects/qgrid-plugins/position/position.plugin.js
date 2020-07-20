@@ -3,6 +3,7 @@ import { max } from '@qgrid/core/utility/kit';
 import { EventListener } from '@qgrid/core/event/event.listener';
 import { EventManager } from '@qgrid/core/event/event.manager';
 import { jobLine } from '@qgrid/core/services/job.line';
+import { Fastdom } from '@qgrid/core/services/fastdom';
 
 export class PositionPlugin {
 	constructor(context, disposable) {
@@ -25,8 +26,13 @@ export class PositionPlugin {
 		while (node) {
 			const targetName = (this.targetName || '').toLowerCase();
 			if (node.nodeName.toLowerCase() === targetName) {
-				this.layout(node, this.element);
-				this.element.style.opacity = 1;
+				// To gurantee last execution we cover mutate with measure
+				Fastdom.measure(() =>
+					Fastdom.mutate(() => {
+						this.layout(node, this.element);
+						this.element.style.opacity = 1;
+					})
+				);
 				return;
 			}
 			node = node.parentNode;
