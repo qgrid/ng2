@@ -1,10 +1,11 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, AfterViewInit, ViewChild } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
+import { GridComponent, Command } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = [
 	'edit-cell-basic',
-	'Cell values can be edited'
+	'Cell values can be edited, "Gender" has a custom edit template'
 ];
 
 @Component({
@@ -14,13 +15,30 @@ const EXAMPLE_TAGS = [
 	providers: [DataService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExampleEditCellBasicComponent {
+export class ExampleEditCellBasicComponent implements AfterViewInit {
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	rows: Observable<Human[]>;
+	@ViewChild(GridComponent) grid: GridComponent;
+	rows$: Observable<Human[]> = this.dataService.getPeople();
 
-	constructor(dataService: DataService) {
-		this.rows = dataService.getPeople();
+	commit = new Command({
+		execute: e => console.log('commit: ' + e.newValue)
+	});
+
+	cancel = new Command({
+		execute: () => console.log('cancel')
+	});
+
+	constructor(private dataService: DataService) {
+	}
+
+	ngAfterViewInit() {
+		const { model } = this.grid;
+
+		model.edit({
+			cancel: this.cancel,
+			commit: this.commit
+		});
 	}
 }

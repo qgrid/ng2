@@ -1,6 +1,43 @@
 <q-grid [caption]="title"
-		[rows]="rows | async"
+		[rows]="rows$ | async"
 		editMode="cell">
 	<q-grid-columns generation="deep">
+		<q-grid-column key="gender">
+			<ng-template for="edit"
+						 let-$cell
+						 let-$view="$view">
+				<q-grid-cell-editor class="q-grid-editor q-grid-position"
+									style="width: 270px; height: 80px;"
+									q-grid-position="td"
+									(close)="$view.edit.cell.cancel.execute($cell)">
+					<button mat-button
+							(click)="$view.edit.cell.value = 'female';"
+							[disabled]="$view.edit.cell.value === 'female'">
+						Female
+					</button>
+					<button mat-button
+							(click)="$view.edit.cell.value = 'male';"
+							[disabled]="$view.edit.cell.value === 'male'">
+						Male
+					</button>
+
+					<button mat-icon-button
+							[q-grid-command]="$view.edit.cell.commit"
+							[q-grid-command-arg]="$cell">
+						<mat-icon>
+							done
+						</mat-icon>
+					</button>
+					<button mat-icon-button
+							[q-grid-command]="$view.edit.cell.cancel"
+							[q-grid-command-arg]="$cell">
+						<mat-icon>
+							close
+						</mat-icon>
+					</button>
+
+				</q-grid-cell-editor>
+			</ng-template>
+		</q-grid-column>
 	</q-grid-columns>
 </q-grid>

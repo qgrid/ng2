@@ -6,6 +6,7 @@ import { GridEventArg } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { jobLine } from '@qgrid/core/services/job.line';
 import { NavigationState } from '@qgrid/core/navigation/navigation.state';
+import { RowDetails } from '@qgrid/core/row-details/row.details';
 
 @Component({
 	selector: 'q-grid-cell-handler',
@@ -62,7 +63,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 		// When navigate first or when animation wasn't applied we need to omit
 		// next navigation event to make handler to correct position.
-		let isValid = false;
+		let doNotPassAnimation = false;
 		return (e: GridEventArg<NavigationState>) => {
 			if (e.hasChanges('cell')) {
 				const { cell } = e.state;
@@ -77,32 +78,32 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 					// because it can be animated too.
 					const shouldAnimate =
 						!model.drag().isActive
-						&& (oldColumn.key === newColumn.key || !(oldColumn.viewWidth || newColumn.viewWidth));
-
-					if (!shouldAnimate) {
-						isValid = false;
-						return;
-					}
-
-					// It can be that the cell object was changed but indices are not.
-					isValid =
-						oldCell.rowIndex >= 0
-						&& oldCell.columnIndex >= 0
-						&& (newCell.rowIndex !== oldCell.rowIndex || newCell.columnIndex !== oldCell.columnIndex);
+						&& (oldColumn.key === newColumn.key || !(oldColumn.viewWidth || newColumn.viewWidth))
+						&& !(oldCell.row instanceof RowDetails || newCell.row instanceof RowDetails);
 
 					const domCell = table.body.cell(cell.rowIndex, cell.columnIndex);
-					if (isValid) {
-						domCell.addClass('q-grid-animate');
-						element.classList.add('q-grid-active');
+					if (shouldAnimate) {
+						// It can be that the cell object was changed but indices are not.
+						doNotPassAnimation =
+							oldCell.rowIndex >= 0
+							&& oldCell.columnIndex >= 0
+							&& (newCell.rowIndex !== oldCell.rowIndex || newCell.columnIndex !== oldCell.columnIndex);
 
-						job(() => {
-							element.classList.remove('q-grid-active');
-							domCell.removeClass('q-grid-animate');
-						}).catch(() => {
-							Fastdom.mutate(() => {
+						if (doNotPassAnimation) {
+							domCell.addClass('q-grid-animate');
+							element.classList.add('q-grid-active');
+
+							job(() => {
+								element.classList.remove('q-grid-active');
 								domCell.removeClass('q-grid-animate');
+							}).catch(() => {
+								Fastdom.mutate(() => {
+									domCell.removeClass('q-grid-animate');
+								});
 							});
-						});
+						}
+					} else {
+						doNotPassAnimation = false;
 					}
 
 					Fastdom.measure(() => {
@@ -124,7 +125,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 						});
 					});
 
-					isValid = true;
+					doNotPassAnimation = true;
 				}
 			}
 

@@ -36,12 +36,26 @@ export class EditCellLet {
 			.subscribe(e => {
 				if (e.hasChanges('status') && e.tag.source !== 'edit.cell.view') {
 					if (e.changes.status.newValue === 'edit') {
-						model.edit({ status: 'view' }, { source: 'edit.cell.view' });
+						// this is a trick to go back to the view mode and trigger enter
+						// TODO: make it better
+						model.edit({
+							status: 'view'
+						}, {
+							source: 'edit.cell.view'
+						});
+
 						if (this.enter.canExecute()) {
 							this.enter.execute();
 						}
 					} else if (e.changes.status.newValue === 'view') {
-						model.edit({ status: 'edit' }, { source: 'edit.cell.view' });
+						// this is a trick to go back to the edit mode and trigger cancel
+						// TODO: make it better
+						model.edit({
+							status: 'edit'
+						}, {
+							source: 'edit.cell.view'
+						});
+
 						if (this.requestClose) {
 							if (this.requestClose()) {
 								return;
@@ -58,24 +72,29 @@ export class EditCellLet {
 		observeReply(model.navigationChanged)
 			.subscribe(e => {
 				if (e.hasChanges('cell')) {
-					const oldCell = this.editor.td;
-					if (oldCell) {
-						if (oldCell.column.category === 'data') {
-							if (this.commit.canExecute(oldCell)) {
-								this.commit.execute(oldCell);
+					if (this.requestClose) {
+						if (this.requestClose()) {
+							return;
+						}
+					}
+
+					const editCell = this.editor.td;
+					if (editCell) {
+						if (editCell.column.category === 'data') {
+							if (this.commit.canExecute(editCell)) {
+								this.commit.execute(editCell);
 							}
 						} else {
-							if (this.cancel.canExecute(oldCell)) {
-								this.cancel.execute(oldCell);
+							if (this.cancel.canExecute(editCell)) {
+								this.cancel.execute(editCell);
 							}
 						}
 					}
 
-					const { cell: newCell } = e.state;
-					if (newCell &&
-						(newCell.column.editorOptions.trigger === 'focus')) {
-						if (this.enter.canExecute(newCell)) {
-							this.enter.execute(newCell);
+					const { cell } = e.state;
+					if (cell && (cell.column.editorOptions.trigger === 'focus')) {
+						if (this.enter.canExecute(cell)) {
+							this.enter.execute(cell);
 						}
 					}
 				}
@@ -156,7 +175,7 @@ export class EditCellLet {
 						const context = this.contextFactory(cell, this.value, this.label, this.tag);
 						const key = context.column.key;
 						const validator = validationService.createValidator(model.validation().rules, key);
-						return model.edit().commit.canExecute(context) && validator.validate({ [key]: this.value });
+						return model.edit().commit.canExecute(context) && validator.validate({ [key]: this.value }) !== false;
 					}
 					return false;
 				},
@@ -191,7 +210,7 @@ export class EditCellLet {
 						const context = this.contextFactory(cell, this.value, this.label, this.tag);
 						const key = context.column.key;
 						const validator = validationService.createValidator(model.validation().rules, key);
-						return model.edit().commit.canExecute(context) && validator.validate({ [key]: this.value });
+						return model.edit().commit.canExecute(context) && validator.validate({ [key]: this.value }) !== false;
 					}
 
 					return false;
