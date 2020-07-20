@@ -32,9 +32,14 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 						status: new Map([[row, new RowDetailsStatus(true)]])
 					});
 
-					const { rows } = model.view();
-					const gridService = this.qgrid.service(model);
-					gridService.focus(rows.indexOf(row) + 1);
+
+					model.sceneChanged.on((e, off) => {
+						if (e.hasChanges('status') && e.state.status === 'stop') {
+							const gridService = this.qgrid.service(model);
+							gridService.focus(model.view().rows.indexOf(row) + 1, 1);
+							off();
+						}
+					});
 
 					return;
 				}

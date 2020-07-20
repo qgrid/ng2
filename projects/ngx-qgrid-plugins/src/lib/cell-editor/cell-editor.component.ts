@@ -4,7 +4,8 @@ import {
 	EventEmitter,
 	Output,
 	ViewChild,
-	ChangeDetectionStrategy
+	ChangeDetectionStrategy,
+	OnInit
 } from '@angular/core';
 import { GridPlugin } from '@qgrid/ngx';
 
@@ -14,7 +15,7 @@ import { GridPlugin } from '@qgrid/ngx';
 	providers: [GridPlugin],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CellEditorComponent {
+export class CellEditorComponent implements OnInit {
 	@ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
 	@Output('close') closeEvent = new EventEmitter<any>();
 
@@ -22,16 +23,17 @@ export class CellEditorComponent {
 		$implicit: this
 	};
 
-	constructor(plugin: GridPlugin) {
-		const { view, disposable } = plugin;
-		view.edit.cell.requestClose = () => {
-			if (this.closeEvent.observers.length) {
+	constructor(private plugin: GridPlugin) {
+	}
+
+	ngOnInit() {
+		const { view, disposable } = this.plugin;
+		if (this.closeEvent.observers.length) {
+			view.edit.cell.requestClose = () => {
 				this.close();
 				return true;
-			}
-
-			return false;
-		};
+			};
+		}
 
 		disposable.add(() => view.edit.cell.requestClose = null);
 	}
