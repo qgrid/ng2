@@ -3,7 +3,7 @@ import { Navigation } from './navigation';
 import { GRID_PREFIX } from '../definition';
 import { Fastdom } from '../services/fastdom';
 import { Td } from '../dom/td';
-import { selectRow, selectColumnIndex, selectRowIndex, selectColumn } from './navigation.state.selector';
+import { selectColumnIndex, selectRowIndex, selectRow, selectColumn } from './navigation.state.selector';
 
 export class NavigationLet {
 	constructor(plugin, shortcut) {
@@ -17,6 +17,14 @@ export class NavigationLet {
 
 		this.focus = new Command({
 			source: 'navigation.view',
+			canExecute: newCell => {
+				const { cell: oldCell } = model.navigation();
+				if (newCell && newCell.column.canFocus && !Td.equals(newCell, oldCell)) {
+					return true;
+				}
+
+				return false;
+			},
 			execute: e => {
 				const { rowIndex, columnIndex, behavior } = e;
 				const td = table.body.cell(rowIndex, columnIndex).model();
@@ -41,14 +49,6 @@ export class NavigationLet {
 						behavior
 					});
 				}
-			},
-			canExecute: newCell => {
-				const { cell: oldCell } = model.navigation();
-				if (newCell && newCell.column.canFocus && !Td.equals(newCell, oldCell)) {
-					return true;
-				}
-
-				return false;
 			}
 		});
 
@@ -76,7 +76,10 @@ export class NavigationLet {
 					const columnIndex = selectColumnIndex(e.state);
 
 					focusBlurs = this.invalidateFocus(focusBlurs);
-					if (e.tag.source !== 'navigation.scroll' && this.scrollTo.canExecute(rowIndex, columnIndex)) {
+					if (e.tag.source !== 'navigation.scroll'
+						&& e.tag.behavior !== 'core'
+						&& this.scrollTo.canExecute(rowIndex, columnIndex)
+					) {
 						this.scrollTo.execute(rowIndex, columnIndex);
 					}
 
@@ -117,24 +120,35 @@ export class NavigationLet {
 				if (e.hasChanges('status')) {
 					const { status } = e.state;
 					switch (status) {
-						case 'stop':
-							const row = selectRow(model.navigation());
-							const column = selectColumn(model.navigation());
-							const columnIndex = selectColumnIndex(model.navigation());
-							if (row && column) {
-								const newRowIndex = table.data.rows().indexOf(row);
-								let newColumnIndex = table.data.columns().findIndex(c => c.key === column.key);
-								if (newColumnIndex < 0 && column.category === 'control') {
-									newColumnIndex = columnIndex;
-								}
+						case 'stop': {
+							const navState = model.navigation();
+							const rowIndex = selectRowIndex(navState);
+							const columnIndex = selectColumnIndex(navState);
+							const firstRowIndex = 0;
+							const firstColumnIndex = table.data.columns().findIndex(c => c.canFocus);
 
-								this.focus.execute({
-									rowIndex: newRowIndex,
-									columnIndex: newColumnIndex,
-									behavior: 'core'
-								});
+							let td = table.body.cell(rowIndex, columnIndex).model();
+
+							if (!td) {
+								td = table.body.cell(firstRowIndex, columnIndex).model();
 							}
+
+							if (!td) {
+								td = table.body.cell(rowIndex, firstColumnIndex).model();
+							}
+
+							if (!td) {
+								td = table.body.cell(firstRowIndex, firstColumnIndex).model();
+							}
+
+							this.focus.execute({
+								rowIndex: td ? td.rowIndex : -1,
+								columnIndex: td ? td.columnIndex : -1,
+								behavior: 'core'
+							});
+
 							break;
+						}
 					}
 				}
 			});
