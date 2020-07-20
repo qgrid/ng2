@@ -3,7 +3,6 @@
   "compilerOptions": {
     "allowJs": true,
     "outDir": "../../out-tsc/lib",
-    "target": "es2015",
     "declaration": true,
     "inlineSources": true,
     "types": [],
