@@ -24,3 +24,4 @@ Feature: Action bar basic
 		And I sort column "Appearance" downwards
 		And I look at the Page
 		Then Page looks the same as before
+		
