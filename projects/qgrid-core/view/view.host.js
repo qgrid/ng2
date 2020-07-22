@@ -28,8 +28,6 @@ export class ViewHost {
 			triggerJob('grid', {}, [pipe]);
 		}
 
-
-
 		Object.keys(triggers)
 			.forEach(name =>
 				observeReply(model[name + 'Changed'])

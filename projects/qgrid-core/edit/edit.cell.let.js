@@ -32,6 +32,7 @@ export class EditCellLet {
 				if (e.hasChanges('status') && e.tag.source !== 'edit.cell.let') {
 					switch (e.state.status) {
 						case 'edit': {
+							// this is a trick to reenter to edit mode
 							model.edit({
 								status: 'view'
 							}, {
@@ -45,7 +46,12 @@ export class EditCellLet {
 							break;
 						}
 						case 'view': {
-							model.edit({ status: 'edit' }, { source: 'edit.cell.let' });
+							model.edit({
+								status: 'edit'
+							}, {
+								source: 'edit.cell.let'
+							});
+
 							if (this.requestClose) {
 								if (this.requestClose()) {
 									return;

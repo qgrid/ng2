@@ -1,4 +1,3 @@
-import { GRID_PREFIX } from '../definition';
 import { DRAG_CHECK_COMMAND_KEY } from '../command-bag/command.bag';
 
 export class BoxHost {

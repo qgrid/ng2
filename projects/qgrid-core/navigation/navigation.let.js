@@ -79,7 +79,7 @@ export class NavigationLet {
 								td = table.body.cell(firstRowIndex, firstColumnIndex).model();
 							}
 
-							this.focus.execute({
+							focus.execute({
 								rowIndex: td ? td.rowIndex : -1,
 								columnIndex: td ? td.columnIndex : -1,
 								behavior: 'core'
