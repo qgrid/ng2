@@ -11,14 +11,10 @@ import {
 	SimpleChanges,
 	ChangeDetectionStrategy
 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { Command } from '@qgrid/core/command/command';
 import { DataState } from '@qgrid/core/data/data.state';
 import { EditState, EditStateMethod, EditStateMode } from '@qgrid/core/edit/edit.state';
-import { EventListener } from '@qgrid/core/event/event.listener';
-import { EventManager } from '@qgrid/core/event/event.manager';
-import { eventPath } from '@qgrid/core/services/dom';
 import { FilterState, FilterStateUnit } from '@qgrid/core/filter/filter.state';
 import { Grid } from './grid';
 import { GridError } from '@qgrid/core/infrastructure/error';
@@ -32,17 +28,20 @@ import { GridState, GridStateInteractionMode } from '@qgrid/core/grid/grid.state
 import { GroupState, GroupStateMode, GroupStateSummary } from '@qgrid/core/group/group.state';
 import { LayerService } from '../layer/layer.service';
 import { PivotState } from '@qgrid/core/pivot/pivot.state';
+import { ScrollService } from '../scroll/scroll.service';
 import { ScrollState, ScrollStateMode } from '@qgrid/core/scroll/scroll.state';
 import { SelectionState, SelectionStateMode, SelectionStateUnit, SelectionStateArea } from '@qgrid/core/selection/selection.state';
 import { ShortcutService } from '../shortcut/shortcut.service';
 import { SortState, SortStateMode } from '@qgrid/core/sort/sort.state';
 import { StateAccessor } from '../state/state-accessor';
 import { StyleRowCallback, StyleCellCallback, StyleState } from '@qgrid/core/style/style.state';
+import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
 import { tableFactory } from '@qgrid/core/dom/table.factory';
 import { TemplateCacheService } from '../template/template-cache.service';
 import { TemplateLinkService } from '../template/template-link.service';
 import { TemplateService } from '../template/template.service';
 import { ThemeService } from '../theme/theme.service';
+import { viewFactory } from '@qgrid/core/view/view.factory';
 import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
 
 @Component({
@@ -127,13 +126,14 @@ export class GridComponent implements OnInit, OnChanges {
 
 	constructor(
 		private root: GridRoot,
+		private view: GridLet,
 		private plugin: GridPlugin,
 		private elementRef: ElementRef,
-		private zone: NgZone,
 		private layerService: LayerService,
 		private cd: ChangeDetectorRef,
 		private stateAccessor: StateAccessor,
 		private modelBuilder: GridModelBuilder,
+		private scrollService: ScrollService,
 		theme: ThemeService,
 	) {
 		if (!theme.component) {
@@ -195,5 +195,25 @@ export class GridComponent implements OnInit, OnChanges {
 
 		this.root.model = model;
 		this.root.table = table;
+
+
+		// TODO: make it better
+		table.box.markup.view = this.elementRef.nativeElement;
+		const cmdManager = new TableCommandManager(f => f(), table);
+
+		const selectors = {
+			th: 'q-grid-core-th',
+			tr: 'q-grid-core-tr'
+		};
+
+		const injectLetServicesTo = viewFactory(
+			this.plugin,
+			cmdManager,
+			this.scrollService,
+			selectors,
+		);
+
+		injectLetServicesTo(this.view);
+
 	}
 }

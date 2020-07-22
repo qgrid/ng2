@@ -3,25 +3,29 @@ import {
 	ElementRef,
 	Inject,
 	Input,
-	OnDestroy,
 	OnInit,
-	Optional,
 	NgZone
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { clone } from '@qgrid/core/utility/kit';
 import { EventListener } from '@qgrid/core/event/event.listener';
 import { EventManager } from '@qgrid/core/event/event.manager';
 import { GRID_PREFIX } from '@qgrid/core/definition';
-import { GridModel } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
-import { Grid } from '../grid/grid';
+import { Command } from '@qgrid/core/command/command';
+import { Disposable } from '../infrastructure/disposable';
+
+export interface ResizeArg {
+	data: any;
+	width: number;
+	height: number;
+	kind: string; // 'init' | 'resize' | 'start' | 'end';
+}
 
 @Directive({
-	selector: '[q-grid-resize]'
+	selector: '[q-grid-resize]',
+	providers: [Disposable]
 })
-export class ResizeDirective implements OnInit, OnDestroy {
-	private element: HTMLElement;
+export class ResizeDirective implements OnInit {
 	private divider: HTMLElement;
 
 	private listener: {
@@ -29,26 +33,24 @@ export class ResizeDirective implements OnInit, OnDestroy {
 		document: EventListener
 	};
 
-	private context = {
+	private start = {
 		x: 0,
 		y: 0,
 		height: 0,
 		width: 0
 	};
 
-	@Input('q-grid-resize') key;
-	@Input('q-grid-resize-path') path;
-	@Input('q-grid-can-resize') canResize;
-	@Input('q-grid-resize-selector') selector;
+	@Input('q-grid-resize') command: Command<ResizeArg>;
+	@Input('q-grid-resize-data') data: any;
+	@Input('q-grid-resize-selector') selector: string;
 
 	constructor(
 		private zone: NgZone,
-		@Optional() private plugin: GridPlugin,
-		private qgrid: Grid,
+		private elementRef: ElementRef,
+		private plugin: GridPlugin,
+		disposable: Disposable,
 		@Inject(DOCUMENT) document: any,
-		elementRef: ElementRef,
 	) {
-		this.element = elementRef.nativeElement;
 		this.divider = document.createElement('div');
 
 		this.listener = {
@@ -62,75 +64,98 @@ export class ResizeDirective implements OnInit, OnDestroy {
 				new EventManager(this)
 			)
 		};
+
+		disposable.add(() => {
+			this.listener.divider.off();
+			this.listener.document.off();
+		});
 	}
 
 	ngOnInit() {
-		const e = { data: this.key };
-		if (this.canResize(e)) {
+		const context = this.buildContext('init');
+		if (this.command.canExecute(context) === true) {
+			this.command.execute(context);
+
 			this.zone.runOutsideAngular(() => {
 				this.listener.divider.on('mousedown', this.dragStart);
 			});
 
 			this.divider.classList.add(`${GRID_PREFIX}-resize-handler`);
-			this.element.appendChild(this.divider);
+			this.elementRef.nativeElement.appendChild(this.divider);
 		}
-	}
-
-	ngOnDestroy() {
-		this.listener.divider.off();
-		this.listener.document.off();
 	}
 
 	dragStart(e: DragEvent) {
 		e.preventDefault();
 
-		const context = this.context;
+		const { start, command } = this;
+		const { model } = this.plugin;
 
 		const host = this.select();
-		context.width = host.clientWidth;
-		context.height = host.clientHeight;
-		context.x = e.screenX;
-		context.y = e.screenY;
 
-		this.zone.runOutsideAngular(() => {
-			this.listener.document.on('mousemove', this.drag);
-			this.listener.document.on('mouseup', this.dragEnd);
-		});
+		start.width = host.clientWidth;
+		start.height = host.clientHeight;
+		start.x = e.screenX;
+		start.y = e.screenY;
 
-		const model = this.model;
-		model.drag({ isActive: true });
+		const context = this.buildContext('start');
+		if (command.canExecute(context) === true) {
+			command.execute(context);
+
+			this.zone.runOutsideAngular(() => {
+				this.listener.document.on('mousemove', this.drag);
+				this.listener.document.on('mouseup', this.dragEnd);
+			});
+
+			model.drag({
+				isActive: true
+			}, {
+				source: 'resize.directive'
+			});
+		}
 	}
 
 	drag(e: MouseEvent) {
-		const { context, path, key } = this;
-		const { model } = this;
+		const { command } = this;
 
-		const state = clone(model.layout()[path]);
-
-		state.set(key, {
-			width: context.width + e.screenX - context.x,
-			height: context.height + e.screenY - context.y
-		});
-
-		model.layout({ [path]: state });
+		const context = this.buildContext('resize', e.screenX, e.screenY);
+		if (command.canExecute(context) === true) {
+			command.execute(context);
+		}
 	}
 
-	dragEnd() {
+	dragEnd(e: MouseEvent) {
 		this.listener.document.off();
+		const { command } = this;
 
-		const model = this.model;
-		model.drag({ isActive: false });
+		const context = this.buildContext('end', e.screenX, e.screenY);
+		if (command.canExecute(context) === true) {
+			command.execute(context);
+
+			const { model } = this.plugin;
+			model.drag({
+				isActive: false
+			}, {
+				source: 'resize.directive'
+			});
+		}
 	}
 
 	private select(): HTMLElement {
 		if (this.selector === 'parent') {
-			return this.element.parentElement;
+			return this.elementRef.nativeElement.parentElement;
 		}
 
-		return this.element;
+		return this.elementRef.nativeElement;
 	}
 
-	private get model(): GridModel {
-		return this.plugin.model;
+	private buildContext(kind: string, screenX: number = 0, screenY: number = 0) {
+		const { data, start: site } = this;
+		return {
+			data,
+			width: site.width + (screenX - site.x),
+			height: site.height + (screenY - site.y),
+			kind
+		};
 	}
 }

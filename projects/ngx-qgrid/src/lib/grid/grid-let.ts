@@ -39,25 +39,4 @@ export class GridLet {
 	scroll: ScrollLet;
 	selection: SelectionLet;
 	sort: SortLet;
-
-	constructor(
-		private qgrid: Grid,
-		private scrollService: ScrollService
-	) { }
-
-	init(plugin: GridPlugin, commandManager: CommandManager) {
-		const selectors = {
-			th: 'q-grid-core-th',
-			tr: 'q-grid-core-tr'
-		};
-
-		const injectLetServicesTo = viewFactory(
-			plugin,
-			commandManager,
-			this.scrollService,
-			selectors,
-		);
-
-		injectLetServicesTo(this);
-	}
 }

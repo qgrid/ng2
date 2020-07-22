@@ -2,9 +2,7 @@ import { Component, OnInit, DoCheck, ChangeDetectorRef, NgZone, ChangeDetectionS
 import { CellClassService } from '../cell/cell-class.service';
 import { CellTemplateService } from '../cell/cell-template.service';
 import { GRID_INVALIDATE_COMMAND_KEY, STYLE_INVALIDATE_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
-import { GridLet } from '../grid/grid-let';
 import { GridPlugin } from '../plugin/grid-plugin';
-import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
 import { ViewHost } from '@qgrid/core/view/view.host';
 import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
 
@@ -25,8 +23,6 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		private plugin: GridPlugin,
 		private cd: ChangeDetectorRef,
 		private zone: NgZone,
-		private view: GridLet,
-		private elementRef: ElementRef,
 	) {
 		zone
 			.onStable
@@ -68,11 +64,6 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 			view,
 			commandPalette
 		} = this.plugin;
-
-		// TODO: make it better
-		table.box.markup.view = this.elementRef.nativeElement;
-		const cmdManager = new TableCommandManager(f => f(), table);
-		this.view.init(this.plugin, cmdManager);
 
 		view.scroll.y.settings.emit = f => {
 			f();

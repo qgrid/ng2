@@ -15,7 +15,7 @@ export declare const BLUR_COMMAND_KEY: CommandKey<any>;
 export declare const CLIPBOARD_COPY_COMMAND_KEY: CommandKey<any>;
 export declare const COLUMN_DRAG_COMMAND_KEY: CommandKey<{ data: string }>;
 export declare const COLUMN_DROP_COMMAND_KEY: CommandKey<{ action: string, dragData: string, inAreaX: (x: HTMLElement) => boolean }>;
-export declare const COLUMN_RESIZE_COMMAND_KEY: CommandKey<{ data: string }>;
+export declare const COLUMN_RESIZE_COMMAND_KEY: CommandKey<{ data: any; width: number; kind: string; }>;
 export declare const DOCUMENT_CLICK_COMMAND_KEY: CommandKey<[HTMLElement, MouseEvent]>;
 export declare const EDIT_CELL_CANCEL_COMMAND_KEY: CommandKey<CellView>;
 export declare const EDIT_CELL_CLEAR_COMMAND_KEY: CommandKey<CellView>;
