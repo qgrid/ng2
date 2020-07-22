@@ -63,24 +63,29 @@ export class EditCellLet {
 		observeReply(model.navigationChanged)
 			.subscribe(e => {
 				if (e.hasChanges('cell')) {
-					const oldCell = this.editor.td;
-					if (oldCell) {
-						if (oldCell.column.category === 'data') {
-							if (this.commit.canExecute(oldCell)) {
-								this.commit.execute(oldCell);
+					if (this.requestClose) {
+						if (this.requestClose()) {
+							return;
+						}
+					}
+
+					const editCell = this.editor.td;
+					if (editCell) {
+						if (editCell.column.category === 'data') {
+							if (this.commit.canExecute(editCell)) {
+								this.commit.execute(editCell);
 							}
 						} else {
-							if (this.cancel.canExecute(oldCell)) {
-								this.cancel.execute(oldCell);
+							if (this.cancel.canExecute(editCell)) {
+								this.cancel.execute(editCell);
 							}
 						}
 					}
 
-					const { cell: newCell } = e.state;
-					if (newCell &&
-						(newCell.column.editorOptions.trigger === 'focus')) {
-						if (this.enter.canExecute(newCell)) {
-							this.enter.execute(newCell);
+					const { cell } = e.state;
+					if (cell && (cell.column.editorOptions.trigger === 'focus')) {
+						if (this.enter.canExecute(cell)) {
+							this.enter.execute(cell);
 						}
 					}
 				}

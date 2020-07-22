@@ -51,8 +51,44 @@ export class NavigationLet {
 						blur.execute();
 					}
 				}
+			});
 
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('status')) {
+					const { status } = e.state;
+					switch (status) {
+						case 'stop': {
+							const navState = model.navigation();
+							const rowIndex = selectRowIndex(navState);
+							const columnIndex = selectColumnIndex(navState);
+							const firstRowIndex = 0;
+							const firstColumnIndex = table.data.columns().findIndex(c => c.canFocus);
 
+							let td = table.body.cell(rowIndex, columnIndex).model();
+
+							if (!td) {
+								td = table.body.cell(firstRowIndex, columnIndex).model();
+							}
+
+							if (!td) {
+								td = table.body.cell(rowIndex, firstColumnIndex).model();
+							}
+
+							if (!td) {
+								td = table.body.cell(firstRowIndex, firstColumnIndex).model();
+							}
+
+							this.focus.execute({
+								rowIndex: td ? td.rowIndex : -1,
+								columnIndex: td ? td.columnIndex : -1,
+								behavior: 'core'
+							});
+
+							break;
+						}
+					}
+				}
 			});
 	}
 }
