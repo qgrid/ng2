@@ -18,9 +18,13 @@ export class PredicateVisitor extends Visitor {
 
 			switch (group.op) {
 				case 'and':
-					return value => lp(value) && rp(value);
+					return value => {
+						return lp(value) && rp(value);
+					};
 				case 'or':
-					return value => lp(value) || rp(value);
+					return value => {
+						return lp(value) || rp(value);
+					};
 
 				default:
 					throw GridError(
@@ -52,9 +56,18 @@ export class PredicateVisitor extends Visitor {
 		}
 
 		const { equals, isNull, lessThan } = assert;
-		const lessThanOrEquals = (x, y) => equals(x, y) || lessThan(x, y);
-		const greaterThan = (x, y) => !equals(x, y) && !lessThan(x, y);
-		const greaterThanOrEquals = (x, y) => equals(x, y) || !lessThan(x, y);
+
+		const lessThanOrEquals = (x, y) => {
+			return equals(x, y) || lessThan(x, y);
+		};
+
+		const greaterThan = (x, y) => {
+			return !equals(x, y) && !lessThan(x, y)
+		};
+
+		const greaterThanOrEquals = (x, y) => {
+			return equals(x, y) || !lessThan(x, y);
+		};
 
 		let predicate;
 		switch (condition.op) {

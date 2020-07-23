@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [9.1.7] - 2020-07-23
+### Fixed
+- Column filter between operator doesn't appear.
+- Column filter doesn't work properly due to the not valid filter value type.
 
 ## [9.1.6] - 2020-07-20
 ### Fixed
