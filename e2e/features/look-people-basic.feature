@@ -134,6 +134,16 @@ Feature: Look people basic
 		And I look at the Page
 		Then Page looks the same as before
 
+	Scenario: Int Between filter works fine
+		Given I am on "look-people-basic"
+		When I click filter button [5]
+		And I click more button
+		And I select condition " between "
+		And I enter "59000" and "60000"
+		And I click "Apply" button
+		And I look at the Page
+		Then Page looks the same as before
+
 	Scenario: Int Is empty filter works fine
 		Given I am on "look-people-basic"
 		When I click filter button [5]
