@@ -17,3 +17,11 @@ Feature: Action bar basic
 		And I click load button
 		And I look at the Page
 		Then Page looks the same as before
+
+	Scenario: action-bar-basic is not scrolling back after column sort
+		Given I am on "action-bar-basic"
+		When I scroll page right [512]
+		And I sort column "Appearance" downwards
+		And I look at the Page
+		Then Page looks the same as before
+		
