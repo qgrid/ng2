@@ -53,12 +53,22 @@ export class SelectionState {
 	}
 
 	stateAll(items) {
-		const entries = this.entries();
-		if (items.length === entries.length) {
+		if (!items.length) {
+			return false;
+		}
+
+		const key = this.keyFactory();
+
+		const notSelected = items.findIndex(item => this.state(item, key) === false);
+		if (notSelected < 0) {
 			return true;
 		}
 
-		return entries.length > 0 ? null : false;
+		return notSelected === 0
+			? items.every(item => this.state(item, key) === false)
+				? false
+				: null
+			: null;
 	}
 
 	keyFactory() {
