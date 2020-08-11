@@ -52,7 +52,7 @@
 					   *q-grid-time="let qGridTime"
 					   q-grid-focus
 					   #input
-					   [value]="$view.edit.cell.value | qGridDate: 'hh:mm'"
+					   [value]="$view.edit.cell.value | qGridDate: 'HH:mm'"
 					   (change)="$view.edit.cell.value = qGridTime.time($view.edit.cell.value, input.value)"
 					   (blur)="$view.edit.cell.exit.execute($cell)" />
 			</ng-template>

@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [9.1.8] - 2020-08-11
+### Fixed
+- Date\datetime column filter.
+- Uncheck select all when switch to page with no-selection.
+
 ## [9.1.7] - 2020-07-23
 ### Fixed
 - Column filter between operator doesn't appear.
@@ -565,7 +570,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v9.1.7...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v9.1.8...HEAD
+[9.1.8]: https://github.com/qgrid/ng2/compare/v9.1.7...v9.1.8
 [9.1.7]: https://github.com/qgrid/ng2/compare/v9.1.6...v9.1.7
 [9.1.6]: https://github.com/qgrid/ng2/compare/v9.1.5...v9.1.6
 [9.1.5]: https://github.com/qgrid/ng2/compare/v9.1.4...v9.1.5

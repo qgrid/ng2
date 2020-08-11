@@ -1,5 +1,5 @@
 import { GridError } from '../infrastructure/error';
-import { parseFactory, getType } from '../services/convert';
+import { compareParseFactory, getType } from '../services/convert';
 import { Visitor } from './expression.visitor';
 import { isArray, identity } from '../utility/kit';
 
@@ -45,7 +45,7 @@ export class PredicateVisitor extends Visitor {
 		const map = new Set();
 
 		const rt = getType(isArray(r) ? r[0] : r);
-		let parse = parseFactory(rt);
+		let parse = compareParseFactory(rt);
 
 		if (isArray(r)) {
 			if (r.length) {
