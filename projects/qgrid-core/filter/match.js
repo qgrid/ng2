@@ -24,9 +24,8 @@ export function match(context) {
 			new PredicateVisitor(
 				valueColumnFactory,
 				assertColumnFactory,
-				getType,
+				getType
 			);
-
 
 		return visitor.visit(expression);
 	}
