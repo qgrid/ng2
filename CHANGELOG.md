@@ -5,8 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [9.1.9] - 2020-08-13
 ### Fixed
-- Date\datetime column filter.
-- 
+- Predicate visitor get type from the column and not resolve it by itself.
+- If start\end is not set using between operator it works like greaterOrEquals\lessOrEquals.
+
 ## [9.1.8] - 2020-08-11
 ### Fixed
 - Uncheck select all when switch to page with no-selection.
