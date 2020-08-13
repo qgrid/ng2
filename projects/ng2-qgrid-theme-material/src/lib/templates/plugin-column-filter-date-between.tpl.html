@@ -13,7 +13,7 @@
 				   placeholder="From"
 				   [matDatepicker]="leftPicker"
 				   [ngModel]="$columnFilter.value[0] | qGridConvert: 'date'"
-				   (ngModelChange)="qGridDate.isValid(inputLeft.value) && ($columnFilter.value[0] = qGridDate.date($event))" />
+				   (ngModelChange)="qGridDate.isValid(inputLeft.value) && ($columnFilter.value[0] = qGridDate.dateLow($event))" />
 
 			<mat-datepicker-toggle matSuffix
 								   [for]="leftPicker">
@@ -31,7 +31,7 @@
 				   placeholder="To"
 				   [matDatepicker]="rightPicker"
 				   [ngModel]="$columnFilter.value[1] | qGridConvert: 'date'"
-				   (ngModelChange)="qGridDate.isValid(inputRight.value) && ($columnFilter.value[1] = qGridDate.date($event))" />
+				   (ngModelChange)="qGridDate.isValid(inputRight.value) && ($columnFilter.value[1] = qGridDate.dateLow($event))" />
 
 			<mat-datepicker-toggle matSuffix
 								   [for]="rightPicker">
