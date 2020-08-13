@@ -9,7 +9,11 @@ export class TimeDirective {
 	}
 
 	time(previous, current) {
-		const date = new Date(previous);
+		if (!previous) {
+			previous = new Date();
+		}
+
+		const date = new Date(previous.getTime());
 		const [hours, minutes, seconds, ms] = current.split(':');
 
 		if (hours && minutes) {
@@ -18,10 +22,14 @@ export class TimeDirective {
 
 			if (seconds) {
 				date.setSeconds(+seconds);
+			} else {
+				date.setSeconds(0);
 			}
 
 			if (ms) {
 				date.setMilliseconds(+ms);
+			} else {
+				date.setMilliseconds(0);
 			}
 		}
 

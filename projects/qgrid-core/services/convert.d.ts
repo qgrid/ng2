@@ -1,4 +1,5 @@
 export declare function parseFactory<V>(type: string, editor?: string): (v: any) => V;
+export declare function compareParseFactory<V>(type: string, editor?: string): (v: any) => V;
 export declare function getType(value: any): string;
 export declare function inferType(value: any[]): string;
 export declare function resolveType(value: any[]): string;

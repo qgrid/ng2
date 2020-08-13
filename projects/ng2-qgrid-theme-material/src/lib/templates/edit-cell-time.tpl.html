@@ -9,7 +9,7 @@
 				   type="time"
 				   #input
 				   q-grid-focus
-				   [value]="$view.edit.cell.value | qGridTime: 'hh:mm'"
+				   [value]="$view.edit.cell.value | qGridTime: 'HH:mm'"
 				   (change)="$view.edit.cell.value = qGridTime.time($view.edit.cell.value, input.value)" />
 		</mat-form-field>
 		<q-grid-validator class="q-grid-validator"

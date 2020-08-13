@@ -1,5 +1,4 @@
 import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
-import { isDate } from '@qgrid/core/utility/kit';
 import { parseFactory } from '@qgrid/core/services/convert';
 
 const DATE_PATTERN_1 = /^\d{1,2}[\/|\-|\.|_]\d{1,2}[\/|\-|\.|_]\d{4}$/g; // Month/Day/Year Day/Month/Year
@@ -26,13 +25,28 @@ export class DateDirective {
 		return false;
 	}
 
-	date(previous: Date, current: Date) {
+	date(value: Date) {
+		if (value) {
+			const midnight = new Date(value.getTime());
+			midnight.setHours(0, 0, 0, 0);
+			return midnight;
+		}
+
+		return value;
+	}
+
+	datetime(previous: Date, current: Date) {
 		const previousDate = this.parseDate(previous) as Date;
 		if (previous) {
-			current.setHours(previousDate.getHours());
-			current.setMinutes(previousDate.getMinutes());
-			current.setSeconds(previousDate.getSeconds());
-			current.setMilliseconds(previousDate.getMilliseconds());
+			const sameHours = new Date(current.getTime());
+			sameHours.setHours(
+				previousDate.getHours(),
+				previousDate.getMinutes(),
+				previousDate.getSeconds(),
+				previousDate.getMilliseconds(),
+			);
+
+			return sameHours;
 		}
 
 		return current;

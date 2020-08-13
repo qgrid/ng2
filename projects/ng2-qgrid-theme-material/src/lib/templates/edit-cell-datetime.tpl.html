@@ -13,8 +13,8 @@
 					   matInput
 					   #input
 					   [matDatepicker]="picker"
-					   [ngModel]="$view.edit.cell.value | qGridConvert: 'date'"
-					   (ngModelChange)="qGridDate.isValid(input.value) && ($view.edit.cell.value = qGridDate.date($view.edit.cell.value, $event))" />
+					   [ngModel]="$view.edit.cell.value | qGridConvert: 'datetime'"
+					   (ngModelChange)="qGridDate.isValid(input.value) && ($view.edit.cell.value = qGridDate.datetime($view.edit.cell.value, $event))" />
 				<mat-datepicker-toggle matSuffix
 									   [for]="picker">
 				</mat-datepicker-toggle>
@@ -27,7 +27,7 @@
 				<input matInput
 					   type="time"
 					   #input
-					   [value]="$view.edit.cell.value | qGridTime: 'hh:mm'"
+					   [value]="$view.edit.cell.value | qGridTime: 'HH:mm'"
 					   (change)="$view.edit.cell.value = qGridTime.time($view.edit.cell.value, input.value)" />
 			</mat-form-field>
 		</q-grid-tab-trap>
