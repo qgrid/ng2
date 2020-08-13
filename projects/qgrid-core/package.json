@@ -1,6 +1,6 @@
 {
   "name": "@qgrid/core",
-  "version": "9.1.8",
+  "version": "9.1.9",
   "dependencies": {
     "css.escape": "1.5.1",
     "fastdom": "1.0.9",
