@@ -20,21 +20,46 @@ export class ExampleSelectRowCommandComponent implements AfterViewInit {
 	title = EXAMPLE_TAGS[1];
 
 	@ViewChild(GridComponent) grid: GridComponent;
-	rows: Observable<Human[]>;
+	rows$: Observable<Human[]> = this.dataService.getPeople();
 
-	constructor(dataService: DataService) {
-		this.rows = dataService.getPeople();
+	selectAll = new Command({
+		execute: () => {
+			const { model } = this.grid;
+			model.selection({
+				items: model.scene().rows
+			});
+		}
+	});
+
+	unselectAll = new Command({
+		execute: () => {
+			const { model } = this.grid;
+			model.selection({
+				items: []
+			});
+		}
+	});
+
+	reloadData = new Command({
+		execute: () => {
+		}
+	});
+
+	selectionToggle = new Command({
+		canExecute: e => {
+			const { model } = this.grid;
+			return e.items[0] !== model.selection().items[0];
+		}
+	});
+
+	constructor(private dataService: DataService) {
 	}
 
 	ngAfterViewInit() {
 		const { model } = this.grid;
 
 		model.selection({
-			toggle: new Command({
-				canExecute: e => {
-					return e.items[0] !== model.selection().items[0];
-				}
-			})
+			toggle: this.selectionToggle
 		});
 	}
 }
