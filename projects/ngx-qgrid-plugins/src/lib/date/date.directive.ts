@@ -25,10 +25,20 @@ export class DateDirective {
 		return false;
 	}
 
-	date(value: Date) {
+	dateLow(value: Date) {
 		if (value) {
 			const midnight = new Date(value.getTime());
 			midnight.setHours(0, 0, 0, 0);
+			return midnight;
+		}
+
+		return value;
+	}
+
+	dateHight(value: Date) {
+		if (value) {
+			const midnight = new Date(value.getTime());
+			midnight.setHours(23, 59, 59, 999);
 			return midnight;
 		}
 
