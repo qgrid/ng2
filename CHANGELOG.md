@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [9.1.10] - 2020-08-17
 ### Fixed
-- Dates are not depending on utc.
+- Dates are properly converted to midnights.
 
 ## [9.1.9] - 2020-08-13
 ### Fixed

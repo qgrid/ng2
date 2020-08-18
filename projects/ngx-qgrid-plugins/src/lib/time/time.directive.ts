@@ -1,9 +1,12 @@
 import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
+import { parseFactory } from '@qgrid/core/services/convert';
 
 @Directive({
 	selector: '[q-grid-time]'
 })
 export class TimeDirective {
+	private toMidnight: (x: Date | string) => Date = parseFactory('date');
+
 	constructor(templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef) {
 		viewContainerRef.createEmbeddedView(templateRef, { $implicit: this });
 	}
@@ -13,26 +16,23 @@ export class TimeDirective {
 			previous = new Date();
 		}
 
-		const date = new Date(previous.getTime());
+		const midnight = this.toMidnight(previous);
 		const [hours, minutes, seconds, ms] = current.split(':');
 
 		if (hours && minutes) {
-			date.setHours(+hours);
-			date.setMinutes(+minutes);
+			const time = new Date(
+				midnight.getFullYear(),
+				midnight.getMonth(),
+				midnight.getDate(),
+				+hours,
+				+minutes,
+				seconds ? +seconds : 0,
+				ms ? +ms : 0
+			);
 
-			if (seconds) {
-				date.setSeconds(+seconds);
-			} else {
-				date.setSeconds(0);
-			}
-
-			if (ms) {
-				date.setMilliseconds(+ms);
-			} else {
-				date.setMilliseconds(0);
-			}
+			return time;
 		}
 
-		return date;
+		return midnight;
 	}
 }
