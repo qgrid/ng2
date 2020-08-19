@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+
+## [9.1.11] - 2020-08-19
+### Fixed
+- Do not focus grid on scene change.
+- 
 ## [9.1.10] - 2020-08-17
 ### Fixed
 - Dates are properly converted to midnights.
@@ -578,7 +583,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v9.1.10...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v9.1.11...HEAD
+[9.1.11]: https://github.com/qgrid/ng2/compare/v9.1.10...v9.1.11
 [9.1.10]: https://github.com/qgrid/ng2/compare/v9.1.9...v9.1.10
 [9.1.9]: https://github.com/qgrid/ng2/compare/v9.1.8...v9.1.9
 [9.1.8]: https://github.com/qgrid/ng2/compare/v9.1.7...v9.1.8
