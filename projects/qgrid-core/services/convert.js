@@ -274,14 +274,22 @@ function parseDate(value) {
 	}
 
 	if (value instanceof Date) {
-		const date = new Date(value.getTime());
-		date.setHours(0, 0, 0, 0);
-		return date;
+		return new Date(
+			value.getFullYear(),
+			value.getMonth(),
+			value.getDate(),
+			0, 0, 0, 0
+		);
 	}
 
-	const date = new Date('' + value);
-	date.setHours(0, 0, 0, 0);
-	return date;
+
+	const yearMonthDay = ('' + value).split('-');
+	return new Date(
+		Number.parseInt(yearMonthDay[0]),
+		Number.parseInt(yearMonthDay[1]) - 1,
+		Number.parseInt(yearMonthDay[2]),
+		0, 0, 0, 0
+	);
 }
 
 function parseDateTime(value) {

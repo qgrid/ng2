@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [9.1.10] - 2020-08-17
+### Fixed
+- Dates are properly converted to midnights.
+
 ## [9.1.9] - 2020-08-13
 ### Fixed
 - Predicate visitor get type from the column and not resolve it by itself.
@@ -574,7 +578,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v9.1.9...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v9.1.10...HEAD
+[9.1.10]: https://github.com/qgrid/ng2/compare/v9.1.9...v9.1.10
 [9.1.9]: https://github.com/qgrid/ng2/compare/v9.1.8...v9.1.9
 [9.1.8]: https://github.com/qgrid/ng2/compare/v9.1.7...v9.1.8
 [9.1.7]: https://github.com/qgrid/ng2/compare/v9.1.6...v9.1.7
