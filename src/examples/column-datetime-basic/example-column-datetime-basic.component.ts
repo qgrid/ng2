@@ -19,7 +19,7 @@ export class ExampleColumnDateTimeBasicComponent {
 		{
 			'number': 100.12,
 			'bool': true,
-			'date': new Date(2018, 9, 12, 12, 30, 40),
+			'date': new Date(2018, 9, 12, 12, 30, 0),
 			'null': null,
 			'undefined': undefined,
 			'empty': '',

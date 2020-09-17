@@ -12,7 +12,7 @@
 				   #input
 				   [matDatepicker]="picker"
 				   [ngModel]="$view.edit.cell.value | qGridConvert: 'date'"
-				   (ngModelChange)="qGridDate.isValid(input.value) && ($view.edit.cell.value = $event)" />
+				   (ngModelChange)="qGridDate.isValid(input.value) && ($view.edit.cell.value = qGridDate.dateLow($event))" />
 			<mat-datepicker-toggle matSuffix
 								   [for]="picker">
 			</mat-datepicker-toggle>

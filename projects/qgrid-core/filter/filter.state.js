@@ -50,13 +50,13 @@ export class FilterState {
 				case 'currency':
 				case 'number': {
 					return [
+						'between',
 						'contains',
 						'like',
 						'lessThan',
 						'lessThanOrEquals',
 						'greaterThan',
 						'greaterThanOrEquals',
-						'between',
 						'isEmpty',
 						'isNotEmpty',
 					];

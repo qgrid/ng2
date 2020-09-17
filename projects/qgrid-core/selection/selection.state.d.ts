@@ -70,5 +70,5 @@ export declare class SelectionState {
 	/**
 	 * Allows to disable selection and execute action on selection changed from ui.
 	 */
-	toggle: Command;
+	toggle: Command<{ items: any }>;
 }

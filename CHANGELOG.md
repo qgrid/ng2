@@ -3,6 +3,29 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+
+## [9.1.11] - 2020-08-19
+### Fixed
+- Do not focus grid on scene change.
+- 
+## [9.1.10] - 2020-08-17
+### Fixed
+- Dates are properly converted to midnights.
+
+## [9.1.9] - 2020-08-13
+### Fixed
+- Predicate visitor get type from the column and not resolve it by itself.
+- If start\end is not set using between operator it works like greaterOrEquals\lessOrEquals.
+
+## [9.1.8] - 2020-08-11
+### Fixed
+- Uncheck select all when switch to page with no-selection.
+
+## [9.1.7] - 2020-07-23
+### Fixed
+- Column filter between operator doesn't appear.
+- Column filter doesn't work properly due to the not valid filter value type.
+
 ## [9.1.6] - 2020-07-20
 ### Fixed
 - Fix date editor width.
@@ -16,15 +39,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Added
 - To remove column chooser it's not required to override toolbar template.
 
-## [9.1.6] - 2020-07-13
+## [9.1.5] - 2020-07-13
 ### Fixed
 - Importing of LIVR library.
 - Set compilation target to es5. 
 
-## [9.1.4] - 2020-06-02
 ### Added
 - Support 2 version 9.1.x - Ivy, 9.1.x-ve - View Engine
-- `q-grid-shortcut-host` directive that can change key event source for q-grid commands.
 
 ### Changed
 - Better top toolbar layout.
@@ -562,9 +583,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v9.1.7...HEAD
-[9.1.7]: https://github.com/qgrid/ng2/compare/v9.1.5...v9.1.6
-[9.1.6]: https://github.com/qgrid/ng2/compare/v9.1.4...v9.1.5
+[unreleased]: https://github.com/qgrid/ng2/compare/v9.1.11...HEAD
+[9.1.11]: https://github.com/qgrid/ng2/compare/v9.1.10...v9.1.11
+[9.1.10]: https://github.com/qgrid/ng2/compare/v9.1.9...v9.1.10
+[9.1.9]: https://github.com/qgrid/ng2/compare/v9.1.8...v9.1.9
+[9.1.8]: https://github.com/qgrid/ng2/compare/v9.1.7...v9.1.8
+[9.1.7]: https://github.com/qgrid/ng2/compare/v9.1.6...v9.1.7
+[9.1.6]: https://github.com/qgrid/ng2/compare/v9.1.5...v9.1.6
+[9.1.5]: https://github.com/qgrid/ng2/compare/v9.1.4...v9.1.5
 [9.1.4]: https://github.com/qgrid/ng2/compare/v9.1.3...v9.1.4
 [9.1.3]: https://github.com/qgrid/ng2/compare/v9.0.1...v9.1.3
 [9.0.1]: https://github.com/qgrid/ng2/compare/v9.0.0...v9.0.1

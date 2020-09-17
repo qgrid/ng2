@@ -12,8 +12,8 @@
 					   #inputDateLeft
 					   [matDatepicker]="leftPicker"
 					   placeholder="from"
-					   [ngModel]="$columnFilter.value[0] | qGridConvert: 'date'"
-					   (ngModelChange)="qGridDate.isValid(inputDateLeft.value) && ($columnFilter.value[0] = qGridDate.date($columnFilter.value[0], $event))" />
+					   [ngModel]="$columnFilter.value[0] | qGridConvert: 'datetime'"
+					   (ngModelChange)="qGridDate.isValid(inputDateLeft.value) && ($columnFilter.value[0] = qGridDate.datetime($columnFilter.value[0], $event))" />
 
 				<mat-datepicker-toggle matSuffix
 									   [for]="leftPicker">
@@ -28,7 +28,7 @@
 				<input matInput
 					   type="time"
 					   #inputTimeLeft
-					   [value]="$columnFilter.value[0] | qGridTime: 'hh:mm'"
+					   [value]="$columnFilter.value[0] | qGridTime: 'HH:mm'"
 					   (change)="$columnFilter.value[0] = qGridTime.time($columnFilter.value[0], inputTimeLeft.value)" />
 			</mat-form-field>
 		</div>
@@ -41,8 +41,8 @@
 					   #inputDateRight
 					   [matDatepicker]="rightPicker"
 					   placeholder="to"
-					   [ngModel]="$columnFilter.value[1] | qGridConvert: 'date'"
-					   (ngModelChange)="qGridDate.isValid(inputDateRight.value) && ($columnFilter.value[1] = qGridDate.date($columnFilter.value[1], $event))" />
+					   [ngModel]="$columnFilter.value[1] | qGridConvert: 'datetime'"
+					   (ngModelChange)="qGridDate.isValid(inputDateRight.value) && ($columnFilter.value[1] = qGridDate.datetime($columnFilter.value[1], $event))" />
 
 				<mat-datepicker-toggle matSuffix
 									   [for]="rightPicker">
@@ -57,7 +57,7 @@
 				<input matInput
 					   type="time"
 					   #inputTimeRight
-					   [value]="$columnFilter.value[1] | qGridTime: 'hh:mm'"
+					   [value]="$columnFilter.value[1] | qGridTime: 'HH:mm'"
 					   (change)="$columnFilter.value[1] = qGridTime.time($columnFilter.value[1], inputTimeRight.value)" />
 			</mat-form-field>
 		</div>

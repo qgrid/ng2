@@ -128,6 +128,7 @@ import { ExamplePivotColumnTemplateComponent } from './pivot-column-template/exa
 import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plugin-grid-basic.component';
 import { ExamplePluginMyPagerComponent } from './plugin-grid-basic/example-plugin-my-pager.component';
 import { ExampleRestApiBasicComponent } from './rest-api-basic/example-rest-api-basic.component';
+import { ExampleSampleOrdersComponent } from './sample-orders/example-sample-orders.component';
 import { ExampleScrollVirtualBasicComponent } from './scroll-virtual-basic/example-scroll-virtual-basic.component';
 import { ExampleScrollVirtualDetailsComponent } from './scroll-virtual-details/example-scroll-virtual-details.component';
 import { ExampleScrollVirtualDragComponent } from './scroll-virtual-drag/example-scroll-virtual-drag.component';
@@ -282,6 +283,7 @@ export const EXAMPLES: any[] = [
 	ExamplePivotColumnTemplateComponent,
 	ExamplePluginGridBasicComponent,
 	ExampleRestApiBasicComponent,
+	ExampleSampleOrdersComponent,
 	ExampleScrollVirtualBasicComponent,
 	ExampleScrollVirtualDetailsComponent,
 	ExampleScrollVirtualDragComponent,
