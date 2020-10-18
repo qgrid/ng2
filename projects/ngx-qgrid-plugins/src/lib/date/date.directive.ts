@@ -1,54 +1,54 @@
 import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
 import { parseFactory } from '@qgrid/core/services/convert';
-import { isDate } from '@qgrid/core/utility/kit';
-
-const DATE_PATTERN_1 = /^\d{1,2}[\/|\-|\.|_]\d{1,2}[\/|\-|\.|_]\d{4}$/g; // Month/Day/Year Day/Month/Year
-const DATE_PATTERN_2 = /^\d{4}[\/|\-|\.|_]\d{1,2}[\/|\-|\.|_]\d{1,2}$/g; // Year/Day/Date Year/Day/Month
+import { DateService } from './date.service';
 
 @Directive({
-	selector: '[q-grid-date]'
+	selector: '[q-grid-date]',
 })
 export class DateDirective {
 	private toMidnight: (x: Date | string) => Date = parseFactory('date');
 
 	constructor(
 		templateRef: TemplateRef<any>,
-		viewContainerRef: ViewContainerRef
+		viewContainerRef: ViewContainerRef,
+		private dateService: DateService,
 	) {
 		viewContainerRef.createEmbeddedView(templateRef, { $implicit: this });
 	}
 
-	isValid(text: string) {
-		if ((text.search(DATE_PATTERN_1) === 0) || (text.search(DATE_PATTERN_2) === 0)) {
-			return true;
-		}
-
-		return false;
+	isValid(dateOrText: Date | string, format: string) {
+		return this.dateService.isValid(dateOrText, format);
 	}
 
-	dateLow(value: Date) {
-		if (value) {
-			const midnight = this.toMidnight(value);
-			return midnight;
+	dateLow(value: Date | string, format: string) {
+		const date = this.dateService.parseDateTime(value, format);
+		if (date) {
+			return this.toMidnight(date);
 		}
 
 		return value;
 	}
 
-	datetime(previous: Date, current: Date) {
-		if (isDate(previous)) {
-			const midnight = this.toMidnight(current);
+	datetime(previous: Date | string, current: Date | string, format: string) {
+		const previousDate = this.dateService.parseDateTime(previous, format);
+		const currentDate = this.dateService.parseDateTime(current, format);
+		if (previousDate && currentDate) {
+			const midnight = this.toMidnight(currentDate);
 			const sameHours = new Date(
 				midnight.getFullYear(),
 				midnight.getMonth(),
 				midnight.getDate(),
-				previous.getHours(),
-				previous.getMinutes(),
-				previous.getSeconds(),
-				previous.getMilliseconds(),
+				previousDate.getHours(),
+				previousDate.getMinutes(),
+				previousDate.getSeconds(),
+				previousDate.getMilliseconds(),
 			);
 
 			return sameHours;
+		}
+
+		if (currentDate) {
+			return currentDate;
 		}
 
 		return current;
