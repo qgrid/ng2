@@ -162,9 +162,9 @@ export class GridComponent implements OnInit, OnChanges {
 		}
 
 		const host = new GridHost(
-			nativeElement, 
+			nativeElement,
 			this.plugin,
-			);
+		);
 		const listener = new EventListener(nativeElement, new EventManager(this));
 		const docListener = new EventListener(this.document, new EventManager(this));
 
@@ -175,10 +175,10 @@ export class GridComponent implements OnInit, OnChanges {
 
 			disposable.add(
 				docListener.on('mousedown', e => {
-					const path = eventPath(e);
-					const clickedOutside = path.every(x => x !== nativeElement);
-					if (clickedOutside) {
-						if (model.edit().status === 'edit') {
+					if (model.edit().status === 'edit') {
+						const path = eventPath(e);
+						const clickedOutside = path.every(x => x !== nativeElement && !x.classList.contains('q-grid-editor-part'));
+						if (clickedOutside) {
 							model.edit({
 								status: 'view'
 							}, {
