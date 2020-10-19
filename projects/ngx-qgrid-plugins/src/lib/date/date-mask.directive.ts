@@ -18,9 +18,9 @@ export class DateMaskDirective {
 			return;
 		}
 
-
 		const input = this.elementRef.nativeElement as HTMLInputElement;
-		const maskChar = this.mask[input.value.length];
+		const value = input.value || '';
+		const maskChar = this.mask[value.length];
 		if (!maskChar) {
 			e.preventDefault();
 			return;
