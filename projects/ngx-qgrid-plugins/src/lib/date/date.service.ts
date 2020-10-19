@@ -17,12 +17,7 @@ export class DateService {
 
 		if (format) {
 			const simpleFormat = format.replace(/[^A-Za-z]/g, '');
-			let justDigitsValue = (dateOrText as string).replace(/[^0-9]/g, '');
-			if (format[format.length - 1] === 'y') {
-				format = format.split('').join('');
-				justDigitsValue = justDigitsValue.split('').join('');
-			}
-
+			const justDigitsValue = (dateOrText as string).replace(/[^0-9]/g, '');
 			return this.parseDateText(justDigitsValue, simpleFormat);
 		}
 
