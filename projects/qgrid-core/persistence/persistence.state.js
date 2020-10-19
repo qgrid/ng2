@@ -21,7 +21,7 @@ export class PersistenceState {
 			pivot: ['by'],
 			filter: ['by'],
 			queryBuilder: ['node'],
-			pagination: ['current', 'size']
+			pagination: ['current', 'size'],
 		};
 	}
 }
