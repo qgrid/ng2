@@ -1,6 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "9.2.0",
+  "version": "9.2.1",
   "scripts": {
     "build:app": "npm run clean && ng build --prod --output-path dist/app --base-href /ng2/",
     "build:lib": "npm run clean && node build.lib.js",
@@ -39,11 +39,11 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "0.901.0",
     "@angular-devkit/build-ng-packagr": "0.901.0",
-    "@angular/cdk": "^9.2.0",
+    "@angular/cdk": "^9.2.1",
     "@angular/cli": "^9.1.0",
     "@angular/compiler-cli": "~9.1.0",
     "@angular/language-service": "~9.1.0",
-    "@angular/material": "^9.2.0",
+    "@angular/material": "^9.2.1",
     "@angular/router": "~9.1.0",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",

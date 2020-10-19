@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
-## [9.2.0] - 2020-10-19
+## [9.2.1] - 2020-10-19
 ### Fixed
 - Fix datepicker which didn't work in edit mode correctly, by introducing `q-grid-editor-part` css class.
 - Empty date is a valid case.
@@ -597,8 +597,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v9.2.0...HEAD
-[9.2.0]: https://github.com/qgrid/ng2/compare/v9.1.11...v9.2.0
+[unreleased]: https://github.com/qgrid/ng2/compare/v9.2.1...HEAD
+[9.2.1]: https://github.com/qgrid/ng2/compare/v9.1.11...v9.2.1
 [9.1.11]: https://github.com/qgrid/ng2/compare/v9.1.10...v9.1.11
 [9.1.10]: https://github.com/qgrid/ng2/compare/v9.1.9...v9.1.10
 [9.1.9]: https://github.com/qgrid/ng2/compare/v9.1.8...v9.1.9
