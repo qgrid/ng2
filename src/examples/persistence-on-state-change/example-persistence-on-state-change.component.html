@@ -1,0 +1,10 @@
+<q-grid [caption]="title"
+		[rows]="rows$ | async"
+		id="persistence-on-state-change">
+	<q-grid-columns generation="deep">
+	</q-grid-columns>
+
+	<q-grid-persistence schedule="onStateChange"
+						[storage]="storage">
+	</q-grid-persistence>
+</q-grid>

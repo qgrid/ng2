@@ -5,6 +5,8 @@ export class PersistenceState {
 	constructor() {
 		this.id = 'default';
 		this.defaultGroup = 'My Presets';
+		this.schedule = 'onDemand'; // onDemand | onStateChange
+
 		this.load = new Command({ source: 'persistence.model' });
 		this.remove = new Command({ source: 'persistence.model' });
 		this.create = new Command({ source: 'persistence.model' });
@@ -18,7 +20,8 @@ export class PersistenceState {
 			sort: ['by'],
 			pivot: ['by'],
 			filter: ['by'],
-			queryBuilder: ['node']
+			queryBuilder: ['node'],
+			pagination: ['current', 'size']
 		};
 	}
 }
