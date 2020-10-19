@@ -30,6 +30,10 @@ export class DateService {
 	}
 
 	isValid(dateOrText: Date | string, format: string) {
+		if (!dateOrText) {
+			return true;
+		}
+
 		const result = this.parseDateTime(dateOrText, format);
 		return result && !isNaN(result.getTime());
 	}
