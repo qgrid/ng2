@@ -1,5 +1,5 @@
 import { Command } from '../command/command';
-import { clone, isUndefined } from '../utility/kit';
+import { clone, isUndefined, isArray } from '../utility/kit';
 
 export class FilterLet {
 	constructor(plugin) {
@@ -14,19 +14,34 @@ export class FilterLet {
 
 				let { by, operatorFactory } = model.filter();
 				by = clone(by);
+
 				const filter = by[key] || (by[key] = {});
 				if (!isUndefined(search) && search !== null && search !== '') {
 					const opList = operatorFactory(column);
 					const op = filter.expression ? filter.expression.op : opList[0];
-					if (op === 'contains') {
-						filter.items = [search];
-					} else {
-						filter.expression = {
-							kind: 'condition',
-							left: key,
-							op,
-							right: search
-						};
+					switch (op) {
+						case 'contains': {
+							filter.items = [search];
+							break;
+						}
+						case 'between': {
+							filter.expression = {
+								kind: 'condition',
+								left: key,
+								op,
+								right: [null, search]
+							};
+							break;
+						}
+						default: {
+							filter.expression = {
+								kind: 'condition',
+								left: key,
+								op,
+								right: search
+							};
+							break;
+						}
 					}
 				}
 				else {
@@ -51,7 +66,9 @@ export class FilterLet {
 		if (by[key]) {
 			const { expression, items } = by[key];
 			return expression
-				? expression.right
+				? isArray(expression.right)
+					? expression.right[expression.right.length - 1]
+					: expression.right
 				: items && items.length
 					? items[0]
 					: null;
