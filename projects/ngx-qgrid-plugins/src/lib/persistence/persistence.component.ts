@@ -42,12 +42,12 @@ export class PersistenceComponent implements OnInit, OnChanges {
 		const persistenceService = new PersistenceService(model, () => this.modelBuilder.build());
 
 
-		observeReply(model.sceneChanged)
+		observeReply(model.dataChanged)
 			.pipe(
 				filter(e => {
-					if (e.hasChanges('status') && e.state.status === 'stop') {
-						const count = table.body.rowCount(0);
-						if (count) {
+					if (e.hasChanges('rows')) {
+						const count = e.state.rows.length;
+						if (count > 0) {
 							return true;
 						}
 					}
