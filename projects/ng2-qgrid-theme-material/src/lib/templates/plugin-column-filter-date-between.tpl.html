@@ -6,14 +6,17 @@
 	<q-grid-tab-trap>
 		<mat-form-field class="q-grid-column-filter-input q-grid-column-filter-input-half "
 						*q-grid-date="let qGridDate"
-						[ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(inputLeft.value)}">
+						[q-grid-date-adapter]="$columnFilter.column.format"
+						[ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(inputLeft.value, $columnFilter.column.format)}">
 			<input q-grid-focus
 				   matInput
 				   #inputLeft
 				   placeholder="From"
+				   [q-grid-date-mask]="$columnFilter.column.format"
 				   [matDatepicker]="leftPicker"
-				   [ngModel]="$columnFilter.value[0] | qGridConvert: 'date'"
-				   (ngModelChange)="qGridDate.isValid(inputLeft.value) && ($columnFilter.value[0] = qGridDate.dateLow($event))" />
+				   [value]="$columnFilter.value[0] | qGridConvert: 'date'"
+				   (dateChange)="$columnFilter.value[0] = qGridDate.dateLow($event.value)"
+				   (input)="qGridDate.isValid(inputLeft.value, $columnFilter.column.format) && ($columnFilter.value[0] = qGridDate.dateLow(inputLeft.value, $columnFilter.column.format))" />
 
 			<mat-datepicker-toggle matSuffix
 								   [for]="leftPicker">
@@ -25,13 +28,16 @@
 
 		<mat-form-field class="q-grid-column-filter-input q-grid-column-filter-input-half "
 						*q-grid-date="let qGridDate"
-						[ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(inputRight.value)}">
+						[q-grid-date-adapter]="$columnFilter.column.format"
+						[ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(inputRight.value, $columnFilter.column.format)}">
 			<input matInput
 				   #inputRight
 				   placeholder="To"
+				   [q-grid-date-mask]="$columnFilter.column.format"
 				   [matDatepicker]="rightPicker"
-				   [ngModel]="$columnFilter.value[1] | qGridConvert: 'date'"
-				   (ngModelChange)="qGridDate.isValid(inputRight.value) && ($columnFilter.value[1] = qGridDate.dateLow($event))" />
+				   [value]="$columnFilter.value[1] | qGridConvert: 'date'"
+				   (dateChange)="$columnFilter.value[1] = qGridDate.dateLow($event.value)"
+				   (input)="qGridDate.isValid(inputRight.value, $columnFilter.column.format) && ($columnFilter.value[1] = qGridDate.dateLow(inputRight.value, $columnFilter.column.format))" />
 
 			<mat-datepicker-toggle matSuffix
 								   [for]="rightPicker">
