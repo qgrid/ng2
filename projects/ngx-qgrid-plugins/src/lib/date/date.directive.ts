@@ -48,7 +48,7 @@ export class DateDirective {
 		}
 
 		if (currentDate) {
-			return currentDate;
+			return this.toMidnight(currentDate);
 		}
 
 		return current;
