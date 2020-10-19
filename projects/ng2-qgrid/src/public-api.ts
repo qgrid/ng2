@@ -138,6 +138,7 @@ export {
 	DataManipulationComponent,
 	DataManipulationModule,
 	DateDirective,
+	DateMaskDirective,
 	DateModule,
 	DatePipe,
 	EbClassDirective,
