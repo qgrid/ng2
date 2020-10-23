@@ -1,6 +1,6 @@
 import { Command } from '../command/command';
 import { LEFT_BUTTON, stringify } from '../mouse/mouse.code';
-import { 
+import {
     EDIT_CELL_ENTER_COMMAND_KEY,
     SELECTION_CLICK_COMMAND_KEY,
     NAVIGATION_GO_TO_COMMAND_KEY,

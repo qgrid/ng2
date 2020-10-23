@@ -15,8 +15,18 @@ export function match(context) {
 
 		const valueColumnFactory = key => labelFactory(columnMap[key]);
 		const assertColumnFactory = key => assertFactory(columnMap[key]);
+		const getType = key => {
+			const column = columnMap[key];
+			return (column && column.type) || 'text';
+		};
 
-		const visitor = new PredicateVisitor(valueColumnFactory, assertColumnFactory);
+		const visitor =
+			new PredicateVisitor(
+				valueColumnFactory,
+				assertColumnFactory,
+				getType
+			);
+
 		return visitor.visit(expression);
 	}
 

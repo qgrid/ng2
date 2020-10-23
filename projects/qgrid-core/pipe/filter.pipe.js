@@ -1,19 +1,22 @@
 import { Guard } from '../infrastructure/guard';
+import { yes } from '../utility/kit';
 
 export function filterPipe(rows, context, next) {
 	Guard.notNull(rows, 'rows');
 
 	const { model } = context;
 
-	const result = [];
+	let result = rows;
 	if (rows.length) {
 		const { match } = model.filter();
 		const test = match(context);
-
-		for (let i = 0, length = rows.length; i < length; i++) {
-			const row = rows[i];
-			if (test(row)) {
-				result.push(row);
+		if (test !== yes) {
+			result = [];
+			for (let i = 0, length = rows.length; i < length; i++) {
+				const row = rows[i];
+				if (test(row)) {
+					result.push(row);
+				}
 			}
 		}
 	}
@@ -21,9 +24,9 @@ export function filterPipe(rows, context, next) {
 	model.pipe({
 		effect: Object.assign({}, model.pipe().effect, { filter: result })
 	}, {
-			source: 'filter.pipe',
-			behavior: 'core'
-		});
+		source: 'filter.pipe',
+		behavior: 'core'
+	});
 
 	next(result);
 }

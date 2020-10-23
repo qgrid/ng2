@@ -1,14 +1,15 @@
 import { GridError } from '../infrastructure/error';
-import { parseFactory, getType } from '../services/convert';
+import { compareParseFactory } from '../services/convert';
 import { Visitor } from './expression.visitor';
-import { isArray, identity } from '../utility/kit';
+import { isArray, identity, yes, isUndefined } from '../utility/kit';
 
 export class PredicateVisitor extends Visitor {
-	constructor(valueFactory, assertFactory) {
+	constructor(valueFactory, assertFactory, getType) {
 		super();
 
 		this.valueFactory = valueFactory;
 		this.assertFactory = assertFactory;
+		this.getType = getType;
 	}
 
 	visitGroup(group) {
@@ -18,9 +19,13 @@ export class PredicateVisitor extends Visitor {
 
 			switch (group.op) {
 				case 'and':
-					return value => lp(value) && rp(value);
+					return value => {
+						return lp(value) && rp(value);
+					};
 				case 'or':
-					return value => lp(value) || rp(value);
+					return value => {
+						return lp(value) || rp(value);
+					};
 
 				default:
 					throw GridError(
@@ -40,8 +45,8 @@ export class PredicateVisitor extends Visitor {
 		const assert = this.assertFactory(name);
 		const map = new Set();
 
-		const rt = getType(isArray(r) ? r[0] : r);
-		let parse = parseFactory(rt);
+		const rt = this.getType(name, isArray(r) ? r[0] : r);
+		let parse = compareParseFactory(rt);
 
 		if (isArray(r)) {
 			if (r.length) {
@@ -52,62 +57,120 @@ export class PredicateVisitor extends Visitor {
 		}
 
 		const { equals, isNull, lessThan } = assert;
-		const lessThanOrEquals = (x, y) => equals(x, y) || lessThan(x, y);
-		const greaterThan = (x, y) => !equals(x, y) && !lessThan(x, y);
-		const greaterThanOrEquals = (x, y) => equals(x, y) || !lessThan(x, y);
+
+		const lessThanOrEquals = (x, y) => {
+			return equals(x, y) || lessThan(x, y);
+		};
+
+		const greaterThan = (x, y) => {
+			return !equals(x, y) && !lessThan(x, y)
+		};
+
+		const greaterThanOrEquals = (x, y) => {
+			return equals(x, y) || !lessThan(x, y);
+		};
 
 		let predicate;
 		switch (condition.op) {
 			case 'isNotNull':
 			case 'isNotEmpty':
-				predicate = l => !isNull(l);
+				predicate = actual => !isNull(actual);
 				break;
 			case 'isNull':
 			case 'isEmpty':
-				predicate = l => isNull(l);
+				predicate = actual => isNull(actual);
 				break;
-			case 'equals':
-				predicate = l => equals(parse(l), parse(r));
+			case 'equals': {
+				const etalon = parse(r);
+				predicate = actual => equals(parse(actual), etalon);
 				break;
-			case 'notEquals':
-				predicate = l => !equals(parse(l), parse(r));
+			}
+			case 'notEquals': {
+				const etalon = parse(r);
+				predicate = actual => !equals(parse(actual), etalon);
 				break;
-			case 'greaterThanOrEquals':
-				predicate = l => greaterThanOrEquals(parse(l), parse(r));
+			}
+			case 'greaterThanOrEquals': {
+				const etalon = parse(r);
+				predicate = actual => greaterThanOrEquals(parse(actual), etalon);
 				break;
-			case 'greaterThan':
-				predicate = l => greaterThan(parse(l), parse(r));
+			}
+			case 'greaterThan': {
+				const etalon = parse(r);
+				predicate = actual => greaterThan(parse(actual), etalon);
 				break;
-			case 'lessThanOrEquals':
-				predicate = l => lessThanOrEquals(parse(l), parse(r));
+			}
+			case 'lessThanOrEquals': {
+				const etalon = parse(r);
+				predicate = actual => lessThanOrEquals(parse(actual), etalon);
 				break;
-			case 'lessThan':
-				predicate = l => lessThan(parse(l), parse(r));
+			}
+			case 'lessThan': {
+				const etalon = parse(r);
+				predicate = actual => lessThan(parse(actual), etalon);
 				break;
-			case 'between':
-				predicate = l => lessThanOrEquals(parse(l), parse(r[1])) && greaterThanOrEquals(parse(l), parse(r[0]));
+			}
+			case 'between': {
+				const [start, end] = r;
+				const noStart = isUndefined(start);
+				const noEnd = isUndefined(end);
+				if (noStart && noEnd) {
+					predicate = yes;
+					break;
+				}
+
+				if (noEnd) {
+					const etalon = parse(start);
+					predicate = actual => greaterThanOrEquals(parse(actual), etalon);
+					break
+				}
+
+				if (noStart) {
+					const etalon = parse(end);
+					predicate = actual => lessThanOrEquals(parse(actual), etalon);
+					break
+				}
+
+				const etalonStart = parse(start);
+				const etalonEnd = parse(end);
+				predicate = actual => {
+					const actualValue = parse(actual);
+					return greaterThanOrEquals(actualValue, etalonStart)
+						&& lessThanOrEquals(actualValue, etalonEnd);
+				};
+
 				break;
-			case 'in':
-				predicate = l => {
-					const v = !l && l !== 0 ? 'null' : '' + l;
+			}
+			case 'in': {
+				predicate = actual => {
+					const v = !actual && actual !== 0 ? 'null' : '' + actual;
 					return map.has(v);
 				};
 				break;
-			case 'like':
-				predicate = l => l && ('' + l).toLowerCase().includes(('' + r).toLowerCase());
+			}
+			case 'like': {
+				const etalon = ('' + r).toLowerCase();
+				predicate = actual => actual && ('' + actual).toLowerCase().includes(etalon);
 				break;
-			case 'notLike':
-				predicate = l => l && !('' + l).toLowerCase().includes(('' + r).toLowerCase());
+			}
+			case 'notLike': {
+				const etalon = ('' + r).toLowerCase();
+				predicate = actual => actual && !('' + actual).toLowerCase().includes(etalon);
 				break;
-			case 'startsWith':
-				predicate = l => l && (('' + l).toLowerCase().indexOf(('' + r).toLowerCase()) === 0);
+			}
+			case 'startsWith': {
+				const etalon = ('' + r).toLowerCase();
+				predicate = actual => actual && (('' + actual).toLowerCase().indexOf(etalon) === 0);
 				break;
-			case 'endsWith':
-				predicate = l => {
-					const substr = ('' + l).slice(-('' + r).length).toLowerCase();
-					return ('' + r).toLowerCase() === substr;
+			}
+			case 'endsWith': {
+				const etalon = ('' + r).toLowerCase();
+				predicate = actual => {
+					const substr = ('' + actual).slice(-etalon.length).toLowerCase();
+					return etalon === substr;
 				};
 				break;
+			}
 			default:
 				throw new GridError(
 					'predicate.visitor',
@@ -115,9 +178,9 @@ export class PredicateVisitor extends Visitor {
 				);
 		}
 
-		return l => {
-			const v = getValue(l);
-			return predicate(v);
+		return row => {
+			const actual = getValue(row);
+			return predicate(actual);
 		};
 	}
 }

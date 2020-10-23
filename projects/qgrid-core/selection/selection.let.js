@@ -81,6 +81,22 @@ export class SelectionLet {
 					this.stateCheck.next(e.state.items);
 				}
 			});
+
+		// observeReply(model.dataChanged)
+		// 	.subscribe(e => {
+		// 		// TODO: make it better
+		// 		if (e.hasChanges('rows') && model.selection().unit === 'row') {
+		// 			model.selection({ items: [] }, {
+		// 				source: 'selection.let'
+		// 			});
+		// 		}
+
+		// 		if (e.hasChanges('columns') && model.selection().unit === 'column') {
+		// 			model.selection({ items: [] }, {
+		// 				source: 'selection.let'
+		// 			});
+		// 		}
+		// 	});
 	}
 
 	state(item) {

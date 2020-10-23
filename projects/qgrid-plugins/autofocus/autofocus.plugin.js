@@ -11,11 +11,11 @@ export class AutofocusPlugin {
 					if (e.hasChanges('status') && e.state.status === 'stop') {
 						const count = table.body.rowCount(0);
 						if (count) {
-							return true
+							return true;
 						}
 					}
 
-					return false
+					return false;
 				}),
 				takeOnce()
 			)

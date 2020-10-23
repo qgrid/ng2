@@ -128,6 +128,7 @@ import { ExamplePivotColumnTemplateComponent } from './pivot-column-template/exa
 import { ExamplePluginGridBasicComponent } from './plugin-grid-basic/example-plugin-grid-basic.component';
 import { ExamplePluginMyPagerComponent } from './plugin-grid-basic/example-plugin-my-pager.component';
 import { ExampleRestApiBasicComponent } from './rest-api-basic/example-rest-api-basic.component';
+import { ExampleSampleOrdersComponent } from './sample-orders/example-sample-orders.component';
 import { ExampleScrollVirtualBasicComponent } from './scroll-virtual-basic/example-scroll-virtual-basic.component';
 import { ExampleScrollVirtualDetailsComponent } from './scroll-virtual-details/example-scroll-virtual-details.component';
 import { ExampleScrollVirtualDragComponent } from './scroll-virtual-drag/example-scroll-virtual-drag.component';
@@ -164,6 +165,7 @@ import { ExampleValidationBasicComponent } from './validation-basic/example-vali
 import { ExampleVisibilityBasicComponent } from './visibility-basic/example-visibility-basic.component';
 import { ExampleVisibilityStateComponent } from './visibility-model/example-visibility-model.component';
 import { ExampleSelectRowEditComponent } from './select-row-edit/example-select-row-edit.component';
+import { ExamplePersistenceOnStateChangeComponent } from './persistence-on-state-change/example-persistence-on-state-change.component';
 
 export const EXAMPLES: any[] = [
 	ExampleActionBarBasicComponent,
@@ -274,6 +276,7 @@ export const EXAMPLES: any[] = [
 	ExamplePaneBasicComponent,
 	ExamplePaneTriggerComponent,
 	ExamplePersistenceBasicComponent,
+	ExamplePersistenceOnStateChangeComponent,
 	ExamplePersistenceServerComponent,
 	ExamplePinColumnBasicComponent,
 	ExamplePipeGridBasicComponent,
@@ -283,6 +286,7 @@ export const EXAMPLES: any[] = [
 	ExamplePivotColumnTemplateComponent,
 	ExamplePluginGridBasicComponent,
 	ExampleRestApiBasicComponent,
+	ExampleSampleOrdersComponent,
 	ExampleScrollVirtualBasicComponent,
 	ExampleScrollVirtualDetailsComponent,
 	ExampleScrollVirtualDragComponent,

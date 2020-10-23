@@ -5,15 +5,18 @@
 
 	<mat-form-field class="q-grid-column-filter-input"
 					*q-grid-date="let qGridDate"
-					[ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(input.value)}">
+					[q-grid-date-adapter]="$columnFilter.column.format"
+					[ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(input.value, $columnFilter.column.format)}">
 
-		<input q-grid-focus
+		<input #input
+			   q-grid-focus
 			   matInput
-			   #input
-			   [matDatepicker]="picker"
+			   [q-grid-date-mask]="$columnFilter.column.format"
 			   [placeholder]="$columnFilter.operator | qGridText : 'fromCamelCase'"
-			   [ngModel]="$columnFilter.value | qGridConvert: 'date'"
-			   (ngModelChange)="qGridDate.isValid(input.value) && ($columnFilter.value = $event)" />
+			   [matDatepicker]="picker"
+			   [value]="$columnFilter.value | qGridConvert: 'date'"
+			   (dateChange)="$columnFilter.value = qGridDate.dateLow($event.value)"
+			   (input)="qGridDate.isValid(input.value, $columnFilter.column.format) && ($columnFilter.value = qGridDate.dateLow(input.value, $columnFilter.column.format))" />
 
 		<mat-datepicker-toggle matSuffix
 							   [for]="picker">

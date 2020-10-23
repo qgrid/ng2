@@ -1,7 +1,8 @@
-import { clone } from '@qgrid/core/utility/kit';
+import { clone, isArray, isUndefined } from '@qgrid/core/utility/kit';
 import { Command } from '@qgrid/core/command/command';
 import { Event } from '@qgrid/core/event/event';
 import { getFactory as labelFactory } from '@qgrid/core/services/label';
+import { parseFactory } from '@qgrid/core/services/convert';
 
 export class ColumnFilterPlugin {
 	constructor(plugin, context) {
@@ -99,7 +100,13 @@ export class ColumnFilterPlugin {
 					switch (op) {
 						case 'between': {
 							if (!Array.isArray(value)) {
-								this.value = [value];
+								if (isUndefined(value)
+									|| value === null
+									|| value === '') {
+									this.value = [];
+								} else {
+									this.value = [value];
+								}
 							}
 							break;
 						}
@@ -128,15 +135,28 @@ export class ColumnFilterPlugin {
 					} else {
 						filter.items = [];
 
-						if (this.operator.startsWith('is') || this.value) {
+						if (this.operator.startsWith('is')) {
 							filter.expression = {
 								kind: 'condition',
 								op: this.operator,
 								left: this.column.key,
-								right: this.value,
+								right: null,
 							};
-						} else {
+						}
+						else if (
+							isUndefined(this.value)
+							|| this.value === null
+							|| this.value === ''
+							|| (isArray(this.value) && this.value.length === 0)) {
 							delete filter.expression;
+						} else {
+							const parse = parseFactory(this.column.type, this.column.editorOptions.editor);
+							filter.expression = {
+								kind: 'condition',
+								op: this.operator,
+								left: this.column.key,
+								right: isArray(this.value) ? this.value.map(parse) : parse(this.value),
+							};
 						}
 					}
 

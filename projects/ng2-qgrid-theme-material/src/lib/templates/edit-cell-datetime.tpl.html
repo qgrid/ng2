@@ -8,18 +8,30 @@
 		<q-grid-tab-trap>
 			<mat-form-field *q-grid-date="let qGridDate"
 							class="q-grid-datetime-date"
-							[ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(input.value)}">
+							[q-grid-date-adapter]="$cell.column.dateFormat"
+							[ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(input.value, $cell.column.dateFormat)}">
+
+				<mat-label>
+				</mat-label>
+
 				<input q-grid-focus
 					   matInput
 					   #input
+					   [q-grid-date-mask]="$cell.column.dateFormat"
+					   [placeholder]="$cell.column.dateFormat"
 					   [matDatepicker]="picker"
-					   [ngModel]="$view.edit.cell.value | qGridConvert: 'date'"
-					   (ngModelChange)="qGridDate.isValid(input.value) && ($view.edit.cell.value = qGridDate.date($view.edit.cell.value, $event))" />
+					   [value]="$view.edit.cell.value | qGridConvert: 'date'"
+					   (dateChange)="$view.edit.cell.value = qGridDate.datetime($view.edit.cell.value, $event.value, $cell.column.dateFormat)"
+					   (input)="qGridDate.isValid(input.value, $cell.column.dateFormat) && ($view.edit.cell.value = qGridDate.datetime($view.edit.cell.value, input.value, $cell.column.dateFormat))" />
+
 				<mat-datepicker-toggle matSuffix
 									   [for]="picker">
 				</mat-datepicker-toggle>
-				<mat-datepicker #picker>
+
+				<mat-datepicker #picker
+								panelClass="q-grid-editor-part">
 				</mat-datepicker>
+
 			</mat-form-field>
 
 			<mat-form-field *q-grid-time="let qGridTime"
@@ -27,7 +39,7 @@
 				<input matInput
 					   type="time"
 					   #input
-					   [value]="$view.edit.cell.value | qGridTime: 'hh:mm'"
+					   [value]="$view.edit.cell.value | qGridTime: 'HH:mm'"
 					   (change)="$view.edit.cell.value = qGridTime.time($view.edit.cell.value, input.value)" />
 			</mat-form-field>
 		</q-grid-tab-trap>

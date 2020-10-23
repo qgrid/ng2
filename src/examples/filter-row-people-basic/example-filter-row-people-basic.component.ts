@@ -27,11 +27,6 @@ export class ExampleFilterRowPeopleBasicComponent {
 			.pipe(
 				map(xs =>
 					xs.map((x: any) => {
-						x.birthday = new Date(x.birthday);
-						x.birthday.setHours(0);
-						x.birthday.setMinutes(0);
-						x.birthday.setSeconds(0);
-
 						x.memberSince = new Date(x.memberSince);
 						x.memberSince.setHours(0);
 						x.memberSince.setMinutes(0);

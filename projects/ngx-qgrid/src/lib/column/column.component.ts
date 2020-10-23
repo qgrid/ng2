@@ -37,6 +37,8 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() editor: string;
 	@Input() editorOptions: any;
 	@Input() format: string;
+	@Input() dateFormat: string;
+	@Input() timeFormat: string;
 	@Input() symbol: string;
 	@Input() code: string;
 

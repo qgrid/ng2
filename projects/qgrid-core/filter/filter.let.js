@@ -23,7 +23,9 @@ export class FilterLet {
 		if (by[key]) {
 			const { expression, items } = by[key];
 			return expression
-				? expression.right
+				? isArray(expression.right)
+					? expression.right[expression.right.length - 1]
+					: expression.right
 				: items && items.length
 					? items[0]
 					: null;

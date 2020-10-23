@@ -1,15 +1,15 @@
-import { 
-	identity, 
-	isObject, 
-	isArray, 
-	isBoolean, 
+import {
+	identity,
+	isObject,
+	isArray,
+	isBoolean,
 	isDate,
 	isNumber,
-	isEmail, 
-	isString, 
-	isUrl, 
-	isImage, 
-	isUndefined 
+	isEmail,
+	isString,
+	isUrl,
+	isImage,
+	isUndefined
 } from '../utility/kit';
 
 // TODO: right now we check the empty result on null, 
@@ -31,9 +31,11 @@ export function parseFactory(type, editor) {
 		case 'number':
 		case 'currency':
 			return parseNumber;
-		case 'time':
 		case 'date':
 			return parseDate;
+		case 'time':
+		case 'datetime':
+			return parseDateTime;
 		case 'bool':
 			return parseBool;
 		case 'array':
@@ -42,6 +44,41 @@ export function parseFactory(type, editor) {
 			return identity;
 	}
 }
+
+export function compareParseFactory(type, editor) {
+	switch (type) {
+		case 'id': {
+			type = editor ? editor : 'text';
+			break;
+		}
+	}
+
+	switch (type) {
+		case 'date':
+			return x => {
+				const date = parseDate(x);
+				if (date) {
+					return date.getTime();
+				}
+
+				return date;
+			};
+		case 'time':
+		case 'datetime':
+			return x => {
+				const date = parseDateTime(x);
+				if (date) {
+					return date.getTime();
+				}
+
+				return date;
+			};
+		default: {
+			return parseFactory(type, editor);
+		}
+	}
+}
+
 
 
 export function resolveType(values) {
@@ -80,7 +117,7 @@ export function getType(value) {
 	}
 
 	if (isDate(value)) {
-		return 'date';
+		return 'datetime';
 	}
 
 	if (isString(value)) {
@@ -130,6 +167,10 @@ export function findType(value) {
 		return 'bool';
 	}
 
+	if (likeDateTime(value)) {
+		return 'datetime';
+	}
+
 	if (likeDate(value)) {
 		return 'date';
 	}
@@ -172,6 +213,21 @@ export function isPrimitive(type) {
 	}
 }
 
+function likeDateTime(value) {
+	if (value === null || isUndefined(value) || value === '') {
+		return false;
+	}
+
+	if (value instanceof Date) {
+		return true;
+	}
+
+	value = '' + value;
+
+	// ISO_8601
+	return !!value.match(/^(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2})))))))$/);
+}
+
 function likeDate(value) {
 	if (value === null || isUndefined(value) || value === '') {
 		return false;
@@ -184,7 +240,7 @@ function likeDate(value) {
 	value = '' + value;
 
 	// ISO_8601
-	return !!value.match(/^(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2}))?))?)?)?)?$/);
+	return !!value.match(/^(\d{4})(-(\d{2})(-(\d{2})))$/);
 }
 
 function likeNumber(value) {
@@ -218,10 +274,39 @@ function parseDate(value) {
 	}
 
 	if (value instanceof Date) {
+		return new Date(
+			value.getFullYear(),
+			value.getMonth(),
+			value.getDate(),
+			0, 0, 0, 0
+		);
+	}
+
+
+	const yearMonthDay = ('' + value).split('-');
+	return new Date(
+		Number.parseInt(yearMonthDay[0]),
+		Number.parseInt(yearMonthDay[1]) - 1,
+		Number.parseInt(yearMonthDay[2]),
+		0, 0, 0, 0
+	);
+}
+
+function parseDateTime(value) {
+	if (value === null || isUndefined(value)) {
+		return value
+	}
+
+	if (value === '') {
+		return null;
+	}
+
+	if (value instanceof Date) {
 		return value;
 	}
 
-	return new Date('' + value);
+	const date = new Date('' + value);
+	return date;
 }
 
 function parseNumber(value) {
