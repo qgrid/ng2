@@ -36,7 +36,7 @@ export class TabTrapComponent {
 		elementRef: ElementRef
 	) {
 		const listener = new EventListener(elementRef.nativeElement, new EventManager(this));
-		listener.on('keydown', e => {
+		listener.on('keydown', (e: KeyboardEvent) => {
 			const code = Keyboard.translate(e.code);
 			if (code === 'tab' || code === 'shift+tab') {
 				e.stopPropagation();

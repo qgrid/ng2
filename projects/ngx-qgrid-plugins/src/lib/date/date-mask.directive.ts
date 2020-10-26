@@ -26,7 +26,7 @@ export class DateMaskDirective {
 			return;
 		}
 
-		const code = Keyboard.translate(e.keyCode);
+		const code = Keyboard.translate(e.code);
 		if (this.isDigit(code)) {
 			if (maskChar === DELIMITER) {
 				e.preventDefault();

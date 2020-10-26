@@ -29,7 +29,7 @@ export class ChipsPushDirective implements AfterViewInit {
 
 		const input = this.inputElement.nativeElement;
 		this.zone.runOutsideAngular(() =>
-			input.addEventListener('keydown', e => {
+			input.addEventListener('keydown', (e: KeyboardEvent) => {
 				const code = Keyboard.translate(e.code);
 				if (code === 'enter') {
 					const value = (input.value || '').trim() as string;
