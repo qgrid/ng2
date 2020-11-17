@@ -48,19 +48,11 @@ const isEmail = value => {
 };
 
 function compare(x, y) {
-	if (x === null) {
-		return -1;
-	}
-
-	if (y === null) {
+	if (y === null || x > y) {
 		return 1;
 	}
 
-	if (x > y) {
-		return 1;
-	}
-
-	if (x < y) {
+	if (x === null || x < y) {
 		return -1;
 	}
 
