@@ -48,15 +48,19 @@ const isEmail = value => {
 };
 
 function compare(x, y) {
-	if (y === null || x > y) {
+	if (x === y) {
+		return 0;
+	}
+
+	if (x === null || x === undefined || x === '') {
 		return 1;
 	}
 
-	if (x === null || x < y) {
+	if (y === null || y === undefined || y === '') {
 		return -1;
 	}
 
-	return 0;
+	return x > y ? 1 : -1;
 }
 
 function orderBy(data, selectors, compares) {
