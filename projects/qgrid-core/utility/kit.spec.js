@@ -129,4 +129,58 @@ describe('kit', () => {
 			expect(foo).to.equal(false);
 		});
 	});
+
+	describe('compare', () => {
+		it('should return 0 for equal values', () => {
+			const numbers = Utility.compare(0, 0);
+			expect(numbers).to.equal(0);
+
+			const strings = Utility.compare('string', 'string');
+			expect(strings).to.equal(0);
+
+			const nulls = Utility.compare(null, null);
+			expect(nulls).to.equal(0);
+
+			const undefineds = Utility.compare(undefined, undefined);
+			expect(undefineds).to.equal(0);
+		});
+
+		it('should return 1 if first value is null, undefined, empty string', () => {
+			const n = Utility.compare(null, 0);
+			expect(n).to.equal(1);
+
+			const u = Utility.compare(undefined, 0);
+			expect(u).to.equal(1);
+
+			const e = Utility.compare('', 0);
+			expect(e).to.equal(1);
+		});
+
+		it('should return -1 if second value is null, undefined, empty string', () => {
+			const n = Utility.compare(0, null);
+			expect(n).to.equal(-1);
+
+			const u = Utility.compare(0, undefined);
+			expect(u).to.equal(-1);
+
+			const e = Utility.compare(10, '');
+			expect(e).to.equal(-1);
+		});
+
+		it('should return 1 if first value is greater than second', () => {
+			const strings = Utility.compare('colorless', 'black-brown');
+			expect(strings).to.equal(1);
+
+			const numbers = Utility.compare(350, 250);
+			expect(numbers).to.equal(1);
+		});
+
+		it('should return -1 if second value is greater than first', () => {
+			const strings = Utility.compare('black-brown', 'colorless');
+			expect(strings).to.equal(-1);
+
+			const numbers = Utility.compare(250, 350);
+			expect(numbers).to.equal(-1);
+		});
+	})
 });

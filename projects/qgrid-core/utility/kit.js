@@ -52,11 +52,15 @@ function compare(x, y) {
 		return 0;
 	}
 
-	if (x > y) {
+	if (x === null || x === undefined || x === '') {
 		return 1;
 	}
 
-	return -1;
+	if (y === null || y === undefined || y === '') {
+		return -1;
+	}
+
+	return x > y ? 1 : -1;
 }
 
 function orderBy(data, selectors, compares) {
