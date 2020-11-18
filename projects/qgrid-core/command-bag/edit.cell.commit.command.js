@@ -1,9 +1,7 @@
 import { CellEditor } from './edit.cell.editor';
 import { Command } from '../command/command';
-import { Command } from '../command/command';
 import { editCellContextFactory } from '../edit/edit.cell.context.factory';
 import { editCellShortcutFactory } from '../edit/edit.cell.shortcut.factory';
-import { Td } from '../dom/td';
 import * as validationService from '../validation/validation.service';
 
 export const EDIT_CELL_COMMIT_COMMAND_KEY = commandKey('edit.cell.commit.command');
