@@ -21,6 +21,8 @@ export class DateTimeColumnModel extends DataColumnModel {
 		super('datetime');
 
 		this.format = 'MM/dd/yyyy h:mm a';
+		this.dateFormat = 'MM/dd/yyyy';
+		this.timeFormat = 'h:mm a';
 	}
 }
 

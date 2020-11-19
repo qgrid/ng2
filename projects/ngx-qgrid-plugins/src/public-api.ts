@@ -38,6 +38,8 @@ export { CurrencyPipe } from './lib/pipes/currency.pipe';
 export { DataManipulationComponent } from './lib/data-manipulation/data-manipulation.component';
 export { DataManipulationModule } from './lib/data-manipulation/data-manipulation.module';
 export { DateDirective } from './lib/date/date.directive';
+export { DateMaskDirective } from './lib/date/date-mask.directive';
+export { DateService } from './lib/date/date.service';
 export { DateModule } from './lib/date/date.module';
 export { DatePipe } from './lib/pipes/date.pipe';
 export { EbClassDirective } from './lib/expression-builder/eb-class.directive';

@@ -4,6 +4,8 @@ import { ColumnModel } from './column.model';
 
 export declare class DateTimeColumnModel extends DataColumnModel {
 	format?: string;
+	dateFormat?: string;
+	timeFormat?: string;
 }
 
 export declare class DateTimeColumn extends ColumnView {

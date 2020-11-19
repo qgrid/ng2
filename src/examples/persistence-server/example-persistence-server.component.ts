@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { GridModel, Grid } from 'ng2-qgrid';
+import { GridModel, Grid, PersistenceStorage } from 'ng2-qgrid';
 
 import { DataService, Atom } from '../data.service';
 
@@ -35,7 +35,7 @@ export class ExamplePersistenceServerComponent {
 		});
 	}
 
-	get storage() {
+	get storage(): PersistenceStorage {
 		return {
 			getItem: id => {
 				return new Promise(resolve => {

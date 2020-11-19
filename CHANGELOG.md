@@ -3,14 +3,28 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [9.2.1] - 2020-10-19
+### Fixed
+- Fix datepicker which didn't work in edit mode correctly, by introducing `q-grid-editor-part` css class.
+- Empty date is a valid case.
+- Filter row works when between operator is chosen.
+
+### Added
+- Date mask to enhance user input performance.
+- Two new properties in datetime columns `dateFormat` and `timeFormat` to enhance editing.
+- Persistence state now accepts schedule equals to `onStateChange` that allows to auto save grid state on user changes.
+
+### Changed
+- Date input and datepicker takes the format from the date column by using DateAdapter.
 
 ## [9.1.11] - 2020-08-19
 ### Fixed
 - Do not focus grid on scene change.
-- 
+ 
 ## [9.1.10] - 2020-08-17
 ### Fixed
 - Dates are properly converted to midnights.
+- When first input date in datetime input time is set to midnight.
 
 ## [9.1.9] - 2020-08-13
 ### Fixed
@@ -583,7 +597,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v9.1.11...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v9.2.1...HEAD
+[9.2.1]: https://github.com/qgrid/ng2/compare/v9.1.11...v9.2.1
 [9.1.11]: https://github.com/qgrid/ng2/compare/v9.1.10...v9.1.11
 [9.1.10]: https://github.com/qgrid/ng2/compare/v9.1.9...v9.1.10
 [9.1.9]: https://github.com/qgrid/ng2/compare/v9.1.8...v9.1.9

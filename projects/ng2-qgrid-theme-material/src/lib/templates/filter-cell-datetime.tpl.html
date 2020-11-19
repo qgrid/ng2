@@ -3,6 +3,8 @@
              let-$view="$view">
     <ng-container *ngIf="$cell.column.canFilter">
         <mat-form-field *q-grid-date="let qGridDate"
+                        [q-grid-date-adapter]="$cell.column.dateFormat"
+                        [ngClass]="{'mat-form-field-invalid': !qGridDate.isValid(input.value, $cell.column.dateFormat)}"
                         floatLabel="never">
             <mat-placeholder>
                 <mat-icon class="q-grid-icon q-grid-placeholder">
@@ -13,8 +15,10 @@
             <input matInput
                    #input
                    [matDatepicker]="picker"
-                   [ngModel]="$view.filter.value($cell.column.model) | qGridConvert: 'datetime'"
-                   (ngModelChange)="qGridDate.isValid(input.value) && $view.filter.column.execute($cell.column.model, qGridDate.dateLow($event))" />
+                   [q-grid-date-mask]="$cell.column.dateFormat"
+                   [value]="$view.filter.value($cell.column.model) | qGridConvert: 'date'"
+                   (dateChange)="$view.filter.column.execute($cell.column.model, qGridDate.dateLow($event.value, $cell.column.dateFormat))"
+                   (input)="qGridDate.isValid(input.value, $cell.column.dateFormat) && $view.filter.column.execute($cell.column.model, qGridDate.dateLow(input.value, $cell.column.dateFormat))" />
 
             <mat-datepicker-toggle matSuffix
                                    [for]="picker">

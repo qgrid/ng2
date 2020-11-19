@@ -1,6 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "9.1.11",
+  "version": "9.2.1",
   "bundledDependencies": [
     "@qgrid/core",
     "@qgrid/plugins",
