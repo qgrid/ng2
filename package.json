@@ -16,7 +16,7 @@
     "start:prod": "node build.serve --prod",
     "start": "node build.serve",
     "test:core": "karma start ./projects/qgrid-core/karma.conf.js --single-run",
-    "test:core-single-run": "karma start ./projects/qgrid-core/karma.conf.js ",
+    "test:core-watch": "karma start ./projects/qgrid-core/karma.conf.js ",
     "test:screenshot-update-goldens": "protractor ./e2e/protractor-update-goldens.conf.js",
     "test:screenshot": "protractor ./e2e/protractor.conf.js"
   },
