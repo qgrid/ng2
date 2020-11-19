@@ -8,7 +8,7 @@ addons:
     packages:
       - google-chrome-stable
 script:
-  - npm run test
+  - npm run test:core
 cache:
   bundler: true
   directories:
