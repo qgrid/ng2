@@ -24,7 +24,9 @@ export class SortLet {
 
 				if (sortState.mode === 'explicit') {
 					const { code, status } = model.keyboard();
-					if (code !== 'shift' || status !== 'down') {
+					const isKeyPressed = code === 'shift' && status === 'down';
+					// if shift key is not pressed - reset sort for other columns
+					if (!isKeyPressed) {
 						const index = sortService.index(by, key);
 						by = index >= 0 ? by.filter((_, i) => i === index) : [];
 					}
