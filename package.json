@@ -7,6 +7,8 @@
     "clean": "rimraf dist",
     "lint": "ng lint",
     "ng": "ng",
+    "preinstall": "node preinstall.js",
+    "postinstall": "npm run clean",
     "pretest:screenshot": "webdriver-manager update --gecko=false && if not exist e2e\\diff mkdir e2e\\diff",
     "release:app": "npm run build:app && npx angular-cli-ghpages --dir=dist/app",
     "release:example": "node ./build.example",
