@@ -4,7 +4,7 @@
  * * `'multiple'` allows to sort by several column keys.
  * * `'single'` allows to sort only by one column key.
  */
-export declare type SortStateMode = 'single' | 'multiple';
+export declare type SortStateMode = 'single' | 'multiple' | 'explicit';
 
 export declare type SortStateDirection = 'desc' | 'asc';
 

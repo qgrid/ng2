@@ -20,7 +20,15 @@ export class SortLet {
 				const key = column.key;
 				const sort = model.sort;
 				const sortState = sort();
-				const by = Array.from(sortState.by);
+				let by = Array.from(sortState.by);
+
+				if (sortState.mode === 'explicit') {
+					const { code, status } = model.keyboard();
+					if (code !== 'shift' || status !== 'down') {
+						const index = sortService.index(by, key);
+						by = index >= 0 ? by.filter((_, i) => i === index) : [];
+					}
+				}
 				const index = sortService.index(by, key);
 				if (index >= 0) {
 					const dir = sortService.direction(by[index]);
