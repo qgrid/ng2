@@ -13,8 +13,9 @@
     "release:lib": "npm run build:lib && cd dist/ng2-qgrid && npm publish",
     "start:prod": "node build.serve --prod",
     "start": "node build.serve",
-    "test": "npm run test:core",
+    "test": "npm run test:core-single-run",
     "test:core": "karma start ./projects/qgrid-core/karma.conf.js",
+    "test:core-single-run": "karma start ./projects/qgrid-core/karma.conf.js --single-run",
     "test:screenshot-update-goldens": "protractor ./e2e/protractor-update-goldens.conf.js",
     "test:screenshot": "protractor ./e2e/protractor.conf.js"
   },
