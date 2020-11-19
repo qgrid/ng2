@@ -9,5 +9,5 @@
 		</q-grid-column>
 	</q-grid-columns>
 
-	<q-grid-pager [size]="((model.rows | async) || []).length"></q-grid-pager>
+	<q-grid-pager [size]="((model.rows | async) || [])?.length"></q-grid-pager>
 </q-grid>
