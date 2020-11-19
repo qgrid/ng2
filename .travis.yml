@@ -1,5 +1,5 @@
 language: node_js
-node_js: "9.0.0"
+node_js: "14"
 sudo: false
 addons:
   apt:
@@ -8,7 +8,7 @@ addons:
     packages:
       - google-chrome-stable
 script:
-  - npm run test
+  - npm run test:core
 cache:
   bundler: true
   directories:
