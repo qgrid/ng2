@@ -32,7 +32,7 @@
     "core-js": "^3.7.0",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.3",
-    "zone.js": "~0.11.3",
+    "zone.js": "~0.10.3",
     "@qgrid/core": "file:./projects/qgrid-core",
     "@qgrid/plugins": "file:./projects/qgrid-plugins",
     "@qgrid/ngx": "file:./dist/ngx-qgrid",
