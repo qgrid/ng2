@@ -61,6 +61,7 @@ export { ShortcutPipe } from './lib/shortcut/shortcut.pipe';
 export { ShortcutService } from './lib/shortcut/shortcut.service';
 
 export { EventModule } from './lib/event/event.module';
+export { EventHostDirective } from './lib/event/event-host.directive';
 
 export {
 	DomTr,

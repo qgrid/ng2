@@ -90,7 +90,7 @@ export class GridComponent implements OnInit, OnChanges {
 	@Input('id') set gridId(id: string) { this.gridState({ id }); }
 	@Input('header') set gridTitle(header: string) { this.gridState({ caption: header }); }
 	@Input('caption') set gridCaption(caption: string) { this.gridState({ caption }); }
-	@Input('interactionMode') gridInteractionMode(interactionMode: GridStateInteractionMode) { this.gridState({ interactionMode }); }
+	@Input('interactionMode') set gridInteractionMode(interactionMode: GridStateInteractionMode) { this.gridState({ interactionMode }); }
 
 	@Input('columns') set dataColumns(columns: Array<ColumnModel>) { if (Array.isArray(columns)) { this.dataState({ columns }); } }
 	@Input('rows') set dataRows(rows: Array<any>) { if (Array.isArray(rows)) { this.dataState({ rows }); } }

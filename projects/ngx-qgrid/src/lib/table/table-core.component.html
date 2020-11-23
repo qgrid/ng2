@@ -29,7 +29,7 @@
 		   [q-grid-drop]="$view.row.drop"
 		   q-grid-drag-direction="y"
 		   q-grid-vscroll
-		   [q-grid-vscroll-port-y]="$view.scroll.y"
+		   [q-grid-vscroll-port-y]="$any($view.scroll.y)"
 		   [q-grid-drag-over]="$view.row.drop">
 	</tbody>
 	<tbody *ngIf="visibility.pin.bottom"

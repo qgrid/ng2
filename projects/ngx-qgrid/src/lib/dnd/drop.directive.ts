@@ -7,16 +7,7 @@ import { EventManager } from '@qgrid/core/event/event.manager';
 import { GRID_PREFIX } from '@qgrid/core/definition';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { no } from '@qgrid/core/utility/kit';
-
-export interface DropEventArg {
-	path: HTMLElement[];
-	dragData: any;
-	dropData: any;
-	action: string; // 'over' | 'drop' | 'end';
-
-	inAreaY(element: HTMLElement): boolean;
-	inAreaX(element: HTMLElement): boolean;
-}
+import { DropCommandArg } from '@qgrid/core/command-bag/command.bag';
 
 @Directive({
 	selector: '[q-grid-drop]'
@@ -24,8 +15,8 @@ export interface DropEventArg {
 export class DropDirective implements OnInit {
 	@Input('q-grid-drop-area') area: string;
 	@Input('q-grid-drop-data') dropData: any;
-	@Input('q-grid-drop') drop: Command<DropEventArg>;
-	@Input('q-grid-drag-over') dragOver: Command<DropEventArg>;
+	@Input('q-grid-drop') drop: Command<DropCommandArg>;
+	@Input('q-grid-drag-over') dragOver: Command<DropCommandArg>;
 	@Input('q-grid-drag-direction') dragDirection: 'x' | 'y' = 'y';
 
 	constructor(

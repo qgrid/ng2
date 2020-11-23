@@ -62,7 +62,7 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 
 	@Input() index: number;
 
-	@Input() label: (row: any, value?: any) => any | any;
+	@Input() label: ((row: any, value?: any) => any) | any;
 	@Input() labelPath: string;
 
 	@Input() itemLabel: (row: any, value?: any) => any;

@@ -11,10 +11,20 @@ export declare type GridInvalidateCommandArg = {
     why: PipeUnitWhy
 };
 
+export interface DropCommandArg {
+	path: HTMLElement[];
+	dragData: any;
+	dropData: any;
+	action: string; // 'over' | 'drop' | 'end';
+
+	inAreaY(element: HTMLElement): boolean;
+	inAreaX(element: HTMLElement): boolean;
+}
+
 export declare const BLUR_COMMAND_KEY: CommandKey<any>;
 export declare const CLIPBOARD_COPY_COMMAND_KEY: CommandKey<any>;
 export declare const COLUMN_DRAG_COMMAND_KEY: CommandKey<{ data: string }>;
-export declare const COLUMN_DROP_COMMAND_KEY: CommandKey<{ action: string, dragData: string, inAreaX: (x: HTMLElement) => boolean }>;
+export declare const COLUMN_DROP_COMMAND_KEY: CommandKey<DropCommandArg>;
 export declare const COLUMN_RESIZE_COMMAND_KEY: CommandKey<{ data: any; width: number; kind: string; }>;
 export declare const DOCUMENT_CLICK_COMMAND_KEY: CommandKey<[HTMLElement, MouseEvent]>;
 export declare const EDIT_CELL_CANCEL_COMMAND_KEY: CommandKey<CellView>;
@@ -63,7 +73,7 @@ export declare const PAGINATION_NEXT_COMMAND_KEY: CommandKey<any>;
 export declare const PAGINATION_PREVIOUS_COMMAND_KEY: CommandKey<any>;
 export declare const ROW_DETAILS_TOGGLE_STATUS_COMMAND_KEY: CommandKey<any>;
 export declare const ROW_DRAG_COMMAND_KEY: CommandKey<{ data: number }>;
-export declare const ROW_DROP_COMMAND_KEY: CommandKey<{ dragData: number, action: string, inAreaY: (x: HTMLElement) => boolean }>;
+export declare const ROW_DROP_COMMAND_KEY: CommandKey<DropCommandArg>;
 export declare const ROW_RESIZE_COMMAND_KEY: CommandKey<any>;
 export declare const SELECTION_ALL_TOGGLE_COMMAND_KEY: CommandKey<any>;
 export declare const SELECTION_CELL_TOGGLE_COMMAND_KEY: CommandKey<CellView>;

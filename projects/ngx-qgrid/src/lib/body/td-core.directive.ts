@@ -28,8 +28,8 @@ import { CellClassService } from '../cell/cell-class.service';
 export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	$implicit = this;
 
-	@Input('q-grid-core-value') private actualValue: any;
-	@Input('q-grid-core-label') private actualLabel: any;
+	@Input('q-grid-core-value') actualValue: any;
+	@Input('q-grid-core-label') actualLabel: any;
 
 	@Input('q-grid-core-td') columnView: ColumnView;
 

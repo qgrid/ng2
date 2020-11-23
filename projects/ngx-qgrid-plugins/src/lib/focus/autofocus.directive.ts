@@ -7,7 +7,7 @@ import { AutofocusPlugin } from '@qgrid/plugins/autofocus/autofocus.plugin';
 	providers: [GridPlugin]
 })
 export class AutoFocusDirective implements AfterViewInit {
-	@Input('q-grid-autofocus') enabled: boolean;
+	@Input('q-grid-autofocus') enabled: boolean | string;
 
 	constructor(
 		private plugin: GridPlugin

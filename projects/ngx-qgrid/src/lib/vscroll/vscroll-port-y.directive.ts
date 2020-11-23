@@ -8,14 +8,14 @@ import { findPositionUsingItemSize, findPositionUsingOffsets, recycleFactory, IV
 import { VscrollDirective } from './vscroll.directive';
 import { VscrollLink } from './vscroll.link';
 import { isNumber } from '@qgrid/core/utility/kit';
-import { Guard } from '@qgrid/core/infrastructure/guard';
 
 @Directive({
 	selector: '[q-grid-vscroll-port-y]'
 })
 export class VscrollPortYDirective extends VscrollPort implements OnChanges {
 	@Input('q-grid-vscroll-port-y') context: VscrollContext;
-	markup = {};
+
+	markup: { [key: string]: HTMLElement } = {};
 	layout: VscrollLayout;
 	link: VscrollLink;
 

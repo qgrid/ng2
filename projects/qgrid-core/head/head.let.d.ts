@@ -1,3 +1,4 @@
+import { DropCommandArg } from '../command-bag/command.bag';
 import { Command } from '../command/command';
 import { GridPlugin } from '../plugin/grid.plugin';
 import { SceneStateColumnRows, SceneStateColumnLine } from '../scene/scene.state';
@@ -5,7 +6,7 @@ import { SceneStateColumnRows, SceneStateColumnLine } from '../scene/scene.state
 export declare class HeadLet {
 	constructor(plugin: GridPlugin, tagName: string);
 
-	readonly drop: Command<{ dragData: string }>;
+	readonly drop: Command<DropCommandArg>;
 	readonly drag: Command<{ dragData: string }>;
 
 	readonly resize: Command;

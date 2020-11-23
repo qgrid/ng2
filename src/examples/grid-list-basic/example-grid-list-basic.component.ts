@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DataService } from '../data.service';
+import { Atom, DataService } from '../data.service';
 import { Observable, of } from 'rxjs';
+import { Column } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = [
 	'grid-list-basic',
@@ -18,20 +19,17 @@ export class ExampleGridListBasicComponent {
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	models: Observable<any[]>;
+	models: Array<{ columns: Array<Column>, rows$: Observable<Atom[]> }> = [{
+		columns: [{
+			key: 'number',
+			title: 'Number'
+		}, {
+			key: 'name',
+			title: 'Name'
+		}],
+		rows$: this.dataService.getAtoms()
+	}];
 
-	constructor(dataService: DataService) {
-		this.models = of([{
-			columns: [{
-				key: 'number',
-				title: 'Number'
-			}, {
-				key: 'name',
-				title: 'Name'
-			}
-			],
-			rows: dataService.getAtoms()
-		}
-		]);
+	constructor(private dataService: DataService) {
 	}
 }
