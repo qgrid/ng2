@@ -22,11 +22,11 @@ export class SortLet {
 				const sortState = sort();
 				let by = Array.from(sortState.by);
 
-				if (sortState.mode === 'explicit') {
+				if (sortState.mode === 'mixed') {
 					const { code, status } = model.keyboard();
-					const isKeyPressed = code === 'shift' && status === 'down';
-					// if shift key is not pressed - reset sort for other columns
-					if (!isKeyPressed) {
+					const isSingleMode = code !== 'shift' || status !== 'down';
+					// if shift key is not pressed - reset sort for other columns and do sort like single mode
+					if (isSingleMode) {
 						const index = sortService.index(by, key);
 						by = index >= 0 ? by.filter((_, i) => i === index) : [];
 					}

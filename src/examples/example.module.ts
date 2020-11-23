@@ -155,7 +155,7 @@ import { ExampleSizeColumnFullComponent } from './size-column-full/example-size-
 import { ExampleSizeColumnPinComponent } from './size-column-pin/example-size-column-pin.component';
 import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-basic.component';
 import { ExampleSortRowBasicComponent } from './sort-row-basic/example-sort-row-basic.component';
-import { ExampleSortRowExplicitComponent } from './sort-row-explicit/example-sort-row-explicit.component';
+import { ExampleSortRowMixedComponent } from './sort-row-mixed/example-sort-row-mixed.component';
 import { ExampleStyleCellBasicComponent } from './style-cell-basic/example-style-cell-basic.component';
 import { ExampleStyleRowBasicComponent } from './style-row-basic/example-style-row-basic.component';
 import { ExampleSummaryColumnAggregationComponent } from './summary-column-aggregation/example-summary-column-aggregation.component';
@@ -313,7 +313,7 @@ export const EXAMPLES: any[] = [
 	ExampleSizeColumnPinComponent,
 	ExampleSizeRowBasicComponent,
 	ExampleSortRowBasicComponent,
-	ExampleSortRowExplicitComponent,
+	ExampleSortRowMixedComponent,
 	ExampleStyleCellBasicComponent,
 	ExampleStyleRowBasicComponent,
 	ExampleSummaryColumnAggregationComponent,

@@ -3,18 +3,18 @@ import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 
 const EXAMPLE_TAGS = [
-	'sort-row-explicit',
-	'Rows are sorted explicit by press Shift key'
+	'sort-row-mixed',
+	'Rows are multiple sorted by press Shift key'
 ];
 
 @Component({
-	selector: 'example-sort-row-explicit',
-	templateUrl: 'example-sort-row-explicit.component.html',
-	styleUrls: ['example-sort-row-explicit.component.scss'],
+	selector: 'example-sort-row-mixed',
+	templateUrl: 'example-sort-row-mixed.component.html',
+	styleUrls: ['example-sort-row-mixed.component.scss'],
 	providers: [DataService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExampleSortRowExplicitComponent {
+export class ExampleSortRowMixedComponent {
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
