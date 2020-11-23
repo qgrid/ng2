@@ -1,6 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "10.0.0",
+  "version": "11.0.0",
   "bundledDependencies": [
     "@qgrid/core",
     "@qgrid/plugins",
@@ -12,9 +12,9 @@
     "lodash-es"
   ],
   "peerDependencies": {
-    "@angular/common": "~10.0.2",
-    "@angular/core": "~10.0.2",
-    "@angular/forms": "~10.0.2",
-    "@angular/animations": "~10.0.2"
+    "@angular/common": "~11.0.1",
+    "@angular/core": "~11.0.1",
+    "@angular/forms": "~11.0.1",
+    "@angular/animations": "~11.0.1"
   }
 }

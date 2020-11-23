@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
-## [10.0.0] - 2020-07-10
+## [11.0.0] - 2020-11-23
 ### BREAKING
 - Rename $view.filter.column to $view.filter.row.
 - Remove `options` property from $view.edit.cell.
@@ -609,8 +609,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v10.0.0...HEAD
-[10.0.0]: https://github.com/qgrid/ng2/compare/v10.0.0...v9.2.1
+[unreleased]: https://github.com/qgrid/ng2/compare/v11.0.0...HEAD
+[11.0.0]: https://github.com/qgrid/ng2/compare/v11.0.0...v9.2.1
 [9.2.1]: https://github.com/qgrid/ng2/compare/v9.1.11...v9.2.1
 [9.1.11]: https://github.com/qgrid/ng2/compare/v9.1.10...v9.1.11
 [9.1.10]: https://github.com/qgrid/ng2/compare/v9.1.9...v9.1.10
