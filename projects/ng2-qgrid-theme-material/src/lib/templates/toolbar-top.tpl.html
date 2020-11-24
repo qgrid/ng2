@@ -2,25 +2,7 @@
 	<div class="q-grid-layout-row q-grid-layout-align-start-center">
 		<q-grid-caption class="q-grid-flex-auto"></q-grid-caption>
 		<q-grid-action-bar></q-grid-action-bar>
-		<div>
-			<button mat-icon-button
-					tabindex="-1"
-					#trigger="matMenuTrigger"
-					[matMenuTriggerFor]="menu"
-					aria-label="Column chooser">
-				<mat-icon class="q-grid-icon">more_vert</mat-icon>
-			</button>
-			<mat-menu #menu="matMenu"
-					  class="q-grid-column-chooser q-grid-menu">
-				<q-grid-column-chooser q-grid-menu
-									   q-grid-theme-overlay
-									   *ngIf="trigger.menuOpen"
-									   (cancel)="trigger.closeMenu()"
-									   (submit)="trigger.closeMenu()">
-				</q-grid-column-chooser>
-			</mat-menu>
-		</div>
-
+		<q-grid-column-chooser-trigger></q-grid-column-chooser-trigger>
 		<q-grid-progress class="q-grid-progress"></q-grid-progress>
 	</div>
 </ng-template>
