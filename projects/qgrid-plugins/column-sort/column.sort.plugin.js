@@ -40,7 +40,7 @@ export class ColumnSortPlugin {
 			});
 
 		this.toggle = new Command({
-			canExecute: () => column.canSort,
+			canExecute: () => view.sort.toggle.canExecute(column),
 			execute: () => view.sort.toggle.execute(column)
 		});
 	}
