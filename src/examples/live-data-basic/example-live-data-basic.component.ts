@@ -1,5 +1,7 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { DataService, Quote } from '../data.service';
+import { of, Subject, timer } from 'rxjs';
+import { repeat, switchMap, takeUntil } from 'rxjs/operators';
 
 const EXAMPLE_TAGS = [
 	'live-data-basic',
@@ -16,39 +18,46 @@ const EXAMPLE_TAGS = [
 })
 export class ExampleLiveDataBasicComponent implements OnDestroy {
 	static tags = EXAMPLE_TAGS;
-	title = EXAMPLE_TAGS[1];
 
+	private destroy$: Subject<void> = new Subject();
+
+	title = EXAMPLE_TAGS[1];
 	rows: Quote[];
-	timeoutId: any = null;
 
 	constructor(private dataService: DataService, private cd: ChangeDetectorRef) {
 		this.dataService.getQuotes().subscribe(quotes => {
 			this.rows = quotes;
-			this.update(true);
+			this.cd.detectChanges();
+
+			of(null).pipe(
+				takeUntil(this.destroy$),
+				switchMap(() => timer(this.random(300, 5000))), // calculates random delay time for every iteration
+				repeat()
+			).subscribe(() => {
+				// rowIndices is a random length array of random row indices
+				const rowIndices = new Array(this.random(1, 3)).fill(0).map(() => this.random(0, this.rows.length - 1));
+				const uniqRowIndices = new Set(rowIndices);
+
+				this.updateQuotes(uniqRowIndices);
+			});
 		});
 	}
 
-	update(immediately = false) {
-		this.timeoutId = setTimeout(() => {
-			const rows = Array.from(this.rows);
-			rows.forEach(quote => {
-				const hasChanges = this.random(0, 5);
-				if (hasChanges) {
-					const rnd = this.random(-50000, 50000);
-					quote.last += rnd;
-					quote.ask += rnd;
-					quote.ldn1 = this.randomTime(quote.ldn1);
-				}
-			});
+	updateQuotes(rowIndices: Set<number>) {
+		const rows = [ ...this.rows ];
 
-			this.rows = rows;
-			this.cd.markForCheck();
-			this.cd.detectChanges();
-			this.update();
-		}, immediately ? 0 : this.random(2000, 4000));
+		for (const idx of rowIndices) {
+			const quote = rows[idx];
+			const rnd = this.random(-50000, 50000);
+			quote.last += rnd;
+			quote.ask += rnd;
+			quote.ldn1 = this.randomTime(quote.ldn1);
+		}
+
+		this.rows = rows;
 	}
 
-	random(min: number, max: number) {
+	random(min: number, max: number): number {
 		return Math.floor(Math.random() * (max - min)) + min;
 	}
 
@@ -74,8 +83,6 @@ export class ExampleLiveDataBasicComponent implements OnDestroy {
 	}
 
 	ngOnDestroy() {
-		if (this.timeoutId) {
-			clearTimeout(this.timeoutId);
-		}
+		this.destroy$.next();
 	}
 }
