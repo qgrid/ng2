@@ -31,21 +31,22 @@ export class ExampleLiveDataBasicComponent implements OnDestroy {
 
 			of(null).pipe(
 				takeUntil(this.destroy$),
-				switchMap(() => timer(this.random(300, 5000))),
+				switchMap(() => timer(this.random(300, 5000))), // calculates random delay time for every iteration
 				repeat()
 			).subscribe(() => {
-				const arr = new Array(this.random(1, 3)).fill(0).map(() => this.random(0, this.rows.length - 1));
-				const idxSet = new Set(arr);
+				// rowIndices is a random length array of random row indices
+				const rowIndices = new Array(this.random(1, 3)).fill(0).map(() => this.random(0, this.rows.length - 1));
+				const uniqRowIndices = new Set(rowIndices);
 
-				this.updateQuotes(idxSet);
+				this.updateQuotes(uniqRowIndices);
 			});
 		});
 	}
 
-	updateQuotes(idxSet: Set<number>) {
+	updateQuotes(rowIndices: Set<number>) {
 		const rows = [ ...this.rows ];
 
-		for (const idx of idxSet) {
+		for (const idx of rowIndices) {
 			const quote = rows[idx];
 			const rnd = this.random(-50000, 50000);
 			quote.last += rnd;
