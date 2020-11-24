@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { DataService, Quote } from '../data.service';
-import { interval, Subject } from 'rxjs';
-import { takeUntil, throttleTime } from 'rxjs/operators';
+import { of, Subject, timer } from 'rxjs';
+import { repeat, switchMap, takeUntil } from 'rxjs/operators';
 
 const EXAMPLE_TAGS = [
 	'live-data-basic',
@@ -18,34 +18,40 @@ const EXAMPLE_TAGS = [
 })
 export class ExampleLiveDataBasicComponent implements OnDestroy {
 	static tags = EXAMPLE_TAGS;
-	title = EXAMPLE_TAGS[1];
-
-	rows: Quote[];
 
 	private destroy$: Subject<void> = new Subject();
+
+	title = EXAMPLE_TAGS[1];
+	rows: Quote[];
 
 	constructor(private dataService: DataService, private cd: ChangeDetectorRef) {
 		this.dataService.getQuotes().subscribe(quotes => {
 			this.rows = quotes;
 			this.cd.detectChanges();
 
-			interval(300).pipe(
+			of(null).pipe(
 				takeUntil(this.destroy$),
-				throttleTime(this.random(0, 5000)),
+				switchMap(() => timer(this.random(300, 5000))),
+				repeat()
 			).subscribe(() => {
-				const idx = this.random(0, this.rows.length - 1);
-				this.updateQuote(idx);
+				const arr = new Array(this.random(1, 3)).fill(0).map(() => this.random(0, this.rows.length - 1));
+				const idxSet = new Set(arr);
+
+				this.updateQuotes(idxSet);
 			});
 		});
 	}
 
-	updateQuote(idx: number) {
+	updateQuotes(idxSet: Set<number>) {
 		const rows = [ ...this.rows ];
-		const quote = rows[idx];
-		const rnd = this.random(-50000, 50000);
-		quote.last += rnd;
-		quote.ask += rnd;
-		quote.ldn1 = this.randomTime(quote.ldn1);
+
+		for (const idx of idxSet) {
+			const quote = rows[idx];
+			const rnd = this.random(-50000, 50000);
+			quote.last += rnd;
+			quote.ask += rnd;
+			quote.ldn1 = this.randomTime(quote.ldn1);
+		}
 
 		this.rows = rows;
 	}
