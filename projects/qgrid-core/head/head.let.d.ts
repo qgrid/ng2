@@ -8,7 +8,6 @@ export declare class HeadLet {
 
 	readonly drop: Command<DropCommandArg>;
 	readonly drag: Command<{ dragData: string }>;
-
 	readonly resize: Command;
 
 	readonly rows: SceneStateColumnRows;

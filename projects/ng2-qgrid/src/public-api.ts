@@ -236,6 +236,7 @@ export { ShortcutDispatcher } from '@qgrid/core/shortcut/shortcut.dispatcher';
 export { CommandManager } from '@qgrid/core/command/command.manager';
 export { StyleCellContext, StyleRowContext } from '@qgrid/core/style/style.context';
 export { PersistenceStorage, Storage } from '@qgrid/core/persistence/persistence.storage';
+export { Keyboard } from '@qgrid/core/keyboard/keyboard';
 
 // @qgrid/core/columns
 export { ArrayColumnModel as ArrayColumn } from '@qgrid/core/column-type/array.column';

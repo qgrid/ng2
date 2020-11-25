@@ -6,10 +6,10 @@ export declare class RenderStrategy {
 	rowspan(row: any, column: ColumnView, rowIndex: number, columnIndex: number): number;
 	colspan(row: any, column: ColumnView, rowIndex: number, columnIndex: number): number;
 
-	getValue(row: any, column: ColumnModel, select: (row: any, column: ColumnModel) => any, rowIndex: number, columnIndex: number);
-	setValue(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number);
-	getLabel(row: any, column: ColumnModel, select: (row: any, column: ColumnModel) => any, rowIndex: number, columnIndex: number);
-	setLabel(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number);
+	getValue(row: any, column: ColumnModel, select: (row: any, column: ColumnModel) => any, rowIndex: number, columnIndex: number): any;
+	setValue(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number): void;
+	getLabel(row: any, column: ColumnModel, select: (row: any, column: ColumnModel) => any, rowIndex: number, columnIndex: number): any;
+	setLabel(row: any, column: ColumnModel, value: any, rowIndex: number, columnIndex: number): void;
 
 	columnList(pin: ColumnModelPin): ColumnView[];
 }

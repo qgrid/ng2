@@ -1,6 +1,5 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { ShortcutService } from './shortcut.service';
-import { Disposable } from '../infrastructure/disposable';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { Keyboard } from '@qgrid/core/keyboard/keyboard';
 

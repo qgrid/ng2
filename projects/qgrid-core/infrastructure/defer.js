@@ -22,17 +22,21 @@ class DeferPromise {
 
 	reject() {
 		this.catchEvent.emit();
+		return this;
 	}
 
 	resolve() {
 		this.thenEvent.emit();
+		return this;
 	}
 
 	catch(handler) {
 		this.catchEvent.on(handler);
+		return this;
 	}
 
 	then(handler) {
 		this.thenEvent.on(handler);
+		return this;
 	}
 }

@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { MatChipInput } from '@angular/material/chips';
 import { ChipsDirective } from './chips.directive';
-import { Keyboard } from '@qgrid/core/keyboard/keyboard';
+import { Keyboard } from 'ng2-qgrid';
 
 @Directive({
 	selector: '[q-grid-chips-push]'

@@ -39,7 +39,7 @@ export declare class ObservableEvent<T> implements ObservableLike<T> {
         next: (value: T) => void;
         error: (err: any) => void;
         complete: () => void;
-    }>);
+    }>): SubscriptionLike;
 
     toPromise(): Promise<T>;
     pipe(): ObservableLike<T>;
@@ -61,8 +61,8 @@ export declare class ObservableReplyEvent<T> extends ObservableEvent<T> {
 export declare class SubjectLike<T> extends ObservableEvent<T> {
     constructor();
 
-    next(value?: T);
-    error(ex: Error);
-    complete();
+    next(value?: T): void;
+    error(ex: Error): void;
+    complete(): void;
 }
 

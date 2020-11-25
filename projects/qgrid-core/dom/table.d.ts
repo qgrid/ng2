@@ -39,5 +39,5 @@ export declare class Table {
 	 */
 	readonly data: Data;
 
-	invalidate();
+	invalidate(): void;
 }

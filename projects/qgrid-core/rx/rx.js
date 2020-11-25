@@ -1,6 +1,6 @@
 import { Disposable } from '../infrastructure/disposable';
 import { Event } from '../event/event';
-import { noop, isObject, isFunction } from '../utility/kit';
+import { noop, isFunction } from '../utility/kit';
 
 export class SubscriptionLike {
     constructor(off) {

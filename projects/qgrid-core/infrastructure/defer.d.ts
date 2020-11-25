@@ -1,11 +1,11 @@
 export declare class DeferPromise {
-	catch(handler);
-	then(handler);
+	catch(handler: () => void): DeferPromise;
+	then(handler: () => void): DeferPromise;
 }
 
 export declare class Defer {
 	promise: DeferPromise;
-	reject();
-	resolve();
+	reject(): void;
+	resolve(): void;
 }
 
