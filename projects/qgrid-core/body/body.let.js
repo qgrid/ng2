@@ -19,7 +19,7 @@ export class BodyLet {
 					this.tryShowBlankLayer();
 				}
 			});
-		
+
 		const { view } = plugin.table.box.markup;
 		const manager = new EventManager(this);
 
@@ -53,13 +53,13 @@ export class BodyLet {
 	}
 
 	removeSelection(node) {
-		if (node && node.removeAttribute) {
-			node.removeAttribute('style');
+		if (node && node.classList) {
+			node.classList.remove('q-grid-context-opened');
 		}
 	}
 
 	selectTextInNode(node) {
-		node.setAttribute('style', 'user-select: auto;');
+		node.classList.add('q-grid-context-opened');
 		if (document.body.createTextRange) {
 			const range = document.body.createTextRange();
 			range.moveToElementText(node);
