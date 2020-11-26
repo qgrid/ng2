@@ -97,8 +97,27 @@ describe('Convert', () => {
 
 	describe('parseDate', () => {
 		const parseDate = Convert.parseFactory('date');
+
+		it('should convert Date to Date', () => {
+			expect(+parseDate(new Date('2017-05-05'))).to.be.equal(+(new Date(2017, 4, 5)));
+		});
+		it('should convert String of date to Date', () => {
+			expect(+parseDate('2017-05-05')).to.be.equal(+(new Date(2017, 4, 5)));
+		});
+		it('should return null if argument is null', () => {
+			expect(parseDate(null)).to.equal(null);
+		});
+		it('should return undefined if argument is undefined', () => {
+			expect(parseDate(undefined)).to.equal(undefined);
+		});
+	});
+
+	describe('parseDateTime', () => {
 		const parseDateTime = Convert.parseFactory('datetime');
 
+		it('should convert Date to Date', () => {
+			expect(+parseDateTime(new Date('2017-08-10T15:20:23.738Z'))).to.be.equal(+(new Date('2017-08-10T15:20:23.738Z')));
+		});
 		it('should convert String of date to Date', () => {
 			expect(+parseDateTime('2017-05-05')).to.be.equal(+(new Date('2017-05-05')));
 		});
@@ -125,10 +144,10 @@ describe('Convert', () => {
 		// });
 
 		it('should return null if argument is null', () => {
-			expect(parseDate(null)).to.equal(null);
+			expect(parseDateTime(null)).to.equal(null);
 		});
 		it('should return undefined if argument is undefined', () => {
-			expect(parseDate(undefined)).to.equal(undefined);
+			expect(parseDateTime(undefined)).to.equal(undefined);
 		});
 	});
 
