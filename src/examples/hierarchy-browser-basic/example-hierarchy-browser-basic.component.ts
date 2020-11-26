@@ -23,7 +23,7 @@ export class ExampleHierarchyBrowserBasicComponent {
 	constructor(private qgrid: Grid) {
 		const gridService = qgrid.service(this.gridModel);
 		const root = new Node('$root', 0);
-		(root as any).isVisited = false;
+		(root as any).isExpanded = false;
 
 		const tree = [root];
 		const treePipe = (memo, context, next) => {
@@ -44,11 +44,12 @@ export class ExampleHierarchyBrowserBasicComponent {
 			.group({
 				toggle: new Command({
 					execute: function execute(node) {
-						if (node.isVisited) {
+						node.isExpanded = !node.isExpanded;
+
+						if (!node.isExpanded) {
 							return;
 						}
 
-						node.isVisited = true;
 						const level = node.level + 1;
 						const exampleChildren = [
 							new Node(`folder [${level},0] `, level, 'group'),
@@ -57,7 +58,7 @@ export class ExampleHierarchyBrowserBasicComponent {
 							new Node(`file [${level},3] `, level, 'value'),
 						];
 						setTimeout(() => {
-							node.children = exampleChildren;
+							node.children = [ ...node.children, ...exampleChildren ];
 							gridService.invalidate();
 						}, 500);
 					}
