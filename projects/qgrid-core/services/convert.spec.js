@@ -4,16 +4,16 @@ describe('Convert', () => {
 	describe('getType', () => {
 		it('should return correct type', () => {
 			expect(Convert.getType(123)).to.equal('number');
-			expect(Convert.getType('123')).to.equal('number');
+			expect(Convert.getType('123')).to.equal('text');
 			expect(Convert.getType('foo')).to.equal('text');
 			expect(Convert.getType('123$')).to.equal('text');
 			expect(Convert.getType(new String('bar'))).to.equal('text');
-			expect(Convert.getType('2017-01-01')).to.equal('date');
-			expect(Convert.getType(new Date())).to.equal('date');
+			expect(Convert.getType('2017-01-01')).to.equal('text');
+			expect(Convert.getType(new Date())).to.equal('datetime');
 			expect(Convert.getType(true)).to.equal('bool');
 			expect(Convert.getType('false')).to.equal('text');
 			expect(Convert.getType({})).to.equal('object');
-			expect(Convert.getType('qgrid@gmail.com')).to.equal('email');
+			expect(Convert.getType('qgrid@gmail.com')).to.equal('text');
 			expect(Convert.getType([1, 2, 3])).to.equal('array');
 			expect(Convert.getType([{}, {}])).to.equal('collection');
 		});
@@ -97,12 +97,13 @@ describe('Convert', () => {
 
 	describe('parseDate', () => {
 		const parseDate = Convert.parseFactory('date');
+		const parseDateTime = Convert.parseFactory('datetime');
 
 		it('should convert String of date to Date', () => {
-			expect(+parseDate('2017-05-05')).to.be.equal(+(new Date('2017-05-05')));
+			expect(+parseDateTime('2017-05-05')).to.be.equal(+(new Date('2017-05-05')));
 		});
 		it('should convert String of ISO date', () => {
-			expect(+parseDate('2017-08-10T15:20:23.738Z')).to.be.equal(+(Date.parse('2017-08-10T15:20:23.738Z')));
+			expect(+parseDateTime('2017-08-10T15:20:23.738Z')).to.be.equal(+(Date.parse('2017-08-10T15:20:23.738Z')));
 		});
 		// it('should return null if passed invalid date', () => {
 		// 	expect(parseDate('2017.05.05.09.90.80')).to.be.equal(null);
