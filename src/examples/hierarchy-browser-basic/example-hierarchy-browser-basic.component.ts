@@ -51,11 +51,12 @@ export class ExampleHierarchyBrowserBasicComponent {
 						}
 
 						const level = node.level + 1;
+						const childrenLength = node.children.length;
 						const exampleChildren = [
-							new Node(`folder [${level},0] `, level, 'group'),
-							new Node(`folder [${level},1] `, level, 'group'),
-							new Node(`file [${level},2] `, level, 'value'),
-							new Node(`file [${level},3] `, level, 'value'),
+							new Node(`folder [${level},${childrenLength}] `, level, 'group'),
+							new Node(`folder [${level},${childrenLength + 1}] `, level, 'group'),
+							new Node(`file [${level},${childrenLength + 2}] `, level, 'value'),
+							new Node(`file [${level},${childrenLength + 3}] `, level, 'value'),
 						];
 						setTimeout(() => {
 							node.children = [ ...node.children, ...exampleChildren ];
