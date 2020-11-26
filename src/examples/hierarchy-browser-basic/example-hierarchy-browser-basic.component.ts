@@ -49,17 +49,15 @@ export class ExampleHierarchyBrowserBasicComponent {
 						}
 
 						node.isVisited = true;
-						const length = Math.floor(Math.random() * 9 + 1);
 						const level = node.level + 1;
+						const exampleChildren = [
+							new Node(`folder [${level},0] `, level, 'group'),
+							new Node(`folder [${level},1] `, level, 'group'),
+							new Node(`file [${level},2] `, level, 'value'),
+							new Node(`file [${level},3] `, level, 'value'),
+						];
 						setTimeout(() => {
-							node.children = Array.from(new Array(length), function (x, i) {
-								const type = Math.floor(Math.random() * 5) < 3 ? 'group' : 'value';
-								const title = type === 'group' ? 'folder' : 'file';
-								const child = new Node(title + ' [' + level + ',' + i + '] ', level, type);
-								(child as any).isVisited = false;
-								return child;
-							});
-
+							node.children = exampleChildren;
 							gridService.invalidate();
 						}, 500);
 					}
