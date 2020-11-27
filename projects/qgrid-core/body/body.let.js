@@ -2,6 +2,7 @@ import { EventListener } from '../event/event.listener';
 import { EventManager } from '../event/event.manager';
 import { Log } from '../infrastructure/log';
 import { Renderer } from '../scene/render/render';
+import { selectText, removeTextSelection } from '../services/dom';
 
 export class BodyLet {
 	constructor(plugin) {
@@ -20,10 +21,16 @@ export class BodyLet {
 				}
 			});
 
-		const { view } = plugin.table.box.markup;
-		const manager = new EventManager(this);
+		observe(model.mouseChanged)
+			.subscribe(({ state }) => {
+				const { code, status, target } = state;
+				if (target && code === 'right' && status === 'up') {
+					selectText(target.element);
+					this.selectedNodes.push(target.element);
+				}
+			});
 
-		disposable.add(new EventListener(view, manager).on('contextmenu', event => this.selectTextInNode(event.target)));
+		const manager = new EventManager(this);
 		disposable.add(new EventListener(document, manager).on('click', this.removeSelections));
 		disposable.add(new EventListener(window, manager).on('blur', this.removeSelections));
 
@@ -48,31 +55,7 @@ export class BodyLet {
 	}
 
 	removeSelections() {
-		this.selectedNodes.forEach(this.removeSelection);
+		this.selectedNodes.forEach(removeTextSelection);
 		this.selectedNodes = [];
-	}
-
-	removeSelection(node) {
-		if (node && node.classList) {
-			node.classList.remove('q-grid-context-opened');
-		}
-	}
-
-	selectTextInNode(node) {
-		node.classList.add('q-grid-context-opened');
-		if (document.body.createTextRange) {
-			const range = document.body.createTextRange();
-			range.moveToElementText(node);
-			range.select();
-		} else if (window.getSelection) {
-			const selection = window.getSelection();
-			const range = document.createRange();
-			range.selectNodeContents(node);
-			selection.removeAllRanges();
-			selection.addRange(range);
-		} else {
-			console.warn("Could not select text in node: Unsupported browser.");
-		}
-		this.selectedNodes.push(node);
 	}
 }

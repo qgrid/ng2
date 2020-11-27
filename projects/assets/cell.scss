@@ -82,7 +82,7 @@ th {
         transition: min-width 0.3s, width 0.3s, max-width 0.3s;
     }
 
-    &.q-grid-context-opened {
+    &.q-grid-can-select-text {
         @include user-select(auto);
     }
 }
