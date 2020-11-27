@@ -1,8 +1,8 @@
 import { EventListener } from '../event/event.listener';
 import { EventManager } from '../event/event.manager';
 import { Log } from '../infrastructure/log';
+import { TextSelection } from '../infrastructure/text.selection';
 import { Renderer } from '../scene/render/render';
-import { selectText, removeTextSelection } from '../services/dom';
 
 export class BodyLet {
 	constructor(plugin) {
@@ -25,7 +25,7 @@ export class BodyLet {
 			.subscribe(({ state }) => {
 				const { code, status, target } = state;
 				if (target && code === 'right' && status === 'up') {
-					selectText(target.element);
+					TextSelection.set(target.element);
 					this.selectedNodes.push(target.element);
 				}
 			});
@@ -55,7 +55,7 @@ export class BodyLet {
 	}
 
 	removeSelections() {
-		this.selectedNodes.forEach(removeTextSelection);
+		this.selectedNodes.forEach(TextSelection.clear);
 		this.selectedNodes = [];
 	}
 }
