@@ -52,16 +52,15 @@ export class ExampleHierarchyBrowserBasicComponent {
 
 						const level = node.level + 1;
 						const childrenLength = node.children.length;
-						const exampleChildren = [
+						const children = [
 							new Node(`folder [${level},${childrenLength}] `, level, 'group'),
 							new Node(`folder [${level},${childrenLength + 1}] `, level, 'group'),
 							new Node(`file [${level},${childrenLength + 2}] `, level, 'value'),
 							new Node(`file [${level},${childrenLength + 3}] `, level, 'value'),
 						];
-						setTimeout(() => {
-							node.children = [ ...node.children, ...exampleChildren ];
-							gridService.invalidate();
-						}, 500);
+
+						node.children.push(...children);
+						gridService.invalidate();
 					}
 				})
 			})
