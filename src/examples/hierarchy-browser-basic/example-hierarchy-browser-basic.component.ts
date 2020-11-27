@@ -52,10 +52,10 @@ export class ExampleHierarchyBrowserBasicComponent {
 
 						node.isVisited = true;
 						node.children = [
-							new Node(`folder [${level},0] `, level, 'group'),
-							new Node(`folder [${level},1] `, level, 'group'),
-							new Node(`file [${level},2] `, level, 'value'),
-							new Node(`file [${level},3] `, level, 'value'),
+							new Node(`folder [${level}.0] `, level, 'group'),
+							new Node(`folder [${level}.1] `, level, 'group'),
+							new Node(`file [${level}.2] `, level, 'value'),
+							new Node(`file [${level}.3] `, level, 'value'),
 						];
 
 						gridService.invalidate();
