@@ -40,7 +40,7 @@ export class RootContext {
 export class ColumnChooserComponent implements OnInit, OnChanges {
 	private ccState = this.stateAccessor.setter(ColumnChooserState);
 
-	@Input('canAggregate') set columnChooserCanAggregate(canAggregate: boolean) { this.ccState({ canAggregate }) };
+	@Input('canAggregate') set columnChooserCanAggregate(canAggregate: boolean) { this.ccState({ canAggregate }); }
 
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
