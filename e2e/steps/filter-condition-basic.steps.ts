@@ -46,7 +46,7 @@ async function setOperator(operator) {
 
 async function setValue(operator, value) {
 	if (value !== ``) {
-		if (operator == `BETWEEN`) {
+		if (operator === `BETWEEN`) {
 			const valueInput = element(by.className(`q-grid-query-builder-expression`))
 				.all(by.css(`input[placeholder='Select value']`));
 			const am = await valueInput.count();
@@ -55,7 +55,7 @@ async function setValue(operator, value) {
 			await valueInput.get(am - 2).sendKeys(`${values[0].trim()}`);
 			await valueInput.get(am - 1).clear();
 			await valueInput.get(am - 1).sendKeys(`${values[1].trim()}`);
-		} else if (operator == `IN`) {
+		} else if (operator === `IN`) {
 			const valueInput = element(by.className(`q-grid-query-builder-expression`))
 				.all(by.css(`input[placeholder='Select value']`));
 			const am = await valueInput.count();
@@ -72,7 +72,7 @@ async function setValue(operator, value) {
 			await valueInput.get(am - 1).sendKeys(value);
 		}
 		// There is an issue about values drop down appearance. This part should be updated after fix
-		if (operator == `EQUALS`) {
+		if (operator === `EQUALS`) {
 			await element.all(by.xpath(`//*[contains(@class,'mat-option-text') and contains(.,' ${value} ')]`))
 				.get(0)
 				.click();
