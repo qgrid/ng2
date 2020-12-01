@@ -24,7 +24,7 @@ function getCell(key, index) {
 async function deleteRow(index) {
 	openRowMenu(index);
 	await browser.sleep(1000);
-	let deleteOption = element(by.xpath(`//*[text()='Delete Row']`));
+	const deleteOption = element(by.xpath(`//*[text()='Delete Row']`));
 	await deleteOption.click();
 }
 
