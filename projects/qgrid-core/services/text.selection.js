@@ -1,4 +1,4 @@
-import { Log } from './log';
+import { Log } from '../infrastructure/log';
 
 export class TextSelection {
   static set(element) {  
