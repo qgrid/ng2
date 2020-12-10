@@ -21,12 +21,17 @@ export class BodyLet {
 		observe(model.mouseChanged)
 			.subscribe(({ state }) => {
 				const { code, status, target } = state;
-				if (this.selectedNode && status === 'down') {
-					TextSelection.clear(this.selectedNode);
-				}
 				if (target && code === 'right' && status === 'up') {
-					this.selectedNode = target.element;
-					TextSelection.set(this.selectedNode);
+					this.targetElement = target.element;
+					element.classList.add('q-grid-can-select-text');
+					TextSelection.set(this.targetElement);
+				}
+				if (this.targetElement && status === 'down') {
+					TextSelection.clear();
+					if (this.targetElement.classList) {
+						this.targetElement.classList.remove('q-grid-can-select-text');
+					}
+					this.targetElement = null;
 				}
 			});
 

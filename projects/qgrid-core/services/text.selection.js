@@ -1,9 +1,7 @@
 import { Log } from '../infrastructure/log';
 
 export class TextSelection {
-  static set(element) {  
-    element.classList.add('q-grid-can-select-text');
-  
+  static set(element) {    
     if (document.body.createTextRange) {
       const range = document.body.createTextRange();
       range.moveToElementText(element);
@@ -19,13 +17,10 @@ export class TextSelection {
     }
   }
   
-  static clear(element) {
+  static clear() {
     if (window.getSelection) {
       const selection = window.getSelection();
       selection.removeAllRanges();	
-    }
-    if (element && element.classList) {
-      element.classList.remove('q-grid-can-select-text');
     }
   }
 }
