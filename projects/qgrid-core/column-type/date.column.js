@@ -24,11 +24,11 @@ export class DateColumnModel extends DataColumnModel {
 		super('date');
 
 		this.format = 'MM/dd/yyyy';
+		this.parse = parseFactory('date');
 
 		this.label = function (row) {
 			const value = getValue(row, this);
-			const parse = parseFactory('date');
-			const date = parse(value);
+			const date = this.parse(value);
 			const isValidDate = getType(date) === 'datetime' && !isNaN(date);
 			return isValidDate ? FormatService.date(date, this.format) : value; 
 		};
