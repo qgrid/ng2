@@ -23,7 +23,7 @@ export class BodyLet {
 				const { code, status, target } = state;
 				if (target && code === 'right' && status === 'up') {
 					this.targetElement = target.element;
-					element.classList.add('q-grid-can-select-text');
+					this.targetElement.classList.add('q-grid-can-select-text');
 					TextSelection.set(this.targetElement);
 				}
 				if (this.targetElement && status === 'down') {
