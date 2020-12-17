@@ -12,8 +12,15 @@
 		</q-grid-column>
 		<q-grid-column key="date"
 						 [canEdit]="false"
-					   title="Date"
+						 title="Date"
 					   type="date">
+		</q-grid-column>
+		<q-grid-column key="arr"
+				[canEdit]="false"
+				itemFormat="MM/dd/yyyy"
+				itemType="date"
+				title="Date Array"
+				type="array">
 		</q-grid-column>
 		<q-grid-column key="null"
 					   title="Null"

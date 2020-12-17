@@ -20,6 +20,7 @@ export class ExampleColumnDateBasicComponent {
 			'number': 100.12,
 			'bool': true,
 			'date': new Date(2018, 9, 12),
+			'arr': [new Date(2020, 9, 12), new Date(2020, 9, 10), new Date(2020, 10, 12), new Date(2020, 9, 12)],
 			'null': null,
 			'undefined': undefined,
 			'empty': '',
