@@ -7,6 +7,7 @@ import {
 	isNumber,
 	isEmail,
 	isString,
+	isISOstring,
 	isUrl,
 	isImage,
 	isUndefined
@@ -225,7 +226,7 @@ function likeDateTime(value) {
 	value = '' + value;
 
 	// ISO_8601
-	return !!value.match(/^(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2})))))))$/);
+	return isISOstring(value);
 }
 
 function likeDate(value) {
@@ -282,14 +283,17 @@ function parseDate(value) {
 		);
 	}
 
+	if (isISOstring(value)) {
+		const yearMonthDay = ('' + value).split('-');
+		return new Date(
+			Number.parseInt(yearMonthDay[0]),
+			Number.parseInt(yearMonthDay[1]) - 1,
+			Number.parseInt(yearMonthDay[2]),
+			0, 0, 0, 0
+		);
+	}
 
-	const yearMonthDay = ('' + value).split('-');
-	return new Date(
-		Number.parseInt(yearMonthDay[0]),
-		Number.parseInt(yearMonthDay[1]) - 1,
-		Number.parseInt(yearMonthDay[2]),
-		0, 0, 0, 0
-	);
+	return new Date('' + value);
 }
 
 function parseDateTime(value) {
