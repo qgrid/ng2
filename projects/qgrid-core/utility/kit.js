@@ -152,7 +152,7 @@ function isImage(value) {
 	return ('' + value).match(/\.(jpeg|jpg|gif|png)$/) != null;
 }
 
-function isISOstring(date) {
+function matchISO8601(date) {
 	return /^(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2})))))))$/.test('' + date)
 }
 
@@ -188,7 +188,7 @@ export {
 	isNumber,
 	isObject,
 	isString,
-	isISOstring,
+	matchISO8601,
 	isUndefined,
 	isUrl,
 	max,

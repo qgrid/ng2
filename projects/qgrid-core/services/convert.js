@@ -7,10 +7,10 @@ import {
 	isNumber,
 	isEmail,
 	isString,
-	isISOstring,
 	isUrl,
 	isImage,
-	isUndefined
+	isUndefined,
+	matchISO8601
 } from '../utility/kit';
 
 // TODO: right now we check the empty result on null, 
@@ -225,8 +225,7 @@ function likeDateTime(value) {
 
 	value = '' + value;
 
-	// ISO_8601
-	return isISOstring(value);
+	return matchISO8601(value);
 }
 
 function likeDate(value) {
@@ -283,7 +282,7 @@ function parseDate(value) {
 		);
 	}
 
-	if (isISOstring(value)) {
+	if (matchISO8601(value)) {
 		const yearMonthDay = ('' + value).split('-');
 		return new Date(
 			Number.parseInt(yearMonthDay[0]),
