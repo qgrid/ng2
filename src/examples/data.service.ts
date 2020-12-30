@@ -82,10 +82,10 @@ export class DataService {
 		const commonPresets = this.http.get<any[]>('assets/presets/atoms.json');
 		const items = JSON.parse(localStorage.getItem(id));
 		if (items && items.hasOwnProperty(user)) {
-			return combineLatest(
+			return combineLatest([
 				commonPresets,
 				of(items[user] as any[])
-			).pipe(
+			]).pipe(
 				map((...lists) => lists.reduce((memo, list) => memo.concat(list), []))
 			);
 		}

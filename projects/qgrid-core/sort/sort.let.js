@@ -20,7 +20,17 @@ export class SortLet {
 				const key = column.key;
 				const sort = model.sort;
 				const sortState = sort();
-				const by = Array.from(sortState.by);
+				let by = Array.from(sortState.by);
+
+				if (sortState.mode === 'mixed') {
+					const { code, status } = model.keyboard();
+					const isSingleMode = code !== 'shift' || status !== 'down';
+					// if shift key is not pressed - reset sort for other columns and do sort like single mode
+					if (isSingleMode) {
+						const index = sortService.index(by, key);
+						by = index >= 0 ? by.filter((_, i) => i === index) : [];
+					}
+				}
 				const index = sortService.index(by, key);
 				if (index >= 0) {
 					const dir = sortService.direction(by[index]);
