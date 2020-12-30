@@ -10,7 +10,7 @@ describe('FilterLet', () => {
 			let columnTest = {
 				key: 'Key'
 			};
-			let filterView = new FilterLet(model);
+			let filterView = new FilterLet({ model });
 			let result = filterView.has(columnTest);
 			expect(result).to.equal(true);
 		});
@@ -19,7 +19,7 @@ describe('FilterLet', () => {
 			let columnTest = {
 				key: null
 			};
-			let filterView = new FilterLet(model);
+			let filterView = new FilterLet({ model });
 			let result = filterView.has(columnTest);
 			expect(result).to.equal(false);
 		});

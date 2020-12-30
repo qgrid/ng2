@@ -26,6 +26,7 @@ export class DateMaskDirective {
 			return;
 		}
 
+		// tslint:disable-next-line: deprecation
 		const code = Keyboard.translate(e.keyCode);
 		if (this.isDigit(code)) {
 			if (maskChar === DELIMITER) {

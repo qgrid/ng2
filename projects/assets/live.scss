@@ -32,53 +32,54 @@
 	display: block;
 	margin: 0 -10px;
 	border-radius: 5px;
- 
+
 	@keyframes textBackroundColor {
 	   0% { background-color: $text-bg-color}
 	   100% { background-color: transparent }
 	}
- 
+
 	 & span {
 		 display: inline-block;
 		 padding: 0 5px;
- 
+		 -webkit-font-smoothing: antialiased;
+		 -moz-osx-font-smoothing: grayscale;
+
 		 &:first-child {
 			 padding-left: 10px;
 		 }
- 
+
 		 &:last-child {
 			 padding-right: 10px;
 		 }
 	 }
- 
+
 	&-diff {
 	   font-weight: bold;
 	}
-  
+
 	&-up {
 	   color: $text-up-color;
 	   background-color: $up-down-bg-color;
 	}
-  
+
 	&-down {
 	   color: $text-down-color;
 	   background-color: $up-down-bg-color;
 	}
-  
+
 	&-text {
 	   & .q-grid-live-cell-prev {
 		  text-decoration: line-through;
 	   }
- 
+
 	   & .q-grid-live-cell-container {
 		  animation: textBackroundColor 3s;
 	   }
 	}
- 
+
 	&-currency {
 	   & .q-grid-live-cell-prev {
 		  display: none;
 	   }
 	}
  }
-  

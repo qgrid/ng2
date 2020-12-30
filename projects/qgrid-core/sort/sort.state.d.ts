@@ -3,8 +3,9 @@
  *
  * * `'multiple'` allows to sort by several column keys.
  * * `'single'` allows to sort only by one column key.
+ * * `'mixed'` allows to sort multiple columns while Shift key pressed otherwise applies single mode
  */
-export declare type SortStateMode = 'single' | 'multiple';
+export declare type SortStateMode = 'single' | 'multiple' | 'mixed';
 
 export declare type SortStateDirection = 'desc' | 'asc';
 

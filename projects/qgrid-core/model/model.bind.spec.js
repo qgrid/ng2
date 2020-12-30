@@ -22,7 +22,7 @@ describe('ModelBinder', () => {
 	let modelBinder = new ModelBinder(host, { add: x => x });
 	describe('bind', () => {
 		it('commit should setup model property', () => {
-			const commit = modelBinder.bound(model, modelNames, false);
+			const commit = modelBinder.bound(model, modelNames, false, false);
 			commit();
 			expect(model.state().prop).to.equal('hostValue');
 		});
@@ -31,13 +31,13 @@ describe('ModelBinder', () => {
 			model.stateChanged.emit({
 				changes: {
 					prop: {
-						newValue: 'valueAfterEvent',
+						newValue: 'hostValue',
 						oldValue: model.state().prop
 					}
 				}
 			});
 
-			expect(host.stateProp).to.equal('valueAfterEvent');
+			expect(host.stateProp).to.equal('hostValue');
 		});
 	});
 });
