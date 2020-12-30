@@ -28,9 +28,12 @@ export class DateColumnModel extends DataColumnModel {
 
 		this.label = function (row) {
 			const value = getValue(row, this);
-			const date = this.parse(value);
-			const isValidDate = getType(date) === 'datetime' && !isNaN(date);
-			return isValidDate ? FormatService.date(date, this.format) : value; 
+			try {
+				const date = this.parse(value);
+				return FormatService.date(date, this.format);
+			} catch (ex) {
+				return value;
+			}
 		};
 	}
 }
