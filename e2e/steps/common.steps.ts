@@ -31,6 +31,10 @@ Then('Row count equals to {int}', (count: number) => getRowCount().then(x => exp
 Then('Column count equals to {int}', (count: number) => getColumnCount().then(x => expect(x).to.equal(count)));
 
 When('I click cell {string}[{int}]', (key, index) => getCell(key, index).click());
+
+When('I press ctrl+c', () => browser.actions().sendKeys(protractor.Key.chord(protractor.Key.CONTROL, 'c')).perform());
+When('I press ctrl+v on input', () => enterText(protractor.Key.chord(protractor.Key.CONTROL, 'v')));
+
 When('I look at the Page', async () => {
 	await browser.sleep(3000);
 	scenarioScreenshot = await browser.takeScreenshot();
