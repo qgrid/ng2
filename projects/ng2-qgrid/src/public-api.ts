@@ -128,6 +128,7 @@ export {
 	CellEditorModule,
 	ColumnChooserComponent,
 	ColumnChooserModule,
+	ColumnChooserTriggerModule,
 	ColumnFilterByComponent,
 	ColumnFilterComponent,
 	ColumnFilterItemDirective,

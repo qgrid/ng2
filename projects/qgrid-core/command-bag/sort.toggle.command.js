@@ -16,7 +16,17 @@ export class SortToggleCommand extends Command {
                 const { key } = column;
                 const { by, mode } = model.sort();
 
-                const sortBy = Array.from(by);
+                let sortBy = Array.from(by);
+                if (mode === 'mixed') {
+                    const { code, status } = model.keyboard();
+                    const isSingleMode = code !== 'shift' || status !== 'down';
+                    // if shift key is not pressed - reset sort for other columns and do sort like single mode
+                    if (isSingleMode) {
+                        const index = sortService.index(sortBy, key);
+                        sortBy = index >= 0 ? sortBy.filter((_, i) => i === index) : [];
+                    }
+                }
+
                 const index = sortService.index(sortBy, key);
                 if (index >= 0) {
                     const dir = sortService.direction(sortBy[index]);
@@ -59,5 +69,5 @@ export class SortToggleCommand extends Command {
                 });
             }
         });
-    }
+}
 }
