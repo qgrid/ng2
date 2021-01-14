@@ -4,6 +4,7 @@ import { TemplatePath } from '../template/template.path';
 import { get as getValue } from '../services/value';
 import { FormatService } from '../format/format.service';
 import { parseFactory, getType } from '../services/convert';
+import { Log } from '../infrastructure/log';
 
 TemplatePath.register('date-cell', (template, column) => {
 	return {
@@ -32,6 +33,7 @@ export class DateColumnModel extends DataColumnModel {
 				const date = this.parse(value);
 				return FormatService.date(date, this.format);
 			} catch (ex) {
+				Log.error('date.column', ex);
 				return value;
 			}
 		};
