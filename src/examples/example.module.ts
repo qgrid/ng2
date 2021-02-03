@@ -41,6 +41,7 @@ import { ExampleColumnTimeBasicComponent } from './column-time-basic/example-col
 import { ExampleColumnTooltipBasicComponent } from './column-tooltip-basic/example-column-tooltip-basic.component';
 import { ExampleColumnTypeSafeComponent } from './column-type-safe/example-column-type-safe.component';
 import { ExampleColumnUrlBasicComponent } from './column-url-basic/example-column-url-basic.component';
+import { ExampleCopyValueFromCellComponent } from './copy-value-from-cell/example-copy-value-from-cell.component';
 import { ExampleDataRowAddComponent } from './data-row-add/example-data-row-add.component';
 import { ExampleDataRowDeleteComponent } from './data-row-delete/example-data-row-delete.component';
 import { ExampleDefineColumnAsyncComponent } from './define-column-async/example-define-column-async.component';
@@ -118,6 +119,7 @@ import { ExamplePaginationBasicComponent } from './pagination-basic/example-pagi
 import { ExamplePaneBasicComponent } from './pane-basic/example-pane-basic.component';
 import { ExamplePaneTriggerComponent } from './pane-trigger/example-pane-trigger.component';
 import { ExamplePersistenceBasicComponent } from './persistence-basic/example-persistence-basic.component';
+import { ExamplePersistenceOnStateChangeComponent } from './persistence-on-state-change/example-persistence-on-state-change.component';
 import { ExamplePersistenceServerComponent } from './persistence-server/example-persistence-server.component';
 import { ExamplePinColumnBasicComponent } from './pin-column-basic/example-pin-column-basic.component';
 import { ExamplePipeGridBasicComponent } from './pipe-grid-basic/example-pipe-grid-basic.component';
@@ -165,7 +167,6 @@ import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme
 import { ExampleValidationBasicComponent } from './validation-basic/example-validation-basic.component';
 import { ExampleVisibilityBasicComponent } from './visibility-basic/example-visibility-basic.component';
 import { ExampleVisibilityStateComponent } from './visibility-model/example-visibility-model.component';
-import { ExamplePersistenceOnStateChangeComponent } from './persistence-on-state-change/example-persistence-on-state-change.component';
 
 export const EXAMPLES: any[] = [
 	ExampleActionBarBasicComponent,
@@ -199,6 +200,7 @@ export const EXAMPLES: any[] = [
 	ExampleColumnTooltipBasicComponent,
 	ExampleColumnTypeSafeComponent,
 	ExampleColumnUrlBasicComponent,
+	ExampleCopyValueFromCellComponent,
 	ExampleDataRowAddComponent,
 	ExampleDataRowDeleteComponent,
 	ExampleDefineColumnAsyncComponent,
