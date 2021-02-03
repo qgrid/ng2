@@ -1,0 +1,9 @@
+<button (click)="fillLarge()" class="buttonMarginStyle">Fill 100%</button>
+<button (click)="fillMedium()"class="buttonMarginStyle">Fill 60%</button>
+<button (click)="fillExact()">Exactly 500 x 500 pixels</button>
+
+<q-grid caption="Grid size"
+		[rows]="rows | async">
+	<q-grid-columns generation="deep">
+	</q-grid-columns>
+</q-grid>
