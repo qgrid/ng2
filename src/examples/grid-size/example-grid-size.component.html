@@ -1,10 +1,10 @@
-<button (click)="fillPlain()">100%</button>
-<button (click)="fillMedium()">Medium</button>
-<button (click)="fillSmall()">Small</button>
+<button (click)="sizeClass = 'fill'">100%</button>
+<button (click)="sizeClass = 'medium'">Medium</button>
+<button (click)="sizeClass = 'small'">Small</button>
 
 <q-grid caption="Grid size"
 		[rows]="rows | async"
-		[ngClass]="gridClass">
+		[ngClass]="sizeClass">
 	<q-grid-columns generation="deep">
 	</q-grid-columns>
 </q-grid>
