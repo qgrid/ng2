@@ -1,9 +1,10 @@
-<button (click)="fillLarge()" [ngClass]="'buttonMarginStyle'">Fill 100%</button>
-<button (click)="fillMedium()"[ngClass]="'buttonMarginStyle'">Fill 60%</button>
-<button (click)="fillExact()">Exactly 500 x 500 pixels</button>
+<button (click)="fillPlain()">100%</button>
+<button (click)="fillMedium()">Medium</button>
+<button (click)="fillSmall()">Small</button>
 
 <q-grid caption="Grid size"
-		[rows]="rows | async">
+		[rows]="rows | async"
+		[ngClass]="gridClass">
 	<q-grid-columns generation="deep">
 	</q-grid-columns>
 </q-grid>

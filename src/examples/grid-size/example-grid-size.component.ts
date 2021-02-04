@@ -1,8 +1,7 @@
 import { Component, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
-import { GridModel, Action, GridService, GridComponent } from 'ng2-qgrid';
-import { forEach } from 'lodash-es';
+import { GridComponent } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-grid-size',
@@ -10,6 +9,11 @@ import { forEach } from 'lodash-es';
 	styleUrls: ['example-grid-size.component.scss'],
 	providers: [DataService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	styles: [
+		`.plain{width:100%; height:100%;}
+		.medium{width:60%; height:60%  !important;}
+		.small{width:500px; height:500px  !important;}`
+	]
 })
 export class ExampleGridSizeComponent {
 	static id = 'grid-size';
@@ -17,28 +21,31 @@ export class ExampleGridSizeComponent {
 	rows: Observable<Human[]>;
 	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
 
+	gridClass = {
+		plain: true,
+		medium: false,
+		small: false
+	}
+
 	constructor(dataService: DataService) {
 		this.rows = dataService.getPeople();
 	}
 
-	fillLarge() {
-		this.setWidthAndHeight('100%');
+	fillPlain() {
+		this.gridClass.plain = true;
+		this.gridClass.medium = false;
+		this.gridClass.small = false;
 	}
 
 	fillMedium() {
-		this.setWidthAndHeight('60%');
+		this.gridClass.plain = false;
+		this.gridClass.medium = true;
+		this.gridClass.small = false;
 	}
 
-	fillExact() {
-		this.setWidthAndHeight('500px');
-	}
-
-	setWidthAndHeight(size) {
-		var nativeElement = this.grid["elementRef"].nativeElement;
-		if (nativeElement != null) {
-			var style = nativeElement.style;
-			style.height = size;
-			style.width = size;
-		}
+	fillSmall() {
+		this.gridClass.plain = false;
+		this.gridClass.medium = false;
+		this.gridClass.small = true;
 	}
 }
