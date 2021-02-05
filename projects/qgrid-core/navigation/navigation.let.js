@@ -65,10 +65,9 @@ export class NavigationLet {
 
 							if (rowIndex >= 0 && columnIndex >= 0) {
 								let td = table.body.cell(rowIndex, columnIndex).model();
-								this.focus.execute({
+								focus.execute({
 									rowIndex: td ? td.rowIndex : -1,
 									columnIndex: td ? td.columnIndex : -1,
-									behavior: 'core'
 								});
 							}
 

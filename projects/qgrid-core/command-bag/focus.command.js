@@ -92,7 +92,7 @@ export class FocusCommand extends Command {
             if (current !== target) {
                 focusAfterRender.execute(pos);
 
-                pagination({
+                model.pagination({
                     current: target
                 }, {
                     source: 'focus.command'

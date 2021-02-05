@@ -5,7 +5,7 @@ import { placeholderBitmap } from './vscroll.utility';
 	selector: '[q-grid-vscroll]'
 })
 export class VscrollDirective {
-	scrollEvent = new EventEmitter<{}>();
+	scrollEvent = new EventEmitter();
 	resetEvent = new EventEmitter<{ handled: boolean, source: string }>();
 
 	constructor(private elementRef: ElementRef, zone: NgZone, renderer: Renderer2) {

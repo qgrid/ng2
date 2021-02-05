@@ -7,6 +7,7 @@ import { STYLE_INVALIDATE_COMMAND_KEY } from './command.bag';
 import { StyleMonitor } from '../style/style.monitor';
 import { StyleService } from '../style/style.service';
 import * as columnService from '../column/column.service';
+import { VirtualCellStyle, VirtualRowStyle } from '../style/style.virtual';
 
 export class StyleInvalidateCommand extends Command {
     constructor(plugin) {

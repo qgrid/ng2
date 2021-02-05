@@ -2,6 +2,7 @@ import { EventEmitter } from '@angular/core';
 import { isNumber, isFunction } from '@qgrid/core/utility/kit';
 import { IVscrollSettings } from './vscroll.settings';
 import { GridError } from '@qgrid/core/infrastructure/error';
+import { ObservableLike, SubjectLike } from '@qgrid/core/rx/rx';
 
 export const rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
 
@@ -10,8 +11,8 @@ export interface IVscrollContainer {
 	total: number;
 	position: number;
 	cursor: number;
-	items: any[];
 	force: boolean;
+	items$: ObservableLike<any[]>;
 
 	reset(): void;
 	update(count: number): void;
@@ -27,10 +28,10 @@ export class VscrollContainer implements IVscrollContainer {
 	position = 0;
 	cursor = 0;
 	lastPage = 0;
-	items = [];
+	items$ = new SubjectLike<any[]>();
 
 	resetEvent = new EventEmitter<{ handled: boolean, source: string }>();
-	updateEvent = new EventEmitter<{}>();
+	updateEvent = new EventEmitter<number>();
 	drawEvent = new EventEmitter<{ position: number }>();
 
 	tick(f: () => void) {
@@ -59,7 +60,7 @@ export class VscrollContainer implements IVscrollContainer {
 		if (this.count !== count) {
 			this.count = count;
 			this.total = Math.max(this.total, count);
-			this.updateEvent.emit({});
+			this.updateEvent.emit(count);
 		}
 
 		const { lastPage, currentPage } = this;
@@ -97,7 +98,7 @@ export class VscrollContainer implements IVscrollContainer {
 	}
 
 	reset() {
-		this.items = [];
+		this.items$.next([]);
 		this.force = false;
 
 		this.count = 0;

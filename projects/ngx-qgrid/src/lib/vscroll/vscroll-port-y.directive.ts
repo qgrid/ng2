@@ -12,27 +12,26 @@ import { isNumber } from '@qgrid/core/utility/kit';
 @Directive({
 	selector: '[q-grid-vscroll-port-y]'
 })
-export class VscrollPortYDirective extends VscrollPort implements OnChanges {
-	@Input('q-grid-vscroll-port-y') context: VscrollContext;
+export class VscrollPortYDirective implements VscrollPort, OnChanges {
+	private link: VscrollLink = null;
 
+	layout: VscrollLayout = null;
 	markup: { [key: string]: HTMLElement } = {};
-	layout: VscrollLayout;
-	link: VscrollLink;
+	@Input('q-grid-vscroll-port-y') context: VscrollContext;
 
 	constructor(
 		private elementRef: ElementRef,
 		private cd: ChangeDetectorRef,
 		private app: ApplicationRef,
-		view: VscrollDirective
+		private view: VscrollDirective
 	) {
-		super(view, elementRef.nativeElement);
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
 		const contextChange = changes['context'];
 		if (contextChange && this.context) {
 			this.layout = new VscrollLayout(this);
-			this.link = new VscrollLink(this);
+			this.link = new VscrollLink(this, this.view);
 			this.context.container.fetchPage(0);
 		}
 	}

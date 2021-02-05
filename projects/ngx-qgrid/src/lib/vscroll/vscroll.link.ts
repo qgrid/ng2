@@ -1,13 +1,17 @@
 import { VscrollPort } from './vscroll.port';
 import { VscrollBox } from './vscroll.box';
 import { isNumber } from '@qgrid/core/utility/kit';
+import { VscrollDirective } from './vscroll.directive';
 
 export class VscrollLink {
 	private box = new VscrollBox();
 	private ticking = false;
 
-	constructor(private port: VscrollPort) {
-		const { view, layout } = port;
+	constructor(
+		private port: VscrollPort,
+		private view: VscrollDirective,
+	) {
+		const { layout } = port;
 		const { settings, container } = this;
 
 		if (settings.placeholderHeight > 0 || settings.placeholderWidth > 0) {
@@ -60,9 +64,9 @@ export class VscrollLink {
 
 	update(force: boolean) {
 		const { container, port, box } = this;
-		const { view } = port;
+		const { element } = this.view;
+
 		this.container.read(() => {
-			const element = view.element;
 			const newBox = {
 				scrollWidth: element.scrollWidth,
 				scrollHeight: element.scrollHeight,

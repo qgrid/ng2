@@ -7,33 +7,31 @@ import { VscrollLayout } from './vscroll.layout';
 import { findPositionUsingItemSize, findPositionUsingOffsets, recycleFactory, IVscrollPosition } from './vscroll.position';
 import { VscrollDirective } from './vscroll.directive';
 import { isNumber } from '@qgrid/core/utility/kit';
-import { VscrollLink } from './vscroll.link';
-import { Guard } from '@qgrid/core/infrastructure/guard';
+import { VscrollLink } from './vscroll.link'; ``
 
 @Directive({
 	selector: '[q-grid-vscroll-port-x]'
 })
-export class VscrollPortXDirective extends VscrollPort implements OnChanges {
+export class VscrollPortXDirective implements VscrollPort, OnChanges {
+	private link: VscrollLink = null;
+
+	markup: { [key: string]: HTMLElement } = {};
+	layout: VscrollLayout = null;
 	@Input('q-grid-vscroll-port-x') context: VscrollContext;
-	markup = {};
-	layout: VscrollLayout;
-	link: VscrollLink;
 
 	constructor(
 		private elementRef: ElementRef,
 		private cd: ChangeDetectorRef,
 		private app: ApplicationRef,
-
-		view: VscrollDirective
+		private view: VscrollDirective
 	) {
-		super(view, elementRef.nativeElement);
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
 		const contextChange = changes['context'];
 		if (contextChange && this.context) {
 			this.layout = new VscrollLayout(this);
-			this.link = new VscrollLink(this);
+			this.link = new VscrollLink(this, this.view);
 			this.context.container.fetchPage(0);
 		}
 	}

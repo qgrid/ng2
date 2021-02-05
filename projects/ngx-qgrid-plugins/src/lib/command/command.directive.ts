@@ -115,6 +115,16 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 
 		const { command, commandArg } = this;
 		const canExecute = command.canExecute(commandArg) === true;
-		(nativeElement as any).disabled = !canExecute;
+		if (canExecute) {
+			if (nativeElement.hasAttribute('disabled')) {
+				nativeElement.removeAttribute('disabled');
+				nativeElement.classList.remove('q-grid-disabled');
+			}
+		} else {
+			if (!nativeElement.hasAttribute('!disabled')) {
+				nativeElement.setAttribute('disabled', 'true');
+				nativeElement.classList.add('q-grid-disabled');
+			}
+		}
 	}
 }

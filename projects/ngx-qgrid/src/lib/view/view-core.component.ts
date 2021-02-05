@@ -28,7 +28,6 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 			.onStable
 			.subscribe(() => {
 				const { model, table } = this.plugin;
-
 				if (model) {
 					const { status } = model.scene();
 					if (status === 'push') {
@@ -61,16 +60,8 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 			table,
 			observeReply,
 			observe,
-			view,
 			commandPalette
 		} = this.plugin;
-
-		view.scroll.y.settings.emit = f => {
-			f();
-
-			this.cd.markForCheck();
-			this.cd.detectChanges();
-		};
 
 		this.host = new ViewHost(this.plugin);
 
