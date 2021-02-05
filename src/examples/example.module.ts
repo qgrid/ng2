@@ -83,6 +83,7 @@ import { ExampleGenerateColumnDeepComponent } from './generate-column-deep/examp
 import { ExampleGenerateColumnRawComponent } from './generate-column-raw/example-generate-column-raw.component';
 import { ExampleGenerateColumnShallowComponent } from './generate-column-shallow/example-generate-column-shallow.component';
 import { ExampleGridListBasicComponent } from './grid-list-basic/example-grid-list-basic.component';
+import { ExampleGridSizeComponent } from './grid-size/example-grid-size.component';
 import { ExampleGroupColumnBasicComponent } from './group-column-basic/example-group-column-basic.component';
 import { ExampleGroupRowAggregationComponent } from './group-row-aggregation/example-group-row-aggregation.component';
 import { ExampleGroupRowBasicComponent } from './group-row-basic/example-group-row-basic.component';
@@ -243,6 +244,7 @@ export const EXAMPLES: any[] = [
 	ExampleGenerateColumnRawComponent,
 	ExampleGenerateColumnShallowComponent,
 	ExampleGridListBasicComponent,
+	ExampleGridSizeComponent,
 	ExampleGroupColumnBasicComponent,
 	ExampleGroupRowAggregationComponent,
 	ExampleGroupRowBasicComponent,
