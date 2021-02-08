@@ -2,10 +2,10 @@
   "name": "ng2-qgrid/theme/material",
   "version": "11.0.0",
   "peerDependencies": {
-    "@angular/common": "~11.0.1",
-    "@angular/core": "~11.0.1",
+    "@angular/common": "~11.1.2",
+    "@angular/core": "~11.1.2",
     "ng2-qgrid": "11.0.0",
-    "@angular/cdk": "~11.0.0",
-    "@angular/material": "~11.0.0"
+    "@angular/cdk": "~11.1.2",
+    "@angular/material": "~11.1.2"
   }
 }

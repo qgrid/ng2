@@ -2,9 +2,9 @@
   "name": "ng2-qgrid",
   "version": "11.0.0",
   "peerDependencies": {
-    "@angular/common": "~11.0.1",
-    "@angular/core": "~11.0.1",
-    "@angular/forms": "~11.0.1"
+    "@angular/common": "~11.1.2",
+    "@angular/core": "~11.1.2",
+    "@angular/forms": "~11.1.2"
   },
   "main": "bundles/ng2-qgrid.umd.js",
   "typings": "ng2-qgrid.d.ts",
