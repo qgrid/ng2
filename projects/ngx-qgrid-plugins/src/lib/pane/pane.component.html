@@ -2,7 +2,14 @@
     <ng-template for="pane-right">
         <div class="q-grid-pane q-grid-pane-right">
             <ng-container key="plugin-pane-right.tpl.html"
-                          [context]="context">
+                          [context]="context?.right">
+            </ng-container>
+        </div>
+    </ng-template>
+    <ng-template for="pane-left">
+        <div class="q-grid-pane q-grid-pane-left">
+            <ng-container key="plugin-pane-left.tpl.html"
+                          [context]="context?.left">
             </ng-container>
         </div>
     </ng-template>

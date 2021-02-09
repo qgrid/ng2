@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectorRef, Input, ChangeDetectionStrategy } 
 import { GridPlugin, GridEventArg } from '@qgrid/ngx';
 import { TemplateHostService, GridError } from '@qgrid/ngx';
 
+export type PaneSide = 'left' | 'right';
+
 @Component({
 	selector: 'q-grid-pane',
 	templateUrl: './pane.component.html',
@@ -15,9 +17,11 @@ export class PaneComponent implements OnInit {
 	@Input() trigger: string;
 
 	context: {
-		$implicit: PaneComponent,
-		value: any;
-	};
+		[side in PaneSide]?: {
+			$implicit: PaneComponent,
+			value: any;
+		}
+	} = { };
 
 	constructor(
 		private plugin: GridPlugin,
@@ -35,37 +39,43 @@ export class PaneComponent implements OnInit {
 			observeReply(model[`${state}Changed`])
 				.subscribe((e: GridEventArg<any>) => {
 					if (!prop || e.hasChanges(prop)) {
-						this.close('right');
-						this.open('right');
+						this.updateAndOpen('right')
 					}
 				});
 		}
 	}
 
-	open(side: 'right') {
+	open(side: PaneSide, value: any = null) {
 		const { table, model } = this.plugin;
 
-		let value = null;
 		const scope = this.parse();
-		if (scope) {
+		if (scope && !value) {
 			const [state, prop] = scope;
 			value = model[state]()[prop];
 		}
 
-		this.context = { $implicit: this, value };
+		this.context[side] = { $implicit: this, value };
 		table.view.addLayer(`pane-${side}`);
 
-		this.cd.markForCheck();
-		this.cd.detectChanges();
+		this.invalidate();
 	}
 
-	close(side: 'right') {
+	close(side: PaneSide) {
 		const { table } = this.plugin;
 
 		table.view.removeLayer(`pane-${side}`);
 
-		this.context = null;
+		this.context[side] = null;
 
+		this.invalidate();
+	}
+
+	updateAndOpen(side: PaneSide, value: any = null) {
+		this.close(side);
+		this.open(side, value);
+	}
+
+	private invalidate(): void {
 		this.cd.markForCheck();
 		this.cd.detectChanges();
 	}
@@ -78,7 +88,6 @@ export class PaneComponent implements OnInit {
 			if (!model[state]) {
 				throw new GridError('pane.component', `Trigger ${state} not found`);
 			}
-
 			return [state, prop];
 		}
 

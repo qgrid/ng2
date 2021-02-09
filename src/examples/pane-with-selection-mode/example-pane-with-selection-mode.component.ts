@@ -34,9 +34,7 @@ export class ExamplePaneWithSelectionComponent implements AfterViewInit {
 			const { code, status, target } = state;
 			if (code === 'left' && status === 'down') {
 				if (target && target.column.type !== 'select') {
-					this.pane.close('right');
-					this.pane.open('right');
-					Object.assign(this.pane.context, { value: target.row });
+					this.pane.updateAndOpen('right', target.row);
 				}
 			}
 		});
