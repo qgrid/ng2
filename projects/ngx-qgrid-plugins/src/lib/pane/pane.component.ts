@@ -1,8 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef, Input, ChangeDetectionStrategy } from '@angular/core';
+import { isUndefined } from '@qgrid/core/utility/kit';
 import { GridPlugin, GridEventArg } from '@qgrid/ngx';
 import { TemplateHostService, GridError } from '@qgrid/ngx';
 
-export type PaneSide = 'left' | 'right';
+type PaneSide = 'left' | 'right';
+const DEFAULT_SIDE: PaneSide = 'right';
 
 @Component({
 	selector: 'q-grid-pane',
@@ -39,17 +41,17 @@ export class PaneComponent implements OnInit {
 			observeReply(model[`${state}Changed`])
 				.subscribe((e: GridEventArg<any>) => {
 					if (!prop || e.hasChanges(prop)) {
-						this.updateAndOpen('right')
+						this.updateAndOpen(DEFAULT_SIDE)
 					}
 				});
 		}
 	}
 
-	open(side: PaneSide, value: any = null) {
+	open(side: PaneSide = DEFAULT_SIDE, value?: any) {
 		const { table, model } = this.plugin;
 
 		const scope = this.parse();
-		if (scope && !value) {
+		if (scope && isUndefined(value)) {
 			const [state, prop] = scope;
 			value = model[state]()[prop];
 		}
@@ -60,7 +62,7 @@ export class PaneComponent implements OnInit {
 		this.invalidate();
 	}
 
-	close(side: PaneSide) {
+	close(side: PaneSide = DEFAULT_SIDE) {
 		const { table } = this.plugin;
 
 		table.view.removeLayer(`pane-${side}`);
@@ -70,7 +72,7 @@ export class PaneComponent implements OnInit {
 		this.invalidate();
 	}
 
-	updateAndOpen(side: PaneSide, value: any = null) {
+	updateAndOpen(side: PaneSide = DEFAULT_SIDE, value?: any) {
 		this.close(side);
 		this.open(side, value);
 	}
