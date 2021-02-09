@@ -22,14 +22,15 @@ export class ExamplePaneWithSelectionComponent implements AfterViewInit {
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	rows: Observable<Atom[]>;
+	rows$: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {
-		this.rows = dataService.getAtoms();
+		this.rows$ = dataService.getAtoms();
 	}
 
 	ngAfterViewInit(): void {
-		this.grid.model.mouseChanged.on(({ state }) => {
+		const { model } = this.grid;
+		model.mouseChanged.on(({ state }) => {
 			const { code, status, target } = state;
 			if (code === 'left' && status === 'down') {
 				if (target && target.column.type !== 'select') {
