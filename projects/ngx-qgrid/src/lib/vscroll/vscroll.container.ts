@@ -1,38 +1,24 @@
 import { EventEmitter } from '@angular/core';
 import { isNumber, isFunction } from '@qgrid/core/utility/kit';
-import { IVscrollSettings } from './vscroll.settings';
 import { GridError } from '@qgrid/core/infrastructure/error';
-import { ObservableLike, SubjectLike } from '@qgrid/core/rx/rx';
+import { IVscrollContainer, IVscrollSettings } from '@qgrid/core/scroll/scroll.let';
+import { Defer } from '@qgrid/core/infrastructure/defer';
 
 export const rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
 
-export interface IVscrollContainer {
-	count: number;
-	total: number;
-	position: number;
-	cursor: number;
-	force: boolean;
-	items$: ObservableLike<any[]>;
-
-	reset(): void;
-	update(count: number): void;
-}
-
 export class VscrollContainer implements IVscrollContainer {
+	private lastPage = 0;
+
 	constructor(private settings: IVscrollSettings) {
 	}
 
 	force = false;
 	count = 0;
-	total = 0;
 	position = 0;
-	cursor = 0;
-	lastPage = 0;
-	items$ = new SubjectLike<any[]>();
 
-	resetEvent = new EventEmitter<{ handled: boolean, source: string }>();
-	updateEvent = new EventEmitter<number>();
-	drawEvent = new EventEmitter<{ position: number }>();
+	reset$ = new EventEmitter<{ handled: boolean, source: string }>();
+	update$ = new EventEmitter<number>();
+	draw$ = new EventEmitter<{ position: number }>();
 
 	tick(f: () => void) {
 		rAF(f);
@@ -52,15 +38,14 @@ export class VscrollContainer implements IVscrollContainer {
 
 	get currentPage() {
 		const threshold = this.settings.threshold;
-		const cursor = this.cursor;
-		return Math.ceil((cursor + threshold) / threshold) - 1;
+		const position = this.position;
+		return Math.ceil((position + threshold) / threshold) - 1;
 	}
 
 	update(count: number) {
 		if (this.count !== count) {
 			this.count = count;
-			this.total = Math.max(this.total, count);
-			this.updateEvent.emit(count);
+			this.update$.emit(count);
 		}
 
 		const { lastPage, currentPage } = this;
@@ -75,39 +60,38 @@ export class VscrollContainer implements IVscrollContainer {
 
 		this.lastPage = page;
 
-		new Promise<number>((resolve, reject) => {
-			const deferred = { resolve, reject };
-			if (page === 0) {
-				settings.fetch(0, threshold, deferred);
-			} else {
-				const skip = (lastPage + 1) * threshold;
-				if (this.total < skip) {
-					deferred.resolve(this.total);
-				} else {
-					const take = (page - lastPage) * threshold;
-					settings.fetch(skip, take, deferred);
-				}
-			}
-		}).then(count => {
+		const deferred = new Defer<number>();
+
+		deferred.promise.then(count => {
 			this.force = true;
 
-			if (count > this.total) {
+			if (count !== this.count) {
 				this.update(count);
 			}
 		});
+
+		if (page === 0) {
+			settings.fetch(0, threshold, deferred);
+		} else {
+			const skip = (lastPage + 1) * threshold;
+			if (this.count < skip) {
+				deferred.resolve(this.count);
+			} else {
+				const take = (page - lastPage) * threshold;
+				settings.fetch(skip, take, deferred);
+			}
+		}
 	}
 
 	reset() {
-		this.items$.next([]);
 		this.force = false;
 
-		this.count = 0;
-		this.total = 0;
 		this.position = 0;
-		this.cursor = 0;
+
+		this.count = 0;
 		this.lastPage = 0;
 
-		this.resetEvent.emit({
+		this.reset$.emit({
 			handled: false,
 			source: 'container'
 		});

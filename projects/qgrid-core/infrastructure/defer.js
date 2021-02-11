@@ -9,8 +9,8 @@ export class Defer {
 		this.promise.reject();
 	}
 
-	resolve() {
-		this.promise.resolve();
+	resolve(value) {
+		this.promise.resolve(value);
 	}
 }
 
@@ -25,8 +25,8 @@ class DeferPromise {
 		return this;
 	}
 
-	resolve() {
-		this.thenEvent.emit();
+	resolve(value) {
+		this.thenEvent.emit(value);
 		return this;
 	}
 

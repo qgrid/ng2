@@ -65,12 +65,13 @@ export class ColumnFilterComponent implements OnInit {
 		columnFilterPlugin.cancelEvent.on(() => this.cancelEvent.emit());
 
 		const vscrollContext = this.vscroll.context({
+			// TOOD: remove change detection
 			emit: f => {
 				f();
 
 				this.cd.markForCheck();
 				this.cd.detectChanges();
-			},
+			}, 
 			threshold: columnFilter.state().threshold,
 			fetch: (skip, take, d) => {
 				const filterState = model.filter();

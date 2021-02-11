@@ -1,11 +1,11 @@
-export declare class DeferPromise {
-	catch(handler: () => void): DeferPromise;
-	then(handler: () => void): DeferPromise;
+export declare class DeferPromise<T> {
+	catch(handler: () => void): DeferPromise<T>;
+	then(handler: (value: T) => void): DeferPromise<T>;
 }
 
-export declare class Defer {
-	promise: DeferPromise;
+export declare class Defer<T> {
+	promise: DeferPromise<T>;
 	reject(): void;
-	resolve(): void;
+	resolve(value: T): void;
 }
 

@@ -1,5 +1,11 @@
-<div q-grid-vscroll
-     style="height: 100%; width: 100%; overflow: auto;">
+<h4>
+    <button (click)="reset()">Reset</button>
+    <span>Position: {{context.container.position}}</span>
+    <span>CurrentPage: {{context.container.currentPage}}</span>
+    <span>Count: {{context.container.count}}</span>
+</h4>
+
+<div q-grid-vscroll>
     <ul [q-grid-vscroll-port-y]="context">
         <li *ngFor="let item of items | qGridVscroll$: context | async; let $index = index; trackBy: context.id"
             [q-grid-vscroll-row]="$index">

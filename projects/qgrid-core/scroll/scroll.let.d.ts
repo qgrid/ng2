@@ -1,36 +1,40 @@
-import { Defer } from '../infrastructure/defer';
 import { GridPlugin } from '../plugin/grid.plugin';
+import { ObservableLike, SubscribableLike } from '../rx/rx';
 import { ScrollStateMode } from './scroll.state';
 
-export declare class VscrollContext {
-	settings: {
-		threshold?: number;
-		resetTriggers?: Array<string>;
-		rowHeight?: number | ((element: HTMLElement) => number);
-		columnWidth?: number | ((element: HTMLElement) => number);
+export declare interface IVscrollSettings {
+	threshold: number;
+	placeholderHeight: number;
+	placeholderWidth: number;
+	resetTriggers: Array<string>;
+	rowHeight: number | ((element: HTMLElement) => number);
+	columnWidth: number | ((element: HTMLElement) => number);
 
-		fetch?: (skip: number, take: number, d: Defer) => void;
-		emit?: (f: () => void) => void;
-	};
+	fetch: (skip: number, take: number, d: { resolve: (count: number) => void, reject: () => void }) => void;
+	emit: (f: () => void) => void;
+}
 
-	container: {
-		count: number;
-		total: number;
-		position: number;
-		cursor: number;
-		items: any[];
-		force: boolean;
+export declare interface IVscrollContainer {
+	count: number;
+	position: number;
+	force: boolean;
 
-		reset(): void;
-		update(count: number): void;
-	};
+	draw$: SubscribableLike<{ position: number }>;
 
-	id: (index: number) => number;
+	reset(): void;
+	update(count: number): void;
+}
+
+export declare interface IVscrollContext {
+	settings: IVscrollSettings;
+	container: IVscrollContainer;
+
+	id(index: number): number;
 }
 
 export declare class ScrollLet {
-	constructor(plugin: GridPlugin, vscroll: VscrollContext);
+	constructor(plugin: GridPlugin, vscroll: IVscrollContext);
 
 	readonly mode: ScrollStateMode;
-	readonly y: VscrollContext;
+	readonly y: IVscrollContext;
 }

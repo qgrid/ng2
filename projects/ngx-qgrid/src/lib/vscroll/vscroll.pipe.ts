@@ -1,52 +1,79 @@
+import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Pipe, PipeTransform } from '@angular/core';
+import { Disposable } from '@qgrid/core/infrastructure/disposable';
 import { Log } from '@qgrid/core/infrastructure/log';
 import { ObservableLike, SubjectLike } from '@qgrid/core/rx/rx';
-import { IVscrollContainer } from './vscroll.container';
-import { IVscrollSettings } from './vscroll.settings';
+import { IVscrollContext } from '@qgrid/core/scroll/scroll.let';
 
 @Pipe({
 	name: 'qGridVscroll$',
-	pure: true
+	pure: true,
 })
-export class VscrollPipe implements PipeTransform {
-	transform(data: any[], context: { settings: IVscrollSettings, container: IVscrollContainer }): ObservableLike<any[]> {
+export class VscrollPipe implements OnDestroy, PipeTransform {
+	private disposable = new Disposable();
+
+	constructor(private cd: ChangeDetectorRef) {
+	}
+
+	transform(data: any[], context: IVscrollContext): ObservableLike<any[]> {
+		this.disposable.finalize();
+
 		if (!context) {
 			Log.warn('VscrollPipe', 'Context is not defined');
 			return new SubjectLike();
 		}
 
 		data = data || [];
-
-		const { length } = data;
 		const { container, settings } = context;
+		const items$ = new SubjectLike<any>();
 
-		container.update(length);
+		container.update(data.length);
 
-		const items$ = container.items$ as SubjectLike<any[]>;
-		if (length) {
-			const { cursor } = container;
-			const { threshold } = settings;
+		let cursor = container.position;
+		this.disposable.add(
+			container.draw$.subscribe(({ position }) => {
+				const { length } = data;
+				const { threshold } = settings;
 
-			// We need to have a less number of virtual items on
-			// the bottom, as deferred loading is happen there should
-			// be a threshold place to draw several items below.
-			const first = cursor;
-			if (container.force || first !== container.position) {
-				const last = Math.min(cursor + threshold, length);
-				container.position = first;
-				const wnd = new Array(last - first);
-				for (let i = first, j = 0; i < last; i++, j++) {
-					wnd[j] = data[i];
+				container.update(length);
+
+				// We need to have a less number of virtual items on
+				// the bottom, as deferred loading is happen there should
+				// be a threshold place to draw several items below so we use cursor for the last
+				const first = position;
+				if (container.force || first !== cursor) {
+					const last = Math.min(first + threshold, length);
+					const wnd = new Array(last - first);
+
+					cursor = first;
+					container.force = false;
+
+					for (let i = first, j = 0; i < last; i++, j++) {
+						wnd[j] = data[i];
+					}
+
+					// TODO: remove that workaround
+					// async pipe doesn't trigger change detection,
+					// so we put subscription here to invoke detect changes
+					// after async pipe marks for check
+					const sub = items$.subscribe(() => {
+						this.cd.detectChanges();
+					});
+
+					try {
+						items$.next(wnd);
+					}
+					finally {
+						sub.unsubscribe();
+					}
 				}
-
-				container.force = false;
-				items$.next(wnd);
-			}
-		}
-		else {
-			items$.next([]);
-		}
+			})
+		);
 
 		return items$;
+	}
+
+	ngOnDestroy() {
+		this.disposable.finalize();
 	}
 }

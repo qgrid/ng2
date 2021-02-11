@@ -1,4 +1,3 @@
-import { Log } from '../infrastructure/log';
 import { isFunction, identity } from '../utility/kit';
 import { Fastdom } from '../services/fastdom';
 import { GRID_INVALIDATE_COMMAND_KEY, SCROLL_COMMAND_KEY } from '../command-bag/command.bag';
@@ -24,9 +23,9 @@ export class ScrollLet {
 		this.y.container.read = Fastdom.measure;
 		this.y.container.write = Fastdom.mutate;
 
-		const subscribe =
-			(this.y.container.drawEvent.on || this.y.container.drawEvent.subscribe)
-				.bind(this.y.container.drawEvent);
+		const onDraw =
+			(this.y.container.draw$.on || this.y.container.draw$.subscribe)
+				.bind(this.y.container.draw$);
 
 		const updateCurrentPage = position => {
 			const { size, current, count } = pagination();
@@ -59,7 +58,7 @@ export class ScrollLet {
 			return pagination().count;
 		};
 
-		subscribe(e => {
+		onDraw(e => {
 			const { position } = e;
 			updateCurrentPage(position);
 
