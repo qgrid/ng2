@@ -1,5 +1,3 @@
-import { Injectable } from '@angular/core';
-
 const codes = new Map()
 	.set('bracketleft', '[')
 	.set('bracketright', ']')
@@ -110,7 +108,7 @@ export class Keyboard {
 		code = code.toLowerCase();
 		return codes.get(code) || (
 			code.startsWith('key') || code.startsWith('digit')
-				? code.charAt(code.length - 1) : ''
+				? code.charAt(code.length - 1) : code
 		);
 	}
 }

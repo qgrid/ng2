@@ -22,8 +22,8 @@ export class SelectionToggleCommand extends Command {
                     kind: 'toggle'
                 };
 
-                if (toggle.canExecute(clientContext) !== true) {
-                    if (toggle.execute(clientContext) !== false) {
+                if (toggle.canExecute(clientContext) === true) {
+                    if (toggle.execute(clientContext) !== true) {
                         selectionLet.form.toggle(data);
 
                         const items = selectionLet

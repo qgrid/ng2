@@ -1,4 +1,4 @@
-import { OnDestroy, OnInit, Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { OnInit, Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Action } from '@qgrid/core/action/action';
 import { GridPlugin } from '@qgrid/ngx';
 

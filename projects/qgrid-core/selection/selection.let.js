@@ -1,5 +1,5 @@
 import { GRID_PREFIX } from '../definition';
-import { SELECTION_CELL_TOGGLE_COMMAND_KEY, SELECTION_ROW_TOGGLE_COMMAND_KEY } from '../command-bag/command.bag';
+import { SELECTION_CELL_TOGGLE_COMMAND_KEY, SELECTION_ROW_TOGGLE_COMMAND_KEY, SELECTION_SET_COMMAND_KEY } from '../command-bag/command.bag';
 import { SelectionService } from './selection.service';
 import { selectionStateFactory as formFactory } from './state/selection.state.factory';
 import { SubjectLike } from '../rx/rx';
@@ -10,10 +10,12 @@ export class SelectionLet {
 
 		this.plugin = plugin;
 
+		const toggleCell = commandPalette.get(SELECTION_CELL_TOGGLE_COMMAND_KEY);
+		const selectionSet = commandPalette.get(SELECTION_SET_COMMAND_KEY);
+	
 		this.selectionService = new SelectionService(model);
 		this.form = formFactory(model, this.selectionService);
-
-		const toggleCell = commandPalette.get(SELECTION_CELL_TOGGLE_COMMAND_KEY);
+	
 		this.toggleRow = commandPalette.get(SELECTION_ROW_TOGGLE_COMMAND_KEY);
 		this.stateCheck = new SubjectLike();
 
@@ -101,6 +103,7 @@ export class SelectionLet {
 
 	state(item) {
 		if (!arguments.length) {
+			const { table } = this.plugin;
 			return !!this.form.stateAll(table.data.rows());
 		}
 
@@ -109,6 +112,7 @@ export class SelectionLet {
 
 	isIndeterminate(item) {
 		if (!arguments.length) {
+			const { table } = this.plugin;
 			return this.form.stateAll(table.data.rows()) === null;
 		}
 
@@ -116,6 +120,7 @@ export class SelectionLet {
 	}
 
 	get mode() {
-		return this.selection.mode;
+		const { model } = this.plugin;
+		return model.selection().mode;
 	}
 }
