@@ -5,6 +5,9 @@ import { editCellShortcutFactory } from '../edit/edit.cell.shortcut.factory';
 import * as validationService from '../validation/validation.service';
 import { EDIT_CELL_COMMIT_COMMAND_KEY, FOCUS_COMMAND_KEY } from './command.bag';
 
+// This is required import, do not delete!
+import { Td } from '../dom/td';
+
 export class EditCellCommitCommand extends Command {
     constructor(plugin) {
         const { model, view, commandPalette } = plugin;
