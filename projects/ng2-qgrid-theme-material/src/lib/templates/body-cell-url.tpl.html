@@ -2,7 +2,8 @@
              let-$cell
              let-$view="$view">
     <a [attr.href]="$cell.value"
-       tabindex="-1">
+       tabindex="-1"
+       target="_blank">
         {{$cell.label || $cell.value}}
     </a>
     <button *ngIf="$view.edit.cell.canEdit($cell)"
