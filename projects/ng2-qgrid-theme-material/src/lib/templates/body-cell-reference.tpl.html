@@ -9,7 +9,7 @@
 			matTooltip="Edit reference"
 			matTooltipPosition="below"
 			[q-grid-command]="$view.edit.cell.enter"
-			[q-grid-command-arg]="$cell"
+			[q-grid-command-arg]="[$cell, 'custom']"
 			tabindex="-1">
 		<mat-icon matSuffix
 				  class="q-grid-icon">

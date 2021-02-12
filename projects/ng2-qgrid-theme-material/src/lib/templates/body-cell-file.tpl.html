@@ -10,7 +10,7 @@
             class="q-grid-file-edit q-grid-edit-trigger"
             matTooltip="Upload"
             [q-grid-command]="$view.edit.cell.enter"
-            [q-grid-command-arg]="$cell"
+            [q-grid-command-arg]="[$cell, 'custom']"
             aria-label="Upload file"
             tabindex="-1">
         <mat-icon class="q-grid-icon">file_upload</mat-icon>

@@ -13,7 +13,7 @@
             [matTooltipShowDelay]="800"
             matTooltipPosition="before"
             [q-grid-command]="$view.edit.cell.enter"
-            [q-grid-command-arg]="$cell"
+            [q-grid-command-arg]="[$cell, 'custom']"
             tabindex="-1"
             aria-label="email">
         <mat-icon class="q-grid-icon">edit</mat-icon>
