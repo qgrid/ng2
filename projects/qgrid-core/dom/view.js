@@ -212,7 +212,7 @@ export class View extends Unit {
 
 	isFocusedCore(target) {
 		const { markup } = this.context;
-		const { activeElement } = markup.document;
+		const { activeElement } = markup['document'];
 
 		return isParentOf(target, activeElement);
 	}

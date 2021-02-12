@@ -4,12 +4,11 @@ import {
 	ViewEncapsulation,
 	OnInit,
 	ElementRef,
-	NgZone,
-	Inject,
 	ChangeDetectorRef,
 	OnChanges,
 	SimpleChanges,
-	ChangeDetectionStrategy
+	ChangeDetectionStrategy,
+	ViewChild
 } from '@angular/core';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { Command } from '@qgrid/core/command/command';
@@ -77,7 +76,11 @@ export class GridComponent implements OnInit, OnChanges {
 	private sortState = this.stateAccessor.setter(SortState);
 	private styleState = this.stateAccessor.setter(StyleState);
 
+	@ViewChild('view', { static: true, read: ElementRef })
+	private viewElementRef: ElementRef;
+
 	themeComponent: any;
+
 
 	@Input() set model(value: GridModel) {
 		this.root.model = value;
@@ -192,13 +195,13 @@ export class GridComponent implements OnInit, OnChanges {
 
 		const model = this.model || this.modelBuilder.build();
 		const table = tableFactory(model, name => this.layerService.create(name));
+		table.box.markup['host'] = this.elementRef.nativeElement;
+		// TODO: make it better
+		table.box.markup['view'] = this.viewElementRef.nativeElement;
 
 		this.root.model = model;
 		this.root.table = table;
 
-
-		// TODO: make it better
-		table.box.markup.view = this.elementRef.nativeElement;
 		const cmdManager = new TableCommandManager(f => f(), table);
 
 		const selectors = {
@@ -214,6 +217,5 @@ export class GridComponent implements OnInit, OnChanges {
 		);
 
 		injectLetServicesTo(this.view);
-
 	}
 }
