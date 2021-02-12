@@ -1,6 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef, Input, ChangeDetectionStrategy } from '@angular/core';
+import { isUndefined } from '@qgrid/core/utility/kit';
 import { GridPlugin, GridEventArg } from '@qgrid/ngx';
 import { TemplateHostService, GridError } from '@qgrid/ngx';
+
+type PaneSide = 'left' | 'right';
+const DEFAULT_SIDE: PaneSide = 'right';
 
 @Component({
 	selector: 'q-grid-pane',
@@ -15,8 +19,10 @@ export class PaneComponent implements OnInit {
 	@Input() trigger: string;
 
 	context: {
-		$implicit: PaneComponent,
-		value: any;
+		[side in PaneSide]?: {
+			$implicit: PaneComponent,
+			value: any;
+		}
 	};
 
 	constructor(
@@ -25,6 +31,17 @@ export class PaneComponent implements OnInit {
 		templateHost: TemplateHostService
 	) {
 		templateHost.key = source => `plugin-pane-${source}.tpl.html`;
+
+		this.context = {
+			left: {
+				$implicit: this,
+				value: null
+			},
+			right: {
+				$implicit: this,
+				value: null
+			}
+		}
 	}
 
 	ngOnInit() {
@@ -35,37 +52,43 @@ export class PaneComponent implements OnInit {
 			observeReply(model[`${state}Changed`])
 				.subscribe((e: GridEventArg<any>) => {
 					if (!prop || e.hasChanges(prop)) {
-						this.close('right');
-						this.open('right');
+						this.open(DEFAULT_SIDE);
 					}
 				});
 		}
 	}
 
-	open(side: 'right') {
+	open(side: PaneSide = DEFAULT_SIDE, value?: any) {
 		const { table, model } = this.plugin;
 
-		let value = null;
 		const scope = this.parse();
-		if (scope) {
+		if (scope && isUndefined(value)) {
 			const [state, prop] = scope;
 			value = model[state]()[prop];
 		}
 
-		this.context = { $implicit: this, value };
-		table.view.addLayer(`pane-${side}`);
+		this.context[side] = { $implicit: this, value };
 
-		this.cd.markForCheck();
-		this.cd.detectChanges();
+		const paneLayer = `pane-${side}`;
+		if (table.view.hasLayer(paneLayer)) {
+			table.view.removeLayer(paneLayer);
+		}
+		table.view.addLayer(paneLayer);
+
+		this.invalidate();
 	}
 
-	close(side: 'right') {
+	close(side: PaneSide = DEFAULT_SIDE) {
 		const { table } = this.plugin;
 
 		table.view.removeLayer(`pane-${side}`);
 
-		this.context = null;
+		this.context[side] = null;
 
+		this.invalidate();
+	}
+
+	private invalidate(): void {
 		this.cd.markForCheck();
 		this.cd.detectChanges();
 	}
@@ -78,7 +101,6 @@ export class PaneComponent implements OnInit {
 			if (!model[state]) {
 				throw new GridError('pane.component', `Trigger ${state} not found`);
 			}
-
 			return [state, prop];
 		}
 
