@@ -119,6 +119,7 @@ import { ExampleOnPushBasicComponent } from './on-push-basic/example-on-push-bas
 import { ExamplePaginationBasicComponent } from './pagination-basic/example-pagination-basic.component';
 import { ExamplePaneBasicComponent } from './pane-basic/example-pane-basic.component';
 import { ExamplePaneTriggerComponent } from './pane-trigger/example-pane-trigger.component';
+import { ExamplePaneWithSelectionComponent } from './pane-with-selection-mode/example-pane-with-selection-mode.component';
 import { ExamplePersistenceBasicComponent } from './persistence-basic/example-persistence-basic.component';
 import { ExamplePersistenceOnStateChangeComponent } from './persistence-on-state-change/example-persistence-on-state-change.component';
 import { ExamplePersistenceServerComponent } from './persistence-server/example-persistence-server.component';
@@ -279,6 +280,7 @@ export const EXAMPLES: any[] = [
 	ExamplePaginationBasicComponent,
 	ExamplePaneBasicComponent,
 	ExamplePaneTriggerComponent,
+	ExamplePaneWithSelectionComponent,
 	ExamplePersistenceBasicComponent,
 	ExamplePersistenceOnStateChangeComponent,
 	ExamplePersistenceServerComponent,
