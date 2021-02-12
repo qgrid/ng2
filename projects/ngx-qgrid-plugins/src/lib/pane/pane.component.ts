@@ -23,7 +23,7 @@ export class PaneComponent implements OnInit {
 			$implicit: PaneComponent,
 			value: any;
 		}
-	} = { };
+	};
 
 	constructor(
 		private plugin: GridPlugin,
@@ -31,6 +31,17 @@ export class PaneComponent implements OnInit {
 		templateHost: TemplateHostService
 	) {
 		templateHost.key = source => `plugin-pane-${source}.tpl.html`;
+
+		this.context = {
+			left: {
+				$implicit: this,
+				value: null
+			},
+			right: {
+				$implicit: this,
+				value: null
+			}
+		}
 	}
 
 	ngOnInit() {
