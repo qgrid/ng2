@@ -17,7 +17,7 @@ export class SelectionSetCommand extends Command {
                 };
 
                 if (toggle.canExecute(clientContext) === true) {
-                    if (toggle.execute(clientContext) !== false) {
+                    if (toggle.execute(clientContext) !== true) {
                         selectionLet.form.select(data, state);
 
                         return () => {

@@ -6,7 +6,7 @@ import { ROW_DETAILS_TOGGLE_STATUS_COMMAND_KEY, NAVIGATION_GO_TO_COMMAND_KEY } f
 
 export class RowDetailsToggleStatusCommand extends Command {
     constructor(plugin) {
-        const { model, commandPalette } = plugin;
+        const { model, commandPalette, observe } = plugin;
 
         super({
             key: ROW_DETAILS_TOGGLE_STATUS_COMMAND_KEY,
@@ -28,7 +28,7 @@ export class RowDetailsToggleStatusCommand extends Command {
                 }
 
                 const { toggle, status, mode } = model.row();
-                if (toggle.execute({ row }) !== false) {
+                if (toggle.execute({ row }) !== true) {
                     const newStatus = toggleStatus([row], status, mode);
                     model.row({
                         status: newStatus

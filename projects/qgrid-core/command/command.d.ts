@@ -52,7 +52,7 @@ export declare class Command<T = any> {
     /**
      * Invokes the command. Use one argument to support typescript generic typification.
 	 * Sometimes interaction model requires to return a value, for example, default command manager 
-	 * stops to process next commands if false is returned by the command execute method.
+	 * stops to process next commands if `TRUE` is returned by the command execute method.
      */
     execute: (e?: T) => any;
 

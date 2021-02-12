@@ -52,7 +52,7 @@ export class PersistencePlugin {
 					canEdit: true
 				};
 
-				if (persistence().create.execute(item) !== false) {
+				if (persistence().create.execute(item) !== true) {
 					this.items.push(item);
 					this.persist();
 					this.title = '';
@@ -97,7 +97,7 @@ export class PersistencePlugin {
 				shortcut: 'enter',
 				execute: item => {
 					item = item || this.state.editItem;
-					if (persistence().modify.execute(item) !== false) {
+					if (persistence().modify.execute(item) !== true) {
 						const title = item.title;
 						if (!title || !this.isUniqueTitle(title)) {
 							this.edit.cancel.execute();
@@ -133,7 +133,7 @@ export class PersistencePlugin {
 		this.load = new Command({
 			canExecute: item => persistence().load.canExecute(item),
 			execute: item => {
-				if (persistence().load.execute(item) !== false) {
+				if (persistence().load.execute(item) !== true) {
 					this.service.load(item.model);
 					return true;
 				}
@@ -144,7 +144,7 @@ export class PersistencePlugin {
 
 		this.reset = new Command({
 			execute: () => {
-				if (persistence().reset.execute() !== false) {
+				if (persistence().reset.execute() !== true) {
 					this.service.reset();
 				}
 				return false;
@@ -156,7 +156,7 @@ export class PersistencePlugin {
 			execute: item => {
 				const index = this.items.indexOf(item);
 				if (index >= 0) {
-					if (persistence().remove.execute(item) !== false) {
+					if (persistence().remove.execute(item) !== true) {
 						this.items.splice(index, 1);
 
 						this.persist();
@@ -172,7 +172,7 @@ export class PersistencePlugin {
 		this.setDefault = new Command({
 			canExecute: item => persistence().setDefault.canExecute(item),
 			execute: item => {
-				if (persistence().setDefault.execute(item) !== false) {
+				if (persistence().setDefault.execute(item) !== true) {
 					const index = this.items.indexOf(item);
 					if (index === -1) {
 						return false;

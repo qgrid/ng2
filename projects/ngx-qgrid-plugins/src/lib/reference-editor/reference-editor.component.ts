@@ -65,7 +65,7 @@ export class ReferenceEditorComponent implements AfterViewInit {
 					const { items } = model.selection();
 					const entries = selectionService.lookup(items);
 					const context = { items, entries };
-					if (commit.execute(context) !== false) {
+					if (commit.execute(context) !== true) {
 						this.afterSubmit.emit();
 					} else {
 						this.afterCancel.emit();
@@ -79,7 +79,7 @@ export class ReferenceEditorComponent implements AfterViewInit {
 				shortcut: cancelShortcut.form || cancelShortcut.$default,
 				canExecute: () => cancel.canExecute(),
 				execute: () => {
-					if (cancel.execute() !== false) {
+					if (cancel.execute() !== true) {
 						this.afterCancel.emit();
 					}
 
