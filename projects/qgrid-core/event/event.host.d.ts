@@ -15,5 +15,5 @@ export declare class EventHost {
 	mouseLeave(e: MouseEvent): void;
 	mouseUp(e: MouseEvent): void;
 
-	checkFocus(): void;
+	checkFocus(): boolean;
 }

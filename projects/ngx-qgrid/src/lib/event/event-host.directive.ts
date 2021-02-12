@@ -1,6 +1,6 @@
 import { Directive, OnInit, NgZone, ElementRef, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { DOCUMENT_CLICK_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
+import { DOCUMENT_CLICK_COMMAND_KEY, KEY_RELEASE_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
 import { EventHost } from '@qgrid/core/event/event.host';
 import { EventListener } from '@qgrid/core/event/event.listener';
 import { EventManager } from '@qgrid/core/event/event.manager';
@@ -22,6 +22,9 @@ export class EventHostDirective implements OnInit {
 		const { commandPalette, disposable } = this.plugin;
 		const { nativeElement } = this.element;
 
+		const documentClick = commandPalette.get(DOCUMENT_CLICK_COMMAND_KEY);
+		const keyRelease = commandPalette.get(KEY_RELEASE_COMMAND_KEY);
+
 		const host = new EventHost(
 			nativeElement,
 			this.plugin,
@@ -35,11 +38,16 @@ export class EventHostDirective implements OnInit {
 			disposable.add(hostListener.on('mousemove', e => host.mouseMove(e)));
 			disposable.add(hostListener.on('mouseleave', e => host.mouseLeave(e)));
 			disposable.add(hostListener.on('mouseup', e => host.mouseUp(e)));
-			disposable.add(docListener.on('focusin', () => host.checkFocus()));
+			disposable.add(docListener.on('focusin', () => {
+				if (!host.checkFocus()) {
+					if (keyRelease.canExecute()) {
+						keyRelease.execute();
+					}
+				}
+			}));
 
 			disposable.add(
 				docListener.on('mousedown', e => {
-					const documentClick = commandPalette.get(DOCUMENT_CLICK_COMMAND_KEY);
 					documentClick.execute([nativeElement, e]);
 				}));
 
@@ -48,7 +56,11 @@ export class EventHostDirective implements OnInit {
 			);
 
 			disposable.add(
-				wndListener.on('blur', () => host.keyRelease())
+				wndListener.on('blur', () => {
+					if (keyRelease.canExecute()) {
+						keyRelease.execute();
+					}
+				})
 			);
 		});
 

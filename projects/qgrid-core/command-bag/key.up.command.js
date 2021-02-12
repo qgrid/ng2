@@ -35,8 +35,6 @@ export class KeyUpCommand extends Command {
                         if (keyRelease.canExecute() === true) {
                             keyRelease.execute();
                         }
-
-                        root.reset();
                     }
                 }
             }

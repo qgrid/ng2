@@ -43,16 +43,15 @@ export class ShortcutHostDirective implements OnInit {
 			}
 		};
 
-		window.addEventListener('keydown', keyDown, isPassive);
-
 		const keyUp = (e: KeyboardEvent) => {
 			const code = Keyboard.translate(e.code);
 			this.shortcutService.keyUp(code);
 		};
 
-		element.addEventListener('keyup', keyUp, isPassive);
-
 		const focusOut = () => this.shortcutService.reset();
+
+		element.addEventListener('keydown', keyDown, isPassive);
+		element.addEventListener('keyup', keyUp, isPassive);
 		element.addEventListener('focusout', focusOut);
 		window.addEventListener('blur', focusOut);
 

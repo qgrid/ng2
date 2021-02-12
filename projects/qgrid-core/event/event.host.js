@@ -17,7 +17,6 @@ import { PathService } from '../path/path.service';
 import { selectRowIndex, selectColumnIndex } from '../navigation/navigation.state.selector';
 
 export class EventHost {
-
 	constructor(host, plugin) {
 		this.host = host;
 		this.plugin = plugin;
@@ -48,7 +47,7 @@ export class EventHost {
 		if (model.navigation().prevent.has(code)) {
 			this.stopPropagate(e);
 			return true;
-		}	
+		}
 
 		return false;
 	}
@@ -111,13 +110,16 @@ export class EventHost {
 			if (focus.canExecute()) {
 				focus.execute();
 			}
+
+			return true;
 		}
-		else {
-			const blur = commandPalette.get(BLUR_COMMAND_KEY);
-			if (blur.canExecute()) {
-				blur.execute();
-			}
+
+		const blur = commandPalette.get(BLUR_COMMAND_KEY);
+		if (blur.canExecute()) {
+			blur.execute();
 		}
+
+		return false;
 	}
 
 	findCell(e) {
