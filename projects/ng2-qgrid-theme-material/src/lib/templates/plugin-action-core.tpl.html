@@ -2,35 +2,32 @@
 			 let-$action>
 	<div class="q-grid-action"
 		 [ngClass]="'q-grid-action-' + $action.command.key.name"
-		 [ngSwitch]="!!$action.templateUrl">
+		 [ngSwitch]="$action.mode">
 
-		<ng-container *ngSwitchCase="true"
+		<ng-container *ngSwitchCase="'template'"
 					  [key]="$action.templateUrl"
 					  [context]="{$implicit: $action}">
 		</ng-container>
 
-		<ng-container *ngSwitchDefault>
+		<button *ngSwitchCase="'icon'"
+				mat-icon-button
+				[q-grid-command]="$action.command"
+				[matTooltip]="$action.title + ($action.command.shortcut ? ' (' + ($action.command.shortcut | uppercase) + ')' : '')"
+				[matTooltipShowDelay]="800"
+				tabindex="-1">
+			<mat-icon>{{$action.icon}}</mat-icon>
+		</button>
 
-			<button *ngIf="$action.icon"
-					mat-icon-button
-					[q-grid-command]="$action.command"
-					[matTooltip]="$action.title + ($action.command.shortcut ? ' (' + ($action.command.shortcut | uppercase) + ')' : '')"
-					[matTooltipShowDelay]="800"
-					tabindex="-1">
-				<mat-icon>{{$action.icon}}</mat-icon>
-			</button>
+		<button *ngSwitchCase="'text'"
+				mat-button
+				[q-grid-command]="$action.command"
+				tabindex="-1">
+			{{$action.title + ($action.command.shortcut ? ' (' + ($action.command.shortcut | uppercase) + ')' :
+			'')}}
+		</button>
 
-			<button *ngIf="!$action.icon && $action.title"
-					mat-button
-					[q-grid-command]="$action.command"
-					tabindex="-1">
-				{{$action.title + ($action.command.shortcut ? ' (' + ($action.command.shortcut | uppercase) + ')' : '')}}
-			</button>
-
-			<ng-container *ngIf="!$action.icon && !$action.title"
-						  [q-grid-command]="$action.command">
-			</ng-container>
-
+		<ng-container *ngSwitchDefault
+					  [q-grid-command]="$action.command">
 		</ng-container>
 
 	</div>

@@ -72,4 +72,28 @@ export class ActionCoreComponent {
 
 		return action.templateUrl;
 	}
+
+	get mode(): 'template' | 'icon' | 'text' | 'none' {
+		const { action } = this;
+		if (!action) {
+			throw new GridError(
+				'action-core.component',
+				'Action is not set'
+			);
+		}
+
+		if (action.templateUrl) {
+			return 'template';
+		}
+
+		if (action.icon) {
+			return 'icon';
+		}
+
+		if (action.title) {
+			return 'text';
+		}
+
+		return 'none';
+	}
 }

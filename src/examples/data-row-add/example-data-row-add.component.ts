@@ -50,7 +50,6 @@ export class ExampleDataRowAddComponent implements AfterViewInit {
 		}
 	});
 
-
 	constructor(dataService: DataService, private qgrid: Grid) {
 		this.rows = dataService.getPeople();
 	}

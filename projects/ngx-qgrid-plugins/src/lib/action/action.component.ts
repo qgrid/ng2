@@ -1,7 +1,8 @@
-import { Component, ChangeDetectionStrategy, OnInit, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, Input, ContentChild, TemplateRef } from '@angular/core';
 import { Action } from '@qgrid/core/action/action';
 import { Command } from '@qgrid/core/command/command';
-import { TemplateHostService, GridError, GridPlugin } from '@qgrid/ngx';
+import { guid } from '@qgrid/core/services/guid';
+import { TemplateHostService, GridPlugin } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-action',
@@ -13,16 +14,18 @@ import { TemplateHostService, GridError, GridPlugin } from '@qgrid/ngx';
 	]
 })
 export class ActionComponent implements OnInit {
-	@Input() id: string;
+	@ContentChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
+
 	@Input() title: string;
 	@Input() icon: string;
 	@Input() command: Command;
 
 	constructor(
 		private plugin: GridPlugin,
-		templateHost: TemplateHostService
+		private templateHost: TemplateHostService
 	) {
-		templateHost.key = source => `action-${source}-${this.id}.tpl.html`;
+		const id = guid();
+		templateHost.key = source => `action-${source}-${id}.tpl.html`;
 	}
 
 	ngOnInit() {
@@ -33,8 +36,8 @@ export class ActionComponent implements OnInit {
 			this.icon
 		);
 
-		if (this.id) {
-			action.templateUrl = `action-trigger-${this.id}.tpl.html`;
+		if (this.templateRef) {
+			action.templateUrl = this.templateHost.key('trigger');
 		}
 
 		model.action({
