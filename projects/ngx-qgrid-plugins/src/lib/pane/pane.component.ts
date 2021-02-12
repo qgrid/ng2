@@ -52,7 +52,7 @@ export class PaneComponent implements OnInit {
 			observeReply(model[`${state}Changed`])
 				.subscribe((e: GridEventArg<any>) => {
 					if (!prop || e.hasChanges(prop)) {
-						this.updateAndOpen(DEFAULT_SIDE)
+						this.open(DEFAULT_SIDE);
 					}
 				});
 		}
@@ -68,7 +68,12 @@ export class PaneComponent implements OnInit {
 		}
 
 		this.context[side] = { $implicit: this, value };
-		table.view.addLayer(`pane-${side}`);
+
+		const paneLayer = `pane-${side}`;
+		if (table.view.hasLayer(paneLayer)) {
+			table.view.removeLayer(paneLayer);
+		}
+		table.view.addLayer(paneLayer);
 
 		this.invalidate();
 	}
@@ -81,11 +86,6 @@ export class PaneComponent implements OnInit {
 		this.context[side] = null;
 
 		this.invalidate();
-	}
-
-	updateAndOpen(side: PaneSide = DEFAULT_SIDE, value?: any) {
-		this.close(side);
-		this.open(side, value);
 	}
 
 	private invalidate(): void {
