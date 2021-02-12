@@ -40,9 +40,9 @@ export declare class Command<T = any> {
 
     /**
      * Indicates if a command can be invoked. Use one argument to support typescript generic typification.
-	 * By default true value is returned.
+     * By default true value is returned.
      */
-    canExecute: (e?: T) => boolean;
+    canExecute: (arg?: T) => boolean;
 
     /**
      * Triggers canExecute method on UI.
@@ -51,14 +51,14 @@ export declare class Command<T = any> {
 
     /**
      * Invokes the command. Use one argument to support typescript generic typification.
-	 * Sometimes interaction model requires to return a value, for example, default command manager 
-	 * stops to process next commands if `TRUE` is returned by the command execute method.
+     * Sometimes interaction model requires to return a value, for example, default command manager 
+     * stops to process next commands if `TRUE` is returned by the command execute method.
      */
-    execute: (e?: T) => any;
+    execute: (arg?: T) => any;
 
     /**
      * A sequence of keyboard key codes to execute the command. 
-	 * Here are some examples:
+     * Here are some examples:
      *
      * * shift+a
      * * ctrl+s
@@ -69,13 +69,16 @@ export declare class Command<T = any> {
 
     /**
      * Command priority that can be used by command manager to specify order of commands to execute. 
-	 * For example, if several commands have the same shortcut, you may need to see in which order 
-	 * these commands should be executed.
+     * For example, if several commands have the same shortcut, you may need to see in which order 
+     * these commands should be executed.
      */
     priority: number;
 
-	/**
-	 * Indicates an origin of the command.
-	 */
+    /**
+     * Indicates an origin of the command.
+     */
     key: CommandKey<T>;
 }
+
+
+export declare function prob<T>(command: Command<T>, arg?: T): boolean; 

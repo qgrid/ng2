@@ -8,6 +8,7 @@ import {
 	EDIT_CELL_PUSH_COMMAND_KEY,
 	EDIT_CELL_RESET_COMMAND_KEY
 } from '../command-bag/command.bag';
+import { prob } from '../command/command';
 
 
 export class EditCellLet {
@@ -39,10 +40,7 @@ export class EditCellLet {
 								source: 'edit.cell.let'
 							});
 
-							if (this.enter.canExecute([null, 'custom'])) {
-								this.enter.execute([null, 'custom']);
-							}
-
+							prob(this.enter, [null, 'custom']);
 							break;
 						}
 						case 'view': {
@@ -58,9 +56,7 @@ export class EditCellLet {
 								}
 							}
 
-							if (this.cancel.canExecute()) {
-								this.cancel.execute();
-							}
+							prob(this.cancel);
 						}
 					}
 				}
@@ -78,21 +74,15 @@ export class EditCellLet {
 					const editCell = this.editor.td;
 					if (editCell) {
 						if (editCell.column.category === 'data') {
-							if (this.commit.canExecute(editCell)) {
-								this.commit.execute(editCell);
-							}
+							prob(this.commit, editCell);
 						} else {
-							if (this.cancel.canExecute(editCell)) {
-								this.cancel.execute(editCell);
-							}
+							prob(this.cancel, editCell);
 						}
 					}
 
 					const { cell } = e.state;
 					if (cell && (cell.column.editorOptions.trigger === 'focus')) {
-						if (this.enter.canExecute([cell, 'navigation'])) {
-							this.enter.execute([cell, 'navigation']);
-						}
+						prob(this.enter, [cell, 'navigation']);
 					}
 				}
 			});

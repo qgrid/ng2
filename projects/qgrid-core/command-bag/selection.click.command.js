@@ -1,4 +1,4 @@
-import { Command } from '../command/command';
+import { Command, prob } from '../command/command';
 import { 
     SELECTION_CLICK_COMMAND_KEY,
     SELECTION_COLUMN_TOGGLE_COMMAND_KEY,
@@ -27,14 +27,10 @@ export class SelectionClickCommand extends Command {
                         if (cell.column.type === 'select' && cell.column.editorOptions.trigger === 'focus') {
                             const currentRowIndex = selectRowIndex(model.navigation());
                             if (currentRowIndex !== cell.rowIndex) {
-                                if (toggleRow.canExecute(cell.row) === true) {
-                                    toggleRow.execute(cell.row);
-                                }
+                                prob(toggleRow, cell.row);
                             }
                         } else if (!model.edit().mode && cell.column.category !== 'control') {
-                            if (toggleRow.canExecute(cell.row)) {
-                                toggleRow.execute(cell.row);
-                            }
+                            prob(toggleRow, cell.row);
                         }
 
                         break;
@@ -42,9 +38,7 @@ export class SelectionClickCommand extends Command {
                     case 'column': {
                         const toggleColumn = commandPalette.get(SELECTION_COLUMN_TOGGLE_COMMAND_KEY);
                         if (!model.edit().mode) {
-                            if (toggleColumn.canExecute(cell.column) === true) {
-                                toggleColumn.execute(cell.column);
-                            }
+                            prob(toggleColumn, cell.column);
                         }
 
                         break;
@@ -52,9 +46,7 @@ export class SelectionClickCommand extends Command {
                     case 'mix': {
                         const toggleCell = commandPalette.get(SELECTION_CELL_TOGGLE_COMMAND_KEY);
                         if (cell.column.type === 'row-indicator') {
-                            if (toggleCell.canExecute(cell) === true) {
-                                toggleCell.execute(cell);
-                            }
+                            prob(toggleCell, cell);
                         }
 
                         break;

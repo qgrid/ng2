@@ -11,7 +11,7 @@ import { EventListener } from '@qgrid/core/event/event.listener';
 import { EventManager } from '@qgrid/core/event/event.manager';
 import { GRID_PREFIX } from '@qgrid/core/definition';
 import { GridPlugin } from '../plugin/grid-plugin';
-import { Command } from '@qgrid/core/command/command';
+import { Command, prob } from '@qgrid/core/command/command';
 import { Disposable } from '../infrastructure/disposable';
 
 export interface ResizeArg {
@@ -73,9 +73,7 @@ export class ResizeDirective implements OnInit {
 
 	ngOnInit() {
 		const context = this.buildContext('init');
-		if (this.command.canExecute(context) === true) {
-			this.command.execute(context);
-
+		if (prob(this.command, context)) {
 			this.zone.runOutsideAngular(() => {
 				this.listener.divider.on('mousedown', this.dragStart);
 			});
@@ -99,9 +97,7 @@ export class ResizeDirective implements OnInit {
 		start.y = e.screenY;
 
 		const context = this.buildContext('start');
-		if (command.canExecute(context) === true) {
-			command.execute(context);
-
+		if (prob(command, context)) {
 			this.zone.runOutsideAngular(() => {
 				this.listener.document.on('mousemove', this.drag);
 				this.listener.document.on('mouseup', this.dragEnd);
@@ -119,9 +115,7 @@ export class ResizeDirective implements OnInit {
 		const { command } = this;
 
 		const context = this.buildContext('resize', e.screenX, e.screenY);
-		if (command.canExecute(context) === true) {
-			command.execute(context);
-		}
+		prob(command, context);
 	}
 
 	dragEnd(e: MouseEvent) {
@@ -129,9 +123,7 @@ export class ResizeDirective implements OnInit {
 		const { command } = this;
 
 		const context = this.buildContext('end', e.screenX, e.screenY);
-		if (command.canExecute(context) === true) {
-			command.execute(context);
-
+		if (prob(command, context)) {
 			const { model } = this.plugin;
 			model.drag({
 				isActive: false

@@ -1,4 +1,4 @@
-import { Command } from '../command/command';
+import { Command, prob } from '../command/command';
 import { takeOnce, filter } from '../rx/rx.operators';
 import { toggleStatus } from '../row-details/row.details.service';
 import { selectRow } from '../navigation/navigation.state.selector';
@@ -46,9 +46,8 @@ export class RowDetailsToggleStatusCommand extends Command {
                             if (rowStatus && rowStatus.expand) {
                                 const goTo = commandPalette.get(NAVIGATION_GO_TO_COMMAND_KEY);
                                 const rowDetailsIndex = model.view().rows.indexOf(row) + 1;
-                                if (goTo.canExecute({ rowIndex: rowDetailsIndex })) {
-                                    goTo.execute({ rowIndex: rowDetailsIndex })
-                                }
+
+                                prob(goTo, { rowIndex: rowDetailsIndex });
                             }
                         });
                 }

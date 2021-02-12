@@ -1,4 +1,4 @@
-import { Command } from '../command/command';
+import { Command, prob } from '../command/command';
 import { eventPath } from '../services/dom';
 import { DOCUMENT_CLICK_COMMAND_KEY, EDIT_CELL_CANCEL_COMMAND_KEY } from './command.bag';
 
@@ -16,9 +16,7 @@ export class DocumentClickCommand extends Command {
                     const clickedOutside = !path.some(x => isPartOfGrid(x, host));
                     if (clickedOutside) {
                         const cancelEdit = commandPalette.get(EDIT_CELL_CANCEL_COMMAND_KEY);
-                        if (cancelEdit.canExecute() === true) {
-                            cancelEdit.execute();
-                        }
+                        prob(cancelEdit);
                     }
                 }
             }

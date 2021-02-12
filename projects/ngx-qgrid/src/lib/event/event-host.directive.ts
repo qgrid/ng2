@@ -5,6 +5,7 @@ import { EventHost } from '@qgrid/core/event/event.host';
 import { EventListener } from '@qgrid/core/event/event.listener';
 import { EventManager } from '@qgrid/core/event/event.manager';
 import { GridPlugin } from '../plugin/grid-plugin';
+import { prob } from '@qgrid/core/command/command';
 
 @Directive({
 	selector: '[q-grid-event-host]',
@@ -40,9 +41,7 @@ export class EventHostDirective implements OnInit {
 			disposable.add(hostListener.on('mouseup', e => host.mouseUp(e)));
 			disposable.add(docListener.on('focusin', () => {
 				if (!host.checkFocus()) {
-					if (keyRelease.canExecute()) {
-						keyRelease.execute();
-					}
+					prob(keyRelease);
 				}
 			}));
 
@@ -56,11 +55,7 @@ export class EventHostDirective implements OnInit {
 			);
 
 			disposable.add(
-				wndListener.on('blur', () => {
-					if (keyRelease.canExecute()) {
-						keyRelease.execute();
-					}
-				})
+				wndListener.on('blur', () => prob(keyRelease))
 			);
 		});
 

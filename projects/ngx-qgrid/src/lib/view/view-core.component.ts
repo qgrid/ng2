@@ -5,6 +5,7 @@ import { GRID_INVALIDATE_COMMAND_KEY, STYLE_INVALIDATE_COMMAND_KEY } from '@qgri
 import { GridPlugin } from '../plugin/grid-plugin';
 import { ViewHost } from '@qgrid/core/view/view.host';
 import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
+import { prob } from '@qgrid/core/command/command';
 
 @Component({
 	selector: 'q-grid-core-view',
@@ -120,8 +121,6 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 	private invalidateStyle() {
 		const { commandPalette } = this.plugin;
 		const styleInvalidate = commandPalette.get(STYLE_INVALIDATE_COMMAND_KEY);
-		if (styleInvalidate.canExecute() === true) {
-			styleInvalidate.execute();
-		}
+		prob(styleInvalidate);
 	}
 }

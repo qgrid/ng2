@@ -16,6 +16,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
 import { SelectionState } from '@qgrid/core/selection/selection.state';
 import { TableCoreService } from '../table/table-core.service';
 import { MOUSE_WHEEL_COMMAND_KEY, SCROLL_COMMAND_KEY, HIGHLIGHT_CLEAR_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
+import { prob } from '@qgrid/core/command/command';
 
 const SCROLL_SETTINGS = { passive: true };
 
@@ -54,26 +55,19 @@ export class BodyCoreComponent implements OnInit {
 						nativeElement.scrollTop
 					];
 
-					if (scroll.canExecute(pos) === true) {
-						scroll.execute(pos);
-					}
-
+					prob(scroll, pos);
 				}, SCROLL_SETTINGS));
 
 			disposable.add(
 				listener.on('wheel', e => {
 					const wheel = commandPalette.get(MOUSE_WHEEL_COMMAND_KEY);
-					if (wheel.canExecute(e.deltaY) === true) {
-						wheel.execute(e.deltaY);
-					}
+					prob(wheel, e.deltaY);
 				}));
 
 			disposable.add(
 				listener.on('mouseleave', () => {
 					const clearHighlight = commandPalette.get(HIGHLIGHT_CLEAR_COMMAND_KEY);
-					if (clearHighlight.canExecute() === true) {
-						clearHighlight.execute();
-					}
+					prob(clearHighlight);
 				}));
 		});
 

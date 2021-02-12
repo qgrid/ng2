@@ -14,3 +14,12 @@ export class Command {
 		this.shortcut = context.shortcut || '';
 	}
 }
+
+export function prob(cmd, arg) {
+	if (cmd.canExecute(arg) === true) {
+		cmd.execute(arg);
+		return true;
+	}
+
+	return false;
+}

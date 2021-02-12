@@ -1,4 +1,4 @@
-import { Command } from '../command/command';
+import { Command, prob } from '../command/command';
 import { 
     MOUSE_MOVE_COMMAND_KEY,
     SELECTION_RANGE_COMMAND_KEY,
@@ -22,9 +22,7 @@ export class MouseMoveCommand extends Command {
                 const selectRange = commandPalette.get(SELECTION_RANGE_COMMAND_KEY);
                 const navigate = commandPalette.get(NAVIGATION_GO_TO_COMMAND_KEY);
 
-                if (highlightCell.canExecute(cell) === true) {
-                    highlightCell.execute(cell)
-                }
+                prob(highlightCell, cell);
 
                 if (highlightRow.canExecute([cell.rowIndex, true]) === true) {
                     model
@@ -37,10 +35,7 @@ export class MouseMoveCommand extends Command {
 
                 const range = [model.mouse().target, cell];
                 if (selectRange.canExecute(range)) {
-                    if (navigate.canExecute(range[1]) === true) {
-                        navigate.execute(range[1]);
-                    }
-
+                    prob(navigate, range[1]);
                     selectRange.execute(range);
                 }
             }

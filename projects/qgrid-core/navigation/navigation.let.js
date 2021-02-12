@@ -1,5 +1,6 @@
 import { selectColumnIndex, selectRowIndex } from './navigation.state.selector';
 import { SCROLL_TO_COMMAND_KEY, FOCUS_INVALIDATE_COMMAND_KEY, FOCUS_COMMAND_KEY, BLUR_COMMAND_KEY } from '../command-bag/command.bag';
+import { prob } from '../command/command';
 
 export class NavigationLet {
 	constructor(plugin) {
@@ -27,8 +28,8 @@ export class NavigationLet {
 					const columnIndex = selectColumnIndex(e.state);
 
 					invalidateFocus.execute();
-					if (e.tag.source !== 'navigation.scroll' && scrollTo.canExecute([rowIndex, columnIndex])) {
-						scrollTo.execute([rowIndex, columnIndex]);
+					if (e.tag.source !== 'navigation.scroll') {
+						prob(scrollTo, [rowIndex, columnIndex]);
 					}
 				}
 			});
@@ -41,14 +42,14 @@ export class NavigationLet {
 				}
 
 				if (e.hasChanges('rowIndex') || e.hasChanges('columnIndex')) {
-					focus.execute(e.state);
+					prob(focus, e.state);
 				}
 
 				if (e.hasChanges('isActive')) {
 					if (e.state.isActive) {
-						focus.execute();
+						prob(focus);
 					} else {
-						blur.execute();
+						prob(blur);
 					}
 				}
 			});
@@ -65,7 +66,7 @@ export class NavigationLet {
 
 							if (rowIndex >= 0 && columnIndex >= 0) {
 								let td = table.body.cell(rowIndex, columnIndex).model();
-								focus.execute({
+								prob(focus, {
 									rowIndex: td ? td.rowIndex : -1,
 									columnIndex: td ? td.columnIndex : -1,
 								});

@@ -1,4 +1,4 @@
-import { Command } from '../command/command';
+import { Command, prob } from '../command/command';
 import { Fastdom } from '../services/fastdom';
 import { isUndefined } from '../utility/kit';
 import { SCROLL_TO_COMMAND_KEY, SCROLL_COMMAND_KEY } from './command.bag';
@@ -58,9 +58,7 @@ export class ScrollToCommand extends Command {
                         const top = isUndefined(state.top) ? model.scroll().top : state.top;
                         const pos = [left, top];
 
-                        if (scroll.canExecute(pos) === true) {
-                            scroll.execute(pos);
-                        }
+                        prob(scroll, pos);
                     }
                 });
             },

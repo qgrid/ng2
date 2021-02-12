@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnInit, Optional, NgZone } from '@angular/core';
-import { Command } from '@qgrid/core/command/command';
+import { Command, prob } from '@qgrid/core/command/command';
 import { DragService } from '@qgrid/core/drag/drag.service';
 import { elementFromPoint, parents } from '@qgrid/core/services/dom';
 import { EventListener } from '@qgrid/core/event/event.listener';
@@ -53,9 +53,7 @@ export class DropDirective implements OnInit {
 								inAreaY: no
 							};
 
-							if (this.drop.canExecute(eventArg)) {
-								this.drop.execute(eventArg);
-							}
+							prob(this.drop, eventArg);
 						}
 					}
 				});
@@ -75,10 +73,7 @@ export class DropDirective implements OnInit {
 			inAreaY: this.inAreaFactory(e, 'y')
 		};
 
-		if (this.drop.canExecute(eventArg) === true) {
-			this.drop.execute(eventArg);
-		}
-
+		prob(this.drop, eventArg);
 		return false;
 	}
 
@@ -117,8 +112,7 @@ export class DropDirective implements OnInit {
 			inAreaY: this.inAreaFactory(e, 'y')
 		};
 
-		if (this.dragOver.canExecute(eventArg) === true) {
-			this.dragOver.execute(eventArg);
+		if (prob(this.dragOver, eventArg)) {
 			if (DragService.data !== eventArg.dragData) {
 				DragService.data = eventArg.dragData;
 			}

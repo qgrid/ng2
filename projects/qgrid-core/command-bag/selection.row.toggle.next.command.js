@@ -1,4 +1,4 @@
-import { Command } from '../command/command';
+import { Command, prob } from '../command/command';
 import { selectRowIndex } from '../navigation/navigation.state.selector';
 import { 
     SELECTION_ROW_TOGGLE_NEXT_COMMAND_KEY,
@@ -27,9 +27,7 @@ export class SelectionRowToggleNextCommand extends Command {
                 const commit = toggleSelection.execute(row);
                 commit();
 
-                if (goUp.canExecute()) {
-                    goUp.execute();
-                }
+                prob(goUp);
             },
         });
     }

@@ -23,9 +23,7 @@ export class MouseWheelCommand extends Command {
                     const top = Math.min(lower, Math.max(upper, model.scroll().top + offset));
 
                     const pos = [model.scroll().left, top];
-                    if (scroll.canExecute(pos) === true) {
-                        scroll.execute(pos);
-                    }
+                    prob(scroll, pos);
                 });
             }
         });

@@ -14,6 +14,7 @@ import { EventListener } from '@qgrid/core/event/event.listener';
 import { EventManager } from '@qgrid/core/event/event.manager';
 import { GridPlugin } from '@qgrid/ngx';
 import { SORT_TOGGLE_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
+import { prob } from '@qgrid/core/command/command';
 
 @Component({
 	selector: 'q-grid-column-sort',
@@ -52,11 +53,7 @@ export class ColumnSortComponent implements AfterViewInit {
 		});
 
 		const listener = new EventListener(nativeElement, new EventManager(this));
-		listener.on('click', () => {
-			if (toggleSort.canExecute(this.column) === true) {
-				toggleSort.execute(this.column);
-			}
-		});
+		listener.on('click', () => prob(toggleSort, this.column));
 
 		this.zone.runOutsideAngular(() =>
 			listener.on('mouseleave', () => columnSort.mouseLeave())

@@ -1,4 +1,4 @@
-import { Command } from '../command/command';
+import { Command, prob } from '../command/command';
 import { filter, takeOnce } from '../rx/rx.operators';
 import { FOCUS_AFTER_RENDER_COMMAND_KEY, FOCUS_COMMAND_KEY } from './command.bag';
 
@@ -16,9 +16,7 @@ export class FocusAfterRenderCommand extends Command {
                     )
                     .subscribe(() => {
                         const focus = commandPalette.get(FOCUS_COMMAND_KEY);
-                        if (focus.canExecute(pos)) {
-                            focus.execute(pos);
-                        }
+                        prob(focus, pos);
                     });
             }
         });

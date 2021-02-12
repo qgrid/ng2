@@ -3,6 +3,7 @@ import { SELECTION_CELL_TOGGLE_COMMAND_KEY, SELECTION_ROW_TOGGLE_COMMAND_KEY, SE
 import { SelectionService } from './selection.service';
 import { selectionStateFactory as formFactory } from './state/selection.state.factory';
 import { SubjectLike } from '../rx/rx';
+import { prob } from '../command/command';
 
 export class SelectionLet {
 	constructor(plugin) {
@@ -26,9 +27,7 @@ export class SelectionLet {
 				}
 
 				if (e.hasChanges('cell')) {
-					if (toggleCell.canExecute(e.state.cell) === true) {
-						toggleCell.execute(e.state.cell);
-					}
+					prob(toggleCell, e.state.cell);
 				}
 			});
 

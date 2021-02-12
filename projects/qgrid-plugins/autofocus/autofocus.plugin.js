@@ -1,5 +1,6 @@
 import { filter, takeOnce } from '@qgrid/core/rx/rx.operators';
 import { FOCUS_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
+import { prob } from '@qgrid/core/command/command';
 
 export class AutofocusPlugin {
 	constructor(plugin) {
@@ -21,9 +22,7 @@ export class AutofocusPlugin {
 			)
 			.subscribe(() => {
 				const focus = commandPalette.get(FOCUS_COMMAND_KEY);
-				if (focus.canExecute()) {
-					focus.execute();
-				}
+				prob(focus);
 			});
 	}
 }

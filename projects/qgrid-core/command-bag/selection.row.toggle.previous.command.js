@@ -1,4 +1,4 @@
-import { Command } from '../command/command';
+import { Command, prob } from '../command/command';
 import { selectRowIndex, selectColumnIndex } from '../navigation/navigation.state.selector';
 import { 
     SELECTION_ROW_TOGGLE_PREVIOUS_COMMAND_KEY,
@@ -28,9 +28,7 @@ export class SelectionRowTogglePreviousCommand extends Command {
                 const commit = toggleSelection.execute(row);
                 commit();
 
-                if (goDown.canExecute()) {
-                    goDown.execute();
-                }
+                prob(goDown);
             },
         });
     }

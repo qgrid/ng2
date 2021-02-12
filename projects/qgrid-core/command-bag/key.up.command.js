@@ -1,4 +1,4 @@
-import { Command } from '../command/command';
+import { Command, prob } from '../command/command';
 import { KEY_UP_COMMAND_KEY, KEY_RELEASE_COMMAND_KEY } from './command.bag';
 
 export class KeyUpCommand extends Command {
@@ -32,9 +32,7 @@ export class KeyUpCommand extends Command {
 
                     if (!newCodes.length) {
                         const keyRelease = commandPalette.get(KEY_RELEASE_COMMAND_KEY);
-                        if (keyRelease.canExecute() === true) {
-                            keyRelease.execute();
-                        }
+                        prob(keyRelease);
                     }
                 }
             }

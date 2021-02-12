@@ -1,6 +1,7 @@
 import { isFunction, identity } from '../utility/kit';
 import { Fastdom } from '../services/fastdom';
 import { GRID_INVALIDATE_COMMAND_KEY, SCROLL_COMMAND_KEY } from '../command-bag/command.bag';
+import { prob } from '../command/command';
 
 export class ScrollLet {
 	constructor(plugin, vscroll) {
@@ -174,9 +175,7 @@ export class ScrollLet {
 				if (e.hasChanges('left') || e.hasChanges('top')) {
 					const scroll = commandPalette.get(SCROLL_COMMAND_KEY);
 					const pos = [e.state.left, e.state.top];
-					if (scroll.canExecute(pos) === true) {
-						scroll.execute(pos);
-					}
+					prob(scroll, pos);
 				}
 			});
 	}

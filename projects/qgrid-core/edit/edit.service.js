@@ -1,3 +1,4 @@
+import { prob } from '../command/command';
 import { CellEditor } from './edit.cell.editor';
 import { EditCellLet } from './edit.cell.let';
 
@@ -48,9 +49,7 @@ export class EditService {
 				editor.value = value;
 
 				editView.editor = editor;
-				if (editView.push.canExecute()) {
-					editView.push.execute();
-				}
+				prob(editView.push);
 			}
 		}
 	}

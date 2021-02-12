@@ -29,9 +29,7 @@ export class SelectionColumnToggleNextCommand extends Command {
                     columnIndex: columnIndex + 1
                 };
 
-                if (navigateTo.canExecute(cell)) {
-                    navigateTo.execute(cell);
-                }
+                prob(navigateTo, cell);
             },
 
         });

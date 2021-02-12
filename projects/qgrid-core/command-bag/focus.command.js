@@ -1,4 +1,4 @@
-import { Command } from '../command/command';
+import { Command, prob } from '../command/command';
 import { isUndefined } from '../utility/kit';
 import { selectRowIndex, selectColumnIndex } from '../navigation/navigation.state.selector';
 import { Fastdom } from '../services/fastdom';
@@ -127,9 +127,7 @@ export class FocusCommand extends Command {
 
                 const goTo = commandPalette.get(NAVIGATION_GO_TO_COMMAND_KEY);
                 const navPos = toNavPos(pos);
-                if (goTo.canExecute(navPos) === true) {
-                    goTo.execute(navPos);
-                }
+                prob(goTo, navPos);
             }
         });
     }

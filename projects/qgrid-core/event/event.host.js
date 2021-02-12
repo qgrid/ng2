@@ -15,6 +15,7 @@ import { getButtonCode } from '../mouse/mouse.code';
 import { Keyboard } from '../keyboard/keyboard';
 import { PathService } from '../path/path.service';
 import { selectRowIndex, selectColumnIndex } from '../navigation/navigation.state.selector';
+import { prob } from '../command/command';
 
 export class EventHost {
 	constructor(host, plugin) {
@@ -26,9 +27,7 @@ export class EventHost {
 		const { commandPalette } = this.plugin;
 		const code = Keyboard.translate(e.code);
 		const keyUp = commandPalette.get(KEY_UP_COMMAND_KEY);
-		if (keyUp.canExecute(code) === true) {
-			keyUp.execute(code);
-		}
+		prob(keyUp, code);
 	}
 
 	keyDown(e) {
@@ -55,9 +54,7 @@ export class EventHost {
 	keyRelease() {
 		const { commandPalette } = this.plugin;
 		const keyRelease = commandPalette.get(KEY_RELEASE_COMMAND_KEY);
-		if (keyRelease.canExecute() === true) {
-			keyRelease.execute();
-		}
+		prob(keyRelease);
 	}
 
 	mouseUp(e) {
@@ -65,9 +62,7 @@ export class EventHost {
 		const cell = this.findCell(e);
 		const mouseUp = commandPalette.get(MOUSE_UP_COMMAND_KEY);
 		const code = getButtonCode(e);
-		if (mouseUp.canExecute([cell, code]) === true) {
-			mouseUp.execute([cell, code]);
-		}
+		prob(mouseUp, [cell, code]);
 	}
 
 	mouseDown(e) {
@@ -90,35 +85,25 @@ export class EventHost {
 		const { commandPalette } = this.plugin;
 		const cell = this.findCell(e);
 		const mouseMove = commandPalette.get(MOUSE_MOVE_COMMAND_KEY);
-		if (mouseMove.canExecute(cell) === true) {
-			mouseMove.execute(cell);
-		}
+		prob(mouseMove, cell);
 	}
 
 	mouseLeave() {
 		const { commandPalette } = this.plugin;
 		const clearHighlight = commandPalette.get(HIGHLIGHT_CLEAR_COMMAND_KEY);
-		if (clearHighlight.canExecute() === true) {
-			clearHighlight.execute();
-		}
+		prob(clearHighlight);
 	}
 
 	checkFocus() {
 		const { table, commandPalette } = this.plugin;
 		if (table.view.isFocused()) {
 			const focus = commandPalette.get(FOCUS_COMMAND_KEY);
-			if (focus.canExecute()) {
-				focus.execute();
-			}
-
+			prob(focus);
 			return true;
 		}
 
 		const blur = commandPalette.get(BLUR_COMMAND_KEY);
-		if (blur.canExecute()) {
-			blur.execute();
-		}
-
+		prob(blur);
 		return false;
 	}
 
