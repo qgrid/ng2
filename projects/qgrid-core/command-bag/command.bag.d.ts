@@ -5,10 +5,10 @@ import { ModelChanges } from '../model/model.event';
 import { PipeCallback, PipeUnitWhy } from '../pipe/pipe.types';
 
 export declare type GridInvalidateCommandArg = {
-    source: string,
-    changes: ModelChanges<any>,
-    pipe: PipeCallback<any, any>[],
-    why: PipeUnitWhy
+	source: string,
+	changes: ModelChanges<any>,
+	pipe: PipeCallback<any, any>[],
+	why: PipeUnitWhy
 };
 
 export interface DropCommandArg {
@@ -30,7 +30,7 @@ export declare const DOCUMENT_CLICK_COMMAND_KEY: CommandKey<[HTMLElement, MouseE
 export declare const EDIT_CELL_CANCEL_COMMAND_KEY: CommandKey<CellView>;
 export declare const EDIT_CELL_CLEAR_COMMAND_KEY: CommandKey<CellView>;
 export declare const EDIT_CELL_COMMIT_COMMAND_KEY: CommandKey<CellView>;
-export declare const EDIT_CELL_ENTER_COMMAND_KEY: CommandKey<CellView>;
+export declare const EDIT_CELL_ENTER_COMMAND_KEY: CommandKey<[CellView, 'navigation' | 'mousedown' | 'keydown' | 'custom']>;
 export declare const EDIT_CELL_EXIT_COMMAND_KEY: CommandKey<CellView>;
 export declare const EDIT_CELL_PUSH_COMMAND_KEY: CommandKey<CellView>;
 export declare const EDIT_CELL_RESET_COMMAND_KEY: CommandKey<CellView>;

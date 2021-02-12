@@ -39,8 +39,8 @@ export class EditCellLet {
 								source: 'edit.cell.let'
 							});
 
-							if (this.enter.canExecute()) {
-								this.enter.execute();
+							if (this.enter.canExecute([null, 'custom'])) {
+								this.enter.execute([null, 'custom']);
 							}
 
 							break;
@@ -90,8 +90,8 @@ export class EditCellLet {
 
 					const { cell } = e.state;
 					if (cell && (cell.column.editorOptions.trigger === 'focus')) {
-						if (this.enter.canExecute(cell)) {
-							this.enter.execute(cell);
+						if (this.enter.canExecute([cell, 'navigation'])) {
+							this.enter.execute([cell, 'navigation']);
 						}
 					}
 				}

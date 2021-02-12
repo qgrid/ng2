@@ -15,13 +15,15 @@ export class EditCellEnterCommand extends Command {
             key: EDIT_CELL_ENTER_COMMAND_KEY,
             priority: 1,
             shortcut: getShortcut('enter'),
-            canExecute: cell => {
+            canExecute: ([cell, source] = [null, 'keyboard']) => {
                 const editLet = view.edit.cell;
                 cell = cell || model.navigation().cell;
 
-                const { codes } = model.keyboard();
-                if (codes.length && Keyboard.isControl(model.keyboard().codes[0])) {
-                    return false;
+                if (source !== 'navigation') {
+                    const { codes } = model.keyboard();
+                    if (codes.length && Keyboard.isControl(model.keyboard().codes[0])) {
+                        return false;
+                    }
                 }
 
                 const canEdit =
@@ -43,7 +45,7 @@ export class EditCellEnterCommand extends Command {
 
                 return false;
             },
-            execute: cell => {
+            execute: ([cell, source] = [null, 'keyboard']) => {
                 const editLet = view.edit.cell;
                 cell = cell || model.navigation().cell;
 

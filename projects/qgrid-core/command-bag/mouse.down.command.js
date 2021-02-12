@@ -38,8 +38,8 @@ export class MouseDownCommand extends Command {
 
                     if (fromNotEditMode) {
                         const enter = commandPalette.get(EDIT_CELL_ENTER_COMMAND_KEY);
-                        if (enter.canExecute(cell) === true) {
-                            enter.execute(cell)
+                        if (enter.canExecute([cell, 'mousedown']) === true) {
+                            enter.execute([cell, 'mousedown'])
                         }
                     }
 
