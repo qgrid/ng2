@@ -2,7 +2,8 @@
 		[rows]="rows | async"
 		[model]="gridModel"
 		class="q-grid-compact"
-		selectionUnit="row">
+		selectionUnit="row"
+		selectionMode="singleOnly">
 	<q-grid-columns generation="deep">
 		<q-grid-column type="select"
 					   [isVisible]="false">
