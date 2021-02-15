@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
+import { selectRowIndex, selectColumnIndex } from '@qgrid/core/navigation/navigation.state.selector';
 
 @Component({
 	selector: 'q-grid-status-bar',
@@ -21,15 +22,15 @@ export class StatusBarComponent implements OnInit {
 
 	ngOnInit() {
 		const { model, observe } = this.plugin;
-		observe(model.focusChanged)
+		observe(model.navigationChanged)
 			.subscribe(() => this.cd.detectChanges());
 	}
 
 	get rowIndex() {
-		return this.plugin.model.focus().rowIndex;
+		return selectRowIndex(this.plugin.model.navigation());
 	}
 
 	get columnIndex() {
-		return this.plugin.model.focus().columnIndex;
+		return selectColumnIndex(this.plugin.model.navigation());
 	}
 }

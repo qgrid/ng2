@@ -8,7 +8,7 @@ import { Node } from '../node/node';
  * * `'subhead'` group column try to use all available space to display hierarchy.
  * * `'rowspan'` group column occupies all space on expand
  */
-export declare type GroupStateMode = 'nest' | 'column' | 'subhead' | 'rowspan';
+export declare type GroupStateMode = 'nest' | 'subhead' | 'rowspan' | 'flat';
 
 export declare type GroupStateSummary = null | 'leaf';
 

@@ -10,7 +10,7 @@ import { GRID_PREFIX } from '@qgrid/core/definition';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LiveRowComponent implements OnInit {
-	@Input('duration') duration = 200;
+	@Input('duration') duration = 400;
 
 	constructor(private plugin: GridPlugin, private zone: NgZone) { }
 
@@ -63,7 +63,7 @@ export class LiveRowComponent implements OnInit {
 					{ duration: this.duration }
 				);
 
-				animation.onfinish = () => resolve();
+				animation.onfinish = () => resolve(null);
 			});
 		});
 	}
@@ -71,13 +71,13 @@ export class LiveRowComponent implements OnInit {
 	private moveRow(from: number, to: number) {
 		const { table } = this.plugin;
 
-		return new Promise((resolve, reject) => {
+		return new Promise((animationEnd, animationError) => {
 			const oldTr = table.body.row(from);
 			const newTr = table.body.row(to);
 
 			if (!oldTr.model() || !newTr.model()) {
 				const errorIndex = oldTr.model() ? to : from;
-				reject(`Can't find model for row ${errorIndex}`);
+				animationError(`Can't find model for row ${errorIndex}`);
 				return;
 			}
 
@@ -87,22 +87,26 @@ export class LiveRowComponent implements OnInit {
 				Fastdom.mutate(() => {
 					const animatedRows = [];
 					oldTr.addClass(`${GRID_PREFIX}-live-row`);
-					(oldTr.getElement() as any).elements.forEach(rowElement => animatedRows.push(
-						new Promise(res => {
-							const animation = rowElement.animate([
-								{ transform: `translateY(0px)` },
-								{ transform: `translateY(${offset}px)` }],
-								{ duration: this.duration }
-							);
+					(oldTr.getElement() as any)
+						.elements
+						.forEach(rowElement =>
+							animatedRows.push(
+								new Promise(animationRowEnd => {
+									const animation = rowElement.animate([
+										{ transform: `translateY(0px)` },
+										{ transform: `translateY(${offset}px)` }],
+										{ duration: this.duration }
+									);
 
-							animation.onfinish = () => Fastdom.mutate(() => {
-								oldTr.removeClass(`${GRID_PREFIX}-live-row`);
-								oldTr.removeClass(`${GRID_PREFIX}-drag`);
-								res();
-							});
-						})));
+									animation.onfinish = () => Fastdom.mutate(() => {
+										oldTr.removeClass(`${GRID_PREFIX}-live-row`);
+										oldTr.removeClass(`${GRID_PREFIX}-drag`);
+										animationRowEnd(null);
+									});
+								}))
+						);
 
-					Promise.all(animatedRows).finally(() => resolve());
+					Promise.all(animatedRows).finally(() => animationEnd(null));
 				});
 			});
 		});

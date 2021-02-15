@@ -13,7 +13,6 @@ export class TemplatePath {
 				`"${name}" is already registered`);
 		}
 
-
 		resolvers[name] = resolve;
 		return TemplatePath;
 	}
@@ -45,7 +44,7 @@ export class TemplatePath {
 		return null;
 	}
 
-	static name(name) {
+	static getName(name) {
 		return '_' + name;
 	}
 

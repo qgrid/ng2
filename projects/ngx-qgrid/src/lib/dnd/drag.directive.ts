@@ -12,7 +12,7 @@ import { isFunction } from '@qgrid/core/utility/kit';
 })
 export class DragDirective {
 	@Input('q-grid-drag-data') data: any;
-	@Input('q-grid-drag-effect') effect: string;
+	@Input('q-grid-drag-effect') effect:  undefined | 'move';
 	@Input('q-grid-drag') drag: Command;
 	@Input('q-grid-drop-area') area: string;
 

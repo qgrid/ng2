@@ -40,17 +40,26 @@ export class ExportComponent implements AfterViewInit {
 			'file_download'
 		);
 
-		action.id = this.type;
 		if (this.templateRef) {
 			action.templateUrl = this.templateHost.key('trigger');
 		}
 
 		const items = Composite.list([model.action().items, [action]]);
-		model.action({ items }, { source: 'export.component' });
+		model.action({
+			items
+		}, {
+			source: 'export.component'
+		});
 
 		disposable.add(() => {
-			const notExportItems = model.action().items.filter(x => x.id !== action.id);
-			model.action({ items: notExportItems }, { source: 'export.component' });
+			model.action({
+				items: model
+					.action()
+					.items
+					.filter(x => x !== action)
+			}, {
+				source: 'export.component'
+			});
 		});
 	}
 }

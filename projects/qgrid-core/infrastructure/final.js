@@ -2,12 +2,13 @@ export function final() {
     let isLocked = false;
     return f => {
         if (isLocked) {
-            return;
+            return false;
         }
 
         isLocked = true;
         try {
             f();
+            return true;
         } finally {
             isLocked = false;
         }

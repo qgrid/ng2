@@ -119,8 +119,8 @@ import { ExampleOnPushBasicComponent } from './on-push-basic/example-on-push-bas
 import { ExamplePaginationBasicComponent } from './pagination-basic/example-pagination-basic.component';
 import { ExamplePaneBasicComponent } from './pane-basic/example-pane-basic.component';
 import { ExamplePaneTriggerComponent } from './pane-trigger/example-pane-trigger.component';
+import { ExamplePaneWithSelectionComponent } from './pane-with-selection-mode/example-pane-with-selection-mode.component';
 import { ExamplePersistenceBasicComponent } from './persistence-basic/example-persistence-basic.component';
-import { ExamplePersistenceOnStateChangeComponent } from './persistence-on-state-change/example-persistence-on-state-change.component';
 import { ExamplePersistenceServerComponent } from './persistence-server/example-persistence-server.component';
 import { ExamplePinColumnBasicComponent } from './pin-column-basic/example-pin-column-basic.component';
 import { ExamplePipeGridBasicComponent } from './pipe-grid-basic/example-pipe-grid-basic.component';
@@ -168,6 +168,8 @@ import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme
 import { ExampleValidationBasicComponent } from './validation-basic/example-validation-basic.component';
 import { ExampleVisibilityBasicComponent } from './visibility-basic/example-visibility-basic.component';
 import { ExampleVisibilityStateComponent } from './visibility-model/example-visibility-model.component';
+import { ExampleSelectRowEditComponent } from './select-row-edit/example-select-row-edit.component';
+import { ExamplePersistenceOnStateChangeComponent } from './persistence-on-state-change/example-persistence-on-state-change.component';
 
 export const EXAMPLES: any[] = [
 	ExampleActionBarBasicComponent,
@@ -279,6 +281,7 @@ export const EXAMPLES: any[] = [
 	ExamplePaginationBasicComponent,
 	ExamplePaneBasicComponent,
 	ExamplePaneTriggerComponent,
+	ExamplePaneWithSelectionComponent,
 	ExamplePersistenceBasicComponent,
 	ExamplePersistenceOnStateChangeComponent,
 	ExamplePersistenceServerComponent,
@@ -308,6 +311,7 @@ export const EXAMPLES: any[] = [
 	ExampleSelectRowBasicComponent,
 	ExampleSelectRowCommandComponent,
 	ExampleSelectRowDisableComponent,
+	ExampleSelectRowEditComponent,
 	ExampleSelectRowRangeComponent,
 	ExampleSelectRowSingleComponent,
 	ExampleSelectRowSingleOnlyComponent,

@@ -1,9 +1,9 @@
 export class Action {
-	constructor(command, title, icon) {
+	constructor(command, title, icon, templateUrl) {
 		this.command = command;
+
 		this.title = title;
 		this.icon = icon;
-		this.id = null;
-		this.templateUrl = null;
+		this.templateUrl = templateUrl;
 	}
 }

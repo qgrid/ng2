@@ -1,0 +1,6 @@
+@import './variables.scss';
+
+.q-grid-disabled{
+    color: $disabled-color;
+    cursor: default;
+}

@@ -48,18 +48,28 @@ export class ImportComponent implements AfterViewInit {
 			'file_upload'
 		);
 
-		action.id = 'import';
-
 		if (this.templateRef) {
 			action.templateUrl = this.templateHost.key('trigger');
 		}
 
 		const items = Composite.list([model.action().items, [action]]);
-		model.action({ items }, { source: 'import.component' });
+
+		model.action({
+			items
+		}, {
+			source: 'import.component'
+		});
 
 		disposable.add(() => {
-			const notImportItems = model.action().items.filter(x => x.id !== action.id);
-			model.action({ items: notImportItems }, { source: 'import.component' });
+			const notImportItems =
+				model.action({
+					items: model
+						.action()
+						.items
+						.filter(x => x !== action)
+				}, {
+					source: 'import.component'
+				});
 		});
 	}
 

@@ -52,13 +52,13 @@
 		<q-grid-rule for="cell"
 					 key="summary"
 					 required
-					 minLength="5">
+					 [minLength]="5">
 		</q-grid-rule>
 		<q-grid-rule for="cell"
 					 key="period"
 					 required
 					 positiveInteger
-					 lengthEqual="1">
+					 [lengthEqual]="1">
 		</q-grid-rule>
 		<q-grid-rule for="cell"
 					 key="radius"

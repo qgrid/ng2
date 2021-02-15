@@ -66,7 +66,7 @@ export class LiveColumnComponent implements OnInit {
 	private moveColumn(from: number, to: number, startPos: number, endPos: number) {
 		const { table } = this.plugin;
 
-		return new Promise((resolve, reject) => {
+		return new Promise((animationEnd, animationError) => {
 			const oldColumn = table.body.column(from);
 			const newColumn = table.body.column(to);
 			const startColumn = table.body.column(startPos);
@@ -74,7 +74,7 @@ export class LiveColumnComponent implements OnInit {
 
 			if (!oldColumn.model() || !newColumn.model()) {
 				const errorIndex = oldColumn.model() ? to : from;
-				reject(`Can't find model for column ${errorIndex}`);
+				animationError(`Can't find model for column ${errorIndex}`);
 				return;
 			}
 
@@ -95,7 +95,7 @@ export class LiveColumnComponent implements OnInit {
 					const animatedCells = [];
 					oldColumn.addClass(`${GRID_PREFIX}-live-column`);
 					oldColumn.cells().forEach(cell => animatedCells.push(
-						new Promise(res => {
+						new Promise(columnAnimationEnd => {
 							const animation = cell.model().element.animate([
 								{ transform: `translateX(0px)` },
 								{ transform: `translateX(${offset}px)` }],
@@ -105,11 +105,11 @@ export class LiveColumnComponent implements OnInit {
 							animation.onfinish = () => Fastdom.mutate(() => {
 								oldColumn.removeClass(`${GRID_PREFIX}-live-column`);
 								oldColumn.removeClass(`${GRID_PREFIX}-drag`);
-								res();
+								columnAnimationEnd(null);
 							});
 						})));
 
-					Promise.all(animatedCells).finally(() => resolve());
+					Promise.all(animatedCells).finally(() => animationEnd(null));
 				});
 			});
 		});

@@ -74,21 +74,20 @@ export class PersistenceComponent implements OnInit, OnChanges {
 
 		switch (model.persistence().schedule) {
 			case 'onDemand': {
-				const action =
+				const historyAction =
 					new Action(
 						new Command(),
 						'Save/Load',
 						'history'
 					);
 
-				action.templateUrl = 'plugin-persistence.tpl.html';
-				action.id = 'persistence';
+				historyAction.templateUrl = 'plugin-persistence.tpl.html';
 
-				const items = Composite.list([model.action().items, [action]]);
+				const items = Composite.list([model.action().items, [historyAction]]);
 				model.action({ items }, { source: 'persistence.component' });
 
 				disposable.add(() => {
-					const notPersistenceActions = model.action().items.filter(x => x.id !== action.id);
+					const notPersistenceActions = model.action().items.filter(x => x !== historyAction);
 					model.action({ items: notPersistenceActions }, { source: 'persistence.component' });
 				});
 
@@ -100,6 +99,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 					for (const key of settings[state]) {
 						observe(model[state + 'Changed'] as GridEvent<any>)
 							.pipe(
+								// TODO: get rid of e.tag.source check
 								filter(e => e.hasChanges(key) && e.tag.source !== 'persistence.service')
 							)
 							.subscribe(e => {

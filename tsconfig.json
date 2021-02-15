@@ -24,9 +24,5 @@
         "./projects/ngx-qgrid-plugins/src/public-api.ts"
       ]
     }
-  },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "enableIvy": true
   }
 }

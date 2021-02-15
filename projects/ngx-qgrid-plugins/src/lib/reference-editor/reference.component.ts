@@ -88,7 +88,11 @@ export class ReferenceComponent implements OnInit {
 						if (!isUndefined(value)) {
 							const entries = isArray(value) ? value : [value];
 							const items = selectionService.map(entries);
-							this.model.selection({ items }, { source: 'reference.component' });
+							this.model.selection({
+								items
+							}, {
+								source: 'reference.component'
+							});
 						}
 					}
 				}
@@ -96,16 +100,20 @@ export class ReferenceComponent implements OnInit {
 		);
 
 		this.disposable.add(
-			this.model.selectionChanged.watch(e => {
-				if (e.tag.source === 'reference.component') {
-					return;
-				}
+			this.model
+				.selectionChanged
+				// TODO: use rx syntax
+				.watch(e => {
+					// TODO: get rid of this check
+					if (e.tag.source === 'reference.component') {
+						return;
+					}
 
-				if (e.hasChanges('items')) {
-					const entries = selectionService.lookup(e.state.items);
-					this.value = entries;
-				}
-			})
+					if (e.hasChanges('items')) {
+						const entries = selectionService.lookup(e.state.items);
+						this.value = entries;
+					}
+				})
 		);
 	}
 }

@@ -3,5 +3,5 @@ export declare class Log {
 
 	static info(source: string, message: string): void;
 	static warn(source: string, message: string): void;
-	static error(source: string, message: string): void;
+	static error(source: string, message: (string | Error)): void;
 }

@@ -1,7 +1,7 @@
 import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
-import { GridComponent, GridService, Grid, GridModel } from 'ng2-qgrid';
+import { GridComponent, Grid, GridModel } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = [
 	'filter-row-custom',
@@ -22,17 +22,15 @@ export class ExampleFilterRowCustomComponent {
 	@ViewChild(GridComponent, { static: true }) myGrid: GridComponent;
 	rows: Observable<Atom[]>;
 	gridModel: GridModel;
-	gridService: GridService;
 
 	search = {
 		name: '',
 		phase: ''
 	};
 
-	constructor(dataService: DataService, grid: Grid) {
+	constructor(dataService: DataService, qgrid: Grid) {
 		this.rows = dataService.getAtoms();
-		this.gridModel = grid.model();
-		this.gridService = grid.service(this.gridModel);
+		this.gridModel = qgrid.model();
 
 		this.gridModel.navigationChanged.watch(e => {
 			if (e.hasChanges('cell') && e.state.cell) {

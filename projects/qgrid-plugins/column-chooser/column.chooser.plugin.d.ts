@@ -14,5 +14,5 @@ export declare class ColumnChooserPlugin {
     submitEvent: Event;
     dropEvent: Event;
 
-    search(value: string);
+    search(value: string): void;
 }

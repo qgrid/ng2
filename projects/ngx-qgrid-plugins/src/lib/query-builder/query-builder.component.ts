@@ -17,7 +17,7 @@ export class QueryBuilderComponent implements OnInit {
 
 	constructor(
 		private plugin: GridPlugin
-		) {
+	) {
 	}
 
 	ngOnInit() {
@@ -30,14 +30,23 @@ export class QueryBuilderComponent implements OnInit {
 			);
 
 		action.templateUrl = 'plugin-query-builder.tpl.html';
-		action.id = 'query-builder';
 
-		const items =  Composite.list([model.action().items, [action]]);
-		model.action({ items }, { source: 'query-builder.component' });
+		const items = Composite.list([model.action().items, [action]]);
+		model.action({
+			items
+		}, {
+			source: 'query-builder.component'
+		});
 
 		disposable.add(() => {
-			const notQBItems = model.action().items.filter(x => x.id !== action.id);
-			model.action({ items: notQBItems }, { source: 'query-builder.component' });
+			model.action({
+				items: model
+					.action()
+					.items
+					.filter(x => x !== action)
+			}, {
+				source: 'query-builder.component'
+			});
 		});
 	}
 }
