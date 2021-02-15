@@ -14,7 +14,7 @@ export class EditCellExitCommand extends Command {
             priority: 1,
             execute: cell => {
                 const editLet = view.edit.cell;
-                cell = cell || cell.editor.td;
+                cell = cell || editLet.editor.td;
                 if (cell) {
                     const commit = commandPalette.get(EDIT_CELL_COMMIT_COMMAND_KEY);
                     const cancel = commandPalette.get(EDIT_CELL_CANCEL_COMMAND_KEY);

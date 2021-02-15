@@ -12,13 +12,13 @@ export class SelectionRangeCommand extends Command {
             canExecute: () => {
                 return model.selection().mode === 'range';
             },
-            execute: (startCell, endCell) => {
+            execute: ([startCell, endCell]) => {
                 const selectionSet = commandPalette.get(SELECTION_SET_COMMAND_KEY);
 
                 const buildRange = selectionRange.build();
                 const range = buildRange(startCell, endCell);
 
-                const commit = selectionSet.execute(range, true);
+                const commit = selectionSet.execute([range, true]);
                 commit();
             }
         });

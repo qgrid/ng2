@@ -20,37 +20,47 @@ export class EditService {
 			model.edit({ status: editStatus });
 			this.doBatch(startCell);
 			model.selection({ mode: selectionMode });
-		}
+		};
 	}
 
 	doBatch(startCell) {
-		const { table, model } = this.plugin;
+		const { table, model, view } = this.plugin;
 
 		const { rows } = model.scene();
 		const { columns } = model.view();
 		const { items } = model.selection();
 
-		const editView = new EditCellLet(this.plugin);
 
 		const startTd = table.body.cell(startCell.rowIndex, startCell.columnIndex).model();
 		const { value, label } = startTd;
 
 		const startColumnType = startTd.column.type;
-		for (let i = 0, length = items.length; i < length; i++) {
-			const { row, column } = items[i];
-			const rowIndex = rows.indexOf(row);
-			const columnIndex = columns.indexOf(column);
 
-			const td = table.body.cell(rowIndex, columnIndex).model();
-			const type = td.column.type;
-			if (startColumnType === type) {
-				const editor = new CellEditor(td);
-				editor.label = label;
-				editor.value = value;
+		const editLet = new EditCellLet(this.plugin);
+		const originEditLet = view.edit.cell;
+		try {
+			//TODO: make it better
+			view.edit.cell = editLet;
+			for (let i = 0, length = items.length; i < length; i++) {
+				const { row, column } = items[i];
+				const rowIndex = rows.indexOf(row);
+				const columnIndex = columns.indexOf(column);
 
-				editView.editor = editor;
-				prob(editView.push);
+				const td = table.body.cell(rowIndex, columnIndex).model();
+				const type = td.column.type;
+				if (startColumnType === type) {
+					const editor = new CellEditor(td);
+					editor.label = label;
+					editor.value = value;
+
+					editLet.editor = editor;
+					view.edit.cell = editLet;
+					prob(editLet.push);
+				}
 			}
+		}
+		finally {
+			view.edit.cell = originEditLet;
 		}
 	}
 }

@@ -33,7 +33,9 @@ export class EditCellPushCommand extends Command {
                 return false;
             },
             execute: (cell, e) => {
-                cell = cell || this.editor.td;
+                const editLet = view.edit.cell;
+                cell = cell || editLet.editor.td;
+                
                 if (cell) {
                     const clientContext = editCellContextFactory(
                         cell,
