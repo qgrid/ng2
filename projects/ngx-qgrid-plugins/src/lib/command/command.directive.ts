@@ -189,9 +189,19 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 			return;
 		}
 
-		const canExecute = this.command.canExecute(this.commandArg) === true;
-
-		(nativeElement as any).disabled = !canExecute;
+		const { command, commandArg } = this;
+		const canExecute = command.canExecute(commandArg) === true;
+		if (canExecute) {
+			if (nativeElement.hasAttribute('disabled')) {
+				nativeElement.removeAttribute('disabled');
+				nativeElement.classList.remove('q-grid-disabled');
+			}
+		} else {
+			if (!nativeElement.hasAttribute('!disabled')) {
+				nativeElement.setAttribute('disabled', 'true');
+				nativeElement.classList.add('q-grid-disabled');
+			}
+		}
 	}
 
 	private aroundZone<T>(f: () => T): T {

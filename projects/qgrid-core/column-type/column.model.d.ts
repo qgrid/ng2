@@ -220,7 +220,7 @@ export declare class ColumnModel {
 	 * Indicates what text should be shown in the cell. If property is not set column value is used.
 	 * Also `filter plugin` uses this property to show list of items and for filter application.
 	 */
-	label?: (row: any, value?: any) => string | any;
+	label?: ((row: any, value?: any) => any) | any;
 
 	/**
 	 * Path to the label. Example is `address.phones.0.num`, if `labelPath` property is setup, it is used
@@ -238,7 +238,7 @@ export declare class ColumnModel {
 	 */
 	children?: ColumnModel[]
 
-	$label?: (row: any, value?: any) => any | any;
+	$label?: ((row: any, value?: any) => any) | any;
 
 	itemLabel?: (row: any, value?: any) => any;
 

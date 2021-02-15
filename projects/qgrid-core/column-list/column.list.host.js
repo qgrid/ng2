@@ -57,7 +57,11 @@ export class ColumnListHost {
 		});
 
 		if (scene().status !== 'idle') {
-			data({ columns: Array.from(data().columns) }, { source: 'column.list.host' });
+			data({
+				columns: Array.from(data().columns)
+			}, {
+				source: 'column.list.host'
+			});
 		}
 	}
 

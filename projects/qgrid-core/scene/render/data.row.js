@@ -1,6 +1,5 @@
 import { set as setValue } from '../../services/value';
-import { set as setLabel } from '../../services/label';
-import { isUndefined } from '../../utility/kit';
+import { set as setLabel } from '../../services/label';;
 
 function defaultGetValue(row, column, select) {
 	return select(row, column);

@@ -13,34 +13,34 @@ export class RuleComponent implements OnChanges {
 	@Input() key: string;
 
 	// Common Rules
-	@Input() required?: string;
-	@Input('notEmptyList') not_empty_list?: string;
-	@Input('anyObject') any_object?: string;
+	@Input() required: string;
+	@Input('notEmptyList') not_empty_list: string;
+	@Input('anyObject') any_object: string;
 
 	// String Rules
-	@Input('equal') eq?: string;
-	@Input() string?: string;
-	@Input('lengthBetween') length_between?: string;
-	@Input('lengthEqual') length_equal?: string;
-	@Input('minLength') min_length?: string;
-	@Input('maxLength') max_length?: string;
-	@Input('oneOf') one_of?: string;
-	@Input('pattern') like?: string;
+	@Input('equal') eq: string;
+	@Input() string: string;
+	@Input('lengthBetween') length_between: number[];
+	@Input('lengthEqual') length_equal: number;
+	@Input('minLength') min_length: number;
+	@Input('maxLength') max_length: number;
+	@Input('oneOf') one_of: string[];
+	@Input('pattern') like: string;
 
 	// Numeric Rules
-	@Input() integer?: string;
-	@Input('positiveInteger') positive_integer?: string;
-	@Input() decimal?: string;
-	@Input('positiveDecimal') positive_decimal?: string;
-	@Input('maxNumber') max_number?: string;
-	@Input('minNumber') min_number?: string;
+	@Input() integer: string;
+	@Input('positiveInteger') positive_integer: string;
+	@Input() decimal: string;
+	@Input('positiveDecimal') positive_decimal: string;
+	@Input('maxNumber') max_number: number;
+	@Input('minNumber') min_number: number;
 
 	// Special Rules
-	@Input() email?: string;
-	@Input() url?: string;
-	@Input('isoDate') iso_date?: string;
-	@Input('equalToField') equal_to_field?: string;
-	@Input('listOf') list_of?: string;
+	@Input() email: string;
+	@Input() url: string;
+	@Input('isoDate') iso_date: string;
+	@Input('equalToField') equal_to_field: string;
+	@Input('listOf') list_of: string[];
 
 	@ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
 

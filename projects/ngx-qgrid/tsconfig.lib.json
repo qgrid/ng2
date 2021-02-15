@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.lib.json",
   "compilerOptions": {
-    "allowJs": true,
     "outDir": "../../out-tsc/lib",
     "declaration": true,
     "inlineSources": true,

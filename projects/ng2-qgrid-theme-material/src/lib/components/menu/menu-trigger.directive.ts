@@ -22,7 +22,7 @@ export class MenuTriggerDirective implements AfterViewInit {
 	ngAfterViewInit() {
 		Guard.notNull(this.trigger, 'trigger');
 
-		Promise.resolve(null).then(() => this.trigger.openMenu());
+		setTimeout(() => this.trigger.openMenu(), 10);
 
 		this.disposable.add(
 			this.trigger

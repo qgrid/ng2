@@ -26,47 +26,74 @@ export class ActionCoreComponent {
 	}
 
 	get command(): Command {
-		const action = this.action;
+		const { action } = this;
 		if (!action) {
-			throw new GridError('action-core.component', 'Action should be setup');
+			throw new GridError(
+				'action-core.component',
+				'Action is not set'
+			);
 		}
 
 		return action.command;
 	}
 
 	get title() {
-		const action = this.action;
+		const { action } = this;
 		if (!action) {
-			throw new GridError('action-core.component', 'Action should be setup');
+			throw new GridError(
+				'action-core.component',
+				'Action is not set'
+			);
 		}
 
 		return action.title;
 	}
 
 	get icon() {
-		const action = this.action;
+		const { action } = this;
 		if (!action) {
-			throw new GridError('action-core.component', 'Action should be setup');
+			throw new GridError(
+				'action-core.component',
+				'Action is not set'
+			);
 		}
 
 		return action.icon;
 	}
 
 	get templateUrl() {
-		const action = this.action;
+		const { action } = this;
 		if (!action) {
-			throw new GridError('action-core.component', 'Action should be setup');
+			throw new GridError(
+				'action-core.component',
+				'Action is not set'
+			);
 		}
 
 		return action.templateUrl;
 	}
 
-	get id() {
-		const action = this.action;
+	get mode(): 'template' | 'icon' | 'text' | 'none' {
+		const { action } = this;
 		if (!action) {
-			throw new GridError('action-core.component', 'Action should be setup');
+			throw new GridError(
+				'action-core.component',
+				'Action is not set'
+			);
 		}
 
-		return action.id;
+		if (action.templateUrl) {
+			return 'template';
+		}
+
+		if (action.icon) {
+			return 'icon';
+		}
+
+		if (action.title) {
+			return 'text';
+		}
+
+		return 'none';
 	}
 }

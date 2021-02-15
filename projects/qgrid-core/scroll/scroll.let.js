@@ -24,8 +24,8 @@ export class ScrollLet {
 		this.y.container.write = Fastdom.mutate;
 
 		const subscribe =
-			(this.y.container.drawEvent.on || this.y.container.drawEvent.subscribe)
-				.bind(this.y.container.drawEvent);
+			(this.y.container.draw$.on || this.y.container.draw$.subscribe)
+				.bind(this.y.container.draw$);
 
 		const updateCurrentPage = position => {
 			const { size, current, count } = pagination();

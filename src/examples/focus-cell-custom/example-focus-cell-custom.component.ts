@@ -28,9 +28,9 @@ export class ExampleFocusCellCustomComponent {
 
 	focus(rowIndex) {
 		const { model } = this.grid;
-		const gridService = this.qgrid.service(model);
+		const service = this.qgrid.service(model);
 
 		// navigate to the 2nd page to the bottom
-		gridService.focus(Number.parseInt(rowIndex, 10) - 1);
+		service.focus(Number.parseInt(rowIndex, 10) - 1);
 	}
 }

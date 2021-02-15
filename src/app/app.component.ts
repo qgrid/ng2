@@ -18,7 +18,6 @@ import {
 } from '@angular/router';
 import { Location } from '@angular/common';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { take } from 'rxjs/operators';
 import { APP_ROUTES } from '../examples/example.module';
 
 @Component({

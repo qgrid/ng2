@@ -91,4 +91,8 @@ export class BodyCoreComponent implements OnInit {
 	rowId(index: number, row: any) {
 		return index;
 	}
+
+	mapToDataIndex(viewIndex: number) {
+		return this.$view.scroll.y.container.position + viewIndex;
+	}
 }

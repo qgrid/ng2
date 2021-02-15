@@ -4,9 +4,9 @@
 		   q-grid-markup="head"
 		   q-grid-animate="false"
 		   q-grid-drop-area="head"
-		   [q-grid-drop]="$view.head.drop"
+		   [q-grid-drop]="$any($view.head.drop)"
 		   q-grid-drag-direction="x"
-		   [q-grid-drag-over]="$view.head.drop">
+		   [q-grid-drag-over]="$any($view.head.drop)">
 	</thead>
 	<tbody *ngIf="visibility.pin.top"
 		   class="q-grid-body-top"
@@ -16,9 +16,9 @@
 		   q-grid-animate="false"
 		   tabindex="0"
 		   q-grid-drop-area="body"
-		   [q-grid-drop]="$view.row.drop"
+		   [q-grid-drop]="$any($view.row.drop)"
 		   q-grid-drag-direction="y"
-		   [q-grid-drag-over]="$view.row.drop">
+		   [q-grid-drag-over]="$any($view.row.drop)">
 	</tbody>
 	<tbody *ngIf="visibility.body"
 		   q-grid-core-body
@@ -26,11 +26,11 @@
 		   q-grid-animate="false"
 		   tabindex="0"
 		   q-grid-drop-area="body"
-		   [q-grid-drop]="$view.row.drop"
+		   [q-grid-drop]="$any($view.row.drop)"
 		   q-grid-drag-direction="y"
 		   q-grid-vscroll
-		   [q-grid-vscroll-port-y]="$view.scroll.y"
-		   [q-grid-drag-over]="$view.row.drop">
+		   [q-grid-vscroll-port-y]="$any($view.scroll.y)"
+		   [q-grid-drag-over]="$any($view.row.drop)">
 	</tbody>
 	<tbody *ngIf="visibility.pin.bottom"
 		   class="q-grid-body-bottom"
@@ -40,9 +40,9 @@
 		   q-grid-animate="false"
 		   tabindex="0"
 		   q-grid-drop-area="body"
-		   [q-grid-drop]="$view.row.drop"
+		   [q-grid-drop]="$any($view.row.drop)"
 		   q-grid-drag-direction="y"
-		   [q-grid-drag-over]="$view.row.drop">
+		   [q-grid-drag-over]="$any($view.row.drop)">
 	</tbody>
 	<tfoot *ngIf="visibility.foot"
 		   q-grid-core-foot

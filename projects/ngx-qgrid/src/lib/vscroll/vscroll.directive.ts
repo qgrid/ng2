@@ -5,14 +5,32 @@ import { placeholderBitmap } from './vscroll.utility';
 	selector: '[q-grid-vscroll]'
 })
 export class VscrollDirective {
-	scrollEvent = new EventEmitter<{}>();
-	resetEvent = new EventEmitter<{ handled: boolean, source: string }>();
+	scroll = new EventEmitter();
+	reset = new EventEmitter<{ handled: boolean, source: string }>();
 
 	constructor(private elementRef: ElementRef, zone: NgZone, renderer: Renderer2) {
 		zone.runOutsideAngular(() => {
-			elementRef.nativeElement.addEventListener('scroll', () => this.onScroll(), { passive: true });
-			renderer.listen(window, 'resize', () => this.onResize());
+			elementRef
+				.nativeElement
+				.addEventListener(
+					'scroll',
+					() => this.scroll.emit(),
+					{ passive: true }
+				);
+
+			renderer.listen(
+				window,
+				'resize',
+				() => {
+					const e = { handled: false, source: 'resize' };
+					this.reset.emit(e);
+				}
+			);
 		});
+	}
+
+	get element() {
+		return this.elementRef.nativeElement;
 	}
 
 	drawPlaceholder(width: number, height: number) {
@@ -30,18 +48,5 @@ export class VscrollDirective {
 
 	resetY() {
 		this.elementRef.nativeElement.scrollTop = 0;
-	}
-
-	get element() {
-		return this.elementRef.nativeElement;
-	}
-
-	private onScroll() {
-		this.scrollEvent.emit();
-	}
-
-	private onResize() {
-		const e = { handled: false, source: 'resize' };
-		this.resetEvent.emit(e);
 	}
 }

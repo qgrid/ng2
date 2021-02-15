@@ -1,13 +1,4 @@
-export interface IVscrollSettings {
-	threshold?: number;
-	placeholderHeight?: number;
-	placeholderWidth?: number;
-	resetTriggers?: Array<string>;
-	rowHeight?: number | ((element: HTMLElement) => number);
-	columnWidth?: number | ((element: HTMLElement) => number);
-	fetch?: (skip: number, take: number, d: { resolve: (count: number) => void, reject: () => void }) => void;
-	emit?: (f: () => void) => void;
-}
+import { IVscrollSettings } from '@qgrid/core/scroll/scroll.let';
 
 export class VscrollSettings implements IVscrollSettings {
 	threshold = 64;

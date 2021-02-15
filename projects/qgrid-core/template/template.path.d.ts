@@ -6,5 +6,5 @@ export declare class TemplatePath {
 	static register(name: string, resolve: any): TemplatePath;
 	static get(source: any): string;
 	static find(source: any): string;
-	static name(name: string): string;
+	static getName(name: string): string;
 }
