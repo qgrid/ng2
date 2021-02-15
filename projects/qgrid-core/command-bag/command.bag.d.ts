@@ -82,7 +82,7 @@ export declare const SELECTION_COLUMN_TOGGLE_ACTIVE_COMMAND_KEY: CommandKey<any>
 export declare const SELECTION_COLUMN_TOGGLE_COMMAND_KEY: CommandKey<ColumnModel>;
 export declare const SELECTION_COLUMN_TOGGLE_NEXT_COMMAND_KEY: CommandKey<any>;
 export declare const SELECTION_COLUMN_TOGGLE_PREVIOUS_COMMAND_KEY: CommandKey<any>;
-export declare const SELECTION_RANGE_COMMAND_KEY: CommandKey<any | any[]>;
+export declare const SELECTION_RANGE_COMMAND_KEY: CommandKey<[CellView, CellView | null]>;
 export declare const SELECTION_ROW_TOGGLE_ACTIVE_COMMAND_KEY: CommandKey<any>;
 export declare const SELECTION_ROW_TOGGLE_COMMAND_KEY: CommandKey<any>;
 export declare const SELECTION_ROW_TOGGLE_NEXT_COMMAND_KEY: CommandKey<any>;
@@ -100,3 +100,4 @@ export declare const VISIBILITY_CHECK_COMMAND_KEY: CommandKey<any>;
 export declare const DRAG_CHECK_COMMAND_KEY: CommandKey<HTMLElement>;
 export declare const FOCUS_INVALIDATE_COMMAND_KEY: CommandKey<any>;
 export declare const CELL_HANDLER_ANIMATE_COMMAND_KEY: CommandKey<{ handler: HTMLElement, oldCell: CellView, newCell: CellView }>;
+export declare const CELL_HANDLER_INVALIDATE_COMMAND_KEY: CommandKey<{ handler: HTMLElement, cell: CellView }>;
