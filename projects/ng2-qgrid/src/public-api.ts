@@ -124,6 +124,7 @@ export {
 	ColumnChooserComponent,
 	ColumnChooserModule,
 	ColumnChooserTriggerModule,
+	ColumnChooserTriggerComponent,
 	ColumnFilterByComponent,
 	ColumnFilterComponent,
 	ColumnFilterItemDirective,
