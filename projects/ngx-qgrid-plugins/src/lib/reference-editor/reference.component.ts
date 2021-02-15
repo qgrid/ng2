@@ -102,7 +102,9 @@ export class ReferenceComponent implements OnInit {
 		this.disposable.add(
 			this.model
 				.selectionChanged
+				// TODO: use rx syntax
 				.watch(e => {
+					// TODO: get rid of this check
 					if (e.tag.source === 'reference.component') {
 						return;
 					}

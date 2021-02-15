@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { EditService } from '@qgrid/core/edit/edit.service';
+import { CELL_HANDLER_ANIMATE_COMMAND_KEY, CELL_HANDLER_INVALIDATE_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
 import { GridPlugin } from '../plugin/grid-plugin';
-import { CELL_HANDLER_ANIMATE_COMMAND_KEY } from '@qgrid/core/command-bag/command.bag';
+import { prob } from '@qgrid/core/command/command';
 
 @Component({
 	selector: 'q-grid-cell-handler',
@@ -24,13 +25,25 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 	}
 
 	ngOnInit() {
-		const { model, observeReply, commandPalette } = this.plugin;
+		const { model, observeReply, observe, commandPalette } = this.plugin;
 		const animate = commandPalette.get(CELL_HANDLER_ANIMATE_COMMAND_KEY);
+		const invalidate = commandPalette.get(CELL_HANDLER_INVALIDATE_COMMAND_KEY);
+
+		observe(model.scrollChanged)
+			.subscribe(e => {
+				if (e.hasChanges('top') || e.hasChanges('left')) {
+					const { cell } = model.navigation();
+					// prob(invalidate, {
+					// 	handler: this.elementRef.nativeElement,
+					// 	cell,
+					// });
+				}
+			});
 
 		observeReply(model.navigationChanged)
 			.subscribe(e => {
 				if (e.hasChanges('cell')) {
-					animate.execute({
+					prob(animate, {
 						handler: this.elementRef.nativeElement,
 						oldCell: e.changes.cell.oldValue,
 						newCell: e.changes.cell.newValue
@@ -64,6 +77,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 		const { cell: startCell } = model.navigation();
 		if (startCell) {
+			//TODO: move to the commands
 			const editService = new EditService(this.plugin);
 			this.endBatchEdit = editService.startBatch(startCell);
 		}

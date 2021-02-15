@@ -79,6 +79,7 @@ import { VisibilityCheckCommand } from './visibility.check.command';
 import { DragCheckCommand } from './drag.check.command';
 import { FocusInvalidateCommand } from './focus.invalidate.command';
 import { CellHandlerAnimateCommand } from './cell.handler.animate.command';
+import { CellHandlerInvalidateCommand } from './cell.handler.invalidate.command';
 
 export class CommandBagRegistry {
     constructor(plugin) {
@@ -165,5 +166,6 @@ export class CommandBagRegistry {
         commandPalette.register(new DragCheckCommand(plugin));
         commandPalette.register(new FocusInvalidateCommand(plugin));
         commandPalette.register(new CellHandlerAnimateCommand(plugin));
+        commandPalette.register(new CellHandlerInvalidateCommand(plugin));
     }
 }

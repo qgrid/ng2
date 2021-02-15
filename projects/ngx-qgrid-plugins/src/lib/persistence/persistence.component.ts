@@ -99,6 +99,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 					for (const key of settings[state]) {
 						observe(model[state + 'Changed'] as GridEvent<any>)
 							.pipe(
+								// TODO: get rid of e.tag.source check
 								filter(e => e.hasChanges(key) && e.tag.source !== 'persistence.service')
 							)
 							.subscribe(e => {
