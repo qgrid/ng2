@@ -27,8 +27,8 @@ export class NavigationLet {
 					const rowIndex = selectRowIndex(e.state);
 					const columnIndex = selectColumnIndex(e.state);
 
-					invalidateFocus.execute();
-					if (e.tag.source !== 'navigation.scroll') {
+					prob(invalidateFocus);
+					if (e.tag.source !== 'navigation.scroll' && e.tag.behavior !== 'scroll') {
 						prob(scrollTo, [rowIndex, columnIndex]);
 					}
 				}

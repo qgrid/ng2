@@ -1,6 +1,7 @@
 import * as columnService from '../column/column.service';
 import { Fastdom } from '../services/fastdom';
 import { LAYOUT_COLUMNS_ISSUE_COMMAND_KEY, STYLE_COLUMNS_WRITE_COMMAND_KEY } from '../command-bag/command.bag';
+import { prob } from '../command/command';
 
 export class LayoutLet {
 	constructor(plugin) {
@@ -30,14 +31,14 @@ export class LayoutLet {
 
 		observeReply(model.layoutChanged)
 			.subscribe(e => {
-				if (e.tag.behavior === 'core') {
+				if (e.tag.behavior === 'core' || e.tag.behavior) {
 					return;
 				}
 
 				if (e.hasChanges('columns')) {
 					Fastdom.measure(() => {
-						const form = layoutColumnsIssue.execute();
-						Fastdom.mutate(() => styleColumnsWrite.execute(form));
+						const form = prob(layoutColumnsIssue);
+						Fastdom.mutate(() => prob(styleColumnsWrite, form));
 					});
 				}
 			});
@@ -78,7 +79,7 @@ export class LayoutLet {
 					if (columns.some(hasNotDefaultWidth)) {
 						Fastdom.mutate(() => {
 							const { columns } = model.layout();
-							styleColumnsWrite.execute(columns);
+							prob(styleColumnsWrite, columns);
 						});
 					}
 				}
