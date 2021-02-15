@@ -59,7 +59,7 @@ export class Shortcut {
 				break;
 			}
 			case 'regexp': {
-				if(this.regexpRefs.indexOf(command) >= 0) {
+				if (this.regexpRefs.indexOf(command) >= 0) {
 					throw new GridError(
 						'shortcut',
 						`Command ${command.key.name} is already registered`
@@ -70,7 +70,7 @@ export class Shortcut {
 				break;
 			}
 			case 'func': {
-				if(this.funcRefs.indexOf(command) >= 0) {
+				if (this.funcRefs.indexOf(command) >= 0) {
 					throw new GridError(
 						'shortcut',
 						`Command ${command.key.name} is already registered`
@@ -87,6 +87,12 @@ export class Shortcut {
 		const regexpIndex = this.regexpRefs.indexOf(command);
 		if (regexpIndex >= 0) {
 			this.regexpRefs.splice(regexpIndex, 1);
+			return;
+		}
+
+		const funcIndex = this.funcRefs.indexOf(command);
+		if (funcIndex >= 0) {
+			this.funcRefs.splice(funcIndex, 1);
 			return;
 		}
 
@@ -121,7 +127,7 @@ export class Shortcut {
 		const fromFunc = this.funcRefs.filter(cmd => {
 			const shortcut = cmd.shortcut();
 			const type = this.getType(shortcut);
-			switch(type) {
+			switch (type) {
 				case 'text': {
 					const keysList = this.parse(shortcut);
 					return keysList.some(retKeys => retKeys === keys);
