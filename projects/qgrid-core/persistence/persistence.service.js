@@ -1,5 +1,6 @@
 import { clone } from '../utility/kit';
 
+// TODO: refactor this to the commands
 export class PersistenceService {
 	constructor(model, createDefaultModel) {
 		this.model = model;
@@ -52,7 +53,7 @@ export class PersistenceService {
 			for (const p of settings[key]) {
 				model[key][p] = source()[p];
 			}
-			target(model[key], { source: 'behavior.core' });
+			target(model[key], { source: 'persistence.service' });
 		}
 
 		return model;

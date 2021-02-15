@@ -5,7 +5,7 @@ import { ROW_DRAG_COMMAND_KEY } from './command.bag';
 
 export class RowDragCommand extends Command {
     constructor(plugin) {
-        const { model } = plugin;
+        const { model, table } = plugin;
 
         super({
             key: ROW_DRAG_COMMAND_KEY,

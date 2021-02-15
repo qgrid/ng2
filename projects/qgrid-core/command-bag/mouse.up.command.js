@@ -1,5 +1,5 @@
 import { Command } from '../command/command';
-import { checkButtonCode, LEFT_BUTTON, getButtonCode, stringify, NO_BUTTON } from '../mouse/mouse.code';
+import { LEFT_BUTTON, stringify, NO_BUTTON } from '../mouse/mouse.code';
 import { MOUSE_UP_COMMAND_KEY } from './command.bag';
 
 export class MouseUpCommand extends Command {

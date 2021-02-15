@@ -9,7 +9,6 @@ const HORIZONTAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-horizontal`;
 export class ScrollCommand extends Command {
     constructor(plugin) {
         const { model, table } = plugin;
-
         const classJob = jobLine(100);
 
         super({
