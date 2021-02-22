@@ -13,7 +13,7 @@ import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-transla
 	]
 })
 export class SharedModule {
-	public static Language = 'ru';
+	public static Language = 'en';
 	public static translate: TranslateService;
 	
 	static forRoot(): ModuleWithProviders<any> {
