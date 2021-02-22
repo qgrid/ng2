@@ -73,6 +73,7 @@ import {
 	VisibilityModule,
 	VscrollModule,
 } from 'ng2-qgrid';
+import { SharedModule } from 'src/app/app.shared.module';
 
 @NgModule({
 	declarations: [
@@ -156,7 +157,7 @@ import {
 		MatSelectModule,
 		MatToolbarModule,
 		MatTooltipModule,
-
+		SharedModule
 	],
 	entryComponents: [
 		ThemeComponent

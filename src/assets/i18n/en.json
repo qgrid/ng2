@@ -1,0 +1,20 @@
+{
+  "QGRID_TOOLBAR": {
+    "LOAD_DATA_BUTTON": "Load Data",
+    "CLEAR_DATA_BUTTON": "Clear Data"
+  },
+  "QGRID": {
+  },
+  "QGRID_PAGER": {
+    "ROWS_PER_PAGE": "Rows per page",
+    "OF": "of",
+    "PREVIOUS_PAGE": "Previous Page",
+    "NEXT_PAGE": "Next Page",
+    "SELECT_PAGE": "Select a Page",
+    "NO_ROWS": "No Rows"
+  },
+  "EXAMPLES": {
+    "ACTION_BAR_BASIC_NAME": "action-bar-basic",
+    "ACTION_BAR_BASIC_TITLE": "Data can be cleared and loaded using UI buttons and hotkeys (ALT+D, ALT+L)"
+  }
+}

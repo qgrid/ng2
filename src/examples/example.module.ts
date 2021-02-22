@@ -334,10 +334,14 @@ export const EXAMPLES: any[] = [
 ];
 
 export const APP_ROUTES: Routes = EXAMPLES
-	.map<Route>(example => ({
-		path: (example.tags && example.tags[0]) || example.id,
-		component: example
-	}));
+	.map(function (example) {
+		var path = (example.tags && example.tags[0]) || example.id;
+		return {
+			path: path,
+			component: example,
+			title: (example.tags && example.tags[2]) || path
+		};
+	});
 
 @NgModule({
 	declarations: [

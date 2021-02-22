@@ -5,12 +5,12 @@
 		<div *ngSwitchCase="'virtual'">
 			<label class="q-grid-pager-page"
 				   [ngSwitch]="$pager.mode">
-				<span *ngSwitchCase="'showRows'">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>
-				<span *ngSwitchDefault>{{$pager.current + 1}} of {{$pager.totalPages}}</span>
+				<span *ngSwitchCase="'showRows'">{{$pager.from}}-{{$pager.to}} {{ 'QGRID_PAGER.OF' | translate }} {{$pager.total}}</span>
+				<span *ngSwitchDefault>{{$pager.current + 1}} {{ 'QGRID_PAGER.OF' | translate }} {{$pager.totalPages}}</span>
 			</label>
 		</div>
 		<div *ngSwitchDefault>
-			<label class="q-grid-pager-page-size q-grid-hide-xs">Rows per page:</label>
+			<label class="q-grid-pager-page-size q-grid-hide-xs">{{ 'QGRID_PAGER.ROWS_PER_PAGE' | translate }}:</label>
 			<mat-select tabindex="-1"
 						aria-label="Page Size List"
 						class="q-grid-pager-page-size q-grid-hide-xs"
@@ -25,14 +25,14 @@
 				   [ngSwitch]="$pager.mode">
 				<span *ngSwitchCase="'showRows'">
 					<span *ngIf="$pager.total > 0">
-						{{$pager.from}} - {{$pager.to}} of {{$pager.total}}
+						{{$pager.from}} - {{$pager.to}} {{ 'QGRID_PAGER.OF' | translate }} {{$pager.total}}
 					</span>
 					<span *ngIf="$pager.total === 0">
-						No Rows
+						{{'QGRID_PAGER.NO_ROWS' | translate }}
 					</span>
 				</span>
 				<span *ngSwitchDefault>
-					{{$pager.current + 1}} of {{$pager.totalPages}}
+					{{$pager.current + 1}} {{ 'QGRID_PAGER.OF' | translate }} {{$pager.totalPages}}
 				</span>
 			</label>
 			<button tabindex="-1"
@@ -40,12 +40,12 @@
 					class="mat-icon-button q-grid-prev-page"
 					[q-grid-command]="$pager.prev"
 					[q-grid-command-use-shortcut]="true"
-					[matTooltip]="'Previous Page' + ' (' + ($pager.prev.shortcut | uppercase) + ')'"
+					[matTooltip]="[ 'QGRID_PAGER.PREVIOUS_PAGE' | translate ] + ' (' + ($pager.prev.shortcut | uppercase) + ')'"
 					[matTooltipShowDelay]="800">
 				<mat-icon class="q-grid-icon">keyboard_arrow_left</mat-icon>
 			</button>
 
-			<q-grid-pager-target matTooltip="Select a Page"
+			<q-grid-pager-target matTooltip = "{{'QGRID_PAGER.SELECT_PAGE' | translate }}"
 								 [matTooltipShowDelay]="800">
 			</q-grid-pager-target>
 
@@ -54,7 +54,7 @@
 					class="mat-icon-button q-grid-next-page"
 					[q-grid-command]="$pager.next"
 					[q-grid-command-use-shortcut]="true"
-					[matTooltip]="'Next Page' + ' (' + ($pager.next.shortcut | uppercase) + ')'"
+					[matTooltip]="[ 'QGRID_PAGER.NEXT_PAGE' | translate ] + ' (' + ($pager.next.shortcut | uppercase) + ')'"
 					[matTooltipShowDelay]="800">
 				<mat-icon class="q-grid-icon">keyboard_arrow_right</mat-icon>
 			</button>

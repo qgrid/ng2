@@ -19,6 +19,7 @@ import {
 import { Location } from '@angular/common';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { APP_ROUTES } from '../examples/example.module';
+import { SharedModule } from './app.shared.module';
 
 @Component({
 	selector: 'app-root',
@@ -30,7 +31,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 	@HostBinding('class.app-is-mobile') isMobile: boolean;
 	@HostBinding('class.app-env-test') isTestEnv: boolean;
 
-	examples: Routes = APP_ROUTES;
+	examples: Routes;
 
 	@ViewChildren(RouterLinkActive, { read: ElementRef })
 	menuItems: QueryList<ElementRef>;
@@ -67,6 +68,14 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 				this.search = params['search'] || '';
 				this.isTestEnv = params['env'] === 'test';
 			});
+
+		var routes = APP_ROUTES;
+		routes.forEach(function (route) {
+			SharedModule.translate.stream(route.title).subscribe(val => {
+				route.title = val;
+			})
+		});
+		this.examples = routes;
 	}
 
 	onSearchChange() {

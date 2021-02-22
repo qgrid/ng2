@@ -18,6 +18,14 @@ import { ExampleModule, EXAMPLES, APP_ROUTES } from '../examples/example.module'
 
 import { FilterSearchPipe } from './app.filter.pipe';
 import { HighlightPipe } from './app.highlight.pipe';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { SharedModule } from './app.shared.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+	return new TranslateHttpLoader(http);
+}
 
 @NgModule({
 	declarations: [
@@ -37,19 +45,30 @@ import { HighlightPipe } from './app.highlight.pipe';
 		MatListModule,
 		MatInputModule,
 		MatButtonModule,
+		FormsModule,
+		HttpClientModule,
+		TranslateModule.forRoot({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: HttpLoaderFactory,
+				deps: [HttpClient]
+			},
+			defaultLanguage: SharedModule.Language
+		}),
+		SharedModule.forRoot(),
 		RouterModule.forRoot([{
 			path: '',
 			redirectTo: 'action-bar-basic',
 			pathMatch: 'full'
 		}]),
-		ExampleModule,
-		FormsModule
+		ExampleModule
 	],
 	bootstrap: [AppComponent],
 	entryComponents: EXAMPLES
 })
 export class AppModule {
-	constructor(router: Router) {
+	constructor(router: Router, translate: TranslateService) {
+		SharedModule.translate = translate;
 		router.config.unshift(...APP_ROUTES);
 	}
 }

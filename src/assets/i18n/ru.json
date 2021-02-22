@@ -1,0 +1,20 @@
+{
+  "QGRID_TOOLBAR": {
+    "LOAD_DATA_BUTTON": "Загрузить данные",
+    "CLEAR_DATA_BUTTON": "Очистить данные"
+  },
+  "QGRID": {    
+  },
+  "QGRID_PAGER": {
+    "ROWS_PER_PAGE": "Строк на странице",
+    "OF": "из",
+    "PREVIOUS_PAGE": "Предыдущая страница",
+    "NEXT_PAGE": "Следующая страница",
+    "SELECT_PAGE": "Выбрать страницу",
+    "NO_ROWS": "Нет строк"
+  },
+  "EXAMPLES": {
+    "ACTION_BAR_BASIC_NAME": "Базовые операции",
+    "ACTION_BAR_BASIC_TITLE": "Данные могут быть очищены и загружены по нажатию кнопки на панели инструментов или с помощью горячих клавиш (ALT+D, ALT+L)"
+  }
+}
