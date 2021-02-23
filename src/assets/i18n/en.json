@@ -4,6 +4,7 @@
     "CLEAR_DATA_BUTTON": "Clear Data"
   },
   "QGRID": {
+    "COLUMNS_FILTER" : "Columns Filter"
   },
   "QGRID_COLUMN": {
     "NAME": "Name",
