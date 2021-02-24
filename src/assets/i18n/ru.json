@@ -4,7 +4,9 @@
     "CLEAR_DATA_BUTTON": "Очистить данные"
   },
   "QGRID": {  
-    "COLUMNS_FILTER" : "Фильтр по колонкам"  
+    "SEARCH_IN_EXAMPLES": "Поиск по примерам",
+    "CANCEL": "Отмена",
+    "APPLY": "Применить"
   },
   "QGRID_COLUMN": {
     "NAME": "Наименование",
@@ -35,7 +37,14 @@
     "PREVIOUS_PAGE": "Предыдущая страница",
     "NEXT_PAGE": "Следующая страница",
     "SELECT_PAGE": "Выбрать страницу",
-    "NO_ROWS": "Нет строк"
+    "NO_ROWS": "Нет строк",
+    "GO_TO_PAGE": "Перейти к странице"
+  },
+  "QGRID_FILTER": {  
+    "COLUMNS_FILTER" : "Фильтр по колонкам",
+    "COLUMNS_SELECT_ALL": "Выбрать все",
+    "COLUMNS_SELECT_DEFAULTS": "Выбрать по умолчанию",
+    "FIND_IN_THE_LIST": "Найти в списке"
   },
   "EXAMPLES": {
     "ACTION_BAR_BASIC_NAME": "Базовые операции",
