@@ -32,12 +32,12 @@ export class BoolEditorComponent implements OnInit {
 	ngOnInit() {
 		// entering edit mode means toggling boolean value
 		if (this.autofocus && this.column.editorOptions.trigger === 'click') {
-			Promise.resolve(null).then(() =>
+			setTimeout(() =>
 				this.value =
 				this.value === this.trueValue
 					? this.falseValue
 					: this.trueValue
-			);
+				, 10);
 		}
 	}
 

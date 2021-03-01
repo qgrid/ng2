@@ -3,7 +3,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
-## [11.0.0] - 2020-11-23
+## [11.0.0] - 2021-03-01
+### Added
+- Right click on the q-grid cell selects all content of it.
+
+### Changed
+- Better pane api for the manual control.
+- Better parsing of non-ISO date formats.
+
 ### BREAKING
 - Rename $view.filter.column to $view.filter.row.
 - Remove `options` property from $view.edit.cell.
