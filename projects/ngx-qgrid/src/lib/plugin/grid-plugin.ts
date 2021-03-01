@@ -9,14 +9,10 @@ import { GridRoot } from '../grid/grid-root';
 import { ObservableLike, ObservableEvent, ObservableReplyEvent } from '@qgrid/core/rx/rx';
 import { Grid, GridService } from '../grid/grid';
 import { Lazy } from '@qgrid/core/infrastructure/lazy';
-import { SharedModule } from 'src/app/app.shared.module';
 
 @Injectable()
 export class GridPlugin implements OnDestroy {
-	private serviceLazy = new Lazy(() => {
-		this.$root.model["translate"] = SharedModule.translate;
-		return this.qgrid.service(this.$root.model);
-	});
+	private serviceLazy = new Lazy(() => this.qgrid.service(this.$root.model));
 
 	readonly disposable = new Disposable();
 

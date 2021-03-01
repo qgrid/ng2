@@ -44,8 +44,7 @@ export function generateFactory(model) {
 				columnFactory: createColumn,
 				deep: false,
 				cohort: false,
-				typeDetection,
-				translate: model.translate
+				typeDetection
 			};
 
 			switch (generation) {
@@ -116,8 +115,6 @@ export function generate(settings) {
 				title: context.title,
 				typeDetection: context.typeDetection,
 				testRows: context.rows.slice(0, context.testNumber),
-				translate: settings.translate,
-				columnNames: require('../../../src/assets/i18n/columns.json')
 			}
 		);
 	}
@@ -126,7 +123,7 @@ export function generate(settings) {
 }
 
 function build(graph, pathParts, settings) {
-	const { columnFactory, deep, cohort, title, testRows, typeDetection, translate, columnNames } = settings;
+	const { columnFactory, deep, cohort, title, testRows, typeDetection } = settings;
 
 	const props = Object.getOwnPropertyNames(graph);
 	return props.reduce((memo, prop) => {
@@ -143,7 +140,7 @@ function build(graph, pathParts, settings) {
 			case 'array': {
 				const column = columnFactory(type).model;
 				column.key = propPath;
-				column.title = getColumnTitle(translate, columnNames, title(propPath, graph, column.length));
+				column.title = title(propPath, graph, column.length);
 				column.value = propValue;
 				column.source = 'generation';
 				if (subject.length) {
@@ -177,7 +174,7 @@ function build(graph, pathParts, settings) {
 					if (cohort) {
 						const column = columnFactory('cohort').model;
 						column.key = propPath;
-						column.title = getColumnTitle(translate, columnNames, title(propPath, graph, column.length));
+						column.title = title(propPath, graph, column.length);
 						column.value = propValue;
 						column.source = 'generation';
 						column.children.push(...columns);
@@ -192,7 +189,7 @@ function build(graph, pathParts, settings) {
 			default: {
 				const column = columnFactory(type).model;
 				column.key = propPath;
-				column.title = getColumnTitle(translate, columnNames, title(propPath, graph, column.length));
+				column.title = title(propPath, graph, column.length);
 				column.value = propValue;
 				column.source = 'generation';
 				memo.push(column);
@@ -202,15 +199,4 @@ function build(graph, pathParts, settings) {
 
 		return memo;
 	}, []);
-
-	function getColumnTitle(translate, columnNames, title){
-		if (columnNames && title) {
-			var name = columnNames[title.toLowerCase()];
-			if (name && translate) {
-				return translate.instant(name);
-			}
-		}
-
-		return title;
-	}
 }
