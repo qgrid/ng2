@@ -29,17 +29,14 @@
     "@angular/forms": "~11.2.0",
     "@angular/platform-browser": "~11.2.0",
     "@angular/platform-browser-dynamic": "~11.2.0",
-    "@ngx-translate/core": "^12.1.2",
-    "@ngx-translate/http-loader": "^5.0.0",
-    "@qgrid/core": "file:./projects/qgrid-core",
-    "@qgrid/ngx": "file:./dist/ngx-qgrid",
-    "@qgrid/ngx-plugins": "file:./dist/ngx-qgrid-plugins",
-    "@qgrid/plugins": "file:./projects/qgrid-plugins",
     "core-js": "^3.8.3",
     "rxjs": "~6.6.3",
-    "save": "^2.4.0",
     "tslib": "^2.1.0",
-    "zone.js": "~0.11.3"
+    "zone.js": "~0.11.3",
+    "@qgrid/core": "file:./projects/qgrid-core",
+    "@qgrid/plugins": "file:./projects/qgrid-plugins",
+    "@qgrid/ngx": "file:./dist/ngx-qgrid",
+    "@qgrid/ngx-plugins": "file:./dist/ngx-qgrid-plugins"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.1102.0",

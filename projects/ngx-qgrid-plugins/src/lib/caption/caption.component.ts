@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { GridPlugin } from '@qgrid/ngx';
-import { SharedModule } from 'src/app/app.shared.module';
 
 @Component({
 	selector: 'q-grid-caption',
@@ -27,11 +26,6 @@ export class CaptionComponent implements OnInit {
 
 	get value() {
 		const { caption, title } = this.plugin.model.grid();
-		var gridTitle = caption || title;
-		SharedModule.translate.stream(gridTitle).subscribe(val => {
-			gridTitle = val;
-			this.cd.detectChanges();
-		});
-		return gridTitle;
+		return caption || title;
 	}
 }

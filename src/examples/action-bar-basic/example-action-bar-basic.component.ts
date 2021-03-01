@@ -5,8 +5,7 @@ import { Command } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = [
 	'action-bar-basic',
-	'EXAMPLES.ACTION_BAR_BASIC_TITLE',
-	'EXAMPLES.ACTION_BAR_BASIC_NAME'
+	'Data can be cleared and loaded using UI buttons and hotkeys (ALT+D, ALT+L)'
 ];
 
 @Component({

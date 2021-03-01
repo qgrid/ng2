@@ -28,7 +28,7 @@
 			   [queryParams]="activatedRoute.queryParams | async"
 			   routerLinkActive="app-active"
 			   (click)="isMobile ? sidenav.toggle() : null">
-				<span [innerHTML]="example.title | appHighlight: search"></span>
+				<span [innerHTML]="example.path | appHighlight: search"></span>
 			</a>
 		</mat-nav-list>
 	</mat-sidenav>
