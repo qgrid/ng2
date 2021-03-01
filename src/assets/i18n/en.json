@@ -4,9 +4,7 @@
     "CLEAR_DATA_BUTTON": "Clear Data"
   },
   "QGRID": {
-    "SEARCH_IN_EXAMPLES": "Search in q-grid examples",
-    "CANCEL": "Cancel",
-    "APPLY": "Apply"
+    "COLUMNS_FILTER" : "Columns Filter"
   },
   "QGRID_COLUMN": {
     "NAME": "Name",
@@ -37,14 +35,7 @@
     "PREVIOUS_PAGE": "Previous Page",
     "NEXT_PAGE": "Next Page",
     "SELECT_PAGE": "Select a Page",
-    "NO_ROWS": "No Rows",
-    "GO_TO_PAGE": "Go to page"
-  },
-  "QGRID_FILTER": {
-    "COLUMNS_FILTER": "Columns Filter",
-    "COLUMNS_SELECT_ALL": "Select All",
-    "COLUMNS_SELECT_DEFAULTS": "Select Defaults",
-    "FIND_IN_THE_LIST": "Find in the list"
+    "NO_ROWS": "No Rows"
   },
   "EXAMPLES": {
     "ACTION_BAR_BASIC_NAME": "action-bar-basic",

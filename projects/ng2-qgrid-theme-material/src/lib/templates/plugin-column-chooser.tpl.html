@@ -3,13 +3,13 @@
 			 let-$plugin="plugin">
 	<mat-card class="mat-elevation-z">
 		<mat-card-header>
-			<mat-card-title>{{'QGRID_FILTER.COLUMNS_FILTER' | translate}}</mat-card-title>
+			<mat-card-title>{{'QGRID.COLUMNS_FILTER' | translate}}</mat-card-title>
 		</mat-card-header>
 		<mat-card-content>
 			<div class="q-grid-flex-none q-grid-layout-row">
 				<mat-form-field class="q-grid-column-chooser-filter">
 					<input type="search"
-						   placeholder="{{'QGRID_FILTER.FIND_IN_THE_LIST' | translate}}"
+						   placeholder="Find in the list"
 						   matInput
 						   (input)="$columnChooser.search($columnChooser.searchText)"
 						   [(ngModel)]="$columnChooser.searchText"
@@ -22,13 +22,13 @@
 						<mat-checkbox [checked]="$columnChooser.stateAll()"
 									  (change)="$columnChooser.toggleAll.execute()"
 									  [indeterminate]="$columnChooser.isIndeterminate()">
-									  {{'QGRID_FILTER.COLUMNS_SELECT_ALL' | translate}}
+							Select All
 						</mat-checkbox>
 					</li>
 					<li>
 						<mat-checkbox [checked]="$columnChooser.stateDefault()"
 									  (change)="$columnChooser.defaults.execute()">
-									  {{'QGRID_FILTER.COLUMNS_SELECT_DEFAULTS' | translate}}
+							Select Defaults
 						</mat-checkbox>
 					</li>
 				</ul>
@@ -42,12 +42,12 @@
 		<mat-card-actions>
 			<button mat-button
 					[q-grid-command]="$columnChooser.cancel">
-					{{'QGRID.CANCEL' | translate}}
+				Cancel
 			</button>
 			<button mat-button
 					color="primary"
 					[q-grid-command]="$columnChooser.submit">
-					{{'QGRID.APPLY' | translate}}
+				Apply
 			</button>
 		</mat-card-actions>
 	</mat-card>

@@ -16,7 +16,7 @@
 					   q-grid-focus
 					   (keydown)="$target.keyDown($event)"
 					   (keyup.enter)="trigger.closeMenu()"
-					   placeholder="{{'QGRID_PAGER.GO_TO_PAGE' | translate}}:" />
+					   placeholder="Go to page:" />
 				<mat-hint align="end">{{$target.value}} / {{$target.total}}</mat-hint>
 			</mat-form-field>
 		</mat-card>
