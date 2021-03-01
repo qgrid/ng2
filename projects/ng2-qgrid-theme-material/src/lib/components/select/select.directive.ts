@@ -9,7 +9,6 @@ export class SelectDirective implements AfterViewInit {
 
 	ngAfterViewInit() {
 		this.input.focus();
-		Promise.resolve(null)
-			.then(() => this.input.open());
+		setTimeout(() => this.input.open(), 10);
 	}
 }
