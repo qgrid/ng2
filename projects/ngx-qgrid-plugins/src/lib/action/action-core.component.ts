@@ -2,7 +2,6 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { GridError, GridPlugin, GridModel } from '@qgrid/ngx';
 import { Action } from '@qgrid/core/action/action';
 import { Command } from '@qgrid/core/command/command';
-import { SharedModule } from 'src/app/app.shared.module';
 
 @Component({
 	selector: 'q-grid-action-core',
@@ -47,7 +46,7 @@ export class ActionCoreComponent {
 			);
 		}
 
-		return action.title && SharedModule.translate.instant(action.title);
+		return action.title;
 	}
 
 	get icon() {
