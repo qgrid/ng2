@@ -10,7 +10,7 @@ export class FilterSearchPipe implements PipeTransform {
 			const words = search.split(',').filter(word => word).map(word => escapeRegExp(word));
 			const pattern = words.map((word, index) => (index < words.length - 1) ? word + '|' : word).join('');
 			const contains = new RegExp(pattern, 'i');
-			return items.filter(item => contains.test(item.title));
+			return items.filter(item => contains.test(item.path));
 		}
 
 		return items;
