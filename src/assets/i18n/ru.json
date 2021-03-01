@@ -3,8 +3,7 @@
     "LOAD_DATA_BUTTON": "Загрузить данные",
     "CLEAR_DATA_BUTTON": "Очистить данные"
   },
-  "QGRID": {  
-    "COLUMNS_FILTER" : "Фильтр по колонкам"  
+  "QGRID": {    
   },
   "QGRID_COLUMN": {
     "NAME": "Наименование",

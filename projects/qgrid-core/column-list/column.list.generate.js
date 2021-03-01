@@ -38,8 +38,6 @@ export function generateFactory(model) {
 
 		const spawnColumns = [];
 		const { generation, typeDetection } = model.columnList();
-		var columnNames = require('../../../src/assets/i18n/columns.json');
-
 		if (generation) {
 			let settings = {
 				rows,
@@ -47,8 +45,7 @@ export function generateFactory(model) {
 				deep: false,
 				cohort: false,
 				typeDetection,
-				translate: model.translate,
-				columnNames: columnNames
+				translate: model.translate
 			};
 
 			switch (generation) {
@@ -75,9 +72,6 @@ export function generateFactory(model) {
 		}
 
 		const columns = Array.from(data().columns);
-		columns.forEach(column => {
-			column.title = getColumnTitle(model.translate, columnNames, column.title);
-		});
 
 		let statistics = [];
 		if (spawnColumns.length) {
@@ -123,7 +117,7 @@ export function generate(settings) {
 				typeDetection: context.typeDetection,
 				testRows: context.rows.slice(0, context.testNumber),
 				translate: settings.translate,
-				columnNames: settings.columnNames
+				columnNames: require('../../../src/assets/i18n/columns.json')
 			}
 		);
 	}
@@ -208,15 +202,15 @@ function build(graph, pathParts, settings) {
 
 		return memo;
 	}, []);
-}
 
-function getColumnTitle(translate, columnNames, title){
-	if (columnNames && title) {
-		var name = columnNames[title.toLowerCase()];
-		if (name && translate) {
-			return translate.instant(name);
+	function getColumnTitle(translate, columnNames, title){
+		if (columnNames && title) {
+			var name = columnNames[title.toLowerCase()];
+			if (name && translate) {
+				return translate.instant(name);
+			}
 		}
-	}
 
-	return title;
+		return title;
+	}
 }

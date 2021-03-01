@@ -13,24 +13,25 @@ export class CaptionComponent implements OnInit {
 		$implicit: this
 	};
 
-	value: string;
-
 	constructor(
 		private plugin: GridPlugin,
 		private cd: ChangeDetectorRef
-	) {		
+	) {
 	}
 
 	ngOnInit() {
-		const { caption, title } = this.plugin.model.grid();
-		var gridTitle = caption || title;
-		SharedModule.translate.stream(gridTitle).subscribe(val => {
-			this.value = val;
-			this.cd.detectChanges();
-		});
-
 		const { model, observe } = this.plugin;
 		observe(model.gridChanged)
 			.subscribe(() => this.cd.detectChanges());
+	}
+
+	get value() {
+		const { caption, title } = this.plugin.model.grid();
+		var gridTitle = caption || title;
+		SharedModule.translate.stream(gridTitle).subscribe(val => {
+			gridTitle = val;
+			this.cd.detectChanges();
+		});
+		return gridTitle;
 	}
 }
