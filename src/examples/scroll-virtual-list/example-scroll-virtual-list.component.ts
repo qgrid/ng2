@@ -1,5 +1,5 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { VscrollContext, VscrollService } from 'ng2-qgrid';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { VscrollService } from 'ng2-qgrid';
 
 @Component({
 	selector: 'example-scroll-virtual-list',
@@ -10,17 +10,26 @@ import { VscrollContext, VscrollService } from 'ng2-qgrid';
 export class ExampleScrollVirtualListComponent {
 	static id = 'scroll-virtual-list';
 
-	context: VscrollContext;
-	items = Array.from(Array(200).keys());
+	context = this.vscroll.context({ threshold: 50 });
+	items = Array.from(Array(100).keys());
 
-	constructor(vscroll: VscrollService, cd: ChangeDetectorRef) {
-		this.context = vscroll.context({
-			threshold: 50,
-			emit: f => {
-				f();
-				cd.markForCheck();
-				cd.detectChanges();
-			}
-		});
+	constructor(private vscroll: VscrollService) {
+	}
+
+	reset() {
+		this.context.container.reset();
+	}
+
+	addItems(count: number) {
+		const newItems = Array.from(Array(count).keys()).map(x => x + this.items.length);
+		this.items = this.items.concat(newItems);
+	}
+
+	removeItems(count: number) {
+		this.items = this.items.slice(0, Math.max(0, this.items.length - count));
+	}
+
+	clear() {
+		this.items = [];
 	}
 }

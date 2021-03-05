@@ -1,17 +1,17 @@
 Name: <input type="search"
-       (input)="filter('name', $event.target.value)"
+       (input)="filter('name', $any($event.target).value)"
        placeholder="Filter by name" />
 
 Phase: <input type="search"
-       (input)="filter('phase', $event.target.value)"
+       (input)="filter('phase', $any($event.target).value)"
        placeholder="Filter by phase" />
 
 
 <q-grid [caption]="title"
         [rows]="rows | async"
         [model]="gridModel">
-	<q-grid-columns generation="deep">
-		<q-grid-column [canFilter]="false"></q-grid-column>
-	</q-grid-columns>
+       <q-grid-columns generation="deep">
+              <q-grid-column [canFilter]="false"></q-grid-column>
+       </q-grid-columns>
 
 </q-grid>

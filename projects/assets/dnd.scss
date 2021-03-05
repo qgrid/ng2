@@ -6,24 +6,21 @@
 &.q-grid-box {
     &.q-grid-drag {
 
-        tbody,
-        thead {
+        tr,
+        td,
+        th {
+            transition: none !important;
+            background-color: inherit !important;
+            outline: none !important;
+        }
 
-            tr,
-            td,
-            th {
-                transition: none !important;
-                background-color: inherit !important;
-                outline: none !important;
+        th {
+
+            .q-grid-icon,
+            .q-grid-resize-handler {
+                visibility: hidden;
             }
 
-            th {
-
-                .q-grid-icon,
-                .q-grid-resize-handler {
-                    visibility: hidden;
-                }
-            }
         }
     }
 

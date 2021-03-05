@@ -1,16 +1,18 @@
 import { Disposable } from '../infrastructure/disposable';
 import { Event } from '../event/event';
-import { noop, isObject, isFunction } from '../utility/kit';
+import { noop, isFunction } from '../utility/kit';
 
-export class SubscriptionLike {
+export class UnsubscribableLike {
     constructor(off) {
         this.off = off;
+        this.closed = false;
     }
 
     unsubscribe() {
-        if (this.off) {
+        if (!this.closed) {
             this.off();
             this.off = null;
+            this.closed = true;
         }
     }
 }
@@ -55,10 +57,10 @@ export class ObservableEvent {
             };
 
             this.disposable.add(unsubscribe);
-            return new SubscriptionLike(unsubscribe);
+            return new UnsubscribableLike(unsubscribe);
         }
 
-        return new SubscriptionLike(noop);
+        return new UnsubscribableLike(noop);
     }
 
     subscribeEvent(next) {

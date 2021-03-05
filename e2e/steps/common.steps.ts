@@ -32,6 +32,11 @@ Then('Column count equals to {int}', (count: number) => getColumnCount().then(x 
 
 When('I click cell {string}[{int}]', (key, index) => getCell(key, index).click());
 
+When('I click filter button [{int}]', (index: number) => clickFilterButton(index));
+When('I click more button', () => clickMoreButton());
+When('I select condition {string}', (cond: string) => selectCondition(cond));
+
+
 When('I press ctrl+c', () => browser.actions().sendKeys(protractor.Key.chord(protractor.Key.CONTROL, 'c')).perform());
 When('I press ctrl+v on input', () => enterText(protractor.Key.chord(protractor.Key.CONTROL, 'v')));
 
@@ -54,6 +59,7 @@ When('I set {string} text', (text: string) => setText(text));
 When('I click filter button for {string}', (text: string) => getFilterButton(text).click());
 When('I select persistence item [{int}]', (num: number) => selectPersistenceItem(num));
 When('I remove all values for selected column', () => removeAllChipValues());
+When('I click Select all', () => getSelectAll());
 
 async function checkErrors() {
 	await browser
@@ -159,4 +165,23 @@ async function removeAllChipValues() {
 		await item.click();
 		await browser.actions().sendKeys(protractor.Key.DELETE).perform();
 	}
+}
+
+async function getSelectAll() {
+	await browser.sleep(1000);
+	const el = await element(by.xpath(`//*[contains(text(),'Select All')]/..`));
+	el.click();
+}
+
+function clickFilterButton(index) {
+	const el = element.all(by.xpath('//*[contains(text(),\'filter_list\')]')).get(index);
+	return el.click();
+}
+
+function clickMoreButton() {
+	browser.executeScript('document.evaluate(\'//*[@id="mat-select-1"]/div/div[1]/span/mat-select-trigger/mat-icon\', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click()\n');
+}
+
+function selectCondition(cond) {
+	return element(by.xpath('//*[text() = \'' + cond + '\']')).click();
 }

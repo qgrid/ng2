@@ -1,4 +1,4 @@
-import { OnDestroy, OnInit, Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { OnInit, Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Action } from '@qgrid/core/action/action';
 import { GridPlugin } from '@qgrid/ngx';
 
@@ -33,6 +33,7 @@ export class ActionBarComponent implements OnInit {
 	}
 
 	get actions(): Action[] {
-		return this.plugin.model.action().items;
+		const { model } = this.plugin;
+		return model.action().items;
 	}
 }

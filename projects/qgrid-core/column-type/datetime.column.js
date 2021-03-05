@@ -2,8 +2,9 @@ import { ColumnView } from '../scene/view/column.view';
 import { DataColumnModel } from './data.column.model';
 import { FormatService } from '../format/format.service';
 import { get as getValue } from '../services/value';
-import { getType, parseFactory } from '../services/convert';
+import { parseFactory } from '../services/convert';
 import { TemplatePath } from '../template/template.path';
+import { Log } from '../infrastructure/log';
 
 TemplatePath.register('datetime-cell', (template, column) => {
 	return {
@@ -34,6 +35,7 @@ export class DateTimeColumnModel extends DataColumnModel {
 				const date = this.parse(value);
 				return FormatService.date(date, this.format);
 			} catch (ex) {
+				Log.error('datetime.column', ex);
 				return value;
 			}
 		};

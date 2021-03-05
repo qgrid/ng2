@@ -1,4 +1,5 @@
 export { GridError } from '@qgrid/core/infrastructure/error';
+export { IVscrollSettings } from '@qgrid/core/scroll/scroll.let';
 export { Disposable } from './lib/infrastructure/disposable';
 
 export { GridModel, GridEventArg, GridEvent } from './lib/grid/grid-model';
@@ -35,7 +36,7 @@ export { VscrollRowDirective } from './lib/vscroll/vscroll-row.directive';
 export { VscrollDirective } from './lib/vscroll/vscroll.directive';
 export { VscrollPipe } from './lib/vscroll/vscroll.pipe';
 export { VscrollPort } from './lib/vscroll/vscroll.port';
-export { IVscrollSettings } from './lib/vscroll/vscroll.settings';
+
 
 export { ColumnListModule } from './lib/column-list/column-list.module';
 export { ColumnModule } from './lib/column/column.module';

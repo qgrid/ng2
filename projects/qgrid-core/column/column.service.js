@@ -55,7 +55,7 @@ export function find(columns, key) {
 }
 
 export function findIndex(columns, key) {
-	let length = columns.length;
+	let { length } = columns;
 	while (length--) {
 		const column = columns[length];
 		if (column.key == key) {

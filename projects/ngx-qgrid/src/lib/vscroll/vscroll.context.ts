@@ -1,12 +1,13 @@
+import { IVscrollContext, IVscrollSettings } from '@qgrid/core/scroll/scroll.let';
 import { VscrollContainer } from './vscroll.container';
-import { VscrollSettings, IVscrollSettings } from './vscroll.settings';
+import { VscrollSettings } from './vscroll.settings';
 
-export class VscrollContext {
+export class VscrollContext implements IVscrollContext {
 	settings: IVscrollSettings;
 	container: VscrollContainer;
 
-	constructor(settings?: IVscrollSettings) {
-		this.settings = new VscrollSettings(() => this.container.total);
+	constructor(settings?: Partial<IVscrollSettings>) {
+		this.settings = new VscrollSettings(() => this.container.count);
 		if (settings) {
 			Object.assign(this.settings, settings);
 		}

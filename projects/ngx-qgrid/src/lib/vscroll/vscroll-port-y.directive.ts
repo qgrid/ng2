@@ -8,31 +8,30 @@ import { findPositionUsingItemSize, findPositionUsingOffsets, recycleFactory, IV
 import { VscrollDirective } from './vscroll.directive';
 import { VscrollLink } from './vscroll.link';
 import { isNumber } from '@qgrid/core/utility/kit';
-import { Guard } from '@qgrid/core/infrastructure/guard';
 
 @Directive({
 	selector: '[q-grid-vscroll-port-y]'
 })
-export class VscrollPortYDirective extends VscrollPort implements OnChanges {
+export class VscrollPortYDirective implements VscrollPort, OnChanges {
+	private link: VscrollLink = null;
+
+	layout: VscrollLayout = null;
+	markup: { [key: string]: HTMLElement } = {};
 	@Input('q-grid-vscroll-port-y') context: VscrollContext;
-	markup = {};
-	layout: VscrollLayout;
-	link: VscrollLink;
 
 	constructor(
 		private elementRef: ElementRef,
 		private cd: ChangeDetectorRef,
 		private app: ApplicationRef,
-		view: VscrollDirective
+		private view: VscrollDirective
 	) {
-		super(view, elementRef.nativeElement);
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
 		const contextChange = changes['context'];
 		if (contextChange && this.context) {
 			this.layout = new VscrollLayout(this);
-			this.link = new VscrollLink(this);
+			this.link = new VscrollLink(this, this.view);
 			this.context.container.fetchPage(0);
 		}
 	}
@@ -47,9 +46,6 @@ export class VscrollPortYDirective extends VscrollPort implements OnChanges {
 			settings.emit(f);
 		} else {
 			f();
-
-			this.cd.markForCheck();
-			this.app.tick();
 		}
 	}
 

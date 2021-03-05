@@ -32,7 +32,6 @@ export class ExampleDetailsRowCustomComponent implements AfterViewInit {
 						status: new Map([[row, new RowDetailsStatus(true)]])
 					});
 
-
 					model.sceneChanged.on((e, off) => {
 						if (e.hasChanges('status') && e.state.status === 'stop') {
 							const gridService = this.qgrid.service(model);

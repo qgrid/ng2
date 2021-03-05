@@ -8,8 +8,8 @@ import { Command } from '../command/command';
  *
  * ```javascript
  * this.addRowCommand = 
- * 		new qgrid.Action(
- *			new qgrid.Command({	    
+ * 		new Action(
+ *			new Command({	    
  *		  		execute: () => {
  *		     		const newRow = { id: 1, text: 'Lorem ipsum dolor sit amet' };
  *                  this.rows = this.rows.concat(newRow);
@@ -23,7 +23,8 @@ export declare class Action {
 	constructor(
 		command: Command,
 		title?: string,
-		icon?: string
+		icon?: string,
+		templateUrl?: string,
 	);
 
 	/**
@@ -46,9 +47,7 @@ export declare class Action {
 	icon: string;
 
 	/**
-	 * If custom template is used this property is required for template resolution.
+	 * Template url of the action
 	 */
-	id: string;
-
 	templateUrl: string;
 }

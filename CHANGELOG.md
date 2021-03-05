@@ -3,6 +3,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [11.0.0] - 2021-03-01
+### Added
+- Right click on the q-grid cell selects all content of it.
+
+### Changed
+- Better pane api for the manual control.
+- Better parsing of non-ISO date formats.
+
+### BREAKING
+- Rename $view.filter.column to $view.filter.row.
+- Remove `options` property from $view.edit.cell.
+- Rename `shortcuts` to `shortcut` in the edit state.
+- Remove `prevent` property from the navigation state.
+- Remove `id` property from `Action` type.
+
 ## [9.2.1] - 2020-10-19
 ### Fixed
 - Fix datepicker which didn't work in edit mode correctly, by introducing `q-grid-editor-part` css class.
@@ -59,9 +74,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Set compilation target to es5. 
 
 ### Added
-- Support 2 version 9.1.x - Ivy, 9.1.x-ve - View Engine
+- Support 2 version 9.1.x - Ivy, 9.1.x-ve - View Engine.
+- `q-grid-shortcut-host` directive that can change key event source for q-grid commands.
+- Command palette API to access grid core commands.
+- Command state added to the model.
 
 ### Changed
+- Shortcut system.
 - Better top toolbar layout.
 - Grid title now wraps to the second row if not fit to width.
 
@@ -597,7 +616,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v9.2.1...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v11.0.0...HEAD
+[11.0.0]: https://github.com/qgrid/ng2/compare/v11.0.0...v9.2.1
 [9.2.1]: https://github.com/qgrid/ng2/compare/v9.1.11...v9.2.1
 [9.1.11]: https://github.com/qgrid/ng2/compare/v9.1.10...v9.1.11
 [9.1.10]: https://github.com/qgrid/ng2/compare/v9.1.9...v9.1.10

@@ -29,6 +29,7 @@ export class ExampleActionBarBasicComponent {
 			this.rows$.next(this.atoms);
 
 			this.clearCommand.canExecuteCheck.next();
+			return true;
 		},
 		canExecute: () => this.canLoad,
 		shortcut: 'alt+l'
@@ -40,6 +41,7 @@ export class ExampleActionBarBasicComponent {
 			this.rows$.next([]);
 
 			this.loadCommand.canExecuteCheck.next();
+			return true;
 		},
 		canExecute: () => !this.canLoad,
 		shortcut: 'alt+d'

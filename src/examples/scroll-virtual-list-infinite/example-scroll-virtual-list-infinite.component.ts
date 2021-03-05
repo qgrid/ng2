@@ -10,25 +10,25 @@ import { VscrollContext, VscrollService } from 'ng2-qgrid';
 export class ExampleScrollVirtualListInfiniteComponent {
 	static id = 'scroll-virtual-list-infinite';
 
-	context: VscrollContext;
+	context = this.vscroll.context({
+		threshold: 50,
+		fetch: (skip, take, d) => {
+			const length = skip + take;
+			const data = Array.from(Array(length).keys());
+			const wnd = data.slice(skip, length);
+
+			this.items.push(...wnd);
+			d.resolve(length + take);
+		}
+	});
+
 	items = [];
 
-	constructor(vscroll: VscrollService, cd: ChangeDetectorRef) {
-		this.context = vscroll.context({
-			threshold: 50,
-			emit: f => {
-				f();
-				cd.markForCheck();
-				cd.detectChanges();
-			},
-			fetch: (skip, take, d) => {
-				const length = skip + take;
-				const data = Array.from(Array(length).keys());
-				const wnd = data.slice(skip, length);
+	constructor(private vscroll: VscrollService) {
+	}
 
-				this.items.push(...wnd);
-				d.resolve(length + take);
-			}
-		});
+	reset() {
+		this.items = [];
+		this.context.container.reset();
 	}
 }
