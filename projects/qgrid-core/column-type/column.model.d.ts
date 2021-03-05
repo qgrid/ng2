@@ -238,6 +238,11 @@ export declare class ColumnModel {
 	 */
 	children?: ColumnModel[]
 
+	/**
+	 * Start index number for columns with type 'row-number'.
+	 */
+	startNumber?: number;
+
 	$label?: ((row: any, value?: any) => any) | any;
 
 	itemLabel?: (row: any, value?: any) => any;
