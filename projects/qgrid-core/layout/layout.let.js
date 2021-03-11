@@ -166,6 +166,11 @@ export class LayoutLet {
 		const form = layout().rows;
 		const style = form.get(row);
 		if (style) {
+			const { minHeight } = model.row();
+			if (minHeight > style.height){
+				return;
+			}
+
 			context.class(`resized-${style.height}px`, { height: style.height + 'px' });
 		}
 	}
