@@ -41,7 +41,7 @@ export class PaneComponent implements OnInit {
 				$implicit: this,
 				value: null
 			}
-		}
+		};
 	}
 
 	ngOnInit() {
