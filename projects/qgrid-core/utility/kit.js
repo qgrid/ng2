@@ -156,6 +156,10 @@ function matchISO8601(date) {
 	return /^(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2})))))))$/.test('' + date)
 }
 
+function matchISO8601Date(date) {
+	return /^(\d{4})(-(\d{2})(-(\d{2})))$/.test('' + date);
+}
+
 function getTypeName(type) {
 	if (type.name) {
 		return type.name;
@@ -189,6 +193,7 @@ export {
 	isObject,
 	isString,
 	matchISO8601,
+	matchISO8601Date,
 	isUndefined,
 	isUrl,
 	max,

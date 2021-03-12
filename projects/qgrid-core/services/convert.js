@@ -10,7 +10,8 @@ import {
 	isUrl,
 	isImage,
 	isUndefined,
-	matchISO8601
+	matchISO8601,
+	matchISO8601Date
 } from '../utility/kit';
 
 // TODO: right now we check the empty result on null, 
@@ -239,8 +240,7 @@ function likeDate(value) {
 
 	value = '' + value;
 
-	// ISO_8601
-	return !!value.match(/^(\d{4})(-(\d{2})(-(\d{2})))$/);
+	return matchISO8601Date(value);
 }
 
 function likeNumber(value) {
@@ -282,7 +282,7 @@ function parseDate(value) {
 		);
 	}
 
-	if (matchISO8601(value)) {
+	if (matchISO8601Date(value) || matchISO8601(value)) {
 		const yearMonthDay = ('' + value).split('-');
 		return new Date(
 			Number.parseInt(yearMonthDay[0]),
@@ -291,7 +291,8 @@ function parseDate(value) {
 			0, 0, 0, 0
 		);
 	}
-
+	
+	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse#differences_in_assumed_time_zone
 	return new Date('' + value);
 }
 
