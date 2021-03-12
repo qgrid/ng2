@@ -101,14 +101,8 @@ describe('Convert', () => {
 		it('should convert Date to Date', () => {
 			expect(+parseDate(new Date('2017-05-05'))).to.be.equal(+(new Date(2017, 4, 5)));
 		});
-		it('should convert String of date in YYYY-MM-DD to Date', () => {
-			expect(+parseDate('2017-05-05')).to.be.equal(+(new Date(2017, 4, 5)));
-		});
-		it('should convert String of date time YYYY-MM-DDThh:mm:ssZ to Date', () => {
-			expect(+parseDate('2017-05-05T00:00:00Z')).to.be.equal(+(new Date(2017, 4, 5)));
-		});
 		it('should convert String of date to Date', () => {
-			expect(+parseDate('May 5, 2017')).to.be.equal(+(new Date(2017, 4, 5)));
+			expect(+parseDate('2017-05-05')).to.be.equal(+(new Date(2017, 4, 5)));
 		});
 		it('should return null if argument is null', () => {
 			expect(parseDate(null)).to.equal(null);
