@@ -2,7 +2,7 @@
   "name": "ng2-qgrid",
   "version": "11.0.0",
   "scripts": {
-    "build:app": "npm run clean && ng build --prod --output-path dist/app --base-href /ng2/",
+    "build:app": "npm run clean && ng build --prod --output-path dist/app --base-href //ng2/",
     "build:lib": "npm run clean && node build.lib.js",
     "clean": "rimraf dist",
     "lint": "ng lint",
