@@ -21,6 +21,8 @@ export { CaptionComponent } from './lib/caption/caption.component';
 export { CaptionModule } from './lib/caption/caption.module';
 export { CellEditorComponent } from './lib/cell-editor/cell-editor.component';
 export { CellEditorModule } from './lib/cell-editor/cell-editor.module';
+export { CellTooltipComponent } from './lib/cell-tooltip/cell-tooltip.component';
+export { CellTooltipModule } from './lib/cell-tooltip/cell-tooltip.module';
 export { ColumnChooserComponent } from './lib/colum-chooser/column-chooser.component';
 export { ColumnChooserModule } from './lib/colum-chooser/column-chooser.module';
 export { ColumnChooserTriggerModule } from './lib/column-chooser-trigger/column-chooser-trigger.module';

@@ -15,6 +15,7 @@ import { ExampleActionBarOnEnterComponent } from './action-bar-on-enter/example-
 import { ExampleActionBarTemplateComponent } from './action-bar-template/example-action-bar-template.component';
 import { ExampleAggregateColumnBasicComponent } from './aggregate-column-basic/example-aggregate-column-basic.component';
 import { ExampleAltBasicComponent } from './pane-basic/example-alt-basic.component';
+import { ExampleCellTooltipBasicComponent } from './cell-tooltip-basic/example-cell-tooltip-basic.component';
 import { ExampleColumnArrayBasicComponent } from './column-array-basic/example-column-array-basic.component';
 import { ExampleColumnAutocompleteBasicComponent } from './column-autocomplete-basic/example-column-autocomplete-basic.component';
 import { ExampleColumnBoolBasicComponent } from './column-bool-basic/example-column-bool-basic.component';
@@ -177,6 +178,7 @@ export const EXAMPLES: any[] = [
 	ExampleActionBarTemplateComponent,
 	ExampleAggregateColumnBasicComponent,
 	ExampleAltBasicComponent,
+	ExampleCellTooltipBasicComponent,
 	ExampleColumnArrayBasicComponent,
 	ExampleColumnAutocompleteBasicComponent,
 	ExampleColumnBoolBasicComponent,
