@@ -121,6 +121,8 @@ export {
 	CaptionModule,
 	CellEditorComponent,
 	CellEditorModule,
+	CellTooltipComponent,
+	CellTooltipModule,
 	ColumnChooserComponent,
 	ColumnChooserModule,
 	ColumnChooserTriggerModule,
