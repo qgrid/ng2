@@ -1,0 +1,15 @@
+.q-grid-cell-tooltip {
+    color: $white;
+    border-radius: 4px;
+    background: $markup-secondary-gray;
+    margin: 14px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: fit-content;
+    max-width: 100%;
+    max-height: 100%;
+}

@@ -4,21 +4,6 @@ import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 @Component({
 	selector: 'q-grid-cell-tooltip',
 	templateUrl: './cell-tooltip.component.html',
-	styles: [`#q-grid-cell-tooltip {
-		color: #fff;
-		border-radius: 4px;
-		background: rgba(97,97,97,.9);
-		margin: 14px;
-		padding-left: 8px;
-		padding-right: 8px;
-		padding-top: 6px;
-		padding-bottom: 6px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		width: fit-content;
-		max-width: 100%;
-		max-height: 100%;
-	}`],
 	providers: [
 		GridPlugin,
 		TemplateHostService
@@ -26,7 +11,7 @@ import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CellTooltipComponent implements OnInit {
-	@ContentChild('tooltip') tooltip: TemplateRef<any>;	@Input('showDelay') showDelay: number;
+	@Input('showDelay') showDelay: number;
 	context: { $implicit: CellTooltipComponent } = {
 		$implicit: this
 	};
@@ -36,11 +21,11 @@ export class CellTooltipComponent implements OnInit {
 
 	private textContext: String = '';
 	// ???
-	private getDomElement = () => document.getElementById('q-grid-cell-tooltip').parentElement;
+	private getDomElement = () => document.querySelector('.q-grid-cell-tooltip').parentElement;
 
 	constructor(private plugin: GridPlugin,
 		private cd: ChangeDetectorRef) {
-		}
+	}
 
 	ngOnInit() {
 		const { model, observe, table } = this.plugin;
