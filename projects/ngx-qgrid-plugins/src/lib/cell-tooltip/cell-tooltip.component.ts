@@ -2,12 +2,10 @@ import {
 	ChangeDetectorRef,
 	ChangeDetectionStrategy,
 	Component,
-	OnInit,
+	OnChanges,
 	Input,
-	TemplateRef,
-	ContentChild,
 } from '@angular/core';
-import { DomCell, DomTd, GridPlugin, TemplateHostService } from '@qgrid/ngx';
+import { DomTd, GridPlugin, TemplateHostService } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-cell-tooltip',
@@ -15,19 +13,19 @@ import { DomCell, DomTd, GridPlugin, TemplateHostService } from '@qgrid/ngx';
 	providers: [GridPlugin, TemplateHostService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CellTooltipComponent implements OnInit {
+export class CellTooltipComponent implements OnChanges {
 	@Input('showDelay') showDelay: number;
+	private cell: HTMLElement;
 	context: { $implicit: DomTd } = {
 		$implicit: null,
 	};
 
-	// ???
-	private getDomElement = () =>
-		document.querySelector('.q-grid-cell-tooltip').parentElement;
+	constructor(
+		private plugin: GridPlugin,
+		private cd: ChangeDetectorRef
+	) {}
 
-	constructor(private plugin: GridPlugin, private cd: ChangeDetectorRef) {}
-
-	ngOnInit() {
+	ngOnChanges() {
 		const { model, observe, table } = this.plugin;
 		observe(model.highlightChanged).subscribe((e) => {
 			if (e.hasChanges('cell') && e.state.cell) {
@@ -38,30 +36,10 @@ export class CellTooltipComponent implements OnInit {
 				if (domCell) {
 					this.context = { $implicit: domCell.model() };
 					this.addTooltipLayer();
-					this.moveTooltip(domCell);
+					this.cell = domCell.element;
 				}
-			} else {
-				this.hideTooltip();
 			}
 		});
-	}
-
-	private moveTooltip(cell: DomCell) {
-		const { top, left } = cell.element.getBoundingClientRect();
-		const offset = 260 + 15 + 16;
-		const el = this.getDomElement();
-		el.style.setProperty('display', 'none');
-		el.style.setProperty('left', left - offset + 'px');
-		el.style.setProperty('top', top + 'px');
-
-		setTimeout(function () {
-			el.style.setProperty('display', 'block');
-		}, this.showDelay);
-	}
-
-	private hideTooltip(): void {
-		const el = this.getDomElement();
-		el.style.setProperty('display', 'none');
 	}
 
 	private addTooltipLayer(): void {
@@ -70,6 +48,7 @@ export class CellTooltipComponent implements OnInit {
 		if (table.view.hasLayer(tooltipLayer)) {
 			table.view.removeLayer(tooltipLayer);
 		}
+
 		table.view.addLayer(tooltipLayer);
 		this.invalidate();
 	}
@@ -77,5 +56,13 @@ export class CellTooltipComponent implements OnInit {
 	private invalidate(): void {
 		this.cd.markForCheck();
 		this.cd.detectChanges();
+	}
+
+	get delay() {
+		return this.showDelay;
+	}
+
+	get source() {
+		return this.cell;
 	}
 }

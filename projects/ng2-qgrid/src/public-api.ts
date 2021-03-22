@@ -123,6 +123,7 @@ export {
 	CellEditorModule,
 	CellTooltipComponent,
 	CellTooltipModule,
+	CellTooltipDirective,
 	ColumnChooserComponent,
 	ColumnChooserModule,
 	ColumnChooserTriggerModule,
