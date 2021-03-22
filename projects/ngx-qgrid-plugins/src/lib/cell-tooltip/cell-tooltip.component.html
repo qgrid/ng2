@@ -1,6 +1,6 @@
-<ng-template for="layer-tooltip.tpl.html">
-    <div class="q-grid-cell-tooltip">
-        <ng-container key="body-cell-tooltip.tpl.html" [context]="context">
-        </ng-container>
-    </div>
+<ng-template for="layer-tooltip.tpl.html" let-$cell>
+	<div q-grid-tooltip (created)="OnCreated($event)" [showDelay]="$cell" class="q-grid-cell-tooltip hiden">
+		<ng-container key="body-cell-tooltip.tpl.html" >
+		</ng-container>
+	</div>
 </ng-template>
