@@ -20,7 +20,7 @@ export class CellTooltipDirective implements OnChanges {
 	}
 
 	ngOnChanges(e: SimpleChanges) {
-		if (e.delay) {
+		if (e.showDelay) {
 			this.job = jobLine(this.showDelay);
 		}
 		if (this.host) {
