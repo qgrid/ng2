@@ -1,7 +1,7 @@
 <ng-template for="layer-tooltip.tpl.html">
 	<div q-grid-tooltip
-		[showDelay]="delay"
-		[source]="source"
+		[showDelay]="showDelay"
+		[host]="source"
 		class="q-grid-cell-tooltip">
 		<ng-container key="body-cell-tooltip.tpl.html" [context]="context">
 		</ng-container>

@@ -4,6 +4,7 @@ import {
 	Component,
 	OnChanges,
 	Input,
+	ApplicationRef,
 } from '@angular/core';
 import { DomTd, GridPlugin, TemplateHostService } from '@qgrid/ngx';
 
@@ -14,7 +15,7 @@ import { DomTd, GridPlugin, TemplateHostService } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CellTooltipComponent implements OnChanges {
-	@Input('showDelay') showDelay: number;
+	@Input() showDelay: number;
 	private cell: HTMLElement;
 	context: { $implicit: DomTd } = {
 		$implicit: null,
@@ -22,7 +23,8 @@ export class CellTooltipComponent implements OnChanges {
 
 	constructor(
 		private plugin: GridPlugin,
-		private cd: ChangeDetectorRef
+		private cd: ChangeDetectorRef,
+		private appRef: ApplicationRef
 	) {}
 
 	ngOnChanges() {
@@ -54,8 +56,10 @@ export class CellTooltipComponent implements OnChanges {
 	}
 
 	private invalidate(): void {
+		// ToDo: Investigate how to improve.
 		this.cd.markForCheck();
 		this.cd.detectChanges();
+		this.appRef.tick();
 	}
 
 	get delay() {
