@@ -1,5 +1,5 @@
 import { Given, Then, When, Before, BeforeAll, After } from 'cucumber';
-import { browser, element, by, promise, protractor } from 'protractor';
+import { browser, element, by, promise, protractor, ExpectedConditions as until } from 'protractor';
 import * as blueharvest from 'blue-harvest';
 import * as path from 'path';
 
@@ -35,6 +35,8 @@ When('I click cell {string}[{int}]', (key, index) => getCell(key, index).click()
 When('I click filter button [{int}]', (index: number) => clickFilterButton(index));
 When('I click more button', () => clickMoreButton());
 When('I select condition {string}', (cond: string) => selectCondition(cond));
+
+When('I press ENTER button', () => browser.actions().sendKeys(protractor.Key.ENTER).perform());
 
 
 When('I press ctrl+c', () => browser.actions().sendKeys(protractor.Key.chord(protractor.Key.CONTROL, 'c')).perform());
@@ -170,6 +172,7 @@ async function removeAllChipValues() {
 async function getSelectAll() {
 	await browser.sleep(1000);
 	const el = await element(by.xpath(`//*[contains(text(),'Select All')]/..`));
+	await browser.sleep(1000);
 	el.click();
 }
 
@@ -185,3 +188,28 @@ function clickMoreButton() {
 function selectCondition(cond) {
 	return element(by.xpath('//*[text() = \'' + cond + '\']')).click();
 }
+
+When('I scroll table till {string} column', async (name: string) => scrollTillColumnName(name));
+
+async function scrollTillColumnName(columnName) {
+    const SCROLL_JS_COLUMN_SCRIPT = 'arguments[0].scrollIntoView({block: "center", inline: "center"});';
+	const SCROLL_JS_TABLE_SCRIPT = 'arguments[0].scrollLeft = arguments[1].scrollLeft;';
+    const tableElement = await element(by.tagName('tbody'));
+    const tableHeadRow = await element(by.tagName('thead'));
+    const tableHeadElement = await element(by.xpath(`//th//label[contains(text(),'${columnName}')]`));
+	browser.executeScript(SCROLL_JS_COLUMN_SCRIPT, tableHeadElement.getWebElement());
+	browser.wait(protractor.ExpectedConditions.visibilityOf(tableHeadElement));
+	browser.executeScript(SCROLL_JS_TABLE_SCRIPT, tableElement.getWebElement(), tableHeadRow.getWebElement());
+}
+
+When('I enter {string} and {string}', (date1: string, date2: string) => betweenDates(date1, date2));
+
+function betweenDates(date1, date2) {
+	const input1 = element.all(by.className('mat-input-element')).get(1);
+	input1.clear();
+	input1.sendKeys(date1, protractor.Key.ENTER);
+	const input2 = element.all(by.className('mat-input-element')).get(2);
+	input2.clear();
+	input2.sendKeys(date2, protractor.Key.ENTER);
+	for(let i =0; i < 1000000; i++){}
+};
