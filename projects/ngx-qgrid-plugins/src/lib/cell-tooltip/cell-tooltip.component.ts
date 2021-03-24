@@ -15,8 +15,8 @@ import { DomTd, GridPlugin, TemplateHostService } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CellTooltipComponent implements OnChanges {
+	private cellElement: HTMLElement;
 	@Input() showDelay: number;
-	private cell: HTMLElement;
 	context: { $implicit: DomTd } = {
 		$implicit: null,
 	};
@@ -29,19 +29,18 @@ export class CellTooltipComponent implements OnChanges {
 
 	ngOnChanges() {
 		const { model, observe, table } = this.plugin;
-		observe(model.highlightChanged).subscribe((e) => {
-			if (e.hasChanges('cell') && e.state.cell) {
-				const domCell = table.body.cell(
-					e.state.cell.rowIndex,
-					e.state.cell.columnIndex
-				);
-				if (domCell) {
-					this.context = { $implicit: domCell.model() };
-					this.addTooltipLayer();
-					this.cell = domCell.element;
+		observe(model.highlightChanged)
+			.subscribe(e => {
+				if (e.hasChanges('cell') && e.state.cell) {
+					const {rowIndex, columnIndex} = e.state.cell;
+					const domCell = table.body.cell(rowIndex, columnIndex);
+					if (domCell) {
+						this.context = { $implicit: domCell.model() };
+						this.addTooltipLayer();
+						this.cellElement = domCell.element;
+					}
 				}
-			}
-		});
+			});
 	}
 
 	private addTooltipLayer(): void {
@@ -67,6 +66,6 @@ export class CellTooltipComponent implements OnChanges {
 	}
 
 	get source() {
-		return this.cell;
+		return this.cellElement;
 	}
 }
