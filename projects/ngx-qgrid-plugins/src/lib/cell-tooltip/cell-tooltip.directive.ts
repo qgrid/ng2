@@ -29,7 +29,6 @@ export class CellTooltipDirective implements OnChanges {
 			this.job = jobLine(this.showDelay);
 		}
 
-
 		if (e.host && this.host) {
 			const { top, left, height } = this.host.getBoundingClientRect();
 			const box = this.getBoxRect(this.host);
