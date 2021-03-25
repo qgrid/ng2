@@ -1,6 +1,5 @@
 .q-grid-cell-tooltip {
     position: fixed;
-    display: none;
     color: $white;
     border-radius: 4px;
     background: $markup-secondary-gray;
@@ -14,4 +13,9 @@
     width: fit-content;
     max-width: 100%;
     max-height: 100%;
+
+    &.q-grid-hide:not(.q-grid-show) {
+        display: none;
+    }
+
 }

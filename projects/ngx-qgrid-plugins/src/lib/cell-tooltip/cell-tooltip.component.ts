@@ -4,7 +4,7 @@ import {
 	Component,
 	OnChanges,
 	Input,
-	ApplicationRef,
+	ApplicationRef
 } from '@angular/core';
 import { DomTd, GridPlugin, TemplateHostService } from '@qgrid/ngx';
 
@@ -15,11 +15,11 @@ import { DomTd, GridPlugin, TemplateHostService } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CellTooltipComponent implements OnChanges {
-	private cellElement: HTMLElement;
 	@Input() showDelay: number;
 	context: { $implicit: DomTd } = {
 		$implicit: null,
 	};
+	cellElement: HTMLElement;
 
 	constructor(
 		private plugin: GridPlugin,
@@ -34,10 +34,10 @@ export class CellTooltipComponent implements OnChanges {
 				if (e.hasChanges('cell') && e.state.cell) {
 					const {rowIndex, columnIndex} = e.state.cell;
 					const domCell = table.body.cell(rowIndex, columnIndex);
-					if (domCell) {
+					if (domCell.model()) {
 						this.context = { $implicit: domCell.model() };
-						this.addTooltipLayer();
 						this.cellElement = domCell.element;
+						this.addTooltipLayer();
 					}
 				}
 			});
@@ -59,13 +59,5 @@ export class CellTooltipComponent implements OnChanges {
 		this.cd.markForCheck();
 		this.cd.detectChanges();
 		this.appRef.tick();
-	}
-
-	get delay() {
-		return this.showDelay;
-	}
-
-	get source() {
-		return this.cellElement;
 	}
 }

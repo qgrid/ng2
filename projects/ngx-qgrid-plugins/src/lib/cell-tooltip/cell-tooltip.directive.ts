@@ -4,6 +4,7 @@ import {
 	Directive,
 	ElementRef,
 	SimpleChanges,
+	Renderer2
 } from '@angular/core';
 import { GRID_PREFIX } from '@qgrid/core/definition';
 import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
@@ -16,8 +17,11 @@ export class CellTooltipDirective implements OnChanges {
 	@Input() host: HTMLElement;
 	@Input() showDelay = 1000;
 	private job = jobLine(this.showDelay);
-	constructor(private elementRef: ElementRef) {
-		this.elementRef.nativeElement.style.display = 'none';
+
+	constructor(private elementRef: ElementRef,
+		private renderer: Renderer2
+	) {
+		renderer.addClass(elementRef.nativeElement, 'q-grid-hide');
 	}
 
 	ngOnChanges(e: SimpleChanges) {
@@ -25,16 +29,19 @@ export class CellTooltipDirective implements OnChanges {
 			this.job = jobLine(this.showDelay);
 		}
 
+
 		if (e.host && this.host) {
 			const { top, left, height } = this.host.getBoundingClientRect();
 			const box = this.getBoxRect(this.host);
-			const targetElement = this.elementRef.nativeElement;
+			const el = this.elementRef.nativeElement;
 			this.job(() => {
-				targetElement.style.top = top - box.top + height + 'px';
-				targetElement.style.left = left - box.left + 'px';
-				targetElement.style.display = 'block';
+				this.renderer.setStyle(el, 'top', top - box.top + height + 'px');
+				this.renderer.setStyle(el, 'left', left - box.left + 'px');
+				this.renderer.removeClass(el, 'q-grid-hide');
 			});
+
 		}
+
 	}
 
 	private getBoxRect(element) {
