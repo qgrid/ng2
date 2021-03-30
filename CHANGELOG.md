@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [11.0.1] - 2021-03-30
+### Fixed
+- Loading first page in virtual scroll container.
+
 ## [11.0.0] - 2021-03-01
 ### Added
 - Right click on the q-grid cell selects all content of it.
@@ -616,7 +620,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v11.0.0...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v11.0.1...HEAD
+[11.0.1]: https://github.com/qgrid/ng2/compare/v11.0.0...v11.0.1
 [11.0.0]: https://github.com/qgrid/ng2/compare/v11.0.0...v9.2.1
 [9.2.1]: https://github.com/qgrid/ng2/compare/v9.1.11...v9.2.1
 [9.1.11]: https://github.com/qgrid/ng2/compare/v9.1.10...v9.1.11
