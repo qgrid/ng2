@@ -85,9 +85,7 @@ export class VscrollContainer implements IVscrollContainer {
 
 	reset() {
 		this.force = false;
-
 		this.position = 0;
-
 		this.count = 0;
 		this.lastPage = 0;
 
@@ -95,8 +93,6 @@ export class VscrollContainer implements IVscrollContainer {
 			handled: false,
 			source: 'container'
 		});
-
-		this.fetchPage(0);
 	}
 }
 
