@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## [11.0.1] - 2021-03-30
 ### Fixed
 - Loading first page in virtual scroll container.
+- Template column overrides all column props defined in typescript.
 
 ## [11.0.0] - 2021-03-01
 ### Added

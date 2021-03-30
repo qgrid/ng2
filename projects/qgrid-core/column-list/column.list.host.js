@@ -79,17 +79,23 @@ export class ColumnListHost {
 	extract(key, type) {
 		const { model } = this;
 
-		const createColumn = columnFactory(model);
-		let column = columnService.find(model.columnList().line, key);
-		if (column) {
-			createColumn(type, column);
-		} else {
-			column = createColumn(type || 'text').model;
-			column.key = key;
-			column.source = 'template';
+		const buildColumn = columnFactory(model);
+
+		let tplColumn = columnService.find(model.columnList().line, key);
+		if (tplColumn) {
+			return buildColumn(type, tplColumn);
 		}
 
-		return column;
+		tplColumn = buildColumn(type || 'text').model;
+		tplColumn.key = key;
+		tplColumn.source = 'template';
+
+		const dataColumn = columnService.find(model.data().columns, key);
+		if (dataColumn) {
+			this.copy(tplColumn, dataColumn);
+		}
+
+		return tplColumn;
 	}
 
 	delete(key) {
