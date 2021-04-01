@@ -9,16 +9,20 @@ import {
 import { GRID_PREFIX } from '@qgrid/core/definition';
 import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 import { jobLine } from '@qgrid/core/services/job.line';
+
 @Directive({
 	selector: '[q-grid-tooltip]',
 	providers: [GridPlugin, TemplateHostService],
 })
+
 export class CellTooltipDirective implements OnChanges {
 	@Input() host: HTMLElement;
 	@Input() showDelay = 1000;
+
 	private job = jobLine(this.showDelay);
 
-	constructor(private elementRef: ElementRef,
+	constructor(
+		private elementRef: ElementRef,
 		private renderer: Renderer2
 	) {
 		renderer.addClass(elementRef.nativeElement, 'q-grid-hide');
@@ -32,18 +36,18 @@ export class CellTooltipDirective implements OnChanges {
 		if (e.host && this.host) {
 			const { top, left, height } = this.host.getBoundingClientRect();
 			const box = this.getBoxRect(this.host);
-			const el = this.elementRef.nativeElement;
+			const host = this.elementRef.nativeElement;
 			this.job(() => {
-				this.renderer.setStyle(el, 'top', top - box.top + height + 'px');
-				this.renderer.setStyle(el, 'left', left - box.left + 'px');
-				this.renderer.removeClass(el, 'q-grid-hide');
+				this.renderer.setStyle(host, 'top', top - box.top + height + 'px');
+				this.renderer.setStyle(host, 'left', left - box.left + 'px');
+				this.renderer.removeClass(host, 'q-grid-hide');
 			});
 
 		}
 
 	}
 
-	private getBoxRect(element) {
+	private getBoxRect(element: HTMLElement) {
 		let view = element;
 		const marker = `${GRID_PREFIX}-box`;
 		while (view) {
@@ -51,7 +55,7 @@ export class CellTooltipDirective implements OnChanges {
 				return view.getBoundingClientRect();
 			}
 
-			view = view.parentNode;
+			view = view.parentNode as HTMLElement;
 		}
 
 		return view.getBoundingClientRect();
