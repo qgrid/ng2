@@ -161,6 +161,13 @@ export class ViewHost {
 				columnIndex: td.columnIndex
 			};
 
+			model.mouse({
+				status: 'move',
+				target: cell ?? newCell
+			}, {
+				source: 'mouse.move'
+			});
+
 			if (highlight.cell.canExecute(newCell)) {
 				highlight.cell.execute(newCell, true)
 			}
@@ -187,10 +194,25 @@ export class ViewHost {
 					view.selection.selectRange(startCell, endCell, 'body');
 				}
 			}
+		} else {
+			model.mouse({
+				status: 'move',
+				target: null,
+			}, {
+				source: 'mouse.move'
+			});
 		}
 	}
 
 	mouseLeave() {
+		const { model } = this.plugin;
+
+		model.mouse({
+			status: 'leave'
+		}, {
+			source: 'mouse.leave'
+		});
+
 		this.clearHighlight();
 	}
 
