@@ -2,9 +2,9 @@ import {
 	ChangeDetectorRef,
 	ChangeDetectionStrategy,
 	Component,
-	OnChanges,
+	OnInit,
 	Input,
-	ApplicationRef
+	ApplicationRef,
 } from '@angular/core';
 import { DomTd, GridPlugin, TemplateHostService } from '@qgrid/ngx';
 
@@ -14,12 +14,16 @@ import { DomTd, GridPlugin, TemplateHostService } from '@qgrid/ngx';
 	providers: [GridPlugin, TemplateHostService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CellTooltipComponent implements OnChanges {
+
+export class CellTooltipComponent implements OnInit {
 	@Input() showDelay: number;
+
 	context: { $implicit: DomTd } = {
 		$implicit: null,
 	};
 	cellElement: HTMLElement;
+	rowIndex: number;
+	columnIndex: number;
 
 	constructor(
 		private plugin: GridPlugin,
@@ -27,12 +31,15 @@ export class CellTooltipComponent implements OnChanges {
 		private appRef: ApplicationRef
 	) {}
 
-	ngOnChanges() {
+	ngOnInit() {
 		const { model, observe, table } = this.plugin;
+
 		observe(model.highlightChanged)
 			.subscribe(e => {
 				if (e.hasChanges('cell') && e.state.cell) {
-					const {rowIndex, columnIndex} = e.state.cell;
+					const { rowIndex, columnIndex } = e.state.cell;
+					this.rowIndex = rowIndex;
+					this.columnIndex = columnIndex;
 					const domCell = table.body.cell(rowIndex, columnIndex);
 					if (domCell.model()) {
 						this.context = { $implicit: domCell.model() };
@@ -40,6 +47,28 @@ export class CellTooltipComponent implements OnChanges {
 						this.addTooltipLayer();
 					}
 				}
+			});
+
+		observe(model.mouseChanged)
+			.subscribe((e) => {
+				const { status, target } = model.mouse();
+				if (status === 'move') {
+					if (
+						target === null ||
+						target.columnIndex !== this.columnIndex ||
+						target.rowIndex !== this.rowIndex
+					) {
+						this.cellElement = null;
+						this.invalidate();
+					}
+
+				}
+
+				if (status === 'leave') {
+					this.cellElement = null;
+					this.invalidate();
+				}
+
 			});
 	}
 

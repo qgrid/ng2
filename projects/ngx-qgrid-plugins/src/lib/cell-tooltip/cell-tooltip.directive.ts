@@ -25,7 +25,6 @@ export class CellTooltipDirective implements OnChanges {
 		private elementRef: ElementRef,
 		private renderer: Renderer2
 	) {
-		renderer.addClass(elementRef.nativeElement, 'q-grid-hide');
 	}
 
 	ngOnChanges(e: SimpleChanges) {
