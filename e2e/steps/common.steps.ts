@@ -170,9 +170,8 @@ async function removeAllChipValues() {
 }
 
 async function getSelectAll() {
-	await browser.sleep(1000);
 	const el = await element(by.xpath(`//*[contains(text(),'Select All')]/..`));
-	await browser.sleep(1000);
+	await browser.sleep(1000); //sleep is left here as the actions intercross without it and the scenario fails
 	el.click();
 }
 
@@ -192,11 +191,11 @@ function selectCondition(cond) {
 When('I scroll table till {string} column', async (name: string) => scrollTillColumnName(name));
 
 async function scrollTillColumnName(columnName) {
-    const SCROLL_JS_COLUMN_SCRIPT = 'arguments[0].scrollIntoView({block: "center", inline: "center"});';
+	const SCROLL_JS_COLUMN_SCRIPT = 'arguments[0].scrollIntoView({block: "center", inline: "center"});';
 	const SCROLL_JS_TABLE_SCRIPT = 'arguments[0].scrollLeft = arguments[1].scrollLeft;';
-    const tableElement = await element(by.tagName('tbody'));
-    const tableHeadRow = await element(by.tagName('thead'));
-    const tableHeadElement = await element(by.xpath(`//th//label[contains(text(),'${columnName}')]`));
+	const tableElement = await element(by.tagName('tbody'));
+	const tableHeadRow = await element(by.tagName('thead'));
+	const tableHeadElement = await element(by.xpath(`//th//label[contains(text(),'${columnName}')]`));
 	browser.executeScript(SCROLL_JS_COLUMN_SCRIPT, tableHeadElement.getWebElement());
 	browser.wait(protractor.ExpectedConditions.visibilityOf(tableHeadElement));
 	browser.executeScript(SCROLL_JS_TABLE_SCRIPT, tableElement.getWebElement(), tableHeadRow.getWebElement());
@@ -211,5 +210,5 @@ function betweenDates(date1, date2) {
 	const input2 = element.all(by.className('mat-input-element')).get(2);
 	input2.clear();
 	input2.sendKeys(date2, protractor.Key.ENTER);
-	for(let i =0; i < 1000000; i++){}
+	for (let i = 0; i < 1000000; i++) { }
 };
