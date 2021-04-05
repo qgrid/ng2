@@ -46,7 +46,7 @@ export class ExampleMouseApiBasicComponent implements AfterViewInit {
 			}
 			span.innerHTML = `status: ${status},<br>
 			code: ${code},<br>
-			target: ${targetString},<br>`;
+			target: ${targetString}`;
 			this.mouseEventLog.nativeElement.prepend(span);
 		});
 	}
