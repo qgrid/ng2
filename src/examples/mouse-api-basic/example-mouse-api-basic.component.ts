@@ -34,19 +34,20 @@ export class ExampleMouseApiBasicComponent implements AfterViewInit {
 	ngAfterViewInit(): void {
 		const { model } = this.grid;
 		model.mouseChanged.on(({ state }) => {
-			const { status, target, code } = state;
-
 			this.mouseEventLog.nativeElement.prepend(document.createElement('hr'));
 
+			const { status, target, code } = state;
 			const span = document.createElement('span');
 			let targetString = 'null';
 			if (target) {
 				const { columnIndex, rowIndex } = target;
-				targetString = `{ columnIndex: ${columnIndex}, rowIndex: ${rowIndex}}`;
+				targetString = `{ column: ${columnIndex}, row: ${rowIndex} }`;
+
 			}
+
 			span.innerHTML = `status: ${status},<br>
-			code: ${code},<br>
-			target: ${targetString}`;
+							  code: ${code},<br>
+							  target: ${targetString}`;
 			this.mouseEventLog.nativeElement.prepend(span);
 		});
 	}
