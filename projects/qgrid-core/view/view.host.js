@@ -236,7 +236,8 @@ export class ViewHost {
 	mouseEnter(e) {
 		const { model } = this.plugin;
 		model.mouse({
-			status: 'enter'
+			status: 'enter',
+			target: null
 		}, {
 			source: 'mouse.enter'
 		});
@@ -246,7 +247,8 @@ export class ViewHost {
 		const { model } = this.plugin;
 
 		model.mouse({
-			status: 'leave'
+			status: 'leave',
+			target: null
 		}, {
 			source: 'mouse.leave'
 		});
