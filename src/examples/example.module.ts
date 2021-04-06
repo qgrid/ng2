@@ -115,6 +115,7 @@ import { ExampleLookQuotesBasicComponent } from './look-quotes-basic/example-loo
 import { ExampleLookQuotesModelComponent } from './look-quotes-model/example-look-quotes-model.component';
 import { ExampleManipulateDataBasicComponent } from './manipulate-data-basic/example-manipulate-data-basic.component';
 import { ExampleMasterDetailsBasicComponent } from './master-details-basic/example-master-details-basic.component';
+import { ExampleMouseApiBasicComponent } from './mouse-api-basic/example-mouse-api-basic.component';
 import { ExampleOnPushBasicComponent } from './on-push-basic/example-on-push-basic.component';
 import { ExamplePaginationBasicComponent } from './pagination-basic/example-pagination-basic.component';
 import { ExamplePaneBasicComponent } from './pane-basic/example-pane-basic.component';
@@ -277,6 +278,7 @@ export const EXAMPLES: any[] = [
 	ExampleLookQuotesModelComponent,
 	ExampleManipulateDataBasicComponent,
 	ExampleMasterDetailsBasicComponent,
+	ExampleMouseApiBasicComponent,
 	ExampleOnPushBasicComponent,
 	ExamplePaginationBasicComponent,
 	ExamplePaneBasicComponent,
