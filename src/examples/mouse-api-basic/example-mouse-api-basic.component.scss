@@ -1,7 +1,11 @@
 :host {
 	::ng-deep {
-		#mouse-event-log > span {
-			display: block;
+		#mouse-event-log {
+			padding-inline-start: 0px;
+		}
+
+		#mouse-event-log > li {
+			list-style-type: none;
 			padding: 5px 10px;
 		}
 	}

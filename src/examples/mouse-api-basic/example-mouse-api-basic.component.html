@@ -5,17 +5,16 @@
 	<q-grid-toolbar>
 		<ng-template for="right">
 			<h2 class="mat-card-title">Mouse event log</h2>
-			<div id="mouse-event-log"
-				 #mouseEventLog>
-				<span *ngFor="let entry of logEntries">
+			<ul id="mouse-event-log">
+				<li *ngFor="let entry of logEntries">
 					status: {{entry.status}}
 					<br>
 					code: {{entry.code}}
 					<br>
 					target: {{entry.target}}
 					<hr>
-				</span>
-			</div>
+				</li>
+			</ul>
 		</ng-template>
 	</q-grid-toolbar>
 	<q-grid-visibility [toolbarRight]="true">

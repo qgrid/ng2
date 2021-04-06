@@ -9,7 +9,6 @@ import {
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
 import { GridComponent } from 'ng2-qgrid';
-import { LogEntry } from './example-mouse-api-basic.log-entry';
 
 const EXAMPLE_TAGS = ['mouse-api-basic', 'Mouse api example'];
 
@@ -21,21 +20,21 @@ const EXAMPLE_TAGS = ['mouse-api-basic', 'Mouse api example'];
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleMouseApiBasicComponent implements AfterViewInit {
+
+	static id = EXAMPLE_TAGS[0];
+
+	@ViewChild(GridComponent) grid: GridComponent;
+
+	logEntries: Array<LogEntry> = [];
+	title = EXAMPLE_TAGS[1];
+	rows: Observable<Human[]>;
+
 	constructor(
 		dataService: DataService,
 		private cdr: ChangeDetectorRef
 	) {
 		this.rows = dataService.getPeople();
 	}
-
-	static id = EXAMPLE_TAGS[0];
-
-	@ViewChild(GridComponent) grid: GridComponent;
-	@ViewChild('mouseEventLog') mouseEventLog: ElementRef;
-
-	logEntries: Array<LogEntry> = [];
-	title = EXAMPLE_TAGS[1];
-	rows: Observable<Human[]>;
 
 	ngAfterViewInit(): void {
 		const { model } = this.grid;
@@ -56,4 +55,10 @@ export class ExampleMouseApiBasicComponent implements AfterViewInit {
 			this.cdr.detectChanges();
 		});
 	}
+}
+
+export declare class LogEntry {
+	status: string;
+	code: string;
+	target: string;
 }
