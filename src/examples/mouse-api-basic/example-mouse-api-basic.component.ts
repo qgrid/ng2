@@ -40,7 +40,7 @@ export class ExampleMouseApiBasicComponent implements AfterViewInit {
 		const { model } = this.grid;
 		model.mouseChanged.on(({ state }) => {
 			const { status, target, code } = state;
-			let targetString = 'null';
+			let targetString = '';
 			if (target) {
 				const { columnIndex, rowIndex } = target;
 				targetString = `{ column: ${columnIndex}, row: ${rowIndex} }`;
