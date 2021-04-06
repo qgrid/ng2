@@ -20,13 +20,18 @@ export class ExampleDefineColumnHybridComponent {
 	title = EXAMPLE_TAGS[1];
 
 	rows: Observable<Atom[]>;
+	
 	columns: Column[] = [{
 		key: 'mass',
-		title: 'should be js Mass'
+		title: 'should be js Mass',
+		canFilter: false,
+		canSort: false,
 	}, {
 		key: 'symbol',
-		title: 'shouldnt be js Symbol',
-		width: 200
+		title: 'should not be js Symbol',
+		width: 200,
+		canSort: false,
+		canFilter: false
 	}];
 
 	constructor(dataService: DataService) {

@@ -38,6 +38,8 @@ export class VscrollLink {
 
 			container.position = layout.reset();
 			port.reset();
+			
+			container.fetchPage(0);
 		});
 
 		container.update$.subscribe(() => this.update(true));

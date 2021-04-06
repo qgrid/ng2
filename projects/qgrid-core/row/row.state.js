@@ -14,6 +14,7 @@ export class RowState {
 		};
 		this.canMove = false;
 		this.canResize = false;
+		this.minHeight = 0;
 		this.pinTop = [];
 		this.pinBottom = [];
 		this.toggle = new Command();

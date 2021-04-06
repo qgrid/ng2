@@ -13,7 +13,7 @@ function getEditFormBody() {
 
 function clickCancelButton() {
 	const editor = getEditFormBody();
-	//const elem = driver.find_elements_by_xpath('//button[.//span[contains(.,\'Cancel\')]]');
+	// const elem = driver.find_elements_by_xpath('//button[.//span[contains(.,\'Cancel\')]]');
 	const elem = editor.element(by.xpath('//button[.//span[contains(.,\'Cancel\')]]'));
 	browser.wait(until.presenceOf(elem), 5000, 'Element taking too long to appear in the DOM');
 	elem.click();
@@ -28,6 +28,3 @@ async function hoverColumnTitleByName(title: string) {
 	const el = element(by.xpath(`//th//label[contains(text(),'${title}')]`));
 	await browser.actions().mouseMove(el).perform();
 }
-
-
-

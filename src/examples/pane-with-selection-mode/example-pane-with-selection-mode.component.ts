@@ -16,17 +16,19 @@ const EXAMPLE_TAGS = [
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamplePaneWithSelectionComponent implements AfterViewInit {
-	@ViewChild(GridComponent) grid: GridComponent;
-	@ViewChild(PaneComponent) pane: PaneComponent;
-
-	static tags = EXAMPLE_TAGS;
-	title = EXAMPLE_TAGS[1];
-
-	rows$: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {
 		this.rows$ = dataService.getAtoms();
 	}
+
+	static tags = EXAMPLE_TAGS;
+
+	@ViewChild(GridComponent) grid: GridComponent;
+	@ViewChild(PaneComponent) pane: PaneComponent;
+
+	title = EXAMPLE_TAGS[1];
+
+	rows$: Observable<Atom[]>;
 
 	ngAfterViewInit(): void {
 		const { model } = this.grid;
