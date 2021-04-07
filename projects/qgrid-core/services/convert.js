@@ -239,7 +239,7 @@ function likeDate(value) {
 
 	value = '' + value;
 
-	// ISO_8601
+	// part of ISO_8601 for dates
 	return !!value.match(/^(\d{4})(-(\d{2})(-(\d{2})))$/);
 }
 

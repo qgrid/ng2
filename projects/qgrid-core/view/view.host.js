@@ -144,6 +144,35 @@ export class ViewHost {
 		}
 	}
 
+	mouseUp(e) {
+		const { model } = this.plugin;
+		const { edit } = model;
+		const td = this.findCell(e);
+
+		model.mouse({
+			code: stringify(getButtonCode(e)),
+			status: 'up',
+			target: td,
+		}, {
+			source: 'mouse.up'
+		});
+
+		if (checkButtonCode(e, LEFT_BUTTON)) {
+			if (edit().status === 'startBatch') {
+				edit({ status: 'endBatch' }, { source: 'body.ctrl' });
+			}
+		}
+
+		model.mouse({
+			code: stringify(NO_BUTTON),
+			status: 'release',
+			target: null,
+			timestamp: Date.now(),
+		}, {
+			source: 'mouse.up'
+		});
+	}
+
 	mouseMove(e) {
 		const { model, view } = this.plugin;
 		const { highlight } = view;
@@ -204,45 +233,29 @@ export class ViewHost {
 		}
 	}
 
+	mouseEnter(e) {
+		const { model } = this.plugin;
+		model.mouse({
+			status: 'enter',
+			target: null,
+			code: null
+		}, {
+			source: 'mouse.enter'
+		});
+	}
+
 	mouseLeave() {
 		const { model } = this.plugin;
 
 		model.mouse({
-			status: 'leave'
+			status: 'leave',
+			target: null,
+			code: null
 		}, {
 			source: 'mouse.leave'
 		});
 
 		this.clearHighlight();
-	}
-
-	mouseUp(e) {
-		const { model } = this.plugin;
-		const { edit } = model;
-		const td = this.findCell(e);
-
-		model.mouse({
-			code: stringify(getButtonCode(e)),
-			status: 'up',
-			target: td,
-		}, {
-			source: 'mouse.up'
-		});
-
-		if (checkButtonCode(e, LEFT_BUTTON)) {
-			if (edit().status === 'startBatch') {
-				edit({ status: 'endBatch' }, { source: 'body.ctrl' });
-			}
-		}
-
-		model.mouse({
-			code: stringify(NO_BUTTON),
-			status: 'release',
-			target: null,
-			timestamp: Date.now(),
-		}, {
-			source: 'mouse.up'
-		});
 	}
 
 	select(cell) {

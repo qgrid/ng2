@@ -6,7 +6,10 @@ export declare class ViewHost {
 	invalidate(): void;
 
 	mouseDown(e: MouseEvent);
-	mouseMove(e: MouseEvent);
-	mouseLeave(e: MouseEvent);
 	mouseUp(e: MouseEvent);
+
+	mouseMove(e: MouseEvent);
+
+	mouseEnter(e: MouseEvent);
+	mouseLeave(e: MouseEvent);
 }

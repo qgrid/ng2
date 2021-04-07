@@ -132,6 +132,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 
 		this.zone.runOutsideAngular(() => {
 			disposable.add(listener.on('mousemove', e => this.host.mouseMove(e)));
+			disposable.add(listener.on('mouseenter', e => this.host.mouseEnter(e)));
 			disposable.add(listener.on('mouseleave', e => this.host.mouseLeave(e)));
 			disposable.add(listener.on('mouseup', e => this.host.mouseUp(e)));
 		});
