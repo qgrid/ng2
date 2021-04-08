@@ -79,6 +79,8 @@ export class ColumnComponent implements OnInit, OnDestroy, OnChanges {
 
 	@Input() maxLength: number;
 
+	@Input() startNumber: number;
+
 	constructor(
 		@SkipSelf() @Optional() private parentHost: ColumnHostService,
 		private selfHost: ColumnHostService,

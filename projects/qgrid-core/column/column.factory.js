@@ -1,4 +1,3 @@
-import { Guard } from '../infrastructure/guard';
 import { assignWith, clone, isUndefined } from '../utility/kit';
 import { ColumnView as CustomColumn } from '../scene/view/column.view';
 import { ArrayColumn } from '../column-type/array.column';

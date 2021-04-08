@@ -239,7 +239,7 @@ function likeDate(value) {
 
 	value = '' + value;
 
-	// ISO_8601
+	// part of ISO_8601 for dates
 	return !!value.match(/^(\d{4})(-(\d{2})(-(\d{2})))$/);
 }
 
@@ -282,7 +282,7 @@ function parseDate(value) {
 		);
 	}
 
-	if (matchISO8601(value)) {
+	if (likeDate(value) || matchISO8601(value)) {
 		const yearMonthDay = ('' + value).split('-');
 		return new Date(
 			Number.parseInt(yearMonthDay[0]),

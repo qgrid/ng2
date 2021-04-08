@@ -1,8 +1,8 @@
 {
   "name": "ng2-qgrid",
-  "version": "11.0.0",
+  "version": "11.0.1",
   "scripts": {
-    "build:app": "npm run clean && ng build --prod --output-path dist/app --base-href /ng2/",
+    "build:app": "npm run clean && node build.theme.js && ng build --prod --output-path dist/app --base-href /ng2/",
     "build:lib": "npm run clean && node build.lib.js",
     "clean": "rimraf dist",
     "lint": "ng lint",
@@ -74,6 +74,7 @@
     "karma-coverage-istanbul-reporter": "~3.0.3",
     "karma-mocha": "^2.0.1",
     "karma-mocha-reporter": "^2.2.5",
+    "karma-webpack": "^5.0.0",
     "livr": "2.3.1",
     "lodash-es": "^4.17.20",
     "mocha": "^8.3.0",

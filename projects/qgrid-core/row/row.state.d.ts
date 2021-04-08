@@ -48,6 +48,11 @@ export declare class RowState {
 	canResize: boolean;
 
 	/**
+	 * Indicates min size of rows for resize.
+	 */
+	 minHeight: number;
+	
+	/**
 	 * All data rows in this list will be pinned to top.
 	 */
 	pinTop: any[];

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, ChangeDetectorRef, ApplicationRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { VscrollPort } from './vscroll.port';
 import { VscrollContext } from './vscroll.context';
 import { capitalize } from './vscroll.utility';
@@ -7,7 +7,7 @@ import { VscrollLayout } from './vscroll.layout';
 import { findPositionUsingItemSize, findPositionUsingOffsets, recycleFactory, IVscrollPosition } from './vscroll.position';
 import { VscrollDirective } from './vscroll.directive';
 import { isNumber } from '@qgrid/core/utility/kit';
-import { VscrollLink } from './vscroll.link'; ``
+import { VscrollLink } from './vscroll.link';
 
 @Directive({
 	selector: '[q-grid-vscroll-port-x]'
@@ -21,8 +21,6 @@ export class VscrollPortXDirective implements VscrollPort, OnChanges {
 
 	constructor(
 		private elementRef: ElementRef,
-		private cd: ChangeDetectorRef,
-		private app: ApplicationRef,
 		private view: VscrollDirective
 	) {
 	}
@@ -32,7 +30,7 @@ export class VscrollPortXDirective implements VscrollPort, OnChanges {
 		if (contextChange && this.context) {
 			this.layout = new VscrollLayout(this);
 			this.link = new VscrollLink(this, this.view);
-			this.context.container.fetchPage(0);
+			this.context.container.reset();
 		}
 	}
 
