@@ -20,7 +20,7 @@ export class ExampleDefineColumnHybridComponent {
 	title = EXAMPLE_TAGS[1];
 
 	rows: Observable<Atom[]>;
-	
+
 	columns: Column[] = [{
 		key: 'mass',
 		title: 'should be js Mass',
