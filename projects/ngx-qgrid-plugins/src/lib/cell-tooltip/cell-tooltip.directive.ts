@@ -46,6 +46,7 @@ export class CellTooltipDirective implements OnChanges {
 
 	}
 
+	// TODO: Extract to external function
 	private getBoxRect(element: HTMLElement) {
 		let view = element;
 		const marker = `${GRID_PREFIX}-box`;
