@@ -22,53 +22,33 @@ export class CellTooltipComponent implements OnInit {
 		$implicit: null,
 	};
 	cellElement: HTMLElement;
-	rowIndex: number;
-	columnIndex: number;
 
 	constructor(
 		private plugin: GridPlugin,
 		private cd: ChangeDetectorRef,
 		private appRef: ApplicationRef
-	) {}
+	) { }
 
 	ngOnInit() {
 		const { model, observe, table } = this.plugin;
 
-		observe(model.highlightChanged)
-			.subscribe(e => {
-				if (e.hasChanges('cell') && e.state.cell) {
-					const { rowIndex, columnIndex } = e.state.cell;
-					this.rowIndex = rowIndex;
-					this.columnIndex = columnIndex;
-					const domCell = table.body.cell(rowIndex, columnIndex);
-					if (domCell.model()) {
-						this.context = { $implicit: domCell.model() };
-						this.cellElement = domCell.element;
-						this.addTooltipLayer();
-					}
-				}
-			});
-
 		observe(model.mouseChanged)
 			.subscribe((e) => {
-				const { status, target } = model.mouse();
-				if (status === 'move') {
-					if (
-						target === null ||
-						target.columnIndex !== this.columnIndex ||
-						target.rowIndex !== this.rowIndex
-					) {
+				const { target } = model.mouse();
+				if (e.hasChanges('target')) {
+					if (target) {
+						const { rowIndex, columnIndex } = target;
+						const domCell = table.body.cell(rowIndex, columnIndex);
+						if (domCell.model()) {
+							this.context = { $implicit: domCell.model() };
+							this.cellElement = domCell.element;
+							this.addTooltipLayer();
+						}
+					} else {
 						this.cellElement = null;
-						this.invalidate();
 					}
-
-				}
-
-				if (status === 'leave') {
-					this.cellElement = null;
 					this.invalidate();
 				}
-
 			});
 	}
 
@@ -80,7 +60,6 @@ export class CellTooltipComponent implements OnInit {
 		}
 
 		table.view.addLayer(tooltipLayer);
-		this.invalidate();
 	}
 
 	private invalidate(): void {
