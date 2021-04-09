@@ -150,11 +150,10 @@ export class PredicateVisitor extends Visitor {
 							}
 						}
 						return false;
-					} else {
-						const v =
-							!actual && actual !== 0 ? 'null' : '' + actual;
-						return map.has(v);
 					}
+
+					const v = !actual && actual !== 0 ? 'null' : '' + actual;
+					return map.has(v);
 				};
 				break;
 			}
