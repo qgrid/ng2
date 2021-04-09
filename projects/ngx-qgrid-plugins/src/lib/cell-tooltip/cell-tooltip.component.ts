@@ -34,21 +34,26 @@ export class CellTooltipComponent implements OnInit {
 
 		observe(model.mouseChanged)
 			.subscribe((e) => {
-				const { target } = model.mouse();
-				if (e.hasChanges('target')) {
-					if (target) {
-						const { rowIndex, columnIndex } = target;
-						const domCell = table.body.cell(rowIndex, columnIndex);
-						if (domCell.model()) {
-							this.context = { $implicit: domCell.model() };
-							this.cellElement = domCell.element;
-							this.addTooltipLayer();
-						}
-					} else {
-						this.cellElement = null;
-					}
-					this.invalidate();
+				if (e.state.status !== 'move' && e.state.status !== 'leave') {
+					return;
 				}
+
+				if (e.state.target) {
+					const { rowIndex, columnIndex } = e.state.target;
+					const domCell = table.body.cell(rowIndex, columnIndex);
+
+					if (domCell.model()) {
+						this.context = {
+							$implicit: domCell.model()
+						};
+						this.cellElement = domCell.element;
+						this.addTooltipLayer();
+					}
+
+				} else {
+					this.cellElement = null;
+				}
+				this.invalidate();
 			});
 	}
 
