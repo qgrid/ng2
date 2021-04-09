@@ -145,11 +145,11 @@ export class PredicateVisitor extends Visitor {
 				predicate = (actual) => {
 					if (isArray(actual)) {
 						for (const value of map) {
-							if (!actual.includes(value)) {
-								return false;
+							if (actual.includes(value)) {
+								return true;
 							}
 						}
-						return true;
+						return false;
 					} else {
 						const v =
 							!actual && actual !== 0 ? 'null' : '' + actual;
