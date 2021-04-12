@@ -169,6 +169,23 @@ describe('PredicateVisitor', () => {
 			expect(res4).to.equal(true);
 		});
 
+		it('check for equality with op = "in" with number value', () => {
+			let condition = {
+				kind: 'condition',
+				op: 'in',
+				right: [10, 20],
+				left: 'value',
+			};
+			let predicateVisitor = new PredicateVisitor(
+				valueFactory,
+				assertFactory,
+				resolveType
+			);
+			let match = predicateVisitor.visit(condition);
+			let res = match(10);
+			expect(res).to.equal(true);
+		});
+
 		it('check for equality with op = "in" with string value', () => {
 			let condition = {
 				kind: 'condition',
@@ -186,7 +203,7 @@ describe('PredicateVisitor', () => {
 			expect(res).to.equal(true);
 		});
 
-		it('check for equality with op = "in" and array value', () => {
+		it('check for equality with op = "in" and string array value', () => {
 			let condition = {
 				kind: 'condition',
 				op: 'in',
@@ -200,6 +217,23 @@ describe('PredicateVisitor', () => {
 			);
 			let match = predicateVisitor.visit(condition);
 			let res = match(['10', '30']);
+			expect(res).to.equal(true);
+		});
+
+		it('check for equality with op = "in" and number array value', () => {
+			let condition = {
+				kind: 'condition',
+				op: 'in',
+				right: [10, 20],
+				left: 'value',
+			};
+			let predicateVisitor = new PredicateVisitor(
+				valueFactory,
+				assertFactory,
+				resolveType
+			);
+			let match = predicateVisitor.visit(condition);
+			let res = match([10, 30]);
 			expect(res).to.equal(true);
 		});
 
