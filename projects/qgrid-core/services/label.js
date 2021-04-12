@@ -14,13 +14,9 @@ export function get(row, column) {
 
 export function getFactory(column) {
 	const get = column.$label
-		? isFunction(column.$label) 
-			? row => column.$label({ $row: row }) 
-			: () => column.label
+		? isFunction(column.$label) ? row => column.$label({ $row: row }) : row => column.label
 		: column.label
-			? isFunction(column.label) 
-				? row => getValue(row, column)
-				: () => column.label
+			? isFunction(column.label) ? row => column.label(row) : row => column.label
 			: column.labelPath
 				? compileGet(column.labelPath)
 				: row => getValue(row, column);
