@@ -72,7 +72,7 @@
 |70|generate-column-deep|||+|
 |71|generate-column-raw|||+|
 |72|generate-column-shallow|||+|
-|73|-grid-list-basic|||+|
+|73|grid-list-basic|||+|
 |74|grid-size|+|||
 |75|group-column-basic||+|
 |76|group-row-aggregation|+|||
