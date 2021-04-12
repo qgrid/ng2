@@ -68,6 +68,8 @@ export class ColumnModel {
 		this.$value = null;
 
 		this.itemLabel = identity;
+
+		this.startNumber = 1;
 	}
 
 	toString() {

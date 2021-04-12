@@ -1,4 +1,4 @@
 <ng-template key="body-cell-row-number.tpl.html"
              let-$cell>
-	{{$cell.rowIndex + 1}}
+	{{$cell.rowIndex + $cell.column.startNumber}}
 </ng-template>

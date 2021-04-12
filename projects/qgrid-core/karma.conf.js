@@ -8,6 +8,14 @@ module.exports = function (config) {
     files: [
       { pattern: '*/*.spec.js', watched: false },
     ],
+    plugins: [
+      'karma-mocha',
+      'karma-chai-spies',
+      'karma-chai',
+      'karma-webpack',
+      'karma-chrome-launcher',
+      'karma-mocha-reporter'
+    ],
     preprocessors: {
       '*/*.spec.js': ['webpack'],
     },

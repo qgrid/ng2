@@ -36,7 +36,7 @@ describe('columnFactory', () => {
 		expect(result.model.editor).to.equal(null);
 		expect(result.model.editorOptions.trigger).to.equal('click');
 		expect(result.model.editorOptions.label).to.equal(null);
-		expect(result.model.editorOptions.value.name).to.equal('Io');
+		expect(result.model.editorOptions.value.name).to.equal('identity');
 		expect(result.model.editorOptions.actions.length).to.equal(0);
 		expect(result.model.width).to.equal(null);
 		expect(result.model.minWidth).to.equal(null);

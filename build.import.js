@@ -22,14 +22,13 @@ function promiseify(fn) {
 const readFile = promiseify(fs.readFile);
 const writeFile = promiseify(fs.writeFile);
 
-function dirDepth(path) {
-  const SEP = '\\';
-  path = path.trimRight(SEP);
-  if (fs.statSync(path).isDirectory()) {
-    return path.split(SEP).length;
+function dirDepth(folderPath) {
+  folderPath = folderPath.trimRight(path.sep);
+  if (fs.statSync(folderPath).isDirectory()) {
+    return folderPath.split(path.sep).length;
   }
 
-  return path.split(SEP).length - 1;
+  return folderPath.split(path.sep).length - 1;
 }
 
 function inImports(rootPath, fix) {

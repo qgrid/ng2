@@ -42,9 +42,7 @@ describe('selection service', () => {
 		before('init model', () => {
 			model.selection({
 				unit: 'row',
-				key: {
-					row: row => row.id
-				}
+				rowKey: row => row.id
 			});
 		});
 
@@ -71,9 +69,9 @@ describe('selection service', () => {
 		describe('key function', () => {
 			it('should return key of corresponding row', () => {
 				const service = new SelectionService(model);
-				const key = service.keyFactory('row');
+				const selectKey = service.keyFactory('row');
 
-				const keys = rows.map(row => key(row));
+				const keys = rows.map(row => selectKey(row));
 
 				expect(keys[0]).to.equal(101);
 				expect(keys[1]).to.equal(102);
@@ -86,9 +84,7 @@ describe('selection service', () => {
 		before('init model', () => {
 			model.selection({
 				unit: 'column',
-				key: {
-					column: column => column.key
-				}
+				columnKey: column => column.key
 			});
 		});
 
@@ -128,10 +124,8 @@ describe('selection service', () => {
 		before('init model', () => {
 			model.selection({
 				unit: 'cell',
-				key: {
-					row: row => row.id,
-					column: column => column.key
-				}
+				rowKey: row => row.id,
+				columnKey: column => column.key
 			});
 		});
 
