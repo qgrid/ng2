@@ -145,11 +145,7 @@ export class PredicateVisitor extends Visitor {
 				predicate = (actual) => {
 					if (isArray(actual)) {
 						for (const value of map) {
-							if (
-								actual.some(function (element) {
-									return '' + element === value;
-								})
-							) {
+							if (actual.some((item) => '' + item === value)) {
 								return true;
 							}
 						}
