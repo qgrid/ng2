@@ -169,16 +169,173 @@ describe('PredicateVisitor', () => {
 			expect(res4).to.equal(true);
 		});
 
-		it('check for equality with op = "in"', () => {
+		it('check for equality with op = "between" on bounds of the range, start date is set', () => {
+			let condition = {
+				kind: 'condition',
+				op: 'between',
+				right: [Date.parse('05/05/2012')],
+				left: 'value',
+			};
+			let predicateVisitor = new PredicateVisitor(
+				valueFactory,
+				assertFactory,
+				resolveType
+			);
+			let match = predicateVisitor.visit(condition);
+			let res = match(Date.parse('05/05/2099'));
+			expect(res).to.equal(true);
+		});
+
+		it('check for equality with op = "between" out of bounds of the range, start date is set', () => {
+			let condition = {
+				kind: 'condition',
+				op: 'between',
+				right: [Date.parse('05/05/2012')],
+				left: 'value',
+			};
+			let predicateVisitor = new PredicateVisitor(
+				valueFactory,
+				assertFactory,
+				resolveType
+			);
+			let match = predicateVisitor.visit(condition);
+			let res = match(Date.parse('04/05/2012'));
+			expect(res).to.equal(false);
+		});
+
+		it('check for equality with op = "between" on bounds of the range, both dates are set', () => {
+			let condition = {
+				kind: 'condition',
+				op: 'between',
+				right: [Date.parse('05/05/2011'), Date.parse('01/01/2013')],
+				left: 'value',
+			};
+			let predicateVisitor = new PredicateVisitor(
+				valueFactory,
+				assertFactory,
+				resolveType
+			);
+			let match = predicateVisitor.visit(condition);
+			let res = match(Date.parse('12/31/2012'));
+			expect(res).to.equal(true);
+		});
+
+		it('check for equality with op = "between" out of bounds of the range, both dates are set', () => {
+			let condition = {
+				kind: 'condition',
+				op: 'between',
+				right: [Date.parse('05/05/2011'), Date.parse('01/01/2013')],
+				left: 'value',
+			};
+			let predicateVisitor = new PredicateVisitor(
+				valueFactory,
+				assertFactory,
+				resolveType
+			);
+			let match = predicateVisitor.visit(condition);
+			let res = match(Date.parse('12/31/2099'));
+			expect(res).to.equal(false);
+		});
+
+		it('check for equality with op = "between" on bounds of the range, end date is set', () => {
+			let condition = {
+				kind: 'condition',
+				op: 'between',
+				right: [, Date.parse('05/05/2012')],
+				left: 'value',
+			};
+			let predicateVisitor = new PredicateVisitor(
+				valueFactory,
+				assertFactory,
+				resolveType
+			);
+			let match = predicateVisitor.visit(condition);
+			let res = match(Date.parse('05/04/2012'));
+			expect(res).to.equal(true);
+		});
+
+		it('check for equality with op = "between" out of bounds of the range, end date is set', () => {
+			let condition = {
+				kind: 'condition',
+				op: 'between',
+				right: [, Date.parse('05/05/2012')],
+				left: 'value',
+			};
+			let predicateVisitor = new PredicateVisitor(
+				valueFactory,
+				assertFactory,
+				resolveType
+			);
+			let match = predicateVisitor.visit(condition);
+			let res = match(Date.parse('05/06/2012'));
+			expect(res).to.equal(false);
+		});
+
+		it('check for equality with op = "in" with number value', () => {
 			let condition = {
 				kind: 'condition',
 				op: 'in',
 				right: [10, 20],
-				left: 'value'
+				left: 'value',
 			};
-			let predicateVisitor = new PredicateVisitor(valueFactory, assertFactory, resolveType);
+			let predicateVisitor = new PredicateVisitor(
+				valueFactory,
+				assertFactory,
+				resolveType
+			);
 			let match = predicateVisitor.visit(condition);
 			let res = match(10);
+			expect(res).to.equal(true);
+		});
+
+		it('check for equality with op = "in" with string value', () => {
+			let condition = {
+				kind: 'condition',
+				op: 'in',
+				right: [10, 20],
+				left: 'value',
+			};
+			let predicateVisitor = new PredicateVisitor(
+				valueFactory,
+				assertFactory,
+				resolveType
+			);
+			let match = predicateVisitor.visit(condition);
+			let res = match(10);
+			expect(res).to.equal(true);
+		});
+
+		it('check for equality with op = "in" and string array value', () => {
+			let condition = {
+				kind: 'condition',
+				op: 'in',
+				right: [10, 20],
+				left: 'value',
+			};
+			let predicateVisitor = new PredicateVisitor(
+				valueFactory,
+				assertFactory,
+				resolveType
+			);
+			let match = predicateVisitor.visit(condition);
+			let res = match(['10', '30']);
+			expect(res).to.equal(true);
+		});
+
+		it('check for equality with op = "in" and number array value', () => {
+			let condition = {
+				kind: 'condition',
+				op: 'in',
+				right: [10, 20],
+				left: 'value',
+			};
+			let predicateVisitor = new PredicateVisitor(
+				valueFactory,
+				assertFactory,
+				resolveType
+			);
+			let match = predicateVisitor.visit(condition);
+			let res = match([10, 30]);
 			expect(res).to.equal(true);
 		});
 

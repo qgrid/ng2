@@ -15,6 +15,7 @@ import { FocusAfterRender } from '../focus/focus.service';
 import { GridPlugin, Grid, VscrollService, VscrollContext, TemplateService, GridError } from '@qgrid/ngx';
 import { Guard } from '@qgrid/core/infrastructure/guard';
 import { uniq, flatten } from '@qgrid/core/utility/kit';
+import { get as getValue } from '@qgrid/core/services/value';
 
 @Component({
 	selector: 'q-grid-column-filter',
@@ -110,9 +111,11 @@ export class ColumnFilterComponent implements OnInit {
 							const sourceState = source();
 							Guard.hasProperty(sourceState, 'rows');
 
-							let values = sourceState.rows.map(columnFilterPlugin.getValue);
+							let values = null;
 							if (columnFilterPlugin.column.type === 'array') {
-								values = flatten(values);
+								values = flatten(sourceState.rows.map(row => getValue(row, column)));
+							} else {
+								values = sourceState.rows.map(columnFilterPlugin.getValue);
 							}
 
 							const uniqValues = uniq(values);

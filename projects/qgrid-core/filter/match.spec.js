@@ -4,7 +4,8 @@ import { modelFactory } from '../test/model.factory';
 describe('Match', () => {
 
 	let column = {
-		key: 'value'
+		key: 'value',
+		type: 'number'
 	};
 
 	let columns = [column];
@@ -30,6 +31,10 @@ describe('Match', () => {
 		})
 	});
 	model.data({ columns });
+
+	model.columnList = () => ({
+		line: columns,
+	});
 
 	let context = {
 		model,
