@@ -18,12 +18,6 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "aot": true,
-            "allowedCommonJsDependencies": [
-              "livr",
-              "file-saver",
-              "xlsx",
-              "fastdom"
-            ],
             "outputPath": "dist/app",
             "index": "src/index.html",
             "main": "src/main.ts",

@@ -18,7 +18,7 @@
     "test:core": "karma start ./projects/qgrid-core/karma.conf.js --single-run",
     "test:core-watch": "karma start ./projects/qgrid-core/karma.conf.js ",
     "test:screenshot-update-goldens": "protractor ./e2e/protractor-update-goldens.conf.js",
-    "test:screenshot": "protractor ./e2e/protractor.conf.js"
+    "test:screenshot": "node --inspect-brk node_modules/protractor/bin/protractor ./e2e/protractor.conf.js"
   },
   "private": false,
   "dependencies": {
