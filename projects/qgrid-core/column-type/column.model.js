@@ -4,14 +4,14 @@ import { TemplatePath } from '../template/template.path';
 TemplatePath.register('custom-cell', (template, column) => {
 	return {
 		model: template.for,
-		resource: column.key,
+		resource: column.key
 	};
 });
 
 TemplatePath.register('custom-cell-edit', (template, column) => {
 	return {
 		model: 'edit',
-		resource: column.key,
+		resource: column.key
 	};
 });
 
@@ -36,7 +36,7 @@ export class ColumnModel {
 			cruise: 'control', // control | transparent
 			label: null,
 			value: identity,
-			actions: [],
+			actions: []
 		};
 
 		this.width = null;
