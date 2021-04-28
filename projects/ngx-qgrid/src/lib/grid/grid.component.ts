@@ -32,6 +32,8 @@ import { GridState, GridStateInteractionMode } from '@qgrid/core/grid/grid.state
 import { GroupState, GroupStateMode, GroupStateSummary } from '@qgrid/core/group/group.state';
 import { LayerService } from '../layer/layer.service';
 import { PivotState } from '@qgrid/core/pivot/pivot.state';
+import { ColumnListService } from '../column-list/column-list.service';
+import { ColumnListState, ColumnListStateGeneration, ColumnListStateTypeDetection } from '@qgrid/core/column-list/column.list.state';
 import { ScrollState, ScrollStateMode } from '@qgrid/core/scroll/scroll.state';
 import { SelectionState, SelectionStateMode, SelectionStateUnit, SelectionStateArea } from '@qgrid/core/selection/selection.state';
 import { SortState, SortStateMode } from '@qgrid/core/sort/sort.state';
@@ -47,6 +49,7 @@ import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
 @Component({
 	selector: 'q-grid',
 	providers: [
+		ColumnListService,
 		Grid,
 		GridPlugin,
 		GridRoot,
@@ -75,6 +78,7 @@ export class GridComponent implements OnInit, OnChanges {
 	private scrollState = this.stateAccessor.setter(ScrollState);
 	private sortState = this.stateAccessor.setter(SortState);
 	private styleState = this.stateAccessor.setter(StyleState);
+	private columnListAccessor = this.stateAccessor.setter(ColumnListState);
 
 	themeComponent: any;
 
@@ -122,6 +126,9 @@ export class GridComponent implements OnInit, OnChanges {
 
 	@Input() set styleCell(cell: StyleCellCallback | { [key: string]: StyleCellCallback }) { this.styleState({ cell }); }
 	@Input() set styleRow(row: StyleRowCallback) { this.styleState({ row }); }
+
+	@Input() set generation(generation: ColumnListStateGeneration) { this.columnListAccessor({ generation }); }
+	@Input() set typeDetection(typeDetection: ColumnListStateTypeDetection) { this.columnListAccessor({ typeDetection }); }
 
 	constructor(
 		private root: GridRoot,
@@ -177,7 +184,7 @@ export class GridComponent implements OnInit, OnChanges {
 				docListener.on('mousedown', e => {
 					if (model.edit().status === 'edit') {
 						const path = eventPath(e);
-						const clickedOutside = path.every(x => x !== nativeElement && !x.classList.contains('q-grid-editor-part'));
+						const clickedOutside = path.every(x => x !== nativeElement && (!x.classList || !x.classList.contains('q-grid-editor-part')));
 						if (clickedOutside) {
 							model.edit({
 								status: 'view'

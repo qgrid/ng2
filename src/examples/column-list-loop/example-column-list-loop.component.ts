@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService, Atom } from '../data.service';
+import { GridModel, Grid } from 'ng2-qgrid';
 import { Observable } from 'rxjs';
 
 const EXAMPLE_TAGS = [
@@ -20,6 +21,12 @@ export class ExampleColumnListLoopComponent {
 
 	rows: Observable<Atom[]>;
 
+	gridModel: GridModel = this.qgrid
+		.model()
+		.columnList({
+			generation: 'deep'
+		});
+
 	columns = [
 		{
 			key: 'number',
@@ -39,7 +46,7 @@ export class ExampleColumnListLoopComponent {
 		}
 	];
 
-	constructor(dataService: DataService) {
+	constructor(dataService: DataService, private qgrid: Grid) {
 		this.rows = dataService.getAtoms();
 	}
 }
