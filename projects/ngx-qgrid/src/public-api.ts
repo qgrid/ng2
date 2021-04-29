@@ -74,6 +74,12 @@ export { CellHandlerModule } from './lib/cell-handler/cell-handler.module';
 export { ColumnListComponent } from './lib/column-list/column-list.component';
 export { ColumnListService } from './lib/column-list/column-list.service';
 export { ColumnComponent } from './lib/column/column.component';
+
+export { ColumnBodyTemplateDirective } from './lib/column/column-body-template.directive';
+export { ColumnEditTemplateDirective } from './lib/column/column-edit-template.directive';
+export { ColumnFootTemplateDirective } from './lib/column/column-foot-template.directive';
+export { ColumnHeadTemplateDirective } from './lib/column/column-head-template.directive';
+
 export { ColumnHostService } from './lib/column/column-host.service';
 
 export { DndModule } from './lib/dnd/dnd.module';

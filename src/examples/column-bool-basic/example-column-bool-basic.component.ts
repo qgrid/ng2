@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { GridModel, Grid } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = [
 	'column-bool-basic',
@@ -29,4 +30,93 @@ export class ExampleColumnBoolBasicComponent {
 			'customTemplate': true
 		}
 	];
+
+	gridModel: GridModel = this.qgrid
+		.model()
+		.columnList({
+			generation: 'deep'
+		})
+		.data({
+			columns: [
+				{
+					key: 'true',
+					title: 'True',
+					width: '100',
+					type: 'bool'
+				},
+				{
+					key: 'false',
+					title: 'False',
+					width: '100',
+					type: 'bool'
+				},
+				{
+					key: 'undefined',
+					title: 'Undefined',
+					width: '100',
+					type: 'bool'
+				},
+				{
+					key: 'null',
+					title: 'Null',
+					width: '100',
+					type: 'bool'
+				},
+				{
+					key: 'yesNo',
+					title: 'Yes/No',
+					trueValue: 'yes',
+					falseValue: 'no',
+					width: '100',
+					type: 'bool'
+				},
+				{
+					key: 'noYes',
+					title: 'No/Yes',
+					trueValue: 'yes',
+					falseValue: 'no',
+					width: '100',
+					type: 'bool'
+				},
+				{
+					key: 'nullYesNo',
+					title: 'Null/Yes/No',
+					trueValue: 'yes',
+					falseValue: 'no',
+					width: '100',
+					type: 'bool'
+				},
+				{
+					key: 'triggerFocus',
+					title: 'Trigger Focus',
+					width: '120',
+					editorOptions: {
+						trigger: 'focus'
+					},
+					type: 'bool'
+				},
+				{
+					key: 'triggerClick',
+					title: 'Trigger click',
+					width: '120',
+					editorOptions: {
+						trigger: 'click'
+					},
+					type: 'bool'
+				},
+				{
+					key: 'customTemplate',
+					title: 'Custom Template',
+					width: '120',
+					viewWidth: 300,
+					editorOptions: {
+						trigger: 'focus'
+					},
+					type: 'bool'
+				}
+			]
+		});
+
+	constructor(private qgrid: Grid) { }
+
 }
