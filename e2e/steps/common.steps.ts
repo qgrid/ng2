@@ -62,6 +62,18 @@ When('I click filter button for {string}', (text: string) => getFilterButton(tex
 When('I select persistence item [{int}]', (num: number) => selectPersistenceItem(num));
 When('I remove all values for selected column', () => removeAllChipValues());
 When('I click Select all', () => getSelectAll());
+When('I hover {string} column title', (title) => hoverColumnTitleByName(title));
+When('I click expand button [{int}]', (index: number) => clickChevronButton(index));
+
+function clickChevronButton(index) {
+	return element.all(by.xpath('//*[contains(text(),\' chevron_right \')]')).get(index).click();
+}
+
+async function hoverColumnTitleByName(title: string) {
+	const el = element(by.xpath(`//th//label[contains(text(),'${title}')]`));
+	await browser.actions().mouseMove(el).perform();
+}
+
 
 async function checkErrors() {
 	await browser

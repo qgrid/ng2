@@ -1,7 +1,6 @@
 import { When } from 'cucumber';
 import { element, by, ExpectedConditions as until, browser } from 'protractor';
 
-When('I hover {string} column title', (title) => hoverColumnTitleByName(title));
 When('I click "Select all" checkbox', () => clickSelectAll());
 When('I click "Cancel" button on pop-up', () => clickCancelButton());
 
@@ -22,9 +21,4 @@ function clickCancelButton() {
 function clickSelectAll() {
 	const editor = getEditFormBody();
 	return editor.element(by.xpath('//span[contains(.,\'Select All\')]')).click();
-}
-
-async function hoverColumnTitleByName(title: string) {
-	const el = element(by.xpath(`//th//label[contains(text(),'${title}')]`));
-	await browser.actions().mouseMove(el).perform();
 }
