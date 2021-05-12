@@ -16,7 +16,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
 import { guid } from '@qgrid/core/services/guid';
 import { isUndefined } from '@qgrid/core/utility/kit';
 import { TemplateHostService } from '../template/template-host.service';
-import { ColumnModelCategory, ColumnModelType, ColumnModelOrigin, ColumnModelPin, ColumnModelWidthMode, ColumnModel } from '@qgrid/core/column-type/column.model';
+import { ColumnModelCategory, ColumnModelType, ColumnModelPin, ColumnModelWidthMode, ColumnModel } from '@qgrid/core/column-type/column.model';
 
 @Component({
 	selector: 'q-grid-column',
