@@ -1,6 +1,6 @@
 import { Resource } from '../resource/resource';
 import { match } from './match';
-import { noop } from '../utility/kit';
+import { noop, yes } from '../utility/kit';
 
 export class FilterState {
 	constructor() {
@@ -8,6 +8,7 @@ export class FilterState {
 
 		this.by = {};
 		this.match = match;
+		this.userMatchPredicate = yes;
 		this.fetch = noop;
 		this.unit = 'default';	// default|row
 

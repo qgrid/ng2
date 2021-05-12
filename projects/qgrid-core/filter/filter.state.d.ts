@@ -30,7 +30,8 @@ import { ColumnModel } from '../column-type/column.model';
 
 export declare function match(context: any): (x: any, value: any) => boolean;
 
-export declare type FilterStateMatch = () => (x: any, value: any) => boolean;
+export declare type FilterStateMatch = () => FilterStatePredicate;
+export declare type FilterStatePredicate = (x: any, value: any) => boolean;
 export declare type FilterStateFetch = (key: string, context: FetchContext) => any | Promise<any>;
 
 /**
@@ -60,6 +61,11 @@ export declare class FilterState {
 	 * Factory for the match function.
 	 */
 	match: FilterStateMatch;
+
+	/**
+	 * The user defined match predicate function.
+	 */
+	userMatchPredicate: FilterStatePredicate;
 
 	/**
 	 * If setup `column filter` plugin can use this property to populate list of column items.

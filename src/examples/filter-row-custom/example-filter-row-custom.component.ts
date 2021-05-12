@@ -56,7 +56,7 @@ export class ExampleFilterRowCustomComponent {
 			}, x => true);
 
 		this.gridModel.filter({
-			match: () => predicate
+			userMatchPredicate: predicate
 		});
 	}
 }
