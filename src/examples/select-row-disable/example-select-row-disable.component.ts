@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
-import { GridComponent, Command } from 'ng2-qgrid';
+import { Grid, GridModel, Command } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = [
 	'select-row-disable',
@@ -19,17 +19,18 @@ export class ExampleSelectRowDisableComponent implements AfterViewInit {
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(GridComponent) grid: GridComponent;
 	rows: Observable<Human[]>;
+	gridModel: GridModel;
 
-	constructor(dataService: DataService) {
+	constructor(dataService: DataService,
+		private qgrid: Grid
+	) {
 		this.rows = dataService.getPeople();
+		this.gridModel = qgrid.model();
 	}
 
 	ngAfterViewInit() {
-		const { model } = this.grid;
-
-		model.selection({
+		this.gridModel.selection({
 			toggle: new Command({
 				canExecute: ({ items }) => items.length === 1 && items[0].gender === 'male'
 			})

@@ -1,8 +1,9 @@
 <q-grid [caption]="title"
         [rows]="rows | async"
+        [model]="gridModel"
         selectionUnit="row"
         selectionMode="multiple"
         selectionArea="body">
-	<q-grid-columns generation="deep">
-	</q-grid-columns>
+        <q-grid-columns generation="deep">
+        </q-grid-columns>
 </q-grid>
