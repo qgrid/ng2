@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@a
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FetchContext, GridComponent } from 'ng2-qgrid';
+import { FetchContext, Grid, GridModel } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = [
 	'filter-column-fetch',
@@ -20,16 +20,18 @@ export class ExampleFilterColumnFetchComponent implements AfterViewInit {
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(GridComponent) myGrid: GridComponent;
 	rows: Observable<Atom[]>;
+	gridModel: GridModel;
 
-	constructor(private dataService: DataService) {
+	constructor(private dataService: DataService,
+		private qgrid: Grid
+	) {
 		this.rows = dataService.getAtoms();
+		this.gridModel = qgrid.model();
 	}
 
 	ngAfterViewInit() {
-		const { model } = this.myGrid;
-		model.filter({
+		this.gridModel.filter({
 			fetch: (key: string, context: FetchContext) =>
 				this.dataService
 					.getAtoms()
