@@ -12,11 +12,13 @@ import { GridModel, Grid } from 'ng2-qgrid';
 export class ExampleLookPeopleModelComponent {
 	static id = 'look-people-model';
 
-	gridModel: GridModel;
+	gridModel: GridModel = this.qgrid
+		.model()
+		.columnList({
+			generation: 'deep'
+		});
 
-	constructor(dataService: DataService, qgrid: Grid) {
-		this.gridModel = qgrid.model();
-
+	constructor(dataService: DataService, private qgrid: Grid) {
 		dataService
 			.getPeople()
 			.subscribe(rows => this.gridModel.data({ rows }));

@@ -1,0 +1,22 @@
+<q-grid [caption]="title"
+		[rows]="rows | async">
+	<q-grid-columns generation="deep">
+	</q-grid-columns>
+	<q-grid-toolbar>
+		<ng-template for="right">
+			<h2 class="mat-card-title">Mouse event log</h2>
+			<ul id="mouse-event-log">
+				<li *ngFor="let entry of logEntries">
+					status: {{entry.status}}
+					<br>
+					code: {{entry.code}}
+					<br>
+					target: {{entry.target}}
+					<hr>
+				</li>
+			</ul>
+		</ng-template>
+	</q-grid-toolbar>
+	<q-grid-visibility [toolbarRight]="true">
+	</q-grid-visibility>
+</q-grid>

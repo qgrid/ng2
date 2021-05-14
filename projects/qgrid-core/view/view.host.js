@@ -144,56 +144,6 @@ export class ViewHost {
 		}
 	}
 
-	mouseMove(e) {
-		const { model, view } = this.plugin;
-		const { highlight } = view;
-		const { rows, cell } = model.highlight();
-
-		const td = this.findCell(e);
-		if (td) {
-
-			if (cell) {
-				highlight.cell.execute(cell, false);
-			}
-
-			const newCell = {
-				rowIndex: td.rowIndex,
-				columnIndex: td.columnIndex
-			};
-
-			if (highlight.cell.canExecute(newCell)) {
-				highlight.cell.execute(newCell, true)
-			}
-
-			const tr = this.findRow(e);
-			if (tr) {
-				const { index } = tr;
-
-				if (highlight.row.canExecute(index)) {
-					rows
-						.filter(i => i !== index)
-						.forEach(i => highlight.row.execute(i, false));
-
-					highlight.row.execute(index, true);
-				}
-			}
-
-			if (this.selection.mode === 'range') {
-				const startCell = model.mouse().target;
-				const endCell = td;
-
-				if (startCell && endCell) {
-					this.navigate(endCell);
-					view.selection.selectRange(startCell, endCell, 'body');
-				}
-			}
-		}
-	}
-
-	mouseLeave() {
-		this.clearHighlight();
-	}
-
 	mouseUp(e) {
 		const { model } = this.plugin;
 		const { edit } = model;
@@ -221,6 +171,91 @@ export class ViewHost {
 		}, {
 			source: 'mouse.up'
 		});
+	}
+
+	mouseMove(e) {
+		const { model, view } = this.plugin;
+		const { highlight } = view;
+		const { rows, cell } = model.highlight();
+
+		const td = this.findCell(e);
+		if (td) {
+
+			if (cell) {
+				highlight.cell.execute(cell, false);
+			}
+
+			const newCell = {
+				rowIndex: td.rowIndex,
+				columnIndex: td.columnIndex
+			};
+
+			model.mouse({
+				status: 'move',
+				target: cell ?? newCell
+			}, {
+				source: 'mouse.move'
+			});
+
+			if (highlight.cell.canExecute(newCell)) {
+				highlight.cell.execute(newCell, true)
+			}
+
+			const tr = this.findRow(e);
+			if (tr) {
+				const { index } = tr;
+
+				if (highlight.row.canExecute(index)) {
+					rows
+						.filter(i => i !== index)
+						.forEach(i => highlight.row.execute(i, false));
+
+					highlight.row.execute(index, true);
+				}
+			}
+
+			if (this.selection.mode === 'range') {
+				const startCell = model.mouse().target;
+				const endCell = td;
+
+				if (startCell && endCell) {
+					this.navigate(endCell);
+					view.selection.selectRange(startCell, endCell, 'body');
+				}
+			}
+		} else {
+			model.mouse({
+				status: 'move',
+				target: null,
+			}, {
+				source: 'mouse.move'
+			});
+		}
+	}
+
+	mouseEnter(e) {
+		const { model } = this.plugin;
+		model.mouse({
+			status: 'enter',
+			target: null,
+			code: null
+		}, {
+			source: 'mouse.enter'
+		});
+	}
+
+	mouseLeave() {
+		const { model } = this.plugin;
+
+		model.mouse({
+			status: 'leave',
+			target: null,
+			code: null
+		}, {
+			source: 'mouse.leave'
+		});
+
+		this.clearHighlight();
 	}
 
 	select(cell) {

@@ -2,6 +2,7 @@ import * as columnService from '../column/column.service';
 import { build as buildExpression } from '../expression/expression.build';
 import { PredicateVisitor } from '../expression/predicate.visitor';
 import { yes } from '../utility/kit';
+import { get as getValue } from '../services/value';
 
 export function match(context) {
 	const { model } = context;
@@ -13,7 +14,15 @@ export function match(context) {
 
 		const columnMap = columnService.map(model.columnList().line);
 
-		const valueColumnFactory = key => labelFactory(columnMap[key]);
+		const valueColumnFactory = (key) => {
+			const column = columnMap[key];
+			if (column.type === 'array') {
+				return (row) => getValue(row, column);
+			} else {
+				return labelFactory(columnMap[key]);
+			}
+		};
+
 		const assertColumnFactory = key => assertFactory(columnMap[key]);
 		const getType = key => {
 			const column = columnMap[key];

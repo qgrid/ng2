@@ -142,7 +142,16 @@ export class PredicateVisitor extends Visitor {
 				break;
 			}
 			case 'in': {
-				predicate = actual => {
+				predicate = (actual) => {
+					if (isArray(actual)) {
+						for (const value of map) {
+							if (actual.some((item) => '' + item === value)) {
+								return true;
+							}
+						}
+						return false;
+					}
+
 					const v = !actual && actual !== 0 ? 'null' : '' + actual;
 					return map.has(v);
 				};

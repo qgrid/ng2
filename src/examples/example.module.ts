@@ -14,7 +14,8 @@ import { ExampleActionBarBasicComponent } from './action-bar-basic/example-actio
 import { ExampleActionBarOnEnterComponent } from './action-bar-on-enter/example-action-bar-on-enter.component';
 import { ExampleActionBarTemplateComponent } from './action-bar-template/example-action-bar-template.component';
 import { ExampleAggregateColumnBasicComponent } from './aggregate-column-basic/example-aggregate-column-basic.component';
-import { ExampleAltBasicComponent } from './pane-basic/example-alt-basic.component';
+import { ExampleAltBasicComponent } from './alt-basic/example-alt-basic.component';
+import { ExampleCellTooltipBasicComponent } from './cell-tooltip-basic/example-cell-tooltip-basic.component';
 import { ExampleColumnArrayBasicComponent } from './column-array-basic/example-column-array-basic.component';
 import { ExampleColumnAutocompleteBasicComponent } from './column-autocomplete-basic/example-column-autocomplete-basic.component';
 import { ExampleColumnBoolBasicComponent } from './column-bool-basic/example-column-bool-basic.component';
@@ -115,6 +116,7 @@ import { ExampleLookQuotesBasicComponent } from './look-quotes-basic/example-loo
 import { ExampleLookQuotesModelComponent } from './look-quotes-model/example-look-quotes-model.component';
 import { ExampleManipulateDataBasicComponent } from './manipulate-data-basic/example-manipulate-data-basic.component';
 import { ExampleMasterDetailsBasicComponent } from './master-details-basic/example-master-details-basic.component';
+import { ExampleMouseApiBasicComponent } from './mouse-api-basic/example-mouse-api-basic.component';
 import { ExampleOnPushBasicComponent } from './on-push-basic/example-on-push-basic.component';
 import { ExamplePaginationBasicComponent } from './pagination-basic/example-pagination-basic.component';
 import { ExamplePaneBasicComponent } from './pane-basic/example-pane-basic.component';
@@ -177,6 +179,7 @@ export const EXAMPLES: any[] = [
 	ExampleActionBarTemplateComponent,
 	ExampleAggregateColumnBasicComponent,
 	ExampleAltBasicComponent,
+	ExampleCellTooltipBasicComponent,
 	ExampleColumnArrayBasicComponent,
 	ExampleColumnAutocompleteBasicComponent,
 	ExampleColumnBoolBasicComponent,
@@ -277,6 +280,7 @@ export const EXAMPLES: any[] = [
 	ExampleLookQuotesModelComponent,
 	ExampleManipulateDataBasicComponent,
 	ExampleMasterDetailsBasicComponent,
+	ExampleMouseApiBasicComponent,
 	ExampleOnPushBasicComponent,
 	ExamplePaginationBasicComponent,
 	ExamplePaneBasicComponent,
