@@ -1,6 +1,6 @@
 import { Component, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { Atom, DataService } from '../data.service';
-import { GridComponent, Grid } from 'ng2-qgrid';
+import { Grid, GridModel } from 'ng2-qgrid';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,20 +13,21 @@ import { Observable } from 'rxjs';
 export class ExampleScrollVirtualInfiniteComponent implements AfterViewInit {
 	static id = 'scroll-virtual-infinite';
 
-	@ViewChild(GridComponent) myGrid;
 	rows: Observable<Atom[]>;
+	gridModel: GridModel;
 
-	constructor(private dataService: DataService, private qgrid: Grid) {
+	constructor(private dataService: DataService,
+		private qgrid: Grid
+	) {
+		this.gridModel = qgrid.model();
 	}
 
 	ngAfterViewInit() {
-		const { model } = this.myGrid;
-
-		model.data({
+		this.gridModel.data({
 			pipe: [
 				(rows, context, next) => {
-					const { skip } = model.fetch();
-					const { size } = model.pagination();
+					const { skip } = this.gridModel.fetch();
+					const { size } = this.gridModel.pagination();
 
 					this.dataService
 						.getAtoms()
