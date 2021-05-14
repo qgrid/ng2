@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
-import { Command, GridComponent, PaneComponent } from 'ng2-qgrid';
+import { Command, Grid, GridModel, PaneComponent } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = [
 	'pane-trigger',
@@ -19,10 +19,10 @@ export class ExamplePaneTriggerComponent implements AfterViewInit {
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(GridComponent) grid: GridComponent;
 	@ViewChild(PaneComponent) pane: PaneComponent;
 
 	rows$: Observable<Human[]>;
+	gridModel: GridModel;
 	selectedRow: Human;
 
 	openPane = new Command({
@@ -30,13 +30,15 @@ export class ExamplePaneTriggerComponent implements AfterViewInit {
 		canExecute: () => !!this.selectedRow,
 	});
 
-	constructor(dataService: DataService) {
+	constructor(dataService: DataService,
+		private qgrid: Grid
+	) {
 		this.rows$ = dataService.getPeople();
+		this.gridModel = qgrid.model();
 	}
 
 	ngAfterViewInit() {
-		const { model } = this.grid;
-		model.selectionChanged.watch(e => {
+		this.gridModel.selectionChanged.watch(e => {
 			if (e.hasChanges('items')) {
 				this.selectedRow = e.state.items[0];
 				this.openPane.canExecuteCheck.next();
