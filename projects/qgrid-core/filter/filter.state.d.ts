@@ -63,9 +63,9 @@ export declare class FilterState {
 	match: FilterStateMatch;
 
 	/**
-	 * The user defined match predicate function.
+	 * The custom filter function.
 	 */
-	userMatchPredicate: FilterStatePredicate;
+	customFilter: FilterStatePredicate;
 
 	/**
 	 * If setup `column filter` plugin can use this property to populate list of column items.

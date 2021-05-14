@@ -18,9 +18,9 @@ describe('pipe filter', () => {
 		});
 	});
 
-	it('should pass data to the next stage with userMatchPredicate', (done) => {
+	it('should pass data to the next stage with customFilter', (done) => {
 		model.filter({
-			userMatchPredicate: (item) => true,
+			customFilter: (item) => true,
 		});
 		filter([1, 2, 3], { model }, (data) => {
 			expect(data).to.eql([1, 2, 3]);
