@@ -171,7 +171,7 @@ async function removeAllChipValues() {
 
 async function getSelectAll() {
 	const el = await element(by.xpath(`//*[contains(text(),'Select All')]/..`));
-	await browser.sleep(1000); //sleep is left here as the actions intercross without it and the scenario fails
+	await browser.sleep(1000); // sleep is left here as the actions intercross without it and the scenario fails
 	el.click();
 }
 
@@ -211,4 +211,4 @@ function betweenDates(date1, date2) {
 	input2.clear();
 	input2.sendKeys(date2, protractor.Key.ENTER);
 	for (let i = 0; i < 1000000; i++) { }
-};
+}
