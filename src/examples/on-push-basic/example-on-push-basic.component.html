@@ -1,6 +1,7 @@
 <q-grid [caption]="title"
-        [rows]="rows | async"
-        editMode="cell">
+		[rows]="rows | async"
+		[model]="gridModel"
+		editMode="cell">
 	<q-grid-columns generation="deep">
 	</q-grid-columns>
 
