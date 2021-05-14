@@ -1,5 +1,6 @@
 <q-grid [caption]="title"
         [rows]="rows$ | async"
+        [model]="gridModel"
         selectionUnit="row"
         selectionMode="single">
         <q-grid-columns generation="deep">
