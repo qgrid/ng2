@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
-import { GridComponent } from 'ng2-qgrid';
+import { Grid, GridModel } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = ['mouse-api-basic', 'Mouse api example'];
 
@@ -16,29 +16,29 @@ const EXAMPLE_TAGS = ['mouse-api-basic', 'Mouse api example'];
 	selector: 'example-mouse-api-basic',
 	templateUrl: 'example-mouse-api-basic.component.html',
 	styleUrls: ['example-mouse-api-basic.component.scss'],
-	providers: [DataService, GridComponent],
+	providers: [DataService],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleMouseApiBasicComponent implements AfterViewInit {
 
 	static id = EXAMPLE_TAGS[0];
 
-	@ViewChild(GridComponent) grid: GridComponent;
-
 	logEntries: Array<LogEntry> = [];
 	title = EXAMPLE_TAGS[1];
 	rows: Observable<Human[]>;
+	gridModel: GridModel;
 
 	constructor(
 		dataService: DataService,
-		private cdr: ChangeDetectorRef
+		private cdr: ChangeDetectorRef,
+		private qgrid: Grid
 	) {
+		this.gridModel = qgrid.model();
 		this.rows = dataService.getPeople();
 	}
 
 	ngAfterViewInit(): void {
-		const { model } = this.grid;
-		model.mouseChanged.on(({ state }) => {
+		this.gridModel.mouseChanged.on(({ state }) => {
 			const { status, target, code } = state;
 			let targetString = '';
 			if (target) {
