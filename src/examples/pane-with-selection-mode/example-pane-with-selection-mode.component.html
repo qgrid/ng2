@@ -1,5 +1,6 @@
 <q-grid [caption]="title"
 		[rows]="rows$ | async"
+		[model]="gridModel"
 		selectionUnit="row"
 		selectionMode="multiple"
 		selectionArea="custom">
@@ -8,10 +9,13 @@
 	</q-grid-columns>
 
 	<q-grid-pane>
-		<ng-template for="right" let-$pane let-$item="value">
+		<ng-template for="right"
+					 let-$pane
+					 let-$item="value">
 			<div style="width: 300px; display: flex;">
 				<h2>Discovered By: {{ $item?.discoveredBy }}</h2>
-				<button mat-icon-button (click)="$pane.close('right')">
+				<button mat-icon-button
+						(click)="$pane.close('right')">
 					<mat-icon>close</mat-icon>
 				</button>
 			</div>
