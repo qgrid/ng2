@@ -2,8 +2,8 @@
   "name": "@qgrid/ngx-plugins",
   "version": "11.0.1",
   "peerDependencies": {
-    "@angular/common": "~11.2.0",
-    "@angular/core": "~11.2.0",
+    "@angular/common": "~12.0.2",
+    "@angular/core": "^12.0.2",
     "@qgrid/ngx": "11.0.1"
   }
 }
