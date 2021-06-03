@@ -17,10 +17,10 @@
   "fesm2015": "./fesm2015/ng2-qgrid.js",
   "name": "ng2-qgrid-app",
   "peerDependencies": {
-    "@angular/common": "~12.0.2",
-    "@angular/core": "^12.0.2",
-    "@angular/forms": "~12.0.2",
-    "@qngular/animations": "~12.0.2"
+    "@angular/common": "~12.0.3",
+    "@angular/core": "^12.0.3",
+    "@angular/forms": "~12.0.3",
+    "@angular/animations": "~12.0.3"
   },
   "repository": {
     "type": "git",

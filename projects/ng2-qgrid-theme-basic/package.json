@@ -2,8 +2,8 @@
   "name": "ng2-qgrid/theme/basic",
   "version": "11.0.1",
   "peerDependencies": {
-    "@angular/common": "~12.0.2",
-    "@angular/core": "^12.0.2",
+    "@angular/common": "~12.0.3",
+    "@angular/core": "^12.0.3",
     "ng2-qgrid": "~11.0.1"
   }
 }
