@@ -11,8 +11,8 @@ const { prod } = cmdArgs([{
 const libOptions = ['--watch'];
 const serveOptions = [];
 if (prod) {
-  libOptions.push('--prod');
-  serveOptions.push('--prod');
+  libOptions.push('--configuration production');
+  serveOptions.push('--configuration production');
 }
 
 function main() {
