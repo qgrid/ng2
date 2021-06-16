@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
+## [11.1.0] - 2021-06-16
+### Added
+- Introduce `customFilter` property that can be overridden to apply custom filter logic.
+- New recommend way to override cell template by `<ng-template qGridColumnBody="birth">`
+- A brand new `q-grid-cell-template` component to show tooltips over the cells.
+- Three new mouse statuses `move`, `enter` and `leave`.
+
+### Fixed
+- Tab navigation on the page.
+- `in` filter condition works better with non-string types.
+
 ## [11.0.1] - 2021-03-30
 ### Fixed
 - Loading first page in virtual scroll container.
@@ -621,7 +632,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v11.0.1...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v11.1.0...HEAD
+[11.1.0]: https://github.com/qgrid/ng2/compare/v11.1.0...v11.0.1
 [11.0.1]: https://github.com/qgrid/ng2/compare/v11.0.0...v11.0.1
 [11.0.0]: https://github.com/qgrid/ng2/compare/v11.0.0...v9.2.1
 [9.2.1]: https://github.com/qgrid/ng2/compare/v9.1.11...v9.2.1

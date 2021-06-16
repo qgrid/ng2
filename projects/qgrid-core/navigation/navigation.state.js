@@ -28,8 +28,6 @@ export class NavigationState {
 			'down',
 			'left',
 			'right',
-			'tab',
-			'shift+tab',
 			'home',
 			'end',
 			'pageUp',
