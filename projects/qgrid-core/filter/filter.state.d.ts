@@ -65,7 +65,7 @@ export declare class FilterState {
 	/**
 	 * The custom filter function.
 	 */
-	customFilter: FilterStatePredicate;
+	custom: FilterStatePredicate;
 
 	/**
 	 * If setup `column filter` plugin can use this property to populate list of column items.

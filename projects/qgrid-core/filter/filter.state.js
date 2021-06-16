@@ -8,7 +8,7 @@ export class FilterState {
 
 		this.by = {};
 		this.match = match;
-		this.customFilter = yes;
+		this.custom = yes;
 		this.fetch = noop;
 		this.unit = 'default';	// default|row
 

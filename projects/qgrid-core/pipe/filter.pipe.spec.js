@@ -18,9 +18,9 @@ describe('pipe filter', () => {
 		});
 	});
 
-	it('should pass data to the next stage with customFilter', (done) => {
+	it('should pass data to the next stage with custom', (done) => {
 		model.filter({
-			customFilter: (item) => true,
+			custom: (item) => true,
 		});
 		filter([1, 2, 3], { model }, (data) => {
 			expect(data).to.eql([1, 2, 3]);
