@@ -35,7 +35,7 @@ export class ExampleFilterRowCustomComponent {
 	filter(name: string, value: string) {
 		this.search[name] = value;
 
-		const predicate = Object
+		const custom = Object
 			.keys(this.search)
 			.reduce((memo: (x: any) => boolean, key) => {
 				const searchText = this.search[key].toLowerCase();
@@ -47,7 +47,7 @@ export class ExampleFilterRowCustomComponent {
 			}, x => true);
 
 		this.gridModel.filter({
-			customFilter: predicate
+			custom
 		});
 	}
 }

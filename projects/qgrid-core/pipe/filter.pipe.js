@@ -8,16 +8,16 @@ export function filterPipe(rows, context, next) {
 
 	let result = rows;
 	if (rows.length) {
-		const { match, customFilter } = model.filter();
+		const { match, custom } = model.filter();
 		const matchPredicate = match(context);
 
 		let test;
-		if (matchPredicate !== yes && customFilter !== yes) {
-			test = (row) => matchPredicate(row) && customFilter(row);
+		if (matchPredicate !== yes && custom !== yes) {
+			test = (row) => matchPredicate(row) && custom(row);
 		} else if (matchPredicate !== yes) {
 			test = (row) => matchPredicate(row);
-		} else if (customFilter !== yes) {
-			test = (row) => customFilter(row);
+		} else if (custom !== yes) {
+			test = (row) => custom(row);
 		}
 
 		if (test) {

@@ -65,7 +65,7 @@ export class PipeState {
 			'filter': {
 				'by': PU.default,
 				'match': PU.default,
-				'customFilter': PU.default,
+				'custom': PU.default,
 				'unit': PU.column,
 			},
 			'group': {

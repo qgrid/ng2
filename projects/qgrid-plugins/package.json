@@ -1,7 +1,7 @@
 {
   "name": "@qgrid/plugins",
-  "version": "11.1.0",
+  "version": "11.1.1",
   "peerDependencies": {
-    "@qgrid/core": "11.1.0"
+    "@qgrid/core": "11.1.1"
   }
 }
