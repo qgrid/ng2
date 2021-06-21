@@ -21,7 +21,7 @@ export class CellTooltipComponent implements OnInit {
 	context: { $implicit: DomTd } = {
 		$implicit: null,
 	};
-	
+
 	cellElement: HTMLElement;
 
 	constructor(
