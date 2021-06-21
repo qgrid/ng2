@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, AfterViewInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GridComponent, PaneComponent } from 'ng2-qgrid';
+import { Grid, GridModel, PaneComponent } from 'ng2-qgrid';
 import { DataService, Atom } from '../data.service';
 
 const EXAMPLE_TAGS = [
@@ -17,22 +17,24 @@ const EXAMPLE_TAGS = [
 })
 export class ExamplePaneWithSelectionComponent implements AfterViewInit {
 
-	constructor(dataService: DataService) {
+	constructor(dataService: DataService,
+		private qgrid: Grid
+	) {
 		this.rows$ = dataService.getAtoms();
+		this.gridModel = qgrid.model();
 	}
 
 	static tags = EXAMPLE_TAGS;
 
-	@ViewChild(GridComponent) grid: GridComponent;
 	@ViewChild(PaneComponent) pane: PaneComponent;
 
 	title = EXAMPLE_TAGS[1];
 
 	rows$: Observable<Atom[]>;
+	gridModel: GridModel;
 
 	ngAfterViewInit(): void {
-		const { model } = this.grid;
-		model.mouseChanged.on(({ state }) => {
+		this.gridModel.mouseChanged.on(({ state }) => {
 			const { code, status, target } = state;
 			if (code === 'left' && status === 'down') {
 				if (target && target.column.type !== 'select') {

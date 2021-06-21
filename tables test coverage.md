@@ -12,6 +12,7 @@
 |10|column-currency-basic|+||| 
 |11|column-data-safe|+||| 
 |12|column-date-basic|+||| 
+|13|column-datetime-basic|+||| 
 |13|column-datetime-basic|||+| 
 |14|column-dropdown-basic|+||| 
 |15|column-email-basic|+||| 
@@ -23,13 +24,13 @@
 |21|column-number-basic|+||| 
 |22|column-password-basic|+||| 
 |23|column-reference-basic|+||| 
-|24|column-row-indicator-basic|||+| 
-|25|column-row-number-basic|||+| 
+|24|column-row-indicator-basic|+||| 
+|25|column-row-number-basic|+||| 
 |26|column-row-options-basic|+||| 
 |27|column-text-basic|+||| 
 |28|column-time-basic|+||| 
-|29|column-tooltip-basic|||+| 
-|30|column-type-safe|||+| 
+|29|column-tooltip-basic|+||| 
+|30|column-type-safe|+||| 
 |31|column-url-basic|+||| 
 |32|copy-value-from-cell|+||| 
 |33|data-row-add|+||| 
@@ -46,7 +47,7 @@
 |44|details-row-custom|+|||
 |45|details-row-grid|+|||
 |46|details-row-pin|+|||
-|47|details-row-select|||+|
+|47|details-row-select|+|||
 |48|details-row-start|+|||
 |49|drag-colunm-basic|+|||
 |50|drag-row-basic|||+|

@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import * as XLSX from 'xlsx';
 
 import { DataService, Atom } from '../data.service';
-import { GridComponent } from 'ng2-qgrid';
+import { Grid, GridModel } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = [
 	'import-basic',
@@ -21,11 +21,14 @@ export class ExampleImportBasicComponent implements AfterViewInit {
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(GridComponent) grid: GridComponent;
 	rows: Observable<Atom[]> = of([]);
+	gridModel: GridModel;
 
+	constructor(private qgrid: Grid) {
+		this.gridModel = qgrid.model();
+	}
 	ngAfterViewInit() {
-		this.grid.model.plugin({
+		this.gridModel.plugin({
 			imports: {
 				'xlsx': XLSX
 			}

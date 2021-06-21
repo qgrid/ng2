@@ -21,30 +21,21 @@ export class ExampleFilterRowCustomComponent {
 
 	@ViewChild(GridComponent, { static: true }) myGrid: GridComponent;
 	rows: Observable<Atom[]>;
-	gridModel: GridModel;
+	gridModel: GridModel = this.qgrid.model();
 
 	search = {
 		name: '',
 		phase: ''
 	};
 
-	constructor(dataService: DataService, qgrid: Grid) {
+	constructor(dataService: DataService, private qgrid: Grid) {
 		this.rows = dataService.getAtoms();
-		this.gridModel = qgrid.model();
-
-		this.gridModel.navigationChanged.watch(e => {
-			if (e.hasChanges('cell') && e.state.cell) {
-				this.gridModel.selection({
-					items: [e.state.cell.row]
-				});
-			}
-		});
 	}
 
 	filter(name: string, value: string) {
 		this.search[name] = value;
 
-		const predicate = Object
+		const custom = Object
 			.keys(this.search)
 			.reduce((memo: (x: any) => boolean, key) => {
 				const searchText = this.search[key].toLowerCase();
@@ -56,7 +47,7 @@ export class ExampleFilterRowCustomComponent {
 			}, x => true);
 
 		this.gridModel.filter({
-			match: () => predicate
+			custom
 		});
 	}
 }
