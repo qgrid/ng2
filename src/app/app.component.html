@@ -1,3 +1,34 @@
+<section class="header">
+	<nav class="nav">
+		<a routerLink="/"
+		class="logo"
+		*ngIf="!isMobile"></a>
+		<span class="qgrid-search">
+			<mat-form-field class="app-search">
+				<input matInput
+					   [(ngModel)]="search"
+					   (ngModelChange)="onSearchChange()"
+					   placeholder="Search"
+					   autocomplete="off"
+					   class="search"
+					   id="search"
+					   type="search" />
+			</mat-form-field>
+		</span>
+		<ul class="frameworks">
+			<li class="ready">
+				<a href="<%- url_for('guide/highlights.html') %>" target="_blank">Documentation</a>
+			</li>
+			<li class="ready">
+				<a class="active" href="<%- url_for('guide/examples.html') %>">Examples</a>
+			</li>
+			<li class="ready">
+				<a href="<%- url_for('https://github.com/qgrid/qgrid.github.io.git') %>">GitHub</a>
+			</li>
+		</ul>
+		<a class="button" href="#">Become maintainer</a>
+	</nav>
+</section>
 <mat-toolbar>
 	<button mat-icon-button
 			(click)="sidenav.toggle()">
@@ -10,17 +41,6 @@
 				 [mode]="isMobile ? 'over' : 'side'"
 				 [opened]="!isMobile"
 				 [fixedInViewport]="isMobile">
-		<a routerLink="/"
-		   class="logo"
-		   *ngIf="!isMobile"></a>
-		<mat-form-field class="app-search">
-			<input matInput
-				   [(ngModel)]="search"
-				   (ngModelChange)="onSearchChange()"
-				   placeholder="Search in q-grid examples"
-				   autocomplete="off"
-				   type="search" />
-		</mat-form-field>
 		<mat-nav-list>
 			<a *ngFor="let example of examples | appFilter: search"
 			   mat-list-item
