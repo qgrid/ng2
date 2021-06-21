@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, AfterViewInit, ViewChild } from '@angular/core';
 import { DataService, Atom } from '../data.service';
 import { Observable } from 'rxjs';
-import { GridComponent } from 'ng2-qgrid';
+import { Grid, GridModel } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = [
 	'on-push-basic',
@@ -19,16 +19,19 @@ export class ExampleOnPushBasicComponent implements AfterViewInit {
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(GridComponent) grid: GridComponent;
 	rows: Observable<Atom[]>;
+	gridModel: GridModel;
 
-	constructor(dataService: DataService) {
+	constructor(dataService: DataService,
+		private qgrid: Grid
+	) {
+		this.gridModel = qgrid.model();
 		this.rows = dataService.getAtoms();
 	}
 
 	ngAfterViewInit() {
 		setTimeout(() => {
-			const { rows } = this.grid.model.data();
+			const { rows } = this.gridModel.data();
 			if (rows.length) {
 				rows[0].number = rows[0].number + 1;
 			}

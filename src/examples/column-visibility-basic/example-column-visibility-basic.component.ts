@@ -1,6 +1,6 @@
 import { DataService, Human } from '../data.service';
 import { Component, ChangeDetectionStrategy, ViewChild } from '@angular/core';
-import { GridComponent } from 'ng2-qgrid';
+import { Grid, GridModel } from 'ng2-qgrid';
 import { Observable } from 'rxjs';
 
 const EXAMPLE_TAGS = [
@@ -20,20 +20,21 @@ export class ExampleColumnColumnVisibilityBasicComponent {
 	title = EXAMPLE_TAGS[1];
 
 	rows$: Observable<Human[]> = this.dataService.getPeople();
+	gridModel: GridModel;
 
 	showLastName = true;
 	showFirstName = true;
 
-	@ViewChild(GridComponent) grid: GridComponent;
-
-	constructor(private dataService: DataService) {
+	constructor(private dataService: DataService,
+		private qgrid: Grid
+	) {
+		this.gridModel = qgrid.model();
 	}
 
 	hideCity() {
-		const { model } = this.grid;
-		const columns = model.data().columns.filter(x => x.key !== 'city');
+		const columns = this.gridModel.data().columns.filter(x => x.key !== 'city');
 
-		model.columnList({ columns });
-		model.data({ columns });
+		this.gridModel.columnList({ columns });
+		this.gridModel.data({ columns });
 	}
 }

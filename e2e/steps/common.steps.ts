@@ -62,6 +62,18 @@ When('I click filter button for {string}', (text: string) => getFilterButton(tex
 When('I select persistence item [{int}]', (num: number) => selectPersistenceItem(num));
 When('I remove all values for selected column', () => removeAllChipValues());
 When('I click Select all', () => getSelectAll());
+When('I hover {string} column title', (title) => hoverColumnTitleByName(title));
+When('I click expand button [{int}]', (index: number) => clickChevronButton(index));
+
+function clickChevronButton(index) {
+	return element.all(by.xpath('//*[contains(text(),\' chevron_right \')]')).get(index).click();
+}
+
+async function hoverColumnTitleByName(title: string) {
+	const el = element(by.xpath(`//th//label[contains(text(),'${title}')]`));
+	await browser.actions().mouseMove(el).perform();
+}
+
 
 async function checkErrors() {
 	await browser
@@ -171,7 +183,7 @@ async function removeAllChipValues() {
 
 async function getSelectAll() {
 	const el = await element(by.xpath(`//*[contains(text(),'Select All')]/..`));
-	await browser.sleep(1000); //sleep is left here as the actions intercross without it and the scenario fails
+	await browser.sleep(1000); // sleep is left here as the actions intercross without it and the scenario fails
 	el.click();
 }
 
@@ -211,4 +223,4 @@ function betweenDates(date1, date2) {
 	input2.clear();
 	input2.sendKeys(date2, protractor.Key.ENTER);
 	for (let i = 0; i < 1000000; i++) { }
-};
+}

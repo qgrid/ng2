@@ -8,9 +8,19 @@ export function filterPipe(rows, context, next) {
 
 	let result = rows;
 	if (rows.length) {
-		const { match } = model.filter();
-		const test = match(context);
-		if (test !== yes) {
+		const { match, custom } = model.filter();
+		const matchPredicate = match(context);
+
+		let test;
+		if (matchPredicate !== yes && custom !== yes) {
+			test = (row) => matchPredicate(row) && custom(row);
+		} else if (matchPredicate !== yes) {
+			test = (row) => matchPredicate(row);
+		} else if (custom !== yes) {
+			test = (row) => custom(row);
+		}
+
+		if (test) {
 			result = [];
 			for (let i = 0, length = rows.length; i < length; i++) {
 				const row = rows[i];

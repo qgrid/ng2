@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, AfterViewInit, ViewChild } from '@angular/core';
 import { DataService, Human } from '../data.service';
 import { Observable } from 'rxjs';
-import { GridComponent, Command } from 'ng2-qgrid';
+import { Grid, GridModel, Command } from 'ng2-qgrid';
 
 const EXAMPLE_TAGS = [
 	'select-row-command',
@@ -19,22 +19,20 @@ export class ExampleSelectRowCommandComponent implements AfterViewInit {
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(GridComponent) grid: GridComponent;
 	rows$: Observable<Human[]> = this.dataService.getPeople();
+	gridModel: GridModel;
 
 	selectAll = new Command({
 		execute: () => {
-			const { model } = this.grid;
-			model.selection({
-				items: model.scene().rows
+			this.gridModel.selection({
+				items: this.gridModel.scene().rows
 			});
 		}
 	});
 
 	unselectAll = new Command({
 		execute: () => {
-			const { model } = this.grid;
-			model.selection({
+			this.gridModel.selection({
 				items: []
 			});
 		}
@@ -47,18 +45,18 @@ export class ExampleSelectRowCommandComponent implements AfterViewInit {
 
 	selectionToggle = new Command({
 		canExecute: e => {
-			const { model } = this.grid;
-			return e.items[0] !== model.selection().items[0];
+			return e.items[0] !== this.gridModel.selection().items[0];
 		}
 	});
 
-	constructor(private dataService: DataService) {
+	constructor(private dataService: DataService,
+		private qgrid: Grid
+	) {
+		this.gridModel = qgrid.model();
 	}
 
 	ngAfterViewInit() {
-		const { model } = this.grid;
-
-		model.selection({
+		this.gridModel.selection({
 			toggle: this.selectionToggle
 		});
 	}
