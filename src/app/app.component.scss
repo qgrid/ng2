@@ -8,6 +8,26 @@
         url('../assets/fonts/qgrid-iconfont.svg#qgrid-iconfont') format('svg');
 }
 
+@mixin flexBetweenSet {
+	display: flex;
+	justify-content: space-between;
+}
+
+@mixin fontStylingSet($font-size, $line-height, $font-weight, $color) {
+	font-size: $font-size;
+	line-height: $line-height;
+	font-weight: $font-weight;
+	color: $color;
+}
+
+@mixin iconStylingSet($width, $height, $url) {
+	width: $width;
+	height: $height;
+	background-image: url($url);
+}
+
+$transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
 ::-webkit-scrollbar {
     width: 0.5em;
 }
@@ -21,6 +41,161 @@
 }
 
 :host {
+    ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    section.header {
+        display: block;
+        position: fixed;
+        z-index: 4;
+        color: #fff;
+        background: #353535;
+        width: 100vw;
+        font-family:'Roboto Slab', serif;
+        margin-bottom: 0;
+
+        .logo {
+            display: block;
+            font-family: 'qgrid-iconfont', 'Helvetica Neue', sans-serif;
+            font-size: 46px;
+            text-align: center;
+            color: #fff;
+            text-decoration: none;
+
+            &:before {
+                content: "";
+                display: block;
+                background-image: url('../assets/icons/qgrid_logo.svg');
+                width: 46px;
+                height: 46px;
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+        }
+
+        .button {
+            font-size: 1em;
+            line-height: 24px;
+            font-weight: 400;
+            color: #fff;
+            background-color: #2F80ED;
+            border: 1px solid rgba(255, 255, 255, 0);
+            vertical-align: middle;
+            padding: 6px 23px;
+            border-radius: 4px;
+            text-decoration: none;
+
+            &:hover {
+                background-color: #fff;
+                border: 1px solid rgba(255, 255, 255, 0);
+                color: #282828;
+            }
+        }
+    }
+
+    .qgrid-search {
+        margin-left: auto;
+    }
+
+    ::ng-deep .mat-form-field {
+        display: block;
+        background-color: #444444;
+        border: 0;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        padding: 9px 28px;
+        width: 360px;
+        box-sizing: border-box;
+    
+        &::placeholder {
+            @include fontStylingSet(15px, 20px, 500, #C9C9C9);
+        }
+
+        .mat-form-field-wrapper {
+            padding-bottom: 0 !important;
+        }
+
+        .mat-form-field-underline {
+            display: none
+        }
+
+        .mat-form-field-infix {
+            padding: 0;
+            border-top: 0;
+            position: relative;
+
+            &::before {
+                @include iconStylingSet(12px, 12px, "../assets/icons/search.svg");
+                content: '';
+                display: block;
+                position: absolute;
+                left: -20px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+
+        .input.mat-input-element,
+        .mat-form-field-label {
+            @include fontStylingSet(15px, 20px, 500, #C9C9C9);
+        }
+
+        .mat-form-field-label-wrapper {
+            top: -2px;
+            padding-top: 0;
+            min-height: 18px;
+        }
+
+        .mat-form-field-label {
+            top: 0;
+        }
+    }
+
+    .nav {
+        @include flexBetweenSet;
+        background-color: #353535;
+        align-items: center;
+        padding: 12px 25px;
+        border-bottom: 2px solid #565656; //transition: 0.5s;
+    
+        .qgrid-logo {
+            width: 66px;
+            height: 46px;
+            background-size: contain;
+        }
+    
+        .frameworks {
+            @include flexBetweenSet;
+            align-content: center;
+            margin: 0 24px 0 40px;
+    
+            li {
+                &:not(:last-child ) {
+                    margin-right: 40px;
+                }
+    
+                & > a {
+                    @include fontStylingSet(15px, 20px, 500, #C9C9C9);
+                    transition: $transition;
+                    text-decoration: none;
+    
+                    &:hover,
+                    &.active {
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    
+        .button {
+            font-size: 1em;
+            padding: 6px 23px;
+        }
+    }
+
     .mat-toolbar {
         display: none;
         color: #fff;
@@ -64,29 +239,17 @@
         z-index: 3;
         background: transparent;
         pointer-events: none;
+        padding-top: 113px;
 
         .mat-sidenav {
             width: 260px;
-            background-color: #334863;
+            background-color: #353535;
             pointer-events: all;
             border: 0;
+            margin-top: 72px;
 
             ::ng-deep .mat-drawer-inner-container {
                 overflow: hidden;
-            }
-
-            .logo {
-                display: block;
-                margin: 70px 10px 35px 0;
-                font-family: 'qgrid-iconfont', 'Helvetica Neue', sans-serif;
-                font-size: 100px;
-                text-align: center;
-                color: #fff;
-                text-decoration: none;
-
-                &:before {
-                    content: url('../assets/icons/qgrid_logo.svg');
-                }
             }
 
             .app-search {
@@ -108,6 +271,17 @@
                         color: #fff;
                     }
 
+                    .mat-form-field,
+                    .mat-form-field-label,
+                    .mat-form-field-label span,
+                    .form-field-label-wrapper {
+                        font-family: 'Roboto Slab', serif !important;
+                        font-size: 15px;
+                        line-height: 20px;
+                        font-weight: 500;
+                        color: #C9C9C9;
+                    }
+
                     .mat-form-field-underline {
                         background-color: #fff;
                     }
@@ -126,7 +300,7 @@
 
             .mat-nav-list {
                 display: block;
-                height: calc(100% - 364px);
+                height: 100vh;
                 overflow-y: auto;
 
                 .mat-list-item {
@@ -134,7 +308,7 @@
 
                     &:hover,
                     &.app-active {
-                        background-color: #25364A;
+                        color: #2F80ED;
                     }
                 }
             }
