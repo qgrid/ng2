@@ -172,6 +172,7 @@ import { ExampleVisibilityBasicComponent } from './visibility-basic/example-visi
 import { ExampleVisibilityStateComponent } from './visibility-model/example-visibility-model.component';
 import { ExampleSelectRowEditComponent } from './select-row-edit/example-select-row-edit.component';
 import { ExamplePersistenceOnStateChangeComponent } from './persistence-on-state-change/example-persistence-on-state-change.component';
+import { ExampleSizeColumnFitHeadComponent } from './size-column-fit-head/example-size-column-fit-head.component';
 
 export const EXAMPLES: any[] = [
 	ExampleActionBarBasicComponent,
@@ -324,6 +325,7 @@ export const EXAMPLES: any[] = [
 	ExampleSizeColumnFullComponent,
 	ExampleSizeColumnPinComponent,
 	ExampleSizeRowBasicComponent,
+	ExampleSizeColumnFitHeadComponent,
 	ExampleSortRowBasicComponent,
 	ExampleSortRowMixedComponent,
 	ExampleStyleCellBasicComponent,

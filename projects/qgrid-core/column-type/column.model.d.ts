@@ -29,12 +29,13 @@ export declare type ColumnModelCategory = 'data' | 'control' | 'markup' | 'pivot
 export declare type ColumnModelSource = 'generation' | 'template' | 'user';
 export declare type ColumnModelOrigin = 'specific' | 'custom';
 /**
- * Indicates how to calculate px from percentage:
+ * Indicates how to calculate column width:
  * 
  * * `relative` get whole grid width minus static px widths and apply percents.
  * * `absolute` get whole grid width and apply percents.  
+ * * `fit-head` column width will be equal to the text head width.
  */
-export declare type ColumnModelWidthMode = 'relative' | 'absolute';
+export declare type ColumnModelWidthMode = 'relative' | 'absolute' | 'fit-head';
 
 export declare type ColumnModelType =
 	'array' |
@@ -162,7 +163,7 @@ export declare class ColumnModel {
 	viewWidth?: number;
 
 	/**
-	 * Indicates how to calculate px from percentage:
+	 * Indicates how to calculate column width:
 	 * 
 	 * * `relative` get whole grid width minus static px widths and apply percents.
 	 * * `absolute` get whole grid width and apply percents.  
