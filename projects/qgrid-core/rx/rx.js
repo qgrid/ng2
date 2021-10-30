@@ -1,6 +1,7 @@
 import { Disposable } from '../infrastructure/disposable';
 import { Event } from '../event/event';
 import { noop, isFunction } from '../utility/kit';
+import { GridError } from '../infrastructure/error';
 
 export class UnsubscribableLike {
     constructor(off) {
@@ -100,12 +101,12 @@ export class ObservableEvent {
     };
 
     pipe(...operators) {
-        let target = this;
+        let source = this;
         for (let op of operators) {
-            target = op(target);
+            source = op(source);
         }
 
-        return target;
+        return source;
     }
 }
 
@@ -129,17 +130,43 @@ export class SubjectLike extends ObservableEvent {
             new Event(),
             new Disposable()
         );
+
+        this.isCompleted = false;
     }
 
     next(value) {
+        if (this.isCompleted) {
+            throw new GridError('rx', 'can\'t call next, observable is completed');
+        }
+
         this.nextSignal.emit(value);
     }
 
-    complete() {
-        this.disposable.finalize();
+    error(ex) {
+        if (this.isCompleted) {
+            throw new GridError('rx', 'can\'t call error, observable is completed');
+        }
+
+        this.catchError(ex);
     }
 
-    error(ex) {
-        this.catchError(ex);
+    complete() {
+        if (!this.isCompleted) {
+            this.isCompleted = true;
+            this.disposable.finalize();
+        }
+    }
+}
+
+export class Operator extends SubjectLike {
+    constructor(subscriber) {
+        super();
+        
+        this.subscriber = subscriber;
+    }
+
+    subscribe(...args) {
+        super.subscribe(...args);
+        this.subscriber(this);
     }
 }

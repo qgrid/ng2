@@ -17,6 +17,7 @@ import { filter, takeOnce } from '@qgrid/core/rx/rx.operators';
 })
 export class PersistenceComponent implements OnInit, OnChanges {
 	private persistenceState = this.stateAccessor.setter(PersistenceState);
+	private service: PersistenceService | null = null;
 
 	@Input('schedule') set schedule(schedule: PersistenceSchedule) { this.persistenceState({ schedule }); }
 	@Input('storage') set storage(storage: PersistenceStorage) { this.persistenceState({ storage }); }
@@ -39,8 +40,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 		const id = `q-grid:${model.grid().id}:persistence-list`;
 		model.persistence({ id });
 
-		const persistenceService = new PersistenceService(model, () => this.modelBuilder.build());
-
+		this.service = new PersistenceService(model, () => this.modelBuilder.build());
 
 		observeReply(model.dataChanged)
 			.pipe(
@@ -67,7 +67,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 
 						const defaultItem = items.find(item => item.isDefault);
 						if (defaultItem) {
-							persistenceService.load(defaultItem.model);
+							this.service.load(defaultItem.model);
 						}
 					})
 			);
@@ -103,7 +103,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 								filter(e => e.hasChanges(key) && e.tag.source !== 'persistence.service')
 							)
 							.subscribe(e => {
-								const currentModel = persistenceService.save();
+								const currentModel = this.service.save();
 								const item = {
 									title: `auto-save: ${state}.${key} changed`,
 									modified: Date.now(),
