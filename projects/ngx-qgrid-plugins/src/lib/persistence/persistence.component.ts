@@ -45,9 +45,9 @@ export class PersistenceComponent implements OnInit, OnChanges {
 		observeReply(model.dataChanged)
 			.pipe(
 				filter(e => {
-					if (e.hasChanges('rows')) {
-						const count = e.state.rows.length;
-						if (count > 0) {
+					if (e.hasChanges('rows') || e.hasChanges('columns')) {
+						const {rows, columns} = e.state;
+						if (rows.length > 0 && columns.length > 0) {
 							return true;
 						}
 					}
