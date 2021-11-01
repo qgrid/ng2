@@ -30,6 +30,9 @@ function reviver(key, value) {
 	return value;
 }
 
+export const serialize = value => JSON.stringify(value, replacer);
+export const deserialize = value => JSON.parse(value, reviver);
+
 export class PersistenceStorage {
 	constructor(storage) {
 		this.storage = storage;
@@ -37,14 +40,14 @@ export class PersistenceStorage {
 
 	getItem(key) {
 		return new Promise(resolve => {
-			const item = JSON.parse(this.storage.getItem(key), reviver);
+			const item = deserialize(this.storage.getItem(key));
 			resolve(item);
 		});
 	}
 
 	setItem(key, value) {
 		return new Promise(resolve => {
-			const item = this.storage.setItem(key, JSON.stringify(value, replacer));
+			const item = this.storage.setItem(key, serialize(value));
 			resolve(item);
 		});
 	}

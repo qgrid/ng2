@@ -79,21 +79,6 @@ function findFactory(index) {
 	return key => (map.has(key) ? map.get(key) : -1);
 }
 
-function equals(xs, ys) {
-	const length = xs.length;
-	if (length !== ys.length) {
-		return false;
-	}
-
-	for (let i = 0; i < length; i++) {
-		if (xs[i] !== ys[i]) {
-			return false;
-		}
-	}
-
-	return true;
-}
-
 function merge(newTree, oldTree, buildIndex) {
 	const current = running(newTree, buildIndex);
 	const screen = former(oldTree, current);

@@ -1,13 +1,13 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges } from '@angular/core';
-import { Command } from '@qgrid/core/command/command';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Action } from '@qgrid/core/action/action';
+import { Command } from '@qgrid/core/command/command';
 import { Composite } from '@qgrid/core/infrastructure/composite';
-import { PersistenceItem } from '@qgrid/plugins/persistence/persistence.plugin';
 import { PersistenceService } from '@qgrid/core/persistence/persistence.service';
-import { GridPlugin, GridModelBuilder, StateAccessor, GridEvent } from '@qgrid/ngx';
 import { PersistenceSchedule, PersistenceState } from '@qgrid/core/persistence/persistence.state';
 import { PersistenceStorage } from '@qgrid/core/persistence/persistence.storage';
 import { filter, takeOnce } from '@qgrid/core/rx/rx.operators';
+import { GridEvent, GridModelBuilder, GridPlugin, StateAccessor } from '@qgrid/ngx';
+import { PersistenceItem } from '@qgrid/plugins/persistence/persistence.plugin';
 
 @Component({
 	selector: 'q-grid-persistence',
@@ -53,7 +53,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 					}
 
 					return false;
-				}),
+				}), 
 				takeOnce()
 			)
 			.subscribe(() =>

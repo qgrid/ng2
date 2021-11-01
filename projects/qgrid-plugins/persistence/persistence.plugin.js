@@ -1,11 +1,12 @@
-import { PersistenceService } from '@qgrid/core/persistence/persistence.service';
 import { Command } from '@qgrid/core/command/command';
 import { CommandManager } from '@qgrid/core/command/command.manager';
+import { Event } from '@qgrid/core/event/event';
+import { PersistenceService } from '@qgrid/core/persistence/persistence.service';
+import { serialize } from '@qgrid/core/persistence/persistence.storage';
 import { stringifyFactory } from '@qgrid/core/services/model.stringify';
 import { Shortcut } from '@qgrid/core/shortcut/shortcut';
 import { ShortcutDispatcher } from '@qgrid/core/shortcut/shortcut.dispatcher';
 import { clone } from '@qgrid/core/utility/kit';
-import { Event } from '@qgrid/core/event/event';
 
 export class PersistencePlugin {
 	constructor(plugin, createDefaultModel) {
@@ -245,7 +246,7 @@ export class PersistencePlugin {
 	}
 
 	isActive(item) {
-		return JSON.stringify(item.model) === JSON.stringify(this.service.save()); // eslint-disable-line angular/json-functions
+		return serialize(item.model) === serialize(this.service.save()); // eslint-disable-line angular/json-functions
 	}
 
 	persist() {

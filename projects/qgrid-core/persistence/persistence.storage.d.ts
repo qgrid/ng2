@@ -9,3 +9,6 @@ export declare class PersistenceStorage {
 	getItem<T>(key: string): Promise<T>;
 	setItem<T>(key: string, value: T): Promise<any>;
 }
+
+export function serialize<T>(value: T): string;
+export function deserialize<T>(value: string): T;
