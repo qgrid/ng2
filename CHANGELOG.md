@@ -5,9 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [11.2.0] - 2021-10-22
 ### Added
-- New options `fit-head` in the `columnWidth` property to set column width based on origin column head width.
+- New options `fit-head` for the `columnWidth` property to set column width based on origin column head width.
+- Save grid layout in the persistence storage.
+
 ### Changes
 - Remove HttpClientModule from the q-grid to fix setting up http interceptors when lazy loading.
+
+### Fixed
+- Applying persistance storage settings when data rows are set up synchronously.
+- Correctly invalidate selection when row was deleted.
 
 ## [11.1.1] - 2021-06-16
 ### Added
