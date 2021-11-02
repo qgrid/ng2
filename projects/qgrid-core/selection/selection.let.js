@@ -87,7 +87,7 @@ export class SelectionLet {
             const newEntries = this.selectionService.lookup(e.state.items);
             this.select(newEntries, true);
           }
-
+          
           this.stateCheck.next(e.state.items);
         }
       });

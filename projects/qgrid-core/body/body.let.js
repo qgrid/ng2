@@ -1,6 +1,6 @@
 import { Log } from '../infrastructure/log';
-import { TextSelection } from '../services/text.selection';
 import { Renderer } from '../scene/render/render';
+import { TextSelection } from '../services/text.selection';
 
 export class BodyLet {
 	constructor(plugin) {
@@ -21,18 +21,22 @@ export class BodyLet {
 		observe(model.mouseChanged)
 			.subscribe(({ state }) => {
 				const { code, status, target } = state;
-				if (target && code === 'right' && status === 'up') {
+				
+        if (target && code === 'right' && status === 'up') {
 					this.targetElement = target.element;
 					this.targetElement.classList.add('q-grid-can-select-text');
 					TextSelection.set(this.targetElement);
 				}
+
 				if (this.targetElement && status === 'down') {
 					TextSelection.clear();
 					if (this.targetElement.classList) {
 						this.targetElement.classList.remove('q-grid-can-select-text');
 					}
+          
 					this.targetElement = null;
 				}
+
 			});
 
 		this.tryShowBlankLayer();
