@@ -3,7 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
-## [11.2.0] - 2021-10-22
+## [11.2.1] - 2021-11-02
+### Fixed
+- Build.
+
+## [11.2.0] - 2021-11-02
 ### Added
 - New options `fit-head` for the `columnWidth` property to set column width based on origin column head width.
 - Be default save column widths in the persistence storage.
@@ -645,7 +649,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 * Pager plugin.
 * Progress plugin.
 
-[unreleased]: https://github.com/qgrid/ng2/compare/v11.2.0...HEAD
+[unreleased]: https://github.com/qgrid/ng2/compare/v11.2.1...HEAD
+[11.2.1]: https://github.com/qgrid/ng2/compare/v11.2.1...v11.2.0
 [11.2.0]: https://github.com/qgrid/ng2/compare/v11.2.0...v11.1.1
 [11.1.1]: https://github.com/qgrid/ng2/compare/v11.1.1...v11.0.1
 [11.0.1]: https://github.com/qgrid/ng2/compare/v11.0.0...v11.0.1
