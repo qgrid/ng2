@@ -95,17 +95,13 @@ function keySelector(unit, rowKey, columnKey) {
 }
 
 function lookupColumnFactory(model, selectKey) {
-  const { columnKey } = model.selection();
-  if (columnKey === identity) {
-    return identity;
-  }
-
   const columns = model.columnList().line;
   return items => {
     const result = [];
+    
     columns.forEach(column => {
       const columnKey = selectKey(column);
-      const found = items.indexOf(columnKey) > -1;
+      const found = items.indexOf(columnKey) >= 0;
       if (found) {
         result.push(column);
       }
@@ -116,17 +112,13 @@ function lookupColumnFactory(model, selectKey) {
 }
 
 function lookupRowFactory(model, selectKey) {
-  const { rowKey } = model.selection();
-  if (rowKey === identity) {
-    return identity;
-  }
-
   const { rows } = model.data();
   return items => {
     const result = [];
+    
     rows.forEach(row => {
       const rowKey = selectKey(row);
-      const found = items.indexOf(rowKey) > -1;
+      const found = items.indexOf(rowKey) >= 0;
       if (found) {
         result.push(row);
       }
@@ -137,16 +129,13 @@ function lookupRowFactory(model, selectKey) {
 }
 
 function lookupCellFactory(model, selectKey) {
-  const { rowKey, columnKey } = model.selection();
-  if (rowKey === identity && columnKey === identity) {
-    return identity;
-  }
-
   const { rows } = model.data();
   const columns = model.columnList().line;
   const match = cellMatchFactory();
+  
   return items => {
     const result = [];
+
     columns.forEach(column => {
       rows.forEach(row => {
         const cell = {
@@ -160,6 +149,7 @@ function lookupCellFactory(model, selectKey) {
         }
       });
     });
+
     return result;
   };
 }
