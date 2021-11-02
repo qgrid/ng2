@@ -1,11 +1,11 @@
-import { calk, find, findLeaves, preOrderDFS } from '../node/node.service';
-import { Command } from '../command/command';
-import { eventPath } from '../services/dom';
 import { FilterRowColumn } from '../column-type/filter.row.column';
+import * as columnService from '../column/column.service';
+import { Command } from '../command/command';
 import { GRID_PREFIX } from '../definition';
 import { Log } from '../infrastructure/log';
+import { calk, find, findLeaves, preOrderDFS } from '../node/node.service';
 import { PathService } from '../path/path.service';
-import * as columnService from '../column/column.service';
+import { eventPath } from '../services/dom';
 
 export class HeadLet {
 	constructor(plugin, tagName) {
@@ -39,10 +39,11 @@ export class HeadLet {
 						const targetKey = th.column.key;
 						if (sourceKey !== targetKey) {
 							const { columnList } = model;
-							const tree = calk(columnList().index);
 
+							const tree = calk(columnList().index);
 							const oldPos = find(tree, node => node.key.model.key === sourceKey);
 							const newPos = find(tree, node => node.key.model.key === targetKey);
+              
 							if (oldPos && newPos && newPos.path.indexOf(oldPos.node) < 0) {
 								const queue = oldPos.path.reverse();
 								const hostIndex = queue.findIndex(node => node.children.length > 1);
@@ -55,6 +56,7 @@ export class HeadLet {
 									newPos.parent.children.splice(newPos.index, 0, target);
 
 									target.level = newPos.parent.level + 1;
+                  
 									preOrderDFS(
 										target.children,
 										(node, root, parent) => {
