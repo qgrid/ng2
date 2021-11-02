@@ -29,7 +29,7 @@ export class PersistenceService {
 		const gridModel = this.model;
 		settings = settings || gridModel.persistence().settings;
 
-		for (let key in settings) {
+		for (const key in settings) {
 			const source = model[key];
 			if (source) {
 				const target = gridModel[key];

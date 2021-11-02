@@ -38,14 +38,17 @@ export declare type ColumnListStateTypeDetection = 'inference' | 'raw';
  */
 export declare class ColumnListState {
 	/**
-	 * A column generation mode. Here are possible values:
+	 * A column generation mode.
 	 */
 	generation: ColumnListStateGeneration;
 
+	/**
+	 * A type of column type property detection.
+	 */
 	typeDetection: ColumnListStateTypeDetection;
 
 	/**
-	 * Array of column keys which q-grid uses for column ordering.
+	 * Tree of columns which q-grid uses for column ordering.
 	 * This is filled automatically by internal service, but can be modified, for instance,
      * by [column sort](/doc/feature/sort.html) plugin.
 	 */

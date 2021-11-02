@@ -22,6 +22,7 @@ export class PersistenceState {
 			filter: ['by'],
 			queryBuilder: ['node'],
 			pagination: ['current', 'size'],
+			layout: ['columns']
 		};
 	}
 }

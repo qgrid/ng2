@@ -85,6 +85,12 @@ th {
     &.q-grid-can-select-text {
         @include user-select(auto);
     }
+
+    &.q-grid-fit-head {
+        width: auto;
+        max-width: none;
+        min-width: auto;
+    }
 }
 
 tbody,

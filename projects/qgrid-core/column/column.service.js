@@ -83,11 +83,14 @@ export function lineView(columnRows) {
 export function widthFactory(table, form) {
 	const columns = table.data.columns();
 	const columnMap = map(columns);
+	// 2 because pad column has left padding equals to 1px and width 100%
+	// that can produce 1.## values
+	const PAD_SKIP = 2;
 
 	const occupied = columns
 		.filter(c => form.has(c.key) || ('' + c.width).indexOf('%') < 0)
 		.reduce((memo, c) => {
-			const width = getWidth(c);
+			const width = calcWidth(c);
 			if (width !== null) {
 				memo += width;
 			}
@@ -102,7 +105,7 @@ export function widthFactory(table, form) {
 		+ table.view.width('head-right')
 	);
 
-	function getWidth(column) {
+	function calcWidth(column) {
 		let size = column;
 		if (form.has(column.key)) {
 			size = form.get(column.key);
@@ -113,16 +116,22 @@ export function widthFactory(table, form) {
 			if (('' + width).indexOf('%') >= 0) {
 				const percent = Number.parseFloat(width);
 				const headWidth = rectWidth.instance;
-
-				// 2 because pad column has left padding equals to 1px and width 100%
-				// that can produce 1.## values
-				const padSkip = 2;
-				const skipWidth = column.widthMode === 'relative' ? occupied + padSkip : padSkip;
+				const skipWidth = column.widthMode === 'absolute' ? PAD_SKIP : occupied + PAD_SKIP;
 				width = (headWidth - skipWidth) * percent / 100;
 			}
 
 			const MIN_WIDTH = 0;
 			return Math.max(Number.parseInt(width, 10), Number.parseInt(column.minWidth, 10) || MIN_WIDTH);
+		}
+
+		// the right place it's here to avoid recalculation
+		if (column.widthMode === 'fit-head') {
+			// can we be here before table rendered? or we need to through error
+			const { cells } = table.head.context.bag;
+			const thCell = Array.from(cells).find(th => th.column === column);
+			if (thCell) {
+				return table.head.cell(thCell.rowIndex, thCell.columnIndex).width() + PAD_SKIP;
+			}
 		}
 
 		return null;
@@ -134,6 +143,6 @@ export function widthFactory(table, form) {
 			throw new GridError('column.service', `Column ${key} is not found`);
 		}
 
-		return getWidth(column);
+		return calcWidth(column);
 	};
 }

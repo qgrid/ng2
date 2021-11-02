@@ -10,6 +10,7 @@ export class ColumnListState {
 		root.key = '$root';
 
 		this.index = new Node(new CohortColumn(root), 0);
+		
 		this.columns = [];
 		this.reference = {};
 		this.line = [];

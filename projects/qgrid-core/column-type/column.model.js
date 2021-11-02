@@ -44,7 +44,7 @@ export class ColumnModel {
 		this.maxWidth = null;
 		this.viewWidth = null;
 
-		this.widthMode = 'relative'; // relative | absolute
+		this.widthMode = 'relative'; // relative | absolute | fit-head
 
 		this.canEdit = true;
 		this.canResize = true;

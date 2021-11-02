@@ -18,6 +18,7 @@ import { ExampleModule, EXAMPLES, APP_ROUTES } from '../examples/example.module'
 
 import { FilterSearchPipe } from './app.filter.pipe';
 import { HighlightPipe } from './app.highlight.pipe';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
 	declarations: [
@@ -29,6 +30,7 @@ import { HighlightPipe } from './app.highlight.pipe';
 		CommonModule,
 		BrowserModule,
 		BrowserAnimationsModule,
+		HttpClientModule,
 		MatCardModule,
 		MatSelectModule,
 		MatSidenavModule,

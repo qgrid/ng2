@@ -72,8 +72,8 @@ export class LayoutLet {
 			.subscribe(e => {
 				if (e.hasChanges('columns')) {
 					const columns = columnService.flatten(e.state.columns);
-					const hasNotDefaultWidth = x => x.width !== null || x.minWidth !== null || x.maxWidth !== null;
-					if (columns.some(hasNotDefaultWidth)) {
+					const hasNonDefaultWidth = x => x.width !== null || x.minWidth !== null || x.maxWidth !== null || x.widthMode === 'fit-head';
+					if (columns.some(hasNonDefaultWidth)) {
 						Fastdom.mutate(() => {
 							const { columns } = model.layout();
 							this.invalidateColumns(columns);

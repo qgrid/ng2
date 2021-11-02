@@ -1,19 +1,24 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DataService, Human } from '../data.service';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Grid } from 'ng2-qgrid';
 import { Observable } from 'rxjs';
+import { DataService, Human } from '../data.service';
 
 @Component({
-	selector: 'example-select-row-basic',
-	templateUrl: 'example-select-row-range.component.html',
-	styleUrls: ['example-select-row-range.component.scss'],
-	providers: [DataService],
-	changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'example-select-row-basic',
+  templateUrl: 'example-select-row-range.component.html',
+  styleUrls: ['example-select-row-range.component.scss'],
+  providers: [DataService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExampleSelectRowRangeComponent {
-	static id = 'select-row-range';
+  static id = 'select-row-range';
 
-	rows$: Observable<Human[]> = this.dataService.getPeople();
+  gridModel = this.qgrid.model();
+  rows$: Observable<Human[]> = this.dataService.getPeople();
 
-	constructor(private dataService: DataService) {
-	}
+  constructor(
+    private dataService: DataService,
+    private qgrid: Grid
+  ) {
+  }
 }

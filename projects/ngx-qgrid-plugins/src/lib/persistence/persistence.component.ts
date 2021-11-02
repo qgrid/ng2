@@ -1,13 +1,13 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges } from '@angular/core';
-import { Command } from '@qgrid/core/command/command';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Action } from '@qgrid/core/action/action';
+import { Command } from '@qgrid/core/command/command';
 import { Composite } from '@qgrid/core/infrastructure/composite';
-import { PersistenceItem } from '@qgrid/plugins/persistence/persistence.plugin';
 import { PersistenceService } from '@qgrid/core/persistence/persistence.service';
-import { GridPlugin, GridModelBuilder, StateAccessor, GridEvent } from '@qgrid/ngx';
 import { PersistenceSchedule, PersistenceState } from '@qgrid/core/persistence/persistence.state';
 import { PersistenceStorage } from '@qgrid/core/persistence/persistence.storage';
 import { filter, takeOnce } from '@qgrid/core/rx/rx.operators';
+import { GridEvent, GridModelBuilder, GridPlugin, StateAccessor } from '@qgrid/ngx';
+import { PersistenceItem } from '@qgrid/plugins/persistence/persistence.plugin';
 
 @Component({
 	selector: 'q-grid-persistence',
@@ -17,6 +17,7 @@ import { filter, takeOnce } from '@qgrid/core/rx/rx.operators';
 })
 export class PersistenceComponent implements OnInit, OnChanges {
 	private persistenceState = this.stateAccessor.setter(PersistenceState);
+	private service: PersistenceService | null = null;
 
 	@Input('schedule') set schedule(schedule: PersistenceSchedule) { this.persistenceState({ schedule }); }
 	@Input('storage') set storage(storage: PersistenceStorage) { this.persistenceState({ storage }); }
@@ -39,21 +40,20 @@ export class PersistenceComponent implements OnInit, OnChanges {
 		const id = `q-grid:${model.grid().id}:persistence-list`;
 		model.persistence({ id });
 
-		const persistenceService = new PersistenceService(model, () => this.modelBuilder.build());
-
+		this.service = new PersistenceService(model, () => this.modelBuilder.build());
 
 		observeReply(model.dataChanged)
 			.pipe(
 				filter(e => {
-					if (e.hasChanges('rows')) {
-						const count = e.state.rows.length;
-						if (count > 0) {
+					if (e.hasChanges('rows') || e.hasChanges('columns')) {
+						const {rows, columns} = e.state;
+						if (rows.length > 0 && columns.length > 0) {
 							return true;
 						}
 					}
 
 					return false;
-				}),
+				}), 
 				takeOnce()
 			)
 			.subscribe(() =>
@@ -67,7 +67,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 
 						const defaultItem = items.find(item => item.isDefault);
 						if (defaultItem) {
-							persistenceService.load(defaultItem.model);
+							this.service.load(defaultItem.model);
 						}
 					})
 			);
@@ -103,7 +103,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 								filter(e => e.hasChanges(key) && e.tag.source !== 'persistence.service')
 							)
 							.subscribe(e => {
-								const currentModel = persistenceService.save();
+								const currentModel = this.service.save();
 								const item = {
 									title: `auto-save: ${state}.${key} changed`,
 									modified: Date.now(),

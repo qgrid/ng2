@@ -1,15 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Routes, Route } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-
+import { Route, Routes } from '@angular/router';
 import { GridModule } from 'ng2-qgrid';
 import { ThemeModule } from 'ng2-qgrid/theme/material';
-
 import { ExampleActionBarBasicComponent } from './action-bar-basic/example-action-bar-basic.component';
 import { ExampleActionBarOnEnterComponent } from './action-bar-on-enter/example-action-bar-on-enter.component';
 import { ExampleActionBarTemplateComponent } from './action-bar-template/example-action-bar-template.component';
@@ -19,7 +17,6 @@ import { ExampleCellTooltipBasicComponent } from './cell-tooltip-basic/example-c
 import { ExampleColumnArrayBasicComponent } from './column-array-basic/example-column-array-basic.component';
 import { ExampleColumnAutocompleteBasicComponent } from './column-autocomplete-basic/example-column-autocomplete-basic.component';
 import { ExampleColumnBoolBasicComponent } from './column-bool-basic/example-column-bool-basic.component';
-import { ExampleColumnColumnVisibilityBasicComponent } from './column-visibility-basic/example-column-visibility-basic.component';
 import { ExampleColumnCurrencyBasicComponent } from './column-currency-basic/example-column-currency-basic.component';
 import { ExampleColumnDataSafeComponent } from './column-data-safe/example-column-data-safe.component';
 import { ExampleColumnDateBasicComponent } from './column-date-basic/example-column-date-basic.component';
@@ -42,8 +39,10 @@ import { ExampleColumnTimeBasicComponent } from './column-time-basic/example-col
 import { ExampleColumnTooltipBasicComponent } from './column-tooltip-basic/example-column-tooltip-basic.component';
 import { ExampleColumnTypeSafeComponent } from './column-type-safe/example-column-type-safe.component';
 import { ExampleColumnUrlBasicComponent } from './column-url-basic/example-column-url-basic.component';
+import { ExampleColumnColumnVisibilityBasicComponent } from './column-visibility-basic/example-column-visibility-basic.component';
 import { ExampleCopyValueFromCellComponent } from './copy-value-from-cell/example-copy-value-from-cell.component';
 import { ExampleDataRowAddComponent } from './data-row-add/example-data-row-add.component';
+import { ExampleDataRowDeleteSelectionComponent } from './data-row-delete-selection/example-data-row-delete-selection.component';
 import { ExampleDataRowDeleteComponent } from './data-row-delete/example-data-row-delete.component';
 import { ExampleDefineColumnAsyncComponent } from './define-column-async/example-define-column-async.component';
 import { ExampleDefineColumnBasicComponent } from './define-column-basic/example-define-column-basic.component';
@@ -123,7 +122,9 @@ import { ExamplePaneBasicComponent } from './pane-basic/example-pane-basic.compo
 import { ExamplePaneTriggerComponent } from './pane-trigger/example-pane-trigger.component';
 import { ExamplePaneWithSelectionComponent } from './pane-with-selection-mode/example-pane-with-selection-mode.component';
 import { ExamplePersistenceBasicComponent } from './persistence-basic/example-persistence-basic.component';
+import { ExamplePersistenceOnStateChangeComponent } from './persistence-on-state-change/example-persistence-on-state-change.component';
 import { ExamplePersistenceServerComponent } from './persistence-server/example-persistence-server.component';
+import { ExamplePersistenceWithSyncGetDataComponent } from './persistence-with-sync-get-data/example-persistence-with-sync-get-data.component';
 import { ExamplePinColumnBasicComponent } from './pin-column-basic/example-pin-column-basic.component';
 import { ExamplePipeGridBasicComponent } from './pipe-grid-basic/example-pipe-grid-basic.component';
 import { ExamplePivotColumnBasicComponent } from './pivot-column-basic/example-pivot-column-basic.component';
@@ -141,8 +142,8 @@ import { ExampleScrollVirtualEditComponent } from './scroll-virtual-edit/example
 import { ExampleScrollVirtualGroupComponent } from './scroll-virtual-group/example-scroll-virtual-group.component';
 import { ExampleScrollVirtualHeightComponent } from './scroll-virtual-height/example-scroll-virtual-height.component';
 import { ExampleScrollVirtualInfiniteComponent } from './scroll-virtual-infinite/example-scroll-virtual-infinite.component';
-import { ExampleScrollVirtualListComponent } from './scroll-virtual-list/example-scroll-virtual-list.component';
 import { ExampleScrollVirtualListInfiniteComponent } from './scroll-virtual-list-infinite/example-scroll-virtual-list-infinite.component';
+import { ExampleScrollVirtualListComponent } from './scroll-virtual-list/example-scroll-virtual-list.component';
 import { ExampleScrollVirtualSelectionComponent } from './scroll-virtual-selection/example-scroll-virtual-selection.component';
 import { ExampleScrollVirtualStyleComponent } from './scroll-virtual-style/example-scroll-virtual-style.component';
 import { ExampleSelectCellBasicComponent } from './select-cell-basic/example-select-cell-basic.component';
@@ -151,11 +152,13 @@ import { ExampleSelectMixBasicComponent } from './select-mix-basic/example-selec
 import { ExampleSelectRowBasicComponent } from './select-row-basic/example-select-row-basic.component';
 import { ExampleSelectRowCommandComponent } from './select-row-command/example-select-row-command.component';
 import { ExampleSelectRowDisableComponent } from './select-row-disable/example-select-row-disable.component';
+import { ExampleSelectRowEditComponent } from './select-row-edit/example-select-row-edit.component';
 import { ExampleSelectRowRangeComponent } from './select-row-range/example-select-row-range.component';
-import { ExampleSelectRowSingleComponent } from './select-row-single/example-select-row-single.component';
 import { ExampleSelectRowSingleOnlyComponent } from './select-row-single-only/example-select-row-single-only.component';
+import { ExampleSelectRowSingleComponent } from './select-row-single/example-select-row-single.component';
 import { ExampleSizeColumnAbsoluteComponent } from './size-column-absolute/example-size-column-absolute.component';
 import { ExampleSizeColumnBasicComponent } from './size-column-basic/example-size-column-basic.component';
+import { ExampleSizeColumnFitHeadComponent } from './size-column-fit-head/example-size-column-fit-head.component';
 import { ExampleSizeColumnFullComponent } from './size-column-full/example-size-column-full.component';
 import { ExampleSizeColumnPinComponent } from './size-column-pin/example-size-column-pin.component';
 import { ExampleSizeRowBasicComponent } from './size-row-basic/example-size-row-basic.component';
@@ -170,8 +173,8 @@ import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme
 import { ExampleValidationBasicComponent } from './validation-basic/example-validation-basic.component';
 import { ExampleVisibilityBasicComponent } from './visibility-basic/example-visibility-basic.component';
 import { ExampleVisibilityStateComponent } from './visibility-model/example-visibility-model.component';
-import { ExampleSelectRowEditComponent } from './select-row-edit/example-select-row-edit.component';
-import { ExamplePersistenceOnStateChangeComponent } from './persistence-on-state-change/example-persistence-on-state-change.component';
+
+
 
 export const EXAMPLES: any[] = [
 	ExampleActionBarBasicComponent,
@@ -209,6 +212,7 @@ export const EXAMPLES: any[] = [
 	ExampleCopyValueFromCellComponent,
 	ExampleDataRowAddComponent,
 	ExampleDataRowDeleteComponent,
+  ExampleDataRowDeleteSelectionComponent,
 	ExampleDefineColumnAsyncComponent,
 	ExampleDefineColumnBasicComponent,
 	ExampleDefineColumnHybridComponent,
@@ -289,6 +293,7 @@ export const EXAMPLES: any[] = [
 	ExamplePersistenceBasicComponent,
 	ExamplePersistenceOnStateChangeComponent,
 	ExamplePersistenceServerComponent,
+	ExamplePersistenceWithSyncGetDataComponent,
 	ExamplePinColumnBasicComponent,
 	ExamplePipeGridBasicComponent,
 	ExamplePivotColumnBasicComponent,
@@ -321,6 +326,7 @@ export const EXAMPLES: any[] = [
 	ExampleSelectRowSingleOnlyComponent,
 	ExampleSizeColumnAbsoluteComponent,
 	ExampleSizeColumnBasicComponent,
+	ExampleSizeColumnFitHeadComponent,
 	ExampleSizeColumnFullComponent,
 	ExampleSizeColumnPinComponent,
 	ExampleSizeRowBasicComponent,

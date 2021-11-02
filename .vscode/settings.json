@@ -2,5 +2,12 @@
     "typescript.tsdk": "./node_modules/typescript/lib",
     "typescript.preferences.quoteStyle": "single",
     "javascript.preferences.quoteStyle": "single",
-    "html.format.wrapAttributes": "force-aligned"
-}
+    "html.format.wrapAttributes": "force-aligned",
+    "files.insertFinalNewline": false,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  }

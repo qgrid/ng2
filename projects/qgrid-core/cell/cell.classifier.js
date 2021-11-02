@@ -49,6 +49,10 @@ export function headCellClassifier(column) {
         classList.push(`${GRID_PREFIX}-can-highlight`);
     }
 
+    if (column.widthMode) {
+        classList.push(`${GRID_PREFIX}-${column.widthMode}`);
+    }
+
     const className = ' ' + classList.join(' ');
     return element => element.className += className;
 }
