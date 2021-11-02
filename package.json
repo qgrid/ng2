@@ -1,6 +1,6 @@
 {
   "name": "ng2-qgrid",
-  "version": "11.2.0",
+  "version": "11.2.1",
   "scripts": {
     "build:app": "npm run clean && node build.theme.js && ng build --prod --output-path dist/app --base-href /ng2/",
     "build:lib": "npm run clean && node build.lib.js",
@@ -66,7 +66,7 @@
     "cucumber": "^6.0.5",
     "fastdom": "^1.0.10",
     "file-saver": "^2.0.5",
-    "glob": "^7.1.6",
+    "glob": "^7.2.0",
     "karma": "~5.2.3",
     "karma-chai": "^0.1.0",
     "karma-chai-spies": "^0.1.4",
