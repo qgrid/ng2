@@ -1,5 +1,5 @@
-import { isString, same } from '@qgrid/core/utility/kit';
-import { hasRules, createValidator } from '@qgrid/core/validation/validation.service';
+import { isEqual, isString } from '@qgrid/core/utility/kit';
+import { createValidator, hasRules } from '@qgrid/core/validation/validation.service';
 
 export class ValidatorPlugin {
 	constructor(model, context) {
@@ -22,7 +22,7 @@ export class ValidatorPlugin {
 			if (!isValid) {
 				const newError = this.validator.getErrors()[this.key];
 				const newErrors = isString(newError) ? [newError] : newError;
-				if (!same(newErrors, this.oldErrors)) {
+				if (!isEqual(newErrors, this.oldErrors)) {
 					this.oldErrors = newErrors;
 				}
 			} else {

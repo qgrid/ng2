@@ -1,8 +1,8 @@
 import { Command } from '@qgrid/core/command/command';
-import { Aggregation } from '@qgrid/core/services/aggregation';
-import { isFunction, identity } from '@qgrid/core/utility/kit';
 import { Event } from '@qgrid/core/event/event';
-import { preOrderDFS, copy, find, filter } from '@qgrid/core/node/node.service';
+import { copy, preOrderDFS } from '@qgrid/core/node/node.service';
+import { Aggregation } from '@qgrid/core/services/aggregation';
+import { identity, isFunction } from '@qgrid/core/utility/kit';
 
 export class ColumnChooserPlugin {
 	constructor(plugin, context) {
@@ -62,7 +62,7 @@ export class ColumnChooserPlugin {
 			const search = ('' + value).toLowerCase();
 			applyFilter =
 				search
-					? node => filter(node, n => (n.value.column.title || '').toLowerCase().indexOf(search) >= 0)
+					? node => filterNode(node, n => (n.value.column.title || '').toLowerCase().indexOf(search) >= 0)
 					: identity;
 
 			updateView();
@@ -121,8 +121,8 @@ export class ColumnChooserPlugin {
 						if (src !== trg) {
 							const tree = this.tree;
 
-							const oldPos = find(tree, node => node === src);
-							const newPos = find(tree, node => node === trg);
+							const oldPos = findNode(tree, node => node === src);
+							const newPos = findNode(tree, node => node === trg);
 							if (oldPos && newPos && newPos.path.indexOf(oldPos.node) < 0) {
 								const queue = oldPos.path.reverse();
 								const hostIndex = queue.findIndex(node => node.children.length > 1);

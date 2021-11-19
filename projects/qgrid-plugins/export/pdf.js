@@ -1,4 +1,4 @@
-import { flatView } from '@qgrid/core/export/export.service';
+import { graphFlatView } from '@qgrid/core/export/export.service';
 
 export class PdfWriter {
 	constructor(jsPDF) {
@@ -26,7 +26,7 @@ export class PdfWriter {
 			titles.push({title: column.title, dataKey: column.path});
 		}
 		for (let row of rows) {
-			values.push(flatView(row));
+			values.push(graphFlatView(row));
 		}
 
 		doc.autoTable(titles, values, tableOptions);
