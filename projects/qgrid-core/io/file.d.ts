@@ -1,1 +1,1 @@
-export declare function isImage(name: string): boolean;
+export declare function isFileAnImage(name: string): boolean;

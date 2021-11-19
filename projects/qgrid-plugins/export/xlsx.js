@@ -1,4 +1,4 @@
-import {flatView} from '@qgrid/core/export/export.service';
+import { flatView } from '@qgrid/core/export/export.service';
 
 function sheet_to_workbook(sheet) {
 	const sheets = {};
@@ -15,7 +15,7 @@ function toArrayBuffer(excel) {
 	return buffer;
 }
 
-export class Xlsx {
+export class XlsxWriter {
 	constructor(xlsx) {
 		this.xlsx = xlsx;
 	}

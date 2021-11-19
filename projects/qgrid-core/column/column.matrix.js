@@ -1,6 +1,6 @@
 import { binarySearch } from '../utility/kit';
 
-export function flatten(root) {
+export function flattenRows(root) {
 	const rowsToUse = rowsToUseFactory();
 
 	function markup(node, rowIndex, columnIndex, rowsLeft, result) {

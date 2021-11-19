@@ -1,16 +1,16 @@
-import { isFunction } from '../utility/kit';
 import { GridError } from '../infrastructure/error';
-import { expand, collapse } from './column.matrix';
 import { Lazy } from '../infrastructure/lazy';
+import { isFunction } from '../utility/kit';
+import { collapse, expand } from './column.matrix';
 
-export function flatten(columns, result = []) {
+export function flattenColumns(columns, result = []) {
 	for (let i = 0, length = columns.length; i < length; i++) {
 		const column = columns[i];
 		result.push(column);
 
 		const { children } = column;
 		if (children && children.length) {
-			flatten(children, result);
+			flattenColumns(children, result);
 		}
 	}
 
@@ -36,20 +36,20 @@ export function findLine(columns, key) {
 	return null;
 }
 
-export function map(columns) {
+export function mapColumns(columns) {
 	return columns.reduce((memo, column) => {
 		memo[column.key] = column;
 		return memo;
 	}, {});
 }
 
-export function getValue(column) {
+export function getCellValue(column) {
 	return isFunction(column.value)
 		? row => column.value(row)
 		: row => row[column.key];
 }
 
-export function find(columns, key) {
+export function findColumn(columns, key) {
 	const index = findIndex(columns, key);
 	return index < 0 ? null : columns[index];
 }
@@ -82,7 +82,7 @@ export function lineView(columnRows) {
 
 export function widthFactory(table, form) {
 	const columns = table.data.columns();
-	const columnMap = map(columns);
+	const columnMap = mapColumns(columns);
 	// 2 because pad column has left padding equals to 1px and width 100%
 	// that can produce 1.## values
 	const PAD_SKIP = 2;

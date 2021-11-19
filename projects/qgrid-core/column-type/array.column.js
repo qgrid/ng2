@@ -1,9 +1,9 @@
-import { ColumnView } from '../scene/view/column.view';
-import { DataColumnModel } from './data.column.model';
-import { TemplatePath } from '../template/template.path';
-import { get as getValue } from '../services/value';
-import { isArray } from '../utility/kit';
 import { FormatService } from '../format/format.service';
+import { ColumnView } from '../scene/view/column.view';
+import { getValue } from '../services/value';
+import { TemplatePath } from '../template/template.path';
+import { isArray } from '../utility/kit';
+import { DataColumnModel } from './data.column.model';
 
 TemplatePath.register('array-cell', (template, column) => {
 	return {

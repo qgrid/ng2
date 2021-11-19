@@ -1,21 +1,16 @@
 import {
-	Input,
-	Component,
-	OnInit,
-	EventEmitter,
-	Output,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef
+  ChangeDetectionStrategy,
+  ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output
 } from '@angular/core';
-import { ColumnFilterPlugin } from '@qgrid/plugins/column-filter/column.filter.plugin';
-import { ColumnFilterState } from '@qgrid/plugins/column-filter/column.filter.state';
 import { ColumnModel } from '@qgrid/core/column-type/column.model';
 import { Fetch } from '@qgrid/core/infrastructure/fetch';
-import { FocusAfterRender } from '../focus/focus.service';
-import { GridPlugin, Grid, VscrollService, VscrollContext, TemplateService, GridError } from '@qgrid/ngx';
 import { Guard } from '@qgrid/core/infrastructure/guard';
-import { uniq, flatten } from '@qgrid/core/utility/kit';
-import { get as getValue } from '@qgrid/core/services/value';
+import { getValue } from '@qgrid/core/services/value';
+import { flatten, uniq } from '@qgrid/core/utility/kit';
+import { Grid, GridError, GridPlugin, TemplateService, VscrollContext, VscrollService } from '@qgrid/ngx';
+import { ColumnFilterPlugin } from '@qgrid/plugins/column-filter/column.filter.plugin';
+import { ColumnFilterState } from '@qgrid/plugins/column-filter/column.filter.state';
+import { FocusAfterRender } from '../focus/focus.service';
 
 @Component({
 	selector: 'q-grid-column-filter',

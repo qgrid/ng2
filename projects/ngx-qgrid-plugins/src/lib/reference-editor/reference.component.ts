@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
-import { CellView } from '@qgrid/core/scene/view/cell.view';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Command } from '@qgrid/core/command/command';
-import { getFactory } from '@qgrid/core/services/value';
-import { isArray, isUndefined } from '@qgrid/core/utility/kit';
+import { CellView } from '@qgrid/core/scene/view/cell.view';
 import { SelectionService } from '@qgrid/core/selection/selection.service';
-import { GridModel, Disposable, GridModelBuilder } from '@qgrid/ngx';
+import { getValueFactory } from '@qgrid/core/services/value';
+import { isArray, isUndefined } from '@qgrid/core/utility/kit';
+import { Disposable, GridModel, GridModelBuilder } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-reference',
@@ -73,7 +73,7 @@ export class ReferenceComponent implements OnInit {
 			reference: this.reference,
 			row: this.cell.row,
 			column: this.cell.column,
-			getValue: getFactory(this.cell.column),
+			getValue: getValueFactory(this.cell.column),
 			createDefaultModel: () => this.modelBuilder.build(),
 		} as any);
 

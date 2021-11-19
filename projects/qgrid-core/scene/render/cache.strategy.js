@@ -1,5 +1,4 @@
-import { getFactory as valueFactory } from '../../services/value';
-import { getFactory as labelFactory } from '../../services/label';
+import { getValueFactory } from '../../services/value';
 
 export class CacheStrategy {
     constructor(plugin, strategy) {
@@ -11,7 +10,7 @@ export class CacheStrategy {
                 const key = `valueFactory-${column.key}`;
                 select = storage.get(key);
                 if (!select) {
-                    select = valueFactory(column);
+                    select = getValueFactory(column);
                     storage.set(key, select);
                 }
 
@@ -39,7 +38,7 @@ export class CacheStrategy {
                     storage.set(key, select);
                 }
 
-                return strategy.getLabel(row, column, select, rowIndex, columnIndex);
+                return strategy.getLabelFactory(row, column, select, rowIndex, columnIndex);
             };
 
         const readonlyGetLabel =

@@ -1,6 +1,6 @@
-import {Xml} from './xml';
+import { XmlImport } from './xml';
 
-const xml = new Xml();
+const xml = new XmlImport();
 
 describe('xml parser', () => {
 

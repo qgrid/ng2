@@ -1,6 +1,6 @@
-import { SelectionState } from './selection.state';
+import { SubSelectionState } from './selection.state';
 
-export declare class MultipleSelectionState extends SelectionState {
+export declare class MultipleSelectionState extends SubSelectionState {
 	constructor();
 
 	items: Map<any, any>;

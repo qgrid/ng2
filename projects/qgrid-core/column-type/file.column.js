@@ -1,8 +1,8 @@
+import { isFileAnImage } from '../io/file';
 import { ColumnView } from '../scene/view/column.view';
-import { DataColumnModel } from './data.column.model';
 import { TemplatePath } from '../template/template.path';
 import { yes } from '../utility/kit';
-import { isImage } from '../io/file';
+import { DataColumnModel } from './data.column.model';
 
 TemplatePath.register('file-cell', (template, column) => {
 	return {
@@ -25,7 +25,7 @@ export class FileColumnModel extends DataColumnModel {
 		this.canUpload = yes;
 		this.editorOptions.trigger = 'custom';
 
-		this.hasPreview = name => isImage(name);
+		this.hasPreview = name => isFileAnImage(name);
 		this.canSort = false;
 		this.canFilter = false;
 	}

@@ -1,14 +1,14 @@
-import { Aggregation } from '../services/aggregation';
 import { GridError } from '../infrastructure/error';
 import { Log } from '../infrastructure/log';
-import { getFactory as valueFactory } from '../services/value';
+import { Aggregation } from '../services/aggregation';
+import { getValueFactory } from '../services/value';
 
 export class FootLet {
 	constructor(plugin) {
 		const { model, observeReply } = plugin;
 
 		this.plugin = plugin;
-		this.valueFactory = valueFactory;
+		this.valueFactory = getValueFactory;
 		this.rows = [];
 
 		observeReply(model.sceneChanged)

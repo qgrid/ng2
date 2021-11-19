@@ -1,5 +1,5 @@
-import * as markup from './markup';
 import cssEscape from 'css.escape';
+import * as markup from './markup';
 
 export function sheet(id, source) {
 	const sheetId = `${id}-${source}`;

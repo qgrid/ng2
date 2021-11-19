@@ -1,12 +1,11 @@
-import { build as buildPipe } from '../pipe/pipe.build';
+import { FocusService } from '../focus/focus.service';
+import { Defer } from '../infrastructure/defer';
 import { Log } from '../infrastructure/log';
+import { buildFromModel } from '../pipe/pipe.build';
+import { Fastdom } from '../services/fastdom';
 import { guid } from '../services/guid';
 import { Scheduler } from '../services/scheduler';
-import { Defer } from '../infrastructure/defer';
-import { noop } from '../utility/kit';
-import { FocusService } from '../focus/focus.service';
-import { isString } from '../utility/kit';
-import { Fastdom } from '../services/fastdom';
+import { isString, noop } from '../utility/kit';
 
 function buildSettings(...args) {
 	if (args.length) {
@@ -46,7 +45,7 @@ export class GridService {
 		const { scheduler, model } = this;
 		const { scene } = model;
 
-		const runPipe = buildPipe(model);
+		const runPipe = buildFromModel(model);
 		const cancelBusy = why === 'refresh' ? this.busy() : noop;
 
 		const nextTask = () => {

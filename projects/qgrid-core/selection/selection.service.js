@@ -1,5 +1,5 @@
 import { GridError } from '../infrastructure/error';
-import { getFactory } from '../services/value';
+import { getValueFactory } from '../services/value';
 import { identity, isUndefined } from '../utility/kit';
 
 function hashColumnKeyFactory(model) {
@@ -19,7 +19,7 @@ function hashRowKeyFactory(model) {
     const index = columns.findIndex(column => column.type === 'id');
     if (index >= 0) {
       const idColumn = columns[index];
-      const getId = getFactory(idColumn);
+      const getId = getValueFactory(idColumn);
       return getId;
     }
 

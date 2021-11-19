@@ -1,6 +1,6 @@
 import { ColumnView } from '../scene/view/column.view';
-import { DataColumnModel } from './data.column.model';
 import { ColumnModel } from './column.model';
+import { DataColumnModel } from './data.column.model';
 
 export declare class CurrencyColumnModel extends DataColumnModel {
 	symbol?: string;
@@ -8,6 +8,6 @@ export declare class CurrencyColumnModel extends DataColumnModel {
 	maxLength?: number;
 }
 
-export declare class CurrencyModel extends ColumnView {
+export declare class CurrencyColumn extends ColumnView {
 	constructor(model: ColumnModel);
 }

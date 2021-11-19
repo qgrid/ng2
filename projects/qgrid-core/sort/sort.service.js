@@ -1,11 +1,11 @@
-import { isString } from '../utility/kit';
 import { GridError } from '../infrastructure/error';
 import { preOrderDFS } from '../node/node.service';
+import { isString } from '../utility/kit';
 
-export const key = getKey;
-export const index = getIndex;
-export const direction = getDirection;
-export const map = getMap;
+// export const key = getKey;
+// export const index = getIndex;
+// export const direction = getDirection;
+// export const map = getMap;
 
 export function orderFactory(model) {
 	const { sort } = model;
@@ -26,7 +26,7 @@ export function orderFactory(model) {
 	};
 }
 
-function getKey(pair) {
+export function getKey(pair) {
 	let key;
 	if (isString(pair)) {
 		const signedKey = pair.split(/[+-]/);
@@ -44,7 +44,7 @@ function getKey(pair) {
 	return key;
 }
 
-function getDirection(pair) {
+export function getDirection(pair) {
 	if (isString(pair)) {
 		const directions = { '-': 'desc', '+': 'asc' };
 		return directions[pair[0]] || 'asc';
@@ -54,7 +54,7 @@ function getDirection(pair) {
 	return pair[pairKey];
 }
 
-function getMap(pairs) {
+export function getMap(pairs) {
 	return pairs.reduce((memo, pair) => {
 		const key = getKey(pair);
 		memo[key] = getDirection(pair);
@@ -62,6 +62,6 @@ function getMap(pairs) {
 	}, {});
 }
 
-function getIndex(pairs, key) {
+export function getIndex(pairs, key) {
 	return pairs.map(getKey).findIndex(pairKey => pairKey === key);
 }

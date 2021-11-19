@@ -1,5 +1,5 @@
-import {Csv} from './csv';
-import {ColumnModel} from '../../column-type/column.model';
+import { ColumnModel } from '../../column-type/column.model';
+import { CsvExport } from './csv';
 
 describe('Csv', () => {
 	let column1 = new ColumnModel();
@@ -15,7 +15,7 @@ describe('Csv', () => {
 	let columns = [column1, column2, column3];
 	let rows = ['Empty','Filled'];
 
-	let csv = new Csv();
+	let csv = new CsvExport();
 
 	describe('write', () => {
 		it('should return string separated by commas and new lines', () => {

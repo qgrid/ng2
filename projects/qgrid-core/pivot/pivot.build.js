@@ -1,8 +1,8 @@
+import { GridError } from '../infrastructure/error';
+import { Node } from '../node/node';
 import { identity } from '../utility/kit';
 import { pivot } from './pivot';
 import { pivotForm } from './pivot.form';
-import { Node } from '../node/node';
-import { GridError } from '../infrastructure/error';
 
 function buildFactory(columnMap, valueFactory) {
 	return function run(pivot, pivotBy, level = 0) {
@@ -35,7 +35,7 @@ function buildFactory(columnMap, valueFactory) {
 	};
 }
 
-export function build(columnMap, pivotBy, valueFactory) {
+export function buildPivot(columnMap, pivotBy, valueFactory) {
 	let doPivot = null;
 	if (pivotBy.length) {
 		const doBuild = buildFactory(columnMap, valueFactory);

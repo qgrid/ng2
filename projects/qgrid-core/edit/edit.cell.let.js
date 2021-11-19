@@ -1,15 +1,12 @@
-import { Log } from '../infrastructure/log';
 import { Command } from '../command/command';
-import { Shortcut } from '../shortcut/shortcut';
-import { CellEditor } from './edit.cell.editor';
-import { getFactory as valueFactory } from '../services/value';
-import { getFactory as labelFactory } from '../services/label';
+import { Log } from '../infrastructure/log';
 import { parseFactory } from '../services/convert';
+import { getLabelFactory } from '../services/label';
+import { getValueFactory } from '../services/value';
+import { Shortcut } from '../shortcut/shortcut';
 import * as validationService from '../validation/validation.service';
+import { CellEditor } from './edit.cell.editor';
 
-// do not delete this importing it's required in the bundle
-// TODO: investigate how to avoid it
-import { Td } from '../dom/td';
 
 export class EditCellLet {
 	constructor(plugin, shortcut) {
@@ -367,8 +364,8 @@ export class EditCellLet {
 			newLabel,
 			unit: 'cell',
 			tag,
-			valueFactory,
-			labelFactory
+			getValueFactory,
+			getLabelFactory
 		};
 	}
 

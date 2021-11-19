@@ -1,6 +1,6 @@
-import { GridError } from '../infrastructure/error';
-import { Command } from '../command/command';
 import * as columnService from '../column/column.service';
+import { Command } from '../command/command';
+import { GridError } from '../infrastructure/error';
 import * as sortService from '../sort/sort.service';
 
 export class SortLet {
@@ -13,7 +13,7 @@ export class SortLet {
 			source: 'sort.view',
 			canExecute: column => {
 				const key = column.key;
-				const map = columnService.map(model.columnList().line);
+				const map = columnService.mapColumns(model.columnList().line);
 				return map.hasOwnProperty(key) && map[key].canSort !== false;
 			},
 			execute: column => {
@@ -27,13 +27,13 @@ export class SortLet {
 					const isSingleMode = code !== 'shift' || status !== 'down';
 					// if shift key is not pressed - reset sort for other columns and do sort like single mode
 					if (isSingleMode) {
-						const index = sortService.index(by, key);
+						const index = sortService.getIndex(by, key);
 						by = index >= 0 ? by.filter((_, i) => i === index) : [];
 					}
 				}
-				const index = sortService.index(by, key);
+				const index = sortService.getIndex(by, key);
 				if (index >= 0) {
-					const dir = sortService.direction(by[index]);
+					const dir = sortService.getDirection(by[index]);
 					switch (dir) {
 						case 'desc': {
 							by.splice(index, 1);
@@ -91,8 +91,8 @@ export class SortLet {
 			.subscribe(e => {
 				if (e.hasChanges('columns')) {
 					const { by } = sort();
-					const columnMap = columnService.map(e.state.columns);
-					const newBy = by.filter(entry => columnMap.hasOwnProperty(sortService.key(entry)));
+					const columnMap = columnService.mapColumns(e.state.columns);
+					const newBy = by.filter(entry => columnMap.hasOwnProperty(sortService.getKey(entry)));
 					if (!this.equals(newBy, by)) {
 						sort({ by: newBy }, { source: 'sort.view' });
 					}
@@ -107,13 +107,13 @@ export class SortLet {
 	direction(column) {
 		const { key } = column;
 		const { by } = this.plugin.model.sort();
-		return sortService.map(by)[key];
+		return sortService.getMap(by)[key];
 	}
 
 	order(column) {
 		const { key } = column;
 		const { model } = this.plugin;
 		const { by } = model.sort();
-		return sortService.index(by, key);
+		return sortService.getIndex(by, key);
 	}
 }

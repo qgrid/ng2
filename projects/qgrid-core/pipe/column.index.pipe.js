@@ -1,5 +1,5 @@
+import { flattenRows } from '../column/column.matrix';
 import { Guard } from '../infrastructure/guard';
-import { flatten } from '../column/column.matrix';
 import { Node } from '../node/node';
 
 export function columnIndexPipe(root, context, next) {
@@ -7,7 +7,7 @@ export function columnIndexPipe(root, context, next) {
 
 	const { model } = context;
 	const filteredIndex = filter(model, root);
-	const columnRows = flatten(filteredIndex);
+	const columnRows = flattenRows(filteredIndex);
 
 	next({ columns: columnRows, index: root });
 }

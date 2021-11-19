@@ -1,4 +1,4 @@
-import { map as getColumnMap } from '../column/column.service';
+import { mapColumns } from '../column/column.service';
 import { GridError } from '../infrastructure/error';
 import { Aggregation } from '../services/aggregation';
 
@@ -14,7 +14,7 @@ export function groupBuilder(model) {
 	const groupBy = model.group().by;
 	const groupByLength = groupBy.length;
 
-	const columnMap = getColumnMap(columns);
+	const columnMap = mapColumns(columns);
 
 	return valueFactory => {
 		const result = [];

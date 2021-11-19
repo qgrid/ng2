@@ -1,10 +1,10 @@
-import { GridError, GridModel } from '@qgrid/ngx';
+import * as columnService from '@qgrid/core/column/column.service';
+import { getValueFactory } from '@qgrid/core/services/value';
 import { isUndefined, uniq } from '@qgrid/core/utility/kit';
+import { GridError, GridModel } from '@qgrid/ngx';
 import { ExpressionBuilder } from '../expression-builder/model/expression.builder';
 import { Node } from '../expression-builder/model/node';
 import { typeMapping } from './schema/operator';
-import { getFactory } from '@qgrid/core/services/value';
-import * as columnService from '@qgrid/core/column/column.service';
 
 export interface Column {
 	key: string; title: string; type: string;
@@ -68,13 +68,13 @@ export class QueryBuilderService {
 		selection = (selection || []).map(item => ('' + item).toLowerCase());
 
 		const model = this.model;
-		const columnMap = columnService.map(model.columnList().line);
+		const columnMap = columnService.mapColumns(model.columnList().line);
 		const column = columnMap[key];
 		if (!column) {
 			throw new GridError('query-builder.service', `Column ${key} is not found`);
 		}
 
-		const getValue = getFactory(column);
+		const getValue = getValueFactory(column);
 		return new Promise(resolve => {
 			const view = model
 				.data()
