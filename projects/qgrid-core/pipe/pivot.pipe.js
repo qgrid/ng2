@@ -7,11 +7,11 @@ export function pivotPipe(memo, context, next) {
 
 	const { model } = context;
 	if (memo.rows.length) {
-		const { valueFactory } = context;
+		const { getValueFactory } = context;
 		const { line } = model.columnList();
 		const { by } = model.pivot();
 
-		const build = buildPivot(mapColumns(line), by, valueFactory);
+		const build = buildPivot(mapColumns(line), by, getValueFactory);
 		memo.pivot = build(memo.rows, by);
 	}
 
