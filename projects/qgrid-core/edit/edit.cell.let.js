@@ -7,6 +7,9 @@ import { Shortcut } from '../shortcut/shortcut';
 import * as validationService from '../validation/validation.service';
 import { CellEditor } from './edit.cell.editor';
 
+// do not delete this importing it's required in the bundle
+// TODO: investigate how to avoid it
+import { Td } from '../dom/td';
 
 export class EditCellLet {
 	constructor(plugin, shortcut) {
@@ -121,6 +124,15 @@ export class EditCellLet {
 
 					cell = cell || model.navigation().cell;
 
+          //cell is an array when using custom template
+          if(Array.isArray(cell)) {
+            if(cell.length > 0) {
+              if (cell[0].constructor.name == 'TdCoreDirective') {
+                cell = cell[0];
+              }
+            }
+          }
+          
 					return cell
 						&& cell.column.canEdit
 						&& (cell.column.category === 'control' || model.edit().mode === 'cell')

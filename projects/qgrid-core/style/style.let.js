@@ -10,7 +10,7 @@ export class StyleLet {
 		const { model, observeReply } = plugin;
 
 		this.plugin = plugin;
-		this.valueFactory = valueFactory;
+		this.valueFactory = getValueFactory;
 		this.service = new StyleService(model);
 		this.active = {
 			row: false,

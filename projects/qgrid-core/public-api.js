@@ -350,7 +350,7 @@ export { modelFactory } from './test/model.factory';
 //toolbar
 export { ToolbarState } from './toolbar/toolbar.state';
 //utility
-export { assignWith, binarySearch, clone, cloneDeep, compare, dropWhile, escapeRegexp, flatten, getTypeName, htmlEncode, identity, isArray, isBoolean, isDate, isEmail, isEqual, isFunction, isImage, isNumber, isObject, isString, isUndefined, isUrl, matchISO8601, max, min, no, noop, orderBy, startCase, sumBy, takeWhile, toCamelCase, uniq, yes, zip } from './utility/kit';
+export { assignWith, binarySearch, clone, cloneDeep, compare, dropWhile, escapeRegexp, flatten, getTypeName, htmlEncode, identity, isArray, isBoolean, isDate, isEmail, isFunction, isImage, isNumber, isObject, isString, isUndefined, isUrl, matchISO8601, max, min, no, noop, orderBy, same, startCase, sumBy, takeWhile, toCamelCase, uniq, yes, zip } from './utility/kit';
 //validation
 export { createValidator, hasRules } from './validation/validation.service';
 export { ValidationState } from './validation/validation.state';

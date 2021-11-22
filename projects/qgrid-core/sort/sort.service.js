@@ -2,11 +2,6 @@ import { GridError } from '../infrastructure/error';
 import { preOrderDFS } from '../node/node.service';
 import { isString } from '../utility/kit';
 
-// export const key = getKey;
-// export const index = getIndex;
-// export const direction = getDirection;
-// export const map = getMap;
-
 export function orderFactory(model) {
 	const { sort } = model;
 	return by => {

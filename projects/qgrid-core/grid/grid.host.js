@@ -1,7 +1,7 @@
 
 import { GridError } from '../infrastructure/error';
 import { Keyboard } from '../keyboard/keyboard';
-import { isEqual, uniq } from '../utility/kit';
+import { same, uniq } from '../utility/kit';
 
 export class GridHost {
 	constructor(host, plugin) {
@@ -99,7 +99,7 @@ export class GridHost {
 			bottom: pinBottom.length > 0
 		};
 
-		if (!isEqual(oldPin, newPin)) {
+		if (!same(oldPin, newPin)) {
 			model.visibility({
 				pin: newPin
 			}, {

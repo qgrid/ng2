@@ -12,7 +12,7 @@ export function pivotPipe(memo, context, next) {
 		const { by } = model.pivot();
 
 		const build = buildPivot(mapColumns(line), by, valueFactory);
-		memo.pivot = buildPivot(memo.rows);
+		memo.pivot = build(memo.rows, by);
 	}
 
 	model.pipe({
