@@ -1,6 +1,6 @@
 import { isArray } from '../../utility/kit';
 
-export class Json {
+export class JsonImport {
 	read(data) {
 		const rows = JSON.parse(data);
 		if (isArray(rows)) {

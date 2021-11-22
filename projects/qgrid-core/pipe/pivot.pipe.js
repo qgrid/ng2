@@ -1,6 +1,6 @@
-import { map as getColumnMap } from '../column/column.service';
-import { build as pivotBuilder } from '../pivot/pivot.build';
+import { mapColumns } from '../column/column.service';
 import { Guard } from '../infrastructure/guard';
+import { buildPivot } from '../pivot/pivot.build';
 
 export function pivotPipe(memo, context, next) {
 	Guard.notNull(memo, 'memo');
@@ -11,8 +11,8 @@ export function pivotPipe(memo, context, next) {
 		const { line } = model.columnList();
 		const { by } = model.pivot();
 
-		const build = pivotBuilder(getColumnMap(line), by, valueFactory);
-		memo.pivot = build(memo.rows);
+		const build = buildPivot(mapColumns(line), by, valueFactory);
+		memo.pivot = build(memo.rows, by);
 	}
 
 	model.pipe({

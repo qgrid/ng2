@@ -1,12 +1,12 @@
-import { GridError } from '@qgrid/core/infrastructure/error';
-import { columnFactory } from '@qgrid/core/column/column.factory';
 import { generate } from '@qgrid/core/column-list/column.list.generate';
-import { firstRowTitle, numericTitle, alphaTitle } from '@qgrid/core/services/title';
-import { Xlsx } from './xlsx';
+import { columnFactory } from '@qgrid/core/column/column.factory';
+import { CsvImport } from '@qgrid/core/import/csv/csv';
+import { JsonImport } from '@qgrid/core/import/json/json';
+import { XmlImport } from '@qgrid/core/import/xml/xml';
+import { GridError } from '@qgrid/core/infrastructure/error';
 import { PluginService } from '@qgrid/core/plugin/plugin.service';
-import { Xml } from '@qgrid/core/import/xml/xml';
-import { Json } from '@qgrid/core/import/json/json';
-import { Csv } from '@qgrid/core/import/csv/csv';
+import { alphaTitle, firstRowTitle, numericTitle } from '@qgrid/core/services/title';
+import { XlsxReader } from './xlsx';
 
 function getType(name) {
 	const delimiter = /[.]/g.test(name);
@@ -24,7 +24,7 @@ function readFile(e, file, model, options = {}) {
 		case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
 		case 'xlsx': {
 			const lib = pluginService.resolve('xlsx');
-			const xlsx = new Xlsx(lib);
+			const xlsx = new XlsxReader(lib);
 			const rows = xlsx.read(data, options);
 			const createColumn = columnFactory(model);
 			const columns = generate({
@@ -41,7 +41,7 @@ function readFile(e, file, model, options = {}) {
 		case 'application/json':
 		case 'text/json':
 		case 'json': {
-			const json = new Json();
+			const json = new JsonImport();
 			const rows = json.read(data);
 			if (rows.length) {
 				const createColumn = columnFactory(model);
@@ -62,7 +62,7 @@ function readFile(e, file, model, options = {}) {
 		case 'application/xml':
 		case 'text/xml':
 		case 'xml': {
-			const xml = new Xml();
+			const xml = new XmlImport();
 			const rows = xml.read(data);
 			const columns = generate({
 				rows,
@@ -78,7 +78,7 @@ function readFile(e, file, model, options = {}) {
 		case 'application/vnd.ms-excel':
 		case 'text/csv':
 		case 'csv': {
-			const csv = new Csv();
+			const csv = new CsvImport();
 			const rows = csv.read(data);
 
 			let title = firstRowTitle;
@@ -112,5 +112,6 @@ function readFile(e, file, model, options = {}) {
 }
 
 export {
-	readFile
+  readFile
 };
+

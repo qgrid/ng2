@@ -1,8 +1,8 @@
-import { isFunction } from '../utility/kit';
-import { compileSet, compileGet } from './path';
 import { GridError } from '../infrastructure/error';
+import { isFunction } from '../utility/kit';
+import { compileGet, compileSet } from './path';
 
-export function get(row, column) {
+export function getValue(row, column) {
 	return column.$value
 		? column.$value({ $row: row, $column: column })
 		: column.value
@@ -12,7 +12,7 @@ export function get(row, column) {
 				: row[column.key];
 }
 
-export function getFactory(column) {
+export function getValueFactory(column) {
 	const get = column.$value
 		? row => column.$value({ $row: row, $column: column })
 		: column.value
@@ -24,7 +24,7 @@ export function getFactory(column) {
 	return get;
 }
 
-export function set(row, column, value) {
+export function setValue(row, column, value) {
 	if (isFunction(column.$value)) {
 		return column.$value({ $row: row, $value: value, $column: column });
 	}

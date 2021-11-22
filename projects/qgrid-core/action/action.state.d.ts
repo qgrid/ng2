@@ -1,7 +1,7 @@
-import { Action } from './action';
-import { Shortcut } from '../shortcut/shortcut';
 import { CommandManager } from '../command/command.manager';
-import { Resource } from '../resource/resource';
+import { Shortcut } from '../shortcut/shortcut';
+import { Action } from './action';
+// import { Resource } from '../resource/resource';
 
 /**
  * Use this class to handle and visualize custom user behaviors.

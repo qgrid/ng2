@@ -1,9 +1,9 @@
+import { findColumn } from '../column/column.service';
 import { GridError } from '../infrastructure/error';
-import { orderBy } from '../utility/kit';
-import { key as getKey, direction as getDirection } from '../sort/sort.service';
-import { find } from '../column/column.service';
-import { parseFactory } from '../services/convert';
 import { Guard } from '../infrastructure/guard';
+import { parseFactory } from '../services/convert';
+import { getDirection, getKey } from '../sort/sort.service';
+import { orderBy } from '../utility/kit';
 
 export function sortPipe(rows, context, next) {
 	Guard.notNull(rows, 'rows');
@@ -22,7 +22,7 @@ export function sortPipe(rows, context, next) {
 				const sortEntry = by[i];
 				const sortKey = getKey(sortEntry);
 				const sortDir = getDirection(sortEntry);
-				const sortColumn = find(columns, sortKey);
+				const sortColumn = findColumn(columns, sortKey);
 				if (!sortColumn) {
 					throw new GridError('sort.pipe', `Column "${sortKey}" is not found`);
 				}

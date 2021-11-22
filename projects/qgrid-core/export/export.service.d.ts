@@ -1,5 +1,6 @@
-declare function flatView(graph: { [key: string]: any }, separator: string): { [key: string]: any };
+declare function graphFlatView(graph: { [key: string]: any }, separator: string): { [key: string]: any };
 
 export {
-	flatView
+  graphFlatView
 };
+

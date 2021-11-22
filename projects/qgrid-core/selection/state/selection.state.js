@@ -1,7 +1,7 @@
-import { isArray } from '../../utility/kit';
 import { Node } from '../../node/node';
+import { isArray } from '../../utility/kit';
 
-export class SelectionState {
+export class SubSelectionState {
 	constructor(model, service) {
 		this.model = model;
 		this.service = service;

@@ -1,8 +1,8 @@
-import { Log } from '../infrastructure/log';
-import * as css from '../services/css';
 import * as columnService from '../column/column.service';
-import { Fastdom } from '../services/fastdom';
+import { Log } from '../infrastructure/log';
 import { selectColumn } from '../navigation/navigation.state.selector';
+import * as css from '../services/css';
+import { Fastdom } from '../services/fastdom';
 
 export class LayoutLet {
 	constructor(plugin) {
@@ -71,7 +71,7 @@ export class LayoutLet {
 		observeReply(model.viewChanged)
 			.subscribe(e => {
 				if (e.hasChanges('columns')) {
-					const columns = columnService.flatten(e.state.columns);
+					const columns = columnService.flattenColumns(e.state.columns);
 					const hasNonDefaultWidth = x => x.width !== null || x.minWidth !== null || x.maxWidth !== null || x.widthMode === 'fit-head';
 					if (columns.some(hasNonDefaultWidth)) {
 						Fastdom.mutate(() => {

@@ -4,6 +4,6 @@ export interface JsonOptions {
 	structure: string;
 }
 
-export declare class Json {
+export declare class JsonExport {
 	write(rows: any[], columns: ColumnModel[], options?: JsonOptions): string;
 }

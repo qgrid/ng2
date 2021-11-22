@@ -1,8 +1,8 @@
-import { clone, isArray, isUndefined } from '@qgrid/core/utility/kit';
 import { Command } from '@qgrid/core/command/command';
 import { Event } from '@qgrid/core/event/event';
-import { getFactory as labelFactory } from '@qgrid/core/services/label';
 import { parseFactory } from '@qgrid/core/services/convert';
+import { getLabelFactory } from '@qgrid/core/services/label';
+import { clone, isArray, isUndefined } from '@qgrid/core/utility/kit';
 
 export class ColumnFilterPlugin {
 	constructor(plugin, context) {
@@ -29,7 +29,7 @@ export class ColumnFilterPlugin {
 		this.operator = filterBy && filterBy.expression && filterBy.expression.op || defaultOperator;
 		this.value = filterBy && filterBy.expression && filterBy.expression.right || null;
 		this.title = this.column.title;
-		this.getValue = labelFactory(this.column);
+		this.getValue = getLabelFactory(this.column);
 
 		Object.assign(this, this.commands);
 

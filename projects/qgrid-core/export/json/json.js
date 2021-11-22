@@ -1,11 +1,11 @@
-import { flatView } from '../export.service';
+import { graphFlatView } from '../export.service';
 
-export class Json {
+export class JsonExport {
 	write(rows, columns) {
 		const result = [];
 
 		for (let row of rows) {
-			const flatRow = flatView(row);
+			const flatRow = graphFlatView(row);
 			const obj = {};
 			for (let column of columns) {
 				obj[column.title] = flatRow[column.key];

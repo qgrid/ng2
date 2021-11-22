@@ -1,8 +1,8 @@
-import { clone, isUndefined } from '../utility/kit';
 import { columnFactory } from '../column/column.factory';
-import { compile } from '../services/path';
-import { getType } from '../services/convert';
 import * as columnService from '../column/column.service';
+import { getType } from '../services/convert';
+import { compile } from '../services/path';
+import { clone, isUndefined } from '../utility/kit';
 
 export class ColumnListHost {
 	constructor(model, canCopy, parseFactory) {
@@ -81,7 +81,7 @@ export class ColumnListHost {
 
 		const buildColumn = columnFactory(model);
 
-		let tplColumn = columnService.find(model.columnList().line, key);
+		let tplColumn = columnService.findColumn(model.columnList().line, key);
 		if (tplColumn) {
 			return buildColumn(type, tplColumn);
 		}
@@ -90,7 +90,7 @@ export class ColumnListHost {
 		tplColumn.key = key;
 		tplColumn.source = 'template';
 
-		const dataColumn = columnService.find(model.data().columns, key);
+		const dataColumn = columnService.findColumn(model.data().columns, key);
 		if (dataColumn) {
 			this.copy(tplColumn, dataColumn);
 		}

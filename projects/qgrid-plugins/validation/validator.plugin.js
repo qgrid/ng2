@@ -1,5 +1,5 @@
 import { isString, same } from '@qgrid/core/utility/kit';
-import { hasRules, createValidator } from '@qgrid/core/validation/validation.service';
+import { createValidator, hasRules } from '@qgrid/core/validation/validation.service';
 
 export class ValidatorPlugin {
 	constructor(model, context) {

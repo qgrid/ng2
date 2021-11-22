@@ -1,7 +1,6 @@
-import { bend, copy } from '../node/node.service';
-import { preOrderDFS } from '../node/node.service';
+import { bend, copy, preOrderDFS } from '../node/node.service';
 
-export { sortIndexFactory, merge };
+export { sortIndexFactory, mergeTree };
 
 function sortIndexFactory(model) {
 	const templateIndex = model.columnList().columns.map(c => c.key);
@@ -79,7 +78,7 @@ function findFactory(index) {
 	return key => (map.has(key) ? map.get(key) : -1);
 }
 
-function merge(newTree, oldTree, buildIndex) {
+function mergeTree(newTree, oldTree, buildIndex) {
 	const current = running(newTree, buildIndex);
 	const screen = former(oldTree, current);
 	const insertNear = insertFactory(current, screen);

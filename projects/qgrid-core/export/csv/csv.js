@@ -1,4 +1,4 @@
-import {getFactory as valueFactory} from '../../services/value';
+import { getValueFactory } from '../../services/value';
 
 const DELIMITER = ',';
 
@@ -9,14 +9,14 @@ function escape(value) {
 	return result;
 }
 
-export class Csv {
+export class CsvExport {
 	write(rows, columns) {
 		const result = [];
 		const values = [];
 		let head = [];
 		for (let column of columns) {
 			if (column.category === 'data') {
-				values.push(valueFactory(column));
+				values.push(getValueFactory(column));
 				head.push(escape(column.title));
 			}
 		}

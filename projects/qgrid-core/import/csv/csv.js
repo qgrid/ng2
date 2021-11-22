@@ -1,6 +1,6 @@
-import {CharReader} from '../../io/char.reader';
+import { CharReader } from '../../io/char.reader';
 
-export class Csv {
+export class CsvImport {
 	constructor(delimiter = ',') {
 		this.delimiter = delimiter;
 	}
