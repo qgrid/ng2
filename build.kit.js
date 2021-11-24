@@ -70,7 +70,7 @@ function serveApp(options = []) {
 function buildTheme(name) {
   const libPath = path.join(
     ROOT_PATH,
-    'projects',
+    'packages',
     name,
     'src',
     'lib'
@@ -92,7 +92,7 @@ function buildTheme(name) {
 function watchTheme(name) {
   const libPath = path.join(
     ROOT_PATH,
-    'projects',
+    'packages',
     name,
     'src',
     'lib'

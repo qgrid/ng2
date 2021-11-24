@@ -14,9 +14,8 @@
     "release:example": "node ./build.example",
     "release:lib": "npm run build:lib && cd dist/ng2-qgrid && npm publish",
     "start:prod": "node build.serve --prod",
-    "start": "node build.serve",
-    "test:core": "karma start ./projects/qgrid-core/karma.conf.js --single-run",
-    "test:core-watch": "karma start ./projects/qgrid-core/karma.conf.js ",
+    "test:core": "karma start ./packages/qgrid-core/karma.conf.js --single-run",
+    "test:core-watch": "karma start ./packages/qgrid-core/karma.conf.js ",
     "test:screenshot-update-goldens": "protractor ./e2e/protractor-update-goldens.conf.js",
     "test:screenshot": "protractor ./e2e/protractor.conf.js"
   },
@@ -29,14 +28,14 @@
     "@angular/forms": "~11.2.0",
     "@angular/platform-browser": "~11.2.0",
     "@angular/platform-browser-dynamic": "~11.2.0",
+    "@qgrid/core": "file:./packages/qgrid-core",
+    "@qgrid/ngx": "file:./packages/ngx-qgrid",
+    "@qgrid/ngx-plugins": "file:./packages/ngx-qgrid-plugins",
+    "@qgrid/plugins": "file:./packages/qgrid-plugins",
     "core-js": "^3.8.3",
     "rxjs": "~6.6.3",
     "tslib": "^2.1.0",
-    "zone.js": "~0.11.3",
-    "@qgrid/core": "file:./projects/qgrid-core",
-    "@qgrid/plugins": "file:./projects/qgrid-plugins",
-    "@qgrid/ngx": "file:./dist/ngx-qgrid",
-    "@qgrid/ngx-plugins": "file:./dist/ngx-qgrid-plugins"
+    "zone.js": "~0.11.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.1102.0",

@@ -7,7 +7,7 @@ const { buildLib, buildTheme } = require('./build.kit');
 const { relativeCopy } = require('./build.utils');
 
 const ROOT_PATH = path.resolve('.');
-const PROJECTS_PATH = path.join(ROOT_PATH, 'projects');
+const PROJECTS_PATH = path.join(ROOT_PATH, 'packages');
 const DIST_PATH = path.join(ROOT_PATH, 'dist');
 const NG2_DIST_PATH = path.join(DIST_PATH, 'ng2-qgrid');
 
