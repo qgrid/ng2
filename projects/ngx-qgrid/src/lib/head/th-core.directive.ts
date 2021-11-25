@@ -63,11 +63,11 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 		const link = this.cellTemplate.build(targetSource, targetColumn, 'view');
 		link(this.viewContainerRef, this);
 
-    observeReply(model.filterChanged)
+		observeReply(model.filterChanged)
 			.subscribe(e => {
 				if (e.hasChanges('by')) {
 					if (this.root.view.filter.has(column)) {
-            element.classList.add(`${GRID_PREFIX}-filter-active`);
+						element.classList.add(`${GRID_PREFIX}-filter-active`);
 					} else {
 						element.classList.remove(`${GRID_PREFIX}-filter-active`);
 					}
