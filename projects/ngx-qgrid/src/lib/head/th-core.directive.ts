@@ -1,18 +1,19 @@
 import {
-	Directive,
-	ElementRef,
-	Input,
-	OnDestroy,
-	OnInit,
-	ViewContainerRef
+  Directive,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewContainerRef
 } from '@angular/core';
+import { ColumnModel } from '@qgrid/core/column-type/column.model';
+import { FilterRowColumnModel } from '@qgrid/core/column-type/filter.row.column';
+import { GRID_PREFIX } from '@qgrid/core/definition';
+import { GridError } from '@qgrid/core/infrastructure/error';
+import { ColumnView } from '@qgrid/core/scene/view/column.view';
 import { CellClassService } from '../cell/cell-class.service';
 import { CellTemplateService } from '../cell/cell-template.service';
-import { ColumnModel } from '@qgrid/core/column-type/column.model';
-import { ColumnView } from '@qgrid/core/scene/view/column.view';
 import { DomTd } from '../dom/dom';
-import { FilterRowColumnModel } from '@qgrid/core/column-type/filter.row.column';
-import { GridError } from '@qgrid/core/infrastructure/error';
 import { GridLet } from '../grid/grid-let';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { TrhCoreDirective } from '../row/trh-core.directive';
@@ -42,7 +43,7 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 
 	ngOnInit() {
 		const { column, element } = this;
-		const { table } = this.root;
+		const { table, model, observeReply } = this.root;
 
 		table.box.bag.head.addCell(this);
 
@@ -61,6 +62,17 @@ export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
 
 		const link = this.cellTemplate.build(targetSource, targetColumn, 'view');
 		link(this.viewContainerRef, this);
+
+    observeReply(model.filterChanged)
+			.subscribe(e => {
+				if (e.hasChanges('by')) {
+					if (this.root.view.filter.has(column)) {
+            element.classList.add(`${GRID_PREFIX}-filter-active`);
+					} else {
+						element.classList.remove(`${GRID_PREFIX}-filter-active`);
+					}
+				}
+			});
 	}
 
 	get column(): ColumnModel {
