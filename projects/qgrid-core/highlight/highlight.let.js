@@ -208,9 +208,9 @@ export class HighlightLet {
 		dispose = [];
 		const keys = Object.keys(by);
 		for (let key of keys) {
-      if (key === '$expression') {
-        continue;
-      }
+			if (key === '$expression') {
+				continue;
+			}
 
 			dispose.push(this.highlightColumn(key, 'filtered'));
 		}
