@@ -1,7 +1,7 @@
 import { Model } from '../../model/model';
 import { SelectionService } from '../selection.service';
 
-export declare class SelectionState {
+export declare class SubSelectionState {
 	constructor(model: Model, service: SelectionService);
 
 	model: Model;

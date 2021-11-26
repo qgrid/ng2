@@ -1,6 +1,6 @@
-import { Node } from './node';
-import { cloneDeep } from '../utility/kit';
 import { GridError } from '../infrastructure/error';
+import { cloneDeep } from '../utility/kit';
+import { Node } from './node';
 
 export function preOrderDFS(nodes, visit, memo = null, parent = null) {
 	for (let i = 0, length = nodes.length; i < length; i++) {
@@ -12,14 +12,14 @@ export function preOrderDFS(nodes, visit, memo = null, parent = null) {
 	return memo;
 }
 
-export function filter(node, test, parent = null) {
+export function filterNode(node, test, parent = null) {
 	const { children } = node;
 	node = copy(node);
 
 	let result = false;
 	for (let i = 0, length = children.length; i < length; i++) {
 		const child = children[i];
-		result = filter(child, test, node) || result;
+		result = filterNode(child, test, node) || result;
 	}
 
 	if (parent) {
@@ -49,7 +49,7 @@ export function findLeaves(node, result = []) {
 	return result;
 }
 
-export function find(node, test, parent = null, index = -1, path = []) {
+export function findNode(node, test, parent = null, index = -1, path = []) {
 	if (test(node)) {
 		return { node, parent, index, path };
 	}

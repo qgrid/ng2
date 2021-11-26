@@ -7,7 +7,7 @@ const NODE_TYPE = {
 	DOCUMENT: 9
 };
 
-export class Xml {
+export class XmlImport {
 	read(text) {
 		if (!text) {
 			return [];

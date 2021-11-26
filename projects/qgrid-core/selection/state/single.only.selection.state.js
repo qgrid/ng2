@@ -1,6 +1,6 @@
-import { SelectionState } from './selection.state';
+import { SubSelectionState } from './selection.state';
 
-export class SingleOnlySelectionState extends SelectionState {
+export class SingleOnlySelectionState extends SubSelectionState {
 	constructor(model, service) {
 		super(model, service);
 

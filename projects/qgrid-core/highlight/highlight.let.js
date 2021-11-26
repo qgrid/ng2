@@ -1,7 +1,7 @@
 import { CellSelector } from '../cell/cell.selector';
 import { Command } from '../command/command';
 import { GRID_PREFIX } from '../definition';
-import { find, findLeaves } from '../node/node.service';
+import { findLeaves, findNode } from '../node/node.service';
 import { SelectionService } from '../selection/selection.service';
 import { Fastdom } from '../services/fastdom';
 import * as sortService from '../sort/sort.service';
@@ -248,7 +248,7 @@ export class HighlightLet {
 
 		dispose = [];
 		for (let entry of sortBy) {
-			const key = sortService.key(entry);
+			const key = sortService.getKey(entry);
 			dispose.push(this.highlightColumn(key, 'sorted'));
 		}
 
@@ -272,7 +272,7 @@ export class HighlightLet {
 		const { model } = this.plugin;
 		const { index } = model.columnList();
 
-		const pos = find(index, node => node.key.model.key === key);
+		const pos = findNode(index, node => node.key.model.key === key);
 		if (pos) {
 			return findLeaves(pos.node).map(leaf => leaf.key.columnIndex);
 		}

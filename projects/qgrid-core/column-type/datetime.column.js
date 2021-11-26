@@ -1,10 +1,10 @@
-import { ColumnView } from '../scene/view/column.view';
-import { DataColumnModel } from './data.column.model';
 import { FormatService } from '../format/format.service';
-import { get as getValue } from '../services/value';
-import { parseFactory } from '../services/convert';
-import { TemplatePath } from '../template/template.path';
 import { Log } from '../infrastructure/log';
+import { ColumnView } from '../scene/view/column.view';
+import { parseFactory } from '../services/convert';
+import { getValue } from '../services/value';
+import { TemplatePath } from '../template/template.path';
+import { DataColumnModel } from './data.column.model';
 
 TemplatePath.register('datetime-cell', (template, column) => {
 	return {

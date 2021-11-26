@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { predicateFactory } from '@qgrid/core/services/predicate';
-import { filter } from '@qgrid/core/node/node.service';
 import { Node } from '@qgrid/core/node/node';
+import { filterNode } from '@qgrid/core/node/node.service';
+import { predicateFactory } from '@qgrid/core/services/predicate';
 
 @Pipe({
 	name: 'qGridFilter'
@@ -13,7 +13,7 @@ export class FilterPipe implements PipeTransform {
 			switch (type) {
 				case 'node': {
 					const root = items as Node;
-					return filter(root, predicate);
+					return filterNode(root, predicate);
 				}
 				default: {
 					return (items as any[]).filter(predicate);

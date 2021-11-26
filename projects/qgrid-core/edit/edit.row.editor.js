@@ -1,7 +1,7 @@
-import { CellEditor } from './edit.cell.editor';
+import { getLabel, setLabel } from '../services/label';
+import { getValue, setValue } from '../services/value';
 import { cloneDeep } from '../utility/kit';
-import { get as getLabel, set as setLabel } from '../services/label';
-import { get as getValue, set as setValue } from '../services/value';
+import { CellEditor } from './edit.cell.editor';
 
 
 class RowEditorCore {

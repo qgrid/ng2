@@ -1,11 +1,12 @@
 import { FakeElement } from './fake/element';
+import { Rect } from './rect';
 
 declare const fakeElement: FakeElement;
 
 export declare class Unit {
 	constructor();
 
-	rect(): ClientRect;
+	rect(): Rect;
 	addClass(name: string): void;
 	removeClass(name: string): void;
 	hasClass(name: string): boolean;

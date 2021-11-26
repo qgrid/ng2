@@ -1,7 +1,7 @@
 
 import { GridError } from '../infrastructure/error';
-import { uniq, same } from '../utility/kit';
 import { Keyboard } from '../keyboard/keyboard';
+import { same, uniq } from '../utility/kit';
 
 export class GridHost {
 	constructor(host, plugin) {

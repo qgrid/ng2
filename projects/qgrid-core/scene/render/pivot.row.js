@@ -1,5 +1,5 @@
-import { getFactory } from '../../services/value';
 import { groupBuilder } from '../../group/group.build';
+import { getValueFactory } from '../../services/value';
 
 export class PivotRow {
 	constructor(plugin, dataRow) {
@@ -25,7 +25,7 @@ export class PivotRow {
 					if (rows.length) {
 						if (model.group().by.length) {
 							const build = groupBuilder(model);
-							pivotRows = build(getFactory);
+							pivotRows = build(getValueFactory);
 						} else {
 							pivotRows = rows;
 						}

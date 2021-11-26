@@ -1,4 +1,4 @@
-export function serialize(model) {
+export function serializePost(model) {
 	const paginationState = model.pagination();
 	const sortState = model.sort();
 	const filterState = model.filter();

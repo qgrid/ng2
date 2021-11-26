@@ -1,11 +1,11 @@
 import { columnFactory } from '../column/column.factory';
 import { Command } from '../command/command';
-import { getFactory as labelFactory } from '../services/label';
-import { getFactory as valueFactory } from '../services/value';
-import { PipeUnit } from '../pipe/pipe.unit';
+import { selectColumn, selectRow } from '../navigation/navigation.state.selector';
 import { preOrderDFS } from '../node/node.service';
-import { selectRow, selectColumn } from '../navigation/navigation.state.selector';
-import { yes, identity } from '../utility/kit';
+import { PipeUnit } from '../pipe/pipe.unit';
+import { getLabelFactory } from '../services/label';
+import { getValueFactory } from '../services/value';
+import { identity, yes } from '../utility/kit';
 
 function rowspanGetNode(node, column) {
 	if (node.source === column.by) {
@@ -38,7 +38,7 @@ export class GroupLet {
 		const { model, observeReply, disposable, service } = plugin;
 
 		this.plugin = plugin;
-		this.valueFactory = valueFactory;
+		this.valueFactory = getValueFactory;
 
 		const toggleStatus = new Command({
 			source: 'group.view',
@@ -195,7 +195,7 @@ export class GroupLet {
 	value(node, column) {
 		node = this.getNode(node, column);
 		if (column) {
-			const getLabel = labelFactory(column);
+			const getLabel = getLabelFactory(column);
 			return getLabel(node);
 		}
 		return null;

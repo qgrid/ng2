@@ -1,6 +1,6 @@
-import { isObject, isArray } from '../utility/kit';
+import { isArray, isObject } from '../utility/kit';
 
-function flatView(graph, separator = ', ') {
+function graphFlatView(graph, separator = ', ') {
 	const result = {};
 
 	for (let [prop, value] of Object.entries(graph)) {
@@ -11,7 +11,7 @@ function flatView(graph, separator = ', ') {
 			}
 			result[prop] = items.join(separator);
 		} else if (isObject(value)) {
-			const flatObject = flatView(value, separator);
+			const flatObject = graphFlatView(value, separator);
 			for (let [flatProp, flatValue] of Object.entries(flatObject)) {
 				result[prop + '.' + flatProp] = flatValue;
 			}
@@ -23,5 +23,5 @@ function flatView(graph, separator = ', ') {
 }
 
 export {
-	flatView
+  graphFlatView
 };
