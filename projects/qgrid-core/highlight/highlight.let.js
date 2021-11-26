@@ -1,11 +1,11 @@
 import { CellSelector } from '../cell/cell.selector';
 import { Command } from '../command/command';
-import { Fastdom } from '../services/fastdom';
-import { find, findLeaves } from '../node/node.service';
 import { GRID_PREFIX } from '../definition';
-import { noop } from '../utility/kit';
+import { find, findLeaves } from '../node/node.service';
 import { SelectionService } from '../selection/selection.service';
+import { Fastdom } from '../services/fastdom';
 import * as sortService from '../sort/sort.service';
+import { noop } from '../utility/kit';
 
 export class HighlightLet {
 	constructor(plugin) {
@@ -17,6 +17,7 @@ export class HighlightLet {
 
 		let sortBlurs = [];
 		let columnHoverBlurs = [];
+    let columnFilterBlurs = [];
 		let rowHoverBlurs = [];
 		let selectionBlurs = [];
 		let cellHoverBlurs = [];
@@ -139,6 +140,13 @@ export class HighlightLet {
 				}
 			});
 
+		observeReply(model.filterChanged)
+			.subscribe(e => {
+				if (!this.isRendering && e.hasChanges('by')) {
+          columnFilterBlurs = this.invalidateColumnFilterBy(columnFilterBlurs);
+				}
+			});
+
 		observeReply(model.highlightChanged)
 			.subscribe(e => {
 				if (!this.isRendering) {
@@ -189,6 +197,21 @@ export class HighlightLet {
 
 		return columns
 			.map(columnKey => this.highlightColumn(columnKey, 'highlighted'));
+	}
+
+	invalidateColumnFilterBy(dispose) {
+    dispose.forEach(f => f());
+
+		const { model } = this.plugin;
+		const { by } = model.filter();
+
+    dispose = [];
+    const keys = Object.keys(by);
+		for (let key of keys) {
+      dispose.push(this.highlightColumn(key, 'filtered'));
+		}
+
+    return dispose;
 	}
 
 	invalidateRowHover(dispose) {
