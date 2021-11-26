@@ -17,7 +17,7 @@ export class HighlightLet {
 
 		let sortBlurs = [];
 		let columnHoverBlurs = [];
-    let columnFilterBlurs = [];
+		let columnFilterBlurs = [];
 		let rowHoverBlurs = [];
 		let selectionBlurs = [];
 		let cellHoverBlurs = [];
@@ -200,18 +200,18 @@ export class HighlightLet {
 	}
 
 	invalidateColumnFilterBy(dispose) {
-    dispose.forEach(f => f());
+		dispose.forEach(f => f());
 
 		const { model } = this.plugin;
 		const { by } = model.filter();
 
-    dispose = [];
-    const keys = Object.keys(by);
+		dispose = [];
+		const keys = Object.keys(by);
 		for (let key of keys) {
-      dispose.push(this.highlightColumn(key, 'filtered'));
+			dispose.push(this.highlightColumn(key, 'filtered'));
 		}
 
-    return dispose;
+		return dispose;
 	}
 
 	invalidateRowHover(dispose) {
