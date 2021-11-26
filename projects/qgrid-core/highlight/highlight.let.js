@@ -143,7 +143,7 @@ export class HighlightLet {
 		observeReply(model.filterChanged)
 			.subscribe(e => {
 				if (!this.isRendering && e.hasChanges('by')) {
-          columnFilterBlurs = this.invalidateColumnFilterBy(columnFilterBlurs);
+					columnFilterBlurs = this.invalidateColumnFilterBy(columnFilterBlurs);
 				}
 			});
 
