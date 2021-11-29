@@ -82,7 +82,7 @@ export class ExportPlugin {
 	}
 
 	get rows() {
-		return this.model.data().rows;
+		return this.model.view().rows;
 	}
 
 	get id() {
