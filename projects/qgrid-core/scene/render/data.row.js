@@ -1,5 +1,6 @@
-import { set as setValue } from '../../services/value';
-import { set as setLabel } from '../../services/label';;
+import { setLabel } from '../../services/label';
+import { setValue } from '../../services/value';
+
 
 function defaultGetValue(row, column, select) {
 	return select(row, column);

@@ -1,10 +1,10 @@
-import { Guard } from '../infrastructure/guard';
-import { noop } from '../utility/kit';
-import { columnFactory } from '../column/column.factory';
 import { generateFactory } from '../column-list/column.list.generate';
-import { columnIndexPipe } from './column.index.pipe';
+import { mergeTree, sortIndexFactory } from '../column-list/column.list.sort';
+import { columnFactory } from '../column/column.factory';
+import { Guard } from '../infrastructure/guard';
 import { Node } from '../node/node';
-import { sortIndexFactory, merge } from '../column-list/column.list.sort';
+import { noop } from '../utility/kit';
+import { columnIndexPipe } from './column.index.pipe';
 
 export function columnPipe(memo, context, next) {
 	Guard.notNull(memo, 'memo');
@@ -68,7 +68,7 @@ export function columnPipe(memo, context, next) {
 
 	const { columnList } = model;
 	const buildIndex = sortIndexFactory(model);
-	const tree = merge(root, columnList().index, buildIndex);
+	const tree = mergeTree(root, columnList().index, buildIndex);
 
 	/*
 	 * Add special column type

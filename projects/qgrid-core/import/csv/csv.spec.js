@@ -1,6 +1,6 @@
-import {Csv} from './csv';
+import { CsvImport } from './csv';
 
-const csv = new Csv();
+const csv = new CsvImport();
 
 describe('csv parser', () => {
 	it('should return empty array when input is not defined', () => {

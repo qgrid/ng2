@@ -10,7 +10,7 @@ export class Data {
 	}
 
 	columnMap() {
-		return columnService.map(this.columns());
+		return columnService.mapColumns(this.columns());
 	}
 
 	rows() {

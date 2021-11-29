@@ -1,16 +1,16 @@
+import { getLabelFactory } from '../services/label';
 import { Middleware } from '../services/middleware';
-import { getFactory as valueFactory } from '../services/value';
-import { getFactory as labelFactory } from '../services/label';
+import { getValueFactory } from '../services/value';
 
-export function build(model) {
+export function buildFromModel(model) {
 	return function run(source, changes, pipe) {
 		const middleware = new Middleware(pipe);
 		const context = {
 			model,
 			source,
 			changes,
-			valueFactory,
-			labelFactory
+			getValueFactory,
+			getLabelFactory
 		};
 
 		const { rows } = model.data();

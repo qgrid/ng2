@@ -1,4 +1,4 @@
-export function build(filterBy, op = 'and') {
+export function buildExpression(filterBy, op = 'and') {
 	const result = [];
 	for (let [key, filter] of Object.entries(filterBy)) {
 		if (key === '$expression') {

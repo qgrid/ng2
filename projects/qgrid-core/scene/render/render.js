@@ -1,12 +1,12 @@
+import { Node } from '../../node/node';
+import { RowDetails } from '../../row-details/row.details';
+import { getLabel } from '../../services/label';
+import { getValue } from '../../services/value';
 import { CacheStrategy } from './cache.strategy';
 import { DataRow } from './data.row';
 import { DetailsRow } from './details.row';
-import { get as getLabel } from '../../services/label';
-import { get as getValue } from '../../services/value';
-import { Node } from '../../node/node';
-import { NodeRow, SubheadNodeRow, RowspanNodeRow } from './node.row';
+import { NodeRow, RowspanNodeRow, SubheadNodeRow } from './node.row';
 import { PivotRow } from './pivot.row';
-import { RowDetails } from '../../row-details/row.details';
 
 export class Renderer {
 	constructor(plugin) {

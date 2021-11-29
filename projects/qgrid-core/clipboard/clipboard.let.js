@@ -1,6 +1,6 @@
 import { Command } from '../command/command';
+import { getLabelFactory } from '../services/label';
 import { copyToClipboard } from './clipboard';
-import { getFactory as labelFactory } from '../services/label';
 
 export class ClipboardLet {
     constructor(plugin, shortcut) {
@@ -20,7 +20,7 @@ export class ClipboardLet {
                 if (cell) {
                     const { copy } = model.clipboard();
                     if (copy.execute() !== false) {
-                        const getLabel = labelFactory(cell.column);
+                        const getLabel = getLabelFactory(cell.column);
                         copyToClipboard(getLabel(cell.row));
                         table.view.focus();
                     }

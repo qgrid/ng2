@@ -3,7 +3,7 @@ import * as columnService from '../column/column.service';
 import { Command } from '../command/command';
 import { GRID_PREFIX } from '../definition';
 import { Log } from '../infrastructure/log';
-import { calk, find, findLeaves, preOrderDFS } from '../node/node.service';
+import { calk, findLeaves, findNode, preOrderDFS } from '../node/node.service';
 import { PathService } from '../path/path.service';
 import { eventPath } from '../services/dom';
 
@@ -41,8 +41,8 @@ export class HeadLet {
 							const { columnList } = model;
 
 							const tree = calk(columnList().index);
-							const oldPos = find(tree, node => node.key.model.key === sourceKey);
-							const newPos = find(tree, node => node.key.model.key === targetKey);
+							const oldPos = findNode(tree, node => node.key.model.key === sourceKey);
+							const newPos = findNode(tree, node => node.key.model.key === targetKey);
               
 							if (oldPos && newPos && newPos.path.indexOf(oldPos.node) < 0) {
 								const queue = oldPos.path.reverse();
@@ -74,7 +74,7 @@ export class HeadLet {
 					case 'end':
 					case 'drop': {
 						const { index } = model.columnList();
-						const oldPos = find(index, node => node.key.model.key === sourceKey);
+						const oldPos = findNode(index, node => node.key.model.key === sourceKey);
 						if (oldPos) {
 							for (let leaf of findLeaves(oldPos.node)) {
 								const oldColumn = table.body.column(leaf.key.columnIndex);
@@ -92,13 +92,13 @@ export class HeadLet {
 			canExecute: e => {
 				const sourceKey = e.data;
 				const { index } = model.columnList();
-				const pos = find(index, node => node.key.model.key === sourceKey);
+				const pos = findNode(index, node => node.key.model.key === sourceKey);
 				return pos && pos.node.key.model.canMove;
 			},
 			execute: e => {
 				const sourceKey = e.data;
 				const { index } = model.columnList();
-				const pos = find(index, node => node.key.model.key === sourceKey);
+				const pos = findNode(index, node => node.key.model.key === sourceKey);
 				if (pos) {
 					for (let leaf of findLeaves(pos.node)) {
 						const column = table.body.column(leaf.key.columnIndex);
@@ -121,7 +121,7 @@ export class HeadLet {
 		observeReply(model.dataChanged)
 			.subscribe(e => {
 				if (e.hasChanges('columns')) {
-					const line = columnService.flatten(e.state.columns);
+					const line = columnService.flattenColumns(e.state.columns);
 					model.columnList({ line }, { source: 'head.view' });
 				}
 			});

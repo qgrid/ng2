@@ -1,4 +1,4 @@
-import {flatView} from '@qgrid/core/export/export.service';
+import { graphFlatView } from '@qgrid/core/export/export.service';
 
 function sheet_to_workbook(sheet) {
 	const sheets = {};
@@ -15,7 +15,7 @@ function toArrayBuffer(excel) {
 	return buffer;
 }
 
-export class Xlsx {
+export class XlsxWriter {
 	constructor(xlsx) {
 		this.xlsx = xlsx;
 	}
@@ -25,7 +25,7 @@ export class Xlsx {
 		const excelOptions = {bookType: 'xlsx', bookSST: true, cellDates: true, compression: true, type: 'binary'};
 
 		for (let row of rows) {
-			result.push(flatView(row));
+			result.push(graphFlatView(row));
 		}
 		for (let column of columns) {
 			headers.push(column.title);

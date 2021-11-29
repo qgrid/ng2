@@ -1,4 +1,5 @@
 import { GridError } from '../infrastructure/error';
+import { getValueFactory } from '../services/value';
 import { Node } from './node';
 
 export function nodeBuilder(columnMap, groupBy, valueFactory, level = 0) {
@@ -12,7 +13,7 @@ export function nodeBuilder(columnMap, groupBy, valueFactory, level = 0) {
 	}
 
 	const column = columnMap[groupKey];
-	const getValue = valueFactory(column);
+	const getValue = getValueFactory(column);
 	return (rows, getRowIndex = (i) => i) => {
 		const keys = [];
 		const nodes = [];

@@ -1,13 +1,13 @@
 import { Action } from '@qgrid/core/action/action';
+import * as columnService from '@qgrid/core/column/column.service';
 import { Command } from '@qgrid/core/command/command';
 import { Composite } from '@qgrid/core/infrastructure/composite';
-import { DataManipulationState } from './data.manipulation.state';
 import { GridError } from '@qgrid/core/infrastructure/error';
+import { filter, takeOnce } from '@qgrid/core/rx/rx.operators';
+import { setLabel } from '@qgrid/core/services/label';
+import { setValue } from '@qgrid/core/services/value';
 import { isUndefined } from '@qgrid/core/utility/kit';
-import { set as setLabel } from '@qgrid/core/services/label';
-import { set as setValue } from '@qgrid/core/services/value';
-import { takeOnce, filter } from '@qgrid/core/rx/rx.operators';
-import * as columnService from '@qgrid/core/column/column.service';
+import { DataManipulationState } from './data.manipulation.state';
 
 export class DataManipulationPlugin {
 	constructor(plugin) {
@@ -141,7 +141,7 @@ export class DataManipulationPlugin {
 								const { model } = this.plugin;
 
 								const edits = this.changes.edited.get(rowId);
-								const columnMap = columnService.map(model.columnList().line);
+								const columnMap = columnService.mapColumns(model.columnList().line);
 								for (const edit of edits) {
 									const column = columnMap[edit.column];
 									if (!column) {

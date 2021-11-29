@@ -6,7 +6,7 @@ function rewriteObject(obj) {
 	return result;
 }
 
-export class Xlsx {
+export class XlsxReader {
 	constructor(xlsx) {
 		this.xlsx = xlsx;
 	}

@@ -5,4 +5,4 @@ export interface Expression {
 	right: Expression | any;
 }
 
-export declare function build(filterBy: { [key: string]: any }, op: string): Expression;
+export declare function buildExpression(filterBy: { [key: string]: any }, op: string): Expression;

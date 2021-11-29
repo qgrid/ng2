@@ -1,16 +1,16 @@
-import { getFactory as valueFactory } from '../services/value';
+import * as columnService from '../column/column.service';
+import { getValueFactory } from '../services/value';
 import { noop } from '../utility/kit';
 import { StyleMonitor } from './style.monitor';
 import { StyleService } from './style.service';
-import { VirtualRowStyle, VirtualCellStyle } from './style.virtual';
-import * as columnService from '../column/column.service';
+import { VirtualCellStyle, VirtualRowStyle } from './style.virtual';
 
 export class StyleLet {
 	constructor(plugin) {
 		const { model, observeReply } = plugin;
 
 		this.plugin = plugin;
-		this.valueFactory = valueFactory;
+		this.valueFactory = getValueFactory;
 		this.service = new StyleService(model);
 		this.active = {
 			row: false,
@@ -68,7 +68,7 @@ export class StyleLet {
 		const value = (row, column) => {
 			let getValue = valueCache.get(column);
 			if (!getValue) {
-				getValue = valueFactory(column);
+				getValue = getValueFactory(column);
 				valueCache.set(column, getValue);
 			}
 
@@ -76,7 +76,7 @@ export class StyleLet {
 		};
 
 		const columnList = table.data.columns();
-		const columnMap = columnService.map(columnList);
+		const columnMap = columnService.mapColumns(columnList);
 
 		let visitRow = this.service.row();
 		let visitCell = this.service.cell();

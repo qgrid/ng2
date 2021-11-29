@@ -1,8 +1,8 @@
-import { isFunction } from '../utility/kit';
 import { compileGet, compileSet } from '../services/path';
-import { get as getValue } from '../services/value';
+import { getValue } from '../services/value';
+import { isFunction } from '../utility/kit';
 
-export function get(row, column) {
+export function getLabel(row, column) {
 	return column.$label
 		? isFunction(column.$label) ? column.$label({ $row: row }) : column.$label
 		: column.label
@@ -12,7 +12,7 @@ export function get(row, column) {
 				: getValue(row, column);
 }
 
-export function getFactory(column) {
+export function getLabelFactory(column) {
 	const get = column.$label
 		? isFunction(column.$label) ? row => column.$label({ $row: row }) : row => column.label
 		: column.label
@@ -24,7 +24,7 @@ export function getFactory(column) {
 	return get;
 }
 
-export function set(row, column, label) {
+export function setLabel(row, column, label) {
 	if (isFunction(column.$label)) {
 		return column.$label({ $row: row, $label: label });
 	}

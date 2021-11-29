@@ -1,6 +1,6 @@
-import { map as getColumnMap } from '../column/column.service';
-import { nodeBuilder } from '../node/node.build';
+import { mapColumns } from '../column/column.service';
 import { Guard } from '../infrastructure/guard';
+import { nodeBuilder } from '../node/node.build';
 
 export function groupPipe(memo, context, next) {
 	Guard.notNull(memo, 'memo');
@@ -11,7 +11,7 @@ export function groupPipe(memo, context, next) {
 		const { rows } = model.data();
 		const { by } = model.group();
 		const columns = model.columnList().line;
-		const columnMap = getColumnMap(columns);
+		const columnMap = mapColumns(columns);
 		const build = nodeBuilder(columnMap, by, context.valueFactory);
 
 		memo.nodes = build(memoRows, i => {
