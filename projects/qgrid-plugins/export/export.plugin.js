@@ -1,11 +1,11 @@
-import { PluginService } from '@qgrid/core/plugin/plugin.service';
 import { Command } from '@qgrid/core/command/command';
+import { Csv } from '@qgrid/core/export/csv/csv';
 import { Json } from '@qgrid/core/export/json/json';
 import { Xml } from '@qgrid/core/export/xml/xml';
-import { Csv } from '@qgrid/core/export/csv/csv';
+import { PluginService } from '@qgrid/core/plugin/plugin.service';
 import { downloadFactory } from './download';
-import { Xlsx } from './xlsx';
 import { Pdf } from './pdf';
+import { Xlsx } from './xlsx';
 
 export class ExportPlugin {
 	constructor(model, type) {
@@ -82,7 +82,7 @@ export class ExportPlugin {
 	}
 
 	get rows() {
-		return this.model.data().rows;
+		return this.model.view().rows;
 	}
 
 	get id() {
