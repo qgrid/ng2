@@ -1,8 +1,4 @@
-import { Command } from '@qgrid/core/command/command';
-import { Event } from '@qgrid/core/event/event';
-import { copy, preOrderDFS } from '@qgrid/core/node/node.service';
-import { Aggregation } from '@qgrid/core/services/aggregation';
-import { identity, isFunction } from '@qgrid/core/utility/kit';
+import { Aggregation, Command, copy, Event, identity, isFunction, preOrderDFS } from '@qgrid/core';
 
 export class ColumnChooserPlugin {
 	constructor(plugin, context) {

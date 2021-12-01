@@ -1,6 +1,5 @@
-//definition.js
 // action
-export { Action } from './src/action/action.js';
+export { Action } from './src/action/action';
 // export { ActionState } from './src/action/action.state';
 //animation
 // export { AnimationState } from './src/animation/animation.state';

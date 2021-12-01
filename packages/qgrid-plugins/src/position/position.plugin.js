@@ -1,9 +1,4 @@
-import { GRID_PREFIX } from '@qgrid/core/definition';
-import { max } from '@qgrid/core/utility/kit';
-import { EventListener } from '@qgrid/core/event/event.listener';
-import { EventManager } from '@qgrid/core/event/event.manager';
-import { jobLine } from '@qgrid/core/services/job.line';
-import { Fastdom } from '@qgrid/core/services/fastdom';
+import { EventListener, EventManager, Fastdom, GRID_PREFIX, jobLine, max } from '@qgrid/core';
 
 export class PositionPlugin {
 	constructor(context, disposable) {

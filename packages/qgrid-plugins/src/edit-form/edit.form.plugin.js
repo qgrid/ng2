@@ -1,5 +1,4 @@
-import { Command } from '@qgrid/core/command';
-import { Event } from '@qgrid/core/infrastructure';
+import { Command, Event } from '@qgrid/core';
 
 export class EditFormPlugin {
 	constructor(model, context) {

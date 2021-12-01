@@ -1,8 +1,4 @@
-import { Event } from '@qgrid/core/event/event';
-import { EventListener } from '@qgrid/core/event/event.listener';
-import { EventManager } from '@qgrid/core/event/event.manager';
-import { checkButtonCode, LEFT_BUTTON, MIDDLE_BUTTON } from '@qgrid/core/mouse/mouse.code';
-import { elementFromPoint } from '@qgrid/core/services/dom';
+import { checkButtonCode, elementFromPoint, Event, EventListener, EventManager, LEFT_BUTTON, MIDDLE_BUTTON } from '@qgrid/core';
 
 export class BackdropPlugin {
 	constructor(context) {

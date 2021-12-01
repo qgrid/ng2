@@ -17,9 +17,6 @@
       "path": "../ng2-qgrid",
     },
     {
-      "path": "../ng2-qgrid-theme-basic",
-    },
-    {
       "path": "../ng2-qgrid-theme-material",
     }
   ]

@@ -4,7 +4,7 @@
   "scripts": {
     "build": "ng build"
   },
-  "main": "dist/bundles/qgrid-ngx.umd.js",
+  "main": "dist/esm2015/public-api.js",
   "types": "dist/public-api.d.ts",
   "files": [
     "dist"

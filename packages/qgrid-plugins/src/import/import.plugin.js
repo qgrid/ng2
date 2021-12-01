@@ -1,4 +1,4 @@
-import { upload } from '@qgrid/core/services/upload';
+import { upload } from '@qgrid/core';
 import { readFile } from './read';
 
 export class ImportPlugin {

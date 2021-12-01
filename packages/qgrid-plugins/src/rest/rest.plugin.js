@@ -1,8 +1,4 @@
-import { GridError } from '@qgrid/core/infrastructure/error';
-import { PipeUnit } from '@qgrid/core/pipe/pipe.unit';
-import { serializeGet } from '@qgrid/core/rest/get.serialize';
-import { serializePost } from '@qgrid/core/rest/post.serialize';
-import { isFunction } from '@qgrid/core/utility/kit';
+import { GridError, isFunction, PipeUnit, serializeGet, serializePost } from '@qgrid/core';
 
 export class RestPlugin {
 	constructor(model, { get, post }) {

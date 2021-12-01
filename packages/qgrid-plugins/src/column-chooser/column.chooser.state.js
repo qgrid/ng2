@@ -1,4 +1,4 @@
-import { Resource } from '@qgrid/core/resource/resource';
+import { Resource } from '@qgrid/core';
 
 export class ColumnChooserState {
 	constructor() {

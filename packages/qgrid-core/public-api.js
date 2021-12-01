@@ -144,7 +144,7 @@ export { FilterLet } from './src/filter/filter.let';
 export { FilterState } from './src/filter/filter.state';
 export { match } from './src/filter/match';
 //focus
-export { FocusService } from './src/focus/focus.service';
+export { FocusAfterRenderService, FocusService } from './src/focus/focus.service';
 export { FocusState } from './src/focus/focus.state';
 //foot
 export { FootLet } from './src/foot/foot.let';
@@ -203,7 +203,7 @@ export { Model } from './src/model/model';
 export { ModelBinder } from './src/model/model.bind';
 export { ModelBuilder } from './src/model/model.builder';
 //mouse
-export { checkButtonCode, getButtonCode, stringify } from './src/mouse/mouse.code';
+export { checkButtonCode, getButtonCode, LEFT_BUTTON, MIDDLE_BUTTON, NO_BUTTON, RIGHT_BUTTON, stringify } from './src/mouse/mouse.code';
 export { MouseState } from './src/mouse/mouse.state';
 export { Navigation } from './src/navigation/navigation';
 export { NavigationLet } from './src/navigation/navigation.let';

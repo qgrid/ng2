@@ -1,1 +1,2036 @@
-import{filter as e,takeOnce as t}from"@qgrid/core/rx/rx.operators";import{Event as s}from"@qgrid/core/event/event";import{EventListener as i}from"@qgrid/core/event/event.listener";import{EventManager as o}from"@qgrid/core/event/event.manager";import{checkButtonCode as r,LEFT_BUTTON as n,MIDDLE_BUTTON as c}from"@qgrid/core/mouse/mouse.code";import{elementFromPoint as a}from"@qgrid/core/services/dom";import{Command as l}from"@qgrid/core/command/command";import{preOrderDFS as u,copy as h}from"@qgrid/core/node/node.service";import{Aggregation as d}from"@qgrid/core/services/aggregation";import{isFunction as m,identity as p,isUndefined as g,clone as f,isArray as w,cloneDeep as v,isObject as x,isNumber as b,isDate as y,isBoolean as E,max as k,isString as q,same as I}from"@qgrid/core/utility/kit";import{Resource as L}from"@qgrid/core/resource/resource";import{parseFactory as O}from"@qgrid/core/services/convert";import{getLabelFactory as C,setLabel as _}from"@qgrid/core/services/label";import{GRID_PREFIX as A}from"@qgrid/core/definition";import{Fastdom as V}from"@qgrid/core/services/fastdom";import{Action as D}from"@qgrid/core/action/action";import*as R from"@qgrid/core/column/column.service";import{Composite as S}from"@qgrid/core/infrastructure/composite";import{GridError as M}from"@qgrid/core/infrastructure/error";import{setValue as F}from"@qgrid/core/services/value";import{RowEditor as N}from"@qgrid/core/edit/edit.row.editor";import{Command as T}from"@qgrid/core/command";import{Event as $}from"@qgrid/core/infrastructure";import{CsvExport as j}from"@qgrid/core/export/csv/csv";import{JsonExport as z}from"@qgrid/core/export/json/json";import{XmlExport as B}from"@qgrid/core/export/xml/xml";import{PluginService as G}from"@qgrid/core/plugin/plugin.service";import{graphFlatView as W}from"@qgrid/core/export/export.service";import{jobLine as U}from"@qgrid/core/services/job.line";import{upload as P}from"@qgrid/core/services/upload";import{generate as H}from"@qgrid/core/column-list/column.list.generate";import{columnFactory as J}from"@qgrid/core/column/column.factory";import{CsvImport as K}from"@qgrid/core/import/csv/csv";import{JsonImport as Q}from"@qgrid/core/import/json/json";import{XmlImport as Y}from"@qgrid/core/import/xml/xml";import{firstRowTitle as X,alphaTitle as Z,numericTitle as ee}from"@qgrid/core/services/title";import{FocusAfterRenderService as te}from"@qgrid/core/focus/focus.service";import{CommandManager as se}from"@qgrid/core/command/command.manager";import{PersistenceService as ie}from"@qgrid/core/persistence/persistence.service";import{serialize as oe}from"@qgrid/core/persistence/persistence.storage";import{stringifyFactory as re}from"@qgrid/core/services/model.stringify";import{Shortcut as ne}from"@qgrid/core/shortcut/shortcut";import{ShortcutDispatcher as ce}from"@qgrid/core/shortcut/shortcut.dispatcher";import{PipeUnit as ae}from"@qgrid/core/pipe/pipe.unit";import{serializeGet as le}from"@qgrid/core/rest/get.serialize";import{serializePost as ue}from"@qgrid/core/rest/post.serialize";import{hasRules as he,createValidator as de}from"@qgrid/core/validation/validation.service";class me{constructor(s){const{model:i,table:o,observeReply:r}=s;r(i.sceneChanged).pipe(e((e=>{if(e.hasChanges("status")&&"stop"===e.state.status){if(o.body.rowCount(0))return!0}return!1})),t()).subscribe((()=>{const e=Object.keys(o.box.markup).find((e=>e.startsWith("body")));if(e){const t=o.box.markup[e];t&&t.focus()}const{body:t}=o,{focus:s}=i,r=s(),n=t.cell(r.rowIndex,r.columnIndex).model();if(!n||!n.column.canFocus){let e=0;const i=t.rowCount(0);for(;e<i;){const i=t.row(e).cells().findIndex((e=>{const t=e.model();return t&&t.column.canFocus}));if(i>=0){s({rowIndex:e,columnIndex:i},{source:"autofocus.plugin"});break}e++}}}))}}class pe{constructor(e){this.closeEvent=new s;const t=e.element,l=new i(t,new o(this));l.on("mousedown",(s=>{if(r(s,n)||r(s,c)){if(s.stopPropagation(),t.remove(),!1!==e.propagate){const e=a(s.clientX,s.clientY),t=document.createEvent("MouseEvents");t.initEvent("mousedown",!0,!0),e.dispatchEvent(t)}this.closeEvent.emit(s)}})),l.on("keydown",(t=>e.onKeyDown({$event:t})))}}class ge{constructor(e,t){this.plugin=e,this.context=t,this.cancelEvent=new s,this.submitEvent=new s,this.dropEvent=new s;const i=()=>{const{model:e}=this.plugin,{index:t}=e.columnList();this.tree=u([t],((e,t,s)=>{const{model:i}=e.key,o={key:i.key,title:i.title,isVisible:i.isVisible,isDefault:i.isDefault,canMove:i.canMove,aggregation:i.aggregation};if(s){const s=h(e);return s.value={column:o,isVisible:"data"===i.category||"cohort"===i.category},t.children.push(s),s}return t.value={column:o,isVisible:!0},t}),h(t)),r()};let o=p;const r=()=>{this.listView=[],this.treeView=o(this.tree),u([this.treeView],(e=>{e.value.isVisible&&this.listView.push(e.value.column)}))};this.search=e=>{const t=(""+e).toLowerCase();o=t?e=>filterNode(e,(e=>(e.value.column.title||"").toLowerCase().indexOf(t)>=0)):p,r()},i();const n=(e,t)=>{const{children:s}=e,{column:i}=e.value;i.isVisible=t,s.length&&s.forEach((e=>n(e,t)))};this.toggle=new l({source:"column.chooser",canExecute:e=>e.value.isVisible,execute:e=>n(e,!this.state(e))}),this.toggleAll=new l({source:"column.chooser",execute:()=>{const e=!this.stateAll();for(let t of this.listView)t.isVisible=e}}),this.defaults=new l({source:"column.chooser",execute:()=>{for(let e of this.listView)e.isVisible=!1!==e.isDefault}}),this.toggleAggregation=new l({source:"column.chooser"}),this.drop=new l({source:"column.chooser",canExecute:e=>{const t=e.dropData;return t&&t.value.column.canMove},execute:e=>{switch(e.action){case"over":{const t=e.dragData,s=e.dropData;if(t!==s){const e=this.tree,i=findNode(e,(e=>e===t)),o=findNode(e,(e=>e===s));if(i&&o&&o.path.indexOf(i.node)<0){const e=i.path.reverse(),t=e.findIndex((e=>e.children.length>1));if(t>=0){const s=e[t],r=e[t-1]||i.node,n=s.children.indexOf(r);s.children.splice(n,1),o.parent.children.splice(o.index,0,r),r.level=o.parent.level+1,u(r.children,((e,t,s)=>{e.level=(t||s).level+1}),r),this.dropEvent.emit()}}}break}}}}),this.drag=new l({source:"column.chooser",canExecute:e=>{const t=e.data;return t&&t.value.column.canMove}}),this.submit=new l({source:"column.chooser",execute:()=>{const e=u([this.tree],((e,t,s)=>{if(s){const s=h(e);t.children.push(s);const{isVisible:i,column:o}=e.value;if(i){const{model:e}=s.key;e.isVisible=o.isVisible,e.aggregation=o.aggregation}return s.value=null,s}return t.value=null,t}),h(this.tree)),{model:t}=this.plugin;t.columnList({index:e},{source:"column.chooser.view"}),this.submitEvent.emit()}}),this.cancel=new l({source:"column.chooser",execute:()=>this.cancelEvent.emit()}),this.reset=new l({source:"column.chooser",execute:()=>i()}),this.aggregations=Object.getOwnPropertyNames(d).filter((e=>m(d[e])));const{model:c,observe:a}=this.plugin;a(c.dataChanged).subscribe((e=>{"column.chooser"!==e.tag.source&&e.hasChanges("columns")&&i()})),a(c.columnListChanged).subscribe((e=>{"column.chooser"!==e.tag.source&&e.hasChanges("index")&&i()}))}state(e){const{children:t}=e,{column:s}=e.value;return t.length?t.some((e=>e.value.column.isVisible)):!1!==s.isVisible}stateAll(){return this.listView.every((e=>e.isVisible))}stateDefault(){return this.listView.every((e=>!1!==e.isDefault&&!1!==e.isVisible||!1===e.isDefault&&!1===e.isVisible))}isIndeterminate(){return!this.stateAll()&&this.listView.some((e=>e.isVisible))}get canAggregate(){return this.columnChooserCanAggregate}get resource(){return this.plugin.model.columnChooser().resource}}class fe{constructor(){this.resource=new L,this.canAggregate=!1,this.canSort=!0}}class we{constructor(e,t){const{model:i}=e;this.plugin=e,this.column=t.column,this.cancelEvent=new s,this.submitEvent=new s,this.resetEvent=new s;const o=i.filter().by[this.column.key];this.by=new Set(o&&o.items||[]),this.byBlanks=!(!o||!o.blanks);let r=i.filter().operatorFactory(this.column)[0]||"contains";o&&o.items&&o.items.length&&(r="contains"),this.items=[],this.operator=o&&o.expression&&o.expression.op||r,this.value=o&&o.expression&&o.expression.right||null,this.title=this.column.title,this.getValue=C(this.column),Object.assign(this,this.commands),this.changeOperator.execute(this.operator)}state(e){return this.by.has(e)}stateAll(){return this.items.every(this.state.bind(this))&&(!this.hasBlanks||this.byBlanks)}isIndeterminate(){return!this.stateAll()&&(this.items.some(this.state.bind(this))||this.byBlanks)}isEmpty(){return!!this.by.size||this.byBlanks}get commands(){return{toggle:new l({source:"column.filter.view",execute:e=>{this.by.has(e)?this.by.delete(e):this.by.add(e),this.by=new Set(this.by)}}),toggleAll:new l({source:"column.filter.view",execute:e=>{const t=!this.stateAll();if(t)for(let e of this.items)this.by.add(e);else if(e)for(let e of this.by)this.items.indexOf(e)>=0&&this.by.delete(e);else this.by.clear();this.by=new Set(this.by),this.byBlanks=this.hasBlanks&&t}}),changeOperator:new l({source:"column.filter.view",execute:e=>{this.operator=e;let{value:t}=this;if("between"===e)Array.isArray(t)||(g(t)||null===t||""===t?this.value=[]:this.value=[t]);else Array.isArray(t)&&(this.value=t[0])}}),submit:new l({source:"column.filter.view",execute:()=>{const{model:e}=this.plugin,t=f(e.filter().by),s=t[this.column.key]||{};if(s.items=Array.from(this.by),s.blanks=this.byBlanks,"contains"===this.operator)delete s.expression;else if(s.items=[],this.operator.startsWith("is"))s.expression={kind:"condition",op:this.operator,left:this.column.key,right:null};else if(g(this.value)||null===this.value||""===this.value||w(this.value)&&0===this.value.length)delete s.expression;else{const e=O(this.column.type,this.column.editorOptions.editor);s.expression={kind:"condition",op:this.operator,left:this.column.key,right:w(this.value)?this.value.map(e):e(this.value)}}s.items&&s.items.length||s.blanks||s.expression?t[this.column.key]=s:delete t[this.column.key],e.filter({by:t},{source:"column.filter.view"}),this.submitEvent.emit()}}),cancel:new l({source:"column.filter.view",execute:()=>this.cancelEvent.emit()}),reset:new l({source:"column.filter.view",execute:()=>{this.by=new Set,this.byBlanks=!1,this.value="between"===this.operator?[]:null,this.resetEvent.emit()}})}}}class ve{constructor(){this.threshold=20,this.source="data"}}const xe=`${A}-active`,be=`${A}-hide`;class ye{constructor(e,t){const{model:s,observeReply:i,view:o}=e,{column:r,iconDesc:n,iconAsc:c,element:a}=t;this.element=a,i(s.sortChanged).subscribe((e=>{if(e.hasChanges("by"))if(o.sort.order(r)<0)V.mutate((()=>{a.classList.add(be),a.classList.remove(xe),c.classList.remove(xe),n.classList.remove(xe)}));else{const e=o.sort.direction(r),t="asc"===e?n:c,s="asc"===e?c:n;V.mutate((()=>{a.classList.add(xe),a.classList.remove(be),t.classList.remove(xe),s.classList.add(xe)}))}})),this.toggle=new l({canExecute:()=>o.sort.toggle.canExecute(r),execute:()=>o.sort.toggle.execute(r)})}click(){return!!this.toggle.canExecute()&&(this.toggle.execute(),!0)}mouseLeave(){V.mutate((()=>{this.element.classList.remove(be)}))}}class Ee{constructor(){this.resource=new L,this.deleted=new Set,this.added=new Set,this.edited=new Map,this.rowFactory=e=>{if(e)return v(e,(e=>w(e)?[]:!x(e)||b(e)||y(e)||E(e)||m(e)?null:void 0))}}}class ke{constructor(s){this.plugin=s,this.commitCommand=new l({execute:e=>{if("data"!==e.column.category)return;const t=this.rowId(e.rowIndex,e.row),s=this.columnId(e.columnIndex,e.column),{edited:i}=this.changes;let o=i.get(t);o||(o=[],i.set(t,o));let r=o.findIndex((e=>e.column===s)),n=o[r];n||(n={column:s,oldValue:e.oldValue,oldLabel:e.oldLabel},r=o.length,o.push(n)),n.newValue=e.newValue,n.newLabel=e.newLabel,this.hasChanges(n.newValue,n.oldValue)||(o.splice(r,1),o.length||i.delete(t))}}),this.actions=[new D(new l({source:"data.manipulation",execute:()=>{const{model:s,observe:i,table:o}=this.plugin,{data:r}=s,n=this.rowFactory(s.data().rows[0]);if(g(n))throw new M("data.manipulation","Setup rowFactory property to add new rows");const c=this.rowId(0,n);this.changes.added.add(c),r({rows:[n].concat(r().rows)},{source:"data.manipulation"}),i(s.sceneChanged).pipe(e((e=>e.hasChanges("status")&&"stop"===e.state.status)),t()).subscribe((e=>{const t=s.view().rows.indexOf(n);s.focus({rowIndex:t},{source:"data.manipulation.plugin"}),o.view.focus()}))},shortcut:"F7"}),"Add New Row","add")],this.rowActions=[new D(new l({source:"data.manipulation",canExecute:e=>{const t=this.rowId(e.rowIndex,e.row);return!this.changes.deleted.has(t)},execute:e=>{const{model:t}=this.plugin,{data:s}=t,i=this.rowId(e.rowIndex,e.row),o=this.changes;if(o.added.has(i)){o.added.delete(i);const e=s().rows.filter(((e,t)=>this.rowId(t,e)!==i));s({rows:e},{source:"data.manipulation"})}else o.deleted.add(i)}}),"Delete Row","delete"),new D(new l({source:"data.manipulation",execute:e=>{const t=this.rowId(e.rowIndex,e.row);if(this.changes.deleted.has(t)&&this.changes.deleted.delete(t),this.changes.edited.has(t))try{const{model:s}=this.plugin,i=this.changes.edited.get(t),o=R.mapColumns(s.columnList().line);for(const t of i){const s=o[t.column];if(!s)throw new M("data.manipulation",`Column ${t.column} is not found`);F(e.row,s,t.oldValue),_(e.row,s,t.oldLabel)}}finally{this.changes.edited.delete(t)}},canExecute:e=>{const t=this.rowId(e.rowIndex,e.row);return this.changes.deleted.has(t)||this.changes.edited.has(t)}}),"Revert Row","restore")];const{model:i,disposable:o,observeReply:r}=this.plugin;this.rowId=i.data().rowId,this.columnId=i.data().columnId;const n=i.resolve(Ee);this.rowFactory=n.state().rowFactory;const c=i.style(),a=Array.from(c.rows),u=Array.from(c.cells);a.push(this.styleRow.bind(this)),u.push(this.styleCell.bind(this)),i.edit({mode:"cell",commit:S.command([this.commitCommand,i.edit().commit])}).style({rows:a,cells:u}).action({items:S.list([this.actions,i.action().items])}),o.add((()=>{const{items:e}=i.action(),t=e.filter((e=>this.actions.every((t=>t.id!==e.id))));i.action({items:t})})),r(i.columnListChanged).pipe(e((e=>e.hasChanges("line"))),t()).subscribe((e=>{const t=e.state.line.find((e=>"row-options"===e.type));t&&t.editorOptions.actions.push(...this.rowActions)}))}hasChanges(e,t){return e!==t}styleRow(e,t){const s=this.rowId(t.row,e);this.changes.deleted.has(s)&&t.class("deleted",{opacity:.3})}styleCell(e,t,s){const i=this.rowId(s.row,e),o=this.changes;if("row-indicator"!==t.type){if(o.edited.has(i)){o.edited.get(i).findIndex((e=>e.column===this.columnId(s.column,t)))>=0&&s.class("edited",{background:"#E3F2FD"})}}else o.deleted.has(i)?s.class("delete-indicator",{background:"#EF5350"}):o.added.has(i)?s.class("add-indicator",{background:"#C8E6C9"}):o.edited.has(i)&&s.class("edit-indicator",{background:"#E3F2FD"})}get changes(){const{model:e}=this.plugin;return e.dataManipulation()}get resource(){return this.model.resolve(Ee).state().resource}}class qe{constructor(e){this.editor=e.editor}}class Ie{constructor(e,t){const{model:i,disposable:o}=e;this.plugin=e,this.editor=new N(t.row,i.columnList().line),this.caption=t.caption,this.submitEvent=new s,this.cancelEvent=new s,this.resetEvent=new s,this.submit=this.commands.submit,this.cancel=this.commands.cancel,this.reset=this.commands.reset,g(t.shortcut)||o.add(t.shortcut.register(new Map(Object.entries(this.commands))))}get editors(){return this.editor.editors}get commands(){return{submit:new l({source:"edit.form.panel",shortcut:this.shortcutFactory("commit"),execute:()=>{this.editor.commit(),this.submitEvent.emit()}}),cancel:new l({source:"edit.form.panel",shortcut:this.shortcutFactory("cancel"),execute:()=>this.cancelEvent.emit()}),reset:new l({source:"edit.form.panel",execute:()=>{this.editor.editors.forEach((e=>e.reset())),this.resetEvent.emit()}})}}shortcutFactory(e){const{model:t}=this.plugin;return()=>{const s=t.edit()[e+"Shortcuts"];return s.reference||s.$default}}}class Le{constructor(e,t){this.model=e,this.key=t.key,this.title=t.title,this.row=t.row,this.submitEvent=new $,this.cancelEvent=new $,this.submit=this.commands.submit,this.cancel=this.commands.cancel}get commands(){return{submit:new T({source:"edit.form",execute:()=>this.submitEvent.emit()}),cancel:new T({source:"edit.form",execute:()=>this.cancelEvent.emit()})}}}function Oe(e){return function(t,s,i,o){const r=new Blob([s],{type:i}),n=`${t}.${o||i.split("/")[1]}`;e.saveAs(r,n)}}class Ce{constructor(e){this.jsPDF=e}write(e,t,s){const i=[],o=[],r=new(0,this.jsPDF)({orientation:"landscape",unit:"in"});for(let e of t)i.push({title:e.title,dataKey:e.path});for(let t of e)o.push(W(t));r.autoTable(i,o,{styles:{overflow:"linebreak",fontSize:8,columnWidth:"auto",overflowColumns:!0},headerStyles:{overflow:"ellipsize"},pageBreak:"auto",margin:0}),r.save(`${s}.pdf`)}}class _e{constructor(e){this.xlsx=e}write(e,t){const s=[],i=[];for(let t of e)s.push(W(t));for(let e of t)i.push(e.title);const o=this.xlsx.utils.json_to_sheet(s),r=function(e){const t={};return t.Sheet1=e,{SheetNames:["Sheet1"],Sheets:t}}(this.updateTitles(o,i));return function(e){const t=new ArrayBuffer(e.length),s=new Uint8Array(t);for(let t=0;t<e.length;++t)s[t]=255&e.charCodeAt(t);return t}(this.xlsx.write(r,{bookType:"xlsx",bookSST:!0,cellDates:!0,compression:!0,type:"binary"}))}updateTitles(e,t){const s=this.xlsx.utils.decode_range(e["!ref"]);for(let i=s.s.r;i<=s.e.r;++i){const s=this.xlsx.utils.encode_col(i)+"1";e[s]&&(e[s].v=t[i])}return e}}class Ae{constructor(e,t){this.model=e,this.type=t,this.csv=new l({source:"export",canExecute:()=>"csv"===this.type,execute:()=>{const e=new G(this.model).resolve("fileSaver"),t=(new j).write(this.rows,this.columns);Oe(e)(this.id,t,`text/${this.type}`)}}),this.json=new l({source:"export",canExecute:()=>"json"===this.type,execute:()=>{const e=new G(this.model).resolve("fileSaver"),t=(new z).write(this.rows,this.columns);Oe(e)(this.id,t,`text/${this.type}`)}}),this.xml=new l({source:"export",canExecute:()=>"xml"===this.type,execute:()=>{const e=new G(this.model).resolve("fileSaver"),t=(new B).write(this.rows);Oe(e)(this.id,t,`application/${this.type}`)}}),this.xlsx=new l({source:"export",canExecute:()=>"xlsx"===this.type,execute:()=>{const e=new G(this.model),t=e.resolve("xlsx"),s=e.resolve("fileSaver"),i=new _e(t).write(this.rows,this.columns);Oe(s)(this.id,i,"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","xlsx")}}),this.pdf=new l({source:"export",canExecute:()=>"pdf"===this.type,execute:()=>{const e=new G(this.model).resolve("pdf");new Ce(e).write(this.rows,this.columns,this.id)}})}get columns(){return this.model.columnList().line}get rows(){return this.model.data().rows}get id(){return this.model.grid().id}}class Ve{constructor(e){this.element=e.element,this.targetSelector=e.targetSelector,this.job=U(e.delay)}set(){null!==this.element.getAttribute("tabindex")&&""===this.element.getAttribute("tabindex")||this.element.setAttribute("tabindex",-1),this.job((()=>{let e=this.element;if(this.targetSelector){const t=this.element.querySelector(this.targetSelector);if(!t)throw new M("focus",`Element "${this.targetSelector}" is not found`);e=t}e.focus()}))}}function De(e){const t={};for(let[s,i]of Object.entries(e))t[s]=i;return t}class Re{constructor(e){this.xlsx=e}read(e,t){const s=this.xlsx.read(e,{type:"binary"});return this.toJson(s,t)}toJson(e,t={}){const s={};switch(t.head){case"alpha":s.header="A";break;case"numeric":s.header=1}let i=[];for(let t of e.SheetNames){i=this.xlsx.utils.sheet_to_json(e.Sheets[t],s).concat(i)}return i.map(De)}}function Se(e,t,s,i={}){const o=e.target.result,r=""===t.type?function(e){if(/[.]/g.test(e)){const t=e.split(".");return t[t.length-1]}}(t.name):t.type,n=new G(s);switch(r){case"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":case"xlsx":{const e=n.resolve("xlsx"),t=new Re(e).read(o,i),r=J(s),c=H({rows:t,columnFactory:(e,t)=>r("text",t),deep:!1});s.data({columns:c,rows:t},{source:"read"});break}case"application/json":case"text/json":case"json":{const e=(new Q).read(o);if(!e.length)throw new M("import","JSON for input should be an array of objects");{const t=J(s),i=H({rows:e,columnFactory:(e,s)=>t("text",s),deep:!0});s.data({columns:i,rows:e},{source:"read"})}break}case"application/xml":case"text/xml":case"xml":{const e=(new Y).read(o),t=H({rows:e,columnFactory:J(s),deep:!0});s.data({columns:t,rows:e},{source:"read"});break}case"application/vnd.ms-excel":case"text/csv":case"csv":{const e=(new K).read(o);let t=X;"alpha"===i.head?t=Z:"numeric"===i.head&&(t=ee);const r=H({rows:e,columnFactory:J(s),deep:!1,title:t});t===X&&e.shift(0),s.data({columns:r,rows:e},{source:"read"});break}default:throw new M("import",`This is not valid file type ${r}`)}}class Me{constructor(e,t){this.model=e,this.element=t}upload(){P(this.element)}load(e){const{files:t}=e.target;for(let e of t){const t=new FileReader;t.onload=t=>Se(t,e,this.model,this.options),t.readAsBinaryString(e)}}}class Fe{constructor(e){const{model:t}=e;this.plugin=e;const{shortcut:s}=t.pagination();this.next=new l({source:"pager",shortcut:s.next,execute:()=>{new te(e),t.pagination({current:t.pagination().current+1},{source:"pager.view"})},canExecute:()=>(t.pagination().current+1)*t.pagination().size<t.pagination().count}),this.prev=new l({source:"pager",shortcut:s.prev,execute:()=>{new te(e),t.pagination({current:t.pagination().current-1},{source:"pager.view"})},canExecute:()=>t.pagination().current>0})}get theme(){return this.plugin.model.style().classList}get resource(){return this.plugin.model.pagination().resource}get size(){return this.plugin.model.pagination().size}set size(e){this.plugin.model.pagination({size:e,current:0},{source:"pager.view"})}get sizeList(){return this.plugin.model.pagination().sizeList}get current(){return this.plugin.model.pagination().current}set current(e){return this.plugin.model.pagination({current:e},{source:"pager.view"})}get from(){return Math.min(this.total,this.current*this.size+1)}get to(){return Math.min(this.total,(this.current+1)*this.size)}get total(){return this.plugin.model.pagination().count}get totalPages(){return 0===this.size?0:Math.max(1,Math.ceil(this.total/this.size))}get scroll(){return this.plugin.model.scroll()}get mode(){return this.plugin.model.pagination().mode}}class Ne{constructor(e,t){const{model:i,observeReply:o}=e;this.plugin=e,this.service=new ie(i,t),this.closeEvent=new s,this.items=[],this.state={editItem:null,oldValue:null};const{persistence:r}=i;this.id=r().id,this.title=this.stringify(),r().storage.getItem(this.id).then((e=>{this.items=e||[],this.groups=this.buildGroups(this.items)})),o(i.gridChanged).subscribe((e=>{e.hasChanges("status")&&"unbound"===e.state.status&&this.closeEvent.emit()})),this.create=new l({source:"persistence.view",execute:()=>{const e={title:this.title,modified:Date.now(),model:this.service.save(),isDefault:!1,group:r().defaultGroup,canEdit:!0};return!1!==r().create.execute(e)&&(this.items.push(e),this.persist(),this.title="",!0)},canExecute:()=>{if(this.title&&this.isUniqueTitle(this.title)){const e={title:this.title,modified:Date.now(),model:this.service.save(),isDefault:!1,group:r().defaultGroup,canEdit:!0};return r().create.canExecute(e)}return!1}}),this.edit={enter:new l({source:"persistence.view",execute:e=>!!(e=e||this.items.find(this.isActive))&&(this.state={editItem:e,oldValue:f(e)},!0),canExecute:e=>null===this.state.editItem&&e.canEdit}),commit:new l({source:"persistence.view",shortcut:"enter",execute:e=>{if(e=e||this.state.editItem,!1!==r().modify.execute(e)){const t=e.title;return t&&this.isUniqueTitle(t)?(e.modified=Date.now(),this.persist(),this.state.editItem=null,!0):(this.edit.cancel.execute(),!1)}return!1},canExecute:()=>null!==this.state.editItem&&r().modify.canExecute(this.state.editItem)}),cancel:new l({source:"persistence.view",shortcut:"escape",execute:()=>{if(null!==this.state.editItem){const e=this.items.indexOf(this.state.editItem);this.items.splice(e,1,this.state.oldValue),this.state.oldValue=null,this.state.editItem=null}else this.closeEvent.emit();return!0}})},this.load=new l({source:"persistence.view",canExecute:e=>r().load.canExecute(e),execute:e=>!1!==r().load.execute(e)&&(this.service.load(e.model),!0)}),this.reset=new l({source:"persistence.view",execute:()=>(!1!==r().reset.execute()&&this.service.reset(),!1),canExecute:()=>r().reset.canExecute()}),this.remove=new l({source:"persistence.view",execute:e=>{const t=this.items.indexOf(e);return t>=0&&!1!==r().remove.execute(e)&&(this.items.splice(t,1),this.persist(),!0)},canExecute:e=>e.canEdit&&r().remove.canExecute(e)}),this.setDefault=new l({source:"persistence.view",canExecute:e=>r().setDefault.canExecute(e),execute:e=>{if(!1!==r().setDefault.execute(e)){const t=this.items.indexOf(e);return-1!==t&&(e.isDefault?e.isDefault=!1:(this.items.forEach((e=>e.isDefault=!1)),e.isDefault=!0),this.items.splice(t,1,e),this.persist(),!0)}return!1}});const n=new se,c=new ne(new ce);this.keyDown=e=>c.keyDown(e),c.register(n,[this.edit.enter,this.edit.commit,this.edit.cancel])}get blank(){return{title:"Blank",modified:Date.now(),model:{},isDefault:!1,group:"blank",canEdit:!1}}get sortedItems(){return this.items.sort(((e,t)=>t.modified-e.modified))}buildGroups(e){return e.reduce(((e,t)=>{const s=e.find((e=>e.key===t.group));return s?s.items.push(t):e.push({key:t.group,items:[t]}),e}),[])}isActive(e){return oe(e.model)===oe(this.service.save())}persist(){const{model:e}=this.plugin;e.persistence().storage.setItem(this.id,this.items.filter((e=>e.canEdit))),this.groups=this.buildGroups(this.items)}stringify(e){const{settings:t}=this.plugin.model.persistence(),s=e?e.model:this.service.save(),i=[];for(let e in t){if(!s[e])continue;const t=re(e)(s[e]);""!==t&&i.push(t)}return i.join("; ")||"No settings"}isUniqueTitle(e){return e=(e||"").trim().toLowerCase(),!this.items.some((t=>t!==this.state.editItem&&(t.title||"").toLowerCase()===e))}}class Te{constructor(e,t){this.element=e.element,this.targetName=e.targetName;const s=new i(window,new o(this)),r=U(400);t.add(s.on("resize",(()=>{this.invalidate(),r((()=>this.invalidate()))})))}invalidate(){let e=this.element.parentNode;for(;e;){const t=(this.targetName||"").toLowerCase();if(e.nodeName.toLowerCase()===t)return void V.measure((()=>V.mutate((()=>{this.layout(e,this.element),this.element.style.opacity=1}))));e=e.parentNode}}layout(e,t){const{top:s,right:i,left:o,bottom:r}=e.getBoundingClientRect(),{width:n,height:c}=t.getBoundingClientRect(),a=this.boxRect(),l=[];l.push(this.intersection(a,{top:s,right:o+n,bottom:s+c,left:o})),l.push(this.intersection(a,{top:s,right:i,bottom:s+c,left:i-n})),l.push(this.intersection(a,{top:r-c,right:o+n,bottom:r,left:o})),l.push(this.intersection(a,{top:r-c,right:i,bottom:r,left:i-n}));const u=k(l,(e=>e.area)),{left:h,top:d}=u.b,m=this.fix({left:h-a.left,top:d-a.top,width:n,height:c});t.style.left=m.left+"px",t.style.top=m.top+"px"}intersection(e,t){return{area:Math.max(0,Math.min(e.right,t.right)-Math.max(e.left,t.left))*Math.max(0,Math.min(e.bottom,t.bottom)-Math.max(e.top,t.top)),a:e,b:t}}fix(e){const t=this.windowRect(),s=this.boxRect(),{width:i,height:o}=t,r=s.left-t.left,n=s.top-t.top,{height:c,width:a}=e,l=e.left+r,u=e.top+n,h=l<t.left,d=l+a>i,m=u<t.top,p=u+c>o;return{left:h||d?e.left+(i-l-a):e.left,top:m||p?e.top+(o-u-c):e.top}}boxRect(){let e=this.element;const t=`${A}-box`;for(;e;){if(e.classList&&e.classList.contains(t))return e.getBoundingClientRect();e=e.parentNode}return this.windowRect()}windowRect(){const{innerHeight:e,innerWidth:t}=window;return{top:0,left:0,bottom:e,right:t,height:e,width:t}}}class $e{constructor(e,{get:t,post:s}){this.model=e;const{method:i,url:o,serialize:r}=this.model.rest();if(!o)throw new M("rest","REST endpoint URL is required");const n=this.fetchFactory(i,t,s),c=this.serializeFactory(i,r);e.data({pipe:[(t,s,i)=>{n(o,c(e)).then((e=>i(e)))},...ae.view]},{source:"rest.view"})}fetchFactory(e,t,s){switch(e.toLowerCase()){case"get":return t;case"post":return s;default:throw new M("rest",`"${e}" is incorrect REST method`)}}serializeFactory(e,t){return m(t)?t:"get"===e?le:"post"===e?ue:void 0}}class je{constructor(e,t){this.model=e,this.context=t,this.oldErrors=[],he(this.rules,this.key)&&(this.validator=de(this.rules,this.key))}get errors(){if(this.validator){const e={[this.key]:this.value};if(this.validator.validate(e))this.oldErrors.length=0;else{const e=this.validator.getErrors()[this.key],t=q(e)?[e]:e;I(t,this.oldErrors)||(this.oldErrors=t)}return this.stringify(this.oldErrors)}}get rules(){return this.model.validation().rules}get type(){return this.context.type}get value(){return this.context.value}get key(){return this.context.key}stringify(e){const t=[];let s={};for(const e of this.validator.livrRules[this.key])s=Object.assign(s,e);for(const i of e)switch(i){case"REQUIRED":case"CANNOT BE EMPTY":t.push("Can't be empty");break;case"FORMAT_ERROR":t.push("Wrong format");break;case"TOO_LOW":t.push(`Must be > ${s.min_number}`);break;case"TOO_HIGH":t.push(`Must be < ${s.max_number}`);break;case"WRONG_FORMAT":t.push("Must match the pattern");break;case"WRONG_EMAIL":t.push("Must be an email");break;case"WRONG_URL":t.push("Must be a url");break;case"WRONG_DATE":t.push("Must be a date");break;case"FIELDS_NOT_EQUAL":t.push(`Field must be equal ${s.equal_to_field}`);break;case"NOT_INTEGER":t.push("Must be an integer");break;case"NOT_POSITIVE_INTEGER":t.push("Must be a positive integer");break;case"NOT_DECIMAL":t.push("Must be a decimal");break;case"NOT_POSITIVE_DECIMAL":t.push("Must be a positive decimal");break;case"NOT_ALLOWED_VALUE":s.eq&&s.eq!=this.value?t.push(`Must be equal to ${s.eq}`):t.push(`Must be one of ${s.one_of}`);break;case"TOO_LONG":s.max_length&&s.max_length<this.value.length?t.push(`Length must be < ${s.max_length}`):s.length_equal&&s.length_equal!=this.value.length?t.push(`Length must be equal to ${s.length_equal}`):t.push(`Length must be [${s.length_between[0]},${s.length_between[1]}]`);break;case"TOO_SHORT":s.min_length&&s.min_length>this.value.length?t.push(`Length must be > ${s.min_length}`):s.length_equal&&s.length_equal!=this.value.length?t.push(`Length must be equal to ${s.length_equal}`):t.push(`Length must be [${s.length_between[0]},${s.length_between[1]}]`);break;default:t.push(i)}return t}}export{me as AutofocusPlugin,pe as BackdropPlugin,ge as ColumnChooserPlugin,fe as ColumnChooserState,we as ColumnFilterPlugin,ve as ColumnFilterState,ye as ColumnSortPlugin,ke as DataManipulationPlugin,Ee as DataManipulationState,qe as EditFormEditorPlugin,Ie as EditFormPanelPlugin,Le as EditFormPlugin,Ae as ExportPlugin,Ve as FocusPlugin,Me as ImportPlugin,Fe as PagerPlugin,Ce as PdfWriter,Ne as PersistencePlugin,Te as PositionPlugin,$e as RestPlugin,je as ValidatorPlugin,Re as XlsxReader,_e as XlsxWriter,Oe as downloadFactory,Se as readFile};
+import * as columnService from '@qgrid/core';
+import { filter, takeOnce, Event, EventListener, EventManager, checkButtonCode, LEFT_BUTTON, MIDDLE_BUTTON, elementFromPoint, Command, preOrderDFS, copy, Aggregation, isFunction, identity, Resource, getLabelFactory, isUndefined, clone, isArray, parseFactory, Fastdom, GRID_PREFIX, cloneDeep, isObject, isNumber, isDate, isBoolean, Action, GridError, setValue, setLabel, Composite, RowEditor, graphFlatView, PluginService, CsvExport, JsonExport, XmlExport, jobLine, CsvImport, generate, columnFactory, firstRowTitle, XmlImport, JsonImport, alphaTitle, numericTitle, upload, FocusAfterRenderService, PersistenceService, CommandManager, Shortcut, ShortcutDispatcher, serialize, stringifyFactory, max, PipeUnit, serializeGet, serializePost, hasRules, createValidator, isString, same } from '@qgrid/core';
+
+class AutofocusPlugin {
+	constructor(plugin) {
+		const { model, table, observeReply } = plugin;
+
+		observeReply(model.sceneChanged)
+			.pipe(
+				filter(e => {
+					if (e.hasChanges('status') && e.state.status === 'stop') {
+						const count = table.body.rowCount(0);
+						if (count) {
+							return true;
+						}
+					}
+
+					return false;
+				}),
+				takeOnce()
+			)
+			.subscribe(() => {
+				const key = Object.keys(table.box.markup).find(p => p.startsWith('body'));
+
+				if (key) {
+					const element = table.box.markup[key];
+					if (element) {
+						element.focus();
+					}
+				}
+
+				const { body } = table;
+				const { focus } = model;
+				const focusState = focus();
+				const cell = body.cell(focusState.rowIndex, focusState.columnIndex);
+				const cellModel = cell.model();
+
+				if (!cellModel || !cellModel.column.canFocus) {
+					let rowIndex = 0;
+					const rowCount = body.rowCount(0);
+					while (rowIndex < rowCount) {
+						const row = body.row(rowIndex);
+						const cells = row.cells();
+						const columnIndex = cells.findIndex(c => {
+							const m = c.model();
+							return m && m.column.canFocus;
+						});
+
+						if (columnIndex >= 0) {
+							focus({ rowIndex, columnIndex }, { source: 'autofocus.plugin' });
+							break;
+						}
+
+						rowIndex++;
+					}
+				}
+			});
+	}
+}
+
+class BackdropPlugin {
+	constructor(context) {
+		this.closeEvent = new Event();
+
+		const element = context.element;
+		const listener = new EventListener(element, new EventManager(this));
+
+		listener.on('mousedown', e => {
+			if (checkButtonCode(e, LEFT_BUTTON) || checkButtonCode(e, MIDDLE_BUTTON)) {
+				e.stopPropagation();
+				element.remove();
+
+				if (context.propagate !== false) {
+					const target = elementFromPoint(e.clientX, e.clientY);
+					const event = document.createEvent('MouseEvents');
+					event.initEvent('mousedown', true, true);
+					target.dispatchEvent(event);
+				}
+
+				this.closeEvent.emit(e);
+			}
+		});
+
+		listener.on('keydown', e => context.onKeyDown({ $event: e }));
+	}
+}
+
+class ColumnChooserPlugin {
+	constructor(plugin, context) {
+		this.plugin = plugin;
+
+		this.context = context;
+
+		this.cancelEvent = new Event();
+		this.submitEvent = new Event();
+		this.dropEvent = new Event();
+
+		const setup = () => {
+			const { model: gridModel } = this.plugin;
+			const { index } = gridModel.columnList();
+
+			this.tree = preOrderDFS([index], (node, current, parent) => {
+				const { model } = node.key;
+				const column = {
+					key: model.key,
+					title: model.title,
+					isVisible: model.isVisible,
+					isDefault: model.isDefault,
+					canMove: model.canMove,
+					aggregation: model.aggregation
+				};
+
+				if (parent) {
+					const newNode = copy(node);
+					newNode.value = {
+						column,
+						isVisible: model.category === 'data' || model.category === 'cohort',
+					};
+
+					current.children.push(newNode);
+					return newNode;
+				}
+
+				current.value = { column, isVisible: true };
+				return current;
+			}, copy(index));
+
+			updateView();
+		};
+
+		let applyFilter = identity;
+		const updateView = () => {
+			this.listView = [];
+			this.treeView = applyFilter(this.tree);
+			preOrderDFS([this.treeView], n => {
+				if (n.value.isVisible) {
+					this.listView.push(n.value.column);
+				}
+			});
+		};
+
+		this.search = value => {
+			const search = ('' + value).toLowerCase();
+			applyFilter =
+				search
+					? node => filterNode(node, n => (n.value.column.title || '').toLowerCase().indexOf(search) >= 0)
+					: identity;
+
+			updateView();
+		};
+
+		setup();
+
+		const toggle = (node, value) => {
+			const { children } = node;
+			const { column } = node.value;
+			column.isVisible = value;
+			if (children.length) {
+				children.forEach(n => toggle(n, value));
+			}
+		};
+
+		this.toggle = new Command({
+			source: 'column.chooser',
+			canExecute: node => node.value.isVisible,
+			execute: node => toggle(node, !this.state(node))
+		});
+
+		this.toggleAll = new Command({
+			source: 'column.chooser',
+			execute: () => {
+				const state = !this.stateAll();
+				for (let column of this.listView) {
+					column.isVisible = state;
+				}
+			}
+		});
+
+		this.defaults = new Command({
+			source: 'column.chooser',
+			execute: () => {
+				for (let column of this.listView) {
+					column.isVisible = column.isDefault !== false;
+				}
+			}
+		});
+
+		this.toggleAggregation = new Command({ source: 'column.chooser' });
+
+		this.drop = new Command({
+			source: 'column.chooser',
+			canExecute: e => {
+				const node = e.dropData;
+				return node && node.value.column.canMove;
+
+			},
+			execute: e => {
+				switch (e.action) {
+					case 'over': {
+						const src = e.dragData;
+						const trg = e.dropData;
+						if (src !== trg) {
+							const tree = this.tree;
+
+							const oldPos = findNode(tree, node => node === src);
+							const newPos = findNode(tree, node => node === trg);
+							if (oldPos && newPos && newPos.path.indexOf(oldPos.node) < 0) {
+								const queue = oldPos.path.reverse();
+								const hostIndex = queue.findIndex(node => node.children.length > 1);
+								if (hostIndex >= 0) {
+									const host = queue[hostIndex];
+									const target = queue[hostIndex - 1] || oldPos.node;
+									const index = host.children.indexOf(target);
+
+									host.children.splice(index, 1);
+									newPos.parent.children.splice(newPos.index, 0, target);
+
+									target.level = newPos.parent.level + 1;
+									preOrderDFS(
+										target.children,
+										(node, root, parent) => {
+											node.level = (root || parent).level + 1;
+										},
+										target
+									);
+
+									this.dropEvent.emit();
+								}
+							}
+						}
+						break;
+					}
+				}
+			}
+		});
+
+		this.drag = new Command({
+			source: 'column.chooser',
+			canExecute: e => {
+				const node = e.data;
+				return node && node.value.column.canMove;
+			}
+		});
+
+		this.submit = new Command({
+			source: 'column.chooser',
+			execute: () => {
+				const index = preOrderDFS([this.tree], (node, current, parent) => {
+					if (parent) {
+						const newNode = copy(node);
+						current.children.push(newNode);
+
+						const { isVisible, column } = node.value;
+						if (isVisible) {
+							const { model } = newNode.key;
+							model.isVisible = column.isVisible;
+							model.aggregation = column.aggregation;
+						}
+
+						newNode.value = null;
+						return newNode;
+					}
+
+					current.value = null;
+					return current;
+				}, copy(this.tree));
+
+				const { model: gridModel } = this.plugin;
+				gridModel.columnList({ index }, {
+					source: 'column.chooser.view'
+				});
+
+				this.submitEvent.emit();
+			}
+		});
+
+		this.cancel = new Command({
+			source: 'column.chooser',
+			execute: () => this.cancelEvent.emit()
+		});
+
+		this.reset = new Command({
+			source: 'column.chooser',
+			execute: () => setup()
+		});
+
+		this.aggregations = Object
+			.getOwnPropertyNames(Aggregation)
+			.filter(key => isFunction(Aggregation[key]));
+
+		const { model: gridModel, observe } = this.plugin;
+		observe(gridModel.dataChanged)
+			.subscribe(e => {
+				if (e.tag.source === 'column.chooser') {
+					return;
+				}
+
+				if (e.hasChanges('columns')) {
+					setup();
+				}
+			});
+
+		observe(gridModel.columnListChanged)
+			.subscribe(e => {
+				if (e.tag.source === 'column.chooser') {
+					return;
+				}
+
+				if (e.hasChanges('index')) {
+					setup();
+				}
+			});
+	}
+
+	state(node) {
+		const { children } = node;
+		const { column } = node.value;
+		if (children.length) {
+			return children.some(n => n.value.column.isVisible);
+		}
+
+		return column.isVisible !== false;
+	}
+
+	stateAll() {
+		return this.listView.every(c => c.isVisible);
+	}
+
+	stateDefault() {
+		return this.listView.every(c => (c.isDefault !== false && c.isVisible !== false) || (c.isDefault === false && c.isVisible === false));
+	}
+
+	isIndeterminate() {
+		return !this.stateAll() && this.listView.some(c => c.isVisible);
+	}
+
+	get canAggregate() {
+		return this.columnChooserCanAggregate;
+	}
+
+	get resource() {
+		return this.plugin.model.columnChooser().resource;
+	}
+}
+
+class ColumnChooserState {
+	constructor() {
+		this.resource = new Resource();
+		this.canAggregate = false;
+		this.canSort = true;
+	}
+}
+
+class ColumnFilterPlugin {
+	constructor(plugin, context) {
+		const { model } = plugin;
+
+		this.plugin = plugin;
+		this.column = context.column;
+
+		this.cancelEvent = new Event();
+		this.submitEvent = new Event();
+		this.resetEvent = new Event();
+
+		const filterBy = model.filter().by[this.column.key];
+
+		this.by = new Set((filterBy && filterBy.items) || []);
+		this.byBlanks = !!(filterBy && filterBy.blanks);
+
+		let defaultOperator = model.filter().operatorFactory(this.column)[0] || 'contains';
+		if (filterBy && filterBy.items && filterBy.items.length) {
+			defaultOperator = 'contains';
+		}
+
+		this.items = [];
+		this.operator = filterBy && filterBy.expression && filterBy.expression.op || defaultOperator;
+		this.value = filterBy && filterBy.expression && filterBy.expression.right || null;
+		this.title = this.column.title;
+		this.getValue = getLabelFactory(this.column);
+
+		Object.assign(this, this.commands);
+
+		this.changeOperator.execute(this.operator);
+	}
+
+	state(item) {
+		return this.by.has(item);
+	}
+
+	stateAll() {
+		return this.items.every(this.state.bind(this)) && (!this.hasBlanks || this.byBlanks);
+	}
+
+	isIndeterminate() {
+		return !this.stateAll() && (this.items.some(this.state.bind(this)) || this.byBlanks);
+	}
+
+	isEmpty() {
+		return !!this.by.size || this.byBlanks;
+	};
+
+	get commands() {
+		return {
+			toggle: new Command({
+				source: 'column.filter.view',
+				execute: (item) => {
+					if (this.by.has(item)) {
+						this.by.delete(item);
+					}
+					else {
+						this.by.add(item);
+					}
+
+					this.by = new Set(this.by);
+				}
+			}),
+			toggleAll: new Command({
+				source: 'column.filter.view',
+				execute: search => {
+					const state = !this.stateAll();
+					if (state) {
+						for (let item of this.items) {
+							this.by.add(item);
+						}
+					}
+					else {
+						if (search) {
+							for (let item of this.by) {
+								if (this.items.indexOf(item) >= 0) {
+									this.by.delete(item);
+								}
+							}
+						}
+						else {
+							this.by.clear();
+						}
+					}
+
+					this.by = new Set(this.by);
+					this.byBlanks = this.hasBlanks && state;
+				}
+			}),
+
+			changeOperator: new Command({
+				source: 'column.filter.view',
+				execute: (op) => {
+					this.operator = op;
+
+					let { value } = this;
+					switch (op) {
+						case 'between': {
+							if (!Array.isArray(value)) {
+								if (isUndefined(value)
+									|| value === null
+									|| value === '') {
+									this.value = [];
+								} else {
+									this.value = [value];
+								}
+							}
+							break;
+						}
+						default: {
+							if (Array.isArray(value)) {
+								this.value = value[0];
+							}
+							break;
+						}
+					}
+				}
+			}),
+
+			submit: new Command({
+				source: 'column.filter.view',
+				execute: () => {
+					const { model } = this.plugin;
+					const by = clone(model.filter().by);
+
+					const filter = by[this.column.key] || {};
+
+					filter.items = Array.from(this.by);
+					filter.blanks = this.byBlanks;
+
+					if (this.operator === 'contains') {
+						delete filter.expression;
+					} else {
+						filter.items = [];
+
+						if (this.operator.startsWith('is')) {
+							filter.expression = {
+								kind: 'condition',
+								op: this.operator,
+								left: this.column.key,
+								right: null,
+							};
+						}
+						else if (
+							isUndefined(this.value)
+							|| this.value === null
+							|| this.value === ''
+							|| (isArray(this.value) && this.value.length === 0)) {
+							delete filter.expression;
+						} else {
+							const parse = parseFactory(this.column.type, this.column.editorOptions.editor);
+							filter.expression = {
+								kind: 'condition',
+								op: this.operator,
+								left: this.column.key,
+								right: isArray(this.value) ? this.value.map(parse) : parse(this.value),
+							};
+						}
+					}
+
+					if ((filter.items && filter.items.length) || filter.blanks || filter.expression) {
+						by[this.column.key] = filter;
+					}
+					else {
+						delete by[this.column.key];
+					}
+
+					model.filter({ by }, { source: 'column.filter.view' });
+
+					this.submitEvent.emit();
+				}
+			}),
+
+			cancel: new Command({
+				source: 'column.filter.view',
+				execute: () => this.cancelEvent.emit()
+			}),
+
+			reset: new Command({
+				source: 'column.filter.view',
+				execute: () => {
+					this.by = new Set();
+					this.byBlanks = false;
+					this.value = this.operator === 'between' ? [] : null;
+					this.resetEvent.emit();
+				}
+			}),
+		};
+	}
+}
+
+class ColumnFilterState {
+	constructor() {
+		this.threshold = 20;
+		this.source = 'data';
+	}
+}
+
+const GRID_ACTIVE_CLASS = `${GRID_PREFIX}-active`;
+const GRID_HIDE_CLASS = `${GRID_PREFIX}-hide`;
+
+class ColumnSortPlugin {
+	constructor(plugin, context) {
+		const { model, observeReply, view } = plugin;
+		const { column, iconDesc, iconAsc, element } = context;
+
+		this.element = element;
+
+		observeReply(model.sortChanged)
+			.subscribe(e => {
+				if (e.hasChanges('by')) {
+					if (view.sort.order(column) < 0) {
+						Fastdom.mutate(() => {
+							element.classList.add(GRID_HIDE_CLASS);
+							element.classList.remove(GRID_ACTIVE_CLASS);
+
+							iconAsc.classList.remove(GRID_ACTIVE_CLASS);
+							iconDesc.classList.remove(GRID_ACTIVE_CLASS);
+						});
+					} else {
+						const direction = view.sort.direction(column);
+						const oldIcon = direction === 'asc' ? iconDesc : iconAsc;
+						const newIcon = direction === 'asc' ? iconAsc : iconDesc;
+
+						Fastdom.mutate(() => {
+							element.classList.add(GRID_ACTIVE_CLASS);
+							element.classList.remove(GRID_HIDE_CLASS);
+
+							oldIcon.classList.remove(GRID_ACTIVE_CLASS);
+							newIcon.classList.add(GRID_ACTIVE_CLASS);
+						});
+					}
+				}
+			});
+
+		this.toggle = new Command({
+			canExecute: () => view.sort.toggle.canExecute(column),
+			execute: () => view.sort.toggle.execute(column)
+		});
+	}
+
+	click() {
+		if (this.toggle.canExecute()) {
+			this.toggle.execute();
+			return true;
+		}
+
+		return false;
+	}
+
+	mouseLeave() {
+		Fastdom.mutate(() => {
+			this.element.classList.remove(GRID_HIDE_CLASS);
+		});
+	}
+}
+
+class DataManipulationState {
+	constructor() {
+		this.resource = new Resource();
+
+		this.deleted = new Set();
+		this.added = new Set();
+		this.edited = new Map();
+
+		this.rowFactory = etalonRow => {
+			if (etalonRow) {
+				return cloneDeep(etalonRow, value => {
+					if (isArray(value)) {
+						return [];
+					}
+
+					if (!isObject(value) ||
+						isNumber(value) ||
+						isDate(value) ||
+						isBoolean(value) ||
+						isFunction(value)) {
+						return null;
+					}
+				});
+			}
+		};
+	}
+}
+
+class DataManipulationPlugin {
+	constructor(plugin) {
+		this.plugin = plugin;
+
+		this.commitCommand = new Command({
+			execute: e => {
+				if (e.column.category !== 'data') {
+					return;
+				}
+
+				const rowId = this.rowId(e.rowIndex, e.row);
+				const columnId = this.columnId(e.columnIndex, e.column);
+				const { edited } = this.changes;
+
+				let entries = edited.get(rowId);
+				if (!entries) {
+					entries = [];
+					edited.set(rowId, entries);
+				}
+
+				let entryIndex = entries.findIndex(entry => entry.column === columnId);
+				let entry = entries[entryIndex];
+				if (!entry) {
+					entry = {
+						column: columnId,
+						oldValue: e.oldValue,
+						oldLabel: e.oldLabel
+					};
+
+					entryIndex = entries.length;
+					entries.push(entry);
+				}
+
+				entry.newValue = e.newValue;
+				entry.newLabel = e.newLabel;
+
+				// TODO: understand if we need to track label changes?
+				if (!this.hasChanges(entry.newValue, entry.oldValue)) {
+					entries.splice(entryIndex, 1);
+					if (!entries.length) {
+						edited.delete(rowId);
+					}
+				}
+			}
+		});
+
+		this.actions = [
+			new Action(
+				new Command({
+					source: 'data.manipulation',
+					execute: () => {
+						const { model, observe, table } = this.plugin;
+						const { data } = model;
+
+						const newRow = this.rowFactory(model.data().rows[0]);
+						if (isUndefined(newRow)) {
+							throw new GridError('data.manipulation', 'Setup rowFactory property to add new rows');
+						}
+
+						const rowId = this.rowId(0, newRow);
+						this.changes.added.add(rowId);
+						data({
+							rows: [newRow].concat(data().rows)
+						}, {
+							source: 'data.manipulation'
+						});
+
+						observe(model.sceneChanged)
+							.pipe(
+								filter(e => e.hasChanges('status') && e.state.status === 'stop'),
+								takeOnce()
+							)
+							.subscribe(e => {
+								const index = model.view().rows.indexOf(newRow);
+								model.focus({
+									rowIndex: index
+								}, {
+									source: 'data.manipulation.plugin'
+								});
+
+								table.view.focus();
+							});
+					},
+					shortcut: 'F7'
+				}),
+				'Add New Row',
+				'add'
+			)];
+
+		this.rowActions = [
+			new Action(
+				new Command({
+					source: 'data.manipulation',
+					canExecute: e => {
+						const rowId = this.rowId(e.rowIndex, e.row);
+						return !this.changes.deleted.has(rowId);
+					},
+					execute: e => {
+						const { model } = this.plugin;
+						const { data } = model;
+
+						const rowId = this.rowId(e.rowIndex, e.row);
+						const changes = this.changes;
+						if (changes.added.has(rowId)) {
+							changes.added.delete(rowId);
+							const rows = data().rows.filter((row, i) => this.rowId(i, row) !== rowId);
+							data({ rows }, {
+								source: 'data.manipulation'
+							});
+						}
+						else {
+							changes.deleted.add(rowId);
+						}
+					}
+				}),
+				'Delete Row',
+				'delete'
+			),
+			new Action(
+				new Command({
+					source: 'data.manipulation',
+					execute: e => {
+						const rowId = this.rowId(e.rowIndex, e.row);
+						if (this.changes.deleted.has(rowId)) {
+							this.changes.deleted.delete(rowId);
+						}
+
+						if (this.changes.edited.has(rowId)) {
+							try {
+								const { model } = this.plugin;
+
+								const edits = this.changes.edited.get(rowId);
+								const columnMap = columnService.mapColumns(model.columnList().line);
+								for (const edit of edits) {
+									const column = columnMap[edit.column];
+									if (!column) {
+										throw new GridError('data.manipulation', `Column ${edit.column} is not found`);
+									}
+
+									setValue(e.row, column, edit.oldValue);
+									setLabel(e.row, column, edit.oldLabel);
+								}
+							}
+							finally {
+								this.changes.edited.delete(rowId);
+							}
+						}
+					},
+					canExecute: e => {
+						const rowId = this.rowId(e.rowIndex, e.row);
+						return this.changes.deleted.has(rowId) || this.changes.edited.has(rowId);
+					}
+				}),
+				'Revert Row',
+				'restore'
+			),
+			// new Action(
+			//	source: 'data.manipulation',
+			// 	new Command({
+			// 		execute: () => {
+			// 			// TODO make edit form service
+			// 		}
+			// 	}),
+			// 	'Edit Form',
+			// 	'edit'
+			// )
+		];
+
+		const { model, disposable, observeReply } = this.plugin;
+
+		this.rowId = model.data().rowId;
+		this.columnId = model.data().columnId;
+
+		const dm = model.resolve(DataManipulationState);
+		this.rowFactory = dm.state().rowFactory;
+
+		const styleState = model.style();
+		const rows = Array.from(styleState.rows);
+		const cells = Array.from(styleState.cells);
+		rows.push(this.styleRow.bind(this));
+		cells.push(this.styleCell.bind(this));
+
+
+		model
+			.edit({
+				mode: 'cell',
+				commit: Composite.command([this.commitCommand, model.edit().commit])
+			})
+			.style({
+				rows, cells
+			})
+			.action({
+				items: Composite.list([this.actions, model.action().items])
+			});
+
+		disposable.add(() => {
+			const { items } = model.action();
+			const notDMActions = items.filter(x => this.actions.every(y => y.id !== x.id));
+			model.action({ items: notDMActions });
+		});
+
+		observeReply(model.columnListChanged)
+			.pipe(
+				filter(e => e.hasChanges('line')),
+				takeOnce()
+			)
+			.subscribe(e => {
+				const rowOptionsColumn = e.state.line.find(column => column.type === 'row-options');
+				if (rowOptionsColumn) {
+					rowOptionsColumn.editorOptions.actions.push(...this.rowActions);
+				}
+			});
+	}
+
+	hasChanges(newValue, oldValue) {
+		// TODO: understand if we need to parse values (e.g. '12' vs 12)
+		return newValue !== oldValue;
+	}
+
+	styleRow(row, context) {
+		const rowId = this.rowId(context.row, row);
+		if (this.changes.deleted.has(rowId)) {
+			context.class('deleted', { opacity: 0.3 });
+		}
+	}
+
+	styleCell(row, column, context) {
+		const rowId = this.rowId(context.row, row);
+		const changes = this.changes;
+		if (column.type === 'row-indicator') {
+			if (changes.deleted.has(rowId)) {
+				context.class('delete-indicator', { background: '#EF5350' });
+			}
+			else if (changes.added.has(rowId)) {
+				context.class('add-indicator', { background: '#C8E6C9' });
+			}
+			else if (changes.edited.has(rowId)) {
+				context.class('edit-indicator', { background: '#E3F2FD' });
+			}
+
+			return;
+		}
+
+		if (changes.edited.has(rowId)) {
+			const entries = changes.edited.get(rowId);
+			if (entries.findIndex(entry => entry.column === this.columnId(context.column, column)) >= 0) {
+				context.class('edited', { background: '#E3F2FD' });
+			}
+		}
+	}
+
+	get changes() {
+		const { model } = this.plugin;
+		return model.dataManipulation();
+	}
+
+	get resource() {
+		const dm = this.model.resolve(DataManipulationState);
+		return dm.state().resource;
+	}
+}
+
+class EditFormEditorPlugin {
+	constructor(context) {
+		this.editor = context.editor;
+	}
+}
+
+class EditFormPanelPlugin {
+	constructor(plugin, context) {
+		const { model, disposable } = plugin;
+
+		this.plugin = plugin;
+		this.editor = new RowEditor(context.row, model.columnList().line);
+		this.caption = context.caption;
+
+		this.submitEvent = new Event();
+		this.cancelEvent = new Event();
+		this.resetEvent = new Event();
+
+		this.submit = this.commands.submit;
+		this.cancel = this.commands.cancel;
+		this.reset = this.commands.reset;
+
+		if (!isUndefined(context.shortcut)) {
+			disposable.add(context.shortcut.register(new Map(
+				Object.entries(this.commands)
+			)));
+		}
+	}
+
+	get editors() {
+		return this.editor.editors;
+	}
+
+	get commands() {
+		const commands = {
+			submit: new Command({
+				source: 'edit.form.panel',
+				shortcut: this.shortcutFactory('commit'),
+				execute: () => {
+					this.editor.commit();
+					this.submitEvent.emit();
+				}
+			}),
+			cancel: new Command({
+				source: 'edit.form.panel',
+				shortcut: this.shortcutFactory('cancel'),
+				execute: () => this.cancelEvent.emit()
+			}),
+			reset: new Command({
+				source: 'edit.form.panel',
+				execute: () => {
+					this.editor.editors.forEach(e => e.reset());
+					this.resetEvent.emit();
+				}
+			})
+		};
+
+		return commands;
+	}
+
+	shortcutFactory(type) {
+		const { model } = this.plugin;
+		return () => {
+			const shortcuts = model.edit()[type + 'Shortcuts'];
+			return shortcuts['reference'] || shortcuts['$default'];
+		};
+	}
+}
+
+class EditFormPlugin {
+	constructor(model, context) {
+		this.model = model;
+
+		this.key = context.key;
+		this.title = context.title;
+		this.row = context.row;
+
+		this.submitEvent = new Event();
+		this.cancelEvent = new Event();
+
+		this.submit = this.commands.submit;
+		this.cancel = this.commands.cancel;
+	}
+
+	get commands() {
+		const commands = {
+			submit: new Command({
+				source: 'edit.form',
+				execute: () => this.submitEvent.emit()
+			}),
+			cancel: new Command({
+				source: 'edit.form',
+				execute: () => this.cancelEvent.emit()
+			})
+		};
+
+		return commands;
+	}
+}
+
+function downloadFactory(fileSaver) {
+	return function download(name, data, mimeType, extension) {
+		const blob = new Blob([data], {type: mimeType});
+		const type = extension ? extension : mimeType.split('/')[1];
+		const fileName = `${name}.${type}`;
+		fileSaver.saveAs(blob, fileName);
+	};
+}
+
+class PdfWriter {
+	constructor(jsPDF) {
+		this.jsPDF = jsPDF;
+	}
+	write(rows, columns, name) {
+		const jsPDF = this.jsPDF;
+		const titles = [];
+		const values = [];
+		const doc = new jsPDF({orientation: 'landscape', unit: 'in'});
+		const tableOptions = {
+			styles: {
+				overflow: 'linebreak',
+				fontSize: 8,
+				columnWidth: 'auto',
+				overflowColumns: true
+			},
+			headerStyles: {
+				overflow: 'ellipsize',
+			},
+			pageBreak: 'auto',
+			margin: 0
+		};
+		for (let column of columns) {
+			titles.push({title: column.title, dataKey: column.path});
+		}
+		for (let row of rows) {
+			values.push(graphFlatView(row));
+		}
+
+		doc.autoTable(titles, values, tableOptions);
+		doc.save(`${name}.pdf`);
+	}
+}
+
+function sheet_to_workbook(sheet) {
+	const sheets = {};
+	sheets['Sheet1'] = sheet;
+	return {SheetNames: ['Sheet1'], Sheets: sheets};
+}
+
+function toArrayBuffer(excel) {
+	const buffer = new ArrayBuffer(excel.length);
+	const view = new Uint8Array(buffer);
+	for (let i = 0; i < excel.length; ++i) {
+		view[i] = excel.charCodeAt(i) & 0xFF;
+	}
+	return buffer;
+}
+
+class XlsxWriter {
+	constructor(xlsx) {
+		this.xlsx = xlsx;
+	}
+	write(rows, columns) {
+		const result = [];
+		const headers = [];
+		const excelOptions = {bookType: 'xlsx', bookSST: true, cellDates: true, compression: true, type: 'binary'};
+
+		for (let row of rows) {
+			result.push(graphFlatView(row));
+		}
+		for (let column of columns) {
+			headers.push(column.title);
+		}
+		const worksheet = this.xlsx.utils.json_to_sheet(result);
+		const workbook = sheet_to_workbook(this.updateTitles(worksheet, headers));
+		const excel = this.xlsx.write(workbook, excelOptions);
+
+		return toArrayBuffer(excel);
+	}
+
+	updateTitles(worksheet, headers) {
+		const range = this.xlsx.utils.decode_range(worksheet['!ref']);
+		for (let i = range.s.r; i <= range.e.r; ++i) {
+			const address = this.xlsx.utils.encode_col(i) + '1';
+			if (!worksheet[address]) continue;
+			worksheet[address].v = headers[i];
+		}
+		return worksheet;
+	}
+}
+
+class ExportPlugin {
+	constructor(model, type) {
+		this.model = model;
+		this.type = type;
+
+		this.csv = new Command({
+			source: 'export',
+			canExecute: () => this.type === 'csv',
+			execute: () => {
+				const pluginService = new PluginService(this.model);
+				const fileSaver = pluginService.resolve('fileSaver');
+				const csv = new CsvExport();
+				const data = csv.write(this.rows, this.columns);
+				const download = downloadFactory(fileSaver);
+				download(this.id, data, `text/${this.type}`);
+			}
+		});
+
+		this.json = new Command({
+			source: 'export',
+			canExecute: () => this.type === 'json',
+			execute: () => {
+				const pluginService = new PluginService(this.model);
+				const fileSaver = pluginService.resolve('fileSaver');
+				const json = new JsonExport();
+				const data = json.write(this.rows, this.columns);
+				const download = downloadFactory(fileSaver);
+				download(this.id, data, `text/${this.type}`);
+			}
+		});
+
+		this.xml = new Command({
+			source: 'export',
+			canExecute: () => this.type === 'xml',
+			execute: () => {
+				const pluginService = new PluginService(this.model);
+				const fileSaver = pluginService.resolve('fileSaver');
+				const xml = new XmlExport();
+				const data = xml.write(this.rows);
+				const download = downloadFactory(fileSaver);
+				download(this.id, data, `application/${this.type}`);
+			}
+		});
+
+		this.xlsx = new Command({
+			source: 'export',
+			canExecute: () => this.type === 'xlsx',
+			execute: () => {
+				const pluginService = new PluginService(this.model);
+				const lib = pluginService.resolve('xlsx');
+				const fileSaver = pluginService.resolve('fileSaver');
+				const xlsx = new XlsxWriter(lib);
+				const data = xlsx.write(this.rows, this.columns);
+				const download = downloadFactory(fileSaver);
+				download(this.id, data, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'xlsx');
+			}
+		});
+
+		this.pdf = new Command({
+			source: 'export',
+			canExecute: () => this.type === 'pdf',
+			execute: () => {
+				const pluginService = new PluginService(this.model);
+				const lib = pluginService.resolve('pdf');
+				const pdf = new PdfWriter(lib);
+				pdf.write(this.rows, this.columns, this.id);
+			}
+		});
+	}
+
+	get columns() {
+		return this.model.columnList().line;
+	}
+
+	get rows() {
+		return this.model.data().rows;
+	}
+
+	get id() {
+		return this.model.grid().id;
+	}
+}
+
+class FocusPlugin {
+	constructor(context) {
+		this.element = context.element;
+		this.targetSelector = context.targetSelector;
+		this.job = jobLine(context.delay);
+	}
+
+	set() {
+		if (this.element.getAttribute('tabindex') === null
+			|| this.element.getAttribute('tabindex') !== '') {
+			this.element.setAttribute('tabindex', -1);
+		}
+
+		this.job(() => {
+			let targetElement = this.element;
+			if (this.targetSelector) {
+				const target = this.element.querySelector(this.targetSelector);
+				if (target) {
+					targetElement = target;
+				}
+				else {
+					throw new GridError('focus', `Element "${this.targetSelector}" is not found`);
+				}
+			}
+
+			targetElement.focus();
+		});
+	}
+}
+
+function rewriteObject(obj) {
+	const result = {};
+	for (let [key, value] of Object.entries(obj)) {
+		result[key] = value;
+	}
+	return result;
+}
+
+class XlsxReader {
+	constructor(xlsx) {
+		this.xlsx = xlsx;
+	}
+	read(data, options) {
+
+		const workbook = this.xlsx.read(data, {type: 'binary'});
+		return this.toJson(workbook, options);
+	}
+
+	toJson(workbook, options = {}) {
+		const wbOptions = {};
+		switch (options.head) {
+			case 'alpha': {
+				wbOptions.header = 'A';
+				break;
+			}
+			case 'numeric': {
+				wbOptions.header = 1;
+				break;
+			}
+		}
+		let result = [];
+		for (let sheetName of workbook.SheetNames) {
+			const partial = this.xlsx.utils.sheet_to_json(workbook.Sheets[sheetName], wbOptions);
+			result = partial.concat(result);
+		}
+
+		return result.map(rewriteObject);
+	}
+}
+
+function getType(name) {
+	const delimiter = /[.]/g.test(name);
+	if (delimiter) {
+		const type = name.split('.');
+		return type[type.length - 1];
+	}
+}
+
+function readFile(e, file, model, options = {}) {
+	const data = e.target.result;
+	const type = file.type === '' ? getType(file.name) : file.type;
+	const pluginService = new PluginService(model);
+	switch (type) {
+		case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+		case 'xlsx': {
+			const lib = pluginService.resolve('xlsx');
+			const xlsx = new XlsxReader(lib);
+			const rows = xlsx.read(data, options);
+			const createColumn = columnFactory(model);
+			const columns = generate({
+				rows,
+				columnFactory: (type, body) => createColumn('text', body),
+				deep: false
+			});
+			model.data({
+				columns,
+				rows
+			}, { source: 'read' });
+			break;
+		}
+		case 'application/json':
+		case 'text/json':
+		case 'json': {
+			const json = new JsonImport();
+			const rows = json.read(data);
+			if (rows.length) {
+				const createColumn = columnFactory(model);
+				const columns = generate({
+					rows,
+					columnFactory: (type, body) => createColumn('text', body),
+					deep: true
+				});
+				model.data({
+					columns,
+					rows
+				}, { source: 'read' });
+			} else {
+				throw new GridError('import', 'JSON for input should be an array of objects');
+			}
+			break;
+		}
+		case 'application/xml':
+		case 'text/xml':
+		case 'xml': {
+			const xml = new XmlImport();
+			const rows = xml.read(data);
+			const columns = generate({
+				rows,
+				columnFactory: columnFactory(model),
+				deep: true
+			});
+			model.data({
+				columns,
+				rows
+			}, { source: 'read' });
+			break;
+		}
+		case 'application/vnd.ms-excel':
+		case 'text/csv':
+		case 'csv': {
+			const csv = new CsvImport();
+			const rows = csv.read(data);
+
+			let title = firstRowTitle;
+
+			if (options.head === 'alpha') {
+				title = alphaTitle;
+			} else if (options.head === 'numeric') {
+				title = numericTitle;
+			}
+
+			const columns = generate({
+				rows,
+				columnFactory: columnFactory(model),
+				deep: false,
+				title
+			});
+
+			if (title === firstRowTitle) {
+				rows.shift(0);
+			}
+			model.data({
+				columns,
+				rows
+			}, { source: 'read' });
+			break;
+		}
+		default: {
+			throw new GridError('import', `This is not valid file type ${type}`);
+		}
+	}
+}
+
+class ImportPlugin {
+	constructor(model, element) {
+		this.model = model;
+		this.element = element;
+	}
+
+	upload() {
+		upload(this.element);
+	}
+
+	load(e) {
+		const { files } = e.target;
+		for (let file of files) {
+			const reader = new FileReader();
+			reader.onload = e => readFile(e, file, this.model, this.options);
+			reader.readAsBinaryString(file);
+		}
+	}
+}
+
+class PagerPlugin {
+	constructor(plugin) {
+		const { model } = plugin;
+
+		this.plugin = plugin;
+
+		const { shortcut } = model.pagination();
+
+		this.next = new Command({
+			source: 'pager',
+			shortcut: shortcut.next,
+			execute: () => {
+				new FocusAfterRenderService(plugin);
+				model.pagination({ current: model.pagination().current + 1 }, { source: 'pager.view' });
+			},
+			canExecute: () => (model.pagination().current + 1) * model.pagination().size < model.pagination().count
+		});
+
+		this.prev = new Command({
+			source: 'pager',
+			shortcut: shortcut.prev,
+			execute: () => {
+				new FocusAfterRenderService(plugin);
+				model.pagination({ current: model.pagination().current - 1 }, { source: 'pager.view' });
+			},
+			canExecute: () => model.pagination().current > 0
+		});
+	}
+
+	get theme() {
+		return this.plugin.model.style().classList
+	}
+
+	get resource() {
+		return this.plugin.model.pagination().resource;
+	}
+
+	get size() {
+		return this.plugin.model.pagination().size;
+	}
+
+	set size(value) {
+		this.plugin.model.pagination({ size: value, current: 0 }, { source: 'pager.view' });
+	}
+
+	get sizeList() {
+		return this.plugin.model.pagination().sizeList;
+	}
+
+	get current() {
+		return this.plugin.model.pagination().current;
+	}
+
+	set current(value) {
+		return this.plugin.model.pagination({ current: value }, { source: 'pager.view' });
+	}
+
+	get from() {
+		return Math.min(this.total, this.current * this.size + 1);
+	}
+
+	get to() {
+		return Math.min(this.total, (this.current + 1) * this.size);
+	}
+
+	get total() {
+		return this.plugin.model.pagination().count;
+	}
+
+	get totalPages() {
+		return this.size === 0
+			? 0
+			: Math.max(1, Math.ceil(this.total / this.size));
+	}
+
+	get scroll() {
+		return this.plugin.model.scroll();
+	}
+
+	get mode() {
+		return this.plugin.model.pagination().mode;
+	}
+}
+
+class PersistencePlugin {
+	constructor(plugin, createDefaultModel) {
+		const { model, observeReply } = plugin;
+
+		this.plugin = plugin;
+		this.service = new PersistenceService(model, createDefaultModel);
+		this.closeEvent = new Event();
+		this.items = [];
+		this.state = {
+			editItem: null,
+			oldValue: null
+		};
+
+		const { persistence } = model;
+
+		this.id = persistence().id;
+		this.title = this.stringify();
+
+		persistence()
+			.storage
+			.getItem(this.id)
+			.then(items => {
+				this.items = items || [];
+				this.groups = this.buildGroups(this.items);
+			});
+
+		observeReply(model.gridChanged)
+			.subscribe(e => {
+				if (e.hasChanges('status') && e.state.status === 'unbound') {
+					this.closeEvent.emit();
+				}
+			});
+
+		this.create = new Command({
+			source: 'persistence.view',
+			execute: () => {
+				const item = {
+					title: this.title,
+					modified: Date.now(),
+					model: this.service.save(),
+					isDefault: false,
+					group: persistence().defaultGroup,
+					canEdit: true
+				};
+
+				if (persistence().create.execute(item) !== false) {
+					this.items.push(item);
+					this.persist();
+					this.title = '';
+					return true;
+				}
+				return false;
+			},
+			canExecute: () => {
+				if (!!this.title && this.isUniqueTitle(this.title)) {
+					const item = {
+						title: this.title,
+						modified: Date.now(),
+						model: this.service.save(),
+						isDefault: false,
+						group: persistence().defaultGroup,
+						canEdit: true
+					};
+
+					return persistence().create.canExecute(item);
+				}
+
+				return false;
+			}
+		});
+
+		this.edit = {
+			enter: new Command({
+				source: 'persistence.view',
+				execute: item => {
+					item = item || this.items.find(this.isActive);
+					if (!item) {
+						return false;
+					}
+					this.state = {
+						editItem: item,
+						oldValue: clone(item)
+					};
+					return true;
+				},
+				canExecute: item => this.state.editItem === null && item.canEdit
+			}),
+			commit: new Command({
+				source: 'persistence.view',
+				shortcut: 'enter',
+				execute: item => {
+					item = item || this.state.editItem;
+					if (persistence().modify.execute(item) !== false) {
+						const title = item.title;
+						if (!title || !this.isUniqueTitle(title)) {
+							this.edit.cancel.execute();
+							return false;
+						}
+						item.modified = Date.now();
+						this.persist();
+						this.state.editItem = null;
+						return true;
+					}
+					return false;
+				},
+				canExecute: () =>
+					this.state.editItem !== null &&
+					persistence().modify.canExecute(this.state.editItem)
+			}),
+			cancel: new Command({
+				source: 'persistence.view',
+				shortcut: 'escape',
+				execute: () => {
+					if (this.state.editItem !== null) {
+						const index = this.items.indexOf(this.state.editItem);
+						this.items.splice(index, 1, this.state.oldValue);
+						this.state.oldValue = null;
+						this.state.editItem = null;
+					} else {
+						this.closeEvent.emit();
+					}
+					return true;
+				}
+			})
+		};
+
+		this.load = new Command({
+			source: 'persistence.view',
+			canExecute: item => persistence().load.canExecute(item),
+			execute: item => {
+				if (persistence().load.execute(item) !== false) {
+					this.service.load(item.model);
+					return true;
+				}
+
+				return false;
+			}
+		});
+
+		this.reset = new Command({
+			source: 'persistence.view',
+			execute: () => {
+				if (persistence().reset.execute() !== false) {
+					this.service.reset();
+				}
+				return false;
+			},
+			canExecute: () => persistence().reset.canExecute()
+		});
+
+		this.remove = new Command({
+			source: 'persistence.view',
+			execute: item => {
+				const index = this.items.indexOf(item);
+				if (index >= 0) {
+					if (persistence().remove.execute(item) !== false) {
+						this.items.splice(index, 1);
+
+						this.persist();
+						return true;
+					}
+				}
+				return false;
+			},
+			canExecute: item =>
+				item.canEdit && persistence().remove.canExecute(item)
+		});
+
+		this.setDefault = new Command({
+			source: 'persistence.view',
+			canExecute: item => persistence().setDefault.canExecute(item),
+			execute: item => {
+				if (persistence().setDefault.execute(item) !== false) {
+					const index = this.items.indexOf(item);
+					if (index === -1) {
+						return false;
+					}
+
+					if (item.isDefault) {
+						item.isDefault = false;
+					} else {
+						this.items.forEach(i => (i.isDefault = false));
+						item.isDefault = true;
+					}
+					this.items.splice(index, 1, item);
+
+					this.persist();
+					return true;
+				}
+
+				return false;
+			}
+		});
+
+		const commandManager = new CommandManager();
+		const shortcut = new Shortcut(new ShortcutDispatcher());
+
+		this.keyDown = e => shortcut.keyDown(e);
+
+		shortcut.register(commandManager, [
+			this.edit.enter,
+			this.edit.commit,
+			this.edit.cancel
+		]);
+	}
+
+	get blank() {
+		return {
+			title: 'Blank',
+			modified: Date.now(),
+			model: {},
+			isDefault: false,
+			group: 'blank',
+			canEdit: false
+		};
+	}
+
+	get sortedItems() {
+		return this.items.sort((a, b) => b.modified - a.modified);
+	}
+
+	buildGroups(items) {
+		return items
+			.reduce((memo, item) => {
+				const group = memo.find(m => m.key === item.group);
+				if (group) {
+					group.items.push(item);
+				} else {
+					memo.push({
+						key: item.group,
+						items: [item]
+					});
+				}
+				return memo;
+			}, []);
+	}
+
+	isActive(item) {
+		return serialize(item.model) === serialize(this.service.save()); // eslint-disable-line angular/json-functions
+	}
+
+	persist() {
+		const { model } = this.plugin;
+
+		model
+			.persistence()
+			.storage
+			.setItem(this.id, this.items.filter(item => item.canEdit));
+
+		this.groups = this.buildGroups(this.items);
+	}
+
+	stringify(item) {
+		const { settings } = this.plugin.model.persistence();
+		const model = item ? item.model : this.service.save();
+		const targets = [];
+
+		for (let key in settings) {
+			if (!model[key]) {
+				continue;
+			}
+
+			const stringify = stringifyFactory(key);
+			const target = stringify(model[key]);
+			if (target !== '') {
+				targets.push(target);
+			}
+		}
+
+		return targets.join('; ') || 'No settings';
+	}
+
+	isUniqueTitle(title) {
+		title = (title || '').trim().toLowerCase();
+		return !this.items
+			.some(item =>
+				item !== this.state.editItem &&
+				(item.title || '').toLowerCase() === title
+			);
+	}
+}
+
+class PositionPlugin {
+	constructor(context, disposable) {
+		this.element = context.element;
+		this.targetName = context.targetName;
+
+		const windowListener = new EventListener(window, new EventManager(this));
+		const job = jobLine(400);
+
+		disposable.add(
+			windowListener.on('resize', () => {
+				this.invalidate();
+				// In case if after window resize there can different animated layout changes
+				job(() => this.invalidate());
+			}));
+	}
+
+	invalidate() {
+		let node = this.element.parentNode;
+		while (node) {
+			const targetName = (this.targetName || '').toLowerCase();
+			if (node.nodeName.toLowerCase() === targetName) {
+				// To gurantee last execution we cover mutate with measure
+				Fastdom.measure(() =>
+					Fastdom.mutate(() => {
+						this.layout(node, this.element);
+						this.element.style.opacity = 1;
+					})
+				);
+				return;
+			}
+			node = node.parentNode;
+		}
+	}
+
+	layout(target, source) {
+		const { top, right, left, bottom } = target.getBoundingClientRect();
+		const { width, height } = source.getBoundingClientRect();
+
+		const fitRect = this.boxRect();
+		const intersections = [];
+
+		intersections.push(
+			this.intersection(fitRect, {
+				top: top,
+				right: left + width,
+				bottom: top + height,
+				left: left
+			}));
+
+		intersections.push(
+			this.intersection(fitRect, {
+				top: top,
+				right: right,
+				bottom: top + height,
+				left: right - width
+			}));
+
+		intersections.push(
+			this.intersection(fitRect, {
+				top: bottom - height,
+				right: left + width,
+				bottom: bottom,
+				left: left
+			}));
+
+		intersections.push(
+			this.intersection(fitRect, {
+				top: bottom - height,
+				right: right,
+				bottom: bottom,
+				left: right - width
+			}));
+
+		const intersection = max(intersections, i => i.area);
+		const { left: l, top: t } = intersection.b;
+		const pos = this.fix({ left: l - fitRect.left, top: t - fitRect.top, width, height });
+
+		source.style.left = pos.left + 'px';
+		source.style.top = pos.top + 'px';
+	}
+
+	intersection(a, b) {
+		const xo = Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left));
+		const yo = Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
+		const area = xo * yo;
+		return { area, a, b };
+	}
+
+	fix(rect) {
+		const wr = this.windowRect();
+		const br = this.boxRect();
+
+		const { width: ww, height: wh } = wr;
+		const abx = br.left - wr.left;
+		const aby = br.top - wr.top;
+
+		const { height: rh, width: rw } = rect;
+		//  absolute coords relative to window
+		const arx = rect.left + abx;
+		const ary = rect.top + aby;
+
+		const ltx0 = arx < wr.left;
+		const gtx1 = arx + rw > ww;
+		const lty0 = ary < wr.top;
+		const gty1 = ary + rh > wh;
+
+		// we are trying to show right bottom corner
+		// it often has control buttons
+		const left = ltx0 || gtx1
+			? rect.left + (ww - arx - rw)
+			: rect.left;
+
+		const top = lty0 || gty1
+			? rect.top + (wh - ary - rh)
+			: rect.top;
+
+		return { left, top };
+	}
+
+	boxRect() {
+		let view = this.element;
+		const marker = `${GRID_PREFIX}-box`;
+		while (view) {
+			if (view.classList && view.classList.contains(marker)) {
+				return view.getBoundingClientRect();
+			}
+
+			view = view.parentNode;
+		}
+
+		return this.windowRect();
+	}
+
+	windowRect() {
+		const { innerHeight: h, innerWidth: w } = window;
+		return {
+			top: 0,
+			left: 0,
+			bottom: h,
+			right: w,
+			height: h,
+			width: w
+		};
+	}
+}
+
+class RestPlugin {
+	constructor(model, { get, post }) {
+		this.model = model;
+
+		const { method, url, serialize } = this.model.rest();
+		if (!url) {
+			throw new GridError('rest', 'REST endpoint URL is required');
+		}
+
+		const fetch = this.fetchFactory(method, get, post);
+		const doSerialize = this.serializeFactory(method, serialize);
+
+		model.data({
+			pipe: [
+				(data, context, next) => {
+					fetch(url, doSerialize(model)).then(data => next(data));
+				},
+				...PipeUnit.view
+			]
+		}, { source: 'rest.view' });
+	}
+
+	fetchFactory(method, get, post) {
+		switch (method.toLowerCase()) {
+			case 'get':
+				return get;
+			case 'post':
+				return post;
+			default:
+				throw new GridError('rest', `"${method}" is incorrect REST method`);
+		}
+	}
+
+	serializeFactory(method, serialize) {
+		if (isFunction(serialize)) {
+			return serialize;
+		} else if (method === 'get') {
+			return serializeGet;
+		} else if (method === 'post') {
+			return serializePost;
+		}
+	}
+}
+
+class ValidatorPlugin {
+	constructor(model, context) {
+		this.model = model;
+		this.context = context;
+
+		this.oldErrors = [];
+		if (hasRules(this.rules, this.key)) {
+			this.validator = createValidator(this.rules, this.key);
+		}
+	}
+
+	get errors() {
+		if (this.validator) {
+			const target = {
+				[this.key]: this.value
+			};
+
+			const isValid = this.validator.validate(target);
+			if (!isValid) {
+				const newError = this.validator.getErrors()[this.key];
+				const newErrors = isString(newError) ? [newError] : newError;
+				if (!same(newErrors, this.oldErrors)) {
+					this.oldErrors = newErrors;
+				}
+			} else {
+				this.oldErrors.length = 0;
+			}
+
+			return this.stringify(this.oldErrors);
+		}
+	}
+
+	get rules() {
+		return this.model.validation().rules;
+	}
+
+	get type() {
+		return this.context.type;
+	}
+
+	get value() {
+		return this.context.value;
+	}
+
+	get key() {
+		return this.context.key;
+	}
+
+	stringify(errors) {
+		const customErrors = [];
+		let rules = {};
+		for (const rule of this.validator.livrRules[this.key]) {
+			rules = Object.assign(rules, rule);
+		}
+
+		for (const error of errors) {
+			switch (error) {
+				case 'REQUIRED': { customErrors.push(`Can't be empty`); break; }
+				case 'FORMAT_ERROR': { customErrors.push('Wrong format'); break; }
+				case 'TOO_LOW': { customErrors.push(`Must be > ${rules.min_number}`); break; }
+				case 'TOO_HIGH': { customErrors.push(`Must be < ${rules.max_number}`); break; }
+				case 'CANNOT BE EMPTY': { customErrors.push(`Can't be empty`); break; }
+				case 'WRONG_FORMAT': { customErrors.push('Must match the pattern'); break; }
+				case 'WRONG_EMAIL': { customErrors.push('Must be an email'); break; }
+				case 'WRONG_URL': { customErrors.push('Must be a url'); break; }
+				case 'WRONG_DATE': { customErrors.push('Must be a date'); break; }
+				case 'FIELDS_NOT_EQUAL': { customErrors.push(`Field must be equal ${rules.equal_to_field}`); break; }
+				case 'NOT_INTEGER': { customErrors.push('Must be an integer'); break; }
+				case 'NOT_POSITIVE_INTEGER': { customErrors.push('Must be a positive integer'); break; }
+				case 'NOT_DECIMAL': { customErrors.push('Must be a decimal'); break; }
+				case 'NOT_POSITIVE_DECIMAL': { customErrors.push('Must be a positive decimal'); break; }
+				case 'NOT_ALLOWED_VALUE': {
+					if (rules.eq && rules.eq != this.value) {
+						customErrors.push(`Must be equal to ${rules.eq}`);
+					}
+					else {
+						customErrors.push(`Must be one of ${rules.one_of}`);
+					}
+					break;
+				}
+				case 'TOO_LONG': {
+					if (rules.max_length && rules.max_length < this.value.length) {
+						customErrors.push(`Length must be < ${rules.max_length}`);
+					}
+					else if (rules.length_equal && rules.length_equal != this.value.length) {
+						customErrors.push(`Length must be equal to ${rules.length_equal}`);
+					}
+					else {
+						customErrors.push(`Length must be [${rules.length_between['0']},${rules.length_between['1']}]`);
+					}
+					break;
+				}
+				case 'TOO_SHORT': {
+					if (rules.min_length && rules.min_length > this.value.length) {
+						customErrors.push(`Length must be > ${rules.min_length}`);
+					}
+					else if (rules.length_equal && rules.length_equal != this.value.length) {
+						customErrors.push(`Length must be equal to ${rules.length_equal}`);
+					}
+					else {
+						customErrors.push(`Length must be [${rules.length_between['0']},${rules.length_between['1']}]`);
+					}
+					break;
+				}
+				default: customErrors.push(error);
+			}
+		}
+
+		return customErrors;
+	}
+}
+
+export { AutofocusPlugin, BackdropPlugin, ColumnChooserPlugin, ColumnChooserState, ColumnFilterPlugin, ColumnFilterState, ColumnSortPlugin, DataManipulationPlugin, DataManipulationState, EditFormEditorPlugin, EditFormPanelPlugin, EditFormPlugin, ExportPlugin, FocusPlugin, ImportPlugin, PagerPlugin, PdfWriter, PersistencePlugin, PositionPlugin, RestPlugin, ValidatorPlugin, XlsxReader, XlsxWriter, downloadFactory, readFile };

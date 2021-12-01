@@ -1,4 +1,4 @@
-import { graphFlatView } from '@qgrid/core/export/export.service';
+import { graphFlatView } from '@qgrid/core';
 
 function sheet_to_workbook(sheet) {
 	const sheets = {};

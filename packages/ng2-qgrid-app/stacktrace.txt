@@ -1,0 +1,28 @@
+Your global Angular CLI version (12.0.1) is greater than your local version (11.2.0). The local Angular CLI version is used.
+
+To disable this warning use "ng config -g cli.warnings.versionMismatch false".
+- Generating browser application bundles...
+✔ Browser application bundle generation complete.
+- Copying assets...
+✔ Copying assets complete.
+- Generating index html...
+✔ Index html generation complete.
+
+Initial Chunk Files | Names         |      Size
+vendor.js           | vendor        |   6.74 MB
+main.js             | main          |   2.50 MB
+polyfills.js        | polyfills     | 128.90 kB
+runtime.js          | runtime       |   6.15 kB
+styles.css          | styles        | 444 bytes
+
+| Initial Total |   9.38 MB
+
+Build at: 2021-12-01T11:44:27.092Z - Hash: 9789f9866252837fcfcf - Time: 14397ms
+
+Warning: C:\Users\eltar\Desktop\ng2\packages\ng2-qgrid-app\src\examples\example.module.ts depends on 'ng2-qgrid'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.io/guide/build#configuring-commonjs-dependencies
+
+Warning: C:\Users\eltar\Desktop\ng2\packages\ng2-qgrid-app\src\examples\example.module.ts depends on '@qgrid/theme-material'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.io/guide/build#configuring-commonjs-dependencies
+
+

@@ -1,4 +1,4 @@
-import { filter, takeOnce } from '@qgrid/core/rx/rx.operators';
+import { filter, takeOnce } from '@qgrid/core';
 
 export class AutofocusPlugin {
 	constructor(plugin) {

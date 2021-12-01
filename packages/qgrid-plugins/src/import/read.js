@@ -1,11 +1,4 @@
-import { generate } from '@qgrid/core/column-list/column.list.generate';
-import { columnFactory } from '@qgrid/core/column/column.factory';
-import { CsvImport } from '@qgrid/core/import/csv/csv';
-import { JsonImport } from '@qgrid/core/import/json/json';
-import { XmlImport } from '@qgrid/core/import/xml/xml';
-import { GridError } from '@qgrid/core/infrastructure/error';
-import { PluginService } from '@qgrid/core/plugin/plugin.service';
-import { alphaTitle, firstRowTitle, numericTitle } from '@qgrid/core/services/title';
+import { alphaTitle, columnFactory, CsvImport, firstRowTitle, generate, GridError, JsonImport, numericTitle, PluginService, XmlImport } from '@qgrid/core';
 import { XlsxReader } from './xlsx';
 
 function getType(name) {

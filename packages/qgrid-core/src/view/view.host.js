@@ -196,7 +196,7 @@ export class ViewHost {
 
       model.mouse({
         status: 'move',
-        target: cell ?? newCell
+        target: cell || newCell
       }, {
         source: 'mouse.move'
       });

@@ -1,49 +1,48 @@
-import cssEscape from 'css.escape';
-import FastDom from 'fastdom';
-import LIVR from 'livr';
 import assignWith from 'lodash-es/assignWith';
-import clone from 'lodash-es/clone';
-import cloneDeep from 'lodash-es/cloneDeepWith';
-import dropWhile from 'lodash-es/dropWhile';
-import flatten from 'lodash-es/flatten';
-import isArray from 'lodash-es/isArray';
-import isBoolean from 'lodash-es/isBoolean';
-import isDate from 'lodash-es/isDate';
-import same from 'lodash-es/isEqual';
-import isFunction from 'lodash-es/isFunction';
-import isNumber from 'lodash-es/isNumber';
-import isObject from 'lodash-es/isObject';
-import isString from 'lodash-es/isString';
-import isUndefined from 'lodash-es/isUndefined';
-import max from 'lodash-es/maxBy';
-import min from 'lodash-es/minBy';
-import startCase from 'lodash-es/startCase';
-import sumBy from 'lodash-es/sumBy';
-import takeWhile from 'lodash-es/takeWhile';
-import uniq from 'lodash-es/uniq';
-import zip from 'lodash-es/zip';
 export { default as assignWith } from 'lodash-es/assignWith';
+import clone from 'lodash-es/clone';
 export { default as clone } from 'lodash-es/clone';
+import cloneDeep from 'lodash-es/cloneDeepWith';
 export { default as cloneDeep } from 'lodash-es/cloneDeepWith';
+import dropWhile from 'lodash-es/dropWhile';
 export { default as dropWhile } from 'lodash-es/dropWhile';
+import flatten from 'lodash-es/flatten';
 export { default as flatten } from 'lodash-es/flatten';
+import isArray from 'lodash-es/isArray';
 export { default as isArray } from 'lodash-es/isArray';
+import isBoolean from 'lodash-es/isBoolean';
 export { default as isBoolean } from 'lodash-es/isBoolean';
+import isDate from 'lodash-es/isDate';
 export { default as isDate } from 'lodash-es/isDate';
+import same from 'lodash-es/isEqual';
 export { default as same } from 'lodash-es/isEqual';
+import isFunction from 'lodash-es/isFunction';
 export { default as isFunction } from 'lodash-es/isFunction';
+import isNumber from 'lodash-es/isNumber';
 export { default as isNumber } from 'lodash-es/isNumber';
+import isObject from 'lodash-es/isObject';
 export { default as isObject } from 'lodash-es/isObject';
+import isString from 'lodash-es/isString';
 export { default as isString } from 'lodash-es/isString';
+import isUndefined from 'lodash-es/isUndefined';
 export { default as isUndefined } from 'lodash-es/isUndefined';
+import max from 'lodash-es/maxBy';
 export { default as max } from 'lodash-es/maxBy';
+import min from 'lodash-es/minBy';
 export { default as min } from 'lodash-es/minBy';
+import startCase from 'lodash-es/startCase';
 export { default as startCase } from 'lodash-es/startCase';
+import sumBy from 'lodash-es/sumBy';
 export { default as sumBy } from 'lodash-es/sumBy';
+import takeWhile from 'lodash-es/takeWhile';
 export { default as takeWhile } from 'lodash-es/takeWhile';
+import uniq from 'lodash-es/uniq';
 export { default as uniq } from 'lodash-es/uniq';
+import zip from 'lodash-es/zip';
 export { default as zip } from 'lodash-es/zip';
-export { Action, ActionState, Aggregation, AnimationState, ArrayColumn, ArrayColumnModel, Bag, Body, BodyHost, BodyLet, BodyState, BoolColumn, BoolColumnModel, Box, BoxHost, Cache, CacheStrategy, Cell, CellBox, CellEditor, CellSelector, CharReader, ClipboardLet, ClipboardState, CohortColumn, CohortColumnModel, Column, ColumnBox, ColumnListHost, ColumnListState, ColumnModel, ColumnView, Command, CommandKey, CommandManager, Composite, CompositeCommandManager, Container, CsvExport, CsvImport, CurrencyColumn, CurrencyColumnModel, Data, DataColumnModel, DataRow, DataState, DateColumn, DateColumnModel, DateTimeColumn, DateTimeColumnModel, Defer, DetailsRow, Disposable, DragService, DragState, EditCellLet, EditLet, EditRowLet, EditService, EditState, Element, EmailColumn, EmailColumnModel, EnumerableResource, Event, EventListener, EventManager, ExportState, FakeClassList, FakeElement, FakeLayer, FakeTable, Fastdom, Fetch, FetchState, FileColumn, FileColumnModel, FilterLet, FilterRowColumn, FilterRowColumnModel, FilterState, FocusService, FocusState, Foot, FootLet, FootState, FormatService, GRID_PREFIX, GridError, GridHost, GridService, GridState, GroupColumn, GroupColumnModel, GroupLet, GroupState, GroupSummaryColumn, GroupSummaryColumnModel, Guard, Head, HeadHost, HeadLet, HeadState, HighlightLet, HighlightState, IdColumn, IdColumnModel, ImageColumn, ImageColumnModel, ImportState, JsonExport, JsonImport, Keyboard, KeyboardState, LayerState, LayoutLet, LayoutState, Lazy, Log, MarkupVisitor, Matrix, Middleware, Model, ModelBinder, ModelBuilder, MouseState, MultipleSelectionState, Navigation, NavigationLet, NavigationState, Node, NodeRow, NumberColumn, NumberColumnModel, ObservableEvent, ObservableReplyEvent, Operator, PadColumn, PadColumnModel, PaginationLet, PaginationState, PasswordColumn, PasswordColumnModel, PathService, PersistenceService, PersistenceState, PersistenceStorage, Pipe, PipeState, PipeUnit, PivotColumn, PivotColumnModel, PivotRow, PivotState, PluginService, PluginState, PredicateVisitor, ProgressState, Range, RangeSelectionState, ReferenceColumn, ReferenceColumnModel, Renderer, Resource, RestState, Row, RowBox, RowDetails, RowDetailsColumn, RowDetailsColumnModel, RowDetailsLet, RowDetailsStatus, RowEditor, RowExpandColumn, RowExpandColumnModel, RowIndicatorColumn, RowIndicatorColumnModel, RowLet, RowListState, RowNumberColumn, RowNumberColumnModel, RowOptionsColumn, RowOptionsColumnModel, RowState, Scene, SceneState, ScrollLet, ScrollState, SelectColumn, SelectColumnModel, SelectionCommandManager, SelectionLet, SelectionRange, SelectionService, SelectionState, Selector, SelectorCache, SelectorFactory, SelectorMark, SelectorMediator, Shortcut, ShortcutDispatcher, SingleOnlySelectionState, SingleSelectionState, SortLet, SortState, StyleBox, StyleEntry, StyleLet, StyleMonitor, StyleService, StyleState, SubSelectionState, SubjectLike, Table, TableCommandManager, Td, TemplatePath, TemplateState, TextColumn, TextColumnModel, TextSelection, TimeColumn, TimeColumnModel, ToolbarState, Tr, TrContainer, Unit, UnitFactory, UnsubscribableLike, UrlColumn, UrlColumnModel, ValidationState, View, ViewHost, ViewState, VirtualBody, VirtualBox, VirtualCell, VirtualCellStyle, VirtualColumn, VirtualElement, VirtualRow, VirtualRowStyle, VisibilityState, Visitor, XmlExport, XmlImport, alphaTitle, animationPipe, bend, binarySearch, bodyCellClassifier, build$1 as build, buildExpression, buildFromModel, buildLines, buildPivot, calk, castFactory, checkButtonCode, collapse, columnFactory, columnIndexPipe, columnIndexPipeUnit, columnPipe, columnPipeUnit, commandKey, compare, compareParseFactory, compile$1 as compile, compileGet, compileSet, copy, copyToClipboard, createValidator, css, dataPipe, defaultPipeUnit, deserialize, elementFromPoint, escape$2 as escape, escapeAttr, escapeRegexp, eventPath, expand, factory, filter$1 as filter, filterNode, filterPipe, final, findColumn, findFirstLeaf, findIndex, findLeaves, findLine, findNode, findType, firstRowTitle, flatView, flattenColumns, flattenFactory, flattenRows, generate, generateCommandKey, generateFactory, getButtonCode, getCellValue, getDirection, getIndex, getKey, getLabel, getLabelFactory, getMap, getType$1 as getType, getTypeName, getValue$1 as getValue, getValueFactory, graphFlatView, groupBuilder, groupPipe, groupPipeUnit, guid, hasRules, headCellClassifier, htmlEncode, identity, index, inferType, invalidateStatus, isEmail, isFileAnImage, isImage, isPrimitive, isUrl, jobLine, key, lineView, map, mapColumns, match, matchISO8601, memoPipe, merge$1 as merge, mergeTree, modelFactory, no, nodeBuilder, noop, numericTitle, orderBy, orderFactory, paginationPipe, parents, parseFactory, pivot, pivotForm, pivotPipe, preOrderDFS, predicateFactory, resolveType, rowDetailsPipeUnit, rowPipeUnit, scenePipe, scenePipeUnit, selectColumn, selectColumnIndex, selectRow, selectRowIndex, selectionStateFactory, serialize, serializeGet, serializePost, setLabel, setValue, sheet, sortFactory, sortIndexFactory, sortPipe, stringify, stringifyFactory, tableFactory, takeOnce, toCamelCase, toggleStatus, upload, value, viewFactory, viewPipe, viewPipeUnit, widthFactory, yes };
+import FastDom from 'fastdom';
+import cssEscape from 'css.escape';
+import LIVR from 'livr';
 
 class Action {
 	constructor(command, title, icon, templateUrl) {
@@ -10786,6 +10785,21 @@ class FocusService {
     }
 }
 
+class FocusAfterRenderService {
+    constructor(plugin) {
+        const { table, model, observe } = plugin;
+
+        observe(model.sceneChanged)
+            .pipe(
+                filter$1(e => e.hasChanges('status') && e.state.status === 'stop'),
+                takeOnce()
+            )
+            .subscribe(e => {
+                table.view.focus();
+            });
+    }
+}
+
 class FocusState {
 	constructor() {
 		this.isActive = false;
@@ -16553,4 +16567,4 @@ class ViewHost {
   }
 }
 
-
+export { Action, ActionState, Aggregation, AnimationState, ArrayColumn, ArrayColumnModel, Bag, Body, BodyHost, BodyLet, BodyState, BoolColumn, BoolColumnModel, Box, BoxHost, Cache, CacheStrategy, Cell, CellBox, CellEditor, CellSelector, CharReader, ClipboardLet, ClipboardState, CohortColumn, CohortColumnModel, Column, ColumnBox, ColumnListHost, ColumnListState, ColumnModel, ColumnView, Command, CommandKey, CommandManager, Composite, CompositeCommandManager, Container, CsvExport, CsvImport, CurrencyColumn, CurrencyColumnModel, Data, DataColumnModel, DataRow, DataState, DateColumn, DateColumnModel, DateTimeColumn, DateTimeColumnModel, Defer, DetailsRow, Disposable, DragService, DragState, EditCellLet, EditLet, EditRowLet, EditService, EditState, Element, EmailColumn, EmailColumnModel, EnumerableResource, Event, EventListener, EventManager, ExportState, FakeClassList, FakeElement, FakeLayer, FakeTable, Fastdom, Fetch, FetchState, FileColumn, FileColumnModel, FilterLet, FilterRowColumn, FilterRowColumnModel, FilterState, FocusAfterRenderService, FocusService, FocusState, Foot, FootLet, FootState, FormatService, GRID_PREFIX, GridError, GridHost, GridService, GridState, GroupColumn, GroupColumnModel, GroupLet, GroupState, GroupSummaryColumn, GroupSummaryColumnModel, Guard, Head, HeadHost, HeadLet, HeadState, HighlightLet, HighlightState, IdColumn, IdColumnModel, ImageColumn, ImageColumnModel, ImportState, JsonExport, JsonImport, Keyboard, KeyboardState, LEFT_BUTTON, LayerState, LayoutLet, LayoutState, Lazy, Log, MIDDLE_BUTTON, MarkupVisitor, Matrix, Middleware, Model, ModelBinder, ModelBuilder, MouseState, MultipleSelectionState, NO_BUTTON, Navigation, NavigationLet, NavigationState, Node, NodeRow, NumberColumn, NumberColumnModel, ObservableEvent, ObservableReplyEvent, Operator, PadColumn, PadColumnModel, PaginationLet, PaginationState, PasswordColumn, PasswordColumnModel, PathService, PersistenceService, PersistenceState, PersistenceStorage, Pipe, PipeState, PipeUnit, PivotColumn, PivotColumnModel, PivotRow, PivotState, PluginService, PluginState, PredicateVisitor, ProgressState, RIGHT_BUTTON, Range, RangeSelectionState, ReferenceColumn, ReferenceColumnModel, Renderer, Resource, RestState, Row, RowBox, RowDetails, RowDetailsColumn, RowDetailsColumnModel, RowDetailsLet, RowDetailsStatus, RowEditor, RowExpandColumn, RowExpandColumnModel, RowIndicatorColumn, RowIndicatorColumnModel, RowLet, RowListState, RowNumberColumn, RowNumberColumnModel, RowOptionsColumn, RowOptionsColumnModel, RowState, Scene, SceneState, ScrollLet, ScrollState, SelectColumn, SelectColumnModel, SelectionCommandManager, SelectionLet, SelectionRange, SelectionService, SelectionState, Selector, SelectorCache, SelectorFactory, SelectorMark, SelectorMediator, Shortcut, ShortcutDispatcher, SingleOnlySelectionState, SingleSelectionState, SortLet, SortState, StyleBox, StyleEntry, StyleLet, StyleMonitor, StyleService, StyleState, SubSelectionState, SubjectLike, Table, TableCommandManager, Td, TemplatePath, TemplateState, TextColumn, TextColumnModel, TextSelection, TimeColumn, TimeColumnModel, ToolbarState, Tr, TrContainer, Unit, UnitFactory, UnsubscribableLike, UrlColumn, UrlColumnModel, ValidationState, View, ViewHost, ViewState, VirtualBody, VirtualBox, VirtualCell, VirtualCellStyle, VirtualColumn, VirtualElement, VirtualRow, VirtualRowStyle, VisibilityState, Visitor, XmlExport, XmlImport, alphaTitle, animationPipe, bend, binarySearch, bodyCellClassifier, build$1 as build, buildExpression, buildFromModel, buildLines, buildPivot, calk, castFactory, checkButtonCode, collapse, columnFactory, columnIndexPipe, columnIndexPipeUnit, columnPipe, columnPipeUnit, commandKey, compare, compareParseFactory, compile$1 as compile, compileGet, compileSet, copy, copyToClipboard, createValidator, css, dataPipe, defaultPipeUnit, deserialize, elementFromPoint, escape$2 as escape, escapeAttr, escapeRegexp, eventPath, expand, factory, filter$1 as filter, filterNode, filterPipe, final, findColumn, findFirstLeaf, findIndex, findLeaves, findLine, findNode, findType, firstRowTitle, flatView, flattenColumns, flattenFactory, flattenRows, generate, generateCommandKey, generateFactory, getButtonCode, getCellValue, getDirection, getIndex, getKey, getLabel, getLabelFactory, getMap, getType$1 as getType, getTypeName, getValue$1 as getValue, getValueFactory, graphFlatView, groupBuilder, groupPipe, groupPipeUnit, guid, hasRules, headCellClassifier, htmlEncode, identity, index, inferType, invalidateStatus, isEmail, isFileAnImage, isImage, isPrimitive, isUrl, jobLine, key, lineView, map, mapColumns, match, matchISO8601, memoPipe, merge$1 as merge, mergeTree, modelFactory, no, nodeBuilder, noop, numericTitle, orderBy, orderFactory, paginationPipe, parents, parseFactory, pivot, pivotForm, pivotPipe, preOrderDFS, predicateFactory, resolveType, rowDetailsPipeUnit, rowPipeUnit, scenePipe, scenePipeUnit, selectColumn, selectColumnIndex, selectRow, selectRowIndex, selectionStateFactory, serialize, serializeGet, serializePost, setLabel, setValue, sheet, sortFactory, sortIndexFactory, sortPipe, stringify, stringifyFactory, tableFactory, takeOnce, toCamelCase, toggleStatus, upload, value, viewFactory, viewPipe, viewPipeUnit, widthFactory, yes };

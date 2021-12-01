@@ -1,5 +1,4 @@
-import { jobLine } from '@qgrid/core/services/job.line';
-import { GridError } from '@qgrid/core/infrastructure/error';
+import { GridError, jobLine } from '@qgrid/core';
 
 export class FocusPlugin {
 	constructor(context) {

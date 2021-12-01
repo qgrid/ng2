@@ -1,6 +1,4 @@
-import { GRID_PREFIX } from '@qgrid/core/definition';
-import { Command } from '@qgrid/core/command/command';
-import { Fastdom } from '@qgrid/core/services/fastdom';
+import { Command, Fastdom, GRID_PREFIX } from '@qgrid/core';
 
 const GRID_ACTIVE_CLASS = `${GRID_PREFIX}-active`;
 const GRID_HIDE_CLASS = `${GRID_PREFIX}-hide`;

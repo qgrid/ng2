@@ -1,8 +1,4 @@
-import { Command } from '@qgrid/core/command/command';
-import { Event } from '@qgrid/core/event/event';
-import { parseFactory } from '@qgrid/core/services/convert';
-import { getLabelFactory } from '@qgrid/core/services/label';
-import { clone, isArray, isUndefined } from '@qgrid/core/utility/kit';
+import { clone, Command, Event, getLabelFactory, isArray, isUndefined, parseFactory } from '@qgrid/core';
 
 export class ColumnFilterPlugin {
 	constructor(plugin, context) {

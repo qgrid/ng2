@@ -1,5 +1,4 @@
-import { Command } from '@qgrid/core/command/command';
-import { FocusAfterRenderService } from '@qgrid/core/focus/focus.service';
+import { Command, FocusAfterRenderService } from '@qgrid/core';
 
 export class PagerPlugin {
 	constructor(plugin) {

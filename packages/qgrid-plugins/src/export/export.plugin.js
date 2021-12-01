@@ -1,8 +1,4 @@
-import { Command } from '@qgrid/core/command/command';
-import { CsvExport } from '@qgrid/core/export/csv/csv';
-import { JsonExport } from '@qgrid/core/export/json/json';
-import { XmlExport } from '@qgrid/core/export/xml/xml';
-import { PluginService } from '@qgrid/core/plugin/plugin.service';
+import { Command, CsvExport, JsonExport, PluginService, XmlExport } from '@qgrid/core';
 import { downloadFactory } from './download';
 import { PdfWriter } from './pdf';
 import { XlsxWriter } from './xlsx';

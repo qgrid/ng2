@@ -1,12 +1,4 @@
-import { Command } from '@qgrid/core/command/command';
-import { CommandManager } from '@qgrid/core/command/command.manager';
-import { Event } from '@qgrid/core/event/event';
-import { PersistenceService } from '@qgrid/core/persistence/persistence.service';
-import { serialize } from '@qgrid/core/persistence/persistence.storage';
-import { stringifyFactory } from '@qgrid/core/services/model.stringify';
-import { Shortcut } from '@qgrid/core/shortcut/shortcut';
-import { ShortcutDispatcher } from '@qgrid/core/shortcut/shortcut.dispatcher';
-import { clone } from '@qgrid/core/utility/kit';
+import { clone, Command, CommandManager, Event, PersistenceService, serialize, Shortcut, ShortcutDispatcher, stringifyFactory } from '@qgrid/core';
 
 export class PersistencePlugin {
 	constructor(plugin, createDefaultModel) {
