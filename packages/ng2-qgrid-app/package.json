@@ -26,9 +26,10 @@
     "@angular/platform-browser": "11.2.0",
     "@angular/platform-browser-dynamic": "11.2.0",
     "@angular/router": "11.2.0",
-    "@qgrid/theme-material": "*",
+    "@qgrid/theme-basic": "../ng2-qgrid-theme-basic",
+    "@qgrid/theme-material": "../ng2-qgrid-theme-material",
+    "ng2-qgrid": "../ng2-qgrid",
     "file-saver": "^2.0.5",
-    "ng2-qgrid": "*",
     "xlsx": "^0.17.4",
     "zone.js": "^0.11.4"
   },

@@ -1,6 +1,6 @@
 // rollup.config.js
 import dts from 'rollup-plugin-dts';
-// import { terser } from 'rollup-plugin-terser';
+import { terser } from 'rollup-plugin-terser';
 export default [
   {
     input: './public-api.js',
@@ -8,7 +8,7 @@ export default [
       file: './dist/public-api.js',
       format: 'es',
       name: '@qgrid/plugins',
-      // plugins: [terser()]
+      plugins: [terser()]
     }
   },
   {

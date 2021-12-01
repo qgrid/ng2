@@ -2,26 +2,15 @@
   "name": "qgrid",
   "private": "true",
   "version": "11.2.0",
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "build:app": "npm run clean && node build.theme.js && ng build --prod --output-path dist/app --base-href /ng2/",
-    "build:lib": "npm run clean && node build.lib.js",
-    "clean": "rimraf dist",
-    "lint": "ng lint",
-    "ng": "ng",
-    "pretest:screenshot": "webdriver-manager update --gecko=false && if not exist e2e\\diff mkdir e2e\\diff",
-    "release:app": "npm run build:app && npx angular-cli-ghpages --dir=dist/app",
-    "release:example": "node ./build.example",
-    "release:lib": "npm run build:lib && cd dist/ng2-qgrid && npm publish",
-    "start": "node build.serve",
-    "start:prod": "node build.serve --prod",
-    "test:core": "karma start ./packages/qgrid-core/karma.conf.js --single-run",
-    "test:core-watch": "karma start ./packages/qgrid-core/karma.conf.js ",
-    "test:screenshot-update-goldens": "protractor ./e2e/protractor-update-goldens.conf.js",
-    "test:screenshot": "protractor ./e2e/protractor.conf.js"
+    "build": "lerna run build",
+    "build:manual": "lerna run --scope @qgrid/core build && lerna run --scope @qgrid/plugins build && lerna run --scope @qgrid/ngx build && lerna run --scope @qgrid/ngx-plugins build && lerna run --scope ng2-qgrid build && lerna run --scope @qgrid/theme-basic build && lerna run --scope @qgrid/theme-material build && lerna run --scope ng2-qgrid-app build",
+    "start": "yarn run build:manual && cd packages/ng2-qgrid-app && ng s"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
   }
 }
