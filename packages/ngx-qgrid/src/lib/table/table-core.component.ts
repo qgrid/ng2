@@ -1,9 +1,8 @@
-import { OnInit, Component, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ColumnModelPin, VisibilityState } from '@qgrid/core';
 import { GridLet } from '../grid/grid-let';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { TableCoreService } from './table-core.service';
-import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
-import { ColumnModelPin } from '@qgrid/core/column-type/column.model';
 
 @Component({
 	selector: 'q-grid-core-table',

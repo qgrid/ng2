@@ -1,20 +1,10 @@
 import {
-	Component,
-	Input,
-	Output,
-	EventEmitter,
-	OnInit,
-	OnChanges,
-	NgZone,
-	ChangeDetectorRef,
-	ChangeDetectionStrategy
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, NgZone, OnChanges, OnInit, Output
 } from '@angular/core';
-import { ColumnChooserPlugin } from '@qgrid/plugins/column-chooser/column.chooser.plugin';
-import { ColumnChooserState } from '@qgrid/plugins/column-chooser/column.chooser.state';
-import { FocusAfterRender } from '../focus/focus.service';
+import { Node, noop } from '@qgrid/core';
 import { GridPlugin, StateAccessor } from '@qgrid/ngx';
-import { Node } from '@qgrid/core/node/node';
-import { noop } from '@qgrid/core/utility/kit';
+import { ColumnChooserPlugin, ColumnChooserState } from '@qgrid/plugins';
+import { FocusAfterRender } from '../focus/focus.service';
 
 const COLUMN_CHOOSER_NAME = 'qGridColumnChooser';
 

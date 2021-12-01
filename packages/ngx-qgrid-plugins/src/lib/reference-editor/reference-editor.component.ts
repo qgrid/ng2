@@ -1,8 +1,6 @@
-import { Component, Input, EventEmitter, Output, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
-import { Command } from '@qgrid/core/command/command';
-import { SelectionService } from '@qgrid/core/selection/selection.service';
-import { CellView } from '@qgrid/core/scene/view/cell.view';
-import { GridModel, Disposable } from '@qgrid/ngx';
+import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { CellView, Command, SelectionService } from '@qgrid/core';
+import { Disposable, GridModel } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-reference-editor',

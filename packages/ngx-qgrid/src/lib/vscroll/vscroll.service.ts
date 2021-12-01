@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IVscrollSettings } from '@qgrid/core/scroll/scroll.let';
+import { IVscrollSettings } from '@qgrid/core';
 import { VscrollContext } from './vscroll.context';
 
 @Injectable()

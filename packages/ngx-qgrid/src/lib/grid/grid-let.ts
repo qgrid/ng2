@@ -1,26 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BodyLet } from '@qgrid/core/body/body.let';
-import { CommandManager } from '@qgrid/core/command/command.manager';
-import { EditLet } from '@qgrid/core/edit/edit.let';
-import { FilterLet } from '@qgrid/core/filter/filter.let';
-import { FootLet } from '@qgrid/core/foot/foot.let';
-import { Grid } from './grid';
+import { BodyLet, ClipboardLet, CommandManager, EditLet, FilterLet, FootLet, GroupLet, HeadLet, HighlightLet, LayoutLet, NavigationLet, PaginationLet, RowDetailsLet, RowLet, ScrollLet, SelectionLet, SortLet, StyleLet, viewFactory } from '@qgrid/core';
 import { GridPlugin } from '../plugin/grid-plugin';
-import { GroupLet } from '@qgrid/core/group/group.let';
-import { HeadLet } from '@qgrid/core/head/head.let';
-import { HighlightLet } from '@qgrid/core/highlight/highlight.let';
-import { LayoutLet } from '@qgrid/core/layout/layout.let';
-import { NavigationLet } from '@qgrid/core/navigation/navigation.let';
-import { PaginationLet } from '@qgrid/core/pagination/pagination.let';
-import { RowDetailsLet } from '@qgrid/core/row-details/row.details.let';
-import { RowLet } from '@qgrid/core/row/row.let';
 import { ScrollService } from '../scroll/scroll.service';
-import { ScrollLet } from '@qgrid/core/scroll/scroll.let';
-import { SelectionLet } from '@qgrid/core/selection/selection.let';
-import { SortLet } from '@qgrid/core/sort/sort.let';
-import { StyleLet } from '@qgrid/core/style/style.let';
-import { viewFactory } from '@qgrid/core/view/view.factory';
-import { ClipboardLet } from '@qgrid/core/clipboard/clipboard.let';
+import { Grid } from './grid';
 
 @Injectable()
 export class GridLet {

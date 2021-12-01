@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { GridModelBuilder, TemplateModule } from '@qgrid/ngx';
+import { ColumnChooserState } from '@qgrid/plugins';
 import { ColumnChooserComponent } from './column-chooser.component';
-import { ColumnChooserState } from '@qgrid/plugins/column-chooser/column.chooser.state';
-import { TemplateModule, GridModelBuilder } from '@qgrid/ngx';
 
 @NgModule({
 	imports: [FormsModule, TemplateModule],

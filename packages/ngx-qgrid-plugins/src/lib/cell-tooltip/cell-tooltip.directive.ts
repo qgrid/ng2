@@ -1,14 +1,9 @@
 import {
-	OnChanges,
-	Input,
-	Directive,
-	ElementRef,
-	SimpleChanges,
-	Renderer2
+  Directive,
+  ElementRef, Input, OnChanges, Renderer2, SimpleChanges
 } from '@angular/core';
-import { GRID_PREFIX } from '@qgrid/core/definition';
+import { GRID_PREFIX, jobLine } from '@qgrid/core';
 import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
-import { jobLine } from '@qgrid/core/services/job.line';
 
 @Directive({
 	selector: '[q-grid-tooltip]',

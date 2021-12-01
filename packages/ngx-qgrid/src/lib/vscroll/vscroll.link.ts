@@ -1,7 +1,7 @@
-import { VscrollPort } from './vscroll.port';
+import { isNumber } from '@qgrid/core';
 import { VscrollBox } from './vscroll.box';
-import { isNumber } from '@qgrid/core/utility/kit';
 import { VscrollDirective } from './vscroll.directive';
+import { VscrollPort } from './vscroll.port';
 
 export class VscrollLink {
 	private box = new VscrollBox();

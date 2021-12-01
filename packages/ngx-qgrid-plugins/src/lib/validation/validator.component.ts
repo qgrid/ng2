@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ValidatorPlugin } from '@qgrid/plugins/validation/validator.plugin';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
+import { ValidatorPlugin } from '@qgrid/plugins';
 
 @Component({
 	selector: 'q-grid-validator',

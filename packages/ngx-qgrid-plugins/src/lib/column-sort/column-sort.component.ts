@@ -1,19 +1,11 @@
 import {
-	Component,
-	Input,
-	ElementRef,
-	AfterViewInit,
-	NgZone,
-	TemplateRef,
-	ChangeDetectionStrategy,
-	ViewChild,
+  AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, NgZone,
+  TemplateRef, ViewChild
 } from '@angular/core';
-import { ColumnSortPlugin } from '@qgrid/plugins/column-sort/column.sort.plugin';
-import { EventListener } from '@qgrid/core/event/event.listener';
-import { EventManager } from '@qgrid/core/event/event.manager';
-import { ColumnModel } from '@qgrid/core/column-type/column.model';
-import { FocusAfterRender } from '../focus/focus.service';
+import { ColumnModel, EventListener, EventManager } from '@qgrid/core';
 import { GridPlugin } from '@qgrid/ngx';
+import { ColumnSortPlugin } from '@qgrid/plugins';
+import { FocusAfterRender } from '../focus/focus.service';
 
 @Component({
 	selector: 'q-grid-column-sort',

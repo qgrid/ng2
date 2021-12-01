@@ -1,22 +1,11 @@
 import {
-	Component,
-	Input,
-	ChangeDetectionStrategy,
-	OnDestroy,
-	SkipSelf,
-	Optional,
-	OnInit,
-	ElementRef,
-	OnChanges,
-	SimpleChanges
+  ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, Optional, SimpleChanges, SkipSelf
 } from '@angular/core';
-import { ColumnHostService } from './column-host.service';
+import { ColumnModel, ColumnModelCategory, ColumnModelPin, ColumnModelType, ColumnModelWidthMode, guid, isUndefined } from '@qgrid/core';
 import { ColumnListService } from '../column-list/column-list.service';
 import { GridPlugin } from '../plugin/grid-plugin';
-import { guid } from '@qgrid/core/services/guid';
-import { isUndefined } from '@qgrid/core/utility/kit';
 import { TemplateHostService } from '../template/template-host.service';
-import { ColumnModelCategory, ColumnModelType, ColumnModelPin, ColumnModelWidthMode, ColumnModel } from '@qgrid/core/column-type/column.model';
+import { ColumnHostService } from './column-host.service';
 
 @Component({
 	selector: 'q-grid-column',

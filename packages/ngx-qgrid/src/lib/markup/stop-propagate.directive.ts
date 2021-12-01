@@ -1,5 +1,5 @@
-import { Directive, ElementRef, Input, OnInit, Renderer2, NgZone } from '@angular/core';
-import { yes, isString } from '@qgrid/core/utility/kit';
+import { Directive, ElementRef, Input, NgZone, OnInit, Renderer2 } from '@angular/core';
+import { isString, yes } from '@qgrid/core';
 
 @Directive({
 	selector: '[q-grid-stop-propagate]'

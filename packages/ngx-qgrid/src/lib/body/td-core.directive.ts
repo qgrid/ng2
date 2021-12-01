@@ -1,26 +1,16 @@
 import {
-	Directive,
-	ElementRef,
-	Input,
-	OnDestroy,
-	OnInit,
-	ViewContainerRef,
-	ChangeDetectorRef,
-	OnChanges,
-	SimpleChanges,
-	SimpleChange
+  ChangeDetectorRef, Directive,
+  ElementRef,
+  Input, OnChanges, OnDestroy,
+  OnInit, SimpleChange, SimpleChanges, ViewContainerRef
 } from '@angular/core';
-import { GRID_PREFIX } from '@qgrid/core/definition';
-import { ColumnModel } from '@qgrid/core/column-type/column.model';
-import { ColumnView } from '@qgrid/core/scene/view/column.view';
+import { ColumnModel, ColumnView, GridError, GRID_PREFIX, noop } from '@qgrid/core';
+import { CellClassService } from '../cell/cell-class.service';
+import { CellTemplateService } from '../cell/cell-template.service';
 import { DomTd } from '../dom/dom';
-import { noop } from '@qgrid/core/utility/kit';
 import { GridLet } from '../grid/grid-let';
 import { GridRoot } from '../grid/grid-root';
 import { TrCoreDirective } from '../row/tr-core.directive';
-import { CellTemplateService } from '../cell/cell-template.service';
-import { GridError } from '@qgrid/core/infrastructure/error';
-import { CellClassService } from '../cell/cell-class.service';
 
 @Directive({
 	selector: '[q-grid-core-td]',

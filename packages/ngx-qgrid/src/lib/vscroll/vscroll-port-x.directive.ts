@@ -1,13 +1,13 @@
 import { Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { VscrollPort } from './vscroll.port';
-import { VscrollContext } from './vscroll.context';
-import { capitalize } from './vscroll.utility';
+import { isNumber } from '@qgrid/core';
 import { VscrollBox } from './vscroll.box';
-import { VscrollLayout } from './vscroll.layout';
-import { findPositionUsingItemSize, findPositionUsingOffsets, recycleFactory, IVscrollPosition } from './vscroll.position';
+import { VscrollContext } from './vscroll.context';
 import { VscrollDirective } from './vscroll.directive';
-import { isNumber } from '@qgrid/core/utility/kit';
+import { VscrollLayout } from './vscroll.layout';
 import { VscrollLink } from './vscroll.link';
+import { VscrollPort } from './vscroll.port';
+import { findPositionUsingItemSize, findPositionUsingOffsets, IVscrollPosition, recycleFactory } from './vscroll.position';
+import { capitalize } from './vscroll.utility';
 
 @Directive({
 	selector: '[q-grid-vscroll-port-x]'

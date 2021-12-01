@@ -1,1 +1,16556 @@
-import e from"lodash-es/assignWith";export{default as assignWith}from"lodash-es/assignWith";import t from"lodash-es/clone";export{default as clone}from"lodash-es/clone";import s from"lodash-es/cloneDeepWith";export{default as cloneDeep}from"lodash-es/cloneDeepWith";import n from"lodash-es/dropWhile";export{default as dropWhile}from"lodash-es/dropWhile";import o from"lodash-es/flatten";export{default as flatten}from"lodash-es/flatten";import r from"lodash-es/isArray";export{default as isArray}from"lodash-es/isArray";import i from"lodash-es/isBoolean";export{default as isBoolean}from"lodash-es/isBoolean";import c from"lodash-es/isDate";export{default as isDate}from"lodash-es/isDate";import l from"lodash-es/isEqual";export{default as same}from"lodash-es/isEqual";import a from"lodash-es/isFunction";export{default as isFunction}from"lodash-es/isFunction";import u from"lodash-es/isNumber";export{default as isNumber}from"lodash-es/isNumber";import h from"lodash-es/isObject";export{default as isObject}from"lodash-es/isObject";import d from"lodash-es/isString";export{default as isString}from"lodash-es/isString";import m from"lodash-es/isUndefined";export{default as isUndefined}from"lodash-es/isUndefined";import g from"lodash-es/maxBy";export{default as max}from"lodash-es/maxBy";import p from"lodash-es/minBy";export{default as min}from"lodash-es/minBy";import w from"lodash-es/startCase";export{default as startCase}from"lodash-es/startCase";import f from"lodash-es/sumBy";export{default as sumBy}from"lodash-es/sumBy";import y from"lodash-es/takeWhile";export{default as takeWhile}from"lodash-es/takeWhile";import b from"lodash-es/uniq";export{default as uniq}from"lodash-es/uniq";import v from"lodash-es/zip";export{default as zip}from"lodash-es/zip";import x from"fastdom";import C from"css.escape";import k from"livr";class E{constructor(e,t,s,n){this.command=e,this.title=t,this.icon=s,this.templateUrl=n}}class ${constructor(e={},t={}){this.data=e,this.scope=t}}const R=new Set(["shift","ctrl","alt","pause","break","capslock","escape","insert","left","right","end","home","pageup","pagedown","up","down","f1","f2","f3","f4","f5","f6","f7","f8","f9","f10","f11","f12","numlock","scrolllock"]),I=new Set(["enter"]),O=(new Map).set(8,"backspace").set(9,"tab").set(13,"enter").set(16,"shift").set(17,"ctrl").set(18,"alt").set(20,"capslock").set(27,"escape").set(32,"space").set(33,"pageup").set(34,"pagedown").set(35,"end").set(36,"home").set(37,"left").set(38,"up").set(39,"right").set(40,"down").set(45,"insert").set(46,"delete").set(96,"numpad0").set(97,"numpad1").set(98,"numpad2").set(99,"numpad3").set(100,"numpad4").set(101,"numpad5").set(102,"numpad6").set(103,"numpad7").set(104,"numpad8").set(105,"numpad9").set(112,"f1").set(113,"f2").set(114,"f3").set(115,"f4").set(116,"f5").set(117,"f6").set(118,"f7").set(119,"f8").set(120,"f9").set(121,"f10").set(122,"f11").set(123,"f12").set(144,"numlock").set(145,"scrolllock"),F=new Set(O.values()),q=(new Map).set("space"," ");class L{static isPrintable(e){return!I.has(e)&&!L.isControl(e)}static isControl(e){return R.has(e)}static stringify(e,t){return F.has(e)?q.get(e)||"":t}static translate(e){return O.get(e)||String.fromCharCode(e)}}class S{constructor(e){this.dispatcher=e,this.keyCode={key:null,code:null}}static isControl(e){if(!e)return!1;const t=e.code.split("+");return t.some((e=>"ctrl"===e||"alt"===e))||t.every((e=>L.isControl(e)))}static isPrintable(e){if(!e)return!1;return e.code.split("+").some((e=>L.isPrintable(e)))}static stringify(e){return e?L.stringify(e.code,e.key):""}static translate(e){const t=[],s=L.translate(e.keyCode).toLowerCase();return e.ctrlKey&&t.push("ctrl"),e.shiftKey&&t.push("shift"),e.altKey&&t.push("alt"),"ctrl"!==s&&"shift"!==s&&"alt"!==s&&t.push(s),t.join("+")}factory(e){const t=this;return{register:s=>t.register(e,s)}}keyDown(e,t){const s=S.translate(e);return this.keyCode={key:e.key,code:s},this.dispatcher.execute(s,t)}register(e,t){return this.dispatcher.register(e,t)}}const M=()=>{},T=()=>!0,j=()=>!1,N=e=>e,A=(...e)=>{const t=e.length,s=e.map((e=>""+e));return t>0?s[0]+s.slice(1).map((e=>e[0].toUpperCase()+e.substring(1,e.length))).join(""):""},P=e=>{if(e){return/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(e)}return!1};function V(e,t){return e===t?0:null==e||""===e?1:null==t||""===t?-1:e>t?1:-1}function D(e,t,s){const n=t.length,o=[],r=e.length;let i=r;for(;i--;){const s=e[i],r=[];for(let e=0;e<n;e++){const n=t[e];r.push(n(s))}o.push({row:s,criteria:r,index:i})}for(o.sort(((e,t)=>{let o=0;for(let r=0;r<n;r++){if(o=(0,s[r])(e.criteria[r],t.criteria[r],e.row,t.row),0!==o)return o}return e.index-t.index})),i=r;i--;)o[i]=o[i].row;return o}function z(e){return String(e).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/'/g,"&#39;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function B(e){return e?e.replace(/[-[\]{}()*+?.,\\^$|#\s]/g,"\\$&"):e}function H(e,t){let s=0,n=e.length;for(;s<n;){const o=s+n>>>1;e[o]<t?s=o+1:n=o}return s}function W(e){var t=document.createElement("a");return t.href=e,t.host&&t.host!=window.location.host}function U(e){return null!=(""+e).match(/\.(jpeg|jpg|gif|png)$/)}function _(e){return/^(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2})))))))$/.test(""+e)}function K(e){if(e.name)return e.name;const t=/function (.{1,})\(/.exec(e.constructor.toString());return t&&t.length>1?t[1]:""}const G=e=>"*"!==e.shortcut;class J{constructor(){this.managerMap=new Map}register(e,t){t=t.values?t.values():t;let s=this.managerMap.get(e);s||(s={commands:[],shortcuts:new Map},this.managerMap.set(e,s));const n=[];for(let e of t)e.shortcut&&(a(e.shortcut)?(s.commands.push(e),n.push((()=>{const t=s.commands.indexOf(e);t>=0&&s.commands.splice(t,1)}))):e.shortcut.toLowerCase().split("|").forEach((t=>{let o=[];s.shortcuts.has(t)&&(o=s.shortcuts.get(t)),o.push(e),s.shortcuts.set(t,o),n.push((()=>{const n=s.shortcuts.get(t);if(n){const o=n.indexOf(e);o>=0&&(n.splice(o,1),n.length||s.shortcuts.delete(t))}}))})));return()=>{n.forEach((e=>e())),0===s.commands.length&&0===Object.keys(s.shortcuts).length&&this.managerMap.delete(e)}}execute(e,t){return this.fetchActivities(e,t).reduce(((e,s)=>{const n=s.commands,o=s.manager.invoke(n,null,t)||o;return o&&e.push(...n.map((e=>e.source))),e}),[])}canExecute(e,t){return this.fetchActivities(e,t).length>0}fetchActivities(e,t){const s=this.searchFactory(e),n=Array.from(this.managerMap.entries()).map((([e,n])=>({manager:e,commands:e.filter(s(n),t)}))),r=o(n.map((e=>e.commands))).filter(G).length>0?G:T;return n.map((({commands:e,manager:t})=>({manager:t,commands:e.filter(r)}))).filter((({commands:e})=>e.length>0))}searchFactory(e){return t=>{let s=[];return t.shortcuts.has(e)&&(s=s.concat(t.shortcuts.get(e))),t.shortcuts.has("*")&&"*"!==e&&(s=s.concat(t.shortcuts.get("*"))),s=s.concat(t.commands.map((e=>e.clone({shortcut:e.shortcut()}))).filter((t=>this.test(t.shortcut,e)))),s}}test(e,t){return t=t.toLowerCase(),(""+e).toLowerCase().split("|").some((e=>"*"===e||t===e))}}class Y{constructor(e=(e=>e()),t){this.apply=e,this.context=t}invoke(e,t){if(t=t||this.context,e.length){const s=Array.from(e);return s.sort(((e,t)=>t.priority-e.priority)),this.apply((()=>{for(const e of s)if(t){if(!1===e.execute(t))break}else if(!1===e.execute())break})),!0}return!1}filter(e){return e.filter((e=>e.sink=e.canExecute()))}}class X{constructor(){this.resource=new $,this.items=[],this.shortcut=new S(new J),this.manager=new Y}}class Z{constructor(){this.apply=[]}}class Q{static mutate(e){return Q.invoke((()=>x.mutate(e)))}static measure(e){return Q.invoke((()=>x.measure(e)))}static clear(e){return Q.invoke((()=>x.clear(e)))}static invoke(e){return e()}}const ee="q-grid";class te{constructor(e){this.handlers=[],this.lastArg=null,this.reply=e||(()=>this.lastArg)}on(e,t="app"){const{handlers:s}=this,n={next:e,lifecycle:t},o=()=>{const e=s.indexOf(n);e>=0&&s.splice(e,1)};return n.off=o,s.push(n),o}watch(e,t="app"){const s=this.on(e,t);if(this.lastArg){e(this.reply(),s)}return s}emit(e){this.lastArg=e;const t=Array.from(this.handlers);for(let s=0,n=t.length;s<n;s++){const n=t[s];n.next(e,n.off)}}}class se{constructor(){this.promise=new ne}reject(){this.promise.reject()}resolve(e){this.promise.resolve(e)}}class ne{constructor(){this.catchEvent=new te,this.thenEvent=new te}reject(){return this.catchEvent.emit(),this}resolve(e){return this.thenEvent.emit(e),this}catch(e){return this.catchEvent.on(e),this}then(e){return this.thenEvent.on(e),this}}class oe extends Error{constructor(e,t){super(t),this.name=this.constructor.name,this.message=`qgrid.${e}: ${t}`,a(Error.captureStackTrace)?Error.captureStackTrace(this,this.constructor):this.stack=new Error(t).stack}}function re(e){let t=null;return s=>{if(t&&(t.reject(),t=null),!a(s))throw new oe("job.line","job is not invocable");return t=re.run((()=>{t&&(s(),t.resolve(),t=null)}),e),t.promise}}re.run=(e,t)=>{const s=new se,n=Q.invoke((()=>setTimeout(e,t)));return s.promise.catch((()=>clearTimeout(n))),s};class ie{constructor(e){this.plugin=e,this.scrollingJob=re(100)}scroll(e){const{model:t,table:s}=this.plugin,{scroll:n}=t,o=n(),r={};let i=!1;o.top!==e.scrollTop&&(s.view.addClass("q-grid-scroll-vertical"),r.top=e.scrollTop,i=!0),o.left!==e.scrollLeft&&(s.view.addClass("q-grid-scroll-horizontal"),r.left=e.scrollLeft,i=!0),i&&n(r,{source:"body.core",behavior:"core"}),this.scrollingJob(this.scrollEnd.bind(this))}scrollEnd(){const{table:e}=this.plugin;e.view.removeClass("q-grid-scroll-vertical"),e.view.removeClass("q-grid-scroll-horizontal")}wheel(e){if(e.shiftKey)return;const{model:t,table:s}=this.plugin;if("view"===t.edit().status){const{scroll:n}=t,o=0;Q.measure((()=>{const t=s.view.scrollHeight()-s.view.height(),r=100*Math.sign(e.deltaY),i=Math.min(t,Math.max(o,n().top+r));n({top:i},{source:"body.core"})}))}}mouseLeave(){this.clearHighlight()}clearHighlight(){const{view:e}=this.plugin,{highlight:t}=e;t.clear.canExecute()&&t.clear.execute()}}class ce{static info(e,t){}static warn(e,t){}static error(e,t){console.error(`qgrid.${e}: ${t}`)}}class le{constructor(e,t=0,s="group"){this.key=e,this.level=t,this.rows=[],this.children=[],this.type=s,this.source=null,this.value=null,this.state={expand:!1}}}class ae{constructor(e,t){this.item=e,this.column=t}}function ue(e){const t=e.length-1,s=me(e,t),n=e[t];return s?function(t,o){if(2===arguments.length){const r=s(t);return r&&(r[n]=o),void ce.warn("path.compile",`Object reference ${e.join(".")} is not set.`)}const r=s(t);return r?r[n]:(ce.warn("path.compile",`Object reference ${e.join(".")} is not set.`),null)}:function(t,s){return t?(2===arguments.length&&(t[n]=s),t[n]):(ce.warn("path.compile",`Object reference ${e.join(".")} is not set.`),null)}}function he(e){const t=e.split("."),s=t.length-1,n=me(t,s),o=t[s];return n?function(e){const s=n(e);return s?s[o]:(ce.warn("path.compile",`Object reference ${t.join(".")} is not set.`),null)}:function(e){return e?e[o]:(ce.warn("path.compile",`Object reference ${t.join(".")} is not set.`),null)}}function de(e){const t=e.split("."),s=t.length-1,n=me(t,s),o=t[s];return n?function(e,s){const r=n(e);r?r[o]=s:ce.warn("path.compile",`Object reference ${t.join(".")} is not set.`)}:function(e,s){e?e[o]=s:ce.warn("path.compile",`Object reference ${t.join(".")} is not set.`)}}function me(e,t){if(e.length>1){const s=e[0];return e.filter(((e,s)=>s>0&&s!==t)).reduce(((e,t)=>s=>{const n=e(s);return n?n[t]:null}),(e=>e?e[s]:null))}return null}function ge(e,t){return t.$value?t.$value({$row:e,$column:t}):t.value?t.value(e):t.path?he(t.path)(e):e[t.key]}function pe(e){return e.$value?t=>e.$value({$row:t,$column:e}):e.value?t=>e.value(t):e.path?he(e.path):t=>t[e.key]}function we(e,t,s){if(a(t.$value))return t.$value({$row:e,$value:s,$column:t});if(a(t.value))return t.value(e,s);if(t.path)return de(t.path)(e,s);if(e.hasOwnProperty(t.key))return e[t.key]=s;throw new oe("value",`Row can't be edit on "${t.key}" column`)}function fe(e,t){return t.$label?a(t.$label)?t.$label({$row:e}):t.$label:t.label?a(t.label)?t.label(e):t.label:t.labelPath?he(t.labelPath)(e):ge(e,t)}function ye(e){return e.$label?a(e.$label)?t=>e.$label({$row:t}):t=>e.label:e.label?a(e.label)?t=>e.label(t):t=>e.label:e.labelPath?he(e.labelPath):t=>ge(t,e)}function be(e,t,s){return a(t.$label)?t.$label({$row:e,$label:s}):a(t.label)?t.label(e,s):t.labelPath?de(t.labelPath)(e,s):void 0}class ve{constructor(e,t){const{model:s,observeReply:n}=e;let o=new Map;const r=(e,s,n,r,i)=>{const c=`valueFactory-${s.key}`;return(n=o.get(c))||(n=pe(s),o.set(c,n)),t.getValue(e,s,n,r,i)},i=(e,t,s,n,i)=>{const c=`getValue-${n}x${t.key}`;if(o.has(c))return o.get(c);const l=r(e,t,s,n,i);return o.set(c,l),l},c=(e,s,n,r,i)=>{const c=`labelFactory-${s.key}`;return(n=o.get(c))||(n=ye(s),o.set(c,n)),t.getLabel(e,s,n,r,i)},l=(e,t,s,n,r)=>{const i=`getLabel-${n}x${t.key}`;if(o.has(i))return o.get(i);const l=c(e,t,s,n,r);return o.set(i,l),l};this.getValue=r,this.getLabel=c,this.colspan=(e,s,n,r)=>{const i=`colspan-${n}x${s.model.key}`;if(o.has(i))return o.get(i);const c=t.colspan(e,s,n,r);return o.set(i,c),c},this.rowspan=(e,s,n,r)=>{const i=`rowspan-${n}x${s.model.key}`;if(o.has(i))return o.get(i);const c=t.rowspan(e,s,n,r);return o.set(i,c),c},this.columns=(e,s,n)=>{const r=`columns-${s}-${n}`;if(o.has(r))return o.get(r);const i=t.columns(e,s,n);return o.set(r,i),i},this.setValue=(...e)=>t.setValue(...e),this.setLabel=(...e)=>t.setLabel(...e),this.columnList=(e="mid")=>{const s=`columnList-${e}`;if(o.has(s))return o.get(s);const n=t.columnList(e);return o.set(s,n),n},n(s.sceneChanged).subscribe((e=>{e.hasChanges("status")&&"stop"!==e.state.status&&(o=new Map)})),n(s.gridChanged).subscribe((e=>{e.hasChanges("isReadonly")&&(o=new Map,e.state.isReadonly?(this.getValue=i,this.getLabel=l):(this.getValue=getValue,this.getLabel=this.getLabel))}))}}function xe(e,t,s){return s(e,t)}class Ce{constructor(e){const{model:t,observeReply:s}=e;let n={};s(t.sceneChanged).subscribe((e=>{e.hasChanges("column")&&(n=e.state.column.area,e.state.column.line)})),this.getValue=xe,this.getLabel=xe,this.setValue=we,this.setLabel=be,this.colspan=(e,t)=>t.colspan,this.rowspan=()=>1;const o=(e="mid")=>n[e]||[];this.columnList=o,this.columns=(e,t)=>o(t)}}const ke={};class Ee{constructor(){}static register(e,t){if(ke.hasOwnProperty(e))throw new oe("template.path",`"${e}" is already registered`);return ke[e]=t,Ee}static get(e){const t=this.find(e);if(!t)throw new oe("template.path","Template path can't be found");return t}static find(e){const t=this.name;for(let s of Object.keys(ke)){const n=e[t(s)];if(!m(n)&&null!==n){const t=ke[s](e,n);if(t)return t}}return null}static getName(e){return"_"+e}static get require(){const e=this.name;return Object.keys(ke).reduce(((t,s)=>(t[e(s)]=`^^?${s}`,t)),{})}}Ee.register("custom-cell",((e,t)=>({model:e.for,resource:t.key}))),Ee.register("custom-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class $e{constructor(e="text"){this.key=null,this.path=null,this.labelPath=null,this.type=e,this.title=null,this.description=null,this.pin="mid",this.origin="specific",this.source="user",this.category="data",this.class=null,this.editor=null,this.editorOptions={modelFactory:({createDefaultModel:e})=>e(),trigger:"click",cruise:"control",label:null,value:N,actions:[]},this.width=null,this.minWidth=null,this.maxWidth=null,this.viewWidth=null,this.widthMode="relative",this.canEdit=!0,this.canResize=!0,this.canSort=!0,this.canMove=!0,this.canFilter=!0,this.canHighlight=!0,this.canFocus=!0,this.isVisible=!0,this.index=-1,this.value=null,this.label=null,this.compare=V,this.children=[],this.$label=null,this.$value=null,this.itemLabel=N,this.startNumber=1}toString(){return`${this.type}: ${this.title}`}}class Re{constructor(e){this.model=e,this.colspan=1,this.rowspan=1,this.rowIndex=-1,this.columnIndex=-1}static model(e){return e?Re.assign(e):e=new $e,e.origin="custom",e}static assign(e){const t=this.model();for(let s of Object.keys(t))if(e.hasOwnProperty(s)){const n=e[s];r(n)?e[s]=Array.from(n):h(n)&&!a(n)&&(e[s]=Object.assign({},t[s],n))}else{let n=t[s];a(n)&&(n=n.bind(e)),e[s]=n}return e}}class Ie{static number(e,t){return e}static date(e,t){return e}static currency(e,t){return e}}class Oe extends $e{constructor(){super(...arguments),this.isDefault=!0,this.aggregation=null,this.aggregationOptions={distinct:!1,separator:"; "}}}Ee.register("array-cell",((e,t)=>({model:e.for,resource:t.key}))),Ee.register("array-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class Fe extends Oe{constructor(){super("array"),this.itemType="text",this.itemFormat="",this.label=function(e){const t=ge(e,this);if(r(t)){let e;switch(this.itemType){case"number":e=Ie.number;break;case"date":case"datetime":e=Ie.date;break;default:e=this.itemLabel.bind(this)}const s=this.itemFormat;return t.map((t=>e(t,s))).join(", ")}return t}}}class qe extends Re{constructor(e){super(e)}static model(e){return e?qe.assign(e):new Fe}}Ee.register("bool-cell",((e,t)=>({model:e.for,resource:t.key}))),Ee.register("bool-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class Le extends Oe{constructor(){super("bool"),this.trueValue=!0,this.falseValue=!1,this.editorOptions.cruise="transparent",this.isIndeterminate=function(e){return!(e===this.trueValue||e===this.falseValue)},this.isChecked=function(e){return e===this.trueValue}}}class Se extends Re{constructor(e){super(e)}static model(e){return e?Se.assign(e):new Le}}Ee.register("cohort-cell",(e=>({model:e.for,resource:`${e.for}.${e.type}`})));class Me extends $e{constructor(){super("cohort"),this.key="$cohort",this.canEdit=!1,this.canSort=!1,this.canResize=!1,this.canFocus=!1,this.canFilter=!1,this.category="cohort"}}class Te extends Re{constructor(e){super(e)}static model(e){return e?Te.assign(e):new Me}}Ee.register("currency-cell",((e,t)=>({model:e.for,resource:t.key}))),Ee.register("currency-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class je extends Oe{constructor(){super("currency"),this.maxLength=20,this.symbol="$",this.code="USD"}}class Ne extends Re{constructor(e){super(e)}static model(e){return e?Ne.assign(e):new je}}function Ae(e,t){if("id"===e)e=t||"text";switch(e){case"text":case"email":case"url":case"password":return _e;case"number":case"currency":return Je;case"date":return Ke;case"time":case"datetime":return Ge;case"bool":return Ue;case"array":return Ye;default:return N}}function Pe(e,t){if("id"===e)e=t||"text";switch(e){case"date":return e=>{const t=Ke(e);return t?t.getTime():t};case"time":case"datetime":return e=>{const t=Ge(e);return t?t.getTime():t};default:return Ae(e,t)}}function Ve(e){const t=e.filter((e=>!(m(e)||null===e||""===e))).map(De);if(t.length){const e=t[0];if(t.every((t=>t===e)))return e}return"text"}function De(e){if(r(e)){if(e.length){if(!He(Be(e[0])))return"collection"}return"array"}return u(e)?"number":i(e)?"bool":c(e)?"datetime":d(e)?"text":h(e)?"object":"text"}function ze(e){const t=e.filter((e=>!(m(e)||null===e||""===e))).map(Be);if(t.length){const e=t[0];if(t.every((t=>t===e)))return e}return"text"}function Be(e){if(r(e)){if(e.length){if(!He(Be(e[0])))return"collection"}return"array"}return function(e){if(isNaN(e))return!1;const t=Number.parseFloat(e);return!isNaN(t)&&isFinite(t)}(e)?"number":i(e)?"bool":function(e){if(null===e||m(e)||""===e)return!1;if(e instanceof Date)return!0;return _(e=""+e)}(e)?"datetime":We(e)?"date":P(e)?"email":U(e)?"image":W(e)?"url":d(e)?"text":h(e)?"object":"text"}function He(e){switch(e){case"date":case"time":case"bool":case"text":case"number":case"email":case"url":return!0;default:return!1}}function We(e){return null!==e&&!m(e)&&""!==e&&(e instanceof Date||!!(e=""+e).match(/^(\d{4})(-(\d{2})(-(\d{2})))$/))}function Ue(e){return null===e||m(e)?e:!!e}function _e(e){return null===e||m(e)?e:""+e}function Ke(e){if(null===e||m(e))return e;if(""===e)return null;if(e instanceof Date)return new Date(e.getFullYear(),e.getMonth(),e.getDate(),0,0,0,0);if(We(e)||_(e)){const t=(""+e).split("-");return new Date(Number.parseInt(t[0]),Number.parseInt(t[1])-1,Number.parseInt(t[2]),0,0,0,0)}return new Date(""+e)}function Ge(e){if(null===e||m(e))return e;if(""===e)return null;if(e instanceof Date)return e;return new Date(""+e)}function Je(e){if(null===e||m(e))return e;if(""===e||isNaN(e))return null;const t=Number.parseFloat(e);return!isNaN(t)&&isFinite(t)?t:null}function Ye(e){return e}Ee.register("date-cell",((e,t)=>({model:e.for,resource:t.key}))),Ee.register("date-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class Xe extends Oe{constructor(){super("date"),this.format="MM/dd/yyyy",this.parse=Ae("date"),this.label=function(e){const t=ge(e,this);try{const e=this.parse(t);return Ie.date(e,this.format)}catch(e){return ce.error("date.column",e),t}}}}class Ze extends Re{constructor(e){super(e)}static model(e){return e?Ze.assign(e):new Xe}}Ee.register("datetime-cell",((e,t)=>({model:e.for,resource:t.key}))),Ee.register("datetime-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class Qe extends Oe{constructor(){super("datetime"),this.format="MM/dd/yyyy h:mm a",this.dateFormat="MM/dd/yyyy",this.timeFormat="h:mm a",this.parse=Ae("datetime"),this.label=function(e){const t=ge(e,this);try{const e=this.parse(t);return Ie.date(e,this.format)}catch(e){return ce.error("datetime.column",e),t}}}}class et extends Re{constructor(e){super(e)}static model(e){return e?et.assign(e):new Qe}}Ee.register("email-cell",((e,t)=>({model:e.for,resource:t.key}))),Ee.register("email-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class tt extends Oe{constructor(){super("email"),this.editorOptions.trigger="custom"}}class st extends Re{constructor(e){super(e)}static model(e){return e?st.assign(e):new tt}}function nt(e){return!!e&&e.toLowerCase().search(/png|jpg|jpeg|svg/)>-1}Ee.register("file-cell",((e,t)=>({model:e.for,resource:t.key}))),Ee.register("file-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class ot extends Oe{constructor(){super("file"),this.canUpload=T,this.editorOptions.trigger="custom",this.hasPreview=e=>nt(e),this.canSort=!1,this.canFilter=!1}}class rt extends Re{constructor(e){super(e)}static model(e){return e?rt.assign(e):new ot}}Ee.register("group-cell",((e,t)=>({model:e.for,resource:t.type}))),Ee.register("group-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class it extends $e{constructor(){super("group"),this.key="$group",this.path="key",this.labelPath="key",this.title="Group",this.offset=24,this.canEdit=!1,this.canSort=!1,this.canFilter=!1,this.category="control",this.by=null,this.label=function(e){if("row"===e.type)return"";const{by:t,labelPath:s}=this;return t&&t!==e.source?"":e[s]}}}class ct extends Re{constructor(e){super(e)}static model(e){return e?ct.assign(e):new it}}Ee.register("group-summary-cell",((e,t)=>({model:e.for,resource:t.key})));class lt extends Oe{constructor(){super("group-summary"),this.key="$group.summary",this.category="control",this.canEdit=!1,this.canResize=!1,this.canHighlight=!1,this.canFilter=!1,this.canSort=!1,this.canMove=!1}}class at extends Re{constructor(e){super(e)}static model(e){return e?at.assign(e):new lt}}Ee.register("id-cell",((e,t)=>({model:e.for,resource:t.key}))),Ee.register("id-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class ut extends Oe{constructor(){super("id")}}class ht extends Re{constructor(e){super(e)}static model(e){return e?ht.assign(e):new ut}}Ee.register("image-cell",((e,t)=>({model:e.for,resource:t.key}))),Ee.register("image-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class dt extends Oe{constructor(){super("image"),this.canSort=!1,this.canFilter=!1,this.canUpload=T,this.hasPreview=e=>nt(e)}}class mt extends Re{constructor(e){super(e)}static model(e){return e?mt.assign(e):new dt}}Ee.register("number-cell",((e,t)=>({model:e.for,resource:t.key}))),Ee.register("number-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class gt extends Oe{constructor(){super("number"),this.format=""}}class pt extends Re{constructor(e){super(e)}static model(e){return e?pt.assign(e):new gt}}Ee.register("pad-cell",(e=>({model:e.for,resource:`${e.for}.${e.type}`})));class wt extends $e{constructor(){super("pad"),this.key="$pad",this.category="markup",this.title="",this.canEdit=!1,this.canSort=!1,this.canResize=!1,this.canHighlight=!1,this.canFocus=!1,this.canMove=!1,this.canFilter=!1,this.source="generation"}}class ft extends Re{constructor(e){super(e)}static model(e){return e?ft.assign(e):new wt}}Ee.register("password-cell",((e,t)=>({model:e.for,resource:t.key}))),Ee.register("password-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class yt extends Oe{constructor(){super("password"),this.canSort=!1,this.canFilter=!1}}class bt extends Re{constructor(e){super(e)}static model(e){return e?bt.assign(e):new yt}}Ee.register("pivot-cell",(e=>({model:"pivot",resource:e.for})));class vt extends $e{constructor(){super("pivot"),this.key="$pivot",this.title="Pivot",this.source="generation",this.category="pivot",this.canEdit=!1,this.canSort=!1,this.canResize=!1,this.canFilter=!1,this.canMove=!1}}class xt extends Re{constructor(e){super(e)}static model(e){return e?xt.assign(e):new vt}}const Ct=Object.prototype.hasOwnProperty;class kt{static notUndefined(e,t){if(m(e))throw new oe("guard.notUndefined",t)}static notNull(e,t){if(null===e||m(e))throw new oe("guard.notNull",t)}static notNullOrEmpty(e,t){if(null===e||m(e)||""===e)throw new oe("guard.notNullOrEmpty",t)}static invokable(e,t){if(!a(e))throw new oe("guard.invokable",t)}static hasProperty(e,t){if(kt.notNull(e,"instance"),!Ct.call(e,t))throw new oe("guard.hasProperty",t)}}class Et{constructor(){this.accessors=new Map}inject(e,t){const s=this.resolveAccessor(e,t);this[e+"Changed"]=s.changed,this[e]=s.state}resolveAccessor(e,t){if(this.accessors.has(e))throw new oe("model",`${e} accessor already exists`);const s=this.buildAccessor(e,t);return this.accessors.set(t,s),s}buildAccessor(e,t){let s=new t;const n=new Set,o=new te((()=>{const e=Array.from(n.values()).reduce(((e,t)=>{const n=s[t];return e[t]={newValue:n,oldValue:n},e}),{});return{state:s,changes:e,hasChanges:e.hasOwnProperty.bind(e),tag:{},source:"watch"}})),i=(t,i)=>{if(!h(t))throw new oe(`model.${e}`,`"${t}" is not a valid type, should be an object`);const c={};let l=!1;const a=Object.keys(t);for(let o=0,i=a.length;o<i;o++){const i=a[o];if(!s.hasOwnProperty(i))throw new oe(`model.${e}`,`"${i}" is not a valid key, only [${Object.keys(s).join(", ")}] keys are supported`);const h=t[i],m=s[i];(u=h)===(d=m)||r(u)&&0===u.length&&0===d.length||u instanceof Map&&0===u.size&&0===d.size||u instanceof Set&&0===u.size&&0===d.size?ce.warn("model",`value was not changed - "${e}.${i}"`):(ce.info("model",`value changed - "${e}.${i}"`),kt.notUndefined(h,`model.${e}.${i}`),s[i]=h,l=!0,c[i]={newValue:h,oldValue:m},n.add(i))}var u,d;return l&&(s={...s},o.emit({state:s,changes:c,hasChanges:c.hasOwnProperty.bind(c),tag:i||{},source:"emit"})),this};return{changed:o,state:(...e)=>e.length?i(e[0],e[1]):s}}resolve(e){let t=this.accessors.get(e);if(!t){const s=K(e);t=this.resolveAccessor(s,e)}return t}}Ee.register("reference-cell",((e,t)=>({model:e.for,resource:t.key}))),Ee.register("reference-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class $t extends Oe{constructor(){super("reference"),this.editorOptions.trigger="custom"}}class Rt extends Re{constructor(e){super(e)}static model(e){return e?Rt.assign(e):new $t}}Ee.register("row-details-cell",((e,t)=>({model:e.for,resource:t.key})));class It extends $e{constructor(){super("row-details"),this.key="$row.details",this.category="control",this.canEdit=!1,this.canResize=!1,this.canHighlight=!1,this.canFilter=!1,this.canSort=!1,this.canMove=!1}}class Ot extends Re{constructor(e){super(e)}static model(e){return e?Ot.assign(e):new It}}Ee.register("row-expand-cell",((e,t)=>({model:e.for,resource:t.key})));class Ft extends $e{constructor(){super("row-expand"),this.key="$row.expand",this.category="control",this.canEdit=!1,this.canResize=!1,this.canFilter=!1,this.canSort=!1,this.canHighlight=!1,this.canMove=!1}}class qt extends Re{constructor(e){super(e)}static model(e){return e?qt.assign(e):new Ft}}Ee.register("row-indicator-cell",((e,t)=>({model:e.for,resource:t.key})));class Lt extends $e{constructor(){super("row-indicator"),this.key="$row.indicator",this.category="control",this.canEdit=!1,this.canSort=!1,this.canResize=!1,this.canMove=!1,this.canFocus=!1,this.canHighlight=!1,this.canFilter=!1,this.pin="left"}}class St extends Re{constructor(e){super(e)}static model(e){return e?St.assign(e):new Lt}}Ee.register("row-number-cell",((e,t)=>({model:e.for,resource:t.key})));class Mt extends $e{constructor(){super("row-number"),this.pin="left",this.key="$row.number",this.title="No.",this.canEdit=!1,this.canResize=!0,this.canFocus=!1,this.canMove=!1,this.canHighlight=!1,this.canSort=!1,this.canFilter=!1,this.category="control"}}class Tt extends Re{constructor(e){super(e)}static model(e){return e?Tt.assign(e):new Mt}}Ee.register("row-options-cell",((e,t)=>({model:e.for,resource:t.key}))),Ee.register("row-options-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class jt extends Oe{constructor(){super("row-options"),this.key="$row.options",this.category="control",this.canEdit=!0,this.canResize=!1,this.canMove=!1,this.canHighlight=!1,this.canFilter=!1,this.pin="right"}}class Nt extends Re{constructor(e){super(e)}static model(e){return e?Nt.assign(e):new jt}}Ee.register("select-cell",((e,t)=>({model:e.for,resource:t.key}))),Ee.register("select-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class At extends $e{constructor(){super("select"),this.key="$select",this.title="",this.category="control",this.canEdit=!1,this.editorOptions.cruise="transparent",this.value=M,this.canResize=!1}}class Pt extends Re{constructor(e){super(e)}static model(e){return e?Pt.assign(e):new At}}Ee.register("text-cell",((e,t)=>({model:e.for,resource:t.key}))),Ee.register("text-cell-edit",((e,t)=>({model:"edit",resource:t.key}))),Ee.register("text-area-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class Vt extends Oe{constructor(){super("text"),this.maxLength=140}}class Dt extends Re{constructor(e){super(e)}static model(e){return e?Dt.assign(e):new Vt}}Ee.register("time-cell",((e,t)=>({model:e.for,resource:t.key}))),Ee.register("time-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class zt extends Oe{constructor(){super("time"),this.format="h:mm a"}}class Bt extends Re{constructor(e){super(e)}static model(e){return e?Bt.assign(e):new zt}}Ee.register("url-cell",((e,t)=>({model:e.for,resource:t.key}))),Ee.register("url-cell-edit",((e,t)=>({model:"edit",resource:t.key})));class Ht extends Oe{constructor(){super("url"),this.editorOptions.trigger="custom"}}class Wt extends Re{constructor(e){super(e)}static model(e){return e?Wt.assign(e):new Ht}}function Ut(s,n){return s&&n?e(s,n,((e,t)=>m(e)?t:e)):s||t(n)}function _t(e){const{columnList:t}=e,s={array:qe,bool:Se,cohort:Te,currency:Ne,custom:Re,date:Ze,datetime:et,email:st,file:rt,group:ct,id:ht,image:mt,number:pt,pad:ft,password:bt,pivot:xt,reference:Rt,"row-details":Ot,"row-expand":qt,"row-indicator":St,"row-number":Tt,"row-options":Nt,select:Pt,"group-summary":at,text:Dt,time:Bt,url:Wt},n=(e,n,o)=>{const r=s[e],{reference:i}=t();o=Ut(o,i.$default);o=Ut(o,i[n]);const c=r.model(o);return new r(c)};return(e,t=null)=>(e||(e="text"),s.hasOwnProperty(e)?n(e,e,t):n("custom",e,t))}class Kt{constructor(e,t){const s=_t(e)("pad",{key:"row-details-pad"});this.columns=t.getColumns,this.rowspan=t.rowspan,this.colspan=(e,s)=>f(t.columnList(s.model.pin),(e=>e.colspan)),this.columns=(e,t)=>e.column.model.pin===t?[e.column]:[s],this.getValue=()=>null,this.getLabel=()=>null,this.setValue=()=>null,this.setLabel=()=>null}}class Gt{constructor(){}static first(e,t){return e.length?t(e[0]):null}static last(e,t){const s=e.length;return s?t(e[s-1]):null}static max(e,t){let s=e.length;if(!s)return null;let n=Number.MIN_SAFE_INTEGER;for(;s--;)n=Math.max(n,t(e[s]));return n}static min(e,t){let s=e.length;if(!s)return null;let n=Number.MAX_SAFE_INTEGER;for(;s--;)n=Math.min(n,t(e[s]));return n}static minMax(e,t){let s=e.length;if(!s)return null;let n=Number.MAX_SAFE_INTEGER,o=Number.MIN_SAFE_INTEGER;for(;s--;){const r=t(e[s]);n=Math.min(n,r),o=Math.max(o,r)}return[n,o]}static avg(e,t,s){const n=e.length;if(!n)return null;if(s.distinct){const n=new Set;return Gt.sum(e,t,s,n)/n.size}return Gt.sum(e,t,s)/n}static sum(e,t,s,n){let o=e.length;if(!o)return null;let r=0;if(s.distinct)for(n=n||new Set;o--;){const s=t(e[o]);n.has(s)||(r+=s,n.add(s))}else for(;o--;)r+=Number(t(e[o]));return r}static join(e,t,s){const n=e.length;if(!n)return null;let o=t(e[0]);const r=s.separator||"";if(s.distinct){const s=new Set;let i=o;s.add(i);let c=1;for(;c<n;)i=t(e[c]),s.has(i)||(o+=r+i,s.add(i)),c++}else{let s=1;for(;s<n;)o+=r+t(e[s]),s++}return o}static count(e,t,s){let n=e.length;if(!n)return null;if(s.distinct){let s=new Set;for(;n--;){const o=Number(t(e[n]));s.add(o)}return s.size}return n}}function Jt(e){const{mode:t,summary:s}=e.group();let n=(e,t,s)=>s.push(e);if("rowspan"===t)n=(e,t,s)=>{(0===e.level||t>0)&&s.push(e)};let o=M;if("leaf"===s)o=(e,t,s,n,o)=>{if(n&&n.children.length-1===o){const{level:t,key:n}=e,o=new le(`${n}-group-summary`,t,"summary");o.rows=Array.from(e.rows),s.push(o)}};return function e(t,s=[],r=null,i=0){for(let c=0,l=t.length;c<l;c++){const l=t[c];if(n(l,c,s,r,i),l.state.expand){const t=l.children;if(t.length)e(t,s,l,c);else{const{rows:e,level:o,key:c}=l,a=o+1;for(let o=0,l=e.length;o<l;o++){const l=new le(c,a,"row"),u=e[o];l.rows=[u],t.push(l),n(l,o,s,r,i)}}o(l,c,s,r,i)}}return s}}function Yt(e){return"group"!==e.type?e:e.state.expand?e.children.length&&Yt(e.children[0]):null}class Xt{constructor(e,t){const{columnList:s,rowspan:n}=t;this.columnList=s,this.rowspan=n;const o=_t(e),r={group:o("group"),summary:o("group-summary")};this.getLabel=this.getValue=(s,n,o,r,i)=>{if("pivot"===n.type)return t.getLabel(s,n,o,r,i);const{rows:c}=e.data();switch(s.type){case"group":case"summary":{const e=n.aggregation;if(e){if(!Gt.hasOwnProperty(e))throw new oe("node.row",`Aggregation ${e} is not supported`);const t=s.rows.map((e=>c[e]));return Gt[e](t,o,n.aggregationOptions)}return null}case"row":{const e=s.rows[0];return o(c[e],n)}case"value":return o(s,n);default:throw new oe("node.row",`Invalid node type ${s.type}`)}},this.setValue=(s,n,o,r,i)=>{switch(s.type){case"row":{const{rows:r}=e.data(),c=s.rows[0];t.setValue(r[c],n,o,c,i);break}case"value":t.setValue(s,n,o,r,i);break;default:throw new oe("node.row",`Can't set value to ${s.type} node`)}},this.setLabel=(s,n,o,r,i)=>{switch(s.type){case"row":{const{rows:r}=e.data(),c=s.rows[0];t.setLabel(r[c],n,o,c,i);break}case"value":t.setLabel(s,n,o,r,i);break;default:throw new oe("node.row",`Can't set label to ${s.type} node`)}},this.colspan=(e,t)=>"summary"===e.type?f(s(t.model.pin),(e=>e.colspan)):t.colspan,this.columns=(e,t)=>"summary"===e.type?[r.summary]:s(t),this.findGroupColumn=e=>{let t=s().find((e=>"group"===e.model.type));if(!t&&(t=r.group,t.model.pin===e)){const n=s(e)[0];t.columnIndex=n?n.columnIndex:0}return t.model.pin!==e?null:t}}}class Zt{constructor(e,t){const{columnList:s,getValue:o,getLabel:r,columns:i}=t;this.setValue=t.setValue,this.setLabel=t.setLabel,this.colspan=t.colspan,this.columnList=s;const c=(e,t,s=!0)=>{if("group"===e.type)if("group"===t.model.type){if(e.state.expand){if(!s||e.source===t.model.by)return e.children.reduce(((e,s,n)=>e+c(s,t,!1)),0);if(e.children.length)return c(e.children[0],t,!1)}return 1}return 1};this.rowspan=c;const l=t=>(s,n,o)=>{if("group"===s.type){const t=Yt(s);if(t){const{rows:s}=e.data();return o(s[t.rows[0]],n)}return null}return t(s,n,o)};this.getLabel=l(r),this.getValue=l(o),this.columns=(e,t)=>{switch(e.type){case"group":return n(s(t),(t=>"group"===t.model.type&&t.model.by!==e.source));case"row":return s(t).filter((e=>"group"!==e.model.type))}return i(e,t)}}}class Qt{constructor(e){const{columnList:t,columns:s,findGroupColumn:o}=e;this.setValue=e.setValue,this.setLabel=e.setLabel,this.getValue=e.getValue,this.getLabel=e.getLabel,this.rowspan=e.rowspan,this.columnList=t,this.colspan=(s,n)=>{if("group"===s.type)if("group"===n.model.type){if(o(n.model.pin)){const e=t(n.model.pin),s=y(e,(e=>!e.model.aggregation));return f(s,(e=>e.colspan))}}return e.colspan(s,n)},this.columns=(e,r)=>{switch(e.type){case"group":{const e=o(r);if(e){const s=n(t(r),(e=>!e.model.aggregation));return[e].concat(s)}break}}return s(e,r)}}}class es{constructor(e){this.build=e}get instance(){return this.value||(this.value=this.build())}}function ts(e){const t=function(){const e=new Map;return function t(s,n=0){const{model:o}=s.key;if(e.has(o.key))return e.get(o.key);const{children:r}=s;let i=0==r.length?0:1;for(let e of r)i=Math.max(i,t(e,n+1));const c=1+i;return e.set(o.key,c),c}}();const s=[];return function e(s,n,o,r,i){const c=s.key,l=r-t(s);c.rowspan=l,c.rowIndex=n,c.columnIndex=o;const{children:a}=s;if(a.length){let t=0;const s=[];for(let i of a){const c=e(i,n+l,o,r-l,s);if(!c)continue;const{colspan:a}=c;t+=a,o+=a}c.colspan=t,t>0&&(i.push(c),i.push(...s))}else"cohort"!==c.model.type&&i.push(c);return c}(e,0,0,t(e),s),s.splice(0,1),function(e){const t=[];e.sort(((e,t)=>{const s=e.rowIndex-t.rowIndex;return 0===s?e.columnIndex-t.columnIndex:s}));for(let s of e)t[s.rowIndex]||(t[s.rowIndex]=[]),t[s.rowIndex].push(s);return t}(s)}function ss(e){const t=[],s=[];for(let n=0,o=e.length;n<o;n++){const o=e[n],r=s.length>n?s[n]:s[n]=[0];for(let e=0,i=o.length;e<i;e++){const i=o[e],{rowspan:c,colspan:l}=i,a=r[0],u=a+l;for(let e=0;e<c;e++){const o=n+e,r=t.length>o?t[o]:t[o]=[];for(let e=0;e<l;e++){r[a+e]=i}const c=s.length>o?s[o]:s[o]=[0],h=H(c,a);if(r[u])c.splice(h,1);else{const e=c[h];c.splice(h,r[e]?1:0,u)}}}}return t}function ns(e){const t=[],s=e.length;if(s){const n=new Set,o=e[s-1],r=o.length;for(let e=0;e<r;e++){const s=o[e];n.has(s)||(t.push(s),n.add(s))}}return t}function os(e,t=[]){for(let s=0,n=e.length;s<n;s++){const n=e[s];t.push(n);const{children:o}=n;o&&o.length&&os(o,t)}return t}function rs(e,t){for(let s=0,n=e.length;s<n;s++){const n=e[s];if(n.key===t)return{columns:e,index:s};const{children:o}=n;if(o.length){const e=rs(o,t);if(e)return e}}return null}function is(e){return e.reduce(((e,t)=>(e[t.key]=t,e)),{})}function cs(e){return a(e.value)?t=>e.value(t):t=>t[e.key]}function ls(e,t){const s=as(e,t);return s<0?null:e[s]}function as(e,t){let{length:s}=e;for(;s--;){if(e[s].key==t)return s}return-1}function us(e){const t=e.length;if(1===t)return Array.from(e[0]);if(t>1){return ns(ss(e))}return[]}function hs(e,t){const s=e.data.columns(),n=is(s),o=s.filter((e=>t.has(e.key)||(""+e.width).indexOf("%")<0)).reduce(((e,t)=>{const s=i(t);return null!==s&&(e+=s),e}),0);let r=new es((()=>e.view.width("head-mid")+e.view.width("head-left")+e.view.width("head-right")));function i(s){let n=s;t.has(s.key)&&(n=t.get(s.key));let{width:i}=n;if(i||0===i){if((""+i).indexOf("%")>=0){const e=Number.parseFloat(i);i=(r.instance-("absolute"===s.widthMode?2:o+2))*e/100}const e=0;return Math.max(Number.parseInt(i,10),Number.parseInt(s.minWidth,10)||e)}if("fit-head"===s.widthMode){const{cells:t}=e.head.context.bag,n=Array.from(t).find((e=>e.column===s));if(n)return e.head.cell(n.rowIndex,n.columnIndex).width()+2}return null}return e=>{let t=n[e];if(!t)throw new oe("column.service",`Column ${e} is not found`);return i(t)}}function ds(e){const{rows:t}=e.data(),{pivot:s}=e.view(),n=e.scene().rows,o=e.columnList().line,r=s.rows,i=r[0].length,c=e.group().by,l=c.length,a=is(o);return e=>{const s=[];for(let o=0,u=n.length;o<u;o++){const u=n[o],h=c[Math.min(u.level,l-1)],d=a[h];if(!d)throw new oe("group.build",`Invalid key "${h}"`);const m=d.aggregation||"count";if(!Gt.hasOwnProperty(m))throw new oe("group.build",`Aggregation ${m} is not registered`);const g=e(d),p=Gt[m],w=new Array(i);for(let e=0,s=u.rows.length;e<s;e++){const s=u.rows[e],n=r[s],o=t[s];for(let e=0;e<i;e++)if(n[e]){let t=w[e];t||(t=[],w[e]=t),t.push(o)}}s.push(w.map((e=>p(e,g,d.aggregationOptions))))}return s}}class ms{constructor(e,t){const{model:s,observeReply:n}=e;this.columns=t.columns,this.rowspan=t.rowspan,this.colspan=t.colspan,this.getValue=t.getValue,this.setValue=t.setValue,this.getLabel=t.getLabel,this.setLabel=t.setLabel,this.columnList=t.columnList;let o=[];n(s.sceneChanged).subscribe((e=>{if(e.hasChanges("column")||e.hasChanges("rows")){const{rows:n}=s.view().pivot;if(n.length){if(s.group().by.length){const e=ds(s);o=e(pe)}else o=n;const r=e.state.column.line.findIndex((e=>"pivot"===e.model.type));this.getValue=(e,s,n,i,c)=>{if("pivot"===s.type){return o[i][c-r]}return t.getValue(e,s,n,i,c)},this.getLabel=(e,s,n,i,c)=>{if("pivot"===s.type){return o[i][c-r]}return t.getLabel(e,s,n,i,c)}}else o=[],this.getValue=t.getValue,this.getLabel=t.getLabel}}))}}class gs{constructor(e){const{model:t,observe:s,observeReply:n}=e,o=new Ce(e),r=new ve(e,new ms(e,o)),i=new Xt(t,r),c=new ve(e,i),l=new ve(e,new Qt(i)),a=new ve(e,new Zt(t,i)),u=new ve(e,new Kt(t,r)),h=r,d=new Map;d.set(ae,u);const m=()=>{const{mode:e}=t.group();switch(e){case"subhead":d.set(le,l);break;case"rowspan":d.set(le,a);break;default:d.set(le,c)}};m(),s(t.groupChanged).subscribe(m),this.defaultStrategy=h,this.colspan=(e,t,s,n)=>(d.get(e.constructor)||h).colspan(e,t,s,n),this.rowspan=(e,t,s,n)=>(d.get(e.constructor)||h).rowspan(e,t,s,n),this.columns=(e,t,s)=>(d.get(e.constructor)||h).columns(e,t,s),this.getValue=(e,t,s,n)=>(d.get(e.constructor)||h).getValue(e,t,ge,s,n),this.setValue=(e,t,s,n,o)=>(d.get(e.constructor)||h).setValue(e,t,s,n,o),this.getLabel=(e,t,s,n)=>(d.get(e.constructor)||h).getLabel(e,t,fe,s,n),this.setLabel=(e,t,s,n,o)=>(d.get(e.constructor)||h).setLabel(e,t,s,n,o),this.rows={left:[],right:[],mid:[]};const g=()=>{const{rows:e}=t.scene(),{pinTop:s,pinBottom:n}=t.row();this.rows={top:s,body:e,bottom:n}};n(t.sceneChanged).subscribe((e=>{e.hasChanges("rows")&&g()})),n(t.rowChanged).subscribe((e=>{(e.hasChanges("pinTop")||e.hasChanges("pinBottom"))&&g()}))}}class ps{static set(e){if(document.body.createTextRange){const t=document.body.createTextRange();t.moveToElementText(e),t.select()}else if(window.getSelection){const t=window.getSelection(),s=document.createRange();s.selectNodeContents(e),t.removeAllRanges(),t.addRange(s)}else ce.error("text.selection","Could not select text in element: Unsupported browser.")}static clear(){if(window.getSelection){window.getSelection().removeAllRanges()}}}class ws{constructor(e){const{model:t,observe:s,disposable:n}=e,o=new gs(e);this.plugin=e,this.render=o,this.columns=e=>o.defaultStrategy.columnList(e),s(t.sceneChanged).subscribe((e=>{e.hasChanges("rows")&&this.tryShowBlankLayer()})),s(t.mouseChanged).subscribe((({state:e})=>{const{code:t,status:s,target:n}=e;n&&"right"===t&&"up"===s&&(this.targetElement=n.element,this.targetElement.classList.add("q-grid-can-select-text"),ps.set(this.targetElement)),this.targetElement&&"down"===s&&(ps.clear(),this.targetElement.classList&&this.targetElement.classList.remove("q-grid-can-select-text"),this.targetElement=null)})),this.tryShowBlankLayer()}tryShowBlankLayer(){ce.info("view.let","invalidate");const{model:e,table:t}=this.plugin,{rows:s}=e.scene();s.length||e.data().rows.length?t.view.hasLayer("blank")&&t.view.removeLayer("blank"):t.view.hasLayer("blank")||t.view.addLayer("blank")}}class fs{constructor(){this.items={}}set(e,t){this.items[e]=t}get(e){const t=this.find(e);if(!t)throw new oe("cache.get",`Entry with key was not found "${e}"`);return t}has(e){return this.items.hasOwnProperty(e)}find(e){const t=this.items;return t.hasOwnProperty(e)?t[e]:null}remove(e){if(!this.items.hasOwnProperty(e))throw new oe("cache.remove",`Entry with key was not found "${e}"`);delete this.items[e]}clear(){this.items={}}}class ys{constructor(){this.resource=new $,this.cache=new fs}}class bs{constructor(e,t){const{model:s,observeReply:n}=t;e.classList.add("q-grid"),n(s.dragChanged).subscribe((t=>{t.hasChanges("isActive")&&(s.drag().isActive?e.classList.add("q-grid-drag"):e.classList.remove("q-grid-drag"))}))}}function vs(e){return xs(e).join("\n")}function xs(e){return Object.keys(e).reduce(((t,s)=>{const n=e[s],o=Object.keys(n).reduce(((e,t)=>(e.push(`\t${t}:${n[t]} !important;`),e)),[]);return t.push(`${s}{\n${o.join("\n")}\n}`),t}),[])}function Cs(e,t){const s=`${e}-${t}`;let n=document.getElementById(s);const o=()=>(n||(n=document.createElement("style"),n.type="text/css",n.id=ks(s),document.getElementsByTagName("head")[0].appendChild(n)),n);return{set:t=>{const s=o(),n=xs(t),r=`#${Es(e)}`;s.innerHTML=n.map((e=>`${r} ${e}`)).join("\n")},remove:()=>{n&&n.parentNode.removeChild(n)}}}function ks(e){return(""+e).replace(/\s|\t|\n|"|'/g,"_")}function Es(e){return C(ks(e))}function $s(e){const t=[`q-grid-the-${ks(e.key)}`,`q-grid-${ks(e.type)}`];e.editor&&t.push(`q-grid-${ks(e.editor)}`),e.viewWidth&&t.push("q-grid-has-view-width"),e.class&&t.push(ks(e.class));const s=" "+t.join(" ");return e=>e.className+=s}function Rs(e){const t=[];e.canEdit&&t.push("q-grid-can-edit"),e.canResize&&t.push("q-grid-can-resize"),e.canSort&&t.push("q-grid-can-sort"),e.canMove&&t.push("q-grid-can-move"),e.canFilter&&t.push("q-grid-can-filter"),e.canHighlight&&t.push("q-grid-can-highlight"),e.widthMode&&t.push(`q-grid-${e.widthMode}`);const s=" "+t.join(" ");return e=>e.className+=s}class Is{constructor(e,t){this.model=e,this.table=t}map(e){const t=this.model.selection();switch(t.unit){case"row":return this.mapFromRows(e);case"column":return this.mapFromColumns(e);case"cell":return this.mapFromCells(e);case"mix":return this.mapFromMix(e);default:throw new oe("cell.selector",`Invalid unit ${t.unit}`)}}mapFromRows(e){const{table:t}=this,s=[],n=t.data.rows();for(let o of e){const e=n.indexOf(o);for(let n of t.body.row(e).cells())s.push(n)}return s}mapFromColumns(e){const{table:t}=this,s=[],n=t.data.columns();for(let o of e){const e=n.findIndex((e=>e===o));s.push(...t.body.column(e).cells())}return s}mapFromCells(e){const{table:t}=this,s=[],n=t.data.rows(),o=t.data.columns();for(let r of e){const e=n.indexOf(r.row),i=o.findIndex((e=>e===r.column));s.push(t.body.cell(e,i))}return s}mapFromMix(e){const t=Array.from(e),s=t.filter((e=>"row"===e.unit)).map((e=>e.item)),n=t.filter((e=>"cell"===e.unit)).map((e=>e.item));return[...this.mapFromRows(s),...this.mapFromCells(n)]}}function Os(e){const t=document.createElement("textarea");t.style.position="fixed",t.style.top=0,t.style.left=0,t.style.width="2em",t.style.height="2em",t.style.padding=0,t.style.border="none",t.style.outline="none",t.style.boxShadow="none",t.style.background="transparent",t.value=e,document.body.appendChild(t),t.focus(),t.select();try{document.execCommand("copy")}catch(e){throw new oe("clipboard",e.message)}document.body.removeChild(t)}class Fs{constructor(){this.disposes=[]}add(e){kt.notNull(e,"resource");const t=e;if(a(t.finalize))this.disposes.push((()=>t.finalize()));else if(a(t.unsubscribe))this.disposes.push((()=>t.unsubscribe()));else{if(!a(t))throw new oe("disposable","Resource is not a disposable");this.disposes.push(t)}}remove(e){const t=this.disposes.indexOf(e);return t>=0&&(this.disposes.splice(t,1),!0)}finalize(){const e=this.disposes;this.disposes=[];for(const t of e)t()}}class qs{constructor(e){this.off=e,this.closed=!1}unsubscribe(){this.closed||(this.off(),this.off=null,this.closed=!0)}}class Ls{constructor(e,t){this.errorSignal=new te,this.nextSignal=e,this.disposable=t}subscribe(...e){let t=e[0];if(a(t)&&(t={next:e[0],error:e[1],complete:e[2]}),t.error){const e=this.errorSignal.on((e=>t.error(e)));this.disposable.add(e)}if(t.next){const e=this.subscribeEvent((e=>t.next(e)));let s=!1;const n=()=>{s||(s=!0,e(),this.disposable.remove(n),t.complete&&t.complete())};return this.disposable.add(n),new qs(n)}return new qs(M)}subscribeEvent(e){return this.nextSignal.on((t=>{try{e(t)}catch(e){throw this.catchError(e),e}}))}catchError(e){throw this.errorSignal.emit(e),e}toPromise(){return new Promise((e=>{let t=!1;const s=this.subscribe((()=>{e(),t=!0,s&&(s.unsubscribe(),s=null)}));t&&s&&s.unsubscribe()}))}pipe(...e){let t=this;for(let s of e)t=s(t);return t}}class Ss extends Ls{subscribeEvent(e){return this.nextSignal.watch((t=>{try{e(t)}catch(e){this.catchError(e)}}))}}class Ms extends Ls{constructor(){super(new te,new Fs),this.isCompleted=!1}next(e){this.isCompleted||this.nextSignal.emit(e)}error(e){this.isCompleted||this.catchError(e)}complete(){this.isCompleted||(this.isCompleted=!0)}}class Ts extends Ms{constructor(e){super(),this.subscriber=e}subscribe(...e){super.subscribe(...e),this.subscriber(this)}}class js{constructor(e={}){this.execute=T,this.canExecute=T,this.canExecuteCheck=new Ms,this.shortcut="",this.priority=0,this.source="",this.sink=null,Object.assign(this,e)}clone(e={}){const t=new js(this);return Object.assign(t,e),t}}class Ns{constructor(e,t){const{model:s,table:n}=e;this.copy=new js({priority:1,source:"clipboard.let",shortcut:"ctrl+c",canExecute:()=>{const{status:e}=s.edit(),{copy:t}=s.clipboard();return"view"===e&&t.canExecute()},execute:()=>{const{cell:e}=s.navigation();if(e){const{copy:t}=s.clipboard();if(!1!==t.execute()){Os(ye(e.column)(e.row)),n.view.focus()}}return!0}}),t.register([this.copy])}}class As{constructor(){this.copy=new js}}function Ps(t){const s=e({equals:(e,t)=>e===t,update:(t,s)=>(e(t,s),t),remove:(e,t,s)=>(t.splice(s,1),e),insert:(e,t)=>(t.push(e),e)},t);return(e,t,n)=>{const o=e.slice(),r=t.slice();let i=0,c=0;n=n||e;for(let e=0,t=o.length;e<t;e++){const t=o[e];let l=!1;for(let o=0,c=r.length;o<c;o++){const c=r[o];if(s.equals(t,c,e,o)){s.update(t,c,n,n.indexOf(t)),i++,l=!0,r.splice(o,1);break}}l||(s.remove(t,n,n.indexOf(t)),c++)}const l=r.length;for(let e=0;e<l;e++)s.insert(r[e],n);return s.sort&&e.sort(s.sort(e,t)),{updated:i,removed:c,inserted:l}}}function Vs(t,s,n=!1){let o;o=n?(e,t)=>m(t)||null===t?e:t:(e,t)=>m(t)||null===t||null!==e?e:t;const r=Ps({equals:(e,t)=>e.key===t.key,update:(t,s)=>e(t,s,o),insert:(e,t)=>t.push(e),remove:M});return r(t,s)}function Ds(e){return e.some((e=>e.inserted||e.update))}function zs(e){const{data:t}=e,s=_t(e);return()=>{const{rows:n}=t(),o=e.columnList().columns,r=[],{generation:i,typeDetection:c}=e.columnList();if(i){let e={rows:n,columnFactory:s,deep:!1,cohort:!1,typeDetection:c};switch(i){case"shallow":break;case"deep":e.deep=!0;break;case"cohort":e.deep=!0,e.cohort=!0;break;default:throw new oe("column.list.generate",`Invalid generation mode "${i}"`)}r.push(...Bs(e))}const l=Array.from(t().columns);let a=[];return r.length&&a.push(Vs(l,r,!1)),o.length&&a.push(Vs(l,o,!0)),{columns:l,statistics:a,hasChanges:Ds(a)}}}function Bs(t){const s=e({deep:!0,cohort:!1,rows:[],columnFactory:()=>new Vt,title:w,testNumber:10,typeDetection:"inference"},t);return s.rows.length?Hs(s.rows[0],[],{columnFactory:s.columnFactory,deep:s.deep,cohort:s.cohort,title:s.title,typeDetection:s.typeDetection,testRows:s.rows.slice(0,s.testNumber)}):[]}function Hs(e,t,s){const{columnFactory:n,deep:o,cohort:r,title:i,testRows:c,typeDetection:l}=s;return Object.getOwnPropertyNames(e).reduce(((a,u)=>{const h=[...t,u],d=ue(h),m=h.join("."),g=e[u],p="raw"===l?Ve(c.map(d)):ze(c.map(d));switch(p){case"array":{const t=n(p).model;if(t.key=m,t.title=i(m,e,t.length),t.value=d,t.source="generation",g.length)switch(t.itemType=De(g[0]),t.itemType){case"date":t.itemFormat=n("date").model.format;break;case"datetime":t.itemFormat=n("datetime").model.format}a.push(t);break}case"collection":break;case"object":if(o){const t=Hs(g,h,s);if(r){const s=n("cohort").model;s.key=m,s.title=i(m,e,s.length),s.value=d,s.source="generation",s.children.push(...t),a.push(s)}else a.push(...t)}break;default:{const t=n(p).model;t.key=m,t.title=i(m,e,t.length),t.value=d,t.source="generation",a.push(t);break}}return a}),[])}class Ws{constructor(e,t,s){this.model=e,this.canCopy=t,this.parseFactory=s}generateKey(e){return m(e.editor)?m(e.type)?"$default":`$default.${e.type}`:`$default.${e.editor}`}copy(e,t){const s=this.canCopy,n=this.parseFactory;Object.keys(t).filter((n=>s(n,t,e))).forEach((s=>{const o=t[s],r=ue([s]),i=r(e),c=De(i);let l=o;if(null!==i&&!m(i)){const e=n(c)(o,i);null!==e&&(l=e)}r(e,l)}))}add(e){const{columnList:t,scene:s,data:n}=this.model,o=t().columns.concat([e]);t({columns:o},{source:"column.list.host",behavior:"core"}),"idle"!==s().status&&n({columns:Array.from(n().columns)},{source:"column.list.host"})}register(e){const{columnList:s}=this.model,n=t(s().reference);n[e.type||"$default"]=e,s({reference:n},{source:"column.list.host",behavior:"core"})}extract(e,t){const{model:s}=this,n=_t(s);let o=ls(s.columnList().line,e);if(o)return n(t,o);o=n(t||"text").model,o.key=e,o.source="template";const r=ls(s.data().columns,e);return r&&this.copy(o,r),o}delete(e){const{columnList:t,data:s}=this.model,n=t().columns,o=as(n,e);if(o>=0){const e=Array.from(n);e.splice(o,1),t({columns:e},{source:"column.list.host",behavior:"core"})}const r=Array.from(s().columns),i=rs(r,e);i&&(i.columns.splice(i.index,1),s({columns:r},{source:"column.list.host"}))}}function Us(e,t,s=null,n=null){for(let o=0,r=e.length;o<r;o++){const r=e[o],i=t(r,s,n,o);Us(r.children,t,i,r)}return s}function _s(e,t,s=null){const{children:n}=e;e=Ys(e);let o=!1;for(let s=0,r=n.length;s<r;s++){o=_s(n[s],t,e)||o}return s?!(!o&&!t(e))&&(s.children.push(e),!0):e}function Ks(e,t=[]){const{children:s}=e;if(!s.length)return t.push(e),t;for(let e=0,n=s.length;e<n;e++){Ks(s[e],t)}return t}function Gs(e,t,s=null,n=-1,o=[]){if(t(e))return{node:e,parent:s,index:n,path:o};(o=o.slice()).push(e);const{children:r}=e;for(let s=0,n=r.length;s<n;s++){const n=r[s],i=find(n,t,e,s,o);if(i)return i}return null}function Js(e){const t=new le(e.key,e.level,e.type);return t.rows=Array.from(e.rows),t.children=Array.from(e.children),t.state=s(e.state),t.source=e.source,t.value=e.value,t}function Ys(e){const t=new le(e.key,e.level,e.type);return t.value=e.value,t.source=e.source,t.state.expand=e.state.expand,t}function Xs(e){if(0===e.length)throw new oe("node.service","Line have no nodes");const t=Ys(e[0]),s=[t];for(let t=1,n=e.length;t<n;t++){const n=e[t];let o=s[s.length-1];for(;n.level<=o.level;)s.pop(),o=s[s.length-1];const r=Ys(n);r.level=o.level+1,o.children.push(r),s.push(r)}return t}function Zs(e){const t=e.columnList().columns.map((e=>e.key));return(e,s)=>{const{length:n}=e;s=Object.assign({list:e=>"data"===e.category||"cohort"===e.category?.1:.3,index:()=>.2,view:e=>n+("data"!==e.category&&"cohort"!==e.category?.1:.3),template:()=>n+.4},s);const o=e.map((e=>e.key)),r=function(e){return(t,s)=>{const n=function(e,t,s){const n=Qs(s),o=Qs(t),r={},i=t=>{const s=t.key;if(r.hasOwnProperty(s))return r[s];const i=[t.index+e.index(t),n(s)+e.view(t),o(s)+e.template(t)].filter((e=>e>=0)),c=i.length?i[0]:-1;return r[s]=c,c};return(e,t)=>{const s=i(e),n=i(t);return-1===n?-1:-1===s?1:s-n}}(e,t,s);return e=>{const t=Array.from(e);return t.sort(n),t.map((e=>e.key))}}}(s)(t,o),i=r(e.filter((e=>"left"===e.pin))),c=r(e.filter((e=>"mid"===e.pin))),l=r(e.filter((e=>"right"===e.pin)));return i.concat(c).concat(l)}}function Qs(e){const t=e.reduce(((e,t,s)=>(e.set(t,s),e)),new Map);return e=>t.has(e)?t.get(e):-1}function en(e,t,s){const n=function(e,t){const s={line:[],map:new Map};return Us([e],(e=>{s.line.push(e),s.map.set(e.key.model.key,e.key);const n=e.children.map((e=>e.key.model)),o=t(n);let r=0;const i=o.reduce(((e,t)=>(e[t]=r++,e)),{});e.children.sort(((e,t)=>i[e.key.model.key]-i[t.key.model.key]))})),s}(e,s),o=function(e,t){const s={line:[],set:new Set};return Us([e],(e=>{const{key:n}=e.key.model,o=t.map.get(n);if(o){const t=Ys(e);t.key=o,s.line.push(t),s.set.add(n)}})),s}(t,n),r=tn(n,o),i=function(e,t){const s=tn(e,t),{line:n}=t;return(e,t)=>{const o=new Set(t.children.map((e=>e.key.model.key))),r=n.findIndex((e=>o.has(e.key.model.key)));if(r<0)return void s(e,t);const i=Ys(t),{level:c}=n[r];i.level=c,n.splice(r,0,i);for(let e=r+1,t=n.length;e<t;e++){const t=n[e];if(t.level!==c)break;o.has(t.key.model.key)&&(t.level=c+1)}}}(n,o),c=n.line[0];o.set.has(c.key.model.key)||(o.line.unshift(Ys(c)),o.line.forEach((e=>e.level++)));for(let e=1,t=n.line.length;e<t;e++){const t=n.line[e],{model:s}=t.key;if(o.set.has(s.key))continue;const c=n.line[e-1];"cohort"===s.type?i(c,t):r(c,t,e)}return Xs(o.line)}function tn(e,t){const{line:s}=t;return(n,o,r)=>{let i=s.findIndex((e=>e.key.model.key===n.key.model.key));const c=Ys(o);c.level=o.level,!function(e,t,s){const{line:n}=e;let o;for(;o=n[++s];)if(t.set.has(o.key.model.key))return!1;return!0}(e,t,r)?s.splice(i+1,0,c):s.push(c)}}class sn{constructor(){this.generation=null,this.typeDetection="inference";const e=new Me;e.key="$root",this.index=new le(new Te(e),0),this.columns=[],this.reference={},this.line=[]}}Ee.register("filter-row-cell",((e,t)=>({model:e.for,resource:t.key})));class nn extends $e{constructor(e){super(),Object.assign(this,e),this.key=`$filter.row.${e.key}`,this.type="filter-row",this.category="control",this.canResize=!1,this.canSort=!1,this.canMove=!1,this.model=e}}class on extends Re{constructor(e){super(new nn(e))}}class rn{constructor(e){this.name=e}}function cn(e){return rn(e)}function ln(){return rn("some name")}class an{constructor(e){this.manager=e}filter(e){return this.manager.filter(e)}invoke(e,t,s){return this.manager.invoke(e,t,s)}}class un extends Y{constructor(e,t){super(e),this.table=t}filter(e,t){return"editor"===t||this.isViewActive()?super.filter(e,t):[]}isViewActive(){return this.table.view.isFocused()}}function hn(e,t,s){const{model:n}=t;!function(e,t){const s={source:"data.pipe",behavior:"core"};e.data({rows:t},s)}(n,e),function(e){const t=zs(e),s=_t(e),{hasChanges:n,columns:o}=t(),r=o.map((e=>s(e.type,e).model));if(n){const t={source:"data.pipe",behavior:"core"};e.data({columns:r},t)}}(n),n.pipe({effect:Object.assign({},n.pipe().effect,{data:e})},{source:"data.pipe",behavior:"core"}),s(e)}function dn(e,t,s){kt.notNull(e,"rows");const{model:n}=t;let o=e;if(e.length){const{match:s,custom:r}=n.filter(),i=s(t);let c;if(i!==T&&r!==T?c=e=>i(e)&&r(e):i!==T?c=e=>i(e):r!==T&&(c=e=>r(e)),c){o=[];for(let t=0,s=e.length;t<s;t++){const s=e[t];c(s)&&o.push(s)}}}n.pipe({effect:Object.assign({},n.pipe().effect,{filter:o})},{source:"filter.pipe",behavior:"core"}),s(o)}function mn(e,t,s){kt.notNull(e,"memo");const{model:n}=t;if(e.hasOwnProperty("nodes")&&e.nodes.length){const{flattenFactory:t}=n.group(),o=gn(n,e.nodes),r=t(n);return e.rows=r(o),void s(e)}if(e.hasOwnProperty("rows")){const t=gn(n,e.rows);return e.rows=t,void s(e)}s(gn(n,e))}function gn(e,t){const{pinTop:s,pinBottom:n}=e.row(),{mode:o}=e.scroll();let{size:r,current:i}=e.pagination();const c=new Set([...s,...n]);c.size&&(t=t.filter((e=>!c.has(e))));const l=t.length,a=Math.max(0,Math.floor((l-1)/r));i=Math.min(a,i);const u=i*r;return e.pagination({count:l,current:i},{source:"pagination.pipe",behavior:"core"}),"virtual"===o?t:t.slice(u,u+r)}function pn(e){const{sort:t}=e;return s=>{const{trigger:n}=t();if(n.indexOf("reorder")>=0){let t=0;const n={};Us(e.columnList().index.children,(e=>{const{key:s}=e.key.model;n[s]=t++})),s.sort(((e,t)=>n[wn(e)]-n[wn(t)]))}return s}}function wn(e){let t;if(d(e)){const s=e.split(/[+-]/);t=s[1]||s[0]}else t=Object.keys(e)[0];if(!t)throw new oe("sort.service",`Key is not defined in "${e}"`);return t}function fn(e){if(d(e)){return{"-":"desc","+":"asc"}[e[0]]||"asc"}return e[wn(e)]}function yn(e){return e.reduce(((e,t)=>(e[wn(t)]=fn(t),e)),{})}function bn(e,t){return e.map(wn).findIndex((e=>e===t))}function vn(e,t,s){kt.notNull(e,"rows");const{model:n}=t;let o=e;if(e.length){const{by:s}=n.sort();if(s.length){const r=n.columnList().line,i=[],c=[];for(let e=0,n=s.length;e<n;e++){const n=s[e],o=wn(n),l=fn(n),a=ls(r,o);if(!a)throw new oe("sort.pipe",`Column "${o}" is not found`);const u=t.getValueFactory(a),h=Ae(a.type,a.editor),d=a.compare;i.push((e=>{const t=u(e),s=h(t);return null===s?t:s})),c.push("asc"===l?d:(e,t)=>-d(e,t))}o=D(e,i,c)}}n.pipe({effect:Object.assign({},n.pipe().effect,{sort:o})},{source:"sort.pipe",behavior:"core"}),s(o)}function xn(e,t,s){kt.notNull(e,"rows");const{model:n}=t;n.pipe({effect:Object.assign({},n.pipe().effect,{memo:e})},{source:"memo.pipe",behavior:"core"}),s({rows:e,pivot:{head:new le("$root",0),rows:[]},nodes:[]})}function Cn(e,t,s,n=0){if(0===t.length)return()=>[];const o=t[0];if(!e.hasOwnProperty(o))throw new oe("node.build",`can't find column "${o}"`);const r=pe(e[o]);return(i,c=(e=>e))=>{const l=[],a=[],u={};for(let e=0,t=i.length;e<t;e++){const t=i[e],s=c(e),h=r(t);if(u.hasOwnProperty(h)){const e=u[h];e.node.rows.push(s),e.rows.push(t),l.push(h)}else{const e=new le(h,n);e.source=o,e.rows.push(s),l.push(h),a.push(e),u[h]={node:e,rows:[t]}}}const h=t.slice(1);if(h.length){const t=Cn(e,h,s,n+1);for(let e=0,s=l.length;e<s;e++){const s=u[l[e]],n=s.node,o=n.rows;n.children=t(s.rows,(e=>o[e]))}}return a}}function kn(e,t,s){kt.notNull(e,"memo");const{model:n}=t,{rows:o,nodes:r}=e;if(o.length){const{rows:s}=n.data(),{by:r}=n.group(),i=Cn(is(n.columnList().line),r,t.valueFactory);e.nodes=i(o,(e=>{const t=o[e],n=s.indexOf(t);return n<0?e:n}))}n.pipe({effect:Object.assign({},n.pipe().effect,{group:r})},{source:"group.pipe",behavior:"core"}),s(e)}class En{constructor(e){this.isRoot=!arguments.length,this.current=this.schema=e||{}}branch(){return new En(this.current)}cursor(e){const t=this.schema;this.current=t.hasOwnProperty(e)?t[e]:t[e]={}}compile(e){return this.isRoot?{schema:this.schema,data:e}:e}}function $n(e){return t=>(e.cursor(t),t=>Rn(t,e.branch()))}function Rn(e,t){const s=$n(t=t||new En),n=t=>e.selector(t).reduce(((n,o)=>{const r=e.name(o);return n[r]=e.value(o,t,s(r)),n}),e.factory(t));return e=>t.compile(t.isRoot?e.map(n):n(e))}function In(e,t){const s=Object.keys(e).map((s=>{const n=e[s];return t&&t.hasOwnProperty(s)?In(n,t[s]):In(n)}));return s.length?o(s,!0):[t]}function On(e,t){return Object.keys(e).sort(t).reduce(((s,n)=>(s[n]=On(e[n],t),s)),{})}function Fn(e,t){if(e.schema&&e.data){const s=On(e.schema,t),n=e.data.map((e=>function(e,t,s){return Object.keys(t).filter((t=>!e.hasOwnProperty(t))).reduce(((e,s)=>(e[s]=t[s],e)),s)}(s,e,In(s,e)))),o=function(e){return function e(t,s){return t&&Object.keys(t).forEach((n=>{const o=new le(n,s.level+1);return s.children.push(o),e(t[n],o),o})),s}(e,new le("$root",0))}(s);return{head:o,rows:n}}return{head:new le("$root",0),rows:[]}}function qn(e,t,s){let n=null;if(t.length){const o=function(e,t){return function s(n,o,r=0){const i=o[0],c=e[i];if(!c)throw new oe("pivot.build",`Invalid key "${i}"`);const l=t(c);return n({factory:()=>({}),selector:e=>[l(e)],name:N,value:(e,t,n)=>{const i=o.slice(1);return!i.length||s(n,i,r+1)(t)}})}}(e,s);n=o(Rn,t)}return e=>{if(n){return Fn(n(e))}return{head:new le("$root",0),rows:[]}}}function Ln(e,t,s){kt.notNull(e,"memo");const{model:n}=t;if(e.rows.length){const{getValueFactory:s}=t,{line:o}=n.columnList(),{by:r}=n.pivot(),i=qn(is(o),r,s);e.pivot=i(e.rows,r)}n.pipe({effect:Object.assign({},n.pipe().effect,{pivot:e.pivot})},{source:"pivot.pipe",behavior:"core"}),s(e)}function Sn(e,t,s){kt.notNull(e,"root");const{model:n}=t,o=function(e,t){const s=new Set(e.group().by),n=new Set(e.pivot().by);function o(e,t){const{children:r}=e;for(let e=0,i=r.length;e<i;e++){const i=r[e],c=i.key,{isVisible:l,key:a}=c.model;if(l&&!s.has(a)&&!n.has(a)){const e=new le(i.key,i.level);t.children.push(e),o(i,e)}}return t}return o(t,new le(t.key,t.level))}(n,e);s({columns:ts(o),index:e})}function Mn(e,t,s){kt.notNull(e,"memo");const{model:n}=t,{pivot:o,nodes:r}=e,{head:i}=o,c=_t(n),l=new le(c("cohort",{key:"$root"}),0),a=function(e){const t=zs(e),s=_t(e),{hasChanges:n,columns:o}=t();n&&e.data({columns:o},{source:"column.pipe",behavior:"core"});function r(e,t){for(let n of t){const t=s(n.type,n),o=new le(t,e.level+1);e.children.push(o),r(o,t.model.children)}}return e=>r(e,o)}(n),u=function(e){const t=e.columnList().line,s=e.selection(),n=t.find((e=>"select"===e.type));if(!t.find((e=>"row-indicator"===e.type))&&"mix"===s.unit){const t=_t(e);return e=>{const s=t("row-indicator");if(s.model.source="generation",s.model.isVisible)return e.children.unshift(new le(s,e.level+1)),s}}if(!n&&"row"===s.unit){const t=_t(e);return s=>{const n=t("select");if(n.model.key=`$select-${e.selection().mode}`,n.model.source="generation",n.model.isVisible)return s.children.unshift(new le(n,s.level+1)),n}}return M}(n),h=function(e,t){const s=e.columnList().line.find((e=>"group"===e.type)),{by:n,mode:o}=e.group(),r=_t(e);if(!s&&(t.length||n.length))switch(o){case"nest":return e=>{const t=r("group");if(t.model.source="generation",t.model.isVisible)return e.children.unshift(new le(t,e.level+1)),t};case"rowspan":case"flat":return e=>{const t=n.map((t=>{const s=r("group");return s.model.source="generation",s.model.key=`$group-${t}`,s.model.title=t,s.model.by=t,new le(s,e.level+1)})).filter((e=>e.key.model.isVisible));e.children.splice(0,0,...t)}}return M}(n,r),d=function(e){const t=e.columnList().line.find((e=>"row-expand"===e.type));if("details"===e.row().unit&&!t){const t=_t(e);return e=>{const s=t("row-expand");if(s.model.source="generation",s.model.isVisible)return e.children.unshift(new le(s,e.level+1)),s}}return M}(n),m=function(e){const t=e.columnList().line.find((e=>"row-indicator"===e.type)),{canMove:s,canResize:n}=e.row();if((s||n)&&!t){const t=_t(e);return e=>{const s=t("row-indicator");if(s.model.source="generation",s.model.isVisible)return e.children.unshift(new le(s,e.level+1)),s}}return M}(n),g=function(e){const t=_t(e);return function e(s,n){const{children:o}=n;for(let n=0,r=o.length;n<r;n++){const r=o[n],i=t("pivot"),c=i.model;c.title=r.key,c.key=`$pivot-${r.key}`;const l=new le(i,s.level+1);s.children.push(l),e(l,r)}}}(n),p=function(e){const t=_t(e);return e=>{const s=t("pad");s.model.key="$pad";const n=e.children.findIndex((e=>"right"===e.key.model.pin)),o=new le(s,e.level+1);return n>=0?e.children.splice(n,0,o):e.children.push(o),s}}(n);a(l),d(l),h(l),u(l),m(l),g(l,i);const{columnList:w}=n,f=Zs(n),y=en(l,w().index,f);p(y),Sn(y,t,(({columns:t,index:n})=>{e.columns=t,w({index:n},{behavior:"core",source:"column.pipe"}),s(e)}))}function Tn(e,t,s){const{model:n}=t,{apply:o}=n.animation();let{length:r}=o;if(r){const n=()=>{r--,0===r&&s(e)};o.forEach((s=>{s(e,t,n)}))}else s(e)}class jn{constructor(e){this.model=e}rows(e){const{nodes:t,rows:s}=e;if(t.length&&!(s.length&&s[0]instanceof le)){const{flattenFactory:e}=this.model.group();return e(this.model)(t)}return s}columnRows(e){return e}columnLine(e){return us(e)}columnArea(e){const t=us(e),s={left:[],right:[],mid:[]};for(let e=0,n=t.length;e<n;e++){const n=t[e],{pin:o}=n.model;let r=s[o];if(!r)throw new oe("scene",`Unsupported pin ${o}`);r.push(n)}return s}}function Nn(e){const{index:t}=e.rowList();if(!t.size)return N;const{rowId:s}=e.data();return e=>{let n=0;const o=new Map,r=e.filter(((e,n)=>{const r=s(n,e),i=t.get(r);return!i&&0!==i||(o.set(i,e),!1)})).reduce(((e,t)=>{let s;for(;s=o.get(n);)o.delete(n),e.push(s),n++;return e.push(t),n++,e}),[]);if(o.size){const e=Array.from(o.entries());return e.sort(((e,t)=>e[0]-t[0])),r.concat(e.map((e=>e[1])))}return r}}function An(e,t,s){kt.notNull(e,"memo");const n={source:t.source||"view.pipe",behavior:"core"},{model:o}=t,r=new jn(o);let i=r.rows(e);const{columns:c,nodes:l,pivot:a}=e,u=r.columnLine(c);if(!o.sort().by.length){i=Nn(o)(i)}o.view({rows:i,columns:u.map((e=>e.model)),nodes:l,pivot:a},n),s(e)}function Pn(e,t,s){kt.notNull(e,"memo");const n={source:t.source||"scene.pipe",behavior:"core"},{model:o}=t,r=new jn(o);let i=r.rows(e);const{columns:c}=e,l=r.columnLine(c);if(!o.sort().by.length){i=Nn(o)(i)}o.scene({rows:i,column:{rows:r.columnRows(e.columns),area:r.columnArea(e.columns),line:l}},n),s(e)}class Vn{static get data(){return hn}static get filter(){return dn}static get pagination(){return mn}static get sort(){return vn}static get memo(){return xn}static get group(){return kn}static get pivot(){return Ln}static get column(){return Mn}static get columnIndex(){return Sn}static get animation(){return Tn}static get view(){return An}static get scene(){return Pn}}const Dn=[(e,t,s)=>{const{view:n}=t.model,{rows:o,pivot:r,nodes:i}=n();s({rows:o,pivot:r,nodes:i})},Vn.column,(e,t,s)=>{const{model:n}=t,o=new jn(n),r=o.columnLine(e.columns),i={source:t.source||"column.pipe.unit",behavior:"core"};n.view({columns:r.map((e=>e.model))},i),t.model.scene({column:{rows:o.columnRows(e.columns),area:o.columnArea(e.columns),line:r}},i),s(e)}];Dn.why="redraw";const zn=[(e,t,s)=>{const{index:n}=t.model.columnList();s(n)},Vn.columnIndex,Vn.animation,(e,t,s)=>{const{model:n}=t,o=new jn(n),r=o.columnLine(e.columns),i={source:t.source||"column.pipe.unit",behavior:"core"};n.view({columns:r.map((e=>e.model))},i),n.scene({column:{rows:o.columnRows(e.columns),area:o.columnArea(e.columns),line:r}},i),s(e)}];zn.why="redraw";const Bn=[Vn.data,Vn.filter,Vn.sort,Vn.memo,Vn.group,Vn.pivot,Vn.column,Vn.view,Vn.pagination,Vn.animation,Vn.scene];Bn.why="refresh";const Hn=[(e,t,s)=>{const{model:n}=t,{nodes:o,rows:r}=n.view();s({nodes:o,rows:r})},Vn.pagination,(e,t,s)=>{const{model:n}=t,o={source:t.source||"group.pipe.unit",behavior:"core"},{rows:r}=e;n.scene({rows:r},o),s(e)}];Hn.why="redraw";class Wn{constructor(e){this.expand=e}}function Un(e,t){const{rows:s}=e.scene(),{status:n}=e.row(),{line:o}=e.scene().column,r="all"===t,i=o.find((e=>"row-expand"===e.model.type)),c=i?i.columnIndex:0,l=[],a=_t(e);for(let e=0,t=s.length;e<t;e++){const t=s[e];l.push(t);const o=s[e+1],i=o instanceof ae?o:null,u=n.get(t)||r&&new Wn(!0);if(u instanceof Wn&&u.expand)if(i)l.push(i),e++;else{const e=a("row-details");e.columnIndex=c,l.push(new ae(t,e))}else i&&e++}return l}function _n(e,t,s){switch(s){case"all":t=new Map(t.entries()),e.forEach((e=>{t.has(e)||t.set(e,new Wn(!0))}));break;case"single":t=new Map(Array.from(t.entries()).filter((t=>{const[s,n]=t;return e.indexOf(s)>=0||!(n instanceof Wn)})));break;case"multiple":t=new Map(t.entries());break;default:throw new oe("row.details.service",`Invalid mode ${s}`)}return t}function Kn(e,t,s="single"){return t=_n(e,t,s),"all"!==s&&e.forEach((e=>{const s=t.get(e);s?s.expand=!s.expand:t.set(e,new Wn(!0))})),t}const Gn=[(e,t,s)=>{const n={source:t.source||"row.details.pipe.unit",behavior:"core"},{model:o}=t,{mode:r}=o.row(),i=Un(o,r);o.view({rows:i},n),o.scene({rows:i},n),s(i)}];Gn.why="redraw";const Jn=[Vn.data,Vn.memo,Vn.column,Vn.view,Vn.scene];Jn.why="refresh";const Yn=[Vn.data,Vn.memo,Vn.column,Vn.view,Vn.pagination,Vn.animation,Vn.scene];Yn.why="redraw";const Xn=[(e,t,s)=>{const{model:n}=t,{rows:o,pivot:r,nodes:i}=n.view();s({rows:Nn(n)(o),pivot:r,nodes:i})},Vn.animation,(e,t,s)=>{const{model:n}=t,{rows:o}=e,r={source:t.source||"row.pipe.unit",behavior:"core"};n.view({rows:o},r),n.scene({rows:o},r),s(o)}];Xn.why="redraw";class Zn{static get default(){return Bn}static get view(){return Jn}static get scene(){return Yn}static get column(){return Dn}static get columnIndex(){return zn}static get rowDetails(){return Gn}static get group(){return Hn}static get row(){return Xn}}class Qn{constructor(){this.rows=[],this.columns=[],this.pipe=Zn.default,this.rowId=(e,t)=>t,this.columnId=(e,t)=>t.key}}class eo{constructor(e){this.elements=e}getBoundingClientRect(){const e=this.elements.map((e=>e.getBoundingClientRect())),t=p(e.map((e=>e.top))),s=p(e.map((e=>e.left))),n=g(e.map((e=>e.bottom))),o=g(e.map((e=>e.right)));return{height:n-t,width:o-s,top:t,left:s,right:o,bottom:n}}addClass(e){this.elements.forEach((t=>t.classList.add(ks(e))))}removeClass(e){this.elements.forEach((t=>t.classList.remove(ks(e))))}hasClass(e){return this.elements.some((t=>t.classList.contains(ks(e))))}get clientWidth(){return g(this.elements.map((e=>e.clientWidth)))}get clientHeight(){return g(this.elements.map((e=>e.clientHeight)))}get offsetWidth(){return g(this.elements.map((e=>e.offsetWidth)))}get offsetHeight(){return g(this.elements.map((e=>e.offsetHeight)))}get classList(){return{add:e=>this.addClass(e),remove:e=>this.removeClass(e),contains:e=>this.hasClass(e)}}}class to{constructor(e){this.elements=e}get index(){const e=this.elements[0];return kt.notNull(e,"tr"),e.index}get model(){const e=this.elements[0];return kt.notNull(e,"tr"),e&&e.model}get element(){const{elements:e}=this;if(e.length>1)return new eo(e.map((e=>e.element)));const t=this.elements[0];return kt.notNull(t,"tr"),t.element}}class so{constructor(){this.rows=new Set,this.cells=new Set,this.elements=new Map,this.rowContainer=new Map}findModel(e){return this.elements.get(e)}hasModel(e){return this.elements.has(e)}getRowElements(){return this.rowContainer.values()}getCellElements(){return this.cells}addRow(e){const{rowContainer:t}=this,{model:s,element:n}=e;this.rows.add(e),this.elements.set(n,e);const o=t.get(s);o?o.elements.push(e):t.set(s,new to([e]))}addCell(e){this.cells.add(e),this.elements.set(e.element,e)}deleteRow(e){const{rowContainer:t}=this,{model:s,element:n}=e;this.rows.delete(e),this.elements.delete(n);const o=t.get(s);if(o){const{elements:e}=o,r=e.indexOf(n);r>=0&&(e.splice(r,1),n.length||t.delete(s))}}deleteCell(e){this.cells.delete(e),this.elements.delete(e.element)}}class no{constructor(){}add(){}remove(){}}const oo=Object.freeze({left:0,right:0,top:0,bottom:0,width:0,height:0});class ro{constructor(){this.classList=new no}getBoundingClientRect(){return oo}get clientWidth(){return 0}get clientHeight(){return 0}get offsetWidth(){return 0}get offsetHeight(){return 0}}const io=new ro;class co{constructor(){}rect(){return this.getElement().getBoundingClientRect()}addClass(e){this.addClassCore(e)}removeClass(e){this.removeClassCore(e)}hasClass(e){return this.hasClassCore(e)}width(){return this.getElement().clientWidth}height(){return this.getElement().clientHeight}getElement(){return this.getElementCore()||io}addClassCore(e){this.getElement().classList.add(ks(e))}removeClassCore(e){this.getElement().classList.remove(ks(e))}hasClassCore(e){return this.getElement().classList.contains(ks(e))}getElementCore(){return null}}class lo extends co{constructor(e){super(),this.element=e}getElementCore(){return this.element}}class ao{constructor(e){this.tr=e,this.index=e.index}get model(){if(!ao.equals(this,this.tr))throw new oe("tr","Internal model doesn't match container");return this.tr.model}get element(){if(!ao.equals(this,this.tr))throw new oe("tr","Internal model doesn't match container");return this.tr.element}static equals(e,t){return e===t||!(!e||!t)&&e.index===t.index}}class uo extends lo{constructor(e,t,s=null){super(s),this.box=e,this.index=t}model(){const e=this.box.context.bag.findModel(this.getKeyElementCore());return e?new ao(e):null}cells(){return this.box.rowCellsCore(this.index)}cell(e){return this.box.cellCore(this.index,e)}getKeyElementCore(){const e=super.getElement();return e.elements?e.elements[0]:e}}class ho{constructor(e,t){this.box=e,this.index=t}model(){const{columns:e}=this.box.model.view();return e[this.index]||null}cells(){return this.box.columnCellsCore(this.index)}cell(e){return this.box.cell(e,this.index)}addClass(e){const t=this.cells(),s=t.length;let n=0;for(;n<s;){t[n++].addClass(e)}}removeClass(e){const t=this.cells(),s=t.length;let n=0;for(;n<s;){t[n++].removeClass(e)}}}class mo{constructor(e){this.td=e,this.rowIndex=e.rowIndex,this.columnIndex=e.columnIndex}get row(){if(!mo.equals(this,this.td))throw new oe("td","Internal model doesn't match container");return this.td.row}get column(){if(!mo.equals(this,this.td))throw new oe("td","Internal model doesn't match container");return this.td.column}get value(){if(!mo.equals(this,this.td))throw new oe("td","Internal model doesn't match container");return this.td.value}set value(e){if(!mo.equals(this,this.td))throw new oe("td","Internal model doesn't match container");this.td.value=e}get label(){if(!mo.equals(this,this.td))throw new oe("td","Internal model doesn't match container");return this.td.label}get element(){if(!mo.equals(this,this.td))throw new oe("td","Internal model doesn't match container");return this.td.element}set label(e){if(!mo.equals(this,this.td))throw new oe("td","Internal model doesn't match container");this.td.label=e}mode(e){if(!mo.equals(this,this.td))throw new oe("td","Internal model doesn't match container");this.td.mode(e)}static equals(e,t){return e===t||!(!e||!t)&&(e.rowIndex===t.rowIndex&&e.columnIndex===t.columnIndex)}}class go extends lo{constructor(e,t,s,n=null){super(n),this.context=e,this.rowIndex=t,this.columnIndex=s}model(){return this.modelCore()}modelCore(){const e=this.context.bag.findModel(this.getElement());return e?new mo(e):null}}class po{constructor(e){this.isDataRow=e}build(e){const t=e.rows,s=this.isDataRow,n=[],o=[];let r=0;for(let e=0,i=t.length;e<i;e++){const i=t[e];if(!s(i))continue;const c=o.length>r?o[r]:o[r]=[0],l=i.cells;for(let e=0,t=l.length;e<t;e++){const t=l[e],{rowSpan:s,colSpan:i}=t,a=c[0],u=a+i;for(let e=0;e<s;e++){const s=r+e,c=n.length>s?n[s]:n[s]=[];for(let e=0;e<i;e++){c[a+e]=t}const l=o.length>s?o[s]:o[s]=[0],h=H(l,a);if(c[u])l.splice(h,1);else{const e=l[h];l.splice(h,c[e]?1:0,u)}}}r++}return n}assertFlatness(e){if(e.length){const t=e.length,s=e[0].length;for(let n=1;n<t;n++)if(e[n].length!==s)throw new oe("matrix",`Matrix is not flat, expect width ${s}, actual ${e[n].length}`)}}}class wo{constructor(e,t,s){this.matrix=e,this.bag=t,this.factory=s}columnCount(e){const t=this.matrix[e];return t?new Set(t).size:0}columnCells(e){const{factory:t,matrix:s}=this,n=[],o=new Set;for(let r=0,i=s.length;r<i;r++){const i=s[r];if(i.length>e){const s=i[e];o.has(s)||(o.add(s),n.push(t.cell(s,r,e)))}}return n}rowCount(e){const{matrix:t}=this,s=new Set;for(let n=0,o=t.length;n<o;n++){const o=t[n];if(o.length>e){const t=o[e];s.add(t)}}return s.size}rows(e){const{matrix:t,factory:s,bag:n}=this,o=new Set,r=[];if(m(e)){const e=n.getRowElements();for(let t of e)r.push(s.row(t.element,t.index));r.sort(((e,t)=>e.index-t.index))}else for(let n=0,i=t.length;n<i;n++){const i=t[n];if(i.length>e){const t=i[e].parentElement;o.has(t)||(o.add(t),r.push(s.row(t,n)))}}return r}rowCells(e){const{matrix:t}=this,s=t[e],n=[];if(s){const t=new Set,o=this.factory;for(let r=0,i=s.length;r<i;r++){const i=s[r];t.has(i)||(t.add(i),n.push(o.cell(i,e,r)))}}return n}row(e,t){const{factory:s}=this;if(!m(t)){const n=this.td(e,t);return s.row(n?n.parentElement:new ro,e)}const n=this.matrix[e];if(n){const t=new Set;for(let e of n)t.add(e.parentElement);const o=Array.from(t);return s.row(o.length>1?new eo(o):o[0],e)}return s.row(new ro,e)}cell(e,t){const s=this.td(e,t);return this.factory.cell(s||new ro,e,t)}td(e,t){const s=this.matrix[e];if(s){const e=s[t];if(e)return e}return null}}class fo{constructor(e,t){this.buildSelectors=e,this.factory=t}columnCount(e){const t=this.buildSelectors({row:e});return t.length?f(t,(e=>e.invoke(((e,t)=>e.columnCount(t))))):0}columnCells(e){const t=this.buildSelectors({column:e}),s=[];for(let e=0,n=t.length;e<n;e++){const n=t[e].invoke(((e,t)=>e.columnCells(t)));s.push(...n)}return s}rowCount(e){const t=this.buildSelectors({column:e});return t.length?g(t.map((e=>e.invoke(((e,t)=>e.rowCount(t)))))):0}rows(e){const t=m(e)?{}:{column:e},s=this.buildSelectors(t),n=this.factory,o=[];for(let e=0,t=s.length;e<t;e++){const t=s[e].invoke(((e,t)=>e.rows(t)));t.length&&o.push(t)}const r=v(...o),i=[];for(let e=0,t=r.length;e<t;e++){const t=r[e],s=t.map((e=>e.element)),o=s.length>1?new eo(s):s[0],c=t[0].index,l=n.row(o,c);i.push(l)}return i}rowCells(e){const t=this.buildSelectors({row:e}),s=[];for(let e=0,n=t.length;e<n;e++){const n=t[e].invoke(((e,t)=>e.rowCells(t)));s.push(...n)}return s}row(e,t){const s={row:e};m(t)||(s.column=t);const n=this.buildSelectors(s),o=[];for(let e=0,t=n.length;e<t;e++){const t=n[e].invoke(((e,t,s)=>e.row(t,s)));o.push(t.element)}return this.factory.row(new eo(o),e)}cell(e,t){const s={row:e,column:t},n=this.buildSelectors(s);for(let e=0,t=n.length;e<t;e++){const t=n[e].invoke(((e,t,s)=>e.cell(t,s)));if(!(t.element instanceof ro))return t}return this.factory.cell(new ro,e,t)}}class yo{constructor(e,t){this.rowRange=e,this.columnRange=t}cell(e,t,s){return{element:e,rowIndex:t+this.rowRange.start,columnIndex:s+this.columnRange.start}}row(e,t){return{element:e,index:t+this.rowRange.start}}}class bo{constructor(e,t){this.start=e,this.end=t}}class vo{constructor(e,t){this.bag=e,this.selectorMark=t}create(){const{bag:e,selectorMark:t}=this,s=new po((t=>e.elements.has(t))),n=t.select().map((({element:e,rowRange:t,columnRange:n})=>({matrix:s.build(e),rowRange:t,columnRange:n}))),o=new yo(new bo(0,0),new bo(0,0));return new fo((t=>n.map((s=>({invoke:n=>{const o=new yo(s.rowRange,s.columnRange),r=new wo(s.matrix,e,o),i=[];return i.push(r),t.hasOwnProperty("row")&&i.push(t.row-s.rowRange.start),t.hasOwnProperty("column")&&i.push(t.column-s.columnRange.start),n(...i)}})))),o)}}class xo{constructor(e,t,s){this.context=e,this.model=t,this.selectFactory=new vo(e.bag,s),this.selector=this.selectFactory.create()}columnCount(e){return this.selector.columnCount(e)}column(e){return this.createColumnCore(e)}columns(e){return this.selector.rowCells(e).map((e=>this.createColumnCore(e.columnIndex)))}row(e,t){return this.rowCore(e,t)}rows(e){return this.selector.rows(e).map((e=>this.createRowCore(e.index,e.element)))}rowCount(e){return this.selector.rowCount(e)}cell(e,t){return this.cellCore(e,t)}getElements(){return[]}rowCore(e,t){return this.createRowCore(e,this.selector.row(e,t).element)}cellCore(e,t){const s=this.selector.cell(e,t);return this.createCellCore(s.rowIndex,s.columnIndex,s.element)}rowCellsCore(e){return this.selector.rowCells(e).map((e=>this.createCellCore(e.rowIndex,e.columnIndex,e.element)))}columnCellsCore(e){return this.selector.columnCells(e).map((e=>this.createCellCore(e.rowIndex,e.columnIndex,e.element)))}createRowCore(e,t){return new uo(this,e,t)}createColumnCore(e){return new ho(this,e)}createCellCore(e,t,s){return new go(this.context,e,t,s)}}class Co{constructor(e){this.context=e,this.entries=new Map}addClass(e,t){const s=this.key(e);if(null!==s){let e=this.entries.get(s);e||(e=new Set,this.entries.set(s,e)),e.add(t)}}removeClass(e,t){const s=this.key(e);if(null!==s){let e=this.entries.get(s);if(e)return e.delete(t),e.size||this.entries.delete(s),!0}return!1}key(e){return e}}class ko extends Co{constructor(e){super(e)}key(e){return`${e.dataRowIndex}x${e.dataColumnIndex}`}}class Eo extends Co{constructor(e){super(e)}key(e){return e.dataIndex}}class $o extends Co{constructor(e){super(e)}key(e){return e.dataIndex}}class Ro{constructor(e){this.selector=e}get model(){const e=this.selector();if(!e)throw new oe("cell","Model is not found");return e}mode(e){return this.model.mode(e)}get value(){return this.model.value}set value(e){this.model.value=e}get label(){return this.model.label}set label(e){this.model.label=e}get element(){return this.model.element||new ro}}class Io extends go{constructor(e,t,s,n=null){super(e.context,t,s,n),this.box=e;const{mapper:o}=e.context;this.dataRowIndex=o.viewToRow(t),this.dataColumnIndex=o.viewToColumn(s)}model(){const e=this.dataRowIndex,t=this.dataColumnIndex;if(e>=0&&t>=0){const s=this.box.model,{rows:n}=s.data(),{columns:o}=s.view();if(n.length>e&&o.length>t){const s=new Ro((()=>this.box.cell(e,t).modelCore()));return s.rowIndex=e,s.columnIndex=t,s.row=n[e],s.column=o[t],new mo(s)}}return null}addClass(e,t=!1){this.box.addCellClass(this,e,t)}removeClass(e,t=!1){this.box.removeCellClass(this,e,t)}}class Oo extends ho{constructor(e,t){super(e,t),this.box=e;const{mapper:s}=e.context;this.dataIndex=s.viewToColumn(t)}cells(){return this.box.columnCellsCore(this.dataIndex)}cell(e){return this.box.cell(e,this.dataIndex)}addClass(e,t=!1){this.box.addColumnClass(this,e,t)}removeClass(e,t=!1){this.box.removeColumnClass(this,e,t)}}class Fo{constructor(e){this.classList=new no,this.getRect=e}getBoundingClientRect(){return this.getRect()}get clientWidth(){return this.getRect().width}get clientHeight(){return this.getRect().height}get offsetWidth(){return this.getRect().width}get offsetHeight(){return this.getRect().height}}class qo extends uo{constructor(e,t,s=null){super(e,t,s);const{mapper:n}=e.context;this.dataIndex=n.viewToRow(t)}model(){const e=super.model();if(e)return e;const t=this.dataIndex;if(t>=0){const e=this.box.model,{rows:s}=e.data();if(s.length>t)return s[t]}return null}cells(){return this.box.rowCellsCore(this.dataIndex)}cell(e){return this.box.cellCore(this.dataIndex,e)}addClass(e,t=!1){this.box.addRowClass(this,e,t)}removeClass(e,t=!1){this.box.removeRowClass(this,e,t)}}class Lo extends xo{constructor(e,t,s){super(e,t,s),this.cellBox=new ko(e),this.rowBox=new $o(e),this.columnBox=new Eo(e),this.requestInvalidate=new te}addCellClass(e,t,s=!1){s?e.addClassCore(t):(this.cellBox.addClass(e,t),this.requestInvalidate.emit({source:"addCellClass"}))}removeCellClass(e,t,s=!1){s?e.removeClassCore(t):(this.cellBox.removeClass(e,t),this.requestInvalidate.emit({source:"removeCellClass"}))}addRowClass(e,t,s=!1){s?e.addClassCore(t):(this.rowBox.addClass(e,t),this.requestInvalidate.emit({source:"addRowClass"}))}removeRowClass(e,t,s=!1){s?e.removeClassCore(t):(this.rowBox.removeClass(e,t),this.requestInvalidate.emit({source:"removeRowClass"}))}addColumnClass(e,t,s=!1){s?e.addClassCore(t):(this.columnBox.addClass(e,t),this.requestInvalidate.emit({source:"addColumnClass"}))}removeColumnClass(e,t,s=!1){s?e.removeClassCore(t):(this.columnBox.removeClass(e,t),this.requestInvalidate.emit({source:"removeColumnClass"}))}columns(){return this.context.view.columns().map(((e,t)=>this.createColumnCore(t)))}rows(e){const{mapper:t}=this.context;return this.selector.rows(e).map((e=>this.createRowCore(t.rowToView(e.index),e.element)))}rowCount(){return this.model.pagination().count}rowCore(e){const t=this.context.mapper.rowToView(e);if(t>=0&&t<super.rowCount(0))return super.rowCore(t);const s=this.rowRectFactory();return this.createRowCore(t,new Fo(s(t)))}cellCore(e,t){const{mapper:s}=this.context,n=s.rowToView(e),o=s.columnToView(t);if(n>=0&&n<super.rowCount(o))return super.cellCore(n,o);const r=this.cellRectFactory();return this.createCellCore(n,o,new Fo(r(n,o)))}rowCellsCore(e){const{mapper:t}=this.context,s=t.rowToView(e);if(s>=0&&s<super.rowCount(0))return super.rowCellsCore(s);const n=this.cellRectFactory();return super.rowCellsCore(0).map(((e,o)=>this.createCellCore(s,o,new Fo(n(s,t.columnToView(o))))))}createRowCore(e,t){return new qo(this,e,t)}createCellCore(e,t,s){return new Io(this,e,t,s)}createColumnCore(e){return new Oo(this,e)}rowRectFactory(){const{height:e}=this.model.row(),t=a(e)?e:()=>e;let s=null;return e=>()=>{s||(s=this.context.view.rect("body-mid"));const n=t(null,e);return{left:0,right:0,top:s.top+n*e,bottom:s.top+n*(e+1),width:0,height:n}}}cellRectFactory(){const{model:e}=this,{height:t}=e.row(),{count:s}=e.pagination(),{columns:n}=e.view(),o=this.model.layout().columns,r=a(t)?t:()=>t;let i=null;return(e,t)=>()=>{i||(i=this.context.view.rect("body-mid"));const c=n[t],l=r(null,e),a=i.top+l*e-(e>0?0:(s+e)*l),u=o.has(c.key)?o.get(c.key).width:0;return{left:0,right:0+u,top:a,bottom:a+l,width:u,height:l}}}}class So{constructor(e,t,s){this.model=e,this.name=s,this.markup=t}select(){const e=[],t=this.addFactory(e);return t("left"),t("mid"),t("right"),e}addFactory(e){const{model:t}=this,{rows:s}=t.scene(),n=t.scene().column.area;return t=>{const o=t?`${this.name}-${t}`:this.name,r=this.markup[o];if(r){const o=e[e.length-1],i=o?o.columnRange.end:0,c=n[t].length,l=0,a=s.length;e.push({element:r,columnRange:new bo(i,i+c),rowRange:new bo(l,l+a)})}return e}}}class Mo extends xo{constructor(e,t){super(e,t,new So(t,e.markup,"body"))}}class To extends Lo{constructor(e,t){super(e,t,new So(t,e.markup,"body"))}}class jo{constructor(e){this.model=e}columns(){return this.model.view().columns}columnMap(){return is(this.columns())}rows(){return this.model.scene().rows}}class No{constructor(){}resource(){}destroy(){}}class Ao{constructor(){this.rows=[]}}class Po extends xo{constructor(e,t){super(e,t,new So(t,e.markup,"foot"))}}class Vo extends xo{constructor(e,t,s){super(e,t,new So(t,e.markup,"head"))}}class Do{constructor(e){this.selector=e,this.clear()}clear(){this.columnCountCache={},this.columnCellsCache={},this.rowCountCache={},this.rowsCache={},this.rowCellsCache={},this.rowCache={},this.cellCache={}}columnCount(e){return this.columnCountCache.hasOwnProperty(e)?this.columnCountCache.get(e):this.columnCountCache[e]=this.selector.columnCount(e)}columnCells(e){return this.columnCells.hasOwnProperty(e)?this.columnCells.get(e):this.columnCells[e]=this.selector.columnCells(e)}rowCount(e){return this.rowCountCache.hasOwnProperty(e)?this.rowCountCache.get(e):this.rowCountCache[e]=this.selector.rowCount(e)}rows(e){return this.rowsCache.hasOwnProperty(e)?this.rowsCache.get(e):this.rowsCache[e]=this.selector.rows(e)}rowCells(e){return this.rowCellsCache.hasOwnProperty(e)?this.rowCellsCache.get(e):this.rowCellsCache[e]=this.selector.rowCells(e)}row(e,t){const s=`${e}x${t}`;return this.rowCache.hasOwnProperty(s)?this.rowCache.get(s):this.rowCache[s]=this.selector.row(e,t)}cell(e,t){const s=`${e}x${t}`;return this.cellCache.hasOwnProperty(s)?this.cellCache.get(s):this.cellCache[s]=this.selector.cell(e,t)}}function zo(e,t){for(;t;){if(t===e)return!0;t=t.parentNode}return!1}class Bo extends co{constructor(e,t){super(),this.context=e,this.model=t,this.layers=new Map}columns(){const{column:e}=this.model.scene();return e.line}focus(){const e=this.getElementsCore("body");return!!e.length&&(e[0].focus(),!0)}blur(){this.getElementsCore("body").forEach((e=>e.blur()))}isFocused(){return this.getElementsCore("body").some((e=>this.isFocusedCore(e)))}addLayer(e){const t=this.layers;if(t.has(e))return t.get(e);const s=this.context.layer(e);return t.set(e,s),s}removeLayer(e){const t=this.layers;if(t.has(e)){return t.get(e).destroy(),t.delete(e),!0}return!1}hasLayer(e){return this.layers.has(e)}addClass(e){const{markup:t}=this.context;t.view&&t.view.classList.add(ks(e))}removeClass(e){const{markup:t}=this.context;t.view&&t.view.classList.remove(ks(e))}scrollLeft(e){const{markup:t}=this.context;if(!arguments.length)return this.getElement().scrollLeft;{const s=t["head-mid"];s&&(s.scrollLeft=e);const n=t["foot-mid"];n&&(n.scrollLeft=e);const o=t["body-mid"];o&&(o.scrollLeft=e);const r=t["body-top"];r&&(r.scrollLeft=e);const i=t["body-bottom"];i&&(i.scrollLeft=e)}}scrollTop(e){if(!arguments.length)return this.getElement().scrollTop;this.getElementsCore("body").forEach((t=>t.scrollTop=e))}scrollHeight(){return this.getElement().scrollHeight}scrollWidth(){return this.getElement().scrollWidth}canScrollTo(e,t){if(e&&!(e.element instanceof ro))switch(t){case"left":if(e=e.element){const{markup:t}=this.context,s=t["table-mid"];if(s)return zo(s,e)}break;case"top":return!0}return!1}rect(e="body-mid"){const{markup:t}=this.context,s=t[e];if(s){const e=s.getBoundingClientRect(),t=s.clientWidth,n=s.clientHeight,o=e.left,r=e.top;return{left:o,top:r,right:o+t,bottom:r+n,width:t,height:n}}return super.rect()}height(e="body-mid"){const{markup:t}=this.context,s=t[e];return s?s.clientHeight:0}width(e="body-mid"){const{markup:t}=this.context,s=t[e];return s?s.clientWidth:0}getElementCore(){const{markup:e}=this.context;return e["body-mid"]}isFocusedCore(e){const{markup:t}=this.context,{activeElement:s}=t.document;return zo(e,s)}getElementsCore(e){const{markup:t}=this.context;return[`${e}-left`,`${e}-mid`,`${e}-right`].filter((e=>t.hasOwnProperty(e))).map((e=>t[e]))}}class Ho{constructor(t,s){this.model=t;const{scroll:n}=t,o={mapper:{rowToView:e=>n().map.rowToView(e),viewToRow:e=>n().map.viewToRow(e),columnToView:N,viewToColumn:N},layer:()=>new No,bag:{head:new so,body:new so,foot:new so},markup:{}};this.box=e(o,s),this._data=new es((()=>new jo(t))),this._view=new es((()=>new Bo(s,t))),this._head=new es((()=>new Vo(this.boxContext("head"),t))),this._foot=new es((()=>new Po(this.boxContext("foot"),t))),this._body=new es((()=>{const e=this.boxContext("body");return"virtual"===n().mode?new To(e,t):new Mo(e,t)}))}invalidate(){this.head.selector=this.head.selectFactory.create(),this.body.selector=this.body.selectFactory.create(),this.foot.selector=this.foot.selectFactory.create()}get view(){return this._view.instance}get data(){return this._data.instance}get head(){return this._head.instance}get body(){return this._body.instance}get foot(){return this._foot.instance}boxContext(e){const{view:t,data:s}=this,{mapper:n,layer:o,bag:r,markup:i}=this.box;return"body"===e?{mapper:n,layer:o,bag:r[e],view:t,data:s,markup:i}:{mapper:{rowToView:N,viewToRow:N,columnToView:N,viewToColumn:N},layer:o,bag:r[e],view:t,data:s,markup:i}}}function Wo(e,t){const s={markup:{document:document},bag:{head:new so,body:new so,foot:new so},layer:t};return new Ho(e,s)}class Uo{constructor(){}static get mimeType(){return"application/x-q-grid+json"}static decode(e){return JSON.parse(e)}static encode(e){return JSON.stringify(e)}}Uo.element=null,Uo.data=null,Uo.area=null,Uo.startPosition=null;class _o{constructor(){this.isActive=!1}}class Ko{constructor(e){this.select=e,this.busy=null,this.result=null}run(e){const t=this.select;this.result=null;let s=!0;return this.busy=new Promise(((n,o)=>{const r=e=>{s&&(this.result=e,n(e))};if(a(t)){const s={resolve:r,reject:o},n=Array.from(arguments).slice(1)||[],i=t(e,s,...n);m(i)||this.invoke(i,r,o)}else this.invoke(t,r,o)})),()=>{this.busy=null,s=!1}}invoke(e,t,s){if(e&&a(e.then))e.then(t),a(e.catch)&&e.catch(s);else if(e&&a(e.subscribe)){let n,o=!1;n=e.subscribe(((...e)=>{t(...e),o=!0,n&&a(n.unsubscribe)&&(n.unsubscribe(),n=null)}),s),o&&n&&a(n.unsubscribe)&&(n.unsubscribe(),n=null)}else t(e)}}class Go{constructor(e){this.td=e,this.value=null,this.label=null,this.fetch=M,this.resetFetch=M}commit(){}reset(){}clear(){}}const Jo=new Go(null);class Yo extends Go{constructor(e){if(super(e),this.fetch=this.fetchFactory(),this.resetFetch=this.fetch.run(e.row),m(e.value))this.value=null;else{const s=Ae(e.column.type,e.column.editor)(t(e.value));this.value=null===s?e.value:s}this.label=m(e.label)?null:t(e.label)}commit(){this.td.value=this.value,this.td.label=this.label,this.resetFetch(),this.resetFetch=M}reset(){this.label=this.td.label,this.value=this.td.value,this.resetFetch(),this.resetFetch=M}clear(){this.label=null,this.value=null,this.resetFetch(),this.resetFetch=M}fetchFactory(){const{editorOptions:e}=this.td.column;return e&&e.fetch?new Ko(e.fetch):new Ko(this.td.value)}get cell(){return this.td}static get empty(){return Jo}}function Xo(e,t){const s=[];return e.forEach((e=>{if(e.key===t)for(let t of Object.keys(e))"key"!==t&&"for"!==t&&s.push({[t]:e[t]})})),{hasRules:s.length>0,rules:{[t]:s}}}function Zo(e,t){return Xo(e,t).hasRules}function Qo(e,t){if(2===arguments.length){const s=Xo(e,t);return new k.Validator(s.rules)}return new k.Validator(e)}class er{constructor(e,t){const{model:s,observeReply:n}=e;this.plugin=e,this.shortcut=t,this.editor=Yo.empty,this.requestClose=null;const o=this.getCommands();t.register(o),this.enter=o.get("enter"),this.commit=o.get("commit"),this.push=o.get("push"),this.cancel=o.get("cancel"),this.reset=o.get("reset"),this.exit=o.get("exit"),this.clear=o.get("clear"),n(s.editChanged).subscribe((e=>{if(e.hasChanges("status")&&"edit.cell.view"!==e.tag.source)if("edit"===e.changes.status.newValue)s.edit({status:"view"},{source:"edit.cell.view"}),this.enter.canExecute()&&this.enter.execute();else if("view"===e.changes.status.newValue){if(s.edit({status:"edit"},{source:"edit.cell.view"}),this.requestClose&&this.requestClose())return;this.cancel.canExecute()&&this.cancel.execute()}})),n(s.navigationChanged).subscribe((e=>{if(e.hasChanges("cell")){if(this.requestClose&&this.requestClose())return;const t=this.editor.td;t&&("data"===t.column.category?this.commit.canExecute(t)&&this.commit.execute(t):this.cancel.canExecute(t)&&this.cancel.execute(t));const{cell:s}=e.state;s&&"focus"===s.column.editorOptions.trigger&&this.enter.canExecute(s)&&this.enter.execute(s)}}))}mode(e,t){const{model:s}=this.plugin;s.edit({status:t},{source:"edit.cell.view"}),e.mode(t)}getCommands(){const{model:e,table:t}=this.plugin,s={enter:new js({priority:1,source:"edit.cell.view",shortcut:this.shortcutFactory("enter"),canExecute:t=>("keyboard"!=(t?"mouse":"keyboard")||!S.isControl(this.shortcut.keyCode()))&&(t=t||e.navigation().cell,Array.isArray(t)&&t.length>0&&"TdCoreDirective"==t[0].constructor.name&&(t=t[0]),t&&t.column.canEdit&&("control"===t.column.category||"cell"===e.edit().mode)&&"view"===e.edit().status&&e.edit().enter.canExecute(this.contextFactory(t,t.value,t.label))),execute:(s,n)=>{ce.info("cell.edit","edit mode"),n&&n.stopImmediatePropagation();const o=s?"mouse":"keyboard";if((s=s||e.navigation().cell)&&!1!==e.edit().enter.execute(this.contextFactory(s,s.value,s.label))){const e=t.body.cell(s.rowIndex,s.columnIndex).model();this.editor=new Yo(e);const n=this.shortcut.keyCode();if("keyboard"===o&&S.isPrintable(n)){const e=Ae(s.column.type,s.column.editor)(S.stringify(n));null!==e&&(this.value=e)}return this.mode(this.editor.td,"edit"),!0}return!1}}),commit:new js({priority:1,source:"edit.cell.view",shortcut:this.shortcutFactory("commit"),canExecute:t=>{if((t=t||this.editor.td)&&mo.equals(t,this.editor.td)&&t.column.canEdit&&("control"===t.column.category||"cell"===e.edit().mode)&&"edit"===e.edit().status){const s=this.contextFactory(t,this.value,this.label,this.tag),n=s.column.key,o=Qo(e.validation().rules,n);return e.edit().commit.canExecute(s)&&!1!==o.validate({[n]:this.value})}return!1},execute:(s,n)=>(ce.info("cell.edit","commit"),n&&n.stopImmediatePropagation(),!(!(s=s||this.editor.td)||!1===e.edit().commit.execute(this.contextFactory(s,this.value,this.label,this.tag)))&&(this.editor.commit(),this.editor=Yo.empty,this.requestClose=null,this.mode(s,"view"),t.view.focus(),!0))}),push:new js({priority:1,source:"edit.cell.view",canExecute:t=>{if((t=t||this.editor.td)&&t.column.canEdit){const s=this.contextFactory(t,this.value,this.label,this.tag),n=s.column.key,o=Qo(e.validation().rules,n);return e.edit().commit.canExecute(s)&&!1!==o.validate({[n]:this.value})}return!1},execute:(t,s)=>(ce.info("cell.edit","batch commit"),s&&s.stopImmediatePropagation(),!(!(t=t||this.editor.td)||!1===e.edit().commit.execute(this.contextFactory(t,this.value,this.label,this.tag)))&&(this.editor.commit(),this.editor=Yo.empty,this.requestClose=null,!0))}),cancel:new js({priority:1,source:"edit.cell.view",shortcut:this.shortcutFactory("cancel"),canExecute:t=>(t=t||this.editor.td)&&t.column.canEdit&&("control"===t.column.category||"cell"===e.edit().mode)&&"edit"===e.edit().status&&e.edit().cancel.canExecute(this.contextFactory(t,this.value,this.label)),execute:(s,n)=>(ce.info("cell.edit","cancel"),n&&n.stopImmediatePropagation(),!(!(s=s||this.editor.td)||!1===e.edit().cancel.execute(this.contextFactory(s,this.value,this.label)))&&(this.editor.reset(),this.editor=Yo.empty,this.requestClose=null,this.mode(s,"view"),t.view.focus(),!0))}),reset:new js({priority:1,source:"edit.cell.view",canExecute:t=>(t=t||this.editor.td)&&t.column.canEdit&&("control"===t.column.category||"cell"===e.edit().mode)&&"edit"===e.edit().status&&e.edit().reset.canExecute(this.contextFactory(t,this.value,this.label)),execute:(t,s)=>(ce.info("cell.edit","reset"),s&&s.stopImmediatePropagation(),!(!(t=t||this.editor.td)||!1===e.edit().reset.execute(this.contextFactory(t,this.value,this.label)))&&(this.editor.reset(),!0))}),exit:new js({priority:1,source:"edit.cell.view",execute:(e,t)=>{if(ce.info("cell.edit","reset"),t&&t.stopImmediatePropagation(),e=e||this.editor.td){if(this.commit.canExecute(e,t)){if(e.value!==this.value)return this.commit.execute(e,t),!0}if(this.cancel.canExecute(e,t))return this.cancel.execute(e,t),!0}return!1}}),clear:new js({priority:1,source:"edit.cell.view",canExecute:t=>(t=t||this.editor.td)&&t.column.canEdit&&("control"===t.column.category||"cell"===e.edit().mode)&&"edit"===e.edit().status&&e.edit().clear.canExecute(this.contextFactory(t,this.value,this.label)),execute:(t,s)=>(ce.info("cell.edit","clear"),s&&s.stopImmediatePropagation(),!(!(t=t||this.editor.td)||!1===e.edit().clear.execute(this.contextFactory(t,this.value,this.label)))&&(this.editor.clear(),!0))})};return new Map(Object.entries(s))}contextFactory(e,t,s,n){const{column:o,row:r,columnIndex:i,rowIndex:c,value:l,label:a}=e;return{column:o,row:r,columnIndex:i,rowIndex:c,oldValue:l,newValue:t,oldLabel:a,newLabel:s,unit:"cell",tag:n,getValueFactory:pe,getLabelFactory:ye}}get fetch(){return this.editor.fetch}get value(){return this.editor.value}set value(e){this.editor.value=e}get label(){return this.editor.label}set label(e){this.editor.label=e}get row(){return this.cell.row}get column(){return this.cell.column}get cell(){return this.editor.td}get options(){return this.column.options}canEdit(e){const{model:t}=this.plugin;return!!e&&(e.column.canEdit&&"cell"===t.edit().mode)}shortcutFactory(e){const{model:t}=this.plugin,{edit:s}=t;return()=>{const t=s()[e+"Shortcuts"],{td:n}=this.editor;if(n){const e=n.column&&n.column.editor?n.column.editor:n.column.type;if(t&&t.hasOwnProperty(e))return t[e]}return t.$default}}}class tr{constructor(){this.editors=[]}commit(){}reset(){}}class sr{constructor(e,t){this.row=e,this.column=t}get value(){return ge(this.row,this.column)}set value(e){return we(this.row,this.column,e)}get label(){return fe(this.row,this.column)}set label(e){return be(this.row,this.column,e)}}const nr=new tr;class or extends tr{constructor(e,t){super(),this.value=s(e),this.row=e,this.editors=t.filter((e=>e.canEdit)).map((e=>new Yo(new sr(this.value,e))))}commit(){this.editors.forEach((e=>e.commit())),Object.assign(this.row,this.value)}reset(){this.editors.forEach((e=>e.reset())),this.value=s(this.row)}static get empty(){return nr}}function rr(e){const{cell:t}=e;return t?t.row:null}function ir(e){const{cell:t}=e;return t?t.column:null}function cr(e){const{cell:t}=e;return t?t.columnIndex:-1}function lr(e){const{cell:t}=e;return t?t.rowIndex:-1}class ar{constructor(e,t){this.plugin=e,this.editor=or.empty;const s=this.getCommands();t.register(s),this.enter=s.get("enter"),this.commit=s.get("commit"),this.cancel=s.get("cancel"),this.reset=s.get("reset")}getCommands(){const{model:e}=this.plugin,t={enter:new js({source:"edit.row.view",shortcut:this.shortcutFactory("enter"),canExecute:t=>(t=t||rr(e.navigation()))&&"row"===e.edit().mode&&"view"===e.edit().status&&e.edit().enter.canExecute(this.contextFactory(t)),execute:(t,s)=>{ce.info("row.edit","edit mode"),s&&s.stopImmediatePropagation();const n=this.model.columnList().line;this.editor=new or(t,n),e.edit({status:"edit"},{source:"edit.row.view"})}}),commit:new js({source:"edit.row.view",shortcut:this.shortcutFactory("commit"),canExecute:t=>(t=t||rr(e.navigation()))&&"row"===e.edit().mode&&"edit"===e.edit().status&&e.edit().commit.canExecute(this.contextFactory(t)),execute:(t,s)=>{ce.info("row.edit","commit"),s&&s.stopImmediatePropagation(),this.editor.commit(),this.editor=or.empty,e.edit({status:"view"},{source:"edit.row.view"})}}),cancel:new js({source:"edit.row.view",shortcut:this.shortcutFactory("cancel"),canExecute:t=>(t=t||rr(e.navigation()))&&"row"===e.edit().mode&&"edit"===e.edit().status&&e.edit().cancel.canExecute(this.contextFactory(t)),execute:(t,s)=>{ce.info("cell.edit","cancel"),s&&s.stopImmediatePropagation(),this.editor.reset(),this.editor=or.empty,e.edit({status:"view"},{source:"edit.row.view"})}}),reset:new js({source:"edit.row.view",canExecute:t=>(t=t||rr(e.navigation()))&&"row"===e.edit().mode&&"edit"===e.edit().status&&e.edit().reset.canExecute(this.contextFactory(t)),execute:(t,s)=>{if(ce.info("row.edit","reset"),s&&s.stopImmediatePropagation(),t&&!1!==e.edit().reset.execute(this.contextFactory(t)))return this.editor.reset(),!1}})};return new Map(Object.entries(t))}contextFactory(e){return{row:e,unit:"row"}}shortcutFactory(e){const{model:t}=this.plugin,{edit:s}=t;return()=>{const t=s()[e+"Shortcuts"];return t&&t.row||t.$default}}}class ur{constructor(e,t){this.cell=new er(e,t),this.row=new ar(e,t)}}class hr{constructor(e){this.plugin=e}startBatch(e){const{model:t}=this.plugin,s=t.edit().status,n=t.selection().mode;return t.selection({mode:"range"}),t.edit({status:"startBatch"}),()=>{t.edit({status:s}),this.doBatch(e),t.selection({mode:n})}}doBatch(e){const{table:t,model:s}=this.plugin,{rows:n}=s.scene(),{columns:o}=s.view(),{items:r}=s.selection(),i=new er(this.plugin,{register:()=>({}),keyCode:()=>""}),c=t.body.cell(e.rowIndex,e.columnIndex).model(),{value:l,label:a}=c,u=c.column.type;for(let e=0,s=r.length;e<s;e++){const{row:s,column:c}=r[e],h=n.indexOf(s),d=o.indexOf(c),m=t.body.cell(h,d).model();if(u===m.column.type){const e=new Yo(m);e.label=a,e.value=l,i.editor=e,i.push.canExecute()&&i.push.execute()}}}}class dr{constructor(){this.resource=new $,this.mode=null,this.status="view",this.method=null,this.enter=new js({source:"edit.model"}),this.commit=new js({source:"edit.model"}),this.cancel=new js({source:"edit.model"}),this.reset=new js({source:"edit.model"}),this.clear=new js({source:"edit.model"}),this.cancelShortcuts={$default:"escape"},this.enterShortcuts={$default:"*",row:"F2|Enter",form:"F2|Enter"},this.commitShortcuts={$default:"tab|shift+tab|enter|ctrl+s",reference:"ctrl+s",row:"ctrl+s",form:"ctrl+s",bool:"tab|shift+tab|left|right|up|down|home|end|pageUp|pageDown","text-area":"ctrl+s|ctrl+enter"}}}class mr{constructor(e,t){this.element=e,this.manager=t,this.handlers={}}on(e,t,s=!1){const n=this.manager.bind(t),o=this.handlers[e]||(this.handlers[e]=[]);return o.push(n),this.element.addEventListener(e,n,s),()=>{this.element.removeEventListener(e,n);const t=o.indexOf(n);t>=0&&o.splice(t,1)}}off(){const e=this.handlers,t=this.element;for(let s of Object.keys(e))for(let n of Array.from(e[s]))t.removeEventListener(s,n)}}class gr{constructor(e,t=(e=>e())){this.context=e,this.apply=t}bind(e){const t=e.bind(this.context),s=this.apply;return(...e)=>s((()=>t(...e)))}}function pr(e){let t=""+e;return t=t.replace(/"/g,'""'),t=/[\n",]/.test(t)?`"${t}"`:t,t}class wr{write(e,t){const s=[],n=[];let o=[];for(let e of t)"data"===e.category&&(n.push(pe(e)),o.push(pr(e.title)));s.push(o.join(","));for(let t of e){const e=[];for(let s of n)e.push(pr(s(t)));s.push(e.join(","))}return s.join("\n")}}function fr(e,t=", "){const s={};for(let[n,o]of Object.entries(e))if(r(o)){const e=[];for(let t of o)e.push(t);s[n]=e.join(t)}else if(h(o)){const e=fr(o,t);for(let[t,o]of Object.entries(e))s[n+"."+t]=o}else s[n]=o;return s}class yr{constructor(){this.resource=new $}}class br{write(e,t){const s=[];for(let n of e){const e=fr(n),o={};for(let s of t)o[s.title]=e[s.key];s.push(o)}return JSON.stringify(s,"",2)}}function vr(e){let t=""+e;const s=[/</g,/>/g,/&/g,/'/g,/"/g,/\s\s+/g,/\n/g],n=["&lt;","&gt;","&amp;","&apos;","&quot;"," ","&#xA;"];for(let e=0;e<s.length;e++)t=t.replace(s[e],n[e]);return t}function xr(e){let t="";for(let[s,n]of Object.entries(e))if(e.hasOwnProperty(s))if(!h(n)||r(n)||d(n))if(r(n))for(let e of n)d(e)?t+=`<${s}>${vr(e)}</${s}>`:t+=`<${s}>${xr(e)}</${s}>`;else d(n)&&(t+=`<${s}>${vr(n)}</${s}>`);else t+=`<${s}>${xr(n)}</${s}>`;return t}class Cr{write(e){const t=['<?xml version="1.0" encoding="UTF-8"?><root>'];for(let s of e)t.push(xr({row:s}));return t.push("</root>"),t.join("")}}function kr(e){const t=getType(e),s=""+e,n=+e,o=!!e,r=new Date(e);return i=>{const c=getType(i);if(t===c)return e;switch(c){case"Number":return n;case"String":return s;case"Date":return r;case"Boolean":return o;default:throw oe("cast.factory",`Unsupported format ${c}`)}}}function Er(e,t="and"){const s=[];for(let[t,n]of Object.entries(e)){if("$expression"===t){s.push(n);continue}n.expression&&s.push(n.expression);const e=[];n.items&&n.items.length&&e.push(Rr(t,n.items)),n.blanks&&e.push($r(t)),e.length&&(1===e.length?s.push(e[0]):s.push(Ir(e,"or")))}return Ir(s,t)}function $r(e){return{kind:"group",op:"and",left:{kind:"condition",left:e,op:"isEmpty",right:null},right:null}}function Rr(e,t){return{kind:"group",op:"and",left:{kind:"condition",left:e,op:"in",right:Array.from(t)},right:null}}function Ir(e,t){const s={kind:"group",op:t,left:null,right:null};let n=s;return e.forEach((e=>{if(n.left){const s={kind:"group",op:t,left:e,right:null};n.right=s,n=s}else n.left=e})),s.left?s:null}class Or{constructor(){}visit(e,t=0){switch(e.kind){case"group":return this.visitGroup(e,t+1);case"condition":return this.visitCondition(e,t);case"function":return this.visitFunction(e,t);default:throw oe("expression.visitor",`Invalid kind ${e.kind}`)}}visitGroup(e,t){return e.right&&(this.visit(e.left,t),this.visit(e.right,t)),this.visit(e.left,t)}visitCondition(e,t){switch(e.op){case"isNotNull":case"isNull":case"isNotEmpty":case"isEmpty":case"isNumeric":case"isNotNumeric":return this.visitUnary(e,t);case"equals":case"notEquals":case"greaterThanOrEquals":case"greaterThan":case"lessThanOrEquals":case"lessThan":case"like":case"notLike":case"startsWith":case"endsWith":case"match":return this.visitBinary(e,t);case"between":return this.visitBetween(e,t);case"in":return this.visitIn(e,t);default:throw new oe("expression.visitor",`Invalid operation ${e.op}`)}}visitUnary(e){this.visitLeft(e.left)}visitBinary(e){this.visitLeft(e.left),this.visitRight(e.right)}visitLeft(e){if(e.kind&&"function"===e.kind)this.visitArguments(e.arguments)}visitBetween(){}visitIn(){}visitFunction(){}visitArguments(e){return e.map((e=>{switch(e.kind){case"condition":case"group":this.visit(e)}}))}}function Fr(e,t,s){if(!s)return'<span class="q-grid-markup-condition-value-invalid"></span>';switch(t){case"text":return function(e){return`<span class="q-grid-markup-condition-quote">'</span>\n                <span class="q-grid-markup-condition-value q-grid-markup-condition-value-text">${e}</span>\n            <span class="q-grid-markup-condition-quote">'</span>`}(e);case"number":return function(e){const t=Number.parseFloat(e);if(!isNaN(t)&&isFinite(t))return`<span class="q-grid-markup-condition-value q-grid-markup-condition-number">${e}</span>`;return`<span class="q-grid-markup-condition-value q-grid-markup-condition-number q-grid-markup-condition-error">${e}</span>`}(e);case"date":return function(e){const t=new Date(e);if("Invalid Date"!==t&&!isNaN(t))return`<span class="q-grid-markup-condition-quote">'</span>\n                    <span class="q-grid-markup-condition-value q-grid-markup-condition-value-date">${e}</span>\n                <span class="q-grid-markup-condition-quote">'</span>`;return`<span class="q-grid-markup-condition-quote">'</span>\n                <span class="q-grid-markup-condition-value q-grid-markup-condition-value-date q-grid-markup-condition-error">${e}</span>\n            <span class="q-grid-markup-condition-quote">'</span>`}(e);default:return""+e}}class qr extends Or{constructor(e,t,s){super(),this.label=e,this.type=t,this.isValid=s}visitGroup(e,t){if(e.right){const s=this.visit(e.left,t),n=this.visit(e.right,t),o=`<div class="q-grid-markup-node-left">${s}</div><span class="q-grid-markup-group-op">${e.op}</span><div class="q-grid-markup-node-right">${n}</div>`;return`<div class="q-grid-markup-node">${t>1?`<span class="q-grid-markup-group-open">(</span>${o}<span class="q-grid-markup-group-close">)</span>`:o}</div>`}return`<div class="q-grid-markup-node">${this.visit(e.left,t)}<div class="q-grid-markup-node">`}visitUnary(e){switch(e.op){case"isNotNull":return`<span class="q-grid-markup-condition-left">${this.label(e.left)}</span><span class="q-grid-markup-condition-right q-grid-markup-condition-unary">is not empty</span>`;case"isNull":return`<span class="q-grid-markup-condition-left">${this.label(e.left)}</span><span class="q-grid-markup-condition-right q-grid-markup-condition-unary">is empty</span>`;default:throw new oe("markup.visitor",`Invalid operation ${e.op}`)}}visitBinary(e){let t;switch(e.op){case"equals":t="=";break;case"notEquals":t="&lt;&gt;";break;case"greaterThanOrEquals":t="&gt;=";break;case"greaterThan":t="&gt;";break;case"lessThanOrEquals":t="&lt;=";break;case"lessThan":t="&lt;";break;case"like":t="like";break;case"notLike":t="not like";break;case"startsWith":t="starts with";break;case"endsWith":t="ends with";break;default:throw new oe("markup.visitor",`Invalid operation ${e.op}`)}const s=this.isValid(e.left,e.right);return`<span class="q-grid-markup-condition-left">${this.label(e.left)}</span>\n                <span class="q-grid-markup-condition-op">${t}</span>\n                <span class="q-grid-markup-condition-right">${Fr(e.right,this.type(e.left),s)}</span>`}visitBetween(e){const t=this.isValid(e.left,e.right);return`<span class="q-grid-markup-condition-left">${this.label(e.left)}</span>\n                <span class="q-grid-markup-condition-op">between</span>\n                <span class="q-grid-markup-condition-right">${Fr(e.right[0],this.type(e.left),t)}</span>\n                <span class="q-grid-markup-condition-op">and</span>\n                <span class="q-grid-markup-condition-right">${Fr(e.right[1],this.type(e.left),t)}</span>`}visitIn(e){const t=this.isValid(e.left,e.right);return`<span class="q-grid-markup-condition-left">${this.label(e.left)}</span>\n                <span class="q-grid-markup-condition-op">in</span>\n                <span class="q-grid-markup-condition-open">(</span>\n                <span class="q-grid-markup-condition-right">${e.right.map((s=>Fr(s,this.type(e.left),t))).join(", ")}</span>\n                <span class="q-grid-markup-condition-close">)</span>`}}class Lr extends Or{constructor(e,t,s){super(),this.valueFactory=e,this.assertFactory=t,this.getType=s}visitGroup(e){if(e.right){const t=this.visit(e.left),s=this.visit(e.right);switch(e.op){case"and":return e=>t(e)&&s(e);case"or":return e=>t(e)||s(e);default:throw oe("predicate.visitor",`Invalid operation ${e.op}`)}}return this.visit(e.left)}visitCondition(e){const t=e.right,s=e.left,n=this.valueFactory(s),o=this.assertFactory(s),i=new Set;let c=Pe(this.getType(s,r(t)?t[0]:t));r(t)&&(t.length?t.forEach((e=>i.add(""+e))):c=N);const{equals:l,isNull:a,lessThan:u}=o,h=(e,t)=>l(e,t)||u(e,t),d=(e,t)=>l(e,t)||!u(e,t);let g;switch(e.op){case"isNotNull":case"isNotEmpty":g=e=>!a(e);break;case"isNull":case"isEmpty":g=e=>a(e);break;case"equals":{const e=c(t);g=t=>l(c(t),e);break}case"notEquals":{const e=c(t);g=t=>!l(c(t),e);break}case"greaterThanOrEquals":{const e=c(t);g=t=>d(c(t),e);break}case"greaterThan":{const e=c(t);g=t=>{return s=c(t),!l(s,n=e)&&!u(s,n);var s,n};break}case"lessThanOrEquals":{const e=c(t);g=t=>h(c(t),e);break}case"lessThan":{const e=c(t);g=t=>u(c(t),e);break}case"between":{const[e,s]=t,n=m(e),o=m(s);if(n&&o){g=T;break}if(o){const t=c(e);g=e=>d(c(e),t);break}if(n){const e=c(s);g=t=>h(c(t),e);break}const r=c(e),i=c(s);g=e=>{const t=c(e);return d(t,r)&&h(t,i)};break}case"in":g=e=>{if(r(e)){for(const t of i)if(e.some((e=>""+e===t)))return!0;return!1}const t=e||0===e?""+e:"null";return i.has(t)};break;case"like":{const e=(""+t).toLowerCase();g=t=>t&&(""+t).toLowerCase().includes(e);break}case"notLike":{const e=(""+t).toLowerCase();g=t=>t&&!(""+t).toLowerCase().includes(e);break}case"startsWith":{const e=(""+t).toLowerCase();g=t=>t&&0===(""+t).toLowerCase().indexOf(e);break}case"endsWith":{const e=(""+t).toLowerCase();g=t=>{const s=(""+t).slice(-e.length).toLowerCase();return e===s};break}default:throw new oe("predicate.visitor",`Invalid operation ${e.op}`)}return e=>{const t=n(e);return g(t)}}}class Sr{constructor(){this.skip=0}}class Mr{constructor(e){const{model:s}=e;this.plugin=e,this.column=new js({source:"filter.view",execute:(e,n)=>{const{key:o}=e;let{by:r,operatorFactory:i}=s.filter();r=t(r);const c=r[o]||(r[o]={});if(m(n)||null===n||""===n)delete r[o];else{const t=i(e),s=c.expression?c.expression.op:t[0];switch(s){case"contains":c.items=[n];break;case"between":c.expression={kind:"condition",left:o,op:s,right:[null,n]};break;default:c.expression={kind:"condition",left:o,op:s,right:n}}}s.filter({by:r},{source:"filter.view"})}})}has(e){const{model:t}=this.plugin,{by:s}=t.filter();return s.hasOwnProperty(e.key)}value(e){const{model:t}=this.plugin,{key:s}=e,{by:n}=t.filter();if(n[s]){const{expression:e,items:t}=n[s];return e?r(e.right)?e.right[e.right.length-1]:e.right:t&&t.length?t[0]:null}return null}}function Tr(e){const{model:t}=e,s=Er(t.filter().by);if(null!==s){const{labelFactory:n}=e,{assertFactory:o}=t.filter(),r=is(t.columnList().line),i=e=>{const t=r[e];return"array"===t.type?e=>ge(e,t):n(r[e])},c=e=>o(r[e]),l=e=>{const t=r[e];return t&&t.type||"text"};return new Lr(i,c,l).visit(s)}return T}class jr{constructor(){this.resource=new $,this.by={},this.match=Tr,this.custom=T,this.fetch=M,this.unit="default",this.assertFactory=()=>({equals:(e,t)=>e===t,lessThan:(e,t)=>e<t,isNull:e=>""===e||null==e}),this.operatorFactory=e=>{switch(e.type){case"text":case"url":case"email":case"file":return["contains","like","notLike","startsWith","endsWith","isEmpty","isNotEmpty"];case"date":case"datetime":return["between","contains","lessThan","lessThanOrEquals","greaterThan","greaterThanOrEquals","isEmpty","isNotEmpty"];case"id":case"currency":case"number":return["between","contains","like","lessThan","lessThanOrEquals","greaterThan","greaterThanOrEquals","isEmpty","isNotEmpty"];default:return["contains"]}}}}function Nr(){return e=>new Ts((t=>e.subscribe({next:e=>{t.next(e),t.complete()}})))}function Ar(e){return t=>new Ts((s=>t.subscribe({next:t=>{e(t)&&s.next(t)}})))}class Pr{constructor(e){this.model=e}activate(e,t){const{focus:s,scene:n,sceneChanged:o}=this.model;m(e)&&(e=s().rowIndex),e<0&&(e=0),m(t)&&(t=s().columnIndex),t<0&&(t=n().column.line.findIndex((e=>e.model.canFocus))),"stop"===n().status?this.focus(e,t):o.on(((s,n)=>{s.hasChanges("status")&&"stop"===s.state.status&&(n(),this.focus(e,t))}))}focus(e,t){const{pagination:s,focus:n}=this.model,{count:o,current:r,size:i}=s(),c=this.getPage(o),l=Math.max(0,Math.min(this.getPage(e),c));if(r!==l)return s({current:l},{source:"focus.service"}),void this.activate(e,t);n({isActive:!0,rowIndex:e-=i*r,columnIndex:t},{source:"focus.service"})}getPage(e){const{model:t}=this,{size:s}=t.pagination();return Math.max(0,Math.floor(e/s))}}class Vr{constructor(){this.isActive=!1,this.rowIndex=-1,this.columnIndex=-1}}class Dr{constructor(e){const{model:t,observeReply:s}=e;this.plugin=e,this.valueFactory=pe,this.rows=[],s(t.sceneChanged).subscribe((e=>{e.hasChanges("column")&&this.invalidate()}))}invalidate(){ce.info("view.foot","invalidate"),this.rows=new Array(this.count)}columns(e,t){const{model:s}=this.plugin;return s.scene().column.area[t]||[]}get count(){const{model:e}=this.plugin,{columns:t}=e.view(),s=e.foot().resource.count;for(let e=0,n=t.length;e<n;e++)if(t[e].aggregation)return Math.max(s,1);return s}value(e){if(e.aggregation){const t=e.aggregation,s=e.aggregationOptions;if(!Gt.hasOwnProperty(t))throw new oe("foot",`Aggregation ${t} is not registered`);const{model:n}=this.plugin,{rows:o}=n.data(),r=this.valueFactory(e);return Gt[t](o,r,s)}return null}}class zr extends ${constructor(e={},t={},s=0){super(e,t),this.count=s}}class Br{constructor(){this.resource=new zr,this.cache=new fs}}class Hr{constructor(e,t){const{model:s,disposable:n,observe:o}=t,{grid:r}=s;if(this.plugin=t,"bound"===r().status)throw new oe("grid.host",`Model is already used by grid "${r().id}"`);e.id||(e.id=s.grid().id),r({status:"bound"},{source:"grid.host"}),this.invalidateVisibility(),o(s.sceneChanged).subscribe((e=>{e.hasChanges("column")&&this.invalidateVisibility()})),n.add((()=>s.grid({status:"unbound"},{source:"grid.host"})))}keyUp(e){const{model:t}=this.plugin,{codes:s}=t.keyboard(),n=L.translate(e.keyCode),o=s.indexOf(n);if(o>=0){const e=Array.from(s);e.splice(o,1),t.keyboard({code:n,codes:e,status:"up"},{source:"key.up"})}t.keyboard({code:null,status:"release"},{source:"key.up"})}keyDown(e,t="grid"){const{model:s}=this.plugin,{shortcut:n}=s.action(),o=L.translate(e.keyCode),r=n.keyDown(e,t);if(r.length>0)e.preventDefault(),e.stopPropagation();else if("TBODY"===e.target.tagName){const{prevent:t}=s.navigation();t.has(o)&&(e.preventDefault(),e.stopPropagation())}return s.keyboard({code:o,codes:b(s.keyboard().codes.concat(o)),status:"down"},{source:"key.down"}),r}invalidateVisibility(){const{model:e}=this.plugin,{left:t,right:s}=e.scene().column.area,{pinTop:n,pinBottom:o}=e.row(),{pin:r}=e.visibility(),i={left:t.length>0,right:s.length>0,top:n.length>0,bottom:o.length>0};l(r,i)||e.visibility({pin:i},{source:"grid.host"})}invalidateActive(){const{model:e,table:t,service:s}=this.plugin;if(t.view.isFocused()){!e.mouse().target&&(e.focus().rowIndex<0||e.focus().columnIndex<0)?s.focus(e.pagination().size*e.pagination().current):e.focus({isActive:!0},{source:"grid.host"})}else e.focus({isActive:!1},{source:"grid.host"})}}class Wr{constructor(e){this.pipes=e}run(e,t=[]){const s=this.pipes.map((t=>s=>new Promise(((n,o)=>t(s,e,n,o)))));return function(e,t){return e=Array.from(e),new Promise(((s,n)=>{function o(t){if(e.length){e.shift()(t).then(o).catch((e=>{throw n(e),e}))}else s(t)}o(t)}))}(s,t)}}function Ur(e){return function(t,s,n){const o=new Wr(n),r={model:e,source:t,changes:s,getValueFactory:pe,getLabelFactory:ye},{rows:i}=e.data();return o.run(r,i)}}function _r(){function e(e){const t=(Math.random().toString(16)+"000000000").substr(2,8);return e?"-"+t.substr(0,4)+"-"+t.substr(4,4):t}return e()+e(!0)+e(!0)+e()}class Kr{constructor(){this.tasks=[]}next(){this.tasks.shift();const e=this.tasks[0];return!!e&&(e(),!0)}add(e){return this.tasks.push(e),1===this.tasks.length&&e(),this.tasks.length}}class Gr{constructor(e){this.model=e,this.scheduler=new Kr}invalidate(...e){const{source:t,changes:s,pipe:n,why:o}=function(...e){return e.length?d(e[0])?{source:e[0],changes:e[1]||{},pipe:e[2],why:"refresh"}:Object.assign({source:"invalidate",changes:{},pipe:null,why:"refresh"},e[0]):{source:"invalidate",changes:{},pipe:null,why:"refresh"}}(...e),{scheduler:r,model:i}=this,{scene:c}=i,l=Ur(i),a="refresh"===o?this.busy():M,u=()=>{a(),r.next()||c({status:"pull"},{source:t,behavior:"core"})},h=new se;return ce.info("grid",`add task ${t}`),r.add((()=>(ce.info("grid",`start task ${t}`),c({status:"start"},{source:t,behavior:"core"}),i.head().cache.clear(),i.body().cache.clear(),i.foot().cache.clear(),Q.invoke((()=>l(t,s,n||i.data().pipe))).then((()=>{ce.info("grid",`finish task ${t}`),u(),h.resolve()})).catch((e=>{ce.error("grid",e),u(),h.reject()}))))),h.promise}busy(){const e=_r(),{progress:t}=this.model,s=t().queue.concat([e]);return t({queue:s}),()=>{const s=Array.from(t().queue),n=s.indexOf(e);n>=0&&(s.splice(n,1),t({queue:s}))}}focus(e,t){new Pr(this.model).activate(e,t)}}class Jr{constructor(){this.id=`q-grid-${_r()}`,this.status="unbound",this.caption="",this.interactionMode=0,this.title=""}}function Yr(e,t){return e.source===t.by?e:e.children.length?e.children[0]:e}function Xr(e,t){return"group"!==t.type||e.source===t.by}function Zr(e,t,s){return e.source===t.by?!s||s.state.expand:!!e.children.length&&Zr(e.children[0],t,e)}class Qr{constructor(e,t){const{model:s,observeReply:n,disposable:o,service:r}=e;this.plugin=e,this.valueFactory=pe;const i=new js({source:"group.view",execute:e=>{let t=rr(s.navigation()),n=ir(s.navigation());e&&(t=e[0]||t,n=e[1]||n);const o=this.getNode(t,n),{toggle:i}=s.group();!1!==i.execute(o)&&(o.state.expand=!o.state.expand,r.invalidate({source:"group.view",pipe:Zn.group,why:Zn.group.why}))},canExecute:e=>{let t=rr(s.navigation()),n=ir(s.navigation());e&&(t=e[0]||t,n=e[1]||n);const o=this.getNode(t,n),{toggle:r}=s.group();return o&&"group"===o.type&&r.canExecute(o)},shortcut:s.group().shortcut.toggle});let c=!0;const l=new js({source:"group.view",execute:()=>{if(!1!==s.group().toggleAll.execute()){const{nodes:e}=s.view(),{toggle:t}=s.group();Us(e,(e=>{i.canExecute([e])&&!1!==t.execute(e)&&(e.state.expand=c)})),c=!c,r.invalidate({source:"group.view",pipe:Zn.group,why:Zn.group.why})}},canExecute:()=>s.group().toggleAll.canExecute()});this.toggleStatus=i,this.toggleAllStatus=l,t.register([i,l]);const a=_t(s);let u;this.reference={group:a("group")},this.getNode=N,this.isVisible=T,n(s.groupChanged).subscribe((e=>{if(e.hasChanges("mode"))switch(e.state.mode){case"rowspan":this.getNode=Yr,this.isVisible=Zr;break;case"flat":this.getNode=N,this.isVisible=Xr;break;default:this.getNode=N,this.isVisible=T}}));const h=()=>{u&&(u.unsubscribe(),u=null)};o.add(h),n(s.rowChanged).subscribe((e=>{if(e.hasChanges("toggle")){const{toggle:t}=e.state;h(),u=t.canExecuteCheck.subscribe((()=>{this.toggleStatus.canExecuteCheck.next()}))}}))}count(e,t){return(e=this.getNode(e,t)).children.length||e.rows.length}status(e,t){return(e=this.getNode(e,t)).state.expand?"expand":"collapse"}offset(e,t){const{model:s}=this.plugin;e=this.getNode(e,t);const{mode:n}=s.group();switch(n){case"nest":case"subhead":return t?t.offset*e.level:0;default:return 0}}value(e,t){if(e=this.getNode(e,t),t){return ye(t)(e)}return null}}class ei{constructor(){this.resource=new $,this.mode="nest",this.summary=null,this.by=[],this.toggle=new js({source:"group.state"}),this.toggleAll=new js({source:"group.state"}),this.flattenFactory=Jt,this.shortcut={toggle:"space|enter"}}}class ti{constructor(e){this.bag=e}cell(e){for(let t of e)if("TD"===t.nodeName||"TH"===t.nodeName){const e=this.bag.findModel(t);if(!e)break;return e}return null}row(e){for(let t of e)if("TR"===t.nodeName){const e=this.bag.findModel(t);if(!e)break;return e}return null}}function si(e,t,s){const n=function(e){return e.replace(/-([a-z])/g,ni)}(t);return m(s)?e.style[n]:(e.style[n]=s,n)}function ni(e,t){return t.toUpperCase()}function oi(e){const t=[];for(;e;)t.unshift(e),e=e.parentNode;return t}function ri(e){const t=e.composedPath&&e.composedPath()||e.path,s=e.target;return t?t.indexOf(window)<0?t.concat(window):t:s===window?[window]:[s].concat(oi(s),window)}function ii(e,t){return document.elementFromPoint(e,t)}class ci{constructor(e){const{model:t,table:s,observeReply:n}=e;this.plugin=e,this.column=null,n(t.dragChanged).subscribe((e=>{e.hasChanges("isActive")&&e.state.isActive&&(this.column=null)}))}mouseMove(e){const{table:t}=this.plugin,s=new ti(t.box.bag.head).cell(ri(e));s&&this.highlight(s.column)}mouseLeave(){this.highlight(null)}highlight(e){const{view:t}=this.plugin,{highlight:s}=t;s.column.canExecute(e)&&this.column!==e&&(this.column&&s.column.execute(this.column,!1),e&&s.column.execute(e,!0),this.column=e)}}class li{constructor(e,t){const{model:s,table:n,observeReply:o}=e;this.plugin=e,this.tagName=t,this.rows=[];const r=new ti(n.box.bag.head);this.drop=new js({source:"head.view",canExecute:e=>{if("end"===e.action)return!0;const t=r.cell(ri(e));return t&&t.column.canMove},execute:e=>{const t=e.dragData;switch(e.action){case"over":{const n=r.cell(ri(e));if(!e.inAreaX(n.element))return;const o=n.column.key;if(t!==o){const{columnList:e}=s,n=Js(e().index),r=Gs(n,(e=>e.key.model.key===t)),i=Gs(n,(e=>e.key.model.key===o));if(r&&i&&i.path.indexOf(r.node)<0){const t=r.path.reverse(),s=t.findIndex((e=>e.children.length>1));if(s>=0){const o=t[s],c=t[s-1]||r.node,l=o.children.indexOf(c);o.children.splice(l,1),i.parent.children.splice(i.index,0,c),c.level=i.parent.level+1,Us(c.children,((e,t,s)=>{e.level=(t||s).level+1}),c),e({index:n},{source:"head.view"})}}}break}case"end":case"drop":{const{index:e}=s.columnList(),o=Gs(e,(e=>e.key.model.key===t));if(o)for(let e of Ks(o.node)){n.body.column(e.key.columnIndex).removeClass("q-grid-drag")}break}}}}),this.drag=new js({source:"head.view",canExecute:e=>{const t=e.data,{index:n}=s.columnList(),o=Gs(n,(e=>e.key.model.key===t));return o&&o.node.key.model.canMove},execute:e=>{const t=e.data,{index:o}=s.columnList(),r=Gs(o,(e=>e.key.model.key===t));if(r)for(let e of Ks(r.node)){return n.body.column(e.key.columnIndex).addClass("q-grid-drag"),()=>n.head.cell}}}),this.resize=new js({source:"head.view",canExecute:e=>{const t=e.data,s=n.data.columnMap();return s.hasOwnProperty(t)&&!1!==s[t].canResize}}),o(s.dataChanged).subscribe((e=>{if(e.hasChanges("columns")){const t=os(e.state.columns);s.columnList({line:t},{source:"head.view"})}})),o(s.sceneChanged).subscribe((e=>{e.hasChanges("column")&&this.invalidate()})),o(s.filterChanged).subscribe((e=>{e.hasChanges("unit")&&this.invalidate()}))}columns(e,t){return e.filter((e=>e.model.pin===t))}invalidate(){ce.info("view.head","invalidate");const{model:e,table:t}=this.plugin;if(this.rows=Array.from(e.scene().column.rows),this.rows.length>1?t.view.addClass("q-grid-head-span"):t.view.removeClass("q-grid-head-span"),"row"===e.filter().unit){const e=t.data.columns().map((e=>new on(e)));this.rows.push(e)}}}class ai{constructor(){this.resource=new $,this.cache=new fs}}function ui(e){const{columnKey:t}=e.selection();return t===N?e=>e.key:N}function hi(e){const{rowKey:t}=e.selection();if(t===N){const t=e.columnList().line,s=t.findIndex((e=>"id"===e.type));if(s>=0){return pe(t[s])}const{rows:n}=e.data();return e=>n.indexOf(e)}return N}function di(e,t,s){switch(e){case"row":return t;case"column":return s;case"cell":return e=>e.row&&e.column?{row:t(e.row),column:s(e.column)}:e;default:throw new oe("selection.state",`Invalid unit ${e}`)}}class mi{constructor(e){this.model=e}lookup(e,t){let s=[];if(0===e.length)return s;const{model:n}=this;switch(m(t)&&(t=n.selection().unit),t){case"column":{const t=function(e,t){const s=e.columnList().line;return e=>{const n=[];return s.forEach((s=>{const o=t(s);e.indexOf(o)>=0&&n.push(s)})),n}}(n,this.keyFactory("column"));s=t(e);break}case"row":{const t=function(e,t){const{rows:s}=e.data();return e=>{const n=[];return s.forEach((s=>{const o=t(s);e.indexOf(o)>=0&&n.push(s)})),n}}(n,this.keyFactory("row"));s=t(e);break}case"cell":{const t=function(e,t){const{rows:s}=e.data(),n=e.columnList().line,o=(e,t)=>e.column===t.column&&e.row===t.row;return e=>{const r=[];return n.forEach((n=>{s.forEach((s=>{const i={column:n,row:s};e.findIndex((e=>o(e,t(i))))>=0&&r.push(i)}))})),r}}(n,this.keyFactory("cell"));s=t(e);break}case"mix":{const t=e.filter((e=>"row"===e.unit)).map((e=>e.item)),n=e.filter((e=>"column"===e.unit)).map((e=>e.item)),o=e.filter((e=>"cell"===e.unit)).map((e=>e.item));s.push(...this.lookup(t,"row").map((e=>({item:e,unit:"row"})))),s.push(...this.lookup(n,"column").map((e=>({item:e,unit:"column"})))),s.push(...this.lookup(o,"cell").map((e=>({item:e,unit:"cell"}))));break}default:throw new oe("selection.state",`Invalid unit ${t}`)}return s}map(e){const t=this.model.selection(),s=this.keyFactory();switch(t.unit){case"column":case"row":case"cell":return e.map(s);case"mix":return e.map((e=>({unit:e.unit,item:s(e)})));default:throw new oe("selection.state",`Invalid unit ${t.unit}`)}}keyFactory(e){const{rowKey:t,columnKey:s,unit:n}=this.model.selection();switch(e=e||n){case"column":case"row":case"cell":return di(e,t,s);case"mix":{const e=di("cell",t,s),n=di("row",t,s),o=di("column",t,s);return t=>{if(!t.unit)return N;switch(t.unit){case"column":return o(t.item);case"row":return n(t.item);case"cell":return e(t.item);default:throw new oe("selection.service",`Invalid unit ${t.unit}`)}}}default:throw new oe("selection.service",`Invalid unit ${e}`)}}hashFactory(){const e=this.keyFactory(),t=function(e){const t=e.selection();switch(t.unit){case"row":return hi(e);case"column":return ui(e);case"cell":{const t=ui(e),s=hi(e);return e=>`${t(e.column)}[${s(e.row)}]`}case"mix":{const t=ui(e),s=hi(e);return(e,n)=>{if(!n.unit)return e;switch(n.unit){case"column":return t(e);case"row":return s(e);case"cell":return`${t(e.column)}[${s(e.row)}]`;default:throw new oe("selection.service",`Invalid unit ${n.unit}`)}}}default:throw new oe("selection.service",`Invalid unit ${t.unit}`)}}(this.model);return s=>{const n=e(s);return t(n,s)}}}class gi{constructor(e){const{model:t,table:s,observeReply:n,observe:o}=e;this.plugin=e,this.cellSelector=new Is(t,s),this.selectionService=new mi(t);let r=[],i=[],c=[],l=[],a=[];this.column=new js({source:"highlight.view",canExecute:()=>!this.isRendering,execute:(e,s)=>{const n=Array.from(t.highlight().columns),o=n.indexOf(e.key);let r=!1;s?o<0&&(n.push(e.key),r=!0):o>=0&&(n.splice(o,1),r=!0),r&&t.highlight({columns:n},{source:"highlight.view"})}}),this.row=new js({source:"highlight.view",canExecute:()=>!this.isRendering,execute:(e,s)=>{const n=Array.from(t.highlight().rows),o=n.indexOf(e);let r=!1;s?o<0&&(n.push(e),r=!0):o>=0&&(n.splice(o,1),r=!0),r&&t.highlight({rows:n},{source:"highlight.view"})}}),this.cell=new js({source:"highlight.view",canExecute:()=>!this.isRendering,execute:(e,s)=>{let{cell:n}=t.highlight(),o=!0;e===n?o=!1:e&&n&&(o=e.rowIndex!==n.rowIndex||e.columnIndex!==n.columnIndex),o&&t.highlight({cell:e},{source:"highlight.view"})}}),this.clear=new js({execute:()=>{const{rows:e,cell:s}=t.highlight();e.forEach((e=>this.row.execute(e,!1))),s&&this.cell.execute(null,!1)}}),n(t.selectionChanged).subscribe((e=>{e.hasChanges("items")&&(l=this.invalidateSelection(l))})),n(t.sceneChanged).subscribe((e=>{e.hasChanges("status")&&"stop"===e.state.status&&(i=this.invalidateColumnHover(i),c=this.invalidateRowHover(c),a=this.invalidateCellHover(a),r=this.invalidateSortBy(r),l=this.invalidateSelection(l))})),n(t.sortChanged).subscribe((e=>{!this.isRendering&&e.hasChanges("by")&&(r=this.invalidateSortBy(r))})),n(t.highlightChanged).subscribe((e=>{this.isRendering||(e.hasChanges("cell")&&(a=this.invalidateCellHover(a)),e.hasChanges("columns")&&(i=this.invalidateColumnHover(i)),e.hasChanges("rows")&&(c=this.invalidateRowHover(c)))})),o(t.dragChanged).subscribe((e=>{e.hasChanges("isActive")&&e.state.isActive&&(t.highlight({columns:[],rows:[],cell:null},{source:"highlight.view"}),i=this.invalidateColumnHover(i),c=this.invalidateRowHover(c),a=this.invalidateCellHover(a))}))}get isRendering(){const{model:e}=this.plugin;return"stop"!==e.scene().status||e.drag().isActive}invalidateColumnHover(e){e.forEach((e=>e()));const{model:t}=this.plugin,{columns:s}=t.highlight();return s.map((e=>this.highlightColumn(e,"highlighted")))}invalidateRowHover(e){e.forEach((e=>e()));const{model:t}=this.plugin,{rows:s}=t.highlight();return s.map((e=>this.highlightRow(e,"highlighted")))}invalidateCellHover(e){e.forEach((e=>e()));const{model:t,table:s}=this.plugin,{cell:n}=t.highlight();if(e=[],n){const{body:t}=s,{rowIndex:o,columnIndex:r}=n;e.push(this.highlightCell(t.cell(o,r),"highlighted"))}return e}invalidateSortBy(e){e.forEach((e=>e()));const{model:t}=this.plugin,s=t.sort().by;e=[];for(let t of s){const s=wn(t);e.push(this.highlightColumn(s,"sorted"))}return e}invalidateSelection(e){e.forEach((e=>e()));const{model:t}=this.plugin,{items:s}=t.selection(),n=this.selectionService.lookup(s);return this.cellSelector.map(n).map((e=>this.highlightCell(e,"selected")))}findColumnPosition(e){const{model:t}=this.plugin,{index:s}=t.columnList(),n=Gs(s,(t=>t.key.model.key===e));return n?Ks(n.node).map((e=>e.key.columnIndex)):[]}highlightColumn(e,t){const{table:s}=this.plugin,n=this.findColumnPosition(e);if(!n.length)return M;const{head:o,body:r,foot:i}=s;return Q.mutate((()=>{const e=1===n.length;for(let s of n){e&&(o.column(s).addClass(`q-grid-${t}`),o.column(s-1).addClass(`q-grid-${t}-prev`),o.column(s+1).addClass(`q-grid-${t}-next`));const n=r.column(s),c=n.model();c&&c.canHighlight&&(n.addClass(`q-grid-${t}`),i.column(s).addClass(`q-grid-${t}`))}})),this.blurColumn(e,t)}blurColumn(e,t){const{table:s}=this.plugin,n=this.findColumnPosition(e);if(!n.length)return M;const{head:o,body:r,foot:i}=s;return()=>{Q.mutate((()=>{for(let e of n)o.column(e).removeClass(`q-grid-${t}`),o.column(e-1).removeClass(`q-grid-${t}-prev`),o.column(e+1).removeClass(`q-grid-${t}-next`),r.column(e).removeClass(`q-grid-${t}`),i.column(e).removeClass(`q-grid-${t}`)}))}}highlightRow(e,t){const{table:s}=this.plugin;if(e<0)return M;const{body:n}=s;return Q.mutate((()=>n.row(e).addClass(`q-grid-${t}`))),this.blurRow(e,t)}blurRow(e,t){const{table:s}=this.plugin;if(e<0)return M;const n=s.body.row(e);return()=>Q.mutate((()=>n.removeClass(`q-grid-${t}`)))}highlightCell(e,t){return Q.mutate((()=>{e.addClass(`q-grid-${t}`)})),this.blurCell(e,t)}blurCell(e,t){return()=>Q.mutate((()=>{e.removeClass(`q-grid-${t}`)}))}}class pi{constructor(){this.columns=[],this.rows=[],this.cell=null}}class wi{constructor(e){this.text=e||"",this.peeks=[],this.position=0,this.length=this.text.length}static get eof(){}read(){const e=this.peeks;if(e.length>0)return e.pop();const t=this.position+1;if(t<this.length){const e=this.text[this.position];return this.position=t,e}return wi.eof}peek(){return this.peekCore(0)}peekPeek(){return this.peekCore(1)}peekCore(e){const t=this.peeks;if(e<t.length)return t[e];const s=this.length;for(let n=t.length;n<=e;n++){const e=this.position+1;if(e>=s)return wi.eof;const n=this.text[this.position];this.position=e,t.push(n)}return t[e]}seek(e){const t=this.peeks,s=t.length;for(t.splice(0,Math.Min(e,s)),e-=s;--e>=0;)this.read();return this.peek()}}class fi{constructor(e=","){this.delimiter=e}read(e){const t=new wi(e),s=this.delimiter,n=[];let o=[],r="";for(;;){const e=t.peek();if(" "!==e)if(e!==s)if("\n"!==e)if("\r"!==e||"\n"!==t.peekPeek()){if(e===wi.eof){t.read(),(o.length>0||r.length>0)&&(o.push(r),n.push(o));break}r='"'===e?this.readEscapedValue(t,r):this.readUnescapedValue(t,r)}else t.read(),t.read(),(o.length>0||r.length>0)&&(o.push(r),r=""),o.length>0&&(n.push(o),o=[]);else t.read(),(o.length>0||r.length>0)&&(o.push(r),r=""),o.length>0&&(n.push(o),o=[]);else t.read(),o.push(r),r="";else t.read()}return n.map(this.lineToObj)}readEscapedValue(e,t){let s=e.read();for(;s!==wi.eof;){if(s=e.read(),'"'===s){if('"'===e.peek()){t+=e.read();continue}break}t+=s}return t}readUnescapedValue(e,t){const s=this.delimiter;let n=e.peek();for(;n!==wi.eof&&n!==s&&"\n"!==n&&("\r"!==n||"\n"!==e.peekPeek());)t+=e.read(),n=e.peek();return t}lineToObj(e){const t={};for(let s=0,n=e.length;s<n;s++)t[s]=e[s];return t}}class yi{constructor(){this.resource=new $}}class bi{read(e){const t=JSON.parse(e);return r(t)?t:[t]}}const vi=1;class xi{read(e){if(!e)return[];const t=(new DOMParser).parseFromString(e,"text/xml").documentElement,s=this.getStatistics(t),n=this.build(t,s,"root"),o=n[Object.keys(n)[0]];return r(o)?o:[o]}arrayFromChildren(e,t,s,n){const o=[],r=Array.from(e.children).filter((e=>e.nodeName===n));for(let e of r)o.push(this.buildNonArray(e,t,s));return o}build(e,t,s="root"){return t.get(s).isArray?this.arrayFromChildren(e.parentNode,t,s,e.nodeName):this.buildNonArray(e,t,s)}buildNonArray(e,t,s="root"){const n=t.get(s);if(n.isObject){const n={},o=new Set;for(let t of Array.from(e.attributes))n[t.name]=t.value;for(let r of Array.from(e.children)){const e=this.getPath(s,r.nodeName);o.has(e)||(o.add(e),n[r.nodeName]=this.build(r,t,e))}return n}return n.isText?e.textContent:null}info(e,t){return t||(t={isArray:!1,isObject:!1,isText:!1}),{isArray:t.isArray||Array.from(e.parentNode.children).filter((t=>t.nodeName===e.nodeName)).length>1,isObject:t.isObject||e.children.length>0||e.attributes.length>0,isText:t.isText||this.isTextContainer(e)}}getStatistics(e,t="root",s=new Map){s.set(t,this.info(e,s.get(t)));const n=Array.from(e.children);if(n.length>0)for(let e of n){const n=this.getPath(t,e.nodeName);this.getStatistics(e,n,s)}return s}isTextContainer(e){return e.nodeType===vi&&!e.children.length&&e.childNodes.length}getPath(...e){return e.join("/")}}class Ci{static func(e,t=M,s=null){return(...n)=>{for(const o of e)s=t(s,o(...n));return s}}static command(e){return new js({source:"composite",canExecute:(...t)=>e.reduce(((e,s)=>e||s.canExecute(...t)),!1),execute:(...t)=>e.filter((e=>e.canExecute(...t))).reduce(((e,s)=>s.execute(...t)||e),void 0)})}static list(e){return e.reduce(((e,t)=>e.concat(t)),[])}static object(e,t={}){return Object.assign(t,...e)}}function ki(){let e=!1;return t=>{if(e)return!1;e=!0;try{return t(),!0}finally{e=!1}}}class Ei{constructor(){this.status="release",this.codes=[],this.code=null}}class $i{constructor(){this.resource=new $}}class Ri{constructor(e){const{model:t,observeReply:s,disposable:n}=e,o=this.styleRow.bind(this);this.plugin=e,s(t.navigationChanged).subscribe((e=>{if(e.hasChanges("cell")){const{oldValue:t,newValue:s}=e.changes.cell,n=t?t.column:{},o=s?s.column:{};n.key!==o.key&&(n.viewWidth||o.viewWidth)&&Q.measure((()=>{const e=this.updateColumnForm();Q.mutate((()=>this.invalidateColumns(e)))}))}})),s(t.layoutChanged).subscribe((e=>{"layout.let"!==e.tag.source&&e.hasChanges("columns")&&Q.measure((()=>{const e=this.updateColumnForm();Q.mutate((()=>this.invalidateColumns(e)))}))})),s(t.rowChanged).subscribe((e=>{if(e.hasChanges("canResize")){const s=Array.from(t.style().rows);if(e.state.canResize)s.push(o);else{const e=t.style.rows.indexOf(o);s.splice(e,1)}t.style({rows:s},{source:"layout.let"})}})),s(t.dataChanged).subscribe((e=>{e.hasChanges("columns")&&t.layout({columns:new Map},{source:"layout.let",behavior:"core"})})),s(t.viewChanged).subscribe((e=>{if(e.hasChanges("columns")){const s=e=>null!==e.width||null!==e.minWidth||null!==e.maxWidth||"fit-head"===e.widthMode;os(e.state.columns).some(s)&&Q.mutate((()=>{const{columns:e}=t.layout();this.invalidateColumns(e)}))}})),n.add((()=>{Cs(this.gridId,"column-layout").remove()}))}updateColumnForm(){const{model:e,table:t}=this.plugin,{head:s}=t,{cells:n}=s.context.bag,o=e.layout().columns,r=new Map;for(let e of n){const{column:t,rowIndex:n,columnIndex:i}=e;if(!t.canResize)continue;const{key:c}=t;if(o.has(c)){const{width:e}=o.get(c);r.set(c,{width:e})}else{const e=s.cell(n,i).width();e&&r.set(c,{width:e})}}e.layout({columns:r},{source:"layout.let",behavior:"core"});const i=ir(e.navigation());if(i&&i.viewWidth){const e=new Map(r),t=r.get(i.key);return e.set(i.key,{width:t?Math.max(t.width,i.viewWidth):i.viewWidth}),e}return r}invalidateColumns(e){ce.info("layout","invalidate columns");const{table:t}=this.plugin,s=t.data.columns(),n=hs(t,e),o={};let{length:r}=s;for(;r--;){const e=s[r],t=n(e.key);if(null!==t){const s=t+"px",n={width:s,"min-width":s,"max-width":s};o[`.q-grid-the-${Es(e.key)}`]=n}}Cs(this.gridId,"column-layout").set(o)}styleRow(e,t){const{model:s}=this.plugin,{layout:n}=s,o=n().rows.get(e);if(o){const{minHeight:e}=s.row();if(e>o.height)return;t.class(`resized-${o.height}px`,{height:o.height+"px"})}}get gridId(){return this.plugin.model.grid().id}}class Ii{constructor(){this.columns=new Map,this.rows=new Map}}class Oi{constructor(e,t){this.host=e,this.plugin=t}canWrite(e,t,s){return m(t)?(ce.warn("model.bind",`can't write undefined to the model[${s}]`),!1):!r(e)||null!==t||(ce.warn("model.bind",`the model[${s}] expects array, got ${t}`),!1)}bound(e,t,s=!0,n=!0){if(e){const o=[];for(let r of t){const t=e[r],i=this.packFactory(r),c=this.writeFactory(r);if(s){const e=t(),s=i(e);c({changes:this.buildChanges(s)})}n&&this.disposable.add(e[r+"Changed"].on(c)),o.push((()=>{ce.info("model.bind",`to model "${r}"`);const e=t(),s=i(e);t(s)}))}return()=>o.forEach((e=>e()))}return M}writeFactory(e){const t=this.host;return s=>{const n=Object.keys(s.changes);for(let o of n){const n=A(e,o);if(t.hasOwnProperty(n)){const e=s.changes[o];t[n]=e.newValue}}}}packFactory(e){return t=>{const s=this.host,n={};for(let o of Object.keys(t)){const r=A(e,o);if(s.hasOwnProperty(r)){const e=t[o],i=s[r];this.canWrite(e,i,o)&&(n[o]=i)}}return n}}buildChanges(e){return Object.keys(e).reduce(((t,s)=>{const n=e[s];return t[s]={newValue:n,oldValue:n},t}),{})}}class Fi{constructor(){this.status="release",this.code=null,this.target=null,this.timestamp=(new Date).getMilliseconds()}}class qi{constructor(){this.cell=null,this.shortcut={up:"up",down:"down",left:"left",right:"right",next:"tab",previous:"shift+tab",home:"home",end:"end",pageUp:"pageUp",pageDown:"pageDown",upward:"shift+pageUp",downward:"shift+pageDown"},this.go=new js({source:"navigation.model"}),this.prevent=new Set(["space","shift+space","up","down","left","right","home","end","pageUp","pageDown","shift+pageDown","shift+pageUp"])}}class Li{constructor(){this.resource=new $,this.current=0,this.size=50,this.sizeList=[5,10,20,30,40,50],this.count=0,this.mode="showPages",this.resetTriggers={filter:["by"],pivot:["by"],group:["by"]},this.shortcut={prev:"alt+pageup",next:"alt+pagedown"}}}function Si(e,t){return t instanceof Map?{type:"map",value:Array.from(t.entries())}:t instanceof Set?{type:"set",value:Array.from(t.values())}:t}function Mi(e,t){if("object"==typeof t&&null!==t){if("map"===t.type)return new Map(t.value);if("set"===t.type)return new Set(t.value)}return t}const Ti=e=>JSON.stringify(e,Si),ji=e=>JSON.parse(e,Mi);class Ni{constructor(e){this.storage=e}getItem(e){return new Promise((t=>{t(ji(this.storage.getItem(e)))}))}setItem(e,t){return new Promise((s=>{s(this.storage.setItem(e,Ti(t)))}))}}class Ai{constructor(){this.id="default",this.defaultGroup="My Presets",this.schedule="onDemand",this.load=new js({source:"persistence.model"}),this.remove=new js({source:"persistence.model"}),this.create=new js({source:"persistence.model"}),this.modify=new js({source:"persistence.model"}),this.setDefault=new js({source:"persistence.model"}),this.reset=new js({source:"persistence.model"}),this.storage=new Ni(localStorage),this.settings={group:["by"],sort:["by"],pivot:["by"],filter:["by"],queryBuilder:["node"],pagination:["current","size"],layout:["columns"]}}}class Pi{constructor(){this.reduce=(e,t)=>{const s=t.data().pipe,n=e.indexOf(Zn.default);n>=0&&(e[n]=s),e=b(e);const o=new Set(e),r=new Map([[Zn.default,s],[Zn.view,Zn.default],[Zn.column,Zn.view]]);return e.reduce(((e,t)=>((e=>{let t;for(;(t=r.get(e))&&t!==e;){if(o.has(t))return!1;e=t}return!0})(t)&&e.push(t),e)),[])},this.triggers={data:{rows:Zn.default,columns:Zn.column},pagination:{current:Zn.default,size:Zn.default},fetch:{skip:Zn.default},sort:{by:Zn.default},filter:{by:Zn.default,match:Zn.default,custom:Zn.default,unit:Zn.column},group:{by:Zn.default},pivot:{by:Zn.default},columnList:{index:Zn.columnIndex},row:{status:Zn.rowDetails,unit:Zn.rowDetails,canMove:Zn.column,canResize:Zn.column},rowList:{index:Zn.row},animation:{rows:Zn.default}},this.effect={}}}class Vi{constructor(){this.resource=new $,this.by=[]}}class Di{constructor(){this.resource=new $,this.imports={}}}class zi{constructor(){this.resource=new $,this.isBusy=!1,this.queue=[]}}function Bi(e){const t=e.pagination(),s=e.sort(),n=e.filter();return{order:s.by.map((e=>{const t=Object.keys(e)[0];return`${"asc"===e[t]?"+":"-"}${t}`})).join(","),filter:Object.keys(n.by).map((e=>{const t=n.by[e];return"$expression"===e?`$expression=where:${t}`:t.items?`${e}=in:${t.items.join(",")}`:t.expression?`${e}=where:${t.expression}`:""})).filter((e=>!!e)).join(";"),skip:t.current*t.size,take:t.size}}class Hi{constructor(){this.url="",this.method="get",this.serialize=Bi}}class Wi{constructor(){this.index=new Map}}class Ui{constructor(){this.resource=new $,this.mode="single",this.unit="data",this.height=e=>e&&e.offsetHeight||64,this.status=new Map,this.shortcut={toggle:"space|enter"},this.canMove=!1,this.canResize=!1,this.minHeight=0,this.pinTop=[],this.pinBottom=[],this.toggle=new js}}class _i{constructor(){this.status="idle",this.rows=[],this.column={rows:[],line:[],area:{left:[],mid:[],right:[]}}}}class Ki{constructor(){this.mode="default",this.top=0,this.left=0,this.cursor=0,this.map={rowToView:N,viewToRow:N},this.resetTriggers=["sort.view","column.filter.view","data.manipulation"]}}class Gi{constructor(){this.resource=new $,this.unit="cell",this.mode="single",this.items=[],this.area="body",this.toggle=new js({source:"selection.model"}),this.rowKey=N,this.columnKey=N,this.shortcut={toggleRow:"shift+space|space",togglePreviousRow:"shift+up",toggleNextRow:"shift+down",toggleColumn:"ctrl+space",toggleNextColumn:"shift+right",togglePreviousColumn:"shift+left",selectAll:"ctrl+a"}}}class Ji{constructor(){this.resource=new $,this.by=[],this.mode="mixed",this.trigger=[]}}class Yi{constructor(){this.row=M,this.cell=M,this.rows=[],this.cells=[],this.classList=[],this.invalidate=new js({source:"style.model",canExecute:e=>"view"===e.model.edit().status})}}class Xi{constructor(){this.resource={}}}class Zi{constructor(){this.resource=new $}}class Qi{constructor(){this.resource=new $,this.rules=[]}}class ec{constructor(){this.rows=[],this.columns=[],this.nodes=[],this.pivot={head:new le("$root",0),rows:[]}}}class tc{constructor(){this.resource=new $,this.head=!0,this.foot=!0,this.body=!0,this.toolbar={top:!0,bottom:!0,right:!1,left:!1},this.pin={left:!1,right:!1,top:!1,bottom:!1},this.plugin={}}}class sc{constructor(){this.state={},this.register("action",X).register("animation",Z).register("body",ys).register("clipboard",As).register("columnList",sn).register("data",Qn).register("drag",_o).register("edit",dr).register("export",yr).register("fetch",Sr).register("filter",jr).register("focus",Vr).register("foot",Br).register("grid",Jr).register("group",ei).register("head",ai).register("highlight",pi).register("import",yi).register("keyboard",Ei).register("layer",$i).register("layout",Ii).register("mouse",Fi).register("navigation",qi).register("pagination",Li).register("persistence",Ai).register("pipe",Pi).register("pivot",Vi).register("plugin",Di).register("progress",zi).register("rest",Hi).register("row",Ui).register("rowList",Wi).register("scene",_i).register("scroll",Ki).register("selection",Gi).register("sort",Ji).register("style",Yi).register("template",Xi).register("toolbar",Zi).register("validation",Qi).register("view",ec).register("visibility",tc)}register(e,t){if(this.state.hasOwnProperty(e))throw new oe("model",`"${e}" is already registered`);if(!a(t))throw new oe(`model.${e}`,`"${t}" is not a valid type, should be an constructor function`);return this.state[e]=t,this}build(){const{state:e}=this,t=new Et;for(let s of Object.keys(e)){const n=e[s];t.inject(s,n)}return t}}function nc(e,t){return oc(e)===t}function oc(e){return e.which}function rc(e){switch(e){case 1:return"left";case 3:return"right";case 2:return"middle";default:return null}}class ic{constructor(e,t){this.model=e,this.table=t}position(e,t){const s=this.table,n=s.body,o=this.lastRow,r=s.view.scrollHeight()-s.view.height();let i=0,c=0;for(;i<=o&&c<=e;)c+=n.row(i).height(),i++;"down"===t&&n.row(i)&&(c-=n.row(i).height(),i--);const l=Math.max(this.firstRow,Math.min(o,i));return c=Math.min(c,r),{row:l,offset:c}}goTo(e,t,s="navigation"){let n=this.cell(e,t);return n||(n=this.cell(e,this.firstColumn)),this.model.navigation({cell:n},{source:s}),!0}columns(e){const t=this.table.body.columns(e),s=[];for(let e=0,n=t.length;e<n;e++){const n=t[e];n.model().canFocus&&s.push(n.index)}return s}get currentColumn(){const e=this.columns(this.currentRow),t=cr(this.model.navigation()),s=e.indexOf(t);return e.length?e[Math.max(s,0)]:-1}get nextColumn(){const e=this.columns(this.currentRow),t=e.indexOf(this.currentColumn);return t>=0&&t<e.length-1?e[t+1]:-1}get prevColumn(){const e=this.columns(this.currentRow),t=e.indexOf(this.currentColumn);return t>0&&t<e.length?e[t-1]:-1}get lastColumn(){const e=this.columns(this.currentRow),t=e.length-1;return t>=0?e[t]:-1}get firstColumn(){const e=this.columns(this.currentRow);return e.length?e[0]:-1}get currentRow(){const e=lr(this.model.navigation());return e<0?this.model.scene().rows.length?0:-1:e}get nextRow(){const e=this.currentRow+1;return e<=this.lastRow?e:-1}get prevRow(){const e=this.currentRow-1;return e>=0?e:-1}get firstRow(){return Math.min(0,this.lastRow)}get lastRow(){return this.table.body.rowCount(this.currentColumn)-1}cell(e,t){const s=this.table.body.cell(e,t).model();if(s){const{row:n,column:o}=s;return{rowIndex:e,columnIndex:t,row:n,column:o}}return null}context(e,t){const s=this.model,n=this.currentRow,o=this.currentColumn,r=s.action().shortcut.keyCode;return Object.assign({model:s,type:e,oldRow:n,oldColumn:o,keyCode:r},t)}get commands(){const{model:e,table:t}=this,{edit:s}=e,{shortcut:n,go:o}=e.navigation(),r=()=>{if("view"===s().status)return!0;const e=t.body.column(this.currentColumn).model();return e&&("focus"===e.editorOptions.trigger||"transparent"===e.editorOptions.cruise)},i={goDown:new js({source:"navigation",shortcut:n.down,canExecute:()=>{if(r()){const e=this.nextRow;return e>=0&&o.canExecute(this.context("down",{newRow:e}))}return!1},execute:()=>{const e=this.nextRow,t=this.currentColumn;return o.execute(this.context("down",{newRow:e,newColumn:t}))&&this.goTo(e,t)}}),goUp:new js({source:"navigation",shortcut:n.up,canExecute:()=>{if(r()){const e=this.prevRow;return e>=0&&o.canExecute(this.context("up",{newRow:e}))}return!1},execute:()=>{const e=this.prevRow,t=this.currentColumn;return o.execute(this.context("up",{newRow:e,newColumn:t}))&&this.goTo(e,t)}}),goRight:new js({source:"navigation",shortcut:n.right,canExecute:()=>{if(r()){const e=this.nextColumn;return e>=0&&o.canExecute(this.context("right",{newColumn:e}))}return!1},execute:()=>{const e=this.currentRow,t=this.nextColumn;return o.execute(this.context("right",{newRow:e,newColumn:t}))&&this.goTo(e,t)}}),goLeft:new js({source:"navigation",shortcut:n.left,canExecute:()=>{if(r()){const e=this.prevColumn;return e>=0&&o.canExecute(this.context("left",{newColumn:e}))}return!1},execute:()=>{const e=this.currentRow,t=this.prevColumn;return o.execute(this.context("left",{newRow:e,newColumn:t}))&&this.goTo(e,t)}}),goNext:new js({source:"navigation",shortcut:n.next,canExecute:()=>{const e=this.nextRow,t=this.nextColumn;return(t>=0||e>=0)&&o.canExecute(this.context("next",{newRow:e,newColumn:t}))},execute:()=>{const e=this.nextColumn,t=e>=0,s=t?this.currentRow:this.nextRow,n=t?e:this.firstColumn;return o.execute(this.context("next",{newRow:s,newColumn:n}))&&this.goTo(s,n)}}),goPrevious:new js({source:"navigation",shortcut:n.previous,canExecute:()=>{const e=this.prevColumn,t=this.prevRow;return(e>=0||t>=0)&&o.canExecute(this.context("previous",{newRow:t,newColumn:e}))},execute:()=>{const e=this.prevColumn,t=e>=0,s=t?e:this.lastColumn,n=t?this.currentRow:this.prevRow;return o.execute(this.context("previous",{newRow:n,newColumn:s}))&&this.goTo(n,s)}}),home:new js({source:"navigation",shortcut:n.home,canExecute:()=>{if(r()){const e=this.prevColumn;return e>=0&&o.canExecute(this.context("end",{newColumn:e}))}return!1},execute:()=>{const e=this.currentRow,t=this.firstColumn;return o.execute(this.context("home",{newRow:e,newColumn:t}))&&this.goTo(e,t)}}),end:new js({source:"navigation",shortcut:n.end,canExecute:()=>{if(r()){const e=this.nextColumn;return e>=0&&o.canExecute(this.context("home",{newColumn:e}))}return!1},execute:()=>{const e=this.currentRow,t=this.lastColumn;return o.execute(this.context("end",{newRow:e,newColumn:t}))&&this.goTo(e,t)}}),upward:new js({source:"navigation",shortcut:n.upward,canExecute:()=>{if(r()){const e=this.prevRow;return e>=0&&o.canExecute(this.context("upward",{newRow:e}))}return!1},execute:()=>{const e=this.firstRow,t=this.currentColumn;return o.execute(this.context("upward",{newRow:e,newColumn:t}))&&this.goTo(e,t)}}),downward:new js({source:"navigation",shortcut:n.downward,canExecute:()=>{if(r()){const e=this.nextRow;return e>=0&&o.canExecute(this.context("downward",{newRow:e}))}return!1},execute:()=>{const e=this.lastRow,t=this.currentColumn;return o.execute(this.context("downward",{newRow:e,newColumn:t}))&&this.goTo(e,t)}}),pageUp:new js({source:"navigation",shortcut:n.pageUp,canExecute:()=>{if(r()){const e=this.prevRow;return e>=0&&o.canExecute(this.context("pageUp",{newRow:e}))}return!1},execute:()=>{const e=t.view,s=this.position(e.scrollTop()-e.height(),"up"),n=s.row,r=this.currentColumn;return!!o.execute(this.context("pageUp",{newRow:n,newColumn:r}))&&(this.model.scroll({top:s.offset},{source:"navigation"}),this.goTo(n,r,"navigation.scroll"))}}),pageDown:new js({source:"navigation",shortcut:n.pageDown,canExecute:()=>{if(r()){const e=this.nextRow;return e>=0&&o.canExecute(this.context("pageDown",{newRow:e}))}return!1},execute:()=>{const e=t.view,s=this.position(e.scrollTop()+e.height(),"down"),n=s.row,r=this.currentColumn;return!!o.execute(this.context("pageDown",{newRow:n,newColumn:r}))&&(this.model.scroll({top:s.offset},{source:"navigation"}),this.goTo(s.row,this.currentColumn,"navigation.scroll"))}})};return new Map(Object.entries(i))}}class cc{constructor(e,t){const{model:s,table:n,observeReply:o}=e;this.plugin=e;const r=new ic(s,n);let i=[];t.register(r.commands),this.focus=new js({source:"navigation.view",canExecute:e=>{const{cell:t}=s.navigation();return!(!e||!e.column.canFocus||mo.equals(e,t))},execute:e=>{const{rowIndex:t,columnIndex:o,behavior:r}=e,i=n.body.cell(t,o).model();if(i){const{row:e,column:n}=i;s.navigation({cell:{rowIndex:t,columnIndex:o,row:e,column:n}},{source:"navigation.view",behavior:r})}else s.navigation({cell:null},{source:"navigation.view",behavior:r})}}),this.scrollTo=new js({source:"navigation.view",execute:(e,t)=>{const s=n.body.cell(e,t);this.scroll(n.view,s)},canExecute:(e,t)=>null!==n.body.cell(e,t).model()}),o(s.navigationChanged).subscribe((e=>{if(e.hasChanges("cell")){"core"!==e.tag.behavior&&(n.view.isFocused()||n.view.focus());const t=lr(e.state),o=cr(e.state);i=this.invalidateFocus(i),"navigation.scroll"!==e.tag.source&&"core"!==e.tag.behavior&&this.scrollTo.canExecute(t,o)&&this.scrollTo.execute(t,o),s.focus({rowIndex:t,columnIndex:o},{source:"navigation.view"})}})),o(s.focusChanged).subscribe((e=>{if("navigation.view"!==e.tag.source){if(e.hasChanges("isActive")){const{view:t}=n,s="q-grid-active";e.state.isActive?(Q.mutate((()=>t.addClass(s))),t.focus()):Q.mutate((()=>t.removeClass(s)))}(e.hasChanges("rowIndex")||e.hasChanges("columnIndex"))&&this.focus.execute(e.state)}})),o(s.sceneChanged).subscribe((e=>{if(e.hasChanges("status")){const{status:t}=e.state;switch(t){case"stop":{const e=s.navigation(),t=lr(e),o=cr(e);if(t>=0&&o>=0){let e=n.body.cell(t,o).model();this.focus.execute({rowIndex:e?e.rowIndex:-1,columnIndex:e?e.columnIndex:-1,behavior:"core"})}break}}}}))}invalidateFocus(e){const{model:t,table:s}=this.plugin;e.forEach((e=>e())),e=[];const n=lr(t.navigation()),o=cr(t.navigation()),r=s.body.cell(n,o);if(r.model()){const t=s.body.row(n);Q.mutate((()=>{r.addClass("q-grid-focused"),t.addClass("q-grid-focused")})),e.push((()=>Q.mutate((()=>{r.removeClass("q-grid-focused"),t.removeClass("q-grid-focused")}))))}return e}scroll(e,t){const{model:s}=this.plugin,{scroll:n}=s;Q.measure((()=>{const s=t.rect(),o=e.rect("body-mid"),r={};e.canScrollTo(t,"left")&&(o.left>s.left||o.left>s.right||o.right<s.left||o.right<s.right)&&(o.width<s.width||o.left>s.left||o.left>s.right?r.left=s.left-o.left+n().left:(o.left<s.left||o.right<s.right)&&(r.left=s.right-o.right+n().left)),e.canScrollTo(t,"top")&&(o.top>s.top||o.top>s.bottom||o.bottom<s.top||o.bottom<s.bottom)&&(o.height<s.height||o.top>s.top||o.top>s.bottom?r.top=s.top-o.top+n().top:(o.top<s.top||o.bottom<s.bottom)&&(r.top=s.bottom-o.bottom+n().top)),Object.keys(r).length&&n(r,{behavior:"core",source:"navigation.view"})}))}}class lc{constructor(e){const{model:t,observe:s}=e,{resetTriggers:n}=t.pagination();Object.keys(n).forEach((e=>s(t[e+"Changed"]).subscribe((s=>{if("core"===s.tag.behavior)return;if("virtual"===t.scroll().mode)return;const o=n[e];for(const e of o)s.hasChanges(e)&&t.pagination({current:0},{source:s.tag.source||"pagination.view"})}))))}get current(){return this.plugin.model.pagination().current}get size(){return this.plugin.model.pagination().size}}class ac{constructor(e,t){this.model=e,this.createDefaultModel=t}save(e){const s=this.model;e=e||s.persistence().settings;const n={};for(const o in e){const r=s[o](),i={};n[o]=i;for(const s of e[o]){const e=r[s];i[s]=t(e)}}return n}load(e,t){const s=this.model;t=t||s.persistence().settings;for(const n in t){const t=e[n];if(t){(0,s[n])(t,{source:"persistence.service"})}}return e}reset(e){const t=this.createDefaultModel(),s=this.model;e=e||s.persistence().settings;const n={};for(let o in e){n[o]={};const r=t[o],i=s[o];for(const t of e[o])n[o][t]=r()[t];i(n[o],{source:"persistence.service"})}return n}}class uc{constructor(e){this.model=e}resolve(e){const t=this.model.plugin().imports[e];if(!t)switch(e){case"xlsx":throw new oe("plugin.service","To use export plugin for xlsx format please add http://github.com/SheetJS/js-xlsx library to your project");case"fileSaver":throw new oe("plugin.service","To use export plugin for file saving please add https://github.com/eligrey/FileSaver.js library to your project");case"pdf":throw new oe("plugin.service","To use export plugin for pdf format please add https://github.com/MrRio/jsPDF and https://github.com/simonbengtsson/jsPDF-AutoTable libraries to your project");default:throw new oe("import library",`Can't find ${e} library in imports`)}return t}}function hc(e,t){const s=e.data,n=e.scope;if(e instanceof zr){let o=1,r=e.count;const i=t;for(;s.hasOwnProperty(t);)t=i+o++;return r<o&&(r=o),(e,o)=>(s[t]=e,Object.keys(o).length&&(n[t]=o),new zr(s,n,r))}return(e,o)=>(s[t]=e,Object.keys(o).length&&(n[t]=o),new $(s,n))}function dc(e){const t=e.pagination(),s=e.sort();return{filter:e.filter().by,order:s.by.map((e=>{const t=Object.keys(e)[0];return("asc"===e[t]?"+":"-")+t})),skip:t.current*t.size,take:t.size}}class mc{constructor(e,t){const{model:s,observeReply:n,observe:o,disposable:r}=e;let i;this.plugin=e,this.toggleStatus=new js({source:"row.details.view",execute:e=>{e||(e=rr(s.navigation()));const{toggle:t,status:n,mode:r}=s.row();if(!1!==t.execute({row:e})){const t=Kn([e],n,r);s.row({status:t},{source:"row.details.view"}),o(s.sceneChanged).pipe(Ar((e=>e.hasChanges("status")&&"stop"===e.state.status)),Nr()).subscribe((n=>{const o=t.get(e);if(o&&o.expand){const t=s.view().rows.indexOf(e);s.focus({rowIndex:t+1},{source:"row.details.let"})}}))}},canExecute:e=>{if(!e){const{cell:t}=s.navigation();t&&"row-expand"===t.column.type&&(e=t.row)}const{toggle:t}=s.row();return!!e&&t.canExecute({row:e})},shortcut:s.row().shortcut.toggle}),n(s.sceneChanged).subscribe((e=>{if("row.details.view"!==e.tag.source&&e.hasChanges("rows")){const{status:e,mode:t}=s.row(),n=_n(s.data().rows,e,t);s.row({status:n},{source:"row.details.view"})}}));const c=()=>{i&&(i.unsubscribe(),i=null)};r.add(c),n(s.rowChanged).subscribe((e=>{if(e.hasChanges("toggle")){const{toggle:t}=e.state;c(),i=t.canExecuteCheck.subscribe((()=>{this.toggleStatus.canExecuteCheck.next()}))}})),t.register([this.toggleStatus])}status(e){if(e instanceof ae)return null;const{model:t}=this.plugin,{status:s}=t.row(),n=s.get(e);return n&&n.expand?"expand":"collapse"}}class gc{constructor(e,t){const{model:s,table:n,observe:o}=e;this.plugin=e,this.tagName=t;const r=new ti(n.box.bag.body);this.drop=new js({source:"row.view",canExecute:e=>{if("end"===e.action)return!0;return!!r.row(ri(e))},execute:e=>{const t=e.dragData;switch(e.action){case"over":{const o=r.row(ri(e));if(!e.inAreaY(o.element))return;const i=o.index;if(t!==i){n.body.row(t).removeClass("q-grid-drag");n.body.row(i).addClass("q-grid-drag");const o=n.body.row(t).model(),r=[];for(let e of s.rowList().index.entries()){const s=e[1];t<s&&s<=i?e[1]=s-1:t>s&&s>=i&&(e[1]=s+1),r.push(e)}const c=new Map(r),{rowId:l}=s.data(),a=l(i,o.model);c.set(a,i),s.rowList({index:c},{source:"row.view"}),e.dragData=i}break}case"drop":case"end":n.body.row(t).removeClass("q-grid-drag");break}}}),this.drag=new js({source:"row.view",execute:e=>{const t=e.data,s=n.body.row(t);s.addClass("q-grid-drag");const o=s.model();if(o)return o.element},canExecute:e=>{if(u(e.data)){const t=e.data;return t>=0&&s.scene().rows.length>t}return!1}}),this.resize=new js({source:"row.view"}),o(s.dataChanged).subscribe((e=>{e.hasChanges("rows")&&s.rowList({index:new Map},{source:"row.view",behavior:"core"})}))}get canMove(){const{model:e}=this.plugin;return e.row().canMove}get canResize(){const{model:e}=this.plugin;return e.row().canResize}}class pc{constructor(e,t){const{model:s,observeReply:n,service:o}=e,{scroll:r,row:i,pagination:c,fetch:l,pipe:u}=s;this.plugin=e;const h=i().height,d={threshold:c().size,resetTriggers:[]};(h>0||a(h))&&(d.rowHeight=h),this.y=t.factory(d),this.y.container.read=Q.measure,this.y.container.write=Q.mutate;const m=(this.y.container.draw$.on||this.y.container.draw$.subscribe).bind(this.y.container.draw$),g=()=>{const{effect:e}=u();if(e.hasOwnProperty("memo")){const t=e.memo.length;return c({count:t},{source:"scroll.view",behavior:"core"}),t}return c().count};switch(m((e=>{const{position:t}=e;(e=>{const{size:t,current:s,count:n}=c(),o=0===t?0:n-1<=e+t?Math.ceil(n/t)-1:Math.floor((e+t/2)/t);o!==s&&c({current:o},{source:"scroll.view",behavior:"core"})})(t),r({cursor:t},{source:"scroll.view",behavior:"core"})})),r().mode){case"virtual":{let e;this.y.settings.fetch=(e,t,s)=>{if(l({skip:e},{source:"scroll.view",behavior:"core"}),0===e){const e=g();s.resolve(e)}else o.invalidate({source:"scroll.view",why:"refresh"}).then((()=>{const e=g();s.resolve(e)}))};const t=new Set(r().resetTriggers);n(s.sceneChanged).subscribe((s=>{if(s.hasChanges("status")){const{status:n}=s.state;switch(n){case"start":e=s.tag.source,t.has(e)&&l({skip:0},{source:"scroll.view",behavior:"core"});break;case"stop":t.has(e)&&this.y.container.reset()}}}));break}default:n(s.paginationChanged).subscribe((e=>{"core"!==e.tag.behavior&&this.y.container.reset()}))}n(s.scrollChanged).subscribe((e=>{if("scroll.view"!==e.tag.source){if(e.hasChanges("mode"))switch(e.state.mode){case"virtual":r({map:{rowToView:e=>e-this.y.container.position,viewToRow:e=>e+this.y.container.position}},{source:"scroll.view",behavior:"core"});break;case"default":r({map:{rowToView:N,viewToRow:N}})}(e.hasChanges("left")||e.hasChanges("top"))&&this.invalidate()}}))}invalidate(){ce.info("layout","invalidate scroll");const{model:e,table:t}=this.plugin,{view:s}=t,{left:n,top:o}=e.scroll();Q.mutate((()=>{s.scrollLeft(n),s.scrollTop(o)}))}get mode(){return this.plugin.model.scroll().mode}}class wc extends an{constructor(e,t){super(t),this.model=e}filter(e){if("edit"===this.model.edit().status){const{cell:e}=this.model.navigation();if(e&&"select"!==e.column.type)return[]}return super.filter(e)}}class fc{constructor(e){this.model=e}build(){const e={row:this.buildRows.bind(this),column:this.buildColumns.bind(this),cell:this.buildCells.bind(this),mix:this.buildMix.bind(this)},t=this.model;return(...s)=>{const n=t.selection(),o=e[n.unit];if(!o)throw new oe("range.builder",`Invalid unit ${n.unit}`);return o(...s)}}buildRows(e,t){const s=this.model,{rows:n}=s.scene();if(!t)return[n[e.rowIndex]];const o=Math.min(e.rowIndex,t.rowIndex),r=Math.max(e.rowIndex,t.rowIndex);return n.slice(o,r+1)}buildColumns(e,t){if(!t)return[e.column];const s=this.model.columnList().line,n=Math.min(e.columnIndex,t.columnIndex),o=Math.max(e.columnIndex,t.columnIndex);return s.slice(n,o+1)}buildCells(e,t){if(!t)return[{column:e.column,row:e.row}];const s=this.model,{rows:n}=s.scene(),{columns:o}=s.view(),r=Math.min(e.rowIndex,t.rowIndex),i=Math.max(e.rowIndex,t.rowIndex),c=Math.min(e.columnIndex,t.columnIndex),l=Math.max(e.columnIndex,t.columnIndex),a=n.slice(r,i+1),u=o.slice(c,l+1),h=[];return a.forEach((e=>{u.filter((e=>"data"===e.category)).forEach((t=>{h.push({column:t,row:e})}))})),h}buildMix(e,t){const s="row-indicator"===e.column.type?"row":"cell";return("row"===s?this.buildRows(e,t):this.buildCells(e,t)).map((e=>({item:e,unit:s})))}}class yc{constructor(e,t){this.model=e,this.service=t}select(e,t=!0,s){if(s=s||this.keyFactory(),r(e))e.forEach((e=>this.select(e,t,s)));else{if(e instanceof le){const{rows:n}=this.model.data();if(n.length)return void e.rows.forEach((e=>this.select(n[e],t,s)))}this.selectCore(e,t,s)}}canSelect(e){return this.canSelectCore(e)}toggle(e){const t=this.state(e);return this.select(e,null===t||!t)}state(e,t){if(t=t||this.keyFactory(),r(e)){return!!e.every((e=>this.state(e,t)))||!!e.some((e=>this.state(e,t)))&&null}if(e instanceof le){const{rows:s}=this.model.data();if(s.length){const n=e.rows.length&&e.rows.every((e=>this.state(s[e],t)));return!!n||!!e.rows.some((e=>this.state(s[e],t)))&&null}}return this.stateCore(e,t)}stateAll(e){if(!e.length)return!1;const t=this.keyFactory(),s=e.findIndex((e=>!1===this.state(e,t)));return s<0||(0===s?!e.every((e=>!1===this.state(e,t)))&&null:null)}keyFactory(){return this.service.hashFactory()}clear(){this.clearCore()}entries(){return[]}selectCore(){}clearCore(){}stateCore(){return!1}canSelectCore(){return!0}}class bc extends yc{constructor(e,t){super(e,t),this.item=null}entries(){return this.item?[this.item]:[]}selectCore(e,t){this.item=t?e:null}stateCore(e,t){return null!==this.item&&t(e)===t(this.item)}clearCore(){this.item=null}}class vc extends yc{constructor(e,t){super(e,t),this.item=null}entries(){return this.item?[this.item]:[]}selectCore(e,t){t&&(this.item=e)}canSelectCore(e){return e!==this.item}stateCore(e,t){return null!==this.item&&t(e)===t(this.item)}clearCore(){this.item=null}}class xc extends yc{constructor(e,t){super(e,t),this.items=new Map}entries(){return Array.from(this.items.values())}selectCore(e,t,s){t?this.items.set(s(e),e):this.items.delete(s(e))}stateCore(e,t){return this.items.has(t(e))}clearCore(){this.items=new Map}}class Cc extends xc{constructor(e,t){super(e,t)}select(e,t=!0){r(e)&&this.clear(),super.select(e,t)}}function kc(e,t){const s=e.selection().mode;switch(s){case"single":return new bc(e,t);case"singleOnly":return new vc(e,t);case"multiple":return new xc(e,t);case"range":return new Cc(e,t);default:throw new oe("selection.state.factory",`Invalid selection mode "${s}"`)}}class Ec{constructor(e,t){const{model:s,table:n,observeReply:o}=e;this.plugin=e,this.selectionService=new mi(s),this.form=kc(s,this.selectionService),this.selectionRange=new fc(s);const r=this.getCommands();t.register(r),this.toggleRow=r.get("toggleRow"),this.toggleColumn=r.get("toggleColumn"),this.toggleCell=r.get("toggleCell"),this.reset=r.get("reset"),this.stateCheck=new Ms,o(s.navigationChanged).subscribe((e=>{"selection.view"!==e.tag.source&&e.hasChanges("cell")&&this.toggleCell.canExecute(e.state.cell)&&this.toggleCell.execute(e.state.cell)}));const i=`q-grid-select-${s.selection().mode}`,c=`q-grid-select-${s.selection().unit}`,{view:l}=n;l.addClass(i),l.addClass(c),o(s.selectionChanged).subscribe((e=>{if(e.hasChanges("mode")){const t=`q-grid-select-${e.state.mode}`,s=`q-grid-select-${e.changes.mode.oldValue}`;l.removeClass(s),l.addClass(t)}if(e.hasChanges("unit")){const t=`q-grid-select-${e.state.unit}`,s=`q-grid-select-${e.changes.unit.oldValue}`;l.removeClass(s),l.addClass(t)}if((e.hasChanges("unit")||e.hasChanges("mode"))&&(e.hasChanges("items")||(this.form.clear(),s.selection().items.length&&s.selection({items:[]},{source:"selection.view"}),this.form=kc(s,this.selectionService))),e.hasChanges("items")){if("selection.view"!==e.tag.source){const t=this.selectionService.lookup(e.changes.items.oldValue);this.select(t,!1);const s=this.selectionService.lookup(e.state.items);this.select(s,!0)}this.stateCheck.next(e.state.items)}})),o(s.dataChanged).subscribe((e=>{const{unit:t,items:n}=s.selection(),o=e.hasChanges("rows")&&("row"===t||"mix"===t||"cell"===t),r=e.hasChanges("columns")&&("column"===t||"mix"===t||"cell"===t);if(o||r){this.form.clear();const e=this.selectionService.lookup(n);this.select(e,!0)}}))}getCommands(){const{model:e,table:t}=this.plugin,{shortcut:s}=e.selection(),n=new js({source:"selection.view",canExecute:()=>{const t=lr(e.navigation()),s=this.rows[t>=0?t:t+1];return!!this.form.canSelect(s)&&("row"===e.selection().unit&&this.rows.length>0)},execute:()=>{const t=lr(e.navigation()),s=this.rows[t>=0?t:t+1];this.toggle(s)()},shortcut:s.toggleRow}),o={toggleCell:new js({source:"selection.view",canExecute:t=>{const s=e.selection();return t&&"range"!==s.mode&&("cell"===s.unit||"mix"===s.unit)},execute:(t,s)=>{switch(e.selection().unit){case"cell":this.toggle(t,s)();break;case"mix":if("row-indicator"===t.column.type){this.toggle({item:t.row,unit:"row"},s)();break}this.toggle({item:t,unit:"cell"},s)();break}}}),toggleRow:new js({source:"selection.view",execute:(e,t)=>{this.toggle(e,t)()},canExecute:t=>{if(!this.form.canSelect(t))return!1;const s={items:m(t)?e.scene().rows:[t],source:"custom",kind:"toggleRow"};return t?e.selection().toggle.canExecute(s):e.selection().toggle.canExecute(s)&&"multiple"===this.mode}}),toggleColumn:new js({source:"selection.view",execute:(e,t)=>{this.toggle(e,t)()}}),commitRow:new js({source:"selection.view",canExecute:()=>{const t=ir(e.navigation());return t&&"select"===t.type},execute:()=>{n.canExecute()&&n.execute()},shortcut:e.edit().commitShortcuts.select||""}),toggleActiveRow:n,togglePrevRow:new js({source:"selection.view",canExecute:()=>"row"===e.selection().unit&&lr(e.navigation())>0,execute:()=>{const t=lr(e.navigation()),s=cr(e.navigation()),n=this.rows[t];this.toggle(n)(),this.navigateTo(t-1,s)},shortcut:s.togglePreviousRow}),toggleNextRow:new js({source:"selection.view",canExecute:()=>"row"===e.selection().unit&&lr(e.navigation())<this.rows.length-1,execute:()=>{const t=lr(e.navigation()),s=cr(e.navigation()),n=this.rows[t];this.toggle(n)(),this.navigateTo(t+1,s)},shortcut:s.toggleNextRow}),toggleActiveColumn:new js({source:"selection.view",canExecute:()=>"column"===e.selection().unit&&cr(e.navigation())>=0,execute:()=>{const t=cr(e.navigation()),s=this.columns[t];this.toggle(s)()},shortcut:s.toggleColumn}),toggleNextColumn:new js({source:"selection.view",canExecute:()=>"column"===e.selection().unit&&cr(e.navigation())<this.columns.length-1,execute:()=>{const t=lr(e.navigation()),s=cr(e.navigation()),n=this.columns[s];this.toggle(n)(),this.navigateTo(t,s+1)},shortcut:s.toggleNextColumn}),togglePrevColumn:new js({source:"selection.view",canExecute:()=>"column"===e.selection().unit&&cr(e.navigation())>0,execute:()=>{const t=lr(e.navigation()),s=cr(e.navigation()),n=this.columns[s];this.toggle(n)(),this.navigateTo(t,s-1)},shortcut:s.togglePreviousColumn}),selectAll:new js({source:"selection.view",canExecute:()=>{const{mode:t}=e.selection();return"multiple"===t||"range"===t},execute:()=>{let s=[];switch(e.selection().unit){case"row":s=this.rows;break;case"column":s=e.columnList().line;break;case"cell":case"mix":{const{body:e}=t;s=this.selectionRange.build()(e.cell(0,0),e.cell(this.rows.length,this.columns.length));break}default:throw new oe("selection.view",`Invalid unit ${e.selection().unit}`)}this.select(s,!0)()},shortcut:s.selectAll})};return new Map(Object.entries(o))}selectRange(e,t,s){const n=this.selectionRange.build()(e,t);this.select(n,!0,s)()}toggle(e,t="custom"){const{model:s}=this.plugin,{toggle:n}=s.selection(),o={items:e=!arguments.length||m(e)?this.rows:r(e)?e:[e],source:t,kind:"toggle"};if(n.canExecute(o)){n.execute(o);const{form:t}=this;return t.toggle(e),()=>{s.selection({items:this.selectionService.map(t.entries())},{source:"selection.view"})}}return M}select(e,t,s="custom"){const{model:n}=this.plugin,{toggle:o}=n.selection(),r={items:e,source:s,kind:"select"};return o.canExecute(r)?(o.execute(r),this.form.select(e,t),()=>{const e=this.selectionService.map(this.form.entries());n.selection({items:e},{source:"selection.view"})}):M}state(e){return arguments.length?!0===this.form.state(e):!!this.form.stateAll(this.rows)}isIndeterminate(e){return arguments.length?null===this.form.state(e):null===this.form.stateAll(this.rows)}get selection(){return this.plugin.model.selection()}get mode(){return this.selection.mode}get items(){return this.selection.items}get rows(){const{table:e}=this.plugin;return e.data.rows()}get columns(){const{table:e}=this.plugin;return e.data.columns()}navigateTo(e,t){const{table:s,model:n}=this.plugin,{row:o,column:r}=s.body.cell(e,t).model();n.navigation({cell:{rowIndex:e,columnIndex:t,row:o,column:r}},{source:"selection.view"})}}function $c(e){switch(e){case"filter":return Rc;case"sort":return Ic;case"group":case"pivot":return function(e){return t=>{const s=t.by;if(0===s.length)return"";const n=s.join(", ");return`${e} ${n}`}}(e);default:return()=>""}}function Rc(e){const t=Object.values(e.by).map((e=>e.items));if(0===t.length)return"";return`filter ${o(t).join(", ")}`}function Ic(e){const t=[];for(let s of e.by)for(let e in s)t.push(e);if(0===t.length)return"";return`sort ${t.join(", ")}`}function Oc(e){const t=Object.keys(e)[0];if(!t)throw new oe("pair",`Key is not defined in "${e}"`);return t}function Fc(e,t){return e.map(Oc).findIndex((e=>e===t))}function qc(e){return e[Oc(e)]}function Lc(e){return e.reduce(((e,t)=>{const s=Oc(t);return e[s]=t[s],e}),{})}function Sc(e){if(h(e)){const t=Object.keys(e).map((e=>({key:e,value:he(e)}))),{length:s}=t;switch(s){case 0:return T;case 1:{const s=t[0],n=e[s.key];if(!n)return T;const o=new RegExp(n,"gi");return e=>o.test(s.value(e))}default:return s=>t.reduce(((t,n)=>t&&new RegExp(e[n.key],"gi").test(n.value(s))||""===e[n.key]),!0)}}const t=B(e),s=new RegExp(t,"gi");return e=>(s.lastIndex=0,s.test(e))}function Mc(e,t){return t[e]}function Tc(e){return e}function jc(e){const t="ABCDEFGHIJKLMNOPQRSTUVWXYZ";if(e<t.length)return t[e];return`${t[Math.floor(e/t.length-1)]}${t[e%t.length]}`}function Nc(e){const{ownerDocument:t}=e,s=t.createElement("input");s.type="file",s.style.display="none",e.appendChild(s),s.click()}class Ac{constructor(e){const{model:t}=e;this.plugin=e,this.hover=!1,this.toggle=new js({source:"sort.view",canExecute:e=>{const s=e.key,n=is(t.columnList().line);return n.hasOwnProperty(s)&&!1!==n[s].canSort},execute:e=>{const s=e.key,n=t.sort,o=n();let r=Array.from(o.by);if("mixed"===o.mode){const{code:e,status:n}=t.keyboard();if("shift"!==e||"down"!==n){const e=bn(r,s);r=e>=0?r.filter(((t,s)=>s===e)):[]}}const i=bn(r,s);if(i>=0){const e=fn(r[i]);switch(e){case"desc":r.splice(i,1),this.hover=!1;break;case"asc":{const e={[s]:"desc"};r[i]=e,this.hover=!1;break}default:throw oe("head.core",`Invalid sort direction ${e}`)}}else{"single"===o.mode&&(r.length=0);const e={[s]:"asc"};r.push(e);pn(t)(r)}n({by:r},{source:"sort.view"})}}),this.onInit()}onInit(){const{model:e,observeReply:t}=this.plugin,{sort:s}=e;t(e.columnListChanged).subscribe((t=>{if(t.hasChanges("index")){const t=s(),n=pn(e)(Array.from(t.by));this.equals(n,t.by)||s({by:n},{source:"sort.view"})}})),t(e.dataChanged).subscribe((e=>{if(e.hasChanges("columns")){const{by:t}=s(),n=is(e.state.columns),o=t.filter((e=>n.hasOwnProperty(wn(e))));this.equals(o,t)||s({by:o},{source:"sort.view"})}}))}equals(e,t){return JSON.stringify(e)===JSON.stringify(t)}direction(e){const{key:t}=e,{by:s}=this.plugin.model.sort();return yn(s)[t]}order(e){const{key:t}=e,{model:s}=this.plugin,{by:n}=s.sort();return bn(n,t)}}class Pc{constructor(e,t,s){this.element=e,this.list=new Set,this.sheets=t,this.markDirty=s}class(e,t){if(e=Es(e),this.list.add(e),this.markDirty(this),t){const s=this.sheets;s.has(e)||s.set(e,t)}}}class Vc{constructor(e){this.model=e,this.entries=new Set,this.newSheets=new Map,this.oldSheets=new Map}enter(){const e=this.newSheets;let t=this.entries;for(let e of t)for(let t of e.list)e.element.removeClass(t,!0);t=this.entries=new Set;const s=e=>t.add(e);return t=>{const n=new Pc(t,e,s);return n.class.bind(n)}}exit(){const e=this.entries;for(let t of e)for(let e of t.list)t.element.addClass(e,!0);const t=this.newSheets,s=this.oldSheets,n=this.model.grid().id;for(let e of s.keys())if(!t.has(e)){Cs(n,e).remove()}for(let[e,o]of t.entries())if(!s.has(e)){Cs(n,e).set({[`.${e}`]:o})}this.oldSheets=t,this.newSheets=new Map}}class Dc{constructor(e){this.style=e.style}row(){const{rows:e,row:t}=this.style(),s=t===M?e:e.concat([t]);return Ci.func(s)}cell(){const{cells:e,cell:t}=this.style();if(a(t)){const s=t===M?e:e.concat([t]);return Ci.func(s)}const s=Object.keys(t);if(s.length){const n=e.concat(s.map((e=>{const s=t[e];return(t,n,o)=>{n.key===e&&s(t,n,o)}})));return Ci.func(n)}return Ci.func(e)}}class zc{constructor(e,t){this.table=e,this.style=t}visitFactory(){const{style:e}=this,{rowBox:t}=this.table.body,{entries:s}=t;return(n,o)=>{const r={dataIndex:o.row},i=t.key(r),c=s.get(i);if(c)for(let e of c)o.class(e);e(n,o)}}}class Bc{constructor(e,t){this.table=e,this.style=t}visitFactory(){const{style:e}=this,{cellBox:t}=this.table.body,{columnBox:s}=this.table.body,n=t.entries,o=s.entries;return(r,i,c)=>{const l={dataIndex:c.column},a=s.key(l),u=o.get(a);if(u)for(let e of u)c.class(e);const h={dataRowIndex:c.row,dataColumnIndex:c.column},d=t.key(h),m=n.get(d);if(m)for(let e of m)c.class(e);e(r,i,c)}}}class Hc{constructor(e){const{model:t,observeReply:s}=e;this.plugin=e,this.valueFactory=pe,this.service=new Dc(t),this.active={row:!1,cell:!1},this.monitor={row:new Vc(t),cell:new Vc(t)},s(t.styleChanged).subscribe((e=>{(e.hasChanges("row")||e.hasChanges("rows"))&&(this.active.row=e.state.row!==M||e.state.rows.length>0),(e.hasChanges("cell")||e.hasChanges("cells"))&&(this.active.cell=e.state.cell!==M||e.state.cells.length>0)}))}needInvalidate(){const{model:e}=this.plugin;if("stop"!==e.scene().status)return!1;const{active:t}=this;if(!("virtual"===e.scroll().mode||t.row||t.cell))return!1;const{invalidate:s}=e.style(),n={model:e};return s.canExecute(n)&&!1!==s.execute(n)}invalidate(e,t){const{model:s,table:n}=this.plugin;let{row:o,cell:r}=this.active;const i="virtual"===s.scroll().mode,c=new Map,l=(e,t)=>{let s=c.get(t);return s||(s=pe(t),c.set(t,s)),s(e)},a=n.data.columns(),u=is(a);let h=this.service.row(),d=this.service.cell();i&&(o=!0,r=!0,h=new zc(n,h).visitFactory(),d=new Bc(n,d).visitFactory());const m={class:M,row:-1,value:null,columns:{map:u,list:a}},g={class:M,row:-1,column:-1,value:null,columns:m.columns},{body:p}=n,{rowToView:w,columnToView:f}=n.box.mapper,y=n.box.bag.body;if(o){const e=y.getRowElements();for(let s of e){const{index:e,element:n,model:o}=s,r=p.createRowCore(w(e),n);m.class=t(r),m.row=e,m.value=l,h(o,m)}}if(r){const t=y.getCellElements();for(let s of t){const{rowIndex:t,columnIndex:n,element:o,row:r,column:i}=s,c=p.createCellCore(w(t),f(n),o);g.class=e(c),g.row=t,g.column=n,g.value=l,d(r,i,g)}}}}const Wc=new sc;function Uc(){return Wc.build()}function _c(e,t,s,n){const{model:o,disposable:r}=e,{shortcut:i}=o.action(),c={keyCode:()=>i.keyCode,register:e=>r.add(i.register(t,e))},l=new wc(o,t),a={register:e=>{r.add(i.register(l,e))}};return t=>{t.head=new li(e,n.th),t.body=new ws(e),t.foot=new Dr(e),t.row=new gc(e,n.tr),t.layout=new Ri(e),t.scroll=new pc(e,s),t.highlight=new gi(e),t.sort=new Ac(e),t.pagination=new lc(e),t.nav=new cc(e,c),t.group=new Qr(e,c),t.edit=new ur(e,c),t.filter=new Mr(e),t.rowDetails=new mc(e,c),t.selection=new Ec(e,a),t.style=new Hc(e),t.clipboard=new Ns(e,c)}}class Kc{constructor(e){this.plugin=e,this.watch(e.service),this.final=ki(),this.startCell=null}invalidate(){this.final((()=>{const{view:e}=this.plugin,{style:t}=e;if(t.needInvalidate()){const e=t.monitor.row,s=t.monitor.cell;Q.mutate((()=>{Q.mutate((()=>{const n=s.enter(),o=e.enter();try{t.invalidate(n,o)}finally{e.exit(),s.exit()}}))}))}}))}triggerLine(e,t){const{model:s}=this.plugin,{reduce:n}=s.pipe();let o=[];const r=re(t);return(t,i,c)=>{s.scene({status:"start"},{source:t}),o.push(...c),r((()=>{const r=n(o,s);o=[],r.forEach((s=>e.invalidate({source:t,changes:i,pipe:s,why:s.why||"refresh"})))}))}}watch(e){const{model:t,observeReply:s}=this.plugin,{triggers:n}=t.pipe(),{pipe:o}=t.data(),r=this.triggerLine(e,10);o!==Zn.default&&r("grid",{},[o]),Object.keys(n).forEach((e=>s(t[e+"Changed"]).subscribe((t=>{if("core"===t.tag.behavior)return;const s=[],o=n[e];for(const e in t.changes){const t=o[e];t&&s.push(t)}s.length>0&&r(t.tag.source||e,t.changes,s)}))))}mouseDown(e){const{model:t,view:s}=this.plugin,{edit:n}=t,o=this.findCell(e);if(t.mouse({code:rc(oc(e)),status:"down",target:o},{source:"mouse.down"}),nc(e,1)){const{area:e,mode:t}=this.selection;if(o){const r="view"===n().status;this.navigate(o),"body"===e&&this.select(o),r&&s.edit.cell.enter.canExecute(o)&&s.edit.cell.enter.execute(o),"range"===t&&"select"!==o.column.type&&(this.startCell=o,s.selection.selectRange(o,null,"body"))}}}mouseUp(e){const{model:t}=this.plugin,{edit:s}=t,n=this.findCell(e);this.startCell=null,t.mouse({code:rc(oc(e)),status:"up",target:n},{source:"mouse.up"}),nc(e,1)&&"startBatch"===s().status&&s({status:"endBatch"},{source:"body.ctrl"}),t.mouse({code:rc(0),status:"release",target:null,timestamp:Date.now()},{source:"mouse.up"})}mouseMove(e){const{model:t,view:s}=this.plugin,{highlight:n}=s,{rows:o,cell:r}=t.highlight(),i=this.findCell(e);if(i){r&&n.cell.execute(r,!1);const c={rowIndex:i.rowIndex,columnIndex:i.columnIndex};t.mouse({status:"move",target:r??c},{source:"mouse.move"}),n.cell.canExecute(c)&&n.cell.execute(c,!0);const l=this.findRow(e);if(l){const{index:e}=l;n.row.canExecute(e)&&(o.filter((t=>t!==e)).forEach((e=>n.row.execute(e,!1))),n.row.execute(e,!0))}if(nc(e,1)&&"range"===this.selection.mode){const e=this.startCell,t=i;e&&t&&(this.navigate(t),s.selection.selectRange(e,t,"body"))}}else t.mouse({status:"move",target:null},{source:"mouse.move"})}mouseEnter(e){const{model:t}=this.plugin;t.mouse({status:"enter",target:null,code:null},{source:"mouse.enter"})}mouseLeave(){const{model:e}=this.plugin;e.mouse({status:"leave",target:null,code:null},{source:"mouse.leave"}),this.clearHighlight()}select(e){const{area:t,mode:s,unit:n}=this.selection;if("select"!==e.column.type&&("body"!==t||"range"===s))return;const{model:o,view:r}=this.plugin,i=o.edit().mode;switch(n){case"row":if("select"===e.column.type&&"focus"===e.column.editorOptions.trigger){const t=o.focus();t.rowIndex===e.rowIndex&&t.columnIndex===e.columnIndex||r.selection.toggleRow.canExecute(e.row)&&r.selection.toggleRow.execute(e.row,"body")}else i||"control"===e.column.category||r.selection.toggleRow.canExecute(e.row)&&r.selection.toggleRow.execute(e.row,"body");break;case"column":i||r.selection.toggleColumn.execute(e.column,"body");break;case"mix":"row-indicator"===e.column.type&&r.selection.toggleCell.execute(e,"body")}}navigate(e){const{view:t}=this.plugin,{focus:s}=t.nav;s.canExecute(e)&&s.execute(e)}findCell(e){const{table:t}=this.plugin,s=new ti(t.box.bag.body),n=ri(e);let o=s.cell(n);if(!o){const e=n[0];if(e&&e.classList.contains("q-grid-edit-marker")){const{model:e}=this.plugin,{rowIndex:s,columnIndex:n}=e.focus();o=t.body.cell(s,n).model()}}return o}findRow(e){const{table:t}=this.plugin,s=new ti(t.box.bag.body),n=ri(e);return s.row(n)}clearHighlight(){const{view:e}=this.plugin,{highlight:t}=e;t.clear.canExecute()&&t.clear.execute()}get selection(){const{model:e}=this.plugin;return e.selection()}}export{E as Action,X as ActionState,Gt as Aggregation,Z as AnimationState,qe as ArrayColumn,Fe as ArrayColumnModel,so as Bag,Mo as Body,ie as BodyHost,ws as BodyLet,ys as BodyState,Se as BoolColumn,Le as BoolColumnModel,xo as Box,bs as BoxHost,fs as Cache,ve as CacheStrategy,go as Cell,ko as CellBox,Yo as CellEditor,Is as CellSelector,wi as CharReader,Ns as ClipboardLet,As as ClipboardState,Te as CohortColumn,Me as CohortColumnModel,ho as Column,Eo as ColumnBox,Ws as ColumnListHost,sn as ColumnListState,$e as ColumnModel,Re as ColumnView,js as Command,rn as CommandKey,Y as CommandManager,Ci as Composite,an as CompositeCommandManager,eo as Container,wr as CsvExport,fi as CsvImport,Ne as CurrencyColumn,je as CurrencyColumnModel,jo as Data,Oe as DataColumnModel,Ce as DataRow,Qn as DataState,Ze as DateColumn,Xe as DateColumnModel,et as DateTimeColumn,Qe as DateTimeColumnModel,se as Defer,Kt as DetailsRow,Fs as Disposable,Uo as DragService,_o as DragState,er as EditCellLet,ur as EditLet,ar as EditRowLet,hr as EditService,dr as EditState,lo as Element,st as EmailColumn,tt as EmailColumnModel,zr as EnumerableResource,te as Event,mr as EventListener,gr as EventManager,yr as ExportState,no as FakeClassList,ro as FakeElement,No as FakeLayer,Ao as FakeTable,Q as Fastdom,Ko as Fetch,Sr as FetchState,rt as FileColumn,ot as FileColumnModel,Mr as FilterLet,on as FilterRowColumn,nn as FilterRowColumnModel,jr as FilterState,Pr as FocusService,Vr as FocusState,Po as Foot,Dr as FootLet,Br as FootState,Ie as FormatService,ee as GRID_PREFIX,oe as GridError,Hr as GridHost,Gr as GridService,Jr as GridState,ct as GroupColumn,it as GroupColumnModel,Qr as GroupLet,ei as GroupState,at as GroupSummaryColumn,lt as GroupSummaryColumnModel,kt as Guard,Vo as Head,ci as HeadHost,li as HeadLet,ai as HeadState,gi as HighlightLet,pi as HighlightState,ht as IdColumn,ut as IdColumnModel,mt as ImageColumn,dt as ImageColumnModel,yi as ImportState,br as JsonExport,bi as JsonImport,L as Keyboard,Ei as KeyboardState,$i as LayerState,Ri as LayoutLet,Ii as LayoutState,es as Lazy,ce as Log,qr as MarkupVisitor,po as Matrix,Wr as Middleware,Et as Model,Oi as ModelBinder,sc as ModelBuilder,Fi as MouseState,xc as MultipleSelectionState,ic as Navigation,cc as NavigationLet,qi as NavigationState,le as Node,Xt as NodeRow,pt as NumberColumn,gt as NumberColumnModel,Ls as ObservableEvent,Ss as ObservableReplyEvent,Ts as Operator,ft as PadColumn,wt as PadColumnModel,lc as PaginationLet,Li as PaginationState,bt as PasswordColumn,yt as PasswordColumnModel,ti as PathService,ac as PersistenceService,Ai as PersistenceState,Ni as PersistenceStorage,Vn as Pipe,Pi as PipeState,Zn as PipeUnit,xt as PivotColumn,vt as PivotColumnModel,ms as PivotRow,Vi as PivotState,uc as PluginService,Di as PluginState,Lr as PredicateVisitor,zi as ProgressState,bo as Range,Cc as RangeSelectionState,Rt as ReferenceColumn,$t as ReferenceColumnModel,gs as Renderer,$ as Resource,Hi as RestState,uo as Row,$o as RowBox,ae as RowDetails,Ot as RowDetailsColumn,It as RowDetailsColumnModel,mc as RowDetailsLet,Wn as RowDetailsStatus,or as RowEditor,qt as RowExpandColumn,Ft as RowExpandColumnModel,St as RowIndicatorColumn,Lt as RowIndicatorColumnModel,gc as RowLet,Wi as RowListState,Tt as RowNumberColumn,Mt as RowNumberColumnModel,Nt as RowOptionsColumn,jt as RowOptionsColumnModel,Ui as RowState,jn as Scene,_i as SceneState,pc as ScrollLet,Ki as ScrollState,Pt as SelectColumn,At as SelectColumnModel,wc as SelectionCommandManager,Ec as SelectionLet,fc as SelectionRange,mi as SelectionService,Gi as SelectionState,wo as Selector,Do as SelectorCache,vo as SelectorFactory,So as SelectorMark,fo as SelectorMediator,S as Shortcut,J as ShortcutDispatcher,vc as SingleOnlySelectionState,bc as SingleSelectionState,Ac as SortLet,Ji as SortState,Co as StyleBox,Pc as StyleEntry,Hc as StyleLet,Vc as StyleMonitor,Dc as StyleService,Yi as StyleState,yc as SubSelectionState,Ms as SubjectLike,Ho as Table,un as TableCommandManager,mo as Td,Ee as TemplatePath,Xi as TemplateState,Dt as TextColumn,Vt as TextColumnModel,ps as TextSelection,Bt as TimeColumn,zt as TimeColumnModel,Zi as ToolbarState,ao as Tr,to as TrContainer,co as Unit,yo as UnitFactory,qs as UnsubscribableLike,Wt as UrlColumn,Ht as UrlColumnModel,Qi as ValidationState,Bo as View,Kc as ViewHost,ec as ViewState,To as VirtualBody,Lo as VirtualBox,Io as VirtualCell,Bc as VirtualCellStyle,Oo as VirtualColumn,Fo as VirtualElement,qo as VirtualRow,zc as VirtualRowStyle,tc as VisibilityState,Or as Visitor,Cr as XmlExport,xi as XmlImport,jc as alphaTitle,Tn as animationPipe,Xs as bend,H as binarySearch,$s as bodyCellClassifier,vs as build,Er as buildExpression,Ur as buildFromModel,xs as buildLines,qn as buildPivot,Js as calk,kr as castFactory,nc as checkButtonCode,ns as collapse,_t as columnFactory,Sn as columnIndexPipe,zn as columnIndexPipeUnit,Mn as columnPipe,Dn as columnPipeUnit,cn as commandKey,V as compare,Pe as compareParseFactory,ue as compile,he as compileGet,de as compileSet,Ys as copy,Os as copyToClipboard,Qo as createValidator,si as css,hn as dataPipe,Bn as defaultPipeUnit,ji as deserialize,ii as elementFromPoint,Es as escape,ks as escapeAttr,B as escapeRegexp,ri as eventPath,ss as expand,hc as factory,Ar as filter,_s as filterNode,dn as filterPipe,ki as final,ls as findColumn,Yt as findFirstLeaf,as as findIndex,Ks as findLeaves,rs as findLine,Gs as findNode,Be as findType,Mc as firstRowTitle,Un as flatView,os as flattenColumns,Jt as flattenFactory,ts as flattenRows,Bs as generate,ln as generateCommandKey,zs as generateFactory,oc as getButtonCode,cs as getCellValue,fn as getDirection,bn as getIndex,wn as getKey,fe as getLabel,ye as getLabelFactory,yn as getMap,De as getType,K as getTypeName,ge as getValue,pe as getValueFactory,fr as graphFlatView,ds as groupBuilder,kn as groupPipe,Hn as groupPipeUnit,_r as guid,Zo as hasRules,Rs as headCellClassifier,z as htmlEncode,N as identity,Fc as index,ze as inferType,_n as invalidateStatus,P as isEmail,nt as isFileAnImage,U as isImage,He as isPrimitive,W as isUrl,re as jobLine,Oc as key,us as lineView,Lc as map,is as mapColumns,Tr as match,_ as matchISO8601,xn as memoPipe,Ps as merge,en as mergeTree,Uc as modelFactory,j as no,Cn as nodeBuilder,M as noop,Tc as numericTitle,D as orderBy,pn as orderFactory,mn as paginationPipe,oi as parents,Ae as parseFactory,Rn as pivot,Fn as pivotForm,Ln as pivotPipe,Us as preOrderDFS,Sc as predicateFactory,Ve as resolveType,Gn as rowDetailsPipeUnit,Xn as rowPipeUnit,Pn as scenePipe,Yn as scenePipeUnit,ir as selectColumn,cr as selectColumnIndex,rr as selectRow,lr as selectRowIndex,kc as selectionStateFactory,Ti as serialize,Bi as serializeGet,dc as serializePost,be as setLabel,we as setValue,Cs as sheet,Nn as sortFactory,Zs as sortIndexFactory,vn as sortPipe,rc as stringify,$c as stringifyFactory,Wo as tableFactory,Nr as takeOnce,A as toCamelCase,Kn as toggleStatus,Nc as upload,qc as value,_c as viewFactory,An as viewPipe,Jn as viewPipeUnit,hs as widthFactory,T as yes};
+import cssEscape from 'css.escape';
+import FastDom from 'fastdom';
+import LIVR from 'livr';
+import assignWith from 'lodash-es/assignWith';
+import clone from 'lodash-es/clone';
+import cloneDeep from 'lodash-es/cloneDeepWith';
+import dropWhile from 'lodash-es/dropWhile';
+import flatten from 'lodash-es/flatten';
+import isArray from 'lodash-es/isArray';
+import isBoolean from 'lodash-es/isBoolean';
+import isDate from 'lodash-es/isDate';
+import same from 'lodash-es/isEqual';
+import isFunction from 'lodash-es/isFunction';
+import isNumber from 'lodash-es/isNumber';
+import isObject from 'lodash-es/isObject';
+import isString from 'lodash-es/isString';
+import isUndefined from 'lodash-es/isUndefined';
+import max from 'lodash-es/maxBy';
+import min from 'lodash-es/minBy';
+import startCase from 'lodash-es/startCase';
+import sumBy from 'lodash-es/sumBy';
+import takeWhile from 'lodash-es/takeWhile';
+import uniq from 'lodash-es/uniq';
+import zip from 'lodash-es/zip';
+export { default as assignWith } from 'lodash-es/assignWith';
+export { default as clone } from 'lodash-es/clone';
+export { default as cloneDeep } from 'lodash-es/cloneDeepWith';
+export { default as dropWhile } from 'lodash-es/dropWhile';
+export { default as flatten } from 'lodash-es/flatten';
+export { default as isArray } from 'lodash-es/isArray';
+export { default as isBoolean } from 'lodash-es/isBoolean';
+export { default as isDate } from 'lodash-es/isDate';
+export { default as same } from 'lodash-es/isEqual';
+export { default as isFunction } from 'lodash-es/isFunction';
+export { default as isNumber } from 'lodash-es/isNumber';
+export { default as isObject } from 'lodash-es/isObject';
+export { default as isString } from 'lodash-es/isString';
+export { default as isUndefined } from 'lodash-es/isUndefined';
+export { default as max } from 'lodash-es/maxBy';
+export { default as min } from 'lodash-es/minBy';
+export { default as startCase } from 'lodash-es/startCase';
+export { default as sumBy } from 'lodash-es/sumBy';
+export { default as takeWhile } from 'lodash-es/takeWhile';
+export { default as uniq } from 'lodash-es/uniq';
+export { default as zip } from 'lodash-es/zip';
+export { Action, ActionState, Aggregation, AnimationState, ArrayColumn, ArrayColumnModel, Bag, Body, BodyHost, BodyLet, BodyState, BoolColumn, BoolColumnModel, Box, BoxHost, Cache, CacheStrategy, Cell, CellBox, CellEditor, CellSelector, CharReader, ClipboardLet, ClipboardState, CohortColumn, CohortColumnModel, Column, ColumnBox, ColumnListHost, ColumnListState, ColumnModel, ColumnView, Command, CommandKey, CommandManager, Composite, CompositeCommandManager, Container, CsvExport, CsvImport, CurrencyColumn, CurrencyColumnModel, Data, DataColumnModel, DataRow, DataState, DateColumn, DateColumnModel, DateTimeColumn, DateTimeColumnModel, Defer, DetailsRow, Disposable, DragService, DragState, EditCellLet, EditLet, EditRowLet, EditService, EditState, Element, EmailColumn, EmailColumnModel, EnumerableResource, Event, EventListener, EventManager, ExportState, FakeClassList, FakeElement, FakeLayer, FakeTable, Fastdom, Fetch, FetchState, FileColumn, FileColumnModel, FilterLet, FilterRowColumn, FilterRowColumnModel, FilterState, FocusService, FocusState, Foot, FootLet, FootState, FormatService, GRID_PREFIX, GridError, GridHost, GridService, GridState, GroupColumn, GroupColumnModel, GroupLet, GroupState, GroupSummaryColumn, GroupSummaryColumnModel, Guard, Head, HeadHost, HeadLet, HeadState, HighlightLet, HighlightState, IdColumn, IdColumnModel, ImageColumn, ImageColumnModel, ImportState, JsonExport, JsonImport, Keyboard, KeyboardState, LayerState, LayoutLet, LayoutState, Lazy, Log, MarkupVisitor, Matrix, Middleware, Model, ModelBinder, ModelBuilder, MouseState, MultipleSelectionState, Navigation, NavigationLet, NavigationState, Node, NodeRow, NumberColumn, NumberColumnModel, ObservableEvent, ObservableReplyEvent, Operator, PadColumn, PadColumnModel, PaginationLet, PaginationState, PasswordColumn, PasswordColumnModel, PathService, PersistenceService, PersistenceState, PersistenceStorage, Pipe, PipeState, PipeUnit, PivotColumn, PivotColumnModel, PivotRow, PivotState, PluginService, PluginState, PredicateVisitor, ProgressState, Range, RangeSelectionState, ReferenceColumn, ReferenceColumnModel, Renderer, Resource, RestState, Row, RowBox, RowDetails, RowDetailsColumn, RowDetailsColumnModel, RowDetailsLet, RowDetailsStatus, RowEditor, RowExpandColumn, RowExpandColumnModel, RowIndicatorColumn, RowIndicatorColumnModel, RowLet, RowListState, RowNumberColumn, RowNumberColumnModel, RowOptionsColumn, RowOptionsColumnModel, RowState, Scene, SceneState, ScrollLet, ScrollState, SelectColumn, SelectColumnModel, SelectionCommandManager, SelectionLet, SelectionRange, SelectionService, SelectionState, Selector, SelectorCache, SelectorFactory, SelectorMark, SelectorMediator, Shortcut, ShortcutDispatcher, SingleOnlySelectionState, SingleSelectionState, SortLet, SortState, StyleBox, StyleEntry, StyleLet, StyleMonitor, StyleService, StyleState, SubSelectionState, SubjectLike, Table, TableCommandManager, Td, TemplatePath, TemplateState, TextColumn, TextColumnModel, TextSelection, TimeColumn, TimeColumnModel, ToolbarState, Tr, TrContainer, Unit, UnitFactory, UnsubscribableLike, UrlColumn, UrlColumnModel, ValidationState, View, ViewHost, ViewState, VirtualBody, VirtualBox, VirtualCell, VirtualCellStyle, VirtualColumn, VirtualElement, VirtualRow, VirtualRowStyle, VisibilityState, Visitor, XmlExport, XmlImport, alphaTitle, animationPipe, bend, binarySearch, bodyCellClassifier, build$1 as build, buildExpression, buildFromModel, buildLines, buildPivot, calk, castFactory, checkButtonCode, collapse, columnFactory, columnIndexPipe, columnIndexPipeUnit, columnPipe, columnPipeUnit, commandKey, compare, compareParseFactory, compile$1 as compile, compileGet, compileSet, copy, copyToClipboard, createValidator, css, dataPipe, defaultPipeUnit, deserialize, elementFromPoint, escape$2 as escape, escapeAttr, escapeRegexp, eventPath, expand, factory, filter$1 as filter, filterNode, filterPipe, final, findColumn, findFirstLeaf, findIndex, findLeaves, findLine, findNode, findType, firstRowTitle, flatView, flattenColumns, flattenFactory, flattenRows, generate, generateCommandKey, generateFactory, getButtonCode, getCellValue, getDirection, getIndex, getKey, getLabel, getLabelFactory, getMap, getType$1 as getType, getTypeName, getValue$1 as getValue, getValueFactory, graphFlatView, groupBuilder, groupPipe, groupPipeUnit, guid, hasRules, headCellClassifier, htmlEncode, identity, index, inferType, invalidateStatus, isEmail, isFileAnImage, isImage, isPrimitive, isUrl, jobLine, key, lineView, map, mapColumns, match, matchISO8601, memoPipe, merge$1 as merge, mergeTree, modelFactory, no, nodeBuilder, noop, numericTitle, orderBy, orderFactory, paginationPipe, parents, parseFactory, pivot, pivotForm, pivotPipe, preOrderDFS, predicateFactory, resolveType, rowDetailsPipeUnit, rowPipeUnit, scenePipe, scenePipeUnit, selectColumn, selectColumnIndex, selectRow, selectRowIndex, selectionStateFactory, serialize, serializeGet, serializePost, setLabel, setValue, sheet, sortFactory, sortIndexFactory, sortPipe, stringify, stringifyFactory, tableFactory, takeOnce, toCamelCase, toggleStatus, upload, value, viewFactory, viewPipe, viewPipeUnit, widthFactory, yes };
+
+class Action {
+	constructor(command, title, icon, templateUrl) {
+		this.command = command;
+
+		this.title = title;
+		this.icon = icon;
+		this.templateUrl = templateUrl;
+	}
+}
+
+class Resource {
+	constructor(data = {}, scope = {}) {
+		this.data = data;
+		this.scope = scope;
+	}
+}
+
+const controlSet = new Set([
+	'shift',
+	'ctrl',
+	'alt',
+	'pause',
+	'break',
+	'capslock',
+	'escape',
+	'insert',
+	'left',
+	'right',
+	'end',
+	'home',
+	'pageup',
+	'pagedown',
+	'up',
+	'down',
+	'f1',
+	'f2',
+	'f3',
+	'f4',
+	'f5',
+	'f6',
+	'f7',
+	'f8',
+	'f9',
+	'f10',
+	'f11',
+	'f12',
+	'numlock',
+	'scrolllock'
+]);
+
+const nonPrintableSet = new Set([
+	'enter'
+]);
+
+const codeMap = new Map()
+	.set(8, 'backspace')
+	.set(9, 'tab')
+	.set(13, 'enter')
+	.set(16, 'shift')
+	.set(17, 'ctrl')
+	.set(18, 'alt')
+	.set(20, 'capslock')
+	.set(27, 'escape')
+	.set(32, 'space')
+	.set(33, 'pageup')
+	.set(34, 'pagedown')
+	.set(35, 'end')
+	.set(36, 'home')
+	.set(37, 'left')
+	.set(38, 'up')
+	.set(39, 'right')
+	.set(40, 'down')
+	.set(45, 'insert')
+	.set(46, 'delete')
+	.set(96, 'numpad0')
+	.set(97, 'numpad1')
+	.set(98, 'numpad2')
+	.set(99, 'numpad3')
+	.set(100, 'numpad4')
+	.set(101, 'numpad5')
+	.set(102, 'numpad6')
+	.set(103, 'numpad7')
+	.set(104, 'numpad8')
+	.set(105, 'numpad9')
+	.set(112, 'f1')
+	.set(113, 'f2')
+	.set(114, 'f3')
+	.set(115, 'f4')
+	.set(116, 'f5')
+	.set(117, 'f6')
+	.set(118, 'f7')
+	.set(119, 'f8')
+	.set(120, 'f9')
+	.set(121, 'f10')
+	.set(122, 'f11')
+	.set(123, 'f12')
+	.set(144, 'numlock')
+	.set(145, 'scrolllock');
+
+const codeSet = new Set(codeMap.values());
+
+const printableMap = new Map()
+	.set('space', ' ');
+
+class Keyboard {
+	static isPrintable(code) {
+		return !nonPrintableSet.has(code) && !Keyboard.isControl(code);
+	}
+
+	static isControl(code) {
+		return controlSet.has(code);
+	}
+
+	static stringify(code, key) {
+		if (codeSet.has(code)) {
+			return printableMap.get(code) || '';
+		}
+
+		return key;
+	}
+
+	static translate(code) {
+		return codeMap.get(code) || String.fromCharCode(code);
+	}
+}
+
+class Shortcut {
+	constructor(dispatcher) {
+		this.dispatcher = dispatcher;
+		this.keyCode = {
+			key: null,
+			code: null
+		};
+	}
+
+	static isControl(keyCode) {
+		if (!keyCode) {
+			return false;
+		}
+
+		const code = keyCode.code;
+		const parts = code.split('+');
+		return parts.some(part => part === 'ctrl' || part === 'alt') ||
+			parts.every(part => Keyboard.isControl(part));
+	}
+
+	static isPrintable(keyCode) {
+		if (!keyCode) {
+			return false;
+		}
+
+		const code = keyCode.code;
+		const parts = code.split('+');
+		return parts.some(part => Keyboard.isPrintable(part));
+	}
+
+	static stringify(keyCode) {
+		if (!keyCode) {
+			return '';
+		}
+
+		return Keyboard.stringify(keyCode.code, keyCode.key);
+	}
+
+	static translate(e) {
+		const codes = [];
+		const code = Keyboard.translate(e.keyCode).toLowerCase();
+		if (e.ctrlKey) {
+			codes.push('ctrl');
+		}
+
+		if (e.shiftKey) {
+			codes.push('shift');
+		}
+
+		if (e.altKey) {
+			codes.push('alt');
+		}
+
+		if (code !== 'ctrl' &&
+			code !== 'shift' &&
+			code !== 'alt') {
+			codes.push(code);
+		}
+
+		return codes.join('+');
+	}
+
+	factory(manager) {
+		const self = this;
+		return {
+			register: commands => self.register(manager, commands)
+		};
+	}
+
+	keyDown(e, source) {
+		const code = Shortcut.translate(e);
+		this.keyCode = {
+			key: e.key,
+			code: code
+		};
+
+		return this.dispatcher.execute(code, source);
+	}
+
+	register(manager, commands) {
+		return this.dispatcher.register(manager, commands);
+	}
+}
+
+const noop = () => { };
+const yes = () => true;
+const no = () => false;
+const identity = x => x;
+
+const toCamelCase = (...names) => {
+	const length = names.length;
+	const nameList = names.map(name => '' + name);
+	if (length > 0) {
+		return (nameList[0] +
+			nameList.slice(1)
+				.map(name => name[0].toUpperCase() + name.substring(1, name.length))
+				.join(''));
+	}
+
+	return '';
+};
+
+const isEmail = value => {
+	if (value) {
+		const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i; // eslint-disable-line no-useless-escape
+		return re.test(value);
+	}
+
+	return false;
+};
+
+function compare(x, y) {
+	if (x === y) {
+		return 0;
+	}
+
+	if (x === null || x === undefined || x === '') {
+		return 1;
+	}
+
+	if (y === null || y === undefined || y === '') {
+		return -1;
+	}
+
+	return x > y ? 1 : -1;
+}
+
+function orderBy(data, selectors, compares) {
+	const length = selectors.length;
+	const result = [];
+	const count = data.length;
+
+	// iterate through data to create array with applied selectors
+	let index = count;
+	while (index--) {
+		const row = data[index];
+		const criteria = [];
+		for (let i = 0; i < length; i++) {
+			const select = selectors[i];
+			criteria.push(select(row));
+		}
+
+		result.push({ row, criteria, index });
+	}
+
+	// multi selector comparator
+	const compare = (x, y) => {
+		let result = 0;
+		for (let i = 0; i < length; i++) {
+			const compare = compares[i];
+			const xv = x.criteria[i];
+			const yv = y.criteria[i];
+
+			result = compare(xv, yv, x.row, y.row);
+			if (result !== 0) {
+				return result;
+			}
+		}
+
+		// ensures a stable sort
+		return x.index - y.index;
+	};
+
+	result.sort(compare);
+
+	// copy origin values to result array
+	index = count;
+	while (index--) {
+		result[index] = result[index].row;
+	}
+
+	return result;
+}
+
+function htmlEncode(s) {
+	return String(s)
+		.replace(/&/g, '&amp;')
+		.replace(/"/g, '&quot;')
+		.replace(/'/g, '&#39;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;');
+}
+
+function escapeRegexp(text) {
+	if (!text)
+		return text;
+
+	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
+
+function binarySearch(list, value) {
+	let low = 0;
+	let high = list.length;
+	while (low < high) {
+		const mid = (low + high) >>> 1;
+		if (list[mid] < value) {
+			low = mid + 1;
+		}
+		else {
+			high = mid;
+		}
+	}
+
+	return low;
+}
+
+function isUrl(value) {
+	var a = document.createElement('a');
+	a.href = value;
+	return (a.host && a.host != window.location.host);
+}
+
+function isImage(value) {
+	return ('' + value).match(/\.(jpeg|jpg|gif|png)$/) != null;
+}
+
+function matchISO8601(date) {
+	return /^(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2})))))))$/.test('' + date)
+}
+
+function getTypeName(type) {
+	if (type.name) {
+		return type.name;
+	}
+
+	const nameRegexp = /function (.{1,})\(/;
+	const results = (nameRegexp).exec(type.constructor.toString());
+	return (results && results.length > 1) ? results[1] : "";
+}
+
+const WILDCARD_SYMBOL = '*';
+const notWildcard = cmd => cmd.shortcut !== WILDCARD_SYMBOL;
+
+
+class ShortcutDispatcher {
+	constructor() {
+		this.managerMap = new Map();
+	}
+
+	register(manager, commands) {
+		commands = commands.values ? commands.values() : commands;
+		let context = this.managerMap.get(manager);
+		if (!context) {
+			context = {
+				commands: [],
+				shortcuts: new Map()
+			};
+
+			this.managerMap.set(manager, context);
+		}
+
+		const disposes = [];
+		for (let cmd of commands) {
+			if (cmd.shortcut) {
+				if (isFunction(cmd.shortcut)) {
+					context.commands.push(cmd);
+					disposes.push(() => {
+						const index = context.commands.indexOf(cmd);
+						if (index >= 0) {
+							context.commands.splice(index, 1);
+						}
+					});
+				}
+				else {
+					cmd.shortcut
+						.toLowerCase()
+						.split('|')
+						.forEach(shct => {
+							let shortcuts = [];
+							if (context.shortcuts.has(shct)) {
+								shortcuts = context.shortcuts.get(shct);
+							}
+
+							shortcuts.push(cmd);
+							context.shortcuts.set(shct, shortcuts);
+							disposes.push(() => {
+								const shortcutCommands = context.shortcuts.get(shct);
+								if (shortcutCommands) {
+									const index = shortcutCommands.indexOf(cmd);
+									if (index >= 0) {
+										shortcutCommands.splice(index, 1);
+										if (!shortcutCommands.length) {
+											context.shortcuts.delete(shct);
+										}
+									}
+								}
+							});
+						});
+				}
+			}
+		}
+
+		return () => {
+			disposes.forEach(dispose => dispose());
+			if (context.commands.length === 0 && Object.keys(context.shortcuts).length === 0) {
+				this.managerMap.delete(manager);
+			}
+		};
+	}
+
+	execute(code, source) {
+		const activities = this.fetchActivities(code, source);
+
+		return activities.reduce((memo, activity) => {
+			const commands = activity.commands;
+			const manager = activity.manager;
+			const result = manager.invoke(commands, null, source) || result;
+			if (result) {
+				memo.push(...commands.map(cmd => cmd.source));
+			}
+			return memo;
+		}, []);
+	}
+
+	canExecute(code, source) {
+		const activities = this.fetchActivities(code, source);
+		return activities.length > 0;
+	}
+
+	fetchActivities(code, source) {
+		const search = this.searchFactory(code);
+
+		const candidates = Array
+			.from(this.managerMap.entries())
+			.map(([manager, context]) => ({
+				manager,
+				commands: manager.filter(search(context), source)
+			}));
+
+		// Skip wildcard commands if there are some explicit shortcuts
+		const allCommands = flatten(candidates.map(x => x.commands));
+		const hasNotWildcardCommand = allCommands.filter(notWildcard).length > 0;
+		const test = hasNotWildcardCommand ? notWildcard : yes;
+		return candidates
+			.map(({ commands, manager }) => ({
+				manager,
+				commands: commands.filter(test),
+			}))
+			.filter(({ commands }) => commands.length > 0);
+	}
+
+	searchFactory(code) {
+		return context => {
+			let result = [];
+			if (context.shortcuts.has(code)) {
+				result = result.concat(context.shortcuts.get(code));
+			}
+
+			if (context.shortcuts.has(WILDCARD_SYMBOL) && code !== WILDCARD_SYMBOL) {
+				result = result.concat(context.shortcuts.get(WILDCARD_SYMBOL));
+			}
+
+			result = result.concat(context.commands
+				.map(cmd => cmd.clone({ shortcut: cmd.shortcut() }))
+				.filter(cmd => this.test(cmd.shortcut, code)));
+
+			return result;
+		};
+	}
+
+	test(shortcut, code) {
+		code = code.toLowerCase();
+		return ('' + shortcut)
+			.toLowerCase()
+			.split('|')
+			.some(shct => shct === WILDCARD_SYMBOL || code === shct);
+	}
+}
+
+class CommandManager {
+	constructor(apply = f => f(), context) {
+		this.apply = apply;
+		this.context = context;
+	}
+
+	invoke(commands, context) {
+		context = context || this.context;
+		if (commands.length) {
+
+			const priorityCommands = Array.from(commands);
+			priorityCommands.sort((x, y) => y.priority - x.priority);
+
+			this.apply(() => {
+				for (const cmd of priorityCommands) {
+					if (context) {
+						if (cmd.execute(context) === false) {
+							break;
+						}
+					} else {
+						if (cmd.execute() === false) {
+							break;
+						}
+					}
+
+				}
+			});
+
+			return true;
+		}
+
+		return false;
+	}
+
+	filter(commands) {
+		return commands.filter(cmd => cmd.sink = cmd.canExecute());
+	}
+}
+
+class ActionState {
+	constructor() {
+		this.resource = new Resource();
+
+		this.items = [];
+
+		this.shortcut = new Shortcut(new ShortcutDispatcher());
+		this.manager = new CommandManager();
+	}
+}
+
+class AnimationState {
+	constructor() {
+		this.apply = [];
+	}
+}
+
+class Fastdom {
+    static mutate(task) {
+        return Fastdom.invoke(() => FastDom.mutate(task));
+    }
+
+    static measure(task) {
+        return Fastdom.invoke(() => FastDom.measure(task));
+    }
+
+    static clear(task) {
+        return Fastdom.invoke(() => FastDom.clear(task));
+    }
+
+    static invoke(task) {
+        return task();
+    }
+}
+
+const GRID_PREFIX = 'q-grid';
+
+class Event {
+	constructor(reply) {
+		this.handlers = [];
+
+		this.lastArg = null;
+		this.reply = reply || (() => this.lastArg);
+	}
+
+	on(next, lifecycle = 'app') {
+		const { handlers } = this;
+
+		const handler = { next, lifecycle };
+		const off = () => {
+			const index = handlers.indexOf(handler);
+			if (index >= 0) {
+				handlers.splice(index, 1);
+			}
+		};
+
+		handler.off = off;
+		handlers.push(handler);
+
+		return off;
+	}
+
+	watch(next, lifecycle = 'app') {
+		const off = this.on(next, lifecycle);
+		if (this.lastArg) {
+			const e = this.reply();
+			next(e, off);
+		}
+
+		return off;
+	}
+
+	emit(value) {
+		this.lastArg = value;
+
+		const handlers = Array.from(this.handlers);
+		for (let i = 0, length = handlers.length; i < length; i++) {
+			const handler = handlers[i];
+			handler.next(value, handler.off);
+		}
+	}
+}
+
+class Defer {
+	constructor() {
+		this.promise = new DeferPromise();
+	}
+
+	reject() {
+		this.promise.reject();
+	}
+
+	resolve(value) {
+		this.promise.resolve(value);
+	}
+}
+
+class DeferPromise {
+	constructor() {
+		this.catchEvent = new Event();
+		this.thenEvent = new Event();
+	}
+
+	reject() {
+		this.catchEvent.emit();
+		return this;
+	}
+
+	resolve(value) {
+		this.thenEvent.emit(value);
+		return this;
+	}
+
+	catch(handler) {
+		this.catchEvent.on(handler);
+		return this;
+	}
+
+	then(handler) {
+		this.thenEvent.on(handler);
+		return this;
+	}
+}
+
+class GridError extends Error {
+	constructor(name, message) {
+		super(message);
+		this.name = this.constructor.name;
+		this.message = `qgrid.${name}: ${message}`;
+		if (isFunction(Error.captureStackTrace)) {
+			Error.captureStackTrace(this, this.constructor);
+		} else {
+			this.stack = (new Error(message)).stack;
+		}
+	}
+}
+
+function jobLine(delay) {
+	let defer = null;
+	const reset = () => {
+		if (defer) {
+			defer.reject();
+			defer = null;
+		}
+	};
+
+	return job => {
+		reset();
+
+		if (!isFunction(job)) {
+			throw new GridError('job.line', 'job is not invocable');
+		}
+
+		const doJob = () => {
+			if (defer) {
+				job();
+				defer.resolve();
+				defer = null;
+			}
+		};
+
+		defer = jobLine.run(doJob, delay);
+		return defer.promise;
+	};
+}
+
+jobLine.run = (job, delay) => {
+	const defer = new Defer();
+
+	const token = Fastdom.invoke(() => setTimeout(job, delay));
+	defer.promise.catch(() => clearTimeout(token));
+
+	return defer;
+};
+
+const VERTICAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-vertical`;
+const HORIZONTAL_SCROLL_CLASS = `${GRID_PREFIX}-scroll-horizontal`;
+const DEFAULT_DELTA_Y = 100;
+
+class BodyHost {
+	constructor(plugin) {
+		this.plugin = plugin;
+		this.scrollingJob = jobLine(100);
+	}
+
+	scroll(e) {
+		const { model, table } = this.plugin;
+		const { scroll } = model;
+
+		const oldValue = scroll();
+		const newValue = {};
+		let hasChanges = false;
+		if (oldValue.top !== e.scrollTop) {
+			table.view.addClass(VERTICAL_SCROLL_CLASS);
+			newValue.top = e.scrollTop;
+			hasChanges = true;
+		}
+
+		if (oldValue.left !== e.scrollLeft) {
+			table.view.addClass(HORIZONTAL_SCROLL_CLASS);
+			newValue.left = e.scrollLeft;
+			hasChanges = true;
+		}
+
+		if (hasChanges) {
+			scroll(newValue, {
+				source: 'body.core',
+				behavior: 'core'
+			});
+		}
+
+		this.scrollingJob(this.scrollEnd.bind(this));
+	}
+
+	scrollEnd() {
+		const { table } = this.plugin;
+
+		table.view.removeClass(VERTICAL_SCROLL_CLASS);
+		table.view.removeClass(HORIZONTAL_SCROLL_CLASS);
+	}
+
+	wheel(e) {
+		if (e.shiftKey) {
+			return;
+		}
+
+		const { model, table } = this.plugin;
+		if (model.edit().status === 'view') {
+			const { scroll } = model;
+			const upper = 0;
+
+			Fastdom.measure(() => {
+				const lower = table.view.scrollHeight() - table.view.height();
+				const deltaY = DEFAULT_DELTA_Y * Math.sign(e.deltaY);
+				const top = Math.min(lower, Math.max(upper, scroll().top + deltaY));
+
+				scroll({ top }, { source: 'body.core' });
+			});
+		}
+	}
+
+	mouseLeave() {
+		this.clearHighlight();
+	}
+
+	clearHighlight() {
+		const { view } = this.plugin;
+		const { highlight } = view;
+		if (highlight.clear.canExecute()) {
+			highlight.clear.execute();
+		}
+	}
+}
+
+/*eslint-disable  no-console*/
+
+class Log {
+	static info(source, message) {
+		//console.info(`qgrid.${source}: ${message}`);
+	}
+
+	static warn(source, message) {
+		//console.warn(`qgrid.${source}: ${message}`);
+	}
+
+	static error(source, message) {
+		console.error(`qgrid.${source}: ${message}`);
+	}
+}
+
+/*eslint-enable*/
+
+class Node {
+	constructor(key, level = 0, type = 'group') {
+		this.key = key;
+		this.level = level;
+		this.rows = [];
+		this.children = [];
+		this.type = type;
+		this.source = null;
+		this.value = null;
+		
+		this.state = {
+			expand: false
+		};
+	}
+}
+
+class RowDetails {
+	constructor(item, column) {
+		this.item = item;
+		this.column = column;
+	}
+}
+
+function compile$1(parts) {
+	const last = parts.length - 1;
+	const accessor = getAccessor(parts, last);
+	const key = parts[last];
+	if (accessor) {
+		return function (entry, value) {
+			if (arguments.length === 2) {
+				const host = accessor(entry);
+				if (host) {
+					host[key] = value;
+				}
+
+				Log.warn('path.compile', `Object reference ${parts.join('.')} is not set.`);
+				return;
+			}
+
+			const host = accessor(entry);
+			if (host) {
+				return host[key];
+			}
+
+			Log.warn('path.compile', `Object reference ${parts.join('.')} is not set.`);
+			return null;
+		};
+	}
+
+	return function (entry, value) {
+		if (!entry) {
+			Log.warn('path.compile', `Object reference ${parts.join('.')} is not set.`);
+			return null;
+		}
+
+		if (arguments.length === 2) {
+			entry[key] = value;
+		}
+
+		return entry[key];
+	};
+}
+
+function compileGet(path) {
+	const parts = path.split('.');
+	const last = parts.length - 1;
+	const accessor = getAccessor(parts, last);
+	const key = parts[last];
+	if (accessor) {
+		return function (entry) {
+			const host = accessor(entry);
+			if (host) {
+				return host[key];
+			}
+
+			Log.warn('path.compile', `Object reference ${parts.join('.')} is not set.`);
+			return null;
+		};
+	}
+
+	return function (entry) {
+		if (!entry) {
+			Log.warn('path.compile', `Object reference ${parts.join('.')} is not set.`);
+			return null;
+		}
+
+		return entry[key];
+	};
+}
+
+function compileSet(path) {
+	const parts = path.split('.');
+	const last = parts.length - 1;
+	const accessor = getAccessor(parts, last);
+	const key = parts[last];
+	if (accessor) {
+		return function (entry, value) {
+			const host = accessor(entry);
+			if (host) {
+				host[key] = value;
+				return;
+			}
+
+			Log.warn('path.compile', `Object reference ${parts.join('.')} is not set.`);
+		};
+	}
+
+	return function (entry, value) {
+		if (entry) {
+			entry[key] = value;
+			return;
+		}
+
+		Log.warn('path.compile', `Object reference ${parts.join('.')} is not set.`);
+	};
+}
+
+function getAccessor(parts, last) {
+	if (parts.length > 1) {
+		const firstPart = parts[0];
+		return parts
+			.filter((_, index) => index > 0 && index !== last)
+			.reduce(
+				(accessor, part) => {
+					return graph => {
+						const host = accessor(graph);
+						if (host) {
+							return host[part];
+						}
+
+						return null;
+					}
+				},
+				graph => {
+					if (graph) {
+						return graph[firstPart];
+					}
+
+					return null;
+				}
+			);
+	}
+
+	return null;
+}
+
+function getValue$1(row, column) {
+	return column.$value
+		? column.$value({ $row: row, $column: column })
+		: column.value
+			? column.value(row)
+			: column.path
+				? compileGet(column.path)(row)
+				: row[column.key];
+}
+
+function getValueFactory(column) {
+	const get = column.$value
+		? row => column.$value({ $row: row, $column: column })
+		: column.value
+			? row => column.value(row)
+			: column.path
+				? compileGet(column.path)
+				: row => row[column.key];
+
+	return get;
+}
+
+function setValue(row, column, value) {
+	if (isFunction(column.$value)) {
+		return column.$value({ $row: row, $value: value, $column: column });
+	}
+
+	if (isFunction(column.value)) {
+		return column.value(row, value);
+	}
+
+	if (column.path) {
+		return compileSet(column.path)(row, value);
+	}
+
+	if (row.hasOwnProperty(column.key)) {
+		return row[column.key] = value;
+	}
+
+	throw new GridError(
+		'value',
+		`Row can't be edit on "${column.key}" column`
+	);
+}
+
+function getLabel(row, column) {
+	return column.$label
+		? isFunction(column.$label) ? column.$label({ $row: row }) : column.$label
+		: column.label
+			? isFunction(column.label) ? column.label(row) : column.label
+			: column.labelPath
+				? compileGet(column.labelPath)(row)
+				: getValue$1(row, column);
+}
+
+function getLabelFactory(column) {
+	const get = column.$label
+		? isFunction(column.$label) ? row => column.$label({ $row: row }) : row => column.label
+		: column.label
+			? isFunction(column.label) ? row => column.label(row) : row => column.label
+			: column.labelPath
+				? compileGet(column.labelPath)
+				: row => getValue$1(row, column);
+
+	return get;
+}
+
+function setLabel(row, column, label) {
+	if (isFunction(column.$label)) {
+		return column.$label({ $row: row, $label: label });
+	}
+
+	if (isFunction(column.label)) {
+		return column.label(row, label);
+	}
+
+	if (column.labelPath) {
+		return compileSet(column.labelPath)(row, label);
+	}
+}
+
+class CacheStrategy {
+    constructor(plugin, strategy) {
+        const { model, observeReply } = plugin;
+        let storage = new Map();
+
+        const defaultGetValue =
+            (row, column, select, rowIndex, columnIndex) => {
+                const key = `valueFactory-${column.key}`;
+                select = storage.get(key);
+                if (!select) {
+                    select = getValueFactory(column);
+                    storage.set(key, select);
+                }
+
+                return strategy.getValue(row, column, select, rowIndex, columnIndex);
+            };
+
+        const readonlyGetValue =
+            (row, column, select, rowIndex, columnIndex) => {
+                const key = `getValue-${rowIndex}x${column.key}`;
+                if (storage.has(key)) {
+                    return storage.get(key);
+                }
+
+                const value = defaultGetValue(row, column, select, rowIndex, columnIndex);
+                storage.set(key, value);
+                return value;
+            };
+
+        const defaultGetLabel =
+            (row, column, select, rowIndex, columnIndex) => {
+                const key = `labelFactory-${column.key}`;
+                select = storage.get(key);
+                if (!select) {
+                    select = getLabelFactory(column);
+                    storage.set(key, select);
+                }
+
+                return strategy.getLabel(row, column, select, rowIndex, columnIndex);
+            };
+
+        const readonlyGetLabel =
+            (row, column, select, rowIndex, columnIndex) => {
+                const key = `getLabel-${rowIndex}x${column.key}`;
+                if (storage.has(key)) {
+                    return storage.get(key);
+                }
+
+                const value = defaultGetLabel(row, column, select, rowIndex, columnIndex);
+                storage.set(key, value);
+                return value;
+            };
+
+
+        this.getValue = defaultGetValue;
+        this.getLabel = defaultGetLabel;
+
+        this.colspan = (row, column, rowIndex, columnIndex) => {
+            const key = `colspan-${rowIndex}x${column.model.key}`;
+            if (storage.has(key)) {
+                return storage.get(key);
+            }
+
+            const value = strategy.colspan(row, column, rowIndex, columnIndex);
+            storage.set(key, value);
+            return value;
+        };
+
+        this.rowspan = (row, column, rowIndex, columnIndex) => {
+            const key = `rowspan-${rowIndex}x${column.model.key}`;
+            if (storage.has(key)) {
+                return storage.get(key);
+            }
+
+            const value = strategy.rowspan(row, column, rowIndex, columnIndex);
+            storage.set(key, value);
+            return value;
+        };
+
+        this.columns = (row, pin, rowIndex) => {
+            const key = `columns-${pin}-${rowIndex}`;
+            if (storage.has(key)) {
+                return storage.get(key);
+            }
+
+            const value = strategy.columns(row, pin, rowIndex);
+            storage.set(key, value);
+            return value;
+        };
+
+        this.setValue = (...args) => strategy.setValue(...args);
+        this.setLabel = (...args) => strategy.setLabel(...args);
+
+        this.columnList = (pin = 'mid') => {
+            const key = `columnList-${pin}`;
+            if (storage.has(key)) {
+                return storage.get(key);
+            }
+
+            const value = strategy.columnList(pin);
+            storage.set(key, value);
+            return value;
+        };
+
+        observeReply(model.sceneChanged)
+            .subscribe(e => {
+                if (e.hasChanges('status')) {
+                    if (e.state.status !== 'stop') {
+                        storage = new Map();
+                    }
+                }
+            });
+
+        observeReply(model.gridChanged)
+            .subscribe(e => {
+                if (e.hasChanges('isReadonly')) {
+                    storage = new Map();
+
+                    if (e.state.isReadonly) {
+                        this.getValue = readonlyGetValue;
+                        this.getLabel = readonlyGetLabel;
+                    } else {
+                        this.getValue = getValue;
+                        this.getLabel = this.getLabel;
+                    }
+                }
+            });
+    }
+}
+
+function defaultGetValue(row, column, select) {
+	return select(row, column);
+}
+
+// This class is not inheritable, but construct in a way to use it as a composition without binding to `this`.
+class DataRow {
+	constructor(plugin) {
+		const { model, observeReply } = plugin;
+		let area = {};
+
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('column')) {
+					area = e.state.column.area;
+					e.state.column.line;
+				}
+			});
+
+		this.getValue = defaultGetValue;
+		this.getLabel = defaultGetValue;
+		this.setValue = setValue;
+		this.setLabel = setLabel;
+
+		this.colspan = (row, column) => column.colspan;
+		this.rowspan = () => 1;
+
+		const columnList = (pin = 'mid') => area[pin] || [];
+
+		this.columnList = columnList;
+		this.columns = (row, pin) => columnList(pin);
+	}
+}
+
+const resolvers = {};
+class TemplatePath {
+	constructor() {
+	}
+
+	static register(name, resolve) {
+		if (resolvers.hasOwnProperty(name)) {
+			throw new GridError(
+				'template.path',
+				`"${name}" is already registered`);
+		}
+
+		resolvers[name] = resolve;
+		return TemplatePath;
+	}
+
+	static get(source) {
+		const path = this.find(source);
+		if (!path) {
+			throw new GridError(
+				'template.path',
+				'Template path can\'t be found');
+		}
+
+		return path;
+	}
+
+	static find(source) {
+		const getName = this.name;
+		for (let key of Object.keys(resolvers)) {
+			const name = getName(key);
+			const value = source[name];
+			if (!isUndefined(value) && value !== null) {
+				const path = resolvers[key](source, value);
+				if (path) {
+					return path;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	static getName(name) {
+		return '_' + name;
+	}
+
+	static get require() {
+		const getName = this.name;
+		return Object.keys(resolvers)
+			.reduce((memo, key) => {
+				memo[getName(key)] = `^^?${key}`;
+				return memo;
+			}, {});
+	}
+}
+
+TemplatePath.register('custom-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('custom-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+class ColumnModel {
+	constructor(type = 'text') {
+		this.key = null;
+		this.path = null;
+		this.labelPath = null;
+
+		this.type = type;
+		this.title = null;
+		this.description = null;
+		this.pin = 'mid';
+		this.origin = 'specific';
+		this.source = 'user';
+		this.category = 'data';
+		this.class = null;
+		this.editor = null;
+		this.editorOptions = {
+			modelFactory: ({ createDefaultModel }) => createDefaultModel(),
+			trigger: 'click', // click | custom | focus
+			cruise: 'control', // control | transparent
+			label: null,
+			value: identity,
+			actions: []
+		};
+
+		this.width = null;
+		this.minWidth = null;
+		this.maxWidth = null;
+		this.viewWidth = null;
+
+		this.widthMode = 'relative'; // relative | absolute | fit-head
+
+		this.canEdit = true;
+		this.canResize = true;
+		this.canSort = true;
+		this.canMove = true;
+		this.canFilter = true;
+		this.canHighlight = true;
+		this.canFocus = true;
+
+		this.isVisible = true;
+		this.index = -1;
+
+		this.value = null;
+		this.label = null;
+
+		this.compare = compare;
+
+		this.children = [];
+
+		this.$label = null;
+		this.$value = null;
+
+		this.itemLabel = identity;
+
+		this.startNumber = 1;
+	}
+
+	toString() {
+		return `${this.type}: ${this.title}`;
+	}
+}
+
+class ColumnView {
+	constructor(model) {
+		this.model = model;
+
+		this.colspan = 1;
+		this.rowspan = 1;
+		this.rowIndex = -1;
+		this.columnIndex = -1;
+	}
+
+	static model(model) {
+		if (model) {
+			ColumnView.assign(model);
+		}
+		else {
+			model = new ColumnModel();
+		}
+
+		model.origin = 'custom';
+		return model;
+	}
+
+	static assign(body) {
+		const etalon = this.model();
+		for (let key of Object.keys(etalon)) {
+			if (!body.hasOwnProperty(key)) {
+				let etalonValue = etalon[key];
+				if (isFunction(etalonValue)) {
+					etalonValue = etalonValue.bind(body);
+				}
+				body[key] = etalonValue;
+			} else {
+				const value = body[key];
+				if (isArray(value)) {
+					body[key] = Array.from(value);
+				} else if (isObject(value) && !isFunction(value)) {
+					body[key] = Object.assign({}, etalon[key], value);
+				}
+			}
+		}
+		return body;
+	}
+}
+
+class FormatService {
+    static number(x, format) {
+        return x;
+    }
+
+    static date(x, format) {
+        return x;
+    }
+
+    static currency(x, format) {
+        return x;
+    }
+}
+
+class DataColumnModel extends ColumnModel {
+	constructor() {
+		super(...arguments);
+
+		this.isDefault = true;
+		this.aggregation = null;
+		this.aggregationOptions = {
+			distinct: false,
+			separator: '; '
+		};
+	}
+}
+
+TemplatePath.register('array-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('array-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+class ArrayColumnModel extends DataColumnModel {
+	constructor() {
+		super('array');
+
+		this.itemType = 'text';
+		this.itemFormat = '';
+
+		this.label = function (row) {
+			const value = getValue$1(row, this);
+			if (isArray(value)) {
+				let formatter;
+				switch (this.itemType) {
+					case 'number': {
+						formatter = FormatService.number;
+						break;
+					}
+					case 'date':
+					case 'datetime': {
+						formatter = FormatService.date;
+						break;
+					}
+					default: {
+						formatter = this.itemLabel.bind(this);
+						break;
+					}
+				}
+
+				const format = this.itemFormat;
+				return value.map(item => formatter(item, format)).join(', ');
+			}
+
+			return value;
+		};
+	}
+}
+
+class ArrayColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? ArrayColumn.assign(model) : new ArrayColumnModel();
+	}
+}
+
+TemplatePath.register('bool-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('bool-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+class BoolColumnModel extends DataColumnModel {
+	constructor() {
+		super('bool');
+
+		this.trueValue = true;
+		this.falseValue = false;
+
+		this.editorOptions.cruise = 'transparent';
+
+		// as we use 'this' pointer inside, we can't use lambda in 2 here
+		this.isIndeterminate = function (value) {
+			return !(value === this.trueValue || value === this.falseValue);
+		};
+
+		this.isChecked = function (value) {
+			return value === this.trueValue;
+		};
+	}
+}
+
+class BoolColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? BoolColumn.assign(model) : new BoolColumnModel();
+	}
+}
+
+TemplatePath.register('cohort-cell', (template) => {
+	return {
+		model: template.for,
+		resource: `${template.for}.${template.type}`
+	};
+});
+
+class CohortColumnModel extends ColumnModel {
+	constructor() {
+		super('cohort');
+
+		this.key = '$cohort';
+
+		this.canEdit = false;
+		this.canSort = false;
+		this.canResize = false;
+		this.canFocus = false;
+		this.canFilter = false;
+		this.category = 'cohort';
+	}
+}
+
+class CohortColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? CohortColumn.assign(model) : new CohortColumnModel();
+	}
+}
+
+TemplatePath.register('currency-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('currency-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+
+class CurrencyColumnModel extends DataColumnModel {
+	constructor() {
+		super('currency');
+
+		this.maxLength = 20;
+		this.symbol = '$';
+		this.code = 'USD';
+	}
+}
+
+class CurrencyColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? CurrencyColumn.assign(model) : new CurrencyColumnModel();
+	}
+}
+
+// TODO: right now we check the empty result on null, 
+// we need to have a way to make it more explicitly
+function parseFactory(type, editor) {
+	switch (type) {
+		case 'id': {
+			type = editor ? editor : 'text';
+			break;
+		}
+	}
+
+	switch (type) {
+		case 'text':
+		case 'email':
+		case 'url':
+		case 'password':
+			return parseText;
+		case 'number':
+		case 'currency':
+			return parseNumber;
+		case 'date':
+			return parseDate;
+		case 'time':
+		case 'datetime':
+			return parseDateTime;
+		case 'bool':
+			return parseBool;
+		case 'array':
+			return parseArray;
+		default:
+			return identity;
+	}
+}
+
+function compareParseFactory(type, editor) {
+	switch (type) {
+		case 'id': {
+			type = editor ? editor : 'text';
+			break;
+		}
+	}
+
+	switch (type) {
+		case 'date':
+			return x => {
+				const date = parseDate(x);
+				if (date) {
+					return date.getTime();
+				}
+
+				return date;
+			};
+		case 'time':
+		case 'datetime':
+			return x => {
+				const date = parseDateTime(x);
+				if (date) {
+					return date.getTime();
+				}
+
+				return date;
+			};
+		default: {
+			return parseFactory(type, editor);
+		}
+	}
+}
+
+
+
+function resolveType(values) {
+	const types = values
+		.filter(x => !(isUndefined(x) || x === null || x === ''))
+		.map(getType$1);
+
+	if (types.length) {
+		const test = types[0];
+		if (types.every(x => x === test)) {
+			return test;
+		}
+	}
+
+	return 'text';
+}
+
+function getType$1(value) {
+	if (isArray(value)) {
+		if (value.length) {
+			const itemType = findType(value[0]);
+			if (!isPrimitive(itemType)) {
+				return 'collection';
+			}
+		}
+
+		return 'array';
+	}
+
+	if (isNumber(value)) {
+		return 'number';
+	}
+
+	if (isBoolean(value)) {
+		return 'bool';
+	}
+
+	if (isDate(value)) {
+		return 'datetime';
+	}
+
+	if (isString(value)) {
+		return 'text';
+	}
+
+	if (isObject(value)) {
+		return 'object';
+	}
+
+	return 'text';
+
+}
+
+function inferType(values) {
+	const types = values
+		.filter(x => !(isUndefined(x) || x === null || x === ''))
+		.map(findType);
+
+	if (types.length) {
+		const test = types[0];
+		if (types.every(x => x === test)) {
+			return test;
+		}
+	}
+
+	return 'text';
+}
+
+function findType(value) {
+	if (isArray(value)) {
+		if (value.length) {
+			const itemType = findType(value[0]);
+			if (!isPrimitive(itemType)) {
+				return 'collection';
+			}
+		}
+
+		return 'array';
+	}
+
+	if (likeNumber(value)) {
+		return 'number';
+	}
+
+	if (isBoolean(value)) {
+		return 'bool';
+	}
+
+	if (likeDateTime(value)) {
+		return 'datetime';
+	}
+
+	if (likeDate(value)) {
+		return 'date';
+	}
+
+	if (isEmail(value)) {
+		return 'email';
+	}
+
+	if (isImage(value)) {
+		return 'image';
+	}
+
+	if (isUrl(value)) {
+		return 'url';
+	}
+
+	if (isString(value)) {
+		return 'text';
+	}
+
+	if (isObject(value)) {
+		return 'object';
+	}
+
+	return 'text';
+}
+
+function isPrimitive(type) {
+	switch (type) {
+		case 'date':
+		case 'time':
+		case 'bool':
+		case 'text':
+		case 'number':
+		case 'email':
+		case 'url':
+			return true;
+		default:
+			return false;
+	}
+}
+
+function likeDateTime(value) {
+	if (value === null || isUndefined(value) || value === '') {
+		return false;
+	}
+
+	if (value instanceof Date) {
+		return true;
+	}
+
+	value = '' + value;
+
+	return matchISO8601(value);
+}
+
+function likeDate(value) {
+	if (value === null || isUndefined(value) || value === '') {
+		return false;
+	}
+
+	if (value instanceof Date) {
+		return true;
+	}
+
+	value = '' + value;
+
+	// part of ISO_8601 for dates
+	return !!value.match(/^(\d{4})(-(\d{2})(-(\d{2})))$/);
+}
+
+function likeNumber(value) {
+	if (isNaN(value)) {
+		return false;
+	}
+
+	const number = Number.parseFloat(value);
+	return !isNaN(number) && isFinite(number);
+}
+
+function parseBool(value) {
+	return value === null || isUndefined(value)
+		? value
+		: !!value;
+}
+
+function parseText(value) {
+	return value === null || isUndefined(value)
+		? value
+		: '' + value;
+}
+
+function parseDate(value) {
+	if (value === null || isUndefined(value)) {
+		return value
+	}
+
+	if (value === '') {
+		return null;
+	}
+
+	if (value instanceof Date) {
+		return new Date(
+			value.getFullYear(),
+			value.getMonth(),
+			value.getDate(),
+			0, 0, 0, 0
+		);
+	}
+
+	if (likeDate(value) || matchISO8601(value)) {
+		const yearMonthDay = ('' + value).split('-');
+		return new Date(
+			Number.parseInt(yearMonthDay[0]),
+			Number.parseInt(yearMonthDay[1]) - 1,
+			Number.parseInt(yearMonthDay[2]),
+			0, 0, 0, 0
+		);
+	}
+
+	return new Date('' + value);
+}
+
+function parseDateTime(value) {
+	if (value === null || isUndefined(value)) {
+		return value
+	}
+
+	if (value === '') {
+		return null;
+	}
+
+	if (value instanceof Date) {
+		return value;
+	}
+
+	const date = new Date('' + value);
+	return date;
+}
+
+function parseNumber(value) {
+	if (value === null || isUndefined(value)) {
+		return value
+	}
+
+	if (value === '' || isNaN(value)) {
+		return null;
+	}
+
+	const number = Number.parseFloat(value);
+	if (!isNaN(number) && isFinite(number)) {
+		return number;
+	}
+
+	return null;
+}
+
+function parseArray(value) {
+	return value;
+}
+
+TemplatePath.register('date-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('date-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+class DateColumnModel extends DataColumnModel {
+	constructor() {
+		super('date');
+
+		this.format = 'MM/dd/yyyy';
+		this.parse = parseFactory('date');
+
+		this.label = function (row) {
+			const value = getValue$1(row, this);
+			try {
+				const date = this.parse(value);
+				return FormatService.date(date, this.format);
+			} catch (ex) {
+				Log.error('date.column', ex);
+				return value;
+			}
+		};
+	}
+}
+
+class DateColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? DateColumn.assign(model) : new DateColumnModel();
+	}
+}
+
+TemplatePath.register('datetime-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('datetime-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+class DateTimeColumnModel extends DataColumnModel {
+	constructor() {
+		super('datetime');
+
+		this.format = 'MM/dd/yyyy h:mm a';
+		this.dateFormat = 'MM/dd/yyyy';
+		this.timeFormat = 'h:mm a';
+		this.parse = parseFactory('datetime');
+
+		this.label = function (row) {
+			const value = getValue$1(row, this);
+			try {
+				const date = this.parse(value);
+				return FormatService.date(date, this.format);
+			} catch (ex) {
+				Log.error('datetime.column', ex);
+				return value;
+			}
+		};
+	}
+}
+
+class DateTimeColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? DateTimeColumn.assign(model) : new DateTimeColumnModel();
+	}
+}
+
+TemplatePath.register('email-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('email-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+class EmailColumnModel extends DataColumnModel {
+	constructor() {
+		super('email');
+
+		this.editorOptions.trigger = 'custom';
+	}
+}
+
+class EmailColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? EmailColumn.assign(model) : new EmailColumnModel();
+	}
+}
+
+function isFileAnImage(name) {
+	return !!name && name.toLowerCase().search(/png|jpg|jpeg|svg/) > -1;
+}
+
+TemplatePath.register('file-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('file-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+class FileColumnModel extends DataColumnModel {
+	constructor() {
+		super('file');
+
+		this.canUpload = yes;
+		this.editorOptions.trigger = 'custom';
+
+		this.hasPreview = name => isFileAnImage(name);
+		this.canSort = false;
+		this.canFilter = false;
+	}
+}
+
+class FileColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? FileColumn.assign(model) : new FileColumnModel();
+	}
+}
+
+TemplatePath.register('group-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.type
+	};
+});
+
+TemplatePath.register('group-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+class GroupColumnModel extends ColumnModel {
+	constructor() {
+		super('group');
+
+		this.key = '$group';
+		this.path = 'key';
+		this.labelPath = 'key';
+		this.title = 'Group';
+		this.offset = 24;
+		this.canEdit = false;
+		this.canSort = false;
+		this.canFilter = false;
+		this.category = 'control';
+		this.by = null;
+		this.label = function (node) {
+			if (node.type === 'row') {
+				return '';
+			}
+
+			const { by, labelPath } = this;
+			return !by || by === node.source ? node[labelPath] : '';
+		};
+	}
+}
+
+class GroupColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? GroupColumn.assign(model) : new GroupColumnModel();
+	}
+}
+
+TemplatePath.register('group-summary-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+class GroupSummaryColumnModel extends DataColumnModel {
+	constructor() {
+		super('group-summary');
+
+		this.key = '$group.summary';
+		this.category = 'control';
+
+		this.canEdit = false;
+		this.canResize = false;
+		this.canHighlight = false;
+		this.canFilter = false;
+		this.canSort = false;
+		this.canMove = false;
+	}
+}
+
+class GroupSummaryColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? GroupSummaryColumn.assign(model) : new GroupSummaryColumnModel();
+	}
+}
+
+TemplatePath.register('id-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('id-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+class IdColumnModel extends DataColumnModel {
+	constructor() {
+		super('id');
+	}
+}
+
+class IdColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? IdColumn.assign(model) : new IdColumnModel();
+	}
+}
+
+TemplatePath.register('image-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('image-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+class ImageColumnModel extends DataColumnModel {
+	constructor() {
+		super('image');
+
+		this.canSort = false;
+		this.canFilter = false;
+		this.canUpload = yes;
+
+		this.hasPreview = name => isFileAnImage(name);
+	}
+}
+
+class ImageColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? ImageColumn.assign(model) : new ImageColumnModel();
+	}
+}
+
+TemplatePath.register('number-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('number-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+class NumberColumnModel extends DataColumnModel {
+	constructor() {
+		super('number');
+
+		this.format = '';
+	}
+}
+
+class NumberColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? NumberColumn.assign(model) : new NumberColumnModel();
+	}
+}
+
+TemplatePath.register('pad-cell', (template) => {
+	return {
+		model: template.for,
+		resource: `${template.for}.${template.type}`
+	};
+});
+
+class PadColumnModel extends ColumnModel {
+	constructor() {
+		super('pad');
+
+		this.key = '$pad';
+		this.category = 'markup';
+
+		this.title = '';
+		this.canEdit = false;
+		this.canSort = false;
+		this.canResize = false;
+		this.canHighlight = false;
+		this.canFocus = false;
+		this.canMove = false;
+		this.canFilter = false;		
+		this.source = 'generation';
+	}
+}
+
+class PadColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? PadColumn.assign(model) : new PadColumnModel();
+	}
+}
+
+TemplatePath.register('password-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('password-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+class PasswordColumnModel extends DataColumnModel {
+	constructor() {
+		super('password');
+
+		this.canSort = false;
+		this.canFilter = false;
+	}
+}
+
+class PasswordColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? PasswordColumn.assign(model) : new PasswordColumnModel();
+	}
+}
+
+TemplatePath.register('pivot-cell', (template) => {
+	return {
+		model: 'pivot',
+		resource: template.for
+	};
+});
+
+class PivotColumnModel extends ColumnModel {
+	constructor() {
+		super('pivot');
+
+		this.key = '$pivot';
+		this.title = 'Pivot';
+
+		this.source = 'generation';
+		this.category = 'pivot';
+		this.canEdit = false;
+		this.canSort = false;
+		this.canResize = false;
+		this.canFilter = false;
+		this.canMove = false;
+	}
+}
+
+class PivotColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? PivotColumn.assign(model) : new PivotColumnModel();
+	}
+}
+
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
+class Guard {
+	/**
+	 * If value is undefined exception will be thrown
+	 * @param {any} value - Value to check
+	 * @param {string} name - Argument name
+	 */
+	static notUndefined(value, name) {
+		if (isUndefined(value)) {
+			throw new GridError('guard.notUndefined', name);
+		}
+	}
+
+
+	/**
+	 * If value is null or undefined exception will be thrown
+	 * @param {any} value - Value to check
+	 * @param {string} name - Argument name
+	 */
+	static notNull(value, name) {
+		if (value === null || isUndefined(value)) {
+			throw new GridError('guard.notNull', name);
+		}
+	}
+
+	/**
+	 * If value is null or undefined or empty exception will be thrown
+	 * @param {any} value - Value to check
+	 * @param {string} name - Argument name
+	 */
+	static notNullOrEmpty(value, name) {
+		if (value === null || isUndefined(value) || value === '') {
+			throw new GridError('guard.notNullOrEmpty', name);
+		}
+	}
+
+	/**
+	 * If value is not a function exception will be thrown
+	 * @param {any} value - Value to check
+	 * @param {string} name - Argument name
+	 */
+	static invokable(value, name) {
+		if (!isFunction(value)) {
+			throw new GridError('guard.invokable', name);
+		}
+	}
+	
+	static hasProperty(instance, name) {
+		Guard.notNull(instance, 'instance');
+		if (!hasOwnProperty.call(instance, name)) {
+			throw new GridError('guard.hasProperty', name);
+		}
+	}
+}
+
+function equals(x, y) {
+	// TODO: improve equality algorithm
+	if (x === y) {
+		return true;
+	}
+
+	if (isArray(x)) {
+		if (x.length === 0 && y.length === 0) {
+			return true;
+		}
+	}
+
+	if (x instanceof Map) {
+		if (x.size === 0 && y.size === 0) {
+			return true;
+		}
+	}
+
+	if (x instanceof Set) {
+		if (x.size === 0 && y.size === 0) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+class Model {
+	constructor() {
+		this.accessors = new Map();
+	}
+
+	inject(name, Type) {
+		const accessor = this.resolveAccessor(name, Type);
+		this[name + 'Changed'] = accessor.changed;
+		this[name] = accessor.state;
+	}
+
+	resolveAccessor(name, Type) {
+		if (this.accessors.has(name)) {
+			throw new GridError(
+				'model',
+				`${name} accessor already exists`
+			);
+		}
+
+		const accessor = this.buildAccessor(name, Type);
+		this.accessors.set(Type, accessor);
+		return accessor;
+	}
+
+	buildAccessor(name, Type) {
+		let state = new Type();
+
+		const changeSet = new Set();
+		const reply = () => {
+			const replyChanges = Array.from(changeSet.values())
+				.reduce((memo, key) => {
+					const value = state[key];
+					memo[key] = { newValue: value, oldValue: value };
+					return memo;
+				}, {});
+
+			return {
+				state,
+				changes: replyChanges,
+				hasChanges: replyChanges.hasOwnProperty.bind(replyChanges),
+				tag: {},
+				source: 'watch',
+			};
+		};
+
+		const event = new Event(reply);
+		const getter = () => state;
+		const setter = (newState, tag) => {
+			if (!isObject(newState)) {
+				throw new GridError(
+					`model.${name}`,
+					`"${newState}" is not a valid type, should be an object`);
+			}
+
+			const changes = {};
+			let hasChanges = false;
+
+			const keys = Object.keys(newState);
+			for (let i = 0, keysLength = keys.length; i < keysLength; i++) {
+				const key = keys[i];
+				if (!state.hasOwnProperty(key)) {
+					throw new GridError(
+						`model.${name}`,
+						`"${key}" is not a valid key, only [${Object.keys(state).join(', ')}] keys are supported`
+					);
+				}
+
+				const newValue = newState[key];
+				const oldValue = state[key];
+				if (!equals(newValue, oldValue)) {
+					Log.info('model', `value changed - "${name}.${key}"`);
+					Guard.notUndefined(newValue, `model.${name}.${key}`);
+
+					state[key] = newValue;
+					hasChanges = true;
+					changes[key] = { newValue, oldValue };
+
+					changeSet.add(key);
+				}
+				else {
+					Log.warn('model', `value was not changed - "${name}.${key}"`);
+				}
+			}
+
+			if (hasChanges) {
+				state = {
+					...state
+				};
+
+				event.emit({
+					state,
+					changes,
+					hasChanges: changes.hasOwnProperty.bind(changes),
+					tag: tag || {},
+					source: 'emit'
+				});
+			}
+
+			return this;
+		};
+
+		const accessor = (...args) => {
+			if (args.length) {
+				return setter(args[0], args[1]);
+			}
+
+			return getter();
+		};
+
+		return {
+			changed: event,
+			state: accessor,
+		};
+	}
+
+	resolve(Type) {
+		let accessor = this.accessors.get(Type);
+		if (!accessor) {
+			const name = getTypeName(Type);
+			accessor = this.resolveAccessor(name, Type);
+		}
+
+		return accessor;
+	}
+}
+
+TemplatePath.register('reference-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('reference-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+class ReferenceColumnModel extends DataColumnModel {
+	constructor() {
+		super('reference');
+
+		this.editorOptions.trigger = 'custom';		
+	}
+}
+
+class ReferenceColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? ReferenceColumn.assign(model) : new ReferenceColumnModel();
+	}
+}
+
+TemplatePath.register('row-details-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+class RowDetailsColumnModel extends ColumnModel {
+	constructor() {
+		super('row-details');
+
+		this.key = '$row.details';
+		this.category = 'control';
+
+		this.canEdit = false;
+		this.canResize = false;
+		this.canHighlight = false;
+		this.canFilter = false;
+		this.canSort = false;
+		this.canMove = false;
+	}
+}
+
+class RowDetailsColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? RowDetailsColumn.assign(model) : new RowDetailsColumnModel();
+	}
+}
+
+TemplatePath.register('row-expand-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+class RowExpandColumnModel extends ColumnModel {
+	constructor() {
+		super('row-expand');
+
+		this.key = '$row.expand';
+		this.category = 'control';
+
+		this.canEdit = false;
+		this.canResize = false;
+		this.canFilter = false;
+		this.canSort = false;
+		this.canHighlight = false;
+		this.canMove = false;
+	}
+}
+
+class RowExpandColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? RowExpandColumn.assign(model) : new RowExpandColumnModel();
+	}
+}
+
+TemplatePath.register('row-indicator-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+class RowIndicatorColumnModel extends ColumnModel {
+	constructor() {
+		super('row-indicator');
+
+		this.key = '$row.indicator';
+		this.category = 'control';
+
+		this.canEdit = false;
+		this.canSort = false;
+		this.canResize = false;
+		this.canMove = false;
+		this.canFocus = false;
+		this.canHighlight = false;
+		this.canFilter = false;
+		this.pin = 'left';
+	}
+}
+
+class RowIndicatorColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? RowIndicatorColumn.assign(model) : new RowIndicatorColumnModel();
+	}
+}
+
+TemplatePath.register('row-number-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+class RowNumberColumnModel extends ColumnModel {
+	constructor() {
+		super('row-number');
+
+		this.pin = 'left';
+		this.key = '$row.number';
+		this.title = 'No.';
+		this.canEdit = false;
+		this.canResize = true;
+		this.canFocus = false;
+		this.canMove = false;
+		this.canHighlight = false;
+		this.canSort = false;
+		this.canFilter = false;
+		this.category = 'control';
+	}
+}
+
+class RowNumberColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? RowNumberColumn.assign(model) : new RowNumberColumnModel();
+	}
+}
+
+TemplatePath.register('row-options-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('row-options-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+class RowOptionsColumnModel extends DataColumnModel {
+	constructor() {
+		super('row-options');
+
+		this.key = '$row.options';
+		this.category = 'control';
+
+		this.canEdit = true;
+		this.canResize = false;
+		this.canMove = false;
+		this.canHighlight = false;
+		this.canFilter = false;
+		this.pin = 'right';
+	}
+}
+
+class RowOptionsColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? RowOptionsColumn.assign(model) : new RowOptionsColumnModel();
+	}
+}
+
+TemplatePath.register('select-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('select-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+class SelectColumnModel extends ColumnModel {
+	constructor() {
+		super('select');
+
+		this.key = '$select';
+		this.title = '';
+		this.category = 'control';
+
+		this.canEdit = false;
+		this.editorOptions.cruise = 'transparent';
+		this.value = noop;
+
+		this.canResize = false;
+	}
+}
+
+class SelectColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? SelectColumn.assign(model) : new SelectColumnModel();
+	}
+}
+
+TemplatePath.register('text-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('text-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+TemplatePath.register('text-area-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+class TextColumnModel extends DataColumnModel {
+	constructor() {
+		super('text');
+
+		this.maxLength = 140;
+	}
+}
+
+class TextColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? TextColumn.assign(model) : new TextColumnModel();
+	}
+}
+
+TemplatePath.register('time-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('time-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+class TimeColumnModel extends DataColumnModel {
+	constructor() {
+		super('time');
+
+		this.format = 'h:mm a';
+	}
+}
+
+class TimeColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? TimeColumn.assign(model) : new TimeColumnModel();
+	}
+}
+
+TemplatePath.register('url-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('url-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+class UrlColumnModel extends DataColumnModel {
+	constructor() {
+		super('url');
+
+		this.editorOptions.trigger = 'custom';
+	}
+}
+
+class UrlColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? UrlColumn.assign(model) : new UrlColumnModel();
+	}
+}
+
+function merge$2(target, source) {
+	if (target && source) {
+		return assignWith(target, source, (s, t) => isUndefined(s) ? t : s);
+	}
+
+	return target || clone(source);
+}
+
+function columnFactory(model) {
+	const { columnList } = model;
+	const columnMap = {
+		'array': ArrayColumn,
+		'bool': BoolColumn,
+		'cohort': CohortColumn,
+		'currency': CurrencyColumn,
+		'custom': ColumnView,
+		'date': DateColumn,
+		'datetime': DateTimeColumn,
+		'email': EmailColumn,
+		'file': FileColumn,
+		'group': GroupColumn,
+		'id': IdColumn,
+		'image': ImageColumn,
+		'number': NumberColumn,
+		'pad': PadColumn,
+		'password': PasswordColumn,
+		'pivot': PivotColumn,
+		'reference': ReferenceColumn,
+		'row-details': RowDetailsColumn,
+		'row-expand': RowExpandColumn,
+		'row-indicator': RowIndicatorColumn,
+		'row-number': RowNumberColumn,
+		'row-options': RowOptionsColumn,
+		'select': SelectColumn,
+		'group-summary': GroupSummaryColumn,
+		'text': TextColumn,
+		'time': TimeColumn,
+		'url': UrlColumn
+	};
+
+	const create = (entityType, columnType, body) => {
+		const Type = columnMap[entityType];
+		const { reference } = columnList();
+		const defaultSettings = reference['$default'];
+		body = merge$2(body, defaultSettings);
+		const typeSettings = reference[columnType];
+		body = merge$2(body, typeSettings);
+
+		const model = Type.model(body);
+		return new Type(model);
+	};
+
+	return (type, body = null) => {
+		if (!type) {
+			type = 'text';
+		}
+
+		if (columnMap.hasOwnProperty(type)) {
+			return create(type, type, body);
+		}
+
+		return create('custom', type, body);
+	};
+}
+
+class DetailsRow {
+	constructor(model, dataRow) {
+		const createColumn = columnFactory(model);
+		const emptyColumn = createColumn('pad', { key: 'row-details-pad' });
+
+		this.columns = dataRow.getColumns;
+		this.rowspan = dataRow.rowspan;
+
+		this.colspan = (rowDetails, column) => {
+			return sumBy(dataRow.columnList(column.model.pin), c => c.colspan);
+		};
+
+		this.columns = (rowDetails, pin) => {
+			if (rowDetails.column.model.pin === pin) {
+				return [rowDetails.column];
+			}
+
+			return [emptyColumn];
+		};
+
+		this.getValue = () => null;
+		this.getLabel = () => null;
+		this.setValue = () => null;
+		this.setLabel = () => null;
+	}
+}
+
+class Aggregation {
+	constructor() {
+	}
+
+	static first(rows, getValue) {
+		if (!rows.length) {
+			return null;
+		}
+
+		return getValue(rows[0]);
+	}
+
+	static last(rows, getValue) {
+		const length = rows.length;
+		if (!length) {
+			return null;
+		}
+
+		return getValue(rows[length - 1]);
+	}
+
+	static max(rows, getValue) {
+		let length = rows.length;
+		if (!length) {
+			return null;
+		}
+
+		let max = Number.MIN_SAFE_INTEGER;
+		while (length--) {
+			max = Math.max(max, getValue(rows[length]));
+		}
+
+		return max;
+	}
+
+	static min(rows, getValue) {
+		let length = rows.length;
+		if (!length) {
+			return null;
+		}
+
+		let min = Number.MAX_SAFE_INTEGER;
+		while (length--) {
+			min = Math.min(min, getValue(rows[length]));
+		}
+
+		return min;
+	}
+
+	static minMax(rows, getValue) {
+		let length = rows.length;
+		if (!length) {
+			return null;
+		}
+
+		let min = Number.MAX_SAFE_INTEGER;
+		let max = Number.MIN_SAFE_INTEGER;
+		while (length--) {
+			const value = getValue(rows[length]);
+			min = Math.min(min, value);
+			max = Math.max(max, value);
+		}
+
+		return [min, max];
+	}
+
+	static avg(rows, getValue, options) {
+		const length = rows.length;
+		if (!length) {
+			return null;
+		}
+
+		if (options.distinct) {
+			const set = new Set();
+			return Aggregation.sum(rows, getValue, options, set) / set.size;
+		}
+
+		return Aggregation.sum(rows, getValue, options) / length;
+	}
+
+	static sum(rows, getValue, options, set) {
+		let length = rows.length;
+		if (!length) {
+			return null;
+		}
+
+		let sum = 0;
+		if (options.distinct) {
+			set = set || new Set();
+			while (length--) {
+				const value = getValue(rows[length]);
+				if (!set.has(value)) {
+					sum += value;
+					set.add(value);
+				}
+			}
+		} else {
+			while (length--) {
+				sum += Number(getValue(rows[length]));
+			}
+		}
+
+		return sum;
+	}
+
+	static join(rows, getValue, options) {
+		const length = rows.length;
+		if (!length) {
+			return null;
+		}
+
+		let result = getValue(rows[0]);
+		const separator = options.separator || '';
+
+		if (options.distinct) {
+			const set = new Set();
+			let value = result;
+			set.add(value);
+
+			let i = 1;
+			while (i < length) {
+				value = getValue(rows[i]);
+
+				if (!set.has(value)) {
+					result += separator + value;
+					set.add(value);
+				}
+
+				i++;
+			}
+		} else {
+			let i = 1;
+			while (i < length) {
+				result += separator + getValue(rows[i]);
+				i++;
+			}
+		}
+
+		return result;
+	}
+
+	static count(rows, getValue, options) {
+		let length = rows.length;
+		if (!length) {
+			return null;
+		}
+
+		if (options.distinct) {
+			let set = new Set();
+			while (length--) {
+				const count = Number(getValue(rows[length]));
+				set.add(count);
+			}
+
+			return set.size;
+		}
+
+		return length;
+	}
+
+}
+
+function flattenFactory(model) {
+	const { mode, summary } = model.group();
+
+	let push = (node, pos, result) => result.push(node);
+	switch (mode) {
+		case 'rowspan': {
+			push = (node, pos, result) => {
+				if (node.level === 0 || pos > 0) {
+					result.push(node);
+				}
+			};
+			break;
+		}
+	}
+
+	let pushSummary = noop;
+	switch (summary) {
+		case 'leaf': {
+			pushSummary = (node, pos, result, parent, posInParent) => {
+				if (parent && parent.children.length - 1 === posInParent) {
+					const { level, key } = node;
+					const summary = new Node(`${key}-group-summary`, level, 'summary');
+					summary.rows = Array.from(node.rows);
+					result.push(summary);
+				}
+			};
+			break;
+		}
+	}
+
+	return function flatView(nodes, result = [], parent = null, pos = 0) {
+		for (let i = 0, iLength = nodes.length; i < iLength; i++) {
+			const node = nodes[i];
+			push(node, i, result, parent, pos);
+
+			if (node.state.expand) {
+				const children = node.children;
+				if (children.length) {
+					flatView(children, result, node, i);
+				}
+				else {
+					const { rows, level, key } = node;
+					const nextLevel = level + 1;
+					for (let j = 0, jLength = rows.length; j < jLength; j++) {
+						const child = new Node(key, nextLevel, 'row');
+						const row = rows[j];
+						child.rows = [row];
+
+						children.push(child);
+						push(child, j, result, parent, pos);
+					}
+				}
+
+				pushSummary(node, i, result, parent, pos);
+			}
+		}
+
+		return result;
+	};
+}
+
+function findFirstLeaf(node) {
+	if (node.type !== 'group') {
+		return node;
+	}
+
+	if (!node.state.expand) {
+		return null;
+	}
+
+	return node.children.length && findFirstLeaf(node.children[0]);
+}
+
+class NodeRow {
+	constructor(model, dataRow) {
+		const { columnList, rowspan } = dataRow;
+
+		this.columnList = columnList;
+		this.rowspan = rowspan;
+
+		const createColumn = columnFactory(model);
+		const reference = {
+			group: createColumn('group'),
+			summary: createColumn('group-summary')
+		};
+
+		this.getLabel =
+			this.getValue = (node, column, select, rowIndex, columnIndex) => {
+				if (column.type === 'pivot') {
+					return dataRow.getLabel(node, column, select, rowIndex, columnIndex);
+				}
+
+				const { rows } = model.data();
+				switch (node.type) {
+					case 'group':
+					case 'summary': {
+						const agg = column.aggregation;
+						if (agg) {
+							if (!Aggregation.hasOwnProperty(agg)) {
+								throw new GridError(
+									'node.row',
+									`Aggregation ${agg} is not supported`);
+							}
+
+							const groupRows = node.rows.map(i => rows[i]);
+							return Aggregation[agg](groupRows, select, column.aggregationOptions);
+						}
+
+						return null;
+					}
+					case 'row': {
+						const rowIndex = node.rows[0];
+						return select(rows[rowIndex], column);
+					}
+					case 'value': {
+						return select(node, column);
+					}
+					default:
+						throw new GridError(
+							'node.row',
+							`Invalid node type ${node.type}`
+						);
+				}
+			};
+
+		this.setValue = (node, column, value, rowIndex, columnIndex) => {
+			switch (node.type) {
+				case 'row': {
+					const { rows } = model.data();
+					const rowIndex = node.rows[0];
+					dataRow.setValue(rows[rowIndex], column, value, rowIndex, columnIndex);
+					break;
+				}
+				case 'value': {
+					dataRow.setValue(node, column, value, rowIndex, columnIndex);
+					break;
+				}
+				default:
+					throw new GridError('node.row', `Can't set value to ${node.type} node`);
+			}
+		};
+
+		this.setLabel = (node, column, value, rowIndex, columnIndex) => {
+			switch (node.type) {
+				case 'row': {
+					const { rows } = model.data();
+					const rowIndex = node.rows[0];
+					dataRow.setLabel(rows[rowIndex], column, value, rowIndex, columnIndex);
+					break;
+				}
+				case 'value': {
+					dataRow.setLabel(node, column, value, rowIndex, columnIndex);
+					break;
+				}
+				default:
+					throw new GridError('node.row', `Can't set label to ${node.type} node`);
+			}
+		};
+
+		this.colspan = (node, column) => {
+			if (node.type === 'summary') {
+				return sumBy(columnList(column.model.pin), c => c.colspan);
+			}
+
+			return column.colspan;
+		};
+
+		this.columns = (node, pin) => {
+			if (node.type === 'summary') {
+				// TODO: add pin support
+				return [reference.summary];
+			}
+
+			return columnList(pin);
+		};
+
+		this.findGroupColumn = (pin) => {
+			const columns = columnList();
+			let groupColumn = columns.find(c => c.model.type === 'group');
+			if (!groupColumn) {
+				groupColumn = reference.group;
+				if (groupColumn.model.pin === pin) {
+					const firstColumn = columnList(pin)[0];
+					groupColumn.columnIndex = firstColumn ? firstColumn.columnIndex : 0;
+				}
+			}
+
+			return groupColumn.model.pin !== pin ? null : groupColumn;
+		};
+	}
+}
+
+class RowspanNodeRow {
+	constructor(model, nodeRow) {
+		const { columnList, getValue, getLabel, columns } = nodeRow;
+
+		this.setValue = nodeRow.setValue;
+		this.setLabel = nodeRow.setLabel;
+		this.colspan = nodeRow.colspan;
+		this.columnList = columnList;
+		
+		const rowspan = (node, column, isRoot = true) => {
+			switch (node.type) {
+				case 'group': {
+					if (column.model.type === 'group') {
+						if (node.state.expand) {
+							if (!isRoot || node.source === column.model.by) {
+								return node.children.reduce((memo, child, i) => memo + rowspan(child, column, false), 0);
+							} else {
+								if (node.children.length) {
+									return rowspan(node.children[0], column, false);
+								}
+							}
+						}
+						return 1;
+					}
+				}
+			}
+
+			return 1;
+		};
+
+		this.rowspan = rowspan;
+
+		const spanValue = getValue => (node, column, select) => {
+			switch (node.type) {
+				case 'group': {
+					const leaf = findFirstLeaf(node);
+					if (leaf) {
+						const { rows } = model.data();
+						const rowIndex = leaf.rows[0];
+						return select(rows[rowIndex], column);
+					}
+
+					return null;
+				}
+			}
+
+			return getValue(node, column, select);
+		};
+
+		this.getLabel = spanValue(getLabel);
+		this.getValue = spanValue(getValue);
+
+		this.columns = (node, pin) => {
+			switch (node.type) {
+				case 'group': {
+					return dropWhile(columnList(pin), c => c.model.type === 'group' && c.model.by !== node.source);
+				}
+				case 'row': {
+					return columnList(pin).filter(c => c.model.type !== 'group');
+				}
+			}
+
+			return columns(node, pin);
+		};
+	}
+}
+
+class SubheadNodeRow {
+	constructor(nodeRow) {
+		const { columnList, columns, findGroupColumn } = nodeRow;
+
+		this.setValue = nodeRow.setValue;
+		this.setLabel = nodeRow.setLabel;
+		this.getValue = nodeRow.getValue;
+		this.getLabel = nodeRow.getLabel;
+		this.rowspan = nodeRow.rowspan;
+		this.columnList = columnList;
+
+		this.colspan = (node, column) => {
+			switch (node.type) {
+				case 'group': {
+					if (column.model.type === 'group') {
+						const groupColumn = findGroupColumn(column.model.pin);
+						if (groupColumn) {
+							const nearGroupColumns = columnList(column.model.pin);
+							const groupSpan = takeWhile(nearGroupColumns, c => !c.model.aggregation);
+							return sumBy(groupSpan, c => c.colspan);
+						}
+					}
+					break;
+				}
+			}
+
+			return nodeRow.colspan(node, column);
+		};
+
+		this.columns = (node, pin) => {
+			switch (node.type) {
+				case 'group': {
+					const groupColumn = findGroupColumn(pin);
+					if (groupColumn) {
+						const nextColumns = dropWhile(columnList(pin), c => !c.model.aggregation);
+						return [groupColumn].concat(nextColumns);
+					}
+					break;
+				}
+			}
+
+			return columns(node, pin);
+		};
+	}
+}
+
+class Lazy {
+    constructor(build) {
+        this.build = build;
+    }
+
+    get instance() {
+        return this.value || (this.value = this.build());
+    }
+}
+
+function flattenRows(root) {
+	const rowsToUse = rowsToUseFactory();
+
+	function markup(node, rowIndex, columnIndex, rowsLeft, result) {
+		const view = node.key;
+		const rowspan = rowsLeft - rowsToUse(node);
+		view.rowspan = rowspan;
+		view.rowIndex = rowIndex;
+		view.columnIndex = columnIndex;
+
+		const { children } = node;
+		if (children.length) {
+			let width = 0;
+			const childResult = [];
+			for (let child of children) {
+				const childView = markup(child, rowIndex + rowspan, columnIndex, rowsLeft - rowspan, childResult);
+				if (!childView) {
+					continue;
+				}
+
+				const { colspan } = childView;
+				width += colspan;
+				columnIndex += colspan;
+			}
+
+			view.colspan = width;
+			if (width > 0) {
+				result.push(view);
+				result.push(...childResult);
+			}
+		} else if (view.model.type !== 'cohort') {
+			result.push(view);
+		}
+
+		return view;
+	}
+
+	const result = [];
+	markup(root, 0, 0, rowsToUse(root), result);
+	// remove root 
+	result.splice(0, 1);
+	return layout(result);
+}
+
+function layout(columns) {
+	const mx = [];
+
+	columns.sort((x, y) => {
+		const xc = x.rowIndex - y.rowIndex;
+		if (xc === 0) {
+			return x.columnIndex - y.columnIndex;
+		}
+
+		return xc;
+	});
+
+	for (let column of columns) {
+		if (!mx[column.rowIndex]) {
+			mx[column.rowIndex] = [];
+		}
+		mx[column.rowIndex].push(column);
+	}
+
+	return mx;
+}
+
+function rowsToUseFactory() {
+	const cache = new Map();
+	return function rowsToUse(node, depth = 0) {
+		const { model } = node.key;
+		if (cache.has(model.key)) {
+			return cache.get(model.key);
+		}
+
+		const { children } = node;
+		let count = children.length == 0 ? 0 : 1;
+		for (let child of children) {
+			count = Math.max(count, rowsToUse(child, depth + 1));
+		}
+
+		const result = 1 + count;
+		cache.set(model.key, result);
+		return result;
+	}
+}
+
+
+function expand(rows) {
+	const mx = [];
+	const offsets = [];
+	for (let y = 0, height = rows.length; y < height; y++) {
+		const columns = rows[y];
+		const offset = offsets.length > y ? offsets[y] : offsets[y] = [0];
+		for (let x = 0, width = columns.length; x < width; x++) {
+			const column = columns[x];
+			const { rowspan, colspan } = column;
+			const current = offset[0];
+			const next = current + colspan;
+			for (let i = 0; i < rowspan; i++) {
+				const yi = y + i;
+				const row = mx.length > yi ? mx[yi] : mx[yi] = [];
+				for (let j = 0; j < colspan; j++) {
+					const xj = current + j;
+					row[xj] = column;
+				}
+
+				const gaps = offsets.length > yi ? offsets[yi] : offsets[yi] = [0];
+				const index = binarySearch(gaps, current);
+				if (row[next]) {
+					gaps.splice(index, 1);
+				}
+				else {
+					const xi = gaps[index];
+					gaps.splice(index, row[xi] ? 1 : 0, next);
+				}
+			}
+		}
+	}
+
+	return mx;
+}
+
+function collapse(matrix) {
+	const line = [];
+	const height = matrix.length;
+	if (height) {
+		const set = new Set();
+		const lastRow = matrix[height - 1];
+		const width = lastRow.length;
+		for (let i = 0; i < width; i++) {
+			const column = lastRow[i];
+			if (set.has(column)) {
+				continue;
+			}
+
+			line.push(column);
+			set.add(column);
+		}
+	}
+
+	return line;
+}
+
+function flattenColumns(columns, result = []) {
+	for (let i = 0, length = columns.length; i < length; i++) {
+		const column = columns[i];
+		result.push(column);
+
+		const { children } = column;
+		if (children && children.length) {
+			flattenColumns(children, result);
+		}
+	}
+
+	return result;
+}
+
+function findLine(columns, key) {
+	for (let index = 0, length = columns.length; index < length; index++) {
+		const column = columns[index];
+		if (column.key === key) {
+			return { columns, index };
+		}
+
+		const { children } = column;
+		if (children.length) {
+			const result = findLine(children, key);
+			if (result) {
+				return result;
+			}
+		}
+	}
+
+	return null;
+}
+
+function mapColumns(columns) {
+	return columns.reduce((memo, column) => {
+		memo[column.key] = column;
+		return memo;
+	}, {});
+}
+
+function getCellValue(column) {
+	return isFunction(column.value)
+		? row => column.value(row)
+		: row => row[column.key];
+}
+
+function findColumn(columns, key) {
+	const index = findIndex(columns, key);
+	return index < 0 ? null : columns[index];
+}
+
+function findIndex(columns, key) {
+	let { length } = columns;
+	while (length--) {
+		const column = columns[length];
+		if (column.key == key) {
+			return length;
+		}
+	}
+
+	return -1;
+}
+
+function lineView(columnRows) {
+	const height = columnRows.length;
+	if (height === 1) {
+		return Array.from(columnRows[0]);
+	}
+
+	if (height > 1) {
+		const view = expand(columnRows);
+		return collapse(view);
+	}
+
+	return [];
+}
+
+function widthFactory(table, form) {
+	const columns = table.data.columns();
+	const columnMap = mapColumns(columns);
+	// 2 because pad column has left padding equals to 1px and width 100%
+	// that can produce 1.## values
+	const PAD_SKIP = 2;
+
+	const occupied = columns
+		.filter(c => form.has(c.key) || ('' + c.width).indexOf('%') < 0)
+		.reduce((memo, c) => {
+			const width = calcWidth(c);
+			if (width !== null) {
+				memo += width;
+			}
+
+			return memo;
+		}, 0);
+
+
+	let rectWidth = new Lazy(() =>
+		table.view.width('head-mid')
+		+ table.view.width('head-left')
+		+ table.view.width('head-right')
+	);
+
+	function calcWidth(column) {
+		let size = column;
+		if (form.has(column.key)) {
+			size = form.get(column.key);
+		}
+
+		let { width } = size;
+		if (width || width === 0) {
+			if (('' + width).indexOf('%') >= 0) {
+				const percent = Number.parseFloat(width);
+				const headWidth = rectWidth.instance;
+				const skipWidth = column.widthMode === 'absolute' ? PAD_SKIP : occupied + PAD_SKIP;
+				width = (headWidth - skipWidth) * percent / 100;
+			}
+
+			const MIN_WIDTH = 0;
+			return Math.max(Number.parseInt(width, 10), Number.parseInt(column.minWidth, 10) || MIN_WIDTH);
+		}
+
+		// the right place it's here to avoid recalculation
+		if (column.widthMode === 'fit-head') {
+			// can we be here before table rendered? or we need to through error
+			const { cells } = table.head.context.bag;
+			const thCell = Array.from(cells).find(th => th.column === column);
+			if (thCell) {
+				return table.head.cell(thCell.rowIndex, thCell.columnIndex).width() + PAD_SKIP;
+			}
+		}
+
+		return null;
+	}
+
+	return key => {
+		let column = columnMap[key];
+		if (!column) {
+			throw new GridError('column.service', `Column ${key} is not found`);
+		}
+
+		return calcWidth(column);
+	};
+}
+
+function groupBuilder(model) {
+	const { rows } = model.data();
+	const { pivot } = model.view();
+	const nodes = model.scene().rows;
+	const columns = model.columnList().line;
+
+	const pivotRows = pivot.rows;
+	const pivotRowLength = pivotRows[0].length;
+
+	const groupBy = model.group().by;
+	const groupByLength = groupBy.length;
+
+	const columnMap = mapColumns(columns);
+
+	return valueFactory => {
+		const result = [];
+		for (let i = 0, nodeLength = nodes.length; i < nodeLength; i++) {
+			const node = nodes[i];
+			const key = groupBy[Math.min(node.level, groupByLength - 1)];
+			const column = columnMap[key];
+			if (!column) {
+				throw new GridError(
+					'group.build',
+					`Invalid key "${key}"`);
+			}
+
+			const aggregation = column.aggregation || 'count';
+			if (!Aggregation.hasOwnProperty(aggregation)) {
+				throw new GridError(
+					'group.build',
+					`Aggregation ${aggregation} is not registered`);
+			}
+
+			const getValue = valueFactory(column);
+			const aggregate = Aggregation[aggregation];
+
+			const aggRow = new Array(pivotRowLength);
+			for (let j = 0, rowLength = node.rows.length; j < rowLength; j++) {
+				const rowIndex = node.rows[j];
+				const pivotRow = pivotRows[rowIndex];
+				const row = rows[rowIndex];
+				for (let k = 0; k < pivotRowLength; k++) {
+					if (pivotRow[k]) {
+						let value = aggRow[k];
+						if (!value) {
+							value = [];
+							aggRow[k] = value;
+						}
+						value.push(row);
+					}
+				}
+			}
+
+			result.push(aggRow.map(rs => aggregate(rs, getValue, column.aggregationOptions)));
+		}
+
+		return result;
+	};
+}
+
+class PivotRow {
+	constructor(plugin, dataRow) {
+		const { model, observeReply } = plugin;
+		this.columns = dataRow.columns;
+		this.rowspan = dataRow.rowspan;
+		this.colspan = dataRow.colspan;
+
+		this.getValue = dataRow.getValue;
+		this.setValue = dataRow.setValue;
+
+		this.getLabel = dataRow.getLabel;
+		this.setLabel = dataRow.setLabel;
+
+		this.columnList = dataRow.columnList;
+
+		let pivotRows = [];
+
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('column') || e.hasChanges('rows')) {
+					const { rows } = model.view().pivot;
+					if (rows.length) {
+						if (model.group().by.length) {
+							const build = groupBuilder(model);
+							pivotRows = build(getValueFactory);
+						} else {
+							pivotRows = rows;
+						}
+
+						const pivotIndex = e.state.column.line.findIndex(c => c.model.type === 'pivot');
+
+						this.getValue = (row, column, select, rowIndex, columnIndex) => {
+							if (column.type === 'pivot') {
+								const pivotRow = pivotRows[rowIndex];
+								return pivotRow[columnIndex - pivotIndex];
+							}
+
+							return dataRow.getValue(row, column, select, rowIndex, columnIndex);
+						};
+
+						this.getLabel = (row, column, select, rowIndex, columnIndex) => {
+							if (column.type === 'pivot') {
+								const pivotRow = pivotRows[rowIndex];
+								return pivotRow[columnIndex - pivotIndex];
+							}
+
+							return dataRow.getLabel(row, column, select, rowIndex, columnIndex);
+						};
+					}
+					else {
+						pivotRows = [];
+						this.getValue = dataRow.getValue;
+						this.getLabel = dataRow.getLabel;
+					}
+				}
+			});
+	}
+}
+
+class Renderer {
+	constructor(plugin) {
+		const { model, observe, observeReply } = plugin;
+
+		const dataRow = new DataRow(plugin);
+		const pivotRow = new CacheStrategy(plugin, new PivotRow(plugin, dataRow));
+		const nodeRow = new NodeRow(model, pivotRow);
+		const nestNodeRow = new CacheStrategy(plugin, nodeRow);
+		const subheadNodeRow = new CacheStrategy(plugin, new SubheadNodeRow(nodeRow));
+		const rowspanNodeRow = new CacheStrategy(plugin, new RowspanNodeRow(model, nodeRow));
+		const rowDetails = new CacheStrategy(plugin, new DetailsRow(model, pivotRow));
+		const defaultStrategy = pivotRow;
+
+		const strategies = new Map();
+		strategies.set(RowDetails, rowDetails);
+
+		const selectNodeRowStrategy = () => {
+			const { mode } = model.group();
+			switch (mode) {
+				case 'subhead':
+					strategies.set(Node, subheadNodeRow);
+					break;
+				case 'rowspan':
+					strategies.set(Node, rowspanNodeRow);
+					break;
+				default:
+					strategies.set(Node, nestNodeRow);
+					break;
+			}
+		};
+
+		selectNodeRowStrategy();
+		observe(model.groupChanged)
+			.subscribe(selectNodeRowStrategy);
+
+		// Public interface
+		this.defaultStrategy = defaultStrategy;
+
+		this.colspan = (row, column, rowIndex, columnIndex) => {
+			const strategy = strategies.get(row.constructor) || defaultStrategy;
+			return strategy.colspan(row, column, rowIndex, columnIndex);
+		};
+
+		this.rowspan = (row, column, rowIndex, columnIndex) => {
+			const strategy = strategies.get(row.constructor) || defaultStrategy;
+			return strategy.rowspan(row, column, rowIndex, columnIndex);
+		};
+
+		this.columns = (row, pin, rowIndex) => {
+			const strategy = strategies.get(row.constructor) || defaultStrategy;
+			return strategy.columns(row, pin, rowIndex);
+		};
+
+		this.getValue = (row, column, rowIndex, columnIndex) => {
+			const strategy = strategies.get(row.constructor) || defaultStrategy;
+			return strategy.getValue(row, column, getValue$1, rowIndex, columnIndex);
+		};
+
+		this.setValue = (row, column, value, rowIndex, columnIndex) => {
+			const strategy = strategies.get(row.constructor) || defaultStrategy;
+			return strategy.setValue(row, column, value, rowIndex, columnIndex);
+		};
+
+		this.getLabel = (row, column, rowIndex, columnIndex) => {
+			const strategy = strategies.get(row.constructor) || defaultStrategy;
+			return strategy.getLabel(row, column, getLabel, rowIndex, columnIndex);
+		};
+
+		this.setLabel = (row, column, value, rowIndex, columnIndex) => {
+			const strategy = strategies.get(row.constructor) || defaultStrategy;
+			return strategy.setLabel(row, column, value, rowIndex, columnIndex);
+		};
+
+		this.rows = {
+			left: [],
+			right: [],
+			mid: []
+		};
+
+		const invalidateRows = () => {
+			const { rows } = model.scene();
+			const { pinTop, pinBottom } = model.row();
+
+			this.rows = {
+				top: pinTop,
+				body: rows,
+				bottom: pinBottom
+			};
+		};
+
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('rows')) {
+					invalidateRows();
+				}
+			});
+
+		observeReply(model.rowChanged)
+			.subscribe(e => {
+				if (e.hasChanges('pinTop') || e.hasChanges('pinBottom')) {
+					invalidateRows();
+				}
+			});
+	}
+}
+
+class TextSelection {
+  static set(element) {    
+    if (document.body.createTextRange) {
+      const range = document.body.createTextRange();
+      range.moveToElementText(element);
+      range.select();
+    } else if (window.getSelection) {
+      const selection = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(element);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    } else {
+      Log.error('text.selection', 'Could not select text in element: Unsupported browser.');
+    }
+  }
+  
+  static clear() {
+    if (window.getSelection) {
+      const selection = window.getSelection();
+      selection.removeAllRanges();	
+    }
+  }
+}
+
+class BodyLet {
+	constructor(plugin) {
+		const { model, observe, disposable } = plugin;
+		const render = new Renderer(plugin);
+
+		this.plugin = plugin;
+		this.render = render;
+		this.columns = pin => render.defaultStrategy.columnList(pin);
+
+		observe(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('rows')) {
+					this.tryShowBlankLayer();
+				}
+			});
+
+		observe(model.mouseChanged)
+			.subscribe(({ state }) => {
+				const { code, status, target } = state;
+				
+        if (target && code === 'right' && status === 'up') {
+					this.targetElement = target.element;
+					this.targetElement.classList.add('q-grid-can-select-text');
+					TextSelection.set(this.targetElement);
+				}
+
+				if (this.targetElement && status === 'down') {
+					TextSelection.clear();
+					if (this.targetElement.classList) {
+						this.targetElement.classList.remove('q-grid-can-select-text');
+					}
+          
+					this.targetElement = null;
+				}
+
+			});
+
+		this.tryShowBlankLayer();
+	}
+
+	tryShowBlankLayer() {
+		Log.info('view.let', 'invalidate');
+
+		const { model, table } = this.plugin;
+		const { rows } = model.scene();
+
+		if (!(rows.length || model.data().rows.length)) {
+			if (!table.view.hasLayer('blank')) {
+				table.view.addLayer('blank');
+			}
+		} else {
+			if (table.view.hasLayer('blank')) {
+				table.view.removeLayer('blank');
+			}
+		}
+	}
+}
+
+class Cache {
+	constructor() {
+		this.items = {};
+	}
+
+	set(key, value) {
+		this.items[key] = value;
+	}
+
+	get(key) {
+		const entry = this.find(key);
+		if (!entry) {
+			throw new GridError(
+				'cache.get',
+				`Entry with key was not found "${key}"`);
+		}
+
+		return entry;
+	}
+
+	has(key) {
+		const items = this.items;
+		return items.hasOwnProperty(key);
+	}
+
+	find(key) {
+		const items = this.items;
+		if (items.hasOwnProperty(key)) {
+			return items[key];
+		}
+
+		return null;
+	}
+
+	remove(key) {
+		if (!this.items.hasOwnProperty(key)) {
+			throw new GridError(
+				'cache.remove',
+				`Entry with key was not found "${key}"`);
+		}
+
+		delete this.items[key];
+	}
+
+	clear() {
+		this.items = {};
+	}
+}
+
+class BodyState {
+	constructor() {
+		this.resource = new Resource();
+		this.cache = new Cache();
+	}
+}
+
+class BoxHost {
+	constructor(host, plugin) {
+		const { model, observeReply } = plugin;
+
+		host.classList.add(GRID_PREFIX);
+
+		observeReply(model.dragChanged)
+			.subscribe(e => {
+				if (e.hasChanges('isActive')) {
+					if (model.drag().isActive) {
+						host.classList.add(`${GRID_PREFIX}-drag`);
+					}
+					else {
+						host.classList.remove(`${GRID_PREFIX}-drag`);
+					}
+				}
+			});
+	}
+}
+
+function build$1(style) {
+	return buildLines(style).join('\n');
+}
+
+function buildLines(style) {
+	return Object
+		.keys(style)
+		.reduce((memo, key) => {
+			const entry = style[key];
+			const body = Object
+				.keys(entry)
+				.reduce((memo, key) => {
+					memo.push(`\t${key}:${entry[key]} !important;`);
+					return memo;
+				}, []);
+
+			memo.push(`${key}{\n${body.join('\n')}\n}`);
+			return memo;
+		}, []);
+}
+
+function sheet(id, source) {
+	const sheetId = `${id}-${source}`;
+	let sheet = document.getElementById(sheetId);
+	const getSheet = () => {
+		if (!sheet) {
+			sheet = document.createElement('style');
+			sheet.type = 'text/css';
+			sheet.id = escapeAttr(sheetId);
+			document.getElementsByTagName('head')[0].appendChild(sheet);
+		}
+
+		return sheet;
+	};
+
+	return {
+		set: css => {
+			const sheet = getSheet();
+			const lines = buildLines(css);
+			const styleId = `#${escape$2(id)}`;
+			sheet.innerHTML = lines.map(line => `${styleId} ${line}`).join('\n');
+		},
+		remove: () => {
+			if (sheet) {
+				sheet.parentNode.removeChild(sheet);
+			}
+		}
+	};
+}
+
+function escapeAttr(name) {
+	return ('' + name).replace(/\s|\t|\n|"|'/g, '_');
+}
+
+function escape$2(name) {
+	return cssEscape(escapeAttr(name));
+}
+
+function bodyCellClassifier(column) {
+    const classList = [
+        `${GRID_PREFIX}-the-${escapeAttr(column.key)}`,
+        `${GRID_PREFIX}-${escapeAttr(column.type)}`,
+    ];
+
+    if (column.editor) {
+        classList.push(`${GRID_PREFIX}-${escapeAttr(column.editor)}`);
+    }
+
+    if (column.viewWidth) {
+        classList.push(`${GRID_PREFIX}-has-view-width`);
+    }
+
+    if (column.class) {
+        classList.push(escapeAttr(column.class));
+    }
+
+    const className = ' ' + classList.join(' ');
+    return element => element.className += className;
+}
+
+function headCellClassifier(column) {
+    const classList = [];
+    if (column.canEdit) {
+        classList.push(`${GRID_PREFIX}-can-edit`);
+    }
+
+    if (column.canResize) {
+        classList.push(`${GRID_PREFIX}-can-resize`);
+    }
+
+    if (column.canSort) {
+        classList.push(`${GRID_PREFIX}-can-sort`);
+    }
+
+    if (column.canMove) {
+        classList.push(`${GRID_PREFIX}-can-move`);
+    }
+
+    if (column.canFilter) {
+        classList.push(`${GRID_PREFIX}-can-filter`);
+    }
+
+    if (column.canHighlight) {
+        classList.push(`${GRID_PREFIX}-can-highlight`);
+    }
+
+    if (column.widthMode) {
+        classList.push(`${GRID_PREFIX}-${column.widthMode}`);
+    }
+
+    const className = ' ' + classList.join(' ');
+    return element => element.className += className;
+}
+
+class CellSelector {
+	constructor(model, table) {
+		this.model = model;
+		this.table = table;
+	}
+
+	map(items) {
+		const selectionState = this.model.selection();
+		switch (selectionState.unit) {
+			case 'row':
+				return this.mapFromRows(items);
+			case 'column':
+				return this.mapFromColumns(items);
+			case 'cell':
+				return this.mapFromCells(items);
+			case 'mix':
+				return this.mapFromMix(items);
+			default:
+				throw new GridError('cell.selector', `Invalid unit ${selectionState.unit}`);
+		}
+	}
+
+	mapFromRows(items) {
+		const { table } = this;
+		const result = [];
+		const rows = table.data.rows();
+
+		for (let item of items) {
+			const index = rows.indexOf(item);
+			for (let cell of table.body.row(index).cells()) {
+				result.push(cell);
+			}
+		}
+
+		return result;
+	}
+
+	mapFromColumns(items) {
+		const { table } = this;
+		const result = [];
+		const columns = table.data.columns();
+
+		for (let item of items) {
+			const index = columns.findIndex(c => c === item);
+			result.push(...table.body.column(index).cells());
+		}
+
+		return result;
+	}
+
+	mapFromCells(items) {
+		const { table } = this;
+		const result = [];
+		const rows = table.data.rows();
+		const columns = table.data.columns();
+
+		for (let item of items) {
+			const rowIndex = rows.indexOf(item.row);
+			const columnIndex = columns.findIndex((c) => c === item.column);
+			result.push(table.body.cell(rowIndex, columnIndex));
+		}
+
+		return result;
+	}
+
+	mapFromMix(items) {
+		const entries = Array.from(items);
+		const rows = entries.filter(item => item.unit === 'row').map(item => item.item);
+		const cells = entries.filter(item => item.unit === 'cell').map(item => item.item);
+
+		return [
+			...this.mapFromRows(rows),
+			...this.mapFromCells(cells)
+		];
+	}
+}
+
+function copyToClipboard(text) {
+	const textArea = document.createElement("textarea");
+
+	//
+	// *** This styling is an extra step which is likely not required. ***
+	//
+	// Why is it here? To ensure:
+	// 1. the element is able to have focus and selection.
+	// 2. if element was to flash render it has minimal visual impact.
+	// 3. less flakyness with selection and copying which **might** occur if
+	//    the textarea element is not visible.
+	//
+	// The likelihood is the element won't even render, not even a
+	// flash, so some of these are just precautions. However in
+	// Internet Explorer the element is visible whilst the popup
+	// box asking the user for permission for the web page to
+	// copy to the clipboard.
+	//
+
+	// Place in top-left corner of screen regardless of scroll position.
+	textArea.style.position = 'fixed';
+	textArea.style.top = 0;
+	textArea.style.left = 0;
+
+	// Ensure it has a small width and height. Setting to 1px / 1em
+	// doesn't work as this gives a negative w/h on some browsers.
+	textArea.style.width = '2em';
+	textArea.style.height = '2em';
+
+	// We don't need padding, reducing the size if it does flash render.
+	textArea.style.padding = 0;
+
+	// Clean up any borders.
+	textArea.style.border = 'none';
+	textArea.style.outline = 'none';
+	textArea.style.boxShadow = 'none';
+
+	// Avoid flash of white box if rendered for any reason.
+	textArea.style.background = 'transparent';
+
+	textArea.value = text;
+
+	document.body.appendChild(textArea);
+	textArea.focus();
+	textArea.select();
+
+	try {
+		document.execCommand('copy');
+	} catch (ex) {
+		throw new GridError('clipboard', ex.message)
+	}
+
+	document.body.removeChild(textArea);
+}
+
+class Disposable {
+	constructor() {
+		this.disposes = [];
+	}
+
+	add(resource) {
+		Guard.notNull(resource, 'resource');
+
+		const test = resource;
+		if (isFunction(test.finalize)) {
+			this.disposes.push(() => test.finalize());
+			return;
+		}
+
+		if (isFunction(test.unsubscribe)) {
+			this.disposes.push(() => test.unsubscribe());
+			return;
+		}
+
+		if (isFunction(test)) {
+			this.disposes.push(test);
+			return;
+		}
+
+		throw new GridError(
+			'disposable',
+			`Resource is not a disposable`
+		);
+	}
+
+	remove(resource) {
+		const index = this.disposes.indexOf(resource);
+		if (index >= 0) {
+			this.disposes.splice(index, 1);
+			return true;
+		}
+
+		return false;
+	}
+
+	finalize() {
+		const disposes = this.disposes;
+		this.disposes = [];
+
+		for (const dispose of disposes) {
+			dispose();
+		}
+	}
+}
+
+class UnsubscribableLike {
+  constructor(off) {
+    this.off = off;
+    this.closed = false;
+  }
+
+  unsubscribe() {
+    if (!this.closed) {
+      this.off();
+      
+      this.off = null;
+      this.closed = true;
+    }
+  }
+}
+
+class ObservableEvent {
+  constructor(nextSignal, disposable) {
+    this.errorSignal = new Event();
+    this.nextSignal = nextSignal;
+    this.disposable = disposable;
+  }
+
+  subscribe(...args) {
+    let observer = args[0];
+    if (isFunction(observer)) {
+      observer = {
+        next: args[0],
+        error: args[1],
+        complete: args[2]
+      };
+    }
+
+    if (observer.error) {
+      const errorOff = this.errorSignal.on(ex => observer.error(ex));
+      this.disposable.add(errorOff);
+    }
+
+    if (observer.next) {
+      const eventOff = this.subscribeEvent(e => observer.next(e));
+
+      let disposed = false;
+      const unsubscribe = () => {
+        if (!disposed) {
+          disposed = true;
+
+          eventOff();
+          this.disposable.remove(unsubscribe);
+
+          if (observer.complete) {
+            observer.complete();
+          }
+        }
+      };
+
+      this.disposable.add(unsubscribe);
+      return new UnsubscribableLike(unsubscribe);
+    }
+
+    return new UnsubscribableLike(noop);
+  }
+
+  subscribeEvent(next) {
+    return this
+      .nextSignal
+      .on(e => {
+        try {
+          next(e);
+        } catch (ex) {
+          this.catchError(ex);
+          throw ex;
+        }
+      });
+  }
+
+  catchError(ex) {
+    this.errorSignal.emit(ex);
+    throw ex;
+  }
+
+  toPromise() {
+    return new Promise(resolve => {
+      let isResolved = false;
+      const sub = this.subscribe(() => {
+        resolve();
+        isResolved = true;
+        if (sub) {
+          sub.unsubscribe();
+          sub = null;
+        }
+      });
+
+      if (isResolved && sub) {
+        sub.unsubscribe();
+      }
+    });
+  };
+
+  pipe(...operators) {
+    let source = this;
+    for (let op of operators) {
+      source = op(source);
+    }
+
+    return source;
+  }
+}
+
+class ObservableReplyEvent extends ObservableEvent {
+  subscribeEvent(next) {
+    return this
+      .nextSignal
+      .watch(e => {
+        try {
+          next(e);
+        } catch (ex) {
+          this.catchError(ex);
+        }
+      });
+  }
+}
+
+class SubjectLike extends ObservableEvent {
+  constructor() {
+    super(
+      new Event(),
+      new Disposable()
+    );
+
+    this.isCompleted = false;
+  }
+
+  next(value) {
+    if (this.isCompleted) {
+      return;
+    }
+
+    this.nextSignal.emit(value);
+  }
+
+  error(ex) {
+    if (this.isCompleted) {
+      return;
+    }
+
+    this.catchError(ex);
+  }
+
+  complete() {
+    if (!this.isCompleted) {
+      this.isCompleted = true;
+    }
+  }
+}
+
+class Operator extends SubjectLike {
+  constructor(subscriber) {
+    super();
+
+    this.subscriber = subscriber;
+  }
+
+  subscribe(...args) {
+    super.subscribe(...args);
+    this.subscriber(this);
+  }
+}
+
+class Command {
+	constructor(context = {}) {
+		this.execute = yes;
+		this.canExecute = yes;
+		this.canExecuteCheck = new SubjectLike();
+
+		this.shortcut = '';
+		this.priority = 0;
+		this.source = '';
+		this.sink = null;
+
+		Object.assign(this, context);
+	}
+
+	clone(context = {}) {
+		const cmd = new Command(this);
+		Object.assign(cmd, context);
+		return cmd;
+	}
+}
+
+class ClipboardLet {
+    constructor(plugin, shortcut) {
+        const { model, table } = plugin;
+
+        this.copy = new Command({
+            priority: 1,
+            source: 'clipboard.let',
+            shortcut: 'ctrl+c',
+            canExecute: () => {
+                const { status } = model.edit();
+                const { copy } = model.clipboard();
+                return status === 'view' && copy.canExecute();
+            },
+            execute: () => {
+                const { cell } = model.navigation();
+                if (cell) {
+                    const { copy } = model.clipboard();
+                    if (copy.execute() !== false) {
+                        const getLabel = getLabelFactory(cell.column);
+                        copyToClipboard(getLabel(cell.row));
+                        table.view.focus();
+                    }
+                }
+
+                return true;
+            }
+        });
+
+        shortcut.register([this.copy]);
+    }
+}
+
+class ClipboardState {
+    constructor() {
+        this.copy = new Command();
+    }
+}
+
+function merge$1(settings) {
+	const context = assignWith({
+		equals: (l, r) => l === r,
+		update: (l, r /*left, i*/) => {
+			assignWith(l, r);
+			return l;
+		},
+		remove: (l, left, i) => {
+			left.splice(i, 1);
+			return l;
+		},
+		insert: (r, left) => {
+			left.push(r);
+			return r;
+		}
+	}, settings);
+
+	return (left, right, result) => {
+		const ls = left.slice();
+		const rs = right.slice();
+		let updated = 0;
+		let removed = 0;
+
+		result = result || left;
+		for (let i = 0, lsLength = ls.length; i < lsLength; i++) {
+			const l = ls[i];
+			let matched = false;
+			for (let j = 0, rsLength = rs.length; j < rsLength; j++) {
+				const r = rs[j];
+				if (context.equals(l, r, i, j)) {
+					context.update(l, r, result, result.indexOf(l));
+					updated++;
+					matched = true;
+					rs.splice(j, 1);
+					break;
+				}
+			}
+
+			if (!matched) {
+				context.remove(l, result, result.indexOf(l));
+				removed++;
+			}
+		}
+
+		const inserted = rs.length;
+		for (let i = 0; i < inserted; i++) {
+			context.insert(rs[i], result);
+		}
+
+		if (context.sort) {
+			left.sort(context.sort(left, right));
+		}
+
+		return {updated, removed, inserted};
+	};
+}
+
+function merge(left, right, force = false) {
+	let canAssign;
+	if (force) {
+		canAssign = (source, target) => !isUndefined(target) && target !== null ? target : source;
+	}
+	else {
+		canAssign = (source, target) => !isUndefined(target) && target !== null && source === null ? target : source;
+	}
+
+	const doMerge = merge$1({
+		equals: (l, r) => l.key === r.key,
+		update: (l, r) => assignWith(l, r, canAssign),
+		insert: (r, left) => left.push(r),
+		remove: noop
+	});
+
+	return doMerge(left, right);
+}
+
+function hasChanges(statistics) {
+	return statistics.some(st => st.inserted || st.update);
+}
+
+function generateFactory(model) {
+	const { data } = model;
+	const createColumn = columnFactory(model);
+	return () => {
+		const { rows } = data();
+		const htmlColumns = model.columnList().columns;
+
+		const spawnColumns = [];
+		const { generation, typeDetection } = model.columnList();
+		if (generation) {
+			let settings = {
+				rows,
+				columnFactory: createColumn,
+				deep: false,
+				cohort: false,
+				typeDetection
+			};
+
+			switch (generation) {
+				case 'shallow': {
+					break;
+				}
+				case 'deep': {
+					settings.deep = true;
+					break;
+				}
+				case 'cohort': {
+					settings.deep = true;
+					settings.cohort = true;
+					break;
+				}
+				default:
+					throw new GridError(
+						'column.list.generate',
+						`Invalid generation mode "${generation}"`
+					);
+			}
+
+			spawnColumns.push(...generate(settings));
+		}
+
+		const columns = Array.from(data().columns);
+
+		let statistics = [];
+		if (spawnColumns.length) {
+			statistics.push(
+				merge(columns, spawnColumns, false)
+			);
+		}
+
+		if (htmlColumns.length) {
+			statistics.push(
+				merge(columns, htmlColumns, true)
+			);
+		}
+
+		return {
+			columns,
+			statistics,
+			hasChanges: hasChanges(statistics)
+		};
+	};
+}
+
+function generate(settings) {
+	const context = assignWith({
+		deep: true,
+		cohort: false,
+		rows: [],
+		columnFactory: () => new TextColumnModel(),
+		title: startCase,
+		testNumber: 10,
+		typeDetection: 'inference'
+	}, settings);
+
+	if (context.rows.length) {
+		return build(
+			context.rows[0],
+			[],
+			{
+				columnFactory: context.columnFactory,
+				deep: context.deep,
+				cohort: context.cohort,
+				title: context.title,
+				typeDetection: context.typeDetection,
+				testRows: context.rows.slice(0, context.testNumber),
+			}
+		);
+	}
+
+	return [];
+}
+
+function build(graph, pathParts, settings) {
+	const { columnFactory, deep, cohort, title, testRows, typeDetection } = settings;
+
+	const props = Object.getOwnPropertyNames(graph);
+	return props.reduce((memo, prop) => {
+		const propParts = [...pathParts, prop];
+		const propValue = compile$1(propParts);
+		const propPath = propParts.join('.');
+
+		const subject = graph[prop];
+		const type = typeDetection === 'raw'
+			? resolveType(testRows.map(propValue))
+			: inferType(testRows.map(propValue));
+
+		switch (type) {
+			case 'array': {
+				const column = columnFactory(type).model;
+				column.key = propPath;
+				column.title = title(propPath, graph, column.length);
+				column.value = propValue;
+				column.source = 'generation';
+				if (subject.length) {
+					column.itemType = getType$1(subject[0]);
+					switch (column.itemType) {
+						case 'date': {
+							column.itemFormat = columnFactory('date').model.format;
+							break;
+						}
+						case 'datetime': {
+							column.itemFormat = columnFactory('datetime').model.format;
+							break;
+						}
+					}
+				}
+
+				memo.push(column);
+				break;
+			}
+			case 'collection': {
+				break;
+			}
+			case 'object': {
+				if (deep) {
+					const columns = build(
+						subject,
+						propParts,
+						settings
+					);
+
+					if (cohort) {
+						const column = columnFactory('cohort').model;
+						column.key = propPath;
+						column.title = title(propPath, graph, column.length);
+						column.value = propValue;
+						column.source = 'generation';
+						column.children.push(...columns);
+						memo.push(column);
+					} else {
+						memo.push(...columns);
+					}
+
+				}
+				break;
+			}
+			default: {
+				const column = columnFactory(type).model;
+				column.key = propPath;
+				column.title = title(propPath, graph, column.length);
+				column.value = propValue;
+				column.source = 'generation';
+				memo.push(column);
+				break;
+			}
+		}
+
+		return memo;
+	}, []);
+}
+
+class ColumnListHost {
+	constructor(model, canCopy, parseFactory) {
+		this.model = model;
+		this.canCopy = canCopy;
+		this.parseFactory = parseFactory;
+	}
+
+	generateKey(source) {
+		if (!isUndefined(source.editor)) {
+			return `$default.${source.editor}`;
+		}
+
+		if (!isUndefined(source.type)) {
+			return `$default.${source.type}`;
+		}
+
+		return '$default';
+	}
+
+	copy(target, source) {
+		const canCopy = this.canCopy;
+		const parseFactory = this.parseFactory;
+
+		Object.keys(source)
+			.filter(key => canCopy(key, source, target))
+			.forEach(key => {
+				const sourceValue = source[key];
+				const accessor = compile$1([key]);
+				const targetValue = accessor(target);
+				const targetType = getType$1(targetValue);
+				let value = sourceValue;
+				if (targetValue !== null && !isUndefined(targetValue)) {
+					const parse = parseFactory(targetType);
+					const typedValue = parse(sourceValue, targetValue);
+					if (typedValue !== null) {
+						value = typedValue;
+					}
+				}
+
+				accessor(target, value);
+			});
+	}
+
+	add(column) {
+		const { columnList, scene, data } = this.model;
+
+		const columns = columnList().columns.concat([column]);
+		columnList({ columns }, {
+			source: 'column.list.host',
+			behavior: 'core'
+		});
+
+		if (scene().status !== 'idle') {
+			data({
+				columns: Array.from(data().columns)
+			}, {
+				source: 'column.list.host'
+			});
+		}
+	}
+
+	register(column) {
+		const { columnList } = this.model;
+		const reference = clone(columnList().reference);
+
+		reference[column.type || '$default'] = column;
+		columnList({ reference }, {
+			source: 'column.list.host',
+			behavior: 'core'
+		});
+	}
+
+	extract(key, type) {
+		const { model } = this;
+
+		const buildColumn = columnFactory(model);
+
+		let tplColumn = findColumn(model.columnList().line, key);
+		if (tplColumn) {
+			return buildColumn(type, tplColumn);
+		}
+
+		tplColumn = buildColumn(type || 'text').model;
+		tplColumn.key = key;
+		tplColumn.source = 'template';
+
+		const dataColumn = findColumn(model.data().columns, key);
+		if (dataColumn) {
+			this.copy(tplColumn, dataColumn);
+		}
+
+		return tplColumn;
+	}
+
+	delete(key) {
+		const { columnList, data } = this.model;
+
+		const htmlColumns = columnList().columns;
+		const index = findIndex(htmlColumns, key);
+		if (index >= 0) {
+			const columns = Array.from(htmlColumns);
+			columns.splice(index, 1);
+			columnList({ columns }, { source: 'column.list.host', behavior: 'core' });
+		}
+
+		const dataColumns = Array.from(data().columns);
+		const line = findLine(dataColumns, key);
+		if (line) {
+			line.columns.splice(line.index, 1);
+
+			// trigger columns pipe unit
+			data({ columns: dataColumns }, { source: 'column.list.host' });
+		}
+	}
+}
+
+function preOrderDFS(nodes, visit, memo = null, parent = null) {
+	for (let i = 0, length = nodes.length; i < length; i++) {
+		const node = nodes[i];
+		const nodeMemo = visit(node, memo, parent, i);
+		preOrderDFS(node.children, visit, nodeMemo, node);
+	}
+
+	return memo;
+}
+
+function filterNode(node, test, parent = null) {
+	const { children } = node;
+	node = copy(node);
+
+	let result = false;
+	for (let i = 0, length = children.length; i < length; i++) {
+		const child = children[i];
+		result = filterNode(child, test, node) || result;
+	}
+
+	if (parent) {
+		if (result || test(node)) {
+			parent.children.push(node);
+			return true;
+		}
+
+		return false;
+	}
+
+	return node;
+}
+
+function findLeaves(node, result = []) {
+	const { children } = node;
+	if (!children.length) {
+		result.push(node);
+		return result;
+	}
+
+	for (let i = 0, length = children.length; i < length; i++) {
+		const child = children[i];
+		findLeaves(child, result);
+	}
+
+	return result;
+}
+
+function findNode(node, test, parent = null, index = -1, path = []) {
+	if (test(node)) {
+		return { node, parent, index, path };
+	}
+
+	path = path.slice();
+	path.push(node);
+
+	const { children } = node;
+	for (let i = 0, length = children.length; i < length; i++) {
+		const child = children[i];
+		const result = find(child, test, node, i, path);
+		if (result) {
+			return result;
+		}
+	}
+
+	return null;
+}
+
+function calk(node) {
+	const result = new Node(node.key, node.level, node.type);
+	result.rows = Array.from(node.rows);
+	result.children = Array.from(node.children);
+	result.state = cloneDeep(node.state);
+	result.source = node.source;
+	result.value = node.value;
+	return result;
+}
+
+function copy(node) {
+	const result = new Node(node.key, node.level, node.type);
+	result.value = node.value;
+	result.source = node.source;
+	result.state.expand = node.state.expand;
+	return result;
+}
+
+function bend(line) {
+	if (line.length === 0) {
+		throw new GridError('node.service', 'Line have no nodes');
+	}
+
+	const root = copy(line[0]);
+	const parentStack = [root];
+	for (let i = 1, length = line.length; i < length; i++) {
+		const current = line[i];
+
+		let parent = parentStack[parentStack.length - 1];
+		while (current.level <= parent.level) {
+			parentStack.pop();
+			parent = parentStack[parentStack.length - 1];
+		}
+
+		const child = copy(current);
+		child.level = parent.level + 1;
+
+		parent.children.push(child);
+		parentStack.push(child);
+	}
+
+	return root;
+}
+
+function sortIndexFactory(model) {
+	const templateIndex = model.columnList().columns.map(c => c.key);
+
+	return (columns, scores) => {
+		const { length } = columns;
+		scores = Object.assign({
+			list: column => (column.category === 'data' || column.category === 'cohort') ? 0.1 : 0.3,
+			index: () => 0.2,
+			view: column => length + ((column.category !== 'data' && column.category !== 'cohort') ? 0.1 : 0.3),
+			template: () => length + 0.4
+		}, scores);
+
+		const viewIndex = columns.map(c => c.key);
+
+		const sort = sortFactory$1(scores)(templateIndex, viewIndex);
+		const left = sort(columns.filter(c => c.pin === 'left'));
+		const middle = sort(columns.filter(c => c.pin === 'mid'));
+		const right = sort(columns.filter(c => c.pin === 'right'));
+
+		return left.concat(middle).concat(right);
+	};
+}
+
+function sortFactory$1(scores) {
+	return (templateIndex, viewIndex) => {
+		const compare = compareFactory(scores, templateIndex, viewIndex);
+		return columns => {
+			const columnIndex = Array.from(columns);
+			columnIndex.sort(compare);
+
+			return columnIndex.map(c => c.key);
+		};
+	};
+}
+
+function compareFactory(scoreFor, templateIndex, viewIndex) {
+	const viewFind = findFactory(viewIndex);
+	const templateFind = findFactory(templateIndex);
+
+	const weightCache = {};
+	const getWeight = column => {
+		const key = column.key;
+		if (weightCache.hasOwnProperty(key)) {
+			return weightCache[key];
+		}
+
+		const candidates = [
+			column.index + scoreFor.index(column),
+			viewFind(key) + scoreFor.view(column),
+			templateFind(key) + scoreFor.template(column)
+		];
+
+		const weights = candidates.filter(w => w >= 0);
+		const weight = weights.length ? weights[0] : -1;
+		weightCache[key] = weight;
+
+		return weight;
+	};
+
+	return (x, y) => {
+		const xi = getWeight(x);
+		const yi = getWeight(y);
+
+		return yi === -1 ? -1 : xi === -1 ? 1 : xi - yi;
+	};
+}
+
+function findFactory(index) {
+	const map = index.reduce((memo, key, i) => {
+		memo.set(key, i);
+		return memo;
+	}, new Map());
+
+	return key => (map.has(key) ? map.get(key) : -1);
+}
+
+function mergeTree(newTree, oldTree, buildIndex) {
+	const current = running(newTree, buildIndex);
+	const screen = former(oldTree, current);
+	const insertNear = insertFactory(current, screen);
+	const insertCohort = insertCohortFactory(current, screen);
+
+	const root = current.line[0];
+	if (!screen.set.has(root.key.model.key)) {
+		screen.line.unshift(copy(root));
+		screen.line.forEach(n => n.level++);
+	}
+
+	for (let i = 1, length = current.line.length; i < length; i++) {
+		const node = current.line[i];
+		const { model } = node.key;
+		if (screen.set.has(model.key)) {
+			continue;
+		}
+
+		const prevNode = current.line[i - 1];
+		if (model.type === 'cohort') {
+			insertCohort(prevNode, node);
+		} else {
+			insertNear(prevNode, node, i);
+		}
+	}
+
+	return bend(screen.line);
+}
+
+function running(tree, buildIndex) {
+	const result = {
+		line: [],
+		map: new Map()
+	};
+
+	preOrderDFS([tree], node => {
+		result.line.push(node);
+		result.map.set(node.key.model.key, node.key);
+
+		// As we use pre order direction we can manipulate with children without affecting on algorithm.
+		// Below we sort columns in appropriate order.
+		const columns = node.children.map(child => child.key.model);
+		const index = buildIndex(columns);
+
+		let cursor = 0;
+		const indexMap = index.reduce((memo, key) => {
+			memo[key] = cursor++;
+			return memo;
+		}, {});
+
+		node.children.sort((x, y) => indexMap[x.key.model.key] - indexMap[y.key.model.key]);
+	});
+
+	return result;
+}
+
+function former(tree, current) {
+	const result = {
+		line: [],
+		set: new Set()
+	};
+
+	preOrderDFS([tree], node => {
+		// Filter out nodes if they were deleted from newTree.
+		const { key } = node.key.model;
+		const view = current.map.get(key);
+		if (view) {
+			const newNode = copy(node);
+			newNode.key = view;
+			result.line.push(newNode);
+			result.set.add(key);
+		}
+	});
+
+	return result;
+}
+
+function insertFactory(current, screen) {
+	const { line } = screen;
+	return (prevNode, node, i) => {
+		let pos = line.findIndex(n => n.key.model.key === prevNode.key.model.key);
+
+		const target = copy(node);
+		target.level = node.level;
+
+		if (everyNextIsNew(current, screen, i)) {
+			line.push(target);
+		} else {
+			line.splice(pos + 1, 0, target);
+		}
+	};
+}
+
+function insertCohortFactory(current, screen) {
+	const insertNear = insertFactory(current, screen);
+	const { line } = screen;
+	return (prevNode, node) => {
+		const set = new Set(node.children.map(n => n.key.model.key));
+		const index = line.findIndex(n => set.has(n.key.model.key));
+
+		if (index < 0) {
+			insertNear(prevNode, node);
+			return;
+		}
+
+		const target = copy(node);
+		const { level } = line[index];
+		target.level = level;
+		line.splice(index, 0, target);
+
+		for (let i = index + 1, end = line.length; i < end; i++) {
+			const child = line[i];
+			if (child.level !== level) {
+				break;
+			}
+
+			if (set.has(child.key.model.key)) {
+				child.level = level + 1;
+			}
+		}
+	};
+}
+
+function everyNextIsNew(current, screen, index) {
+	const { line } = current;
+
+	let n;
+	while ((n = line[++index])) {
+		if (screen.set.has(n.key.model.key)) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+class ColumnListState {
+	constructor() {
+		this.generation = null; // deep | shallow | cohort | null
+		this.typeDetection = 'inference'; // inference | raw
+
+		const root = new CohortColumnModel();
+		root.key = '$root';
+
+		this.index = new Node(new CohortColumn(root), 0);
+		
+		this.columns = [];
+		this.reference = {};
+		this.line = [];
+	}
+}
+
+TemplatePath.register('filter-row-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+class FilterRowColumnModel extends ColumnModel {
+	constructor(model) {
+		super();
+
+		Object.assign(this, model);
+
+		this.key = `$filter.row.${model.key}`;
+		this.type = 'filter-row';
+		this.category = 'control';
+
+		this.canResize = false;
+		this.canSort = false;
+		this.canMove = false;
+
+		this.model = model;
+	}
+}
+
+class FilterRowColumn extends ColumnView {
+	constructor(model) {
+		super(new FilterRowColumnModel(model));
+	}
+}
+
+class CommandKey {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+function commandKey(name) {
+  return CommandKey(name);
+}
+
+function generateCommandKey() {
+  return CommandKey("some name");
+}
+
+class CompositeCommandManager {
+	constructor(manager) {
+		this.manager = manager;
+	}
+
+	filter(commands) {
+		return this.manager.filter(commands);
+	}
+
+	invoke(commands, context, source) {
+		return this.manager.invoke(commands, context, source);
+	}
+}
+
+class TableCommandManager extends CommandManager {
+	constructor(apply, table) {
+		super(apply);
+
+		this.table = table;
+	}
+
+	filter(commands, source) {
+		if (source === 'editor' || this.isViewActive()) {
+			return super.filter(commands, source);
+		}
+
+		return [];
+	}
+
+	isViewActive() {
+		return this.table.view.isFocused();
+	}
+}
+
+function dataPipe(rows, context, next) {
+	const { model } = context;
+
+	addDataRows(model, rows);
+	addDataColumns(model);
+
+	model.pipe({
+		effect: Object.assign({}, model.pipe().effect, { data: rows })
+	}, {
+		source: 'data.pipe',
+		behavior: 'core'
+	});
+	
+	next(rows);
+}
+
+function addDataRows(model, rows) {
+	const tag = {
+		source: 'data.pipe',
+		behavior: 'core'
+	};
+
+	model.data({ rows }, tag);
+}
+
+function addDataColumns(model) {
+	const getColumns = generateFactory(model);
+	const createColumn = columnFactory(model);
+	const { hasChanges, columns } = getColumns();
+
+	const allColumns = columns
+		.map(columnBody => createColumn(columnBody.type, columnBody).model);
+
+	if (hasChanges) {
+		const tag = {
+			source: 'data.pipe',
+			behavior: 'core'
+		};
+
+		model.data({ columns: allColumns }, tag);
+	}
+}
+
+function filterPipe(rows, context, next) {
+	Guard.notNull(rows, 'rows');
+
+	const { model } = context;
+
+	let result = rows;
+	if (rows.length) {
+		const { match, custom } = model.filter();
+		const matchPredicate = match(context);
+
+		let test;
+		if (matchPredicate !== yes && custom !== yes) {
+			test = (row) => matchPredicate(row) && custom(row);
+		} else if (matchPredicate !== yes) {
+			test = (row) => matchPredicate(row);
+		} else if (custom !== yes) {
+			test = (row) => custom(row);
+		}
+
+		if (test) {
+			result = [];
+			for (let i = 0, length = rows.length; i < length; i++) {
+				const row = rows[i];
+				if (test(row)) {
+					result.push(row);
+				}
+			}
+		}
+	}
+
+	model.pipe({
+		effect: Object.assign({}, model.pipe().effect, { filter: result })
+	}, {
+		source: 'filter.pipe',
+		behavior: 'core'
+	});
+
+	next(result);
+}
+
+function paginationPipe(memo, context, next) {
+	Guard.notNull(memo, 'memo');
+
+	const { model } = context;
+
+	if (memo.hasOwnProperty('nodes') && memo.nodes.length) {
+		const { flattenFactory } = model.group();
+
+		const page = paginate(model, memo.nodes);
+		const flatten = flattenFactory(model);
+
+		memo.rows = flatten(page);
+		next(memo);
+		return;
+	}
+
+	if (memo.hasOwnProperty('rows')) {
+		const page = paginate(model, memo.rows);
+		memo.rows = page;
+		next(memo);
+		return;
+	}
+
+	const rows = paginate(model, memo);
+	next(rows);
+}
+
+function paginate(model, rows) {
+	const { pinTop, pinBottom } = model.row();
+	const { mode } = model.scroll();
+	let { size, current } = model.pagination();
+
+	const pinned = new Set([...pinTop, ...pinBottom]);
+	if (pinned.size) {
+		rows = rows.filter(row => !pinned.has(row));
+	}
+
+	const count = rows.length;
+	const last = Math.max(0, Math.floor((count - 1) / size));
+	current = Math.min(last, current);
+	const start = current * size;
+
+	model.pagination({ count, current }, { source: 'pagination.pipe', behavior: 'core' });
+	return mode === 'virtual' ? rows : rows.slice(start, start + size);
+}
+
+function orderFactory(model) {
+	const { sort } = model;
+	return by => {
+		const { trigger } = sort();
+		if (trigger.indexOf('reorder') >= 0) {
+			let index = 0;
+			const indexMap = {};
+			preOrderDFS(model.columnList().index.children, node => {
+				const { key } = node.key.model;
+				indexMap[key] = index++;
+			});
+
+			by.sort((x, y) => indexMap[getKey(x)] - indexMap[getKey(y)]);
+		}
+
+		return by;
+	};
+}
+
+function getKey(pair) {
+	let key;
+	if (isString(pair)) {
+		const signedKey = pair.split(/[+-]/);
+		key = signedKey[1] || signedKey[0];
+	} else {
+		key = Object.keys(pair)[0];
+	}
+
+	if (!key) {
+		throw new GridError(
+			'sort.service',
+			`Key is not defined in "${pair}"`);
+	}
+
+	return key;
+}
+
+function getDirection(pair) {
+	if (isString(pair)) {
+		const directions = { '-': 'desc', '+': 'asc' };
+		return directions[pair[0]] || 'asc';
+	}
+
+	const pairKey = getKey(pair);
+	return pair[pairKey];
+}
+
+function getMap(pairs) {
+	return pairs.reduce((memo, pair) => {
+		const key = getKey(pair);
+		memo[key] = getDirection(pair);
+		return memo;
+	}, {});
+}
+
+function getIndex(pairs, key) {
+	return pairs.map(getKey).findIndex(pairKey => pairKey === key);
+}
+
+function sortPipe(rows, context, next) {
+	Guard.notNull(rows, 'rows');
+
+	const { model } = context;
+
+	let result = rows;
+	if (rows.length) {
+		const { by } = model.sort();
+		if (by.length) {
+			const columns = model.columnList().line;
+			const mappings = [];
+			const comparers = [];
+
+			for (let i = 0, length = by.length; i < length; i++) {
+				const sortEntry = by[i];
+				const sortKey = getKey(sortEntry);
+				const sortDir = getDirection(sortEntry);
+				const sortColumn = findColumn(columns, sortKey);
+				if (!sortColumn) {
+					throw new GridError('sort.pipe', `Column "${sortKey}" is not found`);
+				}
+
+				const getValue = context.getValueFactory(sortColumn);
+				const parseValue = parseFactory(sortColumn.type, sortColumn.editor);
+				const compare = sortColumn.compare;
+
+				mappings.push(row => {
+					const value = getValue(row);
+					const result = parseValue(value);
+					return result === null ? value : result;
+				});
+
+				comparers.push(sortDir === 'asc' ? compare : (x, y) => -compare(x, y));
+			}
+
+			result = orderBy(rows, mappings, comparers);
+		}
+	}
+
+	model.pipe({
+		effect: Object.assign({}, model.pipe().effect, { sort: result })
+	}, {
+		source: 'sort.pipe',
+		behavior: 'core'
+	});
+
+	next(result);
+}
+
+function memoPipe(rows, context, next) {
+	Guard.notNull(rows, 'rows');
+
+	const { model } = context;
+
+	model.pipe({
+		effect: Object.assign({}, model.pipe().effect, { memo: rows })
+	}, {
+			source: 'memo.pipe',
+			behavior: 'core'
+		});
+
+	next({
+		rows,
+		pivot: { head: new Node('$root', 0), rows: [] },
+		nodes: []
+	});
+}
+
+function nodeBuilder(columnMap, groupBy, valueFactory, level = 0) {
+	if (groupBy.length === 0) {
+		return () => [];
+	}
+
+	const groupKey = groupBy[0];
+	if (!columnMap.hasOwnProperty(groupKey)) {
+		throw new GridError('node.build', `can't find column "${groupKey}"`);
+	}
+
+	const column = columnMap[groupKey];
+	const getValue = getValueFactory(column);
+	return (rows, getRowIndex = (i) => i) => {
+		const keys = [];
+		const nodes = [];
+		const groups = {};
+		for (let i = 0, length = rows.length; i < length; i++) {
+			const row = rows[i];
+			const index = getRowIndex(i);
+			const key = getValue(row);
+			if (!groups.hasOwnProperty(key)) {
+				const node = new Node(key, level);
+				node.source = groupKey;
+				node.rows.push(index);
+				keys.push(key);
+				nodes.push(node);
+				groups[key] = {
+					node,
+					rows: [row]
+				};
+			}
+			else {
+				const group = groups[key];
+				group.node.rows.push(index);
+				group.rows.push(row);
+				keys.push(key);
+			}
+		}
+
+		const nextGroupBy = groupBy.slice(1);
+		if (nextGroupBy.length) {
+			const build = nodeBuilder(columnMap, nextGroupBy, valueFactory, level + 1);
+			for (let i = 0, length = keys.length; i < length; i++) {
+				const key = keys[i];
+				const group = groups[key];
+				const node = group.node;
+				const rows = node.rows;
+				node.children = build(group.rows, i => rows[i]);
+			}
+		}
+
+		return nodes;
+	};
+}
+
+function groupPipe(memo, context, next) {
+	Guard.notNull(memo, 'memo');
+
+	const { model } = context;
+	const { rows: memoRows, nodes: memoNodes } = memo;
+	if (memoRows.length) {
+		const { rows } = model.data();
+		const { by } = model.group();
+		const columns = model.columnList().line;
+		const columnMap = mapColumns(columns);
+		const build = nodeBuilder(columnMap, by, context.valueFactory);
+
+		memo.nodes = build(memoRows, i => {
+			const row = memoRows[i];
+			const index = rows.indexOf(row);
+			return index < 0 ? i : index;
+		});
+	}
+
+	model.pipe({
+		effect: Object.assign({}, model.pipe().effect, { group: memoNodes })
+	}, {
+		source: 'group.pipe',
+		behavior: 'core'
+	});
+
+	next(memo);
+}
+
+class Plan {
+	constructor(schema) {
+		this.isRoot = !arguments.length;
+		this.current = this.schema = schema || {};
+	}
+
+	branch() {
+		return new Plan(this.current);
+	}
+
+	cursor(name) {
+		const schema = this.schema;
+		this.current =
+			schema.hasOwnProperty(name)
+				? schema[name]
+				: schema[name] = {};
+	}
+
+	compile(data) {
+		if (this.isRoot) {
+			return {
+				schema: this.schema,
+				data: data
+			};
+		}
+		else {
+			return data;
+		}
+	}
+}
+
+function factory$1(plan) {
+	return name => {
+		plan.cursor(name);
+		return settings => {
+			return pivot(settings, plan.branch());
+		};
+	};
+}
+
+function pivot(settings, plan) {
+	plan = plan || new Plan();
+
+	const pivot = factory$1(plan);
+	const aggregate = row => {
+		return settings
+			.selector(row)
+			.reduce((memo, selection) => {
+				const name = settings.name(selection);
+				memo[name] = settings.value(selection, row, pivot(name));
+				return memo;
+			}, settings.factory(row));
+	};
+
+	return rows =>
+		plan.compile(
+			plan.isRoot
+				? rows.map(aggregate)
+				: aggregate(rows));
+}
+
+function injectData(schema, source, target) {
+	return Object
+		.keys(source)
+		.filter(key => !schema.hasOwnProperty(key))
+		.reduce((memo, key) => {
+			memo[key] = source[key];
+			return memo;
+		}, target);
+}
+
+function expandData(schema, source) {
+	const baseline =
+		Object.keys(schema)
+			.map(key => {
+				const node = schema[key];
+				return source && source.hasOwnProperty(key)
+					? expandData(node, source[key])
+					: expandData(node);
+			});
+
+	return baseline.length
+		? flatten(baseline, true)
+		: [source];
+}
+
+function sortSchema(schema, comparator) {
+	return Object
+		.keys(schema)
+		.sort(comparator)
+		.reduce((memo, key) => {
+			memo[key] = sortSchema(schema[key], comparator);
+			return memo;
+		}, {});
+}
+
+
+function reduceSchema(schema) {
+
+	function lift(schema, node) {
+		if (schema) {
+			Object
+				.keys(schema)
+				.forEach(key => {
+					const child = new Node(key, node.level + 1);
+					node.children.push(child);
+					lift(schema[key], child);
+					return child;
+				});
+		}
+
+		return node;
+	}
+
+	return lift(schema, new Node('$root', 0));
+}
+
+function pivotForm(source, comparator) {
+	if (source.schema && source.data) {
+		const schema = sortSchema(source.schema, comparator);
+		const rows = source.data.map(row => injectData(schema, row, expandData(schema, row)));
+		const head = reduceSchema(schema);
+		return { head, rows };
+	}
+
+	return { head: new Node('$root', 0), rows: [] };
+}
+
+function buildFactory(columnMap, valueFactory) {
+	return function run(pivot, pivotBy, level = 0) {
+		const key = pivotBy[0];
+		const column = columnMap[key];
+		if(!column) {
+			throw new GridError(
+				'pivot.build',
+				`Invalid key "${key}"`);
+		}
+		
+		const getValue = valueFactory(column);
+
+		return pivot({
+			factory: () => ({}),
+			selector: row => [getValue(row)],
+			name: identity,
+			value: (parent, row, pivot) => {
+				const nextPivotBy = pivotBy.slice(1);
+				if (nextPivotBy.length) {
+					return run(
+						pivot,
+						nextPivotBy,
+						level + 1)(row);
+				}
+
+				return true;
+			}
+		});
+	};
+}
+
+function buildPivot(columnMap, pivotBy, valueFactory) {
+	let doPivot = null;
+	if (pivotBy.length) {
+		const doBuild = buildFactory(columnMap, valueFactory);
+		doPivot = doBuild(pivot, pivotBy);
+	}
+
+	return rows => {
+		if (doPivot) {
+			const data = doPivot(rows);
+			return pivotForm(data);
+		}
+
+		return { head: new Node('$root', 0), rows: [] };
+	};
+}
+
+function pivotPipe(memo, context, next) {
+	Guard.notNull(memo, 'memo');
+
+	const { model } = context;
+	if (memo.rows.length) {
+		const { getValueFactory } = context;
+		const { line } = model.columnList();
+		const { by } = model.pivot();
+
+		const build = buildPivot(mapColumns(line), by, getValueFactory);
+		memo.pivot = build(memo.rows, by);
+	}
+
+	model.pipe({
+		effect: Object.assign({}, model.pipe().effect, { pivot: memo.pivot })
+	}, {
+		source: 'pivot.pipe',
+		behavior: 'core'
+	});
+
+	next(memo);
+}
+
+function columnIndexPipe(root, context, next) {
+	Guard.notNull(root, 'root');
+
+	const { model } = context;
+	const filteredIndex = filter$2(model, root);
+	const columnRows = flattenRows(filteredIndex);
+
+	next({ columns: columnRows, index: root });
+}
+
+function filter$2(model, root) {
+	const groupBy = new Set(model.group().by);
+	const pivotBy = new Set(model.pivot().by);
+
+	function doFilter(node, newNode) {
+		const { children } = node;
+		for (let i = 0, length = children.length; i < length; i++) {
+			const child = children[i];
+			const view = child.key;
+			const { isVisible, key } = view.model;
+			if (isVisible && !groupBy.has(key) && !pivotBy.has(key)) {
+				const newChild = new Node(child.key, child.level);
+				newNode.children.push(newChild);
+				doFilter(child, newChild);
+			}
+		}
+
+		return newNode;
+	}
+
+	return doFilter(root, new Node(root.key, root.level));
+}
+
+function columnPipe(memo, context, next) {
+	Guard.notNull(memo, 'memo');
+
+	const { model } = context;
+	const { pivot, nodes } = memo;
+	const { head } = pivot;
+
+	const createColumn = columnFactory(model);
+	const root = new Node(createColumn('cohort', { key: '$root' }), 0);
+
+	const addDataColumns = dataColumnsFactory(model);
+	const addSelectColumn = selectColumnFactory(model);
+	const addGroupColumn = groupColumnFactory(model, nodes);
+	const addRowExpandColumn = rowExpandColumnFactory(model);
+	const addRowIndicatorColumn = rowIndicatorColumnFactory(model);
+	const addPivotColumns = pivotColumnsFactory(model);
+	const addPadColumn = padColumnFactory(model);
+
+	/*
+	 * We need to invoke addDataColumns earlier that others because it setups data.columns model property
+	 *
+	 */
+	addDataColumns(root);
+
+	/**
+	 * Control columns should be filled in reverse order because they use unshift inside.
+	 */
+
+	/*
+	 * Add row expand column
+	 */
+	addRowExpandColumn(root);
+
+	/*
+	 * Add group column with nodes
+	 *
+	 */
+	addGroupColumn(root);
+
+	/*
+	 * Add column with select boxes
+	 * if selection unit is row
+	 *
+	 */
+	addSelectColumn(root);
+
+	/*
+	 * Add row indicator column
+	 * if rows can be dragged or resized
+	 *
+	 */
+	addRowIndicatorColumn(root);
+
+	/*
+	 * Add column rows for pivoted data
+	 * if pivot is turned on
+	 *
+	 */
+	addPivotColumns(root, head);
+
+	const { columnList } = model;
+	const buildIndex = sortIndexFactory(model);
+	const tree = mergeTree(root, columnList().index, buildIndex);
+
+	/*
+	 * Add special column type
+	 * that fills remaining place (width = 100%)
+	 *
+	 */
+	addPadColumn(tree);
+
+	columnIndexPipe(tree, context, ({ columns, index }) => {
+		memo.columns = columns;
+
+		columnList({
+			index
+		}, {
+			behavior: 'core',
+			source: 'column.pipe'
+		});
+
+		next(memo);
+	});
+}
+
+function selectColumnFactory(model) {
+	const dataColumns = model.columnList().line;
+	const selection = model.selection();
+
+	const selectColumn = dataColumns.find(item => item.type === 'select');
+	const indicatorColumn = dataColumns.find(item => item.type === 'row-indicator');
+
+	if (!indicatorColumn && selection.unit === 'mix') {
+		const createColumn = columnFactory(model);
+		return node => {
+			const indicatorColumn = createColumn('row-indicator');
+			indicatorColumn.model.source = 'generation';
+			if (indicatorColumn.model.isVisible) {
+				node.children.unshift(new Node(indicatorColumn, node.level + 1));
+				return indicatorColumn;
+			}
+		};
+	}
+
+	if (!selectColumn && selection.unit === 'row') {
+		const createColumn = columnFactory(model);
+		return node => {
+			const selectColumn = createColumn('select');
+			selectColumn.model.key = `$select-${model.selection().mode}`;
+			selectColumn.model.source = 'generation';
+			if (selectColumn.model.isVisible) {
+				node.children.unshift(new Node(selectColumn, node.level + 1));
+				return selectColumn;
+			}
+		};
+	}
+
+	return noop;
+}
+
+function groupColumnFactory(model, nodes) {
+	const dataColumns = model.columnList().line;
+	const groupColumn = dataColumns.find(item => item.type === 'group');
+	const { by, mode } = model.group();
+	const createColumn = columnFactory(model);
+
+	if (!groupColumn && (nodes.length || by.length)) {
+		switch (mode) {
+			case 'nest': {
+				return node => {
+					const groupColumn = createColumn('group');
+					groupColumn.model.source = 'generation';
+					if (groupColumn.model.isVisible) {
+						node.children.unshift(new Node(groupColumn, node.level + 1));
+						return groupColumn;
+					}
+				};
+			}
+			case 'rowspan':
+			case 'flat': {
+				return node => {
+					const nodes = by
+						.map(key => {
+							const groupColumn = createColumn('group');
+							groupColumn.model.source = 'generation';
+							groupColumn.model.key = `$group-${key}`;
+							groupColumn.model.title = key;
+							groupColumn.model.by = key;
+							return new Node(groupColumn, node.level + 1);
+						})
+						.filter(n => n.key.model.isVisible);
+
+					node.children.splice(0, 0, ...nodes);
+				}
+			}
+		}
+	}
+
+	return noop;
+}
+
+function rowExpandColumnFactory(model) {
+	const dataColumns = model.columnList().line;
+	const expandColumn = dataColumns.find(item => item.type === 'row-expand');
+	if (model.row().unit === 'details' && !expandColumn) {
+		const createColumn = columnFactory(model);
+		return node => {
+			const expandColumn = createColumn('row-expand');
+			expandColumn.model.source = 'generation';
+			if (expandColumn.model.isVisible) {
+				node.children.unshift(new Node(expandColumn, node.level + 1));
+				return expandColumn;
+			}
+		};
+	}
+
+	return noop;
+}
+
+function rowIndicatorColumnFactory(model) {
+	const dataColumns = model.columnList().line;
+	const rowIndicatorColumn = dataColumns.find(item => item.type === 'row-indicator');
+	const { canMove, canResize } = model.row();
+	if ((canMove || canResize) && !rowIndicatorColumn) {
+		const createColumn = columnFactory(model);
+		return node => {
+			const expandColumn = createColumn('row-indicator');
+			expandColumn.model.source = 'generation';
+			if (expandColumn.model.isVisible) {
+				node.children.unshift(new Node(expandColumn, node.level + 1));
+				return expandColumn;
+			}
+		};
+	}
+
+	return noop;
+}
+
+function dataColumnsFactory(model) {
+	const getColumns = generateFactory(model);
+	const createColumn = columnFactory(model);
+	const { hasChanges, columns } = getColumns();
+	if (hasChanges) {
+		model.data({ columns }, { source: 'column.pipe', behavior: 'core' });
+	}
+
+	function fill(node, columns) {
+		for (let column of columns) {
+			const view = createColumn(column.type, column);
+			const child = new Node(view, node.level + 1);
+			node.children.push(child);
+			fill(child, view.model.children);
+		}
+	}
+
+	return node => fill(node, columns);
+}
+
+function padColumnFactory(model) {
+	const createColumn = columnFactory(model);
+	return node => {
+		const padColumn = createColumn('pad');
+		padColumn.model.key = '$pad';
+
+		const index = node.children.findIndex(n => n.key.model.pin === 'right');
+		const padNode = new Node(padColumn, node.level + 1);
+		if (index >= 0) {
+			node.children.splice(index, 0, padNode);
+		} else {
+			node.children.push(padNode);
+		}
+
+		return padColumn;
+	};
+}
+
+function pivotColumnsFactory(model) {
+	const createColumn = columnFactory(model);
+	return function fill(node, head) {
+		const { children } = head;
+		for (let i = 0, length = children.length; i < length; i++) {
+			const child = children[i];
+			const pivotColumn = createColumn('pivot');
+			const pivotColumnModel = pivotColumn.model;
+			pivotColumnModel.title = child.key;
+			pivotColumnModel.key = `$pivot-${child.key}`;
+			const pivotNode = new Node(pivotColumn, node.level + 1);
+			node.children.push(pivotNode);
+			fill(pivotNode, child);
+		}
+	};
+}
+
+function animationPipe(memo, context, next) {
+	const { model } = context;
+	const { apply } = model.animation();
+	let { length } = apply;
+	if (length) {
+		const doNext = () => {
+			length--;
+			if (length === 0) {
+				next(memo);
+			}
+		};
+
+		apply.forEach(animation => {
+			animation(memo, context, doNext);
+		});
+	} else {
+		next(memo);
+	}
+}
+
+class Scene {
+	constructor(model) {
+		this.model = model;
+	}
+
+	rows(memo) {
+		const { nodes, rows } = memo;
+		if (nodes.length) {
+			if (!(rows.length && rows[0] instanceof Node)) {
+				const { flattenFactory } = this.model.group();
+				const flatten = flattenFactory(this.model);
+				return flatten(nodes);
+			}
+		}
+
+		return rows;
+	}
+
+	columnRows(items) {
+		return items;
+	}
+
+	columnLine(items) {
+		return lineView(items);
+	}
+
+	columnArea(items) {
+		const line = lineView(items);
+		const result = {
+			left: [],
+			right: [],
+			mid: []
+		};
+
+		for (let i = 0, length = line.length; i < length; i++) {
+			const column = line[i];
+			const { pin } = column.model;
+			let area = result[pin];
+			if (!area) {
+				throw new GridError('scene', `Unsupported pin ${pin}`);
+			}
+
+			area.push(column);
+		}
+
+		return result;
+	}
+}
+
+function sortFactory(model) {
+    const { index } = model.rowList();
+    if (!index.size) {
+        return identity;
+    }
+
+    const { rowId } = model.data();
+    return rows => {
+        let cursor = 0;
+        const positions = new Map();
+        const result =
+            rows
+                .filter((row, i) => {
+                    const key = rowId(i, row);
+                    const position = index.get(key);
+                    if (position || position === 0) {
+                        positions.set(position, row);
+                        return false;
+                    }
+
+                    return true;
+                })
+                .reduce((memo, row) => {
+                    let indexRow;
+                    while (indexRow = positions.get(cursor)) {
+                        positions.delete(cursor);
+                        memo.push(indexRow);
+                        cursor++;
+                    }
+
+                    memo.push(row);
+                    cursor++;
+
+                    return memo;
+                }, []);
+
+        if (positions.size) {
+            const remain = Array.from(positions.entries());
+            remain.sort((x, y) => x[0] - y[0]);
+
+            return result.concat(remain.map(pos => pos[1]));
+        }
+
+        return result;
+    };
+}
+
+function viewPipe(memo, context, next) {
+	Guard.notNull(memo, 'memo');
+
+	const tag = {
+		source: context.source || 'view.pipe',
+		behavior: 'core'
+	};
+
+	const { model } = context;
+
+	const scene = new Scene(model);
+	let rows = scene.rows(memo);
+
+	const { columns, nodes, pivot } = memo;
+	const columnLine = scene.columnLine(columns);
+
+	if (!model.sort().by.length) {
+		const order = sortFactory(model);
+		rows = order(rows);
+	}
+
+	model.view({
+		rows,
+		columns: columnLine.map(c => c.model),
+		nodes,
+		pivot
+	}, tag);
+
+	next(memo);
+}
+
+function scenePipe(memo, context, next) {
+	Guard.notNull(memo, 'memo');
+
+	const tag = {
+		source: context.source || 'scene.pipe',
+		behavior: 'core'
+	};
+
+	const { model } = context;
+
+	const scene = new Scene(model);
+	let rows = scene.rows(memo);
+
+	const { columns } = memo;
+	const columnLine = scene.columnLine(columns);
+
+	if (!model.sort().by.length) {
+		const order = sortFactory(model);
+		rows = order(rows);
+	}
+
+	model.scene({
+		rows,
+		column: {
+			rows: scene.columnRows(memo.columns),
+			area: scene.columnArea(memo.columns),
+			line: columnLine
+		}
+	}, tag);
+
+	next(memo);
+}
+
+class Pipe {
+	static get data() {
+		return dataPipe;
+	}
+
+	static get filter() {
+		return filterPipe;
+	}
+
+	static get pagination() {
+		return paginationPipe;
+	}
+
+	static get sort() {
+		return sortPipe;
+	}
+
+	static get memo() {
+		return memoPipe;
+	}
+
+	static get group() {
+		return groupPipe;
+	}
+
+	static get pivot() {
+		return pivotPipe;
+	}
+
+	static get column() {
+		return columnPipe;
+	}
+
+	static get columnIndex() {
+		return columnIndexPipe;
+	}
+
+	static get animation() {
+		return animationPipe;
+	}
+
+	static get view() {
+		return viewPipe;
+	}
+
+	static get scene() {
+		return scenePipe;
+	}
+}
+
+const columnPipeUnit = [
+	(_, context, next) => {
+		const { view } = context.model;
+		const { rows, pivot, nodes } = view();
+		next({ rows, pivot, nodes });
+	},
+	Pipe.column,
+	(memo, context, next) => {
+		const { model } = context;
+		const scene = new Scene(model);
+		const columnLine = scene.columnLine(memo.columns);
+		const tag = {
+			source: context.source || 'column.pipe.unit',
+			behavior: 'core'
+		};
+
+		model.view({
+			columns: columnLine.map(c => c.model)
+		}, tag);
+
+		context.model.scene({
+			column: {
+				rows: scene.columnRows(memo.columns),
+				area: scene.columnArea(memo.columns),
+				line: columnLine
+			}
+		}, tag);
+
+		next(memo);
+	}
+];
+
+columnPipeUnit.why = 'redraw';
+
+const columnIndexPipeUnit = [
+	(_, context, next) => {
+		const { index } = context.model.columnList();
+		next(index);
+	},
+	Pipe.columnIndex,
+	Pipe.animation,
+	(memo, context, next) => {
+		const { model } = context;
+		const scene = new Scene(model);
+		const columnLine = scene.columnLine(memo.columns);
+		const tag = {
+			source: context.source || 'column.pipe.unit',
+			behavior: 'core'
+		};
+
+		model.view({
+			columns: columnLine.map(c => c.model)
+		}, tag);
+
+		model.scene({
+			column: {
+				rows: scene.columnRows(memo.columns),
+				area: scene.columnArea(memo.columns),
+				line: columnLine
+			}
+		}, tag);
+
+		next(memo);
+	}
+];
+
+columnIndexPipeUnit.why = 'redraw';
+
+const defaultPipeUnit = [
+	Pipe.data,
+	Pipe.filter,
+	Pipe.sort,
+	Pipe.memo,
+	Pipe.group,
+	Pipe.pivot,
+	Pipe.column,
+	Pipe.view,
+	Pipe.pagination,
+	Pipe.animation,
+	Pipe.scene
+];
+
+defaultPipeUnit.why = 'refresh';
+
+const groupPipeUnit = [
+	(_, context, next) => {
+		const { model } = context;
+		const { nodes, rows } = model.view();
+		next({ nodes, rows });
+	},
+	Pipe.pagination,
+	(memo, context, next) => {
+		const { model } = context;
+		const tag = {
+			source: context.source || 'group.pipe.unit',
+			behavior: 'core'
+		};
+
+		const { rows } = memo;		
+		model.scene({ rows }, tag);
+
+		next(memo);
+	}
+];
+
+groupPipeUnit.why = 'redraw';
+
+class RowDetailsStatus {
+	constructor(expand) {
+		this.expand = expand;
+	}
+}
+
+function flatView(model, mode) {
+	const { rows } = model.scene();
+	const { status } = model.row();
+	const { line } = model.scene().column;
+
+	const showAll = mode === 'all';
+	const expandColumn = line.find(c => c.model.type === 'row-expand');
+	const columnIndex = expandColumn ? expandColumn.columnIndex : 0;
+
+	const result = [];
+	const createColumn = columnFactory(model);
+	for (let cursor = 0, length = rows.length; cursor < length; cursor++) {
+		const dataRow = rows[cursor];
+		result.push(dataRow);
+
+		const nextRow = rows[cursor + 1];
+		const detailsRow = nextRow instanceof RowDetails ? nextRow : null;
+		const state = status.get(dataRow) || (showAll && new RowDetailsStatus(true));
+		if (state instanceof RowDetailsStatus && state.expand) {
+			if (detailsRow) {
+				result.push(detailsRow);
+				cursor++;
+			} else {
+				const column = createColumn('row-details');
+				column.columnIndex = columnIndex;
+				result.push(new RowDetails(dataRow, column));
+			}
+
+			continue;
+		}
+
+		if (detailsRow) {
+			cursor++;
+		}
+	}
+
+	return result;
+}
+
+function invalidateStatus(rows, status, mode) {
+	switch (mode) {
+		case 'all': {
+			status = new Map(status.entries());
+			rows.forEach(row => {
+				if (!status.has(row)) {
+					status.set(row, new RowDetailsStatus(true));
+				}
+			});
+			break;
+		}
+		case 'single': {
+			status = new Map(Array
+				.from(status.entries())
+				.filter(entry => {
+					const [row, status] = entry;
+					return rows.indexOf(row) >= 0 || !(status instanceof RowDetailsStatus);
+				}));
+			break;
+		}
+		case 'multiple': {
+			status = new Map(status.entries());
+			break;
+		}
+		default: {
+			throw new GridError(
+				'row.details.service',
+				`Invalid mode ${mode}`
+			);
+		}
+	}
+
+	return status;
+}
+
+function toggleStatus(rows, status, mode = 'single') {
+	status = invalidateStatus(rows, status, mode);
+	if (mode !== 'all') {
+		rows.forEach(row => {
+			const state = status.get(row);
+			if (!state) {
+				status.set(row, new RowDetailsStatus(true));
+			} else {
+				state.expand = !state.expand;
+			}
+		});
+	}
+
+	return status;
+}
+
+const rowDetailsPipeUnit = [
+	(_, context, next) => {
+		const tag = {
+			source: context.source || 'row.details.pipe.unit',
+			behavior: 'core'
+		};
+
+		const { model } = context;
+		const { mode } = model.row();
+		const rows = flatView(model, mode);
+		model.view({ rows }, tag);
+		model.scene({ rows }, tag);
+
+		next(rows);
+	}
+];
+
+rowDetailsPipeUnit.why = 'redraw';
+
+const viewPipeUnit = [
+	Pipe.data,
+	Pipe.memo,
+	Pipe.column,
+	Pipe.view,
+	Pipe.scene
+];
+
+viewPipeUnit.why = 'refresh';
+
+const scenePipeUnit = [
+	Pipe.data,
+	Pipe.memo,
+	Pipe.column,
+	Pipe.view,
+	Pipe.pagination,
+	Pipe.animation,
+	Pipe.scene
+];
+
+scenePipeUnit.why = 'redraw';
+
+const rowPipeUnit = [
+	(_, context, next) => {
+		const { model } = context;
+		const { rows, pivot, nodes } = model.view();
+		const order = sortFactory(model);
+		const memo = {
+			rows: order(rows),
+			pivot,
+			nodes,
+		};
+
+		next(memo);
+	},
+	Pipe.animation,
+	(memo, context, next) => {
+		const { model } = context;
+		const { rows } = memo;
+
+		const tag = {
+			source: context.source || 'row.pipe.unit',
+			behavior: 'core'
+		};
+
+		model.view({ rows }, tag);
+		model.scene({ rows }, tag);
+
+		next(rows);
+	}
+];
+
+rowPipeUnit.why = 'redraw';
+
+class PipeUnit {
+	static get default() {
+		return defaultPipeUnit;
+	}
+
+	static get view() {
+		return viewPipeUnit;
+	}
+
+	static get scene() {
+		return scenePipeUnit;
+	}
+
+	static get column() {
+		return columnPipeUnit;
+	}
+
+	static get columnIndex() {
+		return columnIndexPipeUnit;
+	}
+
+	static get rowDetails() {
+		return rowDetailsPipeUnit;
+	}
+
+	static get group() {
+		return groupPipeUnit;
+	}
+
+	static get row() {
+		return rowPipeUnit;
+	}
+}
+
+class DataState {
+	constructor() {
+		this.rows = [];
+		this.columns = [];
+		this.pipe = PipeUnit.default;
+
+		this.rowId = (index, row) => row;
+		this.columnId = (index, column) => column.key;
+	}
+}
+
+class Container {
+	constructor(elements) {
+		this.elements = elements;
+	}
+
+	getBoundingClientRect() {
+		const rects = this.elements.map(element => element.getBoundingClientRect());
+		const top = min(rects.map(r => r.top));
+		const left = min(rects.map(r => r.left));
+		const bottom = max(rects.map(r => r.bottom));
+		const right = max(rects.map(r => r.right));
+		return {
+			height: bottom - top,
+			width: right - left,
+			top: top,
+			left: left,
+			right: right,
+			bottom: bottom
+		};
+	}
+
+	addClass(name) {
+		this.elements.forEach(element => element.classList.add(escapeAttr(name)));
+	}
+
+	removeClass(name) {
+		this.elements.forEach(element => element.classList.remove(escapeAttr(name)));
+	}
+
+	hasClass(name) {
+		return this.elements.some(element => element.classList.contains(escapeAttr(name)));
+	}
+
+	get clientWidth() {
+		return max(this.elements.map(element => element.clientWidth));
+	}
+
+	get clientHeight() {
+		return max(this.elements.map(element => element.clientHeight));
+	}
+
+	get offsetWidth() {
+		return max(this.elements.map(element => element.offsetWidth));
+	}
+
+	get offsetHeight() {
+		return max(this.elements.map(element => element.offsetHeight));
+	}
+
+	get classList() {
+		return {
+			add: name => this.addClass(name),
+			remove: name => this.removeClass(name),
+			contains: name => this.hasClass(name)
+		};
+	}
+}
+
+class TrContainer {
+	constructor(elements) {
+		this.elements = elements;
+	}
+
+	get index() {
+		const tr = this.elements[0];
+		Guard.notNull(tr, "tr");
+
+		return tr.index;
+	}
+
+	get model() {
+		const tr = this.elements[0];
+		Guard.notNull(tr, "tr");
+
+		return tr && tr.model;
+	}
+
+	get element() {
+		const { elements } = this;
+		if (elements.length > 1) {
+			return new Container(elements.map(tr => tr.element));
+		}
+
+		const tr = this.elements[0];
+		Guard.notNull(tr, "tr");
+
+		return tr.element;
+	}
+}
+
+class Bag {
+	constructor() {
+		this.rows = new Set();
+		this.cells = new Set();
+		this.elements = new Map();
+		this.rowContainer = new Map();
+	}
+
+	findModel(element) {
+		return this.elements.get(element);
+	}
+
+	hasModel(element) {
+		return this.elements.has(element);
+	}
+
+	getRowElements() {
+		return this.rowContainer.values();
+	}
+
+	getCellElements() {
+		return this.cells;
+	}
+
+	addRow(tr) {
+		const { rowContainer } = this;
+		const { model, element } = tr;
+
+		this.rows.add(tr);
+		this.elements.set(element, tr);
+
+		const container = rowContainer.get(model);
+		if (container) {
+			container.elements.push(tr);
+		} else {
+			rowContainer.set(model, new TrContainer([tr]));
+		}
+	}
+
+	addCell(td) {
+		this.cells.add(td);
+		this.elements.set(td.element, td);
+	}
+
+	deleteRow(tr) {
+		const { rowContainer } = this;
+		const { model, element } = tr;
+
+		this.rows.delete(tr);
+		this.elements.delete(element);
+
+		const container = rowContainer.get(model);
+		if (container) {
+			const { elements } = container;
+			const index = elements.indexOf(element);
+			if (index >= 0) {
+				elements.splice(index, 1);
+				if (!element.length) {
+					rowContainer.delete(model);
+				}
+			}
+		}
+	}
+
+	deleteCell(td) {
+		this.cells.delete(td);
+		this.elements.delete(td.element);
+	}
+}
+
+class FakeClassList {
+	constructor() {
+	}
+
+	add() {
+	}
+
+	remove() {
+	}
+}
+
+const emptyRect = Object.freeze({
+	left: 0,
+	right: 0,
+	top: 0,
+	bottom: 0,
+	width: 0,
+	height: 0
+});
+
+class FakeElement {
+	constructor() {
+		this.classList = new FakeClassList();
+	}
+
+	getBoundingClientRect() {
+		return emptyRect;
+	}
+
+	get clientWidth() {
+		return 0;
+	}
+
+	get clientHeight() {
+		return 0;
+	}
+
+	get offsetWidth() {
+		return 0;
+	}
+
+	get offsetHeight() {
+		return 0;
+	}
+}
+
+const fakeElement = new FakeElement();
+class Unit {
+	constructor() {
+	}
+
+	rect() {
+		return this.getElement().getBoundingClientRect();
+	}
+
+	addClass(name) {
+		this.addClassCore(name);
+	}
+
+	removeClass(name) {
+		this.removeClassCore(name);
+	}
+
+	hasClass(name) {
+		return this.hasClassCore(name);
+	}
+
+	width() {
+		return this.getElement().clientWidth;
+	}
+
+	height() {
+		return this.getElement().clientHeight;
+	}
+
+	getElement() {
+		return this.getElementCore() || fakeElement;
+	}
+
+	addClassCore(name) {
+		this.getElement().classList.add(escapeAttr(name));
+	}
+
+	removeClassCore(name) {
+		this.getElement().classList.remove(escapeAttr(name));
+	}
+
+	hasClassCore(name) {
+		return this.getElement().classList.contains(escapeAttr(name));
+	}
+
+	getElementCore() {
+		return null;
+	}
+}
+
+class Element extends Unit {
+	constructor(element) {
+		super();
+
+		this.element = element;
+	}
+
+	getElementCore() {
+		return this.element;
+	}
+}
+
+class Tr {
+	constructor(tr) {
+		this.tr = tr;
+
+		// We need to cache it due to possible virtual mode;
+		this.index = tr.index;
+	}
+
+	get model() {
+		if (!Tr.equals(this, this.tr)) {
+			throw new GridError('tr', 'Internal model doesn\'t match container');
+		}
+
+		return this.tr.model;
+	}
+
+	get element() {
+		if (!Tr.equals(this, this.tr)) {
+			throw new GridError('tr', 'Internal model doesn\'t match container');
+		}
+
+		return this.tr.element;
+	}
+
+	static equals(x, y) {
+		if (x === y) {
+			return true;
+		}
+
+		if (!x || !y) {
+			return false;
+		}
+
+		return x.index === y.index;
+	}
+}
+
+class Row extends Element {
+	constructor(box, index, element = null) {
+		super(element);
+
+		this.box = box;
+		this.index = index;
+	}
+
+	model() {
+		const tr = this.box.context.bag.findModel(this.getKeyElementCore());
+		if (tr) {
+			return new Tr(tr);
+		}
+
+		return null;
+	}
+
+	cells() {
+		return this.box.rowCellsCore(this.index);
+	}
+
+	cell(columnIndex) {
+		return this.box.cellCore(this.index, columnIndex);
+	}
+
+	getKeyElementCore() {
+		const element = super.getElement();
+		if (element.elements) {
+			return element.elements[0];
+		}
+
+		return element;
+	}
+}
+
+class Column {
+	constructor(box, index) {
+		this.box = box;
+		this.index = index;
+	}
+
+	model() {
+		const { columns } = this.box.model.view();
+		const column = columns[this.index];
+		return column || null;
+	}
+
+	cells() {
+		return this.box.columnCellsCore(this.index);
+	}
+
+	cell(rowIndex) {
+		return this.box.cell(rowIndex, this.index);
+	}
+
+	addClass(name) {
+		const cells = this.cells();
+		const length = cells.length;
+		let i = 0;
+		while (i < length) {
+			const cell = cells[i++];
+			cell.addClass(name);
+		}
+	}
+
+	removeClass(name) {
+		const cells = this.cells();
+		const length = cells.length;
+		let i = 0;
+		while (i < length) {
+			const cell = cells[i++];
+			cell.removeClass(name);
+		}
+	}
+}
+
+class Td {
+	constructor(td) {
+		this.td = td;
+
+		// We need to cache it due to possible virtual mode;
+		this.rowIndex = td.rowIndex;
+		this.columnIndex = td.columnIndex;
+	}
+
+	get row() {
+		if (!Td.equals(this, this.td)) {
+			throw new GridError('td', 'Internal model doesn\'t match container');
+		}
+
+		return this.td.row;
+	}
+
+	get column() {
+		if (!Td.equals(this, this.td)) {
+			throw new GridError('td', 'Internal model doesn\'t match container');
+		}
+
+		return this.td.column;
+	}
+
+	get value() {
+		if (!Td.equals(this, this.td)) {
+			throw new GridError('td', 'Internal model doesn\'t match container');
+		}
+
+		return this.td.value;
+	}
+
+	set value(value) {
+		if (!Td.equals(this, this.td)) {
+			throw new GridError('td', 'Internal model doesn\'t match container');
+		}
+
+		this.td.value = value;
+	}
+
+	get label() {
+		if (!Td.equals(this, this.td)) {
+			throw new GridError('td', 'Internal model doesn\'t match container');
+		}
+
+		return this.td.label;
+	}
+
+	get element() {
+		if (!Td.equals(this, this.td)) {
+			throw new GridError('td', 'Internal model doesn\'t match container');
+		}
+
+		return this.td.element;
+	}
+
+	set label(label) {
+		if (!Td.equals(this, this.td)) {
+			throw new GridError('td', 'Internal model doesn\'t match container');
+		}
+
+		this.td.label = label;
+	}
+
+	mode(value) {
+		if (!Td.equals(this, this.td)) {
+			throw new GridError('td', 'Internal model doesn\'t match container');
+		}
+
+		this.td.mode(value);
+	}
+
+	static equals(x, y) {
+		if (x === y) {
+			return true;
+		}
+
+		if (!x || !y) {
+			return false;
+		}
+
+		return x.rowIndex === y.rowIndex && x.columnIndex === y.columnIndex;
+	}
+}
+
+class Cell extends Element {
+	constructor(context, rowIndex, columnIndex, element = null) {
+		super(element);
+
+		this.context = context;
+		this.rowIndex = rowIndex;
+		this.columnIndex = columnIndex;
+	}
+
+	model() {
+		return this.modelCore();
+	}
+
+	modelCore() {
+		const td = this.context.bag.findModel(this.getElement());
+		return td ? new Td(td) : null;
+	}
+}
+
+class Matrix {
+    constructor(isDataRow) {
+        this.isDataRow = isDataRow;
+    }
+
+    build(table) {
+        const rows = table.rows;
+        const isDataRow = this.isDataRow;
+
+        const mx = [];
+        const offsets = [];
+
+        let y = 0;
+        for (let cursor = 0, height = rows.length; cursor < height; cursor++) {
+            const tr = rows[cursor];
+            if (!isDataRow(tr)) {
+                continue;
+            }
+
+            const offset = offsets.length > y ? offsets[y] : offsets[y] = [0];
+            const cells = tr.cells;
+            for (let x = 0, width = cells.length; x < width; x++) {
+                const td = cells[x];
+                const { rowSpan, colSpan } = td;
+                const current = offset[0];
+                const next = current + colSpan;
+                for (let i = 0; i < rowSpan; i++) {
+                    const yi = y + i;
+                    const row = mx.length > yi ? mx[yi] : mx[yi] = [];
+                    for (let j = 0; j < colSpan; j++) {
+                        const xj = current + j;
+                        row[xj] = td;
+                    }
+
+                    const gaps = offsets.length > yi ? offsets[yi] : offsets[yi] = [0];
+                    const index = binarySearch(gaps, current);
+                    if (row[next]) {
+                        gaps.splice(index, 1);
+                    }
+                    else {
+                        const xi = gaps[index];
+                        gaps.splice(index, row[xi] ? 1 : 0, next);
+                    }
+                }
+            }
+            y++;
+        }
+
+        return mx;
+    }
+
+    assertFlatness(matrix) {
+        if (matrix.length) {
+            const height = matrix.length;
+            const width = matrix[0].length;
+            for (let i = 1; i < height; i++) {
+                if (matrix[i].length !== width) {
+                    throw new GridError(
+                        'matrix',
+                        `Matrix is not flat, expect width ${width}, actual ${matrix[i].length}`);
+                }
+            }
+        }
+    }
+}
+
+class Selector {
+	constructor(matrix, bag, factory) {
+		this.matrix = matrix;
+		this.bag = bag;
+		this.factory = factory;
+	}
+
+	columnCount(rowIndex) {
+		const row = this.matrix[rowIndex];
+		return row ? new Set(row).size : 0;
+	}
+
+	columnCells(columnIndex) {
+		const { factory, matrix } = this;
+
+		const result = [];
+		const set = new Set();
+		for (let i = 0, length = matrix.length; i < length; i++) {
+			const row = matrix[i];
+			if (row.length > columnIndex) {
+				const td = row[columnIndex];
+				if (!set.has(td)) {
+					set.add(td);
+					result.push(factory.cell(td, i, columnIndex));
+				}
+			}
+		}
+
+		return result;
+	}
+
+	rowCount(columnIndex) {
+		const { matrix } = this;
+		const set = new Set();
+		for (let i = 0, length = matrix.length; i < length; i++) {
+			const row = matrix[i];
+			if (row.length > columnIndex) {
+				const td = row[columnIndex];
+				set.add(td);
+			}
+		}
+
+		return set.size;
+	}
+
+	rows(columnIndex) {
+		const { matrix, factory, bag } = this;
+		const set = new Set();
+		const result = [];
+		if (isUndefined(columnIndex)) {
+			const rows = bag.getRowElements();
+			for (let tr of rows) {
+				result.push(factory.row(tr.element, tr.index));
+			}
+
+			result.sort((x, y) => x.index - y.index);
+		} else {
+			for (let i = 0, length = matrix.length; i < length; i++) {
+				const row = matrix[i];
+				if (row.length > columnIndex) {
+					const tr = row[columnIndex].parentElement;
+					if (!set.has(tr)) {
+						set.add(tr);
+						result.push(factory.row(tr, i));
+					}
+				}
+			}
+		}
+
+		return result;
+	}
+
+	rowCells(rowIndex) {
+		const { matrix } = this;
+
+		const row = matrix[rowIndex];
+		const result = [];
+		if (row) {
+			const set = new Set();
+			const factory = this.factory;
+			for (let i = 0, length = row.length; i < length; i++) {
+				const td = row[i];
+				if (!set.has(td)) {
+					set.add(td);
+					result.push(factory.cell(td, rowIndex, i));
+				}
+			}
+		}
+
+		return result;
+	}
+
+	row(rowIndex, columnIndex) {
+		const { factory } = this;
+		if (!isUndefined(columnIndex)) {
+			const td = this.td(rowIndex, columnIndex);
+			return factory.row(td ? td.parentElement : new FakeElement(), rowIndex);
+		}
+
+		const row = this.matrix[rowIndex];
+		if (row) {
+			const set = new Set();
+			for (let td of row) {
+				set.add(td.parentElement);
+			}
+
+			const trs = Array.from(set);
+			return factory.row(trs.length > 1 ? new Container(trs) : trs[0], rowIndex);
+		}
+
+		return factory.row(new FakeElement(), rowIndex);
+	}
+
+	cell(rowIndex, columnIndex) {
+		const td = this.td(rowIndex, columnIndex);
+		return this.factory.cell(td || new FakeElement(), rowIndex, columnIndex);
+	}
+
+	td(rowIndex, columnIndex) {
+		const row = this.matrix[rowIndex];
+		if (row) {
+			const td = row[columnIndex];
+			if (td) {
+				return td;
+			}
+		}
+
+		return null;
+	}
+}
+
+class SelectorMediator {
+	constructor(selectorFactory, factory) {
+		this.buildSelectors = selectorFactory;
+		this.factory = factory;
+	}
+
+	columnCount(rowIndex) {
+		const selectors = this.buildSelectors({ row: rowIndex });
+		if (!selectors.length) {
+			return 0;
+		}
+
+		return sumBy(selectors, s => s.invoke((s, rowIndex) => s.columnCount(rowIndex)));
+	}
+
+	columnCells(columnIndex) {
+		const selectors = this.buildSelectors({ column: columnIndex });
+		const result = [];
+		for (let i = 0, length = selectors.length; i < length; i++) {
+			const selector = selectors[i];
+			const cells = selector.invoke((s, columnIndex) => s.columnCells(columnIndex));
+			result.push(...cells);
+		}
+
+		return result;
+	}
+
+	rowCount(columnIndex) {
+		const selectors = this.buildSelectors({ column: columnIndex });
+		if (!selectors.length) {
+			return 0;
+		}
+
+		return max(selectors.map(s => s.invoke((s, columnIndex) => s.rowCount(columnIndex))));
+	}
+
+	rows(columnIndex) {
+		const context = isUndefined(columnIndex) ? {} : { column: columnIndex };
+		const selectors = this.buildSelectors(context);
+		const factory = this.factory;
+		const areas = [];
+		for (let i = 0, length = selectors.length; i < length; i++) {
+			const selector = selectors[i];
+			const rows = selector.invoke((s, columnIndex) => s.rows(columnIndex));
+			if (rows.length) {
+				areas.push(rows);
+			}
+		}
+
+		const lines = zip(...areas);
+		const result = [];
+		for (let i = 0, length = lines.length; i < length; i++) {
+			const line = lines[i];
+			const elements = line.map(row => row.element);
+			const rowElement = elements.length > 1 ? new Container(elements) : elements[0];
+			const rowIndex = line[0].index;
+			const row = factory.row(rowElement, rowIndex);
+			result.push(row);
+		}
+
+		return result;
+	}
+
+	rowCells(rowIndex) {
+		const selectors = this.buildSelectors({ row: rowIndex });
+		const result = [];
+		for (let i = 0, length = selectors.length; i < length; i++) {
+			const selector = selectors[i];
+			const cells = selector.invoke((s, rowIndex) => s.rowCells(rowIndex));
+			result.push(...cells);
+		}
+
+		return result;
+	}
+
+	row(rowIndex, columnIndex) {
+		const context = { row: rowIndex };
+		if (!isUndefined(columnIndex)) {
+			context.column = columnIndex;
+		}
+
+		const selectors = this.buildSelectors(context);
+		const result = [];
+		for (let i = 0, length = selectors.length; i < length; i++) {
+			const selector = selectors[i];
+			const row = selector.invoke((s, rowIndex, columnIndex) => s.row(rowIndex, columnIndex));
+			result.push(row.element);
+		}
+
+		return this.factory.row(new Container(result), rowIndex);
+	}
+
+	cell(rowIndex, columnIndex) {
+		const context = { row: rowIndex, column: columnIndex };
+		const selectors = this.buildSelectors(context);
+		for (let i = 0, length = selectors.length; i < length; i++) {
+			const selector = selectors[i];
+			const cell = selector.invoke((s, rowIndex, columnIndex) => s.cell(rowIndex, columnIndex));
+			if (!(cell.element instanceof FakeElement)) {
+				return cell;
+			}
+		}
+
+		return this.factory.cell(new FakeElement(), rowIndex, columnIndex);
+	}
+}
+
+class UnitFactory {
+	constructor(rowRange, columnRange) {
+		this.rowRange = rowRange;
+		this.columnRange = columnRange;
+	}
+
+	cell(element, rowIndex, columnIndex) {
+		return {
+			element,
+			rowIndex: rowIndex + this.rowRange.start,
+			columnIndex: columnIndex + this.columnRange.start
+		};
+	}
+
+	row(element, rowIndex) {
+		return {
+			element,
+			index: rowIndex + this.rowRange.start
+		};
+	}
+}
+
+class Range {
+	constructor(start, end) {
+		this.start = start;
+		this.end = end;
+	}
+}
+
+class SelectorFactory {
+	constructor(bag, selectorMark) {
+		this.bag = bag;
+		this.selectorMark = selectorMark;
+	}
+
+	create() {
+		const { bag, selectorMark } = this;
+
+		const matrix = new Matrix(tr => bag.elements.has(tr));
+		const entries =
+			selectorMark
+				.select()
+				.map(({ element, rowRange, columnRange }) => ({
+					matrix: matrix.build(element),
+					rowRange,
+					columnRange
+				}));
+
+		const selectorFactory = context => {
+			return entries.map(entry => ({
+				invoke: f => {
+					const unitFactory = new UnitFactory(entry.rowRange, entry.columnRange);
+					const selector = new Selector(entry.matrix, bag, unitFactory);
+
+					const args = [];
+					args.push(selector);
+
+					if (context.hasOwnProperty('row')) {
+						args.push(context.row - entry.rowRange.start);
+					}
+
+					if (context.hasOwnProperty('column')) {
+						args.push(context.column - entry.columnRange.start);
+					}
+
+					return f(...args);
+				}
+			}));
+		};
+
+		const unitFactory = new UnitFactory(new Range(0, 0), new Range(0, 0));
+		return new SelectorMediator(selectorFactory, unitFactory);
+	}
+}
+
+class Box {
+	constructor(context, model, selectorMark) {
+		this.context = context;
+		this.model = model;
+
+		this.selectFactory = new SelectorFactory(context.bag, selectorMark);
+
+		this.selector = this.selectFactory.create();
+	}
+
+	columnCount(rowIndex) {
+		return this.selector.columnCount(rowIndex);
+	}
+
+	column(columnIndex) {
+		return this.createColumnCore(columnIndex);
+	}
+
+	columns(rowIndex) {
+		return this.selector
+			.rowCells(rowIndex)
+			.map(cell => this.createColumnCore(cell.columnIndex));
+	}
+
+	row(rowIndex, columnIndex) {
+		return this.rowCore(rowIndex, columnIndex);
+	}
+
+	rows(columnIndex) {
+		return this.selector.rows(columnIndex).map(row => this.createRowCore(row.index, row.element));
+	}
+
+	rowCount(columnIndex) {
+		return this.selector.rowCount(columnIndex);
+	}
+
+	cell(rowIndex, columnIndex) {
+		return this.cellCore(rowIndex, columnIndex);
+	}
+
+	getElements() {
+		return [];
+	}
+
+	rowCore(rowIndex, columnIndex) {
+		return this.createRowCore(rowIndex, this.selector.row(rowIndex, columnIndex).element);
+	}
+
+	cellCore(rowIndex, columnIndex) {
+		const cell = this.selector.cell(rowIndex, columnIndex);
+		return this.createCellCore(cell.rowIndex, cell.columnIndex, cell.element);
+	}
+
+	rowCellsCore(rowIndex) {
+		return this.selector
+			.rowCells(rowIndex)
+			.map(cell => this.createCellCore(cell.rowIndex, cell.columnIndex, cell.element));
+	}
+
+	columnCellsCore(columnIndex) {
+		return this.selector
+			.columnCells(columnIndex)
+			.map(cell => this.createCellCore(cell.rowIndex, cell.columnIndex, cell.element));
+	}
+
+	createRowCore(index, element) {
+		return new Row(this, index, element);
+	}
+
+	createColumnCore(index) {
+		return new Column(this, index);
+	}
+
+	createCellCore(rowIndex, columnIndex, element) {
+		return new Cell(this.context, rowIndex, columnIndex, element);
+	}
+}
+
+class StyleBox {
+	constructor(context) {
+		this.context = context;
+		this.entries = new Map();
+	}
+
+	addClass(item, name) {
+		const key = this.key(item);
+		if (key !== null) {
+			let entry = this.entries.get(key);
+			if (!entry) {
+				entry = new Set();
+				this.entries.set(key, entry);
+			}
+
+			entry.add(name);
+		}
+	}
+
+	removeClass(item, name) {
+		const key = this.key(item);
+		if (key !== null) {
+			let entry = this.entries.get(key);
+			if (entry) {
+				entry.delete(name);
+				if (!entry.size) {
+					this.entries.delete(key);
+				}
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	key(item) {
+		return item;
+	}
+}
+
+class CellBox extends StyleBox {
+	constructor(context) {
+		super(context);
+	}
+
+	key(cell) {
+		return `${cell.dataRowIndex}x${cell.dataColumnIndex}`;
+	}
+}
+
+class ColumnBox extends StyleBox {
+	constructor(context) {
+		super(context);
+	}
+
+	key(column) {
+		return column.dataIndex;
+	}
+}
+
+class RowBox extends StyleBox {
+	constructor(context) {
+		super(context);
+	}
+
+	key(row) {
+		return row.dataIndex;
+	}
+}
+
+class VirtualTd {
+	constructor(selector) {
+		this.selector = selector;
+	}
+
+	get model() {
+		const td = this.selector();
+		if (!td) {
+			throw new GridError('cell', 'Model is not found');
+		}
+
+		return td;
+	}
+
+	mode(value) {
+		return this.model.mode(value);
+	}
+
+	get value() {
+		return this.model.value;
+	}
+
+	set value(value) {
+		this.model.value = value;
+	}
+
+	get label() {
+		return this.model.label;
+	}
+
+	set label(value) {
+		this.model.label = value;
+	}
+
+	get element() {
+		return this.model.element || new FakeElement();
+	}
+}
+
+class VirtualCell extends Cell {
+	constructor(box, rowIndex, columnIndex, element = null) {
+		super(box.context, rowIndex, columnIndex, element);
+
+		this.box = box;
+
+		const { mapper } = box.context;
+		this.dataRowIndex = mapper.viewToRow(rowIndex);
+		this.dataColumnIndex = mapper.viewToColumn(columnIndex);
+	}
+
+	model() {
+		const rowIndex = this.dataRowIndex;
+		const columnIndex = this.dataColumnIndex;
+
+		if (rowIndex >= 0 && columnIndex >= 0) {
+			const gridModel = this.box.model;
+			const { rows } = gridModel.data();
+			const { columns } = gridModel.view();
+
+			if (rows.length > rowIndex && columns.length > columnIndex) {
+				const selector = () => this.box.cell(rowIndex, columnIndex).modelCore();
+				const vtd = new VirtualTd(selector);
+				vtd.rowIndex = rowIndex;
+				vtd.columnIndex = columnIndex;
+				vtd.row = rows[rowIndex];
+				vtd.column = columns[columnIndex];
+
+				return new Td(vtd);
+			}
+		}
+
+		return null;
+	}
+
+	addClass(name, force = false) {
+		this.box.addCellClass(this, name, force);
+	}
+
+	removeClass(name, force = false) {
+		this.box.removeCellClass(this, name, force);
+	}
+}
+
+class VirtualColumn extends Column {
+	constructor(box, index) {
+		super(box, index);
+
+		this.box = box;
+
+		const { mapper } = box.context;
+		this.dataIndex = mapper.viewToColumn(index);
+	}
+
+	cells() {
+		return this.box.columnCellsCore(this.dataIndex);
+	}
+
+	cell(rowIndex) {
+		return this.box.cell(rowIndex, this.dataIndex);
+	}
+
+	addClass(name, force = false) {
+		this.box.addColumnClass(this, name, force);
+	}
+
+	removeClass(name, force = false) {
+		this.box.removeColumnClass(this, name, force);
+
+	}
+}
+
+class VirtualElement {
+	constructor(getRect) {
+		this.classList = new FakeClassList();
+		this.getRect = getRect;
+	}
+
+	getBoundingClientRect() {
+		return this.getRect();
+	}
+
+	get clientWidth() {
+		return this.getRect().width;
+	}
+
+	get clientHeight() {
+		return this.getRect().height;
+	}
+
+	get offsetWidth() {
+		return this.getRect().width;
+	}
+
+	get offsetHeight() {
+		return this.getRect().height;
+	}
+}
+
+class VirtualRow extends Row {
+	constructor(box, index, element = null) {
+		super(box, index, element);
+
+		const { mapper } = box.context;
+		this.dataIndex = mapper.viewToRow(index);
+	}
+
+	model() {
+		const model = super.model();
+		if (model) {
+			return model;
+		}
+
+		const index = this.dataIndex;
+		if (index >= 0) {
+			const gridModel = this.box.model;
+			const { rows } = gridModel.data();
+			if (rows.length > index) {
+				return rows[index];
+			}
+		}
+
+		return null;
+	}
+
+	cells() {
+		return this.box.rowCellsCore(this.dataIndex);
+	}
+
+	cell(columnIndex) {
+		return this.box.cellCore(this.dataIndex, columnIndex);
+	}
+
+	addClass(name, force = false) {
+		this.box.addRowClass(this, name, force);
+	}
+
+	removeClass(name, force = false) {
+		this.box.removeRowClass(this, name, force);
+	}
+}
+
+class VirtualBox extends Box {
+	constructor(context, model, selectorMark) {
+		super(context, model, selectorMark);
+
+		this.cellBox = new CellBox(context);
+		this.rowBox = new RowBox(context);
+		this.columnBox = new ColumnBox(context);
+		this.requestInvalidate = new Event();
+	}
+
+	addCellClass(cell, name, force = false) {
+		if (force) {
+			cell.addClassCore(name);
+		}
+		else {
+			this.cellBox.addClass(cell, name);
+			this.requestInvalidate.emit({ source: 'addCellClass' });
+		}
+	}
+
+	removeCellClass(cell, name, force = false) {
+		if (force) {
+			cell.removeClassCore(name);
+		}
+		else {
+			this.cellBox.removeClass(cell, name);
+			this.requestInvalidate.emit({ source: 'removeCellClass' });
+		}
+	}
+
+	addRowClass(row, name, force = false) {
+		if (force) {
+			row.addClassCore(name);
+		}
+		else {
+			this.rowBox.addClass(row, name);
+			this.requestInvalidate.emit({ source: 'addRowClass' });
+		}
+	}
+
+	removeRowClass(row, name, force = false) {
+		if (force) {
+			row.removeClassCore(name);
+		}
+		else {
+			this.rowBox.removeClass(row, name);
+			this.requestInvalidate.emit({ source: 'removeRowClass' });
+		}
+	}
+
+	addColumnClass(column, name, force = false) {
+		if (force) {
+			column.addClassCore(name);
+		}
+		else {
+			this.columnBox.addClass(column, name);
+			this.requestInvalidate.emit({ source: 'addColumnClass' });
+		}
+	}
+
+	removeColumnClass(column, name, force = false) {
+		if (force) {
+			column.removeClassCore(name);
+		}
+		else {
+			this.columnBox.removeClass(column, name);
+			this.requestInvalidate.emit({ source: 'removeColumnClass' });
+		}
+	}
+
+	columns() {
+		const columns = this.context.view.columns();
+		return columns.map((_, i) => this.createColumnCore(i));
+	}
+
+	rows(columnIndex) {
+		const { mapper } = this.context;
+		return this.selector
+			.rows(columnIndex)
+			.map(row => this.createRowCore(mapper.rowToView(row.index), row.element));
+	}
+
+	rowCount() {
+		return this.model.pagination().count;
+	}
+
+	rowCore(index) {
+		const viewIndex = this.context.mapper.rowToView(index);
+		if (viewIndex >= 0 && viewIndex < super.rowCount(0)) {
+			return super.rowCore(viewIndex);
+		}
+
+		const createRect = this.rowRectFactory();
+		return this.createRowCore(viewIndex, new VirtualElement(createRect(viewIndex)));
+	}
+
+	cellCore(rowIndex, columnIndex) {
+		const { mapper } = this.context;
+		const viewRowIndex = mapper.rowToView(rowIndex);
+		const viewColumnIndex = mapper.columnToView(columnIndex);
+		if (viewRowIndex >= 0 && viewRowIndex < super.rowCount(viewColumnIndex)) {
+			return super.cellCore(viewRowIndex, viewColumnIndex);
+		}
+
+		const createRect = this.cellRectFactory();
+		return this.createCellCore(viewRowIndex, viewColumnIndex, new VirtualElement(createRect(viewRowIndex, viewColumnIndex)));
+	}
+
+	rowCellsCore(index) {
+		const { mapper } = this.context;
+		const viewIndex = mapper.rowToView(index);
+		if (viewIndex >= 0 && viewIndex < super.rowCount(0)) {
+			return super.rowCellsCore(viewIndex);
+		}
+
+		const createRect = this.cellRectFactory();
+		return super
+			.rowCellsCore(0)
+			.map((cell, columnIndex) =>
+				this.createCellCore(
+					viewIndex,
+					columnIndex,
+					new VirtualElement(createRect(viewIndex, mapper.columnToView(columnIndex)))
+				)
+			);
+	}
+
+	createRowCore(index, element) {
+		return new VirtualRow(this, index, element);
+	}
+
+	createCellCore(rowIndex, columnIndex, element) {
+		return new VirtualCell(this, rowIndex, columnIndex, element);
+	}
+
+	createColumnCore(index) {
+		return new VirtualColumn(this, index);
+	}
+
+	rowRectFactory() {
+		const { height } = this.model.row();
+		const getHeight = isFunction(height) ? height : () => height;
+
+		let rect = null;
+		// as view.rect() can call getBoundingClientRect that impacts performance
+		// and as virtual element rect function is used mostly for end/home navigation we make rect lazy
+		return index => () => {
+			if (!rect) {
+				rect = this.context.view.rect('body-mid');
+			}
+
+			// TODO: add correct left, right, width
+			const rowHeight = getHeight(null, index);
+			return {
+				left: 0,
+				right: 0,
+				top: rect.top + rowHeight * index,
+				bottom: rect.top + rowHeight * (index + 1),
+				width: 0,
+				height: rowHeight
+			};
+		};
+	}
+
+	cellRectFactory() {
+		const { model } = this;
+		const { height: rowHeight } = model.row();
+		const { count: pageCount } = model.pagination();
+		const { columns } = model.view();
+		const columnWidths = this.model.layout().columns;
+
+		const getHeight = isFunction(rowHeight) ? rowHeight : () => rowHeight;
+
+		let rect = null;
+
+		// as view.rect() can call getBoundingClientRect that impacts performance
+		// and as virtual element rect function is used mostly for end/home navigation we make rect lazy
+		return (rowIndex, columnIndex) => () => {
+			if (!rect) {
+				rect = this.context.view.rect('body-mid');
+			}
+
+			const column = columns[columnIndex];
+
+			// TODO: add correct left, right, width
+			const height = getHeight(null, rowIndex);
+			const top = rect.top + height * rowIndex - (rowIndex > 0 ? 0 : (pageCount + rowIndex) * height);
+			const width = columnWidths.has(column.key) ? columnWidths.get(column.key).width : 0;
+			const left = 0;
+			return {
+				left,
+				right: left + width,
+				top,
+				bottom: top + height,
+				width,
+				height
+			};
+		};
+	}
+}
+
+class SelectorMark {
+	constructor(model, markup, name) {
+		this.model = model;
+		this.name = name;
+		this.markup = markup;
+	}
+
+	select() {
+		const result = [];
+		const addNext = this.addFactory(result);
+
+		addNext('left');
+		addNext('mid');
+		addNext('right');
+
+		return result;
+	}
+
+	addFactory(result) {
+		const { model } = this;
+		const { rows } = model.scene();
+		const columnArea = model.scene().column.area;
+
+		return pin => {
+			const name = pin ? `${this.name}-${pin}` : this.name;
+			const element = this.markup[name];
+			if (element) {
+				const prev = result[result.length - 1];
+				const columnStart = prev ? prev.columnRange.end : 0;
+				const columnCount = columnArea[pin].length;
+				const rowStart = 0;
+				const rowCount = rows.length;
+
+				result.push({
+					element,
+					columnRange: new Range(columnStart, columnStart + columnCount),
+					rowRange: new Range(rowStart, rowStart + rowCount)
+				});
+			}
+
+			return result;
+		};
+	}
+}
+
+class Body extends Box {
+	constructor(context, model) {
+		super(context, model, new SelectorMark(model, context.markup, 'body'));
+	}
+}
+
+class VirtualBody extends VirtualBox {
+	constructor(context, model) {
+		super(context, model, new SelectorMark(model, context.markup, 'body'));
+	}
+}
+
+class Data {
+	constructor(model) {
+		this.model = model;
+	}
+
+	columns() {
+		return this.model.view().columns;
+	}
+
+	columnMap() {
+		return mapColumns(this.columns());
+	}
+
+	rows() {
+		return this.model.scene().rows;
+	}
+}
+
+class FakeLayer {
+	constructor() {
+	}
+
+	resource() {
+	}
+
+	destroy() {
+	}
+}
+
+class FakeTable {
+	constructor() {
+		this.rows = [];
+	}
+}
+
+class Foot extends Box {
+	constructor(context, model) {
+		super(context, model, new SelectorMark(model, context.markup, 'foot'));
+	}
+}
+
+class Head extends Box {
+	constructor(context, model, markup) {
+		super(context, model, new SelectorMark(model, context.markup, 'head'));
+	}
+}
+
+class SelectorCache {
+	constructor(selector) {
+		this.selector = selector;
+
+		this.clear();
+	}
+
+	clear() {
+		this.columnCountCache = {};
+		this.columnCellsCache = {};
+		this.rowCountCache = {};
+		this.rowsCache = {};
+		this.rowCellsCache = {};
+		this.rowCache = {};
+		this.cellCache = {};
+	}
+
+	columnCount(rowIndex) {
+		if (this.columnCountCache.hasOwnProperty(rowIndex)) {
+			return this.columnCountCache.get(rowIndex);
+		}
+
+		return this.columnCountCache[rowIndex] = this.selector.columnCount(rowIndex);
+	}
+
+	columnCells(columnIndex) {
+		if (this.columnCells.hasOwnProperty(columnIndex)) {
+			return this.columnCells.get(columnIndex);
+		}
+
+		return this.columnCells[columnIndex] = this.selector.columnCells(columnIndex);
+	}
+
+	rowCount(columnIndex) {
+		if (this.rowCountCache.hasOwnProperty(columnIndex)) {
+			return this.rowCountCache.get(columnIndex);
+		}
+
+		return this.rowCountCache[columnIndex] = this.selector.rowCount(columnIndex);
+	}
+
+	rows(columnIndex) {
+		if (this.rowsCache.hasOwnProperty(columnIndex)) {
+			return this.rowsCache.get(columnIndex);
+		}
+
+		return this.rowsCache[columnIndex] = this.selector.rows(columnIndex);
+	}
+
+	rowCells(rowIndex) {
+		if (this.rowCellsCache.hasOwnProperty(rowIndex)) {
+			return this.rowCellsCache.get(rowIndex);
+		}
+
+		return this.rowCellsCache[rowIndex] = this.selector.rowCells(rowIndex);
+	}
+
+	row(rowIndex, columnIndex) {
+		const key = `${rowIndex}x${columnIndex}`;
+		if (this.rowCache.hasOwnProperty(key)) {
+			return this.rowCache.get(key);
+		}
+
+		return this.rowCache[key] = this.selector.row(rowIndex, columnIndex);
+	}
+
+	cell(rowIndex, columnIndex) {
+		const key = `${rowIndex}x${columnIndex}`;
+		if (this.cellCache.hasOwnProperty(key)) {
+			return this.cellCache.get(key);
+		}
+
+		return this.cellCache[key] = this.selector.cell(rowIndex, columnIndex);
+	}
+}
+
+function isParentOf(parent, element) {
+	while (element) {
+		if (element === parent) {
+			return true;
+		}
+
+		element = element.parentNode;
+	}
+
+	return false;
+}
+
+class View extends Unit {
+	constructor(context, model) {
+		super();
+
+		this.context = context;
+		this.model = model;
+		this.layers = new Map();
+	}
+
+	columns() {
+		const { column } = this.model.scene();
+		return column.line;
+	}
+
+	focus() {
+		const elements = this.getElementsCore('body');
+		if (elements.length) {
+			elements[0].focus();
+			return true;
+		}
+
+		return false;
+	}
+
+	blur() {
+		this.getElementsCore('body')
+			.forEach(element => element.blur());
+	}
+
+	isFocused() {
+		return this.getElementsCore('body')
+			.some(element => this.isFocusedCore(element));
+	}
+
+	addLayer(name) {
+		const layers = this.layers;
+		if (layers.has(name)) {
+			return layers.get(name);
+		}
+
+		const layer = this.context.layer(name);
+		layers.set(name, layer);
+		return layer;
+	}
+
+	removeLayer(name) {
+		const layers = this.layers;
+		if (layers.has(name)) {
+			const layer = layers.get(name);
+			layer.destroy();
+			layers.delete(name);
+			return true;
+		}
+
+		return false;
+	}
+
+	hasLayer(name) {
+		return this.layers.has(name);
+	}
+
+	addClass(name) {
+		const { markup } = this.context;
+		if (markup.view) {
+			markup.view.classList.add(escapeAttr(name));
+		}
+	}
+
+	removeClass(name) {
+		const { markup } = this.context;
+		if (markup.view) {
+			markup.view.classList.remove(escapeAttr(name));
+		}
+	}
+
+	scrollLeft(value) {
+		const { markup } = this.context;
+		if (arguments.length) {
+			const headMid = markup['head-mid'];
+			if (headMid) {
+				headMid.scrollLeft = value;
+			}
+
+			const footMid = markup['foot-mid'];
+			if (footMid) {
+				footMid.scrollLeft = value;
+			}
+
+			const bodyMid = markup['body-mid'];
+			if (bodyMid) {
+				bodyMid.scrollLeft = value;
+			}
+
+			const bodyTop = markup['body-top'];
+			if (bodyTop) {
+				bodyTop.scrollLeft = value;
+			}
+
+			const bodyBottom = markup['body-bottom'];
+			if (bodyBottom) {
+				bodyBottom.scrollLeft = value;
+			}
+
+			return;
+		}
+
+		return this.getElement().scrollLeft;
+	}
+
+	scrollTop(value) {
+		if (arguments.length) {
+			this.getElementsCore('body')
+				.forEach(element => element.scrollTop = value);
+
+			return;
+		}
+
+		return this.getElement().scrollTop;
+	}
+
+	scrollHeight() {
+		return this.getElement().scrollHeight;
+	}
+
+	scrollWidth() {
+		return this.getElement().scrollWidth;
+	}
+
+	canScrollTo(target, direction) {
+		if (target && !(target.element instanceof FakeElement)) {
+			switch (direction) {
+				case 'left': {
+					target = target.element;
+					if (target) {
+						const { markup } = this.context;
+						const tableMid = markup['table-mid'];
+						if (tableMid) {
+							return isParentOf(tableMid, target);
+						}
+					}
+					break;
+				}
+				case 'top': {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	rect(area = 'body-mid') {
+		const { markup } = this.context;
+		const element = markup[area];
+		if (element) {
+			// TODO: get rid of that
+			const rect = element.getBoundingClientRect();
+
+			// Get rect without scrolls
+			const width = element.clientWidth;
+			const height = element.clientHeight;
+			const left = rect.left;
+			const top = rect.top;
+			const right = left + width;
+			const bottom = top + height;
+			return { left, top, right, bottom, width, height };
+		}
+
+		return super.rect();
+	}
+
+	height(area = 'body-mid') {
+		const { markup } = this.context;
+		const element = markup[area];
+		if (element) {
+			return element.clientHeight;
+		}
+
+		return 0;
+	}
+
+	width(area = 'body-mid') {
+		const { markup } = this.context;
+		const element = markup[area];
+		if (element) {
+			return element.clientWidth;
+		}
+
+		return 0;
+	}
+
+	getElementCore() {
+		const { markup } = this.context;
+		return markup['body-mid'];
+	}
+
+	isFocusedCore(target) {
+		const { markup } = this.context;
+		const { activeElement } = markup['document'];
+
+		return isParentOf(target, activeElement);
+	}
+
+	getElementsCore(key) {
+		const { markup } = this.context;
+		return [`${key}-left`, `${key}-mid`, `${key}-right`]
+			.filter(key => markup.hasOwnProperty(key))
+			.map(key => markup[key]);
+	}
+}
+
+class Table {
+	constructor(model, box) {
+		this.model = model;
+
+		const { scroll } = model;
+		const defaults = {
+			mapper: {
+				rowToView: index => scroll().map.rowToView(index),
+				viewToRow: index => scroll().map.viewToRow(index),
+				columnToView: identity,
+				viewToColumn: identity
+			},
+			layer: () => new FakeLayer(),
+			bag: {
+				head: new Bag(),
+				body: new Bag(),
+				foot: new Bag()
+			},
+			markup: {}
+		};
+
+		this.box = assignWith(defaults, box);
+
+		this._data = new Lazy(() => new Data(model));
+		this._view = new Lazy(() => new View(box, model));
+		this._head = new Lazy(() => new Head(this.boxContext('head'), model));
+		this._foot = new Lazy(() => new Foot(this.boxContext('foot'), model));
+		this._body = new Lazy(() => {
+			const context = this.boxContext('body');
+			return scroll().mode === 'virtual'
+				? new VirtualBody(context, model)
+				: new Body(context, model)
+		});
+	}
+
+	invalidate() {
+		this.head.selector = this.head.selectFactory.create();
+		this.body.selector = this.body.selectFactory.create();
+		this.foot.selector = this.foot.selectFactory.create();
+	}
+
+	get view() {
+		return this._view.instance;
+	}
+
+	get data() {
+		return this._data.instance;
+	}
+
+	get head() {
+		return this._head.instance;
+	}
+
+	get body() {
+		return this._body.instance;
+	}
+
+	get foot() {
+		return this._foot.instance;
+	}
+
+	boxContext(source) {
+		const { view, data } = this;
+		const { mapper, layer, bag, markup } = this.box;
+
+		switch (source) {
+			case 'body': {
+				return {
+					mapper,
+					layer,
+					bag: bag[source],
+					view,
+					data,
+					markup
+				};
+			}
+			default: {
+				return {
+					mapper: {
+						rowToView: identity,
+						viewToRow: identity,
+						columnToView: identity,
+						viewToColumn: identity
+					},
+					layer,
+					bag: bag[source],
+					view,
+					data,
+					markup
+				};
+			}
+		}
+	}
+}
+
+function tableFactory(model, layer) {
+	const box = {
+		markup: {
+			document
+		},
+		bag: {
+			head: new Bag(),
+			body: new Bag(),
+			foot: new Bag()
+		},
+		layer,
+	};
+
+	return new Table(model, box);
+}
+
+class DragService {
+	constructor() {
+	}
+
+	static get mimeType() {
+		return `application/x-${GRID_PREFIX}+json`;
+	}
+
+	static decode(source) {
+		return JSON.parse(source);
+	}
+
+	static encode(source) {
+		return JSON.stringify(source);
+	}
+}
+
+DragService.element = null;
+DragService.data = null;
+DragService.area = null;
+DragService.startPosition = null;
+
+class DragState {
+	constructor() {
+		this.isActive = false;
+	}
+}
+
+class Fetch {
+	constructor(select) {
+		this.select = select;
+		this.busy = null;
+		this.result = null;
+	}
+
+	run(item) {
+		const select = this.select;
+
+		this.result = null;
+		let alive = true;
+		this.busy = new Promise((resolveBusy, rejectBusy) => {
+			const resolve = data => {
+				if (alive) {
+					this.result = data;
+					resolveBusy(data);
+				}
+			};
+
+			if (isFunction(select)) {
+				const deferred = {
+					resolve: resolve,
+					reject: rejectBusy
+				};
+
+				const args = Array.from(arguments).slice(1) || [];
+				const result = select(item, deferred, ...args);
+				if (!isUndefined(result)) {
+					this.invoke(result, resolve, rejectBusy);
+				}
+				// when user should invoke d.resolve or d.reject
+			}
+			else {
+				this.invoke(select, resolve, rejectBusy);
+			}
+		});
+
+		return () => {
+			this.busy = null;
+			alive = false;
+		};
+	}
+
+	invoke(instance, resolve, reject) {
+		if (instance && isFunction(instance.then)) {
+			// when options.fetch returns promise
+			instance.then(resolve);
+			if (isFunction(instance.catch)) {
+				instance.catch(reject);
+			}
+		} else if (instance && isFunction(instance.subscribe)) {
+			// when options.fetch returns observable
+			let isProcessed = false;
+			let subscription;
+			subscription = instance.subscribe(
+				(...args) => {
+					resolve(...args);
+					isProcessed = true;
+					if (subscription && isFunction(subscription.unsubscribe)) {
+						// when async
+						subscription.unsubscribe(); 
+						subscription = null;
+					}
+				},
+				reject
+			);
+
+			if (isProcessed) {
+				if (subscription && isFunction(subscription.unsubscribe)) {
+					// when sync
+					subscription.unsubscribe();
+					subscription = null;
+				}
+			}
+		} else {
+			// when options.fetch return result
+			resolve(instance);
+		}
+	}
+}
+
+class CellEditorCore {
+	constructor(td) {
+		this.td = td;
+
+		this.value = null;
+		this.label = null;
+
+		this.fetch = noop;
+		this.resetFetch = noop;
+	}
+
+	commit() {
+	}
+
+	reset() {
+	}
+
+	clear() {
+
+	}
+}
+
+const empty$1 = new CellEditorCore(null);
+
+class CellEditor extends CellEditorCore {
+	constructor(td) {
+		super(td);
+
+		this.fetch = this.fetchFactory();
+		this.resetFetch = this.fetch.run(td.row);
+
+		if (isUndefined(td.value)) {
+			this.value = null;
+		}
+		else {
+			const parse = parseFactory(td.column.type, td.column.editor);
+			const typedValue = parse(clone(td.value));
+			this.value = typedValue === null ? td.value : typedValue;
+		}
+
+		this.label = isUndefined(td.label) ? null : clone(td.label);
+	}
+
+	commit() {
+		this.td.value = this.value;
+		this.td.label = this.label;
+
+		this.resetFetch();
+		this.resetFetch = noop;
+	}
+
+	reset() {
+		this.label = this.td.label;
+		this.value = this.td.value;
+
+		this.resetFetch();
+		this.resetFetch = noop;
+	}
+
+	clear() {
+		this.label = null;
+		this.value = null;
+
+		this.resetFetch();
+		this.resetFetch = noop;
+	}
+
+	fetchFactory() {
+		const { editorOptions } = this.td.column;
+		if (editorOptions && editorOptions.fetch) {
+			return new Fetch(editorOptions.fetch);
+		}
+
+		return new Fetch(this.td.value);
+	}
+
+	get cell() {
+		return this.td;
+	}
+
+	static get empty() {
+		return empty$1;
+	}
+}
+
+function toLIVR(rules, key) {
+	const validationRules = [];
+	rules.forEach(rule => {
+		if (rule.key === key) {
+			for (let name of Object.keys(rule)) {
+				if (name !== 'key' && name !== 'for') {
+					validationRules.push({
+						[name]: rule[name]
+					});
+				}
+			}
+		}
+	});
+	return {
+		hasRules: validationRules.length > 0,
+		rules: { [key]: validationRules }
+	};
+}
+
+function hasRules(rules, key) {
+	return toLIVR(rules, key).hasRules;
+}
+
+function createValidator(rules, key) {
+	if (arguments.length === 2) {
+		const settings = toLIVR(rules, key);
+		return new LIVR.Validator(settings.rules);
+	}
+
+	return new LIVR.Validator(rules);
+}
+
+class EditCellLet {
+	constructor(plugin, shortcut) {
+		const { model, observeReply } = plugin;
+
+		this.plugin = plugin;
+		this.shortcut = shortcut;
+
+		this.editor = CellEditor.empty;
+		this.requestClose = null;
+
+		const commands = this.getCommands();
+		shortcut.register(commands);
+
+		this.enter = commands.get('enter');
+		this.commit = commands.get('commit');
+		this.push = commands.get('push');
+		this.cancel = commands.get('cancel');
+		this.reset = commands.get('reset');
+		this.exit = commands.get('exit');
+		this.clear = commands.get('clear');
+
+		observeReply(model.editChanged)
+			.subscribe(e => {
+				if (e.hasChanges('status') && e.tag.source !== 'edit.cell.view') {
+					if (e.changes.status.newValue === 'edit') {
+						// this is a trick to go back to the view mode and trigger enter
+						// TODO: make it better
+						model.edit({
+							status: 'view'
+						}, {
+							source: 'edit.cell.view'
+						});
+
+						if (this.enter.canExecute()) {
+							this.enter.execute();
+						}
+					} else if (e.changes.status.newValue === 'view') {
+						// this is a trick to go back to the edit mode and trigger cancel
+						// TODO: make it better
+						model.edit({
+							status: 'edit'
+						}, {
+							source: 'edit.cell.view'
+						});
+
+						if (this.requestClose) {
+							if (this.requestClose()) {
+								return;
+							}
+						}
+
+						if (this.cancel.canExecute()) {
+							this.cancel.execute();
+						}
+					}
+				}
+			});
+
+		observeReply(model.navigationChanged)
+			.subscribe(e => {
+				if (e.hasChanges('cell')) {
+					if (this.requestClose) {
+						if (this.requestClose()) {
+							return;
+						}
+					}
+
+					const editCell = this.editor.td;
+					if (editCell) {
+						if (editCell.column.category === 'data') {
+							if (this.commit.canExecute(editCell)) {
+								this.commit.execute(editCell);
+							}
+						} else {
+							if (this.cancel.canExecute(editCell)) {
+								this.cancel.execute(editCell);
+							}
+						}
+					}
+
+					const { cell } = e.state;
+					if (cell && (cell.column.editorOptions.trigger === 'focus')) {
+						if (this.enter.canExecute(cell)) {
+							this.enter.execute(cell);
+						}
+					}
+				}
+			});
+	}
+
+	mode(cell, status) {
+		const { model } = this.plugin;
+		model.edit({ status }, { source: 'edit.cell.view' });
+		cell.mode(status);
+	}
+
+	getCommands() {
+		const { model, table } = this.plugin;
+
+		const commands = {
+			enter: new Command({
+				priority: 1,
+				source: 'edit.cell.view',
+				shortcut: this.shortcutFactory('enter'),
+				canExecute: cell => {
+					// TODO: source should be set up from outside
+					const source = cell ? 'mouse' : 'keyboard';
+					if (source === 'keyboard' && Shortcut.isControl(this.shortcut.keyCode())) {
+						return false;
+					}
+
+					cell = cell || model.navigation().cell;
+
+          //cell is an array when using custom template
+          if(Array.isArray(cell)) {
+            if(cell.length > 0) {
+              if (cell[0].constructor.name == 'TdCoreDirective') {
+                cell = cell[0];
+              }
+            }
+          }
+          
+					return cell
+						&& cell.column.canEdit
+						&& (cell.column.category === 'control' || model.edit().mode === 'cell')
+						&& model.edit().status === 'view'
+						&& model.edit().enter.canExecute(this.contextFactory(cell, cell.value, cell.label));
+				},
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'edit mode');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
+
+					// TODO: source should be set up from outside
+					const source = cell ? 'mouse' : 'keyboard';
+					cell = cell || model.navigation().cell;
+					if (cell && model.edit().enter.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
+						const td = table.body.cell(cell.rowIndex, cell.columnIndex).model();
+						this.editor = new CellEditor(td);
+
+						const keyCode = this.shortcut.keyCode();
+						if (source === 'keyboard' && Shortcut.isPrintable(keyCode)) {
+							const parse = parseFactory(cell.column.type, cell.column.editor);
+							const value = Shortcut.stringify(keyCode);
+							const typedValue = parse(value);
+							if (typedValue !== null) {
+								this.value = typedValue;
+							}
+						}
+
+						this.mode(this.editor.td, 'edit');
+						return true;
+					}
+
+					return false;
+				}
+			}),
+			commit: new Command({
+				priority: 1,
+				source: 'edit.cell.view',
+				shortcut: this.shortcutFactory('commit'),
+				canExecute: cell => {
+					cell = cell || this.editor.td;
+					const canEdit = cell
+						&& Td.equals(cell, this.editor.td)
+						&& cell.column.canEdit
+						&& (cell.column.category === 'control' || model.edit().mode === 'cell')
+						&& model.edit().status === 'edit';
+					if (canEdit) {
+						const context = this.contextFactory(cell, this.value, this.label, this.tag);
+						const key = context.column.key;
+						const validator = createValidator(model.validation().rules, key);
+						return model.edit().commit.canExecute(context) && validator.validate({ [key]: this.value }) !== false;
+					}
+					return false;
+				},
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'commit');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
+
+					cell = cell || this.editor.td;
+					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
+						this.editor.commit();
+						this.editor = CellEditor.empty;
+						this.requestClose = null;
+
+						this.mode(cell, 'view');
+						table.view.focus();
+
+						return true;
+					}
+
+					return false;
+				}
+			}),
+			push: new Command({
+				priority: 1,
+				source: 'edit.cell.view',
+				canExecute: cell => {
+					cell = cell || this.editor.td;
+					const canEdit = cell && cell.column.canEdit;
+					if (canEdit) {
+						const context = this.contextFactory(cell, this.value, this.label, this.tag);
+						const key = context.column.key;
+						const validator = createValidator(model.validation().rules, key);
+						return model.edit().commit.canExecute(context) && validator.validate({ [key]: this.value }) !== false;
+					}
+
+					return false;
+				},
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'batch commit');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
+
+					cell = cell || this.editor.td;
+					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
+						this.editor.commit();
+						this.editor = CellEditor.empty;
+						this.requestClose = null;
+
+						return true;
+					}
+
+					return false;
+				}
+			}),
+			cancel: new Command({
+				priority: 1,
+				source: 'edit.cell.view',
+				shortcut: this.shortcutFactory('cancel'),
+				canExecute: cell => {
+					cell = cell || this.editor.td;
+					return cell
+						&& cell.column.canEdit
+						&& (cell.column.category === 'control' || model.edit().mode === 'cell')
+						&& model.edit().status === 'edit'
+						&& model.edit().cancel.canExecute(this.contextFactory(cell, this.value, this.label));
+				},
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'cancel');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
+
+					cell = cell || this.editor.td;
+					if (cell && model.edit().cancel.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
+						this.editor.reset();
+						this.editor = CellEditor.empty;
+						this.requestClose = null;
+
+						this.mode(cell, 'view');
+						table.view.focus();
+
+						return true;
+					}
+
+					return false;
+				}
+			}),
+			reset: new Command({
+				priority: 1,
+				source: 'edit.cell.view',
+				canExecute: cell => {
+					cell = cell || this.editor.td;
+					return cell
+						&& cell.column.canEdit
+						&& (cell.column.category === 'control' || model.edit().mode === 'cell')
+						&& model.edit().status === 'edit'
+						&& model.edit().reset.canExecute(this.contextFactory(cell, this.value, this.label));
+				},
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'reset');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
+
+					cell = cell || this.editor.td;
+					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
+						this.editor.reset();
+						return true;
+					}
+
+					return false;
+				}
+			}),
+			exit: new Command({
+				priority: 1,
+				source: 'edit.cell.view',
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'reset');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
+
+					cell = cell || this.editor.td;
+					if (cell) {
+						if (this.commit.canExecute(cell, e)) {
+							const originValue = cell.value;
+							const editValue = this.value;
+							if (originValue !== editValue) {
+								this.commit.execute(cell, e);
+								return true;
+							}
+						}
+
+						if (this.cancel.canExecute(cell, e)) {
+							this.cancel.execute(cell, e);
+							return true;
+						}
+					}
+
+					return false;
+				}
+			}),
+			clear: new Command({
+				priority: 1,
+				source: 'edit.cell.view',
+				canExecute: cell => {
+					cell = cell || this.editor.td;
+					return cell
+						&& cell.column.canEdit
+						&& (cell.column.category === 'control' || model.edit().mode === 'cell')
+						&& model.edit().status === 'edit'
+						&& model.edit().clear.canExecute(this.contextFactory(cell, this.value, this.label));
+				},
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'clear');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
+
+					cell = cell || this.editor.td;
+					if (cell && model.edit().clear.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
+						this.editor.clear();
+						return true;
+					}
+
+					return false;
+				}
+			}),
+		};
+
+		return new Map(
+			Object.entries(commands)
+		);
+	}
+
+	contextFactory(cell, newValue, newLabel, tag) {
+		const { column, row, columnIndex, rowIndex, value: oldValue, label: oldLabel } = cell;
+		return {
+			column,
+			row,
+			columnIndex,
+			rowIndex,
+			oldValue,
+			newValue,
+			oldLabel,
+			newLabel,
+			unit: 'cell',
+			tag,
+			getValueFactory,
+			getLabelFactory
+		};
+	}
+
+	get fetch() {
+		return this.editor.fetch;
+	}
+
+	get value() {
+		return this.editor.value;
+	}
+
+	set value(value) {
+		this.editor.value = value;
+	}
+
+	get label() {
+		return this.editor.label;
+	}
+
+	set label(label) {
+		this.editor.label = label;
+	}
+
+	get row() {
+		return this.cell.row;
+	}
+
+	get column() {
+		return this.cell.column;
+	}
+
+	get cell() {
+		return this.editor.td;
+	}
+
+	get options() {
+		return this.column.options;
+	}
+
+	canEdit(cell) {
+		const { model } = this.plugin;
+
+		if (cell) {
+			return cell.column.canEdit && model.edit().mode === 'cell';
+		}
+
+		return false;
+	}
+
+	shortcutFactory(type) {
+		const { model } = this.plugin;
+		const { edit } = model;
+		return () => {
+			const shortcuts = edit()[type + 'Shortcuts'];
+			const { td } = this.editor;
+			if (td) {
+				const type = td.column && td.column.editor ? td.column.editor : td.column.type;
+				if (shortcuts && shortcuts.hasOwnProperty(type)) {
+					return shortcuts[type];
+				}
+			}
+
+			return shortcuts['$default'];
+		};
+	}
+}
+
+class RowEditorCore {
+	constructor() {
+		this.editors = [];
+	}
+
+	commit() {
+	}
+
+	reset() {
+	}
+}
+
+
+class TdView {
+	constructor(row, column) {
+		this.row = row;
+		this.column = column;
+	}
+
+	get value() {
+		return getValue$1(this.row, this.column);
+	}
+
+	set value(value) {
+		return setValue(this.row, this.column, value);
+	}
+
+	get label() {
+		return getLabel(this.row, this.column);
+	}
+
+	set label(value) {
+		return setLabel(this.row, this.column, value);
+	}
+}
+
+const empty = new RowEditorCore();
+class RowEditor extends RowEditorCore {
+	constructor(row, columns) {
+		super();
+
+		this.value = cloneDeep(row);
+		this.row = row;
+
+		this.editors =
+			columns
+				.filter(column => column.canEdit)
+				.map(column => new CellEditor(new TdView(this.value, column)));
+	}
+
+	commit() {
+		this.editors.forEach(editor => editor.commit());
+		Object.assign(this.row, this.value);
+	}
+
+	reset() {
+		this.editors.forEach(editor => editor.reset());
+		this.value = cloneDeep(this.row);
+	}
+
+	static get empty() {
+		return empty;
+	}
+}
+
+function selectRow(state) {
+	const { cell } = state;
+	if (cell) {
+		return cell.row;
+	}
+
+	return null;
+}
+
+function selectColumn(state) {
+	const { cell } = state;
+	if (cell) {
+		return cell.column;
+	}
+
+	return null;
+}
+
+function selectColumnIndex(state) {
+	const { cell } = state;
+	if (cell) {
+		return cell.columnIndex;
+	}
+
+	return -1;
+}
+
+function selectRowIndex(state) {
+	const { cell } = state;
+	if (cell) {
+		return cell.rowIndex;
+	}
+
+	return -1;
+}
+
+class EditRowLet {
+	constructor(plugin, shortcut) {
+		this.plugin = plugin;
+		this.editor = RowEditor.empty;
+
+		const commands = this.getCommands();
+		shortcut.register(commands);
+
+		this.enter = commands.get('enter');
+		this.commit = commands.get('commit');
+		this.cancel = commands.get('cancel');
+		this.reset = commands.get('reset');
+	}
+
+	getCommands() {
+		const { model } = this.plugin;
+		const commands = {
+			enter: new Command({
+				source: 'edit.row.view',
+				shortcut: this.shortcutFactory('enter'),
+				canExecute: row => {
+					row = row || selectRow(model.navigation());
+					return row
+						&& model.edit().mode === 'row'
+						&& model.edit().status === 'view'
+						&& model.edit().enter.canExecute(this.contextFactory(row));
+				},
+				execute: (row, e) => {
+					Log.info('row.edit', 'edit mode');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
+
+					const columns = this.model.columnList().line;
+
+					this.editor = new RowEditor(row, columns);
+					model.edit({ status: 'edit' }, { source: 'edit.row.view' });
+				}
+			}),
+			commit: new Command({
+				source: 'edit.row.view',
+				shortcut: this.shortcutFactory('commit'),
+				// TODO: add validation support
+				canExecute: row => {
+					row = row || selectRow(model.navigation());
+					return row
+						&& model.edit().mode === 'row'
+						&& model.edit().status === 'edit'
+						&& model.edit().commit.canExecute(this.contextFactory(row));
+				},
+				execute: (cell, e) => {
+					Log.info('row.edit', 'commit');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
+
+					this.editor.commit();
+					this.editor = RowEditor.empty;
+					model.edit({ status: 'view' }, { source: 'edit.row.view' });
+				}
+			}),
+			cancel: new Command({
+				source: 'edit.row.view',
+				shortcut: this.shortcutFactory('cancel'),
+				canExecute: row => {
+					row = row || selectRow(model.navigation());
+					return row
+						&& model.edit().mode === 'row'
+						&& model.edit().status === 'edit'
+						&& model.edit().cancel.canExecute(this.contextFactory(row));
+				},
+				execute: (row, e) => {
+					Log.info('cell.edit', 'cancel');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
+
+					this.editor.reset();
+					this.editor = RowEditor.empty;
+					model.edit({ status: 'view' }, { source: 'edit.row.view' });
+				}
+			}),
+			reset: new Command({
+				source: 'edit.row.view',
+				canExecute: row => {
+					row = row || selectRow(model.navigation());
+					return row
+						&& model.edit().mode === 'row'
+						&& model.edit().status === 'edit'
+						&& model.edit().reset.canExecute(this.contextFactory(row));
+				},
+				execute: (row, e) => {
+					Log.info('row.edit', 'reset');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
+
+					if (row && model.edit().reset.execute(this.contextFactory(row)) !== false) {
+						this.editor.reset();
+						return false;
+					}
+				}
+			})
+		};
+		return new Map(
+			Object.entries(commands)
+		);
+	}
+
+	contextFactory(row) {
+		return {
+			row: row,
+			unit: 'row'
+		};
+	}
+
+	shortcutFactory(type) {
+		const { model } = this.plugin;
+		const { edit } = model;
+		return () => {
+			const shortcuts = edit()[type + 'Shortcuts'];
+			return (shortcuts && shortcuts['row']) || shortcuts['$default'];
+		};
+	}
+}
+
+class EditLet {
+	constructor(plugin, shortcut) {
+		this.cell = new EditCellLet(plugin, shortcut);
+		this.row = new EditRowLet(plugin, shortcut);
+	}
+}
+
+class EditService {
+	constructor(plugin) {
+		this.plugin = plugin;
+	}
+
+	startBatch(startCell) {
+		const { model } = this.plugin;
+
+		const editStatus = model.edit().status;
+		const selectionMode = model.selection().mode;
+
+		model.selection({ mode: 'range' });
+		model.edit({ status: 'startBatch' });
+
+		return () => {
+			model.edit({ status: editStatus });
+			this.doBatch(startCell);
+			model.selection({ mode: selectionMode });
+		}
+	}
+
+	doBatch(startCell) {
+		const { table, model } = this.plugin;
+
+		const { rows } = model.scene();
+		const { columns } = model.view();
+		const { items } = model.selection();
+
+		const shortcut = { register: () => ({}), keyCode: () => '' };
+		const editView = new EditCellLet(this.plugin, shortcut);
+
+		const startTd = table.body.cell(startCell.rowIndex, startCell.columnIndex).model();
+		const { value, label } = startTd;
+
+		const startColumnType = startTd.column.type;
+		for (let i = 0, length = items.length; i < length; i++) {
+			const { row, column } = items[i];
+			const rowIndex = rows.indexOf(row);
+			const columnIndex = columns.indexOf(column);
+
+			const td = table.body.cell(rowIndex, columnIndex).model();
+			const type = td.column.type;
+			if (startColumnType === type) {
+				const editor = new CellEditor(td);
+				editor.label = label;
+				editor.value = value;
+
+				editView.editor = editor;
+				if (editView.push.canExecute()) {
+					editView.push.execute();
+				}
+			}
+		}
+	}
+}
+
+class EditState {
+	constructor() {
+		this.resource = new Resource();
+
+		this.mode = null; // cell | row
+		this.status = 'view'; // view | edit | startBatch | endBatch
+		this.method = null; // batch
+
+		this.enter = new Command({ source: 'edit.model' });
+		this.commit = new Command({ source: 'edit.model' });
+		this.cancel = new Command({ source: 'edit.model' });
+		this.reset = new Command({ source: 'edit.model' });
+		this.clear = new Command({ source: 'edit.model' });
+
+		this.cancelShortcuts = {
+			'$default': 'escape'
+		};
+
+		this.enterShortcuts = {
+			'$default': '*',
+			'row': 'F2|Enter',
+			'form': 'F2|Enter'
+		};
+
+		this.commitShortcuts = {
+			'$default': 'tab|shift+tab|enter|ctrl+s',
+			'reference': 'ctrl+s',
+			'row': 'ctrl+s',
+			'form': 'ctrl+s',
+			'bool': 'tab|shift+tab|left|right|up|down|home|end|pageUp|pageDown',
+			'text-area': 'ctrl+s|ctrl+enter'
+		};
+	}
+}
+
+class EventListener {
+	constructor(element, manager) {
+		this.element = element;
+		this.manager = manager;
+		this.handlers = {};
+	}
+
+	on(name, f, settings = false) {
+		const manager = this.manager;
+		const handler = manager.bind(f);
+		const handlerSet = this.handlers[name] || (this.handlers[name] = []);
+		handlerSet.push(handler);
+
+		this.element.addEventListener(name, handler, settings);
+		return () => {
+			this.element.removeEventListener(name, handler);
+			const index = handlerSet.indexOf(handler);
+			if (index >= 0) {
+				handlerSet.splice(index, 1);
+			}
+		};
+	}
+
+	off() {
+		const handlers = this.handlers;
+		const element = this.element;
+		for (let key of Object.keys(handlers)) {
+			for (let handler of Array.from(handlers[key])) {
+				element.removeEventListener(key, handler);
+			}
+		}
+	}
+}
+
+class EventManager {
+	constructor(context, apply = f => f()) {
+		this.context = context;
+		this.apply = apply;
+	}
+
+	bind(f) {
+		const handler = f.bind(this.context);
+		const apply = this.apply;
+		return (...args) => apply(() => handler(...args));
+	}
+}
+
+const DELIMITER = ',';
+
+function escape$1(value) {
+	let result = '' + value;
+	result = result.replace(/"/g, '""');
+	result = /[\n",]/.test(result) ? `"${result}"` : result;
+	return result;
+}
+
+class CsvExport {
+	write(rows, columns) {
+		const result = [];
+		const values = [];
+		let head = [];
+		for (let column of columns) {
+			if (column.category === 'data') {
+				values.push(getValueFactory(column));
+				head.push(escape$1(column.title));
+			}
+		}
+		result.push(head.join(DELIMITER));
+
+		for (let row of rows) {
+			const line = [];
+			for (let getValue of values) {
+				line.push(escape$1(getValue(row)));
+			}
+			result.push(line.join(DELIMITER));
+		}
+
+		return result.join('\n');
+	}
+}
+
+function graphFlatView(graph, separator = ', ') {
+	const result = {};
+
+	for (let [prop, value] of Object.entries(graph)) {
+		if (isArray(value)) {
+			const items = [];
+			for (let item of value) {
+				items.push(item);
+			}
+			result[prop] = items.join(separator);
+		} else if (isObject(value)) {
+			const flatObject = graphFlatView(value, separator);
+			for (let [flatProp, flatValue] of Object.entries(flatObject)) {
+				result[prop + '.' + flatProp] = flatValue;
+			}
+		} else {
+			result[prop] = value;
+		}
+	}
+	return result;
+}
+
+class ExportState {
+	constructor() {
+		this.resource = new Resource();
+	}
+}
+
+class JsonExport {
+	write(rows, columns) {
+		const result = [];
+
+		for (let row of rows) {
+			const flatRow = graphFlatView(row);
+			const obj = {};
+			for (let column of columns) {
+				obj[column.title] = flatRow[column.key];
+			}
+			result.push(obj);
+		}
+
+		return JSON.stringify(result, '', 2);
+	}
+}
+
+const begin = '<?xml version="1.0" encoding="UTF-8"?><root>';
+
+function escape(value) {
+	let result = '' + value;
+	const characters = [/</g, />/g, /&/g, /'/g, /"/g, /\s\s+/g, /\n/g];
+	const replacements = ['&lt;', '&gt;', '&amp;', '&apos;', '&quot;', ' ', '&#xA;'];
+	for (let i = 0; i < characters.length; i++) {
+		result = result.replace(characters[i], replacements[i]);
+	}
+	return result;
+}
+
+function objToXml(obj) {
+	let result = '';
+
+	for (let [prop, value] of Object.entries(obj)) {
+		if (obj.hasOwnProperty(prop)) {
+			if (isObject(value) && !isArray(value) && !isString(value)) {
+				result += `<${prop}>${objToXml(value)}</${prop}>`;
+			} else if (isArray(value)) {
+				for (let item of value) {
+					if (isString(item)) {
+						result += `<${prop}>${escape(item)}</${prop}>`;
+					} else {
+						result += `<${prop}>${objToXml(item)}</${prop}>`;
+					}
+				}
+			} else if (isString(value)) {
+				result += `<${prop}>${escape(value)}</${prop}>`;
+			}
+		}
+	}
+	return result;
+}
+
+class XmlExport {
+	write(rows) {
+		const result = [begin];
+		for (let row of rows) {
+			result.push(objToXml({ row }));
+		}
+		result.push('</root>');
+		return result.join('');
+	}
+}
+
+// export function getType(type) {
+// 	return {}.toString.call(type).slice('[object]'.length, -1); // returns type of built-in objects
+// }
+
+function castFactory(r) {
+	const rt = getType(r);
+	const asString = '' + r;
+	const asNumber = +r;
+	const asBool = !!r;
+	const asDate = new Date(r);
+
+	return l => {
+		const lt = getType(l);
+		if (rt === lt) {
+			return r;
+		}
+
+		switch (lt) {
+			case 'Number':
+				return asNumber;
+			case 'String':
+				return asString;
+			case 'Date':
+				return asDate;
+			case 'Boolean':
+				return asBool;
+			default:
+				throw GridError(
+					'cast.factory',
+					`Unsupported format ${lt}`
+				);
+		}
+	};
+}
+
+function buildExpression(filterBy, op = 'and') {
+	const result = [];
+	for (let [key, filter] of Object.entries(filterBy)) {
+		if (key === '$expression') {
+			result.push(filter);
+			continue;
+		}
+
+		if (filter.expression) {
+			result.push(filter.expression);
+		}
+
+		const expressions = [];
+		if (filter.items && filter.items.length) {
+			expressions.push(toInExpression(key, filter.items));
+		}
+
+		if (filter.blanks) {
+			expressions.push(toIsEmptyExpression(key));
+		}
+
+		if (expressions.length) {
+			if (expressions.length === 1) {
+				result.push(expressions[0]);
+			}
+			else {
+				result.push(compile(expressions, 'or'));
+			}
+		}
+	}
+
+	return compile(result, op);
+}
+
+function toIsEmptyExpression(key) {
+	return {
+		kind: 'group',
+		op: 'and',
+		left: {
+			kind: 'condition',
+			left: key,
+			op: 'isEmpty',
+			right: null
+		},
+		right: null
+	};
+}
+
+function toInExpression(key, items) {
+	return {
+		kind: 'group',
+		op: 'and',
+		left: {
+			kind: 'condition',
+			left: key,
+			op: 'in',
+			right: Array.from(items)
+
+		},
+		right: null
+	};
+}
+
+function compile(expressions, op) {
+	const root = {
+		kind: 'group',
+		op,
+		left: null,
+		right: null
+	};
+
+	let current = root;
+
+	expressions.forEach(expr => {
+		if (!current.left) {
+			current.left = expr;
+		}
+		else {
+			const next = {
+				kind: 'group',
+				op,
+				left: expr,
+				right: null
+			};
+
+			current.right = next;
+			current = next;
+		}
+	});
+
+
+	return root.left ? root : null;
+}
+
+class Visitor {
+	constructor() {
+	}
+
+	visit(item, depth = 0) {
+		switch (item.kind) {
+			case 'group':
+				return this.visitGroup(item, depth + 1);
+			case 'condition':
+				return this.visitCondition(item, depth);
+			case 'function':
+				return this.visitFunction(item, depth);
+			default:
+				throw GridError(
+					'expression.visitor',
+					`Invalid kind ${item.kind}`
+				);
+		}
+	}
+
+	visitGroup(group, depth) {
+		if (group.right) {
+			this.visit(group.left, depth);
+			this.visit(group.right, depth);
+		}
+
+		return this.visit(group.left, depth);
+	}
+
+	visitCondition(condition, depth) {
+		switch (condition.op) {
+			case 'isNotNull':
+			case 'isNull':
+			case 'isNotEmpty':
+			case 'isEmpty':
+			case 'isNumeric':
+			case 'isNotNumeric':
+				return this.visitUnary(condition, depth);
+			case 'equals':
+			case 'notEquals':
+			case 'greaterThanOrEquals':
+			case 'greaterThan':
+			case 'lessThanOrEquals':
+			case 'lessThan':
+			case 'like':
+			case 'notLike':
+			case 'startsWith':
+			case 'endsWith':
+			case 'match':
+				return this.visitBinary(condition, depth);
+			case 'between':
+				return this.visitBetween(condition, depth);
+			case 'in':
+				return this.visitIn(condition, depth);
+			default:
+				throw new GridError(
+					'expression.visitor',
+					`Invalid operation ${condition.op}`
+				);
+		}
+	}
+
+	visitUnary(condition) {
+		this.visitLeft(condition.left);
+	}
+
+	visitBinary(condition/*, depth*/) {
+		this.visitLeft(condition.left);
+		this.visitRight(condition.right);
+	}
+
+	visitLeft(left) {
+		if (left.kind) {
+			switch (left.kind) {
+				case 'function':
+					this.visitArguments(left.arguments);
+			}
+		}
+	}
+
+	visitBetween(/*condition, depth*/) {
+	}
+
+	visitIn(/*condition, depth*/) {
+	}
+
+	visitFunction(/*fn*/) {
+	}
+
+	visitArguments(args) {
+		return args.map(arg => {
+			switch (arg.kind) {
+				case 'condition':
+				case 'group':
+					this.visit(arg);
+			}
+		});
+	}
+}
+
+function stringify$1(value, type, isValid) {
+    if (!isValid) {
+        return '<span class="q-grid-markup-condition-value-invalid"></span>';
+    }
+
+    switch (type) {
+        case 'text':
+            return stringifyText(value);
+        case 'number':
+            return stringifyNumber(value);
+        case 'date':
+            return stringifyDate(value);
+        default:
+            return '' + value;
+    }
+}
+
+function stringifyText(value) {
+    return `<span class="q-grid-markup-condition-quote">'</span>
+                <span class="q-grid-markup-condition-value q-grid-markup-condition-value-text">${value}</span>
+            <span class="q-grid-markup-condition-quote">'</span>`;
+}
+
+function stringifyDate(value) {
+    const date = new Date(value);
+    if (date !== 'Invalid Date' && !isNaN(date)) {
+        return `<span class="q-grid-markup-condition-quote">'</span>
+                    <span class="q-grid-markup-condition-value q-grid-markup-condition-value-date">${value}</span>
+                <span class="q-grid-markup-condition-quote">'</span>`;
+    }
+
+    return `<span class="q-grid-markup-condition-quote">'</span>
+                <span class="q-grid-markup-condition-value q-grid-markup-condition-value-date q-grid-markup-condition-error">${value}</span>
+            <span class="q-grid-markup-condition-quote">'</span>`;
+}
+
+function stringifyNumber(value) {
+    const number = Number.parseFloat(value);
+    if (!isNaN(number) && isFinite(number)) {
+        return `<span class="q-grid-markup-condition-value q-grid-markup-condition-number">${value}</span>`;
+    }
+
+    return `<span class="q-grid-markup-condition-value q-grid-markup-condition-number q-grid-markup-condition-error">${value}</span>`;
+}
+
+class MarkupVisitor extends Visitor {
+    constructor(label, type, isValid) {
+        super();
+
+        this.label = label;
+        this.type = type;
+        this.isValid = isValid;
+    }
+
+    visitGroup(group, depth) {
+        if (group.right) {
+            const l = this.visit(group.left, depth);
+            const r = this.visit(group.right, depth);
+
+            const expr = `<div class="q-grid-markup-node-left">${l}</div><span class="q-grid-markup-group-op">${group.op}</span><div class="q-grid-markup-node-right">${r}</div>`;
+            return `<div class="q-grid-markup-node">${(depth > 1 ? `<span class="q-grid-markup-group-open">(</span>${expr}<span class="q-grid-markup-group-close">)</span>` : expr)}</div>`;
+        }
+
+        return `<div class="q-grid-markup-node">${this.visit(group.left, depth)}<div class="q-grid-markup-node">`;
+    }
+
+    visitUnary(condition) {
+        switch (condition.op) {
+            case 'isNotNull':
+                return `<span class="q-grid-markup-condition-left">${this.label(condition.left)}</span><span class="q-grid-markup-condition-right q-grid-markup-condition-unary">is not empty</span>`;
+            case 'isNull':
+                return `<span class="q-grid-markup-condition-left">${this.label(condition.left)}</span><span class="q-grid-markup-condition-right q-grid-markup-condition-unary">is empty</span>`;
+            default:
+                throw new GridError('markup.visitor', `Invalid operation ${condition.op}`)
+        }
+    }
+
+    visitBinary(condition) {
+        let op;
+
+        switch (condition.op) {
+            case 'equals':
+                op = '=';
+                break;
+            case 'notEquals':
+                op = '&lt;&gt;';
+                break;
+            case 'greaterThanOrEquals':
+                op = '&gt;=';
+                break;
+            case 'greaterThan':
+                op = '&gt;';
+                break;
+            case 'lessThanOrEquals':
+                op = '&lt;=';
+                break;
+            case 'lessThan':
+                op = '&lt;';
+                break;
+            case 'like':
+                op = 'like';
+                break
+            case 'notLike':
+                op = 'not like';
+                break;
+            case 'startsWith':
+                op = 'starts with';
+                break;
+            case 'endsWith':
+                op = 'ends with';
+                break;
+            default:
+                throw new GridError('markup.visitor', `Invalid operation ${condition.op}`);
+        }
+
+        const isValid = this.isValid(condition.left, condition.right);
+        return `<span class="q-grid-markup-condition-left">${this.label(condition.left)}</span>
+                <span class="q-grid-markup-condition-op">${op}</span>
+                <span class="q-grid-markup-condition-right">${stringify$1(condition.right, this.type(condition.left), isValid)}</span>`;
+    }
+
+    visitBetween(condition) {
+        const isValid = this.isValid(condition.left, condition.right);
+        return `<span class="q-grid-markup-condition-left">${this.label(condition.left)}</span>
+                <span class="q-grid-markup-condition-op">between</span>
+                <span class="q-grid-markup-condition-right">${stringify$1(condition.right[0], this.type(condition.left), isValid)}</span>
+                <span class="q-grid-markup-condition-op">and</span>
+                <span class="q-grid-markup-condition-right">${stringify$1(condition.right[1], this.type(condition.left), isValid)}</span>`;
+    }
+
+    visitIn(condition) {
+        const isValid = this.isValid(condition.left, condition.right);
+        return `<span class="q-grid-markup-condition-left">${this.label(condition.left)}</span>
+                <span class="q-grid-markup-condition-op">in</span>
+                <span class="q-grid-markup-condition-open">(</span>
+                <span class="q-grid-markup-condition-right">${condition.right.map(item => stringify$1(item, this.type(condition.left), isValid)).join(', ')}</span>
+                <span class="q-grid-markup-condition-close">)</span>`;
+    }
+}
+
+class PredicateVisitor extends Visitor {
+	constructor(valueFactory, assertFactory, getType) {
+		super();
+
+		this.valueFactory = valueFactory;
+		this.assertFactory = assertFactory;
+		this.getType = getType;
+	}
+
+	visitGroup(group) {
+		if (group.right) {
+			const lp = this.visit(group.left);
+			const rp = this.visit(group.right);
+
+			switch (group.op) {
+				case 'and':
+					return value => {
+						return lp(value) && rp(value);
+					};
+				case 'or':
+					return value => {
+						return lp(value) || rp(value);
+					};
+
+				default:
+					throw GridError(
+						'predicate.visitor',
+						`Invalid operation ${group.op}`
+					);
+			}
+		}
+
+		return this.visit(group.left);
+	}
+
+	visitCondition(condition) {
+		const r = condition.right;
+		const name = condition.left;
+		const getValue = this.valueFactory(name);
+		const assert = this.assertFactory(name);
+		const map = new Set();
+
+		const rt = this.getType(name, isArray(r) ? r[0] : r);
+		let parse = compareParseFactory(rt);
+
+		if (isArray(r)) {
+			if (r.length) {
+				r.forEach(x => map.add('' + x));
+			} else {
+				parse = identity;
+			}
+		}
+
+		const { equals, isNull, lessThan } = assert;
+
+		const lessThanOrEquals = (x, y) => {
+			return equals(x, y) || lessThan(x, y);
+		};
+
+		const greaterThan = (x, y) => {
+			return !equals(x, y) && !lessThan(x, y)
+		};
+
+		const greaterThanOrEquals = (x, y) => {
+			return equals(x, y) || !lessThan(x, y);
+		};
+
+		let predicate;
+		switch (condition.op) {
+			case 'isNotNull':
+			case 'isNotEmpty':
+				predicate = actual => !isNull(actual);
+				break;
+			case 'isNull':
+			case 'isEmpty':
+				predicate = actual => isNull(actual);
+				break;
+			case 'equals': {
+				const etalon = parse(r);
+				predicate = actual => equals(parse(actual), etalon);
+				break;
+			}
+			case 'notEquals': {
+				const etalon = parse(r);
+				predicate = actual => !equals(parse(actual), etalon);
+				break;
+			}
+			case 'greaterThanOrEquals': {
+				const etalon = parse(r);
+				predicate = actual => greaterThanOrEquals(parse(actual), etalon);
+				break;
+			}
+			case 'greaterThan': {
+				const etalon = parse(r);
+				predicate = actual => greaterThan(parse(actual), etalon);
+				break;
+			}
+			case 'lessThanOrEquals': {
+				const etalon = parse(r);
+				predicate = actual => lessThanOrEquals(parse(actual), etalon);
+				break;
+			}
+			case 'lessThan': {
+				const etalon = parse(r);
+				predicate = actual => lessThan(parse(actual), etalon);
+				break;
+			}
+			case 'between': {
+				const [start, end] = r;
+				const noStart = isUndefined(start);
+				const noEnd = isUndefined(end);
+				if (noStart && noEnd) {
+					predicate = yes;
+					break;
+				}
+
+				if (noEnd) {
+					const etalon = parse(start);
+					predicate = actual => greaterThanOrEquals(parse(actual), etalon);
+					break
+				}
+
+				if (noStart) {
+					const etalon = parse(end);
+					predicate = actual => lessThanOrEquals(parse(actual), etalon);
+					break
+				}
+
+				const etalonStart = parse(start);
+				const etalonEnd = parse(end);
+				predicate = actual => {
+					const actualValue = parse(actual);
+					return greaterThanOrEquals(actualValue, etalonStart)
+						&& lessThanOrEquals(actualValue, etalonEnd);
+				};
+
+				break;
+			}
+			case 'in': {
+				predicate = (actual) => {
+					if (isArray(actual)) {
+						for (const value of map) {
+							if (actual.some((item) => '' + item === value)) {
+								return true;
+							}
+						}
+						return false;
+					}
+
+					const v = !actual && actual !== 0 ? 'null' : '' + actual;
+					return map.has(v);
+				};
+				break;
+			}
+			case 'like': {
+				const etalon = ('' + r).toLowerCase();
+				predicate = actual => actual && ('' + actual).toLowerCase().includes(etalon);
+				break;
+			}
+			case 'notLike': {
+				const etalon = ('' + r).toLowerCase();
+				predicate = actual => actual && !('' + actual).toLowerCase().includes(etalon);
+				break;
+			}
+			case 'startsWith': {
+				const etalon = ('' + r).toLowerCase();
+				predicate = actual => actual && (('' + actual).toLowerCase().indexOf(etalon) === 0);
+				break;
+			}
+			case 'endsWith': {
+				const etalon = ('' + r).toLowerCase();
+				predicate = actual => {
+					const substr = ('' + actual).slice(-etalon.length).toLowerCase();
+					return etalon === substr;
+				};
+				break;
+			}
+			default:
+				throw new GridError(
+					'predicate.visitor',
+					`Invalid operation ${condition.op}`
+				);
+		}
+
+		return row => {
+			const actual = getValue(row);
+			return predicate(actual);
+		};
+	}
+}
+
+class FetchState {
+	constructor() {
+		this.skip = 0;
+	}
+}
+
+class FilterLet {
+	constructor(plugin) {
+		const { model } = plugin;
+
+		this.plugin = plugin;
+
+		this.column = new Command({
+			source: 'filter.view',
+			execute: (column, search) => {
+				const { key } = column;
+
+				let { by, operatorFactory } = model.filter();
+				by = clone(by);
+
+				const filter = by[key] || (by[key] = {});
+				if (!isUndefined(search) && search !== null && search !== '') {
+					const opList = operatorFactory(column);
+					const op = filter.expression ? filter.expression.op : opList[0];
+					switch (op) {
+						case 'contains': {
+							filter.items = [search];
+							break;
+						}
+						case 'between': {
+							filter.expression = {
+								kind: 'condition',
+								left: key,
+								op,
+								right: [null, search]
+							};
+							break;
+						}
+						default: {
+							filter.expression = {
+								kind: 'condition',
+								left: key,
+								op,
+								right: search
+							};
+							break;
+						}
+					}
+				}
+				else {
+					delete by[key];
+				}
+
+				model.filter({ by }, { source: 'filter.view' });
+			}
+		});
+	}
+
+	has(column) {
+		const { model } = this.plugin;
+		const { by } = model.filter();
+		return by.hasOwnProperty(column.key);
+	}
+
+	value(column) {
+		const { model } = this.plugin;
+		const { key } = column;
+		const { by } = model.filter();
+		if (by[key]) {
+			const { expression, items } = by[key];
+			return expression
+				? isArray(expression.right)
+					? expression.right[expression.right.length - 1]
+					: expression.right
+				: items && items.length
+					? items[0]
+					: null;
+		}
+
+		return null;
+	}
+}
+
+function match(context) {
+	const { model } = context;
+
+	const expression = buildExpression(model.filter().by);
+	if (expression !== null) {
+		const { labelFactory } = context;
+		const { assertFactory } = model.filter();
+
+		const columnMap = mapColumns(model.columnList().line);
+
+		const valueColumnFactory = (key) => {
+			const column = columnMap[key];
+			if (column.type === 'array') {
+				return (row) => getValue$1(row, column);
+			} else {
+				return labelFactory(columnMap[key]);
+			}
+		};
+
+		const assertColumnFactory = key => assertFactory(columnMap[key]);
+		const getType = key => {
+			const column = columnMap[key];
+			return (column && column.type) || 'text';
+		};
+
+		const visitor =
+			new PredicateVisitor(
+				valueColumnFactory,
+				assertColumnFactory,
+				getType
+			);
+
+		return visitor.visit(expression);
+	}
+
+	return yes;
+}
+
+class FilterState {
+	constructor() {
+		this.resource = new Resource();
+
+		this.by = {};
+		this.match = match;
+		this.custom = yes;
+		this.fetch = noop;
+		this.unit = 'default';	// default|row
+
+		this.assertFactory = () => ({
+			equals: (x, y) => x === y,
+			lessThan: (x, y) => x < y,
+			isNull: x => x === '' || x === null || x === undefined
+		});
+
+		this.operatorFactory = (column) => {
+			switch (column.type) {
+				case 'text':
+				case 'url':
+				case 'email':
+				case 'file': {
+					return [
+						'contains',
+						'like',
+						'notLike',
+						'startsWith',
+						'endsWith',
+						'isEmpty',
+						'isNotEmpty',
+					];
+				}
+				case 'date':
+				case 'datetime': {
+					return [
+						'between',
+						'contains',
+						'lessThan',
+						'lessThanOrEquals',
+						'greaterThan',
+						'greaterThanOrEquals',
+						'isEmpty',
+						'isNotEmpty',
+					];
+				}
+				case 'id':
+				case 'currency':
+				case 'number': {
+					return [
+						'between',
+						'contains',
+						'like',
+						'lessThan',
+						'lessThanOrEquals',
+						'greaterThan',
+						'greaterThanOrEquals',
+						'isEmpty',
+						'isNotEmpty',
+					];
+				}
+				default: {
+					return ['contains'];
+				}
+			}
+		};
+	}
+}
+
+function takeOnce() {
+    return source =>
+        new Operator(subscriber =>
+            source.subscribe({
+                next: x => {
+                    subscriber.next(x);
+                    subscriber.complete();
+                }
+            })
+        );
+}
+
+function filter$1(test) {
+    return source =>
+        new Operator(subscriber =>
+            source.subscribe({
+                next: x => {
+                    if (test(x)) {
+                        subscriber.next(x);
+                    }
+                }
+            })
+        );
+}
+
+class FocusService {
+    constructor(model) {
+        this.model = model;
+    }
+
+    activate(rowIndex, columnIndex) {
+        const { focus, scene, sceneChanged } = this.model;
+
+        if (isUndefined(rowIndex)) {
+            rowIndex = focus().rowIndex;
+        }
+
+        if (rowIndex < 0) {
+            rowIndex = 0;
+        }
+
+        if (isUndefined(columnIndex)) {
+            columnIndex = focus().columnIndex;
+        }
+
+        if (columnIndex < 0) {
+            columnIndex = scene().column.line.findIndex(c => c.model.canFocus);
+        }
+
+        if (scene().status === 'stop') {
+            this.focus(rowIndex, columnIndex);
+        } else {
+            sceneChanged.on((e, off) => {
+                if (e.hasChanges('status')) {
+                    if (e.state.status === 'stop') {
+                        off();
+
+                        this.focus(rowIndex, columnIndex);
+                    }
+                }
+            });
+        }
+    }
+
+    focus(rowIndex, columnIndex) {
+        const { pagination, focus } = this.model;
+        const { count, current, size } = pagination();
+
+        const last = this.getPage(count);
+        const target = Math.max(0, Math.min(this.getPage(rowIndex), last));
+
+        if (current !== target) {
+            pagination({
+                current: target
+            }, {
+                source: 'focus.service'
+            });
+
+            this.activate(rowIndex, columnIndex);
+            return;
+        }
+
+        rowIndex = rowIndex - size * current;
+
+        focus({
+            isActive: true,
+            rowIndex,
+            columnIndex
+        }, {
+            source: 'focus.service'
+        });
+    }
+
+    getPage(index) {
+        const { model } = this;
+        const { size } = model.pagination();
+
+        return Math.max(0, Math.floor(index / size));
+    }
+}
+
+class FocusState {
+	constructor() {
+		this.isActive = false;
+
+		this.rowIndex = -1;
+		this.columnIndex = -1;
+	}
+}
+
+class FootLet {
+	constructor(plugin) {
+		const { model, observeReply } = plugin;
+
+		this.plugin = plugin;
+		this.valueFactory = getValueFactory;
+		this.rows = [];
+
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('column')) {
+					this.invalidate();
+				}
+			});
+	}
+
+	invalidate() {
+		Log.info('view.foot', 'invalidate');
+
+		this.rows = new Array(this.count);
+	}
+
+	columns(row, pin) {
+		const { model } = this.plugin;
+		return model.scene().column.area[pin] || [];
+	}
+
+	get count() {
+		const { model } = this.plugin;
+		const { columns } = model.view();
+		const resourceCount = model.foot().resource.count;
+
+		for (let i = 0, length = columns.length; i < length; i++) {
+			if (columns[i].aggregation) {
+				return Math.max(resourceCount, 1);
+			}
+		}
+
+		return resourceCount;
+	}
+
+	value(column) {
+		if (column.aggregation) {
+			const aggregation = column.aggregation;
+			const aggregationOptions = column.aggregationOptions;
+
+			if (!Aggregation.hasOwnProperty(aggregation)) {
+				throw new GridError(
+					'foot',
+					`Aggregation ${aggregation} is not registered`);
+			}
+
+			const { model } = this.plugin;
+			const { rows } = model.data();
+			
+			const getValue = this.valueFactory(column);
+			return Aggregation[aggregation](rows, getValue, aggregationOptions);
+		}
+
+		return null;
+	}
+}
+
+class EnumerableResource extends Resource {
+	constructor(data = {}, scope = {}, count = 0) {
+		super(data, scope);
+
+		this.count = count;
+	}
+}
+
+class FootState {
+	constructor() {
+		this.resource = new EnumerableResource();
+		this.cache = new Cache();
+	}
+}
+
+class GridHost {
+	constructor(host, plugin) {
+		const { model, disposable, observe } = plugin;
+		const { grid } = model;
+
+		this.plugin = plugin;
+
+		if (grid().status === 'bound') {
+			throw new GridError('grid.host', `Model is already used by grid "${grid().id}"`);
+		}
+
+		if (!host.id) {
+			host.id = model.grid().id;
+		}
+
+		grid({ status: 'bound' }, { source: 'grid.host' });
+
+		this.invalidateVisibility();
+		observe(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('column')) {
+					this.invalidateVisibility();
+				}
+			});
+
+		disposable.add(() => model.grid({ status: 'unbound' }, { source: 'grid.host' }));
+	}
+
+	keyUp(e) {
+		const { model } = this.plugin;
+		const { codes } = model.keyboard();
+		const code = Keyboard.translate(e.keyCode);
+		const index = codes.indexOf(code);
+		if (index >= 0) {
+			const newCodes = Array.from(codes);
+			newCodes.splice(index, 1);
+			model.keyboard({
+				code,
+				codes: newCodes,
+				status: 'up'
+			}, {
+				source: 'key.up'
+			});
+		}
+
+		model.keyboard({
+			code: null,
+			status: 'release'
+		}, {
+			source: 'key.up'
+		});
+	}
+
+	keyDown(e, source = 'grid') {
+		const { model } = this.plugin;
+		const { shortcut } = model.action();
+
+		const code = Keyboard.translate(e.keyCode);
+		const result = shortcut.keyDown(e, source);
+		if (result.length > 0) {
+			e.preventDefault();
+			e.stopPropagation();
+		} else {
+			if (e.target.tagName === 'TBODY') {
+				const { prevent } = model.navigation();
+				if (prevent.has(code)) {
+					e.preventDefault();
+					e.stopPropagation();
+				}
+			}
+		}
+
+		model.keyboard({
+			code,
+			codes: uniq(model.keyboard().codes.concat(code)),
+			status: 'down'
+		}, {
+			source: 'key.down'
+		});
+
+		return result;
+	}
+
+	invalidateVisibility() {
+		const { model } = this.plugin;
+		const { left, right } = model.scene().column.area;
+		const { pinTop, pinBottom } = model.row();
+
+		const { pin: oldPin } = model.visibility();
+		const newPin = {
+			left: left.length > 0,
+			right: right.length > 0,
+			top: pinTop.length > 0,
+			bottom: pinBottom.length > 0
+		};
+
+		if (!same(oldPin, newPin)) {
+			model.visibility({
+				pin: newPin
+			}, {
+				source: 'grid.host'
+			});
+		}
+	}
+
+	invalidateActive() {
+		const { model, table, service } = this.plugin;
+		if (table.view.isFocused()) {
+			const needFocusCell =
+				!model.mouse().target
+				&& (model.focus().rowIndex < 0 || model.focus().columnIndex < 0);
+			if (needFocusCell) {
+				service.focus(
+					model.pagination().size * model.pagination().current
+				);
+			} else {
+				model.focus({
+					isActive: true
+				}, {
+					source: 'grid.host'
+				});
+			}
+		}
+		else {
+			model.focus({ isActive: false }, { source: 'grid.host' });
+		}
+	}
+}
+
+class Middleware {
+	constructor(pipes) {
+		this.pipes = pipes;
+	}
+
+	run(context, memo = []) {
+		const tasks = this.pipes
+			.map(pipe => memo =>
+				new Promise((resolve, reject) =>
+					pipe(memo, context, resolve, reject)));
+
+		return start(tasks, memo);
+	}
+}
+
+function start(tasks, memo) {
+	tasks = Array.from(tasks);
+	return new Promise((resolve, reject) => {
+		invoke(memo);
+
+		function invoke(memo) {
+			if (tasks.length) {
+				const task = tasks.shift();
+				const promise = task(memo);
+				promise
+					.then(invoke)
+					.catch(ex => {
+						reject(ex);
+						throw ex;
+					});
+			}
+			else {
+				resolve(memo);
+			}
+		}
+	});
+}
+
+function buildFromModel(model) {
+	return function run(source, changes, pipe) {
+		const middleware = new Middleware(pipe);
+		const context = {
+			model,
+			source,
+			changes,
+			getValueFactory,
+			getLabelFactory
+		};
+
+		const { rows } = model.data();
+		return middleware.run(context, rows);
+	};
+}
+
+function guid() {
+	function p8(s) {
+		const p = (Math.random().toString(16) + '000000000').substr(2, 8);
+		return s ? '-' + p.substr(0, 4) + '-' + p.substr(4, 4) : p;
+	}
+
+	return p8() + p8(true) + p8(true) + p8();
+}
+
+class Scheduler {
+	constructor() {
+		this.tasks = [];
+	}
+
+	next() {
+		this.tasks.shift();
+		const task = this.tasks[0];
+		if (task) {
+			task();
+			return true;
+		}
+
+		return false;
+	}
+
+	add(task) {
+		this.tasks.push(task);
+		if (this.tasks.length === 1) {
+			task();
+		}
+
+		return this.tasks.length;
+	}
+}
+
+function buildSettings(...args) {
+	if (args.length) {
+		if (isString(args[0])) {
+			return {
+				source: args[0],
+				changes: args[1] || {},
+				pipe: args[2],
+				why: 'refresh'
+			};
+		}
+
+		return Object.assign({
+			source: 'invalidate',
+			changes: {},
+			pipe: null,
+			why: 'refresh'
+		}, args[0])
+	}
+
+	return {
+		source: 'invalidate',
+		changes: {},
+		pipe: null,
+		why: 'refresh'
+	};
+}
+
+class GridService {
+	constructor(model) {
+		this.model = model;
+		this.scheduler = new Scheduler();
+	}
+
+	invalidate(...args /*source = 'invalidate', changes = {}, pipe = null*/) {
+		const { source, changes, pipe, why } = buildSettings(...args);
+		const { scheduler, model } = this;
+		const { scene } = model;
+
+		const runPipe = buildFromModel(model);
+		const cancelBusy = why === 'refresh' ? this.busy() : noop;
+
+		const nextTask = () => {
+			cancelBusy();
+
+			if (!scheduler.next()) {
+				scene({ status: 'pull' }, {
+					source,
+					behavior: 'core'
+				});
+			}
+		};
+
+		const defer = new Defer();
+		const task = () => {
+			Log.info('grid', `start task ${source}`);
+			scene({ status: 'start' }, {
+				source,
+				behavior: 'core'
+			});
+
+			model.head().cache.clear();
+			model.body().cache.clear();
+			model.foot().cache.clear();
+
+			return Fastdom.invoke(() => runPipe(source, changes, pipe || model.data().pipe))
+				.then(() => {
+					Log.info('grid', `finish task ${source}`);
+
+					nextTask();
+					defer.resolve();
+				})
+				.catch(ex => {
+					Log.error('grid', ex);
+
+					nextTask();
+					defer.reject();
+				});
+		};
+
+		Log.info('grid', `add task ${source}`);
+		scheduler.add(task);
+
+		return defer.promise;
+	}
+
+	busy() {
+		const id = guid();
+		const { progress } = this.model;
+		const queue = progress().queue.concat([id]);
+		progress({ queue });
+
+		return () => {
+			const queue = Array.from(progress().queue);
+			const index = queue.indexOf(id);
+			if (index >= 0) {
+				queue.splice(index, 1);
+				progress({ queue });
+			}
+		};
+	}
+
+	focus(rowIndex, columnIndex) {
+		const focus = new FocusService(this.model);
+		focus.activate(rowIndex, columnIndex);
+	}
+}
+
+class GridState {
+	constructor() {
+		this.id = `${GRID_PREFIX}-${guid()}`;
+		this.status = 'unbound'; //unbound | bound
+		this.caption = '';
+		this.interactionMode = 'full' | 'readonly' | 'detached';
+
+		// @deprecated
+		this.title = '';
+	}
+}
+
+function rowspanGetNode(node, column) {
+	if (node.source === column.by) {
+		return node;
+	}
+	if (node.children.length) {
+		return node.children[0];
+	}
+	return node;
+}
+
+function flatVisible(node, column) {
+	return column.type !== 'group' || node.source === column.by;
+}
+
+function rowspanIsVisible(node, column, parent) {
+	if (node.source === column.by) {
+		return !parent || parent.state.expand;
+	}
+
+	if (node.children.length) {
+		return rowspanIsVisible(node.children[0], column, node);
+	}
+
+	return false;
+}
+
+class GroupLet {
+	constructor(plugin, shortcut) {
+		const { model, observeReply, disposable, service } = plugin;
+
+		this.plugin = plugin;
+		this.valueFactory = getValueFactory;
+
+		const toggleStatus = new Command({
+			source: 'group.view',
+			execute: args => {
+				let row = selectRow(model.navigation());
+				let column = selectColumn(model.navigation());
+
+				if (args) {
+					row = args[0] || row;
+					column = args[1] || column;
+				}
+
+				const node = this.getNode(row, column);
+				const { toggle } = model.group();
+				if (toggle.execute(node) !== false) {
+					node.state.expand = !node.state.expand;
+					service.invalidate({
+						source: 'group.view',
+						pipe: PipeUnit.group,
+						why: PipeUnit.group.why
+					});
+				}
+			},
+			canExecute: args => {
+				let row = selectRow(model.navigation());
+				let column = selectColumn(model.navigation());
+
+				if (args) {
+					row = args[0] || row;
+					column = args[1] || column;
+				}
+
+				const node = this.getNode(row, column);
+				const { toggle } = model.group();
+				return node && node.type === 'group' && toggle.canExecute(node);
+			},
+			shortcut: model.group().shortcut.toggle
+		});
+
+		let shouldExpand = true;
+
+		const toggleAllStatus = new Command({
+			source: 'group.view',
+			execute: () => {
+				if (model.group().toggleAll.execute() !== false) {
+					const { nodes } = model.view();
+					const { toggle } = model.group();
+
+					preOrderDFS(nodes, node => {
+						if (toggleStatus.canExecute([node])) {
+							if (toggle.execute(node) !== false) {
+								node.state.expand = shouldExpand;
+							}
+						}
+					});
+
+					shouldExpand = !shouldExpand;
+					service.invalidate({
+						source: 'group.view',
+						pipe: PipeUnit.group,
+						why: PipeUnit.group.why
+					});
+				}
+			},
+			canExecute: () => model.group().toggleAll.canExecute()
+		});
+
+		this.toggleStatus = toggleStatus;
+		this.toggleAllStatus = toggleAllStatus;
+
+		shortcut.register([toggleStatus, toggleAllStatus]);
+
+		const createColumn = columnFactory(model);
+		this.reference = {
+			group: createColumn('group')
+		};
+
+		this.getNode = identity;
+		this.isVisible = yes;
+
+		observeReply(model.groupChanged)
+			.subscribe(e => {
+				if (e.hasChanges('mode')) {
+					switch (e.state.mode) {
+						case 'rowspan': {
+							this.getNode = rowspanGetNode;
+							this.isVisible = rowspanIsVisible;
+							break;
+						}
+						case 'flat':
+							this.getNode = identity;
+							this.isVisible = flatVisible;
+							break;
+						default: {
+							this.getNode = identity;
+							this.isVisible = yes;
+							break;
+						}
+					}
+				}
+			});
+
+		let canExecuteCheckSub;
+		const unsubscribeCanExecuteCheck = () => {
+			if (canExecuteCheckSub) {
+				canExecuteCheckSub.unsubscribe();
+				canExecuteCheckSub = null;
+			}
+		};
+
+		disposable.add(
+			unsubscribeCanExecuteCheck
+		);
+
+		observeReply(model.rowChanged)
+			.subscribe(e => {
+				if (e.hasChanges('toggle')) {
+					const { toggle } = e.state;
+					unsubscribeCanExecuteCheck();
+					canExecuteCheckSub = toggle.canExecuteCheck
+						.subscribe(() => {
+							this.toggleStatus.canExecuteCheck.next();
+						});
+				}
+			});
+	}
+
+	count(node, column) {
+		node = this.getNode(node, column);
+		return node.children.length || node.rows.length;
+	}
+
+	status(node, column) {
+		node = this.getNode(node, column);
+		return node.state.expand ? 'expand' : 'collapse';
+	}
+
+	offset(node, column) {
+		const { model } = this.plugin;
+
+		node = this.getNode(node, column);
+		const { mode } = model.group();
+		switch (mode) {
+			case 'nest':
+			case 'subhead': {
+				return column ? column.offset * node.level : 0;
+			}
+			default: {
+				return 0;
+			}
+		}
+	}
+
+	value(node, column) {
+		node = this.getNode(node, column);
+		if (column) {
+			const getLabel = getLabelFactory(column);
+			return getLabel(node);
+		}
+		return null;
+	}
+}
+
+class GroupState {
+	constructor() {
+		this.resource = new Resource();
+
+		this.mode = 'nest'; // nest | flat | subhead | rowspan
+		this.summary = null; // null | leaf
+		this.by = [];
+
+		this.toggle = new Command({ source: 'group.state' });
+		this.toggleAll = new Command({ source: 'group.state' });
+
+		this.flattenFactory = flattenFactory;
+
+		this.shortcut = {
+			toggle: 'space|enter'
+		};
+	}
+}
+
+class PathService {
+	constructor(bag) {
+		this.bag = bag;
+	}
+
+	cell(path) {
+		for (let node of path) {
+			if (node.nodeName === 'TD' || node.nodeName === 'TH') {
+				const model = this.bag.findModel(node);
+				if (!model) {
+					break;
+				}
+
+				return model;
+			}
+		}
+
+		return null;
+	}
+
+	row(path) {
+		for (let node of path) {
+			if (node.nodeName === 'TR') {
+				const model = this.bag.findModel(node);
+				if (!model) {
+					break;
+				}
+
+				return model;
+			}
+		}
+
+		return null;
+	}
+}
+
+function css(element, property, value) {
+	const normalizedProperty = normalize(property);
+	if (isUndefined(value)) {
+		return element.style[normalizedProperty];
+	} else {
+		element.style[normalizedProperty] = value;
+		return normalizedProperty;
+	}
+}
+
+function normalize(property) {
+	return property.replace(/-([a-z])/g, upperFirst);
+}
+
+function upperFirst(match, letter) {
+	return letter.toUpperCase();
+}
+
+function parents(element) {
+	const path = [];
+	while (element) {
+		path.unshift(element);
+		element = element.parentNode;
+	}
+
+	return path;
+}
+
+function eventPath(event) {
+	const path = (event.composedPath && event.composedPath()) || event.path;
+	const target = event.target;
+
+	if (path) {
+		// Safari doesn't include Window, but it should.
+		return (path.indexOf(window) < 0) ? path.concat(window) : path;
+	}
+
+	if (target === window) {
+		return [window];
+	}
+
+	return [target].concat(parents(target), window);
+}
+
+function elementFromPoint(x, y) {
+	return document.elementFromPoint(x, y);
+}
+
+class HeadHost {
+	constructor(plugin) {
+		const { model, table, observeReply } = plugin;
+
+		this.plugin = plugin;
+		this.column = null;
+
+		observeReply(model.dragChanged)
+			.subscribe(e => {
+				if (e.hasChanges('isActive')) {
+					if(e.state.isActive) {
+						this.column = null;
+					}
+				}
+			});
+	}
+
+	mouseMove(e) {
+		const { table } = this.plugin;
+
+		const pathFinder = new PathService(table.box.bag.head);
+		const cell = pathFinder.cell(eventPath(e));
+		if (cell) {
+			this.highlight(cell.column);
+		}
+	}
+
+	mouseLeave() {
+		this.highlight(null);
+	}
+
+	highlight(column) {
+		const { view } = this.plugin;
+
+		const { highlight } = view;
+		if (!highlight.column.canExecute(column)) {
+			return;
+		}
+
+		if (this.column !== column) {
+			if (this.column) {
+				highlight.column.execute(this.column, false);
+			}
+
+			if (column) {
+				highlight.column.execute(column, true);
+			}
+
+			this.column = column;
+		}
+	}
+}
+
+class HeadLet {
+	constructor(plugin, tagName) {
+		const { model, table, observeReply } = plugin;
+
+		this.plugin = plugin;
+		this.tagName = tagName;
+		this.rows = [];
+
+		const pathFinder = new PathService(table.box.bag.head);
+
+		this.drop = new Command({
+			source: 'head.view',
+			canExecute: e => {
+				if (e.action === 'end') {
+					return true;
+				}
+
+				const cell = pathFinder.cell(eventPath(e));
+				return cell && cell.column.canMove;
+			},
+			execute: e => {
+				const sourceKey = e.dragData;
+				switch (e.action) {
+					case 'over': {
+						const th = pathFinder.cell(eventPath(e));
+						if (!e.inAreaX(th.element)) {
+							return;
+						}
+
+						const targetKey = th.column.key;
+						if (sourceKey !== targetKey) {
+							const { columnList } = model;
+
+							const tree = calk(columnList().index);
+							const oldPos = findNode(tree, node => node.key.model.key === sourceKey);
+							const newPos = findNode(tree, node => node.key.model.key === targetKey);
+              
+							if (oldPos && newPos && newPos.path.indexOf(oldPos.node) < 0) {
+								const queue = oldPos.path.reverse();
+								const hostIndex = queue.findIndex(node => node.children.length > 1);
+								if (hostIndex >= 0) {
+									const host = queue[hostIndex];
+									const target = queue[hostIndex - 1] || oldPos.node;
+									const index = host.children.indexOf(target);
+
+									host.children.splice(index, 1);
+									newPos.parent.children.splice(newPos.index, 0, target);
+
+									target.level = newPos.parent.level + 1;
+                  
+									preOrderDFS(
+										target.children,
+										(node, root, parent) => {
+											node.level = (root || parent).level + 1;
+										},
+										target
+									);
+
+									columnList({ index: tree }, { source: 'head.view' });
+								}
+							}
+						}
+						break;
+					}
+					case 'end':
+					case 'drop': {
+						const { index } = model.columnList();
+						const oldPos = findNode(index, node => node.key.model.key === sourceKey);
+						if (oldPos) {
+							for (let leaf of findLeaves(oldPos.node)) {
+								const oldColumn = table.body.column(leaf.key.columnIndex);
+								oldColumn.removeClass(`${GRID_PREFIX}-drag`);
+							}
+						}
+						break;
+					}
+				}
+			}
+		});
+
+		this.drag = new Command({
+			source: 'head.view',
+			canExecute: e => {
+				const sourceKey = e.data;
+				const { index } = model.columnList();
+				const pos = findNode(index, node => node.key.model.key === sourceKey);
+				return pos && pos.node.key.model.canMove;
+			},
+			execute: e => {
+				const sourceKey = e.data;
+				const { index } = model.columnList();
+				const pos = findNode(index, node => node.key.model.key === sourceKey);
+				if (pos) {
+					for (let leaf of findLeaves(pos.node)) {
+						const column = table.body.column(leaf.key.columnIndex);
+						column.addClass(`${GRID_PREFIX}-drag`);
+						return () => table.head.cell;
+					}
+				}
+			},
+		});
+
+		this.resize = new Command({
+			source: 'head.view',
+			canExecute: e => {
+				const key = e.data;
+				const map = table.data.columnMap();
+				return map.hasOwnProperty(key) && map[key].canResize !== false;
+			}
+		});
+
+		observeReply(model.dataChanged)
+			.subscribe(e => {
+				if (e.hasChanges('columns')) {
+					const line = flattenColumns(e.state.columns);
+					model.columnList({ line }, { source: 'head.view' });
+				}
+			});
+
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('column')) {
+					this.invalidate();
+				}
+			});
+
+		observeReply(model.filterChanged)
+			.subscribe(e => {
+				if (e.hasChanges('unit')) {
+					this.invalidate();
+				}
+			});
+	}
+
+	columns(row, pin) {
+		return row.filter(c => c.model.pin === pin);
+	}
+
+	invalidate() {
+		Log.info('view.head', 'invalidate');
+
+		const { model, table } = this.plugin;
+		this.rows = Array.from(model.scene().column.rows);
+
+		if (this.rows.length > 1) {
+			table.view.addClass(`${GRID_PREFIX}-head-span`);
+		} else {
+			table.view.removeClass(`${GRID_PREFIX}-head-span`);
+		}
+
+		if (model.filter().unit === 'row') {
+			const filterRow = table.data.columns().map(c => new FilterRowColumn(c));
+			this.rows.push(filterRow);
+		}
+	}
+}
+
+class HeadState {
+	constructor() {
+		this.resource = new Resource();
+		this.cache = new Cache();
+	}
+}
+
+function hashColumnKeyFactory(model) {
+  const { columnKey } = model.selection();
+  if (columnKey === identity) {
+    return column => column.key;
+  }
+
+  // TODO: investigate if is it necessary to use JSON.stringify here
+  return identity;
+}
+
+function hashRowKeyFactory(model) {
+  const { rowKey } = model.selection();
+  if (rowKey === identity) {
+    const columns = model.columnList().line;
+    const index = columns.findIndex(column => column.type === 'id');
+    if (index >= 0) {
+      const idColumn = columns[index];
+      const getId = getValueFactory(idColumn);
+      return getId;
+    }
+
+    const { rows } = model.data();
+    return row => rows.indexOf(row);
+  }
+
+  // TODO: investigate if is it necessary to use JSON.stringify here
+  return identity;
+}
+
+function hashKeyFactory(model) {
+  const selectionState = model.selection();
+  switch (selectionState.unit) {
+    case 'row':
+      return hashRowKeyFactory(model);
+    case 'column':
+      return hashColumnKeyFactory(model);
+    case 'cell': {
+      const hashColumnKey = hashColumnKeyFactory(model);
+      const hashRowKey = hashRowKeyFactory(model);
+      return key => `${hashColumnKey(key.column)}[${hashRowKey(key.row)}]`;
+    }
+    case 'mix': {
+      const hashColumnKey = hashColumnKeyFactory(model);
+      const hashRowKey = hashRowKeyFactory(model);
+      return (key, entry) => {
+        if (!entry.unit) {
+          return key;
+        }
+
+        switch (entry.unit) {
+          case 'column':
+            return hashColumnKey(key);
+          case 'row':
+            return hashRowKey(key);
+          case 'cell':
+            return `${hashColumnKey(key.column)}[${hashRowKey(key.row)}]`;
+          default:
+            throw new GridError('selection.service', `Invalid unit ${entry.unit}`);
+        }
+      };
+    }
+    default:
+      throw new GridError('selection.service', `Invalid unit ${selectionState.unit}`);
+  }
+}
+
+function cellMatchFactory() {
+  return (x, y) => x.column === y.column && x.row === y.row;
+}
+
+function keySelector(unit, rowKey, columnKey) {
+  switch (unit) {
+    case 'row':
+      return rowKey;
+    case 'column':
+      return columnKey;
+    case 'cell':
+      return entry => {
+        if (entry.row && entry.column) {
+          return {
+            row: rowKey(entry.row),
+            column: columnKey(entry.column)
+          };
+        }
+
+        return entry;
+      };
+    default:
+      throw new GridError('selection.state', `Invalid unit ${unit}`);
+  }
+}
+
+function lookupColumnFactory(model, selectKey) {
+  const columns = model.columnList().line;
+  return items => {
+    const result = [];
+    
+    columns.forEach(column => {
+      const columnKey = selectKey(column);
+      const found = items.indexOf(columnKey) >= 0;
+      if (found) {
+        result.push(column);
+      }
+    });
+
+    return result;
+  };
+}
+
+function lookupRowFactory(model, selectKey) {
+  const { rows } = model.data();
+  return items => {
+    const result = [];
+    
+    rows.forEach(row => {
+      const rowKey = selectKey(row);
+      const found = items.indexOf(rowKey) >= 0;
+      if (found) {
+        result.push(row);
+      }
+    });
+
+    return result;
+  };
+}
+
+function lookupCellFactory(model, selectKey) {
+  const { rows } = model.data();
+  const columns = model.columnList().line;
+  const match = cellMatchFactory();
+  
+  return items => {
+    const result = [];
+
+    columns.forEach(column => {
+      rows.forEach(row => {
+        const cell = {
+          column: column,
+          row: row
+        };
+
+        const index = items.findIndex(item => match(item, selectKey(cell)));
+        if (index >= 0) {
+          result.push(cell);
+        }
+      });
+    });
+
+    return result;
+  };
+}
+
+class SelectionService {
+  constructor(model) {
+    this.model = model;
+  }
+
+  lookup(items, unit) {
+    let entries = [];
+    if (items.length === 0) {
+      return entries;
+    }
+
+    const { model } = this;
+    if (isUndefined(unit)) {
+      unit = model.selection().unit;
+    }
+
+    switch (unit) {
+      case 'column': {
+        const selectKey = this.keyFactory('column');
+        const lookup = lookupColumnFactory(model, selectKey);
+        entries = lookup(items);
+        break;
+      }
+      case 'row': {
+        const selectKey = this.keyFactory('row');
+        const lookup = lookupRowFactory(model, selectKey);
+        entries = lookup(items);
+        break;
+      }
+      case 'cell': {
+        const selectKey = this.keyFactory('cell');
+        const lookup = lookupCellFactory(model, selectKey);
+        entries = lookup(items);
+        break;
+      }
+      case 'mix': {
+        const rowKeys = items.filter(key => key.unit === 'row').map(key => key.item);
+        const columnKeys = items.filter(key => key.unit === 'column').map(key => key.item);
+        const cellKeys = items.filter(key => key.unit === 'cell').map(key => key.item);
+
+        entries.push(...this.lookup(rowKeys, 'row').map(entry => ({ item: entry, unit: 'row' })));
+        entries.push(...this.lookup(columnKeys, 'column').map(entry => ({ item: entry, unit: 'column' })));
+        entries.push(...this.lookup(cellKeys, 'cell').map(entry => ({ item: entry, unit: 'cell' })));
+        break;
+      }
+      default:
+        throw new GridError('selection.state', `Invalid unit ${unit}`);
+    }
+
+    return entries;
+  }
+
+  map(entries) {
+    const selectionState = this.model.selection();
+    const selectKey = this.keyFactory();
+    switch (selectionState.unit) {
+      case 'column':
+      case 'row':
+      case 'cell':
+        return entries.map(selectKey);
+      case 'mix':
+        return entries.map(entry => ({
+          unit: entry.unit,
+          item: selectKey(entry)
+        }));
+      default:
+        throw new GridError('selection.state', `Invalid unit ${selectionState.unit}`);
+    }
+  }
+
+  keyFactory(selectionUnit) {
+    const { rowKey, columnKey, unit } = this.model.selection();
+
+    selectionUnit = selectionUnit || unit;
+    switch (selectionUnit) {
+      case 'column':
+      case 'row':
+      case 'cell':
+        return keySelector(selectionUnit, rowKey, columnKey);
+      case 'mix': {
+        const selectCellKey = keySelector('cell', rowKey, columnKey);
+        const selectRowKey = keySelector('row', rowKey, columnKey);
+        const selectColumnKey = keySelector('column', rowKey, columnKey);
+
+        return entry => {
+          if (!entry.unit) {
+            return identity;
+          }
+
+          switch (entry.unit) {
+            case 'column':
+              return selectColumnKey(entry.item);
+            case 'row':
+              return selectRowKey(entry.item);
+            case 'cell':
+              return selectCellKey(entry.item);
+            default:
+              throw new GridError('selection.service', `Invalid unit ${entry.unit}`);
+          }
+        };
+      }
+      default:
+        throw new GridError('selection.service', `Invalid unit ${selectionUnit}`);
+    }
+  }
+
+  hashFactory() {
+    const selectKey = this.keyFactory();
+    const selectHash = hashKeyFactory(this.model);
+    return entry => {
+      const key = selectKey(entry);
+      const hashKey = selectHash(key, entry);
+      return hashKey;
+    };
+  }
+}
+
+class HighlightLet {
+	constructor(plugin) {
+		const { model, table, observeReply, observe } = plugin;
+		this.plugin = plugin;
+
+		this.cellSelector = new CellSelector(model, table);
+		this.selectionService = new SelectionService(model);
+
+		let sortBlurs = [];
+		let columnHoverBlurs = [];
+		let rowHoverBlurs = [];
+		let selectionBlurs = [];
+		let cellHoverBlurs = [];
+
+		this.column = new Command({
+			source: 'highlight.view',
+			canExecute: () => !this.isRendering,
+			execute: (column, state) => {
+				const columns = Array.from(model.highlight().columns);
+				const index = columns.indexOf(column.key);
+				let hasChanges = false;
+				if (state) {
+					if (index < 0) {
+						columns.push(column.key);
+						hasChanges = true;
+					}
+				}
+				else {
+					if (index >= 0) {
+						columns.splice(index, 1);
+						hasChanges = true;
+					}
+				}
+
+				if (hasChanges) {
+					model.highlight({ columns }, {
+						source: 'highlight.view',
+					});
+				}
+			}
+		});
+
+		this.row = new Command({
+			source: 'highlight.view',
+			canExecute: () => !this.isRendering,
+			execute: (row, state) => {
+				const rows = Array.from(model.highlight().rows);
+				const index = rows.indexOf(row);
+				let hasChanges = false;
+				if (state) {
+					if (index < 0) {
+						rows.push(row);
+						hasChanges = true;
+					}
+				}
+				else {
+					if (index >= 0) {
+						rows.splice(index, 1);
+						hasChanges = true;
+					}
+				}
+
+				if (hasChanges) {
+					model.highlight({ rows }, {
+						source: 'highlight.view'
+					});
+				}
+			}
+		});
+
+		this.cell = new Command({
+			source: 'highlight.view',
+			canExecute: () => !this.isRendering,
+			execute: (newCell, state) => {
+				let { cell } = model.highlight();
+				let hasChanges = true;
+				if (newCell === cell) {
+					hasChanges = false;
+				}
+				else if (newCell && cell) {
+					hasChanges =
+						newCell.rowIndex !== cell.rowIndex
+						|| newCell.columnIndex !== cell.columnIndex;
+				}
+
+				if (hasChanges) {
+					model.highlight({ cell: newCell }, {
+						source: 'highlight.view'
+					});
+				}
+			}
+		});
+
+		this.clear = new Command({
+			execute: () => {
+				const { rows, cell } = model.highlight();
+
+				rows.forEach(rowIndex => this.row.execute(rowIndex, false));
+
+				if (cell) {
+					this.cell.execute(null, false);
+				}
+			}
+		});
+
+		observeReply(model.selectionChanged)
+			.subscribe(e => {
+				if (e.hasChanges('items')) {
+					selectionBlurs = this.invalidateSelection(selectionBlurs);
+				}
+			});
+
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('status')) {
+					if (e.state.status === 'stop') {
+						columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
+						rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
+						cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
+						sortBlurs = this.invalidateSortBy(sortBlurs);
+						selectionBlurs = this.invalidateSelection(selectionBlurs);
+					}
+				}
+			});
+
+		observeReply(model.sortChanged)
+			.subscribe(e => {
+				if (!this.isRendering && e.hasChanges('by')) {
+					sortBlurs = this.invalidateSortBy(sortBlurs);
+				}
+			});
+
+		observeReply(model.highlightChanged)
+			.subscribe(e => {
+				if (!this.isRendering) {
+					if (e.hasChanges('cell')) {
+						cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
+					}
+
+					if (e.hasChanges('columns')) {
+						columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
+					}
+
+					if (e.hasChanges('rows')) {
+						rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
+					}
+				}
+			});
+
+		observe(model.dragChanged)
+			.subscribe(e => {
+				if (e.hasChanges('isActive')) {
+					if (e.state.isActive) {
+						model.highlight({
+							columns: [],
+							rows: [],
+							cell: null
+						}, {
+							source: 'highlight.view'
+						});
+
+						columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
+						rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
+						cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
+					}
+				}
+			});
+	}
+
+	get isRendering() {
+		const { model } = this.plugin;
+		return model.scene().status !== 'stop' || model.drag().isActive;
+	}
+
+	invalidateColumnHover(dispose) {
+		dispose.forEach(f => f());
+
+		const { model } = this.plugin;
+		const { columns } = model.highlight();
+
+		return columns
+			.map(columnKey => this.highlightColumn(columnKey, 'highlighted'));
+	}
+
+	invalidateRowHover(dispose) {
+		dispose.forEach(f => f());
+
+		const { model } = this.plugin;
+		const { rows } = model.highlight();
+
+		return rows
+			.map(row => this.highlightRow(row, 'highlighted'));
+	}
+
+	invalidateCellHover(dispose) {
+		dispose.forEach(f => f());
+
+		const { model, table } = this.plugin;
+		const { cell } = model.highlight();
+
+		dispose = [];
+		if (cell) {
+			const { body } = table;
+			const { rowIndex, columnIndex } = cell;
+			dispose.push(this.highlightCell(body.cell(rowIndex, columnIndex), 'highlighted'));
+		}
+
+		return dispose;
+	}
+
+	invalidateSortBy(dispose) {
+		dispose.forEach(f => f());
+
+		const { model } = this.plugin;
+		const sortBy = model.sort().by;
+
+		dispose = [];
+		for (let entry of sortBy) {
+			const key = getKey(entry);
+			dispose.push(this.highlightColumn(key, 'sorted'));
+		}
+
+		return dispose;
+	}
+
+	invalidateSelection(dispose) {
+		dispose.forEach(f => f());
+
+		const { model } = this.plugin;
+		const { items } = model.selection();
+
+		const entries = this.selectionService.lookup(items);
+		const cells = this.cellSelector.map(entries);
+
+		return cells
+			.map(cell => this.highlightCell(cell, 'selected'));
+	}
+
+	findColumnPosition(key) {
+		const { model } = this.plugin;
+		const { index } = model.columnList();
+
+		const pos = findNode(index, node => node.key.model.key === key);
+		if (pos) {
+			return findLeaves(pos.node).map(leaf => leaf.key.columnIndex);
+		}
+
+		return [];
+	}
+
+	highlightColumn(key, cls) {
+		const { table } = this.plugin;
+
+		const position = this.findColumnPosition(key);
+		if (!position.length) {
+			return noop;
+		}
+
+		const { head, body, foot } = table;
+		Fastdom.mutate(() => {
+			const isLeaf = position.length === 1;
+			for (let index of position) {
+				if (isLeaf) {
+					head.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+					head.column(index - 1).addClass(`${GRID_PREFIX}-${cls}-prev`);
+					head.column(index + 1).addClass(`${GRID_PREFIX}-${cls}-next`);
+				}
+
+				const bodyColumn = body.column(index);
+				const column = bodyColumn.model();
+				if (column && column.canHighlight) {
+					bodyColumn.addClass(`${GRID_PREFIX}-${cls}`);
+					foot.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+				}
+			}
+		});
+
+		return this.blurColumn(key, cls);
+	}
+
+	blurColumn(key, cls) {
+		const { table } = this.plugin;
+
+		const position = this.findColumnPosition(key);
+		if (!position.length) {
+			return noop;
+		}
+
+		const { head, body, foot } = table;
+		return () => {
+			Fastdom.mutate(() => {
+				for (let index of position) {
+					head.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+					head.column(index - 1).removeClass(`${GRID_PREFIX}-${cls}-prev`);
+					head.column(index + 1).removeClass(`${GRID_PREFIX}-${cls}-next`);
+					body.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+					foot.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+				}
+			});
+		};
+	}
+
+	highlightRow(index, cls) {
+		const { table } = this.plugin;
+
+		if (index < 0) {
+			return noop;
+		}
+
+		const { body } = table;
+		Fastdom.mutate(() => body.row(index).addClass(`${GRID_PREFIX}-${cls}`));
+
+		return this.blurRow(index, cls);
+	}
+
+	blurRow(index, cls) {
+		const { table } = this.plugin;
+
+		if (index < 0) {
+			return noop;
+		}
+
+		const row = table.body.row(index);
+		return () => Fastdom.mutate(() => row.removeClass(`${GRID_PREFIX}-${cls}`));
+	}
+
+	highlightCell(cell, cls) {
+		Fastdom.mutate(() => {
+			cell.addClass(`${GRID_PREFIX}-${cls}`);
+		});
+
+		return this.blurCell(cell, cls);
+	}
+
+	blurCell(cell, cls) {
+		return () =>
+			Fastdom.mutate(() => {
+				cell.removeClass(`${GRID_PREFIX}-${cls}`);
+			});
+	}
+}
+
+class HighlightState {
+	constructor() {
+		this.columns = [];
+		this.rows = [];
+		this.cell = null;
+	}
+}
+
+class CharReader {
+	constructor(text) {
+		this.text = text || '';
+		this.peeks = [];
+		this.position = 0;
+		this.length = this.text.length;
+	}
+
+	static get eof() {
+		return undefined;
+	}
+
+	read() {
+		const peeks = this.peeks;
+		if (peeks.length > 0) {
+			return peeks.pop();
+		}
+
+		const nextPosition = this.position + 1;
+		if (nextPosition < this.length) {
+			const c = this.text[this.position];
+			this.position = nextPosition;
+			return c;
+		}
+
+		return CharReader.eof;
+	}
+
+	peek() {
+		return this.peekCore(0);
+	}
+
+	peekPeek() {
+		return this.peekCore(1);
+	}
+
+	peekCore(offset) {
+		const peeks = this.peeks;
+		if (offset < peeks.length) {
+			return peeks[offset];
+		}
+
+		const length = this.length;
+		for (let i = peeks.length; i <= offset; i++) {
+			const nextPosition = this.position + 1;
+			if (nextPosition >= length) {
+				return CharReader.eof;
+			}
+
+			const c = this.text[this.position];
+			this.position = nextPosition;
+			peeks.push(c);
+		}
+
+		return peeks[offset];
+	}
+
+	seek(offset) {
+		const peeks = this.peeks;
+		const peekCount = peeks.length;
+		peeks.splice(0, Math.Min(offset, peekCount));
+		offset -= peekCount;
+		while (--offset >= 0) {
+			this.read();
+		}
+
+		return this.peek();
+	}
+}
+
+class CsvImport {
+	constructor(delimiter = ',') {
+		this.delimiter = delimiter;
+	}
+
+	read(text) {
+		const reader = new CharReader(text);
+		const delimiter = this.delimiter;
+
+		const result = [];
+		let line = [];
+		let term = '';
+		const condition = true;
+		do {
+			const c = reader.peek();
+			if (c === ' ') {
+				reader.read();
+				continue;
+			}
+
+			if (c === delimiter) {
+				reader.read();
+
+				line.push(term);
+				term = '';
+				continue;
+			}
+
+			if (c === '\n') {
+				reader.read();
+
+				if (line.length > 0 || term.length > 0) {
+					line.push(term);
+					term = '';
+				}
+
+				if (line.length > 0) {
+					result.push(line);
+					line = [];
+				}
+
+				continue;
+			}
+
+			if (c === '\r' && reader.peekPeek() === '\n') {
+				reader.read();
+				reader.read();
+
+				if (line.length > 0 || term.length > 0) {
+					line.push(term);
+					term = '';
+				}
+
+				if (line.length > 0) {
+					result.push(line);
+					line = [];
+				}
+
+				continue;
+			}
+
+			if (c === CharReader.eof) {
+				reader.read();
+
+				if (line.length > 0 || term.length > 0) {
+					line.push(term);
+					result.push(line);
+				}
+				break;
+			}
+
+			if (c === '"') {
+				term = this.readEscapedValue(reader, term);
+			}
+			else {
+				term = this.readUnescapedValue(reader, term);
+			}
+		}
+		while (condition);
+
+		return result.map(this.lineToObj);
+	}
+
+	readEscapedValue(reader, term) {
+		// Omit double quote
+		let c = reader.read();
+		while (c !== CharReader.eof) {
+			c = reader.read();
+			if (c === '"') {
+				if (reader.peek() === '"') {
+					term += reader.read();
+					continue;
+				}
+				break;
+			}
+			term += c;
+		}
+
+		return term;
+	}
+
+	readUnescapedValue(reader, term) {
+		const delimiter = this.delimiter;
+		let c = reader.peek();
+		while (c !== CharReader.eof) {
+			if (c === delimiter || c === '\n' ||
+				(c === '\r' && reader.peekPeek() === '\n'))
+				break;
+
+			term += reader.read();
+			c = reader.peek();
+		}
+
+		return term;
+	}
+
+	lineToObj(line) {
+		const result = {};
+		for (let i = 0, length = line.length; i < length; i++) {
+			result[i] = line[i];
+		}
+		return result;
+	}
+}
+
+class ImportState {
+	constructor() {
+		this.resource = new Resource();
+	}
+}
+
+class JsonImport {
+	read(data) {
+		const rows = JSON.parse(data);
+		if (isArray(rows)) {
+			return rows;
+		}
+		return [rows];
+	}
+}
+
+const NODE_TYPE = {
+	ELEMENT: 1,
+	ATTRIBUTE: 2,
+	TEXT: 3,
+	DOCUMENT: 9
+};
+
+class XmlImport {
+	read(text) {
+		if (!text) {
+			return [];
+		}
+		const parser = new DOMParser();
+		const root = parser.parseFromString(text, 'text/xml').documentElement;
+		const statistics = this.getStatistics(root);
+		const graph = this.build(root, statistics, 'root');
+		const key = Object.keys(graph)[0];
+		const result = graph[key];
+		if (isArray(result)) {
+			return result;
+		}
+
+		return [result];
+	}
+
+	arrayFromChildren(node, statistics, path, tag) {
+		const result = [];
+		const children = Array.from(node.children).filter(child => child.nodeName === tag);
+		for (let child of children) {
+			result.push(this.buildNonArray(child, statistics, path));
+		}
+
+		return result;
+	}
+
+	build(node, statistics, path = 'root') {
+		const st = statistics.get(path);
+		if (st.isArray) {
+			return this.arrayFromChildren(node.parentNode, statistics, path, node.nodeName);
+		}
+
+		return this.buildNonArray(node, statistics, path);
+	}
+
+	buildNonArray(node, statistics, path = 'root') {
+		const st = statistics.get(path);
+		if (st.isObject) {
+			const result = {};
+			const visited = new Set();
+			for (let attr of Array.from(node.attributes)) {
+				result[attr.name] = attr.value;
+			}
+
+			for (let child of Array.from(node.children)) {
+				const childPath = this.getPath(path, child.nodeName);
+				if (visited.has(childPath)) {
+					continue;
+				}
+
+				visited.add(childPath);
+				result[child.nodeName] = this.build(child, statistics, childPath);
+			}
+
+			return result;
+		}
+
+		if (st.isText) {
+			return node.textContent;
+		}
+
+		return null;
+	}
+
+	info(node, lastInfo) {
+		if (!lastInfo) {
+			lastInfo = {
+				isArray: false,
+				isObject: false,
+				isText: false
+			};
+		}
+
+		return {
+			isArray: lastInfo.isArray || Array.from(node.parentNode.children).filter(child => child.nodeName === node.nodeName).length > 1,
+			isObject: lastInfo.isObject || node.children.length > 0 || node.attributes.length > 0,
+			isText: lastInfo.isText || this.isTextContainer(node)
+		};
+	}
+
+	getStatistics(node, path = 'root', statistics = new Map()) {
+		statistics.set(path, this.info(node, statistics.get(path)));
+
+		const children = Array.from(node.children);
+		if (children.length > 0) {
+			for (let child of children) {
+				const childPath = this.getPath(path, child.nodeName);
+				this.getStatistics(child, childPath, statistics);
+			}
+		}
+
+		return statistics;
+	}
+
+	isTextContainer(node) {
+		return node.nodeType === NODE_TYPE.ELEMENT && !node.children.length && node.childNodes.length;
+	}
+
+	getPath(...args) {
+		return args.join('/');
+	}
+}
+
+class Composite {
+	static func(list, reduce = noop, memo = null) {
+		return (...args) => {
+			for (const f of list) {
+				memo = reduce(memo, f(...args));
+			}
+
+			return memo;
+		};
+	}
+
+	static command(list) {
+		return new Command({
+			source: 'composite',
+			canExecute: (...args) => {
+				return list.reduce((memo, cmd) => memo || cmd.canExecute(...args), false);
+			},
+			execute: (...args) => {
+				return list
+					.filter(cmd => cmd.canExecute(...args))
+					.reduce((memo, cmd) => cmd.execute(...args) || memo, undefined);
+			}
+		});
+	}
+
+	static list(list) {
+		return list.reduce((memo, xs) => memo.concat(xs), []);
+	}
+
+	static object(list, memo = {}) {
+		return Object.assign(memo, ...list);
+	}
+}
+
+function final() {
+    let isLocked = false;
+    return f => {
+        if (isLocked) {
+            return false;
+        }
+
+        isLocked = true;
+        try {
+            f();
+            return true;
+        } finally {
+            isLocked = false;
+        }
+    };
+}
+
+class KeyboardState {
+	constructor() {
+		this.status = 'release';
+		this.codes = [];
+		this.code = null;
+	}
+}
+
+class LayerState {
+	constructor() {
+		this.resource = new Resource();
+	}
+}
+
+class LayoutLet {
+	constructor(plugin) {
+		const { model, observeReply, disposable } = plugin;
+		const styleRow = this.styleRow.bind(this);
+
+		this.plugin = plugin;
+
+		observeReply(model.navigationChanged)
+			.subscribe(e => {
+				if (e.hasChanges('cell')) {
+					const { oldValue, newValue } = e.changes.cell;
+					const oldColumn = oldValue ? oldValue.column : {};
+					const newColumn = newValue ? newValue.column : {};
+
+					if (oldColumn.key !== newColumn.key && (oldColumn.viewWidth || newColumn.viewWidth)) {
+						Fastdom.measure(() => {
+							const form = this.updateColumnForm();
+							Fastdom.mutate(() => this.invalidateColumns(form));
+						});
+					}
+				}
+			});
+
+		observeReply(model.layoutChanged)
+			.subscribe(e => {
+				if (e.tag.source === 'layout.let') {
+					return;
+				}
+
+				if (e.hasChanges('columns')) {
+					Fastdom.measure(() => {
+						const form = this.updateColumnForm();
+						Fastdom.mutate(() => this.invalidateColumns(form));
+					});
+				}
+			});
+
+		observeReply(model.rowChanged)
+			.subscribe(e => {
+				if (e.hasChanges('canResize')) {
+					const rows = Array.from(model.style().rows);
+					if (e.state.canResize) {
+						rows.push(styleRow);
+					}
+					else {
+						const index = model.style.rows.indexOf(styleRow);
+						rows.splice(index, 1);
+					}
+					model.style({ rows }, { source: 'layout.let' });
+				}
+			});
+
+		observeReply(model.dataChanged)
+			.subscribe(e => {
+				if (e.hasChanges('columns')) {
+					model.layout({
+						columns: new Map()
+					}, {
+						source: 'layout.let',
+						behavior: 'core'
+					});
+				}
+			});
+
+		observeReply(model.viewChanged)
+			.subscribe(e => {
+				if (e.hasChanges('columns')) {
+					const columns = flattenColumns(e.state.columns);
+					const hasNonDefaultWidth = x => x.width !== null || x.minWidth !== null || x.maxWidth !== null || x.widthMode === 'fit-head';
+					if (columns.some(hasNonDefaultWidth)) {
+						Fastdom.mutate(() => {
+							const { columns } = model.layout();
+							this.invalidateColumns(columns);
+						});
+					}
+				}
+			});
+
+		disposable.add(() => {
+			const sheet$1 = sheet(this.gridId, 'column-layout');
+			sheet$1.remove();
+		});
+	}
+
+	updateColumnForm() {
+		const { model, table } = this.plugin;
+		const { head } = table;
+		const { cells } = head.context.bag;
+		const layout = model.layout().columns;
+
+		const form = new Map();
+		for (let cell of cells) {
+			const { column, rowIndex, columnIndex } = cell;
+			if (!column.canResize) {
+				continue;
+			}
+
+			const { key } = column;
+			if (layout.has(key)) {
+				const { width } = layout.get(key);
+				form.set(key, { width });
+			} else {
+				const th = head.cell(rowIndex, columnIndex);
+				const width = th.width();
+
+				// It can be that clientWidth is zero on start, while css is not applied.
+				if (width) {
+					form.set(key, { width });
+				}
+			}
+		}
+
+		model.layout({ columns: form }, { source: 'layout.let', behavior: 'core' });
+
+		const column = selectColumn(model.navigation());
+		if (column && column.viewWidth) {
+			const viewForm = new Map(form);
+			const columnForm = form.get(column.key);
+			viewForm.set(column.key, { width: columnForm ? Math.max(columnForm.width, column.viewWidth) : column.viewWidth });
+			return viewForm;
+		}
+
+		return form;
+	}
+
+	invalidateColumns(form) {
+		Log.info('layout', 'invalidate columns');
+
+		const { table } = this.plugin;
+		const columns = table.data.columns();
+		const getWidth = widthFactory(table, form);
+
+		const style = {};
+		let { length } = columns;
+
+		while (length--) {
+			const column = columns[length];
+			const width = getWidth(column.key);
+			if (null !== width) {
+				const key = escape$2(column.key);
+				const size = width + 'px';
+				const sizeStyle = {
+					'width': size,
+					'min-width': size,
+					'max-width': size
+				};
+
+				style[`.q-grid-the-${key}`] = sizeStyle;
+			}
+		}
+
+		const sheet$1 = sheet(this.gridId, 'column-layout');
+		sheet$1.set(style);
+	}
+
+	styleRow(row, context) {
+		const { model } = this.plugin;
+		const { layout } = model;
+
+		const form = layout().rows;
+		const style = form.get(row);
+		if (style) {
+			const { minHeight } = model.row();
+			if (minHeight > style.height){
+				return;
+			}
+
+			context.class(`resized-${style.height}px`, { height: style.height + 'px' });
+		}
+	}
+
+	get gridId() {
+		return this.plugin.model.grid().id;
+	}
+}
+
+class LayoutState {
+	constructor() {
+		this.columns = new Map();
+		this.rows = new Map();
+	}
+}
+
+class ModelBinder {
+	constructor(host, plugin) {
+		this.host = host;
+		this.plugin = plugin;
+	}
+
+	canWrite(oldValue, newValue, key) {
+		if (isUndefined(newValue)) {
+			Log.warn('model.bind', `can't write undefined to the model[${key}]`);
+			return false;
+		}
+
+		// As `Observable | async` returns null by default so we need to filter it out
+		if (isArray(oldValue) && newValue === null) {
+			Log.warn('model.bind', `the model[${key}] expects array, got ${newValue}`);
+			return false;
+		}
+
+		return true;
+	}
+
+	bound(model, stateNames, run = true, track = true) {
+		if (model) {
+			const commits = [];
+			for (let stateName of stateNames) {
+				const state = model[stateName];
+				const pack = this.packFactory(stateName);
+				const write = this.writeFactory(stateName);
+
+				if (run) {
+					const oldState = state();
+					const newState = pack(oldState);
+					const changes = this.buildChanges(newState);
+					write({ changes });
+				}
+
+				if (track) {
+					this.disposable.add(
+						model[stateName + 'Changed'].on(write)
+					);
+				}
+
+				commits.push(() => {
+					Log.info('model.bind', `to model "${stateName}"`);
+
+					const oldState = state();
+					const newState = pack(oldState);
+					state(newState);
+				});
+			}
+
+			return () => commits.forEach(commit => commit());
+		}
+
+		return noop;
+	}
+
+	writeFactory(name) {
+		const host = this.host;
+		return e => {
+			const changes = Object.keys(e.changes);
+			for (let diffKey of changes) {
+				const hostKey = toCamelCase(name, diffKey);
+				if (host.hasOwnProperty(hostKey)) {
+					const diff = e.changes[diffKey];
+					host[hostKey] = diff.newValue;
+				}
+			}
+		};
+	}
+
+	packFactory(name) {
+		return state => {
+			const host = this.host;
+			const newState = {};
+			for (let stateKey of Object.keys(state)) {
+				const hostKey = toCamelCase(name, stateKey);
+				if (host.hasOwnProperty(hostKey)) {
+					const oldValue = state[stateKey];
+					const newValue = host[hostKey];
+					if (this.canWrite(oldValue, newValue, stateKey)) {
+						newState[stateKey] = newValue;
+					}
+				}
+			}
+
+			return newState;
+		};
+	}
+
+	buildChanges(state) {
+		return Object
+			.keys(state)
+			.reduce((memo, key) => {
+				const value = state[key];
+				memo[key] = {
+					newValue: value,
+					oldValue: value
+				};
+				return memo;
+			}, {})
+	}
+}
+
+class MouseState {
+	constructor() {
+		this.status = 'release';
+		this.code = null;
+		this.target = null;
+		this.timestamp = new Date().getMilliseconds();
+	}
+}
+
+class NavigationState {
+	constructor() {
+		this.cell = null;
+
+		this.shortcut = {
+			up: 'up',
+			down: 'down',
+			left: 'left',
+			right: 'right',
+			next: 'tab',
+			previous: 'shift+tab',
+			home: 'home',
+			end: 'end',
+			pageUp: 'pageUp',
+			pageDown: 'pageDown',
+			upward: 'shift+pageUp',
+			downward: 'shift+pageDown'
+		};
+
+		this.go = new Command({ source: 'navigation.model' });
+
+		this.prevent = new Set([
+			'space',
+			'shift+space',
+			'up',
+			'down',
+			'left',
+			'right',
+			'home',
+			'end',
+			'pageUp',
+			'pageDown',
+			'shift+pageDown',
+			'shift+pageUp'
+		]);
+	}
+}
+
+class PaginationState {
+	constructor() {
+		this.resource = new Resource();
+
+		this.current = 0;
+		this.size = 50;
+		this.sizeList = [5, 10, 20, 30, 40, 50];
+		this.count = 0;
+		this.mode = 'showPages'; 
+
+		this.resetTriggers = {
+			'filter': ['by'],
+			'pivot': ['by'],
+			'group': ['by']
+		};
+
+		this.shortcut = {
+			prev: 'alt+pageup',
+			next: 'alt+pagedown',
+		};
+	}
+}
+
+function replacer(key, value) {
+	if (value instanceof Map) {
+		return {
+			type: 'map',
+			value: Array.from(value.entries()),
+		};
+	}
+
+	if (value instanceof Set) {
+		return {
+			type: 'set',
+			value: Array.from(value.values()),
+		};
+	}
+
+	return value;
+}
+
+function reviver(key, value) {
+	if (typeof value === 'object' && value !== null) {
+		if (value.type === 'map') {
+			return new Map(value.value);
+		}
+
+		if (value.type === 'set') {
+			return new Set(value.value);
+		}
+	}
+
+	return value;
+}
+
+const serialize = value => JSON.stringify(value, replacer);
+const deserialize = value => JSON.parse(value, reviver);
+
+class PersistenceStorage {
+	constructor(storage) {
+		this.storage = storage;
+	}
+
+	getItem(key) {
+		return new Promise(resolve => {
+			const item = deserialize(this.storage.getItem(key));
+			resolve(item);
+		});
+	}
+
+	setItem(key, value) {
+		return new Promise(resolve => {
+			const item = this.storage.setItem(key, serialize(value));
+			resolve(item);
+		});
+	}
+}
+
+class PersistenceState {
+	constructor() {
+		this.id = 'default';
+		this.defaultGroup = 'My Presets';
+		this.schedule = 'onDemand'; // onDemand | onStateChange
+
+		this.load = new Command({ source: 'persistence.model' });
+		this.remove = new Command({ source: 'persistence.model' });
+		this.create = new Command({ source: 'persistence.model' });
+		this.modify = new Command({ source: 'persistence.model' });
+		this.setDefault = new Command({ source: 'persistence.model' });
+		this.reset = new Command({ source: 'persistence.model' });
+
+		this.storage = new PersistenceStorage(localStorage);
+		this.settings = {
+			group: ['by'],
+			sort: ['by'],
+			pivot: ['by'],
+			filter: ['by'],
+			queryBuilder: ['node'],
+			pagination: ['current', 'size'],
+			layout: ['columns']
+		};
+	}
+}
+
+class PipeState {
+	constructor() {
+		this.reduce = (units, model) => {
+			const dataPipe = model.data().pipe;
+			// Change one of default pipes to data pipes - cause default literaly means data
+			// we can change only one because all other will be moved out during reduce
+			const index = units.indexOf(PipeUnit.default);
+			if (index >= 0) {
+				units[index] = dataPipe;
+			}
+
+			units = uniq(units);
+			const set = new Set(units);
+
+			const schema = new Map([
+				[PipeUnit.default, dataPipe],
+				[PipeUnit.view, PipeUnit.default],
+				[PipeUnit.column, PipeUnit.view]
+			]);
+
+			const shouldKeep = unit => {
+				let next;
+				while ((next = schema.get(unit))) {
+					if (next === unit) {
+						break;
+					}
+
+					if (set.has(next)) {
+						return false;
+					}
+
+					unit = next;
+				}
+
+				return true;
+			};
+
+			return units.reduce((memo, unit) => {
+				if (shouldKeep(unit)) {
+					memo.push(unit);
+				}
+
+				return memo;
+			}, []);
+		};
+
+		this.triggers = {
+			'data': {
+				'rows': PipeUnit.default,
+				'columns': PipeUnit.column
+			},
+			'pagination': {
+				'current': PipeUnit.default,
+				'size': PipeUnit.default
+			},
+			'fetch': {
+				'skip': PipeUnit.default
+			},
+			'sort': {
+				'by': PipeUnit.default
+			},
+			'filter': {
+				'by': PipeUnit.default,
+				'match': PipeUnit.default,
+				'custom': PipeUnit.default,
+				'unit': PipeUnit.column,
+			},
+			'group': {
+				'by': PipeUnit.default
+			},
+			'pivot': {
+				'by': PipeUnit.default
+			},
+			'columnList': {
+				'index': PipeUnit.columnIndex
+			},
+			'row': {
+				'status': PipeUnit.rowDetails,
+				'unit': PipeUnit.rowDetails,
+				'canMove': PipeUnit.column,
+				'canResize': PipeUnit.column
+			},
+			'rowList': {
+				'index': PipeUnit.row
+			},
+			'animation': {
+				'rows': PipeUnit.default
+			}
+		};
+
+		this.effect = {};
+	}
+}
+
+class PivotState {
+	constructor() {
+		this.resource = new Resource();
+		this.by = [];
+	}
+}
+
+class PluginState {
+	constructor() {
+		this.resource = new Resource();
+		this.imports = {};
+	}
+}
+
+class ProgressState {
+	constructor() {
+		this.resource = new Resource();
+		this.isBusy = false;
+		this.queue = [];
+	}
+}
+
+function serializeGet(model) {
+	const paginationState = model.pagination();
+	const sortState = model.sort();
+	const filterState = model.filter();
+
+	return {
+		order: sortState.by
+			.map(item => {
+				const field = Object.keys(item)[0];
+				const order = item[field];
+				return `${order === 'asc' ? '+' : '-'}${field}`;
+			})
+			.join(','),
+		filter: Object
+			.keys(filterState.by)
+			.map(field => {
+				const state = filterState.by[field];
+				if(field === '$expression') {
+					return `$expression=where:${state}`;
+				}
+
+				if (state.items) {
+					return `${field}=in:${state.items.join(',')}`;
+				}
+
+				if (state.expression) {
+					return `${field}=where:${state.expression}`;
+				}
+
+				return '';
+			})
+			.filter(part => !!part)
+			.join(';'),
+		skip: paginationState.current * paginationState.size,
+		take: paginationState.size
+	};
+}
+
+class RestState {
+	constructor() {
+		this.url = '';
+		this.method = 'get';
+		this.serialize = serializeGet;
+	}
+}
+
+class RowListState {
+	constructor() {
+		this.index = new Map();
+	}
+}
+
+class RowState {
+	constructor() {
+		this.resource = new Resource();
+
+		this.mode = 'single'; // single | multiple | all
+		this.unit = 'data'; // data | details
+		this.height = element => element && element.offsetHeight || 64; // number | function(element, index)		
+		this.status = new Map();
+		this.shortcut = {
+			toggle: 'space|enter'
+		};
+		this.canMove = false;
+		this.canResize = false;
+		this.minHeight = 0;
+		this.pinTop = [];
+		this.pinBottom = [];
+		this.toggle = new Command();
+	}
+}
+
+class SceneState {
+	constructor() {
+		this.status = 'idle'; // idle | start | pull | push | stop
+		this.rows = [];
+		this.column = {
+			rows: [],
+			line: [],
+			area: {
+				left: [],
+				mid: [],
+				right: []
+			}
+		};
+	}
+}
+
+class ScrollState {
+	constructor() {
+		this.mode = 'default';
+
+		this.top = 0;
+		this.left = 0;		
+		this.cursor = 0;
+
+		this.map = {
+			rowToView: identity,
+			viewToRow: identity
+		};
+
+		this.resetTriggers = [
+			'sort.view',
+			'column.filter.view',
+			'data.manipulation'
+		];
+	}
+}
+
+class SelectionState {
+	constructor() {
+		this.resource = new Resource();
+		this.unit = 'cell'; //row|cell|column|mix
+		this.mode = 'single'; //single|multiple|range|singleOnly
+		this.items = [];
+		this.area = 'body'; //body, custom
+		this.toggle = new Command({ source: 'selection.model' });
+		this.rowKey = identity;
+		this.columnKey = identity;
+		this.shortcut = {
+			toggleRow: 'shift+space|space',
+			togglePreviousRow: 'shift+up',
+			toggleNextRow: 'shift+down',
+			toggleColumn: 'ctrl+space',
+			toggleNextColumn: 'shift+right',
+			togglePreviousColumn: 'shift+left',
+			selectAll: 'ctrl+a'
+		};
+	}
+}
+
+class SortState {
+	constructor() {
+		this.resource = new Resource();
+		this.by = [];
+		this.mode = 'mixed';
+		this.trigger = [];
+	}
+}
+
+class StyleState {
+	constructor() {
+		this.row = noop;
+		this.cell = noop;
+
+		this.rows = [];
+		this.cells = [];
+		this.classList = [];
+
+		this.invalidate = new Command({
+			source: 'style.model',
+			canExecute: context => context.model.edit().status === 'view'
+		});
+	}
+}
+
+class TemplateState {
+	constructor() {
+		this.resource = {};
+	}
+}
+
+class ToolbarState {
+	constructor() {
+		this.resource = new Resource();
+	}
+}
+
+class ValidationState {
+	constructor() {
+		this.resource = new Resource();
+		this.rules = [];
+	}
+}
+
+class ViewState {
+	constructor() {
+		this.rows = [];
+		this.columns = [];
+		this.nodes = [];
+		this.pivot = { head: new Node('$root', 0), rows: [] };
+	}
+}
+
+class VisibilityState {
+	constructor() {
+		this.resource = new Resource();
+		this.head = true;
+		this.foot = true;
+		this.body = true;
+		this.toolbar = {
+			top: true,
+			bottom: true,
+			right: false,
+			left: false
+		};
+
+		this.pin = {
+			left: false,
+			right: false,
+			top: false,
+			bottom: false
+		};
+
+		this.plugin = {};
+	}
+}
+
+class ModelBuilder {
+    constructor() {
+        this.state = {};
+
+        this
+            .register('action', ActionState)
+            .register('animation', AnimationState)
+            .register('body', BodyState)
+            .register('clipboard', ClipboardState)
+            .register('columnList', ColumnListState)
+            .register('data', DataState)
+            .register('drag', DragState)
+            .register('edit', EditState)
+            .register('export', ExportState)
+            .register('fetch', FetchState)
+            .register('filter', FilterState)
+            .register('focus', FocusState)
+            .register('foot', FootState)
+            .register('grid', GridState)
+            .register('group', GroupState)
+            .register('head', HeadState)
+            .register('highlight', HighlightState)
+            .register('import', ImportState)
+            .register('keyboard', KeyboardState)
+            .register('layer', LayerState)
+            .register('layout', LayoutState)
+            .register('mouse', MouseState)
+            .register('navigation', NavigationState)
+            .register('pagination', PaginationState)
+            .register('persistence', PersistenceState)
+            .register('pipe', PipeState)
+            .register('pivot', PivotState)
+            .register('plugin', PluginState)
+            .register('progress', ProgressState)
+            .register('rest', RestState)
+            .register('row', RowState)
+            .register('rowList', RowListState)
+            .register('scene', SceneState)
+            .register('scroll', ScrollState)
+            .register('selection', SelectionState)
+            .register('sort', SortState)
+            .register('style', StyleState)
+            .register('template', TemplateState)
+            .register('toolbar', ToolbarState)
+            .register('validation', ValidationState)
+            .register('view', ViewState)
+            .register('visibility', VisibilityState);
+    }
+
+    register(key, ctor) {
+        if (this.state.hasOwnProperty(key)) {
+            throw new GridError(
+                'model',
+                `"${key}" is already registered`);
+        }
+
+        if (!isFunction(ctor)) {
+            throw new GridError(
+                `model.${key}`,
+                `"${ctor}" is not a valid type, should be an constructor function`);
+        }
+
+        this.state[key] = ctor;
+        return this;
+    }
+
+    build() {
+        const { state } = this;
+        const model = new Model();
+        for (let name of Object.keys(state)) {
+            const Type = state[name];
+            model.inject(name, Type);
+        }
+
+        return model;
+    }
+}
+
+const NO_BUTTON = 0;
+const LEFT_BUTTON = 1;
+const MIDDLE_BUTTON = 2;
+const RIGHT_BUTTON = 3;
+
+function checkButtonCode(event, code) {
+    return getButtonCode(event) === code;
+}
+
+function getButtonCode(event) {
+    return event.which;
+}
+
+function stringify(code) {
+    switch (code) {
+        case LEFT_BUTTON: return 'left';
+        case RIGHT_BUTTON: return 'right';
+        case MIDDLE_BUTTON: return 'middle';
+        default: return null;
+    }
+}
+
+class Navigation {
+	constructor(model, table) {
+		this.model = model;
+		this.table = table;
+	}
+
+	position(y, direction) {
+		const table = this.table;
+		const body = table.body;
+		const lastRow = this.lastRow;
+		const lower = table.view.scrollHeight() - table.view.height();
+
+		let index = 0;
+		let offset = 0;
+
+		// TODO: improve performance
+		while (index <= lastRow && offset <= y) {
+			offset += body.row(index).height();
+			index++;
+		}
+
+		if (direction === 'down' && body.row(index)) {
+			offset -= body.row(index).height();
+			index--;
+		}
+
+		const row = Math.max(this.firstRow, Math.min(lastRow, index));
+		offset = Math.min(offset, lower);
+		return { row, offset };
+	}
+
+	goTo(rowIndex, columnIndex, source = 'navigation') {
+		let cell = this.cell(rowIndex, columnIndex);
+		if (!cell) {
+			// TODO: make it better, right it just a huck for row-details,
+			// need to support rowspan and colspan
+			cell = this.cell(rowIndex, this.firstColumn);
+		}
+
+		this.model.navigation({
+			cell
+		}, {
+			source
+		});
+
+		return true;
+	}
+
+	columns(rowIndex) {
+		const columns = this.table.body.columns(rowIndex);
+		const index = [];
+		for (let i = 0, length = columns.length; i < length; i++) {
+			const column = columns[i];
+			if (column.model().canFocus) {
+				index.push(column.index);
+			}
+		}
+		return index;
+	}
+
+	get currentColumn() {
+		const columns = this.columns(this.currentRow);
+		const columnIndex = selectColumnIndex(this.model.navigation());
+		const index = columns.indexOf(columnIndex);
+		return columns.length ? columns[Math.max(index, 0)] : -1;
+	}
+
+	get nextColumn() {
+		const columns = this.columns(this.currentRow);
+		const index = columns.indexOf(this.currentColumn);
+		return index >= 0 && index < columns.length - 1 ? columns[index + 1] : -1;
+	}
+
+	get prevColumn() {
+		const columns = this.columns(this.currentRow);
+		const index = columns.indexOf(this.currentColumn);
+		return index > 0 && index < columns.length ? columns[index - 1] : -1;
+	}
+
+	get lastColumn() {
+		const columns = this.columns(this.currentRow);
+		const index = columns.length - 1;
+		return index >= 0 ? columns[index] : -1;
+	}
+
+	get firstColumn() {
+		const columns = this.columns(this.currentRow);
+		return columns.length ? columns[0] : -1;
+	}
+
+	get currentRow() {
+		const rowIndex = selectRowIndex(this.model.navigation());
+		if (rowIndex < 0) {
+			return this.model.scene().rows.length ? 0 : -1;
+		}
+
+		return rowIndex;
+	}
+
+	get nextRow() {
+		const row = this.currentRow + 1;
+		return row <= this.lastRow ? row : -1;
+	}
+
+	get prevRow() {
+		const row = this.currentRow - 1;
+		return row >= 0 ? row : -1;
+	}
+
+	get firstRow() {
+		return Math.min(0, this.lastRow);
+	}
+
+	get lastRow() {
+		return this.table.body.rowCount(this.currentColumn) - 1;
+	}
+
+	cell(rowIndex, columnIndex) {
+		const cell = this.table.body.cell(rowIndex, columnIndex);
+		const model = cell.model();
+		if (model) {
+			const { row, column } = model;
+			return {
+				rowIndex,
+				columnIndex,
+				row,
+				column
+			};
+		}
+
+		return null;
+	}
+
+	context(type, settings) {
+		const model = this.model;
+		const oldRow = this.currentRow;
+		const oldColumn = this.currentColumn;
+		const keyCode = model.action().shortcut.keyCode;
+
+		return Object.assign({
+			model,
+			type,
+			oldRow,
+			oldColumn,
+			keyCode
+		}, settings);
+	}
+
+	get commands() {
+		const { model, table } = this;
+		const { edit } = model;
+		const { shortcut, go } = model.navigation();
+
+		const canNavigate = () => {
+			if (edit().status === 'view') {
+				return true;
+			}
+
+			const column = table.body.column(this.currentColumn).model();
+			return column && (column.editorOptions.trigger === 'focus' || column.editorOptions.cruise === 'transparent');
+		};
+
+		const commands = {
+			goDown: new Command({
+				source: 'navigation',
+				shortcut: shortcut.down,
+				canExecute: () => {
+					if (canNavigate()) {
+						const newRow = this.nextRow;
+						return newRow >= 0 && go.canExecute(this.context('down', { newRow }));
+					}
+
+					return false;
+				},
+				execute: () => {
+					const newRow = this.nextRow;
+					const newColumn = this.currentColumn;
+					return go.execute(this.context('down', { newRow, newColumn })) && this.goTo(newRow, newColumn);
+				}
+			}),
+			goUp: new Command({
+				source: 'navigation',
+				shortcut: shortcut.up,
+				canExecute: () => {
+					if (canNavigate()) {
+						const newRow = this.prevRow;
+						return newRow >= 0 && go.canExecute(this.context('up', { newRow }));
+					}
+
+					return false;
+				},
+				execute: () => {
+					const newRow = this.prevRow;
+					const newColumn = this.currentColumn;
+					return go.execute(this.context('up', { newRow, newColumn })) && this.goTo(newRow, newColumn);
+				}
+			}),
+			goRight: new Command({
+				source: 'navigation',
+				shortcut: shortcut.right,
+				canExecute: () => {
+					if (canNavigate()) {
+						const newColumn = this.nextColumn;
+						return newColumn >= 0 && go.canExecute(this.context('right', { newColumn }));
+					}
+
+					return false;
+				},
+				execute: () => {
+					const newRow = this.currentRow;
+					const newColumn = this.nextColumn;
+					return go.execute(this.context('right', { newRow, newColumn })) && this.goTo(newRow, newColumn);
+				}
+			}),
+			goLeft: new Command({
+				source: 'navigation',
+				shortcut: shortcut.left,
+				canExecute: () => {
+					if (canNavigate()) {
+						const newColumn = this.prevColumn;
+						return newColumn >= 0 && go.canExecute(this.context('left', { newColumn }));
+					}
+
+					return false;
+				},
+				execute: () => {
+					const newRow = this.currentRow;
+					const newColumn = this.prevColumn;
+					return go.execute(this.context('left', { newRow, newColumn })) && this.goTo(newRow, newColumn);
+				}
+			}),
+			goNext: new Command({
+				source: 'navigation',
+				shortcut: shortcut.next,
+				canExecute: () => {
+					const newRow = this.nextRow;
+					const newColumn = this.nextColumn;
+					const hasNextColumn = newColumn >= 0;
+					const hasNextRow = newRow >= 0;
+					return (hasNextColumn || hasNextRow) && go.canExecute(this.context('next', { newRow, newColumn }));
+				},
+				execute: () => {
+					const nextColumn = this.nextColumn;
+					const hasNextColumn = nextColumn >= 0;
+					const newRow = hasNextColumn ? this.currentRow : this.nextRow;
+					const newColumn = hasNextColumn ? nextColumn : this.firstColumn;
+
+					return go.execute(this.context('next', { newRow, newColumn })) && this.goTo(newRow, newColumn);
+				}
+			}),
+			goPrevious: new Command({
+				source: 'navigation',
+				shortcut: shortcut.previous,
+				canExecute: () => {
+					const newColumn = this.prevColumn;
+					const newRow = this.prevRow;
+					const hasPrevColumn = newColumn >= 0;
+					const hasPrevRow = newRow >= 0;
+					return (hasPrevColumn || hasPrevRow) && go.canExecute(this.context('previous', { newRow, newColumn }));
+				},
+				execute: () => {
+					const prevColumn = this.prevColumn;
+					const hasPrevColumn = prevColumn >= 0;
+					const newColumn = hasPrevColumn ? prevColumn : this.lastColumn;
+					const newRow = hasPrevColumn ? this.currentRow : this.prevRow;
+					return go.execute(this.context('previous', { newRow, newColumn })) && this.goTo(newRow, newColumn);
+				}
+			}),
+			home: new Command({
+				source: 'navigation',
+				shortcut: shortcut.home,
+				canExecute: () => {
+					if (canNavigate()) {
+						const newColumn = this.prevColumn;
+						return newColumn >= 0 && go.canExecute(this.context('end', { newColumn }));
+					}
+
+					return false;
+				},
+				execute: () => {
+					const newRow = this.currentRow;
+					const newColumn = this.firstColumn;
+					return go.execute(this.context('home', { newRow, newColumn })) && this.goTo(newRow, newColumn);
+				}
+			}),
+			end: new Command({
+				source: 'navigation',
+				shortcut: shortcut.end,
+				canExecute: () => {
+					if (canNavigate()) {
+						const newColumn = this.nextColumn;
+						return newColumn >= 0 && go.canExecute(this.context('home', { newColumn }));
+					}
+
+					return false;
+				},
+				execute: () => {
+					const newRow = this.currentRow;
+					const newColumn = this.lastColumn;
+					return go.execute(this.context('end', { newRow, newColumn })) && this.goTo(newRow, newColumn);
+				}
+			}),
+			upward: new Command({
+				source: 'navigation',
+				shortcut: shortcut.upward,
+				canExecute: () => {
+					if (canNavigate()) {
+						const newRow = this.prevRow;
+						return newRow >= 0 && go.canExecute(this.context('upward', { newRow }));
+					}
+
+					return false;
+				},
+				execute: () => {
+					const newRow = this.firstRow;
+					const newColumn = this.currentColumn;
+					return go.execute(this.context('upward', { newRow, newColumn })) && this.goTo(newRow, newColumn);
+				}
+			}),
+			downward: new Command({
+				source: 'navigation',
+				shortcut: shortcut.downward,
+				canExecute: () => {
+					if (canNavigate()) {
+						const newRow = this.nextRow;
+						return newRow >= 0 && go.canExecute(this.context('downward', { newRow }));
+					}
+
+					return false;
+				},
+				execute: () => {
+					const newRow = this.lastRow;
+					const newColumn = this.currentColumn;
+					return go.execute(this.context('downward', { newRow, newColumn })) && this.goTo(newRow, newColumn);
+				}
+			}),
+			pageUp: new Command({
+				source: 'navigation',
+				shortcut: shortcut.pageUp,
+				canExecute: () => {
+					if (canNavigate()) {
+						const newRow = this.prevRow;
+						return newRow >= 0 && go.canExecute(this.context('pageUp', { newRow }));
+					}
+
+					return false;
+				},
+				execute: () => {
+					const view = table.view;
+					const position = this.position(view.scrollTop() - view.height(), 'up');
+					const newRow = position.row;
+					const newColumn = this.currentColumn;
+					if (go.execute(this.context('pageUp', { newRow, newColumn }))) {
+						this.model.scroll({ top: position.offset }, { source: 'navigation' });
+						return this.goTo(newRow, newColumn, 'navigation.scroll');
+					}
+
+					return false;
+				}
+			}),
+			pageDown: new Command({
+				source: 'navigation',
+				shortcut: shortcut.pageDown,
+				canExecute: () => {
+					if (canNavigate()) {
+						const newRow = this.nextRow;
+						return newRow >= 0 && go.canExecute(this.context('pageDown', { newRow }));
+					}
+
+					return false;
+				},
+				execute: () => {
+					const view = table.view;
+					const position = this.position(view.scrollTop() + view.height(), 'down');
+					const newRow = position.row;
+					const newColumn = this.currentColumn;
+					if (go.execute(this.context('pageDown', { newRow, newColumn }))) {
+						this.model.scroll({ top: position.offset }, { source: 'navigation' });
+						return this.goTo(position.row, this.currentColumn, 'navigation.scroll');
+					}
+
+					return false;
+				}
+			})
+		};
+
+		return new Map(Object.entries(commands));
+	}
+}
+
+class NavigationLet {
+	constructor(plugin, shortcut) {
+		const { model, table, observeReply } = plugin;
+		this.plugin = plugin;
+
+		const navigation = new Navigation(model, table);
+		let focusBlurs = [];
+
+		shortcut.register(navigation.commands);
+
+		this.focus = new Command({
+			source: 'navigation.view',
+			canExecute: newCell => {
+				const { cell: oldCell } = model.navigation();
+				if (newCell && newCell.column.canFocus && !Td.equals(newCell, oldCell)) {
+					return true;
+				}
+
+				return false;
+			},
+			execute: e => {
+				const { rowIndex, columnIndex, behavior } = e;
+				const td = table.body.cell(rowIndex, columnIndex).model();
+				if (td) {
+					const { row, column } = td;
+					model.navigation({
+						cell: {
+							rowIndex,
+							columnIndex,
+							row,
+							column
+						}
+					}, {
+						source: 'navigation.view',
+						behavior
+					});
+				} else {
+					model.navigation({
+						cell: null
+					}, {
+						source: 'navigation.view',
+						behavior
+					});
+				}
+			}
+		});
+
+		this.scrollTo = new Command({
+			source: 'navigation.view',
+			execute: (row, column) => {
+				const cell = table.body.cell(row, column);
+				this.scroll(table.view, cell);
+			},
+			canExecute: (row, column) => table.body.cell(row, column).model() !== null
+		});
+
+		observeReply(model.navigationChanged)
+			.subscribe(e => {
+				if (e.hasChanges('cell')) {
+					if (e.tag.behavior !== 'core') {
+						// We need this one to toggle focus from details to main grid
+						// or when user change navigation cell through the model
+						if (!table.view.isFocused()) {
+							table.view.focus();
+						}
+					}
+
+					const rowIndex = selectRowIndex(e.state);
+					const columnIndex = selectColumnIndex(e.state);
+
+					focusBlurs = this.invalidateFocus(focusBlurs);
+					if (e.tag.source !== 'navigation.scroll'
+						&& e.tag.behavior !== 'core'
+						&& this.scrollTo.canExecute(rowIndex, columnIndex)
+					) {
+						this.scrollTo.execute(rowIndex, columnIndex);
+					}
+
+					model.focus({
+						rowIndex,
+						columnIndex
+					}, {
+						source: 'navigation.view'
+					});
+				}
+			});
+
+		observeReply(model.focusChanged)
+			.subscribe(e => {
+				if (e.tag.source === 'navigation.view') {
+					return;
+				}
+
+				if (e.hasChanges('isActive')) {
+					const { view } = table;
+					const activeClassName = `${GRID_PREFIX}-active`;
+					if (e.state.isActive) {
+						Fastdom.mutate(() => view.addClass(activeClassName));
+						view.focus();
+					} else {
+						Fastdom.mutate(() => view.removeClass(activeClassName));
+					}
+				}
+
+				if (e.hasChanges('rowIndex') || e.hasChanges('columnIndex')) {
+					this.focus.execute(e.state);
+				}
+
+			});
+
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.hasChanges('status')) {
+					const { status } = e.state;
+					switch (status) {
+						case 'stop': {
+							const navState = model.navigation();
+							const rowIndex = selectRowIndex(navState);
+							const columnIndex = selectColumnIndex(navState);
+
+							if (rowIndex >= 0 && columnIndex >= 0) {
+								let td = table.body.cell(rowIndex, columnIndex).model();
+								this.focus.execute({
+									rowIndex: td ? td.rowIndex : -1,
+									columnIndex: td ? td.columnIndex : -1,
+									behavior: 'core'
+								});
+							}
+
+							break;
+						}
+					}
+				}
+			});
+	}
+
+	invalidateFocus(dispose) {
+		const { model, table } = this.plugin;
+
+		dispose.forEach(f => f());
+		dispose = [];
+
+		const rowIndex = selectRowIndex(model.navigation());
+		const columnIndex = selectColumnIndex(model.navigation());
+		const cell = table.body.cell(rowIndex, columnIndex);
+		if (cell.model()) {
+			const row = table.body.row(rowIndex);
+
+			Fastdom.mutate(() => {
+				cell.addClass(`${GRID_PREFIX}-focused`);
+				row.addClass(`${GRID_PREFIX}-focused`);
+			});
+
+			dispose.push(() => Fastdom.mutate(() => {
+				cell.removeClass(`${GRID_PREFIX}-focused`);
+				row.removeClass(`${GRID_PREFIX}-focused`);
+			}));
+		}
+
+		return dispose;
+	}
+
+	scroll(view, target) {
+		const { model } = this.plugin;
+		const { scroll } = model;
+		Fastdom.measure(() => {
+			const tr = target.rect();
+			const vr = view.rect('body-mid');
+			const state = {};
+
+			if (view.canScrollTo(target, 'left')) {
+				if (vr.left > tr.left
+					|| vr.left > tr.right
+					|| vr.right < tr.left
+					|| vr.right < tr.right) {
+
+					if (vr.width < tr.width || vr.left > tr.left || vr.left > tr.right) {
+						state.left = tr.left - vr.left + scroll().left;
+					}
+					else if (vr.left < tr.left || vr.right < tr.right) {
+						state.left = tr.right - vr.right + scroll().left;
+					}
+				}
+			}
+
+			if (view.canScrollTo(target, 'top')) {
+				if (vr.top > tr.top
+					|| vr.top > tr.bottom
+					|| vr.bottom < tr.top
+					|| vr.bottom < tr.bottom) {
+
+					if (vr.height < tr.height || vr.top > tr.top || vr.top > tr.bottom) {
+						state.top = tr.top - vr.top + scroll().top;
+					}
+					else if (vr.top < tr.top || vr.bottom < tr.bottom) {
+						state.top = tr.bottom - vr.bottom + scroll().top;
+					}
+				}
+			}
+
+			if (Object.keys(state).length) {
+				scroll(state, { behavior: 'core', source: 'navigation.view' });
+			}
+		});
+	}
+}
+
+class PaginationLet {
+	constructor(plugin) {
+		const { model, observe } = plugin;
+
+
+		const { resetTriggers } = model.pagination();
+		Object.keys(resetTriggers)
+			.forEach(name =>
+				observe(model[name + 'Changed'])
+					.subscribe(e => {
+						if (e.tag.behavior === 'core') {
+							return;
+						}
+
+						if (model.scroll().mode === 'virtual') {
+							return;
+						}
+
+						const trigger = resetTriggers[name];
+						for (const key of trigger) {
+							if (e.hasChanges(key)) {
+								model.pagination({ current: 0 }, { source: e.tag.source || 'pagination.view' });
+							}
+						}
+					}));
+	}
+
+	get current() {
+		return this.plugin.model.pagination().current;
+	}
+
+	get size() {
+		return this.plugin.model.pagination().size;
+	}
+}
+
+// TODO: refactor this to the commands
+class PersistenceService {
+	constructor(model, createDefaultModel) {
+		this.model = model;
+		this.createDefaultModel = createDefaultModel;
+	}
+
+	save(settings) {
+		const gridModel = this.model;
+		settings = settings || gridModel.persistence().settings;
+
+		const model = {};
+		for (const key in settings) {
+			const source = gridModel[key]();
+			const target = {};
+			model[key] = target;
+			for (const p of settings[key]) {
+				const value = source[p];
+				target[p] = clone(value);
+			}
+		}
+
+		return model;
+	}
+
+	load(model, settings) {
+		const gridModel = this.model;
+		settings = settings || gridModel.persistence().settings;
+
+		for (const key in settings) {
+			const source = model[key];
+			if (source) {
+				const target = gridModel[key];
+				target(source, { source: 'persistence.service' });
+			}
+		}
+
+		return model;
+	}
+
+	reset(settings) {
+		const defaultModel = this.createDefaultModel();
+		const gridModel = this.model;
+		settings = settings || gridModel.persistence().settings;
+
+		const model = {};
+		for (let key in settings) {
+			model[key] = {};
+			const source = defaultModel[key];
+			const target = gridModel[key];
+			for (const p of settings[key]) {
+				model[key][p] = source()[p];
+			}
+			target(model[key], { source: 'persistence.service' });
+		}
+
+		return model;
+	}
+}
+
+class PluginService {
+	constructor(model) {
+		this.model = model;
+	}
+
+	resolve(name) {
+		const lib = this.model.plugin().imports[name];
+		if (!lib) {
+			switch (name) {
+				case 'xlsx': {
+					throw new GridError('plugin.service', 'To use export plugin for xlsx format please add http://github.com/SheetJS/js-xlsx library to your project');
+				}
+				case 'fileSaver': {
+					throw new GridError('plugin.service', 'To use export plugin for file saving please add https://github.com/eligrey/FileSaver.js library to your project');
+				}
+				case 'pdf': {
+					throw new GridError('plugin.service', 'To use export plugin for pdf format please add https://github.com/MrRio/jsPDF and https://github.com/simonbengtsson/jsPDF-AutoTable libraries to your project');
+				}
+				default: {
+					throw new GridError('import library', `Can't find ${name} library in imports`);
+				}
+			}
+		}
+		return lib;
+	}
+}
+
+function factory(resource, key) {
+	const data = resource.data;
+	const scope = resource.scope;
+	if (resource instanceof EnumerableResource) {
+		let keyIndex = 1;
+		let count = resource.count;
+		const originKey = key;
+		while (data.hasOwnProperty(key)) {
+			key = originKey + keyIndex++;
+		}
+
+		if (count < keyIndex) {
+			count = keyIndex;
+		}
+
+		return (content, env) => {
+			// TODO: do we need full clone here?
+			data[key] = content;
+			if (Object.keys(env).length) {
+				scope[key] = env;
+			}
+			return new EnumerableResource(data, scope, count);
+		};
+	}
+
+	return (content, env) => {
+		// TODO: do we need full clone here?
+		data[key] = content;
+		if (Object.keys(env).length) {
+			scope[key] = env;
+		}
+		return new Resource(data, scope);
+	};
+}
+
+function serializePost(model) {
+	const paginationState = model.pagination();
+	const sortState = model.sort();
+	const filterState = model.filter();
+
+	return {
+		filter: filterState.by,
+		order: sortState.by.map(s => {
+			const key = Object.keys(s)[0];
+			const value = s[key];
+			return (value === 'asc' ? '+' : '-') + key;
+		}),
+		skip: paginationState.current * paginationState.size,
+		take: paginationState.size
+	};
+}
+
+class RowDetailsLet {
+	constructor(plugin, shortcut) {
+		const { model, observeReply, observe, disposable } = plugin;
+
+		this.plugin = plugin;
+
+		this.toggleStatus = new Command({
+			source: 'row.details.view',
+			execute: row => {
+				if (!row) {
+					row = selectRow(model.navigation());
+				}
+
+				const { toggle, status, mode } = model.row();
+				if (toggle.execute({ row }) !== false) {
+					const newStatus = toggleStatus([row], status, mode);
+					model.row({ status: newStatus }, {
+						source: 'row.details.view'
+					});
+
+					observe(model.sceneChanged)
+						.pipe(
+							filter$1(e => e.hasChanges('status') && e.state.status === 'stop'),
+							takeOnce()
+						)
+						.subscribe(e => {
+							const rowStatus = newStatus.get(row);
+							if (rowStatus && rowStatus.expand) {
+								const index = model.view().rows.indexOf(row);
+								model.focus({
+									rowIndex: index + 1
+								}, {
+									source: 'row.details.let'
+								});
+							}
+						});
+				}
+			},
+			canExecute: row => {
+				if (!row) {
+					const { cell } = model.navigation();
+					if (cell && cell.column.type === 'row-expand') {
+						row = cell.row;
+					}
+				}
+
+				const { toggle } = model.row();
+				return !!row && toggle.canExecute({ row });
+			},
+			shortcut: model.row().shortcut.toggle
+		});
+
+		observeReply(model.sceneChanged)
+			.subscribe(e => {
+				if (e.tag.source === 'row.details.view') {
+					return;
+				}
+
+				if (e.hasChanges('rows')) {
+					const { status, mode } = model.row();
+					const newStatus =
+						invalidateStatus(
+							model.data().rows,
+							status,
+							mode
+						);
+
+					model.row({ status: newStatus }, {
+						source: 'row.details.view'
+					});
+				}
+			});
+
+		let canExecuteCheckSub;
+		const unsubscribeCanExecuteCheck = () => {
+			if (canExecuteCheckSub) {
+				canExecuteCheckSub.unsubscribe();
+				canExecuteCheckSub = null;
+			}
+		};
+
+		disposable.add(
+			unsubscribeCanExecuteCheck
+		);
+
+		observeReply(model.rowChanged)
+			.subscribe(e => {
+				if (e.hasChanges('toggle')) {
+					const { toggle } = e.state;
+					unsubscribeCanExecuteCheck();
+					canExecuteCheckSub = toggle.canExecuteCheck
+						.subscribe(() => {
+							this.toggleStatus.canExecuteCheck.next();
+						});
+				}
+			});
+
+		shortcut.register([this.toggleStatus]);
+	}
+
+	status(row) {
+		if (row instanceof RowDetails) {
+			return null;
+		}
+
+		const { model } = this.plugin;
+		const { status } = model.row();
+		const state = status.get(row);
+		return state && state.expand ? 'expand' : 'collapse';
+	}
+}
+
+class RowLet {
+	constructor(plugin, tagName) {
+		const { model, table, observe } = plugin;
+
+		this.plugin = plugin;
+		this.tagName = tagName;
+
+		const pathFinder = new PathService(table.box.bag.body);
+
+		this.drop = new Command({
+			source: 'row.view',
+			canExecute: e => {
+				if (e.action === 'end') {
+					return true;
+				}
+
+				const row = pathFinder.row(eventPath(e));
+				return !!row;
+			},
+			execute: e => {
+				const oldIndex = e.dragData;
+				switch (e.action) {
+					case 'over': {
+						const row = pathFinder.row(eventPath(e));
+						if (!e.inAreaY(row.element)) {
+							return;
+						}
+
+						const newIndex = row.index;
+						if (oldIndex !== newIndex) {
+							const oldRow = table.body.row(oldIndex);
+							oldRow.removeClass(`${GRID_PREFIX}-drag`);
+
+							const newRow = table.body.row(newIndex);
+							newRow.addClass(`${GRID_PREFIX}-drag`);
+
+							const tr = table.body.row(oldIndex).model();
+							const entries = [];
+							for (let entry of model.rowList().index.entries()) {
+								const index = entry[1];
+								if (oldIndex < index && index <= newIndex) {
+									entry[1] = index - 1;
+								} else if (oldIndex > index && index >= newIndex) {
+									entry[1] = index + 1;
+								}
+
+								entries.push(entry);
+							}
+
+							const index = new Map(entries);
+							const { rowId } = model.data();
+							const key = rowId(newIndex, tr.model);
+							index.set(key, newIndex);
+							model.rowList({ index }, { source: 'row.view' });
+
+							e.dragData = newIndex;
+						}
+						break;
+					}
+					case 'drop':
+					case 'end': {
+						const oldRow = table.body.row(oldIndex);
+						oldRow.removeClass(`${GRID_PREFIX}-drag`);
+						break;
+					}
+				}
+			}
+		});
+
+		this.drag = new Command({
+			source: 'row.view',
+			execute: e => {
+				const index = e.data;
+				const row = table.body.row(index);
+				row.addClass(`${GRID_PREFIX}-drag`);
+				const tr = row.model();
+				if (tr) {
+					return tr.element;
+				}
+			},
+			canExecute: e => {
+				if (isNumber(e.data)) {
+					const index = e.data;
+					return index >= 0 && model.scene().rows.length > index;
+				}
+
+				return false;
+			}
+		});
+
+		this.resize = new Command({
+			source: 'row.view'
+		});
+
+		observe(model.dataChanged)
+			.subscribe(e => {
+				if (e.hasChanges('rows')) {
+					model.rowList({
+						index: new Map(),
+					}, {
+						source: 'row.view',
+						behavior: 'core'
+					});
+				}
+			});
+	}
+
+	get canMove() {
+		const { model } = this.plugin;
+		return model.row().canMove;
+	}
+
+	get canResize() {
+		const { model } = this.plugin;
+		return model.row().canResize;
+	}
+}
+
+class ScrollLet {
+	constructor(plugin, vscroll) {
+		const { model, observeReply, service } = plugin;
+		const { scroll, row, pagination, fetch, pipe } = model;
+
+		this.plugin = plugin;
+	
+		const rowHeight = row().height;
+		const settings = {
+			threshold: pagination().size,
+			resetTriggers: []
+		};
+
+		if (rowHeight > 0 || isFunction(rowHeight)) {
+			settings.rowHeight = rowHeight;
+		}
+
+		this.y = vscroll.factory(settings);
+		this.y.container.read = Fastdom.measure;
+		this.y.container.write = Fastdom.mutate;
+
+		const subscribe =
+			(this.y.container.draw$.on || this.y.container.draw$.subscribe)
+				.bind(this.y.container.draw$);
+
+		const updateCurrentPage = position => {
+			const { size, current, count } = pagination();
+			const newCurrent = size === 0
+				? 0
+				: count - 1 <= position + size
+					? Math.ceil(count / size) - 1
+					: Math.floor((position + size / 2) / size);
+
+			if (newCurrent !== current) {
+				pagination({ current: newCurrent }, {
+					source: 'scroll.view',
+					behavior: 'core'
+				});
+			}
+		};
+
+		const updateTotalCount = () => {
+			const { effect } = pipe();
+			if (effect.hasOwnProperty('memo')) {
+				const count = effect.memo.length;
+				pagination({ count }, {
+					source: 'scroll.view',
+					behavior: 'core'
+				});
+
+				return count;
+			}
+
+			return pagination().count;
+		};
+
+		subscribe(e => {
+			const { position } = e;
+			updateCurrentPage(position);
+
+			scroll({ cursor: position }, {
+				source: 'scroll.view',
+				behavior: 'core'
+			});
+		});
+
+		switch (scroll().mode) {
+			case 'virtual': {
+				this.y.settings.fetch = (skip, take, d) => {
+					fetch({ skip }, {
+						source: 'scroll.view',
+						behavior: 'core'
+					});
+
+					if (skip === 0) {
+						const count = updateTotalCount();
+						d.resolve(count);
+					} else {
+						service.invalidate({
+							source: 'scroll.view',
+							why: 'refresh'
+						}).then(() => {
+							const count = updateTotalCount();
+							d.resolve(count);
+						});
+					}
+				};
+
+				let startSource;
+				const resetTriggers = new Set(scroll().resetTriggers);
+
+				observeReply(model.sceneChanged)
+					.subscribe(e => {
+						if (e.hasChanges('status')) {
+							const { status } = e.state;
+							switch (status) {
+								case 'start': {
+									startSource = e.tag.source;
+									if (resetTriggers.has(startSource)) {
+										fetch({ skip: 0 }, {
+											source: 'scroll.view',
+											behavior: 'core'
+										});
+									}
+									break;
+								}
+								case 'stop': {
+									if (resetTriggers.has(startSource)) {
+										this.y.container.reset();
+									}
+									break;
+								}
+							}
+						}
+					});
+
+				break;
+			}
+			default: {
+				observeReply(model.paginationChanged)
+					.subscribe(e => {
+						if (e.tag.behavior !== 'core') {
+							this.y.container.reset();
+						}
+					});
+				break;
+			}
+		}
+
+		observeReply(model.scrollChanged)
+			.subscribe(e => {
+				if (e.tag.source === 'scroll.view') {
+					return;
+				}
+
+				if (e.hasChanges('mode')) {
+					switch (e.state.mode) {
+						case 'virtual': {
+							scroll({
+								map: {
+									rowToView: index => index - this.y.container.position,
+									viewToRow: index => index + this.y.container.position
+								}
+							}, {
+								source: 'scroll.view',
+								behavior: 'core'
+							});
+							break;
+						}
+						case 'default': {
+							scroll({
+								map: {
+									rowToView: identity,
+									viewToRow: identity
+								}
+							});
+							break;
+						}
+					}
+				}
+
+				if (e.hasChanges('left') || e.hasChanges('top')) {
+					this.invalidate();
+				}
+			});
+	}
+
+	invalidate() {
+		Log.info('layout', 'invalidate scroll');
+
+		const { model, table } = this.plugin;
+		const { view } = table;
+		const { left, top } = model.scroll();
+
+		Fastdom.mutate(() => {
+			view.scrollLeft(left);
+			view.scrollTop(top);
+		});
+	}
+
+	get mode() {
+		return this.plugin.model.scroll().mode;
+	}
+}
+
+class SelectionCommandManager extends CompositeCommandManager {
+	constructor(model, manager) {
+		super(manager);
+
+		this.model = model;
+	}
+
+	filter(commands) {
+		if (this.model.edit().status === 'edit') {
+			const { cell } = this.model.navigation();
+			if (cell && cell.column.type !== 'select') {
+				return [];
+			}
+		}
+
+		return super.filter(commands);
+	}
+}
+
+class SelectionRange {
+	constructor(model) {
+		this.model = model;
+	}
+
+	build() {
+		const rangeMap = {
+			'row': this.buildRows.bind(this),
+			'column': this.buildColumns.bind(this),
+			'cell': this.buildCells.bind(this),
+			'mix': this.buildMix.bind(this)
+		};
+
+		const model = this.model;
+		return (...args) => {
+			const selection = model.selection();
+			const buildRange = rangeMap[selection.unit];
+			if (!buildRange) {
+				throw new GridError('range.builder', `Invalid unit ${selection.unit}`);
+			}
+
+			return buildRange(...args);
+		};
+	}
+
+	buildRows(startCell, endCell) {
+		const model = this.model;
+		const { rows } = model.scene();
+		if (!endCell) {
+			return [rows[startCell.rowIndex]];
+		}
+
+		const startIndex = Math.min(startCell.rowIndex, endCell.rowIndex);
+		const endIndex = Math.max(startCell.rowIndex, endCell.rowIndex);
+		return rows.slice(startIndex, endIndex + 1);
+	}
+
+	buildColumns(startCell, endCell) {
+		if (!endCell) {
+			return [startCell.column];
+		}
+
+		const columns = this.model.columnList().line;
+		const startIndex = Math.min(startCell.columnIndex, endCell.columnIndex);
+		const endIndex = Math.max(startCell.columnIndex, endCell.columnIndex);
+		return columns.slice(startIndex, endIndex + 1);
+	}
+
+	buildCells(startCell, endCell) {
+		if (!endCell) {
+			return [{
+				column: startCell.column,
+				row: startCell.row
+			}];
+		}
+
+		const model = this.model;
+		const { rows } = model.scene();
+		const { columns } = model.view();
+
+		const startRowIndex = Math.min(startCell.rowIndex, endCell.rowIndex);
+		const endRowIndex = Math.max(startCell.rowIndex, endCell.rowIndex);
+
+		const startColumnIndex = Math.min(startCell.columnIndex, endCell.columnIndex);
+		const endColumnIndex = Math.max(startCell.columnIndex, endCell.columnIndex);
+
+		const selectedRows = rows.slice(startRowIndex, endRowIndex + 1);
+		const selectedColumns = columns.slice(startColumnIndex, endColumnIndex + 1);
+
+		const items = [];
+		selectedRows.forEach(row => {
+			selectedColumns
+				.filter(column => column.category === 'data')
+				.forEach(column => {
+					items.push({
+						column: column,
+						row: row
+					});
+				});
+		});
+
+		return items;
+	}
+
+	buildMix(startCell, endCell) {
+		const mixUnit = startCell.column.type === 'row-indicator' ? 'row' : 'cell';
+		const range = (mixUnit === 'row' ? this.buildRows(startCell, endCell) : this.buildCells(startCell, endCell));
+		return range
+			.map(item => ({
+				item: item,
+				unit: mixUnit
+			}));
+	}
+}
+
+class SubSelectionState {
+	constructor(model, service) {
+		this.model = model;
+		this.service = service;
+	}
+
+	select(item, state = true, key) {
+		key = key || this.keyFactory();
+		if (isArray(item)) {
+			item.forEach(item => this.select(item, state, key));
+			return;
+		}
+
+		if (item instanceof Node) {
+			const { rows } = this.model.data();
+			if (rows.length) {
+				item.rows.forEach(index => this.select(rows[index], state, key));
+				return;
+			}
+		}
+
+		this.selectCore(item, state, key);
+	}
+
+	canSelect(item) {
+		return this.canSelectCore(item);
+	}
+
+	toggle(item) {
+		const state = this.state(item);
+		return this.select(item, state === null || !state);
+	}
+
+	state(item, key) {
+		key = key || this.keyFactory();
+		if (isArray(item)) {
+			const all = item.every(item => this.state(item, key));
+			return all ? true : item.some(item => this.state(item, key)) ? null : false;
+		}
+
+		if (item instanceof Node) {
+			const { rows } = this.model.data();
+			if (rows.length) {
+				const all = item.rows.length && item.rows.every(index => this.state(rows[index], key));
+				return all ? true : item.rows.some(index => this.state(rows[index], key)) ? null : false;
+			}
+		}
+
+		return this.stateCore(item, key);
+	}
+
+	stateAll(items) {
+		if (!items.length) {
+			return false;
+		}
+
+		const key = this.keyFactory();
+
+		const notSelected = items.findIndex(item => this.state(item, key) === false);
+		if (notSelected < 0) {
+			return true;
+		}
+
+		return notSelected === 0
+			? items.every(item => this.state(item, key) === false)
+				? false
+				: null
+			: null;
+	}
+
+	keyFactory() {
+		return this.service.hashFactory();
+	}
+
+	clear() {
+		this.clearCore();
+	}
+
+	entries() {
+		return [];
+	}
+
+	selectCore() {
+	}
+
+	clearCore() {
+	}
+
+	stateCore() {
+		return false;
+	}
+
+	canSelectCore() {
+		return true;
+	}
+}
+
+class SingleSelectionState extends SubSelectionState {
+	constructor(model, service) {
+		super(model, service);
+
+		this.item = null;
+	}
+
+	entries() {
+		return this.item ? [this.item] : [];
+	}
+
+	selectCore(item, state) {
+		if (state) {
+			this.item = item;
+		}
+		else {
+			this.item = null;
+		}
+	}
+
+	stateCore(item, key) {
+		return this.item !== null && key(item) === key(this.item);
+	}
+
+	clearCore() {
+		this.item = null;
+	}
+}
+
+class SingleOnlySelectionState extends SubSelectionState {
+	constructor(model, service) {
+		super(model, service);
+
+		this.item = null;
+	}
+
+	entries() {
+		return this.item ? [this.item] : [];
+	}
+
+	selectCore(item, state) {
+		if (state) {
+			this.item = item;
+		}
+	}
+
+	canSelectCore(item) {
+		return item !== this.item;
+	}
+
+	stateCore(item, key) {
+		return this.item !== null && key(item) === key(this.item);
+	}
+
+	clearCore() {
+		this.item = null;
+	}
+}
+
+class MultipleSelectionState extends SubSelectionState {
+	constructor(model, service) {
+		super(model, service);
+
+		this.items = new Map();
+	}
+
+	entries() {
+		return Array.from(this.items.values());
+	}
+
+	selectCore(item, state, key) {
+		if (state) {
+			this.items.set(key(item), item);
+		}
+		else {
+			this.items.delete(key(item));
+		}
+	}
+
+	stateCore(item, key) {
+		return this.items.has(key(item));
+	}
+
+	clearCore() {
+		this.items = new Map();
+	}
+}
+
+class RangeSelectionState extends MultipleSelectionState {
+	constructor(model, service) {
+		super(model, service);
+	}
+
+	select(item, state = true) {
+		if (isArray(item)) {
+			this.clear();
+		}
+
+		super.select(item, state);
+	}
+}
+
+function selectionStateFactory(model, service) {
+	const mode = model.selection().mode;
+
+	switch (mode) {
+		case 'single':
+			return new SingleSelectionState(model, service);
+		case 'singleOnly':
+			return new SingleOnlySelectionState(model, service);
+		case 'multiple':
+			return new MultipleSelectionState(model, service);
+		case 'range':
+			return new RangeSelectionState(model, service);
+		default:
+			throw new GridError('selection.state.factory', `Invalid selection mode "${mode}"`);
+	}
+}
+
+class SelectionLet {
+  constructor(plugin, shortcut) {
+    const { model, table, observeReply } = plugin;
+
+    this.plugin = plugin;
+    this.selectionService = new SelectionService(model);
+    this.form = selectionStateFactory(model, this.selectionService);
+    this.selectionRange = new SelectionRange(model);
+
+    const commands = this.getCommands();
+    shortcut.register(commands);
+
+    this.toggleRow = commands.get('toggleRow');
+    this.toggleColumn = commands.get('toggleColumn');
+    this.toggleCell = commands.get('toggleCell');
+    this.reset = commands.get('reset');
+    this.stateCheck = new SubjectLike();
+
+    observeReply(model.navigationChanged)
+      .subscribe(e => {
+        if (e.tag.source === 'selection.view') {
+          return;
+        }
+
+        if (e.hasChanges('cell')) {
+          if (this.toggleCell.canExecute(e.state.cell)) {
+            this.toggleCell.execute(e.state.cell);
+          }
+        }
+      });
+
+    const modeClass = `${GRID_PREFIX}-select-${model.selection().mode}`;
+    const unitClass = `${GRID_PREFIX}-select-${model.selection().unit}`;
+
+    const { view } = table;
+    view.addClass(modeClass);
+    view.addClass(unitClass);
+
+    observeReply(model.selectionChanged)
+      .subscribe(e => {
+        if (e.hasChanges('mode')) {
+          const newModeClass = `${GRID_PREFIX}-select-${e.state.mode}`;
+          const oldModeClass = `${GRID_PREFIX}-select-${e.changes.mode.oldValue}`;
+
+          view.removeClass(oldModeClass);
+          view.addClass(newModeClass);
+        }
+
+        if (e.hasChanges('unit')) {
+          const newUnitClass = `${GRID_PREFIX}-select-${e.state.unit}`;
+          const oldUnitClass = `${GRID_PREFIX}-select-${e.changes.unit.oldValue}`;
+
+          view.removeClass(oldUnitClass);
+          view.addClass(newUnitClass);
+        }
+
+        if (e.hasChanges('unit') || e.hasChanges('mode')) {
+          if (!e.hasChanges('items')) {
+            this.form.clear();
+            if (model.selection().items.length) {
+              model.selection({ items: [] }, {
+                source: 'selection.view'
+              });
+            }
+
+            this.form = selectionStateFactory(model, this.selectionService);
+          }
+        }
+
+        if (e.hasChanges('items')) {
+          if (e.tag.source !== 'selection.view') {
+            // Don't use commit it came outside already
+
+            const oldEntries = this.selectionService.lookup(e.changes.items.oldValue);
+            this.select(oldEntries, false);
+
+            const newEntries = this.selectionService.lookup(e.state.items);
+            this.select(newEntries, true);
+          }
+          
+          this.stateCheck.next(e.state.items);
+        }
+      });
+
+    observeReply(model.dataChanged)
+      .subscribe(e => {
+        const { unit, items } = model.selection();
+
+        const needUpdateAfterRowsChanged = e.hasChanges('rows') && (unit === 'row' || unit === 'mix' || unit === 'cell');
+        const needUpdateAfterColumnsChanged = e.hasChanges('columns') && (unit === 'column' || unit === 'mix' || unit === 'cell');
+
+        if (needUpdateAfterRowsChanged || needUpdateAfterColumnsChanged) {
+          // re-invalidate selection
+          this.form.clear();
+          const entries = this.selectionService.lookup(items);
+          this.select(entries, true);
+        }
+      });
+  }
+
+  getCommands() {
+    const { model, table } = this.plugin;
+    const { shortcut } = model.selection();
+
+    const toggleActiveRow = new Command({
+      source: 'selection.view',
+      canExecute: () => {
+        const rowIndex = selectRowIndex(model.navigation());
+        const row = this.rows[rowIndex >= 0 ? rowIndex : rowIndex + 1];
+
+        if (!this.form.canSelect(row)) {
+          return false;
+        }
+
+        return model.selection().unit === 'row' && this.rows.length > 0;
+      },
+      execute: () => {
+        const rowIndex = selectRowIndex(model.navigation());
+        const row = this.rows[rowIndex >= 0 ? rowIndex : rowIndex + 1];
+        const commit = this.toggle(row);
+        commit();
+      },
+      shortcut: shortcut.toggleRow
+    });
+
+    const commands = {
+      toggleCell: new Command({
+        source: 'selection.view',
+        canExecute: item => {
+          const selectionState = model.selection();
+          return item && selectionState.mode !== 'range' && (selectionState.unit === 'cell' || selectionState.unit === 'mix');
+        },
+        execute: (item, source) => {
+          const selectionState = model.selection();
+          switch (selectionState.unit) {
+            case 'cell': {
+              const commit = this.toggle(item, source);
+              commit();
+              break;
+            }
+            case 'mix': {
+              if (item.column.type === 'row-indicator') {
+                const commit = this.toggle({ item: item.row, unit: 'row' }, source);
+                commit();
+                break;
+              }
+              else {
+                const commit = this.toggle({ item: item, unit: 'cell' }, source);
+                commit();
+                break;
+              }
+            }
+          }
+        }
+      }),
+      toggleRow: new Command({
+        source: 'selection.view',
+        execute: (item, source) => {
+          const commit = this.toggle(item, source);
+          commit();
+        },
+        canExecute: row => {
+          if (!this.form.canSelect(row)) {
+            return false;
+          }
+
+          const e = {
+            items: isUndefined(row)
+              ? model.scene().rows
+              : [row],
+            source: 'custom',
+            kind: 'toggleRow'
+          };
+
+          if (!row) {
+            return model.selection().toggle.canExecute(e) && this.mode === 'multiple';
+          }
+
+          return model.selection().toggle.canExecute(e);
+        }
+      }),
+      toggleColumn: new Command({
+        source: 'selection.view',
+        execute: (item, source) => {
+          const commit = this.toggle(item, source);
+          commit();
+        }
+      }),
+      commitRow: new Command({
+        source: 'selection.view',
+        canExecute: () => {
+          const column = selectColumn(model.navigation());
+          return column && column.type === 'select';
+        },
+        execute: () => {
+          if (toggleActiveRow.canExecute()) {
+            toggleActiveRow.execute();
+          }
+        },
+        shortcut: model.edit().commitShortcuts['select'] || ''
+      }),
+      toggleActiveRow: toggleActiveRow,
+      togglePrevRow: new Command({
+        source: 'selection.view',
+        canExecute: () => model.selection().unit === 'row' && selectRowIndex(model.navigation()) > 0,
+        execute: () => {
+          const rowIndex = selectRowIndex(model.navigation());
+          const columnIndex = selectColumnIndex(model.navigation());
+
+          const row = this.rows[rowIndex];
+          const commit = this.toggle(row);
+          commit();
+
+          this.navigateTo(rowIndex - 1, columnIndex);
+        },
+        shortcut: shortcut.togglePreviousRow
+      }),
+      toggleNextRow: new Command({
+        source: 'selection.view',
+        canExecute: () => model.selection().unit === 'row' && selectRowIndex(model.navigation()) < this.rows.length - 1,
+        execute: () => {
+          const rowIndex = selectRowIndex(model.navigation());
+          const columnIndex = selectColumnIndex(model.navigation());
+
+          const row = this.rows[rowIndex];
+          const commit = this.toggle(row);
+          commit();
+
+          this.navigateTo(rowIndex + 1, columnIndex);
+        },
+        shortcut: shortcut.toggleNextRow
+      }),
+      toggleActiveColumn: new Command({
+        source: 'selection.view',
+        canExecute: () => model.selection().unit === 'column' && selectColumnIndex(model.navigation()) >= 0,
+        execute: () => {
+          const columnIndex = selectColumnIndex(model.navigation());
+
+          const column = this.columns[columnIndex];
+          const commit = this.toggle(column);
+          commit();
+        },
+        shortcut: shortcut.toggleColumn
+      }),
+      toggleNextColumn: new Command({
+        source: 'selection.view',
+        canExecute: () => model.selection().unit === 'column' && selectColumnIndex(model.navigation()) < this.columns.length - 1,
+        execute: () => {
+          const rowIndex = selectRowIndex(model.navigation());
+          const columnIndex = selectColumnIndex(model.navigation());
+
+          const column = this.columns[columnIndex];
+          const commit = this.toggle(column);
+          commit();
+
+          this.navigateTo(rowIndex, columnIndex + 1);
+        },
+        shortcut: shortcut.toggleNextColumn
+      }),
+      togglePrevColumn: new Command({
+        source: 'selection.view',
+        canExecute: () => model.selection().unit === 'column' && selectColumnIndex(model.navigation()) > 0,
+        execute: () => {
+          const rowIndex = selectRowIndex(model.navigation());
+          const columnIndex = selectColumnIndex(model.navigation());
+
+          const column = this.columns[columnIndex];
+          const commit = this.toggle(column);
+          commit();
+
+          this.navigateTo(rowIndex, columnIndex - 1);
+        },
+        shortcut: shortcut.togglePreviousColumn
+      }),
+      selectAll: new Command({
+        source: 'selection.view',
+        canExecute: () => {
+          const { mode } = model.selection();
+          return mode === 'multiple' || mode === 'range';
+        },
+        execute: () => {
+          let entries = [];
+          switch (model.selection().unit) {
+            case 'row': {
+              entries = this.rows;
+              break;
+            }
+            case 'column': {
+              entries = model.columnList().line;
+              break;
+            }
+            case 'cell':
+            case 'mix': {
+              const { body } = table;
+
+              const buildRange = this.selectionRange.build();
+              const startCell = body.cell(0, 0);
+              const endCell = body.cell(this.rows.length, this.columns.length);
+
+              entries = buildRange(startCell, endCell);
+              break;
+            }
+            default: {
+              throw new GridError('selection.view', `Invalid unit ${model.selection().unit}`);
+            }
+          }
+
+          const commit = this.select(entries, true);
+          commit();
+        },
+        shortcut: shortcut.selectAll
+      })
+    };
+
+    return new Map(
+      Object.entries(commands)
+    );
+  }
+
+  selectRange(startCell, endCell, source) {
+    const buildRange = this.selectionRange.build();
+    const range = buildRange(startCell, endCell);
+    const commit = this.select(range, true, source);
+    commit();
+  }
+
+  toggle(items, source = 'custom') {
+    const { model } = this.plugin;
+    const { toggle } = model.selection();
+
+    items = !arguments.length || isUndefined(items)
+      ? this.rows
+      : isArray(items)
+        ? items : [items];
+
+    const e = { items, source, kind: 'toggle' };
+    if (toggle.canExecute(e)) {
+      toggle.execute(e);
+
+      const { form } = this;
+      form.toggle(items);
+
+      return () => {
+        model.selection({
+          items: this.selectionService.map(form.entries())
+        }, {
+          source: 'selection.view'
+        });
+      };
+    }
+
+    return noop;
+  }
+
+  select(items, state, source = 'custom') {
+    const { model } = this.plugin;
+    const { toggle } = model.selection();
+    const e = {
+      items,
+      source,
+      kind: 'select'
+    };
+
+    if (toggle.canExecute(e)) {
+      toggle.execute(e);
+
+      this.form.select(items, state);
+
+      return () => {
+        const items = this.selectionService.map(this.form.entries());
+        model.selection({ items }, {
+          source: 'selection.view'
+        });
+      };
+    } else {
+      return noop;
+    }
+  }
+
+  state(item) {
+    if (!arguments.length) {
+      return !!this.form.stateAll(this.rows);
+    }
+
+    return this.form.state(item) === true;
+  }
+
+  isIndeterminate(item) {
+    if (!arguments.length) {
+      return this.form.stateAll(this.rows) === null;
+    }
+
+    return this.form.state(item) === null;
+  }
+
+  get selection() {
+    return this.plugin.model.selection();
+  }
+
+  get mode() {
+    return this.selection.mode;
+  }
+
+  get items() {
+    return this.selection.items;
+  }
+
+  get rows() {
+    const { table } = this.plugin;
+    return table.data.rows();
+  }
+
+  get columns() {
+    const { table } = this.plugin;
+    return table.data.columns();
+  }
+
+  navigateTo(rowIndex, columnIndex) {
+    const { table, model } = this.plugin;
+    const { row, column } = table.body.cell(rowIndex, columnIndex).model();
+    model.navigation({
+      cell: {
+        rowIndex,
+        columnIndex,
+        row,
+        column
+      }
+    }, { source: 'selection.view' });
+  }
+}
+
+function stringifyFactory(property) {
+	switch (property) {
+		case 'filter':
+			return filter;
+		case 'sort':
+			return sort;
+		case 'group':
+		case 'pivot':
+			return transformBy(property);
+		default:
+			return () => '';
+	}
+}
+
+function filter(model) {
+	const values = Object.values(model.by)
+		.map(column => column.items);
+
+	if (values.length === 0) return '';
+
+	const by = flatten(values).join(', ');
+	return `filter ${by}`;
+}
+
+function sort(model) {
+	const keys = [];
+	for (let item of model.by) {
+		for (let key in item) {
+			keys.push(key);
+		}
+	}
+
+	if (keys.length === 0) return '';
+
+	const by = keys.join(', ');
+	return `sort ${by}`;
+}
+
+function transformBy(property) {
+	return model => {
+		const keys = model.by;
+		if (keys.length === 0) return '';
+
+		const by = keys.join(', ');
+		return `${property} ${by}`;
+	};
+}
+
+function key(pair) {
+	const key = Object.keys(pair)[0];
+	if (!key) {
+		throw new GridError(
+			'pair',
+			`Key is not defined in "${pair}"`);
+	}
+
+	return key;
+}
+
+function index(pairs, pairKey) {
+	return pairs.map(key).findIndex(k => k === pairKey);
+}
+
+function value(pair) {
+	const pairKey = key(pair);
+	return pair[pairKey];
+}
+
+function map(pairs) {
+	return pairs.reduce((memo, pair) => {
+		const pairKey = key(pair);
+		memo[pairKey] = pair[pairKey];
+		return memo;
+	}, {});
+}
+
+function predicateFactory(search) {
+	if (isObject(search)) {
+		// TODO: improve performance
+		const getters = Object
+			.keys(search)
+			.map(key => {
+				const value = compileGet(key);
+				return { key, value };
+			});
+
+		const { length } = getters;
+		switch (length) {
+			case 0: {
+				return yes;
+			}
+			case 1: {
+				const get = getters[0];
+				const pattern = search[get.key];
+				if (!pattern) {
+					return yes;
+				}
+
+				const expr = new RegExp(pattern, 'gi');
+				return item => expr.test(get.value(item));
+			}
+			default: {
+				return item =>
+					getters.reduce((memo, get) =>
+						(memo && new RegExp(search[get.key], 'gi').test(get.value(item)) || search[get.key] === ''),
+						true);
+
+			}
+		}
+	}
+
+	const pattern = escapeRegexp(search);
+	const expr = new RegExp(pattern, 'gi');
+	return item => {
+		expr.lastIndex = 0;
+		return expr.test(item);
+	}
+}
+
+function firstRowTitle(index, row) {
+	return row[index];
+}
+function numericTitle(index) {
+	return index;
+}
+function alphaTitle(index) {
+	const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+	if (index < alphabet.length) {
+		return alphabet[index];
+	} else {
+		const indexFirst = Math.floor(index / alphabet.length - 1);
+		const indexSecond = index % alphabet.length;
+		return `${alphabet[indexFirst]}${alphabet[indexSecond]}`;
+	}
+}
+
+function upload(element) {
+	const { ownerDocument } = element;
+	const input = ownerDocument.createElement('input');
+	input.type = 'file';
+	input.style.display = 'none';
+	
+	element.appendChild(input);
+	input.click();
+}
+
+class SortLet {
+	constructor(plugin) {
+		const { model } = plugin;
+		this.plugin = plugin;
+
+		this.hover = false;
+		this.toggle = new Command({
+			source: 'sort.view',
+			canExecute: column => {
+				const key = column.key;
+				const map = mapColumns(model.columnList().line);
+				return map.hasOwnProperty(key) && map[key].canSort !== false;
+			},
+			execute: column => {
+				const key = column.key;
+				const sort = model.sort;
+				const sortState = sort();
+				let by = Array.from(sortState.by);
+
+				if (sortState.mode === 'mixed') {
+					const { code, status } = model.keyboard();
+					const isSingleMode = code !== 'shift' || status !== 'down';
+					// if shift key is not pressed - reset sort for other columns and do sort like single mode
+					if (isSingleMode) {
+						const index = getIndex(by, key);
+						by = index >= 0 ? by.filter((_, i) => i === index) : [];
+					}
+				}
+				const index = getIndex(by, key);
+				if (index >= 0) {
+					const dir = getDirection(by[index]);
+					switch (dir) {
+						case 'desc': {
+							by.splice(index, 1);
+							this.hover = false;
+							break;
+						}
+						case 'asc': {
+							const entry = { [key]: 'desc' };
+							by[index] = entry;
+							this.hover = false;
+							break;
+						}
+						default:
+							throw GridError(
+								'head.core',
+								`Invalid sort direction ${dir}`);
+					}
+				}
+				else {
+					if (sortState.mode === 'single') {
+						by.length = 0;
+					}
+
+					const entry = { [key]: 'asc' };
+					by.push(entry);
+
+					const order = orderFactory(model);
+					order(by);
+				}
+
+				sort({ by }, { source: 'sort.view' });
+			}
+		});
+
+		this.onInit();
+	}
+
+	onInit() {
+		const { model, observeReply } = this.plugin;
+		const { sort } = model;
+
+		observeReply(model.columnListChanged)
+			.subscribe(e => {
+				if (e.hasChanges('index')) {
+					const sortState = sort();
+					const order = orderFactory(model);
+					const sortBy = order(Array.from(sortState.by));
+					if (!this.equals(sortBy, sortState.by)) {
+						sort({ by: sortBy }, { source: 'sort.view' });
+					}
+				}
+			});
+
+		observeReply(model.dataChanged)
+			.subscribe(e => {
+				if (e.hasChanges('columns')) {
+					const { by } = sort();
+					const columnMap = mapColumns(e.state.columns);
+					const newBy = by.filter(entry => columnMap.hasOwnProperty(getKey(entry)));
+					if (!this.equals(newBy, by)) {
+						sort({ by: newBy }, { source: 'sort.view' });
+					}
+				}
+			});
+	}
+
+	equals(x, y) {
+		return JSON.stringify(x) === JSON.stringify(y);
+	}
+
+	direction(column) {
+		const { key } = column;
+		const { by } = this.plugin.model.sort();
+		return getMap(by)[key];
+	}
+
+	order(column) {
+		const { key } = column;
+		const { model } = this.plugin;
+		const { by } = model.sort();
+		return getIndex(by, key);
+	}
+}
+
+class StyleEntry {
+	constructor(element, sheets, markDirty) {
+		this.element = element;
+		this.list = new Set();
+		this.sheets = sheets;
+		this.markDirty = markDirty;
+	}
+
+	class(key, style) {
+		key = escape$2(key);
+		this.list.add(key);
+		this.markDirty(this);
+		if (style) {
+			const sheets = this.sheets;
+			if (!sheets.has(key)) {
+				sheets.set(key, style);
+			}
+		}
+	}
+}
+
+class StyleMonitor {
+	constructor(model) {
+		this.model = model;
+		this.entries = new Set();
+		this.newSheets = new Map();
+		this.oldSheets = new Map();
+	}
+
+	enter() {
+		const newSheets = this.newSheets;
+		let entries = this.entries;
+		for (let entry of entries) {
+			for (let cls of entry.list) {
+				entry.element.removeClass(cls, true);
+			}
+		}
+
+		entries = this.entries = new Set();
+		const markDirty = entry => entries.add(entry);
+
+		return element => {
+			const entry = new StyleEntry(element, newSheets, markDirty);
+			return entry.class.bind(entry);
+		};
+	}
+
+	exit() {
+		const entries = this.entries;
+		for (let entry of entries) {
+			for (let cls of entry.list) {
+				entry.element.addClass(cls, true);
+			}
+		}
+
+		const newSheets = this.newSheets;
+		const oldSheets = this.oldSheets;
+		const id = this.model.grid().id;
+		for (let cls of oldSheets.keys()) {
+			if (!newSheets.has(cls)) {
+				const sheet$1 = sheet(id, cls);
+				sheet$1.remove();
+			}
+		}
+
+		for (let [cls, style] of newSheets.entries()) {
+			if (!oldSheets.has(cls)) {
+				const sheet$1 = sheet(id, cls);
+				sheet$1.set({ [`.${cls}`]: style });
+			}
+		}
+
+		this.oldSheets = newSheets;
+		this.newSheets = new Map();
+	}
+}
+
+class StyleService {
+	constructor(model) {
+		this.style = model.style;
+	}
+
+	row() {
+		const { rows, row } = this.style();
+		const visitors = row === noop
+			? rows
+			: rows.concat([row]);
+
+		return Composite.func(visitors);
+	}
+
+	cell() {
+		const { cells, cell } = this.style();
+		if (isFunction(cell)) {
+			const visitors = cell === noop
+				? cells
+				: cells.concat([cell]);
+
+			return Composite.func(visitors);
+		}
+
+		const keys = Object.keys(cell);
+		if (keys.length) {
+			const visitors = cells.concat(keys.map(key => {
+				const visit = cell[key];
+				return (row, column, context) => {
+					if (column.key === key) {
+						visit(row, column, context);
+					}
+				};
+			}));
+
+			return Composite.func(visitors);
+		}
+
+		return Composite.func(cells);
+	}
+}
+
+class VirtualRowStyle {
+	constructor(table, style) {
+		this.table = table;
+		this.style = style;
+	}
+
+	visitFactory() {
+		const { style } = this;
+		const { rowBox } = this.table.body;
+		const { entries } = rowBox;
+
+		return (row, context) => {
+			const model = {
+				dataIndex: context.row,
+			};
+
+			const key = rowBox.key(model);
+			const classList = entries.get(key);
+			if (classList) {
+				for (let cls of classList) {
+					context.class(cls);
+				}
+			}
+
+			style(row, context);
+		};
+	}
+}
+
+class VirtualCellStyle {
+	constructor(table, style) {
+		this.table = table;
+		this.style = style;
+	}
+
+	visitFactory() {
+		const { style } = this;
+		const { cellBox } = this.table.body;
+		const { columnBox } = this.table.body;
+
+		const cellEntries = cellBox.entries;
+		const columnEntries = columnBox.entries;
+
+		return (row, column, context) => {
+			// column level
+			const columnModel = {
+				dataIndex: context.column,
+			};
+
+			const columnKey = columnBox.key(columnModel);
+			const columnClassList = columnEntries.get(columnKey);
+			if (columnClassList) {
+				for (let cls of columnClassList) {
+					context.class(cls);
+				}
+			}
+
+			// cell level
+			const cellModel = {
+				dataRowIndex: context.row,
+				dataColumnIndex: context.column,
+			};
+
+			const cellKey = cellBox.key(cellModel);
+			const cellClassList = cellEntries.get(cellKey);
+			if (cellClassList) {
+				for (let cls of cellClassList) {
+					context.class(cls);
+				}
+			}
+
+			// add classes
+			style(row, column, context);
+		};
+	}
+}
+
+class StyleLet {
+	constructor(plugin) {
+		const { model, observeReply } = plugin;
+
+		this.plugin = plugin;
+		this.valueFactory = getValueFactory;
+		this.service = new StyleService(model);
+		this.active = {
+			row: false,
+			cell: false
+		};
+
+		this.monitor = {
+			row: new StyleMonitor(model),
+			cell: new StyleMonitor(model)
+		};
+
+		observeReply(model.styleChanged)
+			.subscribe(e => {
+				if (e.hasChanges('row') || e.hasChanges('rows')) {
+					this.active.row = e.state.row !== noop || e.state.rows.length > 0;
+				}
+
+				if (e.hasChanges('cell') || e.hasChanges('cells')) {
+					this.active.cell = e.state.cell !== noop || e.state.cells.length > 0;
+				}
+			});
+	}
+
+	needInvalidate() {
+		const { model } = this.plugin;
+		if (model.scene().status !== 'stop') {
+			return false;
+		}
+
+		const { active } = this;
+		const isVirtual = model.scroll().mode === 'virtual';
+		const isActive = isVirtual || active.row || active.cell;
+
+		if (!isActive) {
+			return false;
+		}
+
+		const { invalidate } = model.style();
+		const context = {
+			model
+		};
+
+		return invalidate.canExecute(context) && invalidate.execute(context) !== false;
+	}
+
+	invalidate(domCell, domRow) {
+		const { model, table } = this.plugin;
+		let { row: isRowActive, cell: isCellActive } = this.active;
+
+		const isVirtual = model.scroll().mode === 'virtual';
+
+		// TODO: improve performance
+		const valueCache = new Map();
+		const value = (row, column) => {
+			let getValue = valueCache.get(column);
+			if (!getValue) {
+				getValue = getValueFactory(column);
+				valueCache.set(column, getValue);
+			}
+
+			return getValue(row);
+		};
+
+		const columnList = table.data.columns();
+		const columnMap = mapColumns(columnList);
+
+		let visitRow = this.service.row();
+		let visitCell = this.service.cell();
+		if (isVirtual) {
+			isRowActive = true;
+			isCellActive = true;
+			visitRow = new VirtualRowStyle(table, visitRow).visitFactory();
+			visitCell = new VirtualCellStyle(table, visitCell).visitFactory();
+		}
+
+		// For performance reason we make rowContext and cellContext the same reference 
+		// for the all style calls.
+		const rowContext = {
+			class: noop,
+			row: -1,
+			value: null,
+			columns: {
+				map: columnMap,
+				list: columnList
+			}
+		};
+
+		const cellContext = {
+			class: noop,
+			row: -1,
+			column: -1,
+			value: null,
+			columns: rowContext.columns
+		};
+
+		// To improve performance take rows and cells directly from the bag and not from the DOM table. 
+		const { body } = table;
+		const { rowToView, columnToView } = table.box.mapper;
+		const bodyBag = table.box.bag.body;
+
+		if (isRowActive) {
+			const rows = bodyBag.getRowElements();
+			for (let tr of rows) {
+				const { index, element, model } = tr;
+				// This private method we use only for performance, don't use it in other places.
+				const row = body.createRowCore(rowToView(index), element);
+
+				rowContext.class = domRow(row);
+				rowContext.row = index;
+				rowContext.value = value;
+
+				visitRow(model, rowContext);
+			}
+		}
+
+		if (isCellActive) {
+			const cells = bodyBag.getCellElements();
+			for (let td of cells) {
+				const { rowIndex, columnIndex, element, row, column } = td;
+				// This private method we use only for performance, don't use it in other places.
+				const cell = body.createCellCore(rowToView(rowIndex), columnToView(columnIndex), element);
+
+				cellContext.class = domCell(cell);
+				cellContext.row = rowIndex;
+				cellContext.column = columnIndex;
+				cellContext.value = value;
+
+				visitCell(row, column, cellContext);
+			}
+		}
+	}
+}
+
+const builder = new ModelBuilder();
+function modelFactory() {
+	return builder.build();
+}
+
+function viewFactory(
+	plugin,
+	commandManager,
+	vscroll,
+	selectors
+) {
+	const { model, disposable } = plugin;
+	const { shortcut } = model.action();
+
+	const navigationShortcut = {
+		keyCode: () => shortcut.keyCode,
+		register: commands =>
+			disposable.add(
+				shortcut.register(
+					commandManager,
+					commands
+				)
+			),
+	};
+
+	const selectionCommandManager =
+		new SelectionCommandManager(
+			model,
+			commandManager
+		);
+
+	const selectionShortcut = {
+		register: commands => {
+			disposable.add(
+				shortcut.register(
+					selectionCommandManager,
+					commands
+				)
+			);
+		}
+	};
+
+	return host => {
+		host.head = new HeadLet(plugin, selectors.th);
+		host.body = new BodyLet(plugin);
+		host.foot = new FootLet(plugin);
+		host.row = new RowLet(plugin, selectors.tr);
+		host.layout = new LayoutLet(plugin);
+		host.scroll = new ScrollLet(plugin, vscroll);
+		host.highlight = new HighlightLet(plugin);
+		host.sort = new SortLet(plugin);
+		host.pagination = new PaginationLet(plugin);
+		host.nav = new NavigationLet(plugin, navigationShortcut);
+		host.group = new GroupLet(plugin, navigationShortcut);
+		host.edit = new EditLet(plugin, navigationShortcut);
+		host.filter = new FilterLet(plugin);
+		host.rowDetails = new RowDetailsLet(plugin, navigationShortcut);
+		host.selection = new SelectionLet(plugin, selectionShortcut);
+		host.style = new StyleLet(plugin);
+		host.clipboard = new ClipboardLet(plugin, navigationShortcut);
+	};
+}
+
+class ViewHost {
+  constructor(plugin) {
+    this.plugin = plugin;
+
+    this.watch(plugin.service);
+    this.final = final();
+
+    // todo: make the logic based on mouse state
+    this.startCell = null;
+  }
+
+  invalidate() {
+    this.final(() => {
+      const { view } = this.plugin;
+      const { style } = view;
+
+      if (style.needInvalidate()) {
+        const rowMonitor = style.monitor.row;
+        const cellMonitor = style.monitor.cell;
+
+        Fastdom.mutate(() => {
+          // Apply mutate inside another mutate to ensure that style.invalidate is triggered last.
+          Fastdom.mutate(() => {
+            const domCell = cellMonitor.enter();
+            const domRow = rowMonitor.enter();
+            try {
+              style.invalidate(domCell, domRow);
+            }
+            finally {
+              rowMonitor.exit();
+              cellMonitor.exit();
+            }
+          });
+        });
+      }
+    });
+  }
+
+  triggerLine(service, timeout) {
+    const { model } = this.plugin;
+    const { reduce } = model.pipe();
+
+    let session = [];
+    const job = jobLine(timeout);
+    return (source, changes, units) => {
+      model.scene({ status: 'start' }, {
+        source
+      });
+
+      session.push(...units);
+      job(() => {
+        const units = reduce(session, model);
+        session = [];
+
+        units.forEach(pipe =>
+          service.invalidate({
+            source,
+            changes,
+            pipe,
+            why: pipe.why || 'refresh'
+          })
+        );
+      });
+    };
+  }
+
+  watch(service) {
+    const { model, observeReply } = this.plugin;    const { triggers } = model.pipe();
+    const { pipe } = model.data();
+
+    const triggerJob = this.triggerLine(service, 10);
+    if (pipe !== PipeUnit.default) {
+      triggerJob('grid', {}, [pipe]);
+    }
+
+    Object.keys(triggers)
+      .forEach(name =>
+        observeReply(model[name + 'Changed'])
+          .subscribe(e => {
+            if (e.tag.behavior === 'core') {
+              return;
+            }
+
+            const units = [];
+            const trigger = triggers[name];
+            for (const key in e.changes) {
+              const unit = trigger[key];
+              if (unit) {
+                units.push(unit);
+              }
+            }
+
+            if (units.length > 0) {
+              triggerJob(e.tag.source || name, e.changes, units);
+            }
+          }));
+  }
+
+  mouseDown(e) {
+    const { model, view } = this.plugin;
+    const { edit } = model;
+
+    const td = this.findCell(e);
+
+    model.mouse({
+      code: stringify(getButtonCode(e)),
+      status: 'down',
+      target: td
+    }, {
+      source: 'mouse.down'
+    });
+
+    if (checkButtonCode(e, LEFT_BUTTON)) {
+      const { area, mode } = this.selection;
+
+      if (td) {
+        const fromNotEditMode = edit().status === 'view';
+
+        this.navigate(td);
+        if (area === 'body') {
+          this.select(td);
+        }
+
+        if (fromNotEditMode && view.edit.cell.enter.canExecute(td)) {
+          view.edit.cell.enter.execute(td);
+        }
+
+        if (mode === 'range' && td.column.type !== 'select') {
+          this.startCell = td;
+          view.selection.selectRange(td, null, 'body');
+        }
+      }
+    }
+  }
+
+  mouseUp(e) {
+    const { model } = this.plugin;
+    const { edit } = model;
+
+    const td = this.findCell(e);
+
+    this.startCell = null;
+
+    model.mouse({
+      code: stringify(getButtonCode(e)),
+      status: 'up',
+      target: td,
+    }, {
+      source: 'mouse.up'
+    });
+
+    if (checkButtonCode(e, LEFT_BUTTON)) {
+      if (edit().status === 'startBatch') {
+        edit({ status: 'endBatch' }, { source: 'body.ctrl' });
+      }
+    }
+
+    model.mouse({
+      code: stringify(NO_BUTTON),
+      status: 'release',
+      target: null,
+      timestamp: Date.now(),
+    }, {
+      source: 'mouse.up'
+    });
+  }
+
+  mouseMove(e) {
+    const { model, view } = this.plugin;
+    const { highlight } = view;
+    const { rows, cell } = model.highlight();
+
+    const td = this.findCell(e);
+    if (td) {
+
+      if (cell) {
+        highlight.cell.execute(cell, false);
+      }
+
+      const newCell = {
+        rowIndex: td.rowIndex,
+        columnIndex: td.columnIndex
+      };
+
+      model.mouse({
+        status: 'move',
+        target: cell || newCell
+      }, {
+        source: 'mouse.move'
+      });
+
+      if (highlight.cell.canExecute(newCell)) {
+        highlight.cell.execute(newCell, true);
+      }
+
+      const tr = this.findRow(e);
+      if (tr) {
+        const { index } = tr;
+
+        if (highlight.row.canExecute(index)) {
+          rows
+            .filter(i => i !== index)
+            .forEach(i => highlight.row.execute(i, false));
+
+          highlight.row.execute(index, true);
+        }
+      }
+
+      if (checkButtonCode(e, LEFT_BUTTON)) {
+        if (this.selection.mode === 'range') {
+          const startCell = this.startCell;
+          const endCell = td;
+
+          if (startCell && endCell) {
+            this.navigate(endCell);
+            view.selection.selectRange(startCell, endCell, 'body');
+          }
+        }
+      }
+
+    } else {
+      model.mouse({
+        status: 'move',
+        target: null,
+      }, {
+        source: 'mouse.move'
+      });
+    }
+  }
+
+  mouseEnter(e) {
+    const { model } = this.plugin;
+    model.mouse({
+      status: 'enter',
+      target: null,
+      code: null
+    }, {
+      source: 'mouse.enter'
+    });
+  }
+
+  mouseLeave() {
+    const { model } = this.plugin;
+
+    model.mouse({
+      status: 'leave',
+      target: null,
+      code: null
+    }, {
+      source: 'mouse.leave'
+    });
+
+    this.clearHighlight();
+  }
+
+  select(cell) {
+    const { area, mode, unit } = this.selection;
+    if (cell.column.type !== 'select' && (area !== 'body' || mode === 'range')) {
+      return;
+    }
+
+    const { model, view } = this.plugin;
+    const editMode = model.edit().mode;
+    switch (unit) {
+      case 'row': {
+        if (cell.column.type === 'select' && cell.column.editorOptions.trigger === 'focus') {
+          const focusState = model.focus();
+          if (focusState.rowIndex !== cell.rowIndex || focusState.columnIndex !== cell.columnIndex) {
+            if (view.selection.toggleRow.canExecute(cell.row)) {
+              view.selection.toggleRow.execute(cell.row, 'body');
+            }
+          }
+        } else if (!editMode && cell.column.category !== 'control') {
+          if (view.selection.toggleRow.canExecute(cell.row)) {
+            view.selection.toggleRow.execute(cell.row, 'body');
+          }
+        }
+
+        break;
+      }
+
+      case 'column': {
+        if (!editMode) {
+          view.selection.toggleColumn.execute(cell.column, 'body');
+        }
+
+        break;
+      }
+
+      case 'mix': {
+        if (cell.column.type === 'row-indicator') {
+          view.selection.toggleCell.execute(cell, 'body');
+        }
+
+        break;
+      }
+    }
+  }
+
+  navigate(cell) {
+    const { view } = this.plugin;
+    const { focus } = view.nav;
+
+    if (focus.canExecute(cell)) {
+      focus.execute(cell);
+    }
+  }
+
+  findCell(e) {
+    const { table } = this.plugin;
+    const pathFinder = new PathService(table.box.bag.body);
+    const path = eventPath(e);
+
+    let td = pathFinder.cell(path);
+    if (!td) {
+      const firstElement = path[0];
+      const isEditMarker =
+        firstElement
+        && firstElement.classList.contains('q-grid-edit-marker');
+
+      if (isEditMarker) {
+        const { model } = this.plugin;
+        const { rowIndex, columnIndex } = model.focus();
+        td = table.body.cell(rowIndex, columnIndex).model();
+      }
+    }
+
+    return td;
+  }
+
+  findRow(e) {
+    const { table } = this.plugin;
+    const pathFinder = new PathService(table.box.bag.body);
+    const path = eventPath(e);
+    return pathFinder.row(path);
+  }
+
+  clearHighlight() {
+    const { view } = this.plugin;
+    const { highlight } = view;
+    if (highlight.clear.canExecute()) {
+      highlight.clear.execute();
+    }
+  }
+
+  get selection() {
+    const { model } = this.plugin;
+    return model.selection();
+  }
+}
+
+

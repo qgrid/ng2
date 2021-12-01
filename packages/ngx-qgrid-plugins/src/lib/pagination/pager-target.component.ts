@@ -1,7 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Shortcut } from '@qgrid/core/shortcut/shortcut';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Shortcut } from '@qgrid/core';
 import { GridPlugin } from '@qgrid/ngx';
-import { FocusAfterRender } from '../focus/focus.service';
 
 @Component({
 	selector: 'q-grid-pager-target',

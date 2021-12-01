@@ -1,18 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Action } from '@qgrid/core/action/action';
-import { Command } from '@qgrid/core/command/command';
-import { GridService } from '@qgrid/core/grid/grid.service';
-import { Node } from '@qgrid/core/node/node';
-import { Pipe } from '@qgrid/core/pipe/pipe';
-import { PipeUnit } from '@qgrid/core/pipe/pipe.unit';
-import { RowDetailsStatus } from '@qgrid/core/row-details/row.details.status';
-import * as labelService from '@qgrid/core/services/label';
-import * as valueService from '@qgrid/core/services/value';
-import { identity, noop } from '@qgrid/core/utility/kit';
+import * as labelService from '@qgrid/core';
+import * as valueService from '@qgrid/core';
+import { Action, Command, GridService, identity, Node, noop, Pipe, PipeUnit, RowDetailsStatus } from '@qgrid/core';
 import { GridModelBuilder } from '../grid/grid-model.builder';
 import { GridModel } from './grid-model';
 
-export { GridService } from '@qgrid/core/grid/grid.service';
+export { GridService } from '@qgrid/core';
 
 @Injectable()
 export class Grid {

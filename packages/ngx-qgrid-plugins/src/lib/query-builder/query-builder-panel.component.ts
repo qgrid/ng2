@@ -1,17 +1,16 @@
-import { Component, Output, EventEmitter, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Command } from '@qgrid/core/command/command';
-import { clone } from '@qgrid/core/utility/kit';
-import { QueryBuilderService } from './query-builder.service';
-import { WhereSchema } from './schema/where.schema';
-import * as converter from './schema/converter';
-import { SerializationService } from '../expression-builder/serialization.service';
-import { INodeSchema } from '../expression-builder/model/node.schema';
-import { Node } from '../expression-builder/model/node';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { clone, Command } from '@qgrid/core';
+import { GridPlugin } from '@qgrid/ngx';
 import { EbNodeService } from '../expression-builder/eb-node.service';
+import { Node } from '../expression-builder/model/node';
+import { INodeSchema } from '../expression-builder/model/node.schema';
+import { SerializationService } from '../expression-builder/serialization.service';
 import { TraverseService } from '../expression-builder/traverse.service';
 import { FocusAfterRender } from '../focus/focus.service';
-import { GridPlugin } from '@qgrid/ngx';
 import { QueryBuilderModel } from './query-builder.model';
+import { QueryBuilderService } from './query-builder.service';
+import * as converter from './schema/converter';
+import { WhereSchema } from './schema/where.schema';
 
 @Component({
 	selector: 'q-grid-query-builder-panel',

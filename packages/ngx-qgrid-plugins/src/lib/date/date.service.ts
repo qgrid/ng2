@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { parseFactory } from '@qgrid/core/services/convert';
-import { isDate } from '@qgrid/core/utility/kit';
+import { isDate, parseFactory } from '@qgrid/core';
 
 @Injectable()
 export class DateService {

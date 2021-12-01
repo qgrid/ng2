@@ -1,11 +1,8 @@
-import { Component, OnInit, ElementRef, NgZone, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, NgZone, OnInit } from '@angular/core';
+import { ColumnView, EventListener, EventManager, HeadHost } from '@qgrid/core';
 import { GridLet } from '../grid/grid-let';
-import { ColumnView } from '@qgrid/core/scene/view/column.view';
-import { EventListener } from '@qgrid/core/event/event.listener';
-import { EventManager } from '@qgrid/core/event/event.manager';
-import { HeadHost } from '@qgrid/core/head/head.host';
-import { TableCoreService } from '../table/table-core.service';
 import { GridPlugin } from '../plugin/grid-plugin';
+import { TableCoreService } from '../table/table-core.service';
 
 @Component({
 	// tslint:disable-next-line

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Event } from '@qgrid/core/event/event';
+import { Event } from '@qgrid/core';
 
 export interface ThemeNameChangeEventArg {
 	oldName: string;

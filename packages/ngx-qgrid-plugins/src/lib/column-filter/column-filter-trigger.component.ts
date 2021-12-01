@@ -1,6 +1,5 @@
-import { Component, Input, OnInit, ElementRef, ChangeDetectionStrategy } from '@angular/core';
-import { GRID_PREFIX } from '@qgrid/core/definition';
-import { ColumnModel } from '@qgrid/core/column-type/column.model';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit } from '@angular/core';
+import { ColumnModel, GRID_PREFIX } from '@qgrid/core';
 import { GridPlugin } from '@qgrid/ngx';
 
 @Component({

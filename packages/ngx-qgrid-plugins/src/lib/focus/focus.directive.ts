@@ -1,12 +1,10 @@
 import {
-	Directive,
-	ElementRef,
-	Input,
-	AfterViewInit,
-	NgZone,
+  AfterViewInit, Directive,
+  ElementRef,
+  Input, NgZone
 } from '@angular/core';
+import { isFunction, isString } from '@qgrid/core';
 import { GridError } from '@qgrid/ngx';
-import { isString, isFunction } from '@qgrid/core/utility/kit';
 
 @Directive({
 	selector: '[q-grid-focus]'

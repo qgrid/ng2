@@ -1,48 +1,20 @@
-import {
-	Component,
-	Input,
-	ViewEncapsulation,
-	OnInit,
-	ElementRef,
-	NgZone,
-	Inject,
-	ChangeDetectorRef,
-	OnChanges,
-	SimpleChanges,
-	ChangeDetectionStrategy
-} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { ColumnModel } from '@qgrid/core/column-type/column.model';
-import { Command } from '@qgrid/core/command/command';
-import { DataState } from '@qgrid/core/data/data.state';
-import { EditState, EditStateMethod, EditStateMode } from '@qgrid/core/edit/edit.state';
-import { EventListener } from '@qgrid/core/event/event.listener';
-import { EventManager } from '@qgrid/core/event/event.manager';
-import { eventPath } from '@qgrid/core/services/dom';
-import { FilterState, FilterStateUnit } from '@qgrid/core/filter/filter.state';
-import { Grid } from './grid';
-import { GridError } from '@qgrid/core/infrastructure/error';
-import { GridHost } from '@qgrid/core/grid/grid.host';
-import { GridLet } from './grid-let';
-import { GridModel } from './grid-model';
-import { GridModelBuilder } from './grid-model.builder';
-import { GridPlugin } from '../plugin/grid-plugin';
-import { GridRoot } from './grid-root';
-import { GridState, GridStateInteractionMode } from '@qgrid/core/grid/grid.state';
-import { GroupState, GroupStateMode, GroupStateSummary } from '@qgrid/core/group/group.state';
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Input, NgZone, OnChanges, OnInit, SimpleChanges, ViewEncapsulation
+} from '@angular/core';
+import { ColumnModel, Command, DataState, EditState, EditStateMethod, EditStateMode, EventListener, EventManager, eventPath, FilterState, FilterStateUnit, GridError, GridHost, GridState, GridStateInteractionMode, GroupState, GroupStateMode, GroupStateSummary, PivotState, ScrollState, ScrollStateMode, SelectionState, SelectionStateArea, SelectionStateMode, SelectionStateUnit, SortState, SortStateMode, StyleCellCallback, StyleRowCallback, StyleState, tableFactory, VisibilityState } from '@qgrid/core';
 import { LayerService } from '../layer/layer.service';
-import { PivotState } from '@qgrid/core/pivot/pivot.state';
-import { ScrollState, ScrollStateMode } from '@qgrid/core/scroll/scroll.state';
-import { SelectionState, SelectionStateMode, SelectionStateUnit, SelectionStateArea } from '@qgrid/core/selection/selection.state';
-import { SortState, SortStateMode } from '@qgrid/core/sort/sort.state';
+import { GridPlugin } from '../plugin/grid-plugin';
 import { StateAccessor } from '../state/state-accessor';
-import { StyleRowCallback, StyleCellCallback, StyleState } from '@qgrid/core/style/style.state';
-import { tableFactory } from '@qgrid/core/dom/table.factory';
 import { TemplateCacheService } from '../template/template-cache.service';
 import { TemplateLinkService } from '../template/template-link.service';
 import { TemplateService } from '../template/template.service';
 import { ThemeService } from '../theme/theme.service';
-import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
+import { Grid } from './grid';
+import { GridLet } from './grid-let';
+import { GridModel } from './grid-model';
+import { GridModelBuilder } from './grid-model.builder';
+import { GridRoot } from './grid-root';
 
 @Component({
 	selector: 'q-grid',

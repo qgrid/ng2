@@ -1,13 +1,7 @@
-import { AfterViewInit, Component, ElementRef, Input, TemplateRef, ChangeDetectionStrategy, ContentChild } from '@angular/core';
-import { GridPlugin } from '@qgrid/ngx';
-import { ColumnModel } from '@qgrid/core/column-type/column.model';
-import { Command } from '@qgrid/core/command/command';
-import { Action } from '@qgrid/core/action/action';
-import { Composite } from '@qgrid/core/infrastructure/composite';
-import { ImportPlugin } from '@qgrid/plugins/import/import.plugin';
-import { EventManager } from '@qgrid/core/event/event.manager';
-import { EventListener } from '@qgrid/core/event/event.listener';
-import { TemplateHostService } from '@qgrid/ngx';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChild, ElementRef, Input, TemplateRef } from '@angular/core';
+import { Action, ColumnModel, Command, Composite, EventListener, EventManager } from '@qgrid/core';
+import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
+import { ImportPlugin } from '@qgrid/plugins';
 
 @Component({
 	selector: 'q-grid-import',

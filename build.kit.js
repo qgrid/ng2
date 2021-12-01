@@ -30,6 +30,7 @@ function resolvePathMarker(libName, marker) {
 }
 
 function buildLib(name, options = [], marker = 'package.json') {
+  console.log(name, options);
   const watchThat = resolvePathMarker(name, marker);
 
   console.log(`build.kit watch build ${watchThat}`);

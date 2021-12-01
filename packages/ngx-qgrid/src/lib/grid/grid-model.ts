@@ -1,8 +1,5 @@
 export {
-	Model as GridModel,
-} from '@qgrid/core/model/model';
+  Model as GridModel, ModelEvent as GridEvent, ModelEventArg as GridEventArg
+} from '@qgrid/core';
 
-export {
-	ModelEventArg as GridEventArg,
-	ModelEvent as GridEvent
-} from '@qgrid/core/model/model.event';
+

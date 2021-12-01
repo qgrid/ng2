@@ -1,5 +1,5 @@
 import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
-import { parseFactory } from '@qgrid/core/services/convert';
+import { parseFactory } from '@qgrid/core';
 
 @Directive({
 	selector: '[q-grid-time]'

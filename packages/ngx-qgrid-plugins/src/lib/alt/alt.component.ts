@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ColumnModel } from '@qgrid/core';
 import { GridPlugin } from '@qgrid/ngx';
-import { ColumnModel } from '@qgrid/core/column-type/column.model';
 
 @Component({
 	selector: 'q-grid-alt',

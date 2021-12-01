@@ -1,14 +1,10 @@
-import { Component, OnInit, DoCheck, ChangeDetectorRef, NgZone, ChangeDetectionStrategy, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, ElementRef, NgZone, OnInit } from '@angular/core';
+import { EventListener, EventManager, TableCommandManager, ViewHost, VisibilityState } from '@qgrid/core';
 import { CellClassService } from '../cell/cell-class.service';
 import { CellTemplateService } from '../cell/cell-template.service';
 import { Grid } from '../grid/grid';
-import { GridPlugin } from '../plugin/grid-plugin';
-import { ViewHost } from '@qgrid/core/view/view.host';
-import { VisibilityState } from '@qgrid/core/visibility/visibility.state';
-import { TableCommandManager } from '@qgrid/core/command/table.command.manager';
 import { GridLet } from '../grid/grid-let';
-import { EventManager } from '@qgrid/core/event/event.manager';
-import { EventListener } from '@qgrid/core/event/event.listener';
+import { GridPlugin } from '../plugin/grid-plugin';
 
 @Component({
 	selector: 'q-grid-core-view',

@@ -1,7 +1,6 @@
-import { Component, OnInit, ChangeDetectorRef, Input, ChangeDetectionStrategy } from '@angular/core';
-import { isUndefined } from '@qgrid/core/utility/kit';
-import { GridPlugin, GridEventArg } from '@qgrid/ngx';
-import { TemplateHostService, GridError } from '@qgrid/ngx';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { isUndefined } from '@qgrid/core';
+import { GridError, GridEventArg, GridPlugin, TemplateHostService } from '@qgrid/ngx';
 
 type PaneSide = 'left' | 'right';
 const DEFAULT_SIDE: PaneSide = 'right';

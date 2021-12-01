@@ -1,6 +1,6 @@
-import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { Log } from '@qgrid/core/infrastructure/log';
+import { Pipe, PipeTransform } from '@angular/core';
+import { Log } from '@qgrid/core';
 
 @Pipe({
 	name: 'qGridTime'

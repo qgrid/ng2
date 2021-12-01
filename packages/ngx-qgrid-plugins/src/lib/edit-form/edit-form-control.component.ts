@@ -1,5 +1,5 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { CellEditor } from '@qgrid/core/edit/edit.cell.editor';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { CellEditor } from '@qgrid/core';
 
 @Component({
 	selector: 'q-grid-edit-form-control',

@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef, OnInit } from '@angular/core';
-import { BoxHost } from '@qgrid/core';
-import { GRID_PREFIX } from '@qgrid/core/definition';
+import { BoxHost, GRID_PREFIX } from '@qgrid/core';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { ThemeService } from '../theme/theme.service';
 

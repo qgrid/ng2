@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, OnChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { PaginationState, PaginationStateMode } from '@qgrid/core';
 import { GridPlugin, StateAccessor } from '@qgrid/ngx';
-import { PagerPlugin } from '@qgrid/plugins/pager/pager.plugin';
-import { PaginationState, PaginationStateMode } from '@qgrid/core/pagination/pagination.state';
+import { PagerPlugin } from '@qgrid/plugins';
 
 @Component({
 	selector: 'q-grid-pager',

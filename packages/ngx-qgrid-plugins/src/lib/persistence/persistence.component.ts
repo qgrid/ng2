@@ -1,13 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
-import { Action } from '@qgrid/core/action/action';
-import { Command } from '@qgrid/core/command/command';
-import { Composite } from '@qgrid/core/infrastructure/composite';
-import { PersistenceService } from '@qgrid/core/persistence/persistence.service';
-import { PersistenceSchedule, PersistenceState } from '@qgrid/core/persistence/persistence.state';
-import { PersistenceStorage } from '@qgrid/core/persistence/persistence.storage';
-import { filter, takeOnce } from '@qgrid/core/rx/rx.operators';
+import { Action, Command, Composite, filter, PersistenceSchedule, PersistenceService, PersistenceState, PersistenceStorage, takeOnce } from '@qgrid/core';
 import { GridEvent, GridModelBuilder, GridPlugin, StateAccessor } from '@qgrid/ngx';
-import { PersistenceItem } from '@qgrid/plugins/persistence/persistence.plugin';
+import { PersistenceItem } from '@qgrid/plugins';
 
 @Component({
 	selector: 'q-grid-persistence',

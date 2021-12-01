@@ -2,14 +2,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output
 } from '@angular/core';
-import { ColumnModel } from '@qgrid/core/column-type/column.model';
-import { Fetch } from '@qgrid/core/infrastructure/fetch';
-import { Guard } from '@qgrid/core/infrastructure/guard';
-import { getValue } from '@qgrid/core/services/value';
-import { flatten, uniq } from '@qgrid/core/utility/kit';
+import { ColumnModel, Fetch, flatten, getValue, Guard, uniq } from '@qgrid/core';
 import { Grid, GridError, GridPlugin, TemplateService, VscrollContext, VscrollService } from '@qgrid/ngx';
-import { ColumnFilterPlugin } from '@qgrid/plugins/column-filter/column.filter.plugin';
-import { ColumnFilterState } from '@qgrid/plugins/column-filter/column.filter.state';
+import { ColumnFilterPlugin, ColumnFilterState } from '@qgrid/plugins';
 import { FocusAfterRender } from '../focus/focus.service';
 
 @Component({

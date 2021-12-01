@@ -1,8 +1,8 @@
-import { Component, Input, ChangeDetectionStrategy, OnChanges } from '@angular/core';
-import { ColumnListService } from './column-list.service';
-import { ColumnListState, ColumnListStateGeneration, ColumnListStateTypeDetection } from '@qgrid/core/column-list/column.list.state';
+import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
+import { ColumnListState, ColumnListStateGeneration, ColumnListStateTypeDetection } from '@qgrid/core';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { StateAccessor } from '../state/state-accessor';
+import { ColumnListService } from './column-list.service';
 
 @Component({
 	selector: 'q-grid-columns',

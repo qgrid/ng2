@@ -1,7 +1,6 @@
-import { Component, Input, OnInit, OnChanges, ChangeDetectionStrategy } from '@angular/core';
-import { DataManipulationPlugin } from '@qgrid/plugins/data-manipulation/data.manipulation.plugin';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { GridPlugin, StateAccessor } from '@qgrid/ngx';
-import { DataManipulationState } from '@qgrid/plugins/data-manipulation/data.manipulation.state';
+import { DataManipulationPlugin, DataManipulationState } from '@qgrid/plugins';
 
 @Component({
 	selector: 'q-grid-data-manipulation',

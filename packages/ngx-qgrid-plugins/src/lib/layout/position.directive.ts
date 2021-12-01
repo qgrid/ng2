@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
-import { PositionPlugin } from '@qgrid/plugins/position/position.plugin';
 import { Disposable } from '@qgrid/ngx';
+import { PositionPlugin } from '@qgrid/plugins';
 
 @Directive({
 	selector: '[q-grid-position]',

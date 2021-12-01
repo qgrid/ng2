@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ModelBuilder } from '@qgrid/core/model/model.builder';
+import { ModelBuilder } from '@qgrid/core';
 import { GridModel } from './grid-model';
 
 @Injectable()

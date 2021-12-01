@@ -1,13 +1,4 @@
-import { GridPlugin } from '@qgrid/core/plugin/grid.plugin';
-import { Event } from '@qgrid/core/event/event';
-import { Command } from '@qgrid/core/command/command';
-import { Node } from '@qgrid/core/node/node';
-import { ColumnModel } from '@qgrid/core/column-type/column.model';
-import { Expression } from '@qgrid/core/expression/expression.build';
-import { CellEditor } from '@qgrid/core/edit/edit.cell.editor';
-import { Model } from '@qgrid/core/model/model';
-import { Disposable } from '@qgrid/core/infrastructure/disposable';
-import { Validator } from '@qgrid/core/validation/validation.service';
+import { GridPlugin, Event, Command, Node, ColumnModel, Expression, CellEditor, Model, Disposable, Validator } from '@qgrid/core';
 
 declare class AutofocusPlugin {
 	constructor(plugin: GridPlugin);

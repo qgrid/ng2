@@ -1,9 +1,7 @@
-import { AfterViewInit, Component, Input, TemplateRef, ChangeDetectionStrategy, ContentChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChild, Input, TemplateRef } from '@angular/core';
+import { Action, Command, Composite } from '@qgrid/core';
 import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
-import { Command } from '@qgrid/core/command/command';
-import { ExportPlugin } from '@qgrid/plugins/export/export.plugin';
-import { Action } from '@qgrid/core/action/action';
-import { Composite } from '@qgrid/core/infrastructure/composite';
+import { ExportPlugin } from '@qgrid/plugins';
 
 @Component({
 	selector: 'q-grid-export',

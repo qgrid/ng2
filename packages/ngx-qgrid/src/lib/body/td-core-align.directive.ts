@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
-import { ColumnView } from '@qgrid/core/scene/view/column.view';
+import { ColumnView } from '@qgrid/core';
 import { CellClassService } from '../cell/cell-class.service';
 
 @Directive({

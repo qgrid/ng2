@@ -1,18 +1,17 @@
+import { CommonModule, CurrencyPipe, DatePipe, DecimalPipe } from '@angular/common';
 import { NgModule, NgZone } from '@angular/core';
-import { DatePipe, DecimalPipe, CurrencyPipe, CommonModule } from '@angular/common';
-import { Fastdom } from '@qgrid/core/services/fastdom';
-import { FormatService } from '@qgrid/core/format/format.service';
-import { GridComponent } from './grid.component';
+import { Fastdom, FormatService } from '@qgrid/core';
+import { BoxModule } from '../box/box.module';
+import { LayerModule } from '../layer/layer.module';
+import { MarkupModule } from '../markup/markup.module';
+import { ScrollModule } from '../scroll/scroll.module';
 import { TemplateModule } from '../template/template.module';
 import { ThemeModule } from '../theme/theme.module';
-import { GridModelBuilder } from './grid-model.builder';
 import { ToolbarModule } from '../toolbar/toolbar.module';
 import { ViewModule } from '../view/view.module';
-import { LayerModule } from '../layer/layer.module';
-import { BoxModule } from '../box/box.module';
-import { ScrollModule } from '../scroll/scroll.module';
 import { Grid } from './grid';
-import { MarkupModule } from '../markup/markup.module';
+import { GridModelBuilder } from './grid-model.builder';
+import { GridComponent } from './grid.component';
 
 @NgModule({
 	declarations: [

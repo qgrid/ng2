@@ -1,13 +1,12 @@
-import { guid } from '@qgrid/core/services/guid';
-import { isFunction } from '@qgrid/core/utility/kit';
-import { Expression, GroupExpression } from './expression';
-import { nodeSchema, INodeSchema } from './node.schema';
-import { GroupSchema } from './group.schema';
-import * as utility from '../utility';
+import { guid, isFunction } from '@qgrid/core';
 import * as patch from '../patch';
-import { Node } from './node';
+import * as utility from '../utility';
+import { Expression, GroupExpression } from './expression';
+import { GroupSchema } from './group.schema';
 import { Line } from './line';
-import { IStatement, EmptyStatement } from './statement';
+import { Node } from './node';
+import { nodeSchema } from './node.schema';
+import { EmptyStatement, IStatement } from './statement';
 
 
 export class ExpressionBuilder {

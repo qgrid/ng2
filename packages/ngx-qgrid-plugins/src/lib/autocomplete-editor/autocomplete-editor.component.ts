@@ -1,7 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { isArray, predicateFactory } from '@qgrid/core';
 import { GridPlugin } from '@qgrid/ngx';
-import { predicateFactory } from '@qgrid/core/services/predicate';
-import { isArray } from '@qgrid/core/utility/kit';
 
 @Component({
 	selector: 'q-grid-autocomplete-editor',

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ColumnModel } from '@qgrid/core/column-type/column.model';
-import { bodyCellClassifier, headCellClassifier } from '@qgrid/core/cell/cell.classifier';
+import { bodyCellClassifier, ColumnModel, headCellClassifier } from '@qgrid/core';
 
 @Injectable()
 export class CellClassService {

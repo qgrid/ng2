@@ -2,10 +2,7 @@ import {
   AfterViewInit, Directive,
   DoCheck, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Optional, Output, SimpleChanges
 } from '@angular/core';
-import { Command } from '@qgrid/core/command/command';
-import { CommandManager } from '@qgrid/core/command/command.manager';
-import { Shortcut } from '@qgrid/core/shortcut/shortcut';
-import { ShortcutDispatcher } from '@qgrid/core/shortcut/shortcut.dispatcher';
+import { Command, CommandManager, Shortcut, ShortcutDispatcher } from '@qgrid/core';
 import { Disposable, GridPlugin } from '@qgrid/ngx';
 
 export class ZoneCommandManager {

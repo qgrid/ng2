@@ -1,10 +1,8 @@
-import { Component, Input, ChangeDetectionStrategy, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Command, RowDetails, RowState, RowStateMode, RowStateUnit } from '@qgrid/core';
 import { GridPlugin } from '../plugin/grid-plugin';
-import { RowState, RowStateUnit, RowStateMode } from '@qgrid/core/row/row.state';
 import { StateAccessor } from '../state/state-accessor';
 import { TemplateHostService } from '../template/template-host.service';
-import { Command } from '@qgrid/core/command/command';
-import { RowDetails } from '@qgrid/core/row-details/row.details';
 
 // TODO: move it to plugins
 

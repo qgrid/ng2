@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
-import { isUndefined } from '@qgrid/core/utility/kit';
-import { parseFactory } from '@qgrid/core/services/convert';
-import { ColumnListHost } from '@qgrid/core/column-list/column.list.host';
-import { ColumnModel } from '@qgrid/core/column-type/column.model';
+import { ColumnListHost, ColumnModel, isUndefined, Lazy, parseFactory } from '@qgrid/core';
 import { GridPlugin } from '../plugin/grid-plugin';
-import { Lazy } from '@qgrid/core/infrastructure/lazy';
 
 @Injectable()
 export class ColumnListService {

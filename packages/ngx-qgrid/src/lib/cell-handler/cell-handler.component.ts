@@ -1,12 +1,7 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { CellView } from '@qgrid/core/scene/view/cell.view';
-import { EditService } from '@qgrid/core/edit/edit.service';
-import { Fastdom } from '@qgrid/core/services/fastdom';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { CellView, EditService, Fastdom, jobLine, NavigationState, RowDetails } from '@qgrid/core';
 import { GridEventArg } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
-import { jobLine } from '@qgrid/core/services/job.line';
-import { NavigationState } from '@qgrid/core/navigation/navigation.state';
-import { RowDetails } from '@qgrid/core/row-details/row.details';
 
 @Component({
 	selector: 'q-grid-cell-handler',

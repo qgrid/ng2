@@ -1,9 +1,5 @@
-import { ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { Pipe, PipeTransform } from '@angular/core';
-import { Disposable } from '@qgrid/core/infrastructure/disposable';
-import { Log } from '@qgrid/core/infrastructure/log';
-import { ObservableLike, SubjectLike } from '@qgrid/core/rx/rx';
-import { IVscrollContext } from '@qgrid/core/scroll/scroll.let';
+import { ChangeDetectorRef, OnDestroy, Pipe, PipeTransform } from '@angular/core';
+import { Disposable, IVscrollContext, Log, ObservableLike, SubjectLike } from '@qgrid/core';
 
 @Pipe({
 	name: 'qGridVscroll$',

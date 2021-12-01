@@ -1,16 +1,9 @@
 import {
-	Component,
-	TemplateRef,
-	ElementRef,
-	Input,
-	ViewChild,
-	ChangeDetectionStrategy
+  ChangeDetectionStrategy, Component, ElementRef,
+  Input, TemplateRef, ViewChild
 } from '@angular/core';
-import { GridError } from '@qgrid/ngx';
-import { EventListener } from '@qgrid/core/event/event.listener';
-import { EventManager } from '@qgrid/core/event/event.manager';
-import { Shortcut } from '@qgrid/core/shortcut/shortcut';
-import { GridPlugin } from '@qgrid/ngx';
+import { EventListener, EventManager, Shortcut } from '@qgrid/core';
+import { GridError, GridPlugin } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-tab-trap',

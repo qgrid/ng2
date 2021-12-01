@@ -7,6 +7,7 @@ export default [
     output: {
       file: './dist/public-api.js',
       format: 'es',
+      name: '@qgrid/plugins',
       plugins: [terser()]
     }
   },
@@ -15,7 +16,8 @@ export default [
     output: [
       {
         file: "./dist/public-api.d.ts", 
-        format: "es"
+        format: "es",
+        name: '@qgrid/plugins'
       }
     ],
     plugins: [dts()],

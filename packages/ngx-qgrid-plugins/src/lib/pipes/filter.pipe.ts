@@ -1,7 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Node } from '@qgrid/core/node/node';
-import { filterNode } from '@qgrid/core/node/node.service';
-import { predicateFactory } from '@qgrid/core/services/predicate';
+import { filterNode, Node, predicateFactory } from '@qgrid/core';
 
 @Pipe({
 	name: 'qGridFilter'

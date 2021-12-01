@@ -1,4 +1,4 @@
-import { IVscrollContext, IVscrollSettings } from '@qgrid/core/scroll/scroll.let';
+import { IVscrollContext, IVscrollSettings } from '@qgrid/core';
 import { VscrollContainer } from './vscroll.container';
 import { VscrollSettings } from './vscroll.settings';
 

@@ -1,4 +1,4 @@
-import { clone } from '@qgrid/core/utility/kit';
+import { clone } from '@qgrid/core';
 
 export function indexOf(array, predicate) {
 	for (let i = 0, length = array.length; i < length; i++) {

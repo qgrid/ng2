@@ -1,8 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Event } from '@qgrid/core/event/event';
-import { GridLet } from '@qgrid/core/grid/grid.let';
-import { Lazy } from '@qgrid/core/infrastructure/lazy';
-import { ObservableEvent, ObservableLike, ObservableReplyEvent } from '@qgrid/core/rx/rx';
+import { Event, GridLet, Lazy, ObservableEvent, ObservableLike, ObservableReplyEvent } from '@qgrid/core';
 import { DomTable } from '../dom/dom';
 import { Grid, GridService } from '../grid/grid';
 import { GridLet as NgxGridLet } from '../grid/grid-let';

@@ -1,4 +1,4 @@
-import { isObject, isArray, isFunction } from '@qgrid/core/utility/kit';
+import { isArray, isFunction, isObject } from '@qgrid/core';
 
 export function evaluateFactory(expression, args) {
 	return visit;

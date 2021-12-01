@@ -1,6 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { PersistencePlugin } from '@qgrid/plugins/persistence/persistence.plugin';
-import { GridPlugin, GridModelBuilder } from '@qgrid/ngx';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { GridModelBuilder, GridPlugin } from '@qgrid/ngx';
+import { PersistencePlugin } from '@qgrid/plugins';
 
 @Component({
 	selector: 'q-grid-persistence-panel',

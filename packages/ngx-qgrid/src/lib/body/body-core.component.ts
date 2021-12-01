@@ -1,9 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, NgZone, OnInit } from '@angular/core';
-import { SelectionState } from '@qgrid/core';
-import { BodyHost } from '@qgrid/core/body/body.host';
-import { EventListener } from '@qgrid/core/event/event.listener';
-import { EventManager } from '@qgrid/core/event/event.manager';
-import { ColumnView } from '@qgrid/core/scene/view/column.view';
+import { BodyHost, ColumnView, EventListener, EventManager, SelectionState } from '@qgrid/core';
 import { GridLet } from '../grid/grid-let';
 import { GridModel } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';

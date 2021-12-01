@@ -1,8 +1,5 @@
 import { EventEmitter } from '@angular/core';
-import { isNumber, isFunction } from '@qgrid/core/utility/kit';
-import { GridError } from '@qgrid/core/infrastructure/error';
-import { IVscrollContainer, IVscrollSettings } from '@qgrid/core/scroll/scroll.let';
-import { Defer } from '@qgrid/core/infrastructure/defer';
+import { Defer, GridError, isFunction, isNumber, IVscrollContainer, IVscrollSettings } from '@qgrid/core';
 
 export const rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
 

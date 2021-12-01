@@ -1,0 +1,52 @@
+{
+  "name": "ng2-qgrid-app",
+  "version": "11.2.0",
+  "description": "Angular Grid",
+  "scripts": {
+    "build": "ng build"
+  },
+  "keywords": [
+    "angular",
+    "grid",
+    "data grid",
+    "table",
+    "data table",
+    "sheet",
+    "spreadsheet",
+    "excel"
+  ],
+  "dependencies": {
+    "@angular/animations": "~11.2.0",
+    "@angular/cdk": "11.2.0",
+    "@angular/common": "~11.2.0",
+    "@angular/compiler": "11.2.0",
+    "@angular/core": "11.2.0",
+    "@angular/forms": "~11.2.0",
+    "@angular/material": "11.2.0",
+    "@angular/platform-browser": "11.2.0",
+    "@angular/platform-browser-dynamic": "11.2.0",
+    "@angular/router": "11.2.0",
+    "ng2-qgrid": "*",
+    "@qgrid/theme-basic": "*",
+    "@qgrid/theme-material": "*"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "0.1102.15",
+    "@angular-devkit/core": "11.2.0",
+    "@angular/cli": "11.2.0",
+    "@angular/compiler": "11.2.0",
+    "@angular/compiler-cli": "11.2.0",
+    "ng-packagr": "11.2.0",
+    "typescript": "4.1.4"
+  },
+  "author": "qgrid",
+  "homepage": "https://github.com/qgrid/ng2",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qgrid/ng2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/qgrid/ng2/issues"
+  }
+}

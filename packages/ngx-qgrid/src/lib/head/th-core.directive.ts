@@ -1,18 +1,15 @@
 import {
-	Directive,
-	ElementRef,
-	Input,
-	OnDestroy,
-	OnInit,
-	ViewContainerRef
+  Directive,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewContainerRef
 } from '@angular/core';
+import { ColumnModel, ColumnView, FilterRowColumnModel, GridError } from '@qgrid/core';
 import { CellClassService } from '../cell/cell-class.service';
 import { CellTemplateService } from '../cell/cell-template.service';
-import { ColumnModel } from '@qgrid/core/column-type/column.model';
-import { ColumnView } from '@qgrid/core/scene/view/column.view';
 import { DomTd } from '../dom/dom';
-import { FilterRowColumnModel } from '@qgrid/core/column-type/filter.row.column';
-import { GridError } from '@qgrid/core/infrastructure/error';
 import { GridLet } from '../grid/grid-let';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { TrhCoreDirective } from '../row/trh-core.directive';

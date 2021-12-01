@@ -1,6 +1,5 @@
-import * as columnService from '@qgrid/core/column/column.service';
-import { getValueFactory } from '@qgrid/core/services/value';
-import { isUndefined, uniq } from '@qgrid/core/utility/kit';
+import * as columnService from '@qgrid/core';
+import { getValueFactory, isUndefined, uniq } from '@qgrid/core';
 import { GridError, GridModel } from '@qgrid/ngx';
 import { ExpressionBuilder } from '../expression-builder/model/expression.builder';
 import { Node } from '../expression-builder/model/node';

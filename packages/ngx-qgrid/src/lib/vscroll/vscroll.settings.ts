@@ -1,4 +1,4 @@
-import { IVscrollSettings } from '@qgrid/core/scroll/scroll.let';
+import { IVscrollSettings } from '@qgrid/core';
 
 export class VscrollSettings implements IVscrollSettings {
 	threshold = 64;

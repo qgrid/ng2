@@ -1,8 +1,8 @@
-import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ColumnView } from '@qgrid/core/scene/view/column.view';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ColumnView } from '@qgrid/core';
 import { GridLet } from '../grid/grid-let';
-import { TableCoreService } from '../table/table-core.service';
 import { GridPlugin } from '../plugin/grid-plugin';
+import { TableCoreService } from '../table/table-core.service';
 
 @Component({
 	// tslint:disable-next-line

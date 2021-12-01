@@ -11,11 +11,14 @@
       "ng2-qgrid": [
         "./packages/ng2-qgrid/src/public-api.ts"
       ],
+      "ng2-qgrid-app": [
+        "./packages/ng2-qgrid-app/src/main.ts"
+      ],
       "@qgrid/core/*": [
-        "./packages/qgrid-core/*"
+        "./packages/qgrid-core/public-api.ts"
       ],
       "@qgrid/plugins/*": [
-        "./packages/qgrid-plugins/*"
+        "./packages/qgrid-plugins/public-api.ts"
       ],
       "@qgrid/ngx": [
         "./packages/ngx-qgrid/src/public-api.ts"

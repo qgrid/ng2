@@ -1,5 +1,5 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
-import { Keyboard } from '@qgrid/core/keyboard/keyboard';
+import { Keyboard } from '@qgrid/core';
 
 const DELIMITER = '/';
 

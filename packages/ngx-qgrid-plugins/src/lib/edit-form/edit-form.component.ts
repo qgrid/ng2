@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
-import { EditFormPanelPlugin } from '@qgrid/plugins/edit-form/edit.form.panel.plugin';
-import { GridPlugin, DomTd, Grid } from '@qgrid/ngx';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { GridPlugin } from '@qgrid/ngx';
+import { EditFormPanelPlugin } from '@qgrid/plugins';
 
 @Component({
 	selector: 'q-grid-edit-form',

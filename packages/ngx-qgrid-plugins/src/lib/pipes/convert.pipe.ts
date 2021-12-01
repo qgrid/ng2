@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { parseFactory } from '@qgrid/core/services/convert';
+import { parseFactory } from '@qgrid/core';
 
 @Pipe({
 	name: 'qGridConvert'

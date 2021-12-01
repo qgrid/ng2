@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { selectColumnIndex, selectRowIndex } from '@qgrid/core';
 import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
-import { selectRowIndex, selectColumnIndex } from '@qgrid/core/navigation/navigation.state.selector';
 
 @Component({
 	selector: 'q-grid-status-bar',

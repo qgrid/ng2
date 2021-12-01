@@ -7,7 +7,7 @@
     "types": [],
     "lib": [
       "dom",
-      "es2018"
+      "esnext"
     ]
   },
   "angularCompilerOptions": {
@@ -15,8 +15,14 @@
     "strictMetadataEmit": true,
     "enableResourceInlining": true
   },
+  "composite": true,
   "exclude": [
     "src/test.ts",
     "**/*.spec.ts"
+  ],
+  "references": [
+    {
+      "path": "../ng2-qgrid"
+    }
   ]
 }

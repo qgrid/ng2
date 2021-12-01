@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { MarkupVisitor } from '@qgrid/core';
 import { Node } from '../expression-builder/model/node';
-import { MarkupVisitor } from '@qgrid/core/expression/markup.visitor';
 import { SerializationService } from '../expression-builder/serialization.service';
+import { QueryBuilderService } from './query-builder.service';
 import * as converter from './schema/converter';
-import { QueryBuilderService, ColumnMap } from './query-builder.service';
 import { Validator } from './schema/validator';
 
 @Pipe({

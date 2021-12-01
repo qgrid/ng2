@@ -1,21 +1,16 @@
-import {
-	Directive,
-	ElementRef,
-	Inject,
-	Input,
-	OnDestroy,
-	OnInit,
-	Optional,
-	NgZone
-} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { clone } from '@qgrid/core/utility/kit';
-import { EventListener } from '@qgrid/core/event/event.listener';
-import { EventManager } from '@qgrid/core/event/event.manager';
-import { GRID_PREFIX } from '@qgrid/core/definition';
+import {
+  Directive,
+  ElementRef,
+  Inject,
+  Input, NgZone, OnDestroy,
+  OnInit,
+  Optional
+} from '@angular/core';
+import { clone, EventListener, EventManager, GRID_PREFIX } from '@qgrid/core';
+import { Grid } from '../grid/grid';
 import { GridModel } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
-import { Grid } from '../grid/grid';
 
 @Directive({
 	selector: '[q-grid-resize]'

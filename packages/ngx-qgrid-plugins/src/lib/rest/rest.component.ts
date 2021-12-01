@@ -1,8 +1,8 @@
-import { Component, Input, OnInit, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { RestState } from '@qgrid/core';
 import { GridPlugin, StateAccessor } from '@qgrid/ngx';
-import { RestPlugin } from '@qgrid/plugins/rest/rest.plugin';
-import { RestState } from '@qgrid/core/rest/rest.state';
+import { RestPlugin } from '@qgrid/plugins';
 
 @Component({
 	selector: 'q-grid-rest',

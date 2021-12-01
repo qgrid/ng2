@@ -1,5 +1,5 @@
 import { Injectable, Optional } from '@angular/core';
-import { FocusAfterRenderService } from '@qgrid/core/focus/focus.service';
+import { FocusAfterRenderService } from '@qgrid/core';
 import { GridPlugin } from '@qgrid/ngx';
 
 @Injectable()

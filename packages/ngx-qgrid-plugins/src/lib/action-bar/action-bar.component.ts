@@ -1,5 +1,5 @@
-import { OnInit, Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { Action } from '@qgrid/core/action/action';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Action } from '@qgrid/core';
 import { GridPlugin } from '@qgrid/ngx';
 
 @Component({

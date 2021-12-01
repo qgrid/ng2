@@ -1,10 +1,5 @@
 import {
-	ChangeDetectorRef,
-	ChangeDetectionStrategy,
-	Component,
-	OnInit,
-	Input,
-	ApplicationRef,
+  ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit
 } from '@angular/core';
 import { DomTd, GridPlugin, TemplateHostService } from '@qgrid/ngx';
 

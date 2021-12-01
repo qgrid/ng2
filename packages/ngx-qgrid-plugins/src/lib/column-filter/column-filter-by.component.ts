@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
-import { ColumnModel } from '@qgrid/core/column-type/column.model';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ColumnModel } from '@qgrid/core';
 
 @Component({
 	selector: 'q-grid-column-filter-by',

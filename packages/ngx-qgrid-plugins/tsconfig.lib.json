@@ -7,7 +7,7 @@
     "types": [],
     "lib": [
       "dom",
-      "es2018"
+      "esnext"
     ]
   },
   "angularCompilerOptions": {
@@ -19,4 +19,15 @@
     "src/test.ts",
     "**/*.spec.ts"
   ],
+  "references": [
+    {
+      "path": "../ngx-qgrid"
+    },
+    {
+      "path": "../qgrid-core"
+    },
+    {
+      "path": "../qgrid-plugins"
+    }
+  ]
 }

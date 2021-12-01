@@ -31,12 +31,5 @@
       "es2018",
       "dom"
     ]
-  },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true,
-    "enableIvy": true,
   }
 }
