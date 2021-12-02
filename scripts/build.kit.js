@@ -3,8 +3,43 @@
 const sane = require('sane');
 const path = require('path');
 const fs = require('fs');
+const { spawn } = require('child_process');
 
 const ROOT_PATH = path.resolve('.');
+const SPAWN_OPTS = { shell: true, stdio: 'inherit' };
+
+function resolvePathMarker(libName, marker) {
+  const themeRegexp = /ng2-qgrid-theme-([a-z]+)/is;
+  const themeMatch = themeRegexp.exec(libName);
+  if (themeMatch) {
+    const themeName = themeMatch[1];
+    return path.join(
+      'dist',
+      'ng2-qgrid',
+      'theme',
+      themeName,
+      marker
+    );
+  }
+
+  return path.join(
+    'dist',
+    libName,
+    marker
+  );
+}
+
+function serveApp(options = []) {
+  const serveOptions = ['serve', '--open'];
+  serveOptions.push(...options);
+
+  console.log(serveOptions);
+  spawn(
+    'cd packages/ng2-qgrid-app && ng',
+    serveOptions,
+    SPAWN_OPTS
+  );
+}
 
 function buildTheme(name) {
   const libPath = path.join(
@@ -75,7 +110,6 @@ function concatFiles(settings = {}) {
 }
 
 module.exports = {
-  buildLib,
   buildTheme,
   watchTheme,
   serveApp
