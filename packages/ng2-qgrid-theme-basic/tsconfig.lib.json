@@ -1,7 +1,20 @@
 {
-  "extends": "../../tsconfig.lib.json",
+  "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "../../out-tsc/lib",
+    "baseUrl": "./",
+    "allowJs": true,
+    "downlevelIteration": true,
+    "sourceMap": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "outDir": "./dist",
     "declaration": true,
     "inlineSources": true,
     "types": [],

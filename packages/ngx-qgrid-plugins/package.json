@@ -23,8 +23,8 @@
   "peerDependencies": {
     "@angular/common": "~11.2.0",
     "@angular/core": "~11.2.0",
-    "@qgrid/ngx": "../ngx-qgrid",
-    "@qgrid/core": "../qgrid-core",
-    "@qgrid/plugins": "../qgrid-plugins"
+    "@qgrid/ngx": "*",
+    "@qgrid/core": "*",
+    "@qgrid/plugins": "*"
   }
 }
