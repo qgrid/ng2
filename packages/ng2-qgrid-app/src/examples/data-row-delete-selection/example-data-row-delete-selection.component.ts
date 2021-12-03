@@ -18,11 +18,8 @@ const EXAMPLE_TAGS = [
 export class ExampleDataRowDeleteSelectionComponent {
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
-
 	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
-  
 	rows: Observable<Human[]>;
-
 	deleteRow = new Command({
 		execute: (row: Human) => {
 			const { model } = this.grid;

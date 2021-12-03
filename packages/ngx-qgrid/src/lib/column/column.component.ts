@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, Optional, SimpleChanges, SkipSelf
+	ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, Optional, SimpleChanges, SkipSelf
 } from '@angular/core';
 import { ColumnModel, ColumnModelCategory, ColumnModelPin, ColumnModelType, ColumnModelWidthMode, guid, isUndefined } from '@qgrid/core';
 import { ColumnListService } from '../column-list/column-list.service';

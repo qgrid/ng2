@@ -37,11 +37,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install
+          yarn install
 
       - name: Lint code
         run: |
-          npm run lint
+          yarn run lint
 
   qgrid_core_unit_tests:
     name: Qgrid-core unit tests
@@ -58,8 +58,8 @@ jobs:
         env:
           cache-name: cache-node-modules
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
+          # yarn cache files are stored in `~/.yarn` on Linux/macOS
+          path: ~/.yarn
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
@@ -68,11 +68,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install
+          yarn install
 
       - name: Build library
         run: |
-          npm run test:core
+          yarn run test:core
 
   library_build:
     name: Library build
@@ -89,8 +89,8 @@ jobs:
         env:
           cache-name: cache-node-modules
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
+          # yarn cache files are stored in `~/.yarn` on Linux/macOS
+          path: ~/.yarn
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
@@ -99,11 +99,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install
+          yarn install
 
       - name: Build library
         run: |
-          npm run build:lib
+          yarn run build:lib
 
   app_build:
     name: App build

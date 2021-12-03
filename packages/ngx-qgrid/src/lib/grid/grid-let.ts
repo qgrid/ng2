@@ -1,5 +1,25 @@
 import { Injectable } from '@angular/core';
-import { BodyLet, ClipboardLet, CommandManager, EditLet, FilterLet, FootLet, GroupLet, HeadLet, HighlightLet, LayoutLet, NavigationLet, PaginationLet, RowDetailsLet, RowLet, ScrollLet, SelectionLet, SortLet, StyleLet, viewFactory } from '@qgrid/core';
+import {
+	BodyLet,
+	ClipboardLet,
+	CommandManager,
+	EditLet,
+	FilterLet,
+	FootLet,
+	GroupLet,
+	HeadLet,
+	HighlightLet,
+	LayoutLet,
+	NavigationLet,
+	PaginationLet,
+	RowDetailsLet,
+	RowLet,
+	ScrollLet,
+	SelectionLet,
+	SortLet,
+	StyleLet,
+	viewFactory
+} from '@qgrid/core';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { ScrollService } from '../scroll/scroll.service';
 import { Grid } from './grid';

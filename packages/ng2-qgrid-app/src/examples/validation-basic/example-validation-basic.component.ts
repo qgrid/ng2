@@ -1,6 +1,6 @@
-import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { GridComponent } from 'ng2-qgrid';
+import { Observable } from 'rxjs';
 import { Atom, DataService } from '../data.service';
 
 const EXAMPLE_TAGS = [

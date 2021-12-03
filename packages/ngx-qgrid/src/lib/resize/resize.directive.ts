@@ -1,11 +1,11 @@
 import { DOCUMENT } from '@angular/common';
 import {
-  Directive,
-  ElementRef,
-  Inject,
-  Input, NgZone, OnDestroy,
-  OnInit,
-  Optional
+	Directive,
+	ElementRef,
+	Inject,
+	Input, NgZone, OnDestroy,
+	OnInit,
+	Optional
 } from '@angular/core';
 import { clone, EventListener, EventManager, GRID_PREFIX } from '@qgrid/core';
 import { Grid } from '../grid/grid';

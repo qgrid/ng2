@@ -212,7 +212,7 @@ export const EXAMPLES: any[] = [
 	ExampleCopyValueFromCellComponent,
 	ExampleDataRowAddComponent,
 	ExampleDataRowDeleteComponent,
-  ExampleDataRowDeleteSelectionComponent,
+	ExampleDataRowDeleteSelectionComponent,
 	ExampleDefineColumnAsyncComponent,
 	ExampleDefineColumnBasicComponent,
 	ExampleDefineColumnHybridComponent,

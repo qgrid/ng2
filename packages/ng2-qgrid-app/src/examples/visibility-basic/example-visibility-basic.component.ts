@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DataService, Atom } from '../data.service';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Atom, DataService } from '../data.service';
 
 @Component({
 	selector: 'example-visibility-basic',

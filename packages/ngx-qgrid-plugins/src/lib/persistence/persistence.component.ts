@@ -47,7 +47,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 					}
 
 					return false;
-				}), 
+				}),
 				takeOnce()
 			)
 			.subscribe(() =>

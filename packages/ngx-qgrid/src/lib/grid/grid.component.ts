@@ -1,8 +1,51 @@
 import { DOCUMENT } from '@angular/common';
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Input, NgZone, OnChanges, OnInit, SimpleChanges, ViewEncapsulation
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	Inject,
+	Input,
+	NgZone,
+	OnChanges,
+	OnInit,
+	SimpleChanges,
+	ViewEncapsulation
 } from '@angular/core';
-import { ColumnModel, Command, DataState, EditState, EditStateMethod, EditStateMode, EventListener, EventManager, eventPath, FilterState, FilterStateUnit, GridError, GridHost, GridState, GridStateInteractionMode, GroupState, GroupStateMode, GroupStateSummary, PivotState, ScrollState, ScrollStateMode, SelectionState, SelectionStateArea, SelectionStateMode, SelectionStateUnit, SortState, SortStateMode, StyleCellCallback, StyleRowCallback, StyleState, tableFactory, VisibilityState } from '@qgrid/core';
+import {
+	ColumnModel,
+	Command,
+	DataState,
+	EditState,
+	EditStateMethod,
+	EditStateMode,
+	EventListener,
+	EventManager,
+	eventPath,
+	FilterState,
+	FilterStateUnit,
+	GridError,
+	GridHost,
+	GridState,
+	GridStateInteractionMode,
+	GroupState,
+	GroupStateMode,
+	GroupStateSummary,
+	PivotState,
+	ScrollState,
+	ScrollStateMode,
+	SelectionState,
+	SelectionStateArea,
+	SelectionStateMode,
+	SelectionStateUnit,
+	SortState,
+	SortStateMode,
+	StyleCellCallback,
+	StyleRowCallback,
+	StyleState,
+	tableFactory,
+	VisibilityState
+} from '@qgrid/core';
 import { LayerService } from '../layer/layer.service';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { StateAccessor } from '../state/state-accessor';
@@ -29,7 +72,7 @@ import { GridRoot } from './grid-root';
 		TemplateService,
 		StateAccessor,
 	],
-	styleUrls: ['../../../../assets/index.scss'],
+	styleUrls: ['../../../../qgrid-styles/index.scss'],
 	templateUrl: './grid.component.html',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush

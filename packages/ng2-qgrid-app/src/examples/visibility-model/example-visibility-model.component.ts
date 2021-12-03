@@ -1,7 +1,7 @@
-import { Component, ChangeDetectionStrategy, AfterViewInit, ViewChild } from '@angular/core';
-import { DataService, Atom } from '../data.service';
-import { Observable } from 'rxjs';
+import { AfterViewInit, ChangeDetectionStrategy, Component } from '@angular/core';
 import { Grid, GridModel } from 'ng2-qgrid';
+import { Observable } from 'rxjs';
+import { Atom, DataService } from '../data.service';
 
 @Component({
 	selector: 'example-visibility-model',

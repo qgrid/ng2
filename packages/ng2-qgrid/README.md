@@ -7,10 +7,10 @@ https://qgrid.github.io
 ## Examples
 https://qgrid.github.io/ng2
 
-## Install the q-grid via npm
+## Install the q-grid via yarn
 
 ```bash
-npm install ng2-qgrid
+yarn install ng2-qgrid
 ```
 
 ## Add q-grid and theme modules to application root
@@ -64,22 +64,22 @@ If `material` theme is used, it's also required to install [angular material](ht
 
 ```bash
 git clone https://github.com/qgrid/ng2.git
-npm install
-npm run start
+yarn install
+yarn run start
 ```
 
 ## Build Library
 ```bash
 git clone https://github.com/qgrid/ng2.git
-npm install
-npm run build:lib
+yarn install
+yarn run build:manual
 ```
 
 ## Build Application
 ```bash
 git clone https://github.com/qgrid/ng2.git
-npm install
-npm run build:app
+yarn install
+yarn run build:manual
 ```
 
 ## Browser support

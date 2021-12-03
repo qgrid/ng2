@@ -1,6 +1,6 @@
 import {
-  ChangeDetectionStrategy, Component, ElementRef,
-  Input, TemplateRef, ViewChild
+	ChangeDetectionStrategy, Component, ElementRef,
+	Input, TemplateRef, ViewChild
 } from '@angular/core';
 import { EventListener, EventManager, Shortcut } from '@qgrid/core';
 import { GridError, GridPlugin } from '@qgrid/ngx';

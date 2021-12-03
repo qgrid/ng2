@@ -1,6 +1,6 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output
+	ChangeDetectionStrategy,
+	ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output
 } from '@angular/core';
 import { ColumnModel, Fetch, flatten, getValue, Guard, uniq } from '@qgrid/core';
 import { Grid, GridError, GridPlugin, TemplateService, VscrollContext, VscrollService } from '@qgrid/ngx';

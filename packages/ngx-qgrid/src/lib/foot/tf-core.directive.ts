@@ -1,10 +1,10 @@
 import {
-  Directive,
-  ElementRef,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewContainerRef
+	Directive,
+	ElementRef,
+	Input,
+	OnDestroy,
+	OnInit,
+	ViewContainerRef
 } from '@angular/core';
 import { ColumnModel, ColumnView, GridError } from '@qgrid/core';
 import { CellClassService } from '../cell/cell-class.service';

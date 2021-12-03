@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, NgZone, OnChanges, OnInit, Output
+	ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, NgZone, OnChanges, OnInit, Output
 } from '@angular/core';
 import { Node, noop } from '@qgrid/core';
 import { GridPlugin, StateAccessor } from '@qgrid/ngx';

@@ -1,6 +1,6 @@
 import {
-  AfterViewInit, Directive,
-  DoCheck, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Optional, Output, SimpleChanges
+	AfterViewInit, Directive,
+	DoCheck, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Optional, Output, SimpleChanges
 } from '@angular/core';
 import { Command, CommandManager, Shortcut, ShortcutDispatcher } from '@qgrid/core';
 import { Disposable, GridPlugin } from '@qgrid/ngx';

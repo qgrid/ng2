@@ -1,7 +1,7 @@
 import {
-  AfterViewInit, Directive,
-  ElementRef,
-  Input, NgZone
+	AfterViewInit, Directive,
+	ElementRef,
+	Input, NgZone
 } from '@angular/core';
 import { isFunction, isString } from '@qgrid/core';
 import { GridError } from '@qgrid/ngx';

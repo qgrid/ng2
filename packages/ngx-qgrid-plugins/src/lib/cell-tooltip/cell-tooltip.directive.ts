@@ -1,6 +1,6 @@
 import {
-  Directive,
-  ElementRef, Input, OnChanges, Renderer2, SimpleChanges
+	Directive,
+	ElementRef, Input, OnChanges, Renderer2, SimpleChanges
 } from '@angular/core';
 import { GRID_PREFIX, jobLine } from '@qgrid/core';
 import { GridPlugin, TemplateHostService } from '@qgrid/ngx';

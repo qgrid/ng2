@@ -1,8 +1,8 @@
 import {
-  ChangeDetectorRef, Directive,
-  ElementRef,
-  Input, OnChanges, OnDestroy,
-  OnInit, SimpleChange, SimpleChanges, ViewContainerRef
+	ChangeDetectorRef, Directive,
+	ElementRef,
+	Input, OnChanges, OnDestroy,
+	OnInit, SimpleChange, SimpleChanges, ViewContainerRef
 } from '@angular/core';
 import { ColumnModel, ColumnView, GridError, GRID_PREFIX, noop } from '@qgrid/core';
 import { CellClassService } from '../cell/cell-class.service';
