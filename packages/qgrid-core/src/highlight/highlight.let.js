@@ -17,6 +17,7 @@ export class HighlightLet {
 
 		let sortBlurs = [];
 		let columnHoverBlurs = [];
+		let columnFilterBlurs = [];
 		let rowHoverBlurs = [];
 		let selectionBlurs = [];
 		let cellHoverBlurs = [];
@@ -139,6 +140,13 @@ export class HighlightLet {
 				}
 			});
 
+		observeReply(model.filterChanged)
+			.subscribe(e => {
+				if (!this.isRendering && e.hasChanges('by')) {
+					columnFilterBlurs = this.invalidateColumnFilterBy(columnFilterBlurs);
+				}
+			});
+
 		observeReply(model.highlightChanged)
 			.subscribe(e => {
 				if (!this.isRendering) {
@@ -189,6 +197,25 @@ export class HighlightLet {
 
 		return columns
 			.map(columnKey => this.highlightColumn(columnKey, 'highlighted'));
+	}
+
+	invalidateColumnFilterBy(dispose) {
+		dispose.forEach(f => f());
+
+		const { model } = this.plugin;
+		const { by } = model.filter();
+
+		dispose = [];
+		const keys = Object.keys(by);
+		for (let key of keys) {
+			if (key === '$expression') {
+				continue;
+			}
+
+			dispose.push(this.highlightColumn(key, 'filtered'));
+		}
+
+		return dispose;
 	}
 
 	invalidateRowHover(dispose) {

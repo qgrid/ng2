@@ -6,9 +6,9 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "lerna run build",
-    "build:manual": "lerna run --scope @qgrid/core build && lerna run --scope @qgrid/plugins build && lerna run --scope @qgrid/ngx build && lerna run --scope @qgrid/ngx-plugins build && lerna run --scope ng2-qgrid build && node ./scripts/build.theme.js && lerna run --scope @qgrid/theme-basic build && lerna run --scope @qgrid/theme-material build && lerna run --scope ng2-qgrid-app build",
-    "start": "yarn run build:manual && node ./scripts/build.serve.js",
+    "build": "lerna run --scope @qgrid/core build && lerna run --scope @qgrid/plugins build && lerna run --scope @qgrid/ngx build && lerna run --scope @qgrid/ngx-plugins build && lerna run --scope ng2-qgrid build && node ./scripts/build.theme.js && lerna run --scope @qgrid/theme-basic build && lerna run --scope @qgrid/theme-material build && lerna run --scope ng2-qgrid-app build",
+    "build:auto": "lerna run build",
+    "start": "yarn run build && node ./scripts/build.serve.js",
     "lint": "lerna run lint"
   },
   "devDependencies": {
