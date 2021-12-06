@@ -1,30 +1,30 @@
 ## Launch screenshot-testing
 
 ```bash
-npm run test:screenshot
+yarn run test:screenshot
 ```
 
 ## Launch specific feature in screenshot-testing
 
 ```bash
-npm run test:screenshot -- --specs=e2e/features/select-cell-basic.feature
+yarn run test:screenshot -- --specs=e2e/features/select-cell-basic.feature
 ```
 
 ## Update golden screenshots for screenshot-testing
 
 ```bash
-npm run test:screenshot-update-goldens
+yarn run test:screenshot-update-goldens
 ```
 
 ## Run tagged features/scenario
 
 ```bash
-npm run test:screenshot -- --cucumberOpts.tags @basic
+yarn run test:screenshot -- --cucumberOpts.tags @basic
 ```
 ## Exclude tagged features/scenario
 
 ```bash
-npm run test:screenshot -- --cucumberOpts.tags ~@basic
+yarn run test:screenshot -- --cucumberOpts.tags ~@basic
 ```
 
 ## Good practice

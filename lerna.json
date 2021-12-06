@@ -1,0 +1,9 @@
+{
+  "name": "qgrid",
+  "packages": [
+    "packages/*"
+  ],
+  "version": "11.2.0",
+  "npmClient": "yarn",
+  "useWorkspaces": true
+}

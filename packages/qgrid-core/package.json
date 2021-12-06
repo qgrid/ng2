@@ -1,0 +1,24 @@
+{
+  "name": "@qgrid/core",
+  "version": "11.2.0",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "main": "dist/public-api.js",
+  "types": "dist/public-api.d.ts",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "css.escape": "1.5.1",
+    "fastdom": "1.0.9",
+    "livr": "2.2.5",
+    "lodash-es": "4.17.15"
+  },
+  "devDependencies": {
+    "rollup": "^2.60.1",
+    "rollup-plugin-dts": "^4.0.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "typescript": "4.4.4"
+  }
+}
