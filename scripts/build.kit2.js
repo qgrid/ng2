@@ -16,20 +16,21 @@ function execute(command, options = []) {
 	);
 }
 
-function watchForBuild(projectFolderForWatch, callback) {
-	const dirPathForWatch = `packages/${projectFolderForWatch}`;
-	const fileForWatch = 'dist\\public-api.d.ts';
+async function watchForBuild(projectFolderForWatch) {
+	return new Promise((resolve, _reject) => {
+		const dirPathForWatch = `packages/${projectFolderForWatch}`;
+		const fileForWatch = 'dist\\public-api.d.ts';
 
-  sane(dirPathForWatch)
-    .on('all', (_eventType, fileName) => {
-			if (fileName === fileForWatch) {
-				console.log("TEST BUILD");
-				callback();
-			}
-    });
+		sane(dirPathForWatch)
+			.on('all', (_eventType, fileName) => {
+				if (fileName === fileForWatch) {
+					resolve();
+				}
+			});
+	});
 }
 
-function clearDists() {
+async function clearDists() {
 	const removeCommand = 'rmdir /q /s dist';
 
 	execute(`cd packages/qgrid-core && ${removeCommand}`);
@@ -40,10 +41,19 @@ function clearDists() {
 	execute(`cd packages/ng2-qgrid-theme-basic && ${removeCommand}`);
 	execute(`cd packages/ng2-qgrid-theme-material && ${removeCommand}`);
 	execute(`cd packages/ng2-qgrid-app && ${removeCommand}`);
+
+	await sleep(2000);
+
+	return Promise.resolve();
+}
+
+async function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 module.exports = {
 	clearDists,
 	execute,
+	sleep,
 	watchForBuild,
 };
