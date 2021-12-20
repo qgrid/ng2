@@ -109,8 +109,37 @@ function concatFiles(settings = {}) {
   }
 }
 
+function execute(command, options = []) {
+	spawn(
+		command,
+		options,
+		SPAWN_OPTS
+	);
+}
+
+async function watchForBuild(projectFolderForWatch) {
+	return new Promise((resolve, _reject) => {
+		const dirPathForWatch = `packages/${projectFolderForWatch}`;
+		const fileForWatch = 'dist\\public-api.d.ts';
+
+		sane(dirPathForWatch)
+			.on('all', (_eventType, fileName) => {
+				if (fileName === fileForWatch) {
+					resolve();
+				}
+			});
+	});
+}
+
+async function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 module.exports = {
+	execute,
+	sleep,
+	watchForBuild,
   buildTheme,
+  serveApp,
   watchTheme,
-  serveApp
 };

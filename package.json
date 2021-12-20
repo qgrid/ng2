@@ -6,10 +6,9 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "lerna run build",
-    "start": "yarn build && node ./scripts/build.serve.js",
+    "start": "yarn clean && node ./scripts/serve.js",
     "lint": "lerna run lint",
-		"serve": "node ./scripts/build.serve2.js"
+		"clean": "rimraf ./packages/*/dist"
   },
   "devDependencies": {
     "codelyzer": "^6.0.2",
@@ -17,6 +16,7 @@
     "fs": "^0.0.1-security",
     "lerna": "^4.0.0",
     "path": "^0.12.7",
+		"rimraf": "^3.0.2",
     "sane": "^5.0.1"
   }
 }

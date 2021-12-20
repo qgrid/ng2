@@ -1,16 +1,27 @@
 'use strict';
 
-const { buildTheme, serveApp, watchTheme } = require('./build.kit');
 const {
-	clearDists,
+	buildTheme,
 	execute,
+	serveApp,
 	sleep,
 	watchForBuild,
-} = require('./build.kit2');
+	watchTheme,
+} = require('./build.kit');
+const cmdArgs = require('command-line-args');
+
+const { prod } = cmdArgs([{
+  name: 'prod',
+  type: Boolean,
+  defaultValue: false
+}]);
+
+const serveOptions = [];
+if (prod) {
+  serveOptions.push('--prod');
+}
 
 async function main() {
-	await clearDists();
-
 	execute('cd packages/qgrid-core && rollup -c -w');
 
 	await watchQgridCore();
@@ -68,6 +79,6 @@ async function watchNg2QgridThemeBasic() {
 
 async function watchNg2QgridThemeMaterial() {
 	await watchForBuild('ng2-qgrid-theme-material').then(() => {
-		serveApp();
+		serveApp(serveOptions);
 	});
 }
