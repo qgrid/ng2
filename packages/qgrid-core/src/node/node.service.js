@@ -60,7 +60,7 @@ export function findNode(node, test, parent = null, index = -1, path = []) {
 	const { children } = node;
 	for (let i = 0, length = children.length; i < length; i++) {
 		const child = children[i];
-		const result = find(child, test, node, i, path);
+		const result = findNode(child, test, node, i, path);
 		if (result) {
 			return result;
 		}
