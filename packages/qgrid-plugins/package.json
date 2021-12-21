@@ -2,7 +2,8 @@
   "name": "@qgrid/plugins",
   "version": "11.2.0",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "clean": "rimraf ./dist"
   },
   "main": "dist/public-api.js",
   "types": "dist/public-api.d.ts",

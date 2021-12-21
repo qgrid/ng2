@@ -3,7 +3,8 @@
 	"version": "11.2.0",
 	"scripts": {
 		"build": "ng build",
-		"lint": "ng lint"
+		"lint": "ng lint",
+		"clean": "rimraf ./dist"
 	},
 	"main": "dist/esm2015/public-api.js",
 	"types": "dist/public-api.d.ts",

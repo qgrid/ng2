@@ -8,7 +8,7 @@
   "scripts": {
     "start": "yarn clean && node ./scripts/serve.js",
     "lint": "lerna run lint",
-		"clean": "rimraf ./packages/*/dist"
+    "clean": "lerna run clean"
   },
   "devDependencies": {
     "codelyzer": "^6.0.2",

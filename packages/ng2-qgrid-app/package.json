@@ -4,7 +4,8 @@
   "description": "Angular Grid",
   "scripts": {
     "build": "ng build",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "clean": "rimraf ./dist"
   },
   "keywords": [
     "angular",
