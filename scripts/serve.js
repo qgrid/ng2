@@ -41,36 +41,36 @@ async function buildAndWatch(project) {
 async function buildProject(project) {
 	switch (project) {
 		case 'qgrid-core': {
-			execute('cd packages/qgrid-core && rollup -c -w');
+			execute('cd packages/qgrid-core && yarn build --watch');
 			return;
 		}
 		case 'qgrid-plugins': {
-			execute('cd packages/qgrid-plugins && rollup -c -w');
+			execute('cd packages/qgrid-plugins && yarn build --watch');
 			return;
 		}
 		case 'ngx-qgrid': {
-			execute('cd packages/ngx-qgrid && ng', ['build', '--watch']);
+			execute('cd packages/ngx-qgrid && yarn build --watch');
 			return;
 		}
 		case 'ngx-qgrid-plugins': {
-			execute('cd packages/ngx-qgrid-plugins && ng', ['build', '--watch']);
+			execute('cd packages/ngx-qgrid-plugins && yarn build --watch');
 			return;
 		}
 		case 'ng2-qgrid': {
-			execute('cd packages/ng2-qgrid && ng', ['build', '--watch']);
+			execute('cd packages/ng2-qgrid && yarn build --watch');
 			return;
 		}
 		case 'ng2-qgrid-theme-basic': {
 			buildTheme('ng2-qgrid-theme-basic');
 			await sleep(1000);
-			execute('cd packages/ng2-qgrid-theme-basic && ng', ['build', '--watch']);
+			execute('cd packages/ng2-qgrid-theme-basic && yarn build --watch');
 			watchTheme('ng2-qgrid-theme-basic');
 			return;
 		}
 		case 'ng2-qgrid-theme-material': {
 			buildTheme('ng2-qgrid-theme-material');
 			await sleep(1000);
-			execute('cd packages/ng2-qgrid-theme-material && ng', ['build', '--watch']);
+			execute('cd packages/ng2-qgrid-theme-material && yarn build --watch');
 			watchTheme('ng2-qgrid-theme-material');
 			return;
 		}
