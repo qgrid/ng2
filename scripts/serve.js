@@ -4,21 +4,22 @@ const {
 	execute,
 	sleep,
 	watchForBuild,
-  buildTheme,
-  serveApp,
-  watchTheme,
+	buildTheme,
+	serveApp,
+	watchTheme,
 } = require('./build.kit');
+
 const cmdArgs = require('command-line-args');
 
 const { prod } = cmdArgs([{
-  name: 'prod',
-  type: Boolean,
-  defaultValue: false
+	name: 'prod',
+	type: Boolean,
+	defaultValue: false
 }]);
 
 const serveOptions = [];
 if (prod) {
-  serveOptions.push('--prod');
+	serveOptions.push('--prod');
 }
 
 async function main() {

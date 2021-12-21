@@ -132,14 +132,14 @@ async function watchForBuild(projectFolderForWatch) {
 }
 
 async function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 module.exports = {
 	execute,
 	sleep,
 	watchForBuild,
-  buildTheme,
-  serveApp,
-  watchTheme,
+	buildTheme,
+	serveApp,
+	watchTheme,
 };
