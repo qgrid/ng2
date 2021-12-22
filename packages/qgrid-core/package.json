@@ -3,7 +3,7 @@
   "version": "11.2.0",
   "scripts": {
     "build": "rollup -c",
-		"build:watch": "rollup -c -w",
+    "build:watch": "rollup -c -w",
     "clean": "rimraf ./dist"
   },
   "main": "dist/public-api.js",
