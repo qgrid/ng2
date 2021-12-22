@@ -3,6 +3,7 @@
   "version": "11.2.0",
   "scripts": {
     "build": "rollup -c",
+		"build:watch": "rollup -c -w",
     "clean": "rimraf ./dist"
   },
   "main": "dist/public-api.js",
@@ -24,6 +25,7 @@
 		"css.escape": "1.5.1",
     "fastdom": "1.0.9",
     "livr": "2.2.5",
-    "lodash-es": "4.17.15"
+    "lodash-es": "4.17.15",
+		"rimraf": "^3.0.2"
   }
 }

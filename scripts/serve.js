@@ -45,14 +45,14 @@ async function buildProject(project) {
 		case 'ngx-qgrid':
 		case 'ngx-qgrid-plugins':
 		case 'ng2-qgrid': {
-			execute(`cd packages/${project} && yarn build --watch`);
+			execute(`cd packages/${project} && yarn build:watch`);
 			return;
 		}
 		case 'ng2-qgrid-theme-basic':
 		case 'ng2-qgrid-theme-material': {
 			buildTheme(project);
 			await sleep(1000);
-			execute(`cd packages/${project} && yarn build --watch`);
+			execute(`cd packages/${project} && yarn build:watch`);
 			watchTheme(project);
 			return;
 		}
