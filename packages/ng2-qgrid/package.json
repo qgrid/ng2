@@ -3,7 +3,9 @@
 	"version": "11.2.0",
 	"scripts": {
 		"build": "ng build",
-		"lint": "ng lint"
+		"build:watch": "ng build --watch",
+		"lint": "ng lint",
+		"clean": "rimraf ./dist"
 	},
 	"main": "dist/esm2015/public-api.js",
 	"types": "dist/public-api.d.ts",
@@ -24,7 +26,8 @@
 		"@qgrid/core": "*",
 		"@qgrid/ngx": "*",
 		"@qgrid/ngx-plugins": "*",
-		"@qgrid/plugins": "*"
+		"@qgrid/plugins": "*",
+		"rimraf": "^3.0.2"
 	},
 	"peerDependencies": {
 		"@angular/animations": "~11.2.0",

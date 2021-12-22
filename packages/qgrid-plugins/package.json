@@ -2,7 +2,9 @@
   "name": "@qgrid/plugins",
   "version": "11.2.0",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "build:watch": "rollup -c -w",
+    "clean": "rimraf ./dist"
   },
   "main": "dist/public-api.js",
   "types": "dist/public-api.d.ts",
@@ -17,6 +19,7 @@
     "rollup-plugin-dts": "^4.0.1",
     "rollup-plugin-terser": "^7.0.2",
     "typescript": "4.4.4",
-		"@qgrid/core": "*"
+		"@qgrid/core": "*",
+		"rimraf": "^3.0.2"
   }
 }
