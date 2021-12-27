@@ -22,8 +22,8 @@
       "esnext"
     ],
 		"paths": {
-      "@angular/core/*": [
-        "./node_modules/@angular/core/*"
+      "@angular/*": [
+        "./node_modules/@angular/*"
       ]
     }
   },
