@@ -1,7 +1,7 @@
 import { EventEmitter } from '@angular/core';
 import { Defer, GridError, isFunction, isNumber, IVscrollContainer, IVscrollSettings } from '@qgrid/core';
 
-export const rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
+export const rAF = window.requestAnimationFrame;
 
 export class VscrollContainer implements IVscrollContainer {
 	private lastPage = 0;
