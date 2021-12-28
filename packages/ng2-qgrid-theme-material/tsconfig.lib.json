@@ -20,7 +20,12 @@
     "lib": [
       "dom",
       "esnext"
-    ]
+    ],
+		"paths": {
+			"@angular/*": [
+				"./node_modules/@angular/*"
+			]
+		}
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
