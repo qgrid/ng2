@@ -173,8 +173,7 @@ import { ExampleThemeGridEmbedComponent } from './theme-grid-embed/example-theme
 import { ExampleValidationBasicComponent } from './validation-basic/example-validation-basic.component';
 import { ExampleVisibilityBasicComponent } from './visibility-basic/example-visibility-basic.component';
 import { ExampleVisibilityStateComponent } from './visibility-model/example-visibility-model.component';
-
-
+import { ExampleDataProviderComponent } from './data-provider/example-data-provider.component';
 
 export const EXAMPLES: any[] = [
 	ExampleActionBarBasicComponent,
@@ -210,6 +209,7 @@ export const EXAMPLES: any[] = [
 	ExampleColumnTypeSafeComponent,
 	ExampleColumnUrlBasicComponent,
 	ExampleCopyValueFromCellComponent,
+  ExampleDataProviderComponent,
 	ExampleDataRowAddComponent,
 	ExampleDataRowDeleteComponent,
 	ExampleDataRowDeleteSelectionComponent,
@@ -340,7 +340,7 @@ export const EXAMPLES: any[] = [
 	ExampleThemeGridEmbedComponent,
 	ExampleValidationBasicComponent,
 	ExampleVisibilityBasicComponent,
-	ExampleVisibilityStateComponent,
+	ExampleVisibilityStateComponent
 ];
 
 export const APP_ROUTES: Routes = EXAMPLES
