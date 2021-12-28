@@ -15,7 +15,15 @@
     "lib": [
       "esnext",
       "dom"
-    ]
+    ],
+		"paths": {
+			"@angular/*": [
+				"./node_modules/@angular/*"
+			],
+			"ng2-qgrid/*": [
+				"../ng2-qgrid/*"
+			]
+		}
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false
