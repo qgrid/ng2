@@ -15,21 +15,7 @@
     "lib": [
       "esnext",
       "dom"
-    ],
-		"paths": {
-			"ng2-qgrid": [
-				"../ng2-qgrid/dist"
-			],
-			"@qgrid/ngx": [
-				"../ngx-qgrid/dist"
-			],
-			"@qgrid/ngx-plugins": [
-				"../ngx-qgrid-plugins/dist"
-			],
-			"@qgrid/theme-material": [
-				"../ng2-qgrid-theme-material/dist"
-			]
-		}
+    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false
