@@ -6,9 +6,11 @@
     "packages/*"
   ],
   "scripts": {
+		"build": "lerna run build --stream",
+		"build:app": "lerna run build --stream --scope ng2-qgrid-app",
     "start": "yarn clean && node ./scripts/serve.js",
-    "lint": "lerna run lint",
-    "clean": "lerna run clean"
+    "lint": "lerna run lint --stream",
+    "clean": "lerna run clean --stream"
   },
   "devDependencies": {
     "codelyzer": "^6.0.2",
