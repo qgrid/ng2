@@ -8,7 +8,8 @@
   "scripts": {
     "start": "yarn clean && node ./scripts/serve.js",
     "lint": "lerna run lint",
-    "clean": "lerna run clean"
+    "clean": "lerna run clean",
+    "test": "lerna run test --stream"
   },
   "devDependencies": {
     "codelyzer": "^6.0.2",

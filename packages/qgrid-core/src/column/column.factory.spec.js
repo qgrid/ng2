@@ -2,7 +2,6 @@ import {columnFactory} from './column.factory';
 import {modelFactory} from '../test/model.factory';
 import {PasswordColumn} from '../column-type/password.column';
 import {ColumnView as CustomColumn} from '../scene/view/column.view';
-import {Command} from '../command/command';
 
 describe('columnFactory', () => {
 	let model = modelFactory();

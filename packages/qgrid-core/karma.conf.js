@@ -6,7 +6,7 @@ module.exports = function (config) {
     basePath: '',
     frameworks: ['mocha', 'chai-spies', 'chai'],
     files: [
-      { pattern: '*/*.spec.js', watched: false },
+      { pattern: 'src/**/*.spec.js', watched: false },
     ],
     plugins: [
       'karma-mocha',
@@ -17,7 +17,7 @@ module.exports = function (config) {
       'karma-mocha-reporter'
     ],
     preprocessors: {
-      '*/*.spec.js': ['webpack'],
+      'src/**/*.spec.js': ['webpack'],
     },
     webpack: {
       module: {

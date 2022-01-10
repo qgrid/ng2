@@ -1,4 +1,4 @@
-import { serialize } from './post.serialize';
+import { serializeGet } from './get.serialize';
 import { modelFactory } from '../test/model.factory';
 
 describe('Model serialization to post parameters', () => {
@@ -8,7 +8,7 @@ describe('Model serialization to post parameters', () => {
 				current: 2,
 				size: 50
 			});
-			const params = serialize(model);
+			const params = serializeGet(model);
 			expect(params.skip).to.be.equal(100);
 			expect(params.take).to.be.equal(50);
 		});
@@ -19,7 +19,7 @@ describe('Model serialization to post parameters', () => {
 			const model = modelFactory().sort({
 				by: [{ lastName: 'asc' }]
 			});
-			const params = serialize(model);
+			const params = serializeGet(model);
 			expect(params.order).to.be.deep.equal(['+lastName']);
 		});
 
@@ -27,7 +27,7 @@ describe('Model serialization to post parameters', () => {
 			const model = modelFactory().sort({
 				by: [{ lastName: 'desc' }]
 			});
-			const params = serialize(model);
+			const params = serializeGet(model);
 			expect(params.order).to.be.deep.equal(['-lastName']);
 		});
 
@@ -35,7 +35,7 @@ describe('Model serialization to post parameters', () => {
 			const model = modelFactory().sort({
 				by: [{ firstName: 'asc' }, { lastName: 'desc' }]
 			});
-			const params = serialize(model);
+			const params = serializeGet(model);
 			expect(params.order).to.be.deep.equal(['+firstName', '-lastName']);
 		});
 	});
@@ -47,7 +47,7 @@ describe('Model serialization to post parameters', () => {
 					lastName: ['Doe']
 				}
 			});
-			const params = serialize(model);
+			const params = serializeGet(model);
 			expect(params.filter).to.be.deep.equal({ lastName: ['Doe'] });
 		});
 	});
