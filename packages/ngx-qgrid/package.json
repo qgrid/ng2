@@ -7,7 +7,7 @@
     "lint": "ng lint",
     "clean": "rimraf ./dist"
   },
-  "main": "dist/esm2020/public-api.js",
+  "main": "dist/esm2020/public-api.mjs",
   "types": "dist/public-api.d.ts",
   "files": [
     "dist"
