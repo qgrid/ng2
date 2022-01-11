@@ -14,7 +14,6 @@
   "devDependencies": {
     "codelyzer": "^6.0.2",
     "command-line-args": "^5.2.0",
-    "fs": "^0.0.1-security",
     "lerna": "^4.0.0",
     "path": "^0.12.7",
     "sane": "^5.0.1"
