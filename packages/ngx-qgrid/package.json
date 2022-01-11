@@ -1,6 +1,6 @@
 {
   "name": "@qgrid/ngx",
-  "version": "11.2.0",
+  "version": "13.0.0",
   "scripts": {
     "build": "ng build",
     "build:watch": "ng build --watch",

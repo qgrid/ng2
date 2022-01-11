@@ -1,6 +1,6 @@
 {
   "name": "@qgrid/core",
-  "version": "11.2.0",
+  "version": "13.0.0",
   "scripts": {
     "build": "rollup -c",
     "build:watch": "rollup -c -w",
