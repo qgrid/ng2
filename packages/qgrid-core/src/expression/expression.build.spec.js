@@ -1,4 +1,4 @@
-import * as ExpressionBuild from './expression.build';
+import { buildExpression } from "./expression.build";
 
 describe('Expression Build', () => {
 	let test1 = {
@@ -45,12 +45,12 @@ describe('Expression Build', () => {
 
 	describe('build', () => {
 		it('should built expression into root object', () => {
-			let root = ExpressionBuild.build(test1);
+			let root = buildExpression(test1);
 			expect(JSON.stringify(root)).to.equal(JSON.stringify(etalon1));
 		});
 
 		it('should check whether items were built into root object', () => {
-			let root = ExpressionBuild.build(test2);
+			let root = buildExpression(test2);
 			expect(JSON.stringify(root)).to.equal(JSON.stringify(etalon2));
 		});
 	});

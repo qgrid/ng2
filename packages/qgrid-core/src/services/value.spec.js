@@ -1,4 +1,4 @@
-import * as valueService from './value';
+import { getValue } from "./value";
 
 describe('value service', () => {
 	let row;
@@ -34,25 +34,25 @@ describe('value service', () => {
 		});
 
 		it('should return value for column with value getter in template', () => {
-			const value = valueService.get(row, templateDefinedColumn);
+			const value = getValue(row, templateDefinedColumn);
 
 			expect(value).to.equal('nested_field_value');
 		});
 
 		it('should return value for column with value getter in controller', () => {
-			const value = valueService.get(row, controllerDefinedColumn);
+			const value = getValue(row, controllerDefinedColumn);
 
 			expect(value).to.equal('nested_field_value');
 		});
 
 		it('should return value for column with defined path', () => {
-			const value = valueService.get(row, pathDefinedColumn);
+			const value = getValue(row, pathDefinedColumn);
 
 			expect(value).to.equal('nested_field_value');
 		});
 
 		it('should return value by key', () => {
-			const value = valueService.get(row, keyDefinedColumn);
+			const value = getValue(row, keyDefinedColumn);
 
 			expect(value).to.equal('field_value');
 		});

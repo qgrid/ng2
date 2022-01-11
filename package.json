@@ -11,6 +11,7 @@
     "start": "yarn clean && node ./scripts/serve.js",
     "lint": "lerna run lint --stream",
     "clean": "lerna run clean --stream"
+    "test": "lerna run test --stream"
   },
   "devDependencies": {
     "codelyzer": "^6.0.2",

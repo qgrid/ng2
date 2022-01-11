@@ -1,4 +1,4 @@
-import * as labelService from './label';
+import {getLabel, setLabel} from "./label";
 
 describe('label service', () => {
 	let row;
@@ -29,19 +29,19 @@ describe('label service', () => {
 		});
 
 		it('should return value for column with value getter in controller', () => {
-			const label = labelService.get(row, controllerDefinedColumn);
+			const label = getLabel(row, controllerDefinedColumn);
 
 			expect(label).to.equal('label: nested_field_value');
 		});
 
 		it('should return label for column with defined path', () => {
-			const label = labelService.get(row, pathDefinedColumn);
+			const label = getLabel(row, pathDefinedColumn);
 
 			expect(label).to.equal('label');
 		});
 
 		it('should return value when label wasn\'t defined', () => {
-			const label = labelService.get(row, keyDefinedColumn);
+			const label = getLabel(row, keyDefinedColumn);
 
 			expect(label).to.equal('field_value');
 		});
@@ -58,13 +58,13 @@ describe('label service', () => {
 		});
 
 		it('should set new label for column with label setter in controller', () => {
-			labelService.set(row, controllerDefinedColumn, 'new_label');
+			setLabel(row, controllerDefinedColumn, 'new_label');
 
 			expect(row.nested.fieldLabel).to.equal('new_label');
 		});
 
 		it('should set new label for column with defined path', () => {
-			labelService.set(row, pathDefinedColumn, 'new_label');
+			setLabel(row, pathDefinedColumn, 'new_label');
 
 			expect(row.nested.fieldLabel).to.equal('new_label');
 		});
