@@ -10,7 +10,11 @@
   "main": "dist/esm2020/public-api.mjs",
   "types": "dist/public-api.d.ts",
   "files": [
-    "dist"
+    "dist/esm2020",
+		"dist/fesm2016",
+		"dist/fesm2020",
+		"dist/lib",
+		"dist/public-api.d.ts"
   ],
   "devDependencies": {
     "@angular-devkit/architect": "^0.1301.2",
