@@ -20,7 +20,7 @@
     "lib": [
       "dom",
       "esnext"
-    ],
+    ]
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
@@ -30,13 +30,5 @@
   "exclude": [
     "src/test.ts",
     "**/*.spec.ts"
-  ],
-  "references": [
-    {
-      "path": "../qgrid-core",
-    },
-    {
-      "path": "../qgrid-plugins",
-    }
   ]
 }
