@@ -1,7 +1,7 @@
 {
   "name": "qgrid",
   "private": "true",
-  "version": "11.2.0",
+  "version": "13.0.0",
   "workspaces": [
     "packages/*"
   ],
