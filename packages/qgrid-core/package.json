@@ -5,7 +5,7 @@
     "build": "rollup -c",
     "build:watch": "rollup -c -w",
     "clean": "rimraf ./dist",
-    "test": "karma start ./karma.conf.js"
+    "test": "karma start ./karma.conf.js --single-run"
   },
   "main": "dist/public-api.js",
   "types": "dist/public-api.d.ts",
@@ -21,11 +21,6 @@
   "devDependencies": {
     "css.escape": "1.5.1",
     "fastdom": "1.0.9",
-    "jasmine-core": "^4.0.0",
-    "karma": "^6.3.10",
-    "karma-chrome-launcher": "^3.1.0",
-    "karma-jasmine": "^4.0.1",
-    "karma-webpack": "^5.0.0",
     "livr": "2.2.5",
     "lodash-es": "4.17.15",
     "rimraf": "^3.0.2",
