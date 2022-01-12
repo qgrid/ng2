@@ -72,7 +72,7 @@ jobs:
 
       - name: Build library
         run: |
-          yarn run test:core
+          yarn run test
 
   library_build:
     name: Library build
