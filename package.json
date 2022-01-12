@@ -1,7 +1,7 @@
 {
   "name": "qgrid",
   "private": "true",
-  "version": "11.2.0",
+  "version": "13.0.0",
   "workspaces": [
     "packages/*"
   ],
@@ -10,8 +10,9 @@
 		"build:app": "lerna run build --stream --scope ng2-qgrid-app",
     "start": "yarn clean && node ./scripts/serve.js",
     "lint": "lerna run lint --stream",
-    "clean": "lerna run clean --stream"
-    "test": "lerna run test --stream"
+    "clean": "lerna run clean --stream",
+    "test": "lerna run test --stream",
+		"publish:alpha": "lerna publish --canary --preid alpha"
   },
   "devDependencies": {
     "codelyzer": "^6.0.2",
