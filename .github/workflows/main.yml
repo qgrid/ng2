@@ -103,7 +103,7 @@ jobs:
 
       - name: Build library
         run: |
-          yarn run build:lib
+          yarn run build
 
   app_build:
     name: App build
