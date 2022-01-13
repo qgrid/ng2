@@ -1,20 +1,22 @@
 import { HttpClient } from '@angular/common/http';
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import { GridPlugin, StateAccessor } from '@qgrid/ngx';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { GridPlugin } from '@qgrid/ngx';
 import { PipeUnit } from '@qgrid/core/public-api';
 
 @Component({
 	selector: 'q-data-provider',
 	template: '',
-	providers: [GridPlugin, StateAccessor],
+	providers: [GridPlugin],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DataProviderComponent implements OnInit, OnChanges {
-	nextReference: (args) => void;
+export class DataProviderComponent implements OnInit {
+	next: (data: any[]) => void;
 
-	@Input('data') set tempData(value) {
-		if (this.nextReference) {
-			this.nextReference(value);
+	@Input('data') set data(value: any[]) {
+		const next = this.next;
+		if (next) {
+			this.next = null;
+			next(value);
 		}
 	}
 
@@ -22,25 +24,19 @@ export class DataProviderComponent implements OnInit, OnChanges {
 
 	constructor(
 		private http: HttpClient,
-		private plugin: GridPlugin,
-		private stateAccessor: StateAccessor
+		private plugin: GridPlugin
 	) {
-	}
-
-	ngOnChanges() {
-		const { model } = this.plugin;
-		this.stateAccessor.write(model);
 	}
 
 	ngOnInit() {
 		this.plugin.model.data({
 			pipe: [
 				(data, context, next) => {
-					this.nextReference = next;
+					this.next = next;
 					this.requestData.emit(this.plugin.model);
 				},
 				...PipeUnit.view
 			]
-		}, { source: 'rest.view' });
+		}, { source: 'data.provider' });
 	}
 }

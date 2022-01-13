@@ -11,7 +11,6 @@ const EXAMPLE_TAGS = [
 @Component({
   selector: 'example-data-provider',
   templateUrl: 'example-data-provider.component.html',
-  styleUrls: ['example-data-provider.component.scss'],
   providers: [DataService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
