@@ -32,29 +32,35 @@ export class ExampleDataProviderComponent {
       tap((res) => model.pagination({
         count: res.length
       })),
-      map((res) => res.sort(this.sortData(sorter.by[0]))),
+      map((res) => res.sort(this.sortData(sorter.by))),
       map((res) => res.splice(pager.current * pager.size, pager.size))
     );
   }
 
-  sortData(sorter) {
+  sortData(sortList: any[]) {
     return (a: Atom, b: Atom) => {
 
-      if (sorter) {
-        const key = Object.keys(sorter)[0],
-              direction = sorter[key] === 'asc' ? -1 : 1,
+      if (sortList.length) {
+        for (let i = 0; i < sortList.length; i++) {
+          const sorter = sortList[i];
+
+          for (const key in sorter) {
+            const direction = sorter[key] !== 'asc' ? -1 : 1,
               aValue = a[key], bValue = b[key];
 
-        if (typeof aValue === 'number') {
-          return sorter[key] === 'asc' ? aValue - bValue : bValue - aValue;
-        }
+            if (typeof aValue === 'number') {
+              return sorter[key] !== 'asc' ? aValue - bValue : bValue - aValue;
+            }
 
-        if (aValue < bValue) {
-          return direction;
-        }
+            if (aValue < bValue) {
+              return direction;
+            }
 
-        if (aValue > bValue) {
-          return direction;
+            if (aValue > bValue) {
+              return direction;
+            }
+          }
+
         }
       }
 
