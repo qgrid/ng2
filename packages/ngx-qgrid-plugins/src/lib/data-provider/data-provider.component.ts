@@ -13,10 +13,12 @@ export class DataProviderComponent implements OnInit {
 	next: (data: any[]) => void;
 
 	@Input('data') set data(value: any[]) {
-		const next = this.next;
-		if (next) {
-			this.next = null;
-			next(value);
+		if (Array.isArray(value)) {
+			const next = this.next;
+			if (next) {
+				this.next = null;
+				next(value);
+			}
 		}
 	}
 

@@ -2,6 +2,7 @@
 	<q-grid-columns generation="deep">
 	</q-grid-columns>
 
-	<q-data-provider [data]="$rows | async" (requestData)="onRequestData($event)">
+	<q-data-provider [data]="$rows | async"
+                   (requestData)="onRequestData($event)">
 	</q-data-provider>
 </q-grid>

@@ -1,7 +1,8 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import {Component, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import { Atom, DataService } from '../data.service';
 import { GridModel } from '@qgrid/ngx/src/lib/grid/grid-model';
 import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 const EXAMPLE_TAGS = [
   'data-provider-basic',
@@ -20,11 +21,44 @@ export class ExampleDataProviderComponent {
 
   $rows: Observable<Atom[]>;
 
-  constructor(private cdr: ChangeDetectorRef,
-              private dataService: DataService) {
+  constructor(private dataService: DataService) {
   }
 
   onRequestData(model: GridModel): void {
-    this.$rows = this.dataService.getAtoms();
+    const pager = model.pagination(),
+          sorter = model.sort();
+
+    this.$rows = this.dataService.getAtoms().pipe(
+      tap((res) => model.pagination({
+        count: res.length
+      })),
+      map((res) => res.sort(this.sortData(sorter.by[0]))),
+      map((res) => res.splice(pager.current * pager.size, pager.size))
+    );
+  }
+
+  sortData(sorter) {
+    return (a: Atom, b: Atom) => {
+
+      if (sorter) {
+        const key = Object.keys(sorter)[0],
+              direction = sorter[key] === 'asc' ? -1 : 1,
+              aValue = a[key], bValue = b[key];
+
+        if (typeof aValue === 'number') {
+          return sorter[key] === 'asc' ? aValue - bValue : bValue - aValue;
+        }
+
+        if (aValue < bValue) {
+          return direction;
+        }
+
+        if (aValue > bValue) {
+          return direction;
+        }
+      }
+
+      return 0;
+    };
   }
 }
