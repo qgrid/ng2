@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "build": "lerna run build --stream",
-    "build:app": "lerna run build --stream --scope ng2-qgrid-app",
+    "build:app": "lerna run build --stream --scope ngx-app",
     "start": "yarn clean && node ./scripts/serve.js",
     "lint": "lerna run lint --stream",
     "clean": "lerna run clean --stream",

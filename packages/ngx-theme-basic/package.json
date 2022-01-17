@@ -1,5 +1,5 @@
 {
-  "name": "@qgrid/theme-basic",
+  "name": "@qgrid/ngx-theme-basic",
   "version": "13.0.0",
   "scripts": {
     "build": "ng build",

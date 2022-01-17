@@ -2,7 +2,7 @@
   "$schema": "../../node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "projects": {
-    "ng2-qgrid-theme-basic": {
+    "ngx-theme-basic": {
       "projectType": "library",
       "root": "",
       "sourceRoot": "src",
@@ -31,5 +31,5 @@
       }
     }
   },
-  "defaultProject": "ng2-qgrid-app"
+  "defaultProject": "ngx-theme-basic"
 }

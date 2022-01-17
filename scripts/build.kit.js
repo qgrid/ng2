@@ -9,7 +9,7 @@ const ROOT_PATH = path.resolve('.');
 const SPAWN_OPTS = { shell: true, stdio: 'inherit' };
 
 function resolvePathMarker(libName, marker) {
-  const themeRegexp = /ng2-qgrid-theme-([a-z]+)/is;
+  const themeRegexp = /ngx-theme-([a-z]+)/is;
   const themeMatch = themeRegexp.exec(libName);
   if (themeMatch) {
     const themeName = themeMatch[1];
@@ -35,7 +35,7 @@ function serveApp(options = []) {
 
   console.log(serveOptions);
   spawn(
-    'cd packages/ng2-qgrid-app && ng',
+    'cd packages/ngx-app && ng',
     serveOptions,
     SPAWN_OPTS
   );
