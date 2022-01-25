@@ -5,8 +5,8 @@ import { ColumnModel } from './column.model';
 export declare class BoolColumnModel extends DataColumnModel {
 	trueValue?: any;
 	falseValue?: any;
-	isIndeterminate?: (x: any) => boolean;
-	isChecked?: (x: any) => boolean;
+	isIndeterminate?: ((x: any) => boolean) | any;
+	isChecked?: ((x: any) => boolean) | any;
 }
 
 export declare class BoolColumn extends ColumnView {

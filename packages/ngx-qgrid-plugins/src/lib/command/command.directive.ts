@@ -19,7 +19,7 @@ export class ZoneCommandManager {
 		);
 	}
 
-	filter(commands) {
+	filter(commands: any) {
 		return this.manager.filter(commands);
 	}
 }
@@ -32,19 +32,19 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 	private isAfterViewInit = false;
 
 	@Input('q-grid-command')
-	command: Command<any>;
+	command!: Command<any>;
 
 	@Input('q-grid-command-arg')
 	commandArg: any;
 
 	@Input('q-grid-command-use-shortcut')
-	useCommandShortcut: boolean;
+	useCommandShortcut!: boolean;
 
 	@Input('q-grid-command-event')
 	commandEvent = 'click';
 
 	@Input('q-grid-command-use-zone')
-	useZone: boolean;
+	useZone!: boolean;
 
 	@Output('q-grid-command-execute')
 	commandExecute = new EventEmitter<any>();
@@ -65,7 +65,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 
 		this.aroundZone(() =>
 			nativeElement
-				.addEventListener(this.commandEvent, e => this.execute(e))
+				.addEventListener(this.commandEvent, (e: MouseEvent) => this.execute(e))
 		);
 	}
 
@@ -80,7 +80,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		if (changes.command) {
+		if (changes['command']) {
 			this.unregister();
 
 			if (this.command) {
@@ -132,7 +132,7 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 
 				const shortcut = new Shortcut(new ShortcutDispatcher());
 
-				const keyDown = e => {
+				const keyDown = (e: KeyboardEvent) => {
 					shortcut.keyDown(e);
 				};
 

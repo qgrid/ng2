@@ -6,7 +6,7 @@ import { GridError } from '@qgrid/ngx';
 })
 export class RaiseDirective implements AfterViewInit {
 	@Input('q-grid-raise') type = 'click';
-	@Input('q-grid-raise-target') target: string;
+	@Input('q-grid-raise-target') target!: string;
 
 	constructor(private element: ElementRef) {}
 

@@ -1,6 +1,6 @@
 export abstract class Expression {
-	id: string;
-	type: string;
+	id!: string;
+	type!: string;
 	templateUrl = '';
 	method: string[] = [];
 }

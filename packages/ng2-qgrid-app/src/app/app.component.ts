@@ -27,18 +27,17 @@ import { APP_ROUTES } from '../examples/example.module';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
-	@HostBinding('class.app-is-mobile') isMobile: boolean;
-	@HostBinding('class.app-env-test') isTestEnv: boolean;
+	@HostBinding('class.app-is-mobile') isMobile = false;
+	@HostBinding('class.app-env-test') isTestEnv = false;
+
+  @ViewChildren(RouterLinkActive, { read: ElementRef })	menuItems!: QueryList<ElementRef>;
 
 	examples: Routes = APP_ROUTES;
-
-	@ViewChildren(RouterLinkActive, { read: ElementRef })
-	menuItems: QueryList<ElementRef>;
 
 	private mobileQueryListener: () => void;
 	private mobileQuery: MediaQueryList;
 
-	search: string;
+	search = '';
 
 	constructor(
 		public activatedRoute: ActivatedRoute,

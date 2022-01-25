@@ -17,10 +17,10 @@ export interface INodeSchema {
 
 export function nodeSchema(GroupSchemaT: typeof GroupSchema): any {
 	return class NodeSchema implements INodeSchema {
-		plan = [];
-		planMap = {};
+		plan: any[] = [];
+		planMap: any = {};
 
-		constructor(public schemaMap = {}) {
+		constructor(public schemaMap: any = {}) {
 		}
 
 		clone(): INodeSchema {
@@ -31,7 +31,7 @@ export function nodeSchema(GroupSchemaT: typeof GroupSchema): any {
 		}
 
 		attr(key: string, value: any) {
-			this.plan.push(node => node.attr(key, value));
+			this.plan.push((node: any) => node.attr(key, value));
 			return this;
 		}
 
@@ -51,7 +51,7 @@ export function nodeSchema(GroupSchemaT: typeof GroupSchema): any {
 				throw new GridError('node.schema', 'Build function is not defined');
 			}
 
-			this.plan.push((node, line) => {
+			this.plan.push((node: Node, line: Line) => {
 				const schema = new NodeSchema(this.schemaMap);
 				build(schema);
 
@@ -71,7 +71,7 @@ export function nodeSchema(GroupSchemaT: typeof GroupSchema): any {
 				throw new GridError('node.schema', 'Build function is not defined');
 			}
 
-			const buildGroup = (node, line) => {
+			const buildGroup = (node: Node, line: Line) => {
 				const group = new GroupExpression();
 				group.id = id;
 

@@ -20,8 +20,8 @@ import { TrhCoreDirective } from '../row/trh-core.directive';
 export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
 	$implicit = this;
 
-	@Input('q-grid-core-tf') columnView: ColumnView;
-	element: HTMLElement = null;
+	@Input('q-grid-core-tf') columnView!: ColumnView;
+	element: HTMLElement;
 
 	constructor(
 		public $view: GridLet,
@@ -52,7 +52,7 @@ export class TfCoreDirective implements DomTd, OnInit, OnDestroy {
 		return this.$view.foot.value(column);
 	}
 
-	get label() {
+	get label(): any {
 		return this.label;
 	}
 

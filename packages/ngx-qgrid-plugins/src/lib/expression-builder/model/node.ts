@@ -3,15 +3,15 @@ import { Line } from './line';
 
 export class Node {
 	readonly attributes: { [key: string]: any } = {};
-	children: Node[] = [];
+	children: Array<Node | null> = [];
 	level: number;
-	line: Line;
+	line!: Line;
 
-	constructor(public id: string, public schema, public parent?: Node) {
+	constructor(public id: string, public schema: any, public parent?: Node) {
 		this.level = parent ? parent.level + 1 : 0;
 	}
 
-	attr(key: string, value?) {
+	attr(key: string, value?: any) {
 		if (arguments.length === 2) {
 			this.attributes[key] = value;
 		} else {
@@ -66,15 +66,15 @@ export class Node {
 	}
 
 	clear() {
-		this.children.forEach(child => child.parent = null);
+		this.children.forEach((child: any) => child.parent = null);
 		this.children = [];
 	}
 
-	toString(indent = 0) {
+	toString(indent = 0): any {
 		return Array(indent).join('-') + ' ' + this.level + '\n' +
 			this.children
 				.map(child => {
-					return child.toString(indent + 1);
+					return child?.toString(indent + 1);
 				})
 				.join('\n');
 	}
@@ -83,7 +83,9 @@ export class Node {
 		if (null != this.parent) {
 			let parent = this.parent;
 			while (null !== parent.parent) {
-				parent = parent.parent;
+				if (parent.parent) {
+					parent = parent.parent;
+				}
 			}
 
 			return parent.toString();

@@ -10,7 +10,7 @@ import { BackdropService } from './backdrop.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BackdropComponent implements OnInit, OnDestroy {
-	@ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
+	@ViewChild(TemplateRef, { static: true }) template!: TemplateRef<any>;
 	@Output('close') closeEvent = new EventEmitter<any>();
 	@Input() propagate = true;
 
@@ -24,7 +24,7 @@ export class BackdropComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		const context = {
-			element: this.backdropService.element.nativeElement,
+			element: this.backdropService.element?.nativeElement,
 			propagate: this.propagate,
 			onKeyDown: () => { },
 		};

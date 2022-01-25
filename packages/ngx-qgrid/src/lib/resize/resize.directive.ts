@@ -31,10 +31,10 @@ export class ResizeDirective implements OnInit, OnDestroy {
 		width: 0
 	};
 
-	@Input('q-grid-resize') key;
-	@Input('q-grid-resize-path') path;
-	@Input('q-grid-can-resize') canResize;
-	@Input('q-grid-resize-selector') selector;
+	@Input('q-grid-resize') key: any;
+	@Input('q-grid-resize-path') path: any;
+	@Input('q-grid-can-resize') canResize: any;
+	@Input('q-grid-resize-selector') selector: any;
 
 	constructor(
 		private zone: NgZone,
@@ -98,7 +98,7 @@ export class ResizeDirective implements OnInit, OnDestroy {
 
 	drag(e: MouseEvent) {
 		const { context, path, key } = this;
-		const { layout } = this.model;
+		const { layout }: { layout: any } = this.model;
 
 		const state = clone(layout()[path]);
 
@@ -119,7 +119,7 @@ export class ResizeDirective implements OnInit, OnDestroy {
 
 	private select(): HTMLElement {
 		if (this.selector === 'parent') {
-			return this.element.parentElement;
+			return this.element.parentElement || this.element;
 		}
 
 		return this.element;

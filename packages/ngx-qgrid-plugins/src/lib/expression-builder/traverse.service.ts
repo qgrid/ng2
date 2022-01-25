@@ -1,7 +1,8 @@
 import { Node } from './model/node';
+import {Line} from './model/line';
 
 export class TraverseService {
-	findUp(node: Node, test: (node: Node) => boolean) {
+	findUp(node: Node | any, test: (node: Node) => boolean) {
 		while (node) {
 			if (test(node)) {
 				return node;
@@ -33,7 +34,7 @@ export class TraverseService {
 		return (reduce, memo) => {
 			memo = this.visitLine(reduce, memo, root, root.line);
 
-			const children = root.children;
+			const children: Node[] | any[] = root.children;
 			const length = children.length;
 
 			for (let i = 0; i < length; i++) {
@@ -44,7 +45,7 @@ export class TraverseService {
 		};
 	}
 
-	private visitLine(reduce, memo, node, line) {
+	private visitLine(reduce: any, memo: any, node: Node, line: Line) {
 		const groups = line.expressions;
 		const length = groups.length;
 
@@ -55,7 +56,7 @@ export class TraverseService {
 		return memo;
 	}
 
-	private visitGroup(reduce, memo, node, line, group) {
+	private visitGroup(reduce: any, memo: any, node: Node, line: Line, group: any) {
 		const expressions = group.expressions;
 		const length = expressions.length;
 

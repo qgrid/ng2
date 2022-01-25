@@ -1,0 +1,11 @@
+// TODO: THINK about it. ALL ts configs in modules extends this config.
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

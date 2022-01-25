@@ -7,7 +7,7 @@ import { CellEditor } from '@qgrid/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditFormControlComponent {
-	@Input() editor: CellEditor;
+	@Input() editor!: CellEditor;
 
 	get key() {
 		if (this.editor) {

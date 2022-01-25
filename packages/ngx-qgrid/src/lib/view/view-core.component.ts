@@ -17,7 +17,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewCoreComponent implements OnInit, DoCheck {
-	private host: ViewHost;
+	private host!: ViewHost;
 
 	constructor(
 		private plugin: GridPlugin,
@@ -73,7 +73,7 @@ export class ViewCoreComponent implements OnInit, DoCheck {
 		} = this.plugin;
 
 		// TODO: make it better
-		table.box.markup.view = this.elementRef.nativeElement;
+		table.box.markup['view'] = this.elementRef.nativeElement;
 		const cmdManager = new TableCommandManager(f => f(), table);
 		this.view.init(this.plugin, cmdManager);
 

@@ -14,19 +14,19 @@ import { FocusAfterRender } from '../focus/focus.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnFilterComponent implements OnInit {
-	@Input() column: ColumnModel;
+	@Input() column!: ColumnModel;
 	@Input() search = '';
 
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
-	context: {
+	context!: {
 		$implicit: ColumnFilterPlugin,
 		plugin: ColumnFilterComponent,
 		vscroll: VscrollContext
 	};
 
-	private vscrollContext: VscrollContext;
+	private vscrollContext!: VscrollContext;
 
 	constructor(
 		private plugin: GridPlugin,
@@ -71,7 +71,7 @@ export class ColumnFilterComponent implements OnInit {
 				if (filterState.fetch !== this.qgrid.noop) {
 					const cancelBusy = service.busy();
 					const select = filterState
-						.fetch(column.key, {
+						.fetch(column.key || '', {
 							skip,
 							take,
 							value: columnFilterPlugin.getValue,
@@ -95,6 +95,7 @@ export class ColumnFilterComponent implements OnInit {
 					const isBlank = model.filter().assertFactory().isNull;
 					try {
 						if (!items.length) {
+							// @ts-ignore
 							const source = model[columnFilter.state().source];
 							Guard.notNull(source, 'source');
 
@@ -103,7 +104,7 @@ export class ColumnFilterComponent implements OnInit {
 
 							let values = null;
 							if (columnFilterPlugin.column.type === 'array') {
-								values = flatten(sourceState.rows.map(row => getValue(row, column)));
+								values = flatten(sourceState.rows.map((row: any) => getValue(row, column)));
 							} else {
 								values = sourceState.rows.map(columnFilterPlugin.getValue);
 							}

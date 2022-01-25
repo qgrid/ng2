@@ -19,10 +19,10 @@ export class ExampleEditRowBasicComponent implements OnInit {
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(GridComponent, { static: true }) myGrid: GridComponent;
+	@ViewChild(GridComponent, { static: true }) myGrid!: GridComponent;
 
 	rows$: Observable<Human[]> = this.dataService.getPeople();
-	columns: Array<Column | BoolColumn>;
+	columns!: Array<Column | BoolColumn>;
 
 	constructor(
 		private dataService: DataService,
@@ -31,7 +31,7 @@ export class ExampleEditRowBasicComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const isUndef = x => x === undefined;
+		const isUndef = (x: any) => x === undefined;
 
 		this.columns = [
 			{
@@ -71,9 +71,9 @@ export class ExampleEditRowBasicComponent implements OnInit {
 				title: 'Teammates',
 				type: 'reference',
 				value: (item, value) => isUndef(value) ? item.teammates || [] : item.teammates = value,
-				label: (item) => {
+				label: (item: any) => {
 					return (item.teammates || [])
-						.map(x => `${x.name.last} ${x.name.first}`)
+						.map((x: any) => `${x.name.last} ${x.name.first}`)
 						.join(', ');
 				},
 				editorOptions: {
@@ -142,7 +142,7 @@ export class ExampleEditRowBasicComponent implements OnInit {
 				key: 'contact.email.primary',
 				title: 'Primary Email',
 				type: 'email',
-				label: (item, label) => isUndef(label) ? item.emailLabel || item.contact.email[0] : item.emailLabel = label,
+				label: (item: any, label: any) => isUndef(label) ? item.emailLabel || item.contact.email[0] : item.emailLabel = label,
 				value: (item, value) => isUndef(value) ? item.contact.email[0] : item.contact.email[0] = value
 			},
 			{
@@ -168,7 +168,7 @@ export class ExampleEditRowBasicComponent implements OnInit {
 				value: (item, value) => isUndef(value)
 					? item.webPage || `https://corp.portal.com/${item.name.last}.${item.name.first}`
 					: item.webPage = value,
-				label: (item, label) => isUndef(label)
+				label: (item: any, label: any) => isUndef(label)
 					? item.webPageLabel || `${item.name.last} ${item.name.first}`
 					: item.webPageLabel = label
 			},
@@ -177,7 +177,7 @@ export class ExampleEditRowBasicComponent implements OnInit {
 				title: 'Attachment',
 				type: 'file',
 				value: (item, value) => isUndef(value) ? item.attachment : item.attachment = value,
-				label: (item, label) => isUndef(label) ? item.attachmentLabel || null : item.attachmentLabel = label
+				label: (item: any, label: any) => isUndef(label) ? item.attachmentLabel || null : item.attachmentLabel = label
 			}
 		];
 	}

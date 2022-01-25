@@ -5,6 +5,6 @@ export declare class SelectionService {
 
 	lookup(items: any[], unit?: string): any[];
 	map(entries: any[]): any[];
-	keyFactory<K>(unit: string): (any) => K;
+	keyFactory<K>(unit: string): (arg: any) => K;
 	hashFactory(): (key: string) => any;
 }

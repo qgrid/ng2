@@ -21,10 +21,10 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	@Input('q-grid-core-value') actualValue: any;
 	@Input('q-grid-core-label') actualLabel: any;
 
-	@Input('q-grid-core-td') columnView: ColumnView;
+	@Input('q-grid-core-td') columnView!: ColumnView;
 
 	element: HTMLElement;
-	changes: SimpleChange;
+	changes!: SimpleChange;
 
 	constructor(
 		public $view: GridLet,

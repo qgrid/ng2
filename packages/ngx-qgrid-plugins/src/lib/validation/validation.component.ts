@@ -8,5 +8,5 @@ import { GridPlugin } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ValidationComponent {
-	@Input() type: string;
+	@Input() type!: string;
 }

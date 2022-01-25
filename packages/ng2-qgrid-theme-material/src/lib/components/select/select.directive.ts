@@ -5,7 +5,7 @@ import { MatSelect } from '@angular/material/select';
 	selector: '[q-grid-select]'
 })
 export class SelectDirective implements AfterViewInit {
-	@ContentChild(MatSelect) private input: MatSelect;
+	@ContentChild(MatSelect) private input!: MatSelect;
 
 	ngAfterViewInit() {
 		this.input.focus();

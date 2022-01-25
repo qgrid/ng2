@@ -3,8 +3,8 @@ import { GridPlugin } from '../plugin/grid.plugin';
 export declare class BodyHost {
 	constructor(plugin: GridPlugin);
 
-	scroll(e: { scrollLeft: number, scrollTop: number });
-	wheel(e: WheelEvent);
+	scroll(e: { scrollLeft: number, scrollTop: number }): any;
+	wheel(e: WheelEvent): void;
 
-	mouseLeave(e: MouseEvent);
+	mouseLeave(e: MouseEvent): void;
 }

@@ -11,7 +11,7 @@ import { FormatDateAdapter } from './format-date-adapter';
 	]
 })
 export class DateAdapterDirective implements OnChanges {
-	@Input('q-grid-date-adapter') format: string;
+	@Input('q-grid-date-adapter') format!: string;
 
 	constructor(
 		datePipe: DatePipe,
@@ -21,7 +21,7 @@ export class DateAdapterDirective implements OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		if (changes.format) {
+		if (changes['format']) {
 			const formatAdapter = this.adapter as FormatDateAdapter;
 			formatAdapter.useFormat = this.format;
 		}

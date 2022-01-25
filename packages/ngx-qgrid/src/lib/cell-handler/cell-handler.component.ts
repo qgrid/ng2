@@ -10,10 +10,10 @@ import { GridPlugin } from '../plugin/grid-plugin';
 	providers: [GridPlugin]
 })
 export class CellHandlerComponent implements OnInit, AfterViewInit {
-	private endBatchEdit: () => void;
+	private endBatchEdit!: (() => void) | null;
 
 	canEditBatch = false;
-	@ViewChild('marker', { static: true }) marker: ElementRef;
+	@ViewChild('marker', { static: true }) marker!: ElementRef;
 
 	constructor(
 		private elementRef: ElementRef,

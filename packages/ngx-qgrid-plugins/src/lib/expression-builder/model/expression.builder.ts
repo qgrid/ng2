@@ -10,7 +10,7 @@ import { EmptyStatement, IStatement } from './statement';
 
 
 export class ExpressionBuilder {
-	constructor(private settings) {
+	constructor(private settings: any) {
 	}
 
 	build<T>(statements: Array<IStatement>): T {
@@ -20,7 +20,7 @@ export class ExpressionBuilder {
 		statements
 			.concat([new EmptyStatement()])
 			.forEach(statement => {
-				const factory = function (...args) {
+				const factory = function (...args: any[]) {
 					let id = guid();
 					let sampleExpression: Expression;
 					if (args.length > 1) {
@@ -36,7 +36,7 @@ export class ExpressionBuilder {
 								sampleExpression,
 								statement.defaults,
 								settings.defaults
-							);
+							) as any;
 
 						expression.id = id;
 						expression.type = statement.type;
@@ -55,7 +55,7 @@ export class ExpressionBuilder {
 							const sourceFunction = expression[key];
 
 							if (isFunction(sourceFunction)) {
-								expression[key] = (...context) => {
+								expression[key] = (...context: any[]) => {
 									const result = sourceFunction.apply(expression, context);
 
 									// TODO add decorator for mutable methods instead of trigger
@@ -81,7 +81,7 @@ export class ExpressionBuilder {
 					return this;
 				};
 
-				const groupFactory = function (...args) {
+				const groupFactory = function (...args: any[]) {
 					let id = guid();
 					let sampleExpression: Expression;
 					if (args.length > 1) {
@@ -91,7 +91,7 @@ export class ExpressionBuilder {
 						sampleExpression = args[0];
 					}
 
-					const build = function (node, line, expressionGroup) {
+					const build = function (node: any, line: any, expressionGroup: any) {
 						const expression =
 							utility.defaults<Expression>(
 								sampleExpression,

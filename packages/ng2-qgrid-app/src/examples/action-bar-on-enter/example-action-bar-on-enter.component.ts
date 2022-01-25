@@ -38,12 +38,12 @@ export class ExampleActionBarOnEnterComponent {
 
 			const newColumnIndex = columns.findIndex(c => c.key === 'rowOptions');
 
-			this.gridService.focus(cell.rowIndex, newColumnIndex);
+			this.gridService.focus(cell?.rowIndex, newColumnIndex);
 
 			// Comment this out if don't need to revert focus back after action
 			this.gridModel.editChanged.watch((e, off) => {
 				if (e.hasChanges('status') && e.state.status === 'view') {
-					this.gridService.focus(cell.rowIndex, cell.columnIndex);
+					this.gridService.focus(cell?.rowIndex, cell?.columnIndex);
 					off();
 				}
 			});

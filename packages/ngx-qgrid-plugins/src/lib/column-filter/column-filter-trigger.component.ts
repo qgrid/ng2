@@ -9,7 +9,7 @@ import { GridPlugin } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnFilterTriggerComponent implements OnInit {
-	@Input() column: ColumnModel;
+	@Input() column!: ColumnModel;
 
 	context: { $implicit: ColumnFilterTriggerComponent } = {
 		$implicit: this

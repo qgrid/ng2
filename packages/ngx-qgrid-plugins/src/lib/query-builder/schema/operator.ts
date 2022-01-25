@@ -1,5 +1,5 @@
 function swap(inst: { [key: string]: string }): { [key: string]: string } {
-	const result = {};
+	const result: any = {};
 	for (const prop in inst) {
 		if (inst.hasOwnProperty(prop)) {
 			result[inst[prop]] = prop;
@@ -44,7 +44,7 @@ const oneToOneNumberOperators = [
 	'LESS OR EQ. TO'
 ];
 
-export const camelCaseMapping = {
+export const camelCaseMapping: { [key: string]: string } = {
 	'IS EMPTY': 'isNull',
 	'IS NOT EMPTY': 'isNotNull',
 	'EQUALS': 'equals',
@@ -61,7 +61,7 @@ export const camelCaseMapping = {
 	'BETWEEN': 'between'
 };
 
-export const typeMapping = {
+export const typeMapping: any = {
 	bool: oneToOneCommonOperators,
 	id: commonOperators.concat(textOperators),
 	text: commonOperators.concat(textOperators),

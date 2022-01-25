@@ -15,8 +15,8 @@ import { ChipsDirective } from './chips.directive';
 	selector: '[q-grid-chips-push]'
 })
 export class ChipsPushDirective implements AfterViewInit {
-	@ContentChild(MatChipInput) inputComponent: MatChipInput;
-	@ContentChild('qGridInput') inputElement: ElementRef;
+	@ContentChild(MatChipInput) inputComponent!: MatChipInput;
+	@ContentChild('qGridInput') inputElement!: ElementRef;
 
 	@Output('q-grid-chips-push') push = new EventEmitter<string>();
 
@@ -29,7 +29,7 @@ export class ChipsPushDirective implements AfterViewInit {
 
 		const input = this.inputElement.nativeElement;
 		this.zone.runOutsideAngular(() =>
-			input.addEventListener('keydown', e => {
+			input.addEventListener('keydown', (e: KeyboardEvent) => {
 				const code = Shortcut.translate(e);
 				if (code === 'enter') {
 					const value = (input.value || '').trim() as string;

@@ -13,8 +13,8 @@ import { ExportPlugin } from '@qgrid/plugins';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExportComponent implements AfterViewInit {
-	@Input() type: string;
-	@ContentChild(TemplateRef) templateRef: TemplateRef<any>;
+	@Input() type!: string;
+	@ContentChild(TemplateRef) templateRef!: TemplateRef<any>;
 
 	context: { $implicit: ExportComponent } = {
 		$implicit: this
@@ -29,7 +29,7 @@ export class ExportComponent implements AfterViewInit {
 
 	ngAfterViewInit() {
 		const { model, disposable } = this.plugin;
-		const exportPlugin = new ExportPlugin(model, this.type);
+		const exportPlugin = new ExportPlugin(model, this.type) as any;
 		const action = new Action(
 			new Command({
 				execute: () => exportPlugin[this.type].execute()

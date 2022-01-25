@@ -9,7 +9,7 @@ import { GridError, GridModel, GridPlugin } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActionCoreComponent {
-	@Input() action: Action;
+	@Input() action!: Action;
 
 	context: { $implicit: ActionCoreComponent } = {
 		$implicit: this

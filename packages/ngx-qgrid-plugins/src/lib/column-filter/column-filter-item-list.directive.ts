@@ -7,8 +7,8 @@ import { CellTemplateService } from '@qgrid/ngx';
 	providers: [CellTemplateService]
 })
 export class ColumnFilterItemListDirective {
-	@Input('q-grid-column-filter-item-list') column: ColumnModel;
-	@Input('q-grid-column-filter-search') search: string;
+	@Input('q-grid-column-filter-item-list') column!: ColumnModel;
+	@Input('q-grid-column-filter-search') search!: string;
 
 	constructor(
 		public cellService: CellTemplateService

@@ -3,5 +3,5 @@ import { ColumnModelPin } from '@qgrid/core';
 
 @Injectable()
 export class TableCoreService {
-	pin: ColumnModelPin;
+	pin!: ColumnModelPin;
 }

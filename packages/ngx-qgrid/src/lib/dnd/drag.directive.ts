@@ -8,8 +8,8 @@ import { GridPlugin } from '../plugin/grid-plugin';
 export class DragDirective {
 	@Input('q-grid-drag-data') data: any;
 	@Input('q-grid-drag-effect') effect:  undefined | 'move';
-	@Input('q-grid-drag') drag: Command;
-	@Input('q-grid-drop-area') area: string;
+	@Input('q-grid-drag') drag!: Command;
+	@Input('q-grid-drop-area') area!: string;
 
 	constructor(
 		@Optional() private plugin: GridPlugin,
@@ -24,14 +24,16 @@ export class DragDirective {
 		listener.on('dragend', this.onEnd);
 	}
 
-	onStart(e: DragEvent) {
+	onStart(e: DragEvent): any {
 		const transfer = e.dataTransfer;
 		const data = this.data;
 		const eventArg = { data };
 
 		if (this.drag.canExecute(eventArg) === false) {
 			e.preventDefault();
-			transfer.effectAllowed = 'none';
+			if (transfer) {
+				transfer.effectAllowed = 'none';
+			}
 			return false;
 		}
 
@@ -43,18 +45,22 @@ export class DragDirective {
 
 		this.elementRef.nativeElement.classList.add(`${GRID_PREFIX}-drag`);
 
-		transfer.setData(DragService.mimeType, DragService.encode(data));
-		transfer.effectAllowed = this.effect || 'move';
+		if (transfer) {
+			transfer.setData(DragService.mimeType, DragService.encode(data));
+			transfer.effectAllowed = this.effect || 'move';
+		}
 
 		DragService.data = data;
 		DragService.area = this.area;
 
-		const rect = DragService.element.getBoundingClientRect();
-		DragService.startPosition = {
-			x: e.clientX,
-			y: e.clientY,
-			rect
-		};
+		if (DragService.element) {
+			const rect = DragService.element.getBoundingClientRect();
+			DragService.startPosition = {
+				x: e.clientX,
+				y: e.clientY,
+				rect
+			};
+		}
 
 		if (this.plugin) {
 			const { model } = this.plugin;

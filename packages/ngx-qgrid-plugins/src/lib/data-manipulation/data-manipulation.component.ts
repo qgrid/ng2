@@ -11,7 +11,7 @@ import { DataManipulationPlugin, DataManipulationState } from '@qgrid/plugins';
 export class DataManipulationComponent implements OnInit, OnChanges {
 	private dmState = this.stateAccessor.setter(DataManipulationState);
 
-	context: {
+	context!: {
 		$implicit: DataManipulationPlugin
 	};
 

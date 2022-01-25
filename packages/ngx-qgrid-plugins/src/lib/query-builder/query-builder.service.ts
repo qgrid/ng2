@@ -44,17 +44,17 @@ export class QueryBuilderService {
 				key: column.key,
 				title: column.title,
 				type: column.type
-			}));
+			} as any));
 	}
 
 	columnMap(): ColumnMap {
-		return this.columns().reduce((memo, column) => {
+		return this.columns().reduce((memo: any, column) => {
 			memo[column.key] = column;
 			return memo;
 		}, {});
 	}
 
-	submit(expression) {
+	submit(expression: any) {
 		const model = this.model;
 		model.filter({
 			by: expression
@@ -63,8 +63,8 @@ export class QueryBuilderService {
 			});
 	}
 
-	suggest(key, skip, take, search, selection?: Array<string>): Promise<string[]> {
-		selection = (selection || []).map(item => ('' + item).toLowerCase());
+	suggest(key: string, skip: number, take: number, search: number, selection?: Array<string> | any): Promise<string[]> {
+		selection = (selection || []).map((item: any) => ('' + item).toLowerCase());
 
 		const model = this.model;
 		const columnMap = columnService.mapColumns(model.columnList().line);
@@ -133,7 +133,8 @@ export class QueryBuilderService {
 
 		const settings = {
 			defaults: {
-				isValid: function () {
+				isValid: function (): boolean {
+					// @ts-ignore
 					return !this.validate || !(this.state = this.validate()).length;
 				}
 			}

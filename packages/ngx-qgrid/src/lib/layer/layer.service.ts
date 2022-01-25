@@ -4,7 +4,7 @@ import { TemplateService } from '../template/template.service';
 
 @Injectable()
 export class LayerService {
-	private container: ViewContainerRef;
+	private container!: ViewContainerRef;
 	private layers = new Map<string, Layer>();
 
 	constructor(private templateService: TemplateService) {
@@ -14,7 +14,7 @@ export class LayerService {
 		this.container = container;
 	}
 
-	create(name) {
+	create(name: any) {
 		if (this.layers.has(name)) {
 			return this.layers.get(name);
 		}

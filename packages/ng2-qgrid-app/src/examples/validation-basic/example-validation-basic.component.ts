@@ -19,7 +19,7 @@ export class ExampleValidationBasicComponent {
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(GridComponent, { static: true }) myGrid: GridComponent;
+	@ViewChild(GridComponent, { static: true }) myGrid!: GridComponent;
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService) {

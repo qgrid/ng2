@@ -9,10 +9,10 @@ import { ValidatorPlugin } from '@qgrid/plugins';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ValidatorComponent implements OnInit {
-	@Input() value: string;
-	@Input() key: string;
-	@Input() type: string;
-	context: { $implicit: ValidatorPlugin };
+	@Input() value!: string;
+	@Input() key!: string;
+	@Input() type!: string;
+	context!: { $implicit: ValidatorPlugin };
 
 	constructor(
 		private plugin: GridPlugin,

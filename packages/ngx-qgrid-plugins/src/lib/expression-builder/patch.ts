@@ -11,7 +11,7 @@ export function method(inst: any, key: string) {
 export function methodsOf(inst: any) {
 	const keys = Object.keys(inst);
 	const length = keys.length;
-	const patch = {};
+	const patch: any = {};
 
 	for (let i = 0; i < length; i++) {
 		const key = keys[i];
@@ -21,7 +21,7 @@ export function methodsOf(inst: any) {
 	}
 
 	return {
-		with: (...args) => {
+		with: (...args: any[]) => {
 			const patchKeys = Object.keys(patch);
 			const patchLength = patchKeys.length;
 
@@ -35,12 +35,12 @@ export function methodsOf(inst: any) {
 	};
 }
 
-export function withFactory(inst, key, sourceFn) {
-	const withFn = (...withArgs) =>
-		inst[key] = (...keyArgs) =>
+export function withFactory(inst: any, key: any, sourceFn: any) {
+	const withFn = (...withArgs: any[]) =>
+		inst[key] = (...keyArgs: any[]) =>
 			sourceFn.apply(inst, withArgs.concat(keyArgs));
 
-	(withFn as any).decorator = (...args) => {
+	(withFn as any).decorator = (...args: any[]) => {
 		const decorate = args[0];
 		args = args.slice(1);
 

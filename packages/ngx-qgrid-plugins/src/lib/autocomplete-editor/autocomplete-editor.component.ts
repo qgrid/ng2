@@ -24,7 +24,7 @@ export class AutoCompleteEditorComponent {
 		const test = predicateFactory(search);
 		const getLabel = this.itemLabelFactory(this.cell.column);
 		if (isArray(this.items)) {
-			this.options = this.items.filter(item => test(getLabel(item)));
+			this.options = this.items.filter((item: any) => test(getLabel(item)));
 		}
 	}
 
@@ -48,15 +48,15 @@ export class AutoCompleteEditorComponent {
 		this.cell.value = value;
 	}
 
-	itemLabelFactory(column) {
+	itemLabelFactory(column: any) {
 		const { itemLabel } = column;
 		if (itemLabel) {
-			return (item) => {
+			return (item: any) => {
 				return itemLabel(item);
 			};
 		}
 
-		return item => item;
+		return (item: any) => item;
 	}
 
 	private get cell() {

@@ -7,7 +7,7 @@ const DELIMITER = '/';
 	selector: '[q-grid-date-mask]',
 })
 export class DateMaskDirective {
-	@Input('q-grid-date-mask') mask: string;
+	@Input('q-grid-date-mask') mask!: string;
 
 	constructor(private elementRef: ElementRef) {
 	}

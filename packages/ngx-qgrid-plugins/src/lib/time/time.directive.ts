@@ -11,7 +11,7 @@ export class TimeDirective {
 		viewContainerRef.createEmbeddedView(templateRef, { $implicit: this });
 	}
 
-	time(previous, current) {
+	time(previous: Date | string, current: string) {
 		if (!previous) {
 			previous = new Date();
 		}

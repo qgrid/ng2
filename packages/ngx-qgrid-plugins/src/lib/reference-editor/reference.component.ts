@@ -10,8 +10,8 @@ import { Disposable, GridModel, GridModelBuilder } from '@qgrid/ngx';
 })
 export class ReferenceComponent implements OnInit {
 	private _value: any;
-	private _model: GridModel;
-	private _reference: {
+	private _model!: GridModel;
+	private _reference!: {
 		commit: Command,
 		cancel: Command,
 		value: any
@@ -19,7 +19,7 @@ export class ReferenceComponent implements OnInit {
 
 	@Input() caption = '';
 	@Input() autofocus = false;
-	@Input() cell: CellView;
+	@Input() cell!: CellView;
 
 	get value() { return this._value; }
 	@Output() valueChange = new EventEmitter<any>();
@@ -65,13 +65,15 @@ export class ReferenceComponent implements OnInit {
 			value: this.value
 		};
 
-		this.model = this.cell.column.editorOptions.modelFactory({
-			reference: this.reference,
-			row: this.cell.row,
-			column: this.cell.column,
-			getValue: getValueFactory(this.cell.column),
-			createDefaultModel: () => this.modelBuilder.build(),
-		} as any);
+		if (this.cell.column.editorOptions && this.cell.column.editorOptions.modelFactory) {
+			this.model = this.cell.column.editorOptions.modelFactory({
+				reference: this.reference,
+				row: this.cell.row,
+				column: this.cell.column,
+				getValue: getValueFactory(this.cell.column),
+				createDefaultModel: () => this.modelBuilder.build(),
+			} as any);
+		}
 
 		const selectionService = new SelectionService(this.model);
 		this.disposable.add(

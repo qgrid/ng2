@@ -30,7 +30,7 @@ export class LiveColumnComponent implements OnInit {
 				}
 
 				const { columnId } = model.data();
-				const animations = [];
+				const animations: any[] = [];
 
 				startPos = currentColumns.length;
 				endPos = 0;
@@ -91,7 +91,7 @@ export class LiveColumnComponent implements OnInit {
 				}
 
 				Fastdom.mutate(() => {
-					const animatedCells = [];
+					const animatedCells: any[] = [];
 					oldColumn.addClass(`${GRID_PREFIX}-live-column`);
 					oldColumn.cells().forEach(cell => animatedCells.push(
 						new Promise(columnAnimationEnd => {

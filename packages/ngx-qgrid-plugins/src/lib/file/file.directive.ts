@@ -10,7 +10,7 @@ import { BackdropService } from '../backdrop/backdrop.service';
 export class FileDirective {
 	private reader = new FileReader();
 	private _value: any;
-	private _label: string;
+	private _label!: string;
 
 	@Output('q-grid-fileChange') valueChange = new EventEmitter<any>();
 	@Output('q-grid-file-labelChange') labelChange = new EventEmitter<string>();
@@ -54,18 +54,19 @@ export class FileDirective {
 		this.reader.onloadend = e => this.onLoadEnd(e);
 	}
 
-	onUpload(e) {
-		const { files } = e.target;
-		const file = files[0];
+	onUpload(e: Event) {
+		const { files } = e.target as HTMLInputElement;
+		const file = files ? files[0] : null;
 		if (file && this.isValid(file.name)) {
 			this.reader.readAsDataURL(file);
 			this.label = file.name;
 		}
 	}
 
-	onLoadEnd(e) {
-		if (e.target.readyState === this.reader.DONE) {
-			this.value = e.target.result;
+	onLoadEnd(e: Event) {
+		const target = e.target as any;
+		if (target.readyState === this.reader.DONE) {
+			this.value = target.result;
 		}
 	}
 

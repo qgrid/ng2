@@ -8,12 +8,12 @@ import { EbNodeService } from './eb-node.service';
 	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EbNodeComponent {
-	@Input() model: Node;
+	@Input() model!: Node;
 
 	constructor(public service: EbNodeService) {
 	}
 
-	select(e) {
+	select(e: Event) {
 		e.stopPropagation();
 
 		if (this.model.parent) {

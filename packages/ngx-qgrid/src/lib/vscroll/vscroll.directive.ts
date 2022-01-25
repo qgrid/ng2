@@ -33,7 +33,7 @@ export class VscrollDirective {
 		return this.elementRef.nativeElement;
 	}
 
-	drawPlaceholder(width: number, height: number) {
+	drawPlaceholder(width: number | boolean, height: number | boolean) {
 		const box = this.elementRef.nativeElement;
 		const style = box.style;
 		const placeholder = placeholderBitmap(width || box.clientWidth, height || box.clientHeight);

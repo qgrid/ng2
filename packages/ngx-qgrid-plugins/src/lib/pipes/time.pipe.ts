@@ -11,7 +11,7 @@ export class TimePipe implements PipeTransform {
 	transform(value: any, format?: any, timezone?: any, locale?: any) {
 		try {
 			return this.pipe.transform(value, format, timezone, locale);
-		} catch (ex) {
+		} catch (ex: any) {
 			Log.warn('TimePipe', ex.message);
 			return value;
 		}

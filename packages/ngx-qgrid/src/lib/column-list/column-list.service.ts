@@ -5,7 +5,7 @@ import { GridPlugin } from '../plugin/grid-plugin';
 @Injectable()
 export class ColumnListService {
 	private host = new Lazy(() => {
-		const canCopy = (key: string, source, target) =>
+		const canCopy = (key: string, source: any, target: EventTarget) =>
 			target.hasOwnProperty(key) && !isUndefined(source[key]);
 
 		return new ColumnListHost(this.plugin.model, canCopy, parseFactory);
@@ -18,15 +18,15 @@ export class ColumnListService {
 		this.host.instance.add(column);
 	}
 
-	copy(target, source) {
+	copy(target: any, source: any) {
 		this.host.instance.copy(target, source);
 	}
 
-	generateKey(source) {
+	generateKey(source: any) {
 		return this.host.instance.generateKey(source);
 	}
 
-	extract(key, type): ColumnModel {
+	extract(key: string, type: string): ColumnModel {
 		return this.host.instance.extract(key, type);
 	}
 

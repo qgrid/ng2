@@ -11,7 +11,7 @@ export class NumberPipe implements PipeTransform {
 	transform(value: any, digitsInfo?: any, locale?: any) {
 		try {
 			return this.pipe.transform(value, digitsInfo, locale);
-		} catch (ex) {
+		} catch (ex: any) {
 			Log.warn('NumberPipe', ex.message);
 			return value;
 		}

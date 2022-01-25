@@ -19,11 +19,11 @@ export class ExamplePaneTriggerComponent implements AfterViewInit {
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(PaneComponent) pane: PaneComponent;
+	@ViewChild(PaneComponent) pane!: PaneComponent;
 
 	rows$: Observable<Human[]>;
 	gridModel: GridModel;
-	selectedRow: Human;
+	selectedRow!: Human;
 
 	openPane = new Command({
 		execute: () => this.pane.open('right'),

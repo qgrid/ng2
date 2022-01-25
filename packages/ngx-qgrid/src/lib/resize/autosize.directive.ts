@@ -5,11 +5,11 @@ import { Fastdom } from '@qgrid/core';
 	selector: '[q-grid-autosize]'
 })
 export class AutoSizeDirective implements OnInit {
-	@Input('q-grid-autosize') selector;
+	@Input('q-grid-autosize') selector: any;
 	@Input('q-grid-autosize-empty-width') emptyWidth = 75;
-	private actualText: string;
+	private actualText!: string;
 	private host: HTMLElement;
-	private element: HTMLInputElement;
+	private element!: HTMLInputElement;
 
 	constructor(element: ElementRef) {
 		this.host = element.nativeElement as HTMLInputElement;
@@ -19,7 +19,7 @@ export class AutoSizeDirective implements OnInit {
 		this.element = this.selector ? this.host.querySelector(this.selector) as HTMLInputElement : this.host as HTMLInputElement;
 	}
 
-	autoWidth(text) {
+	autoWidth(text: any) {
 		if (!text) {
 			this.actualText = text;
 			Fastdom.measure(() => {

@@ -14,7 +14,7 @@ import { GridError, GridPlugin } from '@qgrid/ngx';
 export class TabTrapComponent {
 	private isActivating = false;
 
-	@ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
+	@ViewChild(TemplateRef, { static: true }) template!: TemplateRef<any>;
 	@Input() roundTrip = false;
 
 	context: { $implicit: TabTrapComponent } = {
@@ -33,7 +33,7 @@ export class TabTrapComponent {
 		});
 	}
 
-	activate(target) {
+	activate(target: any) {
 		if (this.isActivating) {
 			return;
 		}
@@ -50,7 +50,7 @@ export class TabTrapComponent {
 		}
 	}
 
-	exit(target) {
+	exit(target: any) {
 		const e = {
 			key: 'Tab',
 			keyCode: 9,
@@ -62,7 +62,7 @@ export class TabTrapComponent {
 		shortcut.keyDown(e, 'tab-trap');
 	}
 
-	goRound(target) {
+	goRound(target: any) {
 		switch (target) {
 			case 'start': {
 				const end = this.traps.get('end');

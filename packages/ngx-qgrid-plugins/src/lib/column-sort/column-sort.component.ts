@@ -14,8 +14,8 @@ import { FocusAfterRender } from '../focus/focus.service';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnSortComponent implements AfterViewInit {
-	@ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
-	@Input() column: ColumnModel;
+	@ViewChild(TemplateRef, { static: true }) template!: TemplateRef<any>;
+	@Input() column!: ColumnModel;
 
 	context: { $implicit: ColumnSortComponent } = {
 		$implicit: this

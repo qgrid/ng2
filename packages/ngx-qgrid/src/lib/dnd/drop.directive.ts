@@ -16,10 +16,10 @@ export interface DropEventArg {
 	selector: '[q-grid-drop]'
 })
 export class DropDirective implements OnInit {
-	@Input('q-grid-drop-area') area: string;
+	@Input('q-grid-drop-area') area!: string;
 	@Input('q-grid-drop-data') dropData: any;
-	@Input('q-grid-drop') drop: Command<DropEventArg>;
-	@Input('q-grid-drag-over') dragOver: Command<DropEventArg>;
+	@Input('q-grid-drop') drop!: Command<DropEventArg>;
+	@Input('q-grid-drag-over') dragOver!: Command<DropEventArg>;
 	@Input('q-grid-drag-direction') dragDirection: 'x' | 'y' = 'y';
 
 	constructor(
@@ -89,7 +89,11 @@ export class DropDirective implements OnInit {
 		e.preventDefault();
 
 		this.elementRef.nativeElement.classList.add(`${GRID_PREFIX}-dragover`);
-		e.dataTransfer.dropEffect = 'move';
+
+		if (e.dataTransfer) {
+			e.dataTransfer.dropEffect = 'move';
+		}
+
 		return false;
 	}
 
@@ -101,14 +105,21 @@ export class DropDirective implements OnInit {
 		}
 
 		if (this.area !== DragService.area) {
-			e.dataTransfer.dropEffect = 'none';
+
+			if (e.dataTransfer) {
+				e.dataTransfer.dropEffect = 'none';
+			}
+
 			return false;
 		}
 
 		const pos = this.getPosition(e);
 		const path = this.getPath(pos);
-		if (path.indexOf(DragService.element) >= 0) {
-			return false;
+
+		if (DragService.element) {
+			if (path.indexOf(DragService.element) >= 0) {
+				return false;
+			}
 		}
 
 		const eventArg = {
@@ -126,7 +137,9 @@ export class DropDirective implements OnInit {
 				DragService.data = eventArg.dragData;
 			}
 
-			e.dataTransfer.dropEffect = 'move';
+			if (e.dataTransfer) {
+				e.dataTransfer.dropEffect = 'move';
+			}
 		}
 
 		return false;
@@ -137,7 +150,7 @@ export class DropDirective implements OnInit {
 	}
 
 	private getPosition(e: DragEvent) {
-		const start = DragService.startPosition;
+		const start: any = DragService.startPosition;
 		const src = start.rect;
 
 		const offsetX = start.x - (src.left + src.width / 2);
@@ -161,7 +174,7 @@ export class DropDirective implements OnInit {
 	}
 
 	private inAreaFactory(e: DragEvent, direction: 'x' | 'y') {
-		const src = DragService.startPosition.rect;
+		const src: any = DragService.startPosition?.rect;
 		const { x, y } = this.getPosition(e);
 
 		if (direction === 'y') {
