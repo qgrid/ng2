@@ -7,7 +7,7 @@ import { EbNodeComponent } from './eb-node.component';
 	selector: '[q-grid-eb-class]'
 })
 export class EbClassDirective implements OnInit, DoCheck {
-	private evaluate: (value: any) => any;
+	private evaluate!: (value: any) => any;
 	private oldClassList: Array<string> = [];
 
 	@Input('q-grid-eb-class') klass: any;
@@ -39,7 +39,7 @@ export class EbClassDirective implements OnInit, DoCheck {
 		}
 	}
 
-	private fetchClasses(meta) {
+	private fetchClasses(meta: any) {
 		if (isArray(meta)) {
 			return meta;
 		}

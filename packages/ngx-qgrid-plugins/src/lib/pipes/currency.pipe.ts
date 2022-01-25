@@ -1,5 +1,5 @@
 import { CurrencyPipe as NgCurrencyPipe } from '@angular/common';
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform} from '@angular/core';
 import { Log } from '@qgrid/core';
 
 @Pipe({
@@ -11,7 +11,7 @@ export class CurrencyPipe implements PipeTransform {
 	transform(value: any, currencyCode?: string, display?: boolean, digitsInfo?: any, locale?: any) {
 		try {
 			return this.pipe.transform(value, currencyCode, display, digitsInfo, locale);
-		} catch (ex) {
+		} catch (ex: any) {
 			Log.warn('DatePipe', ex.message);
 			return value;
 		}

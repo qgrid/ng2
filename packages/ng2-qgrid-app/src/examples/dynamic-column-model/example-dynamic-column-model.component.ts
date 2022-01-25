@@ -23,7 +23,7 @@ export class ExampleDynamicColumnModelComponent {
 		this.reset();
 	}
 
-	addColumn(side) {
+	addColumn(side: string) {
 		const id = this.getRandomId();
 		const column = {
 			type: 'text',

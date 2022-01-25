@@ -26,7 +26,7 @@ export class ExampleHierarchyBrowserBasicComponent {
 		(root as any).isVisited = false;
 
 		const tree = [root];
-		const treePipe = (memo, context, next) => {
+		const treePipe = (memo: any, context: any, next: (...args: any) => void) => {
 			memo.nodes = tree;
 			next(memo);
 		};

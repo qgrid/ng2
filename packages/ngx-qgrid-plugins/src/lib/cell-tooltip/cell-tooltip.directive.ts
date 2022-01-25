@@ -11,7 +11,7 @@ import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 })
 
 export class CellTooltipDirective implements OnChanges {
-	@Input() host: HTMLElement;
+	@Input() host!: HTMLElement;
 	@Input() showDelay = 1000;
 
 	private job = jobLine(this.showDelay);
@@ -23,11 +23,11 @@ export class CellTooltipDirective implements OnChanges {
 	}
 
 	ngOnChanges(e: SimpleChanges) {
-		if (e.showDelay) {
+		if (e['showDelay']) {
 			this.job = jobLine(this.showDelay);
 		}
 
-		if (e.host && this.host) {
+		if (e['host'] && this.host) {
 			const { top, left, height } = this.host.getBoundingClientRect();
 			const box = this.getBoxRect(this.host);
 			const host = this.elementRef.nativeElement;
@@ -43,8 +43,9 @@ export class CellTooltipDirective implements OnChanges {
 
 	// TODO: Extract to external function
 	private getBoxRect(element: HTMLElement) {
-		let view = element;
+		let view = element as any;
 		const marker = `${GRID_PREFIX}-box`;
+
 		while (view) {
 			if (view.classList && view.classList.contains(marker)) {
 				return view.getBoundingClientRect();

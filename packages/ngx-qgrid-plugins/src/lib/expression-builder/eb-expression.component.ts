@@ -9,19 +9,20 @@ import { Watcher } from './digest/watch';
 	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EbExpressionComponent implements OnInit, DoCheck {
-	private watchers: Watcher[];
+	private watchers!: Watcher[];
 
-	@Input() node: Node;
-	@Input() line: Line;
+	@Input() node!: Node;
+	@Input() line!: Line;
 	@Input() model: any;
 
-	context: { $implicit: any, node: Node, line: Line };
+	context!: { $implicit: any, node: Node, line: Line };
 
 	ngOnInit() {
 		this.context = { $implicit: this.model, node: this.node, line: this.line };
 
 		const $watch = this.model.$watch;
 		if ($watch) {
+			const arr: any = [this.node, this.line];
 			this.watchers =
 				Object
 					.keys($watch)
@@ -30,7 +31,7 @@ export class EbExpressionComponent implements OnInit, DoCheck {
 							this.model,
 							key,
 							$watch[key],
-							[this.node, this.line])
+							arr)
 					);
 		}
 	}

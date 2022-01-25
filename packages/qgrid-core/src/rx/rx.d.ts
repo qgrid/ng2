@@ -49,8 +49,14 @@ export declare interface ObservableLike<T> extends SubscribableLike<T> {
 export declare class ObservableEvent<T> implements ObservableLike<T> {
     constructor(event: Event<T>, disposable: Disposable);
 
-    subscribe(next?: (value: T) => void, error?: (error: any) => void, complete?: () => void): UnsubscribableLike;
-    subscribe(observer: Partial<ObserverLike<T>>): UnsubscribableLike;
+	subscribe(observer?: Partial<ObserverLike<T>>): UnsubscribableLike;
+	/** @deprecated Use an observer instead of a complete callback */
+	subscribe(next: null | undefined, error: null | undefined, complete: () => void): UnsubscribableLike;
+	/** @deprecated Use an observer instead of an error callback */
+	subscribe(next: null | undefined, error: (error: any) => void, complete?: () => void): UnsubscribableLike;
+	/** @deprecated Use an observer instead of a complete callback */
+	subscribe(next: (value: T) => void, error: null | undefined, complete: () => void): UnsubscribableLike;
+	subscribe(next?: (value: T) => void, error?: (error: any) => void, complete?: () => void): UnsubscribableLike;
 
     toPromise(): Promise<T>;
 

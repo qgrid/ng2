@@ -219,7 +219,7 @@ export class GridComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		if (changes.model || this.firstSetup) {
+		if (changes['model'] || this.firstSetup) {
 			this.setup();
 		}
 

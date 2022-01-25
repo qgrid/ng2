@@ -18,7 +18,7 @@ export class ExampleLayerGridBlankComponent {
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	rows: Observable<Atom[]>;
+	rows!: Observable<Atom[]>;
 
 	constructor(private dataService: DataService) {
 	}

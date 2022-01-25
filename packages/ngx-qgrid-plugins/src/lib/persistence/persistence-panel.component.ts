@@ -9,7 +9,7 @@ import { PersistencePlugin } from '@qgrid/plugins';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PersistencePanelComponent implements OnInit {
-	context: {
+	context!: {
 		$implicit: PersistencePlugin
 	};
 

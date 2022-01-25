@@ -20,8 +20,8 @@ export class Watcher {
 		const newValue = this.evaluate(inst);
 		if (this.isFirstRun || this.oldValue !== newValue) {
 			this.isFirstRun = false;
-
-			this.handler.apply(this.expression, [newValue, this.oldValue].concat(this.args));
+			const arr: any = [newValue, this.oldValue].concat(this.args);
+			this.handler.apply(this.expression, arr);
 			this.oldValue = newValue;
 		}
 	}

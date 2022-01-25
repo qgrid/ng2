@@ -11,17 +11,17 @@ import { QueryBuilderModel } from './query-builder.model';
 import { QueryBuilderService } from './query-builder.service';
 import * as converter from './schema/converter';
 import { WhereSchema } from './schema/where.schema';
+import { Line } from '../expression-builder/model/line';
 
 @Component({
 	selector: 'q-grid-query-builder-panel',
 	templateUrl: './query-builder-panel.component.html',
-	providers: [FocusAfterRender, GridPlugin],
-	// changeDetection: ChangeDetectionStrategy.OnPush
+	providers: [FocusAfterRender, GridPlugin]
 })
 export class QueryBuilderPanelComponent implements OnInit {
-	node: Node;
+	node!: Node;
 	@Output() close = new EventEmitter<any>();
-	queryService: QueryBuilderService;
+	queryService!: QueryBuilderService;
 
 	context: { $implicit: QueryBuilderPanelComponent } = {
 		$implicit: this
@@ -83,14 +83,14 @@ export class QueryBuilderPanelComponent implements OnInit {
 
 			const { model } = this.plugin;
 			model.filter({ by });
-			const qb = model.resolve(QueryBuilderModel);
+			const qb = model.resolve(QueryBuilderModel) as any;
 			qb.state({ node: by.$expression ? node : null });
 
 			this.close.emit();
 		},
 		canExecute: () => {
 			const depth = this.traverse.depth(this.node);
-			return depth((memo, expression, line, node) =>
+			return depth((memo: any, expression: any, line: Line, node: Node) =>
 				node.attr('placeholder')
 					? memo
 					: memo && expression.isValid()
@@ -112,7 +112,7 @@ export class QueryBuilderPanelComponent implements OnInit {
 			const plan = schema.factory();
 			this.node = plan.apply();
 
-			const root = this.node.children[0];
+			const root = this.node.children[0] as any;
 			root.clear();
 
 			this.nodeService.current = this.node.children[0];
@@ -120,7 +120,7 @@ export class QueryBuilderPanelComponent implements OnInit {
 		}
 	});
 
-	private plan: INodeSchema;
+	private plan!: INodeSchema;
 
 	constructor(
 		private plugin: GridPlugin,

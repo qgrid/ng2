@@ -15,22 +15,22 @@ class Serializer {
 		return {
 			id: this.node.id,
 			attributes: this.serializeAttributes(this.node),
-			children: this.node.children.map(child => new Serializer(child).serialize()),
+			children: this.node.children.map((child: any) => new Serializer(child).serialize()),
 			line: groups.filter(group => group.expressions.length)
 		};
 	}
 
-	serializeGroup(group): ISerializationGroup {
+	serializeGroup(group: any): ISerializationGroup {
 		return {
 			id: group.id,
 			expressions: group.expressions
-				.filter(expr => this.canSerialize(expr))
-				.map(expr => this.serializeExpression(expr))
+				.filter((expr: any) => this.canSerialize(expr))
+				.map((expr: any) => this.serializeExpression(expr))
 		};
 	}
 
-	serializeExpression(expression): ISerializationExpression {
-		const result = {} as ISerializationExpression;
+	serializeExpression(expression: any): ISerializationExpression {
+		const result = {} as (ISerializationExpression | any);
 
 		const serializeAttr = this.node.attr('serialize');
 		const serializableProps = serializeAttr[expression.id];
@@ -46,11 +46,11 @@ class Serializer {
 		return result;
 	}
 
-	serializeAttributes(node) {
+	serializeAttributes(node: Node) {
 		const serializeAttr = this.node.attr('serialize');
 		if (serializeAttr && serializeAttr['@attr']) {
 			const props = serializeAttr['@attr'];
-			return props.reduce((memo, attr) => {
+			return props.reduce((memo: any, attr: any) => {
 				memo[attr] = this.node.attr(attr);
 				return memo;
 			}, {});
@@ -58,7 +58,7 @@ class Serializer {
 		return {};
 	}
 
-	canSerialize(expression) {
+	canSerialize(expression: any) {
 		const serializeAttr = this.node.attr('serialize');
 		if (!serializeAttr) {
 			return false;
@@ -73,7 +73,7 @@ class Deserializer {
 	constructor(private schema: INodeSchema) {
 	}
 
-	deserialize(data: ISerializationNode, parent: Node = null, nodeMap?: { [key: string]: Node }) {
+	deserialize(data: ISerializationNode, parent: Node | null = null, nodeMap?: { [key: string]: Node }) {
 		nodeMap = nodeMap || {};
 
 		let node: Node;
@@ -112,14 +112,14 @@ class Deserializer {
 		}
 	}
 
-	private deserializeGroup(node: Node, line: Line, group: GroupExpression, dataGroup: ISerializationGroup) {
+	private deserializeGroup(node: Node, line: Line, group: GroupExpression | any, dataGroup: ISerializationGroup) {
 		const dataExpressions = dataGroup.expressions;
 		const length = dataExpressions.length;
 
-		let index;
+		let index: number;
 		for (let i = 0; i < length; i++) {
 			const dataExp = dataExpressions[i];
-			index = indexOf(group.expressions, expr => expr.id === dataExp.id);
+			index = indexOf(group.expressions, (expr: any) => expr.id === dataExp.id);
 			override(group.expressions[index], dataExp);
 		}
 
@@ -142,7 +142,9 @@ function traverse(node: Node, map: { [key: string]: Node }) {
 
 	for (let i = 0, length = node.children.length; i < length; i++) {
 		const child = node.children[0];
-		traverse(child, map);
+		if (child) {
+			traverse(child, map);
+		}
 	}
 }
 

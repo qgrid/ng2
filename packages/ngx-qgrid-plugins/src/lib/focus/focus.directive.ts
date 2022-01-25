@@ -10,7 +10,7 @@ import { GridError } from '@qgrid/ngx';
 	selector: '[q-grid-focus]'
 })
 export class FocusDirective implements AfterViewInit {
-	@Input('q-grid-focus') selector;
+	@Input('q-grid-focus') selector!: string;
 	@Input('q-grid-focus-disabled') disabled = false;
 
 	constructor(

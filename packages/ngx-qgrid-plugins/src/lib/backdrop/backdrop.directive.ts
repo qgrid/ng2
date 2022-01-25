@@ -7,7 +7,7 @@ import { DOCUMENT } from '@angular/common';
 export class BackdropDirective {
 	@Input('q-grid-backdrop-selector') selector = '';
 	@Output('q-grid-backdrop') close = new EventEmitter<any>();
-	private backdrop: HTMLElement;
+	private backdrop!: HTMLElement | null;
 
 	constructor(private zone: NgZone, @Inject(DOCUMENT) private document: any) {
 	}
@@ -23,24 +23,30 @@ export class BackdropDirective {
 			return;
 		}
 		this.backdrop = this.document.createElement('div');
-		this.backdrop.classList.add('q-grid-backdrop');
-		this.backdrop.style.zIndex = '1000';
 
-		this.zone.runOutsideAngular(() => {
-			this.backdrop.addEventListener('click', () => {
-				if (this.backdrop) {
-					this.backdrop.remove();
-					this.backdrop = null;
-					this.close.emit();
-				}
+		if (this.backdrop) {
+			this.backdrop.classList.add('q-grid-backdrop');
+			this.backdrop.style.zIndex = '1000';
+
+			this.zone.runOutsideAngular(() => {
+				this.backdrop?.addEventListener('click', () => {
+					if (this.backdrop) {
+						this.backdrop.remove();
+						this.backdrop = null;
+						this.close.emit();
+					}
+				});
 			});
-		});
+		}
 
 		this.zone.runOutsideAngular(() => {
 			const element = <HTMLElement>document.querySelector(this.selector);
 
 			element.style.zIndex = '1001';
-			element.parentElement.appendChild(this.backdrop);
+
+			if (this.backdrop) {
+				element.parentElement?.appendChild(this.backdrop);
+			}
 		});
 	}
 }

@@ -10,8 +10,10 @@ export class DirtyDirective implements OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		if (changes.trigger) {
-			if (!changes.trigger.firstChange) {
+		const { trigger } = changes;
+
+		if (trigger) {
+			if (!trigger.firstChange) {
 				this.cd.detectChanges();
 			}
 		}

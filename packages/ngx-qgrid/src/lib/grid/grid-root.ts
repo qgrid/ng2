@@ -4,6 +4,6 @@ import { GridModel } from '../grid/grid-model';
 
 @Injectable()
 export class GridRoot {
-	model: GridModel;
-	table: DomTable;
+	model!: GridModel;
+	table!: DomTable;
 }

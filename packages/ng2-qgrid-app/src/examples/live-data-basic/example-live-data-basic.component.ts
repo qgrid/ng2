@@ -22,7 +22,7 @@ export class ExampleLiveDataBasicComponent implements OnDestroy {
 	private destroy$: Subject<void> = new Subject();
 
 	title = EXAMPLE_TAGS[1];
-	rows: Quote[];
+	rows: Quote[] = [];
 
 	constructor(private dataService: DataService, private cd: ChangeDetectorRef) {
 		this.dataService.getQuotes().subscribe(quotes => {

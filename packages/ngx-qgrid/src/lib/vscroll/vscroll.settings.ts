@@ -5,7 +5,7 @@ export class VscrollSettings implements IVscrollSettings {
 	placeholderHeight = 0;
 	placeholderWidth = 0;
 	resetTriggers = ['resize'];
-	emit: (f: () => void) => void;
+	emit!: (f: () => void) => void;
 
 	constructor(private getCount: () => number) {
 	}

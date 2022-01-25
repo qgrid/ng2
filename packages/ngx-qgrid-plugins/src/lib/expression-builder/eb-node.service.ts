@@ -9,7 +9,7 @@ export interface EbNodeServiceEventArg<T> {
 
 @Injectable()
 export class EbNodeService {
-	private node: Node = null;
+	private node: Node | null = null;
 
 	currentChange = new EventEmitter<EbNodeServiceEventArg<Node>>();
 
@@ -17,8 +17,8 @@ export class EbNodeService {
 		return this.node;
 	}
 
-	set current(value) {
-		const oldNode = this.node;
+	set current(value: any) {
+		const oldNode: any = this.node;
 		if (value !== oldNode) {
 			this.node = value;
 			this.currentChange.emit({

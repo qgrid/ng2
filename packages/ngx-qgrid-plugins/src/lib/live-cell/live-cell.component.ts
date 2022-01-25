@@ -19,15 +19,15 @@ import { TemplateHostService, TdCoreDirective, GridError } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LiveCellComponent implements OnInit, OnDestroy {
-	@Input() cell: TdCoreDirective;
+	@Input() cell!: TdCoreDirective;
 	@Input() duration = 500;
 
-	@HostBinding('class') class: string;
+	@HostBinding('class') class!: string;
 
-	@ViewChild('currency', { static: true }) currencyTemplate: TemplateRef<any>;
-	@ViewChild('number', { static: true }) numberTemplate: TemplateRef<any>;
-	@ViewChild('time', { static: true }) timeTemplate: TemplateRef<any>;
-	@ViewChild('text', { static: true }) textTemplate: TemplateRef<any>;
+	@ViewChild('currency', { static: true }) currencyTemplate!: TemplateRef<any>;
+	@ViewChild('number', { static: true }) numberTemplate!: TemplateRef<any>;
+	@ViewChild('time', { static: true }) timeTemplate!: TemplateRef<any>;
+	@ViewChild('text', { static: true }) textTemplate!: TemplateRef<any>;
 
 	timeoutId: any = null;
 
@@ -56,7 +56,7 @@ export class LiveCellComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	getDifference(value: SimpleChange) {
+	getDifference(value: SimpleChange): any {
 		switch (this.cell.column.type) {
 			case 'number':
 			case 'currency':

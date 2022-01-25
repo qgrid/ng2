@@ -6,7 +6,7 @@ import { VscrollPortYDirective } from './vscroll-port-y.directive';
 	selector: '[q-grid-vscroll-row]'
 })
 export class VscrollRowDirective implements OnDestroy, OnChanges {
-	@Input('q-grid-vscroll-row') index: number;
+	@Input('q-grid-vscroll-row') index!: number;
 	private row: HTMLElement;
 
 	constructor(elementRef: ElementRef, private port: VscrollPortYDirective) {
@@ -16,6 +16,7 @@ export class VscrollRowDirective implements OnDestroy, OnChanges {
 	ngOnChanges(changes: SimpleChanges) {
 		if (changes['index']) {
 			if (this.port.getItemSize()) {
+				// @ts-ignore
 				this.ngOnChanges = null;
 				return;
 			}

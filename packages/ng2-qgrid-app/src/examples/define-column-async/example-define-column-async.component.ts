@@ -39,7 +39,7 @@ export class ExampleDefineColumnAsyncComponent implements OnInit {
 							},
 							{
 								key: 'symbol+name',
-								label: row => `[${row.symbol}]${row.name}`,
+								label: (row: any) => `[${row.symbol}]${row.name}`,
 								value: row => row.symbol,
 								width: 150
 							}

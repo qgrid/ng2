@@ -11,7 +11,7 @@ import { Validator } from './schema/validator';
 	pure: false
 })
 export class QueryBuilderPipe implements PipeTransform {
-	visitor: MarkupVisitor;
+	visitor!: MarkupVisitor;
 
 	transform(value: any, service: QueryBuilderService): any {
 		const node = value as Node;

@@ -7,9 +7,9 @@ import { GridPlugin } from '../plugin/grid-plugin';
 	selector: '[q-grid-core-trh]'
 })
 export class TrhCoreDirective implements DomTr, OnInit, OnDestroy {
-	@Input('q-grid-core-index') index: number;
+	@Input('q-grid-core-index') index!: number;
 	@Input('q-grid-core-trh') model: any;
-	@Input('q-grid-core-source') source;
+	@Input('q-grid-core-source') source!: 'body' | 'head' | 'foot';
 
 	element: HTMLElement;
 

@@ -29,7 +29,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 	}
 
 	ngOnInit() {
-		const { model, disposable, observe, observeReply, table } = this.plugin;
+		const { model, disposable, observe, observeReply }: any = this.plugin;
 
 		const id = `q-grid:${model.grid().id}:persistence-list`;
 		model.persistence({ id });
@@ -38,7 +38,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 
 		observeReply(model.dataChanged)
 			.pipe(
-				filter(e => {
+				filter((e: any) => {
 					if (e.hasChanges('rows') || e.hasChanges('columns')) {
 						const {rows, columns} = e.state;
 						if (rows.length > 0 && columns.length > 0) {
@@ -54,14 +54,14 @@ export class PersistenceComponent implements OnInit, OnChanges {
 				model.persistence()
 					.storage
 					.getItem(id)
-					.then((items: PersistenceItem[]) => {
+					.then((items: PersistenceItem[] | any) => {
 						if (!items || items.length === 0) {
 							return;
 						}
 
-						const defaultItem = items.find(item => item.isDefault);
+						const defaultItem = items.find((item: any) => item.isDefault);
 						if (defaultItem) {
-							this.service.load(defaultItem.model);
+							this.service?.load(defaultItem.model);
 						}
 					})
 			);
@@ -81,7 +81,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 				model.action({ items }, { source: 'persistence.component' });
 
 				disposable.add(() => {
-					const notPersistenceActions = model.action().items.filter(x => x !== historyAction);
+					const notPersistenceActions = model.action().items.filter((x: any) => x !== historyAction);
 					model.action({ items: notPersistenceActions }, { source: 'persistence.component' });
 				});
 
@@ -94,10 +94,10 @@ export class PersistenceComponent implements OnInit, OnChanges {
 						observe(model[state + 'Changed'] as GridEvent<any>)
 							.pipe(
 								// TODO: get rid of e.tag.source check
-								filter(e => e.hasChanges(key) && e.tag.source !== 'persistence.service')
+								filter((e: any) => e.hasChanges(key) && e.tag.source !== 'persistence.service')
 							)
-							.subscribe(e => {
-								const currentModel = this.service.save();
+							.subscribe((e: any) => {
+								const currentModel = this.service?.save();
 								const item = {
 									title: `auto-save: ${state}.${key} changed`,
 									modified: Date.now(),

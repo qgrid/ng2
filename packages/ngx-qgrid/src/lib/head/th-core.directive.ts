@@ -18,7 +18,7 @@ import { TrhCoreDirective } from '../row/trh-core.directive';
 	selector: '[q-grid-core-th]'
 })
 export class ThCoreDirective implements DomTd, OnInit, OnDestroy {
-	@Input('q-grid-core-th') columnView: ColumnView;
+	@Input('q-grid-core-th') columnView!: ColumnView;
 
 	$implicit = this;
 	element: HTMLElement;

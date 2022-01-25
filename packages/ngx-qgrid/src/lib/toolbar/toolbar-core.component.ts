@@ -6,5 +6,5 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToolbarCoreComponent {
-	@Input() position: 'top' | 'right' | 'bottom' | 'left';
+	@Input() position!: 'top' | 'right' | 'bottom' | 'left';
 }

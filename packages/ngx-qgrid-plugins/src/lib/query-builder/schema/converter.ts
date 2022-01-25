@@ -2,7 +2,7 @@ import { cloneDeep } from '@qgrid/core';
 import { GridError } from '@qgrid/ngx';
 import { camelCaseMapping } from './operator';
 
-export function visit(item) {
+export function visit(item: any): any {
 	switch (item.id) {
 		case '#root':
 			return visit(item.children[0]);
@@ -22,7 +22,7 @@ export function visit(item) {
 	}
 }
 
-function visitGroup(node) {
+function visitGroup(node: any) {
 	const line = node.line;
 	const opExpr = find(line, '#logical-op', '#logical-op');
 	const children = node.children.filter(notPlaceholder).map(visit);
@@ -42,7 +42,7 @@ function visitGroup(node) {
 
 	return children
 		.slice(1)
-		.reduce((memo, item) => ({
+		.reduce((memo: any, item: any) => ({
 			kind: 'group',
 			op: opExpr.value.toLowerCase(),
 			left: memo,
@@ -50,12 +50,12 @@ function visitGroup(node) {
 		}), children[0]);
 }
 
-function visitCondition(node) {
+function visitCondition(node: any) {
 	const line = node.line;
 	const opExpr = find(line, '#operator', '#operator');
 	const value = opExpr.value.toUpperCase();
 
-	let condition;
+	let condition: any;
 	switch (value) {
 		case 'IS NOT EMPTY':
 		case 'IS EMPTY':
@@ -87,7 +87,7 @@ function visitCondition(node) {
 	return condition;
 }
 
-function visitUnary(line, op) {
+function visitUnary(line: any, op: any) {
 	const left = visitField(line);
 
 	return {
@@ -96,7 +96,7 @@ function visitUnary(line, op) {
 	};
 }
 
-function visitBinary(line, op) {
+function visitBinary(line: any, op: any) {
 	const left = visitField(line);
 	const right = find(line, '#operand', '#value') || find(line, '#fieldRight');
 
@@ -107,7 +107,7 @@ function visitBinary(line, op) {
 	};
 }
 
-function visitIn(line) {
+function visitIn(line: any) {
 	const left = visitField(line);
 	const right = find(line, '#operand', '#in-operand') || find(line, '#fieldRight');
 
@@ -118,7 +118,7 @@ function visitIn(line) {
 	};
 }
 
-function visitBetween(line) {
+function visitBetween(line: any) {
 	const left = visitField(line);
 	const from = find(line, '#operand', '#from') || find(line, '#fieldFrom');
 	const to = find(line, '#operand', '#to') || find(line, '#fieldTo');
@@ -130,15 +130,15 @@ function visitBetween(line) {
 	};
 }
 
-function visitField(line) {
+function visitField(line: any) {
 	return find(line, '#field') || find(line, '#fieldLeft');
 }
 
-function notPlaceholder(node) {
+function notPlaceholder(node: any) {
 	return !node.attributes.placeholder;
 }
 
-function find(line, groupId: string, exprId?: string) {
+function find(line: any, groupId: string, exprId?: string) {
 	const group = findById(line, groupId);
 	if (!group) {
 		return null;
@@ -147,7 +147,7 @@ function find(line, groupId: string, exprId?: string) {
 	return findById(group.expressions, exprId || groupId);
 }
 
-function findById(items, id: string) {
+function findById(items: any[], id: string) {
 	const result = items.filter(item => item.id === id);
 	const length = result.length;
 

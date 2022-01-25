@@ -28,7 +28,7 @@ export class LiveRowComponent implements OnInit {
 				}
 
 				const { rowId } = model.data();
-				const animations = [];
+				const animations: any[] = [];
 
 				for (let rowIndex = 0, length = previousRows.length; rowIndex < length; rowIndex++) {
 					const newRowIndex = currentRows.findIndex((row, i) => rowId(i, row) === rowId(rowIndex, previousRows[rowIndex]));
@@ -84,11 +84,11 @@ export class LiveRowComponent implements OnInit {
 				const offset = newTr.rect().top - oldTr.rect().top;
 
 				Fastdom.mutate(() => {
-					const animatedRows = [];
+					const animatedRows: any[] = [];
 					oldTr.addClass(`${GRID_PREFIX}-live-row`);
 					(oldTr.getElement() as any)
 						.elements
-						.forEach(rowElement =>
+						.forEach((rowElement: any) =>
 							animatedRows.push(
 								new Promise(animationRowEnd => {
 									const animation = rowElement.animate([

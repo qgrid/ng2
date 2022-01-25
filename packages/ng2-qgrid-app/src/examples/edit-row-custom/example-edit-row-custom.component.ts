@@ -22,10 +22,10 @@ export class ExampleEditRowCustomComponent implements AfterViewInit {
 
 	rows$: Observable<Human[]>;
 
-	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
-	@ViewChild(PaneComponent, { static: true }) pane: PaneComponent;
+	@ViewChild(GridComponent, { static: true }) grid!: GridComponent;
+	@ViewChild(PaneComponent, { static: true }) pane!: PaneComponent;
 
-	selectedRow: Human;
+	selectedRow!: Human;
 
 	openPane = new Command({
 		execute: () => this.pane.open('right'),

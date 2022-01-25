@@ -11,12 +11,12 @@ import { DomTd, GridPlugin, TemplateHostService } from '@qgrid/ngx';
 })
 
 export class CellTooltipComponent implements OnInit {
-	@Input() showDelay: number;
+	@Input() showDelay!: number;
 
-	context: { $implicit: DomTd } = {
+	context: { $implicit: DomTd | null } = {
 		$implicit: null,
 	};
-	cellElement: HTMLElement;
+	cellElement!: HTMLElement | null;
 
 	constructor(
 		private plugin: GridPlugin,

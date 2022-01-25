@@ -19,14 +19,14 @@ export class ExampleFocusCellCustomComponent {
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(GridComponent, { static: true }) grid: GridComponent;
+	@ViewChild(GridComponent, { static: true }) grid!: GridComponent;
 	rows: Observable<Atom[]>;
 
 	constructor(dataService: DataService, private qgrid: Grid) {
 		this.rows = dataService.getAtoms();
 	}
 
-	focus(rowIndex) {
+	focus(rowIndex: string) {
 		const { model } = this.grid;
 		const service = this.qgrid.service(model);
 

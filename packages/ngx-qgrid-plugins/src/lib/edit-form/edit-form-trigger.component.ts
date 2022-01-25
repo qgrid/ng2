@@ -7,7 +7,7 @@ import { DomTd } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditFormTriggerComponent {
-	@Input() caption: string;
+	@Input() caption!: string;
 	@Input() row: any;
 
 	context: any = {

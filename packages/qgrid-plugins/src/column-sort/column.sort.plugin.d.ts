@@ -10,6 +10,6 @@ export declare class ColumnSortPlugin {
             iconDesc: string,
         });
 
-    mouseLeave();
+    mouseLeave(): void;
     click(): boolean;
 }

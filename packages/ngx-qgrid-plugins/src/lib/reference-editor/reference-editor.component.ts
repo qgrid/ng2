@@ -12,14 +12,14 @@ export class ReferenceEditorComponent implements AfterViewInit {
 	private state: any;
 
 	@Input() caption = '';
-	@Input() cell: CellView;
+	@Input() cell!: CellView;
 
 	@Output() valueChange = new EventEmitter<any>();
 	@Output() afterSubmit = new EventEmitter();
 	@Output() afterCancel = new EventEmitter();
 
-	reference: { commit: Command, cancel: Command };
-	model: GridModel;
+	reference!: { commit: Command, cancel: Command };
+	model!: GridModel;
 
 	context: { $implicit: ReferenceEditorComponent } = {
 		$implicit: this
@@ -51,7 +51,7 @@ export class ReferenceEditorComponent implements AfterViewInit {
 		// TODO: think how to get rid of this shit.
 		setTimeout(() => {
 			this.submit = new Command({
-				shortcut: commitShortcuts.form,
+				shortcut: commitShortcuts['form'],
 				canExecute: () => {
 					const { items } = model.selection();
 					const entries = selectionService.lookup(items);
@@ -74,7 +74,7 @@ export class ReferenceEditorComponent implements AfterViewInit {
 			});
 
 			this.cancel = new Command({
-				shortcut: cancelShortcuts.form || cancelShortcuts.$default,
+				shortcut: cancelShortcuts['form'] || cancelShortcuts['$default'],
 				canExecute: () => cancel.canExecute(),
 				execute: () => {
 					if (cancel.execute() !== false) {

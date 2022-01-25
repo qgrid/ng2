@@ -21,7 +21,7 @@ export class ExampleMasterDetailsBasicComponent {
 	title = EXAMPLE_TAGS[1];
 
 	rows$: Observable<Human[]>;
-	detailsRows$: Observable<Human[]>;
+	detailsRows$!: Observable<Human[]>;
 
 	gridModel: GridModel;
 	likes: string[] = [];

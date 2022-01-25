@@ -19,11 +19,11 @@ export class ExampleFilterRowCustomComponent {
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	@ViewChild(GridComponent, { static: true }) myGrid: GridComponent;
+	@ViewChild(GridComponent, { static: true }) myGrid!: GridComponent;
 	rows: Observable<Atom[]>;
 	gridModel: GridModel = this.qgrid.model();
 
-	search = {
+	search: { [key: string]: string } = {
 		name: '',
 		phase: ''
 	};

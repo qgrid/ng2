@@ -16,7 +16,7 @@ import { GridPlugin } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CellEditorComponent implements OnInit {
-	@ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
+	@ViewChild(TemplateRef, { static: true }) template!: TemplateRef<any>;
 	@Output('close') closeEvent = new EventEmitter<any>();
 
 	context: { $implicit: CellEditorComponent } = {

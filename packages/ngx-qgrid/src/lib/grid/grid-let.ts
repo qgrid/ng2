@@ -26,23 +26,23 @@ import { Grid } from './grid';
 
 @Injectable()
 export class GridLet {
-	body: BodyLet;
-	edit: EditLet;
-	filter: FilterLet;
-	foot: FootLet;
-	group: GroupLet;
-	head: HeadLet;
-	highlight: HighlightLet;
-	layout: LayoutLet;
-	nav: NavigationLet;
-	pagination: PaginationLet;
-	row: RowLet;
-	rowDetails: RowDetailsLet;
-	scroll: ScrollLet;
-	selection: SelectionLet;
-	sort: SortLet;
-	style: StyleLet;
-	clipboard: ClipboardLet;
+	body!: BodyLet;
+	edit!: EditLet;
+	filter!: FilterLet;
+	foot!: FootLet;
+	group!: GroupLet;
+	head!: HeadLet;
+	highlight!: HighlightLet;
+	layout!: LayoutLet;
+	nav!: NavigationLet;
+	pagination!: PaginationLet;
+	row!: RowLet;
+	rowDetails!: RowDetailsLet;
+	scroll!: ScrollLet;
+	selection!: SelectionLet;
+	sort!: SortLet;
+	style!: StyleLet;
+	clipboard!: ClipboardLet;
 
 	constructor(
 		private qgrid: Grid,

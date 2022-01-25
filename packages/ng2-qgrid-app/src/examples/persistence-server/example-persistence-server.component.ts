@@ -44,7 +44,7 @@ export class ExamplePersistenceServerComponent {
 						.subscribe(resolve);
 				});
 			},
-			setItem: (id, items) => {
+			setItem: (id, items: any) => {
 				return new Promise(resolve => {
 					this.dataService
 						.setAtomPresets(id, this.currentUser, items)

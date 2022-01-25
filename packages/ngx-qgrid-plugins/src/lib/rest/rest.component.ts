@@ -17,7 +17,7 @@ export class RestComponent implements OnInit, OnChanges {
 	@Input('method') set restMethod(method: string) { this.restState({ method }); }
 	@Input('serialize') set restSerialize(serialize: (x: any) => any) { this.restState({ serialize }); }
 
-	context: { $implicit: RestPlugin };
+	context!: { $implicit: RestPlugin };
 
 	constructor(
 		private http: HttpClient,
@@ -34,8 +34,8 @@ export class RestComponent implements OnInit, OnChanges {
 	ngOnInit() {
 		const rest = new RestPlugin(
 			this.plugin.model, {
-			get: (url, params) => this.http.get(url, { params }).toPromise(),
-			post: (url, data) => this.http.post(url, { data }).toPromise()
+			get: (url: string, params: any) => this.http.get(url, { params }).toPromise(),
+			post: (url: string, data: any) => this.http.post(url, { data }).toPromise()
 		});
 
 		this.context = { $implicit: rest };

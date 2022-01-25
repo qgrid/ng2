@@ -21,7 +21,7 @@ export declare class EditCellLet {
 
 	value: any;
 	label: any;
-	requestClose: () => boolean;
+	requestClose: (() => boolean) | null;
 
 	readonly cell: CellView;
 	readonly row: any;

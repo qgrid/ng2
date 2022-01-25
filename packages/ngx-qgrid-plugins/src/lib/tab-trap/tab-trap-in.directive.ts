@@ -6,8 +6,8 @@ import { TabTrapComponent } from './tab-trap.component';
 	selector: '[q-grid-tab-trap-in]'
 })
 export class TabTrapInDirective implements OnInit {
-	@Input('q-grid-tab-trap-in') target;
-	@Input('q-grid-tab-trap-host') host: TabTrapComponent;
+	@Input('q-grid-tab-trap-in') target: any;
+	@Input('q-grid-tab-trap-host') host!: TabTrapComponent;
 
 	constructor(private elementRef: ElementRef) {
 		elementRef.nativeElement.tabIndex = 0;

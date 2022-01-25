@@ -1,6 +1,4 @@
 import {
-	ElementRef,
-	ViewChild,
 	Component,
 	ChangeDetectionStrategy,
 	AfterViewInit,
@@ -48,7 +46,7 @@ export class ExampleMouseApiBasicComponent implements AfterViewInit {
 
 			this.logEntries.unshift({
 				status: status,
-				code: code,
+				code: code || '',
 				target: targetString
 			});
 

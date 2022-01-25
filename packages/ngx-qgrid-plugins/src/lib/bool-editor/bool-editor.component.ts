@@ -10,8 +10,8 @@ export class BoolEditorComponent implements OnInit {
 	private state: any;
 
 	@Input() autofocus = false;
-	@Input() column: BoolColumnModel;
-	@Input() label: string;
+	@Input() column!: BoolColumnModel;
+	@Input() label!: string;
 	@Output() valueChange = new EventEmitter<any>();
 
 	context: { $implicit: BoolEditorComponent } = {
@@ -31,7 +31,7 @@ export class BoolEditorComponent implements OnInit {
 
 	ngOnInit() {
 		// entering edit mode means toggling boolean value
-		if (this.autofocus && this.column.editorOptions.trigger === 'click') {
+		if (this.autofocus && this.column.editorOptions?.trigger === 'click') {
 			setTimeout(() =>
 				this.value =
 				this.value === this.trueValue

@@ -16,7 +16,7 @@ export class ExampleColumnReferenceBasicComponent {
 	static tags = EXAMPLE_TAGS;
 	title = EXAMPLE_TAGS[1];
 
-	rows = [
+	rows: IRow[] = [
 		{
 			'notEditable': ['Lorem', 'ipsum', 'dolor', 'sit', 'amet'],
 			'editable': ['Lorem', 'ipsum'],
@@ -65,13 +65,13 @@ export class ExampleColumnReferenceBasicComponent {
 			// We need to pass ['Lorem', 'ipsum'] but not [{value: 'Lorem'}, {value: 'ipsum'}]
 			reference.commit = new Command({
 				execute: e => {
-					row[column.key] = e.items;
+					row[column.key || ''] = e.items;
 					// To prevent default cell commit return false.
 					return false;
 				}
 			});
 
-			reference.value = this.convert(row[column.key]);
+			reference.value = this.convert(row[column.key || '']);
 
 			const model = this.qgrid.model();
 			model
@@ -100,12 +100,12 @@ export class ExampleColumnReferenceBasicComponent {
 			// We need to pass ['Lorem', 'ipsum'] but not [{value: 'Lorem'}, {value: 'ipsum'}]
 			reference.commit = new Command({
 				execute: e => {
-					row[column.key] = e.items[0];
+					row[column.key || ''] = e.items[0];
 					return false;
 				}
 			});
 
-			reference.value = { value: row[column.key] };
+			reference.value = { value: row[column.key || ''] };
 
 			const model = this.qgrid.model();
 			model
@@ -152,8 +152,20 @@ export class ExampleColumnReferenceBasicComponent {
 		}
 	};
 
-	complexValuesLabel = row => row.complexValues.map(x => x.value).join(', ');
-	convert = rows => rows.map(value => ({ value }));
+	complexValuesLabel = (row: IRow) => row.complexValues.map(x => x.value).join(', ');
+	convert = (rows: string[]) => rows.map(value => ({ value }));
 
 	constructor(private qgrid: Grid) { }
+}
+
+interface IRow {
+  notEditable: string[];
+  editable: string[];
+  customTemplate: string[];
+  singleValue: string;
+  complexValues: IComplexValue[];
+}
+
+interface IComplexValue {
+  value: string;
 }

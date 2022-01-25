@@ -1,4 +1,4 @@
-import { Injectable, TemplateRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { TemplateLink } from './template-link';
 
 @Injectable()
@@ -8,7 +8,7 @@ export class TemplateCacheService {
 	constructor() {
 	}
 
-	get(key: string): TemplateLink {
+	get(key: string): TemplateLink | undefined {
 		return this.cache.get(key);
 	}
 

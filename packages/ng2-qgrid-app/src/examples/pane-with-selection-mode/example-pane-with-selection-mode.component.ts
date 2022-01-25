@@ -26,7 +26,7 @@ export class ExamplePaneWithSelectionComponent implements AfterViewInit {
 
 	static tags = EXAMPLE_TAGS;
 
-	@ViewChild(PaneComponent) pane: PaneComponent;
+	@ViewChild(PaneComponent) pane!: PaneComponent;
 
 	title = EXAMPLE_TAGS[1];
 

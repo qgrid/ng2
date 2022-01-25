@@ -4,13 +4,15 @@ import { Guard } from '@qgrid/core';
 @Injectable()
 export class BackdropService {
 	isActive = true;
-	element: ElementRef;
+	element!: ElementRef | null;
 
 	hide() {
 		Guard.notNull(this.element, 'element');
 
 		if (this.isActive) {
-			this.element.nativeElement.classList.add('q-grid-backdrop-inactive');
+			if (this.element) {
+				this.element.nativeElement.classList.add('q-grid-backdrop-inactive');
+			}
 			this.isActive = false;
 		}
 	}
@@ -19,7 +21,9 @@ export class BackdropService {
 		Guard.notNull(this.element, 'element');
 
 		if (!this.isActive) {
-			this.element.nativeElement.classList.remove('q-grid-backdrop-inactive');
+			if (this.element) {
+				this.element.nativeElement.classList.remove('q-grid-backdrop-inactive');
+			}
 			this.isActive = true;
 		}
 	}

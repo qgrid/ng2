@@ -15,13 +15,13 @@ const DEFAULT_SIDE: PaneSide = 'right';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaneComponent implements OnInit {
-	@Input() trigger: string;
+	@Input() trigger!: string;
 
 	context: {
 		[side in PaneSide]?: {
 			$implicit: PaneComponent,
 			value: any;
-		}
+		} | null
 	};
 
 	constructor(
@@ -44,7 +44,7 @@ export class PaneComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const { model, observeReply } = this.plugin;
+		const { model, observeReply }: any = this.plugin;
 		const scope = this.parse();
 		if (scope) {
 			const [state, prop] = scope;
@@ -58,7 +58,7 @@ export class PaneComponent implements OnInit {
 	}
 
 	open(side: PaneSide = DEFAULT_SIDE, value?: any) {
-		const { table, model } = this.plugin;
+		const { table, model }: any = this.plugin;
 
 		const scope = this.parse();
 		if (scope && isUndefined(value)) {
@@ -93,7 +93,9 @@ export class PaneComponent implements OnInit {
 	}
 
 	private parse() {
-		const { model } = this.plugin;
+		const { model }: {
+			[key: string]: any,
+		} = this.plugin;
 		const parts = this.trigger ? this.trigger.split('.') : [];
 		if (parts.length > 0) {
 			const [state, prop] = parts;

@@ -31,7 +31,7 @@ export class ExampleColumnDropdownBasicComponent {
 	];
 
 	boolFunctionFetchOptions = {
-		fetch: row => [true, false, null].filter(item => item !== row.bool)
+		fetch: (row: any) => [true, false, null].filter(item => item !== row.bool)
 	};
 
 	textValueFetchOptions = {

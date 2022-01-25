@@ -4,7 +4,7 @@ import { GridPlugin } from '../plugin/grid.plugin';
 export declare class FocusService {
     constructor(model: Model);
 
-    activate(rowIndex?: number, columnIndex?: number);
+    activate(rowIndex?: number, columnIndex?: number): void;
 }
 
 export declare class FocusAfterRenderService {

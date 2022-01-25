@@ -91,7 +91,7 @@ export { Td } from './src/dom/td';
 export { Tr } from './src/dom/tr';
 // export { Unit } from './src/dom/unit';
 export { View } from './src/dom/view';
-//dom => virtual
+//dom => virtualF
 // export { VirtualBox } from './src/dom/virtual/box';
 // export { VirtualCell } from './src/dom/virtual/cell';
 // export { CellBox } from './src/dom/virtual/cell.box';

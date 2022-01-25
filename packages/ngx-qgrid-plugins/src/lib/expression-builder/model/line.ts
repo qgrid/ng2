@@ -7,7 +7,7 @@ import { Node } from './node';
 interface ExpressionEntry {
 	index: number;
 	expression: Expression;
-	parent: GroupExpression;
+	parent: GroupExpression | null;
 }
 
 export class Line {
@@ -26,7 +26,7 @@ export class Line {
 		return index;
 	}
 
-	private findById(expressions: Expression[], id: string, parent: GroupExpression = null): ExpressionEntry {
+	private findById(expressions: Expression[], id: string, parent: GroupExpression | null = null): ExpressionEntry | null {
 		for (let index = 0, length = expressions.length; index < length; index++) {
 			const expression = expressions[index];
 			if (expression.id === id) {
@@ -61,13 +61,13 @@ export class Line {
 		return expression.expression;
 	}
 
-	put(id: string, node: Node, build) {
+	put(id: string, node: Node, build: any) {
 		const index = this.getIndex(id);
 		const schema = new this.GroupSchemaT(node, this);
 		const group = new GroupExpression();
 
 		const item = this.findById(this.expressions, id);
-		if (item.expression instanceof GroupExpression) {
+		if (item?.expression instanceof GroupExpression) {
 			build(schema);
 			schema.apply(group);
 			group.id = id;
@@ -78,10 +78,10 @@ export class Line {
 		}
 	}
 
-	remove(id) {
+	remove(id: string) {
 		const item = this.findById(this.expressions, id);
-		const expressions = item.parent ? item.parent.expressions : this.expressions;
-		if (item.expression instanceof GroupExpression) {
+		const expressions = item?.parent ? item.parent.expressions : this.expressions;
+		if (item?.expression instanceof GroupExpression) {
 			item.expression.expressions = [];
 		} else {
 			throw new GridError('line', 'Unsupported operation: remove expression, that is not a group');

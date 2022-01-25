@@ -6,7 +6,7 @@ export class Validator {
 	private columnMap: ColumnMap;
 	private trueResult: Array<string> = [];
 	private validators: { [key: string]: (value: any) => Array<string> } = {};
-	private rules = {
+	private rules: { [key: string]: string[] } = {
 		'bool': ['required'],
 		'currency': ['required', 'decimal'],
 		'date': ['required', 'iso_date'],
@@ -38,12 +38,12 @@ export class Validator {
 		}
 
 		const trueResult = this.trueResult;
-		const id = column.type;
+		const id: any = column.type;
 		const rule = this.rules[id];
 		let validate = (value: any) => trueResult;
 		if (rule) {
 			const schema = { [id]: rule };
-			validate = function test(value): Array<string> {
+			validate = function test(value): Array<string> | any {
 				if (isArray(value)) {
 					const result = [];
 					for (const item of value) {

@@ -11,14 +11,14 @@ import { EditFormPanelPlugin } from '@qgrid/plugins';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditFormComponent implements OnInit {
-	@Input() caption: string;
+	@Input() caption!: string;
 	@Input() row: any;
 
 	@Output() cancel = new EventEmitter();
 	@Output() reset = new EventEmitter();
 	@Output() submit = new EventEmitter();
 
-	context: { $implicit: EditFormPanelPlugin };
+	context!: { $implicit: EditFormPanelPlugin };
 
 	constructor(
 		private plugin: GridPlugin,

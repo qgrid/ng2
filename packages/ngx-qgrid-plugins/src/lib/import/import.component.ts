@@ -11,7 +11,7 @@ import { ImportPlugin } from '@qgrid/plugins';
 })
 export class ImportComponent implements AfterViewInit {
 	@Input() options: any;
-	@ContentChild(TemplateRef) templateRef: TemplateRef<any>;
+	@ContentChild(TemplateRef) templateRef!: TemplateRef<any>;
 
 	context: { $implicit: ImportComponent } = {
 		$implicit: this

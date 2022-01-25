@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 
 const EXAMPLE_TAGS = [
 	'column-autocomplete-basic',
@@ -30,7 +30,7 @@ export class ExampleColumnAutocompleteBasicComponent {
 	];
 
 	boolFunctionFetchOptions = {
-		fetch: row => [true, false, null].filter(item => item !== row.bool)
+		fetch: (row: any) => [true, false, null].filter(item => item !== row.bool)
 	};
 
 	textValueFetchOptions = {

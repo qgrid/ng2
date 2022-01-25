@@ -23,7 +23,7 @@ export class ExampleColumnRowOptionsBasicComponent {
 	rowActions = [
 		new Action(
 			new Command<{ row: Atom }>({
-				execute: cell => window.open(cell.row.source, '_blank'),
+				execute: cell => window.open(cell?.row.source, '_blank'),
 				shortcut: 'alt+g'
 			}),
 			'Goto Wiki',

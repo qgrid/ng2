@@ -1,9 +1,9 @@
 import { isArray, isFunction, isObject } from '@qgrid/core';
 
-export function evaluateFactory(expression, args) {
+export function evaluateFactory(expression: any, args: any) {
 	return visit;
 
-	function visit(value) {
+	function visit(value: any): any {
 		if (isArray(value)) {
 			return visitArray(value);
 		} else if (isFunction(value)) {
@@ -15,10 +15,10 @@ export function evaluateFactory(expression, args) {
 		return value;
 	}
 
-	function visitObject(inst) {
+	function visitObject(inst: any) {
 		const keys = Object.keys(inst);
 		const length = keys.length;
-		const result = {};
+		const result: any = {};
 		for (let i = 0; i < length; i++) {
 			const key = keys[i];
 			result[key] = visit(inst[key]);
@@ -27,7 +27,7 @@ export function evaluateFactory(expression, args) {
 		return result;
 	}
 
-	function visitArray(list) {
+	function visitArray(list: any[]) {
 		const result = [];
 		for (let i = 0, length = list.length; i < length; i++) {
 			result[i] = visit(list[i]);
@@ -35,7 +35,7 @@ export function evaluateFactory(expression, args) {
 		return result;
 	}
 
-	function visitFunction(delegate) {
+	function visitFunction(delegate: any) {
 		return delegate.apply(expression, args);
 	}
 }

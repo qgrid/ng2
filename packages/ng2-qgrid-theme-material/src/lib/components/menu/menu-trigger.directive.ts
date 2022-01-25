@@ -13,7 +13,7 @@ import { Disposable, Guard } from 'ng2-qgrid';
 	providers: [Disposable]
 })
 export class MenuTriggerDirective implements AfterViewInit {
-	@ContentChild(MatMenuTrigger, { static: true }) trigger: MatMenuTrigger;
+	@ContentChild(MatMenuTrigger, { static: true }) trigger!: MatMenuTrigger;
 	@Output('q-grid-menu-trigger') close = new EventEmitter<any>();
 
 	constructor(private disposable: Disposable) {

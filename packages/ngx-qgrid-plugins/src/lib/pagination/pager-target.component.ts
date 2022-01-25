@@ -9,7 +9,7 @@ import { GridPlugin } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PagerTargetComponent implements OnInit {
-	private value: number;
+	private value!: number;
 
 	context: { $implicit: PagerTargetComponent } = {
 		$implicit: this

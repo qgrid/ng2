@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 export class ExampleScrollVirtualInfiniteComponent implements AfterViewInit {
 	static id = 'scroll-virtual-infinite';
 
-	rows: Observable<Atom[]>;
+	rows!: Observable<Atom[]>;
 	gridModel: GridModel;
 
 	constructor(private dataService: DataService,
@@ -25,7 +25,7 @@ export class ExampleScrollVirtualInfiniteComponent implements AfterViewInit {
 	ngAfterViewInit() {
 		this.gridModel.data({
 			pipe: [
-				(rows, context, next) => {
+				(rows: any, context: any, next: (...args: any) => void) => {
 					const { skip } = this.gridModel.fetch();
 					const { size } = this.gridModel.pagination();
 

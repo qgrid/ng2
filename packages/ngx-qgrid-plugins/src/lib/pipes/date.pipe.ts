@@ -12,7 +12,7 @@ export class DatePipe implements PipeTransform {
 		try {
 			// The value expression: a Date object, a number (milliseconds since UTC epoch), or an ISO string
 			return this.pipe.transform(value, format, timezone, locale);
-		} catch (ex) {
+		} catch (ex: any) {
 			Log.warn('DatePipe', ex.message);
 			return value;
 		}

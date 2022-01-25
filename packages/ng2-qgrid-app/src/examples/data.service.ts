@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-export class Human {
+export interface Human {
 	id: number;
 	contact: { email: string[] };
 	password: string;
@@ -18,7 +18,7 @@ export class Human {
 	};
 }
 
-export class Atom {
+export interface Atom {
 	name: string;
 	appearance: string;
 	mass: number;
@@ -42,7 +42,7 @@ export class Atom {
 	bondingType: string;
 }
 
-export class Quote {
+export interface Quote {
 	metal: string;
 	ldn1: string;
 	bid: number;
@@ -78,22 +78,22 @@ export class DataService {
 		return this.http.get<Quote[]>(`assets/quotes/9.json`);
 	}
 
-	getAtomPresets(id, user): Observable<any> {
+	getAtomPresets(id: string, user: any): Observable<any> {
 		const commonPresets = this.http.get<any[]>('assets/presets/atoms.json');
-		const items = JSON.parse(localStorage.getItem(id));
+		const items = JSON.parse(localStorage.getItem(id) || '{}');
 		if (items && items.hasOwnProperty(user)) {
 			return combineLatest([
 				commonPresets,
 				of(items[user] as any[])
 			]).pipe(
-				map((...lists) => lists.reduce((memo, list) => memo.concat(list), []))
+				map((...lists) => lists.reduce((memo, list: any) => memo.concat(list), []))
 			);
 		}
 		return commonPresets;
 	}
 
-	setAtomPresets(id, user, items): Observable<any> {
-		const oldItems = JSON.parse(localStorage.getItem(id));
+	setAtomPresets(id: string, user: any, items: any[]): Observable<any> {
+		const oldItems = JSON.parse(localStorage.getItem(id) || '{}');
 		const newItems = {
 			...oldItems,
 			...{ [user]: items }

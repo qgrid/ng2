@@ -32,7 +32,10 @@ export class ExampleSelectRowDisableComponent implements AfterViewInit {
 	ngAfterViewInit() {
 		this.gridModel.selection({
 			toggle: new Command({
-				canExecute: ({ items }) => items.length === 1 && items[0].gender === 'male'
+				canExecute: (data) =>
+          data?.items ?
+            data.items.length === 1 && data.items[0].gender === 'male' :
+            false
 			})
 		});
 	}
