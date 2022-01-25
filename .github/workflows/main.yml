@@ -134,4 +134,4 @@ jobs:
 
       - name: Build app
         run: |
-          npm run build:app
+          yarn run build:app
