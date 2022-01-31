@@ -1,9 +1,8 @@
 {
   "$schema": "../../node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "packages",
   "projects": {
-    "ngx-theme-material": {
+    "qgrid-ngx-plugins": {
       "projectType": "library",
       "root": "",
       "sourceRoot": "src",
@@ -31,6 +30,5 @@
         }
       }
     }
-  },
-  "defaultProject": "ngx-theme-material"
+  }
 }

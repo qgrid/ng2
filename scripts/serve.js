@@ -25,12 +25,12 @@ if (prod) {
 async function main() {
 	await buildAndWatch('qgrid-core');
 	await buildAndWatch('qgrid-plugins');
-	await buildAndWatch('ngx-qgrid');
-	await buildAndWatch('ngx-qgrid-plugins');
+	await buildAndWatch('qgrid-ngx');
+	await buildAndWatch('qgrid-ngx-plugins');
 	await buildAndWatch('ng2-qgrid');
-	await buildAndWatch('ngx-theme-basic');
-	await buildAndWatch('ngx-theme-material');
-	await buildAndWatch('ngx-app');
+	await buildAndWatch('qgrid-ngx-theme-basic');
+	await buildAndWatch('qgrid-ngx-theme-material');
+	await buildAndWatch('qgrid-ngx-examples');
 }
 
 async function buildAndWatch(project) {
@@ -42,21 +42,21 @@ async function buildProject(project) {
 	switch (project) {
 		case 'qgrid-core':
 		case 'qgrid-plugins':
-		case 'ngx-qgrid':
-		case 'ngx-qgrid-plugins':
+		case 'qgrid-ngx':
+		case 'qgrid-ngx-plugins':
 		case 'ng2-qgrid': {
 			execute(`cd packages/${project} && yarn build:watch`);
 			return;
 		}
-		case 'ngx-theme-basic':
-		case 'ngx-theme-material': {
+		case 'qgrid-ngx-theme-basic':
+		case 'qgrid-ngx-theme-material': {
 			buildTheme(project);
 			await sleep(1000);
 			execute(`cd packages/${project} && yarn build:watch`);
 			watchTheme(project);
 			return;
 		}
-		case 'ngx-app': {
+		case 'qgrid-ngx-examples': {
 			serveApp(serveOptions);
 			return;
 		}

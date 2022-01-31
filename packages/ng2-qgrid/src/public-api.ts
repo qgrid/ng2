@@ -11,7 +11,7 @@ export {
 	DateTimeColumnModel as DateTimeColumn,
 	EditorOptions,
 	EmailColumnModel as EmailColumn, Event as GridEvent,
-	EventUnsubscribe as GridEventUnsubscribe, FetchContext,
+	FetchContext,
 	FileColumnModel as FileColumn,
 	FilterRowColumnModel as FilterRowColumn,
 	GroupColumnModel as GroupColumn,
