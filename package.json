@@ -12,7 +12,7 @@
     "lint": "lerna run lint --stream",
     "clean": "lerna run clean --stream",
     "test": "lerna run test --stream",
-    "publish:alpha": "lerna publish --canary --preid alpha"
+    "publish:alpha": "lerna publish --canary --preid alpha --force-publish=*"
   },
   "devDependencies": {
     "codelyzer": "^6.0.2",
