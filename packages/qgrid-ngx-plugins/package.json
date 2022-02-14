@@ -1,5 +1,5 @@
 {
-  "name": "@qgrid/theme-material",
+  "name": "@qgrid/ngx-plugins",
   "version": "13.0.0",
   "scripts": {
     "build": "ng build",
@@ -11,10 +11,10 @@
   "types": "dist/public-api.d.ts",
   "files": [
     "dist/esm2020",
-		"dist/fesm2016",
-		"dist/fesm2020",
-		"dist/lib",
-		"dist/public-api.d.ts"
+    "dist/fesm2016",
+    "dist/fesm2020",
+    "dist/lib",
+    "dist/public-api.d.ts"
   ],
   "devDependencies": {
     "@angular-devkit/architect": "^0.1301.2",
@@ -25,17 +25,18 @@
     "@angular/compiler": "13.1.1",
     "@angular/compiler-cli": "13.1.1",
     "@angular/core": "13.1.1",
+    "@qgrid/core": "*",
+    "@qgrid/ngx": "*",
+    "@qgrid/plugins": "*",
     "ng-packagr": "13.1.2",
     "rimraf": "^3.0.2",
     "tslint": "^6.1.3",
-    "typescript": "4.5.4",
-    "ng2-qgrid": "*"
+    "typescript": "4.5.4"
   },
   "peerDependencies": {
-    "@angular/cdk": "~13.1.1",
     "@angular/common": "~13.1.1",
-    "@angular/forms": "13.1.1",
-    "@angular/material": "~13.1.1",
-    "ng2-qgrid": "*"
+    "@qgrid/core": "*",
+    "@qgrid/ngx": "*",
+    "@qgrid/plugins": "*"
   }
 }

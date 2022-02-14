@@ -18,9 +18,9 @@ export function match(context) {
 			const column = columnMap[key];
 			if (column.type === 'array') {
 				return (row) => getValue(row, column);
-			} else {
-				return labelFactory(columnMap[key]);
 			}
+
+			return labelFactory(columnMap[key]);
 		};
 
 		const assertColumnFactory = key => assertFactory(columnMap[key]);

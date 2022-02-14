@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng2-qgrid-app": {
+    "qgrid-ngx-examples": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -71,18 +71,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng2-qgrid-app:build"
+            "browserTarget": "qgrid-ngx-examples:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ng2-qgrid-app:build:production"
+              "browserTarget": "qgrid-ngx-examples:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng2-qgrid-app:build"
+            "browserTarget": "qgrid-ngx-examples:build"
           }
         },
         "test": {
@@ -106,16 +106,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ng2-qgrid-app:serve"
+            "devServerTarget": "qgrid-ngx-examples:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ng2-qgrid-app:serve:production"
+              "devServerTarget": "qgrid-ngx-examples:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "ng2-qgrid-app"
+  "defaultProject": "qgrid-ngx-examples"
 }

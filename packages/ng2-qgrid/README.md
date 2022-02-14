@@ -17,7 +17,7 @@ yarn install ng2-qgrid
 
 ```typescript
 import { GridModule } from 'ng2-qgrid';
-import { ThemeModule } from 'ng2-qgrid/theme/material';
+import { ThemeModule } from '@qgrid/ngx-theme-material';
 
 @NgModule({
    imports: [

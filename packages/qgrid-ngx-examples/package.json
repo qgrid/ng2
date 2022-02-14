@@ -1,5 +1,5 @@
 {
-  "name": "ng2-qgrid-app",
+  "name": "qgrid-ngx-examples",
   "version": "13.0.0",
   "description": "Angular Grid",
 	"private": "true",
@@ -30,8 +30,8 @@
     "@angular/platform-browser": "13.1.1",
     "@angular/platform-browser-dynamic": "13.1.1",
     "@angular/router": "13.1.1",
-    "@qgrid/theme-basic": "*",
-    "@qgrid/theme-material": "*",
+    "@qgrid/ngx-theme-basic": "*",
+    "@qgrid/ngx-theme-material": "*",
     "file-saver": "^2.0.5",
     "ng2-qgrid": "*",
     "xlsx": "^0.17.4",

@@ -27,7 +27,7 @@ export function sortPipe(rows, context, next) {
 					throw new GridError('sort.pipe', `Column "${sortKey}" is not found`);
 				}
 
-				const getValue = context.getValueFactory(sortColumn);
+				const getValue = context.valueFactory(sortColumn);
 				const parseValue = parseFactory(sortColumn.type, sortColumn.editor);
 				const compare = sortColumn.compare;
 

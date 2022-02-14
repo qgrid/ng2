@@ -9,8 +9,8 @@ export function buildFromModel(model) {
 			model,
 			source,
 			changes,
-			getValueFactory,
-			getLabelFactory
+			valueFactory: getValueFactory,
+			labelFactory: getLabelFactory
 		};
 
 		const { rows } = model.data();

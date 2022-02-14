@@ -6,7 +6,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { Route, Routes } from '@angular/router';
-import { ThemeModule } from '@qgrid/theme-material';
+import { ThemeModule } from '@qgrid/ngx-theme-material';
 import { GridModule } from 'ng2-qgrid';
 import { ExampleActionBarBasicComponent } from './action-bar-basic/example-action-bar-basic.component';
 import { ExampleActionBarOnEnterComponent } from './action-bar-on-enter/example-action-bar-on-enter.component';

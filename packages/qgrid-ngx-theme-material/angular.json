@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "packages",
   "projects": {
-    "ng2-qgrid-theme-material": {
+    "qgrid-ngx-theme-material": {
       "projectType": "library",
       "root": "",
       "sourceRoot": "src",
@@ -31,6 +31,5 @@
         }
       }
     }
-  },
-  "defaultProject": "ng2-qgrid-app"
+  }
 }
