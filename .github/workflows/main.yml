@@ -72,7 +72,7 @@ jobs:
 
       - name: Build library
         run: |
-          yarn run test:core
+          yarn run test
 
   library_build:
     name: Library build
@@ -103,7 +103,7 @@ jobs:
 
       - name: Build library
         run: |
-          yarn run build:lib
+          yarn run build
 
   app_build:
     name: App build

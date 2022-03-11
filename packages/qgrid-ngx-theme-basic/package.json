@@ -1,0 +1,38 @@
+{
+  "name": "@qgrid/ngx-theme-basic",
+  "version": "13.0.0",
+  "scripts": {
+    "build": "ng build",
+    "build:watch": "ng build --watch",
+    "lint": "ng lint",
+    "clean": "rimraf ./dist"
+  },
+  "main": "dist/esm2020/public-api.mjs",
+  "types": "dist/public-api.d.ts",
+  "files": [
+    "dist/esm2020",
+    "dist/fesm2016",
+    "dist/fesm2020",
+    "dist/lib",
+    "dist/public-api.d.ts"
+  ],
+  "devDependencies": {
+    "@angular-devkit/architect": "^0.1301.2",
+    "@angular-devkit/build-ng-packagr": "^0.1002.0",
+    "@angular-devkit/core": "13.1.2",
+    "@angular-devkit/schematics": "13.1.2",
+    "@angular/cli": "13.1.2",
+    "@angular/compiler": "13.1.1",
+    "@angular/compiler-cli": "13.1.1",
+    "@angular/core": "13.1.1",
+    "ng-packagr": "13.1.2",
+    "ng2-qgrid": "*",
+    "rimraf": "^3.0.2",
+    "tslint": "^6.1.3",
+    "typescript": "4.5.4"
+  },
+  "peerDependencies": {
+    "@angular/common": "~13.1.1",
+    "ng2-qgrid": "*"
+	}
+}

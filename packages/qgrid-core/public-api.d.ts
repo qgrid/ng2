@@ -112,7 +112,7 @@ export { RowEditor } from './src/edit/edit.row.editor';
 export { EditService } from './src/edit/edit.service';
 export { EditState, EditStateMethod, EditStateMode } from './src/edit/edit.state';
 //event
-export { Event } from './src/event/event';
+export { Event, EventUnsubscribe } from './src/event/event';
 export { EventListener } from './src/event/event.listener';
 export { EventManager } from './src/event/event.manager';
 //export => csv

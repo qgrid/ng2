@@ -1,8 +1,8 @@
 import { GridError } from '../infrastructure/error';
 
-// export function getType(type) {
-// 	return {}.toString.call(type).slice('[object]'.length, -1); // returns type of built-in objects
-// }
+export function getType(type) {
+	return {}.toString.call(type).slice('[object]'.length, -1); // returns type of built-in objects
+}
 
 export function castFactory(r) {
 	const rt = getType(r);

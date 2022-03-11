@@ -4,14 +4,13 @@ export {
 	ArrayColumnModel as ArrayColumn,
 	BoolColumnModel as BoolColumn,
 	CohortColumnModel as CohortColumn,
-	ColumnModel as Column,
-	Command, CommandManager,
+	ColumnModel as Column, Command, CommandManager,
 	CurrencyColumnModel as CurrencyColumn,
 	DataColumnModel as DataColumn,
 	DateColumnModel as DateColumn,
 	DateTimeColumnModel as DateTimeColumn,
 	EditorOptions,
-	EmailColumnModel as EmailColumn,
+	EmailColumnModel as EmailColumn, Event as GridEvent,
 	FetchContext,
 	FileColumnModel as FileColumn,
 	FilterRowColumnModel as FilterRowColumn,
@@ -84,7 +83,8 @@ export {
 	DropDirective,
 	FootCoreComponent,
 	FootModule,
-	Grid, GridComponent,
+	Grid,
+	GridComponent,
 	GridError,
 	GridLet,
 	GridModel,
@@ -269,9 +269,4 @@ export {
 	VisibilityModule
 } from '@qgrid/ngx-plugins';
 export { Ng2GridModule as GridModule } from './lib/ng2-qgrid.module';
-
-
-
-
-
 

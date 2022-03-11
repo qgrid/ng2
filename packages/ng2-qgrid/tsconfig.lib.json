@@ -30,20 +30,5 @@
   "exclude": [
     "src/test.ts",
     "**/*.spec.ts"
-  ],
-  "composite": true,
-  "references": [
-    {
-      "path": "../qgrid-core"
-    },
-    {
-      "path": "../qgrid-plugins"
-    },
-    {
-      "path": "../ngx-qgrid"
-    },
-    {
-      "path": "../ngx-qgrid-plugins"
-    }
   ]
 }

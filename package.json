@@ -1,14 +1,18 @@
 {
   "name": "qgrid",
   "private": "true",
-  "version": "11.2.0",
+  "version": "13.0.0",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
+    "build": "lerna run build --stream",
+    "build:app": "lerna run build --stream --scope qgrid-ngx-examples",
     "start": "yarn clean && node ./scripts/serve.js",
-    "lint": "lerna run lint",
-    "clean": "lerna run clean"
+    "lint": "lerna run lint --stream",
+    "clean": "lerna run clean --stream",
+    "test": "lerna run test --stream",
+    "publish:alpha": "lerna publish --canary --preid alpha --force-publish=*"
   },
   "devDependencies": {
     "codelyzer": "^6.0.2",
