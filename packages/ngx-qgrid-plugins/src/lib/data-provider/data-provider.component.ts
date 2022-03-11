@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { GridPlugin } from '@qgrid/ngx';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PipeUnit } from '@qgrid/core/public-api';
+import { GridPlugin } from '@qgrid/ngx';
 
 @Component({
-	selector: 'q-data-provider',
+	selector: 'q-grid-data-provider',
 	template: '',
 	providers: [GridPlugin],
 	changeDetection: ChangeDetectionStrategy.OnPush
@@ -12,7 +12,7 @@ import { PipeUnit } from '@qgrid/core/public-api';
 export class DataProviderComponent implements OnInit {
 	next: (data: any[]) => void;
 
-	@Input('data') set data(value: any[]) {
+	@Input('rows') set rows(value: any[]) {
 		if (Array.isArray(value)) {
 			const next = this.next;
 			if (next) {
