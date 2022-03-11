@@ -249,6 +249,8 @@ export {
 	ReferenceEditorModule,
 	RestComponent,
 	RestModule,
+	DataProviderComponent,
+	DataProviderModule,
 	RuleComponent,
 	SerializationService,
 	StatusBarComponent,

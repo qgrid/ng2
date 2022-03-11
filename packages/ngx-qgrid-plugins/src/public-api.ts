@@ -119,3 +119,5 @@ export { ValidationModule } from './lib/validation/validation.module';
 export { ValidatorComponent } from './lib/validation/validator.component';
 export { VisibilityComponent } from './lib/visibility/visibility.component';
 export { VisibilityModule } from './lib/visibility/visibility.module';
+export { DataProviderComponent } from './lib/data-provider/data-provider.component';
+export { DataProviderModule } from './lib/data-provider/data-provider.module';
