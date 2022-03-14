@@ -29,7 +29,7 @@ export class ExampleDataProviderComponent {
 	) {
 	}
 
-  onRequestData(rows: Atom[]): void {
+  onRequestRows(rows: Atom[]): void {
     const pager = this.gridModel.pagination();
 
     this.$rows = this.dataService.getAtoms().pipe(

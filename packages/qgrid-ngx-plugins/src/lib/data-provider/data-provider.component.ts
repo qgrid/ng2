@@ -21,7 +21,7 @@ export class DataProviderComponent implements OnInit {
 		}
 	}
 
-	@Output() requestData = new EventEmitter<any[]>();
+	@Output() requestRows = new EventEmitter<any[]>();
 
 	constructor(
 		private plugin: GridPlugin
@@ -33,7 +33,7 @@ export class DataProviderComponent implements OnInit {
 			pipe: [
 				(data, context, next) => {
 					this.next = next;
-					this.requestData.emit(context.model.data().rows);
+					this.requestRows.emit(context.model.data().rows);
 				},
 				...PipeUnit.view
 			]

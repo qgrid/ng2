@@ -3,6 +3,6 @@
 	</q-grid-columns>
 
 	<q-grid-data-provider [rows]="$rows | async"
-                   (requestData)="onRequestData($event)">
+                   (requestRows)="onRequestRows($event)">
 	</q-grid-data-provider>
 </q-grid>
