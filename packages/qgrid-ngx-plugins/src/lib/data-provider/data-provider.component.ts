@@ -9,7 +9,7 @@ import { GridPlugin } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DataProviderComponent implements OnInit {
-	private next: (data: any[]) => void;
+	private next: (rows: any[]) => void;
 
 	@Input('rows') set rows(value: any[]) {
 		if (Array.isArray(value)) {
