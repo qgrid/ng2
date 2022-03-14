@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PipeUnit } from '@qgrid/core/public-api';
 import { GridPlugin } from '@qgrid/ngx';
@@ -10,7 +9,7 @@ import { GridPlugin } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DataProviderComponent implements OnInit {
-	next: (data: any[]) => void;
+	private next: (data: any[]) => void;
 
 	@Input('rows') set rows(value: any[]) {
 		if (Array.isArray(value)) {
@@ -22,10 +21,9 @@ export class DataProviderComponent implements OnInit {
 		}
 	}
 
-	@Output() requestData = new EventEmitter<any>();
+	@Output() requestData = new EventEmitter<any[]>();
 
 	constructor(
-		private http: HttpClient,
 		private plugin: GridPlugin
 	) {
 	}
@@ -35,7 +33,7 @@ export class DataProviderComponent implements OnInit {
 			pipe: [
 				(data, context, next) => {
 					this.next = next;
-					this.requestData.emit(this.plugin.model);
+					this.requestData.emit(context.model.data().rows);
 				},
 				...PipeUnit.view
 			]

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { GridModel } from '@qgrid/ngx/src/lib/grid/grid-model';
+import { Grid } from 'ng2-qgrid';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Atom, DataService } from '../data.service';
@@ -19,16 +19,21 @@ export class ExampleDataProviderComponent {
   static tags = EXAMPLE_TAGS;
   title = EXAMPLE_TAGS[1];
 
+	gridModel = this.qgrid.model();
+
   $rows: Observable<Atom[]>;
 
-  constructor(private dataService: DataService) {
-  }
+  constructor(
+		private dataService: DataService,
+		private qgrid: Grid,
+	) {
+	}
 
-  onRequestData(model: GridModel): void {
-    const pager = model.pagination();
+  onRequestData(rows: Atom[]): void {
+    const pager = this.gridModel.pagination();
 
     this.$rows = this.dataService.getAtoms().pipe(
-      tap((res) => model.pagination({ count: res.length })),
+      tap((res) => this.gridModel.pagination({ count: res.length })),
       map((res) => res.splice(pager.current * pager.size, pager.size))
     );
 	}
