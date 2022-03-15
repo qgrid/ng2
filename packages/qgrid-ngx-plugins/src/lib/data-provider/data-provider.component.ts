@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgZone, OnInit, Output } from '@angular/core';
 import { PipeUnit } from '@qgrid/core/public-api';
-import { GridPlugin } from '@qgrid/ngx';
+import { GridModel, GridPlugin } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-data-provider',
@@ -21,20 +21,22 @@ export class DataProviderComponent implements OnInit {
 		}
 	}
 
-	@Output() requestRows = new EventEmitter<any[]>();
+	@Output() requestRows = new EventEmitter<GridModel>();
 
 	constructor(
-		private plugin: GridPlugin
+		private plugin: GridPlugin,
+		private zone: NgZone,
 	) {
 	}
 
 	ngOnInit() {
 		this.plugin.model.data({
 			pipe: [
-				(data, context, next) => {
-					this.next = next;
-					this.requestRows.emit(context.model.data().rows);
-				},
+				(data, context, next) =>
+					this.zone.run(() => {
+						this.next = next;
+						this.requestRows.emit(context.model);
+					}),
 				...PipeUnit.view
 			]
 		}, { source: 'data.provider' });

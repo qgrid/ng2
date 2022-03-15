@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { Grid } from 'ng2-qgrid';
-import { Subject } from 'rxjs';
-import { finalize, map, tap } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { GridModel } from 'ng2-qgrid';
+import { Observable } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { Atom, DataService } from '../data.service';
 
 const EXAMPLE_TAGS = [
@@ -19,25 +19,36 @@ export class ExampleDataProviderComponent {
   static tags = EXAMPLE_TAGS;
   title = EXAMPLE_TAGS[1];
 
-	gridModel = this.qgrid.model();
-
-  $rows: Subject<Atom[]> = new Subject();
+  page$: Observable<Atom[]>;
 
   constructor(
 		private dataService: DataService,
-		private qgrid: Grid,
-		private cd: ChangeDetectorRef,
-	) {
+	) { }
+
+  onRequestRows(gridModel: GridModel): void {
+		const server = new FakeServer(this.dataService);
+		const pager = gridModel.pagination();
+
+		this.page$ = server.getTotal()
+			.pipe(
+				tap(total => gridModel.pagination({ count: total })),
+				switchMap(() => server.getPage(pager.current, pager.size)),
+			);
+	}
+}
+
+class FakeServer {
+	constructor(
+		private dataService: DataService,
+	) { }
+
+	getPage(pageNumber: number, pageSize: number): Observable<Atom[]> {
+		return this.dataService.getAtoms()
+			.pipe(map(atoms => atoms.splice(pageNumber * pageSize, pageSize)));
 	}
 
-  onRequestRows(rows: Atom[]): void {
-    const pager = this.gridModel.pagination();
-
-    this.dataService.getAtoms()
-			.pipe(
-				tap(atoms => this.gridModel.pagination({ count: atoms.length })),
-				map(atoms => atoms.splice(pager.current * pager.size, pager.size)),
-				finalize(() => this.cd.detectChanges()),
-			).subscribe(atoms => this.$rows.next(atoms));
+	getTotal(): Observable<number> {
+		return this.dataService.getAtoms()
+			.pipe(map(atoms => atoms.length));
 	}
 }
