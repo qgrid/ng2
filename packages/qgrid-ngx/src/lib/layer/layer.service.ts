@@ -24,14 +24,7 @@ export class LayerService {
 		if (link && container) {
 			const { nativeElement } = container.element;
 			nativeElement.parentElement.classList.add(`q-grid-layer-${name}`);
-
-		for (let el = nativeElement; !!el; el = el.parentElement) {
-			if (el.tagName == 'Q-GRID') {
-				el.classList.add(`q-grid-${name}`);
-				break;
-			}
-		}
-
+			this.getHostElement()?.classList.add(`q-grid-${name}`);
 			container.createEmbeddedView(link.template, {});
 		}
 
@@ -40,14 +33,7 @@ export class LayerService {
 				this.layers.delete(name);
 				const { nativeElement } = container.element;
 				nativeElement.parentElement.classList.add(`q-grid-layer-${name}`);
-
-				for (let el = nativeElement; !!el; el = el.parentElement) {
-					if (el.tagName == 'Q-GRID') {
-						el.classList.remove(`q-grid-${name}`);
-						break;
-					}
-				}
-				
+				this.getHostElement()?.classList.remove(`q-grid-${name}`);
 				container.clear();
 			}
 			: () => this.layers.delete(name);
@@ -59,5 +45,15 @@ export class LayerService {
 
 	get count() {
 		return this.layers.size;
+	}
+
+	private getHostElement() {
+		const { nativeElement } = this.container.element;
+		for (let el = nativeElement; !!el; el = el.parentElement) {
+			if (el.tagName == 'Q-GRID') {
+				return el;
+			}
+		}
+		return null;	
 	}
 }
