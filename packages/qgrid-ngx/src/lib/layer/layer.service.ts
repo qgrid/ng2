@@ -1,6 +1,6 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
-import { Layer } from './layer';
 import { TemplateService } from '../template/template.service';
+import { Layer } from './layer';
 
 @Injectable()
 export class LayerService {
@@ -25,6 +25,13 @@ export class LayerService {
 			const { nativeElement } = container.element;
 			nativeElement.parentElement.classList.add(`q-grid-layer-${name}`);
 
+		for (let el = nativeElement; !!el; el = el.parentElement) {
+			if (el.tagName == 'Q-GRID') {
+				el.classList.add(`q-grid-${name}`);
+				break;
+			}
+		}
+
 			container.createEmbeddedView(link.template, {});
 		}
 
@@ -33,6 +40,14 @@ export class LayerService {
 				this.layers.delete(name);
 				const { nativeElement } = container.element;
 				nativeElement.parentElement.classList.add(`q-grid-layer-${name}`);
+
+				for (let el = nativeElement; !!el; el = el.parentElement) {
+					if (el.tagName == 'Q-GRID') {
+						el.classList.remove(`q-grid-${name}`);
+						break;
+					}
+				}
+				
 				container.clear();
 			}
 			: () => this.layers.delete(name);
