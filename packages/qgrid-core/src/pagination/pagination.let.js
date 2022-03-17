@@ -1,10 +1,10 @@
 export class PaginationLet {
+
+	model;
+
 	constructor(plugin) {
 		const { model, observe } = plugin;
-
-		Object.defineProperty(this, 'current', { get: () => plugin.model.pagination().current });
-		Object.defineProperty(this, 'size', { get: () => plugin.model.pagination().size });
-
+		this.model = plugin.model;
 		const { resetTriggers } = model.pagination();
 		Object.keys(resetTriggers)
 			.forEach(name =>
@@ -25,5 +25,13 @@ export class PaginationLet {
 							}
 						}
 					}));
+	}
+
+	get current() {
+		return this.model.pagination().current;
+	}
+
+	get size() {
+		return this.model.pagination().size;
 	}
 }
