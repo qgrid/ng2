@@ -1,8 +1,10 @@
 export class PaginationLet {
+
+	model;
+
 	constructor(plugin) {
 		const { model, observe } = plugin;
-
-
+		this.model = plugin.model;
 		const { resetTriggers } = model.pagination();
 		Object.keys(resetTriggers)
 			.forEach(name =>
@@ -26,10 +28,10 @@ export class PaginationLet {
 	}
 
 	get current() {
-		return this.plugin.model.pagination().current;
+		return this.model.pagination().current;
 	}
 
 	get size() {
-		return this.plugin.model.pagination().size;
+		return this.model.pagination().size;
 	}
 }
