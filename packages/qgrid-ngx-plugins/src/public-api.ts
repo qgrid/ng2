@@ -42,8 +42,10 @@ export { ConvertPipe } from './lib/pipes/convert.pipe';
 export { CurrencyPipe } from './lib/pipes/currency.pipe';
 export { DataManipulationComponent } from './lib/data-manipulation/data-manipulation.component';
 export { DataManipulationModule } from './lib/data-manipulation/data-manipulation.module';
-export { DateDirective } from './lib/date/date.directive';
+export { DataProviderComponent } from './lib/data-provider/data-provider.component';
+export { DataProviderModule } from './lib/data-provider/data-provider.module';
 export { DateMaskDirective } from './lib/date/date-mask.directive';
+export { DateDirective } from './lib/date/date.directive';
 export { DateModule } from './lib/date/date.module';
 export { DatePipe } from './lib/pipes/date.pipe';
 export { DateService } from './lib/date/date.service';
@@ -119,3 +121,4 @@ export { ValidationModule } from './lib/validation/validation.module';
 export { ValidatorComponent } from './lib/validation/validator.component';
 export { VisibilityComponent } from './lib/visibility/visibility.component';
 export { VisibilityModule } from './lib/visibility/visibility.module';
+

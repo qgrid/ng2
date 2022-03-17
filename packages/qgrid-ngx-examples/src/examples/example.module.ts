@@ -41,6 +41,7 @@ import { ExampleColumnTypeSafeComponent } from './column-type-safe/example-colum
 import { ExampleColumnUrlBasicComponent } from './column-url-basic/example-column-url-basic.component';
 import { ExampleColumnColumnVisibilityBasicComponent } from './column-visibility-basic/example-column-visibility-basic.component';
 import { ExampleCopyValueFromCellComponent } from './copy-value-from-cell/example-copy-value-from-cell.component';
+import { ExampleDataProviderComponent } from './data-provider/example-data-provider.component';
 import { ExampleDataRowAddComponent } from './data-row-add/example-data-row-add.component';
 import { ExampleDataRowDeleteSelectionComponent } from './data-row-delete-selection/example-data-row-delete-selection.component';
 import { ExampleDataRowDeleteComponent } from './data-row-delete/example-data-row-delete.component';
@@ -210,6 +211,7 @@ export const EXAMPLES: any[] = [
 	ExampleColumnTypeSafeComponent,
 	ExampleColumnUrlBasicComponent,
 	ExampleCopyValueFromCellComponent,
+	ExampleDataProviderComponent,
 	ExampleDataRowAddComponent,
 	ExampleDataRowDeleteComponent,
 	ExampleDataRowDeleteSelectionComponent,
