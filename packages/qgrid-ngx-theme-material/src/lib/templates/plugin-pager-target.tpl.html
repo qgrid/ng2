@@ -3,7 +3,7 @@
 
 	<mat-menu #menu="matMenu"
 			  class="q-grid-mat-menu">
-		<mat-card *ngIf="trigger.menuOpen">
+		<mat-card *ngIf="trigger.menuOpen" [q-grid-stop-propagate]="['keydown', 'keypress', 'keyup']" >
 			<mat-form-field>
 				<input id="q-grid-menu-input"
 					   matInput
@@ -16,7 +16,6 @@
 					   q-grid-focus
 					   (keydown)="$target.keyDown($event)"
 					   (keyup.enter)="trigger.closeMenu()"
-						 (keypress)="$event.key !== 'Enter' || $event.stopPropagation()"
 					   placeholder="Go to page:" />
 				<mat-hint align="end">{{$target.value}} / {{$target.total}}</mat-hint>
 			</mat-form-field>
