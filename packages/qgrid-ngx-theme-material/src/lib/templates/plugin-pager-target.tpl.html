@@ -16,6 +16,7 @@
 					   q-grid-focus
 					   (keydown)="$target.keyDown($event)"
 					   (keyup.enter)="trigger.closeMenu()"
+						 (keypress)="$event.key !== 'Enter' || $event.stopPropagation()"
 					   placeholder="Go to page:" />
 				<mat-hint align="end">{{$target.value}} / {{$target.total}}</mat-hint>
 			</mat-form-field>
