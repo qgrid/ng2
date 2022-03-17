@@ -2,6 +2,8 @@ export class PaginationLet {
 	constructor(plugin) {
 		const { model, observe } = plugin;
 
+		Object.defineProperty(this, 'current', { get: () => plugin.model.pagination().current });
+		Object.defineProperty(this, 'size', { get: () => plugin.model.pagination().size });
 
 		const { resetTriggers } = model.pagination();
 		Object.keys(resetTriggers)
@@ -23,13 +25,5 @@ export class PaginationLet {
 							}
 						}
 					}));
-	}
-
-	get current() {
-		return this.plugin.model.pagination().current;
-	}
-
-	get size() {
-		return this.plugin.model.pagination().size;
 	}
 }
