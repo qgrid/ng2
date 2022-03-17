@@ -43,10 +43,14 @@ export class ActionComponent implements OnInit {
 				.action()
 				.items
 				.concat([action])
+				.sort((a1: Action, a2: Action) => {
+					return a2.command.priority - a1.command.priority;
+				})
 		}, {
 			source: 'action.component'
 		});
 
+		
 		disposable.add(() =>
 			model.action({
 				items: model

@@ -1,14 +1,14 @@
-import { yes } from '../utility/kit';
 import { SubjectLike } from '../rx/rx';
+import { yes } from '../utility/kit';
 
 export class Command {
-	constructor(context = {}) {
+	constructor(context = {}, priority = 1) {
 		this.execute = yes;
 		this.canExecute = yes;
 		this.canExecuteCheck = new SubjectLike();
 
 		this.shortcut = '';
-		this.priority = 0;
+		this.priority = priority;
 		this.source = '';
 		this.sink = null;
 

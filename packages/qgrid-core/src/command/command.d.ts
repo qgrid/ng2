@@ -1,5 +1,5 @@
-import { CommandContext } from './command.context';
 import { SubjectLike } from '../rx/rx';
+import { CommandContext } from './command.context';
 
 /**
  * Use this class to implement command pattern in the qgrid. The most of interactions in the q-grid are utilized by this pattern.
@@ -28,7 +28,7 @@ import { SubjectLike } from '../rx/rx';
  * * [Command Pattern Wiki](https://en.wikipedia.org/wiki/Command_pattern)
  */
 export declare class Command<T = any> {
-    constructor(context?: CommandContext<T>);
+    constructor(context?: CommandContext<T>, priority?: number);
 
     /**
      * Indicates if a command can be invoked. Use one argument to support typescript generic typification.
