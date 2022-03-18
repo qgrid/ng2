@@ -28,7 +28,7 @@ import { CommandContext } from './command.context';
  * * [Command Pattern Wiki](https://en.wikipedia.org/wiki/Command_pattern)
  */
 export declare class Command<T = any> {
-    constructor(context?: CommandContext<T>, priority?: number);
+    constructor(context?: CommandContext<T>);
 
     /**
      * Indicates if a command can be invoked. Use one argument to support typescript generic typification.

@@ -25,6 +25,24 @@ export class ActionBarComponent implements OnInit {
 
 		observe(model.actionChanged)
 			.subscribe(e => {
+				const initialItems = e.state.items;
+				const sortedItems = initialItems.sort((a: Action, b: Action) => {
+					return a.command.priority - b.command.priority;
+				});
+
+				const sorted = sortedItems.every((item: Action, index: number) => {
+					return item.title = initialItems[index].title;
+				});
+
+				if(sorted) {
+					this.cd.markForCheck();
+					this.cd.detectChanges();
+				} else {
+					model.action({
+						items: sortedItems
+					});
+				}
+
 				if (e.hasChanges('items')) {
 					this.cd.markForCheck();
 					this.cd.detectChanges();
