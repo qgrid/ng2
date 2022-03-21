@@ -43,9 +43,6 @@ export class ActionComponent implements OnInit {
 				.action()
 				.items
 				.concat([action])
-				.sort((a: Action, b: Action) => {
-					return a.command.priority - b.command.priority;
-				})
 		}, {
 			source: 'action.component'
 		});
