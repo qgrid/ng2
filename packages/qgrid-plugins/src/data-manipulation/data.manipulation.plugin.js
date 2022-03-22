@@ -217,6 +217,11 @@ export class DataManipulationPlugin {
 	}
 
 	hasChanges(newValue, oldValue) {
+		if (typeof newValue === 'object' || typeof oldValue === 'object') {
+			//JS can't compare complex objects
+			return JSON.stringify(newValue) !== JSON.stringify(oldValue);
+		}
+		
 		// TODO: understand if we need to parse values (e.g. '12' vs 12)
 		return newValue !== oldValue;
 	}
