@@ -217,7 +217,14 @@ export class DataManipulationPlugin {
 	}
 
 	hasChanges(newValue, oldValue) {
-		// TODO: understand if we need to parse values (e.g. '12' vs 12)
+		if (Array.isArray(newValue) && Array.isArray(oldValue)) {
+			const haschanges = oldValue.some((item, index) => {
+				return item !== newValue[index];
+			});
+
+			return haschanges;
+		}
+		
 		return newValue !== oldValue;
 	}
 
