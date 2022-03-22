@@ -1,4 +1,4 @@
-import { getValue } from "./value";
+import { getValue, setValue } from "./value";
 
 describe('value service', () => {
 	let row;
@@ -69,25 +69,25 @@ describe('value service', () => {
 		});
 
 		it('should set new value for column with value setter in template', () => {
-			valueService.set(row, templateDefinedColumn, 'new_value');
+			setValue(row, templateDefinedColumn, 'new_value');
 
 			expect(row.nested.field).to.equal('new_value');
 		});
 
 		it('should set new value for column with value setter in controller', () => {
-			valueService.set(row, controllerDefinedColumn, 'new_value');
+			setValue(row, controllerDefinedColumn, 'new_value');
 
 			expect(row.nested.field).to.equal('new_value');
 		});
 
 		it('should set new value for column with defined path', () => {
-			valueService.set(row, pathDefinedColumn, 'new_value');
+			setValue(row, pathDefinedColumn, 'new_value');
 
 			expect(row.nested.field).to.equal('new_value');
 		});
 
 		it('should set new value by key', () => {
-			valueService.set(row, keyDefinedColumn, 'new_value');
+			setValue(row, keyDefinedColumn, 'new_value');
 
 			expect(row.field).to.equal('new_value');
 		});
@@ -97,7 +97,7 @@ describe('value service', () => {
 				key: 'wrongKey'
 			};
 
-			const setter = () => valueService.set(row, column, 'new_value');
+			const setter = () => setValue(row, column, 'new_value');
 
 			expect(setter).to.throw(/Row can't be edit on "wrongKey" column/);
 		});

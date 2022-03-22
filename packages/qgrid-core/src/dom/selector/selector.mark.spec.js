@@ -1,7 +1,7 @@
-import { Range } from '../../infrastructure/range';
-import { SelectorMark } from './selector.mark';
-import { modelFactory } from '../../test/model.factory';
 import { ColumnModel } from '../../column-type/column.model';
+import { Range } from '../../infrastructure/range';
+import { modelFactory } from '../../test/model.factory';
+import { SelectorMark } from './selector.mark';
 
 describe('SelectorFactory', () => {
 	const column1 = new ColumnModel();
@@ -32,7 +32,7 @@ describe('SelectorFactory', () => {
 		});
 	const name = 'q';
 	const markup = {
-		'q': 'q',
+		'q-mid': 'q',
 		'q-grid': 'q-grid',
 		'q-left': 'q-left',
 		'q-right': 'q-right'

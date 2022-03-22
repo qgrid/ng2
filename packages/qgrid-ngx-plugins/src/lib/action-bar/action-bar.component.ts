@@ -51,9 +51,11 @@ export class ActionBarComponent implements OnInit {
 		return model.action().items;
 	}
 
-	isSorted(array: Action[]): boolean {
-		for (let i = 0; i < array.length - 1; i++) {
-			if (array[i].command.priority > array[i + 1].command.priority) {
+	private isSorted(actions: Action[]): boolean {
+		for (let i = 0; i < actions.length - 1; i++) {
+			const action = actions[i];
+			const nextAction = actions[i+1];
+			if (action.command.priority > nextAction.command.priority) {
 					return false;
 			}
 		}
