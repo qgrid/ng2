@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { GridModel } from 'ng2-qgrid';
+import {
+	CacheAlreadyRequestedPageStrategy, DataProvider, DataProviderServer, Grid, GridModel, RequestCountOnceStrategy, ReverseDataStrategy
+} from 'ng2-qgrid';
 import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Atom, DataService } from '../data.service';
 
 const EXAMPLE_TAGS = [
@@ -21,23 +23,29 @@ export class ExampleDataProviderComponent {
 
   page$: Observable<Atom[]>;
 
+	dataProvider: DataProvider<Atom>;
+	gridModel: GridModel;
+
   constructor(
 		private dataService: DataService,
-	) { }
+		private qgrid: Grid,
+	) {
+		const server = new FakeServer(this.dataService);
+		this.gridModel = this.qgrid.model();
+	
+		this.dataProvider = new DataProvider<Atom>([
+			RequestCountOnceStrategy,
+			CacheAlreadyRequestedPageStrategy,
+			ReverseDataStrategy,
+		], { server, gridModel: this.gridModel, pageSize: 50 });
+	}
 
   onRequestRows(gridModel: GridModel): void {
-		const server = new FakeServer(this.dataService);
-		const pager = gridModel.pagination();
-
-		this.page$ = server.getTotal()
-			.pipe(
-				tap(total => gridModel.pagination({ count: total })),
-				switchMap(() => server.getPage(pager.current, pager.size)),
-			);
+		this.page$ = this.dataProvider.getPage(gridModel.pagination().current);
 	}
 }
 
-class FakeServer {
+class FakeServer implements DataProviderServer<Atom> {
 	constructor(
 		private dataService: DataService,
 	) { }
