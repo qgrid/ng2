@@ -1,5 +1,5 @@
-import { serializeGet } from './get.serialize';
 import { modelFactory } from '../test/model.factory';
+import { serializeGet } from './get.serialize';
 
 describe('Model serialization to post parameters', () => {
 	describe('pagination', () => {
@@ -20,7 +20,7 @@ describe('Model serialization to post parameters', () => {
 				by: [{ lastName: 'asc' }]
 			});
 			const params = serializeGet(model);
-			expect(params.order).to.be.deep.equal(['+lastName']);
+			expect(params.order).to.be.equal('+lastName');
 		});
 
 		it('should map descending order to "-"', () => {
@@ -28,7 +28,7 @@ describe('Model serialization to post parameters', () => {
 				by: [{ lastName: 'desc' }]
 			});
 			const params = serializeGet(model);
-			expect(params.order).to.be.deep.equal(['-lastName']);
+			expect(params.order).to.be.equal('-lastName');
 		});
 
 		it('should map sorting with correct order', () => {
@@ -36,7 +36,7 @@ describe('Model serialization to post parameters', () => {
 				by: [{ firstName: 'asc' }, { lastName: 'desc' }]
 			});
 			const params = serializeGet(model);
-			expect(params.order).to.be.deep.equal(['+firstName', '-lastName']);
+			expect(params.order).to.be.equal('+firstName,-lastName');
 		});
 	});
 
