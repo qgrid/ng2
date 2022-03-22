@@ -217,15 +217,14 @@ export class DataManipulationPlugin {
 	}
 
 	hasChanges(newValue, oldValue) {
-		if (typeof newValue === 'object' || typeof oldValue === 'object') {
-			//JS can't compare complex objects, so we do it by converting them to JSON
-			const newValueJsonString = JSON.stringify(newValue);
-			const oldValueJsonString = JSON.stringify(oldValue);
-			
-			return newValueJsonString !== oldValueJsonString;
+		if (Array.isArray(newValue) && Array.isArray(oldValue)) {
+			const haschanges = oldValue.some((item, index) => {
+				return item !== newValue[index];
+			});
+
+			return haschanges;
 		}
 		
-		// TODO: understand if we need to parse values (e.g. '12' vs 12)
 		return newValue !== oldValue;
 	}
 
