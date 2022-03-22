@@ -1,5 +1,5 @@
-import { yes } from '../utility/kit';
 import { SubjectLike } from '../rx/rx';
+import { yes } from '../utility/kit';
 
 export class Command {
 	constructor(context = {}) {
@@ -8,7 +8,7 @@ export class Command {
 		this.canExecuteCheck = new SubjectLike();
 
 		this.shortcut = '';
-		this.priority = 0;
+		this.priority = -1;
 		this.source = '';
 		this.sink = null;
 
