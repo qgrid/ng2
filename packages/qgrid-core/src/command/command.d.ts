@@ -1,5 +1,5 @@
-import { CommandContext } from './command.context';
 import { SubjectLike } from '../rx/rx';
+import { CommandContext } from './command.context';
 
 /**
  * Use this class to implement command pattern in the qgrid. The most of interactions in the q-grid are utilized by this pattern.

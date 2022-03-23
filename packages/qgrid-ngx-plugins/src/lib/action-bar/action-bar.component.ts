@@ -21,10 +21,24 @@ export class ActionBarComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const { model, observe } = this.plugin;
+		const { model, observeReply } = this.plugin;
 
-		observe(model.actionChanged)
+		observeReply(model.actionChanged)
 			.subscribe(e => {
+				const initialItems = e.state.items;
+				const isSorted = this.isSorted(initialItems);
+
+				if(isSorted) {
+					this.cd.markForCheck();
+					this.cd.detectChanges();
+				} else {
+					model.action({
+						items: initialItems.sort((a: Action, b: Action) => {
+							return a.command.priority - b.command.priority;
+						})
+					});
+				}
+
 				if (e.hasChanges('items')) {
 					this.cd.markForCheck();
 					this.cd.detectChanges();
@@ -35,5 +49,17 @@ export class ActionBarComponent implements OnInit {
 	get actions(): Action[] {
 		const { model } = this.plugin;
 		return model.action().items;
+	}
+
+	private isSorted(actions: Action[]): boolean {
+		for (let i = 0; i < actions.length - 1; i++) {
+			const action = actions[i];
+			const nextAction = actions[i+1];
+			if (action.command.priority > nextAction.command.priority) {
+					return false;
+			}
+		}
+
+		return true;
 	}
 }
