@@ -34,7 +34,7 @@ export class ExampleDataProviderComponent {
 	
 		this.dataProvider = new DataProvider<Atom>(this.gridModel, [
 			new RequestTotalCountOnceStategy(server),
-			new CacheAlreadyRequestedPageStrategy(server),
+			new CacheAlreadyRequestedPageStrategy(server, 2),
 			new ReverseDataStrategy(),
 		]);
 	}
