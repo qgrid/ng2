@@ -1,45 +1,28 @@
+import { GridModel } from '@qgrid/ngx';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { DataProviderStrategy } from './data-provider-strategy';
-import { DataProviderOptions } from './models';
 
 export class DataProvider<T> {
-	private strategies: DataProviderStrategy<T>[] = [];
 
 	constructor(
-		private strategiesTypes: typeof DataProviderStrategy[],
-		private options: DataProviderOptions<T>
+		private gridModel: GridModel,
+		private strategies: DataProviderStrategy<T>[],
 	) {
-		this.strategies = this.createStrategies(this.strategiesTypes);
-		this.options = { pageSize: 10, ...this.options };
+		strategies.forEach(strategy => strategy.setGridModel(this.gridModel));
 	}
 
-	getPage(page: number, size?: number): Observable<T[]> {
-		size = size || this.options.pageSize;
-		return this.applyStrategies(page, size);
+	getPage(): Observable<T[]> {
+		return this.applyStrategies();
 	}
 
-	getTotal(): Observable<number> {
-		return this.options.server.getTotal();
-	}
-
-	private applyStrategies(page: number, size: number, memo = [], index: number = 0): Observable<T[]> {
-		if (!this.strategies[index]) {
-			return of();
+	private applyStrategies(memo = [], index = 0): Observable<T[]> {
+		const strategy = this.strategies[index];
+		const hasNext = !!this.strategies[index + 1];
+		if (!strategy) {
+			return of(memo);
 		}
-		return this.strategies[index].processData(memo, page, size)
-			.pipe(switchMap(x =>
-				this.strategies[index + 1] ?
-					this.applyStrategies(page, size, x, index + 1) :
-					of(x)
-			));
-	}
-
-	private createStrategies(types: typeof DataProviderStrategy[]): DataProviderStrategy<T>[] {
-		return types.map(strategy => (
-			new strategy<T>()
-				.setServer(this.options.server)
-				.setGridModel(this.options.gridModel)
-		));
+		return strategy.processData(memo)
+			.pipe(switchMap(x => hasNext ? this.applyStrategies(x, index + 1) : of(x)));
 	}
 }

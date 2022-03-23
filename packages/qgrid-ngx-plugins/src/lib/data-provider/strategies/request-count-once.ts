@@ -1,10 +1,17 @@
 import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { DataProviderStrategy } from '../data-provider-strategy';
+import { DataProviderServer } from '../models';
 
 
-export class RequestCountOnceStrategy<T> extends DataProviderStrategy<T> {
+export class RequestTotalCountOnceStategy<T> extends DataProviderStrategy<T> {
 	private totalCount: number = 0;
+
+	constructor(
+		private server: Pick<DataProviderServer<T>, 'getTotal'>,
+	) {
+		super();
+	}
 
 	processData(memo: T[]): Observable<T[]> {
 		if (this.totalCount > 0) {

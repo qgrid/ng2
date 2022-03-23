@@ -1,19 +1,10 @@
 import { GridModel } from '@qgrid/ngx';
-import { Observable, of } from 'rxjs';
-import { DataProviderServer } from './models';
+import { Observable } from 'rxjs';
 
-export class DataProviderStrategy<T> {
-	protected server: DataProviderServer<T>;
+export abstract class DataProviderStrategy<T> {
 	protected gridModel: GridModel;
 
-	processData(memo: T[], page?: number, size?: number): Observable<T[]> {
-		return of(memo);
-	}
-	
-	setServer(server: DataProviderServer<T>): DataProviderStrategy<T> {
-		this.server = server;
-		return this;
-	}
+	abstract processData(memo: T[]): Observable<T[]>;
 
 	setGridModel(model: GridModel): DataProviderStrategy<T> {
 		this.gridModel = model;

@@ -42,7 +42,7 @@ export { DataProviderStrategy } from './lib/data-provider/data-provider-strategy
 export { DataProviderComponent } from './lib/data-provider/data-provider.component';
 export { DataProviderModule } from './lib/data-provider/data-provider.module';
 export { DataProviderOptions, DataProviderServer } from './lib/data-provider/models';
-export { CacheAlreadyRequestedPageStrategy, RequestCountOnceStrategy, ReverseDataStrategy } from './lib/data-provider/strategies';
+export { CacheAlreadyRequestedPageStrategy, RequestTotalCountOnceStategy } from './lib/data-provider/strategies';
 export { DateMaskDirective } from './lib/date/date-mask.directive';
 export { DateDirective } from './lib/date/date.directive';
 export { DateModule } from './lib/date/date.module';

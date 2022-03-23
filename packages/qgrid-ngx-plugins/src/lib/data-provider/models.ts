@@ -8,6 +8,6 @@ export interface DataProviderOptions<T> {
 }
 
 export interface DataProviderServer<T> {
-	getPage(page: number, size: number): Observable<T[]>;
+	getPage(page?: number, size?: number): Observable<T[]>;
 	getTotal(): Observable<number>;
 }

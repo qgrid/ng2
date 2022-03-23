@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
-	CacheAlreadyRequestedPageStrategy, DataProvider, DataProviderServer, Grid, GridModel, RequestCountOnceStrategy, ReverseDataStrategy
+	CacheAlreadyRequestedPageStrategy, DataProvider, DataProviderServer, DataProviderStrategy, Grid, GridModel, RequestTotalCountOnceStategy
 } from 'ng2-qgrid';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Atom, DataService } from '../data.service';
 
@@ -24,24 +24,23 @@ export class ExampleDataProviderComponent {
   page$: Observable<Atom[]>;
 
 	dataProvider: DataProvider<Atom>;
-	gridModel: GridModel;
+	gridModel = this.qgrid.model();
 
   constructor(
 		private dataService: DataService,
 		private qgrid: Grid,
 	) {
 		const server = new FakeServer(this.dataService);
-		this.gridModel = this.qgrid.model();
 	
-		this.dataProvider = new DataProvider<Atom>([
-			RequestCountOnceStrategy,
-			CacheAlreadyRequestedPageStrategy,
-			ReverseDataStrategy,
-		], { server, gridModel: this.gridModel, pageSize: 50 });
+		this.dataProvider = new DataProvider<Atom>(this.gridModel, [
+			new RequestTotalCountOnceStategy(server),
+			new CacheAlreadyRequestedPageStrategy(server),
+			new ReverseDataStrategy(),
+		]);
 	}
 
   onRequestRows(gridModel: GridModel): void {
-		this.page$ = this.dataProvider.getPage(gridModel.pagination().current);
+		this.page$ = this.dataProvider.getPage();
 	}
 }
 
@@ -50,13 +49,19 @@ class FakeServer implements DataProviderServer<Atom> {
 		private dataService: DataService,
 	) { }
 
-	getPage(pageNumber: number, pageSize: number): Observable<Atom[]> {
+	getPage(number: number, pageSize: number): Observable<Atom[]> {
 		return this.dataService.getAtoms()
-			.pipe(map(atoms => atoms.splice(pageNumber * pageSize, pageSize)));
+			.pipe(map(atoms => atoms.splice(number * pageSize, pageSize)));
 	}
 
 	getTotal(): Observable<number> {
 		return this.dataService.getAtoms()
 			.pipe(map(atoms => atoms.length));
+	}
+}
+
+class ReverseDataStrategy<T> extends DataProviderStrategy<T> {
+	processData(memo: T[]): Observable<T[]> {
+		return of(memo.slice().reverse());
 	}
 }
