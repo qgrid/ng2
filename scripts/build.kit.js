@@ -8,7 +8,6 @@ const { spawn } = require('child_process');
 const ROOT_PATH = path.resolve('.');
 const SPAWN_OPTS = { shell: true, stdio: 'inherit' };
 
-
 function serveApp(options = []) {
   const serveOptions = ['serve', '--open'];
   serveOptions.push(...options);
