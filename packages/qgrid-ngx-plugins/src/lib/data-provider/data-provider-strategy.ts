@@ -1,13 +1,6 @@
-import { GridModel } from '@qgrid/ngx';
 import { Observable } from 'rxjs';
+import { DataProviderProcessContext } from './data-provider-process-context';
 
-export abstract class DataProviderStrategy<T> {
-	protected gridModel: GridModel;
-
-	abstract processData(memo: T[]): Observable<T[]>;
-
-	setGridModel(model: GridModel): DataProviderStrategy<T> {
-		this.gridModel = model;
-		return this;
-	}
+export interface DataProviderStrategy<T> {
+	process(memo: T[], context: DataProviderProcessContext): Observable<T[]>;
 }

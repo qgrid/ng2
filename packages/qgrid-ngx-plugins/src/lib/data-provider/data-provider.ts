@@ -8,9 +8,7 @@ export class DataProvider<T> {
 	constructor(
 		private gridModel: GridModel,
 		private strategies: DataProviderStrategy<T>[],
-	) {
-		strategies.forEach(strategy => strategy.setGridModel(this.gridModel));
-	}
+	) { }
 
 	getPage(): Observable<T[]> {
 		return this.applyStrategies();
@@ -22,7 +20,8 @@ export class DataProvider<T> {
 		if (!strategy) {
 			return of(memo);
 		}
-		return strategy.processData(memo)
+
+		return strategy.process(memo, { model: this.gridModel })
 			.pipe(switchMap(x => hasNext ? this.applyStrategies(x, index + 1) : of(x)));
 	}
 }

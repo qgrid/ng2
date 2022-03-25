@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
-	CacheAlreadyRequestedPageStrategy, DataProvider, DataProviderServer, DataProviderStrategy, Grid, GridModel, RequestTotalCountOnceStategy
+	CacheAlreadyRequestedPageStrategy, DataProvider, DataProviderPageServer, DataProviderStrategy, Grid, GridModel, RequestTotalCountOnceStategy
 } from 'ng2-qgrid';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,6 +14,7 @@ const EXAMPLE_TAGS = [
 @Component({
   selector: 'example-data-provider',
   templateUrl: 'example-data-provider.component.html',
+	styleUrls: ['example-data-provider.component.scss'],
   providers: [DataService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -23,8 +24,9 @@ export class ExampleDataProviderComponent {
 
   page$: Observable<Atom[]>;
 
-	dataProvider: DataProvider<Atom>;
 	gridModel = this.qgrid.model();
+	
+	private dataProvider: DataProvider<Atom>;
 
   constructor(
 		private dataService: DataService,
@@ -34,8 +36,8 @@ export class ExampleDataProviderComponent {
 	
 		this.dataProvider = new DataProvider<Atom>(this.gridModel, [
 			new RequestTotalCountOnceStategy(server),
-			new CacheAlreadyRequestedPageStrategy(server, 2),
-			new ReverseDataStrategy(),
+			new CacheAlreadyRequestedPageStrategy(server, 1),
+			new ExampleReverseDataStrategy(),
 		]);
 	}
 
@@ -44,7 +46,7 @@ export class ExampleDataProviderComponent {
 	}
 }
 
-class FakeServer implements DataProviderServer<Atom> {
+class FakeServer implements DataProviderPageServer<Atom> {
 	constructor(
 		private dataService: DataService,
 	) { }
@@ -60,8 +62,8 @@ class FakeServer implements DataProviderServer<Atom> {
 	}
 }
 
-class ReverseDataStrategy<T> extends DataProviderStrategy<T> {
-	processData(memo: T[]): Observable<T[]> {
+class ExampleReverseDataStrategy<T> implements DataProviderStrategy<T> {
+	process(memo: T[]): Observable<T[]> {
 		return of(memo.slice().reverse());
 	}
 }
