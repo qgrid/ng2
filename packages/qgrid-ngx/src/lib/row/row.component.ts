@@ -90,6 +90,29 @@ export class RowComponent implements OnChanges, OnInit {
 					});
 			}
 		}
+
+
+		let clickTimeout = null;
+
+		observe(model.mouseChanged)
+			.subscribe(e => {
+				const { code, status, target } = e.state;
+				if (code === 'left' && status === 'up') {
+					if(clickTimeout) {
+						clearTimeout(clickTimeout);
+						clickTimeout = null;
+						if (target && target.column.type !== 'row-expand') {
+							if (this.toggleStatus.canExecute(target.row)) {
+								this.toggleStatus.execute(target.row);
+							}
+						}
+					} else {
+						clickTimeout = setTimeout(() => {
+							clickTimeout = null;
+						}, 400);
+					}
+				}
+			});
 	}
 
 	ngOnChanges() {
