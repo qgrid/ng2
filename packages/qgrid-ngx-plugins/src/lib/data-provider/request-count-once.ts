@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
+import { DataProviderContext } from './data-provider';
 import { DataProviderPageServer } from './data-provider-page-server';
-import { DataProviderProcessContext } from './data-provider-process-context';
 import { DataProviderStrategy } from './data-provider-strategy';
 
 export class RequestTotalCountOnceStategy<T> implements DataProviderStrategy<T> {
@@ -11,10 +11,10 @@ export class RequestTotalCountOnceStategy<T> implements DataProviderStrategy<T> 
 		private server: Pick<DataProviderPageServer<T>, 'getTotal'>,
 	) { }
 
-	process(memo: T[], { model }: DataProviderProcessContext): Observable<T[]> {
+	process(data: T[], { model }: DataProviderContext): Observable<T[]> {
 		if (this.totalCount > 0) {
 			model.pagination({ count: this.totalCount });
-			return of(memo);
+			return of(data);
 		}
 	
 		return this.server.getTotal()
@@ -23,7 +23,7 @@ export class RequestTotalCountOnceStategy<T> implements DataProviderStrategy<T> 
 					this.totalCount = count;
 					model.pagination({ count });
 				}),
-				switchMap(() => of(memo))
+				switchMap(() => of(data))
 			)
 	}
 }

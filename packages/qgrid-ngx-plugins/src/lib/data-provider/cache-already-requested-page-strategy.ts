@@ -1,32 +1,32 @@
 import { GridModel } from '@qgrid/ngx';
 import { Observable, of } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
+import { DataProviderContext } from './data-provider';
 import { DataProviderPageServer } from './data-provider-page-server';
-import { DataProviderProcessContext } from './data-provider-process-context';
 import { DataProviderStrategy } from './data-provider-strategy';
 
 export class CacheAlreadyRequestedPageStrategy<T> implements DataProviderStrategy<T> {
-	private gridRowsCache: Map<number, T[]> = new Map();
+	private pageCache: Map<number, T[]> = new Map();
 
 	constructor(
 		private server: Pick<DataProviderPageServer<T>, 'getPage'>,
-		private pagesToLoad: number = 0,
+		private options: { pagesToLoad: number } = { pagesToLoad: 0 },
 	) { }
 
-	process(memo: T[], { model }: DataProviderProcessContext): Observable<T[]> {
+	process(data: T[], { model }: DataProviderContext): Observable<T[]> {
 		const { current, size } = model.pagination();
 
-		if (this.pagesToLoad) {
-			this.loadInBackground(this.pagesToLoad, model);
+		if (this.options.pagesToLoad) {
+			this.loadInBackground(this.options.pagesToLoad, model);
 		}
 
-		if (this.gridRowsCache.has(current)) {
-			return of(this.gridRowsCache.get(current));
+		if (this.pageCache.has(current)) {
+			return of(this.pageCache.get(current));
 		}
 
-		const shouldRequestData = !memo?.length;
-		return (shouldRequestData ? this.server.getPage(current, size) : of(memo))
-			.pipe(tap(rows => this.gridRowsCache.set(current, rows)));
+		const shouldRequestData = !data.length;
+		return (shouldRequestData ? this.server.getPage(current, size) : of(data))
+			.pipe(tap(rows => this.pageCache.set(current, rows)));
 	}
 
 	private loadInBackground(pagesToLoad: number, model: GridModel): void {
@@ -35,10 +35,10 @@ export class CacheAlreadyRequestedPageStrategy<T> implements DataProviderStrateg
 		const toPage = current + pagesToLoad;
 		const maxPage = Math.floor(count / size); 
 		for (let page = fromPage; page <= toPage; page++) {
-			if (page <= maxPage && !this.gridRowsCache.has(page)){
+			if (page <= maxPage && !this.pageCache.has(page)){
 				this.server.getPage(page, size)
 					.pipe(filter(rows => !!rows?.length))
-					.subscribe(rows => this.gridRowsCache.set(page, rows));
+					.subscribe(rows => this.pageCache.set(page, rows));
 			}
 		}		
 	}

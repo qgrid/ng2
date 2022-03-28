@@ -3,6 +3,10 @@ import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { DataProviderStrategy } from './data-provider-strategy';
 
+export interface DataProviderContext  {
+	model: GridModel;
+}
+
 export class DataProvider<T> {
 
 	constructor(
@@ -14,14 +18,14 @@ export class DataProvider<T> {
 		return this.applyStrategies();
 	}
 
-	private applyStrategies(memo = [], index = 0): Observable<T[]> {
+	private applyStrategies(data = [], index = 0): Observable<T[]> {
 		const strategy = this.strategies[index];
 		const hasNext = !!this.strategies[index + 1];
 		if (!strategy) {
-			return of(memo);
+			return of(data); 
 		}
 
-		return strategy.process(memo, { model: this.gridModel })
+		return strategy.process(data, { model: this.gridModel })
 			.pipe(switchMap(x => hasNext ? this.applyStrategies(x, index + 1) : of(x)));
 	}
 }
