@@ -6,7 +6,8 @@ import { DataProviderPageServer } from './data-provider-page-server';
 import { DataProviderStrategy } from './data-provider-strategy';
 
 export class CacheAlreadyRequestedPageStrategy<T> implements DataProviderStrategy<T> {
-	private pageCache: Map<number, T[]> = new Map();
+	private pageCache: Map<number, T[]>;
+	private paginationSize: number;
 
 	constructor(
 		private server: Pick<DataProviderPageServer<T>, 'getPage'>,
@@ -15,6 +16,11 @@ export class CacheAlreadyRequestedPageStrategy<T> implements DataProviderStrateg
 
 	process(data: T[], { model }: DataProviderContext): Observable<T[]> {
 		const { current, size } = model.pagination();
+
+		if (this.paginationSize !== size) {
+			this.pageCache = new Map();
+			this.paginationSize = size;
+		}
 
 		if (this.options.pagesToLoad) {
 			this.loadInBackground(this.options.pagesToLoad, model);
