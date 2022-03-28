@@ -3,6 +3,6 @@ export class MouseState {
 		this.status = 'release';
 		this.code = null;
 		this.target = null;
-		this.timestamp = new Date().getMilliseconds();
+		this.timestamp = Date.now()
 	}
 }

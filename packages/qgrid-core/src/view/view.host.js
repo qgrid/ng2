@@ -157,7 +157,6 @@ export class ViewHost {
       code: stringify(getButtonCode(e)),
       status: 'up',
       target: td,
-      timestamp: Date.now()
     }, {
       source: 'mouse.up'
     });
@@ -171,7 +170,7 @@ export class ViewHost {
     model.mouse({
       code: stringify(NO_BUTTON),
       status: 'release',
-      target: null,
+      target: td,
       timestamp: Date.now(),
     }, {
       source: 'mouse.up'

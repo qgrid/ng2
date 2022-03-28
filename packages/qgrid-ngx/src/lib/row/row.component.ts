@@ -97,13 +97,14 @@ export class RowComponent implements OnChanges, OnInit {
 
 		observe(model.mouseChanged)
 			.subscribe(e => {
-				const { code, status, target, timestamp } = e.state;
-				if (code === 'left' && status === 'up') {
+				const { target } = e.state;
+				const { code, status, timestamp } = e.changes;
+				if (code?.oldValue === 'left' && status.newValue === 'release') {
 					if (firstClickTimestamp == null && targetTd == null) {
-						firstClickTimestamp = timestamp;
+						firstClickTimestamp = timestamp.newValue;
 						targetTd = target;
 					} else {
-						if (targetTd === target && timestamp - firstClickTimestamp <= 600) {
+						if (targetTd === target && timestamp.newValue - firstClickTimestamp <= 300) {
 							if (target && target.column.type !== 'row-expand') {
 								if (this.toggleStatus.canExecute(target.row)) {
 									this.toggleStatus.execute(target.row);
