@@ -26,20 +26,17 @@ export class ExampleDataProviderComponent {
 
 	gridModel = this.qgrid.model();
 	
-	private dataProvider: DataProvider<Atom>;
+	private server = new FakeServer(this.dataService);
+	private dataProvider: DataProvider<Atom> = new DataProvider<Atom>(this.gridModel, [
+		new RequestTotalCountOnceStategy(this.server),
+		new CacheAlreadyRequestedPageStrategy(this.server, { pagesToLoad: 1 }),
+		new ExampleReverseDataStrategy(),
+	]);
 
   constructor(
 		private dataService: DataService,
 		private qgrid: Grid,
-	) {
-		const server = new FakeServer(this.dataService);
-	
-		this.dataProvider = new DataProvider<Atom>(this.gridModel, [
-			new RequestTotalCountOnceStategy(server),
-			new CacheAlreadyRequestedPageStrategy(server, { pagesToLoad: 1 }),
-			new ExampleReverseDataStrategy(),
-		]);
-	}
+	) { }
 
   onRequestRows(gridModel: GridModel): void {
 		this.page$ = this.dataProvider.getPage();
