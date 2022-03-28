@@ -1,7 +1,7 @@
 import { final } from '../infrastructure/final';
 import {
-  checkButtonCode, getButtonCode, LEFT_BUTTON,
-  NO_BUTTON, stringify
+	checkButtonCode, getButtonCode, LEFT_BUTTON,
+	NO_BUTTON, stringify
 } from '../mouse/mouse.code';
 import { PathService } from '../path/path.service';
 import { PipeUnit } from '../pipe/pipe.unit';
@@ -157,6 +157,7 @@ export class ViewHost {
       code: stringify(getButtonCode(e)),
       status: 'up',
       target: td,
+      timestamp: Date.now()
     }, {
       source: 'mouse.up'
     });
