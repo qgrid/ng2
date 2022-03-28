@@ -1,8 +1,7 @@
-import { GridState } from '../grid/grid.state';
-import { SceneState } from '../scene/scene.state';
 import { ActionState } from '../action/action.state';
 import { AnimationState } from '../animation/animation.state';
 import { BodyState } from '../body/body.state';
+import { ClipboardState } from '../clipboard/clipboard.state';
 import { ColumnListState } from '../column-list/column.list.state';
 import { DataState } from '../data/data.state';
 import { DragState } from '../drag/drag.state';
@@ -12,13 +11,13 @@ import { FetchState } from '../fetch/fetch.state';
 import { FilterState } from '../filter/filter.state';
 import { FocusState } from '../focus/focus.state';
 import { FootState } from '../foot/foot.state';
+import { GridState } from '../grid/grid.state';
 import { GroupState } from '../group/group.state';
 import { HeadState } from '../head/head.state';
 import { HighlightState } from '../highlight/highlight.state';
 import { KeyboardState } from '../keyboard/keyboard.state';
 import { LayerState } from '../layer/layer.state';
 import { LayoutState } from '../layout/layout.state';
-import { ModelTag, ModelEvent } from './model.event';
 import { MouseState } from '../mouse/mouse.state';
 import { NavigationState } from '../navigation/navigation.state';
 import { PaginationState } from '../pagination/pagination.state';
@@ -30,6 +29,7 @@ import { ProgressState } from '../progress/progress.state';
 import { RestState } from '../rest/rest.state';
 import { RowListState } from '../row-list/row.list.state';
 import { RowState } from '../row/row.state';
+import { SceneState } from '../scene/scene.state';
 import { ScrollState } from '../scroll/scroll.state';
 import { SelectionState } from '../selection/selection.state';
 import { SortState } from '../sort/sort.state';
@@ -38,7 +38,7 @@ import { ToolbarState } from '../toolbar/toolbar.state';
 import { ValidationState } from '../validation/validation.state';
 import { ViewState } from '../view/view.state';
 import { VisibilityState } from '../visibility/visibility.state';
-import { ClipboardState } from '../clipboard/clipboard.state';
+import { ModelEvent, ModelTag } from './model.event';
 
 export declare type StateSet<K extends keyof any, TState> = {
 	[P in K]: (state: Partial<TState>, tag?: ModelTag) => Model;
@@ -105,6 +105,9 @@ export declare type ClipboardAccessor = StateAccessor<'clipboard', 'clipboardCha
 export declare type ResolveAccessor = {
 	resolve<TState>(type: new () => TState): StateAccessor<'state', 'changed', TState>;
 };
+
+export type ReadModel = { [K in keyof Model as K extends `${string}Changed` ? never : K]: Model[K] };
+export type NotifyModel = { [K in keyof Model as K extends `${string}Changed` ? K : never]: Model[K] };
 
 export type Model =
 	ActionAccessor

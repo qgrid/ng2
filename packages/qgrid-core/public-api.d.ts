@@ -185,7 +185,7 @@ export { Keyboard } from './src/keyboard/keyboard';
 export { LayoutLet } from './src/layout/layout.let';
 // export { LayoutState } from './src/layout/layout.state';
 //model
-export { Model } from './src/model/model';
+export { Model, NotifyModel, ReadModel } from './src/model/model';
 // export { ModelBinder } from './src/model/model.bind';
 export { ModelBuilder } from './src/model/model.builder';
 export { ModelChanges, ModelEvent, ModelEventArg, ModelTag } from './src/model/model.event';
