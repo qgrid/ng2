@@ -96,8 +96,8 @@ export class RowComponent implements OnChanges, OnInit {
 
 		observe(model.mouseChanged)
 			.subscribe(e => {
-				const { code, status, timestamp } = e.changes;
-				if (code?.oldValue === 'left' && status.newValue === 'release') {
+				const { code, timestamp } = e.changes;
+				if (e.state.status === 'release' && code?.oldValue === 'left') {
 					const target = e.changes.target?.oldValue;
 					if (firstClickTarget === null) {
 						firstClickTarget = target;
