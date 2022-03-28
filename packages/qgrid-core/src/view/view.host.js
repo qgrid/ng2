@@ -170,7 +170,7 @@ export class ViewHost {
     model.mouse({
       code: stringify(NO_BUTTON),
       status: 'release',
-      target: td,
+      target: null,
       timestamp: Date.now(),
     }, {
       source: 'mouse.up'
