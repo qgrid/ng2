@@ -91,10 +91,10 @@ export class RowComponent implements OnChanges, OnInit {
 			}
 		}
 
+		if (this.behavior.indexOf('expandOnDblClick') >= 0) {
+			let firstClickTarget = null;
 
-		let firstClickTarget = null;
-
-		observe(model.mouseChanged)
+			observe(model.mouseChanged)
 			.subscribe(e => {
 				const { code, timestamp } = e.changes;
 				if (e.state.status === 'release' && code?.oldValue === 'left') {
@@ -115,6 +115,7 @@ export class RowComponent implements OnChanges, OnInit {
 					}
 				}
 			});
+		}
 	}
 
 	ngOnChanges() {
