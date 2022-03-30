@@ -52,7 +52,7 @@ export class RowComponent implements OnChanges, OnInit {
 	}
 
 	ngOnInit() {
-		const { model, observe } = this.plugin;
+		const { model, observe, table } = this.plugin;
 
 		if (this.behavior.indexOf('expandOnShortcut') >= 0) {
 			observe(model.keyboardChanged)
@@ -90,6 +90,25 @@ export class RowComponent implements OnChanges, OnInit {
 					});
 			}
 		}
+
+		observe(model.highlightChanged)
+			.subscribe(e => {
+				if (e.changes.cell?.oldValue && e.changes.cell?.newValue && e.changes.cell.oldValue.rowIndex !== e.changes.cell.newValue.rowIndex){
+					const oldIndicators = document.getElementsByClassName('mat-icon-row-resize-indicator');
+					if(oldIndicators.length > 0) {
+						for(let i = 0; i < oldIndicators.length; i++) {
+							oldIndicators.item(i).remove();
+						}
+					}
+					const newRow = table.body.row(e.changes.cell.newValue.rowIndex, e.changes.cell.newValue.columnIndex);
+					const icon = document.createElement('mat-icon');
+					icon.classList.add('mat-icon-row-resize-indicator', 'q-grid-icon', 'mat-icon', 'notranslate', 'material-icons', 'mat-icon-no-color');
+					icon.style.position = 'absolute';
+					icon.style.bottom = '3px';
+					icon.innerText = 'unfold_more';
+					newRow.cell(0).element.appendChild(icon);
+				}
+		});
 	}
 
 	ngOnChanges() {
