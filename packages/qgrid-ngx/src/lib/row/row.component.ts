@@ -90,6 +90,32 @@ export class RowComponent implements OnChanges, OnInit {
 					});
 			}
 		}
+
+		if (this.behavior.indexOf('expandOnDblClick') >= 0) {
+			let firstClickTarget = null;
+
+			observe(model.mouseChanged)
+			.subscribe(e => {
+				const { code, timestamp } = e.changes;
+				if (e.state.status === 'release' && code?.oldValue === 'left') {
+					const target = e.changes.target?.oldValue;
+					if (firstClickTarget === null) {
+						firstClickTarget = target;
+					} else {
+						const dblClickInterval = 300;
+						if (firstClickTarget === target && timestamp.newValue - timestamp.oldValue <= dblClickInterval) {
+							if (target.column.type !== 'row-expand') {
+								if (this.toggleStatus.canExecute(target.row)) {
+									this.toggleStatus.execute(target.row);
+								}
+							}
+						}
+						
+						firstClickTarget = null;
+					}
+				}
+			});
+		}
 	}
 
 	ngOnChanges() {

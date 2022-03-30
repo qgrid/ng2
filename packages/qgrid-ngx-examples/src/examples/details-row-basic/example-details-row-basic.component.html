@@ -25,7 +25,8 @@
 	</q-grid-columns>
 
 	<q-grid-row unit="details"
-				mode="single">
+				mode="single"
+				[behavior]="['expandOnDblClick']">
 		<ng-template for="details"
 					 let-$cell>
 			<div class="atom-details">
