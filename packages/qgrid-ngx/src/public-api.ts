@@ -32,7 +32,7 @@ export { FootModule } from './lib/foot/foot.module';
 export { TfCoreDirective } from './lib/foot/tf-core.directive';
 export { Grid, GridService } from './lib/grid/grid';
 export { GridLet } from './lib/grid/grid-let';
-export { GridEvent, GridEventArg, GridModel, GridNotifyModel, GridReadModel } from './lib/grid/grid-model';
+export { GridEvent, GridEventArg, GridModel, GridNotifyModel, GridReadModel, GridWriteModel } from './lib/grid/grid-model';
 export { GridModelBuilder } from './lib/grid/grid-model.builder';
 export { GridRoot } from './lib/grid/grid-root';
 export { GridComponent } from './lib/grid/grid.component';

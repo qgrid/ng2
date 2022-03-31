@@ -106,8 +106,13 @@ export declare type ResolveAccessor = {
 	resolve<TState>(type: new () => TState): StateAccessor<'state', 'changed', TState>;
 };
 
-export type ReadModel = { [K in keyof Model as K extends `${string}Changed` ? never : K]: Model[K] };
-export type NotifyModel = { [K in keyof Model as K extends `${string}Changed` ? K : never]: Model[K] };
+type FilteredNotifyState<K extends keyof Model> = K extends `${string}Changed` ? K : never;
+type FilteredReadWriteState<K extends keyof Model> = K extends `${string}Changed` ? never : K;
+type ExtractGeneric<K extends string, T> = T extends StateAccessor<K, `${K}Changed`, infer X> ? X : never;
+
+export type ReadModel = { [K in keyof Model as FilteredReadWriteState<K>]: () => Readonly<ExtractGeneric<K, Model>> };
+export type WriteModel = { [K in keyof Model as FilteredReadWriteState<K>]: (state: Partial<ExtractGeneric<K, Model>>, tag?: ModelTag) => Model };
+export type NotifyModel = { [K in keyof Model as FilteredNotifyState<K>]: Model[K] };
 
 export type Model =
 	ActionAccessor
