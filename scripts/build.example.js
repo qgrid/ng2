@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const shell = require('shelljs');
 const cmdArgs = require('command-line-args');
-const package = require('./package.json');
+const package = require('../package.json');
 const { relativeCopySync, toComponentName } = require('./build.utils');
 
 const args = cmdArgs([{
@@ -28,6 +28,7 @@ const examplesPath = path.join(rootPath, './packages/qgrid-ngx-examples/src/exam
 const repoPath = path.join(rootPath, '../ng2-example');
 const repoUrl = 'git@github.com:etokareva/ng2-example.git';
 
+console.log(`------Root path ${rootPath}------`);
 console.log(`------CLONE ${repoUrl}------`);
 const rmParams = ['-rf', repoPath];
 shell.rm(...rmParams);
