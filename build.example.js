@@ -24,9 +24,9 @@ const args = cmdArgs([{
 
 const { version, silent, pattern } = args;
 const rootPath = path.resolve('.');
-const examplesPath = path.join(rootPath, './src/examples');
+const examplesPath = path.join(rootPath, './packages/qgrid-ngx-examples/src/examples');
 const repoPath = path.join(rootPath, '../ng2-example');
-const repoUrl = 'https://github.com/qgrid/ng2-example.git';
+const repoUrl = 'git@github.com:etokareva/ng2-example.git';
 
 console.log(`------CLONE ${repoUrl}------`);
 const rmParams = ['-rf', repoPath];
