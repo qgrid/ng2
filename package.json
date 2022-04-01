@@ -22,12 +22,10 @@
     "command-line-args": "^5.2.0",
     "copyfiles": "^2.4.1",
     "fs": "^0.0.1-security",
+    "glob": "^7.2.0",
     "lerna": "^4.0.0",
     "path": "^0.12.7",
     "sane": "^5.0.1",
     "shelljs": "^0.8.5"
-  },
-  "dependencies": {
-    "glob": "^7.2.0"
   }
 }
