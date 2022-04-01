@@ -94,19 +94,14 @@ export class RowComponent implements OnChanges, OnInit {
 		observe(model.highlightChanged)
 			.subscribe(e => {
 				if (e.changes.cell?.oldValue && e.changes.cell?.newValue && e.changes.cell.oldValue.rowIndex !== e.changes.cell.newValue.rowIndex){
-					const oldIndicators = document.getElementsByClassName('mat-icon-row-resize-indicator');
-					if(oldIndicators.length > 0) {
-						for(let i = 0; i < oldIndicators.length; i++) {
-							oldIndicators.item(i).remove();
+					const indicators = document.getElementsByClassName('mat-icon-row-size-handler') as HTMLCollectionOf<HTMLElement>;
+					if(indicators.length > 0) {
+						for(let i = 0; i < indicators.length; i++) {
+							indicators[i].classList.remove('mat-icon-row-size-handler');
 						}
 					}
-					const newRow = table.body.row(e.changes.cell.newValue.rowIndex, e.changes.cell.newValue.columnIndex);
-					const icon = document.createElement('mat-icon');
-					icon.classList.add('mat-icon-row-resize-indicator', 'q-grid-icon', 'mat-icon', 'notranslate', 'material-icons', 'mat-icon-no-color');
-					icon.style.position = 'absolute';
-					icon.style.bottom = '3px';
-					icon.innerText = 'unfold_more';
-					newRow.cell(0).element.appendChild(icon);
+					const newRow = table.body.row(e.changes.cell.newValue.rowIndex);
+					newRow.addClass('mat-icon-row-size-handler');
 				}
 		});
 	}

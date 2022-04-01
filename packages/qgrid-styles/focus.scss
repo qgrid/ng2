@@ -7,6 +7,14 @@ td.q-grid-focused {
     }
 }
 
+.mat-icon-row-size-handler {
+	.mat-icon-row-resize-indicator {
+		display: block!important;
+		margin-top: 16px;
+		position: absolute;
+	}
+}
+
 .q-grid-view.q-grid-active {
     td.q-grid-focused {
         outline-color: $blue-outline025;
