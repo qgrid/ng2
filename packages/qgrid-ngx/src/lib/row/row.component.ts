@@ -94,14 +94,23 @@ export class RowComponent implements OnChanges, OnInit {
 		observe(model.highlightChanged)
 			.subscribe(e => {
 				if (e.changes.cell?.oldValue && e.changes.cell?.newValue && e.changes.cell.oldValue.rowIndex !== e.changes.cell.newValue.rowIndex){
-					const indicators = document.getElementsByClassName('mat-icon-row-size-handler') as HTMLCollectionOf<HTMLElement>;
+					const previousRow = table.body.row(e.changes.cell.oldValue.rowIndex);
+					const newRow = table.body.row(e.changes.cell.newValue.rowIndex);
+
+					previousRow.removeClass('q-grid-row-size-handler');
+					newRow.addClass('q-grid-row-size-handler');
+				}
+		});
+
+		observe(model.mouseChanged)
+			.subscribe(e => {
+				if(e.changes.status?.newValue === 'leave' && e.state.status === 'leave') {
+					const indicators = document.getElementsByClassName('q-grid-row-size-handler') as HTMLCollectionOf<HTMLElement>;
 					if(indicators.length > 0) {
 						for(let i = 0; i < indicators.length; i++) {
-							indicators[i].classList.remove('mat-icon-row-size-handler');
+							indicators[i].classList.remove('q-grid-row-size-handler');
 						}
 					}
-					const newRow = table.body.row(e.changes.cell.newValue.rowIndex);
-					newRow.addClass('mat-icon-row-size-handler');
 				}
 		});
 	}
