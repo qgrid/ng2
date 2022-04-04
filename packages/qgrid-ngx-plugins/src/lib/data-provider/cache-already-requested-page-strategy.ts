@@ -11,19 +11,16 @@ export class CacheAlreadyRequestedPageStrategy<T> implements DataProviderStrateg
 
 	constructor(
 		private server: Pick<DataProviderPageServer<T>, 'getPage'>,
-		private options: { pagesToLoad: number } = { pagesToLoad: 0 },
+		private options: { pagesToLoad: number } = { pagesToLoad: 1 },
 	) { }
 
 	process(data: T[], { model }: DataProviderContext): Observable<T[]> {
 		const { current, size } = model.pagination();
 
-		if (this.paginationSize !== size) {
-			this.pageCache = new Map();
-			this.paginationSize = size;
-		}
+		this.invalidateCache(size);
 
 		if (this.options.pagesToLoad) {
-			this.loadInBackground(this.options.pagesToLoad, model);
+			this.loadBackgroundPages(this.options.pagesToLoad, model);
 		}
 
 		if (this.pageCache.has(current)) {
@@ -35,17 +32,24 @@ export class CacheAlreadyRequestedPageStrategy<T> implements DataProviderStrateg
 			.pipe(tap(rows => this.pageCache.set(current, rows)));
 	}
 
-	private loadInBackground(pagesToLoad: number, model: GridModel): void {
+	private loadBackgroundPages(pagesToLoad: number, model: GridModel): void {
 		const { count, current, size } = model.pagination();
 		const fromPage = current + 1;
 		const toPage = current + pagesToLoad;
 		const maxPage = Math.floor(count / size); 
-		for (let page = fromPage; page <= toPage; page++) {
+		for (let page = fromPage; page < toPage; page++) {
 			if (page <= maxPage && !this.pageCache.has(page)){
 				this.server.getPage(page, size)
 					.pipe(filter(rows => !!rows?.length))
 					.subscribe(rows => this.pageCache.set(page, rows));
 			}
 		}		
+	}
+
+	private invalidateCache(paginationSize: number): void {
+		if (this.paginationSize !== paginationSize) {
+			this.pageCache = new Map();
+			this.paginationSize = paginationSize;
+		}
 	}
 }
