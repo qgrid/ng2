@@ -1,13 +1,13 @@
 'use strict';
 
 const sane = require('sane');
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
+const glob = require('glob');
 const { spawn } = require('child_process');
 
 const ROOT_PATH = path.resolve('.');
 const SPAWN_OPTS = { shell: true, stdio: 'inherit' };
-
 
 function serveApp(options = []) {
   const serveOptions = ['serve', '--open'];
@@ -115,6 +115,59 @@ async function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// Copy files maintaining relative paths.
+function relativeCopy(fileGlob, from, to) {
+	return new Promise((resolve, reject) => {
+		glob(fileGlob, { cwd: from, nodir: true }, (err, files) => {
+			if (err) {
+				reject(err);
+			}
+
+			files.forEach(file => {
+				const origin = path.join(from, file);
+				const dest = path.join(to, file);
+				const data = fs.readFileSync(origin, 'utf-8');
+				makeFolderTree(path.dirname(dest));
+				fs.writeFileSync(dest, data);
+				console.log(`copy: from ${origin} to ${dest}`);
+			});
+
+			resolve();
+		})
+	});
+}
+
+function relativeCopySync(fileGlob, from, to, visit = x => x) {
+	const files = glob.sync(fileGlob, { cwd: from, nodir: true });
+
+	files.forEach(file => {
+		const srcPath = path.join(from, file);
+		const dstPath = path.join(to, file);
+		const content = fs.readFileSync(srcPath, 'utf-8');
+		makeFolderTree(path.dirname(dstPath));
+
+		const result = visit({ srcPath, dstPath, content });
+		fs.writeFileSync(result.dstPath, result.content);
+		console.log(`copy: ${file} -> ${result.dstPath}`);
+	});
+}
+
+// Recursively create a dir.
+function makeFolderTree(dir) {
+	if (!fs.existsSync(dir)) {
+		makeFolderTree(path.dirname(dir));
+		fs.mkdirSync(dir);
+	}
+}
+
+function toComponentName(name) {
+	return name
+		.split('-')
+		.map(part => part[0].toUpperCase() + part.slice(1))
+		.join('');
+}
+
+
 module.exports = {
 	execute,
 	sleep,
@@ -122,4 +175,8 @@ module.exports = {
 	buildTheme,
 	serveApp,
 	watchTheme,
+	relativeCopy,
+	relativeCopySync,
+	concatFiles,
+	toComponentName
 };
