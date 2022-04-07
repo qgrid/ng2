@@ -172,6 +172,7 @@ export {
 	CellTooltipComponent,
 	CellTooltipDirective,
 	CellTooltipModule,
+	CheckNextPageCountStrategy,
 	ColumnChooserComponent,
 	ColumnChooserModule,
 	ColumnChooserTriggerComponent,

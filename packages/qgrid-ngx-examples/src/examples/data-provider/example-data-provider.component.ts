@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import {
-	CacheAlreadyRequestedPageStrategy, DataProvider, DataProviderPageServer, DataProviderStrategy, Grid, GridModel, RequestTotalCountOnceStategy
-} from 'ng2-qgrid';
+import { CacheAlreadyRequestedPageStrategy, CheckNextPageCountStrategy, DataProvider, DataProviderPageServer, DataProviderStrategy, Grid, GridModel, RequestTotalCountOnceStategy } from 'ng2-qgrid';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Atom, DataService } from '../data.service';
@@ -25,9 +23,10 @@ export class ExampleDataProviderComponent {
   page$: Observable<Atom[]>;
 
 	gridModel = this.qgrid.model();
-	
+
 	private server = new FakeServer(this.dataService);
 	private dataProvider: DataProvider<Atom> = new DataProvider<Atom>(this.gridModel, [
+		new CheckNextPageCountStrategy(this.server),
 		new RequestTotalCountOnceStategy(this.server),
 		new CacheAlreadyRequestedPageStrategy(this.server, { pagesToLoad: 1 }),
 		new ExampleReverseDataStrategy(),

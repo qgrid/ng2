@@ -38,7 +38,7 @@ export class CacheAlreadyRequestedPageStrategy<T> implements DataProviderStrateg
 		const toPage = current + pagesToLoad;
 		const maxPage = Math.floor(count / size); 
 		for (let page = fromPage; page < toPage; page++) {
-			if (page <= maxPage && !this.pageCache.has(page)){
+			if (page <= maxPage && !this.pageCache.has(page)) {
 				this.server.getPage(page, size)
 					.pipe(filter(rows => !!rows?.length))
 					.subscribe(rows => this.pageCache.set(page, rows));

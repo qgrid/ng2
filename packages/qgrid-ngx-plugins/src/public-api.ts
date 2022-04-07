@@ -38,6 +38,7 @@ export { CommandModule } from './lib/command/command.module';
 export { DataManipulationComponent } from './lib/data-manipulation/data-manipulation.component';
 export { DataManipulationModule } from './lib/data-manipulation/data-manipulation.module';
 export { CacheAlreadyRequestedPageStrategy } from './lib/data-provider/cache-already-requested-page-strategy';
+export { CheckNextPageCountStrategy } from './lib/data-provider/check-next-page-count-strategy';
 export { DataProvider, DataProviderContext } from './lib/data-provider/data-provider';
 export { DataProviderPageServer } from './lib/data-provider/data-provider-page-server';
 export { DataProviderStrategy } from './lib/data-provider/data-provider-strategy';
