@@ -6,8 +6,8 @@ import { DataProviderPageServer } from './data-provider-page-server';
 import { DataProviderStrategy } from './data-provider-strategy';
 
 export class CacheAlreadyRequestedPageStrategy<T> implements DataProviderStrategy<T> {
-	private pageCache: Map<number, T[]>;
-	private paginationSize: number;
+	private pageCache: Map<number, T[]> = new Map();
+	private pagerSize: number;
 
 	constructor(
 		private server: Pick<DataProviderPageServer<T>, 'getPage'>,
@@ -16,8 +16,6 @@ export class CacheAlreadyRequestedPageStrategy<T> implements DataProviderStrateg
 
 	process(data: T[], { model }: DataProviderContext): Observable<T[]> {
 		const { current, size } = model.pagination();
-
-		this.invalidateCache(size);
 
 		if (this.options.pagesToLoad) {
 			this.loadBackgroundPages(this.options.pagesToLoad, model);
@@ -32,6 +30,14 @@ export class CacheAlreadyRequestedPageStrategy<T> implements DataProviderStrateg
 			.pipe(tap(rows => this.pageCache.set(current, rows)));
 	}
 
+	invalidate(gridModel: GridModel): void {
+		const { size } = gridModel.pagination();
+		if (this.pagerSize !== size) {
+			this.pageCache.clear();
+			this.pagerSize = size;
+		}
+	}
+
 	private loadBackgroundPages(pagesToLoad: number, model: GridModel): void {
 		const { count, current, size } = model.pagination();
 		const fromPage = current + 1;
@@ -44,12 +50,5 @@ export class CacheAlreadyRequestedPageStrategy<T> implements DataProviderStrateg
 					.subscribe(rows => this.pageCache.set(page, rows));
 			}
 		}		
-	}
-
-	private invalidateCache(paginationSize: number): void {
-		if (this.paginationSize !== paginationSize) {
-			this.pageCache = new Map();
-			this.paginationSize = paginationSize;
-		}
 	}
 }

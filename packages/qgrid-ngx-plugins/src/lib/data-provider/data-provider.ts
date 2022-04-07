@@ -25,6 +25,10 @@ export class DataProvider<T> {
 			return of(data); 
 		}
 
+		if (typeof strategy.invalidate === 'function') {
+			strategy.invalidate(this.gridModel);
+		}
+
 		return strategy.process(data, { model: this.gridModel })
 			.pipe(switchMap(x => hasNext ? this.applyStrategies(x, index + 1) : of(x)));
 	}
