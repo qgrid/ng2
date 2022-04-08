@@ -108,12 +108,12 @@ export class View extends Unit {
 				bodyMid.scrollLeft = value;
 			}
 
-			const bodyTop = markup['body-top'];
+			const bodyTop = markup['body-top-mid'];
 			if (bodyTop) {
 				bodyTop.scrollLeft = value;
 			}
 
-			const bodyBottom = markup['body-bottom'];
+			const bodyBottom = markup['body-bottom-mid'];
 			if (bodyBottom) {
 				bodyBottom.scrollLeft = value;
 			}
@@ -158,7 +158,16 @@ export class View extends Unit {
 					break;
 				}
 				case 'top': {
-					return true;
+					target = target.element;
+					if (target) {
+						const { markup } = this.context;
+						const bodyLeft = markup['body-left'];
+						const bodyMid = markup['body-mid'];
+						const bodyRight = markup['body-right'];
+						return (bodyLeft && isParentOf(bodyLeft, target)) || 
+										(bodyMid && isParentOf(bodyMid, target)) || 
+										(bodyRight && isParentOf(bodyRight, target));
+					}
 				}
 			}
 		}

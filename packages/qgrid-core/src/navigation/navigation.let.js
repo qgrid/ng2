@@ -173,10 +173,6 @@ export class NavigationLet {
 		Fastdom.measure(() => {
 			const tr = target.rect();	
 			
-			//move this code
-			if (table.body.cell(target.rowIndex, target.columnIndex).model().td.pin !== 'body') {
-				return;
-			}
 			const vr = view.rect('body-mid');
 			const state = {};
 

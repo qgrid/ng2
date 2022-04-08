@@ -38,7 +38,8 @@ export class SelectorMark {
 			const name = this.name + ((pinTB && pinTB !== 'mid') ? `-${pinTB}` : '') + (pinLR ? `-${pinLR}` : ''); 
 			const element = this.markup[name];
 			if (element) {
-				const prev = pinLR === 'left' ? null : result[result.length - 1];
+				const prev = result[result.length - 1] && result[result.length - 1].name === (this.name + ((pinTB == 'top' || pinTB == 'bottom') ? `-${pinTB}` : '')) ? 
+				result[result.length - 1] : null;
 				const columnStart = prev ? prev.columnRange.end : 0;
 				const columnCount = columnArea[pinLR].length;
 				const rowStart = pinTB === 'mid' ? model.row().pinTop.length : pinTB === 'bottom' ? 
