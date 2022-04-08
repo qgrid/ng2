@@ -1,5 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { CellView, EditService, Fastdom, jobLine, NavigationState, RowDetails } from '@qgrid/core';
+import { CellView, EditService, Fastdom, jobLine, NavigationState, RowDetails, Td } from '@qgrid/core';
+import { TdCoreDirective } from '../body/td-core.directive';
 import { GridEventArg } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
 
@@ -107,7 +108,9 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 						const headHeight = table.view.height('head-mid');
 
-						const top = Math.max(headHeight, (target.offsetTop - scrollState.top));
+						const top = Math.max(headHeight, (target.offsetTop - 
+							(!table.box.bag.body.findModel(target) || (table.box.bag.body.findModel(target) as TdCoreDirective).pin == 'body' ? scrollState.top : 0)));
+
 						const left = (target.offsetLeft - (cell.column.pin === 'mid' ? scrollState.left : 0));
 						const width = target.offsetWidth;
 						const height = target.offsetHeight;

@@ -44,8 +44,9 @@ export class View extends Unit {
 	}
 
 	isFocused() {
-		return this.getElementsCore('body')
-			.some(element => this.isFocusedCore(element));
+		return this.getElementsCore('body').some(element => this.isFocusedCore(element)) || 
+		this.getElementsCore('body-top').some(element => this.isFocusedCore(element)) || 
+		this.getElementsCore('body-bottom').some(element => this.isFocusedCore(element));
 	}
 
 	addLayer(name) {

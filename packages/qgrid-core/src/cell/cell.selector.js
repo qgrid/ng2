@@ -51,9 +51,9 @@ export class CellSelector {
 	}
 
 	mapFromCells(items) {
-		const { table } = this;
+		const { model, table } = this;
 		const result = [];
-		const rows = table.data.rows();
+		const rows = model.row().pinTop.concat(model.scene().rows).concat(model.row().pinBottom);
 		const columns = table.data.columns();
 
 		for (let item of items) {

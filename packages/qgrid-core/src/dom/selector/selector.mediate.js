@@ -9,7 +9,7 @@ export class SelectorMediator {
 	}
 
 	columnCount(rowIndex) {
-		const selectors = this.buildSelectors({ row: rowIndex });
+		const selectors = this.buildSelectors({ row: rowIndex }).filter(x => x.type === 'body');
 		if (!selectors.length) {
 			return 0;
 		}
@@ -34,8 +34,12 @@ export class SelectorMediator {
 		if (!selectors.length) {
 			return 0;
 		}
+		
+		const rowCountTop = max(selectors.filter(x => x.type === 'body-top')?.map(s => s.invoke((s, columnIndex) => s.rowCount(columnIndex)))) ?? 0;
+		const rowCount = max(selectors.filter(x => x.type === 'body')?.map(s => s.invoke((s, columnIndex) => s.rowCount(columnIndex)))) ?? 0;
+		const rowCountBottom = max(selectors.filter(x => x.type === 'body-bottom')?.map(s => s.invoke((s, columnIndex) => s.rowCount(columnIndex)))) ?? 0;
 
-		return max(selectors.map(s => s.invoke((s, columnIndex) => s.rowCount(columnIndex))));
+		return rowCountTop + rowCount + rowCountBottom;
 	}
 
 	rows(columnIndex) {

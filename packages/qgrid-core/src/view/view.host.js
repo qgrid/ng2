@@ -206,15 +206,22 @@ export class ViewHost {
       }
 
       const tr = this.findRow(e);
-      if (tr) {
-        const { index } = tr;
+			if (tr) {
+        const { index, pin } = tr;
 
-        if (highlight.row.canExecute(index)) {
+				let correctedIndex = index;
+        if (highlight.row.canExecute(correctedIndex)) {
           rows
             .filter(i => i !== index)
             .forEach(i => highlight.row.execute(i, false));
 
-          highlight.row.execute(index, true);
+					if (pin === 'body') {
+						correctedIndex += model.row().pinTop.length;
+					}
+					if (pin === 'bottom') {
+						correctedIndex += model.row().pinTop.length + model.scene().rows.length;
+					}
+          highlight.row.execute(correctedIndex, true);
         }
       }
 
@@ -344,7 +351,7 @@ export class ViewHost {
     const { table } = this.plugin;
     const pathFinder = new PathService(table.box.bag.body);
     const path = eventPath(e);
-    return pathFinder.row(path);
+		return pathFinder.row(path);
   }
 
   clearHighlight() {

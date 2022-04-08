@@ -11,9 +11,9 @@ export class NavigationLet {
 		this.plugin = plugin;
 
 		const navigation = new Navigation(model, table);
-		let focusBlurs = [];
+		let focusBlurs = []; 
 
-		shortcut.register(navigation.commands);
+		shortcut.register(navigation.commands); 
 
 		this.focus = new Command({
 			source: 'navigation.view',
@@ -168,10 +168,15 @@ export class NavigationLet {
 	}
 
 	scroll(view, target) {
-		const { model } = this.plugin;
+		const { model, table } = this.plugin;
 		const { scroll } = model;
 		Fastdom.measure(() => {
-			const tr = target.rect();
+			const tr = target.rect();	
+			
+			//move this code
+			if (table.body.cell(target.rowIndex, target.columnIndex).model().td.pin !== 'body') {
+				return;
+			}
 			const vr = view.rect('body-mid');
 			const state = {};
 

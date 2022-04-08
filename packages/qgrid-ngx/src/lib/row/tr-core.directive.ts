@@ -11,6 +11,8 @@ export class TrCoreDirective implements DomTr, OnInit, OnDestroy {
 	@Input('q-grid-core-tr') model: any;
 	@Input('q-grid-core-source') source;
 
+	@Input('q-grid-core-pin') pin: string;
+
 	element: HTMLElement;
 
 	constructor(

@@ -23,8 +23,12 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 
 	@Input('q-grid-core-td') columnView: ColumnView;
 
+	@Input('q-grid-core-pin') pin: string;
+
 	element: HTMLElement;
 	changes: SimpleChange;
+
+	model;
 
 	constructor(
 		public $view: GridLet,
@@ -40,7 +44,10 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	}
 
 	ngOnInit() {
-		const { table } = this.root;
+		const { table, model } = this.root;
+
+		this.model = model;
+
 		table.box.bag.body.addCell(this);
 
 		this.cellClass.toBody(this.element, this.column);
@@ -132,7 +139,14 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	}
 
 	get rowIndex() {
-		return this.tr.index;
+		let index = this.tr.index;
+		if (this.pin == 'body') {
+			index += this.model.row().pinTop.length;
+		}
+		if (this.pin == 'bottom') {
+			index += this.model.row().pinTop.length + this.model.scene().rows.length;
+		}
+		return index;
 	}
 
 	get dataRowIndex() {
