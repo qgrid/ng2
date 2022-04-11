@@ -8,7 +8,7 @@ import { TemplateHostService } from '../template/template-host.service';
 
 @Component({
 	selector: 'q-grid-row',
-	template: `<ng-container></ng-container>`,
+	template: `<ng-content></ng-content>`,
 	providers: [
 		TemplateHostService,
 		GridPlugin,

@@ -40,10 +40,9 @@ export class LayerService {
 			this.layers.set(name, layer);
 			return layer;
 		}
-
 		const noopLayer =  new Layer(() => this.layers.delete(name));
-
 		this.layers.set(name, noopLayer);
+		
 		return noopLayer;
 	}
 
