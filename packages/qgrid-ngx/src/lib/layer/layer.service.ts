@@ -25,22 +25,26 @@ export class LayerService {
 			const { nativeElement } = container.element;
 			nativeElement.parentElement.classList.add(`q-grid-layer-${name}`);
 			this.getHostElement()?.classList.add(`q-grid-${name}`);
-			container.createEmbeddedView(link.template, {});
-		}
+			const embeddedViewRef = container.createEmbeddedView(link.template, {});
 
-		const destroy = container
-			? () => {
+
+			const destroy = () => {
 				this.layers.delete(name);
 				const { nativeElement } = container.element;
-				nativeElement.parentElement.classList.add(`q-grid-layer-${name}`);
+				nativeElement.parentElement.classList.remove(`q-grid-layer-${name}`);
 				this.getHostElement()?.classList.remove(`q-grid-${name}`);
-				container.clear();
+				embeddedViewRef.destroy();
 			}
-			: () => this.layers.delete(name);
 
-		const layer = new Layer(destroy);
-		this.layers.set(name, layer);
-		return layer;
+			const layer = new Layer(destroy);
+			this.layers.set(name, layer);
+			return layer;
+		}
+
+		const noopLayer =  new Layer(() => this.layers.delete(name));
+
+		this.layers.set(name, noopLayer);
+		return noopLayer;
 	}
 
 	get count() {

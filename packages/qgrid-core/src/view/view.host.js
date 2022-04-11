@@ -1,7 +1,7 @@
 import { final } from '../infrastructure/final';
 import {
-  checkButtonCode, getButtonCode, LEFT_BUTTON,
-  NO_BUTTON, stringify
+	checkButtonCode, getButtonCode, LEFT_BUTTON,
+	NO_BUTTON, stringify
 } from '../mouse/mouse.code';
 import { PathService } from '../path/path.service';
 import { PipeUnit } from '../pipe/pipe.unit';
@@ -209,12 +209,8 @@ export class ViewHost {
       if (tr) {
         const { index } = tr;
 
-        if (highlight.row.canExecute(index)) {
-          rows
-            .filter(i => i !== index)
-            .forEach(i => highlight.row.execute(i, false));
-
-          highlight.row.execute(index, true);
+        if (highlight.oneRow.canExecute(index)) {
+          highlight.oneRow.execute(index, true);
         }
       }
 

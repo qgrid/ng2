@@ -69,10 +69,39 @@ export class HighlightLet {
 						hasChanges = true;
 					}
 				}
-
 				if (hasChanges) {
 					model.highlight({ rows }, {
 						source: 'highlight.view'
+					});
+				}
+			}
+		});
+
+		this.oneRow = new Command({
+			source: 'highlight.oneRow',
+			canExecute: () => !this.isRendering,
+			execute: (row, state) => {
+				let rows = Array.from(model.highlight().rows);
+				const index = rows.indexOf(row);
+				let hasChanges = false;
+				if (state) {
+					if (index < 0) {
+						rows.push(row);
+						hasChanges = true;
+					}
+				}
+				else {
+					if (index >= 0) {
+						rows.splice(index, 1);
+						hasChanges = true;
+					}
+				}
+				if (hasChanges) {
+					if(rows.length > 1) {
+						rows = rows.splice(rows.length-1, 1);
+					}
+					model.highlight({ rows }, {
+						source: 'highlight.oneRow'
 					});
 				}
 			}

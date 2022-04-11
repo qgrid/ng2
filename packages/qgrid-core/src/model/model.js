@@ -1,8 +1,8 @@
-import { GridError } from '../infrastructure/error';
 import { Event } from '../event/event';
+import { GridError } from '../infrastructure/error';
 import { Guard } from '../infrastructure/guard';
-import { isArray, isObject, getTypeName } from '../utility/kit';
 import { Log } from '../infrastructure/log';
+import { getTypeName, isArray, isObject } from '../utility/kit';
 
 function equals(x, y) {
 	// TODO: improve equality algorithm

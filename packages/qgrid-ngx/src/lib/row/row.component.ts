@@ -8,7 +8,7 @@ import { TemplateHostService } from '../template/template-host.service';
 
 @Component({
 	selector: 'q-grid-row',
-	template: '<ng-content></ng-content>',
+	template: `<ng-container></ng-container>`,
 	providers: [
 		TemplateHostService,
 		GridPlugin,
@@ -52,7 +52,7 @@ export class RowComponent implements OnChanges, OnInit {
 	}
 
 	ngOnInit() {
-		const { model, observe, table } = this.plugin;
+		const { model, observe } = this.plugin;
 
 		if (this.behavior.indexOf('expandOnShortcut') >= 0) {
 			observe(model.keyboardChanged)
@@ -91,32 +91,21 @@ export class RowComponent implements OnChanges, OnInit {
 			}
 		}
 
-		observe(model.highlightChanged)
-			.subscribe(e => {
-				if (e.changes.cell?.oldValue && e.changes.cell?.newValue && e.changes.cell.oldValue.rowIndex !== e.changes.cell.newValue.rowIndex){
-					const previousRow = table.body.row(e.changes.cell.oldValue.rowIndex);
-					const newRow = table.body.row(e.changes.cell.newValue.rowIndex);
-
-					previousRow.removeClass('q-grid-row-size-handler');
-					newRow.addClass('q-grid-row-size-handler');
-				}
-		});
-
-		observe(model.mouseChanged)
-			.subscribe(e => {
-				if(e.changes.status?.newValue === 'leave' && e.state.status === 'leave') {
-					const indicators = document.getElementsByClassName('q-grid-row-size-handler') as HTMLCollectionOf<HTMLElement>;
-					if(indicators.length > 0) {
-						for(let i = 0; i < indicators.length; i++) {
-							indicators[i].classList.remove('q-grid-row-size-handler');
-						}
-					}
-				}
-		});
+		
 	}
 
 	ngOnChanges() {
 		const { model } = this.plugin;
 		this.stateAccessor.write(model);
+	}
+
+	private addRowResizeLayer(): void {
+		const rowResizeLayer = 'row-resize';
+		const table = this.plugin.table;
+		if (table.view.hasLayer(rowResizeLayer)) {
+			table.view.removeLayer(rowResizeLayer);
+		}
+
+		table.view.addLayer(rowResizeLayer);
 	}
 }

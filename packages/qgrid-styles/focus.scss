@@ -7,10 +7,14 @@ td.q-grid-focused {
     }
 }
 
-.q-grid-row-size-handler {
-	.q-grid-row-resize-indicator {
-		display: block!important;
-		margin-top: 16px;
+
+.q-grid-row-size-indicator {
+	display: none;
+}
+
+.q-grid-highlighted {
+	.q-grid-row-size-indicator {
+		display: block;
 		position: absolute;
 		bottom: 0;
 	}

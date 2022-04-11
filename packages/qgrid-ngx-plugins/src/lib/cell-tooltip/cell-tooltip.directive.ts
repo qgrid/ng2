@@ -10,9 +10,16 @@ import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 	providers: [GridPlugin, TemplateHostService],
 })
 
+//TODO: Re-name to TooltipDirective
 export class CellTooltipDirective implements OnChanges {
 	@Input() host: HTMLElement;
 	@Input() showDelay = 1000;
+	@Input() position: (host: HTMLElement) => [number, number] = (host) => {
+		const { top, left, height } = host.getBoundingClientRect();
+		const box = this.getBoxRect(host);
+
+		return [left - box.left, top - box.top + height];
+	};
 
 	private job = jobLine(this.showDelay);
 
@@ -28,13 +35,12 @@ export class CellTooltipDirective implements OnChanges {
 		}
 
 		if (e.host && this.host) {
-			const { top, left, height } = this.host.getBoundingClientRect();
-			const box = this.getBoxRect(this.host);
-			const host = this.elementRef.nativeElement;
+			const nativeElement = this.elementRef.nativeElement;
 			this.job(() => {
-				this.renderer.setStyle(host, 'top', top - box.top + height + 'px');
-				this.renderer.setStyle(host, 'left', left - box.left + 'px');
-				this.renderer.removeClass(host, 'q-grid-hide');
+				const [left, top] = this.position(this.host);
+				this.renderer.setStyle(nativeElement, 'top', top + 'px');
+				this.renderer.setStyle(nativeElement, 'left', left + 'px');
+				this.renderer.removeClass(nativeElement, 'q-grid-hide');
 			});
 
 		}
