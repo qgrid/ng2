@@ -108,9 +108,7 @@ export class CellHandlerComponent implements OnInit, AfterViewInit {
 
 						const headHeight = table.view.height('head-mid');
 
-						const top = Math.max(headHeight, (target.offsetTop - 
-							(!table.box.bag.body.findModel(target) || (table.box.bag.body.findModel(target) as TdCoreDirective).pin == 'body' ? scrollState.top : 0)));
-
+						const top = Math.max(headHeight, target.offsetTop - (cell.rowPin === "body" ? scrollState.top : 0));
 						const left = (target.offsetLeft - (cell.column.pin === 'mid' ? scrollState.left : 0));
 						const width = target.offsetWidth;
 						const height = target.offsetHeight;

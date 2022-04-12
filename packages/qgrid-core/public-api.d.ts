@@ -24,6 +24,7 @@ export { BoolColumn, BoolColumnModel } from './src/column-type/bool.column';
 export { CohortColumn, CohortColumnModel } from './src/column-type/cohort.column';
 //column-type
 export { ColumnModel, ColumnModelCategory, ColumnModelPin, ColumnModelType, ColumnModelWidthMode } from './src/column-type/column.model';
+export { RowModelPin } from './src/row/row.model';
 export { CurrencyColumn, CurrencyColumnModel } from './src/column-type/currency.column';
 export { DataColumnModel } from './src/column-type/data.column.model';
 export { DateColumn, DateColumnModel } from './src/column-type/date.column';

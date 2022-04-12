@@ -351,7 +351,7 @@ export class ViewHost {
     const { table } = this.plugin;
     const pathFinder = new PathService(table.box.bag.body);
     const path = eventPath(e);
-		return pathFinder.row(path);
+    return pathFinder.row(path);
   }
 
   clearHighlight() {

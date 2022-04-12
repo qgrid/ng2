@@ -10,22 +10,7 @@ export class SelectorMark {
 	select() {
 		const result = [];
 		const addNext = this.addFactory(result);
-		if (this.name == 'body') {			
-			addNext('left','top');
-			addNext('mid','top');
-			addNext('right','top');
-			addNext('left','mid');
-			addNext('mid','mid');
-			addNext('right','mid');
-			addNext('left','bottom');
-			addNext('mid','bottom');
-			addNext('right','bottom');
-		}
-		else {
-			addNext('left', null);
-			addNext('mid', null);
-			addNext('right', null);
-		}
+		['top', 'mid', 'bottom'].forEach(pos => (['left', 'mid', 'right'].forEach(pin => addNext(pin, pos))));
 		return result;
 	}
 

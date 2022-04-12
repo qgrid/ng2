@@ -427,13 +427,15 @@ export class SelectionLet {
 
   navigateTo(rowIndex, columnIndex) {
     const { table, model } = this.plugin;
-    const { row, column } = table.body.cell(rowIndex, columnIndex).model();
+    const { row, column, td } = table.body.cell(rowIndex, columnIndex).model();
+		const rowPin = td.pin;
     model.navigation({
       cell: {
         rowIndex,
         columnIndex,
         row,
-        column
+        column,
+				rowPin
       }
     }, { source: 'selection.view' });
   }

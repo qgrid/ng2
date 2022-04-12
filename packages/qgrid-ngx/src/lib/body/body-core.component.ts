@@ -1,22 +1,24 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, NgZone, OnInit } from '@angular/core';
-import { BodyHost, ColumnView, EventListener, EventManager, SelectionState } from '@qgrid/core';
+import { BodyHost, ColumnView, EventListener, EventManager, RowModelPin, SelectionState } from '@qgrid/core';
 import { GridLet } from '../grid/grid-let';
 import { GridModel } from '../grid/grid-model';
 import { GridPlugin } from '../plugin/grid-plugin';
 import { TableCoreService } from '../table/table-core.service';
-@Component({
+import { BodyCoreService } from './body-core.service';
+@Component({ 
 	// tslint:disable-next-line
 	selector: 'tbody[q-grid-core-body]',
 	templateUrl: './body-core.component.html',
-	providers: [GridPlugin],
+	providers: [GridPlugin, BodyCoreService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BodyCoreComponent implements OnInit {
-	@Input() pin = 'body';
+	@Input() pin: RowModelPin = 'body';
 
 	constructor(
 		public $view: GridLet,
 		public $table: TableCoreService,
+		public $body: BodyCoreService,
 		private elementRef: ElementRef,
 		private zone: NgZone,
 		private cd: ChangeDetectorRef,
@@ -29,6 +31,8 @@ export class BodyCoreComponent implements OnInit {
 		const nativeElement = this.elementRef.nativeElement as HTMLElement;
 
 		const host = new BodyHost(this.plugin);
+
+		this.$body.pin = this.pin;
 
 		const listener = new EventListener(this.elementRef.nativeElement, new EventManager(this));
 		this.zone.runOutsideAngular(() => {

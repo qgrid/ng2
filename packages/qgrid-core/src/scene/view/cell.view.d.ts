@@ -8,4 +8,5 @@ export interface CellViewPosition {
 export interface CellView extends CellViewPosition {
 	readonly row: any;
 	readonly column: ColumnModel;
+	readonly rowPin: string;
 }

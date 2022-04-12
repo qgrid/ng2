@@ -30,12 +30,14 @@ export class NavigationLet {
 				const td = table.body.cell(rowIndex, columnIndex).model();
 				if (td) {
 					const { row, column } = td;
+					const rowPin = td.td.pin;
 					model.navigation({
 						cell: {
 							rowIndex,
 							columnIndex,
 							row,
-							column
+							column,
+							rowPin
 						}
 					}, {
 						source: 'navigation.view',

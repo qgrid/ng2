@@ -11,6 +11,7 @@ import { DomTd } from '../dom/dom';
 import { GridLet } from '../grid/grid-let';
 import { GridRoot } from '../grid/grid-root';
 import { TrCoreDirective } from '../row/tr-core.directive';
+import { BodyCoreService } from './body-core.service';
 
 @Directive({
 	selector: '[q-grid-core-td]',
@@ -22,13 +23,11 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	@Input('q-grid-core-label') actualLabel: any;
 
 	@Input('q-grid-core-td') columnView: ColumnView;
-
-	@Input('q-grid-core-pin') pin: string;
+ 
+	pin: string;
 
 	element: HTMLElement;
 	changes: SimpleChange;
-
-	model;
 
 	constructor(
 		public $view: GridLet,
@@ -36,17 +35,19 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 		private viewContainerRef: ViewContainerRef,
 		private cellTemplate: CellTemplateService,
 		private cellClass: CellClassService,
+		private $body: BodyCoreService,
 		private tr: TrCoreDirective,
 		private cd: ChangeDetectorRef,
 		elementRef: ElementRef
 	) {
 		this.element = elementRef.nativeElement.parentNode;
+		this.pin = $body.pin; 
 	}
 
 	ngOnInit() {
-		const { table, model } = this.root;
-
-		this.model = model;
+		const { table } = this.root;
+		
+		this.pin = this.$body.pin; 
 
 		table.box.bag.body.addCell(this);
 
@@ -141,10 +142,10 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	get rowIndex() {
 		let index = this.tr.index;
 		if (this.pin == 'body') {
-			index += this.model.row().pinTop.length;
+			index += this.root.model.row().pinTop.length;
 		}
 		if (this.pin == 'bottom') {
-			index += this.model.row().pinTop.length + this.model.scene().rows.length;
+			index += this.root.model.row().pinTop.length + this.root.model.scene().rows.length;
 		}
 		return index;
 	}

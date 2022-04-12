@@ -62,6 +62,7 @@ export { ScrollService } from './lib/scroll/scroll.service';
 export { StateAccessor } from './lib/state/state-accessor';
 export { TableCoreComponent } from './lib/table/table-core.component';
 export { TableCoreService } from './lib/table/table-core.service';
+export { BodyCoreService } from './lib/body/body-core.service';
 export { TableModule } from './lib/table/table.module';
 export { TemplateCacheDirective } from './lib/template/template-cache.directive';
 export { TemplateCacheService } from './lib/template/template-cache.service';

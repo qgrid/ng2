@@ -3,7 +3,8 @@
 
 	<mat-menu #menu="matMenu"
 			  class="q-grid-mat-menu">
-		<mat-card *ngIf="trigger.menuOpen" [q-grid-stop-propagate]="['keydown', 'keypress', 'keyup']">
+		<mat-card *ngIf="trigger.menuOpen" 
+							[q-grid-stop-propagate]="['keydown', 'keypress', 'keyup']">
 			<mat-form-field>
 				<input id="q-grid-menu-input"
 					   matInput
