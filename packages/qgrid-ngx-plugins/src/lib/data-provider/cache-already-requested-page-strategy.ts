@@ -10,7 +10,7 @@ export class CacheAlreadyRequestedPageStrategy<T> implements DataProviderStrateg
 	private pagerSize: number;
 
 	constructor(
-		private server: Pick<DataProviderPageServer<T>, 'getPage'>,
+		private server: Pick<DataProviderPageServer<T>, 'getRecords'>,
 		private options: { pagesToLoad: number } = { pagesToLoad: 1 },
 	) { }
 
@@ -26,7 +26,7 @@ export class CacheAlreadyRequestedPageStrategy<T> implements DataProviderStrateg
 		}
 
 		const shouldRequestData = !data.length;
-		return (shouldRequestData ? this.server.getPage(current, size) : of(data))
+		return (shouldRequestData ? this.server.getRecords(current * size, (current + 1) * size) : of(data))
 			.pipe(tap(rows => this.pageCache.set(current, rows)));
 	}
 
@@ -45,7 +45,7 @@ export class CacheAlreadyRequestedPageStrategy<T> implements DataProviderStrateg
 		const maxPage = Math.floor(count / size); 
 		for (let page = fromPage; page < toPage; page++) {
 			if (page <= maxPage && !this.pageCache.has(page)) {
-				this.server.getPage(page, size)
+				this.server.getRecords(page * size, (page + 1) * size)
 					.pipe(filter(rows => !!rows?.length))
 					.subscribe(rows => this.pageCache.set(page, rows));
 			}

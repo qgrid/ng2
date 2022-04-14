@@ -10,7 +10,7 @@ export class CheckNextPageCountStrategy<T> implements DataProviderStrategy<T> {
 	private pagerSize: number;
 
 	constructor(
-		private server: Pick<DataProviderPageServer<T>, 'getPage'>,
+		private server: Pick<DataProviderPageServer<T>, 'getRecords'>,
 	) { }
 
 	process(data: T[], { model }: DataProviderContext): Observable<T[]> {
@@ -21,12 +21,12 @@ export class CheckNextPageCountStrategy<T> implements DataProviderStrategy<T> {
 		}
 		
 		const { count, size } = model.pagination();
-		return this.server.getPage(current, size + 1)
+		return this.server.getRecords(current * size, (current + 1) * size + 1)
 			.pipe(
 				map((next: T[]) => {
 					if (next?.length > size) {
 						next.pop();
-					}					
+					}
 					model.pagination({ count: next.length + (count || 1) });
 					this.cache.add(current);
 					return next;

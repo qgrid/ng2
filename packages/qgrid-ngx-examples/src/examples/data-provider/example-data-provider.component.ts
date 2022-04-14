@@ -47,9 +47,9 @@ class FakeServer implements DataProviderPageServer<Atom> {
 		private dataService: DataService,
 	) { }
 
-	getPage(number: number, pageSize: number): Observable<Atom[]> {
+	getRecords(from: number, to: number): Observable<Atom[]> {
 		return this.dataService.getAtoms()
-			.pipe(map(atoms => atoms.splice(number * pageSize, pageSize)));
+			.pipe(map(atoms => atoms.slice(from, to)));
 	}
 
 	getTotal(): Observable<number> {
