@@ -44,6 +44,23 @@ function buildTheme(name) {
   return;
 }
 
+function watchStyles(name) {
+	const stylesPath = path.join(
+		ROOT_PATH,
+		'packages',
+		name
+	);
+
+	sane(stylesPath)
+    .on('all', (eventType, fileName) => {
+			if(fileName !== 'index.scss') {
+				console.log(`build.kit ${eventType}: ${fileName}`);
+	
+				recompileStyles(stylesPath);
+			}
+	});
+}
+
 function watchTheme(name) {
   const libPath = path.join(
     ROOT_PATH,
@@ -87,6 +104,12 @@ function concatFiles(settings = {}) {
   if (!fs.existsSync(settings.outputPath) || fs.readFileSync(settings.outputPath, { encoding: settings.encoding }) !== content) {
     fs.writeFileSync(settings.outputPath, content);
   }
+}
+
+function recompileStyles(stylesPath) {
+	const indexPath = path.join(stylesPath, 'index.scss')
+	const file = fs.readFileSync(indexPath, 'utf-8');
+	fs.writeFileSync(indexPath, file);
 }
 
 function execute(command, options = []) {
@@ -178,5 +201,6 @@ module.exports = {
 	relativeCopy,
 	relativeCopySync,
 	concatFiles,
-	toComponentName
+	toComponentName,
+	watchStyles
 };
