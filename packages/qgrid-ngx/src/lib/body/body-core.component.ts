@@ -41,7 +41,7 @@ export class BodyCoreComponent implements OnInit {
 				listener.on('scroll', () =>
 					host.scroll({
 						scrollLeft: this.$table.pin === 'mid' ? nativeElement.scrollLeft : model.scroll().left,
-						scrollTop: nativeElement.scrollTop
+						scrollTop: this.$body.pin === 'body' ? nativeElement.scrollTop : model.scroll().top
 					}),
 					scrollSettings
 				));
