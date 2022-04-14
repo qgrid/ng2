@@ -1,6 +1,6 @@
 'use strict';
 
-const { 
+const {
 	execute,
 	sleep,
 	watchForBuild,
@@ -37,7 +37,7 @@ async function main() {
 
 async function buildAndWatch(project) {
 	await buildProject(project);
-	if(project !== 'qgrid-styles') {
+	if (project !== 'qgrid-styles') {
 		await watchForBuild(project);
 	}
 }
@@ -68,7 +68,7 @@ async function buildProject(project) {
 			watchStyles('qgrid-styles')
 			return;
 		}
-	
+
 		default: {
 			console.log('Nothing to build');
 			return;
