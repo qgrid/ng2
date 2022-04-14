@@ -123,12 +123,14 @@ export class Navigation {
 		const cell = this.table.body.cell(rowIndex, columnIndex);
 		const model = cell.model();
 		if (model) {
-			const { row, column } = model;
+			const { row, column, td } = model;
+			const rowPin = td.pin;
 			return {
 				rowIndex,
 				columnIndex,
 				row,
-				column
+				column,
+				rowPin
 			};
 		}
 
