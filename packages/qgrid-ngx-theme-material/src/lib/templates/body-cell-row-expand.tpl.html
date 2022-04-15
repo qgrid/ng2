@@ -5,7 +5,8 @@
 			[q-grid-command]="$view.rowDetails.toggleStatus"
 			[q-grid-command-arg]="$cell.row"
 			[ngClass]="'q-grid-' + $view.rowDetails.status($cell.row)"
-			tabindex="-1">
+			tabindex="-1"
+			aria-label="Expand row">
 		<mat-icon class="q-grid-icon">
 			chevron_right
 		</mat-icon>

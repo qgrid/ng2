@@ -12,7 +12,7 @@
 				 [fixedInViewport]="isMobile">
 		<a routerLink="/"
 		   class="logo"
-		   *ngIf="!isMobile"></a>
+		   *ngIf="!isMobile" aria-label="Navigate to home"></a>
 		<mat-form-field class="app-search">
 			<input matInput
 				   [(ngModel)]="search"
