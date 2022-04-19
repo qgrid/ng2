@@ -80,7 +80,7 @@ export class PagerTargetComponent implements OnInit {
 			const isValid = page >= min && page <= max && !isNaN(digit);
 
 			if (!isValid) {
-				page > this.total ? this.value = max : this.value = min;
+				this.value = page > this.total ?  max : min;
 				e.preventDefault();
 			}
 		}

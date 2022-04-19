@@ -122,8 +122,6 @@ export class WhereSchema {
 									case 'not like':
 									case 'starts with':
 									case 'ends with':
-										const value = getValue(line, '#operand', ['value', 'values']);
-
 										line.put('#operand', node, function (schema) {
 											schema.input('#value', {
 												classes: {
@@ -135,7 +133,7 @@ export class WhereSchema {
 														return !this.isValid(n);
 													}
 												},
-												value: value,
+												value: getValue(line, '#operand', ['value', 'values']),
 												validate: function () {
 													const field = line.get('#field').expressions[0].value;
 													return validator.for(field)(this.value);

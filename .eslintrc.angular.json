@@ -28,6 +28,7 @@
     "@angular-eslint/no-inputs-metadata-property": "error",
     "@angular-eslint/no-output-on-prefix": "off",
     "@angular-eslint/no-output-rename": "off",
+    "@angular-eslint/no-output-native": "off",
     "@angular-eslint/no-outputs-metadata-property": "error",
     "@angular-eslint/use-lifecycle-interface": "error",
     "@angular-eslint/use-pipe-transform-interface": "error"

@@ -122,9 +122,9 @@ export class QueryBuilderPanelComponent implements OnInit {
 	private plan: INodeSchema;
 
 	constructor(
+		public focusAfterRender: FocusAfterRender,
 		private plugin: GridPlugin,
 		private nodeService: EbNodeService,
-		focusAfterRender: FocusAfterRender
 	) {
 	}
 

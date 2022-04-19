@@ -1,3 +1,5 @@
+/* eslint-disable @angular-eslint/no-conflicting-lifecycle */
+
 import {
 	AfterViewInit, Directive,
 	DoCheck, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Optional, Output, SimpleChanges

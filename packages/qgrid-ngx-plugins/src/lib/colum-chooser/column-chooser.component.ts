@@ -41,11 +41,11 @@ export class ColumnChooserComponent implements OnInit, OnChanges {
 	private ccState = this.stateAccessor.setter(ColumnChooserState);
 
 	constructor(
+		public focusAfterRender: FocusAfterRender,
 		private plugin: GridPlugin,
 		private zone: NgZone,
 		private cd: ChangeDetectorRef,
 		private stateAccessor: StateAccessor,
-		focusAfterRender: FocusAfterRender
 	) {
 	}
 

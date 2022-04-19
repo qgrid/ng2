@@ -6,7 +6,7 @@ export function visit(item) {
 	switch (item.id) {
 	case '#root':
 		return visit(item.children[0]);
-	case '#logical':
+	case '#logical': {
 		const group = visitGroup(item);
 		if (group) {
 			if (!(group.left || group.right)) {
@@ -15,6 +15,7 @@ export function visit(item) {
 		}
 
 		return group;
+	}
 	case '#condition':
 		return visitCondition(item);
 	default:
