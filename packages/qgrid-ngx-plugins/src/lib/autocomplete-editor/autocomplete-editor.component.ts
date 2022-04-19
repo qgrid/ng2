@@ -15,6 +15,26 @@ export class AutoCompleteEditorComponent {
 		$implicit: this
 	};
 
+	get items() {
+		return (this.cell.fetch as any).result;
+	}
+
+	get title() {
+		return this.cell.column.title;
+	}
+
+	get value() {
+		return this.cell.value;
+	}
+
+	set value(value) {
+		this.cell.value = value;
+	}
+
+	private get cell() {
+		return this.plugin.view.edit.cell;
+	}
+
 	constructor(
 		private plugin: GridPlugin,
 	) {
@@ -32,22 +52,6 @@ export class AutoCompleteEditorComponent {
 		this.options = [];
 	}
 
-	get items() {
-		return (this.cell.fetch as any).result;
-	}
-
-	get title() {
-		return this.cell.column.title;
-	}
-
-	get value() {
-		return this.cell.value;
-	}
-
-	set value(value) {
-		this.cell.value = value;
-	}
-
 	itemLabelFactory(column) {
 		const { itemLabel } = column;
 		if (itemLabel) {
@@ -55,9 +59,5 @@ export class AutoCompleteEditorComponent {
 		}
 
 		return item => item;
-	}
-
-	private get cell() {
-		return this.plugin.view.edit.cell;
 	}
 }

@@ -9,15 +9,13 @@ import { Disposable, GridModel } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReferenceEditorComponent implements AfterViewInit {
-	private state: any;
-
-	@Input() caption = '';
-	@Input() cell: CellView;
-
 	@Output() valueChange = new EventEmitter<any>();
 	@Output() afterSubmit = new EventEmitter();
 	@Output() afterCancel = new EventEmitter();
 
+	@Input() caption = '';
+	@Input() cell: CellView;
+	
 	reference: { commit: Command; cancel: Command };
 	model: GridModel;
 
@@ -28,18 +26,19 @@ export class ReferenceEditorComponent implements AfterViewInit {
 	submit = new Command();
 	cancel = new Command();
 
-	constructor(private disposable: Disposable) { }
-
 	@Input() get value() {
 		return this.state;
 	}
-
 	set value(value) {
 		if (value !== this.state) {
 			this.state = value;
 			this.valueChange.emit(value);
 		}
 	}
+
+	private state: any;
+
+	constructor(private disposable: Disposable) { }
 
 	ngAfterViewInit() {
 		const { model } = this;

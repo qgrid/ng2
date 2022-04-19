@@ -9,20 +9,19 @@ import { Disposable, GridModel, GridModelBuilder } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReferenceComponent implements OnInit {
-	private _value: any;
-	private _model: GridModel;
-	private _reference: {
-		commit: Command;
-		cancel: Command;
-		value: any;
-	};
+	@Output() modelChange = new EventEmitter<GridModel>();
+	@Output() valueChange = new EventEmitter<any>();
+	@Output() referenceChange = new EventEmitter<{ commit: Command; cancel: Command; value: any }>();
 
 	@Input() caption = '';
 	@Input() autofocus = false;
 	@Input() cell: CellView;
 
+	context: { $implicit: ReferenceComponent } = {
+		$implicit: this
+	};
+
 	get value() { return this._value; }
-	@Output() valueChange = new EventEmitter<any>();
 	@Input() set value(value) {
 		if (value !== this._value) {
 			this._value = value;
@@ -31,7 +30,6 @@ export class ReferenceComponent implements OnInit {
 	}
 
 	get model() { return this._model; }
-	@Output() modelChange = new EventEmitter<GridModel>();
 	@Input() set model(value) {
 		if (value !== this._model) {
 			this._model = value;
@@ -40,7 +38,6 @@ export class ReferenceComponent implements OnInit {
 	}
 
 	get reference() { return this._reference; }
-	@Output() referenceChange = new EventEmitter<{ commit: Command; cancel: Command; value: any }>();
 	@Input() set reference(value) {
 		if (value !== this._reference) {
 			this._reference = value;
@@ -48,8 +45,12 @@ export class ReferenceComponent implements OnInit {
 		}
 	}
 
-	context: { $implicit: ReferenceComponent } = {
-		$implicit: this
+	private _value: any;
+	private _model: GridModel;
+	private _reference: {
+		commit: Command;
+		cancel: Command;
+		value: any;
 	};
 
 	constructor(

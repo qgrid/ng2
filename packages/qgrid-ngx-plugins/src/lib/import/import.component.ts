@@ -17,6 +17,18 @@ export class ImportComponent implements AfterViewInit {
 		$implicit: this
 	};
 
+	get rows() {
+		return this.plugin.model.data().rows;
+	}
+
+	get columns(): ColumnModel[] {
+		return this.plugin.model.columnList().line;
+	}
+
+	get id() {
+		return this.plugin.model.grid().id;
+	}
+
 	constructor(
 		private plugin: GridPlugin,
 		private templateHost: TemplateHostService,
@@ -65,17 +77,5 @@ export class ImportComponent implements AfterViewInit {
 					source: 'import.component'
 				});
 		});
-	}
-
-	get rows() {
-		return this.plugin.model.data().rows;
-	}
-
-	get columns(): ColumnModel[] {
-		return this.plugin.model.columnList().line;
-	}
-
-	get id() {
-		return this.plugin.model.grid().id;
 	}
 }

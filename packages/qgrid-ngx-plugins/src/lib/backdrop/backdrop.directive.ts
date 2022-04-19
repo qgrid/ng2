@@ -1,19 +1,15 @@
-import { Output, EventEmitter, Directive, Input, NgZone, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { Directive, EventEmitter, Inject, Input, NgZone, Output } from '@angular/core';
 
 @Directive({
 	selector: '[q-grid-backdrop]'
 })
 export class BackdropDirective {
-	@Input('q-grid-backdrop-selector') selector = '';
 	@Output('q-grid-backdrop') close = new EventEmitter<any>();
-	private backdrop: HTMLElement;
 
-	constructor(private zone: NgZone, @Inject(DOCUMENT) private document: any) {
-	}
+	@Input('q-grid-backdrop-selector') selector = '';
 
-	@Input('q-grid-backdrop-active')
-	set backdropHost(value: any) {
+	@Input('q-grid-backdrop-active') set backdropHost(value: any) {
 		if (!value) {
 			if (this.backdrop) {
 				this.backdrop.remove();
@@ -42,5 +38,10 @@ export class BackdropDirective {
 			element.style.zIndex = '1001';
 			element.parentElement.appendChild(this.backdrop);
 		});
+	}
+
+	private backdrop: HTMLElement;
+
+	constructor(private zone: NgZone, @Inject(DOCUMENT) private document: any) {
 	}
 }

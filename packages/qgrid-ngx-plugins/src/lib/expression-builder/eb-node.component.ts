@@ -1,11 +1,10 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Node } from './model/node';
+import { Component, Input } from '@angular/core';
 import { EbNodeService } from './eb-node.service';
+import { Node } from './model/node';
 
 @Component({
 	selector: 'q-grid-eb-node',
 	templateUrl: './eb-node.component.html',
-	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EbNodeComponent {
 	@Input() model: Node;

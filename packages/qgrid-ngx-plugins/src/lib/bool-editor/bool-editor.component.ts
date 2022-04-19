@@ -7,8 +7,6 @@ import { BoolColumnModel } from '@qgrid/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BoolEditorComponent implements OnInit {
-	private state: any;
-
 	@Input() autofocus = false;
 	@Input() column: BoolColumnModel;
 	@Input() label: string;
@@ -29,6 +27,24 @@ export class BoolEditorComponent implements OnInit {
 		}
 	}
 
+	get isChecked() {
+		return this.column.isChecked(this.value);
+	}
+
+	set isChecked(value: boolean) {
+		this.value = value ? this.trueValue : this.falseValue;
+	}
+
+	get trueValue() {
+		return this.column.trueValue;
+	}
+
+	get falseValue() {
+		return this.column.falseValue;
+	}
+
+	private state: any;
+
 	ngOnInit() {
 		// entering edit mode means toggling boolean value
 		if (this.autofocus && this.column.editorOptions.trigger === 'click') {
@@ -41,23 +57,7 @@ export class BoolEditorComponent implements OnInit {
 		}
 	}
 
-	get isChecked() {
-		return this.column.isChecked(this.value);
-	}
-
-	set isChecked(value: boolean) {
-		this.value = value ? this.trueValue : this.falseValue;
-	}
-
 	isIndeterminate() {
 		return this.column.isIndeterminate(this.value);
-	}
-
-	get trueValue() {
-		return this.column.trueValue;
-	}
-
-	get falseValue() {
-		return this.column.falseValue;
 	}
 }

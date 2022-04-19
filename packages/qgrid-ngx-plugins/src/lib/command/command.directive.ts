@@ -29,28 +29,15 @@ export class ZoneCommandManager {
 	providers: [Disposable]
 })
 export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewInit {
+	@Input('q-grid-command') command: Command<any>;
+	@Input('q-grid-command-arg') commandArg: any;
+	@Input('q-grid-command-use-shortcut') useCommandShortcut: boolean;
+	@Input('q-grid-command-event') commandEvent = 'click';
+	@Input('q-grid-command-use-zone') useZone: boolean;
+	@Input('q-grid-command-host') host: 'grid' | 'document' = 'grid';
+	@Output('q-grid-command-execute') commandExecute = new EventEmitter<any>();
+
 	private isAfterViewInit = false;
-
-	@Input('q-grid-command')
-		command: Command<any>;
-
-	@Input('q-grid-command-arg')
-		commandArg: any;
-
-	@Input('q-grid-command-use-shortcut')
-		useCommandShortcut: boolean;
-
-	@Input('q-grid-command-event')
-		commandEvent = 'click';
-
-	@Input('q-grid-command-use-zone')
-		useZone: boolean;
-
-	@Output('q-grid-command-execute')
-		commandExecute = new EventEmitter<any>();
-
-	@Input('q-grid-command-host')
-		host: 'grid' | 'document' = 'grid';
 
 	constructor(
 		private disposable: Disposable,
