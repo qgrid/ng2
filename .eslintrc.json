@@ -1,9 +1,10 @@
 {
   "root": true,
   "ignorePatterns": ["**/dist/**/*", "**/node_modules/**/*"],
-	"extends": [
-		"plugin:@typescript-eslint/recommended"
-	],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "rules": {
 		"linebreak-style": ["error", "unix"],
     "arrow-body-style": [
@@ -74,24 +75,7 @@
         }
       }
     ],
-    "@typescript-eslint/member-ordering": [
-			"error",
-			{
-				"default": [
-				"signature",
-				"public-decorated-field",
-				"protected-decorated-field",
-				"public-instance-field",
-				"protected-instance-field",
-				["get", "set"],
-				"private-decorated-field",
-				"private-instance-field",
-				"constructor",
-				"public-method",
-				"private-method"
-				]
-			}
-		],
+    "@typescript-eslint/member-ordering": "error",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-empty-interface": "error",
     "@typescript-eslint/no-inferrable-types": [
