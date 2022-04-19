@@ -16,18 +16,16 @@ import { WhereSchema } from './schema/where.schema';
 	selector: 'q-grid-query-builder-panel',
 	templateUrl: './query-builder-panel.component.html',
 	providers: [FocusAfterRender, GridPlugin],
-	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QueryBuilderPanelComponent implements OnInit {
-	node: Node;
 	@Output() close = new EventEmitter<any>();
+	
+	node: Node;
 	queryService: QueryBuilderService;
 
 	context: { $implicit: QueryBuilderPanelComponent } = {
 		$implicit: this
 	};
-
-	private traverse = new TraverseService();
 
 	addGroup = new Command({
 		execute: () => {
@@ -120,6 +118,7 @@ export class QueryBuilderPanelComponent implements OnInit {
 		}
 	});
 
+	private traverse = new TraverseService();
 	private plan: INodeSchema;
 
 	constructor(

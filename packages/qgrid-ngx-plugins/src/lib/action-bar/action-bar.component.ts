@@ -14,6 +14,11 @@ export class ActionBarComponent implements OnInit {
 		$implicit: this
 	};
 
+	get actions(): Action[] {
+		const { model } = this.plugin;
+		return model.action().items;
+	}
+
 	constructor(
 		private plugin: GridPlugin,
 		private cd: ChangeDetectorRef,
@@ -42,11 +47,6 @@ export class ActionBarComponent implements OnInit {
 					this.cd.detectChanges();
 				}
 			});
-	}
-
-	get actions(): Action[] {
-		const { model } = this.plugin;
-		return model.action().items;
 	}
 
 	private isSorted(actions: Action[]): boolean {

@@ -1,21 +1,20 @@
-import { Component, DoCheck, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import { Watcher } from './digest/watch';
 import { Line } from './model/line';
 import { Node } from './model/node';
-import { Watcher } from './digest/watch';
 
 @Component({
 	selector: 'q-grid-eb-expression',
 	templateUrl: './eb-expression.component.html',
-	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EbExpressionComponent implements OnInit, DoCheck {
-	private watchers: Watcher[];
-
 	@Input() node: Node;
 	@Input() line: Line;
 	@Input() model: any;
 
 	context: { $implicit: any; node: Node; line: Line };
+
+	private watchers: Watcher[];
 
 	ngOnInit() {
 		this.context = { $implicit: this.model, node: this.node, line: this.line };

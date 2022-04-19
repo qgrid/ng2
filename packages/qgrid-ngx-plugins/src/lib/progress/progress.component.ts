@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { GridPlugin } from '@qgrid/ngx';
 
 @Component({
@@ -12,9 +12,14 @@ export class ProgressComponent implements OnInit {
 		$implicit: this
 	};
 
+	get isBusy() {
+		const { isBusy, queue } = this.plugin.model.progress();
+		return isBusy || queue.length;
+	}
+
 	constructor(
 		private plugin: GridPlugin,
-		private cd: ChangeDetectorRef
+		private cd: ChangeDetectorRef,
 	) {
 	}
 
@@ -23,10 +28,5 @@ export class ProgressComponent implements OnInit {
 
 		observeReply(model.progressChanged)
 			.subscribe(() => this.cd.detectChanges());
-	}
-
-	get isBusy() {
-		const { isBusy, queue } = this.plugin.model.progress();
-		return isBusy || queue.length;
 	}
 }

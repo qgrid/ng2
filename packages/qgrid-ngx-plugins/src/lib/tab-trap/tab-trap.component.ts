@@ -12,8 +12,6 @@ import { GridError, GridPlugin } from '@qgrid/ngx';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TabTrapComponent {
-	private isActivating = false;
-
 	@ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
 	@Input() roundTrip = false;
 
@@ -22,6 +20,8 @@ export class TabTrapComponent {
 	};
 
 	traps = new Map<string, any>();
+
+	private isActivating = false;
 
 	constructor(private plugin: GridPlugin, elementRef: ElementRef) {
 		const listener = new EventListener(elementRef.nativeElement, new EventManager(this));

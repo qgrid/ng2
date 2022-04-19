@@ -10,13 +10,13 @@ import { PagerPlugin } from '@qgrid/plugins';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PagerComponent implements OnInit, OnChanges {
-	private pagerState = this.stateAccessor.setter(PaginationState);
-
 	context: { $implicit: PagerPlugin };
 
 	@Input('size') set size(size: number) { this.pagerState({ size }); }
 	@Input('sizeList') set sizeList(sizeList: number[]) { this.pagerState({ sizeList }); }
 	@Input('mode') set mode(mode: PaginationStateMode) { this.pagerState({ mode }); }
+
+	private pagerState = this.stateAccessor.setter(PaginationState);
 
 	constructor(
 		private plugin: GridPlugin,

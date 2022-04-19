@@ -15,11 +15,6 @@ export class ActionCoreComponent {
 		$implicit: this
 	};
 
-	constructor(
-		private plugin: GridPlugin
-	) {
-	}
-
 	get model(): GridModel {
 		return this.plugin.model;
 	}
@@ -94,5 +89,10 @@ export class ActionCoreComponent {
 		}
 
 		return 'none';
+	}
+
+	constructor(
+		private plugin: GridPlugin
+	) {
 	}
 }

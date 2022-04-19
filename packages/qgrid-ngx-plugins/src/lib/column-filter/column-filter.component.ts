@@ -26,6 +26,17 @@ export class ColumnFilterComponent implements OnInit {
 		vscroll: VscrollContext;
 	};
 
+	get operators() {
+		const { model } = this.plugin;
+		return model
+			.filter()
+			.operatorFactory(this.column);
+	}
+
+	get hasOperators() {
+		return this.operators && this.operators.length > 1;
+	}
+
 	private vscrollContext: VscrollContext;
 
 	constructor(
@@ -35,13 +46,6 @@ export class ColumnFilterComponent implements OnInit {
 		private cd: ChangeDetectorRef,
 		private templateService: TemplateService,
 		focusAfterRender: FocusAfterRender) {
-	}
-
-	get operators() {
-		const { model } = this.plugin;
-		return model
-			.filter()
-			.operatorFactory(this.column);
 	}
 
 	ngOnInit() {
@@ -163,10 +167,6 @@ export class ColumnFilterComponent implements OnInit {
 			'column-filter.component',
 			`Column filter template for operator ${op} is not found`
 		);
-	}
-
-	get hasOperators() {
-		return this.operators && this.operators.length > 1;
 	}
 
 	private buildTemplateKeys(op: string) {

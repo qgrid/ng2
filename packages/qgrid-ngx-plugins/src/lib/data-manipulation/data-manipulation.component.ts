@@ -9,13 +9,13 @@ import { DataManipulationPlugin, DataManipulationState } from '@qgrid/plugins';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataManipulationComponent implements OnInit, OnChanges {
-	private dmState = this.stateAccessor.setter(DataManipulationState);
-
 	context: {
 		$implicit: DataManipulationPlugin;
 	};
 
 	@Input('rowFactory') set dataManipulationRowFactory(rowFactory: (x: any) => any) { this.dmState({ rowFactory }); }
+
+	private dmState = this.stateAccessor.setter(DataManipulationState);
 
 	constructor(
 		private plugin: GridPlugin,

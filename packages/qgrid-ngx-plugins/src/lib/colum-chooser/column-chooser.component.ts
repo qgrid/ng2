@@ -9,11 +9,11 @@ import { FocusAfterRender } from '../focus/focus.service';
 const COLUMN_CHOOSER_NAME = 'qGridColumnChooser';
 
 export class RootContext {
-	constructor(public ctrl: ColumnChooserPlugin) {
-	}
-
 	get node(): Node {
 		return this.ctrl.treeView;
+	}
+
+	constructor(public ctrl: ColumnChooserPlugin) {
 	}
 }
 
@@ -28,10 +28,6 @@ export class RootContext {
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnChooserComponent implements OnInit, OnChanges {
-	private ccState = this.stateAccessor.setter(ColumnChooserState);
-
-	@Input('canAggregate') set columnChooserCanAggregate(canAggregate: boolean) { this.ccState({ canAggregate }); }
-
 	@Output('submit') submitEvent = new EventEmitter<any>();
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
@@ -39,6 +35,10 @@ export class ColumnChooserComponent implements OnInit, OnChanges {
 		$implicit: ColumnChooserPlugin;
 		plugin: ColumnChooserComponent;
 	};
+
+	@Input('canAggregate') set columnChooserCanAggregate(canAggregate: boolean) { this.ccState({ canAggregate }); }
+
+	private ccState = this.stateAccessor.setter(ColumnChooserState);
 
 	constructor(
 		private plugin: GridPlugin,

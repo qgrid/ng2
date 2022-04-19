@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { GridPlugin } from '@qgrid/ngx';
 
 @Component({
@@ -12,6 +12,11 @@ export class CaptionComponent implements OnInit {
 		$implicit: this
 	};
 
+	get value() {
+		const { caption, title } = this.plugin.model.grid();
+		return caption || title;
+	}
+
 	constructor(
 		private plugin: GridPlugin,
 		private cd: ChangeDetectorRef
@@ -22,10 +27,5 @@ export class CaptionComponent implements OnInit {
 		const { model, observe } = this.plugin;
 		observe(model.gridChanged)
 			.subscribe(() => this.cd.detectChanges());
-	}
-
-	get value() {
-		const { caption, title } = this.plugin.model.grid();
-		return caption || title;
 	}
 }
