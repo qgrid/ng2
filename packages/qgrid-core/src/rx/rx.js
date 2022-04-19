@@ -102,7 +102,7 @@ export class ObservableEvent {
 
 	pipe(...operators) {
 		let source = this;
-		for (let op of operators) {
+		for (const op of operators) {
 			source = op(source);
 		}
 

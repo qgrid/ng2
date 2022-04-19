@@ -89,7 +89,7 @@ export class CacheStrategy {
 			const value = strategy.columns(row, pin, rowIndex);
 			storage.set(key, value);
 			return value;
-		}
+		};
 
 		this.setValue = (...args) => strategy.setValue(...args);
 		this.setLabel = (...args) => strategy.setLabel(...args);
