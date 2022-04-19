@@ -18,7 +18,7 @@ export class ReferenceEditorComponent implements AfterViewInit {
 	@Output() afterSubmit = new EventEmitter();
 	@Output() afterCancel = new EventEmitter();
 
-	reference: { commit: Command, cancel: Command };
+	reference: { commit: Command; cancel: Command };
 	model: GridModel;
 
 	context: { $implicit: ReferenceEditorComponent } = {

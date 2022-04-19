@@ -47,7 +47,7 @@ export class ActionComponent implements OnInit {
 			source: 'action.component'
 		});
 
-		
+
 		disposable.add(() =>
 			model.action({
 				items: model

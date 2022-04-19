@@ -59,8 +59,8 @@ export class QueryBuilderService {
 		model.filter({
 			by: expression
 		}, {
-				source: 'query-builder.service'
-			});
+			source: 'query-builder.service'
+		});
 	}
 
 	suggest(key, skip, take, search, selection?: Array<string>): Promise<string[]> {

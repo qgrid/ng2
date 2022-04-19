@@ -67,53 +67,53 @@ export class PersistenceComponent implements OnInit, OnChanges {
 			);
 
 		switch (model.persistence().schedule) {
-			case 'onDemand': {
-				const historyAction =
+		case 'onDemand': {
+			const historyAction =
 					new Action(
 						new Command(),
 						'Save/Load',
 						'history'
 					);
 
-				historyAction.templateUrl = 'plugin-persistence.tpl.html';
+			historyAction.templateUrl = 'plugin-persistence.tpl.html';
 
-				const items = Composite.list([model.action().items, [historyAction]]);
-				model.action({ items }, { source: 'persistence.component' });
+			const items = Composite.list([model.action().items, [historyAction]]);
+			model.action({ items }, { source: 'persistence.component' });
 
-				disposable.add(() => {
-					const notPersistenceActions = model.action().items.filter(x => x !== historyAction);
-					model.action({ items: notPersistenceActions }, { source: 'persistence.component' });
-				});
+			disposable.add(() => {
+				const notPersistenceActions = model.action().items.filter(x => x !== historyAction);
+				model.action({ items: notPersistenceActions }, { source: 'persistence.component' });
+			});
 
-				break;
-			}
-			case 'onStateChange': {
-				const { settings, storage, defaultGroup } = model.persistence();
-				for (const state of Object.keys(settings)) {
-					for (const key of settings[state]) {
-						observe(model[state + 'Changed'] as GridEvent<any>)
-							.pipe(
-								// TODO: get rid of e.tag.source check
-								filter(e => e.hasChanges(key) && e.tag.source !== 'persistence.service')
-							)
-							.subscribe(e => {
-								const currentModel = this.service.save();
-								const item = {
-									title: `auto-save: ${state}.${key} changed`,
-									modified: Date.now(),
-									group: defaultGroup,
-									model: currentModel,
-									isDefault: true,
-									canEdit: false
-								};
+			break;
+		}
+		case 'onStateChange': {
+			const { settings, storage, defaultGroup } = model.persistence();
+			for (const state of Object.keys(settings)) {
+				for (const key of settings[state]) {
+					observe(model[state + 'Changed'] as GridEvent<any>)
+						.pipe(
+							// TODO: get rid of e.tag.source check
+							filter(e => e.hasChanges(key) && e.tag.source !== 'persistence.service')
+						)
+						.subscribe(e => {
+							const currentModel = this.service.save();
+							const item = {
+								title: `auto-save: ${state}.${key} changed`,
+								modified: Date.now(),
+								group: defaultGroup,
+								model: currentModel,
+								isDefault: true,
+								canEdit: false
+							};
 
-								storage.setItem(id, [item]);
-							});
-					}
+							storage.setItem(id, [item]);
+						});
 				}
-
-				break;
 			}
+
+			break;
+		}
 		}
 	}
 }

@@ -64,18 +64,18 @@ export class TabTrapComponent {
 
 	goRound(target) {
 		switch (target) {
-			case 'start': {
-				const end = this.traps.get('end');
-				end.focus();
-				break;
-			}
-			case 'end': {
-				const start = this.traps.get('start');
-				start.focus();
-				break;
-			}
-			default:
-				throw new GridError('tab.trap', `Invalid target ${target}`);
+		case 'start': {
+			const end = this.traps.get('end');
+			end.focus();
+			break;
+		}
+		case 'end': {
+			const start = this.traps.get('start');
+			start.focus();
+			break;
+		}
+		default:
+			throw new GridError('tab.trap', `Invalid target ${target}`);
 		}
 	}
 }

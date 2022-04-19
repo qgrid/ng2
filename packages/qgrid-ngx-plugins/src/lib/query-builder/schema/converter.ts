@@ -4,21 +4,21 @@ import { camelCaseMapping } from './operator';
 
 export function visit(item) {
 	switch (item.id) {
-		case '#root':
-			return visit(item.children[0]);
-		case '#logical':
-			const group = visitGroup(item);
-			if (group) {
-				if (!(group.left || group.right)) {
-					return null;
-				}
+	case '#root':
+		return visit(item.children[0]);
+	case '#logical':
+		const group = visitGroup(item);
+		if (group) {
+			if (!(group.left || group.right)) {
+				return null;
 			}
+		}
 
-			return group;
-		case '#condition':
-			return visitCondition(item);
-		default:
-			throw new GridError('converter', `Invalid kind ${item.kind}`);
+		return group;
+	case '#condition':
+		return visitCondition(item);
+	default:
+		throw new GridError('converter', `Invalid kind ${item.kind}`);
 	}
 }
 
@@ -57,30 +57,30 @@ function visitCondition(node) {
 
 	let condition;
 	switch (value) {
-		case 'IS NOT EMPTY':
-		case 'IS EMPTY':
-			condition = visitUnary(line, opExpr.value);
-			break;
-		case 'EQUALS':
-		case 'NOT EQUALS':
-		case 'GREATER OR EQ. TO':
-		case 'GREATER THAN':
-		case 'LESS OR EQ. TO':
-		case 'LESS THAN':
-		case 'LIKE':
-		case 'NOT LIKE':
-		case 'STARTS WITH':
-		case 'ENDS WITH':
-			condition = visitBinary(line, opExpr.value);
-			break;
-		case 'BETWEEN':
-			condition = visitBetween(line);
-			break;
-		case 'IN':
-			condition = visitIn(line);
-			break;
-		default:
-			throw new GridError('converter', `Invalid operation ${value}`);
+	case 'IS NOT EMPTY':
+	case 'IS EMPTY':
+		condition = visitUnary(line, opExpr.value);
+		break;
+	case 'EQUALS':
+	case 'NOT EQUALS':
+	case 'GREATER OR EQ. TO':
+	case 'GREATER THAN':
+	case 'LESS OR EQ. TO':
+	case 'LESS THAN':
+	case 'LIKE':
+	case 'NOT LIKE':
+	case 'STARTS WITH':
+	case 'ENDS WITH':
+		condition = visitBinary(line, opExpr.value);
+		break;
+	case 'BETWEEN':
+		condition = visitBetween(line);
+		break;
+	case 'IN':
+		condition = visitIn(line);
+		break;
+	default:
+		throw new GridError('converter', `Invalid operation ${value}`);
 	}
 
 	condition.kind = 'condition';

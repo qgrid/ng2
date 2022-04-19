@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 
 @NgModule({
 	declarations: [
-// InputDirective
+		// InputDirective
 	],
 	exports: [
-// InputDirective
+		// InputDirective
 	]
 })
 export class InputModule {

@@ -31,50 +31,50 @@ export class PagerTargetComponent implements OnInit {
 		const value = this.value || 0;
 
 		switch (code) {
-			case 'enter': {
-				if (value) {
-					const current = value - 1;
-					if (this.plugin.model.pagination().current !== current) {
-						// tslint:disable-next-line:no-unused-expression
-						// new FocusAfterRender(this.plugin);
-						this.plugin.model.pagination({
-							current
-						}, {
-							source: 'pager-target.component'
-						});
-					}
+		case 'enter': {
+			if (value) {
+				const current = value - 1;
+				if (this.plugin.model.pagination().current !== current) {
+					// tslint:disable-next-line:no-unused-expression
+					// new FocusAfterRender(this.plugin);
+					this.plugin.model.pagination({
+						current
+					}, {
+						source: 'pager-target.component'
+					});
 				}
-				break;
 			}
-			case 'up': {
-				if (value < this.total) {
-					this.value = value + 1;
-				}
-				break;
+			break;
+		}
+		case 'up': {
+			if (value < this.total) {
+				this.value = value + 1;
 			}
-			case 'down': {
-				if (value > 1) {
-					this.value = value - 1;
-				}
-				break;
+			break;
+		}
+		case 'down': {
+			if (value > 1) {
+				this.value = value - 1;
 			}
-			case 'left':
-			case 'right':
-			case 'backspace': {
-				break;
-			}
-			default: {
-				const digit = Number.parseInt(code, 10);
-				const page = Number.parseInt('' + value + digit, 10);
-				const min = 1;
-				const max = this.total;
-				const isValid = page >= min && page <= max && !isNaN(digit);
+			break;
+		}
+		case 'left':
+		case 'right':
+		case 'backspace': {
+			break;
+		}
+		default: {
+			const digit = Number.parseInt(code, 10);
+			const page = Number.parseInt('' + value + digit, 10);
+			const min = 1;
+			const max = this.total;
+			const isValid = page >= min && page <= max && !isNaN(digit);
 
-				if (!isValid) {
-					page > this.total ? this.value = max : this.value = min;
-					e.preventDefault();
-				}
+			if (!isValid) {
+				page > this.total ? this.value = max : this.value = min;
+				e.preventDefault();
 			}
+		}
 		}
 	}
 

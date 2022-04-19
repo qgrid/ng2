@@ -41,7 +41,7 @@ export class LiveCellComponent implements OnInit, OnDestroy {
 		this.class = `q-grid-live-cell q-grid-live-cell-${this.cell.column.type} `;
 
 		if (this.getDifference(this.cell.changes)) {
-			this.class += this.getDifference(this.cell.changes) > 0 ? `q-grid-live-cell-up ` : `q-grid-live-cell-down `;
+			this.class += this.getDifference(this.cell.changes) > 0 ? 'q-grid-live-cell-up ' : 'q-grid-live-cell-down ';
 		}
 		this.zone.runOutsideAngular(() => {
 			this.timeoutId = setTimeout(() => {
@@ -58,24 +58,24 @@ export class LiveCellComponent implements OnInit, OnDestroy {
 
 	getDifference(value: SimpleChange) {
 		switch (this.cell.column.type) {
-			case 'number':
-			case 'currency':
-				return +value.currentValue - +value.previousValue;
-			default:
-				return null;
+		case 'number':
+		case 'currency':
+			return +value.currentValue - +value.previousValue;
+		default:
+			return null;
 		}
 	}
 
 	getTemplate() {
 		switch (this.cell.column.type) {
-			case 'currency':
-				return this.currencyTemplate;
-			case 'time':
-				return this.timeTemplate;
-			case 'number':
-				return this.numberTemplate;
-			default:
-				return this.textTemplate;
+		case 'currency':
+			return this.currencyTemplate;
+		case 'time':
+			return this.timeTemplate;
+		case 'number':
+			return this.numberTemplate;
+		default:
+			return this.textTemplate;
 		}
 	}
 }

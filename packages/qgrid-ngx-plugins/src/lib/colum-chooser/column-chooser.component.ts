@@ -36,8 +36,8 @@ export class ColumnChooserComponent implements OnInit, OnChanges {
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
 	context: {
-		$implicit: ColumnChooserPlugin,
-		plugin: ColumnChooserComponent
+		$implicit: ColumnChooserPlugin;
+		plugin: ColumnChooserComponent;
 	};
 
 	constructor(

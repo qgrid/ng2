@@ -94,7 +94,7 @@ export class QueryBuilderPanelComponent implements OnInit {
 				node.attr('placeholder')
 					? memo
 					: memo && expression.isValid()
-				, true);
+			, true);
 		}
 	});
 
