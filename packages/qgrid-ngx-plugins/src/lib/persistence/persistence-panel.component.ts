@@ -10,7 +10,7 @@ import { PersistencePlugin } from '@qgrid/plugins';
 })
 export class PersistencePanelComponent implements OnInit {
 	context: {
-		$implicit: PersistencePlugin
+		$implicit: PersistencePlugin;
 	};
 
 	constructor(

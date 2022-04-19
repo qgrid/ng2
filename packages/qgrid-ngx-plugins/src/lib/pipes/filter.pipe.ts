@@ -9,13 +9,13 @@ export class FilterPipe implements PipeTransform {
 		if (search || search === 0 || search === false) {
 			const predicate = predicateFactory(search);
 			switch (type) {
-				case 'node': {
-					const root = items as Node;
-					return filterNode(root, predicate);
-				}
-				default: {
-					return (items as any[]).filter(predicate);
-				}
+			case 'node': {
+				const root = items as Node;
+				return filterNode(root, predicate);
+			}
+			default: {
+				return (items as any[]).filter(predicate);
+			}
 			}
 		}
 

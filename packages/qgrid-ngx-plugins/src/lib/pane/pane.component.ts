@@ -19,7 +19,7 @@ export class PaneComponent implements OnInit {
 
 	context: {
 		[side in PaneSide]?: {
-			$implicit: PaneComponent,
+			$implicit: PaneComponent;
 			value: any;
 		}
 	};

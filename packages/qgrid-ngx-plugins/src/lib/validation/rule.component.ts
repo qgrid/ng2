@@ -52,7 +52,7 @@ export class RuleComponent implements OnChanges {
 		private plugin: GridPlugin,
 		private templateHost: TemplateHostService
 	) {
-		this.templateHost.key = () => `rule`;
+		this.templateHost.key = () => 'rule';
 	}
 
 	ngOnChanges(changes: SimpleChanges) {

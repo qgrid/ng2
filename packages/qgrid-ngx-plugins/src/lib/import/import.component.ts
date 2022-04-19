@@ -22,7 +22,7 @@ export class ImportComponent implements AfterViewInit {
 		private templateHost: TemplateHostService,
 		private hostElement: ElementRef
 	) {
-		this.templateHost.key = () => `import`;
+		this.templateHost.key = () => 'import';
 	}
 
 	ngAfterViewInit() {
@@ -38,7 +38,7 @@ export class ImportComponent implements AfterViewInit {
 			new Command({
 				execute: () => importPlugin.upload()
 			}),
-			`Import data`,
+			'Import data',
 			'file_upload'
 		);
 

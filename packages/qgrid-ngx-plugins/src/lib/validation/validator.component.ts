@@ -18,7 +18,7 @@ export class ValidatorComponent implements OnInit {
 		private plugin: GridPlugin,
 		private templateHost: TemplateHostService
 	) {
-		this.templateHost.key = () => `validator`;
+		this.templateHost.key = () => 'validator';
 	}
 
 	ngOnInit() {

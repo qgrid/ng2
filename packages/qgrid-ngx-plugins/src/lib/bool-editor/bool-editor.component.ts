@@ -37,7 +37,7 @@ export class BoolEditorComponent implements OnInit {
 				this.value === this.trueValue
 					? this.falseValue
 					: this.trueValue
-				, 10);
+			, 10);
 		}
 	}
 

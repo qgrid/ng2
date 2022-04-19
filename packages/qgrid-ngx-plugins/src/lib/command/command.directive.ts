@@ -32,25 +32,25 @@ export class CommandDirective implements DoCheck, OnChanges, OnInit, AfterViewIn
 	private isAfterViewInit = false;
 
 	@Input('q-grid-command')
-	command: Command<any>;
+		command: Command<any>;
 
 	@Input('q-grid-command-arg')
-	commandArg: any;
+		commandArg: any;
 
 	@Input('q-grid-command-use-shortcut')
-	useCommandShortcut: boolean;
+		useCommandShortcut: boolean;
 
 	@Input('q-grid-command-event')
-	commandEvent = 'click';
+		commandEvent = 'click';
 
 	@Input('q-grid-command-use-zone')
-	useZone: boolean;
+		useZone: boolean;
 
 	@Output('q-grid-command-execute')
-	commandExecute = new EventEmitter<any>();
+		commandExecute = new EventEmitter<any>();
 
 	@Input('q-grid-command-host')
-	host: 'grid' | 'document' = 'grid';
+		host: 'grid' | 'document' = 'grid';
 
 	constructor(
 		private disposable: Disposable,

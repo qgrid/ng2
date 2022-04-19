@@ -34,9 +34,9 @@ export class RestComponent implements OnInit, OnChanges {
 	ngOnInit() {
 		const rest = new RestPlugin(
 			this.plugin.model, {
-			get: (url, params) => this.http.get(url, { params }).toPromise(),
-			post: (url, data) => this.http.post(url, { data }).toPromise()
-		});
+				get: (url, params) => this.http.get(url, { params }).toPromise(),
+				post: (url, data) => this.http.post(url, { data }).toPromise()
+			});
 
 		this.context = { $implicit: rest };
 	}

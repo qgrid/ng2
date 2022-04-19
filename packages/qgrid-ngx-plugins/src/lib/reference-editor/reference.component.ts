@@ -12,9 +12,9 @@ export class ReferenceComponent implements OnInit {
 	private _value: any;
 	private _model: GridModel;
 	private _reference: {
-		commit: Command,
-		cancel: Command,
-		value: any
+		commit: Command;
+		cancel: Command;
+		value: any;
 	};
 
 	@Input() caption = '';
@@ -40,7 +40,7 @@ export class ReferenceComponent implements OnInit {
 	}
 
 	get reference() { return this._reference; }
-	@Output() referenceChange = new EventEmitter<{ commit: Command, cancel: Command, value: any }>();
+	@Output() referenceChange = new EventEmitter<{ commit: Command; cancel: Command; value: any }>();
 	@Input() set reference(value) {
 		if (value !== this._reference) {
 			this._reference = value;

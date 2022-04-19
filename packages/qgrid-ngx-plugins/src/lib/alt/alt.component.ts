@@ -45,26 +45,26 @@ export class AltComponent implements OnInit {
 				const { codes, status } = e.state;
 				if (status === 'down') {
 					switch (codes[0]) {
-						case 'alt': {
-							const rowNo = Number.parseInt(codes[1], 10);
-							if (!Number.isNaN(rowNo)) {
-								const { rows } = model.view();
-								const { current, size } = model.pagination();
+					case 'alt': {
+						const rowNo = Number.parseInt(codes[1], 10);
+						if (!Number.isNaN(rowNo)) {
+							const { rows } = model.view();
+							const { current, size } = model.pagination();
 
-								const rowIndex = rowNo + current * size;
-								const altRow = rows[rowIndex];
-								if (altRow) {
-									model.selection({
-										items: [altRow]
-									}, {
-										source: 'alt.component'
-									});
+							const rowIndex = rowNo + current * size;
+							const altRow = rows[rowIndex];
+							if (altRow) {
+								model.selection({
+									items: [altRow]
+								}, {
+									source: 'alt.component'
+								});
 
-									service.focus(rowIndex);
-								}
+								service.focus(rowIndex);
 							}
-							break;
 						}
+						break;
+					}
 					}
 				}
 			});

@@ -20,7 +20,7 @@ export class PositionDirective implements OnInit {
 			element: this.elementRef.nativeElement,
 			targetName: this.target,
 		},
-			this.disposable
+		this.disposable
 		);
 
 		position.invalidate();

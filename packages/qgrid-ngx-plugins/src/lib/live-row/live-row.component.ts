@@ -57,9 +57,9 @@ export class LiveRowComponent implements OnInit {
 
 			Fastdom.mutate(() => {
 				const animation = tr.model().tr.element.animate([
-					{ opacity: `1` },
-					{ opacity: `0` }],
-					{ duration: this.duration }
+					{ opacity: '1' },
+					{ opacity: '0' }],
+				{ duration: this.duration }
 				);
 
 				animation.onfinish = () => resolve(null);
@@ -92,9 +92,9 @@ export class LiveRowComponent implements OnInit {
 							animatedRows.push(
 								new Promise(animationRowEnd => {
 									const animation = rowElement.animate([
-										{ transform: `translateY(0px)` },
+										{ transform: 'translateY(0px)' },
 										{ transform: `translateY(${offset}px)` }],
-										{ duration: this.duration }
+									{ duration: this.duration }
 									);
 
 									animation.onfinish = () => Fastdom.mutate(() => {

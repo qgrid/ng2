@@ -33,9 +33,7 @@ export class ActionBarComponent implements OnInit {
 					this.cd.detectChanges();
 				} else {
 					model.action({
-						items: initialItems.sort((a: Action, b: Action) => {
-							return a.command.priority - b.command.priority;
-						})
+						items: initialItems.sort((a: Action, b: Action) => a.command.priority - b.command.priority)
 					});
 				}
 
@@ -56,7 +54,7 @@ export class ActionBarComponent implements OnInit {
 			const action = actions[i];
 			const nextAction = actions[i+1];
 			if (action.command.priority > nextAction.command.priority) {
-					return false;
+				return false;
 			}
 		}
 

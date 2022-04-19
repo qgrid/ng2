@@ -21,9 +21,9 @@ export class ColumnFilterComponent implements OnInit {
 	@Output('cancel') cancelEvent = new EventEmitter<any>();
 
 	context: {
-		$implicit: ColumnFilterPlugin,
-		plugin: ColumnFilterComponent,
-		vscroll: VscrollContext
+		$implicit: ColumnFilterPlugin;
+		plugin: ColumnFilterComponent;
+		vscroll: VscrollContext;
 	};
 
 	private vscrollContext: VscrollContext;
@@ -125,8 +125,7 @@ export class ColumnFilterComponent implements OnInit {
 						}
 
 						d.resolve(columnFilterPlugin.items.length);
-					}
-					finally {
+					} finally {
 						cancelBusy();
 					}
 				}
@@ -184,28 +183,28 @@ export class ColumnFilterComponent implements OnInit {
 		];
 
 		switch (op) {
-			case 'isEmpty':
-			case 'isNotEmpty':
-			case 'isNull':
-			case 'isNotNull': {
-				keys.push(`${PREFIX}-${type}-the-${key}-label.tpl.html`);
-				keys.push(`${PREFIX}-${type}-label.tpl.html`);
-				keys.push(`${PREFIX}-label.tpl.html`);
-				break;
-			}
-			case 'like':
-			case 'notLike':
-			case 'startsWith':
-			case 'endsWith':
-			case 'lessThan':
-			case 'lessThanOrEquals':
-			case 'greaterThan':
-			case 'greaterThanOrEquals': {
-				keys.push(`${PREFIX}-${type}-the-${key}-input.tpl.html`);
-				keys.push(`${PREFIX}-${type}-input.tpl.html`);
-				keys.push(`${PREFIX}-input.tpl.html`);
-				break;
-			}
+		case 'isEmpty':
+		case 'isNotEmpty':
+		case 'isNull':
+		case 'isNotNull': {
+			keys.push(`${PREFIX}-${type}-the-${key}-label.tpl.html`);
+			keys.push(`${PREFIX}-${type}-label.tpl.html`);
+			keys.push(`${PREFIX}-label.tpl.html`);
+			break;
+		}
+		case 'like':
+		case 'notLike':
+		case 'startsWith':
+		case 'endsWith':
+		case 'lessThan':
+		case 'lessThanOrEquals':
+		case 'greaterThan':
+		case 'greaterThanOrEquals': {
+			keys.push(`${PREFIX}-${type}-the-${key}-input.tpl.html`);
+			keys.push(`${PREFIX}-${type}-input.tpl.html`);
+			keys.push(`${PREFIX}-input.tpl.html`);
+			break;
+		}
 		}
 
 		keys.push(`${PREFIX}-contains.tpl.html`);
