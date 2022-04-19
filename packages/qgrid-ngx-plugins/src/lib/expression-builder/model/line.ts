@@ -53,7 +53,6 @@ export class Line {
 
 	remove(id) {
 		const item = this.findById(this.expressions, id);
-		const expressions = item.parent ? item.parent.expressions : this.expressions;
 		if (item.expression instanceof GroupExpression) {
 			item.expression.expressions = [];
 		} else {

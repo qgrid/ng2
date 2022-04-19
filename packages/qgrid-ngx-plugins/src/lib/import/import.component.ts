@@ -67,15 +67,15 @@ export class ImportComponent implements AfterViewInit {
 		});
 
 		disposable.add(() => {
-			const notImportItems =
-				model.action({
-					items: model
-						.action()
-						.items
-						.filter(x => x !== action)
-				}, {
-					source: 'import.component'
-				});
+			// notImportItems
+			model.action({
+				items: model
+					.action()
+					.items
+					.filter(x => x !== action)
+			}, {
+				source: 'import.component'
+			});
 		});
 	}
 }

@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
-import { Action, Command, Composite, filter, PersistenceSchedule, PersistenceService, PersistenceState, PersistenceStorage, takeOnce } from '@qgrid/core';
+import {
+	Action, Command, Composite, filter, PersistenceSchedule,
+	PersistenceService, PersistenceState, PersistenceStorage, takeOnce
+} from '@qgrid/core';
 import { GridEvent, GridModelBuilder, GridPlugin, StateAccessor } from '@qgrid/ngx';
 import { PersistenceItem } from '@qgrid/plugins';
 
@@ -29,7 +32,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 	}
 
 	ngOnInit() {
-		const { model, disposable, observe, observeReply, table } = this.plugin;
+		const { model, disposable, observe, observeReply } = this.plugin;
 
 		const id = `q-grid:${model.grid().id}:persistence-list`;
 		model.persistence({ id });
@@ -96,7 +99,7 @@ export class PersistenceComponent implements OnInit, OnChanges {
 							// TODO: get rid of e.tag.source check
 							filter(e => e.hasChanges(key) && e.tag.source !== 'persistence.service')
 						)
-						.subscribe(e => {
+						.subscribe(() => {
 							const currentModel = this.service.save();
 							const item = {
 								title: `auto-save: ${state}.${key} changed`,

@@ -78,7 +78,7 @@ export class Node {
 	}
 
 	toTraceString() {
-		if (null != this.parent) {
+		if (this.parent) {
 			let parent = this.parent;
 			while (null !== parent.parent) {
 				parent = parent.parent;

@@ -46,12 +46,12 @@ class Serializer {
 		return result;
 	}
 
-	serializeAttributes(node) {
-		const serializeAttr = this.node.attr('serialize');
+	serializeAttributes(node: Node) {
+		const serializeAttr = node.attr('serialize');
 		if (serializeAttr && serializeAttr['@attr']) {
 			const props = serializeAttr['@attr'];
 			return props.reduce((memo, attr) => {
-				memo[attr] = this.node.attr(attr);
+				memo[attr] = node.attr(attr);
 				return memo;
 			}, {});
 		}

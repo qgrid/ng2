@@ -40,12 +40,13 @@ export class ColumnFilterComponent implements OnInit {
 	private vscrollContext: VscrollContext;
 
 	constructor(
+		public focusAfterRender: FocusAfterRender,
 		private plugin: GridPlugin,
 		private vscroll: VscrollService,
 		private qgrid: Grid,
 		private cd: ChangeDetectorRef,
 		private templateService: TemplateService,
-		focusAfterRender: FocusAfterRender) {
+	) {
 	}
 
 	ngOnInit() {
