@@ -19,7 +19,7 @@ import { WhereSchema } from './schema/where.schema';
 })
 export class QueryBuilderPanelComponent implements OnInit {
 	@Output() close = new EventEmitter<any>();
-	
+
 	node: Node;
 	queryService: QueryBuilderService;
 

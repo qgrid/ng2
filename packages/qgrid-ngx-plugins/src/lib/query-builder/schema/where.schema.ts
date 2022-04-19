@@ -9,7 +9,7 @@ export const getValue = (line, id, props) => {
 	if (group) {
 		if (group.expressions.length === 1) {
 			const expr = group.expressions[0];
-			const prop = props.filter(p => expr.hasOwnProperty(p))[0];
+			const prop = props.filter(p => Object.prototype.hasOwnProperty.call(expr, p))[0];
 			if (prop) {
 				const value = expr[prop];
 				if (isArray(value) && value.length) {

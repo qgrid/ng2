@@ -28,7 +28,7 @@ export class Validator {
 
 	for(key: string) {
 		const validators = this.validators;
-		if (validators.hasOwnProperty('key')) {
+		if (Object.prototype.hasOwnProperty.call(validators, 'key')) {
 			return validators[key];
 		}
 

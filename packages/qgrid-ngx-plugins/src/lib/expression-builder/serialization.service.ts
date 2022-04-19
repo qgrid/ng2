@@ -1,9 +1,9 @@
-import { Node } from './model/node';
-import { Line } from './model/line';
-import { GroupExpression } from './model/expression';
-import { INodeSchema } from './model/node.schema';
-import { override, indexOf } from './utility';
 import { Injectable } from '@angular/core';
+import { GroupExpression } from './model/expression';
+import { Line } from './model/line';
+import { Node } from './model/node';
+import { INodeSchema } from './model/node.schema';
+import { indexOf, override } from './utility';
 
 class Serializer {
 	constructor(private node: Node) {
@@ -136,7 +136,7 @@ class Deserializer {
 }
 
 function traverse(node: Node, map: { [key: string]: Node }) {
-	if (!map.hasOwnProperty(node.id)) {
+	if (!Object.prototype.hasOwnProperty.call(map, node.id)) {
 		map[node.id] = node;
 	}
 

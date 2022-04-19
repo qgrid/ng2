@@ -12,7 +12,7 @@ export class StatusBarComponent implements OnInit {
 	context: { $implicit: StatusBarComponent } = {
 		$implicit: this
 	};
-	
+
 	get rowIndex() {
 		return selectRowIndex(this.plugin.model.navigation());
 	}
