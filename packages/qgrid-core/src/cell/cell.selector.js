@@ -27,9 +27,9 @@ export class CellSelector {
 		const result = [];
 		const rows = table.data.rows();
 
-		for (let item of items) {
+		for (const item of items) {
 			const index = rows.indexOf(item);
-			for (let cell of table.body.row(index).cells()) {
+			for (const cell of table.body.row(index).cells()) {
 				result.push(cell);
 			}
 		}
@@ -42,7 +42,7 @@ export class CellSelector {
 		const result = [];
 		const columns = table.data.columns();
 
-		for (let item of items) {
+		for (const item of items) {
 			const index = columns.findIndex(c => c === item);
 			result.push(...table.body.column(index).cells());
 		}
@@ -56,7 +56,7 @@ export class CellSelector {
 		const rows = table.data.rows();
 		const columns = table.data.columns();
 
-		for (let item of items) {
+		for (const item of items) {
 			const rowIndex = rows.indexOf(item.row);
 			const columnIndex = columns.findIndex((c) => c === item.column);
 			result.push(table.body.cell(rowIndex, columnIndex));

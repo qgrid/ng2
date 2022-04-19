@@ -21,7 +21,7 @@ export class BodyLet {
 		observe(model.mouseChanged)
 			.subscribe(({ state }) => {
 				const { code, status, target } = state;
-				
+
 				if (target && code === 'right' && status === 'up') {
 					this.targetElement = target.element;
 					this.targetElement.classList.add('q-grid-can-select-text');
@@ -33,7 +33,7 @@ export class BodyLet {
 					if (this.targetElement.classList) {
 						this.targetElement.classList.remove('q-grid-can-select-text');
 					}
-          
+
 					this.targetElement = null;
 				}
 

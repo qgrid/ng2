@@ -1,9 +1,18 @@
 {
   "root": true,
   "ignorePatterns": ["**/dist/**/*", "**/node_modules/**/*"],
+	"extends": [
+		"plugin:@typescript-eslint/recommended"
+	],
   "rules": {
-    "linebreak-style": ["error", "unix"],
-    "arrow-body-style": "error",
+		"linebreak-style": ["error", "unix"],
+    "arrow-body-style": [
+			"error",
+			"as-needed",
+			{
+				"requireReturnForObjectLiteral": true
+			}
+		],
     "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
     "constructor-super": "error",
     "curly": "error",
@@ -64,7 +73,6 @@
       }
     ],
     "@typescript-eslint/member-ordering": "error",
-    "@typescript-eslint/naming-convention": "error",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-empty-interface": "error",
     "@typescript-eslint/no-inferrable-types": [
@@ -81,11 +89,5 @@
     "@typescript-eslint/semi": ["error", "always"],
     "@typescript-eslint/type-annotation-spacing": "error",
     "@typescript-eslint/unified-signatures": "error"
-  },
-  "overrides": [
-    {
-      "files": ["*.ts", ".js"],
-      "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"]
-    }
-  ]
+  }
 }

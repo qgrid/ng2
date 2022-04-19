@@ -49,22 +49,23 @@ export function getCellValue(column) {
 		: row => row[column.key];
 }
 
-export function findColumn(columns, key) {
-	const index = findIndex(columns, key);
-	return index < 0 ? null : columns[index];
-}
-
 export function findIndex(columns, key) {
 	let { length } = columns;
 	while (length--) {
 		const column = columns[length];
-		if (column.key == key) {
+		if (column.key === key) {
 			return length;
 		}
 	}
 
 	return -1;
 }
+
+export function findColumn(columns, key) {
+	const index = findIndex(columns, key);
+	return index < 0 ? null : columns[index];
+}
+
 
 export function lineView(columnRows) {
 	const height = columnRows.length;
@@ -99,7 +100,7 @@ export function widthFactory(table, form) {
 		}, 0);
 
 
-	let rectWidth = new Lazy(() =>
+	const rectWidth = new Lazy(() =>
 		table.view.width('head-mid')
 		+ table.view.width('head-left')
 		+ table.view.width('head-right')
@@ -138,7 +139,7 @@ export function widthFactory(table, form) {
 	}
 
 	return key => {
-		let column = columnMap[key];
+		const column = columnMap[key];
 		if (!column) {
 			throw new GridError('column.service', `Column ${key} is not found`);
 		}

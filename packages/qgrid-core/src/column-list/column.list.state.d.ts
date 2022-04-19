@@ -3,8 +3,8 @@ import { Node } from '../node/node';
 
 /**
  * A column generation mode. Here are possible values:
- * 
- * - `null` auto generation is off. 
+ *
+ * - `null` auto generation is off.
  * - `deep` number of columns will be equal to number of graph leafs after deep traversing of first row object.
  * - `shallow` number of columns will be equal to number of keys from first row object.
  * - `cohort` similar to deep, but use column groups to display hierarchy.

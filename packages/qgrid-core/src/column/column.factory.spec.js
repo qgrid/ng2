@@ -1,27 +1,27 @@
-import {columnFactory} from './column.factory';
-import {modelFactory} from '../test/model.factory';
-import {PasswordColumn} from '../column-type/password.column';
-import {ColumnView as CustomColumn} from '../scene/view/column.view';
+import { PasswordColumn } from '../column-type/password.column';
+import { ColumnView as CustomColumn } from '../scene/view/column.view';
+import { modelFactory } from '../test/model.factory';
+import { columnFactory } from './column.factory';
 
 describe('columnFactory', () => {
-	let model = modelFactory();
-	let body = {title: 'pass', pin: 'left'};
+	const model = modelFactory();
+	const body = {title: 'pass', pin: 'left'};
 
 	it('should create a new instance of PasswordColumn', () => {
-		let createColumn = columnFactory(model);
-		let result = createColumn('password');
+		const createColumn = columnFactory(model);
+		const result = createColumn('password');
 		expect(result).to.be.an.instanceOf(PasswordColumn);
 	});
 
 	it('should create a new instance of CustomColumn if there is no such type in the ColumnType list', () => {
-		let createColumn = columnFactory(model);
-		let result = createColumn('someColumn');
+		const createColumn = columnFactory(model);
+		const result = createColumn('someColumn');
 		expect(result).to.be.an.instanceOf(CustomColumn);
 	});
 
 	it('should set values to column`s model if body is specified', () => {
-		let createColumn = columnFactory(model);
-		let result = createColumn('password', body);
+		const createColumn = columnFactory(model);
+		const result = createColumn('password', body);
 		expect(result.model.title).to.equal('pass');
 		expect(result.model.pin).to.equal('left');
 		expect(result.model.type).to.equal('password');
