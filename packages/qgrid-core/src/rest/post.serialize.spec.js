@@ -44,11 +44,11 @@ describe('Model serialization to post parameters', () => {
 		it('should map filter by directly', () => {
 			const model = modelFactory().filter({
 				by: {
-					lastName: ['Doe']
+					lastName: { items: ['Doe'] }
 				}
 			});
 			const params = serializeGet(model);
-			expect(params.filter).to.be.deep.equal({ lastName: ['Doe'] });
+			expect(params.filter).to.be.equal('lastName=in:Doe');
 		});
 	});
 });
