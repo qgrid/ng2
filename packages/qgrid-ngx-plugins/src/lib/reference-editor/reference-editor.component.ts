@@ -15,7 +15,7 @@ export class ReferenceEditorComponent implements AfterViewInit {
 
 	@Input() caption = '';
 	@Input() cell: CellView;
-	
+
 	reference: { commit: Command; cancel: Command };
 	model: GridModel;
 

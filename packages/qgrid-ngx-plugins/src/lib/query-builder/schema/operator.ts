@@ -1,7 +1,7 @@
 function swap(inst: { [key: string]: string }): { [key: string]: string } {
 	const result = {};
 	for (const prop in inst) {
-		if (inst.hasOwnProperty(prop)) {
+		if (Object.prototype.hasOwnProperty.call(inst, prop)) {
 			result[inst[prop]] = prop;
 		}
 	}
