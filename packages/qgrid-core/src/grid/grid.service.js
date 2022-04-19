@@ -23,7 +23,7 @@ function buildSettings(...args) {
 			changes: {},
 			pipe: null,
 			why: 'refresh'
-		}, args[0])
+		}, args[0]);
 	}
 
 	return {

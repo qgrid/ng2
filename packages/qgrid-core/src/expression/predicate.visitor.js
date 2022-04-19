@@ -1,7 +1,7 @@
 import { GridError } from '../infrastructure/error';
 import { compareParseFactory } from '../services/convert';
+import { identity, isArray, isUndefined, yes } from '../utility/kit';
 import { Visitor } from './expression.visitor';
-import { isArray, identity, yes, isUndefined } from '../utility/kit';
 
 export class PredicateVisitor extends Visitor {
 	constructor(valueFactory, assertFactory, getType) {
@@ -63,7 +63,7 @@ export class PredicateVisitor extends Visitor {
 		};
 
 		const greaterThan = (x, y) => {
-			return !equals(x, y) && !lessThan(x, y)
+			return !equals(x, y) && !lessThan(x, y);
 		};
 
 		const greaterThanOrEquals = (x, y) => {
@@ -122,13 +122,13 @@ export class PredicateVisitor extends Visitor {
 				if (noEnd) {
 					const etalon = parse(start);
 					predicate = actual => greaterThanOrEquals(parse(actual), etalon);
-					break
+					break;
 				}
 
 				if (noStart) {
 					const etalon = parse(end);
 					predicate = actual => lessThanOrEquals(parse(actual), etalon);
-					break
+					break;
 				}
 
 				const etalonStart = parse(start);

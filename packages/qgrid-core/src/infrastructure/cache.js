@@ -1,5 +1,7 @@
 import { GridError } from './error';
 
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 export class Cache {
 	constructor() {
 		this.items = {};
@@ -22,12 +24,12 @@ export class Cache {
 
 	has(key) {
 		const items = this.items;
-		return items.hasOwnProperty(key);
+		return hasOwnProperty.call(items, key);
 	}
 
 	find(key) {
 		const items = this.items;
-		if (items.hasOwnProperty(key)) {
+		if (hasOwnProperty.call(items, key)) {
 			return items[key];
 		}
 
@@ -35,7 +37,7 @@ export class Cache {
 	}
 
 	remove(key) {
-		if (!this.items.hasOwnProperty(key)) {
+		if (!hasOwnProperty.call(this.items, key)) {
 			throw new GridError(
 				'cache.remove',
 				`Entry with key was not found "${key}"`);

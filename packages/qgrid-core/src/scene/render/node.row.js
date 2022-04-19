@@ -1,8 +1,10 @@
-import { takeWhile, dropWhile, sumBy } from '../../utility/kit';
 import { columnFactory } from '../../column/column.factory';
-import { Aggregation } from '../../services/aggregation';
-import { GridError } from '../../infrastructure/error';
 import { findFirstLeaf } from '../../group/group.service';
+import { GridError } from '../../infrastructure/error';
+import { Aggregation } from '../../services/aggregation';
+import { dropWhile, sumBy, takeWhile } from '../../utility/kit';
+
+const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export class NodeRow {
 	constructor(model, dataRow) {
@@ -29,7 +31,7 @@ export class NodeRow {
 					case 'summary': {
 						const agg = column.aggregation;
 						if (agg) {
-							if (!Aggregation.hasOwnProperty(agg)) {
+							if (!hasOwnProperty.call(Aggregation, agg)) {
 								throw new GridError(
 									'node.row',
 									`Aggregation ${agg} is not supported`);
@@ -138,7 +140,7 @@ export class RowspanNodeRow {
 					if (column.model.type === 'group') {
 						if (node.state.expand) {
 							if (!isRoot || node.source === column.model.by) {
-								return node.children.reduce((memo, child, i) => memo + rowspan(child, column, false), 0);
+								return node.children.reduce((memo, child) => memo + rowspan(child, column, false), 0);
 							} else {
 								if (node.children.length) {
 									return rowspan(node.children[0], column, false);

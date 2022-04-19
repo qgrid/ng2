@@ -1,3 +1,5 @@
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 export class SelectorCache {
 	constructor(selector) {
 		this.selector = selector;
@@ -16,7 +18,7 @@ export class SelectorCache {
 	}
 
 	columnCount(rowIndex) {
-		if (this.columnCountCache.hasOwnProperty(rowIndex)) {
+		if (hasOwnProperty.call(this.columnCountCache, rowIndex)) {
 			return this.columnCountCache.get(rowIndex);
 		}
 
@@ -24,7 +26,7 @@ export class SelectorCache {
 	}
 
 	columnCells(columnIndex) {
-		if (this.columnCells.hasOwnProperty(columnIndex)) {
+		if (hasOwnProperty.call(this.columnCells, columnIndex)) {
 			return this.columnCells.get(columnIndex);
 		}
 
@@ -32,7 +34,7 @@ export class SelectorCache {
 	}
 
 	rowCount(columnIndex) {
-		if (this.rowCountCache.hasOwnProperty(columnIndex)) {
+		if (hasOwnProperty.call(this.rowCountCache, columnIndex)) {
 			return this.rowCountCache.get(columnIndex);
 		}
 
@@ -40,7 +42,7 @@ export class SelectorCache {
 	}
 
 	rows(columnIndex) {
-		if (this.rowsCache.hasOwnProperty(columnIndex)) {
+		if (hasOwnProperty.call(this.rowsCache, columnIndex)) {
 			return this.rowsCache.get(columnIndex);
 		}
 
@@ -48,7 +50,7 @@ export class SelectorCache {
 	}
 
 	rowCells(rowIndex) {
-		if (this.rowCellsCache.hasOwnProperty(rowIndex)) {
+		if (hasOwnProperty.call(this.rowCellsCache, rowIndex)) {
 			return this.rowCellsCache.get(rowIndex);
 		}
 
@@ -57,7 +59,7 @@ export class SelectorCache {
 
 	row(rowIndex, columnIndex) {
 		const key = `${rowIndex}x${columnIndex}`;
-		if (this.rowCache.hasOwnProperty(key)) {
+		if (hasOwnProperty.call(this.rowCache, key)) {
 			return this.rowCache.get(key);
 		}
 
@@ -66,7 +68,7 @@ export class SelectorCache {
 
 	cell(rowIndex, columnIndex) {
 		const key = `${rowIndex}x${columnIndex}`;
-		if (this.cellCache.hasOwnProperty(key)) {
+		if (hasOwnProperty.call(this.cellCache, key)) {
 			return this.cellCache.get(key);
 		}
 

@@ -7,6 +7,8 @@ import { calk, findLeaves, findNode, preOrderDFS } from '../node/node.service';
 import { PathService } from '../path/path.service';
 import { eventPath } from '../services/dom';
 
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 export class HeadLet {
 	constructor(plugin, tagName) {
 		const { model, table, observeReply } = plugin;
@@ -114,7 +116,7 @@ export class HeadLet {
 			canExecute: e => {
 				const key = e.data;
 				const map = table.data.columnMap();
-				return map.hasOwnProperty(key) && map[key].canResize !== false;
+				return hasOwnProperty.call(map, key) && map[key].canResize !== false;
 			}
 		});
 

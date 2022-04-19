@@ -1,6 +1,8 @@
-import { Unit } from './unit';
-import { FakeElement } from './fake/element';
 import { escapeAttr } from '../services/css';
+import { FakeElement } from './fake/element';
+import { Unit } from './unit';
+
+const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 function isParentOf(parent, element) {
 	while (element) {
@@ -220,7 +222,7 @@ export class View extends Unit {
 	getElementsCore(key) {
 		const { markup } = this.context;
 		return [`${key}-left`, `${key}-mid`, `${key}-right`]
-			.filter(key => markup.hasOwnProperty(key))
+			.filter(key => hasOwnProperty.call(markup, key))
 			.map(key => markup[key]);
 	}
 }

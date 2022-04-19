@@ -3,7 +3,7 @@ import { eventPath } from '../services/dom';
 
 export class HeadHost {
 	constructor(plugin) {
-		const { model, table, observeReply } = plugin;
+		const { model, observeReply } = plugin;
 
 		this.plugin = plugin;
 		this.column = null;

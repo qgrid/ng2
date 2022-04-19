@@ -1,7 +1,7 @@
-import { ShortcutDispatcher } from './shortcut.dispatcher';
-import { KeyCode } from './key.code';
-import { CommandManager } from '../command/command.manager';
 import { Command } from '../command/command';
+import { CommandManager } from '../command/command.manager';
+import { KeyCode } from './key.code';
+import { ShortcutDispatcher } from './shortcut.dispatcher';
 
 export declare class Shortcut {
 	constructor(manager: ShortcutDispatcher);
@@ -17,8 +17,8 @@ export declare class Shortcut {
 
 	keyDown(
 		e: {
-			key: string, 
-			keyCode: number, 
+			key: string,
+			keyCode: number,
 			shiftKey: boolean
 		},
 		source?: string): string[];

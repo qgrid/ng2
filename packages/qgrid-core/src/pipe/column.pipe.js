@@ -159,7 +159,7 @@ function groupColumnFactory(model, nodes) {
 						.filter(n => n.key.model.isVisible);
 
 					node.children.splice(0, 0, ...nodes);
-				}
+				};
 			}
 		}
 	}

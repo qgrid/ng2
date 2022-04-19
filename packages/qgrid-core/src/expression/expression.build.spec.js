@@ -1,4 +1,4 @@
-import { buildExpression } from "./expression.build";
+import { buildExpression } from './expression.build';
 
 describe('Expression Build', () => {
 	let test1 = {

@@ -1,6 +1,6 @@
 import { isFunction } from '../utility/kit';
-import { Guard } from './guard';
 import { GridError } from './error';
+import { Guard } from './guard';
 
 export class Disposable {
 	constructor() {
@@ -28,7 +28,7 @@ export class Disposable {
 
 		throw new GridError(
 			'disposable',
-			`Resource is not a disposable`
+			'Resource is not a disposable'
 		);
 	}
 

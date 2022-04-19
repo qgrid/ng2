@@ -6,6 +6,6 @@ import { CellView } from '../scene/view/cell.view';
 export declare const EDIT_CELL_CANCEL_COMMAND_KEY: CommandKey<CellView>;
 
 export declare class EditCellCancelCommand extends Command<CellView> {
-    constructor(plugin: GridPlugin);
+	constructor(plugin: GridPlugin);
 }
 

@@ -1,6 +1,8 @@
 import { Log } from '../infrastructure/log';
-import { isFunction, identity } from '../utility/kit';
 import { Fastdom } from '../services/fastdom';
+import { identity, isFunction } from '../utility/kit';
+
+const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export class ScrollLet {
 	constructor(plugin, vscroll) {
@@ -45,7 +47,7 @@ export class ScrollLet {
 
 		const updateTotalCount = () => {
 			const { effect } = pipe();
-			if (effect.hasOwnProperty('memo')) {
+			if (hasOwnProperty(effect, 'memo')) {
 				const count = effect.memo.length;
 				pagination({ count }, {
 					source: 'scroll.view',

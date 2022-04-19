@@ -1,9 +1,9 @@
-import { CommandManager } from './command.manager';
 import { Table } from '../dom/table';
+import { CommandManager } from './command.manager';
 
 export class TableCommandManager extends CommandManager {
 	constructor(
-		apply: (f: () => {}) => void,
+		apply: (f: () => void) => void,
 		table: Table
 	);
 }

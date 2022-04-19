@@ -1,13 +1,15 @@
 import { GridError } from '../infrastructure/error';
 import { isUndefined } from '../utility/kit';
 
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 const resolvers = {};
 export class TemplatePath {
 	constructor() {
 	}
 
 	static register(name, resolve) {
-		if (resolvers.hasOwnProperty(name)) {
+		if (hasOwnProperty.call(resolvers, name)) {
 			throw new GridError(
 				'template.path',
 				`"${name}" is already registered`);

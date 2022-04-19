@@ -14,7 +14,7 @@ export class ActionState {
 					execute: noop,
 					priority: 0
 				},
-				title: `Column chooser`,
+				title: 'Column chooser',
 				icon: 'more_vert',
 				templateUrl: 'plugin-column-chooser-trigger.tpl.html',
 			}

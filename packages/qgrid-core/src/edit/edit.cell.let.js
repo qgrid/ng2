@@ -11,6 +11,8 @@ import { CellEditor } from './edit.cell.editor';
 // TODO: investigate how to avoid it
 import { Td } from '../dom/td';
 
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 export class EditCellLet {
 	constructor(plugin, shortcut) {
 		const { model, observeReply } = plugin;
@@ -124,15 +126,15 @@ export class EditCellLet {
 
 					cell = cell || model.navigation().cell;
 
-          //cell is an array when using custom template
-          if(Array.isArray(cell)) {
-            if(cell.length > 0) {
-              if (cell[0].constructor.name == 'TdCoreDirective') {
-                cell = cell[0];
-              }
-            }
-          }
-          
+					//cell is an array when using custom template
+					if (Array.isArray(cell)) {
+						if (cell.length > 0) {
+							if (cell[0].constructor.name == 'TdCoreDirective') {
+								cell = cell[0];
+							}
+						}
+					}
+
 					return cell
 						&& cell.column.canEdit
 						&& (cell.column.category === 'control' || model.edit().mode === 'cell')
@@ -435,7 +437,7 @@ export class EditCellLet {
 			const { td } = this.editor;
 			if (td) {
 				const type = td.column && td.column.editor ? td.column.editor : td.column.type;
-				if (shortcuts && shortcuts.hasOwnProperty(type)) {
+				if (shortcuts && hasOwnProperty.call(shortcuts, type)) {
 					return shortcuts[type];
 				}
 			}

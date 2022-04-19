@@ -1,6 +1,7 @@
 import { isArray, isObject, isString } from '../../utility/kit';
 
 const begin = '<?xml version="1.0" encoding="UTF-8"?><root>';
+const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 function escape(value) {
 	let result = '' + value;
@@ -16,7 +17,7 @@ function objToXml(obj) {
 	let result = '';
 
 	for (let [prop, value] of Object.entries(obj)) {
-		if (obj.hasOwnProperty(prop)) {
+		if (hasOwnProperty.call(obj, prop)) {
 			if (isObject(value) && !isArray(value) && !isString(value)) {
 				result += `<${prop}>${objToXml(value)}</${prop}>`;
 			} else if (isArray(value)) {

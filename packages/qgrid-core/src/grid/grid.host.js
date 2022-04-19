@@ -38,7 +38,7 @@ export class GridHost {
 		const index = codes.indexOf(code);
 		if (index >= 0) {
 			const newCodes = Array.from(codes);
-			newCodes.splice(index, 1)
+			newCodes.splice(index, 1);
 			model.keyboard({
 				code,
 				codes: newCodes,

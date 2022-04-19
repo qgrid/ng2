@@ -1,5 +1,5 @@
-import { columnFactory } from '../column/column.factory';
 import { generateFactory } from '../column-list/column.list.generate';
+import { columnFactory } from '../column/column.factory';
 
 export function dataPipe(rows, context, next) {
 	const { model } = context;
@@ -43,4 +43,3 @@ function addDataColumns(model) {
 		model.data({ columns: allColumns }, tag);
 	}
 }
-

@@ -1,11 +1,13 @@
 import { Guard } from '../infrastructure/guard';
 
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 export function paginationPipe(memo, context, next) {
 	Guard.notNull(memo, 'memo');
 
 	const { model } = context;
 
-	if (memo.hasOwnProperty('nodes') && memo.nodes.length) {
+	if (hasOwnProperty.call(memo, 'nodes') && memo.nodes.length) {
 		const { flattenFactory } = model.group();
 
 		const page = paginate(model, memo.nodes);
@@ -16,7 +18,7 @@ export function paginationPipe(memo, context, next) {
 		return;
 	}
 
-	if (memo.hasOwnProperty('rows')) {
+	if (hasOwnProperty.call(memo, 'rows')) {
 		const page = paginate(model, memo.rows);
 		memo.rows = page;
 		next(memo);
@@ -34,7 +36,7 @@ function paginate(model, rows) {
 
 	const pinned = new Set([...pinTop, ...pinBottom]);
 	if (pinned.size) {
-		rows = rows.filter(row => !pinned.has(row))
+		rows = rows.filter(row => !pinned.has(row));
 	}
 
 	const count = rows.length;

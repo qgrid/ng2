@@ -28,7 +28,7 @@ class TdView {
 	}
 
 	set value(value) {
-		return setValue(this.row, this.column, value);
+		setValue(this.row, this.column, value);
 	}
 
 	get label() {
@@ -36,7 +36,7 @@ class TdView {
 	}
 
 	set label(value) {
-		return setLabel(this.row, this.column, value);
+		setLabel(this.row, this.column, value);
 	}
 }
 

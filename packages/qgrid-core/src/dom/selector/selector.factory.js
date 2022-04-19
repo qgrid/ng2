@@ -1,8 +1,10 @@
+import { Range } from '../../infrastructure/range';
 import { Matrix } from './matrix';
 import { Selector } from './selector';
 import { SelectorMediator } from './selector.mediate';
 import { UnitFactory } from './unit.factory';
-import { Range } from '../../infrastructure/range';
+
+const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export class SelectorFactory {
 	constructor(bag, selectorMark) {
@@ -32,11 +34,11 @@ export class SelectorFactory {
 					const args = [];
 					args.push(selector);
 
-					if (context.hasOwnProperty('row')) {
+					if (hasOwnProperty.call(context, 'row')) {
 						args.push(context.row - entry.rowRange.start);
 					}
 
-					if (context.hasOwnProperty('column')) {
+					if (hasOwnProperty.call(context, 'column')) {
 						args.push(context.column - entry.columnRange.start);
 					}
 

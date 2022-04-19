@@ -1,6 +1,5 @@
-import { GridError } from '../../infrastructure/error';
-import { sumBy } from '../../utility/kit';
 import { columnFactory } from '../../column/column.factory';
+import { sumBy } from '../../utility/kit';
 
 export class DetailsRow {
 	constructor(model, dataRow) {

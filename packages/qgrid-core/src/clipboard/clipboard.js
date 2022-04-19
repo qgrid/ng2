@@ -1,7 +1,7 @@
 import { GridError } from '../infrastructure/error';
 
 export function copyToClipboard(text) {
-	const textArea = document.createElement("textarea");
+	const textArea = document.createElement('textarea');
 
 	//
 	// *** This styling is an extra step which is likely not required. ***
@@ -49,7 +49,7 @@ export function copyToClipboard(text) {
 	try {
 		document.execCommand('copy');
 	} catch (ex) {
-		throw new GridError('clipboard', ex.message)
+		throw new GridError('clipboard', ex.message);
 	}
 
 	document.body.removeChild(textArea);

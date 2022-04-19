@@ -81,7 +81,7 @@ export class HighlightLet {
 		this.cell = new Command({
 			source: 'highlight.view',
 			canExecute: () => !this.isRendering,
-			execute: (newCell, state) => {
+			execute: (newCell) => {
 				let { cell } = model.highlight();
 				let hasChanges = true;
 				if (newCell === cell) {
@@ -181,7 +181,7 @@ export class HighlightLet {
 						cellHoverBlurs = this.invalidateCellHover(cellHoverBlurs);
 					}
 				}
-			})
+			});
 	}
 
 	get isRendering() {

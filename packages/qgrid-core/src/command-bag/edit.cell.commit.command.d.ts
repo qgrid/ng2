@@ -6,6 +6,6 @@ import { CellView } from '../scene/view/cell.view';
 export declare const EDIT_CELL_COMMIT_COMMAND_KEY: CommandKey<CellView>;
 
 export declare class EditCellCommitCommand extends Command<CellView> {
-    constructor(plugin: GridPlugin);
+	constructor(plugin: GridPlugin);
 }
 

@@ -11,7 +11,7 @@ export function flattenFactory(model) {
 				if (node.level === 0 || pos > 0) {
 					result.push(node);
 				}
-			}
+			};
 			break;
 		}
 	}
