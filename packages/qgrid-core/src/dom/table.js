@@ -1,3 +1,4 @@
+import { Lazy } from '../infrastructure/lazy';
 import { assignWith, identity } from '../utility/kit';
 import { Bag } from './bag';
 import { Body, VirtualBody } from './body';
@@ -5,7 +6,6 @@ import { Data } from './data';
 import { FakeLayer } from './fake/layer';
 import { Foot } from './foot';
 import { Head } from './head';
-import { Lazy } from '../infrastructure/lazy';
 import { View } from './view';
 
 export class Table {
@@ -39,7 +39,7 @@ export class Table {
 			const context = this.boxContext('body');
 			return scroll().mode === 'virtual'
 				? new VirtualBody(context, model)
-				: new Body(context, model)
+				: new Body(context, model);
 		});
 	}
 

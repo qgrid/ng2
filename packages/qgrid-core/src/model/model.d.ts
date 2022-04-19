@@ -109,14 +109,6 @@ export declare type ResolveAccessor = {
 	resolve<TState>(type: new () => TState): StateAccessor<'state', 'changed', TState>;
 };
 
-type FilteredNotifyState<K extends keyof Model> = K extends `${string}Changed` ? K : never;
-type FilteredReadWriteState<K extends keyof Model> = K extends `resolve` ? never : K extends `${string}Changed` ? never : K;
-type ExtractGeneric<K extends string, T> = T extends StateAccessor<K, `${K}Changed`, infer X> ? X : never;
-
-export type ReadModel = { [K in keyof Model as FilteredReadWriteState<K>]: StateGetAccessor<ExtractGeneric<K, Model>> };
-export type WriteModel = { [K in keyof Model as FilteredReadWriteState<K>]: StateSetAccessor<ExtractGeneric<K, Model>> };
-export type NotifyModel = { [K in keyof Model as FilteredNotifyState<K>]: Model[K] };
-
 export type Model =
 	ActionAccessor
 	& AnimationAccessor
@@ -159,3 +151,12 @@ export type Model =
 	& ViewAccessor
 	& VisibilityAccessor
 	& ResolveAccessor;
+
+type FilteredNotifyState<K extends keyof Model> = K extends `${string}Changed` ? K : never;
+type FilteredReadWriteState<K extends keyof Model> = K extends 'resolve' ? never : K extends `${string}Changed` ? never : K;
+type ExtractGeneric<K extends string, T> = T extends StateAccessor<K, `${K}Changed`, infer X> ? X : never;
+
+export type ReadModel = { [K in keyof Model as FilteredReadWriteState<K>]: StateGetAccessor<ExtractGeneric<K, Model>> };
+export type WriteModel = { [K in keyof Model as FilteredReadWriteState<K>]: StateSetAccessor<ExtractGeneric<K, Model>> };
+export type NotifyModel = { [K in keyof Model as FilteredNotifyState<K>]: Model[K] };
+

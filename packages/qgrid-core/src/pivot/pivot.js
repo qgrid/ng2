@@ -1,3 +1,6 @@
+
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 class Plan {
 	constructor(schema) {
 		this.isRoot = !arguments.length;
@@ -11,7 +14,7 @@ class Plan {
 	cursor(name) {
 		const schema = this.schema;
 		this.current =
-			schema.hasOwnProperty(name)
+			hasOwnProperty.call(schema, name)
 				? schema[name]
 				: schema[name] = {};
 	}

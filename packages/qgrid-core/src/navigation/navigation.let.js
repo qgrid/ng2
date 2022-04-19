@@ -3,7 +3,7 @@ import { Navigation } from './navigation';
 import { GRID_PREFIX } from '../definition';
 import { Fastdom } from '../services/fastdom';
 import { Td } from '../dom/td';
-import { selectColumnIndex, selectRowIndex, selectRow, selectColumn } from './navigation.state.selector';
+import { selectColumnIndex, selectRowIndex } from './navigation.state.selector';
 
 export class NavigationLet {
 	constructor(plugin, shortcut) {

@@ -1,6 +1,5 @@
-import { ColumnModel } from '../column-type/column.model';
-import { CellView } from '../scene/view/cell.view';
 import { Command } from '../command/command';
+import { CellView } from '../scene/view/cell.view';
 
 /**
  * A class that gives access to the current cell position inside the q-grid.

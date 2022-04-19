@@ -2,6 +2,8 @@ import { bend, copy, preOrderDFS } from '../node/node.service';
 
 export { sortIndexFactory, mergeTree };
 
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 function sortIndexFactory(model) {
 	const templateIndex = model.columnList().columns.map(c => c.key);
 
@@ -44,7 +46,7 @@ function compareFactory(scoreFor, templateIndex, viewIndex) {
 	const weightCache = {};
 	const getWeight = column => {
 		const key = column.key;
-		if (weightCache.hasOwnProperty(key)) {
+		if (hasOwnProperty.call(weightCache, key)) {
 			return weightCache[key];
 		}
 

@@ -9,9 +9,9 @@ export function memoPipe(rows, context, next) {
 	model.pipe({
 		effect: Object.assign({}, model.pipe().effect, { memo: rows })
 	}, {
-			source: 'memo.pipe',
-			behavior: 'core'
-		});
+		source: 'memo.pipe',
+		behavior: 'core'
+	});
 
 	next({
 		rows,

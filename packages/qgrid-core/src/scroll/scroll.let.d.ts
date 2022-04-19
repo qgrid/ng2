@@ -1,5 +1,5 @@
 import { GridPlugin } from '../plugin/grid.plugin';
-import { ObservableLike, SubscribableLike } from '../rx/rx';
+import { SubscribableLike } from '../rx/rx';
 import { ScrollStateMode } from './scroll.state';
 
 export declare interface IVscrollSettings {

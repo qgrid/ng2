@@ -1,5 +1,7 @@
-import { noop, toCamelCase, isUndefined, isArray } from '../utility/kit';
 import { Log } from '../infrastructure//log';
+import { isArray, isUndefined, noop, toCamelCase } from '../utility/kit';
+
+const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export class ModelBinder {
 	constructor(host, plugin) {
@@ -64,7 +66,7 @@ export class ModelBinder {
 			const changes = Object.keys(e.changes);
 			for (let diffKey of changes) {
 				const hostKey = toCamelCase(name, diffKey);
-				if (host.hasOwnProperty(hostKey)) {
+				if (hasOwnProperty.call(host, hostKey)) {
 					const diff = e.changes[diffKey];
 					host[hostKey] = diff.newValue;
 				}
@@ -78,7 +80,7 @@ export class ModelBinder {
 			const newState = {};
 			for (let stateKey of Object.keys(state)) {
 				const hostKey = toCamelCase(name, stateKey);
-				if (host.hasOwnProperty(hostKey)) {
+				if (hasOwnProperty.call(host, hostKey)) {
 					const oldValue = state[stateKey];
 					const newValue = host[hostKey];
 					if (this.canWrite(oldValue, newValue, stateKey)) {
@@ -101,6 +103,6 @@ export class ModelBinder {
 					oldValue: value
 				};
 				return memo;
-			}, {})
+			}, {});
 	}
 }

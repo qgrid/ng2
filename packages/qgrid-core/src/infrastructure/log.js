@@ -1,4 +1,5 @@
 /*eslint-disable  no-console*/
+/*eslint-disable no-unused-vars*/
 
 export class Log {
 	static info(source, message) {

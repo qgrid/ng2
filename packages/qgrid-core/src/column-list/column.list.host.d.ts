@@ -1,5 +1,5 @@
-import { Model } from '../model/model';
 import { ColumnModel } from '../column-type/column.model';
+import { Model } from '../model/model';
 
 export declare class ColumnListHost {
 	constructor(

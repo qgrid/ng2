@@ -237,7 +237,7 @@ export declare class ColumnModel {
 	/**
 	 * If children property is setup the column automatically becomes a group container.
 	 */
-	children?: ColumnModel[]
+	children?: ColumnModel[];
 
 	/**
 	 * Start index number for columns with type 'row-number'.

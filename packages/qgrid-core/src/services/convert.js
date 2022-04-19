@@ -1,16 +1,7 @@
 import {
-	identity,
-	isObject,
-	isArray,
+	identity, isArray,
 	isBoolean,
-	isDate,
-	isNumber,
-	isEmail,
-	isString,
-	isUrl,
-	isImage,
-	isUndefined,
-	matchISO8601
+	isDate, isEmail, isImage, isNumber, isObject, isString, isUndefined, isUrl, matchISO8601
 } from '../utility/kit';
 
 // TODO: right now we check the empty result on null, 
@@ -266,7 +257,7 @@ function parseText(value) {
 
 function parseDate(value) {
 	if (value === null || isUndefined(value)) {
-		return value
+		return value;
 	}
 
 	if (value === '') {
@@ -297,7 +288,7 @@ function parseDate(value) {
 
 function parseDateTime(value) {
 	if (value === null || isUndefined(value)) {
-		return value
+		return value;
 	}
 
 	if (value === '') {
@@ -314,7 +305,7 @@ function parseDateTime(value) {
 
 function parseNumber(value) {
 	if (value === null || isUndefined(value)) {
-		return value
+		return value;
 	}
 
 	if (value === '' || isNaN(value)) {

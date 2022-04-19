@@ -1,5 +1,7 @@
 import { ColumnModel } from '../../column-type/column.model';
-import { isObject, isFunction, isArray } from '../../utility/kit';
+import { isArray, isFunction, isObject } from '../../utility/kit';
+
+const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export class ColumnView {
 	constructor(model) {
@@ -26,7 +28,7 @@ export class ColumnView {
 	static assign(body) {
 		const etalon = this.model();
 		for (let key of Object.keys(etalon)) {
-			if (!body.hasOwnProperty(key)) {
+			if (!hasOwnProperty.call(body, key)) {
 				let etalonValue = etalon[key];
 				if (isFunction(etalonValue)) {
 					etalonValue = etalonValue.bind(body);

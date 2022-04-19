@@ -1,6 +1,6 @@
-import { escapeAttr } from '../services/css';
-import { min, max } from '../utility/kit';
 import { Guard } from '../infrastructure/guard';
+import { escapeAttr } from '../services/css';
+import { max, min } from '../utility/kit';
 
 export class Container {
 	constructor(elements) {
@@ -67,14 +67,14 @@ export class TrContainer {
 
 	get index() {
 		const tr = this.elements[0];
-		Guard.notNull(tr, "tr");
+		Guard.notNull(tr, 'tr');
 
 		return tr.index;
 	}
 
 	get model() {
 		const tr = this.elements[0];
-		Guard.notNull(tr, "tr");
+		Guard.notNull(tr, 'tr');
 
 		return tr && tr.model;
 	}
@@ -86,7 +86,7 @@ export class TrContainer {
 		}
 
 		const tr = this.elements[0];
-		Guard.notNull(tr, "tr");
+		Guard.notNull(tr, 'tr');
 
 		return tr.element;
 	}

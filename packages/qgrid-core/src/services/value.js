@@ -2,6 +2,8 @@ import { GridError } from '../infrastructure/error';
 import { isFunction } from '../utility/kit';
 import { compileGet, compileSet } from './path';
 
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 export function getValue(row, column) {
 	return column.$value
 		? column.$value({ $row: row, $column: column })
@@ -37,7 +39,7 @@ export function setValue(row, column, value) {
 		return compileSet(column.path)(row, value);
 	}
 
-	if (row.hasOwnProperty(column.key)) {
+	if (hasOwnProperty.call(row, column.key)) {
 		return row[column.key] = value;
 	}
 

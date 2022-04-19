@@ -96,7 +96,7 @@ export class Renderer {
 				body: rows,
 				bottom: pinBottom
 			};
-		}
+		};
 
 		observeReply(model.sceneChanged)
 			.subscribe(e => {

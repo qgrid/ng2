@@ -1,8 +1,8 @@
 import { Command } from '../command/command';
-import { RowDetails } from './row.details';
-import { takeOnce, filter } from '../rx/rx.operators';
-import { toggleStatus, invalidateStatus } from './row.details.service';
 import { selectRow } from '../navigation/navigation.state.selector';
+import { filter, takeOnce } from '../rx/rx.operators';
+import { RowDetails } from './row.details';
+import { invalidateStatus, toggleStatus } from './row.details.service';
 
 export class RowDetailsLet {
 	constructor(plugin, shortcut) {
@@ -29,10 +29,10 @@ export class RowDetailsLet {
 							filter(e => e.hasChanges('status') && e.state.status === 'stop'),
 							takeOnce()
 						)
-						.subscribe(e => {
+						.subscribe(() => {
 							const rowStatus = newStatus.get(row);
 							if (rowStatus && rowStatus.expand) {
-								const index = model.view().rows.indexOf(row)
+								const index = model.view().rows.indexOf(row);
 								model.focus({
 									rowIndex: index + 1
 								}, {

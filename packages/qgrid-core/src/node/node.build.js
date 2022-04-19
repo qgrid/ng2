@@ -2,13 +2,15 @@ import { GridError } from '../infrastructure/error';
 import { getValueFactory } from '../services/value';
 import { Node } from './node';
 
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 export function nodeBuilder(columnMap, groupBy, valueFactory, level = 0) {
 	if (groupBy.length === 0) {
 		return () => [];
 	}
 
 	const groupKey = groupBy[0];
-	if (!columnMap.hasOwnProperty(groupKey)) {
+	if (!hasOwnProperty.call(columnMap, groupKey)) {
 		throw new GridError('node.build', `can't find column "${groupKey}"`);
 	}
 
@@ -22,7 +24,7 @@ export function nodeBuilder(columnMap, groupBy, valueFactory, level = 0) {
 			const row = rows[i];
 			const index = getRowIndex(i);
 			const key = getValue(row);
-			if (!groups.hasOwnProperty(key)) {
+			if (!hasOwnProperty.call(groups, key)) {
 				const node = new Node(key, level);
 				node.source = groupKey;
 				node.rows.push(index);

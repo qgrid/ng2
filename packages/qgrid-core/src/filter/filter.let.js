@@ -1,5 +1,7 @@
 import { Command } from '../command/command';
-import { clone, isUndefined, isArray } from '../utility/kit';
+import { clone, isArray, isUndefined } from '../utility/kit';
+
+const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export class FilterLet {
 	constructor(plugin) {
@@ -56,7 +58,7 @@ export class FilterLet {
 	has(column) {
 		const { model } = this.plugin;
 		const { by } = model.filter();
-		return by.hasOwnProperty(column.key);
+		return hasOwnProperty.call(by, column.key);
 	}
 
 	value(column) {

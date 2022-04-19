@@ -58,7 +58,6 @@ export class StyleLet {
 
 	invalidate(domCell, domRow) {
 		const { model, table } = this.plugin;
-		const { valueFactory } = this;
 		let { row: isRowActive, cell: isCellActive } = this.active;
 
 		const isVirtual = model.scroll().mode === 'virtual';

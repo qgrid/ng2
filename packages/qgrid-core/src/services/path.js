@@ -108,7 +108,7 @@ function getAccessor(parts, last) {
 						}
 
 						return null;
-					}
+					};
 				},
 				graph => {
 					if (graph) {

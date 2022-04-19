@@ -83,7 +83,7 @@ function rowsToUseFactory() {
 		const result = 1 + count;
 		cache.set(model.key, result);
 		return result;
-	}
+	};
 }
 
 

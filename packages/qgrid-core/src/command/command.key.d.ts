@@ -1,5 +1,5 @@
 export class CommandKey<T> {
-  name: string;
+	name: string;
 }
 
 export function commandKey<T>(name: string): CommandKey<T>

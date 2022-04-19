@@ -23,5 +23,5 @@ function graphFlatView(graph, separator = ', ') {
 }
 
 export {
-  graphFlatView
+	graphFlatView
 };
