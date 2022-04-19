@@ -70,15 +70,15 @@ export function columnFactory(model) {
 	};
 
 	const create = (entityType, columnType, body) => {
-		const Type = columnMap[entityType];
+		const type = columnMap[entityType];
 		const { reference } = columnList();
 		const defaultSettings = reference['$default'];
 		body = merge(body, defaultSettings);
 		const typeSettings = reference[columnType];
 		body = merge(body, typeSettings);
 
-		const model = Type.model(body);
-		return new Type(model);
+		const model = type.model(body);
+		return new type(model);
 	};
 
 	return (type, body = null) => {

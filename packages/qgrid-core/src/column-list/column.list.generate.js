@@ -1,17 +1,16 @@
-import { merge as mergeFactory } from '../services/merge';
-import { compile } from '../services/path';
-import { getType, inferType, resolveType } from '../services/convert';
 import { TextColumnModel } from '../column-type/text.column';
-import { assignWith, isUndefined, noop, startCase } from '../utility/kit';
 import { columnFactory } from '../column/column.factory';
 import { GridError } from '../infrastructure/error';
+import { getType, inferType, resolveType } from '../services/convert';
+import { merge as mergeFactory } from '../services/merge';
+import { compile } from '../services/path';
+import { assignWith, isUndefined, noop, startCase } from '../utility/kit';
 
 function merge(left, right, force = false) {
 	let canAssign;
 	if (force) {
 		canAssign = (source, target) => !isUndefined(target) && target !== null ? target : source;
-	}
-	else {
+	} else {
 		canAssign = (source, target) => !isUndefined(target) && target !== null && source === null ? target : source;
 	}
 
@@ -27,99 +26,6 @@ function merge(left, right, force = false) {
 
 function hasChanges(statistics) {
 	return statistics.some(st => st.inserted || st.update);
-}
-
-export function generateFactory(model) {
-	const { data } = model;
-	const createColumn = columnFactory(model);
-	return () => {
-		const { rows } = data();
-		const htmlColumns = model.columnList().columns;
-
-		const spawnColumns = [];
-		const { generation, typeDetection } = model.columnList();
-		if (generation) {
-			let settings = {
-				rows,
-				columnFactory: createColumn,
-				deep: false,
-				cohort: false,
-				typeDetection
-			};
-
-			switch (generation) {
-				case 'shallow': {
-					break;
-				}
-				case 'deep': {
-					settings.deep = true;
-					break;
-				}
-				case 'cohort': {
-					settings.deep = true;
-					settings.cohort = true;
-					break;
-				}
-				default:
-					throw new GridError(
-						'column.list.generate',
-						`Invalid generation mode "${generation}"`
-					);
-			}
-
-			spawnColumns.push(...generate(settings));
-		}
-
-		const columns = Array.from(data().columns);
-
-		let statistics = [];
-		if (spawnColumns.length) {
-			statistics.push(
-				merge(columns, spawnColumns, false)
-			);
-		}
-
-		if (htmlColumns.length) {
-			statistics.push(
-				merge(columns, htmlColumns, true)
-			);
-		}
-
-		return {
-			columns,
-			statistics,
-			hasChanges: hasChanges(statistics)
-		};
-	};
-}
-
-export function generate(settings) {
-	const context = assignWith({
-		deep: true,
-		cohort: false,
-		rows: [],
-		columnFactory: () => new TextColumnModel(),
-		title: startCase,
-		testNumber: 10,
-		typeDetection: 'inference'
-	}, settings);
-
-	if (context.rows.length) {
-		return build(
-			context.rows[0],
-			[],
-			{
-				columnFactory: context.columnFactory,
-				deep: context.deep,
-				cohort: context.cohort,
-				title: context.title,
-				typeDetection: context.typeDetection,
-				testRows: context.rows.slice(0, context.testNumber),
-			}
-		);
-	}
-
-	return [];
 }
 
 function build(graph, pathParts, settings) {
@@ -199,4 +105,97 @@ function build(graph, pathParts, settings) {
 
 		return memo;
 	}, []);
+}
+
+export function generate(settings) {
+	const context = assignWith({
+		deep: true,
+		cohort: false,
+		rows: [],
+		columnFactory: () => new TextColumnModel(),
+		title: startCase,
+		testNumber: 10,
+		typeDetection: 'inference'
+	}, settings);
+
+	if (context.rows.length) {
+		return build(
+			context.rows[0],
+			[],
+			{
+				columnFactory: context.columnFactory,
+				deep: context.deep,
+				cohort: context.cohort,
+				title: context.title,
+				typeDetection: context.typeDetection,
+				testRows: context.rows.slice(0, context.testNumber),
+			}
+		);
+	}
+
+	return [];
+}
+
+export function generateFactory(model) {
+	const { data } = model;
+	const createColumn = columnFactory(model);
+	return () => {
+		const { rows } = data();
+		const htmlColumns = model.columnList().columns;
+
+		const spawnColumns = [];
+		const { generation, typeDetection } = model.columnList();
+		if (generation) {
+			const settings = {
+				rows,
+				columnFactory: createColumn,
+				deep: false,
+				cohort: false,
+				typeDetection
+			};
+
+			switch (generation) {
+				case 'shallow': {
+					break;
+				}
+				case 'deep': {
+					settings.deep = true;
+					break;
+				}
+				case 'cohort': {
+					settings.deep = true;
+					settings.cohort = true;
+					break;
+				}
+				default:
+					throw new GridError(
+						'column.list.generate',
+						`Invalid generation mode "${generation}"`
+					);
+			}
+
+			spawnColumns.push(...generate(settings));
+		}
+
+		const columns = Array.from(data().columns);
+
+		const statistics = [];
+		if (spawnColumns.length) {
+			statistics.push(
+				merge(columns, spawnColumns, false)
+			);
+		}
+
+		if (htmlColumns.length) {
+			statistics.push(
+				merge(columns, htmlColumns, true)
+			);
+		}
+
+		return {
+			columns,
+			statistics,
+			hasChanges: hasChanges(statistics)
+		};
+	};
 }

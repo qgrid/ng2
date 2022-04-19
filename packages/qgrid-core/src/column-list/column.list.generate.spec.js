@@ -1,10 +1,8 @@
 import { generate as doGenerate } from '../column-list/column.list.generate';
 import { columnFactory } from '../column/column.factory';
 
-const createColumn = columnFactory({ columnList: () => ({ columns: [], reference: {} }) });
-const generate = rows => {
-	return rows ? doGenerate({ rows, columnFactory: createColumn }) : doGenerate({ columnFactory: createColumn });
-};
+const createColumn = columnFactory({ columnList: () => { columns: []; reference: {} } });
+const generate = rows => rows ? doGenerate({ rows, columnFactory: createColumn }) : doGenerate({ columnFactory: createColumn });
 
 describe('column generate', () => {
 	it('should return empty array when input is not defined', () => {

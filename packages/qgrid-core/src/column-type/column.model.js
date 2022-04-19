@@ -1,5 +1,5 @@
-import { identity, compare } from '../utility/kit';
 import { TemplatePath } from '../template/template.path';
+import { compare, identity } from '../utility/kit';
 
 TemplatePath.register('custom-cell', (template, column) => {
 	return {

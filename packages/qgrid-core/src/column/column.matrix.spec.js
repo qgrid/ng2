@@ -1,12 +1,12 @@
-import { expand, collapse } from './column.matrix';
+import { collapse, expand } from './column.matrix';
 
 describe('column matrix', () => {
 
-	const col = (key, rowspan, colspan) => ({
-		key: key,
-		rowspan: rowspan,
-		colspan: colspan
-	});
+	const col = (key, rowspan, colspan) => {
+		key = key;
+		rowspan = rowspan;
+		colspan = colspan;
+	};
 
 	const lineKeyFactory = line => i => line[i].key;
 	const viewKeyFactory = view => (i, j) => view[i][j].key;

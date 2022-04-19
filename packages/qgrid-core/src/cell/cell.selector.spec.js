@@ -1,5 +1,5 @@
-import {CellSelector} from './cell.selector';
-import {modelFactory} from '../test/model.factory';
+import { modelFactory } from '../test/model.factory';
+import { CellSelector } from './cell.selector';
 
 describe('CellSelector', function () {
 	let model;
@@ -8,7 +8,7 @@ describe('CellSelector', function () {
 		model = modelFactory();
 	});
 
-	let tableForRow = {
+	const tableForRow = {
 		data: {
 			rows: () => ['Item1', 'Item2', 'Item3']
 		},
@@ -23,7 +23,7 @@ describe('CellSelector', function () {
 		}
 	};
 
-	let tableForColumn = {
+	const tableForColumn = {
 		data: {
 			columns: () => ['Item1', 'Item2', 'Item3']
 		},
@@ -38,18 +38,17 @@ describe('CellSelector', function () {
 		}
 	};
 
-	let tableForCell = {
+	const tableForCell = {
 		data: {
 			columns: () => ['Column1', 'Column2', 'Column3'],
 			rows: () => ['Row1', 'Row2', 'Row3']
 		},
 		body: {
-			cell: (rowIndex, columnIndex) => {return tableForCell.data.columns()[columnIndex]
-																+ ' ' + tableForCell.data.rows()[rowIndex];}
+			cell: (rowIndex, columnIndex) => tableForCell.data.columns()[columnIndex]+ ' ' + tableForCell.data.rows()[rowIndex]
 		}
 	};
 
-	let tableForMix = {
+	const tableForMix = {
 		data: {
 			columns: () => ['Column1', 'Column2', 'Column3'],
 			rows: () => ['Row1', 'Row2', 'Row3']
@@ -62,8 +61,7 @@ describe('CellSelector', function () {
 					case 2: return {cells: () => ['Row3']};
 				}
 			},
-			cell: (rowIndex, columnIndex) => {return tableForMix.data.columns()[columnIndex]
-				+ ' ' + tableForMix.data.rows()[rowIndex];}
+			cell: (rowIndex, columnIndex) => tableForMix.data.columns()[columnIndex]+ ' ' + tableForMix.data.rows()[rowIndex]
 		}
 	};
 
@@ -72,9 +70,9 @@ describe('CellSelector', function () {
 			model.selection({
 				unit: 'row'
 			});
-			let cellSelector = new CellSelector(model, tableForRow);
-			let items = ['Item1', 'Item2', 'Item3'];
-			let result = cellSelector.map(items);
+			const cellSelector = new CellSelector(model, tableForRow);
+			const items = ['Item1', 'Item2', 'Item3'];
+			const result = cellSelector.map(items);
 			expect(JSON.stringify(result)).to.equal('["Row1","Row2","Row3","Row4","Row5","Row6"]');
 		});
 	});
@@ -84,9 +82,9 @@ describe('CellSelector', function () {
 			model.selection({
 				unit: 'column'
 			});
-			let cellSelector = new CellSelector(model, tableForColumn);
-			let items = ['Item1', 'Item2', 'Item3'];
-			let result = cellSelector.map(items);
+			const cellSelector = new CellSelector(model, tableForColumn);
+			const items = ['Item1', 'Item2', 'Item3'];
+			const result = cellSelector.map(items);
 			expect(JSON.stringify(result)).to.equal('["Column1","Column2","Column3"]');
 		});
 	});
@@ -96,13 +94,13 @@ describe('CellSelector', function () {
 			model.selection({
 				unit: 'cell'
 			});
-			let item = {
+			const item = {
 				row: 'Row1',
 				column: 'Column1'
 			};
-			let cellSelector = new CellSelector(model, tableForCell);
-			let items = [item];
-			let result = cellSelector.map(items);
+			const cellSelector = new CellSelector(model, tableForCell);
+			const items = [item];
+			const result = cellSelector.map(items);
 			expect(JSON.stringify(result)).to.equal('["Column1 Row1"]');
 		});
 	});
@@ -112,20 +110,20 @@ describe('CellSelector', function () {
 			model.selection({
 				unit: 'mix'
 			});
-			let row = {
+			const row = {
 				unit: 'row',
 				item: 'Row1'
 			};
-			let cell = {
+			const cell = {
 				unit: 'cell',
 				item: {
 					row: 'Row1',
 					column: 'Column1'
 				}
 			};
-			let items = [row, cell];
-			let cellSelector = new CellSelector(model, tableForMix);
-			let result = cellSelector.map(items);
+			const items = [row, cell];
+			const cellSelector = new CellSelector(model, tableForMix);
+			const result = cellSelector.map(items);
 			expect(JSON.stringify(result)).to.equal('["Row1","Column1 Row1"]');
 		});
 	});
@@ -135,8 +133,8 @@ describe('CellSelector', function () {
 			model.selection({
 				unit: 'false'
 			});
-			let cellSelector = new CellSelector(model, {});
-			expect(() => cellSelector.map({})).to.throw;
+			const cellSelector = new CellSelector(model, {});
+			expect(() => cellSelector.map({})).to.throw();
 		});
 	});
 

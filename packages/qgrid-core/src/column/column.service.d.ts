@@ -13,4 +13,4 @@ export declare function lineView(columnRows: ColumnView[]): string;
 export declare function widthFactory(table: Table, form: Map<string, any>): number;
 
 export declare function flattenColumns(columns: ColumnModel[]): ColumnModel[];
-export declare function findLine(columns: ColumnModel[], key: string): { columns: ColumnModel[], index: number } | null;
+export declare function findLine(columns: ColumnModel[], key: string): { columns: ColumnModel[]; index: number } | null;

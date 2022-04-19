@@ -6,7 +6,7 @@ export declare class ColumnListHost {
 		model: Model,
 		canCopy: (key: string, source: any, target: any) => boolean,
 		parseFactory: (type: string, source: any) => (v: any) => any
-	)
+	);
 
 	copy(target: any, source: any): void;
 	add(column: ColumnModel): void;
