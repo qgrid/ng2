@@ -7,6 +7,19 @@
   ],
   "rules": {
     "linebreak-style": ["error", "unix"],
+    "array-element-newline": ["error", {
+      "multiline": true,
+      "minItems": 3
+    }],
+    "array-bracket-newline": ["error", {
+      "multiline": true,
+      "minItems": 3
+    }],
+    "array-bracket-spacing": ["error", "never", {
+      "singleValue": false,
+      "objectsInArrays": true,
+      "arraysInArrays": false
+    }],
     "arrow-body-style": "error",
     "arrow-spacing": "error",
     "brace-style": ["error", "1tbs", { "allowSingleLine": true }],

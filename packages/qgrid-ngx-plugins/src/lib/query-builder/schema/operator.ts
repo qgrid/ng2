@@ -17,10 +17,7 @@ const commonOperators = [
 	'IS NOT EMPTY'
 ];
 
-const oneToOneCommonOperators = [
-	'EQUALS',
-	'NOT EQUALS'
-];
+const oneToOneCommonOperators = ['EQUALS', 'NOT EQUALS'];
 
 const textOperators = [
 	'LIKE',

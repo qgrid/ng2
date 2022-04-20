@@ -6,10 +6,7 @@ import { ExportPlugin } from '@qgrid/plugins';
 @Component({
 	selector: 'q-grid-export',
 	templateUrl: './export.component.html',
-	providers: [
-		TemplateHostService,
-		GridPlugin
-	],
+	providers: [TemplateHostService, GridPlugin],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExportComponent implements AfterViewInit {

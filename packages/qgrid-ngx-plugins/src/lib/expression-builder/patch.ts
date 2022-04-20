@@ -44,7 +44,11 @@ export function withFactory(inst, key, sourceFn) {
 		const decorate = args[0];
 		args = args.slice(1);
 
-		inst[key] = () => decorate.apply(inst, [sourceFn, inst, key].concat(args));
+		inst[key] = () => decorate.apply(inst, [
+			sourceFn,
+			inst,
+			key
+		].concat(args));
 	};
 
 	return withFn;

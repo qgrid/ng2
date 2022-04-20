@@ -5,8 +5,18 @@ import { CellTooltipDirective } from './cell-tooltip.directive';
 import { TemplateModule, LayerModule } from '@qgrid/ngx';
 
 @NgModule({
-	declarations: [CellTooltipComponent, CellTooltipDirective],
-	exports: [CellTooltipComponent, CellTooltipDirective],
-	imports: [CommonModule, TemplateModule, LayerModule],
+	declarations: [
+		CellTooltipComponent,
+		CellTooltipDirective
+	],
+	exports: [
+		CellTooltipComponent,
+		CellTooltipDirective
+	],
+	imports: [
+		CommonModule,
+		TemplateModule,
+		LayerModule
+	],
 })
 export class CellTooltipModule {}
