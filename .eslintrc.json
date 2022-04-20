@@ -6,11 +6,9 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
-		"linebreak-style": ["error", "unix"],
-    "arrow-body-style": [
-			"error",
-			"as-needed"
-		],
+    "linebreak-style": ["error", "unix"],
+    "arrow-body-style": "error",
+    "arrow-spacing": "error",
     "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
     "constructor-super": "error",
     "curly": "error",
@@ -102,6 +100,7 @@
     "@typescript-eslint/prefer-function-type": "error",
     "@typescript-eslint/semi": ["error", "always"],
     "@typescript-eslint/type-annotation-spacing": "error",
-    "@typescript-eslint/unified-signatures": "error"
+    "@typescript-eslint/unified-signatures": "error",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }
