@@ -1,16 +1,9 @@
 import {
-	Component,
-	Input,
-	OnInit,
-	SimpleChange,
-	ChangeDetectionStrategy,
-	NgZone,
-	HostBinding,
-	TemplateRef,
-	ViewChild,
-	OnDestroy
+	ChangeDetectionStrategy, Component, HostBinding, Input, NgZone, OnDestroy, OnInit,
+	SimpleChange, TemplateRef,
+	ViewChild
 } from '@angular/core';
-import { TemplateHostService, TdCoreDirective, GridError } from '@qgrid/ngx';
+import { GridError, TdCoreDirective, TemplateHostService } from '@qgrid/ngx';
 
 @Component({
 	selector: 'q-grid-live-cell',
@@ -58,24 +51,24 @@ export class LiveCellComponent implements OnInit, OnDestroy {
 
 	getDifference(value: SimpleChange) {
 		switch (this.cell.column.type) {
-		case 'number':
-		case 'currency':
-			return +value.currentValue - +value.previousValue;
-		default:
-			return null;
+			case 'number':
+			case 'currency':
+				return +value.currentValue - +value.previousValue;
+			default:
+				return null;
 		}
 	}
 
 	getTemplate() {
 		switch (this.cell.column.type) {
-		case 'currency':
-			return this.currencyTemplate;
-		case 'time':
-			return this.timeTemplate;
-		case 'number':
-			return this.numberTemplate;
-		default:
-			return this.textTemplate;
+			case 'currency':
+				return this.currencyTemplate;
+			case 'time':
+				return this.timeTemplate;
+			case 'number':
+				return this.numberTemplate;
+			default:
+				return this.textTemplate;
 		}
 	}
 }

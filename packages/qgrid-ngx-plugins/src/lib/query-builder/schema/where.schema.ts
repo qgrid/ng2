@@ -112,45 +112,18 @@ export class WhereSchema {
 								value: 'EQUALS',
 								change: function (node, line) {
 									switch (this.value.toLowerCase()) {
-									case 'equals':
-									case 'not equals':
-									case 'greater than':
-									case 'less than':
-									case 'greater or eq. to':
-									case 'less or eq. to':
-									case 'like':
-									case 'not like':
-									case 'starts with':
-									case 'ends with':
-										line.put('#operand', node, function (schema) {
-											schema.input('#value', {
-												classes: {
-													'qb-operand': true,
-													'qb-has-value': function () {
-														return !!this.value;
-													},
-													'qb-invalid': function (n) {
-														return !this.isValid(n);
-													}
-												},
-												value: getValue(line, '#operand', ['value', 'values']),
-												validate: function () {
-													const field = line.get('#field').expressions[0].value;
-													return validator.for(field)(this.value);
-												},
-												placeholderText: 'Select value',
-												suggest: suggest,
-												options: null,
-												refresh: function (n, l) {
-													this.options = this.suggest(n, l);
-												}
-											});
-										});
-										break;
-									case 'between':
-										line.put('#operand', node, function (operand) {
-											operand
-												.input('#from', {
+										case 'equals':
+										case 'not equals':
+										case 'greater than':
+										case 'less than':
+										case 'greater or eq. to':
+										case 'less or eq. to':
+										case 'like':
+										case 'not like':
+										case 'starts with':
+										case 'ends with':
+											line.put('#operand', node, function (schema) {
+												schema.input('#value', {
 													classes: {
 														'qb-operand': true,
 														'qb-has-value': function () {
@@ -160,29 +133,7 @@ export class WhereSchema {
 															return !this.isValid(n);
 														}
 													},
-													validate: function () {
-														const field = line.get('#field').expressions[0].value;
-														return validator.for(field)(this.value);
-													},
-													options: suggest,
-													value: null,
-													placeholderText: 'Select value'
-												})
-												.label('#and', {
-													classes: ['qb-operand', 'qb-operand-and-label'],
-													text: 'AND'
-												})
-												.input('#to', {
-													classes: {
-														'qb-operand': true,
-														'qb-has-value': function () {
-															return !!this.value;
-														},
-														'qb-invalid': function (n) {
-															return !this.isValid(n);
-														}
-													},
-													value: null,
+													value: getValue(line, '#operand', ['value', 'values']),
 													validate: function () {
 														const field = line.get('#field').expressions[0].value;
 														return validator.for(field)(this.value);
@@ -194,46 +145,95 @@ export class WhereSchema {
 														this.options = this.suggest(n, l);
 													}
 												});
-										});
-										break;
-									case 'in':
-										line.put('#operand', node, function (schema) {
-											schema
-												.label('#in-open', {
-													text: '('
-												})
-												.multiselect('#in-operand', {
-													classes: {
-														'qb-operand': true,
-														'qb-has-value': function () {
-															return !!this.values.length;
+											});
+											break;
+										case 'between':
+											line.put('#operand', node, function (operand) {
+												operand
+													.input('#from', {
+														classes: {
+															'qb-operand': true,
+															'qb-has-value': function () {
+																return !!this.value;
+															},
+															'qb-invalid': function (n) {
+																return !this.isValid(n);
+															}
 														},
-														'qb-invalid': function (n) {
-															return !this.isValid(n);
+														validate: function () {
+															const field = line.get('#field').expressions[0].value;
+															return validator.for(field)(this.value);
+														},
+														options: suggest,
+														value: null,
+														placeholderText: 'Select value'
+													})
+													.label('#and', {
+														classes: ['qb-operand', 'qb-operand-and-label'],
+														text: 'AND'
+													})
+													.input('#to', {
+														classes: {
+															'qb-operand': true,
+															'qb-has-value': function () {
+																return !!this.value;
+															},
+															'qb-invalid': function (n) {
+																return !this.isValid(n);
+															}
+														},
+														value: null,
+														validate: function () {
+															const field = line.get('#field').expressions[0].value;
+															return validator.for(field)(this.value);
+														},
+														placeholderText: 'Select value',
+														suggest: suggest,
+														options: null,
+														refresh: function (n, l) {
+															this.options = this.suggest(n, l);
 														}
-													},
-													validate: function () {
-														const field = line.get('#field').expressions[0].value;
-														return validator.for(field)(this.values);
-													},
-													values: [],
-													options: suggests,
-													placeholderText: 'Select value',
-													add: function (n, l, v) {
-														if (v && this.values.indexOf(v) < 0) {
-															this.values.push(v);
+													});
+											});
+											break;
+										case 'in':
+											line.put('#operand', node, function (schema) {
+												schema
+													.label('#in-open', {
+														text: '('
+													})
+													.multiselect('#in-operand', {
+														classes: {
+															'qb-operand': true,
+															'qb-has-value': function () {
+																return !!this.values.length;
+															},
+															'qb-invalid': function (n) {
+																return !this.isValid(n);
+															}
+														},
+														validate: function () {
+															const field = line.get('#field').expressions[0].value;
+															return validator.for(field)(this.values);
+														},
+														values: [],
+														options: suggests,
+														placeholderText: 'Select value',
+														add: function (n, l, v) {
+															if (v && this.values.indexOf(v) < 0) {
+																this.values.push(v);
+															}
 														}
-													}
-												})
-												.label('#in-close', {
-													text: ')'
-												});
-										});
-										break;
-									case 'is empty':
-									case 'is not empty':
-										line.put('#operand', node, noop);
-										break;
+													})
+													.label('#in-close', {
+														text: ')'
+													});
+											});
+											break;
+										case 'is empty':
+										case 'is not empty':
+											line.put('#operand', node, noop);
+											break;
 									}
 								}
 							})
