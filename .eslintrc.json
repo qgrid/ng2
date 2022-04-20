@@ -8,6 +8,7 @@
   "rules": {
     "linebreak-style": ["error", "unix"],
     "arrow-body-style": "error",
+    "arrow-spacing": "error",
     "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
     "constructor-super": "error",
     "curly": "error",
@@ -101,6 +102,7 @@
     "@typescript-eslint/quotes": ["error", "single"],
     "@typescript-eslint/semi": ["error", "always"],
     "@typescript-eslint/type-annotation-spacing": "error",
-    "@typescript-eslint/unified-signatures": "error"
+    "@typescript-eslint/unified-signatures": "error",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }
