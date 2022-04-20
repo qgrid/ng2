@@ -207,21 +207,12 @@ export class ViewHost {
 
       const tr = this.findRow(e);
 			if (tr) {
-        const { index, pin } = tr;
-
-				let correctedIndex = index;
-        if (highlight.row.canExecute(correctedIndex)) {
+        const { index } = tr;
+        if (highlight.row.canExecute(index)) {
           rows
             .filter(i => i !== index)
             .forEach(i => highlight.row.execute(i, false));
-
-					if (pin === 'body') {
-						correctedIndex += model.row().pinTop.length;
-					}
-					if (pin === 'bottom') {
-						correctedIndex += model.row().pinTop.length + model.scene().rows.length;
-					}
-          highlight.row.execute(correctedIndex, true);
+          highlight.row.execute(index, true);
         }
       }
 

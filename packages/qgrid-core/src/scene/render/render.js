@@ -82,15 +82,19 @@ export class Renderer {
 		};
 
 		this.rows = {
-			left: [],
-			right: [],
-			mid: []
+			top: [],
+			body: [],
+			bottom: []
 		};
 
 		const invalidateRows = () => {
-			const { rows } = model.scene();
+			let { rows } = model.scene();
 			const { pinTop, pinBottom } = model.row();
 
+			const pinned = new Set([...pinTop, ...pinBottom]);
+			if (pinned.size) {
+				rows = rows.filter(row => !pinned.has(row))
+			}
 			this.rows = {
 				top: pinTop,
 				body: rows,

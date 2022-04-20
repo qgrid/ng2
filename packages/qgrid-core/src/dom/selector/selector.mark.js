@@ -19,7 +19,13 @@ export class SelectorMark {
 		const columnArea = model.scene().column.area;
 
 		return (pinLR, pinTB) => {
-			const rows = pinTB == 'top' ? model.row().pinTop : pinTB == 'bottom' ? model.row().pinBottom : model.scene().rows;
+
+			const { pinTop, pinBottom } = model.row();
+			const pinned = new Set([...pinTop, ...pinBottom]);
+
+			const rows = pinTB == 'top' ? pinTop : pinTB == 'bottom' ? pinBottom : 
+				(pinned.size ? model.scene().rows.filter(row => !pinned.has(row)) : model.scene().rows);
+
 			const name = this.name + ((pinTB && pinTB !== 'mid') ? `-${pinTB}` : '') + (pinLR ? `-${pinLR}` : ''); 
 			const element = this.markup[name];
 			if (element) {
@@ -27,8 +33,8 @@ export class SelectorMark {
 				result[result.length - 1] : null;
 				const columnStart = prev ? prev.columnRange.end : 0;
 				const columnCount = columnArea[pinLR].length;
-				const rowStart = pinTB === 'mid' ? model.row().pinTop.length : pinTB === 'bottom' ? 
-					model.row().pinTop.length + model.scene().rows.length : 0;
+				const rowStart = pinTB === 'mid' ? pinTop.length : pinTB === 'bottom' ? 
+					model.scene().rows.length - pinBottom.length : 0;
 				const rowCount = rows.length;
 
 				result.push({

@@ -140,14 +140,7 @@ export class TdCoreDirective implements DomTd, OnInit, OnDestroy, OnChanges {
 	}
 
 	get rowIndex() {
-		let index = this.tr.index;
-		if (this.pin == 'body') {
-			index += this.root.model.row().pinTop.length;
-		}
-		if (this.pin == 'bottom') {
-			index += this.root.model.row().pinTop.length + this.root.model.scene().rows.length;
-		}
-		return index;
+		return this.tr.index;
 	}
 
 	get dataRowIndex() {

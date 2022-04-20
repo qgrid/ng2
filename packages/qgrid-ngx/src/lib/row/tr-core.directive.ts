@@ -27,7 +27,7 @@ export class TrCoreDirective implements DomTr, OnInit, OnDestroy {
 	}
 
 	get index() {
-		return this.$view.scroll.y.container.position + this.viewIndex;
+		return this.$view.scroll.y.container.position + this.viewIndex + this.$body.offsetIndex;
 	}
 
 	ngOnInit() {

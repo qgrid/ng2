@@ -43,6 +43,6 @@ function paginate(model, rows) {
 	const start = current * size;
 
 	model.pagination({ count, current }, { source: 'pagination.pipe', behavior: 'core' });
-	return mode === 'virtual' ? rows : rows.slice(start, start + size);
+	return mode === 'virtual' ? rows : pinTop.concat(rows.slice(start, start + size)).concat(pinBottom);
 }
 
