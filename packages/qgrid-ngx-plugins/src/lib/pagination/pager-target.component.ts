@@ -44,7 +44,6 @@ export class PagerTargetComponent implements OnInit {
 			if (value) {
 				const current = value - 1;
 				if (this.plugin.model.pagination().current !== current) {
-					// tslint:disable-next-line:no-unused-expression
 					// new FocusAfterRender(this.plugin);
 					this.plugin.model.pagination({
 						current

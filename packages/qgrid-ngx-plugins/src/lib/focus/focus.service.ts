@@ -8,7 +8,6 @@ export class FocusAfterRender {
 		@Optional() plugin: GridPlugin,
 	) {
 		if (plugin) {
-			// tslint:disable-next-line:no-unused-expression
 			new FocusAfterRenderService(plugin);
 		}
 	}
