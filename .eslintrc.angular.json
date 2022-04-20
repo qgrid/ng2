@@ -36,10 +36,11 @@
   "overrides": [
     {
       "files": ["*.html"],
-      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
       "rules": {
-        "indent": ["off"],
-        "no-mixed-spaces-and-tabs": ["off"]
+        "indent": "off"
       }
     }
   ]

@@ -40,49 +40,49 @@ export class PagerTargetComponent implements OnInit {
 		const value = this.value || 0;
 
 		switch (code) {
-		case 'enter': {
-			if (value) {
-				const current = value - 1;
-				if (this.plugin.model.pagination().current !== current) {
-					// new FocusAfterRender(this.plugin);
-					this.plugin.model.pagination({
-						current
-					}, {
-						source: 'pager-target.component'
-					});
+			case 'enter': {
+				if (value) {
+					const current = value - 1;
+					if (this.plugin.model.pagination().current !== current) {
+						// new FocusAfterRender(this.plugin);
+						this.plugin.model.pagination({
+							current
+						}, {
+							source: 'pager-target.component'
+						});
+					}
+				}
+				break;
+			}
+			case 'up': {
+				if (value < this.total) {
+					this.value = value + 1;
+				}
+				break;
+			}
+			case 'down': {
+				if (value > 1) {
+					this.value = value - 1;
+				}
+				break;
+			}
+			case 'left':
+			case 'right':
+			case 'backspace': {
+				break;
+			}
+			default: {
+				const digit = Number.parseInt(code, 10);
+				const page = Number.parseInt('' + value + digit, 10);
+				const min = 1;
+				const max = this.total;
+				const isValid = page >= min && page <= max && !isNaN(digit);
+
+				if (!isValid) {
+					this.value = page > this.total ?  max : min;
+					e.preventDefault();
 				}
 			}
-			break;
-		}
-		case 'up': {
-			if (value < this.total) {
-				this.value = value + 1;
-			}
-			break;
-		}
-		case 'down': {
-			if (value > 1) {
-				this.value = value - 1;
-			}
-			break;
-		}
-		case 'left':
-		case 'right':
-		case 'backspace': {
-			break;
-		}
-		default: {
-			const digit = Number.parseInt(code, 10);
-			const page = Number.parseInt('' + value + digit, 10);
-			const min = 1;
-			const max = this.total;
-			const isValid = page >= min && page <= max && !isNaN(digit);
-
-			if (!isValid) {
-				this.value = page > this.total ?  max : min;
-				e.preventDefault();
-			}
-		}
 		}
 	}
 }

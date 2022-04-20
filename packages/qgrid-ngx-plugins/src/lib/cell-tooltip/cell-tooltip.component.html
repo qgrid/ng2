@@ -1,10 +1,10 @@
 <q-grid-layer>
 	<ng-template for="tooltip">
 		<div class="q-grid-cell-tooltip q-grid-hide"
-			 *ngIf="cellElement"
-			 q-grid-tooltip
-			 [showDelay]="showDelay"
-			 [host]="cellElement">
+			*ngIf="cellElement"
+			q-grid-tooltip
+			[showDelay]="showDelay"
+			[host]="cellElement">
 
 			<ng-container key="body-cell-tooltip.tpl.html"
 							[context]="context">
