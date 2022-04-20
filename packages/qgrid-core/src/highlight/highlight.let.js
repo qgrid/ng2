@@ -34,8 +34,7 @@ export class HighlightLet {
 						columns.push(column.key);
 						hasChanges = true;
 					}
-				}
-				else {
+				} else {
 					if (index >= 0) {
 						columns.splice(index, 1);
 						hasChanges = true;
@@ -62,8 +61,7 @@ export class HighlightLet {
 						rows.push(row);
 						hasChanges = true;
 					}
-				}
-				else {
+				} else {
 					if (index >= 0) {
 						rows.splice(index, 1);
 						hasChanges = true;
@@ -82,12 +80,11 @@ export class HighlightLet {
 			source: 'highlight.view',
 			canExecute: () => !this.isRendering,
 			execute: (newCell) => {
-				let { cell } = model.highlight();
+				const { cell } = model.highlight();
 				let hasChanges = true;
 				if (newCell === cell) {
 					hasChanges = false;
-				}
-				else if (newCell && cell) {
+				} else if (newCell && cell) {
 					hasChanges =
 						newCell.rowIndex !== cell.rowIndex
 						|| newCell.columnIndex !== cell.columnIndex;
@@ -207,7 +204,7 @@ export class HighlightLet {
 
 		dispose = [];
 		const keys = Object.keys(by);
-		for (let key of keys) {
+		for (const key of keys) {
 			if (key === '$expression') {
 				continue;
 			}
@@ -251,7 +248,7 @@ export class HighlightLet {
 		const sortBy = model.sort().by;
 
 		dispose = [];
-		for (let entry of sortBy) {
+		for (const entry of sortBy) {
 			const key = sortService.getKey(entry);
 			dispose.push(this.highlightColumn(key, 'sorted'));
 		}
@@ -295,7 +292,7 @@ export class HighlightLet {
 		const { head, body, foot } = table;
 		Fastdom.mutate(() => {
 			const isLeaf = position.length === 1;
-			for (let index of position) {
+			for (const index of position) {
 				if (isLeaf) {
 					head.column(index).addClass(`${GRID_PREFIX}-${cls}`);
 					head.column(index - 1).addClass(`${GRID_PREFIX}-${cls}-prev`);
@@ -325,7 +322,7 @@ export class HighlightLet {
 		const { head, body, foot } = table;
 		return () => {
 			Fastdom.mutate(() => {
-				for (let index of position) {
+				for (const index of position) {
 					head.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
 					head.column(index - 1).removeClass(`${GRID_PREFIX}-${cls}-prev`);
 					head.column(index + 1).removeClass(`${GRID_PREFIX}-${cls}-next`);

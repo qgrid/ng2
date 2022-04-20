@@ -1,5 +1,5 @@
-import { Resource } from '../resource/resource';
 import { Command } from '../command/command';
+import { Resource } from '../resource/resource';
 import { flattenFactory } from './group.service';
 
 export class GroupState {

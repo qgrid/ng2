@@ -1,6 +1,6 @@
-import { Scene } from '../scene/scene';
 import { Guard } from '../infrastructure/guard';
 import { sortFactory } from '../row-list/row.list.sort';
+import { Scene } from '../scene/scene';
 
 export function scenePipe(memo, context, next) {
 	Guard.notNull(memo, 'memo');

@@ -9,6 +9,14 @@ export class Td {
 		this.columnIndex = td.columnIndex;
 	}
 
+	get element() {
+		if (!Td.equals(this, this.td)) {
+			throw new GridError('td', 'Internal model doesn\'t match container');
+		}
+
+		return this.td.element;
+	}
+
 	get row() {
 		if (!Td.equals(this, this.td)) {
 			throw new GridError('td', 'Internal model doesn\'t match container');
@@ -33,14 +41,6 @@ export class Td {
 		return this.td.value;
 	}
 
-	set value(value) {
-		if (!Td.equals(this, this.td)) {
-			throw new GridError('td', 'Internal model doesn\'t match container');
-		}
-
-		this.td.value = value;
-	}
-
 	get label() {
 		if (!Td.equals(this, this.td)) {
 			throw new GridError('td', 'Internal model doesn\'t match container');
@@ -49,12 +49,12 @@ export class Td {
 		return this.td.label;
 	}
 
-	get element() {
+	set value(value) {
 		if (!Td.equals(this, this.td)) {
 			throw new GridError('td', 'Internal model doesn\'t match container');
 		}
 
-		return this.td.element;
+		this.td.value = value;
 	}
 
 	set label(label) {
@@ -63,14 +63,6 @@ export class Td {
 		}
 
 		this.td.label = label;
-	}
-
-	mode(value) {
-		if (!Td.equals(this, this.td)) {
-			throw new GridError('td', 'Internal model doesn\'t match container');
-		}
-
-		this.td.mode(value);
 	}
 
 	static equals(x, y) {
@@ -83,5 +75,13 @@ export class Td {
 		}
 
 		return x.rowIndex === y.rowIndex && x.columnIndex === y.columnIndex;
+	}
+
+	mode(value) {
+		if (!Td.equals(this, this.td)) {
+			throw new GridError('td', 'Internal model doesn\'t match container');
+		}
+
+		this.td.mode(value);
 	}
 }

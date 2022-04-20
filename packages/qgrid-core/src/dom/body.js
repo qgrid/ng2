@@ -1,6 +1,6 @@
-import { VirtualBox } from './virtual/box';
 import { Box } from './box';
 import { SelectorMark } from './selector/selector.mark';
+import { VirtualBox } from './virtual/box';
 
 export class Body extends Box {
 	constructor(context, model) {

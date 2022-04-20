@@ -1,23 +1,6 @@
 import { GridError } from '../infrastructure/error';
 import { Visitor } from './expression.visitor';
 
-function stringify(value, type, isValid) {
-	if (!isValid) {
-		return '<span class="q-grid-markup-condition-value-invalid"></span>';
-	}
-
-	switch (type) {
-		case 'text':
-			return stringifyText(value);
-		case 'number':
-			return stringifyNumber(value);
-		case 'date':
-			return stringifyDate(value);
-		default:
-			return '' + value;
-	}
-}
-
 function stringifyText(value) {
 	return `<span class="q-grid-markup-condition-quote">'</span>
                 <span class="q-grid-markup-condition-value q-grid-markup-condition-value-text">${value}</span>
@@ -46,6 +29,23 @@ function stringifyNumber(value) {
 	return `<span class="q-grid-markup-condition-value q-grid-markup-condition-number q-grid-markup-condition-error">${value}</span>`;
 }
 
+function stringify(value, type, isValid) {
+	if (!isValid) {
+		return '<span class="q-grid-markup-condition-value-invalid"></span>';
+	}
+
+	switch (type) {
+		case 'text':
+			return stringifyText(value);
+		case 'number':
+			return stringifyNumber(value);
+		case 'date':
+			return stringifyDate(value);
+		default:
+			return '' + value;
+	}
+}
+
 export class MarkupVisitor extends Visitor {
 	constructor(label, type, isValid) {
 		super();
@@ -60,8 +60,13 @@ export class MarkupVisitor extends Visitor {
 			const l = this.visit(group.left, depth);
 			const r = this.visit(group.right, depth);
 
-			const expr = `<div class="q-grid-markup-node-left">${l}</div><span class="q-grid-markup-group-op">${group.op}</span><div class="q-grid-markup-node-right">${r}</div>`;
-			return `<div class="q-grid-markup-node">${(depth > 1 ? `<span class="q-grid-markup-group-open">(</span>${expr}<span class="q-grid-markup-group-close">)</span>` : expr)}</div>`;
+			const expr = `<div class="q-grid-markup-node-left">
+			${l}</div><span class="q-grid-markup-group-op">
+			${group.op}</span><div class="q-grid-markup-node-right">
+			${r}</div>`;
+			return `<div class="q-grid-markup-node">
+			${(depth > 1 ? `<span class="q-grid-markup-group-open">(</span>
+			${expr}<span class="q-grid-markup-group-close">)</span>` : expr)}</div>`;
 		}
 
 		return `<div class="q-grid-markup-node">${this.visit(group.left, depth)}<div class="q-grid-markup-node">`;
@@ -70,11 +75,15 @@ export class MarkupVisitor extends Visitor {
 	visitUnary(condition) {
 		switch (condition.op) {
 			case 'isNotNull':
-				return `<span class="q-grid-markup-condition-left">${this.label(condition.left)}</span><span class="q-grid-markup-condition-right q-grid-markup-condition-unary">is not empty</span>`;
+				return `<span class="q-grid-markup-condition-left">
+				${this.label(condition.left)}
+				</span><span class="q-grid-markup-condition-right q-grid-markup-condition-unary">is not empty</span>`;
 			case 'isNull':
-				return `<span class="q-grid-markup-condition-left">${this.label(condition.left)}</span><span class="q-grid-markup-condition-right q-grid-markup-condition-unary">is empty</span>`;
+				return `<span class="q-grid-markup-condition-left">
+				${this.label(condition.left)}
+				</span><span class="q-grid-markup-condition-right q-grid-markup-condition-unary">is empty</span>`;
 			default:
-				throw new GridError('markup.visitor', `Invalid operation ${condition.op}`)
+				throw new GridError('markup.visitor', `Invalid operation ${condition.op}`);
 		}
 	}
 
@@ -136,7 +145,9 @@ export class MarkupVisitor extends Visitor {
 		return `<span class="q-grid-markup-condition-left">${this.label(condition.left)}</span>
                 <span class="q-grid-markup-condition-op">in</span>
                 <span class="q-grid-markup-condition-open">(</span>
-                <span class="q-grid-markup-condition-right">${condition.right.map(item => stringify(item, this.type(condition.left), isValid)).join(', ')}</span>
+                <span class="q-grid-markup-condition-right">
+								${condition.right.map(item => stringify(item, this.type(condition.left), isValid)).join(', ')}
+								</span>
                 <span class="q-grid-markup-condition-close">)</span>`;
 	}
 }

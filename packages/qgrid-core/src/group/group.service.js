@@ -40,8 +40,7 @@ export function flattenFactory(model) {
 				const children = node.children;
 				if (children.length) {
 					flatView(children, result, node, i);
-				}
-				else {
+				} else {
 					const { rows, level, key } = node;
 					const nextLevel = level + 1;
 					for (let j = 0, jLength = rows.length; j < jLength; j++) {
@@ -73,4 +72,3 @@ export function findFirstLeaf(node) {
 
 	return node.children.length && findFirstLeaf(node.children[0]);
 }
-

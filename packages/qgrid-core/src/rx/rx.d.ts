@@ -8,8 +8,8 @@ export declare interface ObserverLike<T> {
 }
 
 export declare interface UnsubscribableLike {
-	unsubscribe(): void;
 	readonly closed: boolean;
+	unsubscribe(): void;
 }
 
 export declare interface SubscribableLike<T> {

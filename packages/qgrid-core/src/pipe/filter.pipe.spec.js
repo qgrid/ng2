@@ -1,8 +1,8 @@
-import { filterPipe as filter } from './filter.pipe';
 import { modelFactory } from '../test/model.factory';
+import { filterPipe as filter } from './filter.pipe';
 
 describe('pipe filter', () => {
-	let model = modelFactory();
+	const model = modelFactory();
 
 	it('should return function', () => {
 		expect(filter).to.be.a('function');

@@ -1,65 +1,10 @@
 import { Command } from '../command/command';
-import { selectColumnIndex } from './navigation.state.selector';
-import { selectRowIndex } from './navigation.state.selector';
+import { selectColumnIndex, selectRowIndex } from './navigation.state.selector';
 
 export class Navigation {
 	constructor(model, table) {
 		this.model = model;
 		this.table = table;
-	}
-
-	position(y, direction) {
-		const table = this.table;
-		const body = table.body;
-		const lastRow = this.lastRow;
-		const lower = table.view.scrollHeight() - table.view.height();
-
-		let index = 0;
-		let offset = 0;
-
-		// TODO: improve performance
-		while (index <= lastRow && offset <= y) {
-			offset += body.row(index).height();
-			index++;
-		}
-
-		if (direction === 'down' && body.row(index)) {
-			offset -= body.row(index).height();
-			index--;
-		}
-
-		const row = Math.max(this.firstRow, Math.min(lastRow, index));
-		offset = Math.min(offset, lower);
-		return { row, offset };
-	}
-
-	goTo(rowIndex, columnIndex, source = 'navigation') {
-		let cell = this.cell(rowIndex, columnIndex);
-		if (!cell) {
-			// TODO: make it better, right it just a huck for row-details,
-			// need to support rowspan and colspan
-			cell = this.cell(rowIndex, this.firstColumn);
-		}
-
-		this.model.navigation({
-			cell
-		}, {
-			source
-		});
-
-		return true;
-	}
-
-	columns(rowIndex) {
-		const columns = this.table.body.columns(rowIndex);
-		const index = [];
-		for (let i = 0, length = columns.length; i < length; i++) {
-			const column = columns[i];
-			if (column.model().canFocus) {
-				index.push(column.index);
-			}
-		}
-		return index;
 	}
 
 	get currentColumn() {
@@ -117,37 +62,6 @@ export class Navigation {
 
 	get lastRow() {
 		return this.table.body.rowCount(this.currentColumn) - 1;
-	}
-
-	cell(rowIndex, columnIndex) {
-		const cell = this.table.body.cell(rowIndex, columnIndex);
-		const model = cell.model();
-		if (model) {
-			const { row, column } = model;
-			return {
-				rowIndex,
-				columnIndex,
-				row,
-				column
-			};
-		}
-
-		return null;
-	}
-
-	context(type, settings) {
-		const model = this.model;
-		const oldRow = this.currentRow;
-		const oldColumn = this.currentColumn;
-		const keyCode = model.action().shortcut.keyCode;
-
-		return Object.assign({
-			model,
-			type,
-			oldRow,
-			oldColumn,
-			keyCode
-		}, settings);
 	}
 
 	get commands() {
@@ -389,5 +303,90 @@ export class Navigation {
 		};
 
 		return new Map(Object.entries(commands));
+	}
+
+	position(y, direction) {
+		const table = this.table;
+		const body = table.body;
+		const lastRow = this.lastRow;
+		const lower = table.view.scrollHeight() - table.view.height();
+
+		let index = 0;
+		let offset = 0;
+
+		// TODO: improve performance
+		while (index <= lastRow && offset <= y) {
+			offset += body.row(index).height();
+			index++;
+		}
+
+		if (direction === 'down' && body.row(index)) {
+			offset -= body.row(index).height();
+			index--;
+		}
+
+		const row = Math.max(this.firstRow, Math.min(lastRow, index));
+		offset = Math.min(offset, lower);
+		return { row, offset };
+	}
+
+	goTo(rowIndex, columnIndex, source = 'navigation') {
+		let cell = this.cell(rowIndex, columnIndex);
+		if (!cell) {
+			// TODO: make it better, right it just a huck for row-details,
+			// need to support rowspan and colspan
+			cell = this.cell(rowIndex, this.firstColumn);
+		}
+
+		this.model.navigation({
+			cell
+		}, {
+			source
+		});
+
+		return true;
+	}
+
+	columns(rowIndex) {
+		const columns = this.table.body.columns(rowIndex);
+		const index = [];
+		for (let i = 0, length = columns.length; i < length; i++) {
+			const column = columns[i];
+			if (column.model().canFocus) {
+				index.push(column.index);
+			}
+		}
+		return index;
+	}
+
+	cell(rowIndex, columnIndex) {
+		const cell = this.table.body.cell(rowIndex, columnIndex);
+		const model = cell.model();
+		if (model) {
+			const { row, column } = model;
+			return {
+				rowIndex,
+				columnIndex,
+				row,
+				column
+			};
+		}
+
+		return null;
+	}
+
+	context(type, settings) {
+		const model = this.model;
+		const oldRow = this.currentRow;
+		const oldColumn = this.currentColumn;
+		const keyCode = model.action().shortcut.keyCode;
+
+		return Object.assign({
+			model,
+			type,
+			oldRow,
+			oldColumn,
+			keyCode
+		}, settings);
 	}
 }

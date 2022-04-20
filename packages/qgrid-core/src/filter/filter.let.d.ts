@@ -3,9 +3,10 @@ import { Command } from '../command/command';
 import { GridPlugin } from '../plugin/grid.plugin';
 
 export class FilterLet {
+	readonly filter: Command<any>;
+
 	constructor(plugin: GridPlugin);
 
-	readonly filter: Command<any>;
 	has(column: ColumnModel): boolean;
 	value<T>(column: ColumnModel): T;
 }

@@ -3,4 +3,3 @@ declare function graphFlatView(graph: { [key: string]: any }, separator: string)
 export {
 	graphFlatView
 };
-

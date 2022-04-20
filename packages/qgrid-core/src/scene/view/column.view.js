@@ -16,8 +16,7 @@ export class ColumnView {
 	static model(model) {
 		if (model) {
 			ColumnView.assign(model);
-		}
-		else {
+		} else {
 			model = new ColumnModel();
 		}
 
@@ -27,7 +26,7 @@ export class ColumnView {
 
 	static assign(body) {
 		const etalon = this.model();
-		for (let key of Object.keys(etalon)) {
+		for (const key of Object.keys(etalon)) {
 			if (!hasOwnProperty.call(body, key)) {
 				let etalonValue = etalon[key];
 				if (isFunction(etalonValue)) {

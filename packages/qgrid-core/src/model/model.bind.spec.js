@@ -1,9 +1,9 @@
-import { ModelBinder } from './model.bind';
 import { Event } from '../event/event';
+import { ModelBinder } from './model.bind';
 
 describe('ModelBinder', () => {
-	let state = { prop: 'originValue' };
-	let model = {
+	const state = { prop: 'originValue' };
+	const model = {
 		state: value => {
 			if (value) {
 				Object.assign(state, value);
@@ -15,11 +15,11 @@ describe('ModelBinder', () => {
 		stateChanged: new Event()
 	};
 
-	let modelNames = ['state'];
+	const modelNames = ['state'];
 
-	let host = { stateProp: 'hostValue' };
+	const host = { stateProp: 'hostValue' };
 
-	let modelBinder = new ModelBinder(host, { add: x => x });
+	const modelBinder = new ModelBinder(host, { add: x => x });
 	describe('bind', () => {
 		it('commit should setup model property', () => {
 			const commit = modelBinder.bound(model, modelNames, false, false);

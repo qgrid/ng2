@@ -111,8 +111,7 @@ export class Model {
 					changes[key] = { newValue, oldValue };
 
 					changeSet.add(key);
-				}
-				else {
+				} else {
 					Log.warn('model', `value was not changed - "${name}.${key}"`);
 				}
 			}

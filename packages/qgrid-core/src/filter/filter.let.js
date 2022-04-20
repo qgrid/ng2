@@ -14,7 +14,8 @@ export class FilterLet {
 			execute: (column, search) => {
 				const { key } = column;
 
-				let { by, operatorFactory } = model.filter();
+				let { by } = model.filter();
+				const { operatorFactory } = model.filter();
 				by = clone(by);
 
 				const filter = by[key] || (by[key] = {});

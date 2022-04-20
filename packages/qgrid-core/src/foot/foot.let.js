@@ -21,17 +21,6 @@ export class FootLet {
 			});
 	}
 
-	invalidate() {
-		Log.info('view.foot', 'invalidate');
-
-		this.rows = new Array(this.count);
-	}
-
-	columns(row, pin) {
-		const { model } = this.plugin;
-		return model.scene().column.area[pin] || [];
-	}
-
 	get count() {
 		const { model } = this.plugin;
 		const { columns } = model.view();
@@ -44,6 +33,17 @@ export class FootLet {
 		}
 
 		return resourceCount;
+	}
+
+	invalidate() {
+		Log.info('view.foot', 'invalidate');
+
+		this.rows = new Array(this.count);
+	}
+
+	columns(row, pin) {
+		const { model } = this.plugin;
+		return model.scene().column.area[pin] || [];
 	}
 
 	value(column) {
@@ -59,7 +59,7 @@ export class FootLet {
 
 			const { model } = this.plugin;
 			const { rows } = model.data();
-			
+
 			const getValue = this.valueFactory(column);
 			return Aggregation[aggregation](rows, getValue, aggregationOptions);
 		}

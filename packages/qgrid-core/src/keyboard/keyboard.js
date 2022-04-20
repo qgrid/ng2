@@ -106,4 +106,3 @@ export class Keyboard {
 		return codeMap.get(code) || String.fromCharCode(code);
 	}
 }
-

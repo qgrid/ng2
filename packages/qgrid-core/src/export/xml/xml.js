@@ -16,12 +16,12 @@ function escape(value) {
 function objToXml(obj) {
 	let result = '';
 
-	for (let [prop, value] of Object.entries(obj)) {
+	for (const [prop, value] of Object.entries(obj)) {
 		if (hasOwnProperty.call(obj, prop)) {
 			if (isObject(value) && !isArray(value) && !isString(value)) {
 				result += `<${prop}>${objToXml(value)}</${prop}>`;
 			} else if (isArray(value)) {
-				for (let item of value) {
+				for (const item of value) {
 					if (isString(item)) {
 						result += `<${prop}>${escape(item)}</${prop}>`;
 					} else {
@@ -39,7 +39,7 @@ function objToXml(obj) {
 export class XmlExport {
 	write(rows) {
 		const result = [begin];
-		for (let row of rows) {
+		for (const row of rows) {
 			result.push(objToXml({ row }));
 		}
 		result.push('</root>');

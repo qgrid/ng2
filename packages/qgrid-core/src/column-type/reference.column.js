@@ -20,7 +20,7 @@ export class ReferenceColumnModel extends DataColumnModel {
 	constructor() {
 		super('reference');
 
-		this.editorOptions.trigger = 'custom';		
+		this.editorOptions.trigger = 'custom';
 	}
 }
 

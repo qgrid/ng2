@@ -8,4 +8,3 @@ export declare const EDIT_CELL_RESET_COMMAND_KEY: CommandKey<CellView>;
 export declare class EditCellResetCommand extends Command<CellView> {
 	constructor(plugin: GridPlugin);
 }
-

@@ -27,12 +27,12 @@ class TdView {
 		return getValue(this.row, this.column);
 	}
 
-	set value(value) {
-		setValue(this.row, this.column, value);
-	}
-
 	get label() {
 		return getLabel(this.row, this.column);
+	}
+
+	set value(value) {
+		setValue(this.row, this.column, value);
 	}
 
 	set label(value) {
@@ -54,6 +54,10 @@ export class RowEditor extends RowEditorCore {
 				.map(column => new CellEditor(new TdView(this.value, column)));
 	}
 
+	static get empty() {
+		return empty;
+	}
+
 	commit() {
 		this.editors.forEach(editor => editor.commit());
 		Object.assign(this.row, this.value);
@@ -62,9 +66,5 @@ export class RowEditor extends RowEditorCore {
 	reset() {
 		this.editors.forEach(editor => editor.reset());
 		this.value = cloneDeep(this.row);
-	}
-
-	static get empty() {
-		return empty;
 	}
 }

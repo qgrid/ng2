@@ -10,7 +10,7 @@ export class ScrollLet {
 		const { scroll, row, pagination, fetch, pipe } = model;
 
 		this.plugin = plugin;
-	
+
 		const rowHeight = row().height;
 		const settings = {
 			threshold: pagination().size,
@@ -171,6 +171,10 @@ export class ScrollLet {
 			});
 	}
 
+	get mode() {
+		return this.plugin.model.scroll().mode;
+	}
+
 	invalidate() {
 		Log.info('layout', 'invalidate scroll');
 
@@ -182,9 +186,5 @@ export class ScrollLet {
 			view.scrollLeft(left);
 			view.scrollTop(top);
 		});
-	}
-
-	get mode() {
-		return this.plugin.model.scroll().mode;
 	}
 }

@@ -8,4 +8,3 @@ export declare const EDIT_CELL_CLEAR_COMMAND_KEY: CommandKey<CellView>;
 export declare class EditCellClearCommand extends Command<CellView> {
 	constructor(plugin: GridPlugin);
 }
-

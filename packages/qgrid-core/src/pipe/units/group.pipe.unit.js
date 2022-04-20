@@ -14,7 +14,7 @@ export const groupPipeUnit = [
 			behavior: 'core'
 		};
 
-		const { rows } = memo;		
+		const { rows } = memo;
 		model.scene({ rows }, tag);
 
 		next(memo);

@@ -1,8 +1,8 @@
 import { Command } from '../command/command';
-import { Navigation } from './navigation';
 import { GRID_PREFIX } from '../definition';
-import { Fastdom } from '../services/fastdom';
 import { Td } from '../dom/td';
+import { Fastdom } from '../services/fastdom';
+import { Navigation } from './navigation';
 import { selectColumnIndex, selectRowIndex } from './navigation.state.selector';
 
 export class NavigationLet {
@@ -126,7 +126,7 @@ export class NavigationLet {
 							const columnIndex = selectColumnIndex(navState);
 
 							if (rowIndex >= 0 && columnIndex >= 0) {
-								let td = table.body.cell(rowIndex, columnIndex).model();
+								const td = table.body.cell(rowIndex, columnIndex).model();
 								this.focus.execute({
 									rowIndex: td ? td.rowIndex : -1,
 									columnIndex: td ? td.columnIndex : -1,
@@ -183,8 +183,7 @@ export class NavigationLet {
 
 					if (vr.width < tr.width || vr.left > tr.left || vr.left > tr.right) {
 						state.left = tr.left - vr.left + scroll().left;
-					}
-					else if (vr.left < tr.left || vr.right < tr.right) {
+					} else if (vr.left < tr.left || vr.right < tr.right) {
 						state.left = tr.right - vr.right + scroll().left;
 					}
 				}
@@ -198,8 +197,7 @@ export class NavigationLet {
 
 					if (vr.height < tr.height || vr.top > tr.top || vr.top > tr.bottom) {
 						state.top = tr.top - vr.top + scroll().top;
-					}
-					else if (vr.top < tr.top || vr.bottom < tr.bottom) {
+					} else if (vr.top < tr.top || vr.bottom < tr.bottom) {
 						state.top = tr.bottom - vr.bottom + scroll().top;
 					}
 				}

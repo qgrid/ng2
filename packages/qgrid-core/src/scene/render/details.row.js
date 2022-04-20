@@ -9,9 +9,7 @@ export class DetailsRow {
 		this.columns = dataRow.getColumns;
 		this.rowspan = dataRow.rowspan;
 
-		this.colspan = (rowDetails, column) => {
-			return sumBy(dataRow.columnList(column.model.pin), c => c.colspan);
-		};
+		this.colspan = (rowDetails, column) => sumBy(dataRow.columnList(column.model.pin), c => c.colspan);
 
 		this.columns = (rowDetails, pin) => {
 			if (rowDetails.column.model.pin === pin) {

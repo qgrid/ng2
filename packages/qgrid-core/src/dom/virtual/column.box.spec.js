@@ -1,13 +1,13 @@
-import {ColumnBox} from './column.box';
+import { ColumnBox } from './column.box';
 
 describe('ColumnBox', () => {
-	let column = {
+	const column = {
 		dataIndex: 10
 	};
 	describe('key', () => {
 		it('should return column index', () => {
-			let columnBox = new ColumnBox();
-			let index = columnBox.key(column);
+			const columnBox = new ColumnBox();
+			const index = columnBox.key(column);
 			expect(index).to.equal(10);
 		});
 	});

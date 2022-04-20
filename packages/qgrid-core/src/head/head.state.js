@@ -1,5 +1,5 @@
-import { Resource } from '../resource/resource';
 import { Cache } from '../infrastructure/cache';
+import { Resource } from '../resource/resource';
 
 export class HeadState {
 	constructor() {

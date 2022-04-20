@@ -36,22 +36,22 @@ import { PipeCallback } from '../pipe/pipe.types';
 export declare class DataState {
 
 	/**
- 	 * A list of data rows to display. 
+ 	 * A list of data rows to display.
 	 */
 	rows: any[];
 
 	/**
-	 * A set of columns to display. 
-	 * q-grid makes it possible to add columns from various sources and then merge 
-	 * them due to each column having a key property. Note that if you have defined columns in 
-	 * javascript and template with the same key, algorithm tries to keep the setting from both 
+	 * A set of columns to display.
+	 * q-grid makes it possible to add columns from various sources and then merge
+	 * them due to each column having a key property. Note that if you have defined columns in
+	 * javascript and template with the same key, algorithm tries to keep the setting from both
 	 * sources but javascript will have a top priority.
 	 */
 	columns: ColumnModel[];
 
 	/**
-     * A series of methods that grid invokes asynchronously anytime refresh is required. 
-     * Please see PipeModel section for more information on grid refresh	 
+     * A series of methods that grid invokes asynchronously anytime refresh is required.
+     * Please see PipeModel section for more information on grid refresh
 	 */
 	pipe: PipeCallback<any, any>[];
 
@@ -60,7 +60,7 @@ export declare class DataState {
 	 */
 	rowId: (index: number, row: any) => any;
 
-	
+
 	/**
      * Returns uniq column key.
 	 */

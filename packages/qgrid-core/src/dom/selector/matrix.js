@@ -39,8 +39,7 @@ export class Matrix {
 					const index = binarySearch(gaps, current);
 					if (row[next]) {
 						gaps.splice(index, 1);
-					}
-					else {
+					} else {
 						const xi = gaps[index];
 						gaps.splice(index, row[xi] ? 1 : 0, next);
 					}

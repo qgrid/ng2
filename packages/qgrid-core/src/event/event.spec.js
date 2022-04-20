@@ -24,7 +24,7 @@ describe('Event', () => {
 	describe('watch', () => {
 
 		it('should not be called if handler was removed', () => {
-			let result = event.watch(foo);
+			const result = event.watch(foo);
 			result();
 			event.emit();
 
@@ -32,5 +32,4 @@ describe('Event', () => {
 		});
 
 	});
-
 });

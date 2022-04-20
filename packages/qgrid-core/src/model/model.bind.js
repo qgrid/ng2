@@ -27,7 +27,7 @@ export class ModelBinder {
 	bound(model, stateNames, run = true, track = true) {
 		if (model) {
 			const commits = [];
-			for (let stateName of stateNames) {
+			for (const stateName of stateNames) {
 				const state = model[stateName];
 				const pack = this.packFactory(stateName);
 				const write = this.writeFactory(stateName);
@@ -64,7 +64,7 @@ export class ModelBinder {
 		const host = this.host;
 		return e => {
 			const changes = Object.keys(e.changes);
-			for (let diffKey of changes) {
+			for (const diffKey of changes) {
 				const hostKey = toCamelCase(name, diffKey);
 				if (hasOwnProperty.call(host, hostKey)) {
 					const diff = e.changes[diffKey];
@@ -78,7 +78,7 @@ export class ModelBinder {
 		return state => {
 			const host = this.host;
 			const newState = {};
-			for (let stateKey of Object.keys(state)) {
+			for (const stateKey of Object.keys(state)) {
 				const hostKey = toCamelCase(name, stateKey);
 				if (hasOwnProperty.call(host, hostKey)) {
 					const oldValue = state[stateKey];
