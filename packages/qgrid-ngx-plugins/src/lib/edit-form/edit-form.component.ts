@@ -5,9 +5,7 @@ import { EditFormPanelPlugin } from '@qgrid/plugins';
 @Component({
 	selector: 'q-grid-edit-form',
 	templateUrl: './edit-form.component.html',
-	providers: [
-		GridPlugin
-	],
+	providers: [GridPlugin],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditFormComponent implements OnInit {

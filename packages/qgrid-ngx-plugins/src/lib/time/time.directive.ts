@@ -17,7 +17,12 @@ export class TimeDirective {
 		}
 
 		const midnight = this.toMidnight(previous);
-		const [hours, minutes, seconds, ms] = current.split(':');
+		const [
+			hours,
+			minutes,
+			seconds,
+			ms
+		] = current.split(':');
 
 		if (hours && minutes) {
 			const time = new Date(

@@ -42,6 +42,19 @@
       "rules": {
         "indent": "off"
       }
+    },
+    {
+      "files": ["*.module.ts"],
+      "rules": {
+        "array-element-newline": ["error", {
+          "multiline": true,
+          "minItems": 1
+        }],
+        "array-bracket-newline": ["error", {
+          "multiline": true,
+          "minItems": 1
+        }]
+      }
     }
   ]
 }

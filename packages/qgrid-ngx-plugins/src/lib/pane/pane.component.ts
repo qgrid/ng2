@@ -8,10 +8,7 @@ const DEFAULT_SIDE: PaneSide = 'right';
 @Component({
 	selector: 'q-grid-pane',
 	templateUrl: './pane.component.html',
-	providers: [
-		GridPlugin,
-		TemplateHostService
-	],
+	providers: [GridPlugin, TemplateHostService],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaneComponent implements OnInit {

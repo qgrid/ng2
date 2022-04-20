@@ -12,7 +12,14 @@ import { TemplateModule } from '@qgrid/ngx';
 		EditFormComponent,
 		EditFormControlComponent
 	],
-	exports: [EditFormTriggerComponent, EditFormComponent, EditFormControlComponent],
-	imports: [CommonModule, TemplateModule]
+	exports: [
+		EditFormTriggerComponent,
+		EditFormComponent,
+		EditFormControlComponent
+	],
+	imports: [
+		CommonModule,
+		TemplateModule
+	]
 })
 export class EditFormModule { }

@@ -6,10 +6,7 @@ import { GridPlugin, TemplateHostService } from '@qgrid/ngx';
 	selector: 'q-grid-action',
 	template: '',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
-		GridPlugin,
-		TemplateHostService
-	]
+	providers: [GridPlugin, TemplateHostService]
 })
 export class ActionComponent implements OnInit {
 	@ContentChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
