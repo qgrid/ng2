@@ -8,4 +8,3 @@ export declare const EDIT_CELL_EXIT_COMMAND_KEY: CommandKey<CellView>;
 export declare class EditCellExitCommand extends Command<CellView> {
 	constructor(plugin: GridPlugin);
 }
-

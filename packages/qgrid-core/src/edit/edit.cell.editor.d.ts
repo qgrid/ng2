@@ -1,16 +1,18 @@
-import { CellView } from '../scene/view/cell.view';
 import { Td } from '../dom/td';
+import { CellView } from '../scene/view/cell.view';
 
 export declare class CellEditor {
-	constructor(td: Td);
-
-	fetch: () => void;
-	resetFetch: () => void;
-
 	value: any;
 	label: any;
 
 	readonly cell: CellView;
+
+	fetch: () => void;
+	resetFetch: () => void;
+
+	constructor(td: Td);
+
+
 
 	commit(): void;
 	reset(): void;

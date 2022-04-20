@@ -49,11 +49,11 @@ export class XmlImport {
 		if (st.isObject) {
 			const result = {};
 			const visited = new Set();
-			for (let attr of Array.from(node.attributes)) {
+			for (const attr of Array.from(node.attributes)) {
 				result[attr.name] = attr.value;
 			}
 
-			for (let child of Array.from(node.children)) {
+			for (const child of Array.from(node.children)) {
 				const childPath = this.getPath(path, child.nodeName);
 				if (visited.has(childPath)) {
 					continue;
@@ -94,7 +94,7 @@ export class XmlImport {
 
 		const children = Array.from(node.children);
 		if (children.length > 0) {
-			for (let child of children) {
+			for (const child of children) {
 				const childPath = this.getPath(path, child.nodeName);
 				this.getStatistics(child, childPath, statistics);
 			}

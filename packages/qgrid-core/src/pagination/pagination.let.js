@@ -1,7 +1,7 @@
 export class PaginationLet {
 	constructor(plugin) {
 		this.model = plugin.model;
-		
+
 		const { model, observe } = plugin;
 		const { resetTriggers } = model.pagination();
 

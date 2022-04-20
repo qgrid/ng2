@@ -133,7 +133,7 @@ export class RowspanNodeRow {
 		this.setLabel = nodeRow.setLabel;
 		this.colspan = nodeRow.colspan;
 		this.columnList = columnList;
-		
+
 		const rowspan = (node, column, isRoot = true) => {
 			switch (node.type) {
 				case 'group': {

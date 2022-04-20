@@ -45,7 +45,7 @@ export class HeadLet {
 							const tree = calk(columnList().index);
 							const oldPos = findNode(tree, node => node.key.model.key === sourceKey);
 							const newPos = findNode(tree, node => node.key.model.key === targetKey);
-              
+
 							if (oldPos && newPos && newPos.path.indexOf(oldPos.node) < 0) {
 								const queue = oldPos.path.reverse();
 								const hostIndex = queue.findIndex(node => node.children.length > 1);
@@ -58,7 +58,7 @@ export class HeadLet {
 									newPos.parent.children.splice(newPos.index, 0, target);
 
 									target.level = newPos.parent.level + 1;
-                  
+
 									preOrderDFS(
 										target.children,
 										(node, root, parent) => {
@@ -78,7 +78,7 @@ export class HeadLet {
 						const { index } = model.columnList();
 						const oldPos = findNode(index, node => node.key.model.key === sourceKey);
 						if (oldPos) {
-							for (let leaf of findLeaves(oldPos.node)) {
+							for (const leaf of findLeaves(oldPos.node)) {
 								const oldColumn = table.body.column(leaf.key.columnIndex);
 								oldColumn.removeClass(`${GRID_PREFIX}-drag`);
 							}
@@ -102,7 +102,7 @@ export class HeadLet {
 				const { index } = model.columnList();
 				const pos = findNode(index, node => node.key.model.key === sourceKey);
 				if (pos) {
-					for (let leaf of findLeaves(pos.node)) {
+					for (const leaf of findLeaves(pos.node)) {
 						const column = table.body.column(leaf.key.columnIndex);
 						column.addClass(`${GRID_PREFIX}-drag`);
 						return () => table.head.cell;

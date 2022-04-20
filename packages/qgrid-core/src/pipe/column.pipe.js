@@ -6,91 +6,6 @@ import { Node } from '../node/node';
 import { noop } from '../utility/kit';
 import { columnIndexPipe } from './column.index.pipe';
 
-export function columnPipe(memo, context, next) {
-	Guard.notNull(memo, 'memo');
-
-	const { model } = context;
-	const { pivot, nodes } = memo;
-	const { head } = pivot;
-
-	const createColumn = columnFactory(model);
-	const root = new Node(createColumn('cohort', { key: '$root' }), 0);
-
-	const addDataColumns = dataColumnsFactory(model);
-	const addSelectColumn = selectColumnFactory(model);
-	const addGroupColumn = groupColumnFactory(model, nodes);
-	const addRowExpandColumn = rowExpandColumnFactory(model);
-	const addRowIndicatorColumn = rowIndicatorColumnFactory(model);
-	const addPivotColumns = pivotColumnsFactory(model);
-	const addPadColumn = padColumnFactory(model);
-
-	/*
-	 * We need to invoke addDataColumns earlier that others because it setups data.columns model property
-	 *
-	 */
-	addDataColumns(root);
-
-	/**
-	 * Control columns should be filled in reverse order because they use unshift inside.
-	 */
-
-	/*
-	 * Add row expand column
-	 */
-	addRowExpandColumn(root);
-
-	/*
-	 * Add group column with nodes
-	 *
-	 */
-	addGroupColumn(root);
-
-	/*
-	 * Add column with select boxes
-	 * if selection unit is row
-	 *
-	 */
-	addSelectColumn(root);
-
-	/*
-	 * Add row indicator column
-	 * if rows can be dragged or resized
-	 *
-	 */
-	addRowIndicatorColumn(root);
-
-	/*
-	 * Add column rows for pivoted data
-	 * if pivot is turned on
-	 *
-	 */
-	addPivotColumns(root, head);
-
-	const { columnList } = model;
-	const buildIndex = sortIndexFactory(model);
-	const tree = mergeTree(root, columnList().index, buildIndex);
-
-	/*
-	 * Add special column type
-	 * that fills remaining place (width = 100%)
-	 *
-	 */
-	addPadColumn(tree);
-
-	columnIndexPipe(tree, context, ({ columns, index }) => {
-		memo.columns = columns;
-
-		columnList({
-			index
-		}, {
-			behavior: 'core',
-			source: 'column.pipe'
-		});
-
-		next(memo);
-	});
-}
-
 function selectColumnFactory(model) {
 	const dataColumns = model.columnList().line;
 	const selection = model.selection();
@@ -213,7 +128,7 @@ function dataColumnsFactory(model) {
 	}
 
 	function fill(node, columns) {
-		for (let column of columns) {
+		for (const column of columns) {
 			const view = createColumn(column.type, column);
 			const child = new Node(view, node.level + 1);
 			node.children.push(child);
@@ -257,4 +172,89 @@ function pivotColumnsFactory(model) {
 			fill(pivotNode, child);
 		}
 	};
+}
+
+export function columnPipe(memo, context, next) {
+	Guard.notNull(memo, 'memo');
+
+	const { model } = context;
+	const { pivot, nodes } = memo;
+	const { head } = pivot;
+
+	const createColumn = columnFactory(model);
+	const root = new Node(createColumn('cohort', { key: '$root' }), 0);
+
+	const addDataColumns = dataColumnsFactory(model);
+	const addSelectColumn = selectColumnFactory(model);
+	const addGroupColumn = groupColumnFactory(model, nodes);
+	const addRowExpandColumn = rowExpandColumnFactory(model);
+	const addRowIndicatorColumn = rowIndicatorColumnFactory(model);
+	const addPivotColumns = pivotColumnsFactory(model);
+	const addPadColumn = padColumnFactory(model);
+
+	/*
+	 * We need to invoke addDataColumns earlier that others because it setups data.columns model property
+	 *
+	 */
+	addDataColumns(root);
+
+	/**
+	 * Control columns should be filled in reverse order because they use unshift inside.
+	 */
+
+	/*
+	 * Add row expand column
+	 */
+	addRowExpandColumn(root);
+
+	/*
+	 * Add group column with nodes
+	 *
+	 */
+	addGroupColumn(root);
+
+	/*
+	 * Add column with select boxes
+	 * if selection unit is row
+	 *
+	 */
+	addSelectColumn(root);
+
+	/*
+	 * Add row indicator column
+	 * if rows can be dragged or resized
+	 *
+	 */
+	addRowIndicatorColumn(root);
+
+	/*
+	 * Add column rows for pivoted data
+	 * if pivot is turned on
+	 *
+	 */
+	addPivotColumns(root, head);
+
+	const { columnList } = model;
+	const buildIndex = sortIndexFactory(model);
+	const tree = mergeTree(root, columnList().index, buildIndex);
+
+	/*
+	 * Add special column type
+	 * that fills remaining place (width = 100%)
+	 *
+	 */
+	addPadColumn(tree);
+
+	columnIndexPipe(tree, context, ({ columns, index }) => {
+		memo.columns = columns;
+
+		columnList({
+			index
+		}, {
+			behavior: 'core',
+			source: 'column.pipe'
+		});
+
+		next(memo);
+	});
 }

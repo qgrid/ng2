@@ -1,8 +1,8 @@
-import { PathService } from '../path/path.service';
 import { Command } from '../command/command';
-import { isNumber } from '../utility/kit';
 import { GRID_PREFIX } from '../definition';
+import { PathService } from '../path/path.service';
 import { eventPath } from '../services/dom';
+import { isNumber } from '../utility/kit';
 
 export class RowLet {
 	constructor(plugin, tagName) {
@@ -42,7 +42,7 @@ export class RowLet {
 
 							const tr = table.body.row(oldIndex).model();
 							const entries = [];
-							for (let entry of model.rowList().index.entries()) {
+							for (const entry of model.rowList().index.entries()) {
 								const index = entry[1];
 								if (oldIndex < index && index <= newIndex) {
 									entry[1] = index - 1;
@@ -108,7 +108,7 @@ export class RowLet {
 						behavior: 'core'
 					});
 				}
-			})
+			});
 	}
 
 	get canMove() {

@@ -1,5 +1,5 @@
-import { FakeElement } from './fake/element';
 import { escapeAttr } from '../services/css';
+import { FakeElement } from './fake/element';
 
 const fakeElement = new FakeElement();
 export class Unit {

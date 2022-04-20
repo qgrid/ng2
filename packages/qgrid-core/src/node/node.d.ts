@@ -1,8 +1,6 @@
 import { NodeState } from './node.state';
 
 export declare class Node {
-	constructor(key: string | any, level: number, type?: string);
-
 	/**
 	 * Unique identifier for the node.
 	 */
@@ -47,4 +45,6 @@ export declare class Node {
 	 * Shows if node was expanded or not.
 	 */
 	state: NodeState;
+
+	constructor(key: string | any, level: number, type?: string);
 }

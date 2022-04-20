@@ -1,8 +1,8 @@
-import {CompositeCommandManager} from './composite.command.manager';
-import {CommandManager} from './command.manager'
+import { CommandManager } from './command.manager';
+import { CompositeCommandManager } from './composite.command.manager';
 
 describe('CompositeCommandManager', () => {
-	let commands = [],
+	const commands = [],
 		i = 5,
 		arr = [];
 
@@ -23,8 +23,8 @@ describe('CompositeCommandManager', () => {
 
 	describe('invoke', () => {
 		it('should invoke each command', () => {
-			let commandManager = new CommandManager();
-			let compositeCommandManager = new CompositeCommandManager(commandManager);
+			const commandManager = new CommandManager();
+			const compositeCommandManager = new CompositeCommandManager(commandManager);
 			compositeCommandManager.invoke(commands);
 			expect(arr.join(',')).to.equal('2,1,2,1,2');
 		});
@@ -32,9 +32,9 @@ describe('CompositeCommandManager', () => {
 
 	describe('filter', () => {
 		it('should return filtered commands', () => {
-			let commandManager = new CommandManager();
-			let compositeCommandManager = new CompositeCommandManager(commandManager);
-			let filtered = compositeCommandManager.filter(commands);
+			const commandManager = new CommandManager();
+			const compositeCommandManager = new CompositeCommandManager(commandManager);
+			const filtered = compositeCommandManager.filter(commands);
 			expect(filtered.length).to.equal(2);
 		});
 	});

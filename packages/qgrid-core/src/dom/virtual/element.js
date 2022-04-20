@@ -6,10 +6,6 @@ export class VirtualElement {
 		this.getRect = getRect;
 	}
 
-	getBoundingClientRect() {
-		return this.getRect();
-	}
-
 	get clientWidth() {
 		return this.getRect().width;
 	}
@@ -24,5 +20,9 @@ export class VirtualElement {
 
 	get offsetHeight() {
 		return this.getRect().height;
+	}
+
+	getBoundingClientRect() {
+		return this.getRect();
 	}
 }

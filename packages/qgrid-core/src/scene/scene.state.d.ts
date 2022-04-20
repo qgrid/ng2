@@ -30,8 +30,8 @@ export declare class SceneState {
 	 * Column rendering object.
 	 */
 	column: {
-		rows: SceneStateColumnRows,
-		line: SceneStateColumnLine,
-		area: SceneStateColumnArea
+		rows: SceneStateColumnRows;
+		line: SceneStateColumnLine;
+		area: SceneStateColumnArea;
 	};
 }

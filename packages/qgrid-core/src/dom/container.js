@@ -7,6 +7,30 @@ export class Container {
 		this.elements = elements;
 	}
 
+	get clientWidth() {
+		return max(this.elements.map(element => element.clientWidth));
+	}
+
+	get clientHeight() {
+		return max(this.elements.map(element => element.clientHeight));
+	}
+
+	get offsetWidth() {
+		return max(this.elements.map(element => element.offsetWidth));
+	}
+
+	get offsetHeight() {
+		return max(this.elements.map(element => element.offsetHeight));
+	}
+
+	get classList() {
+		return {
+			add: name => this.addClass(name),
+			remove: name => this.removeClass(name),
+			contains: name => this.hasClass(name)
+		};
+	}
+
 	getBoundingClientRect() {
 		const rects = this.elements.map(element => element.getBoundingClientRect());
 		const top = min(rects.map(r => r.top));
@@ -33,30 +57,6 @@ export class Container {
 
 	hasClass(name) {
 		return this.elements.some(element => element.classList.contains(escapeAttr(name)));
-	}
-
-	get clientWidth() {
-		return max(this.elements.map(element => element.clientWidth));
-	}
-
-	get clientHeight() {
-		return max(this.elements.map(element => element.clientHeight));
-	}
-
-	get offsetWidth() {
-		return max(this.elements.map(element => element.offsetWidth));
-	}
-
-	get offsetHeight() {
-		return max(this.elements.map(element => element.offsetHeight));
-	}
-
-	get classList() {
-		return {
-			add: name => this.addClass(name),
-			remove: name => this.removeClass(name),
-			contains: name => this.hasClass(name)
-		};
 	}
 }
 

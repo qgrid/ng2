@@ -1,4 +1,4 @@
-import {FakeClassList} from './class.list';
+import { FakeClassList } from './class.list';
 
 const emptyRect = Object.freeze({
 	left: 0,
@@ -12,10 +12,6 @@ const emptyRect = Object.freeze({
 export class FakeElement {
 	constructor() {
 		this.classList = new FakeClassList();
-	}
-
-	getBoundingClientRect() {
-		return emptyRect;
 	}
 
 	get clientWidth() {
@@ -32,5 +28,9 @@ export class FakeElement {
 
 	get offsetHeight() {
 		return 0;
+	}
+
+	getBoundingClientRect() {
+		return emptyRect;
 	}
 }

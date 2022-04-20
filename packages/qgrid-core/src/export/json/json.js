@@ -4,10 +4,10 @@ export class JsonExport {
 	write(rows, columns) {
 		const result = [];
 
-		for (let row of rows) {
+		for (const row of rows) {
 			const flatRow = graphFlatView(row);
 			const obj = {};
-			for (let column of columns) {
+			for (const column of columns) {
 				obj[column.title] = flatRow[column.key];
 			}
 			result.push(obj);

@@ -40,7 +40,7 @@ export class GridService {
 		this.scheduler = new Scheduler();
 	}
 
-	invalidate(...args /*source = 'invalidate', changes = {}, pipe = null*/) {
+	invalidate(...args /* source = 'invalidate', changes = {}, pipe = null*/) {
 		const { source, changes, pipe, why } = buildSettings(...args);
 		const { scheduler, model } = this;
 		const { scene } = model;

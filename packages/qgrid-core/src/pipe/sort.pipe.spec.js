@@ -1,6 +1,6 @@
-import { sortPipe as sort } from './sort.pipe';
-import { compare } from '../utility/kit';
 import { modelFactory } from '../test/model.factory';
+import { compare } from '../utility/kit';
+import { sortPipe as sort } from './sort.pipe';
 
 describe('sort pipe', () => {
 	let model;
@@ -38,7 +38,7 @@ describe('sort pipe', () => {
 
 	it('should sort by asc', () => {
 		model.sort({ by: [{ name: 'asc' }] });
-		let ctx = {
+		const ctx = {
 			valueFactory: valueFactory,
 			model
 		};
@@ -53,7 +53,7 @@ describe('sort pipe', () => {
 
 	it('should sort by desc', () => {
 		model.sort({ by: [{ name: 'desc' }] });
-		let ctx = {
+		const ctx = {
 			valueFactory: valueFactory,
 			model
 		};
@@ -69,7 +69,7 @@ describe('sort pipe', () => {
 
 	it('should sort by asc then by desc', () => {
 		model.sort({ by: [{ name: 'asc' }, { age: 'desc' }] });
-		let ctx = {
+		const ctx = {
 			valueFactory: valueFactory,
 			model
 		};
@@ -84,7 +84,7 @@ describe('sort pipe', () => {
 
 	it('should sort by desc then by asc', () => {
 		model.sort({ by: [{ name: 'desc' }, { age: 'asc' }] });
-		let ctx = {
+		const ctx = {
 			valueFactory: valueFactory,
 			model
 		};

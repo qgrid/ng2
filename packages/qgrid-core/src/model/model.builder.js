@@ -1,7 +1,7 @@
 import { ActionState } from '../action/action.state';
 import { AnimationState } from '../animation/animation.state';
-import { GridError } from '../infrastructure/error';
 import { BodyState } from '../body/body.state';
+import { ClipboardState } from '../clipboard/clipboard.state';
 import { ColumnListState } from '../column-list/column.list.state';
 import { DataState } from '../data/data.state';
 import { DragState } from '../drag/drag.state';
@@ -16,11 +16,10 @@ import { GroupState } from '../group/group.state';
 import { HeadState } from '../head/head.state';
 import { HighlightState } from '../highlight/highlight.state';
 import { ImportState } from '../import/import.state';
-import { isFunction } from '../utility/kit';
+import { GridError } from '../infrastructure/error';
 import { KeyboardState } from '../keyboard/keyboard.state';
 import { LayerState } from '../layer/layer.state';
 import { LayoutState } from '../layout/layout.state';
-import { Model } from './model';
 import { MouseState } from '../mouse/mouse.state';
 import { NavigationState } from '../navigation/navigation.state';
 import { PaginationState } from '../pagination/pagination.state';
@@ -39,10 +38,11 @@ import { SortState } from '../sort/sort.state';
 import { StyleState } from '../style/style.state';
 import { TemplateState } from '../template/template.state';
 import { ToolbarState } from '../toolbar/toolbar.state';
+import { isFunction } from '../utility/kit';
 import { ValidationState } from '../validation/validation.state';
 import { ViewState } from '../view/view.state';
 import { VisibilityState } from '../visibility/visibility.state';
-import { ClipboardState } from '../clipboard/clipboard.state';
+import { Model } from './model';
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
@@ -115,7 +115,7 @@ export class ModelBuilder {
 	build() {
 		const { state } = this;
 		const model = new Model();
-		for (let name of Object.keys(state)) {
+		for (const name of Object.keys(state)) {
 			const Type = state[name];
 			model.inject(name, Type);
 		}

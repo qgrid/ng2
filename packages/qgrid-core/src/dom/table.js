@@ -43,12 +43,6 @@ export class Table {
 		});
 	}
 
-	invalidate() {
-		this.head.selector = this.head.selectFactory.create();
-		this.body.selector = this.body.selectFactory.create();
-		this.foot.selector = this.foot.selectFactory.create();
-	}
-
 	get view() {
 		return this._view.instance;
 	}
@@ -67,6 +61,12 @@ export class Table {
 
 	get foot() {
 		return this._foot.instance;
+	}
+
+	invalidate() {
+		this.head.selector = this.head.selectFactory.create();
+		this.body.selector = this.body.selectFactory.create();
+		this.foot.selector = this.foot.selectFactory.create();
 	}
 
 	boxContext(source) {

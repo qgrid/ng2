@@ -1,7 +1,7 @@
 import { ColumnView } from '../scene/view/column.view';
-import { ColumnModel } from './column.model';
 import { TemplatePath } from '../template/template.path';
 import { noop } from '../utility/kit';
+import { ColumnModel } from './column.model';
 
 TemplatePath.register('select-cell', (template, column) => {
 	return {

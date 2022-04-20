@@ -6,10 +6,8 @@ import { getValueFactory } from '../services/value';
 import { Shortcut } from '../shortcut/shortcut';
 import * as validationService from '../validation/validation.service';
 import { CellEditor } from './edit.cell.editor';
-
-// do not delete this importing it's required in the bundle
-// TODO: investigate how to avoid it
 import { Td } from '../dom/td';
+
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
@@ -103,6 +101,42 @@ export class EditCellLet {
 			});
 	}
 
+	get fetch() {
+		return this.editor.fetch;
+	}
+
+	get value() {
+		return this.editor.value;
+	}
+
+	get label() {
+		return this.editor.label;
+	}
+
+	get row() {
+		return this.cell.row;
+	}
+
+	get column() {
+		return this.cell.column;
+	}
+
+	get cell() {
+		return this.editor.td;
+	}
+
+	get options() {
+		return this.column.options;
+	}
+
+	set value(value) {
+		this.editor.value = value;
+	}
+
+	set label(label) {
+		this.editor.label = label;
+	}
+
 	mode(cell, status) {
 		const { model } = this.plugin;
 		model.edit({ status }, { source: 'edit.cell.view' });
@@ -126,10 +160,10 @@ export class EditCellLet {
 
 					cell = cell || model.navigation().cell;
 
-					//cell is an array when using custom template
+					// cell is an array when using custom template
 					if (Array.isArray(cell)) {
 						if (cell.length > 0) {
-							if (cell[0].constructor.name == 'TdCoreDirective') {
+							if (cell[0].constructor.name === 'TdCoreDirective') {
 								cell = cell[0];
 							}
 						}
@@ -381,42 +415,6 @@ export class EditCellLet {
 			getValueFactory,
 			getLabelFactory
 		};
-	}
-
-	get fetch() {
-		return this.editor.fetch;
-	}
-
-	get value() {
-		return this.editor.value;
-	}
-
-	set value(value) {
-		this.editor.value = value;
-	}
-
-	get label() {
-		return this.editor.label;
-	}
-
-	set label(label) {
-		this.editor.label = label;
-	}
-
-	get row() {
-		return this.cell.row;
-	}
-
-	get column() {
-		return this.cell.column;
-	}
-
-	get cell() {
-		return this.editor.td;
-	}
-
-	get options() {
-		return this.column.options;
 	}
 
 	canEdit(cell) {

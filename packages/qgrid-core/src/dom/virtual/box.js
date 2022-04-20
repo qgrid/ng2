@@ -1,13 +1,13 @@
-import { Box } from '../box';
-import { CellBox } from './cell.box';
-import { ColumnBox } from './column.box';
 import { Event } from '../../event/event';
 import { isFunction } from '../../utility/kit';
-import { RowBox } from './row.box';
+import { Box } from '../box';
 import { VirtualCell } from './cell';
+import { CellBox } from './cell.box';
 import { VirtualColumn } from './column';
+import { ColumnBox } from './column.box';
 import { VirtualElement } from './element';
 import { VirtualRow } from './row';
+import { RowBox } from './row.box';
 
 export class VirtualBox extends Box {
 	constructor(context, model, selectorMark) {
@@ -22,8 +22,7 @@ export class VirtualBox extends Box {
 	addCellClass(cell, name, force = false) {
 		if (force) {
 			cell.addClassCore(name);
-		}
-		else {
+		} else {
 			this.cellBox.addClass(cell, name);
 			this.requestInvalidate.emit({ source: 'addCellClass' });
 		}
@@ -32,8 +31,7 @@ export class VirtualBox extends Box {
 	removeCellClass(cell, name, force = false) {
 		if (force) {
 			cell.removeClassCore(name);
-		}
-		else {
+		} else {
 			this.cellBox.removeClass(cell, name);
 			this.requestInvalidate.emit({ source: 'removeCellClass' });
 		}
@@ -42,8 +40,7 @@ export class VirtualBox extends Box {
 	addRowClass(row, name, force = false) {
 		if (force) {
 			row.addClassCore(name);
-		}
-		else {
+		} else {
 			this.rowBox.addClass(row, name);
 			this.requestInvalidate.emit({ source: 'addRowClass' });
 		}
@@ -52,8 +49,7 @@ export class VirtualBox extends Box {
 	removeRowClass(row, name, force = false) {
 		if (force) {
 			row.removeClassCore(name);
-		}
-		else {
+		} else {
 			this.rowBox.removeClass(row, name);
 			this.requestInvalidate.emit({ source: 'removeRowClass' });
 		}
@@ -62,8 +58,7 @@ export class VirtualBox extends Box {
 	addColumnClass(column, name, force = false) {
 		if (force) {
 			column.addClassCore(name);
-		}
-		else {
+		} else {
 			this.columnBox.addClass(column, name);
 			this.requestInvalidate.emit({ source: 'addColumnClass' });
 		}
@@ -72,8 +67,7 @@ export class VirtualBox extends Box {
 	removeColumnClass(column, name, force = false) {
 		if (force) {
 			column.removeClassCore(name);
-		}
-		else {
+		} else {
 			this.columnBox.removeClass(column, name);
 			this.requestInvalidate.emit({ source: 'removeColumnClass' });
 		}

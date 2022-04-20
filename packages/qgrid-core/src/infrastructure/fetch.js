@@ -32,8 +32,7 @@ export class Fetch {
 					this.invoke(result, resolve, rejectBusy);
 				}
 				// when user should invoke d.resolve or d.reject
-			}
-			else {
+			} else {
 				this.invoke(select, resolve, rejectBusy);
 			}
 		});
@@ -61,7 +60,7 @@ export class Fetch {
 					isProcessed = true;
 					if (subscription && isFunction(subscription.unsubscribe)) {
 						// when async
-						subscription.unsubscribe(); 
+						subscription.unsubscribe();
 						subscription = null;
 					}
 				},

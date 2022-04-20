@@ -6,9 +6,9 @@ describe('Fetch', () => {
 
 		it('should set 123 value to fetch.result if Fetch takes a function as an argument', () => {
 
-			const select = value => { return value};
+			const select = value => value;
 
-			let fetch = new Fetch(select);
+			const fetch = new Fetch(select);
 			fetch.run(123);
 
 			expect(fetch.result).to.equal(123);
@@ -16,7 +16,7 @@ describe('Fetch', () => {
 
 		it('should set 123 value to fetch.result if Fetch takes a value as an argument', () => {
 
-			let fetch = new Fetch(123);
+			const fetch = new Fetch(123);
 			fetch.run('someData');
 
 			expect(fetch.result).to.equal(123);
@@ -24,13 +24,9 @@ describe('Fetch', () => {
 
 		it('should set 123 value to fetch.result if Fetch takes a promise as an argument', (done) => {
 
-			const select = (item) => {
-				return new Promise((resolve) => {
-					resolve(item);
-				});
-			};
+			const select = (item) => new Promise((resolve) => resolve(item));
 
-			let fetch = new Fetch(select);
+			const fetch = new Fetch(select);
 			fetch.run(123);
 
 			fetch.busy.then(result => {
@@ -38,6 +34,6 @@ describe('Fetch', () => {
 				done();
 			});
 		});
-		
+
 	});
 });

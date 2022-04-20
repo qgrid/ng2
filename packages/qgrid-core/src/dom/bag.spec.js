@@ -8,14 +8,14 @@ describe('Bag', () => {
 		bag.cells.clear();
 	});
 
-	let row = { element: 'row' };
-	let cell = { element: 'cell' };
-	let bag = new Bag();
+	const row = { element: 'row' };
+	const cell = { element: 'cell' };
+	const bag = new Bag();
 
 	describe('addRow', () => {
 		it('returns true if row was added', () => {
 			bag.addRow(row);
-			let result = bag.elements.has('row') && bag.rows.has(row);
+			const result = bag.elements.has('row') && bag.rows.has(row);
 			expect(result).to.equal(true);
 		});
 	});
@@ -23,7 +23,7 @@ describe('Bag', () => {
 	describe('addCell', () => {
 		it('returns true if cell was added', () => {
 			bag.addCell(cell);
-			let result = bag.elements.has('cell') && bag.cells.has(cell);
+			const result = bag.elements.has('cell') && bag.cells.has(cell);
 			expect(result).to.equal(true);
 		});
 	});
@@ -31,8 +31,8 @@ describe('Bag', () => {
 	describe('findModel', () => {
 		it('returns true if model was found', () => {
 			bag.addCell(cell);
-			let model = bag.findModel('cell');
-			let result = model.element === 'cell';
+			const model = bag.findModel('cell');
+			const result = model.element === 'cell';
 			expect(result).to.equal(true);
 		});
 	});
@@ -40,7 +40,7 @@ describe('Bag', () => {
 	describe('hasModel', () => {
 		it('returns true if model was found', () => {
 			bag.addCell(cell);
-			let model = bag.hasModel('cell');
+			const model = bag.hasModel('cell');
 			expect(model).to.equal(true);
 		});
 	});
@@ -49,7 +49,7 @@ describe('Bag', () => {
 		it('returns true if Cell was deleted', () => {
 			bag.addCell(cell);
 			bag.deleteCell(cell);
-			let result = bag.elements.has('cell') && bag.cells.has(cell);
+			const result = bag.elements.has('cell') && bag.cells.has(cell);
 			expect(result).to.equal(false);
 		});
 	});
@@ -58,9 +58,8 @@ describe('Bag', () => {
 		it('returns false since Row was deleted', () => {
 			bag.addRow(row);
 			bag.deleteRow(row);
-			let result = bag.elements.has('row') && bag.rows.has(row);
+			const result = bag.elements.has('row') && bag.rows.has(row);
 			expect(result).to.equal(false);
 		});
 	});
 });
-

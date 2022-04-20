@@ -18,6 +18,7 @@ import { HighlightState } from '../highlight/highlight.state';
 import { KeyboardState } from '../keyboard/keyboard.state';
 import { LayerState } from '../layer/layer.state';
 import { LayoutState } from '../layout/layout.state';
+import { Model } from '../model/model';
 import { MouseState } from '../mouse/mouse.state';
 import { NavigationState } from '../navigation/navigation.state';
 import { PaginationState } from '../pagination/pagination.state';
@@ -45,11 +46,11 @@ type StateGetAccessor<TState> = () => Readonly<TState>;
 
 export declare type StateSet<K extends keyof any, TState> = {
 	[P in K]: StateSetAccessor<TState>;
-}
+};
 
 export declare type StateGet<K extends keyof any, TState> = {
 	[P in K]: StateGetAccessor<TState>;
-}
+};
 
 export declare type StateChange<K extends keyof any, TState> = {
 	[P in K]: ModelEvent<TState>;
@@ -105,9 +106,9 @@ export declare type ViewAccessor = StateAccessor<'view', 'viewChanged', ViewStat
 export declare type VisibilityAccessor = StateAccessor<'visibility', 'visibilityChanged', VisibilityState>;
 export declare type ClipboardAccessor = StateAccessor<'clipboard', 'clipboardChanged', ClipboardState>;
 
-export declare type ResolveAccessor = {
+export declare interface ResolveAccessor {
 	resolve<TState>(type: new () => TState): StateAccessor<'state', 'changed', TState>;
-};
+}
 
 export type Model =
 	ActionAccessor
@@ -159,4 +160,3 @@ type ExtractGeneric<K extends string, T> = T extends StateAccessor<K, `${K}Chang
 export type ReadModel = { [K in keyof Model as FilteredReadWriteState<K>]: StateGetAccessor<ExtractGeneric<K, Model>> };
 export type WriteModel = { [K in keyof Model as FilteredReadWriteState<K>]: StateSetAccessor<ExtractGeneric<K, Model>> };
 export type NotifyModel = { [K in keyof Model as FilteredNotifyState<K>]: Model[K] };
-

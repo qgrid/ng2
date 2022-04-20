@@ -48,7 +48,7 @@ export class Guard {
 			throw new GridError('guard.invokable', name);
 		}
 	}
-	
+
 	static hasProperty(instance, name) {
 		Guard.notNull(instance, 'instance');
 		if (!hasOwnProperty.call(instance, name)) {

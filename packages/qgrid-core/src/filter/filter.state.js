@@ -1,6 +1,6 @@
 import { Resource } from '../resource/resource';
-import { match } from './match';
 import { noop, yes } from '../utility/kit';
+import { match } from './match';
 
 export class FilterState {
 	constructor() {

@@ -6,10 +6,10 @@ export interface PivotSettings {
 }
 
 export declare class Plan {
-	constructor(schema: {[key: string]: any});
-
 	isRoot: boolean;
 	current: any;
+
+	constructor(schema: {[key: string]: any});
 
 	branch(): Plan;
 	cursor(name: string): void;

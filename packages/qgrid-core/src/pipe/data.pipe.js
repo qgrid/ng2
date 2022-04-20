@@ -1,22 +1,6 @@
 import { generateFactory } from '../column-list/column.list.generate';
 import { columnFactory } from '../column/column.factory';
 
-export function dataPipe(rows, context, next) {
-	const { model } = context;
-
-	addDataRows(model, rows);
-	addDataColumns(model);
-
-	model.pipe({
-		effect: Object.assign({}, model.pipe().effect, { data: rows })
-	}, {
-		source: 'data.pipe',
-		behavior: 'core'
-	});
-	
-	next(rows);
-}
-
 function addDataRows(model, rows) {
 	const tag = {
 		source: 'data.pipe',
@@ -42,4 +26,20 @@ function addDataColumns(model) {
 
 		model.data({ columns: allColumns }, tag);
 	}
+}
+
+export function dataPipe(rows, context, next) {
+	const { model } = context;
+
+	addDataRows(model, rows);
+	addDataColumns(model);
+
+	model.pipe({
+		effect: Object.assign({}, model.pipe().effect, { data: rows })
+	}, {
+		source: 'data.pipe',
+		behavior: 'core'
+	});
+
+	next(rows);
 }

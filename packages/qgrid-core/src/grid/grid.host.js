@@ -125,8 +125,7 @@ export class GridHost {
 					source: 'grid.host'
 				});
 			}
-		}
-		else {
+		} else {
 			model.focus({ isActive: false }, { source: 'grid.host' });
 		}
 	}

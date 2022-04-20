@@ -13,11 +13,11 @@ function buildFactory(columnMap, valueFactory) {
 				'pivot.build',
 				`Invalid key "${key}"`);
 		}
-		
+
 		const getValue = valueFactory(column);
 
 		return pivot({
-			factory: () => ({}),
+			factory: () => {},
 			selector: row => [getValue(row)],
 			name: identity,
 			value: (parent, row, pivot) => {
